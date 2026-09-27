@@ -1,0 +1,1890 @@
+<USER_REQUEST>
+
+now set build option 4 general(last option)
+this is from chat gpt 
+# PinIT Career OS
+## Universal Onboarding Diagnostic V1 — Students Outside BCA, B.Com/M.Com and BBA/MBA
+
+### Applicable to
+
+Examples:
+
+- BA
+- BSc
+- BTech / BE
+- BDes
+- BFA
+- BSW
+- BJMC / Journalism
+- Biotechnology
+- Life Sciences
+- Psychology
+- Mathematics / Statistics
+- Economics
+- Architecture
+- Law
+- Pharmacy
+- Education
+- Hotel Management
+- Hospitality
+- and other undergraduate/postgraduate programs
+
+The assessment should adapt **context and career requirements**, not assume the student's degree determines their behavioral profile.
+
+---
+
+# PART A — STUDENT IDENTITY
+
+## Q1. What are you currently studying?
+
+### Fields
+
+```text
+Degree
+Specialization
+Year
+Institution type
+```
+
+Example:
+
+```text
+BSc
+Statistics
+Year 2
+```
+
+This is metadata.
+
+It does not contribute directly to PH/EX/ST/SIQ.
+
+---
+
+# PART B — CAREER GOAL
+
+## Q2. What are you primarily trying to achieve?
+
+### A
+Internship
+
+### B
+First job
+
+### C
+Higher studies
+
+### D
+Professional qualification
+
+### E
+Research career
+
+### F
+Freelance / independent work
+
+### G
+Start a business
+
+### H
+Build a portfolio
+
+### I
+Prepare for competitive/government exams
+
+### J
+Change career direction
+
+### K
+Still exploring
+
+---
+
+# Q3. What type of career are you considering?
+
+Use dynamic career options appropriate to the student's degree, but always allow:
+
+```text
+Other
+Not sure
+```
+
+Examples:
+
+```text
+Technology
+Research
+Data
+Design
+Media
+Education
+Healthcare
+Public sector
+Consulting
+Business
+Finance
+Marketing
+Operations
+Law
+Engineering
+Scientific work
+Creative work
+Entrepreneurship
+Social sector
+```
+
+This determines the career requirement model.
+
+---
+
+# Q4. What outcome would make you feel that the next 6–12 months were successful?
+
+### A
+Get an internship
+
+### B
+Get a job
+
+### C
+Build 2–3 strong projects
+
+### D
+Become employable in my target field
+
+### E
+Qualify for higher studies
+
+### F
+Build practical experience
+
+### G
+Start earning independently
+
+### H
+Become confident in a professional environment
+
+### I
+I am not sure yet
+
+---
+
+# Q5. Why are you considering this direction?
+
+Choose up to three.
+
+```text
+I enjoy the subject
+Career opportunities
+Financial goals
+Job stability
+Personal interest
+Family expectations
+I am good at it
+I want to solve real problems
+I want independence
+I want to create something
+I want research/learning
+I am still exploring
+```
+
+This becomes:
+
+```text
+motivationProfile
+```
+
+Not a persona score.
+
+---
+
+# Q6. How certain are you about your current career direction?
+
+### 1
+I have almost no idea.
+
+### 2
+I have a few possibilities.
+
+### 3
+I have one main direction but I am open to alternatives.
+
+### 4
+I am fairly sure.
+
+### 5
+I know exactly what I am targeting.
+
+This is:
+
+```text
+goalCertainty
+```
+
+It is extremely useful for roadmap branching.
+
+---
+
+# PART C — CURRENT STATE
+
+## Q7. Which describes your current practical ability?
+
+### A
+I mostly know theory.
+
+### B
+I can complete guided tasks.
+
+### C
+I can complete normal tasks independently.
+
+### D
+I can solve unfamiliar problems with some difficulty.
+
+### E
+I can independently handle real-world work.
+
+This estimates:
+
+```text
+selfReportedCapability
+```
+
+Not verified skill.
+
+---
+
+# Q8. What have you actually done outside normal classroom learning?
+
+Select all that apply.
+
+```text
+Personal project
+Academic project
+Research
+Internship
+Part-time work
+Freelance work
+Volunteer work
+Competition
+Hackathon
+Publication
+Presentation
+Portfolio
+Student organization
+Leadership role
+Real client work
+Community work
+Family business
+None
+```
+
+This is experience evidence.
+
+---
+
+# Q9. What tools or methods have you actually used?
+
+Dynamic based on degree.
+
+Examples:
+
+```text
+Excel
+Python
+SQL
+Lab equipment
+Statistical software
+CAD
+Design software
+Video editing
+Research databases
+Programming languages
+Writing/publishing tools
+Presentation tools
+Survey tools
+Business software
+Specialized professional tools
+Other
+```
+
+The student should never be penalized merely because their degree uses different tools.
+
+---
+
+# Q10. What currently feels hardest for you?
+
+Choose up to three.
+
+```text
+Understanding concepts
+Applying concepts
+Solving unfamiliar problems
+Starting work
+Staying consistent
+Finishing work
+Managing time
+Making decisions
+Researching
+Communicating
+Presenting
+Working with others
+Working independently
+Choosing what to learn
+Getting practical experience
+Building a portfolio
+Interview preparation
+Finding opportunities
+I don't know yet
+```
+
+This is a self-reported constraint.
+
+---
+
+# Q11. How much time can you realistically give PinIT?
+
+### A
+<30 minutes/day
+
+### B
+30–60 minutes/day
+
+### C
+1–2 hours/day
+
+### D
+2–3 hours/day
+
+### E
+3+ hours/day
+
+---
+
+# PART D — UNIVERSAL BEHAVIORAL SJT
+
+Student instruction:
+
+> **Choose what you would actually do first. Do not choose the answer that sounds smartest, most professional or most impressive.**
+
+These scenarios are intentionally domain-neutral.
+
+Option positions should be randomized.
+
+---
+
+# Q12. An unfamiliar problem
+
+You are given a problem you have never solved before.
+
+What do you do first?
+
+### A — PH
+
+Break it into smaller parts and identify what is known, unknown and dependent on something else.
+
+**PH +2**
+
+### B — EX
+
+Try a small approach and learn from what happens.
+
+**EX +2**
+
+### C — ST
+
+Define the expected outcome and organize the work into steps.
+
+**ST +2**
+
+### D — SIQ
+
+Find out what the people involved actually need or expect.
+
+**SIQ +2**
+
+---
+
+# Q13. Your first explanation doesn't fit the evidence
+
+You expected one result, but the actual result is different.
+
+### A — PH
+
+Re-examine the assumptions and reasoning behind the original explanation.
+
+**PH +2**
+
+### B — EX
+
+Try another approach and compare the result.
+
+**EX +2**
+
+### C — ST
+
+Check whether the work was performed according to the required process.
+
+**ST +2**
+
+### D — SIQ
+
+Ask someone affected by the result how they understand the situation.
+
+**SIQ +2**
+
+---
+
+# Q14. You don't know the best approach
+
+Several approaches seem possible.
+
+### A — PH
+
+Compare the reasoning and assumptions behind each approach.
+
+**PH +2**
+
+### B — EX
+
+Try small versions of the most promising approaches.
+
+**EX +2**
+
+### C — ST
+
+Define criteria and choose one approach systematically.
+
+**ST +2**
+
+### D — SIQ
+
+Ask people with relevant perspectives what constraints matter most.
+
+**SIQ +2**
+
+---
+
+# Q15. The instructions are unclear
+
+You receive a task but the expected result is not clearly defined.
+
+### A — PH
+
+Break down the possible interpretations and determine what information is missing.
+
+**PH +2**
+
+### B — EX
+
+Create a rough first version and use it to discover what is required.
+
+**EX +2**
+
+### C — ST
+
+Clarify the required output, scope and deadline before proceeding.
+
+**ST +2**
+
+### D — SIQ
+
+Talk to the person requesting the work and understand what outcome they actually need.
+
+**SIQ +2**
+
+---
+
+# Q16. You encounter conflicting information
+
+Two reliable-looking sources disagree.
+
+### A — PH
+
+Compare their assumptions, definitions and underlying evidence.
+
+**PH +2**
+
+### B — EX
+
+Find another piece of evidence that can distinguish between them.
+
+**EX +2**
+
+### C — ST
+
+Establish a consistent method for evaluating both sources.
+
+**ST +2**
+
+### D — SIQ
+
+Understand the context and perspective from which each source was produced.
+
+**SIQ +2**
+
+---
+
+# Q17. Your project is becoming difficult to manage
+
+There are too many tasks and several things are happening at once.
+
+### A — PH
+
+Identify dependencies and determine which issues are causing the complexity.
+
+**PH +2**
+
+### B — EX
+
+Try a simpler alternative approach.
+
+**EX +2**
+
+### C — ST
+
+Prioritize the tasks and create a clear execution sequence.
+
+**ST +2**
+
+### D — SIQ
+
+Discuss priorities with the people affected by the work.
+
+**SIQ +2**
+
+---
+
+# Q18. Your first attempt fails
+
+You have spent time on an approach and it does not work.
+
+### A — PH
+
+Determine why the reasoning or assumptions failed.
+
+**PH +2**
+
+### B — EX
+
+Try a different approach and compare the results.
+
+**EX +2**
+
+### C — ST
+
+Review the required conditions and check the process systematically.
+
+**ST +2**
+
+### D — SIQ
+
+Get another perspective before deciding what to do next.
+
+**SIQ +2**
+
+---
+
+# Q19. A team member disagrees with you
+
+### A — PH
+
+Compare the assumptions and reasoning behind both positions.
+
+**PH +2**
+
+### B — EX
+
+Try a small test that could provide evidence.
+
+**EX +2**
+
+### C — ST
+
+Agree on decision criteria and determine the next step.
+
+**ST +2**
+
+### D — SIQ
+
+Understand what the other person is concerned about and why.
+
+**SIQ +2**
+
+---
+
+# Q20. A deadline suddenly moves forward
+
+### A — PH
+
+Determine which dependencies create the biggest risk.
+
+**PH +2**
+
+### B — EX
+
+Find a simpler way to achieve the essential outcome.
+
+**EX +2**
+
+### C — ST
+
+Reduce scope, prioritize and establish a new execution plan.
+
+**ST +2**
+
+### D — SIQ
+
+Clarify with stakeholders what is genuinely essential.
+
+**SIQ +2**
+
+---
+
+# Q21. You discover an unexpected opportunity
+
+You notice an approach that might produce a better result than your original plan.
+
+### A — PH
+
+Investigate why the new approach might work.
+
+**PH +2**
+
+### B — EX
+
+Test the opportunity on a small scale.
+
+**EX +2**
+
+### C — ST
+
+Evaluate whether it can be incorporated without disrupting the objective.
+
+**ST +2**
+
+### D — SIQ
+
+Understand who would benefit from or be affected by the change.
+
+**SIQ +2**
+
+---
+
+# Q22. You have limited information
+
+You must make progress without knowing everything.
+
+### A — PH
+
+Identify the unknowns that could materially change the outcome.
+
+**PH +2**
+
+### B — EX
+
+Test the highest-value uncertainty.
+
+**EX +2**
+
+### C — ST
+
+Define explicit assumptions and proceed with a controlled plan.
+
+**ST +2**
+
+### D — SIQ
+
+Gather relevant perspectives from people with useful context.
+
+**SIQ +2**
+
+---
+
+# Q23. Your work is technically correct but misunderstood
+
+Someone interprets your result differently from what you intended.
+
+### A — PH
+
+Determine exactly where the reasoning could have been misunderstood.
+
+**PH +2**
+
+### B — EX
+
+Try another way of presenting the same idea.
+
+**EX +2**
+
+### C — ST
+
+Create a clearer structure and documentation.
+
+**ST +2**
+
+### D — SIQ
+
+Ask the person what they understood and adapt the explanation.
+
+**SIQ +2**
+
+---
+
+# Q24. You have too many possible learning paths
+
+### A — PH
+
+Compare what each path actually develops and what assumptions each makes.
+
+**PH +2**
+
+### B — EX
+
+Try small parts of several paths before choosing.
+
+**EX +2**
+
+### C — ST
+
+Choose one path and create a structured progression.
+
+**ST +2**
+
+### D — SIQ
+
+Talk to people who have used the paths in real situations.
+
+**SIQ +2**
+
+---
+
+# Q25. A process repeatedly produces mistakes
+
+### A — PH
+
+Find the underlying conditions that cause the errors.
+
+**PH +2**
+
+### B — EX
+
+Try a modified process and see whether error rates change.
+
+**EX +2**
+
+### C — ST
+
+Standardize the process and introduce clear checks.
+
+**ST +2**
+
+### D — SIQ
+
+Talk with the people doing the work to understand practical causes.
+
+**SIQ +2**
+
+---
+
+# Q26. You must present an important result
+
+### A — PH
+
+Make sure the evidence logically supports the conclusion.
+
+**PH +2**
+
+### B — EX
+
+Try different ways of presenting the result and see which communicates it best.
+
+**EX +2**
+
+### C — ST
+
+Organize the presentation around a clear sequence and objective.
+
+**ST +2**
+
+### D — SIQ
+
+Adapt the explanation to what the audience needs to understand.
+
+**SIQ +2**
+
+---
+
+# PART E — UNIVERSAL BEHAVIOR MATRIX
+
+Use one common behavioral matrix across degrees.
+
+Student instruction:
+
+> **Rate what you actually tend to do, not what you think you should do.**
+
+Candidate V1 scale:
+
+```text
+1 = Almost never
+2 = Rarely
+3 = Sometimes
+4 = Often
+5 = Almost always
+```
+
+This remains a production hypothesis until empirical testing.
+
+---
+
+# MATRIX 1 — Problem Solving
+
+Scenario:
+
+> You encounter a problem with no obvious solution.
+
+### PH
+
+I break the problem into smaller components and look for relationships between them.
+
+### EX
+
+I try different approaches to discover what works.
+
+### ST
+
+I create a systematic way to work through the problem.
+
+### SIQ
+
+I seek perspectives from people who understand the situation.
+
+---
+
+# MATRIX 2 — Learning
+
+Scenario:
+
+> You need to learn something unfamiliar.
+
+### PH
+
+I try to understand how the concepts fit together.
+
+### EX
+
+I learn by trying things and adjusting based on the result.
+
+### ST
+
+I follow a structured learning sequence.
+
+### SIQ
+
+I learn from people with relevant experience.
+
+---
+
+# MATRIX 3 — Project Work
+
+Scenario:
+
+> You are responsible for completing a project.
+
+### PH
+
+I identify dependencies and potential failure points.
+
+### EX
+
+I explore ways to improve the approach.
+
+### ST
+
+I track progress and ensure commitments are completed.
+
+### SIQ
+
+I keep the relevant people aligned on expectations.
+
+---
+
+# MATRIX 4 — Uncertainty
+
+Scenario:
+
+> Important information is missing.
+
+### PH
+
+I identify which missing information matters most.
+
+### EX
+
+I test assumptions using the information available.
+
+### ST
+
+I make explicit assumptions and proceed systematically.
+
+### SIQ
+
+I seek context from people who may know what is missing.
+
+---
+
+# PART F — UNIVERSAL TRADE-OFF PROBES
+
+These should detect conflicts between useful behaviors.
+
+They must not be treated as “correct vs incorrect.”
+
+---
+
+# Q27. Deep understanding vs progress
+
+You could spend another three hours understanding a problem in depth, or start producing a practical result.
+
+### A
+
+Understand the problem more deeply first.
+
+**PH pressure**
+
+### B
+
+Try something practical and learn through the result.
+
+**EX pressure**
+
+### C
+
+Decide how much understanding is necessary and move forward.
+
+**ST pressure**
+
+### D
+
+Determine what level of understanding the people involved actually need.
+
+**SIQ pressure**
+
+---
+
+# Q28. Exploration vs completion
+
+You have a working solution but several alternatives look interesting.
+
+### A
+
+Investigate whether one of the alternatives is substantially better.
+
+**PH**
+
+### B
+
+Experiment with the alternatives.
+
+**EX**
+
+### C
+
+Finish the current solution and record alternatives for later.
+
+**ST**
+
+### D
+
+Discuss whether stakeholders actually need a different solution.
+
+**SIQ**
+
+---
+
+# Q29. Independent work vs asking others
+
+You are blocked.
+
+### A
+
+Investigate independently before asking.
+
+**PH**
+
+### B
+
+Try several approaches before asking.
+
+**EX**
+
+### C
+
+Identify exactly what is blocking you and then seek targeted support.
+
+**ST**
+
+### D
+
+Ask someone with relevant context early.
+
+**SIQ**
+
+---
+
+# Q30. Plan vs adaptation
+
+Your original plan stops making sense because new information appears.
+
+### A
+
+Determine which original assumptions are no longer valid.
+
+**PH**
+
+### B
+
+Test a new approach.
+
+**EX**
+
+### C
+
+Update the plan and continue in a controlled way.
+
+**ST**
+
+### D
+
+Discuss the implications with affected people.
+
+**SIQ**
+
+---
+
+# PART G — DEGREE-NEUTRAL SPECIALIZATION BRANCH
+
+After the common assessment, PinIT should identify the **career domain**, then ask domain-specific questions.
+
+Do not ask a student questions about subjects irrelevant to their target career.
+
+---
+
+# SCIENCE / RESEARCH BRANCH
+
+Applicable to:
+
+```text
+BSc
+MSc
+Biology
+Chemistry
+Physics
+Biotechnology
+Life Sciences
+Mathematics
+Statistics
+Environmental Science
+etc.
+```
+
+## Q31-SCI
+
+You obtain an unexpected experimental/result pattern.
+
+What interests you most?
+
+### A
+
+Identify which assumptions or variables could explain it.
+
+**PH**
+
+### B
+
+Repeat or modify the experiment to test alternative explanations.
+
+**EX**
+
+### C
+
+Verify the experimental procedure and records.
+
+**ST**
+
+### D
+
+Discuss the result with people who have relevant subject or practical context.
+
+**SIQ**
+
+---
+
+## Q32-SCI
+
+A research question has several possible directions.
+
+### A
+Compare the hypotheses and theoretical assumptions.
+
+**PH**
+
+### B
+Run a small exploratory investigation.
+
+**EX**
+
+### C
+Define a research plan and milestones.
+
+**ST**
+
+### D
+Discuss the question with researchers or people affected by the research.
+
+**SIQ**
+
+---
+
+# ENGINEERING / TECHNICAL BRANCH
+
+Applicable to:
+
+```text
+BE
+BTech
+ME
+MTech
+Diploma → engineering pathways
+```
+
+## Q31-ENG
+
+A system is not performing as expected.
+
+### A
+Analyze the system architecture and dependencies.
+
+**PH**
+
+### B
+Test individual components or alternative configurations.
+
+**EX**
+
+### C
+Follow a structured troubleshooting process.
+
+**ST**
+
+### D
+Understand user/operator requirements and observations.
+
+**SIQ**
+
+---
+
+## Q32-ENG
+
+A design requirement changes during development.
+
+### A
+Identify which system assumptions are affected.
+
+**PH**
+
+### B
+Explore an alternative design.
+
+**EX**
+
+### C
+Update the plan, specifications and implementation sequence.
+
+**ST**
+
+### D
+Clarify the new stakeholder requirements.
+
+**SIQ**
+
+---
+
+# ARTS / HUMANITIES BRANCH
+
+Applicable to:
+
+```text
+BA
+MA
+History
+Political Science
+Sociology
+English
+Languages
+Philosophy
+Psychology
+etc.
+```
+
+## Q31-ARTS
+
+You encounter two conflicting interpretations of the same issue.
+
+### A
+Examine the assumptions and evidence underlying each interpretation.
+
+**PH**
+
+### B
+Look for additional evidence or perspectives that might distinguish them.
+
+**EX**
+
+### C
+Create a consistent framework for comparing them.
+
+**ST**
+
+### D
+Understand how different people or groups experience the issue.
+
+**SIQ**
+
+---
+
+## Q32-ARTS
+
+You need to communicate a complex idea to a general audience.
+
+### A
+Clarify the underlying logic.
+
+**PH**
+
+### B
+Try different ways of explaining it.
+
+**EX**
+
+### C
+Organize the material into a clear structure.
+
+**ST**
+
+### D
+Adapt the explanation to the audience's background.
+
+**SIQ**
+
+---
+
+# DESIGN / CREATIVE BRANCH
+
+Applicable to:
+
+```text
+BDes
+MDes
+BFA
+MFA
+Animation
+Visual Communication
+Fashion
+Interior
+Media production
+```
+
+## Q31-DESIGN
+
+A first design concept does not work well.
+
+### A
+Identify which design assumptions caused the problem.
+
+**PH**
+
+### B
+Create another concept and test it.
+
+**EX**
+
+### C
+Check the design against requirements and constraints.
+
+**ST**
+
+### D
+Observe how users/audience members respond and understand their needs.
+
+**SIQ**
+
+---
+
+## Q32-DESIGN
+
+A client gives vague feedback.
+
+### A
+Break the feedback into underlying design issues.
+
+**PH**
+
+### B
+Create several quick interpretations.
+
+**EX**
+
+### C
+Convert the feedback into concrete requirements.
+
+**ST**
+
+### D
+Clarify what the client actually wants to achieve.
+
+**SIQ**
+
+---
+
+# LAW BRANCH
+
+Applicable to:
+
+```text
+BA LLB
+BBA LLB
+LLB
+LLM
+```
+
+## Q31-LAW
+
+Two interpretations of a case appear plausible.
+
+### A
+Compare the underlying reasoning, facts and assumptions.
+
+**PH**
+
+### B
+Research alternative interpretations and precedents.
+
+**EX**
+
+### C
+Follow a structured legal-analysis framework.
+
+**ST**
+
+### D
+Understand the interests and perspectives of the parties involved.
+
+**SIQ**
+
+---
+
+# EDUCATION BRANCH
+
+Applicable to:
+
+```text
+B.Ed
+M.Ed
+Education
+Teaching
+```
+
+## Q31-EDU
+
+Students are struggling with a concept.
+
+### A
+Determine which underlying misconception is causing difficulty.
+
+**PH**
+
+### B
+Try another teaching method.
+
+**EX**
+
+### C
+Create a structured intervention plan.
+
+**ST**
+
+### D
+Talk to students to understand their perspective and difficulties.
+
+**SIQ**
+
+---
+
+# HEALTH / LIFE-SCIENCE PROFESSIONAL BRANCH
+
+Applicable where appropriate:
+
+```text
+Pharmacy
+Healthcare-related programs
+Public health
+Allied health
+```
+
+## Q31-HLT
+
+You observe an unexpected outcome.
+
+### A
+Investigate possible underlying causes.
+
+**PH**
+
+### B
+Compare possible explanations using available evidence.
+
+**EX**
+
+### C
+Follow the required protocol and verify records.
+
+**ST**
+
+### D
+Gather information from the people involved and affected.
+
+**SIQ**
+
+---
+
+# PART H — PERSONA INFERENCE
+
+The system must never use:
+
+```text
+one answer → persona
+```
+
+Instead:
+
+```text
+SJT
++
+matrix
++
+trade-off probes
++
+different contexts
++
+response quality
+        ↓
+evidence aggregation
+```
+
+For example:
+
+```text
+PH
+6 evidence events
+4 contexts
+3 indicators
+2 methods
+
+EX
+5 evidence events
+3 contexts
+3 indicators
+2 methods
+
+ST
+2 evidence events
+2 contexts
+1 method
+
+SIQ
+4 evidence events
+3 contexts
+2 methods
+```
+
+Then PinIT can state:
+
+```text
+Analytical Structuring
+Strong evidence
+
+Experimental Exploration
+Strong evidence
+
+Perspective Coordination
+Moderate evidence
+
+Structured Execution
+Limited evidence
+```
+
+Not:
+
+```text
+PH 42%
+EX 31%
+ST 17%
+SIQ 10%
+```
+
+---
+
+# PART I — CAREER REQUIREMENT MAPPING
+
+This is where degree and career finally matter.
+
+Example:
+
+```text
+Student:
+BSc Statistics
+
+Goal:
+Data Analyst
+
+Behavior:
+PH strong
+EX strong
+ST moderate
+SIQ developing
+
+Current skill:
+Statistics strong
+Excel moderate
+SQL beginner
+Power BI beginner
+Portfolio weak
+```
+
+PinIT should calculate:
+
+```text
+Career requirements
+        ↓
+Current capability
+        ↓
+Gap
+        ↓
+Behavioral interaction
+        ↓
+Trade-off
+```
+
+Possible roadmap:
+
+```text
+SQL
+↓
+Data cleaning
+↓
+Power BI
+↓
+Business analysis
+↓
+Portfolio project
+↓
+Data storytelling
+↓
+Interview preparation
+```
+
+---
+
+# PART J — TRADE-OFF EXAMPLES FOR “OTHER” STUDENTS
+
+## PH high + ST low
+
+Potential pattern:
+
+```text
+Strong investigation
++
+weaker completion consistency
+```
+
+Intervention:
+
+```text
+Analyze
+→ decision checkpoint
+→ execute
+→ ship
+```
+
+---
+
+## EX high + ST low
+
+Potential pattern:
+
+```text
+Strong experimentation
++
+possible excessive switching
+```
+
+Intervention:
+
+```text
+Explore
+→ choose
+→ freeze scope
+→ complete
+```
+
+---
+
+## ST high + EX low
+
+Potential pattern:
+
+```text
+Reliable execution
++
+less experimentation under uncertainty
+```
+
+Intervention:
+
+```text
+Plan
++
+small controlled experiment
+```
+
+---
+
+## SIQ high + PH low
+
+Potential pattern:
+
+```text
+Strong perspective seeking
++
+less independent investigation
+```
+
+Intervention:
+
+```text
+Investigate first
+→ form hypothesis
+→ ask targeted question
+```
+
+---
+
+## PH high + SIQ low
+
+Potential pattern:
+
+```text
+Strong analytical reasoning
++
+communication/application gap
+```
+
+Intervention:
+
+```text
+Analyze
+→ summarize
+→ explain
+→ present
+```
+
+These are **hypotheses generated from evidence**, not diagnoses.
+
+---
+
+# PART K — FINAL PROFILE
+
+The output should look like:
+
+```text
+PINiT CAREER PROFILE
+
+EDUCATION
+BSc Statistics
+
+GOAL
+Data Analyst Internship
+
+TARGET
+Within 6 months
+
+CURRENT STATE
+
+Statistics          Strong
+Excel               Moderate
+SQL                 Beginner
+Power BI            Beginner
+Portfolio           Limited
+Practical exposure  Limited
+
+BEHAVIORAL EVIDENCE
+
+Analytical Structuring
+Strong evidence
+
+Experimental Exploration
+Strong evidence
+
+Structured Execution
+Moderate evidence
+
+Perspective Coordination
+Developing evidence
+
+PRIMARY BOTTLENECK
+
+Practical application
+
+TRADE-OFF
+
+Exploration ↔ Completion
+
+ROADMAP STRATEGY
+
+Experiment quickly
+→ select one project
+→ freeze scope
+→ complete
+→ document
+→ present
+```
+
+---
+
+# PART L — MOST IMPORTANT PINIT RULE
+
+The universal assessment must not assume:
+
+```text
+BSc = analytical
+BA = communication
+BTech = technical
+BDes = creative
+Law = social IQ
+```
+
+Those are stereotypes.
+
+Instead:
+
+```text
+DEGREE
+→ context
+
+CAREER
+→ requirements
+
+ANSWERS
+→ behavioral evidence
+
+ACTUAL EXPERIENCE
+→ experience evidence
+
+SKILLS
+→ capability evidence
+
+CONSTRAINTS
+→ feasibility
+
+ALL OF THEM
+→ roadmap
+```
+
+---
+
+# FINAL UNIVERSAL ARCHITECTURE
+
+```text
+                    PINIT ONBOARDING
+
+                         ↓
+
+                  GOAL DISCOVERY
+                         ↓
+              ┌────────────────────┐
+              │ Career / Outcome   │
+              │ Horizon            │
+              │ Motivation         │
+              │ Goal certainty     │
+              └─────────┬──────────┘
+                        ↓
+                 CURRENT STATE
+                        ↓
+              ┌────────────────────┐
+              │ Skills             │
+              │ Experience         │
+              │ Exposure           │
+              │ Constraints        │
+              └─────────┬──────────┘
+                        ↓
+              UNIVERSAL BEHAVIOR
+                        ↓
+            PH / EX / ST / SIQ
+                        ↓
+               TRADE-OFF ENGINE
+                        ↓
+             CAREER REQUIREMENTS
+                        ↓
+                 GAP ENGINE
+                        ↓
+              ROADMAP STRATEGY
+                        ↓
+              PERSONALIZED PLAN
+                        ↓
+                REAL BEHAVIOR
+                        ↓
+              NEW EVIDENCE
+                        ↓
+            PROFILE RE-CALIBRATION
+                        ↓
+             ROADMAP ADAPTATION
+```
+
+## Final principle
+
+The **same behavioral engine should work for every degree**.
+
+Only these layers change:
+
+```text
+degree context
+career catalog
+skill requirements
+domain-specific scenarios
+roadmap content
+```
+
+That means PinIT can eventually support:
+
+```text
+BCA
+B.Com / M.Com
+BBA / MBA
+BSc / MSc
+BA / MA
+BTech / MTech
+BDes / MDes
+Law
+Education
+Science
+Healthcare
+Arts
+Media
+and many others
+```
+
+without creating a completely different assessment engine for every degree.
+
+The four behavioral dimensions should remain **evidence-based personalization signals**, not degree stereotypes or fixed personality labels. Your existing R&D also supports keeping the construct interpretation open until real student evidence validates the structure.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-26T02:48:12+05:30.
+</ADDITIONAL_METADATA>

@@ -1,0 +1,286 @@
+{
+  "batchFile": "scripts/batches/batch-03.txt",
+  "at": "2026-09-07T21:18:28.874Z",
+  "snap": {
+    "src/components/teacher/CourseManager.tsx": {
+      "hex6": 29,
+      "hex3": 7,
+      "rgba": 2,
+      "total": 38,
+      "crlf": 298,
+      "lf": 0,
+      "lines": 298,
+      "sha": "1378696e3a51",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/app/missions/page.tsx": {
+      "hex6": 2,
+      "hex3": 0,
+      "rgba": 35,
+      "total": 37,
+      "crlf": 1470,
+      "lf": 0,
+      "lines": 1470,
+      "sha": "b0ed60c6ce40",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/avatar/VoiceRegistrationModal.tsx": {
+      "hex6": 11,
+      "hex3": 7,
+      "rgba": 18,
+      "total": 36,
+      "crlf": 448,
+      "lf": 0,
+      "lines": 448,
+      "sha": "30828f6e8f50",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/app/parent/page.tsx": {
+      "hex6": 4,
+      "hex3": 2,
+      "rgba": 30,
+      "total": 36,
+      "crlf": 1094,
+      "lf": 0,
+      "lines": 1094,
+      "sha": "40d01861b5f8",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/app/page.tsx": {
+      "hex6": 16,
+      "hex3": 4,
+      "rgba": 16,
+      "total": 36,
+      "crlf": 0,
+      "lf": 545,
+      "lines": 545,
+      "sha": "877530a4a14e",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/app/group-discussion/page.tsx": {
+      "hex6": 18,
+      "hex3": 0,
+      "rgba": 18,
+      "total": 36,
+      "crlf": 2594,
+      "lf": 0,
+      "lines": 2594,
+      "sha": "da3f8b52f6bf",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/missions/LinguaLab.tsx": {
+      "hex6": 1,
+      "hex3": 4,
+      "rgba": 29,
+      "total": 34,
+      "crlf": 555,
+      "lf": 0,
+      "lines": 555,
+      "sha": "160ea1c06dba",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/attention-span/ProgressAnalyticsModal.tsx": {
+      "hex6": 28,
+      "hex3": 1,
+      "rgba": 5,
+      "total": 34,
+      "crlf": 256,
+      "lf": 0,
+      "lines": 256,
+      "sha": "9de178627309",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/admin/UserManagement.tsx": {
+      "hex6": 28,
+      "hex3": 5,
+      "rgba": 1,
+      "total": 34,
+      "crlf": 208,
+      "lf": 0,
+      "lines": 208,
+      "sha": "cb2c2ac22155",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/career/ATSBreakdown.tsx": {
+      "hex6": 29,
+      "hex3": 0,
+      "rgba": 4,
+      "total": 33,
+      "crlf": 362,
+      "lf": 0,
+      "lines": 362,
+      "sha": "899c28e3a268",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/app/attention-span/page.tsx": {
+      "hex6": 24,
+      "hex3": 0,
+      "rgba": 9,
+      "total": 33,
+      "crlf": 820,
+      "lf": 0,
+      "lines": 820,
+      "sha": "d7c968dbb7d3",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/language/SpeakingLessonView.tsx": {
+      "hex6": 26,
+      "hex3": 6,
+      "rgba": 0,
+      "total": 32,
+      "crlf": 178,
+      "lf": 0,
+      "lines": 178,
+      "sha": "a6e1f50ededc",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/admin/AdminOverview.tsx": {
+      "hex6": 24,
+      "hex3": 8,
+      "rgba": 0,
+      "total": 32,
+      "crlf": 94,
+      "lf": 0,
+      "lines": 94,
+      "sha": "f3f8a4403e06",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/quests/QuestsSCurveMap.tsx": {
+      "hex6": 21,
+      "hex3": 5,
+      "rgba": 5,
+      "total": 31,
+      "crlf": 213,
+      "lf": 0,
+      "lines": 213,
+      "sha": "2f27acbd085f",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/pathway/CompetencyRadarView.tsx": {
+      "hex6": 17,
+      "hex3": 1,
+      "rgba": 13,
+      "total": 31,
+      "crlf": 0,
+      "lf": 307,
+      "lines": 307,
+      "sha": "d21342b49683",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/attention-span/PrecisionPointerGame.tsx": {
+      "hex6": 14,
+      "hex3": 8,
+      "rgba": 9,
+      "total": 31,
+      "crlf": 176,
+      "lf": 0,
+      "lines": 176,
+      "sha": "d89f9a64e180",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/student/StudentExamPortal.tsx": {
+      "hex6": 24,
+      "hex3": 6,
+      "rgba": 0,
+      "total": 30,
+      "crlf": 215,
+      "lf": 0,
+      "lines": 215,
+      "sha": "497277349484",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/pathway/CareerPathwayTimeline.tsx": {
+      "hex6": 16,
+      "hex3": 1,
+      "rgba": 13,
+      "total": 30,
+      "crlf": 0,
+      "lf": 285,
+      "lines": 285,
+      "sha": "d75f7f3cdc7b",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/avatar/AvatarMentorWidget.tsx": {
+      "hex6": 22,
+      "hex3": 2,
+      "rgba": 5,
+      "total": 29,
+      "crlf": 1167,
+      "lf": 0,
+      "lines": 1167,
+      "sha": "6dc8e0533602",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    },
+    "src/components/student/StudentDashboardShell.tsx": {
+      "hex6": 22,
+      "hex3": 3,
+      "rgba": 1,
+      "total": 26,
+      "crlf": 144,
+      "lf": 0,
+      "lines": 144,
+      "sha": "9d72bf97c0d1",
+      "protectedCounts": {
+        "certificate gold": 0,
+        "projects gradient": 0
+      }
+    }
+  }
+}

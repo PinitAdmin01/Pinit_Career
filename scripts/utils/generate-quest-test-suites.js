@@ -1,0 +1,27 @@
+/**
+ * Bootstrap for scripts/generate-quest-test-suites.ts — same ts-node/tsconfig-paths
+ * approach as scripts/content-qa.js. No new dependency; does not alter the app's
+ * tsconfig or build.
+ *
+ * Usage: node scripts/generate-quest-test-suites.js
+ */
+
+process.env.TS_NODE_TRANSPILE_ONLY = 'true';
+process.env.TS_NODE_COMPILER_OPTIONS = JSON.stringify({
+  module: 'commonjs',
+  moduleResolution: 'node',
+  target: 'ES2020',
+  jsx: 'react-jsx',
+  esModuleInterop: true,
+  allowJs: true,
+  noEmit: false,
+  isolatedModules: false,
+  skipLibCheck: true,
+  resolveJsonModule: true,
+  baseUrl: '.',
+  paths: { '@/*': ['./src/*'] },
+});
+
+require('ts-node/register');
+require('tsconfig-paths/register');
+require('./generate-quest-test-suites.ts');

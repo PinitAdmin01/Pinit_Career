@@ -1,0 +1,3414 @@
+{
+  "generatedAt": "2026-08-25T20:27:46.747Z",
+  "harnessVersion": "0.1.0",
+  "typecheckPerformed": false,
+  "totals": {
+    "courses": 36,
+    "blocks": 3258,
+    "fatal": 0,
+    "defects": 270
+  },
+  "courses": [
+    {
+      "courseId": "course-java-logic",
+      "title": "Java Fundamentals & Core Logic",
+      "exportName": "JAVA_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 103,
+      "blocksPerDay": 3.4,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 69.9,
+      "placeholderDistractorPct": 30.1,
+      "magicConstantPct": 0,
+      "bannerQuestionBlocks": 0,
+      "conceptBudgetOverflowPct": 7.8,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 102,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 5,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 38.8,
+      "distinctMisconceptions": 72,
+      "misconceptionsPerBlock": 0.7,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.16,
+      "lowMisconceptionDensity": false,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "java": 103
+      },
+      "analogyBlocks": 54,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "java": 60
+      },
+      "preSolvedPct": null,
+      "preSolvedMeasured": 0,
+      "preSolvedUnmeasured": 60,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-react-web",
+      "title": "Full-Stack React Web Development",
+      "exportName": "REACT_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 91,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 36.3,
+      "placeholderDistractorPct": 63.7,
+      "magicConstantPct": 1.1,
+      "bannerQuestionBlocks": 0,
+      "conceptBudgetOverflowPct": 39.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 90,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 6,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 64.8,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.21,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 91
+      },
+      "analogyBlocks": 14,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 0,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-cloud-native",
+      "title": "Cloud Native Architectures (AWS)",
+      "exportName": "CLOUD_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 28.9,
+      "placeholderDistractorPct": 71.1,
+      "magicConstantPct": 12.2,
+      "bannerQuestionBlocks": 3,
+      "conceptBudgetOverflowPct": 78.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 9,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 60,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.6,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 59,
+        "sql": 1
+      },
+      "preSolvedPct": 93.2,
+      "preSolvedMeasured": 59,
+      "preSolvedUnmeasured": 1,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-devops-cicd",
+      "title": "DevOps & CI/CD Pipeline Automation",
+      "exportName": "DEVOPS_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 33.3,
+      "placeholderDistractorPct": 66.7,
+      "magicConstantPct": 22.2,
+      "bannerQuestionBlocks": 4,
+      "conceptBudgetOverflowPct": 86.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 6,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 47.8,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.43,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 88.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 3,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-design-systems",
+      "title": "UI/UX Design Systems & Visual Frontend",
+      "exportName": "DESIGN_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 45.6,
+      "bannerQuestionBlocks": 14,
+      "conceptBudgetOverflowPct": 37.8,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 70,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.88,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 5,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-dsa-optim",
+      "title": "Data Structures & Algorithmic Optimizations",
+      "exportName": "DSA_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 14.4,
+      "placeholderDistractorPct": 85.6,
+      "magicConstantPct": 0,
+      "bannerQuestionBlocks": 5,
+      "conceptBudgetOverflowPct": 76.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 76.7,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.5,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 1,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 88.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-mobile-dev",
+      "title": "Mobile Application Development",
+      "exportName": "MOBILE_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 54.4,
+      "bannerQuestionBlocks": 18,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 1,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 66.7,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.81,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-cybersecurity",
+      "title": "Cybersecurity Principles & Secure Systems",
+      "exportName": "CYBER_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 52.2,
+      "bannerQuestionBlocks": 19,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 63.3,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.75,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 59,
+        "sql": 1
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 59,
+      "preSolvedUnmeasured": 1,
+      "rawLatexFields": 4,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-database-eng",
+      "title": "Database Engineering & Query Performance",
+      "exportName": "DATABASE_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 91,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 27.5,
+      "placeholderDistractorPct": 72.5,
+      "magicConstantPct": 3.3,
+      "bannerQuestionBlocks": 2,
+      "conceptBudgetOverflowPct": 52.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 90,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 67,
+      "distinctMisconceptions": 26,
+      "misconceptionsPerBlock": 0.29,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.29,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "sql": 80,
+        "js": 11
+      },
+      "analogyBlocks": 4,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "sql": 53,
+        "javascript": 7
+      },
+      "preSolvedPct": 0,
+      "preSolvedMeasured": 7,
+      "preSolvedUnmeasured": 53,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-distributed-sys",
+      "title": "High-Scale Distributed System Design",
+      "exportName": "DISTRIBUTED_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 33.3,
+      "placeholderDistractorPct": 66.7,
+      "magicConstantPct": 22.2,
+      "bannerQuestionBlocks": 7,
+      "conceptBudgetOverflowPct": 91.1,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 10,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 36.7,
+      "distinctMisconceptions": 29,
+      "misconceptionsPerBlock": 0.32,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.74,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 4,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-ai-eng",
+      "title": "AI Engineering & LLM Integration",
+      "exportName": "AI_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 37.8,
+      "placeholderDistractorPct": 62.2,
+      "magicConstantPct": 23.3,
+      "bannerQuestionBlocks": 5,
+      "conceptBudgetOverflowPct": 86.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 6,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 36.7,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.75,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-fullstack-js",
+      "title": "Full-Stack JavaScript Engineering",
+      "exportName": "FULLSTACK_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 25.6,
+      "placeholderDistractorPct": 74.4,
+      "magicConstantPct": 3.3,
+      "bannerQuestionBlocks": 2,
+      "conceptBudgetOverflowPct": 72.2,
+      "missingPrerequisites": 2,
+      "prerequisiteEdges": 90,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 5,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 78.9,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.41,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 76.7,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 1,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-iot-embedded",
+      "title": "IoT, Firmware & Embedded Systems",
+      "exportName": "IOT_EMBEDDED_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 27.8,
+      "placeholderDistractorPct": 72.2,
+      "magicConstantPct": 7.8,
+      "bannerQuestionBlocks": 6,
+      "conceptBudgetOverflowPct": 94.4,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 9,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 57.8,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.44,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-3d-graphics",
+      "title": "3D Interactive Graphics & Avatar Animation",
+      "exportName": "GRAPHICS_3D_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 28.9,
+      "placeholderDistractorPct": 71.1,
+      "magicConstantPct": 13.3,
+      "bannerQuestionBlocks": 11,
+      "conceptBudgetOverflowPct": 93.3,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 57.8,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.58,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 3,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-blockchain-web3",
+      "title": "Blockchain, Web3 & Smart Contracts",
+      "exportName": "BLOCKCHAIN_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 31.1,
+      "placeholderDistractorPct": 68.9,
+      "magicConstantPct": 26.7,
+      "bannerQuestionBlocks": 17,
+      "conceptBudgetOverflowPct": 95.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 6,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 46.7,
+      "distinctMisconceptions": 26,
+      "misconceptionsPerBlock": 0.29,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.52,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-iot-network",
+      "title": "IoT Wireless Networks & Protocols",
+      "exportName": "IOT_NETWORK_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 17.8,
+      "placeholderDistractorPct": 82.2,
+      "magicConstantPct": 25.6,
+      "bannerQuestionBlocks": 11,
+      "conceptBudgetOverflowPct": 95.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 8,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 70,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.43,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 95,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-iot-edge-ai",
+      "title": "Edge AI, DSP & TinyML Systems",
+      "exportName": "IOT_EDGE_AI_PILOT_DAYS",
+      "exportShape": "Record",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 4.4,
+      "placeholderDistractorPct": 95.6,
+      "magicConstantPct": 28.9,
+      "bannerQuestionBlocks": 27,
+      "conceptBudgetOverflowPct": 96.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 5,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 68.9,
+      "distinctMisconceptions": 29,
+      "misconceptionsPerBlock": 0.32,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.55,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 95,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-iot-security",
+      "title": "Industrial IoT Security & Device Lifecycle",
+      "exportName": "IOT_SECURITY_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 6.7,
+      "placeholderDistractorPct": 93.3,
+      "magicConstantPct": 45.6,
+      "bannerQuestionBlocks": 35,
+      "conceptBudgetOverflowPct": 95.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 8,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 48.9,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.6,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 1,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-python-backend",
+      "title": "Python Programming & Backend Systems",
+      "exportName": "PYTHON_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 93,
+      "blocksPerDay": 3.1,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 38.7,
+      "placeholderDistractorPct": 61.3,
+      "magicConstantPct": 0,
+      "bannerQuestionBlocks": 0,
+      "conceptBudgetOverflowPct": 12.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 92,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 48.4,
+      "distinctMisconceptions": 59,
+      "misconceptionsPerBlock": 0.63,
+      "topicShapedTaxonomy": false,
+      "meanTitleOverlap": 0.34,
+      "lowMisconceptionDensity": false,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "py": 93
+      },
+      "analogyBlocks": 26,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "python": 58,
+        "javascript": 2
+      },
+      "preSolvedPct": 0,
+      "preSolvedMeasured": 2,
+      "preSolvedUnmeasured": 58,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-quant-systems",
+      "title": "Quantitative Engineering & Low-Latency Trading Systems",
+      "exportName": "QUANT_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 36.7,
+      "bannerQuestionBlocks": 13,
+      "conceptBudgetOverflowPct": 95.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 63.3,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.67,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-digital-accounting",
+      "title": "Digital Accounting & Taxation (B.Com / BBA)",
+      "exportName": "BCOM_ACCOUNTING_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 51.1,
+      "bannerQuestionBlocks": 9,
+      "conceptBudgetOverflowPct": 87.8,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 78.9,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.6,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-finance-investment",
+      "title": "Business Finance & Investment Management (B.Com / BBA)",
+      "exportName": "BCOM_FINANCE_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 38.9,
+      "bannerQuestionBlocks": 6,
+      "conceptBudgetOverflowPct": 85.6,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 80,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.76,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-business-analytics",
+      "title": "Business Analytics & Decision Intelligence (B.Com / BBA / MBA)",
+      "exportName": "BCOM_ANALYTICS_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 35.6,
+      "bannerQuestionBlocks": 4,
+      "conceptBudgetOverflowPct": 90,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 4,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 90,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.65,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 1,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-marketing-branding",
+      "title": "Marketing & Brand Management (B.Com / BBA / MBA)",
+      "exportName": "BCOM_MARKETING_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 61.1,
+      "bannerQuestionBlocks": 4,
+      "conceptBudgetOverflowPct": 83.3,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 63.3,
+      "distinctMisconceptions": 26,
+      "misconceptionsPerBlock": 0.29,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.67,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 3,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-digital-marketing",
+      "title": "Digital Marketing & Growth Strategy (B.Com / BBA / MBA)",
+      "exportName": "BCOM_DIGITAL_MARKETING_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 51.1,
+      "bannerQuestionBlocks": 3,
+      "conceptBudgetOverflowPct": 62.2,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 56.7,
+      "distinctMisconceptions": 26,
+      "misconceptionsPerBlock": 0.29,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.76,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 5,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-ecommerce-digital-biz",
+      "title": "E-Commerce & Digital Business (B.Com / BBA / MBA)",
+      "exportName": "BCOM_ECOMMERCE_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 56.7,
+      "bannerQuestionBlocks": 5,
+      "conceptBudgetOverflowPct": 53.3,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 55.6,
+      "distinctMisconceptions": 28,
+      "misconceptionsPerBlock": 0.31,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.74,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 1,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-entrepreneurship-biz-mgmt",
+      "title": "Entrepreneurship & Business Management (B.Com / BBA / MBA)",
+      "exportName": "BCOM_ENTREPRENEURSHIP_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 52.2,
+      "bannerQuestionBlocks": 5,
+      "conceptBudgetOverflowPct": 56.7,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 63.3,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.78,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-sales-crm-success",
+      "title": "Sales, Customer Success & CRM (B.Com / BBA / MBA)",
+      "exportName": "BCOM_SALES_CRM_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 57.8,
+      "bannerQuestionBlocks": 5,
+      "conceptBudgetOverflowPct": 52.2,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 53.3,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.79,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 3,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-operations-supplychain-compliance",
+      "title": "Operations, Supply Chain & Business Compliance (B.Com / BBA / MBA)",
+      "exportName": "BCOM_OPERATIONS_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 64.4,
+      "bannerQuestionBlocks": 3,
+      "conceptBudgetOverflowPct": 62.2,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 45.6,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.8,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 0,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-ai-digital-transformation",
+      "title": "AI & Digital Transformation for Business (B.Com / BBA / MBA)",
+      "exportName": "BCOM_AI_TRANSFORMATION_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 73.3,
+      "bannerQuestionBlocks": 6,
+      "conceptBudgetOverflowPct": 43.3,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 38.9,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.83,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 3,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-computer-fundamentals",
+      "title": "Computer Literacy, Digital Productivity & OS Fundamentals",
+      "exportName": "COMPUTER_FUNDAMENTALS_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 66.7,
+      "bannerQuestionBlocks": 7,
+      "conceptBudgetOverflowPct": 52.2,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 42.2,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.75,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 9,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-ai-prompt-literacy",
+      "title": "Everyday AI Literacy & Prompt Engineering",
+      "exportName": "AI_PROMPT_LITERACY_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 80,
+      "bannerQuestionBlocks": 11,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 27.8,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.8,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 5,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-excel-data-viz",
+      "title": "Excel & Data Analysis Fundamentals",
+      "exportName": "EXCEL_DATA_VIZ_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 57.8,
+      "bannerQuestionBlocks": 4,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 45.6,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.79,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 9,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-git-version-control",
+      "title": "Git, GitHub & Version Control Basics",
+      "exportName": "GIT_VERSION_CONTROL_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 33.3,
+      "bannerQuestionBlocks": 20,
+      "conceptBudgetOverflowPct": 40,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 74.4,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.8,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 8,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-softskills-communication",
+      "title": "Professional Tech Communication & Interview Mastery",
+      "exportName": "SOFTSKILLS_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 61.1,
+      "bannerQuestionBlocks": 19,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 56.7,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.88,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 100,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 6,
+      "runtimeBindingMismatches": 0
+    },
+    {
+      "courseId": "course-nlp",
+      "title": "Natural Language Processing & Computational Linguistics",
+      "exportName": "NLP_PILOT_DAYS",
+      "exportShape": "Array",
+      "days": 30,
+      "blocks": 90,
+      "blocksPerDay": 3,
+      "duplicateBlockIds": 0,
+      "duplicateBlockTitles": 0,
+      "duplicateDiagnostics": 0,
+      "authoredDistractorPct": 0,
+      "placeholderDistractorPct": 100,
+      "magicConstantPct": 40,
+      "bannerQuestionBlocks": 8,
+      "conceptBudgetOverflowPct": 38.9,
+      "missingPrerequisites": 0,
+      "prerequisiteEdges": 89,
+      "prerequisiteShape": "dag",
+      "maxInDegree": 3,
+      "recoveryBranchesPerDiagnostic": 1,
+      "singleBranchDiagnosticPct": 100,
+      "boilerplateRecoveryPct": 67.8,
+      "distinctMisconceptions": 27,
+      "misconceptionsPerBlock": 0.3,
+      "topicShapedTaxonomy": true,
+      "meanTitleOverlap": 0.76,
+      "lowMisconceptionDensity": true,
+      "transferTaskCoverage": 0,
+      "realMilestoneCount": 0,
+      "mediaCodeLanguages": {
+        "js": 90
+      },
+      "analogyBlocks": 0,
+      "examQuests": 30,
+      "assignmentQuests": 30,
+      "questsMissingTestSuite": 0,
+      "starterLanguages": {
+        "javascript": 60
+      },
+      "preSolvedPct": 98.3,
+      "preSolvedMeasured": 60,
+      "preSolvedUnmeasured": 0,
+      "rawLatexFields": 2,
+      "runtimeBindingMismatches": 0
+    }
+  ],
+  "crossCourse": {
+    "sharedQuestions": [
+      {
+        "question": "What certification string confirms Milestone 1 completion?",
+        "courses": 30
+      },
+      {
+        "question": "What certification string confirms Milestone 2 completion?",
+        "courses": 30
+      },
+      {
+        "question": "What certification string confirms Milestone 3 completion?",
+        "courses": 30
+      },
+      {
+        "question": "What credential title is officially conferred upon course graduation?",
+        "courses": 3
+      }
+    ],
+    "reusedRecovery": [
+      {
+        "text": "Matches header string.",
+        "count": 175
+      },
+      {
+        "text": "Matches status string.",
+        "count": 49
+      },
+      {
+        "text": "Score is 100/100.",
+        "count": 10
+      },
+      {
+        "text": "Matches milestone header.",
+        "count": 7
+      },
+      {
+        "text": "Type 3.",
+        "count": 7
+      },
+      {
+        "text": "Matches header.",
+        "count": 3
+      },
+      {
+        "text": "4 * 5 = 20.",
+        "count": 3
+      },
+      {
+        "text": "sqrt(250,000) = 500.",
+        "count": 3
+      },
+      {
+        "text": "Type 4.",
+        "count": 3
+      },
+      {
+        "text": "Count is 2.",
+        "count": 3
+      },
+      {
+        "text": "Count is 1.",
+        "count": 2
+      },
+      {
+        "text": "Count is 5.",
+        "count": 2
+      },
+      {
+        "text": "2 * 3 = 6.",
+        "count": 2
+      },
+      {
+        "text": "'abc' has length 3.",
+        "count": 2
+      },
+      {
+        "text": "Matches certification header.",
+        "count": 2
+      },
+      {
+        "text": "3 + 4 = 7.",
+        "count": 2
+      },
+      {
+        "text": "Ratio is 0.5.",
+        "count": 2
+      },
+      {
+        "text": "2^12 = 4096.",
+        "count": 2
+      },
+      {
+        "text": "Matches graduation header string.",
+        "count": 2
+      },
+      {
+        "text": "800 / 200 = 4.",
+        "count": 2
+      },
+      {
+        "text": "4 / 5 * 100 = 80%.",
+        "count": 2
+      },
+      {
+        "text": "Type -p.",
+        "count": 2
+      },
+      {
+        "text": "Type -u.",
+        "count": 2
+      },
+      {
+        "text": "Type 90.",
+        "count": 2
+      }
+    ]
+  },
+  "findings": [
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 103 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-2 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-6 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-7 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-8 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-9 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-10 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-11 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-12 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-13 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-14 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-15 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-16 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-17 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-18 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-19 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-20 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-21 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-22 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-23 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-24 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-25 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-26 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-27 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-28 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-29 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-exam-day-30 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-2 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-5 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-6 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-7 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-8 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-9 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-10 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-11 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-12 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-13 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-14 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-15 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-16 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-17 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-18 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-19 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-20 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-21 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-22 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-23 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-24 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-25 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-26 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-27 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-28 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-29 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-java-logic",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest java-basics-assign-day-30 (java) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-react-web",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 91 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-react-web",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 91 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cloud-native",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 60% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cloud-native",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cloud-native",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cloud-native",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest cloud-native-exam-day-27 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cloud-native",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "55/59 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-devops-cicd",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-devops-cicd",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-devops-cicd",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "53/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-design-systems",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 88% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-design-systems",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-design-systems",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-design-systems",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-dsa-optim",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-dsa-optim",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-dsa-optim",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "53/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-mobile-dev",
+      "code": "MISSING_PREREQUISITE",
+      "detail": "Block mobile-d14-b1-sqlite-migration-resolver requires unknown concept \"design-d13-b1-biometric-readiness-auditor\"."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-mobile-dev",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 81% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-mobile-dev",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-mobile-dev",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-mobile-dev",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cybersecurity",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 75% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cybersecurity",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cybersecurity",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cybersecurity",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest cyber-exam-day-2 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-cybersecurity",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "58/59 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "26 distinct misconceptions across 91 blocks (0.29/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 91 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-2 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-4 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-5 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-6 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-7 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-8 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-9 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-10 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-11 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-12 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-13 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-14 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-15 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-16 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-17 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-18 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-19 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-21 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-24 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-25 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-26 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-27 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-28 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-29 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-exam-day-30 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-2 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-4 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-5 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-6 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-7 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-8 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-9 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-10 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-11 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-12 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-13 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-14 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-15 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-16 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-17 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-18 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-19 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-21 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-24 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-25 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-26 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-27 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-28 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-29 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-database-eng",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest sql-mastery-assign-day-30 (sql) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-distributed-sys",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 74% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-distributed-sys",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "29 distinct misconceptions across 90 blocks (0.32/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-distributed-sys",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-distributed-sys",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-eng",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 75% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-eng",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-eng",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-eng",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-fullstack-js",
+      "code": "MISSING_PREREQUISITE",
+      "detail": "Block fs-d1-b1-client-server-boundary requires unknown concept \"react-d1-b1-react-mental-model\"."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-fullstack-js",
+      "code": "MISSING_PREREQUISITE",
+      "detail": "Block fs-d19-b1-rsc-server-component-architecture requires unknown concept \"react-d1-b1-react-mental-model\"."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-fullstack-js",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-fullstack-js",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-fullstack-js",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "46/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-embedded",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-embedded",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-embedded",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-3d-graphics",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 58% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-3d-graphics",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-3d-graphics",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-3d-graphics",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-blockchain-web3",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "26 distinct misconceptions across 90 blocks (0.29/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-blockchain-web3",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-blockchain-web3",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-network",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-network",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-network",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "57/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-edge-ai",
+      "code": "EXPORT_SHAPE_RECORD",
+      "detail": "IOT_EDGE_AI_PILOT_DAYS is a Record, not DayLessonPlan[]. All pilot sources must expose a consistent array (plan §5.3)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-edge-ai",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 55% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-edge-ai",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "29 distinct misconceptions across 90 blocks (0.32/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-edge-ai",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-edge-ai",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "57/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-security",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 60% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-security",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-security",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-iot-security",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 93 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-3 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-6 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-15 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-16 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-17 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-18 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-19 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-20 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-21 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-23 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-24 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-25 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-26 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-28 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-exam-day-30 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-1 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-3 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-6 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-7 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-9 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-10 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-11 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-13 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-15 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-16 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-17 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-18 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-19 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-20 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-21 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-22 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-29 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-python-backend",
+      "code": "STARTER_LIKELY_PRESOLVED",
+      "detail": "Quest python-assign-day-30 (python) has no scaffold marker — likely ships the solution. Not executable in-process; verify manually."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-quant-systems",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 67% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-quant-systems",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-quant-systems",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-quant-systems",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-accounting",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 60% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-accounting",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-accounting",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-accounting",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-finance-investment",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 76% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-finance-investment",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-finance-investment",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-finance-investment",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-business-analytics",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 65% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-business-analytics",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-business-analytics",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-business-analytics",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-marketing-branding",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 67% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-marketing-branding",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "26 distinct misconceptions across 90 blocks (0.29/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-marketing-branding",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-marketing-branding",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-marketing",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 76% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-marketing",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "26 distinct misconceptions across 90 blocks (0.29/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-marketing",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-digital-marketing",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ecommerce-digital-biz",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 74% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ecommerce-digital-biz",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "28 distinct misconceptions across 90 blocks (0.31/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ecommerce-digital-biz",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ecommerce-digital-biz",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-entrepreneurship-biz-mgmt",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 78% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-entrepreneurship-biz-mgmt",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-entrepreneurship-biz-mgmt",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-entrepreneurship-biz-mgmt",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-sales-crm-success",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 79% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-sales-crm-success",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-sales-crm-success",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-sales-crm-success",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-operations-supplychain-compliance",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 80% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-operations-supplychain-compliance",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-operations-supplychain-compliance",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-operations-supplychain-compliance",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-digital-transformation",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 83% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-digital-transformation",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-digital-transformation",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-digital-transformation",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-computer-fundamentals",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 75% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-computer-fundamentals",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-computer-fundamentals",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-computer-fundamentals",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-prompt-literacy",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 80% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-prompt-literacy",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-prompt-literacy",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-ai-prompt-literacy",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-excel-data-viz",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 79% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-excel-data-viz",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-excel-data-viz",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-excel-data-viz",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-git-version-control",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 80% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-git-version-control",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-git-version-control",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-git-version-control",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-softskills-communication",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 88% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-softskills-communication",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-softskills-communication",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-softskills-communication",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "60/60 JavaScript starters already pass their own test suite unmodified."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-nlp",
+      "code": "TOPIC_SHAPED_TAXONOMY",
+      "detail": "Misconception IDs overlap 76% with their day's title on average — these are topic labels restated as IDs, not named wrong mental models (plan Gate 7)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-nlp",
+      "code": "LOW_MISCONCEPTION_DENSITY",
+      "detail": "27 distinct misconceptions across 90 blocks (0.30/block) — one misconception ID is reused across a whole day, so a wrong answer cannot localise the error."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-nlp",
+      "code": "NO_TRANSFER_TASKS",
+      "detail": "Zero novelTransferTask across 90 blocks — mastery cannot be evidenced by transfer (plan §6.3, Gate 8)."
+    },
+    {
+      "severity": "DEFECT",
+      "courseId": "course-nlp",
+      "code": "PRESOLVED_EXAMS",
+      "detail": "59/60 JavaScript starters already pass their own test suite unmodified."
+    }
+  ]
+}
