@@ -7,32 +7,6 @@ import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 const IS_VALID_UUID = (id?: string | null): boolean =>
   !!id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
 
-export async function getTodayMissions(uid: string): Promise<Record<string, unknown>[]> {
-  if (!uid || uid === 'guest') return [];
-  const today = new Date().toISOString().slice(0, 10);
-  const { data, error } = await supabase
-    .from('missions')
-    .select('*')
-    .eq('user_id', uid)
-    .eq('due_date', today);
-
-  if (error) return [];
-  return data || [];
-}
-
-export async function getMissionHistory(uid: string): Promise<Record<string, unknown>[]> {
-  if (!uid || uid === 'guest') return [];
-  const { data, error } = await supabase
-    .from('missions')
-    .select('*')
-    .eq('user_id', uid)
-    .order('created_at', { ascending: false })
-    .limit(30);
-
-  if (error) return [];
-  return data || [];
-}
-
 export async function submitMission(uid: string, missionId: string, data: Record<string, unknown>): Promise<void> {
   if (!uid || uid === 'guest') return;
 
@@ -93,51 +67,6 @@ export async function submitMission(uid: string, missionId: string, data: Record
         updated_at: new Date().toISOString(),
       })
       .eq('id', uid);
-  }
-}
-
-export async function generateCustomSkillQuests(uid: string, targetRole: string, skill: string): Promise<Record<string, unknown>[]> {
-  try {
-    const { data: existingQuests } = await supabase
-      .from('custom_skill_quests')
-      .select('*')
-      .eq('user_id', uid)
-      .eq('skill_name', skill);
-
-    if (existingQuests && existingQuests.length > 0) {
-      return existingQuests;
-    }
-
-    const generated = [
-      {
-        id: `custom_${skill.toLowerCase().replace(/[^a-z0-9]/g, '_')}_1`,
-        user_id: uid,
-        skill_name: skill,
-        target_role: targetRole,
-        title: `Foundations of ${skill}`,
-        description: `Core implementation principles and practical hands-on exercises for ${skill}.`,
-        xp: 150,
-        pins: 20,
-        created_at: new Date().toISOString(),
-      },
-      {
-        id: `custom_${skill.toLowerCase().replace(/[^a-z0-9]/g, '_')}_2`,
-        user_id: uid,
-        skill_name: skill,
-        target_role: targetRole,
-        title: `Advanced Architecture in ${skill}`,
-        description: `System integration patterns, error boundary strategies, and scaling with ${skill}.`,
-        xp: 250,
-        pins: 30,
-        created_at: new Date().toISOString(),
-      },
-    ];
-
-    await supabase.from('custom_skill_quests').insert(generated);
-    return generated;
-  } catch (err) {
-    console.warn('[generateCustomSkillQuests] Error generating skill quests:', err);
-    return [];
   }
 }
 
@@ -233,76 +162,6 @@ export async function persistQuestCompletion(
   } catch (err: any) {
     console.error('[persistQuestCompletion] Unexpected error:', err);
     return { ok: false, error: err?.message || 'UNKNOWN_ERROR' };
-  }
-}
-
-export async function persistXpAddition(
-  uid: string,
-  amount: number,
-  reason: string
-): Promise<{ ok: boolean; newXp?: number; error?: string }> {
-  if (!uid || uid === 'guest') return { ok: true, newXp: amount };
-
-  try {
-    const { data: profile, error: fetchErr } = await supabase
-      .from('users')
-      .select('xp_total')
-      .eq('id', uid)
-      .maybeSingle();
-
-    if (fetchErr || !profile) {
-      return { ok: false, error: fetchErr?.message || 'User not found' };
-    }
-
-    const current = Number(profile.xp_total) || 0;
-    const newXp = current + amount;
-
-    const { error: updateErr } = await supabase
-      .from('users')
-      .update({
-        xp_total: newXp,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', uid);
-
-    if (updateErr) {
-      return { ok: false, error: updateErr.message };
-    }
-
-    // Log XP event to xp_events table if present
-    Promise.resolve(
-      supabase.from('xp_events').insert({
-        user_id: uid,
-        amount,
-        reason,
-        created_at: new Date().toISOString(),
-      })
-    ).catch(() => {});
-
-    return { ok: true, newXp };
-  } catch (err: any) {
-    return { ok: false, error: err.message };
-  }
-}
-
-export async function syncRewardsDB(
-  uid: string,
-  rewardKey: string,
-  payload: Record<string, unknown>
-): Promise<boolean> {
-  if (!uid || uid === 'guest') return true;
-
-  try {
-    const { error } = await supabase.from('user_rewards').upsert({
-      user_id: uid,
-      reward_key: rewardKey,
-      reward_payload: payload,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'user_id,reward_key' });
-
-    return !error;
-  } catch {
-    return false;
   }
 }
 

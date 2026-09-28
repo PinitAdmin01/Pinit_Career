@@ -144,13 +144,13 @@ console.log('\n── 6. RECRUITER PORTAL ──');
 const recruiterSearch = path.join(process.cwd(), 'src/app/recruiter/components/CandidateSearchPanel.tsx');
 const recruiterApps = path.join(process.cwd(), 'src/app/recruiter/components/ApplicationsPanel.tsx');
 const recruiterHook = path.join(process.cwd(), 'src/app/recruiter/hooks/useRecruiterData.ts');
-const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
+const scheduleRoute = path.join(process.cwd(), 'src/app/api/recruiter/schedule-interview/route.ts');
 
 check('AI Interview Dispatch calls /api/recruiter/schedule-interview', () => 
   fs.readFileSync(recruiterSearch, 'utf-8').includes("api.post('/api/recruiter/schedule-interview'")
 );
-check('Server router processes interview schedule and generates candidate notifications', () => 
-  fs.readFileSync(routerPath, 'utf-8').includes('/api/recruiter/schedule-interview')
+check('Server route processes interview schedule and generates candidate notifications', () => 
+  fs.readFileSync(scheduleRoute, 'utf-8').includes('notifications')
 );
 check('Initial pipeline stage is truthfully "Sourced" (not falsely "ATS Screened")', () => 
   fs.readFileSync(recruiterHook, 'utf-8').includes("'Sourced'")

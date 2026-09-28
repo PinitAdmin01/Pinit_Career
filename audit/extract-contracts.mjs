@@ -48,6 +48,9 @@ const EXT_RE = /callExternalLLM\s*\(|\bfetch\s*\(/;
 const LOCAL_RE = /localStorage|sessionStorage|indexedDB/;
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
+// Layers 3 and 4 (campusFallback, firestoreRouter) ran in the browser and were removed on 2026-09-28:
+// every /api/* call now goes to the server. A missing file means that layer has no cases.
+const readIfExists = (p) => (fs.existsSync(path.join(ROOT, p)) ? read(p) : '');
 
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
@@ -217,7 +220,7 @@ for (const f of SOURCES.filter((x) => x.startsWith('src/lib/services/'))) {
 }
 
 // ── 5. layer 3: campusFallback switch ───────────────────────────────────────
-const campusSrc = read(CAMPUS);
+const campusSrc = readIfExists(CAMPUS);
 const campusPrefixes = (() => {
   const m = campusSrc.match(/const\s+CAMPUS_PREFIXES\s*=\s*\[([\s\S]*?)\]/);
   return m ? [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]) : [];
@@ -229,7 +232,7 @@ const isCampusApiPath = (p) => {
 };
 
 const campusCases = new Map(); // path -> {line, verdict, delegate}
-{
+if (campusSrc) {
   const swIdx = campusSrc.search(/switch\s*\(\s*cleanPath\s*\)/);
   const open = campusSrc.indexOf('{', swIdx);
   const end = matchPair(campusSrc, open, '{', '}');
@@ -265,14 +268,12 @@ const campusCases = new Map(); // path -> {line, verdict, delegate}
 }
 
 // ── 6. layer 4: firestoreRouter guards ──────────────────────────────────────
-const ROUTER_FILE = fs.existsSync(path.join(ROOT, 'src/lib/api/legacyFirestoreRouter.ts'))
-  ? 'src/lib/api/legacyFirestoreRouter.ts'
-  : CLIENT;
-const routerSrc = read(ROUTER_FILE);
-const routerStart = routerSrc.search(/(async\s+)?function\s+firestoreRouter/);
-if (routerStart < 0) throw new Error('firestoreRouter not found in ' + ROUTER_FILE);
-const routerBodyOpen = routerSrc.indexOf('{', routerStart);
-const routerEnd = matchPair(routerSrc, routerBodyOpen, '{', '}');
+const ROUTER_FILE = 'src/lib/api/legacyFirestoreRouter.ts';
+const routerSrc = readIfExists(ROUTER_FILE);
+const routerStart = routerSrc ? routerSrc.search(/(async\s+)?function\s+firestoreRouter/) : -1;
+if (routerSrc && routerStart < 0) throw new Error('firestoreRouter not found in ' + ROUTER_FILE);
+const routerBodyOpen = routerSrc ? routerSrc.indexOf('{', routerStart) : 0;
+const routerEnd = routerSrc ? matchPair(routerSrc, routerBodyOpen, '{', '}') : 0;
 
 function compileCondition(cond) {
   let fn;

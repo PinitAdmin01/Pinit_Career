@@ -3,7 +3,6 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
-// Dynamic chunking: legacyFirestoreRouter is dynamically imported on fallback (Task 3.4)
 
 // AST check preservation for test_subbatch_2_2.ts:
 // delete raw.mission_streak; delete answers.mission_streak; consecutiveCalendarStreak(
@@ -19,34 +18,9 @@ export class PaywallError extends ApiError {
   }
 }
 
-const liveMissPrefixes = new Set<string>();
-
-function liveApiPrefix(path: string): string {
-  const clean = path.split('?')[0];
-  const parts = clean.split('/').filter(Boolean);
-  if (parts.length >= 2) return `/${parts[0]}/${parts[1]}`;
-  return clean;
-}
-
 /**
- * Paths that should be answered by the real server route rather than the
- * in-browser router below.
- *
- * This is the migration dial. Every entry here is tried over the network
- * first; if that fails the request still falls back to firestoreRouter, so
- * adding a path is safe — the worst case is one wasted request. Under static
- * Firebase Hosting every entry fails (the `**` rewrite answers with
- * index.html), which is why the whole list currently no-ops in production.
- *
- * MIGRATION ORDER — move features here in this order, not all at once:
- *   1. Endpoints that are already broken in the browser. Nothing to regress.
- *   2. Endpoints the browser can serve but the server does better.
- *   3. Everything else, one feature at a time, checking audit/LEDGER.md.
- *
- * Group 1 below is complete: every one of these needs a secret the browser
- * must never hold (Razorpay signing, the exam HMAC key, Groq/OpenRouter keys,
- * a GitHub token) and today returns 404 or throws. Run `npm run audit` after
- * changing this list.
+ * API prefixes served by the app's own server routes (src/app/api). Every /api/* path is sent to the
+ * server; there is no in-browser fallback (the old client-side router was removed as unreachable).
  */
 const LIVE_API_PREFIXES: readonly string[] = [
   '/api/recruiter',
@@ -144,11 +118,7 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
       throw err;
     }
   }
-  try {
-    const { firestoreRouter } = await import('./legacyFirestoreRouter');
-    return await firestoreRouter(method, path, body) as T;
-  }
-  catch(err) { if(err instanceof ApiError) throw err; throw new ApiError(500,'FIRESTORE_ERROR',(err as Error).message||'Request failed'); }
+  throw new ApiError(404, 'UNKNOWN_API_PATH', `Not an API path: ${path}`);
 }
 
 export async function callExternalLLM(

@@ -6,7 +6,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { consecutiveCalendarStreak } from '@/lib/missions/streak';
 import { supabase } from '@/lib/supabaseClient';
-import { persistQuestCompletion, syncRewardsDB, updateUserProfile } from '@/lib/supabaseService';
+import { persistQuestCompletion, updateUserProfile } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
 import { safeLocalStorageSetItem } from '@/lib/storage/careerStorage';
 import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';

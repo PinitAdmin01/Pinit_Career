@@ -1,17 +1,10 @@
 import { TestCase, SuiteExecutionResult } from '../types';
 import { supabase } from '../../supabaseClient';
 
-// STAGE 1 FIX (Risk 3 — Java judge unreachable): a global fetch interceptor
-// (src/lib/fetchInterceptor.ts) patches window.fetch for every '/api/*' path
-// and reroutes it into a client-side mock router (firestoreRouter), UNLESS the
-// request carries `X-Pinit-Direct: 1`. This fetch call previously carried no
-// such header, so it was NEVER reaching this Next.js server route — proven
-// empirically: an identical request with vs. without this header returns two
-// completely different response shapes (the mock's `getUid()`-driven
-// {code:'UNAUTHORIZED', error:'Not logged in'} vs. the real route's own
-// requireUserFromRequest {error:'UNAUTHORIZED', message:'Bearer session token
-// required.'}). Every Java submission was silently graded by whatever
-// firestoreRouter does for an unmatched path (a 404), never by real javac/java.
+// STAGE 1 FIX (Risk 3 — Java judge unreachable): an earlier global fetch interceptor rerouted
+// '/api/*' fetches without `X-Pinit-Direct: 1` into an in-browser mock router, so Java submissions
+// never reached this server route and were never compiled by real javac/java. That router has since
+// been removed (every /api/* call now goes to the server); the header is kept for clarity.
 //
 // The real route also requires a Bearer token (requireUserFromRequest) that
 // this call never sent — added below, read the same way client.ts's own

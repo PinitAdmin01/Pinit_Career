@@ -110,14 +110,22 @@ function ArenaContent() {
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || selectedProblemId)) || problems[0];
 
-  // Auto-join if room query parameter is present in URL
+  // Latest versions of handlers used inside effects. They are recreated on every render; reading them
+  // through refs keeps the effects below from restarting on each render (assigned after their definitions).
+  const handleJoinRoomRef = useRef<((codeToJoin?: string) => Promise<void>) | null>(null);
+  const handleTimeoutRef = useRef<(() => Promise<void>) | null>(null);
+  const handledRoomQueryRef = useRef<string | null>(null);
+
+  // Auto-join if room query parameter is present in URL (once each time the room code in the URL changes)
   useEffect(() => {
-    if (roomQueryCode && !activeRoom) {
-      setActiveTab('code_wars');
-      setRoomInputCode(roomQueryCode.toUpperCase());
-      handleJoinRoom(roomQueryCode.toUpperCase());
-    }
-  }, [roomQueryCode]);
+    if (!roomQueryCode) { handledRoomQueryRef.current = null; return; }
+    if (handledRoomQueryRef.current === roomQueryCode) return;
+    handledRoomQueryRef.current = roomQueryCode;
+    if (activeRoom) return;
+    setActiveTab('code_wars');
+    setRoomInputCode(roomQueryCode.toUpperCase());
+    void handleJoinRoomRef.current?.(roomQueryCode.toUpperCase());
+  }, [roomQueryCode, activeRoom]);
 
   // Subscribe to real-time updates when an active room is set
   useEffect(() => {
@@ -146,26 +154,29 @@ function ArenaContent() {
   }, [activeProblem, language]);
 
   // Battle Countdown Timer
+  const roomStatus = activeRoom?.status;
+  const soloStatus = soloMatch?.status;
+  const problemDifficulty = activeProblem?.difficulty;
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-    const isGameActive = (activeRoom && activeRoom.status === 'in_progress') || (soloMatch && soloMatch.status === 'active');
+    const isGameActive = roomStatus === 'in_progress' || soloStatus === 'active';
 
     if (isGameActive && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining(prev => {
           if (prev <= 1) {
-            handleTimeout();
+            void handleTimeoutRef.current?.();
             return 0;
           }
           return prev - 1;
         });
 
         // Turing Benchmark AI opponent pacing simulation for solo mode
-        if (soloMatch && soloMatch.status === 'active' && soloMatch.opponent && !soloMatch.opponent.completed) {
+        if (soloStatus === 'active') {
           setSoloMatch(curr => {
-            if (!curr || !curr.opponent || curr.status !== 'active') return curr;
+            if (!curr || !curr.opponent || curr.status !== 'active' || curr.opponent.completed) return curr;
             const elapsed = (curr.opponent.timeElapsedSeconds || 0) + 1;
-            const targetSeconds = activeProblem.difficulty === 'basic' ? 120 : activeProblem.difficulty === 'advanced' ? 240 : 180;
+            const targetSeconds = problemDifficulty === 'basic' ? 120 : problemDifficulty === 'advanced' ? 240 : 180;
             const progress = Math.min(100, Math.round((elapsed / targetSeconds) * 100));
             const botFinished = progress >= 100;
             return {
@@ -186,7 +197,7 @@ function ArenaContent() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [activeRoom?.status, soloMatch?.status, timeRemaining]);
+  }, [roomStatus, soloStatus, timeRemaining, problemDifficulty]);
 
   // Matchmaking Queue Timer
   useEffect(() => {
@@ -405,6 +416,8 @@ function ArenaContent() {
       setSoloMatch(prev => prev ? { ...prev, status: 'timeout' } : null);
     }
   };
+  handleJoinRoomRef.current = handleJoinRoom;
+  handleTimeoutRef.current = handleTimeout;
 
   // Copy shareable invite link
   const copyInviteLink = () => {
@@ -1223,7 +1236,9 @@ function ArenaContent() {
                   <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#f59e0b', color: '#000', fontSize: 10, fontWeight: 800 }}>
                     👑 HOST
                   </div>
-                  <img
+                  <Image
+                    width={72}
+                    height={72}
                     src={activeRoom.hostAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'}
                     alt="Host"
                     style={{ width: 72, height: 72, borderRadius: '50%', border: '3px solid #6366f1', margin: '0 auto 12px', objectFit: 'cover' }}
@@ -1277,7 +1292,9 @@ function ArenaContent() {
                       <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#6366f1', color: '#fff', fontSize: 10, fontWeight: 800 }}>
                         ⚔️ CHALLENGER
                       </div>
-                      <img
+                      <Image
+                        width={72}
+                        height={72}
                         src={activeRoom.guestAvatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80'}
                         alt="Challenger"
                         style={{ width: 72, height: 72, borderRadius: '50%', border: '3px solid #10b981', margin: '0 auto 12px', objectFit: 'cover' }}
@@ -1369,7 +1386,9 @@ function ArenaContent() {
               }}>
                 {/* Left: You Progress */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 260 }}>
-                  <img
+                  <Image
+                    width={44}
+                    height={44}
                     src={studentAvatar}
                     alt="You"
                     style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #6366f1', objectFit: 'cover' }}
@@ -1444,7 +1463,9 @@ function ArenaContent() {
                       </div>
                     </div>
                   </div>
-                  <img
+                  <Image
+                    width={44}
+                    height={44}
                     src={activeRoom ? (opponentAvatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80') : (soloMatch?.opponent?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80')}
                     alt="Rival"
                     style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #ef4444', objectFit: 'cover' }}

@@ -45,8 +45,8 @@ backend, and a request passes through four layers:
 |---|---|---|---|
 | 1 | interceptor | `src/lib/fetchInterceptor.ts` | hijacks `fetch('/api/*')`. Exempt paths reach the network and get `index.html` back. |
 | 2 | preferLive | `src/lib/api/client.ts` `request()` | for 27 prefixes, tries the network first. Under static hosting that returns `index.html` with HTTP 200, `res.json()` throws, and it falls through — one wasted request per prefix, never a success. |
-| 3 | campus switch | `src/lib/campusFallback.ts` | ~102 cases delegating to `src/lib/services/*`. Default case throws. |
-| 4 | firestoreRouter | `src/lib/api/client.ts` | ordered if-chain of ~172 guards. **First match wins**; later guards for the same path are unreachable. |
+| 3 | campus switch | *(removed 2026-09-28)* | was `src/lib/campusFallback.ts`. Unreachable: every `/api/*` call goes to the server. |
+| 4 | firestoreRouter | *(removed 2026-09-28)* | was `src/lib/api/legacyFirestoreRouter.ts`. Unreachable for the same reason; a path with no server route is `UNHANDLED-404`. |
 
 `src/app/api/**` is dead code in production — but it is not garbage. It is the
 written specification for what each handler should do, and every fix should be

@@ -79,13 +79,11 @@ assert(!applicationsPanelContent.includes('app.atsScore || 50'), 'ATS score does
 assert(!applicationsPanelContent.includes('app.trustScore || 50'), 'Trust score does not use fake 50 fallback');
 assert(applicationsPanelContent.includes('Privacy Shielded') || applicationsPanelContent.includes('s***@college.edu'), 'Student personal contact details are masked/privacy shielded');
 
-// 7. Check legacyFirestoreRouter recruiter routes
-const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
-const routerContent = fs.readFileSync(routerPath, 'utf-8');
-
-assert(routerContent.includes("cleanPath === '/api/recruiter/schedule-interview'"), 'legacyFirestoreRouter handles /api/recruiter/schedule-interview');
-assert(routerContent.includes("cleanPath === '/api/recruiter/shortlist'"), 'legacyFirestoreRouter handles /api/recruiter/shortlist');
-assert(routerContent.includes("cleanPath === '/api/recruiter/contact-request'"), 'legacyFirestoreRouter handles /api/recruiter/contact-request');
-assert(routerContent.includes("notifications"), 'Recruiter actions create records in public.notifications');
+// 7. Check the recruiter server routes (every /api/* call is served by src/app/api)
+const recruiterRoute = (name: string) => path.join(process.cwd(), 'src/app/api/recruiter', name, 'route.ts');
+for (const name of ['schedule-interview', 'shortlist', 'contact-request']) {
+  assert(fs.existsSync(recruiterRoute(name)), `server route handles /api/recruiter/${name}`);
+  assert(fs.readFileSync(recruiterRoute(name), 'utf-8').includes('notifications'), `/api/recruiter/${name} creates records in public.notifications`);
+}
 
 console.log('\n🌟 ALL UNIVERSITY & RECRUITER PORTAL INTEGRITY CHECKS PASSED!\n');
