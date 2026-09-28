@@ -92,7 +92,7 @@ function lazyAnswer(starter: string, value: string): string {
 }
 type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
 
-const CHECKED_COURSES = ['course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+const CHECKED_COURSES = ['course-react-web', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
 test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
   // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
