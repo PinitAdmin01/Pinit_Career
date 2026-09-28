@@ -10,6 +10,18 @@ import type { LongLesson } from './longLessons';
  */
 const lines = (...l: string[]) => l.join('\n');
 
+/** A small shop used by the join lessons (Days 11-15). Each example starts with it, so it runs on its own. */
+const MINI_SHOP = lines(
+  'CREATE TABLE customers (id int PRIMARY KEY, name text, city text);',
+  "INSERT INTO customers VALUES (1, 'Asha', 'Pune'), (2, 'Ravi', 'Mumbai'), (3, 'Priya', 'Pune'), (4, 'Meera', NULL);",
+  'CREATE TABLE orders (id int PRIMARY KEY, customer_id int REFERENCES customers(id), ordered_on date, status text);',
+  "INSERT INTO orders VALUES (101, 1, '2026-09-01', 'delivered'), (102, 2, '2026-09-03', 'delivered'), (103, 1, '2026-09-10', 'shipped'), (104, 3, '2026-09-12', 'pending');",
+  'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+  "INSERT INTO products VALUES (1, 'Notebook', 60), (2, 'Pen', 10), (3, 'Backpack', 1200), (4, 'Stapler', 150);",
+  'CREATE TABLE order_items (order_id int REFERENCES orders(id), product_id int REFERENCES products(id), quantity int, PRIMARY KEY (order_id, product_id));',
+  'INSERT INTO order_items VALUES (101, 1, 3), (101, 2, 10), (102, 3, 1), (103, 2, 5), (104, 1, 1);'
+);
+
 export const SQL_LONG_LESSONS: LongLesson[] = [
   // ─────────────────────────────────────────────────────────────────────────────
   {
@@ -2845,6 +2857,1423 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         'Add an author_id int REFERENCES authors(id) column to your books table design.',
         'Insert 2 or 3 authors and link your books to them by id.',
         'Try to add a book with an author_id that does not exist, and read the error.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 11,
+    title: 'Joining Tables: INNER JOIN',
+    goal: 'You can combine linked tables in one result with INNER JOIN, use table aliases, and filter, sort and total joined data.',
+    minutes: 28,
+    recap: 'Yesterday you learned how tables link with foreign keys: one-to-many, many-to-many, and why data is split into tables.',
+    parts: [
+      {
+        title: 'What a join does',
+        say: [
+          'Yesterday you split data into linked tables: orders store a customer_id instead of the customer\'s name. That is good design, but when a manager asks "show each order with the customer\'s name", the name is in one table and the order is in another. A join brings them together.',
+          'A join puts rows from two tables side by side, matching them by a rule you give. For orders and customers, the rule is: the order\'s customer_id equals the customer\'s id. Each order finds its customer, and the result has columns from both tables.',
+          'The basic form is: SELECT columns FROM orders JOIN customers ON customers.id = orders.customer_id. JOIN on its own means INNER JOIN, the most common kind. The ON part is the matching rule.',
+          'The database does not store the joined result anywhere. It builds it fresh each time you run the query, from the current data. So if a customer changes their name, every joined report shows the new name straight away.',
+          'Joins are the single most important skill in SQL. Almost every real question needs one, and almost every SQL interview asks about them. You will spend three days on them, starting today with INNER JOIN.',
+          'You may also see an older way of writing joins: FROM orders, customers WHERE customers.id = orders.customer_id. It gives the same result for an inner join, but mixing the matching rule into WHERE makes long queries hard to read and easy to break. Modern SQL uses JOIN ... ON, and so does this course.'
+        ],
+        example: 'Think of a wedding: the guest list has names and table numbers, and the seating chart has table numbers and which side of the hall each table is on. To tell a guest where to go, you match their table number on both lists. A join is that matching, done for every row at once.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT orders.id, orders.status, customers.name',
+          'FROM orders',
+          'JOIN customers ON customers.id = orders.customer_id',
+          'ORDER BY orders.id;'
+        ),
+        output: lines(
+          ' id  | status    | name',
+          '-----+-----------+-------',
+          ' 101 | delivered | Asha',
+          ' 102 | delivered | Ravi',
+          ' 103 | shipped   | Asha',
+          ' 104 | pending   | Priya',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Columns from both tables. The table name before the dot says which table.' },
+          { line: 11, note: 'The matching rule: each order\'s customer_id equals a customer\'s id.' }
+        ],
+        tryIt: 'Add customers.city to the SELECT list and run it. Each order now also shows where its customer lives.',
+        check: {
+          question: 'What does JOIN customers ON customers.id = orders.customer_id do?',
+          options: ['Puts each order next to the customer whose id matches its customer_id', 'Copies customers into the orders table', 'Deletes orders without a customer'],
+          answer: 0,
+          why: 'A join combines rows from both tables in the result, using the ON rule to match them. The tables themselves are not changed.'
+        }
+      },
+      {
+        title: 'Table aliases: shorter joins',
+        say: [
+          'Writing the full table name before every column gets long quickly: orders.id, customers.name, order_items.quantity. So SQL lets you give each table a short nickname, called an alias, right after its name: FROM orders o JOIN customers c.',
+          'From then on, you use the alias instead of the full name: o.id, c.name. The query becomes much shorter and easier to read, especially with three or four tables.',
+          'Good aliases are short but clear, usually the first letter or two of the table: c for customers, o for orders, p for products, oi for order_items. Avoid meaningless aliases like a, b, c when the tables are not called a, b and c.',
+          'When a column name exists in both tables, like id or name, you must say which one you mean. SELECT id FROM orders o JOIN customers c ... gives an error, because both tables have an id. Writing o.id or c.id removes the doubt. Many teams simply always write the alias, which is a good habit.',
+          'You can also rename result columns with AS, as before. This is useful in joins, because two columns with the same name, like o.id and c.id, would otherwise be confusing in the result.'
+        ],
+        example: 'In a class with three students called Rahul, the teacher says "Rahul S" and "Rahul K" to be clear. Aliases do the same for tables: o.id and c.id, so PostgreSQL knows exactly which id you mean.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT o.id AS order_id, c.id AS customer_id, c.name AS customer',
+          'FROM orders o',
+          'JOIN customers c ON c.id = o.customer_id',
+          'ORDER BY o.id;',
+          'SELECT id FROM orders o JOIN customers c ON c.id = o.customer_id;'
+        ),
+        output: '[Error] column reference "id" is ambiguous',
+        codeNotes: [
+          { line: 10, note: 'o is the alias for orders, used from here on.' },
+          { line: 13, note: 'Both tables have an id column, so PostgreSQL cannot tell which one you mean.' }
+        ],
+        tryIt: 'Fix line 13 by writing o.id instead of id, and run again. Both queries now work.',
+        check: {
+          question: 'Why write o.id instead of just id in a join of orders and customers?',
+          options: ['Both tables have an id column, so you must say which one', 'Aliases make the query faster', 'id is a reserved word'],
+          answer: 0,
+          why: 'When a column name exists in both tables, the alias tells PostgreSQL which table\'s column you mean.'
+        }
+      },
+      {
+        title: 'INNER JOIN keeps only matching rows',
+        say: [
+          'INNER JOIN has one important behaviour: it keeps only rows that have a match on both sides. An order whose customer_id matches no customer would disappear from the result. And a customer with no orders does not appear either.',
+          'In our small shop, Meera has not ordered anything. So a join of customers and orders shows Asha, Ravi and Priya, but not Meera. That is correct for the question "show each order with its customer", but wrong for "show every customer and their orders".',
+          'This is the most common source of wrong join results: rows that silently disappear. A report of "sales per customer" made with INNER JOIN leaves out customers who bought nothing, which might be exactly the customers a manager wants to call.',
+          'Tomorrow you will learn LEFT JOIN, which keeps rows even when there is no match. For today, remember the rule: INNER JOIN shows only pairs that exist on both sides.',
+          'A good habit is to count before and after a join. If the orders table has 4 rows and your joined result has 3, some rows found no match. Knowing why is part of writing a correct query.'
+        ],
+        example: 'A dance class pairs up students who both signed up for the same slot. A student whose partner did not come is not in the pairs list. INNER JOIN is that pairs list: only complete pairs appear.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, o.id AS order_id',
+          'FROM customers c',
+          'JOIN orders o ON o.customer_id = c.id',
+          'ORDER BY c.name, o.id;',
+          'SELECT count(*) AS customers FROM customers;'
+        ),
+        output: lines(
+          ' name  | order_id',
+          '-------+----------',
+          ' Asha  |      101',
+          ' Asha  |      103',
+          ' Priya |      104',
+          ' Ravi  |      102',
+          '(4 rows)',
+          '',
+          ' customers',
+          '-----------',
+          '         4',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Only customers who have at least one order appear.' },
+          { line: 13, note: 'There are 4 customers, but Meera has no orders, so she is missing above.' }
+        ],
+        tryIt: 'Add an order for Meera to the setup by adding a line: INSERT INTO orders VALUES (105, 4, \'2026-09-20\', \'pending\'); before the SELECT. She now appears.',
+        check: {
+          question: 'A customer has no orders. Does INNER JOIN between customers and orders show them?',
+          options: ['No, INNER JOIN only keeps rows with a match on both sides', 'Yes, with empty order columns', 'Only if you add ORDER BY'],
+          answer: 0,
+          why: 'INNER JOIN drops rows without a match. LEFT JOIN, tomorrow, keeps them with NULLs.'
+        }
+      },
+      {
+        title: 'Joining and then filtering, sorting and totalling',
+        say: [
+          'A join produces rows like any other query, so everything you learned in week 1 works on top of it. WHERE filters the joined rows, ORDER BY sorts them, and GROUP BY with aggregates totals them.',
+          'For example, "orders from customers in Pune" needs the customer\'s city, which lives in customers, and the orders, which live in orders. Join them, then add WHERE c.city = \'Pune\'.',
+          '"How many orders has each customer placed?" joins orders to customers, then groups by the customer\'s name. Because the name comes from the joined table, you can group and show it directly.',
+          'The order of clauses stays the same: SELECT, FROM with its JOINs, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT. The JOIN lines belong to the FROM part, before WHERE.',
+          'When you group joined data, group by something unique for each group, like the customer id, as well as the name. Two different customers can have the same name, and grouping by name alone would wrongly add their orders together.'
+        ],
+        example: 'A college wants the number of books borrowed by students from each hostel. The borrowing record has roll numbers; the student list has hostels. You match them first, then count per hostel. Join first, then group.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT o.id, c.name',
+          'FROM orders o',
+          'JOIN customers c ON c.id = o.customer_id',
+          "WHERE c.city = 'Pune'",
+          'ORDER BY o.id;',
+          'SELECT c.id, c.name, count(*) AS orders',
+          'FROM customers c',
+          'JOIN orders o ON o.customer_id = c.id',
+          'GROUP BY c.id, c.name',
+          'ORDER BY orders DESC, c.name;'
+        ),
+        output: lines(
+          ' id  | name',
+          '-----+-------',
+          ' 101 | Asha',
+          ' 103 | Asha',
+          ' 104 | Priya',
+          '(3 rows)',
+          '',
+          ' id | name  | orders',
+          '----+-------+--------',
+          '  1 | Asha  |      2',
+          '  3 | Priya |      1',
+          '  2 | Ravi  |      1',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 12, note: 'The filter uses a column from the joined customers table.' },
+          { line: 17, note: 'Group by the id and the name, so two customers with the same name stay separate.' }
+        ],
+        tryIt: "Add HAVING count(*) > 1 to the second query, before ORDER BY. Only Asha is left.",
+        check: {
+          question: 'Where do the JOIN lines go in a query?',
+          options: ['Right after FROM, before WHERE', 'After ORDER BY', 'Inside the SELECT list'],
+          answer: 0,
+          why: 'Joins are part of the FROM clause. WHERE, GROUP BY and ORDER BY then work on the joined rows.'
+        }
+      },
+      {
+        title: 'Joining a junction table',
+        say: [
+          'Many-to-many relationships, like orders and products, go through a junction table: order_items. To show "which products were in order 101", you join order_items to products.',
+          'Each row of order_items says "this order contains this product, this many times". Joining it to products on product_id adds the product\'s name and price to each line. The result reads like the lines of a bill.',
+          'Once you have the price and the quantity side by side, you can calculate: p.price * oi.quantity AS line_total. And with GROUP BY on the order, sum of the line totals gives each order\'s total value.',
+          'This is a very common pattern in real apps: a bill, a shopping cart, a playlist, a class timetable. Each is a junction table joined to the thing it lists.',
+          'Remember that the junction table can have several rows for one order, one per product. So when you join and then count or sum, you are counting lines, not orders. Always ask yourself what one row of your result means.',
+          'In a real shop, order_items usually also stores the price at the time of purchase, because product prices change. If the Pen costs 12 next month, an old bill must still show the 10 rupees the customer actually paid. Joining to the current products price is fine for learning, but real invoices keep their own copy.'
+        ],
+        example: 'A restaurant bill lists each dish you ordered, how many plates, the price per plate, and the line total. The kitchen\'s order slip only had dish numbers and quantities; the prices came from the menu. The bill is order_items joined to the menu.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT p.name, oi.quantity, p.price, p.price * oi.quantity AS line_total',
+          'FROM order_items oi',
+          'JOIN products p ON p.id = oi.product_id',
+          'WHERE oi.order_id = 101',
+          'ORDER BY p.name;',
+          'SELECT oi.order_id, sum(p.price * oi.quantity) AS order_total',
+          'FROM order_items oi',
+          'JOIN products p ON p.id = oi.product_id',
+          'GROUP BY oi.order_id',
+          'ORDER BY oi.order_id;'
+        ),
+        output: lines(
+          ' name     | quantity | price | line_total',
+          '----------+----------+-------+------------',
+          ' Notebook |        3 | 60.00 |     180.00',
+          ' Pen      |       10 | 10.00 |     100.00',
+          '(2 rows)',
+          '',
+          ' order_id | order_total',
+          '----------+-------------',
+          '      101 |      280.00',
+          '      102 |     1200.00',
+          '      103 |       50.00',
+          '      104 |       60.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Each line of the bill: name, quantity, price and line total.' },
+          { line: 14, note: 'Add up the line totals for each order.' }
+        ],
+        tryIt: 'Change the first query to show order 103 instead of 101. What did that order contain?',
+        check: {
+          question: 'In a join of order_items and products, what does one result row represent?',
+          options: ['One product line inside one order', 'One whole order', 'One product in the catalogue'],
+          answer: 0,
+          why: 'order_items has one row per product per order, so each joined row is one line of a bill.'
+        }
+      },
+      {
+        title: 'Putting it together: an orders report',
+        say: [
+          'Let us combine today\'s ideas into a report a shop manager would use: each delivered order with its customer\'s name and its total value, biggest first.',
+          'This needs three tables. orders gives the status and date. customers gives the name. order_items and products give the total. We join them all, filter with WHERE, group by the order, and sort.',
+          'Read the query slowly from FROM downwards: start with orders, attach the customer, attach the order lines, attach the products. Then keep delivered orders, group each order\'s lines together, and add them up. Tomorrow and the day after, you will build longer chains like this.',
+          'In today\'s practice, you will show every order with its customer\'s name, and list the products and quantities in one order. Both are single joins, exactly like this lesson.',
+          'Tomorrow you meet LEFT JOIN, which keeps rows that have no match: customers who never ordered, products nobody bought. It is the answer to the "missing rows" problem from part 3.'
+        ],
+        example: 'At the end of the day, a shop owner flips through the delivered orders: whose order it was, and how much it came to. Behind that simple list, three or four tables are joined together.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT o.id AS order_id, c.name AS customer, sum(p.price * oi.quantity) AS total',
+          'FROM orders o',
+          'JOIN customers c ON c.id = o.customer_id',
+          'JOIN order_items oi ON oi.order_id = o.id',
+          'JOIN products p ON p.id = oi.product_id',
+          "WHERE o.status = 'delivered'",
+          'GROUP BY o.id, c.name',
+          'ORDER BY total DESC;'
+        ),
+        output: lines(
+          ' order_id | customer | total',
+          '----------+----------+---------',
+          '      102 | Ravi     | 1200.00',
+          '      101 | Asha     |  280.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Attach each order\'s customer.' },
+          { line: 12, note: 'Attach the order\'s lines, then each line\'s product.' },
+          { line: 15, note: 'One result row per order, with its lines added up.' }
+        ],
+        tryIt: "Remove the WHERE line and run it again. Orders 103 and 104, which are not delivered, now appear too.",
+        check: {
+          question: 'Why group by o.id in the orders report?',
+          options: ['So each order\'s product lines are added up into one row per order', 'Because every join needs GROUP BY', 'To sort the orders'],
+          answer: 0,
+          why: 'After joining, each order has one row per product line. Grouping by the order adds those lines into one total.'
+        }
+      }
+    ],
+    summary: [
+      'A join puts rows from linked tables side by side, matched by an ON rule.',
+      'JOIN on its own means INNER JOIN: only rows with a match on both sides are kept.',
+      'Aliases like o and c keep joins short; use them when a column name is in both tables.',
+      'WHERE, GROUP BY and ORDER BY work on the joined rows; group by an id, not just a name.',
+      'Junction tables like order_items join to the things they list, like the lines of a bill.'
+    ],
+    projectStep: {
+      title: 'My Library: books with author names',
+      steps: [
+        'Using your authors and books tables from Day 10, join them to show each book with its author\'s name.',
+        'Show only the books by one chosen author, using WHERE on the author\'s name.',
+        'Count books per author with a join and GROUP BY a.id, a.name.',
+        'Count the rows before and after the join. If any book disappeared, find out why.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 12,
+    title: 'Keeping Rows Without a Match: LEFT JOIN',
+    goal: 'You can keep unmatched rows with LEFT JOIN, count zero correctly, and find rows with no match.',
+    minutes: 28,
+    recap: 'Yesterday you combined tables with INNER JOIN, which keeps only rows that have a match on both sides.',
+    parts: [
+      {
+        title: 'LEFT JOIN: keep every row from the first table',
+        say: [
+          'Yesterday, Meera disappeared from the customers-and-orders result because she has no orders. INNER JOIN only keeps complete pairs. Often that is exactly what you want, but sometimes it hides important rows.',
+          'LEFT JOIN solves this. It keeps every row from the left table, the one written before the word JOIN, whether it finds a match or not. When there is no match, the columns from the right table are filled with NULL.',
+          'So customers LEFT JOIN orders shows every customer. Asha, Ravi and Priya appear with their orders, and Meera appears once, with NULL in the order columns. Nothing is lost.',
+          'The left table is simply the one that comes first. FROM customers c LEFT JOIN orders o keeps all customers. FROM orders o LEFT JOIN customers c would keep all orders instead. Choosing which table goes first is choosing which rows must never disappear.',
+          'You will also see LEFT OUTER JOIN in some SQL. It means exactly the same as LEFT JOIN; the word OUTER is optional.',
+          'A quick way to check whether you need LEFT JOIN is to read the question for words like every, all, including or even if. "Every customer and their orders", "all products, including unsold ones": these words mean some rows must stay even without a match, so the table they refer to goes first, with LEFT JOIN.'
+        ],
+        example: 'A class teacher reads the full attendance register and ticks who submitted homework. Students who did not submit are still on the list, with an empty box next to their name. LEFT JOIN is the full register with empty boxes; INNER JOIN would be a list of only those who submitted.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, o.id AS order_id, o.status',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'ORDER BY c.name, o.id;'
+        ),
+        output: lines(
+          ' name  | order_id | status',
+          '-------+----------+-----------',
+          ' Asha  |      101 | delivered',
+          ' Asha  |      103 | shipped',
+          ' Meera |     NULL | NULL',
+          ' Priya |      104 | pending',
+          ' Ravi  |      102 | delivered',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'customers is on the left, so every customer is kept.' },
+          { line: 11, note: 'Meera has no orders, so her order columns are NULL.' }
+        ],
+        tryIt: 'Change LEFT JOIN to JOIN and run it again. Meera disappears. Change it back.',
+        check: {
+          question: 'In FROM customers c LEFT JOIN orders o, which rows are always kept?',
+          options: ['Every customer', 'Every order', 'Only customers with orders'],
+          answer: 0,
+          why: 'LEFT JOIN keeps every row of the left table, the one before JOIN. Missing matches become NULL.'
+        }
+      },
+      {
+        title: 'Counting zero correctly',
+        say: [
+          'The most common use of LEFT JOIN is counting, including zero. "How many orders has each customer placed?" should show Meera with 0, not leave her out.',
+          'Here is the trap: with LEFT JOIN, count(*) counts rows, and Meera still has one row, the one filled with NULLs. So count(*) says 1 for her, which is wrong.',
+          'The fix is to count a column from the right table, like count(o.id). Remember from Day 8: count(column) skips NULL. Meera\'s only row has a NULL order id, so count(o.id) correctly gives 0.',
+          'The same applies to sum: sum(o.total) for a customer with no orders is NULL, not 0. Wrap it with coalesce: coalesce(sum(o.total), 0).',
+          'This pattern, LEFT JOIN plus count(right_table.id) plus GROUP BY, is one of the most useful in SQL. It is also a favourite interview question, because so many people get the zero wrong.',
+          'Before trusting such a report, check the total number of rows. A report of orders per customer should have exactly one row per customer, so its row count should equal SELECT count(*) FROM customers. If it has fewer rows, some customers were lost; if it has more, the GROUP BY is wrong. This simple check catches most mistakes.'
+        ],
+        example: 'If you count the empty boxes on an attendance sheet as "one submission", a student who submitted nothing looks like they submitted once. You must count the ticks, not the lines. count(o.id) counts the ticks.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, count(*) AS wrong_count, count(o.id) AS order_count',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'GROUP BY c.id, c.name',
+          'ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | wrong_count | order_count',
+          '-------+-------------+-------------',
+          ' Asha  |           2 |           2',
+          ' Meera |           1 |           0',
+          ' Priya |           1 |           1',
+          ' Ravi  |           1 |           1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'count(*) counts Meera\'s NULL row as 1. count(o.id) skips it and gives 0.' },
+          { line: 12, note: 'Group by id and name, as you learned yesterday.' }
+        ],
+        tryIt: 'Remove the wrong_count column so only the correct count is left. This is the query you would give to a manager.',
+        check: {
+          question: 'With LEFT JOIN, which count shows 0 for customers with no orders?',
+          options: ['count(o.id)', 'count(*)', 'count(c.id)'],
+          answer: 0,
+          why: 'The unmatched row has NULL in o.id, and count(column) skips NULL. count(*) and count(c.id) both count that row as 1.'
+        }
+      },
+      {
+        title: 'Finding rows with no match',
+        say: [
+          'LEFT JOIN can also find what is missing: customers who never ordered, products nobody bought, students who did not submit. These are some of the most valuable questions in business.',
+          'The trick is to LEFT JOIN, then keep only the rows where the right side is NULL: WHERE o.id IS NULL. Those are exactly the left rows that found no match.',
+          'Use a column that can never be NULL in a real match, such as the right table\'s primary key. If you used a column that is sometimes NULL anyway, like a comment, you would find false "missing" rows.',
+          'This pattern is sometimes called an anti-join. On Day 15 you will see another way to write it, with NOT EXISTS, which some developers prefer. Both give the same answer.',
+          'Questions like "customers who have not ordered in 90 days" or "products with no sales this month" are asked every week in real companies, and they all use this idea.'
+        ],
+        example: 'A school wants to call parents of students who did not come to the parent-teacher meeting. It takes the full student list, marks who came, and keeps the unmarked names. That is LEFT JOIN, then keep where the match is empty.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'WHERE o.id IS NULL;',
+          'SELECT p.name',
+          'FROM products p',
+          'LEFT JOIN order_items oi ON oi.product_id = p.id',
+          'WHERE oi.order_id IS NULL;'
+        ),
+        output: lines(
+          ' name',
+          '-------',
+          ' Meera',
+          '(1 row)',
+          '',
+          ' name',
+          '---------',
+          ' Stapler',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 12, note: 'Keep only customers whose order side is empty: Meera.' },
+          { line: 16, note: 'The same idea for products: the Stapler was never ordered.' }
+        ],
+        tryIt: 'Add an order line for the Stapler to the setup, for example INSERT INTO order_items VALUES (104, 4, 2); and run again. The second result becomes empty.',
+        check: {
+          question: 'How do you find customers who have never placed an order?',
+          options: ['LEFT JOIN orders, then WHERE o.id IS NULL', 'INNER JOIN orders, then WHERE o.id IS NULL', 'SELECT customers WHERE orders = 0'],
+          answer: 0,
+          why: 'LEFT JOIN keeps unmatched customers with NULL order columns, and IS NULL keeps just those.'
+        }
+      },
+      {
+        title: 'The WHERE trap with LEFT JOIN',
+        say: [
+          'There is one trap with LEFT JOIN that catches almost everyone. Suppose you want every customer with their delivered orders only. You write LEFT JOIN orders, then WHERE o.status = \'delivered\'. Meera and Priya vanish. Why?',
+          'Because WHERE runs after the join, on the joined rows. Meera\'s row has NULL status, and NULL = \'delivered\' is not true, so WHERE removes her. Priya only has a pending order, so her row is removed too. The LEFT JOIN kept them, but the WHERE threw them away.',
+          'The fix is to put the condition in the ON part instead: LEFT JOIN orders o ON o.customer_id = c.id AND o.status = \'delivered\'. Now the condition only decides which orders are attached. Customers without a delivered order are still kept, with NULLs.',
+          'A simple rule: with LEFT JOIN, conditions about the right table usually belong in ON. Conditions about the left table, like c.city = \'Pune\', belong in WHERE.',
+          'If your LEFT JOIN result looks like an INNER JOIN result, with the unmatched rows missing, look for a WHERE condition on the right table. It is almost always the cause.'
+        ],
+        example: 'A teacher wants the full class list, with a tick for students who submitted on time. If she first removes everyone without an on-time tick, she no longer has the full class. She should keep everyone and only tick the on-time ones. ON decides the ticks; WHERE removes rows.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, o.id AS delivered_order',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          "WHERE o.status = 'delivered'",
+          'ORDER BY c.name;',
+          'SELECT c.name, o.id AS delivered_order',
+          'FROM customers c',
+          "LEFT JOIN orders o ON o.customer_id = c.id AND o.status = 'delivered'",
+          'ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name | delivered_order',
+          '------+-----------------',
+          ' Asha |             101',
+          ' Ravi |             102',
+          '(2 rows)',
+          '',
+          ' name  | delivered_order',
+          '-------+-----------------',
+          ' Asha  |             101',
+          ' Meera |            NULL',
+          ' Priya |            NULL',
+          ' Ravi  |             102',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 12, note: 'The trap: WHERE removes customers without a delivered order.' },
+          { line: 16, note: 'The fix: the condition in ON only chooses which orders are attached.' }
+        ],
+        tryIt: "Add WHERE c.city = 'Pune' to the second query, before ORDER BY. That condition is about customers, so WHERE is the right place.",
+        check: {
+          question: 'Your LEFT JOIN result is missing customers with no match. What is the likely cause?',
+          options: ['A WHERE condition on a right-table column, which removes the NULL rows', 'LEFT JOIN is too slow', 'Missing ORDER BY'],
+          answer: 0,
+          why: 'WHERE runs after the join and drops rows whose right-table columns are NULL. Move that condition into ON.'
+        }
+      },
+      {
+        title: 'RIGHT JOIN and FULL JOIN',
+        say: [
+          'There are two more outer joins. RIGHT JOIN keeps every row from the right table instead of the left. orders o RIGHT JOIN customers c keeps every customer, just like customers c LEFT JOIN orders o.',
+          'Because any RIGHT JOIN can be written as a LEFT JOIN by swapping the tables, most developers only use LEFT JOIN. It makes queries easier to read: the table whose rows must all appear always comes first.',
+          'FULL JOIN keeps every row from both sides. Rows that match are paired; unmatched rows from either table appear with NULLs on the other side. It is useful for comparing two lists and seeing what is in one, the other, or both.',
+          'For example, comparing a list of students who registered with a list of students who attended: FULL JOIN shows who registered and attended, who registered but did not attend, and who attended without registering.',
+          'FULL JOIN is used less often than LEFT JOIN, but when you need to compare two lists, it is the right tool. Knowing all four joins, and when to use each, is a standard interview topic.',
+          'Comparing lists like this is common when checking data: payments in the bank statement against payments in your app, or students on the fee list against students on the attendance list. The rows with NULL on one side are exactly the ones someone needs to look into.'
+        ],
+        example: 'Comparing a wedding\'s invitation list with the list of guests who actually came: some were invited and came, some were invited but did not come, and a few came without an invitation. FULL JOIN shows all three groups at once.',
+        code: lines(
+          'CREATE TABLE registered (name text);',
+          "INSERT INTO registered VALUES ('Asha'), ('Ravi'), ('Priya');",
+          'CREATE TABLE attended (name text);',
+          "INSERT INTO attended VALUES ('Asha'), ('Priya'), ('Karan');",
+          'SELECT r.name AS registered, a.name AS attended',
+          'FROM registered r',
+          'FULL JOIN attended a ON a.name = r.name',
+          'ORDER BY coalesce(r.name, a.name);'
+        ),
+        output: lines(
+          ' registered | attended',
+          '------------+----------',
+          ' Asha       | Asha',
+          ' NULL       | Karan',
+          ' Priya      | Priya',
+          ' Ravi       | NULL',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'FULL JOIN keeps unmatched rows from both lists.' },
+          { line: 8, note: 'Sort by whichever name is present.' }
+        ],
+        tryIt: 'Change FULL JOIN to LEFT JOIN and run it. Karan, who attended without registering, disappears.',
+        check: {
+          question: 'Which join shows rows from both tables, even when they have no match?',
+          options: ['FULL JOIN', 'INNER JOIN', 'LEFT JOIN'],
+          answer: 0,
+          why: 'FULL JOIN keeps unmatched rows from both sides. LEFT JOIN keeps only the left side\'s unmatched rows.'
+        }
+      },
+      {
+        title: 'Putting it together: a customer activity report',
+        say: [
+          'Let us build a report that a real shop would use to plan a marketing campaign: every customer, how many orders they placed, and how much they spent in total, including customers who have not ordered yet.',
+          'Every customer must appear, so customers goes first with LEFT JOIN. Spending needs order_items and products too, so those are LEFT JOINed as well. The counts use count(DISTINCT o.id), because each order now appears once per product line. And the total uses coalesce so customers with nothing show 0.',
+          'Notice count(DISTINCT o.id). After joining order lines, an order with two products appears twice. count(o.id) would count it twice; DISTINCT counts each order once. Always think about what one row means after a join.',
+          'In today\'s practice, you will show every customer\'s order count, including 0, and find the products nobody ordered. Both are exactly the patterns from this lesson.',
+          'Tomorrow you join many tables in a chain, and even join a table to itself, for example employees and their managers.'
+        ],
+        example: 'Before a festival sale, a shop sends messages to every customer: a thank-you to regular buyers, and a welcome offer to people who signed up but never bought. To do that, it needs every customer, with or without orders. That list is this report.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name,',
+          '       count(DISTINCT o.id) AS orders,',
+          '       coalesce(sum(p.price * oi.quantity), 0) AS spent',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'LEFT JOIN order_items oi ON oi.order_id = o.id',
+          'LEFT JOIN products p ON p.id = oi.product_id',
+          'GROUP BY c.id, c.name',
+          'ORDER BY spent DESC, c.name;'
+        ),
+        output: lines(
+          ' name  | orders | spent',
+          '-------+--------+---------',
+          ' Ravi  |      1 | 1200.00',
+          ' Asha  |      2 |  330.00',
+          ' Priya |      1 |   60.00',
+          ' Meera |      0 |       0',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'DISTINCT: each order is counted once, even if it has several product lines.' },
+          { line: 11, note: 'coalesce turns Meera\'s NULL total into 0.' },
+          { line: 13, note: 'LEFT JOIN all the way down, so no customer is lost.' }
+        ],
+        tryIt: 'Change count(DISTINCT o.id) to count(o.id) and run it. Asha\'s count goes up, because her order 101 has two lines. Change it back.',
+        check: {
+          question: 'Why use count(DISTINCT o.id) after joining order_items?',
+          options: ['An order with several product lines appears several times after the join', 'DISTINCT makes counting faster', 'count cannot count ids without DISTINCT'],
+          answer: 0,
+          why: 'Each product line repeats the order. DISTINCT counts each order once.'
+        }
+      }
+    ],
+    summary: [
+      'LEFT JOIN keeps every row of the left table; unmatched right-side columns become NULL.',
+      'Count with count(right_table.id) to get 0 for rows with no match; use coalesce for sums.',
+      'Find missing matches with LEFT JOIN plus WHERE right_table.id IS NULL.',
+      'Conditions on the right table belong in ON, not WHERE, or unmatched rows vanish.',
+      'RIGHT JOIN is LEFT JOIN reversed; FULL JOIN keeps unmatched rows from both sides.'
+    ],
+    projectStep: {
+      title: 'My Library: authors without books',
+      steps: [
+        'Add an author to your authors table who has no books yet.',
+        'List every author with their number of books, showing 0 for the new author.',
+        'Find authors with no books, using LEFT JOIN and IS NULL.',
+        'List every author with their finished books only, putting the finished condition in ON.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 13,
+    title: 'Joining Many Tables, and a Table to Itself',
+    goal: 'You can chain several joins, choose the right join for each link, and join a table to itself.',
+    minutes: 28,
+    recap: 'Yesterday you kept unmatched rows with LEFT JOIN, counted zero correctly, and found rows with no match.',
+    parts: [
+      {
+        title: 'Chaining joins step by step',
+        say: [
+          'Real questions often cross three or four tables. "Which products did Asha buy?" starts at customers, goes through orders and order_items, and ends at products. You write one JOIN for each step.',
+          'Think of it as a path. Start from the table that holds your starting point, here customers. Then add one table at a time, each joined to one that is already in the query, using the foreign key between them.',
+          'Each JOIN line has its own ON rule. customers to orders uses orders.customer_id = customers.id. orders to order_items uses order_items.order_id = orders.id. order_items to products uses products.id = order_items.product_id.',
+          'The order of the JOIN lines usually does not change the result for INNER JOINs; PostgreSQL chooses the fastest way to do them. But writing them in path order makes the query much easier to read and check.',
+          'If you are unsure, build the query one join at a time. Run it after each JOIN, look at the rows, and only then add the next. This is how experienced developers write long queries too.',
+          'Long join queries are easier to read if you format them the same way every time: one JOIN per line, each ON on the same line as its JOIN, and tables in path order. Your teammates will read your queries far more often than you write them, so consistent formatting is a kindness, and in code reviews it is often expected.'
+        ],
+        example: 'Finding a friend\'s house in a new city: from the station take the bus to the market, from the market walk to the temple, from the temple it is the third house. Each step connects to the last one. A chain of joins is that set of directions through your tables.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name AS customer, o.id AS order_id, p.name AS product, oi.quantity',
+          'FROM customers c',
+          'JOIN orders o ON o.customer_id = c.id',
+          'JOIN order_items oi ON oi.order_id = o.id',
+          'JOIN products p ON p.id = oi.product_id',
+          "WHERE c.name = 'Asha'",
+          'ORDER BY o.id, p.name;'
+        ),
+        output: lines(
+          ' customer | order_id | product  | quantity',
+          '----------+----------+----------+----------',
+          ' Asha     |      101 | Notebook |        3',
+          ' Asha     |      101 | Pen      |       10',
+          ' Asha     |      103 | Pen      |        5',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'Start from customers.' },
+          { line: 11, note: 'Step 1: to orders. Step 2: to order_items. Step 3: to products.' },
+          { line: 14, note: 'Then filter to one customer.' }
+        ],
+        tryIt: "Change the WHERE to c.name = 'Priya' and run it. What did Priya order?",
+        check: {
+          question: 'To go from customers to products, which tables must you join through?',
+          options: ['orders and order_items', 'Only orders', 'None; customers and products link directly'],
+          answer: 0,
+          why: 'Customers link to orders, orders to order_items, and order_items to products. Each join follows one foreign key.'
+        }
+      },
+      {
+        title: 'Filtering and grouping across many tables',
+        say: [
+          'With several tables joined, you can filter on any of them and group by any of them. "Units of each product sold in delivered orders" filters on orders.status and groups by products.name, while summing order_items.quantity.',
+          'This is where joins become powerful: a question that mixes information from four tables is still one query, usually just 8 to 10 lines long.',
+          'As before, group by an id as well as a name when names might repeat. And think about what one row means before aggregating. After joining order lines, one row is one product in one order.',
+          'Keep an eye on which join you use at each step. If the question is "every product, even unsold ones", products must be on the left with LEFT JOINs. If the question is only about things that were sold, INNER JOINs are right.',
+          'Another useful check is to test the query with a customer you know well. If Asha placed two orders with three product lines in total, the joined result for her should have three rows before grouping. Checking one case by hand is often faster than staring at the whole result.',
+          'When a report number looks too big, the usual cause is a join that multiplies rows, for example joining two different "many" tables to the same parent. Counting rows after each join helps you spot it.'
+        ],
+        example: 'A school asks: "how many science textbooks were issued to students in hostel B?". The answer needs students (hostel), issues (who got what) and books (subject). One question, three lists, one answer.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT p.name AS product, sum(oi.quantity) AS units',
+          'FROM order_items oi',
+          'JOIN orders o ON o.id = oi.order_id',
+          'JOIN products p ON p.id = oi.product_id',
+          "WHERE o.status = 'delivered'",
+          'GROUP BY p.id, p.name',
+          'ORDER BY units DESC;'
+        ),
+        output: lines(
+          ' product  | units',
+          '----------+-------',
+          ' Pen      |    10',
+          ' Notebook |     3',
+          ' Backpack |     1',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 13, note: 'Only lines from delivered orders.' },
+          { line: 14, note: 'One row per product, adding up the quantities.' }
+        ],
+        tryIt: "Remove the WHERE line and run it again. The Pen's units go up, because order 103 is only shipped.",
+        check: {
+          question: 'After joining orders and order_items, what does one row represent?',
+          options: ['One product line in one order', 'One order', 'One customer'],
+          answer: 0,
+          why: 'order_items has one row per product per order, so the joined rows are at that level. Group to go back to orders.'
+        }
+      },
+      {
+        title: 'Self joins: a table joined to itself',
+        say: [
+          'Sometimes a table links to itself. In an employees table, each employee has a manager, who is also an employee. The manager_id column points to another row in the same table.',
+          'To show each employee next to their manager\'s name, you join the employees table to itself. You list it twice in FROM with two different aliases: e for the employee, m for the manager.',
+          'The ON rule matches the employee\'s manager_id with the manager\'s id: JOIN employees m ON m.id = e.manager_id. From then on, e.name is the employee and m.name is the manager, even though both come from the same table.',
+          'The aliases are essential here. Without them, PostgreSQL could not tell which copy of the table you mean. Choose aliases that say the role, like e and m, or emp and mgr.',
+          'Use LEFT JOIN if people without a manager, like the CEO, should still appear. With INNER JOIN, the person at the top disappears, because they have no manager to match.'
+        ],
+        example: 'In a family tree, every person has a mother, who is also a person in the same tree. To write "Ravi, son of Sunita", you look up Ravi, then look up his mother in the same tree. A self join does that lookup.',
+        code: lines(
+          'CREATE TABLE employees (id int PRIMARY KEY, name text, manager_id int REFERENCES employees(id));',
+          "INSERT INTO employees VALUES (1, 'Anita', NULL), (2, 'Vikram', 1), (3, 'Sara', 1), (4, 'Joel', 2);",
+          'SELECT e.name AS employee, m.name AS manager',
+          'FROM employees e',
+          'LEFT JOIN employees m ON m.id = e.manager_id',
+          'ORDER BY e.id;'
+        ),
+        output: lines(
+          ' employee | manager',
+          '----------+---------',
+          ' Anita    | NULL',
+          ' Vikram   | Anita',
+          ' Sara     | Anita',
+          ' Joel     | Vikram',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'manager_id points to another row of the same table.' },
+          { line: 4, note: 'e is the employee...' },
+          { line: 5, note: '...and m is the same table again, playing the manager. LEFT JOIN keeps Anita, who has no manager.' }
+        ],
+        tryIt: 'Change LEFT JOIN to JOIN and run it. Anita, the boss, disappears because she has no manager.',
+        check: {
+          question: 'What makes a self join possible?',
+          options: ['Listing the same table twice with two different aliases', 'A special SELF JOIN keyword', 'Copying the table first'],
+          answer: 0,
+          why: 'Two aliases let PostgreSQL treat the same table as two roles, like employee and manager.'
+        }
+      },
+      {
+        title: 'More uses of self joins',
+        say: [
+          'Self joins are not only for managers. Any time you need to compare rows of the same table with each other, a self join can help.',
+          'For example, finding pairs of customers who live in the same city: join customers to itself on the city, and keep pairs where the first id is smaller than the second. The id rule avoids pairing a customer with themselves and avoids listing each pair twice.',
+          'Another example is finding products in the same category with a price difference of less than 100 rupees, which could help a shop suggest cheaper alternatives. The join matches on category, and the WHERE compares prices.',
+          'Self joins can create many rows quickly: a table with 1,000 customers can produce up to a million pairs. Always add a condition that keeps the pairs meaningful, like same city or same category.',
+          'On Day 17 you will learn window functions, which can answer some "compare with other rows" questions, like "the previous order", without a self join.',
+          'Self joins also appear with dates, for example comparing each day\'s sales with the day before by joining a daily sales table to itself on day = previous_day + 1. It works, but window functions make it simpler, which is one reason they are so popular.'
+        ],
+        example: 'A college wants to form study pairs from students in the same hostel. For each student, it looks down the same list for others in the same hostel. It is one list compared with itself.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT a.name AS customer_1, b.name AS customer_2, a.city',
+          'FROM customers a',
+          'JOIN customers b ON b.city = a.city AND a.id < b.id',
+          'ORDER BY a.city;'
+        ),
+        output: lines(
+          ' customer_1 | customer_2 | city',
+          '------------+------------+------',
+          ' Asha       | Priya      | Pune',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Same city, and a.id < b.id so each pair appears once and nobody pairs with themselves.' }
+        ],
+        tryIt: 'Change a.id < b.id to a.id <> b.id and run it. Now each pair appears twice, once in each order.',
+        check: {
+          question: 'Why add a.id < b.id when pairing customers from the same city?',
+          options: ['To avoid pairing a customer with themselves and listing each pair twice', 'To sort the result', 'Because ids must be compared in every join'],
+          answer: 0,
+          why: 'Without it, each customer matches themselves, and every pair appears as (A, B) and (B, A).'
+        }
+      },
+      {
+        title: 'Choosing the right join at each step',
+        say: [
+          'In a chain of joins, each JOIN can be INNER or LEFT, and the choice matters. A simple rule: start from the table whose rows must all appear, and use LEFT JOIN for every step after it.',
+          'Why every step? If you LEFT JOIN orders to customers, but then INNER JOIN order_items to orders, customers with no orders lose their row at the second step, because their NULL order has no order_items to match. One INNER JOIN in the chain can undo the LEFT JOINs before it.',
+          'If the question is only about things that exist on every side, like "products in delivered orders", INNER JOINs all the way are correct and simpler.',
+          'Before writing a query, say the question out loud and underline the word "every". "Every customer" means customers first with LEFT JOINs. "Orders with their products" means INNER JOINs are fine.',
+          'When a count looks too small after adding a join, check the join types. When it looks too big, check for a join that multiplies rows. These two checks solve most join bugs.',
+          'In interviews, you may be asked to explain the difference between INNER and LEFT JOIN with a small example. Using customers and orders, and a customer with no orders, is a simple way to show it clearly, exactly like this week\'s examples.'
+        ],
+        example: 'A relay race needs every runner to pass the baton. If one runner in the middle drops it, it does not matter how well the first runners did: the baton is lost. One INNER JOIN in a chain of LEFT JOINs is that dropped baton.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, count(oi.product_id) AS lines',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'JOIN order_items oi ON oi.order_id = o.id',
+          'GROUP BY c.id, c.name ORDER BY c.name;',
+          'SELECT c.name, count(oi.product_id) AS lines',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'LEFT JOIN order_items oi ON oi.order_id = o.id',
+          'GROUP BY c.id, c.name ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | lines',
+          '-------+-------',
+          ' Asha  |     3',
+          ' Priya |     1',
+          ' Ravi  |     1',
+          '(3 rows)',
+          '',
+          ' name  | lines',
+          '-------+-------',
+          ' Asha  |     3',
+          ' Meera |     0',
+          ' Priya |     1',
+          ' Ravi  |     1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 12, note: 'An INNER JOIN after a LEFT JOIN: Meera is lost again.' },
+          { line: 17, note: 'LEFT JOIN at every step: Meera stays, with 0 lines.' }
+        ],
+        tryIt: 'In the first query, change the order of the two JOIN lines and see whether the result changes.',
+        check: {
+          question: 'You LEFT JOIN customers to orders, then INNER JOIN order_items. What happens to customers with no orders?',
+          options: ['They disappear, because the INNER JOIN finds no order_items for them', 'They stay with NULLs', 'They appear twice'],
+          answer: 0,
+          why: 'Their NULL order row has nothing to match in order_items, so the INNER JOIN removes it. Use LEFT JOIN at every step.'
+        }
+      },
+      {
+        title: 'Putting it together: who bought what',
+        say: [
+          'Let us write a report that crosses all four shop tables: for each customer, the list of different products they have bought, in one row, and how many units in total.',
+          'string_agg is an aggregate that joins text from many rows into one, with a separator you choose: string_agg(DISTINCT p.name, \', \') gives "Notebook, Pen". Adding ORDER BY inside it keeps the list in a fixed order.',
+          'The query starts from customers with LEFT JOINs all the way, so Meera appears, with no products and 0 units. It groups by the customer and uses coalesce for the units.',
+          'In today\'s practice, you will add up units sold per product in delivered orders, and show each employee with their manager\'s name. Both come straight from this lesson.',
+          'Tomorrow you learn to combine the results of two queries on top of each other with UNION, and to compare lists with INTERSECT and EXCEPT.'
+        ],
+        example: 'A shop\'s customer card might say: "Asha: Notebook, Pen, 18 items so far". Behind that one line are four tables joined together and summarised per customer.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name,',
+          "       string_agg(DISTINCT p.name, ', ' ORDER BY p.name) AS products,",
+          '       coalesce(sum(oi.quantity), 0) AS units',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'LEFT JOIN order_items oi ON oi.order_id = o.id',
+          'LEFT JOIN products p ON p.id = oi.product_id',
+          'GROUP BY c.id, c.name',
+          'ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | products      | units',
+          '-------+---------------+-------',
+          ' Asha  | Notebook, Pen |    18',
+          ' Meera | NULL          |     0',
+          ' Priya | Notebook      |     1',
+          ' Ravi  | Backpack      |     1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'string_agg joins the product names into one text, A to Z, each once.' },
+          { line: 13, note: 'LEFT JOIN at every step, so every customer appears.' }
+        ],
+        tryIt: "Change the separator from ', ' to ' + ' and run it again.",
+        check: {
+          question: 'What does string_agg(p.name, \', \') do?',
+          options: ['Joins the names from many rows into one text, separated by commas', 'Counts the names', 'Splits a name into letters'],
+          answer: 0,
+          why: 'string_agg is an aggregate for text: it combines values from the rows in a group into one string.'
+        }
+      }
+    ],
+    summary: [
+      'Chain joins one step at a time, each following one foreign key.',
+      'Filter and group on any joined table; think about what one row means first.',
+      'A self join uses the same table twice with two aliases, like employee and manager.',
+      'Start from the table that must keep every row, and use LEFT JOIN at every step after it.',
+      'string_agg joins text from many rows into one, like a list of products.'
+    ],
+    projectStep: {
+      title: 'My Library: series and sequels',
+      steps: [
+        'Add a sequel_of int REFERENCES books(id) column to your books design.',
+        'Mark one book as the sequel of another.',
+        'Use a self join to show each book next to the book it follows.',
+        'Use string_agg to list all your book titles per author in one row.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 14,
+    title: 'Combining Results: UNION, INTERSECT, EXCEPT',
+    goal: 'You can stack results with UNION and UNION ALL, and compare lists with INTERSECT and EXCEPT.',
+    minutes: 28,
+    recap: 'Yesterday you chained joins across many tables and joined a table to itself.',
+    parts: [
+      {
+        title: 'UNION: stacking results',
+        say: [
+          'Joins put tables side by side. Sometimes you want to stack results on top of each other instead: the cities of customers and the cities of stores in one list, or this year\'s orders and last year\'s archived orders together.',
+          'UNION does this. You write two complete SELECT queries with UNION between them, and PostgreSQL returns the rows of both as one result.',
+          'Plain UNION also removes duplicate rows. If Pune appears in both lists, it appears only once in the result. That is handy for "every city we are in", where you want each city once.',
+          'The column names in the result come from the first query. So give good names with AS in the first SELECT; the names in the second one are ignored.',
+          'ORDER BY applies to the whole combined result, so write it once at the very end, after the last SELECT. You cannot sort each part separately with a plain ORDER BY in the middle.',
+          'UNION is also handy when data about the same kind of thing is split across tables for historical reasons, such as an old system and a new one. Rather than changing both tables, a UNION query can present them as one list while the teams decide how to merge them properly.'
+        ],
+        example: 'Two teachers each have an attendance list for a joint event. To send one thank-you message to everyone, you put both lists together and cross out names that appear twice. That combined list without repeats is UNION.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE TABLE stores (city text);',
+          "INSERT INTO stores VALUES ('Pune'), ('Bengaluru'), ('Delhi');",
+          'SELECT city AS place FROM customers WHERE city IS NOT NULL',
+          'UNION',
+          'SELECT city FROM stores',
+          'ORDER BY place;'
+        ),
+        output: lines(
+          ' place',
+          '-----------',
+          ' Bengaluru',
+          ' Delhi',
+          ' Mumbai',
+          ' Pune',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'The first query names the column: place.' },
+          { line: 12, note: 'UNION stacks the two results and removes duplicates, so Pune appears once.' },
+          { line: 14, note: 'One ORDER BY for the whole result, at the end.' }
+        ],
+        tryIt: 'Remove WHERE city IS NOT NULL from the first query and run it. A NULL place appears for Meera.',
+        check: {
+          question: 'What does UNION do with a row that appears in both queries?',
+          options: ['Shows it once', 'Shows it twice', 'Removes it completely'],
+          answer: 0,
+          why: 'Plain UNION removes duplicates. UNION ALL, next, keeps them.'
+        }
+      },
+      {
+        title: 'UNION ALL: keep every row',
+        say: [
+          'UNION ALL stacks results like UNION, but keeps every row, including duplicates. It is also faster, because PostgreSQL does not have to check for duplicates.',
+          'Use UNION ALL when duplicates are real and meaningful. For example, combining this year\'s orders with archived orders: two different orders with the same amount are still two orders, and removing one would make totals wrong.',
+          'Use plain UNION when you want a list of distinct values, like "every city we operate in".',
+          'A common mistake is using UNION out of habit, and then wondering why a total is too small. If you are adding up or counting afterwards, you almost always want UNION ALL.',
+          'Removing duplicates also costs time. To find duplicates, PostgreSQL has to sort or compare every row, which is noticeable on large results. So UNION ALL is not only more correct for totals, it is also faster. Use plain UNION only when you really want each value once.',
+          'You can stack more than two queries: SELECT ... UNION ALL SELECT ... UNION ALL SELECT .... Each part must still follow the rules in the next part of this lesson.'
+        ],
+        example: 'Adding up a family\'s expenses from three people\'s notebooks: if two people both bought tea for 20 rupees, both expenses are real. Crossing one out as a "duplicate" would make the total wrong. That is why totals use UNION ALL.',
+        code: lines(
+          'CREATE TABLE orders_2026 (id int, amount numeric(10,2));',
+          'INSERT INTO orders_2026 VALUES (1, 500), (2, 250);',
+          'CREATE TABLE orders_2025 (id int, amount numeric(10,2));',
+          'INSERT INTO orders_2025 VALUES (7, 250), (8, 900);',
+          'SELECT sum(amount) AS total_with_union FROM (SELECT amount FROM orders_2026 UNION SELECT amount FROM orders_2025) AS t;',
+          'SELECT sum(amount) AS total_with_union_all FROM (SELECT amount FROM orders_2026 UNION ALL SELECT amount FROM orders_2025) AS t;'
+        ),
+        output: lines(
+          ' total_with_union',
+          '------------------',
+          '          1650.00',
+          '(1 row)',
+          '',
+          ' total_with_union_all',
+          '----------------------',
+          '              1900.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'UNION drops one of the two 250s, so the total is wrong.' },
+          { line: 6, note: 'UNION ALL keeps both, so the total is right. (A query in brackets in FROM is a subquery; more on Day 15.)' }
+        ],
+        tryIt: 'Add a third year table with one order of 500, and include it with another UNION ALL in the second query.',
+        check: {
+          question: 'You are combining two lists of payments to add them up. Which should you use?',
+          options: ['UNION ALL', 'UNION', 'INTERSECT'],
+          answer: 0,
+          why: 'Two separate payments can have the same amount. UNION would drop one; UNION ALL keeps every row, so the sum is correct.'
+        }
+      },
+      {
+        title: 'The rules for combining queries',
+        say: [
+          'UNION, INTERSECT and EXCEPT have two simple rules. First, every query must return the same number of columns. Second, the columns in the same position must have compatible types: text with text, numbers with numbers.',
+          'The columns are matched by position, not by name. The first column of the second query goes under the first column of the first query, whatever it is called. So always list the columns in the same order in every part.',
+          'If one table has a column the other does not, you can fill the gap with a fixed value: SELECT name, \'customer\' AS kind FROM customers UNION ALL SELECT name, \'supplier\' FROM suppliers. The fixed text column also tells you where each row came from.',
+          'If the types do not match, PostgreSQL gives an error that says UNION types cannot be matched. Cast one side, for example with ::text, when you really need to combine them.',
+          'These rules make sense when you imagine the result: one table with one set of columns. Each part must fit into those columns.',
+          'When combining text and numbers in a report, it is often clearer to convert everything to text in the parts that need it, for example amount::text, and to label each row with a kind column. The reader then always knows what a row is, even though it came from a different table.'
+        ],
+        example: 'Stacking two spreadsheets on top of each other only works if the columns line up: name above name, phone above phone. If one sheet has phone in column B and the other has it in column C, the combined sheet is a mess. SQL insists on lined-up columns.',
+        code: lines(
+          'CREATE TABLE customers (name text, city text);',
+          "INSERT INTO customers VALUES ('Asha', 'Pune'), ('Ravi', 'Mumbai');",
+          'CREATE TABLE suppliers (company text, city text);',
+          "INSERT INTO suppliers VALUES ('Paper Mart', 'Pune');",
+          "SELECT name, city, 'customer' AS kind FROM customers",
+          'UNION ALL',
+          "SELECT company, city, 'supplier' FROM suppliers",
+          'ORDER BY city, name;',
+          'SELECT name, city FROM customers UNION SELECT company FROM suppliers;'
+        ),
+        output: '[Error] each UNION query must have the same number of columns',
+        codeNotes: [
+          { line: 5, note: 'A fixed text column records where each row came from.' },
+          { line: 7, note: 'company goes under name because it is in the same position.' },
+          { line: 9, note: 'Two columns on one side and one on the other: an error.' }
+        ],
+        tryIt: 'Delete line 9 and run it again to see the combined list of customers and suppliers.',
+        check: {
+          question: 'How are columns matched between the two queries of a UNION?',
+          options: ['By position: first with first, second with second', 'By column name', 'Alphabetically'],
+          answer: 0,
+          why: 'UNION lines columns up by their position. The names in the result come from the first query.'
+        }
+      },
+      {
+        title: 'INTERSECT and EXCEPT: comparing lists',
+        say: [
+          'INTERSECT returns only the rows that appear in both queries. "Cities where we have both customers and a store" is customers\' cities INTERSECT store cities.',
+          'EXCEPT returns the rows of the first query that do not appear in the second. "Cities where we have customers but no store yet" is customers\' cities EXCEPT store cities. The order matters: A EXCEPT B is not the same as B EXCEPT A.',
+          'Like UNION, both remove duplicates by default, and both follow the same rules about the number and types of columns. INTERSECT ALL and EXCEPT ALL exist too, but they are rarely needed.',
+          'These questions could also be answered with joins or subqueries, which you will learn tomorrow. But for simple list comparisons, INTERSECT and EXCEPT are often the clearest way to write them, because they read almost like the question.',
+          'EXCEPT is especially useful for checking data. For example, "ids in the old system EXCEPT ids in the new system" shows records that were not copied during a migration.',
+          'INTERSECT and EXCEPT compare whole rows, not single columns. If you select both city and state, a row matches only when both values match. This makes them precise, but it also means you should select only the columns you want to compare, or rows that differ in some other column will not match.'
+        ],
+        example: 'Comparing two shopping lists: things on both lists (INTERSECT), and things on your list but not on your roommate\'s (EXCEPT), so you know what only you need to buy.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE TABLE stores (city text);',
+          "INSERT INTO stores VALUES ('Pune'), ('Bengaluru'), ('Delhi');",
+          'SELECT city FROM customers INTERSECT SELECT city FROM stores;',
+          'SELECT city FROM customers WHERE city IS NOT NULL EXCEPT SELECT city FROM stores;',
+          'SELECT city FROM stores EXCEPT SELECT city FROM customers ORDER BY city;'
+        ),
+        output: lines(
+          ' city',
+          '------',
+          ' Pune',
+          '(1 row)',
+          '',
+          ' city',
+          '--------',
+          ' Mumbai',
+          '(1 row)',
+          '',
+          ' city',
+          '-----------',
+          ' Bengaluru',
+          ' Delhi',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'In both lists: only Pune.' },
+          { line: 12, note: 'Customers\' cities without a store: Mumbai.' },
+          { line: 13, note: 'The other way round: store cities with no customers yet.' }
+        ],
+        tryIt: "Add a store in Mumbai to the setup and run again. The second result becomes empty.",
+        check: {
+          question: 'What does SELECT city FROM customers EXCEPT SELECT city FROM stores return?',
+          options: ['Customer cities that have no store', 'Store cities that have no customers', 'Cities in both'],
+          answer: 0,
+          why: 'EXCEPT keeps rows of the first query that are missing from the second. Swap the queries to get the other direction.'
+        }
+      },
+      {
+        title: 'UNION with joins and totals',
+        say: [
+          'Each part of a UNION can be a full query with joins, WHERE and GROUP BY. This lets you build reports that combine different kinds of information in one list.',
+          'A common example is an activity feed: new orders from one table and new reviews from another, shown together in date order. Each part selects a date, a type and a description, and UNION ALL stacks them.',
+          'You can also wrap a UNION in brackets and use it as a table in FROM, as you saw in part 2. That lets you group and total the combined rows, for example total spending across current and archived orders per customer.',
+          'When the combined result is used again and again, it can be saved as a view, which you will learn on Day 24. Views make complex UNIONs easy to reuse.',
+          'Keep each part simple and readable. If one part becomes very long, consider whether the data should really be in one table instead.',
+          'The kind column in the example is worth copying in your own work. When results from several tables are stacked, a column that says where each row came from makes the result easy to filter later, for example to show only reviews, and it makes debugging much simpler.'
+        ],
+        example: 'A phone\'s notification screen shows messages, missed calls and app alerts in one list, newest first. They come from different places, but each has a time and a short text, so they can be stacked into one feed.',
+        code: lines(
+          'CREATE TABLE orders (id int, customer text, created_at date);',
+          "INSERT INTO orders VALUES (1, 'Asha', '2026-09-10'), (2, 'Ravi', '2026-09-12');",
+          'CREATE TABLE reviews (id int, customer text, rating int, created_at date);',
+          "INSERT INTO reviews VALUES (1, 'Asha', 5, '2026-09-11'), (2, 'Priya', 3, '2026-09-13');",
+          "SELECT created_at, 'order' AS kind, customer || ' placed order ' || id AS event FROM orders",
+          'UNION ALL',
+          "SELECT created_at, 'review', customer || ' gave ' || rating || ' stars' FROM reviews",
+          'ORDER BY created_at DESC;'
+        ),
+        output: lines(
+          ' created_at | kind   | event',
+          '------------+--------+---------------------',
+          ' 2026-09-13 | review | Priya gave 3 stars',
+          ' 2026-09-12 | order  | Ravi placed order 2',
+          ' 2026-09-11 | review | Asha gave 5 stars',
+          ' 2026-09-10 | order  | Asha placed order 1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Each part has the same three columns: date, kind and a readable event.' },
+          { line: 8, note: 'The whole feed, newest first.' }
+        ],
+        tryIt: "Add LIMIT 3 at the end to show only the three newest events.",
+        check: {
+          question: 'What must be the same in both parts of the activity-feed UNION ALL?',
+          options: ['The number of columns and their types, in the same order', 'The table names', 'The WHERE conditions'],
+          answer: 0,
+          why: 'Each part must return the same number of columns with compatible types, lined up by position.'
+        }
+      },
+      {
+        title: 'Putting it together: where the shop is',
+        say: [
+          'Let us answer three questions a growing shop might ask when planning where to open new stores, using today\'s three tools.',
+          'Every city we are present in, with customers or stores: UNION. Cities with both customers and a store: INTERSECT. Cities with customers but no store yet, where a new store might be a good idea: EXCEPT.',
+          'Each question is one short query, and each reads almost like the English question. That is the strength of these operators for list comparisons.',
+          'In today\'s practice, you will list all cities with UNION, making sure each appears once, and find cities with customers but no store with EXCEPT.',
+          'Tomorrow you learn subqueries: queries inside queries. They let you use the result of one question, like the average price, inside another question, like "products above the average".'
+        ],
+        example: 'A company planning expansion puts two lists on the table: where our customers are, and where our stores are. Where the lists differ is where the opportunities are.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE TABLE stores (city text);',
+          "INSERT INTO stores VALUES ('Pune'), ('Bengaluru'), ('Delhi');",
+          'SELECT count(*) AS cities_present FROM (SELECT city FROM customers WHERE city IS NOT NULL UNION SELECT city FROM stores) AS all_cities;',
+          'SELECT city AS both_customers_and_store FROM customers INTERSECT SELECT city FROM stores;',
+          'SELECT city AS store_opportunity FROM customers WHERE city IS NOT NULL EXCEPT SELECT city FROM stores;'
+        ),
+        output: lines(
+          ' cities_present',
+          '----------------',
+          '              4',
+          '(1 row)',
+          '',
+          ' both_customers_and_store',
+          '--------------------------',
+          ' Pune',
+          '(1 row)',
+          '',
+          ' store_opportunity',
+          '-------------------',
+          ' Mumbai',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Count the distinct cities from both lists.' },
+          { line: 13, note: 'Where a new store might be a good idea.' }
+        ],
+        tryIt: "Add a new customer in Chennai to the setup: INSERT INTO customers VALUES (5, 'Arjun', 'Chennai'); and run again. Chennai becomes another opportunity.",
+        check: {
+          question: 'Which operator answers "cities with customers but no store"?',
+          options: ['EXCEPT', 'UNION', 'INTERSECT'],
+          answer: 0,
+          why: 'EXCEPT keeps the cities from the first query (customers) that are missing from the second (stores).'
+        }
+      }
+    ],
+    summary: [
+      'UNION stacks two results and removes duplicates; UNION ALL keeps every row.',
+      'Use UNION ALL for totals and counts, so real duplicates are not lost.',
+      'Every part needs the same number of columns with compatible types, matched by position.',
+      'INTERSECT keeps rows in both results; EXCEPT keeps rows in the first but not the second.',
+      'Names come from the first query; ORDER BY goes once, at the end.'
+    ],
+    projectStep: {
+      title: 'My Library: books to read and books read',
+      steps: [
+        'Create a wishlist table with a title column and add 3 books you want to read.',
+        'List every title from your books and your wishlist together with UNION.',
+        'Find wishlist titles you already own with INTERSECT.',
+        'Find wishlist titles you do not own yet with EXCEPT.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 15,
+    title: 'Queries Inside Queries: Subqueries',
+    goal: 'You can use subqueries that return one value, a list for IN, a table in FROM, and EXISTS checks.',
+    minutes: 28,
+    recap: 'Yesterday you stacked results with UNION and compared lists with INTERSECT and EXCEPT.',
+    parts: [
+      {
+        title: 'A subquery that returns one value',
+        say: [
+          'Some questions have two steps. "Which products cost more than the average price?" First you need the average price. Then you compare each product with it. A subquery lets you do both steps in one query.',
+          'A subquery is a SELECT inside brackets, placed inside another query. (SELECT avg(price) FROM products) works out the average, and the outer query uses it: WHERE price > (SELECT avg(price) FROM products).',
+          'PostgreSQL runs the inner query first, gets one number, and then uses that number for every row of the outer query. You do not need to know the average yourself, and the answer stays correct when prices change.',
+          'A subquery used like this must return exactly one value: one row, one column. If it returns several rows, PostgreSQL gives an error, because it cannot compare a price with a whole list.',
+          'You can also put a one-value subquery in the SELECT list, to show it next to every row: SELECT name, price, (SELECT avg(price) FROM products) AS average. That makes it easy to compare each row with the overall figure.',
+          'Because the inner query is recalculated every time you run the outer query, the result always reflects the current data. If a new expensive product is added tomorrow, the average changes, and so does the list of products above it, without anyone editing the query.'
+        ],
+        example: 'A teacher says: "stand up if your marks are above the class average". First she works out the average, then each student compares their own marks with it. The average is the subquery; the comparison is the outer query.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT round(avg(price), 2) AS average_price FROM products;',
+          'SELECT name, price',
+          'FROM products',
+          'WHERE price > (SELECT avg(price) FROM products)',
+          'ORDER BY price DESC;'
+        ),
+        output: lines(
+          ' average_price',
+          '---------------',
+          '        355.00',
+          '(1 row)',
+          '',
+          ' name     | price',
+          '----------+---------',
+          ' Backpack | 1200.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'On its own, the average is 355.00.' },
+          { line: 12, note: 'The subquery in brackets gives that one number; each product is compared with it.' }
+        ],
+        tryIt: 'Change > to < to find the products below the average. Then add the average as a third column with (SELECT round(avg(price), 2) FROM products) AS average.',
+        check: {
+          question: 'What must a subquery used in WHERE price > (...) return?',
+          options: ['Exactly one value', 'A list of values', 'A whole table'],
+          answer: 0,
+          why: 'Comparing with > needs a single value. A subquery returning several rows here causes an error.'
+        }
+      },
+      {
+        title: 'IN with a subquery',
+        say: [
+          'On Day 5 you used IN with a fixed list: status IN (\'delivered\', \'shipped\'). The list can also come from a subquery. customer_id IN (SELECT id FROM customers WHERE city = \'Pune\') means "orders from any customer in Pune".',
+          'This subquery can return many rows, but only one column. PostgreSQL builds the list, then keeps the outer rows whose value is in it.',
+          'Many questions can be written either with a join or with IN and a subquery. "Customers who have a delivered order" can be a join with DISTINCT, or WHERE id IN (SELECT customer_id FROM orders WHERE status = \'delivered\'). The IN version often reads more like the question.',
+          'NOT IN finds the opposite: customers whose id is not in the list. But remember the NULL trap from Day 5: if the subquery\'s list contains a NULL, NOT IN finds nothing at all. That is why many developers prefer NOT EXISTS for "not in", which you will see in part 4.',
+          'An IN subquery runs once, independently of the outer rows. That makes it easy to test: run the inner SELECT on its own first and check that the list is what you expect.'
+        ],
+        example: 'A college notice says: "students who are in the cricket team may leave early". The office first makes the cricket team list, then checks each student against it. The team list is the subquery.',
+        code: lines(
+          MINI_SHOP,
+          "SELECT customer_id FROM orders WHERE status = 'delivered';",
+          'SELECT name',
+          'FROM customers',
+          "WHERE id IN (SELECT customer_id FROM orders WHERE status = 'delivered')",
+          'ORDER BY name;'
+        ),
+        output: lines(
+          ' customer_id',
+          '-------------',
+          '           1',
+          '           2',
+          '(2 rows)',
+          '',
+          ' name',
+          '------',
+          ' Asha',
+          ' Ravi',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Run the inner query on its own first: the list of customer ids.' },
+          { line: 12, note: 'Keep customers whose id is in that list.' }
+        ],
+        tryIt: "Change 'delivered' to 'pending' inside the subquery. Who has a pending order?",
+        check: {
+          question: 'In WHERE id IN (SELECT customer_id FROM orders), how many columns may the subquery return?',
+          options: ['One', 'Any number', 'Exactly two'],
+          answer: 0,
+          why: 'IN compares one value with a list, so the subquery must return a single column (it may have many rows).'
+        }
+      },
+      {
+        title: 'Subqueries in FROM',
+        say: [
+          'A subquery can also be used as a table, in the FROM part. You saw this briefly yesterday, when a UNION was wrapped in brackets and then summed. The inner query builds a temporary result, and the outer query treats it like a table.',
+          'A subquery in FROM must have an alias: FROM (SELECT ...) AS t. The alias is the temporary table\'s name, used for its columns in the outer query.',
+          'This is useful for two-step calculations. For example, first work out each order\'s total with GROUP BY, then find the average order total. You cannot write avg(sum(...)) directly, but you can average the column of an inner query that already did the sums.',
+          'Another use is filtering on a calculated column. The inner query calculates price * 1.18 AS with_gst, and the outer query can then say WHERE with_gst > 1000, because now with_gst is a real column of the inner result.',
+          'Subqueries in FROM can become hard to read when nested deeply. Tomorrow you learn WITH, which gives each step a name and makes the same queries much clearer.'
+        ],
+        example: 'A cook first prepares a basic gravy in one pot, then uses it as the base for three different dishes. The subquery in FROM is that gravy: prepared first, then used by the outer query as if it were a ready ingredient.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT round(avg(order_total), 2) AS average_order',
+          'FROM (',
+          '  SELECT oi.order_id, sum(p.price * oi.quantity) AS order_total',
+          '  FROM order_items oi',
+          '  JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY oi.order_id',
+          ') AS totals;'
+        ),
+        output: lines(
+          ' average_order',
+          '---------------',
+          '        397.50',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'The inner query: one row per order with its total.' },
+          { line: 15, note: 'The alias names the temporary table.' },
+          { line: 9, note: 'The outer query averages the inner totals.' }
+        ],
+        tryIt: 'Change avg to max in the first line to find the biggest order total.',
+        check: {
+          question: 'Why use a subquery in FROM to find the average order total?',
+          options: ['You first need one total per order, then an average of those totals', 'avg only works in subqueries', 'To make the query shorter'],
+          answer: 0,
+          why: 'It is a two-step calculation: sum per order, then average across orders. The inner query does the first step.'
+        }
+      },
+      {
+        title: 'EXISTS and correlated subqueries',
+        say: [
+          'EXISTS asks a yes-or-no question: does the subquery return at least one row? WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id) keeps customers who have at least one order.',
+          'Notice that the subquery mentions c.id, a column from the outer query. That makes it a correlated subquery: it runs once for each outer row, with that row\'s values. For Asha it checks Asha\'s orders, for Meera it checks Meera\'s orders, and so on.',
+          'NOT EXISTS is the safest way to find rows with no match: customers with no orders, products never sold. Unlike NOT IN, it is not confused by NULLs. Many experienced developers use NOT EXISTS for every "has no" question.',
+          'Inside EXISTS, it does not matter what you SELECT, only whether any row exists. That is why people write SELECT 1. PostgreSQL stops looking as soon as it finds one match, which makes EXISTS efficient.',
+          'You now know three ways to find customers with no orders: LEFT JOIN with IS NULL, NOT IN, and NOT EXISTS. They usually give the same answer, but NOT EXISTS is the most reliable when NULLs are possible.'
+        ],
+        example: 'A receptionist checks for each visitor: "is there at least one appointment in your name today?". She does not need to count them, and she stops looking at the first one she finds. That is EXISTS, checked separately for each visitor.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name FROM customers c',
+          'WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id)',
+          'ORDER BY c.name;',
+          'SELECT c.name FROM customers c',
+          'WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);'
+        ),
+        output: lines(
+          ' name',
+          '-------',
+          ' Asha',
+          ' Priya',
+          ' Ravi',
+          '(3 rows)',
+          '',
+          ' name',
+          '-------',
+          ' Meera',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'For each customer: is there at least one order with their id?' },
+          { line: 13, note: 'NOT EXISTS: customers with no orders at all.' }
+        ],
+        tryIt: "Change the second query to find customers with no delivered order: add AND o.status = 'delivered' inside the subquery.",
+        check: {
+          question: 'What makes a subquery "correlated"?',
+          options: ['It uses a column from the outer query, so it runs for each outer row', 'It returns exactly one value', 'It is inside FROM'],
+          answer: 0,
+          why: 'A correlated subquery refers to the outer row, like c.id, so its answer depends on which row is being checked.'
+        }
+      },
+      {
+        title: 'Subqueries in SELECT, and when to use a join instead',
+        say: [
+          'A correlated subquery can also go in the SELECT list, to calculate something for each row: SELECT c.name, (SELECT count(*) FROM orders o WHERE o.customer_id = c.id) AS orders FROM customers c. For each customer, the subquery counts their orders.',
+          'This is easy to read, and it naturally gives 0 for customers with no orders, without the LEFT JOIN count trap from Day 12.',
+          'But it runs once per row. For a few thousand rows that is fine. For millions of rows, a join with GROUP BY is usually much faster, because PostgreSQL can process all the rows together.',
+          'A useful rule: if you need several values from the other table, like count, sum and max, a join with GROUP BY is cleaner than three separate subqueries. If you need one simple value per row, a subquery in SELECT can be clearer.',
+          'There is rarely only one correct way to write a query. Readability for your teammates and correctness come first; speed matters when the tables are big. You will learn to measure speed with EXPLAIN on Day 23.'
+        ],
+        example: 'A class teacher can ask each student one by one, "how many books did you read?". That works for a class of 40. For a school of 5,000, it is faster to collect all the reading logs and count them together. Subqueries per row are the one-by-one approach; joins with GROUP BY are the bulk approach.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name,',
+          '       (SELECT count(*) FROM orders o WHERE o.customer_id = c.id) AS orders,',
+          '       (SELECT max(o.ordered_on) FROM orders o WHERE o.customer_id = c.id) AS last_order',
+          'FROM customers c',
+          'ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | orders | last_order',
+          '-------+--------+------------',
+          ' Asha  |      2 | 2026-09-10',
+          ' Meera |      0 | NULL',
+          ' Priya |      1 | 2026-09-12',
+          ' Ravi  |      1 | 2026-09-03',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'For each customer: count their orders. Meera gets 0 naturally.' },
+          { line: 11, note: 'A second subquery for the latest order date; NULL when there is none.' }
+        ],
+        tryIt: 'Rewrite this report as a LEFT JOIN with GROUP BY c.id, c.name, using count(o.id) and max(o.ordered_on). Check you get the same result.',
+        check: {
+          question: 'When is a join with GROUP BY usually better than a subquery in SELECT?',
+          options: ['On large tables, or when you need several values from the other table', 'Never', 'Only when there are no NULLs'],
+          answer: 0,
+          why: 'A subquery in SELECT runs once per row. A join with GROUP BY processes all rows together and can return several aggregates at once.'
+        }
+      },
+      {
+        title: 'Putting it together: finding the most valuable customers',
+        say: [
+          'Let us answer a question that needs several steps: "Which customers have spent more than the average customer?". First, the total spent by each customer. Second, the average of those totals. Third, the customers above it.',
+          'The query below builds each customer\'s total in a subquery in FROM, and compares it with a one-value subquery that averages the same totals. It works, but notice how the same inner query appears twice. Tomorrow, WITH will let you write that step once and give it a name.',
+          'This kind of layered question, "above average", "top per group", "more than their usual", is very common in business reports and data interviews. Subqueries are the tool that makes them possible.',
+          'In today\'s practice, you will find products priced above the average price, and customers who have at least one delivered order.',
+          'You have now finished the first half of the course. You can read, filter, sort, total, group, join and nest queries: the core of everyday SQL. Next comes making complex queries readable, and then the advanced tools that analysts and backend developers use every day.'
+        ],
+        example: 'A bank wants to invite its best customers to a special offer. It first works out each customer\'s total deposits, then the average, then invites those above it. Three steps, one answer.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT name, spent',
+          'FROM (',
+          '  SELECT c.name, sum(p.price * oi.quantity) AS spent',
+          '  FROM customers c',
+          '  JOIN orders o ON o.customer_id = c.id',
+          '  JOIN order_items oi ON oi.order_id = o.id',
+          '  JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY c.id, c.name',
+          ') AS per_customer',
+          'WHERE spent > (',
+          '  SELECT avg(total) FROM (',
+          '    SELECT sum(p.price * oi.quantity) AS total',
+          '    FROM orders o',
+          '    JOIN order_items oi ON oi.order_id = o.id',
+          '    JOIN products p ON p.id = oi.product_id',
+          '    GROUP BY o.customer_id',
+          '  ) AS totals',
+          ')',
+          'ORDER BY spent DESC;'
+        ),
+        output: lines(
+          ' name | spent',
+          '------+---------',
+          ' Ravi | 1200.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Step 1: each customer\'s total spending.' },
+          { line: 18, note: 'Steps 2 and 3: keep customers above the average of those totals.' },
+          { line: 20, note: 'The same kind of per-customer total is calculated again here; WITH will fix that tomorrow.' }
+        ],
+        tryIt: 'Change the comparison in WHERE from > to < to find customers who spent less than the average.',
+        check: {
+          question: 'Why is the per-customer total calculated twice in this query?',
+          options: ['Once to list customers and once inside the average; WITH can name it once instead', 'Because PostgreSQL requires it', 'To make the result more accurate'],
+          answer: 0,
+          why: 'Subqueries cannot be reused by name. WITH, tomorrow, lets you define a step once and use it several times.'
+        }
+      }
+    ],
+    summary: [
+      'A subquery is a SELECT in brackets inside another query.',
+      'One-value subqueries work with =, >, < and in the SELECT list.',
+      'IN (SELECT ...) uses a one-column list; beware NULLs with NOT IN.',
+      'A subquery in FROM needs an alias and is great for two-step calculations.',
+      'EXISTS and NOT EXISTS check for matching rows; NOT EXISTS is safest for "has no".'
+    ],
+    projectStep: {
+      title: 'My Library: above-average books',
+      steps: [
+        'Find your books with more pages than the average, using a subquery.',
+        'Find authors who have at least one finished book, with IN or EXISTS.',
+        'Find authors with no finished books, using NOT EXISTS.',
+        'Show each author with their number of books using a subquery in SELECT.'
       ]
     }
   }
