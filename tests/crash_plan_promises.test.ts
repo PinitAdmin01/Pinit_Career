@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import { getCrashPlanById } from '../src/lib/data/crashPlansData';
 import { REACT_LONG_LESSONS } from '../src/lib/data/reactLongLessons';
+import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
 import { CAPSTONE_SPRINTS, getCapstoneSprints } from '../src/lib/courses/capstoneSprints';
 
 // The 1-month plan's React track must only promise a capstone the course prepares students for.
@@ -15,6 +16,15 @@ test('the 1-month React capstone only uses technology the course teaches', () =>
   assert.deepEqual(untaught, [], `capstone lists technology the React course never teaches: ${untaught.join(', ')}`);
 });
 
+// The same for the Python track: it used to promise an async ingestion engine with Redis and rate limiting.
+test('the 1-month Python capstone only uses technology the course teaches', () => {
+  const plan = getCrashPlanById('plan-1m-sprint');
+  assert.ok(plan, 'plan-1m-sprint not found');
+  const courseText = JSON.stringify(PYTHON_LONG_LESSONS).toLowerCase();
+  const untaught = plan.flagshipBuildByTrack.python_ai.tech.filter((t) => !courseText.includes(t.toLowerCase()));
+  assert.deepEqual(untaught, [], `capstone lists technology the Python course never teaches: ${untaught.join(', ')}`);
+});
+
 test('capstone sprints use the plan wording for its track and the generic wording otherwise', () => {
   const plan = getCrashPlanById('plan-1m-sprint');
   const web = getCapstoneSprints(plan, 'web_fullstack');
@@ -25,6 +35,8 @@ test('capstone sprints use the plan wording for its track and the generic wordin
   assert.equal(web[2].check, CAPSTONE_SPRINTS[2].check, 'checks the plan does not reword stay the same');
 
   const python = getCapstoneSprints(plan, 'python_ai');
-  assert.deepEqual(python.map((s) => s.title), CAPSTONE_SPRINTS.map((s) => s.title));
+  assert.equal(python[0].title, 'Sprint 1: Plan & Repository');
+  assert.equal(python[1].field?.label, 'API code');
+  assert.equal(python[2].title, CAPSTONE_SPRINTS[2].title, 'sprint 3 keeps the generic title');
   assert.deepEqual(getCapstoneSprints(undefined, undefined).map((s) => s.title), CAPSTONE_SPRINTS.map((s) => s.title));
 });

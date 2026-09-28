@@ -106,13 +106,33 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         icon: '🍲'
       },
       python_ai: {
-        title: 'High-Concurrency Async REST API & Ingestion Engine',
-        desc: 'FastAPI asynchronous microservice processing batch data feeds with rate limiting and Redis cache.',
-        tech: ['Python 3.12', 'FastAPI', 'Redis', 'Pydantic'],
-        icon: '⚡'
+        title: 'Study Planner API',
+        desc: 'Your own Python web API, built on your own: add subjects and study tasks with due dates, see what is due this week and your progress per subject, save the data as JSON, test it with pytest, and put it online with a live /docs page.',
+        tech: ['Python', 'FastAPI', 'Pydantic', 'pytest'],
+        icon: '📚'
       }
     },
     capstoneSprintsByTrack: {
+      python_ai: {
+        1: {
+          title: 'Sprint 1: Plan & Repository',
+          description: 'Create a public GitHub repository for your capstone API and add PLAN.md with your user stories, the shape of one task and your list of functions, like you did on Day 23.',
+          check: 'We check that the repository is public and your plan file exists in it.',
+          field: { label: 'Plan', placeholder: 'https://github.com/you/study-planner/blob/main/PLAN.md' }
+        },
+        2: {
+          title: 'Sprint 2: Core Features',
+          description: 'Build the API in the same repository: a logic module and api.py with routes to add and list tasks, mark them done and see a summary per subject, plus pytest tests, like the Expense Tracker on Days 24 to 27.',
+          check: 'We check that the API file you link exists in your repository.',
+          field: { label: 'API code', placeholder: 'https://github.com/you/study-planner/blob/main/api.py' }
+        },
+        3: {
+          description: 'Put the API online (for example on Render, like on Day 29) and submit its live https address, such as your /docs page.'
+        },
+        4: {
+          description: 'Explain and defend your API in the AI capstone interview (free for enrolled students).'
+        }
+      },
       web_fullstack: {
         1: {
           title: 'Sprint 1: Plan & Repository',
@@ -175,10 +195,10 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         {
           month: 1,
           courseId: 'course-python-backend',
-          title: 'Python Core & Scripting Fundamentals',
-          desc: 'Python syntax, data structures, OOP paradigms, and automation.',
+          title: 'Month 1: From Python Basics to a Web API',
+          desc: 'Python basics, lists and dictionaries, files and JSON, classes, testing and Git, while building an Expense Tracker and turning it into a FastAPI web API online.',
           icon: '🐍',
-          skills: ['Python', 'OOP', 'Data Structures', 'Scripting']
+          skills: ['Python', 'FastAPI', 'pytest', 'Git']
         }
       ]
     }
