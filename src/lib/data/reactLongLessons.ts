@@ -1081,5 +1081,1203 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         'Use some to print whether you have any offer yet.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 6,
+    title: 'Modern JavaScript: Template Strings, Destructuring and Spread',
+    goal: 'You can build text with template strings, pull values out of objects and arrays, and make updated copies with spread, which React code uses on almost every line.',
+    minutes: 30,
+    recap: 'Yesterday you used loops, map, filter and find to work with whole lists of jobs.',
+    parts: [
+      {
+        title: 'Template strings: building text the easy way',
+        say: [
+          'So far you joined text with the plus sign: "Hello, " + name + "!". It works, but with many pieces it gets messy, and it is easy to forget a space.',
+          'Template strings are a cleaner way. Instead of quotes, you use backticks, the key usually just below Escape on your keyboard. Inside backticks, you can put any JavaScript value inside a dollar sign and curly brackets, like ${name}, and it gets placed into the text.',
+          'You can put any expression inside ${ }, not only variable names: maths like ${price * 2}, or a function call like ${name.toUpperCase()}. Template strings can also go over several lines.',
+          'From now on, when you build text from pieces, use template strings. You will see them in React for class names and messages.'
+        ],
+        example: 'A template string is like a printed form with blanks: "Dear ____, your order of ____ items is ready." You fill the blanks with real values, and the rest of the sentence stays the same.',
+        code: lines(
+          'const name = "Asha";',
+          'const jobs = 3;',
+          'console.log(`Hi ${name}, you applied to ${jobs} jobs.`);',
+          'console.log(`Next month that could be ${jobs * 2} jobs!`);',
+          'console.log(`Your name in capitals: ${name.toUpperCase()}`);'
+        ),
+        output: lines('Hi Asha, you applied to 3 jobs.', 'Next month that could be 6 jobs!', 'Your name in capitals: ASHA'),
+        codeNotes: [
+          { line: 3, note: 'Backticks instead of quotes. ${name} and ${jobs} are replaced by their values.' },
+          { line: 4, note: 'Any expression works inside ${ }, even maths.' }
+        ],
+        tryIt: 'Write a template string that prints: "Asha has 3 interviews this week." using the name variable and a new variable interviews.',
+        check: {
+          question: 'What does `Total: ${2 + 3}` produce?',
+          options: ['Total: ${2 + 3}', 'Total: 5', 'Total: 23'],
+          answer: 1,
+          why: 'Inside ${ } the expression is calculated first, so 2 + 3 becomes 5.'
+        }
+      },
+      {
+        title: 'Destructuring objects: taking out the parts you need',
+        say: [
+          'Often you have an object and need a few of its properties. You could write const title = job.title; and const company = job.company; on separate lines. Destructuring does it in one line: const { title, company } = job;.',
+          'The curly brackets on the left side mean: from this object, take the properties with these names and create variables with the same names. The names must match the property names exactly.',
+          'If a property does not exist, its variable becomes undefined. You can also give a default value: const { status = "applied" } = job; uses "applied" when job has no status.',
+          'This matters for React because every component receives its data as one object called props, and the very first thing most components do is destructure it. You will see this tomorrow and on Day 9.'
+        ],
+        example: 'When a delivery box arrives, you do not carry the whole box around the house. You take out the items you need and put each in its place. Destructuring takes the values you need out of an object.',
+        code: lines(
+          'const job = { title: "React Developer", company: "Zoho", salary: 600000 };',
+          '',
+          'const { title, company } = job;',
+          'console.log(title);',
+          'console.log(company);',
+          '',
+          'const { status = "applied" } = job;',
+          'console.log(status);'
+        ),
+        output: lines('React Developer', 'Zoho', 'applied'),
+        codeNotes: [
+          { line: 3, note: 'Creates two variables, title and company, from the matching properties.' },
+          { line: 7, note: 'job has no status, so the default "applied" is used.' }
+        ],
+        tryIt: 'Also take out salary with destructuring and print it using a template string: `Salary: ${salary}`.',
+        check: {
+          question: 'After const { city } = { name: "Ravi" }; what is city?',
+          options: ['"Ravi"', 'undefined', 'An error'],
+          answer: 1,
+          why: 'The object has no city property, so the variable city is undefined.'
+        }
+      },
+      {
+        title: 'Destructuring arrays: the useState pattern',
+        say: [
+          'Arrays can be destructured too, but with square brackets, and the values are taken by position, not by name. const [first, second] = list; puts list[0] into first and list[1] into second.',
+          'Because it is by position, you can choose any names you like. That is different from objects, where the names must match.',
+          'Why learn this now? Next week you will write this line again and again: const [count, setCount] = useState(0);. useState gives back an array of two things: the current value and a function to change it. Array destructuring gives them nice names in one line.',
+          'The code below imitates useState with a normal function that returns an array of two items, so you can see exactly how that line works.'
+        ],
+        example: 'Think of a queue at a ticket counter. The first person in line goes to counter A, the second to counter B. People are assigned by their position, not by their name. Array destructuring works by position.',
+        code: lines(
+          'const skills = ["HTML", "CSS", "JavaScript"];',
+          'const [first, second] = skills;',
+          'console.log(first);',
+          'console.log(second);',
+          '',
+          'function fakeUseState(start) {',
+          '  const setValue = (v) => console.log(`Would change to ${v}`);',
+          '  return [start, setValue];',
+          '}',
+          '',
+          'const [count, setCount] = fakeUseState(0);',
+          'console.log(count);',
+          'setCount(1);'
+        ),
+        output: lines('HTML', 'CSS', '0', 'Would change to 1'),
+        codeNotes: [
+          { line: 2, note: 'By position: first gets skills[0], second gets skills[1].' },
+          { line: 8, note: 'The function returns an array with two items: a value and a function.' },
+          { line: 11, note: 'The same shape as React\'s useState line you will write next week.' }
+        ],
+        tryIt: 'Add a third name to line 2: const [first, second, third] = skills; and print third.',
+        check: {
+          question: 'In const [a, b] = [10, 20]; what is b?',
+          options: ['10', '20', 'undefined'],
+          answer: 1,
+          why: 'Array destructuring goes by position: a gets the first item (10), b gets the second (20).'
+        }
+      },
+      {
+        title: 'Spread with arrays: copying and adding',
+        say: [
+          'Here is a surprise that confuses many beginners. If you write const b = a; with an array, you do not get a copy. Both names point to the same array. Change b, and a changes too.',
+          'To make a real copy, use the spread operator: three dots. [...a] means: a new array containing all the items of a. You can add items at the same time: [...jobs, newJob] makes a new array with every old job plus the new one at the end.',
+          'React needs this. React decides whether to redraw the screen by checking if you gave it a new array. If you push into the old array, React may not notice the change, and your screen will not update. So in React, you add items with [...jobs, newJob], never with push.',
+          'Today\'s second practice task, addJob, is exactly this pattern.'
+        ],
+        example: 'Sharing a Google Doc link is like const b = a: both people edit the same document. Making a copy of the doc is like [...a]: now you each have your own, and changes to one do not touch the other.',
+        code: lines(
+          'const a = [1, 2];',
+          'const b = a;',
+          'b.push(3);',
+          'console.log(a);',
+          '',
+          'const c = [...a];',
+          'c.push(4);',
+          'console.log(a);',
+          'console.log(c);',
+          '',
+          'const jobs = ["Dev", "Tester"];',
+          'const moreJobs = [...jobs, "Designer"];',
+          'console.log(moreJobs);'
+        ),
+        output: lines('[ 1, 2, 3 ]', '[ 1, 2, 3 ]', '[ 1, 2, 3, 4 ]', '[ \'Dev\', \'Tester\', \'Designer\' ]'),
+        codeNotes: [
+          { line: 2, note: 'Not a copy: b and a are the same array.' },
+          { line: 4, note: 'a changed too, because b.push changed the shared array.' },
+          { line: 6, note: 'A real copy with spread. Changing c does not touch a.' },
+          { line: 12, note: 'The React way to add an item: a new array with the old items plus the new one.' }
+        ],
+        tryIt: 'Make a new array with "Intern" at the START instead of the end: ["Intern", ...jobs]. Print it.',
+        check: {
+          question: 'How should you add newJob to jobs in React?',
+          options: ['jobs.push(newJob)', '[...jobs, newJob]', 'jobs = newJob'],
+          answer: 1,
+          why: 'React needs a new array to notice the change. Spread makes a new array with the new item added.'
+        }
+      },
+      {
+        title: 'Spread with objects: updating one detail',
+        say: [
+          'Objects work the same way. const copy = { ...job }; makes a new object with all the properties of job.',
+          'The really useful part: you can change some properties while copying. { ...job, status: "offer" } means: copy everything from job, then set status to "offer". Properties written after the spread win.',
+          'This is how you update anything in React: the job status, a form field, a user setting. You never change the old object; you create an updated copy. The original stays untouched, which also makes bugs much easier to find.',
+          'Order matters. If you write { status: "offer", ...job }, the spread comes last and puts the old status back. Always put the spread first, then your changes.'
+        ],
+        example: 'When you update your address on a bank form, the bank does not scratch out your old form. It makes a new record with everything the same except the address. Spread with objects does exactly that.',
+        code: lines(
+          'const job = { title: "Dev", company: "TCS", status: "applied" };',
+          '',
+          'const updated = { ...job, status: "interview" };',
+          'console.log(updated);',
+          'console.log(job.status);',
+          '',
+          'const wrongOrder = { status: "offer", ...job };',
+          'console.log(wrongOrder.status);'
+        ),
+        output: lines(
+          '{ title: \'Dev\', company: \'TCS\', status: \'interview\' }',
+          'applied',
+          'applied'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Copy everything, then set status to "interview".' },
+          { line: 5, note: 'The original job is unchanged.' },
+          { line: 7, note: 'Wrong order: the spread comes last and overwrites status back to "applied".' }
+        ],
+        tryIt: 'Make a copy of job with both status: "offer" and a new property salary: 500000. Print it.',
+        check: {
+          question: 'What is { ...{ a: 1, b: 2 }, b: 5 }?',
+          options: ['{ a: 1, b: 2 }', '{ a: 1, b: 5 }', '{ b: 5 }'],
+          answer: 1,
+          why: 'Everything is copied first, then b is set to 5 because it comes after the spread.'
+        }
+      },
+      {
+        title: 'Safe access with ?. and ??',
+        say: [
+          'Real data is often incomplete. A job may have no salary. A user may not be logged in, so user is null. Reading user.name then crashes with "Cannot read properties of null".',
+          'Optional chaining, written ?., protects you. user?.name means: if user exists, give me its name; if user is null or undefined, just give undefined instead of crashing.',
+          'The ?? operator gives a fallback value when something is null or undefined: job.salary ?? "Not shared" shows "Not shared" when the salary is missing. Together, ?. and ?? let you show sensible text instead of crashing or showing "undefined" on screen.',
+          'Well done: you now know the modern JavaScript that React code is full of. Tomorrow you create your very first React project.'
+        ],
+        example: 'Before asking a shopkeeper for a specific brand, you check whether the shop is open. If it is closed, you do not argue with a locked door; you go with plan B. ?. checks first, and ?? is your plan B.',
+        code: lines(
+          'const user = null;',
+          'console.log(user?.name);',
+          '',
+          'const job = { title: "Dev" };',
+          'console.log(job.salary ?? "Not shared");',
+          '',
+          'const loggedIn = { name: "Asha" };',
+          'console.log(loggedIn?.name ?? "Guest");',
+          'console.log(user?.name ?? "Guest");'
+        ),
+        output: lines('undefined', 'Not shared', 'Asha', 'Guest'),
+        codeNotes: [
+          { line: 2, note: 'user is null, so ?. gives undefined instead of crashing.' },
+          { line: 5, note: 'salary is missing, so ?? uses the fallback text.' },
+          { line: 9, note: 'Combined: no user, so show "Guest".' }
+        ],
+        tryIt: 'Remove the ?. from line 2 (write user.name) and run it. Read the error. Then put it back.',
+        check: {
+          question: 'What does null ?? "Guest" give?',
+          options: ['null', '"Guest"', 'An error'],
+          answer: 1,
+          why: '?? uses the right side when the left side is null or undefined.'
+        }
+      }
+    ],
+    summary: [
+      'Template strings use backticks and ${ } to put values into text.',
+      'Object destructuring takes properties by name; array destructuring takes items by position.',
+      '[...list, item] and { ...obj, key: value } make updated copies; React needs new copies, not changes.',
+      '?. avoids crashes on missing data; ?? gives a fallback value.'
+    ],
+    projectStep: {
+      title: 'Update jobs the React way',
+      steps: [
+        'Write a function describe(job) that uses destructuring and a template string: "Dev at TCS (applied)".',
+        'Create a new job and add it with spread: const next = [...jobs, newJob].',
+        'Change one job\'s status by making a copy with spread, and print both the old and new job.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 7,
+    title: 'Modules and Creating Your First React Project',
+    goal: 'You can split code into files with import and export, and you will create and run your own React project on your laptop.',
+    minutes: 35,
+    recap: 'Yesterday you learned template strings, destructuring and spread, the modern JavaScript React uses everywhere.',
+    parts: [
+      {
+        title: 'Why real apps use many files',
+        say: [
+          'Everything you wrote so far fit in one small file. A real app like Swiggy has thousands of functions. If everything were in one file, nobody could find anything, and two developers editing the same file at once would keep breaking each other\'s work.',
+          'So apps are split into many small files, each with one clear job. In React, the usual habit is one component per file: Header.jsx, JobCard.jsx, JobList.jsx.',
+          'For this to work, a file must be able to share its code with other files, and other files must be able to use it. That is what export and import do.'
+        ],
+        example: 'A textbook is split into chapters, and each chapter can say "see Chapter 3" instead of repeating it. Files in an app are chapters, and import is the "see Chapter 3" reference.',
+        check: {
+          question: 'Why do apps split code into many files?',
+          options: ['Browsers can only read small files', 'To keep code organised and easy to find and share', 'Files make code run faster'],
+          answer: 1,
+          why: 'Small files with one job each are easier to understand, find and work on together.'
+        }
+      },
+      {
+        title: 'export and import',
+        say: [
+          'To share something from a file, put export in front of it: export function formatSalary(amount) { ... }. Now other files are allowed to use it.',
+          'To use it in another file, import it at the top, with the file path: import { formatSalary } from "./utils.js";. The ./ means "in the same folder as this file". The name inside the curly brackets must match the exported name. This is called a named export.',
+          'There is also a default export, used for the main thing a file offers: export default function JobCard() { ... }. You import it without curly brackets, and you can choose the name: import JobCard from "./JobCard.jsx";. React components are usually default exports.',
+          'The in-lesson code box runs a single file, so the two files below are shown for reading. You will use exactly this pattern in your project from tomorrow.'
+        ],
+        example: 'A school library lends books only if they are on the lending shelf (export). A student must fill a slip with the exact book name to borrow it (import). Books not on the shelf stay inside the library.',
+        projectCode: {
+          label: 'Two files in your project',
+          code: lines(
+            '// utils.js',
+            'export function formatSalary(amount) {',
+            '  return `₹${amount.toLocaleString("en-IN")}`;',
+            '}',
+            '',
+            '// JobCard.jsx',
+            'import { formatSalary } from "./utils.js";',
+            '',
+            'export default function JobCard({ title, salary }) {',
+            '  return <p>{title}: {formatSalary(salary)}</p>;',
+            '}'
+          )
+        },
+        code: lines(
+          'function formatSalary(amount) {',
+          '  return "Rs " + amount.toLocaleString("en-IN");',
+          '}',
+          'console.log(formatSalary(450000));'
+        ),
+        output: 'Rs 4,50,000',
+        codeNotes: [
+          { line: 2, note: 'toLocaleString("en-IN") adds commas the Indian way: 4,50,000.' }
+        ],
+        tryIt: 'Call formatSalary(1200000) and see how it formats twelve lakh.',
+        check: {
+          question: 'How do you import a named export called formatSalary from ./utils.js?',
+          options: ['import formatSalary from "./utils.js"', 'import { formatSalary } from "./utils.js"', 'export { formatSalary }'],
+          answer: 1,
+          why: 'Named exports are imported with curly brackets and the exact name.'
+        }
+      },
+      {
+        title: 'Node.js and npm: tools on your laptop',
+        say: [
+          'To build React apps on your laptop, you need two tools. Node.js lets your computer run JavaScript outside the browser. npm, which comes with Node.js, downloads packages: code that other developers have shared, like React itself.',
+          'Install Node.js from nodejs.org: choose the LTS version, which means the stable one. Then open a terminal. On Windows, that is PowerShell or the terminal inside VS Code. Type node -v and npm -v. If both print a version number, you are ready.',
+          'You also need a code editor. Most companies use VS Code, which is free. Install it from code.visualstudio.com.',
+          'Every project has a file called package.json. It lists the packages the project needs. When you run npm install, npm reads that list and downloads everything into a folder called node_modules. You never edit node_modules yourself.'
+        ],
+        example: 'npm is like the Play Store for code. Instead of writing a camera app yourself, you install one. Instead of writing React yourself, npm installs it for you.',
+        projectCode: {
+          label: 'In your terminal',
+          code: lines(
+            'node -v',
+            '# prints something like v22.11.0',
+            'npm -v',
+            '# prints something like 10.9.0'
+          )
+        },
+        tryIt: 'Install Node.js (LTS) and VS Code now if you have not. Run node -v and npm -v in a terminal and check that both print a version.',
+        check: {
+          question: 'What does npm install do?',
+          options: ['Deletes the project', 'Downloads the packages listed in package.json', 'Starts the website'],
+          answer: 1,
+          why: 'npm install reads package.json and downloads every package the project needs into node_modules.'
+        }
+      },
+      {
+        title: 'Create your React project with Vite',
+        say: [
+          'Now the exciting part: creating your own React app. We use a tool called Vite, pronounced "veet", which is French for fast. It sets up a React project in seconds.',
+          'Open the terminal in the folder where you keep your projects, and run the four commands shown below, one at a time. The first one creates a folder called job-tracker with a ready-made React app inside. When it asks questions, choose React and then JavaScript.',
+          'The last command, npm run dev, starts a small development server. It prints an address like http://localhost:5173. Open it in your browser, and you will see the Vite and React welcome page. That page is running from your own laptop.',
+          'Keep that terminal open while you work. To stop the server, press Ctrl+C in the terminal. To start it again later, go into the folder and run npm run dev again.'
+        ],
+        example: 'It is like buying a flat that comes with the walls, wiring and plumbing already done. You move in and start decorating right away instead of building from bricks.',
+        projectCode: {
+          label: 'In your terminal',
+          code: lines(
+            'npm create vite@latest job-tracker -- --template react',
+            'cd job-tracker',
+            'npm install',
+            'npm run dev'
+          )
+        },
+        tryIt: 'Run the four commands. Open http://localhost:5173 in your browser and click the counter button on the welcome page. That button is React state, which you will learn on Day 12.',
+        check: {
+          question: 'Which command starts your app so you can see it in the browser?',
+          options: ['npm install', 'npm run dev', 'node -v'],
+          answer: 1,
+          why: 'npm run dev starts the development server and prints the local address to open.'
+        }
+      },
+      {
+        title: 'A tour of your project',
+        say: [
+          'Open the job-tracker folder in VS Code (File, then Open Folder). Here are the parts that matter. index.html is the single HTML page. It has an empty div with the id root; React fills it with your app.',
+          'src is where your code lives. src/main.jsx starts React and puts your App component into that root div. You rarely change this file. src/App.jsx is your main component: the whole screen starts here. This is where you will work.',
+          'Files ending in .jsx are JavaScript files that contain JSX, the HTML-like syntax you learn tomorrow. package.json lists the packages, and node_modules holds them.',
+          'Now replace everything in src/App.jsx with the short version below and save. Look at your browser: it updates instantly, without refreshing. This is called hot reload, and it makes building apps fast and fun.'
+        ],
+        example: 'Your project is like a house: index.html is the plot of land, main.jsx is the foundation, and App.jsx is the main room you will furnish every day.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      <h1>My Job Tracker</h1>',
+            '      <p>Track every job you apply to.</p>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Change the h1 text to your own name, like "Priya\'s Job Tracker", save, and watch the browser update by itself.',
+        check: {
+          question: 'Which file is your main screen component, where you will do most of your work?',
+          options: ['index.html', 'src/App.jsx', 'package.json'],
+          answer: 1,
+          why: 'App.jsx holds the App component, which is the starting point of everything on your screen.'
+        }
+      },
+      {
+        title: 'Counting with objects (for today\'s practice)',
+        say: [
+          'Before you finish, one small but very useful trick for today\'s practice: counting things with an object. Suppose you want to know how many jobs are at each status.',
+          'Start with an empty object, const counts = {};. Loop over the jobs. For each job, add 1 to counts[job.status]. The square brackets let you use the status text as the property name.',
+          'But the first time a status appears, counts[job.status] is undefined, and undefined + 1 is NaN, which means "not a number". So we write (counts[job.status] || 0) + 1. The || 0 means: if there is nothing yet, start from 0.',
+          'This counting pattern appears in dashboards everywhere: votes per option, orders per city, jobs per status. Your Job Tracker summary will use it.'
+        ],
+        example: 'A shopkeeper counting sales on paper: the first time someone buys Maggi, they write "Maggi: 1". Each next sale adds one to that line. A new item gets a new line starting at 1.',
+        code: lines(
+          'const jobs = [',
+          '  { status: "applied" },',
+          '  { status: "interview" },',
+          '  { status: "applied" }',
+          '];',
+          '',
+          'const counts = {};',
+          'for (const job of jobs) {',
+          '  counts[job.status] = (counts[job.status] || 0) + 1;',
+          '}',
+          'console.log(counts);'
+        ),
+        output: '{ applied: 2, interview: 1 }',
+        codeNotes: [
+          { line: 7, note: 'Start with an empty object.' },
+          { line: 9, note: 'Use the status text as the property name. || 0 starts new statuses at zero.' }
+        ],
+        tryIt: 'Add a job with status "offer" and run again. A new property appears by itself.',
+        check: {
+          question: 'Why do we write (counts[job.status] || 0) + 1?',
+          options: ['To make the code shorter', 'Because the first time, counts[job.status] is undefined', 'Because statuses are numbers'],
+          answer: 1,
+          why: 'A new status has no count yet (undefined). || 0 makes it start from 0, so + 1 gives 1.'
+        }
+      }
+    ],
+    summary: [
+      'Apps are split into files; export shares code and import uses it.',
+      'Named exports use { } when importing; default exports do not.',
+      'Node.js runs JavaScript on your laptop; npm installs packages listed in package.json.',
+      'npm create vite, npm install, npm run dev: your React app runs at localhost:5173.',
+      'Count things with an object: counts[key] = (counts[key] || 0) + 1.'
+    ],
+    projectStep: {
+      title: 'Create the Job Tracker project',
+      steps: [
+        'Create the project with Vite and run it with npm run dev.',
+        'Replace src/App.jsx with the short version from this lesson and put your own name in the heading.',
+        'Delete src/App.css and remove its import line from App.jsx. We will add our own styles later.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 8,
+    title: 'Your First Component and JSX',
+    goal: 'You can write React components with JSX, follow the JSX rules, show JavaScript values on screen, and build a screen from several components.',
+    minutes: 32,
+    recap: 'Yesterday you created your Job Tracker project with Vite and saw React running on your laptop.',
+    parts: [
+      {
+        title: 'What a component really is',
+        say: [
+          'Today you write real React. Remember from Day 3: a component is a function that returns what should appear on the screen. That is truly all it is.',
+          'There are two rules. First, the name must start with a capital letter: Header, not header. That is how React tells your components apart from normal HTML tags like div. Second, it must return a single piece of screen, written in JSX.',
+          'Look at the React code below. Header is a function that returns an h1. App returns a div that uses Header like a tag: <Header />. When React draws App, it calls your Header function and puts its result there.',
+          'The runnable box shows the same idea in plain JavaScript: functions that return pieces of a page, where one function uses another.'
+        ],
+        example: 'A component is like a rubber stamp. You design the stamp once (write the function), and every time you press it (use <Header />), the same design appears on the page.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'function Header() {',
+            '  return <h1>My Job Tracker</h1>;',
+            '}',
+            '',
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      <Header />',
+            '      <p>Track every job you apply to.</p>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'function Header() {',
+          '  return "<h1>My Job Tracker</h1>";',
+          '}',
+          '',
+          'function App() {',
+          '  return "<div>" + Header() + "<p>Track every job.</p></div>";',
+          '}',
+          '',
+          'console.log(App());'
+        ),
+        output: '<div><h1>My Job Tracker</h1><p>Track every job.</p></div>',
+        codeNotes: [
+          { line: 1, note: 'A component: a function with a capital-letter name.' },
+          { line: 6, note: 'App uses Header. In React you would write <Header /> instead of Header().' }
+        ],
+        tryIt: 'In your project, add a second component called Footer that returns <p>Made by YOUR NAME</p>, and use <Footer /> inside App below the paragraph.',
+        check: {
+          question: 'Which is a valid component name?',
+          options: ['jobCard', 'JobCard', 'job-card'],
+          answer: 1,
+          why: 'Component names must start with a capital letter so React can tell them apart from HTML tags.'
+        }
+      },
+      {
+        title: 'JSX: HTML-like code inside JavaScript',
+        say: [
+          'The HTML-looking code inside return is JSX. It looks like HTML, but it is really JavaScript. Before the browser runs it, a tool turns every JSX tag into a JavaScript object that describes what to draw.',
+          'For example, <h1 className="title">Hello</h1> becomes an object like { type: "h1", props: { className: "title", children: "Hello" } }. React reads these objects and creates the real page from them.',
+          'You never write those objects yourself; JSX is the friendly way. But knowing it is JavaScript underneath explains all the JSX rules you will learn next. And it is why you can put JSX in variables, return it from functions, and put it in arrays.',
+          'When JSX spans several lines, wrap it in round brackets after return, as in the examples. That avoids a classic mistake where JavaScript ends the return on the first line.'
+        ],
+        example: 'JSX is like writing a recipe in simple words that a translator then turns into precise kitchen instructions. You write the easy version; the tool produces the exact one the computer needs.',
+        code: lines(
+          'const element = {',
+          '  type: "h1",',
+          '  props: { className: "title", children: "Hello" }',
+          '};',
+          '',
+          'console.log(element.type);',
+          'console.log(element.props.children);'
+        ),
+        output: lines('h1', 'Hello'),
+        codeNotes: [
+          { line: 1, note: 'Roughly what <h1 className="title">Hello</h1> becomes after the JSX tool runs.' }
+        ],
+        tryIt: 'Write, as an object, what <p>Welcome</p> would become: type "p" and children "Welcome". Print its type.',
+        check: {
+          question: 'What is JSX really?',
+          options: ['Real HTML', 'JavaScript that describes what to draw', 'A CSS file'],
+          answer: 1,
+          why: 'JSX is turned into JavaScript objects that tell React what to draw.'
+        }
+      },
+      {
+        title: 'The JSX rules',
+        say: [
+          'Because JSX is JavaScript, it has a few rules that differ from HTML. Rule one: a component must return one parent element. You cannot return two h1s side by side. Wrap them in a div, or in an empty tag <> </> called a fragment, which groups things without adding anything to the page.',
+          'Rule two: use className instead of class, because class is a reserved word in JavaScript. Similarly, the for attribute on labels becomes htmlFor.',
+          'Rule three: every tag must be closed. In HTML you may write <img> or <br> alone; in JSX you must write <img /> and <br /> with a slash.',
+          'Rule four: attributes with two words use camelCase: onclick becomes onClick, and tabindex becomes tabIndex. If you break a rule, the browser page and the terminal show a clear error message. Read it: it usually tells you the exact line.'
+        ],
+        example: 'It is like writing a formal letter instead of a text message. The words are mostly the same, but there are a few strict rules about format, and following them avoids confusion.',
+        projectCode: {
+          label: 'Wrong vs right',
+          code: lines(
+            '// Wrong: two parents, class, unclosed img',
+            'return (',
+            '  <h1 class="title">Jobs</h1>',
+            '  <img src="logo.png">',
+            ');',
+            '',
+            '// Right',
+            'return (',
+            '  <>',
+            '    <h1 className="title">Jobs</h1>',
+            '    <img src="logo.png" alt="Logo" />',
+            '  </>',
+            ');'
+          )
+        },
+        tryIt: 'In your App.jsx, deliberately write class instead of className on the h1, save, and look at the warning in the browser console (press F12). Then fix it.',
+        check: {
+          question: 'Which JSX is correct?',
+          options: ['<img src="a.png">', '<img src="a.png" />', '<img src="a.png"></img class>'],
+          answer: 1,
+          why: 'Every tag must be closed in JSX. Tags with nothing inside close themselves with />.'
+        }
+      },
+      {
+        title: 'Curly braces: showing JavaScript values',
+        say: [
+          'A screen that always shows the same text is not very useful. To show a JavaScript value inside JSX, put it inside curly braces: <h1>Hello, {name}</h1>. Whatever is inside the braces is calculated and shown.',
+          'You can put any expression in the braces: a variable {name}, maths {jobs.length * 2}, a function call {name.toUpperCase()}, or a template string. You cannot put statements like if or for inside braces; you will learn the React way to do those on Days 10 and 11.',
+          'Braces also work for attribute values: <img src={photoUrl} />. Use quotes for fixed text and braces for JavaScript values.',
+          'This is the same idea as ${ } in template strings from Day 6. The runnable box shows the template-string version so you can compare.'
+        ],
+        example: 'Curly braces are like the blanks in a fill-in-the-blanks form. The form (JSX) stays the same, and the blanks show whatever value you give them today.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'export default function App() {',
+            '  const name = "Asha";',
+            '  const jobsApplied = 5;',
+            '  return (',
+            '    <div>',
+            '      <h1>{name}\'s Job Tracker</h1>',
+            '      <p>You applied to {jobsApplied} jobs.</p>',
+            '      <p>Goal this month: {jobsApplied * 4}</p>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'const name = "Asha";',
+          'const jobsApplied = 5;',
+          'console.log(`<h1>${name}\'s Job Tracker</h1>`);',
+          'console.log(`<p>Goal this month: ${jobsApplied * 4}</p>`);'
+        ),
+        output: lines('<h1>Asha\'s Job Tracker</h1>', '<p>Goal this month: 20</p>'),
+        codeNotes: [
+          { line: 3, note: '${name} in a template string does what {name} does in JSX.' }
+        ],
+        tryIt: 'In your project, add a variable today = new Date().toDateString() and show it in a paragraph: <p>Today is {today}</p>.',
+        check: {
+          question: 'How do you show the value of a variable city in JSX?',
+          options: ['<p>city</p>', '<p>{city}</p>', '<p>${city}</p>'],
+          answer: 1,
+          why: 'Curly braces put a JavaScript value into JSX. ${ } is only for template strings.'
+        }
+      },
+      {
+        title: 'Components inside components',
+        say: [
+          'The real power of components is putting them together. App can use Header, Summary and JobCard. JobCard can use a StatusBadge. Each is small and simple, and together they form the whole screen. This is called a component tree.',
+          'When you design a screen, draw boxes around its parts. Each box that has its own job, or that repeats, becomes a component. A good component usually fits on one screen of code.',
+          'Right now your JobCard always shows the same job, because it has no inputs yet. Tomorrow you will give components inputs called props, so the same JobCard can show any job.',
+          'The runnable box shows the tree idea with plain functions: App calls Header and two JobCards.'
+        ],
+        example: 'A car is made from parts: engine, wheels, seats. Each part is made separately and tested separately, then put together. You can also reuse the same wheel design four times.',
+        code: lines(
+          'const Header = () => "[Header: My Job Tracker]";',
+          'const JobCard = () => "[JobCard: Frontend Developer at Infosys]";',
+          '',
+          'const App = () => [Header(), JobCard(), JobCard()].join("\\n");',
+          '',
+          'console.log(App());'
+        ),
+        output: lines('[Header: My Job Tracker]', '[JobCard: Frontend Developer at Infosys]', '[JobCard: Frontend Developer at Infosys]'),
+        codeNotes: [
+          { line: 4, note: 'App is built from smaller pieces. The same JobCard is used twice.' }
+        ],
+        tryIt: 'Notice both JobCards show the same job. That is the problem props solve tomorrow. Try adding a Footer piece to App.',
+        check: {
+          question: 'When should a part of the screen become its own component?',
+          options: ['Never, keep everything in App', 'When it has its own job or repeats', 'Only for buttons'],
+          answer: 1,
+          why: 'Parts that repeat or have a clear job of their own are good components.'
+        }
+      },
+      {
+        title: 'Your first real components in the Job Tracker',
+        say: [
+          'Let us give your Job Tracker its first real structure. Create a folder called components inside src. Inside it, create Header.jsx and JobCard.jsx, one component per file, each with export default.',
+          'Then import them in App.jsx and use them. The code below shows all three files. Type them yourself instead of copying: typing builds the muscle memory that makes you fast in interviews.',
+          'Save and look at your browser. You should see the heading and one job card. If you see a blank page, press F12 and read the red error in the Console tab: usually it is a missing import or a typo in a file name.',
+          'You have just built a React app from components. Tomorrow, the job card learns to show any job.'
+        ],
+        example: 'Like a kitchen with separate stations for chopping, cooking and plating: each file is a station, and App.jsx is the head chef bringing the dish together.',
+        projectCode: {
+          label: 'src/components/Header.jsx, JobCard.jsx and src/App.jsx',
+          code: lines(
+            '// src/components/Header.jsx',
+            'export default function Header() {',
+            '  return <h1>My Job Tracker</h1>;',
+            '}',
+            '',
+            '// src/components/JobCard.jsx',
+            'export default function JobCard() {',
+            '  return (',
+            '    <div className="job-card">',
+            '      <h3>Frontend Developer</h3>',
+            '      <p>Infosys · applied</p>',
+            '    </div>',
+            '  );',
+            '}',
+            '',
+            '// src/App.jsx',
+            'import Header from "./components/Header.jsx";',
+            'import JobCard from "./components/JobCard.jsx";',
+            '',
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      <Header />',
+            '      <JobCard />',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Create the three files in your project and check that the heading and card appear in the browser.',
+        check: {
+          question: 'Your page is blank after adding a component. What should you do first?',
+          options: ['Delete the project', 'Press F12 and read the error in the Console', 'Restart the computer'],
+          answer: 1,
+          why: 'The browser console shows the exact error, usually a wrong import path or a typo.'
+        }
+      }
+    ],
+    summary: [
+      'A component is a function with a capital-letter name that returns JSX.',
+      'JSX is JavaScript underneath: one parent, className, close every tag, camelCase attributes.',
+      'Curly braces {value} show JavaScript values inside JSX.',
+      'Screens are trees of small components; keep one component per file with export default.'
+    ],
+    projectStep: {
+      title: 'Header and JobCard components',
+      steps: [
+        'Create src/components/Header.jsx and src/components/JobCard.jsx.',
+        'Import and use both in App.jsx.',
+        'Add a Summary component that shows "Total jobs: 5" (a fixed number for now).'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 9,
+    title: 'Props: Passing Data to Components',
+    goal: 'You can pass data into components with props, read props with destructuring and defaults, and understand that props flow one way, from parent to child.',
+    minutes: 30,
+    recap: 'Yesterday you built your first components with JSX, but your JobCard always showed the same job.',
+    parts: [
+      {
+        title: 'Why components need props',
+        say: [
+          'Yesterday\'s JobCard always showed "Frontend Developer at Infosys". A real list has many different jobs. Writing a new component for each job would be silly.',
+          'Props are the answer. Props are the inputs of a component, just like parameters are the inputs of a function. The parent decides the values, and the component uses them to decide what to show.',
+          'With props, you write JobCard once and use it for any job: <JobCard title="Tester" company="TCS" />. The word props is short for properties.',
+          'Think back to Day 3, where getResult(score) gave a different answer for each score. A component with props is the same idea: one function, different inputs, different results. The only change is that the result is a piece of screen instead of a word. The runnable box shows exactly this: one JobCard function called with two different props objects.'
+        ],
+        example: 'A wedding invitation card design is made once. Each printed copy has a different guest\'s name written on it. The design is the component; the guest\'s name is a prop.',
+        code: lines(
+          'function JobCard(props) {',
+          '  return `${props.title} at ${props.company}`;',
+          '}',
+          '',
+          'console.log(JobCard({ title: "Frontend Developer", company: "Infosys" }));',
+          'console.log(JobCard({ title: "Tester", company: "TCS" }));'
+        ),
+        output: lines('Frontend Developer at Infosys', 'Tester at TCS'),
+        codeNotes: [
+          { line: 1, note: 'props is one object holding all the inputs.' },
+          { line: 5, note: 'In React you would write <JobCard title="..." company="..." />. React collects them into this object.' }
+        ],
+        tryIt: 'Add a third call for a job you want, like a UI Developer at Swiggy.',
+        check: {
+          question: 'What are props?',
+          options: ['The inputs a parent gives to a component', 'CSS styles', 'A type of loop'],
+          answer: 0,
+          why: 'Props are the inputs of a component, given by the parent that uses it.'
+        }
+      },
+      {
+        title: 'Passing props',
+        say: [
+          'You pass props like HTML attributes. Text goes in quotes: title="Tester". Anything else, like numbers, booleans, arrays, objects or variables, goes in curly braces: salary={400000}, remote={true}, job={myJob}.',
+          'React collects all the attributes you wrote into one object and passes it to your component function. So <JobCard title="Tester" salary={400000} /> calls JobCard with { title: "Tester", salary: 400000 }.',
+          'A common mistake is salary="400000" with quotes: that passes text, not a number, and maths on it will surprise you, like on Day 2. Use braces for numbers.',
+          'A shortcut worth knowing: writing just the prop name with no value, like <JobCard remote />, passes true. It is the same as remote={true}. You will see this often with props like disabled on buttons.'
+        ],
+        example: 'Filling a courier form: the name field takes text, the weight field takes a number, the "fragile" checkbox is yes or no. Each field is a prop with the right kind of value.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'import JobCard from "./components/JobCard.jsx";',
+            '',
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      <JobCard title="Frontend Developer" company="Infosys" salary={400000} />',
+            '      <JobCard title="Tester" company="TCS" salary={300000} />',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'const props = { title: "Tester", salary: "300000" };',
+          'console.log(props.salary + 50000);',
+          '',
+          'const fixed = { title: "Tester", salary: 300000 };',
+          'console.log(fixed.salary + 50000);'
+        ),
+        output: lines('30000050000', '350000'),
+        codeNotes: [
+          { line: 1, note: 'salary="300000" with quotes passes text.' },
+          { line: 2, note: 'Text + number joins them: the Day 2 trap.' },
+          { line: 4, note: 'salary={300000} with braces passes a real number.' }
+        ],
+        tryIt: 'In your project, pass title, company and salary to two JobCards in App.jsx.',
+        check: {
+          question: 'How do you pass the number 5 as a prop called count?',
+          options: ['count="5"', 'count={5}', 'count=5'],
+          answer: 1,
+          why: 'Non-text values go inside curly braces. Quotes would pass the text "5".'
+        }
+      },
+      {
+        title: 'Reading props with destructuring',
+        say: [
+          'Writing props.title and props.company everywhere gets long. Instead, destructure the props right in the function\'s brackets: function JobCard({ title, company, salary }). This is the Day 6 destructuring, placed where the parameter goes.',
+          'Now you use title, company and salary directly. The component also becomes self-documenting: anyone reading the first line sees exactly which inputs it expects.',
+          'This is how almost all React components start. When you read company code, the first line of a component tells you its props.',
+          'Be careful with spelling. If the parent passes companyName but the component destructures company, then company is simply undefined, and nothing warns you. When a value is missing on screen, compare the prop name in the parent with the name in the component\'s first line.'
+        ],
+        example: 'When a package arrives, you open it and put each item straight into its place: the charger on the desk, the cable in the drawer. Destructuring unpacks props straight into named variables.',
+        projectCode: {
+          label: 'src/components/JobCard.jsx',
+          code: lines(
+            'export default function JobCard({ title, company, salary }) {',
+            '  return (',
+            '    <div className="job-card">',
+            '      <h3>{title}</h3>',
+            '      <p>{company} · ₹{salary.toLocaleString("en-IN")}</p>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'function JobCard({ title, company, salary }) {',
+          '  return `${title} | ${company} | Rs ${salary.toLocaleString("en-IN")}`;',
+          '}',
+          '',
+          'console.log(JobCard({ title: "Frontend Developer", company: "Infosys", salary: 400000 }));'
+        ),
+        output: 'Frontend Developer | Infosys | Rs 4,00,000',
+        codeNotes: [
+          { line: 1, note: 'Destructuring in the brackets: title, company and salary come straight out of props.' }
+        ],
+        tryIt: 'Add a city prop: destructure it and show it in the text.',
+        check: {
+          question: 'What does function Card({ name }) do with the props object?',
+          options: ['Ignores it', 'Takes out the name property as a variable', 'Renames props to name'],
+          answer: 1,
+          why: 'It destructures props, creating a variable name from props.name.'
+        }
+      },
+      {
+        title: 'Default values for props',
+        say: [
+          'Sometimes a parent does not pass every prop. A new job has no status yet, or a button has no colour chosen. Without a default, the prop is undefined, and your screen may show "undefined".',
+          'Give a default in the destructuring: function JobCard({ title, status = "applied" }). If the parent passes a status, it is used; if not, "applied" is used.',
+          'Defaults make components safer and easier to use: the parent only passes what is different from the usual case. Today\'s first practice task, Button with a default colour, is exactly this.',
+          'A default is used only when the prop is missing or undefined. If the parent passes an empty text, status="", the default is not used, because empty text is still a value. Keep this in mind when data comes from a form.'
+        ],
+        example: 'When you order tea at a stall without saying anything else, you get the usual: with milk and sugar. You only speak up if you want something different. Defaults are "the usual".',
+        code: lines(
+          'function StatusBadge({ status = "applied" }) {',
+          '  return `[${status.toUpperCase()}]`;',
+          '}',
+          '',
+          'console.log(StatusBadge({ status: "interview" }));',
+          'console.log(StatusBadge({}));'
+        ),
+        output: lines('[INTERVIEW]', '[APPLIED]'),
+        codeNotes: [
+          { line: 1, note: 'If no status is passed, use "applied".' },
+          { line: 6, note: 'No status given, so the default is used.' }
+        ],
+        tryIt: 'Add a second prop color = "grey" and include it in the text, like [APPLIED - grey].',
+        check: {
+          question: 'With function Button({ label, size = "medium" }), what is size for <Button label="Save" />?',
+          options: ['undefined', '"medium"', '"Save"'],
+          answer: 1,
+          why: 'size was not passed, so the default "medium" is used.'
+        }
+      },
+      {
+        title: 'Passing a whole object as a prop',
+        say: [
+          'Your jobs are objects. Instead of passing each property separately, you can pass the whole object: <JobCard job={job} />. Inside, destructure it: function JobCard({ job }), then use job.title, job.company.',
+          'You can even destructure one level deeper: function JobCard({ job: { title, company } }). But that gets hard to read, so most developers keep it simple: take job, then read its properties.',
+          'Which style is better? Separate props make it clear exactly what a component needs. A whole object is shorter when the component shows most of the object\'s details. Both are fine; be consistent in your project.',
+          'In interviews you may be asked about this choice. A good answer: separate props make a component easier to reuse with different data shapes, while passing an object keeps the parent short. Saying why you chose one shows you understand, not just that you can type code.'
+        ],
+        example: 'You can hand your friend each document separately, or hand over the whole file folder. The folder is quicker when they need most of what is inside.',
+        code: lines(
+          'const job = { id: 1, title: "React Developer", company: "Zoho", status: "interview" };',
+          '',
+          'function JobCard({ job }) {',
+          '  return `${job.title} at ${job.company} (${job.status})`;',
+          '}',
+          '',
+          'console.log(JobCard({ job: job }));'
+        ),
+        output: 'React Developer at Zoho (interview)',
+        codeNotes: [
+          { line: 3, note: 'The component receives one prop called job, which is an object.' },
+          { line: 7, note: 'In React: <JobCard job={job} />.' }
+        ],
+        tryIt: 'Change the function so it shows the status in capital letters.',
+        check: {
+          question: 'How do you pass a job object as a prop?',
+          options: ['<JobCard job="job" />', '<JobCard job={job} />', '<JobCard {job} />'],
+          answer: 1,
+          why: 'Objects are JavaScript values, so they go in curly braces. Quotes would pass the text "job".'
+        }
+      },
+      {
+        title: 'Props flow one way and are read-only',
+        say: [
+          'Props always flow down: from parent to child. A child cannot send props back up, and it must never change the props it receives. Treat props as read-only.',
+          'Why? If a child could change its props, the same data might show differently in different places, and bugs would be very hard to track. With one-way flow, you always know where data comes from: look at the parent.',
+          'But what if a child needs to tell the parent something, like "the delete button was clicked"? The parent passes a function as a prop, and the child calls it. You will do this on Day 15. And data that changes over time lives in state, which you learn on Day 12.',
+          'That completes props. With components and props, you can already build any static screen. Next: showing whole lists.'
+        ],
+        example: 'A teacher gives each student a printed question paper. Students answer on their own answer sheet; they do not change the question paper. If they have a doubt, they raise their hand to tell the teacher, which is like calling a function prop.',
+        code: lines(
+          'function JobCard(props) {',
+          '  const label = props.status.toUpperCase();',
+          '  return `${props.title}: ${label}`;',
+          '}',
+          '',
+          'const props = { title: "Dev", status: "applied" };',
+          'console.log(JobCard(props));',
+          'console.log(props.status);'
+        ),
+        output: lines('Dev: APPLIED', 'applied'),
+        codeNotes: [
+          { line: 2, note: 'Right: make a new variable from the prop instead of changing the prop itself.' },
+          { line: 8, note: 'The original props are unchanged.' }
+        ],
+        tryIt: 'Think: which component in your Job Tracker should own the list of jobs, App or JobCard? (Answer: App, because it is the parent that passes each job down.)',
+        check: {
+          question: 'Can a child component change the props it receives?',
+          options: ['Yes, any time', 'No, props are read-only', 'Only numbers'],
+          answer: 1,
+          why: 'Props flow down and are read-only. Changing data is done with state, owned by a component.'
+        }
+      }
+    ],
+    summary: [
+      'Props are the inputs of a component, passed like attributes: text in quotes, everything else in { }.',
+      'Destructure props in the function brackets: function JobCard({ title, company }).',
+      'Give defaults for optional props: { status = "applied" }.',
+      'You can pass a whole object: <JobCard job={job} />.',
+      'Props flow one way, parent to child, and are read-only.'
+    ],
+    projectStep: {
+      title: 'Make JobCard show any job',
+      steps: [
+        'Change JobCard to accept title, company and status props, with status defaulting to "applied".',
+        'In App.jsx, show three JobCards with three different jobs from your list.',
+        'Make Summary accept a total prop and pass 3 from App.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 10,
+    title: 'Showing Lists with map and key',
+    goal: 'You can show a whole list of jobs from an array with map, give every item a proper key, and show a message when the list is empty.',
+    minutes: 30,
+    recap: 'Yesterday you passed data into components with props, so one JobCard can show any job.',
+    parts: [
+      {
+        title: 'From an array of data to a list on screen',
+        say: [
+          'Yesterday you wrote three JobCards by hand in App.jsx. But the real job list is an array, and it changes: jobs get added and deleted. You cannot hand-write a line for every job.',
+          'This is where Day 5\'s map comes back. You map the array of job objects to an array of JobCard components: jobs.map(job => <JobCard ... />). Put that inside curly braces in your JSX, and React shows every item.',
+          'That is it. This single pattern, data array plus map, is how every list in every React app is built: chats, products, songs, notifications.',
+          'The runnable box does the same with text, so you can see map turning data into pieces of a page.'
+        ],
+        example: 'A printing press with one design and a list of names prints one invitation per name. The array is the list of names, map is the press, and JobCard is the design.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'import JobCard from "./components/JobCard.jsx";',
+            '',
+            'const jobs = [',
+            '  { id: 1, title: "Frontend Developer", company: "Infosys", status: "applied" },',
+            '  { id: 2, title: "React Developer", company: "Zoho", status: "interview" },',
+            '  { id: 3, title: "UI Developer", company: "Swiggy", status: "offer" }',
+            '];',
+            '',
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      {jobs.map(job => (',
+            '        <JobCard key={job.id} title={job.title} company={job.company} status={job.status} />',
+            '      ))}',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'const jobs = [',
+          '  { id: 1, title: "Frontend Developer" },',
+          '  { id: 2, title: "React Developer" }',
+          '];',
+          '',
+          'const items = jobs.map(job => `<li>${job.title}</li>`);',
+          'console.log(items);',
+          'console.log(`<ul>${items.join("")}</ul>`);'
+        ),
+        output: lines(
+          '[ \'<li>Frontend Developer</li>\', \'<li>React Developer</li>\' ]',
+          '<ul><li>Frontend Developer</li><li>React Developer</li></ul>'
+        ),
+        codeNotes: [
+          { line: 6, note: 'map turns each job into a list item. In React, it would be a <JobCard />.' },
+          { line: 8, note: 'Joined inside a ul. React does this joining for you.' }
+        ],
+        tryIt: 'Add a third job to the array and run again. The list grows by itself.',
+        check: {
+          question: 'How do you show a list of jobs in React?',
+          options: ['Copy JobCard once per job by hand', 'Use jobs.map to turn each job into a JobCard', 'Use a for loop inside JSX'],
+          answer: 1,
+          why: 'map turns an array of data into an array of components, which React shows.'
+        }
+      },
+      {
+        title: 'Writing map inside JSX',
+        say: [
+          'Inside JSX, JavaScript goes in curly braces, so the map goes in braces too: {jobs.map(job => <JobCard ... />)}. Remember: you cannot write a for loop inside braces, because a loop is a statement, not a value. map is an expression that gives back an array, so it works.',
+          'When the JSX for each item spans several lines, wrap it in round brackets after the arrow: job => ( <div> ... </div> ). Round brackets mean "return this"; curly brackets would need the word return.',
+          'A very common bug: writing job => { <JobCard /> } with curly brackets and no return. The function returns nothing, and the list is empty with no error. If your list is empty, check this first.'
+        ],
+        example: 'It is like telling a helper: "for each guest, prepare a plate." map is that instruction, and the plate is what each arrow function returns.',
+        code: lines(
+          'const jobs = ["Dev", "Tester"];',
+          '',
+          'const wrong = jobs.map(job => { `<li>${job}</li>` });',
+          'console.log(wrong);',
+          '',
+          'const right = jobs.map(job => `<li>${job}</li>`);',
+          'console.log(right);'
+        ),
+        output: lines('[ undefined, undefined ]', '[ \'<li>Dev</li>\', \'<li>Tester</li>\' ]'),
+        codeNotes: [
+          { line: 3, note: 'Curly brackets with no return: every item becomes undefined. On screen, the list is empty.' },
+          { line: 6, note: 'Without curly brackets, the value is returned automatically.' }
+        ],
+        tryIt: 'Fix line 3 by adding the word return inside the curly brackets, and run it again.',
+        check: {
+          question: 'Your map runs but the list is empty. What is the most likely cause?',
+          options: ['map is broken', 'The arrow function uses { } without return', 'Too many items'],
+          answer: 1,
+          why: 'With curly brackets, an arrow function needs return. Without it, every item is undefined.'
+        }
+      },
+      {
+        title: 'Why every item needs a key',
+        say: [
+          'When you render a list, React asks for a key prop on each item: <JobCard key={job.id} ... />. If you forget, the browser console shows a warning: "Each child in a list should have a unique key prop."',
+          'The key is how React recognises each item between updates. When you delete the second job, React uses the keys to know exactly which card to remove, instead of redrawing everything or, worse, mixing up which card shows what.',
+          'A key must be unique within the list and stable, meaning the same item always has the same key. The job\'s id is perfect. Avoid using the position number (index) as a key when items can be added, deleted or reordered, because positions change and React gets confused.',
+          'This is why every job in your data has an id. Today\'s second practice task checks that ids are unique.'
+        ],
+        example: 'In a classroom, the teacher identifies students by roll number, not by where they sit. If two students swap seats, the roll numbers still say who is who. The key is the roll number.',
+        code: lines(
+          'const jobs = [{ id: 1 }, { id: 2 }, { id: 2 }];',
+          '',
+          'const ids = jobs.map(job => job.id);',
+          'const unique = new Set(ids);',
+          'console.log(ids.length);',
+          'console.log(unique.size);',
+          'console.log(ids.length === unique.size ? "Keys are unique" : "Duplicate keys!");'
+        ),
+        output: lines('3', '2', 'Duplicate keys!'),
+        codeNotes: [
+          { line: 4, note: 'A Set keeps only one copy of each value, so duplicates disappear.' },
+          { line: 7, note: 'If the Set is smaller, some ids were repeated.' }
+        ],
+        tryIt: 'Change the last id to 3 and run again. Now the keys are unique.',
+        check: {
+          question: 'What is the best key for a job in a list?',
+          options: ['Its position in the array', 'Its unique id', 'Its title'],
+          answer: 1,
+          why: 'An id is unique and never changes. Positions change when items move; titles can repeat.'
+        }
+      },
+      {
+        title: 'When the list is empty',
+        say: [
+          'A new user has no jobs yet. If you only map, they see a blank area and wonder if the app is broken. Good apps show a helpful message instead: "No jobs yet. Add your first one!"',
+          'In React, a simple way is: {jobs.length === 0 && <p>No jobs yet.</p>}. The && means: only if the left side is true, show the right side. You will learn more ways to show things conditionally tomorrow.',
+          'A careful detail: write jobs.length === 0, not just jobs.length &&. If you write {jobs.length && ...} and the length is 0, React shows the number 0 on the screen. It is a famous small bug.'
+        ],
+        example: 'An empty shop shelf with a sign "New stock arriving Monday" is much better than a bare shelf. The sign tells you nothing is wrong.',
+        projectCode: {
+          label: 'Inside App\'s return',
+          code: lines(
+            '<div>',
+            '  {jobs.length === 0 && <p>No jobs yet. Add your first one!</p>}',
+            '  {jobs.map(job => (',
+            '    <JobCard key={job.id} title={job.title} company={job.company} status={job.status} />',
+            '  ))}',
+            '</div>'
+          )
+        },
+        code: lines(
+          'function listMessage(jobs) {',
+          '  return jobs.length === 0 ? "No jobs yet. Add your first one!" : `Showing ${jobs.length} jobs`;',
+          '}',
+          '',
+          'console.log(listMessage([]));',
+          'console.log(listMessage([{ id: 1 }, { id: 2 }]));'
+        ),
+        output: lines('No jobs yet. Add your first one!', 'Showing 2 jobs'),
+        codeNotes: [
+          { line: 2, note: 'The ? : chooses one of two messages. You will use it in JSX tomorrow.' }
+        ],
+        tryIt: 'In your project, temporarily make the jobs array empty ([]) and check that the message appears.',
+        check: {
+          question: 'Why write jobs.length === 0 && ... instead of !jobs.length or jobs.length && ...?',
+          options: ['It is faster', 'jobs.length && ... can show a stray 0 on screen', 'There is no difference'],
+          answer: 1,
+          why: 'When the length is 0, jobs.length && ... gives 0, and React prints that 0. A clear comparison avoids it.'
+        }
+      },
+      {
+        title: 'filter and map together',
+        say: [
+          'Often you do not show every item. You might show only jobs at the interview stage, or only jobs that match a search. Combine filter and map, exactly like Day 5: jobs.filter(...).map(...).',
+          'In JSX: {jobs.filter(job => job.status === "interview").map(job => <JobCard key={job.id} ... />)}. That line is a bit long, so many developers first make a variable above the return: const interviewJobs = jobs.filter(...); and then map that variable in the JSX.',
+          'Putting calculations above the return and keeping the JSX simple is a good habit. Your JSX then reads almost like a description of the screen.'
+        ],
+        example: 'Your phone\'s gallery shows only "Favourites" when you tap that tab. The photos are all still there; the app just filters, then shows what is left.',
+        code: lines(
+          'const jobs = [',
+          '  { id: 1, title: "Dev", status: "applied" },',
+          '  { id: 2, title: "Tester", status: "interview" },',
+          '  { id: 3, title: "Designer", status: "interview" }',
+          '];',
+          '',
+          'const interviewJobs = jobs.filter(job => job.status === "interview");',
+          'const cards = interviewJobs.map(job => `[${job.id}] ${job.title}`);',
+          'console.log(cards);'
+        ),
+        output: '[ \'[2] Tester\', \'[3] Designer\' ]',
+        codeNotes: [
+          { line: 7, note: 'Calculate first, in a variable with a clear name.' },
+          { line: 8, note: 'Then map only the filtered jobs.' }
+        ],
+        tryIt: 'Change the filter to show only "applied" jobs.',
+        check: {
+          question: 'Where is the cleanest place to filter a list before showing it?',
+          options: ['In a variable above the return', 'Inside every JobCard', 'In index.html'],
+          answer: 0,
+          why: 'Calculating above the return keeps the JSX short and easy to read.'
+        }
+      },
+      {
+        title: 'Build the JobList component',
+        say: [
+          'Let us put today together in your Job Tracker. Create a JobList component that receives the jobs array as a prop, shows the empty message when needed, and maps every job to a JobCard with a key.',
+          'Then App only needs <JobList jobs={jobs} />. Notice how App gets shorter and clearer as you split the screen into components.',
+          'Move your jobs array to the top of App.jsx for now. From Day 12, it will live in state so you can add and delete jobs. Today\'s version is the skeleton that everything else builds on.',
+          'Congratulations: you can now build any screen that shows data. After this lesson, you will have your second short test, covering Days 6 to 10.'
+        ],
+        example: 'A school notice board (JobList) holds many notices (JobCards). The principal\'s office (App) only needs to hand over the pile of notices; the board decides how to arrange them.',
+        projectCode: {
+          label: 'src/components/JobList.jsx and src/App.jsx',
+          code: lines(
+            '// src/components/JobList.jsx',
+            'import JobCard from "./JobCard.jsx";',
+            '',
+            'export default function JobList({ jobs }) {',
+            '  if (jobs.length === 0) {',
+            '    return <p>No jobs yet. Add your first one!</p>;',
+            '  }',
+            '  return (',
+            '    <div className="job-list">',
+            '      {jobs.map(job => (',
+            '        <JobCard key={job.id} title={job.title} company={job.company} status={job.status} />',
+            '      ))}',
+            '    </div>',
+            '  );',
+            '}',
+            '',
+            '// src/App.jsx',
+            'import Header from "./components/Header.jsx";',
+            'import JobList from "./components/JobList.jsx";',
+            '',
+            'const jobs = [ /* your 5 jobs from Day 4 */ ];',
+            '',
+            'export default function App() {',
+            '  return (',
+            '    <div>',
+            '      <Header />',
+            '      <JobList jobs={jobs} />',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Create JobList.jsx, use it in App with your own 5 jobs, and check that all 5 cards appear with no key warning in the console (F12).',
+        check: {
+          question: 'What does App pass to JobList?',
+          options: ['Each job separately', 'The whole jobs array as a prop', 'Nothing'],
+          answer: 1,
+          why: 'App passes the array: <JobList jobs={jobs} />. JobList then maps it to JobCards.'
+        }
+      }
+    ],
+    summary: [
+      'Show lists by mapping data to components: {jobs.map(job => <JobCard ... />)}.',
+      'Use ( ) after the arrow for multi-line JSX; { } needs return or the list is empty.',
+      'Every list item needs a unique, stable key, usually its id.',
+      'Show a helpful message for an empty list, using jobs.length === 0.',
+      'Filter in a variable above the return, then map it.'
+    ],
+    projectStep: {
+      title: 'Show the full job list',
+      steps: [
+        'Create JobList.jsx that maps jobs to JobCards with key={job.id}.',
+        'Use <JobList jobs={jobs} /> in App with your 5 jobs.',
+        'Make Summary show the real total with total={jobs.length}.'
+      ]
+    }
   }
 ];

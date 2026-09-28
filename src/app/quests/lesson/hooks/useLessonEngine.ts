@@ -379,6 +379,7 @@ export function useLessonEngine({
         mockOutput: part.output,
         codeNotes: part.codeNotes,
         tryIt: part.tryIt,
+        projectCode: part.projectCode,
         speech: [
           `Part ${i + 1}: ${part.title}.`,
           ...part.say,

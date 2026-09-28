@@ -33,6 +33,11 @@ export interface LongLessonPart {
   codeNotes?: { line: number; note: string }[];
   /** A small change for the student to make and run. */
   tryIt?: string;
+  /**
+   * Code for the student's own project on their laptop (a React file or terminal commands).
+   * Shown read-only: the in-lesson runner only runs plain JavaScript, not JSX.
+   */
+  projectCode?: { label: string; code: string };
   check: LongLessonCheck;
 }
 
