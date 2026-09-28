@@ -30,7 +30,9 @@ import {
   Quest,
   playPopSound
 } from './useQuestProgression';
-import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
+import { getCrashCourseProgress, getCrashCourseCurriculum } from '@/lib/courses/crashCourseProgress';
+import { getTodaySummary } from '@/lib/courses/todaySummary';
+import { TodayCourseCard } from './TodayCourseCard';
 import { getCapstoneSprints } from '@/lib/courses/capstoneSprints';
 import { useAuth } from '@/lib/context/AuthContext';
 
@@ -139,6 +141,14 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   );
   const { user } = useAuth();
   const studentName = user?.displayName || 'Student';
+
+  // Certificate tab: enrolled students see one "today" card first; everything else is under "More details".
+  const [showMoreDetails, setShowMoreDetails] = React.useState(false);
+  const todaySummary = React.useMemo(() => {
+    if (!activeEnrollment || !enrolledPlan || !enrolledProgress) return null;
+    const curriculum = getCrashCourseCurriculum(enrolledPlan, activeEnrollment.track, COURSES_REGISTRY);
+    return getTodaySummary(enrolledProgress, COURSES_REGISTRY, completedQuests, curriculum);
+  }, [activeEnrollment, enrolledPlan, enrolledProgress, COURSES_REGISTRY, completedQuests]);
 
   const continueCourse = () => {
     const next = courseProgress.next;
@@ -361,16 +371,18 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 26.5 }}>🏆</span>
                 <h3 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-                  Industrial Certification & Verifiable Skill Passport
+                  {activeEnrollment ? 'My certificate course' : 'Certificate courses'}
                 </h3>
               </div>
               <p style={{ fontSize: 14, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-                Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • {INTERNSHIP_AVAILABLE ? '2-3 Months Real-Time Internship • Dual Verifiable Credentials' : 'Verifiable Certificate'}.
+                {activeEnrollment
+                  ? 'Do the next task each day. Tests come after every 5 days, then your final project and certificate.'
+                  : `Daily lessons, practice and tests, then a final project and a ${INTERNSHIP_AVAILABLE ? 'certificate and internship' : 'certificate you can share'}.`}
               </p>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              {activeEnrollment ? (
+              {activeEnrollment && showMoreDetails ? (
                 <>
                   <button
                     onClick={() => setShowCapstonePortal(true)}
@@ -412,32 +424,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                     <span>📲</span> Share & Verify (QR)
                   </button>
                 </>
-              ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                  <span style={{
-                    fontSize: 12,
-                    fontWeight: 800,
-                    padding: '4px 10px',
-                    borderRadius: 20,
-                    background: 'rgba(99, 102, 241, 0.12)',
-                    border: '1px solid rgba(99, 102, 241, 0.25)',
-                    color: '#818cf8'
-                  }}>
-                    🛡️ NASSCOM Aligned
-                  </span>
-                  <span style={{
-                    fontSize: 12,
-                    fontWeight: 800,
-                    padding: '4px 10px',
-                    borderRadius: 20,
-                    background: 'rgba(16, 185, 129, 0.12)',
-                    border: '1px solid rgba(16, 185, 129, 0.25)',
-                    color: '#10b981'
-                  }}>
-                    📜 Dual Verifiable Credentials
-                  </span>
-                </div>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -446,6 +433,37 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
              ══════════════════════════════════════════════════════════════ */}
           {activeEnrollment ? (
             <>
+              {todaySummary && (
+                <TodayCourseCard
+                  planTitle={enrolledPlan?.title || 'Certificate course'}
+                  summary={todaySummary}
+                  onStart={continueCourse}
+                  onOpenProject={() => setShowCapstonePortal(true)}
+                />
+              )}
+
+              <button
+                type="button"
+                onClick={() => setShowMoreDetails(v => !v)}
+                aria-expanded={showMoreDetails}
+                data-testid="btn-more-details"
+                style={{
+                  alignSelf: 'flex-start',
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg2)',
+                  color: 'var(--t2)',
+                  fontSize: 13.5,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                }}
+              >
+                {showMoreDetails ? '▲ Less details' : '▼ More details: plan, timeline, skill passport, share'}
+              </button>
+
+              {showMoreDetails && (
+              <>
               {/* Active Program Locked Banner & Details */}
               <ActiveEnrollmentBanner
                 enrollment={activeEnrollment}
@@ -663,6 +681,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   )}
                 </div>
               )}
+              </>
+              )}
             </>
           ) : (
             /* ══════════════════════════════════════════════════════════════
@@ -678,12 +698,31 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 onOpenCheckout={handleOpenCheckout}
                 userPins={pins}
               />
+              <button
+                type="button"
+                onClick={() => setShowMoreDetails(v => !v)}
+                aria-expanded={showMoreDetails}
+                style={{
+                  alignSelf: 'flex-start',
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg2)',
+                  color: 'var(--t2)',
+                  fontSize: 13.5,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                }}
+              >
+                {showMoreDetails ? '▲ Hide salary growth chart' : '▼ Show salary growth chart'}
+              </button>
             </>
           )}
 
           {/* ══════════════════════════════════════════════════════════════
               CAREER GROWTH & SALARY TRAJECTORY GRAPH (SHIFTED TO VERY LAST)
              ══════════════════════════════════════════════════════════════ */}
+          {showMoreDetails && (
           <div style={{ marginTop: 8 }}>
             <CareerGrowthGraph
               monthsCount={
@@ -696,6 +735,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               }
             />
           </div>
+          )}
 
           {/* Modals & Overlays */}
           {showPracticeQuiz && (
@@ -863,8 +903,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         </div>
       )}
 
-      {/* ── MULTI-ROADMAP SWITCHER BAR (Max 3 Concurrent Tracks) ── */}
-      {activeSubTab !== 'language' && (() => {
+      {/* ── MULTI-ROADMAP SWITCHER BAR (Max 3 Concurrent Tracks). Not on the certificate tab, which has its own course. ── */}
+      {activeSubTab !== 'language' && activeSubTab !== 'certification_passport' && (() => {
         const myActiveCourseIds = Array.from(new Set([activeCourseId, ...activeCourseIds].filter(Boolean))) as string[];
         const count = myActiveCourseIds.length;
 
