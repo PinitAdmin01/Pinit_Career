@@ -10,6 +10,16 @@ import type { LongLesson } from './longLessons';
  */
 const lines = (...l: string[]) => l.join('\n');
 
+/** The Canteen project database (Days 27-28), the same data as the Canteen practice tasks. */
+const CANTEEN = lines(
+  'CREATE TABLE menu_items (id serial PRIMARY KEY, name text NOT NULL UNIQUE, price numeric(8,2) NOT NULL CHECK (price > 0), is_veg boolean DEFAULT true);',
+  "INSERT INTO menu_items (name, price, is_veg) VALUES ('Masala dosa', 60, true), ('Veg thali', 90, true), ('Chicken biryani', 140, false), ('Tea', 15, true), ('Samosa', 20, true);",
+  'CREATE TABLE canteen_orders (id serial PRIMARY KEY, student_name text NOT NULL, ordered_at timestamp DEFAULT now());',
+  "INSERT INTO canteen_orders (student_name, ordered_at) VALUES ('Asha', '2026-09-28 09:10'), ('Ravi', '2026-09-28 13:05'), ('Asha', '2026-09-28 16:30'), ('Priya', '2026-09-29 12:45');",
+  'CREATE TABLE canteen_order_items (order_id int REFERENCES canteen_orders(id) ON DELETE CASCADE, item_id int REFERENCES menu_items(id), quantity int CHECK (quantity > 0), PRIMARY KEY (order_id, item_id));',
+  'INSERT INTO canteen_order_items VALUES (1, 1, 1), (1, 4, 2), (2, 3, 1), (2, 5, 2), (3, 4, 1), (3, 5, 1), (4, 2, 1), (4, 4, 1);'
+);
+
 /** A small shop used by the join lessons (Days 11-15). Each example starts with it, so it runs on its own. */
 const MINI_SHOP = lines(
   'CREATE TABLE customers (id int PRIMARY KEY, name text, city text);',
@@ -7252,6 +7262,1493 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         'Store different details for different books, like {"translator": "..."} or {"awards": ["..."]}.',
         'List books that have a translator, using ? or ->>.',
         'Decide which extra key, if any, should become a real column, and explain why.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 26,
+    title: 'Using a Database from Python and Node.js',
+    goal: 'You can explain how apps connect to PostgreSQL, write safe parameterised queries, and recognise and prevent SQL injection.',
+    minutes: 28,
+    recap: 'Yesterday you stored flexible JSON in jsonb columns and queried inside it.',
+    parts: [
+      {
+        title: 'How an app talks to a database',
+        say: [
+          'So far you have typed SQL yourself. In a real product, most SQL is sent by an app: a website\'s backend, a mobile app\'s server, a data script. Today you see how that works, and the one security rule every developer must know.',
+          'The app uses a driver, a library that knows how to talk to PostgreSQL. In Python the most common one is psycopg. In Node.js it is pg. The driver opens a connection to the database, sends SQL, and receives the rows back as Python or JavaScript values.',
+          'To connect, the app needs a connection string: the database\'s address, port, name, and a username and password. That password is a secret. It belongs in an environment variable, never written in the code and never pushed to GitHub.',
+          'Once connected, the flow is always the same: send a query, get rows back, use them. The rows arrive as lists or objects: a list of tuples in Python, an array of objects in Node.js. Everything you learned about SELECT, joins and views works exactly the same; the app is just another way of sending it.',
+          'Opening a connection takes time, so real apps keep a small set of open connections and reuse them, called a connection pool. Both psycopg and pg have pools built in.',
+          'The lesson editor can only run SQL, so the Python and Node.js code today is shown in read-only boxes, for you to run on your laptop. The SQL examples show what the database sees.'
+        ],
+        example: 'A restaurant waiter is like a database driver. The customer (your app) tells the waiter the order, the waiter carries it to the kitchen (the database) in the kitchen\'s own language, and brings the food (the rows) back to the table.',
+        projectCode: {
+          label: 'Python (psycopg) on your laptop: pip install "psycopg[binary]"',
+          code: lines(
+            'import os',
+            'import psycopg',
+            '',
+            '# The connection string comes from an environment variable, never from the code.',
+            'with psycopg.connect(os.environ["DATABASE_URL"]) as conn:',
+            '    rows = conn.execute("SELECT name, price FROM products ORDER BY price").fetchall()',
+            '    for name, price in rows:',
+            '        print(name, price)'
+          )
+        },
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10), (2, 'Notebook', 60), (3, 'Backpack', 1200);",
+          'SELECT name, price FROM products ORDER BY price;'
+        ),
+        output: lines(
+          ' name     | price',
+          '----------+---------',
+          ' Pen      |   10.00',
+          ' Notebook |   60.00',
+          ' Backpack | 1200.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'This is exactly the SQL the Python code in the box sends. The rows come back to Python as (name, price) pairs.' }
+        ],
+        tryIt: 'On your laptop, install PostgreSQL (or use a free cloud database), set DATABASE_URL, and run the Python code in the box.',
+        check: {
+          question: 'Where should a database password be stored?',
+          options: ['In an environment variable, not in the code', 'In the code, so it is easy to find', 'In the README file'],
+          answer: 0,
+          why: 'Code gets shared and pushed to GitHub. Secrets in environment variables stay out of the code.'
+        }
+      },
+      {
+        title: 'SQL injection: the most important security rule',
+        say: [
+          'Imagine a login page that builds its SQL by gluing text together: "SELECT * FROM users WHERE name = \'" + typed_name + "\'". If a user types Asha, the query is fine. But what if they type something else?',
+          'If an attacker types \' OR \'1\'=\'1, the glued query becomes SELECT * FROM users WHERE name = \'\' OR \'1\'=\'1\'. The condition \'1\'=\'1\' is always true, so the query returns every user. The attacker has changed what the SQL means just by typing into a box.',
+          'This attack is called SQL injection. It has been used to steal millions of passwords and credit card numbers, and it is still on every list of the most dangerous security mistakes. Worse inputs can even delete tables.',
+          'The cause is always the same: user input treated as part of the SQL text. The database cannot tell which part the developer wrote and which part the user typed.',
+          'The fix is simple and absolute: never glue user input into SQL. Always send the input separately, as a parameter. You will see how in the next part.',
+          'This rule applies to every language and every database. Interviewers for backend jobs almost always ask about it, and a good answer can decide the interview.'
+        ],
+        example: 'Imagine a bank form where you write your name, and the clerk copies whatever you wrote into an instruction: "Give the balance of ___". If you write "Asha, and also give me everyone else\'s balance", a careless clerk might follow it. SQL injection is exactly that trick.',
+        code: lines(
+          'CREATE TABLE users (id int, name text, secret text);',
+          "INSERT INTO users VALUES (1, 'Asha', 'asha-secret'), (2, 'Ravi', 'ravi-secret');",
+          "-- The app glued what the user typed into the SQL text. The user typed: ' OR '1'='1",
+          "SELECT name, secret FROM users WHERE name = '' OR '1'='1';"
+        ),
+        output: lines(
+          ' name | secret',
+          '------+-------------',
+          ' Asha | asha-secret',
+          ' Ravi | ravi-secret',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'What the attacker typed in the name box.' },
+          { line: 4, note: 'After gluing, the WHERE is always true, so every user\'s secret is returned.' }
+        ],
+        tryIt: "Change the last line to what a normal user would produce, WHERE name = 'Asha', and compare the results.",
+        check: {
+          question: 'What causes SQL injection?',
+          options: ['Gluing user input directly into SQL text', 'Using too many JOINs', 'Forgetting an index'],
+          answer: 0,
+          why: 'When input becomes part of the SQL text, a user can change what the query means. Sending input as a separate parameter prevents it.'
+        }
+      },
+      {
+        title: 'Parameters: the safe way',
+        say: [
+          'The safe way is a parameterised query. You write the SQL with placeholders where values go, and pass the values separately. In psycopg the placeholder is %s; in Node.js pg it is $1, $2 and so on.',
+          'The database receives the SQL and the values as two separate things. It knows the values are data, never SQL. So even if someone types \' OR \'1\'=\'1, it is simply searched as a strange name, and nothing is found.',
+          'Parameters also handle quoting for you. A name like O\'Brien, or text with special characters, just works, without you worrying about escaping apostrophes.',
+          'PostgreSQL itself has the same idea in SQL: PREPARE creates a statement with $1 placeholders, and EXECUTE runs it with values. The drivers use this mechanism behind the scenes.',
+          'The rule has no exceptions for "internal" or "trusted" input. Values from URLs, forms, files, other services and even your own database can contain unexpected text. Always use parameters.',
+          'Table and column names cannot be parameters, only values. If you ever need a user to choose a column, for example for sorting, check their choice against a fixed list of allowed names in your code.'
+        ],
+        example: 'A safe bank form has separate, fixed boxes: "Account number: [   ]". Whatever you write in the box is only ever read as an account number. It can never become an instruction. Parameters are those fixed boxes.',
+        projectCode: {
+          label: 'Safe queries on your laptop',
+          code: lines(
+            '# Python (psycopg): %s placeholders, values passed separately',
+            'name = input("Name: ")',
+            'rows = conn.execute("SELECT id, name FROM users WHERE name = %s", (name,)).fetchall()',
+            '',
+            '// Node.js (pg): $1 placeholders, values in an array',
+            "const { rows } = await pool.query('SELECT id, name FROM users WHERE name = $1', [name]);"
+          )
+        },
+        code: lines(
+          'CREATE TABLE users (id int, name text, secret text);',
+          "INSERT INTO users VALUES (1, 'Asha', 'asha-secret'), (2, 'Ravi', 'ravi-secret'), (3, 'O''Brien', 'ob-secret');",
+          'PREPARE find_user(text) AS SELECT id, name FROM users WHERE name = $1;',
+          "EXECUTE find_user('Asha');",
+          "EXECUTE find_user(''' OR ''1''=''1');",
+          "EXECUTE find_user('O''Brien');"
+        ),
+        output: lines(
+          ' id | name',
+          '----+------',
+          '  1 | Asha',
+          '(1 row)',
+          '',
+          ' id | name',
+          '----+------',
+          '(0 rows)',
+          '',
+          ' id | name',
+          '----+---------',
+          '  3 | O\'Brien',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: '$1 is a placeholder; the value is never part of the SQL text.' },
+          { line: 5, note: 'The attack text is searched as a name, and matches nobody.' },
+          { line: 6, note: 'Names with apostrophes just work.' }
+        ],
+        tryIt: 'Add a second parameter: PREPARE find_user2(text, int) AS SELECT name FROM users WHERE name = $1 AND id = $2; and EXECUTE it with (\'Asha\', 1).',
+        check: {
+          question: 'Why does a parameter stop SQL injection?',
+          options: ['The value is sent separately and treated only as data, never as SQL', 'It removes quotes from the input', 'It makes the query faster'],
+          answer: 0,
+          why: 'With parameters, the database knows exactly which part is SQL and which part is data, so input cannot change the query.'
+        }
+      },
+      {
+        title: 'Transactions and errors from code',
+        say: [
+          'On Day 22 you wrapped several changes in BEGIN and COMMIT. From an app, drivers make this easy. In psycopg, a with conn.transaction(): block commits at the end if everything worked, and rolls back automatically if any error happens inside.',
+          'In Node.js, you take one client from the pool, run BEGIN, your queries and COMMIT, and in the error handler run ROLLBACK. Many libraries wrap this into a helper so you cannot forget.',
+          'Errors from PostgreSQL arrive in the app as exceptions, with the same messages you have seen in the lessons: a CHECK violation, a duplicate key, a foreign key problem. Good apps catch the expected ones and turn them into friendly messages, like "this email is already registered".',
+          'Each error has a code, a five-character SQLSTATE, like 23505 for a unique violation. Checking the code is more reliable than checking the message text, which can change between versions or languages.',
+          'Never show raw database errors to end users. They can reveal table names and details that help attackers. Log the details for developers, and show users a simple message.',
+          'Also remember that the database is the final guard. Even if the app forgets a check, the constraints you designed on Day 21 still refuse bad data.'
+        ],
+        example: 'When a food app says "Sorry, that coupon has already been used", it is translating a database error, maybe a unique rule on coupon codes, into friendly words. The raw error stays in the developers\' logs.',
+        projectCode: {
+          label: 'Python: a transaction and a friendly error',
+          code: lines(
+            'import psycopg',
+            'from psycopg import errors',
+            '',
+            'try:',
+            '    with conn.transaction():',
+            '        conn.execute("UPDATE accounts SET balance = balance - %s WHERE id = %s", (500, 1))',
+            '        conn.execute("UPDATE accounts SET balance = balance + %s WHERE id = %s", (500, 2))',
+            'except errors.CheckViolation:',
+            '    print("Not enough balance for this transfer.")'
+          )
+        },
+        code: lines(
+          'CREATE TABLE users (id serial PRIMARY KEY, email text UNIQUE NOT NULL);',
+          "INSERT INTO users (email) VALUES ('asha@example.com');",
+          "SELECT 'The next INSERT fails with SQLSTATE 23505 (unique_violation).' AS note;",
+          "INSERT INTO users (email) VALUES ('asha@example.com');"
+        ),
+        output: lines(
+          ' note',
+          '---------------------------------------------------------------',
+          ' The next INSERT fails with SQLSTATE 23505 (unique_violation).',
+          '(1 row)',
+          '',
+          '[Error] duplicate key value violates unique constraint "users_email_key"'
+        ),
+        codeNotes: [
+          { line: 4, note: 'A duplicate email: the app would catch this error and say "already registered".' }
+        ],
+        tryIt: 'Add a CHECK rule that emails contain @, like CHECK (email LIKE \'%@%\'), and try inserting \'not-an-email\'.',
+        check: {
+          question: 'What should an app show a user when an INSERT fails because the email already exists?',
+          options: ['A friendly message like "This email is already registered"', 'The full PostgreSQL error with table names', 'Nothing; ignore the error'],
+          answer: 0,
+          why: 'Catch the expected error (by its code) and show a clear message. Log the technical details for developers only.'
+        }
+      },
+      {
+        title: 'ORMs and query builders',
+        say: [
+          'Writing SQL by hand in every function gets repetitive, so many teams use an ORM, short for object-relational mapper. In Python, SQLAlchemy and Django\'s ORM are popular; in Node.js, Prisma and Sequelize.',
+          'An ORM lets you work with tables as classes and rows as objects: User.objects.filter(city="Pune") in Django instead of writing the SELECT yourself. The ORM writes the SQL for you, with parameters, so it is safe from injection by default.',
+          'ORMs speed up everyday work, but they do not replace SQL knowledge. When a page is slow, you need to see the SQL the ORM wrote, read its EXPLAIN plan, and add the right index. When a report is complex, raw SQL is often clearer.',
+          'A classic ORM problem is the "N+1 queries" trap: loading 100 orders, then running one extra query per order to get its customer, 101 queries instead of one JOIN. Knowing joins, as you now do, helps you spot and fix it.',
+          'Query builders, like Knex in Node.js, sit between raw SQL and a full ORM: you build queries with functions, and they produce safe SQL.',
+          'Whatever tool a company uses, the SQL skills from this course transfer directly. Interviewers value developers who understand what the tool is doing underneath.'
+        ],
+        example: 'An ORM is like an automatic car: easy for everyday driving. But a good driver still understands the engine, because when something goes wrong on the road, knowing what is underneath makes the difference.',
+        projectCode: {
+          label: 'The N+1 problem, and the fix with one JOIN',
+          code: lines(
+            '# Slow: one query for the orders, then one query per order',
+            'orders = conn.execute("SELECT id, customer_id FROM orders").fetchall()',
+            'for order_id, customer_id in orders:',
+            '    name = conn.execute("SELECT name FROM customers WHERE id = %s", (customer_id,)).fetchone()',
+            '',
+            '# Fast: one query with a JOIN',
+            'rows = conn.execute("""',
+            '    SELECT o.id, c.name FROM orders o JOIN customers c ON c.id = o.customer_id',
+            '""").fetchall()'
+          )
+        },
+        code: lines(
+          MINI_SHOP,
+          'SELECT o.id AS order_id, c.name AS customer',
+          'FROM orders o JOIN customers c ON c.id = o.customer_id',
+          'ORDER BY o.id;'
+        ),
+        output: lines(
+          ' order_id | customer',
+          '----------+----------',
+          '      101 | Asha',
+          '      102 | Ravi',
+          '      103 | Asha',
+          '      104 | Priya',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'One JOIN returns every order with its customer: one query instead of one per order.' }
+        ],
+        tryIt: 'Count how many queries the slow version in the box would run for these 4 orders: 1 for the orders plus 1 per order, so 5. The JOIN needs just 1.',
+        check: {
+          question: 'What is the "N+1 queries" problem?',
+          options: ['Running one extra query per row instead of one JOIN', 'A query that returns one extra row', 'Forgetting a parameter'],
+          answer: 0,
+          why: 'Loading N rows and then querying once per row makes N+1 round trips. A single JOIN gets everything at once.'
+        }
+      },
+      {
+        title: 'Putting it together: a safe search feature',
+        say: [
+          'Let us build the database side of a real feature: a search box for customers. The user types part of a name, and the app shows matching customers, ignoring capital letters.',
+          'The query uses ILIKE with the parameter joined to percent signs inside the SQL: WHERE name ILIKE \'%\' || $1 || \'%\'. The user\'s text is still a separate value; only the fixed percent signs are part of the SQL.',
+          'We prepare it once and execute it with different searches. An attacker\'s text finds nothing, and ordinary searches work in any mix of capitals.',
+          'In today\'s practice, you will create two prepared statements: one that finds a customer by exact name, and one safe, case-insensitive search.',
+          'Tomorrow you start the final project: designing a database for a college canteen from scratch, using everything from the course.',
+          'If you remember one thing from today, remember this: user input never goes into SQL text. Parameters, every time.'
+        ],
+        example: 'A library search computer lets you type any part of a title. Whatever you type is only ever used as the search words, never as an instruction to the computer. That is a parameterised search.',
+        code: lines(
+          MINI_SHOP,
+          "PREPARE search_customers(text) AS SELECT name FROM customers WHERE name ILIKE '%' || $1 || '%' ORDER BY name;",
+          "EXECUTE search_customers('a');",
+          "EXECUTE search_customers('PRI');",
+          "EXECUTE search_customers(''' OR ''1''=''1');"
+        ),
+        output: lines(
+          ' name',
+          '-------',
+          ' Asha',
+          ' Meera',
+          ' Priya',
+          ' Ravi',
+          '(4 rows)',
+          '',
+          ' name',
+          '-------',
+          ' Priya',
+          '(1 row)',
+          '',
+          ' name',
+          '------',
+          '(0 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'The percent signs are fixed SQL; $1 is the user\'s text, sent separately.' },
+          { line: 11, note: 'Capitals do not matter.' },
+          { line: 12, note: 'The attack text is just a search that matches nobody.' }
+        ],
+        tryIt: "Add EXECUTE search_customers('ee'); to find Meera.",
+        check: {
+          question: "In WHERE name ILIKE '%' || $1 || '%', which part comes from the user?",
+          options: ['Only $1, sent as a separate value', 'The whole line', 'The percent signs'],
+          answer: 0,
+          why: 'The percent signs are fixed in the SQL. The user\'s text arrives only as the parameter $1.'
+        }
+      }
+    ],
+    summary: [
+      'Apps use drivers (psycopg in Python, pg in Node.js) and keep the connection string in an environment variable.',
+      'SQL injection happens when user input is glued into SQL text.',
+      'Always use parameters (%s or $1): values travel separately and can never change the query.',
+      'Use transactions from code and turn expected errors into friendly messages.',
+      'ORMs write SQL for you, but SQL knowledge is still needed for speed and correctness.'
+    ],
+    projectStep: {
+      title: 'My Library: connect from code',
+      steps: [
+        'Install PostgreSQL on your laptop, or create a free cloud database.',
+        'Create your books and authors tables there with the SQL you wrote this month.',
+        'Write a small Python or Node.js script that lists your books, using the connection string from an environment variable.',
+        'Add a search by title that uses a parameter, never string gluing.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 27,
+    title: 'Project: Designing the Canteen Database',
+    goal: 'You can turn a real problem into user stories, tables, keys and constraints, and build and check the schema.',
+    minutes: 28,
+    recap: 'Yesterday you connected to PostgreSQL from Python and Node.js and learned to prevent SQL injection with parameters.',
+    parts: [
+      {
+        title: 'The project and its user stories',
+        say: [
+          'For the last days of the course, you build a database from scratch for a college canteen. Students order food, the canteen prepares it, and the manager wants reports. This is the kind of small, complete project you can explain in an interview.',
+          'Like any project, it starts with the users and what they need, written as user stories: "As a student, I want to see the menu with prices, so that I can decide what to order." "As a student, I want to place an order with several items." "As the manager, I want to know the best-selling item and each day\'s takings."',
+          'From these stories come the things the database must remember: menu items, orders, and the items inside each order. The stories also give the rules: prices must be positive, every order belongs to a student, an order can have several items.',
+          'Keep the first version small. A real canteen might need staff logins, payments and stock levels, but those can come later. A small design that works is far better than a big one that is never finished.',
+          'Write the stories and the list of tables in a PLAN.md file in your project folder. It helps you think, and it shows recruiters how you approach a problem.',
+          'Today you design and create the tables. Tomorrow you write the reports the manager asked for.',
+          'Talking to the real users, even informally, is worth it. Ask the canteen staff what goes wrong today: maybe orders get mixed up at lunchtime, or nobody knows which dish runs out first. Their answers often reveal the most useful features.'
+        ],
+        example: 'Before building a house, you talk to the family: how many people, do they cook a lot, do they need a study? Their needs decide the rooms. User stories are that conversation for a database.',
+        code: lines(
+          'CREATE TABLE user_stories (who text, wants text, so_that text);',
+          'INSERT INTO user_stories VALUES',
+          "  ('student', 'see the menu with prices', 'I can decide what to order'),",
+          "  ('student', 'order several items at once', 'I pay once for my meal'),",
+          "  ('manager', 'see the best-selling item', 'I can plan how much to cook'),",
+          "  ('manager', 'see each day''s takings', 'I can track the money');",
+          "SELECT 'As a ' || who || ', I want to ' || wants || ', so that ' || so_that || '.' AS story FROM user_stories;"
+        ),
+        output: lines(
+          ' story',
+          '-----------------------------------------------------------------------------------------',
+          ' As a student, I want to see the menu with prices, so that I can decide what to order.',
+          ' As a student, I want to order several items at once, so that I pay once for my meal.',
+          ' As a manager, I want to see the best-selling item, so that I can plan how much to cook.',
+          ' As a manager, I want to see each day\'s takings, so that I can track the money.',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'Each story in the standard shape: who, what, and why.' }
+        ],
+        tryIt: "Add a story of your own, for example ('student', 'see only vegetarian items', 'I can choose quickly').",
+        check: {
+          question: 'Why write user stories before designing tables?',
+          options: ['They show what the database must remember and which rules matter', 'PostgreSQL requires them', 'They replace the need for tables'],
+          answer: 0,
+          why: 'Stories reveal the things to store (menu items, orders) and the rules (positive prices, several items per order).'
+        }
+      },
+      {
+        title: 'From stories to tables',
+        say: [
+          'Now turn the stories into tables, one for each kind of thing. The nouns in the stories are clues: menu, order, item, student.',
+          'menu_items holds the food: a name, a price, and whether it is vegetarian. canteen_orders holds each order: who ordered and when. And because an order has several items, and an item appears in many orders, a junction table, canteen_order_items, links them with a quantity.',
+          'Should students have their own table? For this first version, the student\'s name on the order is enough. If the canteen later needs student accounts, a students table can be added, and the name replaced by a student_id foreign key.',
+          'Check the design against the normal forms from Day 20. Each fact is stored once: a price lives in menu_items, a time lives in canteen_orders, a quantity lives in canteen_order_items. Nothing is repeated.',
+          'Draw it before writing SQL: three boxes, with a line from canteen_order_items to each of the other two. That picture is the ER diagram you met on Day 10.',
+          'A good design fits on one page and can be explained in two minutes. If it cannot, it is probably too complicated for a first version.'
+        ],
+        example: 'A restaurant\'s paperwork has a printed menu card, an order pad for each table, and on each order slip, lines for each dish and how many plates. Three kinds of paper, three tables.',
+        code: lines(
+          'CREATE TABLE design_plan (table_name text, one_row_is text, links_to text);',
+          'INSERT INTO design_plan VALUES',
+          "  ('menu_items', 'one dish on the menu', NULL),",
+          "  ('canteen_orders', 'one order by one student', NULL),",
+          "  ('canteen_order_items', 'one dish in one order, with a quantity', 'canteen_orders and menu_items');",
+          "SELECT table_name, one_row_is, coalesce(links_to, '-') AS links_to FROM design_plan;"
+        ),
+        output: lines(
+          ' table_name          | one_row_is                             | links_to',
+          '---------------------+----------------------------------------+-------------------------------',
+          ' menu_items          | one dish on the menu                   | -',
+          ' canteen_orders      | one order by one student               | -',
+          ' canteen_order_items | one dish in one order, with a quantity | canteen_orders and menu_items',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'The junction table links orders and menu items: many to many.' }
+        ],
+        tryIt: 'Add a fourth planned table of your own, for example payments, and say what one row is and what it links to.',
+        check: {
+          question: 'Why does the canteen need a canteen_order_items table?',
+          options: ['An order has several dishes and a dish appears in many orders: many to many', 'To store the menu prices', 'Because every table needs a partner'],
+          answer: 0,
+          why: 'A many-to-many relationship needs a junction table, which also holds the quantity.'
+        }
+      },
+      {
+        title: 'Choosing types, keys and rules',
+        say: [
+          'For each column, choose a type and the rules. Take them one table at a time and ask: what values make sense here, and which must never happen?',
+          'menu_items: id serial PRIMARY KEY; name text NOT NULL UNIQUE, because two dishes with the same name would confuse everyone; price numeric(8,2) NOT NULL CHECK (price > 0); is_veg boolean DEFAULT true.',
+          'canteen_orders: id serial PRIMARY KEY; student_name text NOT NULL; ordered_at timestamp DEFAULT now(), so the time is filled in automatically.',
+          'canteen_order_items: order_id referencing canteen_orders with ON DELETE CASCADE, because items mean nothing without their order; item_id referencing menu_items with the default refusal, so a dish in past orders cannot be deleted by accident; quantity int CHECK (quantity > 0); and PRIMARY KEY (order_id, item_id), so each dish appears once per order.',
+          'Every rule here answers a question a real canteen might face: can a price be zero? Can a dish be deleted if people ordered it? Can an order have the same dish twice? Deciding these in the design saves arguments later.',
+          'Write the rules in PLAN.md too, with a one-line reason for each. That is exactly the kind of thinking interviewers want to hear about.'
+        ],
+        example: 'A school admission form decides its rules before the first student applies: date of birth required, one form per student, age at least 5. Deciding early makes every later form consistent.',
+        code: lines(
+          'CREATE TABLE menu_items (',
+          '  id serial PRIMARY KEY,',
+          '  name text NOT NULL UNIQUE,',
+          '  price numeric(8,2) NOT NULL CHECK (price > 0),',
+          '  is_veg boolean DEFAULT true',
+          ');',
+          "INSERT INTO menu_items (name, price) VALUES ('Masala dosa', 60), ('Tea', 15);",
+          "INSERT INTO menu_items (name, price, is_veg) VALUES ('Chicken biryani', 140, false);",
+          'SELECT * FROM menu_items ORDER BY id;',
+          "INSERT INTO menu_items (name, price) VALUES ('Free water', 0);"
+        ),
+        output: lines(
+          ' id | name            | price  | is_veg',
+          '----+-----------------+--------+--------',
+          '  1 | Masala dosa     |  60.00 | true',
+          '  2 | Tea             |  15.00 | true',
+          '  3 | Chicken biryani | 140.00 | false',
+          '(3 rows)',
+          '',
+          '[Error] new row for relation "menu_items" violates check constraint "menu_items_price_check"'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Required and unique: no two dishes with the same name.' },
+          { line: 4, note: 'Prices must be positive.' },
+          { line: 10, note: 'A price of 0 breaks the rule and is refused.' }
+        ],
+        tryIt: "Change line 10 to add 'Tea' again at 20. Read which rule refuses it this time.",
+        check: {
+          question: 'Why is item_id in canteen_order_items left with the default ON DELETE (refuse)?',
+          options: ['So a dish that appears in past orders cannot be deleted by accident', 'Because CASCADE is not allowed', 'So orders are deleted with dishes'],
+          answer: 0,
+          why: 'Past orders must keep their dishes. Refusing the delete protects that history; a soft delete can hide old dishes instead.'
+        }
+      },
+      {
+        title: 'Building the schema',
+        say: [
+          'Now write the full schema: all three CREATE TABLE statements, in the right order. A table must exist before another table can reference it, so menu_items and canteen_orders come before canteen_order_items.',
+          'Keep the schema in a file, often called schema.sql, in your project. Anyone can then create the whole database by running that one file, which is how teams set up new laptops, test databases and servers.',
+          'After creating the tables, check them. information_schema.table_constraints lists every key and rule. Counting them is a quick way to confirm that nothing was forgotten: three primary keys, two foreign keys, a unique rule and a few checks.',
+          'Then add some sample data: a menu, a few orders and their items. Realistic sample data makes it much easier to test reports, and to show the project in an interview.',
+          'If a CREATE TABLE has a mistake, it is easy to fix at this stage: drop the tables and run the file again. Later, when real data exists, changes need ALTER TABLE and more care.',
+          'Commit schema.sql to Git with a clear message. Your GitHub now shows a real database design, not just exercises.'
+        ],
+        example: 'An architect\'s final drawing is used by every builder on site. schema.sql is that drawing: one file that anyone can use to build exactly the same database.',
+        code: lines(
+          CANTEEN,
+          'SELECT tc.table_name, tc.constraint_type, count(*) AS how_many',
+          'FROM information_schema.table_constraints tc',
+          "WHERE tc.table_schema = 'public' AND tc.constraint_type IN ('PRIMARY KEY', 'FOREIGN KEY', 'UNIQUE')",
+          'GROUP BY tc.table_name, tc.constraint_type',
+          'ORDER BY tc.table_name, tc.constraint_type;'
+        ),
+        output: lines(
+          ' table_name          | constraint_type | how_many',
+          '---------------------+-----------------+----------',
+          ' canteen_order_items | FOREIGN KEY     |        2',
+          ' canteen_order_items | PRIMARY KEY     |        1',
+          ' canteen_orders      | PRIMARY KEY     |        1',
+          ' menu_items          | PRIMARY KEY     |        1',
+          ' menu_items          | UNIQUE          |        1',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'The whole Canteen schema and sample data: menu, orders, and items per order.' },
+          { line: 7, note: 'List the keys and unique rules per table to check nothing was forgotten.' }
+        ],
+        tryIt: "Add 'CHECK' to the list of constraint types in the WHERE and run it again. (PostgreSQL also lists NOT NULL rules as CHECK here.)",
+        check: {
+          question: 'Why must menu_items be created before canteen_order_items?',
+          options: ['canteen_order_items references it, and a table must exist before it can be referenced', 'Tables are always created in A to Z order', 'It has fewer columns'],
+          answer: 0,
+          why: 'A foreign key can only point to a table that already exists, so the referenced tables come first.'
+        }
+      },
+      {
+        title: 'Testing the rules',
+        say: [
+          'A design is only as good as its rules, so test them on purpose, just like the smoke alarm test on Day 21. Try the things that should fail, and check that they do.',
+          'Try a negative quantity. Try an order item for a dish that does not exist. Try the same dish twice in one order. Try deleting a dish that has been ordered. Each should be refused with a clear error.',
+          'Then test the rules that should allow things: deleting an order should delete its items, thanks to CASCADE. Check with a count before and after.',
+          'Writing these tests down, as a small SQL file of "things that must fail", is a professional habit. When someone changes the schema later, running the file shows immediately if a rule was lost.',
+          'In the lesson editor, each failing test stops the run, so the example below tests one rule and then the cascade. On your laptop, you can run each test separately.',
+          'Testing the design is also great interview material: "I tested that a dish in past orders cannot be deleted" shows you think about real-world mistakes.'
+        ],
+        example: 'A new lift is not opened to the public until engineers test the emergency brake, the door sensor and the overload alarm on purpose. Testing the rules of your database is the same safety check.',
+        code: lines(
+          CANTEEN,
+          'SELECT count(*) AS items_before FROM canteen_order_items;',
+          'DELETE FROM canteen_orders WHERE id = 1;',
+          'SELECT count(*) AS items_after_deleting_order_1 FROM canteen_order_items;',
+          "DELETE FROM menu_items WHERE name = 'Tea';"
+        ),
+        output: lines(
+          ' items_before',
+          '--------------',
+          '            8',
+          '(1 row)',
+          '',
+          ' items_after_deleting_order_1',
+          '------------------------------',
+          '                            6',
+          '(1 row)',
+          '',
+          '[Error] update or delete on table "menu_items" violates foreign key constraint "canteen_order_items_item_id_fkey" on table "canteen_order_items"'
+        ),
+        codeNotes: [
+          { line: 8, note: 'Order 1 has 2 items. CASCADE deletes them with the order.' },
+          { line: 10, note: 'Tea is in past orders, so deleting it is refused.' }
+        ],
+        tryIt: 'Replace the last line with a test of a negative quantity: INSERT INTO canteen_order_items VALUES (2, 1, -1); and read the error.',
+        check: {
+          question: 'Why test that bad data is refused?',
+          options: ['To prove the rules really work, and to notice if a later change removes one', 'Because PostgreSQL requires tests', 'To fill the tables with data'],
+          answer: 0,
+          why: 'Deliberately trying invalid changes proves each rule is in place, and re-running the tests catches rules lost later.'
+        }
+      },
+      {
+        title: 'Putting it together: placing a canteen order',
+        say: [
+          'Let us finish the design day with the most important action: a student placing an order with two dishes. It must create the order and its items together, so it goes in a transaction.',
+          'We insert the order and let PostgreSQL fill in the id and the time. RETURNING shows the new id. Then we insert the items using that id, and commit. A final query shows the order with its dishes and total.',
+          'In a real app, the backend would do exactly this with parameters, as you learned yesterday: the student\'s name and the dish ids would be sent as values, never glued into the SQL.',
+          'In today\'s practice, you will create the menu_items table with all its rules, and then the orders and order items tables with their keys and foreign keys.',
+          'Tomorrow you write the reports the canteen manager asked for: best sellers, takings per day, and each student\'s spending.',
+          'You have now designed a complete, protected database from a real problem. That is a core skill for backend developers, and a project you can talk about with confidence.'
+        ],
+        example: 'When Priya orders a dosa and a tea at the counter, the cashier writes one slip with both dishes, and it goes to the kitchen as one order. If the slip is torn halfway, the whole order is written again. That slip is a transaction.',
+        code: lines(
+          CANTEEN,
+          'BEGIN;',
+          "INSERT INTO canteen_orders (student_name, ordered_at) VALUES ('Karan', '2026-09-29 13:15') RETURNING id;",
+          'INSERT INTO canteen_order_items VALUES (5, 1, 1), (5, 4, 1);',
+          'COMMIT;',
+          'SELECT co.student_name, m.name AS dish, ci.quantity, m.price * ci.quantity AS line_total',
+          'FROM canteen_orders co',
+          'JOIN canteen_order_items ci ON ci.order_id = co.id',
+          'JOIN menu_items m ON m.id = ci.item_id',
+          'WHERE co.id = 5',
+          'ORDER BY m.name;'
+        ),
+        output: lines(
+          ' id',
+          '----',
+          '  5',
+          '(1 row)',
+          '',
+          ' student_name | dish        | quantity | line_total',
+          '--------------+-------------+----------+------------',
+          ' Karan        | Masala dosa |        1 |      60.00',
+          ' Karan        | Tea         |        1 |      15.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 8, note: 'The new order gets id 5, the next number after the sample orders.' },
+          { line: 9, note: 'Karan\'s items, using that id.' },
+          { line: 11, note: 'Check the order with its dishes and line totals.' }
+        ],
+        tryIt: 'Add a third dish to Karan\'s order, (5, 5, 2) for two samosas, and run it again.',
+        check: {
+          question: 'Why place the order and its items in one transaction?',
+          options: ['So there is never an order without its items, or items without their order', 'Because INSERT needs BEGIN', 'To make RETURNING work'],
+          answer: 0,
+          why: 'Placing an order is one action. The transaction makes sure all its parts are saved together, or none.'
+        }
+      }
+    ],
+    summary: [
+      'Start a project with user stories: who needs what, and why.',
+      'Nouns become tables; many-to-many links need a junction table with a quantity.',
+      'Choose types and rules for every column, with a reason for each.',
+      'Keep the schema in schema.sql, check it with information_schema, and test the rules on purpose.',
+      'Place an order with its items in one transaction.'
+    ],
+    projectStep: {
+      title: 'Canteen project: the design',
+      steps: [
+        'Write PLAN.md with at least 4 user stories and your 3 tables.',
+        'Write schema.sql with menu_items, canteen_orders and canteen_order_items and all their rules.',
+        'Add a menu of at least 5 dishes and 5 sample orders.',
+        'Write a tests.sql file with at least 3 changes that must be refused, and commit everything to GitHub.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 28,
+    title: 'Project: Reports for the Canteen',
+    goal: 'You can turn a manager\'s questions into queries using joins, groups, CTEs and window functions, and save the useful ones as views.',
+    minutes: 28,
+    recap: 'Yesterday you designed and built the Canteen database, tested its rules, and placed an order in a transaction.',
+    parts: [
+      {
+        title: 'From a manager\'s question to a query',
+        say: [
+          'The canteen manager has questions, not SQL. Your job is to turn each question into a query that answers it correctly. That translation is one of the most valuable skills in any data or backend role.',
+          'Start by writing the question in plain words and underlining the key parts: "Which dish sells the most units?" The dish comes from menu_items; units come from canteen_order_items; "the most" means sum, sort and take the top.',
+          'Next, decide which tables you need and how they link: canteen_order_items joins to menu_items on item_id. Then decide the grouping: one row per dish. Then the calculation: sum of quantity. Then the order and limit.',
+          'Finally, check the answer against the raw data for one case you can count by hand. If Tea appears in three orders with quantities 2, 1 and 1, its total must be 4. A report that fails this simple check is wrong, however clever the SQL looks.',
+          'This process, question, tables, joins, grouping, calculation, check, works for every report you will ever write. With practice, it becomes quick and automatic.',
+          'It also helps to agree on definitions with the manager before writing anything. Does "sold" include orders that were cancelled? Does a day run from midnight to midnight, or from opening to closing time? Many wrong reports are correct SQL answering a slightly different question.',
+          'Today you write four reports the manager asked for, then save the useful ones as views so they can be used every day.'
+        ],
+        example: 'A good tailor asks exactly what you need before cutting cloth: the occasion, the fit, the colour. Only then do they measure and cut. Turning a question into a query is the same: understand first, then write.',
+        code: lines(
+          CANTEEN,
+          'SELECT m.name, sum(ci.quantity) AS units',
+          'FROM canteen_order_items ci',
+          'JOIN menu_items m ON m.id = ci.item_id',
+          'GROUP BY m.id, m.name',
+          'ORDER BY units DESC, m.name',
+          'LIMIT 3;'
+        ),
+        output: lines(
+          ' name            | units',
+          '-----------------+-------',
+          ' Tea             |     4',
+          ' Samosa          |     3',
+          ' Chicken biryani |     1',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'Units come from the order items; names from the menu.' },
+          { line: 10, note: 'One row per dish; most units first; the top 3.' }
+        ],
+        tryIt: "Check Tea's total by hand: SELECT order_id, quantity FROM canteen_order_items WHERE item_id = 4; The quantities should add up to Tea's units in the report.",
+        check: {
+          question: 'What is the first step in turning a question into a query?',
+          options: ['Write the question in plain words and find which tables and columns it needs', 'Start typing SELECT *', 'Create an index'],
+          answer: 0,
+          why: 'Understanding the question and the tables it touches comes first; the SQL follows from that.'
+        }
+      },
+      {
+        title: 'Takings per day',
+        say: [
+          'The manager\'s second question: "How much money did the canteen take each day?" Money is price times quantity, the price is in menu_items, the quantity in canteen_order_items, and the day comes from canteen_orders.ordered_at.',
+          'So this report joins all three tables. ordered_at is a timestamp with a time of day, so to group by day, cast it: ordered_at::date turns 2026-09-28 13:05 into 2026-09-28.',
+          'Group by that day, and sum price times quantity. Sort by day so the report reads like a calendar.',
+          'A useful addition is the number of orders per day. Because each order has several item rows after the join, use count(DISTINCT co.id), as you learned on Day 12. Otherwise an order with three dishes would be counted three times.',
+          'Days with no orders do not appear at all, because there are no rows for them. If the manager wants every day listed, including zeros, you would generate the days with generate_series and LEFT JOIN, like the recursive dates on Day 16.',
+          'Always double-check money reports carefully. One missing join condition or a duplicated row can make the takings look higher than the cash in the till, which is an expensive mistake.',
+          'A simple check for money reports is to calculate the grand total in a separate query and compare. If the daily takings do not add up to the total of all order lines, a join or filter is wrong somewhere.'
+        ],
+        example: 'At closing time, the canteen counts the day\'s cash and matches it against the order slips: each slip\'s dishes times their prices, added up. This report is that end-of-day count, done by the database.',
+        code: lines(
+          CANTEEN,
+          'SELECT co.ordered_at::date AS day,',
+          '       count(DISTINCT co.id) AS orders,',
+          '       sum(m.price * ci.quantity) AS takings',
+          'FROM canteen_orders co',
+          'JOIN canteen_order_items ci ON ci.order_id = co.id',
+          'JOIN menu_items m ON m.id = ci.item_id',
+          'GROUP BY co.ordered_at::date',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | orders | takings',
+          '------------+--------+---------',
+          ' 2026-09-28 |      3 |  305.00',
+          ' 2026-09-29 |      1 |  105.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'The timestamp cast to a date, so all of a day\'s orders fall together.' },
+          { line: 8, note: 'DISTINCT, because each order appears once per dish after the join.' }
+        ],
+        tryIt: 'Change count(DISTINCT co.id) to count(co.id) and run it. The order counts go up, because orders with two dishes are counted twice.',
+        check: {
+          question: 'Why cast ordered_at to ::date before grouping?',
+          options: ['So all orders from the same day form one group, whatever the time', 'Because timestamps cannot be grouped', 'To make the query faster'],
+          answer: 0,
+          why: 'Each timestamp has a different time. Casting to a date puts every order from that day in the same group.'
+        }
+      },
+      {
+        title: 'Spending per student',
+        say: [
+          'The third question: "How much has each student spent, and how many times have they ordered?" This is the per-customer report from week 2, applied to the canteen.',
+          'Join orders to their items and to the menu, group by the student\'s name, and calculate the order count and total spent.',
+          'To rank students by spending, add a window function: rank() OVER (ORDER BY sum(...) DESC). As you learned on Day 17, window functions can use the result of the grouping, so this works in one query.',
+          'In a larger canteen, students would have their own table and ids, and you would group by the id as well as the name, because two students can share a name. For this project, the name is enough, but mention the limitation if you present it.',
+          'Reports about people should be handled with care. Spending per student is useful to the canteen, but it should not be shared outside the people who need it. Views and permissions, from Day 24 and tomorrow, help with that.',
+          'Check one student by hand again: Asha ordered twice. Add up the dishes on both her orders and compare with the report.'
+        ],
+        example: 'A canteen loyalty card counts how many meals each student has bought and how much they spent, and the top students get a free lunch. This report is that loyalty list.',
+        code: lines(
+          CANTEEN,
+          'SELECT co.student_name,',
+          '       count(DISTINCT co.id) AS orders,',
+          '       sum(m.price * ci.quantity) AS spent,',
+          '       rank() OVER (ORDER BY sum(m.price * ci.quantity) DESC) AS spending_rank',
+          'FROM canteen_orders co',
+          'JOIN canteen_order_items ci ON ci.order_id = co.id',
+          'JOIN menu_items m ON m.id = ci.item_id',
+          'GROUP BY co.student_name',
+          'ORDER BY spending_rank, co.student_name;'
+        ),
+        output: lines(
+          ' student_name | orders | spent  | spending_rank',
+          '--------------+--------+--------+---------------',
+          ' Ravi         |      1 | 180.00 |             1',
+          ' Asha         |      2 | 125.00 |             2',
+          ' Priya        |      1 | 105.00 |             3',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Total spent per student.' },
+          { line: 10, note: 'A rank based on the grouped total: window functions run after GROUP BY.' }
+        ],
+        tryIt: "Add HAVING count(DISTINCT co.id) > 1 before ORDER BY to show only students who ordered more than once.",
+        check: {
+          question: 'Can a window function like rank() use sum(...) from the same GROUP BY query?',
+          options: ['Yes, window functions are calculated after grouping', 'No, you always need a subquery', 'Only with PARTITION BY'],
+          answer: 0,
+          why: 'Grouping happens first, then window functions run on the grouped rows, so rank() OVER (ORDER BY sum(...)) works.'
+        }
+      },
+      {
+        title: 'Veg and non-veg, and the busiest hour',
+        say: [
+          'Managers often want the same numbers split different ways. "What share of our takings comes from vegetarian dishes?" uses conditional aggregation from Day 19: one sum for veg, one for non-veg, in the same query.',
+          'Percentages make it easier to read: veg takings divided by total takings, times 100, rounded. Use nullif to be safe if the total could ever be zero.',
+          '"When is the canteen busiest?" groups by the hour of the order: extract(hour from ordered_at). With only a few sample orders, the answer is small, but with a real month of data, this report tells the manager when to have more staff at the counter.',
+          'These reports use nothing new. They combine joins, groups, CASE or FILTER, and date functions you already know. That is what real reporting work looks like: familiar tools, combined carefully.',
+          'When a report is used often, consider an index on the columns it filters and groups by, like ordered_at, and check the plan with EXPLAIN, as on Day 23.',
+          'Present results clearly: good column names, sensible rounding, and a sort order that answers the question at a glance.',
+          'When you hand a report to a manager, add one sentence explaining what it shows and anything to watch out for, like "takings are based on menu prices, not discounts". That small note prevents a lot of misunderstanding.'
+        ],
+        example: 'A canteen manager notices long queues at lunchtime and wonders whether to add a second counter. A report of orders by hour turns that feeling into a fact.',
+        code: lines(
+          CANTEEN,
+          'SELECT sum(m.price * ci.quantity) FILTER (WHERE m.is_veg) AS veg_takings,',
+          '       sum(m.price * ci.quantity) FILTER (WHERE NOT m.is_veg) AS non_veg_takings,',
+          '       round(sum(m.price * ci.quantity) FILTER (WHERE m.is_veg) / nullif(sum(m.price * ci.quantity), 0) * 100, 1) AS veg_percent',
+          'FROM canteen_order_items ci JOIN menu_items m ON m.id = ci.item_id;',
+          'SELECT extract(hour from ordered_at) AS hour, count(*) AS orders',
+          'FROM canteen_orders',
+          'GROUP BY 1',
+          'ORDER BY orders DESC, hour;'
+        ),
+        output: lines(
+          ' veg_takings | non_veg_takings | veg_percent',
+          '-------------+-----------------+-------------',
+          '      270.00 |          140.00 |        65.9',
+          '(1 row)',
+          '',
+          ' hour | orders',
+          '------+--------',
+          '    9 |      1',
+          '   12 |      1',
+          '   13 |      1',
+          '   16 |      1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'Takings split by the is_veg column with FILTER.' },
+          { line: 9, note: 'The veg share as a percentage, safe from division by zero.' },
+          { line: 11, note: 'Orders per hour of the day.' }
+        ],
+        tryIt: 'Add a new order at 13:40 for any student, with any dish, and run again. Hour 13 moves to the top.',
+        check: {
+          question: 'Which tool splits takings into veg and non-veg in one query?',
+          options: ['Conditional aggregation with FILTER or CASE', 'Two separate databases', 'UNION of the menu table with itself'],
+          answer: 0,
+          why: 'sum(...) FILTER (WHERE ...) adds up only the matching rows, so several split totals fit in one row.'
+        }
+      },
+      {
+        title: 'Saving the reports as views',
+        say: [
+          'Reports the manager uses every day should not be retyped. Save them as views, as you learned on Day 24: best_sellers, daily_takings, student_spending.',
+          'Then the manager, or a small dashboard app, only needs SELECT * FROM daily_takings. The joins and calculations live in one place, written and checked once.',
+          'If the canteen later changes how takings are calculated, for example to exclude cancelled orders, you update the view, and every report using it is updated at once.',
+          'Name views clearly, add a comment on each one, and keep their definitions in a views.sql file next to schema.sql in your project.',
+          'With the views in place, your project has three layers: the schema with its rules, sample data, and ready-made reports. That is a complete small database project.',
+          'This structure also makes a great demonstration. In an interview, you can show the schema, run a report view, and explain one design decision, all in a few minutes.'
+        ],
+        example: 'A school office has a few standard reports printed every week: attendance, fee dues, results. Nobody rewrites them each week; they are templates. Views are your canteen\'s report templates.',
+        code: lines(
+          CANTEEN,
+          'CREATE VIEW daily_takings AS',
+          'SELECT co.ordered_at::date AS day, sum(m.price * ci.quantity) AS takings',
+          'FROM canteen_orders co',
+          'JOIN canteen_order_items ci ON ci.order_id = co.id',
+          'JOIN menu_items m ON m.id = ci.item_id',
+          'GROUP BY co.ordered_at::date;',
+          "COMMENT ON VIEW daily_takings IS 'Money taken per day, from order items and menu prices';",
+          'SELECT * FROM daily_takings ORDER BY day;',
+          "SELECT obj_description('daily_takings'::regclass) AS about;"
+        ),
+        output: lines(
+          ' day        | takings',
+          '------------+---------',
+          ' 2026-09-28 |  305.00',
+          ' 2026-09-29 |  105.00',
+          '(2 rows)',
+          '',
+          ' about',
+          '-------------------------------------------------------',
+          ' Money taken per day, from order items and menu prices',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'The takings report, saved once as a view.' },
+          { line: 13, note: 'A comment stored inside the database.' },
+          { line: 14, note: 'Using the view is now a one-line query.' }
+        ],
+        tryIt: 'Create a second view best_sellers with each dish and its total units, and query it.',
+        check: {
+          question: 'Why save the daily takings report as a view?',
+          options: ['The logic is written once, and everyone reuses the same correct calculation', 'Views store the numbers permanently', 'Reports cannot run without views'],
+          answer: 0,
+          why: 'A view keeps the calculation in one place. Everyone who uses it gets the same, up-to-date answer.'
+        }
+      },
+      {
+        title: 'Putting it together: the manager\'s dashboard query',
+        say: [
+          'Let us finish the project with one query that gives the manager a compact overview, built in named steps with WITH, exactly as professionals write it.',
+          'Step one: each order\'s total. Step two: per-day numbers from those totals: number of orders, takings, and the average order value. The main query adds each day\'s share of all takings with a window function.',
+          'Every technique in this query comes from this course: joins, grouping, a CTE, a window function, rounding, and a cast to date. Seeing them work together on your own project is the real proof of what you have learned.',
+          'In today\'s practice, you will find the best-selling item, and calculate takings per day from the canteen tables.',
+          'Tomorrow you learn how to keep a database safe in production: backups, restoring data after an accident, and who is allowed to do what.',
+          'Take a moment to notice how far you have come: a month ago, SELECT was new. Today you designed a database and wrote the reports a real business would use.'
+        ],
+        example: 'A canteen manager\'s morning check is one screen with yesterday\'s orders, takings, average bill and how each day compares. Behind that screen is a single, well-structured query like this one.',
+        code: lines(
+          CANTEEN,
+          'WITH order_totals AS (',
+          '  SELECT co.id, co.ordered_at::date AS day, sum(m.price * ci.quantity) AS total',
+          '  FROM canteen_orders co',
+          '  JOIN canteen_order_items ci ON ci.order_id = co.id',
+          '  JOIN menu_items m ON m.id = ci.item_id',
+          '  GROUP BY co.id, co.ordered_at::date',
+          '),',
+          'per_day AS (',
+          '  SELECT day, count(*) AS orders, sum(total) AS takings, round(avg(total), 2) AS avg_order',
+          '  FROM order_totals GROUP BY day',
+          ')',
+          'SELECT day, orders, takings, avg_order,',
+          '       round(takings / sum(takings) OVER () * 100, 1) AS share_percent',
+          'FROM per_day',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | orders | takings | avg_order | share_percent',
+          '------------+--------+---------+-----------+---------------',
+          ' 2026-09-28 |      3 |  305.00 |    101.67 |          74.4',
+          ' 2026-09-29 |      1 |  105.00 |    105.00 |          25.6',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'Step 1: one total per order.' },
+          { line: 14, note: 'Step 2: per-day orders, takings and average order.' },
+          { line: 19, note: 'Each day\'s share of all takings, with a window function.' }
+        ],
+        tryIt: 'Add Karan\'s order from yesterday\'s lesson to the data, on 2026-09-29, and run it again. The share for 29 September grows.',
+        check: {
+          question: 'Why calculate order totals in a first step before per-day numbers?',
+          options: ['So the average order value averages whole orders, not individual dish lines', 'Because WITH needs two steps', 'To avoid using joins'],
+          answer: 0,
+          why: 'Averaging the joined dish lines would give the average line, not the average order. Totalling each order first fixes that.'
+        }
+      }
+    ],
+    summary: [
+      'Turn each question into tables, joins, grouping and a calculation, then check one case by hand.',
+      'Cast timestamps to ::date to report per day; use count(DISTINCT id) after joins.',
+      'Window functions can rank grouped results; FILTER splits totals by condition.',
+      'Save daily reports as views with comments, in a views.sql file.',
+      'Build complex reports in named WITH steps: per order first, then per day.'
+    ],
+    projectStep: {
+      title: 'Canteen project: the reports',
+      steps: [
+        'Write the best sellers, daily takings and student spending reports.',
+        'Check each report against one case you count by hand.',
+        'Save the three reports as views in views.sql, with a comment on each.',
+        'Write a short README.md for the project: what it is, the tables, and an example report, then commit to GitHub.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 29,
+    title: 'Backups, Permissions, and SQL vs NoSQL',
+    goal: 'You can explain and use backups, copy and restore tables, give users only the permissions they need, and compare SQL and NoSQL databases.',
+    minutes: 28,
+    recap: 'Yesterday you wrote the Canteen reports and saved them as views.',
+    parts: [
+      {
+        title: 'Why backups matter',
+        say: [
+          'Every database will one day face a disaster: a disk fails, someone runs DELETE without WHERE, a bug corrupts data, or an attacker gets in. The question is not whether, but when. Backups are what let a company recover.',
+          'A backup is a copy of the data, stored somewhere else, from which the database can be restored. Without a recent backup, lost data is simply gone. Companies have closed down because of this.',
+          'PostgreSQL\'s standard backup tool is pg_dump. It writes a whole database, its tables, data, views and rules, into a single file. pg_restore, or psql, rebuilds the database from that file.',
+          'Real systems combine daily full backups with continuous logs of every change, so they can restore to any moment, for example "five minutes before the mistake". Cloud databases usually do this automatically.',
+          'A backup you have never restored is only a hope. Good teams regularly test restoring a backup into a separate database, to prove it works and to know how long it takes.',
+          'Backups also contain all the private data, so they must be stored securely, with access limited just like the live database.',
+          'A useful rule of thumb is 3-2-1: keep three copies of important data, on two different kinds of storage, with one copy in a different place. Cloud providers make the "different place" easy, by storing backups in another region.'
+        ],
+        example: 'You keep copies of important documents, like your Aadhaar card and certificates, in a safe place away from the originals. If the originals are lost in a flood, the copies save you. A database backup is that safe copy.',
+        projectCode: {
+          label: 'Backups on your laptop or server (terminal)',
+          code: lines(
+            '# Back up one database to a file',
+            'pg_dump --format=custom --file=canteen_2026-09-28.dump canteen',
+            '',
+            '# Restore it into a new, empty database to test it',
+            'createdb canteen_restore_test',
+            'pg_restore --dbname=canteen_restore_test canteen_2026-09-28.dump'
+          )
+        },
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10), (2, 'Notebook', 60), (3, 'Backpack', 1200);",
+          'CREATE TABLE products_backup AS TABLE products;',
+          'SELECT (SELECT count(*) FROM products) AS products, (SELECT count(*) FROM products_backup) AS in_backup;'
+        ),
+        output: lines(
+          ' products | in_backup',
+          '----------+-----------',
+          '        3 |         3',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'A quick copy of one table inside the database: useful before a risky change, but not a real backup.' },
+          { line: 4, note: 'Check that the copy has every row.' }
+        ],
+        tryIt: 'On your laptop, run pg_dump on your My Library database and look at the file it creates.',
+        check: {
+          question: 'Why is a backup inside the same database not enough?',
+          options: ['If the server or disk fails, the copy is lost too', 'It is too slow', 'PostgreSQL deletes copies automatically'],
+          answer: 0,
+          why: 'A real backup is stored somewhere else, so it survives the failure of the original server.'
+        }
+      },
+      {
+        title: 'Copying and restoring tables',
+        say: [
+          'Inside the database, a quick copy of a table is useful before a risky change: CREATE TABLE products_backup AS TABLE products. It copies all the columns and rows, but not the keys, indexes or rules.',
+          'If the change goes wrong, you can put the rows back: delete the bad rows and INSERT INTO products SELECT * FROM products_backup. The column order of both tables must match, which it does when the copy was made from the same table.',
+          'Remember foreign keys when restoring. If other tables point to the rows you deleted, you may need to restore in the right order: parents before children.',
+          'A better habit for planned changes is the transaction from Day 22: BEGIN, change, check, and ROLLBACK if wrong. Copies are for when you need a safety net that lasts longer than one session.',
+          'Clean up afterwards. Old copy tables confuse teammates and use space. Drop them once the change is confirmed, and never leave private data lying around in forgotten copies.',
+          'For anything bigger than one table, rely on proper backups with pg_dump and your hosting provider\'s restore tools.'
+        ],
+        example: 'Before repainting a room, you might take a photo of how the furniture was arranged. If the new arrangement does not work, the photo shows how to put it back. A copy table is that photo for your data.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10), (2, 'Notebook', 60), (3, 'Backpack', 1200);",
+          'CREATE TABLE products_backup AS TABLE products;',
+          'DELETE FROM products;',
+          'SELECT count(*) AS after_accident FROM products;',
+          'INSERT INTO products SELECT * FROM products_backup;',
+          'SELECT name, price FROM products ORDER BY id;'
+        ),
+        output: lines(
+          ' after_accident',
+          '----------------',
+          '              0',
+          '(1 row)',
+          '',
+          ' name     | price',
+          '----------+---------',
+          ' Pen      |   10.00',
+          ' Notebook |   60.00',
+          ' Backpack | 1200.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The safety copy, made before the risky work.' },
+          { line: 4, note: 'The accident: every product deleted.' },
+          { line: 6, note: 'Restore the rows from the copy.' }
+        ],
+        tryIt: 'Add DROP TABLE products_backup; at the end, to clean up once the restore is confirmed.',
+        check: {
+          question: 'What does CREATE TABLE products_backup AS TABLE products copy?',
+          options: ['The columns and rows, but not the keys, indexes or rules', 'Everything, including keys and indexes', 'Only the column names'],
+          answer: 0,
+          why: 'It copies the data. Keys, indexes and constraints are not copied, so it is a data copy, not a full clone.'
+        }
+      },
+      {
+        title: 'Users, roles and permissions',
+        say: [
+          'Not everyone who uses a database should be able to do everything. An analyst needs to read sales, not delete them. An app needs to add orders, not drop tables. PostgreSQL controls this with roles and permissions.',
+          'A role is a user or a group. You create one with CREATE ROLE, and give it permissions with GRANT: GRANT SELECT ON products TO report_reader lets that role read products and nothing else.',
+          'The principle to follow is called least privilege: give each role only the permissions it needs to do its job. If the reporting tool\'s password leaks, an attacker can then only read reports, not change or delete data.',
+          'REVOKE takes permissions away. And GRANT can target whole schemas, views instead of tables, or even specific columns, so private columns like phone numbers stay hidden.',
+          'Apps should connect with their own role, never with the powerful admin account. The admin account is for setting up the database, not for everyday traffic.',
+          'You can check a role\'s permissions with has_table_privilege, which is handy for testing that your setup really does what you intended.'
+        ],
+        example: 'In a hotel, the receptionist\'s key card opens the office, the cleaner\'s opens the guest rooms, and only the manager\'s opens the safe. Nobody gets a master key just in case. Database roles are those key cards.',
+        code: lines(
+          'CREATE TABLE sales (day date, amount numeric(10,2));',
+          "INSERT INTO sales VALUES ('2026-09-28', 1200);",
+          'CREATE ROLE report_reader;',
+          'GRANT SELECT ON sales TO report_reader;',
+          "SELECT has_table_privilege('report_reader', 'sales', 'SELECT') AS can_read,",
+          "       has_table_privilege('report_reader', 'sales', 'INSERT') AS can_insert,",
+          "       has_table_privilege('report_reader', 'sales', 'DELETE') AS can_delete;"
+        ),
+        output: lines(
+          ' can_read | can_insert | can_delete',
+          '----------+------------+------------',
+          ' true     | false      | false',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'A role for the reporting tool.' },
+          { line: 4, note: 'Only reading is allowed.' },
+          { line: 5, note: 'Check what the role can and cannot do.' }
+        ],
+        tryIt: 'Add GRANT INSERT ON sales TO report_reader; before the check, and see can_insert change. Then REVOKE it again.',
+        check: {
+          question: 'What does "least privilege" mean?',
+          options: ['Give each user only the permissions they need for their job', 'Give every user as few tables as possible', 'Only the admin can read data'],
+          answer: 0,
+          why: 'Limiting permissions limits the damage if an account is misused or its password leaks.'
+        }
+      },
+      {
+        title: 'Seeing permissions in action',
+        say: [
+          'Checking permissions with a function is useful, but it is even clearer to act as the role and see what happens. SET ROLE switches the current session to another role; RESET ROLE switches back.',
+          'As report_reader, a SELECT on sales works, but an INSERT fails with "permission denied". That error is the database protecting the data, whatever app or script is behind the role.',
+          'Views and permissions work well together. If a role can read a view but not the table under it, it sees only the columns and rows the view shows. That is how private columns are protected in practice.',
+          'Permission errors in an app usually mean the app\'s role is missing a GRANT for a new table. Adding tables to a project should always include adding the right permissions for the roles that need them.',
+          'In the lesson editor, roles are created fresh each run and removed afterwards. On a real server, roles are created once by an administrator, often with passwords managed by the hosting company.',
+          'Security is a shared job. Developers who design roles and permissions carefully, instead of connecting everything as admin, are trusted with more responsibility.',
+          'Passwords for roles should be long, random and stored in a secrets manager or environment variables, never shared in chat or written in documents. When someone leaves a team, their access should be removed the same day.'
+        ],
+        example: 'A visitor badge at an office lets you walk into the meeting rooms, but the server room door simply does not open. You do not need to be told the rule; the door enforces it. SET ROLE is putting on the visitor badge.',
+        code: lines(
+          'CREATE TABLE sales (day date, amount numeric(10,2));',
+          "INSERT INTO sales VALUES ('2026-09-28', 1200);",
+          'CREATE ROLE report_reader;',
+          'GRANT USAGE ON SCHEMA public TO report_reader;',
+          'GRANT SELECT ON sales TO report_reader;',
+          'SET ROLE report_reader;',
+          'SELECT current_user AS acting_as, sum(amount) AS total FROM sales;',
+          "INSERT INTO sales VALUES ('2026-09-29', 500);"
+        ),
+        output: lines(
+          ' acting_as     | total',
+          '---------------+---------',
+          ' report_reader | 1200.00',
+          '(1 row)',
+          '',
+          '[Error] permission denied for table sales'
+        ),
+        codeNotes: [
+          { line: 6, note: 'Act as the reporting role.' },
+          { line: 7, note: 'Reading is allowed.' },
+          { line: 8, note: 'Writing is not: permission denied.' }
+        ],
+        tryIt: 'Add RESET ROLE; before line 8 and run it again. Back as the normal user, the INSERT works.',
+        check: {
+          question: 'Why should an app connect with its own limited role instead of the admin account?',
+          options: ['If the app is attacked or has a bug, it can only do what its role allows', 'Admin accounts are slower', 'PostgreSQL does not allow admin connections'],
+          answer: 0,
+          why: 'A limited role keeps mistakes and attacks contained. The admin account could drop every table.'
+        }
+      },
+      {
+        title: 'SQL vs NoSQL',
+        say: [
+          'PostgreSQL is a relational, or SQL, database. There are other kinds, often called NoSQL, and interviewers like to ask when you would choose each.',
+          'Document databases like MongoDB store JSON-like documents instead of rows. They are flexible when each item has a different shape, and can be quick to start with. PostgreSQL\'s jsonb, from Day 25, covers many of the same needs.',
+          'Key-value stores like Redis keep data in memory under a key, like a giant dictionary. They are extremely fast and are used for caches, login sessions and counters, usually next to a relational database, not instead of it.',
+          'Other kinds include wide-column databases like Cassandra for huge write volumes, search engines like Elasticsearch for full-text search, and graph databases like Neo4j for highly connected data like social networks.',
+          'Relational databases are the best default for most business data: orders, payments, users, stock. They give you joins, constraints, transactions and ACID guarantees, which protect exactly the kind of data that must be correct.',
+          'It is also common to start with PostgreSQL alone and add other stores only when a real problem appears, such as a page that is too slow even with good indexes. Every extra database is one more system to run, back up and secure.',
+          'A balanced interview answer: "I start with PostgreSQL for core data because of its guarantees and flexibility, and add a specialised store like Redis for caching or Elasticsearch for search when there is a clear need."'
+        ],
+        example: 'A kitchen has a main fridge for everything, and a small drawer by the stove with the spices you use every minute. PostgreSQL is the main fridge; Redis is the spice drawer. You need both, for different jobs.',
+        code: lines(
+          'CREATE TABLE database_choices (need text, good_choice text, why text);',
+          'INSERT INTO database_choices VALUES',
+          "  ('orders and payments', 'PostgreSQL', 'transactions, constraints and joins'),",
+          "  ('fast cache and sessions', 'Redis', 'in-memory key-value lookups'),",
+          "  ('flexible documents', 'MongoDB or PostgreSQL jsonb', 'varying shapes of data'),",
+          "  ('full-text search', 'Elasticsearch', 'ranking and searching text');",
+          'SELECT need, good_choice FROM database_choices;'
+        ),
+        output: lines(
+          ' need                    | good_choice',
+          '-------------------------+-----------------------------',
+          ' orders and payments     | PostgreSQL',
+          ' fast cache and sessions | Redis',
+          ' flexible documents      | MongoDB or PostgreSQL jsonb',
+          ' full-text search        | Elasticsearch',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Money data needs the guarantees of a relational database.' }
+        ],
+        tryIt: "Add a row for social network friendships, with 'Neo4j or PostgreSQL' as the choice and 'connected data' as the reason.",
+        check: {
+          question: 'Which is usually the best default database for orders and payments?',
+          options: ['A relational database like PostgreSQL', 'An in-memory cache like Redis', 'A full-text search engine'],
+          answer: 0,
+          why: 'Orders and payments need transactions, constraints and joins, which relational databases provide.'
+        }
+      },
+      {
+        title: 'Putting it together: a production checklist',
+        say: [
+          'Let us gather this week\'s safety lessons into a checklist for putting a database like the Canteen into real use.',
+          'Backups: daily automatic backups, stored elsewhere, and a tested restore. Roles: an admin role for setup, an app role with only the permissions the app needs, and a read-only role for reports. Secrets: passwords in environment variables, never in code. Rules: constraints on every table, and transactions for multi-step changes.',
+          'Monitoring matters too: watch for slow queries with EXPLAIN, and add indexes where needed. And keep schema changes in migration files, reviewed like any other code.',
+          'In today\'s practice, you will make a copy of the products table, and restore the rows after an accidental delete.',
+          'Tomorrow is the last day: SQL interview practice. You will solve the classic questions and learn to talk about your Canteen project with confidence.',
+          'This checklist is exactly what a senior developer would ask about before approving a new system. Knowing it as a junior sets you apart.'
+        ],
+        example: 'Before a flight, the pilot goes through a checklist even after thousands of flights. The checklist is short, but skipping one item can be disastrous. A database production checklist works the same way.',
+        code: lines(
+          'CREATE TABLE checklist (item text, done boolean);',
+          'INSERT INTO checklist VALUES',
+          "  ('daily backups stored elsewhere', true), ('restore tested', false), ('app uses its own role', true),",
+          "  ('read-only role for reports', true), ('secrets in environment variables', true), ('constraints on every table', true);",
+          "SELECT item FROM checklist WHERE NOT done;",
+          'SELECT count(*) FILTER (WHERE done) AS done, count(*) AS total FROM checklist;'
+        ),
+        output: lines(
+          ' item',
+          '----------------',
+          ' restore tested',
+          '(1 row)',
+          '',
+          ' done | total',
+          '------+-------',
+          '    5 |     6',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'What is still missing before going live.' },
+          { line: 6, note: 'Progress: done out of total.' }
+        ],
+        tryIt: "Mark the restore test as done with UPDATE checklist SET done = true WHERE item = 'restore tested'; before the SELECTs.",
+        check: {
+          question: 'Which checklist item protects against a leaked reporting password deleting data?',
+          options: ['A read-only role for reports', 'Daily backups', 'Constraints on every table'],
+          answer: 0,
+          why: 'A read-only role cannot change data, so even a leaked password for it cannot delete anything.'
+        }
+      }
+    ],
+    summary: [
+      'Backups with pg_dump, stored elsewhere and tested by restoring, are what let you recover.',
+      'CREATE TABLE ... AS TABLE copies data (not keys) as a quick safety net; restore with INSERT ... SELECT.',
+      'Roles and GRANT give each user least privilege; SET ROLE shows permissions in action.',
+      'Apps connect with their own limited role, never as admin.',
+      'Relational databases are the default for core data; NoSQL stores serve special needs.'
+    ],
+    projectStep: {
+      title: 'Canteen project: make it production-ready',
+      steps: [
+        'Back up your Canteen database with pg_dump, and restore it into a test database.',
+        'Create a canteen_app role that can read the menu and add orders, but not delete anything.',
+        'Create a canteen_reports role that can only read your report views.',
+        'Add a "Production checklist" section to your project README.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 30,
+    title: 'SQL Interview Practice',
+    goal: 'You can solve the classic SQL interview questions, explain joins, indexes and transactions clearly, and present your Canteen project.',
+    minutes: 28,
+    recap: 'Yesterday you learned backups, restoring data, roles and permissions, and when to choose SQL or NoSQL.',
+    parts: [
+      {
+        title: 'What SQL interviews look like',
+        say: [
+          'Congratulations on reaching the last day of the SQL course. SQL appears in interviews for backend developers, data analysts, testers and even product roles. Today you practise the questions that come up again and again.',
+          'Most SQL interviews have three parts. Short questions about concepts: the difference between WHERE and HAVING, or INNER and LEFT JOIN. A few queries to write, often on a small example schema. And questions about a project you built.',
+          'When you get a query to write, use the process from Day 28: restate the question, name the tables and joins, decide the grouping, write the query step by step, and check it against a small example. Say your thinking out loud.',
+          'Interviewers care about correctness first, then clarity. A simple, correct query with good names beats a clever one that nobody can read. And mentioning edge cases, like NULLs, ties or customers with no orders, shows real experience.',
+          'If you are unsure, say so honestly and explain how you would check: "I think this needs a LEFT JOIN to keep customers without orders; let me check with a small example." That is exactly what good developers do at work.',
+          'The rest of today walks through the classics, each with a clean answer you can adapt.'
+        ],
+        example: 'A driving test examiner watches not only whether you reach the destination, but whether you check mirrors and signal. In an SQL interview, the checks you mention, like NULLs and ties, are your mirrors and signals.',
+        code: lines(
+          'CREATE TABLE interview_topics (topic text, typical_question text);',
+          'INSERT INTO interview_topics VALUES',
+          "  ('joins', 'What is the difference between INNER and LEFT JOIN?'),",
+          "  ('grouping', 'What is the difference between WHERE and HAVING?'),",
+          "  ('ranking', 'Find the second highest salary.'),",
+          "  ('design', 'Why split data into several tables?');",
+          'SELECT topic, typical_question FROM interview_topics;'
+        ),
+        output: lines(
+          ' topic    | typical_question',
+          '----------+-----------------------------------------------------',
+          ' joins    | What is the difference between INNER and LEFT JOIN?',
+          ' grouping | What is the difference between WHERE and HAVING?',
+          ' ranking  | Find the second highest salary.',
+          ' design   | Why split data into several tables?',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 7, note: 'Four classic areas, each covered in this course.' }
+        ],
+        tryIt: "Add a fifth topic of your own, like ('indexes', 'When would you add an index?'), and answer it out loud.",
+        check: {
+          question: 'In a SQL interview, what matters most in your query?',
+          options: ['Correctness, then clarity, with edge cases mentioned', 'Using the most advanced features possible', 'Writing it as fast as possible without checking'],
+          answer: 0,
+          why: 'A correct, readable query that handles NULLs and ties shows the judgement interviewers look for.'
+        }
+      },
+      {
+        title: 'Second highest value',
+        say: [
+          'The most famous SQL interview question is "find the second highest salary". It tests whether you think about ties and missing values.',
+          'Approach one: find the highest value below the maximum. SELECT max(salary) FROM employees WHERE salary < (SELECT max(salary) FROM employees). It handles ties at the top correctly and returns NULL if there is no second value.',
+          'Approach two: dense_rank. Rank the distinct salaries with dense_rank() OVER (ORDER BY salary DESC) and keep rank 2. This generalises easily to "the Nth highest" by changing one number.',
+          'A common wrong answer is ORDER BY salary DESC LIMIT 1 OFFSET 1. If two people share the top salary, it returns that same top value again. Mentioning this trap shows you understand ties.',
+          'Say which approach you are using and why, and mention what happens when there is no second value. That turns a simple question into a demonstration of careful thinking.',
+          'The same pattern answers many variations: second most expensive product, second latest order, the third best-selling dish.'
+        ],
+        example: 'In a race where two runners tie for first, who came second? Not the second of the two winners, but the next runner behind them. The question is about the second different time, which is what dense_rank finds.',
+        code: lines(
+          'CREATE TABLE employees (name text, salary int);',
+          "INSERT INTO employees VALUES ('Anita', 90000), ('Vikram', 90000), ('Sara', 75000), ('Joel', 60000);",
+          'SELECT max(salary) AS second_highest FROM employees WHERE salary < (SELECT max(salary) FROM employees);',
+          'WITH ranked AS (SELECT salary, dense_rank() OVER (ORDER BY salary DESC) AS dr FROM employees)',
+          'SELECT DISTINCT salary AS second_highest FROM ranked WHERE dr = 2;',
+          'SELECT salary AS wrong_answer FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1;'
+        ),
+        output: lines(
+          ' second_highest',
+          '----------------',
+          '          75000',
+          '(1 row)',
+          '',
+          ' second_highest',
+          '----------------',
+          '          75000',
+          '(1 row)',
+          '',
+          ' wrong_answer',
+          '--------------',
+          '        90000',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The highest salary below the maximum.' },
+          { line: 4, note: 'dense_rank: change 2 to N for the Nth highest.' },
+          { line: 6, note: 'The trap: with a tie at the top, OFFSET 1 returns 90000 again.' }
+        ],
+        tryIt: 'Change dr = 2 to dr = 3 to find the third highest salary.',
+        check: {
+          question: 'Why is ORDER BY salary DESC LIMIT 1 OFFSET 1 a risky answer?',
+          options: ['If two people share the top salary, it returns the top value again', 'It is a syntax error', 'It always returns NULL'],
+          answer: 0,
+          why: 'OFFSET skips rows, not values. With a tie at the top, the second row still has the top salary.'
+        }
+      },
+      {
+        title: 'Duplicates, and top N per group',
+        say: [
+          'Two more classics. "Find duplicate emails" tests GROUP BY and HAVING: group by email, and keep groups where count(*) > 1. Show the count too, so the interviewer sees how many times each appears.',
+          'A follow-up often asks to delete the duplicates but keep one copy. The clean way uses row_number: number the rows in each email group, and delete the ones with a number above 1. Always check with a SELECT before running the DELETE.',
+          '"Top N per group", like the two most expensive products in each category, uses the recipe from Day 17: row_number or rank with PARTITION BY, in a WITH step, then filter.',
+          'Mention whether ties should be included. With row_number, exactly N per group; with rank, ties at the edge are all included. Asking the interviewer which they want is a good sign.',
+          'These three patterns, second highest, duplicates and top N per group, cover a surprising share of real interview questions. Practise them until you can write them without looking.',
+          'On a whiteboard or shared screen, write the WITH steps first as names, then fill them in. It keeps your answer organised under pressure.',
+          'If you get stuck, simplify: solve the problem for one group or one row first, then generalise. Interviewers are happy to watch you build up a solution; silence is much harder for them to follow.'
+        ],
+        example: 'A school finds that some students registered twice for the same exam. First it lists the repeated registrations, then it keeps the earliest one and cancels the rest. That is find duplicates, then delete all but one.',
+        code: lines(
+          'CREATE TABLE signups (id int PRIMARY KEY, email text);',
+          "INSERT INTO signups VALUES (1, 'asha@x.com'), (2, 'ravi@x.com'), (3, 'asha@x.com'), (4, 'priya@x.com'), (5, 'asha@x.com');",
+          'SELECT email, count(*) AS times FROM signups GROUP BY email HAVING count(*) > 1;',
+          'WITH numbered AS (SELECT id, row_number() OVER (PARTITION BY email ORDER BY id) AS rn FROM signups)',
+          'DELETE FROM signups WHERE id IN (SELECT id FROM numbered WHERE rn > 1);',
+          'SELECT id, email FROM signups ORDER BY id;'
+        ),
+        output: lines(
+          ' email      | times',
+          '------------+-------',
+          ' asha@x.com |     3',
+          '(1 row)',
+          '',
+          ' id | email',
+          '----+-------------',
+          '  1 | asha@x.com',
+          '  2 | ravi@x.com',
+          '  4 | priya@x.com',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Which emails repeat, and how often.' },
+          { line: 4, note: 'Number each email\'s rows, keeping the earliest as 1.' },
+          { line: 5, note: 'Delete every copy after the first.' }
+        ],
+        tryIt: 'Before the DELETE, add a SELECT that shows which ids would be deleted: SELECT id FROM numbered WHERE rn > 1 (inside its own WITH).',
+        check: {
+          question: 'How do you find duplicate emails?',
+          options: ['GROUP BY email HAVING count(*) > 1', 'WHERE count(*) > 1', 'SELECT DISTINCT email'],
+          answer: 0,
+          why: 'Group the rows by email and keep groups with more than one row. WHERE cannot filter on count.'
+        }
+      },
+      {
+        title: 'Explaining concepts clearly',
+        say: [
+          'Concept questions test whether you can explain, not just type. Practise short, clear answers with a tiny example, like these.',
+          'INNER vs LEFT JOIN: "INNER JOIN keeps only rows with a match on both sides. LEFT JOIN keeps every row from the left table and fills missing matches with NULL. For customers and orders, LEFT JOIN keeps customers who never ordered."',
+          'WHERE vs HAVING: "WHERE filters rows before grouping; HAVING filters groups after aggregation. Categories with more than five products need HAVING count(*) > 5."',
+          'Indexes: "An index is a sorted structure that lets the database find rows without reading the whole table. It speeds up reads but slows writes and uses space, so I index foreign keys and frequent filters, and check with EXPLAIN."',
+          'Transactions: "A transaction groups changes so they all happen or none do: ACID. A money transfer debits one account and credits another in one transaction." Normalization: "Store each fact once, linked by keys, to avoid update anomalies."',
+          'Short answers with one example each are much stronger than long, vague ones. Practise saying them out loud until they feel natural.'
+        ],
+        example: 'A good teacher explains a new idea in two sentences and one example, then checks you understood. Your interview answers should sound like that teacher, not like a textbook.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name, count(o.id) AS orders_inner FROM customers c JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name ORDER BY c.name;',
+          'SELECT c.name, count(o.id) AS orders_left FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | orders_inner',
+          '-------+--------------',
+          ' Asha  |            2',
+          ' Priya |            1',
+          ' Ravi  |            1',
+          '(3 rows)',
+          '',
+          ' name  | orders_left',
+          '-------+-------------',
+          ' Asha  |           2',
+          ' Meera |           0',
+          ' Priya |           1',
+          ' Ravi  |           1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'INNER JOIN: Meera, with no orders, is missing.' },
+          { line: 10, note: 'LEFT JOIN: Meera appears with 0. This tiny example is a perfect interview answer.' }
+        ],
+        tryIt: 'Explain out loud, in two sentences, why the two results differ. Then do the same for WHERE and HAVING.',
+        check: {
+          question: 'What is a strong way to answer a concept question in an interview?',
+          options: ['A short, clear explanation with one small example', 'A long list of every detail you know', 'Just the definition, with no example'],
+          answer: 0,
+          why: 'A crisp explanation plus a tiny example shows you understand and can communicate, which interviewers value.'
+        }
+      },
+      {
+        title: 'Talking about your Canteen project',
+        say: [
+          '"Tell me about a database you designed" is your chance to shine. Prepare a two-minute answer about the Canteen project, and practise it out loud.',
+          'A simple structure: what it is ("a database for a college canteen: menu, orders and order items"), the design ("three tables in third normal form, with a junction table for the many-to-many link"), the rules ("positive prices, one row per dish per order, and dishes in past orders cannot be deleted"), the reports ("best sellers, daily takings and student spending, saved as views"), and safety ("orders are placed in a transaction, and apps connect with a limited role").',
+          'Then mention one decision and its trade-off: "I used the student\'s name for the first version; with more time, I would add a students table with ids, because two students can share a name." Honest limitations show maturity.',
+          'Keep your GitHub repository tidy: schema.sql, views.sql, tests.sql and a clear README with an example report. Interviewers sometimes open it during the call.',
+          'If you also finished the Python or React course, connect them: "I also wrote a small script that reads the menu using parameterised queries." Linking skills shows you can build complete features.',
+          'Most importantly, speak about what you actually did and learned. Real experience, told simply, is more convincing than big words.'
+        ],
+        example: 'When someone asks about your trip, a good story has a start, what you did, one thing that went wrong, and what you would do differently. A project answer follows the same shape.',
+        code: lines(
+          'CREATE TABLE my_pitch (part int, says text);',
+          'INSERT INTO my_pitch VALUES',
+          "  (1, 'What: a canteen database for menus, orders and order items.'),",
+          "  (2, 'Design: three tables in 3NF, with a junction table for order items.'),",
+          "  (3, 'Rules: positive prices, one line per dish per order, safe deletes.'),",
+          "  (4, 'Reports: best sellers, daily takings and spending, saved as views.'),",
+          "  (5, 'Next: a students table with ids, because names can repeat.');",
+          'SELECT says FROM my_pitch ORDER BY part;',
+          "SELECT sum(array_length(regexp_split_to_array(says, '\\s+'), 1)) AS words FROM my_pitch;"
+        ),
+        output: lines(
+          ' says',
+          '---------------------------------------------------------------------',
+          ' What: a canteen database for menus, orders and order items.',
+          ' Design: three tables in 3NF, with a junction table for order items.',
+          ' Rules: positive prices, one line per dish per order, safe deletes.',
+          ' Reports: best sellers, daily takings and spending, saved as views.',
+          ' Next: a students table with ids, because names can repeat.',
+          '(5 rows)',
+          '',
+          ' words',
+          '-------',
+          '    53',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 8, note: 'Your pitch in order: what, design, rules, reports, next steps.' },
+          { line: 9, note: 'Count the words. Around 250 words is about two minutes of speaking.' }
+        ],
+        tryIt: 'Rewrite each part in your own words, with more detail, until the word count is around 250.',
+        check: {
+          question: 'Why mention a limitation of your project in an interview?',
+          options: ['It shows you understand trade-offs and know how to improve the design', 'It makes the project sound unfinished', 'Interviewers require it'],
+          answer: 0,
+          why: 'Knowing the limits of your own design, and how you would fix them, shows real understanding.'
+        }
+      },
+      {
+        title: 'Your next steps',
+        say: [
+          'In one month you learned to read, filter, sort, total, group, join and nest queries; to design tables with keys, rules and good structure; to use transactions, indexes, views and JSON; and to use a database safely from code. That is a solid foundation for junior backend and data roles.',
+          'To keep growing, practise regularly. Sites like LeetCode, HackerRank and StrataScratch have SQL problems at every level. One or two a day keeps the patterns fresh.',
+          'Build on your project: connect the Canteen database to a small Python FastAPI or Node.js app, add a students table, or put it online with a free cloud PostgreSQL service and show the live link on your CV.',
+          'Next topics worth learning are query performance in more depth, database migrations with a tool like Alembic or Prisma, and a first look at data warehousing and analytics tools if you enjoy reports.',
+          'Apply for internships and junior roles while you keep learning. Each interview is practice, and every question you could not answer is a topic for next week.',
+          'In today\'s practice, you will find the second highest price and the duplicate emails, two of the most asked SQL interview questions. Well done on completing the course.'
+        ],
+        example: 'Learning to swim does not end when you first cross the pool. You keep swimming, a little further each time. This course got you across the pool; your projects and practice are the longer swims.',
+        code: lines(
+          "SELECT 'You finished the SQL course!' AS message;",
+          'WITH RECURSIVE weeks(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM weeks WHERE n < 4)',
+          "SELECT n AS week, CASE n WHEN 1 THEN 'Daily SQL practice problems' WHEN 2 THEN 'Connect Canteen to a small app'",
+          "  WHEN 3 THEN 'Put the database online' ELSE 'Apply for internships' END AS plan",
+          'FROM weeks;'
+        ),
+        output: lines(
+          ' message',
+          '------------------------------',
+          ' You finished the SQL course!',
+          '(1 row)',
+          '',
+          ' week | plan',
+          '------+--------------------------------',
+          '    1 | Daily SQL practice problems',
+          '    2 | Connect Canteen to a small app',
+          '    3 | Put the database online',
+          '    4 | Apply for internships',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 2, note: 'A recursive CTE from Day 16 makes the four weeks.' },
+          { line: 3, note: 'CASE from Day 19 gives each week its plan.' }
+        ],
+        tryIt: 'Change the plan for each week to your own goals, and save the result somewhere you will see it every day.',
+        check: {
+          question: 'What is a good way to keep SQL skills sharp after the course?',
+          options: ['Solve a few SQL problems regularly and keep building on your project', 'Stop using SQL until you get a job', 'Only read theory'],
+          answer: 0,
+          why: 'Regular practice and real projects keep the patterns fresh and give you more to talk about in interviews.'
+        }
+      }
+    ],
+    summary: [
+      'Solve interview queries step by step, out loud, and check edge cases like NULLs and ties.',
+      'Second highest: max below the max, or dense_rank; beware LIMIT 1 OFFSET 1 with ties.',
+      'Duplicates: GROUP BY ... HAVING count(*) > 1; delete extras with row_number.',
+      'Explain concepts in two sentences with one tiny example.',
+      'Present your Canteen project: what, design, rules, reports, and what you would improve.'
+    ],
+    projectStep: {
+      title: 'Get interview-ready',
+      steps: [
+        'Write your two-minute Canteen pitch and practise it out loud three times.',
+        'Solve second highest, duplicates and top N per group without looking at notes.',
+        'Tidy your GitHub repository: schema.sql, views.sql, tests.sql and a README.',
+        'Add the project and its GitHub link to your CV and LinkedIn.'
       ]
     }
   }

@@ -29,6 +29,7 @@ test('SQL long lessons are complete 20-30 minute classes with at least 14 minute
   assert.equal(getLongLessonLanguage('sql-mastery'), 'sql');
   const days = SQL_LONG_LESSONS.map((l) => l.day);
   assert.equal(new Set(days).size, days.length, 'a day is written twice');
+  assert.equal(SQL_LONG_LESSONS.length, DATABASE_30_DAYS_CONFIGS.length, 'every course day has a long lesson');
   for (const lesson of SQL_LONG_LESSONS) {
     const where = `Day ${lesson.day}`;
     assert.equal(DATABASE_30_DAYS_CONFIGS[lesson.day - 1]?.title, lesson.title, `${where}: title differs from the course day`);
