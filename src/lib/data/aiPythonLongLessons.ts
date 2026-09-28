@@ -3438,5 +3438,1197 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add a trace list recording each stage and print it for one question."
       ]
     }
+  },
+  {
+    "day": 16,
+    "title": "LLM Memory Architectures: Sliding Windows & Summary Buffers",
+    "goal": "You can give a chatbot memory within a token budget using sliding windows and summary buffers, count messages by role, and decide what is worth remembering long term.",
+    "minutes": 30,
+    "recap": "Week 2 built RAG over documents. Week 3 is about assistants that act over many turns, starting with memory: how a stateless model remembers a conversation.",
+    "parts": [
+      {
+        "title": "Models do not remember",
+        "say": [
+          "Every API call is independent. The model does not remember your last message; the app sends the whole conversation again each time.",
+          "That makes \"memory\" your job. You decide what history to send, and everything you send costs tokens.",
+          "It also means you can edit history before sending it: fix a typo in an old message, remove a pasted secret, or drop an off-topic tangent.",
+          "A conversation of 50 turns can reach thousands of tokens. Sending all of it every time gets slow, expensive, and eventually exceeds the context window.",
+          "Memory strategies decide what to keep word for word, what to shorten, and what to drop.",
+          "Good memory makes an assistant feel attentive; bad memory makes it forget your name or repeat questions.",
+          "Today covers the two classic strategies, sliding windows and summary buffers, and when to store facts for the long term."
+        ],
+        "example": "A waiter with no memory who writes every order on a pad: to know what table 4 ordered, they reread the whole pad. As the pad gets longer, this gets slower.",
+        "code": "history = []\ndef chat(user_text):\n    history.append({\"role\": \"user\", \"text\": user_text})\n    reply = f\"(reply to: {user_text})\"\n    history.append({\"role\": \"assistant\", \"text\": reply})\n    sent_tokens = sum(len(m[\"text\"].split()) for m in history)\n    return sent_tokens\n\nfor turn in [\"Hi, I am Asha\", \"I want to book a trip to Goa\", \"In December\", \"For two people\"]:\n    print(\"tokens sent this call ~\", chat(turn))",
+        "output": "tokens sent this call ~ 10\ntokens sent this call ~ 28\ntokens sent this call ~ 34\ntokens sent this call ~ 42",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Each call resends the whole history, so the cost keeps growing."
+          }
+        ],
+        "tryIt": "Add ten more turns in a loop. How large does the number get?",
+        "check": {
+          "question": "Why does a chatbot need a memory strategy?",
+          "options": [
+            "Models store conversations automatically",
+            "The app must resend history, which grows in cost and can exceed the window",
+            "To make replies shorter"
+          ],
+          "answer": 1,
+          "why": "Models are stateless; the app sends history each call, so it must manage how much."
+        }
+      },
+      {
+        "title": "Sliding window memory",
+        "say": [
+          "The simplest strategy keeps only the last N messages (or the last N tokens). Older ones drop off, like a window sliding along the conversation.",
+          "It is cheap, predictable and easy to code: history[-N:].",
+          "Many support chats are short enough that a window of 20 messages never drops anything, so this simple strategy is often all you need.",
+          "The weakness is sudden forgetting. If the user said their name in message 2, a window of 6 messages forgets it by message 9.",
+          "Always keep the system prompt outside the window, so the rules and persona are never dropped.",
+          "Sliding windows suit short, task-focused chats, such as a quick support question.",
+          "Counting in tokens rather than messages is safer, because one pasted document can be as big as twenty short messages."
+        ],
+        "example": "A whiteboard that only fits five lines: when you write a new line at the bottom, the top line gets wiped.",
+        "code": "def window(messages, max_messages):\n    return messages[-max_messages:]\n\nconversation = [f\"m{i}\" for i in range(1, 10)]\nsystem = \"You are a travel helper.\"\nkept = window(conversation, 4)\nprint(\"sent:\", [system] + kept)\nprint(\"forgotten:\", conversation[:-4])",
+        "output": "sent: ['You are a travel helper.', 'm6', 'm7', 'm8', 'm9']\nforgotten: ['m1', 'm2', 'm3', 'm4', 'm5']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Keep only the last N messages."
+          },
+          {
+            "line": 7,
+            "note": "The system prompt is always sent, outside the window."
+          }
+        ],
+        "tryIt": "Write a token-based version that keeps adding messages from the newest backwards until a word budget is reached.",
+        "check": {
+          "question": "What is the main weakness of a sliding window?",
+          "options": [
+            "It is expensive",
+            "Older details, like the user's name, are suddenly forgotten",
+            "It needs a vector database"
+          ],
+          "answer": 1,
+          "why": "Anything older than the window is dropped entirely."
+        }
+      },
+      {
+        "title": "Summary buffer memory",
+        "say": [
+          "A summary buffer keeps the most recent messages word for word and replaces older ones with a short summary.",
+          "Practice 1: update_memory(history, new_turn, max_tokens). Add the new turn. If the total tokens fit, return the messages unchanged with summarized False.",
+          "If not, keep the last 2 messages and replace all older ones with one system message: \"Summary: discussed \" plus their topics joined by \", \", with topic \"summary\" and tokens 20.",
+          "In a real app, a model writes the summary. Here the topics stand in for it, so the logic is easy to test.",
+          "Summarising is itself a model call, so it adds a little cost and delay. Doing it only when the budget is exceeded, as here, keeps that cost low.",
+          "Summaries keep the gist of long conversations at a fixed cost, which is why many assistants use them.",
+          "The trade-off: a summary loses details. Exact numbers or wording from early messages may not survive."
+        ],
+        "example": "Minutes of a long meeting: nobody rereads the full transcript; they read a short summary and the last few decisions in full.",
+        "code": "def update_memory(history, new_turn, max_tokens=100):\n    messages = history + [new_turn]\n    if sum(m[\"tokens\"] for m in messages) <= max_tokens:\n        return {\"memory\": messages, \"summarized\": False}\n    older, recent = messages[:-2], messages[-2:]\n    summary = {\"role\": \"system\", \"text\": \"Summary: discussed \" + \", \".join(m[\"topic\"] for m in older), \"topic\": \"summary\", \"tokens\": 20}\n    return {\"memory\": [summary] + recent, \"summarized\": True}\n\nhistory = [\n    {\"role\": \"user\", \"text\": \"...\", \"topic\": \"flights\", \"tokens\": 40},\n    {\"role\": \"assistant\", \"text\": \"...\", \"topic\": \"flights\", \"tokens\": 30},\n    {\"role\": \"user\", \"text\": \"...\", \"topic\": \"hotels\", \"tokens\": 25},\n]\nresult = update_memory(history, {\"role\": \"assistant\", \"text\": \"...\", \"topic\": \"hotels\", \"tokens\": 30})\nprint(result[\"summarized\"])\nfor m in result[\"memory\"]:\n    print(m[\"role\"], \"|\", m[\"text\"], \"|\", m[\"tokens\"])",
+        "output": "True\nsystem | Summary: discussed flights, flights | 20\nuser | ... | 25\nassistant | ... | 30",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Everything fits: nothing to do."
+          },
+          {
+            "line": 5,
+            "note": "The last two messages stay word for word."
+          },
+          {
+            "line": 6,
+            "note": "Older messages become one short summary."
+          }
+        ],
+        "tryIt": "Notice \"flights\" appears twice in the summary. Change the code to drop repeated topics while keeping their order (hint: dict.fromkeys). Then raise max_tokens to 200 and see that nothing is summarised.",
+        "check": {
+          "question": "In a summary buffer, what happens to the newest messages?",
+          "options": [
+            "They are summarised",
+            "They are kept word for word",
+            "They are deleted"
+          ],
+          "answer": 1,
+          "why": "Recent messages stay exact; only older ones are compressed into the summary."
+        }
+      },
+      {
+        "title": "Counting messages by role",
+        "say": [
+          "Practice 2: count_roles(messages) returns {\"user\": ..., \"assistant\": ...}, counting only those two roles.",
+          "Simple counts are useful signals: a conversation with 30 user messages and no resolution probably needs a human.",
+          "They are also cheap to compute on every message, unlike asking a model to judge the conversation.",
+          "They also help memory decisions, such as \"summarise after every 10 user turns\".",
+          "Other roles, like system and tool, are part of the conversation but are not turns of dialogue, so they are left out here.",
+          "Starting the result with both keys set to 0 guarantees they are present even when a role never appears.",
+          "Small helper functions like this make analytics dashboards straightforward later."
+        ],
+        "example": "A referee counting how many times each team has had the ball, ignoring the breaks and announcements in between.",
+        "code": "def count_roles(messages):\n    counts = {\"user\": 0, \"assistant\": 0}\n    for m in messages:\n        if m[\"role\"] in counts:\n            counts[m[\"role\"]] += 1\n    return counts\n\nmsgs = [{\"role\": \"system\"}, {\"role\": \"user\"}, {\"role\": \"assistant\"}, {\"role\": \"tool\"}, {\"role\": \"user\"}]\nprint(count_roles(msgs))\nprint(count_roles([]))",
+        "output": "{'user': 2, 'assistant': 1}\n{'user': 0, 'assistant': 0}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Both keys start at 0, so they always exist."
+          },
+          {
+            "line": 4,
+            "note": "Other roles are ignored."
+          }
+        ],
+        "tryIt": "Add a rule: if user messages exceed 20 without a \"resolved\" flag, print \"hand over to a human\".",
+        "check": {
+          "question": "Why start the counts at {\"user\": 0, \"assistant\": 0}?",
+          "options": [
+            "To save memory",
+            "So both keys exist even if a role never appears",
+            "Python requires it"
+          ],
+          "answer": 1,
+          "why": "Pre-filled keys mean the result always has the same shape."
+        }
+      },
+      {
+        "title": "Long-term memory: facts worth keeping",
+        "say": [
+          "Some things should outlive a single conversation: the user's name, language, dietary needs, or that they prefer window seats.",
+          "Long-term memory stores such facts outside the chat, often as small records per user, and adds the relevant ones to future prompts.",
+          "Decide carefully what to store. Only keep facts that are useful, and never store sensitive data without clear consent.",
+          "Ask before storing when in doubt: \"Shall I remember that you are vegetarian for next time?\" Users appreciate being asked, and it avoids storing wrong guesses.",
+          "Let users see and delete what is remembered about them. That is good practice and, in many countries, the law.",
+          "Retrieval for memory works like RAG: store facts with embeddings, and fetch those related to the current question.",
+          "Keep each fact short and dated, so newer facts can replace older ones that have changed."
+        ],
+        "example": "A good neighbourhood grocer who remembers you like your milk unsweetened, but would never note down your bank details.",
+        "code": "profile = {}\nALLOWED = {\"name\", \"city\", \"diet\", \"seat\"}\n\ndef remember(user_id, key, value):\n    if key not in ALLOWED:\n        return f\"not stored: {key} is not an allowed memory\"\n    profile.setdefault(user_id, {})[key] = value\n    return f\"stored {key}\"\n\nprint(remember(\"u1\", \"diet\", \"vegetarian\"))\nprint(remember(\"u1\", \"seat\", \"window\"))\nprint(remember(\"u1\", \"card_number\", \"4111...\"))\nfacts = \"; \".join(f\"{k}: {v}\" for k, v in profile[\"u1\"].items())\nprint(\"added to the next prompt ->\", facts)",
+        "output": "stored diet\nstored seat\nnot stored: card_number is not an allowed memory\nadded to the next prompt -> diet: vegetarian; seat: window",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Only approved kinds of facts can be stored."
+          },
+          {
+            "line": 13,
+            "note": "Relevant facts are added to future prompts."
+          }
+        ],
+        "tryIt": "Write forget(user_id, key) that deletes one remembered fact.",
+        "check": {
+          "question": "Which fact should a travel assistant NOT store in long-term memory?",
+          "options": [
+            "Preferred seat",
+            "Dietary preference",
+            "Full card number"
+          ],
+          "answer": 2,
+          "why": "Sensitive data like card numbers should never be kept as memory."
+        }
+      },
+      {
+        "title": "Choosing a memory strategy",
+        "say": [
+          "Short task chats: a sliding window of recent messages is enough.",
+          "Long, flowing chats (coaching, tutoring): a summary buffer keeps the thread without growing costs.",
+          "Returning users: add long-term memory of stable facts and preferences.",
+          "Many products combine all three: long-term facts, a running summary, and the last few messages word for word.",
+          "Put the layers in a fixed order in the prompt, facts, then summary, then recent messages, so the model always finds each kind of memory in the same place.",
+          "Test memory like any other feature: write conversations where an early detail matters later, and check the assistant still uses it.",
+          "Tomorrow you will give the assistant the ability to act in steps with tools: the ReAct agent pattern."
+        ],
+        "example": "A doctor's memory of a patient: the file of long-term facts (allergies), notes from recent visits (the summary), and what the patient just said (the latest messages).",
+        "code": "def build_context(facts, summary, recent, system):\n    parts = [system]\n    if facts:\n        parts.append(\"Known about user: \" + \"; \".join(facts))\n    if summary:\n        parts.append(\"Earlier: \" + summary)\n    parts += recent\n    return \"\\n\".join(parts)\n\nprint(build_context([\"name: Asha\", \"diet: vegetarian\"], \"discussed Goa trip in December\", [\"user: Any good hotels?\"], \"You are a travel helper.\"))",
+        "output": "You are a travel helper.\nKnown about user: name: Asha; diet: vegetarian\nEarlier: discussed Goa trip in December\nuser: Any good hotels?",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Long-term facts first."
+          },
+          {
+            "line": 6,
+            "note": "Then the running summary."
+          },
+          {
+            "line": 7,
+            "note": "Then the latest messages word for word."
+          }
+        ],
+        "tryIt": "Write a test conversation where the user's diet (said in turn 1) must affect a restaurant suggestion in turn 12.",
+        "check": {
+          "question": "Which combination gives a returning user the best memory?",
+          "options": [
+            "Only the last message",
+            "Long-term facts, a running summary and recent messages",
+            "The entire history every time"
+          ],
+          "answer": 1,
+          "why": "Each layer covers a different time span at a controlled cost."
+        }
+      }
+    ],
+    "summary": [
+      "Models are stateless; the app resends history each call.",
+      "Sliding windows keep the last N messages; cheap but forgetful.",
+      "Summary buffers compress older messages and keep recent ones exact.",
+      "Long-term memory stores approved facts, with user consent and control.",
+      "Combine layers and test that early details are still used later."
+    ],
+    "projectStep": {
+      "title": "Memory",
+      "steps": [
+        "Add update_memory and count_roles to ai_toolkit.py.",
+        "Simulate a 10-turn conversation and show when summarising happens.",
+        "Bonus: add remember and forget with an allowed list of fact types."
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "Autonomous Agents: The ReAct (Reason + Act) Pattern",
+    "goal": "You can explain the ReAct agent loop, parse Thought, Action and Final Answer steps, run tools in a loop, and stop runaway agents with iteration limits.",
+    "minutes": 30,
+    "recap": "You gave the model tools on Day 6 and memory yesterday. Today the model uses them in a loop, deciding its own next step: an agent.",
+    "parts": [
+      {
+        "title": "From one tool call to an agent",
+        "say": [
+          "A single tool call answers simple questions. Many tasks need several steps: search, read a result, calculate, then answer.",
+          "An agent is a model running in a loop: it thinks about what to do, picks an action (a tool), sees the result, and repeats until it can give a final answer.",
+          "ReAct (Reason + Act) is the classic pattern. Each step has a Thought (reasoning), an Action (tool name) and an Action Input (arguments). The tool's result comes back as an Observation.",
+          "Agents are powerful but less predictable than fixed pipelines. They can take wrong turns, loop, or spend too many tokens.",
+          "A good rule: use a fixed pipeline when the steps are known, and an agent only when the steps depend on what is found along the way.",
+          "Today you will build a small ReAct loop with a fake model, so every step is visible."
+        ],
+        "example": "A detective who does not know the whole plan in advance: they look at a clue, decide where to look next, and keep going until they can name the culprit.",
+        "code": "steps = [\n    \"Thought: I need the population of Mysuru.\\nAction: search\\nAction Input: Mysuru population\",\n    \"Observation: about 1.2 million\",\n    \"Thought: Now I can answer.\\nFinal Answer: Mysuru has about 1.2 million people.\",\n]\nfor s in steps:\n    print(s)\n    print(\"-\" * 30)",
+        "output": "Thought: I need the population of Mysuru.\nAction: search\nAction Input: Mysuru population\n------------------------------\nObservation: about 1.2 million\n------------------------------\nThought: Now I can answer.\nFinal Answer: Mysuru has about 1.2 million people.\n------------------------------",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Thought, Action and Action Input: one step of the agent."
+          },
+          {
+            "line": 3,
+            "note": "The tool result is fed back as an Observation."
+          }
+        ],
+        "tryIt": "Write, by hand, the steps an agent would take to answer \"Is it warmer in Chennai or Delhi today?\".",
+        "check": {
+          "question": "What are the parts of a ReAct step?",
+          "options": [
+            "Question, Answer",
+            "Thought, Action, Action Input, then an Observation",
+            "Prompt, Token, Cost"
+          ],
+          "answer": 1,
+          "why": "The model reasons, chooses a tool and its input, and then sees the tool's result."
+        }
+      },
+      {
+        "title": "Parsing a ReAct step",
+        "say": [
+          "Practice 1: parse_react_step(output). If \"Final Answer:\" appears, return {\"type\": \"FINAL_ANSWER\", \"answer\": ...}. Otherwise return the thought, action and action_input, each stripped, and \"\" for any missing line.",
+          "Loop over output.splitlines() and look at how each line starts.",
+          "One trap: \"Action Input:\" also starts with \"Action\". Check for \"Action Input:\" before \"Action:\", or the input line would be read as an action.",
+          "Returning \"\" for missing parts, instead of crashing, lets the loop notice a badly formatted step and ask the model to try again.",
+          "Real agent frameworks often use native tool calling instead of text parsing, but the logic is the same, and text parsing still appears in many systems.",
+          "A clear parse result with a type field makes the main loop simple: act on ACTION_STEP, stop on FINAL_ANSWER."
+        ],
+        "example": "Reading a handwritten order slip with labelled lines, like \"Dish:\", \"Dish notes:\", and \"Table:\", where you must not confuse \"Dish notes\" with \"Dish\".",
+        "code": "def parse_react_step(output):\n    if \"Final Answer:\" in output:\n        return {\"type\": \"FINAL_ANSWER\", \"answer\": output.split(\"Final Answer:\", 1)[1].strip()}\n    step = {\"type\": \"ACTION_STEP\", \"thought\": \"\", \"action\": \"\", \"action_input\": \"\"}\n    for line in output.splitlines():\n        if line.startswith(\"Thought:\"):\n            step[\"thought\"] = line[len(\"Thought:\"):].strip()\n        elif line.startswith(\"Action Input:\"):\n            step[\"action_input\"] = line[len(\"Action Input:\"):].strip()\n        elif line.startswith(\"Action:\"):\n            step[\"action\"] = line[len(\"Action:\"):].strip()\n    return step\n\nprint(parse_react_step(\"Thought: need weather\\nAction: get_weather\\nAction Input: Chennai\"))\nprint(parse_react_step(\"Thought: done\\nFinal Answer: It is 31 C in Chennai.\"))\nprint(parse_react_step(\"Thought: hmm\"))",
+        "output": "{'type': 'ACTION_STEP', 'thought': 'need weather', 'action': 'get_weather', 'action_input': 'Chennai'}\n{'type': 'FINAL_ANSWER', 'answer': 'It is 31 C in Chennai.'}\n{'type': 'ACTION_STEP', 'thought': 'hmm', 'action': '', 'action_input': ''}",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Everything after \"Final Answer:\", stripped."
+          },
+          {
+            "line": 8,
+            "note": "Check \"Action Input:\" before \"Action:\"."
+          },
+          {
+            "line": 16,
+            "note": "Missing lines come back as empty strings."
+          }
+        ],
+        "tryIt": "Swap the order of the two elif checks and run the first example. The action becomes wrong.",
+        "check": {
+          "question": "Why check \"Action Input:\" before \"Action:\"?",
+          "options": [
+            "It is alphabetical",
+            "Both start with \"Action\", so the more specific label must be checked first",
+            "Action Input is more important"
+          ],
+          "answer": 1,
+          "why": "Otherwise the input line matches the \"Action\" check and is stored in the wrong field."
+        }
+      },
+      {
+        "title": "The agent loop",
+        "say": [
+          "The loop: send the conversation to the model, parse its step, and if it is an action, run the tool and append an Observation. Repeat until a final answer.",
+          "Keep a scratchpad: the list of previous steps and observations. The model sees it each time, which is how it knows what it already tried.",
+          "Run tools through the same safe dispatcher as Day 6: only known tools, validated arguments, and errors returned as observations.",
+          "If the model names an unknown tool, return an observation like \"Unknown tool: X. Available: search, calculator\". Good error messages let the agent recover.",
+          "The fake model below follows a fixed script, so the loop can be tested step by step.",
+          "Notice how little code the loop needs: the intelligence is in the model; your code provides tools, structure and safety."
+        ],
+        "example": "A student working through a maths problem with a calculator: write what you plan to do, press the buttons, write down the result, and continue until the answer is found.",
+        "code": "script = iter([\n    \"Thought: find the ticket price\\nAction: lookup\\nAction Input: Mysuru palace ticket\",\n    \"Thought: 4 people\\nAction: calculator\\nAction Input: 4 * 120\",\n    \"Thought: done\\nFinal Answer: Tickets for 4 cost 480 rupees.\",\n])\nTOOLS = {\"lookup\": lambda q: \"120 rupees per adult\", \"calculator\": lambda expr: str(int(expr.split(\"*\")[0]) * int(expr.split(\"*\")[1]))}\n\nscratchpad = []\nwhile True:\n    output = next(script)\n    step = output.split(\"Final Answer:\", 1)\n    if len(step) == 2:\n        print(\"FINAL:\", step[1].strip())\n        break\n    lines = dict(line.split(\": \", 1) for line in output.splitlines())\n    tool = TOOLS.get(lines[\"Action\"])\n    observation = tool(lines[\"Action Input\"]) if tool else f\"Unknown tool: {lines['Action']}\"\n    scratchpad.append((lines[\"Action\"], observation))\n    print(lines[\"Action\"], \"->\", observation)",
+        "output": "lookup -> 120 rupees per adult\ncalculator -> 480\nFINAL: Tickets for 4 cost 480 rupees.",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "A tiny calculator that only multiplies, so no unsafe code is run."
+          },
+          {
+            "line": 17,
+            "note": "Run the tool, or report an unknown tool as the observation."
+          },
+          {
+            "line": 18,
+            "note": "The scratchpad remembers every step."
+          }
+        ],
+        "tryIt": "Change the second step to use a tool called \"maths\". The loop reports it as unknown instead of crashing.",
+        "check": {
+          "question": "What is the scratchpad in an agent loop?",
+          "options": [
+            "A place for the user's notes",
+            "The list of previous steps and observations the model sees each time",
+            "The system prompt"
+          ],
+          "answer": 1,
+          "why": "It records what was tried and found, so the model can decide the next step."
+        }
+      },
+      {
+        "title": "Stopping runaway agents",
+        "say": [
+          "Agents can loop: searching the same thing again and again, or bouncing between two tools. Each loop costs tokens and time.",
+          "Practice 2: max_iterations_reached(current, max_iter=5) returns True once current is at or above max_iter. The loop checks it before every step.",
+          "When the limit is hit, stop and return a graceful message (\"I could not finish this; here is what I found so far\"), not an error.",
+          "Add other brakes too: a token budget, a time limit, and detecting a repeated identical action.",
+          "Choose limits from data: look at how many steps successful runs usually take, and set the limit a little above that.",
+          "Brakes are not optional. An agent without limits is a bill with no ceiling."
+        ],
+        "example": "A cricket over has six balls: however the bowler is doing, the over ends after six, and someone else gets a turn.",
+        "code": "def max_iterations_reached(current, max_iter=5):\n    return current >= max_iter\n\ndef run_agent(actions, max_iter=5):\n    seen, step = set(), 0\n    for action in actions:\n        if max_iterations_reached(step, max_iter):\n            return f\"stopped: step limit {max_iter}\"\n        if action in seen:\n            return f\"stopped: repeated action {action!r}\"\n        seen.add(action)\n        step += 1\n    return f\"finished in {step} steps\"\n\nprint(run_agent([\"search a\", \"read b\", \"answer\"]))\nprint(run_agent([\"search a\", \"search b\", \"search c\", \"search d\", \"search e\", \"search f\"]))\nprint(run_agent([\"search a\", \"read b\", \"search a\"]))",
+        "output": "finished in 3 steps\nstopped: step limit 5\nstopped: repeated action 'search a'",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "At or above the limit means stop."
+          },
+          {
+            "line": 9,
+            "note": "The same action twice is a sign of a loop."
+          }
+        ],
+        "tryIt": "Add a token budget: stop when the total length of actions passes 40 characters.",
+        "check": {
+          "question": "What should an agent return when it hits its step limit?",
+          "options": [
+            "A crash",
+            "A graceful message with what it found so far",
+            "Nothing"
+          ],
+          "answer": 1,
+          "why": "Users should get a clear outcome, even when the agent could not finish."
+        }
+      },
+      {
+        "title": "Writing a good agent prompt",
+        "say": [
+          "The agent's system prompt describes the goal, the tools (with clear descriptions), the exact step format, and when to stop.",
+          "Include the format rules explicitly: one Thought, then either an Action with Action Input, or a Final Answer. Show one short example.",
+          "Tell the agent what to do when stuck: \"If a tool fails twice, give your best answer with what you know and say what is missing.\"",
+          "Fewer, well-described tools work better than many overlapping ones; the agent picks the right tool more often.",
+          "Log full runs and read them. Agent failures are usually obvious once you read the steps: a vague tool description, a missing tool, or a confusing observation.",
+          "Improve prompts and tools based on those logs, then rerun a fixed set of test tasks to confirm."
+        ],
+        "example": "Instructions for a new delivery rider: the goal, the vehicles available, how to report each stop, and what to do if an address cannot be found.",
+        "code": "tools = {\"search\": \"Search the company help centre. Input: a short query.\", \"calculator\": \"Multiply two whole numbers. Input: a * b.\"}\nprompt = \"You are a support agent. Solve the user's task step by step.\\nTools:\\n\"\nprompt += \"\\n\".join(f\"- {name}: {desc}\" for name, desc in tools.items())\nprompt += \"\\nFormat each step as:\\nThought: ...\\nAction: <tool name>\\nAction Input: ...\\n\"\nprompt += \"When you know the answer, write:\\nThought: ...\\nFinal Answer: ...\\n\"\nprompt += \"If a tool fails twice, answer with what you know and say what is missing.\"\nprint(prompt)",
+        "output": "You are a support agent. Solve the user's task step by step.\nTools:\n- search: Search the company help centre. Input: a short query.\n- calculator: Multiply two whole numbers. Input: a * b.\nFormat each step as:\nThought: ...\nAction: <tool name>\nAction Input: ...\nWhen you know the answer, write:\nThought: ...\nFinal Answer: ...\nIf a tool fails twice, answer with what you know and say what is missing.",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Each tool with a clear description and input format."
+          },
+          {
+            "line": 6,
+            "note": "What to do when stuck."
+          }
+        ],
+        "tryIt": "Add a third tool, \"order_lookup\", with a clear description and input format.",
+        "check": {
+          "question": "Why tell an agent what to do when a tool keeps failing?",
+          "options": [
+            "To make it faster",
+            "So it gives a useful answer instead of looping or guessing",
+            "Tools never fail"
+          ],
+          "answer": 1,
+          "why": "Clear fallback instructions prevent loops and invented results."
+        }
+      },
+      {
+        "title": "When not to use an agent",
+        "say": [
+          "Agents are exciting, but many products work better as fixed pipelines: RAG question answering, extraction, classification.",
+          "Pipelines are faster, cheaper, easier to test and more predictable. Agents trade those for flexibility.",
+          "A useful middle ground is a router: a model picks one of a few fixed pipelines, and each pipeline runs its known steps.",
+          "Use an agent when the number and order of steps truly depend on the situation, like research tasks or debugging.",
+          "Measure agents on success rate, average steps, cost per task and time per task, and compare with a simpler design.",
+          "Tomorrow you will combine several specialised agents under a supervisor."
+        ],
+        "example": "You do not need a tour guide to walk a marked path in a park, but you might want one in an unfamiliar city.",
+        "code": "designs = {\n    \"fixed pipeline\": {\"success\": 0.86, \"steps\": 3.0, \"cost\": 0.004},\n    \"router + pipelines\": {\"success\": 0.90, \"steps\": 3.4, \"cost\": 0.005},\n    \"free agent\": {\"success\": 0.91, \"steps\": 7.8, \"cost\": 0.019},\n}\nfor name, m in designs.items():\n    print(f\"{name:18} success {m['success']:.0%}, avg steps {m['steps']}, ${m['cost']} per task\")",
+        "output": "fixed pipeline     success 86%, avg steps 3.0, $0.004 per task\nrouter + pipelines success 90%, avg steps 3.4, $0.005 per task\nfree agent         success 91%, avg steps 7.8, $0.019 per task",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "A small gain in success can cost several times more."
+          }
+        ],
+        "tryIt": "If each failed task costs your team 0.10 dollars of manual work, which design is cheapest overall?",
+        "check": {
+          "question": "When is a free-running agent the right choice?",
+          "options": [
+            "For every AI feature",
+            "When the steps depend on what is found along the way",
+            "For simple classification"
+          ],
+          "answer": 1,
+          "why": "Agents shine when the path cannot be known in advance; otherwise fixed pipelines win."
+        }
+      }
+    ],
+    "summary": [
+      "An agent loops: Thought, Action, Action Input, Observation, until a Final Answer.",
+      "Parse steps carefully; check \"Action Input:\" before \"Action:\".",
+      "Run tools safely and feed errors back as observations.",
+      "Always set brakes: step limits, token budgets and repeat detection.",
+      "Prefer fixed pipelines when the steps are known."
+    ],
+    "projectStep": {
+      "title": "ReAct agent",
+      "steps": [
+        "Add parse_react_step and max_iterations_reached to ai_toolkit.py.",
+        "Build a scripted agent loop with two safe tools.",
+        "Bonus: add repeated-action detection and a graceful stop message."
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "Multi-Agent Collaboration: Supervisor & Swarm Architectures",
+    "goal": "You can route tasks to specialised agents with a supervisor, compare supervisor and swarm designs, pass work between agents with clear messages, and format agent status logs.",
+    "minutes": 30,
+    "recap": "Yesterday one agent used tools in a loop. Complex work often goes better with several specialised agents, each good at one thing, coordinated well.",
+    "parts": [
+      {
+        "title": "Why several agents?",
+        "say": [
+          "One agent with 20 tools and a huge prompt gets confused. Several focused agents, each with a short prompt and a few tools, are easier to build, test and improve.",
+          "Typical specialists: a researcher (search tools), a coder (code tools), a writer (formatting), a reviewer (checks the others' work).",
+          "The challenge moves to coordination: who does what, in which order, and how results are passed on.",
+          "Coordination problems look like human team problems: two agents doing the same work, a task nobody picks up, or an answer lost between hand-offs.",
+          "Two common designs are the supervisor (one boss agent assigns work) and the swarm (agents hand work to each other directly).",
+          "Multi-agent systems cost more tokens, because each agent has its own prompt and calls. Use them when specialisation clearly helps.",
+          "Today you will build a supervisor router and look at how agents hand work over."
+        ],
+        "example": "A hospital: rather than one doctor doing everything, patients see a specialist, and a coordinator makes sure the right specialist sees each case.",
+        "code": "agents = {\n    \"ResearcherAgent\": [\"web_search\", \"read_page\"],\n    \"CoderAgent\": [\"run_tests\", \"read_file\"],\n    \"WriterAgent\": [\"format_report\"],\n}\nfor name, tools in agents.items():\n    print(f\"{name:16} tools: {tools}\")\nprint(\"total tools:\", sum(len(t) for t in agents.values()), \"| most per agent:\", max(len(t) for t in agents.values()))",
+        "output": "ResearcherAgent  tools: ['web_search', 'read_page']\nCoderAgent       tools: ['run_tests', 'read_file']\nWriterAgent      tools: ['format_report']\ntotal tools: 5 | most per agent: 2",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Each agent only handles a few tools."
+          }
+        ],
+        "tryIt": "Add a ReviewerAgent with one tool, \"check_facts\".",
+        "check": {
+          "question": "Why split work across several specialised agents?",
+          "options": [
+            "It is always cheaper",
+            "Focused prompts and few tools make each agent more reliable",
+            "Models cannot use more than one tool"
+          ],
+          "answer": 1,
+          "why": "Specialists with short prompts and small toolsets make fewer mistakes."
+        }
+      },
+      {
+        "title": "A supervisor that routes tasks",
+        "say": [
+          "Practice 1: route_task(prompt, agents). Prompts mentioning code, function or bug go to CoderAgent; research, search or find go to ResearcherAgent; everything else to GeneralistAgent, ignoring case.",
+          "Return the chosen agent's name and its endpoint from the agents dict.",
+          "Keyword routing is fast, free and predictable. Its limit is wording: \"my script crashes\" mentions none of the coding words.",
+          "Keep a list of real user prompts and their correct agent, and test the router against it whenever you change the rules.",
+          "Real supervisors often use a small model to classify the task, sometimes with keyword rules as a quick first pass.",
+          "Check the rules in a clear order. Here coding words win over research words, so \"find the bug\" goes to the coder.",
+          "Always have a default route. Unknown tasks should still get an answer, not an error."
+        ],
+        "example": "A hospital reception desk: chest pain goes to cardiology, a broken arm to orthopaedics, and anything unclear to a general doctor.",
+        "code": "def route_task(prompt, agents):\n    lower = prompt.lower()\n    if any(w in lower for w in (\"code\", \"function\", \"bug\")):\n        name = \"CoderAgent\"\n    elif any(w in lower for w in (\"research\", \"search\", \"find\")):\n        name = \"ResearcherAgent\"\n    else:\n        name = \"GeneralistAgent\"\n    return {\"agent\": name, \"endpoint\": agents[name]}\n\nagents = {\"CoderAgent\": \"/agents/coder\", \"ResearcherAgent\": \"/agents/research\", \"GeneralistAgent\": \"/agents/general\"}\nfor p in [\"Fix the BUG in login\", \"Research EV sales in India\", \"Find the bug in my loop\", \"Write a thank-you note\"]:\n    print(route_task(p, agents)[\"agent\"], \"<-\", p)",
+        "output": "CoderAgent <- Fix the BUG in login\nResearcherAgent <- Research EV sales in India\nCoderAgent <- Find the bug in my loop\nGeneralistAgent <- Write a thank-you note",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Coding words are checked first, so they win ties."
+          },
+          {
+            "line": 8,
+            "note": "A default route for everything else."
+          }
+        ],
+        "tryIt": "Test \"my script crashes on start\". Which agent gets it? Add a word to fix the routing.",
+        "check": {
+          "question": "Where does \"Find the bug in my loop\" go, and why?",
+          "options": [
+            "ResearcherAgent, because of \"find\"",
+            "CoderAgent, because coding words are checked first",
+            "GeneralistAgent"
+          ],
+          "answer": 1,
+          "why": "The coding check comes first, and \"bug\" matches it."
+        }
+      },
+      {
+        "title": "Supervisor versus swarm",
+        "say": [
+          "Supervisor: one agent receives the task, splits it, assigns parts to specialists, collects results, and decides when it is done. Control is central and easy to follow.",
+          "Swarm: agents hand work directly to each other (\"I have found the data; handing over to the writer\"). There is no boss; each agent decides the next hand-off.",
+          "Supervisors are easier to debug and limit, which makes them the common choice for business workflows.",
+          "A supervisor also gives you one natural place to enforce the global budget and to write the final answer for the user.",
+          "Swarms are flexible and can be faster for open-ended tasks, but they are harder to predict and can pass work around in circles.",
+          "Whichever you pick, keep a shared record of who did what, and a global step limit across all agents.",
+          "Start with a supervisor; move to more freedom only when you can measure that it helps."
+        ],
+        "example": "A wedding planner who coordinates the caterer, decorator and band (supervisor), versus a group of friends organising a party by passing tasks to each other in a chat (swarm).",
+        "code": "def supervisor(task):\n    plan = [(\"ResearcherAgent\", \"collect facts\"), (\"WriterAgent\", \"draft report\"), (\"ReviewerAgent\", \"check facts\")]\n    log = []\n    for agent, job in plan:\n        log.append(f\"supervisor -> {agent}: {job}\")\n    return log\n\ndef swarm(task):\n    handoffs = {\"ResearcherAgent\": \"WriterAgent\", \"WriterAgent\": \"ReviewerAgent\", \"ReviewerAgent\": None}\n    log, current = [], \"ResearcherAgent\"\n    while current:\n        nxt = handoffs[current]\n        log.append(f\"{current} -> {nxt or 'done'}\")\n        current = nxt\n    return log\n\nprint(supervisor(\"EV report\"))\nprint(swarm(\"EV report\"))",
+        "output": "['supervisor -> ResearcherAgent: collect facts', 'supervisor -> WriterAgent: draft report', 'supervisor -> ReviewerAgent: check facts']\n['ResearcherAgent -> WriterAgent', 'WriterAgent -> ReviewerAgent', 'ReviewerAgent -> done']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The supervisor holds the whole plan."
+          },
+          {
+            "line": 9,
+            "note": "In a swarm, each agent knows only whom to hand over to."
+          }
+        ],
+        "tryIt": "Make the ReviewerAgent hand back to the WriterAgent in the swarm. What happens without a step limit?",
+        "check": {
+          "question": "Why are supervisors the common choice for business workflows?",
+          "options": [
+            "They are always faster",
+            "Central control makes them easier to debug and limit",
+            "Swarms cannot use tools"
+          ],
+          "answer": 1,
+          "why": "One coordinator makes the flow visible and easy to cap."
+        }
+      },
+      {
+        "title": "Handing over work clearly",
+        "say": [
+          "Agents pass work through messages. A good hand-off message says what was done, what was found, and exactly what the next agent should do.",
+          "Use a fixed structure (a dict or JSON): from, to, task, findings, and any constraints such as word limits or deadlines.",
+          "A fixed structure also lets you validate hand-offs in code and store them for later replay.",
+          "Pass only what the next agent needs. Dumping a whole conversation into every hand-off wastes tokens and confuses the receiver.",
+          "Include sources with findings, so the writer can cite them and the reviewer can check them.",
+          "Structured hand-offs also make logs readable: you can see the whole workflow as a list of clear messages.",
+          "If a hand-off is missing a required field, reject it early, the same way you validated JSON on Day 5."
+        ],
+        "example": "A hospital shift handover: the outgoing nurse lists each patient's condition, medicines given and what to watch for, not their whole life story.",
+        "code": "import json\n\nREQUIRED = [\"from\", \"to\", \"task\", \"findings\"]\n\ndef handoff(sender, receiver, task, findings, **constraints):\n    msg = {\"from\": sender, \"to\": receiver, \"task\": task, \"findings\": findings, \"constraints\": constraints}\n    missing = [k for k in REQUIRED if not msg.get(k)]\n    if missing:\n        raise ValueError(f\"hand-off missing {missing}\")\n    return msg\n\nmsg = handoff(\"ResearcherAgent\", \"WriterAgent\", \"Write a 100-word summary\",\n              [{\"fact\": \"EV sales grew 40% in 2024\", \"source\": \"report-12\"}], max_words=100)\nprint(json.dumps(msg, indent=1))",
+        "output": "{\n \"from\": \"ResearcherAgent\",\n \"to\": \"WriterAgent\",\n \"task\": \"Write a 100-word summary\",\n \"findings\": [\n  {\n   \"fact\": \"EV sales grew 40% in 2024\",\n   \"source\": \"report-12\"\n  }\n ],\n \"constraints\": {\n  \"max_words\": 100\n }\n}",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Reject hand-offs with empty required fields."
+          },
+          {
+            "line": 13,
+            "note": "Findings carry their sources."
+          }
+        ],
+        "tryIt": "Call handoff with an empty findings list. What error do you get, and why is that useful?",
+        "check": {
+          "question": "What should a hand-off message between agents contain?",
+          "options": [
+            "The entire conversation so far",
+            "What was done, the findings with sources, and the next task",
+            "Only the next agent's name"
+          ],
+          "answer": 1,
+          "why": "Concise, structured hand-offs give the next agent exactly what it needs."
+        }
+      },
+      {
+        "title": "Readable status logs",
+        "say": [
+          "With several agents working, people need to see progress at a glance. Practice 2: format_agent_status(name, status) returns \"[NAME]: status\" with the name in capitals, like \"[CODER]: DONE\".",
+          "A consistent format makes logs easy to scan, search and parse. Put the fixed part first and the variable part after.",
+          "When logs are shown to users, translate internal names into friendly ones, such as \"Researching\" instead of \"[RESEARCHER]: RUNNING\".",
+          "Status values should come from a small fixed set, such as QUEUED, RUNNING, DONE and FAILED, so dashboards can count them.",
+          "Add a timestamp and a run ID in real systems, so lines from different runs do not mix.",
+          "These logs are also what a user-facing progress display shows: \"Researcher: done, Writer: running\".",
+          "Tomorrow, agents will check and repair their own work with reflection."
+        ],
+        "example": "The departure board at a railway station: every line has the same layout, so you find your train's status in a second.",
+        "code": "STATUSES = {\"QUEUED\", \"RUNNING\", \"DONE\", \"FAILED\"}\n\ndef format_agent_status(name, status):\n    return f\"[{name.upper()}]: {status}\"\n\nrun = [(\"coder\", \"DONE\"), (\"researcher\", \"RUNNING\"), (\"writer\", \"QUEUED\")]\nfor name, status in run:\n    assert status in STATUSES\n    print(format_agent_status(name, status))\ndone = sum(1 for _, s in run if s == \"DONE\")\nprint(f\"{done}/{len(run)} agents done\")",
+        "output": "[CODER]: DONE\n[RESEARCHER]: RUNNING\n[WRITER]: QUEUED\n1/3 agents done",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Name in capitals inside brackets, then the status."
+          },
+          {
+            "line": 8,
+            "note": "Only known status values are allowed."
+          }
+        ],
+        "tryIt": "Add a \"FAILED\" agent and make the summary line also count failures.",
+        "check": {
+          "question": "Why use a small fixed set of status values?",
+          "options": [
+            "They are shorter",
+            "Dashboards and code can count and react to them reliably",
+            "Models require it"
+          ],
+          "answer": 1,
+          "why": "Free-text statuses cannot be counted or checked reliably."
+        }
+      },
+      {
+        "title": "Keeping multi-agent systems under control",
+        "say": [
+          "Set a global budget for the whole run: total steps, total tokens and total time across all agents.",
+          "Give each agent only the tools it needs. A writer does not need a code runner; a researcher does not need email.",
+          "Add a reviewer or a final check step for important outputs. Agents checking each other catches many mistakes.",
+          "Log every hand-off and tool call with the run ID, so a whole workflow can be replayed when something goes wrong.",
+          "Review a few complete runs every week, even when nothing seems wrong. You will spot wasted steps and confusing hand-offs early.",
+          "Evaluate on complete tasks: success rate, cost and time per task, compared with a single agent and a fixed pipeline.",
+          "Multi-agent designs are a tool, not a goal. Use the simplest design that meets your quality bar."
+        ],
+        "example": "A film crew: each department has its own job and equipment, the director keeps the schedule and budget, and the editor reviews everything before release.",
+        "code": "budget = {\"steps\": 12, \"tokens\": 20000}\nused = {\"steps\": 0, \"tokens\": 0}\nwork = [(\"ResearcherAgent\", 4200), (\"ResearcherAgent\", 3900), (\"WriterAgent\", 5100), (\"ReviewerAgent\", 2600), (\"WriterAgent\", 4800)]\nfor agent, tokens in work:\n    if used[\"tokens\"] + tokens > budget[\"tokens\"] or used[\"steps\"] + 1 > budget[\"steps\"]:\n        print(f\"budget reached before {agent}; returning best result so far\")\n        break\n    used[\"steps\"] += 1\n    used[\"tokens\"] += tokens\n    print(f\"{agent} ran, total tokens {used['tokens']}\")",
+        "output": "ResearcherAgent ran, total tokens 4200\nResearcherAgent ran, total tokens 8100\nWriterAgent ran, total tokens 13200\nReviewerAgent ran, total tokens 15800\nbudget reached before WriterAgent; returning best result so far",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Check the shared budget before every agent step."
+          }
+        ],
+        "tryIt": "Raise the token budget to 25,000. Does the whole workflow finish now?",
+        "check": {
+          "question": "Why set a global budget across all agents?",
+          "options": [
+            "Each agent needs a different model",
+            "Agents calling each other can multiply costs without a shared limit",
+            "Budgets make agents smarter"
+          ],
+          "answer": 1,
+          "why": "A shared cap stops the whole system from running away, not just one agent."
+        }
+      }
+    ],
+    "summary": [
+      "Specialised agents with few tools are more reliable than one do-everything agent.",
+      "A supervisor routes tasks; always include a default route.",
+      "Supervisors are easier to control; swarms are more flexible.",
+      "Hand-offs should be structured, concise and carry sources.",
+      "Use consistent status logs and a global budget across agents."
+    ],
+    "projectStep": {
+      "title": "Multi-agent router",
+      "steps": [
+        "Add route_task and format_agent_status to ai_toolkit.py.",
+        "Write 8 test prompts and check each is routed where you expect.",
+        "Bonus: add the handoff function with required-field validation."
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Agentic Planning: Plan-and-Solve & Reflection Self-Correction",
+    "goal": "You can make an agent plan before acting, track plan progress, and use reflection to check and repair its own work, including building repair prompts from error messages.",
+    "minutes": 30,
+    "recap": "You built agents that act and cooperate. Today they get two habits of good workers: planning before starting, and checking their work afterwards.",
+    "parts": [
+      {
+        "title": "Plan first, then act",
+        "say": [
+          "ReAct agents decide one step at a time, which can wander. Plan-and-solve agents first write a short plan, then carry out the steps.",
+          "A plan makes the agent's intention visible. You can show it to users, check it, and even let a person approve it before anything runs.",
+          "Plans also help long tasks: the agent can see which steps are done and what remains, instead of re-deciding everything each turn.",
+          "Ask for the plan as structured data, a numbered list or JSON of steps with a status field, so code can track it.",
+          "Keep plans short, usually three to seven steps. Very long plans are hard to follow and tend to go stale before they are finished.",
+          "Plans can change: if a step reveals something unexpected, the agent revises the remaining steps.",
+          "A small model can often follow a plan written by a larger one, which saves money."
+        ],
+        "example": "Cooking a new recipe: you read it fully and lay out the ingredients before starting, rather than discovering halfway that you have no eggs.",
+        "code": "import json\n\nplan_text = '[{\"step\": \"Find 3 hotels in Goa under 5000\", \"status\": \"TODO\"}, {\"step\": \"Compare reviews\", \"status\": \"TODO\"}, {\"step\": \"Write a short recommendation\", \"status\": \"TODO\"}]'\nplan = json.loads(plan_text)\nfor i, s in enumerate(plan, start=1):\n    print(i, s[\"status\"], \"-\", s[\"step\"])",
+        "output": "1 TODO - Find 3 hotels in Goa under 5000\n2 TODO - Compare reviews\n3 TODO - Write a short recommendation",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "The plan arrives as JSON, so code can track each step."
+          }
+        ],
+        "tryIt": "Add a step \"Check the dates are available\" in the right place.",
+        "check": {
+          "question": "What is one benefit of asking an agent for a plan first?",
+          "options": [
+            "It removes the need for tools",
+            "Its intentions become visible and can be checked or approved",
+            "Plans make models faster"
+          ],
+          "answer": 1,
+          "why": "A written plan can be reviewed before any action is taken."
+        }
+      },
+      {
+        "title": "Tracking progress",
+        "say": [
+          "Practice 2: plan_progress(steps) returns the share of steps with status DONE as a whole-number percentage string like \"50%\". An empty plan is \"0%\".",
+          "Use round(done / total x 100) and an f-string. Check for an empty list first to avoid dividing by zero.",
+          "Progress numbers drive user interfaces (progress bars) and monitoring (tasks stuck at 60% for an hour need attention).",
+          "Update each step's status as the agent works: TODO, RUNNING, DONE or FAILED.",
+          "Store the plan and its statuses outside the model, in your program, so progress survives even if a call fails and has to be retried.",
+          "Showing progress builds trust. Users wait more patiently when they can see work happening.",
+          "A step that fails should be visible too, not hidden inside a percentage."
+        ],
+        "example": "A delivery app's tracker: ordered, packed, shipped, delivered. Seeing \"3 of 4 done\" is reassuring.",
+        "code": "def plan_progress(steps):\n    if not steps:\n        return \"0%\"\n    done = sum(1 for s in steps if s[\"status\"] == \"DONE\")\n    return f\"{round(done / len(steps) * 100)}%\"\n\nplan = [{\"status\": \"DONE\"}, {\"status\": \"DONE\"}, {\"status\": \"RUNNING\"}]\nprint(plan_progress(plan))\nprint(plan_progress([{\"status\": \"DONE\"}, {\"status\": \"TODO\"}]))\nprint(plan_progress([]))",
+        "output": "67%\n50%\n0%",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "An empty plan: avoid dividing by zero."
+          },
+          {
+            "line": 5,
+            "note": "Whole-number percentage with a % sign."
+          }
+        ],
+        "tryIt": "Make a text progress bar: 10 characters, with # for the done share and - for the rest.",
+        "check": {
+          "question": "What does plan_progress return for 1 DONE step out of 3?",
+          "options": [
+            "\"33.3%\"",
+            "\"33%\"",
+            "\"1/3\""
+          ],
+          "answer": 1,
+          "why": "round(1 / 3 x 100) = 33, so \"33%\"."
+        }
+      },
+      {
+        "title": "Reflection: checking your own work",
+        "say": [
+          "Reflection asks the model to review its own output against the task: \"Does this answer every part of the question? Are the numbers right? Is anything missing?\"",
+          "The review produces feedback, and a second pass uses that feedback to improve the answer. This often fixes mistakes a single pass makes.",
+          "Reflection works best with concrete checks: a list of requirements, test results, or a rubric, rather than \"is this good?\".",
+          "Reflection can also be done by a second model acting as a critic, which avoids the model simply approving its own work.",
+          "Limit the number of reflection rounds (one or two) to control cost; improvements shrink quickly after that.",
+          "Code-based checks are even better when possible: tests, schema validation, word counts. Use the model to reflect only on what code cannot check.",
+          "The code below uses simple checks to generate reflection feedback."
+        ],
+        "example": "Proofreading an important email before sending it: you check the name, the date and the attachment against what you meant to say, and fix anything wrong.",
+        "code": "def reflect(answer, requirements):\n    feedback = [f\"missing: {r}\" for r in requirements if r.lower() not in answer.lower()]\n    if len(answer.split()) > 40:\n        feedback.append(\"too long: keep it under 40 words\")\n    return feedback\n\ndraft = \"Stay at Sea Breeze Inn in Goa, rated 4.5, near the beach.\"\nrequirements = [\"price\", \"Goa\", \"rated\"]\nprint(reflect(draft, requirements))\nimproved = draft + \" Price: 4200 rupees a night.\"\nprint(reflect(improved, requirements) or \"all requirements met\")",
+        "output": "['missing: price']\nall requirements met",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Concrete checks produce specific feedback."
+          },
+          {
+            "line": 11,
+            "note": "The second draft passes every check."
+          }
+        ],
+        "tryIt": "Add \"dates\" to the requirements and write a draft that meets all four.",
+        "check": {
+          "question": "What makes reflection most effective?",
+          "options": [
+            "Asking \"is this good?\"",
+            "Checking against concrete requirements, tests or a rubric",
+            "Running it ten times"
+          ],
+          "answer": 1,
+          "why": "Specific checks give specific, actionable feedback."
+        }
+      },
+      {
+        "title": "Repair prompts from errors",
+        "say": [
+          "When an agent writes code, the best feedback is the actual error message. Practice 1: build_repair_prompt(code, error).",
+          "If error is empty, return {\"needs_correction\": False, \"prompt\": \"\"}. Otherwise build a prompt in an exact format with the error, then the code, then the instruction to find the cause and return corrected code.",
+          "Exact formats matter because the practice and real systems compare them precisely; use one f-string with \\n\\n between sections.",
+          "Including the real error text lets the model target the actual problem instead of guessing.",
+          "Include the line number and the failing test name when you have them; the more precise the error, the better the fix.",
+          "The same pattern repairs other things: failed JSON validation, failed tests, or an API error from a tool call.",
+          "Loop at most two or three times; if the code still fails, stop and report, as with all agent loops."
+        ],
+        "example": "Taking your car to a mechanic with the exact warning light code, not just \"it makes a funny noise\". The code points straight to the problem.",
+        "code": "def build_repair_prompt(code, error):\n    if not error:\n        return {\"needs_correction\": False, \"prompt\": \"\"}\n    prompt = f\"The code failed with this error: {error}\\n\\nCode:\\n{code}\\n\\nFind the cause and return the corrected code.\"\n    return {\"needs_correction\": True, \"prompt\": prompt}\n\nbroken = \"total = 0\\nfor x in range(5)\\n    total += x\"\nerror = \"SyntaxError: expected ':' (line 2)\"\nprint(build_repair_prompt(broken, error)[\"prompt\"])\nprint(build_repair_prompt(broken, \"\"))",
+        "output": "The code failed with this error: SyntaxError: expected ':' (line 2)\n\nCode:\ntotal = 0\nfor x in range(5)\n    total += x\n\nFind the cause and return the corrected code.\n{'needs_correction': False, 'prompt': ''}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "No error: nothing to repair."
+          },
+          {
+            "line": 4,
+            "note": "Error, then code, then the instruction, separated by blank lines."
+          }
+        ],
+        "tryIt": "Write a similar function for failed JSON: include the validation errors from Day 5 in the prompt.",
+        "check": {
+          "question": "Why include the exact error message in a repair prompt?",
+          "options": [
+            "It makes the prompt longer",
+            "It points the model to the real problem instead of guessing",
+            "Models cannot run code"
+          ],
+          "answer": 1,
+          "why": "The error text says what failed and where, which guides the fix."
+        }
+      },
+      {
+        "title": "A write, test, repair loop",
+        "say": [
+          "Put it together: the agent writes code, your program runs the tests, and if they fail, the error becomes a repair prompt. Repeat until the tests pass or the limit is reached.",
+          "Running real code needs a sandbox: an isolated environment with no access to secrets, files or the network. Never run model-written code directly on your server.",
+          "In the example, the fake model returns a broken version first and a fixed one second, and a small test checks the result.",
+          "This loop is how coding assistants fix their own mistakes. The tests are the source of truth, not the model's confidence.",
+          "Record each attempt: the code, the error and the fix. These records show which mistakes the model makes most, and help improve prompts.",
+          "If the same kind of error keeps appearing, fix the root cause in the prompt or examples, rather than relying on the repair loop every time.",
+          "The same loop idea powers data-cleaning agents, SQL generators and more."
+        ],
+        "example": "A student solving a problem set with an answer key: attempt, check against the key, fix, and check again, up to a sensible number of tries.",
+        "code": "attempts = iter([\n    (\"return w + h\", lambda w, h: w + h),\n    (\"return w * h\", lambda w, h: w * h),\n])\n\ndef run_tests(area):\n    result = area(3, 4)\n    return \"\" if result == 12 else f\"AssertionError: area(3, 4) returned {result}, expected 12\"\n\nfor attempt in range(1, 4):\n    body, area = next(attempts)\n    error = run_tests(area)\n    print(f\"attempt {attempt} ({body}): {error or 'tests passed'}\")\n    if not error:\n        break",
+        "output": "attempt 1 (return w + h): AssertionError: area(3, 4) returned 7, expected 12\nattempt 2 (return w * h): tests passed",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Each attempt stands in for code the model wrote (a real system runs it in a sandbox)."
+          },
+          {
+            "line": 10,
+            "note": "At most three attempts."
+          },
+          {
+            "line": 14,
+            "note": "Stop as soon as the tests pass."
+          }
+        ],
+        "tryIt": "Make both attempts wrong and check the loop stops after the attempts run out (you will need a third attempt in the list).",
+        "check": {
+          "question": "Why must model-written code run in a sandbox?",
+          "options": [
+            "It runs faster there",
+            "It could be wrong or harmful, so it must not reach secrets, files or the network",
+            "Sandboxes fix bugs automatically"
+          ],
+          "answer": 1,
+          "why": "Isolation keeps mistakes and malicious code from causing real damage."
+        }
+      },
+      {
+        "title": "Balancing planning, reflection and cost",
+        "say": [
+          "Each technique adds calls: a planning call, reflection calls, repair attempts. Together they can multiply the cost of a task.",
+          "Use planning for long, multi-step tasks; skip it for single-step ones.",
+          "Use reflection where errors are costly and checks are clear, such as reports, code or customer-facing content.",
+          "Prefer code checks over model reflection whenever possible: they are free, fast and never \"change their mind\".",
+          "Start without planning or reflection, measure where the failures are, and add only the technique that fixes those failures.",
+          "Measure: compare success rate and cost with and without each technique on a fixed set of tasks.",
+          "Tomorrow switches to user experience: streaming answers token by token so users see progress immediately."
+        ],
+        "example": "A builder measures twice and cuts once for expensive wood, but does not measure a paper napkin twice. Care should match the cost of mistakes.",
+        "code": "setups = {\n    \"act only\": (1, 0.72),\n    \"plan + act\": (2, 0.80),\n    \"plan + act + reflect\": (4, 0.89),\n}\nprice_per_call = 0.003\nfor name, (calls, success) in setups.items():\n    cost = calls * price_per_call\n    print(f\"{name:22} {calls} calls, ${cost:.3f}, success {success:.0%}, cost per success ${cost / success:.4f}\")",
+        "output": "act only               1 calls, $0.003, success 72%, cost per success $0.0042\nplan + act             2 calls, $0.006, success 80%, cost per success $0.0075\nplan + act + reflect   4 calls, $0.012, success 89%, cost per success $0.0135",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Cost per successful task is the fairest comparison."
+          }
+        ],
+        "tryIt": "If a failed task costs 0.05 dollars of human time to fix, which setup is cheapest overall?",
+        "check": {
+          "question": "When is reflection most worth its extra cost?",
+          "options": [
+            "For every message",
+            "Where mistakes are costly and there are clear checks",
+            "Only for greetings"
+          ],
+          "answer": 1,
+          "why": "Reflection pays off when errors matter and can be checked concretely."
+        }
+      }
+    ],
+    "summary": [
+      "Plan-and-solve agents write a plan first, making intentions visible.",
+      "Track progress as a percentage of DONE steps; handle empty plans.",
+      "Reflection reviews output against concrete checks, for one or two rounds.",
+      "Repair prompts include the exact error and the code.",
+      "Run model-written code only in a sandbox, and limit attempts."
+    ],
+    "projectStep": {
+      "title": "Planning and repair",
+      "steps": [
+        "Add build_repair_prompt and plan_progress to ai_toolkit.py.",
+        "Write a 4-step plan for a task of your own and track its progress.",
+        "Bonus: build a scripted write-test-repair loop with a limit of 3 attempts."
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "Real-Time Token Streaming with Server-Sent Events (SSE)",
+    "goal": "You can explain token streaming with server-sent events, parse streamed chunks into text, format events for the browser, and handle partial lines and cancellation.",
+    "minutes": 30,
+    "recap": "Your agents can plan, act and repair. But long answers take seconds, and users stare at a spinner. Streaming shows the answer as it is written.",
+    "parts": [
+      {
+        "title": "Why stream?",
+        "say": [
+          "A model generates one token at a time. Without streaming, the app waits for the whole answer, maybe 5 to 15 seconds, then shows it all at once.",
+          "With streaming, each token is sent as soon as it is ready. The first words appear in a fraction of a second, and the rest follow as they are written.",
+          "The total time is the same, but it feels much faster. Time to first token (TTFT) is the key number for perceived speed.",
+          "Research on user interfaces shows people start to lose attention after about one second of waiting with no feedback, so a fast first token matters a lot.",
+          "Streaming also lets users stop a long answer early if it is going the wrong way, saving tokens.",
+          "All major LLM APIs support streaming, usually through server-sent events (SSE).",
+          "Today you will read and write the SSE format by hand, so the libraries that do it for you make sense."
+        ],
+        "example": "A live cricket commentary versus a report the next morning: the match takes as long either way, but live updates keep you engaged.",
+        "code": "tokens = [\"Mysuru\", \" Palace\", \" is\", \" open\", \" from\", \" 10\", \" to\", \" 5.\"]\nms_per_token = 40\nfirst_token_ms = 300\nprint(\"without streaming, user waits:\", first_token_ms + ms_per_token * len(tokens), \"ms\")\nprint(\"with streaming, first words after:\", first_token_ms, \"ms\")\ntext = \"\"\nfor t in tokens:\n    text += t\n    print(repr(text))",
+        "output": "without streaming, user waits: 620 ms\nwith streaming, first words after: 300 ms\n'Mysuru'\n'Mysuru Palace'\n'Mysuru Palace is'\n'Mysuru Palace is open'\n'Mysuru Palace is open from'\n'Mysuru Palace is open from 10'\n'Mysuru Palace is open from 10 to'\n'Mysuru Palace is open from 10 to 5.'",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Time to first token: what users feel."
+          },
+          {
+            "line": 8,
+            "note": "The answer grows piece by piece."
+          }
+        ],
+        "tryIt": "Make the answer 200 tokens long. How does the waiting time without streaming change?",
+        "check": {
+          "question": "What does streaming improve most?",
+          "options": [
+            "The total generation time",
+            "How quickly users see the first words",
+            "The answer quality"
+          ],
+          "answer": 1,
+          "why": "Streaming does not make generation faster overall, but the first words arrive almost immediately."
+        }
+      },
+      {
+        "title": "The SSE format",
+        "say": [
+          "Server-sent events are plain text sent over one long HTTP response. Each event is a line starting with \"data: \", followed by a blank line.",
+          "LLM APIs put a small JSON object in each data line. In the common format, the new text is at choices[0].delta.content.",
+          "Different providers use slightly different JSON shapes, so keep the parsing in one small function that you can adapt when you switch providers.",
+          "The stream ends with a special line, \"data: [DONE]\". Some events have no content, such as the first one that only sets the role.",
+          "Other line types exist, such as comments starting with \":\" (used as keep-alive pings) and \"event:\" lines. A parser should skip what it does not need.",
+          "Because it is just text over HTTP, SSE works through most proxies and is easy to debug by printing the raw lines.",
+          "Browsers support SSE natively with EventSource, and fetch can read streams too."
+        ],
+        "example": "A ticker tape machine printing one short message per line, with a special \"END OF SESSION\" line when the market closes.",
+        "code": "raw = \"\"\"data: {\"choices\":[{\"delta\":{\"role\":\"assistant\"}}]}\n\ndata: {\"choices\":[{\"delta\":{\"content\":\"Namaste\"}}]}\n\n: keep-alive\n\ndata: {\"choices\":[{\"delta\":{\"content\":\"! How can I help?\"}}]}\n\ndata: [DONE]\n\"\"\"\nfor line in raw.splitlines():\n    if line:\n        print(\"line:\", line[:60])",
+        "output": "line: data: {\"choices\":[{\"delta\":{\"role\":\"assistant\"}}]}\nline: data: {\"choices\":[{\"delta\":{\"content\":\"Namaste\"}}]}\nline: : keep-alive\nline: data: {\"choices\":[{\"delta\":{\"content\":\"! How can I help?\"}}]\nline: data: [DONE]",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "The first event only sets the role; there is no content."
+          },
+          {
+            "line": 5,
+            "note": "A comment line used as a keep-alive ping."
+          },
+          {
+            "line": 9,
+            "note": "The end-of-stream marker."
+          }
+        ],
+        "tryIt": "Count how many lines actually carry text content.",
+        "check": {
+          "question": "How does a typical LLM stream signal that it has finished?",
+          "options": [
+            "It closes without warning",
+            "It sends \"data: [DONE]\"",
+            "It sends an empty JSON object"
+          ],
+          "answer": 1,
+          "why": "The [DONE] data line marks the end of the stream."
+        }
+      },
+      {
+        "title": "Parsing a streamed chunk",
+        "say": [
+          "Practice 1: parse_sse_chunk(chunk) joins the content of every data line in order and returns {\"text\": ..., \"done\": True if [DONE] was seen}.",
+          "Loop over the lines. \"data: [DONE]\" sets done. Other lines starting with \"data: \" are parsed with json.loads(line[6:]).",
+          "Get the delta with [\"choices\"][0][\"delta\"], then use .get(\"content\") so events without content are skipped instead of crashing.",
+          "Skip lines that are not data lines, such as blank lines and comments.",
+          "A robust parser also survives a line of broken JSON by skipping or logging it, instead of stopping the whole stream.",
+          "Collect the pieces in a list and join them once at the end; it is cleaner and faster than repeated string additions.",
+          "Test with chunks that include role-only events, comments and the DONE marker, as in the example."
+        ],
+        "example": "Reading a stack of telegrams: you copy the message part of each one into your notebook, ignore the envelopes, and stop at the one that says \"END\".",
+        "code": "import json\n\ndef parse_sse_chunk(chunk):\n    pieces, done = [], False\n    for line in chunk.splitlines():\n        if line == \"data: [DONE]\":\n            done = True\n        elif line.startswith(\"data: \"):\n            delta = json.loads(line[6:])[\"choices\"][0][\"delta\"]\n            if delta.get(\"content\"):\n                pieces.append(delta[\"content\"])\n    return {\"text\": \"\".join(pieces), \"done\": done}\n\nchunk = 'data: {\"choices\":[{\"delta\":{\"role\":\"assistant\"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"Hi\"}}]}\\n\\n: ping\\ndata: {\"choices\":[{\"delta\":{\"content\":\" there\"}}]}\\n\\ndata: [DONE]\\n\\n'\nprint(parse_sse_chunk(chunk))\nprint(parse_sse_chunk('data: {\"choices\":[{\"delta\":{\"content\":\"partial\"}}]}\\n'))",
+        "output": "{'text': 'Hi there', 'done': True}\n{'text': 'partial', 'done': False}",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The end marker."
+          },
+          {
+            "line": 10,
+            "note": "Skip events without content."
+          },
+          {
+            "line": 12,
+            "note": "Join all pieces once at the end."
+          }
+        ],
+        "tryIt": "Add an \"event: message\" line to the chunk. It is skipped, because it does not start with \"data: \".",
+        "check": {
+          "question": "Why use delta.get(\"content\") instead of delta[\"content\"]?",
+          "options": [
+            "It is faster",
+            "Some events have no content, and .get returns None instead of crashing",
+            "JSON requires it"
+          ],
+          "answer": 1,
+          "why": "Role-only or empty events would raise a KeyError with square brackets."
+        }
+      },
+      {
+        "title": "Writing events for the browser",
+        "say": [
+          "When your server forwards a model stream to a browser, it writes SSE too. Practice 2: format_sse_line(obj) returns \"data: \" + json.dumps(obj) + two newlines.",
+          "The two newlines matter: a blank line tells the browser that one event is complete.",
+          "If you forget them, the browser keeps waiting for the event to end and nothing appears on screen, which is a very common streaming bug.",
+          "Always use json.dumps rather than building JSON by hand; it escapes quotes and newlines inside the text correctly.",
+          "Send your own event shapes if useful, for example {\"type\": \"token\", \"text\": \"Hi\"} and {\"type\": \"done\", \"sources\": [...]}, so the page can show citations when the answer ends.",
+          "Set the response headers Content-Type: text/event-stream and Cache-Control: no-cache in your web framework, and flush after each event.",
+          "Keep each event small; one token or a few tokens per event is normal."
+        ],
+        "example": "Posting letters one by one with a clear address format: each envelope is complete on its own, so the receiver can open them as they arrive.",
+        "code": "import json\n\ndef format_sse_line(obj):\n    return f\"data: {json.dumps(obj)}\\n\\n\"\n\nevents = [{\"type\": \"token\", \"text\": \"Hi\"}, {\"type\": \"token\", \"text\": ' \"friend\"\\n'}, {\"type\": \"done\", \"sources\": [\"c2\"]}]\nstream = \"\".join(format_sse_line(e) for e in events)\nprint(stream, end=\"\")\nprint(repr(format_sse_line({\"type\": \"done\"})))",
+        "output": "data: {\"type\": \"token\", \"text\": \"Hi\"}\n\ndata: {\"type\": \"token\", \"text\": \" \\\"friend\\\"\\n\"}\n\ndata: {\"type\": \"done\", \"sources\": [\"c2\"]}\n\n'data: {\"type\": \"done\"}\\n\\n'",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "data: + JSON + a blank line to end the event."
+          },
+          {
+            "line": 6,
+            "note": "Quotes and newlines inside text are escaped by json.dumps."
+          }
+        ],
+        "tryIt": "Feed the stream from this example into your own parser. What changes are needed, since these events do not use \"choices\"?",
+        "check": {
+          "question": "Why does each SSE event end with two newlines?",
+          "options": [
+            "For readability only",
+            "The blank line tells the browser the event is complete",
+            "JSON requires it"
+          ],
+          "answer": 1,
+          "why": "SSE uses a blank line as the separator between events."
+        }
+      },
+      {
+        "title": "Partial lines and buffering",
+        "say": [
+          "Network data arrives in arbitrary pieces. One network read might end in the middle of a line: 'data: {\"choices\":[{\"del'.",
+          "Parsing that half line would fail. The fix is a buffer: add each new piece to the buffer, process only complete lines, and keep the unfinished last part for next time.",
+          "Splitting on \"\\n\" and holding back the final element handles this neatly, because the final element is whatever came after the last newline.",
+          "This buffering pattern appears everywhere data is streamed: files, sockets and logs.",
+          "Libraries handle it for you, but knowing it helps when you debug a stream that \"loses\" words.",
+          "Test with deliberately awkward splits, like cutting every 7 characters, to be sure your parser is robust."
+        ],
+        "example": "Receiving a long message in several SMS parts: you wait until a sentence is complete before reading it, instead of acting on half a sentence.",
+        "code": "import json\n\nstream = 'data: {\"choices\":[{\"delta\":{\"content\":\"Na\"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"maste\"}}]}\\n\\ndata: [DONE]\\n\\n'\npieces = [stream[i:i + 7] for i in range(0, len(stream), 7)]\nbuffer, text = \"\", \"\"\nfor piece in pieces:\n    buffer += piece\n    *complete, buffer = buffer.split(\"\\n\")\n    for line in complete:\n        if line.startswith(\"data: \") and line != \"data: [DONE]\":\n            text += json.loads(line[6:])[\"choices\"][0][\"delta\"].get(\"content\", \"\")\nprint(len(pieces), \"network pieces ->\", repr(text))",
+        "output": "17 network pieces -> 'Namaste'",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Cut the stream into awkward 7-character pieces."
+          },
+          {
+            "line": 8,
+            "note": "Process complete lines; keep the unfinished tail in the buffer."
+          }
+        ],
+        "tryIt": "Change the piece size to 3, then to 50. The text should always come out the same.",
+        "check": {
+          "question": "Why keep the last element after splitting the buffer on newlines?",
+          "options": [
+            "It is always empty",
+            "It may be an unfinished line that continues in the next piece",
+            "It holds the DONE marker"
+          ],
+          "answer": 1,
+          "why": "Data after the last newline is incomplete until more arrives."
+        }
+      },
+      {
+        "title": "Cancellation and good streaming UX",
+        "say": [
+          "Let users press Stop. When they do, close the connection; most APIs then stop generating, and you stop paying for further tokens.",
+          "Show a typing indicator until the first token arrives, then render text as it comes. Render markdown carefully, since half-finished formatting can flicker.",
+          "Handle errors mid-stream: if the connection drops, keep what arrived, mark the answer as incomplete, and offer a retry.",
+          "Guardrails still apply. Some teams check the text as it streams and cut the stream if something unsafe appears; others stream to a buffer and check sentence by sentence.",
+          "Measure TTFT and total time in production; both belong on your dashboard.",
+          "Tomorrow, Milestone 3 combines agents, tools and streaming into a research assistant."
+        ],
+        "example": "A good radio presenter who stops mid-song when you change the station, instead of playing the whole song to an empty room.",
+        "code": "tokens = [\"The\", \" report\", \" covers\", \" EV\", \" sales\", \",\", \" charging\", \" and\", \" prices\", \".\"]\nstop_after = 4\nshown = []\nfor i, t in enumerate(tokens, start=1):\n    shown.append(t)\n    if i == stop_after:\n        print(\"user pressed Stop\")\n        break\nprint(\"\".join(shown) + \" [stopped]\")\nprint(\"tokens saved:\", len(tokens) - len(shown))",
+        "output": "user pressed Stop\nThe report covers EV [stopped]\ntokens saved: 6",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The user stops the stream; nothing more is generated or billed."
+          }
+        ],
+        "tryIt": "Add a check that stops the stream if the word \"password\" appears in the text so far.",
+        "check": {
+          "question": "What should happen when the user presses Stop during streaming?",
+          "options": [
+            "Keep generating in the background",
+            "Close the connection so generation and billing stop",
+            "Restart the answer"
+          ],
+          "answer": 1,
+          "why": "Closing the stream stops further tokens, saving time and money."
+        }
+      }
+    ],
+    "summary": [
+      "Streaming shows tokens as they are generated; TTFT drives perceived speed.",
+      "SSE events are \"data: \" lines separated by blank lines, ending with [DONE].",
+      "Parse data lines as JSON and skip events without content.",
+      "Buffer partial lines; process only complete ones.",
+      "Support Stop, handle mid-stream errors and measure TTFT."
+    ],
+    "projectStep": {
+      "title": "Streaming",
+      "steps": [
+        "Add parse_sse_chunk and format_sse_line to ai_toolkit.py.",
+        "Write a buffered parser and test it with 3-character pieces.",
+        "Bonus: simulate a Stop button that ends the stream after N tokens."
+      ]
+    }
   }
 ];
