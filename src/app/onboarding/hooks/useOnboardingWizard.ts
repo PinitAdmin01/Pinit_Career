@@ -189,19 +189,19 @@ export function useOnboardingWizard() {
 
         if (newDoc.verificationStatus === 'mismatch_warning') {
           toast.error(
-            '⚠️ Identity Discrepancy Flagged',
-            newDoc.mismatchReason || `Detected name "${newDoc.candidateName}" does not match profile "${primaryCandidateName}".`
+            '⚠️ Name does not match',
+            newDoc.mismatchReason || `This document says "${newDoc.candidateName}", but your name is "${primaryCandidateName}".`
           );
         } else {
           toast.success(
-            `✓ ${newDoc.title} Stored in Supabase Vault`,
-            `Extracted: ${newDoc.scoreOrGpa || ''} | Institution: ${newDoc.institution || ''}`
+            `✓ ${newDoc.title} saved`,
+            `Marks: ${newDoc.scoreOrGpa || '-'} | From: ${newDoc.institution || '-'}`
           );
         }
       }
     } catch (err: any) {
       console.error('[Vault Slot Upload Error]:', err);
-      toast.error('Upload Error', err.message || 'Failed to upload document to vault.');
+      toast.error('Upload failed', err.message || 'Your document could not be uploaded. Please try again.');
     } finally {
       setVaultUploading(false);
     }
@@ -277,18 +277,18 @@ export function useOnboardingWizard() {
     setVaultUploading(false);
     if (mismatchCount > 0) {
       toast.error(
-        `⚠️ Batch Upload: ${mismatchCount} Identity Mismatch Found`,
-        `Detected differing candidate names. Check the Integrity tab.`
+        `⚠️ ${mismatchCount} document(s) show a different name`,
+        `Please check the names on those documents.`
       );
     } else if (newUploadedDocs.length === 0) {
       toast.error(
         'Upload Failed',
-        'Could not ingest any of the uploaded files. Please ensure files contain readable text.'
+        'We could not read these files. Please upload clear copies.'
       );
     } else {
       toast.success(
-        `✨ Auto-Sorted ${newUploadedDocs.length} Document${newUploadedDocs.length > 1 ? 's' : ''}!`,
-        `Stored in Supabase and categorized into academic, resume, and certification slots.`
+        `✨ ${newUploadedDocs.length} document${newUploadedDocs.length > 1 ? 's' : ''} saved`,
+        `We sorted them into resume, marks cards and certificates.`
       );
     }
   };
@@ -300,7 +300,7 @@ export function useOnboardingWizard() {
       setVaultSlots(prev => prev.filter(d => d.id !== slotId));
       const currentVaultItems = cOS.vaultItems || [];
       cOS.setVaultItems(currentVaultItems.filter(v => v.id !== slotId));
-      toast.info('Document Removed', 'Vault item deleted from storage and database.');
+      toast.info('Document removed', 'It has been deleted.');
     } catch (err) {
       console.warn('Delete error', err);
       setVaultSlots(prev => prev.filter(d => d.id !== slotId));
@@ -310,7 +310,7 @@ export function useOnboardingWizard() {
   // Real Verification Run for all documents in vault
   const handleRunAllVerifications = async () => {
     if (vaultSlots.length === 0) {
-      toast.info('Vault Empty', 'Please upload at least one document (resume or credential) to run verifications.');
+      toast.info('No documents yet', 'Upload your resume or a marks card first.');
       return;
     }
     setIsVerifyingAll(true);
@@ -339,18 +339,18 @@ export function useOnboardingWizard() {
 
       if (audit.mismatchCount > 0) {
         toast.warning(
-          'Identity Warnings Flagged',
-          `Calibrated QT2 Score at ${metrics.qt2Score}/100. Flagged ${audit.mismatchCount} conflicting identity record(s).`
+          'Some names do not match',
+          `${audit.mismatchCount} document(s) show a different name. Please check them.`
         );
       } else {
         toast.success(
-          'Sentinel Verification Complete',
-          `QT2 Cognitive Mindset calibrated at ${metrics.qt2Score}/100 (${metrics.evaluatedDataPoints} validated data points). Archetype: ${metrics.qt2Evaluation?.archetypeBlendTitle || 'Calibrated'}.`
+          'All documents checked',
+          `${metrics.evaluatedDataPoints} details checked. Everything matches your name.`
         );
       }
     } catch (err: any) {
       console.error('[Run All Verifications Error]:', err);
-      toast.error('Verification Error', err?.message || 'Verification could not be completed.');
+      toast.error('Check failed', err?.message || 'We could not check your documents. Please try again.');
     } finally {
       setIsVerifyingAll(false);
     }
@@ -1340,7 +1340,7 @@ export function useOnboardingWizard() {
           } catch {}
         }
         setSyncing(false);
-        toast.success('Onboarding Complete! 🚀', 'Your diagnostic blueprint is active.');
+        toast.success('All set! 🚀', 'Your plan is ready.');
         markOnboardingStoryPending(user?.id);
         goToDashboard();
       } catch (err) {
@@ -1384,21 +1384,21 @@ export function useOnboardingWizard() {
 
   const runExpressOnboarding = async () => {
     if (!college || !degree || !uploadedFile) {
-      toast.error('Details Required', 'Please fill in all academic details and upload a resume PDF.');
+      toast.error('Almost there', 'Please add your college, what you study, and your resume (PDF).');
       return;
     }
 
     setSyncing(true);
     setSyncProgress(5);
-    setSyncStatus('Initializing resume upload...');
-    setParserLogs(['[1/5] Establishing secure tunnel to parser gateway...', '[1/5] Ready for stream...']);
+    setSyncStatus('Uploading your resume...');
+    setParserLogs(['Step 1 of 5: Getting ready']);
 
     const logTimeline = [
-      { progress: 25, status: 'Uploading document to candidate vault...', log: '[2/5] Transmitting payload: ' + (uploadedFile.size / 1024).toFixed(1) + ' KB' },
-      { progress: 50, status: 'Parsing document structure and text layers...', log: '[3/5] Inspecting layout and text structure.' },
-      { progress: 75, status: 'Ingesting document into vault and running ATS screener...', log: '[4/5] Evaluating skills and career trajectory alignment.' },
-      { progress: 95, status: 'Configuring learning path...', log: '[5/5] Generating personalized growth roadmap.' },
-      { progress: 100, status: 'Finalizing profile setup...', log: '[5/5] Resume parsed and vault entry created successfully.' }
+      { progress: 25, status: 'Uploading your resume...', log: 'Step 2 of 5: Sending your file (' + (uploadedFile.size / 1024).toFixed(1) + ' KB)' },
+      { progress: 50, status: 'Reading your resume...', log: 'Step 3 of 5: Reading the text' },
+      { progress: 75, status: 'Checking your skills...', log: 'Step 4 of 5: Matching your skills' },
+      { progress: 95, status: 'Building your plan...', log: 'Step 5 of 5: Building your plan' },
+      { progress: 100, status: 'Almost ready...', log: 'Done: your resume is saved' }
     ];
 
     logTimeline.forEach((t, i) => {
@@ -1531,7 +1531,7 @@ export function useOnboardingWizard() {
           } catch {}
         }
         setSyncing(false);
-        toast.success('Express Onboarding Complete! ⚡', 'Unlock your dashboard and provisional job matches.');
+        toast.success('All set! ⚡', 'Your plan is ready.');
         markOnboardingStoryPending(user?.id);
         goToDashboard();
       } catch (err) {
@@ -1577,7 +1577,7 @@ export function useOnboardingWizard() {
       const file = e.dataTransfer.files[0];
       if (file.type === 'application/pdf') {
         setUploadedFile(file);
-        toast.info('Resume Selected', `${file.name} ready for analysis.`);
+        toast.info('Resume added', `${file.name} is ready.`);
       } else {
         toast.error('Invalid File Type', 'Please upload a PDF document.');
       }
@@ -1589,7 +1589,7 @@ export function useOnboardingWizard() {
       const file = e.target.files[0];
       if (file.type === 'application/pdf') {
         setUploadedFile(file);
-        toast.info('Resume Selected', `${file.name} ready for analysis.`);
+        toast.info('Resume added', `${file.name} is ready.`);
       } else {
         toast.error('Invalid File Type', 'Please upload a PDF document.');
       }

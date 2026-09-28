@@ -101,15 +101,15 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           onClick={onGoBackFromExpress}
           style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12, alignSelf: 'flex-start', marginBottom: 14 }}
         >
-          ← Go Back
+          ← Back
         </button>
 
         <div style={{ marginBottom: 16 }}>
           <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 6, letterSpacing: '-0.5px' }}>
-            Express Career Setup
+            Quick start
           </h2>
           <p style={{ fontSize: 13, color: 'var(--t3)' }}>
-            Provide your target trajectory & academic demographics. Then drag & drop your resume PDF to verify.
+            Pick what you want to do, add your college, and upload your resume.
           </p>
         </div>
 
@@ -117,14 +117,13 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           <form onSubmit={handleExpressSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {/* Trajectory Selector */}
             <div>
-              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>Target Career Trajectory</label>
+              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>What do you want to do?</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8 }}>
                 {[
-                  { id: 'react_frontend', label: 'React Frontend', emoji: '⚛️' },
-                  { id: 'java_sde', label: 'Java Backend', emoji: '☕' },
-                  { id: 'devops_cloud', label: 'DevOps Cloud', emoji: '☁️' },
-                  { id: 'financial_analyst', label: 'FinTech (B.Com)', emoji: '📊' },
-                  { id: 'business_analyst', label: 'Product (BBA)', emoji: '📈' }
+                  { id: 'react_frontend', label: 'Making websites', emoji: '🌐' },
+                  { id: 'java_sde', label: 'Building app systems', emoji: '⚙️' },
+                  { id: 'financial_analyst', label: 'Money and finance', emoji: '📊' },
+                  { id: 'business_analyst', label: 'Business and products', emoji: '📈' }
                 ].map(t => (
                   <div
                     key={t.id}
@@ -151,7 +150,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
             {/* College Info Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 12 }}>
               <div>
-                <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>College Name</label>
+                <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>Your college</label>
                 <input
                   type="text"
                   placeholder="e.g. Apex Institute"
@@ -161,10 +160,10 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 />
               </div>
               <div>
-                <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>Degree Major</label>
+                <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>What you study</label>
                 <input
                   type="text"
-                  placeholder="e.g. B.Tech CSE"
+                  placeholder="e.g. B.Com"
                   value={degree || ''}
                   onChange={(e) => setDegree && setDegree(e.target.value)}
                   style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 14, color: 'var(--t1)', outline: 'none' }}
@@ -204,13 +203,13 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 <>
                   <div style={{ fontSize: 26.5, marginBottom: 4 }}>📄</div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal)' }}>{uploadedFile.name}</div>
-                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Click or drag to change files</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Tap to change it</div>
                 </>
               ) : (
                 <>
                   <div style={{ fontSize: 26.5, marginBottom: 4 }}>📥</div>
-                  <div style={{ fontSize: 14, fontWeight: 700 }}>Drag & Drop Resume PDF here</div>
-                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>or click to browse local files</div>
+                  <div style={{ fontSize: 14, fontWeight: 700 }}>Add your resume (PDF)</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Drop it here or tap to choose</div>
                 </>
               )}
             </div>
@@ -232,7 +231,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 marginTop: 6
               }}
             >
-              Analyze Resume & Launch OS
+              Start my plan
             </button>
           </form>
         )}
@@ -302,7 +301,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <h3 style={{ fontSize: 21, fontWeight: 900, margin: 0, color: '#f8fafc', letterSpacing: '-0.02em' }}>
-                  Career Credentials & Document Vault
+                  Your documents
                 </h3>
                 <span style={{
                   fontSize: 11,
@@ -317,13 +316,13 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                   gap: 5
                 }}>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
-                  SECURE VAULT
+                  Private
                 </span>
               </div>
               <p style={{ fontSize: 12.5, color: '#94a3b8', margin: '3px 0 0', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span>Drag & drop marks cards, degrees, certifications, or your master resume anywhere</span>
+                <span>Drop your resume, marks cards or certificates here</span>
                 <span style={{ color: '#475569' }}>•</span>
-                <span style={{ color: '#38bdf8' }}>Auto-categorized & cross-verified via regex AI</span>
+                <span style={{ color: '#38bdf8' }}>We sort and check them for you</span>
               </p>
             </div>
           </div>
@@ -348,7 +347,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 gap: 6
               }}
             >
-              {isVerifyingAll ? '🔄 Auditing All Credentials...' : '⚡ Audit Entire Vault'}
+              {isVerifyingAll ? '🔄 Checking…' : '✓ Check all'}
             </button>
             <button
               type="button"
@@ -405,7 +404,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 800, color: '#94a3b8' }}>
-                  Anchor Candidate Name:
+                  Your name:
                 </span>
                 <span style={{ fontSize: 14.5, fontWeight: 900, color: '#f8fafc' }}>
                   {primaryCandidateName}
@@ -413,7 +412,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    const promptName = window.prompt('Set canonical candidate name for vault verification:', primaryCandidateName);
+                    const promptName = window.prompt('Your full name, as it is on your documents:', primaryCandidateName);
                     if (promptName && promptName.trim().length > 0) {
                       setCustomAnchorName(promptName.trim());
                     }
@@ -433,14 +432,14 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
               </div>
               <div style={{ fontSize: 12, color: '#cbd5e1', marginTop: 1 }}>
                 {identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' || identityAuditReport.overallStatus === 'REVIEW_REQUIRED'
-                  ? `${identityAuditReport.mismatchCount} document(s) have detected names that conflict with profile anchor and require verification review.`
+                  ? `${identityAuditReport.mismatchCount} document(s) show a different name. Please check them.`
                   : identityAuditReport.overallStatus === 'UNREADABLE_DOCUMENTS_REJECTED'
-                  ? 'All uploaded documents are unreadable or lack verifiable text. Please upload clear documents.'
+                  ? 'We could not read these documents. Please upload clearer copies.'
                   : identityAuditReport.overallStatus === 'PROVISIONAL_PENDING'
-                  ? '1 document submitted (Provisional). Upload additional academic records to elevate trust.'
+                  ? '1 document added. Add your marks cards to confirm it.'
                   : identityAuditReport.overallStatus === 'SENTINEL_CLEAN'
-                  ? `All ${identityAuditReport.totalDocuments} document(s) consistent with profile anchor.`
-                  : 'Upload documents to establish verified candidate identity.'}
+                  ? `All ${identityAuditReport.totalDocuments} document(s) match your name.`
+                  : 'Upload your documents so we can confirm your name.'}
               </div>
             </div>
           </div>
@@ -448,14 +447,14 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
-                Integrity Score
+                Checked
               </div>
               <div style={{
                 fontSize: 17.5,
                 fontWeight: 900,
                 color: (identityAuditReport.trustScore || 0) >= 80 ? '#34d399' : (identityAuditReport.trustScore || 0) >= 50 ? '#fbbf24' : '#f87171'
               }}>
-                {identityAuditReport.trustScore ?? 0}% Verified
+                {identityAuditReport.trustScore ?? 0}%
               </div>
             </div>
           </div>
@@ -464,11 +463,11 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
         {/* Vault Tabs */}
         <div style={{ display: 'flex', gap: 6, marginBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 8, flexShrink: 0 }}>
           {[
-            { id: 'resume', label: '📄 Master Resume', count: vaultSlots.filter(s => s.category === 'resume').length },
-            { id: 'academic', label: '🎓 Academic Marksheets (10th - Sem 8)', count: vaultSlots.filter(s => s.category !== 'resume' && s.category !== 'certification' && s.category !== 'achievement').length },
-            { id: 'certifications', label: '📜 Professional Certifications', count: vaultSlots.filter(s => s.category === 'certification').length },
-            { id: 'achievements', label: '🏆 Achievements & Hackathons', count: vaultSlots.filter(s => s.category === 'achievement').length },
-            { id: 'analytics', label: '📊 Real-Time QT-2 Calibration', count: null }
+            { id: 'resume', label: '📄 Resume', count: vaultSlots.filter(s => s.category === 'resume').length },
+            { id: 'academic', label: '🎓 Marks cards', count: vaultSlots.filter(s => s.category !== 'resume' && s.category !== 'certification' && s.category !== 'achievement').length },
+            { id: 'certifications', label: '📜 Certificates', count: vaultSlots.filter(s => s.category === 'certification').length },
+            { id: 'achievements', label: '🏆 Awards', count: vaultSlots.filter(s => s.category === 'achievement').length },
+            { id: 'analytics', label: '📊 Summary', count: null }
           ].map(tab => {
             const isActive = activeVaultTab === tab.id;
             return (
@@ -528,10 +527,10 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                         <span style={{ fontSize: 26.5 }}>📄</span>
                         <div>
                           <h4 style={{ fontSize: 16.5, fontWeight: 800, margin: 0, color: '#f8fafc' }}>
-                            Primary Resume (CV)
+                            Your resume
                           </h4>
                           <span style={{ fontSize: 12, color: '#94a3b8' }}>
-                            Acts as the primary anchor for student identity and skills extraction
+                            We use it to confirm your name and find your skills
                           </span>
                         </div>
                       </div>
@@ -545,7 +544,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                           color: resumeDoc.verificationStatus === 'verified' ? '#34d399' : '#fbbf24',
                           border: `1px solid ${resumeDoc.verificationStatus === 'verified' ? 'rgba(16, 185, 129, 0.4)' : 'rgba(245, 158, 11, 0.4)'}`
                         }}>
-                          {resumeDoc.verificationStatus === 'verified' ? '✓ Verified Identity' : '⚠️ Provisional Document'}
+                          {resumeDoc.verificationStatus === 'verified' ? '✓ Checked' : '⚠️ Not checked yet'}
                         </span>
                       )}
                     </div>
@@ -563,7 +562,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                         <div>
                           <div style={{ fontSize: 14.5, fontWeight: 700, color: '#f1f5f9' }}>{resumeDoc.title}</div>
                           <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 3 }}>
-                            Uploaded: {formatVaultDate(resumeDoc.uploadedAt)} • Extracted Name: <strong style={{ color: '#38bdf8' }}>{resumeDoc.candidateName}</strong>
+                            Added: {formatVaultDate(resumeDoc.uploadedAt)} • Name found: <strong style={{ color: '#38bdf8' }}>{resumeDoc.candidateName}</strong>
                           </div>
                           {resumeDoc.skills && resumeDoc.skills.length > 0 && (
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 8 }}>
@@ -581,7 +580,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                             onClick={() => handleVerifySingleDocument(resumeDoc.id)}
                             style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 12px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
                           >
-                            Re-Audit
+                            Check again
                           </button>
                           <button
                             type="button"
@@ -626,10 +625,10 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                       >
                         <div style={{ fontSize: 31, marginBottom: 8 }}>📄</div>
                         <div style={{ fontSize: 14.5, fontWeight: 700, color: '#f1f5f9' }}>
-                          Upload Your Primary Resume
+                          Upload your resume
                         </div>
                         <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
-                          Drag and drop your PDF resume here, or click to browse local files
+                          Drop your PDF here, or tap to choose it
                         </div>
                       </div>
                     )}
@@ -642,16 +641,16 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           {activeVaultTab === 'academic' && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
               {[
-                { cat: '10th' as VaultCategory, title: '10th Secondary Certificate' },
-                { cat: '12th_puc' as VaultCategory, title: '12th / PUC High School' },
-                { cat: 'sem1' as VaultCategory, title: 'Semester 1 Marksheet' },
-                { cat: 'sem2' as VaultCategory, title: 'Semester 2 Marksheet' },
-                { cat: 'sem3' as VaultCategory, title: 'Semester 3 Marksheet' },
-                { cat: 'sem4' as VaultCategory, title: 'Semester 4 Marksheet' },
-                { cat: 'sem5' as VaultCategory, title: 'Semester 5 Marksheet' },
-                { cat: 'sem6' as VaultCategory, title: 'Semester 6 Marksheet' },
-                { cat: 'sem7' as VaultCategory, title: 'Semester 7 Marksheet' },
-                { cat: 'sem8' as VaultCategory, title: 'Semester 8 Marksheet' },
+                { cat: '10th' as VaultCategory, title: '10th marks card' },
+                { cat: '12th_puc' as VaultCategory, title: '12th / PUC marks card' },
+                { cat: 'sem1' as VaultCategory, title: 'Semester 1 marks card' },
+                { cat: 'sem2' as VaultCategory, title: 'Semester 2 marks card' },
+                { cat: 'sem3' as VaultCategory, title: 'Semester 3 marks card' },
+                { cat: 'sem4' as VaultCategory, title: 'Semester 4 marks card' },
+                { cat: 'sem5' as VaultCategory, title: 'Semester 5 marks card' },
+                { cat: 'sem6' as VaultCategory, title: 'Semester 6 marks card' },
+                { cat: 'sem7' as VaultCategory, title: 'Semester 7 marks card' },
+                { cat: 'sem8' as VaultCategory, title: 'Semester 8 marks card' },
               ].map(slot => {
                 const doc = vaultSlots.find(s => s.category === slot.cat);
                 return (
@@ -669,14 +668,14 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                         <span style={{ fontSize: 13, fontWeight: 800, color: '#f1f5f9' }}>{slot.title}</span>
                         {doc && (
                           <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: doc.verificationStatus === 'verified' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)', color: doc.verificationStatus === 'verified' ? '#34d399' : '#fbbf24' }}>
-                            {doc.verificationStatus === 'verified' ? '✓ Verified' : '⚠️ Pending'}
+                            {doc.verificationStatus === 'verified' ? '✓ Checked' : '⚠️ Not checked'}
                           </span>
                         )}
                       </div>
                       {doc ? (
                         <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 8 }}>
                           <div>File: {doc.title}</div>
-                          <div>GPA/Marks: <strong style={{ color: '#38bdf8' }}>{doc.scoreOrGpa}</strong></div>
+                          <div>Marks: <strong style={{ color: '#38bdf8' }}>{doc.scoreOrGpa}</strong></div>
                         </div>
                       ) : (
                         <div style={{ fontSize: 12, color: '#64748b', marginTop: 8 }}>Not yet uploaded</div>
@@ -708,7 +707,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                           }}
                           style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.2)', color: '#38bdf8', padding: '4px 8px', borderRadius: 6, fontSize: 11, fontWeight: 700, cursor: 'pointer', width: '100%' }}
                         >
-                          + Upload PDF / Image
+                          + Upload
                         </button>
                       )}
                     </div>
@@ -721,7 +720,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           {activeVaultTab === 'certifications' && (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <span style={{ fontSize: 14.5, fontWeight: 800, color: '#f1f5f9' }}>Verified Professional Certifications</span>
+                <span style={{ fontSize: 14.5, fontWeight: 800, color: '#f1f5f9' }}>Your certificates</span>
                 <button
                   type="button"
                   onClick={() => {
@@ -737,7 +736,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                   }}
                   style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 12px', borderRadius: 8, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}
                 >
-                  + Add Certification Document
+                  + Add certificate
                 </button>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -745,7 +744,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                   <div key={doc.id} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 10, padding: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ fontSize: 14.5, fontWeight: 700, color: '#f8fafc' }}>{doc.title}</div>
-                      <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Issuer: {doc.institution}</div>
+                      <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>From: {doc.institution}</div>
                     </div>
                     <button
                       type="button"
@@ -758,7 +757,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 ))}
                 {vaultSlots.filter(s => s.category === 'certification').length === 0 && (
                   <div style={{ textAlign: 'center', padding: 30, color: '#64748b', fontSize: 13 }}>
-                    No certifications added yet. Upload AWS, Google Cloud, Cisco, or Meta certificates.
+                    No certificates yet. Add any course certificate you have.
                   </div>
                 )}
               </div>
@@ -768,7 +767,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           {activeVaultTab === 'achievements' && (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <span style={{ fontSize: 14.5, fontWeight: 800, color: '#f1f5f9' }}>Hackathons, Competitions & Publications</span>
+                <span style={{ fontSize: 14.5, fontWeight: 800, color: '#f1f5f9' }}>Your awards</span>
                 <button
                   type="button"
                   onClick={() => {
@@ -784,7 +783,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                   }}
                   style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 12px', borderRadius: 8, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}
                 >
-                  + Add Achievement Document
+                  + Add award
                 </button>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -805,7 +804,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 ))}
                 {vaultSlots.filter(s => s.category === 'achievement').length === 0 && (
                   <div style={{ textAlign: 'center', padding: 30, color: '#64748b', fontSize: 13 }}>
-                    No achievements uploaded yet. Add certificates from hackathons, college fests, or publications.
+                    No awards yet. Add prizes from contests, fests or events.
                   </div>
                 )}
               </div>
@@ -815,17 +814,17 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
           {activeVaultTab === 'analytics' && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
               <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: 12, padding: 16 }}>
-                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Total Documents</span>
+                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Documents</span>
                 <div style={{ fontSize: 26.5, fontWeight: 900, color: '#38bdf8', marginTop: 6 }}>{vaultSlots.length}</div>
               </div>
               <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: 12, padding: 16 }}>
-                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Verified Credentials</span>
+                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Checked</span>
                 <div style={{ fontSize: 26.5, fontWeight: 900, color: '#34d399', marginTop: 6 }}>
                   {vaultSlots.filter(s => s.verificationStatus === 'verified').length}
                 </div>
               </div>
               <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: 12, padding: 16 }}>
-                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Confidence Index</span>
+                <span style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Name match</span>
                 <div style={{ fontSize: 26.5, fontWeight: 900, color: '#a78bfa', marginTop: 6 }}>
                   {identityAuditReport.trustScore ?? 0}%
                 </div>
@@ -837,7 +836,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
         {/* Footer */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
           <div style={{ fontSize: 12, color: '#94a3b8' }}>
-            {vaultUploading ? '⏳ Uploading document to secure storage...' : `${vaultSlots.length} credential documents securely cached in candidate profile.`}
+            {vaultUploading ? '⏳ Uploading…' : `${vaultSlots.length} document(s) saved.`}
           </div>
           <button
             type="button"
@@ -855,7 +854,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
               transition: 'all 0.15s ease'
             }}
           >
-            {vaultSlots.length > 0 ? `Continue Diagnostic Onboarding (${vaultSlots.length} Docs Synced) →` : 'Close Vault'}
+            {vaultSlots.length > 0 ? `Continue (${vaultSlots.length} added) →` : 'Close'}
           </button>
         </div>
       </div>
