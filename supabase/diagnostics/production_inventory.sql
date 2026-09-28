@@ -19,6 +19,7 @@
 --   supabase/migrations/20260926_secure_claim_bonus_pins.sql
 --   supabase/migrations/20260927_phase_b4a_parent_recruiter.sql
 --   supabase/migrations/20260927_phase_b4b_fee_payments.sql
+--   supabase/migrations/20260928_phase_b6b_weekly_leagues_students.sql
 with expected(ord, file, kind, name) as (
   values
     (1, 'supabase/schema.sql', 'table', 'public.applications'),

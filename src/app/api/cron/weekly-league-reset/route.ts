@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import { LEAGUE_TIERS, planWeeklyLeagueMoves, type LeaguePlayer } from '@/lib/leagues/weeklyLeague';
 
 export async function GET(req: Request) {
   return handleReset(req);
@@ -33,72 +34,50 @@ async function handleReset(req: Request) {
 
     console.warn('[WeeklyLeagueReset] evaluate_weekly_leagues RPC unavailable, running batch evaluation:', rpcErr?.message);
 
-    // 2. Fallback Batch Evaluation in Node.js
-    const TIERS: ('browns' | 'silver' | 'gold' | 'platinum' | 'ruby')[] = ['ruby', 'platinum', 'gold', 'silver', 'browns'];
-    const NEXT_MAP: Record<string, string> = {
-      browns: 'silver',
-      silver: 'gold',
-      gold: 'platinum',
-      platinum: 'ruby',
-      ruby: 'ruby',
-    };
-    const PREV_MAP: Record<string, string> = {
-      ruby: 'platinum',
-      platinum: 'gold',
-      gold: 'silver',
-      silver: 'browns',
-      browns: 'browns',
-    };
+    // 2. Fallback Batch Evaluation in Node.js — the same rules as the database function: students only,
+    //    every move decided from one snapshot (read in pages; the API returns at most 1000 rows at a time).
+    const PAGE = 1000;
+    const players: LeaguePlayer[] = [];
+    const histories = new Map<string, unknown[]>();
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await admin
+        .from('users')
+        .select('id, league_tier, weekly_xp, xp_total, league_history')
+        .or('role.eq.student,role.is.null')
+        .in('league_tier', [...LEAGUE_TIERS])
+        .order('id', { ascending: true })
+        .range(from, from + PAGE - 1);
+      if (error) throw error;
+      const rows = (data || []) as Array<LeaguePlayer & { league_history: unknown }>;
+      for (const u of rows) {
+        players.push({ id: u.id, league_tier: u.league_tier, weekly_xp: u.weekly_xp, xp_total: u.xp_total });
+        histories.set(u.id, Array.isArray(u.league_history) ? u.league_history : []);
+      }
+      if (rows.length < PAGE) break;
+    }
 
+    const now = new Date().toISOString();
+    const moves = planWeeklyLeagueMoves(players);
     let totalPromoted = 0;
     let totalDemoted = 0;
-    const now = new Date().toISOString();
-
-    for (const tier of TIERS) {
-      const { data: cohort } = await admin
-        .from('users')
-        .select('id, weekly_xp, xp_total, league_history')
-        .eq('league_tier', tier)
-        .order('weekly_xp', { ascending: false })
-        .order('xp_total', { ascending: false });
-
-      if (cohort && cohort.length >= 2) {
-        const count = cohort.length;
-        const promCutoff = Math.max(1, Math.ceil(count * 0.10));
-        const demCutoff = Math.max(1, count - Math.floor(count * 0.10) + 1);
-
-        // Promotions
-        if (NEXT_MAP[tier] !== tier) {
-          const promoting = cohort.slice(0, promCutoff);
-          for (const u of promoting) {
-            const hist = Array.isArray(u.league_history) ? u.league_history : [];
-            const newHist = [{ timestamp: now, outcome: 'promoted', from: tier, to: NEXT_MAP[tier], weekly_xp: u.weekly_xp }, ...hist].slice(0, 50);
-            await admin.from('users').update({ league_tier: NEXT_MAP[tier], league_history: newHist }).eq('id', u.id);
-            totalPromoted++;
-          }
-        }
-
-        // Demotions
-        if (PREV_MAP[tier] !== tier && demCutoff > promCutoff) {
-          const demoting = cohort.slice(demCutoff - 1);
-          for (const u of demoting) {
-            const hist = Array.isArray(u.league_history) ? u.league_history : [];
-            const newHist = [{ timestamp: now, outcome: 'demoted', from: tier, to: PREV_MAP[tier], weekly_xp: u.weekly_xp }, ...hist].slice(0, 50);
-            await admin.from('users').update({ league_tier: PREV_MAP[tier], league_history: newHist }).eq('id', u.id);
-            totalDemoted++;
-          }
-        }
-      }
+    let failed = 0;
+    for (const m of moves) {
+      const newHist = [{ timestamp: now, outcome: m.outcome, from: m.from, to: m.to, weekly_xp: m.weekly_xp }, ...(histories.get(m.id) || [])].slice(0, 50);
+      const { error } = await admin.from('users').update({ league_tier: m.to, league_history: newHist }).eq('id', m.id);
+      if (error) failed++;
+      else if (m.outcome === 'promoted') totalPromoted++;
+      else totalDemoted++;
     }
 
     // Reset weekly_xp = 0 and update cycle start
     await admin.from('users').update({ weekly_xp: 0, league_cycle_start: now, last_league_eval: now }).neq('id', '00000000-0000-0000-0000-000000000000');
 
     return NextResponse.json({
-      ok: true,
+      ok: failed === 0,
       source: 'batch_fallback',
       totalPromoted,
       totalDemoted,
+      ...(failed ? { failed } : {}),
       timestamp: now,
     });
   } catch (err: any) {
