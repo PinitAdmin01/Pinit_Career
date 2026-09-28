@@ -25,11 +25,11 @@ export function EnrolledCoursesPanel({
     return (
       <div style={card}>
         <div style={cardLabel}>Students Requiring Learning Intervention</div>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
           <thead>
             <tr style={{ background: 'var(--bg3)' }}>
               {['Student Name', 'Class Section', 'Identified Gaps', 'Roadmap Step', 'Actions'].map(h => (
-                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, fontWeight: 700, borderBottom: '1px solid var(--border)' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -41,7 +41,7 @@ export function EnrolledCoursesPanel({
                 <td style={{ padding: '14px' }}>
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                     {(Array.isArray(student.gaps) && student.gaps.length > 0 ? student.gaps : ['Algorithmic Logic']).map((s: string) => (
-                      <span key={s} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: 'var(--coral-light)', color: 'var(--coral)' }}>{s}</span>
+                      <span key={s} style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, background: 'var(--coral-light)', color: 'var(--coral)' }}>{s}</span>
                     ))}
                   </div>
                 </td>
@@ -49,7 +49,7 @@ export function EnrolledCoursesPanel({
                 <td style={{ padding: '14px' }}>
                   <button
                     onClick={() => prescribeQuest(student.displayName)}
-                    style={{ padding: '6px 12px', fontSize: 11, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+                    style={{ padding: '6px 12px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
                   >
                     Prescribe Quest
                   </button>
@@ -80,10 +80,10 @@ export function EnrolledCoursesPanel({
         <div style={card}>
           <div style={cardLabel}>⚠️ Fused Learning Mistakes Tracker</div>
           <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: 'var(--accent-light)', border: '1px solid var(--accent)', padding: 16, borderRadius: 12, marginBottom: 16 }}>
-            <span style={{ fontSize: 24 }}>💡</span>
+            <span style={{ fontSize: 26.5 }}>💡</span>
             <div>
-              <div style={{ fontWeight: 800, fontSize: 13.5, color: 'var(--accent)', marginBottom: 4 }}>Why do we collect mistake data?</div>
-              <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+              <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--accent)', marginBottom: 4 }}>Why do we collect mistake data?</div>
+              <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
                 Locating where and why you hit failure modes in Quests, Daily Missions, AI Interviews, and GD rooms helps our Socratic Engine compile targeted remedial modules. Fixing active blind spots is the fastest path to bridging your skill gaps.
               </p>
             </div>
@@ -91,7 +91,7 @@ export function EnrolledCoursesPanel({
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {mistakes.length === 0 ? (
-              <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 13, border: '1px dashed var(--border)', borderRadius: 12 }}>
+              <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5, border: '1px dashed var(--border)', borderRadius: 12 }}>
                 ✓ No active mistakes detected. Excellent work!
               </div>
             ) : (
@@ -99,18 +99,18 @@ export function EnrolledCoursesPanel({
                 <div key={m.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
                   <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                     <div>
-                      <span style={{ fontSize: 10.5, fontWeight: 800, background: 'var(--coral-light)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 4, marginRight: 8 }}>{m.type}</span>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{m.module}</span>
+                      <span style={{ fontSize: 11.5, fontWeight: 800, background: 'var(--coral-light)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 4, marginRight: 8 }}>{m.type}</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{m.module}</span>
                     </div>
-                    <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>{m.timestamp}</span>
+                    <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>{m.timestamp}</span>
                   </div>
-                  <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '0 0 12px 0', lineHeight: 1.5 }}>{m.description}</p>
+                  <p style={{ fontSize: 14, color: 'var(--t2)', margin: '0 0 12px 0', lineHeight: 1.5 }}>{m.description}</p>
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                     <Link
                       href="/practice"
                       style={{
                         padding: '6px 12px',
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 800,
                         background: 'var(--accent)',
                         color: '#fff',
@@ -126,7 +126,7 @@ export function EnrolledCoursesPanel({
                       onClick={() => clearMistake(m.id)}
                       style={{
                         padding: '6px 12px',
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 700,
                         background: 'var(--bg2)',
                         border: '1px solid var(--border)',
@@ -148,19 +148,19 @@ export function EnrolledCoursesPanel({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={card}>
           <div style={cardLabel}>🛡️ AI Fused Remedial Plan</div>
-          <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+          <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
             Based on your accumulated performance errors and assessment records, the AI has compiled the following custom plan to guide your revision:
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {dynamicSteps.length === 0 ? (
-              <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 10, border: '1px dashed var(--border)' }}>
+              <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 10, border: '1px dashed var(--border)' }}>
                 ✓ No active performance errors detected. Your curriculum benchmark is currently on track!
               </div>
             ) : (
               dynamicSteps.map((step, idx) => (
                 <div key={idx} style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>{step.title}</div>
-                  <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>{step.details}</p>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>{step.title}</div>
+                  <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>{step.details}</p>
                 </div>
               ))
             )}

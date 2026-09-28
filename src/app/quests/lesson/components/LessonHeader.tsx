@@ -45,7 +45,7 @@ export function LessonHeader({
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
       <div>
         <span style={{
-          fontSize: 10,
+          fontSize: 11,
           background: 'rgba(var(--brand-rgb), 0.15)',
           color: 'var(--accent)',
           padding: '4px 10px',
@@ -56,7 +56,7 @@ export function LessonHeader({
         }}>
           Active Class Lesson
         </span>
-        <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginTop: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
           {questTitle}
         </h2>
       </div>
@@ -78,7 +78,7 @@ export function LessonHeader({
               color: isFocusMusicEnabled ? 'var(--accent)' : 'var(--t2)',
               borderRadius: 10,
               padding: '4px 10px',
-              fontSize: 10.5,
+              fontSize: 11.5,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -91,7 +91,7 @@ export function LessonHeader({
           </button>
           {isFocusMusicEnabled && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: 10, padding: '2px 8px' }}>
-              <span style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 700 }}>🔈 {soundscapeVol}%</span>
+              <span style={{ fontSize: 11, color: 'var(--t2)', fontWeight: 700 }}>🔈 {soundscapeVol}%</span>
               <input
                 type="range"
                 min="0"
@@ -122,7 +122,7 @@ export function LessonHeader({
               color: 'var(--success)',
               borderRadius: 10,
               padding: '4px 10px',
-              fontSize: 10.5,
+              fontSize: 11.5,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -151,7 +151,7 @@ export function LessonHeader({
             color: '#eab308',
             borderRadius: 10,
             padding: '4px 10px',
-            fontSize: 10.5,
+            fontSize: 11.5,
             fontWeight: 800,
             cursor: 'pointer',
             display: 'flex',
@@ -162,7 +162,7 @@ export function LessonHeader({
         >
           ⚡ Skip Audio & Jump to Code
         </button>
-        <span style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+        <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
           Slide {currentSlide + 1} / {totalSlides}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -217,7 +217,7 @@ export function LessonHeader({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 8,
+                  fontSize: 9,
                   cursor: isLocked ? 'not-allowed' : 'pointer',
                   opacity: isLocked ? 0.35 : 1,
                   transition: 'all 0.3s ease'

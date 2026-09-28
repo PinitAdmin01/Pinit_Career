@@ -15,7 +15,7 @@ export default function Error({
 
   return (
     <div style={{ padding: 48, textAlign: 'center', fontFamily: 'system-ui' }}>
-      <h1 style={{ fontSize: 28, marginBottom: 8, color: '#ef4444' }}>Something went wrong</h1>
+      <h1 style={{ fontSize: 31, marginBottom: 8, color: '#ef4444' }}>Something went wrong</h1>
       <p style={{ color: '#64748b', maxWidth: 480, margin: '0 auto 20px auto' }}>
         {error?.message || 'An unexpected application error occurred.'}
       </p>

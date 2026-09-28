@@ -91,7 +91,7 @@ export default function DonutChart({
           x={cx}
           y={cy - 8}
           textAnchor="middle"
-          fontSize="26"
+          fontSize="28.5"
           fontWeight="800"
           fill="var(--t1, #1f2937)"
         >
@@ -101,7 +101,7 @@ export default function DonutChart({
           x={cx}
           y={cy + 14}
           textAnchor="middle"
-          fontSize="11"
+          fontSize="12"
           fill="var(--t3, #9ca3af)"
         >
           {centerLabel}
@@ -125,7 +125,7 @@ export default function DonutChart({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
-                fontSize: 11,
+                fontSize: 12,
                 color: 'var(--t2, #6b7280)',
               }}
             >

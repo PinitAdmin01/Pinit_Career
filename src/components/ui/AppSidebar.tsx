@@ -224,7 +224,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         <span className="nav-icon" style={isTourSpotlight ? { transform: 'scale(1.2)', filter: 'drop-shadow(0 0 6px rgba(var(--brand-rgb), 0.8))', transition: 'transform 0.3s' } : undefined}>{icon}</span>
         {!collapsed && <span style={{ flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', fontWeight: isTourSpotlight ? 800 : undefined, color: isTourSpotlight ? '#fff' : undefined }}>{label}</span>}
         {!collapsed && isTourSpotlight && (
-          <span style={{ fontSize: 9, fontWeight: 900, background: 'var(--accent)', color: 'var(--text)', padding: '2px 6px', borderRadius: 10, letterSpacing: '0.4px', animation: 'bounce 0.8s infinite alternate' }}>
+          <span style={{ fontSize: 10, fontWeight: 900, background: 'var(--accent)', color: 'var(--text)', padding: '2px 6px', borderRadius: 10, letterSpacing: '0.4px', animation: 'bounce 0.8s infinite alternate' }}>
             👈 HERE
           </span>
         )}
@@ -258,7 +258,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         >
           <span className="nav-icon">{group.icon}</span>
           <span style={{ flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{group.label}</span>
-          <span style={{ fontSize: 10, color: 'var(--t4)', transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+          <span style={{ fontSize: 11, color: 'var(--t4)', transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
         </button>
         {open && group.children.map(c => <NavLink key={c.href} {...c} indent />)}
       </>
@@ -295,7 +295,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         </Link>
         {!collapsed && !focusMode && (
           <button onClick={() => toggleLeftSidebar(true)} title="Collapse (⌘[)"
-            style={{ marginLeft:'auto', background:'none', border:'none', cursor:'pointer', color:'var(--t4)', fontSize:18, padding:'2px 6px', borderRadius:6, lineHeight:1 }}>
+            style={{ marginLeft:'auto', background:'none', border:'none', cursor:'pointer', color:'var(--t4)', fontSize:20, padding:'2px 6px', borderRadius:6, lineHeight:1 }}>
             ‹
           </button>
         )}
@@ -356,8 +356,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-              <span className="nav-icon" style={{ fontSize: 15 }}>⚡</span>
-              <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--t1)', whiteSpace: 'nowrap' }}>Pins & Wallet</span>
+              <span className="nav-icon" style={{ fontSize: 16.5 }}>⚡</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--t1)', whiteSpace: 'nowrap' }}>Pins & Wallet</span>
             </div>
             <div style={{
               display: 'inline-flex',
@@ -367,14 +367,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
               borderRadius: 10,
               background: pins < 20 ? 'rgba(220,38,38,0.2)' : 'rgba(99, 102, 241, 0.2)',
               border: `1px solid ${pins < 20 ? 'var(--coral)' : 'rgba(99, 102, 241, 0.4)'}`,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: pins < 20 ? 'var(--coral)' : 'var(--accent)',
               fontFamily: 'var(--font-mono)',
               lineHeight: 1.2
             }}>
               <span>{pins.toLocaleString()}</span>
-              <span style={{ fontSize: 10, opacity: 0.85 }}>+</span>
+              <span style={{ fontSize: 11, opacity: 0.85 }}>+</span>
             </div>
           </Link>
         )}
@@ -400,7 +400,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 800,
               color: 'var(--text)'
             }}>
@@ -445,7 +445,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 800,
                 color: 'var(--text)',
                 boxShadow: '0 0 10px rgba(99, 102, 241, 0.3)'
@@ -453,10 +453,10 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
                 {user?.displayName?.[0]?.toUpperCase() || 'U'}
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {user?.displayName || 'Faculty / Visitor'}
                 </div>
-                <div style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'capitalize' }}>
+                <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'capitalize' }}>
                   {user?.role || 'Guest'} • Profile
                 </div>
               </div>
@@ -469,7 +469,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
                 border: 'none',
                 cursor: 'pointer',
                 color: 'var(--t4)',
-                fontSize: 14,
+                fontSize: 15.5,
                 padding: '4px 6px',
                 borderRadius: 6,
                 flexShrink: 0,

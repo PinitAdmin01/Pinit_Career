@@ -147,8 +147,8 @@ function AdminStudentsContent() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 20, gap: 16, flexWrap: 'wrap' }}>
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, marginBottom: 4 }}>Student Roster</h1>
-          <p style={{ color: 'var(--t2)', fontSize: 13 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 800, marginBottom: 4 }}>Student Roster</h1>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5 }}>
             Manage students, change roles, ban accounts. {total > 0 && <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>· {total} total</span>}
           </p>
         </div>
@@ -179,11 +179,11 @@ function AdminStudentsContent() {
           <input type="number" min={0} max={100} placeholder="Min Trust" value={minTrust} onChange={e => setMinTrust(e.target.value)} style={inputStyle} />
         </div>
         {(minAts || minDna || minTrust) && (
-          <div style={{ marginTop: 8, fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ marginTop: 8, fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
             Filters applied to current page only · {filtered.length} of {rows.length} match
             <button
               onClick={() => { setMinAts(''); setMinDna(''); setMinTrust(''); }}
-              style={{ marginLeft: 8, background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 11 }}
+              style={{ marginLeft: 8, background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}
             >clear</button>
           </div>
         )}
@@ -201,7 +201,7 @@ function AdminStudentsContent() {
         boxShadow: 'var(--shadow-sm)',
       }}>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
             <thead>
               <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)' }}>
                 <Th label="Name"     col="name"    sortKey={sortKey} sortDir={sortDir} onClick={toggleSort} align="left" />
@@ -212,7 +212,7 @@ function AdminStudentsContent() {
                 <Th label="Streak"   col="streak"  sortKey={sortKey} sortDir={sortDir} onClick={toggleSort} />
                 <Th label="Joined"   col="created" sortKey={sortKey} sortDir={sortDir} onClick={toggleSort} />
                 <Th label="Active"   col="active"  sortKey={sortKey} sortDir={sortDir} onClick={toggleSort} />
-                <th style={{ padding: '10px 12px', textAlign: 'right', fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Actions</th>
+                <th style={{ padding: '10px 12px', textAlign: 'right', fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -228,21 +228,21 @@ function AdminStudentsContent() {
                 <tr key={r.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: '10px 12px' }}>
                     <div style={{ fontWeight: 600, color: 'var(--t1)' }}>{r.display_name || '—'}</div>
-                    <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>@{r.username}</div>
+                    <div style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>@{r.username}</div>
                   </td>
-                  <td style={{ padding: '10px 12px', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--t2)' }}>
+                  <td style={{ padding: '10px 12px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--t2)' }}>
                     {r.register_number || <span style={{ color: 'var(--t4)' }}>—</span>}
                   </td>
                   <ScoreCell value={r.ats_score}        />
                   <ScoreCell value={r.career_dna_score} />
                   <ScoreCell value={r.trust_score}      />
-                  <td style={{ padding: '10px 12px', textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 12, color: (r.mission_streak ?? 0) > 0 ? 'var(--amber)' : 'var(--t4)' }}>
+                  <td style={{ padding: '10px 12px', textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 13, color: (r.mission_streak ?? 0) > 0 ? 'var(--amber)' : 'var(--t4)' }}>
                     {(r.mission_streak ?? 0) > 0 ? `🔥${r.mission_streak}` : '—'}
                   </td>
-                  <td style={{ padding: '10px 12px', textAlign: 'center', fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ padding: '10px 12px', textAlign: 'center', fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                     {new Date(r.created_at).toLocaleDateString()}
                   </td>
-                  <td style={{ padding: '10px 12px', textAlign: 'center', fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ padding: '10px 12px', textAlign: 'center', fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                     {r.last_active_at ? relativeTime(r.last_active_at) : <span style={{ color: 'var(--t4)' }}>never</span>}
                   </td>
                   <td style={{ padding: '10px 12px', textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -268,7 +268,7 @@ function AdminStudentsContent() {
             alignItems: 'center',
             background: 'var(--bg3)',
             borderTop: '1px solid var(--border)',
-            fontSize: 11,
+            fontSize: 12,
             fontFamily: 'var(--font-mono)',
             color: 'var(--t3)',
           }}>
@@ -311,7 +311,7 @@ function Th({
       style={{
         padding: '10px 12px',
         textAlign: align,
-        fontSize: 10.5,
+        fontSize: 11.5,
         color: active ? 'var(--accent)' : 'var(--t3)',
         fontFamily: 'var(--font-mono)',
         fontWeight: 700,
@@ -335,7 +335,7 @@ function ScoreCell({ value }: { value: number | null }) {
       padding: '10px 12px',
       textAlign: 'center',
       fontFamily: 'var(--font-mono)',
-      fontSize: 13,
+      fontSize: 14.5,
       fontWeight: 700,
       color,
     }}>
@@ -362,7 +362,7 @@ const inputStyle: React.CSSProperties = {
   border: '1px solid var(--border)',
   background: 'var(--bg3)',
   color: 'var(--t1)',
-  fontSize: 12.5,
+  fontSize: 14,
   outline: 'none',
 };
 
@@ -373,7 +373,7 @@ const iconBtnStyle: React.CSSProperties = {
   color: 'var(--t3)',
   padding: '4px 8px',
   borderRadius: 4,
-  fontSize: 13,
+  fontSize: 14.5,
   marginLeft: 4,
 };
 

@@ -41,9 +41,9 @@ export function InterviewVoiceHud({
       gap: 10
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 260 }}>
-        <span style={{ fontSize: 16 }}>{!isSpeechSupported ? '⚠️' : isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
+        <span style={{ fontSize: 17.5 }}>{!isSpeechSupported ? '⚠️' : isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
         <div>
-          <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)' }}>
+          <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
             {!isSpeechSupported
               ? 'Speech Recognition Not Supported in this Browser'
               : isAvatarSpeaking
@@ -52,7 +52,7 @@ export function InterviewVoiceHud({
               ? 'SPOKEN VOICE RECOGNITION ACTIVE'
               : 'Voice Mode Standby'}
           </div>
-          <div style={{ fontSize: 11, color: !isSpeechSupported ? 'var(--danger-bright, #ef4444)' : isVoiceListening ? 'var(--success)' : 'var(--t2)', fontWeight: liveSpeechTranscript ? 800 : 600 }}>
+          <div style={{ fontSize: 12, color: !isSpeechSupported ? 'var(--danger-bright, #ef4444)' : isVoiceListening ? 'var(--success)' : 'var(--t2)', fontWeight: liveSpeechTranscript ? 800 : 600 }}>
             {!isSpeechSupported
               ? 'Web Speech API is not available on this browser. Please use the text input below to submit responses.'
               : isAvatarSpeaking
@@ -76,7 +76,7 @@ export function InterviewVoiceHud({
               color: '#ffffff',
               borderRadius: 8,
               padding: '6px 14px',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 900,
               cursor: 'pointer',
               boxShadow: '0 0 10px rgba(var(--success-rgb),0.5)'
@@ -96,7 +96,7 @@ export function InterviewVoiceHud({
               color: 'var(--danger)',
               borderRadius: 6,
               padding: '5px 10px',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800,
               cursor: 'pointer'
             }}
@@ -114,7 +114,7 @@ export function InterviewVoiceHud({
             color: 'var(--text)',
             borderRadius: 8,
             padding: '6px 14px',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 900,
             cursor: !isSpeechSupported || isVoiceListening ? 'default' : 'pointer',
             opacity: !isSpeechSupported ? 0.5 : 1

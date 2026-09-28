@@ -73,13 +73,13 @@ export default function SentinelPage() {
 
       {/* Cryptographic DNA layer tags */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 20, marginBottom: 24, boxShadow: 'var(--shadow-sm)' }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: 13, fontWeight: 800, marginBottom: 14, color: 'var(--t1)' }}>🧬 Document DNA Layers</div>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: 14.5, fontWeight: 800, marginBottom: 14, color: 'var(--t1)' }}>🧬 Document DNA Layers</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 10 }}>
           {DOC_LAYERS.map((l) => (
             <div key={l.layer} style={{ background: 'var(--bg3)', border: `1px solid var(--border)`, borderRadius: 12, padding: 12, textAlign: 'center' }}>
-              <div style={{ fontSize: 20, marginBottom: 6 }}>{l.icon}</div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: l.color, marginBottom: 4 }}>{l.layer}</div>
-              <div style={{ fontSize: 9.5, color: 'var(--t3)', lineHeight: 1.3 }}>{l.purpose}</div>
+              <div style={{ fontSize: 22, marginBottom: 6 }}>{l.icon}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: l.color, marginBottom: 4 }}>{l.layer}</div>
+              <div style={{ fontSize: 10.5, color: 'var(--t3)', lineHeight: 1.3 }}>{l.purpose}</div>
             </div>
           ))}
         </div>
@@ -100,7 +100,7 @@ export default function SentinelPage() {
               padding: '7px 18px', borderRadius: 8, border: 'none',
               background: tab === t.id ? 'var(--accent)' : 'transparent',
               color: tab === t.id ? 'white' : 'var(--t2)',
-              cursor: 'pointer', fontSize: 12.5, fontWeight: 600,
+              cursor: 'pointer', fontSize: 14, fontWeight: 600,
               fontFamily: 'var(--font-body)', transition: 'all 0.15s',
             }}
           >
@@ -115,7 +115,7 @@ export default function SentinelPage() {
           {/* Permission Settings */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 20, boxShadow: 'var(--shadow-sm)' }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 14 }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 14 }}>
                 Document Visibility Controls
               </h3>
               
@@ -127,8 +127,8 @@ export default function SentinelPage() {
                 ].map(item => (
                   <div key={item.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--border)' }}>
                     <div>
-                      <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>{item.label}</div>
-                      <div style={{ fontSize: 10, color: 'var(--t3)' }}>{item.desc}</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t3)' }}>{item.desc}</div>
                     </div>
                     
                     <button
@@ -140,7 +140,7 @@ export default function SentinelPage() {
                         background: (permissions as any)[item.key] ? 'var(--accent-light)' : 'rgba(220,38,38,0.08)',
                         color: (permissions as any)[item.key] ? 'var(--accent)' : 'var(--coral)',
                         fontWeight: 700,
-                        fontSize: 11.5,
+                        fontSize: 12.5,
                         cursor: 'pointer',
                         fontFamily: 'var(--font-mono)'
                       }}
@@ -155,21 +155,21 @@ export default function SentinelPage() {
 
           {/* Audit Logs */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 20, boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 14, display: 'flex', justifyContent: 'space-between' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 14, display: 'flex', justifyContent: 'space-between' }}>
               <span>🔐 Recruiter Query Audit Logs</span>
-              <span style={{ color: 'var(--teal)', fontSize: 10, fontFamily: 'var(--font-mono)' }}>● ACTIVE LEDGER</span>
+              <span style={{ color: 'var(--teal)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>● ACTIVE LEDGER</span>
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 360, overflowY: 'auto' }}>
               {logs.map(log => (
                 <div key={log.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>{log.company}</div>
-                    <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>{log.role} queried {log.resource}</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{log.company}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{log.role} queried {log.resource}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <span style={{
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-mono)',
                       background: log.status.includes('Blocked') || log.status.includes('Revoked') ? 'rgba(220,38,38,0.1)' : 'rgba(5,150,105,0.1)',
@@ -179,7 +179,7 @@ export default function SentinelPage() {
                     }}>
                       {log.status}
                     </span>
-                    <div style={{ fontSize: 9, color: 'var(--t4)', marginTop: 4 }}>{log.time}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t4)', marginTop: 4 }}>{log.time}</div>
                   </div>
                 </div>
               ))}
@@ -197,11 +197,11 @@ export default function SentinelPage() {
           padding: 40,
           textAlign: 'center'
         }}>
-          <div style={{ fontSize: 44, marginBottom: 16 }}>🔐</div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
+          <div style={{ fontSize: 48.5, marginBottom: 16 }}>🔐</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
             Add Cryptographic Document Fingerprint
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 20px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 20px', lineHeight: 1.5 }}>
             Generate immutable cryptographic identity hashes for SDE certificates and transcripts. Watermarks file blocks dynamically.
           </p>
           <button className="btn-primary" style={{ display: 'inline-flex' }}>
@@ -219,11 +219,11 @@ export default function SentinelPage() {
           padding: 40,
           textAlign: 'center'
         }}>
-          <div style={{ fontSize: 44, marginBottom: 16 }}>✓</div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
+          <div style={{ fontSize: 48.5, marginBottom: 16 }}>✓</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
             Audit Document Authenticity
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 20px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 20px', lineHeight: 1.5 }}>
             Upload a local file copy to verify its SHA-256 signatures against the active blockchain ledger hashes on file.
           </p>
           <button className="btn-primary" style={{ display: 'inline-flex' }}>
@@ -235,10 +235,10 @@ export default function SentinelPage() {
       {/* Recruiter Simulator Tester Tab Content */}
       {tab === 'tester' && (
         <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 24, padding: 24, boxShadow: 'var(--shadow-sm)' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>
             🔑 Recruiter Temporary Access Link Simulator
           </h2>
-          <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 20 }}>
+          <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 20 }}>
             Simulate a recruiter entering your temporary view key to access your secure document index. Tests the biometric face recognition handshakes.
           </p>
 
@@ -263,19 +263,19 @@ export default function SentinelPage() {
                   setTesterStep('biometric');
                 }} 
                 className="btn-primary"
-                style={{ alignSelf: 'flex-start', padding: '10px 20px', fontSize: 12.5 }}
+                style={{ alignSelf: 'flex-start', padding: '10px 20px', fontSize: 14 }}
               >
                 Validate Recruiter Session ➔
               </button>
-              {testMessage && <div style={{ fontSize: 11, color: 'var(--coral)' }}>{testMessage}</div>}
+              {testMessage && <div style={{ fontSize: 12, color: 'var(--coral)' }}>{testMessage}</div>}
             </div>
           )}
 
           {testerStep === 'biometric' && (
             <div style={{ textAlign: 'center', padding: '30px 10px' }} className="animate-fade-in">
-              <div style={{ fontSize: 40, marginBottom: 12 }}>📸</div>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>Recruiter Biometric Handshake</h3>
-              <p style={{ fontSize: 11.5, color: 'var(--t3)', maxWidth: 360, margin: '6px auto 16px', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 44, marginBottom: 12 }}>📸</div>
+              <h3 style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>Recruiter Biometric Handshake</h3>
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360, margin: '6px auto 16px', lineHeight: 1.4 }}>
                 Recruiter face verification active. The session requires matching the recruiter's face descriptors to authorize access.
               </p>
               <button 
@@ -286,7 +286,7 @@ export default function SentinelPage() {
                   }, 2000);
                 }} 
                 className="btn-primary"
-                style={{ display: 'inline-flex', padding: '9px 18px', fontSize: 12 }}
+                style={{ display: 'inline-flex', padding: '9px 18px', fontSize: 13 }}
               >
                 Simulate Recruiter Face Scan
               </button>
@@ -299,8 +299,8 @@ export default function SentinelPage() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               gap: 12, border: '1px solid var(--accent)'
             }} className="animate-fade-in">
-              <div style={{ fontSize: 28, animation: 'pulse 1s infinite' }}>👤</div>
-              <div style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>Verifying Recruiter Face ID...</div>
+              <div style={{ fontSize: 31, animation: 'pulse 1s infinite' }}>👤</div>
+              <div style={{ fontSize: 13, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>Verifying Recruiter Face ID...</div>
               <div style={{ height: 3, width: 140, background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
                 <div style={{ height: '100%', width: '60%', background: 'var(--accent)', borderRadius: 2, animation: 'pulse 1.5s infinite' }} />
               </div>
@@ -311,16 +311,16 @@ export default function SentinelPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="animate-fade-in">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 12, border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 20 }}>👩‍💼</span>
+                  <span style={{ fontSize: 22 }}>👩‍💼</span>
                   <div>
-                    <div style={{ fontSize: 12.5, fontWeight: 700 }}>Google Recruiter Session</div>
-                    <div style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Session Token: {testKey} (SHA-256 verified)</div>
+                    <div style={{ fontSize: 14, fontWeight: 700 }}>Google Recruiter Session</div>
+                    <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Session Token: {testKey} (SHA-256 verified)</div>
                   </div>
                 </div>
                 <button 
                   onClick={() => { setTesterStep('init'); setTestKey(''); }} 
                   className="btn-ghost btn-sm"
-                  style={{ fontSize: 11, color: 'var(--coral)' }}
+                  style={{ fontSize: 12, color: 'var(--coral)' }}
                 >
                   Revoke & Exit
                 </button>
@@ -344,10 +344,10 @@ export default function SentinelPage() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: 20 }}>{doc.icon}</span>
+                        <span style={{ fontSize: 22 }}>{doc.icon}</span>
                         <div>
-                          <div style={{ fontSize: 12, fontWeight: 700 }}>{doc.label}</div>
-                          <span style={{ fontSize: 9, fontWeight: 700, color: allowed ? 'var(--green)' : 'var(--coral)' }}>
+                          <div style={{ fontSize: 13, fontWeight: 700 }}>{doc.label}</div>
+                          <span style={{ fontSize: 10, fontWeight: 700, color: allowed ? 'var(--green)' : 'var(--coral)' }}>
                             {allowed ? '✓ ACCESSIBLE' : '🔒 LOCKED'}
                           </span>
                         </div>
@@ -357,7 +357,7 @@ export default function SentinelPage() {
                         <button 
                           onClick={() => alert(`Simulating file decryption & download for secure ${doc.label}`)}
                           className="btn-primary btn-sm" 
-                          style={{ width: '100%', justifyContent: 'center', padding: '4px', fontSize: 11 }}
+                          style={{ width: '100%', justifyContent: 'center', padding: '4px', fontSize: 12 }}
                         >
                           Decrypt & View
                         </button>
@@ -365,7 +365,7 @@ export default function SentinelPage() {
                         <button 
                           disabled 
                           className="btn-ghost btn-sm" 
-                          style={{ width: '100%', justifyContent: 'center', padding: '4px', fontSize: 11, cursor: 'not-allowed' }}
+                          style={{ width: '100%', justifyContent: 'center', padding: '4px', fontSize: 12, cursor: 'not-allowed' }}
                         >
                           Request Permission
                         </button>

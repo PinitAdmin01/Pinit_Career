@@ -98,7 +98,7 @@ export default function PricingPage() {
       {/* Hero */}
       <div className="page-hero" style={{ marginBottom: 28, textAlign: 'center' }}>
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <h1 className="page-hero-title" style={{ fontSize: 28, textAlign: 'center' }}>⚡ Pins & Plans</h1>
+          <h1 className="page-hero-title" style={{ fontSize: 31, textAlign: 'center' }}>⚡ Pins & Plans</h1>
           <p className="page-hero-sub" style={{ textAlign: 'center', margin: '0 auto', maxWidth: 540 }}>
             Pins power AI features. Earn free by completing missions and sessions — or buy a pack to unlock everything instantly.
           </p>
@@ -110,11 +110,11 @@ export default function PricingPage() {
             border: `1px solid ${pins < 20 ? 'rgba(220,38,38,0.25)' : 'rgba(79,70,229,0.2)'}`,
             borderRadius: 20,
           }}>
-            <span style={{ fontSize: 24 }}>⚡</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 900, color: pins < 20 ? 'var(--coral)' : 'var(--accent)', letterSpacing: '-1px' }}>
+            <span style={{ fontSize: 26.5 }}>⚡</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 35, fontWeight: 900, color: pins < 20 ? 'var(--coral)' : 'var(--accent)', letterSpacing: '-1px' }}>
               {pins.toLocaleString()}
             </span>
-            <span style={{ fontSize: 14, color: 'var(--t2)', fontWeight: 600 }}>pins available</span>
+            <span style={{ fontSize: 15.5, color: 'var(--t2)', fontWeight: 600 }}>pins available</span>
           </div>
         </div>
       </div>
@@ -127,8 +127,8 @@ export default function PricingPage() {
           {/* Pin Packs */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>💳 Buy Pin Packs</span>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Instant delivery</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800 }}>💳 Buy Pin Packs</span>
+              <span style={{ fontSize: 12, color: 'var(--t3)' }}>Instant delivery</span>
             </div>
             <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
               {PIN_PACKS.map(pack => (
@@ -140,19 +140,19 @@ export default function PricingPage() {
                   borderRadius: 12, position: 'relative',
                 }}>
                   {pack.highlight && (
-                    <div style={{ position: 'absolute', top: -8, right: 12, background: 'var(--amber)', color: '#000', fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 10, letterSpacing: '0.5px' }}>
+                    <div style={{ position: 'absolute', top: -8, right: 12, background: 'var(--amber)', color: '#000', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 10, letterSpacing: '0.5px' }}>
                       BEST VALUE
                     </div>
                   )}
                   <div style={{ width: 44, height: 44, borderRadius: 12, background: pack.highlight ? 'var(--accent-light)' : 'var(--bg2)', border: `1px solid ${pack.highlight ? 'rgba(79,70,229,0.2)' : 'var(--border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 900, color: pack.highlight ? 'var(--accent)' : 'var(--t1)' }}>⚡</span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 900, color: pack.highlight ? 'var(--accent)' : 'var(--t1)' }}>⚡</span>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1)', marginBottom: 2 }}>
+                    <div style={{ fontWeight: 800, fontSize: 15.5, color: 'var(--t1)', marginBottom: 2 }}>
                       {pack.pins} Pins
-                      <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500, marginLeft: 6 }}>{pack.name}</span>
+                      <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 500, marginLeft: 6 }}>{pack.name}</span>
                     </div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{pack.desc}</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>{pack.desc}</div>
                   </div>
                   <button
                     onClick={() => packMutation.mutate(pack)}
@@ -162,7 +162,7 @@ export default function PricingPage() {
                       background: pack.highlight ? 'var(--accent)' : 'var(--bg2)',
                       color: pack.highlight ? 'white' : 'var(--t1)',
                       border: pack.highlight ? 'none' : '1px solid var(--border)',
-                      fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap',
+                      fontSize: 14.5, fontWeight: 700, whiteSpace: 'nowrap',
                       fontFamily: 'var(--font-body)',
                     }}>
                     {pack.price}
@@ -175,7 +175,7 @@ export default function PricingPage() {
           {/* How to Earn Free Pins */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🎁 Earn Pins Free</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800 }}>🎁 Earn Pins Free</span>
             </div>
             <div style={{ padding: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               {EARN_WAYS.map(w => (
@@ -188,11 +188,11 @@ export default function PricingPage() {
                   }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = w.color; (e.currentTarget as HTMLElement).style.background = 'var(--bg2)'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLElement).style.background = 'var(--bg3)'; }}>
-                    <span style={{ fontSize: 16 }}>{w.icon}</span>
+                    <span style={{ fontSize: 17.5 }}>{w.icon}</span>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{w.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{w.label}</div>
                     </div>
-                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 700, color: w.color, flexShrink: 0 }}>{w.amount}</span>
+                    <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: w.color, flexShrink: 0 }}>{w.amount}</span>
                   </div>
                 </Link>
               ))}
@@ -202,7 +202,7 @@ export default function PricingPage() {
           {/* Feature Cost Table */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🔧 Feature Pin Costs</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800 }}>🔧 Feature Pin Costs</span>
             </div>
             <table className="data-table" style={{ margin: 0 }}>
               <thead>
@@ -225,7 +225,7 @@ export default function PricingPage() {
                         {meta.cost} ⚡
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: can ? 'var(--green)' : 'var(--coral)' }}>
+                        <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, color: can ? 'var(--green)' : 'var(--coral)' }}>
                           {can ? '✓ Unlocked' : '✗ Need more'}
                         </span>
                       </td>
@@ -243,7 +243,7 @@ export default function PricingPage() {
           {/* Subscription Plans */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🚀 Subscription Plans</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800 }}>🚀 Subscription Plans</span>
             </div>
             <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
 
@@ -251,33 +251,33 @@ export default function PricingPage() {
               <div style={{ padding: '16px 18px', border: `2px solid ${currentTier === 'free' ? 'var(--border2)' : 'var(--border)'}`, borderRadius: 14, background: currentTier === 'free' ? 'var(--bg3)' : 'transparent' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                   <div>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Free</div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>₹0</div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>Forever free</div>
+                    <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Free</div>
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>₹0</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>Forever free</div>
                   </div>
                   {currentTier === 'free' && <span className="badge badge-neutral">Current Plan</span>}
                 </div>
                 {['100 starter pins', '3 AI interviews/mo', '2 resume uploads/mo', 'Basic Career DNA', 'Full mission system'].map(f => (
-                  <div key={f} style={{ fontSize: 12.5, color: 'var(--t2)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <span style={{ color: 'var(--t3)', fontSize: 10 }}>✓</span>{f}
+                  <div key={f} style={{ fontSize: 14, color: 'var(--t2)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ color: 'var(--t3)', fontSize: 11 }}>✓</span>{f}
                   </div>
                 ))}
               </div>
 
               {/* Pro Plan */}
               <div style={{ padding: '16px 18px', border: `2px solid ${isPro ? 'var(--accent)' : 'rgba(79,70,229,0.3)'}`, borderRadius: 14, background: 'linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.06))', position: 'relative' }}>
-                {!isPro && <div style={{ position: 'absolute', top: -9, right: 14, background: 'var(--accent)', color: 'white', fontSize: 9, fontWeight: 800, padding: '2px 10px', borderRadius: 10, letterSpacing: '0.5px' }}>RECOMMENDED</div>}
+                {!isPro && <div style={{ position: 'absolute', top: -9, right: 14, background: 'var(--accent)', color: 'white', fontSize: 10, fontWeight: 800, padding: '2px 10px', borderRadius: 10, letterSpacing: '0.5px' }}>RECOMMENDED</div>}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                   <div>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Pro</div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>₹499<span style={{ fontSize: 13, fontWeight: 500, color: 'var(--t3)' }}>/mo</span></div>
-                    <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 600 }}>+200 pins every month</div>
+                    <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Pro</div>
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>₹499<span style={{ fontSize: 14.5, fontWeight: 500, color: 'var(--t3)' }}>/mo</span></div>
+                    <div style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 600 }}>+200 pins every month</div>
                   </div>
                   {isPro && <span className="badge badge-accent">Active ✓</span>}
                 </div>
                 {['200 pins/month included', 'Unlimited AI interviews', 'Unlimited resume uploads', 'Full Career Twin simulation', 'Priority evaluation queue', 'All avatar coaching modes'].map(f => (
-                  <div key={f} style={{ fontSize: 12.5, color: 'var(--t1)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <span style={{ color: 'var(--accent)', fontSize: 10 }}>✓</span>{f}
+                  <div key={f} style={{ fontSize: 14, color: 'var(--t1)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ color: 'var(--accent)', fontSize: 11 }}>✓</span>{f}
                   </div>
                 ))}
                 {!isPro && (
@@ -289,20 +289,20 @@ export default function PricingPage() {
                     {orderMutation.isPending ? 'Processing...' : 'Upgrade to Pro →'}
                   </button>
                 )}
-                {status?.endsAt && <div style={{ fontSize: 11, color: 'var(--green)', marginTop: 8, textAlign: 'center' }}>Active until {new Date(status.endsAt).toLocaleDateString()}</div>}
+                {status?.endsAt && <div style={{ fontSize: 12, color: 'var(--green)', marginTop: 8, textAlign: 'center' }}>Active until {new Date(status.endsAt).toLocaleDateString()}</div>}
               </div>
 
               {/* Institution */}
               <div style={{ padding: '14px 18px', border: '1px solid var(--border)', borderRadius: 14 }}>
-                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--purple)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 6 }}>Institution</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Custom</div>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 10 }}>TPO, University, Bootcamp</div>
+                <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--purple)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 6 }}>Institution</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Custom</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 10 }}>TPO, University, Bootcamp</div>
                 {['Everything in Pro', 'Bulk student management', 'Placement analytics', 'Attendance system', 'Dedicated support'].map(f => (
-                  <div key={f} style={{ fontSize: 12, color: 'var(--t2)', padding: '2px 0', display: 'flex', gap: 8 }}>
-                    <span style={{ color: 'var(--purple)', fontSize: 10 }}>✓</span>{f}
+                  <div key={f} style={{ fontSize: 13, color: 'var(--t2)', padding: '2px 0', display: 'flex', gap: 8 }}>
+                    <span style={{ color: 'var(--purple)', fontSize: 11 }}>✓</span>{f}
                   </div>
                 ))}
-                <a href="mailto:sales@pinit.io" style={{ display: 'block', marginTop: 12, padding: '8px', borderRadius: 8, background: 'var(--bg3)', color: 'var(--t1)', border: '1px solid var(--border)', fontSize: 13, fontWeight: 600, textAlign: 'center', textDecoration: 'none' }}>
+                <a href="mailto:sales@pinit.io" style={{ display: 'block', marginTop: 12, padding: '8px', borderRadius: 8, background: 'var(--bg3)', color: 'var(--t1)', border: '1px solid var(--border)', fontSize: 14.5, fontWeight: 600, textAlign: 'center', textDecoration: 'none' }}>
                   Contact Sales →
                 </a>
               </div>
@@ -312,15 +312,15 @@ export default function PricingPage() {
           {/* Pin Transaction History */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>📊 Pin History</span>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Last {Math.min(pinHistory.length, 10)} transactions</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800 }}>📊 Pin History</span>
+              <span style={{ fontSize: 12, color: 'var(--t3)' }}>Last {Math.min(pinHistory.length, 10)} transactions</span>
             </div>
             <div style={{ padding: 16 }}>
               <PinsHistory limit={10} />
             </div>
           </div>
 
-          <p style={{ textAlign: 'center', color: 'var(--t4)', fontSize: 11, marginTop: 4 }}>
+          <p style={{ textAlign: 'center', color: 'var(--t4)', fontSize: 12, marginTop: 4 }}>
             Secure payments via Razorpay · Cancel anytime · GST included
           </p>
         </div>

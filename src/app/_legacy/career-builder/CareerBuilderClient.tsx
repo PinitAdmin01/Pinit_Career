@@ -855,7 +855,7 @@ export default function CareerBuilderClient() {
           <button
             onClick={handleResetRoadmap}
             className="btn-ghost"
-            style={{ fontSize: 12.5, padding: '8px 16px', border: '1px solid var(--border)', cursor: 'pointer' }}
+            style={{ fontSize: 14, padding: '8px 16px', border: '1px solid var(--border)', cursor: 'pointer' }}
           >
             🔄 Reset Trajectory
           </button>
@@ -873,14 +873,14 @@ export default function CareerBuilderClient() {
             maxWidth: 600,
             margin: '0 auto'
           }}>
-            <div style={{ fontSize: 44, marginBottom: 16 }}>🔒</div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.5px', marginBottom: 10 }}>
+            <div style={{ fontSize: 48.5, marginBottom: 16 }}>🔒</div>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.5px', marginBottom: 10 }}>
               Career Roadmap Locked
             </h2>
-            <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, marginBottom: 24 }}>
+            <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, marginBottom: 24 }}>
               Please upload or build a resume in the <strong style={{ color: 'var(--accent)' }}>Resume Builder</strong> first. Your resume skills and onboarding choices will automatically fuse to construct your customized study quests.
             </p>
-            <Link href="/resume" className="btn-primary" style={{ display: 'inline-flex', padding: '12px 24px', fontSize: 13.5 }}>
+            <Link href="/resume" className="btn-primary" style={{ display: 'inline-flex', padding: '12px 24px', fontSize: 15 }}>
               Go to Resume Builder ➔
             </Link>
           </div>
@@ -890,7 +890,7 @@ export default function CareerBuilderClient() {
           {/* Selector Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div className="glass-card" style={{ padding: 20 }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: '0 0 14px 0' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 14px 0' }}>
                 1. Select Your Target Career Path Branch
               </h3>
               
@@ -935,20 +935,20 @@ export default function CareerBuilderClient() {
                         background: active ? 'var(--accent)' : 'var(--bg3)',
                         color: active ? 'white' : 'var(--t2)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 22, flexShrink: 0
+                        fontSize: 24, flexShrink: 0
                       }}>
                         {c.icon}
                       </div>
                       <div style={{ flex: 1 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                          <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{c.title}</span>
+                          <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>{c.title}</span>
                           {active && (
-                            <span style={{ fontSize: 9, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                               ✓ Active Target
                             </span>
                           )}
                         </div>
-                        <p style={{ fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.5, margin: 0 }}>{c.desc}</p>
+                        <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5, margin: 0 }}>{c.desc}</p>
                       </div>
                     </div>
                   );
@@ -958,12 +958,12 @@ export default function CareerBuilderClient() {
 
             {/* Customizer */}
             <div className="glass-card" style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
                 2. Customise Learning Depth
               </h3>
 
               <div className="form-group" style={{ marginBottom: 4 }}>
-                <label className="form-label" style={{ fontSize: 10 }}>Experience Level / Prior Knowledge</label>
+                <label className="form-label" style={{ fontSize: 11 }}>Experience Level / Prior Knowledge</label>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginTop: 6 }}>
                   {[
                     { id: 'beginner', label: '🥚 Beginner', desc: 'Syntax Basics & Logic' },
@@ -985,8 +985,8 @@ export default function CareerBuilderClient() {
                           transition: 'all 0.15s'
                         }}
                       >
-                        <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>{lvl.label}</div>
-                        <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 4 }}>{lvl.desc}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{lvl.label}</div>
+                        <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 4 }}>{lvl.desc}</div>
                       </div>
                     );
                   })}
@@ -994,7 +994,7 @@ export default function CareerBuilderClient() {
               </div>
 
               <div className="form-group" style={{ marginBottom: 4 }}>
-                <label className="form-label" style={{ fontSize: 10 }}>Concepts You Already Know (Comma Separated)</label>
+                <label className="form-label" style={{ fontSize: 11 }}>Concepts You Already Know (Comma Separated)</label>
                 <input
                   type="text"
                   placeholder="e.g. variables, loops, arrays, OOP, classes"
@@ -1006,7 +1006,7 @@ export default function CareerBuilderClient() {
               </div>
 
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label" style={{ fontSize: 10 }}>Custom Learning Target Focus (Optional)</label>
+                <label className="form-label" style={{ fontSize: 11 }}>Custom Learning Target Focus (Optional)</label>
                 <input
                   type="text"
                   placeholder="e.g. Spring Boot, REST endpoints, Docker containerisation"
@@ -1029,39 +1029,39 @@ export default function CareerBuilderClient() {
           }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                <span style={{ fontSize: 24 }}>⚙️</span>
+                <span style={{ fontSize: 26.5 }}>⚙️</span>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>Trajectory Blueprint</div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>{selectedCareer.title} Path</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>Trajectory Blueprint</div>
+                  <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>{selectedCareer.title} Path</div>
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
                 <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>ESTIMATED TIME</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginTop: 2 }}>{selectedCareer.estimatedWeeks} Weeks</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>ESTIMATED TIME</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 2 }}>{selectedCareer.estimatedWeeks} Weeks</div>
                 </div>
                 <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>LEVEL TARGET</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginTop: 2, textTransform: 'capitalize' }}>{experienceLevel} Focus</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>LEVEL TARGET</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 2, textTransform: 'capitalize' }}>{experienceLevel} Focus</div>
                 </div>
               </div>
 
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', marginBottom: 8 }}>Target Core Competencies</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', marginBottom: 8 }}>Target Core Competencies</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {selectedPath === 'java_sde' && ['Java Standard Library', 'OOP Principles', 'Spring Boot REST', 'SQL Databases', 'System Design'].map(s => (
-                    <span key={s} style={{ fontSize: 11, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
+                    <span key={s} style={{ fontSize: 12, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
                       ✓ {s}
                     </span>
                   ))}
                   {selectedPath === 'react_frontend' && ['React Hooks', 'NextJS SSR', 'Vanilla CSS', 'Zustand State', 'TypeScript Types'].map(s => (
-                    <span key={s} style={{ fontSize: 11, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
+                    <span key={s} style={{ fontSize: 12, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
                       ✓ {s}
                     </span>
                   ))}
                   {selectedPath === 'devops_cloud' && ['Docker Containers', 'CI/CD Pipelines', 'AWS Cloud Services', 'Prometheus & Grafana', 'Kubernetes Orchestration'].map(s => (
-                    <span key={s} style={{ fontSize: 11, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
+                    <span key={s} style={{ fontSize: 12, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '4px 10px', borderRadius: 8, color: 'var(--t2)' }}>
                       ✓ {s}
                     </span>
                   ))}
@@ -1071,7 +1071,7 @@ export default function CareerBuilderClient() {
 
             {generating ? (
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--t2)', marginBottom: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--t2)', marginBottom: 6 }}>
                   <span>Synthesizing roadmap modules...</span>
                   <span>{progress}%</span>
                 </div>
@@ -1083,7 +1083,7 @@ export default function CareerBuilderClient() {
               <button
                 onClick={handleGenerateRoadmap}
                 className="btn-primary"
-                style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: 13, gap: 8 }}
+                style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: 14.5, gap: 8 }}
               >
                 <span>🚀</span> Generate Career Quest Roadmap
               </button>
@@ -1105,21 +1105,21 @@ export default function CareerBuilderClient() {
               boxShadow: 'var(--shadow-md)'
             }}>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span>🎯 Roadmap Active Quest Board</span>
-                  <span className="badge badge-purple" style={{ fontSize: 10 }}>5 Quests Target</span>
+                  <span className="badge badge-purple" style={{ fontSize: 11 }}>5 Quests Target</span>
                 </div>
-                <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 0 }}>
+                <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4, marginBottom: 0 }}>
                   Quests cost 5 pins to unlock. Your daily quest allowance provides exactly 25 pins. Current balance: <strong style={{ color: 'var(--accent)' }}>⚡ {pins} Pins</strong>
                 </p>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 800, color: completedQuestsInRoadmap >= totalQuestsInRoadmap ? 'var(--green)' : 'var(--accent)' }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14.5, fontWeight: 800, color: completedQuestsInRoadmap >= totalQuestsInRoadmap ? 'var(--green)' : 'var(--accent)' }}>
                     Roadmap Completion: {completedQuestsInRoadmap} / {totalQuestsInRoadmap} Quests
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Solve in order to advance</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>Solve in order to advance</div>
                 </div>
                 <div style={{ width: 140, height: 10, background: 'var(--bg3)', borderRadius: 5, overflow: 'hidden', border: '1px solid var(--border)' }}>
                   <div style={{
@@ -1191,23 +1191,23 @@ export default function CareerBuilderClient() {
                               background: modPercentage === 100 ? 'var(--green-light)' : 'var(--accent-light)',
                               color: modPercentage === 100 ? 'var(--green)' : 'var(--accent)',
                               display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center',
-                              fontSize: 12, fontWeight: 800, flexShrink: 0
+                              fontSize: 13, fontWeight: 800, flexShrink: 0
                             }}>
                               {modPercentage === 100 ? '✓' : index + 1}
                             </span>
-                            <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>{mod.title}</span>
+                            <span style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>{mod.title}</span>
                           </div>
-                          <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, paddingLeft: 34, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{mod.desc}</p>
+                          <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0, paddingLeft: 34, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{mod.desc}</p>
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                           <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: modPercentage === 100 ? 'var(--green)' : 'var(--t2)' }}>
+                            <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, color: modPercentage === 100 ? 'var(--green)' : 'var(--t2)' }}>
                               {modPercentage}% Completed
                             </div>
-                            <div style={{ fontSize: 9, color: 'var(--t4)', marginTop: 2 }}>{mod.estimatedWeeks} weeks · {mod.difficulty}</div>
+                            <div style={{ fontSize: 10, color: 'var(--t4)', marginTop: 2 }}>{mod.estimatedWeeks} weeks · {mod.difficulty}</div>
                           </div>
-                          <span style={{ fontSize: 12, color: 'var(--t4)', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>▶</span>
+                          <span style={{ fontSize: 13, color: 'var(--t4)', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>▶</span>
                         </div>
                       </div>
 
@@ -1222,7 +1222,7 @@ export default function CareerBuilderClient() {
                           gap: 12,
                           paddingTop: 16
                         }}>
-                          <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 4 }}>
+                          <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 4 }}>
                             Module Programming Quests
                           </div>
 
@@ -1253,18 +1253,18 @@ export default function CareerBuilderClient() {
                                     background: status === 'completed' ? 'rgba(5,150,105,0.15)' : status === 'locked' ? 'var(--bg3)' : 'rgba(99, 102, 241, 0.15)',
                                     color: status === 'completed' ? 'var(--green)' : status === 'locked' ? 'var(--t3)' : 'var(--accent)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    fontSize: 13, fontWeight: 800, flexShrink: 0
+                                    fontSize: 14.5, fontWeight: 800, flexShrink: 0
                                   }}>
                                     {status === 'completed' ? '✓' : status === 'locked' ? '🔒' : qIdx + 1}
                                   </div>
 
                                   <div style={{ flex: 1, minWidth: 0 }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{q.title}</span>
-                                      {status === 'completed' && <span style={{ fontSize: 9, color: 'var(--green)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>COMPLETED</span>}
-                                      {status === 'unlocked' && <span style={{ fontSize: 9, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>START PLAY ➔</span>}
+                                      <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{q.title}</span>
+                                      {status === 'completed' && <span style={{ fontSize: 10, color: 'var(--green)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>COMPLETED</span>}
+                                      {status === 'unlocked' && <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>START PLAY ➔</span>}
                                     </div>
-                                    <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: '4px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                       {q.desc}
                                     </p>
                                   </div>
@@ -1292,17 +1292,17 @@ export default function CareerBuilderClient() {
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>{activePlaygroundQuest.title}</span>
+                      <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>{activePlaygroundQuest.title}</span>
                       <button
                         onClick={() => setShowHint(h => !h)}
-                        style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 11.5, fontWeight: 600, cursor: 'pointer' }}
+                        style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 12.5, fontWeight: 600, cursor: 'pointer' }}
                       >
                         {showHint ? 'Hide Hint' : 'Show Hint 💡'}
                       </button>
                     </div>
-                    <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>{activePlaygroundQuest.desc}</p>
+                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>{activePlaygroundQuest.desc}</p>
                     {showHint && (
-                      <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 10, borderRadius: 8, marginTop: 10, fontSize: 11, color: 'var(--amber)', lineHeight: 1.4 }}>
+                      <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 10, borderRadius: 8, marginTop: 10, fontSize: 12, color: 'var(--amber)', lineHeight: 1.4 }}>
                         💡 <strong>Hint:</strong> {activePlaygroundQuest.hint}
                       </div>
                     )}
@@ -1311,8 +1311,8 @@ export default function CareerBuilderClient() {
                   {/* Java Editor */}
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1px solid var(--border)', borderBottom: 'none', padding: '6px 12px', borderRadius: '10px 10px 0 0' }}>
-                      <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Solution.java (Compiler Simulator)</span>
-                      <span style={{ fontSize: 10.5, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>Java Standard Edition</span>
+                      <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Solution.java (Compiler Simulator)</span>
+                      <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>Java Standard Edition</span>
                     </div>
                     <textarea
                       value={code}
@@ -1323,7 +1323,7 @@ export default function CareerBuilderClient() {
                         background: '#1e1e24',
                         color: '#f8f8f2',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: 12,
+                        fontSize: 13,
                         padding: 14,
                         border: '1px solid var(--border)',
                         borderRadius: '0 0 10px 10px',
@@ -1341,7 +1341,7 @@ export default function CareerBuilderClient() {
                       border: `1.5px solid ${output.success ? 'var(--green)' : 'var(--coral)'}`,
                       padding: 12,
                       borderRadius: 10,
-                      fontSize: 12,
+                      fontSize: 13,
                       fontFamily: 'var(--font-mono)',
                       color: output.success ? 'var(--green)' : 'var(--coral)',
                       whiteSpace: 'pre-wrap'
@@ -1356,14 +1356,14 @@ export default function CareerBuilderClient() {
                     <button
                       onClick={verifySolution}
                       className="btn-primary"
-                      style={{ flex: 1, justifyContent: 'center', padding: 10, fontSize: 12.5 }}
+                      style={{ flex: 1, justifyContent: 'center', padding: 10, fontSize: 14 }}
                     >
                       Verify Solution ✓
                     </button>
                     <button
                       onClick={() => setCode(activePlaygroundQuest.starterCode)}
                       className="btn-ghost"
-                      style={{ padding: 10, fontSize: 12.5 }}
+                      style={{ padding: 10, fontSize: 14 }}
                     >
                       Reset
                     </button>
@@ -1375,10 +1375,10 @@ export default function CareerBuilderClient() {
         ) : (
           // ROADMAP INTERACTIVE EDITOR prior to committing
           <div className="glass-card animate-fade-in" style={{ padding: 30 }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0' }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0' }}>
               🛠 Interactive Modules Customiser
             </h2>
-            <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.5, margin: '0 0 24px 0' }}>
+            <p style={{ fontSize: 14.5, color: 'var(--t3)', lineHeight: 1.5, margin: '0 0 24px 0' }}>
               Review the generated modules blueprint. You can fully customize this roadmap by editing, adding, or deleting modules before committing it to your career timeline.
             </p>
 
@@ -1406,18 +1406,18 @@ export default function CareerBuilderClient() {
                           width: 24, height: 24, borderRadius: '50%',
                           background: 'var(--accent-light)', color: 'var(--accent)',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: 11.5, fontWeight: 700
+                          fontSize: 12.5, fontWeight: 700
                         }}>
                           {idx + 1}
                         </span>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{m.title}</span>
+                        <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{m.title}</span>
                       </div>
                       <div style={{ display: 'flex', gap: 8 }}>
                         <button
                           onClick={() => startEditingModule(m)}
                           style={{
                             background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: 6,
-                            color: 'var(--accent)', padding: '4px 9px', fontSize: 11, cursor: 'pointer', fontWeight: 600
+                            color: 'var(--accent)', padding: '4px 9px', fontSize: 12, cursor: 'pointer', fontWeight: 600
                           }}
                         >
                           Edit ✏️
@@ -1426,7 +1426,7 @@ export default function CareerBuilderClient() {
                           onClick={() => deleteModule(m.id)}
                           style={{
                             background: 'rgba(220,38,38,0.08)', border: 'none', borderRadius: 6,
-                            color: 'var(--coral)', padding: '4px 9px', fontSize: 11, cursor: 'pointer', fontWeight: 600
+                            color: 'var(--coral)', padding: '4px 9px', fontSize: 12, cursor: 'pointer', fontWeight: 600
                           }}
                         >
                           Delete 🗑
@@ -1434,9 +1434,9 @@ export default function CareerBuilderClient() {
                       </div>
                     </div>
 
-                    <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: 0, paddingLeft: 34 }}>{m.desc}</p>
+                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: 0, paddingLeft: 34 }}>{m.desc}</p>
                     
-                    <div style={{ display: 'flex', gap: 14, fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', paddingLeft: 34 }}>
+                    <div style={{ display: 'flex', gap: 14, fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)', paddingLeft: 34 }}>
                       <span>Difficulty: <strong style={{ color: 'var(--teal)' }}>{m.difficulty}</strong></span>
                       <span>Duration: <strong style={{ color: 'var(--accent)' }}>{m.estimatedWeeks} {m.estimatedWeeks === 1 ? 'Week' : 'Weeks'}</strong></span>
                       <span>Nested Quests: <strong style={{ color: 'var(--purple)' }}>{m.quests.length} Quests</strong></span>
@@ -1453,22 +1453,22 @@ export default function CareerBuilderClient() {
                       }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 12 }}>
                           <div className="form-group" style={{ margin: 0 }}>
-                            <label className="form-label" style={{ fontSize: 9 }}>Module Title</label>
+                            <label className="form-label" style={{ fontSize: 10 }}>Module Title</label>
                             <input
                               type="text"
                               value={editTitle}
                               onChange={e => setEditTitle(e.target.value)}
                               className="form-input"
-                              style={{ padding: '6px 10px', fontSize: 12 }}
+                              style={{ padding: '6px 10px', fontSize: 13 }}
                             />
                           </div>
                           <div className="form-group" style={{ margin: 0 }}>
-                            <label className="form-label" style={{ fontSize: 9 }}>Difficulty</label>
+                            <label className="form-label" style={{ fontSize: 10 }}>Difficulty</label>
                             <select
                               value={editDiff}
                               onChange={e => setEditDiff(e.target.value as any)}
                               className="form-input"
-                              style={{ padding: '6px 10px', fontSize: 12, background: 'var(--bg3)', color: 'var(--t1)' }}
+                              style={{ padding: '6px 10px', fontSize: 13, background: 'var(--bg3)', color: 'var(--t1)' }}
                             >
                               <option value="Beginner">Beginner</option>
                               <option value="Intermediate">Intermediate</option>
@@ -1476,7 +1476,7 @@ export default function CareerBuilderClient() {
                             </select>
                           </div>
                           <div className="form-group" style={{ margin: 0 }}>
-                            <label className="form-label" style={{ fontSize: 9 }}>Duration (Weeks)</label>
+                            <label className="form-label" style={{ fontSize: 10 }}>Duration (Weeks)</label>
                             <input
                               type="number"
                               min="1"
@@ -1484,18 +1484,18 @@ export default function CareerBuilderClient() {
                               value={editWeeks}
                               onChange={e => setEditWeeks(parseInt(e.target.value) || 2)}
                               className="form-input"
-                              style={{ padding: '6px 10px', fontSize: 12 }}
+                              style={{ padding: '6px 10px', fontSize: 13 }}
                             />
                           </div>
                         </div>
 
                         <div className="form-group" style={{ margin: 0 }}>
-                          <label className="form-label" style={{ fontSize: 9 }}>Description</label>
+                          <label className="form-label" style={{ fontSize: 10 }}>Description</label>
                           <textarea
                             value={editDesc}
                             onChange={e => setEditDesc(e.target.value)}
                             className="form-input"
-                            style={{ padding: '8px 10px', height: 60, resize: 'none', fontSize: 12 }}
+                            style={{ padding: '8px 10px', height: 60, resize: 'none', fontSize: 13 }}
                           />
                         </div>
 
@@ -1503,14 +1503,14 @@ export default function CareerBuilderClient() {
                           <button
                             onClick={() => setEditingModuleId(null)}
                             className="btn-ghost btn-sm"
-                            style={{ padding: '5px 12px', fontSize: 11 }}
+                            style={{ padding: '5px 12px', fontSize: 12 }}
                           >
                             Cancel
                           </button>
                           <button
                             onClick={saveModuleChanges}
                             className="btn-primary btn-sm"
-                            style={{ padding: '5px 12px', fontSize: 11 }}
+                            style={{ padding: '5px 12px', fontSize: 12 }}
                           >
                             Save Changes ✓
                           </button>
@@ -1527,14 +1527,14 @@ export default function CareerBuilderClient() {
               <button
                 onClick={addCustomModule}
                 className="btn-ghost"
-                style={{ fontSize: 12, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 6 }}
+                style={{ fontSize: 13, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 6 }}
               >
                 ➕ Add Custom Module
               </button>
               <button
                 onClick={commitRoadmap}
                 className="btn-primary"
-                style={{ fontSize: 13, padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 6 }}
+                style={{ fontSize: 14.5, padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 6 }}
               >
                 🔒 Commit & Lock Roadmap ➔
               </button>

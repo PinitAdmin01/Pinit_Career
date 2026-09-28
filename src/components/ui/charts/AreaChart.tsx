@@ -43,7 +43,7 @@ export default function AreaChart({
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--t3, #9ca3af)',
-          fontSize: 13,
+          fontSize: 14.5,
         }}
       >
         Not enough data yet
@@ -107,7 +107,7 @@ export default function AreaChart({
             x={pad.left - 6}
             y={sy(t) + 4}
             textAnchor="end"
-            fontSize="10"
+            fontSize="11"
             fill="var(--t3, #9ca3af)"
           >
             {t}
@@ -148,7 +148,7 @@ export default function AreaChart({
           x={sx(i)}
           y={H - 6}
           textAnchor="middle"
-          fontSize="10"
+          fontSize="11"
           fill="var(--t3, #9ca3af)"
         >
           {p.label}

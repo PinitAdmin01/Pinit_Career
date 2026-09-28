@@ -96,9 +96,9 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     return (
       <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 420, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 36, textAlign: 'center', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-          <div style={{ fontSize: 42, marginBottom: 16 }}>🔍</div>
-          <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginBottom: 10 }}>Quest Not Found</h2>
-          <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
+          <div style={{ fontSize: 46, marginBottom: 16 }}>🔍</div>
+          <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 10 }}>Quest Not Found</h2>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
             This quest may have been removed or your roadmap has changed. Return to the Quests Hub to continue.
           </p>
           <Link href="/quests?tab=custom_roadmap" className="btn-primary">← Back to Quests Hub</Link>
@@ -135,14 +135,14 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     <div style={{ maxWidth: 1200, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <Link href="/quests?tab=custom_roadmap" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/quests?tab=custom_roadmap" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 14.5, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             ← Return to Quests Tab
           </Link>
-          <h2 style={{ margin: '8px 0 0', fontSize: 22, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h2 style={{ margin: '8px 0 0', fontSize: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
             {isExam ? '📝 Taking Exam: ' : category === 'learning' ? '🎓 Learning Class: ' : '💻 Completing Assignment: '}
             {quest.title}
             <span style={{
-              fontSize: 10,
+              fontSize: 11,
               background: isExam ? 'rgba(var(--danger-rgb), 0.1)' : category === 'learning' ? 'rgba(var(--purple-rgb, 124, 58, 237), 0.1)' : 'rgba(79,70,229,0.1)',
               color: isExam ? 'var(--coral)' : category === 'learning' ? 'var(--reward-bright)' : 'var(--accent)',
               padding: '2px 8px',
@@ -156,13 +156,13 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           </h2>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: 12, color: 'var(--t3)', marginRight: 12 }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)', marginRight: 12 }}>
             Instructor: <strong style={{ color: currentTeacher.color }}>{currentTeacher.name} {currentTeacher.emoji}</strong>
           </span>
           {isExam ? (
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Timer: <strong style={{ color: 'var(--coral)', fontFamily: 'var(--font-mono)' }}>⏱ {state.timeLeft}</strong></span>
+            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Timer: <strong style={{ color: 'var(--coral)', fontFamily: 'var(--font-mono)' }}>⏱ {state.timeLeft}</strong></span>
           ) : (
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Balance: <strong style={{ color: 'var(--accent)' }}>⚡ {pins} Pins</strong></span>
+            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Balance: <strong style={{ color: 'var(--accent)' }}>⚡ {pins} Pins</strong></span>
           )}
         </div>
       </div>
@@ -172,17 +172,17 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20, justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 24 }}>
-                <h3 style={{ fontSize: 15, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>Quest Objective</h3>
-                <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{quest.desc}</p>
+                <h3 style={{ fontSize: 16.5, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>Quest Objective</h3>
+                <p style={{ fontSize: 15, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{quest.desc}</p>
               </div>
               {quest.syllabus && (
                 <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 24 }}>
-                  <h3 style={{ fontSize: 15, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>Syllabus Checklist</h3>
+                  <h3 style={{ fontSize: 16.5, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>Syllabus Checklist</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {quest.syllabus.map((topic: string, i: number) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                        <span style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: 14 }}>•</span>
-                        <span style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{topic}</span>
+                        <span style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: 15.5 }}>•</span>
+                        <span style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.4 }}>{topic}</span>
                       </div>
                     ))}
                   </div>
@@ -191,10 +191,10 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             </div>
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: isCompleted ? 'var(--green)' : 'var(--t1)' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: isCompleted ? 'var(--green)' : 'var(--t1)' }}>
                   {isCompleted ? '✓ Lesson Completed' : 'Completed your discussion?'}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                   {isCompleted ? 'You have successfully completed this lesson.' : 'Ready to finalize this milestone lesson?'}
                 </div>
               </div>
@@ -211,12 +211,12 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
         <div style={{ display: 'grid', gridTemplateColumns: state.showGuidedMentor ? '1.1fr 1.3fr 1.2fr' : '1fr 1.2fr', gap: 24, alignItems: 'flex-start', transition: 'all 0.3s ease' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div style={{ background: 'var(--bg2)', border: '1.5px solid var(--border)', borderRadius: 20, padding: 24, borderTop: isExam ? '4px solid var(--coral)' : undefined }}>
-              <h3 style={{ fontSize: 15, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>
+              <h3 style={{ fontSize: 16.5, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>
                 {isExam ? 'Exam Instructions' : 'Assignment Description'}
               </h3>
-              <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 16px 0' }}>{quest.desc}</p>
+              <p style={{ fontSize: 15, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 16px 0' }}>{quest.desc}</p>
               {isExam && (
-                <div style={{ background: 'rgba(var(--danger-rgb), 0.05)', border: '1px solid rgba(var(--danger-rgb), 0.15)', borderRadius: 12, padding: 14, fontSize: 12.5, color: 'var(--coral)', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <div style={{ background: 'rgba(var(--danger-rgb), 0.05)', border: '1px solid rgba(var(--danger-rgb), 0.15)', borderRadius: 12, padding: 14, fontSize: 14, color: 'var(--coral)', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                   <span>⚠️</span>
                   <div>
                     <strong>Proctored Session:</strong> Tab-switches or exiting this browser view are logged in the cryptographically signed Sentinel trust ledger. Do not exit full-screen.
@@ -234,7 +234,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   background: state.showGuidedMentor ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                   color: state.showGuidedMentor ? 'var(--t1)' : 'var(--text)',
                   fontWeight: 800,
-                  fontSize: 12,
+                  fontSize: 13,
                   cursor: 'pointer'
                 }}
               >
@@ -244,11 +244,11 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
             {quest.hint && (
               <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 24 }}>
-                <button onClick={() => state.setShowHint(h => !h)} style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 12.5, fontWeight: 700, cursor: 'pointer', padding: 0 }}>
+                <button onClick={() => state.setShowHint(h => !h)} style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 14, fontWeight: 700, cursor: 'pointer', padding: 0 }}>
                   {state.showHint ? '💡 Hide Hint' : '💡 Show Hint'}
                 </button>
                 {state.showHint && (
-                  <p style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 12, borderRadius: 10, marginTop: 8, fontSize: 12, color: 'var(--amber)', lineHeight: 1.5 }}>
+                  <p style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 12, borderRadius: 10, marginTop: 8, fontSize: 13, color: 'var(--amber)', lineHeight: 1.5 }}>
                     {quest.hint}
                   </p>
                 )}

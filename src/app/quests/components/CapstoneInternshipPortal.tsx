@@ -42,14 +42,14 @@ const STATE_STYLE: Record<SprintState, { border: string; color: string; bg: stri
 
 const inputStyle: React.CSSProperties = {
   padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)',
-  background: 'var(--bg2)', color: 'var(--text)', fontSize: 12.5,
+  background: 'var(--bg2)', color: 'var(--text)', fontSize: 14,
   fontWeight: 600, outline: 'none', width: '100%', boxSizing: 'border-box',
 };
 
 const primaryButton = (disabled: boolean): React.CSSProperties => ({
   padding: '10px 20px', borderRadius: 10, border: 'none',
   background: disabled ? 'var(--bg2)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-  color: disabled ? 'var(--t4)' : '#fff', fontSize: 12.5, fontWeight: 800,
+  color: disabled ? 'var(--t4)' : '#fff', fontSize: 14, fontWeight: 800,
   cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-display)',
   opacity: disabled ? 0.6 : 1, alignSelf: 'flex-start',
 });
@@ -124,7 +124,7 @@ export default function CapstoneInternshipPortal({
       return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {last && (
-            <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+            <div style={{ fontSize: 13, color: 'var(--t3)' }}>
               Last attempt: {last.score}% · {last.verdict} (not passed yet)
             </div>
           )}
@@ -183,14 +183,14 @@ export default function CapstoneInternshipPortal({
           flexShrink: 0,
         }}>
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
               🏆 {planTitle} Capstone
             </h2>
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Student: {studentName}</span>
+            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Student: {studentName}</span>
           </div>
           <button onClick={onClose} style={{
             padding: '6px 12px', borderRadius: 8, background: 'var(--bg3)',
-            border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+            border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
           }} aria-label="Close capstone">✕ Close</button>
         </div>
 
@@ -199,21 +199,21 @@ export default function CapstoneInternshipPortal({
           padding: '14px 24px', borderBottom: '1px solid var(--border)',
           display: 'flex', gap: 16, alignItems: 'center', flexShrink: 0, flexWrap: 'wrap',
         }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Sprints approved:</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Sprints approved:</span>
           <div style={{ flex: 1, minWidth: 120, height: 8, borderRadius: 4, background: 'var(--bg3)', overflow: 'hidden' }}>
             <div style={{
               width: `${(approvedCount / CAPSTONE_SPRINTS.length) * 100}%`, height: '100%',
               borderRadius: 4, background: 'linear-gradient(90deg, #6366f1, #10b981)', transition: 'width 0.5s ease',
             }} />
           </div>
-          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)' }}>{approvedCount}/{CAPSTONE_SPRINTS.length}</span>
+          <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--accent)' }}>{approvedCount}/{CAPSTONE_SPRINTS.length}</span>
         </div>
 
         <div style={{ flex: 1, overflow: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
           {!trainingDone && (
             <div style={{
               padding: 14, borderRadius: 12, background: 'rgba(245,158,11,0.1)',
-              border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontSize: 12.5, fontWeight: 700,
+              border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontSize: 14, fontWeight: 700,
             }}>
               🔒 The capstone opens after the last lesson of your course ({lessonsLeft} {lessonsLeft === 1 ? 'lesson' : 'lessons'} left).
             </div>
@@ -221,7 +221,7 @@ export default function CapstoneInternshipPortal({
 
           {feedback && (
             <div role="status" style={{
-              padding: '10px 14px', borderRadius: 10, fontSize: 12.5, fontWeight: 700,
+              padding: '10px 14px', borderRadius: 10, fontSize: 14, fontWeight: 700,
               background: feedback.kind === 'ok' ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.12)',
               border: `1px solid ${feedback.kind === 'ok' ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`,
               color: feedback.kind === 'ok' ? '#10b981' : '#f87171',
@@ -239,19 +239,19 @@ export default function CapstoneInternshipPortal({
                 border: `1px solid ${style.border}`, opacity: state === 'locked' ? 0.6 : 1,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{s.title}</span>
+                  <span style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{s.title}</span>
                   <span style={{
-                    fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6,
+                    fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 6,
                     background: style.bg, border: `1px solid ${style.border}`, color: style.color,
                   }}>{style.label}</span>
                 </div>
-                <p style={{ fontSize: 12, color: 'var(--t3)', margin: '0 0 4px' }}>{s.description}</p>
-                <p style={{ fontSize: 11, color: 'var(--t4)', margin: '0 0 10px' }}>How we check: {s.check}</p>
+                <p style={{ fontSize: 13, color: 'var(--t3)', margin: '0 0 4px' }}>{s.description}</p>
+                <p style={{ fontSize: 12, color: 'var(--t4)', margin: '0 0 10px' }}>How we check: {s.check}</p>
 
                 {state === 'approved' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                     {submitted(s.sprint).map(([label, value]) => (
-                      <div key={label} style={{ fontSize: 12, color: 'var(--t2)', wordBreak: 'break-all' }}>
+                      <div key={label} style={{ fontSize: 13, color: 'var(--t2)', wordBreak: 'break-all' }}>
                         <strong>{label}:</strong>{' '}
                         {value.startsWith('https://')
                           ? <a href={value} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>{value}</a>
@@ -267,7 +267,7 @@ export default function CapstoneInternshipPortal({
 
           {/* Certificate */}
           <div style={{ padding: 18, borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-            <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px', fontFamily: 'var(--font-display)' }}>
+            <h3 style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px', fontFamily: 'var(--font-display)' }}>
               📜 Capstone Project Certificate
             </h3>
             {certificateId ? (
@@ -276,12 +276,12 @@ export default function CapstoneInternshipPortal({
                   <QRCodeSVG value={verifyUrl} size={112} />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
-                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>Certificate ID</div>
-                  <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', fontFamily: 'monospace' }}>{certificateId}</div>
-                  <a href={verifyPath} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)' }}>
+                  <div style={{ fontSize: 13, color: 'var(--t3)' }}>Certificate ID</div>
+                  <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'monospace' }}>{certificateId}</div>
+                  <a href={verifyPath} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent)' }}>
                     Open the public verification page →
                   </a>
-                  <div style={{ fontSize: 11, color: 'var(--t4)' }}>Anyone can scan the code or open the link to check it was issued by PinIT.</div>
+                  <div style={{ fontSize: 12, color: 'var(--t4)' }}>Anyone can scan the code or open the link to check it was issued by PinIT.</div>
                 </div>
               </div>
             ) : current === null && trainingDone ? (
@@ -289,7 +289,7 @@ export default function CapstoneInternshipPortal({
                 {busy ? 'Issuing…' : '🎓 Get my certificate'}
               </button>
             ) : (
-              <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>
+              <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0 }}>
                 Your certificate is issued when all four sprints are approved. It gets a unique ID and a public verification page.
               </p>
             )}
@@ -304,7 +304,7 @@ export default function CapstoneInternshipPortal({
           <button onClick={onClose} style={{
             padding: '10px 24px', borderRadius: 10,
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            border: 'none', color: '#fff', fontSize: 13, fontWeight: 800, cursor: 'pointer',
+            border: 'none', color: '#fff', fontSize: 14.5, fontWeight: 800, cursor: 'pointer',
             fontFamily: 'var(--font-display)', boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
           }}>
             Close →

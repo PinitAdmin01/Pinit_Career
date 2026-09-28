@@ -51,15 +51,15 @@ export const ListeningLessonView: React.FC<ListeningLessonViewProps> = ({
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Level Roadmap
         </button>
-        <span style={{ fontSize: 13, color: '#f59e0b', fontWeight: 600 }}>
+        <span style={{ fontSize: 14.5, color: '#f59e0b', fontWeight: 600 }}>
           LISTENING PRACTICE: {listening.title}
         </span>
       </div>
 
       {/* Audio Player Card */}
       <div style={{ background: '#27272a', padding: 20, borderRadius: 12, textAlign: 'center', marginBottom: 24 }}>
-        <div style={{ fontSize: 36, marginBottom: 8 }}>🎧</div>
-        <h3 style={{ fontSize: 16, margin: '0 0 12px 0' }}>Listen to Mentor Narration</h3>
+        <div style={{ fontSize: 39.5, marginBottom: 8 }}>🎧</div>
+        <h3 style={{ fontSize: 17.5, margin: '0 0 12px 0' }}>Listen to Mentor Narration</h3>
         <button
           onClick={playScript}
           style={{
@@ -74,14 +74,14 @@ export const ListeningLessonView: React.FC<ListeningLessonViewProps> = ({
         >
           ▶ Play Narration (Priya Voice)
         </button>
-        {hasPlayed && <div style={{ fontSize: 12, color: '#34d399', marginTop: 8 }}>✓ Audio played. Answer the questions below:</div>}
+        {hasPlayed && <div style={{ fontSize: 13, color: '#34d399', marginTop: 8 }}>✓ Audio played. Answer the questions below:</div>}
       </div>
 
       {/* Comprehension Questions */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {questions.map((q, qIdx) => (
           <div key={qIdx} style={{ background: '#18181b', border: '1px solid #27272a', padding: 16, borderRadius: 12 }}>
-            <h4 style={{ fontSize: 15, margin: '0 0 12px 0' }}>{qIdx + 1}. {q.question}</h4>
+            <h4 style={{ fontSize: 16.5, margin: '0 0 12px 0' }}>{qIdx + 1}. {q.question}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {q.options.map((opt, oIdx) => {
                 const isSelected = selectedAnswers[qIdx] === oIdx;
@@ -97,7 +97,7 @@ export const ListeningLessonView: React.FC<ListeningLessonViewProps> = ({
                       padding: 10,
                       textAlign: 'left',
                       cursor: 'pointer',
-                      fontSize: 14
+                      fontSize: 15.5
                     }}
                   >
                     {opt}

@@ -170,10 +170,10 @@ export default function VaultPage() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, marginBottom: 4 }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 800, marginBottom: 4 }}>
             Proof-of-Work Vault
           </h2>
-          <p style={{ color: 'var(--t2)', fontSize: 13 }}>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5 }}>
             🔒 Evidence locker for certifications, projects, and credentials.
           </p>
         </div>
@@ -192,8 +192,8 @@ export default function VaultPage() {
           { label: 'Verified Trust Quotient', value: verified_total > 0 ? `${avg_score}%` : 'Pending Verification', color: 'var(--teal)' },
         ].map(s => (
           <div key={s.label} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px 20px', borderTop: `3px solid ${s.color}` }}>
-            <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>{s.label}</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</div>
+            <div style={{ fontSize: 11, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>{s.label}</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 31, fontWeight: 800, color: s.color }}>{s.value}</div>
           </div>
         ))}
       </div>
@@ -227,9 +227,9 @@ export default function VaultPage() {
             }
           }}
         />
-        <div style={{ fontSize: 32, marginBottom: 8 }}>📤</div>
-        <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>Drag & Drop Proof-of-Work</h3>
-        <p style={{ fontSize: 11.5, color: 'var(--t3)', maxWidth: 420, margin: '0 auto' }}>
+        <div style={{ fontSize: 35, marginBottom: 8 }}>📤</div>
+        <h3 style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 4 }}>Drag & Drop Proof-of-Work</h3>
+        <p style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 420, margin: '0 auto' }}>
           Supports PDFs, GitHub ZIPs, certificates, and images. PinIT document analyzer inspects metadata and extracts skills upon upload.
         </p>
       </div>
@@ -237,7 +237,7 @@ export default function VaultPage() {
       {/* Add Form */}
       {showForm && (
         <div style={{ background: 'var(--card)', border: '1px solid var(--border2)', borderRadius: 18, padding: 24, marginBottom: 24 }} className="animate-fade-in">
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, marginBottom: 16 }}>Add Proof-of-Work Asset</h3>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, marginBottom: 16 }}>Add Proof-of-Work Asset</h3>
           <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div className="form-group">
@@ -291,7 +291,7 @@ export default function VaultPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    fontSize: 12,
+                    fontSize: 13,
                     border: '1px dashed var(--border2)',
                     borderRadius: 8,
                     overflow: 'hidden',
@@ -315,7 +315,7 @@ export default function VaultPage() {
       <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
         {['all', ...Object.keys(TYPE_CONFIG)].map(t => (
           <button key={t} onClick={() => setFilter(t)}
-            style={{ padding: '5px 14px', borderRadius: 20, border: `1px solid ${filter === t ? 'var(--accent)' : 'var(--border)'}`, background: filter === t ? 'rgba(79,70,229,0.1)' : 'transparent', color: filter === t ? '#8b8bf5' : 'var(--t2)', cursor: 'pointer', fontSize: 12 }}>
+            style={{ padding: '5px 14px', borderRadius: 20, border: `1px solid ${filter === t ? 'var(--accent)' : 'var(--border)'}`, background: filter === t ? 'rgba(79,70,229,0.1)' : 'transparent', color: filter === t ? '#8b8bf5' : 'var(--t2)', cursor: 'pointer', fontSize: 13 }}>
             {t === 'all' ? 'All Assets' : TYPE_CONFIG[t]?.label}
           </button>
         ))}
@@ -324,7 +324,7 @@ export default function VaultPage() {
       {/* Items */}
       {uploading && !showForm ? (
         <div style={{ textAlign: 'center', padding: 48, background: 'var(--bg2)', borderRadius: 14, border: '1px dashed var(--accent)', color: 'var(--accent)' }}>
-          <span style={{ display: 'block', fontSize: 24, marginBottom: 8, animation: 'pulse 1.5s infinite' }}>🔒</span>
+          <span style={{ display: 'block', fontSize: 26.5, marginBottom: 8, animation: 'pulse 1.5s infinite' }}>🔒</span>
           Extracting document metadata & running AI security analysis...
         </div>
       ) : filteredItems.length === 0 ? (
@@ -375,7 +375,7 @@ export default function VaultPage() {
                   }} />
                   
                   {/* Large visual icon */}
-                  <div style={{ fontSize: 36, position: 'relative', zIndex: 1 }}>
+                  <div style={{ fontSize: 39.5, position: 'relative', zIndex: 1 }}>
                     {cfg.icon}
                   </div>
 
@@ -390,7 +390,7 @@ export default function VaultPage() {
                       border: '1px solid rgba(34,197,94,0.3)',
                       borderRadius: 100,
                       padding: '2px 8px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-mono)',
                       letterSpacing: '0.5px',
@@ -408,7 +408,7 @@ export default function VaultPage() {
                       border: '1px solid rgba(245,158,11,0.25)',
                       borderRadius: 100,
                       padding: '2px 8px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-mono)',
                       letterSpacing: '0.5px',
@@ -431,7 +431,7 @@ export default function VaultPage() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 6,
-                    fontSize: 10,
+                    fontSize: 11,
                     fontFamily: 'var(--font-mono)',
                     fontWeight: 700,
                     color: 'var(--t2)'
@@ -442,7 +442,7 @@ export default function VaultPage() {
                         AI Trust: {score}%
                       </>
                     ) : (
-                      <span style={{ color: 'var(--amber)', fontSize: 9.5 }}>Pending Audit</span>
+                      <span style={{ color: 'var(--amber)', fontSize: 10.5 }}>Pending Audit</span>
                     )}
                   </div>
                 </div>
@@ -450,27 +450,27 @@ export default function VaultPage() {
                 {/* Card details body */}
                 <div style={{ padding: 16, flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 9.5, color: 'var(--t3)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+                    <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                       {cfg.label}
                     </span>
                     {item.is_public && (
-                      <span style={{ fontSize: 9, padding: '2px 6px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)', fontFamily: 'var(--font-mono)' }}>👁 Shared</span>
+                      <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)', fontFamily: 'var(--font-mono)' }}>👁 Shared</span>
                     )}
                   </div>
 
                   <div>
-                    <h3 style={{ margin: '0 0 3px', fontSize: 14, fontWeight: 700, color: 'var(--t1)', lineClamp: 1, WebkitLineClamp: 1, overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical' }}>
+                    <h3 style={{ margin: '0 0 3px', fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', lineClamp: 1, WebkitLineClamp: 1, overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical' }}>
                       {item.title}
                     </h3>
                     {item.organization_name && (
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)', fontWeight: 500 }}>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)', fontWeight: 500 }}>
                         {item.organization_name}
                       </div>
                     )}
                   </div>
 
                   {item.description && (
-                    <p style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.45, margin: 0, lineClamp: 2, WebkitLineClamp: 2, overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical' }}>
+                    <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45, margin: 0, lineClamp: 2, WebkitLineClamp: 2, overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical' }}>
                       {item.description}
                     </p>
                   )}
@@ -479,12 +479,12 @@ export default function VaultPage() {
                   {(item.used_in_resume || item.used_in_portfolio) && (
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto', paddingTop: 6 }}>
                       {item.used_in_resume && (
-                        <span style={{ fontSize: 9, padding: '2px 6px', borderRadius: 6, background: 'rgba(99,102,241,0.1)', color: '#8b8bf5', border: '1px solid rgba(99,102,241,0.2)', fontFamily: 'var(--font-mono)' }}>
+                        <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 6, background: 'rgba(99,102,241,0.1)', color: '#8b8bf5', border: '1px solid rgba(99,102,241,0.2)', fontFamily: 'var(--font-mono)' }}>
                           📄 Resume
                         </span>
                       )}
                       {item.used_in_portfolio && (
-                        <span style={{ fontSize: 9, padding: '2px 6px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)', fontFamily: 'var(--font-mono)' }}>
+                        <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)', fontFamily: 'var(--font-mono)' }}>
                           🌐 Portfolio
                         </span>
                       )}
@@ -495,7 +495,7 @@ export default function VaultPage() {
                   {item.skill_tags && item.skill_tags.length > 0 && (
                     <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: (item.used_in_resume || item.used_in_portfolio) ? 2 : 'auto' }}>
                       {item.skill_tags.slice(0, 3).map((s: string) => (
-                        <span key={s} style={{ fontSize: 9.5, padding: '2px 6px', borderRadius: 4, background: 'var(--bg3)', color: 'var(--t2)', border: '1px solid var(--border)', fontFamily: 'var(--font-mono)' }}>
+                        <span key={s} style={{ fontSize: 10.5, padding: '2px 6px', borderRadius: 4, background: 'var(--bg3)', color: 'var(--t2)', border: '1px solid var(--border)', fontFamily: 'var(--font-mono)' }}>
                           {s}
                         </span>
                       ))}
@@ -510,13 +510,13 @@ export default function VaultPage() {
                       updateVaultItem(item.id, { is_public: !item.is_public });
                     }}
                     className="btn-ghost btn-sm"
-                    style={{ fontSize: 11, padding: '4px 8px', flex: 1, justifyContent: 'center' }}
+                    style={{ fontSize: 12, padding: '4px 8px', flex: 1, justifyContent: 'center' }}
                   >
                     {item.is_public ? '🔒 Private' : '👁 Share'}
                   </button>
                   {!item.verified && (
                     <span style={{ 
-                      fontSize: 10.5, padding: '4px 8px', color: 'var(--amber)', 
+                      fontSize: 11.5, padding: '4px 8px', color: 'var(--amber)', 
                       background: 'rgba(245,158,11,0.08)', borderRadius: 6,
                       border: '1px solid rgba(245,158,11,0.15)', display: 'inline-flex',
                       alignItems: 'center', justifyContent: 'center', flex: 1, fontWeight: 600

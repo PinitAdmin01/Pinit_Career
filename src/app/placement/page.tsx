@@ -10,7 +10,7 @@ export default function PlacementRedirectPage() {
     router.replace('/career-intelligence?tab=tracker');
   }, [router]);
   return (
-    <div style={{ padding: 40, color: 'var(--t2)', fontSize: 13 }}>
+    <div style={{ padding: 40, color: 'var(--t2)', fontSize: 14.5 }}>
       <p style={{ marginBottom: 8 }}>Redirecting to AI Placement Predictor...</p>
       <Link href="/career-intelligence?tab=tracker" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>
         Click here if not redirected automatically →

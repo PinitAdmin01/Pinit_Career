@@ -171,8 +171,8 @@ function MissionsPageInner() {
             >
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: theme.tPrimary }}>Today's Progress</span>
-                  <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: theme.tSecondary, fontWeight: 600 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: theme.tPrimary }}>Today's Progress</span>
+                  <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: theme.tSecondary, fontWeight: 600 }}>
                     {completed.length}/{allTodayMissions.length} Completed
                   </span>
                 </div>
@@ -214,7 +214,7 @@ function MissionsPageInner() {
                   background: 'none',
                   border: 'none',
                   padding: '8px 16px',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   fontWeight: activeTab === tKey ? 800 : 500,
                   color: activeTab === tKey ? 'var(--accent)' : theme.tTertiary,
                   borderBottom: activeTab === tKey ? '3px solid var(--accent)' : '3px solid transparent',

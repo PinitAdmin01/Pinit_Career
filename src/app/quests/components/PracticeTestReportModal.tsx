@@ -56,7 +56,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
             background: 'transparent',
             border: 'none',
             color: '#94a3b8',
-            fontSize: 18,
+            fontSize: 20,
             cursor: 'pointer',
             padding: 4
           }}
@@ -67,15 +67,15 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
         {/* Header */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: 20 }}>📊</span>
-            <span style={{ fontSize: 11, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <span style={{ fontSize: 22 }}>📊</span>
+            <span style={{ fontSize: 12, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Immediate Diagnostic Assessment Report
             </span>
           </div>
-          <h3 style={{ fontSize: 18, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#ffffff', margin: 0 }}>
             {testTitle}
           </h3>
-          <p style={{ fontSize: 12, color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
             Instant evaluation generated against industry role benchmarks.
           </p>
         </div>
@@ -91,20 +91,20 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
           border: '1px solid rgba(255, 255, 255, 0.08)'
         }}>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Overall Score</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#10b981', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Overall Score</div>
+            <div style={{ fontSize: 24, fontWeight: 900, color: '#10b981', marginTop: 2 }}>
               {result ? `${result.score} / ${result.totalQuestions}` : '88 / 100'}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Accuracy</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#38bdf8', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Accuracy</div>
+            <div style={{ fontSize: 24, fontWeight: 900, color: '#38bdf8', marginTop: 2 }}>
               {result ? `${result.accuracyPercent}%` : '88%'}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Time Taken</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#818cf8', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Time Taken</div>
+            <div style={{ fontSize: 24, fontWeight: 900, color: '#818cf8', marginTop: 2 }}>
               {(() => {
                 const s = typeof result?.timeTakenSeconds === 'number' ? Math.max(0, result.timeTakenSeconds) : 225;
                 return `${Math.floor(s / 60)}m ${s % 60}s`;
@@ -112,8 +112,8 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Readiness</div>
-            <div style={{ fontSize: 13, fontWeight: 900, color: '#f59e0b', marginTop: 6 }}>
+            <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Readiness</div>
+            <div style={{ fontSize: 14.5, fontWeight: 900, color: '#f59e0b', marginTop: 6 }}>
               {(result?.accuracyPercent ?? 88) >= 80 ? 'Placement Ready' : (result?.accuracyPercent ?? 88) >= 60 ? 'Progressing Well' : 'Needs Practice'}
             </div>
           </div>
@@ -121,7 +121,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
 
         {/* Topic Breakdown */}
         <div>
-          <h4 style={{ fontSize: 13, fontWeight: 800, color: '#ffffff', marginBottom: 10 }}>
+          <h4 style={{ fontSize: 14.5, fontWeight: 800, color: '#ffffff', marginBottom: 10 }}>
             Topic Competency Breakdown
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -140,7 +140,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
                 ]
             ).map((t, idx) => (
               <div key={idx}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, marginBottom: 4 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 4 }}>
                   <span style={{ color: '#cbd5e1' }}>{t.topic}</span>
                   <span style={{ color: t.color, fontWeight: 800 }}>{t.score}%</span>
                 </div>
@@ -162,10 +162,10 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
           flexDirection: 'column',
           gap: 6
         }}>
-          <div style={{ fontSize: 11, fontWeight: 900, color: '#f59e0b', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 12, fontWeight: 900, color: '#f59e0b', textTransform: 'uppercase' }}>
             ⚡ Detected Skill Gap & Diagnostic Feedback:
           </div>
-          <p style={{ fontSize: 11.5, color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>
+          <p style={{ fontSize: 12.5, color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>
             {result && result.skillGaps && result.skillGaps.length > 0
               ? `Identified focus areas: ${result.skillGaps.join(', ')}. Complete corresponding practice labs to solidify your retention.`
               : 'Excellent foundation! Your core competency marks you as interview-ready for the current milestone.'}
@@ -183,7 +183,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
               background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
               border: 'none',
               color: '#ffffff',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 800,
               cursor: 'pointer'
             }}

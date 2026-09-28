@@ -29,8 +29,8 @@ export type TimelineCategory = 'Course' | 'Project' | 'Internship' | 'Hackathon'
 
 export const CS = {
   card:      { background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius-xl)', padding:20, position: 'relative' } as const,
-  cardTitle: { fontSize:13, fontWeight:700, marginBottom:8, fontFamily:'var(--font-display)' } as const,
-  cardLabel: { fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 14, display: 'block' } as const,
+  cardTitle: { fontSize:14.5, fontWeight:700, marginBottom:8, fontFamily:'var(--font-display)' } as const,
+  cardLabel: { fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 14, display: 'block' } as const,
 };
 
 export const modalOverlayStyle: React.CSSProperties = {

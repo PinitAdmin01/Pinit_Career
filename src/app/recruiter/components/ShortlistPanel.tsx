@@ -30,11 +30,11 @@ export default function ShortlistPanel({
   if (shortlistedCandidates.length === 0) {
     return (
       <div className="empty-state" style={{ padding: 48, textAlign: 'center' }}>
-        <div style={{ fontSize: 40, marginBottom: 12 }}>★</div>
-        <h3 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 6px', color: 'var(--t1)' }}>
+        <div style={{ fontSize: 44, marginBottom: 12 }}>★</div>
+        <h3 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 6px', color: 'var(--t1)' }}>
           No Shortlisted Candidates Yet
         </h3>
-        <p style={{ color: 'var(--t3)', fontSize: 13, maxWidth: 450, margin: '0 auto' }}>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5, maxWidth: 450, margin: '0 auto' }}>
           Explore the Candidates pool and click &ldquo;★ Shortlist Candidate&rdquo; to collect high-signal talent here.
         </p>
       </div>
@@ -45,10 +45,10 @@ export default function ShortlistPanel({
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h3 style={{ fontSize: 16, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+          <h3 style={{ fontSize: 17.5, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
             ★ Shortlisted Talent ({shortlistedCandidates.length})
           </h3>
-          <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>
+          <p style={{ fontSize: 13, color: 'var(--t3)', margin: '2px 0 0' }}>
             Pre-screened students queued for final interviews and offers
           </p>
         </div>
@@ -77,16 +77,16 @@ export default function ShortlistPanel({
                   <div>
                     <h4
                       onClick={() => viewCandidate(c.id)}
-                      style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: 0, cursor: 'pointer' }}
+                      style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: 0, cursor: 'pointer' }}
                     >
                       {c.display_name}
                     </h4>
-                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>{c.programType || 'B.Tech CS'}</span>
+                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>{c.programType || 'B.Tech CS'}</span>
                   </div>
                   <span
                     className="badge"
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       background:
                         currentStage === 'Hired'
                           ? 'rgba(var(--success-rgb), 0.15)'
@@ -107,16 +107,16 @@ export default function ShortlistPanel({
 
                 <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
                   <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '6px 10px', flex: 1, textAlign: 'center' }}>
-                    <div style={{ fontSize: 9, color: 'var(--t3)', textTransform: 'uppercase' }}>ATS</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--teal)' }}>{Math.round(c.ats_score)}%</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase' }}>ATS</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--teal)' }}>{Math.round(c.ats_score)}%</div>
                   </div>
                   <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '6px 10px', flex: 1, textAlign: 'center' }}>
-                    <div style={{ fontSize: 9, color: 'var(--t3)', textTransform: 'uppercase' }}>Trust</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--green)' }}>{Math.round(c.trust_score)}%</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase' }}>Trust</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--green)' }}>{Math.round(c.trust_score)}%</div>
                   </div>
                   <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '6px 10px', flex: 1, textAlign: 'center' }}>
-                    <div style={{ fontSize: 9, color: 'var(--t3)', textTransform: 'uppercase' }}>DNA</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--purple)' }}>{Math.round(c.career_dna_score)}%</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase' }}>DNA</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--purple)' }}>{Math.round(c.career_dna_score)}%</div>
                   </div>
                 </div>
 
@@ -125,7 +125,7 @@ export default function ShortlistPanel({
                     <span
                       key={s}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '2px 6px',
                         background: 'var(--bg3)',
                         borderRadius: 4,
@@ -145,7 +145,7 @@ export default function ShortlistPanel({
                   <button
                     onClick={() => setViewResumeData({ name: c.display_name, resume: c.structured_resume! })}
                     className="btn-ghost btn-sm"
-                    style={{ fontSize: 10.5, flex: 1, justifyContent: 'center' }}
+                    style={{ fontSize: 11.5, flex: 1, justifyContent: 'center' }}
                   >
                     📄 Resume
                   </button>
@@ -153,14 +153,14 @@ export default function ShortlistPanel({
                 <button
                   onClick={() => scheduleInterview(c.id)}
                   className="btn-ghost btn-sm"
-                  style={{ fontSize: 10.5, color: 'var(--teal)', flex: 1, justifyContent: 'center' }}
+                  style={{ fontSize: 11.5, color: 'var(--teal)', flex: 1, justifyContent: 'center' }}
                 >
                   📅 Interview
                 </button>
                 <button
                   onClick={() => sendContactRequest(c.id)}
                   className="btn-ghost btn-sm"
-                  style={{ fontSize: 10.5, flex: 1, justifyContent: 'center' }}
+                  style={{ fontSize: 11.5, flex: 1, justifyContent: 'center' }}
                 >
                   ✉ Contact
                 </button>
@@ -168,7 +168,7 @@ export default function ShortlistPanel({
                   <button
                     onClick={() => handleUpdateStage(c.id, currentStage === 'Shortlisted' ? 'Offered' : 'Hired', c.display_name)}
                     className="btn-primary btn-sm"
-                    style={{ fontSize: 10.5, flex: 1, justifyContent: 'center' }}
+                    style={{ fontSize: 11.5, flex: 1, justifyContent: 'center' }}
                   >
                     {currentStage === 'Shortlisted' ? 'Offer ➔' : 'Hire 🎉'}
                   </button>

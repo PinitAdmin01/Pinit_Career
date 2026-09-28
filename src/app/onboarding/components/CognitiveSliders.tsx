@@ -61,17 +61,17 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
           <button
             type="button"
             onClick={onGoBack}
-            style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12, alignSelf: 'flex-start', marginBottom: 20 }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 13, alignSelf: 'flex-start', marginBottom: 20 }}
           >
             ← Go Back
           </button>
         )}
 
         <div style={{ marginBottom: 28 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.5px' }}>
             Define Your Evolution Gap
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', lineHeight: 1.5 }}>
             Slide to indicate your estimated current skill level compared to your dream placement ambition. This initializes the roadmap density calculations.
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginBottom: 32 }}>
           {/* Current Skill Ability */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, fontWeight: 700, marginBottom: 8 }}>
               <span style={{ color: 'var(--t3)' }}>Current Technical Ability</span>
               <span style={{ color: 'var(--accent)' }}>{currentAbility}%</span>
             </div>
@@ -92,7 +92,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
               onChange={(e) => setCurrentAbility && setCurrentAbility(parseInt(e.target.value))}
               style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t2)', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>
               <span>Novice</span>
               <span>Intermediate</span>
               <span>Advanced</span>
@@ -101,7 +101,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
 
           {/* Target Career Ambition */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, fontWeight: 700, marginBottom: 8 }}>
               <span style={{ color: 'var(--t3)' }}>Target Career Ambition</span>
               <span style={{ color: 'var(--teal)' }}>{targetAmbition}%</span>
             </div>
@@ -113,7 +113,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
               onChange={(e) => setTargetAmbition && setTargetAmbition(parseInt(e.target.value))}
               style={{ width: '100%', accentColor: 'var(--teal)', cursor: 'pointer' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t2)', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>
               <span>Competent (60%)</span>
               <span>Top-Tier (85%)</span>
               <span>Legendary (100%)</span>
@@ -124,15 +124,15 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
         {/* Calculations Box */}
         <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 16, padding: 18, marginBottom: 28 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>The Verification Gap:</span>
-            <span style={{ fontSize: 20, fontWeight: 900, color: 'var(--coral)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 14.5, color: 'var(--t3)', fontWeight: 600 }}>The Verification Gap:</span>
+            <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--coral)', fontFamily: 'var(--font-mono)' }}>
               {targetAmbition - currentAbility}%
             </span>
           </div>
           <div style={{ height: 6, background: 'rgba(255,255,255,0.04)', borderRadius: 3, overflow: 'hidden' }}>
             <div style={{ height: '100%', width: `${targetAmbition - currentAbility}%`, background: 'linear-gradient(90deg, var(--coral), var(--accent))', borderRadius: 3 }} />
           </div>
-          <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 12, lineHeight: 1.5, fontStyle: 'italic' }}>
+          <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 12, lineHeight: 1.5, fontStyle: 'italic' }}>
             {sliderDialogue}
           </p>
         </div>
@@ -168,16 +168,16 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
 
     return (
       <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
           <span>Identity Discovery</span>
           <span>Slide {currentIdentityQ + 1} of {identityQs.length}</span>
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <h3 style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>
+          <h3 style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>
             {q.category}
           </h3>
-          <p style={{ fontSize: 15, color: 'var(--t1)', lineHeight: 1.6, fontWeight: 600 }}>
+          <p style={{ fontSize: 16.5, color: 'var(--t1)', lineHeight: 1.6, fontWeight: 600 }}>
             {q.text}
           </p>
         </div>
@@ -194,7 +194,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
             }}
             style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer', height: 6 }}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t3)', marginTop: 12, fontWeight: 700 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', marginTop: 12, fontWeight: 700 }}>
             <span>← {q.left}</span>
             <span>{identityScores[q.id] || 50}%</span>
             <span>{q.right} →</span>
@@ -236,16 +236,16 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
 
     return (
       <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
           <span>{isBusinessStream ? 'Business & Leadership Simulation' : 'Technical & Engineering Simulation'}</span>
           <span>Card {currentScenario + 1} of {activeScenarios.length}</span>
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
+          <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
             {scenario.title}
           </h3>
-          <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', lineHeight: 1.6 }}>
             {scenario.text}
           </p>
         </div>
@@ -278,7 +278,7 @@ export default function CognitiveSliders(props: CognitiveSlidersProps) {
                 background: 'rgba(255,255,255,0.02)',
                 border: '1px solid rgba(255,255,255,0.05)',
                 color: 'var(--t1)',
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 650,
                 textAlign: 'left',
                 cursor: 'pointer',

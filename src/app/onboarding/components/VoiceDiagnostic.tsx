@@ -183,7 +183,7 @@ export default function VoiceDiagnostic({
 
   return (
     <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
         <span>Vocal Assessment</span>
         <span style={{
           color: speechState === 'recording' ? 'var(--coral)' : speechState === 'calibrated' ? 'var(--green)' : 'var(--accent)',
@@ -195,9 +195,9 @@ export default function VoiceDiagnostic({
 
       {speechState === 'ready' && (
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 32, marginBottom: 12 }}>🎙️</div>
-          <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Microphone Calibration</h3>
-          <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
+          <div style={{ fontSize: 35, marginBottom: 12 }}>🎙️</div>
+          <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Microphone Calibration</h3>
+          <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
             We calibrate background acoustics and regional accent variations to prevent scoring penalties. Click below to run a 3-second noise test.
           </p>
           <button
@@ -227,7 +227,7 @@ export default function VoiceDiagnostic({
                 background: 'transparent',
                 border: 'none',
                 color: 'var(--t3)',
-                fontSize: 12,
+                fontSize: 13,
                 cursor: 'pointer',
                 textDecoration: 'underline'
               }}
@@ -240,21 +240,21 @@ export default function VoiceDiagnostic({
 
       {speechState === 'calibrating' && (
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 32, marginBottom: 12, animation: 'spin 1.5s linear infinite' }}>⬡</div>
-          <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Calibrating...</h3>
+          <div style={{ fontSize: 35, marginBottom: 12, animation: 'spin 1.5s linear infinite' }}>⬡</div>
+          <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Calibrating...</h3>
           <div style={{ width: 140, height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, margin: '16px auto', overflow: 'hidden' }}>
             <div style={{ width: `${calibrationProgress}%`, height: '100%', background: 'var(--accent)', transition: 'width 0.3s ease' }} />
           </div>
-          <p style={{ fontSize: 11, color: 'var(--t2)' }}>Checking ambient frequency thresholds.</p>
+          <p style={{ fontSize: 12, color: 'var(--t2)' }}>Checking ambient frequency thresholds.</p>
         </div>
       )}
 
       {(speechState === 'calibrated' || speechState === 'recording' || speechState === 'recorded') && (
         <div>
-          <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
+          <h3 style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
             Spoken Prompt
           </h3>
-          <p style={{ fontSize: 15, color: 'var(--t1)', lineHeight: 1.5, fontWeight: 600, marginBottom: 20 }}>
+          <p style={{ fontSize: 16.5, color: 'var(--t1)', lineHeight: 1.5, fontWeight: 600, marginBottom: 20 }}>
             &ldquo;{spokenPromptText}&rdquo;
           </p>
 
@@ -265,7 +265,7 @@ export default function VoiceDiagnostic({
               border: '1px solid rgba(var(--danger-rgb), 0.3)',
               borderRadius: 10,
               color: 'var(--danger-bright)',
-              fontSize: 12,
+              fontSize: 13,
               marginBottom: 14,
               display: 'flex',
               alignItems: 'center',
@@ -276,7 +276,7 @@ export default function VoiceDiagnostic({
               <button
                 type="button"
                 onClick={() => setSpeechError(null)}
-                style={{ background: 'transparent', border: 'none', color: 'var(--danger-bright)', cursor: 'pointer', fontSize: 13, marginLeft: 8 }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--danger-bright)', cursor: 'pointer', fontSize: 14.5, marginLeft: 8 }}
               >
                 ✕
               </button>
@@ -285,7 +285,7 @@ export default function VoiceDiagnostic({
 
           <div style={{ marginBottom: 14 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <span style={{ color: 'var(--t2)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>
+              <span style={{ color: 'var(--t2)', fontSize: 12, fontFamily: 'var(--font-mono)' }}>
                 STT TRANSCRIPT / DICTATION CONSOLE
               </span>
               <button
@@ -295,7 +295,7 @@ export default function VoiceDiagnostic({
                   background: 'transparent',
                   border: 'none',
                   color: 'var(--accent)',
-                  fontSize: 11,
+                  fontSize: 12,
                   cursor: 'pointer',
                   textDecoration: 'underline'
                 }}
@@ -319,7 +319,7 @@ export default function VoiceDiagnostic({
                   width: '100%',
                   minHeight: 88,
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 12,
+                  fontSize: 13,
                   color: 'var(--success-bright)',
                   background: '#070913',
                   border: '1px solid rgba(var(--brand-rgb), 0.3)',
@@ -339,7 +339,7 @@ export default function VoiceDiagnostic({
                   borderRadius: 12,
                   padding: 14,
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
+                  fontSize: 12,
                   color: 'var(--success-bright)',
                   textAlign: 'left',
                   cursor: 'text'
@@ -352,7 +352,7 @@ export default function VoiceDiagnostic({
 
           {/* Quick Response Templates */}
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
               ⌨️ Mic Fault Tolerance & Quick Dictation Presets:
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -372,7 +372,7 @@ export default function VoiceDiagnostic({
                     border: '1px solid rgba(255,255,255,0.06)',
                     borderRadius: 8,
                     color: 'var(--border2)',
-                    fontSize: 11,
+                    fontSize: 12,
                     textAlign: 'left',
                     cursor: 'pointer',
                     transition: 'all 0.15s'

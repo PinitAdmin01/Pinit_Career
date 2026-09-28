@@ -129,18 +129,18 @@ function getMissionHref(m: DailyMissionSlot): string {
       {/* Col 1: Next Step Card */}
       <div className="db-glass" style={{ padding:20, display:'flex', flexDirection:'column', gap:12 }}>
         <div>
-          <span style={{ fontSize:8.5, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--accent)', textTransform:'uppercase', letterSpacing:'1.5px', display:'block' }}>🚦 NEXT PRIORITY</span>
-          <h3 style={{ fontSize:13.5, fontWeight:800, color:'var(--t1)', margin:'4px 0 0' }}>Your Best Next Move</h3>
+          <span style={{ fontSize:9.5, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--accent)', textTransform:'uppercase', letterSpacing:'1.5px', display:'block' }}>🚦 NEXT PRIORITY</span>
+          <h3 style={{ fontSize:15, fontWeight:800, color:'var(--t1)', margin:'4px 0 0' }}>Your Best Next Move</h3>
         </div>
         <Link href={nextStep.href} style={{ textDecoration:'none', flex:1 }}>
           <div style={{ padding:16, borderRadius:12, background:`${nextStep.color}14`, border:`1.5px solid ${nextStep.color}30`, display:'flex', flexDirection:'column', gap:10, height:'100%', transition:'all 0.15s', cursor:'pointer' }}
             onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLDivElement).style.boxShadow=`0 6px 16px ${nextStep.color}30`; }}
             onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform='translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow='none'; }}
           >
-            <span style={{ fontSize:28 }}>{nextStep.icon}</span>
-            <div style={{ fontSize:13, fontWeight:800, color:'var(--t1)', lineHeight:1.35 }}>{nextStep.title}</div>
-            <div style={{ fontSize:11.5, color:'var(--t2)', lineHeight:1.5, flex:1 }}>{nextStep.desc}</div>
-            <span style={{ fontSize:11.5, fontWeight:700, color:nextStep.color, fontFamily:'var(--font-mono)' }}>Take Action ➔</span>
+            <span style={{ fontSize:31 }}>{nextStep.icon}</span>
+            <div style={{ fontSize:14.5, fontWeight:800, color:'var(--t1)', lineHeight:1.35 }}>{nextStep.title}</div>
+            <div style={{ fontSize:12.5, color:'var(--t2)', lineHeight:1.5, flex:1 }}>{nextStep.desc}</div>
+            <span style={{ fontSize:12.5, fontWeight:700, color:nextStep.color, fontFamily:'var(--font-mono)' }}>Take Action ➔</span>
           </div>
         </Link>
       </div>
@@ -149,10 +149,10 @@ function getMissionHref(m: DailyMissionSlot): string {
       <div style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:20, overflow:'hidden', boxShadow:'var(--shadow-sm)' }}>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'12px 18px', borderBottom:'1px solid var(--border)', flexWrap:'wrap', gap:8 }}>
           <div>
-            <h3 style={{ fontFamily:'var(--font-display)', fontSize:14, fontWeight:800, color:'var(--t1)', margin:0, display:'flex', alignItems:'center', gap:8 }}>
+            <h3 style={{ fontFamily:'var(--font-display)', fontSize:15.5, fontWeight:800, color:'var(--t1)', margin:0, display:'flex', alignItems:'center', gap:8 }}>
               ⚡ Today&apos;s Workload Missions
             </h3>
-            <span style={{ fontSize:10.5, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
+            <span style={{ fontSize:11.5, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
               {workloadBand === 'exam_pause' ? '1 Maintenance Task' : `${coreMissions.length} Core ${optionalMissions.length > 0 ? `+ ${optionalMissions.length} Optional` : ''}`}
             </span>
           </div>
@@ -165,7 +165,7 @@ function getMissionHref(m: DailyMissionSlot): string {
                 onClick={() => setWorkloadBand(band)}
                 style={{
                   padding:'3px 8px',
-                  fontSize:10,
+                  fontSize:11,
                   fontFamily:'var(--font-mono)',
                   fontWeight: workloadBand === band ? 800 : 500,
                   color: workloadBand === band ? '#fff' : 'var(--t3)',
@@ -185,7 +185,7 @@ function getMissionHref(m: DailyMissionSlot): string {
 
         <div style={{ padding:14, display:'flex', flexDirection:'column', gap:10 }}>
           {loading ? (
-            <div style={{ textAlign:'center', padding:20, color:'var(--t3)', fontSize:12 }}>Loading dynamic workload...</div>
+            <div style={{ textAlign:'center', padding:20, color:'var(--t3)', fontSize:13 }}>Loading dynamic workload...</div>
           ) : (
             <>
               {/* 3 Core Slots */}
@@ -218,30 +218,30 @@ function getMissionHref(m: DailyMissionSlot): string {
                         display:'flex',
                         alignItems:'center',
                         justifyContent:'center',
-                        fontSize:12,
+                        fontSize:13,
                         fontWeight:800,
                         cursor:'pointer',
                       }}
                     >
                       {done ? '✓' : ''}
                     </button>
-                    <span style={{ fontSize:18 }}>{meta.icon}</span>
+                    <span style={{ fontSize:20 }}>{meta.icon}</span>
                     <div style={{ flex:1, minWidth:0 }}>
                       <div style={{ display:'flex', alignItems:'center', gap:6 }}>
-                        <span style={{ fontSize:9, fontFamily:'var(--font-mono)', fontWeight:800, color: meta.color, background:`${meta.color}15`, padding:'1px 5px', borderRadius:4 }}>
+                        <span style={{ fontSize:10, fontFamily:'var(--font-mono)', fontWeight:800, color: meta.color, background:`${meta.color}15`, padding:'1px 5px', borderRadius:4 }}>
                           {meta.label}
                         </span>
-                        <span style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>⏱️ {m.estDurationMinutes}m</span>
-                        <span style={{ fontSize:10, color:'var(--accent)', fontFamily:'var(--font-mono)', fontWeight:700 }}>+{m.xpReward} XP</span>
+                        <span style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>⏱️ {m.estDurationMinutes}m</span>
+                        <span style={{ fontSize:11, color:'var(--accent)', fontFamily:'var(--font-mono)', fontWeight:700 }}>+{m.xpReward} XP</span>
                       </div>
-                      <div style={{ fontSize:12.5, fontWeight:700, color:'var(--t1)', textDecoration: done ? 'line-through' : 'none', marginTop:2 }}>
+                      <div style={{ fontSize:14, fontWeight:700, color:'var(--t1)', textDecoration: done ? 'line-through' : 'none', marginTop:2 }}>
                         {m.title}
                       </div>
                     </div>
                     <Link
                       href={getMissionHref(m)}
                       style={{
-                        fontSize:10.5,
+                        fontSize:11.5,
                         fontFamily:'var(--font-mono)',
                         fontWeight:700,
                         color: meta.color,
@@ -261,7 +261,7 @@ function getMissionHref(m: DailyMissionSlot): string {
               {/* Optional Missions Section (if present) */}
               {optionalMissions.length > 0 && (
                 <div style={{ marginTop:6, borderTop:'1px dashed var(--border)', paddingTop:8 }}>
-                  <div style={{ fontSize:9.5, fontFamily:'var(--font-mono)', color:'var(--t3)', fontWeight:700, marginBottom:6, textTransform:'uppercase' }}>
+                  <div style={{ fontSize:10.5, fontFamily:'var(--font-mono)', color:'var(--t3)', fontWeight:700, marginBottom:6, textTransform:'uppercase' }}>
                     💡 Optional Habit Boosters (No Penalty)
                   </div>
                   <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
@@ -294,23 +294,23 @@ function getMissionHref(m: DailyMissionSlot): string {
                               display:'flex',
                               alignItems:'center',
                               justifyContent:'center',
-                              fontSize:10,
+                              fontSize:11,
                               cursor:'pointer',
                             }}
                           >
                             {done ? '✓' : ''}
                           </button>
-                          <span style={{ fontSize:15 }}>{meta.icon}</span>
+                          <span style={{ fontSize:16.5 }}>{meta.icon}</span>
                           <div style={{ flex:1, minWidth:0 }}>
-                            <div style={{ fontSize:11.5, fontWeight:600, color:'var(--t1)', textDecoration: done ? 'line-through' : 'none' }}>
+                            <div style={{ fontSize:12.5, fontWeight:600, color:'var(--t1)', textDecoration: done ? 'line-through' : 'none' }}>
                               {m.title}
                             </div>
                           </div>
-                          <span style={{ fontSize:9.5, color:'var(--accent)', fontFamily:'var(--font-mono)' }}>+{m.xpReward} XP</span>
+                          <span style={{ fontSize:10.5, color:'var(--accent)', fontFamily:'var(--font-mono)' }}>+{m.xpReward} XP</span>
                           <Link
                             href={getMissionHref(m)}
                             style={{
-                              fontSize:9.5,
+                              fontSize:10.5,
                               fontFamily:'var(--font-mono)',
                               fontWeight:700,
                               color: meta.color,
@@ -336,7 +336,7 @@ function getMissionHref(m: DailyMissionSlot): string {
 
       {/* Col 3: Live Activity Feed */}
       <div style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:20, padding:16, boxShadow:'var(--shadow-sm)' }}>
-        <span style={{ fontSize:12.5, fontWeight:800, color:'var(--t1)', fontFamily:'var(--font-display)', marginBottom:10, display:'flex', alignItems:'center', gap:6 }}>
+        <span style={{ fontSize:14, fontWeight:800, color:'var(--t1)', fontFamily:'var(--font-display)', marginBottom:10, display:'flex', alignItems:'center', gap:6 }}>
           <span style={{ width:7, height:7, borderRadius:'50%', background:'var(--green)', display:'inline-block', boxShadow:'0 0 6px var(--green)', animation:'hud-pulse 2s infinite ease-in-out' }} />
           Live Activity
         </span>

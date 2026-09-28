@@ -31,10 +31,10 @@ export default function ComingSoonGate({ featureName, expectedSprint = 'Phase 2'
         filter: 'blur(30px)',
         borderRadius: '50%'
       }} />
-      <div style={{ fontSize: 48, marginBottom: 16 }}>🚀</div>
+      <div style={{ fontSize: 53, marginBottom: 16 }}>🚀</div>
       <h2 style={{
         fontFamily: 'var(--font-display)',
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 800,
         color: 'var(--t1)',
         marginBottom: 8
@@ -43,7 +43,7 @@ export default function ComingSoonGate({ featureName, expectedSprint = 'Phase 2'
       </h2>
       <span style={{
         display: 'inline-block',
-        fontSize: 10,
+        fontSize: 11,
         fontFamily: 'var(--font-mono)',
         fontWeight: 700,
         textTransform: 'uppercase',
@@ -58,7 +58,7 @@ export default function ComingSoonGate({ featureName, expectedSprint = 'Phase 2'
         Coming in {expectedSprint}
       </span>
       <p style={{
-        fontSize: 13,
+        fontSize: 14.5,
         color: 'var(--t2)',
         lineHeight: 1.55,
         margin: '0 auto',

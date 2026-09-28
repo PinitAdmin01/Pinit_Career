@@ -23,9 +23,9 @@ export function QuestsActivityGrid({ activeCourseObj, overallPct }: QuestsActivi
         
         {/* Left: 30-Day Contribution Grid */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>🔥 30-Day Contribution Intensity Grid</span>
-            <span style={{ fontSize: 10.5, color: 'var(--green)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 11.5, color: 'var(--green)', fontFamily: 'var(--font-mono)' }}>
               {completedQuests.length} Quests Completed
             </span>
           </div>
@@ -47,7 +47,7 @@ export function QuestsActivityGrid({ activeCourseObj, overallPct }: QuestsActivi
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 9,
+                    fontSize: 10,
                     fontWeight: 800,
                     color: isCleared ? '#fff' : 'var(--t4)'
                   }}
@@ -61,7 +61,7 @@ export function QuestsActivityGrid({ activeCourseObj, overallPct }: QuestsActivi
 
         {/* Right: Dynamic Skill Mastery Heatmap Bars */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', marginBottom: 10 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 10 }}>
             🧠 Real-Time Skill Mastery Heatmap
           </div>
 
@@ -87,7 +87,7 @@ export function QuestsActivityGrid({ activeCourseObj, overallPct }: QuestsActivi
 
               return dynamicSkills.map(s => (
                 <div key={s.name}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: 'var(--t2)', marginBottom: 2 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 2 }}>
                     <span>{s.name}</span>
                     <span>{s.pct}%</span>
                   </div>

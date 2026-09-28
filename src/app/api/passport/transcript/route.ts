@@ -121,15 +121,15 @@ export async function GET(req: NextRequest) {
   <style>
     body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #0f172a; margin: 0; padding: 40px; background: #fff; line-height: 1.5; }
     .header { border-bottom: 2px solid #4f46e5; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
-    .brand { font-size: 24px; font-weight: 900; color: #4f46e5; }
-    .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
-    .badge { background: ${badgeBg}; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
-    .student-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; padding: 16px; background: #f8fafc; border-radius: 8px; font-size: 13px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
-    th { text-align: left; padding: 10px; background: #f1f5f9; color: #475569; text-transform: uppercase; font-size: 11px; border-bottom: 1px solid #cbd5e1; }
+    .brand { font-size: 26.5px; font-weight: 900; color: #4f46e5; }
+    .subtitle { font-size: 14.5px; color: #64748b; margin-top: 4px; }
+    .badge { background: ${badgeBg}; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .student-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; padding: 16px; background: #f8fafc; border-radius: 8px; font-size: 14.5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14.5px; }
+    th { text-align: left; padding: 10px; background: #f1f5f9; color: #475569; text-transform: uppercase; font-size: 12px; border-bottom: 1px solid #cbd5e1; }
     td { padding: 10px; border-bottom: 1px solid #e2e8f0; }
-    .defense-card { margin-top: 24px; padding: 16px; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; font-size: 13px; }
-    .footer { margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size: 11px; color: #94a3b8; display: flex; justify-content: space-between; }
+    .defense-card { margin-top: 24px; padding: 16px; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; font-size: 14.5px; }
+    .footer { margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; }
     @media print { body { padding: 0; } .no-print { display: none; } }
   </style>
 </head>

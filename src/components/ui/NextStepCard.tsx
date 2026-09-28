@@ -78,7 +78,7 @@ export default function NextStepCard({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 20,
+          fontSize: 22,
           flexShrink: 0,
         }}
       >
@@ -87,7 +87,7 @@ export default function NextStepCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: 10.5,
+            fontSize: 11.5,
             letterSpacing: '0.8px',
             textTransform: 'uppercase',
             color: 'var(--t3)',
@@ -98,12 +98,12 @@ export default function NextStepCard({
         >
           {eyebrow}
         </div>
-        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 3 }}>{title}</div>
-        <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>{description}</div>
+        <div style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 3 }}>{title}</div>
+        <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>{description}</div>
       </div>
       <div
         style={{
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: 700,
           color,
           fontFamily: 'var(--font-mono)',

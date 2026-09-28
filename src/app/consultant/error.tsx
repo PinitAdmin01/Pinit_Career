@@ -22,13 +22,13 @@ export default function Error({
       padding: 40,
       textAlign: 'center',
     }}>
-      <div style={{ fontSize: 48 }}>⚠️</div>
+      <div style={{ fontSize: 53 }}>⚠️</div>
       <h2 style={{ color: 'var(--t1, #fff)', margin: 0 }}>Something went wrong</h2>
       <p style={{ color: 'var(--t2, #888)', maxWidth: 400 }}>
         {error.message || 'An unexpected error occurred. Your data is safe.'}
       </p>
       {error.digest && (
-        <code style={{ fontSize: 11, color: 'var(--t3, #555)' }}>
+        <code style={{ fontSize: 12, color: 'var(--t3, #555)' }}>
           Error ID: {error.digest}
         </code>
       )}
@@ -41,7 +41,7 @@ export default function Error({
           border: 'none',
           borderRadius: 8,
           cursor: 'pointer',
-          fontSize: 14,
+          fontSize: 15.5,
         }}
       >
         Try Again

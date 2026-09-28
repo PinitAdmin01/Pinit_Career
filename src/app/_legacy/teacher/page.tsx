@@ -42,7 +42,7 @@ function grade(p: number) {
 // ── Sub-components ────────────────────────────────────────────────────────────
 function ScoreBadge({ value, color }: { value: number; color: string }) {
   return (
-    <span style={{ fontFamily:'var(--font-mono)', fontSize:13, fontWeight:700, color }}>
+    <span style={{ fontFamily:'var(--font-mono)', fontSize:14.5, fontWeight:700, color }}>
       {Math.round(value)}
     </span>
   );
@@ -56,9 +56,9 @@ function StatCard({ label, value, color, icon }: ClassStat) {
   return (
     <div style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:'var(--radius-xl)',
                   padding:'14px 18px', textAlign:'center', borderTop:`3px solid ${color}` }}>
-      <div style={{ fontSize:20, marginBottom:6 }}>{icon}</div>
-      <div style={{ fontFamily:'var(--font-display)', fontSize:26, fontWeight:800, color }}>{value}</div>
-      <div style={{ fontSize:10, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', marginTop:3 }}>{label}</div>
+      <div style={{ fontSize:22, marginBottom:6 }}>{icon}</div>
+      <div style={{ fontFamily:'var(--font-display)', fontSize:28.5, fontWeight:800, color }}>{value}</div>
+      <div style={{ fontSize:11, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', marginTop:3 }}>{label}</div>
     </div>
   );
 }
@@ -177,8 +177,8 @@ export default function TeacherPage() {
     <div style={{ maxWidth:1280, margin:'0 auto' }} className="animate-fade-in">
       {/* Header */}
       <div className="page-header" style={{ marginBottom:20 }}>
-        <h1 style={{ fontFamily:"var(--font-display)", fontSize:22, fontWeight:900, letterSpacing:"-0.5px", marginBottom:4 }}>📚 Teacher Portal</h1>
-        <p style={{ color:"var(--t2)", fontSize:13.5 }}>Manage student progress, exam results, and attendance across your classes</p>
+        <h1 style={{ fontFamily:"var(--font-display)", fontSize:24, fontWeight:900, letterSpacing:"-0.5px", marginBottom:4 }}>📚 Teacher Portal</h1>
+        <p style={{ color:"var(--t2)", fontSize:15 }}>Manage student progress, exam results, and attendance across your classes</p>
       </div>
 
       {/* Stats strip */}
@@ -201,7 +201,7 @@ export default function TeacherPage() {
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             padding:'7px 16px', border:'none', borderRadius:'var(--radius)', cursor:'pointer',
-            fontSize:13, fontWeight:600, fontFamily:'var(--font-display)',
+            fontSize:14.5, fontWeight:600, fontFamily:'var(--font-display)',
             background: tab === t.id ? 'var(--bg2)'  : 'transparent',
             color:      tab === t.id ? 'var(--t1)'   : 'var(--t3)',
             boxShadow:  tab === t.id ? 'var(--shadow-sm)' : 'none',
@@ -226,9 +226,9 @@ export default function TeacherPage() {
                 { label:'0–39 (Needs help)',   count:students.filter(s=>s.ats_score<40).length, color:'var(--coral)' },
               ].map(r => (
                 <div key={r.label} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
-                  <div style={{ width:120, flexShrink:0, fontSize:12, color:'var(--t2)' }}>{r.label}</div>
+                  <div style={{ width:120, flexShrink:0, fontSize:13, color:'var(--t2)' }}>{r.label}</div>
                   <div style={{ flex:1 }}><ProgressBar value={r.count} max={Math.max(students.length, 1)} color={r.color} /></div>
-                  <div style={{ width:28, textAlign:'right', fontFamily:'var(--font-mono)', fontSize:12, fontWeight:700, color:r.color }}>{r.count}</div>
+                  <div style={{ width:28, textAlign:'right', fontFamily:'var(--font-mono)', fontSize:13, fontWeight:700, color:r.color }}>{r.count}</div>
                 </div>
               ))
             }
@@ -242,12 +242,12 @@ export default function TeacherPage() {
               students.forEach(s => (s.weak_areas || []).forEach(g => { gapCounts[g] = (gapCounts[g] || 0) + 1; }));
               const topGaps = Object.entries(gapCounts).sort((a,b) => b[1]-a[1]).slice(0,8);
               return topGaps.length === 0
-                ? <div style={{ color:'var(--t3)', fontSize:13 }}>No skill gap data yet — students need to upload resumes.</div>
+                ? <div style={{ color:'var(--t3)', fontSize:14.5 }}>No skill gap data yet — students need to upload resumes.</div>
                 : topGaps.map(([gap, count]) => (
                     <div key={gap} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
-                      <span style={{ fontSize:12, flex:1, color:'var(--t1)' }}>{gap}</span>
+                      <span style={{ fontSize:13, flex:1, color:'var(--t1)' }}>{gap}</span>
                       <ProgressBar value={count} max={Math.max(students.length, 1)} color="var(--coral)" />
-                      <span style={{ fontSize:11, fontFamily:'var(--font-mono)', color:'var(--coral)', width:30, textAlign:'right' }}>{count}</span>
+                      <span style={{ fontSize:12, fontFamily:'var(--font-mono)', color:'var(--coral)', width:30, textAlign:'right' }}>{count}</span>
                     </div>
                   ));
             })()}
@@ -265,9 +265,9 @@ export default function TeacherPage() {
               ];
               return tiers.map(t => (
                 <div key={t.label} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:8 }}>
-                  <div style={{ width:130, fontSize:12, color:'var(--t2)' }}>{t.label}</div>
+                  <div style={{ width:130, fontSize:13, color:'var(--t2)' }}>{t.label}</div>
                   <ProgressBar value={t.count} max={Math.max(students.length, 1)} color={t.color} />
-                  <div style={{ width:28, textAlign:'right', fontFamily:'var(--font-mono)', fontSize:12, fontWeight:700, color:t.color }}>{t.count}</div>
+                  <div style={{ width:28, textAlign:'right', fontFamily:'var(--font-mono)', fontSize:13, fontWeight:700, color:t.color }}>{t.count}</div>
                 </div>
               ));
             })()}
@@ -278,7 +278,7 @@ export default function TeacherPage() {
             <div style={cardLabel}>Recent Exam Summary</div>
             {loading ? <Skeleton h={80} /> : (
               exams.length === 0
-                ? <div style={{ color:'var(--t3)', fontSize:13 }}>No exam results yet.</div>
+                ? <div style={{ color:'var(--t3)', fontSize:14.5 }}>No exam results yet.</div>
                 : (() => {
                     const byExam: Record<string, number[]> = {};
                     exams.forEach(e => {
@@ -291,8 +291,8 @@ export default function TeacherPage() {
                       return (
                         <div key={name} style={{ marginBottom:10 }}>
                           <div style={{ display:'flex', justifyContent:'space-between', marginBottom:3 }}>
-                            <span style={{ fontSize:12, fontWeight:600 }}>{name}</span>
-                            <span style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
+                            <span style={{ fontSize:13, fontWeight:600 }}>{name}</span>
+                            <span style={{ fontSize:12, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
                               avg {avg}% · {pass}% pass
                             </span>
                           </div>
@@ -321,7 +321,7 @@ export default function TeacherPage() {
             </div>
           ) : (
             <div style={{ overflowX:'auto' }}>
-              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13 }}>
+              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:14.5 }}>
                 <thead>
                   <tr style={{ background:'var(--bg3)' }}>
                     <th style={th}>#</th>
@@ -349,10 +349,10 @@ export default function TeacherPage() {
                     const overall = Math.round((s.ats_score + s.trust_score + s.career_dna_score) / 3);
                     return (
                       <tr key={s.id} style={{ borderBottom:'1px solid var(--border)', background: i % 2 === 0 ? 'var(--bg2)' : 'transparent' }}>
-                        <td style={td}><span style={{ fontFamily:'var(--font-mono)', color:'var(--t3)', fontSize:11 }}>#{i+1}</span></td>
+                        <td style={td}><span style={{ fontFamily:'var(--font-mono)', color:'var(--t3)', fontSize:12 }}>#{i+1}</span></td>
                         <td style={td}>
                           <div style={{ fontWeight:600 }}>{s.display_name}</div>
-                          {s.register_number && <div style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{s.register_number}</div>}
+                          {s.register_number && <div style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{s.register_number}</div>}
                         </td>
                         <td style={td}><ScoreBadge value={s.ats_score}        color="var(--teal)"   /></td>
                         <td style={td}><ScoreBadge value={s.trust_score}      color="var(--green)"  /></td>
@@ -360,7 +360,7 @@ export default function TeacherPage() {
                         <td style={td}><span style={{ color:'var(--amber)', fontWeight:700 }}>{'🔥'.repeat(Math.min(s.mission_streak || 0, 3))}{s.mission_streak || 0}d</span></td>
                         <td style={td}>
                           <div style={{ display:'flex', flexDirection:'column', gap: 4 }}>
-                            <div style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 600 }}>
+                            <div style={{ fontSize: 11, color: 'var(--t2)', fontWeight: 600 }}>
                               🗺️ Timeline: {s.completed_quests?.length || 0} quests completed
                             </div>
                             <div style={{ display: 'flex', gap: 2, height: 4, width: 80, background: 'var(--bg3)', borderRadius: 2, overflow: 'hidden' }}>
@@ -370,7 +370,7 @@ export default function TeacherPage() {
                         </td>
                         <td style={td}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <span style={{ fontSize:10, padding:'3px 8px', borderRadius:100, fontWeight:700,
+                            <span style={{ fontSize:11, padding:'3px 8px', borderRadius:100, fontWeight:700,
                               background: overall >= 70 ? 'var(--green-light)' : overall >= 50 ? 'var(--amber-light)' : 'var(--coral-light)',
                               color:      overall >= 70 ? 'var(--green)'       : overall >= 50 ? 'var(--amber)'       : 'var(--coral)',
                             }}>
@@ -382,7 +382,7 @@ export default function TeacherPage() {
                                   alert('Quick-graded! Student trust increased +5.');
                                   loadStudents();
                                 });
-                            }} className="btn-secondary" style={{ padding: '2px 8px', fontSize: 10 }}>
+                            }} className="btn-secondary" style={{ padding: '2px 8px', fontSize: 11 }}>
                               Quick-Grade
                             </button>
                           </div>
@@ -412,7 +412,7 @@ export default function TeacherPage() {
             </div>
           ) : (
             <div style={{ overflowX:'auto' }}>
-              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13 }}>
+              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:14.5 }}>
                 <thead>
                   <tr style={{ background:'var(--bg3)' }}>
                     {['Student','Exam','Score','%','Grade','Tab Switches','Status','Date'].map(h => (
@@ -424,7 +424,7 @@ export default function TeacherPage() {
                   {exams.map((e, i) => (
                     <tr key={e.id} style={{ borderBottom:'1px solid var(--border)', background: i % 2 === 0 ? 'var(--bg2)' : 'transparent' }}>
                       <td style={td}><span style={{ fontWeight:600 }}>{e.display_name || e.user_id?.slice(0,8)}</span></td>
-                      <td style={td}><span style={{ fontSize:12 }}>{e.exam_name}</span></td>
+                      <td style={td}><span style={{ fontSize:13 }}>{e.exam_name}</span></td>
                       <td style={td}><span style={{ fontFamily:'var(--font-mono)', fontWeight:700 }}>{e.score}/{e.total_marks}</span></td>
                       <td style={td}>
                         <span style={{ fontWeight:700, color: e.percentage >= 70 ? 'var(--green)' : e.percentage >= 50 ? 'var(--amber)' : 'var(--coral)' }}>
@@ -443,13 +443,13 @@ export default function TeacherPage() {
                         </span>
                       </td>
                       <td style={td}>
-                        <span style={{ fontSize:10, padding:'2px 8px', borderRadius:100, fontWeight:700,
+                        <span style={{ fontSize:11, padding:'2px 8px', borderRadius:100, fontWeight:700,
                           background: e.status==='passed' ? 'var(--green-light)' : 'var(--coral-light)',
                           color:      e.status==='passed' ? 'var(--green)'       : 'var(--coral)' }}>
                           {e.status}
                         </span>
                       </td>
-                      <td style={{ ...td, color:'var(--t3)', fontSize:11 }}>{new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+                      <td style={{ ...td, color:'var(--t3)', fontSize:12 }}>{new Date(e.created_at).toLocaleDateString('en-IN')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -479,17 +479,17 @@ export default function TeacherPage() {
                         : r >= 0.7 ? 'rgba(5,150,105,0.4)'
                         : r >= 0.5 ? 'rgba(245,158,11,0.5)' : 'rgba(239,68,68,0.4)',
                       display:'flex', alignItems:'center', justifyContent:'center',
-                      fontSize:10, fontWeight:700, color: tot===0 ? 'var(--t3)' : '#fff' }}>
+                      fontSize:11, fontWeight:700, color: tot===0 ? 'var(--t3)' : '#fff' }}>
                       {tot === 0 ? '-' : a.present}
                     </div>
-                    <div style={{ fontSize:9, color:'var(--t3)', marginTop:2 }}>
+                    <div style={{ fontSize:10, color:'var(--t3)', marginTop:2 }}>
                       {new Date(date).toLocaleDateString('en-IN', { day:'numeric', month:'short' })}
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div style={{ display:'flex', gap:14, marginTop:10, fontSize:11, color:'var(--t2)' }}>
+            <div style={{ display:'flex', gap:14, marginTop:10, fontSize:12, color:'var(--t2)' }}>
               <span><span style={{ display:'inline-block', width:12, height:12, borderRadius:3, background:'rgba(5,150,105,0.8)', marginRight:4 }}/>90%+</span>
               <span><span style={{ display:'inline-block', width:12, height:12, borderRadius:3, background:'rgba(5,150,105,0.4)', marginRight:4 }}/>70–89%</span>
               <span><span style={{ display:'inline-block', width:12, height:12, borderRadius:3, background:'rgba(245,158,11,0.5)', marginRight:4 }}/>50–69%</span>
@@ -509,15 +509,15 @@ export default function TeacherPage() {
               <div style={card}>
                 <div style={cardLabel}>Today's Attendance Log — {todayLogs.length} records</div>
                 {todayLogs.length === 0
-                  ? <div style={{ color:'var(--t3)', fontSize:13 }}>No attendance marked today yet.</div>
+                  ? <div style={{ color:'var(--t3)', fontSize:14.5 }}>No attendance marked today yet.</div>
                   : todayLogs.map(a => (
                       <div key={a.id} style={{ display:'flex', alignItems:'center', gap:12, padding:'8px 0', borderBottom:'1px solid var(--border)' }}>
-                        <span style={{ fontSize:16 }}>
+                        <span style={{ fontSize:17.5 }}>
                           {a.status === 'present' ? '✅' : a.status === 'late' ? '⏰' : '❌'}
                         </span>
-                        <span style={{ flex:1, fontWeight:600, fontSize:13 }}>{a.display_name || a.user_id?.slice(0,8)}</span>
-                        <span style={{ fontSize:10, fontFamily:'var(--font-mono)', color:'var(--t3)' }}>{a.method || 'manual'}</span>
-                        <span style={{ fontSize:11, fontWeight:700,
+                        <span style={{ flex:1, fontWeight:600, fontSize:14.5 }}>{a.display_name || a.user_id?.slice(0,8)}</span>
+                        <span style={{ fontSize:11, fontFamily:'var(--font-mono)', color:'var(--t3)' }}>{a.method || 'manual'}</span>
+                        <span style={{ fontSize:12, fontWeight:700,
                           color: a.status==='present' ? 'var(--green)' : a.status==='late' ? 'var(--amber)' : 'var(--coral)' }}>
                           {a.status}
                         </span>
@@ -539,12 +539,12 @@ const card: React.CSSProperties = {
   borderRadius:'var(--radius-xl)', padding:20, boxShadow:'var(--shadow-sm)',
 };
 const cardLabel: React.CSSProperties = {
-  fontSize:10.5, letterSpacing:'0.8px', textTransform:'uppercase',
+  fontSize:11.5, letterSpacing:'0.8px', textTransform:'uppercase',
   color:'var(--t3)', fontFamily:'var(--font-mono)', fontWeight:600,
   marginBottom:14, display:'block',
 };
 const th: React.CSSProperties = {
-  padding:'10px 12px', textAlign:'left', fontSize:10.5, fontWeight:700,
+  padding:'10px 12px', textAlign:'left', fontSize:11.5, fontWeight:700,
   color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.6px',
   borderBottom:'1px solid var(--border)',
 };

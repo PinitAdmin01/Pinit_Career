@@ -43,7 +43,7 @@ export default function FunnelBar({
       <div
         style={{
           width: labelWidth,
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: 600,
           color: 'var(--t2, #6b7280)',
           textAlign: 'right',
@@ -76,7 +76,7 @@ export default function FunnelBar({
         <div
           style={{
             width: 36,
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 700,
             color: 'var(--t1, #374151)',
             fontVariantNumeric: 'tabular-nums',

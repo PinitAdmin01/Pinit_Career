@@ -73,16 +73,16 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Level Roadmap
         </button>
-        <span style={{ fontSize: 13, color: '#ec4899', fontWeight: 600 }}>
+        <span style={{ fontSize: 14.5, color: '#ec4899', fontWeight: 600 }}>
           SPEAKING PRACTICE: {speaking.title}
         </span>
       </div>
 
       {/* Prompt Card */}
       <div style={{ background: '#27272a', padding: 20, borderRadius: 12, marginBottom: 24 }}>
-        <h3 style={{ fontSize: 16, margin: '0 0 8px 0', color: '#ec4899' }}>Speaking Prompt:</h3>
-        <p style={{ fontSize: 15, color: 'var(--text)', fontWeight: 600, margin: '0 0 12px 0' }}>{speaking.promptQuestion}</p>
-        <div style={{ fontSize: 13, color: '#a1a1aa', fontStyle: 'italic' }}>
+        <h3 style={{ fontSize: 17.5, margin: '0 0 8px 0', color: '#ec4899' }}>Speaking Prompt:</h3>
+        <p style={{ fontSize: 16.5, color: 'var(--text)', fontWeight: 600, margin: '0 0 12px 0' }}>{speaking.promptQuestion}</p>
+        <div style={{ fontSize: 14.5, color: '#a1a1aa', fontStyle: 'italic' }}>
           Sample Sentence: "{speaking.sampleResponse}"
         </div>
       </div>
@@ -98,7 +98,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             background: isRecording ? 'var(--danger)' : '#ec4899',
             color: 'var(--text)',
             border: 'none',
-            fontSize: 28,
+            fontSize: 31,
             cursor: 'pointer',
             boxShadow: isRecording ? '0 0 20px #ef4444' : 'none',
             transition: 'all 0.2s ease'
@@ -106,7 +106,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
         >
           🎤
         </button>
-        <div style={{ fontSize: 14, marginTop: 12, color: isRecording ? 'var(--danger)' : '#a1a1aa' }}>
+        <div style={{ fontSize: 15.5, marginTop: 12, color: isRecording ? 'var(--danger)' : '#a1a1aa' }}>
           {isRecording ? 'Listening... Speak your response clearly now!' : 'Click Microphone to Start Speaking'}
         </div>
 
@@ -124,7 +124,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             borderRadius: 8,
             color: 'var(--text)',
             padding: 12,
-            fontSize: 14
+            fontSize: 15.5
           }}
         />
 
@@ -137,7 +137,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
               border: 'none',
               borderRadius: 8,
               padding: '8px 14px',
-              fontSize: 13,
+              fontSize: 14.5,
               cursor: 'pointer'
             }}
           >
@@ -164,9 +164,9 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
       {/* Evaluation Results Card */}
       {evalResult && (
         <div style={{ background: '#27272a', padding: 20, borderRadius: 12 }}>
-          <h4 style={{ fontSize: 16, margin: '0 0 12px 0', color: 'var(--success)' }}>Evaluation Scorecard: {evalResult.score} / 100</h4>
-          <p style={{ fontSize: 14, color: '#e4e4e7', margin: '0 0 16px 0' }}>{evalResult.feedbackText}</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, fontSize: 13 }}>
+          <h4 style={{ fontSize: 17.5, margin: '0 0 12px 0', color: 'var(--success)' }}>Evaluation Scorecard: {evalResult.score} / 100</h4>
+          <p style={{ fontSize: 15.5, color: '#e4e4e7', margin: '0 0 16px 0' }}>{evalResult.feedbackText}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, fontSize: 14.5 }}>
             <div style={{ background: '#18181b', padding: 10, borderRadius: 6 }}>Fluency: {evalResult.fluencyScore}%</div>
             <div style={{ background: '#18181b', padding: 10, borderRadius: 6 }}>Keyword Match: {evalResult.keywordMatchPct}%</div>
             <div style={{ background: '#18181b', padding: 10, borderRadius: 6 }}>Pace: ~{evalResult.paceWpm} WPM</div>

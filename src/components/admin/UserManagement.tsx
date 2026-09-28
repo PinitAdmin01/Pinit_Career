@@ -131,8 +131,8 @@ export default function UserManagement() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>👥 User & Role Management</h2>
-          <p style={{ color: 'var(--t3)', margin: '4px 0 0', fontSize: 14 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>👥 User & Role Management</h2>
+          <p style={{ color: 'var(--t3)', margin: '4px 0 0', fontSize: 15.5 }}>
             Manage student, faculty, and administrator accounts, trust scores, and access permissions.
           </p>
         </div>
@@ -142,7 +142,7 @@ export default function UserManagement() {
             background: isSuperAdmin ? '#dcfce7' : (isAdmin ? '#e0f2fe' : '#fee2e2'),
             padding: '6px 14px',
             borderRadius: 20,
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
             color: isSuperAdmin ? '#15803d' : (isAdmin ? '#0369a1' : '#b91c1c'),
           }}
@@ -191,12 +191,12 @@ export default function UserManagement() {
       {showOverrideModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: 'var(--card, #fff)', borderRadius: 16, padding: 24, width: '100%', maxWidth: 440, border: '1px solid var(--border)' }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700, color: 'var(--t1)' }}>📊 SuperAdmin Score Override</h3>
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Target User: {showOverrideModal.name}</span>
+            <h3 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 700, color: 'var(--t1)' }}>📊 SuperAdmin Score Override</h3>
+            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Target User: {showOverrideModal.name}</span>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 16 }}>
               <div>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4, color: 'var(--t2)' }}>
+                <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4, color: 'var(--t2)' }}>
                   New Trust Score (0-100)
                 </label>
                 <input
@@ -210,7 +210,7 @@ export default function UserManagement() {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4, color: 'var(--t2)' }}>
+                <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4, color: 'var(--t2)' }}>
                   Audit Reason *
                 </label>
                 <textarea
@@ -246,11 +246,11 @@ export default function UserManagement() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: 'var(--bg3)', textAlign: 'left', borderBottom: '1px solid var(--border)' }}>
-              <th style={{ padding: 12, fontSize: 13, color: 'var(--t2)' }}>User</th>
-              <th style={{ padding: 12, fontSize: 13, color: 'var(--t2)' }}>Role</th>
-              <th style={{ padding: 12, fontSize: 13, color: 'var(--t2)' }}>Trust Score</th>
-              <th style={{ padding: 12, fontSize: 13, color: 'var(--t2)' }}>Status</th>
-              <th style={{ padding: 12, fontSize: 13, textAlign: 'right', color: 'var(--t2)' }}>Actions</th>
+              <th style={{ padding: 12, fontSize: 14.5, color: 'var(--t2)' }}>User</th>
+              <th style={{ padding: 12, fontSize: 14.5, color: 'var(--t2)' }}>Role</th>
+              <th style={{ padding: 12, fontSize: 14.5, color: 'var(--t2)' }}>Trust Score</th>
+              <th style={{ padding: 12, fontSize: 14.5, color: 'var(--t2)' }}>Status</th>
+              <th style={{ padding: 12, fontSize: 14.5, textAlign: 'right', color: 'var(--t2)' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -271,14 +271,14 @@ export default function UserManagement() {
                 <tr key={u.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: 12 }}>
                     <div style={{ fontWeight: 600, color: 'var(--t1)' }}>{u.name}</div>
-                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>{u.email}</div>
+                    <div style={{ fontSize: 13, color: 'var(--t3)' }}>{u.email}</div>
                   </td>
                   <td style={{ padding: 12 }}>
                     <span
                       style={{
                         padding: '2px 8px',
                         borderRadius: 4,
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 600,
                         textTransform: 'capitalize',
                         background: u.role === 'admin' || u.role === 'superadmin' ? '#fef3c7' : u.role === 'teacher' ? '#f3e8ff' : '#dbeafe',
@@ -292,7 +292,7 @@ export default function UserManagement() {
                     {u.trustScore} / 100
                   </td>
                   <td style={{ padding: 12 }}>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: u.status === 'active' ? 'var(--success)' : 'var(--coral, #ef4444)' }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: u.status === 'active' ? 'var(--success)' : 'var(--coral, #ef4444)' }}>
                       ● {u.status.toUpperCase()}
                     </span>
                   </td>
@@ -301,7 +301,7 @@ export default function UserManagement() {
                       {isSuperAdmin && (
                         <button
                           onClick={() => { setShowOverrideModal(u); setOverrideValue(u.trustScore); }}
-                          style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', cursor: 'pointer' }}
+                          style={{ padding: '4px 10px', fontSize: 13, borderRadius: 6, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', cursor: 'pointer' }}
                         >
                           Override Score
                         </button>
@@ -311,7 +311,7 @@ export default function UserManagement() {
                         disabled={!isSuperAdmin}
                         style={{
                           padding: '4px 10px',
-                          fontSize: 12,
+                          fontSize: 13,
                           borderRadius: 6,
                           border: 'none',
                           background: !isSuperAdmin ? 'var(--border)' : (u.status === 'active' ? '#fee2e2' : '#dcfce7'),

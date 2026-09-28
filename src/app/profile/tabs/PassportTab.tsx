@@ -160,10 +160,10 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="animate-fade-in">
       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '10px 20px', borderRadius: 14, border: '1px solid var(--border)' }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>🎫 PASSPORT PERSPECTIVE SWITCH:</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)' }}>🎫 PASSPORT PERSPECTIVE SWITCH:</span>
         <div style={{ display: 'flex', gap: 6 }}>
           {['student', 'recruiter', 'faculty'].map(role => (
-            <button key={role} onClick={() => setActivePassportRole(role as any)} style={{ padding: '6px 12px', borderRadius: 6, border: 'none', background: activePassportRole === role ? 'var(--accent)' : 'transparent', color: activePassportRole === role ? '#fff' : 'var(--t3)', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>
+            <button key={role} onClick={() => setActivePassportRole(role as any)} style={{ padding: '6px 12px', borderRadius: 6, border: 'none', background: activePassportRole === role ? 'var(--accent)' : 'transparent', color: activePassportRole === role ? '#fff' : 'var(--t3)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
               {role === 'student' ? '🧑‍🎓 Student' : role === 'recruiter' ? '🔍 Recruiter' : '👩‍🏫 Faculty'}
             </button>
           ))}
@@ -174,7 +174,7 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
         <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 20, alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, background: 'var(--bg2)', padding: 8, borderRadius: 14, border: '1px solid var(--border)' }}>
             {['Career Pathway', 'Competency Matrix', 'Overview', 'Verified Skills', 'Demonstrated Skills', 'Claimed Skills', 'Assessment History', 'Verification Levels'].map(t => (
-              <button key={t} onClick={() => setActivePassportTab(t)} style={{ textAlign: 'left', padding: '8px 12px', border: 'none', borderRadius: 8, background: activePassportTab === t ? 'var(--accent-light)' : 'transparent', color: activePassportTab === t ? 'var(--accent)' : 'var(--t2)', fontSize: 12.5, fontWeight: activePassportTab === t ? 800 : 500, cursor: 'pointer' }}>{t}</button>
+              <button key={t} onClick={() => setActivePassportTab(t)} style={{ textAlign: 'left', padding: '8px 12px', border: 'none', borderRadius: 8, background: activePassportTab === t ? 'var(--accent-light)' : 'transparent', color: activePassportTab === t ? 'var(--accent)' : 'var(--t2)', fontSize: 14, fontWeight: activePassportTab === t ? 800 : 500, cursor: 'pointer' }}>{t}</button>
             ))}
           </div>
 
@@ -190,10 +190,10 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
             {activePassportTab === 'Overview' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <div style={{ background: 'var(--accent-light)', border: '1.5px solid var(--accent)', borderRadius: 16, padding: 20, display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: 24 }}>🧠</span>
+                  <span style={{ fontSize: 26.5 }}>🧠</span>
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: 13.5, color: 'var(--accent)', marginBottom: 4 }}>PinIT 3-Tier Skill Validation Architecture</div>
-                    <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+                    <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--accent)', marginBottom: 4 }}>PinIT 3-Tier Skill Validation Architecture</div>
+                    <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
                       Skill credentials update automatically from validated evidence records:<br />
                       • 🟢 <strong>Verified ({skillProfile?.verified.length || 0})</strong>: Passed multi-class evidence gates & oral defense.<br />
                       • 🔵 <strong>Demonstrated ({skillProfile?.demonstrated.length || 0})</strong>: Practical coding tasks completed.<br />
@@ -202,25 +202,25 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
                   </div>
                 </div>
                 <div>
-                  <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Credentials Summary</h3>
+                  <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Verified Credentials Summary</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {(() => {
                       const items = (skillProfile?.verified && skillProfile.verified.length > 0 ? skillProfile.verified : passportSkills.filter(s => s.verified));
                       if (items.length === 0) {
                         return (
-                          <div style={{ padding: 14, textAlign: 'center', color: 'var(--t3)', fontSize: 12, background: 'var(--bg3)', borderRadius: 8 }}>
+                          <div style={{ padding: 14, textAlign: 'center', color: 'var(--t3)', fontSize: 13, background: 'var(--bg3)', borderRadius: 8 }}>
                             No verified credentials yet. Pass Socratic Quests and Coding Labs to earn credentials.
                           </div>
                         );
                       }
                       return items.map(s => (
                         <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
-                          <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
+                          <span style={{ fontSize: 14.5, fontWeight: 700 }}>{s.name}</span>
                           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                            <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
+                            <span style={{ fontSize: 12, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
                               {'score' in s ? `${Math.round(s.score)} Pts` : `Level ${s.level}`}
                             </span>
-                            <span style={{ fontSize: 11, background: 'var(--accent-light)', padding: '3px 8px', borderRadius: 6, color: 'var(--accent)', fontWeight: 800 }}>{s.level}</span>
+                            <span style={{ fontSize: 12, background: 'var(--accent-light)', padding: '3px 8px', borderRadius: 6, color: 'var(--accent)', fontWeight: 800 }}>{s.level}</span>
                           </div>
                         </div>
                       ));
@@ -232,23 +232,23 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
 
             {activePassportTab === 'Verified Skills' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Credentials Directory (SHA-256 Sealed)</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Verified Credentials Directory (SHA-256 Sealed)</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {skillProfile?.verified && skillProfile.verified.length > 0 ? (
                     skillProfile.verified.map(s => (
                       <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                         <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                          <span style={{ fontSize: 13.5, fontWeight: 800 }}>{s.name}</span>
-                          <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} Verified ✓</span>
+                          <span style={{ fontSize: 15, fontWeight: 800 }}>{s.name}</span>
+                          <span style={{ fontSize: 12, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} Verified ✓</span>
                         </div>
-                        <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 8px 0', lineHeight: 1.4 }}>
-                          <strong>Evaluation Score:</strong> {Math.round(s.score)}/100 &middot; <strong>Credential ID:</strong> <code style={{ fontSize: 10, color: 'var(--accent)' }}>{s.credentialId}</code>
+                        <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 8px 0', lineHeight: 1.4 }}>
+                          <strong>Evaluation Score:</strong> {Math.round(s.score)}/100 &middot; <strong>Credential ID:</strong> <code style={{ fontSize: 11, color: 'var(--accent)' }}>{s.credentialId}</code>
                         </p>
-                        <div style={{ fontSize: 11, color: 'var(--t3)' }}>Verified: <strong>{new Date(s.verifiedAt).toLocaleDateString()}</strong></div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)' }}>Verified: <strong>{new Date(s.verifiedAt).toLocaleDateString()}</strong></div>
                       </div>
                     ))
                   ) : (
-                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 12 }}>
+                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 12 }}>
                       No verified skills yet. Complete your P1-P5 projects and pass the oral defense gate to earn verified credentials!
                     </div>
                   )}
@@ -258,23 +258,23 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
 
             {activePassportTab === 'Demonstrated Skills' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Demonstrated Practical Targets</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Demonstrated Practical Targets</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {skillProfile?.demonstrated && skillProfile.demonstrated.length > 0 ? (
                     skillProfile.demonstrated.map(s => (
                       <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                         <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                          <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                          <span style={{ fontSize: 11.5, color: 'var(--info)', fontWeight: 700 }}>{Math.round(s.score)} Pts Demonstrated</span>
+                          <span style={{ fontSize: 14.5, fontWeight: 700 }}>{s.name}</span>
+                          <span style={{ fontSize: 12.5, color: 'var(--info)', fontWeight: 700 }}>{Math.round(s.score)} Pts Demonstrated</span>
                         </div>
                         <div style={{ height: 6, background: 'var(--bg2)', borderRadius: 3, overflow: 'hidden', marginBottom: 8 }}>
                           <div style={{ width: `${Math.min(100, s.score)}%`, height: '100%', background: 'var(--info)' }} />
                         </div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)' }}>Target: Complete production project & defense to verify.</div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)' }}>Target: Complete production project & defense to verify.</div>
                       </div>
                     ))
                   ) : (
-                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 12 }}>
+                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 12 }}>
                       No demonstrated skills yet. Complete daily coding missions to generate practical evidence!
                     </div>
                   )}
@@ -284,12 +284,12 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
 
             {activePassportTab === 'Claimed Skills' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Claimed Baseline Skills</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Claimed Baseline Skills</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
                   {(skillProfile?.claimed || []).map(s => (
                     <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 12, borderRadius: 10 }}>
-                      <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>{s.name}</div>
-                      <div style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'capitalize', marginTop: 2 }}>{s.category || 'General'}</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{s.name}</div>
+                      <div style={{ fontSize: 11.5, color: 'var(--t3)', textTransform: 'capitalize', marginTop: 2 }}>{s.category || 'General'}</div>
                     </div>
                   ))}
                 </div>
@@ -298,23 +298,23 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
 
             {activePassportTab === 'Assessment History' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>AI Audit Transcripts</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>AI Audit Transcripts</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {assessmentHistory.length > 0 ? (
                     assessmentHistory.map((h, i) => (
                       <div key={i} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                         <div>
-                          <div style={{ fontSize: 13, fontWeight: 700 }}>{h.type}</div>
-                          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>Demonstrated {h.date}</div>
+                          <div style={{ fontSize: 14.5, fontWeight: 700 }}>{h.type}</div>
+                          <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>Demonstrated {h.date}</div>
                         </div>
                         <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)' }}>{h.score} Score</div>
-                          <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{h.result}</div>
+                          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--green)' }}>{h.score} Score</div>
+                          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{h.result}</div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 12 }}>
+                    <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 12 }}>
                       No AI audit transcripts recorded yet. Complete coding quests, oral defenses, or AI mock interviews to generate audit records.
                     </div>
                   )}
@@ -324,7 +324,7 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
 
             {activePassportTab === 'Verification Levels' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Skill Credential Hierarchy</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Skill Credential Hierarchy</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {[
                     { lvl: 1, title: 'Quest Approved', desc: 'Syntax and basic algorithm constructs verified via automated Next.js IDE test runs.' },
@@ -332,8 +332,8 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
                     { lvl: 3, title: 'Industry Verified', desc: 'Practical deployment experience verified during company internships or client projects.' }
                   ].map(h => (
                     <div key={h.lvl} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
-                      <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--accent)', marginBottom: 4 }}>Level {h.lvl} — {h.title}</div>
-                      <p style={{ fontSize: 12, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>{h.desc}</p>
+                      <div style={{ fontWeight: 800, fontSize: 14.5, color: 'var(--accent)', marginBottom: 4 }}>Level {h.lvl} — {h.title}</div>
+                      <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>{h.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -351,16 +351,16 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
               passportSkills.map(s => (
                 <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                   <div>
-                    <h4 style={{ margin: 0, fontSize: 13.5 }}>{s.name}</h4>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>{s.evidence}</p>
+                    <h4 style={{ margin: 0, fontSize: 15 }}>{s.name}</h4>
+                    <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0' }}>{s.evidence}</p>
                   </div>
-                  <span style={{ fontSize: 11, background: s.verified ? 'var(--green-light)' : 'var(--border)', color: s.verified ? 'var(--green)' : 'var(--t3)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
+                  <span style={{ fontSize: 12, background: s.verified ? 'var(--green-light)' : 'var(--border)', color: s.verified ? 'var(--green)' : 'var(--t3)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
                     {s.verified ? `Level ${s.level} Verified` : 'Pending Validation'}
                   </span>
                 </div>
               ))
             ) : (
-              <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 10 }}>
+              <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 10 }}>
                 No skill passport records yet. Demonstrated competencies will appear here once verified.
               </div>
             )}
@@ -376,16 +376,16 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
               passportSkills.map(s => (
                 <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12 }}>
                   <div>
-                    <strong style={{ fontSize: 13.5 }}>{s.name} (Level {s.level})</strong>
-                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{s.evidence}</div>
+                    <strong style={{ fontSize: 15 }}>{s.name} (Level {s.level})</strong>
+                    <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>{s.evidence}</div>
                   </div>
-                  <button onClick={() => toggleEndorsement(s.id)} style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: s.verified ? 'var(--coral)' : 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
+                  <button onClick={() => toggleEndorsement(s.id)} style={{ padding: '6px 12px', fontSize: 11.5, fontWeight: 800, background: s.verified ? 'var(--coral)' : 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
                     {s.verified ? 'Revoke Endorse' : 'Endorse Skill'}
                   </button>
                 </div>
               ))
             ) : (
-              <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 10 }}>
+              <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 10 }}>
                 No skills submitted for faculty endorsement yet.
               </div>
             )}

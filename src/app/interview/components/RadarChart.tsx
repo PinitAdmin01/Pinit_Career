@@ -90,7 +90,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ scores, size = 200 }) =>
           const ly = center + (maxRadius + 16) * Math.sin(angle) + 3;
           return (
             <text
-              key={i} x={lx} y={ly} fill="var(--t2)" fontSize="9" fontWeight="800"
+              key={i} x={lx} y={ly} fill="var(--t2)" fontSize="10" fontWeight="800"
               fontFamily="monospace" textAnchor="middle"
             >
               {c.name} ({c.score}%)

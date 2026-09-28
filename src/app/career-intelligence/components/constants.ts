@@ -9,7 +9,7 @@ export const card: React.CSSProperties = {
 };
 
 export const cardLabel: React.CSSProperties = {
-  fontSize: 10.5,
+  fontSize: 11.5,
   letterSpacing: '0.8px',
   textTransform: 'uppercase',
   color: 'var(--t3)',

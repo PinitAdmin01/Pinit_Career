@@ -60,12 +60,12 @@ export default function JobModal({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800 }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800 }}>
             {editingJob ? '✏️ Edit Job Posting' : '🚀 Post a New Job'}
           </h3>
           <button
             onClick={() => setShowJobModal(false)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 22, lineHeight: 1 }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 24, lineHeight: 1 }}
           >
             ×
           </button>
@@ -73,7 +73,7 @@ export default function JobModal({
 
         <form onSubmit={postJob} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10, marginBottom: 5 }}>
-            <h4 style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, color: 'var(--accent)' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, color: 'var(--accent)' }}>
               📋 Core Information
             </h4>
           </div>
@@ -89,7 +89,7 @@ export default function JobModal({
                       type="button"
                       onClick={() => setJobForm((p) => ({ ...p, title: t }))}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '2px 6px',
                         background: 'var(--bg3)',
                         borderRadius: 4,
@@ -122,7 +122,7 @@ export default function JobModal({
                       type="button"
                       onClick={() => setJobForm((p) => ({ ...p, department: d }))}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '2px 6px',
                         background: 'var(--bg3)',
                         borderRadius: 4,
@@ -154,7 +154,7 @@ export default function JobModal({
                       type="button"
                       onClick={() => setJobForm((p) => ({ ...p, location: l }))}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '2px 6px',
                         background: 'var(--bg3)',
                         borderRadius: 4,
@@ -270,7 +270,7 @@ export default function JobModal({
           </div>
 
           <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10, marginTop: 10, marginBottom: 5 }}>
-            <h4 style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, color: 'var(--accent)' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, color: 'var(--accent)' }}>
               🎯 Requirements & Perks
             </h4>
           </div>
@@ -362,7 +362,7 @@ export default function JobModal({
                       }
                     }}
                     style={{
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       padding: '2px 6px',
                       background: 'var(--bg3)',
                       borderRadius: 4,
@@ -405,7 +405,7 @@ export default function JobModal({
                     type="button"
                     onClick={() => setJobForm((p) => ({ ...p, benefits: b }))}
                     style={{
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       padding: '2px 6px',
                       background: 'var(--bg3)',
                       borderRadius: 4,

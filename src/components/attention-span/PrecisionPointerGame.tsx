@@ -89,25 +89,25 @@ export function PrecisionPointerGame({ gameId, difficulty, onDifficultyChange, c
     <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
       {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={startGame} />}
 
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text)', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
+      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text)', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 14.5, fontWeight: 600 }}>✕ Exit</button>
 
       {phase === 'ready' && (
         <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🎯</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Precision Pointer</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Maintain laser crosshair lock-on over the target as it maneuvers along erratic paths!</p>
+          <div style={{ fontSize: 61.5, marginBottom: 16 }}>🎯</div>
+          <h2 style={{ color: '#f0f0f0', fontSize: 31, fontWeight: 800, margin: '0 0 8px' }}>Precision Pointer</h2>
+          <p style={{ color: '#aaa', fontSize: 15.5, margin: '0 0 12px', maxWidth: 420 }}>Maintain laser crosshair lock-on over the target as it maneuvers along erratic paths!</p>
 
           <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
 
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #14b8a6, #2dd4bf)', color: 'var(--text)', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>LOCK ON</button>
+          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #14b8a6, #2dd4bf)', color: 'var(--text)', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 17.5, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>LOCK ON</button>
         </div>
       )}
 
       {phase === 'playing' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 40, marginBottom: 16 }}>
-            <div style={{ color: 'var(--accent-teal)', fontSize: 18, fontWeight: 800 }}>Lock-On: {(lockOnMs / 1000).toFixed(1)}s</div>
-            <div style={{ color: timeLeft <= 5 ? 'var(--danger)' : '#aaa', fontSize: 18, fontWeight: 800 }}>⏱ {timeLeft}s</div>
+            <div style={{ color: 'var(--accent-teal)', fontSize: 20, fontWeight: 800 }}>Lock-On: {(lockOnMs / 1000).toFixed(1)}s</div>
+            <div style={{ color: timeLeft <= 5 ? 'var(--danger)' : '#aaa', fontSize: 20, fontWeight: 800 }}>⏱ {timeLeft}s</div>
           </div>
 
           <div
@@ -144,7 +144,7 @@ export function PrecisionPointerGame({ gameId, difficulty, onDifficultyChange, c
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 16,
+                fontSize: 17.5,
                 pointerEvents: 'none',
                 transition: 'background 0.15s ease',
               }}
@@ -157,17 +157,17 @@ export function PrecisionPointerGame({ gameId, difficulty, onDifficultyChange, c
 
       {phase === 'done' && (
         <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🎯</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Lock-On Ended!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: 'var(--accent-teal)', margin: '16px 0 4px', animation: 'attCountUp 0.5s ease' }}>{(lockOnMs / 1000).toFixed(1)}s</div>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 4px' }}>continuous laser tracking time</p>
+          <div style={{ fontSize: 53, marginBottom: 12 }}>🎯</div>
+          <h2 style={{ color: '#f0f0f0', fontSize: 31, fontWeight: 800, margin: '0 0 8px' }}>Lock-On Ended!</h2>
+          <div style={{ fontSize: 61.5, fontWeight: 900, color: 'var(--accent-teal)', margin: '16px 0 4px', animation: 'attCountUp 0.5s ease' }}>{(lockOnMs / 1000).toFixed(1)}s</div>
+          <p style={{ color: '#aaa', fontSize: 15.5, margin: '0 0 4px' }}>continuous laser tracking time</p>
 
           <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(lockOnMs, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
 
-          <div style={{ color: 'var(--success)', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
+          <div style={{ color: 'var(--success)', fontSize: 15.5, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(lockOnMs, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #14b8a6, #2dd4bf)', color: 'var(--text)', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
+            <button onClick={() => { onComplete(lockOnMs, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #14b8a6, #2dd4bf)', color: 'var(--text)', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 15.5, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
+            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 15.5, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
           </div>
         </div>
       )}

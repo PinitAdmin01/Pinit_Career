@@ -176,10 +176,10 @@ export default function GroupDiscussionPage() {
       {/* Header banner */}
       <div className="gd-header-banner">
         <div>
-          <h1 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
+          <h1 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
             🗣️ Collaborative SDE Group Boardroom
           </h1>
-          <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>Simulate realistic group presentations and design debates with multi-agent avatars.</p>
+          <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>Simulate realistic group presentations and design debates with multi-agent avatars.</p>
         </div>
         {step !== 'call_grid' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -191,7 +191,7 @@ export default function GroupDiscussionPage() {
               className="btn-primary"
               style={{
                 padding: '6px 12px',
-                fontSize: 11,
+                fontSize: 12,
                 borderRadius: 8,
                 display: 'flex',
                 alignItems: 'center',
@@ -211,7 +211,7 @@ export default function GroupDiscussionPage() {
               className="btn-primary"
               style={{
                 padding: '6px 12px',
-                fontSize: 11,
+                fontSize: 12,
                 borderRadius: 8,
                 display: 'flex',
                 alignItems: 'center',
@@ -238,7 +238,7 @@ export default function GroupDiscussionPage() {
               className="btn-ghost"
               style={{
                 padding: '5px 10px',
-                fontSize: 11,
+                fontSize: 12,
                 borderRadius: 8,
                 border: '1px solid var(--border)',
                 display: 'flex',
@@ -251,7 +251,7 @@ export default function GroupDiscussionPage() {
             >
               🌗 Theme
             </button>
-            <Link href="/dashboard" className="btn-ghost" style={{ fontSize: 11, textDecoration: 'none' }}>
+            <Link href="/dashboard" className="btn-ghost" style={{ fontSize: 12, textDecoration: 'none' }}>
               ➔ Return to Command
             </Link>
           </div>
@@ -263,7 +263,7 @@ export default function GroupDiscussionPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
             {/* Left Column: Boardroom Setup Form */}
             <div className="gd-setup-card animate-fade-in">
-              <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 20 }}>
+              <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 20 }}>
                 Step 1: Setup Boardroom Metadata
               </h2>
               <form onSubmit={handleCreateRoom} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -283,7 +283,7 @@ export default function GroupDiscussionPage() {
                       borderRadius: 10,
                       padding: '6px 12px',
                       color: 'var(--teal)',
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 800,
                       cursor: 'pointer',
                       display: 'flex',
@@ -347,7 +347,7 @@ export default function GroupDiscussionPage() {
                       );
                     })}
                   </div>
-                  <p style={{ fontSize: 9.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
+                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
                     {domain === 'technical' && '💻 Focus on technology, code integrations, and hardware.'}
                     {domain === 'sales' && '📈 Focus on marketing budget, campaigns, and conversions.'}
                     {domain === 'business' && '💼 Focus on unit economics, operational costs, and structures.'}
@@ -378,7 +378,7 @@ export default function GroupDiscussionPage() {
                       );
                     })}
                   </div>
-                  <p style={{ fontSize: 9.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
+                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
                     {difficulty === 'easy' && '🟢 Easy Mode: Avatars speak gently. Response timer is 16 seconds.'}
                     {difficulty === 'medium' && '🟡 Medium Mode: Standard boardroom debate. Response timer is 12 seconds.'}
                     {difficulty === 'hard' && '🔴 Hard Mode: Aggressive critiques, fast pace. Response timer is 8 seconds.'}
@@ -408,7 +408,7 @@ export default function GroupDiscussionPage() {
                       );
                     })}
                   </div>
-                  <p style={{ fontSize: 9.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
+                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
                     {sessionDurationMinutes === 5 && '⚡ Express session with fast-paced interventions and 5-min recap.'}
                     {sessionDurationMinutes === 10 && '⚖️ Standard 10-min corporate debate with mid-session summary.'}
                     {sessionDurationMinutes === 15 && '🏛️ Deep dive architectural boardroom with comprehensive closing synthesis.'}
@@ -423,28 +423,28 @@ export default function GroupDiscussionPage() {
 
             {/* Right Column: Previous Boardroom Sessions */}
             <div className="gd-history-panel animate-fade-in">
-              <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 16 }}>
+              <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 16 }}>
                 📜 Previous Boardrooms
               </h2>
               {historyListState.length === 0 ? (
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>
-                  <span style={{ fontSize: 32 }}>📜</span>
-                  <span style={{ fontSize: 11, fontWeight: 700 }}>No previous boardroom sessions found.</span>
+                  <span style={{ fontSize: 35 }}>📜</span>
+                  <span style={{ fontSize: 12, fontWeight: 700 }}>No previous boardroom sessions found.</span>
                 </div>
               ) : (
                 <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
                   {historyListState.map((past: GdHistoryRecord) => (
                     <div key={past.id} className="gd-history-card">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 10, color: 'var(--t3)', fontWeight: 700 }}>{past.date}</span>
-                        <span style={{ fontSize: 10, color: 'var(--teal)', fontWeight: 800 }}>Score: {past.report?.score || 75}%</span>
+                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>{past.date}</span>
+                        <span style={{ fontSize: 11, color: 'var(--teal)', fontWeight: 800 }}>Score: {past.report?.score || 75}%</span>
                       </div>
-                      <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{past.topic}</h4>
-                      <p style={{ fontSize: 9.5, color: 'var(--t3)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{past.objective}</p>
+                      <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{past.topic}</h4>
+                      <p style={{ fontSize: 10.5, color: 'var(--t3)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{past.objective}</p>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
                         <div style={{ display: 'flex', gap: 6 }}>
                           {past.domain && (
-                            <span style={{ fontSize: 8.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
+                            <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
                               {past.domain}
                             </span>
                           )}
@@ -474,16 +474,16 @@ export default function GroupDiscussionPage() {
 
       {step === 'invite_concept' && (
         <div className="gd-invite-panel animate-fade-in">
-          <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 4 }}>
+          <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 4 }}>
             Step 2: Invite Avatars & Define Focus Concept
           </h2>
-          <p style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 18 }}>
+          <p style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 18 }}>
             Excludes your currently selected mentor ({AVATARS.find(a => a.id === currentMentorId)?.name || 'Priya'}).
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>TARGET DISCUSSION TOPIC (FROM STEP 1)</label>
+              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>TARGET DISCUSSION TOPIC (FROM STEP 1)</label>
               <input
                 type="text"
                 disabled
@@ -495,7 +495,7 @@ export default function GroupDiscussionPage() {
                   border: '1.5px solid var(--border)',
                   borderRadius: 10,
                   color: 'var(--t3)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   outline: 'none',
                   cursor: 'not-allowed'
                 }}
@@ -503,7 +503,7 @@ export default function GroupDiscussionPage() {
             </div>
 
             <div>
-              <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 8 }}>SELECT INVITE PARTICIPANTS</label>
+              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 8 }}>SELECT INVITE PARTICIPANTS</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', gap: 12, maxHeight: 320, overflowY: 'auto', paddingRight: 6 }}>
                 {filteredAvatars.map(a => {
                   const isInvited = invitedAvatars.includes(a.id);
@@ -520,17 +520,17 @@ export default function GroupDiscussionPage() {
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 20 }}>{a.emoji}</span>
-                        <span style={{ fontSize: 9, color: isInvited ? 'var(--teal)' : 'var(--t3)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                        <span style={{ fontSize: 22 }}>{a.emoji}</span>
+                        <span style={{ fontSize: 10, color: isInvited ? 'var(--teal)' : 'var(--t3)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
                           {isInvited ? '🟢 INVITED' : '⚪ OFF'}
                         </span>
                       </div>
                       <div>
-                        <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{a.name}</h4>
-                        <p style={{ fontSize: 9.5, color: 'var(--t3)', margin: '2px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.role}</p>
+                        <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{a.name}</h4>
+                        <p style={{ fontSize: 10.5, color: 'var(--t3)', margin: '2px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.role}</p>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
-                        <span style={{ fontSize: 8, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
+                        <span style={{ fontSize: 9, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
                           {a.trait}
                         </span>
                         <button

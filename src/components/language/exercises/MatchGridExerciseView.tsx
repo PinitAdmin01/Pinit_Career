@@ -62,13 +62,13 @@ export const MatchGridExerciseView: React.FC<MatchGridExerciseViewProps> = ({
 
   return (
     <div style={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 16, padding: 24, color: '#fff' }}>
-      <div style={{ fontSize: 13, color: '#10b981', fontWeight: 600, marginBottom: 8 }}>VOCABULARY MATCH GRID</div>
-      <h3 style={{ fontSize: 18, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
+      <div style={{ fontSize: 14.5, color: '#10b981', fontWeight: 600, marginBottom: 8 }}>VOCABULARY MATCH GRID</div>
+      <h3 style={{ fontSize: 20, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
         {/* Left Column: Target Language */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ fontSize: 12, color: '#a1a1aa', fontWeight: 600 }}>TARGET WORDS</div>
+          <div style={{ fontSize: 13, color: '#a1a1aa', fontWeight: 600 }}>TARGET WORDS</div>
           {targets.map((t, idx) => {
             const isMatched = matchedPairs.includes(t);
             const isSelected = selectedTarget === t;
@@ -84,7 +84,7 @@ export const MatchGridExerciseView: React.FC<MatchGridExerciseViewProps> = ({
                   borderRadius: 8,
                   padding: 12,
                   fontWeight: 600,
-                  fontSize: 15,
+                  fontSize: 16.5,
                   textAlign: 'left',
                   cursor: isMatched ? 'default' : 'pointer'
                 }}
@@ -97,7 +97,7 @@ export const MatchGridExerciseView: React.FC<MatchGridExerciseViewProps> = ({
 
         {/* Right Column: Native Language */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ fontSize: 12, color: '#a1a1aa', fontWeight: 600 }}>TRANSLATIONS</div>
+          <div style={{ fontSize: 13, color: '#a1a1aa', fontWeight: 600 }}>TRANSLATIONS</div>
           {natives.map((n, idx) => {
             const pairOwner = exercise.pairs.find(p => p.native === n);
             const isMatched = pairOwner && matchedPairs.includes(pairOwner.target);
@@ -114,7 +114,7 @@ export const MatchGridExerciseView: React.FC<MatchGridExerciseViewProps> = ({
                   borderRadius: 8,
                   padding: 12,
                   fontWeight: 600,
-                  fontSize: 15,
+                  fontSize: 16.5,
                   textAlign: 'left',
                   cursor: isMatched ? 'default' : 'pointer'
                 }}
@@ -126,7 +126,7 @@ export const MatchGridExerciseView: React.FC<MatchGridExerciseViewProps> = ({
         </div>
       </div>
 
-      <div style={{ fontSize: 13, color: '#a1a1aa' }}>
+      <div style={{ fontSize: 14.5, color: '#a1a1aa' }}>
         MATCHED: {matchedPairs.length} / {exercise.pairs.length} PAIRS
       </div>
     </div>

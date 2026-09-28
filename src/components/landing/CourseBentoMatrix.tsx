@@ -73,7 +73,7 @@ export default function CourseBentoMatrix() {
               >
                 <span>{tab.icon}</span>
                 <span>{tab.label}</span>
-                <span style={{ fontSize: 10.5, opacity: 0.85, marginLeft: 2, background: 'rgba(0,0,0,0.15)', padding: '2px 7px', borderRadius: 999 }}>
+                <span style={{ fontSize: 11.5, opacity: 0.85, marginLeft: 2, background: 'rgba(0,0,0,0.15)', padding: '2px 7px', borderRadius: 999 }}>
                   {tab.count}
                 </span>
               </button>
@@ -93,7 +93,7 @@ export default function CourseBentoMatrix() {
                 background: 'var(--bg-secondary)',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-primary)',
-                fontSize: 13,
+                fontSize: 14.5,
                 outline: 'none',
                 boxShadow: 'var(--card-shadow)'
               }}
@@ -112,37 +112,37 @@ export default function CourseBentoMatrix() {
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+                    <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
                       {course.icon}
                     </div>
                     <div style={{ display: 'flex', gap: 6 }}>
-                      <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: 10.5, fontFamily: 'var(--font-mono)' }}>
+                      <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
                         {course.difficulty}
                       </span>
-                      <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--badge-bg)', color: 'var(--badge-text)', fontSize: 10.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                      <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--badge-bg)', color: 'var(--badge-text)', fontSize: 11.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
                         30 Days
                       </span>
                     </div>
                   </div>
 
-                  <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 750, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+                  <h3 style={{ margin: 0, fontSize: 17, fontWeight: 750, color: 'var(--text-primary)', lineHeight: 1.35 }}>
                     {course.title}
                   </h3>
 
-                  <p style={{ margin: 0, fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {course.desc}
                   </p>
                 </div>
 
                 <div style={{ paddingTop: 14, marginTop: 14, borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}>
+                  <div style={{ fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}>
                     <span style={{ color: 'var(--accent)', fontWeight: 700 }}>90 Blocks</span> • <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>5 Milestones</span>
                   </div>
 
                   <Link
                     href={`/quests/lesson?questId=${firstQuestId}`}
                     style={{
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 750,
                       color: 'var(--accent)',
                       textDecoration: 'none',

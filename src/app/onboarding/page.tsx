@@ -10,8 +10,7 @@ import CognitiveSliders from './components/CognitiveSliders';
 import VoiceDiagnostic from './components/VoiceDiagnostic';
 import DocumentUploader from './components/DocumentUploader';
 import RoadmapPreview from './components/RoadmapPreview';
-import GoalDiscoveryStep from './components/GoalDiscoveryStep';
-import BehavioralDiagnosticStep from './components/BehavioralDiagnosticStep';
+import LifeQuestionsStep from './components/LifeQuestionsStep';
 import { calculateQT2MindsetBreakdown } from './types';
 import { setAvatarVoiceVolume } from '@/lib/tts';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
@@ -131,8 +130,7 @@ export default function OnboardingPage() {
     setDiagnosticAnswers,
     diagnosticProfile,
     setDiagnosticProfile,
-    handleGoalDiscoveryComplete,
-    handleBehavioralDiagnosticComplete,
+    handleLifeQuestionsComplete,
   } = wizard;
 
   return (
@@ -147,7 +145,9 @@ export default function OnboardingPage() {
         fontFamily: 'var(--font-sans)',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
+        // clip, not hidden: the background glows reach past the edges, and a hidden box can still be
+        // scrolled by focus/scrollIntoView, which shifted the whole screen
+        overflow: 'clip',
         userSelect: 'none',
         ['--t1' as any]: 'var(--text)',
         ['--t2' as any]: '#e2e8f0',
@@ -229,7 +229,7 @@ export default function OnboardingPage() {
                 border: 'none',
                 borderRadius: 100,
                 color: 'var(--card)',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 padding: '6px 14px',
                 cursor: syncing ? 'not-allowed' : 'pointer',
@@ -252,7 +252,7 @@ export default function OnboardingPage() {
                 border: '1px solid rgba(255,255,255,0.12)',
                 borderRadius: 100,
                 color: 'var(--foreground)',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 700,
                 padding: '6px 14px',
                 cursor: 'pointer',
@@ -265,8 +265,8 @@ export default function OnboardingPage() {
               ← Return to Dashboard
             </button>
           )}
-          <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
-            {stageLabel[activeScreen] || 'ONBOARDING'}
+          <div style={{ fontSize: 16.5, fontWeight: 700, color: '#e2e8f0', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 100, padding: '6px 16px' }}>
+            {stageLabel[activeScreen] || 'Getting started'}
           </div>
           <GearAudioHub theme={cOS.theme} size="sm" />
         </div>
@@ -289,12 +289,16 @@ export default function OnboardingPage() {
           position: 'relative', 
           minHeight: 0 
         }}>
-          <div style={{ flex: 1, position: 'relative' }}>
-            {selectedMentor === 'anish' ? (
-              <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />
-            ) : (
-              <VRoidInterviewAvatar teacherId="priya" animState={animState} zoom={zoom} />
-            )}
+          <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+            {/* Pinned to the visible panel: a canvas sized by its own content grew taller than the panel,
+                so only the top of the mentor's head showed. */}
+            <div style={{ position: 'absolute', inset: 0 }}>
+              {selectedMentor === 'anish' ? (
+                <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />
+              ) : (
+                <VRoidInterviewAvatar teacherId="priya" animState={animState} zoom={zoom} />
+              )}
+            </div>
             
             {/* Audio Wave Listening Overlay */}
             {animState === 'listening' && (
@@ -304,22 +308,22 @@ export default function OnboardingPage() {
                     <div key={i} className="mic-wave-bar" style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2, animation: `pulse-height 1s ease-in-out infinite alternate ${i * 0.15}s` }} />
                   ))}
                 </div>
-                <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--brand-bright)', textTransform: 'uppercase', letterSpacing: '1px' }}>Listening... Speak now</div>
+                <div style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--brand-bright)', textTransform: 'uppercase', letterSpacing: '1px' }}>Listening... Speak now</div>
               </div>
             )}
           </div>
 
           {/* Floating Controls Overlay */}
-          <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12 }}>
-            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
-            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
+          <div className="ob-controls" style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.85)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12, whiteSpace: 'nowrap' }}>
+            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 15.5, cursor: 'pointer', padding: '4px 8px' }} title="Zoom in" aria-label="Zoom in">🔍+</button>
+            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 15.5, cursor: 'pointer', padding: '4px 8px' }} title="Zoom out" aria-label="Zoom out">🔍-</button>
             <button
               onClick={() => {
                 const next = !isMuted;
                 setIsMuted(next);
                 setAvatarVoiceVolume(next ? 0 : 0.85);
               }}
-              style={{ background: 'none', border: 'none', color: isMuted ? 'var(--danger-bright)' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }}
+              style={{ background: 'none', border: 'none', color: isMuted ? 'var(--danger-bright)' : 'var(--t3)', fontSize: 15.5, cursor: 'pointer', padding: '4px 8px' }}
               title={isMuted ? "Unmute Mentor Voice" : "Mute Mentor Voice"}
             >
               {isMuted ? '🔇' : '🔊'}
@@ -330,14 +334,14 @@ export default function OnboardingPage() {
                 setIsBgmMuted(next);
                 ambientAudio.setMuted(next);
               }}
-              style={{ background: 'none', border: 'none', color: isBgmMuted ? 'var(--danger-bright)' : 'var(--accent)', fontSize: 12, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }}
+              style={{ background: 'none', border: 'none', color: isBgmMuted ? 'var(--danger-bright)' : 'var(--accent)', fontSize: 13, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }}
               title={isBgmMuted ? "Unmute Background Music" : "Mute Background Music"}
             >
-              {isBgmMuted ? '🔇' : '🎵'} <span>BGM</span>
+              {isBgmMuted ? '🔇' : '🎵'} <span>Music</span>
             </button>
             <button 
               onClick={() => {
-                if (!useNeural && !window.confirm("High-definition neural mentor audio requires an active internet connection. Enable neural voice?")) {
+                if (!useNeural && !window.confirm("The clearer mentor voice needs the internet. Turn it on?")) {
                   return;
                 }
                 setUseNeural(!useNeural);
@@ -346,7 +350,7 @@ export default function OnboardingPage() {
                 background: 'none',
                 border: 'none',
                 color: useNeural ? 'var(--green)' : 'var(--t3)',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 900,
                 cursor: 'pointer',
                 padding: '4px 8px',
@@ -354,9 +358,9 @@ export default function OnboardingPage() {
                 alignItems: 'center',
                 gap: 4
               }}
-              title={useNeural ? "Mute Neural Voice" : "Enable Neural Voice"}
+              title={useNeural ? "Use the basic voice" : "Use the clearer voice"}
             >
-              {useNeural ? '🎙️ Neural' : '🔇 Silent'}
+              {useNeural ? '🎙️ Clear voice' : '🔈 Basic voice'}
             </button>
           </div>
         </section>
@@ -433,8 +437,8 @@ export default function OnboardingPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.01)' }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : 'var(--brand)', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Anish'}</div>
-                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Anish'}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
                 </div>
               </div>
 
@@ -451,7 +455,7 @@ export default function OnboardingPage() {
                         background: isAi ? '#1e293b' : 'linear-gradient(135deg, var(--brand) 0%, var(--reward) 100%)',
                         border: isAi ? '1px solid rgba(148,163,184,0.35)' : 'none',
                         color: 'var(--text)',
-                        fontSize: 13.5,
+                        fontSize: 15,
                         fontWeight: 500,
                         lineHeight: 1.6,
                         whiteSpace: 'pre-wrap',
@@ -481,7 +485,7 @@ export default function OnboardingPage() {
                           background: 'rgba(255, 255, 255, 0.05)',
                           border: '1px solid rgba(255, 255, 255, 0.1)',
                           color: 'var(--t1)',
-                          fontSize: 12.5,
+                          fontSize: 14,
                           fontWeight: 600,
                           cursor: (syncing || isSubmittingStep) ? 'not-allowed' : 'pointer',
                           transition: 'all 0.15s ease',
@@ -519,7 +523,7 @@ export default function OnboardingPage() {
                         background: recognizing ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.04)',
                         border: `1px solid ${recognizing ? '#ef4444' : 'rgba(255, 255, 255, 0.08)'}`,
                         color: recognizing ? '#fca5a5' : 'var(--t3)',
-                        fontSize: 11,
+                        fontSize: 12,
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -534,29 +538,13 @@ export default function OnboardingPage() {
             </>
           )}
 
-          {/* SCREEN: GOAL DISCOVERY (PART A) */}
-          {activeScreen === 'GOAL_DISCOVERY' && (
-            <GoalDiscoveryStep
-              initialData={diagnosticGoal || undefined}
-              onComplete={handleGoalDiscoveryComplete}
+          {/* SCREEN: THE 10 QUESTIONS (3 about you + daily life). Older screen names land here too. */}
+          {(activeScreen === 'GOAL_DISCOVERY' || activeScreen === 'BEHAVIORAL_DIAGNOSTIC'
+            || activeScreen === 'IDENTITY_QUESTIONS' || activeScreen === 'WORKPLACE_SIMULATION') && (
+            <LifeQuestionsStep
+              onComplete={handleLifeQuestionsComplete}
               onBack={() => setActiveScreen('CHOOSE_GUIDE')}
-            />
-          )}
-
-          {/* SCREEN: BEHAVIORAL DIAGNOSTIC (PARTS B, C, D) */}
-          {activeScreen === 'BEHAVIORAL_DIAGNOSTIC' && (
-            <BehavioralDiagnosticStep
-              goalAnswers={diagnosticGoal}
-              onComplete={handleBehavioralDiagnosticComplete}
-              onBack={() => setActiveScreen('GOAL_DISCOVERY')}
-            />
-          )}
-
-          {/* SCREEN 05 & 06: Forward any legacy fallback routes to modern Decision Engine */}
-          {(activeScreen === 'IDENTITY_QUESTIONS' || activeScreen === 'WORKPLACE_SIMULATION') && (
-            <GoalDiscoveryStep
-              onComplete={handleGoalDiscoveryComplete}
-              onBack={() => setActiveScreen('CHOOSE_GUIDE')}
+              onQuestion={(q) => speakReply(q.text)}
             />
           )}
 
@@ -591,10 +579,6 @@ export default function OnboardingPage() {
                 setSelectedMentor={(m) => setSelectedMentor(m as 'priya' | 'anish')}
                 onActivateCommandCenter={(st, tg, ar, bt) => handleOnboardingComplete(st, tg, ar, bt)}
                 syncing={syncing}
-                syncProgress={syncProgress}
-                syncStatus={syncStatus}
-                parserLogs={parserLogs}
-                isUploadedFile={!!uploadedFile}
               />
             );
           })()}
@@ -618,15 +602,15 @@ export default function OnboardingPage() {
           <div style={{ position: 'relative', width: 100, height: 100, marginBottom: 24 }}>
             <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '4px solid rgba(var(--brand-rgb),0.1)' }} />
             <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '4px solid transparent', borderTopColor: 'var(--accent)', animation: 'spin 1.2s linear infinite' }} />
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 800, color: 'var(--accent)' }}>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 800, color: 'var(--accent)' }}>
               {syncProgress}%
             </div>
           </div>
 
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 4, letterSpacing: '-0.5px' }}>
-            {uploadedFile ? 'Analyzing Resume & Credentials' : 'Orchestrating Trajectory OS'}
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4, letterSpacing: '-0.5px' }}>
+            {uploadedFile ? 'Reading your documents' : 'Building your plan'}
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
             {syncStatus}
           </p>
 
@@ -640,7 +624,7 @@ export default function OnboardingPage() {
               borderRadius: 12,
               padding: 16,
               fontFamily: 'var(--font-mono)',
-              fontSize: 11,
+              fontSize: 12,
               color: 'var(--success-bright)',
               display: 'flex',
               flexDirection: 'column',
@@ -651,8 +635,8 @@ export default function OnboardingPage() {
               justifyContent: 'flex-start'
             }}>
               <div style={{ color: 'var(--t2)', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between' }}>
-                <span>PARSER PROCESS TERMINAL</span>
-                <span>ONLINE</span>
+                <span>Progress</span>
+                <span>Working</span>
               </div>
               {parserLogs.map((log, index) => (
                 <div key={index} style={{ lineBreak: 'anywhere' }}>
@@ -697,13 +681,13 @@ export default function OnboardingPage() {
             padding: '22px 22px 18px',
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
           }}>
-            <h2 id="onboarding-save-error-title" style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '0 0 8px' }}>
+            <h2 id="onboarding-save-error-title" style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 8px' }}>
               Your onboarding isn&apos;t saved yet
             </h2>
-            <p id="onboarding-save-error-desc" style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 6px' }}>
+            <p id="onboarding-save-error-desc" style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 6px' }}>
               {syncError}
             </p>
-            <p style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, margin: '0 0 18px' }}>
+            <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.5, margin: '0 0 18px' }}>
               Your answers are still here, so you won&apos;t need to start over.
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
@@ -759,6 +743,7 @@ export default function OnboardingPage() {
           to { transform: rotate(360deg); }
         }
         .mic-wave-bar { transition: height 0.1s ease; }
+        .ob-controls button { font-size: 17.5px !important; color: #e2e8f0; }
       `)}} />
     </div>
   );

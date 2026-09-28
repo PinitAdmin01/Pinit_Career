@@ -48,11 +48,11 @@ export default function RecruiterAnalyticsPanel({
             textAlign: 'center',
           }}
         >
-          <div style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>📊</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>
+          <div style={{ fontSize: '1.93rem', marginBottom: '0.4rem' }}>📊</div>
+          <div style={{ fontSize: '1.93rem', fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>
             {logs.length}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
+          <div style={{ fontSize: '0.83rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
             Total Actions
           </div>
         </div>
@@ -65,11 +65,11 @@ export default function RecruiterAnalyticsPanel({
             textAlign: 'center',
           }}
         >
-          <div style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>🕐</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--teal)', lineHeight: 1 }}>
+          <div style={{ fontSize: '1.93rem', marginBottom: '0.4rem' }}>🕐</div>
+          <div style={{ fontSize: '1.93rem', fontWeight: 800, color: 'var(--teal)', lineHeight: 1 }}>
             {todayCount}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
+          <div style={{ fontSize: '0.83rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
             Today
           </div>
         </div>
@@ -82,11 +82,11 @@ export default function RecruiterAnalyticsPanel({
             textAlign: 'center',
           }}
         >
-          <div style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>📅</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--purple)', lineHeight: 1 }}>
+          <div style={{ fontSize: '1.93rem', marginBottom: '0.4rem' }}>📅</div>
+          <div style={{ fontSize: '1.93rem', fontWeight: 800, color: 'var(--purple)', lineHeight: 1 }}>
             {weekCount}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
+          <div style={{ fontSize: '0.83rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
             This Week
           </div>
         </div>
@@ -99,11 +99,11 @@ export default function RecruiterAnalyticsPanel({
             textAlign: 'center',
           }}
         >
-          <div style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>🎯</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--green)', lineHeight: 1 }}>
+          <div style={{ fontSize: '1.93rem', marginBottom: '0.4rem' }}>🎯</div>
+          <div style={{ fontSize: '1.93rem', fontWeight: 800, color: 'var(--green)', lineHeight: 1 }}>
             {uniqueActionTypes}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
+          <div style={{ fontSize: '0.83rem', color: 'var(--t3)', marginTop: '0.3rem', fontWeight: 500 }}>
             Action Types
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function RecruiterAnalyticsPanel({
             gap: '0.75rem',
           }}
         >
-          <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--t1)', margin: 0 }}>
+          <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--t1)', margin: 0 }}>
             📈 Activity Over Time
           </h3>
           <div style={{ display: 'flex', gap: '0.4rem' }}>
@@ -147,7 +147,7 @@ export default function RecruiterAnalyticsPanel({
                   border: 'none',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.78rem',
+                  fontSize: '0.86rem',
                   background: chartDays === d ? 'var(--accent)' : 'var(--bg3)',
                   color: chartDays === d ? 'white' : 'var(--t3)',
                 }}
@@ -202,7 +202,7 @@ export default function RecruiterAnalyticsPanel({
               key={i}
               style={{
                 flex: 1,
-                fontSize: '0.65rem',
+                fontSize: '0.72rem',
                 color: 'var(--t3)',
                 textAlign: 'center',
                 whiteSpace: 'nowrap',

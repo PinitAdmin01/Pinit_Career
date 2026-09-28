@@ -112,11 +112,11 @@ export const EnglishDashboard: React.FC<EnglishDashboardProps> = ({ onBackToQues
         <div>
           <button
             onClick={onBackToQuests}
-            style={{ background: 'none', border: 'none', color: 'var(--t2)', cursor: 'pointer', fontSize: 13, marginBottom: 4 }}
+            style={{ background: 'none', border: 'none', color: 'var(--t2)', cursor: 'pointer', fontSize: 14.5, marginBottom: 4 }}
           >
             ← Back to Quests Hub
           </button>
-          <h1 style={{ fontSize: 22, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)' }}>
+          <h1 style={{ fontSize: 24, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)' }}>
             🌍 Multi-Language Learning Platform
           </h1>
         </div>
@@ -130,7 +130,7 @@ export const EnglishDashboard: React.FC<EnglishDashboardProps> = ({ onBackToQues
             padding: '8px 16px',
             color: '#fff',
             fontWeight: 800,
-            fontSize: 12,
+            fontSize: 13,
             cursor: 'pointer',
             boxShadow: '0 4px 12px rgba(139,92,246,0.3)'
           }}

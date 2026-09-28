@@ -14,7 +14,7 @@ interface Props { value: string; onChange: (mode: string) => void; }
 export default function ModeSelector({ value, onChange }: Props) {
   return (
     <div style={{ marginBottom:20 }}>
-      <div style={{ fontSize:10, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>Session Mode</div>
+      <div style={{ fontSize:11, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>Session Mode</div>
       <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
         {MODES.map(m => (
           <button
@@ -27,7 +27,7 @@ export default function ModeSelector({ value, onChange }: Props) {
               background: value === m.id ? 'rgba(91,91,214,0.12)' : 'var(--card)',
               border:`1px solid ${value === m.id ? 'rgba(91,91,214,0.35)' : 'var(--border)'}`,
               color: value === m.id ? '#8b8bf5' : 'var(--t2)',
-              cursor:'pointer', fontSize:12, fontWeight:500,
+              cursor:'pointer', fontSize:13, fontWeight:500,
               transition:'all 0.15s',
             }}
           >

@@ -95,30 +95,30 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin?:
               }}
             >
               <div>
-                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '4px 10px', borderRadius: 999, background: tier.highlight ? 'rgba(0,163,255,0.15)' : 'var(--bg-secondary)', color: tier.highlight ? 'var(--accent)' : 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
+                <span style={{ fontSize: 11.5, fontWeight: 800, padding: '4px 10px', borderRadius: 999, background: tier.highlight ? 'rgba(0,163,255,0.15)' : 'var(--bg-secondary)', color: tier.highlight ? 'var(--accent)' : 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
                   {tier.tag}
                 </span>
 
-                <h3 style={{ margin: '14px 0 6px', fontSize: 20, fontWeight: 800, color: 'var(--text-primary)' }}>
+                <h3 style={{ margin: '14px 0 6px', fontSize: 22, fontWeight: 800, color: 'var(--text-primary)' }}>
                   {tier.name}
                 </h3>
 
-                <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, minHeight: 40 }}>
+                <p style={{ margin: 0, fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.5, minHeight: 40 }}>
                   {tier.desc}
                 </p>
 
                 <div style={{ margin: '20px 0', display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                  <span style={{ fontSize: 32, fontWeight: 900, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 35, fontWeight: 900, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
                     {tier.price}
                   </span>
-                  <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                  <span style={{ fontSize: 14.5, color: 'var(--text-secondary)' }}>
                     {tier.period}
                   </span>
                 </div>
 
                 <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {tier.features.map((f, fi) => (
-                    <div key={fi} style={{ fontSize: 12.5, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div key={fi} style={{ fontSize: 14, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
                       <span style={{ color: 'var(--accent-green)', fontWeight: 800 }}>✓</span>
                       <span>{f}</span>
                     </div>
@@ -134,7 +134,7 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin?:
                   marginTop: 24,
                   padding: '12px 18px',
                   borderRadius: 12,
-                  fontSize: 13.5,
+                  fontSize: 15,
                   fontWeight: 750,
                   textDecoration: 'none',
                   display: 'inline-block',

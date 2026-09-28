@@ -36,12 +36,12 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 20 }}>📍</span>
-            <h4 style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+            <span style={{ fontSize: 22 }}>📍</span>
+            <h4 style={{ fontSize: 17.5, fontWeight: 900, color: '#ffffff', margin: 0 }}>
               Active Program Timeline: {plan.title} ({plan.totalProgramDuration})
             </h4>
           </div>
-          <p style={{ fontSize: 12, color: '#94a3b8', margin: '3px 0 0 0' }}>
+          <p style={{ fontSize: 13, color: '#94a3b8', margin: '3px 0 0 0' }}>
             Structured 4-phase progression: Daily 1Hr Micro-Learning ➔ Live Capstone ➔ Real-Time Internship ➔ Dual Credentials.
           </p>
         </div>
@@ -55,8 +55,8 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           background: 'rgba(99, 102, 241, 0.12)',
           border: '1px solid rgba(99, 102, 241, 0.3)'
         }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Status:</span>
-          <span style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>Phase 1 (In Progress - {trainingProgressPct}%)</span>
+          <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Status:</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>Phase 1 (In Progress - {trainingProgressPct}%)</span>
         </div>
       </div>
 
@@ -78,13 +78,13 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           gap: 8
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 10, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase' }}>PHASE 1</span>
-            <span style={{ fontSize: 11, fontWeight: 800, color: '#10b981' }}>● Active (1h/day)</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase' }}>PHASE 1</span>
+            <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>● Active (1h/day)</span>
           </div>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: '#ffffff' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff' }}>
             {plan.trainingDurationMonths}-Month Training
           </div>
-          <div style={{ fontSize: 11.5, color: '#94a3b8', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.3 }}>
             {completedQuestsCount} of {totalTrainingDays} Daily Quests Completed ({trainingProgressPct}%)
           </div>
           {/* Mini progress bar */}
@@ -98,7 +98,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
                 marginTop: 4,
                 padding: '5px 10px',
                 borderRadius: 8,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 700,
                 background: 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -122,16 +122,16 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           gap: 8
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 10, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 2</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>🔒 Unlocks Month {plan.trainingDurationMonths + 1}</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 2</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🔒 Unlocks Month {plan.trainingDurationMonths + 1}</span>
           </div>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: '#cbd5e1' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#cbd5e1' }}>
             1-Month Production Project
           </div>
-          <div style={{ fontSize: 11.5, color: '#64748b', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: '#64748b', lineHeight: 1.3 }}>
             Full-stack production repo build with mentor architectural review & automated CI/CD checks.
           </div>
-          <div style={{ fontSize: 11, color: '#818cf8', fontWeight: 700, marginTop: 'auto' }}>
+          <div style={{ fontSize: 12, color: '#818cf8', fontWeight: 700, marginTop: 'auto' }}>
             🏆 Project Certificate Included
           </div>
         </div>
@@ -147,16 +147,16 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           gap: 8
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 10, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 3</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>🏢 Industry Experience</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 3</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🏢 Industry Experience</span>
           </div>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: '#cbd5e1' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#cbd5e1' }}>
             {plan.internshipDurationMonths} Real Internship
           </div>
-          <div style={{ fontSize: 11.5, color: '#64748b', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: '#64748b', lineHeight: 1.3 }}>
             Live sprint tasks, code reviews, standups, and corporate performance tracking on PinIT Network.
           </div>
-          <div style={{ fontSize: 11, color: '#10b981', fontWeight: 700, marginTop: 'auto' }}>
+          <div style={{ fontSize: 12, color: '#10b981', fontWeight: 700, marginTop: 'auto' }}>
             📜 Real-Time Internship Certificate
           </div>
         </div>
@@ -172,16 +172,16 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           gap: 8
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 10, fontWeight: 900, color: '#10b981', textTransform: 'uppercase' }}>PHASE 4</span>
-            <span style={{ fontSize: 11, fontWeight: 800, color: '#10b981' }}>🎓 Graduation</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: '#10b981', textTransform: 'uppercase' }}>PHASE 4</span>
+            <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>🎓 Graduation</span>
           </div>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: '#ffffff' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff' }}>
             Placement Ready & Dual Certs
           </div>
-          <div style={{ fontSize: 11.5, color: '#94a3b8', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.3 }}>
             SHA-256 Verifiable Proof of Training + Real-time Experience Letter + Interview Referral Pipeline.
           </div>
-          <div style={{ fontSize: 11, color: '#f59e0b', fontWeight: 700, marginTop: 'auto' }}>
+          <div style={{ fontSize: 12, color: '#f59e0b', fontWeight: 700, marginTop: 'auto' }}>
             🚀 Full Portfolio Live on Web
           </div>
         </div>

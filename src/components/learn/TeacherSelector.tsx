@@ -13,7 +13,7 @@ interface Props { value: string; onChange: (id: string) => void; }
 export default function TeacherSelector({ value, onChange }: Props) {
   return (
     <div style={{ marginBottom:20 }}>
-      <div style={{ fontSize:10, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>Choose Your Teacher</div>
+      <div style={{ fontSize:11, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>Choose Your Teacher</div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:8 }}>
         {TEACHERS.map(t => (
           <button
@@ -27,10 +27,10 @@ export default function TeacherSelector({ value, onChange }: Props) {
               cursor:'pointer', textAlign:'left', transition:'all 0.15s',
             }}
           >
-            <span style={{ fontSize:22 }}>{t.emoji}</span>
+            <span style={{ fontSize:24 }}>{t.emoji}</span>
             <div>
-              <div style={{ fontSize:12, fontWeight:600, color:'var(--t1)' }}>{t.name}</div>
-              <div style={{ fontSize:10, color:'var(--t3)' }}>{t.desc}</div>
+              <div style={{ fontSize:13, fontWeight:600, color:'var(--t1)' }}>{t.name}</div>
+              <div style={{ fontSize:11, color:'var(--t3)' }}>{t.desc}</div>
             </div>
           </button>
         ))}

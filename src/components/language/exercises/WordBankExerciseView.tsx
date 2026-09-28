@@ -46,8 +46,8 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
 
   return (
     <div style={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 16, padding: 24, color: '#fff' }}>
-      <div style={{ fontSize: 13, color: '#8b5cf6', fontWeight: 600, marginBottom: 8 }}>WORD BANK EXERCISE</div>
-      <h3 style={{ fontSize: 18, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
+      <div style={{ fontSize: 14.5, color: '#8b5cf6', fontWeight: 600, marginBottom: 8 }}>WORD BANK EXERCISE</div>
+      <h3 style={{ fontSize: 20, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
 
       {/* Selected Token Assembly Area */}
       <div style={{
@@ -63,7 +63,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
         marginBottom: 20
       }}>
         {selectedTokens.length === 0 ? (
-          <span style={{ color: '#71717a', fontSize: 14 }}>Tap word blocks below to construct sentence...</span>
+          <span style={{ color: '#71717a', fontSize: 15.5 }}>Tap word blocks below to construct sentence...</span>
         ) : (
           selectedTokens.map((t, idx) => (
             <button
@@ -75,7 +75,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
                 border: 'none',
                 borderRadius: 8,
                 padding: '8px 14px',
-                fontSize: 15,
+                fontSize: 16.5,
                 fontWeight: 600,
                 cursor: 'pointer'
               }}
@@ -99,7 +99,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
               border: '1px solid #3f3f46',
               borderRadius: 8,
               padding: '10px 16px',
-              fontSize: 15,
+              fontSize: 16.5,
               cursor: submitted ? 'default' : 'pointer'
             }}
           >
@@ -120,7 +120,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
             borderRadius: 8,
             padding: '12px 24px',
             fontWeight: 700,
-            fontSize: 15,
+            fontSize: 16.5,
             cursor: selectedTokens.length > 0 ? 'pointer' : 'not-allowed'
           }}
         >
@@ -131,7 +131,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
           <div style={{
             color: result?.isCorrect ? '#10b981' : '#ef4444',
             fontWeight: 700,
-            fontSize: 16,
+            fontSize: 17.5,
             marginBottom: 12
           }}>
             {result?.isCorrect ? 'Correct Sentence!' : `Incorrect. Target: "${exercise.targetSentence}"`}
@@ -145,7 +145,7 @@ export const WordBankExerciseView: React.FC<WordBankExerciseViewProps> = ({
               borderRadius: 8,
               padding: '12px 24px',
               fontWeight: 700,
-              fontSize: 15,
+              fontSize: 16.5,
               cursor: 'pointer'
             }}
           >

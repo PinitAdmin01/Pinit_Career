@@ -85,10 +85,10 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
           background: 'rgba(99,102,241,0.05)'
         }}>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               📚 Course Study Notes · {notes.category}
             </div>
-            <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
+            <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
               {notes.courseTitle}
             </h3>
           </div>
@@ -103,7 +103,7 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                 borderRadius: 10,
                 padding: '7px 14px',
                 color: '#fff',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 800,
                 cursor: 'pointer',
                 display: 'flex',
@@ -122,7 +122,7 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                 borderRadius: 10,
                 padding: '7px 14px',
                 color: 'var(--t1)',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 cursor: 'pointer',
                 display: 'flex',
@@ -142,7 +142,7 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                 width: 34,
                 height: 34,
                 color: 'var(--t2)',
-                fontSize: 16,
+                fontSize: 17.5,
                 fontWeight: 800,
                 cursor: 'pointer',
                 display: 'flex',
@@ -180,7 +180,7 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                 borderRadius: 8,
                 padding: '6px 12px',
                 color: activeTab === tab.id ? '#fff' : 'var(--t2)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 800,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap'
@@ -196,8 +196,8 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
           {activeTab === 'summary' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 18 }}>
-                <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0' }}>📋 Executive Summary</h4>
-                <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{notes.summary}</p>
+                <h4 style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0' }}>📋 Executive Summary</h4>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{notes.summary}</p>
               </div>
 
               <div style={{
@@ -206,10 +206,10 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                 borderRadius: 16,
                 padding: 18
               }}>
-                <div style={{ fontSize: 11, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', marginBottom: 4 }}>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', marginBottom: 4 }}>
                   🏢 Intuitive Real-World Metaphor
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 600, lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: 14.5, color: 'var(--t1)', fontWeight: 600, lineHeight: 1.6, margin: 0 }}>
                   {notes.realWorldAnalogy}
                 </p>
               </div>
@@ -220,8 +220,8 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {notes.keyConcepts.map((concept, idx) => (
                 <div key={idx} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 18 }}>
-                  <h4 style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)', margin: '0 0 8px 0' }}>{concept.heading}</h4>
-                  <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: concept.codeOrExample ? 12 : 0 }}>
+                  <h4 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--accent)', margin: '0 0 8px 0' }}>{concept.heading}</h4>
+                  <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, marginBottom: concept.codeOrExample ? 12 : 0 }}>
                     {concept.explanation}
                   </p>
                   {concept.codeOrExample && (
@@ -230,7 +230,7 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
                       border: '1px solid rgba(255,255,255,0.1)',
                       borderRadius: 10,
                       padding: 12,
-                      fontSize: 11.5,
+                      fontSize: 12.5,
                       color: '#34d399',
                       fontFamily: 'var(--font-mono)',
                       overflowX: 'auto',
@@ -246,10 +246,10 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
 
           {activeTab === 'cheatsheet' && (
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }}>
-              <h4 style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)', margin: '0 0 12px 0' }}>⚡ Essential Syntax & Formula Rules</h4>
+              <h4 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)', margin: '0 0 12px 0' }}>⚡ Essential Syntax & Formula Rules</h4>
               <ul style={{ listStyleType: 'disc', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 10, margin: 0 }}>
                 {notes.cheatsheet.map((item, idx) => (
-                  <li key={idx} style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, fontFamily: 'var(--font-mono)' }}>
+                  <li key={idx} style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, fontFamily: 'var(--font-mono)' }}>
                     {item}
                   </li>
                 ))}
@@ -259,10 +259,10 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
 
           {activeTab === 'pitfalls' && (
             <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 16, padding: 20 }}>
-              <h4 style={{ fontSize: 14, fontWeight: 900, color: '#f87171', margin: '0 0 12px 0' }}>⚠️ Common Beginner Mistakes & How to Fix Them</h4>
+              <h4 style={{ fontSize: 15.5, fontWeight: 900, color: '#f87171', margin: '0 0 12px 0' }}>⚠️ Common Beginner Mistakes & How to Fix Them</h4>
               <ul style={{ listStyleType: 'circle', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 10, margin: 0 }}>
                 {notes.commonPitfalls.map((pitfall, idx) => (
-                  <li key={idx} style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.5 }}>
+                  <li key={idx} style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.5 }}>
                     {pitfall}
                   </li>
                 ))}
@@ -274,10 +274,10 @@ ${notes.interviewPrep.map((q, i) => `### Q${i+1}: ${q.question}\n**Answer**: ${q
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {notes.interviewPrep.map((qa, idx) => (
                 <div key={idx} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 18 }}>
-                  <div style={{ fontSize: 13, fontWeight: 900, color: '#38bdf8', marginBottom: 6 }}>
+                  <div style={{ fontSize: 14.5, fontWeight: 900, color: '#38bdf8', marginBottom: 6 }}>
                     ❓ Q{idx + 1}: {qa.question}
                   </div>
-                  <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, background: 'var(--bg)', padding: 12, borderRadius: 10 }}>
+                  <div style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, background: 'var(--bg)', padding: 12, borderRadius: 10 }}>
                     💡 <strong>Answer</strong>: {qa.answer}
                   </div>
                 </div>

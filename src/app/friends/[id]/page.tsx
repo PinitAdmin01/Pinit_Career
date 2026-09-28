@@ -121,9 +121,9 @@ export default function StudentProfilePage() {
   if (loading) {
     return (
       <div style={{ maxWidth: 1100, margin: '40px auto', padding: '0 24px', textAlign: 'center', color: '#94a3b8' }}>
-        <div style={{ fontSize: 32, marginBottom: 12 }}>⏳</div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>Loading Student Profile...</div>
-        <p style={{ fontSize: 13, color: '#64748b' }}>Retrieving verified credentials from Supabase Career Ledger...</p>
+        <div style={{ fontSize: 35, marginBottom: 12 }}>⏳</div>
+        <div style={{ fontSize: 17.5, fontWeight: 700, color: '#f8fafc' }}>Loading Student Profile...</div>
+        <p style={{ fontSize: 14.5, color: '#64748b' }}>Retrieving verified credentials from Supabase Career Ledger...</p>
       </div>
     );
   }
@@ -131,12 +131,12 @@ export default function StudentProfilePage() {
   if (!student) {
     return (
       <div style={{ maxWidth: 640, margin: '60px auto', padding: 40, textAlign: 'center', background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20 }}>
-        <div style={{ fontSize: 42, marginBottom: 16 }}>🔍</div>
-        <h2 style={{ fontSize: 22, fontWeight: 800, color: '#f8fafc', margin: '0 0 8px' }}>Student Profile Not Found</h2>
-        <p style={{ fontSize: 13.5, color: '#94a3b8', margin: '0 0 24px' }}>
+        <div style={{ fontSize: 46, marginBottom: 16 }}>🔍</div>
+        <h2 style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc', margin: '0 0 8px' }}>Student Profile Not Found</h2>
+        <p style={{ fontSize: 15, color: '#94a3b8', margin: '0 0 24px' }}>
           This student account may have been updated, anonymized, or does not exist in the public network registry.
         </p>
-        <Link href="/friends" className="friends-btn friends-btn-primary" style={{ padding: '10px 24px', fontSize: 13 }}>
+        <Link href="/friends" className="friends-btn friends-btn-primary" style={{ padding: '10px 24px', fontSize: 14.5 }}>
           ← Return to Friends Hub
         </Link>
       </div>
@@ -156,7 +156,7 @@ export default function StudentProfilePage() {
             gap: 6,
             color: '#a5b4fc',
             textDecoration: 'none',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 700,
             transition: 'color 0.15s'
           }}
@@ -173,7 +173,7 @@ export default function StudentProfilePage() {
         {/* Cover Banner */}
         <div style={{ height: 160, background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 40%, #6366f1 100%)', position: 'relative' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 60%)' }} />
-          <div style={{ position: 'absolute', top: 16, right: 20, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)', padding: '5px 12px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.15)', fontSize: 11, fontWeight: 800, color: '#38bdf8', letterSpacing: '0.4px', textTransform: 'uppercase' }}>
+          <div style={{ position: 'absolute', top: 16, right: 20, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)', padding: '5px 12px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.15)', fontSize: 12, fontWeight: 800, color: '#38bdf8', letterSpacing: '0.4px', textTransform: 'uppercase' }}>
             🛡️ Verified Student
           </div>
         </div>
@@ -190,32 +190,32 @@ export default function StudentProfilePage() {
             {/* Action Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               {student.isSelf ? (
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.15)', padding: '6px 14px', borderRadius: 8, border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                <span style={{ fontSize: 14.5, fontWeight: 700, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.15)', padding: '6px 14px', borderRadius: 8, border: '1px solid rgba(56, 189, 248, 0.3)' }}>
                   👤 Your Public Profile
                 </span>
               ) : (
                 <>
                   {student.relationship === 'friends' ? (
-                    <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 13, borderColor: '#22c55e', color: '#22c55e' }} disabled>
+                    <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 14.5, borderColor: '#22c55e', color: '#22c55e' }} disabled>
                       ✓ Connected Friend
                     </button>
                   ) : student.relationship === 'received' ? (
                     <button
                       className="friends-btn friends-btn-primary"
                       onClick={handleAcceptIncoming}
-                      style={{ padding: '9px 20px', fontSize: 13, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                      style={{ padding: '9px 20px', fontSize: 14.5, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
                     >
                       ✓ Accept Friend Request
                     </button>
                   ) : requestSent || student.relationship === 'sent' ? (
-                    <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>
+                    <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 14.5 }} disabled>
                       ✓ Request Sent
                     </button>
                   ) : (
                     <button
                       className="friends-btn friends-btn-primary"
                       onClick={handleAddFriend}
-                      style={{ padding: '9px 20px', fontSize: 13 }}
+                      style={{ padding: '9px 20px', fontSize: 14.5 }}
                     >
                       + Add Friend
                     </button>
@@ -223,14 +223,14 @@ export default function StudentProfilePage() {
                   <button
                     className="friends-btn friends-btn-secondary"
                     onClick={handleArenaDuel}
-                    style={{ padding: '9px 18px', fontSize: 13 }}
+                    style={{ padding: '9px 18px', fontSize: 14.5 }}
                   >
                     ⚔️ Arena Duel
                   </button>
                   <button
                     className="friends-btn friends-btn-secondary"
                     onClick={handleOpenChat}
-                    style={{ padding: '9px 18px', fontSize: 13 }}
+                    style={{ padding: '9px 18px', fontSize: 14.5 }}
                   >
                     💬 Message
                   </button>
@@ -242,15 +242,15 @@ export default function StudentProfilePage() {
           {/* Student Identity */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <h1 style={{ fontSize: 26, fontWeight: 900, color: '#f8fafc', margin: 0, letterSpacing: '-0.3px' }}>
+              <h1 style={{ fontSize: 28.5, fontWeight: 900, color: '#f8fafc', margin: 0, letterSpacing: '-0.3px' }}>
                 {student.name}
               </h1>
-              <span style={{ color: '#38bdf8', fontSize: 18 }} title="Verified PinIT Scholar">✓</span>
+              <span style={{ color: '#38bdf8', fontSize: 20 }} title="Verified PinIT Scholar">✓</span>
             </div>
-            <div style={{ fontSize: 14, color: '#a5b4fc', fontWeight: 600, marginBottom: 8 }}>
+            <div style={{ fontSize: 15.5, color: '#a5b4fc', fontWeight: 600, marginBottom: 8 }}>
               {student.headline}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 12.5, color: '#94a3b8', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 14, color: '#94a3b8', flexWrap: 'wrap' }}>
               <span>🏫 {student.college}</span>
               <span>🎓 {student.course}</span>
               <span>🎯 Target: {student.careerGoal}</span>
@@ -269,10 +269,10 @@ export default function StudentProfilePage() {
           { icon: '🚀', label: 'Squad Projects', value: `${student.projectsCount} Built`, color: '#22c55e' }
         ].map((stat, idx) => (
           <div key={idx} style={{ background: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
-            <span style={{ fontSize: 26 }}>{stat.icon}</span>
+            <span style={{ fontSize: 28.5 }}>{stat.icon}</span>
             <div>
-              <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.4px', marginBottom: 2 }}>{stat.label}</div>
-              <div style={{ fontSize: 18, fontWeight: 900, color: stat.color }}>{stat.value}</div>
+              <div style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.4px', marginBottom: 2 }}>{stat.label}</div>
+              <div style={{ fontSize: 20, fontWeight: 900, color: stat.color }}>{stat.value}</div>
             </div>
           </div>
         ))}
@@ -295,7 +295,7 @@ export default function StudentProfilePage() {
               border: 'none',
               background: activeTab === tab.id ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
               color: activeTab === tab.id ? '#818cf8' : '#94a3b8',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 800,
               cursor: 'pointer',
               transition: 'all 0.15s'
@@ -310,27 +310,27 @@ export default function StudentProfilePage() {
       {activeTab === 'overview' && (
         <div className="profile-overview-grid">
           <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 24 }}>
-            <h3 style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc', margin: '0 0 12px' }}>Career Target & Vision</h3>
-            <p style={{ fontSize: 13.5, color: '#cbd5e1', lineHeight: 1.6, margin: '0 0 16px' }}>
+            <h3 style={{ fontSize: 16.5, fontWeight: 800, color: '#f8fafc', margin: '0 0 12px' }}>Career Target & Vision</h3>
+            <p style={{ fontSize: 15, color: '#cbd5e1', lineHeight: 1.6, margin: '0 0 16px' }}>
               Targeting placement as a <strong>{student.careerGoal}</strong>. Actively practicing daily coding missions, participating in algorithmic face-offs, and collaborating on production software.
             </p>
             <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: 14, borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>COLLEGIATE AFFILIATION</div>
-              <div style={{ fontSize: 13, color: '#ffffff', fontWeight: 600 }}>{student.college}</div>
-              <div style={{ fontSize: 12, color: '#64748b' }}>{student.course} • Degree Track</div>
+              <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>COLLEGIATE AFFILIATION</div>
+              <div style={{ fontSize: 14.5, color: '#ffffff', fontWeight: 600 }}>{student.college}</div>
+              <div style={{ fontSize: 13, color: '#64748b' }}>{student.course} • Degree Track</div>
             </div>
           </div>
 
           <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 24 }}>
-            <h3 style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc', margin: '0 0 12px' }}>Competitive Tier</h3>
+            <h3 style={{ fontSize: 16.5, fontWeight: 800, color: '#f8fafc', margin: '0 0 12px' }}>Competitive Tier</h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <span style={{ fontSize: 32 }}>🏆</span>
+              <span style={{ fontSize: 35 }}>🏆</span>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: '#38bdf8' }}>{student.leagueTier} League</div>
-                <div style={{ fontSize: 12, color: '#94a3b8' }}>Ranked in top 15% campus performance</div>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: '#38bdf8' }}>{student.leagueTier} League</div>
+                <div style={{ fontSize: 13, color: '#94a3b8' }}>Ranked in top 15% campus performance</div>
               </div>
             </div>
-            <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.5 }}>
+            <div style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.5 }}>
               Maintains weekly coding sprint promotions with consistent mission milestones.
             </div>
           </div>
@@ -339,13 +339,13 @@ export default function StudentProfilePage() {
 
       {activeTab === 'skills' && (
         <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 24 }}>
-          <h3 style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc', margin: '0 0 16px' }}>Demonstrated Technical Competencies</h3>
+          <h3 style={{ fontSize: 16.5, fontWeight: 800, color: '#f8fafc', margin: '0 0 16px' }}>Demonstrated Technical Competencies</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
             {student.skills.map((skill, i) => (
               <div key={i} style={{ background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(129, 140, 248, 0.3)', borderRadius: 10, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ color: '#818cf8', fontWeight: 800 }}>⚡</span>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>{skill}</span>
-                <span style={{ fontSize: 10, background: '#22c55e', color: '#000', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>VERIFIED</span>
+                <span style={{ fontSize: 14.5, fontWeight: 700, color: '#f8fafc' }}>{skill}</span>
+                <span style={{ fontSize: 11, background: '#22c55e', color: '#000', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>VERIFIED</span>
               </div>
             ))}
           </div>
@@ -359,9 +359,9 @@ export default function StudentProfilePage() {
             { title: 'Real-Time WebSocket Arena Engine', desc: 'Low-latency multiplayer code duel server with socket state management.', stack: 'TypeScript • WebSockets • Docker' }
           ].map((proj, idx) => (
             <div key={idx} style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 20 }}>
-              <div style={{ fontSize: 14, fontWeight: 800, color: '#f8fafc', marginBottom: 6 }}>{proj.title}</div>
-              <p style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.5, margin: '0 0 12px' }}>{proj.desc}</p>
-              <div style={{ fontSize: 11, color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>{proj.stack}</div>
+              <div style={{ fontSize: 15.5, fontWeight: 800, color: '#f8fafc', marginBottom: 6 }}>{proj.title}</div>
+              <p style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.5, margin: '0 0 12px' }}>{proj.desc}</p>
+              <div style={{ fontSize: 12, color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>{proj.stack}</div>
             </div>
           ))}
         </div>
@@ -369,7 +369,7 @@ export default function StudentProfilePage() {
 
       {activeTab === 'battles' && (
         <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 24 }}>
-          <h3 style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc', margin: '0 0 16px' }}>Recent 1v1 Arena Matches</h3>
+          <h3 style={{ fontSize: 16.5, fontWeight: 800, color: '#f8fafc', margin: '0 0 16px' }}>Recent 1v1 Arena Matches</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {[
               { opponent: 'Algorithmic Duelist #12', topic: 'Dynamic Programming - Longest Substring', result: 'VICTORY', xp: '+120 XP' },
@@ -378,12 +378,12 @@ export default function StudentProfilePage() {
             ].map((duel, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: 10, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>{duel.topic}</div>
-                  <div style={{ fontSize: 11, color: '#64748b' }}>vs. {duel.opponent}</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: '#f8fafc' }}>{duel.topic}</div>
+                  <div style={{ fontSize: 12, color: '#64748b' }}>vs. {duel.opponent}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: '#22c55e', background: 'rgba(34, 197, 94, 0.15)', padding: '2px 8px', borderRadius: 6 }}>{duel.result}</span>
-                  <div style={{ fontSize: 11, color: '#a855f7', fontWeight: 700, marginTop: 2 }}>{duel.xp}</div>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: '#22c55e', background: 'rgba(34, 197, 94, 0.15)', padding: '2px 8px', borderRadius: 6 }}>{duel.result}</span>
+                  <div style={{ fontSize: 12, color: '#a855f7', fontWeight: 700, marginTop: 2 }}>{duel.xp}</div>
                 </div>
               </div>
             ))}

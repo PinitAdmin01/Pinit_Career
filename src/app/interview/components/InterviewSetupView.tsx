@@ -50,8 +50,8 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 20 }}>
       <div className="iv-panel" style={{ padding: 28 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>🎙️ Start AI Corporate Interview</h2>
-        <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 20px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>🎙️ Start AI Corporate Interview</h2>
+        <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 20px' }}>
           Practice real-time corporate interviews with spoken voice communication, Monaco code sandbox, interactive architecture canvas, and automated role-weighted scoring.
         </p>
 
@@ -69,10 +69,10 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             gap: 12
           }}>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span>⚠️</span> In-Progress Session Recovered
               </div>
-              <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>
+              <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 2 }}>
                 Topic: <strong>{activeSessionDraft.activeTopicName}</strong> • {formatStageLabel(activeSessionDraft.activeStage)} • {Math.floor(activeSessionDraft.elapsedSeconds / 60)}m {activeSessionDraft.elapsedSeconds % 60}s elapsed
               </div>
             </div>
@@ -85,7 +85,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                   border: 'none',
                   borderRadius: 8,
                   padding: '8px 14px',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 800,
                   cursor: 'pointer'
                 }}
@@ -100,7 +100,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                   border: '1px solid var(--border)',
                   borderRadius: 8,
                   padding: '8px 12px',
-                  fontSize: 12,
+                  fontSize: 13,
                   cursor: 'pointer'
                 }}
               >
@@ -112,17 +112,17 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
 
         {/* Mode Selection */}
         <div style={{ marginBottom: 20 }}>
-          <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 8 }}>SELECT INTERVIEW MODE</label>
+          <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 8 }}>SELECT INTERVIEW MODE</label>
           <div style={{ display: 'flex', gap: 10 }}>
             <button
               onClick={() => setInterviewMode('roadmap')}
-              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'roadmap' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'roadmap' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'roadmap' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}
+              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'roadmap' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'roadmap' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'roadmap' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
             >
               🎯 1. Roadmap Track
             </button>
             <button
               onClick={() => setInterviewMode('custom')}
-              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'custom' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'custom' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'custom' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}
+              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'custom' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'custom' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'custom' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
             >
               ✏️ 2. Custom Topic / Viva
             </button>
@@ -132,17 +132,17 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
         {interviewMode === 'roadmap' ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 20 }}>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>DOMAIN STREAM</label>
+              <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>DOMAIN STREAM</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button
                   onClick={() => { setDomainStream('tech'); setDomainSubTopic('software'); }}
-                  style={{ flex: 1, padding: '8px', borderRadius: 8, border: domainStream === 'tech' ? '2px solid var(--accent)' : '1px solid var(--border)', background: domainStream === 'tech' ? 'var(--accent-light)' : 'var(--bg3)', color: domainStream === 'tech' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}
+                  style={{ flex: 1, padding: '8px', borderRadius: 8, border: domainStream === 'tech' ? '2px solid var(--accent)' : '1px solid var(--border)', background: domainStream === 'tech' ? 'var(--accent-light)' : 'var(--bg3)', color: domainStream === 'tech' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
                 >
                   💻 Tech Stream
                 </button>
                 <button
                   onClick={() => { setDomainStream('non_tech'); setDomainSubTopic('finance'); }}
-                  style={{ flex: 1, padding: '8px', borderRadius: 8, border: domainStream === 'non_tech' ? '2px solid var(--pink)' : '1px solid var(--border)', background: domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--bg3)', color: domainStream === 'non_tech' ? 'var(--pink)' : 'var(--t1)', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}
+                  style={{ flex: 1, padding: '8px', borderRadius: 8, border: domainStream === 'non_tech' ? '2px solid var(--pink)' : '1px solid var(--border)', background: domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--bg3)', color: domainStream === 'non_tech' ? 'var(--pink)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
                 >
                   📊 Non-Tech Stream
                 </button>
@@ -150,12 +150,12 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             </div>
 
             <div>
-              <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>SUB-TOPIC & SPECIALIZATION</label>
+              <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>SUB-TOPIC & SPECIALIZATION</label>
               <select
                 value={domainSubTopic}
                 onChange={(e) => setDomainSubTopic(e.target.value)}
                 className="iv-select"
-                style={{ width: '100%', padding: '10px 12px', fontSize: 12.5, fontWeight: 700 }}
+                style={{ width: '100%', padding: '10px 12px', fontSize: 14, fontWeight: 700 }}
               >
                 {domainStream === 'tech' ? (
                   <>
@@ -177,26 +177,26 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
           </div>
         ) : (
           <div style={{ marginBottom: 20 }}>
-            <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>ENTER CUSTOM TOPIC OR CAPSTONE PROJECT</label>
+            <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>ENTER CUSTOM TOPIC OR CAPSTONE PROJECT</label>
             <input
               type="text"
               value={customTopicInput}
               onChange={(e) => setCustomTopicInput(e.target.value)}
               placeholder="e.g. Distributed Caching & Kafka, React State Performance, DCF Valuation..."
               className="iv-input"
-              style={{ width: '100%', padding: '10px 14px', fontSize: 12.5 }}
+              style={{ width: '100%', padding: '10px 14px', fontSize: 14 }}
             />
           </div>
         )}
 
         <div style={{ marginBottom: 20 }}>
-          <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>DIFFICULTY LEVEL</label>
+          <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>DIFFICULTY LEVEL</label>
           <div style={{ display: 'flex', gap: 8 }}>
             {(['easy', 'normal', 'hard'] as const).map(d => (
               <button
                 key={d}
                 onClick={() => setDifficulty(d)}
-                style={{ flex: 1, padding: '8px', borderRadius: 8, border: difficulty === d ? '2px solid var(--accent)' : '1px solid var(--border)', background: difficulty === d ? 'var(--accent-light)' : 'var(--bg3)', color: difficulty === d ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 11.5, textTransform: 'capitalize', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '8px', borderRadius: 8, border: difficulty === d ? '2px solid var(--accent)' : '1px solid var(--border)', background: difficulty === d ? 'var(--accent-light)' : 'var(--bg3)', color: difficulty === d ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12.5, textTransform: 'capitalize', cursor: 'pointer' }}
               >
                 {d}
               </button>
@@ -222,12 +222,12 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 14 }}>🎯</span>
-              <span style={{ fontSize: 12, fontWeight: 800, color: isAssistModeActive ? 'var(--reward)' : 'var(--t1)' }}>
+              <span style={{ fontSize: 15.5 }}>🎯</span>
+              <span style={{ fontSize: 13, fontWeight: 800, color: isAssistModeActive ? 'var(--reward)' : 'var(--t1)' }}>
                 Assist Mode (AI Spoken Teleprompter)
               </span>
               <span style={{
-                fontSize: 9.5,
+                fontSize: 10.5,
                 padding: '2px 7px',
                 borderRadius: 6,
                 background: isAssistModeActive ? 'var(--reward)' : 'var(--border)',
@@ -237,7 +237,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                 {isAssistModeActive ? 'ACTIVE' : 'OFF'}
               </span>
             </div>
-            <p style={{ margin: '4px 0 0 0', fontSize: 11, color: 'var(--t3)', lineHeight: 1.3 }}>
+            <p style={{ margin: '4px 0 0 0', fontSize: 12, color: 'var(--t3)', lineHeight: 1.3 }}>
               Provides a real-time spoken answer script below chat to read aloud. The avatar interviewer cannot see your script!
             </p>
           </div>
@@ -274,7 +274,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
 
         <button
           onClick={startInterview}
-          style={{ width: '100%', background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', border: 'none', borderRadius: 12, padding: '14px', fontSize: 14, fontWeight: 900, color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow-md)' }}
+          style={{ width: '100%', background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15.5, fontWeight: 900, color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow-md)' }}
         >
           🎙️ Start Proactive Voice Interview ➔
         </button>
@@ -283,9 +283,9 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
       {/* Persistent History Section */}
       <div className="iv-panel" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>📜 Past Session History ({sessions.length})</h3>
+          <h3 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>📜 Past Session History ({sessions.length})</h3>
           {sessions.length > 0 && (
-            <button onClick={clearSessionHistory} style={{ background: 'none', border: 'none', color: 'var(--coral-mid)', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
+            <button onClick={clearSessionHistory} style={{ background: 'none', border: 'none', color: 'var(--coral-mid)', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
               🗑️ Clear
             </button>
           )}
@@ -296,22 +296,22 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             <div key={s.id} style={{ background: 'var(--bg3)', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 6, background: s.domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--accent-light)', color: s.domainStream === 'non_tech' ? 'var(--pink)' : 'var(--accent)', fontWeight: 800 }}>
+                  <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 6, background: s.domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--accent-light)', color: s.domainStream === 'non_tech' ? 'var(--pink)' : 'var(--accent)', fontWeight: 800 }}>
                     {s.domainStream === 'non_tech' ? 'Non-Tech' : 'Tech'}
                   </span>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>{s.type}</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{s.type}</span>
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 900, color: s.score >= 70 ? 'var(--green-mid)' : 'var(--coral-mid)' }}>{s.score}%</span>
+                <span style={{ fontSize: 13, fontWeight: 900, color: s.score >= 70 ? 'var(--green-mid)' : 'var(--coral-mid)' }}>{s.score}%</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--t2)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t2)' }}>
                 <span>📅 {s.date}</span>
                 <span style={{ color: s.verdict?.includes('Hire') ? 'var(--green-mid)' : 'var(--coral-mid)', fontWeight: 800 }}>Verdict: {s.verdict}</span>
               </div>
 
               <button
                 onClick={() => setSelectedHistorySession(s)}
-                style={{ background: 'var(--accent-light)', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: 8, padding: '6px 10px', fontSize: 11, fontWeight: 800, cursor: 'pointer', textAlign: 'center', marginTop: 2 }}
+                style={{ background: 'var(--accent-light)', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: 8, padding: '6px 10px', fontSize: 12, fontWeight: 800, cursor: 'pointer', textAlign: 'center', marginTop: 2 }}
               >
                 📄 Review Transcript & Report ➔
               </button>

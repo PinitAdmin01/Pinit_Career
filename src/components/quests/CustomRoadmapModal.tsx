@@ -65,7 +65,7 @@ export function CustomRoadmapModal({
             background: 'none',
             border: 'none',
             color: 'var(--t3)',
-            fontSize: 18,
+            fontSize: 20,
             cursor: 'pointer'
           }}
         >
@@ -73,11 +73,11 @@ export function CustomRoadmapModal({
         </button>
 
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <span style={{ fontSize: 36 }}>✨</span>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginTop: 8, fontFamily: 'var(--font-display)' }}>
+          <span style={{ fontSize: 39.5 }}>✨</span>
+          <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginTop: 8, fontFamily: 'var(--font-display)' }}>
             Custom AI Roadmap Engine
           </h2>
-          <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4 }}>
+          <p style={{ fontSize: 14, color: 'var(--t3)', marginTop: 4 }}>
             Specify your exact target career goal and customize your daily learning pace.
           </p>
         </div>
@@ -85,7 +85,7 @@ export function CustomRoadmapModal({
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Goal Input */}
           <div>
-            <label style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
+            <label style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
               TARGET CAREER / SKILL GOAL
             </label>
             <input
@@ -101,7 +101,7 @@ export function CustomRoadmapModal({
                 background: 'var(--bg3)',
                 border: '1.5px solid var(--border)',
                 color: 'var(--t1)',
-                fontSize: 13,
+                fontSize: 14.5,
                 outline: 'none'
               }}
             />
@@ -109,7 +109,7 @@ export function CustomRoadmapModal({
 
           {/* Duration Slider (30 to 365 days) */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
               <span>ROADMAP DURATION</span>
               <span style={{ color: 'var(--accent)' }}>{durationDays} Days</span>
             </div>
@@ -122,7 +122,7 @@ export function CustomRoadmapModal({
               onChange={e => setDurationDays(Number(e.target.value))}
               style={{ width: '100%', accentColor: 'var(--accent)' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t4)', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t4)', marginTop: 4 }}>
               <span>15 Days</span>
               <span>90 Days</span>
               <span>180 Days</span>
@@ -132,7 +132,7 @@ export function CustomRoadmapModal({
 
           {/* Daily Quest Target */}
           <div>
-            <label style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
+            <label style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
               DAILY TARGET PACE
             </label>
             <select
@@ -145,7 +145,7 @@ export function CustomRoadmapModal({
                 background: 'var(--bg3)',
                 border: '1.5px solid var(--border)',
                 color: 'var(--t1)',
-                fontSize: 13,
+                fontSize: 14.5,
                 outline: 'none'
               }}
             >
@@ -166,7 +166,7 @@ export function CustomRoadmapModal({
               background: 'linear-gradient(135deg, #10b981, #059669)',
               color: '#fff',
               border: 'none',
-              fontSize: 13.5,
+              fontSize: 15,
               fontWeight: 900,
               cursor: isGenerating ? 'wait' : 'pointer',
               boxShadow: '0 4px 14px rgba(16,185,129,0.35)',

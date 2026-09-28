@@ -20,20 +20,20 @@ export function CareerIntelligenceHeader({
       {/* Page Header */}
       <div className="page-header" style={{ marginBottom: 20, display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
             💼 Career Intelligence Center
           </h1>
-          <p style={{ color: 'var(--t2)', fontSize: 13.5, margin: 0 }}>
+          <p style={{ color: 'var(--t2)', fontSize: 15, margin: 0 }}>
             Unified directory covering internships, opportunities, applications pipeline, and industry projects.
           </p>
         </div>
 
         {/* Verified User Role Badge */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--bg3)', padding: '6px 14px', borderRadius: 10, border: '1px solid var(--border)' }}>
-          <span style={{ fontSize: 14 }}>
+          <span style={{ fontSize: 15.5 }}>
             {activeRole === 'recruiter' ? '🏢' : activeRole === 'faculty' ? '👩‍🏫' : activeRole === 'placement' ? '🎓' : '🧑‍🎓'}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>
             {activeRole === 'recruiter' ? 'Corporate Recruiter' : activeRole === 'faculty' ? 'Faculty Mentor' : activeRole === 'placement' ? 'Placement Officer' : 'Verified Student'}
           </span>
         </div>
@@ -54,7 +54,7 @@ export function CareerIntelligenceHeader({
               padding: '8px 18px',
               border: 'none',
               borderRadius: 8,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 800,
               cursor: 'pointer',
               background: activeTab === t.id ? 'var(--bg2)' : 'transparent',

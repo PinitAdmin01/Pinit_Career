@@ -76,11 +76,11 @@ export default function MeetCallGrid({
         justifyContent: 'center',
         gap: 16
       }} className="animate-fade-in">
-        <span style={{ fontSize: 44, animation: 'spin 2s linear infinite' }}>⚙️</span>
-        <h3 style={{ fontSize: 16, fontWeight: 900, color: 'white', margin: 0, letterSpacing: '0.5px' }}>
+        <span style={{ fontSize: 48.5, animation: 'spin 2s linear infinite' }}>⚙️</span>
+        <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'white', margin: 0, letterSpacing: '0.5px' }}>
           Initializing 9-Member Boardroom Sync...
         </h3>
-        <p style={{ fontSize: 11, color: 'var(--t3)', margin: 0 }}>
+        <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>
           Calibrating audio channels and routing multi-agent streams for 10-minute session.
         </p>
       </div>
@@ -101,10 +101,10 @@ export default function MeetCallGrid({
         padding: '10px 16px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
+          <span style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
             🏛️ 9-Member Boardroom
           </span>
-          <span style={{ fontSize: 10, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6, fontWeight: 700 }}>
+          <span style={{ fontSize: 11, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6, fontWeight: 700 }}>
             {invitedAvatars.length + 1} Participants Active
           </span>
         </div>
@@ -121,7 +121,7 @@ export default function MeetCallGrid({
           fontFamily: 'var(--font-mono)',
           fontWeight: 900,
           color: remainingSeconds <= 60 ? 'var(--red)' : remainingSeconds <= 300 ? 'var(--orange)' : 'var(--teal)',
-          fontSize: 13
+          fontSize: 14.5
         }}>
           <span>⏱️ GD REMAINING:</span>
           <span>{formattedTimer}</span>
@@ -169,7 +169,7 @@ export default function MeetCallGrid({
               border: '1.5px solid var(--orange)',
               borderRadius: 6,
               padding: '2px 7px',
-              fontSize: 8.5,
+              fontSize: 9.5,
               fontWeight: 900,
               color: 'var(--orange)',
               fontFamily: 'var(--font-mono)'
@@ -187,7 +187,7 @@ export default function MeetCallGrid({
               border: '1.5px solid var(--coral)',
               borderRadius: 6,
               padding: '2px 7px',
-              fontSize: 8.5,
+              fontSize: 9.5,
               fontWeight: 900,
               color: 'var(--coral)',
               fontFamily: 'var(--font-mono)',
@@ -205,17 +205,17 @@ export default function MeetCallGrid({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 26,
+            fontSize: 28.5,
             boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
             border: micActive ? '2px solid var(--green)' : '2px solid rgba(255,255,255,0.2)'
           }}>
             🎓
           </div>
 
-          <span style={{ fontSize: 11.5, fontWeight: 900, color: 'white', marginTop: 8 }}>You (Candidate)</span>
+          <span style={{ fontSize: 12.5, fontWeight: 900, color: 'white', marginTop: 8 }}>You (Candidate)</span>
           
           <span style={{
-            fontSize: 8.5,
+            fontSize: 9.5,
             color: micActive ? 'var(--green)' : 'var(--t4)',
             position: 'absolute',
             bottom: 8,
@@ -263,7 +263,7 @@ export default function MeetCallGrid({
                   border: '1.5px solid var(--brand)',
                   borderRadius: 6,
                   padding: '1px 6px',
-                  fontSize: 7.5,
+                  fontSize: 8.5,
                   fontWeight: 900,
                   color: '#818cf8',
                   fontFamily: 'var(--font-mono)',
@@ -282,7 +282,7 @@ export default function MeetCallGrid({
                   border: '1.5px solid var(--info)',
                   borderRadius: 6,
                   padding: '1px 6px',
-                  fontSize: 7.5,
+                  fontSize: 8.5,
                   fontWeight: 900,
                   color: 'var(--info-bright)',
                   fontFamily: 'var(--font-mono)',
@@ -301,7 +301,7 @@ export default function MeetCallGrid({
                   border: '1.5px solid var(--reward)',
                   borderRadius: 6,
                   padding: '1px 6px',
-                  fontSize: 7.5,
+                  fontSize: 8.5,
                   fontWeight: 900,
                   color: '#c084fc',
                   fontFamily: 'var(--font-mono)',
@@ -320,7 +320,7 @@ export default function MeetCallGrid({
                   border: '1.5px solid var(--teal)',
                   borderRadius: 6,
                   padding: '1px 6px',
-                  fontSize: 7.5,
+                  fontSize: 8.5,
                   fontWeight: 900,
                   color: 'var(--teal)',
                   fontFamily: 'var(--font-mono)',
@@ -352,7 +352,7 @@ export default function MeetCallGrid({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 22,
+                  fontSize: 24,
                   boxShadow: isSpeaking ? '0 0 16px rgba(var(--accent-teal-rgb), 0.5)' : '0 4px 12px rgba(0,0,0,0.3)',
                   transition: 'all 0.3s ease',
                   transform: isSpeaking ? 'scale(1.08)' : 'scale(1.0)'
@@ -426,7 +426,7 @@ export default function MeetCallGrid({
               fontWeight: 900,
               borderRadius: 12,
               cursor: 'pointer',
-              fontSize: 13,
+              fontSize: 14.5,
               boxShadow: '0 0 16px rgba(var(--accent-teal-rgb), 0.4)',
               animation: 'pulse 2s infinite'
             }}
@@ -451,7 +451,7 @@ export default function MeetCallGrid({
                 fontWeight: 900,
                 borderRadius: 12,
                 cursor: 'pointer',
-                fontSize: 12
+                fontSize: 13
               }}
             >
               {handRaised ? '🙋 Hand Raised (Queued Next)' : '🙋 Raise Hand (Queue Next)'}
@@ -472,7 +472,7 @@ export default function MeetCallGrid({
                   fontWeight: 900,
                   borderRadius: 12,
                   cursor: 'pointer',
-                  fontSize: 12,
+                  fontSize: 13,
                   boxShadow: '0 0 14px rgba(var(--danger-rgb),  0.5)',
                   animation: 'pulse 1.5s infinite'
                 }}
@@ -496,7 +496,7 @@ export default function MeetCallGrid({
             fontWeight: 800,
             borderRadius: 12,
             cursor: 'pointer',
-            fontSize: 13
+            fontSize: 14.5
           }}
         >
           🛑 End & Report
@@ -513,7 +513,7 @@ export default function MeetCallGrid({
             fontWeight: 800,
             borderRadius: 12,
             cursor: 'pointer',
-            fontSize: 13
+            fontSize: 14.5
           }}
         >
           ❌ Leave Meeting

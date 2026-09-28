@@ -68,13 +68,13 @@ function LearnInner() {
 
         {atsGapTopics.length > 0 && (
           <div style={{ background:'var(--accent-light)', border:'1px solid #c7d2fe', borderRadius:'var(--radius-xl)', padding:'14px 18px', marginBottom:18 }}>
-            <p style={{ fontSize:12, fontWeight:600, color:'var(--accent)', marginBottom:9, fontFamily:'var(--font-mono)', textTransform:'uppercase', letterSpacing:'0.8px' }}>
+            <p style={{ fontSize:13, fontWeight:600, color:'var(--accent)', marginBottom:9, fontFamily:'var(--font-mono)', textTransform:'uppercase', letterSpacing:'0.8px' }}>
               📊 Your ATS gaps — suggested study topics:
             </p>
             <div style={{ display:'flex', gap:7, flexWrap:'wrap' }}>
               {atsGapTopics.map((topic: string) => (
                 <button key={topic} onClick={() => router.push(`/learn?topic=${encodeURIComponent(topic)}`)}
-                  style={{ padding:'4px 12px', borderRadius:8, background:'var(--bg2)', border:'1px solid #c7d2fe', color:'var(--accent)', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:'var(--font-mono)' }}>
+                  style={{ padding:'4px 12px', borderRadius:8, background:'var(--bg2)', border:'1px solid #c7d2fe', color:'var(--accent)', fontSize:13, fontWeight:600, cursor:'pointer', fontFamily:'var(--font-mono)' }}>
                   {topic}
                 </button>
               ))}
@@ -98,7 +98,7 @@ function LearnInner() {
         <ModeSelector    value={mode}      onChange={setMode}      />
         <NotesList selected={selectedNotes} onSelect={setSelectedNotes} />
 
-        <button onClick={startSession} className="btn-primary" style={{ width:'100%', justifyContent:'center', padding:'12px 18px', fontSize:14, marginTop:16 }}>
+        <button onClick={startSession} className="btn-primary" style={{ width:'100%', justifyContent:'center', padding:'12px 18px', fontSize:15.5, marginTop:16 }}>
           Start Learning Session →
         </button>
       </div>
@@ -111,7 +111,7 @@ function LearnInner() {
         display:'flex', alignItems:'center', justifyContent:'space-between',
         marginBottom:14, padding:'10px 16px',
         background:'var(--bg2)', border:'1px solid var(--border)',
-        borderRadius:'var(--radius-lg)', fontSize:12,
+        borderRadius:'var(--radius-lg)', fontSize:13,
       }}>
         <span style={{ color:'var(--t2)' }}>
           📚 {teacherId==='priya'?'Ms. Priya':teacherId} · {mode}
@@ -120,7 +120,7 @@ function LearnInner() {
         </span>
         <div style={{ display:'flex', gap:8 }}>
           {profile?.ats_score !== undefined && (
-            <span style={{ fontFamily:'var(--font-mono)', fontSize:11, color:'var(--teal)', fontWeight:600 }}>
+            <span style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--teal)', fontWeight:600 }}>
               ATS: {profile.ats_score}/100
             </span>
           )}

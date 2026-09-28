@@ -69,20 +69,20 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <span style={{
-            fontSize: 11, fontWeight: 800,
+            fontSize: 12, fontWeight: 800,
             color: isGateCleared ? 'var(--green)' : 'var(--amber)',
             textTransform: 'uppercase', letterSpacing: '0.5px',
             display: 'flex', alignItems: 'center', gap: 6
           }}>
             {isGateCleared ? '✓ Career Gate Cleared' : '🔒 Career Gate Audit Checkpoint'}
           </span>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}>✕</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}>✕</button>
         </div>
 
-        <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginBottom: 6 }}>
+        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 6 }}>
           {node.title} Readiness
         </h3>
-        <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 20 }}>
+        <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 20 }}>
           {isGateCleared
             ? 'All prerequisite competency thresholds and project requirements have been verified.'
             : 'Multi-dimensional gate check evaluating technical completion, communication lab, ATS score, and project verification against required standards.'}
@@ -90,10 +90,10 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
           {/* 1. Technical Quests */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
               <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📚 Technical Quests Completion</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 {clearedQuests} of {totalQuests} quests completed (Required: {requiredCompletionPct}%)
               </div>
             </div>
@@ -103,10 +103,10 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           </div>
 
           {/* 2. Soft Skills */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
               <div style={{ fontWeight: 700, color: 'var(--t1)' }}>🗣️ Soft Skills / Communication Lab</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 Required score: ≥ {requiredCommScore}%
               </div>
             </div>
@@ -116,10 +116,10 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           </div>
 
           {/* 3. ATS Resume */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
               <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📄 ATS Resume Match Score</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 Target role threshold: ≥ {requiredAtsScore}%
               </div>
             </div>
@@ -129,10 +129,10 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           </div>
 
           {/* 4. Capstone */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
               <div style={{ fontWeight: 700, color: 'var(--t1)' }}>💻 Verified Capstone Project</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 {requiredCapstone ? 'Requires automated code and integrity audit' : 'Optional for this stage'}
               </div>
             </div>
@@ -148,7 +148,7 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
             width: '100%', padding: '12px',
             background: isGateCleared ? 'var(--green)' : 'var(--accent)',
             border: 'none', borderRadius: 12, color: 'var(--text)', fontWeight: 800,
-            fontSize: 13, cursor: 'pointer'
+            fontSize: 14.5, cursor: 'pointer'
           }}
         >
           {isGateCleared ? 'Continue Journey ➔' : 'Close Readiness Audit ➔'}
@@ -191,14 +191,14 @@ export const MasterJourneyModal: React.FC<MasterJourneyModalProps> = ({
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
-            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               🗺️ Master Syllabus & Full Journey Breakdown
             </span>
-            <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
+            <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
               {trajectory.roleTitle} — Every Quest Lined Up
             </h3>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 22, cursor: 'pointer' }}>✕</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 24, cursor: 'pointer' }}>✕</button>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', paddingRight: 8, display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -217,14 +217,14 @@ export const MasterJourneyModal: React.FC<MasterJourneyModalProps> = ({
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ fontSize: 11, fontWeight: 900, background: isFullyCompleted ? 'var(--success)' : 'var(--brand)', color: 'var(--text)', padding: '3px 9px', borderRadius: 12 }}>
+                    <span style={{ fontSize: 12, fontWeight: 900, background: isFullyCompleted ? 'var(--success)' : 'var(--brand)', color: 'var(--text)', padding: '3px 9px', borderRadius: 12 }}>
                       Step {nodeIdx + 1}
                     </span>
-                    <h4 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                    <h4 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                       {node.title}
                     </h4>
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: isFullyCompleted ? 'var(--success)' : 'var(--t3)' }}>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: isFullyCompleted ? 'var(--success)' : 'var(--t3)' }}>
                     {nodeCompletedCount} / {nodeQuests.length} Quests Cleared
                   </span>
                 </div>
@@ -249,15 +249,15 @@ export const MasterJourneyModal: React.FC<MasterJourneyModalProps> = ({
                             background: isDone ? 'rgba(var(--success-rgb),0.2)' : 'var(--bg3)',
                             color: isDone ? 'var(--success)' : 'var(--t3)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 12, fontWeight: 900
+                            fontSize: 13, fontWeight: 900
                           }}>
                             {isDone ? '✓' : qIdx + 1}
                           </span>
                           <div>
-                            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>
+                            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
                               {q.title}
                             </div>
-                            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                               {q.desc || 'Dissect syntax, concepts, and production implementation.'}
                             </div>
                           </div>
@@ -271,7 +271,7 @@ export const MasterJourneyModal: React.FC<MasterJourneyModalProps> = ({
                             border: 'none',
                             background: isDone ? 'rgba(var(--success-rgb),0.15)' : 'var(--brand)',
                             color: isDone ? 'var(--success)' : 'var(--text)',
-                            fontSize: 11.5,
+                            fontSize: 12.5,
                             fontWeight: 800,
                             cursor: 'pointer',
                             flexShrink: 0
@@ -312,13 +312,13 @@ export const QrModal: React.FC<QrModalProps> = ({
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 20 }}>
       <div style={{ width: '100%', maxWidth: 440, background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success-bright)', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success-bright)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
           <span>🛡️</span> Cryptographic Proof
         </div>
-        <h3 style={{ margin: '0 0 8px 0', fontSize: 20, fontWeight: 800, color: '#f8fafc' }}>
+        <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 800, color: '#f8fafc' }}>
           Verifiable Skill Passport QR
         </h3>
-        <p style={{ margin: '0 0 20px 0', fontSize: 12, color: 'var(--text-muted)' }}>
+        <p style={{ margin: '0 0 20px 0', fontSize: 13, color: 'var(--text-muted)' }}>
           Recruiters and universities can scan this code to independently verify your SHA-256 evidence chain and oral viva defense.
         </p>
 
@@ -338,7 +338,7 @@ export const QrModal: React.FC<QrModalProps> = ({
           );
         })()}
 
-        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: 8, fontSize: 11, fontFamily: 'monospace', color: 'var(--info-bright)', wordBreak: 'break-all', marginBottom: 16 }}>
+        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: 8, fontSize: 12, fontFamily: 'monospace', color: 'var(--info-bright)', wordBreak: 'break-all', marginBottom: 16 }}>
           {typeof window !== 'undefined' ? `${window.location.origin}/verify/${userId}` : `/verify/${userId}`}
         </div>
 
@@ -352,7 +352,7 @@ export const QrModal: React.FC<QrModalProps> = ({
               background: 'linear-gradient(135deg, var(--brand), var(--reward))',
               border: 'none',
               color: 'var(--text)',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 700,
               cursor: 'pointer'
             }}
@@ -369,7 +369,7 @@ export const QrModal: React.FC<QrModalProps> = ({
               background: 'rgba(255,255,255,0.06)',
               border: 'none',
               color: 'var(--text-muted)',
-              fontSize: 13,
+              fontSize: 14.5,
               cursor: 'pointer'
             }}
           >
@@ -440,39 +440,39 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
               ✨
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+              <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 Configure Custom AI Roadmap
               </h3>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
+              <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2 }}>
                 Opens as a new tab next to Standalone (Roadmap {nextRoadmapNumber(extraRoadmaps)}). Close extra tabs anytime.
               </div>
             </div>
           </div>
-          <button onClick={() => !isGenerating && onClose()} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}>✕</button>
+          <button onClick={() => !isGenerating && onClose()} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 22, cursor: 'pointer' }}>✕</button>
         </div>
 
         {isGenerating ? (
           <div style={{ padding: '30px 10px', textAlign: 'center' }}>
             <div style={{ width: 60, height: 60, borderRadius: '50%', border: '4px solid rgba(var(--success-rgb),0.2)', borderTopColor: 'var(--success)', margin: '0 auto 20px auto', animation: 'spin 1s linear infinite' }} />
             
-            <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
+            <h4 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
               Generating {selectedDuration}-Day Personalized Trajectory...
             </h4>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 420, margin: '20px auto 0 auto' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 1 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 1 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
                 <span>{generationStep > 1 ? '✅' : '🧠'}</span>
                 <span>Step 1: Analyzing Target Role & Skill Gap</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 2 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 2 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
                 <span>{generationStep > 2 ? '✅' : '📅'}</span>
                 <span>Step 2: Structuring {selectedDuration}-Day Day-by-Day Milestone Plan</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 3 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 3 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
                 <span>{generationStep >= 3 ? '⚡' : '⏳'}</span>
                 <span>Step 3: Compiling Socratic Lectures, Coding Quests & Vivas</span>
               </div>
@@ -490,7 +490,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
               alignItems: 'center',
               flexWrap: 'wrap',
               gap: 10,
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 800
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -515,14 +515,14 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
               boxShadow: '0 4px 18px rgba(var(--success-rgb),0.15)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                <label style={{ fontSize: 13, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <label style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   🎯 Target Career Goal & Mixed Specialization (Editable)
                 </label>
-                <span style={{ fontSize: 10, fontWeight: 800, padding: '3px 8px', borderRadius: 8, background: 'var(--success)', color: 'var(--text)' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 8, background: 'var(--success)', color: 'var(--text)' }}>
                   ⭐ High-Priority Input
                 </span>
               </div>
-              <p style={{ fontSize: 11.5, color: 'var(--t2)', marginBottom: 10, lineHeight: 1.4 }}>
+              <p style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 10, lineHeight: 1.4 }}>
                 Type your specific career goal! Combine Tech + Non-Tech skills (e.g. <i>"Full-Stack Developer launching an E-Commerce Business"</i>).
               </p>
               <input
@@ -543,7 +543,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
                   border: '2px solid var(--success)',
                   background: '#090d16',
                   color: 'var(--text)',
-                  fontSize: 13.5,
+                  fontSize: 15,
                   fontWeight: 800,
                   boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
                 }}
@@ -552,10 +552,10 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
 
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <label style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <label style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   📅 Roadmap Duration (Min 30 Days - Max 1 Year)
                 </label>
-                <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--success-bright)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--success-bright)', fontFamily: 'var(--font-mono)' }}>
                   {selectedDuration} Days ({selectedDuration === 365 ? '1 Year' : `${Math.round(selectedDuration / 30 * 10) / 10} Months`})
                 </span>
               </div>
@@ -587,7 +587,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
                       border: `1.5px solid ${selectedDuration === p.days ? 'var(--success)' : 'rgba(255,255,255,0.12)'}`,
                       background: selectedDuration === p.days ? 'rgba(var(--success-rgb),0.2)' : '#121824',
                       color: selectedDuration === p.days ? 'var(--success-bright)' : '#e0e7ff',
-                      fontSize: 11.5,
+                      fontSize: 12.5,
                       fontWeight: 800,
                       cursor: 'pointer',
                       transition: 'all 0.2s'
@@ -605,7 +605,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
               style={{
                 width: '100%',
                 padding: '14px',
-                fontSize: 14,
+                fontSize: 15.5,
                 fontWeight: 900,
                 borderRadius: 14,
                 cursor: 'pointer',

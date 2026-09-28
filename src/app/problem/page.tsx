@@ -46,13 +46,13 @@ export default function ProblemPage() {
         <div className="container">
           
           <div style={{ maxWidth: 840, marginBottom: 56 }}>
-            <div style={{ display: 'inline-block', padding: '6px 14px', borderRadius: 999, background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16 }}>
+            <div style={{ display: 'inline-block', padding: '6px 14px', borderRadius: 999, background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16 }}>
               Systemic Problem Statement
             </div>
             <h1 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.15, marginBottom: 18 }}>
               Higher Education is Running on a Broken Currency.
             </h1>
-            <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontSize: 17.5, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
               The intersection of education and recruitment is paralyzed by a fundamental crisis of trust. PDF resumes have zero proof, video learning produces passive illusions, and recruiters spend hundreds of hours filtering noise.
             </p>
           </div>
@@ -75,22 +75,22 @@ export default function ProblemPage() {
               >
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                    <span style={{ fontSize: 13, fontWeight: 800, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>{p.num}</span>
-                    <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.08)', color: '#f43f5e', fontSize: 11, fontWeight: 750 }}>CRISIS POINT</span>
+                    <span style={{ fontSize: 14.5, fontWeight: 800, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>{p.num}</span>
+                    <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.08)', color: '#f43f5e', fontSize: 12, fontWeight: 750 }}>CRISIS POINT</span>
                   </div>
-                  <h3 style={{ margin: 0, fontSize: 19, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3, marginBottom: 12 }}>
+                  <h3 style={{ margin: 0, fontSize: 21, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3, marginBottom: 12 }}>
                     {p.title}
                   </h3>
-                  <p style={{ margin: 0, fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                  <p style={{ margin: 0, fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                     {p.desc}
                   </p>
                 </div>
 
                 <div style={{ padding: '16px 20px', borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <div style={{ fontSize: 24, fontWeight: 900, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: 26.5, fontWeight: 900, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>
                     {p.stat}
                   </div>
-                  <div style={{ fontSize: 11.5, fontWeight: 650, color: 'var(--text-secondary)', lineHeight: 1.35 }}>
+                  <div style={{ fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', lineHeight: 1.35 }}>
                     {p.statLabel}
                   </div>
                 </div>
@@ -99,17 +99,17 @@ export default function ProblemPage() {
           </div>
 
           <div style={{ marginTop: 60, textAlign: 'center', padding: '40px 24px', borderRadius: 24, background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)' }}>
-            <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 12 }}>
+            <h2 style={{ fontSize: 26.5, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 12 }}>
               Ready to replace unverified claims with verifiable proof of work?
             </h2>
-            <p style={{ fontSize: 14, color: 'var(--text-secondary)', maxWidth: 600, margin: '0 auto 24px' }}>
+            <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', maxWidth: 600, margin: '0 auto 24px' }}>
               Explore how PinIT Career OS establishes an auditable identity passport for every student.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <Link href="/identity" className="pc-btn-primary" style={{ padding: '12px 28px', fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Link href="/identity" className="pc-btn-primary" style={{ padding: '12px 28px', fontSize: 15.5, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 Explore Career Identity →
               </Link>
-              <Link href="/how-it-works" className="pc-btn-secondary" style={{ padding: '12px 24px', fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Link href="/how-it-works" className="pc-btn-secondary" style={{ padding: '12px 24px', fontSize: 15.5, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 How It Works
               </Link>
             </div>

@@ -37,12 +37,12 @@ export function WorkspaceAIHint({
         boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
             🤖 AI Debug Tutor Assistance
           </span>
           <button
             onClick={() => setShowAiTutorModal(false)}
-            style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}
+            style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}
           >
             ✕
           </button>
@@ -53,7 +53,7 @@ export function WorkspaceAIHint({
             <span>Analyzing code AST and execution stack trace... 🧠</span>
           </div>
         ) : (
-          <div style={{ whiteSpace: 'pre-wrap', fontSize: 13, color: 'var(--t1)', lineHeight: 1.6 }}>
+          <div style={{ whiteSpace: 'pre-wrap', fontSize: 14.5, color: 'var(--t1)', lineHeight: 1.6 }}>
             {aiTutorHint}
           </div>
         )}
@@ -69,7 +69,7 @@ export function WorkspaceAIHint({
             borderRadius: 12,
             color: 'var(--text)',
             fontWeight: 800,
-            fontSize: 12,
+            fontSize: 13,
             cursor: 'pointer'
           }}
         >

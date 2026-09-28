@@ -15,7 +15,7 @@ const ROADMAP_BADGE = (
       marginLeft: 6,
       padding: '1px 6px',
       borderRadius: 999,
-      fontSize: 9,
+      fontSize: 10,
       fontWeight: 800,
       color: '#F59E0B',
       background: 'rgba(245, 158, 11, 0.1)',
@@ -39,7 +39,7 @@ const PILOT_BADGE = (
       marginLeft: 6,
       padding: '1px 6px',
       borderRadius: 999,
-      fontSize: 9,
+      fontSize: 10,
       fontWeight: 800,
       color: '#F59E0B',
       background: 'rgba(245, 158, 11, 0.1)',
@@ -148,13 +148,13 @@ export default function ModulesDirectoryPageRevamp() {
               Explore the end-to-end OS uniting students, placement cells, faculty, recruiters, and parents under a single verified framework.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 16, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', padding: '4px 12px', borderRadius: 999, background: 'rgba(99,102,241,0.1)' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', padding: '4px 12px', borderRadius: 999, background: 'rgba(99,102,241,0.1)' }}>
                 ✅ {liveCount} Live
               </span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#F59E0B', padding: '4px 12px', borderRadius: 999, background: 'rgba(245,158,11,0.1)' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#F59E0B', padding: '4px 12px', borderRadius: 999, background: 'rgba(245,158,11,0.1)' }}>
                 🛣️ {roadmapCount} Roadmap
               </span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#F59E0B', padding: '4px 12px', borderRadius: 999, background: 'rgba(245,158,11,0.1)' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#F59E0B', padding: '4px 12px', borderRadius: 999, background: 'rgba(245,158,11,0.1)' }}>
                 🧪 {pilotCount} Pilot
               </span>
             </div>
@@ -178,7 +178,7 @@ export default function ModulesDirectoryPageRevamp() {
                   style={{
                     padding: '8px 16px',
                     borderRadius: 10,
-                    fontSize: 12.5,
+                    fontSize: 14,
                     fontWeight: 700,
                     cursor: 'pointer',
                     border: '1px solid var(--border-color)',
@@ -205,7 +205,7 @@ export default function ModulesDirectoryPageRevamp() {
                   background: 'var(--bg-card)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   outline: 'none'
                 }}
               />
@@ -222,22 +222,22 @@ export default function ModulesDirectoryPageRevamp() {
                 <div key={item.id} className="gain-card" style={{ padding: 24, textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                      <span style={{ fontSize: 24 }}>{item.icon}</span>
-                      <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+                      <span style={{ fontSize: 26.5 }}>{item.icon}</span>
+                      <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
                         {item.name}
                         {statusBadge}
                       </h3>
                     </div>
-                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                    <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                       {item.desc}
                     </p>
                   </div>
 
                   <div style={{ paddingTop: 16, borderTop: '1px solid var(--border-color)', marginTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 11, color: 'var(--text-tertiary)', textTransform: 'uppercase', fontWeight: 700 }}>
+                    <span style={{ fontSize: 12, color: 'var(--text-tertiary)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {item.category}
                     </span>
-                    <Link href={item.route} style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>
+                    <Link href={item.route} style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>
                       Access →
                     </Link>
                   </div>

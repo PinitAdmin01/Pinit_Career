@@ -34,11 +34,11 @@ export function QuestsHeroHeader({
         
         {/* Left: Welcome & Target Role */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-          <h1 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', margin: 0 }}>
+          <h1 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', margin: 0 }}>
             👋 Welcome, {userName}!
           </h1>
 
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', padding: '2px 8px', borderRadius: 12, fontSize: 10.5, fontWeight: 800, color: 'var(--accent)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', padding: '2px 8px', borderRadius: 12, fontSize: 11.5, fontWeight: 800, color: 'var(--accent)' }}>
             <span>{trajectory.icon}</span>
             <span>Target Role: {trajectory.roleTitle}</span>
           </div>
@@ -54,7 +54,7 @@ export function QuestsHeroHeader({
               borderRadius: 8,
               padding: '5px 12px',
               color: '#fff',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer',
               boxShadow: '0 2px 6px rgba(16,185,129,0.2)'
@@ -72,7 +72,7 @@ export function QuestsHeroHeader({
               borderRadius: 8,
               padding: '5px 12px',
               color: showCourseLibrary ? '#fff' : 'var(--t2)',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer'
             }}
@@ -88,7 +88,7 @@ export function QuestsHeroHeader({
               borderRadius: 8,
               padding: '5px 12px',
               color: '#38bdf8',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer'
             }}

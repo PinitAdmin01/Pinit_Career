@@ -18,13 +18,13 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
       {/* Card 1: Guided Story Mode Replay */}
       <div style={CS.card}>
         <div style={CS.cardTitle}>✨ Career Story Tour & Onboarding Walkthrough</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
           Replay the full interactive guided tour of all platform tabs with your active 3D mentor. This introduces every feature, tab, and gamified mechanism step-by-step.
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg3)', padding: '14px 18px', borderRadius: 12, border: '1px solid var(--border)' }}>
           <div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Launch Tab Tour</span>
-            <div style={{ fontSize: 11, color: 'var(--accent)', marginTop: 2 }}>
+            <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>Launch Tab Tour</span>
+            <div style={{ fontSize: 12, color: 'var(--accent)', marginTop: 2 }}>
               Interactive voice-guided tour with your 3D Avatar
             </div>
           </div>
@@ -41,7 +41,7 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
               border: 'none',
               borderRadius: 10,
               padding: '8px 18px',
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 800,
               cursor: 'pointer',
               boxShadow: '0 4px 14px rgba(var(--brand-rgb), 0.3)',
@@ -56,19 +56,19 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
       {/* Card 2: Voice Registration & Microphone Calibration */}
       <div style={CS.card}>
         <div style={CS.cardTitle}>🎙️ Voice Registration & Microphone Calibration</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
           Calibrate your microphone sensitivity and verify your speech recognition baseline for AI mock interviews and voice-assisted problem solving.
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, background: 'var(--bg3)', padding: '16px', borderRadius: 12, border: '1px solid var(--border)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Voice Biometric Status</div>
+              <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>Voice Biometric Status</div>
               {calibratedRms !== null ? (
-                <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 600, marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: 'var(--green)', fontWeight: 600, marginTop: 2 }}>
                   ✓ Microphone active &amp; calibrated ({calibratedRms.toFixed(2)} RMS)
                 </div>
               ) : (
-                <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500, marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 500, marginTop: 2 }}>
                   Microphone baseline uncalibrated for current session
                 </div>
               )}
@@ -107,7 +107,7 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
                 border: '1px solid var(--border)',
                 borderRadius: 10,
                 padding: '8px 16px',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 cursor: 'pointer'
               }}
@@ -122,13 +122,13 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
       {process.env.NODE_ENV !== 'production' && (
         <div style={CS.card}>
           <div style={CS.cardTitle}>🎉 Milestone Celebration FX (Dev Only)</div>
-          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
             Gamification events trigger celebratory confetti and encouraging mentor remarks upon completing quests, passing mock interviews, or reaching new ranks.
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg3)', padding: '14px 18px', borderRadius: 12, border: '1px solid var(--border)' }}>
             <div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Test Celebration FX</span>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+              <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>Test Celebration FX</span>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                 Triggers confetti burst and audio celebration
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
                 border: 'none',
                 borderRadius: 10,
                 padding: '8px 18px',
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 800,
                 cursor: 'pointer',
                 boxShadow: '0 4px 14px rgba(var(--success-rgb), 0.3)',
@@ -161,11 +161,11 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
       {/* Card 4: Soundscape & Background Audio Volume */}
       <div style={CS.card}>
         <div style={CS.cardTitle}>🔊 Audio & Ambient Soundscapes</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
           Adjust the ambient background focus audio and mentor sound effects.
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--bg3)', padding: '16px', borderRadius: 12, border: '1px solid var(--border)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>
             <span>Ambient Volume</span>
             <span>{Math.round(soundscapeVol * 100)}%</span>
           </div>

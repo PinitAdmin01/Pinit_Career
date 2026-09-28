@@ -68,15 +68,15 @@ export default function HowItWorksPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: 900,
                   color: 'var(--accent)'
                 }}>
                   {item.step}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>{item.title}</h3>
-                  <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
+                  <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>{item.title}</h3>
+                  <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -84,8 +84,8 @@ export default function HowItWorksPage() {
 
           {/* CTA */}
           <div className="glass-card" style={{ padding: '40px 32px', textAlign: 'center', maxWidth: 840, margin: '0 auto' }}>
-            <h2 style={{ fontSize: 24, fontWeight: 900, marginBottom: 12 }}>Begin Day 1 of Your S-Curve Track</h2>
-            <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 24px' }}>
+            <h2 style={{ fontSize: 26.5, fontWeight: 900, marginBottom: 12 }}>Begin Day 1 of Your S-Curve Track</h2>
+            <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 24px' }}>
               36 tracks. 1,080 daily quests. 100% free starter pass.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 14, flexWrap: 'wrap' }}>

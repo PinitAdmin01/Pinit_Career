@@ -40,8 +40,8 @@ export default function LeaderboardPage() {
           </div>
           {userRank && (
             <div style={{ background: 'var(--accent-light)', border: '1px solid rgba(79,70,229,0.2)', borderRadius: 12, padding: '10px 16px', textAlign: 'right', flexShrink: 0 }}>
-              <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 2 }}>Your Rank</div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 900, color: 'var(--accent)', letterSpacing: '-1px' }}>#{userRank}</div>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 2 }}>Your Rank</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 28.5, fontWeight: 900, color: 'var(--accent)', letterSpacing: '-1px' }}>#{userRank}</div>
             </div>
           )}
         </div>
@@ -56,7 +56,7 @@ export default function LeaderboardPage() {
               borderColor: tab === t.id ? t.color : 'var(--border)',
               background: tab === t.id ? `${t.color}15` : 'var(--bg2)',
               color: tab === t.id ? t.color : 'var(--t2)',
-              fontSize: 12, fontWeight: tab === t.id ? 700 : 500,
+              fontSize: 13, fontWeight: tab === t.id ? 700 : 500,
               cursor: 'pointer', transition: 'all 0.15s',
               fontFamily: 'var(--font-body)',
             }}>
@@ -68,11 +68,11 @@ export default function LeaderboardPage() {
       {/* Table card */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
         <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: activeTab.color, display: 'inline-block' }} />
             {activeTab.desc}
           </span>
-          <span style={{ fontSize: 10, color: 'var(--t4)', fontFamily: 'var(--font-mono)' }}>Updated hourly</span>
+          <span style={{ fontSize: 11, color: 'var(--t4)', fontFamily: 'var(--font-mono)' }}>Updated hourly</span>
         </div>
 
         {isLoading ? (
@@ -101,8 +101,8 @@ export default function LeaderboardPage() {
                   {/* Rank */}
                   <div style={{ width: 32, textAlign: 'center', flexShrink: 0 }}>
                     {medals[i]
-                      ? <span style={{ fontSize: 22 }}>{medals[i]}</span>
-                      : <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700, color: 'var(--t3)' }}>{i+1}</span>
+                      ? <span style={{ fontSize: 24 }}>{medals[i]}</span>
+                      : <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700, color: 'var(--t3)' }}>{i+1}</span>
                     }
                   </div>
 
@@ -111,7 +111,7 @@ export default function LeaderboardPage() {
                     width: 38, height: 38, borderRadius: '50%', flexShrink: 0,
                     background: isMe ? 'linear-gradient(135deg, var(--accent), var(--purple))' : `linear-gradient(135deg, hsl(${(i*53)%360},65%,58%), hsl(${(i*53+80)%360},65%,48%))`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 15, fontWeight: 800, color: 'white',
+                    fontSize: 16.5, fontWeight: 800, color: 'white',
                     boxShadow: isMe ? '0 2px 10px rgba(79,70,229,0.3)' : 'none',
                   }}>
                     {(entry.displayName || '?')[0].toUpperCase()}
@@ -119,21 +119,21 @@ export default function LeaderboardPage() {
 
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: isMe ? 700 : 500, color: isMe ? 'var(--accent)' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ fontSize: 14.5, fontWeight: isMe ? 700 : 500, color: isMe ? 'var(--accent)' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       {entry.displayName}
                       {isMe && <span className="badge badge-accent">You</span>}
                     </div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
                       🔥 {entry.streak}d · {entry.role || 'Student'}
                     </div>
                   </div>
 
                   {/* Score */}
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: activeTab.color, letterSpacing: '-0.5px' }}>
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: activeTab.color, letterSpacing: '-0.5px' }}>
                       {Math.round(entry.score)}
                     </div>
-                    <div style={{ fontSize: 9, color: 'var(--t4)', textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>
+                    <div style={{ fontSize: 10, color: 'var(--t4)', textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>
                       {tab === 'streak' ? 'days' : tab === 'missions' ? 'done' : '/100'}
                     </div>
                   </div>

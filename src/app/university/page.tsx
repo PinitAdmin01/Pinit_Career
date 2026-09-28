@@ -38,11 +38,11 @@ function KpiCard({ label, value, sub, color, icon }: { label:string; value:strin
     <div style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:'var(--radius-xl)',
                   padding:'18px 20px', borderLeft:`4px solid ${color}` }}>
       <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
-        <span style={{ fontSize:22 }}>{icon}</span>
-        <div style={{ fontSize:10, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', fontFamily:'var(--font-mono)', fontWeight:600 }}>{label}</div>
+        <span style={{ fontSize:24 }}>{icon}</span>
+        <div style={{ fontSize:11, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', fontFamily:'var(--font-mono)', fontWeight:600 }}>{label}</div>
       </div>
-      <div style={{ fontFamily:'var(--font-display)', fontSize:30, fontWeight:800, color, letterSpacing:'-1px', lineHeight:1 }}>{value}</div>
-      {sub && <div style={{ fontSize:11.5, color:'var(--t3)', marginTop:5 }}>{sub}</div>}
+      <div style={{ fontFamily:'var(--font-display)', fontSize:33, fontWeight:800, color, letterSpacing:'-1px', lineHeight:1 }}>{value}</div>
+      {sub && <div style={{ fontSize:12.5, color:'var(--t3)', marginTop:5 }}>{sub}</div>}
     </div>
   );
 }
@@ -53,8 +53,8 @@ function Bar({ value, max, color, label }: { value:number; max:number; color:str
     <div style={{ marginBottom:10 }}>
       {label && (
         <div style={{ display:'flex', justifyContent:'space-between', marginBottom:4 }}>
-          <span style={{ fontSize:12, color:'var(--t1)' }}>{label}</span>
-          <span style={{ fontSize:11, fontFamily:'var(--font-mono)', color }}>
+          <span style={{ fontSize:13, color:'var(--t1)' }}>{label}</span>
+          <span style={{ fontSize:12, fontFamily:'var(--font-mono)', color }}>
             {value} <span style={{ color:'var(--t3)' }}>({Math.round(pct)}%)</span>
           </span>
         </div>
@@ -162,8 +162,8 @@ export default function UniversityPage() {
     <div style={{ maxWidth:1280, margin:'0 auto' }} className="animate-fade-in">
       {/* Header */}
       <div className="page-header" style={{ marginBottom:20 }}>
-        <h1 style={{ fontFamily:"var(--font-display)", fontSize:22, fontWeight:900, letterSpacing:"-0.5px", marginBottom:4 }}>🏛 Institution Dashboard</h1>
-        <p style={{ color:"var(--t2)", fontSize:13.5 }}>Placement intelligence, employability analytics, and student performance for TPOs</p>
+        <h1 style={{ fontFamily:"var(--font-display)", fontSize:24, fontWeight:900, letterSpacing:"-0.5px", marginBottom:4 }}>🏛 Institution Dashboard</h1>
+        <p style={{ color:"var(--t2)", fontSize:15 }}>Placement intelligence, employability analytics, and student performance for TPOs</p>
       </div>
 
       {/* Multi-campus Hierarchical Selector */}
@@ -171,15 +171,15 @@ export default function UniversityPage() {
         background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16,
         padding: 20, marginBottom: 24, display: 'flex', flexDirection: 'column', gap: 14
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>
           🗺️ Multi-Campus Hierarchy Selector
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
           {/* University Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>University</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedUniv} onChange={e => setSelectedUniv(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>University</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedUniv} onChange={e => setSelectedUniv(e.target.value)}>
               <option value="all">All Universities / Autonomous Institutions</option>
               <option value="Visvesvaraya Technological University (VTU)">VTU (State Tech)</option>
               <option value="Bangalore University (BU)">Bangalore University (BU)</option>
@@ -188,8 +188,8 @@ export default function UniversityPage() {
 
           {/* College Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>College</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedColl} onChange={e => setSelectedColl(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>College</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedColl} onChange={e => setSelectedColl(e.target.value)}>
               <option value="all">All Colleges / Constituent Campuses</option>
               <option value="RV College of Engineering (RVCE)">RV College of Engineering (RVCE)</option>
               <option value="BMS College of Engineering (BMSCE)">BMS College of Engineering (BMSCE)</option>
@@ -199,8 +199,8 @@ export default function UniversityPage() {
 
           {/* Campus Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Campus</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedCamp} onChange={e => setSelectedCamp(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Campus</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedCamp} onChange={e => setSelectedCamp(e.target.value)}>
               <option value="all">All Campuses</option>
               <option value="Main Campus (Mysore Road)">Main Campus (Mysore Road)</option>
               <option value="Extension Campus (Kanakapura Road)">Extension Campus (Kanakapura Road)</option>
@@ -210,8 +210,8 @@ export default function UniversityPage() {
 
           {/* Department Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Department</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedDept} onChange={e => setSelectedDept(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Department</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedDept} onChange={e => setSelectedDept(e.target.value)}>
               <option value="all">All Departments</option>
               <option value="Computer Science & Eng (CSE)">Computer Science & Eng (CSE)</option>
               <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
@@ -221,8 +221,8 @@ export default function UniversityPage() {
 
           {/* Branch Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Branch / Course</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedBranch} onChange={e => setSelectedBranch(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Branch / Course</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedBranch} onChange={e => setSelectedBranch(e.target.value)}>
               <option value="all">All Branches</option>
               <option value="B.E. Computer Science">B.E. Computer Science</option>
               <option value="B.E. Information Science">B.E. Information Science</option>
@@ -233,8 +233,8 @@ export default function UniversityPage() {
 
           {/* Section Selector */}
           <div>
-            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Section</label>
-            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedSect} onChange={e => setSelectedSect(e.target.value)}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Section</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 13 }} value={selectedSect} onChange={e => setSelectedSect(e.target.value)}>
               <option value="all">All Sections</option>
               <option value="Section A">Section A</option>
               <option value="Section B">Section B</option>
@@ -245,11 +245,11 @@ export default function UniversityPage() {
 
         {/* Hierarchy Tree Visualization Panel */}
         <div style={{
-          background: 'var(--bg3)', borderRadius: 10, padding: 12, fontSize: 12,
+          background: 'var(--bg3)', borderRadius: 10, padding: 12, fontSize: 13,
           display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap'
         }}>
           <span style={{ fontWeight: 700, color: 'var(--accent)' }}>Selected Node Path:</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>
             🏛️ {selectedUniv === 'all' ? 'All Universities' : selectedUniv} ➔ 🏢 {selectedColl === 'all' ? 'All Colleges' : selectedColl} ➔ 📍 {selectedCamp === 'all' ? 'All Campuses' : selectedCamp} ➔ 🏫 {selectedDept === 'all' ? 'All Departments' : selectedDept} ➔ 🎓 {selectedBranch === 'all' ? 'All Branches' : selectedBranch} ➔ 🔢 {selectedSect === 'all' ? 'All Sections' : selectedSect}
           </span>
         </div>
@@ -278,7 +278,7 @@ export default function UniversityPage() {
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             padding:'7px 16px', border:'none', borderRadius:'var(--radius)', cursor:'pointer',
-            fontSize:13, fontWeight:600, fontFamily:'var(--font-display)',
+            fontSize:14.5, fontWeight:600, fontFamily:'var(--font-display)',
             background: tab === t.id ? 'var(--bg2)'  : 'transparent',
             color:      tab === t.id ? 'var(--t1)'   : 'var(--t3)',
             boxShadow:  tab === t.id ? 'var(--shadow-sm)' : 'none',
@@ -312,12 +312,12 @@ export default function UniversityPage() {
             <div style={cardLabel}>Department Performance</div>
             {loading ? <>{[...Array(5)].map((_,i) => <Skeleton key={i} h={36} />)}</> :
               deptStats.length === 0 ? (
-                <div style={{ color:'var(--t3)', fontSize:13 }}>Department data not available — register numbers needed.</div>
+                <div style={{ color:'var(--t3)', fontSize:14.5 }}>Department data not available — register numbers needed.</div>
               ) : deptStats.map(d => (
                 <div key={d.dept_code} style={{ marginBottom:14 }}>
                   <div style={{ display:'flex', justifyContent:'space-between', marginBottom:5 }}>
-                    <span style={{ fontWeight:700, fontSize:13 }}>{d.dept_code || 'N/A'}</span>
-                    <div style={{ display:'flex', gap:12, fontSize:11, fontFamily:'var(--font-mono)', color:'var(--t2)' }}>
+                    <span style={{ fontWeight:700, fontSize:14.5 }}>{d.dept_code || 'N/A'}</span>
+                    <div style={{ display:'flex', gap:12, fontSize:12, fontFamily:'var(--font-mono)', color:'var(--t2)' }}>
                       <span style={{ color:'var(--teal)'  }}>ATS: {d.avg_ats}</span>
                       <span style={{ color:'var(--green)' }}>Trust: {d.avg_trust}</span>
                       <span style={{ color:'var(--t3)'    }}>{d.student_count} students</span>
@@ -339,8 +339,8 @@ export default function UniversityPage() {
                 { label:'Career DNA',   value:`${stats?.avg_dna || 0}`, max:100, color:'var(--purple)' },
               ].map(m => (
                 <div key={m.label} style={{ background:'var(--bg3)', borderRadius:'var(--radius)', padding:'14px 16px' }}>
-                  <div style={{ fontSize:10, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', marginBottom:8 }}>{m.label}</div>
-                  <div style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:800, color:m.color, marginBottom:8 }}>{m.value}<span style={{ fontSize:12, color:'var(--t3)' }}>/100</span></div>
+                  <div style={{ fontSize:11, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.8px', marginBottom:8 }}>{m.label}</div>
+                  <div style={{ fontFamily:'var(--font-display)', fontSize:31, fontWeight:800, color:m.color, marginBottom:8 }}>{m.value}<span style={{ fontSize:13, color:'var(--t3)' }}>/100</span></div>
                   <Bar value={parseFloat(m.value)} max={m.max} color={m.color} />
                 </div>
               ))}
@@ -355,14 +355,14 @@ export default function UniversityPage() {
           <div style={cardLabel}>Top 10 Students by Placement Readiness</div>
           {loading ? <>{[...Array(10)].map((_,i) => <Skeleton key={i} h={52} />)}</> :
             topStudents.length === 0
-              ? <div style={{ color:'var(--t3)', fontSize:13 }}>No student data yet.</div>
+              ? <div style={{ color:'var(--t3)', fontSize:14.5 }}>No student data yet.</div>
               : (
                 <div style={{ overflowX:'auto' }}>
-                  <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13 }}>
+                  <table style={{ width:'100%', borderCollapse:'collapse', fontSize:14.5 }}>
                     <thead>
                       <tr style={{ background:'var(--bg3)' }}>
                         {['Rank','Student','Reg No.','ATS','Trust','DNA','Visibility'].map(h => (
-                          <th key={h} style={{ padding:'10px 12px', textAlign:'left', fontSize:10.5, fontWeight:700, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.6px', borderBottom:'1px solid var(--border)' }}>{h}</th>
+                          <th key={h} style={{ padding:'10px 12px', textAlign:'left', fontSize:11.5, fontWeight:700, color:'var(--t3)', textTransform:'uppercase', letterSpacing:'0.6px', borderBottom:'1px solid var(--border)' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -370,17 +370,17 @@ export default function UniversityPage() {
                       {topStudents.map((s, i) => (
                         <tr key={s.id} style={{ borderBottom:'1px solid var(--border)' }}>
                           <td style={{ padding:'10px 12px' }}>
-                            <span style={{ display:'inline-flex', width:28, height:28, alignItems:'center', justifyContent:'center', borderRadius:'50%', background: i<3 ? 'var(--accent)' : 'var(--bg3)', color: i<3 ? '#fff' : 'var(--t3)', fontSize:11, fontWeight:700 }}>
+                            <span style={{ display:'inline-flex', width:28, height:28, alignItems:'center', justifyContent:'center', borderRadius:'50%', background: i<3 ? 'var(--accent)' : 'var(--bg3)', color: i<3 ? '#fff' : 'var(--t3)', fontSize:12, fontWeight:700 }}>
                               {i===0 ? '🥇' : i===1 ? '🥈' : i===2 ? '🥉' : `#${i+1}`}
                             </span>
                           </td>
                           <td style={{ padding:'10px 12px', fontWeight:700 }}>{s.display_name}</td>
-                          <td style={{ padding:'10px 12px', fontFamily:'var(--font-mono)', color:'var(--t3)', fontSize:11 }}>{s.register_number || '—'}</td>
+                          <td style={{ padding:'10px 12px', fontFamily:'var(--font-mono)', color:'var(--t3)', fontSize:12 }}>{s.register_number || '—'}</td>
                           <td style={{ padding:'10px 12px', fontWeight:700, color:'var(--teal)',   fontFamily:'var(--font-mono)' }}>{Math.round(s.ats_score)}</td>
                           <td style={{ padding:'10px 12px', fontWeight:700, color:'var(--green)',  fontFamily:'var(--font-mono)' }}>{Math.round(s.trust_score)}</td>
                           <td style={{ padding:'10px 12px', fontWeight:700, color:'var(--purple)', fontFamily:'var(--font-mono)' }}>{Math.round(s.career_dna_score)}</td>
                           <td style={{ padding:'10px 12px' }}>
-                            <span style={{ fontSize:10, padding:'3px 8px', borderRadius:100, fontWeight:700,
+                            <span style={{ fontSize:11, padding:'3px 8px', borderRadius:100, fontWeight:700,
                               background: s.recruiter_visibility>=60 ? 'var(--green-light)' : s.recruiter_visibility>=30 ? 'var(--amber-light)' : 'var(--coral-light)',
                               color:      s.recruiter_visibility>=60 ? 'var(--green)'       : s.recruiter_visibility>=30 ? 'var(--amber)'       : 'var(--coral)' }}>
                               {s.recruiter_visibility>=60 ? '✅ High' : s.recruiter_visibility>=30 ? '⚡ Medium' : '⚠ Low'}
@@ -403,12 +403,12 @@ export default function UniversityPage() {
             <div style={cardLabel}>Top Skill Gaps (all students)</div>
             {loading ? <>{[...Array(8)].map((_,i) => <Skeleton key={i} h={36} />)}</> :
               gaps.length === 0
-                ? <div style={{ color:'var(--t3)', fontSize:13 }}>No skill gap data available yet.</div>
+                ? <div style={{ color:'var(--t3)', fontSize:14.5 }}>No skill gap data available yet.</div>
                 : gaps.slice(0, 15).map(g => (
                     <div key={g.skill_gap} style={{ marginBottom:10 }}>
                       <div style={{ display:'flex', justifyContent:'space-between', marginBottom:4 }}>
-                        <span style={{ fontSize:13, fontWeight:600 }}>{g.skill_gap}</span>
-                        <span style={{ fontSize:11, fontFamily:'var(--font-mono)', color:'var(--coral)' }}>
+                        <span style={{ fontSize:14.5, fontWeight:600 }}>{g.skill_gap}</span>
+                        <span style={{ fontSize:12, fontFamily:'var(--font-mono)', color:'var(--coral)' }}>
                           {g.frequency} students ({Math.round(g.frequency/maxGapFreq*100)}%)
                         </span>
                       </div>
@@ -423,10 +423,10 @@ export default function UniversityPage() {
               gaps.slice(0, 5).map((g, i) => (
                 <div key={g.skill_gap} style={{ background:'var(--bg3)', borderRadius:'var(--radius)', padding:'12px 14px', marginBottom:10 }}>
                   <div style={{ display:'flex', gap:8, alignItems:'flex-start' }}>
-                    <span style={{ fontFamily:'var(--font-display)', fontSize:18, fontWeight:800, color:'var(--t3)', flexShrink:0 }}>#{i+1}</span>
+                    <span style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, color:'var(--t3)', flexShrink:0 }}>#{i+1}</span>
                     <div>
-                      <div style={{ fontWeight:700, fontSize:13, marginBottom:4 }}>{g.skill_gap}</div>
-                      <div style={{ fontSize:12, color:'var(--t2)', lineHeight:1.5 }}>
+                      <div style={{ fontWeight:700, fontSize:14.5, marginBottom:4 }}>{g.skill_gap}</div>
+                      <div style={{ fontSize:13, color:'var(--t2)', lineHeight:1.5 }}>
                         {g.frequency} students need this. Consider adding a dedicated workshop session or targeted missions for this skill.
                       </div>
                     </div>
@@ -449,10 +449,10 @@ export default function UniversityPage() {
           </div>
 
           <div style={card}>
-            <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, marginBottom:4 }}>
+            <div style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800, marginBottom:4 }}>
               Annual Placement Readiness Report
             </div>
-            <div style={{ fontSize:12, color:'var(--t3)', marginBottom:20 }}>
+            <div style={{ fontSize:13, color:'var(--t3)', marginBottom:20 }}>
               Generated {new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })}
             </div>
 
@@ -466,8 +466,8 @@ export default function UniversityPage() {
                     { label:'ATS Qualified (70+)',   value:`${atsPct}%`,                  color:'var(--teal)'   },
                   ].map(s => (
                     <div key={s.label} style={{ background:'var(--bg3)', borderRadius:'var(--radius)', padding:'14px 16px', textAlign:'center' }}>
-                      <div style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:800, color:s.color }}>{s.value}</div>
-                      <div style={{ fontSize:11, color:'var(--t3)', marginTop:4 }}>{s.label}</div>
+                      <div style={{ fontFamily:'var(--font-display)', fontSize:31, fontWeight:800, color:s.color }}>{s.value}</div>
+                      <div style={{ fontSize:12, color:'var(--t3)', marginTop:4 }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -484,12 +484,12 @@ export default function UniversityPage() {
                       { label:`Highly Engaged`,      v:employ.highly_engaged,     desc:'30+ day streak',  color:'var(--amber)'  },
                     ].map(r => (
                       <div key={r.label} style={{ display:'flex', alignItems:'center', gap:14, padding:'10px 0', borderBottom:'1px solid var(--border)' }}>
-                        <div style={{ width:160, fontSize:13, fontWeight:600 }}>{r.label}</div>
+                        <div style={{ width:160, fontSize:14.5, fontWeight:600 }}>{r.label}</div>
                         <div style={{ flex:1 }}><Bar value={r.v} max={stats?.total_students||1} color={r.color} /></div>
-                        <div style={{ width:100, textAlign:'right', fontSize:12, fontFamily:'var(--font-mono)', color:r.color }}>
+                        <div style={{ width:100, textAlign:'right', fontSize:13, fontFamily:'var(--font-mono)', color:r.color }}>
                           {r.v} ({Math.round(r.v/(stats?.total_students||1)*100)}%)
                         </div>
-                        <div style={{ width:140, fontSize:11, color:'var(--t3)' }}>{r.desc}</div>
+                        <div style={{ width:140, fontSize:12, color:'var(--t3)' }}>{r.desc}</div>
                       </div>
                     ))}
                   </>
@@ -502,8 +502,8 @@ export default function UniversityPage() {
                     {gaps.slice(0, 5).map((g, i) => (
                       <div key={g.skill_gap} style={{ display:'flex', gap:10, padding:'8px 0', borderBottom:'1px solid var(--border)' }}>
                         <span style={{ color:'var(--coral)', fontWeight:700, width:20 }}>{i+1}.</span>
-                        <span style={{ flex:1, fontWeight:600, fontSize:13 }}>{g.skill_gap}</span>
-                        <span style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{g.frequency} students affected</span>
+                        <span style={{ flex:1, fontWeight:600, fontSize:14.5 }}>{g.skill_gap}</span>
+                        <span style={{ fontSize:12, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{g.frequency} students affected</span>
                       </div>
                     ))}
                   </div>
@@ -522,7 +522,7 @@ const card: React.CSSProperties = {
   borderRadius:'var(--radius-xl)', padding:20, boxShadow:'var(--shadow-sm)',
 };
 const cardLabel: React.CSSProperties = {
-  fontSize:10.5, letterSpacing:'0.8px', textTransform:'uppercase',
+  fontSize:11.5, letterSpacing:'0.8px', textTransform:'uppercase',
   color:'var(--t3)', fontFamily:'var(--font-mono)', fontWeight:600,
   marginBottom:14, display:'block',
 };

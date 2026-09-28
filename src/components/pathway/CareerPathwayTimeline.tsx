@@ -64,10 +64,10 @@ export default function CareerPathwayTimeline({
       {/* ── 1. Program Selector Header ────────────────────────────────────────── */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h2 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 4px 0', fontFamily: 'var(--font-display)' }}>
+          <h2 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 4px 0', fontFamily: 'var(--font-display)' }}>
             🎓 {program.title}
           </h2>
-          <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>
             Target: <strong>{program.targetRole}</strong> • Estimated Duration: <strong>{program.recommendedDurationMonths.standard} Months ({stages.length} Semesters)</strong>
           </span>
         </div>
@@ -83,7 +83,7 @@ export default function CareerPathwayTimeline({
                 border: '1px solid var(--border)',
                 background: selectedProgramId === p.id ? 'var(--accent)' : 'var(--bg2)',
                 color: selectedProgramId === p.id ? 'var(--text)' : 'var(--t2)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
@@ -132,15 +132,15 @@ export default function CareerPathwayTimeline({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: isSelected ? 'var(--accent)' : 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: isSelected ? 'var(--accent)' : 'var(--t3)', textTransform: 'uppercase' }}>
                   {isFinalResidency ? '👑 Residency' : `Semester ${idx + 1}`}
                 </span>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: evalResult.isStageCompleted ? 'var(--success)' : 'var(--t3)' }}>
+                <span style={{ fontSize: 11.5, fontWeight: 700, color: evalResult.isStageCompleted ? 'var(--success)' : 'var(--t3)' }}>
                   {evalResult.isStageCompleted ? '✓ Passed' : `${evalResult.stageProgressPct}%`}
                 </span>
               </div>
 
-              <div style={{ fontSize: 12.5, fontWeight: 700, color: isSelected ? 'var(--t1)' : 'var(--t2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: isSelected ? 'var(--t1)' : 'var(--t2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {st.title.split(':')[1] ? st.title.split(':')[1].trim() : st.title}
               </div>
 
@@ -165,21 +165,21 @@ export default function CareerPathwayTimeline({
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 14 }}>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
               Active Stage Focus • Level {currentStage.stageLevel}
             </div>
-            <h3 style={{ fontSize: 16, fontWeight: 800, margin: 0, fontFamily: 'var(--font-display)' }}>
+            <h3 style={{ fontSize: 17.5, fontWeight: 800, margin: 0, fontFamily: 'var(--font-display)' }}>
               {currentStage.title}
             </h3>
-            <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+            <p style={{ fontSize: 14, color: 'var(--t3)', margin: '4px 0 0 0' }}>
               Planned Duration: <strong>{currentStage.durationMonths} Months</strong> • Requires <strong>{currentStage.requiredCompetencies.length} Competencies</strong> verified.
             </p>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Stage Completion</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--accent)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>Stage Completion</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--accent)' }}>
                 {stageResult.passedRequiredCompetencies}/{stageResult.totalRequiredCompetencies} Gates
               </div>
             </div>
@@ -191,8 +191,8 @@ export default function CareerPathwayTimeline({
                 borderRadius: 10,
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Milestone Badge</div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--t2)' }}>
+                <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Milestone Badge</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--t2)' }}>
                   {stageResult.isStageCompleted ? '🎖️ Unlocked' : '🔒 Locked'}
                 </div>
               </div>
@@ -202,7 +202,7 @@ export default function CareerPathwayTimeline({
 
         {/* ── 4. Stage Required Competency Gates List ─────────────────────────── */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 10 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 10 }}>
             Required Competency Gates for Stage Advancement:
           </div>
 
@@ -231,12 +231,12 @@ export default function CareerPathwayTimeline({
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <span style={{ fontSize: 16 }}>{isSatisfied ? '✅' : '🔒'}</span>
+                    <span style={{ fontSize: 17.5 }}>{isSatisfied ? '✅' : '🔒'}</span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
+                      <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
                         {getCompetencyTitle(req.competencyId)}
                       </div>
-                      <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                      <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                         Target: Minimum <strong>{req.minScore}/100</strong> ({req.requiredState.toUpperCase()}) • Current: <strong>{score}/100</strong>
                       </div>
                     </div>
@@ -244,7 +244,7 @@ export default function CareerPathwayTimeline({
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 800,
                       padding: '4px 10px',
                       borderRadius: 6,
@@ -273,8 +273,8 @@ export default function CareerPathwayTimeline({
             alignItems: 'flex-start',
             gap: 12,
           }}>
-            <span style={{ fontSize: 18 }}>⚠️</span>
-            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>
+            <span style={{ fontSize: 20 }}>⚠️</span>
+            <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
               <strong style={{ color: 'var(--danger)' }}>Stage Advancement Locked:</strong> You have {stageResult.unmetStageCompetencies.length} unmet competency requirements. Complete the designated quests and forensic labs to unlock Semester {activeStageIdx + 2}.
             </div>
           </div>

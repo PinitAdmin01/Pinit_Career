@@ -22,11 +22,11 @@ export function TeacherSelectScreen({
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
       <div style={{ marginBottom: 24 }}>
-        <Link href="/quests" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+        <Link href="/quests" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 14.5, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
           ← Return to Quests Tab
         </Link>
-        <h1 style={{ marginTop: 12, fontSize: 28 }}>Choose Your Instructor</h1>
-        <p style={{ color: 'var(--t2)', fontSize: 14 }}>
+        <h1 style={{ marginTop: 12, fontSize: 31 }}>Choose Your Instructor</h1>
+        <p style={{ color: 'var(--t2)', fontSize: 15.5 }}>
           Select a mentor to guide you through <strong style={{ color: 'var(--t1)' }}>{quest.title}</strong> based on their pedagogical nature, socratic style, and analytical focus.
         </p>
       </div>
@@ -65,27 +65,27 @@ export function TeacherSelectScreen({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 'bold'
                 }}>
                   ✓
                 </span>
               )}
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 28 }}>{t.emoji}</span>
+                <span style={{ fontSize: 31 }}>{t.emoji}</span>
                 <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>{t.name}</h3>
-                  <span style={{ fontSize: 10, color: t.color, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{t.nature}</span>
+                  <h3 style={{ fontSize: 17.5, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>{t.name}</h3>
+                  <span style={{ fontSize: 11, color: t.color, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{t.nature}</span>
                 </div>
               </div>
 
-              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 12, lineHeight: 1.45 }}>
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, lineHeight: 1.45 }}>
                 <div>
-                  <strong style={{ color: 'var(--t2)', fontSize: 11 }}>Characteristics:</strong>
+                  <strong style={{ color: 'var(--t2)', fontSize: 12 }}>Characteristics:</strong>
                   <p style={{ color: 'var(--t3)', margin: '2px 0 0' }}>{t.characteristics}</p>
                 </div>
                 <div>
-                  <strong style={{ color: 'var(--t2)', fontSize: 11 }}>Memory State:</strong>
+                  <strong style={{ color: 'var(--t2)', fontSize: 12 }}>Memory State:</strong>
                   <p style={{ color: 'var(--t3)', margin: '2px 0 0' }}>{t.memory}</p>
                 </div>
               </div>
@@ -107,17 +107,17 @@ export function TeacherSelectScreen({
         boxShadow: 'var(--shadow-md)'
       }}>
         <div>
-          <div style={{ fontSize: 13, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.8px' }}>
+          <div style={{ fontSize: 14.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.8px' }}>
             Quest Startup Gate
           </div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+          <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
             Cost: <span style={{ color: 'var(--accent)' }}>⚡ {PIN_COSTS.quest?.cost ?? 20} Pins</span> · Current Balance: <span style={{ color: 'var(--green)' }}>⚡ {pins} Pins</span>
           </div>
         </div>
         <button
           onClick={onUnlockQuest}
           className="btn-primary"
-          style={{ padding: '12px 32px', fontSize: 14 }}
+          style={{ padding: '12px 32px', fontSize: 15.5 }}
           id="btn-start-quest"
         >
           Start Quest & Spend {PIN_COSTS.quest?.cost ?? 20} Pins ➔
@@ -147,11 +147,11 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
         padding: '50px 40px',
         boxShadow: '0 20px 40px -15px rgba(var(--success-deep-rgb), 0.15)'
       }}>
-        <div style={{ fontSize: 60, marginBottom: 16 }}>🎉</div>
-        <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>
+        <div style={{ fontSize: 66, marginBottom: 16 }}>🎉</div>
+        <h2 style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>
           Quest Completed!
         </h2>
-        <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.6, marginBottom: 28 }}>
+        <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.6, marginBottom: 28 }}>
           Congratulations! You have completed the quest <strong style={{ color: 'var(--t1)' }}>"{quest?.title}"</strong> under the guidance of <strong style={{ color: currentTeacher.color }}>{currentTeacher.name}</strong>.
         </p>
 
@@ -164,7 +164,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           borderRadius: 30,
           marginBottom: 36,
           fontFamily: 'var(--font-mono)',
-          fontSize: 13,
+          fontSize: 14.5,
           fontWeight: 700
         }}>
           <span style={{ color: 'var(--accent)' }}>⚡ +{xpReward} XP</span>
@@ -220,7 +220,7 @@ export function SubmitButtonsBar({
           flex: 1,
           justifyContent: 'center',
           padding: 12,
-          fontSize: 13,
+          fontSize: 14.5,
           background: btnColor,
           border: borderCol,
           color: isLocked ? 'var(--t3)' : 'var(--text)',
@@ -234,7 +234,7 @@ export function SubmitButtonsBar({
         <button
           onClick={onReset}
           className="btn-ghost"
-          style={{ padding: 12, fontSize: 13 }}
+          style={{ padding: 12, fontSize: 14.5 }}
         >
           Reset
         </button>

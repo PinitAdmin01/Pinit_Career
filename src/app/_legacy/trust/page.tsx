@@ -57,7 +57,7 @@ export default function TrustPage() {
 
       {loading ? (
         <div style={{ textAlign:'center', padding: 80, color:'var(--t3)' }}>
-          <div style={{ fontSize: 32, animation: 'spin 1s linear infinite', marginBottom: 12 }}>⚙</div>
+          <div style={{ fontSize: 35, animation: 'spin 1s linear infinite', marginBottom: 12 }}>⚙</div>
           Loading trust data...
         </div>
       ) : (
@@ -74,9 +74,9 @@ export default function TrustPage() {
             position: 'relative', overflow: 'hidden',
           }}>
             <div style={{ position: 'absolute', top: -40, right: -40, width: 180, height: 180, borderRadius: '50%', background: `radial-gradient(circle, ${color}08, transparent 70%)`, pointerEvents: 'none' }} />
-            <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--t3)', marginBottom: 14 }}>Trust Score</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 100, fontWeight: 900, color, lineHeight: 1, letterSpacing: '-4px', marginBottom: 8 }}>{pct}</div>
-            <span className={`badge ${tierBadge}`} style={{ fontSize: 12, padding: '4px 14px' }}>{tier}</span>
+            <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--t3)', marginBottom: 14 }}>Trust Score</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 110, fontWeight: 900, color, lineHeight: 1, letterSpacing: '-4px', marginBottom: 8 }}>{pct}</div>
+            <span className={`badge ${tierBadge}`} style={{ fontSize: 13, padding: '4px 14px' }}>{tier}</span>
             <div style={{ height: 6, background: 'var(--bg3)', borderRadius: 6, width: 240, margin: '20px auto 0', overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${pct}%`, background: `linear-gradient(90deg, ${color}, ${color}cc)`, borderRadius: 6, transition: 'width 1.2s ease', boxShadow: `0 0 12px ${color}50` }} />
             </div>
@@ -87,17 +87,17 @@ export default function TrustPage() {
 
             {/* Signal breakdown */}
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 22, boxShadow: 'var(--shadow-sm)' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 18 }}>Score Breakdown</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 18 }}>Score Breakdown</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {SIGNALS.map(s => (
                   <div key={s.label}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
                         <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.color, display: 'inline-block', flexShrink: 0 }} />
-                        <span style={{ fontSize: 12, color: 'var(--t1)', fontWeight: 500 }}>{s.label}</span>
-                        <span style={{ fontSize: 9.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)' }}>w:{s.weight}</span>
+                        <span style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 500 }}>{s.label}</span>
+                        <span style={{ fontSize: 10.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)' }}>w:{s.weight}</span>
                       </div>
-                      <span style={{ fontFamily: 'var(--font-mono)', color: s.color, fontWeight: 700, fontSize: 12 }}>{s.value}%</span>
+                      <span style={{ fontFamily: 'var(--font-mono)', color: s.color, fontWeight: 700, fontSize: 13 }}>{s.value}%</span>
                     </div>
                     <div style={{ height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${s.value}%`, background: s.color, borderRadius: 3, transition: 'width 1s ease' }} />
@@ -109,7 +109,7 @@ export default function TrustPage() {
 
             {/* How to improve */}
             <div style={{ background: 'var(--accent-light)', border: '1px solid rgba(79,70,229,0.15)', borderRadius: 16, padding: 22, boxShadow: 'var(--shadow-sm)' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800, color: 'var(--accent)', marginBottom: 14 }}>→ How to Improve</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800, color: 'var(--accent)', marginBottom: 14 }}>→ How to Improve</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {ACTIONS.map((a, i) => (
                   <div key={i} className="action-item" style={{ background: 'rgba(255,255,255,0.6)' }}>
@@ -127,7 +127,7 @@ export default function TrustPage() {
           {/* Behavioral signals */}
           {signals && (
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 22, boxShadow: 'var(--shadow-sm)' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 16 }}>Behavioral Signals</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 16 }}>Behavioral Signals</div>
               <div className="metric-grid" style={{ margin: 0 }}>
                 {[
                   { label:'Documents Fingerprinted', value:(signals.documents||[]).length, color:'var(--pink)',   icon:'📄' },
@@ -135,8 +135,8 @@ export default function TrustPage() {
                   { label:'Login Events',             value:(signals.loginPattern||[]).length, color:'var(--teal)', icon:'🔑' },
                 ].map(s => (
                   <div key={s.label} className="metric-card" style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: 26, marginBottom: 8 }}>{s.icon}</div>
-                    <div className="metric-value" style={{ color: s.color, fontSize: 32 }}>{s.value}</div>
+                    <div style={{ fontSize: 28.5, marginBottom: 8 }}>{s.icon}</div>
+                    <div className="metric-value" style={{ color: s.color, fontSize: 35 }}>{s.value}</div>
                     <div className="metric-label" style={{ marginBottom: 0 }}>{s.label}</div>
                   </div>
                 ))}

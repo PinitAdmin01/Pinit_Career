@@ -117,7 +117,7 @@ export default function DocumentVaultPage() {
             box-shadow: var(--shadow-sm);
           }
           .docs-card-title {
-            font-size: 10.5px;
+            font-size: 11.5px;
             letter-spacing: 0.8px;
             text-transform: uppercase;
             color: var(--t3);
@@ -127,7 +127,7 @@ export default function DocumentVaultPage() {
             display: block;
           }
           .form-label {
-            font-size: 11.5px;
+            font-size: 12.5px;
             font-weight: 700;
             color: var(--t2);
             margin-bottom: 6px;
@@ -141,7 +141,7 @@ export default function DocumentVaultPage() {
             background: var(--bg3);
             color: var(--t1);
             padding: 0 12px;
-            font-size: 13px;
+            font-size: 14.5px;
             outline: none;
             margin-bottom: 16px;
             transition: border 0.2s;
@@ -155,7 +155,7 @@ export default function DocumentVaultPage() {
             border: none;
             height: 42px;
             border-radius: 10px;
-            font-size: 13px;
+            font-size: 14.5px;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
@@ -178,12 +178,12 @@ export default function DocumentVaultPage() {
             text-align: center;
           }
           .stat-mini-val {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             color: var(--accent);
           }
           .stat-mini-lbl {
-            font-size: 9.5px;
+            font-size: 10.5px;
             text-transform: uppercase;
             color: var(--t3);
             margin-top: 4px;
@@ -251,10 +251,10 @@ export default function DocumentVaultPage() {
 
         {/* Page Header */}
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
             📂 Digital Credentials & Documents Vault
           </h1>
-          <p style={{ color: 'var(--t2)', fontSize: 13.5 }}>
+          <p style={{ color: 'var(--t2)', fontSize: 15 }}>
             Request verified academic transcripts, bonafide headers, or school leaving certificates with dynamic digital approval stamps.
           </p>
         </div>
@@ -316,7 +316,7 @@ export default function DocumentVaultPage() {
               <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--t3)' }}>No documents requested. Submit a form to request one.</div>
             ) : (
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--border)', background: 'rgba(255,255,255,0.01)' }}>
                       <th style={{ padding: 12, textAlign: 'left', color: 'var(--t3)' }}>ID</th>
@@ -330,13 +330,13 @@ export default function DocumentVaultPage() {
                   <tbody>
                     {documents.map(doc => (
                       <tr key={doc.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                        <td style={{ padding: 12, fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--t2)' }}>{doc.id}</td>
+                        <td style={{ padding: 12, fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--t2)' }}>{doc.id}</td>
                         <td style={{ padding: 12, fontWeight: 700 }}>{doc.type}</td>
                         <td style={{ padding: 12, color: 'var(--t2)' }}>{doc.purpose}</td>
-                        <td style={{ padding: 12, color: 'var(--t3)', fontSize: 12 }}>{doc.dateRequested}</td>
+                        <td style={{ padding: 12, color: 'var(--t3)', fontSize: 13 }}>{doc.dateRequested}</td>
                         <td style={{ padding: 12 }}>
                           <span style={{
-                            fontSize: 10, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
+                            fontSize: 11, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
                             background: doc.status === 'Issued' ? 'var(--green-light)' : 'var(--amber-light)',
                             color: doc.status === 'Issued' ? 'var(--green)' : 'var(--amber)'
                           }}>
@@ -347,12 +347,12 @@ export default function DocumentVaultPage() {
                           {doc.status === 'Issued' ? (
                             <button
                               onClick={() => setSelectedDoc(doc)}
-                              style={{ background: 'var(--accent)', border: 'none', borderRadius: 8, padding: '6px 12px', color: 'white', fontWeight: 700, fontSize: 12, cursor: 'pointer' }}
+                              style={{ background: 'var(--accent)', border: 'none', borderRadius: 8, padding: '6px 12px', color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}
                             >
                               👁️ View & Print
                             </button>
                           ) : (
-                            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Awaiting Sign</span>
+                            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Awaiting Sign</span>
                           )}
                         </td>
                       </tr>
@@ -379,21 +379,21 @@ export default function DocumentVaultPage() {
               
               {/* Controls bar */}
               <div className="cert-controls-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-                <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+                <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>
                   Verification Frame: {selectedDoc.id}
                 </span>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
                     onClick={triggerPrint}
                     className="cert-print-btn"
-                    style={{ background: 'var(--accent)', color: 'white', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                    style={{ background: 'var(--accent)', color: 'white', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
                   >
                     🖨️ Print Certificate
                   </button>
                   <button
                     onClick={() => setSelectedDoc(null)}
                     className="modal-dismiss-btn"
-                    style={{ background: 'var(--bg3)', color: 'var(--t2)', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                    style={{ background: 'var(--bg3)', color: 'var(--t2)', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
                   >
                     Close
                   </button>
@@ -409,32 +409,32 @@ export default function DocumentVaultPage() {
                 {/* Background watermark badge */}
                 <div style={{
                   position: 'absolute', inset: 0, opacity: 0.03, zIndex: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 180, pointerEvents: 'none'
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 198, pointerEvents: 'none'
                 }}>
                   🎓
                 </div>
 
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   {/* Institutional Header */}
-                  <h2 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 900, textTransform: 'uppercase', color: '#1e3a8a', letterSpacing: '0.5px' }}>
+                  <h2 style={{ margin: '0 0 4px', fontSize: 26.5, fontWeight: 900, textTransform: 'uppercase', color: '#1e3a8a', letterSpacing: '0.5px' }}>
                     {institutionName}
                   </h2>
-                  <div style={{ fontSize: 12, textTransform: 'uppercase', color: '#64748b', fontWeight: 600, letterSpacing: '1px', marginBottom: 20 }}>
+                  <div style={{ fontSize: 13, textTransform: 'uppercase', color: '#64748b', fontWeight: 600, letterSpacing: '1px', marginBottom: 20 }}>
                     Office of the Registrar · Academic Credentials & Records Division
                   </div>
                   
                   <div style={{ width: 80, height: 1, background: '#cbd5e1', margin: '0 auto 30px' }} />
 
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontStyle: 'italic', color: '#334155', marginBottom: 24 }}>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontStyle: 'italic', color: '#334155', marginBottom: 24 }}>
                     Official {selectedDoc.type || 'Certification Document'}
                   </h3>
 
                   {/* Cert body text */}
-                  <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
+                  <p style={{ fontSize: 16.5, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
                     This is to certify that student <strong>{user?.displayName || 'Enrolled Student'}</strong> is officially enrolled in the <strong>{selectedDoc.major || 'Computer Science & Engineering'}</strong> department as a <strong>{selectedDoc.year || 'Class of 2026'}</strong> under candidate register code <strong>{candidateRegisterNumber}</strong>.
                   </p>
                   
-                  <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
+                  <p style={{ fontSize: 16.5, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
                     This document is issued upon formal request for the designated purpose: <em>"{selectedDoc.purpose}"</em>. It carries digital verification credentials issued dynamically on <strong>{selectedDoc.dateIssued || selectedDoc.dateRequested || new Date().toISOString().split('T')[0]}</strong>.
                   </p>
 
@@ -474,13 +474,13 @@ export default function DocumentVaultPage() {
                         </div>
                       </a>
                       <div>
-                        <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Secure Verify Code</div>
-                        <div style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#1e3a8a' }}>{selectedDoc.verificationCode}</div>
+                        <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Secure Verify Code</div>
+                        <div style={{ fontSize: 13, fontFamily: 'monospace', fontWeight: 700, color: '#1e3a8a' }}>{selectedDoc.verificationCode}</div>
                         <a
                           href={`/verify/${encodeURIComponent(selectedDoc.verificationCode)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ fontSize: 10, color: '#2563eb', fontWeight: 700, textDecoration: 'none', display: 'inline-block', marginTop: 2 }}
+                          style={{ fontSize: 11, color: '#2563eb', fontWeight: 700, textDecoration: 'none', display: 'inline-block', marginTop: 2 }}
                         >
                           Verify Online ↗
                         </a>
@@ -489,14 +489,14 @@ export default function DocumentVaultPage() {
 
                     {/* Right: Signature stamp */}
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 14, fontStyle: 'italic', fontFamily: '"Brush Script MT", cursive', color: '#1e3a8a', marginBottom: 2 }}>
+                      <div style={{ fontSize: 15.5, fontStyle: 'italic', fontFamily: '"Brush Script MT", cursive', color: '#1e3a8a', marginBottom: 2 }}>
                         Office of Registrar
                       </div>
                       <div style={{ width: 140, height: 1, background: '#94a3b8', margin: '4px 0 4px auto' }} />
-                      <div style={{ fontSize: 10, textTransform: 'uppercase', color: '#16a34a', fontWeight: 800, letterSpacing: '0.5px' }}>
+                      <div style={{ fontSize: 11, textTransform: 'uppercase', color: '#16a34a', fontWeight: 800, letterSpacing: '0.5px' }}>
                         🛡️ Authorized Digital Seal
                       </div>
-                      <div style={{ fontSize: 9, color: '#94a3b8', fontFamily: 'monospace', marginTop: 2 }}>
+                      <div style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', marginTop: 2 }}>
                         REF: {selectedDoc.verificationCode}
                       </div>
                     </div>

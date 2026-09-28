@@ -12,7 +12,7 @@ export default function GlobalError({
   return (
     <html>
       <body style={{ padding: 48, textAlign: 'center', fontFamily: 'system-ui', background: '#090d16', color: '#fff' }}>
-        <h1 style={{ fontSize: 28, marginBottom: 8, color: '#ef4444' }}>Application Error</h1>
+        <h1 style={{ fontSize: 31, marginBottom: 8, color: '#ef4444' }}>Application Error</h1>
         <p style={{ color: '#94a3b8', maxWidth: 480, margin: '0 auto 20px auto' }}>
           {error?.message || 'A critical error occurred.'}
         </p>

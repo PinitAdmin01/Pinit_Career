@@ -65,7 +65,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -92,7 +92,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               padding: '4px 10px',
               borderRadius: 20,
@@ -105,7 +105,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
           </span>
           <span
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               padding: '4px 10px',
               borderRadius: 20,
@@ -116,7 +116,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
           >
             {INTERNSHIP_AVAILABLE ? '✓ Accredited Fellowship Seat' : '✓ Enrolled Seat'}
           </span>
-          <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>
             Ref #{enrollment.enrollmentId.slice(-8).toUpperCase()}
           </span>
         </div>
@@ -126,7 +126,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             <button
               onClick={onChangePlan}
               style={{
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 700,
                 color: 'var(--t2)',
                 background: 'rgba(255, 255, 255, 0.05)',
@@ -144,18 +144,18 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
 
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
-          <h3 style={{ fontSize: 18, fontWeight: 900, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
             {plan.title}
           </h3>
-          <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0', fontWeight: 500 }}>
+          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0', fontWeight: 500 }}>
             {trackLabel} • {plan.totalProgramDuration} Total Program Duration
           </p>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>
             Current Milestone
           </span>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: '#38bdf8' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#38bdf8' }}>
             {currentSprintText}
           </div>
         </div>
@@ -168,7 +168,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
           style={{
             flex: 1,
             minWidth: 180,
-            fontSize: 12.5,
+            fontSize: 14,
             fontWeight: 800,
             color: '#ffffff',
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
@@ -191,7 +191,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
           style={{
             flex: 1,
             minWidth: 180,
-            fontSize: 12.5,
+            fontSize: 14,
             fontWeight: 800,
             color: '#ffffff',
             background: 'rgba(255, 255, 255, 0.07)',

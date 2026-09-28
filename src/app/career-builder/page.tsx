@@ -240,7 +240,7 @@ export default function CareerBuilderPage() {
             background: activeView === 'roadmap' ? 'rgba(99, 102, 241, 0.12)' : 'var(--bg2)',
             color: activeView === 'roadmap' ? 'var(--accent)' : 'var(--t2)',
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
             transition: 'all 0.15s ease',
@@ -257,7 +257,7 @@ export default function CareerBuilderPage() {
             background: activeView === 'resume' ? 'rgba(99, 102, 241, 0.12)' : 'var(--bg2)',
             color: activeView === 'resume' ? 'var(--accent)' : 'var(--t2)',
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
             transition: 'all 0.15s ease',
@@ -273,13 +273,13 @@ export default function CareerBuilderPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div className="glass-card" style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px' }}>
                   🎯 TARGET JOB DESCRIPTION SCANNER
                 </span>
-                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0' }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0' }}>
                   ATS Keyword & Taxonomy Gap Matcher
                 </h3>
-                <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>
+                <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0' }}>
                   Paste any job description to match against your verified PinIT skills without fabricated gaps.
                 </p>
               </div>
@@ -296,7 +296,7 @@ export default function CareerBuilderPage() {
                   borderRadius: 12,
                   padding: 12,
                   color: 'var(--t1)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontFamily: 'var(--font-mono)',
                   resize: 'vertical',
                 }}
@@ -311,7 +311,7 @@ export default function CareerBuilderPage() {
                   background: 'var(--accent)',
                   color: '#fff',
                   fontWeight: 800,
-                  fontSize: 13,
+                  fontSize: 14.5,
                   cursor: 'pointer',
                   fontFamily: 'var(--font-mono)',
                   display: 'flex',
@@ -326,22 +326,22 @@ export default function CareerBuilderPage() {
               {atsScore !== null && (
                 <div style={{ padding: 16, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>ATS Match Score:</span>
-                    <span style={{ fontSize: 16, fontWeight: 900, color: atsScore >= 80 ? 'var(--green)' : atsScore >= 60 ? '#3b82f6' : '#f59e0b', fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>ATS Match Score:</span>
+                    <span style={{ fontSize: 17.5, fontWeight: 900, color: atsScore >= 80 ? 'var(--green)' : atsScore >= 60 ? '#3b82f6' : '#f59e0b', fontFamily: 'var(--font-mono)' }}>
                       {atsScore}%
                     </span>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Detected Taxonomy Gaps:</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Detected Taxonomy Gaps:</div>
                     {atsGaps.map((gap, i) => (
-                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, padding: '6px 10px', borderRadius: 8, background: gap.isSatisfied ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)', border: `1px solid ${gap.isSatisfied ? '#10b98130' : '#ef444430'}` }}>
+                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 13, padding: '6px 10px', borderRadius: 8, background: gap.isSatisfied ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)', border: `1px solid ${gap.isSatisfied ? '#10b98130' : '#ef444430'}` }}>
                         <span style={{ color: 'var(--t1)', fontWeight: 600 }}>{gap.taxonomyTerm}</span>
                         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                          <span style={{ fontSize: 9.5, textTransform: 'uppercase', padding: '1px 5px', borderRadius: 4, background: gap.importance === 'required' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)', color: gap.importance === 'required' ? '#ef4444' : '#f59e0b', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+                          <span style={{ fontSize: 10.5, textTransform: 'uppercase', padding: '1px 5px', borderRadius: 4, background: gap.importance === 'required' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)', color: gap.importance === 'required' ? '#ef4444' : '#f59e0b', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
                             {gap.importance}
                           </span>
-                          <span style={{ fontSize: 11, color: gap.isSatisfied ? '#10b981' : '#ef4444', fontWeight: 800 }}>
+                          <span style={{ fontSize: 12, color: gap.isSatisfied ? '#10b981' : '#ef4444', fontWeight: 800 }}>
                             {gap.isSatisfied ? '✓ Verified' : '✗ Missing'}
                           </span>
                         </div>
@@ -359,7 +359,7 @@ export default function CareerBuilderPage() {
                         background: 'rgba(99, 102, 241, 0.15)',
                         color: 'var(--accent)',
                         fontWeight: 800,
-                        fontSize: 12,
+                        fontSize: 13,
                         cursor: 'pointer',
                         fontFamily: 'var(--font-mono)',
                         marginTop: 4,
@@ -377,10 +377,10 @@ export default function CareerBuilderPage() {
           <div className="glass-card" style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 16, background: 'var(--bg2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
               <div>
-                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                   📄 Live ATS Resume Preview
                 </h3>
-                <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                   Auto-populated from real verified evidence records
                 </span>
               </div>
@@ -396,7 +396,7 @@ export default function CareerBuilderPage() {
                   border: '1px solid var(--border)',
                   background: 'var(--bg3)',
                   color: 'var(--t1)',
-                  fontSize: 11,
+                  fontSize: 12,
                   fontFamily: 'var(--font-mono)',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -406,11 +406,11 @@ export default function CareerBuilderPage() {
               </button>
             </div>
 
-            <div style={{ background: 'var(--bg3)', padding: 18, borderRadius: 12, border: '1px solid var(--border)', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--t1)', lineHeight: 1.6 }}>
-              <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
+            <div style={{ background: 'var(--bg3)', padding: 18, borderRadius: 12, border: '1px solid var(--border)', fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--t1)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--accent)' }}>
                 {typeof user?.name === 'string' ? user.name : 'Engineering Student'}
               </div>
-              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 Target: {typeof onboardingAnswers?.role === 'string' ? onboardingAnswers.role : 'Full-Stack Software Engineer'} &middot; PinIT Verified Candidate
               </div>
               
@@ -419,12 +419,12 @@ export default function CareerBuilderPage() {
               </div>
               {(skillProfile?.verified || []).length > 0 ? (
                 skillProfile?.verified.map(v => (
-                  <div key={v.id} style={{ fontSize: 11, color: 'var(--t2)' }}>
+                  <div key={v.id} style={{ fontSize: 12, color: 'var(--t2)' }}>
                     • <strong>{v.name}</strong> ({v.level}) — Evaluated Composite: {Math.round(v.score)}/100 [SHA-256 Validated]
                   </div>
                 ))
               ) : (
-                <div style={{ fontSize: 11, color: 'var(--t3)' }}>• Computer Architecture & Git Fundamentals (In Progress)</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)' }}>• Computer Architecture & Git Fundamentals (In Progress)</div>
               )}
 
               <div style={{ margin: '14px 0 6px', fontWeight: 800, borderBottom: '1px solid var(--border)', paddingBottom: 2 }}>
@@ -432,13 +432,13 @@ export default function CareerBuilderPage() {
               </div>
               {internships.length > 0 ? (
                 internships.map(intern => (
-                  <div key={intern.id} style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 4 }}>
+                  <div key={intern.id} style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>
                     • <strong>{intern.role}</strong> at {intern.companyName} ({intern.startDate} to {intern.endDate || 'Present'})<br />
                     &nbsp;&nbsp;{intern.projectDescription}
                   </div>
                 ))
               ) : (
-                <div style={{ fontSize: 11, color: 'var(--t3)' }}>• PinIT Simulated Production Engineering Residency (Active)</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)' }}>• PinIT Simulated Production Engineering Residency (Active)</div>
               )}
             </div>
           </div>
@@ -449,10 +449,10 @@ export default function CareerBuilderPage() {
           <section style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             <div className="glass-card" style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div>
-                <h2 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.3px' }}>
+                <h2 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.3px' }}>
                   1. Select Target SDE Trajectory
                 </h2>
-                <p style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 16 }}>
+                <p style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 16 }}>
                   Choose the trajectory track you want to master. Content is served dynamic to this track.
                 </p>
 
@@ -472,10 +472,10 @@ export default function CareerBuilderPage() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <span style={{ fontSize: 24 }}>{t.icon}</span>
+                        <span style={{ fontSize: 26.5 }}>{t.icon}</span>
                         <div>
-                          <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>{t.title}</div>
-                          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{t.desc}</div>
+                          <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>{t.title}</div>
+                          <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>{t.desc}</div>
                         </div>
                       </div>
                     </div>
@@ -494,7 +494,7 @@ export default function CareerBuilderPage() {
                   background: 'var(--accent)',
                   color: '#fff',
                   fontWeight: 900,
-                  fontSize: 14,
+                  fontSize: 15.5,
                   cursor: loading ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -513,7 +513,7 @@ export default function CareerBuilderPage() {
           {previewModules.length > 0 && (
             <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
+                <h2 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>
                   Compiled Quest Trajectory ({previewModules.length} Stages)
                 </h2>
                 <button
@@ -525,7 +525,7 @@ export default function CareerBuilderPage() {
                     background: 'var(--green)',
                     color: '#fff',
                     fontWeight: 800,
-                    fontSize: 12,
+                    fontSize: 13,
                     cursor: 'pointer'
                   }}
                 >
@@ -568,16 +568,16 @@ export default function CareerBuilderPage() {
                       boxShadow: 'var(--shadow-sm)'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <span style={{ fontSize: 10, background: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 10, fontWeight: 700 }}>
+                        <span style={{ fontSize: 11, background: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 10, fontWeight: 700 }}>
                           STAGE {modIdx + 1}
                         </span>
-                        <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
+                        <span style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
                           ⏳ {mod.estimatedWeeks || 2} Weeks
                         </span>
                       </div>
 
-                      <h3 style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{mod.title}</h3>
-                      <p style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>{mod.desc}</p>
+                      <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{mod.title}</h3>
+                      <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>{mod.desc}</p>
                     </div>
                   </div>
                 ))}

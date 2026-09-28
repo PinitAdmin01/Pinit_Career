@@ -56,7 +56,7 @@ function ParentPageInner() {
           marginBottom: 24,
         }}
       >
-        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12, color: 'var(--t1)' }}>Link a Student</div>
+        <div style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 12, color: 'var(--t1)' }}>Link a Student</div>
         <form onSubmit={handleLinkSubmit} style={{ display: 'flex', gap: 8 }}>
           <input
             value={registerNumber}
@@ -69,7 +69,7 @@ function ParentPageInner() {
               border: '1px solid var(--border)',
               background: 'var(--bg3)',
               color: 'var(--t1)',
-              fontSize: 13,
+              fontSize: 14.5,
             }}
           />
           <button
@@ -82,14 +82,14 @@ function ParentPageInner() {
               color: 'var(--text)',
               border: 'none',
               cursor: 'pointer',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 700,
             }}
           >
             {linkMutation.isPending ? 'Sending...' : 'Send Request'}
           </button>
         </form>
-        <p style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8 }}>
+        <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 8 }}>
           The student must approve your request before you can view their progress.
         </p>
       </div>
@@ -116,7 +116,7 @@ function ParentPageInner() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 color: 'var(--t3)',
                 textTransform: 'uppercase',
@@ -139,13 +139,13 @@ function ParentPageInner() {
                   transition: 'all 0.15s ease',
                 }}
               >
-                <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
                   {s.display_name || (s as any).name || 'Student'}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{s.register_number || s.id}</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>{s.register_number || s.id}</div>
                 <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
-                  <span style={{ fontSize: 11, color: 'var(--teal)', fontWeight: 700 }}>ATS: {s.ats_score || 0}</span>
-                  <span style={{ fontSize: 11, color: 'var(--amber)', fontWeight: 700 }}>
+                  <span style={{ fontSize: 12, color: 'var(--teal)', fontWeight: 700 }}>ATS: {s.ats_score || 0}</span>
+                  <span style={{ fontSize: 12, color: 'var(--amber)', fontWeight: 700 }}>
                     🔥 {s.mission_streak || 0}d streak
                   </span>
                 </div>
@@ -202,7 +202,7 @@ function ParentPageInner() {
                         style={{
                           padding: '8px 16px',
                           borderRadius: 8,
-                          fontSize: 12.5,
+                          fontSize: 14,
                           fontWeight: isActive ? 800 : 600,
                           background: isActive ? 'rgba(var(--success-rgb), 0.08)' : 'transparent',
                           color: isActive ? 'var(--success)' : 'var(--t2)',

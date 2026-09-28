@@ -38,7 +38,7 @@ export default function NotesList({ selected, onSelect }: Props) {
 
   return (
     <div style={{ marginBottom:20 }}>
-      <div style={{ fontSize:10, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>
+      <div style={{ fontSize:11, letterSpacing:1.5, textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:10 }}>
         Study Notes {selected.length > 0 && `(${selected.length} selected)`}
       </div>
 
@@ -52,7 +52,7 @@ export default function NotesList({ selected, onSelect }: Props) {
           border:`2px dashed ${dragOver ? 'var(--accent)' : 'var(--border2)'}`,
           borderRadius:8, padding:'14px', textAlign:'center',
           cursor:'pointer', background: dragOver ? 'rgba(91,91,214,0.05)' : 'transparent',
-          marginBottom:12, transition:'all 0.2s', fontSize:12, color:'var(--t3)',
+          marginBottom:12, transition:'all 0.2s', fontSize:13, color:'var(--t3)',
         }}
       >
         {uploading ? 'Uploading...' : '+ Drop PDF/DOCX/TXT to upload notes'}
@@ -62,9 +62,9 @@ export default function NotesList({ selected, onSelect }: Props) {
 
       {/* Notes list */}
       {loading ? (
-        <div style={{ color:'var(--t3)', fontSize:12 }}>Loading notes...</div>
+        <div style={{ color:'var(--t3)', fontSize:13 }}>Loading notes...</div>
       ) : notes.length === 0 ? (
-        <div style={{ color:'var(--t3)', fontSize:12 }}>No notes yet. Upload a PDF or DOCX to start.</div>
+        <div style={{ color:'var(--t3)', fontSize:13 }}>No notes yet. Upload a PDF or DOCX to start.</div>
       ) : (
         <div style={{ display:'flex', flexDirection:'column', gap:6, maxHeight:200, overflowY:'auto' }}>
           {notes.map(n => (
@@ -79,12 +79,12 @@ export default function NotesList({ selected, onSelect }: Props) {
                 transition:'all 0.15s',
               }}
             >
-              <span style={{ fontSize:16 }}>📄</span>
+              <span style={{ fontSize:17.5 }}>📄</span>
               <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontSize:12, fontWeight:500, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{n.title}</div>
-                <div style={{ fontSize:10, color:'var(--t3)' }}>{n.word_count?.toLocaleString()} words</div>
+                <div style={{ fontSize:13, fontWeight:500, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{n.title}</div>
+                <div style={{ fontSize:11, color:'var(--t3)' }}>{n.word_count?.toLocaleString()} words</div>
               </div>
-              {selected.includes(n.id) && <span style={{ color:'var(--accent)', fontSize:14 }}>✓</span>}
+              {selected.includes(n.id) && <span style={{ color:'var(--accent)', fontSize:15.5 }}>✓</span>}
             </div>
           ))}
         </div>

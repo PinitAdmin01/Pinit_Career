@@ -133,14 +133,14 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
     }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
             🕸️ Mindset Growth Radar
           </span>
-          <span style={{ fontSize: 10, fontWeight: 800, padding: '2px 7px', borderRadius: 6, background: 'rgba(168,85,247,0.1)', color: 'var(--purple)', border: '1px solid rgba(168,85,247,0.2)' }}>
+          <span style={{ fontSize: 11, fontWeight: 800, padding: '2px 7px', borderRadius: 6, background: 'rgba(168,85,247,0.1)', color: 'var(--purple)', border: '1px solid rgba(168,85,247,0.2)' }}>
             📈 {overallGrowth}% Index
           </span>
         </div>
-        <p style={{ fontSize: 11, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
+        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
           Hover over metric spokes or pills below to inspect dynamic competency growth.
         </p>
       </div>
@@ -287,10 +287,10 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
                 transition: 'all 0.2s ease'
               }}
             >
-              <span style={{ fontSize: 10.5, fontWeight: 700, color: isHovered ? m.color : theme.tSecondary }}>
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: isHovered ? m.color : theme.tSecondary }}>
                 {m.label}
               </span>
-              <span style={{ fontSize: 10, fontWeight: 800, color: m.color, fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, color: m.color, fontFamily: 'var(--font-mono)' }}>
                 {m.value}%
               </span>
             </div>
@@ -311,13 +311,13 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
           animation: 'fade-in 0.2s ease'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 11, fontWeight: 800, color: activeMetric.color }}>
+            <span style={{ fontSize: 12, fontWeight: 800, color: activeMetric.color }}>
               {activeMetric.full}: {activeMetric.value}%
             </span>
             <button
               onClick={() => setActiveTab(activeMetric.actionTab)}
               style={{
-                fontSize: 9.5,
+                fontSize: 10.5,
                 fontWeight: 800,
                 background: activeMetric.color,
                 color: '#ffffff',
@@ -330,7 +330,7 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
               Level Up ➔
             </button>
           </div>
-          <p style={{ fontSize: 10.5, color: theme.tSecondary, margin: 0, lineHeight: 1.4 }}>
+          <p style={{ fontSize: 11.5, color: theme.tSecondary, margin: 0, lineHeight: 1.4 }}>
             {activeMetric.tip}
           </p>
         </div>

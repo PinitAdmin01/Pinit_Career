@@ -43,10 +43,10 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 20 }}>🤖</span>
+            <span style={{ fontSize: 22 }}>🤖</span>
             <div>
-              <h3 style={{ margin: 0, fontSize: 17, color: '#ffffff' }}>AI Peer Match Breakdown</h3>
-              <span style={{ fontSize: 11, color: '#94a3b8' }}>PinIT Smart Affinity Engine</span>
+              <h3 style={{ margin: 0, fontSize: 18.5, color: '#ffffff' }}>AI Peer Match Breakdown</h3>
+              <span style={{ fontSize: 12, color: '#94a3b8' }}>PinIT Smart Affinity Engine</span>
             </div>
           </div>
           <button className="drawer-close-btn" onClick={onClose}>✕</button>
@@ -71,9 +71,9 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                 style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover' }}
               />
               <div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
-                <div style={{ fontSize: 12, color: '#94a3b8' }}>{student.course} • {student.college}</div>
-                <div style={{ fontSize: 11, color: '#a78bfa', marginTop: 2 }}>{match.reasonTag}</div>
+                <div style={{ fontSize: 16.5, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
+                <div style={{ fontSize: 13, color: '#94a3b8' }}>{student.course} • {student.college}</div>
+                <div style={{ fontSize: 12, color: '#a78bfa', marginTop: 2 }}>{match.reasonTag}</div>
               </div>
             </div>
 
@@ -86,8 +86,8 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
               background: 'rgba(99, 102, 241, 0.25)',
               border: '1px solid rgba(168, 85, 247, 0.5)'
             }}>
-              <span style={{ fontSize: 22, fontWeight: 800, color: '#c084fc' }}>{match.overallMatch}%</span>
-              <span style={{ fontSize: 10, fontWeight: 700, color: '#e2e8f0', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              <span style={{ fontSize: 24, fontWeight: 800, color: '#c084fc' }}>{match.overallMatch}%</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#e2e8f0', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Affinity Match
               </span>
             </div>
@@ -103,13 +103,13 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
             flexDirection: 'column',
             gap: 12
           }}>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Multi-Factor Match Vectors
             </div>
 
             {/* Factor 1: Skills */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                 <span style={{ color: '#94a3b8' }}>Skill Synergy & Overlap</span>
                 <span style={{ color: '#38bdf8', fontWeight: 700 }}>{match.skillScore}%</span>
               </div>
@@ -120,7 +120,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
 
             {/* Factor 2: Campus Proximity */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                 <span style={{ color: '#94a3b8' }}>Campus & College Proximity</span>
                 <span style={{ color: '#34d399', fontWeight: 700 }}>{match.collegeScore}%</span>
               </div>
@@ -131,7 +131,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
 
             {/* Factor 3: Course Alignment */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                 <span style={{ color: '#94a3b8' }}>Degree & Curriculum Alignment</span>
                 <span style={{ color: '#fbbf24', fontWeight: 700 }}>{match.courseScore}%</span>
               </div>
@@ -142,7 +142,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
 
             {/* Factor 4: Career Goals */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                 <span style={{ color: '#94a3b8' }}>Career Ambition & Trajectory</span>
                 <span style={{ color: '#ec4899', fontWeight: 700 }}>{match.goalScore}%</span>
               </div>
@@ -156,7 +156,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {match.commonSkills.length > 0 && (
               <div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Shared Technical Strengths
                 </span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
@@ -171,7 +171,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
 
             {match.complementarySkills.length > 0 && (
               <div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#34d399', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#34d399', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Complementary Engineering Skills
                 </span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
@@ -187,7 +187,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
 
           {/* Icebreaker Suggestions */}
           <div>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Suggested Icebreakers
             </span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 6 }}>
@@ -199,7 +199,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                     borderRadius: 8,
                     background: 'rgba(255, 255, 255, 0.04)',
                     border: '1px solid rgba(255, 255, 255, 0.06)',
-                    fontSize: 12,
+                    fontSize: 13,
                     color: '#e2e8f0',
                     cursor: 'pointer',
                     transition: 'background 0.15s ease'

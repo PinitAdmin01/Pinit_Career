@@ -56,13 +56,13 @@ export default function PreferencesTab({
       {/* 🎵 Mindset Focus Soundscape Settings */}
       <div style={CS.card}>
         <div style={CS.cardTitle}>🎵 Mindset Background Music & Soundscapes</div>
-        <p style={{ fontSize: 11.5, color: 'var(--t2)', marginBottom: 14 }}>
+        <p style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 14 }}>
           Adjust the volume of your learning soundscape (Pattern Hunter, Explorer, Social IQ, Stabilizer). Music automatically ducks when the AI Teacher speaks.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>Music Volume Level</span>
-            <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{soundscapeVol}%</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Music Volume Level</span>
+            <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{soundscapeVol}%</span>
           </div>
           <input
             type="range"
@@ -110,9 +110,9 @@ export default function PreferencesTab({
                 border:`1.5px solid ${teacherId===t.id?'var(--accent)':'var(--border)'}`,
                 background:teacherId===t.id?'var(--accent-light)':'var(--bg2)',
                 cursor:'pointer', transition:'all 0.15s' }}>
-              <div style={{ fontSize:20, marginBottom:5 }}>{t.emoji}</div>
-              <div style={{ fontSize:12.5, fontWeight:teacherId===t.id?700:500, color:teacherId===t.id?'var(--accent)':'var(--t1)' }}>{t.name}</div>
-              <div style={{ fontSize:11, color:'var(--t3)', marginTop:2 }}>{t.style}</div>
+              <div style={{ fontSize:22, marginBottom:5 }}>{t.emoji}</div>
+              <div style={{ fontSize:14, fontWeight:teacherId===t.id?700:500, color:teacherId===t.id?'var(--accent)':'var(--t1)' }}>{t.name}</div>
+              <div style={{ fontSize:12, color:'var(--t3)', marginTop:2 }}>{t.style}</div>
             </button>
           ))}
         </div>
@@ -132,8 +132,8 @@ export default function PreferencesTab({
               background:visibility===opt.value?'var(--accent-light)':'var(--bg2)',
               cursor:'pointer', transition:'all 0.15s',
             }}>
-              <div style={{ fontSize:12.5, fontWeight:visibility===opt.value?700:500, color:visibility===opt.value?'var(--accent)':'var(--t1)', marginBottom:2 }}>{opt.label}</div>
-              <div style={{ fontSize:11, color:'var(--t3)' }}>{opt.desc}</div>
+              <div style={{ fontSize:14, fontWeight:visibility===opt.value?700:500, color:visibility===opt.value?'var(--accent)':'var(--t1)', marginBottom:2 }}>{opt.label}</div>
+              <div style={{ fontSize:12, color:'var(--t3)' }}>{opt.desc}</div>
             </button>
           ))}
         </div>
@@ -145,13 +145,13 @@ export default function PreferencesTab({
       {/* Career Builder Tab Visibility Toggle */}
       <div style={CS.card}>
         <div style={CS.cardTitle}>🛠 Career Builder Visibility</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
           By default, once you complete all quest roadmap milestones, the Career Builder tab is automatically hidden from the sidebar to keep your workspace clean. You can toggle it back to visible here anytime.
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg3)', padding: '12px 16px', borderRadius: 12, border: '1px solid var(--border)' }}>
           <div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Show Career Builder Tab</span>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+            <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>Show Career Builder Tab</span>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
               {cOS.forceShowCareerBuilder ? 'Always visible in sidebar' : 'Automatically hidden when quests are completed'}
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function PreferencesTab({
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '6px 16px',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 700,
               cursor: 'pointer',
               boxShadow: cOS.forceShowCareerBuilder ? '0 4px 12px rgba(79,70,229,0.2)' : 'none',

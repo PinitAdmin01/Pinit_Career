@@ -7,5 +7,5 @@ export default function OpportunitiesRedirect() {
   useEffect(() => {
     router.replace('/career-intelligence?tab=opportunities');
   }, [router]);
-  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 13 }}>Redirecting to Career Intelligence...</div>;
+  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 14.5 }}>Redirecting to Career Intelligence...</div>;
 }

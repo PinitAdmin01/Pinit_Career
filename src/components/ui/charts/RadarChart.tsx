@@ -58,7 +58,7 @@ export default function RadarChart({
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--t3, #9ca3af)',
-          fontSize: 13,
+          fontSize: 14.5,
         }}
       >
         Add more skills to see radar
@@ -163,7 +163,7 @@ export default function RadarChart({
             y={lp.y}
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="11"
+            fontSize="12"
             fontWeight="600"
             fill="var(--t1, #374151)"
           >

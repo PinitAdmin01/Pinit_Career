@@ -34,20 +34,20 @@ export function ApplicationsTab({
       {!appsLoading && apps.length > 0 && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 12, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 16 }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 900 }}>{apps.length}</div>
-            <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Total</div>
+            <div style={{ fontSize: 20, fontWeight: 900 }}>{apps.length}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Total</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--accent)' }}>{activeAppsCount}</div>
-            <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Active</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--accent)' }}>{activeAppsCount}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Active</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--teal)' }}>{appsFunnel.shortlisted}</div>
-            <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Shortlisted</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--teal)' }}>{appsFunnel.shortlisted}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Shortlisted</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--green)' }}>{appsFunnel.offered}</div>
-            <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Offers</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)' }}>{appsFunnel.offered}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Offers</div>
           </div>
         </div>
       )}
@@ -67,11 +67,11 @@ export function ApplicationsTab({
               return (
                 <div key={a.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: 13.5 }}>{a.title}</div>
-                    <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>{a.org_name} · Applied: {new Date(a.applied_at).toLocaleDateString()}</div>
+                    <div style={{ fontWeight: 800, fontSize: 15 }}>{a.title}</div>
+                    <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>{a.org_name} · Applied: {new Date(a.applied_at).toLocaleDateString()}</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 6, background: `${meta.color}14`, color: meta.color }}>
+                    <span style={{ fontSize: 12, fontWeight: 700, padding: '3px 8px', borderRadius: 6, background: `${meta.color}14`, color: meta.color }}>
                       {meta.emoji} {meta.label}
                     </span>
                   </div>

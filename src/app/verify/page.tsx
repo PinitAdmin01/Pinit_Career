@@ -45,16 +45,16 @@ function VerifyQueryHandler() {
           border: '1px solid rgba(99, 102, 241, 0.25)',
           marginBottom: 16
         }}>
-          <span style={{ fontSize: 16 }}>🛡️</span>
-          <span style={{ fontSize: 12, fontWeight: 800, color: '#a5b4fc', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 17.5 }}>🛡️</span>
+          <span style={{ fontSize: 13, fontWeight: 800, color: '#a5b4fc', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
             PinIT Trust & Verification Gateway
           </span>
         </div>
 
-        <h1 style={{ fontSize: 32, fontWeight: 900, margin: '0 0 10px 0', letterSpacing: '-0.5px' }}>
+        <h1 style={{ fontSize: 35, fontWeight: 900, margin: '0 0 10px 0', letterSpacing: '-0.5px' }}>
           Official Credential Verification
         </h1>
-        <p style={{ fontSize: 14, color: 'var(--text-muted, #94a3b8)', margin: '0 0 32px 0', lineHeight: 1.5 }}>
+        <p style={{ fontSize: 15.5, color: 'var(--text-muted, #94a3b8)', margin: '0 0 32px 0', lineHeight: 1.5 }}>
           Verify authentic student project certificates, competency proofs, and HMAC-SHA256 evidence records.
         </p>
 
@@ -68,7 +68,7 @@ function VerifyQueryHandler() {
           gap: 16,
           boxShadow: '0 12px 32px rgba(0, 0, 0, 0.4)'
         }}>
-          <label style={{ textAlign: 'left', fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #94a3b8)' }}>
+          <label style={{ textAlign: 'left', fontSize: 13, fontWeight: 700, color: 'var(--text-muted, #94a3b8)' }}>
             Enter Certificate ID or Evidence Hash:
           </label>
           <div style={{ display: 'flex', gap: 10 }}>
@@ -84,7 +84,7 @@ function VerifyQueryHandler() {
                 border: '1px solid rgba(255, 255, 255, 0.15)',
                 background: 'rgba(0, 0, 0, 0.4)',
                 color: '#fff',
-                fontSize: 13,
+                fontSize: 14.5,
                 fontFamily: 'monospace'
               }}
             />
@@ -96,7 +96,7 @@ function VerifyQueryHandler() {
                 border: 'none',
                 background: '#6366f1',
                 color: '#fff',
-                fontSize: 13,
+                fontSize: 14.5,
                 fontWeight: 800,
                 cursor: 'pointer'
               }}
@@ -107,7 +107,7 @@ function VerifyQueryHandler() {
         </form>
 
         <div style={{ marginTop: 24 }}>
-          <Link href="/projects" style={{ color: '#818cf8', fontSize: 13, textDecoration: 'none', fontWeight: 600 }}>
+          <Link href="/projects" style={{ color: '#818cf8', fontSize: 14.5, textDecoration: 'none', fontWeight: 600 }}>
             ← Back to Projects Workspace
           </Link>
         </div>

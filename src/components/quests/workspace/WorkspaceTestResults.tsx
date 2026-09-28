@@ -37,7 +37,7 @@ export function WorkspaceTestResults({
           borderBottom: '1px solid var(--border)',
           padding: '6px 14px'
         }}>
-          <div style={{ display: 'flex', gap: 16, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+          <div style={{ display: 'flex', gap: 16, fontSize: 12, fontWeight: 700, color: 'var(--t3)' }}>
             <span style={{ color: 'var(--accent)', borderBottom: '2px solid var(--accent)', paddingBottom: 2 }}>TERMINAL</span>
             <span>OUTPUT</span>
             <span>PROBLEMS</span>
@@ -52,7 +52,7 @@ export function WorkspaceTestResults({
                 borderRadius: 8,
                 color: 'var(--text)',
                 padding: '4px 12px',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 cursor: 'pointer',
                 display: 'flex',
@@ -67,7 +67,7 @@ export function WorkspaceTestResults({
         </div>
 
         {/* Terminal Logs Prompt */}
-        <div style={{ padding: '12px 16px', minHeight: 100, fontSize: 12, lineHeight: 1.6, color: 'var(--text)' }}>
+        <div style={{ padding: '12px 16px', minHeight: 100, fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>
           <div style={{ color: '#00ff66', fontWeight: 700, marginBottom: 6 }}>
             bash - pinit-compiler-v2.0 ~ $ execution-runner --lang={langFile}
           </div>
@@ -97,7 +97,7 @@ export function WorkspaceTestResults({
           border: `1.5px solid ${output.success ? 'var(--green)' : 'var(--coral)'}`,
           padding: 14,
           borderRadius: 12,
-          fontSize: 12,
+          fontSize: 13,
           fontFamily: 'var(--font-mono)',
           color: output.success ? 'var(--green)' : 'var(--coral)',
           whiteSpace: 'pre-wrap'

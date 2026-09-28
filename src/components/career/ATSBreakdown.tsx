@@ -210,9 +210,9 @@ function ScoreRing({ score }: { score: number }) {
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
       }}>
-        <span style={{ fontSize: 30, fontWeight: 800, color, lineHeight: 1 }}>{score}</span>
-        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>/100</span>
-        <span style={{ fontSize: 10, fontWeight: 700, color, marginTop: 2 }}>{tierLabel(score)}</span>
+        <span style={{ fontSize: 33, fontWeight: 800, color, lineHeight: 1 }}>{score}</span>
+        <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>/100</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color, marginTop: 2 }}>{tierLabel(score)}</span>
       </div>
     </div>
   );
@@ -236,7 +236,7 @@ export default function ATSBreakdown({ resumeData, compact = false }: ATSBreakdo
           <p style={S.sub}>Real-time resume compatibility scoring</p>
         </div>
         <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--t3)' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
+          <div style={{ fontSize: 44, marginBottom: 12 }}>⚠️</div>
           <p style={{ fontWeight: 600, color: 'var(--t2)' }}>
             Fill in your name and email first to see your ATS score
           </p>
@@ -261,7 +261,7 @@ export default function ATSBreakdown({ resumeData, compact = false }: ATSBreakdo
           <div style={{ ...S.scoreBadge, background: tierBgLight(result.overall), color: tierColor(result.overall) }}>
             {tierLabel(result.overall)}
           </div>
-          <p style={{ color: 'var(--t2)', fontSize: 13, lineHeight: 1.6, marginTop: 8 }}>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginTop: 8 }}>
             {result.overall >= 80
               ? 'Your resume is well-optimized for ATS systems.'
               : result.overall >= 60
@@ -292,7 +292,7 @@ export default function ATSBreakdown({ resumeData, compact = false }: ATSBreakdo
               ✅ Strengths ({result.strengths.length})
             </h4>
             {result.strengths.length === 0 ? (
-              <p style={{ color: 'var(--t3)', fontSize: 12 }}>Complete more sections to see strengths</p>
+              <p style={{ color: 'var(--t3)', fontSize: 13 }}>Complete more sections to see strengths</p>
             ) : (
               <ul style={S.feedList}>
                 {result.strengths.map((s, i) => <li key={i} style={{ marginBottom: 4 }}>{s}</li>)}
@@ -304,7 +304,7 @@ export default function ATSBreakdown({ resumeData, compact = false }: ATSBreakdo
               💡 Improvement Tips ({result.tips.length})
             </h4>
             {result.tips.length === 0 ? (
-              <p style={{ color: 'var(--success)', fontWeight: 600, fontSize: 12 }}>🎉 No major issues found!</p>
+              <p style={{ color: 'var(--success)', fontWeight: 600, fontSize: 13 }}>🎉 No major issues found!</p>
             ) : (
               <ul style={S.feedList}>
                 {result.tips.map((t, i) => <li key={i} style={{ marginBottom: 4 }}>{t}</li>)}
@@ -314,7 +314,7 @@ export default function ATSBreakdown({ resumeData, compact = false }: ATSBreakdo
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '10px 14px', background: 'var(--bg3, #f9fafb)', borderRadius: 10, fontSize: 11, fontWeight: 600 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '10px 14px', background: 'var(--bg3, #f9fafb)', borderRadius: 10, fontSize: 12, fontWeight: 600 }}>
         <span style={{ color: 'var(--danger)' }}>● 0–59 Needs Work</span>
         <span style={{ color: 'var(--t3)' }}>|</span>
         <span style={{ color: 'var(--warning)' }}>● 60–79 Good</span>
@@ -335,8 +335,8 @@ const S = {
     border: '1px solid var(--border)',
   } as const,
   header: { textAlign: 'center', marginBottom: 20 } as const,
-  title:  { fontSize: 19, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 } as const,
-  sub:    { color: 'var(--t3)', fontSize: 12 } as const,
+  title:  { fontSize: 21, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 } as const,
+  sub:    { color: 'var(--t3)', fontSize: 13 } as const,
   scoreSection: {
     display: 'flex', alignItems: 'center', gap: 22,
     background: 'var(--bg3, #f9fafb)',
@@ -344,19 +344,19 @@ const S = {
   } as const,
   scoreBadge: {
     display: 'inline-block', padding: '5px 14px',
-    borderRadius: 100, fontSize: 13, fontWeight: 700,
+    borderRadius: 100, fontSize: 14.5, fontWeight: 700,
   } as const,
   section: {
     background: 'var(--bg3, #f9fafb)',
     borderRadius: 12, padding: 18, marginBottom: 12,
   } as const,
-  sectionTitle: { fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 14 } as const,
+  sectionTitle: { fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 14 } as const,
   feedCard: {
     background: 'var(--bg2, white)',
     border: '1px solid var(--border)',
     borderLeft: '4px solid',
     borderRadius: 12, padding: 14,
   } as const,
-  feedTitle: { fontSize: 13, fontWeight: 700, marginBottom: 10 } as const,
-  feedList:  { paddingLeft: 18, color: 'var(--t2)', fontSize: 12, lineHeight: 1.7, margin: 0 } as const,
+  feedTitle: { fontSize: 14.5, fontWeight: 700, marginBottom: 10 } as const,
+  feedList:  { paddingLeft: 18, color: 'var(--t2)', fontSize: 13, lineHeight: 1.7, margin: 0 } as const,
 };

@@ -126,7 +126,7 @@ export function LessonContentRenderer({
         />
         {isPlaying && (
           <div className="speaking-pod">
-            <span style={{ fontSize: 10.5, color: 'var(--text-muted)', marginRight: 6, fontFamily: 'var(--font-mono)' }}>Tutor Speaking</span>
+            <span style={{ fontSize: 11.5, color: 'var(--text-muted)', marginRight: 6, fontFamily: 'var(--font-mono)' }}>Tutor Speaking</span>
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
@@ -153,7 +153,7 @@ export function LessonContentRenderer({
               padding: '10px 14px',
               borderBottom: '1.5px solid var(--border)',
               background: 'var(--bg2)',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 900,
               color: 'var(--t2)',
               textTransform: 'uppercase',
@@ -177,7 +177,7 @@ export function LessonContentRenderer({
               gap: 10
             }}>
               {chatMessages.length === 0 ? (
-                <div style={{ textAlign: 'center', color: 'var(--t3)', fontSize: 11, margin: '20px auto 0', maxWidth: 280, lineHeight: 1.45 }}>
+                <div style={{ textAlign: 'center', color: 'var(--t3)', fontSize: 12, margin: '20px auto 0', maxWidth: 280, lineHeight: 1.45 }}>
                   Type a question below or use a quick suggestion chip to explore this slide.
                 </div>
               ) : (
@@ -259,7 +259,7 @@ export function LessonContentRenderer({
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    fontSize: 12,
+                    fontSize: 13,
                     color: isRecording ? 'var(--danger)' : 'var(--t2)',
                     animation: isRecording ? 'micPulse 1.5s infinite' : 'none',
                     outline: 'none'
@@ -281,7 +281,7 @@ export function LessonContentRenderer({
                     border: '1.5px solid var(--border)',
                     background: 'var(--bg1)',
                     color: 'var(--t1)',
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     outline: 'none'
                   }}
                 />
@@ -294,7 +294,7 @@ export function LessonContentRenderer({
                     background: chatInput.trim() && !chatLoading ? teacher.accent : 'var(--bg3)',
                     color: chatInput.trim() && !chatLoading ? '#fff' : 'var(--t3)',
                     border: 'none',
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: 700,
                     cursor: chatInput.trim() && !chatLoading ? 'pointer' : 'not-allowed'
                   }}
@@ -321,7 +321,7 @@ export function LessonContentRenderer({
                     color: 'var(--text)',
                     padding: '8px 12px',
                     borderRadius: 10,
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: 700,
                     cursor: 'pointer',
                     display: 'flex',
@@ -348,8 +348,8 @@ export function LessonContentRenderer({
           }}>
             {currentSlide === 0 && (
               <div style={{ textAlign: 'center', padding: '12px 0' }}>
-                <h3 style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>Welcome to your Quest roadmap!</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.45, maxWidth: 650, margin: '4px auto 0' }}>
+                <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>Welcome to your Quest roadmap!</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.45, maxWidth: 650, margin: '4px auto 0' }}>
                   We will step through each requirement of the course syllabus. Listen closely to each slide before unlocking your immediate coding test.
                 </p>
               </div>
@@ -357,7 +357,7 @@ export function LessonContentRenderer({
 
             {slidesLoading && currentSlide > 0 && currentSlide <= (slides.length || syllabus.length) && (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                   <span className="animate-spin" style={{ display: 'inline-block', animation: 'spin 1.5s linear infinite' }}>🌀</span> Generating customized Socratic lecture slides...
                 </div>
               </div>
@@ -368,7 +368,7 @@ export function LessonContentRenderer({
               const bulletPoints = Array.isArray(slide.bulletPoints) ? slide.bulletPoints : [];
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
-                  <h4 data-testid="lesson-slide-title" style={{ fontSize: 15, fontWeight: 900, color: teacher.accent, margin: 0 }}>
+                  <h4 data-testid="lesson-slide-title" style={{ fontSize: 16.5, fontWeight: 900, color: teacher.accent, margin: 0 }}>
                     {slide.title || 'Lesson Slide'}
                   </h4>
 
@@ -396,14 +396,14 @@ export function LessonContentRenderer({
                         border: '1px solid rgba(var(--info-rgb), 0.3)',
                         boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                       }}>
-                        <div style={{ fontSize: 10.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
+                        <div style={{ fontSize: 11.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
                           🏢 1. Real-World Industry Story & Production Context
                         </div>
-                        <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
+                        <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
                           {realWorldStory || matchedAnalogy.analogy}
                         </div>
                         {!realWorldStory && (
-                          <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--success-bright)' }}>
+                          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--success-bright)' }}>
                             {matchedAnalogy.realWorldUseCase}
                           </div>
                         )}
@@ -419,12 +419,12 @@ export function LessonContentRenderer({
                       background: 'rgba(255,255,255,0.03)',
                       border: '1px solid var(--border)'
                     }}>
-                      <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
+                      <div style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
                         💡 2. Core Technical Rules & Execution Model
                       </div>
                       <ul style={{ listStyleType: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: 8, margin: 0 }}>
                         {bulletPoints.map((bp: string, i: number) => (
-                          <li key={i} style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.45 }}>{bp}</li>
+                          <li key={i} style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>{bp}</li>
                         ))}
                       </ul>
                     </div>
@@ -460,11 +460,11 @@ export function LessonContentRenderer({
                     justifyContent: 'space-between',
                     gap: 12
                   }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)' }}>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>
                       ❓ Did you understand this concept?
                     </span>
                     {understandingConfirmed[currentSlide - 1] ? (
-                      <span style={{ color: 'var(--success)', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ color: 'var(--success)', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
                         ✓ Concept Confirmed
                       </span>
                     ) : (
@@ -481,7 +481,7 @@ export function LessonContentRenderer({
                             color: 'var(--text)',
                             padding: '6px 12px',
                             borderRadius: 6,
-                            fontSize: 10.5,
+                            fontSize: 11.5,
                             fontWeight: 700,
                             cursor: 'pointer',
                             transition: 'background 0.2s'
@@ -510,7 +510,7 @@ export function LessonContentRenderer({
                             color: 'var(--danger)',
                             padding: '6px 12px',
                             borderRadius: 6,
-                            fontSize: 10.5,
+                            fontSize: 11.5,
                             fontWeight: 700,
                             cursor: 'pointer',
                             transition: 'background 0.2s'

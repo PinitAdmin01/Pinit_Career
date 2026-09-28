@@ -56,7 +56,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
 
   if (loading) {
     return (
-      <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+      <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
         Loading portfolio from cloud...
       </div>
     );
@@ -66,7 +66,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="animate-fade-in">
       {/* Role Perspective Switcher */}
       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '10px 20px', borderRadius: 14, border: '1px solid var(--border)' }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>🔧 PORTFOLIO PERSPECTIVE SWITCH:</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)' }}>🔧 PORTFOLIO PERSPECTIVE SWITCH:</span>
         <div style={{ display: 'flex', gap: 6 }}>
           {[
             { id: 'student', label: '🧑‍🎓 Student Portal' },
@@ -83,7 +83,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
                 border: 'none',
                 background: activePortfolioRole === role.id ? 'var(--accent)' : 'transparent',
                 color: activePortfolioRole === role.id ? '#fff' : 'var(--t3)',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 700,
                 cursor: 'pointer'
               }}
@@ -109,7 +109,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
                   borderRadius: 8,
                   background: activePortfolioTab === t ? 'var(--accent-light)' : 'transparent',
                   color: activePortfolioTab === t ? 'var(--accent)' : 'var(--t2)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: activePortfolioTab === t ? 800 : 500,
                   cursor: 'pointer'
                 }}
@@ -133,14 +133,14 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: 0 }} />
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                   <div>
-                    <h3 style={{ margin: '0 0 10px 0', fontSize: 14, fontWeight: 800 }}>🧬 Career DNA Snapshot</h3>
-                    <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 12 }}>
+                    <h3 style={{ margin: '0 0 10px 0', fontSize: 15.5, fontWeight: 800 }}>🧬 Career DNA Snapshot</h3>
+                    <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 13 }}>
                       Verified ATS rating: <strong>85/100</strong>
                     </div>
                   </div>
                   <div>
-                    <h3 style={{ margin: '0 0 10px 0', fontSize: 14, fontWeight: 800 }}>🏆 Last Verified Accomplishment</h3>
-                    <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 12 }}>
+                    <h3 style={{ margin: '0 0 10px 0', fontSize: 15.5, fontWeight: 800 }}>🏆 Last Verified Accomplishment</h3>
+                    <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 13 }}>
                       {(() => {
                         const verifiedVaultItem = cOS?.vaultItems?.find((v: any) => v.verified)?.title;
                         const lastQuest = cOS?.completedQuests?.length ? `Quest: ${cOS.completedQuests[cOS.completedQuests.length - 1]}` : null;
@@ -156,37 +156,37 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
               <div style={{ padding: '24px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)', maxWidth: 640, margin: '0 auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
                   <div>
-                    <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>{user?.displayName || 'Student Candidate'}</h3>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, fontFamily: 'var(--font-mono)' }}>{user?.email || 'verified@career-os.internal'}</p>
+                    <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>{user?.displayName || 'Student Candidate'}</h3>
+                    <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0, fontFamily: 'var(--font-mono)' }}>{user?.email || 'verified@career-os.internal'}</p>
                   </div>
-                  <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: 'rgba(var(--brand-rgb), 0.12)', color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'rgba(var(--brand-rgb), 0.12)', color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
                     LIVE PORTFOLIO SYNC
                   </span>
                 </div>
                 <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 16 }}>
-                  <h4 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
+                  <h4 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
                     Verified Skills ({passportSkills.length})
                   </h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {passportSkills.map((s: any) => (
-                      <span key={s.id} style={{ fontSize: 11, background: 'var(--bg2)', border: '1px solid var(--border)', padding: '2px 8px', borderRadius: 4, color: 'var(--t1)' }}>
+                      <span key={s.id} style={{ fontSize: 12, background: 'var(--bg2)', border: '1px solid var(--border)', padding: '2px 8px', borderRadius: 4, color: 'var(--t1)' }}>
                         {s.name} (L{s.level})
                       </span>
                     ))}
                   </div>
                 </div>
                 <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 20 }}>
-                  <h4 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
+                  <h4 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
                     Active Projects ({projects.length})
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, color: 'var(--t2)', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: 'var(--t2)', display: 'flex', flexDirection: 'column', gap: 4 }}>
                     {projects.map(p => (
                       <li key={p.id}><strong>{p.title}</strong> &mdash; {p.description}</li>
                     ))}
                   </ul>
                 </div>
                 <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 16 }}>
-                  <button onClick={() => window.print()} className="btn-primary" style={{ padding: '8px 20px', fontSize: 12, fontWeight: 800 }}>
+                  <button onClick={() => window.print()} className="btn-primary" style={{ padding: '8px 20px', fontSize: 13, fontWeight: 800 }}>
                     🖨️ Print / Save as PDF
                   </button>
                 </div>
@@ -210,11 +210,11 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
 
             {activePortfolioTab === 'Internships' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Internships</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Verified Internships</h3>
                 <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
-                  <h4 style={{ margin: '0 0 4px 0', fontSize: 13.5, fontWeight: 800 }}>Stripe Security</h4>
-                  <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8 }}>Software Engineering Intern · 2026</div>
-                  <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: 0 }}>Worked on transaction queue billing ledger systems.</p>
+                  <h4 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Stripe Security</h4>
+                  <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 8 }}>Software Engineering Intern · 2026</div>
+                  <p style={{ fontSize: 14, color: 'var(--t2)', margin: 0 }}>Worked on transaction queue billing ledger systems.</p>
                 </div>
               </div>
             )}
@@ -254,17 +254,17 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={CS.card}>
               <div style={CS.cardLabel}>Dossier Core Professional Pitch</div>
-              <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{pitch}"</p>
+              <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{pitch}"</p>
             </div>
             <div style={CS.card}>
               <div style={CS.cardLabel}>Verified Projects Portfolio</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {projects.filter(p => p.verified).map(p => (
                   <div key={p.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
-                    <h4 style={{ margin: 0, fontSize: 13.5, fontWeight: 800 }}>{p.title}</h4>
-                    <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '6px 0 10px' }}>{p.description}</p>
+                    <h4 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>{p.title}</h4>
+                    <p style={{ fontSize: 14, color: 'var(--t2)', margin: '6px 0 10px' }}>{p.description}</p>
                     <div style={{ display: 'flex', gap: 6 }}>
-                      {p.tech.map(t => <span key={t} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: 'var(--bg2)' }}>{t}</span>)}
+                      {p.tech.map(t => <span key={t} style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, background: 'var(--bg2)' }}>{t}</span>)}
                     </div>
                   </div>
                 ))}
@@ -275,9 +275,9 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
             <div style={CS.cardLabel}>Verified Accreditations</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {certificates.filter(c => c.verified).map(c => (
-                <div key={c.id} style={{ background: 'var(--bg3)', padding: 10, borderRadius: 8, border: '1px solid var(--border)', fontSize: 12 }}>
+                <div key={c.id} style={{ background: 'var(--bg3)', padding: 10, borderRadius: 8, border: '1px solid var(--border)', fontSize: 13 }}>
                   <strong>{c.title}</strong>
-                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{c.issuer}</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>{c.issuer}</div>
                 </div>
               ))}
             </div>
@@ -291,17 +291,17 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
           <div style={CS.cardLabel}>Student Portfolio Verifications Board</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <h4 style={{ fontSize: 12, textTransform: 'uppercase', color: 'var(--t3)', margin: '0 0 10px' }}>Projects pending validation:</h4>
+              <h4 style={{ fontSize: 13, textTransform: 'uppercase', color: 'var(--t3)', margin: '0 0 10px' }}>Projects pending validation:</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {projects.map(p => (
                   <div key={p.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10 }}>
                     <div>
-                      <strong style={{ fontSize: 13 }}>{p.title}</strong>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>{p.tech.join(', ')}</div>
+                      <strong style={{ fontSize: 14.5 }}>{p.title}</strong>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>{p.tech.join(', ')}</div>
                     </div>
                     <button
                       onClick={() => toggleVerification('project', p.id)}
-                      style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: p.verified ? 'var(--coral)' : 'var(--green)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+                      style={{ padding: '6px 12px', fontSize: 11.5, fontWeight: 800, background: p.verified ? 'var(--coral)' : 'var(--green)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}
                     >
                       {p.verified ? 'Revoke Verify' : 'Verify Project'}
                     </button>
@@ -320,9 +320,9 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {timeline.filter(t => t.verified).map(evt => (
               <div key={evt.id} style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-                <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 800 }}>{evt.year} &middot; {evt.category}</span>
-                <h4 style={{ margin: '2px 0', fontSize: 13 }}>{evt.title}</h4>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>{evt.detail}</p>
+                <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 800 }}>{evt.year} &middot; {evt.category}</span>
+                <h4 style={{ margin: '2px 0', fontSize: 14.5 }}>{evt.title}</h4>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>{evt.detail}</p>
               </div>
             ))}
           </div>

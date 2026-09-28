@@ -92,23 +92,23 @@ export default function TeacherTraining({ teacher }: { teacher: any }) {
   return (
     <div style={{ padding: '24px', background: 'var(--bg2)', borderRadius: 20, border: '1px solid var(--border)' }} className="animate-fade-in">
       <div style={{ marginBottom: 20 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
           🎓 Teacher Professional Training Center
         </h2>
-        <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
+        <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4 }}>
           Calibrate proctoring standards, learn grading guidelines, and earn credential badges.
         </p>
       </div>
 
       {simulationActive && selectedModule ? (
         <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }} className="animate-fade-in">
-          <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
             Interactive Simulator Mode: {selectedModule.title}
           </span>
-          <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginTop: 8, marginBottom: 14 }}>
+          <h3 style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginTop: 8, marginBottom: 14 }}>
             Scenario {currentStep + 1} of {SIMULATION_SCENARIOS.length}:
           </h3>
-          <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
             {SIMULATION_SCENARIOS[currentStep].question}
           </p>
 
@@ -123,7 +123,7 @@ export default function TeacherTraining({ teacher }: { teacher: any }) {
                   background: 'var(--bg2)',
                   border: '1.5px solid var(--border)',
                   borderRadius: 10,
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: 600,
                   color: 'var(--t1)',
                   cursor: 'pointer',
@@ -155,17 +155,17 @@ export default function TeacherTraining({ teacher }: { teacher: any }) {
             >
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <span style={{ fontSize: 10, fontWeight: 900, background: 'rgba(99, 102, 241, 0.08)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 6, fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, background: 'rgba(99, 102, 241, 0.08)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 6, fontFamily: 'var(--font-mono)' }}>
                     {mod.category.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: 10, color: 'var(--t3)', fontWeight: 600 }}>{mod.duration}</span>
+                  <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>{mod.duration}</span>
                 </div>
-                <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px' }}>{mod.title}</h4>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0, lineHeight: 1.5 }}>{mod.description}</p>
+                <h4 style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px' }}>{mod.title}</h4>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, lineHeight: 1.5 }}>{mod.description}</p>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, paddingTop: 10, borderTop: '1px solid var(--border)' }}>
-                <span style={{ fontSize: 10.5, color: mod.status === 'completed' ? 'var(--green)' : 'var(--t2)', fontWeight: 800 }}>
+                <span style={{ fontSize: 11.5, color: mod.status === 'completed' ? 'var(--green)' : 'var(--t2)', fontWeight: 800 }}>
                   {mod.status === 'completed' ? '🟢 COMPLETED' : `Difficulty: ${mod.difficulty}`}
                 </span>
                 <button
@@ -173,7 +173,7 @@ export default function TeacherTraining({ teacher }: { teacher: any }) {
                   className="btn-primary"
                   style={{
                     padding: '6px 12px',
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 700,
                     borderRadius: 8,
                     cursor: 'pointer'

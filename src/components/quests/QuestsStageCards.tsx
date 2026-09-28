@@ -58,12 +58,12 @@ export function QuestsStageCards({
             {/* Header & Status */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 24 }}>{node.icon || cObj.icon}</span>
+                <span style={{ fontSize: 26.5 }}>{node.icon || cObj.icon}</span>
                 <div>
-                  <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase' }}>
                     STAGE {idx + 1} OF {trajectory.nodes.length}
                   </span>
-                  <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 2 }}>
+                  <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', marginTop: 2 }}>
                     {node.title}
                   </h3>
                 </div>
@@ -71,7 +71,7 @@ export function QuestsStageCards({
 
               <div style={{ textAlign: 'right' }}>
                 <span style={{
-                  fontSize: 10.5,
+                  fontSize: 11.5,
                   fontWeight: 900,
                   padding: '3px 10px',
                   borderRadius: 12,
@@ -88,7 +88,7 @@ export function QuestsStageCards({
                       background: 'none',
                       border: 'none',
                       color: 'var(--accent)',
-                      fontSize: 10.5,
+                      fontSize: 11.5,
                       fontWeight: 800,
                       cursor: 'pointer',
                       textDecoration: 'underline'
@@ -101,13 +101,13 @@ export function QuestsStageCards({
             </div>
 
             {/* Description & Skills */}
-            <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 14 }}>
+            <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 14 }}>
               {node.shortDesc}
             </p>
 
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
               {node.skillsLearned.map((sk: string, i: number) => (
-                <span key={i} style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 8, background: 'var(--bg3)', color: 'var(--t2)' }}>
+                <span key={i} style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 8, background: 'var(--bg3)', color: 'var(--t2)' }}>
                   {sk}
                 </span>
               ))}
@@ -115,7 +115,7 @@ export function QuestsStageCards({
 
             {/* Launch Next Quest Handler Button */}
             {isLockedNode ? (
-              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t4)', padding: '10px 14px', borderRadius: 10, background: 'var(--bg3)', textAlign: 'center' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t4)', padding: '10px 14px', borderRadius: 10, background: 'var(--bg3)', textAlign: 'center' }}>
                 🔒 Complete Stage {idx} to unlock this module
               </div>
             ) : nextQuestToSolve ? (
@@ -128,7 +128,7 @@ export function QuestsStageCards({
                   background: isFullyCleared ? 'var(--bg3)' : 'linear-gradient(135deg, #10b981, #059669)',
                   color: isFullyCleared ? 'var(--t2)' : '#fff',
                   border: 'none',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 900,
                   cursor: 'pointer',
                   boxShadow: isFullyCleared ? 'none' : '0 4px 14px rgba(16,185,129,0.3)',
@@ -139,14 +139,14 @@ export function QuestsStageCards({
                 }}
               >
                 <span>{isFullyCleared ? '🔁 Review / Re-solve Quests' : '⚡ Launch Next Quest'}</span>
-                <span style={{ fontSize: 11, opacity: 0.8 }}>({nextQuestToSolve.title})</span>
+                <span style={{ fontSize: 12, opacity: 0.8 }}>({nextQuestToSolve.title})</span>
               </button>
             ) : null}
 
             {/* Readiness Gate Trigger */}
             {node.gate && isFullyCleared && (
               <div style={{ marginTop: 14, paddingTop: 14, borderTop: '1px dashed var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>
                   🛡️ Readiness Audit Gate
                 </span>
                 <button
@@ -157,7 +157,7 @@ export function QuestsStageCards({
                     background: 'rgba(234,179,8,0.15)',
                     color: '#eab308',
                     border: '1px solid rgba(234,179,8,0.3)',
-                    fontSize: 10.5,
+                    fontSize: 11.5,
                     fontWeight: 800,
                     cursor: 'pointer'
                   }}

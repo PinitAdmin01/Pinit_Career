@@ -1141,7 +1141,7 @@ export default function RigidAvatarMentorWidget({
         <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block', opacity: 1 }} />
         {aiState !== 'idle' && (
           <div style={{
-            position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+            position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
             padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
             color: aiState === 'talking' ? '#a5b4fc' : aiState === 'thinking' ? '#fde68a' : '#86efac',
             backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'
@@ -1159,7 +1159,7 @@ export default function RigidAvatarMentorWidget({
         position:'fixed', bottom:24, right:24, zIndex:100,
         width:58, height:58, borderRadius:'50%',
         background: teacher.color, border:'none', cursor:'pointer',
-        fontSize:26, boxShadow:`0 4px 20px ${teacher.color}60`,
+        fontSize:28.5, boxShadow:`0 4px 20px ${teacher.color}60`,
         display:'flex', alignItems:'center', justifyContent:'center',
       }} title={`Open ${teacher.name}`}>
         {teacher.emoji}
@@ -1172,10 +1172,10 @@ export default function RigidAvatarMentorWidget({
       {/* Header */}
       <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: '12px 16px' }}>
         <div className="mentor-info">
-          <span className="mentor-emoji" style={{ fontSize: '28px', marginRight: '4px' }}>{teacher.emoji}</span>
+          <span className="mentor-emoji" style={{ fontSize: '31px', marginRight: '4px' }}>{teacher.emoji}</span>
           <div>
-            <p className="mentor-name" style={{ fontSize: '14px' }}>{teacher.name}</p>
-            <p className="mentor-subtitle" style={{ fontSize: '10.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
+            <p className="mentor-name" style={{ fontSize: '15.5px' }}>{teacher.name}</p>
+            <p className="mentor-subtitle" style={{ fontSize: '11.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
           </div>
         </div>
         <div className="mentor-controls" style={{ display: 'flex', alignItems: 'center' }}>
@@ -1204,10 +1204,10 @@ export default function RigidAvatarMentorWidget({
               borderRadius: 8, pointerEvents: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 8
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'var(--teal)', fontWeight: 800 }}>
+                <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--teal)', fontWeight: 800 }}>
                   📡 HUMAN NEURAL STREAM ACTIVE
                 </span>
-                <span style={{ fontSize: 7, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
+                <span style={{ fontSize: 7.5, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
                   FEED: SECURE
                 </span>
               </div>
@@ -1224,7 +1224,7 @@ export default function RigidAvatarMentorWidget({
                 }} />
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 7, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 7.5, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
                 <span>FPS: 60.0</span>
                 <span style={{ color: 'var(--teal)', fontWeight: 'bold' }}>HUMANOID ONLINE</span>
               </div>
@@ -1234,7 +1234,7 @@ export default function RigidAvatarMentorWidget({
 
         {aiState !== 'idle' && (
           <div style={{
-            position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+            position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
             padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
             color: aiState === 'talking' ? '#a5b4fc' : aiState === 'thinking' ? '#fde68a' : '#86efac',
             backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'
@@ -1263,7 +1263,7 @@ export default function RigidAvatarMentorWidget({
                 }}
               >
                 {!isUser && (
-                  <span style={{ fontSize: 20, marginTop: 4, flexShrink: 0 }}>
+                  <span style={{ fontSize: 22, marginTop: 4, flexShrink: 0 }}>
                     {teacher.emoji}
                   </span>
                 )}
@@ -1271,7 +1271,7 @@ export default function RigidAvatarMentorWidget({
                   style={{
                     padding: '10px 14px',
                     borderRadius: 14,
-                    fontSize: 12.5,
+                    fontSize: 14,
                     lineHeight: 1.5,
                     background: isUser ? teacher.color : 'var(--bg3)',
                     color: isUser ? '#ffffff' : 'var(--t1)',
@@ -1286,7 +1286,7 @@ export default function RigidAvatarMentorWidget({
             );
           })}
           {loading && (
-            <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 12, paddingLeft: 28 }}>
+            <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 13, paddingLeft: 28 }}>
               <span>{teacher.emoji}</span>
               <div style={{
                 background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: '10px 16px', display: 'flex', gap: 4, alignItems: 'center'
@@ -1326,7 +1326,7 @@ export default function RigidAvatarMentorWidget({
                 border: '1px solid var(--border)',
                 background: 'var(--bg2)',
                 color: 'var(--t2)',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.15s',
@@ -1363,7 +1363,7 @@ export default function RigidAvatarMentorWidget({
               border: '1px solid var(--border)',
               background: 'var(--bg3)',
               color: 'var(--t1)',
-              fontSize: 12.5,
+              fontSize: 14,
               outline: 'none',
             }}
             disabled={loading}
@@ -1382,7 +1382,7 @@ export default function RigidAvatarMentorWidget({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 14,
+              fontSize: 15.5,
               transition: 'all 0.15s',
               boxShadow: input.trim() && !loading ? `0 2px 8px ${teacher.color}40` : 'none',
             }}

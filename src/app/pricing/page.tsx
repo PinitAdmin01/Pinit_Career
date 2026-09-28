@@ -20,7 +20,7 @@ const ROADMAP_BADGE = (
       marginLeft: 8,
       padding: '2px 8px',
       borderRadius: 999,
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: 800,
       color: '#F59E0B',
       background: 'rgba(245, 158, 11, 0.12)',
@@ -44,7 +44,7 @@ const Q3_PILOT_BADGE = (
       marginLeft: 8,
       padding: '2px 8px',
       borderRadius: 999,
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: 800,
       color: '#F59E0B',
       background: 'rgba(245, 158, 11, 0.12)',
@@ -266,17 +266,17 @@ export default function PublicPricingPageRevamp() {
             {/* Tier 1: Student Free */}
             <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
               <div>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>STUDENT PASS</span>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
-                  ₹0 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ forever</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>STUDENT PASS</span>
+                <div style={{ fontSize: 44, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹0 <span style={{ fontSize: 15.5, color: 'var(--text-secondary)' }}>/ forever</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
                   Perfect for learners building technical foundations and earning verifiable credentials.
                 </p>
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'var(--badge-bg)', border: '1px solid var(--badge-border)', marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>🎁 50 SIGNUP BONUS PINS</div>
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Earn +15 Pins daily through streak consistency.</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>🎁 50 SIGNUP BONUS PINS</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Earn +15 Pins daily through streak consistency.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
@@ -289,7 +289,7 @@ export default function PublicPricingPageRevamp() {
                   ].map((feat) => {
                     const isRoadmap = ['Multiplayer Code Wars Arena (Elo Duels)', 'Cryptographic Proof-of-Work Vault'].includes(feat);
                     return (
-                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <li key={feat} style={{ fontSize: 15, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
                         <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
                         {feat}
                         {isRoadmap && ROADMAP_BADGE}
@@ -306,22 +306,22 @@ export default function PublicPricingPageRevamp() {
 
             {/* Tier 2: Basic Student Pass (₹99 / mo) */}
             <div className="glass-card" style={{ padding: '36px 30px', border: '2px solid #10b981', boxShadow: '0 16px 40px rgba(16,185,129,0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24, position: 'relative' }}>
-              <div style={{ position: 'absolute', top: -14, right: 28, background: '#10b981', color: '#FFFFFF', fontSize: 11, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
+              <div style={{ position: 'absolute', top: -14, right: 28, background: '#10b981', color: '#FFFFFF', fontSize: 12, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
                 BEST VALUE FOR STUDENTS
               </div>
 
               <div>
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981', textTransform: 'uppercase' }}>BASIC STUDENT PASS</span>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
-                  ₹99 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ month</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#10b981', textTransform: 'uppercase' }}>BASIC STUDENT PASS</span>
+                <div style={{ fontSize: 44, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹99 <span style={{ fontSize: 15.5, color: 'var(--text-secondary)' }}>/ month</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
                   Receive <strong>120 Pins every single day</strong> refreshed at 1:00 AM IST (like Airtel daily data). Ideal for active daily study.
                 </p>
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>⚡ 120 PINS EVERY SINGLE DAY</div>
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Refreshes at 1:00 AM IST. Top up extra pins at ₹1 = 10 pins.</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>⚡ 120 PINS EVERY SINGLE DAY</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Refreshes at 1:00 AM IST. Top up extra pins at ₹1 = 10 pins.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
@@ -334,7 +334,7 @@ export default function PublicPricingPageRevamp() {
                     'Project Milestones & Vault Verification (10 pins)',
                     'Permanent Vault for Addon Top-Ups (₹1 = 10 pins)'
                   ].map((feat) => (
-                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <li key={feat} style={{ fontSize: 15, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
                       <span style={{ color: '#10b981', fontWeight: 800 }}>✓</span>
                       {feat}
                     </li>
@@ -366,22 +366,22 @@ export default function PublicPricingPageRevamp() {
 
             {/* Tier 3: Pro Career Pass */}
             <div className="glass-card" style={{ padding: '36px 30px', border: '2px solid var(--accent)', boxShadow: '0 16px 40px var(--accent-glow)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24, position: 'relative' }}>
-              <div style={{ position: 'absolute', top: -14, right: 28, background: 'var(--accent)', color: '#FFFFFF', fontSize: 11, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
+              <div style={{ position: 'absolute', top: -14, right: 28, background: 'var(--accent)', color: '#FFFFFF', fontSize: 12, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
                 MOST POPULAR
               </div>
 
               <div>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>PRO CAREER ACCELERATOR</span>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
-                  ₹499 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ month</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>PRO CAREER ACCELERATOR</span>
+                <div style={{ fontSize: 44, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹499 <span style={{ fontSize: 15.5, color: 'var(--text-secondary)' }}>/ month</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
                   For ambitious graduates preparing for Tier-1 interviews and global placements.
                 </p>
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'var(--badge-bg)', border: '1px solid var(--badge-border)', marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>⚡ UNLIMITED AI AVATAR TIME</div>
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>500 monthly bonus pins for heavy mock interviews.</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>⚡ UNLIMITED AI AVATAR TIME</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>500 monthly bonus pins for heavy mock interviews.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
@@ -394,7 +394,7 @@ export default function PublicPricingPageRevamp() {
                   ].map((feat) => {
                     const isRoadmap = ['24/7 Voice AI Avatar Mock Interviews'].includes(feat);
                     return (
-                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <li key={feat} style={{ fontSize: 15, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
                         <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
                         {feat}
                         {isRoadmap && ROADMAP_BADGE}
@@ -427,19 +427,19 @@ export default function PublicPricingPageRevamp() {
             {/* Tier 3: Institutional Campus Pass */}
             <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
               <div>
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>COLLEGE & INSTITUTION</span>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
-                  Custom <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ campus</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>COLLEGE & INSTITUTION</span>
+                <div style={{ fontSize: 44, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  Custom <span style={{ fontSize: 15.5, color: 'var(--text-secondary)' }}>/ campus</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
                   Full campus placement cell command center, cohort heatmaps, and batch analytics.
                 </p>
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', marginBottom: 4 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#F59E0B', marginBottom: 4 }}>
                     1-CLICK NAAC / NIRF EXPORTS {Q3_PILOT_BADGE}
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Automated accreditation exports — Q3 2026 Pilot. Contact us for early access.</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Automated accreditation exports — Q3 2026 Pilot. Contact us for early access.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
@@ -452,7 +452,7 @@ export default function PublicPricingPageRevamp() {
                   ].map((feat) => {
                     const isRoadmap = ['Automated Multi-Round Campus Drives'].includes(feat);
                     return (
-                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <li key={feat} style={{ fontSize: 15, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
                         <span style={{ color: '#F59E0B', fontWeight: 800 }}>✓</span>
                         {feat}
                         {isRoadmap && Q3_PILOT_BADGE}
@@ -473,42 +473,42 @@ export default function PublicPricingPageRevamp() {
           <div className="glass-card" style={{ padding: '48px 36px', marginBottom: 60 }}>
             <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 36px' }}>
               <div className="badge-pill">GAMIFIED MERITOCRACY</div>
-              <h2 style={{ fontSize: 26, fontWeight: 900, color: 'var(--text-primary)' }}>The Pin Merit Economy</h2>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: 8 }}>
+              <h2 style={{ fontSize: 28.5, fontWeight: 900, color: 'var(--text-primary)' }}>The Pin Merit Economy</h2>
+              <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: 8 }}>
                 We believe financial constraints should never prevent hard-working students from accessing state-of-the-art AI education.
               </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
               <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+15 Pins / Day</div>
-                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Daily Streak Maintenance</strong>
-                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Log in and complete at least one daily Socratic coding quest block.</span>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+15 Pins / Day</div>
+                <strong style={{ fontSize: 15.5, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Daily Streak Maintenance</strong>
+                <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Log in and complete at least one daily Socratic coding quest block.</span>
               </div>
 
               <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+25 Pins / Test</div>
-                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>100% Invariant Pass</strong>
-                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Solve all multi-case assertions on the first attempt without guided hints.</span>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+25 Pins / Test</div>
+                <strong style={{ fontSize: 15.5, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>100% Invariant Pass</strong>
+                <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Solve all multi-case assertions on the first attempt without guided hints.</span>
               </div>
 
               <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+20 Pins / Repo</div>
-                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>GitHub Commit Verification</strong>
-                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Push audited capstone commits to your verified public GitHub repo.</span>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+20 Pins / Repo</div>
+                <strong style={{ fontSize: 15.5, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>GitHub Commit Verification</strong>
+                <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Push audited capstone commits to your verified public GitHub repo.</span>
               </div>
 
               <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+30 Pins / Win</div>
-                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Code Wars Arena Victory</strong>
-                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Defeat peers in async algorithmic speed & memory duels.</span>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+30 Pins / Win</div>
+                <strong style={{ fontSize: 15.5, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Code Wars Arena Victory</strong>
+                <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Defeat peers in async algorithmic speed & memory duels.</span>
               </div>
             </div>
           </div>
 
           {/* FAQ Accordion */}
           <div style={{ maxWidth: 840, margin: '0 auto' }}>
-            <h2 style={{ fontSize: 24, fontWeight: 900, textAlign: 'center', marginBottom: 32 }}>Frequently Asked Questions</h2>
+            <h2 style={{ fontSize: 26.5, fontWeight: 900, textAlign: 'center', marginBottom: 32 }}>Frequently Asked Questions</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
@@ -520,11 +520,11 @@ export default function PublicPricingPageRevamp() {
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-primary)' }}>{faq.q}</span>
-                      <span style={{ fontSize: 18, color: 'var(--accent)' }}>{isOpen ? '−' : '+'}</span>
+                      <span style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--text-primary)' }}>{faq.q}</span>
+                      <span style={{ fontSize: 20, color: 'var(--accent)' }}>{isOpen ? '−' : '+'}</span>
                     </div>
                     {isOpen && (
-                      <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.65, marginTop: 14, margin: '14px 0 0' }}>
+                      <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.65, marginTop: 14, margin: '14px 0 0' }}>
                         {faq.a}
                       </p>
                     )}

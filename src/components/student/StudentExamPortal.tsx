@@ -240,8 +240,8 @@ export default function StudentExamPortal() {
       {!activeExam ? (
         <>
           <div>
-            <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📝 Online Exams & Proctored Tests</h2>
-            <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3)' }}>Take assigned mid-terms, quizzes, and practical assessments with instant evaluation.</p>
+            <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📝 Online Exams & Proctored Tests</h2>
+            <p style={{ margin: '4px 0 0', fontSize: 15.5, color: 'var(--t3)' }}>Take assigned mid-terms, quizzes, and practical assessments with instant evaluation.</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>
@@ -259,7 +259,7 @@ export default function StudentExamPortal() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                     <span style={{
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 700,
                       padding: '2px 8px',
                       borderRadius: 4,
@@ -268,26 +268,26 @@ export default function StudentExamPortal() {
                     }}>
                       {exam.status.toUpperCase()}
                     </span>
-                    <span style={{ fontSize: 12, color: 'var(--text-dim)' }}>⏱️ {exam.durationMins} Mins</span>
+                    <span style={{ fontSize: 13, color: 'var(--text-dim)' }}>⏱️ {exam.durationMins} Mins</span>
                   </div>
-                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{exam.title}</h3>
-                  <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-dim)' }}>{exam.subject}</p>
+                  <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>{exam.title}</h3>
+                  <p style={{ margin: '4px 0 0', fontSize: 14.5, color: 'var(--text-dim)' }}>{exam.subject}</p>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 12 }}>
                   {exam.status === 'completed' ? (
-                    <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>Score: {exam.score}%</span>
+                    <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--success)' }}>Score: {exam.score}%</span>
                   ) : (
-                    <span style={{ fontSize: 13, color: 'var(--text-dim)' }}>{exam.totalQuestions} Questions</span>
+                    <span style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>{exam.totalQuestions} Questions</span>
                   )}
 
                   {exam.status === 'completed' ? (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
-                      <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(var(--success-rgb), 0.1)', color: 'var(--success)', fontWeight: 700 }}>
+                      <span style={{ fontSize: 13, padding: '4px 10px', borderRadius: 6, background: 'rgba(var(--success-rgb), 0.1)', color: 'var(--success)', fontWeight: 700 }}>
                         🔒 Attempt Recorded
                       </span>
                       {exam.remainingCooldownHours && exam.remainingCooldownHours > 0 ? (
-                        <span style={{ fontSize: 11, color: '#f59e0b', fontWeight: 600 }}>
+                        <span style={{ fontSize: 12, color: '#f59e0b', fontWeight: 600 }}>
                           ⏳ Cooldown: {exam.remainingCooldownHours}h
                         </span>
                       ) : null}
@@ -326,8 +326,8 @@ export default function StudentExamPortal() {
         <div style={{ background: 'var(--card, #fff)', padding: 24, borderRadius: 16, border: '1px solid var(--border, #cbd5e1)', display: 'flex', flexDirection: 'column', gap: 20, color: 'var(--t1)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{activeExam.title}</h2>
-              <span style={{ fontSize: 13, color: 'var(--text-dim)' }}>{activeExam.subject} • Proctored Assessment</span>
+              <h2 style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>{activeExam.title}</h2>
+              <span style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>{activeExam.subject} • Proctored Assessment</span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -335,13 +335,13 @@ export default function StudentExamPortal() {
                 background: secondsRemaining < 300 ? '#fee2e2' : 'var(--bg3)',
                 color: secondsRemaining < 300 ? '#b91c1c' : 'var(--t1)',
                 border: `1px solid ${secondsRemaining < 300 ? '#ef4444' : 'var(--border)'}`,
-                padding: '6px 14px', borderRadius: 8, fontWeight: 800, fontFamily: 'monospace', fontSize: 14
+                padding: '6px 14px', borderRadius: 8, fontWeight: 800, fontFamily: 'monospace', fontSize: 15.5
               }}>
                 ⏱️ {Math.floor(secondsRemaining / 60).toString().padStart(2, '0')}:{(secondsRemaining % 60).toString().padStart(2, '0')}
               </div>
 
               {tabSwitches > 0 && (
-                <div style={{ background: '#fee2e2', color: 'var(--danger-deep)', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700 }}>
+                <div style={{ background: '#fee2e2', color: 'var(--danger-deep)', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 700 }}>
                   ⚠️ Warning: {tabSwitches} Tab Switch(es) Logged & Sent to Proctor
                 </div>
               )}
@@ -352,7 +352,7 @@ export default function StudentExamPortal() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {activeExam.questions.map((q, idx) => (
                 <div key={q.id} style={{ background: 'var(--bg3)', padding: 16, borderRadius: 10, border: '1px solid var(--border)' }}>
-                  <h4 style={{ margin: '0 0 12px', fontSize: 15, fontWeight: 700 }}>{idx + 1}. {q.questionText}</h4>
+                  <h4 style={{ margin: '0 0 12px', fontSize: 16.5, fontWeight: 700 }}>{idx + 1}. {q.questionText}</h4>
                   {/* DEF-021: Fluid responsive wrapping avoiding text clipping on narrow mobile */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: 8 }}>
                     {q.options.map((opt, optIdx) => (
@@ -389,17 +389,17 @@ export default function StudentExamPortal() {
           ) : (
             /* Exam Submitted Result Screen (DEF-017 & DEF-018) */
             <div style={{ textAlign: 'center', padding: 32 }}>
-              <span style={{ fontSize: 48 }}>{currentScore >= 50 ? '🎉' : '📚'}</span>
-              <h2 style={{ margin: '12px 0 4px', fontSize: 24, fontWeight: 800 }}>Assessment Completed!</h2>
-              <p style={{ color: 'var(--text-dim)', fontSize: 14 }}>Your answers have been evaluated and recorded securely in the academic register.</p>
+              <span style={{ fontSize: 53 }}>{currentScore >= 50 ? '🎉' : '📚'}</span>
+              <h2 style={{ margin: '12px 0 4px', fontSize: 26.5, fontWeight: 800 }}>Assessment Completed!</h2>
+              <p style={{ color: 'var(--text-dim)', fontSize: 15.5 }}>Your answers have been evaluated and recorded securely in the academic register.</p>
               
-              <div style={{ fontSize: 36, fontWeight: 900, color: currentScore >= 50 ? 'var(--success)' : 'var(--danger-deep)', margin: '16px 0 6px' }}>
+              <div style={{ fontSize: 39.5, fontWeight: 900, color: currentScore >= 50 ? 'var(--success)' : 'var(--danger-deep)', margin: '16px 0 6px' }}>
                 Score: {currentScore}%
               </div>
-              <div style={{ fontSize: 14, color: 'var(--t2)', fontWeight: 600, marginBottom: 8 }}>
+              <div style={{ fontSize: 15.5, color: 'var(--t2)', fontWeight: 600, marginBottom: 8 }}>
                 Correct Answers: {correctAnswersCount} / {activeExam.questions.length}
               </div>
-              <div style={{ display: 'inline-block', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, background: currentScore >= 50 ? 'rgba(var(--success-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)', color: currentScore >= 50 ? 'var(--success)' : 'var(--danger-deep)', marginBottom: 20 }}>
+              <div style={{ display: 'inline-block', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 700, background: currentScore >= 50 ? 'rgba(var(--success-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)', color: currentScore >= 50 ? 'var(--success)' : 'var(--danger-deep)', marginBottom: 20 }}>
                 {currentScore >= 50 ? '✓ Passed (≥ 50%)' : '⚠️ Needs Review (< 50%)'} • Attempt Locked
               </div>
 

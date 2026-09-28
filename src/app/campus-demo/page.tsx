@@ -92,25 +92,25 @@ export default function CampusDemoPageRevamp() {
           {/* 3 Value Pillars for Campuses */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 60 }}>
             <div className="glass-card" style={{ padding: 28, borderRadius: 20 }}>
-              <div style={{ fontSize: 32, marginBottom: 16 }}>📊</div>
-              <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Cohort Employability Heatmaps</h3>
-              <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 35, marginBottom: 16 }}>📊</div>
+              <h3 style={{ fontSize: 18.5, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Cohort Employability Heatmaps</h3>
+              <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 Real-time visibility into department-level technical proficiency, algorithmic struggle hotspots, and readiness percentiles.
               </p>
             </div>
 
             <div className="glass-card" style={{ padding: 28, borderRadius: 20 }}>
-              <div style={{ fontSize: 32, marginBottom: 16 }}>📑</div>
-              <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>1-Click NAAC &amp; NIRF Data Exports</h3>
-              <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 35, marginBottom: 16 }}>📑</div>
+              <h3 style={{ fontSize: 18.5, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>1-Click NAAC &amp; NIRF Data Exports</h3>
+              <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 Eliminate months of manual accreditation compilation. Instantly generate continuous outcome-based student assessment logs.
               </p>
             </div>
 
             <div className="glass-card" style={{ padding: 28, borderRadius: 20 }}>
-              <div style={{ fontSize: 32, marginBottom: 16 }}>🤝</div>
-              <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Direct Recruiter Drive Pipelines</h3>
-              <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 35, marginBottom: 16 }}>🤝</div>
+              <h3 style={{ fontSize: 18.5, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Direct Recruiter Drive Pipelines</h3>
+              <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 Connect your campus directly with hiring partners looking for verified, production-ready junior talent.
               </p>
             </div>
@@ -122,10 +122,10 @@ export default function CampusDemoPageRevamp() {
             {/* Left Column: Context & Guarantees */}
             <div>
               <span className="tag-pill-sub">INSTITUTIONAL PILOT PROGRAM</span>
-              <h2 style={{ fontSize: 26, fontWeight: 900, color: 'var(--text-primary)', margin: '12px 0 16px' }}>
+              <h2 style={{ fontSize: 28.5, fontWeight: 900, color: 'var(--text-primary)', margin: '12px 0 16px' }}>
                 Schedule a 30-Minute Institutional Demo
               </h2>
-              <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: 28 }}>
+              <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: 28 }}>
                 See how top colleges use PinIT Career to elevate their NAAC Grade A+ ranking, accelerate median placement packages, and automate placement cell workflows.
               </p>
 
@@ -136,10 +136,10 @@ export default function CampusDemoPageRevamp() {
                   { title: 'Dedicated Institutional Success Manager', desc: 'Custom curriculum alignment with your university syllabus.' }
                 ].map((item) => (
                   <div key={item.title} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--badge-bg)', border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: 12, fontWeight: 900, flexShrink: 0, marginTop: 2 }}>✓</div>
+                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--badge-bg)', border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: 13, fontWeight: 900, flexShrink: 0, marginTop: 2 }}>✓</div>
                     <div>
-                      <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 2 }}>{item.title}</strong>
-                      <span style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{item.desc}</span>
+                      <strong style={{ fontSize: 15.5, color: 'var(--text-primary)', display: 'block', marginBottom: 2 }}>{item.title}</strong>
+                      <span style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{item.desc}</span>
                     </div>
                   </div>
                 ))}
@@ -150,9 +150,9 @@ export default function CampusDemoPageRevamp() {
             <div className="glass-card" style={{ padding: '36px 30px', borderRadius: 24 }}>
               {submitted ? (
                 <div style={{ textAlign: 'center', padding: '40px 10px' }}>
-                  <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
-                  <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 8 }}>Demo Request Received!</h3>
-                  <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 24 }}>
+                  <div style={{ fontSize: 53, marginBottom: 16 }}>🎉</div>
+                  <h3 style={{ fontSize: 24, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 8 }}>Demo Request Received!</h3>
+                  <p style={{ fontSize: 15.5, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 24 }}>
                     Thank you, {demoForm.name}. Your request has been officially registered in our institutional inquiry queue. Our Institutional Partnerships Director will contact you at <strong>{demoForm.email}</strong> within 4 business hours to schedule your walkthrough.
                   </p>
                   <button
@@ -165,7 +165,7 @@ export default function CampusDemoPageRevamp() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Institutional Request Form</h3>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Institutional Request Form</h3>
 
                   {/* Error Banner */}
                   {error && (
@@ -182,7 +182,7 @@ export default function CampusDemoPageRevamp() {
                         marginBottom: 4
                       }}
                     >
-                      <span style={{ fontSize: 13, color: '#f43f5e', fontWeight: 600, lineHeight: 1.4 }}>{error}</span>
+                      <span style={{ fontSize: 14.5, color: '#f43f5e', fontWeight: 600, lineHeight: 1.4 }}>{error}</span>
                       <button
                         type="button"
                         onClick={() => setError(null)}
@@ -190,7 +190,7 @@ export default function CampusDemoPageRevamp() {
                           background: 'none',
                           border: 'none',
                           color: '#f43f5e',
-                          fontSize: 16,
+                          fontSize: 17.5,
                           cursor: 'pointer',
                           padding: '0 4px',
                           lineHeight: 1,
@@ -204,7 +204,7 @@ export default function CampusDemoPageRevamp() {
                   )}
 
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Full Name *</label>
+                    <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Full Name *</label>
                     <input
                       type="text"
                       required
@@ -212,13 +212,13 @@ export default function CampusDemoPageRevamp() {
                       value={demoForm.name}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, name: e.target.value }))}
                       disabled={loading}
-                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                     />
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                     <div>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Official Email *</label>
+                      <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Official Email *</label>
                       <input
                         type="email"
                         required
@@ -226,24 +226,24 @@ export default function CampusDemoPageRevamp() {
                         value={demoForm.email}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, email: e.target.value }))}
                         disabled={loading}
-                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                       />
                     </div>
                     <div>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Phone Number</label>
+                      <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Phone Number</label>
                       <input
                         type="tel"
                         placeholder="+91 98765 43210"
                         value={demoForm.phone}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, phone: e.target.value }))}
                         disabled={loading}
-                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>College / University Name *</label>
+                    <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>College / University Name *</label>
                     <input
                       type="text"
                       required
@@ -251,18 +251,18 @@ export default function CampusDemoPageRevamp() {
                       value={demoForm.institution}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, institution: e.target.value }))}
                       disabled={loading}
-                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                     />
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                     <div>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Your Role</label>
+                      <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Your Role</label>
                       <select
                         value={demoForm.role}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, role: e.target.value }))}
                         disabled={loading}
-                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                       >
                         <option>Placement Director / TPO</option>
                         <option>Dean / Principal</option>
@@ -273,12 +273,12 @@ export default function CampusDemoPageRevamp() {
                     </div>
 
                     <div>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Annual Cohort Size</label>
+                      <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Annual Cohort Size</label>
                       <select
                         value={demoForm.studentCount}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, studentCount: e.target.value }))}
                         disabled={loading}
-                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
+                        style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none' }}
                       >
                         <option>Under 1,000 students</option>
                         <option>1,000 - 5,000 students</option>
@@ -289,14 +289,14 @@ export default function CampusDemoPageRevamp() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Specific Goals / Notes (Optional)</label>
+                    <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Specific Goals / Notes (Optional)</label>
                     <textarea
                       rows={3}
                       placeholder="We are looking to improve our 2026 CS & ECE placement rate and automate NAAC Criterion 5 metrics..."
                       value={demoForm.message}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, message: e.target.value }))}
                       disabled={loading}
-                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none', resize: 'vertical' }}
+                      style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14.5, outline: 'none', resize: 'vertical' }}
                     />
                   </div>
 
@@ -304,7 +304,7 @@ export default function CampusDemoPageRevamp() {
                     type="submit"
                     className="pc-btn-primary"
                     disabled={loading}
-                    style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: 14, marginTop: 6, opacity: loading ? 0.7 : 1, cursor: loading ? 'wait' : 'pointer' }}
+                    style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: 15.5, marginTop: 6, opacity: loading ? 0.7 : 1, cursor: loading ? 'wait' : 'pointer' }}
                   >
                     {loading ? (
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>

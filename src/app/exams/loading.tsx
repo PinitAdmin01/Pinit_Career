@@ -16,7 +16,7 @@ export default function Loading() {
         borderRadius: '50%',
         animation: 'spin 0.8s linear infinite',
       }} />
-      <p style={{ color: 'var(--t2, #888)', fontSize: 14 }}>Loading...</p>
+      <p style={{ color: 'var(--t2, #888)', fontSize: 15.5 }}>Loading...</p>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );

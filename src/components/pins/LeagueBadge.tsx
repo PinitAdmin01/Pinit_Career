@@ -158,12 +158,12 @@ export default function LeagueBadge({
       {badgeElement}
       <div>
         {showLabel && (
-          <div style={{ fontSize: 13, fontWeight: 900, color: meta.color, letterSpacing: '0.02em', lineHeight: 1.2 }}>
+          <div style={{ fontSize: 14.5, fontWeight: 900, color: meta.color, letterSpacing: '0.02em', lineHeight: 1.2 }}>
             {meta.title}
           </div>
         )}
         {showSlogan && (
-          <div style={{ fontSize: 10.5, color: 'var(--t3)', letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: 2 }}>
+          <div style={{ fontSize: 11.5, color: 'var(--t3)', letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: 2 }}>
             {meta.slogan}
           </div>
         )}

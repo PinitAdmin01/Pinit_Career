@@ -7,5 +7,5 @@ export default function CareerDnaRedirectPage() {
   useEffect(() => {
     router.replace('/profile?tab=career-dna');
   }, [router]);
-  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 13 }}>Redirecting to Profile Career DNA...</div>;
+  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 14.5 }}>Redirecting to Profile Career DNA...</div>;
 }

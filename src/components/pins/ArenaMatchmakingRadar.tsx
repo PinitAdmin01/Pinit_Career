@@ -152,7 +152,7 @@ export default function ArenaMatchmakingRadar({
           background: 'rgba(99, 102, 241, 0.15)',
           border: '1px solid rgba(99, 102, 241, 0.3)',
           color: '#a5b4fc',
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 700,
           textTransform: 'uppercase',
           letterSpacing: '0.5px',
@@ -169,13 +169,13 @@ export default function ArenaMatchmakingRadar({
         </div>
 
         <div style={{
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: 800,
           fontFamily: 'monospace',
           color: '#fbbf24',
           letterSpacing: '1px',
         }}>
-          00:{queueSeconds.toString().padStart(2, '0')} <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 500 }}>/ 00:15</span>
+          00:{queueSeconds.toString().padStart(2, '0')} <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 500 }}>/ 00:15</span>
         </div>
       </div>
 
@@ -191,7 +191,7 @@ export default function ArenaMatchmakingRadar({
           textAlign: 'center',
           animation: 'goldImpactShockwave 0.3s ease',
         }}>
-          <div style={{ fontSize: 11, color: '#f59e0b', fontWeight: 600, marginBottom: 6 }}>
+          <div style={{ fontSize: 12, color: '#f59e0b', fontWeight: 600, marginBottom: 6 }}>
             No peer found yet.
           </div>
           <button
@@ -203,7 +203,7 @@ export default function ArenaMatchmakingRadar({
               background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
               color: '#000',
               fontWeight: 800,
-              fontSize: 12,
+              fontSize: 13,
               border: 'none',
               cursor: 'pointer',
               display: 'flex',

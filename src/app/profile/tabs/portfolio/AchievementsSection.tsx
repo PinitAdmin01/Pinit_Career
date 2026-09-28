@@ -35,7 +35,7 @@ export function AchievementsSection({ achievements, addAchievement, cOS = {} }: 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Verified Honors & Awards</h3>
+        <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 800 }}>Verified Honors & Awards</h3>
         <button
           onClick={() => setShowAddAch(!showAddAch)}
           style={{
@@ -44,7 +44,7 @@ export function AchievementsSection({ achievements, addAchievement, cOS = {} }: 
             border: 'none',
             padding: '6px 12px',
             borderRadius: 8,
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
             cursor: 'pointer'
           }}
@@ -61,25 +61,25 @@ export function AchievementsSection({ achievements, addAchievement, cOS = {} }: 
               placeholder="Award or Honor Title (e.g. 1st Place Smart India Hackathon)"
               value={newAchTitle}
               onChange={e => setNewAchTitle(e.target.value)}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 14 }}
             />
             <input
               type="text"
               placeholder="Issuing Organization or Details (e.g. Ministry of Education / IEEE)"
               value={newAchDetail}
               onChange={e => setNewAchDetail(e.target.value)}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 14 }}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
               <button
                 onClick={() => setShowAddAch(false)}
-                style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 12, color: 'var(--t2)', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 13, color: 'var(--t2)', cursor: 'pointer' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}
+                style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 13, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}
               >
                 Save Award
               </button>
@@ -90,9 +90,9 @@ export function AchievementsSection({ achievements, addAchievement, cOS = {} }: 
 
       {allHonors.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '32px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
-          <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>🏆</span>
-          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Honors or Awards Logged Yet</div>
-          <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 440, margin: '0 auto' }}>
+          <span style={{ fontSize: 39.5, display: 'block', marginBottom: 10 }}>🏆</span>
+          <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Honors or Awards Logged Yet</div>
+          <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 440, margin: '0 auto' }}>
             Log hackathon awards, competition honors, or verified certifications above to showcase verified achievements on your public profile.
           </p>
         </div>
@@ -100,15 +100,15 @@ export function AchievementsSection({ achievements, addAchievement, cOS = {} }: 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {allHonors.map(a => (
             <div key={a.id} style={{ display: 'flex', gap: 12, alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-              <span style={{ fontSize: 20 }}>🏆</span>
+              <span style={{ fontSize: 22 }}>🏆</span>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h4 style={{ margin: 0, fontSize: 13, fontWeight: 800 }}>{a.title}</h4>
-                  <span style={{ fontSize: 9.5, padding: '2px 6px', borderRadius: 4, background: a.verified ? 'rgba(34,197,94,0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: a.verified ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 800 }}>{a.title}</h4>
+                  <span style={{ fontSize: 10.5, padding: '2px 6px', borderRadius: 4, background: a.verified ? 'rgba(34,197,94,0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: a.verified ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
                     {a.verified ? '✓ Verified' : 'Pending Audit'}
                   </span>
                 </div>
-                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>{a.detail}</span>
+                <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>{a.detail}</span>
               </div>
             </div>
           ))}

@@ -23,7 +23,7 @@ const MonacoEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: 360, background: '#0d1117', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', fontSize: 13 }}>
+      <div style={{ height: 360, background: '#0d1117', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', fontSize: 14.5 }}>
         Loading Monaco Code Arena Engine...
       </div>
     )
@@ -485,12 +485,12 @@ function ArenaContent() {
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-            <span style={{ fontSize: 32 }}>⚔️</span>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.5px' }}>
+            <span style={{ fontSize: 35 }}>⚔️</span>
+            <h1 style={{ fontSize: 28.5, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.5px' }}>
               Challenging Arena & Combat Center
             </h1>
           </div>
-          <p style={{ margin: 0, color: 'var(--t2)', fontSize: 14, maxWidth: 680, lineHeight: 1.5 }}>
+          <p style={{ margin: 0, color: 'var(--t2)', fontSize: 15.5, maxWidth: 680, lineHeight: 1.5 }}>
             Put your engineering capabilities to the test. Compete in real-time 1v1 PvP algorithmic code battles,
             create private battle rooms to challenge friends, or defend your architecture in AI viva drills.
           </p>
@@ -506,10 +506,10 @@ function ArenaContent() {
             alignItems: 'center',
             gap: 10,
           }}>
-            <span style={{ fontSize: 20 }}>⚡</span>
+            <span style={{ fontSize: 22 }}>⚡</span>
             <div>
-              <div style={{ fontSize: 11, textTransform: 'uppercase', color: '#f59e0b', fontWeight: 700 }}>Arena XP</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#fbbf24' }}>{xp.toLocaleString()}</div>
+              <div style={{ fontSize: 12, textTransform: 'uppercase', color: '#f59e0b', fontWeight: 700 }}>Arena XP</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#fbbf24' }}>{xp.toLocaleString()}</div>
             </div>
           </div>
 
@@ -522,10 +522,10 @@ function ArenaContent() {
             alignItems: 'center',
             gap: 10,
           }}>
-            <span style={{ fontSize: 20 }}>🪙</span>
+            <span style={{ fontSize: 22 }}>🪙</span>
             <div>
-              <div style={{ fontSize: 11, textTransform: 'uppercase', color: '#eab308', fontWeight: 700 }}>Combat Pins</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#fef08a' }}>{pins.toLocaleString()}</div>
+              <div style={{ fontSize: 12, textTransform: 'uppercase', color: '#eab308', fontWeight: 700 }}>Combat Pins</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#fef08a' }}>{pins.toLocaleString()}</div>
             </div>
           </div>
 
@@ -540,7 +540,7 @@ function ArenaContent() {
               background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
               color: '#ffffff',
               fontWeight: 700,
-              fontSize: 14,
+              fontSize: 15.5,
               textDecoration: 'none',
               boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
               transition: 'transform 0.15s ease'
@@ -584,7 +584,7 @@ function ArenaContent() {
                 border: isSelected ? '1px solid var(--accent)' : '1px solid transparent',
                 color: isSelected ? 'var(--t1)' : 'var(--t2)',
                 fontWeight: isSelected ? 700 : 500,
-                fontSize: 14,
+                fontSize: 15.5,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease'
@@ -593,7 +593,7 @@ function ArenaContent() {
               <span>{tab.icon}</span>
               <span>{tab.label}</span>
               <span style={{
-                fontSize: 11,
+                fontSize: 12,
                 padding: '2px 8px',
                 borderRadius: 20,
                 background: isSelected ? 'rgba(99, 102, 241, 0.3)' : 'var(--bg3)',
@@ -624,23 +624,23 @@ function ArenaContent() {
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{ fontSize: 32 }}>⚔️</span>
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', fontSize: 12, fontWeight: 700 }}>
+                <span style={{ fontSize: 35 }}>⚔️</span>
+                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', fontSize: 13, fontWeight: 700 }}>
                   1v1 PvP ARENA
                 </span>
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                 Algorithmic Code Wars
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
                 Challenge fellow engineers in private 1v1 duel rooms or spar against the Turing Benchmark AI.
                 Solve deterministic algorithmic challenges, optimize time complexity, and earn verified skill evidence.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ 1v1 Room Battles</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Turing AI Sparring</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ SHA-256 Ledger Evidence</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Monaco Code Runner</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ 1v1 Room Battles</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Turing AI Sparring</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ SHA-256 Ledger Evidence</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Monaco Code Runner</span>
               </div>
             </div>
             <button
@@ -652,7 +652,7 @@ function ArenaContent() {
                 background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
                 color: '#fff',
                 fontWeight: 700,
-                fontSize: 15,
+                fontSize: 16.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
@@ -678,22 +678,22 @@ function ArenaContent() {
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{ fontSize: 32 }}>🚀</span>
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', fontSize: 12, fontWeight: 700 }}>
+                <span style={{ fontSize: 35 }}>🚀</span>
+                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', fontSize: 13, fontWeight: 700 }}>
                   SQUAD COLLABORATION
                 </span>
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                 Squad Collaboration & Projects
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
                 Collaborate on production-grade capstone products in the Projects hub. Form multi-disciplinary teams with Frontend, Backend, and AI roles to build portfolio-grade software.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Role Slot Allocation</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Milestone Tracker</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ GitHub Workspaces</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Portfolio Capstones</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Role Slot Allocation</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Milestone Tracker</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ GitHub Workspaces</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Portfolio Capstones</span>
               </div>
             </div>
             <Link
@@ -705,7 +705,7 @@ function ArenaContent() {
                 background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
                 color: '#fff',
                 fontWeight: 700,
-                fontSize: 15,
+                fontSize: 16.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
@@ -732,22 +732,22 @@ function ArenaContent() {
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{ fontSize: 32 }}>🎙️</span>
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', fontSize: 12, fontWeight: 700 }}>
+                <span style={{ fontSize: 35 }}>🎙️</span>
+                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', fontSize: 13, fontWeight: 700 }}>
                   LIVE AI DEFENSE
                 </span>
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                 AI STAR Mock Interview Viva
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
                 Face off against strict corporate AI recruiters with full voice-to-voice interaction. Defend your code, build architecture canvases, and answer high-pressure STAR behavioral drills.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ STAR Methodology</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ System Design Canvas</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Live Voice STT/TTS</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Recruiter Personas</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ STAR Methodology</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ System Design Canvas</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Live Voice STT/TTS</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Recruiter Personas</span>
               </div>
             </div>
             <Link
@@ -759,7 +759,7 @@ function ArenaContent() {
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                 color: '#fff',
                 fontWeight: 700,
-                fontSize: 15,
+                fontSize: 16.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
@@ -798,15 +798,15 @@ function ArenaContent() {
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{ fontSize: 28 }}>⚡</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#818cf8', background: 'rgba(99, 102, 241, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{ fontSize: 31 }}>⚡</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#818cf8', background: 'rgba(99, 102, 241, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
                         TURING AI SPARRING & DUELS
                       </span>
                     </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                       1v1 Algorithmic Duel
                     </h3>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
                       Queue up to spar against the Turing Benchmark AI or share room links for live peer battles.
                     </p>
 
@@ -821,7 +821,7 @@ function ArenaContent() {
                       </div>
                     ) : (
                       <div style={{ marginBottom: 16 }}>
-                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Difficulty Preference</label>
+                        <label style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Difficulty Preference</label>
                         <select
                           value={selectedDifficulty}
                           onChange={(e: any) => setSelectedDifficulty(e.target.value)}
@@ -832,7 +832,7 @@ function ArenaContent() {
                             background: 'var(--bg3)',
                             border: '1px solid var(--border)',
                             color: 'var(--t1)',
-                            fontSize: 13,
+                            fontSize: 14.5,
                             fontWeight: 600,
                             cursor: 'pointer'
                           }}
@@ -860,7 +860,7 @@ function ArenaContent() {
                         border: '1px solid rgba(239, 68, 68, 0.3)',
                         color: '#ef4444',
                         fontWeight: 700,
-                        fontSize: 14,
+                        fontSize: 15.5,
                         cursor: 'pointer'
                       }}
                     >
@@ -883,7 +883,7 @@ function ArenaContent() {
                         background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                         color: '#fff',
                         fontWeight: 700,
-                        fontSize: 14,
+                        fontSize: 15.5,
                         border: 'none',
                         cursor: 'pointer',
                         display: 'flex',
@@ -910,21 +910,21 @@ function ArenaContent() {
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{ fontSize: 28 }}>🏰</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#34d399', background: 'rgba(16, 185, 129, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{ fontSize: 31 }}>🏰</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#34d399', background: 'rgba(16, 185, 129, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
                         PRIVATE INVITE
                       </span>
                     </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                       Create Private Room
                     </h3>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
                       Host a private duel, choose problem difficulty & time limit, and share an invite code/link with friends.
                     </p>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
                       <div>
-                        <label style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Challenge</label>
+                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Challenge</label>
                         <select
                           value={selectedProblemId}
                           onChange={e => setSelectedProblemId(e.target.value)}
@@ -935,7 +935,7 @@ function ArenaContent() {
                             background: 'var(--bg3)',
                             border: '1px solid var(--border)',
                             color: 'var(--t1)',
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: 600
                           }}
                         >
@@ -946,7 +946,7 @@ function ArenaContent() {
                       </div>
 
                       <div>
-                        <label style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Time Limit</label>
+                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Time Limit</label>
                         <select
                           value={selectedTimeLimit}
                           onChange={e => setSelectedTimeLimit(Number(e.target.value))}
@@ -957,7 +957,7 @@ function ArenaContent() {
                             background: 'var(--bg3)',
                             border: '1px solid var(--border)',
                             color: 'var(--t1)',
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: 600
                           }}
                         >
@@ -979,7 +979,7 @@ function ArenaContent() {
                       background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                       color: '#fff',
                       fontWeight: 700,
-                      fontSize: 14,
+                      fontSize: 15.5,
                       border: 'none',
                       cursor: isCreatingRoom ? 'not-allowed' : 'pointer',
                       display: 'flex',
@@ -1005,15 +1005,15 @@ function ArenaContent() {
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{ fontSize: 28 }}>🔑</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#f472b6', background: 'rgba(244, 114, 182, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{ fontSize: 31 }}>🔑</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#f472b6', background: 'rgba(244, 114, 182, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
                         ENTER CODE
                       </span>
                     </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                       Join Friend's Room
                     </h3>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
                       Have an invite code from a friend? Enter it below to immediately jump into their lobby.
                     </p>
 
@@ -1031,7 +1031,7 @@ function ArenaContent() {
                           background: 'var(--bg3)',
                           border: '1px solid var(--border)',
                           color: 'var(--t1)',
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: 700,
                           textAlign: 'center',
                           letterSpacing: '2px',
@@ -1051,7 +1051,7 @@ function ArenaContent() {
                       background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
                       color: '#fff',
                       fontWeight: 700,
-                      fontSize: 14,
+                      fontSize: 15.5,
                       border: 'none',
                       cursor: isJoiningRoom || !roomInputCode.trim() ? 'not-allowed' : 'pointer',
                       display: 'flex',
@@ -1075,7 +1075,7 @@ function ArenaContent() {
                   background: 'rgba(239, 68, 68, 0.15)',
                   border: '1px solid rgba(239, 68, 68, 0.3)',
                   color: '#ef4444',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   fontWeight: 600,
                   marginBottom: 24,
                   display: 'flex',
@@ -1089,10 +1089,10 @@ function ArenaContent() {
               {/* Problem Selection & Solo Practice Catalog */}
               <div style={{ marginTop: 24 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
+                  <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
                     🎯 Algorithmic Challenges Catalog
                   </h3>
-                  <span style={{ fontSize: 13, color: 'var(--t3)' }}>Select a problem to review or practice solo</span>
+                  <span style={{ fontSize: 14.5, color: 'var(--t3)' }}>Select a problem to review or practice solo</span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 16 }}>
@@ -1130,25 +1130,25 @@ function ArenaContent() {
                               background: dc.bg,
                               border: `1px solid ${dc.border}`,
                               color: dc.text,
-                              fontSize: 11,
+                              fontSize: 12,
                               fontWeight: 700,
                               textTransform: 'uppercase'
                             }}>
                               {p.difficulty}
                             </span>
-                            <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>⏱️ {Math.round(p.timeLimitSeconds / 60)} mins</span>
+                            <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>⏱️ {Math.round(p.timeLimitSeconds / 60)} mins</span>
                           </div>
 
-                          <h4 style={{ fontSize: 16, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                          <h4 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
                             {p.title}
                           </h4>
-                          <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4, margin: '0 0 14px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.4, margin: '0 0 14px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                             {p.description}
                           </p>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, borderTop: '1px solid var(--border)' }}>
-                          <span style={{ fontSize: 12, color: '#f59e0b', fontWeight: 700 }}>+{p.xpReward} XP</span>
+                          <span style={{ fontSize: 13, color: '#f59e0b', fontWeight: 700 }}>+{p.xpReward} XP</span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -1161,7 +1161,7 @@ function ArenaContent() {
                               background: 'var(--bg3)',
                               border: '1px solid var(--border)',
                               color: 'var(--t1)',
-                              fontSize: 12,
+                              fontSize: 13,
                               fontWeight: 600,
                               cursor: 'pointer',
                               display: 'flex',
@@ -1193,11 +1193,11 @@ function ArenaContent() {
             }}>
               {/* Room Header & Invite Code Bar */}
               <div style={{ textAlign: 'center', marginBottom: 28 }}>
-                <div style={{ fontSize: 13, textTransform: 'uppercase', color: '#818cf8', fontWeight: 800, letterSpacing: '1px', marginBottom: 6 }}>
+                <div style={{ fontSize: 14.5, textTransform: 'uppercase', color: '#818cf8', fontWeight: 800, letterSpacing: '1px', marginBottom: 6 }}>
                   Private Battle Room
                 </div>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, padding: '8px 18px', borderRadius: 12, background: 'rgba(99, 102, 241, 0.15)', border: '1px solid rgba(99, 102, 241, 0.3)', marginBottom: 12 }}>
-                  <span style={{ fontSize: 18, fontFamily: 'monospace', fontWeight: 800, color: '#c7d2fe', letterSpacing: '2px' }}>
+                  <span style={{ fontSize: 20, fontFamily: 'monospace', fontWeight: 800, color: '#c7d2fe', letterSpacing: '2px' }}>
                     {activeRoom.roomCode}
                   </span>
                   <button
@@ -1207,7 +1207,7 @@ function ArenaContent() {
                       borderRadius: 6,
                       background: copiedLink ? '#10b981' : '#4f46e5',
                       color: '#fff',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 700,
                       border: 'none',
                       cursor: 'pointer',
@@ -1217,7 +1217,7 @@ function ArenaContent() {
                     {copiedLink ? '✔ Copied Link!' : 'Copy Invite Link'}
                   </button>
                 </div>
-                <p style={{ margin: 0, color: 'var(--t2)', fontSize: 14 }}>
+                <p style={{ margin: 0, color: 'var(--t2)', fontSize: 15.5 }}>
                   Challenge: <strong style={{ color: 'var(--t1)' }}>{activeProblem.title}</strong> ({activeRoom.difficulty.toUpperCase()} · {Math.round(activeRoom.timeLimitSeconds / 60)} mins)
                 </p>
               </div>
@@ -1233,7 +1233,7 @@ function ArenaContent() {
                   textAlign: 'center',
                   position: 'relative'
                 }}>
-                  <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#f59e0b', color: '#000', fontSize: 10, fontWeight: 800 }}>
+                  <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#f59e0b', color: '#000', fontSize: 11, fontWeight: 800 }}>
                     👑 HOST
                   </div>
                   <Image
@@ -1243,14 +1243,14 @@ function ArenaContent() {
                     alt="Host"
                     style={{ width: 72, height: 72, borderRadius: '50%', border: '3px solid #6366f1', margin: '0 auto 12px', objectFit: 'cover' }}
                   />
-                  <h4 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', margin: '0 0 6px' }}>
+                  <h4 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', margin: '0 0 6px' }}>
                     {activeRoom.hostName}
                   </h4>
                   <div style={{
                     display: 'inline-block',
                     padding: '4px 12px',
                     borderRadius: 20,
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 700,
                     background: activeRoom.hostReady ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                     color: activeRoom.hostReady ? '#10b981' : '#f87171'
@@ -1268,7 +1268,7 @@ function ArenaContent() {
                     background: 'linear-gradient(135deg, #ef4444 0%, #6366f1 100%)',
                     color: '#fff',
                     fontWeight: 900,
-                    fontSize: 16,
+                    fontSize: 17.5,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -1289,7 +1289,7 @@ function ArenaContent() {
                 }}>
                   {activeRoom.guestId ? (
                     <>
-                      <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#6366f1', color: '#fff', fontSize: 10, fontWeight: 800 }}>
+                      <div style={{ position: 'absolute', top: 12, left: 12, padding: '2px 8px', borderRadius: 6, background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 800 }}>
                         ⚔️ CHALLENGER
                       </div>
                       <Image
@@ -1299,14 +1299,14 @@ function ArenaContent() {
                         alt="Challenger"
                         style={{ width: 72, height: 72, borderRadius: '50%', border: '3px solid #10b981', margin: '0 auto 12px', objectFit: 'cover' }}
                       />
-                      <h4 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', margin: '0 0 6px' }}>
+                      <h4 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', margin: '0 0 6px' }}>
                         {activeRoom.guestName}
                       </h4>
                       <div style={{
                         display: 'inline-block',
                         padding: '4px 12px',
                         borderRadius: 20,
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 700,
                         background: activeRoom.guestReady ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                         color: activeRoom.guestReady ? '#10b981' : '#f87171'
@@ -1316,11 +1316,11 @@ function ArenaContent() {
                     </>
                   ) : (
                     <div style={{ padding: '20px 0' }}>
-                      <div style={{ fontSize: 32, marginBottom: 8 }} className="animate-pulse">📡</div>
-                      <h4 style={{ fontSize: 16, fontWeight: 700, color: 'var(--t2)', margin: '0 0 6px' }}>
+                      <div style={{ fontSize: 35, marginBottom: 8 }} className="animate-pulse">📡</div>
+                      <h4 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t2)', margin: '0 0 6px' }}>
                         Waiting for Friend...
                       </h4>
-                      <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>
+                      <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0 }}>
                         Share the room code or invite link to start
                       </p>
                     </div>
@@ -1339,7 +1339,7 @@ function ArenaContent() {
                     border: '1px solid var(--border)',
                     color: 'var(--t2)',
                     fontWeight: 600,
-                    fontSize: 14,
+                    fontSize: 15.5,
                     cursor: 'pointer'
                   }}
                 >
@@ -1356,7 +1356,7 @@ function ArenaContent() {
                       : 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                     color: '#fff',
                     fontWeight: 700,
-                    fontSize: 15,
+                    fontSize: 16.5,
                     border: 'none',
                     cursor: 'pointer',
                     boxShadow: isMyReady ? '0 4px 16px rgba(16, 185, 129, 0.4)' : '0 4px 16px rgba(99, 102, 241, 0.4)'
@@ -1394,7 +1394,7 @@ function ArenaContent() {
                     style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #6366f1', objectFit: 'cover' }}
                   />
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{studentName} (You)</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{studentName} (You)</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
                       <div style={{
                         width: 120,
@@ -1410,7 +1410,7 @@ function ArenaContent() {
                           transition: 'width 0.3s ease'
                         }} />
                       </div>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#34d399' }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#34d399' }}>
                         {testResult?.testsPassed || myProgress?.testsPassed || 0}/{activeProblem.testCases.length} Tests
                       </span>
                     </div>
@@ -1426,7 +1426,7 @@ function ArenaContent() {
                     border: timeRemaining < 60 ? '1px solid #ef4444' : '1px solid rgba(99, 102, 241, 0.4)',
                     color: timeRemaining < 60 ? '#ef4444' : '#fbbf24',
                     fontWeight: 800,
-                    fontSize: 20,
+                    fontSize: 22,
                     fontFamily: 'monospace',
                     letterSpacing: '1px',
                     boxShadow: timeRemaining < 60 ? '0 0 16px rgba(239, 68, 68, 0.4)' : 'none'
@@ -1438,11 +1438,11 @@ function ArenaContent() {
                 {/* Right: Opponent Progress */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 260, justifyContent: 'flex-end' }}>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>
+                    <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>
                       {activeRoom ? opponentName : (soloMatch?.opponent?.name || 'Turing AI')}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4, justifyContent: 'flex-end' }}>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#f87171' }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#f87171' }}>
                         {activeRoom ? `${opponentProgress?.testsPassed || 0}/${activeProblem.testCases.length} Tests` : `${Math.round(soloMatch?.opponent?.progressPct || 0)}% Completed`}
                       </span>
                       <div style={{
@@ -1491,28 +1491,28 @@ function ArenaContent() {
                       background: 'rgba(99, 102, 241, 0.15)',
                       color: '#a5b4fc',
                       fontWeight: 700,
-                      fontSize: 12,
+                      fontSize: 13,
                       textTransform: 'uppercase'
                     }}>
                       {activeProblem.difficulty}
                     </span>
-                    <span style={{ fontSize: 12, color: solvedProblemIds.has(activeProblem.id) ? '#34d399' : 'var(--t3)' }}>
+                    <span style={{ fontSize: 13, color: solvedProblemIds.has(activeProblem.id) ? '#34d399' : 'var(--t3)' }}>
                       {solvedProblemIds.has(activeProblem.id) ? '✓ Cleared (+0 Practice XP)' : `XP Reward: +${activeProblem.xpReward}`}
                     </span>
                   </div>
 
-                  <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px' }}>
+                  <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px' }}>
                     {activeProblem.title}
                   </h2>
 
-                  <div style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 20 }}>
+                  <div style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 20 }}>
                     {activeProblem.description}
                   </div>
 
-                  <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>Test Cases</h4>
+                  <h4 style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>Test Cases</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {activeProblem.testCases.map((tc, idx) => (
-                      <div key={idx} style={{ padding: 12, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12 }}>
+                      <div key={idx} style={{ padding: 12, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 13 }}>
                         <div style={{ color: 'var(--t3)', marginBottom: 4 }}>Example {idx + 1}:</div>
                         <div><strong style={{ color: 'var(--t2)' }}>Input:</strong> <code style={{ color: '#818cf8' }}>{tc.input}</code></div>
                         <div style={{ marginTop: 2 }}><strong style={{ color: 'var(--t2)' }}>Expected:</strong> <code style={{ color: '#34d399' }}>{tc.expectedOutput}</code></div>
@@ -1534,7 +1534,7 @@ function ArenaContent() {
                     justifyContent: 'space-between'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>Language:</span>
+                      <span style={{ fontSize: 14.5, color: 'var(--t3)', fontWeight: 600 }}>Language:</span>
                       <select
                         value={language}
                         onChange={e => setLanguage(e.target.value as any)}
@@ -1544,7 +1544,7 @@ function ArenaContent() {
                           background: 'var(--bg3)',
                           border: '1px solid var(--border)',
                           color: 'var(--t1)',
-                          fontSize: 13,
+                          fontSize: 14.5,
                           fontWeight: 600,
                           cursor: 'pointer'
                         }}
@@ -1563,7 +1563,7 @@ function ArenaContent() {
                         background: 'transparent',
                         border: '1px solid var(--border)',
                         color: 'var(--t3)',
-                        fontSize: 12,
+                        fontSize: 13,
                         cursor: 'pointer'
                       }}
                     >
@@ -1580,7 +1580,7 @@ function ArenaContent() {
                       value={code}
                       onChange={(val) => setCode(val || '')}
                       options={{
-                        fontSize: 13.5,
+                        fontSize: 15,
                         minimap: { enabled: false },
                         scrollBeyondLastLine: false,
                         tabSize: 2,
@@ -1601,14 +1601,14 @@ function ArenaContent() {
                       overflowY: 'auto'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontWeight: 700, fontSize: 13, color: testResult.passed ? '#34d399' : '#f87171' }}>
+                        <span style={{ fontWeight: 700, fontSize: 14.5, color: testResult.passed ? '#34d399' : '#f87171' }}>
                           {testResult.passed ? '✔ All Test Cases Passed!' : '✖ Tests Failed'}
                         </span>
-                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+                        <span style={{ fontSize: 13, color: 'var(--t3)' }}>
                           Score: {testResult.score}% ({testResult.testsPassed}/{testResult.totalTests})
                         </span>
                       </div>
-                      <pre style={{ margin: 0, fontSize: 12, color: 'var(--t2)', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
+                      <pre style={{ margin: 0, fontSize: 13, color: 'var(--t2)', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
                         {testResult.logs}
                       </pre>
                     </div>
@@ -1625,7 +1625,7 @@ function ArenaContent() {
                         border: '1px solid rgba(239, 68, 68, 0.3)',
                         color: '#ef4444',
                         fontWeight: 600,
-                        fontSize: 13,
+                        fontSize: 14.5,
                         cursor: 'pointer'
                       }}
                     >
@@ -1642,7 +1642,7 @@ function ArenaContent() {
                         border: '1px solid var(--border)',
                         color: 'var(--t1)',
                         fontWeight: 700,
-                        fontSize: 13,
+                        fontSize: 14.5,
                         cursor: isRunningTests || isMatchOver ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -1661,7 +1661,7 @@ function ArenaContent() {
                         background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                         color: '#fff',
                         fontWeight: 700,
-                        fontSize: 13,
+                        fontSize: 14.5,
                         border: 'none',
                         cursor: isSubmitting || isMatchOver ? 'not-allowed' : 'pointer',
                         display: 'flex',
@@ -1700,15 +1700,15 @@ function ArenaContent() {
                     boxShadow: didIWin ? '0 0 50px rgba(16, 185, 129, 0.3)' : '0 0 50px rgba(239, 68, 68, 0.3)',
                     animation: 'goldImpactShockwave 0.5s ease'
                   }}>
-                    <div style={{ fontSize: 56, marginBottom: 12 }}>
+                    <div style={{ fontSize: 61.5, marginBottom: 12 }}>
                       {didIWin ? '🏆' : '💀'}
                     </div>
 
-                    <h2 style={{ fontSize: 28, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171', margin: '0 0 8px' }}>
+                    <h2 style={{ fontSize: 31, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171', margin: '0 0 8px' }}>
                       {didIWin ? 'VICTORY!' : 'DEFEAT'}
                     </h2>
 
-                    <p style={{ color: 'var(--t2)', fontSize: 15, margin: '0 0 24px' }}>
+                    <p style={{ color: 'var(--t2)', fontSize: 16.5, margin: '0 0 24px' }}>
                       {didIWin
                         ? 'Sensational performance! You conquered the algorithmic duel.'
                         : 'Hard-fought match. Review your test logs and run it back.'}
@@ -1724,20 +1724,20 @@ function ArenaContent() {
                       marginBottom: 24
                     }}>
                       <div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171' }}>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171' }}>
                           {didIWin ? '+25' : '-10'}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>ARENA XP</div>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#fbbf24' }}>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA XP</div>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: '#fbbf24' }}>
                           +{didIWin ? activeProblem.xpReward || 200 : 25}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>COMBAT PINS</div>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#fef08a' }}>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>COMBAT PINS</div>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: '#fef08a' }}>
                           +{didIWin ? 20 : 5}
                         </div>
                       </div>
@@ -1753,7 +1753,7 @@ function ArenaContent() {
                           border: '1px solid #6366f1',
                           color: '#c7d2fe',
                           fontWeight: 700,
-                          fontSize: 14,
+                          fontSize: 15.5,
                           cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
@@ -1772,7 +1772,7 @@ function ArenaContent() {
                           border: '1px solid var(--border)',
                           color: 'var(--t1)',
                           fontWeight: 700,
-                          fontSize: 14,
+                          fontSize: 15.5,
                           cursor: 'pointer'
                         }}
                       >
@@ -1791,7 +1791,7 @@ function ArenaContent() {
                             background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                             color: '#fff',
                             fontWeight: 700,
-                            fontSize: 14,
+                            fontSize: 15.5,
                             border: 'none',
                             cursor: 'pointer'
                           }}

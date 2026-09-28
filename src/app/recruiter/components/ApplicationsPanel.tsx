@@ -62,7 +62,7 @@ export default function ApplicationsPanel({
                   <td style={{ fontWeight: 600 }}>{app.user?.full_name || 'Student'}</td>
                   <td>
                     <div style={{ fontWeight: 600 }}>{app.jobTitle}</div>
-                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>{app.jobCompany}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{app.jobCompany}</div>
                   </td>
                   <td style={{ color: 'var(--teal)', fontWeight: 700 }}>
                     {typeof app.user?.ats_score === 'number' && app.user.ats_score > 0 ? `${app.user.ats_score}/100` : '—'}
@@ -115,23 +115,23 @@ export default function ApplicationsPanel({
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 700 }}>Review Application</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 700 }}>Review Application</div>
             <button
               onClick={() => setAppReviewing(null)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 16 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 17.5 }}
             >
               ✕
             </button>
           </div>
 
           <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 12, marginBottom: 16 }}>
-            <div style={{ fontWeight: 700, fontSize: 13 }}>{appReviewing.user?.full_name}</div>
-            <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+            <div style={{ fontWeight: 700, fontSize: 14.5 }}>{appReviewing.user?.full_name}</div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
               <span style={{ fontFamily: 'var(--font-mono)' }}>{maskEmail(appReviewing.user?.email)}</span>
               <span>·</span>
               <span style={{ fontFamily: 'var(--font-mono)' }}>{maskPhone(appReviewing.user?.phone)}</span>
               <span style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: '2px 6px',
                 borderRadius: 4,
                 background: 'rgba(56, 189, 248, 0.1)',
@@ -141,7 +141,7 @@ export default function ApplicationsPanel({
                 🛡️ Privacy Shielded
               </span>
             </div>
-            <div style={{ marginTop: 8, fontSize: 11 }}>
+            <div style={{ marginTop: 8, fontSize: 12 }}>
               Applied For: <strong>{appReviewing.jobTitle}</strong>
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function ApplicationsPanel({
                   })
                 }
                 className="btn-primary"
-                style={{ background: 'var(--purple)', color: 'var(--text)', fontSize: 11, padding: '8px 12px' }}
+                style={{ background: 'var(--purple)', color: 'var(--text)', fontSize: 12, padding: '8px 12px' }}
               >
                 📄 View Candidate Resume
               </button>
@@ -164,7 +164,7 @@ export default function ApplicationsPanel({
           </div>
 
           <div style={{ marginBottom: 14 }}>
-            <label className="form-label" style={{ fontSize: 11 }}>
+            <label className="form-label" style={{ fontSize: 12 }}>
               Update Stage Status
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 6 }}>
@@ -185,7 +185,7 @@ export default function ApplicationsPanel({
                     background: appReviewing.status === opt.id ? `${opt.color}15` : 'transparent',
                     color: appReviewing.status === opt.id ? opt.color : 'var(--t1)',
                     cursor: 'pointer',
-                    fontSize: 11,
+                    fontSize: 12,
                     textAlign: 'left',
                     fontWeight: 600,
                   }}

@@ -74,7 +74,7 @@ export default function ContactPage() {
           width: '100%'
         }}>
           <h1 style={{
-            fontSize: '2rem',
+            fontSize: '2.2rem',
             fontWeight: 900,
             marginBottom: '10px',
             background: 'linear-gradient(to right, #c084fc, #34d399)',
@@ -83,7 +83,7 @@ export default function ContactPage() {
             fontFamily: 'var(--font-display)',
             textAlign: 'center'
           }}>📧 Contact Us</h1>
-          <p style={{ fontSize: '13px', color: 'var(--t3)', textAlign: 'center', marginBottom: '32px' }}>
+          <p style={{ fontSize: '14.5px', color: 'var(--t3)', textAlign: 'center', marginBottom: '32px' }}>
             Have a question, feedback, or need help with credential verification? Send us a message!
           </p>
 
@@ -93,9 +93,9 @@ export default function ContactPage() {
               padding: '30px 0',
               animation: 'fadeIn 0.4s ease'
             }}>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
-              <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>Message Sent!</h2>
-              <p style={{ fontSize: '13px', color: 'var(--t3)', lineHeight: '1.6', marginBottom: '24px' }}>
+              <div style={{ fontSize: '53px', marginBottom: '16px' }}>🎉</div>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>Message Sent!</h2>
+              <p style={{ fontSize: '14.5px', color: 'var(--t3)', lineHeight: '1.6', marginBottom: '24px' }}>
                 Thank you for contacting us. Our AI Career support team has received your inquiry and will respond to you via email shortly.
               </p>
               <button
@@ -107,7 +107,7 @@ export default function ContactPage() {
                   padding: '10px 20px',
                   color: 'white',
                   cursor: 'pointer',
-                  fontSize: '13px',
+                  fontSize: '14.5px',
                   fontWeight: 600,
                   transition: 'background 0.2s'
                 }}
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   color: '#f87171',
                   padding: '12px 16px',
                   borderRadius: '10px',
-                  fontSize: '13px',
+                  fontSize: '14.5px',
                   marginBottom: '20px',
                   display: 'flex',
                   alignItems: 'center',
@@ -195,7 +195,7 @@ export default function ContactPage() {
                   padding: '12px',
                   color: 'white',
                   fontWeight: 700,
-                  fontSize: '14px',
+                  fontSize: '15.5px',
                   cursor: 'pointer',
                   boxShadow: '0 4px 12px rgba(79,70,229,0.25)',
                   transition: 'opacity 0.2s',

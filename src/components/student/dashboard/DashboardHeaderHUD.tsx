@@ -243,13 +243,13 @@ export default function DashboardHeaderHUD({
         <CareerTwinHologram track={activeTrack} />
 
         <div style={{ flex:1, minWidth:0 }}>
-          <span style={{ fontSize:9, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--accent)', textTransform:'uppercase', letterSpacing:'2px', display:'block', marginBottom:4 }}>
+          <span style={{ fontSize:10, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--accent)', textTransform:'uppercase', letterSpacing:'2px', display:'block', marginBottom:4 }}>
             🛰️ SDE &amp; IoT Unified Cockpit
           </span>
-          <h1 style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:900, color:'var(--dash-text)', letterSpacing:'-0.5px', margin:'0 0 6px' }}>
+          <h1 style={{ fontFamily:'var(--font-display)', fontSize:24, fontWeight:900, color:'var(--dash-text)', letterSpacing:'-0.5px', margin:'0 0 6px' }}>
             System Online: {firstName}
           </h1>
-          <p style={{ fontSize:12, color:'var(--dash-subtext)', lineHeight:1.6, margin:'0 0 12px', display:'flex', alignItems:'center', gap:8 }}>
+          <p style={{ fontSize:13, color:'var(--dash-subtext)', lineHeight:1.6, margin:'0 0 12px', display:'flex', alignItems:'center', gap:8 }}>
             <span style={{ width:7, height:7, borderRadius:'50%', background:'var(--green)', display:'inline-block', boxShadow:'0 0 8px var(--green)', animation:'hud-pulse 2s infinite ease-in-out' }} />
             Target Trajectory &middot; <strong style={{ color:'var(--dash-text)' }}>{trajectory}</strong>
           </p>
@@ -264,7 +264,7 @@ export default function DashboardHeaderHUD({
             aria-label={`Job match spotlight: ${hook.company} ${hook.role} with ${matchPct}% skill match. Carousel is ${isPaused ? 'paused' : 'playing'}.`}
             style={{ background:'rgba(255,255,255,0.02)', border:'1px solid var(--dash-border)', borderRadius:10, padding:'8px 12px', maxWidth:420, outline: 'none' }}
           >
-            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:11, marginBottom:5 }}>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12, marginBottom:5 }}>
               <span style={{ color:'var(--dash-subtext)' }}>
                 🎯 <strong>{hook.company}</strong> &middot; {hook.role}
               </span>
@@ -281,7 +281,7 @@ export default function DashboardHeaderHUD({
                     border: '1px solid var(--dash-border)',
                     borderRadius: 4,
                     color: 'var(--dash-subtext)',
-                    fontSize: 9,
+                    fontSize: 10,
                     cursor: 'pointer',
                     padding: '1px 5px',
                     lineHeight: 1
@@ -325,7 +325,7 @@ export default function DashboardHeaderHUD({
                 padding:'5px 14px', borderRadius:8, border:'none',
                 background: activeTrack === t ? 'var(--bg3)' : 'none',
                 color: activeTrack === t ? (t==='sde' ? 'var(--accent)' : 'var(--teal-mid)') : 'var(--t2)',
-                fontSize:10.5, fontWeight:700, cursor:'pointer', transition:'all 0.15s',
+                fontSize:11.5, fontWeight:700, cursor:'pointer', transition:'all 0.15s',
                 fontFamily:'var(--font-mono)',
                 outline: 'none',
               }}
@@ -334,7 +334,7 @@ export default function DashboardHeaderHUD({
             </button>
           ))}
         </div>
-        <div style={{ fontSize:10, fontFamily:'var(--font-mono)', color:'var(--dash-subtext)', textAlign:'right' }}>
+        <div style={{ fontSize:11, fontFamily:'var(--font-mono)', color:'var(--dash-subtext)', textAlign:'right' }}>
           Score Engine &middot; <span style={{ color:'var(--accent)', fontWeight:700 }}>{Math.round(careerScore * 0.8 + trustScore * 0.2)}/100</span>
         </div>
       </div>

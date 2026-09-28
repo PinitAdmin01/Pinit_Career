@@ -457,7 +457,7 @@ export default function PracticeTestQuizRunner({
           background: 'var(--bg2)', border: '1px solid var(--border)',
           borderRadius: 20, overflow: 'hidden', padding: 32,
         }}>
-          <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', marginBottom: 24, textAlign: 'center' }}>
+          <h2 style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', marginBottom: 24, textAlign: 'center' }}>
             📊 Test Complete — Results
           </h2>
 
@@ -473,18 +473,18 @@ export default function PracticeTestQuizRunner({
                 padding: 16, borderRadius: 12, background: 'var(--bg3)',
                 border: '1px solid var(--border)', textAlign: 'center',
               }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>{card.label}</div>
-                <div style={{ fontSize: 22, fontWeight: 900, color: card.color, fontFamily: 'var(--font-display)' }}>{card.value}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>{card.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 900, color: card.color, fontFamily: 'var(--font-display)' }}>{card.value}</div>
               </div>
             ))}
           </div>
 
           {/* Topic Breakdown */}
           <div style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Topic Breakdown</h3>
+            <h3 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Topic Breakdown</h3>
             {Object.entries(topicBreakdown).map(([topic, data]) => (
               <div key={topic} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', width: 100 }}>{topic}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', width: 100 }}>{topic}</span>
                 <div style={{ flex: 1, height: 8, borderRadius: 4, background: 'var(--bg3)', overflow: 'hidden' }}>
                   <div style={{
                     width: `${data.total > 0 ? (data.correct / data.total) * 100 : 0}%`,
@@ -493,7 +493,7 @@ export default function PracticeTestQuizRunner({
                     transition: 'width 0.5s ease',
                   }} />
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', width: 60, textAlign: 'right' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', width: 60, textAlign: 'right' }}>
                   {data.correct}/{data.total}
                 </span>
               </div>
@@ -502,16 +502,16 @@ export default function PracticeTestQuizRunner({
 
           {/* Skill Gaps */}
           <div style={{ marginBottom: 24, padding: 14, borderRadius: 12, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)' }}>
-            <h3 style={{ fontSize: 14, fontWeight: 800, color: '#f59e0b', marginBottom: 6 }}>🔍 Detected Skill Gaps</h3>
+            <h3 style={{ fontSize: 15.5, fontWeight: 800, color: '#f59e0b', marginBottom: 6 }}>🔍 Detected Skill Gaps</h3>
             {skillGaps.map((gap, i) => (
-              <div key={i} style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 2 }}>• {gap}</div>
+              <div key={i} style={{ fontSize: 14, color: 'var(--t2)', marginBottom: 2 }}>• {gap}</div>
             ))}
           </div>
 
           <button onClick={onClose} style={{
             width: '100%', padding: '14px', borderRadius: 12,
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            border: 'none', color: '#fff', fontSize: 14, fontWeight: 800,
+            border: 'none', color: '#fff', fontSize: 15.5, fontWeight: 800,
             cursor: 'pointer', fontFamily: 'var(--font-display)',
             boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
           }}>
@@ -545,16 +545,16 @@ export default function PracticeTestQuizRunner({
           background: 'var(--bg3)', flexShrink: 0,
         }}>
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>{testTitle}</h2>
-            <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+            <h2 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>{testTitle}</h2>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>
               {track === 'web_fullstack' ? '🌐 Web Fullstack' : '🐍 Python & AI'} • {planTier.toUpperCase()} Plan • Question {currentIndex + 1} of {totalQuestions}
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Time Remaining</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Time Remaining</div>
               <div style={{
-                fontSize: 20, fontWeight: 900,
+                fontSize: 22, fontWeight: 900,
                 color: timeLeft < 120 ? '#ef4444' : '#10b981',
                 fontFamily: 'var(--font-display)',
               }}>{formatTime(timeLeft)}</div>
@@ -562,7 +562,7 @@ export default function PracticeTestQuizRunner({
             <button onClick={onClose} style={{
               padding: '6px 12px', borderRadius: 8,
               background: 'var(--bg3)', border: '1px solid var(--border)',
-              color: 'var(--t2)', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              color: 'var(--t2)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
             }} aria-label="Close test">✕</button>
           </div>
         </div>
@@ -585,16 +585,16 @@ export default function PracticeTestQuizRunner({
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <span style={{
-                fontSize: 10, fontWeight: 800, textTransform: 'uppercase',
+                fontSize: 11, fontWeight: 800, textTransform: 'uppercase',
                 padding: '3px 8px', borderRadius: 6,
                 background: currentQuestion.difficulty === 'easy' ? 'rgba(16,185,129,0.12)' :
                   currentQuestion.difficulty === 'medium' ? 'rgba(245,158,11,0.12)' : 'rgba(239,68,68,0.12)',
                 color: currentQuestion.difficulty === 'easy' ? '#10b981' :
                   currentQuestion.difficulty === 'medium' ? '#f59e0b' : '#ef4444',
               }}>{currentQuestion.difficulty}</span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)' }}>{currentQuestion.topic}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)' }}>{currentQuestion.topic}</span>
             </div>
-            <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 14, lineHeight: 1.5 }}>{currentQuestion.question}</h3>
+            <h3 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 14, lineHeight: 1.5 }}>{currentQuestion.question}</h3>
 
             {/* Code Snippet */}
             {currentQuestion.codeSnippet && (
@@ -605,7 +605,7 @@ export default function PracticeTestQuizRunner({
               }}>
                 <pre style={{
                   margin: 0, fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                  fontSize: 11.5, lineHeight: 1.6, color: '#94a3b8', whiteSpace: 'pre-wrap',
+                  fontSize: 12.5, lineHeight: 1.6, color: '#94a3b8', whiteSpace: 'pre-wrap',
                 }}>
                   <code>{currentQuestion.codeSnippet}</code>
                 </pre>
@@ -631,7 +631,7 @@ export default function PracticeTestQuizRunner({
                       background: isSelected
                         ? 'rgba(99,102,241,0.12)'
                         : 'transparent',
-                      color: 'var(--t1)', fontSize: 13.5, fontWeight: 600,
+                      color: 'var(--t1)', fontSize: 15, fontWeight: 600,
                       cursor: submitted ? 'default' : 'pointer',
                       textAlign: 'left', transition: 'all 0.15s ease',
                       opacity: submitted && !isCorrect ? 0.5 : 1,
@@ -644,7 +644,7 @@ export default function PracticeTestQuizRunner({
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       background: isSelected ? 'var(--accent)' : 'var(--bg3)',
                       color: isSelected ? '#fff' : 'var(--t3)',
-                      fontSize: 12, fontWeight: 800,
+                      fontSize: 13, fontWeight: 800,
                       border: `2px solid ${isSelected ? 'var(--accent)' : 'var(--border)'}`,
                     }}>
                       {String.fromCharCode(65 + currentQuestion.options.indexOf(opt))}
@@ -661,7 +661,7 @@ export default function PracticeTestQuizRunner({
             padding: 14, borderRadius: 12, background: 'var(--bg3)',
             border: '1px solid var(--border)',
           }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 10 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 10 }}>
               Question Navigation ({answeredCount}/{totalQuestions} answered)
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -679,7 +679,7 @@ export default function PracticeTestQuizRunner({
                       background: isCurrent ? 'rgba(99,102,241,0.2)' :
                         isAnswered ? 'rgba(16,185,129,0.15)' : 'var(--bg2)',
                       color: isCurrent ? 'var(--accent)' : isAnswered ? '#10b981' : 'var(--t3)',
-                      fontSize: 11, fontWeight: 800, cursor: 'pointer',
+                      fontSize: 12, fontWeight: 800, cursor: 'pointer',
                       fontFamily: 'var(--font-display)',
                       transition: 'all 0.15s ease',
                     }}
@@ -704,14 +704,14 @@ export default function PracticeTestQuizRunner({
               padding: '10px 20px', borderRadius: 10,
               background: currentIndex === 0 ? 'var(--bg2)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
               border: 'none', color: currentIndex === 0 ? 'var(--t4)' : '#fff',
-              fontSize: 13, fontWeight: 800, cursor: currentIndex === 0 ? 'default' : 'pointer',
+              fontSize: 14.5, fontWeight: 800, cursor: currentIndex === 0 ? 'default' : 'pointer',
               fontFamily: 'var(--font-display)', opacity: currentIndex === 0 ? 0.5 : 1,
             }}
           >
             ← Previous
           </button>
 
-          <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>
             {answeredCount} of {totalQuestions} answered
           </span>
 
@@ -721,7 +721,7 @@ export default function PracticeTestQuizRunner({
               style={{
                 padding: '10px 24px', borderRadius: 10,
                 background: 'linear-gradient(135deg, #10b981, #059669)',
-                border: 'none', color: '#fff', fontSize: 13, fontWeight: 800,
+                border: 'none', color: '#fff', fontSize: 14.5, fontWeight: 800,
                 cursor: 'pointer', fontFamily: 'var(--font-display)',
                 boxShadow: '0 4px 14px rgba(16,185,129,0.3)',
               }}
@@ -734,7 +734,7 @@ export default function PracticeTestQuizRunner({
               style={{
                 padding: '10px 20px', borderRadius: 10,
                 background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                border: 'none', color: '#fff', fontSize: 13, fontWeight: 800,
+                border: 'none', color: '#fff', fontSize: 14.5, fontWeight: 800,
                 cursor: 'pointer', fontFamily: 'var(--font-display)',
                 boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
               }}

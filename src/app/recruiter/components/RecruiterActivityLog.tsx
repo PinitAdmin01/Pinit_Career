@@ -38,10 +38,10 @@ export default function RecruiterActivityLog({
           }}
         >
           <div>
-            <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--t1)', margin: 0 }}>
+            <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--t1)', margin: 0 }}>
               📋 Activity Timeline
             </h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--t3)', margin: 0, marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.88rem', color: 'var(--t3)', margin: 0, marginTop: '0.2rem' }}>
               Most recent actions first (Enterprise Supabase Audit Log)
             </p>
           </div>
@@ -55,7 +55,7 @@ export default function RecruiterActivityLog({
               gap: '0.4rem',
               padding: '6px 12px',
               borderRadius: 8,
-              fontSize: '0.82rem',
+              fontSize: '0.9rem',
               boxShadow: 'none',
               background: 'var(--green)',
             }}
@@ -66,9 +66,9 @@ export default function RecruiterActivityLog({
 
         {filteredLogs.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--t3)' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>📭</div>
+            <div style={{ fontSize: '3.3rem', marginBottom: '0.75rem' }}>📭</div>
             <p style={{ fontWeight: 600, color: 'var(--t2)' }}>No activity recorded yet</p>
-            <p style={{ fontSize: '0.85rem', marginTop: '0.3rem' }}>
+            <p style={{ fontSize: '0.94rem', marginTop: '0.3rem' }}>
               Actions you take will appear here automatically
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function RecruiterActivityLog({
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
-                      fontSize: '1rem',
+                      fontSize: '1.1rem',
                       color: info.color,
                     }}
                   >
@@ -120,15 +120,15 @@ export default function RecruiterActivityLog({
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <span style={{ color: 'var(--t1)', fontSize: '0.875rem', fontWeight: 600 }}>
+                      <span style={{ color: 'var(--t1)', fontSize: '0.96rem', fontWeight: 600 }}>
                         {info.label}
                       </span>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--t3)' }}>
+                      <span style={{ fontSize: '0.83rem', color: 'var(--t3)' }}>
                         {new Date(log.created_at).toLocaleTimeString()}
                       </span>
                     </div>
                     {(meta.title || meta.name || meta.status || meta.mode || meta.stage || meta.candidateName) && (
-                      <p style={{ fontSize: '0.8rem', color: 'var(--t2)', marginTop: '0.2rem' }}>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--t2)', marginTop: '0.2rem' }}>
                         {meta.title && `Job: "${meta.title}"`}
                         {(meta.name || meta.candidateName) && `Candidate: "${meta.name || meta.candidateName}"`}
                         {meta.status && ` · Status: ${meta.status}`}
@@ -154,13 +154,13 @@ export default function RecruiterActivityLog({
           height: 'fit-content',
         }}
       >
-        <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--t1)', marginBottom: '1rem' }}>
+        <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--t1)', marginBottom: '1rem' }}>
           🔍 Filter Activity
         </h3>
         <div style={{ marginBottom: '1rem' }}>
           <label
             style={{
-              fontSize: '0.8rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               color: 'var(--t2)',
               display: 'block',
@@ -173,7 +173,7 @@ export default function RecruiterActivityLog({
             value={logFilterAction}
             onChange={(e) => setLogFilterAction(e.target.value)}
             className="form-input"
-            style={{ width: '100%', fontSize: '0.875rem' }}
+            style={{ width: '100%', fontSize: '0.96rem' }}
           >
             <option value="all">All Actions</option>
             {Object.entries(ACTION_LABELS).map(([action, info]) => (

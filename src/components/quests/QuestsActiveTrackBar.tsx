@@ -34,7 +34,7 @@ export function QuestsActiveTrackBar({
       gap: 10
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
           Active Enrolled Tracks ({count}/3):
         </span>
         {myActiveCourseIds.map(id => {
@@ -60,7 +60,7 @@ export function QuestsActiveTrackBar({
                 border: `1.5px solid ${isCurrent ? '#10b981' : 'var(--border)'}`,
                 background: isCurrent ? 'rgba(16,185,129,0.12)' : 'var(--bg3)',
                 color: isCurrent ? '#10b981' : 'var(--t1)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 800,
                 cursor: isCurrent ? 'default' : 'pointer',
                 transition: 'all 0.2s',
@@ -69,7 +69,7 @@ export function QuestsActiveTrackBar({
             >
               <span>{cObj.icon}</span>
               <span>{cObj.title.split('(')[0].trim()}</span>
-              <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 6, background: isCurrent ? '#10b981' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
+              <span style={{ fontSize: 11, padding: '1px 5px', borderRadius: 6, background: isCurrent ? '#10b981' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
                 Day {cActiveDay} • {cProgressPct}%
               </span>
               {count > 1 && (
@@ -85,7 +85,7 @@ export function QuestsActiveTrackBar({
                       }
                     }
                   }}
-                  style={{ marginLeft: 4, color: 'var(--t4)', cursor: 'pointer', fontSize: 11 }}
+                  style={{ marginLeft: 4, color: 'var(--t4)', cursor: 'pointer', fontSize: 12 }}
                 >
                   ✕
                 </span>
@@ -104,7 +104,7 @@ export function QuestsActiveTrackBar({
             border: '1px dashed #10b981',
             background: 'rgba(16,185,129,0.08)',
             color: '#10b981',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             cursor: 'pointer'
           }}
@@ -112,7 +112,7 @@ export function QuestsActiveTrackBar({
           + Add Active Track ({count}/3)
         </button>
       ) : (
-        <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t4)' }}>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t4)' }}>
           📌 Max 3 Active Tracks Enrolled
         </span>
       )}

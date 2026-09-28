@@ -162,20 +162,20 @@ export function CertificatesSection({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div>
-        <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Credentials</h3>
+        <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Verified Credentials</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {certificates.length === 0 ? (
-            <p style={{ fontSize: 13, color: 'var(--t3)', margin: '8px 0' }}>No credentials added yet.</p>
+            <p style={{ fontSize: 14.5, color: 'var(--t3)', margin: '8px 0' }}>No credentials added yet.</p>
           ) : (
             certificates.map(c => (
               <div key={c.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 13, fontWeight: 800 }}>{c.title}</h4>
-                  <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Issuer: {c.issuer}</span>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 800 }}>{c.title}</h4>
+                  <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>Issuer: {c.issuer}</span>
                 </div>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 700,
                     color: c.verified
                       ? 'var(--green)'
@@ -200,11 +200,11 @@ export function CertificatesSection({
       <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)', borderRadius: 14, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>📄 Document Upload Center</h3>
-            <p style={{ margin: '2px 0 0 0', fontSize: 12, color: 'var(--t3)' }}>Upload course certificates, internship offer letters, or project files.</p>
+            <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Document Upload Center</h3>
+            <p style={{ margin: '2px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>Upload course certificates, internship offer letters, or project files.</p>
           </div>
           <span style={{
-            fontSize: 10.5,
+            fontSize: 11.5,
             fontWeight: 800,
             padding: '4px 10px',
             borderRadius: 20,
@@ -220,19 +220,19 @@ export function CertificatesSection({
         </div>
 
         {!hasTag && (
-          <div style={{ padding: '10px 14px', borderRadius: 10, background: 'rgba(var(--danger-rgb), 0.04)', border: '1px solid rgba(var(--danger-rgb), 0.15)', fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>
+          <div style={{ padding: '10px 14px', borderRadius: 10, background: 'rgba(var(--danger-rgb), 0.04)', border: '1px solid rgba(var(--danger-rgb), 0.15)', fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
             ⚠️ <strong>Upload Restriction</strong>: Portfolio uploads require a **Student Tag**. Complete at least **1 Daily Mission or Quest** to activate your student tag.
           </div>
         )}
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Document Category</label>
+            <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Document Category</label>
             <select
               value={docCategory}
               onChange={e => setDocCategory(e.target.value)}
               disabled={!hasTag}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5, outline: 'none' }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 14, outline: 'none' }}
             >
               <option value="Course Certificate">🎓 Course Certificate (Requires Socratic Exam)</option>
               <option value="Project Document">📂 Project Technical Document</option>
@@ -242,28 +242,28 @@ export function CertificatesSection({
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Document Title</label>
+            <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Document Title</label>
             <input
               type="text"
               placeholder="e.g. Advanced React & Redux Specialization"
               value={docTitle}
               onChange={e => setDocTitle(e.target.value)}
               disabled={!hasTag}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5, outline: 'none' }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 14, outline: 'none' }}
             />
           </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Issuing Authority</label>
+            <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Issuing Authority</label>
             <input
               type="text"
               placeholder="e.g. Coursera / Google"
               value={docIssuer}
               onChange={e => setDocIssuer(e.target.value)}
               disabled={!hasTag}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5, outline: 'none' }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 14, outline: 'none' }}
             />
           </div>
         </div>
@@ -271,7 +271,7 @@ export function CertificatesSection({
         <button
           onClick={handleUploadDocument}
           disabled={!hasTag || uploading}
-          style={{ alignSelf: 'flex-start', padding: '8px 20px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+          style={{ alignSelf: 'flex-start', padding: '8px 20px', fontSize: 13, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
         >
           {uploading ? '⏳ Analyzing Credentials...' : 'Upload & Verify Credentials ✓'}
         </button>
@@ -283,15 +283,15 @@ export function CertificatesSection({
           <div style={modalContentStyle} className="animate-fade-in">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
                   🧠 Socratic Verification Exam
                 </h3>
-                <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700 }}>
+                <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 700 }}>
                   Subject: {examData.subject}
                 </span>
               </div>
               <span style={{
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 padding: '4px 10px',
                 borderRadius: 12,
@@ -303,14 +303,14 @@ export function CertificatesSection({
               </span>
             </div>
 
-            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, background: 'rgba(255,255,255,0.02)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, background: 'rgba(255,255,255,0.02)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
               📄 <strong>Credential:</strong> "{docTitle}" by {docIssuer}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxHeight: '320px', overflowY: 'auto', paddingRight: 4 }}>
               {(examData.questions || []).map((q, qIdx) => (
                 <div key={q.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
                     {qIdx + 1}. {q.question}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -327,7 +327,7 @@ export function CertificatesSection({
                           background: selectedAnswers[q.id] === oIdx ? 'var(--accent-light)' : 'var(--bg3)',
                           border: `1px solid ${selectedAnswers[q.id] === oIdx ? 'var(--accent)' : 'var(--border)'}`,
                           cursor: examDone ? 'default' : 'pointer',
-                          fontSize: 12.5,
+                          fontSize: 14,
                           color: selectedAnswers[q.id] === oIdx ? 'var(--t1)' : 'var(--t2)'
                         }}
                       >
@@ -350,7 +350,7 @@ export function CertificatesSection({
               <div style={{
                 padding: '10px 14px',
                 borderRadius: 8,
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 600,
                 background: examDone && attempts > 0 ? 'var(--green-light)' : 'rgba(var(--danger-rgb), 0.1)',
                 color: examDone && attempts > 0 ? 'var(--green)' : 'var(--coral)',
@@ -363,7 +363,7 @@ export function CertificatesSection({
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, borderTop: '1px solid var(--border)', paddingTop: 14 }}>
               <button
                 onClick={() => setShowExamModal(false)}
-                style={{ padding: '8px 16px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                style={{ padding: '8px 16px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
               >
                 {examDone ? 'Close' : 'Cancel'}
               </button>
@@ -371,7 +371,7 @@ export function CertificatesSection({
                 <button
                   onClick={handleSubmitExam}
                   disabled={uploading}
-                  style={{ padding: '8px 20px', borderRadius: 8, background: 'var(--accent)', color: 'var(--text)', border: 'none', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}
+                  style={{ padding: '8px 20px', borderRadius: 8, background: 'var(--accent)', color: 'var(--text)', border: 'none', fontSize: 13, fontWeight: 800, cursor: 'pointer' }}
                 >
                   {uploading ? 'Grading...' : 'Submit Answers ✓'}
                 </button>

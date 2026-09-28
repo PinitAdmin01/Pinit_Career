@@ -126,7 +126,7 @@ export default function AdmissionsPortal() {
         .nav-btn {
           text-decoration: none;
           color: var(--t2);
-          font-size: 13.5px;
+          font-size: 15px;
           font-weight: 600;
           padding: 7px 18px;
           border-radius: 20px;
@@ -146,7 +146,7 @@ export default function AdmissionsPortal() {
           border: none;
           border-radius: 50px;
           padding: 11px 26px;
-          font-size: 13.5px;
+          font-size: 15px;
           font-weight: 700;
           text-decoration: none;
           display: inline-flex;
@@ -173,7 +173,7 @@ export default function AdmissionsPortal() {
         }
         .header-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 38px;
+          font-size: 42px;
           font-weight: 900;
           letter-spacing: -1px;
           color: var(--t1);
@@ -185,7 +185,7 @@ export default function AdmissionsPortal() {
           -webkit-text-fill-color: transparent;
         }
         .header-desc {
-          font-size: 15px;
+          font-size: 16.5px;
           color: var(--t2);
           max-width: 600px;
           margin: 0 auto;
@@ -212,7 +212,7 @@ export default function AdmissionsPortal() {
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 20px;
+          font-size: 22px;
           font-weight: 800;
           margin-bottom: 20px;
           display: flex;
@@ -220,7 +220,7 @@ export default function AdmissionsPortal() {
           gap: 8px;
         }
         .form-label {
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.6px;
@@ -233,7 +233,7 @@ export default function AdmissionsPortal() {
           padding: 11px 14px;
           border-radius: 10px;
           border: 1.5px solid var(--border);
-          font-size: 13.5px;
+          font-size: 15px;
           outline: none;
           background: var(--bg3);
           transition: all 0.2s;
@@ -250,7 +250,7 @@ export default function AdmissionsPortal() {
           border-radius: 10px;
           padding: 12px;
           font-weight: 700;
-          font-size: 13.5px;
+          font-size: 15px;
           cursor: pointer;
           transition: background 0.2s;
           width: 100%;
@@ -301,12 +301,12 @@ export default function AdmissionsPortal() {
           background: var(--coral);
         }
         .timeline-title {
-          font-size: 13px;
+          font-size: 14.5px;
           font-weight: 700;
           color: var(--t1);
         }
         .timeline-desc {
-          font-size: 11.5px;
+          font-size: 12.5px;
           color: var(--t2);
           margin-top: 2px;
         }
@@ -353,15 +353,15 @@ export default function AdmissionsPortal() {
             
             {applyResult ? (
               <div style={{ background: 'var(--green-light)', border: '1px solid color-mix(in srgb, var(--green) 30%, transparent)', borderRadius: 12, padding: 20, textAlign: 'center' }}>
-                <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
-                <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--green)', marginBottom: 4 }}>Application Submitted!</h3>
-                <p style={{ fontSize: 13, color: 'var(--green-mid)', marginBottom: 12 }}>
+                <div style={{ fontSize: 35, marginBottom: 8 }}>🎉</div>
+                <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--green)', marginBottom: 4 }}>Application Submitted!</h3>
+                <p style={{ fontSize: 14.5, color: 'var(--green-mid)', marginBottom: 12 }}>
                   Your application has been registered successfully.
                 </p>
-                <div style={{ background: 'var(--card)', border: '1px solid var(--border2)', borderRadius: 8, padding: 10, display: 'inline-block', fontFamily: 'monospace', fontWeight: 700, fontSize: 15 }}>
+                <div style={{ background: 'var(--card)', border: '1px solid var(--border2)', borderRadius: 8, padding: 10, display: 'inline-block', fontFamily: 'monospace', fontWeight: 700, fontSize: 16.5 }}>
                   {applyResult.id}
                 </div>
-                <p style={{ fontSize: 11, color: 'var(--t2)', marginTop: 10 }}>
+                <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 10 }}>
                   Copy this ID and paste it in the Tracking Widget to monitor document audit status.
                 </p>
                 <button onClick={() => setApplyResult(null)} className="btn-submit" style={{ marginTop: 16, background: 'var(--green)' }}>
@@ -402,7 +402,7 @@ export default function AdmissionsPortal() {
                         borderRadius: 10,
                         border: '1.5px dashed var(--border2)',
                         cursor: 'pointer',
-                        fontSize: 12.5,
+                        fontSize: 14,
                         fontWeight: 700,
                         background: marksheetFileName ? 'var(--green-light)' : 'var(--card)',
                         color: marksheetFileName ? 'var(--green)' : 'var(--t2)',
@@ -431,7 +431,7 @@ export default function AdmissionsPortal() {
                       <button
                         type="button"
                         onClick={() => setMarksheetFileName('')}
-                        style={{ color: 'var(--coral)', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
+                        style={{ color: 'var(--coral)', border: 'none', background: 'none', cursor: 'pointer', fontSize: 14.5, fontWeight: 700 }}
                       >
                         Remove
                       </button>
@@ -450,7 +450,7 @@ export default function AdmissionsPortal() {
           <div className="card-box" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div>
               <h2 className="card-title">🔍 Status Tracking</h2>
-              <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 14 }}>
+              <p style={{ fontSize: 14.5, color: 'var(--t2)', marginBottom: 14 }}>
                 Enter your Application ID and the applicant name exactly as submitted.
                 Both are required — this protects applicant records from being looked up by reference alone.
               </p>
@@ -480,7 +480,7 @@ export default function AdmissionsPortal() {
               </form>
               
               {trackError && (
-                <div style={{ color: 'var(--coral)', fontSize: 12.5, marginTop: 8, fontWeight: 600 }}>
+                <div style={{ color: 'var(--coral)', fontSize: 14, marginTop: 8, fontWeight: 600 }}>
                   ⚠️ {trackError}
                 </div>
               )}
@@ -489,9 +489,9 @@ export default function AdmissionsPortal() {
             {trackedApp && (
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: 20 }}>
                 <div style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', marginBottom: 20 }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', textTransform: 'uppercase' }}>Candidate Details</div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{trackedApp.name}</div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--t2)', marginTop: 6 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', textTransform: 'uppercase' }}>Candidate Details</div>
+                  <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{trackedApp.name}</div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--t2)', marginTop: 6 }}>
                     <span>Course: <strong>{trackedApp.course}</strong></span>
                     <span>12th GPA: <strong>{trackedApp.gpa}</strong></span>
                   </div>

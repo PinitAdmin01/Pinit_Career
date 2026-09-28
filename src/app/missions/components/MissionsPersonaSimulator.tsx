@@ -88,7 +88,7 @@ export default function MissionsPersonaSimulator({
           <div>
             <h2
               style={{
-                fontSize: 16,
+                fontSize: 17.5,
                 fontWeight: 900,
                 color: 'var(--accent)',
                 margin: 0,
@@ -98,7 +98,7 @@ export default function MissionsPersonaSimulator({
             >
               ⚡ {roleplayScenario?.scenarioTitle || 'Synthesizing Crisis...'}
             </h2>
-            <span style={{ fontSize: 11, color: theme.tSecondary }}>
+            <span style={{ fontSize: 12, color: theme.tSecondary }}>
               Mindset scaling active: Onboarding QT2 index
             </span>
           </div>
@@ -118,7 +118,7 @@ export default function MissionsPersonaSimulator({
               border: '1px solid rgba(var(--danger-rgb), 0.2)',
               padding: '5px 12px',
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               cursor: 'pointer',
               color: 'var(--red)',
@@ -157,7 +157,7 @@ export default function MissionsPersonaSimulator({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span
                   style={{
-                    fontSize: 9.5,
+                    fontSize: 10.5,
                     fontWeight: 800,
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--red)',
@@ -169,7 +169,7 @@ export default function MissionsPersonaSimulator({
                 <span
                   className={timerCount < 8 ? 'timer-pulse-low' : ''}
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 700,
                     color: timerCount < 8 ? 'var(--red)' : 'var(--accent)',
                     transition: 'all 0.25s ease-out',
@@ -225,7 +225,7 @@ export default function MissionsPersonaSimulator({
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: theme.tTertiary,
-                      fontSize: 13,
+                      fontSize: 14.5,
                     }}
                   >
                     Syncing 3D Node...
@@ -234,10 +234,10 @@ export default function MissionsPersonaSimulator({
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: theme.tPrimary }}>
+                <span style={{ fontSize: 13, fontWeight: 800, color: theme.tPrimary }}>
                   {roleplayScenario?.avatarName || 'Scanning...'}
                 </span>
-                <span style={{ fontSize: 9.5, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 10.5, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
                   {roleplayScenario?.avatarRole || 'Limbic Sensor Active'}
                 </span>
               </div>
@@ -268,7 +268,7 @@ export default function MissionsPersonaSimulator({
               >
                 <span
                   style={{
-                    fontSize: 9.5,
+                    fontSize: 10.5,
                     fontWeight: 900,
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--accent)',
@@ -277,18 +277,18 @@ export default function MissionsPersonaSimulator({
                 >
                   📋 SITUATION SUMMARY
                 </span>
-                <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
+                <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
                   ⏳ {Math.floor(sessionElapsed / 60).toString().padStart(2, '0')}:
                   {(sessionElapsed % 60).toString().padStart(2, '0')} elapsed
                 </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 11, lineHeight: 1.45 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, lineHeight: 1.45 }}>
                 <div>
                   <strong
                     style={{
                       color: theme.tSecondary,
-                      fontSize: 10,
+                      fontSize: 11,
                       display: 'block',
                       textTransform: 'uppercase',
                       fontFamily: 'var(--font-mono)',
@@ -305,7 +305,7 @@ export default function MissionsPersonaSimulator({
                   <strong
                     style={{
                       color: theme.tSecondary,
-                      fontSize: 10,
+                      fontSize: 11,
                       display: 'block',
                       textTransform: 'uppercase',
                       fontFamily: 'var(--font-mono)',
@@ -396,7 +396,7 @@ export default function MissionsPersonaSimulator({
                   >
                     <span
                       style={{
-                        fontSize: 9,
+                        fontSize: 10,
                         fontWeight: 700,
                         color: isUser ? 'var(--teal)' : 'var(--accent)',
                         alignSelf: isUser ? 'flex-end' : 'flex-start',
@@ -417,7 +417,7 @@ export default function MissionsPersonaSimulator({
                         borderTopLeftRadius: isUser ? '16px' : '4px',
                       }}
                     >
-                      <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.5, color: theme.tPrimary }}>
+                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: theme.tPrimary }}>
                         {bubbleText}
                       </p>
                     </div>
@@ -425,7 +425,7 @@ export default function MissionsPersonaSimulator({
                 );
               })}
               {roleplayLoading && (
-                <div style={{ color: theme.tTertiary, fontSize: 12, fontStyle: 'italic' }}>
+                <div style={{ color: theme.tTertiary, fontSize: 13, fontStyle: 'italic' }}>
                   ✏️ Synthesizing dynamic branch parameters...
                 </div>
               )}
@@ -435,13 +435,13 @@ export default function MissionsPersonaSimulator({
             <div>
               {evaluationLoading ? (
                 <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                  <span style={{ fontSize: 24, display: 'block', marginBottom: 8 }} className="animate-spin">
+                  <span style={{ fontSize: 26.5, display: 'block', marginBottom: 8 }} className="animate-spin">
                     🔄
                   </span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--accent)' }}>
                     Compiling Socratic Evolution Report...
                   </span>
-                  <p style={{ fontSize: 11, color: theme.tTertiary, marginTop: 4 }}>
+                  <p style={{ fontSize: 12, color: theme.tTertiary, marginTop: 4 }}>
                     Analyzing natural blindness metrics and System 1/2 triggers against strategic literatures.
                   </p>
                 </div>
@@ -460,7 +460,7 @@ export default function MissionsPersonaSimulator({
                   <h3
                     style={{
                       margin: '0 0 10px',
-                      fontSize: 14,
+                      fontSize: 15.5,
                       fontWeight: 800,
                       color: 'var(--teal)',
                       display: 'flex',
@@ -471,7 +471,7 @@ export default function MissionsPersonaSimulator({
                     <span>Score: {qt2Delta > 0 ? `+${qt2Delta}` : qt2Delta} points</span>
                   </h3>
                   <div
-                    style={{ fontSize: 12, lineHeight: 1.6, color: theme.tSecondary }}
+                    style={{ fontSize: 13, lineHeight: 1.6, color: theme.tSecondary }}
                     className="socratic-report-content"
                   >
                     {evaluationReport.split('\n').map((line, idx) => (
@@ -496,7 +496,7 @@ export default function MissionsPersonaSimulator({
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.8px',
@@ -519,7 +519,7 @@ export default function MissionsPersonaSimulator({
                         borderRadius: 12,
                         padding: '10px 14px',
                         textAlign: 'left',
-                        fontSize: 12,
+                        fontSize: 13,
                         cursor: 'pointer',
                         color: theme.tPrimary,
                         display: 'flex',
@@ -540,7 +540,7 @@ export default function MissionsPersonaSimulator({
                           display: 'inline-flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: 9,
+                          fontSize: 10,
                           fontWeight: 800,
                           color: selectedChoiceIdx === idx ? 'var(--teal)' : theme.tSecondary,
                         }}

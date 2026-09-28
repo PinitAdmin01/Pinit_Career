@@ -125,8 +125,8 @@ export default function ResumeForm({ initialData, onSave, showATS = true }: Resu
       {/* ─ Section nav (left) ─ */}
       <aside style={{ position: 'sticky', top: 24, alignSelf: 'flex-start' }}>
         <div style={S.completionCard}>
-          <div style={{ fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 6 }}>Completion</div>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'var(--accent)', letterSpacing: '-1px' }}>{completion}<span style={{ fontSize: 13, color: 'var(--t4)' }}>%</span></div>
+          <div style={{ fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 6 }}>Completion</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 28.5, fontWeight: 800, color: 'var(--accent)', letterSpacing: '-1px' }}>{completion}<span style={{ fontSize: 14.5, color: 'var(--t4)' }}>%</span></div>
           <div style={{ height: 4, background: 'var(--bg3)', borderRadius: 4, marginTop: 8, overflow: 'hidden' }}>
             <div style={{ width: `${completion}%`, height: '100%', background: 'var(--accent)', transition: 'width 0.5s' }} />
           </div>
@@ -145,7 +145,7 @@ export default function ResumeForm({ initialData, onSave, showATS = true }: Resu
                 fontWeight: active === s.id ? 700 : 500,
               }}
             >
-              <span style={{ fontSize: 15 }}>{s.icon}</span>
+              <span style={{ fontSize: 16.5 }}>{s.icon}</span>
               <span style={{ flex: 1, textAlign: 'left' }}>{s.label}</span>
             </button>
           ))}
@@ -155,7 +155,7 @@ export default function ResumeForm({ initialData, onSave, showATS = true }: Resu
           {saving ? '⏳ Saving...' : saved ? '✓ Saved' : '💾 Save Resume'}
         </button>
         {savedAt && !saving && (
-          <div style={{ fontSize: 10, color: 'var(--t3)', textAlign: 'center', marginTop: 6, fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginTop: 6, fontFamily: 'var(--font-mono)' }}>
             Last saved {savedAt.toLocaleTimeString()}
           </div>
         )}
@@ -192,9 +192,9 @@ export default function ResumeForm({ initialData, onSave, showATS = true }: Resu
 function FormHeader({ icon, title, subtitle }: { icon: string; title: string; subtitle?: string }) {
   return (
     <div style={{ marginBottom: 20 }}>
-      <div style={{ fontSize: 22, marginBottom: 4 }}>{icon}</div>
-      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.5px' }}>{title}</h2>
-      {subtitle && <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0' }}>{subtitle}</p>}
+      <div style={{ fontSize: 24, marginBottom: 4 }}>{icon}</div>
+      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.5px' }}>{title}</h2>
+      {subtitle && <p style={{ fontSize: 14.5, color: 'var(--t3)', margin: '4px 0 0' }}>{subtitle}</p>}
     </div>
   );
 }
@@ -202,9 +202,9 @@ function FormHeader({ icon, title, subtitle }: { icon: string; title: string; su
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 14 }}>
-      <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 5, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{label}</label>
+      <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 5, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{label}</label>
       {children}
-      {hint && <div style={{ fontSize: 11, color: 'var(--t4)', marginTop: 4 }}>{hint}</div>}
+      {hint && <div style={{ fontSize: 12, color: 'var(--t4)', marginTop: 4 }}>{hint}</div>}
     </div>
   );
 }
@@ -213,9 +213,9 @@ function ItemCard({ title, onDelete, children }: { title: string; onDelete?: () 
   return (
     <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 16, marginBottom: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{title}</div>
+        <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{title}</div>
         {onDelete && (
-          <button type="button" onClick={onDelete} style={{ background: 'transparent', border: 'none', color: 'var(--coral)', cursor: 'pointer', fontSize: 12, padding: '4px 8px', borderRadius: 4 }}>
+          <button type="button" onClick={onDelete} style={{ background: 'transparent', border: 'none', color: 'var(--coral)', cursor: 'pointer', fontSize: 13, padding: '4px 8px', borderRadius: 4 }}>
             ✕ Remove
           </button>
         )}
@@ -265,7 +265,7 @@ function SummarySection({ data, set }: { data: ResumeFormData; set: Setter }) {
           placeholder="Full-stack engineer with 3 years building production React + Node systems. Shipped..."
         />
       </Field>
-      <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
+      <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
         {data.summary.length} characters
       </div>
     </>
@@ -285,7 +285,7 @@ function ExperienceSection({ items, update, add, del }: { items: ResumeExperienc
             <Field label="Start Date"><input className="input" type="month" value={exp.startDate} onChange={(e) => update(exp.id, { startDate: e.target.value })} /></Field>
             <Field label="End Date">
               <input className="input" type="month" value={exp.endDate} disabled={exp.currentlyWorking} onChange={(e) => update(exp.id, { endDate: e.target.value })} />
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--t3)', marginTop: 6, cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--t3)', marginTop: 6, cursor: 'pointer' }}>
                 <input type="checkbox" checked={exp.currentlyWorking} onChange={(e) => update(exp.id, { currentlyWorking: e.target.checked, endDate: e.target.checked ? '' : exp.endDate })} />
                 Currently working here
               </label>
@@ -440,7 +440,7 @@ const S = {
     border: 'none',
     borderRadius: 'var(--radius)',
     cursor: 'pointer',
-    fontSize: 13,
+    fontSize: 14.5,
     transition: 'all 0.12s',
   } as const,
   formCard: {
@@ -452,7 +452,7 @@ const S = {
     minHeight: 540,
   } as const,
   emptyHint: {
-    fontSize: 12,
+    fontSize: 13,
     color: 'var(--t3)',
     fontStyle: 'italic',
     padding: '12px 14px',

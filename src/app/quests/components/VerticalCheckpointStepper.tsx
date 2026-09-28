@@ -145,7 +145,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         .vcs-node {
           width: 50px;
           height: 50px;
-          font-size: 16px;
+          font-size: 17.5px;
         }
         .vcs-card {
           padding: 20px 22px;
@@ -163,7 +163,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
           .vcs-node {
             width: 38px !important;
             height: 38px !important;
-            font-size: 13px !important;
+            font-size: 14.5px !important;
           }
           .vcs-card {
             padding: 14px 14px !important;
@@ -174,12 +174,12 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 24 }}>📍</span>
-            <h3 style={{ fontSize: 18, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+            <span style={{ fontSize: 26.5 }}>📍</span>
+            <h3 style={{ fontSize: 20, fontWeight: 900, color: '#ffffff', margin: 0 }}>
               Vertical Milestone Pipeline: {plan.title}
             </h3>
           </div>
-          <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0' }}>
             {INTERNSHIP_AVAILABLE
               ? 'Structured 4-checkpoint progression from daily learning to corporate fellowship and verifiable graduation.'
               : 'Structured 3-checkpoint progression from daily learning to a production capstone and a verifiable certificate.'}
@@ -195,8 +195,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
           background: 'rgba(99, 102, 241, 0.12)',
           border: '1px solid rgba(99, 102, 241, 0.3)'
         }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Track:</span>
-          <span style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>
+          <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Track:</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>
             {activeTrack === 'web_fullstack' ? '🌐 Full-Stack Web' : '🤖 Python & AI'}
           </span>
         </div>
@@ -308,11 +308,11 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 
                 {/* Top Row: Phase Tag + Status Pill */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-                  <span style={{ fontSize: 11, fontWeight: 900, color: step.color, letterSpacing: '0.05em' }}>
+                  <span style={{ fontSize: 12, fontWeight: 900, color: step.color, letterSpacing: '0.05em' }}>
                     {step.phaseTag}
                   </span>
                   <span style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 800,
                     padding: '3px 10px',
                     borderRadius: 20,
@@ -326,10 +326,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 
                 {/* Milestone Title & Subtitle */}
                 <div>
-                  <h4 style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+                  <h4 style={{ fontSize: 17.5, fontWeight: 900, color: '#ffffff', margin: 0 }}>
                     {step.title}
                   </h4>
-                  <p style={{ fontSize: 12.5, color: '#94a3b8', margin: '4px 0 0 0', lineHeight: 1.4 }}>
+                  <p style={{ fontSize: 14, color: '#94a3b8', margin: '4px 0 0 0', lineHeight: 1.4 }}>
                     {step.subtitle}
                   </p>
                 </div>
@@ -337,7 +337,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                 {/* Progress Bar (For Step 1) */}
                 {step.progress !== undefined && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, color: '#cbd5e1', fontWeight: 700 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: '#cbd5e1', fontWeight: 700 }}>
                       <span>{step.detail}</span>
                       <span style={{ color: step.color }}>{step.progress}% Complete</span>
                     </div>
@@ -358,7 +358,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 2 }}>
                     {step.techStack.map(t => (
                       <span key={t} style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 700,
                         padding: '2px 8px',
                         borderRadius: 6,
@@ -376,7 +376,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                 {step.highlights && (
                   <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 2 }}>
                     {step.highlights.map(h => (
-                      <span key={h} style={{ fontSize: 11.5, color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span key={h} style={{ fontSize: 12.5, color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: 4 }}>
                         <span style={{ color: '#10b981' }}>✓</span> {h}
                       </span>
                     ))}
@@ -399,7 +399,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                           ? `linear-gradient(135deg, ${step.color}, #6366f1)`
                           : 'rgba(255, 255, 255, 0.08)',
                         color: '#ffffff',
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 800,
                         cursor: 'pointer',
                         boxShadow: isActive ? `0 4px 14px ${step.color}44` : 'none',
@@ -422,7 +422,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                         border: '1px solid rgba(255, 255, 255, 0.15)',
                         background: 'rgba(255, 255, 255, 0.04)',
                         color: '#cbd5e1',
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 700,
                         cursor: 'pointer',
                         transition: 'all 0.2s ease'

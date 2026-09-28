@@ -61,7 +61,7 @@ export const VocabularyLessonView: React.FC<VocabularyLessonViewProps> = ({
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Level Roadmap
         </button>
-        <span style={{ fontSize: 13, color: '#8b5cf6', fontWeight: 600 }}>
+        <span style={{ fontSize: 14.5, color: '#8b5cf6', fontWeight: 600 }}>
           VOCABULARY WORD {currentIndex + 1} OF {items.length}
         </span>
       </div>
@@ -71,14 +71,14 @@ export const VocabularyLessonView: React.FC<VocabularyLessonViewProps> = ({
         {/* Left Column: Word Details & Pronunciation */}
         <div style={{ background: '#27272a', padding: 20, borderRadius: 12, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <h2 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: '#8b5cf6' }}>{currentItem.word}</h2>
-            {currentItem.phonetic && <span style={{ fontSize: 14, color: '#a1a1aa' }}>{currentItem.phonetic}</span>}
+            <h2 style={{ fontSize: 31, fontWeight: 800, margin: 0, color: '#8b5cf6' }}>{currentItem.word}</h2>
+            {currentItem.phonetic && <span style={{ fontSize: 15.5, color: '#a1a1aa' }}>{currentItem.phonetic}</span>}
           </div>
-          <p style={{ fontSize: 15, margin: 0, color: '#e4e4e7' }}>{currentItem.meaning}</p>
-          <div style={{ background: '#18181b', padding: 12, borderRadius: 8, fontSize: 14, fontStyle: 'italic', borderLeft: '3px solid #8b5cf6' }}>
+          <p style={{ fontSize: 16.5, margin: 0, color: '#e4e4e7' }}>{currentItem.meaning}</p>
+          <div style={{ background: '#18181b', padding: 12, borderRadius: 8, fontSize: 15.5, fontStyle: 'italic', borderLeft: '3px solid #8b5cf6' }}>
             "{currentItem.exampleSentence}"
           </div>
-          <div style={{ fontSize: 12, color: '#a1a1aa' }}>Category: {currentItem.category}</div>
+          <div style={{ fontSize: 13, color: '#a1a1aa' }}>Category: {currentItem.category}</div>
           
           <button
             onClick={() => playAudio(`${currentItem.word}. ${currentItem.exampleSentence}`)}
@@ -100,13 +100,13 @@ export const VocabularyLessonView: React.FC<VocabularyLessonViewProps> = ({
             🔊 Listen to Pronunciation (Priya Voice)
           </button>
 
-          <div style={{ fontSize: 12, color: '#f59e0b', marginTop: 4 }}>{practiceHintPrefix}: Repeat the example sentence aloud!</div>
+          <div style={{ fontSize: 13, color: '#f59e0b', marginTop: 4 }}>{practiceHintPrefix}: Repeat the example sentence aloud!</div>
         </div>
 
         {/* Right Column: Mini Quiz */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <h3 style={{ fontSize: 16, margin: 0, fontWeight: 700 }}>Quick Practice Question:</h3>
-          <p style={{ fontSize: 14, color: '#d4d4d8', margin: 0 }}>{currentItem.quizQuestion.question}</p>
+          <h3 style={{ fontSize: 17.5, margin: 0, fontWeight: 700 }}>Quick Practice Question:</h3>
+          <p style={{ fontSize: 15.5, color: '#d4d4d8', margin: 0 }}>{currentItem.quizQuestion.question}</p>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {currentItem.quizQuestion.options.map((opt, i) => {
@@ -129,7 +129,7 @@ export const VocabularyLessonView: React.FC<VocabularyLessonViewProps> = ({
                     padding: 12,
                     textAlign: 'left',
                     cursor: 'pointer',
-                    fontSize: 14
+                    fontSize: 15.5
                   }}
                 >
                   {opt}

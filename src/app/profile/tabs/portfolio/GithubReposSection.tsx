@@ -68,27 +68,27 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Linked GitHub Repositories & Evidence</h3>
-          <p style={{ margin: '3px 0 0 0', fontSize: 12, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 800 }}>Linked GitHub Repositories & Evidence</h3>
+          <p style={{ margin: '3px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>
             Audited via AST parsing, testing harness detection, and dependency manifests.
           </p>
         </div>
-        <span style={{ fontSize: 10.5, background: 'rgba(var(--info-rgb), 0.1)', color: 'var(--accent)', border: '1px solid rgba(var(--info-rgb), 0.2)', padding: '3px 8px', borderRadius: 6, fontWeight: 700 }}>
+        <span style={{ fontSize: 11.5, background: 'rgba(var(--info-rgb), 0.1)', color: 'var(--accent)', border: '1px solid rgba(var(--info-rgb), 0.2)', padding: '3px 8px', borderRadius: 6, fontWeight: 700 }}>
           PinIT Ingestion Engine v1.0
         </span>
       </div>
 
       {/* Direct Ingestion Banner */}
       <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', marginBottom: 16, display: 'flex', gap: 10, alignItems: 'center' }}>
-        <span style={{ fontSize: 16 }}>ℹ️</span>
-        <div style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.4 }}>
+        <span style={{ fontSize: 17.5 }}>ℹ️</span>
+        <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.4 }}>
           <strong>Direct Ingestion Active:</strong> Public repositories can be linked and verified below. OAuth token access (for private commits) is scheduled for v2.1.
         </div>
       </div>
 
       {/* Link Repository Form */}
       <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 12, padding: 14, marginBottom: 20 }}>
-        <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>
+        <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>
           Link & Audit Public GitHub Repository
         </label>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -105,7 +105,7 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
               borderRadius: 8,
               padding: '8px 12px',
               color: 'var(--t1)',
-              fontSize: 12.5,
+              fontSize: 14,
               fontFamily: 'var(--font-mono)'
             }}
           />
@@ -115,7 +115,7 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
             disabled={linkingRepo || !githubRepoInput.trim()}
             style={{
               padding: '8px 16px',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 800,
               background: linkingRepo ? 'var(--bg3)' : 'var(--accent)',
               color: linkingRepo ? 'var(--t3)' : 'var(--text)',
@@ -135,9 +135,9 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
       {/* Linked Repositories List */}
       {linkedRepos.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '36px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
-          <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>🐙</span>
-          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No GitHub Repositories Linked</div>
-          <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
+          <span style={{ fontSize: 39.5, display: 'block', marginBottom: 10 }}>🐙</span>
+          <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No GitHub Repositories Linked</div>
+          <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
             Link your project or capstone repositories above. The PinIT engine validates architecture structure, test coverage, and exports verified technical skills to your portfolio.
           </p>
         </div>
@@ -151,21 +151,21 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
                     href={repo.repoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                    style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4 }}
                   >
                     {repo.fullName} ↗
                   </a>
-                  <p style={{ fontSize: 12, color: 'var(--t2)', margin: '4px 0 0 0' }}>{repo.description}</p>
+                  <p style={{ fontSize: 13, color: 'var(--t2)', margin: '4px 0 0 0' }}>{repo.description}</p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: repo.score >= 70 ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: repo.score >= 70 ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 12, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: repo.score >= 70 ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: repo.score >= 70 ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
                     Score: {repo.score}/100
                   </span>
                   <button
                     type="button"
                     onClick={() => handleUnlink(repo.repoUrl)}
                     title="Unlink Repository"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 12, padding: 4 }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 13, padding: 4 }}
                   >
                     ✕
                   </button>
@@ -175,14 +175,14 @@ export function GithubReposSection({ linkedRepos, saveLinkedRepos }: GithubRepos
               {repo.skills && repo.skills.length > 0 && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
                   {repo.skills.map((s, sIdx) => (
-                    <span key={sIdx} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: 'var(--card)', border: '1px solid var(--border)', color: 'var(--t1)' }}>
+                    <span key={sIdx} style={{ fontSize: 11, padding: '2px 7px', borderRadius: 4, background: 'var(--card)', border: '1px solid var(--border)', color: 'var(--t1)' }}>
                       {s}
                     </span>
                   ))}
                 </div>
               )}
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, fontSize: 10.5, color: 'var(--t3)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, fontSize: 11.5, color: 'var(--t3)' }}>
                 <span>★ {repo.stars} stars</span>
                 <span>Audited: {repo.verifiedAt}</span>
               </div>

@@ -27,10 +27,10 @@ export default function AdminDashboardShell() {
         alignItems: 'center'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 24 }}>🏛️</span>
+          <span style={{ fontSize: 26.5 }}>🏛️</span>
           <div>
-            <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Campus Admin & Management Portal</h1>
-            <span style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Control Center • Security & Institutional Oversight</span>
+            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Campus Admin & Management Portal</h1>
+            <span style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Control Center • Security & Institutional Oversight</span>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export default function AdminDashboardShell() {
             }}
             style={{
               padding: '6px 14px',
-              fontSize: 13,
+              fontSize: 14.5,
               borderRadius: 6,
               border: 'none',
               background: 'var(--accent)',
@@ -81,7 +81,7 @@ export default function AdminDashboardShell() {
             onClick={() => window.location.href = '/admin/teacher'}
             style={{
               padding: '6px 14px',
-              fontSize: 13,
+              fontSize: 14.5,
               borderRadius: 6,
               border: '1px solid var(--border, #cbd5e1)',
               background: 'var(--border)',

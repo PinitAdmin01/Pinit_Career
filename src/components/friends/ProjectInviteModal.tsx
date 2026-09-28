@@ -105,9 +105,9 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
             }}>
               <img src={student.avatar} alt={student.name} style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover' }} />
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
-                <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{student.course} • {student.college}</div>
-                <div style={{ fontSize: 11, color: '#34d399', marginTop: 2 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
+                <div style={{ fontSize: 12.5, color: '#94a3b8' }}>{student.course} • {student.college}</div>
+                <div style={{ fontSize: 12, color: '#34d399', marginTop: 2 }}>
                   Verified Skills: {student.skills.slice(0, 3).join(', ')}
                 </div>
               </div>

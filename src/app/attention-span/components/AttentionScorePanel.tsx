@@ -98,16 +98,16 @@ export function AttentionScorePanel({
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '22px 24px', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 24 }}>{rank.icon}</span>
+              <span style={{ fontSize: 26.5 }}>{rank.icon}</span>
               <div>
-                <div style={{ fontSize: 16, fontWeight: 800, color: rank.color }}>{rank.name}</div>
-                <div style={{ fontSize: 12, color: 'var(--t2)' }}>Focus Score: {focusScore}</div>
+                <div style={{ fontSize: 17.5, fontWeight: 800, color: rank.color }}>{rank.name}</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)' }}>Focus Score: {focusScore}</div>
               </div>
             </div>
             {nextRank && (
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)' }}>Next: {nextRank.icon} {nextRank.name}</div>
-                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{nextRank.min - focusScore} pts to go</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)' }}>Next: {nextRank.icon} {nextRank.name}</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)' }}>{nextRank.min - focusScore} pts to go</div>
               </div>
             )}
           </div>
@@ -127,7 +127,7 @@ export function AttentionScorePanel({
               <div
                 key={r.name}
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: focusScore >= r.min ? r.color : 'var(--t3)',
                   textAlign: 'center',
                   fontWeight: focusScore >= r.min ? 700 : 400,
@@ -140,7 +140,7 @@ export function AttentionScorePanel({
         </div>
 
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>Cognitive profile</div>
+          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>Cognitive profile</div>
           <svg viewBox="0 0 200 160" style={{ width: '100%', height: 130 }}>
             <polygon points="100,20 170,80 100,140 30,80" fill="none" stroke="var(--border2)" strokeWidth="1" />
             <polygon points="100,50 135,80 100,110 65,80" fill="none" stroke="var(--border)" strokeWidth="1" />
@@ -160,10 +160,10 @@ export function AttentionScorePanel({
               );
             })()}
 
-            <text x="100" y="14" fill="#d4a843" fontSize="9" textAnchor="middle" fontWeight="bold">Selective ({selectiveScore}%)</text>
-            <text x="175" y="83" fill="var(--reward)" fontSize="9" textAnchor="start" fontWeight="bold">Memory ({memoryScore}%)</text>
-            <text x="100" y="154" fill="var(--success)" fontSize="9" textAnchor="middle" fontWeight="bold">Reflex ({reactionScore}%)</text>
-            <text x="25" y="83" fill="var(--info)" fontSize="9" textAnchor="end" fontWeight="bold">Span ({spanScore}%)</text>
+            <text x="100" y="14" fill="#d4a843" fontSize="10" textAnchor="middle" fontWeight="bold">Selective ({selectiveScore}%)</text>
+            <text x="175" y="83" fill="var(--reward)" fontSize="10" textAnchor="start" fontWeight="bold">Memory ({memoryScore}%)</text>
+            <text x="100" y="154" fill="var(--success)" fontSize="10" textAnchor="middle" fontWeight="bold">Reflex ({reactionScore}%)</text>
+            <text x="25" y="83" fill="var(--info)" fontSize="10" textAnchor="end" fontWeight="bold">Span ({spanScore}%)</text>
           </svg>
         </div>
       </div>

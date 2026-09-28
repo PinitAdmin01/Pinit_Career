@@ -44,8 +44,8 @@ export const TypeAnswerExerciseView: React.FC<TypeAnswerExerciseViewProps> = ({
 
   return (
     <div style={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 16, padding: 24, color: '#fff' }}>
-      <div style={{ fontSize: 13, color: '#3b82f6', fontWeight: 600, marginBottom: 8 }}>TYPING & TRANSLATION EXERCISE</div>
-      <h3 style={{ fontSize: 18, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
+      <div style={{ fontSize: 14.5, color: '#3b82f6', fontWeight: 600, marginBottom: 8 }}>TYPING & TRANSLATION EXERCISE</div>
+      <h3 style={{ fontSize: 20, margin: '0 0 16px 0', color: '#f4f4f5' }}>{exercise.prompt}</h3>
 
       <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
         <input
@@ -61,7 +61,7 @@ export const TypeAnswerExerciseView: React.FC<TypeAnswerExerciseViewProps> = ({
             borderRadius: 8,
             padding: '12px 16px',
             color: '#fff',
-            fontSize: 16,
+            fontSize: 17.5,
             outline: 'none',
             boxSizing: 'border-box'
           }}
@@ -79,7 +79,7 @@ export const TypeAnswerExerciseView: React.FC<TypeAnswerExerciseViewProps> = ({
               borderRadius: 8,
               padding: '12px 24px',
               fontWeight: 700,
-              fontSize: 15,
+              fontSize: 16.5,
               cursor: userInput.trim() ? 'pointer' : 'not-allowed'
             }}
           >
@@ -93,15 +93,15 @@ export const TypeAnswerExerciseView: React.FC<TypeAnswerExerciseViewProps> = ({
           <div style={{
             color: matchResult.isMatch ? '#10b981' : '#ef4444',
             fontWeight: 700,
-            fontSize: 16,
+            fontSize: 17.5,
             marginBottom: 8
           }}>
             {matchResult.isMatch ? 'Correct Match!' : 'Needs Revision.'}
           </div>
-          <div style={{ fontSize: 14, color: '#e4e4e7' }}>
+          <div style={{ fontSize: 15.5, color: '#e4e4e7' }}>
             Target Answer: <strong>"{matchResult.matchedAnswer}"</strong>
           </div>
-          <div style={{ fontSize: 13, color: '#a1a1aa', marginTop: 4 }}>
+          <div style={{ fontSize: 14.5, color: '#a1a1aa', marginTop: 4 }}>
             Similarity: {matchResult.similarityPct}% | Policy Applied: {matchResult.policyApplied}
           </div>
 
@@ -115,7 +115,7 @@ export const TypeAnswerExerciseView: React.FC<TypeAnswerExerciseViewProps> = ({
               borderRadius: 8,
               padding: '12px 24px',
               fontWeight: 700,
-              fontSize: 15,
+              fontSize: 16.5,
               cursor: 'pointer'
             }}
           >

@@ -89,8 +89,8 @@ export default function AuditLogView() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📜 System Audit & Security Logs</h2>
-          <p style={{ color: 'var(--t3)', margin: '4px 0 0', fontSize: 14 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📜 System Audit & Security Logs</h2>
+          <p style={{ color: 'var(--t3)', margin: '4px 0 0', fontSize: 15.5 }}>
             Immutable record of administrative operations, score overrides, and campus security actions.
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function AuditLogView() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
                   <span
                     style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 700,
                       padding: '2px 8px',
                       borderRadius: 6,
@@ -198,16 +198,16 @@ export default function AuditLogView() {
                   >
                     {log.action}
                   </span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
                     Actor: {log.adminName}
                   </span>
-                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>→ Target: {log.target}</span>
+                  <span style={{ fontSize: 13, color: 'var(--t3)' }}>→ Target: {log.target}</span>
                 </div>
-                <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.4 }}>
+                <div style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.4 }}>
                   {log.details}
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', whiteSpace: 'nowrap' }}>
+              <div style={{ fontSize: 12, color: 'var(--t3)', whiteSpace: 'nowrap' }}>
                 {log.timestamp}
               </div>
             </div>

@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function PublicFooter() {
   return (
-    <footer className="footer-section" style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border-color)', padding: '64px 0 40px', color: 'var(--text-secondary)', fontSize: 13 }}>
+    <footer className="footer-section" style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border-color)', padding: '64px 0 40px', color: 'var(--text-secondary)', fontSize: 14.5 }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, marginBottom: 48 }}>
           
@@ -23,13 +23,13 @@ export default function PublicFooter() {
                 />
               </span>
             </Link>
-            <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontSize: 13, color: 'var(--text-tertiary)', lineHeight: 1.6, margin: 0 }}>
               The AI-powered Career Operating System connecting students, placement directors, and enterprise recruiters with verifiable proof of competence.
             </p>
           </div>
 
           <div>
-            <h4 style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
               Platform
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -42,7 +42,7 @@ export default function PublicFooter() {
           </div>
 
           <div>
-            <h4 style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
               Ecosystem
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -55,20 +55,20 @@ export default function PublicFooter() {
           </div>
 
           <div>
-            <h4 style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
               Legal & Trust
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
               <li><Link href="/terms" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Terms of Service</Link></li>
               <li><Link href="/privacy" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Privacy Policy</Link></li>
               <li><Link href="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Contact & Support</Link></li>
-              <li><span style={{ color: '#10b981', fontSize: 11, fontFamily: 'monospace' }}>● System Status: 100% Operational</span></li>
+              <li><span style={{ color: '#10b981', fontSize: 12, fontFamily: 'monospace' }}>● System Status: 100% Operational</span></li>
             </ul>
           </div>
 
         </div>
 
-        <div style={{ paddingTop: 24, borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-tertiary)' }}>
+        <div style={{ paddingTop: 24, borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 13, color: 'var(--text-tertiary)' }}>
           <span>© {new Date().getFullYear()} PinIT Career OS. All rights reserved.</span>
           <span style={{ fontFamily: 'monospace' }}>Discover · Connect · Grow</span>
         </div>

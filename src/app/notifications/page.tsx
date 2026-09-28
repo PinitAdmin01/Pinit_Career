@@ -98,7 +98,7 @@ export default function CampusCommunicationHub() {
     }
     .page-title {
       font-family: var(--font-display), sans-serif;
-      font-size: 24px;
+      font-size: 26.5px;
       font-weight: 900;
       letter-spacing: -0.6px;
       margin-bottom: 24px;
@@ -115,7 +115,7 @@ export default function CampusCommunicationHub() {
     }
     .tab-btn {
       padding: 10px 18px;
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--t2);
       border: none;
@@ -134,7 +134,7 @@ export default function CampusCommunicationHub() {
     .badge-count {
       background: var(--coral);
       color: var(--card);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
       padding: 1.5px 5px;
       border-radius: 10px;
@@ -194,7 +194,7 @@ export default function CampusCommunicationHub() {
       height: 24px;
       background: var(--bg3);
       color: var(--t3);
-      font-size: 10px;
+      font-size: 11px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -214,21 +214,21 @@ export default function CampusCommunicationHub() {
       color: var(--t1);
       border-radius: 14px;
       padding: 10px 14px;
-      font-size: 12px;
+      font-size: 13px;
       max-width: 85%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
       align-self: flex-start;
       border-bottom-left-radius: 2px;
     }
     .sms-time {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--t3);
       margin-top: 4px;
       text-align: right;
     }
     .sms-sender {
       font-weight: 700;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--t2);
       margin-bottom: 2px;
     }
@@ -261,11 +261,11 @@ export default function CampusCommunicationHub() {
       {activePush && (
         <div className="push-banner-overlay">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', color: 'var(--accent)', letterSpacing: 0.4 }}>Push Notification Alert</span>
-            <span style={{ fontSize: 10, color: 'var(--t3)' }}>{activePush.timestamp}</span>
+            <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', color: 'var(--accent)', letterSpacing: 0.4 }}>Push Notification Alert</span>
+            <span style={{ fontSize: 11, color: 'var(--t3)' }}>{activePush.timestamp}</span>
           </div>
-          <strong style={{ display: 'block', fontSize: 13 }}>{activePush.title}</strong>
-          <p style={{ fontSize: 12, color: 'var(--border)', margin: '4px 0 0 0', lineHeight: 1.4 }}>{activePush.message}</p>
+          <strong style={{ display: 'block', fontSize: 14.5 }}>{activePush.title}</strong>
+          <p style={{ fontSize: 13, color: 'var(--border)', margin: '4px 0 0 0', lineHeight: 1.4 }}>{activePush.message}</p>
         </div>
       )}
 
@@ -277,7 +277,7 @@ export default function CampusCommunicationHub() {
           border: '1px solid var(--border)',
           padding: '10px 16px',
           borderRadius: 12,
-          fontSize: 12.5,
+          fontSize: 14,
           color: 'var(--t2)',
           marginBottom: 20,
           display: 'flex',
@@ -319,14 +319,14 @@ export default function CampusCommunicationHub() {
                 <div key={a.id} className="announcement-card">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                     <span style={{
-                      padding: '3px 8px', borderRadius: 6, fontSize: 10, fontWeight: 800,
+                      padding: '3px 8px', borderRadius: 6, fontSize: 11, fontWeight: 800,
                       background: a.category === 'Academics' ? 'var(--accent-light)' : 'var(--bg3)',
                       color: a.category === 'Academics' ? 'var(--accent)' : 'var(--t2)'
                     }}>{a.category}</span>
-                    <span style={{ fontSize: 11, color: 'var(--t2)' }}>📅 Date: {a.date}</span>
+                    <span style={{ fontSize: 12, color: 'var(--t2)' }}>📅 Date: {a.date}</span>
                   </div>
-                  <h4 style={{ margin: '0 0 6px 0', fontSize: 15, fontWeight: 800 }}>{a.title}</h4>
-                  <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>{a.message}</p>
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: 16.5, fontWeight: 800 }}>{a.title}</h4>
+                  <p style={{ margin: 0, fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5 }}>{a.message}</p>
                 </div>
               ))}
             </div>
@@ -367,17 +367,17 @@ export default function CampusCommunicationHub() {
                     >
                       <div style={{
                         width: 32, height: 32, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        background: meta.bg, color: meta.color, fontSize: 14, fontWeight: 900
+                        background: meta.bg, color: meta.color, fontSize: 15.5, fontWeight: 900
                       }}>
                         {meta.icon}
                       </div>
 
                       <div style={{ flex: 1 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <strong style={{ fontSize: 13.5 }}>{n.title}</strong>
-                          <span style={{ fontSize: 10, color: 'var(--t3)' }}>{n.source}</span>
+                          <strong style={{ fontSize: 15 }}>{n.title}</strong>
+                          <span style={{ fontSize: 11, color: 'var(--t3)' }}>{n.source}</span>
                         </div>
-                        <p style={{ margin: '4px 0 0 0', fontSize: 12.5, color: 'var(--t2)' }}>{n.message}</p>
+                        <p style={{ margin: '4px 0 0 0', fontSize: 14, color: 'var(--t2)' }}>{n.message}</p>
                       </div>
                     </div>
                   );
@@ -392,7 +392,7 @@ export default function CampusCommunicationHub() {
           <div className="card-box">
             <div style={{ marginBottom: 16 }}>
               <h3 className="card-title" style={{ margin: '0 0 4px 0' }}>📨 Internal Notice Archive (Email Format)</h3>
-              <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)' }}>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--t2)' }}>
                 Official campus circulars and notices recorded in email format. Sourced from internal communications log.
               </p>
             </div>
@@ -408,9 +408,9 @@ export default function CampusCommunicationHub() {
                       className={`email-item ${selectedEmail?.id === e.id ? 'selected' : ''}`}
                       onClick={() => setSelectedEmail(e)}
                     >
-                      <div style={{ fontSize: 10, color: 'var(--t2)', marginBottom: 2 }}>{e.sender}</div>
-                      <strong style={{ display: 'block', fontSize: 12.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.subject}</strong>
-                      <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>{e.date}</span>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 2 }}>{e.sender}</div>
+                      <strong style={{ display: 'block', fontSize: 14, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.subject}</strong>
+                      <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>{e.date}</span>
                     </div>
                   ))
                 )}
@@ -421,18 +421,18 @@ export default function CampusCommunicationHub() {
                 {selectedEmail ? (
                   <div>
                     <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 14, marginBottom: 14 }}>
-                      <h3 style={{ margin: '0 0 6px 0', fontSize: 16, fontWeight: 800 }}>{selectedEmail.subject}</h3>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)' }}>
+                      <h3 style={{ margin: '0 0 6px 0', fontSize: 17.5, fontWeight: 800 }}>{selectedEmail.subject}</h3>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--t2)' }}>
                         <span>From: <strong>{selectedEmail.sender}</strong></span>
                         <span>{selectedEmail.date}</span>
                       </div>
                     </div>
-                    <p style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                    <p style={{ fontSize: 15, color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
                       {selectedEmail.body}
                     </p>
                   </div>
                 ) : (
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13 }}>
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 14.5 }}>
                     Select an archived notice to read its contents.
                   </div>
                 )}
@@ -445,7 +445,7 @@ export default function CampusCommunicationHub() {
         {activeTab === 'sms' && (
           <div className="card-box">
             <h3 className="card-title" style={{ textAlign: 'center', marginBottom: 6 }}>📱 Internal SMS Broadcast Log</h3>
-            <p style={{ textAlign: 'center', fontSize: 12.5, color: 'var(--t2)', margin: '0 0 18px 0' }}>
+            <p style={{ textAlign: 'center', fontSize: 14, color: 'var(--t2)', margin: '0 0 18px 0' }}>
               Urgent short notifications and alert logs published to student dashboard accounts.
             </p>
             <div className="phone-screen">
@@ -470,13 +470,13 @@ export default function CampusCommunicationHub() {
         {activeTab === 'tester' && (
           <div className="card-box" style={{ maxWidth: 540, margin: '0 auto' }}>
             <h3 className="card-title">📲 Push Notification Simulator Sandbox</h3>
-            <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 18 }}>
+            <p style={{ fontSize: 14.5, color: 'var(--t2)', marginBottom: 18 }}>
               Configure a mock alert context and trigger a real-time toaster overlay to preview client-side push notification prompts.
             </p>
 
             <form onSubmit={triggerTestPush} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Alert Title *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Alert Title *</label>
                 <input
                   type="text"
                   required
@@ -487,7 +487,7 @@ export default function CampusCommunicationHub() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Alert Message Context *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Alert Message Context *</label>
                 <textarea
                   required
                   className="form-input"

@@ -390,21 +390,21 @@ export default function InterviewPage() {
         }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+              <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
                 Problem: Verify Array is Sorted
               </span>
               <button 
                 onClick={handleShowHint}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
               >
                 {showHint ? 'Hint Revealed 💡' : 'Show Hint 💡'}
               </button>
             </div>
-            <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
               Write a method `verifySorted(int[] arr)` that returns `true` if the array is sorted in non-decreasing order, and `false` otherwise. An empty or single-element array is considered sorted.
             </p>
             {showHint && (
-              <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 10, borderRadius: 8, marginTop: 10, fontSize: 11, color: 'var(--amber)', lineHeight: 1.4 }}>
+              <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 10, borderRadius: 8, marginTop: 10, fontSize: 12, color: 'var(--amber)', lineHeight: 1.4 }}>
                 💡 <strong>Hint:</strong> Loop through the array from `i = 0` to `arr.length - 2`. If `arr[i] &gt; arr[i + 1]`, return `false`. If the loop finishes without returning, return `true`.
               </div>
             )}
@@ -413,8 +413,8 @@ export default function InterviewPage() {
           {/* Code Textarea */}
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1px solid var(--border)', borderBottom: 'none', padding: '6px 12px', borderRadius: '10px 10px 0 0' }}>
-              <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Solution.java (JVM Emulator Sandbox)</span>
-              <span style={{ fontSize: 10.5, color: 'var(--green)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>JDK 21 Ready</span>
+              <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Solution.java (JVM Emulator Sandbox)</span>
+              <span style={{ fontSize: 11.5, color: 'var(--green)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>JDK 21 Ready</span>
             </div>
             <textarea
               value={code}
@@ -427,7 +427,7 @@ export default function InterviewPage() {
                 background: '#1e1e24',
                 color: '#f8f8f2',
                 fontFamily: 'var(--font-mono)',
-                fontSize: 12,
+                fontSize: 13,
                 padding: 14,
                 border: '1px solid var(--border)',
                 borderRadius: '0 0 10px 10px',
@@ -446,7 +446,7 @@ export default function InterviewPage() {
               border: `1.5px solid ${output.success ? 'var(--green)' : 'var(--coral)'}`,
               padding: 12,
               borderRadius: 10,
-              fontSize: 12,
+              fontSize: 13,
               fontFamily: 'var(--font-mono)',
               color: output.success ? 'var(--green)' : 'var(--coral)'
             }}>
@@ -461,7 +461,7 @@ export default function InterviewPage() {
               onClick={evaluateCode}
               disabled={loading || interviewStage !== 'coding'}
               className="btn-primary"
-              style={{ flex: 1, justifyContent: 'center', padding: '11px', fontSize: 13 }}
+              style={{ flex: 1, justifyContent: 'center', padding: '11px', fontSize: 14.5 }}
             >
               {loading && interviewStage === 'coding' ? '⏳ Running JVM Tests...' : 'Run Test Suite 🚀'}
             </button>
@@ -469,7 +469,7 @@ export default function InterviewPage() {
               onClick={() => setCode(`public class Solution {\n    public boolean verifySorted(int[] arr) {\n        // Write your sorting validation code here\n        \n    }\n}`)}
               disabled={loading || interviewStage !== 'coding'}
               className="btn-ghost"
-              style={{ padding: '11px 16px', fontSize: 13 }}
+              style={{ padding: '11px 16px', fontSize: 14.5 }}
             >
               Reset Code
             </button>
@@ -492,7 +492,7 @@ export default function InterviewPage() {
             
             {/* Status badge overlays */}
             <div style={{
-              position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+              position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
               padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
               color: animState === 'talking' ? '#a5b4fc' : animState === 'thinking' ? '#fde68a' : animState === 'listening' ? '#86efac' : '#888',
               backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'
@@ -501,7 +501,7 @@ export default function InterviewPage() {
             </div>
 
             <div style={{
-              position: 'absolute', top: 8, left: 8, fontSize: 9, fontWeight: 700,
+              position: 'absolute', top: 8, left: 8, fontSize: 10, fontWeight: 700,
               padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
               color: '#fff', backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'
             }}>
@@ -517,7 +517,7 @@ export default function InterviewPage() {
               <button 
                 type="button" 
                 onClick={() => setZoom(prev => Math.max(1.0, prev - 0.2))}
-                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 10, cursor: 'pointer', padding: '2px 4px', fontWeight: 'bold' }}
+                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 11, cursor: 'pointer', padding: '2px 4px', fontWeight: 'bold' }}
                 title="Zoom In"
               >
                 🔍+
@@ -525,7 +525,7 @@ export default function InterviewPage() {
               <button 
                 type="button" 
                 onClick={() => setZoom(prev => Math.min(2.5, prev + 0.2))}
-                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 10, cursor: 'pointer', padding: '2px 4px', fontWeight: 'bold' }}
+                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 11, cursor: 'pointer', padding: '2px 4px', fontWeight: 'bold' }}
                 title="Zoom Out"
               >
                 🔍-
@@ -533,7 +533,7 @@ export default function InterviewPage() {
               <button 
                 type="button" 
                 onClick={() => setZoom(1.6)}
-                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 9, cursor: 'pointer', padding: '2px 4px', fontFamily: 'var(--font-mono)' }}
+                style={{ background: 'none', border: 'none', color: '#fff', fontSize: 10, cursor: 'pointer', padding: '2px 4px', fontFamily: 'var(--font-mono)' }}
                 title="Reset Camera"
               >
                 RESET
@@ -561,7 +561,7 @@ export default function InterviewPage() {
                     }}
                   >
                     {!isUser && (
-                      <span style={{ fontSize: 18, marginTop: 4, flexShrink: 0 }}>
+                      <span style={{ fontSize: 20, marginTop: 4, flexShrink: 0 }}>
                         {teacher.emoji}
                       </span>
                     )}
@@ -569,7 +569,7 @@ export default function InterviewPage() {
                       style={{
                         padding: '12px 16px',
                         borderRadius: isUser ? '16px 16px 2px 16px' : '16px 16px 16px 2px',
-                        fontSize: 12.5,
+                        fontSize: 14,
                         lineHeight: 1.5,
                         background: isUser ? `linear-gradient(135deg, ${teacher.color} 0%, var(--purple) 100%)` : 'var(--bg3)',
                         color: '#ffffff',
@@ -587,7 +587,7 @@ export default function InterviewPage() {
                             background: 'none',
                             border: 'none',
                             color: 'var(--accent)',
-                            fontSize: 10,
+                            fontSize: 11,
                             marginTop: 6,
                             cursor: 'pointer',
                             padding: 0,
@@ -604,7 +604,7 @@ export default function InterviewPage() {
               })}
               
               {loading && animState === 'thinking' && (
-                <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 12, paddingLeft: 26 }}>
+                <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 13, paddingLeft: 26 }}>
                   <span>{teacher.emoji}</span>
                   <div style={{
                     background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: '10px 16px', display: 'flex', gap: 4, alignItems: 'center'
@@ -625,7 +625,7 @@ export default function InterviewPage() {
                 <button
                   onClick={handleStartCoding}
                   className="btn-primary"
-                  style={{ flex: 1, justifyContent: 'center', fontSize: 12, padding: '8px 12px' }}
+                  style={{ flex: 1, justifyContent: 'center', fontSize: 13, padding: '8px 12px' }}
                 >
                   🚀 Start Coding Challenge
                 </button>
@@ -662,7 +662,7 @@ export default function InterviewPage() {
                   border: '1px solid var(--border)',
                   background: 'var(--bg3)',
                   color: 'var(--t1)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   outline: 'none',
                 }}
                 disabled={loading || interviewStage === 'welcome' || interviewStage === 'completed'}
@@ -683,7 +683,7 @@ export default function InterviewPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   color: recognizing ? '#ffffff' : 'var(--t1)',
                   transition: 'all 0.15s'
                 }}
@@ -706,7 +706,7 @@ export default function InterviewPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   transition: 'all 0.15s',
                   boxShadow: input.trim() && !loading ? `0 2px 8px ${teacher.color}40` : 'none',
                 }}

@@ -23,12 +23,12 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
   <style>
     body { font-family: Georgia, serif; padding: 40px; color: #0f172a; max-width: 800px; margin: 0 auto; border: 4px double #cbd5e1; }
     .header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 24px; }
-    .inst-name { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-    .doc-title { font-size: 20px; font-weight: bold; color: #1e3a8a; margin-top: 12px; text-transform: uppercase; }
-    .content { line-height: 1.8; font-size: 15px; margin: 24px 0; }
+    .inst-name { font-size: 26.5px; font-weight: bold; letter-spacing: 1px; }
+    .doc-title { font-size: 22px; font-weight: bold; color: #1e3a8a; margin-top: 12px; text-transform: uppercase; }
+    .content { line-height: 1.8; font-size: 16.5px; margin: 24px 0; }
     .seal { margin-top: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
-    .signature { border-top: 1px solid #475569; padding-top: 6px; width: 180px; text-align: center; font-size: 13px; font-family: sans-serif; }
-    .verification-seal { padding: 12px 18px; border: 2px solid #16a34a; border-radius: 8px; color: #16a34a; font-weight: bold; font-family: sans-serif; font-size: 12px; }
+    .signature { border-top: 1px solid #475569; padding-top: 6px; width: 180px; text-align: center; font-size: 14.5px; font-family: sans-serif; }
+    .verification-seal { padding: 12px 18px; border: 2px solid #16a34a; border-radius: 8px; color: #16a34a; font-weight: bold; font-family: sans-serif; font-size: 13px; }
   </style>
 </head>
 <body>
@@ -80,10 +80,10 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
             📄 Verified Credentials & Documents Vault
           </h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Generate and download official bonafides, marks statements, and credentials with cryptographic verification seals.
           </p>
         </div>
@@ -101,12 +101,12 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
                 background: 'var(--bg3)',
                 border: '1px solid var(--border)',
                 borderRadius: 10,
-                fontSize: 12.5,
+                fontSize: 14,
               }}
             >
               <div>
                 <strong style={{ color: 'var(--t1)' }}>📄 {doc.name}</strong>
-                <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{doc.stamp}</div>
+                <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{doc.stamp}</div>
               </div>
               <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{doc.type}</span>
               <span style={{ color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{doc.size}</span>
@@ -115,7 +115,7 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
                   onClick={() => handleDownloadDocument(doc.name, doc.type)}
                   style={{
                     padding: '6px 12px',
-                    fontSize: 11,
+                    fontSize: 12,
                     background: 'var(--success)',
                     color: 'white',
                     border: 'none',
@@ -133,7 +133,7 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
                   }}
                   style={{
                     padding: '6px 12px',
-                    fontSize: 11,
+                    fontSize: 12,
                     background: 'var(--card)',
                     color: 'var(--t2)',
                     border: '1px solid var(--border)',
@@ -159,8 +159,8 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>💰 Institutional Fees & Accounts</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>💰 Institutional Fees & Accounts</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Authoritative fee schedule and installment receipts from institutional finance registry.
           </p>
         </div>
@@ -176,9 +176,9 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
               color: 'var(--t1)',
             }}
           >
-            <div style={{ fontSize: 24, marginBottom: 6 }}>✓</div>
-            <strong style={{ color: 'var(--success)', fontSize: 14 }}>All Institutional Dues Up to Date</strong>
-            <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--t3)' }}>
+            <div style={{ fontSize: 26.5, marginBottom: 6 }}>✓</div>
+            <strong style={{ color: 'var(--success)', fontSize: 15.5 }}>All Institutional Dues Up to Date</strong>
+            <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--t3)' }}>
               No outstanding term fees, tuition dues, or hostel invoices on record for {studentName}.
             </p>
           </div>
@@ -195,19 +195,19 @@ export default function FeePaymentPanel({ activeTab, overview }: FeePaymentPanel
                   background: 'var(--bg3)',
                   border: '1px solid var(--border)',
                   borderRadius: 10,
-                  fontSize: 13,
+                  fontSize: 14.5,
                 }}
               >
                 <div>
                   <div style={{ fontWeight: 700, color: 'var(--t1)' }}>{pay.term || `Installment ${idx + 1}`}</div>
-                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>Amount: ₹{Number(pay.amount || 0).toLocaleString()}</span>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>Amount: ₹{Number(pay.amount || 0).toLocaleString()}</span>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <span
                     style={{
                       fontWeight: 800,
-                      fontSize: 12,
+                      fontSize: 13,
                       color: pay.status === 'PAID' ? 'var(--success)' : 'var(--danger-deep)',
                     }}
                   >

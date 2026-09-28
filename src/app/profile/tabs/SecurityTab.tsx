@@ -26,8 +26,8 @@ function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 22 }}>🖥️</span>
-            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+            <span style={{ fontSize: 24 }}>🖥️</span>
+            <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
               Biometric Hardware Enrollment
             </h3>
           </div>
@@ -35,7 +35,7 @@ function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={onClose}
             aria-label="Close modal"
-            style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 18, padding: 4 }}
+            style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 20, padding: 4 }}
           >
             ✕
           </button>
@@ -46,7 +46,7 @@ function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
           border: '1px solid var(--accent)',
           borderRadius: 12,
           padding: 14,
-          fontSize: 13,
+          fontSize: 14.5,
           color: 'var(--t1)',
           lineHeight: 1.5,
           fontWeight: 600,
@@ -58,7 +58,7 @@ function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
           <span>Hardware biometric authentication is not configured for this device or browser.</span>
         </div>
 
-        <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, lineHeight: 1.6 }}>
+        <p style={{ fontSize: 14, color: 'var(--t3)', margin: 0, lineHeight: 1.6 }}>
           Hardware biometric authentication is not configured for this device or browser. You can sign in using your account password or the PinIT Vault QR code scanner.
         </p>
 
@@ -120,14 +120,14 @@ function SecurityFaceLogin({ onOpenBiometricInfo }: SecurityFaceLoginProps) {
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:8 }}>
         <div>
           <div style={CS.cardTitle}>👤 Face Login</div>
-          <div style={{ fontSize:12, color:'var(--t3)', lineHeight:1.5 }}>
+          <div style={{ fontSize:13, color:'var(--t3)', lineHeight:1.5 }}>
             {faceEnrolled === null && 'Checking…'}
             {faceEnrolled === false && 'Login to PinIT using just your face — no password needed.'}
             {faceEnrolled === true  && 'Your face is enrolled. Login with your webcam or phone camera.'}
           </div>
         </div>
         {faceEnrolled === true && !showEnroll && (
-          <span style={{ fontSize:10, fontWeight:700, color:'var(--green)', background:'rgba(var(--success-deep-rgb), 0.12)', padding:'3px 9px', borderRadius:100, whiteSpace:'nowrap', border:'1px solid rgba(var(--success-deep-rgb), 0.25)' }}>
+          <span style={{ fontSize:11, fontWeight:700, color:'var(--green)', background:'rgba(var(--success-deep-rgb), 0.12)', padding:'3px 9px', borderRadius:100, whiteSpace:'nowrap', border:'1px solid rgba(var(--success-deep-rgb), 0.25)' }}>
             ✓ Active
           </span>
         )}
@@ -184,7 +184,7 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
       <SecurityFaceLogin onOpenBiometricInfo={() => setShowBiometricModal(true)} />
       <div style={CS.card}>
         <div style={CS.cardTitle}>📱 QR &amp; Hardware Biometrics</div>
-        <div style={{ fontSize:12, color:'var(--t3)', marginBottom:10, lineHeight:1.5 }}>
+        <div style={{ fontSize:13, color:'var(--t3)', marginBottom:10, lineHeight:1.5 }}>
           Scan a QR code on another device or authenticate with PinIT Vault.
         </div>
         <div
@@ -197,12 +197,12 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
             borderRadius: 8,
             padding: '8px 12px',
             marginBottom: 12,
-            fontSize: 12,
+            fontSize: 13,
             color: 'var(--t2)'
           }}
           title="Hardware biometric authentication is not configured for this device or browser."
         >
-          <span style={{ fontSize: 14 }}>ℹ️</span>
+          <span style={{ fontSize: 15.5 }}>ℹ️</span>
           <span>Hardware biometric authentication is not configured for this device or browser.</span>
         </div>
         <button

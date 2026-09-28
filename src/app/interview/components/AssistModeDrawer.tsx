@@ -80,12 +80,12 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(var(--reward-rgb),0.3)', paddingBottom: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 16 }}>🪄</span>
+          <span style={{ fontSize: 17.5 }}>🪄</span>
           <div>
-            <div style={{ fontSize: 12.5, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
+            <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
               ASSIST MODE TELEPROMPTER &amp; VOCAL SCRIPT
             </div>
-            <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
               Word-for-word spoken response script &amp; vocal coaching tailored to the current question
             </div>
           </div>
@@ -105,7 +105,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
               color: 'var(--reward-bright)',
               borderRadius: 6,
               padding: '3px 8px',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800,
               cursor: 'pointer'
             }}
@@ -120,14 +120,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 toast.success('Script Copied! 📋', 'Teleprompter script copied to clipboard.');
               }
             }}
-            style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 6, padding: '3px 8px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
+            style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 6, padding: '3px 8px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}
           >
             📋 Copy
           </button>
 
           <button
             onClick={() => setIsAssistModeActive(false)}
-            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: '0 4px' }}
+            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', padding: '0 4px' }}
           >
             ✕
           </button>
@@ -142,7 +142,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
             flex: 1,
             padding: '6px',
             borderRadius: 6,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             background: assistTab === 'script' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'script' ? '#fff' : 'var(--text-muted)',
@@ -158,7 +158,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
             flex: 1,
             padding: '6px',
             borderRadius: 6,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             background: assistTab === 'bullets' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'bullets' ? '#fff' : 'var(--text-muted)',
@@ -174,7 +174,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
             flex: 1,
             padding: '6px',
             borderRadius: 6,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             background: assistTab === 'delivery' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'delivery' ? '#fff' : 'var(--text-muted)',
@@ -188,14 +188,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
 
       {/* Tab Content */}
       {isFetchingAssist ? (
-        <div style={{ padding: 14, textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11.5, fontStyle: 'italic' }}>
+        <div style={{ padding: 14, textAlign: 'center', color: 'var(--reward-bright)', fontSize: 12.5, fontStyle: 'italic' }}>
           ✨ Generating tailored high-scoring speech script...
         </div>
       ) : assistData ? (
         <div>
           {assistTab === 'script' && (
             <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: '12px 14px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
-              <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text)', fontWeight: 500 }}>
+              <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--text)', fontWeight: 500 }}>
                 &ldquo;
                 {assistData.script.split(' ').map((word: string, wIdx: number) => {
                   const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -216,7 +216,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 })}
                 &rdquo;
               </div>
-              <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 10, color: 'var(--reward-bright)' }}>
+              <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--reward-bright)' }}>
                 <span>🎙️ {liveSpeechTranscript ? '🟢 Reading detected — word matches glow green' : 'Read this script out loud into your microphone'}</span>
                 <span>Pace: {assistData.deliveryGuide?.pacing || '~125 WPM'}</span>
               </div>
@@ -225,7 +225,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
 
           {assistTab === 'bullets' && (
             <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: '10px 14px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
-              <ul style={{ margin: 0, paddingLeft: 16, fontSize: 12, lineHeight: 1.6, color: 'var(--text)' }}>
+              <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>
                 {(assistData.bulletPoints || []).map((pt, idx) => (
                   <li key={idx} style={{ marginBottom: 4 }}>{pt}</li>
                 ))}
@@ -236,15 +236,15 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
           {assistTab === 'delivery' && (
             <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: '10px 14px', border: '1px solid rgba(var(--reward-rgb),0.2)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Vocal Delivery</span>
-                <div style={{ fontSize: 11.5, color: 'var(--text)', marginTop: 4 }}><strong>Pacing:</strong> {assistData.deliveryGuide?.pacing}</div>
-                <div style={{ fontSize: 11.5, color: 'var(--text)', marginTop: 2 }}><strong>Tone:</strong> {assistData.deliveryGuide?.tone}</div>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Vocal Delivery</span>
+                <div style={{ fontSize: 12.5, color: 'var(--text)', marginTop: 4 }}><strong>Pacing:</strong> {assistData.deliveryGuide?.pacing}</div>
+                <div style={{ fontSize: 12.5, color: 'var(--text)', marginTop: 2 }}><strong>Tone:</strong> {assistData.deliveryGuide?.tone}</div>
               </div>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Emphasis Keywords</span>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Emphasis Keywords</span>
                 <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 4 }}>
                   {(assistData.deliveryGuide?.emphasisWords || []).map((w, i) => (
-                    <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '2px 6px', borderRadius: 4, fontSize: 10, fontWeight: 800 }}>
+                    <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '2px 6px', borderRadius: 4, fontSize: 11, fontWeight: 800 }}>
                       {w}
                     </span>
                   ))}
@@ -254,7 +254,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
           )}
         </div>
       ) : (
-        <div style={{ padding: 10, color: 'var(--text-muted)', fontSize: 11, textAlign: 'center' }}>
+        <div style={{ padding: 10, color: 'var(--text-muted)', fontSize: 12, textAlign: 'center' }}>
           No script loaded yet. Click &lsquo;Regenerate Script&rsquo; or wait for the next question.
         </div>
       )}

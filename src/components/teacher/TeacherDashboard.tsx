@@ -67,23 +67,23 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 24 }}>👩‍🏫</span>
+          <span style={{ fontSize: 26.5 }}>👩‍🏫</span>
           <div>
-            <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Faculty & Teacher Portal</h1>
-            <span style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Campus OS • {teacher?.department || 'Academic Department'}</span>
+            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Faculty & Teacher Portal</h1>
+            <span style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Campus OS • {teacher?.department || 'Academic Department'}</span>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 14, fontWeight: 600 }}>{displayName}</div>
-            <div style={{ fontSize: 11, color: '#16a34a', fontWeight: 600 }}>● Active Faculty</div>
+            <div style={{ fontSize: 15.5, fontWeight: 600 }}>{displayName}</div>
+            <div style={{ fontSize: 12, color: '#16a34a', fontWeight: 600 }}>● Active Faculty</div>
           </div>
           <button
             onClick={onLogout || (() => window.location.href = '/login')}
             style={{
               padding: '6px 14px',
-              fontSize: 13,
+              fontSize: 14.5,
               borderRadius: 6,
               border: '1px solid var(--border, #cbd5e1)',
               background: 'transparent',
@@ -145,27 +145,27 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
           {activeNav === 'overview' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
-                <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Welcome back, {displayName}! 👋</h2>
+                <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>Welcome back, {displayName}! 👋</h2>
                 <p style={{ color: 'var(--t3, #64748b)', margin: '4px 0 0' }}>Here is what is happening across your batches today.</p>
               </div>
 
               {/* Dynamic Stat Cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
-                  <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Active Batches</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, margin: '6px 0 0' }}>4</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--t3, #64748b)' }}>Active Batches</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, margin: '6px 0 0' }}>4</div>
                 </div>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
-                  <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Total Enrolled Students</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, margin: '6px 0 0' }}>{enrolledStudentsCount}</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--t3, #64748b)' }}>Total Enrolled Students</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, margin: '6px 0 0' }}>{enrolledStudentsCount}</div>
                 </div>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
-                  <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Pending Grades</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#d97706', margin: '6px 0 0' }}>{pendingGradesCount}</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--t3, #64748b)' }}>Pending Grades</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, color: '#d97706', margin: '6px 0 0' }}>{pendingGradesCount}</div>
                 </div>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
-                  <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Course Materials Published</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#2563eb', margin: '6px 0 0' }}>{materialsCount}</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--t3, #64748b)' }}>Course Materials Published</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, color: '#2563eb', margin: '6px 0 0' }}>{materialsCount}</div>
                 </div>
               </div>
             </div>

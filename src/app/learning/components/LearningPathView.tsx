@@ -71,13 +71,13 @@ export function LearningPathView({
                     background: isActive ? 'var(--accent)' : 'var(--bg2)',
                     color: isActive ? '#fff' : 'var(--t3)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 11, fontWeight: 900, border: '1px solid var(--border)', flexShrink: 0
+                    fontSize: 12, fontWeight: 900, border: '1px solid var(--border)', flexShrink: 0
                   }}>
                     {idx + 1}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <h4 style={{ margin: '0 0 2px 0', fontSize: 13, fontWeight: 800, color: isActive ? 'var(--accent)' : 'var(--t1)' }}>{s.label}</h4>
-                    <div style={{ fontSize: 11.5, color: 'var(--t2)' }}>{s.desc}</div>
+                    <h4 style={{ margin: '0 0 2px 0', fontSize: 14.5, fontWeight: 800, color: isActive ? 'var(--accent)' : 'var(--t1)' }}>{s.label}</h4>
+                    <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>{s.desc}</div>
                   </div>
                 </div>
               );
@@ -87,9 +87,9 @@ export function LearningPathView({
 
         <div style={card}>
           <div style={cardLabel}>Active Step Details</div>
-          <h3 style={{ margin: '0 0 8px 0', fontSize: 16, fontWeight: 950 }}>{roadmapSteps[activeStep]?.label}</h3>
-          <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>{roadmapSteps[activeStep]?.desc}</p>
-          <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 12, border: '1px solid var(--border)', fontSize: 13 }}>
+          <h3 style={{ margin: '0 0 8px 0', fontSize: 17.5, fontWeight: 950 }}>{roadmapSteps[activeStep]?.label}</h3>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>{roadmapSteps[activeStep]?.desc}</p>
+          <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 12, border: '1px solid var(--border)', fontSize: 14.5 }}>
             🎯 <strong>Remedial Recommendation</strong>: {roadmapSteps[activeStep]?.details}
           </div>
         </div>
@@ -103,10 +103,10 @@ export function LearningPathView({
       {!onboardingComplete ? (
         <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, display: 'flex', flexDirection: 'column', height: 440, overflow: 'hidden' }}>
           <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent), var(--purple))', color: 'white', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 20 }}>{teacher.emoji}</span>
+            <span style={{ fontSize: 22 }}>{teacher.emoji}</span>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700 }}>{teacher.name}</div>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)' }}>AI Career Companion</div>
+              <div style={{ fontSize: 14.5, fontWeight: 700 }}>{teacher.name}</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>AI Career Companion</div>
             </div>
           </div>
 
@@ -114,7 +114,7 @@ export function LearningPathView({
             {chatHistory.map((msg, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: msg.sender === 'ai' ? 'flex-start' : 'flex-end' }}>
                 <div style={{
-                  maxWidth: '80%', padding: '10px 14px', borderRadius: 12, fontSize: 13, lineHeight: 1.5,
+                  maxWidth: '80%', padding: '10px 14px', borderRadius: 12, fontSize: 14.5, lineHeight: 1.5,
                   background: msg.sender === 'ai' ? 'var(--card)' : 'var(--accent)',
                   color: msg.sender === 'ai' ? 'var(--t1)' : 'white',
                   border: msg.sender === 'ai' ? '1px solid var(--border)' : 'none'
@@ -125,7 +125,7 @@ export function LearningPathView({
             ))}
             {simulating && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <div style={{ background: 'var(--card)', border: '1px solid var(--border)', padding: '10px 14px', borderRadius: 12, fontSize: 12.5, color: 'var(--accent)' }}>
+                <div style={{ background: 'var(--card)', border: '1px solid var(--border)', padding: '10px 14px', borderRadius: 12, fontSize: 14, color: 'var(--accent)' }}>
                   ⚡ Simulating digital twin trajectory...
                 </div>
               </div>
@@ -140,21 +140,21 @@ export function LearningPathView({
               onChange={e => setInputVal(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSendAnswer()}
               placeholder={ONBOARDING_QUESTIONS[step]?.placeholder || "Type your response..."}
-              style={{ flex: 1, padding: '8px 14px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--t1)', fontSize: 12.5 }}
+              style={{ flex: 1, padding: '8px 14px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--t1)', fontSize: 14 }}
             />
-            <button onClick={handleSendAnswer} className="btn-primary" style={{ padding: '8px 18px', fontSize: 12 }}>Send →</button>
+            <button onClick={handleSendAnswer} className="btn-primary" style={{ padding: '8px 18px', fontSize: 13 }}>Send →</button>
           </div>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>Digital Career Twin Projections:</span>
-            <button onClick={() => setOnboardingComplete(false)} style={{ padding: '6px 12px', fontSize: 11, fontWeight: 800, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--accent)', cursor: 'pointer' }}>Re-Simulate Twin</button>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)' }}>Digital Career Twin Projections:</span>
+            <button onClick={() => setOnboardingComplete(false)} style={{ padding: '6px 12px', fontSize: 12, fontWeight: 800, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--accent)', cursor: 'pointer' }}>Re-Simulate Twin</button>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 20 }}>
             <div style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.05), rgba(6,182,212,0.03))', border: '1px solid rgba(79,70,229,0.2)', borderRadius: 20, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>🚀 Career OS Blueprint</div>
+              <div style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>🚀 Career OS Blueprint</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
                 {[
                   { label: 'Target Role', value: onboardingAnswers?.role || 'SDE-1 Developer', color: 'var(--t1)' },
@@ -163,8 +163,8 @@ export function LearningPathView({
                   { label: 'Time Required', value: twinData?.simulation?.paths?.[selectedTwinPath]?.timeline || '8 - 12 Months', color: 'var(--purple)' }
                 ].map(item => (
                   <div key={item.label} style={{ background: 'var(--bg2)', padding: '12px', borderRadius: 12, border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 2 }}>{item.label}</div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: item.color }}>{item.value}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 2 }}>{item.label}</div>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: item.color }}>{item.value}</div>
                   </div>
                 ))}
               </div>
@@ -179,7 +179,7 @@ export function LearningPathView({
                   { label: 'Global Opportunities Prep', score: twinData?.simulation?.global_readiness || 65, color: 'var(--teal)' }
                 ].map(f => (
                   <div key={f.label}>
-                    <div style={{ display: 'flex', fontSize: 11.5, color: 'var(--t2)', marginBottom: 3, justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', fontSize: 12.5, color: 'var(--t2)', marginBottom: 3, justifyContent: 'space-between' }}>
                       <span>{f.label}</span>
                       <span style={{ fontWeight: 700, color: f.color }}>{f.score}%</span>
                     </div>
@@ -193,7 +193,7 @@ export function LearningPathView({
           </div>
 
           <div>
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 14, display: 'block' }}>🏆 Paths Simulation Directory</span>
+            <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 14, display: 'block' }}>🏆 Paths Simulation Directory</span>
             <div style={{ display: 'flex', gap: 10, margin: '10px 0', flexWrap: 'wrap' }}>
               {twinData?.simulation?.paths?.map((p, idx) => (
                 <button key={idx} onClick={() => setSelectedTwinPath(idx)} style={{
@@ -201,9 +201,9 @@ export function LearningPathView({
                   background: selectedTwinPath === idx ? 'rgba(79,70,229,0.06)' : 'var(--bg2)',
                   cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 4, transition: 'all 0.15s'
                 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: selectedTwinPath === idx ? 'var(--accent)' : 'var(--t1)' }}>{p.name}</div>
-                  <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{p.probability}% Prob · {p.timeline}</div>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--green)', marginTop: 2 }}>{p.salary_range}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: selectedTwinPath === idx ? 'var(--accent)' : 'var(--t1)' }}>{p.name}</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{p.probability}% Prob · {p.timeline}</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', marginTop: 2 }}>{p.salary_range}</div>
                 </button>
               ))}
             </div>

@@ -31,7 +31,7 @@ export default function GrandFinaleCta({ onOpenLogin }: GrandFinaleCtaProps) {
             <Link
               href="/signup"
               className="btn-primary-hero"
-              style={{ fontSize: 15, padding: '14px 32px', textDecoration: 'none' }}
+              style={{ fontSize: 16.5, padding: '14px 32px', textDecoration: 'none' }}
             >
               <span>Start Free Exploration</span>
               <span>→</span>
@@ -40,13 +40,13 @@ export default function GrandFinaleCta({ onOpenLogin }: GrandFinaleCtaProps) {
             <Link
               href="/login"
               className="btn-secondary-hero"
-              style={{ fontSize: 14, padding: '14px 26px', textDecoration: 'none' }}
+              style={{ fontSize: 15.5, padding: '14px 26px', textDecoration: 'none' }}
             >
               <span>Campus Institution Portal</span>
             </Link>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 24, paddingTop: 20, borderTop: '1px solid var(--border-color)', width: '100%', fontSize: 12, color: 'var(--text-tertiary)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 24, paddingTop: 20, borderTop: '1px solid var(--border-color)', width: '100%', fontSize: 13, color: 'var(--text-tertiary)' }}>
             <span><strong style={{ color: 'var(--accent-green)' }}>✓</strong> 100% Free Core Roadmaps</span>
             <span><strong style={{ color: 'var(--accent)' }}>✓</strong> Zero Credit Card Required</span>
             <span><strong style={{ color: '#a855f7' }}>✓</strong> Instant In-Browser Access</span>

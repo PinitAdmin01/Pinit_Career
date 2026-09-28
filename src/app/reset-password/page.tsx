@@ -141,7 +141,7 @@ function ResetForm() {
                 value={email} onChange={e => setEmail(e.target.value)} required autoFocus />
             </div>
             <button type="submit" className="btn-primary"
-              style={{ width:'100%', justifyContent:'center', padding:'11px', fontSize:14 }}
+              style={{ width:'100%', justifyContent:'center', padding:'11px', fontSize:15.5 }}
               disabled={loading}>
               {loading ? '⏳ Sending...' : 'Send Reset Link →'}
             </button>
@@ -169,20 +169,20 @@ function ResetForm() {
                     <div key={i} style={{ flex:1, height:3, borderRadius:3, background: password.length >= i*3 ? (i<=2?'var(--amber)':i===3?'var(--teal)':'var(--green)') : 'var(--bg3)', transition:'background 0.3s' }} />
                   ))}
                 </div>
-                <div style={{ fontSize:10.5, color:'var(--t3)' }}>
+                <div style={{ fontSize:11.5, color:'var(--t3)' }}>
                   {password.length < 8 ? 'Too short' : password.length < 12 ? 'Fair' : password.length < 16 ? 'Good' : 'Strong ✓'}
                 </div>
               </div>
             )}
             <button type="submit" className="btn-primary"
-              style={{ width:'100%', justifyContent:'center', padding:'11px', fontSize:14 }}
+              style={{ width:'100%', justifyContent:'center', padding:'11px', fontSize:15.5 }}
               disabled={loading}>
               {loading ? '⏳ Resetting...' : 'Reset Password →'}
             </button>
           </form>
         )}
 
-        <div style={{ textAlign:'center', marginTop:18, fontSize:12.5, color:'var(--t3)' }}>
+        <div style={{ textAlign:'center', marginTop:18, fontSize:14, color:'var(--t3)' }}>
           <Link href="/login" style={{ color:'var(--accent)', fontWeight:500, textDecoration:'none' }}>
             ← Back to Sign In
           </Link>

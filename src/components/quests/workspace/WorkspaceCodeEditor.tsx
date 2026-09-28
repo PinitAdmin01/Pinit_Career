@@ -89,7 +89,7 @@ export function WorkspaceCodeEditor({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          fontSize: 12,
+          fontSize: 13,
           color: '#eab308'
         }}>
           <span>⏳ Quest unlock expiring in {Math.floor(unlockRemainingSec / 60)}m {unlockRemainingSec % 60}s. Your code is safely auto-saved.</span>
@@ -103,7 +103,7 @@ export function WorkspaceCodeEditor({
                 borderRadius: 6,
                 padding: '4px 10px',
                 fontWeight: 800,
-                fontSize: 11,
+                fontSize: 12,
                 cursor: 'pointer'
               }}
             >
@@ -114,8 +114,8 @@ export function WorkspaceCodeEditor({
       )}
 
       <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1.5px solid var(--border)', borderBottom: 'none', padding: '8px 14px', borderRadius: '12px 12px 0 0' }}>
-        <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
-        <span style={{ fontSize: 11, color: editorLocked ? (examTimedOut && !isCompleted ? 'var(--coral)' : 'var(--green)') : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+        <span style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
+        <span style={{ fontSize: 12, color: editorLocked ? (examTimedOut && !isCompleted ? 'var(--coral)' : 'var(--green)') : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
           {isCompleted ? 'COMPLETED (READ-ONLY)' : (examTimedOut && isExam ? 'TIME EXPIRED (LOCKED)' : (isExam ? 'EXAM ENVIRONMENT' : langInfo.label.toUpperCase()))}
         </span>
       </div>
@@ -135,7 +135,7 @@ export function WorkspaceCodeEditor({
           padding: '16px 8px',
           color: 'var(--t3)',
           fontFamily: 'var(--font-mono)',
-          fontSize: 12.5,
+          fontSize: 14,
           textAlign: 'right',
           userSelect: 'none',
           minWidth: 40,
@@ -175,7 +175,7 @@ export function WorkspaceCodeEditor({
             background: 'transparent',
             color: editorLocked ? 'var(--t3)' : '#f8fafc',
             fontFamily: 'var(--font-mono)',
-            fontSize: 12.5,
+            fontSize: 14,
             padding: '16px 12px',
             border: 'none',
             resize: 'none',

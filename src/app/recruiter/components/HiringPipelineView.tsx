@@ -28,10 +28,10 @@ export default function HiringPipelineView({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <h3 style={{ fontSize: 16, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+        <h3 style={{ fontSize: 17.5, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
           📊 Enterprise Hiring Pipeline (OpenCATS Model)
         </h3>
-        <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>
+        <p style={{ fontSize: 13, color: 'var(--t3)', margin: '2px 0 0' }}>
           6-Stage candidate progression from ATS screening to final hire
         </p>
       </div>
@@ -72,12 +72,12 @@ export default function HiringPipelineView({
                   marginBottom: 10,
                 }}
               >
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t1)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', textTransform: 'uppercase' }}>
                   {stage}
                 </span>
                 <span
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 700,
                     padding: '1px 6px',
                     borderRadius: 10,
@@ -91,7 +91,7 @@ export default function HiringPipelineView({
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1, overflowY: 'auto' }}>
                 {inStage.length === 0 ? (
-                  <div style={{ textAlign: 'center', padding: '24px 8px', color: 'var(--t3)', fontSize: 11 }}>
+                  <div style={{ textAlign: 'center', padding: '24px 8px', color: 'var(--t3)', fontSize: 12 }}>
                     Empty stage
                   </div>
                 ) : (
@@ -108,10 +108,10 @@ export default function HiringPipelineView({
                       }}
                       onClick={() => viewCandidate(c.id)}
                     >
-                      <div style={{ fontWeight: 700, fontSize: 12, color: 'var(--t1)', marginBottom: 2 }}>
+                      <div style={{ fontWeight: 700, fontSize: 13, color: 'var(--t1)', marginBottom: 2 }}>
                         {c.display_name}
                       </div>
-                      <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6 }}>
+                      <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6 }}>
                         ATS {Math.round(c.ats_score)}% · Trust {Math.round(c.trust_score)}%
                       </div>
 
@@ -123,7 +123,7 @@ export default function HiringPipelineView({
                               handleUpdateStage(c.id, PIPELINE_STAGES[sIdx - 1], c.display_name);
                             }}
                             className="btn-ghost btn-sm"
-                            style={{ fontSize: 9, padding: '2px 6px' }}
+                            style={{ fontSize: 10, padding: '2px 6px' }}
                             title="Move back"
                           >
                             ←
@@ -137,7 +137,7 @@ export default function HiringPipelineView({
                               handleUpdateStage(c.id, PIPELINE_STAGES[sIdx + 1], c.display_name);
                             }}
                             className="btn-primary btn-sm"
-                            style={{ fontSize: 9, padding: '2px 6px' }}
+                            style={{ fontSize: 10, padding: '2px 6px' }}
                             title="Advance"
                           >
                             →

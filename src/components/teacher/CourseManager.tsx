@@ -109,15 +109,15 @@ export default function CourseManager() {
       {/* Header & Quick Action Stats */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📚 Persistent Course Material Manager</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3)' }}>Publish lectures, lab manuals, and notes connected to live storage with downloadable blobs.</p>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📚 Persistent Course Material Manager</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 15.5, color: 'var(--t3)' }}>Publish lectures, lab manuals, and notes connected to live storage with downloadable blobs.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 12 }}>
-          <div style={{ padding: '8px 16px', background: '#eff6ff', borderRadius: 8, border: '1px solid #bfdbfe', fontSize: 13, color: '#1d4ed8', fontWeight: 600 }}>
+          <div style={{ padding: '8px 16px', background: '#eff6ff', borderRadius: 8, border: '1px solid #bfdbfe', fontSize: 14.5, color: '#1d4ed8', fontWeight: 600 }}>
             Total Materials: <strong>{materials.length}</strong>
           </div>
-          <div style={{ padding: '8px 16px', background: '#f0fdf4', borderRadius: 8, border: '1px solid #bbf7d0', fontSize: 13, color: '#15803d', fontWeight: 600 }}>
+          <div style={{ padding: '8px 16px', background: '#f0fdf4', borderRadius: 8, border: '1px solid #bbf7d0', fontSize: 14.5, color: '#15803d', fontWeight: 600 }}>
             Total Downloads: <strong>{materials.reduce((acc, m) => acc + (m.downloadsCount || 0), 0)}</strong>
           </div>
         </div>
@@ -134,10 +134,10 @@ export default function CourseManager() {
         gap: 16,
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
       }}>
-        <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>➕ Upload & Publish Material</h3>
+        <h3 style={{ fontSize: 17.5, fontWeight: 700, margin: 0 }}>➕ Upload & Publish Material</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Material Title *</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Material Title *</label>
             <input 
               type="text" 
               value={title} 
@@ -148,7 +148,7 @@ export default function CourseManager() {
             />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Subject</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Subject</label>
             <input 
               type="text" 
               value={subject} 
@@ -157,7 +157,7 @@ export default function CourseManager() {
             />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Semester</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Semester</label>
             <select 
               value={semester} 
               onChange={e => setSemester(e.target.value)}
@@ -169,7 +169,7 @@ export default function CourseManager() {
             </select>
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>File Format</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>File Format</label>
             <select 
               value={type} 
               onChange={e => setType(e.target.value as any)}
@@ -185,7 +185,7 @@ export default function CourseManager() {
 
         {type === 'link' ? (
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Resource Web Link (URL) *</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Resource Web Link (URL) *</label>
             <input
               type="url"
               value={linkUrl}
@@ -197,7 +197,7 @@ export default function CourseManager() {
           </div>
         ) : (
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>
               Choose Document File ({type.toUpperCase()})
             </label>
             <input
@@ -213,7 +213,7 @@ export default function CourseManager() {
               style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)' }}
             />
             {selectedFile && (
-              <span style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700, marginTop: 4, display: 'inline-block' }}>
+              <span style={{ fontSize: 12, color: 'var(--success)', fontWeight: 700, marginTop: 4, display: 'inline-block' }}>
                 ✓ Selected: {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
               </span>
             )}
@@ -221,7 +221,7 @@ export default function CourseManager() {
         )}
 
         <div>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Tags (comma-separated)</label>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Tags (comma-separated)</label>
           <input 
             type="text" 
             value={tagInput} 
@@ -276,13 +276,13 @@ export default function CourseManager() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#fff', padding: 24, borderRadius: 16, maxWidth: 500, width: '100%' }}>
             <h3 style={{ margin: '0 0 8px' }}>📄 Preview: {previewMaterial.title}</h3>
-            <p style={{ fontSize: 13, color: 'var(--text-dim)' }}>Subject: {previewMaterial.subject} • {previewMaterial.semester}</p>
-            <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 8, border: '1px solid var(--border)', margin: '16px 0', fontSize: 13 }}>
+            <p style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>Subject: {previewMaterial.subject} • {previewMaterial.semester}</p>
+            <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 8, border: '1px solid var(--border)', margin: '16px 0', fontSize: 14.5 }}>
               Uploaded on {previewMaterial.uploadedAt} • File Size: {previewMaterial.size} • Total Downloads: {previewMaterial.downloadsCount}
             </div>
             <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
               {(previewMaterial.tags || []).map(t => (
-                <span key={t} style={{ background: '#e0e7ff', color: '#3730a3', padding: '2px 8px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>#{t}</span>
+                <span key={t} style={{ background: '#e0e7ff', color: '#3730a3', padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600 }}>#{t}</span>
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
@@ -310,18 +310,18 @@ export default function CourseManager() {
             gap: 12
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <span style={{ fontSize: 28 }}>
+              <span style={{ fontSize: 31 }}>
                 {mat.type === 'pdf' ? '📕' : mat.type === 'pptx' ? '📊' : mat.type === 'docx' ? '📝' : '🔗'}
               </span>
               <div>
-                <h4 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{mat.title}</h4>
-                <div style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--t3)', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <h4 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>{mat.title}</h4>
+                <div style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3)', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
                   <span>{mat.subject}</span> • <span>{mat.semester}</span> • <span>{mat.uploadedAt}</span> • <span>{mat.size}</span>
                   <span style={{ color: '#2563eb', fontWeight: 600 }}>• 📥 {mat.downloadsCount || 0} downloads</span>
                 </div>
                 <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
                   {(mat.tags || []).map(tag => (
-                    <span key={tag} style={{ background: 'var(--border)', color: 'var(--text-dim)', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
+                    <span key={tag} style={{ background: 'var(--border)', color: 'var(--text-dim)', padding: '1px 6px', borderRadius: 4, fontSize: 12 }}>#{tag}</span>
                   ))}
                 </div>
               </div>
@@ -330,13 +330,13 @@ export default function CourseManager() {
             <div style={{ display: 'flex', gap: 8 }}>
               <button 
                 onClick={() => setPreviewMaterial(mat)}
-                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: '1px solid var(--border)', background: '#fff', cursor: 'pointer' }}
+                style={{ padding: '6px 12px', fontSize: 14.5, borderRadius: 6, border: '1px solid var(--border)', background: '#fff', cursor: 'pointer' }}
               >
                 👁️ Preview
               </button>
               <button 
                 onClick={() => handleDownload(mat)}
-                style={{ padding: '6px 14px', fontSize: 13, borderRadius: 6, border: 'none', background: 'var(--info)', color: 'var(--text)', fontWeight: 600, cursor: 'pointer' }}
+                style={{ padding: '6px 14px', fontSize: 14.5, borderRadius: 6, border: 'none', background: 'var(--info)', color: 'var(--text)', fontWeight: 600, cursor: 'pointer' }}
               >
                 📥 Download Blob
               </button>
@@ -350,7 +350,7 @@ export default function CourseManager() {
                     setMaterials(prev); // Rollback on failure
                   }
                 }}
-                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: 'none', background: '#fee2e2', color: 'var(--danger-deep)', cursor: 'pointer' }}
+                style={{ padding: '6px 12px', fontSize: 14.5, borderRadius: 6, border: 'none', background: '#fee2e2', color: 'var(--danger-deep)', cursor: 'pointer' }}
               >
                 🗑️ Delete
               </button>

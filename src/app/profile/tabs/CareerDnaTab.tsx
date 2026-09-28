@@ -74,7 +74,7 @@ function SkillRadarChart({ profile }: { profile: Record<string, unknown> }) {
           <line key={i} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} stroke="var(--border2)" strokeWidth={1} />
         ))}
         {axisLines.map((line, i) => (
-          <text key={i} x={line.labelX} y={line.labelY} fill="var(--t3)" fontSize={7.5} fontFamily="var(--font-mono)" textAnchor={line.align} dominantBaseline="middle" fontWeight={600}>
+          <text key={i} x={line.labelX} y={line.labelY} fill="var(--t3)" fontSize={8.5} fontFamily="var(--font-mono)" textAnchor={line.align} dominantBaseline="middle" fontWeight={600}>
             {line.label}
           </text>
         ))}
@@ -143,12 +143,12 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <span style={{ fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+          <span style={{ fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
             Evolution Velocity Heatmap
           </span>
-          <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>Weekly activity metrics & quest completion density</div>
+          <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 2 }}>Weekly activity metrics & quest completion density</div>
         </div>
-        <div style={{ display: 'flex', gap: 4, alignItems: 'center', fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center', fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
           <span>Less</span>
           <span style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--bg3)', border: '1px solid var(--border)' }} />
           <span style={{ width: 8, height: 8, borderRadius: 2, background: `${themeColor}66` }} />
@@ -159,7 +159,7 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
       </div>
 
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'center', padding: '10px 0' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'right', width: 28 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'right', width: 28 }}>
           {DAYS.map((day, i) => (
             <div key={i} style={{ height: 12, lineHeight: '12px' }}>{i % 2 === 0 ? day : ''}</div>
           ))}
@@ -203,13 +203,13 @@ export default function CareerDnaTab({ user, cOS }: CareerDnaTabProps) {
           <div style={CS.card}>
             <div style={CS.cardLabel}>📊 Career Archetype Profile</div>
             <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 14 }}>
-              <span style={{ fontSize: 32 }}>🛠️</span>
+              <span style={{ fontSize: 35 }}>🛠️</span>
               <div>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--accent)' }}>Software Engineer Archetype</h3>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Focus: Distributed Infrastructure & Cryptographic consensus</span>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--accent)' }}>Software Engineer Archetype</h3>
+                <span style={{ fontSize: 13, color: 'var(--t3)' }}>Focus: Distributed Infrastructure & Cryptographic consensus</span>
               </div>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
               Your code quest completions and cryptographic project vault verifications map your archetype directly to SDE structures.
             </p>
           </div>
@@ -246,11 +246,11 @@ export default function CareerDnaTab({ user, cOS }: CareerDnaTabProps) {
             { label: 'Strategic Thinking', icon: '🧠', desc: 'System design scaling logic and architecture complexity analysis.' }
           ].map(d => (
             <div key={d.label} style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontWeight: 800, fontSize: 13, marginBottom: 4 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontWeight: 800, fontSize: 14.5, marginBottom: 4 }}>
                 <span>{d.icon}</span>
                 <span>{d.label}</span>
               </div>
-              <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0, lineHeight: 1.4 }}>{d.desc}</p>
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, lineHeight: 1.4 }}>{d.desc}</p>
             </div>
           ))}
         </div>

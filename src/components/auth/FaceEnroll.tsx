@@ -18,10 +18,10 @@ export default function FaceEnroll({ username = '', onSuccess, onCancel }: Props
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: 16 }}>
       <div style={{ textAlign: 'center', marginBottom: 8 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 700, margin: '0 0 4px', color: 'var(--t1)' }}>
+        <h3 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 4px', color: 'var(--t1)' }}>
           📸 Biometric Face Enrollment
         </h3>
-        <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, maxWidth: 320 }}>
+        <p style={{ fontSize: 14, color: 'var(--t3)', margin: 0, maxWidth: 320 }}>
           Capture your 128D neural facial embedding for fast, passwordless 100% accurate sign-ins.
         </p>
       </div>
@@ -43,7 +43,7 @@ export default function FaceEnroll({ username = '', onSuccess, onCancel }: Props
           background: 'rgba(16, 185, 129, 0.1)',
           border: '1px solid rgba(16, 185, 129, 0.3)',
           color: '#34d399',
-          fontSize: 12.5,
+          fontSize: 14,
           textAlign: 'center'
         }}>
           ✓ Face Biometrics registered! You can now sign in using your face.

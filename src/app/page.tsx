@@ -259,41 +259,41 @@ function LandingContent() {
             {/* 4 Core Pillars Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
               <div className="glass-card" style={{ padding: '24px' }}>
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>🧠</div>
-                <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                <div style={{ fontSize: '31px', marginBottom: '12px' }}>🧠</div>
+                <h3 style={{ fontSize: '18.5px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
                   1. AI-Powered Personalization
                 </h3>
-                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                   Dynamic S-Curve roadmaps that adapt to progress, skill gaps, and target companies.
                 </p>
               </div>
 
               <div className="glass-card" style={{ padding: '24px' }}>
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>🔨</div>
-                <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                <div style={{ fontSize: '31px', marginBottom: '12px' }}>🔨</div>
+                <h3 style={{ fontSize: '18.5px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
                   2. Skill-First Proof of Work
                 </h3>
-                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                   Replacing text claims with audited test assertions, code commits, and verified capstones.
                 </p>
               </div>
 
               <div className="glass-card" style={{ padding: '24px' }}>
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>🌐</div>
-                <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                <div style={{ fontSize: '31px', marginBottom: '12px' }}>🌐</div>
+                <h3 style={{ fontSize: '18.5px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
                   3. Ecosystem Connectivity
                 </h3>
-                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                   Connecting Students, Faculty, Placement Cells, Enterprise Recruiters, and Parents.
                 </p>
               </div>
 
               <div className="glass-card" style={{ padding: '24px' }}>
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>📈</div>
-                <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                <div style={{ fontSize: '31px', marginBottom: '12px' }}>📈</div>
+                <h3 style={{ fontSize: '18.5px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
                   4. Guaranteed Readiness
                 </h3>
-                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                   Real-time 0-100% readiness score with 95%+ AI candidate-to-job matching precision.
                 </p>
               </div>
@@ -316,37 +316,37 @@ function LandingContent() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginTop: '24px' }}>
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🗺️</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>🗺️</div>
                 <h3>Personalized AI Roadmaps</h3>
                 <p>AI creates your unique roadmap based on your goals, college, and target companies.</p>
               </div>
 
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>👩‍🏫</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>👩‍🏫</div>
                 <h3>Learn with AI Mentor</h3>
                 <p>24/7 spoken tutoring with 0 jargon and empathetic 3-step recovery ladders.</p>
               </div>
 
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>💻</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>💻</div>
                 <h3>Build Real Projects</h3>
                 <p>Build enterprise systems, collaborate with peers, and deploy audited capstones.</p>
               </div>
 
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>⚔️</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>⚔️</div>
                 <h3>Compete &amp; Rank</h3>
                 <p>Climb global Elo leaderboards in Code Wars and weekly hackathons.</p>
               </div>
 
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>👥</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>👥</div>
                 <h3>Peer Communities</h3>
                 <p>Study groups, voice rooms, and multi-avatar AI group discussions.</p>
               </div>
 
               <div className="gain-card">
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🚀</div>
+                <div style={{ fontSize: '35px', marginBottom: '16px' }}>🚀</div>
                 <h3>Get Discovered</h3>
                 <p>Companies find you based on verified code execution and skill passports.</p>
               </div>
@@ -389,10 +389,10 @@ function LandingContent() {
             {/* Header */}
             <div style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 20 }}>🤖</span>
+                <span style={{ fontSize: 22 }}>🤖</span>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>PinIT Career AI Mentor</div>
-                  <div style={{ fontSize: 10, color: 'var(--success)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--text)' }}>PinIT Career AI Mentor</div>
+                  <div style={{ fontSize: 11, color: 'var(--success)', display: 'flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />
                     Live Guidance Ready
                   </div>
@@ -400,7 +400,7 @@ function LandingContent() {
               </div>
               <button
                 onClick={() => setIsChatOpen(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 16, cursor: 'pointer', padding: 4 }}
+                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 17.5, cursor: 'pointer', padding: 4 }}
               >
                 ✕
               </button>
@@ -413,7 +413,7 @@ function LandingContent() {
                   <div style={{
                     padding: '10px 14px',
                     borderRadius: 12,
-                    fontSize: 12.5,
+                    fontSize: 14,
                     lineHeight: 1.5,
                     background: msg.role === 'user' ? 'linear-gradient(135deg, #3b82f6, #6366f1)' : 'rgba(255,255,255,0.06)',
                     color: 'var(--text)',
@@ -432,7 +432,7 @@ function LandingContent() {
                         border: '1px solid rgba(var(--success-rgb), 0.3)',
                         borderRadius: 6,
                         color: 'var(--success)',
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 700,
                         textDecoration: 'none'
                       }}
@@ -445,7 +445,7 @@ function LandingContent() {
 
               {/* Quick Prompt Chips */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
-                <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 700 }}>Quick Questions</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 700 }}>Quick Questions</div>
                 {[
                   'Create a frontend roadmap',
                   'How do I prepare for FAANG?',
@@ -461,7 +461,7 @@ function LandingContent() {
                       border: '1px solid rgba(var(--info-rgb), 0.2)',
                       borderRadius: 6,
                       color: '#93c5fd',
-                      fontSize: 11.5,
+                      fontSize: 12.5,
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
@@ -487,7 +487,7 @@ function LandingContent() {
                   borderRadius: 8,
                   padding: '8px 12px',
                   color: 'var(--text)',
-                  fontSize: 12
+                  fontSize: 13
                 }}
               />
               <button
@@ -499,7 +499,7 @@ function LandingContent() {
                   width: 36,
                   color: 'var(--text)',
                   cursor: 'pointer',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -521,7 +521,7 @@ function LandingContent() {
             border: 'none',
             boxShadow: '0 8px 24px rgba(var(--info-rgb), 0.4)',
             color: 'var(--text)',
-            fontSize: 22,
+            fontSize: 24,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',

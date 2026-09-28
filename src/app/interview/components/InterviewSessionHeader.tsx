@@ -59,12 +59,12 @@ export function InterviewSessionHeader({
       border: '1px solid var(--border)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span style={{ fontSize: 20 }}>{activeTeacher.emoji}</span>
+        <span style={{ fontSize: 22 }}>{activeTeacher.emoji}</span>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
+          <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
             {activeTeacher.name} ({activeTeacher.title})
           </div>
-          <div style={{ fontSize: 10, color: 'var(--accent-mid)' }}>
+          <div style={{ fontSize: 11, color: 'var(--accent-mid)' }}>
             Topic: {activeTopicName} • Stage: {activeStage.replace('_', ' ').toUpperCase()} • ⏱️ {formatElapsed(elapsedSeconds)}
           </div>
         </div>
@@ -88,7 +88,7 @@ export function InterviewSessionHeader({
               color: isAssistModeActive ? '#ffffff' : 'var(--t2)',
               borderRadius: 8,
               padding: '5px 12px',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 900,
               cursor: 'pointer',
               boxShadow: isAssistModeActive ? '0 0 10px rgba(var(--reward-rgb),0.5)' : 'none'
@@ -108,7 +108,7 @@ export function InterviewSessionHeader({
           borderRadius: 8,
           border: '1px solid var(--border)'
         }}>
-          <span style={{ fontSize: 11 }}>🔊</span>
+          <span style={{ fontSize: 12 }}>🔊</span>
           <input
             type="range"
             min="0"
@@ -117,7 +117,7 @@ export function InterviewSessionHeader({
             onChange={(e) => handleVolumeChange(Number(e.target.value))}
             style={{ width: 60, cursor: 'pointer' }}
           />
-          <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t2)', minWidth: 28 }}>{avatarVolume}%</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', minWidth: 28 }}>{avatarVolume}%</span>
         </div>
 
         <button
@@ -128,7 +128,7 @@ export function InterviewSessionHeader({
             color: showCameraPreview ? 'var(--accent)' : 'var(--t2)',
             borderRadius: 8,
             padding: '5px 12px',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             cursor: 'pointer'
           }}
@@ -145,7 +145,7 @@ export function InterviewSessionHeader({
               color: '#000',
               borderRadius: 8,
               padding: '5px 12px',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 900,
               cursor: 'pointer'
             }}
@@ -162,7 +162,7 @@ export function InterviewSessionHeader({
             color: autoVoiceLoop ? 'var(--green)' : 'var(--t2)',
             borderRadius: 8,
             padding: '5px 12px',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             cursor: 'pointer'
           }}
@@ -178,7 +178,7 @@ export function InterviewSessionHeader({
             color: 'var(--amber-mid)',
             borderRadius: 8,
             padding: '5px 12px',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             cursor: 'pointer'
           }}
@@ -194,7 +194,7 @@ export function InterviewSessionHeader({
             color: 'var(--coral-mid)',
             borderRadius: 8,
             padding: '5px 14px',
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             cursor: 'pointer'
           }}
