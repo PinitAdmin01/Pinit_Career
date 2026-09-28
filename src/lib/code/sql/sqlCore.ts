@@ -79,9 +79,33 @@ export interface SqlPracticeResult {
   output: string;
 }
 
+/** A practice task's test suite is its setup SQL, this marker line, then its check queries. */
+export const SQL_CHECKS_MARKER = '-- CHECKS --';
+
+export function splitSqlTask(testSuite: string | undefined | null): { setup: string; checks: string } | null {
+  if (!testSuite || !testSuite.includes(SQL_CHECKS_MARKER)) return null;
+  const [setup, checks] = testSuite.split(SQL_CHECKS_MARKER);
+  return { setup: setup.trim(), checks: (checks || '').trim() };
+}
+
+/** A single SELECT (or WITH ... SELECT) answer, without comments and the final semicolon; otherwise null. */
+export function singleSelect(sql: string): string | null {
+  const clean = sql
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .split('\n')
+    .map((line) => line.replace(/--.*$/, ''))
+    .join('\n')
+    .trim()
+    .replace(/;\s*$/, '')
+    .trim();
+  return /^(select|with)\b/i.test(clean) && !clean.includes(';') ? clean : null;
+}
+
 /**
  * Grades a practice task. `setup` creates the tables and rows, then the student's SQL runs, then
- * each check query runs. A check returns one row with a boolean `ok` and a text `msg`:
+ * each check query runs. When the student's answer is a single SELECT, it becomes the view
+ * `answer`, so checks can look at the rows it returns. A check returns one row with a boolean
+ * `ok` and a text `msg`:
  *   SELECT count(*) = 2 AS ok, 'Returns the 2 cheap products' AS msg FROM answer;
  * The task passes only when every check returns ok = true.
  */
@@ -90,8 +114,15 @@ export async function runSqlPractice(db: SqlDatabase, setup: string, studentSql:
   if (setup.trim()) await db.exec(setup);
   let output: string;
   try {
-    const results = await db.exec(studentSql);
-    output = results.filter((r) => r.fields.length > 0).map(formatTable).join('\n\n') || 'Your SQL ran.';
+    const select = singleSelect(studentSql);
+    if (select) {
+      await db.exec(`CREATE VIEW answer AS\n${select}`);
+      const [shown] = await db.exec('SELECT * FROM answer');
+      output = formatTable(shown);
+    } else {
+      const results = await db.exec(studentSql);
+      output = results.filter((r) => r.fields.length > 0).map(formatTable).join('\n\n') || 'Your SQL ran.';
+    }
   } catch (err) {
     const message = `[Error] ${errorText(err)}`;
     return { passed: false, messages: [message], output: message };

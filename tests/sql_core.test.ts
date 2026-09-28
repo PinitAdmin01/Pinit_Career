@@ -59,3 +59,14 @@ test('a practice task passes only when every check passes', async () => {
   assert.equal(broken.passed, false);
   assert.match(broken.messages[0], /^\[Error\] syntax error/);
 });
+
+test('a single SELECT answer is checked through the view "answer"', async () => {
+  const task = `CREATE TABLE products (name text, price numeric);
+INSERT INTO products VALUES ('Pen', 10), ('Bag', 900), ('Book', 250);`;
+  const checks = `SELECT count(*) = 2 AS ok, 'returns 2 rows' AS msg FROM answer;`;
+  const good = await runSqlPractice(db, task, '-- cheap products\nSELECT name FROM products WHERE price < 500;', checks);
+  assert.equal(good.passed, true);
+  assert.match(good.output, /^ name\n------\n Pen\n Book\n\(2 rows\)$/);
+  const wrong = await runSqlPractice(db, task, 'SELECT name FROM products', checks);
+  assert.equal(wrong.passed, false);
+});
