@@ -55,14 +55,14 @@ export default function OnboardingIntro({
           </div>
 
           <div style={{ marginBottom: 48 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, display: 'block', marginBottom: 12 }}>
-              Career Diagnostic Onboarding
+            <span style={{ fontSize: 16, color: 'var(--accent)', letterSpacing: '0.5px', fontWeight: 800, display: 'block', marginBottom: 12 }}>
+              Welcome
             </span>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', color: 'var(--text)', marginBottom: 16 }}>
-              Choose Your Guidance Mentor
+              Pick your mentor
             </h1>
-            <p style={{ fontSize: 15, color: 'var(--t3)', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
-              Select the personal AI guide that will calibrate your career roadmap, analyze your communication DNA, and lead your socratic assessments.
+            <p style={{ fontSize: 18, color: '#e2e8f0', maxWidth: 640, margin: '0 auto', lineHeight: 1.6, marginBottom: 20 }}>
+              Your mentor will ask a few quick questions and help you plan your career.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
               <button
@@ -73,9 +73,9 @@ export default function OnboardingIntro({
                   border: 'none',
                   borderRadius: 100,
                   color: 'var(--card)',
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: 800,
-                  padding: '8px 20px',
+                  padding: '10px 22px',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -86,7 +86,7 @@ export default function OnboardingIntro({
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                📁 Vault (Upload Resume & Docs)
+                📁 Upload my resume
               </button>
               <button
                 type="button"
@@ -96,9 +96,9 @@ export default function OnboardingIntro({
                   border: '1px solid rgba(56, 189, 248, 0.4)',
                   borderRadius: 100,
                   color: '#bae6fd',
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: 800,
-                  padding: '8px 20px',
+                  padding: '10px 22px',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -109,7 +109,7 @@ export default function OnboardingIntro({
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                ⚡ Express Route (1-Min Fast Track)
+                ⚡ Quick start (1 minute)
               </button>
               {isAdmin && onFastComplete && (
                 <button
@@ -137,21 +137,6 @@ export default function OnboardingIntro({
                   ⚡ 1-Click Fast Complete (Admin Dev)
                 </button>
               )}
-              <div style={{
-                fontSize: 11,
-                fontFamily: 'var(--font-mono)',
-                color: 'var(--teal)',
-                background: 'rgba(var(--accent-teal-rgb), 0.1)',
-                border: '1px solid rgba(var(--accent-teal-rgb), 0.25)',
-                borderRadius: 100,
-                padding: '6px 14px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                fontWeight: 700
-              }}>
-                ✨ 3D Avatars & Voices Preloaded (0ms Lag)
-              </div>
             </div>
           </div>
 
@@ -159,9 +144,19 @@ export default function OnboardingIntro({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 48 }}>
             {/* Ms. Priya */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="Choose Ms. Priya"
               onClick={() => {
                 setSelectedMentor('priya');
                 onStartDeepDiagnostics();
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setSelectedMentor('priya');
+                  onStartDeepDiagnostics();
+                }
               }}
               style={{
                 background: 'rgba(10, 15, 26, 0.4)',
@@ -187,20 +182,30 @@ export default function OnboardingIntro({
               }}
             >
               <div style={{ fontSize: 48, marginBottom: 20 }}>👩‍💼</div>
-              <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Ms. Priya</h2>
-              <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: 16 }}>
-                Full-Stack Systems Mentor
+              <h2 style={{ fontSize: 26, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Ms. Priya</h2>
+              <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--accent)', display: 'block', marginBottom: 12 }}>
+                Calm and step by step
               </span>
-              <p style={{ fontSize: 13.5, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
-                Specialized in systems design, databases, backend infrastructure, and interview preparation. Prefers analytical structure and deep socratic drilling.
+              <p style={{ fontSize: 17, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+                Explains things clearly, one step at a time. Great if you like to understand before you start.
               </p>
             </div>
 
             {/* Mr. Anish */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="Choose Mr. Anish"
               onClick={() => {
                 setSelectedMentor('anish');
                 onStartDeepDiagnostics();
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setSelectedMentor('anish');
+                  onStartDeepDiagnostics();
+                }
               }}
               style={{
                 background: 'rgba(10, 15, 26, 0.4)',
@@ -226,12 +231,12 @@ export default function OnboardingIntro({
               }}
             >
               <div style={{ fontSize: 48, marginBottom: 20 }}>👨‍💼</div>
-              <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Anish</h2>
-              <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: 16 }}>
-                Interactive UX & Frontend Engineer
+              <h2 style={{ fontSize: 26, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Anish</h2>
+              <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--teal)', display: 'block', marginBottom: 12 }}>
+                Hands-on and fun
               </span>
-              <p style={{ fontSize: 13.5, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
-                Specialized in React, Next.js, responsive layouts, user experience, design systems, and rapid prototyping. Focuses on visual feedback and hands-on building.
+              <p style={{ fontSize: 17, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+                Learns by doing, with lots of quick examples. Great if you like to try things first.
               </p>
             </div>
           </div>

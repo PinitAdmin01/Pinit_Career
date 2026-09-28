@@ -356,7 +356,47 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
     };
   }
 
-  // 3. Trade-off & Bottleneck Detection
+  const avgLatency = allLatencies.length > 0
+    ? Math.round(allLatencies.reduce((a, b) => a + b, 0) / allLatencies.length)
+    : 0;
+
+  return buildDiagnosticProfile(metrics, {
+    goal: safeGoal,
+    experience: safeExperience,
+    constraints: safeConstraints,
+    selectedMentor: input.selectedMentor,
+    diagnosticVersion: 'v2.0_decision_engine',
+    counts: {
+      sjtCount: (input.sjtResponses || []).length,
+      matrixCount: (input.matrixResponses || []).length,
+      tradeoffCount: (input.tradeoffResponses || []).length
+    },
+    averageLatencyMs: avgLatency
+  });
+}
+
+/** What the shared half of the evaluation needs besides the per-dimension metrics. */
+export interface DiagnosticProfileContext {
+  goal: CompleteDiagnosticInput['goal'];
+  experience: CompleteDiagnosticInput['experience'];
+  constraints: CompleteDiagnosticInput['constraints'];
+  selectedMentor?: 'priya' | 'anish';
+  diagnosticVersion: string;
+  counts: { sjtCount: number; matrixCount: number; tradeoffCount: number };
+  averageLatencyMs: number;
+}
+
+/**
+ * Trade-offs, roadmap strategy, archetypes and the saved profile, from per-dimension metrics.
+ * Shared by every question set (the full diagnostic above and the short daily-life onboarding).
+ */
+export function buildDiagnosticProfile(
+  metrics: Record<BehavioralDimension, DimensionMetric>,
+  ctx: DiagnosticProfileContext
+): CompleteDiagnosticProfile {
+  const dimensions: BehavioralDimension[] = ['PH', 'EX', 'ST', 'SIQ'];
+
+  // 1. Trade-off & Bottleneck Detection
   const tradeoffs: DetectedTradeoff[] = [];
   const ph = metrics.PH;
   const ex = metrics.EX;
@@ -419,7 +459,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
     });
   }
 
-  // 4. Dynamic Roadmap Strategy & Allocation
+  // 2. Dynamic Roadmap Strategy & Allocation
   let explorationPct = 25;
   let executionPct = 40;
   let communicationPct = 20;
@@ -472,7 +512,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
     }
   };
 
-  // 5. Compute Dominant and Secondary Archetypes (for compatibility)
+  // 3. Compute Dominant and Secondary Archetypes (for compatibility)
   const sortedDims = [...dimensions].sort((a, b) => metrics[b].evidence - metrics[a].evidence);
   const top1Dim = sortedDims[0];
   const top2Dim = sortedDims[1];
@@ -493,22 +533,18 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
   }
 
   // Parse experience level
-  const exposures = safeExperience.exposureLevels || [];
+  const exposures = ctx.experience.exposureLevels || [];
   let parsedExperienceLevel: 'fresher' | 'intern' | 'experienced' = 'fresher';
   if (exposures.includes('internship')) parsedExperienceLevel = 'intern';
   if (exposures.includes('freelance') || exposures.includes('production_deployment')) parsedExperienceLevel = 'experienced';
 
-  const avgLatency = allLatencies.length > 0
-    ? Math.round(allLatencies.reduce((a, b) => a + b, 0) / allLatencies.length)
-    : 0;
-
   return {
-    goal: safeGoal,
+    goal: ctx.goal,
     experience: {
-      ...safeExperience,
+      ...ctx.experience,
       parsedExperienceLevel
     },
-    constraints: safeConstraints,
+    constraints: ctx.constraints,
     behaviorProfile: {
       PH: metrics.PH,
       EX: metrics.EX,
@@ -522,18 +558,18 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
     tradeoffs,
     roadmapStrategy,
     systemMetadata: {
-      diagnosticVersion: 'v2.0_decision_engine',
+      diagnosticVersion: ctx.diagnosticVersion,
       evaluatedAt: Date.now(),
       routerConfig: {
         provider: 'openrouter_rotator',
         model: 'anthropic/claude-3.5-sonnet',
-        selectedMentor: input.selectedMentor || 'priya'
+        selectedMentor: ctx.selectedMentor || 'priya'
       },
       rawAuditTrail: {
-        sjtCount: (input.sjtResponses || []).length,
-        matrixCount: (input.matrixResponses || []).length,
-        tradeoffCount: (input.tradeoffResponses || []).length,
-        averageLatencyMs: avgLatency
+        sjtCount: ctx.counts.sjtCount,
+        matrixCount: ctx.counts.matrixCount,
+        tradeoffCount: ctx.counts.tradeoffCount,
+        averageLatencyMs: ctx.averageLatencyMs
       },
       misconceptionFeedbackHooks: {
         lastUpdated: Date.now(),

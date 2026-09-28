@@ -19,10 +19,9 @@ import {
 import {
   GoalDiscoveryAnswers,
   DiagnosticAnswerSession,
-  CompleteDiagnosticInput,
   CompleteDiagnosticProfile,
-  evaluateDiagnosticSession,
 } from '@/lib/onboarding/diagnosticEngine';
+import { evaluateLifeOnboarding, plainPersona, PLAIN_TRAITS, type LifeAnswer } from '@/lib/onboarding/lifeQuestions';
 import {
   speakWithAvatar,
   stopSpeaking,
@@ -1043,84 +1042,24 @@ export function useOnboardingWizard() {
       ? `Welcome ${primaryCandidateName}! `
       : "Welcome! ";
     const vaultPrefix = vaultSlots.length > 0
-      ? `${nameGreeting}I've verified your ${vaultSlots.length} credentials. `
+      ? `${nameGreeting}I've checked your ${vaultSlots.length} documents. `
       : `${nameGreeting}`;
-    const introText = `${vaultPrefix}Let's calibrate your concrete career target, timeline, and current capabilities before diagnosing your problem-solving style.`;
+    const introText = `${vaultPrefix}Just a few quick questions about you and your day. Tap the answer that feels most like you.`;
     speakReply(introText);
   }
 
-  // Handle Part A: Goal Discovery Completion
-  const handleGoalDiscoveryComplete = (answers: GoalDiscoveryAnswers) => {
-    setDiagnosticGoal(answers);
-    if (answers.role) {
-      setTargetGoal(answers.role);
-    }
-    if (answers.degreeTrack) {
-      const track = answers.degreeTrack.toLowerCase();
-      const isComm = track.includes('bcom') || track.includes('mcom') || track.includes('commerce');
-      const isBba = track.includes('bba') || track.includes('mba') || track.includes('management');
-      const isGeneral = track.includes('other') || track.includes('general') || track.includes('universal') || track.includes('non-tech');
-      setStudentType(isGeneral ? 'General & Interdisciplinary' : isBba ? 'Business & Management' : isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
-    } else if (answers.priorExperience) {
-      setStudentType(answers.priorExperience);
-    }
-    setActiveScreen('BEHAVIORAL_DIAGNOSTIC');
-    setAnimState('nod');
-    const track = answers.degreeTrack?.toLowerCase() || '';
-    const isComm = track.includes('bcom') || track.includes('mcom') || track.includes('commerce');
-    const isBba = track.includes('bba') || track.includes('mba') || track.includes('management');
-    const isGeneral = track.includes('other') || track.includes('general') || track.includes('universal') || track.includes('non-tech');
-    const reply = isGeneral
-      ? "Excellent! Next, let's explore your problem-solving instincts, analytical reasoning, and collaboration patterns with universal situational scenarios."
-      : isBba
-      ? "Excellent! Next, let's explore your problem-solving instincts, managerial acumen, and strategic agility with real business scenarios."
-      : isComm
-      ? "Excellent! Next, let's explore your problem-solving instincts, financial agility, and collaboration patterns with real business scenarios."
-      : "Excellent! Next, let's explore your problem-solving instincts, technical agility, and collaboration patterns with real engineering scenarios.";
-    speakReply(reply);
-  };
-
-  // Handle Parts B, C, D: Behavioral Diagnostic Completion
-  const handleBehavioralDiagnosticComplete = (answers: {
-    sjtResponses: any[];
-    matrixResponses: any[];
-    tradeoffResponses: any[];
-    specializationResponse?: any;
-  }) => {
-    setDiagnosticAnswers(answers);
-    const chosenSpecialization = (answers.specializationResponse && !answers.specializationResponse.skipped)
-      ? answers.specializationResponse.optionId
-      : (diagnosticGoal?.specialization || '');
-
-    const completeInput: CompleteDiagnosticInput = {
-      goal: {
-        outcome: diagnosticGoal?.outcome || 'internship',
-        role: diagnosticGoal?.role || targetGoal || 'full_stack_developer',
-        degreeTrack: diagnosticGoal?.degreeTrack || 'btech_bca_mca',
-        specialization: chosenSpecialization,
-        secondaryRoles: diagnosticGoal?.secondaryRoles || [],
-        horizonMonths: diagnosticGoal?.horizonMonths ?? 6,
-        motivation: diagnosticGoal?.motivation || ['career_placement'],
-      },
-      experience: {
-        exposureLevels: diagnosticGoal?.exposureLevels || [],
-        capabilitySelfRating: diagnosticGoal?.capabilitySelfRating || 'guided_builder'
-      },
-      constraints: {
-        dailyMinutes: diagnosticGoal?.dailyMinutes ?? 90,
-        primaryConstraints: diagnosticGoal?.primaryConstraints || []
-      },
-      sjtResponses: answers.sjtResponses || [],
-      matrixResponses: answers.matrixResponses || [],
-      tradeoffResponses: answers.tradeoffResponses || [],
-      selectedMentor
-    };
-    const profile = evaluateDiagnosticSession(completeInput);
-    setDiagnosticProfile(profile);
+  // The 10 daily-life questions: goal, career track and persona in one step
+  const handleLifeQuestionsComplete = (answers: LifeAnswer[]) => {
+    const result = evaluateLifeOnboarding(answers, selectedMentor);
+    setDiagnosticGoal(result.goal);
+    setTargetGoal(result.role);
+    setStudentType(result.studentType);
+    setDiagnosticAnswers({ sjtResponses: answers, matrixResponses: [], tradeoffResponses: [] });
+    setDiagnosticProfile(result.profile);
     setActiveScreen('BLUEPRINT_REVEAL');
     setAnimState('nod');
-    const reply = "Assessment complete! I've synthesized your goal, behavioral traits, and trade-off balancing strategy.";
-    speakReply(reply);
+    const { top, second } = plainPersona(result.profile);
+    speakReply(`All done! You are a ${PLAIN_TRAITS[top].name}, with a bit of ${PLAIN_TRAITS[second].name}. Here is your plan.`);
   };
 
   // Handle chatbot answers (Deep Path)
@@ -1278,7 +1217,7 @@ export function useOnboardingWizard() {
   const handleOnboardingComplete = async (profileType: string, goalRole: string, reason: string, finalArch?: string) => {
     setSyncing(true);
     setSyncProgress(10);
-    setSyncStatus('Registering student trajectory...');
+    setSyncStatus('Saving your answers...');
 
     const targetTrack = resolveTrackFromGoal(goalRole, profileType);
     const targetRoleLabel = targetTrack.targetRoleLabel;
@@ -1287,17 +1226,17 @@ export function useOnboardingWizard() {
 
     setTimeout(() => {
       setSyncProgress(40);
-      setSyncStatus('Initializing Career Builder configuration...');
+      setSyncStatus('Building your plan...');
     }, 50);
 
     setTimeout(() => {
       setSyncProgress(75);
-      setSyncStatus('Synchronizing credential vault with cryptographic Sentinel registry...');
+      setSyncStatus('Almost ready...');
     }, 100);
 
     setTimeout(async () => {
       setSyncProgress(100);
-      setSyncStatus('Activating Command Center dashboard...');
+      setSyncStatus('Opening your dashboard...');
 
       const retry = () => { void handleOnboardingComplete(profileType, goalRole, reason, finalArch); };
       let saved = false;
@@ -1666,17 +1605,17 @@ export function useOnboardingWizard() {
   };
 
   const stageLabel: Record<string, string> = {
-    INTENT_SELECTION: 'STAGE 01: INTENT SELECTION',
-    SLIDER: 'STAGE 01: GAP CHECK',
-    EXPRESS_FORM: 'STAGE 02: EXPRESS PROFILE',
-    CHOOSE_GUIDE: 'STAGE 01: CHOOSE GUIDE',
-    GOAL_DISCOVERY: 'STAGE 02: GOAL DISCOVERY',
-    BEHAVIORAL_DIAGNOSTIC: 'STAGE 03: BEHAVIORAL DIAGNOSTIC',
-    DEEP_CHAT: 'STAGE 04: DEEP DIAGNOSTICS',
-    IDENTITY_QUESTIONS: 'STAGE 05: IDENTITY MAP',
-    WORKPLACE_SIMULATION: 'STAGE 06: SIMULATION',
-    SPEECH_ASSESSMENT: 'STAGE 07: SPEECH LAB',
-    BLUEPRINT_REVEAL: 'STAGE 04: BLUEPRINT',
+    INTENT_SELECTION: 'Step 1: Get started',
+    SLIDER: 'Step 1: Get started',
+    EXPRESS_FORM: 'Step 2: Quick start',
+    CHOOSE_GUIDE: 'Step 1: Pick your mentor',
+    GOAL_DISCOVERY: 'Step 2: Quick questions',
+    BEHAVIORAL_DIAGNOSTIC: 'Step 2: Quick questions',
+    DEEP_CHAT: 'Step 2: Chat',
+    IDENTITY_QUESTIONS: 'Step 2: Quick questions',
+    WORKPLACE_SIMULATION: 'Step 2: Quick questions',
+    SPEECH_ASSESSMENT: 'Step 2: Speaking',
+    BLUEPRINT_REVEAL: 'Step 3: Your result',
   };
 
   function getOptionsForStep() {
@@ -1854,7 +1793,6 @@ export function useOnboardingWizard() {
     setDiagnosticAnswers,
     diagnosticProfile,
     setDiagnosticProfile,
-    handleGoalDiscoveryComplete,
-    handleBehavioralDiagnosticComplete,
+    handleLifeQuestionsComplete,
   };
 }

@@ -10,8 +10,7 @@ import CognitiveSliders from './components/CognitiveSliders';
 import VoiceDiagnostic from './components/VoiceDiagnostic';
 import DocumentUploader from './components/DocumentUploader';
 import RoadmapPreview from './components/RoadmapPreview';
-import GoalDiscoveryStep from './components/GoalDiscoveryStep';
-import BehavioralDiagnosticStep from './components/BehavioralDiagnosticStep';
+import LifeQuestionsStep from './components/LifeQuestionsStep';
 import { calculateQT2MindsetBreakdown } from './types';
 import { setAvatarVoiceVolume } from '@/lib/tts';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
@@ -131,8 +130,7 @@ export default function OnboardingPage() {
     setDiagnosticAnswers,
     diagnosticProfile,
     setDiagnosticProfile,
-    handleGoalDiscoveryComplete,
-    handleBehavioralDiagnosticComplete,
+    handleLifeQuestionsComplete,
   } = wizard;
 
   return (
@@ -265,8 +263,8 @@ export default function OnboardingPage() {
               ← Return to Dashboard
             </button>
           )}
-          <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
-            {stageLabel[activeScreen] || 'ONBOARDING'}
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#e2e8f0', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 100, padding: '6px 16px' }}>
+            {stageLabel[activeScreen] || 'Getting started'}
           </div>
           <GearAudioHub theme={cOS.theme} size="sm" />
         </div>
@@ -289,12 +287,16 @@ export default function OnboardingPage() {
           position: 'relative', 
           minHeight: 0 
         }}>
-          <div style={{ flex: 1, position: 'relative' }}>
-            {selectedMentor === 'anish' ? (
-              <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />
-            ) : (
-              <VRoidInterviewAvatar teacherId="priya" animState={animState} zoom={zoom} />
-            )}
+          <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+            {/* Pinned to the visible panel: a canvas sized by its own content grew taller than the panel,
+                so only the top of the mentor's head showed. */}
+            <div style={{ position: 'absolute', inset: 0 }}>
+              {selectedMentor === 'anish' ? (
+                <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />
+              ) : (
+                <VRoidInterviewAvatar teacherId="priya" animState={animState} zoom={zoom} />
+              )}
+            </div>
             
             {/* Audio Wave Listening Overlay */}
             {animState === 'listening' && (
@@ -310,9 +312,9 @@ export default function OnboardingPage() {
           </div>
 
           {/* Floating Controls Overlay */}
-          <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12 }}>
-            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
-            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
+          <div className="ob-controls" style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.85)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12, whiteSpace: 'nowrap' }}>
+            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom in" aria-label="Zoom in">🔍+</button>
+            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom out" aria-label="Zoom out">🔍-</button>
             <button
               onClick={() => {
                 const next = !isMuted;
@@ -333,11 +335,11 @@ export default function OnboardingPage() {
               style={{ background: 'none', border: 'none', color: isBgmMuted ? 'var(--danger-bright)' : 'var(--accent)', fontSize: 12, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }}
               title={isBgmMuted ? "Unmute Background Music" : "Mute Background Music"}
             >
-              {isBgmMuted ? '🔇' : '🎵'} <span>BGM</span>
+              {isBgmMuted ? '🔇' : '🎵'} <span>Music</span>
             </button>
             <button 
               onClick={() => {
-                if (!useNeural && !window.confirm("High-definition neural mentor audio requires an active internet connection. Enable neural voice?")) {
+                if (!useNeural && !window.confirm("The clearer mentor voice needs the internet. Turn it on?")) {
                   return;
                 }
                 setUseNeural(!useNeural);
@@ -354,9 +356,9 @@ export default function OnboardingPage() {
                 alignItems: 'center',
                 gap: 4
               }}
-              title={useNeural ? "Mute Neural Voice" : "Enable Neural Voice"}
+              title={useNeural ? "Use the basic voice" : "Use the clearer voice"}
             >
-              {useNeural ? '🎙️ Neural' : '🔇 Silent'}
+              {useNeural ? '🎙️ Clear voice' : '🔈 Basic voice'}
             </button>
           </div>
         </section>
@@ -534,29 +536,13 @@ export default function OnboardingPage() {
             </>
           )}
 
-          {/* SCREEN: GOAL DISCOVERY (PART A) */}
-          {activeScreen === 'GOAL_DISCOVERY' && (
-            <GoalDiscoveryStep
-              initialData={diagnosticGoal || undefined}
-              onComplete={handleGoalDiscoveryComplete}
+          {/* SCREEN: THE 10 QUESTIONS (3 about you + daily life). Older screen names land here too. */}
+          {(activeScreen === 'GOAL_DISCOVERY' || activeScreen === 'BEHAVIORAL_DIAGNOSTIC'
+            || activeScreen === 'IDENTITY_QUESTIONS' || activeScreen === 'WORKPLACE_SIMULATION') && (
+            <LifeQuestionsStep
+              onComplete={handleLifeQuestionsComplete}
               onBack={() => setActiveScreen('CHOOSE_GUIDE')}
-            />
-          )}
-
-          {/* SCREEN: BEHAVIORAL DIAGNOSTIC (PARTS B, C, D) */}
-          {activeScreen === 'BEHAVIORAL_DIAGNOSTIC' && (
-            <BehavioralDiagnosticStep
-              goalAnswers={diagnosticGoal}
-              onComplete={handleBehavioralDiagnosticComplete}
-              onBack={() => setActiveScreen('GOAL_DISCOVERY')}
-            />
-          )}
-
-          {/* SCREEN 05 & 06: Forward any legacy fallback routes to modern Decision Engine */}
-          {(activeScreen === 'IDENTITY_QUESTIONS' || activeScreen === 'WORKPLACE_SIMULATION') && (
-            <GoalDiscoveryStep
-              onComplete={handleGoalDiscoveryComplete}
-              onBack={() => setActiveScreen('CHOOSE_GUIDE')}
+              onQuestion={(q) => speakReply(q.text)}
             />
           )}
 
@@ -591,10 +577,6 @@ export default function OnboardingPage() {
                 setSelectedMentor={(m) => setSelectedMentor(m as 'priya' | 'anish')}
                 onActivateCommandCenter={(st, tg, ar, bt) => handleOnboardingComplete(st, tg, ar, bt)}
                 syncing={syncing}
-                syncProgress={syncProgress}
-                syncStatus={syncStatus}
-                parserLogs={parserLogs}
-                isUploadedFile={!!uploadedFile}
               />
             );
           })()}
@@ -624,7 +606,7 @@ export default function OnboardingPage() {
           </div>
 
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 4, letterSpacing: '-0.5px' }}>
-            {uploadedFile ? 'Analyzing Resume & Credentials' : 'Orchestrating Trajectory OS'}
+            {uploadedFile ? 'Reading your documents' : 'Building your plan'}
           </h2>
           <p style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
             {syncStatus}
@@ -651,8 +633,8 @@ export default function OnboardingPage() {
               justifyContent: 'flex-start'
             }}>
               <div style={{ color: 'var(--t2)', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between' }}>
-                <span>PARSER PROCESS TERMINAL</span>
-                <span>ONLINE</span>
+                <span>Progress</span>
+                <span>Working</span>
               </div>
               {parserLogs.map((log, index) => (
                 <div key={index} style={{ lineBreak: 'anywhere' }}>
@@ -759,6 +741,7 @@ export default function OnboardingPage() {
           to { transform: rotate(360deg); }
         }
         .mic-wave-bar { transition: height 0.1s ease; }
+        .ob-controls button { font-size: 16px !important; color: #e2e8f0; }
       `)}} />
     </div>
   );
