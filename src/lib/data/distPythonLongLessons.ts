@@ -2346,5 +2346,1213 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add a coordinator log and recovery after a simulated crash."
       ]
     }
+  },
+  {
+    "day": 11,
+    "title": "The Saga Pattern: Orchestration vs Choreography & Compensating Actions",
+    "goal": "You can design a saga of local transactions with compensating actions, run it with rollback in reverse order, log its progress, and choose between orchestration and choreography.",
+    "minutes": 30,
+    "recap": "Yesterday 2PC gave atomic commits but could block and hold locks. Sagas take a different path for long business processes across independent services.",
+    "parts": [
+      {
+        "title": "A saga is a chain of local transactions",
+        "say": [
+          "Booking a trip might touch a flight service, a hotel service and a payment service, each with its own database. Holding locks across all of them for seconds is impractical.",
+          "A saga splits the business transaction into steps. Each step is a normal local transaction in one service, committed immediately.",
+          "The idea comes from a 1987 database paper about long-lived transactions, and it fits microservices well because each service keeps full control of its own data.",
+          "If a later step fails, the saga runs compensating actions for the earlier steps to undo their business effect.",
+          "There are no global locks and no blocking coordinator, so services stay available and independent.",
+          "The price: for a short time, other users can see the partial state (a flight booked but no hotel yet). The design must allow for that.",
+          "The example lists a trip-booking saga with a compensation for each step."
+        ],
+        "example": "Planning a wedding with separate vendors: you book the hall, then the caterer, then the band. If the band falls through and you cancel, you ring the caterer and the hall to cancel, one by one.",
+        "code": "saga = [\n    (\"reserve flight\", \"cancel flight\"),\n    (\"reserve hotel\", \"cancel hotel\"),\n    (\"charge card\", \"refund card\"),\n    (\"send confirmation\", \"send cancellation\"),\n]\nfor i, (action, compensation) in enumerate(saga, start=1):\n    print(f\"step {i}: {action:18} undo with: {compensation}\")",
+        "output": "step 1: reserve flight     undo with: cancel flight\nstep 2: reserve hotel      undo with: cancel hotel\nstep 3: charge card        undo with: refund card\nstep 4: send confirmation  undo with: send cancellation",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Every step has a matching compensating action."
+          }
+        ],
+        "tryIt": "Add a step \"reserve airport taxi\" and choose its compensation.",
+        "check": {
+          "question": "How does a saga undo completed steps after a failure?",
+          "options": [
+            "A database rollback across services",
+            "Compensating actions for each completed step",
+            "It cannot undo them"
+          ],
+          "answer": 1,
+          "why": "Each step was committed locally, so the saga runs explicit compensations."
+        }
+      },
+      {
+        "title": "Designing compensations",
+        "say": [
+          "A compensation is a semantic undo, not a database rollback. A charged card is refunded; the charge still appears in the history.",
+          "Some actions cannot be undone: an email already sent can only be followed by an apology or correction email. Put such steps last, after everything that might fail.",
+          "Others can only be partly undone: a cancelled flight may carry a fee. The compensation then records the fee rather than pretending nothing happened.",
+          "The step after which the saga will definitely complete is the pivot. Steps before it can be compensated; steps after it must be retried until they succeed.",
+          "Compensations must be idempotent and retryable: if a refund request times out, sending it again must not refund twice.",
+          "Write the compensation at the same time as the action, and test both together.",
+          "The code orders steps so the risky ones come first and the irreversible one last."
+        ],
+        "example": "Cooking for guests: you check you have every ingredient before you start cooking, because once the rice is cooked you cannot uncook it.",
+        "code": "steps = [\n    {\"name\": \"validate address\", \"reversible\": True, \"can_fail\": True},\n    {\"name\": \"reserve stock\", \"reversible\": True, \"can_fail\": True},\n    {\"name\": \"charge card\", \"reversible\": True, \"can_fail\": True},\n    {\"name\": \"ship parcel\", \"reversible\": False, \"can_fail\": False},\n]\npivot = max(i for i, s in enumerate(steps) if s[\"can_fail\"])\nprint(\"pivot step:\", steps[pivot][\"name\"])\nfor i, s in enumerate(steps):\n    kind = \"compensate if later fails\" if i <= pivot else \"retry until done\"\n    print(f\"  {s['name']:17} -> {kind}\")",
+        "output": "pivot step: charge card\n  validate address  -> compensate if later fails\n  reserve stock     -> compensate if later fails\n  charge card       -> compensate if later fails\n  ship parcel       -> retry until done",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "The last step that can still fail."
+          },
+          {
+            "line": 10,
+            "note": "After the pivot, steps are retried, never undone."
+          }
+        ],
+        "tryIt": "Move \"ship parcel\" before \"charge card\". Why is that order a bad idea?",
+        "check": {
+          "question": "Where should an action that cannot be undone go in a saga?",
+          "options": [
+            "First",
+            "After every step that might fail",
+            "Anywhere"
+          ],
+          "answer": 1,
+          "why": "Irreversible steps belong after the pivot, when completion is certain."
+        }
+      },
+      {
+        "title": "Running a saga",
+        "say": [
+          "Practice 1: run_saga(steps). Each step has a name, an action and a compensate function. Run the actions in order, remembering the finished steps.",
+          "If an action raises, run compensate() for every finished step, newest first, and return SAGA_COMPENSATED with the failed step's name and the error text.",
+          "If all actions succeed, return SAGA_COMPLETED.",
+          "Newest first matters: later steps may depend on earlier ones, just as you undo in reverse when unpacking.",
+          "Compensations should never throw away information: record that a booking was cancelled and why, rather than deleting it, so history and audits stay intact.",
+          "The failed step itself is not compensated, because its action did not complete.",
+          "The example books a trip where the payment step fails."
+        ],
+        "example": "Taking off layers of clothing in the reverse order you put them on: jacket first, then sweater, then shirt.",
+        "code": "def run_saga(steps):\n    finished = []\n    for step in steps:\n        try:\n            step[\"action\"]()\n            finished.append(step)\n        except Exception as err:\n            for done in reversed(finished):\n                done[\"compensate\"]()\n            return {\"status\": \"SAGA_COMPENSATED\", \"failed_at\": step[\"name\"], \"error\": str(err)}\n    return {\"status\": \"SAGA_COMPLETED\"}\n\nlog = []\ndef fail():\n    raise RuntimeError(\"card declined\")\nsteps = [\n    {\"name\": \"flight\", \"action\": lambda: log.append(\"book flight\"), \"compensate\": lambda: log.append(\"cancel flight\")},\n    {\"name\": \"hotel\", \"action\": lambda: log.append(\"book hotel\"), \"compensate\": lambda: log.append(\"cancel hotel\")},\n    {\"name\": \"payment\", \"action\": fail, \"compensate\": lambda: log.append(\"refund\")},\n]\nprint(run_saga(steps))\nprint(log)",
+        "output": "{'status': 'SAGA_COMPENSATED', 'failed_at': 'payment', 'error': 'card declined'}\n['book flight', 'book hotel', 'cancel hotel', 'cancel flight']",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Remember each step that finished."
+          },
+          {
+            "line": 8,
+            "note": "Undo finished steps, newest first."
+          },
+          {
+            "line": 10,
+            "note": "Report where and why it failed."
+          }
+        ],
+        "tryIt": "Make the hotel step fail instead. Which compensations run now?",
+        "check": {
+          "question": "In which order are compensations run?",
+          "options": [
+            "Oldest first",
+            "Newest first",
+            "Random order"
+          ],
+          "answer": 1,
+          "why": "Undoing in reverse respects dependencies between steps."
+        }
+      },
+      {
+        "title": "The saga log",
+        "say": [
+          "A saga may run for seconds or days, and the service running it can crash in the middle. So every step's outcome is written to a durable saga log.",
+          "The log can be a table in the orchestrator's database or a stream of events; what matters is that it is durable and written before moving on.",
+          "After a restart, the service reads the log: steps that finished are known, and the saga continues forward or compensates backward from there.",
+          "Practice 2: format_saga_log(step, status) returns \"[SAGA]: step -> status\". A consistent format makes logs easy to read and search.",
+          "Include a saga id in real logs, so the lines for one booking can be pulled together.",
+          "The log is also what support staff read when a customer asks \"what happened to my booking?\".",
+          "The example prints a readable log for a compensated saga."
+        ],
+        "example": "A courier's delivery sheet signed at each stop: if the van breaks down, the next driver knows exactly which parcels were delivered and which were not.",
+        "code": "def format_saga_log(step, status):\n    return f\"[SAGA]: {step} -> {status}\"\n\nevents = [(\"flight\", \"DONE\"), (\"hotel\", \"DONE\"), (\"payment\", \"FAILED\"), (\"hotel\", \"COMPENSATED\"), (\"flight\", \"COMPENSATED\")]\nfor step, status in events:\n    print(format_saga_log(step, status))\ndone = [s for s, st in events if st == \"DONE\"]\nundone = [s for s, st in events if st == \"COMPENSATED\"]\nprint(\"all finished steps compensated:\", sorted(done) == sorted(undone))",
+        "output": "[SAGA]: flight -> DONE\n[SAGA]: hotel -> DONE\n[SAGA]: payment -> FAILED\n[SAGA]: hotel -> COMPENSATED\n[SAGA]: flight -> COMPENSATED\nall finished steps compensated: True",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "A fixed, searchable format."
+          },
+          {
+            "line": 9,
+            "note": "Recovery can check every finished step was undone."
+          }
+        ],
+        "tryIt": "Remove the last event. What should a recovering service do next?",
+        "check": {
+          "question": "Why must a saga write its progress to a durable log?",
+          "options": [
+            "To make it faster",
+            "So it can continue or compensate correctly after a crash",
+            "Logs are required by Python"
+          ],
+          "answer": 1,
+          "why": "The log tells a restarted service which steps completed."
+        }
+      },
+      {
+        "title": "Orchestration or choreography",
+        "say": [
+          "In orchestration, one orchestrator service tells each participant what to do next and handles failures. The whole flow is visible in one place.",
+          "The orchestrator itself must be reliable, so it stores its state durably and can resume sagas after a restart.",
+          "In choreography, there is no central controller: each service listens for events and publishes its own (\"FlightBooked\" leads the hotel service to book, then \"HotelBooked\" leads payment to charge).",
+          "Choreography keeps services loosely coupled, but the overall flow is spread across many services and harder to follow and change.",
+          "Orchestration is easier to monitor and debug, and is the usual choice for complex or critical flows. Tools like Temporal and AWS Step Functions help.",
+          "Simple flows with two or three steps often work well with choreography.",
+          "The example runs the same flow both ways."
+        ],
+        "example": "An orchestra with a conductor giving every cue, versus a folk dance where each dancer reacts to the others' moves without a leader.",
+        "code": "def orchestrator():\n    trail = []\n    for step in [\"book flight\", \"book hotel\", \"charge card\"]:\n        trail.append(f\"orchestrator -> {step}\")\n    return trail\n\nhandlers = {\"TripRequested\": \"FlightBooked\", \"FlightBooked\": \"HotelBooked\", \"HotelBooked\": \"CardCharged\"}\ndef choreography(first_event):\n    trail, event = [], first_event\n    while event in handlers:\n        trail.append(f\"{event} -> {handlers[event]}\")\n        event = handlers[event]\n    return trail\n\nprint(orchestrator())\nprint(choreography(\"TripRequested\"))",
+        "output": "['orchestrator -> book flight', 'orchestrator -> book hotel', 'orchestrator -> charge card']\n['TripRequested -> FlightBooked', 'FlightBooked -> HotelBooked', 'HotelBooked -> CardCharged']",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "One place decides every step."
+          },
+          {
+            "line": 10,
+            "note": "Each service reacts to the previous event."
+          }
+        ],
+        "tryIt": "In the choreography, where would you look to find out the full flow? Compare with the orchestrator.",
+        "check": {
+          "question": "What is a main advantage of orchestration?",
+          "options": [
+            "No service knows about others",
+            "The whole flow is visible and controlled in one place",
+            "It needs no code"
+          ],
+          "answer": 1,
+          "why": "A central orchestrator makes the flow easy to understand, monitor and change."
+        }
+      },
+      {
+        "title": "Isolation and other pitfalls",
+        "say": [
+          "Sagas lack isolation: other transactions can see intermediate states. A customer might see a seat as taken for a booking that is later compensated.",
+          "A common fix is a semantic lock: mark records as PENDING during the saga, and let other code treat PENDING carefully (for example, not counting it as confirmed).",
+          "Compensations can also fail. Retry them with backoff until they succeed, and alert people if they keep failing; a stuck compensation needs human attention.",
+          "Because a compensation may be retried many times, write it so that a second run notices the work is already undone and does nothing.",
+          "Every action and compensation must be idempotent, because retries and duplicate messages are normal (Days 13 and 14).",
+          "Design user-facing messages for the in-between states: \"Booking in progress\" is better than showing a half-finished booking as confirmed.",
+          "Tomorrow you will look at the messaging system that often carries saga events: Kafka."
+        ],
+        "example": "A restaurant table marked \"reserved, awaiting confirmation\": other guests can see it is not free, but the staff know it may still open up.",
+        "code": "seats = {\"12A\": \"FREE\"}\n\ndef start_booking(seat):\n    if seats[seat] != \"FREE\":\n        return f\"{seat} not available ({seats[seat]})\"\n    seats[seat] = \"PENDING\"\n    return f\"{seat} held as PENDING\"\n\nprint(start_booking(\"12A\"))\nprint(start_booking(\"12A\"))\nseats[\"12A\"] = \"FREE\"\nprint(\"after compensation:\", seats)",
+        "output": "12A held as PENDING\n12A not available (PENDING)\nafter compensation: {'12A': 'FREE'}",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "A semantic lock: others can see the seat is in progress."
+          },
+          {
+            "line": 11,
+            "note": "Compensation releases it."
+          }
+        ],
+        "tryIt": "Add a CONFIRMED state set at the end of a successful saga, and show what a second booking sees.",
+        "check": {
+          "question": "What is a semantic lock in a saga?",
+          "options": [
+            "A database table lock",
+            "A status like PENDING that tells other code a record is mid-saga",
+            "An encrypted field"
+          ],
+          "answer": 1,
+          "why": "The status warns others without holding real locks."
+        }
+      }
+    ],
+    "summary": [
+      "A saga is a chain of local transactions with compensating actions.",
+      "Compensations are semantic undos; put irreversible steps after the pivot.",
+      "On failure, compensate finished steps newest first.",
+      "Log every step durably so a crashed saga can recover.",
+      "Choose orchestration for complex flows; handle isolation with PENDING states."
+    ],
+    "projectStep": {
+      "title": "Sagas",
+      "steps": [
+        "Add run_saga and format_saga_log to dist_toolkit.py.",
+        "Model an order saga with 4 steps and make the third one fail.",
+        "Bonus: add a PENDING semantic lock and show what a second order sees."
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "title": "Event-Driven Messaging: Kafka Partitions & Consumer Group Rebalancing",
+    "goal": "You can explain topics, partitions and consumer groups, route messages by key to keep per-key order, assign partitions round-robin, follow offsets and rebalancing, and measure consumer lag.",
+    "minutes": 30,
+    "recap": "Sagas and many other patterns pass events between services. Kafka is the most widely used system for that. Today you learn how it scales while keeping order.",
+    "parts": [
+      {
+        "title": "Events, producers and consumers",
+        "say": [
+          "In event-driven systems, services publish events (\"OrderPlaced\", \"PaymentFailed\") to a message broker instead of calling each other directly.",
+          "Producers write events to a topic; consumers read them. Neither needs to know the other exists, and a slow consumer does not slow the producer.",
+          "Events describe facts that happened (\"OrderPlaced\"), in the past tense, rather than commands (\"PlaceOrder\"), which makes it clear they cannot be refused.",
+          "Apache Kafka stores events in an append-only log, kept for days or weeks, so consumers can read at their own pace and even replay history.",
+          "This decoupling lets new services be added later, for example analytics reading the same order events, with no change to the producer.",
+          "The example builds a tiny topic as a list and two consumers reading at different positions.",
+          "The rest of the lesson explains how Kafka splits a topic for scale without losing order where it matters."
+        ],
+        "example": "A notice board in a college corridor: whoever has news pins it up, and anyone interested reads it when they pass, without the writer needing to find each reader.",
+        "code": "topic = []\ndef publish(event):\n    topic.append(event)\n\nfor e in [\"OrderPlaced #1\", \"OrderPlaced #2\", \"PaymentDone #1\", \"OrderPlaced #3\"]:\n    publish(e)\npositions = {\"email-service\": 0, \"analytics\": 2}\nfor consumer, pos in positions.items():\n    print(consumer, \"reads\", topic[pos:])",
+        "output": "email-service reads ['OrderPlaced #1', 'OrderPlaced #2', 'PaymentDone #1', 'OrderPlaced #3']\nanalytics reads ['PaymentDone #1', 'OrderPlaced #3']",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "The topic is an append-only log."
+          },
+          {
+            "line": 7,
+            "note": "Each consumer keeps its own reading position."
+          }
+        ],
+        "tryIt": "Add a third consumer that starts from the beginning. What does it read?",
+        "check": {
+          "question": "Why does a slow consumer not slow down the producer in Kafka?",
+          "options": [
+            "Kafka deletes slow consumers",
+            "The producer writes to the log, and each consumer reads at its own pace",
+            "Producers wait for all consumers"
+          ],
+          "answer": 1,
+          "why": "The log decouples writing from reading."
+        }
+      },
+      {
+        "title": "Partitions and ordering by key",
+        "say": [
+          "One log on one machine cannot handle huge traffic, so a topic is split into partitions, each an independent ordered log, spread across brokers.",
+          "Order is guaranteed only within a partition. So events that must stay in order, such as all events for one order, must go to the same partition.",
+          "Choosing the key is a design decision: key by order id to keep each order's events in sequence, or by customer id to keep all of a customer's activity in sequence.",
+          "Producers choose the partition by hashing the message key: same key, same partition, same order.",
+          "Practice 2: route_to_partition(key, total) uses the hash h = (h x 31 + ord(ch)) mod 2^32 for each character, then returns h % total.",
+          "Messages without a key are spread for balance, with no ordering promise.",
+          "The example routes events for three orders and shows each order's events staying together."
+        ],
+        "example": "A bank with several counters, where each customer always goes to the counter assigned by their account number, so their deposits and withdrawals are handled in the order they arrive.",
+        "code": "def route_to_partition(key, total):\n    h = 0\n    for ch in key:\n        h = (h * 31 + ord(ch)) % 2 ** 32\n    return h % total\n\nevents = [(\"order-7\", \"placed\"), (\"order-9\", \"placed\"), (\"order-7\", \"paid\"), (\"order-3\", \"placed\"), (\"order-7\", \"shipped\"), (\"order-9\", \"paid\")]\npartitions = {p: [] for p in range(3)}\nfor key, what in events:\n    partitions[route_to_partition(key, 3)].append(f\"{key}:{what}\")\nfor p, items in partitions.items():\n    print(\"partition\", p, items)",
+        "output": "partition 0 []\npartition 1 ['order-9:placed', 'order-3:placed', 'order-9:paid']\npartition 2 ['order-7:placed', 'order-7:paid', 'order-7:shipped']",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "A simple, stable string hash."
+          },
+          {
+            "line": 10,
+            "note": "Same key, same partition: order-7's events stay in order."
+          }
+        ],
+        "tryIt": "Change the number of partitions to 4. Do order-7's events still stay together?",
+        "check": {
+          "question": "How does Kafka keep all events for one order in sequence?",
+          "options": [
+            "It sorts the whole topic",
+            "Events with the same key go to the same partition, which is ordered",
+            "It uses one partition per topic"
+          ],
+          "answer": 1,
+          "why": "Per-key partitioning plus per-partition order gives per-key ordering."
+        }
+      },
+      {
+        "title": "Consumer groups",
+        "say": [
+          "To process a busy topic faster, several consumers form a consumer group. Kafka gives each partition to exactly one consumer in the group.",
+          "So partitions are the unit of parallelism: a topic with 6 partitions can be processed by up to 6 consumers in one group.",
+          "Practice 1: assign_partitions(num_partitions, consumers) assigns partition p to consumers[p % len(consumers)], and returns every consumer with its list (even empty).",
+          "Different groups each receive all messages. The email service and the analytics service are separate groups reading the same topic.",
+          "This is what makes Kafka good for fan-out: one event can drive emails, analytics, search indexing and fraud checks, each in its own group.",
+          "Round-robin is one strategy; Kafka also has range and sticky assignors, which differ in how evenly and how stably they spread partitions.",
+          "The example assigns 6 partitions to 4 consumers."
+        ],
+        "example": "Six checkout counters and four cashiers: each counter is staffed by exactly one cashier, so some cashiers handle two counters.",
+        "code": "def assign_partitions(num_partitions, consumers):\n    assignment = {c: [] for c in consumers}\n    for p in range(num_partitions):\n        assignment[consumers[p % len(consumers)]].append(p)\n    return assignment\n\nprint(assign_partitions(6, [\"c1\", \"c2\", \"c3\", \"c4\"]))\nprint(assign_partitions(2, [\"c1\", \"c2\", \"c3\"]))",
+        "output": "{'c1': [0, 4], 'c2': [1, 5], 'c3': [2], 'c4': [3]}\n{'c1': [0], 'c2': [1], 'c3': []}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Every consumer appears, even with no partitions."
+          },
+          {
+            "line": 4,
+            "note": "Partition p goes to consumer p mod the group size."
+          }
+        ],
+        "tryIt": "Assign 12 partitions to 5 consumers. Is the load balanced?",
+        "check": {
+          "question": "What happens with 2 partitions and 3 consumers in one group?",
+          "options": [
+            "All three share both partitions",
+            "One consumer sits idle",
+            "Kafka creates a third partition"
+          ],
+          "answer": 1,
+          "why": "Each partition goes to one consumer, so the third has nothing to read."
+        }
+      },
+      {
+        "title": "Rebalancing",
+        "say": [
+          "When a consumer joins, leaves or crashes, the group rebalances: partitions are reassigned among the current members.",
+          "During a rebalance, consumption pauses briefly. Frequent rebalances, for example from consumers that are too slow to send heartbeats, hurt throughput.",
+          "Deploying a new version of a consumer restarts every instance, which can trigger several rebalances in a row; rolling deploys and cooperative assignors reduce the disruption.",
+          "Simple strategies can move many partitions even when one consumer leaves. Sticky and cooperative assignors keep as many assignments unchanged as possible.",
+          "After a rebalance, a consumer starts reading a partition from the last committed offset, so some messages may be read again (next part).",
+          "The example counts how many partitions change owner when a consumer leaves under round-robin.",
+          "Keep processing per message short, and heartbeats regular, to avoid unnecessary rebalances."
+        ],
+        "example": "When a cashier goes on break, the manager reshuffles counters. A good manager moves only that cashier's counters, not everyone's.",
+        "code": "def assign(n, consumers):\n    out = {c: [] for c in consumers}\n    for p in range(n):\n        out[consumers[p % len(consumers)]].append(p)\n    return out\n\ndef owner(assignment):\n    return {p: c for c, ps in assignment.items() for p in ps}\n\nbefore = owner(assign(12, [\"c1\", \"c2\", \"c3\", \"c4\"]))\nafter = owner(assign(12, [\"c1\", \"c2\", \"c4\"]))\nmoved = sorted(p for p in before if before[p] != after[p])\nprint(\"c3 owned:\", [p for p, c in before.items() if c == \"c3\"])\nprint(\"partitions that changed owner:\", moved)",
+        "output": "c3 owned: [2, 6, 10]\npartitions that changed owner: [2, 3, 4, 5, 6, 7, 8, 9, 10]",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Round-robin moves far more than c3's partitions."
+          }
+        ],
+        "tryIt": "How many moves would a perfectly sticky strategy need? (Only c3's partitions.)",
+        "check": {
+          "question": "What does a sticky assignor try to do during rebalancing?",
+          "options": [
+            "Move every partition",
+            "Keep existing assignments and move as few partitions as possible",
+            "Stop consumption forever"
+          ],
+          "answer": 1,
+          "why": "Fewer moves mean less disruption and less re-reading."
+        }
+      },
+      {
+        "title": "Offsets and commits",
+        "say": [
+          "Each message in a partition has an offset, its position number. A consumer group stores, per partition, the offset it has committed: \"we have processed everything before this\".",
+          "After a restart or rebalance, reading resumes from the committed offset.",
+          "Commit after processing, and a crash between processing and committing means the message is processed again (at-least-once). Commit before processing, and a crash means it is skipped (at-most-once).",
+          "Most systems choose commit-after-processing and make processing idempotent, which is tomorrow's topic.",
+          "Offsets also allow replay: reset a group's offset to an earlier point to reprocess history after fixing a bug.",
+          "Replaying is powerful but must be deliberate: every side effect runs again, so it is only safe when processing is idempotent.",
+          "The simulation shows a crash between processing and committing."
+        ],
+        "example": "A bookmark in a novel: if you fall asleep before moving the bookmark, you reread a few pages the next day, which is annoying but safe.",
+        "code": "partition = [\"m0\", \"m1\", \"m2\", \"m3\", \"m4\"]\ncommitted = 0\nprocessed = []\n\ndef consume(crash_before_commit_at=None):\n    global committed\n    for offset in range(committed, len(partition)):\n        processed.append(partition[offset])\n        if offset == crash_before_commit_at:\n            return \"crashed\"\n        committed = offset + 1\n    return \"done\"\n\nprint(consume(crash_before_commit_at=2), \"committed =\", committed)\nprint(consume(), \"committed =\", committed)\nprint(\"processed:\", processed, \"<- m2 twice\")",
+        "output": "crashed committed = 2\ndone committed = 5\nprocessed: ['m0', 'm1', 'm2', 'm2', 'm3', 'm4'] <- m2 twice",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Process the message first..."
+          },
+          {
+            "line": 11,
+            "note": "...then commit the next offset."
+          },
+          {
+            "line": 16,
+            "note": "The crash before commit causes a re-read."
+          }
+        ],
+        "tryIt": "Move the commit line before processing. What happens to m2 after the crash now?",
+        "check": {
+          "question": "Committing offsets after processing gives which guarantee?",
+          "options": [
+            "At-most-once",
+            "At-least-once",
+            "Never-once"
+          ],
+          "answer": 1,
+          "why": "A crash before the commit causes redelivery, so each message is processed at least once."
+        }
+      },
+      {
+        "title": "Consumer lag and scaling",
+        "say": [
+          "Consumer lag is the latest offset in a partition minus the group's committed offset: how many messages are waiting.",
+          "Rising lag means consumers cannot keep up. Add consumers (up to the number of partitions), make processing faster, or add partitions.",
+          "You cannot scale a group beyond its partition count, so choose enough partitions up front; adding them later changes key-to-partition mapping.",
+          "Hot keys cause uneven lag: if one customer produces most events, their partition lags while others are idle.",
+          "One fix is splitting a hot key, for example adding a suffix to spread one big customer's events across several partitions when their order does not matter.",
+          "Monitor lag per partition and alert when it grows for several minutes.",
+          "Tomorrow: making sure each message has its effect exactly once, even though it may be delivered twice."
+        ],
+        "example": "The queue at each checkout counter: if one queue keeps growing, you either open more counters or make that cashier faster.",
+        "code": "latest = {0: 1500, 1: 1480, 2: 9200, 3: 1510}\ncommitted = {0: 1490, 1: 1480, 2: 3100, 3: 1500}\nfor p in latest:\n    lag = latest[p] - committed[p]\n    flag = \"  <- hot partition\" if lag > 1000 else \"\"\n    print(f\"partition {p}: lag {lag}{flag}\")\nprint(\"total lag:\", sum(latest[p] - committed[p] for p in latest))",
+        "output": "partition 0: lag 10\npartition 1: lag 0\npartition 2: lag 6100  <- hot partition\npartition 3: lag 10\ntotal lag: 6120",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Waiting messages = newest offset minus committed offset."
+          }
+        ],
+        "tryIt": "If partition 2 is hot because of one big customer, would adding consumers help? Why or why not?",
+        "check": {
+          "question": "Why can a consumer group not use more consumers than partitions?",
+          "options": [
+            "Kafka limits groups to 4",
+            "Each partition goes to only one consumer in a group",
+            "Consumers share offsets"
+          ],
+          "answer": 1,
+          "why": "Extra consumers beyond the partition count have nothing assigned."
+        }
+      }
+    ],
+    "summary": [
+      "Topics are append-only logs; producers and consumers are decoupled.",
+      "Partitions give scale; order holds only within a partition, so route by key.",
+      "Each partition goes to one consumer per group; groups each see every message.",
+      "Rebalancing reassigns partitions; sticky strategies move fewer.",
+      "Commit offsets after processing (at-least-once) and watch lag."
+    ],
+    "projectStep": {
+      "title": "Kafka concepts",
+      "steps": [
+        "Add assign_partitions and route_to_partition to dist_toolkit.py.",
+        "Route 20 events with 5 keys into 4 partitions and check per-key order.",
+        "Bonus: compute lag per partition from two dicts of offsets."
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "title": "Message Delivery Guarantees: At-Least-Once, At-Most-Once & Exactly-Once Idempotency",
+    "goal": "You can explain at-most-once, at-least-once and exactly-once delivery, make message processing idempotent with a dedupe store, use idempotency keys safely, and design operations that are naturally repeatable.",
+    "minutes": 30,
+    "recap": "Yesterday you saw that committing after processing can deliver a message twice. Today you make duplicates harmless, the key to reliable messaging.",
+    "parts": [
+      {
+        "title": "Three delivery guarantees",
+        "say": [
+          "At-most-once: a message is delivered zero or one times. Fast and simple, but messages can be lost. Fine for metrics you can afford to drop.",
+          "At-least-once: every message is delivered, possibly more than once. The common default; the receiver must handle duplicates.",
+          "Most real systems choose it because losing a payment or an order is far worse than processing a duplicate that you can detect.",
+          "Exactly-once: each message has its effect exactly once. True exactly-once delivery over an unreliable network is impossible in general, but exactly-once processing is achievable with idempotency.",
+          "Duplicates come from retries after lost acknowledgements, consumer crashes before committing, and producers resending after timeouts.",
+          "The simulation shows a producer retrying after a lost acknowledgement and the broker receiving the message twice.",
+          "The rest of the lesson is about making the receiver's effect happen once, whatever arrives."
+        ],
+        "example": "Sending a registered letter: if the receipt is lost in the post, you send another copy, and the recipient ends up with two identical letters.",
+        "code": "broker = []\nacks_lost = {1}\n\ndef send(msg, attempt):\n    broker.append(msg)\n    return attempt not in acks_lost\n\nfor attempt in range(1, 4):\n    if send(\"pay order-7 Rs 500\", attempt):\n        break\n    print(f\"attempt {attempt}: no ack, retrying\")\nprint(\"broker received:\", broker)",
+        "output": "attempt 1: no ack, retrying\nbroker received: ['pay order-7 Rs 500', 'pay order-7 Rs 500']",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The message arrives..."
+          },
+          {
+            "line": 6,
+            "note": "...but the acknowledgement can be lost, so the sender retries."
+          }
+        ],
+        "tryIt": "Make acks_lost = {1, 2}. How many copies does the broker hold?",
+        "check": {
+          "question": "Which guarantee is the common default in messaging systems?",
+          "options": [
+            "At-most-once",
+            "At-least-once",
+            "Exactly-once delivery"
+          ],
+          "answer": 1,
+          "why": "At-least-once never loses messages, and duplicates are handled by the receiver."
+        }
+      },
+      {
+        "title": "Why duplicates hurt",
+        "say": [
+          "Some operations are harmless to repeat: setting a user's email to the same value twice changes nothing. These are idempotent.",
+          "Others are not: \"add Rs 500 to the balance\" twice adds Rs 1000. \"Send the order confirmation\" twice sends two emails.",
+          "With at-least-once delivery, every non-idempotent operation is a bug waiting for a duplicate.",
+          "There are two fixes: make the operation naturally idempotent, or remember which messages were already processed and skip repeats.",
+          "The first fix is better when possible, because it needs no extra storage and no cleanup.",
+          "The example applies the same \"credit\" message twice with and without protection.",
+          "Always ask of any message handler: what happens if this runs twice?"
+        ],
+        "example": "Pressing a lift button twice does no harm, but pressing \"order\" twice in a food app may bring two meals.",
+        "code": "balance = {\"asha\": 1000}\n\ndef credit(amount):\n    balance[\"asha\"] += amount\n\ndef set_email(profile, email):\n    profile[\"email\"] = email\n\nfor _ in range(2):\n    credit(500)\nprint(\"after a duplicate credit:\", balance, \"<- wrong\")\nprofile = {}\nfor _ in range(2):\n    set_email(profile, \"asha@example.com\")\nprint(\"after a duplicate set:\", profile, \"<- fine\")",
+        "output": "after a duplicate credit: {'asha': 2000} <- wrong\nafter a duplicate set: {'email': 'asha@example.com'} <- fine",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Not idempotent: each repeat adds again."
+          },
+          {
+            "line": 7,
+            "note": "Idempotent: repeating gives the same result."
+          }
+        ],
+        "tryIt": "Rewrite credit so it takes the new balance (\"set balance to 1500\") instead of an amount. Is it idempotent now? What new problem appears?",
+        "check": {
+          "question": "Which operation is idempotent?",
+          "options": [
+            "Add 1 to a counter",
+            "Set an order's status to SHIPPED",
+            "Send a welcome email"
+          ],
+          "answer": 1,
+          "why": "Setting a value to the same thing twice has the same effect as once."
+        }
+      },
+      {
+        "title": "Processing each message once",
+        "say": [
+          "Practice 1: process_once(message_id, payload_hash, store, handler). The first time an id is seen, run the handler, save the hash and the result in the store, and return duplicate False with the result.",
+          "If the id was seen before and the hash matches, return duplicate True with the saved result, without running the handler again.",
+          "If the id was seen with a different hash, return PAYLOAD_MISMATCH: someone reused an id for different content, which is a bug or an attack.",
+          "Returning the saved result means the caller gets the same answer on a retry, which is important for APIs.",
+          "In production the store is a database table with the message id as a unique key, often with an expiry after a few days.",
+          "The payload hash is usually a hash such as SHA-256 of the message body, which is short to store and compare.",
+          "The example processes one payment message three times."
+        ],
+        "example": "A ticket inspector who punches each ticket: a ticket shown again is recognised immediately, and a ticket with the same number but different details is flagged as fake.",
+        "code": "def process_once(message_id, payload_hash, store, handler):\n    seen = store.get(message_id)\n    if seen:\n        if seen[\"hash\"] != payload_hash:\n            return {\"duplicate\": True, \"error\": \"PAYLOAD_MISMATCH\"}\n        return {\"duplicate\": True, \"result\": seen[\"result\"]}\n    result = handler()\n    store[message_id] = {\"hash\": payload_hash, \"result\": result}\n    return {\"duplicate\": False, \"result\": result}\n\nstore, charges = {}, []\ncharge = lambda: charges.append(500) or f\"charged, total {sum(charges)}\"\nprint(process_once(\"msg-1\", \"h-abc\", store, charge))\nprint(process_once(\"msg-1\", \"h-abc\", store, charge))\nprint(process_once(\"msg-1\", \"h-xyz\", store, charge))\nprint(\"charges made:\", charges)",
+        "output": "{'duplicate': False, 'result': 'charged, total 500'}\n{'duplicate': True, 'result': 'charged, total 500'}\n{'duplicate': True, 'error': 'PAYLOAD_MISMATCH'}\ncharges made: [500]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Same id, different content: refuse."
+          },
+          {
+            "line": 6,
+            "note": "A true duplicate: return the saved result, do not run again."
+          },
+          {
+            "line": 8,
+            "note": "Remember the result for future repeats."
+          }
+        ],
+        "tryIt": "Process \"msg-2\" with a new hash. How many charges are there now?",
+        "check": {
+          "question": "What should happen when a known message id arrives with a different payload?",
+          "options": [
+            "Process it again",
+            "Return an error such as PAYLOAD_MISMATCH",
+            "Overwrite the saved result"
+          ],
+          "answer": 1,
+          "why": "Reusing an id for different content is a bug or attack and must not be processed silently."
+        }
+      },
+      {
+        "title": "Idempotency keys in APIs",
+        "say": [
+          "Payment APIs such as Stripe accept an Idempotency-Key header. The client creates a unique key per logical operation and resends the same key on retries.",
+          "Practice 2: idempotency_key(user_id, order_id) returns \"idemp_USER_ORDER\". Deriving the key from the business operation guarantees retries reuse it.",
+          "A random key per attempt would defeat the purpose: each retry would look like a new operation.",
+          "Clients should create the key once, before the first attempt, and keep it with the pending operation so a crash and restart still reuses it.",
+          "The server stores the key with the request's hash and response, exactly like process_once, and returns the stored response for repeats.",
+          "Keep keys for long enough to cover realistic retries, typically 24 hours or more.",
+          "The example shows a client retrying a payment call with the same key."
+        ],
+        "example": "Writing a reference number on a cheque: if the bank sees the same reference twice, it knows it is the same cheque, not a second payment.",
+        "code": "def idempotency_key(user_id, order_id):\n    return f\"idemp_{user_id}_{order_id}\"\n\nserver_store = {}\ndef pay(key, amount):\n    if key in server_store:\n        return server_store[key] + \" (replayed)\"\n    server_store[key] = f\"paid Rs {amount}\"\n    return server_store[key]\n\nkey = idempotency_key(\"u42\", \"order-7\")\nprint(key)\nprint(pay(key, 500))\nprint(pay(key, 500))\nprint(pay(idempotency_key(\"u42\", \"order-8\"), 300))",
+        "output": "idemp_u42_order-7\npaid Rs 500\npaid Rs 500 (replayed)\npaid Rs 300",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The key comes from the business operation, not from the attempt."
+          },
+          {
+            "line": 7,
+            "note": "A retry gets the original response."
+          }
+        ],
+        "tryIt": "What would go wrong if the client generated a new random key on each retry?",
+        "check": {
+          "question": "Why derive the idempotency key from the user and order?",
+          "options": [
+            "It is shorter",
+            "So every retry of the same operation carries the same key",
+            "Keys must contain user ids"
+          ],
+          "answer": 1,
+          "why": "The same logical operation must always produce the same key."
+        }
+      },
+      {
+        "title": "Exactly-once processing in practice",
+        "say": [
+          "The dedupe store and the business change must be updated together. If you save the result but crash before recording the message id, the next delivery repeats the work.",
+          "The cleanest fix is one database transaction that writes both the business change and the processed-message record.",
+          "This is why keeping the dedupe table in the same database as the business data is so useful: one transaction covers both.",
+          "Kafka offers transactions that commit output messages and consumer offsets atomically, giving exactly-once processing within Kafka pipelines.",
+          "When the side effect is outside your database (an email, a payment provider), pass an idempotency key to that provider so it deduplicates too.",
+          "Exactly-once is always \"exactly-once effect\": delivery may repeat; the effect does not.",
+          "The code updates a balance and the processed set in one step, standing in for a transaction."
+        ],
+        "example": "A shopkeeper who writes the sale in the ledger and stamps the receipt as paid in the same moment, so there is never a paid receipt without a ledger entry or the reverse.",
+        "code": "db = {\"balance\": 1000, \"processed\": set()}\n\ndef apply_credit(message_id, amount):\n    if message_id in db[\"processed\"]:\n        return \"skipped duplicate\"\n    new_state = {\"balance\": db[\"balance\"] + amount, \"processed\": db[\"processed\"] | {message_id}}\n    db.update(new_state)\n    return f\"credited, balance {db['balance']}\"\n\nfor mid in [\"m1\", \"m1\", \"m2\", \"m1\"]:\n    print(mid, \"->\", apply_credit(mid, 500))",
+        "output": "m1 -> credited, balance 1500\nm1 -> skipped duplicate\nm2 -> credited, balance 2000\nm1 -> skipped duplicate",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Compute the change and the processed record together..."
+          },
+          {
+            "line": 7,
+            "note": "...and apply them in one step, like a transaction."
+          }
+        ],
+        "tryIt": "Split line 7 into two separate updates and imagine a crash between them. What could go wrong?",
+        "check": {
+          "question": "What does \"exactly-once\" usually mean in practice?",
+          "options": [
+            "The network never duplicates messages",
+            "Each message's effect happens once, even if it is delivered more than once",
+            "Messages are never retried"
+          ],
+          "answer": 1,
+          "why": "Delivery can repeat; idempotent processing makes the effect happen once."
+        }
+      },
+      {
+        "title": "Designing naturally idempotent operations",
+        "say": [
+          "Prefer operations that are safe by design. \"Set status to PAID\" is idempotent; \"toggle status\" is not.",
+          "Use upserts (insert or update by a unique key) instead of plain inserts, so a repeated create does not add a second row.",
+          "Use conditional updates with versions (Day 6's compare-and-set) so an old retry cannot overwrite newer data.",
+          "Use natural unique keys, such as order id plus line number, so the database rejects duplicates by itself.",
+          "A unique constraint in the database is the final safety net: even if two consumers race, only one insert can succeed.",
+          "Where an operation must add (a counter, a balance), attach the message id and deduplicate as in part 3.",
+          "Tomorrow: what to do with messages that fail every time, the poison pills."
+        ],
+        "example": "A school register where each student is marked present by roll number: marking the same roll number twice still counts one student.",
+        "code": "orders = {}\n\ndef upsert_order(order_id, status):\n    orders[order_id] = {\"status\": status}\n\ndef insert_order(rows, order_id, status):\n    rows.append({\"order_id\": order_id, \"status\": status})\n\nrows = []\nfor _ in range(2):\n    upsert_order(\"order-7\", \"PLACED\")\n    insert_order(rows, \"order-7\", \"PLACED\")\nprint(\"upsert:\", orders)\nprint(\"plain insert:\", rows, \"<- duplicate row\")",
+        "output": "upsert: {'order-7': {'status': 'PLACED'}}\nplain insert: [{'order_id': 'order-7', 'status': 'PLACED'}, {'order_id': 'order-7', 'status': 'PLACED'}] <- duplicate row",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Keyed by order id: repeats overwrite, not duplicate."
+          },
+          {
+            "line": 7,
+            "note": "A plain append creates a second row."
+          }
+        ],
+        "tryIt": "Make insert_order skip the append if a row with that order_id already exists. Which pattern is that?",
+        "check": {
+          "question": "Why is an upsert safer than an insert with at-least-once delivery?",
+          "options": [
+            "Upserts are faster",
+            "A repeated upsert updates the same row instead of creating a duplicate",
+            "Inserts cannot fail"
+          ],
+          "answer": 1,
+          "why": "Keyed writes turn duplicates into harmless overwrites."
+        }
+      }
+    ],
+    "summary": [
+      "At-most-once can lose messages; at-least-once can duplicate them.",
+      "Exactly-once means exactly-once effect, achieved with idempotency.",
+      "A dedupe store saves each message id, payload hash and result.",
+      "Idempotency keys come from the business operation, reused on retries.",
+      "Prefer set, upsert and conditional updates over add, toggle and insert."
+    ],
+    "projectStep": {
+      "title": "Idempotency",
+      "steps": [
+        "Add process_once and idempotency_key to dist_toolkit.py.",
+        "Deliver the same 3 messages twice each and prove each effect happens once.",
+        "Bonus: detect a reused id with a different payload."
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "title": "Dead Letter Queues (DLQ), Exponential Backoff & Poison Pill Handling",
+    "goal": "You can recognise poison-pill messages, separate temporary from permanent errors, retry with limits, route failing messages to a dead letter queue with useful details, and redrive them after a fix.",
+    "minutes": 30,
+    "recap": "Yesterday you made duplicate messages harmless. Today you handle the opposite problem: messages that fail every time they are processed.",
+    "parts": [
+      {
+        "title": "The poison pill",
+        "say": [
+          "A poison pill is a message that makes the consumer fail every time: malformed data, an unexpected field, or a bug triggered by one rare case.",
+          "Poison pills often appear after a producer changes its message format without telling consumers, which is why schema checks (Day 3) matter.",
+          "With at-least-once delivery, the consumer does not commit the failed message, so it is delivered again, fails again, and so on forever.",
+          "Because partitions are ordered, every message behind it waits. One bad message can stop a whole partition.",
+          "The consumer needs a way to stop retrying, set the message aside, and move on.",
+          "The simulation shows a consumer stuck on a malformed message.",
+          "Handling poison pills well is one of the main differences between a demo consumer and a production one."
+        ],
+        "example": "A jammed ticket in a car-park barrier: every car behind it waits until someone removes the bad ticket by hand.",
+        "code": "import json\n\nqueue = ['{\"order\": 1}', \"{broken json\", '{\"order\": 3}']\nattempts = 0\nposition = 0\nwhile position < len(queue) and attempts < 5:\n    try:\n        print(\"processed\", json.loads(queue[position]))\n        position += 1\n    except json.JSONDecodeError:\n        attempts += 1\n        print(f\"failed on message {position}, attempt {attempts}\")\nprint(\"messages behind it still waiting:\", queue[position + 1:])",
+        "output": "processed {'order': 1}\nfailed on message 1, attempt 1\nfailed on message 1, attempt 2\nfailed on message 1, attempt 3\nfailed on message 1, attempt 4\nfailed on message 1, attempt 5\nmessages behind it still waiting: ['{\"order\": 3}']",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "The same bad message fails again and again."
+          },
+          {
+            "line": 13,
+            "note": "Everything behind the poison pill is stuck."
+          }
+        ],
+        "tryIt": "Put the broken message last. How does that change the harm it does?",
+        "check": {
+          "question": "Why is a poison pill so harmful in an ordered partition?",
+          "options": [
+            "It deletes other messages",
+            "Messages behind it cannot be processed while it keeps failing",
+            "It slows the producer"
+          ],
+          "answer": 1,
+          "why": "Ordered processing means the failing message blocks the rest."
+        }
+      },
+      {
+        "title": "Temporary or permanent?",
+        "say": [
+          "Errors fall into two groups. Temporary (transient) errors may succeed on retry: timeouts, a database restarting, a rate limit.",
+          "Permanent errors will fail every time: invalid data, a missing required field, a business rule violation.",
+          "Retry temporary errors with backoff (Day 1). Send permanent errors straight to the dead letter queue; retrying them wastes time.",
+          "A retry limit applies even to temporary errors: after enough attempts, a \"temporary\" problem should be treated as something a person needs to see.",
+          "Classify by exception type or error code, and default to \"temporary\" only for errors you know are temporary.",
+          "The classification belongs in one function so every consumer handles errors the same way.",
+          "The example classifies a few common errors."
+        ],
+        "example": "A delivery that fails because the customer was out (try again tomorrow) versus one that fails because the address does not exist (no point trying again).",
+        "code": "TRANSIENT = (TimeoutError, ConnectionError)\n\ndef classify(error):\n    return \"retry with backoff\" if isinstance(error, TRANSIENT) else \"send to DLQ\"\n\nerrors = [TimeoutError(\"db slow\"), ValueError(\"amount is negative\"), ConnectionError(\"reset\"), KeyError(\"customer_id\")]\nfor err in errors:\n    print(f\"{type(err).__name__:16} {str(err):22} -> {classify(err)}\")",
+        "output": "TimeoutError     db slow                -> retry with backoff\nValueError       amount is negative     -> send to DLQ\nConnectionError  reset                  -> retry with backoff\nKeyError         'customer_id'          -> send to DLQ",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Only errors known to be temporary are retried."
+          },
+          {
+            "line": 4,
+            "note": "Everything else goes aside for a person to look at."
+          }
+        ],
+        "tryIt": "Add a custom RateLimitError class and make it count as transient.",
+        "check": {
+          "question": "What should happen to a message that fails with \"amount is negative\"?",
+          "options": [
+            "Retry it forever",
+            "Send it to the dead letter queue",
+            "Delete it silently"
+          ],
+          "answer": 1,
+          "why": "Invalid data will fail every time, so it should be set aside for investigation."
+        }
+      },
+      {
+        "title": "Retry, then dead-letter",
+        "say": [
+          "Practice 1: handle_message(msg, handler, dlq, max_attempts). Call the handler on the payload; on success return PROCESSED with the result.",
+          "On an exception, add 1 to msg[\"retry_count\"]. If it has reached max_attempts, append the message and error to the DLQ and return ROUTED_TO_DLQ; otherwise return RETRY_SCHEDULED with the next attempt number.",
+          "Storing the retry count on the message means the count survives redelivery to another consumer.",
+          "In Kafka, retries are often done by re-publishing the message to a retry topic with an updated count in a header.",
+          "A dead letter queue (DLQ) is simply another topic or queue for failed messages, so the main flow continues.",
+          "The example runs one message that succeeds on its second try and one that never succeeds.",
+          "Once a message is in the DLQ, the consumer moves on to the next one: the partition is unblocked."
+        ],
+        "example": "A post office that tries to deliver a parcel three times, and then sends it to the returns office instead of blocking the van forever.",
+        "code": "def handle_message(msg, handler, dlq, max_attempts=3):\n    try:\n        return {\"status\": \"PROCESSED\", \"result\": handler(msg[\"payload\"])}\n    except Exception as err:\n        msg[\"retry_count\"] += 1\n        if msg[\"retry_count\"] >= max_attempts:\n            dlq.append({\"message\": msg, \"error\": str(err)})\n            return {\"status\": \"ROUTED_TO_DLQ\"}\n        return {\"status\": \"RETRY_SCHEDULED\", \"attempt\": msg[\"retry_count\"] + 1}\n\nflaky_calls = iter([TimeoutError(\"slow\"), \"ok\"])\ndef flaky(payload):\n    r = next(flaky_calls)\n    if isinstance(r, Exception):\n        raise r\n    return r\ndef broken(payload):\n    raise ValueError(\"missing customer_id\")\n\ndlq = []\nm1, m2 = {\"id\": 1, \"payload\": {}, \"retry_count\": 0}, {\"id\": 2, \"payload\": {}, \"retry_count\": 0}\nprint(handle_message(m1, flaky, dlq), handle_message(m1, flaky, dlq))\nprint([handle_message(m2, broken, dlq)[\"status\"] for _ in range(3)])\nprint(\"DLQ:\", dlq)",
+        "output": "{'status': 'RETRY_SCHEDULED', 'attempt': 2} {'status': 'PROCESSED', 'result': 'ok'}\n['RETRY_SCHEDULED', 'RETRY_SCHEDULED', 'ROUTED_TO_DLQ']\nDLQ: [{'message': {'id': 2, 'payload': {}, 'retry_count': 3}, 'error': 'missing customer_id'}]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Count the failure on the message itself."
+          },
+          {
+            "line": 7,
+            "note": "Out of attempts: set the message aside."
+          },
+          {
+            "line": 9,
+            "note": "Otherwise schedule another try."
+          }
+        ],
+        "tryIt": "Change max_attempts to 5. How many times does message 2 fail before reaching the DLQ?",
+        "check": {
+          "question": "What does routing a message to the DLQ achieve?",
+          "options": [
+            "It fixes the message",
+            "The failing message is set aside so the rest of the queue can continue",
+            "It deletes the message forever"
+          ],
+          "answer": 1,
+          "why": "The DLQ unblocks processing while keeping the failed message for later."
+        }
+      },
+      {
+        "title": "What to store in the DLQ",
+        "say": [
+          "A DLQ entry must contain everything needed to understand and replay the failure: the original message, the error text, and when it failed.",
+          "Keep the original message bytes unchanged, so a redrive sends exactly what the producer sent, not a modified copy.",
+          "Practice 2: dlq_entry(msg_id, error, now) returns {\"msg_id\", \"error\", \"failed_at\"}.",
+          "Useful extras: the consumer name and version, the retry count, the source topic, partition and offset, and a stack trace.",
+          "Never store secrets or unmasked personal data in DLQ entries longer than needed; DLQs are read by many people during incidents.",
+          "Group DLQ entries by error message to see patterns: 500 entries with the same KeyError point to one bug.",
+          "The example groups a small DLQ by error."
+        ],
+        "example": "A lost-and-found office that labels every item with where and when it was found, so its owner can be traced.",
+        "code": "from collections import Counter\n\ndef dlq_entry(msg_id, error, now):\n    return {\"msg_id\": msg_id, \"error\": error, \"failed_at\": now}\n\ndlq = [dlq_entry(1, \"KeyError: customer_id\", 1000), dlq_entry(2, \"ValueError: negative amount\", 1010),\n       dlq_entry(3, \"KeyError: customer_id\", 1020), dlq_entry(4, \"KeyError: customer_id\", 1030)]\nprint(dlq[0])\nfor error, count in Counter(e[\"error\"] for e in dlq).most_common():\n    print(f\"{count} x {error}\")",
+        "output": "{'msg_id': 1, 'error': 'KeyError: customer_id', 'failed_at': 1000}\n3 x KeyError: customer_id\n1 x ValueError: negative amount",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Id, error and time: the minimum for investigation."
+          },
+          {
+            "line": 9,
+            "note": "Grouping by error reveals the main bug."
+          }
+        ],
+        "tryIt": "Add \"consumer\": \"billing-v2\" to each entry. How would that help after a deploy?",
+        "check": {
+          "question": "Why group DLQ entries by error message?",
+          "options": [
+            "To delete them faster",
+            "Many entries with the same error usually point to one bug to fix",
+            "DLQs require grouping"
+          ],
+          "answer": 1,
+          "why": "Patterns show which fix will clear the most failures."
+        }
+      },
+      {
+        "title": "Redrive and retry topics",
+        "say": [
+          "After fixing the bug or the data, messages in the DLQ are redriven: sent back to the main topic (or straight to the fixed consumer) to be processed again.",
+          "Sometimes the right action is to discard a message, for example a test event sent to production by mistake. Record that decision too.",
+          "Because processing is idempotent (Day 13), redriving a message that partly succeeded before is safe.",
+          "Some systems use retry topics with delays, such as retry-10s, retry-1m and retry-10m, before the final DLQ. The main partition never waits for backoff.",
+          "Redrive in small batches and watch the error rate, so a fix that is not quite right does not flood the DLQ again.",
+          "Record who redrove what and when; it is part of the operational history.",
+          "The example redrives only the entries whose error has been fixed."
+        ],
+        "example": "Returned parcels are re-sent once the correct address has been found, a few at a time, checking that the first ones arrive.",
+        "code": "dlq = [{\"id\": 1, \"error\": \"KeyError: customer_id\"}, {\"id\": 2, \"error\": \"ValueError: negative amount\"}, {\"id\": 3, \"error\": \"KeyError: customer_id\"}]\nfixed_errors = {\"KeyError: customer_id\"}\nmain_topic = []\n\nremaining = []\nfor entry in dlq:\n    (main_topic if entry[\"error\"] in fixed_errors else remaining).append(entry)\nprint(\"redriven:\", [e[\"id\"] for e in main_topic])\nprint(\"still in DLQ:\", [e[\"id\"] for e in remaining])",
+        "output": "redriven: [1, 3]\nstill in DLQ: [2]",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Only messages whose cause has been fixed go back."
+          }
+        ],
+        "tryIt": "Add a batch limit so at most one message is redriven per run.",
+        "check": {
+          "question": "Why is redriving DLQ messages safe only with idempotent processing?",
+          "options": [
+            "DLQs change message ids",
+            "A redriven message may have partly succeeded before, so repeats must be harmless",
+            "Redrive deletes the original"
+          ],
+          "answer": 1,
+          "why": "Idempotency ensures a second attempt does not double any effect."
+        }
+      },
+      {
+        "title": "Monitoring and ordering concerns",
+        "say": [
+          "Alert when the DLQ grows, and review it daily. A DLQ nobody watches is just a place where data goes to be forgotten.",
+          "Give each DLQ an owner team, so someone is clearly responsible for looking at it.",
+          "Track the ratio of dead-lettered to processed messages per consumer; a sudden rise usually follows a deploy or an upstream change.",
+          "Skipping a message breaks ordering: later messages for the same key are processed before the failed one. For some data (account balances), you may need to pause that key instead.",
+          "A common approach is to park later messages for the same key until the failed one is resolved.",
+          "Tomorrow's milestone combines idempotency, sagas and the DLQ into one transaction engine.",
+          "The code shows a simple check for \"later messages of the same key\" when one fails."
+        ],
+        "example": "If one instalment payment bounces, a bank does not process the next month's instalment for the same loan as if nothing happened; it holds that loan until the problem is solved.",
+        "code": "stream = [(\"acct-1\", \"deposit 100\"), (\"acct-2\", \"deposit 50\"), (\"acct-1\", \"withdraw 80\"), (\"acct-2\", \"withdraw 20\")]\nfailed_keys = set()\nfor key, op in stream:\n    if key in failed_keys:\n        print(f\"parked: {key} {op} (waiting for an earlier failure)\")\n        continue\n    if op == \"deposit 100\":\n        failed_keys.add(key)\n        print(f\"FAILED: {key} {op} -> DLQ\")\n        continue\n    print(f\"ok: {key} {op}\")",
+        "output": "FAILED: acct-1 deposit 100 -> DLQ\nok: acct-2 deposit 50\nparked: acct-1 withdraw 80 (waiting for an earlier failure)\nok: acct-2 withdraw 20",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Hold later messages for a key that has a failed message."
+          },
+          {
+            "line": 8,
+            "note": "Simulate the first message failing."
+          }
+        ],
+        "tryIt": "What would have happened to acct-1's balance if the withdraw had been processed without the deposit?",
+        "check": {
+          "question": "Why might you park later messages for a key after one of its messages fails?",
+          "options": [
+            "To save memory",
+            "Processing them out of order could give wrong results, such as a withdrawal before its deposit",
+            "DLQs require it"
+          ],
+          "answer": 1,
+          "why": "Per-key order matters for data like balances."
+        }
+      }
+    ],
+    "summary": [
+      "A poison pill fails every time and can block a whole partition.",
+      "Retry temporary errors with backoff; dead-letter permanent ones.",
+      "Count attempts on the message and route to the DLQ after the limit.",
+      "Store id, error and time in DLQ entries; group them to find bugs.",
+      "Redrive after fixes in small batches; watch the DLQ and per-key order."
+    ],
+    "projectStep": {
+      "title": "Dead letter queues",
+      "steps": [
+        "Add handle_message and dlq_entry to dist_toolkit.py.",
+        "Process 5 messages where one always fails, and show it lands in the DLQ.",
+        "Bonus: redrive only the DLQ entries whose error you have marked as fixed."
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "title": "⭐ MILESTONE 2: Resilient Event-Driven Transaction Engine with Sagas & Idempotency Keys",
+    "goal": "You can build an event-driven transaction engine that drops duplicate events, runs saga steps with compensation, sends failures to a DLQ, measures duration, and publishes events reliably with an outbox.",
+    "minutes": 30,
+    "recap": "This week covered 2PC, sagas, Kafka, delivery guarantees and dead letter queues. Milestone 2 combines them into one resilient transaction engine.",
+    "parts": [
+      {
+        "title": "The engine's flow",
+        "say": [
+          "An event arrives, such as \"place order 7 for Asha\", carrying an idempotency key.",
+          "Step 1: if the key was already processed, drop the event as a duplicate (Day 13).",
+          "Step 2: run the saga steps, such as reserve stock, charge payment, create shipment (Day 11).",
+          "Each step talks to a different service, so each can fail independently, which is exactly why compensation is needed.",
+          "Step 3: if a step fails, compensate the finished steps newest first and send the event to the DLQ with the error (Day 14).",
+          "Step 4: on success, record the key as COMMITTED so repeats are dropped.",
+          "Each part of this flow is small and already familiar; the milestone is in joining them carefully."
+        ],
+        "example": "A hotel front desk: check whether the guest already checked in, then assign a room, take the deposit and issue a key; if the card fails, release the room, and note the problem for the manager.",
+        "code": "flow = [\n    (\"dedupe\", \"Day 13: drop events whose key is already committed\"),\n    (\"saga steps\", \"Day 11: run each step in order\"),\n    (\"compensate\", \"Day 11: undo finished steps newest first\"),\n    (\"dead letter\", \"Day 14: park the failed event with its error\"),\n    (\"commit key\", \"Day 13: remember the key as COMMITTED\"),\n]\nfor stage, source in flow:\n    print(f\"{stage:12} {source}\")",
+        "output": "dedupe       Day 13: drop events whose key is already committed\nsaga steps   Day 11: run each step in order\ncompensate   Day 11: undo finished steps newest first\ndead letter  Day 14: park the failed event with its error\ncommit key   Day 13: remember the key as COMMITTED",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Duplicates are stopped before any work happens."
+          }
+        ],
+        "tryIt": "Where in this flow would you add metrics for duration? Where for failure counts?",
+        "check": {
+          "question": "Why is the duplicate check done first?",
+          "options": [
+            "It is the slowest step",
+            "So a repeated event never runs any saga step",
+            "Duplicates must be compensated"
+          ],
+          "answer": 1,
+          "why": "Checking first guarantees no side effects for repeats."
+        }
+      },
+      {
+        "title": "Dropping duplicates",
+        "say": [
+          "The store maps idempotency keys to their final state. A key present in the store means the event has already been fully handled.",
+          "Return DUPLICATE_DROPPED straight away, without running any step. This is cheap and completely safe.",
+          "Only record the key after success. If you recorded it before the saga and the saga failed, a corrected retry would be wrongly dropped.",
+          "If two copies of the same event arrive at the same moment, the unique key in the store ensures only one of them can record COMMITTED; the other must re-check and stop.",
+          "For failed events, the key stays unrecorded, so a redrive from the DLQ after a fix can process it.",
+          "Real stores are database tables with the key as a unique column, which also protects against two consumers racing.",
+          "The example sends the same event twice."
+        ],
+        "example": "A guest list at the door: once a name is ticked as arrived, the same name coming again is politely turned away.",
+        "code": "store = {}\n\ndef receive(event):\n    if event[\"key\"] in store:\n        return {\"status\": \"DUPLICATE_DROPPED\"}\n    store[event[\"key\"]] = \"COMMITTED\"\n    return {\"status\": \"COMMITTED\"}\n\nevent = {\"key\": \"idemp_u42_order-7\", \"amount\": 500}\nprint(receive(event))\nprint(receive(event))",
+        "output": "{'status': 'COMMITTED'}\n{'status': 'DUPLICATE_DROPPED'}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Already handled: do nothing."
+          },
+          {
+            "line": 6,
+            "note": "Record the key only after success (here the \"saga\" is trivially successful)."
+          }
+        ],
+        "tryIt": "Why must the key not be stored before the saga steps run? Describe a failing case.",
+        "check": {
+          "question": "When should the idempotency key be recorded as COMMITTED?",
+          "options": [
+            "Before running any step",
+            "After all saga steps succeed",
+            "When the event is first received, even if it fails"
+          ],
+          "answer": 1,
+          "why": "Recording only after success lets failed events be retried after a fix."
+        }
+      },
+      {
+        "title": "The run_transaction function",
+        "say": [
+          "Practice 1: run_transaction(event, store, steps, dlq). If store has event[\"key\"], return DUPLICATE_DROPPED.",
+          "Otherwise run each step's execute(), remembering finished steps. If one raises, run compensate() on finished steps newest first, append {\"event\", \"error\"} to the DLQ, and return FAILED_COMPENSATED.",
+          "If all steps succeed, set store[key] = \"COMMITTED\" and return COMMITTED.",
+          "Steps are dicts with execute and compensate functions, so tests can use small fakes that record calls.",
+          "Keeping the engine separate from the steps means new business flows reuse the same, well-tested engine code.",
+          "Notice how the saga and DLQ code from earlier lessons fits in with barely any change.",
+          "The example runs a successful order, a duplicate, and an order whose payment fails."
+        ],
+        "example": "A checklist the hotel desk follows for every guest, with a clear \"if something fails\" section at the bottom.",
+        "code": "def run_transaction(event, store, steps, dlq):\n    if event[\"key\"] in store:\n        return {\"status\": \"DUPLICATE_DROPPED\"}\n    finished = []\n    for step in steps:\n        try:\n            step[\"execute\"]()\n            finished.append(step)\n        except Exception as err:\n            for done in reversed(finished):\n                done[\"compensate\"]()\n            dlq.append({\"event\": event, \"error\": str(err)})\n            return {\"status\": \"FAILED_COMPENSATED\"}\n    store[event[\"key\"]] = \"COMMITTED\"\n    return {\"status\": \"COMMITTED\"}\n\nlog = []\ndef step(name, fail=False):\n    def execute():\n        if fail:\n            raise RuntimeError(f\"{name} failed\")\n        log.append(name)\n    return {\"execute\": execute, \"compensate\": lambda: log.append(f\"undo {name}\")}\n\nstore, dlq = {}, []\nok_steps = [step(\"reserve stock\"), step(\"charge card\")]\nprint(run_transaction({\"key\": \"k1\"}, store, ok_steps, dlq))\nprint(run_transaction({\"key\": \"k1\"}, store, ok_steps, dlq))\nprint(run_transaction({\"key\": \"k2\"}, store, [step(\"reserve stock\"), step(\"charge card\", fail=True)], dlq))\nprint(log)\nprint(dlq)",
+        "output": "{'status': 'COMMITTED'}\n{'status': 'DUPLICATE_DROPPED'}\n{'status': 'FAILED_COMPENSATED'}\n['reserve stock', 'charge card', 'reserve stock', 'undo reserve stock']\n[{'event': {'key': 'k2'}, 'error': 'charge card failed'}]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Duplicates are dropped before any step."
+          },
+          {
+            "line": 10,
+            "note": "Compensate finished steps, newest first."
+          },
+          {
+            "line": 12,
+            "note": "Park the failed event with its error."
+          },
+          {
+            "line": 14,
+            "note": "Commit the key only after success."
+          }
+        ],
+        "tryIt": "Make \"reserve stock\" fail for k3. Which compensations run, and what is in the DLQ?",
+        "check": {
+          "question": "What happens to the idempotency key of a failed transaction?",
+          "options": [
+            "It is stored as COMMITTED",
+            "It is not stored, so the event can be retried after a fix",
+            "It is deleted from the event"
+          ],
+          "answer": 1,
+          "why": "Only successful transactions record their key."
+        }
+      },
+      {
+        "title": "Measuring duration",
+        "say": [
+          "Practice 2: tx_duration(start_ms, end_ms) returns the time taken as a string like \"125ms\".",
+          "Measure each transaction and each step. Slow steps hold resources longer and make conflicts more likely.",
+          "Tag each measurement with the step name and the outcome, so dashboards can show which step is slow and whether failures are slower than successes.",
+          "Pass the clock in (as on Day 8) so durations can be tested exactly.",
+          "Record durations as numbers in your metrics system; format them as text only for logs and people.",
+          "Watch p95 and p99 durations as well as the average, since the slow tail is where timeouts and retries start.",
+          "The example times three transactions with a fake clock."
+        ],
+        "example": "A stopwatch on each station of a production line, so the slowest station can be found and improved.",
+        "code": "def tx_duration(start_ms, end_ms):\n    return f\"{end_ms - start_ms}ms\"\n\nclock = iter([1000, 1125, 2000, 2090, 3000, 3700])\ndurations = []\nfor tx in [\"k1\", \"k2\", \"k3\"]:\n    start, end = next(clock), next(clock)\n    durations.append(end - start)\n    print(tx, tx_duration(start, end))\nprint(\"slowest:\", max(durations), \"ms, average:\", round(sum(durations) / len(durations)), \"ms\")",
+        "output": "k1 125ms\nk2 90ms\nk3 700ms\nslowest: 700 ms, average: 305 ms",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Whole milliseconds with the unit."
+          },
+          {
+            "line": 8,
+            "note": "Keep the numbers for metrics; format only for display."
+          }
+        ],
+        "tryIt": "Add a fourth transaction that takes 2 seconds. How much does it change the average?",
+        "check": {
+          "question": "What does tx_duration(1000, 1125) return?",
+          "options": [
+            "\"1125ms\"",
+            "\"125ms\"",
+            "\"0.125s\""
+          ],
+          "answer": 1,
+          "why": "1125 - 1000 = 125, formatted as \"125ms\"."
+        }
+      },
+      {
+        "title": "Testing every failure path",
+        "say": [
+          "A transaction engine must be tested on every path: success, duplicate, failure at the first step, failure at the last step, and a failing compensation.",
+          "Write each test as a small table row: the steps, which one fails, and the expected status, compensations and DLQ size.",
+          "When a production incident reveals a new failure path, the first fix is adding a row that reproduces it.",
+          "Checking the exact order of compensations catches bugs where undo happens in the wrong order.",
+          "Also test that a redriven event (same key, now succeeding) commits normally after a failure.",
+          "Table-driven tests like these are short to write and easy to extend when a new bug is found.",
+          "The example runs four scenarios and asserts the results."
+        ],
+        "example": "A flight simulator session where the trainer triggers engine failure, a bird strike and a hydraulics fault one by one, checking the pilot's response each time.",
+        "code": "def run_transaction(event, store, steps, dlq):\n    if event[\"key\"] in store:\n        return \"DUPLICATE_DROPPED\"\n    finished = []\n    for name, fails in steps:\n        if fails:\n            dlq.append(event[\"key\"])\n            return \"FAILED_COMPENSATED:\" + \",\".join(f\"undo {n}\" for n in reversed(finished))\n        finished.append(name)\n    store[event[\"key\"]] = \"COMMITTED\"\n    return \"COMMITTED\"\n\nstore, dlq = {\"done-key\": \"COMMITTED\"}, []\ncases = [\n    (\"new\", [(\"a\", False), (\"b\", False)], \"COMMITTED\"),\n    (\"done-key\", [(\"a\", False)], \"DUPLICATE_DROPPED\"),\n    (\"fail-first\", [(\"a\", True), (\"b\", False)], \"FAILED_COMPENSATED:\"),\n    (\"fail-last\", [(\"a\", False), (\"b\", False), (\"c\", True)], \"FAILED_COMPENSATED:undo b,undo a\"),\n]\nfor key, steps, expected in cases:\n    got = run_transaction({\"key\": key}, store, steps, dlq)\n    assert got == expected, (key, got)\n    print(f\"{key:10} {got}\")\nprint(\"DLQ:\", dlq)",
+        "output": "new        COMMITTED\ndone-key   DUPLICATE_DROPPED\nfail-first FAILED_COMPENSATED:\nfail-last  FAILED_COMPENSATED:undo b,undo a\nDLQ: ['fail-first', 'fail-last']",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "The result lists compensations in the order they ran."
+          },
+          {
+            "line": 22,
+            "note": "Each scenario checks the exact outcome."
+          }
+        ],
+        "tryIt": "Add a case where \"fail-first\" is retried with no failing step. It should now commit.",
+        "check": {
+          "question": "Why check the exact order of compensations in tests?",
+          "options": [
+            "Order never matters",
+            "Undoing in the wrong order is a real bug that simple success tests miss",
+            "To make tests longer"
+          ],
+          "answer": 1,
+          "why": "Only an explicit check catches compensations running oldest first."
+        }
+      },
+      {
+        "title": "Publishing events reliably: the outbox",
+        "say": [
+          "After committing, the engine often publishes an event such as \"OrderPlaced\". If it writes to the database and then crashes before publishing, the event is lost; if it publishes first and then fails to write, the event is false.",
+          "The transactional outbox fixes this: write the business change and the outgoing event to an outbox table in the same database transaction.",
+          "A separate relay reads the outbox and publishes the events to Kafka, marking each as sent. If it crashes, it resends, so consumers must be idempotent.",
+          "Old outbox rows are deleted or archived after they are sent, so the table stays small.",
+          "This gives at-least-once publishing that matches the database state exactly, without 2PC between the database and the broker.",
+          "Change data capture tools (such as Debezium) can play the relay's role by reading the database log.",
+          "Congratulations on Milestone 2! Next week covers time, clocks, CRDTs, sharding, replicas and circuit breakers."
+        ],
+        "example": "Writing a letter and putting it in your own out-tray at the same moment you file the copy: the post room later collects everything in the out-tray, so no letter is forgotten or sent without its copy.",
+        "code": "db = {\"orders\": {}, \"outbox\": []}\n\ndef place_order(order_id, amount):\n    new_orders = {**db[\"orders\"], order_id: {\"amount\": amount, \"status\": \"PLACED\"}}\n    new_outbox = db[\"outbox\"] + [{\"event\": \"OrderPlaced\", \"order_id\": order_id, \"sent\": False}]\n    db.update(orders=new_orders, outbox=new_outbox)\n\ndef relay(publish):\n    for row in db[\"outbox\"]:\n        if not row[\"sent\"]:\n            publish(row)\n            row[\"sent\"] = True\n\npublished = []\nplace_order(\"order-7\", 500)\nplace_order(\"order-8\", 300)\nrelay(published.append)\nrelay(published.append)\nprint(\"orders:\", list(db[\"orders\"]))\nprint(\"published:\", [(p[\"event\"], p[\"order_id\"]) for p in published])",
+        "output": "orders: ['order-7', 'order-8']\npublished: [('OrderPlaced', 'order-7'), ('OrderPlaced', 'order-8')]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The order and its event are saved together, like one transaction."
+          },
+          {
+            "line": 12,
+            "note": "Mark as sent after publishing; a crash before this means a resend."
+          },
+          {
+            "line": 18,
+            "note": "Running the relay again sends nothing new."
+          }
+        ],
+        "tryIt": "Imagine the relay crashes after publish but before marking sent. What happens on its next run, and why is that acceptable?",
+        "check": {
+          "question": "What problem does the transactional outbox solve?",
+          "options": [
+            "Slow databases",
+            "Keeping database changes and published events in step without 2PC",
+            "Too many Kafka partitions"
+          ],
+          "answer": 1,
+          "why": "Saving the event with the change guarantees it is eventually published, and only if the change happened."
+        }
+      }
+    ],
+    "summary": [
+      "Check the idempotency key first; drop duplicates without side effects.",
+      "Run saga steps; on failure compensate newest first and dead-letter the event.",
+      "Record the key as COMMITTED only after success.",
+      "Measure durations with an injected clock; watch the slow tail.",
+      "Use a transactional outbox to publish events reliably."
+    ],
+    "projectStep": {
+      "title": "Milestone 2: transaction engine",
+      "steps": [
+        "Add run_transaction and tx_duration to dist_toolkit.py.",
+        "Write table-driven tests for success, duplicate and two failure cases.",
+        "Bonus: add an outbox and a relay that publishes each event exactly once per run."
+      ]
+    }
   }
 ];
