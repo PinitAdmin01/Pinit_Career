@@ -1458,5 +1458,1394 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         'Combine two of these filters in one query, one condition per line.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 6,
+    title: 'Sorting and Pages: ORDER BY, LIMIT, OFFSET',
+    goal: 'You can sort results by one or more columns, take the top few rows, and split long lists into pages.',
+    minutes: 28,
+    recap: 'Yesterday you searched text with LIKE and ILIKE, matched lists with IN, and picked ranges with BETWEEN.',
+    parts: [
+      {
+        title: 'Why order is never guaranteed',
+        say: [
+          'Here is something that surprises almost every beginner: a table has no fixed order. When you run SELECT without asking for an order, PostgreSQL returns the rows in whatever order is quickest for it. Often that looks like the order you inserted them, but it is not a promise.',
+          'After updates and deletes, or once a table grows large, the order can change from one run to the next. If your app shows "the latest orders" without asking for an order, it might show old ones on a busy day, and nobody would know why.',
+          'So the rule is simple: if the order matters, ask for it with ORDER BY. That is the only way to get a guaranteed order in SQL.',
+          'ORDER BY goes at the end of the query, after WHERE. For example: SELECT name, price FROM products WHERE stock > 0 ORDER BY price. PostgreSQL first keeps the matching rows, then sorts them.',
+          'In the lesson examples so far, some results came out in insert order just by luck. From today, whenever the order of the result matters, the examples use ORDER BY. That is the habit professional developers follow too.',
+          'ORDER BY is also the last step PostgreSQL does before sending the result. It first finds the rows with FROM and WHERE, works out the columns in SELECT, and only then sorts. That is why you can sort by a name you gave with AS, even though that name does not exist in the table.'
+        ],
+        example: 'Imagine a stack of exam papers dropped on the floor and picked up again. Nobody would trust that they are still in roll number order. If the order matters, you sort them on purpose. A database table is that stack of papers: sort it when you need an order.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2));',
+          "INSERT INTO products VALUES ('Pen', 10), ('Backpack', 1200), ('Notebook', 60), ('Desk lamp', 899);",
+          "UPDATE products SET price = 12 WHERE name = 'Pen';",
+          'SELECT name, price FROM products;',
+          'SELECT name, price FROM products ORDER BY price;'
+        ),
+        output: lines(
+          ' name      | price',
+          '-----------+---------',
+          ' Backpack  | 1200.00',
+          ' Notebook  |   60.00',
+          ' Desk lamp |  899.00',
+          ' Pen       |   12.00',
+          '(4 rows)',
+          '',
+          ' name      | price',
+          '-----------+---------',
+          ' Pen       |   12.00',
+          ' Notebook  |   60.00',
+          ' Desk lamp |  899.00',
+          ' Backpack  | 1200.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'After an update, the changed row may move in the unsorted result.' },
+          { line: 4, note: 'No ORDER BY: here the Pen has moved to the end.' },
+          { line: 5, note: 'With ORDER BY price, the order is guaranteed: cheapest first.' }
+        ],
+        tryIt: 'Remove the UPDATE on line 3 and run again. The unsorted result changes, but the sorted one stays exactly the same.',
+        check: {
+          question: 'When is the order of rows guaranteed in a SELECT?',
+          options: ['Only when the query has ORDER BY', 'Always, in the order rows were inserted', 'Always, in id order'],
+          answer: 0,
+          why: 'Without ORDER BY, PostgreSQL may return rows in any order. ORDER BY is the only guarantee.'
+        }
+      },
+      {
+        title: 'ORDER BY: ascending and descending',
+        say: [
+          'ORDER BY sorts by a column. By default it sorts from smallest to largest, which is called ascending, or ASC. For numbers that means cheapest first; for text it means A to Z; for dates it means oldest first.',
+          'Add DESC after the column for descending order: largest first, Z to A, newest first. ORDER BY price DESC shows the most expensive products at the top, and ORDER BY ordered_on DESC shows the latest orders first.',
+          'You can sort by a column that you do not show. SELECT name FROM products ORDER BY price is perfectly fine: the result shows only names, in price order.',
+          'You can also sort by a calculation or by a name you gave with AS. For example, SELECT name, price * 1.18 AS with_gst FROM products ORDER BY with_gst. PostgreSQL works out the value for each row and sorts by it.',
+          'Text is sorted using the database\'s language rules. In the lesson editor, capital and small letters are sorted by their character codes, which is why a word starting with a capital letter can come before a word starting with a small letter. Keeping text consistent, like always capitalising names, avoids surprises.'
+        ],
+        example: 'On a shopping app, "Price: low to high" is ORDER BY price ASC, and "Price: high to low" is ORDER BY price DESC. "Newest arrivals" is ORDER BY added_on DESC. Every sort button is one ORDER BY.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2), added_on date);',
+          "INSERT INTO products VALUES ('Pen', 10, '2026-09-01'), ('Backpack', 1200, '2026-09-20'), ('Notebook', 60, '2026-09-10');",
+          'SELECT name, price FROM products ORDER BY price DESC;',
+          'SELECT name FROM products ORDER BY added_on DESC;',
+          'SELECT name FROM products ORDER BY name;'
+        ),
+        output: lines(
+          ' name     | price',
+          '----------+---------',
+          ' Backpack | 1200.00',
+          ' Notebook |   60.00',
+          ' Pen      |   10.00',
+          '(3 rows)',
+          '',
+          ' name',
+          '----------',
+          ' Backpack',
+          ' Notebook',
+          ' Pen',
+          '(3 rows)',
+          '',
+          ' name',
+          '----------',
+          ' Backpack',
+          ' Notebook',
+          ' Pen',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'DESC: most expensive first.' },
+          { line: 4, note: 'Sorted by a column we do not show: newest first.' },
+          { line: 5, note: 'Text in A to Z order (ASC is the default).' }
+        ],
+        tryIt: 'Change line 4 to show the oldest product first by removing DESC. Which product comes first now?',
+        check: {
+          question: 'Which query shows the newest orders first?',
+          options: ['ORDER BY ordered_on DESC', 'ORDER BY ordered_on', 'ORDER BY ordered_on ASC'],
+          answer: 0,
+          why: 'Newer dates are larger, so descending order puts them first. ASC, the default, puts the oldest first.'
+        }
+      },
+      {
+        title: 'Sorting by more than one column',
+        say: [
+          'Often one column is not enough to decide the order. If several products have the same category, which comes first inside the category? You can give ORDER BY several columns, separated by commas.',
+          'PostgreSQL sorts by the first column. Only when two rows have the same value there does it look at the second column, and so on. So ORDER BY category, price sorts by category A to Z, and inside each category, by price from cheapest.',
+          'Each column has its own direction. ORDER BY category ASC, price DESC means categories A to Z, and inside each one, the most expensive first. The DESC only applies to the column right before it.',
+          'Adding a final "tie-breaker" column, like the id, is a good professional habit. If two rows are equal on every sort column, their order is not guaranteed. Adding the id at the end makes the order completely fixed, which is important for pages, as you will see soon.',
+          'Think of the sort columns as a list of questions: "first compare by this; if equal, compare by that". Writing it out in words before typing it helps avoid mistakes.'
+        ],
+        example: 'A school merit list is sorted by total marks, highest first. When two students have the same total, the school looks at their maths marks. If those are equal too, it uses the roll number. That is ORDER BY total DESC, maths DESC, roll_no.',
+        code: lines(
+          'CREATE TABLE products (id int, name text, category text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 'stationery', 10), (2, 'Headphones', 'electronics', 1499), (3, 'Stapler', 'stationery', 150),",
+          "  (4, 'Phone stand', 'electronics', 299), (5, 'Notebook', 'stationery', 60), (6, 'Pencil', 'stationery', 10);",
+          'SELECT category, name, price FROM products ORDER BY category, price DESC, id;'
+        ),
+        output: lines(
+          ' category    | name        | price',
+          '-------------+-------------+---------',
+          ' electronics | Headphones  | 1499.00',
+          ' electronics | Phone stand |  299.00',
+          ' stationery  | Stapler     |  150.00',
+          ' stationery  | Notebook    |   60.00',
+          ' stationery  | Pen         |   10.00',
+          ' stationery  | Pencil      |   10.00',
+          '(6 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Category A to Z; inside it, most expensive first; for equal prices, by id.' }
+        ],
+        tryIt: 'Change ORDER BY to price, name and run it. Now Pen and Pencil (both 10) come first, in A to Z order.',
+        check: {
+          question: 'In ORDER BY city, name, when is name used?',
+          options: ['Only to order rows that have the same city', 'First, before city', 'Never, only the first column counts'],
+          answer: 0,
+          why: 'The second column only breaks ties in the first. Rows with different cities are ordered by city alone.'
+        }
+      },
+      {
+        title: 'LIMIT: the top few rows',
+        say: [
+          'Very often you only want the first few rows of a sorted result: the 5 cheapest products, the 3 latest orders, the top 10 students. LIMIT does this. It goes at the very end of the query: ORDER BY price LIMIT 5.',
+          'LIMIT without ORDER BY is almost always a bug. "Give me any 3 rows" is rarely a real question. Together, ORDER BY and LIMIT answer questions like "top 3" or "latest 10" correctly.',
+          'LIMIT also protects your app. A query that could return a million rows might freeze a screen or use all the memory. Adding a sensible LIMIT keeps the result small, even if the table grows unexpectedly.',
+          'Be careful with ties. If you ask for the top 3 prices and the 3rd and 4th products have the same price, LIMIT 3 cuts one of them off, and which one is not guaranteed unless you add a tie-breaker to ORDER BY. On Day 17 you will learn window functions, which handle "top N" with ties more carefully.',
+          'You will also see FETCH FIRST 3 ROWS ONLY in some SQL. It is the official standard way of writing LIMIT 3. PostgreSQL understands both, and LIMIT is shorter.'
+        ],
+        example: 'A newspaper\'s "Top 5 stories of the day" list sorts all stories by how many people read them, then prints only the first five. Sorting is ORDER BY; printing only five is LIMIT.',
+        code: lines(
+          'CREATE TABLE products (id int, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Headphones', 1499), (2, 'Backpack', 1200), (3, 'Desk lamp', 899), (4, 'Water bottle', 350), (5, 'Phone stand', 299), (6, 'Pen', 10);",
+          'SELECT name, price FROM products ORDER BY price DESC LIMIT 3;',
+          'SELECT name FROM products ORDER BY price LIMIT 1;'
+        ),
+        output: lines(
+          ' name       | price',
+          '------------+---------',
+          ' Headphones | 1499.00',
+          ' Backpack   | 1200.00',
+          ' Desk lamp  |  899.00',
+          '(3 rows)',
+          '',
+          ' name',
+          '------',
+          ' Pen',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Sort most expensive first, then keep the first 3.' },
+          { line: 4, note: 'The single cheapest product.' }
+        ],
+        tryIt: 'Write a query for the 2 cheapest products. Which ORDER BY direction do you need?',
+        check: {
+          question: 'Why use ORDER BY together with LIMIT?',
+          options: ['Without ORDER BY, LIMIT returns an unpredictable set of rows', 'LIMIT only works after ORDER BY', 'ORDER BY makes LIMIT faster'],
+          answer: 0,
+          why: 'LIMIT keeps the first N rows of the result. Without an order, which rows are "first" is not guaranteed.'
+        }
+      },
+      {
+        title: 'OFFSET: pages of results',
+        say: [
+          'Apps rarely show hundreds of rows at once. They show pages: 10 products on page 1, the next 10 on page 2, and so on. OFFSET skips a number of rows before LIMIT starts counting.',
+          'The formula is simple. With a page size of N, page P uses LIMIT N OFFSET (P - 1) times N. So with 10 per page, page 1 is OFFSET 0, page 2 is OFFSET 10, page 3 is OFFSET 20.',
+          'Pages only work with a fixed, complete order. If two rows can swap places between one page and the next request, a product might appear on two pages, or be skipped. That is why you add a unique tie-breaker, like the id, at the end of ORDER BY.',
+          'Asking for a page past the end is not an error. It simply returns no rows, which is how an app knows there are no more pages.',
+          'OFFSET gets slower on very large tables, because PostgreSQL still has to count past all the skipped rows. Big apps sometimes use a different technique called keyset pagination: "give me the next 10 after id 12345". For most apps, and for this course, LIMIT with OFFSET is the right tool.'
+        ],
+        example: 'A book with 200 pages shows about 30 lines per page. To read page 3, you skip the first 60 lines and read the next 30. OFFSET 60 LIMIT 30 is page 3.',
+        code: lines(
+          'CREATE TABLE products (id int, name text);',
+          "INSERT INTO products VALUES (1, 'Backpack'), (2, 'Desk lamp'), (3, 'Headphones'), (4, 'Notebook'), (5, 'Pen'), (6, 'Phone stand'), (7, 'Stapler');",
+          'SELECT name FROM products ORDER BY name, id LIMIT 3 OFFSET 0;',
+          'SELECT name FROM products ORDER BY name, id LIMIT 3 OFFSET 3;',
+          'SELECT name FROM products ORDER BY name, id LIMIT 3 OFFSET 6;',
+          'SELECT name FROM products ORDER BY name, id LIMIT 3 OFFSET 9;'
+        ),
+        output: lines(
+          ' name',
+          '------------',
+          ' Backpack',
+          ' Desk lamp',
+          ' Headphones',
+          '(3 rows)',
+          '',
+          ' name',
+          '-------------',
+          ' Notebook',
+          ' Pen',
+          ' Phone stand',
+          '(3 rows)',
+          '',
+          ' name',
+          '---------',
+          ' Stapler',
+          '(1 row)',
+          '',
+          ' name',
+          '------',
+          '(0 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Page 1: skip 0, show 3.' },
+          { line: 4, note: 'Page 2: skip 3, show 3.' },
+          { line: 5, note: 'Page 3 has only one product left.' },
+          { line: 6, note: 'Past the end: no rows, no error.' }
+        ],
+        tryIt: 'Change the page size to 4: use LIMIT 4 with OFFSET 0 and OFFSET 4. How many pages do the 7 products fill now?',
+        check: {
+          question: 'With 20 items per page, what OFFSET gives page 3?',
+          options: ['40', '60', '3'],
+          answer: 0,
+          why: 'Page 3 skips pages 1 and 2: (3 - 1) x 20 = 40 rows.'
+        }
+      },
+      {
+        title: 'Putting it together: a catalogue with pages',
+        say: [
+          'Let us build the query behind a shop\'s catalogue page. The user picks "in stock only", sorts by price from low to high, and moves to page 2, with 3 products per page.',
+          'In SQL, each choice becomes one part of the query. The filter goes in WHERE. The sort goes in ORDER BY, with the id as a tie-breaker. The page number becomes LIMIT and OFFSET. The order of the parts is always the same: SELECT, FROM, WHERE, ORDER BY, LIMIT, OFFSET.',
+          'Also notice NULLS LAST. When a column can be NULL, PostgreSQL puts NULLs at the end when sorting ascending, and at the start when descending. NULLS FIRST or NULLS LAST lets you choose. A product with an unknown price should usually go at the end, whichever way the user sorts.',
+          'In today\'s practice you will find the 3 most expensive products, and page 2 of the catalogue sorted by name. Both are exactly the patterns from this lesson.',
+          'Tomorrow you learn functions: changing capital letters, rounding money, and working with dates, all inside a query.'
+        ],
+        example: 'Every time you tap "Next page" on a shopping site, the app runs the same query again with a bigger OFFSET. The filter and the sort stay the same; only the page changes.',
+        code: lines(
+          'CREATE TABLE products (id int, name text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES (1, 'Notebook', 60, 120), (2, 'Pen', 10, 500), (3, 'Backpack', 1200, 15), (4, 'Water bottle', 350, 40),",
+          "  (5, 'Desk lamp', 899, 0), (6, 'Headphones', 1499, 25), (7, 'Phone stand', 299, 60), (8, 'Mystery box', NULL, 5);",
+          'SELECT name, price',
+          'FROM products',
+          'WHERE stock > 0',
+          'ORDER BY price NULLS LAST, id',
+          'LIMIT 3 OFFSET 3;'
+        ),
+        output: lines(
+          ' name         | price',
+          '--------------+---------',
+          ' Water bottle |  350.00',
+          ' Backpack     | 1200.00',
+          ' Headphones   | 1499.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'The filter: in stock only (the Desk lamp is left out).' },
+          { line: 7, note: 'Cheapest first; the product with no price goes last; id breaks ties.' },
+          { line: 8, note: 'Page 2, with 3 per page.' }
+        ],
+        tryIt: 'Change OFFSET 3 to OFFSET 6 to see page 3. The Mystery box, with no price, appears there, at the very end.',
+        check: {
+          question: 'What is the correct order of these parts in a query?',
+          options: ['WHERE, then ORDER BY, then LIMIT', 'LIMIT, then WHERE, then ORDER BY', 'ORDER BY, then WHERE, then LIMIT'],
+          answer: 0,
+          why: 'SQL always follows SELECT, FROM, WHERE, ORDER BY, LIMIT, OFFSET: filter first, then sort, then cut.'
+        }
+      }
+    ],
+    summary: [
+      'Without ORDER BY, the order of rows is not guaranteed.',
+      'ORDER BY column sorts ascending (ASC); add DESC for largest, newest or Z first.',
+      'Several columns: the next column only breaks ties. Add the id as a final tie-breaker.',
+      'LIMIT N keeps the first N rows; always use it with ORDER BY.',
+      'Page P of size N: LIMIT N OFFSET (P - 1) x N. NULLS LAST puts unknown values at the end.'
+    ],
+    projectStep: {
+      title: 'My Library: sorted lists and pages',
+      steps: [
+        'List your books sorted by author, and by title inside each author.',
+        'Show your 3 longest books with ORDER BY pages DESC LIMIT 3.',
+        'Show page 2 of your books, 2 per page, sorted by title and then id.',
+        'Show unfinished books first: ORDER BY finished, title.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 7,
+    title: 'Useful Functions for Text, Numbers and Dates',
+    goal: 'You can use built-in functions to clean and format text, round and calculate numbers, and work with dates inside a query.',
+    minutes: 28,
+    recap: 'Yesterday you sorted results with ORDER BY, took the top rows with LIMIT, and made pages with OFFSET.',
+    parts: [
+      {
+        title: 'What a function is in SQL',
+        say: [
+          'A function takes one or more values and gives back a new value. You have already met one: count(*). Today you meet the everyday functions that clean, format and calculate data inside a query.',
+          'You call a function by writing its name and putting the values in brackets: upper(name), round(price, 2). The function runs once for every row, and its result appears as a new column.',
+          'Functions never change the data stored in the table. SELECT upper(name) FROM customers shows names in capitals, but the table still holds them as they were. To change the stored data, you would use the function inside an UPDATE, like UPDATE customers SET name = upper(name).',
+          'Always give a function\'s result a clear name with AS. Without it, PostgreSQL uses the function\'s name, like upper or round, which is confusing when you have several.',
+          'You can put functions inside each other, like round(avg(price), 2). PostgreSQL works from the inside out: first the average, then the rounding. You will see many examples of this today.'
+        ],
+        example: 'A function is like a machine at a juice shop: you put in oranges, it gives back juice. The oranges in the basket are not changed; the machine just produces something new from them. upper(name) produces a capitalised copy of each name.',
+        code: lines(
+          'CREATE TABLE customers (name text, city text);',
+          "INSERT INTO customers VALUES ('asha', 'pune'), ('Ravi', 'Mumbai');",
+          'SELECT name, upper(name) AS shout, length(name) AS letters FROM customers;',
+          'SELECT name FROM customers;'
+        ),
+        output: lines(
+          ' name | shout | letters',
+          '------+-------+---------',
+          ' asha | ASHA  |       4',
+          ' Ravi | RAVI  |       4',
+          '(2 rows)',
+          '',
+          ' name',
+          '------',
+          ' asha',
+          ' Ravi',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Two functions, each with its own column name.' },
+          { line: 4, note: 'The stored names did not change.' }
+        ],
+        tryIt: 'Add lower(city) AS city_small to line 3 and run it.',
+        check: {
+          question: 'Does SELECT upper(name) FROM customers change the names stored in the table?',
+          options: ['No, it only shows them in capitals', 'Yes, it changes them permanently', 'Only the first row'],
+          answer: 0,
+          why: 'SELECT only reads. To store the change, you would need UPDATE customers SET name = upper(name).'
+        }
+      },
+      {
+        title: 'Text functions',
+        say: [
+          'upper and lower change capital letters. initcap makes the first letter of each word a capital, which is handy for cleaning up names that users typed in any style.',
+          'trim removes spaces at the start and the end. length counts the characters. These two help you clean and check data, for example finding names that are empty after trimming.',
+          'To join text, use two vertical bars: first_name || \' \' || last_name. This is called concatenation. If any part is NULL, the whole result becomes NULL. The function concat does the same job but treats NULL as empty text, which is often safer.',
+          'substring takes part of a text, and replace swaps one piece of text for another. For example, replace(phone, \' \', \'\') removes the spaces from a phone number. left(text, n) and right(text, n) take the first or last few characters.',
+          'These functions are especially useful for cleaning messy data before saving it, and for building readable labels in reports, like "Asha (Pune)".',
+          'A small warning about length: it counts characters, not bytes, so a name in Hindi or Tamil is counted correctly letter by letter. That matters in India, where apps often store names in several scripts. PostgreSQL handles them all as text, and the same functions work on them.'
+        ],
+        example: 'When a college prints ID cards, a clerk tidies each student\'s name: removes extra spaces, fixes the capital letters, and joins first and last names. Text functions do that tidying for thousands of names at once.',
+        code: lines(
+          'CREATE TABLE customers (first_name text, last_name text, city text, phone text);',
+          "INSERT INTO customers VALUES ('  asha', 'RAO ', 'pune', '98765 43210'), ('ravi', 'kumar', NULL, '91234 56789');",
+          'SELECT initcap(trim(first_name)) || \' \' || initcap(trim(last_name)) AS full_name,',
+          '       concat(initcap(city), \'!\') AS city_label,',
+          '       initcap(city) || \'!\' AS joined_with_bars,',
+          "       replace(phone, ' ', '') AS phone_clean,",
+          '       right(phone, 4) AS last_four',
+          'FROM customers;'
+        ),
+        output: lines(
+          ' full_name  | city_label | joined_with_bars | phone_clean | last_four',
+          '------------+------------+------------------+-------------+-----------',
+          ' Asha Rao   | Pune!      | Pune!            | 9876543210  | 3210',
+          ' Ravi Kumar | !          | NULL             | 9123456789  | 6789',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Trim spaces, fix capitals, and join with a space in between.' },
+          { line: 4, note: 'concat treats a NULL city as empty text.' },
+          { line: 5, note: 'With ||, a NULL part makes the whole result NULL.' },
+          { line: 7, note: 'The last 4 characters, like a bank app shows.' }
+        ],
+        tryIt: 'Add length(trim(first_name)) AS name_length to the query. Both names have 4 letters once the spaces are trimmed.',
+        check: {
+          question: "What is 'Hello ' || NULL?",
+          options: ['NULL', "'Hello '", 'An error'],
+          answer: 0,
+          why: 'Joining anything with NULL using || gives NULL. Use concat() if you want NULL treated as empty text.'
+        }
+      },
+      {
+        title: 'Numbers: maths and rounding',
+        say: [
+          'SQL does maths with +, -, * and /. One trap: dividing two whole numbers gives a whole number, just like floor division. 7 / 2 is 3, not 3.5. If you want the decimal answer, make one side a decimal: 7 / 2.0, or 7::numeric / 2.',
+          'The double colon :: is PostgreSQL\'s way of converting a value to another type, called a cast. 7::numeric turns the whole number 7 into an exact decimal. You will see casts often, for example \'2026-09-28\'::date.',
+          'round(value, 2) rounds to 2 decimal places, which is what you want for money. round(value) with no second number rounds to a whole number. ceil rounds up and floor rounds down.',
+          'The remainder of a division uses %: 17 % 5 is 2. And abs gives the size of a number without its sign, so abs(-250) is 250.',
+          'Finally, coalesce(value, default) replaces NULL with a value you choose. coalesce(discount, 0) treats a missing discount as zero, so the maths works instead of producing NULL. It is one of the most used functions in real queries.',
+          'Be careful when you cast text to a number. \'42\'::int works, but \'abc\'::int gives an error and stops the query. If data might be messy, clean it first with trim and check it, rather than casting everything and hoping. On Day 21 you will learn CHECK rules that stop messy values from being stored at all.'
+        ],
+        example: 'When a restaurant bill is split between 3 friends, the calculator shows 333.3333, and the cashier rounds it to 333.33. round does the same in SQL. And if a coupon box is empty, the cashier treats the discount as zero, which is coalesce.',
+        code: lines(
+          'SELECT 7 / 2 AS whole, 7 / 2.0 AS decimal, 7::numeric / 2 AS cast_first;',
+          'SELECT round(1000 / 3.0, 2) AS share, ceil(4.1) AS up, floor(4.9) AS down, 17 % 5 AS remainder;',
+          'CREATE TABLE items (name text, price numeric(10,2), discount numeric(10,2));',
+          "INSERT INTO items VALUES ('Pen', 10, 2), ('Notebook', 60, NULL);",
+          'SELECT name, price - discount AS plain, price - coalesce(discount, 0) AS safe FROM items;'
+        ),
+        output: lines(
+          ' whole | decimal            | cast_first',
+          '-------+--------------------+--------------------',
+          '     3 | 3.5000000000000000 | 3.5000000000000000',
+          '(1 row)',
+          '',
+          ' share  | up | down | remainder',
+          '--------+----+------+-----------',
+          ' 333.33 |  5 |    4 |         2',
+          '(1 row)',
+          '',
+          ' name     | plain | safe',
+          '----------+-------+-------',
+          ' Pen      |  8.00 |  8.00',
+          ' Notebook |  NULL | 60.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'Whole numbers divide to a whole number. Make one side a decimal for 3.5.' },
+          { line: 2, note: 'round to 2 places for money; ceil up, floor down; % gives the remainder.' },
+          { line: 5, note: 'A NULL discount makes the plain result NULL. coalesce treats it as 0.' }
+        ],
+        tryIt: 'Wrap the decimal on line 1 in round(..., 2) to show 3.50. Then try round(7 / 2.0) with no second number.',
+        check: {
+          question: 'What does coalesce(discount, 0) do?',
+          options: ['Uses 0 when discount is NULL, otherwise the discount', 'Sets every discount to 0', 'Removes rows with no discount'],
+          answer: 0,
+          why: 'coalesce returns the first value that is not NULL, so a missing discount becomes 0.'
+        }
+      },
+      {
+        title: 'Dates: today, differences and parts',
+        say: [
+          'PostgreSQL is very good with dates. current_date is today\'s date, and now() is the current date and time. Because these change every day, the examples use fixed dates, so the output is always the same.',
+          'Subtracting two dates gives the number of days between them: date \'2026-09-30\' - date \'2026-09-01\' is 29. Adding a number of days to a date gives a new date. For months and years, add an interval: order_date + interval \'1 month\'.',
+          'extract pulls one part out of a date: extract(year from joined_on), extract(month from joined_on), extract(dow from day) for the day of the week, where 0 is Sunday. These are useful for grouping, like "customers per joining month".',
+          'date_trunc rounds a date or time down to the start of a period: date_trunc(\'month\', ordered_on) turns any day in September into 1 September. That makes monthly reports easy, as you will see on Day 9.',
+          'Dates can also be compared and sorted, as you did on Day 4. Remember to write dates as year-month-day, and to add ::date or the word date before the text when PostgreSQL needs to know it is a date.',
+          'One more useful function is age. age(date \'2026-09-28\', date \'2004-08-15\') returns the difference as years, months and days, like 22 years 1 mon 13 days. It is handy for things like a customer\'s age or how long someone has been a member. For a simple number of days, subtracting dates is clearer.'
+        ],
+        example: 'A library\'s due-date stamp is date maths: the book was borrowed on the 1st, the loan is 14 days, so it is due on the 15th. If you return it on the 20th, the fine is for 5 days late. Subtracting dates gives exactly that 5.',
+        code: lines(
+          "SELECT date '2026-09-30' - date '2026-09-01' AS days_between,",
+          "       date '2026-09-28' + 14 AS due_date,",
+          "       date '2026-01-31' + interval '1 month' AS one_month_later;",
+          "SELECT extract(year from date '2026-09-28') AS year,",
+          "       extract(month from date '2026-09-28') AS month,",
+          "       date_trunc('month', date '2026-09-28')::date AS month_start;"
+        ),
+        output: lines(
+          ' days_between | due_date   | one_month_later',
+          '--------------+------------+---------------------',
+          '           29 | 2026-10-12 | 2026-02-28 00:00:00',
+          '(1 row)',
+          '',
+          ' year | month | month_start',
+          '------+-------+-------------',
+          ' 2026 |     9 | 2026-09-01',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'Date minus date gives a number of days.' },
+          { line: 2, note: 'Date plus a number of days gives a date.' },
+          { line: 3, note: 'Adding a month to 31 January gives the last day of February, with a time part.' },
+          { line: 6, note: 'The start of the month, turned back into a plain date with ::date.' }
+        ],
+        tryIt: "Work out how many days are left until 1 January 2027 from 28 September 2026: date '2027-01-01' - date '2026-09-28'.",
+        check: {
+          question: "What is date '2026-09-10' - date '2026-09-01'?",
+          options: ['9', '10', "'9 days'"],
+          answer: 0,
+          why: 'Subtracting two dates gives the whole number of days between them: 10 - 1 = 9.'
+        }
+      },
+      {
+        title: 'Formatting dates and numbers for people',
+        say: [
+          'Databases store dates as year-month-day, but people often prefer "28 Sep 2026". to_char turns a date or number into text using a pattern. to_char(ordered_on, \'DD Mon YYYY\') gives 28 Sep 2026.',
+          'The pattern letters are codes: DD is the day, Mon is the short month name, Month is the full name, YYYY is the year, and Day is the weekday. Adding FM in front, like FMDay, removes the padding spaces PostgreSQL otherwise adds.',
+          'to_char also formats numbers: to_char(1250000, \'FM99,99,999\') places commas the way you choose. Many apps, though, format numbers in the app itself, because different users may want different styles.',
+          'A good rule: keep the stored data in its proper type, and format it only when you show it. Store dates as date, money as numeric. If you store "28 Sep 2026" as text, you can no longer sort by date or do date maths.',
+          'Formatting is the last step of a query, used for reports and exports. For anything an app will calculate with, return the real date or number and let the app format it.'
+        ],
+        example: 'A bank stores the transaction date in a strict computer format, but your printed passbook shows "28 Sep 2026". The data is the same; only its appearance changes for the reader.',
+        code: lines(
+          "SELECT to_char(date '2026-09-28', 'DD Mon YYYY') AS short_date,",
+          "       to_char(date '2026-09-28', 'FMDay, DD FMMonth') AS long_date,",
+          "       to_char(1250000, 'FM99,99,999') AS indian_commas;"
+        ),
+        output: lines(
+          ' short_date  | long_date            | indian_commas',
+          '-------------+----------------------+---------------',
+          ' 28 Sep 2026 | Monday, 28 September | 12,50,000',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'DD day, Mon short month, YYYY year.' },
+          { line: 2, note: 'FM removes padding; Day and Month give full names.' },
+          { line: 3, note: 'Commas placed in the Indian lakh style by the pattern.' }
+        ],
+        tryIt: "Change the first pattern to 'DD/MM/YYYY' and run it. Then try 'YYYY-MM' to show just the year and month.",
+        check: {
+          question: 'Why store a date as date instead of text like "28 Sep 2026"?',
+          options: ['So you can sort, compare and do date maths correctly', 'Text takes too much space', 'PostgreSQL cannot store text'],
+          answer: 0,
+          why: 'A real date sorts and calculates correctly. Format it with to_char only when you show it.'
+        }
+      },
+      {
+        title: 'Putting it together: an invoice view of products',
+        say: [
+          'Let us use today\'s functions to build a small invoice-style listing: product names in capitals, the price with 18% GST rounded to 2 decimals, a readable label, and how many days ago each product was added.',
+          'Each column uses one or two functions, and each gets a clear name with AS. The result is a table a shop manager could read directly, without any extra processing.',
+          'Notice that nothing in the table was changed. All the formatting happens in the SELECT. The original prices and dates are still stored in their proper types, ready for maths and sorting.',
+          'In today\'s practice, you will show product names in capitals with the price including GST, and work out how many days before a fixed date each order was placed. Both use exactly the functions from this lesson.',
+          'Tomorrow, you learn aggregate functions: count, sum, avg, min and max. They work on many rows at once to give totals and averages, which is where reports really begin.'
+        ],
+        example: 'A printed invoice takes plain stored data and dresses it up: names in capitals, money with 2 decimals, tax added, and dates in a friendly format. The accountant\'s records underneath stay exactly as they were.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2), added_on date);',
+          "INSERT INTO products VALUES ('Pen', 10, '2026-09-25'), ('Headphones', 1499, '2026-09-01');",
+          'SELECT upper(name) AS item,',
+          '       round(price * 1.18, 2) AS price_with_gst,',
+          "       name || ' (Rs ' || price || ')' AS label,",
+          "       date '2026-09-28' - added_on AS days_listed",
+          'FROM products',
+          'ORDER BY days_listed DESC;'
+        ),
+        output: lines(
+          ' item       | price_with_gst | label                   | days_listed',
+          '------------+----------------+-------------------------+-------------',
+          ' HEADPHONES |        1768.82 | Headphones (Rs 1499.00) |          27',
+          ' PEN        |          11.80 | Pen (Rs 10.00)          |           3',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Price plus 18% GST, rounded for money.' },
+          { line: 5, note: 'Join text and the price into one readable label.' },
+          { line: 6, note: 'Days between a fixed date and when the product was added.' }
+        ],
+        tryIt: 'Add a fifth column that shows the added date as text with to_char(added_on, \'DD Mon\') AS listed_on.',
+        check: {
+          question: 'What does round(price * 1.18, 2) give for a price of 10?',
+          options: ['11.80', '11.8000', '12'],
+          answer: 0,
+          why: '10 x 1.18 = 11.8, and rounding to 2 decimal places shows it as 11.80.'
+        }
+      }
+    ],
+    summary: [
+      'Functions work on each row and return a new value; they never change stored data.',
+      'Text: upper, lower, initcap, trim, length, replace, left, right; join with || or concat.',
+      'Numbers: whole-number division drops decimals; use 2.0 or ::numeric; round, ceil, floor, %.',
+      'coalesce(value, default) replaces NULL with a value you choose.',
+      'Dates: subtract for days, + interval for months, extract, date_trunc, and to_char for display.'
+    ],
+    projectStep: {
+      title: 'My Library: labels and dates',
+      steps: [
+        "Add a started_on date column to your books and fill it in for a few books.",
+        "Show each book as a label: title || ' by ' || coalesce(author, 'unknown').",
+        'Show how many days ago you started each book, using a fixed date for today.',
+        "Show started_on formatted as 'DD Mon YYYY' with to_char."
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 8,
+    title: 'Counting and Totals: COUNT, SUM, AVG, MIN, MAX',
+    goal: 'You can turn many rows into one answer with count, sum, avg, min and max, and handle NULL in totals correctly.',
+    minutes: 28,
+    recap: 'Yesterday you used functions to format text, round numbers and work with dates.',
+    parts: [
+      {
+        title: 'Aggregate functions: many rows, one answer',
+        say: [
+          'The functions from yesterday work on one row at a time. Today\'s functions are different: they look at many rows and give back one answer. They are called aggregate functions, and they are the heart of every report.',
+          'There are five you will use all the time. count counts rows. sum adds up values. avg calculates the average. min finds the smallest value and max the largest.',
+          'SELECT count(*) FROM products returns a single row with a single number: how many products there are. SELECT sum(stock) FROM products returns the total units in stock across all products.',
+          'You can use several aggregates in one query: SELECT count(*), min(price), max(price), avg(price) FROM products gives four facts about the catalogue in one row. Give each one a clear name with AS.',
+          'Aggregates also work with WHERE. The WHERE runs first and keeps only the matching rows, and then the aggregate works on those. So SELECT count(*) FROM orders WHERE status = \'delivered\' counts only delivered orders.',
+          'Aggregates are also very fast compared with doing the same work in an app. If you loaded every order into Python or JavaScript just to add them up, you would send thousands of rows over the network. Asking PostgreSQL for sum(total) sends back a single number. A good rule is to let the database do the counting and adding, and send only the answer to the app.'
+        ],
+        example: 'At the end of a cricket match, nobody reads out every ball. The scoreboard shows totals: runs, wickets, the highest score. Aggregate functions turn the ball-by-ball data into the scoreboard.',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60, 120), ('Pen', 'stationery', 10, 500), ('Backpack', 'bags', 1200, 15), ('Headphones', 'electronics', 1499, 25);",
+          'SELECT count(*) AS products, sum(stock) AS units, min(price) AS cheapest, max(price) AS dearest FROM products;',
+          "SELECT count(*) AS stationery_items FROM products WHERE category = 'stationery';"
+        ),
+        output: lines(
+          ' products | units | cheapest | dearest',
+          '----------+-------+----------+---------',
+          '        4 |   660 |    10.00 | 1499.00',
+          '(1 row)',
+          '',
+          ' stationery_items',
+          '------------------',
+          '                2',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Four answers about all products, in one row.' },
+          { line: 4, note: 'WHERE runs first, then count counts the matching rows.' }
+        ],
+        tryIt: 'Add a query that shows the total value of all stock: sum(price * stock) AS stock_value. It should be 70,375.00.',
+        check: {
+          question: 'How many rows does SELECT sum(stock) FROM products return?',
+          options: ['One row', 'One row per product', 'None'],
+          answer: 0,
+          why: 'An aggregate without GROUP BY turns all the rows into a single answer row.'
+        }
+      },
+      {
+        title: 'COUNT(*) and COUNT(column)',
+        say: [
+          'count comes in two forms, and the difference matters. count(*) counts rows, all of them. count(column) counts only the rows where that column is not NULL.',
+          'So in a customers table where one customer has no city, count(*) might be 5 while count(city) is 4. Both are correct; they answer different questions: "how many customers?" and "how many customers told us their city?".',
+          'count(DISTINCT column) counts the different values, ignoring duplicates and NULLs. count(DISTINCT city) answers "how many different cities do our customers live in?".',
+          'Choosing the right count is a common source of subtle report bugs. If a manager asks "how many orders have a delivery date?", count(*) would be wrong; count(delivered_on) is right.',
+          'On Day 12 you will see count(column) used with LEFT JOIN to count zero correctly, which is one of the most useful patterns in SQL.',
+          'Which one should you use by default? For "how many rows", count(*) is the clearest and the fastest to read. Use count(column) only when you really mean "rows where this column has a value", and add a comment if the difference matters, so the next person reading the query does not change it by mistake.'
+        ],
+        example: 'In a class of 40, count(*) is 40 students. count(phone) is the number who gave a phone number, say 36. count(DISTINCT city) is how many different cities they come from, maybe 5.',
+        code: lines(
+          'CREATE TABLE customers (name text, city text);',
+          "INSERT INTO customers VALUES ('Asha', 'Pune'), ('Ravi', 'Mumbai'), ('Priya', 'Pune'), ('Karan', 'Delhi'), ('Meera', NULL);",
+          'SELECT count(*) AS customers, count(city) AS with_city, count(DISTINCT city) AS different_cities FROM customers;'
+        ),
+        output: lines(
+          ' customers | with_city | different_cities',
+          '-----------+-----------+------------------',
+          '         5 |         4 |                3',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'All rows; rows with a city; different cities (Pune counted once).' }
+        ],
+        tryIt: "Add a sixth customer with city 'Mumbai' and run it. Which of the three numbers change?",
+        check: {
+          question: 'A table has 10 rows, and 3 of them have NULL in email. What is count(email)?',
+          options: ['7', '10', '3'],
+          answer: 0,
+          why: 'count(column) skips NULL values, so only the 7 rows with an email are counted.'
+        }
+      },
+      {
+        title: 'SUM and AVG, and how they treat NULL',
+        say: [
+          'sum adds up a column and avg gives its average. Both skip NULL values completely. That is usually what you want, but you must know it.',
+          'Imagine 4 products, one with an unknown price. avg(price) averages only the 3 known prices. It does not treat the unknown price as zero. If you wanted zero, you would write avg(coalesce(price, 0)), which gives a different, lower answer.',
+          'If every value is NULL, or there are no rows at all, sum returns NULL, not 0. A report showing an empty total instead of 0 looks broken, so wrap it: coalesce(sum(amount), 0).',
+          'The average of numbers usually has many decimals. PostgreSQL shows them all, which is not friendly. Wrap it: round(avg(price), 2).',
+          'You can also sum and average calculations, like sum(price * quantity) for the total value of an order, or avg(date \'2026-09-30\' - ordered_on) for the average age of orders in days.',
+          'Averages can mislead. If nine products cost about 100 rupees and one costs 50,000, the average is over 5,000, which describes none of the products well. For prices and salaries, analysts often look at the median, the middle value, as well. PostgreSQL can calculate it with percentile_cont(0.5) WITHIN GROUP (ORDER BY price), but for now it is enough to know that the average is not the whole story.'
+        ],
+        example: 'If three friends tell you their marks and one refuses, the class average you calculate is based on three people, not four with a zero. SQL does the same: an unknown value is left out, not counted as zero.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2));',
+          "INSERT INTO products VALUES ('Pen', 10), ('Notebook', 60), ('Stapler', 150), ('Mystery box', NULL);",
+          'SELECT avg(price) AS raw_average, round(avg(price), 2) AS average, round(avg(coalesce(price, 0)), 2) AS unknown_as_zero FROM products;',
+          "SELECT sum(price) AS plain_sum, coalesce(sum(price), 0) AS safe_sum FROM products WHERE name = 'Nothing';"
+        ),
+        output: lines(
+          ' raw_average         | average | unknown_as_zero',
+          '---------------------+---------+-----------------',
+          ' 73.3333333333333333 |   73.33 |           55.00',
+          '(1 row)',
+          '',
+          ' plain_sum | safe_sum',
+          '-----------+----------',
+          '      NULL |        0',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'avg skips the NULL: (10 + 60 + 150) / 3. Treating it as 0 divides by 4 instead.' },
+          { line: 4, note: 'No matching rows: sum is NULL; coalesce turns it into 0.' }
+        ],
+        tryIt: 'Add sum(price) AS total to line 3. Is the Mystery box counted?',
+        check: {
+          question: 'What does avg(price) do with rows where price is NULL?',
+          options: ['Leaves them out of the average', 'Counts them as 0', 'Returns NULL for the whole average'],
+          answer: 0,
+          why: 'Aggregates like avg and sum skip NULL values. Use coalesce if you want them counted as 0.'
+        }
+      },
+      {
+        title: 'MIN and MAX on numbers, text and dates',
+        say: [
+          'min and max find the smallest and largest value in a column. They work on numbers, as you would expect, but also on dates and text.',
+          'On dates, min gives the earliest and max the latest. SELECT max(ordered_on) FROM orders answers "when was the last order?", a question every shop owner asks.',
+          'On text, min and max use alphabetical order: min(name) is the name that would come first in A to Z order.',
+          'A common beginner question is: "how do I get the name of the most expensive product?". SELECT name, max(price) FROM products gives an error, because max returns one row while name has many. The simple answer uses what you learned on Day 6: ORDER BY price DESC LIMIT 1. On Day 15 you will see another way with a subquery.',
+          'min and max also skip NULL values, like the other aggregates.',
+          'min and max are also a quick way to check data quality. If max(price) is 99,99,999 or min(ordered_on) is in the year 1900, something was typed wrong or loaded badly. Running a few min and max queries on a new table is a simple habit that finds problems before they reach a report.'
+        ],
+        example: 'On a train timetable, min(departure) is the first train of the day and max(departure) the last. You do not need to read the whole timetable to find them.',
+        code: lines(
+          'CREATE TABLE orders (id int, customer text, ordered_on date, total numeric(10,2));',
+          "INSERT INTO orders VALUES (1, 'Ravi', '2026-09-03', 1200), (2, 'Asha', '2026-09-25', 50), (3, 'Priya', '2026-09-12', 760);",
+          'SELECT min(ordered_on) AS first_order, max(ordered_on) AS last_order, min(customer) AS first_name_a_to_z FROM orders;',
+          'SELECT customer, total FROM orders ORDER BY total DESC LIMIT 1;',
+          'SELECT customer, max(total) FROM orders;'
+        ),
+        output: '[Error] column "orders.customer" must appear in the GROUP BY clause or be used in an aggregate function',
+        codeNotes: [
+          { line: 3, note: 'Earliest and latest dates, and the first name in A to Z order.' },
+          { line: 4, note: 'The right way to find who placed the biggest order.' },
+          { line: 5, note: 'This mixes one-per-row values with one-for-all: PostgreSQL refuses.' }
+        ],
+        tryIt: 'Delete line 5 and run again. You will see the first and last order dates, and Ravi\'s order as the biggest.',
+        check: {
+          question: 'How do you find the name of the most expensive product?',
+          options: ['SELECT name FROM products ORDER BY price DESC LIMIT 1', 'SELECT name, max(price) FROM products', 'SELECT max(name) FROM products'],
+          answer: 0,
+          why: 'Sorting and taking the first row returns the whole row. Mixing name with max(price) is an error, and max(name) is just the last name in A to Z order.'
+        }
+      },
+      {
+        title: 'Aggregates with WHERE and calculations',
+        say: [
+          'Most real reports combine a filter with aggregates. "Total sales in September", "average order value for delivered orders", "number of products under 100 rupees". The WHERE picks the rows, the aggregate summarises them.',
+          'Remember the order in which PostgreSQL works: FROM picks the table, WHERE filters the rows, and only then are the aggregates calculated. So a WHERE cannot use an aggregate like WHERE count(*) > 5. Filtering on aggregates needs HAVING, which you will learn tomorrow.',
+          'Calculations inside aggregates are very common: sum(price * quantity) gives the total value, and avg(price * 1.18) gives the average price including GST.',
+          'You can also count only some rows inside one query with FILTER: count(*) FILTER (WHERE status = \'delivered\'). This lets you put several counts side by side in a single row, which makes compact summary reports.',
+          'Always sanity-check totals. If a report says the average order is 5 crore rupees, something is wrong, maybe a missing WHERE or a unit mistake. Developers who double-check numbers are trusted.',
+          'When a total looks wrong, break it down. Count the rows first, then look at the biggest few with ORDER BY and LIMIT, then check the WHERE. Most wrong totals come from counting rows you did not mean to include, such as cancelled orders or test data, rather than from the maths itself.'
+        ],
+        example: 'A shop owner asks: "In September, how many orders did we deliver, and what was the total value?". You first pick September\'s delivered orders, then count and add them up. WHERE is the picking; count and sum are the adding up.',
+        code: lines(
+          'CREATE TABLE orders (id int, status text, ordered_on date, total numeric(10,2));',
+          "INSERT INTO orders VALUES (1, 'delivered', '2026-09-01', 280), (2, 'delivered', '2026-09-03', 1200), (3, 'shipped', '2026-09-10', 2097),",
+          "  (4, 'delivered', '2026-09-12', 760), (5, 'cancelled', '2026-09-20', 899), (6, 'delivered', '2026-10-02', 450);",
+          'SELECT count(*) AS delivered_orders, sum(total) AS delivered_value, round(avg(total), 2) AS average_value',
+          'FROM orders',
+          "WHERE status = 'delivered' AND ordered_on >= '2026-09-01' AND ordered_on < '2026-10-01';",
+          "SELECT count(*) AS all_orders, count(*) FILTER (WHERE status = 'cancelled') AS cancelled FROM orders;"
+        ),
+        output: lines(
+          ' delivered_orders | delivered_value | average_value',
+          '------------------+-----------------+---------------',
+          '                3 |         2240.00 |        746.67',
+          '(1 row)',
+          '',
+          ' all_orders | cancelled',
+          '------------+-----------',
+          '          6 |         1',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'First keep September\'s delivered orders...' },
+          { line: 4, note: '...then count, add and average them.' },
+          { line: 7, note: 'FILTER counts only some rows, next to the total count.' }
+        ],
+        tryIt: "Add a third column to line 7: count(*) FILTER (WHERE status = 'delivered') AS delivered. It should be 4.",
+        check: {
+          question: 'Why can you not write WHERE count(*) > 5?',
+          options: ['WHERE runs before aggregates are calculated', 'count cannot compare numbers', 'You need two WHERE clauses'],
+          answer: 0,
+          why: 'WHERE filters individual rows first. To filter on an aggregate result you use HAVING, which you learn tomorrow.'
+        }
+      },
+      {
+        title: 'Putting it together: the catalogue in numbers',
+        say: [
+          'Let us write a one-row summary of the shop\'s catalogue, the kind of numbers a manager checks every morning: how many products, the cheapest and dearest, the average price, and the total units in stock.',
+          'Every column is one aggregate, some wrapped in round for readable money, and each one has a clear name. The result is a single row: the shop in numbers.',
+          'Notice that the summary query has no GROUP BY, so it returns exactly one row, however many products there are. That makes it perfect for the tiles at the top of a dashboard: each tile reads one column of this one row.',
+          'Then we add a second query with FILTER to count products by stock level: out of stock, low stock and plenty. These small summaries are what dashboards are built from.',
+          'In today\'s practice, you will write a one-row catalogue summary with count, min and max, and another with the total stock and the average price rounded to 2 decimals.',
+          'Tomorrow you learn GROUP BY: instead of one summary for the whole table, one summary per group, like per category or per month. That is where reports become really powerful.'
+        ],
+        example: 'A shop\'s morning dashboard is just a handful of numbers: products, stock, prices. Each number is one aggregate query, and together they tell the owner how the shop is doing at a glance.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES ('Notebook', 60, 120), ('Pen', 10, 500), ('Backpack', 1200, 15), ('Water bottle', 350, 40),",
+          "  ('Desk lamp', 899, 0), ('Headphones', 1499, 25), ('Phone stand', 299, 60), ('Stapler', 150, 30);",
+          'SELECT count(*) AS products, min(price) AS lowest, max(price) AS highest,',
+          '       round(avg(price), 2) AS avg_price, sum(stock) AS total_stock',
+          'FROM products;',
+          'SELECT count(*) FILTER (WHERE stock = 0) AS out_of_stock,',
+          '       count(*) FILTER (WHERE stock BETWEEN 1 AND 30) AS low_stock,',
+          '       count(*) FILTER (WHERE stock > 30) AS plenty',
+          'FROM products;'
+        ),
+        output: lines(
+          ' products | lowest | highest | avg_price | total_stock',
+          '----------+--------+---------+-----------+-------------',
+          '        8 |  10.00 | 1499.00 |    558.38 |         790',
+          '(1 row)',
+          '',
+          ' out_of_stock | low_stock | plenty',
+          '--------------+-----------+--------',
+          '            1 |         3 |      4',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Round the average for money.' },
+          { line: 8, note: 'BETWEEN includes both 1 and 30.' }
+        ],
+        tryIt: 'Add sum(price * stock) AS stock_value to the first query, rounded to 2 decimals.',
+        check: {
+          question: 'What does round(avg(price), 2) do?',
+          options: ['Averages the prices, then rounds the result to 2 decimals', 'Rounds each price, then averages', 'Averages only the first 2 prices'],
+          answer: 0,
+          why: 'Functions work from the inside out: first avg over all rows, then round the one result.'
+        }
+      }
+    ],
+    summary: [
+      'Aggregates turn many rows into one answer: count, sum, avg, min, max.',
+      'count(*) counts rows; count(column) skips NULL; count(DISTINCT column) counts different values.',
+      'sum and avg skip NULL; use coalesce(sum(x), 0) for an empty total; round averages.',
+      'min and max work on numbers, dates and text. For the row with the max, use ORDER BY ... LIMIT 1.',
+      'WHERE filters rows before aggregating; FILTER counts some rows next to others.'
+    ],
+    projectStep: {
+      title: 'My Library: reading statistics',
+      steps: [
+        'Count your books, and count how many you have finished with FILTER.',
+        'Find your shortest and longest book in pages with min and max.',
+        'Find the average number of pages, rounded to a whole number.',
+        'Count how many different authors you have with count(DISTINCT author).'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 9,
+    title: 'Groups: GROUP BY and HAVING',
+    goal: 'You can calculate totals per group with GROUP BY, follow the grouping rule, and filter groups with HAVING.',
+    minutes: 28,
+    recap: 'Yesterday you used count, sum, avg, min and max to turn a whole table into one summary row.',
+    parts: [
+      {
+        title: 'GROUP BY: one summary per group',
+        say: [
+          'Yesterday\'s aggregates gave one answer for the whole table. But managers usually want answers per group: products per category, sales per city, orders per month. GROUP BY does exactly that.',
+          'SELECT category, count(*) FROM products GROUP BY category splits the products into groups, one for each category, and counts each group separately. The result has one row per category.',
+          'Think of it in two steps. First, PostgreSQL puts rows with the same category into the same pile. Then it runs the aggregate on each pile and writes one row per pile.',
+          'You can use any aggregate with GROUP BY: sum(stock) per category, avg(price) per category, max(ordered_on) per customer. And several at once, each with its own name.',
+          'The groups come out in no particular order, just like any result without ORDER BY. Add ORDER BY to sort them, for example by the count, biggest first.',
+          'You can also group without any aggregate. SELECT category FROM products GROUP BY category simply lists each category once, like SELECT DISTINCT category. In practice, DISTINCT is clearer for that job, and GROUP BY is used when you also want counts or totals per group.'
+        ],
+        example: 'After a school sports day, the teacher does not announce every race result. She sorts the results into piles by house, Red, Blue, Green, Yellow, and announces the total points per house. Sorting into piles is GROUP BY; adding up each pile is sum.',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60, 120), ('Pen', 'stationery', 10, 500), ('Stapler', 'stationery', 150, 30),",
+          "  ('Headphones', 'electronics', 1499, 25), ('Phone stand', 'electronics', 299, 60), ('Backpack', 'bags', 1200, 15);",
+          'SELECT category, count(*) AS products, sum(stock) AS units',
+          'FROM products',
+          'GROUP BY category',
+          'ORDER BY products DESC, category;'
+        ),
+        output: lines(
+          ' category    | products | units',
+          '-------------+----------+-------',
+          ' stationery  |        3 |   650',
+          ' electronics |        2 |    85',
+          ' bags        |        1 |    15',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'One pile per category.' },
+          { line: 4, note: 'For each pile: its name, how many rows, and the total stock.' },
+          { line: 7, note: 'Sort the groups: most products first.' }
+        ],
+        tryIt: 'Add round(avg(price), 2) AS avg_price to the SELECT to see the average price per category.',
+        check: {
+          question: 'How many rows does SELECT city, count(*) FROM customers GROUP BY city return?',
+          options: ['One row per different city', 'One row per customer', 'Always one row'],
+          answer: 0,
+          why: 'GROUP BY makes one group, and one result row, for each different value of city.'
+        }
+      },
+      {
+        title: 'The grouping rule',
+        say: [
+          'There is one rule that every beginner meets: in a query with GROUP BY, every column in the SELECT must either be in the GROUP BY, or be inside an aggregate.',
+          'Why? Each result row represents a whole group. The category is the same for the whole group, so it can be shown. The count is one number for the group, so it can be shown. But a product name? There are several names in the stationery group. PostgreSQL does not know which one you want, so it refuses.',
+          'The error message says exactly this: column must appear in the GROUP BY clause or be used in an aggregate function. When you see it, look at the column it names and decide: do you want one row per value of that column (add it to GROUP BY), or a summary of it (wrap it in an aggregate)?',
+          'There is a useful exception: if you group by a table\'s primary key, PostgreSQL knows every other column of that table has only one value per group, so you may show them. You will use this with joins later.',
+          'Some other databases, like older versions of MySQL, quietly pick a random value instead of refusing. PostgreSQL\'s strictness is a good thing: it stops wrong reports.'
+        ],
+        example: 'If a teacher reports the total marks for each house, she can say "Red house: 250 points". She cannot say "Red house: student name ___", because Red house has many students. She can only name something that is the same for the whole house, or a summary like "top scorer".',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2));',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60), ('Pen', 'stationery', 10), ('Headphones', 'electronics', 1499), ('Phone stand', 'electronics', 299);",
+          'SELECT category, max(price) AS top_price, min(name) AS first_name_a_to_z FROM products GROUP BY category ORDER BY category;',
+          'SELECT category, name FROM products GROUP BY category;'
+        ),
+        output: '[Error] column "products.name" must appear in the GROUP BY clause or be used in an aggregate function',
+        codeNotes: [
+          { line: 3, note: 'Allowed: category is grouped; max and min are aggregates.' },
+          { line: 4, note: 'Not allowed: which of the names in each group should be shown?' }
+        ],
+        tryIt: 'Delete line 4 and run again to see the first query\'s result. Then try GROUP BY category, name on line 4 instead: now each group is one product.',
+        check: {
+          question: 'In SELECT city, name, count(*) FROM customers GROUP BY city, what is wrong?',
+          options: ['name is neither in GROUP BY nor inside an aggregate', 'count(*) cannot be used with GROUP BY', 'city must be last'],
+          answer: 0,
+          why: 'Each group is one city with many names. name must be grouped too, or summarised, for example with min(name).'
+        }
+      },
+      {
+        title: 'Grouping by more than one column, and by calculations',
+        say: [
+          'You can group by several columns. GROUP BY city, status makes one group for each combination: Pune delivered, Pune pending, Mumbai delivered, and so on. It answers questions like "how many orders of each status in each city?".',
+          'You can also group by a calculation. The most useful example is dates: GROUP BY date_trunc(\'month\', ordered_on) makes one group per month, whatever the day. This is how monthly sales reports are built.',
+          'When you group by a calculation, repeat the same calculation in the SELECT so it appears in the result. Or give it a name in the SELECT and group by that position or name, which PostgreSQL also allows.',
+          'The same idea works with CASE, which you will meet on Day 19: grouping products into price bands like budget, mid and premium, and counting each band.',
+          'As always, add ORDER BY so the groups come out in a sensible order, like months in time order.'
+        ],
+        example: 'A bank statement summary shows spending per month and per category: September food, September travel, October food. Each line is one combination of month and category, which is GROUP BY month, category.',
+        code: lines(
+          'CREATE TABLE orders (id int, city text, status text, ordered_on date, total numeric(10,2));',
+          "INSERT INTO orders VALUES (1, 'Pune', 'delivered', '2026-08-28', 280), (2, 'Mumbai', 'delivered', '2026-09-03', 1200), (3, 'Pune', 'shipped', '2026-09-10', 2097),",
+          "  (4, 'Pune', 'delivered', '2026-09-12', 760), (5, 'Mumbai', 'pending', '2026-10-02', 450);",
+          'SELECT city, status, count(*) AS orders FROM orders GROUP BY city, status ORDER BY city, status;',
+          "SELECT date_trunc('month', ordered_on)::date AS month, sum(total) AS sales",
+          'FROM orders',
+          "GROUP BY date_trunc('month', ordered_on)",
+          'ORDER BY month;'
+        ),
+        output: lines(
+          ' city   | status    | orders',
+          '--------+-----------+--------',
+          ' Mumbai | delivered |      1',
+          ' Mumbai | pending   |      1',
+          ' Pune   | delivered |      2',
+          ' Pune   | shipped   |      1',
+          '(4 rows)',
+          '',
+          ' month      | sales',
+          '------------+---------',
+          ' 2026-08-01 |  280.00',
+          ' 2026-09-01 | 4057.00',
+          ' 2026-10-01 |  450.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'One group for each city and status combination.' },
+          { line: 7, note: 'Group by the start of each month: a monthly report.' }
+        ],
+        tryIt: "Change the monthly query to group by city as well: SELECT city, date_trunc('month', ordered_on)::date AS month, ... GROUP BY city, date_trunc('month', ordered_on).",
+        check: {
+          question: 'How do you make a report with one row per month?',
+          options: ["GROUP BY date_trunc('month', ordered_on)", 'GROUP BY ordered_on', 'ORDER BY month'],
+          answer: 0,
+          why: 'date_trunc turns every date in a month into the first of that month, so all of the month\'s rows fall into one group.'
+        }
+      },
+      {
+        title: 'HAVING: filtering groups',
+        say: [
+          'WHERE filters rows before grouping. But sometimes you want to filter the groups themselves: categories with more than 2 products, customers who ordered more than 3 times, months with sales above 1 lakh. For that, SQL has HAVING.',
+          'HAVING comes after GROUP BY and can use aggregates: GROUP BY category HAVING count(*) > 2. Each group is checked after its count is known, and only the groups that pass appear in the result.',
+          'You can use WHERE and HAVING in the same query. WHERE runs first, on rows: "only delivered orders". Then the groups are made and counted. Then HAVING runs, on groups: "only customers with 2 or more of those orders".',
+          'A good rule: if the condition is about a single row, like status or price, put it in WHERE. If it is about a group summary, like a count or a total, put it in HAVING. Putting row conditions in WHERE is also faster, because fewer rows need grouping.',
+          'The full order of a query is now: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT. It is worth memorising, because interviewers often ask about the difference between WHERE and HAVING.',
+          'Although you write SELECT first, PostgreSQL works in a different order: FROM, then WHERE, then GROUP BY, then HAVING, then SELECT, then ORDER BY, then LIMIT. Knowing this explains many rules. For example, WHERE cannot use a name you gave with AS in the SELECT, because the SELECT has not happened yet when WHERE runs, but ORDER BY can, because it runs after.'
+        ],
+        example: 'A school wants to award houses that scored more than 200 points. First it adds up the points per house (GROUP BY), then it looks at each house total and keeps only those above 200 (HAVING). It cannot check "above 200" for a single race result; it needs the totals first.',
+        code: lines(
+          'CREATE TABLE orders (id int, customer text, status text, total numeric(10,2));',
+          "INSERT INTO orders VALUES (1, 'Asha', 'delivered', 280), (2, 'Ravi', 'delivered', 1200), (3, 'Asha', 'shipped', 2097),",
+          "  (4, 'Priya', 'delivered', 760), (5, 'Asha', 'delivered', 50), (6, 'Ravi', 'cancelled', 899);",
+          'SELECT customer, count(*) AS orders FROM orders GROUP BY customer HAVING count(*) >= 2 ORDER BY customer;',
+          'SELECT customer, sum(total) AS delivered_value',
+          'FROM orders',
+          "WHERE status = 'delivered'",
+          'GROUP BY customer',
+          'HAVING sum(total) > 500',
+          'ORDER BY delivered_value DESC;'
+        ),
+        output: lines(
+          ' customer | orders',
+          '----------+--------',
+          ' Asha     |      3',
+          ' Ravi     |      2',
+          '(2 rows)',
+          '',
+          ' customer | delivered_value',
+          '----------+-----------------',
+          ' Ravi     |         1200.00',
+          ' Priya    |          760.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Keep only customers with 2 or more orders.' },
+          { line: 7, note: 'WHERE: row by row, only delivered orders.' },
+          { line: 9, note: 'HAVING: group by group, only totals above 500. Asha\'s delivered total is 330.' }
+        ],
+        tryIt: 'Remove the WHERE line from the second query and run it. Asha now appears, because her shipped order counts too.',
+        check: {
+          question: 'Which clause filters categories that have more than 5 products?',
+          options: ['HAVING count(*) > 5', 'WHERE count(*) > 5', 'ORDER BY count(*) > 5'],
+          answer: 0,
+          why: 'The condition uses an aggregate about each group, so it belongs in HAVING, after GROUP BY.'
+        }
+      },
+      {
+        title: 'Common grouping mistakes',
+        say: [
+          'A few mistakes come up again and again with GROUP BY. Knowing them saves hours of confusion.',
+          'The first is putting an aggregate in WHERE, like WHERE count(*) > 1. PostgreSQL refuses, because WHERE runs before any counting. Move it to HAVING.',
+          'The second is grouping by too much. If you add the product name to GROUP BY by accident, every product becomes its own group and all your counts are 1. If the numbers look suspiciously small, check your GROUP BY list.',
+          'The third is forgetting that NULL forms its own group. Customers with no city are grouped together in one row whose city is NULL. That is usually correct, but label it clearly in reports, for example with coalesce(city, \'Unknown\').',
+          'The fourth is counting the wrong thing after a filter. If you want customers with no orders to appear with 0, you need a LEFT JOIN and count(column), which you will learn on Day 12. A plain GROUP BY on the orders table only shows customers who have orders.'
+        ],
+        example: 'Counting votes per party, a careless clerk writes each voter\'s name on the tally sheet too. Now every line is one person, and every count is 1. Grouping by too much hides the totals you wanted.',
+        code: lines(
+          'CREATE TABLE customers (name text, city text);',
+          "INSERT INTO customers VALUES ('Asha', 'Pune'), ('Ravi', 'Mumbai'), ('Priya', 'Pune'), ('Meera', NULL), ('Kabir', NULL);",
+          "SELECT coalesce(city, 'Unknown') AS city, count(*) AS customers FROM customers GROUP BY city ORDER BY customers DESC, city;",
+          'SELECT city, name, count(*) AS customers FROM customers GROUP BY city, name ORDER BY name LIMIT 2;'
+        ),
+        output: lines(
+          ' city    | customers',
+          '---------+-----------',
+          ' Pune    |         2',
+          ' Unknown |         2',
+          ' Mumbai  |         1',
+          '(3 rows)',
+          '',
+          ' city | name  | customers',
+          '------+-------+-----------',
+          ' Pune | Asha  |         1',
+          ' NULL | Kabir |         1',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Customers with no city form their own group, labelled with coalesce.' },
+          { line: 4, note: 'Grouping by name too: every group is one person, so every count is 1.' }
+        ],
+        tryIt: 'In line 3, change ORDER BY to city only. Where does the Unknown group appear now, and why?',
+        check: {
+          question: 'Every count in your grouped report is 1. What is the most likely cause?',
+          options: ['A column that is unique per row, like name or id, is in the GROUP BY', 'The table is empty', 'HAVING is missing'],
+          answer: 0,
+          why: 'Grouping by a unique column makes each row its own group, so every count is 1.'
+        }
+      },
+      {
+        title: 'Putting it together: a category report',
+        say: [
+          'Let us write the category report a shop manager would ask for: for each category, the number of products, the total stock and the average price, only for categories with more than one product, biggest categories first.',
+          'Read the query from top to bottom and match each line to a part of the question. SELECT lists what to show. FROM names the table. GROUP BY makes one row per category. HAVING keeps categories with more than one product. ORDER BY sorts them.',
+          'This is a real, useful report, and it uses everything from the last two days. Many junior analyst and backend interviews include a question just like this.',
+          'In today\'s practice, you will count the products in each category, and then show only the categories that have more than one product. The shop database is ready in the practice editor.',
+          'Tomorrow you learn how tables link to each other with foreign keys, the idea behind joins, which are the most important topic of week 2.'
+        ],
+        example: 'A supermarket manager\'s weekly review looks at each aisle: how many products it has, how much stock, and the average price, but only for aisles with enough products to matter. That review is this query.',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60, 120), ('Pen', 'stationery', 10, 500), ('Stapler', 'stationery', 150, 30),",
+          "  ('Headphones', 'electronics', 1499, 25), ('Phone stand', 'electronics', 299, 60), ('Backpack', 'bags', 1200, 15), ('Desk lamp', 'home', 899, 0);",
+          'SELECT category,',
+          '       count(*) AS products,',
+          '       sum(stock) AS total_stock,',
+          '       round(avg(price), 2) AS avg_price',
+          'FROM products',
+          'GROUP BY category',
+          'HAVING count(*) > 1',
+          'ORDER BY products DESC;'
+        ),
+        output: lines(
+          ' category    | products | total_stock | avg_price',
+          '-------------+----------+-------------+-----------',
+          ' stationery  |        3 |         650 |     73.33',
+          ' electronics |        2 |          85 |    899.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'One row per category.' },
+          { line: 10, note: 'Only categories with more than one product.' },
+          { line: 11, note: 'Biggest categories first.' }
+        ],
+        tryIt: 'Remove the HAVING line and run it. Which categories appear now, and how many products do they have?',
+        check: {
+          question: 'What is the correct order of these clauses?',
+          options: ['WHERE, GROUP BY, HAVING, ORDER BY', 'GROUP BY, WHERE, ORDER BY, HAVING', 'HAVING, GROUP BY, WHERE, ORDER BY'],
+          answer: 0,
+          why: 'Rows are filtered (WHERE), grouped (GROUP BY), groups are filtered (HAVING), then sorted (ORDER BY).'
+        }
+      }
+    ],
+    summary: [
+      'GROUP BY makes one result row per group; aggregates then work on each group.',
+      'The rule: every selected column is in GROUP BY or inside an aggregate.',
+      'Group by several columns for combinations, or by date_trunc for months.',
+      'WHERE filters rows before grouping; HAVING filters groups after.',
+      'Order of clauses: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT.'
+    ],
+    projectStep: {
+      title: 'My Library: books per author',
+      steps: [
+        'Count your books per author, with the author shown as coalesce(author, \'Unknown\').',
+        'Show the total pages per author, most pages first.',
+        'Show only authors with more than one book, using HAVING.',
+        'Count finished and unfinished books with GROUP BY finished.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 10,
+    title: 'Linking Tables: Relationships and Foreign Keys',
+    goal: 'You can explain one-to-many and many-to-many relationships, create foreign keys, and see how they protect linked data.',
+    minutes: 28,
+    recap: 'Yesterday you made reports per group with GROUP BY and filtered groups with HAVING.',
+    parts: [
+      {
+        title: 'Why data is split into several tables',
+        say: [
+          'So far most examples used one table at a time. Real apps have many tables that are linked: customers place orders, orders contain products. Today you learn how these links work, which prepares you for joins tomorrow.',
+          'Why not keep everything in one big table? Imagine an orders table that also stores the customer\'s name, phone and address on every order. A customer with 50 orders has their address copied 50 times. If they move, you must change 50 rows, and if you miss one, the data disagrees with itself.',
+          'The better design stores each customer once, in a customers table, with an id. Each order then stores only the customer\'s id. The address lives in one place, and changing it once fixes it everywhere.',
+          'This idea, storing each fact once and linking with ids, is the foundation of relational databases. The word "relational" comes from the relationships between tables.',
+          'On Day 20 you will learn the formal rules for this, called normalization. Today, the key idea is simply: one table per kind of thing, and ids to link them.'
+        ],
+        example: 'A college does not write a student\'s full address on every exam paper. The paper just has the roll number. The address is stored once in the admissions office. If the student moves, only the office record changes, and every paper still points to the right student.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text, city text);',
+          "INSERT INTO customers VALUES (1, 'Asha', 'Pune'), (2, 'Ravi', 'Mumbai');",
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, total numeric(10,2));',
+          'INSERT INTO orders VALUES (101, 1, 280), (102, 2, 1200), (103, 1, 2097);',
+          "UPDATE customers SET city = 'Bengaluru' WHERE id = 1;",
+          'SELECT id, customer_id, total FROM orders ORDER BY id;',
+          'SELECT * FROM customers ORDER BY id;'
+        ),
+        output: lines(
+          ' id  | customer_id | total',
+          '-----+-------------+---------',
+          ' 101 |           1 |  280.00',
+          ' 102 |           2 | 1200.00',
+          ' 103 |           1 | 2097.00',
+          '(3 rows)',
+          '',
+          ' id | name | city',
+          '----+------+-----------',
+          '  1 | Asha | Bengaluru',
+          '  2 | Ravi | Mumbai',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Orders store only the customer\'s id, not their name or city.' },
+          { line: 5, note: 'Asha moves: one row changes, and both her orders still point to her.' }
+        ],
+        tryIt: "Add a third order for Ravi: (104, 2, 450). Notice you only need his id, not his name or city.",
+        check: {
+          question: 'Why store customer_id in orders instead of the customer\'s name and address?',
+          options: ['Each customer\'s details are stored once, so a change is made in one place', 'Ids are shorter to type', 'Orders cannot hold text'],
+          answer: 0,
+          why: 'Storing details once avoids copies that can disagree. The id links each order to the one customer record.'
+        }
+      },
+      {
+        title: 'One-to-many relationships',
+        say: [
+          'The most common relationship is one-to-many: one customer has many orders, but each order belongs to exactly one customer. One category has many products. One author has many books.',
+          'In the tables, the "many" side holds the link. The orders table has a customer_id column; the customers table does not need a list of orders. To find a customer\'s orders, you look in orders for rows with that customer_id.',
+          'The column on the many side has a special name: a foreign key. It is "foreign" because it holds a key that belongs to another table. customer_id in orders is a foreign key pointing to id in customers.',
+          'A useful way to design this is to say it out loud: "a customer places many orders; an order is placed by one customer". The table on the "one" side gets the id; the table on the "many" side gets the foreign key.',
+          'You can already use this link with what you know: SELECT count(*) FROM orders WHERE customer_id = 1 counts Asha\'s orders. Tomorrow, joins let you show the customer\'s name next to each order in one query.',
+          'Foreign key columns are usually named after the table they point to, with _id at the end: customer_id points to customers, product_id to products. Following this naming habit makes a database easy to read, because anyone can guess where each link goes without looking it up.'
+        ],
+        example: 'A mother can have several children, but each child has one mother. On each child\'s school form, there is a box for the mother\'s name. The mother\'s form does not list the children. The link is written on the "many" side: the children.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text);',
+          "INSERT INTO customers VALUES (1, 'Asha'), (2, 'Ravi'), (3, 'Meera');",
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, total numeric(10,2));',
+          'INSERT INTO orders VALUES (101, 1, 280), (102, 2, 1200), (103, 1, 2097), (104, 1, 50);',
+          'SELECT customer_id, count(*) AS orders, sum(total) AS spent FROM orders GROUP BY customer_id ORDER BY customer_id;'
+        ),
+        output: lines(
+          ' customer_id | orders | spent',
+          '-------------+--------+---------',
+          '           1 |      3 | 2427.00',
+          '           2 |      1 | 1200.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The "many" side holds the link: customer_id.' },
+          { line: 5, note: 'Orders per customer id. Meera (3) has no orders, so she does not appear yet.' }
+        ],
+        tryIt: 'Add an order for Meera, (105, 3, 99), and run again. She now appears with 1 order.',
+        check: {
+          question: 'In "one category has many products", which table gets the foreign key?',
+          options: ['products, with a category_id column', 'categories, with a product_id column', 'Both tables'],
+          answer: 0,
+          why: 'The link goes on the "many" side. Each product stores the id of its one category.'
+        }
+      },
+      {
+        title: 'FOREIGN KEY: letting PostgreSQL protect the link',
+        say: [
+          'A column called customer_id is just a number until you tell PostgreSQL it is a link. Without that, nothing stops someone from saving an order for customer 999, who does not exist. That is called an orphan row, and it breaks reports.',
+          'You declare the link with REFERENCES: customer_id int REFERENCES customers(id). This creates a foreign key constraint. From then on, PostgreSQL checks every insert and update: the customer_id must exist in customers, or be NULL.',
+          'The protection works in the other direction too. If you try to delete a customer who still has orders, PostgreSQL refuses by default, because those orders would become orphans. You saw this rule in the Day 3 practice, when the shop could not delete a product that was in an old order.',
+          'You can choose other behaviour with ON DELETE, which you will learn on Day 21: CASCADE deletes the orders along with the customer, and SET NULL keeps the orders but clears their customer_id. The default, refusing, is the safest.',
+          'Foreign keys are a promise the database keeps for you, whatever app, script or person changes the data. That is why experienced developers always declare them.'
+        ],
+        example: 'A school will not accept a library card request for a roll number that is not on the admissions list. And it will not remove a student from the list while they still have library books. The foreign key is that rule, checked every time.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text);',
+          "INSERT INTO customers VALUES (1, 'Asha'), (2, 'Ravi');",
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int REFERENCES customers(id), total numeric(10,2));',
+          'INSERT INTO orders VALUES (101, 1, 280);',
+          'INSERT INTO orders VALUES (102, 999, 50);'
+        ),
+        output: '[Error] insert or update on table "orders" violates foreign key constraint "orders_customer_id_fkey"',
+        codeNotes: [
+          { line: 3, note: 'REFERENCES makes customer_id a foreign key to customers(id).' },
+          { line: 5, note: 'Customer 999 does not exist, so PostgreSQL refuses the order.' }
+        ],
+        tryIt: 'Change line 5 to delete a customer who has an order instead: DELETE FROM customers WHERE id = 1; and read the error. Then try deleting Ravi (id 2), who has no orders.',
+        check: {
+          question: 'What does customer_id int REFERENCES customers(id) prevent?',
+          options: ['Orders pointing to customers that do not exist', 'Two orders for the same customer', 'Customers with no orders'],
+          answer: 0,
+          why: 'A foreign key ensures every value points to a real row in the other table (or is NULL).'
+        }
+      },
+      {
+        title: 'Many-to-many relationships',
+        say: [
+          'Some relationships are many-to-many. An order contains many products, and a product appears in many orders. A student takes many courses, and a course has many students.',
+          'You cannot store this with one foreign key column. Instead, you add a third table in the middle, often called a junction table or link table. For orders and products, it is order_items: each row says "this order contains this product, in this quantity".',
+          'The junction table has two foreign keys, one to each side, and usually a primary key made of both columns together: PRIMARY KEY (order_id, product_id). That means the same product appears at most once per order; the quantity column says how many.',
+          'Junction tables often hold extra information about the relationship itself. The quantity belongs to "this product in this order", not to the order or the product alone. A price at the time of purchase is another common example.',
+          'This is exactly the shape of the shop database you have practised with: customers, orders, order_items and products. Tomorrow you will join all four together.'
+        ],
+        example: 'A wedding guest list and a list of events (mehendi, sangeet, reception): each guest attends many events, and each event has many guests. The invitation card for each guest-event pair is the junction table, and it can say extra things, like "plus two".',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer text);',
+          'CREATE TABLE products (id int PRIMARY KEY, name text);',
+          'CREATE TABLE order_items (',
+          '  order_id int REFERENCES orders(id),',
+          '  product_id int REFERENCES products(id),',
+          '  quantity int,',
+          '  PRIMARY KEY (order_id, product_id)',
+          ');',
+          "INSERT INTO orders VALUES (1, 'Asha'), (2, 'Ravi');",
+          "INSERT INTO products VALUES (10, 'Notebook'), (20, 'Pen');",
+          'INSERT INTO order_items VALUES (1, 10, 3), (1, 20, 10), (2, 20, 5);',
+          'SELECT product_id, count(*) AS in_orders, sum(quantity) AS units FROM order_items GROUP BY product_id ORDER BY product_id;'
+        ),
+        output: lines(
+          ' product_id | in_orders | units',
+          '------------+-----------+-------',
+          '         10 |         1 |     3',
+          '         20 |         2 |    15',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The junction table between orders and products.' },
+          { line: 7, note: 'A primary key made of two columns: each product at most once per order.' },
+          { line: 11, note: 'Order 1 has two products; the Pen is in two orders.' }
+        ],
+        tryIt: 'Try adding (1, 20, 2) again to the order_items INSERT and read the error: the Pen is already in order 1. The fix in a real app is to UPDATE the quantity instead.',
+        check: {
+          question: 'How do you store "orders contain products" when each order has many products and each product is in many orders?',
+          options: ['A third table, order_items, with order_id and product_id', 'A product_id column in orders', 'An order_id column in products'],
+          answer: 0,
+          why: 'Many-to-many needs a junction table with a foreign key to each side.'
+        }
+      },
+      {
+        title: 'Reading a database design',
+        say: [
+          'When you join a new company or project, one of the first things to do is read the database design: which tables exist, and how they link. Being able to read it quickly is a real job skill.',
+          'PostgreSQL itself can tell you. The information_schema is a set of built-in views that describe your tables. For example, information_schema.table_constraints lists every primary key, foreign key and unique rule.',
+          'Teams often draw the design as a diagram, called an ER diagram, short for entity-relationship. Each table is a box, and lines between boxes show the foreign keys. A line with a "crow\'s foot" on one end marks the "many" side.',
+          'When you read a design, ask three questions for each foreign key: which table points to which, what does one row on each side mean, and what happens when the "one" side is deleted.',
+          'In the example below, we ask PostgreSQL to list the foreign keys in a small shop database. This is the same kind of query that database tools run to draw diagrams for you.'
+        ],
+        example: 'A metro map shows stations as dots and lines as connections. You do not need to see every train to understand how to get from A to B. An ER diagram is the metro map of a database: tables and the links between them.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text);',
+          'CREATE TABLE products (id int PRIMARY KEY, name text);',
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int REFERENCES customers(id));',
+          'CREATE TABLE order_items (order_id int REFERENCES orders(id), product_id int REFERENCES products(id), quantity int, PRIMARY KEY (order_id, product_id));',
+          'SELECT table_name, constraint_type, count(*) AS how_many',
+          'FROM information_schema.table_constraints',
+          "WHERE table_schema = 'public' AND constraint_type IN ('PRIMARY KEY', 'FOREIGN KEY')",
+          'GROUP BY table_name, constraint_type',
+          'ORDER BY table_name, constraint_type;'
+        ),
+        output: lines(
+          ' table_name  | constraint_type | how_many',
+          '-------------+-----------------+----------',
+          ' customers   | PRIMARY KEY     |        1',
+          ' order_items | FOREIGN KEY     |        2',
+          ' order_items | PRIMARY KEY     |        1',
+          ' orders      | FOREIGN KEY     |        1',
+          ' orders      | PRIMARY KEY     |        1',
+          ' products    | PRIMARY KEY     |        1',
+          '(6 rows)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'A built-in view that describes the rules on every table.' },
+          { line: 7, note: 'Only our own tables, and only primary and foreign keys.' }
+        ],
+        tryIt: 'Add a reviews table with product_id int REFERENCES products(id) and run it again. A new FOREIGN KEY row appears for reviews.',
+        check: {
+          question: 'In an ER diagram, what does a line between two tables usually show?',
+          options: ['A foreign key relationship', 'That the tables have the same columns', 'That one table is a copy of the other'],
+          answer: 0,
+          why: 'Lines connect tables linked by foreign keys, often with a crow\'s foot on the "many" side.'
+        }
+      },
+      {
+        title: 'Putting it together: adding reviews to the shop',
+        say: [
+          'Let us extend the shop with a new feature: product reviews. First, think about the relationship. One product has many reviews, and each review is about one product. So reviews gets a product_id foreign key.',
+          'Next, the rules. A rating must be from 1 to 5, which is a CHECK rule, and the product must exist, which is the foreign key. With both in place, PostgreSQL refuses bad reviews no matter which app sends them.',
+          'Then we add some reviews and use GROUP BY to show the number of reviews and the average rating per product id. Tomorrow, with joins, you will show the product names instead of ids.',
+          'In today\'s practice, you will create the reviews table with its foreign key and CHECK rule, and count the orders per customer id from the shop\'s orders table.',
+          'Tomorrow is one of the most important days of the course: joins. You will finally put linked tables side by side in one result, like each order with its customer\'s name.'
+        ],
+        example: 'When a shopping app adds a new feature like reviews, a developer first decides how it links to what already exists: every review belongs to one product. Getting that link right, with the right rules, is the first step of every new feature.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text);',
+          "INSERT INTO products VALUES (1, 'Notebook'), (2, 'Headphones');",
+          'CREATE TABLE reviews (',
+          '  id serial PRIMARY KEY,',
+          '  product_id int REFERENCES products(id),',
+          '  rating int CHECK (rating BETWEEN 1 AND 5),',
+          '  comment text',
+          ');',
+          "INSERT INTO reviews (product_id, rating, comment) VALUES (1, 5, 'Great paper'), (1, 4, 'Good value'), (2, 3, 'Okay sound');",
+          'SELECT product_id, count(*) AS reviews, round(avg(rating), 1) AS avg_rating FROM reviews GROUP BY product_id ORDER BY product_id;'
+        ),
+        output: lines(
+          ' product_id | reviews | avg_rating',
+          '------------+---------+------------',
+          '          1 |       2 |        4.5',
+          '          2 |       1 |        3.0',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Each review points to one existing product.' },
+          { line: 6, note: 'Ratings outside 1 to 5 are refused.' },
+          { line: 10, note: 'Reviews and average rating per product, rounded to 1 decimal.' }
+        ],
+        tryIt: "Add a review with rating 7: (2, 7, 'Amazing!!'). Read the error from the CHECK rule. Then try a review for product 99.",
+        check: {
+          question: 'A review must be about a real product and have a rating from 1 to 5. Which rules do you need?',
+          options: ['A foreign key on product_id and a CHECK on rating', 'Only a primary key', 'UNIQUE on rating'],
+          answer: 0,
+          why: 'The foreign key makes sure the product exists; the CHECK keeps ratings between 1 and 5.'
+        }
+      }
+    ],
+    summary: [
+      'Store each kind of thing in its own table, once, and link tables with ids.',
+      'One-to-many: the "many" table holds a foreign key to the "one" table.',
+      'REFERENCES creates a foreign key: no orphan rows, and linked rows cannot be deleted by accident.',
+      'Many-to-many needs a junction table with two foreign keys, like order_items.',
+      'information_schema and ER diagrams show how a database\'s tables are linked.'
+    ],
+    projectStep: {
+      title: 'My Library: add authors as their own table',
+      steps: [
+        'Create an authors table with id serial PRIMARY KEY and name text NOT NULL UNIQUE.',
+        'Add an author_id int REFERENCES authors(id) column to your books table design.',
+        'Insert 2 or 3 authors and link your books to them by id.',
+        'Try to add a book with an author_id that does not exist, and read the error.'
+      ]
+    }
   }
 ];
