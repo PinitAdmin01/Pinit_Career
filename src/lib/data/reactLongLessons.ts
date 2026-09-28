@@ -3565,5 +3565,1445 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         'Calculate stats in App and pass them to Summary. Test add, search, change and delete together.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 16,
+    title: 'useEffect: Doing Things After the Screen Shows',
+    goal: 'You can run code after React draws the screen with useEffect, control when it runs with the dependency list, and clean up after it.',
+    minutes: 30,
+    recap: 'Yesterday you finished the core Job Tracker: add, search, change status and delete, with state in App.',
+    parts: [
+      {
+        title: 'Side effects: work outside drawing the screen',
+        say: [
+          'A component\'s main job is to return what the screen should look like. It should do that and nothing else, like a pure calculation. But apps also need to do other things: load data from a server, save to the browser, start a timer, change the page title.',
+          'These are called side effects, because they reach outside the component. If you do them directly inside the component body, they run on every single render, maybe hundreds of times, which can flood a server with requests or start endless timers.',
+          'React gives you a special place for side effects: useEffect. Code inside useEffect runs after React has drawn the screen, and you decide how often it runs.'
+        ],
+        example: 'A chef\'s main job is cooking (drawing the screen). Ordering new vegetables from the market is a side job (a side effect). You do not want the chef to phone the market every time a plate goes out; you want it done at the right moments.',
+        code: lines(
+          'let requests = 0;',
+          'function JobListBad() {',
+          '  requests = requests + 1;',
+          '  return `Rendered. Server requests so far: ${requests}`;',
+          '}',
+          '',
+          'console.log(JobListBad());',
+          'console.log(JobListBad());',
+          'console.log(JobListBad());'
+        ),
+        output: lines('Rendered. Server requests so far: 1', 'Rendered. Server requests so far: 2', 'Rendered. Server requests so far: 3'),
+        codeNotes: [
+          { line: 3, note: 'Pretend this line asks a server for data. Doing it in the body repeats it on every render.' }
+        ],
+        tryIt: 'Imagine the user types 10 letters in the search box. How many server requests would this bad version make? (10 extra, one per re-render.)',
+        check: {
+          question: 'What is a side effect in React?',
+          options: ['A CSS animation', 'Work that reaches outside the component, like loading data or timers', 'A type of prop'],
+          answer: 1,
+          why: 'Side effects talk to the outside world: servers, the browser, timers. They belong in useEffect.'
+        }
+      },
+      {
+        title: 'useEffect and the empty dependency list',
+        say: [
+          'You write useEffect(() => { ...your code... }, []);. The first argument is a function with the side effect. The second argument, the square brackets, is the dependency list: it tells React when to run the effect again.',
+          'An empty list [] means: run once, right after the component first appears, and never again. This is what you use for loading data when a page opens.',
+          'Like useState, useEffect is imported from React and called at the top of your component, never inside an if or a loop. React relies on the hooks being called in the same order on every render.',
+          'The runnable box imitates how React treats an effect with an empty list: it runs after the first render only, however many times the component renders.'
+        ],
+        example: 'When you move into a new flat, you set up the Wi-Fi once, on the first day. You do not reinstall it every time you walk into a room. An effect with [] is that first-day setup.',
+        code: lines(
+          'let firstRenderDone = false;',
+          'function useEffectOnce(effect) {',
+          '  if (!firstRenderDone) { firstRenderDone = true; effect(); }',
+          '}',
+          '',
+          'function JobList(render) {',
+          '  useEffectOnce(() => console.log("Loading jobs from server..."));',
+          '  console.log(`Render ${render}`);',
+          '}',
+          '',
+          'JobList(1);',
+          'JobList(2);',
+          'JobList(3);'
+        ),
+        output: lines('Loading jobs from server...', 'Render 1', 'Render 2', 'Render 3'),
+        codeNotes: [
+          { line: 3, note: 'Our pretend useEffect with []: run the effect only the first time.' },
+          { line: 7, note: 'In React: useEffect(() => { loadJobs(); }, []);' }
+        ],
+        projectCode: {
+          label: 'Page title on first load',
+          code: lines(
+            'import { useEffect } from "react";',
+            '',
+            'export default function App() {',
+            '  useEffect(() => {',
+            '    document.title = "My Job Tracker";',
+            '  }, []);',
+            '  // ...',
+            '}'
+          )
+        },
+        tryIt: 'In your project, add the useEffect above to App and check the browser tab title.',
+        check: {
+          question: 'When does useEffect(() => {...}, []) run?',
+          options: ['On every render', 'Once, after the first render', 'Never'],
+          answer: 1,
+          why: 'An empty dependency list means run once after the component first appears.'
+        }
+      },
+      {
+        title: 'Dependencies: running again when something changes',
+        say: [
+          'Often an effect must run again when some value changes. Put that value in the dependency list: useEffect(() => { ... }, [jobs]);. React runs the effect after the first render, and again after any render where jobs is different from last time.',
+          'A great example for your Job Tracker: saving jobs to the browser whenever they change. The effect depends on jobs, so every add, delete or status change saves automatically.',
+          'The rule: every value from the component that the effect uses should be in the list. If you forget one, the effect uses an old value and you get bugs that are hard to spot. VS Code with the React extension warns you about missing dependencies.',
+          'And no list at all, useEffect(() => {...}), means run after every render. That is rarely what you want.'
+        ],
+        example: 'A phone backs up your photos whenever you take a new one. The backup depends on the photo list: no new photo, no backup. That is an effect with [photos].',
+        code: lines(
+          'let lastDeps = null;',
+          'function useEffectDeps(effect, deps) {',
+          '  const changed = !lastDeps || deps.some((d, i) => d !== lastDeps[i]);',
+          '  lastDeps = deps;',
+          '  if (changed) effect();',
+          '}',
+          '',
+          'function App(search) {',
+          '  useEffectDeps(() => console.log(`Searching for "${search}"`), [search]);',
+          '}',
+          '',
+          'App("dev");',
+          'App("dev");',
+          'App("devops");'
+        ),
+        output: lines('Searching for "dev"', 'Searching for "devops"'),
+        codeNotes: [
+          { line: 3, note: 'Run only if a dependency differs from last time, like React does.' },
+          { line: 13, note: 'Same search: the effect is skipped.' }
+        ],
+        tryIt: 'Add App("devops") again at the end. Does it search again? Why not?',
+        check: {
+          question: 'An effect uses the variable userId. What should the dependency list contain?',
+          options: ['[]', '[userId]', 'Nothing'],
+          answer: 1,
+          why: 'Every value the effect uses must be listed, so it re-runs when userId changes.'
+        }
+      },
+      {
+        title: 'Clean-up: stopping what you started',
+        say: [
+          'Some effects start something that keeps going: a timer, a connection, a listener for window resizing. If the component disappears and nobody stops it, it keeps running in the background, wasting memory, and can even cause errors.',
+          'To stop it, return a function from your effect. React calls that clean-up function when the component disappears, and also before running the effect again.',
+          'For a timer: const id = setInterval(tick, 1000); return () => clearInterval(id);. Start in the effect, stop in the clean-up. Always pair them.',
+          'Forgetting clean-up is a classic memory-leak bug, and a common interview question: "What does the function returned from useEffect do?". Now you know.'
+        ],
+        example: 'When you leave a room, you switch off the fan you switched on. The effect is switching on; the clean-up is switching off when you leave.',
+        code: lines(
+          'const running = new Set();',
+          'function effect() {',
+          '  running.add("timer");',
+          '  console.log("Timer started");',
+          '  return () => { running.delete("timer"); console.log("Timer stopped"); };',
+          '}',
+          '',
+          'const cleanup = effect();',
+          'console.log(`Running: ${running.size}`);',
+          'cleanup();',
+          'console.log(`Running: ${running.size}`);'
+        ),
+        output: lines('Timer started', 'Running: 1', 'Timer stopped', 'Running: 0'),
+        codeNotes: [
+          { line: 5, note: 'The returned function is the clean-up.' },
+          { line: 10, note: 'React calls it when the component disappears.' }
+        ],
+        projectCode: {
+          label: 'A timer with clean-up',
+          code: lines(
+            'const [seconds, setSeconds] = useState(0);',
+            '',
+            'useEffect(() => {',
+            '  const id = setInterval(() => setSeconds(s => s + 1), 1000);',
+            '  return () => clearInterval(id);',
+            '}, []);'
+          )
+        },
+        tryIt: 'Call effect() twice without cleanup in between, and print running.size. A Set stays at 1 here, but real timers would pile up: two timers running at once.',
+        check: {
+          question: 'What does the function returned from useEffect do?',
+          options: ['Nothing', 'Cleans up, for example stops a timer, when the component goes away', 'Runs the effect twice'],
+          answer: 1,
+          why: 'React calls the returned clean-up function before the component disappears or before the effect runs again.'
+        }
+      },
+      {
+        title: 'Saving to the browser with localStorage',
+        say: [
+          'Right now, when you refresh the page, all your jobs disappear and you are back to the sample list. Let us fix that with localStorage: a small storage space in the browser that keeps text even after refresh.',
+          'localStorage only stores text. So to save an array, turn it into text with JSON.stringify(jobs), and to load it back, turn the text into an array with JSON.parse(text). JSON is the standard text format for data on the web.',
+          'Saving is an effect that depends on jobs: useEffect(() => { localStorage.setItem("jobs", JSON.stringify(jobs)); }, [jobs]);. Loading happens once, when creating the state: useState(() => loadJobs()), so the saved jobs are there from the very first render.',
+          'Loading must be careful: the saved text could be missing or broken. Wrap JSON.parse in try and catch, and fall back to an empty list. That is exactly your Day 26 practice task, so you will write it properly then.'
+        ],
+        example: 'localStorage is like a notebook you keep in your bag. Close the app (the book), open it again, and your notes are still there. But you can only write words in it, so lists must be written out as text first.',
+        code: lines(
+          'const jobs = [{ id: 1, title: "Dev" }];',
+          'const text = JSON.stringify(jobs);',
+          'console.log(text);',
+          'console.log(typeof text);',
+          '',
+          'const back = JSON.parse(text);',
+          'console.log(back[0].title);'
+        ),
+        output: lines('[{"id":1,"title":"Dev"}]', 'string', 'Dev'),
+        codeNotes: [
+          { line: 2, note: 'JSON.stringify turns the array into text that can be stored.' },
+          { line: 6, note: 'JSON.parse turns it back into a real array.' }
+        ],
+        projectCode: {
+          label: 'Save and load jobs in App.jsx',
+          code: lines(
+            'function loadJobs() {',
+            '  try {',
+            '    const saved = JSON.parse(localStorage.getItem("jobs"));',
+            '    return Array.isArray(saved) ? saved : initialJobs;',
+            '  } catch {',
+            '    return initialJobs;',
+            '  }',
+            '}',
+            '',
+            'const [jobs, setJobs] = useState(() => loadJobs());',
+            '',
+            'useEffect(() => {',
+            '  localStorage.setItem("jobs", JSON.stringify(jobs));',
+            '}, [jobs]);'
+          )
+        },
+        tryIt: 'Try JSON.parse("broken{") in the code box. Read the error: this is why loading needs try and catch.',
+        check: {
+          question: 'Why do we use JSON.stringify before saving to localStorage?',
+          options: ['To encrypt the data', 'Because localStorage only stores text', 'To make it smaller'],
+          answer: 1,
+          why: 'localStorage stores only strings, so arrays and objects must be turned into JSON text first.'
+        }
+      },
+      {
+        title: 'When not to use useEffect',
+        say: [
+          'Beginners often overuse useEffect. A common example: keeping a filtered list in state and updating it in an effect whenever jobs or search change. It works, but it is slower and causes an extra render, and the list is briefly out of date.',
+          'Remember Day 15: if you can calculate something from state or props, just calculate it during render. const shownJobs = jobs.filter(...) needs no effect and no extra state.',
+          'Use effects only for talking to the outside world: servers, browser storage, timers, the document title, third-party libraries. If the code only calculates values for the screen, it does not belong in an effect.',
+          'The React team calls this "You might not need an effect". Knowing it will make your code cleaner than many developers with more experience.'
+        ],
+        example: 'You do not hire a courier to carry a note from your left hand to your right hand. Couriers (effects) are for sending things outside the house.',
+        code: lines(
+          'const jobs = [{ title: "React Dev" }, { title: "Tester" }];',
+          'const search = "react";',
+          '',
+          'const shownJobs = jobs.filter(j => j.title.toLowerCase().includes(search));',
+          'console.log(shownJobs.length);'
+        ),
+        output: '1',
+        codeNotes: [
+          { line: 4, note: 'Calculated during render: always correct, no effect or extra state needed.' }
+        ],
+        tryIt: 'Change search to "e" and run. The result is always up to date because it is recalculated.',
+        check: {
+          question: 'Should you use useEffect to keep a filtered list in state?',
+          options: ['Yes, always', 'No, calculate it during render instead', 'Only for long lists'],
+          answer: 1,
+          why: 'Values that can be calculated from state belong in render, not in an effect with extra state.'
+        }
+      }
+    ],
+    summary: [
+      'Side effects (servers, storage, timers, title) go in useEffect, which runs after the screen is drawn.',
+      '[] runs once after the first render; [a, b] runs again when a or b change.',
+      'Return a clean-up function to stop timers and listeners.',
+      'localStorage stores text: use JSON.stringify to save and JSON.parse (with try/catch) to load.',
+      'Do not use effects for values you can calculate during render.'
+    ],
+    projectStep: {
+      title: 'Jobs that survive a refresh',
+      steps: [
+        'Add loadJobs and useState(() => loadJobs()) in App.',
+        'Save jobs to localStorage in a useEffect with [jobs].',
+        'Refresh the page and check that your jobs are still there.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 17,
+    title: 'Loading Data From the Internet',
+    goal: 'You can load data from an API with fetch, wait for it with async and await, and show loading, error and success states.',
+    minutes: 32,
+    recap: 'Yesterday you learned useEffect and made your jobs survive a page refresh.',
+    parts: [
+      {
+        title: 'APIs: how apps get data',
+        say: [
+          'Most apps do not keep their data inside the app. Swiggy\'s restaurants, Instagram\'s posts and the weather forecast all live on servers. The app asks the server for data through an API: an address on the internet that answers with data instead of a web page.',
+          'You ask by sending a request to an address, called a URL or endpoint, like https://api.example.com/companies. The server answers with a response, usually in JSON, the same text format you used with localStorage yesterday.',
+          'Today your Job Tracker will load a list of companies from an API to suggest them in the form. This is the same skill every company app uses.'
+        ],
+        example: 'An API is like a restaurant menu with a waiter. You do not walk into the kitchen; you ask the waiter for dish number 12 (a request to an endpoint), and the waiter brings it on a plate (the JSON response).',
+        code: lines(
+          'const responseText = \'{"data":[{"name":"Infosys"},{"name":"Zoho"}]}\';',
+          'const json = JSON.parse(responseText);',
+          'console.log(json.data.length);',
+          'console.log(json.data.map(c => c.name));'
+        ),
+        output: lines('2', '[ \'Infosys\', \'Zoho\' ]'),
+        codeNotes: [
+          { line: 1, note: 'What a server might send back: JSON text.' },
+          { line: 2, note: 'Turned into real JavaScript data you can use.' }
+        ],
+        tryIt: 'Add a third company to the JSON text and run again. Be careful with the quotes and commas.',
+        check: {
+          question: 'What does an API usually send back?',
+          options: ['A finished web page', 'Data, usually as JSON', 'A picture of the screen'],
+          answer: 1,
+          why: 'APIs answer with data, usually JSON, which your app turns into JavaScript objects.'
+        }
+      },
+      {
+        title: 'fetch, async and await',
+        say: [
+          'To send a request, use fetch(url). Asking a server takes time: maybe 100 milliseconds, maybe 5 seconds. JavaScript does not freeze while waiting; fetch gives back a promise, which is an IOU that says "the answer will arrive later".',
+          'To wait for a promise in readable code, put await in front of it, inside a function marked async: const response = await fetch(url); const json = await response.json();. The function pauses at each await until the answer arrives, while the rest of the app keeps working.',
+          'Read it like a story: ask the server, wait; turn the answer into JSON, wait; use the data. The in-lesson code box cannot reach the internet, so the real fetch is shown in the project box. In the runnable box we use ready-made data to practise the steps after the answer arrives.'
+        ],
+        example: 'Ordering food on an app: you place the order (fetch), you get an order number immediately (the promise), and you carry on with your day. When the food arrives (await), you eat it (use the data).',
+        projectCode: {
+          label: 'A real request',
+          code: lines(
+            'async function loadCompanies() {',
+            '  const response = await fetch("https://jsonplaceholder.typicode.com/users");',
+            '  const users = await response.json();',
+            '  return users.map(user => user.company.name);',
+            '}',
+            '',
+            'loadCompanies().then(names => console.log(names));'
+          )
+        },
+        code: lines(
+          'const fakeUsers = [',
+          '  { name: "Leanne", company: { name: "Romaguera-Crona" } },',
+          '  { name: "Ervin", company: { name: "Deckow-Crist" } }',
+          '];',
+          '',
+          'const names = fakeUsers.map(user => user.company.name);',
+          'console.log(names);'
+        ),
+        output: '[ \'Romaguera-Crona\', \'Deckow-Crist\' ]',
+        codeNotes: [
+          { line: 1, note: 'The same shape jsonplaceholder.typicode.com sends back, so you can practise without the internet.' },
+          { line: 6, note: 'The same step as line 4 of the real request.' }
+        ],
+        tryIt: 'On your laptop, open the browser console (F12) on any page, paste the real request code, and press Enter. You will see ten real company names.',
+        check: {
+          question: 'What does await do?',
+          options: ['Makes the request faster', 'Pauses the async function until the promise has an answer', 'Cancels the request'],
+          answer: 1,
+          why: 'await waits for the promise inside an async function, without freezing the rest of the app.'
+        }
+      },
+      {
+        title: 'The three states of every request',
+        say: [
+          'While data loads, your screen must not be blank or broken. Every request has three possible states: loading (waiting for the answer), error (something went wrong), and success (the data is here).',
+          'Keep the state in React: const [status, setStatus] = useState("loading"); const [data, setData] = useState([]);. Show "Loading..." while loading, a friendly message on error, and the data on success.',
+          'Errors happen more than you think: slow mobile networks, a server that is down, a wrong address. An app that handles errors gracefully feels professional; one that shows a blank page feels broken. Today\'s second practice task, requestView, turns the three states into text.'
+        ],
+        example: 'When you track a parcel: "Out for delivery" (loading), "Delivery failed, will retry" (error), "Delivered" (success). A tracking page that showed nothing would worry you.',
+        code: lines(
+          'function requestView(status, data) {',
+          '  if (status === "loading") return "Loading...";',
+          '  if (status === "error") return "Could not load. Please try again.";',
+          '  return `Loaded ${data.length} companies`;',
+          '}',
+          '',
+          'console.log(requestView("loading", []));',
+          'console.log(requestView("error", []));',
+          'console.log(requestView("success", ["Infosys", "Zoho"]));'
+        ),
+        output: lines('Loading...', 'Could not load. Please try again.', 'Loaded 2 companies'),
+        codeNotes: [
+          { line: 2, note: 'Each state gets its own screen. Early returns, like Day 11.' }
+        ],
+        tryIt: 'Add a fourth case: if status is "success" but data is empty, return "No companies found".',
+        check: {
+          question: 'What are the three states of a request?',
+          options: ['Start, middle, end', 'Loading, error, success', 'Fast, slow, stopped'],
+          answer: 1,
+          why: 'Every request is loading, has failed, or has succeeded. Your screen should handle all three.'
+        }
+      },
+      {
+        title: 'Handling errors with try and catch',
+        say: [
+          'When something inside an async function fails, like the network being down, it throws an error. If nobody catches it, your loading code stops halfway and the screen stays on "Loading..." forever.',
+          'Wrap the risky steps in try { ... } catch (err) { ... }. If anything in try throws, JavaScript jumps straight to catch, where you set the error state. Code after the failing line inside try does not run.',
+          'One surprise: fetch does not throw when the server answers with an error code like 404 (not found) or 500 (server error). It only throws when the request cannot be sent at all. So check response.ok and throw your own error if it is false.',
+          'The runnable box shows try and catch with a function that fails on purpose, so you can see the jump to catch.'
+        ],
+        example: 'A safety net under a trapeze artist. If they fall (an error), the net (catch) catches them and the show continues safely, instead of the whole circus stopping.',
+        code: lines(
+          'function parseCompanies(text) {',
+          '  try {',
+          '    const json = JSON.parse(text);',
+          '    return { status: "success", data: json.data || [] };',
+          '  } catch (err) {',
+          '    return { status: "error", data: [] };',
+          '  }',
+          '}',
+          '',
+          'console.log(parseCompanies(\'{"data":["Zoho"]}\'));',
+          'console.log(parseCompanies("<html>Server down</html>"));'
+        ),
+        output: lines('{ status: \'success\', data: [ \'Zoho\' ] }', '{ status: \'error\', data: [] }'),
+        codeNotes: [
+          { line: 3, note: 'If the text is not valid JSON, this line throws.' },
+          { line: 6, note: 'catch runs instead, and we return a clean error state.' },
+          { line: 11, note: 'A broken server answer, handled without crashing.' }
+        ],
+        projectCode: {
+          label: 'Checking response.ok',
+          code: lines(
+            'const response = await fetch(url);',
+            'if (!response.ok) {',
+            '  throw new Error(`Server answered ${response.status}`);',
+            '}',
+            'const json = await response.json();'
+          )
+        },
+        tryIt: 'Call parseCompanies("") with empty text. Which branch runs?',
+        check: {
+          question: 'Does fetch throw an error when the server answers 404?',
+          options: ['Yes, always', 'No, you must check response.ok yourself', 'Only on Sundays'],
+          answer: 1,
+          why: 'fetch only throws when the request fails completely. For 404 or 500, check response.ok and throw yourself.'
+        }
+      },
+      {
+        title: 'Loading data in a component',
+        say: [
+          'Now put it together in React. Loading data is a side effect, so it goes in useEffect with an empty list, to run once when the component appears.',
+          'The effect function itself cannot be async, so create an async function inside it and call it. Inside: set loading, fetch, check ok, read JSON, set data and success; in catch, set error.',
+          'One more detail for later: if the component disappears before the answer arrives, you should not set state. The usual guard is a variable let cancelled = false; in the effect, set to true in the clean-up, and checked before setting state. It is shown in the code below.',
+          'Read the component slowly, one line at a time. Every line uses something you already know: state, effects, async and await, try and catch, early returns.'
+        ],
+        example: 'A shop assistant who checks the storeroom when you arrive (effect), says "one moment" (loading), and comes back with the item or a polite "sorry, out of stock" (success or error).',
+        projectCode: {
+          label: 'src/components/CompanySuggestions.jsx',
+          code: lines(
+            'import { useEffect, useState } from "react";',
+            '',
+            'export default function CompanySuggestions() {',
+            '  const [status, setStatus] = useState("loading");',
+            '  const [companies, setCompanies] = useState([]);',
+            '',
+            '  useEffect(() => {',
+            '    let cancelled = false;',
+            '    async function load() {',
+            '      try {',
+            '        const response = await fetch("https://jsonplaceholder.typicode.com/users");',
+            '        if (!response.ok) throw new Error(`Server answered ${response.status}`);',
+            '        const users = await response.json();',
+            '        if (!cancelled) {',
+            '          setCompanies(users.map(u => u.company.name));',
+            '          setStatus("success");',
+            '        }',
+            '      } catch {',
+            '        if (!cancelled) setStatus("error");',
+            '      }',
+            '    }',
+            '    load();',
+            '    return () => { cancelled = true; };',
+            '  }, []);',
+            '',
+            '  if (status === "loading") return <p>Loading companies...</p>;',
+            '  if (status === "error") return <p>Could not load companies.</p>;',
+            '  return <ul>{companies.map(name => <li key={name}>{name}</li>)}</ul>;',
+            '}'
+          )
+        },
+        code: lines(
+          'function nextState(event, payload) {',
+          '  if (event === "start") return { status: "loading", companies: [] };',
+          '  if (event === "done") return { status: "success", companies: payload };',
+          '  return { status: "error", companies: [] };',
+          '}',
+          '',
+          'console.log(nextState("start"));',
+          'console.log(nextState("done", ["Zoho", "TCS"]));',
+          'console.log(nextState("failed"));'
+        ),
+        output: lines(
+          '{ status: \'loading\', companies: [] }',
+          '{ status: \'success\', companies: [ \'Zoho\', \'TCS\' ] }',
+          '{ status: \'error\', companies: [] }'
+        ),
+        codeNotes: [
+          { line: 1, note: 'The three moments of a request, as plain data. The component sets these with its setters.' }
+        ],
+        tryIt: 'Add CompanySuggestions to your App and watch "Loading companies..." turn into a list. Then turn off your Wi-Fi and refresh to see the error message.',
+        check: {
+          question: 'Why is there an async function inside the effect, instead of making the effect async?',
+          options: ['It is just style', 'The effect function itself must not be async, so we define one inside and call it', 'Async is not allowed in React'],
+          answer: 1,
+          why: 'useEffect expects its function to return nothing or a clean-up, not a promise, so the async work goes in an inner function.'
+        }
+      },
+      {
+        title: 'Use the data in the Job Tracker form',
+        say: [
+          'Let us make the data useful. In JobForm, show the loaded company names as suggestions while the user types the company, using a datalist: an input with a list of suggestions built into the browser.',
+          'Load the companies in App, or in JobForm itself since only the form needs them. Remember the Day 15 rule: state lives where it is needed.',
+          'Real apps load data like this all the time: countries in a signup form, cities in a delivery form, skills on a profile. You have now done the full cycle: request, wait, handle errors, show.',
+          'Tomorrow you make the whole app look good on phones and laptops.'
+        ],
+        example: 'When you type in Google Maps, it suggests places from its servers as you type. You are building a small version of that for company names.',
+        projectCode: {
+          label: 'Suggestions in JobForm',
+          code: lines(
+            '<input',
+            '  name="company"',
+            '  list="company-options"',
+            '  value={form.company}',
+            '  onChange={handleChange}',
+            '/>',
+            '<datalist id="company-options">',
+            '  {companies.map(name => <option key={name} value={name} />)}',
+            '</datalist>'
+          )
+        },
+        code: lines(
+          'const companies = ["Infosys", "Zoho", "TCS", "Zomato"];',
+          'const typed = "zo";',
+          'const suggestions = companies.filter(c => c.toLowerCase().startsWith(typed));',
+          'console.log(suggestions);'
+        ),
+        output: '[ \'Zoho\', \'Zomato\' ]',
+        codeNotes: [
+          { line: 3, note: 'The browser\'s datalist does this matching for you; here it is by hand.' }
+        ],
+        tryIt: 'Change startsWith to includes and typed to "o". How many suggestions now?',
+        check: {
+          question: 'Where should the companies state live if only JobForm uses it?',
+          options: ['In App, always', 'In JobForm, where it is needed', 'In localStorage only'],
+          answer: 1,
+          why: 'State lives in the lowest component that needs it. Only JobForm uses the suggestions.'
+        }
+      }
+    ],
+    summary: [
+      'APIs send data, usually JSON, from a server address (an endpoint).',
+      'fetch returns a promise; await it inside an async function.',
+      'Handle three states: loading, error, success.',
+      'Use try/catch, and check response.ok because fetch does not throw on 404 or 500.',
+      'Load data in useEffect with [], using an inner async function and a cancelled guard.'
+    ],
+    projectStep: {
+      title: 'Company suggestions from an API',
+      steps: [
+        'Load company names from https://jsonplaceholder.typicode.com/users in a useEffect.',
+        'Show loading and error messages.',
+        'Use the names as suggestions in the JobForm company input with a datalist.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 18,
+    title: 'Styling and Layouts That Work on Phones',
+    goal: 'You can style components with CSS classes, lay them out with flexbox and grid, make them work on phones, and use Tailwind CSS.',
+    minutes: 30,
+    recap: 'Yesterday you loaded data from the internet and handled loading and error states.',
+    parts: [
+      {
+        title: 'Styling React components with CSS',
+        say: [
+          'Your Job Tracker works, but it looks plain. Recruiters notice design, and so do users. Today you learn to make it look clean and work on every screen size.',
+          'The simplest way is a CSS file. Create src/index.css (Vite already has one), write rules with class names, and use them in JSX with className="job-card". Remember from Day 8: className, not class.',
+          'You can also give a style prop with an object: style={{ color: "green" }}. CSS property names become camelCase: background-color becomes backgroundColor. Use the style prop only for small values that change with data, like a status colour. For everything else, use classes.',
+          'A good habit: name classes after what things are, not how they look: .job-card, not .blue-box. If you later change the colour, the name still makes sense.'
+        ],
+        example: 'CSS classes are like school uniforms: you define the uniform once, and everyone who wears the class name looks the same. The style prop is like a badge pinned on one student.',
+        projectCode: {
+          label: 'src/index.css',
+          code: lines(
+            'body {',
+            '  font-family: system-ui, sans-serif;',
+            '  margin: 0;',
+            '  background: #f6f7f9;',
+            '  color: #1f2933;',
+            '}',
+            '',
+            '.job-card {',
+            '  background: white;',
+            '  border: 1px solid #e3e6ea;',
+            '  border-radius: 8px;',
+            '  padding: 16px;',
+            '}'
+          )
+        },
+        code: lines(
+          'const style = { backgroundColor: "white", borderRadius: "8px", padding: "16px" };',
+          'const css = Object.entries(style)',
+          '  .map(([key, value]) => key.replace(/[A-Z]/g, m => "-" + m.toLowerCase()) + ": " + value)',
+          '  .join("; ");',
+          'console.log(css);'
+        ),
+        output: 'background-color: white; border-radius: 8px; padding: 16px',
+        codeNotes: [
+          { line: 1, note: 'A React style object uses camelCase names.' },
+          { line: 3, note: 'Turning each camelCase name back into CSS style, like React does for you.' }
+        ],
+        tryIt: 'Add fontSize: "18px" to the style object and run again.',
+        check: {
+          question: 'How is the CSS property font-size written in a React style object?',
+          options: ['font-size', 'fontSize', 'FontSize'],
+          answer: 1,
+          why: 'Style object keys use camelCase: the dash is removed and the next letter is capital.'
+        }
+      },
+      {
+        title: 'Flexbox: arranging things in a row or column',
+        say: [
+          'Layout is where things sit on the screen. The most useful tool is flexbox. Put display: flex on a container, and its children line up in a row. flex-direction: column stacks them instead.',
+          'Three more properties do most of the work: gap sets the space between items, justify-content spreads them along the row (start, center, space-between), and align-items lines them up across (center is common).',
+          'A classic use: a job card header with the title on the left and the status badge on the right: display: flex; justify-content: space-between; align-items: center;.',
+          'Add flex-wrap: wrap and items move to the next line when there is no room. That alone makes many layouts work on phones.'
+        ],
+        example: 'Flexbox is like arranging books on a shelf. You choose left to right or top to bottom, how much gap between books, and whether they are pushed to one side, centred or spread out.',
+        projectCode: {
+          label: 'Card header with flexbox',
+          code: lines(
+            '.job-card-header {',
+            '  display: flex;',
+            '  justify-content: space-between;',
+            '  align-items: center;',
+            '  gap: 12px;',
+            '}',
+            '',
+            '// In JobCard:',
+            '<div className="job-card-header">',
+            '  <h3>{title}</h3>',
+            '  <span className="badge">{status}</span>',
+            '</div>'
+          )
+        },
+        code: lines(
+          'function spaceBetween(items, width) {',
+          '  const used = items.join("").length;',
+          '  const gap = Math.max(1, Math.floor((width - used) / (items.length - 1)));',
+          '  return items.join(" ".repeat(gap));',
+          '}',
+          '',
+          'console.log(`[${spaceBetween(["Title", "Badge"], 30)}]`);'
+        ),
+        output: '[Title                    Badge]',
+        codeNotes: [
+          { line: 3, note: 'justify-content: space-between puts all the extra space between the items.' }
+        ],
+        tryIt: 'Try three items: ["A", "B", "C"] with width 21.',
+        check: {
+          question: 'Which puts a title on the left and a badge on the far right?',
+          options: ['display: flex; justify-content: space-between', 'display: block', 'text-align: right'],
+          answer: 0,
+          why: 'space-between pushes the first item to the start and the last item to the end.'
+        }
+      },
+      {
+        title: 'Grid: cards in rows and columns',
+        say: [
+          'For a set of cards in rows and columns, CSS grid is simpler than flexbox. display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; makes three equal columns. 1fr means one equal share of the space.',
+          'Even better, grid can pick the number of columns by itself: grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));. This means: fit as many columns as possible, each at least 260 pixels wide. On a phone you get one column, on a laptop three or four, with no extra code.',
+          'Use flexbox for one line of things, like a header or a row of buttons, and grid for two-dimensional layouts, like a list of cards.'
+        ],
+        example: 'A cinema seat map is a grid: rows and columns. A queue at a counter is flexbox: one line.',
+        projectCode: {
+          label: 'Job list as a grid',
+          code: lines(
+            '.job-list {',
+            '  display: grid;',
+            '  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));',
+            '  gap: 16px;',
+            '}'
+          )
+        },
+        code: lines(
+          'function autoFillColumns(screenWidth, minCard, gap) {',
+          '  return Math.max(1, Math.floor((screenWidth + gap) / (minCard + gap)));',
+          '}',
+          '',
+          'console.log(autoFillColumns(375, 260, 16));',
+          'console.log(autoFillColumns(768, 260, 16));',
+          'console.log(autoFillColumns(1280, 260, 16));'
+        ),
+        output: lines('1', '2', '4'),
+        codeNotes: [
+          { line: 2, note: 'Roughly what auto-fill with minmax(260px, 1fr) calculates for you.' },
+          { line: 5, note: 'Phone: 1 column. Tablet: 2. Laptop: 4.' }
+        ],
+        tryIt: 'Change the minimum card width to 320 and see how the column counts change.',
+        check: {
+          question: 'What does repeat(auto-fill, minmax(260px, 1fr)) do?',
+          options: ['Always 3 columns', 'As many columns as fit, each at least 260px wide', 'One column only'],
+          answer: 1,
+          why: 'auto-fill fits as many columns as possible, and minmax sets their smallest and largest size.'
+        }
+      },
+      {
+        title: 'Responsive design: phones first',
+        say: [
+          'More than half of internet users in India browse mainly on phones. So design for a phone first, then add changes for bigger screens. This is called mobile-first design.',
+          'The tool for screen-size changes is a media query: @media (min-width: 768px) { ... }. Rules inside apply only when the screen is at least 768 pixels wide. Write your normal CSS for phones, and put the bigger-screen changes inside media queries.',
+          'Test it: in Chrome, press F12, then the phone icon (device toolbar), and pick a phone like an iPhone SE or Pixel. Check there is no sideways scrolling, text is readable without zooming, and buttons are big enough to tap, at least about 44 pixels tall.',
+          'Today\'s second practice task, columnsFor(width), is the same decision in JavaScript.'
+        ],
+        example: 'A newspaper uses wide columns in print, and the same news on a phone app is one narrow column. Same content, arranged for the space available.',
+        projectCode: {
+          label: 'Mobile-first CSS',
+          code: lines(
+            '.app {',
+            '  padding: 16px;',
+            '}',
+            '',
+            '@media (min-width: 768px) {',
+            '  .app {',
+            '    max-width: 1100px;',
+            '    margin: 0 auto;',
+            '    padding: 32px;',
+            '  }',
+            '}'
+          )
+        },
+        code: lines(
+          'function paddingFor(width) {',
+          '  return width >= 768 ? 32 : 16;',
+          '}',
+          '',
+          'console.log(paddingFor(375));',
+          'console.log(paddingFor(1366));'
+        ),
+        output: lines('16', '32'),
+        codeNotes: [
+          { line: 2, note: 'Like the media query: bigger padding only on screens 768px and wider.' }
+        ],
+        tryIt: 'Add a third size: 64 for screens 1200px and wider. Check the biggest size first.',
+        check: {
+          question: 'What does mobile-first mean?',
+          options: ['Only build for phones', 'Write CSS for phones first, add bigger-screen changes in media queries', 'Build a separate phone app'],
+          answer: 1,
+          why: 'Phone styles are the default, and media queries adjust for larger screens.'
+        }
+      },
+      {
+        title: 'Tailwind CSS: styling with small classes',
+        say: [
+          'Many companies now use Tailwind CSS. Instead of writing your own CSS rules, you add small ready-made classes directly in JSX: className="p-4 rounded-lg bg-white shadow". Each class does one thing: p-4 is padding, rounded-lg rounds the corners.',
+          'Responsive design is built in: md:grid-cols-2 means two columns on medium screens and up. It follows the same mobile-first idea: the plain class is for phones, prefixed classes for bigger screens.',
+          'Tailwind looks messy at first, but it is fast once you know the common classes, and you never have to invent class names. Because many job listings ask for it, knowing the basics is valuable.',
+          'Both approaches are fine for your project. Plain CSS helps you understand what is happening; Tailwind is what you will often see at work. The official site has a clear install guide for Vite.'
+        ],
+        example: 'Plain CSS is like cooking from scratch; Tailwind is like using ready spice mixes. Both make good food. The mixes are faster once you know what each one does.',
+        projectCode: {
+          label: 'JobCard with Tailwind',
+          code: lines(
+            '<div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">',
+            '  <div className="flex items-center justify-between gap-3">',
+            '    <h3 className="font-semibold">{title}</h3>',
+            '    <span className="rounded-full bg-blue-100 px-2 py-1 text-sm text-blue-800">{status}</span>',
+            '  </div>',
+            '  <p className="mt-1 text-gray-600">{company}</p>',
+            '</div>'
+          )
+        },
+        code: lines(
+          'function classNames(...names) {',
+          '  return names.filter(Boolean).join(" ");',
+          '}',
+          '',
+          'const status = "offer";',
+          'console.log(classNames("rounded-lg p-4", status === "offer" && "border-green-500", false && "hidden"));'
+        ),
+        output: 'rounded-lg p-4 border-green-500',
+        codeNotes: [
+          { line: 2, note: 'A tiny helper to join only the classes that apply. Today\'s first practice task.' },
+          { line: 6, note: 'The green border is added only for offers.' }
+        ],
+        tryIt: 'Change status to "applied" and run. Which class disappears?',
+        check: {
+          question: 'In Tailwind, what does md:grid-cols-2 mean?',
+          options: ['Always 2 columns', '2 columns on medium screens and larger', 'A medium-sized font'],
+          answer: 1,
+          why: 'The md: prefix applies the class from the medium screen size upward, mobile-first.'
+        }
+      },
+      {
+        title: 'Make the Job Tracker look professional',
+        say: [
+          'Time to style your app. Choose one main colour for buttons and links, and use soft grey backgrounds with white cards. Consistency matters more than fancy effects: same spacing, same corner radius, same font sizes everywhere.',
+          'Lay out the job list as a responsive grid, give each card a flex header with the title and a coloured status badge, and make the form a neat row on laptops that stacks on phones.',
+          'Then test on a phone size in Chrome\'s device toolbar. Fix anything that scrolls sideways or is too small to tap.',
+          'A clean, responsive design makes your project look finished. Recruiters decide in seconds whether a portfolio project looks serious, and design is the first thing they see.'
+        ],
+        example: 'Two shops sell the same products. The tidy one with clear signs gets more customers. Your code may be great, but the design is the shop front.',
+        projectCode: {
+          label: 'Form row that stacks on phones',
+          code: lines(
+            '.job-form {',
+            '  display: flex;',
+            '  flex-direction: column;',
+            '  gap: 8px;',
+            '}',
+            '',
+            '@media (min-width: 768px) {',
+            '  .job-form {',
+            '    flex-direction: row;',
+            '    align-items: center;',
+            '  }',
+            '}'
+          )
+        },
+        code: lines(
+          'const theme = { primary: "#2563eb", radius: "8px", space: [4, 8, 16, 24, 32] };',
+          'console.log(`Buttons use ${theme.primary}`);',
+          'console.log(`All cards use radius ${theme.radius}`);',
+          'console.log(`Spacing steps: ${theme.space.join(", ")}px`);'
+        ),
+        output: lines('Buttons use #2563eb', 'All cards use radius 8px', 'Spacing steps: 4, 8, 16, 24, 32px'),
+        codeNotes: [
+          { line: 1, note: 'A small design system: choose a few values and reuse them everywhere.' }
+        ],
+        tryIt: 'Pick your own primary colour for your app and write it in the theme.',
+        check: {
+          question: 'What makes a design look professional most of all?',
+          options: ['Lots of colours and animations', 'Consistent spacing, sizes and colours', 'Very small text'],
+          answer: 1,
+          why: 'Consistency is what makes an interface feel clean and trustworthy.'
+        }
+      }
+    ],
+    summary: [
+      'Style with classes in a CSS file; use the style prop only for small data-driven values.',
+      'Flexbox for a row or column; grid for cards in rows and columns.',
+      'repeat(auto-fill, minmax(260px, 1fr)) gives responsive columns with no extra code.',
+      'Mobile-first: phone styles by default, media queries for bigger screens.',
+      'Tailwind uses small ready-made classes; md: and lg: prefixes handle bigger screens.'
+    ],
+    projectStep: {
+      title: 'Style and make it responsive',
+      steps: [
+        'Style the cards, badges and form with a consistent colour, radius and spacing.',
+        'Make the job list a responsive grid and the form stack on phones.',
+        'Test in Chrome\'s device toolbar at phone size and fix any sideways scrolling.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 19,
+    title: 'Multiple Pages with React Router',
+    goal: 'You can add pages to a React app with React Router, move between them with links, and read values like a job id from the address.',
+    minutes: 30,
+    recap: 'Yesterday you styled the Job Tracker and made it work on phones.',
+    parts: [
+      {
+        title: 'Why apps have pages',
+        say: [
+          'Real apps have several screens: a home page, a list, a details page, settings. Each has its own address, so you can bookmark it, share it, and use the browser\'s back button.',
+          'Without pages, everything would sit on one long screen, or you would hide and show sections with state. That works for tiny apps, but users cannot share a link to one job, the back button does nothing useful, and search engines cannot see your screens.',
+          'Your Job Tracker will get three pages: the dashboard at /, the job list at /jobs, and a details page for one job at /jobs/42, where 42 is the job\'s id.',
+          'In a React app, the page does not reload when you move between screens. React simply swaps which component is shown, based on the address. This is called client-side routing, and it makes apps feel instant. The library almost everyone uses for it is React Router.'
+        ],
+        example: 'A shopping mall has one building but many shops, each with its own shop number. Walking between shops does not mean leaving the building. Routes are shop numbers inside your single app.',
+        code: lines(
+          'const routes = {',
+          '  "/": "Dashboard",',
+          '  "/jobs": "JobListPage"',
+          '};',
+          '',
+          'function show(path) {',
+          '  return routes[path] ?? "NotFound";',
+          '}',
+          '',
+          'console.log(show("/"));',
+          'console.log(show("/jobs"));',
+          'console.log(show("/settings"));'
+        ),
+        output: lines('Dashboard', 'JobListPage', 'NotFound'),
+        codeNotes: [
+          { line: 1, note: 'A route table: which component to show for which address.' },
+          { line: 7, note: 'Unknown addresses show a Not Found page.' }
+        ],
+        tryIt: 'Add "/settings": "SettingsPage" to the routes and run again.',
+        check: {
+          question: 'What is client-side routing?',
+          options: ['Reloading the page for every screen', 'Swapping components based on the address without reloading', 'Sending the user to another website'],
+          answer: 1,
+          why: 'The app changes what it shows based on the address, without a full page reload.'
+        }
+      },
+      {
+        title: 'Setting up React Router',
+        say: [
+          'Install it in your project: npm install react-router-dom. Then wrap your app in BrowserRouter, usually in main.jsx, so every component can use routing.',
+          'Inside App, describe your pages with Routes and Route: <Route path="/jobs" element={<JobListPage />} />. Each Route says: at this address, show this component. A Route with path="*" catches every unknown address, for your Not Found page.',
+          'Parts that appear on every page, like the Header, stay outside Routes. Only the part that changes goes inside.',
+          'The runnable box shows the matching idea. The real setup, which only runs in your project, is in the project box.'
+        ],
+        example: 'A hotel reception desk with a room list. Guests (addresses) are sent to the right room (component). Anyone asking for a room that does not exist is told politely at the desk (the * route).',
+        projectCode: {
+          label: 'src/main.jsx and src/App.jsx',
+          code: lines(
+            '// src/main.jsx',
+            'import { BrowserRouter } from "react-router-dom";',
+            'createRoot(document.getElementById("root")).render(',
+            '  <BrowserRouter>',
+            '    <App />',
+            '  </BrowserRouter>',
+            ');',
+            '',
+            '// src/App.jsx',
+            'import { Routes, Route } from "react-router-dom";',
+            '',
+            'return (',
+            '  <div className="app">',
+            '    <Header />',
+            '    <Routes>',
+            '      <Route path="/" element={<Dashboard jobs={jobs} />} />',
+            '      <Route path="/jobs" element={<JobListPage jobs={jobs} />} />',
+            '      <Route path="/jobs/:id" element={<JobDetails jobs={jobs} />} />',
+            '      <Route path="*" element={<p>Page not found</p>} />',
+            '    </Routes>',
+            '  </div>',
+            ');'
+          )
+        },
+        code: lines(
+          'function matchRoute(path) {',
+          '  if (path === "/") return "home";',
+          '  if (path === "/jobs") return "jobs";',
+          '  if (/^\\/jobs\\/[^/]+$/.test(path)) return "job-detail";',
+          '  return "not-found";',
+          '}',
+          '',
+          'for (const p of ["/", "/jobs", "/jobs/42", "/abc"]) {',
+          '  console.log(`${p} -> ${matchRoute(p)}`);',
+          '}'
+        ),
+        output: lines('/ -> home', '/jobs -> jobs', '/jobs/42 -> job-detail', '/abc -> not-found'),
+        codeNotes: [
+          { line: 4, note: 'A pattern for "/jobs/" followed by anything except another slash. React Router does this for "/jobs/:id".' }
+        ],
+        tryIt: 'Add "/jobs/42/edit" to the list. Which page does it match? Why?',
+        check: {
+          question: 'Which Route shows a Not Found page for unknown addresses?',
+          options: ['<Route path="/" ... />', '<Route path="*" ... />', '<Route path="404" ... />'],
+          answer: 1,
+          why: 'path="*" matches any address not matched by the other routes.'
+        }
+      },
+      {
+        title: 'Moving between pages with Link',
+        say: [
+          'To move between pages, do not use a normal <a href="/jobs">. A normal link reloads the whole page, and your app loses its state. Use React Router\'s Link instead: <Link to="/jobs">All jobs</Link>. It changes the address and the screen without a reload.',
+          'NavLink is a Link that knows when it is the current page, so you can style the active menu item. Use it in your Header menu.',
+          'Sometimes you need to move from code, for example after saving a form. The useNavigate hook gives you a navigate function: navigate("/jobs") or navigate(-1) to go back.',
+          'Links are also how your job cards will open the details page: <Link to={`/jobs/${job.id}`}>View</Link>. A template string builds the address from the id.',
+          'A quick way to test that your links are right: click one, then press the browser\'s back button. You should return to the previous page instantly, with your search text and state still there. If the page flashes white and reloads, you used a normal a tag somewhere.'
+        ],
+        example: 'Moving between rooms in your house through inside doors (Link), instead of going out of the main door and ringing the bell again (a normal link that reloads).',
+        projectCode: {
+          label: 'Header menu and card link',
+          code: lines(
+            'import { NavLink, Link } from "react-router-dom";',
+            '',
+            '<nav className="menu">',
+            '  <NavLink to="/">Dashboard</NavLink>',
+            '  <NavLink to="/jobs">All jobs</NavLink>',
+            '</nav>',
+            '',
+            '// In JobCard:',
+            '<Link to={`/jobs/${id}`}>View details</Link>'
+          )
+        },
+        code: lines(
+          'const jobs = [{ id: 7, title: "Dev" }, { id: 12, title: "Tester" }];',
+          'const links = jobs.map(job => `/jobs/${job.id}`);',
+          'console.log(links);'
+        ),
+        output: '[ \'/jobs/7\', \'/jobs/12\' ]',
+        codeNotes: [
+          { line: 2, note: 'Each card\'s link address, built from its id with a template string.' }
+        ],
+        tryIt: 'Build the links as "/jobs/7/edit" instead.',
+        check: {
+          question: 'Why use Link instead of <a href> inside a React app?',
+          options: ['Link looks nicer', 'Link changes pages without reloading, so state is kept', 'a tags are not allowed in JSX'],
+          answer: 1,
+          why: 'A normal link reloads the whole app and loses state. Link only swaps the component.'
+        }
+      },
+      {
+        title: 'Reading the id from the address',
+        say: [
+          'The details page must know which job to show. The route path "/jobs/:id" has a URL parameter: the colon means "any value here, call it id".',
+          'Inside the page, the useParams hook gives you the parameters: const { id } = useParams();. For /jobs/42, id is "42". Notice it is text, not a number.',
+          'Then find the job: jobs.find(job => job.id === Number(id)). Remember Day 2\'s trap: "42" and 42 are different with ===, so convert with Number first.',
+          'If no job matches, show a friendly "Job not found" message with a link back to the list. People will type wrong addresses and open old bookmarks; handle it gracefully.'
+        ],
+        example: 'On Amazon, amazon.in/dp/B0C123 opens one product. The code after /dp/ tells the page which product to show. Your /jobs/42 works the same way.',
+        projectCode: {
+          label: 'src/pages/JobDetails.jsx',
+          code: lines(
+            'import { useParams, Link } from "react-router-dom";',
+            '',
+            'export default function JobDetails({ jobs }) {',
+            '  const { id } = useParams();',
+            '  const job = jobs.find(j => j.id === Number(id));',
+            '',
+            '  if (!job) {',
+            '    return <p>Job not found. <Link to="/jobs">Back to all jobs</Link></p>;',
+            '  }',
+            '  return (',
+            '    <div>',
+            '      <h2>{job.title}</h2>',
+            '      <p>{job.company} · {job.status}</p>',
+            '      <Link to="/jobs">Back</Link>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'function jobIdFromPath(path) {',
+          '  const parts = path.split("/");',
+          '  return parts.length === 3 && parts[1] === "jobs" && parts[2] ? parts[2] : null;',
+          '}',
+          '',
+          'const jobs = [{ id: 42, title: "React Developer" }];',
+          'const id = jobIdFromPath("/jobs/42");',
+          'console.log(id, typeof id);',
+          'console.log(jobs.find(j => j.id === id));',
+          'console.log(jobs.find(j => j.id === Number(id)).title);'
+        ),
+        output: lines('42 string', 'undefined', 'React Developer'),
+        codeNotes: [
+          { line: 2, note: '"/jobs/42".split("/") gives ["", "jobs", "42"].' },
+          { line: 9, note: 'The trap: the text "42" is not equal to the number 42.' },
+          { line: 10, note: 'The fix: convert with Number first.' }
+        ],
+        tryIt: 'Call jobIdFromPath("/jobs") and print it. What comes back?',
+        check: {
+          question: 'For the route /jobs/:id and address /jobs/42, what is id from useParams?',
+          options: ['The number 42', 'The text "42"', 'undefined'],
+          answer: 1,
+          why: 'URL parameters are always text. Convert with Number(id) before comparing with number ids.'
+        }
+      },
+      {
+        title: 'Organising pages and components',
+        say: [
+          'As the app grows, organise files by role. A common layout: src/pages for full screens that match a route (Dashboard, JobListPage, JobDetails), and src/components for reusable pieces used by pages (JobCard, JobForm, Summary).',
+          'Pages are usually thin: they read the route, pick the data, and arrange components. The real UI lives in components. This keeps each file small and easy to find.',
+          'Where does the jobs state live now? Several pages need it, so it stays in App, above the Routes, and App passes it to each page. On Day 21, Context will offer a neater way.',
+          'A tidy folder structure is something reviewers notice immediately in your GitHub project.',
+          'There is no single correct structure, and every company has its own. What matters is that you can explain yours: pages match routes, components are reusable, hooks hold shared logic. Consistency beats cleverness.'
+        ],
+        example: 'A school has classrooms (pages) and shared resources like the library and lab (components). Classrooms use the shared resources; you do not build a new library for each class.',
+        code: lines(
+          'const files = {',
+          '  pages: ["Dashboard.jsx", "JobListPage.jsx", "JobDetails.jsx"],',
+          '  components: ["Header.jsx", "JobCard.jsx", "JobForm.jsx", "JobList.jsx", "Summary.jsx"]',
+          '};',
+          '',
+          'for (const [folder, names] of Object.entries(files)) {',
+          '  console.log(`src/${folder}: ${names.length} files`);',
+          '}'
+        ),
+        output: lines('src/pages: 3 files', 'src/components: 5 files'),
+        codeNotes: [
+          { line: 2, note: 'Pages match routes.' },
+          { line: 3, note: 'Components are reusable pieces.' }
+        ],
+        tryIt: 'Add a NotFound.jsx page to the list and run again.',
+        check: {
+          question: 'What usually goes in src/pages?',
+          options: ['Every small button', 'Full screens that match a route', 'CSS files'],
+          answer: 1,
+          why: 'Pages are route-level screens; reusable pieces go in components.'
+        }
+      },
+      {
+        title: 'Add pages to the Job Tracker',
+        say: [
+          'Now build it. Install React Router, wrap App in BrowserRouter, and create three pages: Dashboard with the Summary and the Add Job form, JobListPage with search and the list, and JobDetails for one job.',
+          'Add a menu with NavLink to the Header, and a "View details" link on each JobCard.',
+          'One setting for later: when you deploy on Day 29, the server must send index.html for every address, otherwise refreshing /jobs/42 shows the server\'s own 404 page. Vercel handles this with a small config file; we will add it then.',
+          'After today, your app has real navigation, shareable addresses and a working back button, like a professional product.'
+        ],
+        example: 'Your app just grew from a single room into a small house with a hallway. Each room has a purpose, and the menu is the hallway connecting them.',
+        projectCode: {
+          label: 'Terminal',
+          code: 'npm install react-router-dom'
+        },
+        code: lines(
+          'const pages = [',
+          '  { path: "/", title: "Dashboard" },',
+          '  { path: "/jobs", title: "All jobs" },',
+          '  { path: "/jobs/:id", title: "Job details" }',
+          '];',
+          '',
+          'const menu = pages.filter(p => !p.path.includes(":")).map(p => p.title);',
+          'console.log(menu);'
+        ),
+        output: '[ \'Dashboard\', \'All jobs\' ]',
+        codeNotes: [
+          { line: 7, note: 'Pages with a parameter, like the details page, are not menu items; you reach them from a card.' }
+        ],
+        tryIt: 'Add a Settings page to the list and check it appears in the menu.',
+        check: {
+          question: 'Why does the details page not appear in the main menu?',
+          options: ['It is broken', 'It needs a specific job id, so you reach it from a job card', 'Menus can only have two items'],
+          answer: 1,
+          why: 'A details page shows one item, so it is opened from that item\'s link, not from the menu.'
+        }
+      }
+    ],
+    summary: [
+      'React Router shows different components for different addresses without reloading.',
+      'BrowserRouter wraps the app; Routes and Route map paths to pages; path="*" catches unknown addresses.',
+      'Use Link and NavLink, not <a href>, to keep state; useNavigate moves from code.',
+      'useParams reads URL parameters as text; convert with Number before comparing ids.',
+      'Keep route-level screens in src/pages and reusable pieces in src/components.'
+    ],
+    projectStep: {
+      title: 'Three pages and a menu',
+      steps: [
+        'Install react-router-dom and wrap App in BrowserRouter.',
+        'Create Dashboard, JobListPage and JobDetails pages with routes, plus a Not Found route.',
+        'Add a NavLink menu in Header and a "View details" Link on each JobCard.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 20,
+    title: 'Custom Hooks: Reusing Logic',
+    goal: 'You can move repeated logic into your own hooks, follow the rules of hooks, and use custom hooks to keep components short.',
+    minutes: 30,
+    recap: 'Yesterday you added pages to the Job Tracker with React Router.',
+    parts: [
+      {
+        title: 'The problem: the same logic in many places',
+        say: [
+          'Look at your app. The dashboard and the job list both need search. The job list and the details page both need to load jobs from localStorage. As apps grow, the same logic appears in several components, copied and pasted.',
+          'Copies are dangerous. Fix a bug in one copy, forget the other, and the app behaves differently in two places. You have already solved this problem for display, with components. For logic that uses state and effects, the answer is a custom hook.',
+          'A custom hook is just a function whose name starts with use, which can call other hooks like useState and useEffect inside it. Components call it and get back values and functions.',
+          'You have already used hooks written by others: useState and useEffect from React, useParams and useNavigate from React Router. Today you write your own, in exactly the same style. There is nothing magic about them; they are functions with a naming rule.'
+        ],
+        example: 'A family recipe written once in a book, used by everyone who cooks it, instead of each person remembering their own slightly different version.',
+        code: lines(
+          'function searchJobs(jobs, text) {',
+          '  const q = text.toLowerCase();',
+          '  return jobs.filter(job => job.title.toLowerCase().includes(q));',
+          '}',
+          '',
+          'const jobs = [{ title: "React Developer" }, { title: "Java Developer" }, { title: "Tester" }];',
+          'console.log(searchJobs(jobs, "react").length);',
+          'console.log(searchJobs(jobs, "DEVELOPER").length);',
+          'console.log(searchJobs(jobs, "").length);'
+        ),
+        output: lines('1', '2', '3'),
+        codeNotes: [
+          { line: 1, note: 'Logic written once, used anywhere. Today\'s first practice task.' },
+          { line: 9, note: 'Empty text matches everything, because every title includes "".' }
+        ],
+        tryIt: 'Make it also search the company: add company to the jobs and check job.company.toLowerCase().includes(q) too, joined with ||.',
+        check: {
+          question: 'What is a custom hook?',
+          options: ['A React component', 'A function starting with use that can use other hooks and return values', 'A CSS helper'],
+          answer: 1,
+          why: 'A custom hook packs reusable stateful logic into a function whose name starts with use.'
+        }
+      },
+      {
+        title: 'Your first custom hook: useSearch',
+        say: [
+          'Move the search logic into a hook: function useSearch(items) { const [text, setText] = useState(""); const results = items.filter(...); return { text, setText, results }; }.',
+          'Now any page can write const { text, setText, results } = useSearch(jobs); and get a working search: the state, the setter and the filtered list. The component only handles showing them.',
+          'Each component that calls useSearch gets its own separate text state. Hooks share logic, not data. If you want two components to share the same data, lift the state up or use Context, which you learn tomorrow.',
+          'The runnable box imitates a hook with a function that keeps its own value, exactly your second practice task, createCounter.'
+        ],
+        example: 'A photocopy of a blank form. Everyone uses the same form design (the hook), but each person fills in their own copy (their own state).',
+        projectCode: {
+          label: 'src/hooks/useSearch.js',
+          code: lines(
+            'import { useState } from "react";',
+            '',
+            'export function useSearch(items) {',
+            '  const [text, setText] = useState("");',
+            '  const q = text.toLowerCase();',
+            '  const results = items.filter(item =>',
+            '    item.title.toLowerCase().includes(q) || item.company.toLowerCase().includes(q)',
+            '  );',
+            '  return { text, setText, results };',
+            '}',
+            '',
+            '// In JobListPage:',
+            'const { text, setText, results } = useSearch(jobs);'
+          )
+        },
+        code: lines(
+          'function createCounter(start) {',
+          '  let count = start;',
+          '  return { increment: () => { count = count + 1; }, value: () => count };',
+          '}',
+          '',
+          'const a = createCounter(0);',
+          'const b = createCounter(10);',
+          'a.increment(); a.increment(); b.increment();',
+          'console.log(a.value(), b.value());'
+        ),
+        output: '2 11',
+        codeNotes: [
+          { line: 2, note: 'Each call keeps its own count, like each component calling a hook gets its own state.' },
+          { line: 9, note: 'a and b do not share: 2 and 11.' }
+        ],
+        tryIt: 'Add a reset() function to createCounter that sets count back to start.',
+        check: {
+          question: 'Two components both call useSearch(jobs). Do they share the same search text?',
+          options: ['Yes', 'No, each gets its own state', 'Only if they are on the same page'],
+          answer: 1,
+          why: 'Custom hooks share logic, not state. Each call has its own useState inside.'
+        }
+      },
+      {
+        title: 'The rules of hooks',
+        say: [
+          'Hooks have two rules, and breaking them causes confusing bugs. Rule one: only call hooks at the top level of a component or a custom hook. Never inside if, loops or nested functions.',
+          'Why? React remembers your hooks by their order: the first useState, the second useState, the first useEffect. If a hook is inside an if, it runs on some renders and not others, the order shifts, and React gives the wrong state to the wrong hook.',
+          'Rule two: only call hooks from React components or custom hooks, not from normal functions. That is why custom hooks must start with use: it tells React and your editor that the rules apply.',
+          'If you need a condition, put it inside the hook, not around it: useEffect(() => { if (!userId) return; ... }, [userId]);.'
+        ],
+        example: 'A teacher takes attendance by seat order: first seat, second seat, third seat. If students keep switching seats between days, the register goes wrong. Hooks must sit in the same seats every render.',
+        code: lines(
+          'const stored = ["Asha", "dark"];',
+          'function render(showName) {',
+          '  const values = [];',
+          '  let i = 0;',
+          '  const fakeUseState = () => stored[i++];',
+          '  if (showName) values.push(`name=${fakeUseState()}`);',
+          '  values.push(`theme=${fakeUseState()}`);',
+          '  return values.join(", ");',
+          '}',
+          '',
+          'console.log(render(true));',
+          'console.log(render(false));'
+        ),
+        output: lines('name=Asha, theme=dark', 'theme=Asha'),
+        codeNotes: [
+          { line: 5, note: 'Like React: values are handed out by call order.' },
+          { line: 6, note: 'A hook inside an if: sometimes it is called, sometimes not.' },
+          { line: 12, note: 'The bug: theme now gets the name\'s value, because the order shifted.' }
+        ],
+        tryIt: 'Move the name line out of the if (always call it) and check that theme is correct both times.',
+        check: {
+          question: 'Can you call useState inside an if statement?',
+          options: ['Yes', 'No, hooks must be called at the top level in the same order every render', 'Only for numbers'],
+          answer: 1,
+          why: 'React tracks hooks by call order. A conditional hook changes the order and mixes up state.'
+        }
+      },
+      {
+        title: 'useLocalStorage: state that saves itself',
+        say: [
+          'Here is a hook many real apps use. Remember Day 16: loading from localStorage when creating state, and saving in an effect. That is two pieces of code that always go together, which makes it a perfect custom hook.',
+          'useLocalStorage(key, initialValue) works just like useState, but the value is also saved in the browser and loaded back after refresh. It returns [value, setValue], the same shape as useState, so it is a drop-in replacement.',
+          'In App, const [jobs, setJobs] = useState(...) plus the effect becomes one line: const [jobs, setJobs] = useLocalStorage("jobs", initialJobs);. Much cleaner.',
+          'Returning the same shape as a built-in hook is good design: other developers already know how to use it.',
+          'The key parameter lets you reuse the hook for anything: useLocalStorage("theme", "light") for dark mode, useLocalStorage("draft", emptyForm) to keep a half-filled form after refresh. One hook, many uses.'
+        ],
+        example: 'A notebook that automatically photocopies every page you write into a safe. You write normally, and the copies happen by themselves.',
+        projectCode: {
+          label: 'src/hooks/useLocalStorage.js',
+          code: lines(
+            'import { useEffect, useState } from "react";',
+            '',
+            'export function useLocalStorage(key, initialValue) {',
+            '  const [value, setValue] = useState(() => {',
+            '    try {',
+            '      const saved = localStorage.getItem(key);',
+            '      return saved !== null ? JSON.parse(saved) : initialValue;',
+            '    } catch {',
+            '      return initialValue;',
+            '    }',
+            '  });',
+            '',
+            '  useEffect(() => {',
+            '    localStorage.setItem(key, JSON.stringify(value));',
+            '  }, [key, value]);',
+            '',
+            '  return [value, setValue];',
+            '}'
+          )
+        },
+        code: lines(
+          'const storage = {};',
+          'function load(key, initial) {',
+          '  try { return key in storage ? JSON.parse(storage[key]) : initial; }',
+          '  catch { return initial; }',
+          '}',
+          'function save(key, value) { storage[key] = JSON.stringify(value); }',
+          '',
+          'let jobs = load("jobs", []);',
+          'jobs = [...jobs, { id: 1 }];',
+          'save("jobs", jobs);',
+          'console.log(load("jobs", []));',
+          'storage.broken = "{oops";',
+          'console.log(load("broken", ["safe default"]));'
+        ),
+        output: lines('[ { id: 1 } ]', '[ \'safe default\' ]'),
+        codeNotes: [
+          { line: 3, note: 'Load: saved value if present, otherwise the starting value.' },
+          { line: 13, note: 'Broken saved data falls back safely instead of crashing the app.' }
+        ],
+        tryIt: 'Save a theme with save("theme", "dark") and load it back.',
+        check: {
+          question: 'Why does useLocalStorage return [value, setValue]?',
+          options: ['It is required', 'So it can be used exactly like useState', 'To save memory'],
+          answer: 1,
+          why: 'Matching useState\'s shape makes the hook familiar and a drop-in replacement.'
+        }
+      },
+      {
+        title: 'useFetch: loading data anywhere',
+        say: [
+          'Day 17\'s loading code, with status, data, the effect and the error handling, is long. And every page that loads data would repeat it. Move it into a hook: useFetch(url) returns { status, data }.',
+          'Then CompanySuggestions becomes: const { status, data } = useFetch(COMPANIES_URL);, followed by the three early returns. The component reads almost like plain English.',
+          'The url is a dependency of the effect inside the hook, so if the address changes, it loads again automatically.',
+          'Libraries like TanStack Query give you a much more powerful version of this, with caching and retries. Many companies use them. Now you understand what they do underneath.',
+          'Notice this version uses .then instead of async and await. Both do the same job: .then says "when the promise is ready, run this". You will see both styles in company code, so it helps to read either one comfortably.'
+        ],
+        example: 'A delivery service you call with just an address. You do not need to know about vans, routes or traffic. useFetch is that service for data.',
+        projectCode: {
+          label: 'src/hooks/useFetch.js',
+          code: lines(
+            'import { useEffect, useState } from "react";',
+            '',
+            'export function useFetch(url) {',
+            '  const [state, setState] = useState({ status: "loading", data: null });',
+            '',
+            '  useEffect(() => {',
+            '    let cancelled = false;',
+            '    setState({ status: "loading", data: null });',
+            '    fetch(url)',
+            '      .then(res => {',
+            '        if (!res.ok) throw new Error(`Server answered ${res.status}`);',
+            '        return res.json();',
+            '      })',
+            '      .then(data => { if (!cancelled) setState({ status: "success", data }); })',
+            '      .catch(() => { if (!cancelled) setState({ status: "error", data: null }); });',
+            '    return () => { cancelled = true; };',
+            '  }, [url]);',
+            '',
+            '  return state;',
+            '}'
+          )
+        },
+        code: lines(
+          'function view({ status, data }) {',
+          '  if (status === "loading") return "Loading...";',
+          '  if (status === "error") return "Could not load.";',
+          '  return `${data.length} companies`;',
+          '}',
+          '',
+          'console.log(view({ status: "loading", data: null }));',
+          'console.log(view({ status: "success", data: ["Zoho", "TCS", "Infosys"] }));'
+        ),
+        output: lines('Loading...', '3 companies'),
+        codeNotes: [
+          { line: 1, note: 'With useFetch, the component only decides what to show for each state.' }
+        ],
+        tryIt: 'Call view with status "error" and check the message.',
+        check: {
+          question: 'Why is url in the dependency list of the effect inside useFetch?',
+          options: ['It is not needed', 'So the data loads again when the address changes', 'To make it faster'],
+          answer: 1,
+          why: 'The effect uses url, so it must re-run when url changes.'
+        }
+      },
+      {
+        title: 'Clean up the Job Tracker with hooks',
+        say: [
+          'Refactor your app, which means improving the code without changing what it does. Create a src/hooks folder with useLocalStorage, useSearch and useFetch, and replace the repeated code in your components.',
+          'After refactoring, test everything: add, search, change status, delete, refresh, open a details page. The app must behave exactly as before. That is the whole point of a refactor.',
+          'Your components should now be noticeably shorter. Interviewers often ask "tell me about a time you improved your code". This refactor is a great, concrete answer.',
+          'After this lesson comes your fourth short test, covering Days 16 to 20. Then the final week: Context, Git, planning, building, debugging, testing and deploying.'
+        ],
+        example: 'Tidying a kitchen: the same food gets cooked, but the spices are now labelled in one rack instead of scattered in every cupboard. Cooking gets faster and mistakes rarer.',
+        projectCode: {
+          label: 'App.jsx after the refactor',
+          code: lines(
+            'import { useLocalStorage } from "./hooks/useLocalStorage.js";',
+            '',
+            'export default function App() {',
+            '  const [jobs, setJobs] = useLocalStorage("jobs", initialJobs);',
+            '  const addJob = job => setJobs(prev => [...prev, job]);',
+            '  const deleteJob = id => setJobs(prev => prev.filter(j => j.id !== id));',
+            '  const changeStatus = (id, status) =>',
+            '    setJobs(prev => prev.map(j => (j.id === id ? { ...j, status } : j)));',
+            '  // routes as before',
+            '}'
+          )
+        },
+        code: lines(
+          'const before = { AppLines: 60, JobListPageLines: 45 };',
+          'const after = { AppLines: 30, JobListPageLines: 25 };',
+          'for (const file of Object.keys(before)) {',
+          '  const saved = before[file] - after[file];',
+          '  console.log(`${file}: ${before[file]} -> ${after[file]} (${saved} fewer)`);',
+          '}'
+        ),
+        output: lines('AppLines: 60 -> 30 (30 fewer)', 'JobListPageLines: 45 -> 25 (20 fewer)'),
+        codeNotes: [
+          { line: 1, note: 'Example numbers. Count your own files before and after the refactor.' }
+        ],
+        tryIt: 'Before refactoring, count the lines in App.jsx. After, count again and note the difference for your interview story.',
+        check: {
+          question: 'What must stay the same after a refactor?',
+          options: ['The file names', 'What the app does', 'The number of lines'],
+          answer: 1,
+          why: 'A refactor improves the code\'s structure without changing its behaviour.'
+        }
+      }
+    ],
+    summary: [
+      'A custom hook is a function starting with use that packs reusable logic, including state and effects.',
+      'Hooks share logic, not state: each component calling a hook gets its own state.',
+      'Rules of hooks: call them at the top level, in the same order, only from components or hooks.',
+      'useLocalStorage, useSearch and useFetch keep components short and consistent.',
+      'A refactor improves structure without changing behaviour; test everything after.'
+    ],
+    projectStep: {
+      title: 'Refactor with custom hooks',
+      steps: [
+        'Create src/hooks with useLocalStorage, useSearch and useFetch.',
+        'Replace the repeated code in App, JobListPage and CompanySuggestions.',
+        'Test add, search, status change, delete, refresh and the details page.'
+      ]
+    }
   }
 ];
