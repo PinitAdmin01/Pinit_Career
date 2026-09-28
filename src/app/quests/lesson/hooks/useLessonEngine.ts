@@ -7,7 +7,7 @@ import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getLongLesson, getLongLessonLanguage } from '@/lib/data/longLessons';
 import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
 import { runSqlInBrowser } from '@/lib/code/sql/sqlRunner';
-import { getLessonCheck, getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
+import { getLessonCheck, getTestQuestions, parseTestQuestId, withAnswerAt } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
@@ -426,8 +426,7 @@ export function useLessonEngine({
         ].filter(Boolean).join(' '),
         mcq: {
           question: part.check.question,
-          options: part.check.options,
-          answerIndex: part.check.answer,
+          ...withAnswerAt(part.check.options, part.check.answer, dayNum * 7 + i),
           explanation: part.check.why,
         },
       })));

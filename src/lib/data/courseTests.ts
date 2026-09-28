@@ -99,6 +99,17 @@ function outputQuestionsForDay(prefix: string, day: number): OutputQuestion[] {
 }
 
 /**
+ * The options with the right one moved to a fixed spot picked by the seed. Written checks tend to put
+ * the right answer first; this keeps the same order on every visit while not always using the top.
+ */
+export function withAnswerAt(options: string[], correct: number, seed: number): { options: string[]; answerIndex: number } {
+  const rest = seededOrder(options.filter((_, i) => i !== correct), seed);
+  const answerIndex = seed % options.length;
+  rest.splice(answerIndex, 0, options[correct]);
+  return { options: rest, answerIndex };
+}
+
+/**
  * A lesson block's check as a multiple-choice question, or null if it has none. Written checks put
  * the right answer first, so it is moved to a fixed spot picked by the seed. Predict-the-output
  * checks get their wrong choices from `pool` (see withChoices).
@@ -109,11 +120,7 @@ function checkQuestion(block: any, seed: number, pool: string[]): TestQuestion |
   if (!question) return null;
   const explanation = typeof d.explanation === 'string' ? d.explanation : '';
   if (Array.isArray(d.options) && d.options.length >= 2 && typeof d.correctIndex === 'number' && d.options[d.correctIndex] !== undefined) {
-    const right: string = d.options[d.correctIndex];
-    const options: string[] = seededOrder(d.options.filter((_: string, i: number) => i !== d.correctIndex), seed);
-    const answerIndex = seed % d.options.length;
-    options.splice(answerIndex, 0, right);
-    return { question, options, answerIndex, explanation };
+    return { question, ...withAnswerAt(d.options, d.correctIndex, seed), explanation };
   }
   if (typeof d.expectedStringOutput === 'string' && d.expectedStringOutput) {
     return withChoices({ question, answer: d.expectedStringOutput, explanation, seed }, pool);
@@ -131,10 +138,9 @@ function outputPool(prefix: string, start: number, end: number): string[] {
 function questionsForDay(prefix: string, day: number, pool: string[] = []): TestQuestion[] {
   const long = getLongLesson(prefix, day);
   if (long) {
-    return spread(long.parts, QUESTIONS_PER_DAY).map((p) => ({
+    return spread(long.parts.map((p, i) => ({ p, i })), QUESTIONS_PER_DAY).map(({ p, i }) => ({
       question: p.check.question,
-      options: p.check.options,
-      answerIndex: p.check.answer,
+      ...withAnswerAt(p.check.options, p.check.answer, day * 7 + i),
       explanation: p.check.why,
     }));
   }

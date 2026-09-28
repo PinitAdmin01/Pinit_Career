@@ -99,3 +99,15 @@ test('lesson checks show the written question, and the right answer is not alway
   }
   assert.ok(positions.size >= 3, 'the right answer moves between positions');
 });
+
+test('long-lesson checks in the 5-day tests keep the right answer but not always in first place', () => {
+  const positions = new Set<number>();
+  for (let start = 1; start <= 26; start += 5) {
+    for (const q of getTestQuestions('python', start, start + 4)) {
+      assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length, q.question);
+      assert.equal(new Set(q.options).size, q.options.length, `${q.question}: repeated option`);
+      positions.add(q.answerIndex);
+    }
+  }
+  assert.ok(positions.size >= 2, 'the right answer moves between positions');
+});

@@ -11,6 +11,7 @@
 import { REACT_LONG_LESSONS } from './reactLongLessons';
 import { PYTHON_LONG_LESSONS } from './pythonLongLessons';
 import { SQL_LONG_LESSONS } from './sqlLongLessons';
+import { DSA_PYTHON_LONG_LESSONS } from './dsaPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -63,6 +64,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'react-basics': REACT_LONG_LESSONS,
   python: PYTHON_LONG_LESSONS,
   'sql-mastery': SQL_LONG_LESSONS,
+  'dsa-py': DSA_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
