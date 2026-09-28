@@ -6,6 +6,7 @@ import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking
 import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getLongLesson, getLongLessonLanguage } from '@/lib/data/longLessons';
 import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
+import { runSqlInBrowser } from '@/lib/code/sql/sqlRunner';
 import { getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
@@ -297,6 +298,13 @@ export function useLessonEngine({
         const py = await runPythonInBrowser(codeSnippet);
         const shown = [py.stdout, py.error ? `[Error] ${py.error}` : ''].filter(Boolean).join('\n');
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown || 'Your code ran but printed nothing. Use print(...) to see a result.' }));
+        return;
+      }
+
+      if (longLesson && parsedId && getLongLessonLanguage(parsedId.prefix) === 'sql') {
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting PostgreSQL... (the first run can take up to 15 seconds)" }));
+        const shown = await runSqlInBrowser(codeSnippet);
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown }));
         return;
       }
 

@@ -144,7 +144,7 @@ export function LessonCodeEditor({
                 : fileName.endsWith('.py')
                 ? '$ python3 main.py'
                 : fileName.endsWith('.sql')
-                ? '$ sqlite3 < query.sql'
+                ? '$ psql -f query.sql'
                 : `$ node ${fileName}`}
             </span>
             <span style={{ color: 'var(--success)', fontWeight: 600 }}>Output</span>

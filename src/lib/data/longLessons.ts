@@ -63,13 +63,16 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   python: PYTHON_LONG_LESSONS,
 };
 
-/** Language of each course's lesson code. Python runs in the browser with Pyodide. */
-const LONG_LESSON_LANGUAGE: Record<string, 'javascript' | 'python'> = {
+/** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
+export type LongLessonLanguage = 'javascript' | 'python' | 'sql';
+
+const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'react-basics': 'javascript',
   python: 'python',
+  'sql-mastery': 'sql',
 };
 
-export function getLongLessonLanguage(prefix: string): 'javascript' | 'python' {
+export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
   return LONG_LESSON_LANGUAGE[prefix] ?? 'javascript';
 }
 
