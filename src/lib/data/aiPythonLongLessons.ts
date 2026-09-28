@@ -5829,5 +5829,1212 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: compute the break-even monthly volume between an API and a GPU."
       ]
     }
+  },
+  {
+    "day": 26,
+    "title": "Multimodal AI: Vision-Language Models & Cross-Modal Embeddings",
+    "goal": "You can explain how vision-language models turn images into tokens, estimate image token costs, keep aspect ratios when resizing, search images with text using shared embeddings, and build image prompts safely.",
+    "minutes": 30,
+    "recap": "Until now every model input was text. Modern models also read images. Today you learn how images become tokens, what they cost, and how to use them well.",
+    "parts": [
+      {
+        "title": "Models that see",
+        "say": [
+          "Vision-language models (VLMs) accept images alongside text. You can ask \"What is written on this bill?\" or \"Is anything wrong with this product photo?\".",
+          "Common uses: reading receipts and forms, describing photos for accessibility, checking damage in insurance claims, answering questions about charts and screenshots.",
+          "Many of these jobs used to need separate tools, such as OCR software for text and a different model for objects. One vision-language model can now handle them all with a prompt.",
+          "Inside, an image encoder turns the picture into a sequence of vectors, one per small patch, which the language model reads like extra tokens.",
+          "That means images use up context and cost money, just like text.",
+          "VLMs can misread small text, count objects wrongly, or invent details, so the same care with validation applies.",
+          "Today you will calculate image tokens, resize images sensibly, and see how text and images can share one embedding space."
+        ],
+        "example": "A friend on a video call who can see what you hold up to the camera and describe it, but may misread tiny print unless you hold it closer.",
+        "code": "uses = {\n    \"receipt photo\": \"extract merchant, date and total as JSON\",\n    \"product photo\": \"check for visible damage\",\n    \"chart screenshot\": \"summarise the trend\",\n    \"street photo\": \"describe it for a blind user\",\n}\nfor image, task in uses.items():\n    print(f\"{image:16} -> {task}\")",
+        "output": "receipt photo    -> extract merchant, date and total as JSON\nproduct photo    -> check for visible damage\nchart screenshot -> summarise the trend\nstreet photo     -> describe it for a blind user",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Combine vision with Day 5's structured output."
+          }
+        ],
+        "tryIt": "Add a use case from your own work or studies.",
+        "check": {
+          "question": "How does a vision-language model read an image?",
+          "options": [
+            "It reads the file name",
+            "An encoder turns image patches into vectors the language model reads like tokens",
+            "It converts the image to text first with a separate app"
+          ],
+          "answer": 1,
+          "why": "Each patch becomes a vector, and the language model processes them alongside text tokens."
+        }
+      },
+      {
+        "title": "Images become patch tokens",
+        "say": [
+          "A vision encoder cuts the image into a grid of square patches, often 14 or 16 pixels wide. Each patch becomes one token (vector).",
+          "Practice 1: vision_tokens(width, height, patch) returns patches across (ceil(width / patch)), patches down, and the total: across x down + 1 for a special [CLS] summary token.",
+          "Use math.ceil because a partial patch at the edge still needs a whole token.",
+          "A 224 x 224 image with 14-pixel patches gives 16 x 16 = 256 patches, plus 1, so 257 tokens.",
+          "Bigger images give more tokens: more detail, more cost. Doubling width and height roughly quadruples the tokens.",
+          "Some encoders also resize every image to a fixed size first, which is why sending a huge photo does not always give a better answer.",
+          "Real APIs use their own formulas, often tiling large images, but the idea is the same."
+        ],
+        "example": "Laying square tiles on a floor: count the tiles along each wall, rounding up for the cut pieces at the edges, then multiply.",
+        "code": "import math\n\ndef vision_tokens(width, height, patch=14):\n    px, py = math.ceil(width / patch), math.ceil(height / patch)\n    return {\"patches_x\": px, \"patches_y\": py, \"total_tokens\": px * py + 1}\n\nprint(vision_tokens(224, 224))\nprint(vision_tokens(230, 224))\nfor size in [224, 448, 896]:\n    print(size, \"x\", size, \"->\", vision_tokens(size, size)[\"total_tokens\"], \"tokens\")",
+        "output": "{'patches_x': 16, 'patches_y': 16, 'total_tokens': 257}\n{'patches_x': 17, 'patches_y': 16, 'total_tokens': 273}\n224 x 224 -> 257 tokens\n448 x 448 -> 1025 tokens\n896 x 896 -> 4097 tokens",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Round up: edge pieces still need a whole patch."
+          },
+          {
+            "line": 5,
+            "note": "Plus one [CLS] summary token."
+          }
+        ],
+        "tryIt": "Compute the tokens for a 1920 x 1080 screenshot with 14-pixel patches.",
+        "check": {
+          "question": "Why does vision_tokens(230, 224) give more tokens than (224, 224)?",
+          "options": [
+            "It is a bug",
+            "The extra 6 pixels need another column of patches",
+            "Wider images always double the tokens"
+          ],
+          "answer": 1,
+          "why": "230 / 14 rounds up to 17 columns instead of 16."
+        }
+      },
+      {
+        "title": "The cost of images",
+        "say": [
+          "Image tokens are billed like text tokens. A single high-resolution image can cost as much as several pages of text.",
+          "Many APIs offer a detail setting: low detail uses a small fixed number of tokens, high detail tiles the image and uses many more.",
+          "Resize images before sending. A receipt read at 1000 pixels wide is usually as accurate as at 4000, for a fraction of the tokens.",
+          "Compress images sensibly too, for example good-quality JPEG, since upload size affects speed even when the token count is the same.",
+          "Crop to what matters. If you only need the total on a bill, crop to the bottom part.",
+          "Measure accuracy at different sizes on your own images, and pick the smallest size that keeps accuracy high.",
+          "These savings add up quickly in apps that process thousands of photos a day."
+        ],
+        "example": "Sending a photo on a slow connection: you shrink it first, because the other person only needs to read it, not print a poster.",
+        "code": "import math\n\ndef tokens(w, h, patch=14):\n    return math.ceil(w / patch) * math.ceil(h / patch) + 1\n\nprice_per_million = 2.5\nfor w, h in [(4000, 3000), (2000, 1500), (1000, 750)]:\n    t = tokens(w, h)\n    print(f\"{w}x{h}: {t:>6} tokens, ${t * price_per_million / 1e6:.4f} per image, ${t * price_per_million / 1e6 * 10000:,.0f} per 10k images\")",
+        "output": "4000x3000:  61491 tokens, $0.1537 per image, $1,537 per 10k images\n2000x1500:  15445 tokens, $0.0386 per image, $386 per 10k images\n1000x750:   3889 tokens, $0.0097 per image, $97 per 10k images",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Halving both sides cuts tokens by about four."
+          }
+        ],
+        "tryIt": "Add a crop that keeps only the bottom quarter of a 1000 x 750 image. How many tokens does it use?",
+        "check": {
+          "question": "What is the simplest way to cut image costs without losing needed detail?",
+          "options": [
+            "Send the original size always",
+            "Resize and crop to what the task needs",
+            "Convert images to black and white only"
+          ],
+          "answer": 1,
+          "why": "Smaller, focused images use far fewer tokens."
+        }
+      },
+      {
+        "title": "Keeping the aspect ratio",
+        "say": [
+          "When resizing, keep the aspect ratio (width : height), or the image is stretched and text becomes harder to read.",
+          "Practice 2: aspect_ratio(width, height) returns the simplest ratio as a string like \"16:9\". Divide both numbers by their greatest common divisor with math.gcd.",
+          "1920 x 1080 has a gcd of 120, giving 16:9. 1024 x 768 gives 4:3.",
+          "To resize to a maximum width, scale both sides by the same factor: new_height = height x new_width / width.",
+          "Portrait photos from phones are taller than they are wide, so fit the longer side, whichever it is, rather than always the width.",
+          "Round to whole pixels at the end, and never upscale small images; it only adds tokens, not detail.",
+          "A helper that fits any image inside a maximum box, keeping the ratio, is a useful tool for every vision app."
+        ],
+        "example": "Shrinking a photo in an editor with the \"keep proportions\" lock on, so faces do not look squashed.",
+        "code": "import math\n\ndef aspect_ratio(width, height):\n    g = math.gcd(width, height)\n    return f\"{width // g}:{height // g}\"\n\ndef fit_within(width, height, max_side=1024):\n    scale = min(1, max_side / max(width, height))\n    return round(width * scale), round(height * scale)\n\nprint(aspect_ratio(1920, 1080), aspect_ratio(1024, 768), aspect_ratio(1080, 1080))\nprint(fit_within(4000, 3000), aspect_ratio(*fit_within(4000, 3000)))\nprint(fit_within(640, 480))",
+        "output": "16:9 4:3 1:1\n(1024, 768) 4:3\n(640, 480)",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Divide both sides by the greatest common divisor."
+          },
+          {
+            "line": 8,
+            "note": "Never scale up: the factor is at most 1."
+          }
+        ],
+        "tryIt": "What is the aspect ratio of a 1080 x 1920 phone screenshot? Check with the code.",
+        "check": {
+          "question": "What does aspect_ratio(1280, 720) return?",
+          "options": [
+            "\"4:3\"",
+            "\"16:9\"",
+            "\"1280:720\""
+          ],
+          "answer": 1,
+          "why": "The gcd is 80, so 1280/80 : 720/80 = 16:9."
+        }
+      },
+      {
+        "title": "Shared embeddings for text and images",
+        "say": [
+          "Models like CLIP learn one embedding space for both images and text, trained on millions of image-caption pairs.",
+          "A photo of a dog and the text \"a dog playing\" land close together, so you can search photos by typing a description.",
+          "This powers image search, product matching (\"find items like this photo\"), and multimodal RAG over documents with pictures.",
+          "Because the image embeddings can be computed once and stored, search stays fast even for millions of photos.",
+          "The maths is exactly Day 7's: embed the query text, compare by cosine similarity with stored image embeddings, and rank.",
+          "Only vectors from the same model can be compared, as before.",
+          "The example uses tiny made-up vectors to show the search."
+        ],
+        "example": "A bilingual dictionary where a picture and its description are listed on the same line, so you can look up either one to find the other.",
+        "code": "import math\n\ndef cosine(a, b):\n    return sum(x * y for x, y in zip(a, b)) / (math.hypot(*a) * math.hypot(*b))\n\nimages = {\"beach.jpg\": [0.9, 0.1, 0.2], \"temple.jpg\": [0.1, 0.9, 0.3], \"market.jpg\": [0.3, 0.3, 0.9]}\nquery_text = \"sunny sea shore\"\nquery_vec = [0.85, 0.15, 0.25]\nranked = sorted(images, key=lambda name: cosine(query_vec, images[name]), reverse=True)\nprint(query_text, \"->\", [(n, round(cosine(query_vec, images[n]), 3)) for n in ranked])",
+        "output": "sunny sea shore -> [('beach.jpg', 0.996), ('market.jpg', 0.587), ('temple.jpg', 0.344)]",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "The text query, embedded in the same space as the images."
+          },
+          {
+            "line": 9,
+            "note": "Rank images by similarity to the text."
+          }
+        ],
+        "tryIt": "Make a query vector for \"busy shopping street\" and check that market.jpg comes first.",
+        "check": {
+          "question": "How can you search photos by typing a description?",
+          "options": [
+            "By reading file names only",
+            "Using a model that embeds text and images into the same space",
+            "It is impossible"
+          ],
+          "answer": 1,
+          "why": "Shared embeddings let text queries match similar images."
+        }
+      },
+      {
+        "title": "Prompting with images, safely",
+        "say": [
+          "In chat APIs, a message's content can be a list of parts: text parts and image parts (a URL or base64 data).",
+          "Be specific: \"Read the total amount on this receipt and return JSON with total and currency\" works far better than \"What is this?\".",
+          "For documents with several pages, send one page per image and ask the same structured question of each, then combine the answers in code.",
+          "Validate the output exactly as with text: parse JSON, check types, and cross-check numbers where possible (items should add up to the total).",
+          "Images carry private data: faces, ID cards, addresses, screens with passwords. Ask for consent, avoid storing images longer than needed, and mask what you do not need.",
+          "Images can also carry prompt injections written as text inside them, so treat what the model reads in an image as untrusted too.",
+          "Tomorrow moves to operations: keeping AI traffic within limits and budgets."
+        ],
+        "example": "Handing a document to a clerk with a clear note: \"Please copy the total and date onto this form\", rather than \"Have a look at this\".",
+        "code": "import json\n\nmessage = {\n    \"role\": \"user\",\n    \"content\": [\n        {\"type\": \"text\", \"text\": \"Read this receipt. Return JSON with total (number) and currency (3 letters).\"},\n        {\"type\": \"image_url\", \"image_url\": {\"url\": \"https://example.com/receipt-123.jpg\", \"detail\": \"low\"}},\n    ],\n}\nprint(json.dumps(message, indent=1))\n\nreply = {\"total\": 450, \"currency\": \"INR\", \"items\": [200, 150, 100]}\nprint(\"items add up:\", sum(reply[\"items\"]) == reply[\"total\"])",
+        "output": "{\n \"role\": \"user\",\n \"content\": [\n  {\n   \"type\": \"text\",\n   \"text\": \"Read this receipt. Return JSON with total (number) and currency (3 letters).\"\n  },\n  {\n   \"type\": \"image_url\",\n   \"image_url\": {\n    \"url\": \"https://example.com/receipt-123.jpg\",\n    \"detail\": \"low\"\n   }\n  }\n ]\n}\nitems add up: True",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "A precise instruction with the output format."
+          },
+          {
+            "line": 7,
+            "note": "The image part; low detail keeps tokens down."
+          },
+          {
+            "line": 13,
+            "note": "Cross-check the model's numbers."
+          }
+        ],
+        "tryIt": "Change one item to 120. The cross-check now fails; what should the app do then?",
+        "check": {
+          "question": "Why should text read from inside an image be treated as untrusted?",
+          "options": [
+            "Images are always blurry",
+            "An image can contain written instructions designed to hijack the model",
+            "Text in images is never accurate"
+          ],
+          "answer": 1,
+          "why": "Prompt injection can arrive through images just like through web pages."
+        }
+      }
+    ],
+    "summary": [
+      "VLMs turn image patches into tokens the language model reads.",
+      "Tokens = ceil(w / patch) x ceil(h / patch) + 1; bigger images cost more.",
+      "Resize and crop to save tokens; keep the aspect ratio and never upscale.",
+      "Shared text-image embeddings enable searching images by text.",
+      "Give precise image instructions, validate outputs and protect private data."
+    ],
+    "projectStep": {
+      "title": "Vision tools",
+      "steps": [
+        "Add vision_tokens and aspect_ratio to ai_toolkit.py.",
+        "Write fit_within(width, height, max_side) and test it on 3 image sizes.",
+        "Bonus: build a receipt-reading message with an image part and a JSON output contract."
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "title": "LLMOps: Token Rate Limiting & Cost Budget Allocation",
+    "goal": "You can protect an LLM app with token-bucket and per-minute limits, return the right HTTP status codes, retry with exponential backoff and jitter, and keep spending within budgets.",
+    "minutes": 30,
+    "recap": "Your apps now use text, images, tools and caches. At scale, traffic spikes and runaway costs are real risks. Today is about staying within limits.",
+    "parts": [
+      {
+        "title": "Why limits matter",
+        "say": [
+          "LLM providers limit how much you can use: requests per minute (RPM) and tokens per minute (TPM). Go over, and the API answers with HTTP 429 \"Too Many Requests\".",
+          "Your own app needs limits too: to share capacity fairly between users, to stop one user (or a bug) from burning the monthly budget, and to protect against abuse.",
+          "Limits also make costs predictable, which matters when you must promise a monthly price to a customer.",
+          "An agent stuck in a loop can make thousands of calls in minutes. Limits turn a disaster into a small, visible problem.",
+          "Limits apply at several levels: per user, per feature, per team, and for the whole app.",
+          "The standard tool is the token bucket, which allows short bursts but enforces an average rate.",
+          "Today you will build one, then add retries and budgets around it."
+        ],
+        "example": "A water tank with a tap: you can fill a few buckets quickly, but once it is empty you must wait for it to refill at a steady rate.",
+        "code": "limits = {\"calls per minute\": 500, \"tokens per minute\": 200_000}\nburst = {\"calls\": 40, \"tokens_each\": 6000}\ntokens_needed = burst[\"calls\"] * burst[\"tokens_each\"]\nprint(\"tokens needed this minute:\", tokens_needed)\nprint(\"over the token limit?\", tokens_needed > limits[\"tokens per minute\"])",
+        "output": "tokens needed this minute: 240000\nover the token limit? True",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Few calls can still exceed the token limit if each is large."
+          }
+        ],
+        "tryIt": "How many 6,000-token calls fit in one minute under this limit?",
+        "check": {
+          "question": "What does HTTP status 429 mean?",
+          "options": [
+            "Success",
+            "Too many requests: a rate limit was hit",
+            "The server crashed"
+          ],
+          "answer": 1,
+          "why": "429 tells the client to slow down and try again later."
+        }
+      },
+      {
+        "title": "The token bucket",
+        "say": [
+          "A bucket holds up to capacity tokens and refills at a fixed rate, say 1,000 tokens per second, never above capacity.",
+          "Each call removes the tokens it needs. If enough are available, it proceeds; if not, it is rejected or waits.",
+          "For LLM calls, estimate the tokens before the call (prompt plus the maximum answer length), and correct the bucket afterwards with the real usage the API reports.",
+          "A full bucket allows a burst; afterwards, calls are limited to the refill rate. This matches how people use chat: bursts of activity, then pauses.",
+          "Refill lazily: when a call arrives, add rate x seconds since the last check, capped at capacity. No background timer is needed.",
+          "Use a fake clock in tests so results are the same every run.",
+          "Real systems keep buckets in a shared store like Redis, so all servers see the same counts."
+        ],
+        "example": "A prepaid mobile data plan that tops up a little every hour: you can binge-watch briefly, but then you are limited to the top-up speed.",
+        "code": "class TokenBucket:\n    def __init__(self, capacity, refill_per_sec):\n        self.capacity, self.rate = capacity, refill_per_sec\n        self.tokens, self.last = capacity, 0.0\n\n    def take(self, amount, now):\n        self.tokens = min(self.capacity, self.tokens + (now - self.last) * self.rate)\n        self.last = now\n        if amount <= self.tokens:\n            self.tokens -= amount\n            return True\n        return False\n\nbucket = TokenBucket(capacity=10_000, refill_per_sec=1_000)\nfor t, amount in [(0, 6000), (0.5, 6000), (5, 6000), (5.1, 3000)]:\n    ok = bucket.take(amount, now=t)\n    print(f\"t={t:>4}s take {amount}: {'OK' if ok else 'REJECTED'}, left {bucket.tokens:.0f}\")",
+        "output": "t=   0s take 6000: OK, left 4000\nt= 0.5s take 6000: REJECTED, left 4500\nt=   5s take 6000: OK, left 3000\nt= 5.1s take 3000: OK, left 100",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Lazy refill: add what accumulated since the last call, capped."
+          },
+          {
+            "line": 9,
+            "note": "Enough tokens: proceed and remove them."
+          }
+        ],
+        "tryIt": "Change the refill rate to 200 per second. Which calls are rejected now?",
+        "check": {
+          "question": "Why does a token bucket allow short bursts?",
+          "options": [
+            "It has no limit",
+            "A full bucket can be spent quickly, then the refill rate applies",
+            "It resets every call"
+          ],
+          "answer": 1,
+          "why": "Saved-up capacity allows bursts; the refill rate limits the long-run average."
+        }
+      },
+      {
+        "title": "Allowing, rejecting and refusing",
+        "say": [
+          "Practice 1: token_bucket(requested, available, capacity). If requested is bigger than the whole capacity, return 413: it can never succeed, however long you wait.",
+          "Otherwise, if requested is more than available, return 429 with the unchanged remaining amount: try again later.",
+          "If it fits, return 200 with available minus requested.",
+          "The order matters: check the impossible case (413) first, so the client is told not to retry pointlessly.",
+          "Good error messages help too: tell the client the limit, what they asked for, and when capacity will be available again.",
+          "Clear status codes let clients react correctly: wait and retry on 429, shorten the input on 413.",
+          "Include a Retry-After header with 429 responses in real APIs, telling clients how long to wait."
+        ],
+        "example": "A lift with a weight limit: a group slightly too heavy can wait for the next trip, but a piano heavier than the lift's limit must take the stairs.",
+        "code": "def token_bucket(requested, available, capacity=100000):\n    if requested > capacity:\n        return {\"allowed\": False, \"remaining\": available, \"status\": 413}\n    if requested > available:\n        return {\"allowed\": False, \"remaining\": available, \"status\": 429}\n    return {\"allowed\": True, \"remaining\": available - requested, \"status\": 200}\n\nprint(token_bucket(5000, 20000))\nprint(token_bucket(25000, 20000))\nprint(token_bucket(150000, 100000))",
+        "output": "{'allowed': True, 'remaining': 15000, 'status': 200}\n{'allowed': False, 'remaining': 20000, 'status': 429}\n{'allowed': False, 'remaining': 100000, 'status': 413}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Impossible at any time: 413, do not retry."
+          },
+          {
+            "line": 4,
+            "note": "Not enough right now: 429, retry later."
+          }
+        ],
+        "tryIt": "Swap the two if checks and run the last example. Why is the answer now misleading?",
+        "check": {
+          "question": "Which status should a call get if it needs more tokens than the bucket can ever hold?",
+          "options": [
+            "200",
+            "429",
+            "413"
+          ],
+          "answer": 2,
+          "why": "It can never succeed, so 413 tells the client to shrink the input rather than retry."
+        }
+      },
+      {
+        "title": "Counting calls per minute",
+        "say": [
+          "Practice 2: rpm_exceeded(count, max_rpm) returns True when the number of calls this minute is above max_rpm.",
+          "To get the count, keep the timestamps of recent calls and drop those older than 60 seconds: a sliding window.",
+          "A fixed window (reset at the start of each minute) is simpler but lets a user make double the limit across a minute boundary. The sliding window avoids that.",
+          "For example, with a limit of 60 per minute, a user could send 60 calls at 11:59:59 and 60 more at 12:00:00, which is 120 in two seconds.",
+          "A deque makes it efficient: append new timestamps on the right and pop old ones from the left.",
+          "Apply limits per user ID for fairness, and a larger one for the whole app.",
+          "Tell users kindly when they hit a limit, with how long to wait."
+        ],
+        "example": "A turnstile that counts how many people passed in the last 60 seconds, not since the clock last struck the minute.",
+        "code": "from collections import deque\n\ndef rpm_exceeded(count, max_rpm=60):\n    return count > max_rpm\n\nwindow = deque()\ndef allow(now, max_rpm=3):\n    while window and window[0] <= now - 60:\n        window.popleft()\n    if rpm_exceeded(len(window) + 1, max_rpm):\n        return False\n    window.append(now)\n    return True\n\nfor t in [0, 10, 20, 30, 61, 75]:\n    print(f\"t={t:>2}s allowed: {allow(t)}\")",
+        "output": "t= 0s allowed: True\nt=10s allowed: True\nt=20s allowed: True\nt=30s allowed: False\nt=61s allowed: True\nt=75s allowed: True",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Forget calls older than 60 seconds."
+          },
+          {
+            "line": 10,
+            "note": "Would this call push the count over the limit?"
+          }
+        ],
+        "tryIt": "Change max_rpm to 2 and predict each answer before running.",
+        "check": {
+          "question": "What does rpm_exceeded(61, 60) return?",
+          "options": [
+            "False",
+            "True",
+            "61"
+          ],
+          "answer": 1,
+          "why": "61 is above the limit of 60."
+        }
+      },
+      {
+        "title": "Retries with exponential backoff",
+        "say": [
+          "When your app gets a 429 or a temporary server error (500, 502, 503), retrying often works, but retrying instantly makes the overload worse.",
+          "Exponential backoff waits longer after each failure: 1 second, then 2, 4, 8, up to a maximum.",
+          "Most official API client libraries already retry with backoff; check their settings instead of adding a second retry loop on top, which multiplies the attempts.",
+          "Jitter adds a random amount to each wait, so thousands of clients do not all retry at the same moment.",
+          "If the server sends Retry-After, wait at least that long.",
+          "Limit the number of retries (3 to 5), and never retry errors that will not fix themselves, such as 400 Bad Request or 413.",
+          "The example uses a seeded random generator so the waits are the same every run."
+        ],
+        "example": "Calling a busy customer-care number: you wait a minute before trying again, then a bit longer each time, rather than redialling every second.",
+        "code": "import random\n\nRETRYABLE = {429, 500, 502, 503}\nrng = random.Random(42)\n\ndef backoff_delays(max_retries=4, base=1.0, cap=20.0):\n    return [round(min(cap, base * 2 ** i) + rng.uniform(0, 0.5), 2) for i in range(max_retries)]\n\nprint(\"waits:\", backoff_delays())\nfor status in [429, 503, 400, 413]:\n    print(status, \"retry\" if status in RETRYABLE else \"do not retry\")",
+        "output": "waits: [1.32, 2.01, 4.14, 8.11]\n429 retry\n503 retry\n400 do not retry\n413 do not retry",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Double each time, capped, plus a little random jitter."
+          },
+          {
+            "line": 11,
+            "note": "Client errors will fail the same way again."
+          }
+        ],
+        "tryIt": "Change base to 0.5 and cap to 5. What waits do you get?",
+        "check": {
+          "question": "Why add random jitter to backoff delays?",
+          "options": [
+            "To make waits longer",
+            "So many clients do not all retry at exactly the same moment",
+            "It is required by HTTP"
+          ],
+          "answer": 1,
+          "why": "Spreading retries out avoids a new spike that overloads the server again."
+        }
+      },
+      {
+        "title": "Budgets and graceful degradation",
+        "say": [
+          "Set monthly budgets per team or feature, track spending as calls happen, and alert at thresholds like 50%, 80% and 100%.",
+          "Near the limit, degrade gracefully instead of stopping: switch to a smaller model, shorten answers, rely more on the cache, or pause non-essential features.",
+          "Decide these fallbacks with the product team in advance, so everyone knows what users will experience when budgets run low.",
+          "Hard stops are sometimes right, for example for free-tier users or experiments.",
+          "Show teams their spending on a dashboard; visible costs change behaviour.",
+          "Review the biggest spenders monthly. Often one prompt, feature or runaway agent explains most of the bill.",
+          "Tomorrow you will build the observability that makes these numbers visible."
+        ],
+        "example": "A household budget: when the month's grocery money runs low, you switch to simpler meals rather than stop eating.",
+        "code": "budget, spent = 1000.0, 0.0\nalerts_sent = set()\n\ndef record(cost):\n    global spent\n    spent += cost\n    for level in (0.5, 0.8, 1.0):\n        if spent >= budget * level and level not in alerts_sent:\n            alerts_sent.add(level)\n            print(f\"ALERT: {level:.0%} of budget used\")\n\ndef pick_model():\n    return \"small-model\" if spent >= 0.8 * budget else \"large-model\"\n\nfor cost in [300, 250, 300, 200]:\n    record(cost)\n    print(f\"spent ${spent:.0f}, next calls use {pick_model()}\")",
+        "output": "spent $300, next calls use large-model\nALERT: 50% of budget used\nspent $550, next calls use large-model\nALERT: 80% of budget used\nspent $850, next calls use small-model\nALERT: 100% of budget used\nspent $1050, next calls use small-model",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Each alert level fires only once."
+          },
+          {
+            "line": 13,
+            "note": "Switch to a cheaper model after 80% of the budget."
+          }
+        ],
+        "tryIt": "Add a rule: above 100%, only paying users get answers; others see a friendly message.",
+        "check": {
+          "question": "What is graceful degradation near a budget limit?",
+          "options": [
+            "Stopping the app immediately",
+            "Switching to cheaper options, like a smaller model, while staying useful",
+            "Ignoring the budget"
+          ],
+          "answer": 1,
+          "why": "The app keeps working at lower cost instead of failing."
+        }
+      }
+    ],
+    "summary": [
+      "Providers limit RPM and TPM; exceeding them returns 429.",
+      "A token bucket allows bursts and enforces an average rate.",
+      "413 for impossible calls, 429 for \"try later\", 200 when allowed.",
+      "Sliding windows count calls in the last 60 seconds fairly.",
+      "Retry with exponential backoff and jitter; degrade gracefully near budgets."
+    ],
+    "projectStep": {
+      "title": "Rate limiting",
+      "steps": [
+        "Add token_bucket and rpm_exceeded to ai_toolkit.py.",
+        "Build the TokenBucket class with a fake clock and test a burst.",
+        "Bonus: add backoff delays and a budget monitor with alerts."
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "title": "LLM Observability & Distributed Tracing (Langfuse / Helicone)",
+    "goal": "You can trace LLM calls as spans, aggregate tokens, cost and time per trace, connect user feedback to traces, set alerts on key metrics, and keep private data out of logs.",
+    "minutes": 30,
+    "recap": "Yesterday you set limits and budgets. To manage them, and to fix bad answers, you need to see what your AI system is doing. Today: observability.",
+    "parts": [
+      {
+        "title": "Why LLM apps need observability",
+        "say": [
+          "Traditional apps fail loudly with errors. LLM apps often fail quietly: a confident wrong answer, a slow reply, a cost spike, a slowly drifting quality.",
+          "Observability means recording enough about every call to answer \"what happened, and why?\" later.",
+          "The same data answers business questions too, such as which features are used most and what each one costs to run.",
+          "For LLM apps that means: the prompt and response (or a safe version), the model, tokens, cost, latency, tool calls, retrieved chunks and user feedback.",
+          "Tools such as Langfuse, Helicone, LangSmith and OpenTelemetry-based platforms collect and display this data.",
+          "The data serves many purposes: debugging, cost control, quality monitoring and building evaluation datasets from real traffic.",
+          "Today you will build the core pieces yourself, so any tool you use later makes sense."
+        ],
+        "example": "A flight data recorder: most of the time nobody looks at it, but when something goes wrong, it tells investigators exactly what happened.",
+        "code": "record = {\n    \"trace_id\": \"t-001\",\n    \"model\": \"small-v2\",\n    \"prompt_tokens\": 850,\n    \"completion_tokens\": 120,\n    \"latency_ms\": 1350,\n    \"cost\": 0.0021,\n    \"retrieved_chunks\": [\"c2\", \"c9\"],\n    \"feedback\": None,\n}\nfor key, value in record.items():\n    print(f\"{key:18} {value}\")",
+        "output": "trace_id           t-001\nmodel              small-v2\nprompt_tokens      850\ncompletion_tokens  120\nlatency_ms         1350\ncost               0.0021\nretrieved_chunks   ['c2', 'c9']\nfeedback           None",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Which chunks were used: vital for debugging RAG answers."
+          },
+          {
+            "line": 9,
+            "note": "Filled in later if the user rates the answer."
+          }
+        ],
+        "tryIt": "Add a \"prompt_version\" field. Why would it be useful when quality changes?",
+        "check": {
+          "question": "Why do LLM apps need special observability?",
+          "options": [
+            "They never fail",
+            "They often fail quietly, with wrong answers, slowness or cost spikes",
+            "They have no logs"
+          ],
+          "answer": 1,
+          "why": "Quiet failures only become visible through recorded data and monitoring."
+        }
+      },
+      {
+        "title": "Traces and spans",
+        "say": [
+          "A trace is the record of one user request from start to finish. It is made of spans: one span per step, such as retrieval, reranking, each model call and each tool call.",
+          "Spans have a name, a start and end time (or latency), and details like tokens and cost. Spans can be nested: an agent span contains its tool spans.",
+          "Recording the inputs and outputs of each span, not just its timing, is what makes debugging possible: you can see what the retriever returned and what the model then said.",
+          "All spans share the trace ID, so you can gather everything that happened for one question.",
+          "Viewing a trace as a timeline shows immediately which step was slow or failed.",
+          "Give every span the same basic fields, so aggregation is easy.",
+          "The example builds a small trace with three spans."
+        ],
+        "example": "A courier's delivery log: one parcel (the trace), with an entry for each stage (the spans): picked up, sorted, loaded, delivered, each with a time.",
+        "code": "trace = {\"trace_id\": \"t-042\", \"spans\": [\n    {\"name\": \"retrieve\", \"prompt_tokens\": 0, \"completion_tokens\": 0, \"cost\": 0.0, \"latency_ms\": 180},\n    {\"name\": \"rerank\", \"prompt_tokens\": 0, \"completion_tokens\": 0, \"cost\": 0.0004, \"latency_ms\": 140},\n    {\"name\": \"generate\", \"prompt_tokens\": 1200, \"completion_tokens\": 250, \"cost\": 0.0055, \"latency_ms\": 1900},\n]}\nfor span in trace[\"spans\"]:\n    bar = \"#\" * (span[\"latency_ms\"] // 100)\n    print(f\"{span['name']:9} {span['latency_ms']:>5} ms {bar}\")",
+        "output": "retrieve    180 ms #\nrerank      140 ms #\ngenerate   1900 ms ###################",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The generation span holds most tokens and time."
+          },
+          {
+            "line": 7,
+            "note": "A simple timeline: one # per 100 ms."
+          }
+        ],
+        "tryIt": "Add a \"guardrail_check\" span of 60 ms and see where it appears on the timeline.",
+        "check": {
+          "question": "What is a span?",
+          "options": [
+            "A whole user session",
+            "One step inside a trace, such as a model call or a tool call",
+            "A type of token"
+          ],
+          "answer": 1,
+          "why": "Spans are the individual steps; a trace groups them for one request."
+        }
+      },
+      {
+        "title": "Aggregating a trace",
+        "say": [
+          "Practice 1: aggregate_traces(spans) returns total tokens (prompt plus completion across all spans), total cost rounded to 4, and total seconds (summed latency / 1000, rounded to 2).",
+          "Summing latency is correct here because the spans ran one after another. If steps run in parallel, the trace's time is from the first start to the last end instead.",
+          "Parallel work is common in agents and hybrid search, where two searches run at the same time, so check how each step actually ran before adding numbers up.",
+          "Round only at the end, to avoid small rounding errors adding up.",
+          "These three numbers per trace, collected over thousands of traces, give you cost per question, tokens per question and time per question.",
+          "Those are the numbers product managers and finance teams ask about.",
+          "Grouping them by feature or by model shows where to optimise."
+        ],
+        "example": "Adding up a restaurant bill: every dish's price and preparation time, to get the total cost and how long the table waited.",
+        "code": "def aggregate_traces(spans):\n    tokens = sum(s[\"prompt_tokens\"] + s[\"completion_tokens\"] for s in spans)\n    cost = sum(s[\"cost\"] for s in spans)\n    seconds = sum(s[\"latency_ms\"] for s in spans) / 1000\n    return {\"total_tokens\": tokens, \"total_cost\": round(cost, 4), \"total_seconds\": round(seconds, 2)}\n\nspans = [\n    {\"prompt_tokens\": 0, \"completion_tokens\": 0, \"cost\": 0.0, \"latency_ms\": 180},\n    {\"prompt_tokens\": 300, \"completion_tokens\": 20, \"cost\": 0.0004, \"latency_ms\": 140},\n    {\"prompt_tokens\": 1200, \"completion_tokens\": 250, \"cost\": 0.0055, \"latency_ms\": 1900},\n]\nprint(aggregate_traces(spans))\nprint(aggregate_traces([]))",
+        "output": "{'total_tokens': 1770, 'total_cost': 0.0059, 'total_seconds': 2.22}\n{'total_tokens': 0, 'total_cost': 0, 'total_seconds': 0.0}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Prompt plus completion tokens, for every span."
+          },
+          {
+            "line": 4,
+            "note": "Sequential spans: latencies add up."
+          }
+        ],
+        "tryIt": "Two spans ran in parallel, from 0 to 900 ms and from 0 to 1200 ms. What is the true total time?",
+        "check": {
+          "question": "When is summing span latencies the correct total time?",
+          "options": [
+            "Always",
+            "When the spans ran one after another",
+            "When they ran in parallel"
+          ],
+          "answer": 1,
+          "why": "Parallel spans overlap, so their times should not simply be added."
+        }
+      },
+      {
+        "title": "User feedback",
+        "say": [
+          "The best quality signal is users themselves. A thumbs up or down on each answer costs them one click.",
+          "Practice 2: feedback_score(thumbs_up, thumbs_down) returns the share of positive votes as a percentage with one decimal, or \"0.0%\" with no votes.",
+          "Store each vote with its trace ID. Then every thumbs-down links directly to the full trace: prompt, chunks, model and timing.",
+          "Make feedback easy and optional, and never make users justify a thumbs-down; a short, optional comment box is enough.",
+          "Thumbs-down traces are gold: review them weekly, fix the causes, and add them to your golden dataset.",
+          "Only a small share of users vote, and unhappy users vote more often, so treat the score as a trend, not an exact measure.",
+          "Optional short comments (\"wrong price\", \"too long\") make the votes far more useful."
+        ],
+        "example": "A comment card at a restaurant that is stapled to the order ticket, so the manager can see exactly which dish and which cook the complaint was about.",
+        "code": "def feedback_score(thumbs_up, thumbs_down):\n    total = thumbs_up + thumbs_down\n    return \"0.0%\" if total == 0 else f\"{thumbs_up / total * 100:.1f}%\"\n\nvotes = [(\"t-001\", \"up\"), (\"t-002\", \"down\"), (\"t-003\", \"up\"), (\"t-004\", \"up\"), (\"t-005\", \"down\")]\nup = sum(v == \"up\" for _, v in votes)\nprint(feedback_score(up, len(votes) - up), feedback_score(0, 0))\nprint(\"traces to review:\", [t for t, v in votes if v == \"down\"])",
+        "output": "60.0% 0.0%\ntraces to review: ['t-002', 't-005']",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "No votes: avoid dividing by zero."
+          },
+          {
+            "line": 8,
+            "note": "Each thumbs-down points to a full trace."
+          }
+        ],
+        "tryIt": "Add five more votes and see how the score and the review list change.",
+        "check": {
+          "question": "Why store each vote with its trace ID?",
+          "options": [
+            "To count votes faster",
+            "So every negative vote links to the full record of what happened",
+            "Trace IDs are required by browsers"
+          ],
+          "answer": 1,
+          "why": "The link lets you see exactly why an answer was rated badly."
+        }
+      },
+      {
+        "title": "Dashboards and alerts",
+        "say": [
+          "Watch a few key metrics: p95 latency, error rate, cost per day, tokens per question, cache hit rate and feedback score.",
+          "Set alerts on thresholds that matter: p95 above 5 seconds, error rate above 2%, daily cost 50% above normal, feedback score dropping 10 points.",
+          "Compare against a baseline (last week), not fixed numbers alone, because traffic changes over time.",
+          "Too many alerts get ignored. Start with a handful that need action, and tune them.",
+          "Every alert should say what to check first, for example \"see the p95 latency panel and the slowest traces\", so whoever receives it can act quickly.",
+          "Break metrics down by model, prompt version and feature, so a change can be traced to its cause.",
+          "Every alert should link to example traces, so the person on call can start investigating immediately."
+        ],
+        "example": "A car dashboard: a few gauges you watch constantly (speed, fuel), and warning lights that come on only when something needs your attention.",
+        "code": "today = {\"p95_ms\": 5400, \"error_rate\": 0.011, \"cost\": 182.0, \"feedback\": 0.71}\nlast_week = {\"p95_ms\": 3100, \"error_rate\": 0.009, \"cost\": 120.0, \"feedback\": 0.83}\n\nalerts = []\nif today[\"p95_ms\"] > 5000:\n    alerts.append(f\"p95 latency {today['p95_ms']} ms\")\nif today[\"error_rate\"] > 0.02:\n    alerts.append(\"error rate high\")\nif today[\"cost\"] > 1.5 * last_week[\"cost\"]:\n    alerts.append(f\"cost up {today['cost'] / last_week['cost'] - 1:.0%}\")\nif last_week[\"feedback\"] - today[\"feedback\"] >= 0.10:\n    alerts.append(\"feedback score dropped\")\nprint(alerts or \"all normal\")",
+        "output": "['p95 latency 5400 ms', 'cost up 52%', 'feedback score dropped']",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Compare cost with last week, not a fixed number."
+          },
+          {
+            "line": 11,
+            "note": "A 10-point drop in satisfaction."
+          }
+        ],
+        "tryIt": "Lower today's cost to 170. Does the cost alert still fire? What about 181?",
+        "check": {
+          "question": "Why compare metrics against a baseline like last week?",
+          "options": [
+            "Baselines are more accurate",
+            "Traffic changes over time, so relative changes reveal real problems",
+            "Fixed thresholds are not allowed"
+          ],
+          "answer": 1,
+          "why": "A sudden change from normal is a better signal than an absolute number alone."
+        }
+      },
+      {
+        "title": "Privacy in logs",
+        "say": [
+          "Traces contain user messages, which may include names, phone numbers, emails, addresses or health details.",
+          "Mask personal data before storing: replace emails and phone numbers with placeholders like [EMAIL] and [PHONE].",
+          "Do the masking as early as possible, before data reaches any log, queue or third-party tool, so it never has to be deleted from many places later.",
+          "Limit who can read raw traces, set a retention period (for example 30 days), and delete on request.",
+          "Sampling helps: store full traces for a percentage of traffic, and only metrics for the rest.",
+          "Check your providers' data policies too; observability tools that store prompts are another place data lives.",
+          "Tomorrow you will connect RAG to knowledge graphs for questions that need relationships."
+        ],
+        "example": "A hospital sharing case notes for research: names and ID numbers are blacked out, but the medical details remain useful.",
+        "code": "import re\n\nEMAIL = re.compile(r\"[\\w.+-]+@[\\w-]+\\.[\\w.]+\")\nPHONE = re.compile(r\"(?:\\+91[\\s-]?)?\\b\\d{10}\\b\")\n\ndef mask(text):\n    return PHONE.sub(\"[PHONE]\", EMAIL.sub(\"[EMAIL]\", text))\n\nprint(mask(\"Hi, I am Asha, reach me at asha.k@example.com or +91 9876543210 about order 5521.\"))",
+        "output": "Hi, I am Asha, reach me at [EMAIL] or [PHONE] about order 5521.",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "A simple email pattern."
+          },
+          {
+            "line": 4,
+            "note": "Ten-digit phone numbers, with an optional +91."
+          },
+          {
+            "line": 7,
+            "note": "Replace personal data with placeholders before storing."
+          }
+        ],
+        "tryIt": "Add a pattern for 12-digit ID numbers written in groups of four, like 1234 5678 9012.",
+        "check": {
+          "question": "Why mask personal data before storing traces?",
+          "options": [
+            "To save disk space",
+            "Logs are read by many people and kept for a long time",
+            "Masking makes models faster"
+          ],
+          "answer": 1,
+          "why": "Masking protects users if logs are viewed, shared or leaked."
+        }
+      }
+    ],
+    "summary": [
+      "LLM apps fail quietly; record prompts, tokens, cost, latency and context.",
+      "A trace is one request; spans are its steps.",
+      "Aggregate tokens, cost and time per trace; watch parallel spans.",
+      "Link user feedback to traces and review the negative ones.",
+      "Alert on a few key metrics against a baseline; mask personal data."
+    ],
+    "projectStep": {
+      "title": "Observability",
+      "steps": [
+        "Add aggregate_traces and feedback_score to ai_toolkit.py.",
+        "Build 3 fake traces and print cost, tokens and time for each.",
+        "Bonus: add mask(text) and use it before storing any trace."
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "title": "Knowledge Graph RAG (GraphRAG) with Neo4j",
+    "goal": "You can explain when knowledge graphs beat plain chunk retrieval, build a small graph from triples, traverse relations and multiple hops, and write safe Cypher queries.",
+    "minutes": 30,
+    "recap": "Your RAG system finds relevant chunks by meaning. Some questions are about relationships between many things. Knowledge graphs answer those well.",
+    "parts": [
+      {
+        "title": "When chunk retrieval struggles",
+        "say": [
+          "Chunk RAG works when the answer sits in one or two passages. It struggles with questions that connect facts spread across many documents.",
+          "Example: \"Which of our suppliers are owned by companies based in Pune?\" The supplier list, the ownership records and the head-office cities are in different places.",
+          "A knowledge graph stores facts as nodes (things) and edges (relationships): Supplier A -OWNED_BY-> Company X -BASED_IN-> Pune.",
+          "Answering such questions from chunks would require the model to find and join several passages correctly, which it often fails to do reliably.",
+          "Following edges answers multi-hop questions precisely, and the path itself explains the answer.",
+          "GraphRAG combines graphs with LLMs: the model helps build the graph from documents, and the graph supplies precise context for answers.",
+          "Graph databases such as Neo4j store and query these structures efficiently."
+        ],
+        "example": "A family tree: to find your grandmother's cousins, you follow the lines between people, rather than searching every family photo album for mentions.",
+        "code": "facts = [\n    (\"SupplierA\", \"OWNED_BY\", \"CompanyX\"),\n    (\"SupplierB\", \"OWNED_BY\", \"CompanyY\"),\n    (\"CompanyX\", \"BASED_IN\", \"Pune\"),\n    (\"CompanyY\", \"BASED_IN\", \"Chennai\"),\n]\nowners = {s: o for s, r, o in facts if r == \"OWNED_BY\"}\ncities = {s: o for s, r, o in facts if r == \"BASED_IN\"}\nprint([s for s, owner in owners.items() if cities.get(owner) == \"Pune\"])",
+        "output": "['SupplierA']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Each fact is a triple: subject, relation, object."
+          },
+          {
+            "line": 9,
+            "note": "Two hops: supplier to owner, owner to city."
+          }
+        ],
+        "tryIt": "Add SupplierC owned by CompanyZ in Pune and run it again.",
+        "check": {
+          "question": "What kind of question do knowledge graphs answer especially well?",
+          "options": [
+            "Questions about one paragraph",
+            "Multi-hop questions that connect facts across many sources",
+            "Spelling questions"
+          ],
+          "answer": 1,
+          "why": "Following relationships across several facts is exactly what graphs are built for."
+        }
+      },
+      {
+        "title": "Building a graph from triples",
+        "say": [
+          "Facts are usually extracted as triples: (subject, relation, object). An LLM can extract them from documents with a structured-output prompt, as on Day 5.",
+          "Store nodes with properties (name, type, city) and edges with a type (OWNED_BY, WORKS_AT, DEPENDS_ON).",
+          "Normalise names so the same thing becomes one node: \"Infosys Ltd\", \"Infosys\" and \"INFOSYS\" should merge. This step, called entity resolution, decides graph quality.",
+          "Real entity resolution also uses context: \"Apple\" the company and \"apple\" the fruit must stay separate, which is where an LLM or extra rules help.",
+          "Keep the source document for each edge, so answers can cite where a relationship came from.",
+          "Check extracted triples: allowed relation types only, and no empty subjects or objects.",
+          "The example builds nodes and edges with sources from extracted triples."
+        ],
+        "example": "Building a contact board for a detective case: each person gets one card, and strings between cards are labelled with how they are connected and which witness said so.",
+        "code": "triples = [(\"Asha\", \"WORKS_AT\", \"Infosys Ltd\", \"doc-1\"), (\"asha\", \"LIVES_IN\", \"Mysuru\", \"doc-2\"), (\"Ravi\", \"WORKS_AT\", \"INFOSYS\", \"doc-3\")]\nALLOWED = {\"WORKS_AT\", \"LIVES_IN\"}\n\ndef canon(name):\n    return name.lower().replace(\" ltd\", \"\").strip().title()\n\nnodes, edges = set(), []\nfor s, rel, o, src in triples:\n    if rel not in ALLOWED or not s or not o:\n        continue\n    s, o = canon(s), canon(o)\n    nodes.update([s, o])\n    edges.append({\"from\": s, \"to\": o, \"type\": rel, \"source\": src})\nprint(sorted(nodes))\nfor e in edges:\n    print(e)",
+        "output": "['Asha', 'Infosys', 'Mysuru', 'Ravi']\n{'from': 'Asha', 'to': 'Infosys', 'type': 'WORKS_AT', 'source': 'doc-1'}\n{'from': 'Asha', 'to': 'Mysuru', 'type': 'LIVES_IN', 'source': 'doc-2'}\n{'from': 'Ravi', 'to': 'Infosys', 'type': 'WORKS_AT', 'source': 'doc-3'}",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A very simple entity resolution: one spelling per thing."
+          },
+          {
+            "line": 9,
+            "note": "Skip relation types we did not ask for, and empty values."
+          },
+          {
+            "line": 13,
+            "note": "Each edge remembers its source document."
+          }
+        ],
+        "tryIt": "Add a triple with relation \"LIKES\". It is skipped; should it be?",
+        "check": {
+          "question": "What is entity resolution in graph building?",
+          "options": [
+            "Deleting old nodes",
+            "Merging different spellings of the same thing into one node",
+            "Choosing edge colours"
+          ],
+          "answer": 1,
+          "why": "Without it, \"Infosys\" and \"INFOSYS\" become separate nodes and connections are missed."
+        }
+      },
+      {
+        "title": "Traversing a relation",
+        "say": [
+          "Practice 1: traverse_graph(graph, start, relation). For every edge of the given type leaving start, return the target's id and its properties, in edge order.",
+          "Build a lookup from node id to properties first, so each target's properties are found in O(1).",
+          "If a target node is missing from the node list, return {} for its properties rather than crashing; real graphs are often incomplete.",
+          "Graphs built from documents almost always have gaps, so code that works on them must expect missing nodes and properties.",
+          "This one-hop query is the building block of graph retrieval: \"what does X own?\", \"who works at Y?\".",
+          "Graph databases index edges by their start node, so this lookup stays fast even with millions of edges.",
+          "The results, with their properties, can go straight into a prompt as structured context."
+        ],
+        "example": "Looking up a person in a company directory and listing everyone who reports to them, with each person's job title.",
+        "code": "def traverse_graph(graph, start, relation):\n    props = {n[\"id\"]: n[\"properties\"] for n in graph[\"nodes\"]}\n    return [{\"entity\": e[\"to\"], \"properties\": props.get(e[\"to\"], {})}\n            for e in graph[\"edges\"] if e[\"from\"] == start and e[\"type\"] == relation]\n\ngraph = {\n    \"nodes\": [{\"id\": \"CompanyX\", \"properties\": {\"city\": \"Pune\"}}, {\"id\": \"SupplierA\", \"properties\": {\"sector\": \"steel\"}}],\n    \"edges\": [{\"from\": \"CompanyX\", \"to\": \"SupplierA\", \"type\": \"OWNS\"}, {\"from\": \"CompanyX\", \"to\": \"SupplierZ\", \"type\": \"OWNS\"},\n              {\"from\": \"CompanyX\", \"to\": \"Pune\", \"type\": \"BASED_IN\"}],\n}\nprint(traverse_graph(graph, \"CompanyX\", \"OWNS\"))\nprint(traverse_graph(graph, \"CompanyY\", \"OWNS\"))",
+        "output": "[{'entity': 'SupplierA', 'properties': {'sector': 'steel'}}, {'entity': 'SupplierZ', 'properties': {}}]\n[]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Look up properties by node id."
+          },
+          {
+            "line": 3,
+            "note": "Missing nodes get empty properties."
+          },
+          {
+            "line": 4,
+            "note": "Only edges of this type leaving start."
+          }
+        ],
+        "tryIt": "Add a node for SupplierZ with properties and check they appear in the result.",
+        "check": {
+          "question": "What should traverse_graph return for a target node missing from the node list?",
+          "options": [
+            "Crash",
+            "The target id with empty properties {}",
+            "Skip the edge silently"
+          ],
+          "answer": 1,
+          "why": "Returning {} keeps the result complete and the code robust."
+        }
+      },
+      {
+        "title": "Multi-hop questions",
+        "say": [
+          "Many questions need several hops: Company -> owns -> Supplier -> supplies -> Product. Chain one-hop traversals, or do a breadth-first search with a hop limit.",
+          "Keep the path for each result. \"Product P, via SupplierA, owned by CompanyX\" is an answer and an explanation at once.",
+          "Limit the hops (usually 2 or 3). Graphs are highly connected, and unlimited traversal can reach almost everything.",
+          "Also avoid visiting the same node twice on one path, or cycles in the graph can produce endless loops of the same facts.",
+          "Turn paths into short sentences for the prompt: \"CompanyX owns SupplierA. SupplierA supplies Brake pads.\"",
+          "This gives the model precise, verifiable context instead of loosely related chunks.",
+          "The BFS below is the same algorithm as in the DSA course, now carrying edge types."
+        ],
+        "example": "Following a chain of introductions: a friend of a friend of a friend, where you remember exactly who introduced whom.",
+        "code": "from collections import deque\n\nedges = [(\"CompanyX\", \"OWNS\", \"SupplierA\"), (\"SupplierA\", \"SUPPLIES\", \"Brake pads\"), (\"SupplierA\", \"SUPPLIES\", \"Clutch plates\"), (\"CompanyX\", \"OWNS\", \"SupplierB\"), (\"SupplierB\", \"SUPPLIES\", \"Seats\")]\n\ndef paths_from(start, max_hops=2):\n    results, queue = [], deque([(start, [])])\n    while queue:\n        node, path = queue.popleft()\n        if len(path) == max_hops:\n            results.append(path)\n            continue\n        for s, rel, o in edges:\n            if s == node:\n                queue.append((o, path + [(s, rel, o)]))\n    return results\n\nfor path in paths_from(\"CompanyX\"):\n    print(\". \".join(f\"{s} {rel.lower()} {o}\" for s, rel, o in path) + \".\")",
+        "output": "CompanyX owns SupplierA. SupplierA supplies Brake pads.\nCompanyX owns SupplierA. SupplierA supplies Clutch plates.\nCompanyX owns SupplierB. SupplierB supplies Seats.",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Stop after the hop limit."
+          },
+          {
+            "line": 14,
+            "note": "Extend the path by one edge."
+          },
+          {
+            "line": 18,
+            "note": "Paths become sentences for the prompt."
+          }
+        ],
+        "tryIt": "Change max_hops to 1 and see how the results change.",
+        "check": {
+          "question": "Why limit the number of hops in a graph search?",
+          "options": [
+            "Graphs only allow 2 hops",
+            "Graphs are highly connected, so unlimited search can reach almost everything",
+            "To make paths longer"
+          ],
+          "answer": 1,
+          "why": "A hop limit keeps results relevant and the search fast."
+        }
+      },
+      {
+        "title": "Cypher queries, safely",
+        "say": [
+          "Neo4j uses the Cypher query language. Patterns look like drawings: (a)-[:OWNS]->(b) means \"a node a with an OWNS edge to b\".",
+          "Practice 2: build_match_cypher(a, relation, b) returns MATCH (a {id: 'A'})-[:RELATION]->(b {id: 'B'}) RETURN b. In an f-string, write {{ and }} to print single braces.",
+          "Building queries by inserting text is fine for learning, but dangerous with user input, just like SQL injection. A name containing a quote could change the query.",
+          "In real code, use parameters: MATCH (a {id: $a}) ..., passing values separately, so the database never treats them as query code.",
+          "Parameters also let the database reuse its plan for the query, which makes repeated queries faster.",
+          "Relation types cannot be parameters in Cypher, so check them against an allowed list.",
+          "LLMs can write Cypher from questions (text-to-Cypher), but always validate and run such queries with read-only permissions."
+        ],
+        "example": "Filling in a printed form: values go in the boxes (parameters), and nothing you write can change the questions printed on the form.",
+        "code": "ALLOWED_RELATIONS = {\"OWNS\", \"SUPPLIES\", \"BASED_IN\"}\n\ndef build_match_cypher(a, relation, b):\n    return f\"MATCH (a {{id: '{a}'}})-[:{relation}]->(b {{id: '{b}'}}) RETURN b\"\n\ndef safe_query(relation):\n    if relation not in ALLOWED_RELATIONS:\n        raise ValueError(f\"relation {relation!r} not allowed\")\n    return f\"MATCH (a {{id: $a}})-[:{relation}]->(b) RETURN b\"\n\nprint(build_match_cypher(\"CompanyX\", \"OWNS\", \"SupplierA\"))\nprint(build_match_cypher(\"x'}) DETACH DELETE (a\", \"OWNS\", \"y\"))\nprint(safe_query(\"OWNS\"), \"| params:\", {\"a\": \"CompanyX\"})",
+        "output": "MATCH (a {id: 'CompanyX'})-[:OWNS]->(b {id: 'SupplierA'}) RETURN b\nMATCH (a {id: 'x'}) DETACH DELETE (a'})-[:OWNS]->(b {id: 'y'}) RETURN b\nMATCH (a {id: $a})-[:OWNS]->(b) RETURN b | params: {'a': 'CompanyX'}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Double braces print single braces in an f-string."
+          },
+          {
+            "line": 12,
+            "note": "Inserted text can change the query: an injection risk."
+          },
+          {
+            "line": 13,
+            "note": "Parameters keep values out of the query code."
+          }
+        ],
+        "tryIt": "Call safe_query(\"DROP\") and read the error.",
+        "check": {
+          "question": "Why use parameters like $a in Cypher queries?",
+          "options": [
+            "They run faster",
+            "Values are passed separately, so they cannot change the query itself",
+            "Cypher requires dollar signs"
+          ],
+          "answer": 1,
+          "why": "Parameters stop user input from being interpreted as query code."
+        }
+      },
+      {
+        "title": "Combining graphs with vector search",
+        "say": [
+          "Graphs and vectors complement each other. Vector search finds relevant passages by meaning; graphs give exact relationships and multi-hop paths.",
+          "A common pattern: use vector search to find the entities a question mentions, then traverse the graph from them, and put both passages and paths in the prompt.",
+          "Keep the graph facts short and clearly labelled in the prompt, and ask the model to cite them like chunks, so answers stay checkable.",
+          "Microsoft's GraphRAG adds community summaries: groups of closely connected nodes are summarised in advance, which helps with broad questions like \"What are the main themes in these reports?\".",
+          "Graphs cost effort to build and maintain. Use them when relationships really matter: supply chains, organisations, compliance, fraud, research literature.",
+          "Measure with your golden dataset: add graph context only if it improves answers on the questions that need it.",
+          "Tomorrow, the capstone joins everything from this course into one platform."
+        ],
+        "example": "A travel planner using both a guidebook (descriptions found by topic) and a route map (exact connections between places) to plan a trip.",
+        "code": "passages = {\"supplier-risk\": \"Suppliers in flood-prone areas face delays in monsoon season.\"}\ngraph_paths = [\"CompanyX owns SupplierA.\", \"SupplierA is based in Chennai.\", \"Chennai is flood-prone.\"]\nquestion = \"Is CompanyX exposed to monsoon supply risk?\"\ncontext = \"Passages:\\n\" + \"\\n\".join(passages.values()) + \"\\nFacts from the graph:\\n\" + \"\\n\".join(graph_paths)\nprint(context)\nprint(\"Question:\", question)",
+        "output": "Passages:\nSuppliers in flood-prone areas face delays in monsoon season.\nFacts from the graph:\nCompanyX owns SupplierA.\nSupplierA is based in Chennai.\nChennai is flood-prone.\nQuestion: Is CompanyX exposed to monsoon supply risk?",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Meaning-based passages plus exact graph facts in one prompt."
+          }
+        ],
+        "tryIt": "Write the answer you would expect, citing both a passage and a graph fact.",
+        "check": {
+          "question": "What do knowledge graphs add to vector-based RAG?",
+          "options": [
+            "Faster embeddings",
+            "Exact relationships and multi-hop paths between entities",
+            "Cheaper tokens"
+          ],
+          "answer": 1,
+          "why": "Graphs provide precise connections that similarity search alone cannot."
+        }
+      }
+    ],
+    "summary": [
+      "Graphs store facts as nodes and typed edges; they excel at multi-hop questions.",
+      "Build graphs from validated triples, merge entity spellings, keep sources.",
+      "traverse_graph follows one relation; BFS with a hop limit handles several.",
+      "Use Cypher parameters and allowed relation lists to avoid injection.",
+      "Combine graph paths with vector passages when relationships matter."
+    ],
+    "projectStep": {
+      "title": "Graph tools",
+      "steps": [
+        "Add traverse_graph and build_match_cypher to ai_toolkit.py.",
+        "Build a small graph of 8 facts about a topic you know and answer a 2-hop question.",
+        "Bonus: turn each graph path into a sentence for a RAG prompt."
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Enterprise Agentic RAG Platform with Guardrails, Semantic Caching & Multi-Tool Execution",
+    "goal": "You can assemble an enterprise AI platform: guardrails, caching, retrieval, generation and cache updates in the right order, with tracing, tests for every path, and a certification audit.",
+    "minutes": 30,
+    "recap": "In 30 days you learned prompting, structured output, tools, RAG, security, agents, caching, fine-tuning, serving and operations. The capstone connects them into one platform.",
+    "parts": [
+      {
+        "title": "The platform flow",
+        "say": [
+          "A production AI request flows through the same stages again and again: check it is safe, look in the cache, retrieve context, generate the answer, save it to the cache, and return it with sources.",
+          "Each stage comes from a lesson: security (Day 14), caching (Day 22), retrieval and reranking (Days 7 to 15), generation with prompts (Days 3 to 5).",
+          "Order matters. Security comes first, so blocked prompts never reach the cache or the model. The cache comes before retrieval, so hits skip all the expensive work.",
+          "Output checks come last, just before returning: even a cached answer should pass them, in case the rules changed after it was stored.",
+          "Practice 1 builds this flow with each stage passed in as a function in a services dict, so it can be tested with fakes.",
+          "The same shape scales from a demo to a real product; only the services behind the functions change.",
+          "Before coding, list the possible outcomes: BLOCKED, answered from CACHE, answered by RAG."
+        ],
+        "example": "Airport departures: security first, then the fast lane for those already checked in, and only then the full check-in desk for everyone else.",
+        "code": "flow = [\"is_threat\", \"cache_get\", \"retrieve\", \"answer\", \"cache_set\"]\nlessons = {\"is_threat\": 14, \"cache_get\": 22, \"retrieve\": 10, \"answer\": 3, \"cache_set\": 22}\nfor step in flow:\n    print(f\"{step:10} (Day {lessons[step]})\")\nprint(\"outcomes: BLOCKED, CACHE, RAG\")",
+        "output": "is_threat  (Day 14)\ncache_get  (Day 22)\nretrieve   (Day 10)\nanswer     (Day 3)\ncache_set  (Day 22)\noutcomes: BLOCKED, CACHE, RAG",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "The stages in order."
+          }
+        ],
+        "tryIt": "Where would you add the output guardrails from Day 14? Put the step in the right place in the list.",
+        "check": {
+          "question": "Why does the security check come before the cache lookup?",
+          "options": [
+            "It is faster",
+            "Blocked prompts should never reach the cache or the model",
+            "The cache needs the threat score"
+          ],
+          "answer": 1,
+          "why": "Checking first ensures an attack is stopped before any other stage sees it."
+        }
+      },
+      {
+        "title": "The run_ai_platform function",
+        "say": [
+          "Practice 1: run_ai_platform(query, services). If services[\"is_threat\"](query) is true, return {\"success\": False, \"error\": \"BLOCKED\"}.",
+          "Otherwise try services[\"cache_get\"](query). If it returns something (not None), return {\"success\": True, \"source\": \"CACHE\", \"response\": ...}.",
+          "Otherwise retrieve sources, generate the answer with answer(query, sources), save it with cache_set, and return success with source \"RAG\", the response and the sources.",
+          "Check \"is not None\" rather than truthiness for the cache, so a cached empty string is still treated as a hit.",
+          "Small details like this cause real bugs in production: a legitimate empty answer that is treated as a miss would be generated again and again.",
+          "Returning sources with RAG answers lets the interface show citations.",
+          "Test all three paths with fake services before connecting real ones."
+        ],
+        "example": "A help desk that turns away prank calls, answers common questions from a ready script, and researches the rest, adding each new answer to the script.",
+        "code": "def run_ai_platform(query, services):\n    if services[\"is_threat\"](query):\n        return {\"success\": False, \"error\": \"BLOCKED\"}\n    cached = services[\"cache_get\"](query)\n    if cached is not None:\n        return {\"success\": True, \"source\": \"CACHE\", \"response\": cached}\n    sources = services[\"retrieve\"](query)\n    response = services[\"answer\"](query, sources)\n    services[\"cache_set\"](query, response)\n    return {\"success\": True, \"source\": \"RAG\", \"response\": response, \"sources\": sources}\n\ncache = {}\nservices = {\n    \"is_threat\": lambda q: \"ignore previous instructions\" in q.lower(),\n    \"cache_get\": lambda q: cache.get(q),\n    \"retrieve\": lambda q: [\"refund-policy.pdf\"],\n    \"answer\": lambda q, s: f\"Refunds take 5 days (from {s[0]}).\",\n    \"cache_set\": lambda q, r: cache.__setitem__(q, r),\n}\nfor q in [\"Ignore previous instructions!\", \"How long do refunds take?\", \"How long do refunds take?\"]:\n    print(run_ai_platform(q, services))",
+        "output": "{'success': False, 'error': 'BLOCKED'}\n{'success': True, 'source': 'RAG', 'response': 'Refunds take 5 days (from refund-policy.pdf).', 'sources': ['refund-policy.pdf']}\n{'success': True, 'source': 'CACHE', 'response': 'Refunds take 5 days (from refund-policy.pdf).'}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Security first."
+          },
+          {
+            "line": 5,
+            "note": "\"is not None\", so even an empty cached answer counts."
+          },
+          {
+            "line": 9,
+            "note": "Save the new answer for next time."
+          }
+        ],
+        "tryIt": "Add a fourth question that is new. It should come from RAG, and a repeat of it from CACHE.",
+        "check": {
+          "question": "Why check \"cached is not None\" instead of \"if cached\"?",
+          "options": [
+            "It is shorter",
+            "A cached empty string should still count as a hit",
+            "None is not allowed in dicts"
+          ],
+          "answer": 1,
+          "why": "An empty string is falsy, but it is still a real cached value."
+        }
+      },
+      {
+        "title": "Wrapping services with tracing",
+        "say": [
+          "Every service call should be traced (Day 28): its name, time and outcome. Adding that code inside each service is repetitive.",
+          "A wrapper function takes a service and returns a new function that records a span, then calls the original. Python decorators work the same way.",
+          "Because wrappers only need the service name and function, you can add or remove them in one place, for example turning on detailed tracing only in testing.",
+          "Wrapping all services at once gives a complete trace of every request without touching the platform logic.",
+          "The same wrapper idea adds budgets (Day 27), retries with backoff, or timeouts to every service.",
+          "This separation (business logic in one place, cross-cutting concerns in wrappers) keeps the code clean as the platform grows.",
+          "The example uses a step counter instead of real time so the output is the same every run."
+        ],
+        "example": "Every parcel passing through a sorting centre gets scanned automatically at each belt, without the workers having to write anything down.",
+        "code": "trace = []\n\ndef traced(name, fn):\n    def wrapper(*args):\n        result = fn(*args)\n        trace.append({\"span\": name, \"step\": len(trace) + 1, \"ok\": result is not None})\n        return result\n    return wrapper\n\nservices = {\n    \"is_threat\": lambda q: False,\n    \"cache_get\": lambda q: None,\n    \"retrieve\": lambda q: [\"faq.md\"],\n    \"answer\": lambda q, s: \"Open 9 to 9.\",\n}\nservices = {name: traced(name, fn) for name, fn in services.items()}\nservices[\"is_threat\"](\"hours?\")\nservices[\"cache_get\"](\"hours?\")\nservices[\"answer\"](\"hours?\", services[\"retrieve\"](\"hours?\"))\nfor span in trace:\n    print(span)",
+        "output": "{'span': 'is_threat', 'step': 1, 'ok': True}\n{'span': 'cache_get', 'step': 2, 'ok': False}\n{'span': 'retrieve', 'step': 3, 'ok': True}\n{'span': 'answer', 'step': 4, 'ok': True}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The wrapper records a span around the original call."
+          },
+          {
+            "line": 16,
+            "note": "Wrap every service in one line."
+          }
+        ],
+        "tryIt": "Add a \"duration_ms\" field with a fake value of 100 for every span, and print the total.",
+        "check": {
+          "question": "What is the benefit of adding tracing through wrappers?",
+          "options": [
+            "It makes services smarter",
+            "Every call is traced without changing the services or the platform logic",
+            "Wrappers remove the need for logs"
+          ],
+          "answer": 1,
+          "why": "Cross-cutting concerns are added in one place, keeping the core code clean."
+        }
+      },
+      {
+        "title": "Testing every path",
+        "say": [
+          "A platform is only trustworthy if every path is tested: blocked, cached, freshly answered, and failures such as retrieval returning nothing.",
+          "Write tests as small functions with fake services, each asserting the exact result. They run in milliseconds and need no network.",
+          "Test the order too: when a prompt is a threat, the cache and model must not be called at all. A fake that records calls proves it.",
+          "These tests also document the platform: a new teammate can read them to learn exactly how each kind of request is handled.",
+          "Add your golden dataset evaluation (Day 13) on top, to test answer quality, not just the flow.",
+          "Run all tests on every change, automatically, before anything reaches users.",
+          "Tests are what let you improve the platform confidently for years."
+        ],
+        "example": "A fire drill: you rehearse every exit route in advance, so you know each one works before a real emergency.",
+        "code": "def run_ai_platform(query, s):\n    if s[\"is_threat\"](query):\n        return {\"success\": False, \"error\": \"BLOCKED\"}\n    cached = s[\"cache_get\"](query)\n    if cached is not None:\n        return {\"success\": True, \"source\": \"CACHE\", \"response\": cached}\n    sources = s[\"retrieve\"](query)\n    response = s[\"answer\"](query, sources)\n    s[\"cache_set\"](query, response)\n    return {\"success\": True, \"source\": \"RAG\", \"response\": response, \"sources\": sources}\n\ndef fakes(threat=False, cached=None):\n    calls = []\n    s = {\"is_threat\": lambda q: threat, \"cache_get\": lambda q: calls.append(\"cache\") or cached,\n         \"retrieve\": lambda q: calls.append(\"retrieve\") or [\"doc\"], \"answer\": lambda q, src: \"ans\", \"cache_set\": lambda q, r: calls.append(\"save\")}\n    return s, calls\n\ns, calls = fakes(threat=True)\nassert run_ai_platform(\"x\", s) == {\"success\": False, \"error\": \"BLOCKED\"} and calls == []\ns, calls = fakes(cached=\"hi\")\nassert run_ai_platform(\"x\", s)[\"source\"] == \"CACHE\" and calls == [\"cache\"]\ns, calls = fakes()\nassert run_ai_platform(\"x\", s)[\"source\"] == \"RAG\" and calls == [\"cache\", \"retrieve\", \"save\"]\nprint(\"all 3 paths tested\")",
+        "output": "all 3 paths tested",
+        "codeNotes": [
+          {
+            "line": 14,
+            "note": "Fakes record every call they receive."
+          },
+          {
+            "line": 19,
+            "note": "A threat must not touch the cache or the model."
+          },
+          {
+            "line": 23,
+            "note": "A fresh answer is retrieved and then saved."
+          }
+        ],
+        "tryIt": "Add a test where cache_get returns an empty string. It should still be a CACHE hit.",
+        "check": {
+          "question": "How can a test prove that a blocked prompt never reached the cache?",
+          "options": [
+            "By reading the code",
+            "By using fake services that record their calls, and checking the record is empty",
+            "It cannot be tested"
+          ],
+          "answer": 1,
+          "why": "Recording fakes show exactly which services were called."
+        }
+      },
+      {
+        "title": "Certification audit",
+        "say": [
+          "Practice 2: audit_capstone(scores) takes module marks out of 100 and returns the average (rounded to 1), a sorted list of modules under 70, and certified: True only if the average is at least 80 and nothing failed.",
+          "Two rules together make a fair bar: a high average shows overall skill, and no failed module shows there are no big gaps.",
+          "Set the thresholds before seeing the scores, so the bar is not moved to fit the result.",
+          "Sorting the failed list gives the same output every time, which makes it easy to test and read.",
+          "The same pattern (overall score plus minimum per area) is used in real release checklists: overall quality high, and no critical area below its bar.",
+          "Your own certificate in this app follows the same idea: complete the course, pass the tests, and finish the capstone project.",
+          "Use the audit on yourself: which modules are below 80, and which lessons would you revisit?"
+        ],
+        "example": "A driving test: a good overall score is not enough if you failed the part about stopping at red lights.",
+        "code": "def audit_capstone(scores):\n    average = round(sum(scores.values()) / len(scores), 1)\n    failed = sorted(m for m, s in scores.items() if s < 70)\n    return {\"average\": average, \"failed\": failed, \"certified\": average >= 80 and not failed}\n\nprint(audit_capstone({\"rag\": 92, \"agents\": 85, \"security\": 88, \"ops\": 81}))\nprint(audit_capstone({\"rag\": 98, \"agents\": 95, \"security\": 65, \"ops\": 90}))\nprint(audit_capstone({\"rag\": 75, \"agents\": 76, \"security\": 78, \"ops\": 79}))",
+        "output": "{'average': 86.5, 'failed': [], 'certified': True}\n{'average': 87.0, 'failed': ['security'], 'certified': False}\n{'average': 77.0, 'failed': [], 'certified': False}",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Modules under 70, sorted for a stable result."
+          },
+          {
+            "line": 4,
+            "note": "Both rules must hold."
+          }
+        ],
+        "tryIt": "Put in your own honest marks for four modules of this course and read the result.",
+        "check": {
+          "question": "Why is a high average alone not enough for certification?",
+          "options": [
+            "Averages are hard to compute",
+            "A strong average can hide a failed module",
+            "Certificates need three rules"
+          ],
+          "answer": 1,
+          "why": "The no-failures rule makes sure there is no big gap in any area."
+        }
+      },
+      {
+        "title": "Your AI engineering checklist",
+        "say": [
+          "Before shipping any AI feature, walk through a checklist: clear prompts with output contracts, validated structured output, grounded answers with citations, and \"I don't know\" allowed.",
+          "Security: injection checks, cleaned retrieved content, least-privilege tools, human approval for risky actions, canary and output checks.",
+          "Operations: caching, rate limits, retries with backoff, budgets and graceful degradation, tracing with private data masked, dashboards and alerts.",
+          "Quality: a golden dataset, automatic evaluation on every change, user feedback linked to traces, and regular review of failures.",
+          "Keep learning: models and tools change quickly, but these engineering habits stay valuable.",
+          "Congratulations on completing AI Engineering in Python! Finish the capstone project and assessment to earn your certificate."
+        ],
+        "example": "A pilot's pre-flight checklist: experienced pilots still use it every time, because it catches the small things that matter most.",
+        "code": "checklist = {\n    \"prompts with output contracts\": True,\n    \"validated JSON output\": True,\n    \"citations and I don't know allowed\": True,\n    \"injection and output guardrails\": True,\n    \"cache, rate limits and budgets\": False,\n    \"tracing with masked data\": True,\n    \"golden dataset evaluation\": False,\n}\ndone = sum(checklist.values())\nprint(f\"{done}/{len(checklist)} ready\")\nprint(\"still to do:\", [item for item, ok in checklist.items() if not ok])",
+        "output": "5/7 ready\nstill to do: ['cache, rate limits and budgets', 'golden dataset evaluation']",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "The remaining work before launch."
+          }
+        ],
+        "tryIt": "Fill in the checklist honestly for a project of your own.",
+        "check": {
+          "question": "Which habit protects AI quality over time more than any single technique?",
+          "options": [
+            "Using the largest model",
+            "Automatic evaluation on a golden dataset for every change",
+            "Writing longer prompts"
+          ],
+          "answer": 1,
+          "why": "Regular measurement catches regressions whatever changes in models, prompts or data."
+        }
+      }
+    ],
+    "summary": [
+      "Order the platform: security, cache, retrieve, answer, cache set.",
+      "Pass services in as functions so every path can be tested with fakes.",
+      "Add tracing, budgets and retries with wrappers, not inside the logic.",
+      "Test blocked, cached and fresh paths, and the order of calls.",
+      "Certify with a high average and no failed module; ship with a checklist."
+    ],
+    "projectStep": {
+      "title": "Final capstone: AI platform",
+      "steps": [
+        "Add run_ai_platform and audit_capstone to ai_toolkit.py.",
+        "Wire fake services for security, cache, retrieval and answers, and test all three paths.",
+        "Bonus: wrap every service with tracing and print the trace for one question."
+      ]
+    }
   }
 ];
