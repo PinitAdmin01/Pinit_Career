@@ -5935,5 +5935,1178 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: write mobile and web shapes of the same profile data."
       ]
     }
+  },
+  {
+    "day": 26,
+    "title": "Distributed Tracing: OpenTelemetry, W3C TraceContext & Span Propagation",
+    "goal": "You can explain distributed tracing, read and create W3C traceparent headers, propagate trace context from parent to child spans, validate headers, and use sampling to control cost.",
+    "minutes": 30,
+    "recap": "Yesterday a BFF called several services for one screen. When that screen is slow, which service is to blame? Distributed tracing answers that question.",
+    "parts": [
+      {
+        "title": "Following one request through many services",
+        "say": [
+          "A single user action can touch a gateway, a BFF, five services and two databases. Each writes its own logs, on different machines.",
+          "Distributed tracing links all that work together. A trace is the whole journey of one request; a span is one piece of work within it, such as one service call or one database query.",
+          "Every span records its trace id, its own span id, its parent span id, a name, start time and duration.",
+          "Spans can also carry events (such as \"cache miss\" or \"retrying\") and a status, so a failed step stands out in red on the timeline.",
+          "Drawn as a timeline, spans show exactly where time went: which call was slow, which ran in parallel, which failed.",
+          "OpenTelemetry is the open standard for creating and exporting traces; tools like Jaeger, Zipkin, Grafana Tempo and many vendors display them.",
+          "The example prints a small trace as an indented tree."
+        ],
+        "example": "A courier parcel with one tracking number: every depot scans it, so you can see the whole route and exactly where it was delayed.",
+        "code": "spans = [\n    {\"id\": \"a1\", \"parent\": None, \"name\": \"GET /profile\", \"ms\": 420},\n    {\"id\": \"b2\", \"parent\": \"a1\", \"name\": \"users-service\", \"ms\": 40},\n    {\"id\": \"c3\", \"parent\": \"a1\", \"name\": \"orders-service\", \"ms\": 350},\n    {\"id\": \"d4\", \"parent\": \"c3\", \"name\": \"SELECT orders\", \"ms\": 310},\n    {\"id\": \"e5\", \"parent\": \"a1\", \"name\": \"reviews-service\", \"ms\": 60},\n]\n\ndef show(parent, depth=0):\n    for s in spans:\n        if s[\"parent\"] == parent:\n            print(\"  \" * depth + f\"{s['name']} ({s['ms']} ms)\")\n            show(s[\"id\"], depth + 1)\n\nshow(None)",
+        "output": "GET /profile (420 ms)\n  users-service (40 ms)\n  orders-service (350 ms)\n    SELECT orders (310 ms)\n  reviews-service (60 ms)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The slow part: one database query inside orders-service."
+          },
+          {
+            "line": 13,
+            "note": "Children are printed under their parent span."
+          }
+        ],
+        "tryIt": "Add a span \"cache lookup\" of 5 ms under users-service and print the tree again.",
+        "check": {
+          "question": "What is a span?",
+          "options": [
+            "The whole request",
+            "One unit of work inside a trace, with its own id and parent",
+            "A log file"
+          ],
+          "answer": 1,
+          "why": "Spans are the pieces; the trace is the whole tree of spans."
+        }
+      },
+      {
+        "title": "The W3C traceparent header",
+        "say": [
+          "Services pass trace context to each other in a standard HTTP header, traceparent, defined by the W3C Trace Context specification.",
+          "Its format is version-traceid-parentid-flags, for example 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01.",
+          "The trace id is 32 hex characters and stays the same for the whole trace. The parent id is 16 hex characters: the id of the span that made this call. The flags say whether the trace is sampled.",
+          "Because the format is standard, services written in different languages and traced by different tools can still join the same trace.",
+          "A related header, tracestate, carries vendor-specific extras, but traceparent alone is enough to join a trace.",
+          "Splitting the header on \"-\" gives its four parts.",
+          "The example parses a real-looking header."
+        ],
+        "example": "A reference number on a form that every office adds to its own stamp, so the whole chain of offices can be traced from any one stamp.",
+        "code": "header = \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\nversion, trace_id, parent_id, flags = header.split(\"-\")\nprint(\"version:\", version)\nprint(\"trace id:\", trace_id, len(trace_id), \"hex chars\")\nprint(\"parent span id:\", parent_id, len(parent_id), \"hex chars\")\nprint(\"sampled:\", flags == \"01\")",
+        "output": "version: 00\ntrace id: 4bf92f3577b34da6a3ce929d0e0e4736 32 hex chars\nparent span id: 00f067aa0ba902b7 16 hex chars\nsampled: True",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Four fields separated by dashes."
+          }
+        ],
+        "tryIt": "Change the flags to \"00\". What does that mean for this trace?",
+        "check": {
+          "question": "What stays the same across every service in one trace?",
+          "options": [
+            "The span id",
+            "The trace id",
+            "The flags byte only"
+          ],
+          "answer": 1,
+          "why": "The trace id identifies the whole request; each span gets its own id."
+        }
+      },
+      {
+        "title": "Creating a child span",
+        "say": [
+          "Practice 1: child_span(traceparent, name, new_span_id, new_trace_id). If the incoming header has 4 parts, keep its trace id and use its span id as the parent.",
+          "Otherwise, start a new trace with new_trace_id and no parent: this service is the first in the chain.",
+          "Return the span's name, trace id, parent id and span id, plus the traceparent header to send on to the next service: 00-traceid-newspanid-01.",
+          "Passing new ids in as parameters keeps the function deterministic for tests; real code generates random ids.",
+          "In production, span ids come from a secure random generator, so two services never pick the same id by accident.",
+          "This small function is the heart of context propagation, which tracing libraries do automatically for every incoming and outgoing call.",
+          "The example continues an existing trace and starts a new one."
+        ],
+        "example": "Receiving a baton in a relay: you keep the team's name on it, note who handed it to you, and pass it on with your own name added.",
+        "code": "def child_span(traceparent, name, new_span_id, new_trace_id):\n    parts = (traceparent or \"\").split(\"-\")\n    if len(parts) == 4:\n        trace_id, parent_id = parts[1], parts[2]\n    else:\n        trace_id, parent_id = new_trace_id, None\n    return {\"name\": name, \"trace_id\": trace_id, \"parent_id\": parent_id, \"span_id\": new_span_id,\n            \"traceparent\": f\"00-{trace_id}-{new_span_id}-01\"}\n\nincoming = \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\nprint(child_span(incoming, \"orders-service\", \"b7ad6b7169203331\", \"unused\"))\nprint(child_span(None, \"gateway\", \"a1b2c3d4e5f60718\", \"0af7651916cd43dd8448eb211c80319c\"))",
+        "output": "{'name': 'orders-service', 'trace_id': '4bf92f3577b34da6a3ce929d0e0e4736', 'parent_id': '00f067aa0ba902b7', 'span_id': 'b7ad6b7169203331', 'traceparent': '00-4bf92f3577b34da6a3ce929d0e0e4736-b7ad6b7169203331-01'}\n{'name': 'gateway', 'trace_id': '0af7651916cd43dd8448eb211c80319c', 'parent_id': None, 'span_id': 'a1b2c3d4e5f60718', 'traceparent': '00-0af7651916cd43dd8448eb211c80319c-a1b2c3d4e5f60718-01'}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Continue the trace; the caller's span becomes our parent."
+          },
+          {
+            "line": 6,
+            "note": "No valid header: this is the start of a new trace."
+          },
+          {
+            "line": 8,
+            "note": "The header to send to the next service."
+          }
+        ],
+        "tryIt": "Pass a malformed header such as \"garbage\". What happens, and is that a safe choice?",
+        "check": {
+          "question": "When a service receives a valid traceparent, what becomes its span's parent?",
+          "options": [
+            "Nothing",
+            "The span id in the incoming header",
+            "The trace id"
+          ],
+          "answer": 1,
+          "why": "The caller's span id is the parent of the new span."
+        }
+      },
+      {
+        "title": "Validating headers",
+        "say": [
+          "Headers arrive from outside, so validate them. Practice 2: is_valid_traceparent(header) returns True only for \"00-\", 32 lowercase hex digits, \"-\", 16 lowercase hex digits, \"-\", and 2 lowercase hex digits.",
+          "re.fullmatch checks the whole string, not just a prefix, which is exactly what validation needs.",
+          "An invalid header should be ignored (start a new trace), never trusted, and never allowed to crash the service.",
+          "Logging how often invalid headers arrive can reveal a misconfigured client or a service that corrupts headers.",
+          "The specification also forbids all-zero trace and span ids; production validators check that too.",
+          "At your public edge, you may decide to ignore incoming trace headers from the internet entirely and start fresh traces, so outsiders cannot inject misleading traces.",
+          "The example checks a valid header and several invalid ones."
+        ],
+        "example": "A bank checking that a cheque number has exactly the right number of digits before processing it, and rejecting anything that does not fit the pattern.",
+        "code": "import re\n\ndef is_valid_traceparent(header):\n    return re.fullmatch(r\"00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}\", header) is not None\n\ntests = [\n    \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\",\n    \"00-4BF92F3577B34DA6A3CE929D0E0E4736-00f067aa0ba902b7-01\",\n    \"01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\",\n    \"00-4bf92f35-00f067aa0ba902b7-01\",\n    \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01-extra\",\n]\nfor h in tests:\n    print(is_valid_traceparent(h), h)",
+        "output": "True 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\nFalse 00-4BF92F3577B34DA6A3CE929D0E0E4736-00f067aa0ba902b7-01\nFalse 01-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\nFalse 00-4bf92f35-00f067aa0ba902b7-01\nFalse 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01-extra",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "fullmatch: the whole header must fit the pattern."
+          },
+          {
+            "line": 8,
+            "note": "Upper-case hex is not allowed by this rule."
+          }
+        ],
+        "tryIt": "Add a check that rejects an all-zero trace id.",
+        "check": {
+          "question": "Why use re.fullmatch instead of re.match for validation?",
+          "options": [
+            "It is faster",
+            "It requires the entire string to match, so trailing junk is rejected",
+            "match does not support hex"
+          ],
+          "answer": 1,
+          "why": "fullmatch prevents headers with extra characters from passing."
+        }
+      },
+      {
+        "title": "Sampling",
+        "say": [
+          "Recording every span of every request can be expensive: a busy system produces millions of spans per minute.",
+          "Head-based sampling decides at the start of a trace, for example keeping 1 in 100, and records that choice in the flags so every service agrees.",
+          "Tail-based sampling decides after the trace finishes, keeping all slow or failed traces and a small share of normal ones. It is more useful but needs a collector that buffers spans.",
+          "Sampling decisions should be recorded in the flags so downstream services do not waste effort creating spans that will be dropped.",
+          "Always keep traces for errors if you can; they are the ones you will need.",
+          "Deterministic sampling by trace id (hash the id and compare with a threshold) makes every service reach the same decision without talking to each other.",
+          "The example samples by trace id and keeps every error."
+        ],
+        "example": "A quality inspector who checks one parcel in a hundred at random, but always opens any parcel that arrives damaged.",
+        "code": "def keep_trace(trace_id, is_error, rate=0.1):\n    if is_error:\n        return True\n    return int(trace_id[-8:], 16) / 0xFFFFFFFF < rate\n\ntraces = [(\"4bf92f3577b34da6a3ce929d0e0e4736\", False), (\"0af7651916cd43dd8448eb211c80319c\", False),\n          (\"11111111111111111111111100000abc\", False), (\"ffffffffffffffffffffffffffffffff\", True)]\nfor tid, err in traces:\n    print(tid[:8], \"error\" if err else \"ok   \", \"keep\" if keep_trace(tid, err) else \"drop\")",
+        "output": "4bf92f35 ok    keep\n0af76519 ok    drop\n11111111 ok    keep\nffffffff error keep",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Errors are always kept."
+          },
+          {
+            "line": 4,
+            "note": "The same trace id always gives the same decision in every service."
+          }
+        ],
+        "tryIt": "Raise the rate to 0.5. Which normal traces are kept now?",
+        "check": {
+          "question": "Why sample deterministically from the trace id?",
+          "options": [
+            "It is random",
+            "Every service makes the same keep-or-drop decision without coordinating",
+            "Trace ids are secret"
+          ],
+          "answer": 1,
+          "why": "Hashing the shared id gives a consistent decision across the whole trace."
+        }
+      },
+      {
+        "title": "Traces, logs and metrics together",
+        "say": [
+          "Observability has three pillars. Metrics show that something is wrong (p95 latency jumped). Traces show where (the orders database query). Logs show why (a missing index error).",
+          "Put the trace id in every log line, so you can jump from a slow trace straight to the logs of each service involved.",
+          "Add useful attributes to spans: user tier, region, cache hit or miss, query name. They let you slice traces by cause.",
+          "Consistent attribute names across services, such as the OpenTelemetry semantic conventions, make traces searchable across the whole system.",
+          "Do not put secrets or personal data in span attributes; traces are widely readable.",
+          "Tomorrow you will look at what \"consistent\" really means across replicas: the consistency models.",
+          "The example joins log lines by trace id."
+        ],
+        "example": "A hospital file where the patient number appears on every test result and every doctor's note, so the whole story can be pulled together instantly.",
+        "code": "logs = [\n    {\"trace\": \"4bf9\", \"service\": \"gateway\", \"msg\": \"request received\"},\n    {\"trace\": \"0af7\", \"service\": \"gateway\", \"msg\": \"request received\"},\n    {\"trace\": \"4bf9\", \"service\": \"orders\", \"msg\": \"query took 310 ms, missing index on orders.user_id\"},\n    {\"trace\": \"4bf9\", \"service\": \"gateway\", \"msg\": \"responded 200 in 420 ms\"},\n]\nslow_trace = \"4bf9\"\nfor line in logs:\n    if line[\"trace\"] == slow_trace:\n        print(f\"[{line['service']}] {line['msg']}\")",
+        "output": "[gateway] request received\n[orders] query took 310 ms, missing index on orders.user_id\n[gateway] responded 200 in 420 ms",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The log line that explains why the trace was slow."
+          },
+          {
+            "line": 9,
+            "note": "Filter logs by the trace id of the slow request."
+          }
+        ],
+        "tryIt": "Add a log line from the reviews service for trace 4bf9. Where does it appear?",
+        "check": {
+          "question": "Why include the trace id in every log line?",
+          "options": [
+            "To make logs longer",
+            "So logs from all services for one request can be found together",
+            "Log tools require it"
+          ],
+          "answer": 1,
+          "why": "A shared id links traces and logs across services."
+        }
+      }
+    ],
+    "summary": [
+      "A trace is one request's journey; spans are its pieces with ids and parents.",
+      "traceparent = 00-traceid-parentid-flags, passed between services.",
+      "Child spans keep the trace id and use the caller's span as parent.",
+      "Validate incoming headers with a full regular-expression match.",
+      "Sample by trace id, keep errors, and put trace ids in logs."
+    ],
+    "projectStep": {
+      "title": "Tracing",
+      "steps": [
+        "Add child_span and is_valid_traceparent to dist_toolkit.py.",
+        "Simulate a request through three services, printing each span's ids.",
+        "Bonus: add deterministic sampling that always keeps errors."
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "title": "Data Consistency Models: Linearizable vs Sequential vs Eventual Consistency",
+    "goal": "You can distinguish linearizable, sequential, causal and eventual consistency, audit a history of reads and writes for stale reads, and choose the right consistency level for each feature.",
+    "minutes": 30,
+    "recap": "Many lessons mentioned \"consistent\" and \"eventually consistent\". Today you define these words precisely and learn to check a system's behaviour against them.",
+    "parts": [
+      {
+        "title": "A spectrum of guarantees",
+        "say": [
+          "A consistency model is a promise about what reads can return when data is replicated and updated concurrently.",
+          "Linearizable (strong): the system behaves as if there were one copy, and every operation takes effect at a single instant between its start and end. Once a write completes, every later read sees it.",
+          "Sequential: all clients see operations in the same order, and each client's own operations in its program order, but that order need not match real time.",
+          "The difference from linearizable is subtle: with sequential consistency, a read may return an older value as long as everyone agrees on the same overall order.",
+          "Causal: operations that are causally related (Day 16) are seen in the same order by everyone; unrelated ones may be seen in different orders.",
+          "Eventual: if writes stop, replicas eventually converge. Before that, reads may return old values.",
+          "Stronger models are easier to reason about but cost latency and availability (CAP and PACELC again)."
+        ],
+        "example": "Different levels of news: a live broadcast (everyone sees it at once), a newspaper (everyone reads the same order of stories, but a day later), and word of mouth (it reaches everyone eventually).",
+        "code": "models = [\n    (\"Linearizable\", \"one copy, real-time order\", \"slowest, least available\"),\n    (\"Sequential\", \"one agreed order, not real time\", \"slow\"),\n    (\"Causal\", \"cause before effect for everyone\", \"fast, available\"),\n    (\"Eventual\", \"replicas converge when writes stop\", \"fastest, most available\"),\n]\nfor name, promise, cost in models:\n    print(f\"{name:13} {promise:36} {cost}\")",
+        "output": "Linearizable  one copy, real-time order            slowest, least available\nSequential    one agreed order, not real time      slow\nCausal        cause before effect for everyone     fast, available\nEventual      replicas converge when writes stop   fastest, most available",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The strongest guarantee."
+          },
+          {
+            "line": 5,
+            "note": "The weakest guarantee."
+          }
+        ],
+        "tryIt": "Put the models in order for a banking balance, a chat app and a view counter: which do you need for each?",
+        "check": {
+          "question": "What does linearizability guarantee?",
+          "options": [
+            "Replicas converge eventually",
+            "Once a write completes, every later read sees it, as if there were one copy",
+            "Reads are always fast"
+          ],
+          "answer": 1,
+          "why": "It matches real-time order, as with a single copy."
+        }
+      },
+      {
+        "title": "Choosing a level by name",
+        "say": [
+          "Practice 2: consistency_level(mode) maps STRONG, CAUSAL and EVENTUAL to their descriptions and raises ValueError for anything else.",
+          "Raising an error for unknown modes is safer than silently choosing a default; a typo like \"STRNG\" should fail loudly in tests, not weaken guarantees in production.",
+          "Many databases expose such settings per query: Cassandra's consistency levels, DynamoDB's strongly consistent reads, MongoDB's read and write concerns.",
+          "The same database can therefore serve a strongly consistent checkout and an eventually consistent product listing, if each query picks the right level.",
+          "Document which level each feature uses and why, next to the code.",
+          "A dict lookup with an explicit check keeps the code short and clear.",
+          "The example looks up levels and shows the error for an unknown mode."
+        ],
+        "example": "Choosing a delivery option at checkout: express, standard or economy. Typing a made-up option should be refused, not quietly changed to economy.",
+        "code": "LEVELS = {\n    \"STRONG\": \"Linearizable (global real-time order)\",\n    \"CAUSAL\": \"Causal (cause before effect)\",\n    \"EVENTUAL\": \"Eventual (replicas converge)\",\n}\n\ndef consistency_level(mode):\n    if mode not in LEVELS:\n        raise ValueError(f\"unknown consistency mode: {mode}\")\n    return LEVELS[mode]\n\nfor mode in [\"STRONG\", \"CAUSAL\", \"EVENTUAL\", \"STRNG\"]:\n    try:\n        print(mode, \"->\", consistency_level(mode))\n    except ValueError as err:\n        print(\"error:\", err)",
+        "output": "STRONG -> Linearizable (global real-time order)\nCAUSAL -> Causal (cause before effect)\nEVENTUAL -> Eventual (replicas converge)\nerror: unknown consistency mode: STRNG",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Unknown modes fail loudly instead of defaulting."
+          }
+        ],
+        "tryIt": "Add \"SEQUENTIAL\" with a short description.",
+        "check": {
+          "question": "Why raise an error for an unknown consistency mode?",
+          "options": [
+            "Errors are faster",
+            "A typo should fail loudly rather than silently weaken guarantees",
+            "Dicts require it"
+          ],
+          "answer": 1,
+          "why": "Silent defaults hide configuration mistakes."
+        }
+      },
+      {
+        "title": "Detecting stale reads",
+        "say": [
+          "You can test a system by recording a history: each write with the time it completed, and each read with the time it started and the value it observed.",
+          "Practice 1: audit_linearizability(reads, writes). A read is stale if some write completed at or before the read started, and the read did not see the value of the latest such write.",
+          "Return whether the history is linearizable by this check, and the list of stale reads.",
+          "Record histories from real test runs with injected failures: kill nodes, cut the network, pause processes, then audit what clients saw.",
+          "This is a simplified check (real checkers like Jepsen's Knossos consider overlapping operations too), but it catches the most common violation: reading old data after a write has finished.",
+          "Such audits are how engineers find consistency bugs in databases, by running them under failures and checking the histories.",
+          "The example audits a history with one stale read from a lagging replica."
+        ],
+        "example": "After the teacher writes the new exam date on the board and leaves, any student who then reports the old date is clearly reading an outdated copy.",
+        "code": "def audit_linearizability(reads, writes):\n    stale = []\n    for r in reads:\n        before = [w for w in writes if w[\"completed_at\"] <= r[\"started_at\"]]\n        if before:\n            latest = max(before, key=lambda w: w[\"completed_at\"])\n            if r[\"observed\"] != latest[\"value\"]:\n                stale.append(r)\n    return {\"linearizable\": not stale, \"stale_reads\": stale}\n\nwrites = [{\"value\": \"v1\", \"completed_at\": 10}, {\"value\": \"v2\", \"completed_at\": 50}]\nreads = [\n    {\"started_at\": 20, \"observed\": \"v1\"},\n    {\"started_at\": 60, \"observed\": \"v2\"},\n    {\"started_at\": 70, \"observed\": \"v1\"},\n    {\"started_at\": 5, \"observed\": None},\n]\nprint(audit_linearizability(reads, writes))",
+        "output": "{'linearizable': False, 'stale_reads': [{'started_at': 70, 'observed': 'v1'}]}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Writes that had finished before this read began."
+          },
+          {
+            "line": 7,
+            "note": "The read must see the latest of them."
+          },
+          {
+            "line": 15,
+            "note": "A lagging replica returned v1 after v2 completed."
+          }
+        ],
+        "tryIt": "Add a read starting at 50 that observed v2. Is it stale?",
+        "check": {
+          "question": "A write of v2 completes at t=50. A read starts at t=70 and returns v1. Is that linearizable?",
+          "options": [
+            "Yes",
+            "No, it is a stale read",
+            "Only if v1 was written first"
+          ],
+          "answer": 1,
+          "why": "The read began after v2 completed, so it must return v2."
+        }
+      },
+      {
+        "title": "Causal consistency in practice",
+        "say": [
+          "Causal consistency is a sweet spot for many apps: it prevents the confusing anomalies users notice, while staying available during partitions.",
+          "Classic anomaly: Asha posts \"I lost my phone\" then \"found it!\". Without causal consistency, a friend might see \"found it!\" before the first post.",
+          "Systems track dependencies (for example with vector clocks or version numbers) and only show an update once everything it depends on is visible.",
+          "Causal consistency can be provided even during network partitions, which is why it is often called the strongest model that stays available.",
+          "The session guarantees from Day 19 (read-your-writes, monotonic reads) are pieces of causal consistency.",
+          "MongoDB offers causally consistent sessions; many collaborative apps build causal delivery into their sync layer.",
+          "The example holds back a reply until the message it answers has arrived."
+        ],
+        "example": "In a group chat, a reply should never appear before the question it answers, even if the reply's message reaches your phone first.",
+        "code": "arrived = [\n    {\"id\": \"m2\", \"text\": \"Found it!\", \"depends_on\": \"m1\"},\n    {\"id\": \"m1\", \"text\": \"I lost my phone\", \"depends_on\": None},\n]\nshown, waiting = [], []\nfor msg in arrived:\n    waiting.append(msg)\n    progress = True\n    while progress:\n        progress = False\n        for m in list(waiting):\n            if m[\"depends_on\"] is None or m[\"depends_on\"] in {s[\"id\"] for s in shown}:\n                shown.append(m)\n                waiting.remove(m)\n                progress = True\nprint([m[\"text\"] for m in shown])",
+        "output": "['I lost my phone', 'Found it!']",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Show a message only after the one it depends on."
+          }
+        ],
+        "tryIt": "Add a third message \"Where was it?\" depending on m2, arriving first. Does the order stay correct?",
+        "check": {
+          "question": "Which anomaly does causal consistency prevent?",
+          "options": [
+            "Slow reads",
+            "Seeing an effect (a reply) before its cause (the question)",
+            "Duplicate writes"
+          ],
+          "answer": 1,
+          "why": "Causally related updates are shown in cause-then-effect order."
+        }
+      },
+      {
+        "title": "Eventual consistency done well",
+        "say": [
+          "Eventual consistency only promises convergence when writes stop, which sounds weak, but it powers huge, highly available systems.",
+          "To make it work, define how conflicts resolve (Day 17 CRDTs, last-writer-wins, or merge functions) so all replicas converge to the same value.",
+          "Measure the convergence window in practice: how long until a write is visible everywhere? Usually milliseconds to seconds.",
+          "Publishing that number internally, for example \"99% of writes are visible everywhere within 800 ms\", helps other teams design around it.",
+          "Design the user experience around it: show optimistic updates locally, and avoid features that assume instant global visibility.",
+          "Use background repair (anti-entropy) to fix replicas that missed updates, comparing data and copying what is missing.",
+          "The simulation shows three replicas converging after the writes stop."
+        ],
+        "example": "Updating a phone number with several relatives by text messages: for a while, some have the old number, but after everyone reads their messages, they all agree.",
+        "code": "replicas = [{\"v\": 1}, {\"v\": 1}, {\"v\": 1}]\nreplicas[0][\"v\"] = 2\nprint(\"after the write:\", [r[\"v\"] for r in replicas])\nfor step in range(1, 3):\n    for i in range(len(replicas) - 1):\n        newest = max(replicas[i][\"v\"], replicas[i + 1][\"v\"])\n        replicas[i][\"v\"] = replicas[i + 1][\"v\"] = newest\n    print(f\"after repair round {step}:\", [r[\"v\"] for r in replicas])",
+        "output": "after the write: [2, 1, 1]\nafter repair round 1: [2, 2, 2]\nafter repair round 2: [2, 2, 2]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Anti-entropy: neighbours compare and keep the newer value."
+          }
+        ],
+        "tryIt": "Make a second write to replica 2 before the repair rounds. Do the replicas still converge?",
+        "check": {
+          "question": "What does eventual consistency promise?",
+          "options": [
+            "Every read sees the latest write",
+            "Replicas converge to the same value once writes stop",
+            "Writes are never lost"
+          ],
+          "answer": 1,
+          "why": "It guarantees convergence, not immediate visibility."
+        }
+      },
+      {
+        "title": "Choosing per feature",
+        "say": [
+          "You rarely pick one model for the whole system. Choose per feature, by the cost of anomalies.",
+          "Stronger guarantees can always be added for a few critical operations, while the rest of the system enjoys the speed of weaker ones.",
+          "Linearizable: account balances, stock for the last seat, unique usernames, leader and lock ownership.",
+          "Causal: chats, comments, collaborative documents, social feeds.",
+          "Eventual: view counts, likes, recommendations, analytics, search indexes.",
+          "Write the choice into the design document and test it with history audits like the one you built today.",
+          "Tomorrow you will push content to the edge with CDNs, where freshness and consistency trade off again."
+        ],
+        "example": "A household that checks the bank balance carefully before a big purchase, keeps family chat messages in order, and does not mind if the step counter on the fridge is a little behind.",
+        "code": "features = {\n    \"wallet balance\": \"STRONG\",\n    \"last seat on a flight\": \"STRONG\",\n    \"group chat\": \"CAUSAL\",\n    \"document comments\": \"CAUSAL\",\n    \"video view count\": \"EVENTUAL\",\n    \"product recommendations\": \"EVENTUAL\",\n}\nfor feature, level in features.items():\n    print(f\"{feature:24} -> {level}\")",
+        "output": "wallet balance           -> STRONG\nlast seat on a flight    -> STRONG\ngroup chat               -> CAUSAL\ndocument comments        -> CAUSAL\nvideo view count         -> EVENTUAL\nproduct recommendations  -> EVENTUAL",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Money needs the strongest guarantee."
+          }
+        ],
+        "tryIt": "Classify three features of an app you use daily.",
+        "check": {
+          "question": "Which feature most needs linearizability?",
+          "options": [
+            "A like counter",
+            "Booking the last seat on a flight",
+            "A recommendations list"
+          ],
+          "answer": 1,
+          "why": "Two people must not both get the last seat."
+        }
+      }
+    ],
+    "summary": [
+      "Linearizable, sequential, causal and eventual are increasingly weak promises.",
+      "Stronger models cost latency and availability.",
+      "Audit histories: a read after a completed write must see that write.",
+      "Causal consistency keeps cause before effect and stays available.",
+      "Choose the model per feature by the cost of anomalies."
+    ],
+    "projectStep": {
+      "title": "Consistency",
+      "steps": [
+        "Add audit_linearizability and consistency_level to dist_toolkit.py.",
+        "Write a history with two stale reads and check the audit finds both.",
+        "Bonus: classify 8 features of a product you know by consistency level."
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "title": "Reverse Proxies & CDN Edge Caching with Cache-Control Invalidation",
+    "goal": "You can explain reverse proxies and CDNs, read Cache-Control headers, decide whether an edge copy is fresh, stale-while-revalidate or expired, and purge content by surrogate keys.",
+    "minutes": 30,
+    "recap": "Yesterday you chose consistency levels. At the edge, caches trade freshness for speed on a massive scale. Today you learn how CDNs decide what to serve.",
+    "parts": [
+      {
+        "title": "Reverse proxies and CDNs",
+        "say": [
+          "A reverse proxy sits in front of your servers and handles incoming requests: TLS, compression, caching, routing. NGINX and Envoy are common examples.",
+          "Because it terminates client connections, it also hides your servers' addresses and absorbs slow or malicious clients.",
+          "A content delivery network (CDN) is a worldwide network of reverse proxies, called edge servers or points of presence (PoPs), close to users.",
+          "When a user requests a page, the nearest edge answers from its cache if it can. Only on a miss does the request travel to your origin servers.",
+          "This cuts latency (the edge is near the user), reduces load on your origin, and absorbs traffic spikes and some attacks.",
+          "Cloudflare, Akamai, Fastly and CloudFront are major CDNs.",
+          "The example compares response times with and without an edge cache hit."
+        ],
+        "example": "Neighbourhood kirana shops stocking popular items from a central warehouse: most people buy nearby, and only unusual items need a trip to the warehouse.",
+        "code": "edge_ms, origin_round_trip_ms = 15, 220\nfor hit_rate in [0.0, 0.8, 0.95]:\n    avg = hit_rate * edge_ms + (1 - hit_rate) * (edge_ms + origin_round_trip_ms)\n    origin_share = 1 - hit_rate\n    print(f\"hit rate {hit_rate:.0%}: average {avg:.0f} ms, origin sees {origin_share:.0%} of traffic\")",
+        "output": "hit rate 0%: average 235 ms, origin sees 100% of traffic\nhit rate 80%: average 59 ms, origin sees 20% of traffic\nhit rate 95%: average 26 ms, origin sees 5% of traffic",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Hits are served at the edge; misses also travel to the origin."
+          }
+        ],
+        "tryIt": "What hit rate gives an average under 30 ms?",
+        "check": {
+          "question": "What happens on a CDN cache miss?",
+          "options": [
+            "The user gets an error",
+            "The edge fetches the content from the origin, then usually caches it",
+            "The edge waits for the next request"
+          ],
+          "answer": 1,
+          "why": "Misses go to the origin, and the response is stored for future requests."
+        }
+      },
+      {
+        "title": "Cache-Control headers",
+        "say": [
+          "The origin tells caches what to do with the Cache-Control header, for example \"public, max-age=60, stale-while-revalidate=30\".",
+          "max-age is how many seconds a copy is fresh. public means shared caches (CDNs) may store it; private means only the user's browser may.",
+          "Browsers and CDNs both read this header, so one header controls caching all the way from the user's device to the edge.",
+          "no-store forbids caching entirely, which is right for sensitive pages like bank statements.",
+          "stale-while-revalidate lets a cache serve a slightly old copy for a while after it expires, while fetching a fresh one in the background.",
+          "s-maxage sets a separate lifetime for shared caches, so the CDN can keep a page longer than browsers do.",
+          "The example parses the directives of a header into a dict."
+        ],
+        "example": "Labels on food at a shop: \"best before\" (max-age), \"can be sold at a discount for two more days while new stock arrives\" (stale-while-revalidate), and \"prepare fresh, do not store\" (no-store).",
+        "code": "header = \"public, max-age=60, stale-while-revalidate=30\"\ndirectives = {}\nfor part in header.split(\",\"):\n    name, _, value = part.strip().partition(\"=\")\n    directives[name] = int(value) if value else True\nprint(directives)",
+        "output": "{'public': True, 'max-age': 60, 'stale-while-revalidate': 30}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Each directive is a name, optionally with =value."
+          }
+        ],
+        "tryIt": "Parse \"private, no-store\" and \"public, s-maxage=600, max-age=60\".",
+        "check": {
+          "question": "Which directive stops any cache from storing a response?",
+          "options": [
+            "public",
+            "max-age=0",
+            "no-store"
+          ],
+          "answer": 2,
+          "why": "no-store means the response must not be stored at all."
+        }
+      },
+      {
+        "title": "Fresh, stale or expired?",
+        "say": [
+          "Practice 1: evaluate_edge_cache(cache_control, age). Read max-age and stale-while-revalidate from the header (0 when missing).",
+          "If age is at most max-age, the copy is FRESH: serve it, no revalidation.",
+          "If age is at most max-age + stale-while-revalidate, it is STALE_REVALIDATING: serve the old copy immediately and refresh in the background.",
+          "This gives users a fast answer every time, with the cost of seeing content that is at most a few seconds out of date.",
+          "Otherwise it is EXPIRED: fetch from the origin before answering.",
+          "Regular expressions such as r\"max-age=(\\d+)\" pull numbers out of the header neatly. Be careful that \"s-maxage\" is a different directive.",
+          "The example evaluates one header at several ages."
+        ],
+        "example": "Deciding whether to serve yesterday's bread: fresh this morning, fine to sell at a discount this evening while tomorrow's is baking, thrown away after that.",
+        "code": "import re\n\ndef evaluate_edge_cache(cache_control, age):\n    m = re.search(r\"(?<!s-)max-age=(\\d+)\", cache_control)\n    max_age = int(m.group(1)) if m else 0\n    s = re.search(r\"stale-while-revalidate=(\\d+)\", cache_control)\n    swr = int(s.group(1)) if s else 0\n    if age <= max_age:\n        return {\"status\": \"FRESH\", \"revalidate\": False}\n    if age <= max_age + swr:\n        return {\"status\": \"STALE_REVALIDATING\", \"revalidate\": True}\n    return {\"status\": \"EXPIRED\", \"revalidate\": False}\n\nheader = \"public, max-age=60, stale-while-revalidate=30\"\nfor age in [10, 60, 75, 90, 120]:\n    print(age, evaluate_edge_cache(header, age))",
+        "output": "10 {'status': 'FRESH', 'revalidate': False}\n60 {'status': 'FRESH', 'revalidate': False}\n75 {'status': 'STALE_REVALIDATING', 'revalidate': True}\n90 {'status': 'STALE_REVALIDATING', 'revalidate': True}\n120 {'status': 'EXPIRED', 'revalidate': False}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "max-age, but not the s-maxage directive."
+          },
+          {
+            "line": 10,
+            "note": "Within the grace period: serve old, refresh in the background."
+          }
+        ],
+        "tryIt": "Evaluate \"public, max-age=300\" at age 400. What happens without stale-while-revalidate?",
+        "check": {
+          "question": "With max-age=60 and stale-while-revalidate=30, what is the status at age 80?",
+          "options": [
+            "FRESH",
+            "STALE_REVALIDATING",
+            "EXPIRED"
+          ],
+          "answer": 1,
+          "why": "80 is past 60 but within 60 + 30 = 90."
+        }
+      },
+      {
+        "title": "Purging with surrogate keys",
+        "say": [
+          "Sometimes content changes before it expires: a price drops, an article is corrected. You need to purge the old copies from every edge.",
+          "Purging by URL works for one page, but a product may appear on hundreds of pages: listings, search results, the home page.",
+          "Surrogate keys (also called cache tags) solve this. The origin tags each response with keys, such as \"product-42 category-shoes\".",
+          "Practice 2: surrogate_keys(keys) returns \"Surrogate-Key: \" followed by the keys separated by spaces.",
+          "To purge, you ask the CDN to invalidate every cached response tagged with a key, such as \"product-42\", across all edges within seconds.",
+          "Purges should be part of the publishing flow: saving a price change in the admin panel triggers the purge automatically.",
+          "The example tags pages and finds which ones a purge would remove."
+        ],
+        "example": "Putting a coloured sticker on every shelf item from one supplier, so when that supplier issues a recall, staff can clear all the right items quickly.",
+        "code": "def surrogate_keys(keys):\n    return \"Surrogate-Key: \" + \" \".join(keys)\n\npages = {\n    \"/product/42\": [\"product-42\", \"category-shoes\"],\n    \"/category/shoes\": [\"category-shoes\", \"product-42\", \"product-43\"],\n    \"/product/43\": [\"product-43\", \"category-shoes\"],\n    \"/home\": [\"home\", \"product-42\"],\n}\nprint(surrogate_keys(pages[\"/category/shoes\"]))\npurge = \"product-42\"\nprint(\"purging\", purge, \"removes:\", [url for url, keys in pages.items() if purge in keys])",
+        "output": "Surrogate-Key: category-shoes product-42 product-43\npurging product-42 removes: ['/product/42', '/category/shoes', '/home']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "One header listing every key for this response."
+          },
+          {
+            "line": 12,
+            "note": "Every page tagged with the key is invalidated."
+          }
+        ],
+        "tryIt": "Which pages would a purge of \"category-shoes\" remove?",
+        "check": {
+          "question": "Why are surrogate keys better than purging by URL for a price change?",
+          "options": [
+            "They are shorter",
+            "One key finds every page showing that product, however many there are",
+            "URLs cannot be purged"
+          ],
+          "answer": 1,
+          "why": "Tags group all affected pages under one purge."
+        }
+      },
+      {
+        "title": "What to cache, and what not",
+        "say": [
+          "Cache static assets (images, CSS, JavaScript) for a long time, with versioned file names such as app.3f2a9c.js so a new release gets a new URL.",
+          "Cache public pages and API responses for short times, often with stale-while-revalidate, and purge on change.",
+          "Never cache personalised or sensitive responses in shared caches: account pages, carts, anything using the user's cookie. Use private or no-store.",
+          "The cache key must include everything that changes the response, such as language or device type (the Vary header), or users get the wrong version.",
+          "Leaving query parameters such as tracking codes out of the cache key improves the hit ratio, since they do not change the content.",
+          "A misconfigured cache that serves one user's account page to another is a serious data leak; review caching rules carefully.",
+          "The example chooses headers for different kinds of content."
+        ],
+        "example": "A bakery displays bread for everyone on the counter, but a cake with a customer's name written on it is kept in the back, for that customer only.",
+        "code": "def cache_header(kind):\n    rules = {\n        \"static asset\": \"public, max-age=31536000, immutable\",\n        \"public page\": \"public, max-age=60, stale-while-revalidate=30\",\n        \"user account page\": \"private, no-store\",\n        \"api product list\": \"public, s-maxage=30, max-age=0\",\n    }\n    return rules[kind]\n\nfor kind in [\"static asset\", \"public page\", \"user account page\", \"api product list\"]:\n    print(f\"{kind:18} Cache-Control: {cache_header(kind)}\")",
+        "output": "static asset       Cache-Control: public, max-age=31536000, immutable\npublic page        Cache-Control: public, max-age=60, stale-while-revalidate=30\nuser account page  Cache-Control: private, no-store\napi product list   Cache-Control: public, s-maxage=30, max-age=0",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Versioned files never change, so they can be cached for a year."
+          },
+          {
+            "line": 5,
+            "note": "Personal pages must never be stored by shared caches."
+          }
+        ],
+        "tryIt": "Choose a header for a news article that is updated a few times a day.",
+        "check": {
+          "question": "What is the danger of caching a personalised page in a CDN?",
+          "options": [
+            "It is slow",
+            "One user's private page could be served to other users",
+            "CDNs cannot store HTML"
+          ],
+          "answer": 1,
+          "why": "Shared caches serve the same copy to everyone who requests that URL."
+        }
+      },
+      {
+        "title": "Protecting the origin",
+        "say": [
+          "When a popular item expires at the edge, many requests can miss at once and hit the origin: the thundering herd from Day 5, now worldwide.",
+          "CDNs defend with request collapsing (only one request per object goes to the origin while others wait) and origin shields (a middle cache layer between edges and origin).",
+          "stale-while-revalidate and stale-if-error let edges keep serving old copies while the origin is slow or down, a graceful degradation.",
+          "During an origin outage, a site with stale-if-error can keep showing its public pages for hours, buying time to fix the problem.",
+          "Monitor hit ratio, origin traffic and error rates at the edge; a sudden drop in hit ratio often means a header change broke caching.",
+          "Tomorrow covers surviving the loss of a whole region: disaster recovery.",
+          "The example shows request collapsing turning 1,000 misses into one origin fetch."
+        ],
+        "example": "When a new phone launches, a shop sends one staff member to the warehouse for a box of stock, instead of every customer driving to the warehouse themselves.",
+        "code": "waiting = {}\norigin_fetches = 0\n\ndef edge_request(url):\n    global origin_fetches\n    if url not in waiting:\n        origin_fetches += 1\n        waiting[url] = \"fetching\"\n    return \"served after the shared fetch\"\n\nfor _ in range(1000):\n    edge_request(\"/product/42\")\nprint(\"requests: 1000, origin fetches:\", origin_fetches)",
+        "output": "requests: 1000, origin fetches: 1",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Only the first miss goes to the origin; the rest wait for it."
+          }
+        ],
+        "tryIt": "Add a second URL requested 500 times. How many origin fetches happen in total?",
+        "check": {
+          "question": "What does request collapsing do?",
+          "options": [
+            "Deletes duplicate URLs",
+            "Sends one origin request per object while other requests wait for it",
+            "Compresses responses"
+          ],
+          "answer": 1,
+          "why": "Collapsing stops a herd of misses from overwhelming the origin."
+        }
+      }
+    ],
+    "summary": [
+      "Reverse proxies and CDNs serve cached copies near users.",
+      "Cache-Control sets max-age, public or private, no-store and stale-while-revalidate.",
+      "Edges serve FRESH copies, STALE copies while revalidating, or fetch when EXPIRED.",
+      "Surrogate keys purge every page showing an item at once.",
+      "Never cache personal pages in shared caches; collapse requests to protect the origin."
+    ],
+    "projectStep": {
+      "title": "Edge caching",
+      "steps": [
+        "Add evaluate_edge_cache and surrogate_keys to dist_toolkit.py.",
+        "Evaluate three headers at five ages each and print the statuses.",
+        "Bonus: tag 6 pages with keys and compute what a purge removes."
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "title": "Disaster Recovery: Multi-Region Active-Passive vs Active-Active Deployments",
+    "goal": "You can define RPO and RTO, check a disaster recovery plan against targets, compare backup-restore, pilot light, warm standby and active-active designs, and plan failover and drills.",
+    "minutes": 30,
+    "recap": "You can now survive failed machines, services and networks. Today's question is bigger: what if a whole datacentre or cloud region goes down?",
+    "parts": [
+      {
+        "title": "When a region fails",
+        "say": [
+          "Regions do go down: power failures, network cuts, fires, floods and major cloud incidents have all taken out entire datacentres.",
+          "Disaster recovery (DR) is the plan for keeping the business running when that happens, and for recovering data.",
+          "It covers people and processes as well as technology: who decides, who is on call, and how customers are informed.",
+          "Two numbers define the goal. RPO (recovery point objective): how much data, measured in time, you can afford to lose. RTO (recovery time objective): how long you can afford to be down.",
+          "An RPO of 5 minutes means at most the last 5 minutes of writes may be lost. An RTO of 30 minutes means service must be back within 30 minutes.",
+          "Tighter RPO and RTO cost more: more replication, more standby capacity, more automation.",
+          "The example shows what an RPO means for a stream of orders."
+        ],
+        "example": "Saving your work on a document: if you save every 10 minutes, a crash loses at most 10 minutes of typing (RPO); the time to reopen your laptop and continue is the RTO.",
+        "code": "orders_per_minute = 1200\nfor rpo_minutes in [0, 1, 15, 60]:\n    lost = orders_per_minute * rpo_minutes\n    print(f\"RPO {rpo_minutes:>2} min: up to {lost:,} orders could be lost\")",
+        "output": "RPO  0 min: up to 0 orders could be lost\nRPO  1 min: up to 1,200 orders could be lost\nRPO 15 min: up to 18,000 orders could be lost\nRPO 60 min: up to 72,000 orders could be lost",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Data lost in the worst case grows with the RPO."
+          }
+        ],
+        "tryIt": "If each order averages 800 rupees, how much revenue does a 15-minute RPO put at risk?",
+        "check": {
+          "question": "What does RTO measure?",
+          "options": [
+            "How much data can be lost",
+            "How long the service can be down before it must be restored",
+            "Replication lag"
+          ],
+          "answer": 1,
+          "why": "RTO is the maximum acceptable downtime."
+        }
+      },
+      {
+        "title": "Checking compliance",
+        "say": [
+          "Practice 1: dr_compliance(actual_rpo, actual_rto, target_rpo, target_rto) in minutes returns whether both are within target, an OK or BREACHED label for each, and a grade of TIER_1 or FAILED.",
+          "Actual numbers come from drills and incidents, not from the design document. Measure them.",
+          "Keep a history of drill results; a trend that is slowly getting worse is an early warning.",
+          "Report RPO and RTO separately: a system can restore quickly but lose too much data, or keep every write but take hours to come back.",
+          "Targets come from the business: how much does an hour of downtime cost? How much lost data is acceptable to customers and regulators?",
+          "Different services can have different targets; payments may need minutes while reporting can wait hours.",
+          "The example checks three services against their targets."
+        ],
+        "example": "A fire drill report: how many people were accounted for, and how long evacuation took, compared with the safety targets.",
+        "code": "def dr_compliance(actual_rpo, actual_rto, target_rpo, target_rto):\n    rpo_ok, rto_ok = actual_rpo <= target_rpo, actual_rto <= target_rto\n    compliant = rpo_ok and rto_ok\n    return {\"compliant\": compliant, \"rpo\": \"OK\" if rpo_ok else \"BREACHED\",\n            \"rto\": \"OK\" if rto_ok else \"BREACHED\", \"grade\": \"TIER_1\" if compliant else \"FAILED\"}\n\nservices = {\"payments\": (1, 12, 5, 15), \"search\": (30, 20, 60, 60), \"reports\": (240, 400, 240, 360)}\nfor name, numbers in services.items():\n    print(f\"{name:9}\", dr_compliance(*numbers))",
+        "output": "payments  {'compliant': True, 'rpo': 'OK', 'rto': 'OK', 'grade': 'TIER_1'}\nsearch    {'compliant': True, 'rpo': 'OK', 'rto': 'OK', 'grade': 'TIER_1'}\nreports   {'compliant': False, 'rpo': 'OK', 'rto': 'BREACHED', 'grade': 'FAILED'}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Within target means at or below it."
+          },
+          {
+            "line": 5,
+            "note": "Both must be OK for the top grade."
+          }
+        ],
+        "tryIt": "The payments drill took 18 minutes to restore. What does the report say now?",
+        "check": {
+          "question": "A service loses 10 minutes of data against an RPO target of 5, but restores in 8 minutes against an RTO of 15. Is it compliant?",
+          "options": [
+            "Yes",
+            "No, the RPO is breached",
+            "No, the RTO is breached"
+          ],
+          "answer": 1,
+          "why": "Both targets must be met; the data loss exceeds the RPO."
+        }
+      },
+      {
+        "title": "The DR strategies",
+        "say": [
+          "Backup and restore: regular backups copied to another region; after a disaster, rebuild everything from backups. Cheapest, but RPO is the backup interval and RTO is hours.",
+          "Pilot light: data is continuously replicated to the second region, and a minimal core runs there; the rest is started during recovery. RPO minutes, RTO tens of minutes.",
+          "Warm standby: a scaled-down but fully working copy runs in the second region; during recovery it scales up. RPO seconds to minutes, RTO minutes.",
+          "Active-active: both regions serve live traffic all the time. RPO near zero, RTO seconds, but the highest cost and the hardest data consistency problems.",
+          "Pick the cheapest strategy that meets each service's RPO and RTO.",
+          "Backups are needed in every strategy, because replication also copies mistakes: a deleted table is deleted in every replica.",
+          "The example chooses a strategy from targets."
+        ],
+        "example": "Protecting a shop against a fire: keep receipts in a safe elsewhere (backup), keep a small stall with basic stock ready (pilot light), run a smaller second shop (warm standby), or run two full shops (active-active).",
+        "code": "STRATEGIES = [\n    (\"backup and restore\", 1440, 480),\n    (\"pilot light\", 15, 60),\n    (\"warm standby\", 5, 15),\n    (\"active-active\", 0, 1),\n]\n\ndef cheapest_strategy(target_rpo, target_rto):\n    for name, rpo, rto in STRATEGIES:\n        if rpo <= target_rpo and rto <= target_rto:\n            return name\n    return \"none meets the targets\"\n\nfor targets in [(1440, 1440), (30, 90), (5, 15), (0, 1)]:\n    print(targets, \"->\", cheapest_strategy(*targets))",
+        "output": "(1440, 1440) -> backup and restore\n(30, 90) -> pilot light\n(5, 15) -> warm standby\n(0, 1) -> active-active",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Typical RPO and RTO in minutes, from cheapest to most expensive."
+          },
+          {
+            "line": 9,
+            "note": "The first strategy that meets both targets is the cheapest."
+          }
+        ],
+        "tryIt": "Which strategy fits an RPO of 10 minutes and an RTO of 30 minutes?",
+        "check": {
+          "question": "Which strategy gives the lowest RPO and RTO?",
+          "options": [
+            "Backup and restore",
+            "Pilot light",
+            "Active-active"
+          ],
+          "answer": 2,
+          "why": "Both regions are live, so failover is nearly instant with little data loss."
+        }
+      },
+      {
+        "title": "Active-passive failover",
+        "say": [
+          "In active-passive designs, one region serves traffic and the other stands by with replicated data.",
+          "Failover steps: detect the failure, decide to fail over (often a human decision for safety), promote the standby database, scale up the standby services, and switch DNS or global load balancing.",
+          "Asynchronous replication means the standby may be missing the last few seconds of writes: that gap is your real RPO.",
+          "Measuring replication lag continuously (Day 19) tells you your real RPO at any moment.",
+          "Beware split brain (Day 7): if the old region comes back and still thinks it is primary, writes can diverge. Fence it off before failing over.",
+          "Failing back to the original region later is a second, planned migration; plan it too.",
+          "The example walks through a failover runbook."
+        ],
+        "example": "When the main road is closed, traffic police divert cars to the bypass, making sure the old route is blocked so nobody drives into the closed section.",
+        "code": "runbook = [\n    (\"detect\", \"alerts show region ap-south-1 unreachable for 5 minutes\"),\n    (\"decide\", \"incident lead approves failover\"),\n    (\"fence\", \"mark old primary as read-only / block its writes\"),\n    (\"promote\", \"promote the database replica in ap-southeast-1\"),\n    (\"scale\", \"scale standby services to full size\"),\n    (\"switch\", \"point DNS / global load balancer at ap-southeast-1\"),\n    (\"verify\", \"run smoke tests, watch error rates\"),\n]\nfor i, (step, action) in enumerate(runbook, start=1):\n    print(f\"{i}. {step:8} {action}\")",
+        "output": "1. detect   alerts show region ap-south-1 unreachable for 5 minutes\n2. decide   incident lead approves failover\n3. fence    mark old primary as read-only / block its writes\n4. promote  promote the database replica in ap-southeast-1\n5. scale    scale standby services to full size\n6. switch   point DNS / global load balancer at ap-southeast-1\n7. verify   run smoke tests, watch error rates",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Fence the old primary first to prevent split brain."
+          },
+          {
+            "line": 7,
+            "note": "Traffic moves only after the new side is ready."
+          }
+        ],
+        "tryIt": "Which step would you automate first, and which would you keep manual? Why?",
+        "check": {
+          "question": "Why fence the old primary before promoting the standby?",
+          "options": [
+            "To save money",
+            "So the old region cannot accept writes if it comes back, avoiding split brain",
+            "Fencing speeds up DNS"
+          ],
+          "answer": 1,
+          "why": "Two primaries accepting writes would make the data diverge."
+        }
+      },
+      {
+        "title": "Active-active challenges",
+        "say": [
+          "In active-active, both regions accept writes. Users are served by the nearest region, and a region failure simply shifts traffic.",
+          "The hard part is data. Writes in two regions to the same record can conflict. Options: route each user or record to a home region (so writes do not conflict), use CRDTs or conflict resolution (Day 17), or use a globally consistent database such as Spanner.",
+          "Cross-region latency (often 50 to 200 ms) makes synchronous coordination expensive for every write.",
+          "Capacity must allow either region to take all traffic alone, so each normally runs at 50% or less.",
+          "Some teams accept running degraded during a regional failure, shedding non-essential features, to avoid paying for full double capacity.",
+          "Active-active is the right answer for some businesses, but it is a big investment; many choose warm standby instead.",
+          "The example routes users to a home region to avoid write conflicts."
+        ],
+        "example": "Two branches of a bank both open for business: each customer has a home branch that owns their account, so two branches never update the same account at the same moment.",
+        "code": "home_region = {\"asha\": \"mumbai\", \"bala\": \"singapore\", \"chitra\": \"mumbai\"}\nhealthy = {\"mumbai\": True, \"singapore\": True}\n\ndef route_write(user):\n    region = home_region[user]\n    if healthy[region]:\n        return region\n    return next(r for r, ok in healthy.items() if ok) + \" (failover)\"\n\nprint({u: route_write(u) for u in home_region})\nhealthy[\"mumbai\"] = False\nprint({u: route_write(u) for u in home_region})",
+        "output": "{'asha': 'mumbai', 'bala': 'singapore', 'chitra': 'mumbai'}\n{'asha': 'singapore (failover)', 'bala': 'singapore', 'chitra': 'singapore (failover)'}",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Each user's writes go to their home region, so regions do not conflict."
+          },
+          {
+            "line": 8,
+            "note": "If the home region is down, use a healthy one."
+          }
+        ],
+        "tryIt": "During the failover, both regions might briefly accept Asha's writes. What technique from earlier lessons helps resolve that?",
+        "check": {
+          "question": "Why must each region in active-active normally run at 50% capacity or less?",
+          "options": [
+            "To save power",
+            "So either region can take all the traffic if the other fails",
+            "Regions cannot exceed 50%"
+          ],
+          "answer": 1,
+          "why": "Spare capacity is what makes instant failover possible."
+        }
+      },
+      {
+        "title": "Drills and reporting",
+        "say": [
+          "A DR plan that has never been tested does not work. Run regular drills: restore backups, fail over a service, even shut down a region in a controlled way (chaos engineering).",
+          "Measure actual RPO and RTO in each drill and compare with targets, as in Practice 1.",
+          "Practice 2: format_rto(minutes) returns \"15 min RTO\", a small helper for consistent reports.",
+          "Update runbooks after each drill; drills always reveal missing permissions, outdated scripts or forgotten dependencies.",
+          "Tomorrow's capstone brings the whole course together in a trading and ledger engine.",
+          "The example reports a series of drills over time."
+        ],
+        "example": "Schools hold fire drills every term, time them, and fix whatever slowed people down, so a real fire goes smoothly.",
+        "code": "def format_rto(minutes):\n    return f\"{minutes} min RTO\"\n\ndrills = [(\"Jan\", 42), (\"Apr\", 31), (\"Jul\", 18), (\"Oct\", 12)]\ntarget = 15\nfor month, minutes in drills:\n    status = \"meets target\" if minutes <= target else \"above target\"\n    print(f\"{month}: {format_rto(minutes):12} {status}\")",
+        "output": "Jan: 42 min RTO   above target\nApr: 31 min RTO   above target\nJul: 18 min RTO   above target\nOct: 12 min RTO   meets target",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "A consistent label for reports."
+          },
+          {
+            "line": 7,
+            "note": "Compare each drill with the target."
+          }
+        ],
+        "tryIt": "What changed between the drills, in your opinion, to bring the time down? List three likely improvements.",
+        "check": {
+          "question": "Why run regular disaster recovery drills?",
+          "options": [
+            "They are required by law everywhere",
+            "Untested plans fail; drills measure real RPO and RTO and reveal problems",
+            "To use spare servers"
+          ],
+          "answer": 1,
+          "why": "Only practice shows whether recovery actually works in time."
+        }
+      }
+    ],
+    "summary": [
+      "RPO is acceptable data loss; RTO is acceptable downtime.",
+      "Check actual drill results against both targets.",
+      "Backup-restore, pilot light, warm standby and active-active cost more as they recover faster.",
+      "Failover: detect, decide, fence, promote, scale, switch, verify.",
+      "Active-active needs conflict-free data design; drill regularly."
+    ],
+    "projectStep": {
+      "title": "Disaster recovery",
+      "steps": [
+        "Add dr_compliance and format_rto to dist_toolkit.py.",
+        "Choose a DR strategy for three services with different targets.",
+        "Bonus: write a failover runbook for one service and mark which steps to automate."
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Enterprise Global Real-Time Financial Trading & Ledger Exchange Engine",
+    "goal": "You can combine rate limiting, fenced locks, replication, commits and guaranteed lock release into a trading engine, test every failure path, and audit a system against a certification checklist.",
+    "minutes": 30,
+    "recap": "In 30 days you learned failures, replication, consensus, messaging, clocks, sharding, resilience and operations. The capstone is a trade execution engine that needs almost all of them.",
+    "parts": [
+      {
+        "title": "The trading engine's requirements",
+        "say": [
+          "A trading exchange must never double-spend an account, never lose a confirmed trade, and never let one misbehaving client overload the system.",
+          "These are the same guarantees that payment systems, ticket booking and inventory systems need, so the patterns carry over directly.",
+          "Each trade must be rate-limited per account (Day 21), executed while holding an exclusive lock on the account with a fencing token (Day 6), replicated before it is confirmed (Days 9 and 19), and committed with a receipt.",
+          "If anything fails midway, the lock must still be released, or the account is frozen until the lease expires.",
+          "Every step is a service call that can fail, so the engine is mostly about ordering and error handling.",
+          "Practice 1 builds execute_trade with services passed in as functions, so every failure can be tested with fakes.",
+          "The example lists the steps and the lesson each comes from."
+        ],
+        "example": "A bank locker room: check the visitor has not exceeded their visits, take the only key to their locker, record the visit in two ledgers, give a receipt, and always hang the key back, even if something goes wrong.",
+        "code": "steps = [\n    (\"is_allowed\", \"rate limit per account\", 21),\n    (\"acquire\", \"exclusive lock + fencing token\", 6),\n    (\"replicate\", \"copy the trade record to replicas\", 9),\n    (\"commit\", \"record the trade, return a receipt\", 10),\n    (\"release\", \"always free the lock\", 6),\n]\nfor name, what, day in steps:\n    print(f\"{name:10} {what:36} (Day {day})\")",
+        "output": "is_allowed rate limit per account               (Day 21)\nacquire    exclusive lock + fencing token       (Day 6)\nreplicate  copy the trade record to replicas    (Day 9)\ncommit     record the trade, return a receipt   (Day 10)\nrelease    always free the lock                 (Day 6)",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "The fencing token travels with the trade record."
+          },
+          {
+            "line": 6,
+            "note": "Release happens whatever else fails."
+          }
+        ],
+        "tryIt": "Where would idempotency keys (Day 13) fit if clients retry trade requests?",
+        "check": {
+          "question": "Why must the lock always be released, even after a failure?",
+          "options": [
+            "Locks are expensive",
+            "Otherwise the account stays frozen until the lease expires",
+            "Releasing speeds up replication"
+          ],
+          "answer": 1,
+          "why": "A leaked lock blocks every later trade on that account."
+        }
+      },
+      {
+        "title": "The execute_trade function",
+        "say": [
+          "Practice 1: if services[\"is_allowed\"](account) is False, return RATE_LIMITED. If the lock is not acquired, return ACCOUNT_LOCKED.",
+          "Then replicate {\"order_id\", \"amount\", \"fencing_token\"} and commit the order, returning success, the receipt and the token.",
+          "If replicate or commit raises, return the error text. In every case after acquiring, release the lock: put the calls in try/finally.",
+          "finally runs whether the try block returns normally or raises, which makes it the right place for cleanup.",
+          "Python's with statement and context managers are another way to guarantee cleanup, and many lock libraries provide one.",
+          "Checking the rate limit before acquiring the lock means limited clients never touch the lock service.",
+          "Every return path is explicit, which makes the function easy to read aloud in a code review: limited, locked, failed, or succeeded.",
+          "The example runs one successful trade with fake services."
+        ],
+        "example": "Borrowing a colleague's pen with the promise \"I will give it back whatever happens\": even if your call gets interrupted, the pen goes back.",
+        "code": "def execute_trade(order, services):\n    account = order[\"account\"]\n    if not services[\"is_allowed\"](account):\n        return {\"success\": False, \"error\": \"RATE_LIMITED\"}\n    lock = services[\"acquire\"](account)\n    if not lock[\"success\"]:\n        return {\"success\": False, \"error\": \"ACCOUNT_LOCKED\"}\n    try:\n        services[\"replicate\"]({\"order_id\": order[\"id\"], \"amount\": order[\"amount\"], \"fencing_token\": lock[\"fencing_token\"]})\n        receipt = services[\"commit\"](order)\n        return {\"success\": True, \"receipt\": receipt, \"fencing_token\": lock[\"fencing_token\"]}\n    except Exception as err:\n        return {\"success\": False, \"error\": str(err)}\n    finally:\n        services[\"release\"](account, lock[\"lock_id\"])\n\nreleased, replicas = [], []\nservices = {\n    \"is_allowed\": lambda a: True,\n    \"acquire\": lambda a: {\"success\": True, \"lock_id\": \"lock_7\", \"fencing_token\": 7},\n    \"release\": lambda a, lid: released.append((a, lid)),\n    \"replicate\": replicas.append,\n    \"commit\": lambda o: f\"rcpt-{o['id']}\",\n}\nprint(execute_trade({\"id\": \"T1\", \"account\": \"ACC-9\", \"amount\": 5000}, services))\nprint(\"replicated:\", replicas, \"released:\", released)",
+        "output": "{'success': True, 'receipt': 'rcpt-T1', 'fencing_token': 7}\nreplicated: [{'order_id': 'T1', 'amount': 5000, 'fencing_token': 7}] released: [('ACC-9', 'lock_7')]",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Rate limit before touching the lock."
+          },
+          {
+            "line": 9,
+            "note": "The fencing token goes with the replicated record."
+          },
+          {
+            "line": 15,
+            "note": "finally: the lock is released on success and on failure."
+          }
+        ],
+        "tryIt": "Make acquire return {\"success\": False}. Is release called? Should it be?",
+        "check": {
+          "question": "Why is release inside a finally block?",
+          "options": [
+            "finally is faster",
+            "It runs whether the trade succeeds or raises, so the lock is never leaked",
+            "Python requires it"
+          ],
+          "answer": 1,
+          "why": "Cleanup in finally happens on every path out of the try block."
+        }
+      },
+      {
+        "title": "Testing every failure path",
+        "say": [
+          "The engine must be tested on each path: rate limited, lock unavailable, replication fails, commit fails, and success.",
+          "For every path after acquiring the lock, assert that release was called exactly once. That single check catches the most dangerous bug.",
+          "Tests like these document the engine's rules precisely, which helps reviewers and new team members as much as it prevents bugs.",
+          "For rate-limited trades, assert that acquire was never called.",
+          "For a failed replication, assert that commit was never called; a trade must not be committed without its replicated record.",
+          "Fakes that record their calls make all of these assertions easy.",
+          "The example runs a table of scenarios with assertions."
+        ],
+        "example": "A bank's audit checklist for the locker room: in every scenario, was the key returned? Was any ledger entry written without its twin?",
+        "code": "def execute_trade(order, s):\n    if not s[\"is_allowed\"](order[\"account\"]):\n        return \"RATE_LIMITED\"\n    lock = s[\"acquire\"](order[\"account\"])\n    if not lock[\"success\"]:\n        return \"ACCOUNT_LOCKED\"\n    try:\n        s[\"replicate\"](order)\n        return \"OK \" + s[\"commit\"](order)\n    except Exception as err:\n        return f\"ERROR {err}\"\n    finally:\n        s[\"release\"](order[\"account\"], lock[\"lock_id\"])\n\ndef fakes(allowed=True, locked=False, replicate_fails=False):\n    calls = []\n    def replicate(o):\n        calls.append(\"replicate\")\n        if replicate_fails:\n            raise ConnectionError(\"replica timeout\")\n    return calls, {\n        \"is_allowed\": lambda a: allowed,\n        \"acquire\": lambda a: calls.append(\"acquire\") or {\"success\": not locked, \"lock_id\": \"L1\"},\n        \"replicate\": replicate,\n        \"commit\": lambda o: calls.append(\"commit\") or \"rcpt-1\",\n        \"release\": lambda a, l: calls.append(\"release\"),\n    }\n\norder = {\"account\": \"A1\"}\nfor kwargs, expected, expected_calls in [\n    ({}, \"OK rcpt-1\", [\"acquire\", \"replicate\", \"commit\", \"release\"]),\n    ({\"allowed\": False}, \"RATE_LIMITED\", []),\n    ({\"locked\": True}, \"ACCOUNT_LOCKED\", [\"acquire\"]),\n    ({\"replicate_fails\": True}, \"ERROR replica timeout\", [\"acquire\", \"replicate\", \"release\"]),\n]:\n    calls, services = fakes(**kwargs)\n    assert execute_trade(order, services) == expected and calls == expected_calls, (kwargs, calls)\n    print(f\"{expected:24} calls: {calls}\")",
+        "output": "OK rcpt-1                calls: ['acquire', 'replicate', 'commit', 'release']\nRATE_LIMITED             calls: []\nACCOUNT_LOCKED           calls: ['acquire']\nERROR replica timeout    calls: ['acquire', 'replicate', 'release']",
+        "codeNotes": [
+          {
+            "line": 32,
+            "note": "Rate-limited trades never touch the lock."
+          },
+          {
+            "line": 34,
+            "note": "A failed replication still releases the lock and never commits."
+          },
+          {
+            "line": 37,
+            "note": "Check the result and the exact calls for each scenario."
+          }
+        ],
+        "tryIt": "Add a scenario where commit raises. What calls should be recorded?",
+        "check": {
+          "question": "What is the single most important assertion for paths that acquired the lock?",
+          "options": [
+            "The receipt format",
+            "That release was called",
+            "That replicate was called twice"
+          ],
+          "answer": 1,
+          "why": "A leaked lock freezes the account; every path must release it."
+        }
+      },
+      {
+        "title": "Fencing tokens protect the ledger",
+        "say": [
+          "Recall Day 6: a paused process may wake up after its lock expired and try to write. The fencing token travels with the replicated trade record.",
+          "The ledger storage remembers the highest token applied per account and rejects records with a lower token.",
+          "Keeping the check in the ledger means correctness does not depend on every engine instance behaving perfectly.",
+          "So even if two engine instances somehow both believe they hold the account lock, only the newer holder's trades are applied.",
+          "Combined with idempotency keys per trade (Day 13), retries and duplicates also become safe.",
+          "These two ideas, fencing and idempotency, protect the ledger far better than trusting locks alone.",
+          "The example shows the ledger rejecting a stale holder."
+        ],
+        "example": "A cheque book where each new cheque has a higher number: the bank rejects any cheque with a number lower than the last one cleared.",
+        "code": "ledger = {\"ACC-9\": {\"highest_token\": 0, \"entries\": []}}\n\ndef apply(record):\n    acct = ledger[record[\"account\"]]\n    if record[\"fencing_token\"] < acct[\"highest_token\"]:\n        return f\"REJECTED {record['order_id']} (stale token {record['fencing_token']})\"\n    acct[\"highest_token\"] = record[\"fencing_token\"]\n    acct[\"entries\"].append(record[\"order_id\"])\n    return f\"applied {record['order_id']}\"\n\nprint(apply({\"account\": \"ACC-9\", \"order_id\": \"T2\", \"fencing_token\": 8}))\nprint(apply({\"account\": \"ACC-9\", \"order_id\": \"T1-late\", \"fencing_token\": 7}))\nprint(ledger[\"ACC-9\"])",
+        "output": "applied T2\nREJECTED T1-late (stale token 7)\n{'highest_token': 8, 'entries': ['T2']}",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "An older token means a stale lock holder."
+          }
+        ],
+        "tryIt": "Apply a record with token 8 again. Is it accepted? What would stop it being applied twice?",
+        "check": {
+          "question": "How does the ledger use fencing tokens?",
+          "options": [
+            "To sort trades by price",
+            "It rejects records carrying a token lower than the highest already applied",
+            "It encrypts trades"
+          ],
+          "answer": 1,
+          "why": "Stale holders' writes are refused, whatever they believe about their lock."
+        }
+      },
+      {
+        "title": "The certification audit",
+        "say": [
+          "Practice 2: audit_distributed_capstone(checks) takes a dict from check name to True or False, and returns the number passed, the sorted list of failed checks, and certified True only if every check passed and there is at least one.",
+          "The \"at least one\" rule matters: an empty checklist must not certify anything.",
+          "Small details like this are how audits go wrong in practice: a missing input quietly turns into a pass.",
+          "Sorting the failed list keeps the output stable for tests and reports.",
+          "In real engineering, such checklists run in CI and before releases: all tests pass, chaos drills recent, DR targets met, alerts configured.",
+          "Automating the checklist turns good intentions into a rule that is checked every time, not only when someone remembers.",
+          "Your course certificate follows the same idea: finish the lessons, pass the tests and complete the capstone.",
+          "The example audits a system with one failing check."
+        ],
+        "example": "A pilot's pre-flight checklist: every item must be ticked before take-off, and a blank checklist certainly does not count.",
+        "code": "def audit_distributed_capstone(checks):\n    failed = sorted(name for name, ok in checks.items() if not ok)\n    passed = sum(1 for ok in checks.values() if ok)\n    return {\"passed\": passed, \"failed\": failed, \"certified\": bool(checks) and not failed}\n\nchecks = {\"rate limiting\": True, \"fenced locks\": True, \"replication\": True, \"lock always released\": True, \"dr drill\": False}\nprint(audit_distributed_capstone(checks))\nchecks[\"dr drill\"] = True\nprint(audit_distributed_capstone(checks))\nprint(audit_distributed_capstone({}))",
+        "output": "{'passed': 4, 'failed': ['dr drill'], 'certified': False}\n{'passed': 5, 'failed': [], 'certified': True}\n{'passed': 0, 'failed': [], 'certified': False}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Failed checks, sorted for stable output."
+          },
+          {
+            "line": 4,
+            "note": "Certified only with at least one check and no failures."
+          }
+        ],
+        "tryIt": "Add three checks of your own for a system you know, and run the audit.",
+        "check": {
+          "question": "Why must an empty checklist not certify a system?",
+          "options": [
+            "Empty dicts are errors in Python",
+            "Having checked nothing proves nothing",
+            "Certificates need five checks"
+          ],
+          "answer": 1,
+          "why": "Certification should require evidence, not the absence of failures."
+        }
+      },
+      {
+        "title": "Looking back, and next steps",
+        "say": [
+          "You started with the fallacies of distributed computing and ended by building an engine that handles every one of them explicitly.",
+          "The core ideas repeat everywhere: timeouts and retries with backoff, idempotency, majorities and terms, leases and fencing, partitions and replication, and honest failure handling.",
+          "When you meet a new database, queue or framework, ask which of these ideas it uses; the answer tells you most of what you need to know.",
+          "Keep practising by reading post-mortems from real outages; companies like Cloudflare, GitHub and AWS publish detailed ones. Map each cause to a lesson in this course.",
+          "Explain your designs in terms of trade-offs: what consistency, what failure behaviour, what cost. That skill matters more than any single algorithm.",
+          "Congratulations on completing Distributed Systems in Python! Finish the capstone project and assessment to earn your certificate.",
+          "The cheat sheet below maps common problems to the tools you now have."
+        ],
+        "example": "A new driver who has learned the rules, practised every manoeuvre and studied why accidents happen: ready for real roads, and still learning with every trip.",
+        "code": "toolbox = {\n    \"calls fail or hang\": \"timeouts, retries with backoff and jitter\",\n    \"messages arrive twice\": \"idempotency keys and dedupe stores\",\n    \"only one may act\": \"leases, fencing tokens, leader election\",\n    \"replicas must agree\": \"Raft consensus and quorums\",\n    \"transactions span services\": \"sagas with compensations\",\n    \"data outgrows a server\": \"sharding and consistent hashing\",\n    \"a dependency is failing\": \"circuit breakers, bulkheads, fallbacks\",\n    \"a region goes down\": \"DR plans with RPO and RTO\",\n}\nfor problem, tool in toolbox.items():\n    print(f\"{problem:28} -> {tool}\")",
+        "output": "calls fail or hang           -> timeouts, retries with backoff and jitter\nmessages arrive twice        -> idempotency keys and dedupe stores\nonly one may act             -> leases, fencing tokens, leader election\nreplicas must agree          -> Raft consensus and quorums\ntransactions span services   -> sagas with compensations\ndata outgrows a server       -> sharding and consistent hashing\na dependency is failing      -> circuit breakers, bulkheads, fallbacks\na region goes down           -> DR plans with RPO and RTO",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "A cheat sheet for the whole course."
+          }
+        ],
+        "tryIt": "Add three rows for problems you have seen in apps you use.",
+        "check": {
+          "question": "Which skill matters most for designing distributed systems?",
+          "options": [
+            "Memorising algorithms",
+            "Explaining trade-offs in consistency, failure behaviour and cost",
+            "Using the newest database"
+          ],
+          "answer": 1,
+          "why": "Every design choice is a trade-off, and good engineers make it explicitly."
+        }
+      }
+    ],
+    "summary": [
+      "Order the trade: rate limit, acquire a fenced lock, replicate, commit.",
+      "Release the lock in finally so it is never leaked.",
+      "Test every path, including the exact calls made.",
+      "Fencing tokens and idempotency keys protect the ledger from stale holders and retries.",
+      "Certify only with a non-empty checklist and no failures."
+    ],
+    "projectStep": {
+      "title": "Final capstone: trading engine",
+      "steps": [
+        "Add execute_trade and audit_distributed_capstone to dist_toolkit.py.",
+        "Write table-driven tests for five scenarios, asserting the calls made.",
+        "Bonus: add a ledger that rejects stale fencing tokens and duplicate trade ids."
+      ]
+    }
   }
 ];
