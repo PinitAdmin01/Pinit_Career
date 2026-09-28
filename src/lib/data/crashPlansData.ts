@@ -26,6 +26,13 @@ export interface CrashPlan {
   targetRole: string;
   hireabilityBoost: string;
   competitorSavings: string;
+  /** Plan-specific wording of the capstone sprints (see getCapstoneSprints). */
+  capstoneSprintsByTrack?: Partial<Record<'web_fullstack' | 'python_ai', Partial<Record<1 | 2 | 3 | 4, {
+    title?: string;
+    description?: string;
+    check?: string;
+    field?: { label: string; placeholder: string };
+  }>>>>;
   flagshipBuildByTrack: {
     web_fullstack: {
       title: string;
@@ -81,7 +88,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     highlightColor: '#38bdf8',
     trainingDurationMonths: 1,
     trainingDurationDays: 30,
-    dailyCommitment: 'Daily 1 Hr Learning + Practice Labs',
+    dailyCommitment: 'About 1 hour a day: lesson, practice and a project step',
     projectDurationMonths: 1,
     internshipDurationMonths: '2-3 Months',
     totalProgramDuration: '3-4 Months Total',
@@ -93,10 +100,10 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     competitorSavings: 'Save ₹45,000 vs short-term bootcamps with zero debt',
     flagshipBuildByTrack: {
       web_fullstack: {
-        title: 'Distributed Real-Time Chat & Presence Engine',
-        desc: 'Production WebSocket/Redis engine with channels, user presence indicators, and message persistence.',
-        tech: ['Next.js 14', 'TypeScript', 'Redis', 'Tailwind'],
-        icon: '💬'
+        title: 'Recipe Finder & Weekly Meal Planner',
+        desc: 'Your own React app, built on your own: search recipes from a free public API, save favourites, plan meals for the week, and put it online with a live link.',
+        tech: ['React', 'React Router', 'Vite', 'Vitest'],
+        icon: '🍲'
       },
       python_ai: {
         title: 'High-Concurrency Async REST API & Ingestion Engine',
@@ -105,9 +112,31 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         icon: '⚡'
       }
     },
+    capstoneSprintsByTrack: {
+      web_fullstack: {
+        1: {
+          title: 'Sprint 1: Plan & Repository',
+          description: 'Create a public GitHub repository for your capstone app and add PLAN.md with your user stories, data shape and component tree, like you did on Day 23.',
+          check: 'We check that the repository is public and your plan file exists in it.',
+          field: { label: 'Plan', placeholder: 'https://github.com/you/recipe-planner/blob/main/PLAN.md' }
+        },
+        2: {
+          title: 'Sprint 2: Core Features',
+          description: 'Build the main screens as React components in the same repository: recipe search from the API, a recipe details page, favourites and the weekly plan.',
+          check: 'We check that the components folder you link exists in your repository.',
+          field: { label: 'Components', placeholder: 'https://github.com/you/recipe-planner/tree/main/src/components' }
+        },
+        3: {
+          description: 'Put the app online (for example on Vercel, like on Day 29) and submit its live https address.'
+        },
+        4: {
+          description: 'Explain and defend your app in the AI capstone interview (free for enrolled students).'
+        }
+      }
+    },
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Core React/Python Foundation', duration: 'Month 1', icon: '⚡' },
-      { step: 2, title: '1-Month Live Capstone', subtitle: 'Ship Production Chat/API', duration: 'Month 2', icon: '🚀' },
+      { step: 2, title: '1-Month Capstone Project', subtitle: 'Build and deploy your own app', duration: 'Month 2', icon: '🚀' },
       { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Code Review & SHA-256 Pass', duration: 'Months 3–4', icon: '🏢' }
     ],
     features: [
@@ -136,10 +165,10 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         {
           month: 1,
           courseId: 'course-react-web',
-          title: 'Modern Frontend & Component Engineering',
-          desc: 'Modern React, state architectures, and dynamic web user interfaces.',
+          title: 'Month 1: From JavaScript to React',
+          desc: 'JavaScript basics, React components, state, forms, pages and hooks, while building and deploying a Job Tracker app.',
           icon: '⚛️',
-          skills: ['React', 'JavaScript', 'Tailwind', 'Hooks']
+          skills: ['JavaScript', 'React', 'React Router', 'Git']
         }
       ],
       python_ai: [

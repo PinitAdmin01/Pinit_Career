@@ -31,6 +31,7 @@ import {
   playPopSound
 } from './useQuestProgression';
 import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
+import { getCapstoneSprints } from '@/lib/courses/capstoneSprints';
 import { useAuth } from '@/lib/context/AuthContext';
 
 export interface TrackSelectorDrawerProps {
@@ -732,6 +733,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 crashCourseEnrollmentService.cacheEnrollment(updated);
               }}
               onClose={() => setShowCapstonePortal(false)}
+              sprints={getCapstoneSprints(enrolledPlan, activeEnrollment.track)}
             />
           )}
 
