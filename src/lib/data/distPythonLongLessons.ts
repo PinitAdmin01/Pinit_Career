@@ -4743,5 +4743,1197 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add a bulkhead limit and a cached fallback for one dependency."
       ]
     }
+  },
+  {
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Distributed Rate Limiter & Circuit Breaker API Gateway",
+    "goal": "You can build an API gateway that rate-limits each client, protects backends with a circuit breaker, maps outcomes to the right HTTP status codes, and adds timing headers and tests for every path.",
+    "minutes": 30,
+    "recap": "This week covered clocks, CRDTs, sharding, replicas and circuit breakers. Milestone 3 puts rate limiting and circuit breaking together at the front door of your system: the API gateway.",
+    "parts": [
+      {
+        "title": "What a gateway does",
+        "say": [
+          "An API gateway is the single entry point for client traffic. It sits in front of many backend services and applies shared rules before any request reaches them.",
+          "Typical duties: authentication, rate limiting, routing to the right service, circuit breaking, timeouts, and adding standard headers such as request ids and timings.",
+          "Doing these once at the edge is simpler and safer than re-implementing them in every service.",
+          "It also gives one place to change policy: raising a client's limit or blocking an abusive key needs no change to any backend service.",
+          "The gateway must be fast and highly available, since every request passes through it. It usually runs as several identical instances behind a load balancer.",
+          "Today's milestone focuses on the two protections you built recently: per-client rate limiting and a circuit breaker around the backend.",
+          "The example lists a request's journey through the gateway."
+        ],
+        "example": "The security desk of an office tower: it checks your pass, limits how many visitors go up at once, and tells you when a floor is closed, before you ever reach the lift.",
+        "code": "journey = [\n    \"authenticate the client\",\n    \"check the client's rate limit (429 if exceeded)\",\n    \"call the backend through the circuit breaker (503 if open)\",\n    \"map backend errors to 500\",\n    \"add X-Response-Time and request id headers\",\n]\nfor i, step in enumerate(journey, start=1):\n    print(i, step)",
+        "output": "1 authenticate the client\n2 check the client's rate limit (429 if exceeded)\n3 call the backend through the circuit breaker (503 if open)\n4 map backend errors to 500\n5 add X-Response-Time and request id headers",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Rate limiting stops one client from overwhelming everyone."
+          },
+          {
+            "line": 4,
+            "note": "The breaker protects the backend and fails fast."
+          }
+        ],
+        "tryIt": "Where in this journey would you add caching of popular responses?",
+        "check": {
+          "question": "Why put rate limiting and circuit breaking in the gateway?",
+          "options": [
+            "Backends cannot do it",
+            "Applying shared rules once at the edge is simpler and consistent",
+            "Gateways are faster than backends"
+          ],
+          "answer": 1,
+          "why": "Central enforcement avoids duplicating the logic in every service."
+        }
+      },
+      {
+        "title": "Per-client rate limiting",
+        "say": [
+          "Each client (an API key or a user) gets its own token bucket: a capacity that allows short bursts, and a refill rate that sets the long-run average.",
+          "The gateway checks the bucket before doing any work. If the client is over its limit, it returns 429 Too Many Requests at once.",
+          "Include a Retry-After header with 429 responses, telling well-behaved clients exactly how long to wait.",
+          "Keeping the limiter check first protects everything behind it, including the circuit breaker's failure counts, from abusive traffic.",
+          "In a real deployment, buckets live in a shared store such as Redis, so all gateway instances agree on each client's usage.",
+          "Different plans can have different limits: free users 60 calls per minute, paying users 600.",
+          "The example implements a small per-client limiter with a fake clock."
+        ],
+        "example": "A buffet where each guest may take three plates per hour: the counter keeps a tally per guest, not one shared tally for the whole room.",
+        "code": "class ClientLimiter:\n    def __init__(self, capacity, refill_per_sec):\n        self.capacity, self.rate, self.buckets = capacity, refill_per_sec, {}\n\n    def is_allowed(self, client, now):\n        tokens, last = self.buckets.get(client, (self.capacity, now))\n        tokens = min(self.capacity, tokens + (now - last) * self.rate)\n        allowed = tokens >= 1\n        self.buckets[client] = (tokens - 1 if allowed else tokens, now)\n        return allowed\n\nlimiter = ClientLimiter(capacity=3, refill_per_sec=1)\ncalls = [(\"free-app\", 0), (\"free-app\", 0), (\"free-app\", 0), (\"free-app\", 0), (\"paid-app\", 0), (\"free-app\", 2)]\nfor client, t in calls:\n    print(f\"t={t} {client:9} allowed: {limiter.is_allowed(client, t)}\")",
+        "output": "t=0 free-app  allowed: True\nt=0 free-app  allowed: True\nt=0 free-app  allowed: True\nt=0 free-app  allowed: False\nt=0 paid-app  allowed: True\nt=2 free-app  allowed: True",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Refill for the time since this client's last call."
+          },
+          {
+            "line": 9,
+            "note": "Spend a token only if the call is allowed."
+          }
+        ],
+        "tryIt": "Give paid-app a capacity of 10 by keeping a separate limiter per plan.",
+        "check": {
+          "question": "Why does each client get its own bucket?",
+          "options": [
+            "Buckets are cheap",
+            "So one busy client cannot use up everyone else's allowance",
+            "Clients prefer it"
+          ],
+          "answer": 1,
+          "why": "Per-client limits keep the system fair."
+        }
+      },
+      {
+        "title": "Handling a request end to end",
+        "say": [
+          "Practice 1: handle_gateway(client_id, is_allowed, breaker_call, backend). If is_allowed(client_id) is False, return {\"status\": 429}.",
+          "Otherwise run breaker_call(backend). On success return {\"status\": 200, \"data\": result}. If it raises CircuitOpenError, return {\"status\": 503}; any other exception returns {\"status\": 500, \"error\": ...}.",
+          "Order the except clauses from most specific to most general, so the circuit-open case is not swallowed by the generic handler.",
+          "Never put raw internal error messages in responses to external clients; log the details and return a short, safe message with the request id.",
+          "503 Service Unavailable tells clients the problem is temporary and they may retry later; 500 says the request failed inside the server.",
+          "Passing the limiter and breaker in as functions keeps the gateway logic easy to test with fakes.",
+          "The example exercises all four outcomes."
+        ],
+        "example": "A receptionist with a simple script: too many visits today, come back tomorrow; that department is closed, try later; something went wrong, here is the reason; or here is what you asked for.",
+        "code": "class CircuitOpenError(Exception):\n    pass\n\ndef handle_gateway(client_id, is_allowed, breaker_call, backend):\n    if not is_allowed(client_id):\n        return {\"status\": 429}\n    try:\n        return {\"status\": 200, \"data\": breaker_call(backend)}\n    except CircuitOpenError:\n        return {\"status\": 503}\n    except Exception as err:\n        return {\"status\": 500, \"error\": str(err)}\n\ndef open_breaker(fn):\n    raise CircuitOpenError()\ndef failing_backend():\n    raise ValueError(\"bad row in orders table\")\npassthrough = lambda fn: fn()\n\nprint(handle_gateway(\"c1\", lambda c: False, passthrough, lambda: \"orders\"))\nprint(handle_gateway(\"c1\", lambda c: True, passthrough, lambda: [\"order-7\"]))\nprint(handle_gateway(\"c1\", lambda c: True, open_breaker, lambda: \"orders\"))\nprint(handle_gateway(\"c1\", lambda c: True, passthrough, failing_backend))",
+        "output": "{'status': 429}\n{'status': 200, 'data': ['order-7']}\n{'status': 503}\n{'status': 500, 'error': 'bad row in orders table'}",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Rate limit first: no work for clients over their limit."
+          },
+          {
+            "line": 9,
+            "note": "The specific circuit-open case before the generic one."
+          },
+          {
+            "line": 12,
+            "note": "Anything else is a server error."
+          }
+        ],
+        "tryIt": "Swap the two except clauses. Which test now gives the wrong status?",
+        "check": {
+          "question": "Which status should a client get when the backend's circuit is open?",
+          "options": [
+            "429",
+            "500",
+            "503"
+          ],
+          "answer": 2,
+          "why": "503 Service Unavailable signals a temporary problem on the server side."
+        }
+      },
+      {
+        "title": "Timing headers",
+        "say": [
+          "Practice 2: response_time_header(ms) returns \"X-Response-Time: 12ms\". Gateways add headers like this so clients and tools can see how long the request took.",
+          "Measure time at the gateway: from receiving the request to sending the response, including the backend call.",
+          "Comparing the gateway's timing with the backend's own timing shows how much time is spent in the network and the gateway itself.",
+          "Also add a request id header (for example X-Request-Id) and pass it to backends, so logs across services can be joined. Day 26 extends this into full distributed tracing.",
+          "Timing headers help clients report slow requests precisely, and help you spot slow routes in logs.",
+          "Do not leak internal details in headers, such as backend host names; they help attackers.",
+          "The example measures and formats timings with a fake clock."
+        ],
+        "example": "A delivery receipt that shows when the order was placed and when it arrived, so everyone agrees how long it took.",
+        "code": "def response_time_header(ms):\n    return f\"X-Response-Time: {ms}ms\"\n\nclock = iter([1000, 1012, 2000, 2350])\nfor request_id in [\"req-1\", \"req-2\"]:\n    start = next(clock)\n    end = next(clock)\n    print(request_id, response_time_header(end - start), f\"X-Request-Id: {request_id}\")",
+        "output": "req-1 X-Response-Time: 12ms X-Request-Id: req-1\nreq-2 X-Response-Time: 350ms X-Request-Id: req-2",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Milliseconds with a unit, in a standard header."
+          },
+          {
+            "line": 8,
+            "note": "A request id lets logs across services be joined."
+          }
+        ],
+        "tryIt": "Add a Server-Timing header that separates gateway time from backend time.",
+        "check": {
+          "question": "Why add a request id header at the gateway?",
+          "options": [
+            "It speeds up requests",
+            "So logs from every service handling the request can be joined together",
+            "Clients require it"
+          ],
+          "answer": 1,
+          "why": "One id followed through all services makes debugging possible."
+        }
+      },
+      {
+        "title": "Testing every gateway path",
+        "say": [
+          "The gateway sits in front of everything, so its behaviour must be tested for every outcome: allowed and successful, rate limited, circuit open, backend error.",
+          "Also test the order: a rate-limited request must not reach the breaker or the backend at all. Recording fakes prove it, as in the AI capstone.",
+          "Test boundaries: exactly at the limit, just over it, and after the bucket refills.",
+          "Run the same tests against every gateway instance configuration you deploy, since a missing setting on one instance can quietly disable a protection.",
+          "Test the breaker together with the gateway: after enough backend errors, later calls should get 503 without reaching the backend.",
+          "Table-driven tests keep these cases short and easy to extend.",
+          "The example checks the order of calls for a rate-limited request."
+        ],
+        "example": "A fire drill for the front desk: each emergency is rehearsed, including making sure blocked visitors never reach the lifts.",
+        "code": "class CircuitOpenError(Exception):\n    pass\n\ndef handle_gateway(client_id, is_allowed, breaker_call, backend):\n    if not is_allowed(client_id):\n        return {\"status\": 429}\n    try:\n        return {\"status\": 200, \"data\": breaker_call(backend)}\n    except CircuitOpenError:\n        return {\"status\": 503}\n    except Exception as err:\n        return {\"status\": 500, \"error\": str(err)}\n\ncalls = []\ndef recording_breaker(fn):\n    calls.append(\"breaker\")\n    return fn()\ndef backend():\n    calls.append(\"backend\")\n    return \"ok\"\n\nassert handle_gateway(\"c\", lambda c: False, recording_breaker, backend) == {\"status\": 429} and calls == []\nassert handle_gateway(\"c\", lambda c: True, recording_breaker, backend) == {\"status\": 200, \"data\": \"ok\"}\nassert calls == [\"breaker\", \"backend\"]\nprint(\"rate-limited requests never reach the breaker or backend; allowed ones do\")",
+        "output": "rate-limited requests never reach the breaker or backend; allowed ones do",
+        "codeNotes": [
+          {
+            "line": 22,
+            "note": "A 429 must not touch anything behind the limiter."
+          },
+          {
+            "line": 24,
+            "note": "An allowed request goes through the breaker to the backend."
+          }
+        ],
+        "tryIt": "Add a test for a backend that raises, checking the status is 500 and the error text is included.",
+        "check": {
+          "question": "How can a test prove a rate-limited request never reached the backend?",
+          "options": [
+            "By timing it",
+            "By using fakes that record calls and checking the record is empty",
+            "It cannot be tested"
+          ],
+          "answer": 1,
+          "why": "Recording fakes show exactly what was called."
+        }
+      },
+      {
+        "title": "Running gateways in production",
+        "say": [
+          "Run several gateway instances behind a load balancer (Day 23) so one failure does not stop all traffic.",
+          "Keep limiter state in a shared store, and circuit breaker state per instance or shared, depending on how quickly you need all instances to react.",
+          "If the shared store is unreachable, decide in advance whether the gateway fails open (allow traffic) or fails closed (reject it); most choose to allow, with an alert.",
+          "Watch gateway metrics: requests per second, error rates by status code, p95 latency per route, and the number of 429s and 503s.",
+          "Popular gateways include NGINX, Envoy, Kong, AWS API Gateway and cloud load balancers with gateway features.",
+          "Congratulations on Milestone 3! Next week covers gossip, load balancing, discovery, tracing, consistency, CDNs and disaster recovery.",
+          "The example summarises a minute of gateway traffic by status code."
+        ],
+        "example": "A busy railway station with several ticket gates: if one gate breaks, the others keep working, and the station manager watches a board showing how each gate is doing.",
+        "code": "from collections import Counter\n\nstatuses = [200] * 940 + [429] * 35 + [503] * 20 + [500] * 5\ncounts = Counter(statuses)\ntotal = len(statuses)\nfor status in sorted(counts):\n    print(f\"{status}: {counts[status]:>4} ({counts[status] / total:.1%})\")\nprint(\"server error rate:\", f\"{(counts[500] + counts[503]) / total:.1%}\")",
+        "output": "200:  940 (94.0%)\n429:   35 (3.5%)\n500:    5 (0.5%)\n503:   20 (2.0%)\nserver error rate: 2.5%",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "5xx responses are the server's fault; 429s are clients over their limits."
+          }
+        ],
+        "tryIt": "If 503s suddenly jump to 20%, which component would you look at first?",
+        "check": {
+          "question": "Why run several gateway instances?",
+          "options": [
+            "To use more memory",
+            "So one instance failing does not stop all traffic",
+            "Gateways cannot handle more than 100 requests"
+          ],
+          "answer": 1,
+          "why": "The gateway is on every request path, so it must not be a single point of failure."
+        }
+      }
+    ],
+    "summary": [
+      "An API gateway applies shared rules at the single entry point.",
+      "Per-client token buckets return 429 before any work is done.",
+      "Map outcomes: 200 success, 429 limited, 503 circuit open, 500 server error.",
+      "Add timing and request id headers for debugging and tracing.",
+      "Test every path and the order of calls; run several gateway instances."
+    ],
+    "projectStep": {
+      "title": "Milestone 3: API gateway",
+      "steps": [
+        "Add handle_gateway and response_time_header to dist_toolkit.py.",
+        "Combine your token bucket and circuit breaker into one gateway and test all four statuses.",
+        "Bonus: summarise 1,000 fake responses by status code and error rate."
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "title": "Gossip Protocols: SWIM Failure Detection & Cluster Membership",
+    "goal": "You can explain gossip protocols, spread information epidemically with a small fan-out, detect failures with SWIM's direct and indirect probes, and manage suspicion to avoid false alarms.",
+    "minutes": 30,
+    "recap": "Leader election used heartbeats to one leader. In clusters of hundreds or thousands of nodes, every node checking every other node is too expensive. Gossip spreads the work.",
+    "parts": [
+      {
+        "title": "Why gossip?",
+        "say": [
+          "In a cluster of N nodes, if every node sends heartbeats to every other node, there are N x (N - 1) messages per round. With 1,000 nodes, that is about a million messages.",
+          "Gossip protocols instead have each node talk to a few random peers per round. Information spreads like a rumour: each informed node tells a few others.",
+          "The number of informed nodes roughly multiplies each round, so news reaches the whole cluster in about log(N) rounds.",
+          "With 1,000 nodes and a fan-out of 3, news typically reaches everyone in under ten rounds, with each node sending only 3 messages per round.",
+          "Gossip is robust: no central server, no single point of failure, and lost messages are compensated by later rounds.",
+          "It also degrades gracefully: losing a few nodes or messages slows the spread slightly instead of stopping it.",
+          "Cassandra, Consul, Redis Cluster and many others use gossip for membership and failure detection.",
+          "The simulation spreads one update through 100 nodes with a fan-out of 3."
+        ],
+        "example": "A piece of news in a small town: each person who hears it tells three friends at the market, and within a few days everyone knows, without any announcement.",
+        "code": "import random\n\nrng = random.Random(5)\nnodes = list(range(100))\ninformed = {0}\nrounds = 0\nwhile len(informed) < len(nodes):\n    rounds += 1\n    for node in list(informed):\n        informed.update(rng.sample(nodes, 3))\n    print(f\"round {rounds}: {len(informed)} nodes informed\")\nprint(\"all-to-all heartbeats would need\", len(nodes) * (len(nodes) - 1), \"messages per round\")",
+        "output": "round 1: 4 nodes informed\nround 2: 14 nodes informed\nround 3: 41 nodes informed\nround 4: 83 nodes informed\nround 5: 99 nodes informed\nround 6: 100 nodes informed\nall-to-all heartbeats would need 9900 messages per round",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Each informed node tells 3 random peers."
+          },
+          {
+            "line": 12,
+            "note": "The cost of everyone checking everyone."
+          }
+        ],
+        "tryIt": "Try a fan-out of 1 and of 5. How many rounds does each take?",
+        "check": {
+          "question": "How many rounds does gossip roughly need to reach N nodes?",
+          "options": [
+            "N rounds",
+            "About log(N) rounds",
+            "Exactly 3 rounds"
+          ],
+          "answer": 1,
+          "why": "The informed set multiplies each round, so growth is exponential."
+        }
+      },
+      {
+        "title": "Choosing gossip peers",
+        "say": [
+          "Each round, a node picks k peers to gossip with. Practice 2: fanout_peers(peers, k, me) returns the first k peers, skipping the node itself.",
+          "Real protocols pick peers randomly (or shuffle the list each round) so that information travels along different paths.",
+          "Some protocols prefer peers they have not contacted recently, which spreads information even more evenly.",
+          "A small k (2 to 4) is usually enough; the exponential spread does the rest.",
+          "Nodes also exchange their membership lists during gossip, so everyone learns about new and departed nodes.",
+          "Pick peers from the whole cluster, not only nearby ones, or information can get stuck inside one rack or region.",
+          "The example chooses peers from a shuffled list with a seeded generator."
+        ],
+        "example": "Choosing a few different friends to share news with each day, instead of always the same two, so the news reaches different circles.",
+        "code": "import random\n\ndef fanout_peers(peers, k=3, me=None):\n    return [p for p in peers if p != me][:k]\n\npeers = [\"n1\", \"n2\", \"n3\", \"n4\", \"n5\", \"n6\"]\nprint(fanout_peers(peers, 3, me=\"n1\"))\nrng = random.Random(8)\nfor round_no in range(1, 4):\n    shuffled = peers[:]\n    rng.shuffle(shuffled)\n    print(f\"round {round_no}:\", fanout_peers(shuffled, 2, me=\"n1\"))",
+        "output": "['n2', 'n3', 'n4']\nround 1: ['n6', 'n5']\nround 2: ['n2', 'n3']\nround 3: ['n6', 'n3']",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Skip yourself, then take the first k."
+          },
+          {
+            "line": 11,
+            "note": "Shuffle each round so different peers are chosen."
+          }
+        ],
+        "tryIt": "Change k to 5. What happens when k is larger than the number of other peers?",
+        "check": {
+          "question": "Why shuffle the peer list each gossip round?",
+          "options": [
+            "To save memory",
+            "So information travels along different paths and does not get stuck",
+            "Gossip requires sorted lists"
+          ],
+          "answer": 1,
+          "why": "Random peers make the spread fast and robust."
+        }
+      },
+      {
+        "title": "SWIM: probing for failures",
+        "say": [
+          "SWIM (Scalable Weakly-consistent Infection-style Membership) detects failures efficiently. Each round, a node pings one random member directly.",
+          "If the direct ping times out, the node does not conclude failure at once. It asks k other members to ping the target on its behalf (indirect probes).",
+          "This handles cases where the network between two particular nodes is broken but the target is actually fine.",
+          "Such partial network problems are common in large datacentres, where one switch or link can fail while the rest of the network works.",
+          "Practice 1: swim_probe(target, ping, peers, k) returns ALIVE via DIRECT, ALIVE via INDIRECT, or SUSPECT via INDIRECT when nobody could reach the target.",
+          "Choose helpers from the peers excluding the target itself, and take the first k.",
+          "The example simulates a target that is unreachable directly but reachable through a helper."
+        ],
+        "example": "If a friend does not answer your call, you ask two mutual friends to try calling them too, before assuming something is wrong.",
+        "code": "def swim_probe(target, ping, peers, k=2):\n    try:\n        ping(target)\n        return {\"status\": \"ALIVE\", \"method\": \"DIRECT\"}\n    except TimeoutError:\n        pass\n    for helper in [p for p in peers if p != target][:k]:\n        try:\n            ping(target, via=helper)\n            return {\"status\": \"ALIVE\", \"method\": \"INDIRECT\"}\n        except TimeoutError:\n            continue\n    return {\"status\": \"SUSPECT\", \"method\": \"INDIRECT\"}\n\ndef make_ping(reachable_via):\n    def ping(target, via=None):\n        if via not in reachable_via:\n            raise TimeoutError(f\"no answer from {target} via {via}\")\n    return ping\n\npeers = [\"n2\", \"n3\", \"n4\"]\nprint(swim_probe(\"n4\", make_ping({None}), peers))\nprint(swim_probe(\"n4\", make_ping({\"n3\"}), peers))\nprint(swim_probe(\"n4\", make_ping(set()), peers))",
+        "output": "{'status': 'ALIVE', 'method': 'DIRECT'}\n{'status': 'ALIVE', 'method': 'INDIRECT'}\n{'status': 'SUSPECT', 'method': 'INDIRECT'}",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Try a direct ping first."
+          },
+          {
+            "line": 7,
+            "note": "Ask up to k helpers, never the target itself."
+          },
+          {
+            "line": 13,
+            "note": "Nobody reached it: suspect, do not declare dead yet."
+          }
+        ],
+        "tryIt": "Make n4 reachable only via n2. With k=1, what is the result?",
+        "check": {
+          "question": "Why does SWIM use indirect probes?",
+          "options": [
+            "To save bandwidth",
+            "A failed direct ping may be a broken link between two nodes, not a dead target",
+            "Indirect pings are faster"
+          ],
+          "answer": 1,
+          "why": "Other nodes may still reach the target, avoiding a false failure."
+        }
+      },
+      {
+        "title": "Suspicion before declaring death",
+        "say": [
+          "SWIM marks an unreachable node as SUSPECT first, and gossips that suspicion. The suspected node, if alive, hears about it and gossips an \"I am alive\" message with a higher incarnation number.",
+          "Only if the suspicion is not refuted within a timeout is the node declared DEAD and removed from membership.",
+          "This greatly reduces false positives caused by brief pauses, such as garbage collection or a busy CPU.",
+          "False positives are expensive: a node wrongly declared dead may have its data moved or its work reassigned for no reason.",
+          "Incarnation numbers work like terms or fencing tokens: a newer \"alive\" message overrides an older \"suspect\" message.",
+          "Tuning the suspicion timeout balances detection speed against false alarms, just like heartbeat timeouts on Day 7.",
+          "The simulation walks one node through suspect, refute, and later dead."
+        ],
+        "example": "Before a team marks a colleague as absent, they wait a little in case the person just stepped out; if the colleague walks back in, they are marked present again.",
+        "code": "SUSPICION_TIMEOUT = 5\nstate = {\"n4\": {\"status\": \"ALIVE\", \"incarnation\": 0}}\n\ndef suspect(node, now):\n    state[node].update(status=\"SUSPECT\", since=now)\n\ndef refute(node, incarnation):\n    if incarnation > state[node][\"incarnation\"]:\n        state[node].update(status=\"ALIVE\", incarnation=incarnation)\n\ndef tick(now):\n    for node, s in state.items():\n        if s[\"status\"] == \"SUSPECT\" and now - s[\"since\"] >= SUSPICION_TIMEOUT:\n            s[\"status\"] = \"DEAD\"\n\nsuspect(\"n4\", now=0); refute(\"n4\", incarnation=1); tick(now=6)\nprint(\"after refuting:\", state[\"n4\"])\nsuspect(\"n4\", now=10); tick(now=16)\nprint(\"no refutation:\", state[\"n4\"])",
+        "output": "after refuting: {'status': 'ALIVE', 'incarnation': 1, 'since': 0}\nno refutation: {'status': 'DEAD', 'incarnation': 1, 'since': 10}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "A newer incarnation overrides the suspicion."
+          },
+          {
+            "line": 13,
+            "note": "Unrefuted for too long: declare dead."
+          }
+        ],
+        "tryIt": "Refute with incarnation 0 instead of 1. Does the refutation work? Why?",
+        "check": {
+          "question": "What does a suspected node do if it is actually alive?",
+          "options": [
+            "Nothing",
+            "Gossips an \"alive\" message with a higher incarnation number",
+            "Restarts itself"
+          ],
+          "answer": 1,
+          "why": "The higher incarnation overrides the old suspicion."
+        }
+      },
+      {
+        "title": "Membership and dissemination",
+        "say": [
+          "SWIM piggybacks membership updates (joined, suspect, alive, dead) on its ping and ack messages, so dissemination costs no extra messages.",
+          "Each update is sent a limited number of times (about log(N)) and then dropped, which keeps messages small.",
+          "Recent updates are sent first, so the newest news travels fastest through the cluster.",
+          "New nodes join by contacting any existing member (a seed node), which then gossips the join to everyone.",
+          "Membership is eventually consistent: for a short while, different nodes may have slightly different lists. Systems built on gossip must tolerate that.",
+          "HashiCorp's memberlist (used by Consul and Serf) is a widely used SWIM implementation.",
+          "The example merges membership updates using incarnation numbers."
+        ],
+        "example": "Office news passed along during tea breaks: each person mentions the latest joiner or leaver to whoever they chat with, and after a few breaks everyone knows.",
+        "code": "members = {\"n1\": (\"ALIVE\", 3), \"n2\": (\"SUSPECT\", 1)}\nincoming = [(\"n2\", (\"ALIVE\", 2)), (\"n3\", (\"ALIVE\", 0)), (\"n1\", (\"SUSPECT\", 2))]\n\nfor node, (status, inc) in incoming:\n    current = members.get(node)\n    if current is None or inc > current[1]:\n        members[node] = (status, inc)\nprint(members)",
+        "output": "{'n1': ('ALIVE', 3), 'n2': ('ALIVE', 2), 'n3': ('ALIVE', 0)}",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Accept an update only if it is newer (a higher incarnation)."
+          }
+        ],
+        "tryIt": "Add an update (\"n1\", (\"DEAD\", 4)). What does n1's entry become?",
+        "check": {
+          "question": "How does SWIM spread membership updates without extra messages?",
+          "options": [
+            "It sends a broadcast",
+            "It piggybacks them on ping and ack messages",
+            "It writes them to a database"
+          ],
+          "answer": 1,
+          "why": "Updates ride along with the failure-detection traffic that is sent anyway."
+        }
+      },
+      {
+        "title": "Where gossip fits",
+        "say": [
+          "Gossip is ideal for information that can be slightly out of date: membership, health, load statistics, and configuration hints.",
+          "It is not a replacement for consensus. Decisions that must be agreed exactly, such as who holds a lock or the order of writes, still need Raft or similar.",
+          "Many systems combine both: gossip for cheap, scalable membership, and a small Raft group for critical metadata.",
+          "Consul does exactly this: gossip (Serf) for membership across many nodes, and Raft among a few server nodes for the service catalogue.",
+          "The costs are predictable: each node sends a constant number of messages per round, whatever the cluster size.",
+          "Tomorrow you will spread requests across healthy servers with load balancing algorithms.",
+          "The helper compares gossip and consensus for different kinds of information."
+        ],
+        "example": "Word of mouth is great for spreading the news that the canteen has a new dish, but you would not use it to decide who owns the flat.",
+        "code": "def pick_protocol(info):\n    exact = {\"lock owner\", \"order of writes\", \"leader identity\", \"configuration version\"}\n    return \"consensus (Raft)\" if info in exact else \"gossip\"\n\nfor info in [\"node health\", \"lock owner\", \"cluster membership\", \"order of writes\", \"load per node\"]:\n    print(f\"{info:20} -> {pick_protocol(info)}\")",
+        "output": "node health          -> gossip\nlock owner           -> consensus (Raft)\ncluster membership   -> gossip\norder of writes      -> consensus (Raft)\nload per node        -> gossip",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Things that must be agreed exactly need consensus."
+          }
+        ],
+        "tryIt": "Which would you use for \"current CPU usage of each node\"? Why?",
+        "check": {
+          "question": "Which information is a poor fit for gossip?",
+          "options": [
+            "Which nodes are alive",
+            "Who currently holds a lock",
+            "Load statistics"
+          ],
+          "answer": 1,
+          "why": "Lock ownership must be agreed exactly, which gossip does not guarantee."
+        }
+      }
+    ],
+    "summary": [
+      "Gossip spreads information in about log(N) rounds with a small fan-out.",
+      "Pick a few random peers each round, never yourself.",
+      "SWIM pings directly, then asks k helpers before suspecting a node.",
+      "Suspicion plus incarnation numbers avoid false failure alarms.",
+      "Use gossip for membership and health; consensus for exact decisions."
+    ],
+    "projectStep": {
+      "title": "Gossip",
+      "steps": [
+        "Add swim_probe and fanout_peers to dist_toolkit.py.",
+        "Simulate gossip in a 200-node cluster and count rounds for fan-outs 2, 3 and 4.",
+        "Bonus: add suspicion with incarnation numbers and a timeout."
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "title": "Load Balancing Algorithms: Weighted Round-Robin, Least Connections & Consistent Hash Ring",
+    "goal": "You can spread traffic with round-robin, smooth weighted round-robin, least connections and consistent hashing, choose the right algorithm for each workload, and remove unhealthy servers from rotation.",
+    "minutes": 30,
+    "recap": "Yesterday's gossip told every node who is alive. A load balancer uses that knowledge to spread requests across the healthy servers.",
+    "parts": [
+      {
+        "title": "Why load balance?",
+        "say": [
+          "A load balancer receives client requests and forwards each one to one of several identical backend servers.",
+          "It lets you scale by adding servers, keeps serving when a server fails, and allows rolling deployments one server at a time.",
+          "It also hides the servers from clients: clients know one address, and servers can change behind it without anyone noticing.",
+          "Balancers work at layer 4 (TCP connections, very fast) or layer 7 (HTTP requests, able to route by path, header or cookie).",
+          "Cloud providers offer both kinds as managed services, so most teams configure balancers rather than build them.",
+          "The algorithm that picks the next server matters: a poor choice overloads some servers while others idle.",
+          "Common algorithms are round-robin, weighted round-robin, least connections, and hashing for stickiness.",
+          "The example sends requests round-robin to three servers."
+        ],
+        "example": "A restaurant host seating arriving guests at different waiters' tables, so no single waiter is overwhelmed.",
+        "code": "servers = [\"s1\", \"s2\", \"s3\"]\ncounts = {s: 0 for s in servers}\nfor request in range(10):\n    chosen = servers[request % len(servers)]\n    counts[chosen] += 1\nprint(counts)",
+        "output": "{'s1': 4, 's2': 3, 's3': 3}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Round-robin: take the next server in turn."
+          }
+        ],
+        "tryIt": "Remove s2 from the list (it failed). How are the 10 requests spread now?",
+        "check": {
+          "question": "What does a layer 7 load balancer understand that layer 4 does not?",
+          "options": [
+            "IP addresses",
+            "HTTP details such as paths and headers",
+            "Network cables"
+          ],
+          "answer": 1,
+          "why": "Layer 7 balancers read the HTTP request and can route on its contents."
+        }
+      },
+      {
+        "title": "Smooth weighted round-robin",
+        "say": [
+          "Servers are not always equal: a bigger machine may handle three times the traffic. Weighted round-robin sends traffic in proportion to weights.",
+          "A naive approach sends a heavy server's requests in a burst (A, A, A, B). NGINX's smooth weighted round-robin interleaves them (A, A, B, A) for steadier load.",
+          "Bursts matter because they briefly overload even a big server, while its smaller neighbours sit idle.",
+          "Practice 1: each round, add each server's weight to its current weight, pick the server with the highest current weight (first on a tie), subtract the total of all weights from it, and return its id.",
+          "Over a full cycle, each server is chosen exactly weight times, and heavy servers are spread through the cycle.",
+          "Using max with a key keeps the first server on a tie, which makes the order predictable and testable.",
+          "The example runs a full cycle for weights 5, 1 and 1."
+        ],
+        "example": "Dealing cards from three piles of different sizes so that the big pile's cards are spread through the deal instead of all coming first.",
+        "code": "class SmoothWeightedBalancer:\n    def __init__(self, weights):\n        self.servers = [{\"id\": sid, \"weight\": w, \"current\": 0} for sid, w in weights.items()]\n        self.total = sum(weights.values())\n\n    def next_server(self):\n        for s in self.servers:\n            s[\"current\"] += s[\"weight\"]\n        best = max(self.servers, key=lambda s: s[\"current\"])\n        best[\"current\"] -= self.total\n        return best[\"id\"]\n\nlb = SmoothWeightedBalancer({\"big\": 5, \"small-1\": 1, \"small-2\": 1})\nprint([lb.next_server() for _ in range(7)])",
+        "output": "['big', 'big', 'small-1', 'big', 'small-2', 'big', 'big']",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Every server gains its weight each round."
+          },
+          {
+            "line": 9,
+            "note": "The highest current weight wins; max keeps the first on a tie."
+          },
+          {
+            "line": 10,
+            "note": "The winner pays back the total."
+          }
+        ],
+        "tryIt": "Try weights {\"a\": 2, \"b\": 1}. What order do you get over 6 picks?",
+        "check": {
+          "question": "How many times is a server with weight 5 chosen in a cycle of total weight 7?",
+          "options": [
+            "1",
+            "5",
+            "7"
+          ],
+          "answer": 1,
+          "why": "Each server is chosen exactly its weight times per cycle."
+        }
+      },
+      {
+        "title": "Least connections",
+        "say": [
+          "Round-robin assumes every request costs about the same. When some requests take much longer (file uploads, reports), servers with long requests pile up work.",
+          "Least connections sends each new request to the server with the fewest active connections, adapting to actual load.",
+          "The balancer already knows each server's open connections, so this information is free to use.",
+          "Practice 2: least_connections(servers) returns the id of the server with the fewest \"active\" connections, first on a tie, without reordering the input.",
+          "min with a key returns the first minimum and does not change the list.",
+          "A variant, least response time, also considers how fast each server has been answering.",
+          "The example routes a sequence of requests, some long, some short."
+        ],
+        "example": "Joining the shortest queue at a supermarket instead of going to checkouts in strict turn.",
+        "code": "def least_connections(servers):\n    return min(servers, key=lambda s: s[\"active\"])[\"id\"]\n\nservers = [{\"id\": \"s1\", \"active\": 0}, {\"id\": \"s2\", \"active\": 0}, {\"id\": \"s3\", \"active\": 0}]\nlong_jobs = {\"s1\"}\nfor request in range(6):\n    chosen = least_connections(servers)\n    for s in servers:\n        if s[\"id\"] == chosen:\n            s[\"active\"] += 3 if chosen in long_jobs else 1\n    print(f\"request {request} -> {chosen}\", [s[\"active\"] for s in servers])",
+        "output": "request 0 -> s1 [3, 0, 0]\nrequest 1 -> s2 [3, 1, 0]\nrequest 2 -> s3 [3, 1, 1]\nrequest 3 -> s2 [3, 2, 1]\nrequest 4 -> s3 [3, 2, 2]\nrequest 5 -> s2 [3, 3, 2]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The fewest active connections; first one on a tie."
+          },
+          {
+            "line": 10,
+            "note": "s1 took a long job, so new requests avoid it until it frees up."
+          }
+        ],
+        "tryIt": "Make all jobs equal length. How does least connections compare with round-robin then?",
+        "check": {
+          "question": "When does least connections beat round-robin?",
+          "options": [
+            "When all requests are identical",
+            "When request durations vary a lot",
+            "When there is one server"
+          ],
+          "answer": 1,
+          "why": "It adapts to servers that are busy with long requests."
+        }
+      },
+      {
+        "title": "Hashing for stickiness",
+        "say": [
+          "Some workloads want the same client or key to reach the same server: a server with a warm cache for that user, or a WebSocket session.",
+          "Sticky routing is also common for WebSocket and streaming connections, which stay open to one server for a long time.",
+          "Hashing the client id (or IP) to a server gives stickiness. Consistent hashing (Day 4) keeps most clients on the same server when servers are added or removed.",
+          "Stickiness helps caches and sessions, but can create uneven load if a few clients are very busy.",
+          "Cookies can also provide stickiness at layer 7: the balancer sets a cookie naming the server.",
+          "Prefer stateless servers where possible, so any server can handle any request and stickiness is only an optimisation.",
+          "The example shows that hashing sends each user to the same server every time."
+        ],
+        "example": "Always going to the same barber, who remembers how you like your hair cut; convenient, but if everyone chooses the same barber, their queue gets long.",
+        "code": "import hashlib\n\nservers = [\"s1\", \"s2\", \"s3\"]\n\ndef sticky_server(user_id):\n    h = int(hashlib.md5(user_id.encode()).hexdigest(), 16)\n    return servers[h % len(servers)]\n\nfor user in [\"asha\", \"bala\", \"asha\", \"chitra\", \"asha\", \"bala\"]:\n    print(user, \"->\", sticky_server(user))",
+        "output": "asha -> s1\nbala -> s1\nasha -> s1\nchitra -> s2\nasha -> s1\nbala -> s1",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "The same user always hashes to the same server."
+          }
+        ],
+        "tryIt": "Remove s3 from the list. Which users change server? How would consistent hashing help?",
+        "check": {
+          "question": "Why prefer stateless servers even when using sticky routing?",
+          "options": [
+            "Stateless servers are faster",
+            "Any server can then take over a user if their server fails",
+            "Stickiness requires it"
+          ],
+          "answer": 1,
+          "why": "With no essential state on one server, stickiness becomes a harmless optimisation."
+        }
+      },
+      {
+        "title": "Health checks and removing servers",
+        "say": [
+          "A balancer must only send traffic to healthy servers. Active health checks call an endpoint such as /health every few seconds.",
+          "Passive health checks watch real traffic: a server returning many errors or timeouts is taken out temporarily.",
+          "Passive checks react to real user failures, while active checks can find a problem before users hit it; most balancers use both.",
+          "Use thresholds to avoid flapping: remove after, say, 3 failed checks in a row, and add back after 2 successful ones.",
+          "Flapping servers are worse than slow ones, because every change reshuffles connections and caches.",
+          "During deployments, drain a server first: stop sending new requests, let current ones finish, then restart it.",
+          "Service discovery (tomorrow) keeps the balancer's server list up to date automatically.",
+          "The example applies thresholds to a series of health-check results."
+        ],
+        "example": "A team captain who benches a player after three mistakes in a row, and brings them back after they do well in two practice drills.",
+        "code": "def update(state, ok, fail_limit=3, pass_limit=2):\n    if ok:\n        state[\"fails\"], state[\"passes\"] = 0, state[\"passes\"] + 1\n        if not state[\"in_pool\"] and state[\"passes\"] >= pass_limit:\n            state[\"in_pool\"] = True\n    else:\n        state[\"passes\"], state[\"fails\"] = 0, state[\"fails\"] + 1\n        if state[\"in_pool\"] and state[\"fails\"] >= fail_limit:\n            state[\"in_pool\"] = False\n    return state[\"in_pool\"]\n\nserver = {\"in_pool\": True, \"fails\": 0, \"passes\": 0}\nchecks = [True, False, False, True, False, False, False, True, True]\nprint([update(server, ok) for ok in checks])",
+        "output": "[True, True, True, True, True, True, False, False, True]",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Remove only after several failures in a row."
+          },
+          {
+            "line": 4,
+            "note": "Add back only after several successes in a row."
+          }
+        ],
+        "tryIt": "Change fail_limit to 1. How often does the server flap in and out now?",
+        "check": {
+          "question": "Why use thresholds such as \"3 failures in a row\" for health checks?",
+          "options": [
+            "To save bandwidth",
+            "To avoid flapping from single, brief errors",
+            "Health checks are unreliable"
+          ],
+          "answer": 1,
+          "why": "Thresholds keep one blip from repeatedly removing and re-adding a server."
+        }
+      },
+      {
+        "title": "Choosing an algorithm",
+        "say": [
+          "Similar, short requests on similar servers: round-robin is simple and effective.",
+          "Different server sizes: weighted round-robin.",
+          "Measure after choosing: compare load across servers on a dashboard, and switch algorithms if one server is consistently busier.",
+          "Varying request durations: least connections or least response time.",
+          "Caches or sessions tied to users: consistent hashing, with a fallback when a server is down.",
+          "Power of two choices is a popular modern trick: pick two servers at random and send to the less loaded one. It gets close to least connections with very little information.",
+          "It works because it avoids the worst choices: the chance that both random picks are busy servers is small.",
+          "The example compares plain random choice with power of two choices."
+        ],
+        "example": "Choosing a checkout by looking at just two queues and picking the shorter: much better than choosing at random, and quicker than inspecting every queue.",
+        "code": "import random\n\nrng = random.Random(4)\ndef simulate(two_choices, servers=10, jobs=1000):\n    load = [0] * servers\n    for _ in range(jobs):\n        a = rng.randrange(servers)\n        if two_choices:\n            b = rng.randrange(servers)\n            a = a if load[a] <= load[b] else b\n        load[a] += 1\n    return max(load) - min(load)\n\nprint(\"random choice, spread between busiest and idlest:\", simulate(False))\nprint(\"power of two choices, spread:\", simulate(True))",
+        "output": "random choice, spread between busiest and idlest: 31\npower of two choices, spread: 3",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Look at two random servers and use the less loaded one."
+          }
+        ],
+        "tryIt": "Increase jobs to 10,000. How do the two spreads compare now?",
+        "check": {
+          "question": "Which algorithm fits servers with different capacities best?",
+          "options": [
+            "Plain round-robin",
+            "Weighted round-robin",
+            "Random choice"
+          ],
+          "answer": 1,
+          "why": "Weights send traffic in proportion to each server's capacity."
+        }
+      }
+    ],
+    "summary": [
+      "Load balancers spread requests, add capacity and survive server failures.",
+      "Smooth weighted round-robin interleaves heavy servers through the cycle.",
+      "Least connections adapts to varying request durations.",
+      "Hashing gives stickiness for caches and sessions; prefer stateless servers.",
+      "Health checks with thresholds remove unhealthy servers without flapping."
+    ],
+    "projectStep": {
+      "title": "Load balancing",
+      "steps": [
+        "Add SmoothWeightedBalancer and least_connections to dist_toolkit.py.",
+        "Compare round-robin and least connections on a mix of short and long jobs.",
+        "Bonus: implement power of two choices and measure the load spread."
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "title": "Service Discovery & Heartbeat Health Checking (Consul / Zookeeper)",
+    "goal": "You can explain service discovery, run a registry with leases, heartbeats and health filtering, build instance URLs, and compare client-side and server-side discovery.",
+    "minutes": 30,
+    "recap": "Load balancers need an up-to-date list of servers. In cloud systems, servers come and go constantly. Service discovery keeps that list current automatically.",
+    "parts": [
+      {
+        "title": "Why discovery?",
+        "say": [
+          "In the cloud, instances start and stop all the time: autoscaling adds them at peak hours, deployments replace them, and failures remove them. Their IP addresses change.",
+          "In a large system, hundreds of instances may change every day without anyone touching a configuration file.",
+          "Hard-coding addresses in configuration files breaks as soon as anything changes.",
+          "Teams then discover the problem during an outage, when a replaced server's old address still sits in a file somewhere.",
+          "Service discovery keeps a live registry: each instance registers itself with its address, and clients look up healthy instances by service name.",
+          "Tools include Consul, ZooKeeper, etcd, Eureka, and the built-in DNS and endpoints of Kubernetes.",
+          "Discovery is one of the fallacies from Day 1 turned into a system: \"topology does not change\" is false, so we track it.",
+          "The example contrasts a hard-coded list with a registry lookup."
+        ],
+        "example": "A hospital's on-call board listing which doctor is available right now, instead of a printed list from last month.",
+        "code": "hard_coded = [\"10.0.0.5:8080\", \"10.0.0.6:8080\"]\nregistry = {\"orders\": [\"10.0.1.21:8080\", \"10.0.1.22:8080\", \"10.0.1.30:8080\"]}\nprint(\"config file says:\", hard_coded, \"(two of these were replaced last night)\")\nprint(\"registry says:\", registry[\"orders\"])",
+        "output": "config file says: ['10.0.0.5:8080', '10.0.0.6:8080'] (two of these were replaced last night)\nregistry says: ['10.0.1.21:8080', '10.0.1.22:8080', '10.0.1.30:8080']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The registry reflects what is actually running now."
+          }
+        ],
+        "tryIt": "What happens to callers using the hard-coded list after an autoscaling event?",
+        "check": {
+          "question": "Why is hard-coding service addresses a problem in the cloud?",
+          "options": [
+            "Addresses are too long",
+            "Instances and their addresses change often",
+            "Config files are slow"
+          ],
+          "answer": 1,
+          "why": "Autoscaling, deploys and failures constantly change which instances exist."
+        }
+      },
+      {
+        "title": "Registration with leases",
+        "say": [
+          "When an instance starts, it registers: service name, instance id, URL, and a lease time-to-live.",
+          "The instance must send heartbeats to renew its lease. If it crashes, the heartbeats stop, the lease expires, and the registry forgets it.",
+          "Instances should also deregister cleanly when they shut down on purpose, so traffic stops immediately instead of after the lease expires.",
+          "This is the same lease idea as distributed locks (Day 6): a crashed holder cannot keep a claim forever.",
+          "Practice 1: ServiceRegistry.register stores the instance with a lease ending at now + ttl_ms; heartbeat renews it (or returns False for an unknown instance); healthy returns unexpired instances in registration order and forgets expired ones.",
+          "A dict per service, keyed by instance id, keeps registration order because Python dicts preserve insertion order.",
+          "The example registers two instances and lets one expire."
+        ],
+        "example": "A hotel guest register where each guest must renew their stay at the desk every day; guests who do not renew are assumed to have left and their rooms are freed.",
+        "code": "class ServiceRegistry:\n    def __init__(self):\n        self.services = {}\n\n    def register(self, name, instance_id, url, now, ttl_ms=5000):\n        self.services.setdefault(name, {})[instance_id] = {\"url\": url, \"ttl\": ttl_ms, \"expires\": now + ttl_ms}\n\n    def heartbeat(self, name, instance_id, now):\n        inst = self.services.get(name, {}).get(instance_id)\n        if inst is None:\n            return False\n        inst[\"expires\"] = now + inst[\"ttl\"]\n        return True\n\n    def healthy(self, name, now):\n        instances = self.services.get(name, {})\n        for iid in [i for i, inst in instances.items() if inst[\"expires\"] <= now]:\n            del instances[iid]\n        return [{\"id\": i, \"url\": inst[\"url\"]} for i, inst in instances.items()]\n\nreg = ServiceRegistry()\nreg.register(\"orders\", \"o-1\", \"http://10.0.1.21:8080\", now=0)\nreg.register(\"orders\", \"o-2\", \"http://10.0.1.22:8080\", now=0)\nprint(reg.heartbeat(\"orders\", \"o-1\", now=4000), reg.heartbeat(\"orders\", \"o-9\", now=4000))\nprint(reg.healthy(\"orders\", now=6000))",
+        "output": "True False\n[{'id': 'o-1', 'url': 'http://10.0.1.21:8080'}]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Store the instance with its lease end time."
+          },
+          {
+            "line": 12,
+            "note": "A heartbeat renews the lease."
+          },
+          {
+            "line": 17,
+            "note": "Forget instances whose lease has run out."
+          }
+        ],
+        "tryIt": "Send a heartbeat for o-2 at t=4500 and check healthy at t=6000 again.",
+        "check": {
+          "question": "What happens to an instance that stops sending heartbeats?",
+          "options": [
+            "It stays registered forever",
+            "Its lease expires and the registry forgets it",
+            "It is restarted"
+          ],
+          "answer": 1,
+          "why": "Without renewals, the lease runs out and the instance is dropped."
+        }
+      },
+      {
+        "title": "Building instance URLs",
+        "say": [
+          "Practice 2: instance_url(ip, port) returns \"http://IP:PORT\". Small helpers like this keep URL formatting consistent everywhere.",
+          "Registries often store the address and port separately, plus metadata such as version, region and zone.",
+          "Metadata also allows gradual rollouts: send 5% of traffic to instances tagged with the new version, watch errors, then increase.",
+          "Clients use metadata to prefer instances in their own zone (lower latency, lower cost), or to route canary traffic to a new version.",
+          "Use HTTPS between services in production, often with mutual TLS so both sides prove who they are (\"the network is secure\" is a fallacy too).",
+          "Validate what you register: a typo in a port can send traffic nowhere.",
+          "The example builds URLs and prefers same-zone instances."
+        ],
+        "example": "An address book that stores each contact's city as well as their number, so you call the nearest branch first.",
+        "code": "def instance_url(ip, port):\n    return f\"http://{ip}:{port}\"\n\ninstances = [\n    {\"ip\": \"10.0.1.21\", \"port\": 8080, \"zone\": \"ap-south-1a\"},\n    {\"ip\": \"10.0.2.14\", \"port\": 8080, \"zone\": \"ap-south-1b\"},\n    {\"ip\": \"10.0.1.30\", \"port\": 8081, \"zone\": \"ap-south-1a\"},\n]\nmy_zone = \"ap-south-1a\"\npreferred = [i for i in instances if i[\"zone\"] == my_zone] or instances\nprint([instance_url(i[\"ip\"], i[\"port\"]) for i in preferred])",
+        "output": "['http://10.0.1.21:8080', 'http://10.0.1.30:8081']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "One consistent URL format."
+          },
+          {
+            "line": 10,
+            "note": "Same-zone instances first, all instances as a fallback."
+          }
+        ],
+        "tryIt": "Change my_zone to \"ap-south-1c\". Which instances are used?",
+        "check": {
+          "question": "Why might a client prefer instances in its own zone?",
+          "options": [
+            "They are always newer",
+            "Lower latency and lower data-transfer cost",
+            "Other zones are unsafe"
+          ],
+          "answer": 1,
+          "why": "Staying within a zone is faster and often cheaper."
+        }
+      },
+      {
+        "title": "Client-side and server-side discovery",
+        "say": [
+          "Client-side discovery: the caller asks the registry for healthy instances and picks one itself, using a load-balancing algorithm from Day 23.",
+          "Server-side discovery: the caller sends requests to a load balancer or proxy, which consults the registry and forwards the request.",
+          "The balancer itself is found through a stable DNS name, so it is the only address clients ever need to know.",
+          "Client-side saves a network hop and gives clients control, but every client needs discovery logic (usually a library).",
+          "The registry client usually caches the instance list and refreshes it in the background, so a registry outage does not stop calls immediately.",
+          "Server-side keeps clients simple; Kubernetes Services and cloud load balancers work this way.",
+          "Service meshes (Istio, Linkerd) put a proxy next to every service, combining the benefits: simple clients, smart routing.",
+          "The example shows both flows."
+        ],
+        "example": "Looking up a plumber's number yourself and calling them directly, versus calling a helpline that connects you to an available plumber.",
+        "code": "registry = {\"orders\": [\"http://10.0.1.21:8080\", \"http://10.0.1.22:8080\"]}\ncounter = {\"n\": 0}\n\ndef client_side_call(service):\n    instances = registry[service]\n    url = instances[counter[\"n\"] % len(instances)]\n    counter[\"n\"] += 1\n    return f\"client -> {url}\"\n\ndef server_side_call(service):\n    return f\"client -> lb.{service}.internal -> (balancer picks from registry)\"\n\nprint(client_side_call(\"orders\"), \"|\", client_side_call(\"orders\"))\nprint(server_side_call(\"orders\"))",
+        "output": "client -> http://10.0.1.21:8080 | client -> http://10.0.1.22:8080\nclient -> lb.orders.internal -> (balancer picks from registry)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The client reads the registry and balances itself."
+          },
+          {
+            "line": 11,
+            "note": "The client only knows one stable name."
+          }
+        ],
+        "tryIt": "Which approach would you choose for a mobile app talking to your backend? Why?",
+        "check": {
+          "question": "What is an advantage of server-side discovery?",
+          "options": [
+            "It saves a network hop",
+            "Clients stay simple; the balancer handles lookup and choice",
+            "It needs no registry"
+          ],
+          "answer": 1,
+          "why": "Clients call one stable address; the infrastructure does the rest."
+        }
+      },
+      {
+        "title": "DNS-based discovery and caching",
+        "say": [
+          "DNS is the oldest discovery system: a name resolves to one or more IP addresses. Kubernetes gives every service a DNS name.",
+          "DNS answers are cached with a TTL. Long TTLs mean clients keep calling removed instances; short TTLs mean more DNS lookups.",
+          "Kubernetes keeps DNS TTLs short for services, and many clients use connection pools that also need refreshing when instances change.",
+          "Some clients cache DNS results forever by default, which surprises teams after a failover. Check your language's settings.",
+          "SRV records add ports and weights, but many clients ignore them.",
+          "For fast-changing services, prefer registries with push updates or a service mesh.",
+          "The example shows a cached lookup going stale after an instance is replaced."
+        ],
+        "example": "A phone contact saved months ago: fine until the person changes their number; then your calls go nowhere until you refresh it.",
+        "code": "dns = {\"orders.internal\": [\"10.0.1.21\"]}\ncache = {}\n\ndef resolve(name, now, ttl=30):\n    hit = cache.get(name)\n    if hit and hit[1] > now:\n        return hit[0]\n    cache[name] = (dns[name], now + ttl)\n    return dns[name]\n\nprint(resolve(\"orders.internal\", now=0))\ndns[\"orders.internal\"] = [\"10.0.1.99\"]\nprint(resolve(\"orders.internal\", now=10), \"(stale, cached)\")\nprint(resolve(\"orders.internal\", now=40), \"(refreshed)\")",
+        "output": "['10.0.1.21']\n['10.0.1.21'] (stale, cached)\n['10.0.1.99'] (refreshed)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Serve from cache until the TTL runs out."
+          },
+          {
+            "line": 12,
+            "note": "The instance was replaced, but the cache still has the old address."
+          }
+        ],
+        "tryIt": "Set the TTL to 5. When does the client see the new address?",
+        "check": {
+          "question": "What is the risk of a long DNS TTL for service discovery?",
+          "options": [
+            "Too many lookups",
+            "Clients keep calling instances that no longer exist",
+            "DNS stops working"
+          ],
+          "answer": 1,
+          "why": "Cached answers outlive the instances they point to."
+        }
+      },
+      {
+        "title": "Health beyond heartbeats",
+        "say": [
+          "A heartbeat proves the process is running, not that it works. A server can be alive but unable to reach its database.",
+          "A process stuck in an endless loop can still answer a simple heartbeat, which is why readiness checks exercise real functionality.",
+          "Distinguish liveness (is the process running?) from readiness (can it serve traffic now?). Kubernetes uses both.",
+          "If liveness fails, the platform restarts the process; if readiness fails, it simply stops sending traffic until the check passes again.",
+          "Readiness checks should verify key dependencies lightly, without heavy work on every check.",
+          "A check that runs a heavy database query every few seconds on every instance can itself overload the database.",
+          "Do not make readiness depend on every downstream service, or one failure takes the whole fleet out of rotation at once.",
+          "Tomorrow you will build the edge layer that clients call first: API gateways and backends-for-frontends.",
+          "The example reports liveness and readiness separately."
+        ],
+        "example": "A shop that is open (the lights are on) but cannot take card payments because the machine is down: open, but not fully ready.",
+        "code": "def liveness():\n    return True\n\ndef readiness(db_ok, cache_ok):\n    if not db_ok:\n        return False, \"database unreachable\"\n    return True, \"ok\" if cache_ok else \"ok (cache degraded)\"\n\nfor db_ok, cache_ok in [(True, True), (True, False), (False, True)]:\n    ready, reason = readiness(db_ok, cache_ok)\n    print(f\"live={liveness()} ready={ready} ({reason})\")",
+        "output": "live=True ready=True (ok)\nlive=True ready=True (ok (cache degraded))\nlive=True ready=False (database unreachable)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Without the database the service cannot serve, so it is not ready."
+          },
+          {
+            "line": 7,
+            "note": "A degraded cache is survivable: still ready."
+          }
+        ],
+        "tryIt": "Should readiness fail if a recommendations service is down? Argue both ways.",
+        "check": {
+          "question": "What is the difference between liveness and readiness?",
+          "options": [
+            "There is none",
+            "Liveness: the process runs; readiness: it can serve traffic now",
+            "Readiness is checked only once"
+          ],
+          "answer": 1,
+          "why": "A running process may still be unable to serve requests."
+        }
+      }
+    ],
+    "summary": [
+      "Service discovery tracks which instances exist as they come and go.",
+      "Instances register with leases and renew them with heartbeats.",
+      "Registries return healthy instances; clients may prefer their own zone.",
+      "Client-side discovery picks instances itself; server-side uses a balancer.",
+      "Watch DNS caching, and separate liveness from readiness."
+    ],
+    "projectStep": {
+      "title": "Service discovery",
+      "steps": [
+        "Add ServiceRegistry and instance_url to dist_toolkit.py.",
+        "Register 3 instances, heartbeat 2, and show the third expiring.",
+        "Bonus: add zone metadata and prefer same-zone instances."
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "title": "API Gateways & Backend-For-Frontend (BFF) Pattern",
+    "goal": "You can explain API gateways and the backend-for-frontend pattern, aggregate several services into one response with graceful partial failures, call services in parallel, and return correct CORS headers.",
+    "minutes": 30,
+    "recap": "Milestone 3 built a gateway that protects backends. Today you look at the edge from the client's side: giving each kind of client exactly the data it needs in one call.",
+    "parts": [
+      {
+        "title": "The chatty client problem",
+        "say": [
+          "A mobile profile screen may need the user, their recent orders and their review count, each from a different service.",
+          "If the app calls each service directly, it makes several round trips over a slow mobile network, and must know every service's address and format.",
+          "It also exposes internal services to the internet, increasing the attack surface and making every internal change a breaking change for apps.",
+          "Each round trip on mobile can cost 100 to 300 ms, so three sequential calls feel slow.",
+          "The backend-for-frontend (BFF) pattern adds a small server-side layer per client type (mobile, web, partner API) that gathers data and returns exactly what that client needs.",
+          "The BFF talks to services inside the datacentre, where calls are fast, and sends one compact reply over the slow network.",
+          "The example compares the total wait for direct calls versus one BFF call."
+        ],
+        "example": "Ordering a thali instead of asking three different kitchen counters for rice, dal and sabzi separately: one trip, one plate, everything you need.",
+        "code": "mobile_round_trip_ms = 250\ninternal_call_ms = 15\nservices = [\"users\", \"orders\", \"reviews\"]\ndirect = len(services) * mobile_round_trip_ms\nbff = mobile_round_trip_ms + len(services) * internal_call_ms\nprint(f\"app calls each service: {direct} ms\")\nprint(f\"app calls one BFF: {bff} ms\")",
+        "output": "app calls each service: 750 ms\napp calls one BFF: 295 ms",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "One slow trip, then fast calls inside the datacentre."
+          }
+        ],
+        "tryIt": "If the BFF calls the three services in parallel, what is its total time?",
+        "check": {
+          "question": "What problem does a backend-for-frontend solve?",
+          "options": [
+            "Slow databases",
+            "Clients making many slow round trips and knowing every service",
+            "Too many servers"
+          ],
+          "answer": 1,
+          "why": "The BFF gathers data server-side and returns it in one tailored response."
+        }
+      },
+      {
+        "title": "Aggregating a profile",
+        "say": [
+          "Practice 1: aggregate_profile(user_id, get_user, get_orders, get_reviews) calls the three services and returns the user id, name, the first 3 orders, the order count, the review count and partial False.",
+          "Reviews are optional. If get_reviews raises, still answer, with reviews_count None and partial True. Users and orders are essential, so their errors propagate.",
+          "Deciding which parts are essential and which are optional is a product decision; write it down.",
+          "A good rule: if the screen makes no sense without it, it is essential; if the screen still helps the user without it, it is optional.",
+          "The partial flag lets the client show a small note (\"reviews unavailable\") instead of hiding the problem or failing the whole screen.",
+          "The services are passed in as functions, so tests can use fakes, including ones that fail.",
+          "The example builds the profile twice: once healthy, once with reviews down."
+        ],
+        "example": "A newspaper that still goes to print when the crossword setter is ill, with a note that the crossword returns tomorrow, but would not print without the front page.",
+        "code": "def aggregate_profile(user_id, get_user, get_orders, get_reviews):\n    user = get_user(user_id)\n    orders = get_orders(user_id)\n    try:\n        reviews_count, partial = len(get_reviews(user_id)), False\n    except Exception:\n        reviews_count, partial = None, True\n    return {\"user_id\": user_id, \"name\": user[\"name\"], \"recent_orders\": orders[:3],\n            \"orders_count\": len(orders), \"reviews_count\": reviews_count, \"partial\": partial}\n\nget_user = lambda uid: {\"name\": \"Asha\"}\nget_orders = lambda uid: [\"o1\", \"o2\", \"o3\", \"o4\"]\ndef reviews_down(uid):\n    raise TimeoutError(\"reviews timed out\")\n\nprint(aggregate_profile(\"u1\", get_user, get_orders, lambda uid: [\"r1\", \"r2\"]))\nprint(aggregate_profile(\"u1\", get_user, get_orders, reviews_down))",
+        "output": "{'user_id': 'u1', 'name': 'Asha', 'recent_orders': ['o1', 'o2', 'o3'], 'orders_count': 4, 'reviews_count': 2, 'partial': False}\n{'user_id': 'u1', 'name': 'Asha', 'recent_orders': ['o1', 'o2', 'o3'], 'orders_count': 4, 'reviews_count': None, 'partial': True}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Essential data: errors here propagate."
+          },
+          {
+            "line": 7,
+            "note": "Optional data: degrade and flag the response as partial."
+          },
+          {
+            "line": 8,
+            "note": "Only what the screen needs: the first 3 orders."
+          }
+        ],
+        "tryIt": "Make get_orders raise. Should the BFF still answer? What does the code do?",
+        "check": {
+          "question": "Why return partial: True instead of failing when reviews are down?",
+          "options": [
+            "To hide the error",
+            "The screen can still show the essential data with a small note",
+            "Reviews are never important"
+          ],
+          "answer": 1,
+          "why": "Graceful degradation keeps the main experience working."
+        }
+      },
+      {
+        "title": "Calling services in parallel",
+        "say": [
+          "Calling services one after another adds their latencies. If they are independent, call them in parallel so the total is roughly the slowest one.",
+          "In Python, concurrent.futures.ThreadPoolExecutor runs blocking calls in parallel threads; asyncio does the same for async code.",
+          "Always set a timeout for each call, so one slow service cannot hold the whole response. Optional parts can be dropped when they time out.",
+          "Choose the timeout from the screen's latency budget: if the whole page must load in 300 ms, no single call can be allowed 2 seconds.",
+          "Parallel calls multiply load on backends when traffic spikes, so combine them with the rate limits and breakers from earlier lessons.",
+          "Our simulation uses fixed latencies to compare sequential and parallel totals without real waiting.",
+          "The rule of thumb: sequential total = sum; parallel total = max."
+        ],
+        "example": "Three friends each queueing at a different counter at the same time, instead of one person visiting all three counters in turn.",
+        "code": "latency_ms = {\"users\": 40, \"orders\": 120, \"reviews\": 90}\nprint(\"sequential:\", sum(latency_ms.values()), \"ms\")\nprint(\"parallel:\", max(latency_ms.values()), \"ms\")\ntimeout_ms = 100\nwithin = [s for s, ms in latency_ms.items() if ms <= timeout_ms]\nlate = [s for s, ms in latency_ms.items() if ms > timeout_ms]\nprint(\"with a 100 ms timeout: answered\", within, \"timed out\", late)",
+        "output": "sequential: 250 ms\nparallel: 120 ms\nwith a 100 ms timeout: answered ['users', 'reviews'] timed out ['orders']",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Parallel calls take as long as the slowest one."
+          },
+          {
+            "line": 6,
+            "note": "Slow optional parts can be dropped at the timeout."
+          }
+        ],
+        "tryIt": "Orders is essential. What should the BFF do if orders takes 120 ms with a 100 ms timeout?",
+        "check": {
+          "question": "What is the total time of three independent calls taking 40, 120 and 90 ms in parallel?",
+          "options": [
+            "250 ms",
+            "120 ms",
+            "40 ms"
+          ],
+          "answer": 1,
+          "why": "Parallel calls finish when the slowest one does."
+        }
+      },
+      {
+        "title": "CORS headers for browsers",
+        "say": [
+          "Browsers block a web page from calling an API on a different origin (scheme, domain and port) unless the API allows it. This protection is the same-origin policy.",
+          "Cross-Origin Resource Sharing (CORS) headers tell the browser which other origins may call the API and with which methods.",
+          "Practice 2: cors_headers(origin, methods) returns Access-Control-Allow-Origin set to the origin and Access-Control-Allow-Methods as the methods joined by commas.",
+          "Only echo origins from an allow-list. Blindly allowing any origin, especially with credentials, lets malicious sites call your API as your users.",
+          "Browsers send a preflight OPTIONS request for many cross-origin calls; the gateway or BFF must answer it with these headers.",
+          "CORS only affects browsers; server-to-server calls ignore it, so it is not a replacement for authentication.",
+          "The example allows only the company's own web app."
+        ],
+        "example": "A building that lets in delivery staff only from a list of approved companies, and only to the loading bay, not every floor.",
+        "code": "ALLOWED_ORIGINS = {\"https://app.pinit.example\", \"https://admin.pinit.example\"}\n\ndef cors_headers(origin, methods=(\"GET\", \"POST\", \"PUT\", \"DELETE\")):\n    return {\"Access-Control-Allow-Origin\": origin, \"Access-Control-Allow-Methods\": \",\".join(methods)}\n\ndef respond_to(origin):\n    if origin not in ALLOWED_ORIGINS:\n        return {}\n    return cors_headers(origin, (\"GET\", \"POST\"))\n\nprint(respond_to(\"https://app.pinit.example\"))\nprint(respond_to(\"https://evil.example\"))",
+        "output": "{'Access-Control-Allow-Origin': 'https://app.pinit.example', 'Access-Control-Allow-Methods': 'GET,POST'}\n{}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Echo the allowed origin and list the methods."
+          },
+          {
+            "line": 7,
+            "note": "Unknown origins get no CORS headers, so the browser blocks them."
+          }
+        ],
+        "tryIt": "Add a Access-Control-Max-Age header so browsers cache the preflight for 10 minutes.",
+        "check": {
+          "question": "Why only echo origins from an allow-list?",
+          "options": [
+            "Browsers require short lists",
+            "Allowing any origin lets malicious sites call your API as your users",
+            "To save bandwidth"
+          ],
+          "answer": 1,
+          "why": "CORS is a security control; opening it widely defeats its purpose."
+        }
+      },
+      {
+        "title": "One BFF per client type",
+        "say": [
+          "Different clients need different shapes of data: the mobile app wants small payloads, the web dashboard wants more detail, partners want a stable public API.",
+          "A BFF per client type lets each evolve independently, owned by the team that builds that client.",
+          "Keep BFFs thin: aggregation, shaping and client-specific rules only. Business logic belongs in the core services, or it gets duplicated across BFFs.",
+          "Small, thin BFFs are also quick to change, which is the whole point: the mobile team can adjust its API in the same release as the app.",
+          "GraphQL is an alternative: one flexible endpoint where each client asks for exactly the fields it wants. It solves similar problems in a different way.",
+          "The gateway (security, limits) and the BFFs (shaping) often work together: gateway first, then the BFF for that client.",
+          "The example shapes the same data for mobile and web."
+        ],
+        "example": "The same kitchen serving a quick tiffin box for office workers and a full sit-down meal for diners: same food, different packaging.",
+        "code": "profile = {\"name\": \"Asha\", \"orders\": [\"o1\", \"o2\", \"o3\", \"o4\", \"o5\"], \"addresses\": [\"home\", \"office\"], \"reviews\": 12, \"loyalty_points\": 340}\n\ndef mobile_bff(p):\n    return {\"name\": p[\"name\"], \"recent_orders\": p[\"orders\"][:2], \"points\": p[\"loyalty_points\"]}\n\ndef web_bff(p):\n    return {**p, \"orders_count\": len(p[\"orders\"])}\n\nprint(\"mobile:\", mobile_bff(profile))\nprint(\"web:\", web_bff(profile))",
+        "output": "mobile: {'name': 'Asha', 'recent_orders': ['o1', 'o2'], 'points': 340}\nweb: {'name': 'Asha', 'orders': ['o1', 'o2', 'o3', 'o4', 'o5'], 'addresses': ['home', 'office'], 'reviews': 12, 'loyalty_points': 340, 'orders_count': 5}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Small payload for slow mobile networks."
+          },
+          {
+            "line": 7,
+            "note": "More detail for the web dashboard."
+          }
+        ],
+        "tryIt": "Write a partner_bff that hides loyalty points and addresses.",
+        "check": {
+          "question": "What should NOT go into a BFF?",
+          "options": [
+            "Response shaping for its client",
+            "Core business rules shared by all clients",
+            "Aggregation of several services"
+          ],
+          "answer": 1,
+          "why": "Business logic in BFFs gets duplicated and drifts apart."
+        }
+      },
+      {
+        "title": "Operating the edge",
+        "say": [
+          "Every request passes through the gateway and a BFF, so they must be fast, horizontally scaled and well monitored.",
+          "Cache aggregated responses briefly when possible; profile screens are often requested many times in a row.",
+          "Be careful to key such caches by user and permissions, so one user's aggregated profile is never served to another.",
+          "Propagate request ids and trace headers to every service the BFF calls, so one user action can be followed end to end (tomorrow's topic).",
+          "Version APIs carefully: mobile apps stay installed for months, so old versions must keep working.",
+          "Measure partial responses: a rising rate of partial: True means an optional service is struggling.",
+          "The example counts partial responses in a sample of BFF logs."
+        ],
+        "example": "The front counter of a busy bank branch: it must be quick and never closed, and the manager watches how often customers are told \"that service is unavailable today\".",
+        "code": "responses = [{\"partial\": False}] * 90 + [{\"partial\": True}] * 10\npartial_rate = sum(r[\"partial\"] for r in responses) / len(responses)\nprint(f\"partial responses: {partial_rate:.0%}\")\nprint(\"investigate reviews service\" if partial_rate > 0.05 else \"normal\")",
+        "output": "partial responses: 10%\ninvestigate reviews service",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The share of responses that were degraded."
+          }
+        ],
+        "tryIt": "Set the alert threshold to 20%. Would this sample trigger it?",
+        "check": {
+          "question": "Why must old API versions keep working for mobile apps?",
+          "options": [
+            "Old code is faster",
+            "Users keep old app versions installed for a long time",
+            "App stores require it"
+          ],
+          "answer": 1,
+          "why": "You cannot force every user to update, so the edge must support older clients."
+        }
+      }
+    ],
+    "summary": [
+      "BFFs gather data server-side so clients make one call instead of many.",
+      "Aggregate essential data strictly; degrade optional data and flag partial responses.",
+      "Call independent services in parallel with timeouts: total = the slowest.",
+      "Return CORS headers only for allow-listed origins.",
+      "Keep BFFs thin, one per client type; propagate request ids and version carefully."
+    ],
+    "projectStep": {
+      "title": "BFF",
+      "steps": [
+        "Add aggregate_profile and cors_headers to dist_toolkit.py.",
+        "Aggregate a profile with reviews failing and show the partial flag.",
+        "Bonus: write mobile and web shapes of the same profile data."
+      ]
+    }
   }
 ];
