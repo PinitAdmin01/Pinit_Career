@@ -12,7 +12,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Building a multi-layered Defense-in-Depth security audit."
     ],
     "eTitle": "STRIDE Threat Vector Categorizer & Mitigation Engine",
-    "eDesc": "Implement function categorizeStrideThreat(threatType) mapping threat categories ('S', 'T', 'R', 'I', 'D', 'E') to their formal property violation and security countermeasure.",
+    "eDesc": "Implement function categorizeStrideThreat(threatType) mapping threat categories ('S', 'T', 'R', 'I', 'D', 'E') to their formal property violation and security countermeasure. Use these exact values: `recommendedCountermeasure`: 'MUTUAL_TLS_OR_MFA'; `status`: 'STRIDE_THREAT_CATEGORIZED_NOMINAL'. The result must have these fields: `violatedProperty`, `category`.",
     "eStarter": "function categorizeStrideThreat(code) {\n  // TODO: write your code here\n}",
     "eHint": "Map S, T, R, I, D, E to their respective security countermeasure.",
     "eTest": "const s = categorizeStrideThreat('S');\nconst t = categorizeStrideThreat('T');\nif (s.violatedProperty !== 'Authenticity' || s.recommendedCountermeasure !== 'MUTUAL_TLS_OR_MFA' || t.category !== 'Tampering' || t.status !== 'STRIDE_THREAT_CATEGORIZED_NOMINAL') throw new Error('STRIDE categorization failed');",
@@ -32,7 +32,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Implementing parameterized query sanitizers and automated vulnerability scanners."
     ],
     "eTitle": "SQL Injection Detection & Parameterized Query Builder",
-    "eDesc": "Implement function buildSecureSqlStatement(tableName, filterColumn, rawUserInput) detecting unescaped SQL syntax injections (e.g. `' OR '1'='1`, `UNION SELECT`, `--`) and replacing raw concatenation with parameterized `?` placeholders.",
+    "eDesc": "Implement function buildSecureSqlStatement(tableName, filterColumn, rawUserInput) detecting unescaped SQL syntax injections (e.g. `' OR '1'='1`, `UNION SELECT`, `--`) and replacing raw concatenation with parameterized `?` placeholders. Use these exact values: `status`: 'SQL_INJECTION_DEFENDED_WITH_PREPARED_STATEMENT_NOMINAL'. The result must have these fields: `detectedMaliciousPattern`, `secureQuery`.",
     "eStarter": "function buildSecureSqlStatement(table, col, rawInput) {\n  // TODO: write your code here\n}",
     "eHint": "Test for malicious syntax with regex and return parameterized template.",
     "eTest": "const attack = buildSecureSqlStatement('users', 'username', \"admin' OR '1'='1\");\nconst safe = buildSecureSqlStatement('users', 'username', 'alice');\nif (!attack.detectedMaliciousPattern || safe.detectedMaliciousPattern || attack.secureQuery !== 'SELECT * FROM users WHERE username = ?' || attack.status !== 'SQL_INJECTION_DEFENDED_WITH_PREPARED_STATEMENT_NOMINAL') throw new Error('SQLi defense failed');",
@@ -52,7 +52,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Hardening applications with HTTP Content-Security-Policy (CSP) headers and nonces."
     ],
     "eTitle": "XSS HTML Entity Sanitizer & CSP Generator",
-    "eDesc": "Implement function sanitizeHtmlForXss(untrustedString) escaping `&`, `<`, `>`, `\"`, `'`, and `/` preventing script execution in the browser.",
+    "eDesc": "Implement function sanitizeHtmlForXss(untrustedString) escaping `&`, `<`, `>`, `\"`, `'`, and `/` preventing script execution in the browser. Use these exact values: `status`: 'XSS_SANITIZED_AND_ESCAPED_NOMINAL'. The result must have these fields: `sanitizedHtml`, `containsScriptTag`.",
     "eStarter": "function sanitizeHtmlForXss(raw) {\n  // TODO: write your code here\n}",
     "eHint": "Replace special characters with entity equivalents.",
     "eTest": "const res = sanitizeHtmlForXss(\"<script>alert('XSS')</script>\");\nif (res.sanitizedHtml !== '&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;&#x2F;script&gt;' || !res.containsScriptTag || res.status !== 'XSS_SANITIZED_AND_ESCAPED_NOMINAL') throw new Error('XSS sanitization failed');",
@@ -72,7 +72,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Configuring SameSite=Strict and SameSite=Lax cookie policies."
     ],
     "eTitle": "CSRF Anti-Forgery Token Validator",
-    "eDesc": "Implement function validateCsrfToken(sessionToken, requestHeaderToken, cookieSameSite) validating that the request header token matches the session token and that SameSite is configured to `'Strict'` or `'Lax'`.",
+    "eDesc": "Implement function validateCsrfToken(sessionToken, requestHeaderToken, cookieSameSite) validating that the request header token matches the session token and that SameSite is configured to `'Strict'` or `'Lax'`. Use these exact values: `status`: 'CSRF_REQUEST_VALIDATED_NOMINAL'. The result must have the field: `isCsrfApproved`.",
     "eStarter": "function validateCsrfToken(sessionToken, reqToken, sameSite) {\n  // TODO: write your code here\n}",
     "eHint": "Check token match and verify sameSite is Strict or Lax.",
     "eTest": "const pass = validateCsrfToken('sec_tok_123', 'sec_tok_123', 'Strict');\nconst fail = validateCsrfToken('sec_tok_123', 'attacker_token', 'None');\nif (!pass.isCsrfApproved || fail.isCsrfApproved || pass.status !== 'CSRF_REQUEST_VALIDATED_NOMINAL') throw new Error('CSRF validation failed');",
@@ -92,12 +92,12 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Milestone 1 certification."
     ],
     "eTitle": "Web Application Firewall Master Engine",
-    "eDesc": "Implement function executeWafMasterEngine(strideOk, sqliOk, xssOk, csrfOk) certifying combined WAF execution.",
+    "eDesc": "Implement function executeWafMasterEngine(strideOk, sqliOk, xssOk, csrfOk) certifying combined WAF execution. Use these exact values: `engineStatus`: 'WAF_MASTER_ENGINE_ACTIVE'.",
     "eStarter": "function executeWafMasterEngine(s, sq, x, c) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeWafMasterEngine(true, true, true, true);\nif (res.engineStatus !== 'WAF_MASTER_ENGINE_ACTIVE') throw new Error('Milestone 1 WAF master failed');",
     "aTitle": "Web Application Firewall Status Formatter",
-    "aDesc": "Implement function formatWafStatus(ok) returning `WAF_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
+    "aDesc": "Implement function formatWafStatus(ok) returning `WAF_${ok ? 'ACTIVE' : 'OFFLINE'}`. Use these exact values: formatWafStatus() returns 'WAF_ACTIVE'.",
     "aStarter": "function formatWafStatus(o) {\n  // TODO: write your code here\n}",
     "aHint": "Format status.",
     "aTest": "if (formatWafStatus(true) !== 'WAF_ACTIVE') throw new Error('Status check failed');"
@@ -112,7 +112,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "The role of unique Initialization Vectors (IVs) to prevent replay and ciphertext manipulation."
     ],
     "eTitle": "AES-GCM Authenticated Encryption Payload Validator",
-    "eDesc": "Implement function validateAesGcmPayload(cipherHex, ivHex, authTagHex, keyBits) validating that the IV is exactly 12 bytes (96 bits), the Auth Tag is 16 bytes (128 bits), and the key is 256 bits.",
+    "eDesc": "Implement function validateAesGcmPayload(cipherHex, ivHex, authTagHex, keyBits) validating that the IV is exactly 12 bytes (96 bits), the Auth Tag is 16 bytes (128 bits), and the key is 256 bits. Use these exact values: `status`: 'AES_GCM_PAYLOAD_VALIDATED_NOMINAL'. The result must have the field: `isGcmPayloadNominal`.",
     "eStarter": "function validateAesGcmPayload(cipher, iv, tag, keyBits) {\n  // TODO: write your code here\n}",
     "eHint": "Verify 12-byte IV (24 hex), 16-byte tag (32 hex), and 256-bit key.",
     "eTest": "const pass = validateAesGcmPayload('abcdef1234', '1234567890abcdef12345678', '1234567890abcdef1234567890abcdef', 256);\nconst fail = validateAesGcmPayload('abcdef1234', 'short_iv', 'short_tag', 128);\nif (!pass.isGcmPayloadNominal || fail.isGcmPayloadNominal || pass.status !== 'AES_GCM_PAYLOAD_VALIDATED_NOMINAL') throw new Error('AES-GCM payload validation failed');",
@@ -132,7 +132,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Argon2id configuration: Memory cost, Time cost, and Parallelism threads."
     ],
     "eTitle": "Password Hashing Work Factor & Argon2id Parameter Validator",
-    "eDesc": "Implement function validateArgon2idConfig(memoryKb, timeIterations, parallelismThreads) validating that memory is $\\ge 65536\\text{ KB}$ (64 MB), iterations $\\ge 3$, and threads $\\ge 1$.",
+    "eDesc": "Implement function validateArgon2idConfig(memoryKb, timeIterations, parallelismThreads) validating that memory is $\\ge 65536\\text{ KB}$ (64 MB), iterations $\\ge 3$, and threads $\\ge 1$. Use these exact values: `status`: 'ARGON2ID_CONFIG_HARDENED_NOMINAL'. The result must have the field: `isProductionHardened`.",
     "eStarter": "function validateArgon2idConfig(mKb, tIter, pThreads) {\n  // TODO: write your code here\n}",
     "eHint": "Verify mKb >= 65536, tIter >= 3, pThreads >= 1.",
     "eTest": "const pass = validateArgon2idConfig(65536, 3, 4);\nconst fail = validateArgon2idConfig(1024, 1, 1);\nif (!pass.isProductionHardened || fail.isProductionHardened || pass.status !== 'ARGON2ID_CONFIG_HARDENED_NOMINAL') throw new Error('Argon2id validation failed');",
@@ -152,7 +152,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "TLS 1.3 handshake mechanics: Ephemeral Diffie-Hellman (ECDHE) and forward secrecy."
     ],
     "eTitle": "X.509 Certificate Chain of Trust Validator",
-    "eDesc": "Implement function validateX509CertificateChain(leafCert, intermediateCert, rootCert, currentTimeMs) verifying date validity, Subject/Issuer binding, and CA signature hierarchy.",
+    "eDesc": "Implement function validateX509CertificateChain(leafCert, intermediateCert, rootCert, currentTimeMs) verifying date validity, Subject/Issuer binding, and CA signature hierarchy. Use these exact values: `status`: 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL'. The result must have the field: `isChainOfTrustVerified`.",
     "eStarter": "function validateX509CertificateChain(leaf, inter, root, now) {\n  // TODO: write your code here\n}",
     "eHint": "Verify dates, leaf.issuer===inter.subject, inter.issuer===root.subject, and root self-signature.",
     "eTest": "const root = { subject: 'Root CA', issuer: 'Root CA', isTrustedRoot: true, notBefore: 0, notAfter: 2000000000000 };\nconst inter = { subject: 'Inter CA', issuer: 'Root CA', notBefore: 0, notAfter: 2000000000000 };\nconst leaf = { subject: 'example.com', issuer: 'Inter CA', notBefore: 1000, notAfter: 2000000000000 };\nconst res = validateX509CertificateChain(leaf, inter, root, 50000);\nif (!res.isChainOfTrustVerified || res.status !== 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL') throw new Error('PKI validation failed');",
@@ -172,7 +172,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "JWT Algorithm 'none' Attack & Signature Header Sanitizer",
-    "eDesc": "Implement function sanitizeJwtHeader(headerObj) rejecting tokens specifying `alg: 'none'` or unsupported cryptographic algorithms.",
+    "eDesc": "Implement function sanitizeJwtHeader(headerObj) rejecting tokens specifying `alg: 'none'` or unsupported cryptographic algorithms. The result must have these fields: `isSignatureAlgorithmApproved`, `isNoneAttackDetected`.",
     "eStarter": "function sanitizeJwtHeader(hdr) {\n  // TODO: write your code here\n}",
     "eHint": "Verify alg is HS256, RS256, or ES256 and reject NONE.",
     "eTest": "const pass = sanitizeJwtHeader({ alg: 'HS256', typ: 'JWT' });\nconst fail = sanitizeJwtHeader({ alg: 'none', typ: 'JWT' });\nif (!pass.isSignatureAlgorithmApproved || fail.isSignatureAlgorithmApproved || !fail.isNoneAttackDetected) throw new Error('JWT sanitizer failed');",
@@ -192,7 +192,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "TOTP Time-Step Counter & Drift Tolerance Calculator",
-    "eDesc": "Implement function calculateTotpTimeStep(currentTimestampSec, timeStepDurationSec) calculating current time-step counter $T = \\lfloor t / 30 \\rfloor$ and generating acceptable drift window $[T-1, T, T+1]$.",
+    "eDesc": "Implement function calculateTotpTimeStep(currentTimestampSec, timeStepDurationSec) calculating current time-step counter $T = \\lfloor t / 30 \\rfloor$ and generating acceptable drift window $[T-1, T, T+1]$. Use these exact values: `status`: 'TOTP_TIME_STEP_CALCULATED_NOMINAL'. The result must have the field: `currentStepCounter`.",
     "eStarter": "function calculateTotpTimeStep(tSec, stepDur) {\n  // TODO: write your code here\n}",
     "eHint": "step = Math.floor(tSec / stepDur), validDriftWindow = [step-1, step, step+1].",
     "eTest": "const res = calculateTotpTimeStep(1600000000, 30); // 1600000000 / 30 = 53333333\nif (res.currentStepCounter !== 53333333 || res.validDriftWindow[0] !== 53333332 || res.status !== 'TOTP_TIME_STEP_CALCULATED_NOMINAL') throw new Error('TOTP calculation failed');",
@@ -212,7 +212,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "RBAC & ABAC Access Decision Evaluator",
-    "eDesc": "Implement function evaluateAccessDecision(userRoles, requiredRole, environmentContext) checking that the user possesses `requiredRole` and that environmental attributes (e.g. `isMfaVerified: true`) satisfy access policies.",
+    "eDesc": "Implement function evaluateAccessDecision(userRoles, requiredRole, environmentContext) checking that the user possesses `requiredRole` and that environmental attributes (e.g. `isMfaVerified: true`) satisfy access policies. Use these exact values: `status`: 'ACCESS_GRANTED_NOMINAL'. The result must have the field: `isAccessGranted`.",
     "eStarter": "function evaluateAccessDecision(roles, reqRole, env) {\n  // TODO: write your code here\n}",
     "eHint": "Check hasRole and env conditions.",
     "eTest": "const pass = evaluateAccessDecision(['ENGINEER', 'SECURITY_ANALYST'], 'SECURITY_ANALYST', { isMfaVerified: true, isIpAllowed: true });\nconst fail = evaluateAccessDecision(['GUEST'], 'SECURITY_ANALYST', { isMfaVerified: true, isIpAllowed: true });\nif (!pass.isAccessGranted || fail.isAccessGranted || pass.status !== 'ACCESS_GRANTED_NOMINAL') throw new Error('Access decision failed');",
@@ -232,7 +232,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "BOLA / IDOR Resource Ownership Authorizer",
-    "eDesc": "Implement function authorizeResourceAccess(authenticatedUserId, userRole, resourceOwnerId) verifying that non-admin users can ONLY read resources matching their own `userId`.",
+    "eDesc": "Implement function authorizeResourceAccess(authenticatedUserId, userRole, resourceOwnerId) verifying that non-admin users can ONLY read resources matching their own `userId`. Use these exact values: `status`: 'BOLA_UNAUTHORIZED_OBJECT_ACCESS_BLOCKED'. The result must have the field: `isAuthorized`.",
     "eStarter": "function authorizeResourceAccess(userId, role, ownerId) {\n  // TODO: write your code here\n}",
     "eHint": "isApproved = role === 'ADMIN' || userId === ownerId.",
     "eTest": "const owner = authorizeResourceAccess('usr_123', 'USER', 'usr_123');\nconst intruder = authorizeResourceAccess('usr_attacker', 'USER', 'usr_victim');\nif (!owner.isAuthorized || intruder.isAuthorized || intruder.status !== 'BOLA_UNAUTHORIZED_OBJECT_ACCESS_BLOCKED') throw new Error('BOLA authorization failed');",
@@ -252,7 +252,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "TCP SYN Flood State Table Exhaustion Monitor",
-    "eDesc": "Implement function monitorSynConnectionBacklog(currentHalfOpenCount, maxBacklogCapacity) detecting SYN flood saturation ($> 90\\%$ capacity) and triggering SYN Cookie mitigation.",
+    "eDesc": "Implement function monitorSynConnectionBacklog(currentHalfOpenCount, maxBacklogCapacity) detecting SYN flood saturation ($> 90\\%$ capacity) and triggering SYN Cookie mitigation. Use these exact values: `status`: 'SYN_FLOOD_DETECTED_SYN_COOKIES_ENGAGED'. The result must have the field: `isSynFloodDetected`.",
     "eStarter": "function monitorSynConnectionBacklog(halfOpen, maxCap) {\n  // TODO: write your code here\n}",
     "eHint": "utilization = halfOpen / maxCap, isFlood = utilization >= 0.9.",
     "eTest": "const normal = monitorSynConnectionBacklog(100, 1000); // 10%\nconst attack = monitorSynConnectionBacklog(950, 1000); // 95%\nif (normal.isSynFloodDetected || !attack.isSynFloodDetected || attack.status !== 'SYN_FLOOD_DETECTED_SYN_COOKIES_ENGAGED') throw new Error('SYN monitor failed');",
@@ -272,7 +272,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "HTTP Security Headers Compliance Auditor",
-    "eDesc": "Implement function auditHttpSecurityHeaders(headersMap) verifying that HSTS, X-Content-Type-Options, and X-Frame-Options are present and configured securely.",
+    "eDesc": "Implement function auditHttpSecurityHeaders(headersMap) verifying that HSTS, X-Content-Type-Options, and X-Frame-Options are present and configured securely. Use these exact values: `status`: 'SECURITY_HEADERS_COMPLIANT_NOMINAL'. The result must have the field: `isHeaderSuiteCompliant`.",
     "eStarter": "function auditHttpSecurityHeaders(hdrs) {\n  // TODO: write your code here\n}",
     "eHint": "Verify strict-transport-security, nosniff, and x-frame-options.",
     "eTest": "const pass = auditHttpSecurityHeaders({\n  'strict-transport-security': 'max-age=31536000; includeSubDomains',\n  'x-content-type-options': 'nosniff',\n  'x-frame-options': 'DENY'\n});\nif (!pass.isHeaderSuiteCompliant || pass.status !== 'SECURITY_HEADERS_COMPLIANT_NOMINAL') throw new Error('Headers audit failed');",
@@ -292,7 +292,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Cryptographic Identity & PKI Master Engine",
-    "eDesc": "Implement function executeCryptoIdentityMaster(gcmOk, argonOk, pkiOk, jwtOk, totpOk) certifying combined cryptographic identity engine execution.",
+    "eDesc": "Implement function executeCryptoIdentityMaster(gcmOk, argonOk, pkiOk, jwtOk, totpOk) certifying combined cryptographic identity engine execution. Use these exact values: `engineStatus`: 'CRYPTO_IDENTITY_MASTER_ACTIVE'.",
     "eStarter": "function executeCryptoIdentityMaster(g, a, p, j, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeCryptoIdentityMaster(true, true, true, true, true);\nif (res.engineStatus !== 'CRYPTO_IDENTITY_MASTER_ACTIVE') throw new Error('Milestone 2 crypto master failed');",
@@ -312,7 +312,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "SSRF Private IP & Cloud Metadata URL Filter",
-    "eDesc": "Implement function filterSsrfUrl(targetUrl) blocking requests targeting `169.254.169.254`, `localhost`, `127.0.0.1`, `10.*`, `192.168.*`, or `172.16-31.*`.",
+    "eDesc": "Implement function filterSsrfUrl(targetUrl) blocking requests targeting `169.254.169.254`, `localhost`, `127.0.0.1`, `10.*`, `192.168.*`, or `172.16-31.*`. Use these exact values: `status`: 'SSRF_ATTACK_DETECTED_BLOCKED'. The result must have the field: `isAllowed`.",
     "eStarter": "function filterSsrfUrl(urlStr) {\n  // TODO: write your code here\n}",
     "eHint": "Check for 169.254.169.254, localhost, 127.0.0.1, 10.*, 192.168.*.",
     "eTest": "const cloudMeta = filterSsrfUrl('http://169.254.169.254/latest/meta-data/');\nconst publicApi = filterSsrfUrl('https://api.github.com/users');\nif (cloudMeta.isAllowed || !publicApi.isAllowed || cloudMeta.status !== 'SSRF_ATTACK_DETECTED_BLOCKED') throw new Error('SSRF filter failed');",
@@ -332,7 +332,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Insecure Serialization Payload Detector",
-    "eDesc": "Implement function detectInsecureSerialization(rawPayloadStr) identifying dangerous serialization magic headers such as Java `0xACED0005`, Python `pickle`, or PHP `O:4:\"User\"` object injections.",
+    "eDesc": "Implement function detectInsecureSerialization(rawPayloadStr) identifying dangerous serialization magic headers such as Java `0xACED0005`, Python `pickle`, or PHP `O:4:\"User\"` object injections. Use these exact values: `status`: 'INSECURE_DESERIALIZATION_PAYLOAD_DETECTED'. The result must have the field: `isDangerousObjectSerialization`.",
     "eStarter": "function detectInsecureSerialization(payload) {\n  // TODO: write your code here\n}",
     "eHint": "Check for Java magic bytes, python pickle system calls, and PHP serialized objects.",
     "eTest": "const javaAttack = detectInsecureSerialization('rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAU=');\nconst safeJson = detectInsecureSerialization('{\"user\":\"alice\",\"id\":123}');\nif (!javaAttack.isDangerousObjectSerialization || safeJson.isDangerousObjectSerialization || javaAttack.status !== 'INSECURE_DESERIALIZATION_PAYLOAD_DETECTED') throw new Error('Deserialization detector failed');",
@@ -352,7 +352,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Shannon Entropy String Scanner & API Key Detector",
-    "eDesc": "Implement function calculateShannonEntropy(inputString) computing character distribution entropy $H = -\\sum p_i \\log_2(p_i)$ with high entropy ($H \\ge 4.5$) flagging random cryptographic keys.",
+    "eDesc": "Implement function calculateShannonEntropy(inputString) computing character distribution entropy $H = -\\sum p_i \\log_2(p_i)$ with high entropy ($H \\ge 4.5$) flagging random cryptographic keys. Use these exact values: `status`: 'HIGH_ENTROPY_SECRET_DETECTED'. The result must have the field: `isHighEntropySecret`.",
     "eStarter": "function calculateShannonEntropy(str) {\n  // TODO: write your code here\n}",
     "eHint": "Calculate character frequencies and sum -p * Math.log2(p).",
     "eTest": "const secret = calculateShannonEntropy('wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'); // high entropy\nconst regular = calculateShannonEntropy('aaaaaaaaaaaaaaaa'); // 0 entropy\nif (regular.entropy !== 0.0 || !secret.isHighEntropySecret || secret.status !== 'HIGH_ENTROPY_SECRET_DETECTED') throw new Error('Entropy calculation failed');",
@@ -372,7 +372,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Software Bill of Materials (SBOM) Dependency CVE Matcher",
-    "eDesc": "Implement function matchSbomVulnerabilities(dependenciesList, cveDatabase) finding outdated dependencies matching known CVE records.",
+    "eDesc": "Implement function matchSbomVulnerabilities(dependenciesList, cveDatabase) finding outdated dependencies matching known CVE records. The result must have these fields: `vulnerableDependenciesCount`, `vulnerabilities`, `cveId`.",
     "eStarter": "function matchSbomVulnerabilities(deps, cveDb) {\n  // TODO: write your code here\n}",
     "eHint": "Match dep.name and dep.version against cveDb.",
     "eTest": "const deps = [{ name: 'lodash', version: '4.17.15' }, { name: 'express', version: '4.18.2' }];\nconst cveDb = [{ packageName: 'lodash', vulnerableVersion: '4.17.15', id: 'CVE-2020-8203', severity: 'HIGH' }];\nconst res = matchSbomVulnerabilities(deps, cveDb);\nif (res.vulnerableDependenciesCount !== 1 || res.vulnerabilities[0].cveId !== 'CVE-2020-8203') throw new Error('SBOM matcher failed');",
@@ -392,7 +392,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Token Bucket Rate Limiter Step Calculator",
-    "eDesc": "Implement function processTokenBucketRequest(currentTokens, maxCapacity, refillRatePerSec, timeElapsedSec, costPerRequest) refilling bucket and deducting cost if available.",
+    "eDesc": "Implement function processTokenBucketRequest(currentTokens, maxCapacity, refillRatePerSec, timeElapsedSec, costPerRequest) refilling bucket and deducting cost if available. Use these exact values: `status`: 'RATE_LIMIT_EXCEEDED_HTTP_429'. The result must have the field: `isRequestAllowed`.",
     "eStarter": "function processTokenBucketRequest(currTokens, maxCap, refillRate, elapsedSec, cost) {\n  // TODO: write your code here\n}",
     "eHint": "refilled = min(maxCap, curr + refillRate * elapsed), if refilled >= cost deduct cost.",
     "eTest": "const pass = processTokenBucketRequest(5, 10, 1, 2, 1); // 5 + 2 = 7 >= 1 -> remaining 6\nconst fail = processTokenBucketRequest(0, 10, 1, 0, 1); // 0 < 1 -> remaining 0, HTTP 429\nif (!pass.isRequestAllowed || fail.isRequestAllowed || fail.status !== 'RATE_LIMIT_EXCEEDED_HTTP_429') throw new Error('Rate limiter failed');",
@@ -412,7 +412,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Application Runtime Defense Master Engine",
-    "eDesc": "Implement function executeRuntimeDefenseMaster(ssrfOk, deserOk, entropyOk, sbomOk, rateOk) certifying combined runtime defense execution.",
+    "eDesc": "Implement function executeRuntimeDefenseMaster(ssrfOk, deserOk, entropyOk, sbomOk, rateOk) certifying combined runtime defense execution. Use these exact values: `engineStatus`: 'RUNTIME_DEFENSE_MASTER_ACTIVE'.",
     "eStarter": "function executeRuntimeDefenseMaster(s, d, e, b, r) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeRuntimeDefenseMaster(true, true, true, true, true);\nif (res.engineStatus !== 'RUNTIME_DEFENSE_MASTER_ACTIVE') throw new Error('Milestone 3 runtime master failed');",
@@ -432,7 +432,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Stack Canary Corruption & Buffer Overflow Detector",
-    "eDesc": "Implement function detectStackOverflow(allocatedBufferSize, incomingPayloadSize, canaryValue, currentCanaryMemory) verifying buffer bounds and detecting modified canary cookies.",
+    "eDesc": "Implement function detectStackOverflow(allocatedBufferSize, incomingPayloadSize, canaryValue, currentCanaryMemory) verifying buffer bounds and detecting modified canary cookies. Use these exact values: `status`: 'STACK_SMASHING_DETECTED_TERMINATING_PROCESS'. The result must have the field: `isExploitDetected`.",
     "eStarter": "function detectStackOverflow(bufSize, payloadSize, originalCanary, memoryCanary) {\n  // TODO: write your code here\n}",
     "eHint": "Check if payloadSize > bufSize or canary differs.",
     "eTest": "const attack = detectStackOverflow(64, 128, '0xDEADBEEF', '0x41414141');\nconst safe = detectStackOverflow(64, 32, '0xDEADBEEF', '0xDEADBEEF');\nif (!attack.isExploitDetected || safe.isExploitDetected || attack.status !== 'STACK_SMASHING_DETECTED_TERMINATING_PROCESS') throw new Error('Buffer overflow detector failed');",
@@ -452,7 +452,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Memory Safety Lifecycle & Dangling Pointer Tracker",
-    "eDesc": "Implement function trackMemoryPointerLifecycle(pointerState, requestedAction) state machine enforcing that freed pointers cannot be dereferenced (`USE_AFTER_FREE_BLOCKED`).",
+    "eDesc": "Implement function trackMemoryPointerLifecycle(pointerState, requestedAction) state machine enforcing that freed pointers cannot be dereferenced (`USE_AFTER_FREE_BLOCKED`). Use these exact values: `status`: 'USE_AFTER_FREE_OR_DOUBLE_FREE_BLOCKED'. The result must have the field: `isMemoryViolation`.",
     "eStarter": "function trackMemoryPointerLifecycle(state, action) {\n  // TODO: write your code here\n}",
     "eHint": "Flag violation if action is FREE when state is FREED, or action is DEREFERENCE when state is FREED/NULL.",
     "eTest": "const uaf = trackMemoryPointerLifecycle('FREED', 'DEREFERENCE');\nconst valid = trackMemoryPointerLifecycle('ALLOCATED', 'READ');\nif (!uaf.isMemoryViolation || valid.isMemoryViolation || uaf.status !== 'USE_AFTER_FREE_OR_DOUBLE_FREE_BLOCKED') throw new Error('Memory safety tracker failed');",
@@ -472,7 +472,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "SIEM Brute Force Correlation Rule Engine",
-    "eDesc": "Implement function correlateSiemLogEvents(eventLogsArray, timeWindowSec, thresholdCount) grouping failed logins by source IP and raising a high-priority alert if threshold is breached within window.",
+    "eDesc": "Implement function correlateSiemLogEvents(eventLogsArray, timeWindowSec, thresholdCount) grouping failed logins by source IP and raising a high-priority alert if threshold is breached within window. Use these exact values: `status`: 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT'. The result must have these fields: `isBruteForceAlert`, `threatSourceIp`.",
     "eStarter": "function correlateSiemLogEvents(logs, windowSec, thresh) {\n  // TODO: write your code here\n}",
     "eHint": "Count AUTH_FAILED per sourceIp and alert if >= thresh.",
     "eTest": "const logs = [\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 100 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 105 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 110 }\n];\nconst res = correlateSiemLogEvents(logs, 60, 3);\nif (!res.isBruteForceAlert || res.threatSourceIp !== '198.51.100.4' || res.status !== 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT') throw new Error('SIEM engine failed');",
@@ -492,7 +492,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Snort Signature Rule Pattern Matcher",
-    "eDesc": "Implement function matchSnortSignature(packetProtocol, packetDstPort, packetPayload, ruleConfig) triggering an alert if protocol, port, and payload signature content match.",
+    "eDesc": "Implement function matchSnortSignature(packetProtocol, packetDstPort, packetPayload, ruleConfig) triggering an alert if protocol, port, and payload signature content match. The result must have the field: `isSignatureTriggered`.",
     "eStarter": "function matchSnortSignature(proto, port, payload, rule) {\n  // TODO: write your code here\n}",
     "eHint": "Verify proto, port, and payload.includes(rule.content).",
     "eTest": "const rule = { sid: 1001, msg: 'Nmap Scan', protocol: 'TCP', dstPort: 80, content: 'Nmap', action: 'DROP' };\nconst attack = matchSnortSignature('TCP', 80, 'GET / HTTP/1.1 User-Agent: Nmap', rule);\nconst clean = matchSnortSignature('TCP', 80, 'GET / HTTP/1.1 User-Agent: Mozilla', rule);\nif (!attack.isSignatureTriggered || clean.isSignatureTriggered || attack.action !== 'DROP') throw new Error('Snort matcher failed');",
@@ -512,7 +512,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "CVSS v3.1 Qualitative Severity Rating Categorizer",
-    "eDesc": "Implement function categorizeCvssScore(baseScore) mapping numerical score ($[0.0, 10.0]$) to `'NONE'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`, or `'CRITICAL'` according to the official CVSS v3.1 specification.",
+    "eDesc": "Implement function categorizeCvssScore(baseScore) mapping numerical score ($[0.0, 10.0]$) to `'NONE'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`, or `'CRITICAL'` according to the official CVSS v3.1 specification. Use these exact values: `status`: 'CVSS_RATING_CALCULATED_NOMINAL'. The result must have these fields: `g`, `Log4Shell`, `severityRating`.",
     "eStarter": "function categorizeCvssScore(score) {\n  // TODO: write your code here\n}",
     "eHint": "0.0 None, <4.0 Low, <7.0 Medium, <9.0 High, else Critical.",
     "eTest": "const crit = categorizeCvssScore(9.8); // Critical (e.g. Log4Shell)\nconst med = categorizeCvssScore(5.3); // Medium\nif (crit.severityRating !== 'CRITICAL' || med.severityRating !== 'MEDIUM' || crit.status !== 'CVSS_RATING_CALCULATED_NOMINAL') throw new Error('CVSS categorizer failed');",
@@ -532,7 +532,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Zero Trust Policy Continuous Verification Engine",
-    "eDesc": "Implement function evaluateZeroTrustPolicy(isIdentityValid, isDeviceHealthy, isLocationRiskLow) verifying that all 3 dynamic posture signals evaluate to true for every single micro-service request.",
+    "eDesc": "Implement function evaluateZeroTrustPolicy(isIdentityValid, isDeviceHealthy, isLocationRiskLow) verifying that all 3 dynamic posture signals evaluate to true for every single micro-service request. Use these exact values: `status`: 'ZERO_TRUST_VERIFICATION_FAILED_ACCESS_REVOKED'. The result must have the field: `zeroTrustAccessGranted`.",
     "eStarter": "function evaluateZeroTrustPolicy(idValid, devHealthy, locLowRisk) {\n  // TODO: write your code here\n}",
     "eHint": "isApproved = idValid && devHealthy && locLowRisk.",
     "eTest": "const pass = evaluateZeroTrustPolicy(true, true, true);\nconst fail = evaluateZeroTrustPolicy(true, false, true); // unhealthy device\nif (!pass.zeroTrustAccessGranted || fail.zeroTrustAccessGranted || fail.status !== 'ZERO_TRUST_VERIFICATION_FAILED_ACCESS_REVOKED') throw new Error('Zero trust evaluator failed');",
@@ -552,7 +552,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "AWS IAM Policy Least Privilege Wildcard Auditor",
-    "eDesc": "Implement function auditAwsIamPolicy(policyStatement) flagging overly permissive wildcard actions (`Action: \"*\"` or `Resource: \"*\"` with `Effect: \"Allow\"`).",
+    "eDesc": "Implement function auditAwsIamPolicy(policyStatement) flagging overly permissive wildcard actions (`Action: \"*\"` or `Resource: \"*\"` with `Effect: \"Allow\"`). Use these exact values: `status`: 'OVERLY_PERMISSIVE_WILDCARD_IAM_POLICY_DETECTED'. The result must have the field: `isPolicyCompliant`.",
     "eStarter": "function auditAwsIamPolicy(statement) {\n  // TODO: write your code here\n}",
     "eHint": "Flag excessive privilege if Effect === 'Allow' and Action or Resource is '*'.",
     "eTest": "const risky = auditAwsIamPolicy({ Effect: 'Allow', Action: '*', Resource: '*' });\nconst secure = auditAwsIamPolicy({ Effect: 'Allow', Action: ['s3:GetObject'], Resource: 'arn:aws:s3:::mybucket/*' });\nif (risky.isPolicyCompliant || !secure.isPolicyCompliant || risky.status !== 'OVERLY_PERMISSIVE_WILDCARD_IAM_POLICY_DETECTED') throw new Error('IAM auditor failed');",
@@ -572,7 +572,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Digital Forensics Chain of Custody Integrity Verifier",
-    "eDesc": "Implement function verifyForensicEvidenceIntegrity(originalEvidenceHash, currentEvidenceHash, isChainDocumented) certifying that evidence bit-stream has not been altered.",
+    "eDesc": "Implement function verifyForensicEvidenceIntegrity(originalEvidenceHash, currentEvidenceHash, isChainDocumented) certifying that evidence bit-stream has not been altered. Use these exact values: `status`: 'FORENSIC_EVIDENCE_INTEGRITY_VERIFIED_NOMINAL'. The result must have the field: `isEvidenceAdmissible`.",
     "eStarter": "function verifyForensicEvidenceIntegrity(origHash, currHash, isDoc) {\n  // TODO: write your code here\n}",
     "eHint": "isCertified = origHash.toLowerCase() === currHash.toLowerCase() && isDoc === true.",
     "eTest": "const hash = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';\nconst pass = verifyForensicEvidenceIntegrity(hash, hash, true);\nconst fail = verifyForensicEvidenceIntegrity(hash, 'tampered_hash', true);\nif (!pass.isEvidenceAdmissible || fail.isEvidenceAdmissible || pass.status !== 'FORENSIC_EVIDENCE_INTEGRITY_VERIFIED_NOMINAL') throw new Error('Forensic verifier failed');",
@@ -592,7 +592,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Sovereign Cybersecurity Operations Master Suite Orchestrator",
-    "eDesc": "Implement function orchestrateCyberSecurityMasterSuite(appSecOk, cryptoOk, runtimeOk, systemsOk, governanceOk) certifying comprehensive enterprise cyber defense mastery.",
+    "eDesc": "Implement function orchestrateCyberSecurityMasterSuite(appSecOk, cryptoOk, runtimeOk, systemsOk, governanceOk) certifying comprehensive enterprise cyber defense mastery. Use these exact values: `status`: 'SOVEREIGN_CYBERSECURITY_MASTER_CERTIFIED_NOMINAL'. The result must have these fields: `sovereignCyberCertified`, `certified`.",
     "eStarter": "function orchestrateCyberSecurityMasterSuite(app, cry, run, sys, gov) {\n  // TODO: write your code here\n}",
     "eHint": "Verify all 5 module flags evaluate to true.",
     "eTest": "const ok = orchestrateCyberSecurityMasterSuite(true, true, true, true, true);\nconst fail = orchestrateCyberSecurityMasterSuite(true, true, false, true, true);\nif (!ok.sovereignCyberCertified || fail.sovereignCyberCertified || !ok.certified || ok.status !== 'SOVEREIGN_CYBERSECURITY_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",

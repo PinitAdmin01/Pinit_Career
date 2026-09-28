@@ -57,7 +57,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Extract 7 bits, set 8th bit if remainder > 0.",
     "eTest": "const singleByte = encodeVarint(1); // 0x01\nconst twoBytes = encodeVarint(300); // 300 = 0xAC 0x02\nif (singleByte.length !== 1 || singleByte[0] !== 1) throw new Error('Single byte varint failed');\nif (twoBytes.length !== 2 || twoBytes[0] !== 0xAC || twoBytes[1] !== 0x02) throw new Error('Multi-byte varint failed');",
     "aTitle": "Protobuf Wire Type Decoder",
-    "aDesc": "Implement function getWireType(tagByte) returning wire type from lowest 3 bits (`tagByte & 0x07`).",
+    "aDesc": "Implement function getWireType(tagByte) returning wire type from lowest 3 bits (`tagByte & 0x07`). Use these exact values: getWireType() returns 'LENGTH_DELIMITED'.",
     "aStarter": "function getWireType(t) {\n  // TODO: write your code here\n}",
     "aHint": "Extract tag & 7.",
     "aTest": "if (getWireType(0x08) !== 'VARINT' || getWireType(0x12) !== 'LENGTH_DELIMITED') throw new Error('Wire type decoder failed');"
@@ -112,7 +112,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Fencing Tokens: Monotonically increasing integers validating storage write ordering."
     ],
     "eTitle": "Distributed Lock with Monotonic Fencing Token",
-    "eDesc": "Implement class DistributedLockManager with acquireLock(resourceId, ttlMs) and releaseLock(resourceId, lockId) generating monotonic fencing tokens.",
+    "eDesc": "Implement class DistributedLockManager with acquireLock(resourceId, ttlMs) and releaseLock(resourceId, lockId) generating monotonic fencing tokens. The result must have the field: `success`.",
     "eStarter": "class DistributedLockManager {\n  constructor() {\n    this.locks = new Map();\n    this.fencingCounter = 0;\n  }\n  acquireLock(resource, ttlMs = 1000) {\n    // TODO: write your code here\n  }\n  releaseLock(resource, lockId) {\n    // TODO: write your code here\n  }\n}",
     "eHint": "Track lockId, expiresAt, and incrementing fencingToken.",
     "eTest": "const manager = new DistributedLockManager();\nconst l1 = manager.acquireLock('order_9981', 1000);\nconst l2 = manager.acquireLock('order_9981', 1000);\nif (!l1.success || l2.success) throw new Error('Mutual exclusion failed');\nif (l1.fencingToken !== 1) throw new Error('Fencing token should start at 1');\nmanager.releaseLock('order_9981', l1.lockId);\nconst l3 = manager.acquireLock('order_9981', 1000);\nif (!l3.success || l3.fencingToken <= l1.fencingToken) throw new Error('Subsequent lock must receive higher monotonic fencing token');",
@@ -132,7 +132,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Split-Brain Prevention: Requiring strict majority quorum ($N/2 + 1$) to elect leader."
     ],
     "eTitle": "Bully Leader Election Protocol Engine",
-    "eDesc": "Implement function runBullyElection(activeNodeIds, failedNodeId) selecting highest ID active node and broadcasting coordinator status.",
+    "eDesc": "Implement function runBullyElection(activeNodeIds, failedNodeId) selecting highest ID active node and broadcasting coordinator status. Use these exact values: `status`: 'LEADER_ELECTION_COMPLETE'. The result must have the field: `newLeaderId`.",
     "eStarter": "function runBullyElection(activeNodes, failedLeaderId) {\n  // TODO: write your code here\n}",
     "eHint": "Filter out failed leader, find max node ID, return coordinator broadcast.",
     "eTest": "const res = runBullyElection([101, 102, 105, 108], 108);\nif (res.newLeaderId !== 105 || res.status !== 'LEADER_ELECTION_COMPLETE') throw new Error('Bully leader election failed to promote highest remaining node');",
@@ -172,7 +172,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Raft Log Replication State Machine",
-    "eDesc": "Implement function replicateRaftLog(leaderLog, followerLog, prevLogIndex, prevLogTerm, newEntries) verifying consistency and appending entries.",
+    "eDesc": "Implement function replicateRaftLog(leaderLog, followerLog, prevLogIndex, prevLogTerm, newEntries) verifying consistency and appending entries. The result must have these fields: `success`, `updatedLog`.",
     "eStarter": "function replicateRaftLog(leaderLog, followerLog, prevIndex, prevTerm, entries) {\n  // TODO: write your code here\n}",
     "eHint": "Check followerLog[prevIndex].term === prevTerm, slice and concat entries.",
     "eTest": "const fLog = [{ term: 1, cmd: 'x=1' }];\nconst entries = [{ term: 2, cmd: 'y=2' }];\nconst res = replicateRaftLog(null, fLog, 0, 1, entries);\nif (!res.success || res.updatedLog.length !== 2) throw new Error('Raft log replication failed');",
@@ -192,12 +192,12 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Two-Phase Commit (2PC) Distributed Transaction Coordinator",
-    "eDesc": "Implement function execute2PC(cohorts) coordinating Phase 1: Prepare (Vote YES/NO) and Phase 2: Global Commit or Global Abort.",
+    "eDesc": "Implement function execute2PC(cohorts) coordinating Phase 1: Prepare (Vote YES/NO) and Phase 2: Global Commit or Global Abort. Use these exact values: `txStatus`: 'GLOBAL_ABORTED'.",
     "eStarter": "async function execute2PC(cohorts) {\n  // TODO: write your code here\n}",
     "eHint": "If all cohorts vote VOTE_COMMIT then commit, else abort all.",
     "eTest": "const c1 = { prepare: async () => 'VOTE_COMMIT', commit: async () => 'OK', abort: async () => 'OK' };\nconst c2 = { prepare: async () => 'VOTE_ABORT', commit: async () => 'OK', abort: async () => 'OK' };\nawait execute2PC([c1, c2]).then(res => {\n  if (res.txStatus !== 'GLOBAL_ABORTED') throw new Error('2PC must abort when 1 cohort votes abort');\n});",
     "aTitle": "2PC Vote Counter",
-    "aDesc": "Implement function countVotes(votes) returning counts of commit and abort votes.",
+    "aDesc": "Implement function countVotes(votes) returning counts of commit and abort votes. Votes are 'VOTE_COMMIT' or 'VOTE_ABORT'; return { commit, abort }.",
     "aStarter": "function countVotes(v) {\n  // TODO: write your code here\n}",
     "aHint": "Filter commit and abort.",
     "aTest": "if (countVotes(['VOTE_COMMIT', 'VOTE_ABORT']).abort !== 1) throw new Error('Vote count failed');"
@@ -212,7 +212,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Saga Orchestrator with Backward Compensating Rollback",
-    "eDesc": "Implement function executeSagaOrchestrator(sagaSteps) executing forward actions and running compensating actions in reverse order on failure.",
+    "eDesc": "Implement function executeSagaOrchestrator(sagaSteps) executing forward actions and running compensating actions in reverse order on failure. Use these exact values: `status`: 'SAGA_FAILED_COMPENSATED'.",
     "eStarter": "async function executeSagaOrchestrator(steps) {\n  // TODO: write your code here\n}",
     "eHint": "Execute actions sequentially; on catch loop completed in reverse calling compensate().",
     "eTest": "let compensated = [];\nconst steps = [\n  { name: 'ReserveCredit', action: async () => true, compensate: async () => compensated.push('Credit') },\n  { name: 'ReserveInventory', action: async () => { throw new Error('OUT_OF_STOCK'); }, compensate: async () => compensated.push('Inventory') }\n];\nawait executeSagaOrchestrator(steps).then(res => {\n  if (res.status !== 'SAGA_FAILED_COMPENSATED' || compensated[0] !== 'Credit') throw new Error('Saga backward compensation failed');\n});",
@@ -272,7 +272,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Dead Letter Queue (DLQ) Pipeline Router",
-    "eDesc": "Implement function handleQueueMessage(message, maxAttempts = 3, dlqQueue, processFn) routing to DLQ after exceeding max retry attempts.",
+    "eDesc": "Implement function handleQueueMessage(message, maxAttempts = 3, dlqQueue, processFn) routing to DLQ after exceeding max retry attempts. Use these exact values: `status`: 'ROUTED_TO_DEAD_LETTER_QUEUE'.",
     "eStarter": "async function handleQueueMessage(msg, maxAttempts = 3, dlq, fn) {\n  // TODO: write your code here\n}",
     "eHint": "Catch error, increment retryCount, if >= maxAttempts push to dlq.",
     "eTest": "const dlq = [];\nconst poisonPill = { id: 'msg_bad', payload: 'corrupt', retryCount: 2 };\nconst failFn = async () => { throw new Error('JSON_PARSE_ERROR'); };\nawait handleQueueMessage(poisonPill, 3, dlq, failFn).then(res => {\n  if (res.status !== 'ROUTED_TO_DEAD_LETTER_QUEUE' || dlq.length !== 1) throw new Error('Poison pill failed to route to DLQ');\n});",
@@ -292,7 +292,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Resilient Distributed Transaction Engine",
-    "eDesc": "Implement function runDistributedTransaction(event, idempotencyStore, sagaSteps, dlq) executing end-to-end event transaction workflow.",
+    "eDesc": "Implement function runDistributedTransaction(event, idempotencyStore, sagaSteps, dlq) executing end-to-end event transaction workflow. Use these exact values: `status`: 'TRANSACTION_SUCCESSFULLY_COMMITTED'.",
     "eStarter": "async function runDistributedTransaction(event, store, steps, dlq) {\n  // TODO: write your code here\n}",
     "eHint": "Check idempotency -> run saga -> on failure compensate and DLQ -> commit.",
     "eTest": "const store = {};\nconst dlq = [];\nconst steps = [{ execute: async () => true, compensate: async () => true }];\nawait runDistributedTransaction({ idempotencyKey: 'tx_101' }, store, steps, dlq).then(res => {\n  if (res.status !== 'TRANSACTION_SUCCESSFULLY_COMMITTED' || store.tx_101 !== 'COMMITTED') throw new Error('Distributed transaction milestone failed');\n});",
@@ -312,7 +312,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Vector Clock Causality Matrix & Concurrent Conflict Detector",
-    "eDesc": "Implement function compareVectorClocks(clockA, clockB) determining if Clock A happened before Clock B, after Clock B, or if they are Concurrent Conflicts.",
+    "eDesc": "Implement function compareVectorClocks(clockA, clockB) determining if Clock A happened before Clock B, after Clock B, or if they are Concurrent Conflicts. Use these exact values: compareVectorClocks() returns 'B_HAPPENED_BEFORE_A' or 'CONCURRENT_CONFLICT' (whichever fits the case).",
     "eStarter": "function compareVectorClocks(vA, vB) {\n  // TODO: write your code here\n}",
     "eHint": "Compare all keys: if both aGreater and bGreater are true, events are concurrent.",
     "eTest": "const v1 = { N1: 2, N2: 1 };\nconst v2 = { N1: 2, N2: 2 };\nconst v3 = { N1: 3, N2: 0 };\nif (compareVectorClocks(v1, v2) !== 'B_HAPPENED_BEFORE_A') throw new Error('Causality ordering failed');\nif (compareVectorClocks(v2, v3) !== 'CONCURRENT_CONFLICT') throw new Error('Concurrent conflict went undetected');",
@@ -372,7 +372,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Read-Your-Own-Writes Database Connection Router",
-    "eDesc": "Implement function routeDatabaseQuery(operation, sessionState, masterDb, replicaDbs) routing writes and recent writes (< 5s) to Master, and stale reads to Replicas.",
+    "eDesc": "Implement function routeDatabaseQuery(operation, sessionState, masterDb, replicaDbs) routing writes and recent writes (< 5s) to Master, and stale reads to Replicas. The result must have the field: `target`. Return { target, connection }: target is 'MASTER_DB' for writes and for reads within 5 seconds of the session's last write, otherwise 'READ_REPLICA'.",
     "eStarter": "function routeDatabaseQuery(op, session, master, replicas) {\n  // TODO: write your code here\n}",
     "eHint": "If write or recent write (< 5s) route to master, else route to replica.",
     "eTest": "const session = { lastWriteTimestamp: Date.now() - 1000 };\nconst res = routeDatabaseQuery('READ', session, 'master_conn', ['rep1', 'rep2']);\nif (!res.target.includes('MASTER_DB')) throw new Error('Read-your-writes should route recent write to master');",
@@ -392,7 +392,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Circuit Breaker Three-State Machine",
-    "eDesc": "Implement class CircuitBreaker with execute(fn) transitioning across CLOSED, OPEN, and HALF_OPEN states based on failure rates and timeouts.",
+    "eDesc": "Implement class CircuitBreaker with execute(fn) transitioning across CLOSED, OPEN, and HALF_OPEN states based on failure rates and timeouts. execute(fn) passes on the error when fn fails. After `threshold` failures the state becomes 'OPEN', and while it is open execute throws new Error('CIRCUIT_OPEN_FAST_FAIL') without calling fn.",
     "eStarter": "class CircuitBreaker {\n  constructor(threshold = 3, resetTimeoutMs = 500) {\n    this.state = 'CLOSED';\n    this.failureCount = 0;\n    this.threshold = threshold;\n    this.resetTimeout = resetTimeoutMs;\n    this.lastFailureTime = 0;\n  }\n  async execute(fn) {\n    // TODO: write your code here\n  }\n}",
     "eHint": "Manage CLOSED -> failure threshold -> OPEN -> timeout -> HALF_OPEN -> success -> CLOSED.",
     "eTest": "const cb = new CircuitBreaker(2, 50);\nconst failFn = async () => { throw new Error('SERVICE_DOWN'); };\nfor (let i = 0; i < 2; i++) {\n  let threw = false;\n  try { await cb.execute(failFn); } catch { threw = true; }\n  if (!threw) throw new Error('execute must pass on the error from a failing service');\n}\nif (cb.state !== 'OPEN') throw new Error('Circuit breaker failed to trip to OPEN state');\nlet fast = '';\ntry { await cb.execute(async () => 'ok'); } catch (e) { fast = e && e.message; }\nif (fast !== 'CIRCUIT_OPEN_FAST_FAIL') throw new Error('An open circuit must fail fast with CIRCUIT_OPEN_FAST_FAIL');",
@@ -412,7 +412,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Resilient Distributed API Gateway Middleware",
-    "eDesc": "Implement function handleGatewayRequest(req, rateLimiter, circuitBreaker, backendService) protecting backend from overload and cascading failures.",
+    "eDesc": "Implement function handleGatewayRequest(req, rateLimiter, circuitBreaker, backendService) protecting backend from overload and cascading failures. The result must have the field: `httpStatus`.",
     "eStarter": "async function handleGatewayRequest(req, limiter, cb, backend) {\n  // TODO: write your code here\n}",
     "eHint": "Check rate limiter -> run inside circuit breaker -> return 200, 429, or 503.",
     "eTest": "const mockLimiter = { isAllowed: (id) => id === 'client_ok' };\nconst mockCb = { execute: async (fn) => fn() };\nconst mockBackend = { call: async () => ({ status: 'OK' }) };\nawait handleGatewayRequest({ clientId: 'client_bad' }, mockLimiter, mockCb, mockBackend).then(res => {\n  if (res.httpStatus !== 429) throw new Error('Gateway failed to block rate-limited client');\n});",
@@ -432,7 +432,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "SWIM Gossip Protocol Indirect Ping Failure Detector",
-    "eDesc": "Implement function executeSwimPing(targetNodeId, directPingFn, peerNodes) sending direct ping and triggering indirect peer pings on timeout.",
+    "eDesc": "Implement function executeSwimPing(targetNodeId, directPingFn, peerNodes) sending direct ping and triggering indirect peer pings on timeout. Use these exact values: `method`: 'INDIRECT_PING_CONSENSUS'. The result must have the field: `nodeStatus`.",
     "eStarter": "async function executeSwimPing(targetId, directPing, peers) {\n  // TODO: write your code here\n}",
     "eHint": "Try directPing; on catch run indirect pings via peers; if all fail mark SUSPECT_FAILED.",
     "eTest": "const mockDirectFail = async () => { throw new Error('TIMEOUT'); };\nawait executeSwimPing('node_9', mockDirectFail, ['node_1', 'node_2']).then(res => {\n  if (res.nodeStatus !== 'SUSPECT_FAILED' || res.method !== 'INDIRECT_PING_CONSENSUS') throw new Error('SWIM indirect failure detection failed');\n});",
@@ -492,7 +492,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "BFF Response Aggregator & Composite Payload Stitcher",
-    "eDesc": "Implement function aggregateBffProfile(userId, userService, orderService, reviewService) querying microservices in parallel and stitching unified payload.",
+    "eDesc": "Implement function aggregateBffProfile(userId, userService, orderService, reviewService) querying microservices in parallel and stitching unified payload. The result must have these fields: `recentOrdersCount`, `totalReviews`.",
     "eStarter": "async function aggregateBffProfile(userId, userSvc, orderSvc, reviewSvc) {\n  // TODO: write your code here\n}",
     "eHint": "Use Promise.all to fetch user, orders, and reviews concurrently and stitch into 1 object.",
     "eTest": "const uSvc = { getUser: async (id) => ({ id, name: 'Alice' }) };\nconst oSvc = { getRecentOrders: async () => [{ id: 'o1' }, { id: 'o2' }] };\nconst rSvc = { getUserReviews: async () => [{ id: 'r1' }] };\nawait aggregateBffProfile('u_101', uSvc, oSvc, rSvc).then(res => {\n  if (res.name !== 'Alice' || res.recentOrdersCount !== 2 || res.totalReviews !== 1) throw new Error('BFF response stitching failed');\n});",
@@ -512,7 +512,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "W3C TraceContext Header Parser & Span Propagator",
-    "eDesc": "Implement function createChildSpan(traceparentHeader, newSpanName) parsing W3C `00-${traceId}-${parentId}-${flags}` and generating child span.",
+    "eDesc": "Implement function createChildSpan(traceparentHeader, newSpanName) parsing W3C `00-${traceId}-${parentId}-${flags}` and generating child span. The result must have the field: `parentSpanId`.",
     "eStarter": "function createChildSpan(traceparent, spanName) {\n  // TODO: write your code here\n}",
     "eHint": "Parse traceparent parts, retain traceId, generate new spanId, format outgoing traceparent.",
     "eTest": "const incoming = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01';\nconst child = createChildSpan(incoming, 'db_query');\nif (child.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736') throw new Error('Distributed traceId was not propagated to child span');\nif (child.parentSpanId !== '00f067aa0ba902b7') throw new Error('Parent span ID mismatch');",
@@ -532,7 +532,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Linearizability vs Eventual Consistency Audit Validator",
-    "eDesc": "Implement function auditConsistencyModel(readEvents, writeEvents) verifying whether reads observe strictly newer global timestamps.",
+    "eDesc": "Implement function auditConsistencyModel(readEvents, writeEvents) verifying whether reads observe strictly newer global timestamps. The result must have the field: `isLinearizable`.",
     "eStarter": "function auditConsistencyModel(reads, writes) {\n  // TODO: write your code here\n}",
     "eHint": "Check if reads after write completion observe the latest written value.",
     "eTest": "const writes = [{ value: 'v1', completedAt: 100 }, { value: 'v2', completedAt: 200 }];\nconst goodReads = [{ startedAt: 250, observedValue: 'v2' }];\nconst staleReads = [{ startedAt: 250, observedValue: 'v1' }];\nif (auditConsistencyModel(goodReads, writes).isLinearizable !== true) throw new Error('Fresh read failed linearizability check');\nif (auditConsistencyModel(staleReads, writes).isLinearizable !== false) throw new Error('Stale read falsely passed linearizability check');",
@@ -552,7 +552,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "HTTP Cache-Control & Stale-While-Revalidate Evaluator",
-    "eDesc": "Implement function evaluateEdgeCache(cacheControlHeader, ageSeconds) determining if asset is FRESH, STALE_REVALIDATING, or EXPIRED.",
+    "eDesc": "Implement function evaluateEdgeCache(cacheControlHeader, ageSeconds) determining if asset is FRESH, STALE_REVALIDATING, or EXPIRED. Use these exact values: `status`: 'CACHE_HIT_FRESH' or 'CACHE_HIT_STALE_WHILE_REVALIDATING' or 'CACHE_MISS_EXPIRED' (whichever fits the case).",
     "eStarter": "function evaluateEdgeCache(header, age) {\n  // TODO: write your code here\n}",
     "eHint": "Check age <= maxAge (FRESH), age <= maxAge + swr (STALE_REVALIDATE), else EXPIRED.",
     "eTest": "const header = 'public, max-age=60, stale-while-revalidate=30';\nif (evaluateEdgeCache(header, 30).status !== 'CACHE_HIT_FRESH') throw new Error('Fresh cache check failed');\nif (evaluateEdgeCache(header, 75).status !== 'CACHE_HIT_STALE_WHILE_REVALIDATING') throw new Error('SWR check failed');\nif (evaluateEdgeCache(header, 100).status !== 'CACHE_MISS_EXPIRED') throw new Error('Expired check failed');",
@@ -572,7 +572,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Multi-Region Disaster Recovery RPO & RTO Calculator",
-    "eDesc": "Implement function calculateDrCompliance(actualRpoMinutes, actualRtoMinutes, targetRpo, targetRto) verifying SLA compliance.",
+    "eDesc": "Implement function calculateDrCompliance(actualRpoMinutes, actualRtoMinutes, targetRpo, targetRto) verifying SLA compliance. Use these exact values: `grade`: 'DR_TIER_1_CERTIFIED'; `rpoStatus`: 'RPO_SLA_BREACHED'. The result must have the field: `isCompliant`.",
     "eStarter": "function calculateDrCompliance(actualRpo, actualRto, targetRpo, targetRto) {\n  // TODO: write your code here\n}",
     "eHint": "Check actualRpo <= targetRpo and actualRto <= targetRto.",
     "eTest": "const res = calculateDrCompliance(2, 5, 5, 15);\nif (!res.isCompliant || res.grade !== 'DR_TIER_1_CERTIFIED') throw new Error('DR compliance calculation failed');\nconst breach = calculateDrCompliance(10, 5, 5, 15);\nif (breach.isCompliant || breach.rpoStatus !== 'RPO_SLA_BREACHED') throw new Error('RPO breach went undetected');",
@@ -592,12 +592,12 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
     "eTitle": "Capstone Financial Ledger Exchange Engine",
-    "eDesc": "Implement function executeGlobalTradeTransaction(orderPayload, exchangeServices) orchestrating rate limiting, lock acquisition with fencing tokens, consensus replication, and ledger persistence.",
+    "eDesc": "Implement function executeGlobalTradeTransaction(orderPayload, exchangeServices) orchestrating rate limiting, lock acquisition with fencing tokens, consensus replication, and ledger persistence. Use these exact values: `tradeStatus`: 'EXECUTED_AND_COMMITTED'.",
     "eStarter": "async function executeGlobalTradeTransaction(order, services) {\n  // TODO: write your code here\n}",
     "eHint": "Check rate limit -> acquire lock -> replicate consensus -> commit ledger -> release lock.",
     "eTest": "const services = {\n  rateLimiter: { isAllowed: () => true },\n  lockManager: { acquire: async () => ({ success: true, lockId: 'l1', fencingToken: 42 }), release: async () => true },\n  consensus: { replicate: async () => true },\n  ledger: { commit: async (o) => ({ id: 'rec_9981' }) }\n};\nawait executeGlobalTradeTransaction({ accountId: 'acc_1', orderId: 'ord_1', amount: 500 }, services).then(res => {\n  if (!res.success || res.tradeStatus !== 'EXECUTED_AND_COMMITTED' || res.fencingToken !== 42) throw new Error('Capstone financial trading exchange engine failed');\n});",
     "aTitle": "Capstone Distributed Systems Certification Auditor",
-    "aDesc": "Implement function auditDistributedCapstoneStatus() returning certification grade.",
+    "aDesc": "Implement function auditDistributedCapstoneStatus() returning certification grade. The result must have the field: `certified`.",
     "aStarter": "function auditDistributedCapstoneStatus() {\n  // TODO: write your code here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (auditDistributedCapstoneStatus().certified !== true) throw new Error('Capstone audit failed');"

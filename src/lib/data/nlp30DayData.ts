@@ -12,7 +12,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Building high-throughput text cleaning and stopword elimination pipelines."
     ],
     "eTitle": "Unicode Text Normalizer & Clean Tokenizer",
-    "eDesc": "Implement function normalizeAndTokenizeText(rawString, stopwordList) normalizing Unicode with NFKD, removing punctuation, lowercasing, and filtering out specified stopwords.",
+    "eDesc": "Implement function normalizeAndTokenizeText(rawString, stopwordList) normalizing Unicode with NFKD, removing punctuation, lowercasing, and filtering out specified stopwords. Use these exact values: `status`: 'TEXT_NORMALIZED_AND_TOKENIZED_NOMINAL'. The result must have the field: `tokens`.",
     "eStarter": "function normalizeAndTokenizeText(raw, stopwords) {\n  // TODO: write your code here\n}",
     "eHint": "Use normalize('NFKD'), replace combining marks, lower, strip non-alphanumeric, filter stopwords.",
     "eTest": "const res = normalizeAndTokenizeText('Café résumé: The quick brown fox!', ['the', 'a', 'is']);\nif (res.tokens.length !== 5 || !res.tokens.includes('cafe') || !res.tokens.includes('resume') || res.tokens.includes('the') || res.status !== 'TEXT_NORMALIZED_AND_TOKENIZED_NOMINAL') throw new Error('Text preprocessing failed');",
@@ -32,7 +32,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Computational trade-offs between speed (stemming) and semantic validity (lemmatization)."
     ],
     "eTitle": "Morphological Stemming vs Lemmatization Classifier",
-    "eDesc": "Implement function classifyMorphologicalReduction(word, partOfSpeech, isLemmaLookup) mapping words to their lemma or heuristic stem, distinguishing dictionary root forms from truncated prefixes. The heuristic stem strips one suffix (ing, ed, ly, es, s) and then drops a doubled last consonant, so 'running' becomes 'run'.",
+    "eDesc": "Implement function classifyMorphologicalReduction(word, partOfSpeech, isLemmaLookup) mapping words to their lemma or heuristic stem, distinguishing dictionary root forms from truncated prefixes. The heuristic stem strips one suffix (ing, ed, ly, es, s) and then drops a doubled last consonant, so 'running' becomes 'run'. Use these exact values: `strategy`: 'LEMMATIZATION_DICTIONARY_ROOT' or 'HEURISTIC_SUFFIX_STRIPPING' (whichever fits the case). The result must have the field: `reducedForm`.",
     "eStarter": "function classifyMorphologicalReduction(w, pos, isLemma) {\n  // TODO: write your code here\n}",
     "eHint": "Check lemmaDict[key] if isLemma else heuristic regex.",
     "eTest": "const lem = classifyMorphologicalReduction('better', 'adj', true);\nconst stem = classifyMorphologicalReduction('running', 'verb', false);\nif (lem.reducedForm !== 'good' || lem.strategy !== 'LEMMATIZATION_DICTIONARY_ROOT' || stem.reducedForm !== 'run' || stem.strategy !== 'HEURISTIC_SUFFIX_STRIPPING') throw new Error('Morphological reduction failed');",
@@ -52,7 +52,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Smoothing techniques: Add-1 Laplace, Good-Turing, and Kneser-Ney backoff."
     ],
     "eTitle": "Laplace-Smoothed Bigram Transition Probability Calculator",
-    "eDesc": "Implement function calculateLaplaceBigramProb(bigramCount, contextCount, vocabularySize) computing $P(w_i | w_{i-1}) = \\frac{\\text{bigramCount} + 1}{\\text{contextCount} + \\text{vocabularySize}}$ preventing division-by-zero or zero probability crash.",
+    "eDesc": "Implement function calculateLaplaceBigramProb(bigramCount, contextCount, vocabularySize) computing $P(w_i | w_{i-1}) = \\frac{\\text{bigramCount} + 1}{\\text{contextCount} + \\text{vocabularySize}}$ preventing division-by-zero or zero probability crash. Use these exact values: `status`: 'LAPLACE_SMOOTHED_PROBABILITY_CALCULATED_NOMINAL'. The result must have the field: `laplaceSmoothedProbability`.",
     "eStarter": "function calculateLaplaceBigramProb(biCount, ctxCount, vocabSize) {\n  // TODO: write your code here\n}",
     "eHint": "prob = (biCount + 1) / (ctxCount + vocabSize).",
     "eTest": "const seen = calculateLaplaceBigramProb(4, 10, 100); // (4+1)/(10+100) = 5/110 = 0.0455\nconst unseen = calculateLaplaceBigramProb(0, 10, 100); // 1/110 = 0.0091\nif (seen.laplaceSmoothedProbability !== 0.0455 || unseen.laplaceSmoothedProbability !== 0.0091 || unseen.status !== 'LAPLACE_SMOOTHED_PROBABILITY_CALCULATED_NOMINAL') throw new Error('Laplace probability calculation failed');",
@@ -72,7 +72,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Building sparse document-term matrices for information retrieval."
     ],
     "eTitle": "TF-IDF Term Weighting Calculator",
-    "eDesc": "Implement function calculateTfIdfWeight(termFreqInDoc, totalWordsInDoc, totalDocsInCorpus, docFreqOfTerm) calculating $\\text{TF} = \\frac{tf}{total}$ and $\\text{IDF} = \\log_{10}\\left(\\frac{N}{df}\\right)$ yielding $\\text{TF-IDF} = \\text{TF} \\times \\text{IDF}$.",
+    "eDesc": "Implement function calculateTfIdfWeight(termFreqInDoc, totalWordsInDoc, totalDocsInCorpus, docFreqOfTerm) calculating $\\text{TF} = \\frac{tf}{total}$ and $\\text{IDF} = \\log_{10}\\left(\\frac{N}{df}\\right)$ yielding $\\text{TF-IDF} = \\text{TF} \\times \\text{IDF}$. Use these exact values: `status`: 'TFIDF_WEIGHT_CALCULATED_NOMINAL'. The result must have these fields: `termFrequency`, `inverseDocFrequency`, `tfidfWeight`.",
     "eStarter": "function calculateTfIdfWeight(tf, totalWords, nDocs, df) {\n  // TODO: write your code here\n}",
     "eHint": "tfVal = tf / totalWords, idf = Math.log10(nDocs / df), tfidf = tfVal * idf.",
     "eTest": "const res = calculateTfIdfWeight(3, 100, 1000, 10); // tf = 0.03, idf = log10(100) = 2, tfidf = 0.06\nif (res.termFrequency !== 0.03 || res.inverseDocFrequency !== 2.0 || res.tfidfWeight !== 0.06 || res.status !== 'TFIDF_WEIGHT_CALCULATED_NOMINAL') throw new Error('TF-IDF calculation failed');",
@@ -92,12 +92,12 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Milestone 1 certification."
     ],
     "eTitle": "NLP Vector Space Master Engine",
-    "eDesc": "Implement function executeNlpVectorSpaceMaster(normOk, morphOk, laplaceOk, tfidfOk) certifying combined vector space NLP execution.",
+    "eDesc": "Implement function executeNlpVectorSpaceMaster(normOk, morphOk, laplaceOk, tfidfOk) certifying combined vector space NLP execution. Use these exact values: `engineStatus`: 'NLP_VECTOR_SPACE_MASTER_ACTIVE'.",
     "eStarter": "function executeNlpVectorSpaceMaster(n, m, l, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeNlpVectorSpaceMaster(true, true, true, true);\nif (res.engineStatus !== 'NLP_VECTOR_SPACE_MASTER_ACTIVE') throw new Error('Milestone 1 NLP master failed');",
     "aTitle": "NLP Vector Space Status Formatter",
-    "aDesc": "Implement function formatNlpVectorSpaceStatus(ok) returning `NLP_VECTOR_SPACE_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
+    "aDesc": "Implement function formatNlpVectorSpaceStatus(ok) returning `NLP_VECTOR_SPACE_${ok ? 'ACTIVE' : 'OFFLINE'}`. Use these exact values: formatNlpVectorSpaceStatus() returns 'NLP_VECTOR_SPACE_ACTIVE'.",
     "aStarter": "function formatNlpVectorSpaceStatus(o) {\n  // TODO: write your code here\n}",
     "aHint": "Format status.",
     "aTest": "if (formatNlpVectorSpaceStatus(true) !== 'NLP_VECTOR_SPACE_ACTIVE') throw new Error('Status check failed');"
@@ -112,7 +112,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Building a top-K ranked document retrieval system."
     ],
     "eTitle": "Cosine Similarity Document Matcher",
-    "eDesc": "Implement function calculateCosineSimilarity(vectorA, vectorB) calculating normalized inner product $\\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\|_2 \\|\\mathbf{B}\\|_2}$ with precision 4 decimals.",
+    "eDesc": "Implement function calculateCosineSimilarity(vectorA, vectorB) calculating normalized inner product $\\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\|_2 \\|\\mathbf{B}\\|_2}$ with precision 4 decimals. Use these exact values: `status`: 'COSINE_SIMILARITY_CALCULATED_NOMINAL'. The result must have the field: `cosineSimilarity`.",
     "eStarter": "function calculateCosineSimilarity(vecA, vecB) {\n  // TODO: write your code here\n}",
     "eHint": "Compute dot product and square sums, then divide dot by product of square roots.",
     "eTest": "const identical = calculateCosineSimilarity([1, 2, 3], [1, 2, 3]); // 1.0\nconst orthogonal = calculateCosineSimilarity([1, 0], [0, 1]); // 0.0\nif (identical.cosineSimilarity !== 1.0 || orthogonal.cosineSimilarity !== 0.0 || identical.status !== 'COSINE_SIMILARITY_CALCULATED_NOMINAL') throw new Error('Cosine similarity calculation failed');",
@@ -132,7 +132,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Vector arithmetic and semantic analogies ($\text{King} - \text{Man} + \text{Woman} \\approx \text{Queen}$)."
     ],
     "eTitle": "Word2Vec Semantic Vector Analogy Arithmetic Engine",
-    "eDesc": "Implement function computeVectorAnalogy(vecA, vecB, vecC) computing $\\mathbf{Result} = \\mathbf{A} - \\mathbf{B} + \\mathbf{C}$ simulating semantic analogies like 'King' (A) - 'Man' (B) + 'Woman' (C) -> 'Queen'.",
+    "eDesc": "Implement function computeVectorAnalogy(vecA, vecB, vecC) computing $\\mathbf{Result} = \\mathbf{A} - \\mathbf{B} + \\mathbf{C}$ simulating semantic analogies like 'King' (A) - 'Man' (B) + 'Woman' (C) -> 'Queen'. Use these exact values: `status`: 'SEMANTIC_VECTOR_ANALOGY_COMPUTED_NOMINAL'. The result must have the field: `analogyVector`.",
     "eStarter": "function computeVectorAnalogy(a, b, c) {\n  // TODO: write your code here\n}",
     "eHint": "result[i] = a[i] - b[i] + c[i].",
     "eTest": "const king = [0.8, 0.2, 0.9];\nconst man = [0.7, 0.1, 0.1];\nconst woman = [0.2, 0.8, 0.1];\nconst res = computeVectorAnalogy(king, man, woman); // [0.8-0.7+0.2=0.3, 0.2-0.1+0.8=0.9, 0.9-0.1+0.1=0.9]\nif (res.analogyVector[0] !== 0.3 || res.analogyVector[1] !== 0.9 || res.analogyVector[2] !== 0.9 || res.status !== 'SEMANTIC_VECTOR_ANALOGY_COMPUTED_NOMINAL') throw new Error('Analogy calculation failed');",
@@ -152,7 +152,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Generating robust embeddings for unseen Out-Of-Vocabulary (OOV) tokens."
     ],
     "eTitle": "FastText Character N-Gram Generator",
-    "eDesc": "Implement function generateCharacterNGrams(word, minN, maxN) generating boundary-tagged character $n$-grams (e.g., `'<where>'`) for $n \\in [\\text{minN}, \\text{maxN}]$ plus whole word token.",
+    "eDesc": "Implement function generateCharacterNGrams(word, minN, maxN) generating boundary-tagged character $n$-grams (e.g., `'<where>'`) for $n \\in [\\text{minN}, \\text{maxN}]$ plus whole word token. Use these exact values: `status`: 'CHARACTER_NGRAMS_GENERATED_NOMINAL'. The result must have these fields: `totalNGrams`, `ngrams`.",
     "eStarter": "function generateCharacterNGrams(word, minN, maxN) {\n  // TODO: write your code here\n}",
     "eHint": "Loop n from minN to maxN, substring(i, i+n), append <word>.",
     "eTest": "const res = generateCharacterNGrams('cat', 3, 3); // tagged = '<cat>', length 5. 3-grams: '<ca', 'cat', 'at>', plus '<cat>' = 4\nif (res.totalNGrams !== 4 || !res.ngrams.includes('<ca') || !res.ngrams.includes('<cat>') || res.status !== 'CHARACTER_NGRAMS_GENERATED_NOMINAL') throw new Error('FastText n-gram generation failed');",
@@ -172,7 +172,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "GloVe Weighting Function Calculator",
-    "eDesc": "Implement function calculateGloveWeight(coOccurrenceCount, xMax, alpha) calculating $f(x) = \\min(1, (x/x_{\\max})^\\alpha)$ where $x_{\\max} = 100, \\alpha = 0.75$.",
+    "eDesc": "Implement function calculateGloveWeight(coOccurrenceCount, xMax, alpha) calculating $f(x) = \\min(1, (x/x_{\\max})^\\alpha)$ where $x_{\\max} = 100, \\alpha = 0.75$. Use these exact values: `status`: 'GLOVE_WEIGHT_CALCULATED_NOMINAL'. The result must have the field: `weight`.",
     "eStarter": "function calculateGloveWeight(x, xMax, alpha) {\n  // TODO: write your code here\n}",
     "eHint": "If x >= xMax return 1.0 else Math.pow(x/xMax, alpha).",
     "eTest": "const capped = calculateGloveWeight(150, 100, 0.75);\nconst partial = calculateGloveWeight(50, 100, 0.75); // (0.5)^0.75 = 0.5946\nif (capped.weight !== 1.0 || partial.weight !== 0.5946 || partial.status !== 'GLOVE_WEIGHT_CALCULATED_NOMINAL') throw new Error('GloVe weight calculation failed');",
@@ -192,7 +192,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Viterbi Trellis Step Probability Step Calculator",
-    "eDesc": "Implement function calculateViterbiStepProb(prevViterbiProb, transitionProb, emissionProb) calculating candidate trellis path probability $v_t = v_{t-1} \\times A_{ij} \\times B_j(w_t)$.",
+    "eDesc": "Implement function calculateViterbiStepProb(prevViterbiProb, transitionProb, emissionProb) calculating candidate trellis path probability $v_t = v_{t-1} \\times A_{ij} \\times B_j(w_t)$. Use these exact values: `status`: 'VITERBI_STEP_PROBABILITY_CALCULATED_NOMINAL'. The result must have the field: `trellisPathProb`.",
     "eStarter": "function calculateViterbiStepProb(prevV, transP, emissP) {\n  // TODO: write your code here\n}",
     "eHint": "prob = prevV * transP * emissP.",
     "eTest": "const res = calculateViterbiStepProb(0.5, 0.4, 0.2); // 0.5 * 0.4 * 0.2 = 0.04\nif (res.trellisPathProb !== 0.04 || res.status !== 'VITERBI_STEP_PROBABILITY_CALCULATED_NOMINAL') throw new Error('Viterbi step calculation failed');",
@@ -212,7 +212,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "NER BIO Tag Sequence Transition Validator",
-    "eDesc": "Implement function validateBioTagSequence(tagSequence) verifying that every `I-TYPE` tag is preceded by either a `B-TYPE` or `I-TYPE` of the exact same entity type.",
+    "eDesc": "Implement function validateBioTagSequence(tagSequence) verifying that every `I-TYPE` tag is preceded by either a `B-TYPE` or `I-TYPE` of the exact same entity type. Use these exact values: `status`: 'BIO_SEQUENCE_VALIDATED_NOMINAL'. The result must have the field: `isBioSequenceValid`.",
     "eStarter": "function validateBioTagSequence(tags) {\n  // TODO: write your code here\n}",
     "eHint": "Check that I-TYPE has preceding B-TYPE or I-TYPE.",
     "eTest": "const pass = validateBioTagSequence(['B-PER', 'I-PER', 'O', 'B-ORG']);\nconst fail = validateBioTagSequence(['O', 'I-PER', 'O']); // invalid isolated I-PER\nif (!pass.isBioSequenceValid || fail.isBioSequenceValid || pass.status !== 'BIO_SEQUENCE_VALIDATED_NOMINAL') throw new Error('BIO sequence validation failed');",
@@ -232,7 +232,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Naive Bayes Document Log-Likelihood Scorer",
-    "eDesc": "Implement function calculateNaiveBayesLogScore(logPrior, logLikelihoodsArray) summing $\\log P(c) + \\sum_{i} \\log P(w_i | c)$ with precision 4 decimals.",
+    "eDesc": "Implement function calculateNaiveBayesLogScore(logPrior, logLikelihoodsArray) summing $\\log P(c) + \\sum_{i} \\log P(w_i | c)$ with precision 4 decimals. Use these exact values: `status`: 'NAIVE_BAYES_LOG_SCORE_CALCULATED_NOMINAL'. The result must have the field: `compositeLogScore`.",
     "eStarter": "function calculateNaiveBayesLogScore(prior, likelihoods) {\n  // TODO: write your code here\n}",
     "eHint": "total = prior + sum(likelihoods).",
     "eTest": "const res = calculateNaiveBayesLogScore(-0.6931, [-1.2039, -0.9163, -1.6094]); // total = -4.4227\nif (res.compositeLogScore !== -4.4227 || res.status !== 'NAIVE_BAYES_LOG_SCORE_CALCULATED_NOMINAL') throw new Error('Naive Bayes score calculation failed');",
@@ -252,7 +252,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "RNN Hidden State Recurrence Step Calculator",
-    "eDesc": "Implement function calculateRnnHiddenState(weightHh, prevH, weightXh, inputX, biasH) computing $h_t = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$ where $\\tanh(z) = \\frac{e^{2z} - 1}{e^{2z} + 1}$.",
+    "eDesc": "Implement function calculateRnnHiddenState(weightHh, prevH, weightXh, inputX, biasH) computing $h_t = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$ where $\\tanh(z) = \\frac{e^{2z} - 1}{e^{2z} + 1}$. Use these exact values: `status`: 'RNN_HIDDEN_STATE_CALCULATED_NOMINAL'. The result must have these fields: `linearPreActivation`, `hiddenStateHt`.",
     "eStarter": "function calculateRnnHiddenState(wHh, prevH, wXh, x, b) {\n  // TODO: write your code here\n}",
     "eHint": "linear = wHh*prevH + wXh*x + b, h = Math.tanh(linear).",
     "eTest": "const res = calculateRnnHiddenState(0.5, 0.8, 0.4, 1.0, 0.1); // 0.4 + 0.4 + 0.1 = 0.9 -> tanh(0.9) = 0.7163\nif (res.linearPreActivation !== 0.9 || res.hiddenStateHt !== 0.7163 || res.status !== 'RNN_HIDDEN_STATE_CALCULATED_NOMINAL') throw new Error('RNN hidden state calculation failed');",
@@ -272,7 +272,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "LSTM Cell State Memory Update Calculator",
-    "eDesc": "Implement function calculateLstmCellState(forgetGate, prevCellState, inputGate, candidateCell) calculating $c_t = (f_t \\times c_{t-1}) + (i_t \\times \\tilde{c}_t)$ preserving memory across time steps.",
+    "eDesc": "Implement function calculateLstmCellState(forgetGate, prevCellState, inputGate, candidateCell) calculating $c_t = (f_t \\times c_{t-1}) + (i_t \\times \\tilde{c}_t)$ preserving memory across time steps. Use these exact values: `status`: 'LSTM_CELL_STATE_CALCULATED_NOMINAL'. The result must have these fields: `updatedCellState`, `retainedMemory`, `newInformation`.",
     "eStarter": "function calculateLstmCellState(f, prevC, i, candC) {\n  // TODO: write your code here\n}",
     "eHint": "updatedC = (f * prevC) + (i * candC).",
     "eTest": "const res = calculateLstmCellState(0.9, 2.0, 0.5, 0.8); // (0.9 * 2.0) + (0.5 * 0.8) = 1.8 + 0.4 = 2.2\nif (res.updatedCellState !== 2.2 || res.retainedMemory !== 1.8 || res.newInformation !== 0.4 || res.status !== 'LSTM_CELL_STATE_CALCULATED_NOMINAL') throw new Error('LSTM cell calculation failed');",
@@ -292,7 +292,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "NLP Deep Sequence Master Engine",
-    "eDesc": "Implement function executeNlpDeepSequenceMaster(cosOk, analogyOk, fastTextOk, viterbiOk, lstmOk) certifying combined deep sequence execution.",
+    "eDesc": "Implement function executeNlpDeepSequenceMaster(cosOk, analogyOk, fastTextOk, viterbiOk, lstmOk) certifying combined deep sequence execution. Use these exact values: `engineStatus`: 'NLP_DEEP_SEQUENCE_MASTER_ACTIVE'.",
     "eStarter": "function executeNlpDeepSequenceMaster(c, a, f, v, l) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeNlpDeepSequenceMaster(true, true, true, true, true);\nif (res.engineStatus !== 'NLP_DEEP_SEQUENCE_MASTER_ACTIVE') throw new Error('Milestone 2 NLP master failed');",
@@ -312,7 +312,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Seq2Seq Teacher Forcing Ratio Decay Calculator",
-    "eDesc": "Implement function calculateTeacherForcingRatio(epochNumber, maxEpochs, decayRate) computing scheduled sampling ratio $R = \\max(0.1, 1.0 - (\\text{epoch} / \\text{maxEpochs}) \\times \\text{decayRate})$.",
+    "eDesc": "Implement function calculateTeacherForcingRatio(epochNumber, maxEpochs, decayRate) computing scheduled sampling ratio $R = \\max(0.1, 1.0 - (\\text{epoch} / \\text{maxEpochs}) \\times \\text{decayRate})$. The result must have the field: `teacherForcingRatio`.",
     "eStarter": "function calculateTeacherForcingRatio(epoch, maxEpochs, decay) {\n  // TODO: write your code here\n}",
     "eHint": "ratio = Math.max(0.1, 1.0 - (epoch / maxEpochs) * decay).",
     "eTest": "const start = calculateTeacherForcingRatio(0, 100, 1.0); // 1.0\nconst mid = calculateTeacherForcingRatio(50, 100, 1.0); // 0.5\nconst late = calculateTeacherForcingRatio(120, 100, 1.0); // 0.1\nif (start.teacherForcingRatio !== 1.0 || mid.teacherForcingRatio !== 0.5 || late.teacherForcingRatio !== 0.1) throw new Error('Teacher forcing calculation failed');",
@@ -332,7 +332,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Attention Softmax Alignment Weights Calculator",
-    "eDesc": "Implement function calculateAttentionAlignment(energyScoresArray) computing normalized softmax attention weights $\\alpha_i = \\frac{e^{s_i}}{\\sum e^{s_j}}$ summing to $1.0$.",
+    "eDesc": "Implement function calculateAttentionAlignment(energyScoresArray) computing normalized softmax attention weights $\\alpha_i = \\frac{e^{s_i}}{\\sum e^{s_j}}$ summing to $1.0$. Use these exact values: `status`: 'ATTENTION_ALIGNMENT_CALCULATED_NOMINAL'. The result must have the field: `alignmentWeights`.",
     "eStarter": "function calculateAttentionAlignment(scores) {\n  // TODO: write your code here\n}",
     "eHint": "Compute softmax over scores with numerical stabilization.",
     "eTest": "const res = calculateAttentionAlignment([2.0, 1.0, 0.0]); // exp(2)/(exp(2)+exp(1)+1) = 7.389 / (7.389 + 2.718 + 1) = 0.6652, 0.2447, 0.0900\nif (res.alignmentWeights[0] !== 0.6652 || res.alignmentWeights[1] !== 0.2447 || res.alignmentWeights[2] !== 0.0900 || res.status !== 'ATTENTION_ALIGNMENT_CALCULATED_NOMINAL') throw new Error('Attention alignment calculation failed');",
@@ -352,7 +352,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Scaled Dot-Product Self-Attention Score Scaler",
-    "eDesc": "Implement function calculateScaledAttentionScore(dotProductQK, keyDimensionDk) calculating $S = \\frac{\\mathbf{q} \\cdot \\mathbf{k}}{\\sqrt{d_k}}$ preventing vanishing gradients.",
+    "eDesc": "Implement function calculateScaledAttentionScore(dotProductQK, keyDimensionDk) calculating $S = \\frac{\\mathbf{q} \\cdot \\mathbf{k}}{\\sqrt{d_k}}$ preventing vanishing gradients. Use these exact values: `status`: 'SCALED_ATTENTION_SCORE_CALCULATED_NOMINAL'. The result must have these fields: `scaledScore`, `scalingFactor`.",
     "eStarter": "function calculateScaledAttentionScore(dot, dk) {\n  // TODO: write your code here\n}",
     "eHint": "scaled = dot / Math.sqrt(dk).",
     "eTest": "const res = calculateScaledAttentionScore(32, 64); // 32 / sqrt(64) = 32 / 8 = 4.0\nif (res.scaledScore !== 4.0 || res.scalingFactor !== 8.0 || res.status !== 'SCALED_ATTENTION_SCORE_CALCULATED_NOMINAL') throw new Error('Scaled attention calculation failed');",
@@ -372,7 +372,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Multi-Head Attention Dimension Split Calculator",
-    "eDesc": "Implement function calculateMhaHeadDimension(modelDimension, numberOfHeads) calculating per-head dimension $d_k = \\frac{d_{\\text{model}}}{h}$ verifying that $d_{\\text{model}}$ is evenly divisible by $h$.",
+    "eDesc": "Implement function calculateMhaHeadDimension(modelDimension, numberOfHeads) calculating per-head dimension $d_k = \\frac{d_{\\text{model}}}{h}$ verifying that $d_{\\text{model}}$ is evenly divisible by $h$. Use these exact values: `status`: 'MHA_HEAD_DIMENSION_CALCULATED_NOMINAL'. The result must have the field: `perHeadDimension`.",
     "eStarter": "function calculateMhaHeadDimension(dModel, h) {\n  // TODO: write your code here\n}",
     "eHint": "dk = dModel / h.",
     "eTest": "const standard = calculateMhaHeadDimension(512, 8); // 512 / 8 = 64\nconst gpt3 = calculateMhaHeadDimension(12288, 96); // 12288 / 96 = 128\nif (standard.perHeadDimension !== 64 || gpt3.perHeadDimension !== 128 || standard.status !== 'MHA_HEAD_DIMENSION_CALCULATED_NOMINAL') throw new Error('MHA dimension calculation failed');",
@@ -392,7 +392,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Sinusoidal Positional Encoding Value Calculator",
-    "eDesc": "Implement function calculateSinusoidalPosEncoding(position, dimensionIndex, modelDimension) calculating $\\sin\\left(\\frac{pos}{10000^{2i/d}}\\right)$ for even indices and $\\cos$ for odd indices.",
+    "eDesc": "Implement function calculateSinusoidalPosEncoding(position, dimensionIndex, modelDimension) calculating $\\sin\\left(\\frac{pos}{10000^{2i/d}}\\right)$ for even indices and $\\cos$ for odd indices. Use these exact values: `status`: 'SINUSOIDAL_POS_ENCODING_CALCULATED_NOMINAL'. The result must have the field: `encodedValue`.",
     "eStarter": "function calculateSinusoidalPosEncoding(pos, dimIdx, dModel) {\n  // TODO: write your code here\n}",
     "eHint": "Compute denominator 10000^exponent, if even Math.sin(angle) else Math.cos(angle).",
     "eTest": "const pos0 = calculateSinusoidalPosEncoding(0, 0, 512); // sin(0) = 0.0\nconst pos0_odd = calculateSinusoidalPosEncoding(0, 1, 512); // cos(0) = 1.0\nif (pos0.encodedValue !== 0.0 || pos0_odd.encodedValue !== 1.0 || pos0.status !== 'SINUSOIDAL_POS_ENCODING_CALCULATED_NOMINAL') throw new Error('Positional encoding calculation failed');",
@@ -412,7 +412,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Transformer Core Math Master Engine",
-    "eDesc": "Implement function executeTransformerCoreMaster(tfOk, alignOk, scaledOk, mhaOk, posOk) certifying combined Transformer core math execution.",
+    "eDesc": "Implement function executeTransformerCoreMaster(tfOk, alignOk, scaledOk, mhaOk, posOk) certifying combined Transformer core math execution. Use these exact values: `engineStatus`: 'TRANSFORMER_CORE_MASTER_ACTIVE'.",
     "eStarter": "function executeTransformerCoreMaster(t, a, s, m, p) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeTransformerCoreMaster(true, true, true, true, true);\nif (res.engineStatus !== 'TRANSFORMER_CORE_MASTER_ACTIVE') throw new Error('Milestone 3 Transformer master failed');",
@@ -432,7 +432,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Byte-Pair Encoding Most Frequent Pair Merger",
-    "eDesc": "Implement function mergeMostFrequentBpePair(tokenList, pairToMerge, replacementToken) replacing all adjacent occurrences of `[pairToMerge[0], pairToMerge[1]]` with `replacementToken`.",
+    "eDesc": "Implement function mergeMostFrequentBpePair(tokenList, pairToMerge, replacementToken) replacing all adjacent occurrences of `[pairToMerge[0], pairToMerge[1]]` with `replacementToken`. Use these exact values: `status`: 'BPE_PAIR_MERGED_NOMINAL'. The result must have these fields: `mergedCount`, `mergedTokens`.",
     "eStarter": "function mergeMostFrequentBpePair(tokens, pair, replacement) {\n  // TODO: write your code here\n}",
     "eHint": "Loop tokens, if tokens[i]==pair[0] and tokens[i+1]==pair[1] push replacement and i++.",
     "eTest": "const res = mergeMostFrequentBpePair(['l', 'o', 'w', 'e', 's', 't'], ['e', 's'], 'es'); // ['l', 'o', 'w', 'es', 't']\nif (res.mergedCount !== 5 || res.mergedTokens[3] !== 'es' || res.status !== 'BPE_PAIR_MERGED_NOMINAL') throw new Error('BPE merge failed');",
@@ -452,7 +452,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "BERT Masked Language Model 80/10/10 Rule Allocator",
-    "eDesc": "Implement function allocateBertMaskingStrategy(totalMaskCandidates) partitioning 15% masked candidates according to the official BERT 80% `[MASK]`, 10% Random Token, and 10% Unchanged Token rule.",
+    "eDesc": "Implement function allocateBertMaskingStrategy(totalMaskCandidates) partitioning 15% masked candidates according to the official BERT 80% `[MASK]`, 10% Random Token, and 10% Unchanged Token rule. Use these exact values: `status`: 'BERT_MASKING_STRATEGY_ALLOCATED_NOMINAL'. The result must have these fields: `replacedWithMaskToken`, `replacedWithRandomToken`, `keptUnchanged`.",
     "eStarter": "function allocateBertMaskingStrategy(totalCandidates) {\n  // TODO: write your code here\n}",
     "eHint": "80% [MASK], 10% random, remainder unchanged.",
     "eTest": "const res = allocateBertMaskingStrategy(100);\nif (res.replacedWithMaskToken !== 80 || res.replacedWithRandomToken !== 10 || res.keptUnchanged !== 10 || res.status !== 'BERT_MASKING_STRATEGY_ALLOCATED_NOMINAL') throw new Error('BERT masking allocation failed');",
@@ -472,7 +472,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Causal Self-Attention Mask Matrix Generator",
-    "eDesc": "Implement function generateCausalAttentionMask(sequenceLength) creating a square matrix where entries above the diagonal are $-\\infty$ (masked) and on/below are $0.0$ (visible).",
+    "eDesc": "Implement function generateCausalAttentionMask(sequenceLength) creating a square matrix where entries above the diagonal are $-\\infty$ (masked) and on/below are $0.0$ (visible). Use these exact values: `status`: 'CAUSAL_ATTENTION_MASK_GENERATED_NOMINAL'. The result must have the field: `maskMatrix`.",
     "eStarter": "function generateCausalAttentionMask(seqLen) {\n  // TODO: write your code here\n}",
     "eHint": "If j > i push -Infinity else 0.0.",
     "eTest": "const res = generateCausalAttentionMask(3);\nif (res.maskMatrix[0][0] !== 0.0 || res.maskMatrix[0][1] !== -Infinity || res.maskMatrix[2][1] !== 0.0 || res.status !== 'CAUSAL_ATTENTION_MASK_GENERATED_NOMINAL') throw new Error('Causal mask generation failed');",
@@ -492,7 +492,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Optimal Question Answering Answer Span Selector",
-    "eDesc": "Implement function selectOptimalAnswerSpan(startLogits, endLogits, maxSpanLength) finding start index $i$ and end index $j$ ($i \\le j \\le i + \\text{maxSpanLength}$) maximizing $s_i + e_j$.",
+    "eDesc": "Implement function selectOptimalAnswerSpan(startLogits, endLogits, maxSpanLength) finding start index $i$ and end index $j$ ($i \\le j \\le i + \\text{maxSpanLength}$) maximizing $s_i + e_j$. Use these exact values: `status`: 'OPTIMAL_ANSWER_SPAN_SELECTED_NOMINAL'. The result must have these fields: `startTokenIndex`, `endTokenIndex`, `maxJointScore`.",
     "eStarter": "function selectOptimalAnswerSpan(startL, endL, maxLen) {\n  // TODO: write your code here\n}",
     "eHint": "Double loop i from 0 to N and j from i to i+maxLen, maximize startL[i] + endL[j].",
     "eTest": "const start = [0.1, 2.5, 0.4, 0.2];\nconst end = [0.2, 0.3, 3.1, 0.5];\nconst res = selectOptimalAnswerSpan(start, end, 3); // best is start=1 (2.5), end=2 (3.1) -> sum = 5.6\nif (res.startTokenIndex !== 1 || res.endTokenIndex !== 2 || res.maxJointScore !== 5.6 || res.status !== 'OPTIMAL_ANSWER_SPAN_SELECTED_NOMINAL') throw new Error('Answer span selection failed');",
@@ -512,7 +512,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Two-Stage Retrieval Pipeline Candidate Filter",
-    "eDesc": "Implement function filterTwoStageSearchPipeline(initialCorpusSize, stage1CandidatesCount, stage2FinalRerankedCount) validating that candidate count narrows down sequentially ($N \\gg K_1 > K_2$).",
+    "eDesc": "Implement function filterTwoStageSearchPipeline(initialCorpusSize, stage1CandidatesCount, stage2FinalRerankedCount) validating that candidate count narrows down sequentially ($N \\gg K_1 > K_2$). Use these exact values: `status`: 'TWO_STAGE_SEARCH_PIPELINE_VALIDATED_NOMINAL'. The result must have the field: `isPipelineRatioNominal`.",
     "eStarter": "function filterTwoStageSearchPipeline(totalN, k1, k2) {\n  // TODO: write your code here\n}",
     "eHint": "isApproved = totalN >= k1 && k1 >= k2.",
     "eTest": "const pass = filterTwoStageSearchPipeline(1000000, 100, 5);\nconst fail = filterTwoStageSearchPipeline(100, 500, 10);\nif (!pass.isPipelineRatioNominal || fail.isPipelineRatioNominal || pass.status !== 'TWO_STAGE_SEARCH_PIPELINE_VALIDATED_NOMINAL') throw new Error('Search pipeline validation failed');",
@@ -532,7 +532,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Nucleus (Top-p) Cumulative Probability Cutoff Filter",
-    "eDesc": "Implement function filterNucleusTopP(tokenProbabilities, topPThreshold) selecting the smallest prefix of sorted token probabilities whose cumulative sum reaches $p$.",
+    "eDesc": "Implement function filterNucleusTopP(tokenProbabilities, topPThreshold) selecting the smallest prefix of sorted token probabilities whose cumulative sum reaches $p$. Use these exact values: `status`: 'NUCLEUS_TOP_P_FILTERED_NOMINAL'. The result must have these fields: `selectedTokensCount`, `selectedTokens`.",
     "eStarter": "function filterNucleusTopP(probs, topP) {\n  // TODO: write your code here\n}",
     "eHint": "Sort descending by prob, accumulate cumSum, break when cumSum >= topP.",
     "eTest": "const pool = [{ token: 'apple', prob: 0.5 }, { token: 'banana', prob: 0.3 }, { token: 'cherry', prob: 0.15 }, { token: 'date', prob: 0.05 }];\nconst res = filterNucleusTopP(pool, 0.8); // 0.5 + 0.3 = 0.8 (2 tokens: apple, banana)\nif (res.selectedTokensCount !== 2 || res.selectedTokens[0].token !== 'apple' || res.status !== 'NUCLEUS_TOP_P_FILTERED_NOMINAL') throw new Error('Nucleus top-p filter failed');",
@@ -552,7 +552,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Brevity Penalty & Modified Precision BLEU Metric Calculator",
-    "eDesc": "Implement function calculateBrevityPenalty(candidateLength, referenceLength) calculating $\\text{BP} = 1.0$ if $c > r$, else $\\exp(1 - r/c)$ with precision 4 decimals.",
+    "eDesc": "Implement function calculateBrevityPenalty(candidateLength, referenceLength) calculating $\\text{BP} = 1.0$ if $c > r$, else $\\exp(1 - r/c)$ with precision 4 decimals. Use these exact values: `status`: 'BLEU_BREVITY_PENALTY_CALCULATED_NOMINAL'. The result must have the field: `brevityPenalty`.",
     "eStarter": "function calculateBrevityPenalty(c, r) {\n  // TODO: write your code here\n}",
     "eHint": "If c > r return 1.0 else Math.exp(1 - r/c).",
     "eTest": "const equalLen = calculateBrevityPenalty(10, 10); // exp(0) = 1.0\nconst shortCand = calculateBrevityPenalty(8, 10); // exp(1 - 10/8) = exp(-0.25) = 0.7788\nif (equalLen.brevityPenalty !== 1.0 || shortCand.brevityPenalty !== 0.7788 || shortCand.status !== 'BLEU_BREVITY_PENALTY_CALCULATED_NOMINAL') throw new Error('Brevity penalty calculation failed');",
@@ -572,7 +572,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "LoRA Trainable Parameter Reduction Ratio Calculator",
-    "eDesc": "Implement function calculateLoraParameterReduction(hiddenDimD, hiddenDimK, rankR) computing base parameter count $d \\times k$ vs LoRA parameter count $r \\times (d + k)$ and the percentage parameter savings.",
+    "eDesc": "Implement function calculateLoraParameterReduction(hiddenDimD, hiddenDimK, rankR) computing base parameter count $d \\times k$ vs LoRA parameter count $r \\times (d + k)$ and the percentage parameter savings. Use these exact values: `status`: 'LORA_PARAMETER_REDUCTION_CALCULATED_NOMINAL'. The result must have these fields: `baseParameters`, `loraParameters`, `percentageSaved`.",
     "eStarter": "function calculateLoraParameterReduction(d, k, r) {\n  // TODO: write your code here\n}",
     "eHint": "base = d * k, lora = r * (d + k), savings = (1 - lora/base) * 100.",
     "eTest": "const res = calculateLoraParameterReduction(4096, 4096, 8); // base = 16,777,216, lora = 8 * 8192 = 65,536 -> savings = 99.61%\nif (res.baseParameters !== 16777216 || res.loraParameters !== 65536 || res.percentageSaved !== 99.61 || res.status !== 'LORA_PARAMETER_REDUCTION_CALCULATED_NOMINAL') throw new Error('LoRA parameter calculation failed');",
@@ -592,7 +592,7 @@ export const NLP_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Numerical stabilization, evaluation metrics, and parameter-efficient scaling."
     ],
     "eTitle": "Sovereign NLP & LLM Master Suite Orchestrator",
-    "eDesc": "Implement function orchestrateNlpMasterSuite(vsmOk, embedOk, rnnOk, transformerOk, llmOk) certifying comprehensive computational linguistics and Transformer architecture mastery.",
+    "eDesc": "Implement function orchestrateNlpMasterSuite(vsmOk, embedOk, rnnOk, transformerOk, llmOk) certifying comprehensive computational linguistics and Transformer architecture mastery. Use these exact values: `status`: 'SOVEREIGN_NLP_MASTER_CERTIFIED_NOMINAL'. The result must have these fields: `sovereignNlpCertified`, `certified`.",
     "eStarter": "function orchestrateNlpMasterSuite(vsm, emb, rnn, trans, llm) {\n  // TODO: write your code here\n}",
     "eHint": "Verify all 5 module flags evaluate to true.",
     "eTest": "const ok = orchestrateNlpMasterSuite(true, true, true, true, true);\nconst fail = orchestrateNlpMasterSuite(true, true, false, true, true);\nif (!ok.sovereignNlpCertified || fail.sovereignNlpCertified || !ok.certified || ok.status !== 'SOVEREIGN_NLP_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",

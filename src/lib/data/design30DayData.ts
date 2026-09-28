@@ -12,7 +12,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Design token JSON schemas and CSS Custom Property translation."
     ],
     "eTitle": "Design Token Semantic Alias Resolver",
-    "eDesc": "Implement function resolveSemanticColorToken(tokenName, themeMode) mapping semantic color tokens (`'color-bg-primary'`, `'color-text-primary'`, `'color-border-subtle'`) to their resolved theme hex values under `'light'` or `'dark'` mode.",
+    "eDesc": "Implement function resolveSemanticColorToken(tokenName, themeMode) mapping semantic color tokens (`'color-bg-primary'`, `'color-text-primary'`, `'color-border-subtle'`) to their resolved theme hex values under `'light'` or `'dark'` mode. Use these exact values: `status`: 'DESIGN_TOKEN_RESOLVED_NOMINAL'. The result must have the field: `resolvedHexColor`.",
     "eStarter": "function resolveSemanticColorToken(token, theme) {\n  // TODO: write your code here\n}",
     "eHint": "Map token and theme to resolved hex color string.",
     "eTest": "const light = resolveSemanticColorToken('color-bg-primary', 'light');\nconst dark = resolveSemanticColorToken('color-bg-primary', 'dark');\nif (light.resolvedHexColor !== '#ffffff' || dark.resolvedHexColor !== '#0f172a' || light.status !== 'DESIGN_TOKEN_RESOLVED_NOMINAL') throw new Error('Design token resolution failed');",
@@ -32,7 +32,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Fluid responsive typography formulas with CSS clamp()."
     ],
     "eTitle": "Modular Typographic Scale Step Calculator",
-    "eDesc": "Implement function calculateModularTypeScaleStep(stepIndex, basePixelSize, ratioMultiplier) calculating the exact pixel and rem font size for a given modular scale step.",
+    "eDesc": "Implement function calculateModularTypeScaleStep(stepIndex, basePixelSize, ratioMultiplier) calculating the exact pixel and rem font size for a given modular scale step. Use these exact values: `status`: 'TYPOGRAPHIC_SCALE_STEP_CALCULATED_NOMINAL'. The result must have the field: `pixelSize`.",
     "eStarter": "function calculateModularTypeScaleStep(step, basePx, ratio) {\n  // TODO: write your code here\n}",
     "eHint": "pixelVal = basePx * Math.pow(ratio, step), remVal = pixelVal / 16.",
     "eTest": "const step0 = calculateModularTypeScaleStep(0, 16, 1.25);\nconst step2 = calculateModularTypeScaleStep(2, 16, 1.25); // 16 * 1.25^2 = 25px -> 1.5625rem\nif (step0.pixelSize !== 16 || step2.pixelSize !== 25 || step2.status !== 'TYPOGRAPHIC_SCALE_STEP_CALCULATED_NOMINAL') throw new Error('Type scale calculation failed');",
@@ -52,7 +52,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "4pt half-step micro-spacing for tight UI elements."
     ],
     "eTitle": "8pt Spatial Grid Compliance Auditor",
-    "eDesc": "Implement function auditSpacingGridCompliance(pixelValue) validating that an arbitrary spatial dimension is cleanly divisible by 8 (or 4 for micro-spacing) with zero fractional subpixels.",
+    "eDesc": "Implement function auditSpacingGridCompliance(pixelValue) validating that an arbitrary spatial dimension is cleanly divisible by 8 (or 4 for micro-spacing) with zero fractional subpixels. Use these exact values: `status`: 'SPATIAL_GRID_COMPLIANT_NOMINAL'. The result must have the field: `isSpacingStandardCompliant`.",
     "eStarter": "function auditSpacingGridCompliance(px) {\n  // TODO: write your code here\n}",
     "eHint": "Check px % 8 === 0 or px % 4 === 0.",
     "eTest": "const pass8 = auditSpacingGridCompliance(24);\nconst pass4 = auditSpacingGridCompliance(12);\nconst fail = auditSpacingGridCompliance(19);\nif (!pass8.isSpacingStandardCompliant || !pass4.isSpacingStandardCompliant || fail.isSpacingStandardCompliant || pass8.status !== 'SPATIAL_GRID_COMPLIANT_NOMINAL') throw new Error('Spacing grid audit failed');",
@@ -72,7 +72,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Z-Index collision avoidance and semantic stacking scale architecture."
     ],
     "eTitle": "Semantic Z-Index Scale Hierarchy Resolver",
-    "eDesc": "Implement function resolveSemanticZIndex(layerName) returning ordered z-index integer constants for `'dropdown'`, `'sticky'`, `'modal-backdrop'`, `'modal'`, or `'toast'`.",
+    "eDesc": "Implement function resolveSemanticZIndex(layerName) returning ordered z-index integer constants for `'dropdown'`, `'sticky'`, `'modal-backdrop'`, `'modal'`, or `'toast'`. Use these exact values: `status`: 'SEMANTIC_ZINDEX_RESOLVED_NOMINAL'. The result must have the field: `zIndexValue`.",
     "eStarter": "function resolveSemanticZIndex(layer) {\n  // TODO: write your code here\n}",
     "eHint": "Map layer name to scale value.",
     "eTest": "const d = resolveSemanticZIndex('dropdown');\nconst m = resolveSemanticZIndex('modal');\nconst t = resolveSemanticZIndex('toast');\nif (d.zIndexValue !== 100 || m.zIndexValue !== 1000 || t.zIndexValue !== 1100 || d.status !== 'SEMANTIC_ZINDEX_RESOLVED_NOMINAL') throw new Error('Z-Index resolution failed');",
@@ -92,12 +92,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Milestone 1 certification."
     ],
     "eTitle": "Design Foundations Master Engine",
-    "eDesc": "Implement function executeDesignFoundationsMaster(tokensOk, typeOk, spacingOk, zIndexOk) certifying combined design foundations execution.",
+    "eDesc": "Implement function executeDesignFoundationsMaster(tokensOk, typeOk, spacingOk, zIndexOk) certifying combined design foundations execution. Use these exact values: `engineStatus`: 'DESIGN_FOUNDATIONS_MASTER_ACTIVE'.",
     "eStarter": "function executeDesignFoundationsMaster(tok, typ, spc, zidx) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeDesignFoundationsMaster(true, true, true, true);\nif (res.engineStatus !== 'DESIGN_FOUNDATIONS_MASTER_ACTIVE') throw new Error('Milestone 1 master engine failed');",
     "aTitle": "Design Foundations Status Formatter",
-    "aDesc": "Implement function formatDesignFoundationsStatus(ok) returning `DESIGN_FOUNDATIONS_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
+    "aDesc": "Implement function formatDesignFoundationsStatus(ok) returning `DESIGN_FOUNDATIONS_${ok ? 'ACTIVE' : 'OFFLINE'}`. Use these exact values: formatDesignFoundationsStatus() returns 'DESIGN_FOUNDATIONS_ACTIVE'.",
     "aStarter": "function formatDesignFoundationsStatus(o) {\n  // TODO: write your code here\n}",
     "aHint": "Format status.",
     "aTest": "if (formatDesignFoundationsStatus(true) !== 'DESIGN_FOUNDATIONS_ACTIVE') throw new Error('Status check failed');"
@@ -112,7 +112,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Organism state boundaries and template layout contracts."
     ],
     "eTitle": "Atomic Design Component Hierarchy Classifier",
-    "eDesc": "Implement function classifyAtomicComponentTier(componentName) classifying UI components (`'Button'`, `'SearchInputGroup'`, `'GlobalNavigationHeader'`, `'DashboardTemplate'`) into their respective Atomic Design tiers (`'ATOM'`, `'MOLECULE'`, `'ORGANISM'`, `'TEMPLATE'`).",
+    "eDesc": "Implement function classifyAtomicComponentTier(componentName) classifying UI components (`'Button'`, `'SearchInputGroup'`, `'GlobalNavigationHeader'`, `'DashboardTemplate'`) into their respective Atomic Design tiers (`'ATOM'`, `'MOLECULE'`, `'ORGANISM'`, `'TEMPLATE'`). Use these exact values: `status`: 'ATOMIC_TIER_CLASSIFIED_NOMINAL'. The result must have the field: `atomicDesignTier`.",
     "eStarter": "function classifyAtomicComponentTier(comp) {\n  // TODO: write your code here\n}",
     "eHint": "Map component name to ATOM, MOLECULE, ORGANISM, or TEMPLATE.",
     "eTest": "const b = classifyAtomicComponentTier('Button');\nconst s = classifyAtomicComponentTier('SearchInputGroup');\nconst h = classifyAtomicComponentTier('GlobalNavigationHeader');\nif (b.atomicDesignTier !== 'ATOM' || s.atomicDesignTier !== 'MOLECULE' || h.atomicDesignTier !== 'ORGANISM' || b.status !== 'ATOMIC_TIER_CLASSIFIED_NOMINAL') throw new Error('Atomic classification failed');",
@@ -132,7 +132,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Focus-visible keyboard ring styling and contrast standards."
     ],
     "eTitle": "Button Component Interactive State Machine Validator",
-    "eDesc": "Implement function validateButtonStateProps(variant, size, state, hasAriaLabel) verifying that button properties conform to design system variant, size, and interactive state standards.",
+    "eDesc": "Implement function validateButtonStateProps(variant, size, state, hasAriaLabel) verifying that button properties conform to design system variant, size, and interactive state standards. Use these exact values: `status`: 'BUTTON_PROPS_VALIDATED_NOMINAL'. The result must have the field: `isButtonPropsValid`.",
     "eStarter": "function validateButtonStateProps(variant, size, state, hasAria) {\n  // TODO: write your code here\n}",
     "eHint": "Check variant, size, state arrays, and hasAria is true.",
     "eTest": "const pass = validateButtonStateProps('primary', 'md', 'loading', true);\nconst fail = validateButtonStateProps('unknown', 'md', 'default', true);\nif (!pass.isButtonPropsValid || fail.isButtonPropsValid || pass.status !== 'BUTTON_PROPS_VALIDATED_NOMINAL') throw new Error('Button validation failed');",
@@ -152,7 +152,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Input padding, border transitions, and clear button micro-interactions."
     ],
     "eTitle": "Form Input Accessibility & Validation State Auditor",
-    "eDesc": "Implement function auditFormInputAccessibility(hasLabel, hasAriaDescribedByWhenError, isErrorState) certifying that an error-state input correctly connects to its assistive error message element.",
+    "eDesc": "Implement function auditFormInputAccessibility(hasLabel, hasAriaDescribedByWhenError, isErrorState) certifying that an error-state input correctly connects to its assistive error message element. Use these exact values: `status`: 'FORM_INPUT_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isFormInputAccessible`.",
     "eStarter": "function auditFormInputAccessibility(hasLabel, hasAriaDescribedBy, isError) {\n  // TODO: write your code here\n}",
     "eHint": "isAccessible = hasLabel && (!isError || hasAriaDescribedBy).",
     "eTest": "const pass = auditFormInputAccessibility(true, true, true);\nconst fail = auditFormInputAccessibility(true, false, true);\nif (!pass.isFormInputAccessible || fail.isFormInputAccessible || pass.status !== 'FORM_INPUT_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Form input audit failed');",
@@ -172,7 +172,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Card Component Aspect Ratio & Elevation Validator",
-    "eDesc": "Implement function validateCardLayoutConfig(aspectRatioString, baseElevation, hoverElevation) verifying that media aspect ratio is valid (`'16/9'`, `'4/3'`, `'1/1'`) and hover elevation exceeds base elevation.",
+    "eDesc": "Implement function validateCardLayoutConfig(aspectRatioString, baseElevation, hoverElevation) verifying that media aspect ratio is valid (`'16/9'`, `'4/3'`, `'1/1'`) and hover elevation exceeds base elevation. Use these exact values: `status`: 'CARD_LAYOUT_CONFIG_VALIDATED_NOMINAL'. The result must have the field: `isCardConfigValid`.",
     "eStarter": "function validateCardLayoutConfig(ratio, baseElev, hoverElev) {\n  // TODO: write your code here\n}",
     "eHint": "Check ratio in validRatios and hoverElev > baseElev.",
     "eTest": "const pass = validateCardLayoutConfig('16/9', 1, 3);\nconst fail = validateCardLayoutConfig('16/9', 3, 1);\nif (!pass.isCardConfigValid || fail.isCardConfigValid || pass.status !== 'CARD_LAYOUT_CONFIG_VALIDATED_NOMINAL') throw new Error('Card layout validation failed');",
@@ -192,7 +192,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Navigation Active Page ARIA Auditor",
-    "eDesc": "Implement function auditNavigationLinkAria(isCurrentPage, hasAriaCurrent) verifying that the currently active navigation route includes `aria-current=\"page\"`.",
+    "eDesc": "Implement function auditNavigationLinkAria(isCurrentPage, hasAriaCurrent) verifying that the currently active navigation route includes `aria-current=\"page\"`. Use these exact values: `status`: 'NAVIGATION_ARIA_COMPLIANT_NOMINAL'. The result must have the field: `isNavigationAriaCompliant`.",
     "eStarter": "function auditNavigationLinkAria(isCurrent, hasAria) {\n  // TODO: write your code here\n}",
     "eHint": "isCompliant = !isCurrent || hasAria.",
     "eTest": "const pass = auditNavigationLinkAria(true, true);\nconst fail = auditNavigationLinkAria(true, false);\nif (!pass.isNavigationAriaCompliant || fail.isNavigationAriaCompliant || pass.status !== 'NAVIGATION_ARIA_COMPLIANT_NOMINAL') throw new Error('Navigation ARIA audit failed');",
@@ -212,7 +212,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Modal Focus Trap & Keyboard Escape Auditor",
-    "eDesc": "Implement function auditModalAccessibility(hasRoleDialog, hasFocusTrap, hasEscapeListener, hasBackgroundInert) certifying that modal overlay satisfies all 4 accessible overlay requirements.",
+    "eDesc": "Implement function auditModalAccessibility(hasRoleDialog, hasFocusTrap, hasEscapeListener, hasBackgroundInert) certifying that modal overlay satisfies all 4 accessible overlay requirements. Use these exact values: `status`: 'MODAL_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isModalAccessible`.",
     "eStarter": "function auditModalAccessibility(hasRole, hasTrap, hasEsc, hasInert) {\n  // TODO: write your code here\n}",
     "eHint": "Verify all 4 boolean flags are true.",
     "eTest": "const pass = auditModalAccessibility(true, true, true, true);\nconst fail = auditModalAccessibility(true, true, false, true);\nif (!pass.isModalAccessible || fail.isModalAccessible || pass.status !== 'MODAL_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Modal accessibility audit failed');",
@@ -232,7 +232,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Floating UI Collision & Placement Flipper",
-    "eDesc": "Implement function calculateFloatingPlacement(targetTopY, tooltipHeight, viewportHeight, preferredPlacement) automatically flipping placement from `'top'` to `'bottom'` if top position overflows viewport.",
+    "eDesc": "Implement function calculateFloatingPlacement(targetTopY, tooltipHeight, viewportHeight, preferredPlacement) automatically flipping placement from `'top'` to `'bottom'` if top position overflows viewport. The result must have these fields: `resolvedPlacement`, `isFlipped`.",
     "eStarter": "function calculateFloatingPlacement(topY, tipHeight, viewHeight, pref) {\n  // TODO: write your code here\n}",
     "eHint": "If pref === top and topY - tipHeight < 0 return bottom.",
     "eTest": "const flip = calculateFloatingPlacement(20, 50, 800, 'top'); // 20 - 50 = -30 < 0 -> flips to bottom\nconst noFlip = calculateFloatingPlacement(200, 50, 800, 'top');\nif (flip.resolvedPlacement !== 'bottom' || noFlip.resolvedPlacement !== 'top' || !flip.isFlipped) throw new Error('Floating placement calculation failed');",
@@ -252,7 +252,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Data Table Header ARIA Sorting State Resolver",
-    "eDesc": "Implement function resolveTableSortAria(currentSortColumn, columnKey, sortDirection) returning `'ascending'`, `'descending'`, or `'none'` for column `aria-sort` attribute.",
+    "eDesc": "Implement function resolveTableSortAria(currentSortColumn, columnKey, sortDirection) returning `'ascending'`, `'descending'`, or `'none'` for column `aria-sort` attribute. Use these exact values: `status`: 'TABLE_SORT_ARIA_RESOLVED_NOMINAL'. The result must have the field: `ariaSortValue`.",
     "eStarter": "function resolveTableSortAria(activeCol, colKey, dir) {\n  // TODO: write your code here\n}",
     "eHint": "If activeCol === colKey return dir === asc ? ascending : descending else none.",
     "eTest": "const asc = resolveTableSortAria('name', 'name', 'asc');\nconst other = resolveTableSortAria('age', 'name', 'asc');\nif (asc.ariaSortValue !== 'ascending' || other.ariaSortValue !== 'none' || asc.status !== 'TABLE_SORT_ARIA_RESOLVED_NOMINAL') throw new Error('Table sort resolution failed');",
@@ -272,7 +272,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Toast Notification Queue & ARIA Live Politeness Matcher",
-    "eDesc": "Implement function resolveToastAriaLive(toastType) mapping `'info'`, `'success'`, or `'warning'` to `aria-live=\"polite\"` and `'error'` to `aria-live=\"assertive\"`.",
+    "eDesc": "Implement function resolveToastAriaLive(toastType) mapping `'info'`, `'success'`, or `'warning'` to `aria-live=\"polite\"` and `'error'` to `aria-live=\"assertive\"`. The result must have these fields: `ariaLivePoliteness`, `roleAttribute`.",
     "eStarter": "function resolveToastAriaLive(type) {\n  // TODO: write your code here\n}",
     "eHint": "If type === error return assertive else polite.",
     "eTest": "const info = resolveToastAriaLive('info');\nconst err = resolveToastAriaLive('error');\nif (info.ariaLivePoliteness !== 'polite' || err.ariaLivePoliteness !== 'assertive' || err.roleAttribute !== 'alert') throw new Error('Toast ARIA resolution failed');",
@@ -292,7 +292,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Component Library Master Engine",
-    "eDesc": "Implement function executeComponentLibraryMaster(atomicOk, buttonOk, formOk, cardOk, modalOk, toastOk) certifying combined component library execution.",
+    "eDesc": "Implement function executeComponentLibraryMaster(atomicOk, buttonOk, formOk, cardOk, modalOk, toastOk) certifying combined component library execution. Use these exact values: `engineStatus`: 'COMPONENT_LIBRARY_MASTER_ACTIVE'.",
     "eStarter": "function executeComponentLibraryMaster(a, b, f, c, m, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeComponentLibraryMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'COMPONENT_LIBRARY_MASTER_ACTIVE') throw new Error('Milestone 2 component master failed');",
@@ -312,7 +312,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Flexbox Item Basis & Distribution Calculator",
-    "eDesc": "Implement function calculateFlexItemWidth(containerWidth, totalItems, gapSize) calculating exact equal item width with native gap spacing.",
+    "eDesc": "Implement function calculateFlexItemWidth(containerWidth, totalItems, gapSize) calculating exact equal item width with native gap spacing. Use these exact values: `status`: 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL'. The result must have the field: `computedItemWidth`.",
     "eStarter": "function calculateFlexItemWidth(containerW, count, gap) {\n  // TODO: write your code here\n}",
     "eHint": "itemWidth = (containerW - ((count - 1) * gap)) / count.",
     "eTest": "const calc = calculateFlexItemWidth(1000, 4, 16); // 1000 - (3 * 16) = 1000 - 48 = 952 / 4 = 238px\nif (calc.computedItemWidth !== 238 || calc.status !== 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL') throw new Error('Flex calculation failed');",
@@ -332,7 +332,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "CSS Grid auto-fit Column Count Evaluator",
-    "eDesc": "Implement function calculateGridColumns(containerWidth, minColumnWidth, gapSize) calculating the maximum number of columns generated by `repeat(auto-fit, minmax(minColumnWidth, 1fr))`.",
+    "eDesc": "Implement function calculateGridColumns(containerWidth, minColumnWidth, gapSize) calculating the maximum number of columns generated by `repeat(auto-fit, minmax(minColumnWidth, 1fr))`. Use these exact values: `status`: 'GRID_COLUMNS_CALCULATED_NOMINAL'. The result must have the field: `generatedColumnsCount`.",
     "eStarter": "function calculateGridColumns(containerW, minW, gap) {\n  // TODO: write your code here\n}",
     "eHint": "Calculate cols fitting in containerW with gaps.",
     "eTest": "const res = calculateGridColumns(900, 280, 20); // (3 * 280) + (2 * 20) = 840 + 40 = 880 <= 900 -> 3 cols\nif (res.generatedColumnsCount !== 3 || res.status !== 'GRID_COLUMNS_CALCULATED_NOMINAL') throw new Error('Grid columns calculation failed');",
@@ -352,7 +352,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Responsive Breakpoint Tier Classifier",
-    "eDesc": "Implement function classifyViewportBreakpoint(viewportWidthPx) returning `'MOBILE_SM'`, `'TABLET_MD'`, `'DESKTOP_LG'`, or `'WIDE_XL'` based on viewport width.",
+    "eDesc": "Implement function classifyViewportBreakpoint(viewportWidthPx) returning `'MOBILE_SM'`, `'TABLET_MD'`, `'DESKTOP_LG'`, or `'WIDE_XL'` based on viewport width. The result must have the field: `breakpoint`.",
     "eStarter": "function classifyViewportBreakpoint(width) {\n  // TODO: write your code here\n}",
     "eHint": "Classify based on < 640, < 1024, < 1280, >= 1280.",
     "eTest": "const mob = classifyViewportBreakpoint(375);\nconst tab = classifyViewportBreakpoint(768);\nconst desk = classifyViewportBreakpoint(1100);\nif (mob.breakpoint !== 'MOBILE_SM' || tab.breakpoint !== 'TABLET_MD' || desk.breakpoint !== 'DESKTOP_LG') throw new Error('Breakpoint classification failed');",
@@ -372,7 +372,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "CSS clamp() Value Bounds Formatter",
-    "eDesc": "Implement function formatCssClampString(minRem, preferredVw, maxRem) generating a standardized CSS `clamp(minRem, preferredVw, maxRem)` expression.",
+    "eDesc": "Implement function formatCssClampString(minRem, preferredVw, maxRem) generating a standardized CSS `clamp(minRem, preferredVw, maxRem)` expression. Use these exact values: `status`: 'CSS_CLAMP_EXPRESSION_GENERATED_NOMINAL'. The result must have the field: `cssClampExpression`.",
     "eStarter": "function formatCssClampString(min, prefVw, max) {\n  // TODO: write your code here\n}",
     "eHint": "Construct clamp(minrem, prefVwvw, maxrem).",
     "eTest": "const res = formatCssClampString(1.0, 2.5, 2.0);\nif (res.cssClampExpression !== 'clamp(1rem, 2.5vw, 2rem)' || res.status !== 'CSS_CLAMP_EXPRESSION_GENERATED_NOMINAL') throw new Error('CSS clamp generation failed');",
@@ -392,7 +392,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Micro-Interaction Transition Timing & Duration Auditor",
-    "eDesc": "Implement function auditTransitionConfig(property, durationMs, easingCurve) validating that transition animates performant properties (`'transform'`, `'opacity'`) within optimal duration ($100\\text{ms} \\le t \\le 350\\text{ms}$).",
+    "eDesc": "Implement function auditTransitionConfig(property, durationMs, easingCurve) validating that transition animates performant properties (`'transform'`, `'opacity'`) within optimal duration ($100\\text{ms} \\le t \\le 350\\text{ms}$). Use these exact values: `status`: 'TRANSITION_PERFORMANCE_AUDITED_NOMINAL'. The result must have the field: `isTransitionOptimized`.",
     "eStarter": "function auditTransitionConfig(prop, dur, easing) {\n  // TODO: write your code here\n}",
     "eHint": "Check prop in transform/opacity and dur between 100 and 350.",
     "eTest": "const pass = auditTransitionConfig('transform', 200, 'ease-out');\nconst fail = auditTransitionConfig('width', 200, 'ease-out'); // width causes reflow\nif (!pass.isTransitionOptimized || fail.isTransitionOptimized || pass.status !== 'TRANSITION_PERFORMANCE_AUDITED_NOMINAL') throw new Error('Transition audit failed');",
@@ -412,7 +412,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Visual Frontend Master Engine",
-    "eDesc": "Implement function executeVisualFrontendMaster(flexOk, gridOk, bpOk, clampOk, transitionOk) certifying combined visual frontend execution.",
+    "eDesc": "Implement function executeVisualFrontendMaster(flexOk, gridOk, bpOk, clampOk, transitionOk) certifying combined visual frontend execution. Use these exact values: `engineStatus`: 'VISUAL_FRONTEND_MASTER_ACTIVE'.",
     "eStarter": "function executeVisualFrontendMaster(f, g, b, c, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeVisualFrontendMaster(true, true, true, true, true);\nif (res.engineStatus !== 'VISUAL_FRONTEND_MASTER_ACTIVE') throw new Error('Milestone 3 frontend master failed');",
@@ -432,7 +432,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Theme Mode Initializer & FOUT Prevention Script Formatter",
-    "eDesc": "Implement function resolveInitialThemeMode(storedPreference, systemPrefersDark) determining theme mode (`'dark'` or `'light'`) with priority given to explicit user preference over system OS setting.",
+    "eDesc": "Implement function resolveInitialThemeMode(storedPreference, systemPrefersDark) determining theme mode (`'dark'` or `'light'`) with priority given to explicit user preference over system OS setting. The result must have the field: `resolvedThemeMode`.",
     "eStarter": "function resolveInitialThemeMode(storedPref, systemDark) {\n  // TODO: write your code here\n}",
     "eHint": "If storedPref is dark or (storedPref is null and systemDark) return dark else light.",
     "eTest": "const userDark = resolveInitialThemeMode('dark', false);\nconst sysDark = resolveInitialThemeMode(null, true);\nconst userLightSysDark = resolveInitialThemeMode('light', true);\nif (userDark.resolvedThemeMode !== 'dark' || sysDark.resolvedThemeMode !== 'dark' || userLightSysDark.resolvedThemeMode !== 'light') throw new Error('Theme resolution failed');",
@@ -452,7 +452,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "WCAG 2.2 Color Contrast Ratio Calculator & Compliance Evaluator",
-    "eDesc": "Implement function evaluateWcagContrastCompliance(luminance1, luminance2) calculating contrast ratio $\\frac{L_{\\max} + 0.05}{L_{\\min} + 0.05}$ and certifying WCAG AA ($4.5:1$) and AAA ($7:1$) compliance.",
+    "eDesc": "Implement function evaluateWcagContrastCompliance(luminance1, luminance2) calculating contrast ratio $\\frac{L_{\\max} + 0.05}{L_{\\min} + 0.05}$ and certifying WCAG AA ($4.5:1$) and AAA ($7:1$) compliance. The result must have these fields: `isWcagAaCompliant`, `isWcagAaaCompliant`, `calculatedContrastRatio`.",
     "eStarter": "function evaluateWcagContrastCompliance(l1, l2) {\n  // TODO: write your code here\n}",
     "eHint": "ratio = (lMax + 0.05) / (lMin + 0.05), isAa = ratio >= 4.5.",
     "eTest": "const whiteBlack = evaluateWcagContrastCompliance(1.0, 0.0); // (1 + 0.05)/(0 + 0.05) = 21:1\nconst lowContrast = evaluateWcagContrastCompliance(0.4, 0.3); // (0.45)/(0.35) = 1.28:1\nif (!whiteBlack.isWcagAaCompliant || !whiteBlack.isWcagAaaCompliant || lowContrast.isWcagAaCompliant || whiteBlack.calculatedContrastRatio !== 21) throw new Error('WCAG contrast evaluation failed');",
@@ -472,7 +472,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Roving Tabindex Active Key Index Resolver",
-    "eDesc": "Implement function resolveRovingTabindex(currentIndex, totalItems, keyEvent) calculating new active index when user presses `'ArrowRight'` / `'ArrowDown'` (next) or `'ArrowLeft'` / `'ArrowUp'` (previous) with circular wrapping.",
+    "eDesc": "Implement function resolveRovingTabindex(currentIndex, totalItems, keyEvent) calculating new active index when user presses `'ArrowRight'` / `'ArrowDown'` (next) or `'ArrowLeft'` / `'ArrowUp'` (previous) with circular wrapping. The result must have the field: `newActiveIndex`.",
     "eStarter": "function resolveRovingTabindex(curr, total, key) {\n  // TODO: write your code here\n}",
     "eHint": "Next: (curr + 1) % total. Prev: (curr - 1 + total) % total.",
     "eTest": "const fwd = resolveRovingTabindex(2, 4, 'ArrowRight'); // 2 -> 3\nconst wrap = resolveRovingTabindex(3, 4, 'ArrowRight'); // 3 -> 0 (wrap)\nconst back = resolveRovingTabindex(0, 4, 'ArrowLeft'); // 0 -> 3 (wrap back)\nif (fwd.newActiveIndex !== 3 || wrap.newActiveIndex !== 0 || back.newActiveIndex !== 3) throw new Error('Roving tabindex resolution failed');",
@@ -492,7 +492,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Icon Button Accessible Name & ARIA Auditor",
-    "eDesc": "Implement function auditIconButtonAccessibility(hasAriaLabel, hasTextChild, isIconHidden) certifying that an icon-only button provides an accessible name without announcing raw SVG markup.",
+    "eDesc": "Implement function auditIconButtonAccessibility(hasAriaLabel, hasTextChild, isIconHidden) certifying that an icon-only button provides an accessible name without announcing raw SVG markup. Use these exact values: `status`: 'ICON_BUTTON_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isIconButtonCompliant`.",
     "eStarter": "function auditIconButtonAccessibility(hasLabel, hasText, isHidden) {\n  // TODO: write your code here\n}",
     "eHint": "isCompliant = (hasLabel || hasText) && isHidden.",
     "eTest": "const pass = auditIconButtonAccessibility(true, false, true);\nconst fail = auditIconButtonAccessibility(false, false, true);\nif (!pass.isIconButtonCompliant || fail.isIconButtonCompliant || pass.status !== 'ICON_BUTTON_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Icon button audit failed');",
@@ -512,7 +512,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "SVG Icon viewBox & Color Inheritance Auditor",
-    "eDesc": "Implement function auditSvgIconConfig(viewBoxString, fillOrStrokeValue) verifying that icon uses normalized `0 0 24 24` viewBox and inherits `currentColor`.",
+    "eDesc": "Implement function auditSvgIconConfig(viewBoxString, fillOrStrokeValue) verifying that icon uses normalized `0 0 24 24` viewBox and inherits `currentColor`. Use these exact values: `status`: 'SVG_ICON_STANDARD_VERIFIED_NOMINAL'. The result must have the field: `isSvgIconStandardCompliant`.",
     "eStarter": "function auditSvgIconConfig(viewBox, colorProp) {\n  // TODO: write your code here\n}",
     "eHint": "Check viewBox === '0 0 24 24' and colorProp === 'currentColor'.",
     "eTest": "const pass = auditSvgIconConfig('0 0 24 24', 'currentColor');\nconst fail = auditSvgIconConfig('0 0 512 512', '#ff0000');\nif (!pass.isSvgIconStandardCompliant || fail.isSvgIconStandardCompliant || pass.status !== 'SVG_ICON_STANDARD_VERIFIED_NOMINAL') throw new Error('SVG icon audit failed');",
@@ -532,7 +532,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Reduced Motion Animation Fallback Resolver",
-    "eDesc": "Implement function resolveAnimationForMotionPreference(prefersReducedMotion, standardAnimation, fallbackFade) returning gentle fade when user requests reduced motion.",
+    "eDesc": "Implement function resolveAnimationForMotionPreference(prefersReducedMotion, standardAnimation, fallbackFade) returning gentle fade when user requests reduced motion. The result must have the field: `resolvedAnimationClass`.",
     "eStarter": "function resolveAnimationForMotionPreference(reducedMotion, stdAnim, fadeAnim) {\n  // TODO: write your code here\n}",
     "eHint": "If reducedMotion return fadeAnim else stdAnim.",
     "eTest": "const reduced = resolveAnimationForMotionPreference(true, 'slide-in-right-300ms', 'fade-in-150ms');\nconst normal = resolveAnimationForMotionPreference(false, 'slide-in-right-300ms', 'fade-in-150ms');\nif (reduced.resolvedAnimationClass !== 'fade-in-150ms' || normal.resolvedAnimationClass !== 'slide-in-right-300ms') throw new Error('Reduced motion resolution failed');",
@@ -552,7 +552,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Storybook CSF3 Story Export Structure Auditor",
-    "eDesc": "Implement function auditStorybookCsf3Structure(storyMeta, storyExport) verifying that default export contains `title` and `component`, and story export defines `args`.",
+    "eDesc": "Implement function auditStorybookCsf3Structure(storyMeta, storyExport) verifying that default export contains `title` and `component`, and story export defines `args`. Use these exact values: `status`: 'STORYBOOK_CSF3_STRUCTURE_VERIFIED_NOMINAL'. The result must have the field: `isCsf3Compliant`.",
     "eStarter": "function auditStorybookCsf3Structure(meta, story) {\n  // TODO: write your code here\n}",
     "eHint": "meta has title and component, story has args object.",
     "eTest": "const pass = auditStorybookCsf3Structure({ title: 'Components/Button', component: 'Button' }, { args: { variant: 'primary' } });\nconst fail = auditStorybookCsf3Structure({ title: 'Button' }, {});\nif (!pass.isCsf3Compliant || fail.isCsf3Compliant || pass.status !== 'STORYBOOK_CSF3_STRUCTURE_VERIFIED_NOMINAL') throw new Error('Storybook CSF3 audit failed');",
@@ -572,7 +572,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Design System SemVer Release Type Classifier",
-    "eDesc": "Implement function classifyDesignSystemRelease(hasBreakingPropRemoval, hasNewComponentAdded, isBugfixOnly) returning `'MAJOR'`, `'MINOR'`, or `'PATCH'` release classification.",
+    "eDesc": "Implement function classifyDesignSystemRelease(hasBreakingPropRemoval, hasNewComponentAdded, isBugfixOnly) returning `'MAJOR'`, `'MINOR'`, or `'PATCH'` release classification. The result must have the field: `releaseType`.",
     "eStarter": "function classifyDesignSystemRelease(isBreaking, isNewFeature, isBugfix) {\n  // TODO: write your code here\n}",
     "eHint": "isBreaking -> MAJOR, isNewFeature -> MINOR, else PATCH.",
     "eTest": "const brk = classifyDesignSystemRelease(true, false, false);\nconst feat = classifyDesignSystemRelease(false, true, false);\nconst fix = classifyDesignSystemRelease(false, false, true);\nif (brk.releaseType !== 'MAJOR' || feat.releaseType !== 'MINOR' || fix.releaseType !== 'PATCH') throw new Error('SemVer classification failed');",
@@ -592,7 +592,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Sovereign Design System Suite Orchestrator",
-    "eDesc": "Implement function orchestrateDesignSystemMasterSuite(tokensOk, componentsOk, visualOk, a11yOk, governanceOk) certifying comprehensive design system mastery.",
+    "eDesc": "Implement function orchestrateDesignSystemMasterSuite(tokensOk, componentsOk, visualOk, a11yOk, governanceOk) certifying comprehensive design system mastery. Use these exact values: `status`: 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED_NOMINAL'. The result must have these fields: `sovereignDesignSystemCertified`, `certified`.",
     "eStarter": "function orchestrateDesignSystemMasterSuite(tokens, comps, visual, a11y, gov) {\n  // TODO: write your code here\n}",
     "eHint": "Verify all 5 module flags evaluate to true.",
     "eTest": "const ok = orchestrateDesignSystemMasterSuite(true, true, true, true, true);\nconst fail = orchestrateDesignSystemMasterSuite(true, true, false, true, true);\nif (!ok.sovereignDesignSystemCertified || fail.sovereignDesignSystemCertified || !ok.certified || ok.status !== 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",

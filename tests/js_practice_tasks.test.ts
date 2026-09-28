@@ -92,7 +92,7 @@ function lazyAnswer(starter: string, value: string): string {
 }
 type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
 
-const CHECKED_COURSES = ['course-react-web', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+const CHECKED_COURSES = ['course-react-web', 'course-cloud-native', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
 test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
   // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
@@ -122,5 +122,16 @@ test('every practice task in the checked courses: the reference answer passes, t
     assert.equal(late, 0, 'a check threw after the task finished (missing await)');
   } finally {
     process.off('unhandledRejection', onLate);
+  }
+});
+
+test('checks never require a made-up code the student is not told about', () => {
+  for (const courseId of CHECKED_COURSES) {
+    for (const q of tasks(courseId) as (Quest & { desc?: string; hint?: string })[]) {
+      const visible = `${q.desc} ${q.starterCode} ${q.hint || ''}`;
+      for (const m of String(q.testSuite).matchAll(/[!=]==\s*'([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+)'/g)) {
+        assert.ok(visible.includes(m[1]), `${q.id}: the check needs '${m[1]}' but the task never mentions it`);
+      }
+    }
   }
 });
