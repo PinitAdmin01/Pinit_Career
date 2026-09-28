@@ -4640,5 +4640,1167 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: build a graph of 6 friends and find how many steps separate each pair."
       ]
     }
+  },
+  {
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Fast Auto-Complete Engine (Trie + Frequency Min-Heap)",
+    "goal": "You can build an auto-complete engine that stores word frequencies in a trie and returns the top k suggestions for a prefix.",
+    "minutes": 30,
+    "recap": "This week you learned trees, BSTs, heaps, tries and graphs. Milestone 3 joins a trie and ranking into a search-box feature.",
+    "parts": [
+      {
+        "title": "What an auto-complete engine must do",
+        "say": [
+          "When you type \"pyt\" in a search box, it instantly suggests \"python\", \"python course\" and \"pytorch\", most popular first. That feature is auto-complete, and it has two jobs.",
+          "Job one is finding: every stored phrase that starts with what was typed. You solved that on Day 19 with a trie.",
+          "Job two is ranking: order the matches by how often people chose them, and show only the top k. Ties are broken alphabetically so the order is predictable.",
+          "Practice 1 builds AutocompleteSystem with insert(word, freq) and suggest(prefix, k). Practice 2 writes the ranking step on its own.",
+          "Real search engines add spelling correction and personalisation, but the core is exactly what you build today."
+        ],
+        "example": "A shopkeeper who, when you say \"I need a ph...\", points to the phone chargers first because most customers who start that way want a charger, then the phone covers.",
+        "code": "searches = {\"python\": 120, \"pytorch\": 45, \"python course\": 80, \"pycharm\": 30, \"java\": 200}\ntyped = \"pyt\"\nmatches = [w for w in searches if w.startswith(typed)]\nranked = sorted(matches, key=lambda w: (-searches[w], w))\nprint(matches)\nprint(ranked[:2])",
+        "output": "['python', 'pytorch', 'python course']\n['python', 'python course']",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Job one: find the matches (here by checking every word)."
+          },
+          {
+            "line": 4,
+            "note": "Job two: most frequent first, alphabetical on ties."
+          }
+        ],
+        "tryIt": "Change typed to \"py\" and the top 3. \"pycharm\" now matches but stays last because of its low count.",
+        "check": {
+          "question": "Why sort with the key (-frequency, word)?",
+          "options": [
+            "To sort alphabetically only",
+            "Highest frequency first, and alphabetical order on ties",
+            "To remove duplicates"
+          ],
+          "answer": 1,
+          "why": "Negating the frequency puts big counts first; the word breaks ties in alphabetical order."
+        }
+      },
+      {
+        "title": "Storing frequencies in the trie",
+        "say": [
+          "Checking every word, as in the last part, is O(N) for each keystroke. A trie makes the finding step depend only on the prefix and the matching part of the dictionary.",
+          "Add a freq field to each trie node. insert(word, freq) walks the letters, creating nodes, and adds freq to the end node, so inserting the same word twice adds the counts together.",
+          "A node whose freq is above 0 marks a complete word, which replaces the is_end flag from Day 19.",
+          "The same trie can be filled from yesterday's search logs: each logged search calls insert(query, 1).",
+          "Adding to an existing count, instead of replacing it, is what Practice 1 asks for."
+        ],
+        "example": "A tally board for song requests at a wedding: every time someone asks for a song, one more stroke goes next to it, so popular songs build up high counts.",
+        "code": "class Node:\n    def __init__(self):\n        self.children = {}\n        self.freq = 0\n\nroot = Node()\ndef insert(word, freq=1):\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, Node())\n    node.freq += freq\n\nfor query in [\"pizza\", \"pizza\", \"pasta\", \"pizza hut\", \"pizza\"]:\n    insert(query)\ninsert(\"pasta\", 5)\n\ndef freq_of(word):\n    node = root\n    for ch in word:\n        node = node.children.get(ch)\n        if node is None:\n            return 0\n    return node.freq\n\nprint(freq_of(\"pizza\"), freq_of(\"pasta\"), freq_of(\"pizza hut\"), freq_of(\"piz\"))",
+        "output": "3 6 1 0",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Add to the count, so repeated searches build up."
+          },
+          {
+            "line": 25,
+            "note": "\"piz\" is only a prefix, so its count is 0."
+          }
+        ],
+        "tryIt": "Insert \"pizza hut\" 4 more times and print its count. It should be 5.",
+        "check": {
+          "question": "The word \"chai\" is inserted with freq 3 and then again with freq 2. What is its stored frequency?",
+          "options": [
+            "2",
+            "3",
+            "5"
+          ],
+          "answer": 2,
+          "why": "insert adds to the existing count, so 3 + 2 = 5."
+        }
+      },
+      {
+        "title": "Collecting the matches below a prefix",
+        "say": [
+          "To suggest, first walk down the trie to the prefix node. If a letter is missing, there are no suggestions, so return an empty list.",
+          "Then run a depth-first search below that node, building each word letter by letter, and collect (freq, word) for every node with freq above 0.",
+          "This is the same DFS you wrote on Day 19, now also carrying the frequency.",
+          "The time depends on the size of the subtree under the prefix. For short prefixes like \"a\" that can be large, which is why real systems cache the top suggestions at each node.",
+          "Once you have the matches, the ranking step picks the best k."
+        ],
+        "example": "Opening only the \"P\" drawer of a filing cabinet and reading every folder inside it, noting how many times each folder was requested.",
+        "code": "class Node:\n    def __init__(self):\n        self.children = {}\n        self.freq = 0\n\nroot = Node()\ndef insert(word, freq=1):\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, Node())\n    node.freq += freq\n\ndef matches(prefix):\n    node = root\n    for ch in prefix:\n        if ch not in node.children:\n            return []\n        node = node.children[ch]\n    found = []\n    def dfs(n, word):\n        if n.freq > 0:\n            found.append((n.freq, word))\n        for ch, child in n.children.items():\n            dfs(child, word + ch)\n    dfs(node, prefix)\n    return found\n\nfor w, f in [(\"react\", 100), (\"reach\", 80), (\"redux\", 50), (\"read\", 80), (\"java\", 90)]:\n    insert(w, f)\nprint(sorted(matches(\"rea\")))\nprint(matches(\"x\"))",
+        "output": "[(80, 'reach'), (80, 'read'), (100, 'react')]\n[]",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Missing letter: nothing starts with this prefix."
+          },
+          {
+            "line": 21,
+            "note": "A complete word: collect its frequency."
+          }
+        ],
+        "tryIt": "Print sorted(matches(\"re\")) as well. \"redux\" joins the list because it also starts with \"re\".",
+        "check": {
+          "question": "What does matches() return when the prefix is not in the trie?",
+          "options": [
+            "All words",
+            "An empty list",
+            "An error"
+          ],
+          "answer": 1,
+          "why": "The walk hits a missing letter and returns [] straight away."
+        }
+      },
+      {
+        "title": "Picking the top k with a heap",
+        "say": [
+          "Sorting every match is O(M log M) for M matches. When k is small, heapq.nsmallest(k, ...) with the right key is O(M log k), because it keeps only the best k while scanning.",
+          "The key is (-freq, word): nsmallest then returns the highest frequencies first, and alphabetical order breaks ties, exactly like the sort in part 1.",
+          "This is the \"keep only the best k\" idea from Day 18 applied to suggestions.",
+          "Practice 2, rank_suggestions(words, prefix, k), is this step on its own: filter by prefix, then take the top k with the tie rule.",
+          "Getting the tie rule exactly right matters: tests (and users) expect the same order every time."
+        ],
+        "example": "A talent show judge who only keeps a shortlist of the top 3 while watching 200 acts, replacing the weakest on the shortlist whenever a better act appears.",
+        "code": "import heapq\n\ndef rank_suggestions(words, prefix, k):\n    matching = [(freq, w) for w, freq in words.items() if w.startswith(prefix)]\n    best = heapq.nsmallest(k, matching, key=lambda fw: (-fw[0], fw[1]))\n    return [w for _, w in best]\n\nwords = {\"react\": 100, \"reach\": 80, \"read\": 80, \"redux\": 50, \"java\": 90}\nprint(rank_suggestions(words, \"rea\", 2))\nprint(rank_suggestions(words, \"re\", 3))\nprint(rank_suggestions(words, \"z\", 3))",
+        "output": "['react', 'reach']\n['react', 'reach', 'read']\n[]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Highest frequency first; alphabetical on ties."
+          },
+          {
+            "line": 9,
+            "note": "\"reach\" and \"read\" tie at 80; \"reach\" wins alphabetically."
+          }
+        ],
+        "tryIt": "Give \"read\" a frequency of 81 and run again. Now \"read\" beats \"reach\" for second place.",
+        "check": {
+          "question": "\"read\" and \"reach\" both have frequency 80. Which comes first?",
+          "options": [
+            "read",
+            "reach",
+            "Either, randomly"
+          ],
+          "answer": 1,
+          "why": "Ties are broken alphabetically, and \"reach\" comes before \"read\"."
+        }
+      },
+      {
+        "title": "The complete AutocompleteSystem",
+        "say": [
+          "Now combine the parts into one class: a trie with frequencies, insert(word, freq), and suggest(prefix, k) that walks to the prefix, collects matches and ranks the top k.",
+          "Keep each method small. A helper that returns the node for a prefix (or None) is used by suggest, and could be reused for a count or a delete method later.",
+          "Test it the way users will use it: several inserts, repeated inserts of the same word, a prefix with no matches, and a k larger than the number of matches.",
+          "This class is your Milestone 3. It combines tries (Day 19), depth-first search (Days 16 and 20) and top-k selection with heaps (Day 18).",
+          "A good next step in real life is caching suggest results for popular prefixes, since the same prefixes are typed millions of times."
+        ],
+        "example": "A library's smart catalogue: librarians add each borrowed title to it, and when a reader types the first letters, it lists the most borrowed matching titles.",
+        "code": "import heapq\n\nclass Node:\n    def __init__(self):\n        self.children = {}\n        self.freq = 0\n\nclass AutocompleteSystem:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word, freq=1):\n        node = self.root\n        for ch in word:\n            node = node.children.setdefault(ch, Node())\n        node.freq += freq\n\n    def _node_for(self, prefix):\n        node = self.root\n        for ch in prefix:\n            node = node.children.get(ch)\n            if node is None:\n                return None\n        return node\n\n    def suggest(self, prefix, k=3):\n        start = self._node_for(prefix)\n        if start is None:\n            return []\n        found, stack = [], [(start, prefix)]\n        while stack:\n            node, word = stack.pop()\n            if node.freq > 0:\n                found.append((node.freq, word))\n            for ch, child in node.children.items():\n                stack.append((child, word + ch))\n        best = heapq.nsmallest(k, found, key=lambda fw: (-fw[0], fw[1]))\n        return [w for _, w in best]\n\nac = AutocompleteSystem()\nfor w, f in [(\"python\", 120), (\"pytorch\", 45), (\"python course\", 80), (\"pycharm\", 30)]:\n    ac.insert(w, f)\nac.insert(\"pytorch\", 50)\nprint(ac.suggest(\"pyt\"))\nprint(ac.suggest(\"py\", 2))\nprint(ac.suggest(\"java\"))",
+        "output": "['python', 'pytorch', 'python course']\n['python', 'pytorch']\n[]",
+        "codeNotes": [
+          {
+            "line": 30,
+            "note": "Collect matches with our own stack instead of recursion."
+          },
+          {
+            "line": 37,
+            "note": "Top k by frequency, alphabetical on ties."
+          },
+          {
+            "line": 43,
+            "note": "Repeat inserts add up: pytorch now has 95."
+          }
+        ],
+        "tryIt": "Insert \"pytorch\" with 30 more. It now has 125 and becomes the first suggestion for \"pyt\".",
+        "check": {
+          "question": "Which three topics from this month does the auto-complete engine combine?",
+          "options": [
+            "Tries, DFS and heaps",
+            "Sorting, queues and hashing only",
+            "Binary search and recursion only"
+          ],
+          "answer": 0,
+          "why": "A trie stores the words, DFS collects matches under the prefix, and a heap picks the top k."
+        }
+      },
+      {
+        "title": "Making suggestions fast at scale",
+        "say": [
+          "For a big search engine, running a DFS for every keystroke is too slow for short prefixes like \"a\", which match millions of phrases.",
+          "The standard fix is to store the current top k suggestions at every trie node. Then suggest is just walking to the prefix node and reading its list: O(length of the prefix).",
+          "The cost moves to insert: when a word's count changes, every node on its path may need its top-k list updated. That is fine, because typing (reading) happens far more often than logging (writing).",
+          "This read-fast, write-slower trade-off appears everywhere in system design: precompute the answer when data changes, so reads are instant.",
+          "You will meet more of these trade-offs in the Distributed Systems course."
+        ],
+        "example": "A restaurant that keeps a printed \"today's top 3 dishes\" card on each table instead of asking the kitchen every time a customer wonders what is popular. The card is updated when orders change.",
+        "code": "class Node:\n    def __init__(self):\n        self.children = {}\n        self.top = []\n\nroot, counts, K = Node(), {}, 2\n\ndef record(word):\n    counts[word] = counts.get(word, 0) + 1\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, Node())\n        candidates = set(node.top) | {word}\n        node.top = sorted(candidates, key=lambda w: (-counts[w], w))[:K]\n\ndef suggest(prefix):\n    node = root\n    for ch in prefix:\n        node = node.children.get(ch)\n        if node is None:\n            return []\n    return node.top\n\nfor q in [\"maps\", \"mail\", \"maps\", \"music\", \"mail\", \"maps\"]:\n    record(q)\nprint(suggest(\"m\"), suggest(\"ma\"), suggest(\"mu\"))",
+        "output": "['maps', 'mail'] ['maps', 'mail'] ['music']",
+        "codeNotes": [
+          {
+            "line": 14,
+            "note": "Update the stored top list on every node along the word's path."
+          },
+          {
+            "line": 22,
+            "note": "Suggest just reads the list: no search at all."
+          }
+        ],
+        "tryIt": "Record \"music\" three more times and print suggest(\"m\") again. \"music\" climbs into the top 2.",
+        "check": {
+          "question": "What does storing the top k at every trie node trade?",
+          "options": [
+            "Slower suggestions for faster inserts",
+            "Slower inserts for instant suggestions",
+            "More accuracy for less speed"
+          ],
+          "answer": 1,
+          "why": "Each insert updates lists along the path (more work when writing) so each suggestion is a simple read."
+        }
+      }
+    ],
+    "summary": [
+      "Auto-complete has two jobs: find matches for the prefix, then rank them.",
+      "Store frequencies at trie end nodes; repeated inserts add up.",
+      "Collect matches with a DFS below the prefix node.",
+      "Pick the top k with heapq.nsmallest and the key (-freq, word).",
+      "At scale, precompute each node's top k so suggestions are instant."
+    ],
+    "projectStep": {
+      "title": "Milestone 3: auto-complete",
+      "steps": [
+        "Add the AutocompleteSystem class to dsa_toolkit.py.",
+        "Fill it with 20 of your own recent searches and print suggestions for three prefixes.",
+        "Bonus: add a delete(word) method that sets the word's frequency back to 0."
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "title": "Dijkstra's Shortest Path Algorithm & Weighted Graphs",
+    "goal": "You can find the cheapest route through a weighted graph with Dijkstra's algorithm and a heap, and explain why it needs non-negative weights.",
+    "minutes": 30,
+    "recap": "Yesterday you built auto-complete. On Day 20, BFS found the fewest steps. Today edges have costs, and the fewest steps is not always the cheapest route.",
+    "parts": [
+      {
+        "title": "Weighted graphs",
+        "say": [
+          "In a weighted graph each edge has a number: a distance, a travel time, a price. Route planners, flight search and network routing all work on weighted graphs.",
+          "Store it as an adjacency list of (neighbour, weight) pairs: graph[\"A\"] = [(\"B\", 4), (\"C\", 2)].",
+          "BFS no longer works for the cheapest route, because it counts edges, not costs. Two cheap edges can beat one expensive edge.",
+          "Dijkstra's algorithm (1956) finds the cheapest route from one start node to every other node, as long as no edge weight is negative.",
+          "It is the basis of the routing in Google Maps, network protocols like OSPF, and many games."
+        ],
+        "example": "Going from Majestic to the airport: the direct bus takes 90 minutes, but the metro to Hebbal (25 minutes) plus the airport bus (40 minutes) takes 65. Fewer changes is not always faster.",
+        "code": "graph = {\n    \"Majestic\": [(\"Airport\", 90), (\"Hebbal\", 25)],\n    \"Hebbal\": [(\"Airport\", 40)],\n    \"Airport\": [],\n}\ndirect = 90\nvia_hebbal = 25 + 40\nprint(\"direct:\", direct, \"minutes | via Hebbal:\", via_hebbal, \"minutes\")\nprint(\"fewest edges is cheapest?\", direct <= via_hebbal)",
+        "output": "direct: 90 minutes | via Hebbal: 65 minutes\nfewest edges is cheapest? False",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Each neighbour comes with the cost of that edge."
+          }
+        ],
+        "tryIt": "Change the Hebbal to Airport time to 70 and run it. Now the direct route is cheaper.",
+        "check": {
+          "question": "Why can't BFS find the cheapest route in a weighted graph?",
+          "options": [
+            "BFS is too slow",
+            "BFS counts edges, not their costs",
+            "BFS only works on trees"
+          ],
+          "answer": 1,
+          "why": "BFS finds the fewest edges; with weights, several cheap edges can cost less than one expensive edge."
+        }
+      },
+      {
+        "title": "The idea: always settle the closest node",
+        "say": [
+          "Dijkstra keeps a best-known distance for every node, starting at 0 for the start node and infinity for the rest.",
+          "Repeatedly pick the unsettled node with the smallest known distance. Its distance is now final: any other route would pass through a node that is already at least as far away.",
+          "Then relax its edges: for each neighbour, if going through this node is cheaper than the neighbour's known distance, update it.",
+          "Because every distance only ever goes down, and the closest node is always settled next, the answers are correct when all weights are non-negative.",
+          "Picking the smallest distance quickly is exactly what a min-heap does, which is why Dijkstra uses heapq."
+        ],
+        "example": "Water spreading from a spot on a flat floor: it reaches nearby tiles first and far tiles later. The moment the water reaches a tile is its shortest distance, and it never gets shorter.",
+        "code": "dist = {\"A\": 0, \"B\": float(\"inf\"), \"C\": float(\"inf\")}\nedges_from_A = [(\"B\", 4), (\"C\", 2)]\nfor nb, w in edges_from_A:\n    if dist[\"A\"] + w < dist[nb]:\n        dist[nb] = dist[\"A\"] + w\nprint(\"after settling A:\", dist)\nedges_from_C = [(\"B\", 1)]\nfor nb, w in edges_from_C:\n    if dist[\"C\"] + w < dist[nb]:\n        dist[nb] = dist[\"C\"] + w\nprint(\"after settling C:\", dist)",
+        "output": "after settling A: {'A': 0, 'B': 4, 'C': 2}\nafter settling C: {'A': 0, 'B': 3, 'C': 2}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Relax: is going through A cheaper than what we know?"
+          },
+          {
+            "line": 10,
+            "note": "C (the closest, 2) improves B from 4 to 3."
+          }
+        ],
+        "tryIt": "Work out by hand what happens if the edge C to B cost 5 instead of 1. B stays at 4.",
+        "check": {
+          "question": "Which node does Dijkstra settle next?",
+          "options": [
+            "The one added most recently",
+            "The unsettled node with the smallest known distance",
+            "A random neighbour"
+          ],
+          "answer": 1,
+          "why": "The closest unsettled node's distance cannot be improved later (with non-negative weights), so it is final."
+        }
+      },
+      {
+        "title": "Dijkstra with heapq",
+        "say": [
+          "Practice 1: dijkstra(graph, start) returns the shortest distance to every reachable node. Push (0, start) onto a heap and keep a dist dict.",
+          "Pop the smallest (d, node). If d is bigger than dist[node], this entry is out of date (a cheaper route was found later), so skip it. This is called lazy deletion.",
+          "Otherwise relax each edge: if d + w beats the neighbour's distance, record it and push (d + w, neighbour).",
+          "With a heap, the whole algorithm is O((V + E) log V): each edge may push once, and each push or pop is O(log V).",
+          "Nodes that can never be reached simply never appear in dist, which is what the practice expects."
+        ],
+        "example": "A travel agent working through a to-do list sorted by cheapest fare so far, always handling the cheapest trip first, and ignoring an old note if a cheaper fare to that city has already been found.",
+        "code": "import heapq\n\ndef dijkstra(graph, start):\n    dist = {start: 0}\n    heap = [(0, start)]\n    while heap:\n        d, node = heapq.heappop(heap)\n        if d > dist[node]:\n            continue\n        for nb, w in graph.get(node, []):\n            nd = d + w\n            if nd < dist.get(nb, float(\"inf\")):\n                dist[nb] = nd\n                heapq.heappush(heap, (nd, nb))\n    return dist\n\ngraph = {\"A\": [(\"B\", 4), (\"C\", 2)], \"B\": [(\"D\", 10)], \"C\": [(\"B\", 1), (\"D\", 5)], \"D\": [], \"E\": [(\"A\", 1)]}\nprint(dijkstra(graph, \"A\"))",
+        "output": "{'A': 0, 'B': 3, 'C': 2, 'D': 7}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "An out-of-date entry: a cheaper route was found after it was pushed."
+          },
+          {
+            "line": 12,
+            "note": "Relax: found a cheaper route to nb."
+          },
+          {
+            "line": 18,
+            "note": "E cannot be reached from A, so it is not in the result."
+          }
+        ],
+        "tryIt": "Add an edge (\"E\", 3) to D's list and run dijkstra(graph, \"A\"). E appears with distance 10.",
+        "check": {
+          "question": "Why does the code skip a popped entry when d > dist[node]?",
+          "options": [
+            "It is a bug",
+            "A cheaper route to that node was already found, so this entry is outdated",
+            "To avoid negative numbers"
+          ],
+          "answer": 1,
+          "why": "The heap may hold older, more expensive entries for the same node; they can be ignored."
+        }
+      },
+      {
+        "title": "Recovering the actual route",
+        "say": [
+          "Distances are useful, but a map app must also show the route. Keep a prev dict: whenever a node's distance improves, remember which node you came from.",
+          "To rebuild the route to a target, start at the target and follow prev back to the start, then reverse the list.",
+          "If the target never got a distance, there is no route. Check this before following prev.",
+          "This parent-pointer trick works for BFS too; it is how you turn \"how far?\" into \"which way?\".",
+          "Storing prev costs O(V) extra memory, the price of being able to answer \"show me the way\"."
+        ],
+        "example": "Leaving a note at each junction saying which road you arrived by. At your destination, you read the notes backwards to retrace the whole route.",
+        "code": "import heapq\n\ndef route(graph, start, target):\n    dist, prev = {start: 0}, {}\n    heap = [(0, start)]\n    while heap:\n        d, node = heapq.heappop(heap)\n        if d > dist[node]:\n            continue\n        for nb, w in graph.get(node, []):\n            if d + w < dist.get(nb, float(\"inf\")):\n                dist[nb], prev[nb] = d + w, node\n                heapq.heappush(heap, (d + w, nb))\n    if target not in dist:\n        return None, []\n    path = [target]\n    while path[-1] != start:\n        path.append(prev[path[-1]])\n    return dist[target], path[::-1]\n\ngraph = {\"Home\": [(\"Market\", 7), (\"Park\", 2)], \"Park\": [(\"Market\", 3), (\"Office\", 9)], \"Market\": [(\"Office\", 4)], \"Office\": []}\nprint(route(graph, \"Home\", \"Office\"))\nprint(route(graph, \"Office\", \"Home\"))",
+        "output": "(9, ['Home', 'Park', 'Market', 'Office'])\n(None, [])",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Remember where the cheaper route came from."
+          },
+          {
+            "line": 18,
+            "note": "Walk back from the target to the start."
+          },
+          {
+            "line": 19,
+            "note": "Reverse to get the route from start to target."
+          }
+        ],
+        "tryIt": "Change the Park to Market cost to 6 and run again. The route and cost both change.",
+        "check": {
+          "question": "How do you rebuild the cheapest route after Dijkstra?",
+          "options": [
+            "Sort the distances",
+            "Follow the prev links back from the target, then reverse",
+            "Run BFS again"
+          ],
+          "answer": 1,
+          "why": "Each prev entry records the node before it on the best route, so following them backwards gives the path."
+        }
+      },
+      {
+        "title": "Network delay time",
+        "say": [
+          "Practice 2: a signal starts at node k and travels along directed links with given delays. How long until every node has received it? If some node never does, return -1.",
+          "Run Dijkstra from k. The time for everyone is the largest shortest distance, because the last node to hear the signal decides the answer.",
+          "If fewer than n nodes appear in the distances, some node is unreachable: return -1.",
+          "Build the graph from the list of [from, to, time] links first; nodes are numbered 1 to n.",
+          "This pattern, \"run Dijkstra, then look at all the distances\", solves many questions: the farthest city, the slowest delivery, the worst-case latency."
+        ],
+        "example": "A WhatsApp message forwarded around a family group: it reaches the last relative only when the slowest chain of forwards arrives. That slowest chain is the answer.",
+        "code": "import heapq\nfrom collections import defaultdict\n\ndef network_delay(times, n, k):\n    graph = defaultdict(list)\n    for u, v, w in times:\n        graph[u].append((v, w))\n    dist = {k: 0}\n    heap = [(0, k)]\n    while heap:\n        d, node = heapq.heappop(heap)\n        if d > dist[node]:\n            continue\n        for nb, w in graph[node]:\n            if d + w < dist.get(nb, float(\"inf\")):\n                dist[nb] = d + w\n                heapq.heappush(heap, (d + w, nb))\n    return max(dist.values()) if len(dist) == n else -1\n\nprint(network_delay([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))\nprint(network_delay([[1, 2, 1]], 2, 2))",
+        "output": "2\n-1",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Directed links: only from u to v."
+          },
+          {
+            "line": 18,
+            "note": "Everyone reached? The slowest arrival is the answer."
+          }
+        ],
+        "tryIt": "Add a link [1, 4, 5] to the first example. Node 4 is still reached faster through 3, so the answer stays 2.",
+        "check": {
+          "question": "After Dijkstra, what is the network delay time when every node is reachable?",
+          "options": [
+            "The smallest distance",
+            "The largest shortest distance",
+            "The sum of all distances"
+          ],
+          "answer": 1,
+          "why": "Everyone has the signal only when the last node receives it, which is the largest of the shortest times."
+        }
+      },
+      {
+        "title": "Why negative weights break Dijkstra",
+        "say": [
+          "Dijkstra assumes that once a node is settled, nothing can make it cheaper. With a negative edge, a longer route could later become cheaper, and the settled answer would be wrong.",
+          "Negative weights are real: a cashback that makes one leg of a trip pay you, or exchange rates in currency trading.",
+          "For graphs with negative edges, use the Bellman-Ford algorithm, which relaxes every edge V - 1 times. It is slower, O(V x E), but correct. You will use a version of it on Day 30.",
+          "If a cycle has a negative total, costs can fall forever and there is no cheapest route at all. Bellman-Ford can detect this.",
+          "Rule of thumb: non-negative weights, Dijkstra; negative weights, Bellman-Ford; no weights, BFS."
+        ],
+        "example": "A travel app that gives 50 rupees cashback on one connecting bus: suddenly a longer route can be \"cheaper\", and a planner that had already fixed the price of the middle stop gives the wrong answer.",
+        "code": "def bellman_ford(nodes, edges, start):\n    dist = {n: float(\"inf\") for n in nodes}\n    dist[start] = 0\n    for _ in range(len(nodes) - 1):\n        for u, v, w in edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist\n\nnodes = [\"A\", \"B\", \"C\"]\nedges = [(\"A\", \"B\", 4), (\"A\", \"C\", 5), (\"C\", \"B\", -3)]\nprint(bellman_ford(nodes, edges, \"A\"))",
+        "output": "{'A': 0, 'B': 2, 'C': 5}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Relax every edge V - 1 times."
+          },
+          {
+            "line": 11,
+            "note": "A negative edge: going via C makes B cost 2, not 4."
+          }
+        ],
+        "tryIt": "Dijkstra would settle B at 4 before looking at C. Trace that on paper, then compare with this correct answer of 2.",
+        "check": {
+          "question": "Which algorithm should you use for shortest paths when some edges are negative?",
+          "options": [
+            "Dijkstra",
+            "Bellman-Ford",
+            "BFS"
+          ],
+          "answer": 1,
+          "why": "Bellman-Ford does not rely on settled nodes staying final, so negative edges are handled correctly."
+        }
+      }
+    ],
+    "summary": [
+      "Weighted graphs store (neighbour, cost) pairs; BFS no longer finds the cheapest route.",
+      "Dijkstra always settles the closest unsettled node and relaxes its edges.",
+      "With heapq and lazy deletion it runs in O((V + E) log V).",
+      "Keep prev links to rebuild the actual route.",
+      "Negative weights break Dijkstra; use Bellman-Ford instead."
+    ],
+    "projectStep": {
+      "title": "Routing tools",
+      "steps": [
+        "Add dijkstra(graph, start) and route(graph, start, target) to dsa_toolkit.py.",
+        "Model 6 places in your town with travel times and find the quickest route between two of them.",
+        "Bonus: add network_delay(times, n, k) and test a case where one node is unreachable."
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "title": "Topological Sort (Kahn's In-Degree Algorithm) & DAGs",
+    "goal": "You can order tasks that depend on each other with topological sort (Kahn's algorithm) and detect when no valid order exists.",
+    "minutes": 30,
+    "recap": "Yesterday you found cheapest routes with Dijkstra. Today's graphs describe dependencies: which task must come before which.",
+    "parts": [
+      {
+        "title": "Dependencies as a directed graph",
+        "say": [
+          "Many problems are about order: courses with prerequisites, build steps, recipe steps, software packages that need other packages installed first.",
+          "Draw each task as a node and each \"a must come before b\" as a directed edge a -> b. The result is a directed graph.",
+          "If the graph has no cycles, it is a DAG (directed acyclic graph), and at least one valid order exists. That order is a topological sort.",
+          "If there is a cycle, like a needs b and b needs a, no valid order exists. Detecting that is just as important as finding the order.",
+          "Package managers (pip, npm), spreadsheet recalculation and build tools like Make all do topological sorts."
+        ],
+        "example": "Getting dressed: socks before shoes, shirt before tie, trousers before shoes. Many orders work, but \"shoes before socks\" does not.",
+        "code": "prereqs = [(\"maths 1\", \"maths 2\"), (\"maths 2\", \"machine learning\"), (\"python\", \"machine learning\"), (\"python\", \"web dev\")]\ngraph = {}\nfor before, after in prereqs:\n    graph.setdefault(before, []).append(after)\n    graph.setdefault(after, [])\nfor course, unlocks in graph.items():\n    print(course, \"->\", unlocks)",
+        "output": "maths 1 -> ['maths 2']\nmaths 2 -> ['machine learning']\nmachine learning -> []\npython -> ['machine learning', 'web dev']\nweb dev -> []",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "An edge from the course you take first to the course it unlocks."
+          },
+          {
+            "line": 5,
+            "note": "Make sure every course appears, even if it unlocks nothing."
+          }
+        ],
+        "tryIt": "Add (\"machine learning\", \"maths 1\") and think: can this plan still be completed? (No: it creates a cycle.)",
+        "check": {
+          "question": "What is a DAG?",
+          "options": [
+            "A graph with weights",
+            "A directed graph with no cycles",
+            "A tree with two children per node"
+          ],
+          "answer": 1,
+          "why": "Directed acyclic graph: edges have a direction and you can never follow them back to where you started."
+        }
+      },
+      {
+        "title": "In-degree: counting what you still need",
+        "say": [
+          "The in-degree of a node is how many edges point into it: how many things must happen before it.",
+          "A task with in-degree 0 has nothing blocking it, so it can be done now. In a DAG there is always at least one such task.",
+          "When you complete a task, every task it unlocks has one fewer blocker: subtract 1 from their in-degrees. Some of them may drop to 0 and become ready.",
+          "Counting in-degrees takes one pass over the edges: O(E).",
+          "This is the key insight behind Kahn's algorithm in the next part."
+        ],
+        "example": "A to-do list where each job shows how many other jobs it is waiting for. Jobs showing 0 can start now; finishing a job lowers the waiting number on the jobs that depended on it.",
+        "code": "prereqs = [[1, 0], [2, 0], [3, 1], [3, 2]]\nn = 4\nin_degree = [0] * n\nfor course, before in prereqs:\n    in_degree[course] += 1\nprint(\"in-degrees:\", in_degree)\nprint(\"ready now:\", [c for c in range(n) if in_degree[c] == 0])",
+        "output": "in-degrees: [0, 1, 1, 2]\nready now: [0]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Each pair is [course, prerequisite], as in the practice."
+          },
+          {
+            "line": 7,
+            "note": "Nothing blocks these courses."
+          }
+        ],
+        "tryIt": "Add [0, 3] to prereqs. Now no course has in-degree 0, a sign of a cycle.",
+        "check": {
+          "question": "What does an in-degree of 0 mean for a task?",
+          "options": [
+            "It is finished",
+            "Nothing must happen before it, so it can be done now",
+            "Nothing depends on it"
+          ],
+          "answer": 1,
+          "why": "In-degree counts incoming edges (prerequisites). Zero means no prerequisites are left."
+        }
+      },
+      {
+        "title": "Kahn's algorithm",
+        "say": [
+          "Practice 1: find_order(num_courses, prerequisites) returns a valid order, or an empty list if there is none.",
+          "Put every node with in-degree 0 in a queue. Repeatedly take one out, add it to the order, and lower the in-degree of each node it unlocks; any that reach 0 join the queue.",
+          "Each node and edge is handled once: O(V + E).",
+          "When the queue runs dry, check the order's length. If it contains every node, it is a valid topological order. If not, the missing nodes are stuck in a cycle, so return [].",
+          "Different queue orders give different valid answers; any order that respects every prerequisite is correct.",
+          "Trace the example by hand once: course 0 is ready first; finishing it lowers courses 1 and 2 to zero; finishing both of those finally frees course 3. Watching the in-degree numbers fall is the best way to understand the algorithm."
+        ],
+        "example": "A college timetable planner that each term offers every course whose prerequisites are all done, and unlocks new courses as students pass them.",
+        "code": "from collections import deque\n\ndef find_order(n, prerequisites):\n    graph = [[] for _ in range(n)]\n    in_degree = [0] * n\n    for course, before in prerequisites:\n        graph[before].append(course)\n        in_degree[course] += 1\n    queue = deque(c for c in range(n) if in_degree[c] == 0)\n    order = []\n    while queue:\n        c = queue.popleft()\n        order.append(c)\n        for nxt in graph[c]:\n            in_degree[nxt] -= 1\n            if in_degree[nxt] == 0:\n                queue.append(nxt)\n    return order if len(order) == n else []\n\nprint(find_order(4, [[1, 0], [2, 0], [3, 1], [3, 2]]))\nprint(find_order(2, [[1, 0], [0, 1]]))",
+        "output": "[0, 1, 2, 3]\n[]",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Start with everything that has no prerequisites."
+          },
+          {
+            "line": 15,
+            "note": "One prerequisite done for nxt."
+          },
+          {
+            "line": 18,
+            "note": "Missing nodes mean a cycle blocked them."
+          }
+        ],
+        "tryIt": "Add a course 4 with no prerequisites: find_order(5, ...). It appears right after course 0, because it is ready from the very start.",
+        "check": {
+          "question": "In Kahn's algorithm, how do you know the graph had a cycle?",
+          "options": [
+            "The queue never empties",
+            "The final order has fewer nodes than the graph",
+            "A node has in-degree 1"
+          ],
+          "answer": 1,
+          "why": "Nodes in a cycle never reach in-degree 0, so they never join the order."
+        }
+      },
+      {
+        "title": "Can all courses be finished?",
+        "say": [
+          "Practice 2 only asks yes or no: can every course be finished? That is the same as asking whether the graph has no cycle.",
+          "The simplest correct answer reuses Kahn's algorithm: all courses can be finished exactly when the order contains all of them.",
+          "You can also detect cycles with depth-first search, marking nodes as \"visiting\" while on the current path. Reaching a \"visiting\" node again means you went round a loop.",
+          "Both are O(V + E). Kahn's version is often easier to get right under interview pressure.",
+          "Real tools report the cycle to the user (\"package A requires B requires A\") so they can fix it; the DFS version can do that by remembering the current path."
+        ],
+        "example": "Two friends each saying \"I will go to the party only if you go first\". Nobody can start, so neither goes: a cycle means the plan can never complete.",
+        "code": "def can_finish(n, prerequisites):\n    graph = [[] for _ in range(n)]\n    for course, before in prerequisites:\n        graph[before].append(course)\n    state = [0] * n\n\n    def has_cycle(c):\n        if state[c] == 1:\n            return True\n        if state[c] == 2:\n            return False\n        state[c] = 1\n        if any(has_cycle(nxt) for nxt in graph[c]):\n            return True\n        state[c] = 2\n        return False\n\n    return not any(has_cycle(c) for c in range(n))\n\nprint(can_finish(2, [[1, 0]]))\nprint(can_finish(3, [[1, 0], [2, 1], [0, 2]]))",
+        "output": "True\nFalse",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "0 = not seen, 1 = on the current path, 2 = fully explored."
+          },
+          {
+            "line": 9,
+            "note": "Back on a node of the current path: a cycle."
+          },
+          {
+            "line": 15,
+            "note": "Explored with no cycle: safe to reuse."
+          }
+        ],
+        "tryIt": "Remove [0, 2] from the second example. The cycle is gone, so the answer becomes True.",
+        "check": {
+          "question": "In the DFS method, what does reaching a node marked \"visiting\" (state 1) mean?",
+          "options": [
+            "The node is finished",
+            "We came back to a node on the current path: a cycle",
+            "The node has no edges"
+          ],
+          "answer": 1,
+          "why": "State 1 means the node is on the path we are currently exploring, so reaching it again closes a loop."
+        }
+      },
+      {
+        "title": "Build systems and parallel steps",
+        "say": [
+          "Topological order also tells you what can run at the same time. Everything that is ready together in one round of Kahn's algorithm can run in parallel.",
+          "Processing the queue level by level, like level-order traversal on Day 16, groups the tasks into stages.",
+          "The number of stages is the fewest rounds needed if you have unlimited workers. Build systems use this to run independent jobs in parallel and finish sooner.",
+          "This is the critical path idea from project management: the longest chain of dependencies decides the finishing time, no matter how many people help.",
+          "The code groups a small software build into stages."
+        ],
+        "example": "Cooking a meal: rice and dal can cook at the same time, but tadka must wait for the dal. Grouping steps into \"what can happen together\" is how a cook finishes faster.",
+        "code": "def build_stages(deps):\n    tasks = set(deps) | {d for ds in deps.values() for d in ds}\n    waiting = {t: set(deps.get(t, [])) for t in tasks}\n    stages = []\n    while waiting:\n        ready = sorted(t for t, need in waiting.items() if not need)\n        if not ready:\n            raise ValueError(\"cycle in dependencies\")\n        stages.append(ready)\n        for t in ready:\n            del waiting[t]\n        for need in waiting.values():\n            need.difference_update(ready)\n    return stages\n\ndeps = {\"app\": [\"api\", \"ui\"], \"api\": [\"database\"], \"ui\": [\"design system\"], \"tests\": [\"app\"]}\nfor i, stage in enumerate(build_stages(deps), 1):\n    print(\"stage\", i, stage)",
+        "output": "stage 1 ['database', 'design system']\nstage 2 ['api', 'ui']\nstage 3 ['app']\nstage 4 ['tests']",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Everything with no remaining needs can run now, together."
+          },
+          {
+            "line": 13,
+            "note": "These tasks are done, so remove them from what others wait for."
+          }
+        ],
+        "tryIt": "Add \"docs\": [] to deps. It joins stage 1, because it needs nothing.",
+        "check": {
+          "question": "How many stages does a chain a -> b -> c -> d need, even with many workers?",
+          "options": [
+            "1",
+            "2",
+            "4"
+          ],
+          "answer": 2,
+          "why": "Each task must wait for the one before it, so the chain forces 4 stages one after another."
+        }
+      },
+      {
+        "title": "Choosing the right graph tool",
+        "say": [
+          "You now have four graph tools: BFS (fewest steps), DFS (reachability, cycles), Dijkstra (cheapest with non-negative weights) and topological sort (order of dependencies).",
+          "Read the question for clues. \"Prerequisite\", \"depends on\", \"before\", \"order of tasks\": topological sort. \"Minimum cost\", \"fastest route\": Dijkstra. \"Minimum number of moves\": BFS.",
+          "Topological sort only makes sense on directed graphs. For undirected graphs, questions about groups and connections use components or tomorrow's union-find.",
+          "In interviews, say which tool you picked and why before writing code. It shows you understand the problem, not just a memorised solution.",
+          "Tomorrow completes the set with union-find, a tool for grouping and cycle detection in undirected graphs.",
+          "Keyword matching like the code below is only a first guess. Always confirm by asking what the nodes are, whether edges have a direction, whether they have costs, and what exactly the question wants back: an order, a distance, a yes or no, or a count."
+        ],
+        "example": "A toolbox: you would not use a hammer on a screw. Recognising the problem type picks the tool before you start working.",
+        "code": "def pick_graph_tool(question):\n    q = question.lower()\n    if any(w in q for w in [\"prerequisite\", \"depends\", \"order of tasks\"]):\n        return \"topological sort\"\n    if any(w in q for w in [\"cheapest\", \"minimum cost\", \"fastest\"]):\n        return \"Dijkstra\"\n    if any(w in q for w in [\"fewest moves\", \"minimum number of steps\"]):\n        return \"BFS\"\n    return \"DFS or BFS\"\n\nfor q in [\"Course prerequisites: find an order\", \"Cheapest flight from Delhi to Goa\", \"Fewest moves for a knight\", \"Are these two computers connected?\"]:\n    print(pick_graph_tool(q), \"<-\", q)",
+        "output": "topological sort <- Course prerequisites: find an order\nDijkstra <- Cheapest flight from Delhi to Goa\nBFS <- Fewest moves for a knight\nDFS or BFS <- Are these two computers connected?",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Dependency words point to topological sort."
+          }
+        ],
+        "tryIt": "Add a question of your own, for example \"Which pages can I reach from the home page?\". Does the function pick a sensible tool?",
+        "check": {
+          "question": "A question asks for an installation order of software packages that depend on each other. Which tool fits?",
+          "options": [
+            "Dijkstra",
+            "Topological sort",
+            "Binary search"
+          ],
+          "answer": 1,
+          "why": "Dependencies define a DAG, and a topological sort gives an order that installs every dependency first."
+        }
+      }
+    ],
+    "summary": [
+      "Dependencies form a directed graph; with no cycles it is a DAG.",
+      "In-degree counts prerequisites; in-degree 0 means ready now.",
+      "Kahn's algorithm repeatedly takes ready tasks and unlocks others: O(V + E).",
+      "If the order misses nodes, there is a cycle and no valid order.",
+      "Rounds of ready tasks are stages that can run in parallel."
+    ],
+    "projectStep": {
+      "title": "Dependency tools",
+      "steps": [
+        "Add find_order(n, prerequisites) and can_finish(n, prerequisites) to dsa_toolkit.py.",
+        "Write the prerequisites of 6 subjects you know and print a valid study order.",
+        "Bonus: add build_stages(deps) and try it on the steps of a recipe."
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "title": "Disjoint Set Union (Union-Find) with Path Compression",
+    "goal": "You can group items with union-find (disjoint set union), use path compression and union by rank, and find the edge that creates a cycle.",
+    "minutes": 30,
+    "recap": "Yesterday you ordered dependencies with topological sort. Today's tool answers \"are these two in the same group?\" almost instantly, even as groups merge.",
+    "parts": [
+      {
+        "title": "Groups that merge over time",
+        "say": [
+          "Some problems keep merging groups: friend requests join friend circles, new cables join computer networks, and new roads join towns.",
+          "You need two operations: find(x), which tells you which group x is in, and union(x, y), which merges x's group with y's.",
+          "Running BFS after every merge would be O(V + E) each time. Union-find (also called disjoint set union, DSU) does both operations in nearly O(1).",
+          "The idea: each group is a tree, and every item points to a parent. The root of the tree is the group's representative. find follows parents up to the root.",
+          "Two items are in the same group exactly when find gives the same root for both."
+        ],
+        "example": "Every family nominates a head. To know if two people are related, ask each of them \"who is your family head?\" and compare the answers. Merging families means one head agrees to report to the other.",
+        "code": "parent = {name: name for name in [\"asha\", \"bala\", \"chitra\", \"dev\"]}\n\ndef find(x):\n    while parent[x] != x:\n        x = parent[x]\n    return x\n\ndef union(a, b):\n    parent[find(a)] = find(b)\n\nunion(\"asha\", \"bala\")\nunion(\"chitra\", \"dev\")\nprint(find(\"asha\") == find(\"bala\"), find(\"asha\") == find(\"dev\"))\nunion(\"bala\", \"dev\")\nprint(find(\"asha\") == find(\"dev\"))",
+        "output": "True False\nTrue",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Everyone starts as the head of their own group."
+          },
+          {
+            "line": 4,
+            "note": "Follow parents up to the root."
+          },
+          {
+            "line": 9,
+            "note": "Merge: one root points to the other."
+          }
+        ],
+        "tryIt": "Print parent after the three unions. You can see the chain of \"reports to\" links.",
+        "check": {
+          "question": "How do you check whether x and y are in the same group?",
+          "options": [
+            "Compare x and y directly",
+            "Check if find(x) == find(y)",
+            "Count the group sizes"
+          ],
+          "answer": 1,
+          "why": "Each group has one root; two items share a group exactly when they have the same root."
+        }
+      },
+      {
+        "title": "Path compression",
+        "say": [
+          "Without care, the trees can become long chains, and find becomes slow, O(N) in the worst case.",
+          "Path compression fixes this. After find(x) discovers the root, it points x (and every node on the way) straight at the root. The next find for any of them takes one step.",
+          "The recursive version is short: parent[x] = find(parent[x]); return parent[x].",
+          "Path compression changes the tree shape but never the group membership, so answers stay correct.",
+          "Combined with union by rank (next part), the average cost per operation becomes O(alpha(N)), where alpha grows so slowly that it is below 5 for any number of items in the universe. In practice: constant."
+        ],
+        "example": "After asking \"who is your family head?\" through a long chain of relatives, everyone on that chain writes the head's name down, so next time they answer at once.",
+        "code": "parent = [0, 0, 1, 2, 3]\n\ndef find(x):\n    if parent[x] != x:\n        parent[x] = find(parent[x])\n    return parent[x]\n\nprint(\"before:\", parent)\nprint(\"find(4) =\", find(4))\nprint(\"after: \", parent)",
+        "output": "before: [0, 0, 1, 2, 3]\nfind(4) = 0\nafter:  [0, 0, 0, 0, 0]",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "A chain: 4 -> 3 -> 2 -> 1 -> 0."
+          },
+          {
+            "line": 5,
+            "note": "Point x straight at the root on the way back."
+          }
+        ],
+        "tryIt": "Call find(4) again after the first call. It now takes just one step.",
+        "check": {
+          "question": "What does path compression do?",
+          "options": [
+            "Deletes nodes from a group",
+            "Points nodes on the find path directly at the root",
+            "Sorts the groups"
+          ],
+          "answer": 1,
+          "why": "After finding the root, every node visited is re-linked to the root, flattening the tree."
+        }
+      },
+      {
+        "title": "Union by rank and the UnionFind class",
+        "say": [
+          "Practice 1 builds a UnionFind class for nodes 0 to n - 1 with find, union and connected.",
+          "Union by rank keeps trees shallow: attach the shorter tree under the taller one. rank is an estimate of each root's height, and it only grows when two trees of the same rank are joined.",
+          "union(x, y) should return False when x and y are already in the same group (nothing to merge) and True after a real merge. That return value is what cycle detection needs.",
+          "Keeping a count of groups, reduced by one on every real merge, answers \"how many groups are there?\" in O(1).",
+          "This class is only about 20 lines and appears in many interview problems, so it is worth writing until you can do it from memory."
+        ],
+        "example": "When two companies merge, the smaller one usually becomes a division of the larger, rather than the other way round. That keeps the chain of command short.",
+        "code": "class UnionFind:\n    def __init__(self, n):\n        self.parent = list(range(n))\n        self.rank = [0] * n\n        self.groups = n\n\n    def find(self, x):\n        if self.parent[x] != x:\n            self.parent[x] = self.find(self.parent[x])\n        return self.parent[x]\n\n    def union(self, x, y):\n        rx, ry = self.find(x), self.find(y)\n        if rx == ry:\n            return False\n        if self.rank[rx] < self.rank[ry]:\n            rx, ry = ry, rx\n        self.parent[ry] = rx\n        if self.rank[rx] == self.rank[ry]:\n            self.rank[rx] += 1\n        self.groups -= 1\n        return True\n\n    def connected(self, x, y):\n        return self.find(x) == self.find(y)\n\nuf = UnionFind(5)\nprint(uf.union(0, 1), uf.union(1, 2), uf.union(0, 2))\nprint(uf.connected(0, 2), uf.connected(0, 3), \"groups:\", uf.groups)",
+        "output": "True True False\nTrue False groups: 3",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Already in the same group: nothing to merge."
+          },
+          {
+            "line": 17,
+            "note": "Make rx the taller tree."
+          },
+          {
+            "line": 21,
+            "note": "A real merge: one group fewer."
+          }
+        ],
+        "tryIt": "Union 3 and 4 as well, then print uf.groups. There are now 2 groups: {0, 1, 2} and {3, 4}.",
+        "check": {
+          "question": "What does union(x, y) return when x and y are already connected?",
+          "options": [
+            "True",
+            "False",
+            "The group size"
+          ],
+          "answer": 1,
+          "why": "Nothing is merged, so it returns False, which signals that adding this link would close a loop."
+        }
+      },
+      {
+        "title": "Finding the redundant connection",
+        "say": [
+          "Practice 2: a network of n computers was a tree, and then one extra cable was added, creating a loop. Find the first edge in the list that connects two computers already connected.",
+          "Go through the edges in order and union their ends. The moment union returns False, both ends were already connected, so this edge is the redundant one.",
+          "This is cycle detection in an undirected graph in O(E alpha(V)), without any BFS or DFS.",
+          "Nodes here are numbered from 1 to n, so make the UnionFind one bigger (size n + 1) and ignore index 0.",
+          "The same trick finds which road, pipe or cable closes a loop in any network."
+        ],
+        "example": "Laying phone cables between villages one at a time from a list. If a new cable joins two villages that can already call each other, that cable was not needed.",
+        "code": "def find_redundant(edges):\n    parent = list(range(len(edges) + 1))\n    def find(x):\n        if parent[x] != x:\n            parent[x] = find(parent[x])\n        return parent[x]\n    for a, b in edges:\n        ra, rb = find(a), find(b)\n        if ra == rb:\n            return [a, b]\n        parent[ra] = rb\n    return []\n\nprint(find_redundant([[1, 2], [1, 3], [2, 3]]))\nprint(find_redundant([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]]))",
+        "output": "[2, 3]\n[1, 4]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "One slot per computer; index 0 is unused."
+          },
+          {
+            "line": 10,
+            "note": "Already connected: this edge closes a loop."
+          }
+        ],
+        "tryIt": "Move [1, 4] to the end of the second list. Before running, trace which edge is now reported first, then run it to check your trace.",
+        "check": {
+          "question": "In find_redundant, when is an edge reported?",
+          "options": [
+            "When it is the longest",
+            "When its two ends already have the same root",
+            "When it is the last edge"
+          ],
+          "answer": 1,
+          "why": "Same root means the two computers were already connected, so this edge creates a cycle."
+        }
+      },
+      {
+        "title": "Kruskal's minimum spanning tree",
+        "say": [
+          "A minimum spanning tree (MST) connects all nodes with the cheapest total edge cost and no loops. Think: the cheapest way to lay cables so every building is connected.",
+          "Kruskal's algorithm sorts the edges from cheapest to most expensive and adds each one if it joins two different groups. union returning False means it would make a loop, so skip it.",
+          "Sorting is O(E log E); the union-find work is almost O(E). Stop early once V - 1 edges are chosen, because a tree on V nodes has exactly V - 1 edges.",
+          "MSTs are used to design networks, electricity grids and road plans, and also in clustering data.",
+          "This is union-find's most famous use and a common interview question."
+        ],
+        "example": "Connecting five villages to the power grid with the least wire: always build the shortest remaining link, unless those two villages are already connected through others.",
+        "code": "def kruskal(n, edges):\n    parent = list(range(n))\n    def find(x):\n        if parent[x] != x:\n            parent[x] = find(parent[x])\n        return parent[x]\n    total, chosen = 0, []\n    for w, a, b in sorted(edges):\n        ra, rb = find(a), find(b)\n        if ra != rb:\n            parent[ra] = rb\n            total += w\n            chosen.append((a, b, w))\n    return total, chosen\n\nedges = [(4, 0, 1), (1, 1, 2), (3, 0, 2), (2, 2, 3), (5, 1, 3)]\nprint(kruskal(4, edges))",
+        "output": "(6, [(1, 2, 1), (2, 3, 2), (0, 2, 3)])",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Cheapest edges first."
+          },
+          {
+            "line": 10,
+            "note": "Different groups: this edge adds no loop, so take it."
+          }
+        ],
+        "tryIt": "Change the cost of edge (0, 2) from 3 to 6 and run it again. Kruskal now uses edge (0, 1) instead.",
+        "check": {
+          "question": "Why does Kruskal skip an edge whose ends are already in the same group?",
+          "options": [
+            "It is too expensive",
+            "It would create a loop",
+            "It is a duplicate"
+          ],
+          "answer": 1,
+          "why": "Both ends are already connected, so adding the edge would form a cycle, which a spanning tree cannot have."
+        }
+      },
+      {
+        "title": "Union-find or BFS?",
+        "say": [
+          "Both union-find and BFS/DFS can count groups and detect cycles in undirected graphs. Which should you use?",
+          "If the graph is given all at once and you ask one question, BFS or DFS is simple and fine.",
+          "If edges keep arriving and you must answer \"are these connected?\" after each one, union-find wins: nearly O(1) per operation, instead of a whole new search each time.",
+          "Union-find cannot easily split groups apart again, and it does not give paths between nodes. For those, you still need graph searches.",
+          "Knowing when a structure fits, and when it does not, is the skill interviews are really testing."
+        ],
+        "example": "A wedding guest list growing as RSVPs arrive: after each reply you want to know whether two families are now linked. Updating family heads as you go beats re-reading every reply each time.",
+        "code": "import random\n\nrandom.seed(3)\nn = 1000\nparent = list(range(n))\ndef find(x):\n    while parent[x] != x:\n        parent[x] = parent[parent[x]]\n        x = parent[x]\n    return x\n\ngroups = n\nfor step in range(1, 3001):\n    a, b = random.randrange(n), random.randrange(n)\n    ra, rb = find(a), find(b)\n    if ra != rb:\n        parent[ra] = rb\n        groups -= 1\n    if step % 1000 == 0:\n        print(\"after\", step, \"random links:\", groups, \"groups\")",
+        "output": "after 1000 random links: 171 groups\nafter 2000 random links: 19 groups\nafter 3000 random links: 1 groups",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "A loop version of path compression: point to the grandparent while walking up."
+          },
+          {
+            "line": 18,
+            "note": "Each real merge reduces the group count by one."
+          }
+        ],
+        "tryIt": "Change the number of links to 6000. How close does the network get to a single group?",
+        "check": {
+          "question": "When is union-find a better choice than running BFS each time?",
+          "options": [
+            "When edges keep arriving and connectivity is asked after each one",
+            "When you need the actual path",
+            "When groups must be split apart"
+          ],
+          "answer": 0,
+          "why": "Union-find answers \"connected?\" in almost O(1) as edges arrive, while BFS would redo a whole search each time."
+        }
+      }
+    ],
+    "summary": [
+      "Union-find keeps groups as trees; find returns the root, union merges two roots.",
+      "Path compression flattens trees during find.",
+      "Union by rank attaches the shorter tree under the taller one.",
+      "union returning False means the two items were already connected: a cycle.",
+      "Kruskal's MST adds the cheapest edges that join different groups."
+    ],
+    "projectStep": {
+      "title": "Union-find tools",
+      "steps": [
+        "Add the UnionFind class (find, union, connected, groups) to dsa_toolkit.py.",
+        "Add find_redundant(edges) and test it on a small network with one extra cable.",
+        "Bonus: add kruskal(n, edges) and find the cheapest way to connect 5 places you choose."
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "title": "Dynamic Programming: 1D Memoization vs Tabulation",
+    "goal": "You can solve problems with overlapping subproblems using memoization and tabulation, including house robber and climbing stairs.",
+    "minutes": 30,
+    "recap": "Yesterday you grouped items with union-find. Today begins dynamic programming: remembering answers to small problems so big ones become fast.",
+    "parts": [
+      {
+        "title": "What dynamic programming is",
+        "say": [
+          "Dynamic programming (DP) solves a problem by breaking it into smaller subproblems, solving each subproblem once, and reusing the answers.",
+          "It works when two things are true. Overlapping subproblems: the same small problem appears again and again. Optimal substructure: the best answer to the big problem is built from best answers to smaller ones.",
+          "You met the warning sign on Day 11: plain recursive fib(n) makes over a million calls for n = 30 because it solves fib(28) and the rest again and again.",
+          "DP turns that exponential work into linear work by storing each answer. The name sounds grand, but the idea is simply \"do not work anything out twice\".",
+          "DP questions are among the most common in product-company interviews, so the next three days are worth your full attention."
+        ],
+        "example": "If someone asks you 1 + 1 + 1 + 1 + 1, you count 5. If they add \"+ 1\", you do not recount; you say 6. You remembered the earlier answer. That is dynamic programming.",
+        "code": "calls = 0\ndef fib(n):\n    global calls\n    calls += 1\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\nfor n in [10, 20, 25]:\n    calls = 0\n    print(\"fib(\" + str(n) + \") =\", fib(n), \"with\", calls, \"calls\")",
+        "output": "fib(10) = 55 with 177 calls\nfib(20) = 6765 with 21891 calls\nfib(25) = 75025 with 242785 calls",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Two calls per call: the same values are recomputed many times."
+          }
+        ],
+        "tryIt": "Add 30 to the list and notice how long it takes. That delay is exponential growth.",
+        "check": {
+          "question": "Which two properties make a problem suitable for dynamic programming?",
+          "options": [
+            "Sorted input and small numbers",
+            "Overlapping subproblems and optimal substructure",
+            "Recursion and loops"
+          ],
+          "answer": 1,
+          "why": "The same subproblems repeat (so storing helps), and the best overall answer is built from best sub-answers."
+        }
+      },
+      {
+        "title": "Memoization: top-down DP",
+        "say": [
+          "Memoization keeps the recursive code but stores each answer in a dict (the memo) the first time it is computed. Next time, it returns the stored answer immediately.",
+          "This is top-down: you start from the big problem and recurse down, filling the memo on the way back up.",
+          "In Python, @lru_cache(maxsize=None) adds memoization to a function in one line, as you saw on Day 5 and Day 11.",
+          "With a memo, fib(n) makes about 2n calls instead of an exponential number: O(N) time and O(N) memory.",
+          "Memoization is often the easiest way to start a DP problem: write the plain recursion first, check it on small inputs, then add the memo."
+        ],
+        "example": "Keeping a notebook of answers while doing homework: before working out a question, check the notebook. If the answer is there, copy it; if not, work it out and write it down.",
+        "code": "from functools import lru_cache\n\nmemo = {}\ndef fib_memo(n):\n    if n < 2:\n        return n\n    if n not in memo:\n        memo[n] = fib_memo(n - 1) + fib_memo(n - 2)\n    return memo[n]\n\n@lru_cache(maxsize=None)\ndef fib_cached(n):\n    return n if n < 2 else fib_cached(n - 1) + fib_cached(n - 2)\n\nprint(fib_memo(50), fib_cached(50))\nprint(\"answers stored:\", len(memo))",
+        "output": "12586269025 12586269025\nanswers stored: 49",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Only compute an answer we have not stored yet."
+          },
+          {
+            "line": 11,
+            "note": "lru_cache does the same bookkeeping for you."
+          }
+        ],
+        "tryIt": "Print fib_memo(200). It is instant, and the number has 42 digits.",
+        "check": {
+          "question": "What does memoization store?",
+          "options": [
+            "The input list",
+            "The answer to each subproblem, the first time it is computed",
+            "Only the final answer"
+          ],
+          "answer": 1,
+          "why": "Each subproblem's answer is saved, so every later request for it is a quick lookup."
+        }
+      },
+      {
+        "title": "Tabulation: bottom-up DP",
+        "say": [
+          "Tabulation fills a table from the smallest subproblems upwards, with a loop instead of recursion. dp[i] holds the answer for size i.",
+          "For fib, dp[0] = 0, dp[1] = 1, and each dp[i] = dp[i - 1] + dp[i - 2]. By the time you need dp[i], the entries it depends on are already filled.",
+          "Tabulation avoids recursion limits and function-call overhead, so it is often a little faster and safe for very large n.",
+          "Often you only need the last few entries. Keeping just two variables instead of the whole table cuts memory from O(N) to O(1).",
+          "Top-down or bottom-up: both are dynamic programming. Use whichever is clearer to you, then optimise."
+        ],
+        "example": "Building a staircase from the ground up: each new step rests on the ones below it, which are already built.",
+        "code": "def fib_table(n):\n    if n < 2:\n        return n\n    dp = [0] * (n + 1)\n    dp[1] = 1\n    for i in range(2, n + 1):\n        dp[i] = dp[i - 1] + dp[i - 2]\n    return dp[n]\n\ndef fib_two_vars(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nprint(fib_table(30), fib_two_vars(30), fib_two_vars(90))",
+        "output": "832040 832040 2880067194370816120",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Each entry uses two entries that are already filled."
+          },
+          {
+            "line": 13,
+            "note": "Only the last two values are needed: O(1) memory."
+          }
+        ],
+        "tryIt": "Print fib_table(10) and the whole dp list inside the function to see the table fill up.",
+        "check": {
+          "question": "What is the main difference between memoization and tabulation?",
+          "options": [
+            "Only tabulation stores answers",
+            "Memoization recurses top-down; tabulation loops bottom-up",
+            "Tabulation is always slower"
+          ],
+          "answer": 1,
+          "why": "Both store sub-answers; memoization starts from the top with recursion, tabulation fills a table from the bottom."
+        }
+      },
+      {
+        "title": "Climbing stairs",
+        "say": [
+          "Practice 2: how many different ways can you climb n stairs taking 1 or 2 steps at a time?",
+          "Think about the last move. To reach stair n, you were either on stair n - 1 (then took 1 step) or on stair n - 2 (then took 2 steps). So ways(n) = ways(n - 1) + ways(n - 2).",
+          "The base cases: ways(1) = 1 and ways(2) = 2 (1 + 1, or 2). It is the Fibonacci pattern in disguise.",
+          "This \"think about the last move\" question is the key to most DP problems. Write the answer for n in terms of answers for smaller n.",
+          "With two variables, the solution is O(N) time and O(1) space."
+        ],
+        "example": "Walking up the steps of a temple: your last move was either one step or two. The number of ways to reach the top is the ways to reach the step below plus the ways to reach the step two below.",
+        "code": "def climb_stairs(n):\n    if n <= 2:\n        return n\n    two_below, one_below = 1, 2\n    for _ in range(3, n + 1):\n        two_below, one_below = one_below, two_below + one_below\n    return one_below\n\nfor n in [1, 2, 3, 4, 5, 10]:\n    print(n, \"stairs:\", climb_stairs(n), \"ways\")",
+        "output": "1 stairs: 1 ways\n2 stairs: 2 ways\n3 stairs: 3 ways\n4 stairs: 5 ways\n5 stairs: 8 ways\n10 stairs: 89 ways",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "ways(1) and ways(2) start the pattern."
+          },
+          {
+            "line": 6,
+            "note": "ways(n) = ways(n - 1) + ways(n - 2)."
+          }
+        ],
+        "tryIt": "List all 5 ways for 4 stairs by hand (for example 1+1+1+1 and 2+2) to check the answer.",
+        "check": {
+          "question": "Why is ways(n) = ways(n - 1) + ways(n - 2) for climbing stairs?",
+          "options": [
+            "It is a formula to memorise",
+            "The last move was either 1 step from n - 1 or 2 steps from n - 2",
+            "Because stairs are Fibonacci numbers"
+          ],
+          "answer": 1,
+          "why": "Every way to reach n ends with a 1-step or a 2-step, so add the ways to reach the two stairs it could come from."
+        }
+      },
+      {
+        "title": "House robber: choose or skip",
+        "say": [
+          "Practice 1: houses in a row hold some money, and you cannot take from two neighbouring houses. What is the most you can take?",
+          "At each house there are two choices. Skip it: you keep the best total up to the previous house. Take it: you add its money to the best total up to two houses back.",
+          "So best(i) = max(best(i - 1), best(i - 2) + money[i]). This is the \"choose or skip\" pattern, and it appears in many DP problems.",
+          "Like climbing stairs, only the last two answers are needed, so two variables are enough.",
+          "Always test the edge cases: no houses (0), one house (its money), and two houses (the bigger one)."
+        ],
+        "example": "Choosing which festival stalls to visit in a street where you cannot visit two stalls side by side: at each stall, decide whether it is worth giving up the stall before it.",
+        "code": "def rob(money):\n    prev2, prev1 = 0, 0\n    for m in money:\n        prev2, prev1 = prev1, max(prev1, prev2 + m)\n    return prev1\n\nprint(rob([2, 7, 9, 3, 1]))\nprint(rob([1, 2, 3, 1]))\nprint(rob([]), rob([5]), rob([5, 10]))",
+        "output": "12\n4\n0 5 10",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Skip this house (prev1) or take it plus the best two back (prev2 + m)."
+          },
+          {
+            "line": 9,
+            "note": "Edge cases: no houses, one house, two houses."
+          }
+        ],
+        "tryIt": "Also record which houses were taken. Hint: keep a list for each of prev1 and prev2. For [2, 7, 9, 3, 1] the houses are 0, 2 and 4.",
+        "check": {
+          "question": "What does rob([2, 1, 1, 2]) return?",
+          "options": [
+            "3",
+            "4",
+            "2"
+          ],
+          "answer": 1,
+          "why": "Take the first and last houses, 2 + 2 = 4; they are not neighbours."
+        }
+      },
+      {
+        "title": "A recipe for DP problems",
+        "say": [
+          "Most DP problems can be solved with the same five steps. One: define what dp[i] means in words, for example \"the most money from the first i houses\".",
+          "Two: write the recurrence, how dp[i] comes from smaller entries. Three: set the base cases. Four: decide the order to fill the table (usually small to big). Five: find where the final answer is.",
+          "Then check the recurrence on a tiny example by hand before trusting the code.",
+          "Finally, look at which entries each step uses. If only the last one or two are needed, shrink the table to a few variables.",
+          "Tomorrow you will use this recipe on coin change and the knapsack problem, and on Day 27 on two-dimensional tables for comparing strings."
+        ],
+        "example": "A cooking recipe: ingredients (base cases), method (recurrence), order of steps (fill order) and where to find the finished dish (the answer). Follow the same recipe every time and DP stops feeling like magic.",
+        "code": "def min_cost_climbing(cost):\n    # dp[i] = cheapest way to stand on step i (you pay a step's cost when you leave it)\n    n = len(cost)\n    dp = [0] * (n + 1)\n    for i in range(2, n + 1):\n        dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])\n    return dp[n]\n\nprint(min_cost_climbing([10, 15, 20]))\nprint(min_cost_climbing([1, 100, 1, 1, 1, 100, 1, 1, 100, 1]))",
+        "output": "15\n6",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Step one of the recipe: say in words what dp[i] means."
+          },
+          {
+            "line": 6,
+            "note": "The recurrence: arrive from one or two steps below."
+          },
+          {
+            "line": 7,
+            "note": "The answer: the top is just past the last step."
+          }
+        ],
+        "tryIt": "Write the five recipe steps for climbing stairs as comments above climb_stairs in your toolkit.",
+        "check": {
+          "question": "What is the first step of the DP recipe?",
+          "options": [
+            "Write the loop",
+            "Define in words what dp[i] means",
+            "Pick the answer"
+          ],
+          "answer": 1,
+          "why": "A clear definition of dp[i] makes the recurrence, base cases and answer much easier to find."
+        }
+      }
+    ],
+    "summary": [
+      "DP stores answers to overlapping subproblems so each is solved once.",
+      "Memoization: recursion plus a memo (or @lru_cache), top-down.",
+      "Tabulation: a loop filling dp[] from the base cases, bottom-up.",
+      "Climbing stairs and house robber come from thinking about the last move or choice.",
+      "Recipe: define dp[i], recurrence, base cases, fill order, answer."
+    ],
+    "projectStep": {
+      "title": "DP tools",
+      "steps": [
+        "Add climb_stairs(n) and rob(money) to dsa_toolkit.py.",
+        "Add a memoized and a tabulated fib and check they agree for n up to 50.",
+        "Bonus: add min_cost_climbing(cost) and write the five recipe steps as comments."
+      ]
+    }
   }
 ];
