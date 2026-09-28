@@ -50,7 +50,7 @@ test('the checks can reuse the student\'s variable names', async () => {
 });
 
 test('tasks written in JavaScript go to the JavaScript checker, other languages keep theirs', () => {
-  for (const id of ['course-react-web', 'course-dsa-optim', 'course-devops-cicd', 'course-cloud-native', 'course-ai-eng', 'course-nlp']) {
+  for (const id of ['course-react-web', 'course-dsa-optim', 'course-devops-cicd', 'course-quant-systems', 'course-cloud-native', 'course-ai-eng', 'course-nlp']) {
     for (const q of tasks(id)) assert.equal(resolveQuestLanguage(q, q.id), 'javascript', q.id);
   }
   for (const q of tasks('course-python-backend')) assert.equal(resolveQuestLanguage(q, q.id), 'python', q.id);
@@ -92,7 +92,7 @@ function lazyAnswer(starter: string, value: string): string {
 }
 type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
 
-const CHECKED_COURSES = ['course-react-web', 'course-cloud-native', 'course-devops-cicd', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+const CHECKED_COURSES = ['course-react-web', 'course-cloud-native', 'course-devops-cicd', 'course-quant-systems', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
 test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
   // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
