@@ -3554,5 +3554,1194 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add an outbox and a relay that publishes each event exactly once per run."
       ]
     }
+  },
+  {
+    "day": 16,
+    "title": "Physical Clocks, NTP Drift, Lamport Timestamps & Vector Clocks",
+    "goal": "You can explain why physical clocks cannot order events across machines, use Lamport timestamps for a consistent order, and compare vector clocks to detect causality and real conflicts.",
+    "minutes": 30,
+    "recap": "Many earlier lessons relied on time: leases, TTLs, Snowflake IDs. Today you learn why \"what happened first?\" is a hard question across machines, and how logical clocks answer it.",
+    "parts": [
+      {
+        "title": "Physical clocks drift",
+        "say": [
+          "Every server has a quartz clock that runs slightly fast or slow, typically drifting by milliseconds per hour. NTP (Network Time Protocol) corrects them against time servers.",
+          "Corrections can make a clock jump forwards or even backwards, and NTP accuracy over the internet is only a few milliseconds at best.",
+          "So two events on different machines, a few milliseconds apart, cannot be reliably ordered by their timestamps.",
+          "Last-write-wins based on wall-clock time can silently drop the real latest write if the writer's clock was behind.",
+          "The example shows two servers with skewed clocks recording updates to the same record, with the \"wrong\" update winning.",
+          "Google Spanner uses GPS and atomic clocks with a known error bound; most systems instead use logical clocks, which count events rather than seconds."
+        ],
+        "example": "Two friends with watches that differ by two minutes both note when they sent a message. Comparing the notes can put the messages in the wrong order.",
+        "code": "true_time = [1000, 1003]\nskew = {\"server-A\": +5, \"server-B\": -2}\nupdates = [(\"server-A\", \"status=SHIPPED\", true_time[0]), (\"server-B\", \"status=DELIVERED\", true_time[1])]\nstamped = [(t + skew[server], server, value) for server, value, t in updates]\nfor ts, server, value in stamped:\n    print(f\"{server} recorded {value!r} at clock {ts}\")\nwinner = max(stamped)[2]\nprint(\"last-write-wins keeps:\", winner, \"(but DELIVERED really happened later)\")",
+        "output": "server-A recorded 'status=SHIPPED' at clock 1005\nserver-B recorded 'status=DELIVERED' at clock 1001\nlast-write-wins keeps: status=SHIPPED (but DELIVERED really happened later)",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Each server stamps with its own, skewed clock."
+          },
+          {
+            "line": 7,
+            "note": "Comparing timestamps picks the wrong update."
+          }
+        ],
+        "tryIt": "Set both skews to 0 and run again. Which update wins now?",
+        "check": {
+          "question": "Why can wall-clock timestamps order events wrongly across machines?",
+          "options": [
+            "Clocks are too precise",
+            "Clocks drift and are corrected, so machines disagree by milliseconds or more",
+            "Timestamps are rounded to seconds"
+          ],
+          "answer": 1,
+          "why": "Small clock differences can reverse the order of events that happened close together."
+        }
+      },
+      {
+        "title": "Happened-before",
+        "say": [
+          "Leslie Lamport's 1978 paper defined the happened-before relation. Event a happened before b if they are on the same process and a came first, or a is sending a message and b is receiving it, or through a chain of such steps.",
+          "If neither happened before the other, the events are concurrent: no information could have flowed between them.",
+          "Concurrent does not mean \"at the same moment\"; it means \"unaware of each other\". Two edits made an hour apart without syncing are concurrent.",
+          "Thinking in terms of cause and effect, rather than clock time, is the key mental shift of this lesson.",
+          "This relation is what we really care about: could event b have been influenced by event a?",
+          "Logical clocks capture happened-before without looking at real time.",
+          "The example traces a chain of messages between three processes."
+        ],
+        "example": "In a group chat, a reply \"yes, 7 pm works\" clearly came after the question it answers, whatever the phones' clocks say. Two unrelated messages posted by people who had not read each other are concurrent.",
+        "code": "events = [\n    (\"P1\", \"write draft\"),\n    (\"P1\", \"send draft to P2\"),\n    (\"P2\", \"receive draft\"),\n    (\"P2\", \"send review to P3\"),\n    (\"P3\", \"receive review\"),\n    (\"P3\", \"write unrelated note\"),\n]\nfor i, (proc, what) in enumerate(events):\n    print(i, proc, what)\nprint(\"write draft -> receive review: happened-before (through messages)\")",
+        "output": "0 P1 write draft\n1 P1 send draft to P2\n2 P2 receive draft\n3 P2 send review to P3\n4 P3 receive review\n5 P3 write unrelated note\nwrite draft -> receive review: happened-before (through messages)",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Sending and receiving link events on different processes."
+          }
+        ],
+        "tryIt": "Is \"write unrelated note\" concurrent with \"write draft\"? Trace the chain to decide.",
+        "check": {
+          "question": "When are two events concurrent?",
+          "options": [
+            "When they have the same timestamp",
+            "When neither happened before the other",
+            "When they are on the same machine"
+          ],
+          "answer": 1,
+          "why": "Concurrent means no chain of messages links them."
+        }
+      },
+      {
+        "title": "Lamport timestamps",
+        "say": [
+          "A Lamport clock is a counter on each process. Before each local event or send, add 1. Every message carries the sender's counter.",
+          "Practice 2: on receiving, the clock becomes max(local, received) + 1, so the receive event is always later than the send.",
+          "Lamport timestamps guarantee: if a happened before b, then L(a) < L(b). Sorting by (timestamp, process id) gives a total order that every node agrees on.",
+          "The reverse is not true: L(a) < L(b) does not mean a happened before b. Lamport clocks cannot detect concurrency.",
+          "They are enough for many uses, such as ordering operations consistently in a replicated log.",
+          "Adding the process id as a tie-break matters: two events can share a Lamport number, and every node must break the tie the same way.",
+          "The simulation runs three processes exchanging two messages."
+        ],
+        "example": "Numbering pages in a shared notebook: whenever you receive the notebook, you continue from the highest page number anyone has written, plus one.",
+        "code": "def lamport_receive(local, received):\n    return max(local, received) + 1\n\nclock = {\"P1\": 0, \"P2\": 0, \"P3\": 0}\ndef local_event(p):\n    clock[p] += 1\n    return clock[p]\n\nsent = local_event(\"P1\")\nlocal_event(\"P2\"); local_event(\"P2\"); local_event(\"P2\")\nclock[\"P2\"] = lamport_receive(clock[\"P2\"], sent)\nsent2 = local_event(\"P2\")\nclock[\"P3\"] = lamport_receive(clock[\"P3\"], sent2)\nprint(clock)\nprint(lamport_receive(10, 3), lamport_receive(2, 7))",
+        "output": "{'P1': 1, 'P2': 5, 'P3': 6}\n11 8",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Jump past whatever the sender had seen, then add one."
+          },
+          {
+            "line": 11,
+            "note": "P2 had counted to 3; the message from P1 carried 1."
+          }
+        ],
+        "tryIt": "Make P1 do 10 local events before sending. What is P3's final clock?",
+        "check": {
+          "question": "What is lamport_receive(4, 9)?",
+          "options": [
+            "5",
+            "10",
+            "13"
+          ],
+          "answer": 1,
+          "why": "max(4, 9) + 1 = 10."
+        }
+      },
+      {
+        "title": "Vector clocks",
+        "say": [
+          "A vector clock keeps one counter per process: {\"N1\": 2, \"N2\": 1} means \"I have seen 2 events from N1 and 1 from N2\".",
+          "On a local event, a process increases its own entry. On receiving, it takes the element-wise maximum of both clocks, then increases its own entry.",
+          "Vector clocks capture happened-before exactly: A happened before B if every entry of A is less than or equal to B's and at least one is smaller.",
+          "If A is ahead in some entry and B is ahead in another, they are concurrent: a real conflict that needs resolving.",
+          "Dynamo-style databases and some sync tools use vector clocks (or versions based on them) to detect conflicting writes.",
+          "The price is size: a vector clock has one entry per node that ever wrote, so systems with many writers trim or summarise them.",
+          "The example builds two diverging clocks and a merged one."
+        ],
+        "example": "Two people editing copies of the same shopping list: each keeps a tally of the edits they have seen from each person. If each has seen an edit the other has not, their lists conflict.",
+        "code": "def merge(a, b):\n    return {n: max(a.get(n, 0), b.get(n, 0)) for n in set(a) | set(b)}\n\nbase = {\"N1\": 1, \"N2\": 1}\nedit_on_n1 = {**base, \"N1\": base[\"N1\"] + 1}\nedit_on_n2 = {**base, \"N2\": base[\"N2\"] + 1}\nprint(\"N1 after its edit:\", edit_on_n1)\nprint(\"N2 after its edit:\", edit_on_n2)\nmerged = merge(edit_on_n1, edit_on_n2)\nmerged[\"N1\"] += 1\nprint(\"N1 after receiving N2's edit:\", dict(sorted(merged.items())))",
+        "output": "N1 after its edit: {'N1': 2, 'N2': 1}\nN2 after its edit: {'N1': 1, 'N2': 2}\nN1 after receiving N2's edit: {'N1': 3, 'N2': 2}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Element-wise maximum of two clocks."
+          },
+          {
+            "line": 5,
+            "note": "Each node increases only its own entry."
+          }
+        ],
+        "tryIt": "Is edit_on_n1 before, after, or concurrent with edit_on_n2? Decide before the next part.",
+        "check": {
+          "question": "What does a vector clock entry {\"N2\": 3} mean?",
+          "options": [
+            "N2 has 3 CPUs",
+            "The holder has seen 3 events from N2",
+            "N2 is 3 seconds behind"
+          ],
+          "answer": 1,
+          "why": "Each entry counts the events seen from that node."
+        }
+      },
+      {
+        "title": "Comparing vector clocks",
+        "say": [
+          "Practice 1: compare_vector_clocks(a, b) returns A_BEFORE_B, B_BEFORE_A, EQUAL or CONCURRENT. A node missing from a clock counts as 0.",
+          "Compute two flags over every node in either clock: a_ahead (some entry of a is bigger) and b_ahead (some entry of b is bigger).",
+          "Neither ahead: EQUAL. Only b ahead: A_BEFORE_B. Only a ahead: B_BEFORE_A. Both ahead: CONCURRENT.",
+          "CONCURRENT is the valuable answer: it tells the system that two writes truly conflict and must be merged or shown to the user.",
+          "Using set(a) | set(b) makes sure nodes present in only one clock are compared too.",
+          "The examples cover all four outcomes."
+        ],
+        "example": "Comparing two students' progress charts across subjects: if one is ahead or equal in every subject, they are ahead overall; if each leads in some subject, neither is simply ahead.",
+        "code": "def compare_vector_clocks(a, b):\n    nodes = set(a) | set(b)\n    a_ahead = any(a.get(n, 0) > b.get(n, 0) for n in nodes)\n    b_ahead = any(b.get(n, 0) > a.get(n, 0) for n in nodes)\n    if a_ahead and b_ahead:\n        return \"CONCURRENT\"\n    if b_ahead:\n        return \"A_BEFORE_B\"\n    if a_ahead:\n        return \"B_BEFORE_A\"\n    return \"EQUAL\"\n\nprint(compare_vector_clocks({\"N1\": 1}, {\"N1\": 2, \"N2\": 1}))\nprint(compare_vector_clocks({\"N1\": 3, \"N2\": 1}, {\"N1\": 2, \"N2\": 1}))\nprint(compare_vector_clocks({\"N1\": 2, \"N2\": 1}, {\"N1\": 1, \"N2\": 2}))\nprint(compare_vector_clocks({\"N1\": 1, \"N2\": 0}, {\"N1\": 1}))",
+        "output": "A_BEFORE_B\nB_BEFORE_A\nCONCURRENT\nEQUAL",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Every node that appears in either clock."
+          },
+          {
+            "line": 5,
+            "note": "Each is ahead somewhere: a real conflict."
+          }
+        ],
+        "tryIt": "Compare the two edits from the previous part with this function.",
+        "check": {
+          "question": "Clocks {\"N1\": 2, \"N2\": 1} and {\"N1\": 1, \"N2\": 2} are...",
+          "options": [
+            "A_BEFORE_B",
+            "EQUAL",
+            "CONCURRENT"
+          ],
+          "answer": 2,
+          "why": "Each clock is ahead in one entry, so the events are concurrent."
+        }
+      },
+      {
+        "title": "Resolving conflicts",
+        "say": [
+          "When writes are concurrent, the system must choose what to keep. Options: last-write-wins (simple, but loses data), keep both and let the application or user merge (like \"conflicted copy\" files), or use data types that merge automatically.",
+          "Shopping carts in Amazon's original Dynamo kept both versions and merged them by union, so no added item was lost (though deleted items could reappear).",
+          "Collaborative editors merge character-level edits automatically using special algorithms.",
+          "Git does something similar for code: it detects concurrent edits to the same lines and asks a person to resolve them.",
+          "The cleanest general solution for many data types is the CRDT, which is tomorrow's topic.",
+          "Whatever you choose, make it deterministic: every replica must reach the same result when it sees the same writes.",
+          "The example merges two concurrent carts by union."
+        ],
+        "example": "Two family members each add items to a shared shopping list while offline. When they sync, the sensible merge keeps every item either of them added.",
+        "code": "cart_phone = {\"rice\", \"dal\", \"ghee\"}\ncart_laptop = {\"rice\", \"dal\", \"jaggery\"}\nmerged = cart_phone | cart_laptop\nprint(\"merged cart:\", sorted(merged))\nlww = cart_laptop\nprint(\"last-write-wins would keep:\", sorted(lww), \"(ghee lost)\")",
+        "output": "merged cart: ['dal', 'ghee', 'jaggery', 'rice']\nlast-write-wins would keep: ['dal', 'jaggery', 'rice'] (ghee lost)",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Union keeps every added item."
+          },
+          {
+            "line": 5,
+            "note": "Last-write-wins silently drops the other change."
+          }
+        ],
+        "tryIt": "If the phone user had removed \"dal\", what would the union merge do? Why is that a problem?",
+        "check": {
+          "question": "Why is last-write-wins risky for concurrent writes?",
+          "options": [
+            "It is slow",
+            "It silently throws away one of the conflicting changes",
+            "It needs vector clocks"
+          ],
+          "answer": 1,
+          "why": "Only one version survives; the other edit is lost without anyone noticing."
+        }
+      }
+    ],
+    "summary": [
+      "Physical clocks drift and jump, so timestamps cannot reliably order events across machines.",
+      "Happened-before links events through process order and messages; others are concurrent.",
+      "Lamport clocks: receive = max(local, received) + 1; they give a consistent total order.",
+      "Vector clocks capture causality and detect concurrent (conflicting) writes.",
+      "Resolve conflicts deterministically: LWW, keep both, or mergeable data types."
+    ],
+    "projectStep": {
+      "title": "Logical clocks",
+      "steps": [
+        "Add lamport_receive and compare_vector_clocks to dist_toolkit.py.",
+        "Simulate three processes exchanging messages and print their Lamport clocks.",
+        "Bonus: create two concurrent vector clocks and merge them."
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "Conflict-Free Replicated Data Types (CRDTs): G-Counter, PN-Counter & LWW-Set",
+    "goal": "You can explain why CRDTs converge without coordination, build G-Counters and PN-Counters with max-based merge, resolve last-writer-wins registers deterministically, and choose CRDTs for offline and multi-region data.",
+    "minutes": 30,
+    "recap": "Yesterday vector clocks detected conflicting writes. Today you use data types designed so that conflicts merge automatically: CRDTs.",
+    "parts": [
+      {
+        "title": "Merging without coordination",
+        "say": [
+          "A CRDT (conflict-free replicated data type) is a data structure that replicas can update independently and later merge, always reaching the same result.",
+          "The merge must be commutative (order does not matter), associative (grouping does not matter) and idempotent (merging the same thing twice changes nothing).",
+          "With those properties, replicas can exchange state in any order, any number of times, over unreliable networks, and still converge.",
+          "That means no leader, no locks and no waiting: each replica accepts writes immediately, even while offline.",
+          "CRDTs power collaborative apps, offline-first mobile apps, and multi-region databases such as Redis Enterprise and Riak.",
+          "The example shows why a naive counter fails: adding replica totals double-counts.",
+          "Choosing the right structure makes the merge rule simple and safe."
+        ],
+        "example": "Three shop branches counting footfall. If each simply reported \"total visitors so far\" and head office added the reports every hour, repeated reports would double-count.",
+        "code": "branch_counts = {\"A\": 5, \"B\": 3}\nnaive_total = 0\nfor report in [branch_counts, branch_counts]:\n    naive_total += sum(report.values())\nprint(\"adding the same report twice:\", naive_total, \"(wrong, should be 8)\")\nmerged = {}\nfor report in [branch_counts, branch_counts]:\n    for b, c in report.items():\n        merged[b] = max(merged.get(b, 0), c)\nprint(\"merging with max per branch:\", sum(merged.values()))",
+        "output": "adding the same report twice: 16 (wrong, should be 8)\nmerging with max per branch: 8",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Addition is not idempotent: repeats double-count."
+          },
+          {
+            "line": 9,
+            "note": "Max per branch: repeats change nothing."
+          }
+        ],
+        "tryIt": "Merge a newer report {\"A\": 7, \"B\": 3} as well. What is the total now?",
+        "check": {
+          "question": "Which property means merging the same state twice changes nothing?",
+          "options": [
+            "Commutative",
+            "Idempotent",
+            "Associative"
+          ],
+          "answer": 1,
+          "why": "An idempotent merge gives the same result however many times it is repeated."
+        }
+      },
+      {
+        "title": "The G-Counter",
+        "say": [
+          "A grow-only counter (G-Counter) keeps one entry per node. Each node increments only its own entry.",
+          "The value is the sum of all entries. The merge takes the maximum of each entry.",
+          "Because each entry only grows and only its owner changes it, the maximum is always the newest known value for that node.",
+          "A replica that has not heard from node C for a while simply keeps C's old count; the next merge brings it up to date.",
+          "Max is commutative, associative and idempotent, so the merge satisfies all three properties.",
+          "G-Counters are ideal for likes, views and other counts that only go up.",
+          "The example increments on two replicas, merges both ways, and gets the same value."
+        ],
+        "example": "A scoreboard where each player writes only their own score, and only upwards. Combining two copies means taking the higher number for each player.",
+        "code": "class GCounter:\n    def __init__(self, node):\n        self.node, self.counts = node, {}\n    def increment(self, v=1):\n        self.counts[self.node] = self.counts.get(self.node, 0) + v\n    def value(self):\n        return sum(self.counts.values())\n    def merge(self, other):\n        for n in set(self.counts) | set(other.counts):\n            self.counts[n] = max(self.counts.get(n, 0), other.counts.get(n, 0))\n\na, b = GCounter(\"A\"), GCounter(\"B\")\na.increment(3)\nb.increment(2)\na.merge(b)\nb.merge(a)\na.merge(b)\nprint(a.value(), b.value(), a.counts == b.counts)",
+        "output": "5 5 True",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A node only ever changes its own entry."
+          },
+          {
+            "line": 10,
+            "note": "Merge: the larger value for every node."
+          }
+        ],
+        "tryIt": "Increment b again after the merges, then merge into a. What is the value?",
+        "check": {
+          "question": "Why can a G-Counter merge use max for each entry?",
+          "options": [
+            "Max is fastest",
+            "Each entry only grows and is owned by one node, so the larger value is the newest",
+            "Counters cannot be added"
+          ],
+          "answer": 1,
+          "why": "Ownership plus growth make max the correct combination."
+        }
+      },
+      {
+        "title": "The PN-Counter",
+        "say": [
+          "A G-Counter cannot go down. A PN-Counter combines two G-Counters: P for increments and N for decrements.",
+          "Practice 1: increment adds to this node's P entry, decrement adds to its N entry, value() is sum(P) - sum(N), and merge takes the max of each entry in both P and N.",
+          "Both halves only grow, so the max merge still works, while the value can go up and down.",
+          "Notice that a PN-Counter never stores the current value itself; the value is always computed from the two maps, which is what keeps merging safe.",
+          "Use PN-Counters for stock levels in carts, votes that can be withdrawn, or seat counts that go both ways, when a temporary overshoot is acceptable.",
+          "A PN-Counter cannot stop the value going below zero across replicas, because each replica decides alone. For hard limits you need coordination.",
+          "The example runs increments and decrements on two replicas and merges them."
+        ],
+        "example": "Two notebooks per branch: one for items received and one for items sold. Stock is received minus sold, and each notebook only ever gets new lines.",
+        "code": "class PNCounter:\n    def __init__(self, node):\n        self.node, self.p, self.n = node, {}, {}\n    def increment(self, v=1):\n        self.p[self.node] = self.p.get(self.node, 0) + v\n    def decrement(self, v=1):\n        self.n[self.node] = self.n.get(self.node, 0) + v\n    def value(self):\n        return sum(self.p.values()) - sum(self.n.values())\n    def merge(self, other):\n        for mine, theirs in ((self.p, other.p), (self.n, other.n)):\n            for node in set(mine) | set(theirs):\n                mine[node] = max(mine.get(node, 0), theirs.get(node, 0))\n\nmumbai, delhi = PNCounter(\"mumbai\"), PNCounter(\"delhi\")\nmumbai.increment(10)\ndelhi.increment(5)\nmumbai.decrement(3)\ndelhi.decrement(4)\nmumbai.merge(delhi)\ndelhi.merge(mumbai)\nprint(mumbai.value(), delhi.value())",
+        "output": "8 8",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Increments minus decrements."
+          },
+          {
+            "line": 13,
+            "note": "Max merge on both halves."
+          }
+        ],
+        "tryIt": "Merge mumbai into delhi twice more. Does the value change?",
+        "check": {
+          "question": "Why does a PN-Counter use two grow-only maps?",
+          "options": [
+            "To save memory",
+            "So both maps only grow and the max merge stays correct while the value can fall",
+            "Decrements are not allowed"
+          ],
+          "answer": 1,
+          "why": "Separating increments and decrements keeps each half mergeable with max."
+        }
+      },
+      {
+        "title": "Last-writer-wins registers",
+        "say": [
+          "For a single value (a profile name, a setting), a last-writer-wins (LWW) register keeps the value with the highest timestamp.",
+          "Practice 2: resolve_lww(a, b) compares (ts, node) pairs: higher timestamp wins, and on a tie, the higher node id wins, so every replica picks the same value.",
+          "The tie-break is essential. Without it, two replicas could each keep their own value and never converge.",
+          "LWW is simple but discards the losing write, and clock skew (Day 16) can make an older write win. Use hybrid logical clocks or Lamport timestamps to reduce that risk.",
+          "Always use the same timestamp source for all replicas, and store the timestamp with the value so any replica can compare later.",
+          "LWW suits data where losing a concurrent edit is acceptable, like \"last seen\" times or display settings.",
+          "The example resolves several pairs, including a tie."
+        ],
+        "example": "When two people rename the same WhatsApp group at the same moment, everyone must end up seeing the same name, so a fixed rule decides which rename wins.",
+        "code": "def resolve_lww(a, b):\n    return a[\"value\"] if (a[\"ts\"], a[\"node\"]) > (b[\"ts\"], b[\"node\"]) else b[\"value\"]\n\nx = {\"value\": \"Asha K\", \"ts\": 105, \"node\": \"n1\"}\ny = {\"value\": \"Asha Kumar\", \"ts\": 110, \"node\": \"n2\"}\nz = {\"value\": \"Asha R\", \"ts\": 110, \"node\": \"n3\"}\nprint(resolve_lww(x, y), \"|\", resolve_lww(y, x))\nprint(resolve_lww(y, z), \"|\", resolve_lww(z, y))",
+        "output": "Asha Kumar | Asha Kumar\nAsha R | Asha R",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Timestamp first, then node id to break ties."
+          },
+          {
+            "line": 8,
+            "note": "Same result whichever replica compares."
+          }
+        ],
+        "tryIt": "Remove the node from the comparison and check the tie case. Do both orders still agree?",
+        "check": {
+          "question": "Why does an LWW register need a tie-break on node id?",
+          "options": [
+            "To make it faster",
+            "So replicas with equal timestamps still choose the same value",
+            "Node ids are more accurate than time"
+          ],
+          "answer": 1,
+          "why": "A deterministic tie-break guarantees convergence."
+        }
+      },
+      {
+        "title": "Sets that merge: add-wins sets",
+        "say": [
+          "Sets are harder: if one replica adds \"milk\" and another removes it concurrently, what should the merged set contain?",
+          "A grow-only set (G-Set) allows only additions; merge is union. Simple, but items can never be removed.",
+          "An observed-remove set (OR-Set) tags each addition with a unique id. A remove deletes only the tags it has seen. A concurrent add has a new tag, so it survives: \"add wins\".",
+          "The unique tag can be as simple as the node id plus a counter, which is guaranteed unique without any coordination.",
+          "This matches user expectations in shopping lists and to-do apps: an item re-added on another device is not lost.",
+          "The example shows an add on one replica surviving a concurrent remove on another.",
+          "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists, maps and text."
+        ],
+        "example": "Adding \"milk\" to a shared list from your phone while your partner, who saw an older \"milk\" entry, crosses it off. The fresh \"milk\" you added should stay.",
+        "code": "def merge(a, b):\n    return {\"adds\": a[\"adds\"] | b[\"adds\"], \"removes\": a[\"removes\"] | b[\"removes\"]}\n\ndef items(s):\n    return sorted({item for item, tag in s[\"adds\"] - s[\"removes\"]})\n\nbase = {\"adds\": {(\"milk\", \"t1\")}, \"removes\": set()}\nphone = {\"adds\": base[\"adds\"] | {(\"milk\", \"t2\")}, \"removes\": set()}\nlaptop = {\"adds\": set(base[\"adds\"]), \"removes\": {(\"milk\", \"t1\")}}\nprint(\"phone:\", items(phone), \"laptop:\", items(laptop))\nprint(\"merged:\", items(merge(phone, laptop)))",
+        "output": "phone: ['milk'] laptop: []\nmerged: ['milk']",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Visible items: additions whose tag has not been removed."
+          },
+          {
+            "line": 8,
+            "note": "The phone adds milk again with a new tag, t2."
+          },
+          {
+            "line": 9,
+            "note": "The laptop removes only the tag it saw, t1."
+          }
+        ],
+        "tryIt": "Remove t2 on the laptop as well, then merge. Is milk gone?",
+        "check": {
+          "question": "In an add-wins set, why does a concurrent add survive a remove?",
+          "options": [
+            "Adds are processed first",
+            "The remove only deletes the tags it had seen, and the new add has a new tag",
+            "Removes are ignored"
+          ],
+          "answer": 1,
+          "why": "Unique tags let the set tell old additions from new ones."
+        }
+      },
+      {
+        "title": "When to use CRDTs",
+        "say": [
+          "Use CRDTs when replicas must accept writes independently: offline mobile apps, collaborative editing, and multi-region databases that write locally in each region.",
+          "They give high availability and low latency (AP/EL from Day 2) with guaranteed convergence.",
+          "They cannot enforce global limits, such as \"stock never below zero\" or \"usernames are unique\". Those need coordination.",
+          "A common pattern combines both worlds: CRDTs for most data, plus a small coordinated service for the few decisions that must be globally unique.",
+          "Metadata can grow: per-node entries and tags accumulate. Real implementations compact or garbage-collect them.",
+          "Many teams start with a CRDT library rather than writing their own, since the edge cases, especially for text and lists, are subtle.",
+          "Tomorrow switches to splitting data across servers by key: sharding.",
+          "The decision helper sums up when CRDTs fit."
+        ],
+        "example": "A shared family calendar that works on everyone's phone offline and syncs later: fine for adding events, but not for booking the one family car, which needs a single decision.",
+        "code": "def fits_crdt(needs_offline_writes, needs_global_limit):\n    if needs_global_limit:\n        return \"no: needs coordination (consensus or a single leader)\"\n    return \"yes: CRDT\" if needs_offline_writes else \"maybe: a simpler single-leader design may do\"\n\nfor case, args in {\"likes counter\": (True, False), \"unique username\": (True, True), \"shared notes\": (True, False), \"admin settings\": (False, False)}.items():\n    print(f\"{case:16} -> {fits_crdt(*args)}\")",
+        "output": "likes counter    -> yes: CRDT\nunique username  -> no: needs coordination (consensus or a single leader)\nshared notes     -> yes: CRDT\nadmin settings   -> maybe: a simpler single-leader design may do",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Global limits cannot be enforced by independent replicas."
+          }
+        ],
+        "tryIt": "Would a CRDT suit a train seat reservation system? Explain using the helper.",
+        "check": {
+          "question": "Which requirement rules out a pure CRDT?",
+          "options": [
+            "Working offline",
+            "A limit like \"stock can never go below zero\"",
+            "Merging in any order"
+          ],
+          "answer": 1,
+          "why": "Independent replicas cannot jointly enforce a global limit without coordination."
+        }
+      }
+    ],
+    "summary": [
+      "CRDT merges are commutative, associative and idempotent, so replicas converge.",
+      "G-Counter: per-node entries, sum for value, max for merge.",
+      "PN-Counter: separate P and N G-Counters; value = P - N.",
+      "LWW registers compare (timestamp, node) for a deterministic winner.",
+      "Add-wins sets tag additions; CRDTs cannot enforce global limits."
+    ],
+    "projectStep": {
+      "title": "CRDTs",
+      "steps": [
+        "Add PNCounter and resolve_lww to dist_toolkit.py.",
+        "Simulate three replicas updating a PN-Counter and merging in different orders.",
+        "Bonus: build a small add-wins set and show a concurrent add surviving."
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "Database Sharding Strategies: Range, Hash & Directory Sharding",
+    "goal": "You can split a database into shards by range, hash or directory, route queries to the right shard, spot hot shards, and plan resharding and cross-shard queries.",
+    "minutes": 30,
+    "recap": "Replication (Days 2 and 9) copies data for safety. When one machine cannot hold or serve all the data, you split it instead: sharding.",
+    "parts": [
+      {
+        "title": "Why shard?",
+        "say": [
+          "A single database server has limits: disk size, memory for indexes, and how many writes per second it can handle.",
+          "Sharding (horizontal partitioning) splits the rows of a table across several servers, each holding a subset: a shard.",
+          "Reads and writes for one key go to one shard, so capacity grows roughly with the number of shards.",
+          "Each shard is usually itself replicated (Day 19), so sharding and replication work together: sharding for capacity, replication for safety and read scale.",
+          "The cost is complexity: routing, queries across shards, rebalancing, and transactions that span shards.",
+          "Many teams delay sharding with bigger machines, read replicas (tomorrow) and caching, and shard only when needed.",
+          "The example estimates when a single server runs out of room."
+        ],
+        "example": "A library that outgrows its building opens branches, each holding books for part of the alphabet. Each branch is smaller and faster to search, but you need to know which branch to visit.",
+        "code": "rows_per_day = 2_000_000\nbytes_per_row = 1_000\nserver_capacity_tb = 4\ndays = server_capacity_tb * 1e12 / (rows_per_day * bytes_per_row)\nprint(f\"one server fills up in about {days:.0f} days ({days / 365:.1f} years)\")\nfor shards in [2, 4, 8]:\n    print(f\"with {shards} shards: about {days * shards / 365:.1f} years\")",
+        "output": "one server fills up in about 2000 days (5.5 years)\nwith 2 shards: about 11.0 years\nwith 4 shards: about 21.9 years\nwith 8 shards: about 43.8 years",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Time until the disk is full."
+          }
+        ],
+        "tryIt": "Double rows_per_day. How many shards keep you going for 5 years?",
+        "check": {
+          "question": "What does sharding split across servers?",
+          "options": [
+            "Copies of the whole table",
+            "The rows of a table, so each server holds a subset",
+            "Only the indexes"
+          ],
+          "answer": 1,
+          "why": "Each shard holds part of the data; together they hold all of it."
+        }
+      },
+      {
+        "title": "Range sharding",
+        "say": [
+          "Range sharding assigns contiguous key ranges to shards: user ids 1 to 1000 on shard 1, 1001 to 2000 on shard 2, and so on.",
+          "Practice 2: range_shard(user_id) returns shard_1 for up to 1000, shard_2 for up to 2000, and shard_3 above that.",
+          "Range queries are efficient: \"all orders from last week\" touches only the shards covering that range.",
+          "Ranges also make it easy to move old data: a shard holding last year's orders can be moved to cheaper storage.",
+          "The danger is hot spots. With increasing ids or timestamps, all new writes land on the last shard, while old shards sit idle.",
+          "Systems like HBase, Bigtable and CockroachDB use ranges and split hot or large ranges automatically.",
+          "The example routes a few ids and shows how new users pile onto the last range."
+        ],
+        "example": "Exam halls allocated by roll number ranges: easy to find your hall, but if most late registrations get the highest numbers, the last hall overflows.",
+        "code": "def range_shard(user_id):\n    if user_id <= 1000:\n        return \"shard_1\"\n    if user_id <= 2000:\n        return \"shard_2\"\n    return \"shard_3\"\n\nprint([range_shard(u) for u in [1, 1000, 1001, 2000, 2001, 99999]])\nnew_signups = range(5000, 5100)\nprint(\"today's 100 new users all go to:\", {range_shard(u) for u in new_signups})",
+        "output": "['shard_1', 'shard_1', 'shard_2', 'shard_2', 'shard_3', 'shard_3']\ntoday's 100 new users all go to: {'shard_3'}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Each shard owns a contiguous range."
+          },
+          {
+            "line": 10,
+            "note": "Increasing ids pile onto the last shard."
+          }
+        ],
+        "tryIt": "Add shard_4 for ids above 3000. Where do the new users go now?",
+        "check": {
+          "question": "What is the main risk of range sharding by increasing id?",
+          "options": [
+            "Range queries are slow",
+            "All new writes hit the last shard, creating a hot spot",
+            "Keys are lost"
+          ],
+          "answer": 1,
+          "why": "Monotonically increasing keys concentrate writes at the end of the range."
+        }
+      },
+      {
+        "title": "Hash and directory sharding",
+        "say": [
+          "Hash sharding applies a hash to the key and takes it modulo the number of shards. Keys spread evenly, even if ids increase.",
+          "The trade-off: range queries must ask every shard, since neighbouring keys are scattered.",
+          "Directory sharding keeps a lookup table from key to shard. It allows any placement, such as giving a huge customer their own shard.",
+          "Practice 1: shard_for_customer(customer_id, directory, num_shards) uses the directory for listed big customers and a hash for everyone else.",
+          "The directory must be fast and highly available, since every query consults it; it is often cached in each app server.",
+          "Directories make it possible to move a single big customer to a new shard without touching anyone else's data.",
+          "Recall Day 4: consistent hashing avoids moving most keys when the number of shards changes."
+        ],
+        "example": "A hospital that assigns most patients to wards by a simple rule, but has a special register sending VIP or complex cases to specific wards.",
+        "code": "def shard_for_customer(customer_id, directory, num_shards=4):\n    if customer_id in directory:\n        return directory[customer_id]\n    h = 0\n    for ch in customer_id:\n        h = (h * 31 + ord(ch)) % 2 ** 32\n    return f\"shard_{h % num_shards}\"\n\ndirectory = {\"megamart\": \"shard_dedicated_1\"}\nfor c in [\"megamart\", \"asha-store\", \"bala-bakes\", \"chai-point\"]:\n    print(f\"{c:12} -> {shard_for_customer(c, directory)}\")",
+        "output": "megamart     -> shard_dedicated_1\nasha-store   -> shard_3\nbala-bakes   -> shard_1\nchai-point   -> shard_0",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Big customers are placed by hand."
+          },
+          {
+            "line": 7,
+            "note": "Everyone else is spread by hash."
+          }
+        ],
+        "tryIt": "Move \"chai-point\" to its own dedicated shard using the directory.",
+        "check": {
+          "question": "What is a downside of hash sharding?",
+          "options": [
+            "Keys are unevenly spread",
+            "Range queries must ask every shard",
+            "It needs a directory"
+          ],
+          "answer": 1,
+          "why": "Hashing scatters neighbouring keys, so ranges touch all shards."
+        }
+      },
+      {
+        "title": "Choosing a shard key",
+        "say": [
+          "The shard key decides everything. A good key spreads load evenly and keeps data that is used together on the same shard.",
+          "For a multi-tenant SaaS app, the tenant (customer) id is often ideal: each customer's data stays together, and queries rarely cross customers.",
+          "It also simplifies privacy and compliance, such as deleting all of one customer's data or keeping a customer in a specific country.",
+          "Low-cardinality keys (like country, with a few values) create uneven shards. Monotonic keys (timestamps) create hot spots with range sharding.",
+          "Measure skew: compare the busiest shard's load with the average. A ratio well above 1 means a hot shard.",
+          "Changing the shard key later is very expensive, so decide carefully and test with realistic data.",
+          "The code measures skew for two candidate keys."
+        ],
+        "example": "Organising a school's files by class section keeps each class's papers together; organising them by the student's first letter scatters a class across many cabinets.",
+        "code": "from collections import Counter\n\norders = [(\"IN\", \"t1\"), (\"IN\", \"t2\"), (\"IN\", \"t3\"), (\"IN\", \"t1\"), (\"US\", \"t4\"), (\"IN\", \"t5\"), (\"SG\", \"t6\"), (\"IN\", \"t2\")]\n\ndef skew(keys, shards=3):\n    load = Counter(hash_key(k) % shards for k in keys)\n    counts = [load.get(s, 0) for s in range(shards)]\n    return max(counts) / (sum(counts) / shards)\n\ndef hash_key(k):\n    return sum(ord(c) for c in k)\n\nprint(f\"by country: skew {skew([c for c, _ in orders]):.2f}\")\nprint(f\"by tenant:  skew {skew([t for _, t in orders]):.2f}\")",
+        "output": "by country: skew 2.62\nby tenant:  skew 1.12",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Busiest shard compared with the average."
+          },
+          {
+            "line": 13,
+            "note": "Most orders are from one country: a hot shard."
+          }
+        ],
+        "tryIt": "Add 10 more orders from different tenants in India. How do the two skews change?",
+        "check": {
+          "question": "Why is \"country\" often a poor shard key?",
+          "options": [
+            "Countries change often",
+            "Few values and uneven sizes create hot shards",
+            "It cannot be hashed"
+          ],
+          "answer": 1,
+          "why": "Low cardinality and skewed distribution concentrate load."
+        }
+      },
+      {
+        "title": "Resharding",
+        "say": [
+          "Data grows and shards fill up, so you will eventually need more shards. Moving data while the system runs is called resharding.",
+          "With hash % N, changing N moves most keys (Day 4). Consistent hashing or a fixed large number of logical shards avoids that.",
+          "A common trick: create many logical shards (say 1024) up front and map them to a few physical servers. Resharding moves whole logical shards to new servers.",
+          "Moves are done online: copy the data, keep copying new changes, then switch routing and delete the old copy.",
+          "During the switch, a short pause in writes for the moving shard, or a double-write period, keeps the old and new copies identical.",
+          "Always test resharding before you urgently need it; doing it for the first time during a crisis is risky.",
+          "The example maps logical shards to servers and moves some to a new server."
+        ],
+        "example": "Packing a house into many small labelled boxes instead of a few huge ones: moving to a bigger house means carrying some boxes to new rooms, not repacking everything.",
+        "code": "LOGICAL = 16\nplacement = {ls: f\"server-{ls % 2}\" for ls in range(LOGICAL)}\n\ndef server_for(key):\n    return placement[sum(map(ord, key)) % LOGICAL]\n\nprint(\"before:\", sorted(set(placement.values())))\nfor ls in range(0, LOGICAL, 3):\n    placement[ls] = \"server-2\"\nprint(\"moved logical shards:\", [ls for ls, s in placement.items() if s == \"server-2\"])\nprint(\"key user-42 now lives on\", server_for(\"user-42\"))",
+        "output": "before: ['server-0', 'server-1']\nmoved logical shards: [0, 3, 6, 9, 12, 15]\nkey user-42 now lives on server-0",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Many logical shards mapped onto few servers."
+          },
+          {
+            "line": 9,
+            "note": "Resharding moves whole logical shards."
+          }
+        ],
+        "tryIt": "How many logical shards did server-2 receive? What share of the data is that?",
+        "check": {
+          "question": "Why create many logical shards up front?",
+          "options": [
+            "To use more disk",
+            "So resharding moves whole logical shards instead of rehashing every key",
+            "Logical shards are faster to query"
+          ],
+          "answer": 1,
+          "why": "A fixed key-to-logical-shard mapping never changes; only placement does."
+        }
+      },
+      {
+        "title": "Queries across shards",
+        "say": [
+          "A query that includes the shard key goes to one shard: fast and simple.",
+          "A query without it (for example \"top 10 products by sales across all customers\") must scatter to every shard and gather the results.",
+          "Scatter-gather is slower and its latency is set by the slowest shard, the fan-out problem from Day 1.",
+          "Joins across shards and multi-shard transactions are hard; they need the sagas and 2PC of earlier lessons, or should be avoided by design.",
+          "Keep cross-shard analytics in a separate system (a data warehouse fed from the shards) rather than running them on live shards.",
+          "Designing the data model so that the most common queries include the shard key is one of the most valuable decisions in a sharded system.",
+          "The example gathers a top-3 across three shards."
+        ],
+        "example": "Asking every branch of a bank for its largest deposits and combining their answers, rather than one branch knowing everything.",
+        "code": "import heapq\n\nshards = {\n    \"shard_0\": [(\"pen\", 120), (\"book\", 540)],\n    \"shard_1\": [(\"bag\", 800), (\"pen\", 90)],\n    \"shard_2\": [(\"shoe\", 650), (\"cap\", 60)],\n}\npartial = [heapq.nlargest(3, rows, key=lambda r: r[1]) for rows in shards.values()]\noverall = heapq.nlargest(3, [r for p in partial for r in p], key=lambda r: r[1])\nprint(\"each shard returns its own top 3, then we merge:\", overall)",
+        "output": "each shard returns its own top 3, then we merge: [('bag', 800), ('shoe', 650), ('book', 540)]",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Scatter: each shard computes a partial answer."
+          },
+          {
+            "line": 9,
+            "note": "Gather: merge the partial answers."
+          }
+        ],
+        "tryIt": "Why is asking each shard for its top 3 enough to find the overall top 3?",
+        "check": {
+          "question": "What is scatter-gather?",
+          "options": [
+            "Moving shards between servers",
+            "Sending a query to every shard and combining the results",
+            "A type of shard key"
+          ],
+          "answer": 1,
+          "why": "Queries without the shard key must ask all shards and merge the answers."
+        }
+      }
+    ],
+    "summary": [
+      "Sharding splits rows across servers when one machine is not enough.",
+      "Range sharding helps range queries but can create hot spots.",
+      "Hash sharding spreads evenly; directories allow custom placement.",
+      "Choose shard keys with high cardinality that keep related data together.",
+      "Use many logical shards for resharding; avoid cross-shard queries where possible."
+    ],
+    "projectStep": {
+      "title": "Sharding",
+      "steps": [
+        "Add shard_for_customer and range_shard to dist_toolkit.py.",
+        "Measure skew for two shard keys on a sample of 50 made-up orders.",
+        "Bonus: implement scatter-gather top-k across three shards."
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Read Replicas, Replication Lag & Read-Your-Own-Writes Consistency",
+    "goal": "You can scale reads with replicas, explain replication lag and its effects, route queries to keep read-your-own-writes consistency, balance reads across replicas, and alert on lag.",
+    "minutes": 30,
+    "recap": "Yesterday you split data with sharding. Most apps read far more than they write, and read replicas are the easiest way to scale those reads.",
+    "parts": [
+      {
+        "title": "Primary and read replicas",
+        "say": [
+          "In primary-replica (leader-follower) replication, all writes go to the primary. The primary streams its changes to one or more replicas.",
+          "Replicas serve reads, so read capacity grows with the number of replicas. Many apps read 10 to 100 times more than they write.",
+          "Replicas also help availability: if the primary fails, a replica can be promoted.",
+          "They can also be placed in other regions, so users far from the primary get fast local reads.",
+          "Replication is usually asynchronous: the primary confirms a write before replicas have it, for speed.",
+          "Lag is usually milliseconds, but it can grow to seconds or minutes under heavy load, and code must be written for the bad case, not the typical one.",
+          "That creates replication lag: a short time when replicas show older data than the primary.",
+          "The example sends reads round-robin to replicas and writes to the primary."
+        ],
+        "example": "A head office publishing price lists that branch offices copy: customers can ask any branch for prices, but a price change reaches branches a little later.",
+        "code": "primary = {\"price:sku-1\": 499}\nreplicas = [dict(primary), dict(primary)]\n\nprimary[\"price:sku-1\"] = 449\nprint(\"primary:\", primary[\"price:sku-1\"])\nprint(\"replicas (before sync):\", [r[\"price:sku-1\"] for r in replicas])\nfor r in replicas:\n    r.update(primary)\nprint(\"replicas (after sync):\", [r[\"price:sku-1\"] for r in replicas])",
+        "output": "primary: 449\nreplicas (before sync): [499, 499]\nreplicas (after sync): [449, 449]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Writes go to the primary only."
+          },
+          {
+            "line": 6,
+            "note": "Replicas lag until changes arrive."
+          }
+        ],
+        "tryIt": "Sync only the first replica. What would two users see if they hit different replicas?",
+        "check": {
+          "question": "What is replication lag?",
+          "options": [
+            "The time to write to the primary",
+            "The delay before replicas receive the primary's changes",
+            "A slow network card"
+          ],
+          "answer": 1,
+          "why": "Asynchronous replicas trail the primary by some time."
+        }
+      },
+      {
+        "title": "The read-your-own-writes problem",
+        "say": [
+          "A user updates their profile photo (a write to the primary), then the page reloads and reads from a lagging replica. The old photo appears, and the user thinks the update failed.",
+          "Read-your-own-writes (RYW) consistency guarantees a user always sees their own changes, even if others may briefly see old data.",
+          "One simple approach: after a user writes, send that user's reads to the primary for a short window, longer than typical lag.",
+          "A cookie or token can carry the last-write time, so any app server handling the user's next request knows to use the primary.",
+          "Other approaches: remember the write's position in the replication log and only read from replicas that have reached it.",
+          "RYW is a session guarantee: it is about one user's experience, not global consistency.",
+          "The example shows the stale read that confuses users."
+        ],
+        "example": "Posting a letter and then asking a local post office whether it has arrived: of course it has not yet, but you wanted to confirm you sent it.",
+        "code": "primary = {\"photo:u1\": \"old.jpg\"}\nreplica = dict(primary)\n\nprimary[\"photo:u1\"] = \"new.jpg\"\nprint(\"user reloads profile from replica:\", replica[\"photo:u1\"], \"<- looks like the update failed\")\nprint(\"user reads from primary:\", primary[\"photo:u1\"])",
+        "output": "user reloads profile from replica: old.jpg <- looks like the update failed\nuser reads from primary: new.jpg",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The replica has not caught up yet."
+          }
+        ],
+        "tryIt": "How long should the \"read from primary\" window be? What information would you need?",
+        "check": {
+          "question": "What does read-your-own-writes guarantee?",
+          "options": [
+            "Everyone sees every write instantly",
+            "A user always sees their own recent changes",
+            "Writes never fail"
+          ],
+          "answer": 1,
+          "why": "It is a per-session guarantee about a user's own writes."
+        }
+      },
+      {
+        "title": "Routing queries by session",
+        "say": [
+          "Practice 1: route_query(op, session, now, replicas). A WRITE records session[\"last_write\"] = now and goes to MASTER.",
+          "A READ within 5000 ms of the session's last write also goes to MASTER. Other reads go to the replicas in turn, using session[\"reads\"] as a counter.",
+          "The session dict belongs to one user, so only that user is pinned to the primary after writing. Everyone else keeps using replicas.",
+          "In a web app, the session could live in a signed cookie or in a shared cache keyed by the user id.",
+          "Round-robin spreads reads evenly across replicas.",
+          "The window (5 seconds here) should comfortably exceed normal lag; monitor lag to confirm.",
+          "The example routes a sequence of operations for one session."
+        ],
+        "example": "After you change your address, the bank's staff check the main system for your account for the next few minutes, while other customers are served from the local copy.",
+        "code": "def route_query(op, session, now, replicas):\n    if op == \"WRITE\":\n        session[\"last_write\"] = now\n        return \"MASTER\"\n    last = session.get(\"last_write\")\n    if last is not None and now - last < 5000:\n        return \"MASTER\"\n    reads = session.get(\"reads\", 0)\n    session[\"reads\"] = reads + 1\n    return replicas[reads % len(replicas)]\n\nsession, replicas = {}, [\"replica-1\", \"replica-2\"]\nfor op, now in [(\"READ\", 0), (\"READ\", 100), (\"WRITE\", 200), (\"READ\", 300), (\"READ\", 5100), (\"READ\", 5300), (\"READ\", 5400)]:\n    print(f\"t={now:>4} {op:5} -> {route_query(op, session, now, replicas)}\")",
+        "output": "t=   0 READ  -> replica-1\nt= 100 READ  -> replica-2\nt= 200 WRITE -> MASTER\nt= 300 READ  -> MASTER\nt=5100 READ  -> MASTER\nt=5300 READ  -> replica-1\nt=5400 READ  -> replica-2",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Remember when this session last wrote."
+          },
+          {
+            "line": 6,
+            "note": "Recent writer: read from the primary."
+          },
+          {
+            "line": 10,
+            "note": "Otherwise take the next replica in turn."
+          }
+        ],
+        "tryIt": "Add a second session that never writes and interleave its reads. Is it ever sent to MASTER?",
+        "check": {
+          "question": "Why store last_write in the session rather than globally?",
+          "options": [
+            "Globals are slow",
+            "Only the user who wrote needs to read from the primary; others can use replicas",
+            "Sessions are encrypted"
+          ],
+          "answer": 1,
+          "why": "Pinning everyone to the primary after any write would defeat the replicas."
+        }
+      },
+      {
+        "title": "Measuring and alerting on lag",
+        "say": [
+          "Lag is measured as time (seconds behind the primary) or as position (bytes or transactions behind in the replication log).",
+          "Practice 2: lag_exceeded(lag_seconds, max_lag) returns True when lag is above the limit.",
+          "When a replica lags too much, remove it from the read pool until it catches up, and alert the team.",
+          "Graphs of lag over time are among the most useful database dashboards: spikes line up with batch jobs, deploys or traffic peaks.",
+          "Common causes: heavy write bursts, long-running queries on the replica, slow disks, or network problems between regions.",
+          "Lag also matters for failover: promoting a lagging replica loses the writes it had not received.",
+          "The example checks several replicas and removes the slow one from routing."
+        ],
+        "example": "A newsreader who is more than a day behind the news is taken off air until they catch up.",
+        "code": "def lag_exceeded(lag_seconds, max_lag=10):\n    return lag_seconds > max_lag\n\nlag = {\"replica-1\": 0.4, \"replica-2\": 14.2, \"replica-3\": 2.1}\nhealthy = [r for r, s in lag.items() if not lag_exceeded(s)]\nfor r, s in lag.items():\n    print(f\"{r}: {s:>5}s {'ALERT, removed from pool' if lag_exceeded(s) else 'ok'}\")\nprint(\"read pool:\", healthy)",
+        "output": "replica-1:   0.4s ok\nreplica-2:  14.2s ALERT, removed from pool\nreplica-3:   2.1s ok\nread pool: ['replica-1', 'replica-3']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Above the limit means too stale to serve."
+          },
+          {
+            "line": 5,
+            "note": "Route reads only to replicas within the limit."
+          }
+        ],
+        "tryIt": "Lower max_lag to 1 second. Which replicas remain in the pool?",
+        "check": {
+          "question": "What should happen to a replica whose lag exceeds the limit?",
+          "options": [
+            "Keep sending it reads",
+            "Remove it from the read pool until it catches up, and alert",
+            "Promote it to primary"
+          ],
+          "answer": 1,
+          "why": "Serving from it would show very stale data."
+        }
+      },
+      {
+        "title": "Synchronous, asynchronous and semi-synchronous",
+        "say": [
+          "Synchronous replication waits for replicas to confirm before acknowledging a write: no lag for those replicas, but slower writes, and a slow replica slows everyone.",
+          "Asynchronous replication acknowledges immediately: fast, but a primary crash can lose recent writes that had not reached any replica.",
+          "Semi-synchronous replication waits for at least one replica: a middle ground that bounds data loss without waiting for all.",
+          "This is the PACELC latency-versus-consistency trade-off from Day 2 in practice.",
+          "Financial systems usually choose at least semi-synchronous replication, because losing an acknowledged payment is unacceptable.",
+          "Cloud databases often let you choose per replica, for example one synchronous replica in the same region and asynchronous ones far away.",
+          "The example compares write latency and potential data loss for the three modes."
+        ],
+        "example": "Sending a document by hand to one colleague and waiting for their signature before telling the client \"done\", while emailing copies to others without waiting.",
+        "code": "replica_ack_ms = [4, 6, 90]\nmodes = {\n    \"synchronous (all)\": max(replica_ack_ms),\n    \"semi-synchronous (1)\": min(replica_ack_ms),\n    \"asynchronous\": 0,\n}\nfor mode, wait in modes.items():\n    loss = \"none\" if mode.startswith(\"synchronous\") else (\"small\" if wait else \"possible\")\n    print(f\"{mode:22} write waits {wait:>3} ms, data loss on primary crash: {loss}\")",
+        "output": "synchronous (all)      write waits  90 ms, data loss on primary crash: none\nsemi-synchronous (1)   write waits   4 ms, data loss on primary crash: small\nasynchronous           write waits   0 ms, data loss on primary crash: possible",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Waiting for every replica means waiting for the slowest."
+          }
+        ],
+        "tryIt": "If the 90 ms replica is in another region, which mode would you choose for a payments database?",
+        "check": {
+          "question": "What does semi-synchronous replication wait for?",
+          "options": [
+            "Every replica",
+            "At least one replica",
+            "No replica"
+          ],
+          "answer": 1,
+          "why": "Waiting for one replica bounds data loss without waiting for the slowest."
+        }
+      },
+      {
+        "title": "Other session guarantees",
+        "say": [
+          "Monotonic reads: a user never sees data go backwards in time. Reading from a fresh replica and then a lagging one can show a comment, then hide it.",
+          "Sticky routing (sending each user to the same replica) gives monotonic reads cheaply.",
+          "If a user's replica fails, move them to another replica that is at least as up to date, or to the primary, to keep the guarantee.",
+          "Consistent prefix reads: if writes happened in an order, readers see them in that order, so an answer never appears before its question.",
+          "These guarantees are weaker than full consistency but cover what users notice most.",
+          "Chat apps, social feeds and comment threads rely on them heavily, because users notice immediately when order looks wrong.",
+          "Tomorrow you will protect services from failing dependencies with circuit breakers.",
+          "The example shows a read going backwards and how sticky routing prevents it."
+        ],
+        "example": "Watching a cricket score on two TVs with different delays: switching between them can make the score go backwards. Sticking to one TV avoids the confusion.",
+        "code": "replica_views = {\"fresh\": [\"post\", \"comment-1\", \"comment-2\"], \"lagging\": [\"post\", \"comment-1\"]}\n\ndef read(replica):\n    return replica_views[replica]\n\nprint(\"alternating replicas:\", [len(read(r)) for r in [\"fresh\", \"lagging\", \"fresh\"]], \"comments seen\")\nuser_replica = {\"u1\": \"lagging\"}\nprint(\"sticky routing:\", [len(read(user_replica[\"u1\"])) for _ in range(3)], \"comments seen\")",
+        "output": "alternating replicas: [3, 2, 3] comments seen\nsticky routing: [2, 2, 2] comments seen",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The count goes 3, 2, 3: time appears to go backwards."
+          },
+          {
+            "line": 8,
+            "note": "Sticking to one replica never goes backwards."
+          }
+        ],
+        "tryIt": "Is sticky routing enough for read-your-own-writes? Why not?",
+        "check": {
+          "question": "What does monotonic reads guarantee?",
+          "options": [
+            "Reads are always fresh",
+            "A user never sees data go backwards in time",
+            "Reads are sorted"
+          ],
+          "answer": 1,
+          "why": "Once a user has seen a version, later reads never show an older one."
+        }
+      }
+    ],
+    "summary": [
+      "Writes go to the primary; replicas serve reads and lag behind.",
+      "Read-your-own-writes: route a user's reads to the primary shortly after they write.",
+      "Spread other reads across replicas round-robin.",
+      "Remove replicas whose lag exceeds a limit, and alert.",
+      "Choose sync, semi-sync or async replication; sticky routing gives monotonic reads."
+    ],
+    "projectStep": {
+      "title": "Read replicas",
+      "steps": [
+        "Add route_query and lag_exceeded to dist_toolkit.py.",
+        "Simulate two sessions, one writing and one only reading, and print where each query goes.",
+        "Bonus: remove lagging replicas from the pool before routing."
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "Circuit Breakers (Resilience4j / Envoy) & Bulkhead Isolation",
+    "goal": "You can explain cascading failures, implement a circuit breaker with closed, open and half-open states, report its status, isolate resources with bulkheads, and add fallbacks.",
+    "minutes": 30,
+    "recap": "Last week you made messages safe to retry. But retrying a dependency that is down makes things worse. Today you learn to fail fast and contain the damage.",
+    "parts": [
+      {
+        "title": "Cascading failures",
+        "say": [
+          "When a dependency (say the payments service) becomes slow, callers wait on it. Their threads and connections fill up with waiting calls.",
+          "Slow is often worse than down: a service that refuses connections fails quickly, while a slow one ties up callers for the full timeout.",
+          "Soon the callers cannot serve anything, even requests that do not need payments. The failure spreads upstream: a cascading failure.",
+          "In microservice systems, one slow service deep in a chain can make a whole website unresponsive within minutes.",
+          "Retries make it worse: every caller retries, multiplying the load on the struggling service.",
+          "The fix is to stop calling a dependency that is clearly failing, fail fast, and give it time to recover.",
+          "Netflix popularised this pattern with its Hystrix library, after seeing how one slow service could take down its whole streaming site.",
+          "The simulation shows threads filling up while a dependency hangs.",
+          "Timeouts (Day 1) limit how long each call waits; circuit breakers stop the calls altogether."
+        ],
+        "example": "One broken ticket machine at a station: the queue for it grows until it blocks the corridor, and people going to other platforms cannot get through.",
+        "code": "pool_size = 10\nbusy = 0\nfor second in range(1, 7):\n    new_calls = 3\n    busy = min(pool_size, busy + new_calls)\n    free = pool_size - busy\n    print(f\"t={second}s: {busy} threads stuck waiting on payments, {free} free for other work\")",
+        "output": "t=1s: 3 threads stuck waiting on payments, 7 free for other work\nt=2s: 6 threads stuck waiting on payments, 4 free for other work\nt=3s: 9 threads stuck waiting on payments, 1 free for other work\nt=4s: 10 threads stuck waiting on payments, 0 free for other work\nt=5s: 10 threads stuck waiting on payments, 0 free for other work\nt=6s: 10 threads stuck waiting on payments, 0 free for other work",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Calls to a hanging dependency never return, so threads pile up."
+          }
+        ],
+        "tryIt": "Add a timeout that frees 2 threads per second. Does the pool still fill up?",
+        "check": {
+          "question": "What is a cascading failure?",
+          "options": [
+            "A slow database query",
+            "A failure in one service spreading to the services that call it",
+            "A network cable fault"
+          ],
+          "answer": 1,
+          "why": "Waiting callers run out of resources and fail too."
+        }
+      },
+      {
+        "title": "The circuit breaker states",
+        "say": [
+          "A circuit breaker wraps calls to a dependency and has three states. CLOSED: calls pass through normally, and failures are counted.",
+          "OPEN: after too many failures, calls are rejected immediately with an error, without contacting the dependency.",
+          "Some breakers count the failure rate over a sliding window, such as 50% of the last 20 calls, instead of consecutive failures.",
+          "HALF_OPEN: after a reset timeout, one trial call is allowed. If it succeeds, the breaker closes; if it fails, it opens again.",
+          "Failing fast frees the caller's resources and gives the dependency room to recover.",
+          "It also protects the dependency: fewer calls arriving means it can recover instead of being buried under retries.",
+          "Libraries such as Resilience4j (Java) and proxies such as Envoy provide circuit breakers.",
+          "The example prints the state transitions for a sequence of outcomes."
+        ],
+        "example": "An electrical circuit breaker at home: when there is a fault, it trips and cuts the power, protecting the wiring. After the fault is fixed, you switch it back on to test.",
+        "code": "transitions = [\n    (\"CLOSED\", \"failure count reaches threshold\", \"OPEN\"),\n    (\"OPEN\", \"reset timeout passes\", \"HALF_OPEN\"),\n    (\"HALF_OPEN\", \"trial call succeeds\", \"CLOSED\"),\n    (\"HALF_OPEN\", \"trial call fails\", \"OPEN\"),\n]\nfor start, event, end in transitions:\n    print(f\"{start:9} --[{event}]--> {end}\")",
+        "output": "CLOSED    --[failure count reaches threshold]--> OPEN\nOPEN      --[reset timeout passes]--> HALF_OPEN\nHALF_OPEN --[trial call succeeds]--> CLOSED\nHALF_OPEN --[trial call fails]--> OPEN",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "One successful trial closes the circuit again."
+          }
+        ],
+        "tryIt": "Draw the states on paper as a diagram with arrows, using this list.",
+        "check": {
+          "question": "What happens to calls while the breaker is OPEN?",
+          "options": [
+            "They are queued",
+            "They are rejected immediately without calling the dependency",
+            "They are retried three times"
+          ],
+          "answer": 1,
+          "why": "OPEN means fail fast, to protect both sides."
+        }
+      },
+      {
+        "title": "Implementing the breaker",
+        "say": [
+          "Practice 1: CircuitBreaker.call(fn, now). If OPEN and the reset timeout has not passed since opened_at, raise CircuitOpenError without calling fn.",
+          "If the timeout has passed, move to HALF_OPEN and let this call through.",
+          "If fn raises, count a failure and re-raise. Move to OPEN (recording opened_at) once failures reach the threshold, or immediately if this was the HALF_OPEN trial.",
+          "Only count errors that indicate the dependency is unhealthy, such as timeouts and server errors. A \"not found\" answer is a normal reply, not a failure.",
+          "On success, reset failures to 0, set CLOSED and return the result.",
+          "Passing now in keeps tests exact, as with every time-based component in this course.",
+          "Real breakers also need to be safe when many threads call them at once, usually with a lock around the state changes.",
+          "The example drives the breaker through all states."
+        ],
+        "example": "A shop that stops ordering from a supplier after three failed deliveries, waits a week, then places one small trial order before trusting them again.",
+        "code": "class CircuitOpenError(Exception):\n    pass\n\nclass CircuitBreaker:\n    def __init__(self, threshold=3, reset_timeout_ms=1000):\n        self.threshold, self.reset_timeout_ms = threshold, reset_timeout_ms\n        self.state, self.failures, self.opened_at = \"CLOSED\", 0, None\n\n    def call(self, fn, now):\n        if self.state == \"OPEN\":\n            if now - self.opened_at < self.reset_timeout_ms:\n                raise CircuitOpenError(\"circuit open\")\n            self.state = \"HALF_OPEN\"\n        try:\n            result = fn()\n        except Exception:\n            self.failures += 1\n            if self.state == \"HALF_OPEN\" or self.failures >= self.threshold:\n                self.state, self.opened_at = \"OPEN\", now\n            raise\n        self.failures, self.state = 0, \"CLOSED\"\n        return result\n\ndef down():\n    raise ConnectionError(\"payments down\")\n\ncb = CircuitBreaker()\nfor now, fn in [(0, down), (10, down), (20, down), (30, down), (1100, lambda: \"ok\"), (1200, lambda: \"ok\")]:\n    try:\n        print(f\"t={now:>4}: {cb.call(fn, now)} -> {cb.state}\")\n    except Exception as err:\n        print(f\"t={now:>4}: {type(err).__name__} -> {cb.state}\")",
+        "output": "t=   0: ConnectionError -> CLOSED\nt=  10: ConnectionError -> CLOSED\nt=  20: ConnectionError -> OPEN\nt=  30: CircuitOpenError -> OPEN\nt=1100: ok -> CLOSED\nt=1200: ok -> CLOSED",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "OPEN and still cooling down: fail fast."
+          },
+          {
+            "line": 18,
+            "note": "Trip on the threshold, or at once if the trial failed."
+          },
+          {
+            "line": 21,
+            "note": "Success closes the circuit and clears the count."
+          }
+        ],
+        "tryIt": "Make the call at t=1100 fail. What state does the breaker end in, and when can the next trial happen?",
+        "check": {
+          "question": "What happens if the HALF_OPEN trial call fails?",
+          "options": [
+            "The breaker closes",
+            "The breaker opens again straight away",
+            "The failure count resets"
+          ],
+          "answer": 1,
+          "why": "A failed trial shows the dependency is still unhealthy."
+        }
+      },
+      {
+        "title": "Reporting breaker status",
+        "say": [
+          "Practice 2: format_circuit_status(state) returns \"[CIRCUIT]: STATE\", a consistent line for logs and dashboards.",
+          "Log every state change with the dependency name and the reason. An OPEN breaker is an important signal for on-call engineers.",
+          "Logging every rejected call would flood the logs while a breaker is open; count them instead.",
+          "Export the state as a metric (0 closed, 1 half-open, 2 open) so dashboards can show it over time.",
+          "Alert when a breaker stays open for longer than expected; it may mean a dependency is really down.",
+          "Show users a helpful message when a feature is unavailable, rather than a generic error.",
+          "The example logs transitions for three dependencies."
+        ],
+        "example": "The status board at an airport showing each gate as open, boarding or closed, so staff know at a glance where problems are.",
+        "code": "def format_circuit_status(state):\n    return f\"[CIRCUIT]: {state}\"\n\nSTATE_METRIC = {\"CLOSED\": 0, \"HALF_OPEN\": 1, \"OPEN\": 2}\nbreakers = {\"payments\": \"OPEN\", \"inventory\": \"CLOSED\", \"recommendations\": \"HALF_OPEN\"}\nfor dep, state in breakers.items():\n    print(f\"{dep:16} {format_circuit_status(state)}  metric={STATE_METRIC[state]}\")\nprint(\"alert:\", [d for d, s in breakers.items() if s == \"OPEN\"])",
+        "output": "payments         [CIRCUIT]: OPEN  metric=2\ninventory        [CIRCUIT]: CLOSED  metric=0\nrecommendations  [CIRCUIT]: HALF_OPEN  metric=1\nalert: ['payments']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "One consistent format for every log line."
+          },
+          {
+            "line": 4,
+            "note": "Numbers for dashboards."
+          }
+        ],
+        "tryIt": "Add a time for each state change and print how long payments has been open.",
+        "check": {
+          "question": "What does format_circuit_status(\"OPEN\") return?",
+          "options": [
+            "\"OPEN\"",
+            "\"[CIRCUIT]: OPEN\"",
+            "\"circuit open\""
+          ],
+          "answer": 1,
+          "why": "The fixed prefix makes lines easy to search."
+        }
+      },
+      {
+        "title": "Bulkheads",
+        "say": [
+          "A bulkhead isolates resources so one failing dependency cannot use them all. The name comes from ships, whose hulls are divided into watertight compartments.",
+          "Give each dependency its own limited pool of threads or connections. If payments hangs, only the payments pool fills; inventory and search keep working.",
+          "Bulkheads work together with circuit breakers: the bulkhead limits the damage while the breaker notices the failure and stops calls.",
+          "Size pools from measurements: normal concurrency plus some headroom.",
+          "Queues in front of pools need limits too; an unbounded queue just moves the pile-up from threads to memory.",
+          "Separate critical traffic (checkout) from non-critical traffic (recommendations) so a spike in one cannot starve the other.",
+          "The example gives each dependency its own pool."
+        ],
+        "example": "A ship divided into watertight compartments: a hole floods one compartment, but the ship stays afloat.",
+        "code": "pools = {\"payments\": 4, \"inventory\": 4, \"search\": 4}\nin_use = {name: 0 for name in pools}\n\ndef try_call(dep, hangs):\n    if in_use[dep] >= pools[dep]:\n        return f\"{dep}: rejected (pool full)\"\n    if hangs:\n        in_use[dep] += 1\n        return f\"{dep}: waiting ({in_use[dep]}/{pools[dep]})\"\n    return f\"{dep}: ok\"\n\nfor _ in range(5):\n    print(try_call(\"payments\", hangs=True))\nprint(try_call(\"inventory\", hangs=False))\nprint(try_call(\"search\", hangs=False))",
+        "output": "payments: waiting (1/4)\npayments: waiting (2/4)\npayments: waiting (3/4)\npayments: waiting (4/4)\npayments: rejected (pool full)\ninventory: ok\nsearch: ok",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A full pool rejects new calls instead of taking other pools' resources."
+          },
+          {
+            "line": 14,
+            "note": "Other dependencies are unaffected."
+          }
+        ],
+        "tryIt": "Replace the three pools with one shared pool of 12. How many payment calls can hang before search is affected?",
+        "check": {
+          "question": "What does a bulkhead protect against?",
+          "options": [
+            "Slow databases only",
+            "One failing dependency using up all shared resources",
+            "Too many circuit breakers"
+          ],
+          "answer": 1,
+          "why": "Separate pools contain the damage to the failing dependency."
+        }
+      },
+      {
+        "title": "Fallbacks and graceful degradation",
+        "say": [
+          "When a call fails or the breaker is open, return a fallback where possible: cached data, a default value, or a simpler feature.",
+          "Recommendations down? Show popular items. Reviews service down? Hide the reviews section. Currency rates down? Use the last known rates with a note.",
+          "Never invent data for critical paths: a payment must not \"succeed\" as a fallback. Some failures must be shown honestly.",
+          "Fallbacks should be cheap and reliable themselves; a fallback that calls another fragile service just moves the problem.",
+          "Tell users what is happening when a fallback is used, for example \"showing prices from 10 minutes ago\", so they are not misled.",
+          "Test fallbacks regularly, for example by turning off a dependency in a staging environment.",
+          "Tomorrow's milestone combines rate limiting and circuit breakers into an API gateway."
+        ],
+        "example": "A restaurant whose tandoor breaks down still serves the rest of the menu and tells guests which dishes are unavailable, rather than closing.",
+        "code": "cache = {\"recs:u1\": [\"popular item A\", \"popular item B\"]}\n\ndef get_recommendations(user, breaker_open):\n    if breaker_open:\n        return cache.get(f\"recs:{user}\", []), \"fallback: cached popular items\"\n    return [\"personal pick 1\", \"personal pick 2\"], \"live\"\n\ndef charge(amount, breaker_open):\n    if breaker_open:\n        return \"Payment is unavailable right now, please try again shortly\"\n    return f\"charged Rs {amount}\"\n\nprint(get_recommendations(\"u1\", breaker_open=True))\nprint(charge(499, breaker_open=True))",
+        "output": "(['popular item A', 'popular item B'], 'fallback: cached popular items')\nPayment is unavailable right now, please try again shortly",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A safe, cheap fallback for a non-critical feature."
+          },
+          {
+            "line": 10,
+            "note": "Critical paths fail honestly instead of pretending."
+          }
+        ],
+        "tryIt": "Add a fallback for a \"delivery estimate\" feature. What is a safe default?",
+        "check": {
+          "question": "When should a fallback NOT pretend to succeed?",
+          "options": [
+            "For recommendations",
+            "For critical operations like payments",
+            "For cached content"
+          ],
+          "answer": 1,
+          "why": "Faking success on critical paths causes real harm."
+        }
+      }
+    ],
+    "summary": [
+      "Slow dependencies cause cascading failures as callers run out of resources.",
+      "Circuit breakers: CLOSED counts failures, OPEN fails fast, HALF_OPEN tests recovery.",
+      "Report breaker states consistently and alert on long OPEN periods.",
+      "Bulkheads give each dependency its own resource pool.",
+      "Use cheap fallbacks for non-critical features; fail honestly on critical ones."
+    ],
+    "projectStep": {
+      "title": "Resilience",
+      "steps": [
+        "Add CircuitBreaker and format_circuit_status to dist_toolkit.py.",
+        "Drive a breaker through CLOSED, OPEN, HALF_OPEN and back to CLOSED with a fake clock.",
+        "Bonus: add a bulkhead limit and a cached fallback for one dependency."
+      ]
+    }
   }
 ];
