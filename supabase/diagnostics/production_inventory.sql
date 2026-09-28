@@ -279,7 +279,8 @@ with expected(ord, file, kind, name) as (
     (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.target_universities'),
     (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.tasks'),
     (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.visa_status'),
-    (45, 'supabase/migrations/20260927_phase_b5_interview_live_sessions.sql', 'table', 'public.interview_live_sessions')
+    (45, 'supabase/migrations/20260927_phase_b5_interview_live_sessions.sql', 'table', 'public.interview_live_sessions'),
+    (46, 'supabase/migrations/20260928_phase_b6a_finance_staff.sql', 'function', 'public.campus_is_finance_staff')
 ),
 checked as (
   select e.ord, e.file, e.name,

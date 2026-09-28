@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 import { financeService } from '@/lib/services/financeService';
 
+/**
+ * Reconciles every student's fee installments against verified payments and returns a report with
+ * their payment ids: a finance-office job, so admins only (it used to be open to any signed-in user).
+ */
 export async function GET(req: Request) {
   try {
-    const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
 
     const report = await financeService.reconcileFeePayments();
     return NextResponse.json(report);
