@@ -130,6 +130,23 @@ export default function RoadmapPreview({
         .rp-start { height: clamp(50px, 7vh, 60px); border: none; border-radius: 16px; font-size: 22px; font-weight: 900; color: #fff; cursor: pointer;
           background: linear-gradient(135deg, var(--teal, #14b8a6) 0%, var(--accent, #22d3ee) 100%); box-shadow: 0 8px 24px rgba(20,184,166,0.3); }
         .rp-start:disabled, .rp-switch:disabled { opacity: 0.6; cursor: not-allowed; }
+        @media (max-width: 820px) {
+          .rp-root { padding: 10px 12px; gap: 7px; justify-content: flex-start; }
+          .rp-chip { font-size: 14px; padding: 3px 12px; }
+          .rp-title { font-size: 25px; }
+          .rp-sub { font-size: 15.5px; }
+          .rp-bars { gap: 5px; }
+          .rp-bar-row { grid-template-columns: 138px 1fr; gap: 8px; }
+          .rp-bar-name { font-size: 15px; }
+          .rp-bar-track { height: 10px; }
+          .rp-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+          .rp-card { padding: 8px 10px; border-radius: 12px; }
+          .rp-card-label { font-size: 13px; }
+          .rp-card-text { font-size: 14.5px; }
+          .rp-mentor { font-size: 15px; gap: 6px; }
+          .rp-switch { padding: 6px 12px; font-size: 14px; }
+          .rp-start { height: 48px; font-size: 18px; border-radius: 14px; }
+        }
       `}</style>
     </div>
   );

@@ -204,7 +204,7 @@ export default function OnboardingPage() {
       <div style={{ position: 'absolute', bottom: '-15%', right: '-15%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--accent-cyan-rgb),0.08) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
       {/* Top Header */}
-      <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
+      <header className="ob-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
             <Image
@@ -265,7 +265,7 @@ export default function OnboardingPage() {
               ← Return to Dashboard
             </button>
           )}
-          <div style={{ fontSize: 16.5, fontWeight: 700, color: '#e2e8f0', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 100, padding: '6px 16px' }}>
+          <div className="ob-stage" style={{ fontSize: 16.5, fontWeight: 700, color: '#e2e8f0', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 100, padding: '6px 16px' }}>
             {stageLabel[activeScreen] || 'Getting started'}
           </div>
           <GearAudioHub theme={cOS.theme} size="sm" />
@@ -273,9 +273,9 @@ export default function OnboardingPage() {
       </header>
 
       {/* Main Container */}
-      <main style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '43fr 57fr', maxWidth: '98%', width: '98%', margin: '0 auto', padding: '12px 24px 24px 24px', gap: 24, zIndex: 5, overflow: 'hidden' }}>
+      <main className="ob-main" style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '43fr 57fr', maxWidth: '98%', width: '98%', margin: '0 auto', padding: '12px 24px 24px 24px', gap: 24, zIndex: 5, overflow: 'hidden' }}>
         {/* Left Column: VRoid Mentor Viewport */}
-        <section style={{ 
+        <section className="ob-avatar" style={{ 
           backgroundImage: "linear-gradient(to bottom, rgba(10, 15, 26, 0.15), rgba(10, 15, 26, 0.65)), url('/brand/avatar-room-bg.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -366,7 +366,7 @@ export default function OnboardingPage() {
         </section>
 
         {/* Right Column: Screen panels */}
-        <section style={{ display: 'flex', flexDirection: 'column', background: 'rgba(10, 15, 26, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, overflow: 'hidden', minHeight: 0 }}>
+        <section className="ob-panel" style={{ display: 'flex', flexDirection: 'column', background: 'rgba(10, 15, 26, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, overflow: 'hidden', minHeight: 0 }}>
           {/* SCREEN 01: INTENT SELECTION */}
           {activeScreen === 'INTENT_SELECTION' && (
             <OnboardingIntro
@@ -744,6 +744,17 @@ export default function OnboardingPage() {
         }
         .mic-wave-bar { transition: height 0.1s ease; }
         .ob-controls button { font-size: 17.5px !important; color: #e2e8f0; }
+        /* Phones and small tablets: mentor on top, questions below, nothing scrolls */
+        @media (max-width: 820px) {
+          .ob-header { padding: 8px 12px !important; }
+          .ob-header .lp-brand-lockup { height: 32px !important; }
+          .ob-main { grid-template-columns: 1fr !important; grid-template-rows: minmax(140px, 30vh) minmax(0, 1fr) !important;
+            width: 100% !important; max-width: 100% !important; padding: 6px 10px 10px !important; gap: 8px !important; }
+          .ob-avatar, .ob-panel { border-radius: 16px !important; }
+          .ob-controls { bottom: 6px !important; padding: 2px 6px !important; gap: 0 !important; }
+          .ob-controls button { font-size: 14px !important; padding: 2px 5px !important; }
+        }
+        @media (max-width: 480px) { .ob-stage { display: none !important; } }
       `)}} />
     </div>
   );

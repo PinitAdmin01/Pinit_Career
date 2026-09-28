@@ -41,7 +41,18 @@ export default function OnboardingIntro({
 }: OnboardingIntroProps) {
   if (mode === 'CHOOSE_GUIDE') {
     return (
-      <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#030508', color: 'var(--text)', display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: 'clamp(16px, 4vh, 48px) 24px' }}>
+      <div className="oi-root" style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#030508', color: 'var(--text)', display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: 'clamp(16px, 4vh, 48px) 24px' }}>
+        <style>{`
+          @media (max-width: 640px) {
+            .oi-root { padding: 14px 12px !important; }
+            .oi-root h1 { font-size: 30px !important; margin-bottom: 8px !important; }
+            .oi-cards { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+            .oi-card { padding: 14px 12px !important; border-radius: 16px !important; }
+            .oi-card-icon { font-size: 34px !important; margin-bottom: 8px !important; }
+            .oi-card h2 { font-size: 21px !important; }
+            .oi-card-desc { display: none; }
+          }
+        `}</style>
         {/* Dynamic Background Mesh Orbits */}
         <div style={{ position: 'fixed', top: '-10%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--brand-rgb),0.1) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
         <div style={{ position: 'fixed', bottom: '-10%', right: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--accent-cyan-rgb),0.06) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
@@ -141,9 +152,10 @@ export default function OnboardingIntro({
           </div>
 
           {/* Cards Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 'clamp(8px, 2vh, 48px)' }}>
+          <div className="oi-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 'clamp(8px, 2vh, 48px)' }}>
             {/* Ms. Priya */}
             <div
+              className="oi-card"
               role="button"
               tabIndex={0}
               aria-label="Choose Ms. Priya"
@@ -181,18 +193,19 @@ export default function OnboardingIntro({
                 e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
               }}
             >
-              <div style={{ fontSize: 53, marginBottom: 20 }}>👩‍💼</div>
+              <div className="oi-card-icon" style={{ fontSize: 53, marginBottom: 20 }}>👩‍💼</div>
               <h2 style={{ fontSize: 28.5, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Ms. Priya</h2>
               <span style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--accent)', display: 'block', marginBottom: 12 }}>
                 Calm and step by step
               </span>
-              <p style={{ fontSize: 18.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+              <p className="oi-card-desc" style={{ fontSize: 18.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
                 Explains things clearly, one step at a time. Great if you like to understand before you start.
               </p>
             </div>
 
             {/* Mr. Anish */}
             <div
+              className="oi-card"
               role="button"
               tabIndex={0}
               aria-label="Choose Mr. Anish"
@@ -230,12 +243,12 @@ export default function OnboardingIntro({
                 e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
               }}
             >
-              <div style={{ fontSize: 53, marginBottom: 20 }}>👨‍💼</div>
+              <div className="oi-card-icon" style={{ fontSize: 53, marginBottom: 20 }}>👨‍💼</div>
               <h2 style={{ fontSize: 28.5, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Anish</h2>
               <span style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--teal)', display: 'block', marginBottom: 12 }}>
                 Hands-on and fun
               </span>
-              <p style={{ fontSize: 18.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+              <p className="oi-card-desc" style={{ fontSize: 18.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
                 Learns by doing, with lots of quick examples. Great if you like to try things first.
               </p>
             </div>

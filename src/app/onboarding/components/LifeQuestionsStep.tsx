@@ -172,6 +172,18 @@ export default function LifeQuestionsStep({ onComplete, onBack, onQuestion }: Li
         .lq-key { position: absolute; top: 8px; right: 12px; font-size: 14.5px; font-weight: 800; color: rgba(255,255,255,0.45); }
         .lq-hint { margin: 0; font-size: 17.5px; color: #cbd5e1; }
         @media (max-height: 640px) { .lq-hint { display: none; } }
+        @media (max-width: 820px) {
+          .lq-root { padding: 10px 12px; gap: 6px; }
+          .lq-back { padding: 6px 14px; font-size: 15px; }
+          .lq-count, .lq-chip { font-size: 14px; }
+          .lq-body { gap: 10px; justify-content: flex-start; }
+          .lq-question { font-size: 23px; }
+          .lq-grid { gap: 8px; }
+          .lq-option { min-height: 68px; padding: 8px 10px; border-radius: 14px; gap: 4px; }
+          .lq-icon { font-size: 26px; }
+          .lq-label { font-size: 16px; }
+          .lq-key, .lq-hint { display: none; }
+        }
       `}</style>
     </div>
   );
