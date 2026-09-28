@@ -47,6 +47,7 @@ test('Python long lessons are complete, full-length classes', () => {
   assert.equal(getLongLessonLanguage('python'), 'python');
   const days = PYTHON_LONG_LESSONS.map((l) => l.day);
   assert.equal(new Set(days).size, days.length, 'a day is written twice');
+  assert.equal(PYTHON_LONG_LESSONS.length, PYTHON_30_DAYS_CONFIGS.length, 'every course day has a long lesson');
   for (const lesson of PYTHON_LONG_LESSONS) {
     const where = `Day ${lesson.day}`;
     assert.ok(lesson.day >= 1 && lesson.day <= PYTHON_30_DAYS_CONFIGS.length, `${where}: day out of range`);

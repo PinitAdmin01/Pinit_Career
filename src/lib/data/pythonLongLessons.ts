@@ -6341,5 +6341,1527 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         'Tick off the must-haves in PLAN.md, commit and push.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 26,
+    title: 'Calling Web APIs',
+    goal: 'You can explain what a web API is, call one with the requests library, check the status code, and read the JSON answer safely.',
+    minutes: 30,
+    recap: 'Yesterday you finished the Expense Tracker\'s must-haves: summaries, category totals, a monthly filter and JSON saving.',
+    parts: [
+      {
+        title: 'What a web API is',
+        say: [
+          'Most apps do not do everything themselves. A travel app gets flight prices from airlines, a shopping app gets payment results from a bank, a weather widget gets the forecast from a weather service. They talk to each other through web APIs.',
+          'API stands for Application Programming Interface. A web API is a web address that answers programs instead of people. Your program sends a request to a URL, and the API sends back data, usually as JSON, which you learned on Day 17.',
+          'Every request has a method. GET means "give me data". POST means "here is new data, please save it". There are others, like PUT and DELETE, but GET and POST are the ones you will use most.',
+          'Tomorrow you build your own API for the Expense Tracker. Today you learn the other side: how a program calls an API and uses the answer. Understanding both sides is exactly what backend developer jobs ask for.'
+        ],
+        example: 'An API is like a restaurant waiter. You do not walk into the kitchen; you give your order to the waiter in a standard way, and the waiter brings back your food. The kitchen can change completely, and as long as the waiter takes the same orders, you do not notice.',
+        code: lines(
+          'import json',
+          '# What an API answer to GET /rates?base=INR might look like:',
+          'answer_text = \'{"base": "INR", "date": "2026-09-28", "rates": {"USD": 0.012, "EUR": 0.011}}\'',
+          'data = json.loads(answer_text)',
+          'print(data["base"])',
+          'print(data["rates"]["USD"])',
+          'print(round(5000 * data["rates"]["USD"], 2), "USD")'
+        ),
+        output: lines('INR', '0.012', '60.0 USD'),
+        codeNotes: [
+          { line: 3, note: 'API answers are JSON text. This one is written by hand so it runs here.' },
+          { line: 4, note: 'json.loads turns it into a normal dictionary.' },
+          { line: 6, note: 'A dictionary inside a dictionary: read it in two steps.' }
+        ],
+        tryIt: 'Convert 5000 rupees to euros instead, using data["rates"]["EUR"]. The answer should be 55.0.',
+        check: {
+          question: 'What does a web API usually send back?',
+          options: ['Data, often as JSON', 'A finished web page for people', 'A Python file'],
+          answer: 0,
+          why: 'An API answers programs, not people, so it sends data, most often as JSON text.'
+        }
+      },
+      {
+        title: 'URLs, parameters and status codes',
+        say: [
+          'An API request goes to a URL, like https://api.example.com/rates. Extra details go in query parameters after a question mark: ?base=INR&symbols=USD. Each parameter is a name and a value, joined with &.',
+          'Every answer comes with a status code, a three-digit number that says how it went. 200 means OK. 201 means something was created. 400 means your request was wrong. 401 or 403 means you are not allowed. 404 means not found. 500 means the server had a problem.',
+          'A simple rule: codes starting with 2 are success, codes starting with 4 are the caller\'s mistake, and codes starting with 5 are the server\'s mistake. Always check the status before using the answer.',
+          'Python\'s urllib.parse module can build a URL with parameters correctly, including spaces and special characters that need encoding.'
+        ],
+        example: 'Status codes are like the replies at a shop counter. 200: here you go. 404: sorry, we do not have that item. 400: I did not understand your order. 500: our machine is broken, please try later. You react differently to each.',
+        code: lines(
+          'from urllib.parse import urlencode',
+          'base = "https://api.example.com/search"',
+          'params = {"q": "python jobs", "city": "Pune", "page": 2}',
+          'print(base + "?" + urlencode(params))',
+          '',
+          'def status_message(code):',
+          '    if 200 <= code < 300:',
+          '        return "OK"',
+          '    if code == 404:',
+          '        return "Not found"',
+          '    if 400 <= code < 500:',
+          '        return "Problem with our request"',
+          '    return "Server problem, try again later"',
+          '',
+          'for code in [200, 201, 404, 400, 503]:',
+          '    print(code, status_message(code))'
+        ),
+        output: lines(
+          'https://api.example.com/search?q=python+jobs&city=Pune&page=2',
+          '200 OK',
+          '201 OK',
+          '404 Not found',
+          '400 Problem with our request',
+          '503 Server problem, try again later'
+        ),
+        codeNotes: [
+          { line: 4, note: 'urlencode joins the parameters and encodes the space as +.' },
+          { line: 7, note: 'Any code from 200 to 299 is a success.' }
+        ],
+        tryIt: 'Add a check for 401 and 403 that returns "Not allowed: check your API key", before the general 400 check.',
+        check: {
+          question: 'What does status code 404 mean?',
+          options: ['Not found', 'Success', 'The server crashed'],
+          answer: 0,
+          why: '404 means the thing you asked for does not exist at that URL. Server crashes are 500-level codes.'
+        }
+      },
+      {
+        title: 'Calling an API with requests',
+        say: [
+          'On your laptop, the easiest way to call an API is the requests library: pip install requests in your virtual environment. requests.get(url, params=..., timeout=10) sends a GET request and gives back a response object.',
+          'The response has response.status_code, the number, and response.json(), which turns the JSON answer into Python data. response.raise_for_status() raises an error if the status is 400 or above, which is a quick way to stop on failure.',
+          'Always set a timeout. Without one, if the server never answers, your program waits forever. timeout=10 means give up after 10 seconds.',
+          'The lesson editor cannot reach the internet, so the sample below uses a small pretend response object that behaves like the real one. The projectCode box shows the real code for your laptop.'
+        ],
+        example: 'Calling an API with requests is like ordering on a food app. You send the order, wait a limited time, check the order status (delivered or failed), and only then unpack the food. You do not wait at the door forever.',
+        projectCode: {
+          label: 'On your laptop: pip install requests',
+          code: lines(
+            'import requests',
+            '',
+            'response = requests.get(',
+            '    "https://api.github.com/users/octocat",',
+            '    timeout=10,',
+            ')',
+            'print(response.status_code)',
+            'if response.status_code == 200:',
+            '    user = response.json()',
+            '    print(user["name"], "has", user["public_repos"], "public repos")'
+          )
+        },
+        code: lines(
+          'import json',
+          '',
+          'class FakeResponse:',
+          '    def __init__(self, status_code, text):',
+          '        self.status_code = status_code',
+          '        self.text = text',
+          '    def json(self):',
+          '        return json.loads(self.text)',
+          '',
+          'def fake_get(url, timeout=10):',
+          '    if url.endswith("/users/octocat"):',
+          '        return FakeResponse(200, \'{"name": "The Octocat", "public_repos": 8}\')',
+          '    return FakeResponse(404, \'{"message": "Not Found"}\')',
+          '',
+          'for url in ["https://api.github.com/users/octocat", "https://api.github.com/users/nobody-here"]:',
+          '    response = fake_get(url, timeout=10)',
+          '    if response.status_code == 200:',
+          '        user = response.json()',
+          '        print(user["name"], "has", user["public_repos"], "public repos")',
+          '    else:',
+          '        print("Error", response.status_code, response.json()["message"])'
+        ),
+        output: lines('The Octocat has 8 public repos', 'Error 404 Not Found'),
+        codeNotes: [
+          { line: 3, note: 'A pretend response with the same parts as the real one: status_code and json().' },
+          { line: 17, note: 'Check the status first.' },
+          { line: 18, note: 'Only then read the JSON answer.' }
+        ],
+        tryIt: 'On your laptop, run the projectCode version with your own GitHub username instead of octocat.',
+        check: {
+          question: 'Why should you always pass timeout to requests.get?',
+          options: ['So your program does not wait forever if the server never answers', 'To make the request faster', 'Because the API needs to know your time zone'],
+          answer: 0,
+          why: 'Without a timeout, a slow or broken server can make your program hang. A timeout makes it give up and report an error.'
+        }
+      },
+      {
+        title: 'Reading nested JSON safely',
+        say: [
+          'Real API answers are often big and nested: dictionaries inside lists inside dictionaries. A job-search API might return {"results": [{"title": ..., "company": {"name": ...}}], "total": 42}.',
+          'Read them one level at a time. data["results"] is a list; each item is a dictionary; item["company"]["name"] goes one level deeper. Printing the data, or part of it, while you explore is completely normal.',
+          'APIs do not always include every field. Use get() with a default for optional fields, so a missing field does not crash your program: item.get("salary", "not given").',
+          'A common, useful step is to turn the API\'s answer into your own simple shape, keeping only the fields you need. The rest of your program then works with clean data and does not care how the API formats things.'
+        ],
+        example: 'A big parcel from an online shop has a box, inside it a bag, inside it the item and the bill. You open one layer at a time. And if the bill is missing, you do not throw the parcel away; you just note "no bill".',
+        code: lines(
+          'import json',
+          'text = """{',
+          '  "total": 2,',
+          '  "results": [',
+          '    {"title": "Junior Python Developer", "company": {"name": "Acme", "city": "Pune"}, "salary": "4-6 LPA"},',
+          '    {"title": "Backend Intern", "company": {"name": "Byte Labs", "city": "Remote"}}',
+          '  ]',
+          '}"""',
+          'data = json.loads(text)',
+          'jobs = []',
+          'for item in data.get("results", []):',
+          '    jobs.append({',
+          '        "title": item["title"],',
+          '        "company": item["company"]["name"],',
+          '        "salary": item.get("salary", "not given"),',
+          '    })',
+          'for job in jobs:',
+          '    print(f"{job[\'title\']} at {job[\'company\']} ({job[\'salary\']})")'
+        ),
+        output: lines('Junior Python Developer at Acme (4-6 LPA)', 'Backend Intern at Byte Labs (not given)'),
+        codeNotes: [
+          { line: 2, note: 'Triple quotes let a string run over several lines.' },
+          { line: 11, note: 'If "results" is missing, loop over an empty list instead of crashing.' },
+          { line: 15, note: 'The second job has no salary, so the default is used.' }
+        ],
+        tryIt: 'Add the city to each job with item["company"].get("city", "unknown") and include it in the printed line.',
+        check: {
+          question: 'Why convert an API answer into your own simple shape?',
+          options: ['The rest of your program works with clean data and does not depend on the API\'s format', 'APIs require it', 'JSON cannot be used directly'],
+          answer: 0,
+          why: 'Keeping only the fields you need, in a shape you choose, makes the rest of your code simpler and protects it from API changes.'
+        }
+      },
+      {
+        title: 'API keys and handling failures',
+        say: [
+          'Many APIs need an API key: a secret string that identifies your account. It is usually sent in a header, like headers={"Authorization": "Bearer your-key"}. Never write the key directly in your code, and never push it to GitHub.',
+          'Instead, keep keys in environment variables: settings stored outside your code. os.environ.get("RATES_API_KEY") reads one. On your laptop you can put them in a .env file, which your .gitignore from Day 22 keeps out of Git. You will set environment variables on the hosting site on Day 29.',
+          'Networks fail: no internet, the server is down, or it is too slow. requests raises errors like requests.Timeout or requests.ConnectionError. Catch them and show a friendly message, or fall back to saved data, instead of crashing.',
+          'A good pattern for important data is: try the API; if it fails, use the last good answer you saved in a JSON file, and tell the user the data might be out of date.'
+        ],
+        example: 'An API key is like your gym membership card: it proves who you are, so you keep it in your wallet, not stuck on the front door. And if the gym is closed one day, you do not give up exercising; you go for a run instead. That is the fallback.',
+        projectCode: {
+          label: 'On your laptop: a key from the environment, and handling failures',
+          code: lines(
+            'import os',
+            'import requests',
+            '',
+            'API_KEY = os.environ.get("RATES_API_KEY", "")',
+            '',
+            'def get_rates():',
+            '    try:',
+            '        r = requests.get("https://api.example.com/rates",',
+            '                         headers={"Authorization": f"Bearer {API_KEY}"},',
+            '                         timeout=10)',
+            '        r.raise_for_status()',
+            '        return r.json()',
+            '    except requests.RequestException as error:',
+            '        print("Could not get rates:", error)',
+            '        return None'
+          )
+        },
+        code: lines(
+          'import os',
+          '',
+          'def get_rates(fetch):',
+          '    try:',
+          '        return fetch(), "live"',
+          '    except (TimeoutError, ConnectionError):',
+          '        return {"USD": 0.012}, "saved (may be out of date)"',
+          '',
+          'def working_api():',
+          '    return {"USD": 0.0121}',
+          '',
+          'def broken_api():',
+          '    raise TimeoutError("no answer in 10 seconds")',
+          '',
+          'print(get_rates(working_api))',
+          'print(get_rates(broken_api))',
+          'key = os.environ.get("RATES_API_KEY", "")',
+          'print("Key set:", bool(key))'
+        ),
+        output: lines("({'USD': 0.0121}, 'live')", "({'USD': 0.012}, 'saved (may be out of date)')", 'Key set: False'),
+        codeNotes: [
+          { line: 6, note: 'Network problems: fall back instead of crashing.' },
+          { line: 7, note: 'The last good answer, clearly labelled as possibly old.' },
+          { line: 17, note: 'Read the key from the environment. Here it is not set, so we get "".' }
+        ],
+        tryIt: 'Write a third function slow_api that raises ConnectionError("offline") and call get_rates(slow_api). It should also use the saved rates.',
+        check: {
+          question: 'Where should an API key be stored?',
+          options: ['In an environment variable, not in the code', 'In the code, so it is easy to find', 'In the README'],
+          answer: 0,
+          why: 'Keys in code end up on GitHub, where others can find and misuse them. Environment variables keep them out of your code.'
+        }
+      },
+      {
+        title: 'Putting it together: expenses in another currency',
+        say: [
+          'Let us add a small API feature to the Expense Tracker: showing your total in another currency using exchange rates. The rates come from an API answer; here we use a sample answer so it runs in the lesson.',
+          'The steps are the ones you learned today: check the status, read the JSON, pick out what you need with get() and a sensible default, and handle a missing currency politely.',
+          'Notice that the conversion function takes the rates as a parameter. It does not call the API itself. That keeps it easy to test, just like the other tracker functions, and the API call stays at the edge of the program.',
+          'In today\'s practice you will write parse_results, which reads a list from an API answer safely, and status_message, which turns a status code into words.'
+        ],
+        example: 'When you shop on an international website, prices appear in rupees. Behind the scenes, the site fetched today\'s exchange rate from an API and converted every price. Your tracker now does the same for your total.',
+        code: lines(
+          'import json',
+          'status_code = 200',
+          'body = \'{"base": "INR", "rates": {"USD": 0.012, "EUR": 0.011, "AED": 0.044}}\'',
+          '',
+          'def convert(amount, rates, currency):',
+          '    rate = rates.get(currency)',
+          '    if rate is None:',
+          '        return None',
+          '    return round(amount * rate, 2)',
+          '',
+          'expenses = [{"amount": 20}, {"amount": 8000}, {"amount": 480}]',
+          'total = sum(e["amount"] for e in expenses)',
+          'if status_code == 200:',
+          '    rates = json.loads(body).get("rates", {})',
+          '    for currency in ["USD", "EUR", "JPY"]:',
+          '        value = convert(total, rates, currency)',
+          '        print(currency, value if value is not None else "rate not available")',
+          'else:',
+          '    print("Could not get rates, status", status_code)'
+        ),
+        output: lines('USD 102.0', 'EUR 93.5', 'JPY rate not available'),
+        codeNotes: [
+          { line: 5, note: 'A pure function: amount and rates in, converted amount out.' },
+          { line: 13, note: 'Check the status before reading the body.' },
+          { line: 17, note: 'A missing rate is handled politely, not with a crash.' }
+        ],
+        tryIt: 'Change status_code to 503 and run it. The program reports the problem instead of converting.',
+        check: {
+          question: 'Why does convert() take the rates as a parameter instead of calling the API itself?',
+          options: ['It stays easy to test without the internet, and the API call stays at the edge', 'Functions cannot call APIs', 'To make the API faster'],
+          answer: 0,
+          why: 'A pure function can be tested with sample rates. The network call lives in one place at the edge of the program.'
+        }
+      }
+    ],
+    summary: [
+      'A web API is a URL that answers programs, usually with JSON. GET reads data; POST sends new data.',
+      'Status codes: 2xx success, 4xx the caller\'s mistake (404 not found), 5xx the server\'s problem.',
+      'requests.get(url, params=..., timeout=10), then check status_code and read response.json().',
+      'Read nested JSON one level at a time; use get() with defaults for optional fields.',
+      'Keep API keys in environment variables, and handle network failures with a fallback.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: call a real API',
+      steps: [
+        'On your laptop, pip install requests and call https://api.github.com/users/<your-username> with a timeout.',
+        'Print the status code and two fields from the JSON answer.',
+        'Write convert(amount, rates, currency) in tracker.py with a test.',
+        'Commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 27,
+    title: 'Building Your Own API with FastAPI',
+    goal: 'You can build a small web API with FastAPI that lists and adds expenses, checks incoming data, and returns clear errors.',
+    minutes: 35,
+    recap: 'Yesterday you called web APIs: URLs, parameters, status codes, JSON answers and API keys.',
+    parts: [
+      {
+        title: 'From a terminal menu to a web API',
+        say: [
+          'Your Expense Tracker works in the terminal, but only on your laptop, and only for you. Turning it into a web API means any program can use it over the internet: a phone app, a website, or another developer\'s code.',
+          'A web API is a set of routes. A route is a method plus a path, like GET /expenses to list expenses or POST /expenses to add one. For each route, you write a Python function that returns data, and the framework turns it into JSON.',
+          'FastAPI is a modern, popular Python framework for building APIs. It is fast, beginner-friendly, and used by many companies. It also checks incoming data for you and creates documentation automatically.',
+          'Here is the best part: you already wrote the logic. add_expense, summary and category_totals from tracker.py are reused as they are. The API is just a new edge, replacing input() and print() with web requests and JSON answers.'
+        ],
+        example: 'Your tracker so far is like a home kitchen that only cooks for you. A web API is like opening a delivery counter: the same kitchen and recipes, but now anyone can place an order through a standard window and get food back.',
+        code: lines(
+          'routes = {',
+          '    ("GET", "/expenses"): "list all expenses",',
+          '    ("POST", "/expenses"): "add one expense",',
+          '    ("GET", "/summary"): "total, count and biggest",',
+          '    ("GET", "/categories"): "total per category",',
+          '}',
+          'for (method, path), job in routes.items():',
+          '    print(f"{method:<5}{path:<13}-> {job}")'
+        ),
+        output: lines(
+          'GET  /expenses    -> list all expenses',
+          'POST /expenses    -> add one expense',
+          'GET  /summary     -> total, count and biggest',
+          'GET  /categories  -> total per category'
+        ),
+        codeNotes: [
+          { line: 2, note: 'A route is a (method, path) pair. GET reads, POST adds.' },
+          { line: 7, note: 'Unpack the tuple key and the value in one loop.' }
+        ],
+        tryIt: 'Add a route ("GET", "/expenses/{id}") for "one expense by id" and run it.',
+        check: {
+          question: 'Which route should add a new expense?',
+          options: ['POST /expenses', 'GET /expenses', 'GET /summary'],
+          answer: 0,
+          why: 'POST sends new data to be saved. GET only reads data.'
+        }
+      },
+      {
+        title: 'Your first FastAPI app',
+        say: [
+          'On your laptop, install FastAPI and the server that runs it: pip install "fastapi[standard]". Then create api.py.',
+          'app = FastAPI() creates the application. Above a function, @app.get("/") says: when a GET request comes to "/", run this function. The line starting with @ is called a decorator. The function returns a dictionary, and FastAPI sends it as JSON.',
+          'Start the server in the terminal with fastapi dev api.py. Open http://127.0.0.1:8000 in your browser and you see your JSON. 127.0.0.1 means "this computer", and 8000 is the port, like a door number.',
+          'Now open http://127.0.0.1:8000/docs. FastAPI has created an interactive documentation page listing every route, where you can try each one with a button. Recruiters and teammates love this page.'
+        ],
+        example: 'The decorator @app.get("/") is like writing "Enquiries" above a counter window in an office. Anyone who comes to that window gets served by the person behind it. Each route is a labelled window, and each function is the person behind it.',
+        projectCode: {
+          label: 'api.py on your laptop, run with: fastapi dev api.py',
+          code: lines(
+            'from fastapi import FastAPI',
+            '',
+            'app = FastAPI()',
+            '',
+            '@app.get("/")',
+            'def home():',
+            '    return {"message": "Expense Tracker API is running"}',
+            '',
+            '# Terminal:',
+            '#   pip install "fastapi[standard]"',
+            '#   fastapi dev api.py',
+            '# Browser:',
+            '#   http://127.0.0.1:8000       -> the JSON above',
+            '#   http://127.0.0.1:8000/docs  -> interactive docs'
+          )
+        },
+        code: lines(
+          'import json',
+          'routes = {}',
+          '',
+          'def get(path):',
+          '    def register(function):',
+          '        routes[("GET", path)] = function',
+          '        return function',
+          '    return register',
+          '',
+          '@get("/")',
+          'def home():',
+          '    return {"message": "Expense Tracker API is running"}',
+          '',
+          'def handle(method, path):',
+          '    function = routes.get((method, path))',
+          '    if function is None:',
+          '        return 404, {"detail": "Not Found"}',
+          '    return 200, function()',
+          '',
+          'for path in ["/", "/nothing"]:',
+          '    status, body = handle("GET", path)',
+          '    print(status, json.dumps(body))'
+        ),
+        output: lines('200 {"message": "Expense Tracker API is running"}', '404 {"detail": "Not Found"}'),
+        codeNotes: [
+          { line: 4, note: 'A tiny imitation of FastAPI\'s app.get, so the idea runs here.' },
+          { line: 10, note: 'The decorator registers home() for GET /.' },
+          { line: 17, note: 'An unknown path gets 404, just like FastAPI.' }
+        ],
+        tryIt: 'Add a second route @get("/health") that returns {"status": "ok"}, and call handle("GET", "/health").',
+        check: {
+          question: 'In FastAPI, what does @app.get("/summary") above a function do?',
+          options: ['Runs that function when a GET request comes to /summary', 'Downloads /summary from the internet', 'Prints the function\'s code'],
+          answer: 0,
+          why: 'The decorator connects the route (GET /summary) to the function. FastAPI calls it and sends the result as JSON.'
+        }
+      },
+      {
+        title: 'GET routes that reuse tracker.py',
+        say: [
+          'Now connect the API to your tracker. Import load, summary and category_totals from tracker.py. Each GET route loads the expenses and returns what the function calculates.',
+          'A route can also have a path parameter: @app.get("/expenses/{expense_id}") with def get_expense(expense_id: int). FastAPI takes the number from the URL, checks it is really a whole number, and passes it in.',
+          'If the expense does not exist, raise HTTPException(status_code=404, detail="Expense not found"). The caller gets a 404 status with a clear JSON message, instead of a crash.',
+          'Query parameters work too: def list_expenses(month: str | None = None) lets callers use /expenses?month=2026-09. If the parameter is left out, it is None and you return everything.'
+        ],
+        example: 'A library catalogue: /books lists all books, /books/42 shows book number 42, and /books?author=Premchand filters the list. If you ask for book 99999, the librarian says "not found" instead of pretending.',
+        projectCode: {
+          label: 'api.py: GET routes',
+          code: lines(
+            'from fastapi import FastAPI, HTTPException',
+            'from tracker import load, summary, category_totals, in_month',
+            '',
+            'app = FastAPI()',
+            '',
+            '@app.get("/expenses")',
+            'def list_expenses(month: str | None = None):',
+            '    expenses = load()',
+            '    return in_month(expenses, month) if month else expenses',
+            '',
+            '@app.get("/expenses/{expense_id}")',
+            'def get_expense(expense_id: int):',
+            '    for e in load():',
+            '        if e["id"] == expense_id:',
+            '            return e',
+            '    raise HTTPException(status_code=404, detail="Expense not found")',
+            '',
+            '@app.get("/summary")',
+            'def get_summary():',
+            '    return summary(load())'
+          )
+        },
+        code: lines(
+          'expenses = [',
+          '    {"id": 1, "item": "Tea", "amount": 20, "date": "2026-08-30"},',
+          '    {"id": 2, "item": "Rent", "amount": 8000, "date": "2026-09-01"},',
+          ']',
+          '',
+          'def list_expenses(month=None):',
+          '    if month:',
+          '        return 200, [e for e in expenses if e["date"][:7] == month]',
+          '    return 200, expenses',
+          '',
+          'def get_expense(expense_id):',
+          '    for e in expenses:',
+          '        if e["id"] == expense_id:',
+          '            return 200, e',
+          '    return 404, {"detail": "Expense not found"}',
+          '',
+          'print(list_expenses(month="2026-09"))',
+          'print(get_expense(1))',
+          'print(get_expense(99))'
+        ),
+        output: lines(
+          "(200, [{'id': 2, 'item': 'Rent', 'amount': 8000, 'date': '2026-09-01'}])",
+          "(200, {'id': 1, 'item': 'Tea', 'amount': 20, 'date': '2026-08-30'})",
+          "(404, {'detail': 'Expense not found'})"
+        ),
+        codeNotes: [
+          { line: 6, note: 'An optional query parameter: /expenses?month=2026-09.' },
+          { line: 11, note: 'A path parameter: /expenses/1.' },
+          { line: 15, note: 'Not found: a 404 status with a clear message.' }
+        ],
+        tryIt: 'Call list_expenses() with no month and check both expenses come back.',
+        check: {
+          question: 'What should an API return when asked for an expense id that does not exist?',
+          options: ['A 404 status with a clear message', 'A 200 status with an empty dictionary', 'Nothing; the server should crash'],
+          answer: 0,
+          why: '404 tells the caller exactly what happened, and the message explains it. A crash would give a confusing 500 error.'
+        }
+      },
+      {
+        title: 'POST routes and data checking with models',
+        say: [
+          'To add an expense, the caller sends a POST request with JSON in the request body, like {"item": "Tea", "amount": 20, "category": "food"}. You describe the expected shape with a class that inherits from Pydantic\'s BaseModel. You learned inheritance on Day 19; here it is in real use.',
+          'class NewExpense(BaseModel): with lines like item: str and amount: float says what fields are needed and their types. Field(gt=0) adds a rule: greater than 0. FastAPI then checks every incoming request automatically.',
+          'If the data is wrong, for example the amount is missing or is "abc", FastAPI answers with status 422 and a list explaining each problem, before your function even runs. You get strong validation almost for free.',
+          'For a successful POST, return the new expense and set status_code=201, which means "created". Then save the updated list with save() from tracker.py.'
+        ],
+        example: 'A bank form for a new account has boxes with rules: name must be filled, phone must be 10 digits, age must be over 18. The clerk checks the form before processing it and returns it with notes if anything is wrong. A BaseModel is that form with its rules.',
+        projectCode: {
+          label: 'api.py: POST with a model',
+          code: lines(
+            'from datetime import date',
+            'from pydantic import BaseModel, Field',
+            'from tracker import load, save, add_expense',
+            '',
+            'class NewExpense(BaseModel):',
+            '    item: str = Field(min_length=1)',
+            '    amount: float = Field(gt=0)',
+            '    category: str = "other"',
+            '',
+            '@app.post("/expenses", status_code=201)',
+            'def create_expense(data: NewExpense):',
+            '    expenses = add_expense(load(), data.item, data.amount,',
+            '                           data.category, date.today().isoformat())',
+            '    save(expenses)',
+            '    return expenses[-1]'
+          )
+        },
+        code: lines(
+          'def validate_expense(data):',
+          '    errors = []',
+          '    if not str(data.get("item", "")).strip():',
+          '        errors.append("item is required")',
+          '    amount = data.get("amount")',
+          '    if not isinstance(amount, (int, float)) or amount <= 0:',
+          '        errors.append("amount must be more than 0")',
+          '    return errors',
+          '',
+          'expenses = []',
+          'def create_expense(data):',
+          '    errors = validate_expense(data)',
+          '    if errors:',
+          '        return 422, {"detail": errors}',
+          '    new = {"id": len(expenses) + 1, "item": data["item"].strip(), "amount": data["amount"], "category": data.get("category", "other")}',
+          '    expenses.append(new)',
+          '    return 201, new',
+          '',
+          'print(create_expense({"item": "Tea", "amount": 20, "category": "food"}))',
+          'print(create_expense({"item": " ", "amount": "abc"}))',
+          'print(create_expense({"item": "Bus", "amount": 45}))'
+        ),
+        output: lines(
+          "(201, {'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food'})",
+          "(422, {'detail': ['item is required', 'amount must be more than 0']})",
+          "(201, {'id': 2, 'item': 'Bus', 'amount': 45, 'category': 'other'})"
+        ),
+        codeNotes: [
+          { line: 1, note: 'What FastAPI and BaseModel do for you, written out by hand so you can see it.' },
+          { line: 14, note: '422 with a list of every problem.' },
+          { line: 17, note: '201 means created.' }
+        ],
+        tryIt: 'Send {"amount": 50} with no item. You should get 422 with only "item is required".',
+        check: {
+          question: 'What status does FastAPI return when the request body fails the model\'s rules?',
+          options: ['422, with details of each problem', '200, with the data unchanged', '500, because the server crashed'],
+          answer: 0,
+          why: 'FastAPI checks the body against the model before your function runs and answers 422 with an explanation.'
+        }
+      },
+      {
+        title: 'Trying and testing your API',
+        say: [
+          'The /docs page is the easiest way to try your API by hand: open a route, click "Try it out", fill in the JSON, press Execute, and see the status and answer.',
+          'For automatic tests, FastAPI has a TestClient. client.get("/summary") and client.post("/expenses", json={...}) send pretend requests to your app without starting a server. You check response.status_code and response.json() with assert, in pytest, as on Day 21.',
+          'Test the important paths: listing works, adding a good expense returns 201, adding a bad one returns 422, and asking for a missing id returns 404.',
+          'Make the tests use a temporary data file, so they never touch your real expenses. This is why load and save take a path parameter.'
+        ],
+        example: 'Before opening a new restaurant, the owners do a trial evening with friends: they order normal dishes, strange combinations and things not on the menu, to check the kitchen handles everything. TestClient is that trial evening for your API.',
+        projectCode: {
+          label: 'test_api.py, run with: pytest',
+          code: lines(
+            'from fastapi.testclient import TestClient',
+            'from api import app',
+            '',
+            'client = TestClient(app)',
+            '',
+            'def test_add_good_expense():',
+            '    r = client.post("/expenses", json={"item": "Tea", "amount": 20})',
+            '    assert r.status_code == 201',
+            '    assert r.json()["item"] == "Tea"',
+            '',
+            'def test_refuse_bad_amount():',
+            '    r = client.post("/expenses", json={"item": "Tea", "amount": -5})',
+            '    assert r.status_code == 422',
+            '',
+            'def test_missing_expense_is_404():',
+            '    assert client.get("/expenses/99999").status_code == 404'
+          )
+        },
+        code: lines(
+          'def paginate(items, page, size):',
+          '    start = (page - 1) * size',
+          '    return items[start:start + size]',
+          '',
+          'items = list(range(1, 8))',
+          'checks = {',
+          '    "page 1": paginate(items, 1, 3) == [1, 2, 3],',
+          '    "page 3 is the last item": paginate(items, 3, 3) == [7],',
+          '    "page 4 is empty": paginate(items, 4, 3) == [],',
+          '}',
+          'for name, ok in checks.items():',
+          '    print("PASS" if ok else "FAIL", name)'
+        ),
+        output: lines('PASS page 1', 'PASS page 3 is the last item', 'PASS page 4 is empty'),
+        codeNotes: [
+          { line: 1, note: 'APIs often return long lists in pages, like ?page=2&size=20.' },
+          { line: 2, note: 'Page 1 starts at position 0, page 2 at size, and so on.' }
+        ],
+        tryIt: 'Add a check that paginate(items, 2, 5) is [6, 7], and run it.',
+        check: {
+          question: 'Why should API tests use a temporary data file?',
+          options: ['So tests never change your real expenses', 'Because TestClient cannot read files', 'To make the API faster'],
+          answer: 0,
+          why: 'Tests add and change data. Pointing them at a temporary file keeps your real data safe.'
+        }
+      },
+      {
+        title: 'Putting it together: the Expense Tracker API',
+        say: [
+          'Let us run the whole flow of the Expense Tracker API in the lesson editor with a small imitation of FastAPI: list, add a good expense, refuse a bad one, get the summary, and ask for a missing route.',
+          'On your laptop, the real version is api.py with FastAPI, reusing tracker.py, plus test_api.py. Run it with fastapi dev api.py, try every route on the /docs page, run pytest, then commit and push.',
+          'This is a real backend project: a web API with validation, error handling, tests, and data storage. It is exactly what junior Python backend roles ask about, and on Day 29 you will put it online.',
+          'In today\'s practice you will write validate_expense, which returns the list of problems in incoming data, and paginate, which returns one page of a list.'
+        ],
+        example: 'You started the month with a program that printed one line. Now other programs can send your tracker requests over the internet and get correct, checked answers back. That is the same kind of work backend developers do every day.',
+        code: lines(
+          'import json',
+          'expenses = []',
+          '',
+          'def post_expenses(body):',
+          '    if not str(body.get("item", "")).strip() or not isinstance(body.get("amount"), (int, float)) or body["amount"] <= 0:',
+          '        return 422, {"detail": "item is required and amount must be more than 0"}',
+          '    new = {"id": len(expenses) + 1, "item": body["item"].strip(), "amount": body["amount"]}',
+          '    expenses.append(new)',
+          '    return 201, new',
+          '',
+          'def get_summary(body):',
+          '    return 200, {"total": sum(e["amount"] for e in expenses), "count": len(expenses)}',
+          '',
+          'routes = {("POST", "/expenses"): post_expenses, ("GET", "/summary"): get_summary,',
+          '          ("GET", "/expenses"): lambda body: (200, expenses)}',
+          '',
+          'def request(method, path, body=None):',
+          '    handler = routes.get((method, path))',
+          '    status, data = handler(body or {}) if handler else (404, {"detail": "Not Found"})',
+          '    print(method, path, "->", status, json.dumps(data))',
+          '',
+          'request("GET", "/expenses")',
+          'request("POST", "/expenses", {"item": "Tea", "amount": 20})',
+          'request("POST", "/expenses", {"item": "Bad", "amount": -1})',
+          'request("POST", "/expenses", {"item": "Rent", "amount": 8000})',
+          'request("GET", "/summary")',
+          'request("GET", "/nothing")'
+        ),
+        output: lines(
+          'GET /expenses -> 200 []',
+          'POST /expenses -> 201 {"id": 1, "item": "Tea", "amount": 20}',
+          'POST /expenses -> 422 {"detail": "item is required and amount must be more than 0"}',
+          'POST /expenses -> 201 {"id": 2, "item": "Rent", "amount": 8000}',
+          'GET /summary -> 200 {"total": 8020, "count": 2}',
+          'GET /nothing -> 404 {"detail": "Not Found"}'
+        ),
+        codeNotes: [
+          { line: 14, note: 'The route table: (method, path) -> function, like FastAPI keeps internally.' },
+          { line: 19, note: 'Unknown routes get 404.' },
+          { line: 20, note: 'Every answer is a status code and JSON, exactly what a real API sends.' }
+        ],
+        tryIt: 'Add a route ("GET", "/health") that returns (200, {"status": "ok"}) and call it.',
+        check: {
+          question: 'What does the Expense Tracker API reuse from earlier days?',
+          options: ['The logic in tracker.py: add, summary, totals, save and load', 'The terminal menu with input()', 'Nothing; APIs need all-new code'],
+          answer: 0,
+          why: 'Only the edge changes. The API calls the same tested functions that the terminal menu used.'
+        }
+      }
+    ],
+    summary: [
+      'A web API is a set of routes: a method and a path, like GET /expenses and POST /expenses.',
+      'FastAPI: app = FastAPI(), @app.get(...) and @app.post(...), run with fastapi dev api.py, try it at /docs.',
+      'Path parameters (/expenses/{id}) and query parameters (?month=2026-09) come in as function arguments.',
+      'A BaseModel describes incoming JSON; bad data gets a 422 answer automatically.',
+      'Return 201 for created and raise HTTPException(404) for not found. Test with TestClient.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: build the API',
+      steps: [
+        'pip install "fastapi[standard]" and add it to requirements.txt.',
+        'Create api.py with GET /expenses, GET /expenses/{id}, POST /expenses and GET /summary, reusing tracker.py.',
+        'Try every route on http://127.0.0.1:8000/docs.',
+        'Write test_api.py with TestClient, run pytest, commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 28,
+    title: 'Debugging: Reading Tracebacks',
+    goal: 'You can find and fix bugs calmly: read tracebacks, recognise common errors, and use print() and breakpoints to see what code is really doing.',
+    minutes: 30,
+    recap: 'Yesterday you built the Expense Tracker API with FastAPI: routes, data models, error codes and tests.',
+    parts: [
+      {
+        title: 'Debugging is a normal part of the job',
+        say: [
+          'A bug is any case where the program does something different from what you meant. Every developer writes bugs, every day. Senior developers are not people who never write bugs; they are people who find and fix them calmly and quickly.',
+          'Most of a junior developer\'s first tasks at a company are bug fixes. So debugging is one of the most job-relevant skills in this course.',
+          'Debugging follows simple steps. One: reproduce the bug, so you can see it happen. Two: read the error message, if there is one. Three: find the exact line and the values involved. Four: form a guess about the cause and test it. Five: fix it, and add a test so it never comes back.',
+          'The worst approach is changing random things and hoping. It wastes time and often creates new bugs. Follow the steps, and look at the actual values instead of guessing.'
+        ],
+        example: 'A good doctor does not prescribe random medicines. They ask what happened, look at the symptoms, run a test, form a diagnosis, then treat. Debugging is the same careful process for code.',
+        code: lines(
+          'steps = [',
+          '    "Reproduce the bug",',
+          '    "Read the error message",',
+          '    "Find the line and the values",',
+          '    "Guess the cause and test the guess",',
+          '    "Fix it and add a test",',
+          ']',
+          'for number, step in enumerate(steps, start=1):',
+          '    print(f"{number}. {step}")'
+        ),
+        output: lines('1. Reproduce the bug', '2. Read the error message', '3. Find the line and the values', '4. Guess the cause and test the guess', '5. Fix it and add a test'),
+        codeNotes: [
+          { line: 8, note: 'A numbered checklist with enumerate, starting at 1.' }
+        ],
+        tryIt: 'Add a sixth step, "Commit the fix with a clear message", and run it.',
+        check: {
+          question: 'What is the first step in fixing a bug?',
+          options: ['Reproduce it, so you can see it happen', 'Rewrite the whole function', 'Change random lines until it works'],
+          answer: 0,
+          why: 'If you cannot make the bug happen, you cannot check whether your fix worked.'
+        }
+      },
+      {
+        title: 'Reading a traceback, from the bottom up',
+        say: [
+          'When Python crashes, it prints a traceback. On your laptop, you see the full version. Read it from the bottom up.',
+          'The last line gives the error type and message, like TypeError: unsupported operand type(s) for +: \'int\' and \'str\'. That means you tried to add a number and a piece of text.',
+          'Above it, each pair of lines shows a file, a line number and a function name, with the line of code underneath. The bottom pair is where the error actually happened. The pairs above show which function called which, all the way from the start of the program.',
+          'Often the bug is not on the exact line that crashed, but in the value that arrived there. If amount is "45" instead of 45, the question is: where did that text come from? Follow the traceback upwards to find out.'
+        ],
+        example: 'A traceback is like tracking a courier parcel backwards: "damaged at the Pune hub" is the last line. Above it: it came from the Mumbai warehouse, which got it from the seller. The damage showed up in Pune, but the bad packing may have happened at the start.',
+        projectCode: {
+          label: 'A traceback on your laptop (read from the bottom)',
+          code: lines(
+            'Traceback (most recent call last):',
+            '  File "main.py", line 12, in <module>',
+            '    print(total(expenses))',
+            '  File "tracker.py", line 3, in total',
+            '    result = result + e["amount"]',
+            'TypeError: unsupported operand type(s) for +: \'int\' and \'str\''
+          )
+        },
+        code: lines(
+          'def total(expenses):',
+          '    result = 0',
+          '    for e in expenses:',
+          '        result = result + e["amount"]',
+          '    return result',
+          '',
+          'expenses = [{"item": "Tea", "amount": 20}, {"item": "Bus", "amount": "45"}]',
+          'print(total(expenses))'
+        ),
+        output: "[Error] TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+        codeNotes: [
+          { line: 4, note: 'The line that crashes: 20 + "45" mixes a number and text.' },
+          { line: 7, note: 'The real cause: the bus amount was stored as text "45".' }
+        ],
+        tryIt: 'Fix the cause, not the symptom: change "45" to 45 on line 7 and run it. The total is 65.',
+        check: {
+          question: 'Which line of a traceback do you read first?',
+          options: ['The last line: error type and message', 'The first line: "Traceback (most recent call last)"', 'The middle line'],
+          answer: 0,
+          why: 'The last line tells you what went wrong. The lines above show where, and how the program got there.'
+        }
+      },
+      {
+        title: 'The most common errors and their usual causes',
+        say: [
+          'A few error types cause most beginner bugs. Learning their usual causes makes debugging much faster.',
+          'NameError: a name is misspelt, or used before it is created. TypeError: the wrong type, like adding text to a number, or calling a function with the wrong number of arguments. KeyError: a dictionary key is missing or spelt differently. IndexError: a list position that does not exist, often one past the end.',
+          'AttributeError: an object does not have that attribute or method, often because the value is None or a different type than you think. ValueError: the right type with a bad value, like int("abc"). ZeroDivisionError: dividing by zero, often an average of an empty list.',
+          'The sample below triggers each one on purpose and prints the error type and message. Being able to name the error and its likely cause in an interview shows real experience.'
+        ],
+        example: 'A car mechanic hears a squeal and says "that is probably the brake pads". Years of experience link common symptoms to common causes. Learning the common errors gives you that experience early.',
+        code: lines(
+          'broken = [',
+          '    lambda: totl,',
+          '    lambda: 20 + "45",',
+          '    lambda: {"amount": 20}["amont"],',
+          '    lambda: [1, 2, 3][3],',
+          '    lambda: None.upper(),',
+          '    lambda: int("abc"),',
+          '    lambda: sum([]) / len([]),',
+          ']',
+          'for run in broken:',
+          '    try:',
+          '        run()',
+          '    except Exception as error:',
+          '        print(f"{type(error).__name__}: {error}")'
+        ),
+        output: lines(
+          "NameError: name 'totl' is not defined",
+          "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+          "KeyError: 'amont'",
+          'IndexError: list index out of range',
+          "AttributeError: 'NoneType' object has no attribute 'upper'",
+          "ValueError: invalid literal for int() with base 10: 'abc'",
+          'ZeroDivisionError: division by zero'
+        ),
+        codeNotes: [
+          { line: 2, note: 'A misspelt name: NameError.' },
+          { line: 4, note: 'A misspelt key: KeyError.' },
+          { line: 5, note: 'A list of 3 has positions 0 to 2: IndexError.' },
+          { line: 13, note: 'Catching every error is fine here, because we only want to show them.' }
+        ],
+        tryIt: 'Add lambda: len(5) to the list and run it. Predict the error type before you look: it is a TypeError, because a number has no length.',
+        check: {
+          question: 'You see AttributeError: \'NoneType\' object has no attribute \'strip\'. What is the most likely cause?',
+          options: ['A value you expected to be text is None, often a function that forgot to return', 'strip is misspelt', 'The file is missing'],
+          answer: 0,
+          why: 'NoneType means the value is None. Often a function had no return, or get() found no value.'
+        }
+      },
+      {
+        title: 'print() debugging',
+        say: [
+          'Many bugs give no error at all: the program runs but the answer is wrong. For those, you need to see what the code is really doing. The simplest tool is print().',
+          'Add prints that show the values at each step, with labels: print("DEBUG i:", i, "total:", total). Then compare what you see with what you expected. The first place where they differ is where the bug is.',
+          'The f-string shortcut f"{total=}" prints both the name and the value, like total=65. It is very handy for quick debugging.',
+          'Remove the debug prints when you are done. Leaving them in makes output messy and can leak private data. Use git diff before committing to spot any you forgot.'
+        ],
+        example: 'When a recipe comes out wrong, you cook it again and taste at every step: after adding salt, after the spices, after simmering. The step where it tastes wrong is where the mistake is. Debug prints are tasting at every step.',
+        code: lines(
+          'def total_amount(expenses):',
+          '    total = 0',
+          '    for i in range(1, len(expenses)):',
+          '        print(f"DEBUG {i=} {total=}")',
+          '        total = total + expenses[i]["amount"]',
+          '    return total',
+          '',
+          'data = [{"amount": 100}, {"amount": 200}, {"amount": 300}]',
+          'print("Result:", total_amount(data), "expected 600")'
+        ),
+        output: lines('DEBUG i=1 total=0', 'DEBUG i=2 total=200', 'Result: 500 expected 600'),
+        codeNotes: [
+          { line: 3, note: 'The bug: range starts at 1, so position 0 is skipped.' },
+          { line: 4, note: 'f"{i=}" prints the name and the value. There is no i=0 line: that is the clue.' }
+        ],
+        tryIt: 'Fix the bug by changing range(1, ...) to range(0, ...), or simply loop with for e in expenses. Then remove the DEBUG line.',
+        check: {
+          question: 'What does print(f"{total=}") show when total is 65?',
+          options: ['total=65', '65', '{total=}'],
+          answer: 0,
+          why: 'Adding = inside the f-string brackets prints the expression, an equals sign, and its value.'
+        }
+      },
+      {
+        title: 'Breakpoints and the VS Code debugger',
+        say: [
+          'For bigger bugs, a debugger is more powerful than print. In VS Code, click in the margin to the left of a line number to set a breakpoint, a red dot. Then press F5, or Run, Start Debugging.',
+          'The program runs and pauses at the breakpoint. On the left, VS Code shows every variable and its current value. You can hover over any name in the code to see its value, without adding a single print.',
+          'Then you control the program: Step Over (F10) runs the next line, Step Into (F11) goes inside a function call, and Continue (F5) runs until the next breakpoint. You watch the values change line by line.',
+          'Python also has a built-in breakpoint() function that pauses a program in the terminal. The VS Code debugger is easier for beginners, and it is a skill worth showing in interviews: "I set a breakpoint and stepped through the loop".'
+        ],
+        example: 'A debugger is like pausing and replaying a cricket match in slow motion. At normal speed, you only see that the batsman was out. In slow motion, frame by frame, you see exactly where the ball hit.',
+        projectCode: {
+          label: 'In VS Code on your laptop',
+          code: lines(
+            '1. Click left of a line number: a red dot (breakpoint) appears.',
+            '2. Press F5 and choose "Python File".',
+            '3. The program pauses at the red dot. Look at VARIABLES on the left.',
+            '4. F10: run the next line.   F11: step into a function.',
+            '5. F5: continue to the next breakpoint.   Shift+F5: stop.'
+          )
+        },
+        code: lines(
+          'def average(amounts):',
+          '    steps = []',
+          '    total = 0',
+          '    for a in amounts:',
+          '        total += a',
+          '        steps.append(f"after {a}: total={total}")',
+          '    steps.append(f"count={len(amounts)}")',
+          '    return total / len(amounts), steps',
+          '',
+          'result, steps = average([20, 45, 115])',
+          'for line in steps:',
+          '    print(line)',
+          'print("average:", result)'
+        ),
+        output: lines('after 20: total=20', 'after 45: total=65', 'after 115: total=180', 'count=3', 'average: 60.0'),
+        codeNotes: [
+          { line: 6, note: 'Recording each step shows what a debugger shows you line by line.' }
+        ],
+        tryIt: 'On your laptop, copy this function into a file, put a breakpoint on line 5, press F5, and step with F10 while watching total change.',
+        check: {
+          question: 'What does a breakpoint do?',
+          options: ['Pauses the program at that line so you can look at the values', 'Deletes the line', 'Makes the program skip that line'],
+          answer: 0,
+          why: 'The program stops at the breakpoint, and the debugger shows every variable\'s current value.'
+        }
+      },
+      {
+        title: 'Putting it together: fixing a real bug',
+        say: [
+          'Let us debug a realistic bug in the Expense Tracker. Users report that the food total is too low. There is no error message: the answer is just wrong.',
+          'Follow the steps. Reproduce: run category_totals on sample data. Look at the values: one expense has the category "Food" with a capital F, so it is counted as a different category. Guess the cause: categories are not cleaned when they are added. Fix: make categories lower-case. Test: add a test with mixed capitals.',
+          'Notice the fix is in the right place: when the data comes in, in add_expense, not by patching the report. Fixing the cause means every other feature, the API included, gets correct data too.',
+          'In today\'s practice you will fix a buggy total_amount function (the same range bug you saw today) and write first_invalid, which finds the first bad record in a list.'
+        ],
+        example: 'If a tap keeps leaking, you can keep mopping the floor (patching the report), or you can fix the washer in the tap (cleaning data when it comes in). Only one of them solves the problem.',
+        code: lines(
+          'def category_totals(expenses):',
+          '    totals = {}',
+          '    for e in expenses:',
+          '        totals[e["category"]] = totals.get(e["category"], 0) + e["amount"]',
+          '    return totals',
+          '',
+          'reported = [{"category": "food", "amount": 20}, {"category": "Food", "amount": 150}, {"category": "travel", "amount": 45}]',
+          'print("Bug:", category_totals(reported))',
+          'print("Categories seen:", sorted({e["category"] for e in reported}))',
+          '',
+          'def clean(expense):',
+          '    return {**expense, "category": expense["category"].strip().lower()}',
+          '',
+          'fixed = [clean(e) for e in reported]',
+          'print("Fixed:", category_totals(fixed))',
+          'assert category_totals([clean({"category": " FOOD", "amount": 5})]) == {"food": 5}',
+          'print("Regression test passed")'
+        ),
+        output: lines(
+          "Bug: {'food': 20, 'Food': 150, 'travel': 45}",
+          "Categories seen: ['Food', 'food', 'travel']",
+          "Fixed: {'food': 170, 'travel': 45}",
+          'Regression test passed'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Looking at the actual values reveals two spellings of food.' },
+          { line: 12, note: '{**expense, ...} copies the dictionary and replaces one key.' },
+          { line: 16, note: 'A regression test so this bug can never come back unnoticed.' }
+        ],
+        tryIt: 'Add an expense with the category "food " (a space at the end) to reported, and check the fixed totals still show a single food category.',
+        check: {
+          question: 'Where is the best place to fix the "Food" vs "food" bug?',
+          options: ['Where the data comes in, by cleaning the category in add_expense', 'In the report, by printing capitals differently', 'By telling users to always type small letters'],
+          answer: 0,
+          why: 'Fixing the cause at the entry point means every feature gets clean data, and the bug cannot reappear elsewhere.'
+        }
+      }
+    ],
+    summary: [
+      'Debug in steps: reproduce, read the error, find the line and values, test a guess, fix and add a test.',
+      'Read tracebacks from the bottom up; the cause may be where a bad value came from.',
+      'Know the common errors: NameError, TypeError, KeyError, IndexError, AttributeError, ValueError, ZeroDivisionError.',
+      'Use labelled prints like f"{total=}", then remove them before committing.',
+      'Use VS Code breakpoints and F10 to step through code and watch values.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: bug hunt',
+      steps: [
+        'Add an expense with the category "Food" and check whether your totals split food in two.',
+        'If they do, fix add_expense to clean the category, and add a regression test.',
+        'Set a breakpoint in category_totals and step through it once in VS Code.',
+        'Run pytest, commit with a message like "Fix mixed-case categories", and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 29,
+    title: 'Putting Your API Online',
+    goal: 'You can prepare a FastAPI app for deployment, put it online with a free host, keep secrets in environment variables, and write a good README.',
+    minutes: 30,
+    recap: 'Yesterday you learned to debug: reading tracebacks, common errors, print debugging and breakpoints.',
+    parts: [
+      {
+        title: 'What deploying means',
+        say: [
+          'Right now your API runs only on your laptop, at 127.0.0.1, which means "this computer". Nobody else can reach it, and it stops when you close the terminal. Deploying means running it on a server on the internet, with a public address, all the time.',
+          'Hosting companies rent you a piece of a server. Some, like Render, have a free plan that is enough for a portfolio project. The usual flow is: you push your code to GitHub, connect the host to your repository, and it builds and runs your app. Every new push can redeploy it automatically.',
+          'A live link changes how recruiters see your project. Instead of reading about your API, they click a link, open /docs, and try it themselves. It shows you can take a project all the way from idea to users.',
+          'Free plans have limits. For example, a free app might go to sleep when nobody uses it and take a little while to wake up, and files saved on a free server may be deleted when it restarts. That is fine for a portfolio; just mention it in your README.'
+        ],
+        example: 'Cooking at home for your family is running on your laptop. Opening a food stall in the market, with a sign and opening hours, is deploying: now anyone passing by can order.',
+        code: lines(
+          'local = "http://127.0.0.1:8000"',
+          'online = "https://expense-api.onrender.com"',
+          'for url in [local, online]:',
+          '    who = "only you" if "127.0.0.1" in url else "anyone on the internet"',
+          '    print(f"{url:<36} -> reachable by {who}")'
+        ),
+        output: lines('http://127.0.0.1:8000                -> reachable by only you', 'https://expense-api.onrender.com     -> reachable by anyone on the internet'),
+        codeNotes: [
+          { line: 1, note: '127.0.0.1 always means "this same computer".' },
+          { line: 2, note: 'An example public address from a host (yours will be different).' }
+        ],
+        tryIt: 'Add "http://localhost:8000" to the list. localhost is another name for 127.0.0.1, so it should also say "only you". Update the check to handle it.',
+        check: {
+          question: 'Why can nobody else open http://127.0.0.1:8000 on your laptop?',
+          options: ['127.0.0.1 means "this computer", so for anyone else it points to their own computer', 'Port 8000 is blocked on the internet', 'FastAPI only allows one user'],
+          answer: 0,
+          why: '127.0.0.1 is always the computer you are using. A public address is needed for others to reach your API.'
+        }
+      },
+      {
+        title: 'Getting the project ready',
+        say: [
+          'A host needs to know two things: how to install your project, and how to start it. The install step is pip install -r requirements.txt, so make sure requirements.txt lists fastapi and anything else you import.',
+          'The start command runs your API in production mode: fastapi run api.py --port $PORT, or uvicorn api:app --host 0.0.0.0 --port $PORT. 0.0.0.0 means "accept connections from outside", and $PORT is a port number the host gives you in an environment variable.',
+          'Before deploying, run your tests and try the start command locally. Most failed deployments come from a missing package in requirements.txt or a typo in the start command.',
+          'Also check .gitignore one last time: no .venv, no .env, no personal data files in your repository.'
+        ],
+        example: 'Before sending a flat-pack table to a customer, you check the box contains every screw (requirements.txt) and the assembly instructions (the start command). A missing screw means the customer cannot build it.',
+        projectCode: {
+          label: 'Deployment settings (for example on Render)',
+          code: lines(
+            'Build command:   pip install -r requirements.txt',
+            'Start command:   fastapi run api.py --port $PORT',
+            '',
+            '# requirements.txt must include at least:',
+            'fastapi[standard]',
+            '',
+            '# Try the production start command locally first:',
+            'fastapi run api.py --port 8000'
+          )
+        },
+        code: lines(
+          'imports = {"fastapi", "pydantic", "requests"}',
+          'requirements = """fastapi[standard]==0.115.0',
+          'pytest==8.3.3"""',
+          'listed = {line.split("==")[0].split("[")[0] for line in requirements.splitlines()}',
+          'comes_with_fastapi = {"pydantic"}',
+          'missing = sorted(imports - listed - comes_with_fastapi)',
+          'print("Listed:", sorted(listed))',
+          'print("Missing:", missing)'
+        ),
+        output: lines("Listed: ['fastapi', 'pytest']", "Missing: ['requests']"),
+        codeNotes: [
+          { line: 4, note: 'Take just the package name from lines like fastapi[standard]==0.115.0.' },
+          { line: 6, note: 'Set difference: imported but not listed. This would break the deploy.' }
+        ],
+        tryIt: 'Add a line "requests==2.32.3" to the requirements text and run it. Missing becomes [].',
+        check: {
+          question: 'What is the most common reason a Python deployment fails?',
+          options: ['A package used in the code is missing from requirements.txt', 'The code has too many comments', 'The README is too short'],
+          answer: 0,
+          why: 'The server only installs what requirements.txt lists. A missing package causes an import error when the app starts.'
+        }
+      },
+      {
+        title: 'Environment variables for settings and secrets',
+        say: [
+          'Some settings differ between your laptop and the server: the data file location, whether debug output is on, API keys. These should not be written into the code. They go in environment variables, which you first met on Day 26.',
+          'In Python, os.environ.get("NAME", "default") reads a variable, with a default if it is not set. On the host, you set the real values in the dashboard, usually under "Environment". They are kept private and never appear in your GitHub repository.',
+          'Environment variables are always text. If you need a number or a True/False value, convert it: int(os.environ.get("MAX_ITEMS", "100")), or os.environ.get("DEBUG", "false") == "true".',
+          'This approach is part of a well-known set of practices for web apps called the Twelve-Factor App. Interviewers are pleased when a junior developer knows that secrets belong in environment variables.'
+        ],
+        example: 'A hotel gives each guest a room key at the front desk. The key is not printed in the hotel brochure. Your code is the brochure, public for everyone; the environment variables are the keys handed out privately at the desk.',
+        code: lines(
+          'import os',
+          '',
+          'def settings(env):',
+          '    return {',
+          '        "data_file": env.get("DATA_FILE", "expenses.json"),',
+          '        "debug": env.get("DEBUG", "false").lower() == "true",',
+          '        "max_items": int(env.get("MAX_ITEMS", "100")),',
+          '    }',
+          '',
+          'print(settings({}))',
+          'print(settings({"DATA_FILE": "/data/expenses.json", "DEBUG": "True", "MAX_ITEMS": "20"}))',
+          'print(type(os.environ.get("PATH", "")).__name__)'
+        ),
+        output: lines(
+          "{'data_file': 'expenses.json', 'debug': False, 'max_items': 100}",
+          "{'data_file': '/data/expenses.json', 'debug': True, 'max_items': 20}",
+          'str'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Pass the environment in as a dictionary, so the function is easy to test.' },
+          { line: 6, note: 'Text "True" or "true" becomes the bool True.' },
+          { line: 12, note: 'Real environment variables are always strings.' }
+        ],
+        tryIt: 'On your laptop, call settings(os.environ) to use the real environment. Then set DEBUG=true in the terminal before running, and check the value changes.',
+        check: {
+          question: 'Why convert environment variables with int() or a comparison?',
+          options: ['They are always text, even when they look like numbers', 'Python cannot read them otherwise', 'Hosts require it'],
+          answer: 0,
+          why: 'Environment variables are strings. "20" must become 20, and "true" must become True, before you use them.'
+        }
+      },
+      {
+        title: 'Deploying and checking it works',
+        say: [
+          'The deploy itself takes a few clicks. On the host, create a new Web Service, connect your GitHub account, and pick the expense-tracker repository. Enter the build and start commands, add any environment variables, and choose the free plan.',
+          'The host then shows a live log: installing packages, starting the app. Read it like a traceback. If something fails, the last lines usually say why, for example "ModuleNotFoundError: No module named requests".',
+          'When it says the service is live, open your public URL, then add /docs. Try each route. It is a great moment: your own code, answering requests from anywhere in the world.',
+          'Add a simple GET /health route that returns {"status": "ok"}. Hosts and monitoring tools use it to check your app is alive, and it is the quickest way for you to check too.'
+        ],
+        example: 'Opening night at a new shop: you unlock the doors, check the lights and the card machine work, and then welcome the first customer. Checking /health and /docs is testing the lights and the card machine.',
+        projectCode: {
+          label: 'After deploying: check it from your laptop',
+          code: lines(
+            'import requests',
+            '',
+            'BASE = "https://your-app-name.onrender.com"',
+            'print(requests.get(f"{BASE}/health", timeout=30).json())',
+            'r = requests.post(f"{BASE}/expenses", json={"item": "Tea", "amount": 20}, timeout=30)',
+            'print(r.status_code, r.json())'
+          )
+        },
+        code: lines(
+          'log = """==> Installing dependencies',
+          'Successfully installed fastapi-0.115.0',
+          '==> Starting service',
+          'Traceback (most recent call last):',
+          '  File "/app/api.py", line 3, in <module>',
+          '    import requests',
+          'ModuleNotFoundError: No module named \'requests\'"""',
+          '',
+          'last = log.strip().splitlines()[-1]',
+          'print("Last line:", last)',
+          'if last.startswith("ModuleNotFoundError"):',
+          '    package = last.split("\'")[1]',
+          '    print(f"Fix: add {package} to requirements.txt, commit and push")'
+        ),
+        output: lines("Last line: ModuleNotFoundError: No module named 'requests'", 'Fix: add requests to requirements.txt, commit and push'),
+        codeNotes: [
+          { line: 9, note: 'Read the deploy log like a traceback: the last line first.' },
+          { line: 12, note: 'The text between the quotes is the missing package name.' }
+        ],
+        tryIt: 'Change the last log line to mention \'pydantic\' instead and run it. The fix message changes to pydantic.',
+        check: {
+          question: 'What is a /health route for?',
+          options: ['A quick way for you and the host to check the app is running', 'Checking the user\'s health data', 'Speeding up the API'],
+          answer: 0,
+          why: 'A tiny route that always returns {"status": "ok"} shows at a glance that the app is alive.'
+        }
+      },
+      {
+        title: 'A README that sells your project',
+        say: [
+          'The README.md is the front page of your repository. A recruiter might spend thirty seconds on it, so the most important information goes at the top.',
+          'A good README has: the project name and one sentence about what it does; the live link; a list of features; the tech used (Python, FastAPI, pytest); how to run it locally, step by step; how to run the tests; and an example API request.',
+          'A screenshot of the /docs page is a nice touch. Keep the writing short and honest. If the free plan sleeps, say "the first request may take up to a minute".',
+          'Markdown is simple: # for headings, - for bullet points, and three backticks around code blocks. GitHub displays it nicely automatically.'
+        ],
+        example: 'A README is like the back cover of a book: a clear title, a short description that makes you want to read it, and the key facts. Nobody reads the whole book in the shop; the cover decides if they pick it up.',
+        code: lines(
+          'readme = """# Expense Tracker API',
+          '',
+          'Track your spending by category, from the terminal or over a web API.',
+          '',
+          '## Live demo',
+          'https://expense-api.onrender.com/docs',
+          '',
+          '## Features',
+          '- Add and list expenses with validation',
+          '- Totals per category and per month',
+          '',
+          '## Setup',
+          'pip install -r requirements.txt',
+          '"""',
+          '',
+          'def missing_sections(text):',
+          '    needed = ["## Live demo", "## Features", "## Setup", "## Tests"]',
+          '    return [s for s in needed if s not in text]',
+          '',
+          'print(readme.splitlines()[0])',
+          'print("Missing:", missing_sections(readme))'
+        ),
+        output: lines('# Expense Tracker API', "Missing: ['## Tests']"),
+        codeNotes: [
+          { line: 1, note: 'The README text in Markdown: # for headings, - for bullet points.' },
+          { line: 18, note: 'A quick check that every important section is present.' }
+        ],
+        tryIt: 'Add a "## Tests" section with the line "pytest" before the closing quotes, and run it. Missing becomes [].',
+        check: {
+          question: 'What should be near the top of a portfolio project README?',
+          options: ['What the project does and the live link', 'Your full life story', 'The complete source code'],
+          answer: 0,
+          why: 'A recruiter decides in seconds. A one-line description and a working link show the value immediately.'
+        }
+      },
+      {
+        title: 'Putting it together: your deployment checklist',
+        say: [
+          'Let us collect everything into one checklist you can use for this project and every future one. Go through it in order, and do not skip the tests.',
+          'After the deploy, share the live link: on your GitHub profile, on LinkedIn, and in your CV under Projects, with one line about what it does and the tech used.',
+          'Tomorrow is the last day: interview practice. You will learn to explain this project clearly, answer common Python questions, and solve small coding problems calmly.',
+          'In today\'s practice you will write base_url, which picks the right address for each environment, and missing_sections, which checks a README for the important headings.'
+        ],
+        example: 'Pilots use a checklist before every take-off, no matter how experienced they are. A deployment checklist means you never forget the one small step that breaks everything.',
+        code: lines(
+          'def base_url(env):',
+          '    return "https://expense-api.onrender.com" if env == "production" else "http://127.0.0.1:8000"',
+          '',
+          'checklist = [',
+          '    ("pytest passes", True),',
+          '    ("requirements.txt has every import", True),',
+          '    ("no .env, .venv or data files in Git", True),',
+          '    ("start command tried locally", True),',
+          '    ("deployed and /health says ok", True),',
+          '    ("README has live link, features, setup, tests", False),',
+          ']',
+          'for item, done in checklist:',
+          '    print(("[x] " if done else "[ ] ") + item)',
+          'print("Ready to share:", all(done for _, done in checklist))',
+          'print(base_url("production") + "/docs")'
+        ),
+        output: lines(
+          '[x] pytest passes',
+          '[x] requirements.txt has every import',
+          '[x] no .env, .venv or data files in Git',
+          '[x] start command tried locally',
+          '[x] deployed and /health says ok',
+          '[ ] README has live link, features, setup, tests',
+          'Ready to share: False',
+          'https://expense-api.onrender.com/docs'
+        ),
+        codeNotes: [
+          { line: 2, note: 'Pick the right address for where the code is running.' },
+          { line: 14, note: 'all() is True only when every item is done.' }
+        ],
+        tryIt: 'Mark the README item as True and run it. "Ready to share" becomes True.',
+        check: {
+          question: 'Where should you share your live project link?',
+          options: ['GitHub profile, LinkedIn and your CV', 'Nowhere; recruiters will find it', 'Only in the code comments'],
+          answer: 0,
+          why: 'A live link in the places recruiters look lets them try your work in seconds.'
+        }
+      }
+    ],
+    summary: [
+      'Deploying runs your app on a public server; 127.0.0.1 only works on your own computer.',
+      'The host needs requirements.txt (install) and a start command like fastapi run api.py --port $PORT.',
+      'Keep settings and secrets in environment variables; they are always text, so convert them.',
+      'Read deploy logs from the bottom; check /health and /docs when it is live.',
+      'A good README: what it does, the live link, features, setup, tests.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: go live',
+      steps: [
+        'Add a GET /health route and make sure requirements.txt lists every package.',
+        'Create a free web service on a host like Render, connected to your GitHub repository.',
+        'Set the build and start commands, deploy, and check /health and /docs.',
+        'Write the README with the live link, features, setup and tests, and add the link to your CV.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 30,
+    title: 'Interview Practice and Your Next Steps',
+    goal: 'You can answer common junior Python interview questions, explain your project clearly, solve small coding problems step by step, and plan what to learn next.',
+    minutes: 35,
+    recap: 'Yesterday you put your Expense Tracker API online and wrote a README that shows it off.',
+    parts: [
+      {
+        title: 'What junior Python interviews look like',
+        say: [
+          'Congratulations on reaching the last day. In one month you have gone from your first print() to a tested web API running on the internet. Today is about showing that in an interview.',
+          'Most junior Python interviews have three parts. Questions about Python basics. A conversation about a project you built. And a short coding task, often done while talking through your thinking.',
+          'Interviewers are not expecting you to know everything. They want to see that you understand the basics clearly, can explain your own work honestly, can think through a problem step by step, and are pleasant to work with.',
+          'Being honest matters. If you do not know something, say "I have not used that yet, but I would look it up in the documentation, and I think it works like this". That is a much better answer than guessing confidently and being wrong.'
+        ],
+        example: 'An interview is less like an exam and more like a trial day with a sports team. The coach wants to see how you play, how you think under a little pressure, and whether you would be good to work with, not whether you are already a champion.',
+        code: lines(
+          'interview = {',
+          '    "Python basics": ["lists vs tuples", "dictionaries", "exceptions"],',
+          '    "Your project": ["what it does", "a problem you solved", "how you tested it"],',
+          '    "Coding task": ["FizzBuzz", "reverse words", "count items"],',
+          '}',
+          'for part, topics in interview.items():',
+          '    print(f"{part}: {\', \'.join(topics)}")'
+        ),
+        output: lines(
+          'Python basics: lists vs tuples, dictionaries, exceptions',
+          'Your project: what it does, a problem you solved, how you tested it',
+          'Coding task: FizzBuzz, reverse words, count items'
+        ),
+        codeNotes: [
+          { line: 7, note: 'join makes a readable comma-separated list of topics.' }
+        ],
+        tryIt: 'Add a fourth part, "Questions for them", with two questions you could ask the interviewer, like "How do you review code?"',
+        check: {
+          question: 'What is the best answer when you do not know something in an interview?',
+          options: ['Say honestly you have not used it, and explain how you would find out', 'Guess confidently', 'Change the subject'],
+          answer: 0,
+          why: 'Honesty and a clear way of finding answers are what interviewers look for in juniors. Confident wrong answers are a red flag.'
+        }
+      },
+      {
+        title: 'Common Python questions',
+        say: [
+          'Here are questions that come up again and again, with short answers you can now give from experience. What is the difference between a list and a tuple? A list can be changed; a tuple cannot. Use a tuple for a fixed group, like coordinates.',
+          'When would you use a dictionary? When you look things up by a name or key, like an expense\'s details or totals per category. When would you use a set? For unique values and fast "is it in there?" checks.',
+          'What is the difference between return and print? print shows a value to a person; return hands it back to the code. How do you handle errors? With try and except, naming the specific error, and raising my own errors with clear messages for bad input.',
+          'What is a virtual environment, and why use one? A private set of packages for each project, so versions do not clash. What is the difference between == and is? == compares values; is checks whether two names point to the very same object. Use is only for None: if value is None.'
+        ],
+        example: 'A driving test asks what the road signs mean. You have seen these signs every day for a month, so you can answer from experience, not memorised lines. These questions are the road signs of Python.',
+        code: lines(
+          'a = [1, 2]',
+          'b = [1, 2]',
+          'c = a',
+          'print(a == b, a is b, a is c)',
+          '',
+          'point = (12.97, 77.59)',
+          'try:',
+          '    point[0] = 0',
+          'except TypeError:',
+          '    print("tuples cannot be changed")',
+          '',
+          'value = None',
+          'print(value is None)'
+        ),
+        output: lines('True False True', 'tuples cannot be changed', 'True'),
+        codeNotes: [
+          { line: 4, note: 'a and b have equal values but are two different lists; c is the same list as a.' },
+          { line: 8, note: 'A tuple cannot be changed: TypeError.' },
+          { line: 13, note: 'The one place to use is: checking for None.' }
+        ],
+        tryIt: 'Say each answer from this lesson out loud in your own words, as if to an interviewer. Then run c.append(3) and print a, to show that a and c are one list.',
+        check: {
+          question: 'What is the difference between == and is?',
+          options: ['== compares values; is checks if both names point to the same object', 'They are exactly the same', 'is compares values; == checks the type'],
+          answer: 0,
+          why: 'Two lists can be equal in value but be separate objects. Use is mainly for checking None.'
+        }
+      },
+      {
+        title: 'Explaining your project in two minutes',
+        say: [
+          'The most important question is often: tell me about a project you built. Prepare a two-minute answer about your Expense Tracker, and practise it out loud until it feels natural.',
+          'A simple structure works well. What it is and why: "An expense tracker that shows where my money goes." How it works: "Python, with the logic in one module, a terminal menu and a FastAPI web API, saving data as JSON." Something hard you solved: "Categories like Food and food were counted separately; I fixed it at the entry point and added a regression test." How you checked it: "pytest tests, including edge cases, and it is deployed with a live link."',
+          'End with what you would improve next, like a real database or user accounts. It shows you understand the limits of your project and are thinking ahead.',
+          'Use your own words and your own real experiences. Interviewers will ask follow-up questions, and genuine answers are easy to expand on, while memorised ones fall apart.'
+        ],
+        example: 'Think of describing a trip to a friend: where you went, how you travelled, what went wrong and how you handled it, and where you want to go next time. Your project story follows the same shape.',
+        code: lines(
+          'pitch = {',
+          '    "What and why": "An expense tracker that shows where my money goes.",',
+          '    "How it works": "Python logic module, a terminal menu, and a FastAPI API storing JSON.",',
+          '    "A problem I solved": "Food and food were split; I cleaned categories on entry and added a test.",',
+          '    "How I checked it": "pytest with edge cases, and it is live with a /docs page.",',
+          '    "Next": "A real database and user accounts.",',
+          '}',
+          'words = sum(len(text.split()) for text in pitch.values())',
+          'print(words, "words")',
+          'print("About", round(words / 120 * 60), "seconds at a calm speaking pace")'
+        ),
+        output: lines('53 words', 'About 26 seconds at a calm speaking pace'),
+        codeNotes: [
+          { line: 8, note: 'Count the words in all five parts.' },
+          { line: 10, note: 'About 120 words per minute is a calm speaking pace.' }
+        ],
+        tryIt: 'Rewrite each part with your own details and a bit more explanation, until it reaches about 240 words: roughly two minutes.',
+        check: {
+          question: 'Why mention what you would improve next?',
+          options: ['It shows you understand the project\'s limits and think ahead', 'To make the answer longer', 'Because the project is not finished'],
+          answer: 0,
+          why: 'Knowing your project\'s limits, and how you would improve it, shows maturity and real understanding.'
+        }
+      },
+      {
+        title: 'Solving a coding task out loud',
+        say: [
+          'In a coding task, how you think matters as much as the final code. Talk through your steps. First, repeat the problem in your own words and ask about anything unclear, like "can the list be empty?".',
+          'Second, try a small example by hand. Third, write a simple solution that works, even if it is not clever. Fourth, test it with your examples, including an edge case. Only then, if there is time, improve it.',
+          'FizzBuzz is a classic: for a number, return "Fizz" if it divides by 3, "Buzz" if by 5, "FizzBuzz" if by both, otherwise the number as text. The common trap is checking 3 before checking both, so 15 wrongly becomes "Fizz". You saw the same order rule with elif on Day 5.',
+          'If you get stuck, say what you are thinking. Interviewers often give hints to candidates who communicate. Silence gives them nothing to work with.'
+        ],
+        example: 'A maths teacher gives marks for the working, not only the final answer. Even if the final number is slightly wrong, clear steps show you understand. Coding interviews mark your working too.',
+        code: lines(
+          'def fizz_buzz(n):',
+          '    if n % 15 == 0:',
+          '        return "FizzBuzz"',
+          '    if n % 3 == 0:',
+          '        return "Fizz"',
+          '    if n % 5 == 0:',
+          '        return "Buzz"',
+          '    return str(n)',
+          '',
+          'print([fizz_buzz(n) for n in range(1, 16)])',
+          'for n, expected in [(15, "FizzBuzz"), (9, "Fizz"), (10, "Buzz"), (7, "7")]:',
+          '    assert fizz_buzz(n) == expected, f"{n}: got {fizz_buzz(n)}"',
+          'print("All my examples pass")'
+        ),
+        output: lines(
+          "['1', '2', 'Fizz', '4', 'Buzz', 'Fizz', '7', '8', 'Fizz', 'Buzz', '11', 'Fizz', '13', '14', 'FizzBuzz']",
+          'All my examples pass'
+        ),
+        codeNotes: [
+          { line: 2, note: 'Check "both" first. 15 divides by 3 and by 5.' },
+          { line: 11, note: 'Test with your own examples, as you would say out loud in an interview.' }
+        ],
+        tryIt: 'Move the n % 15 check below the n % 3 check and run it. The assert catches the bug for 15. Move it back.',
+        check: {
+          question: 'What should you do first when given a coding task in an interview?',
+          options: ['Repeat the problem in your own words and ask about unclear cases', 'Start typing code immediately', 'Look for the cleverest possible solution'],
+          answer: 0,
+          why: 'Making sure you understand the problem, including edge cases, avoids solving the wrong problem.'
+        }
+      },
+      {
+        title: 'More classic small problems',
+        say: [
+          'A few more problems appear often in junior interviews. Reverse the words in a sentence: split into words, reverse the list, join them back. Count how often each word appears: the dictionary counting pattern from Day 10, or Counter. Check whether a word is a palindrome: compare it with its reverse, text[::-1].',
+          'Find duplicates in a list: loop with a set of seen values, and collect any value you have already seen. Find the largest number without using max: the accumulator pattern from Day 6.',
+          'You have used every idea these problems need. The trick is recognising the pattern: "counting" means a dictionary, "unique" means a set, "go through everything" means a loop.',
+          'Practise one or two small problems a day on a site like HackerRank or LeetCode (easy level), writing tests for your own solutions. After a few weeks, these patterns become automatic.'
+        ],
+        example: 'A good cook recognises that many dishes start the same way: onion, ginger, garlic. Once you know the base, new recipes are quick. Coding problems also reuse a few bases: loops, dictionaries, sets and slicing.',
+        code: lines(
+          'from collections import Counter',
+          '',
+          'def reverse_words(sentence):',
+          '    return " ".join(reversed(sentence.split()))',
+          '',
+          'def is_palindrome(word):',
+          '    clean = word.lower()',
+          '    return clean == clean[::-1]',
+          '',
+          'def duplicates(items):',
+          '    seen, dupes = set(), []',
+          '    for x in items:',
+          '        if x in seen and x not in dupes:',
+          '            dupes.append(x)',
+          '        seen.add(x)',
+          '    return dupes',
+          '',
+          'print(reverse_words("I love Python"))',
+          'print(is_palindrome("Malayalam"), is_palindrome("Python"))',
+          'print(duplicates([3, 1, 3, 2, 1, 3]))',
+          'print(Counter("the cat and the hat".split()).most_common(1))'
+        ),
+        output: lines('Python love I', 'True False', '[3, 1]', "[('the', 2)]"),
+        codeNotes: [
+          { line: 4, note: 'Split, reverse, join.' },
+          { line: 8, note: 'text[::-1] is a slice that reverses the text.' },
+          { line: 13, note: 'A set of seen values makes the "have I seen it?" check fast.' }
+        ],
+        tryIt: 'Write largest(numbers) without using max(), using a loop that keeps the biggest value so far. Test it with [3, 9, 2] and with a single number.',
+        check: {
+          question: 'A problem asks you to count how often each word appears. Which tool fits best?',
+          options: ['A dictionary (or Counter)', 'A tuple', 'A while loop with no data structure'],
+          answer: 0,
+          why: 'Counting per item is the dictionary pattern: each word is a key and its count is the value. Counter does it in one line.'
+        }
+      },
+      {
+        title: 'Your next steps after this month',
+        say: [
+          'In one month you learned Python basics, data structures, files and JSON, classes, testing, Git, APIs, FastAPI, debugging and deployment, and built a real project with them. That is a genuine foundation for a junior Python role. Now keep building on it.',
+          'The most valuable next step for backend jobs is databases. Learn SQL, then use SQLite or PostgreSQL in your Expense Tracker instead of a JSON file. After that, learn user accounts and login, and Docker for packaging apps.',
+          'Keep building small projects and put each one on GitHub with a README and a live link where possible. Three solid, tested projects say more than a long list of courses.',
+          'Apply for jobs and internships while you keep learning; do not wait until you feel you know everything, because nobody ever does. Every interview is practice. In today\'s practice, you will solve FizzBuzz and reverse the words in a sentence, two classic interview tasks. Well done on finishing the month.'
+        ],
+        example: 'Learning to ride a bicycle does not end on the day you first ride without falling. You keep riding, go further, try hills. This month got you riding. Your next projects are the longer rides.',
+        code: lines(
+          'learned = ["basics", "lists and dictionaries", "files and JSON", "classes", "testing",',
+          '           "Git", "APIs", "FastAPI", "debugging", "deployment"]',
+          'next_steps = ["SQL and SQLite", "PostgreSQL", "user accounts", "Docker", "two more projects"]',
+          'print(f"Learned this month: {len(learned)} topics")',
+          'for week, step in enumerate(next_steps, start=1):',
+          '    print(f"Week {week} after the course: {step}")',
+          'print("You are ready to apply for junior Python roles. Good luck!")'
+        ),
+        output: lines(
+          'Learned this month: 10 topics',
+          'Week 1 after the course: SQL and SQLite',
+          'Week 2 after the course: PostgreSQL',
+          'Week 3 after the course: user accounts',
+          'Week 4 after the course: Docker',
+          'Week 5 after the course: two more projects',
+          'You are ready to apply for junior Python roles. Good luck!'
+        ),
+        codeNotes: [
+          { line: 5, note: 'A simple learning plan, one topic per week.' }
+        ],
+        tryIt: 'Replace the next steps with your own plan for the next five weeks, and run it. Save it somewhere you will see it every day.',
+        check: {
+          question: 'What is the most valuable next skill for a junior Python backend developer after this course?',
+          options: ['Databases and SQL', 'Memorising every Python module', 'Waiting until you know everything before applying'],
+          answer: 0,
+          why: 'Almost every backend job stores data in a database. SQL and a real database are the natural next step for your project.'
+        }
+      }
+    ],
+    summary: [
+      'Junior interviews cover Python basics, your project, and a short coding task.',
+      'Be honest about what you do not know, and explain how you would find out.',
+      'Prepare a two-minute project story: what, how, a problem solved, testing, next.',
+      'Solve tasks out loud: restate, try an example, simple solution, test, then improve.',
+      'Next: SQL and databases, more projects on GitHub, and apply while you keep learning.'
+    ],
+    projectStep: {
+      title: 'Get job-ready',
+      steps: [
+        'Write your two-minute Expense Tracker story and practise it out loud three times.',
+        'Solve FizzBuzz, reverse words and find duplicates without looking, with tests.',
+        'Add the project, its live link and your GitHub profile to your CV and LinkedIn.',
+        'Pick your next project idea, one that uses a database, and write its PLAN.md.'
+      ]
+    }
   }
 ];
