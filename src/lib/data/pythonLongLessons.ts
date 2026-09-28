@@ -2183,5 +2183,1213 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         'Add up the amount of each category into a totals dictionary with get().'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 11,
+    title: 'Lists of Dictionaries: Real Data',
+    goal: 'You can store many records as a list of dictionaries, and total, filter, search and sort them.',
+    minutes: 30,
+    recap: 'Yesterday you stored the details of one expense in a dictionary and added up totals per category with get().',
+    parts: [
+      {
+        title: 'The shape of real data',
+        say: [
+          'Yesterday one expense became a dictionary. Today you put many of them in a list. A list of dictionaries is the most important data shape in this whole course, because almost all real app data looks like this.',
+          'Each dictionary is one record: one expense, one user, one order. The list holds all the records in order. When a shopping app shows your orders, or a bank app shows your transactions, the data behind the screen is a list of dictionaries.',
+          'When you later call a web API on Day 26, or build your own on Day 27, the data going back and forth will be in this shape too, written as JSON, which you will learn on Day 17.',
+          'To read one value, you go in two steps: first the position in the list, then the key in the dictionary. expenses[0]["amount"] means: the first expense, and its amount.'
+        ],
+        example: 'Think of a class register as a stack of student cards. The stack is the list. Each card is a dictionary with the same labels: name, roll number, marks. To find the marks of the first student, you pick the first card, then read the marks line.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "category": "food"},',
+          '    {"item": "Bus", "amount": 45, "category": "travel"},',
+          '    {"item": "Lunch", "amount": 120, "category": "food"},',
+          ']',
+          'print(len(expenses))',
+          'print(expenses[0])',
+          'print(expenses[0]["item"])',
+          'print(expenses[-1]["amount"])'
+        ),
+        output: lines('3', "{'item': 'Tea', 'amount': 20, 'category': 'food'}", 'Tea', '120'),
+        codeNotes: [
+          { line: 1, note: 'A list can be written over several lines. Each line is one dictionary.' },
+          { line: 8, note: 'First the position (0), then the key ("item").' },
+          { line: 9, note: 'The last expense, and its amount.' }
+        ],
+        tryIt: 'Add a fourth dictionary for a movie ticket costing 300 in the "fun" category. Run it and check that len(expenses) is now 4 and the last amount is 300.',
+        check: {
+          question: 'For the list above, what is expenses[1]["category"]?',
+          options: ['"travel"', '"food"', '"Bus"'],
+          answer: 0,
+          why: 'expenses[1] is the second dictionary (the bus), and its "category" key holds "travel".'
+        }
+      },
+      {
+        title: 'Looping over records',
+        say: [
+          'To do something with every record, loop over the list. Each round, the loop variable holds one whole dictionary. Name it after one record, like expense, so the code reads naturally: for expense in expenses.',
+          'Inside the loop, you read the details with keys: expense["item"], expense["amount"]. This is much clearer than the two separate lists from Day 8. The name and the amount can never get out of step, because they live in the same dictionary.',
+          'The accumulator pattern works here too. Start total = 0 before the loop and add expense["amount"] each round.',
+          'You can also add or change keys on each record inside the loop, for example marking every expense over 1000 as "big". Because dictionaries can change, the change stays in the list.'
+        ],
+        example: 'A delivery person with a stack of parcels: for each parcel, read the name and address label, deliver it, and tick it off. The parcels are the dictionaries; the labels are the keys.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20},',
+          '    {"item": "Rent", "amount": 8000},',
+          '    {"item": "Lunch", "amount": 120},',
+          ']',
+          'total = 0',
+          'for expense in expenses:',
+          '    print(expense["item"], "-", expense["amount"])',
+          '    total += expense["amount"]',
+          '    expense["big"] = expense["amount"] > 1000',
+          'print("Total:", total)',
+          'print(expenses[1])'
+        ),
+        output: lines('Tea - 20', 'Rent - 8000', 'Lunch - 120', 'Total: 8140', "{'item': 'Rent', 'amount': 8000, 'big': True}"),
+        codeNotes: [
+          { line: 7, note: 'Each round, expense is one whole dictionary.' },
+          { line: 10, note: 'Add a new key to each record. The change stays in the list.' }
+        ],
+        tryIt: 'Print expenses[0] at the end too. It should have "big": False, because 20 is not over 1000.',
+        check: {
+          question: 'In for expense in expenses:, what does expense hold each round?',
+          options: ['One whole dictionary (one record)', 'One key', 'The position number'],
+          answer: 0,
+          why: 'The list holds dictionaries, so each round the loop variable is the next dictionary in the list.'
+        }
+      },
+      {
+        title: 'Totals and filters with comprehensions',
+        say: [
+          'Everything you learned on Day 9 works here. To add up all amounts in one line: sum(e["amount"] for e in expenses). To keep only some records: [e for e in expenses if e["category"] == "food"].',
+          'A filter gives you a new list of whole dictionaries, so you still have every detail of each record you kept. You can then total, count or print that smaller list.',
+          'You can also pull out one field from every record: [e["item"] for e in expenses] gives a plain list of item names. This is useful for showing a short summary.',
+          'These one-liners are exactly what your practice tasks ask for today, and they will be at the heart of the Expense Tracker in Week 4.'
+        ],
+        example: 'In a spreadsheet, you might filter the rows to show only "food", then look at the sum at the bottom of the amount column. A comprehension with an if is the filter, and sum() is the total at the bottom.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "category": "food"},',
+          '    {"item": "Bus", "amount": 45, "category": "travel"},',
+          '    {"item": "Lunch", "amount": 120, "category": "food"},',
+          '    {"item": "Metro", "amount": 30, "category": "travel"},',
+          ']',
+          'print(sum(e["amount"] for e in expenses))',
+          'food = [e for e in expenses if e["category"] == "food"]',
+          'print(len(food), "food expenses")',
+          'print(sum(e["amount"] for e in food))',
+          'print([e["item"] for e in expenses])'
+        ),
+        output: lines('215', '2 food expenses', '140', "['Tea', 'Bus', 'Lunch', 'Metro']"),
+        codeNotes: [
+          { line: 7, note: 'Add up the amount of every record.' },
+          { line: 8, note: 'Keep only the food records. Each kept item is a full dictionary.' },
+          { line: 11, note: 'Pull out just the item names.' }
+        ],
+        tryIt: 'Make a list of the items in the travel category only: [e["item"] for e in expenses if e["category"] == "travel"]. It should be [\'Bus\', \'Metro\'].',
+        check: {
+          question: 'What does [e for e in expenses if e["amount"] > 100] give?',
+          options: ['A list of the whole expense dictionaries with amount over 100', 'A list of amounts over 100', 'The total of amounts over 100'],
+          answer: 0,
+          why: 'The part before for is e, the whole dictionary, so the new list holds full records that pass the filter.'
+        }
+      },
+      {
+        title: 'Finding one record',
+        say: [
+          'Often you need one particular record: the expense with id 3, or the user with a given email. The simple way is a loop that returns as soon as it finds a match.',
+          'Put this in a function. Loop over the records, and when one matches, return it. If the loop finishes without finding anything, return None. The caller can then check if the result is None.',
+          'max() and min() can also find a record, not just a number. max(expenses, key=lambda e: e["amount"]) gives the whole dictionary with the biggest amount.',
+          'The key=lambda e: e["amount"] part tells max what to compare. A lambda is a tiny one-line function without a name. Read it as "for each e, compare e\'s amount". You will see lambda again for sorting in a moment.'
+        ],
+        example: 'Looking for your friend\'s parcel in a pile: you check each label, and as soon as you find their name, you stop and hand it over. If you reach the bottom of the pile without finding it, you tell them "not here". That is return inside the loop, and None after it.',
+        code: lines(
+          'expenses = [',
+          '    {"id": 1, "item": "Tea", "amount": 20},',
+          '    {"id": 2, "item": "Rent", "amount": 8000},',
+          '    {"id": 3, "item": "Lunch", "amount": 120},',
+          ']',
+          'def find_by_id(records, wanted):',
+          '    for record in records:',
+          '        if record["id"] == wanted:',
+          '            return record',
+          '    return None',
+          '',
+          'print(find_by_id(expenses, 3))',
+          'print(find_by_id(expenses, 9))',
+          'biggest = max(expenses, key=lambda e: e["amount"])',
+          'print(biggest["item"])'
+        ),
+        output: lines("{'id': 3, 'item': 'Lunch', 'amount': 120}", 'None', 'Rent'),
+        codeNotes: [
+          { line: 9, note: 'Found it: return straight away. The rest of the loop does not run.' },
+          { line: 10, note: 'The loop finished without a match, so return None.' },
+          { line: 14, note: 'max compares the records by their amount and returns the whole record.' }
+        ],
+        tryIt: 'Use min with the same key to find the cheapest expense, and print its item. It should be Tea.',
+        check: {
+          question: 'Why does find_by_id have return None after the loop?',
+          options: ['So the caller gets a clear "not found" answer when nothing matches', 'Because every function must end with None', 'To restart the loop'],
+          answer: 0,
+          why: 'If no record matches, the loop ends without returning. return None makes the "not found" result clear.'
+        }
+      },
+      {
+        title: 'Sorting records',
+        say: [
+          'To show records in a useful order, use sorted() with a key, just like max. sorted(expenses, key=lambda e: e["amount"]) gives a new list from the smallest amount to the largest.',
+          'Add reverse=True to sort from largest to smallest. For text keys, like item names or dates written as "2026-09-28", sorting puts them in alphabetical order. Dates written year-month-day sort correctly as text, which is one reason that format is used everywhere.',
+          'sorted() returns a new list and leaves the original alone. If you want to sort the list itself, use expenses.sort(key=...), which changes the list and returns None.',
+          'Showing the newest first or the biggest first is something almost every app does. Sorting by a key is how.'
+        ],
+        example: 'A cricket points table: the same list of teams, sorted by points so the leader is at the top. The teams did not change; only the order in which they are shown did.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "date": "2026-09-03"},',
+          '    {"item": "Rent", "amount": 8000, "date": "2026-09-01"},',
+          '    {"item": "Lunch", "amount": 120, "date": "2026-09-10"},',
+          ']',
+          'by_amount = sorted(expenses, key=lambda e: e["amount"], reverse=True)',
+          'print([e["item"] for e in by_amount])',
+          'newest = sorted(expenses, key=lambda e: e["date"], reverse=True)',
+          'print([e["date"] for e in newest])',
+          'print(expenses[0]["item"])'
+        ),
+        output: lines("['Rent', 'Lunch', 'Tea']", "['2026-09-10', '2026-09-03', '2026-09-01']", 'Tea'),
+        codeNotes: [
+          { line: 6, note: 'Biggest amount first.' },
+          { line: 8, note: 'Dates as year-month-day text sort in the right order.' },
+          { line: 10, note: 'The original list is unchanged: Tea is still first.' }
+        ],
+        tryIt: 'Sort by item name with key=lambda e: e["item"] and print the names. They should be in A to Z order: Lunch, Rent, Tea.',
+        check: {
+          question: 'Why do dates like "2026-09-10" sort correctly as text?',
+          options: ['Year, then month, then day, each with a fixed number of digits, so alphabetical order is date order', 'Python recognises dates automatically', 'They do not; you must convert them first'],
+          answer: 0,
+          why: 'In year-month-day format with leading zeros, comparing the text character by character gives the same order as the dates.'
+        }
+      },
+      {
+        title: 'Putting it together: a monthly report',
+        say: [
+          'Let us combine today\'s tools into a small report for the Expense Tracker: the total, the total per category, the biggest expense, and the three newest expenses.',
+          'Look at how each question is one or two lines, because the data is in a good shape. This is a big lesson in programming: when the data shape is right, the code becomes simple.',
+          'The category totals use the get() pattern from yesterday, but now reading the category and amount from each record.',
+          'In today\'s practice you will write total_spent, which adds up the amounts of a list of expenses, and by_category, which keeps only the expenses of one category.'
+        ],
+        example: 'At the end of a month, you open your bank statement and ask: how much did I spend, where did it go, what was the biggest payment, and what were the last few? This program answers exactly those questions.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "category": "food", "date": "2026-09-03"},',
+          '    {"item": "Rent", "amount": 8000, "category": "home", "date": "2026-09-01"},',
+          '    {"item": "Lunch", "amount": 120, "category": "food", "date": "2026-09-10"},',
+          '    {"item": "Bus", "amount": 45, "category": "travel", "date": "2026-09-08"},',
+          ']',
+          'print("Total:", sum(e["amount"] for e in expenses))',
+          'totals = {}',
+          'for e in expenses:',
+          '    totals[e["category"]] = totals.get(e["category"], 0) + e["amount"]',
+          'print("By category:", totals)',
+          'print("Biggest:", max(expenses, key=lambda e: e["amount"])["item"])',
+          'newest = sorted(expenses, key=lambda e: e["date"], reverse=True)[:3]',
+          'print("Newest:", [e["item"] for e in newest])'
+        ),
+        output: lines(
+          'Total: 8185',
+          "By category: {'food': 140, 'home': 8000, 'travel': 45}",
+          'Biggest: Rent',
+          "Newest: ['Lunch', 'Bus', 'Tea']"
+        ),
+        codeNotes: [
+          { line: 10, note: 'The grouping pattern from Day 10, reading from each record.' },
+          { line: 13, note: 'Sort newest first, then take the first three with a slice.' }
+        ],
+        tryIt: 'Add a fifth expense of your own with today\'s date, and run the report. It should appear first in the Newest list.',
+        check: {
+          question: 'Why is this report so short to write?',
+          options: ['The data is a list of dictionaries, so each question is a simple loop, filter or sort', 'Python has a built-in report function', 'The list is small'],
+          answer: 0,
+          why: 'With the right data shape, totals, groups, maximums and sorting each take only a line or two.'
+        }
+      }
+    ],
+    summary: [
+      'Real app data is usually a list of dictionaries: one dictionary per record.',
+      'Read a value in two steps: expenses[0]["amount"].',
+      'Loop with for e in expenses, and use comprehensions to total, filter and pick fields.',
+      'Find one record with a loop that returns it, or None if not found.',
+      'Sort or find the biggest with key=lambda e: e["amount"].'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: a list of expense records',
+      steps: [
+        'Make a list of at least five expense dictionaries with item, amount, category and date.',
+        'Print the total and the totals per category.',
+        'Print the biggest expense and the three newest ones.',
+        'Write find_by_item(expenses, name) that returns the matching record or None.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 12,
+    title: 'Tuples and Sets',
+    goal: 'You can use tuples for fixed groups of values and sets for unique values, and choose between list, tuple, set and dictionary.',
+    minutes: 30,
+    recap: 'Yesterday you worked with a list of dictionaries: totals, filters, searching and sorting.',
+    parts: [
+      {
+        title: 'Tuples: fixed groups of values',
+        say: [
+          'A tuple is like a list that cannot be changed. You write it with round brackets instead of square ones: point = (12.97, 77.59). You read items by position, exactly like a list: point[0].',
+          'Once a tuple is created, you cannot add, remove or replace items. That sounds like a limitation, but it is useful. It tells everyone reading the code that this group of values belongs together and should stay fixed.',
+          'Tuples are used for small groups where each position has a fixed meaning: a map location (latitude, longitude), a colour (red, green, blue), or a date (year, month, day).',
+          'If you try to change a tuple, like point[0] = 5, Python gives a TypeError saying the tuple does not support item assignment.'
+        ],
+        example: 'Your date of birth is like a tuple: (day, month, year). It is one fixed group of three values, and it never changes. Your shopping list, on the other hand, changes all the time, so it is a list.',
+        code: lines(
+          'bengaluru = (12.97, 77.59)',
+          'print(bengaluru[0])',
+          'print(bengaluru[1])',
+          'print(len(bengaluru))',
+          'birthday = (15, 8, 2004)',
+          'print(birthday)',
+          'print(type(birthday))'
+        ),
+        output: lines('12.97', '77.59', '2', '(15, 8, 2004)', "<class 'tuple'>"),
+        codeNotes: [
+          { line: 1, note: 'Round brackets make a tuple.' },
+          { line: 2, note: 'Read by position, just like a list.' }
+        ],
+        tryIt: 'Add bengaluru[0] = 13 at the end and run it. Read the TypeError: tuples cannot be changed. Then delete that line.',
+        check: {
+          question: 'What is the main difference between a tuple and a list?',
+          options: ['A tuple cannot be changed after it is created', 'A tuple can only hold numbers', 'A tuple has no positions'],
+          answer: 0,
+          why: 'Tuples are fixed. Lists can have items added, removed and replaced.'
+        }
+      },
+      {
+        title: 'Unpacking and returning several values',
+        say: [
+          'Unpacking means taking the values out of a tuple into separate variables in one line: lat, lng = bengaluru. The number of names on the left must match the number of values.',
+          'You have already used unpacking without the name: for i, item in enumerate(...) and for key, value in d.items(). Each round gives a small tuple, and the loop unpacks it.',
+          'Tuples also let a function return more than one value. return smallest, largest actually returns a tuple, and the caller can unpack it: low, high = min_max(amounts).',
+          'A neat Python trick uses the same idea to swap two variables: a, b = b, a. No temporary variable needed.'
+        ],
+        example: 'Unpacking is like opening a tiffin box with three compartments and putting the rice, dal and sabzi on three separate plates in one go. You know exactly which compartment holds what.',
+        code: lines(
+          'location = (12.97, 77.59)',
+          'lat, lng = location',
+          'print("Latitude:", lat)',
+          '',
+          'def min_max(numbers):',
+          '    return min(numbers), max(numbers)',
+          '',
+          'low, high = min_max([45, 20, 300, 120])',
+          'print(low, high)',
+          'a, b = 1, 2',
+          'a, b = b, a',
+          'print(a, b)'
+        ),
+        output: lines('Latitude: 12.97', '20 300', '2 1'),
+        codeNotes: [
+          { line: 2, note: 'Two names on the left, two values in the tuple.' },
+          { line: 6, note: 'Returning two values separated by a comma returns a tuple.' },
+          { line: 11, note: 'Swap two values in one line.' }
+        ],
+        tryIt: 'Print the result of min_max without unpacking: print(min_max([5, 9, 1])). You will see the tuple (1, 9).',
+        check: {
+          question: 'After x, y = (3, 7), what is y?',
+          options: ['7', '3', '(3, 7)'],
+          answer: 0,
+          why: 'Unpacking puts the first value into x and the second into y.'
+        }
+      },
+      {
+        title: 'Sets: only unique values',
+        say: [
+          'A set is a group of values where each value appears only once. You write it with curly brackets but without keys: {"food", "travel"}. If you add a value that is already there, nothing changes.',
+          'The most common use is removing duplicates: set(list) turns a list into a set and drops repeated values. This is very handy for questions like "which categories did I spend money on?".',
+          'Sets do not keep items in order, and you cannot read them by position. If you need them in order, turn the set into a sorted list: sorted(my_set).',
+          'One small trap: {} makes an empty dictionary, not an empty set. For an empty set, write set().'
+        ],
+        example: 'A guest list for a wedding: even if an uncle is invited by three different family members, his name appears on the final list only once. A set keeps each name once, no matter how many times it is added.',
+        code: lines(
+          'categories = ["food", "travel", "food", "rent", "food"]',
+          'unique = set(categories)',
+          'print(len(unique))',
+          'print(sorted(unique))',
+          'tags = set()',
+          'tags.add("urgent")',
+          'tags.add("urgent")',
+          'tags.add("work")',
+          'print(sorted(tags))'
+        ),
+        output: lines('3', "['food', 'rent', 'travel']", "['urgent', 'work']"),
+        codeNotes: [
+          { line: 2, note: 'Duplicates are dropped: food appears only once.' },
+          { line: 4, note: 'Sets have no order, so sort them to print them neatly.' },
+          { line: 7, note: 'Adding a value that is already there changes nothing.' }
+        ],
+        tryIt: 'Count how many different letters are in "mississippi" with len(set("mississippi")). The answer is 4: m, i, s and p.',
+        check: {
+          question: 'What is len(set([1, 2, 2, 3, 3, 3]))?',
+          options: ['3', '6', '1'],
+          answer: 0,
+          why: 'A set keeps each value once, so it holds 1, 2 and 3: three values.'
+        }
+      },
+      {
+        title: 'Checking membership quickly',
+        say: [
+          'The word in works with sets too, and it is much faster than with a list when there are many values. To check if something is in a list, Python may have to look at every item. A set can answer almost instantly, however big it is.',
+          'This matters in real programs. Checking whether a username is already taken, whether an email is on a block list, or whether a product code is valid: all these are membership checks, and sets are the right tool.',
+          'Sets can also compare two groups. a & b gives the values in both sets. a | b gives the values in either. a - b gives the values in a but not in b.',
+          'For example, comparing the categories you spent on this month and last month tells you what is new and what stopped.'
+        ],
+        example: 'A security guard with a printed list of 500 names has to read down the list to find yours. A guard with a smart scanner answers instantly. A set is the smart scanner: checking if something is inside takes the same short time however long the list is.',
+        code: lines(
+          'taken = {"asha", "ravi", "priya"}',
+          'print("ravi" in taken)',
+          'print("neha" in taken)',
+          'this_month = {"food", "travel", "rent", "movies"}',
+          'last_month = {"food", "rent", "gym"}',
+          'print(sorted(this_month & last_month))',
+          'print(sorted(this_month - last_month))',
+          'print(sorted(last_month - this_month))'
+        ),
+        output: lines('True', 'False', "['food', 'rent']", "['movies', 'travel']", "['gym']"),
+        codeNotes: [
+          { line: 6, note: '& gives the categories in both months.' },
+          { line: 7, note: 'New this month: in this month, not last month.' },
+          { line: 8, note: 'Stopped: in last month, not this month.' }
+        ],
+        tryIt: 'Print all categories from both months together with sorted(this_month | last_month). You should see five categories.',
+        check: {
+          question: 'Why use a set instead of a list to check if a username is taken?',
+          options: ['Checking membership in a set is very fast, even with millions of names', 'Sets keep names in order', 'Lists cannot hold text'],
+          answer: 0,
+          why: 'A list may need to check every item; a set answers almost instantly. Sets have no order at all.'
+        }
+      },
+      {
+        title: 'Choosing the right container',
+        say: [
+          'You now know four ways to group values: list, tuple, set and dictionary. Choosing the right one makes your code simpler and clearer. Here is a simple guide.',
+          'Use a list when order matters and the group changes: expenses, messages, a to-do list. Use a tuple for a small, fixed group where each position has a meaning: coordinates, a returned pair.',
+          'Use a set when you only care whether something is there, and duplicates make no sense: unique categories, tags, seen IDs. Use a dictionary when you look things up by name: one record\'s details, or totals per category.',
+          'Very often they are combined. A list of dictionaries holds records. A dictionary of lists groups records by category. A set of tuples could hold unique locations. Interviews often ask why you picked a container, so practise explaining your choice.'
+        ],
+        example: 'In a kitchen: a shopping list is a list (order and changes), a recipe\'s oven setting of (temperature, minutes) is a tuple (fixed pair), the spices you own is a set (you either have it or not), and the labelled spice rack is a dictionary (find by name).',
+        code: lines(
+          'expenses = [("Tea", 20, "food"), ("Bus", 45, "travel"), ("Lunch", 120, "food")]',
+          'categories = {category for _, _, category in expenses}',
+          'by_category = {}',
+          'for item, amount, category in expenses:',
+          '    by_category.setdefault(category, []).append(item)',
+          'print(sorted(categories))',
+          'print(by_category)'
+        ),
+        output: lines("['food', 'travel']", "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}"),
+        codeNotes: [
+          { line: 1, note: 'A list of tuples: each expense is a fixed (item, amount, category) group.' },
+          { line: 2, note: 'A set comprehension: curly brackets make a set. _ means "a value I do not need".' },
+          { line: 5, note: 'setdefault gives the list for this category, creating an empty one the first time.' }
+        ],
+        tryIt: 'Add ("Metro", 30, "travel") to the expenses and run it. by_category should now list Bus and Metro under travel.',
+        check: {
+          question: 'Which container fits "the unique tags on a blog post" best?',
+          options: ['A set', 'A tuple', 'A list of dictionaries'],
+          answer: 0,
+          why: 'Tags should not repeat, their order does not matter, and you mostly check whether a tag is present. That is exactly what a set is for.'
+        }
+      },
+      {
+        title: 'Putting it together: categories and ranges',
+        say: [
+          'Let us use today\'s tools on the Expense Tracker. We find the unique categories with a set, get the smallest and largest amounts with a function that returns a tuple, and check whether any expense is in a category we have not seen before.',
+          'Notice how each container is used for what it is best at: a list of dictionaries for the records, a set for unique values, a tuple for the (low, high) pair.',
+          'This is the level of thinking employers look for in a junior developer: not just making the code work, but choosing a clear, sensible data shape.',
+          'In today\'s practice you will return the unique categories sorted A to Z, and write min_max that returns a tuple.'
+        ],
+        example: 'A shop owner at the end of the month wants to know: which kinds of products sold (a set of categories), and the cheapest and most expensive sale (a pair of numbers). Two simple containers answer both questions.',
+        code: lines(
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "category": "food"},',
+          '    {"item": "Bus", "amount": 45, "category": "travel"},',
+          '    {"item": "Lunch", "amount": 120, "category": "food"},',
+          '    {"item": "Gym", "amount": 900, "category": "health"},',
+          ']',
+          'categories = sorted({e["category"] for e in expenses})',
+          'print(categories)',
+          'def amount_range(records):',
+          '    amounts = [e["amount"] for e in records]',
+          '    return min(amounts), max(amounts)',
+          'low, high = amount_range(expenses)',
+          'print("From", low, "to", high)',
+          'known = {"food", "travel", "rent"}',
+          'print("New categories:", sorted(set(categories) - known))'
+        ),
+        output: lines("['food', 'health', 'travel']", 'From 20 to 900', "New categories: ['health']"),
+        codeNotes: [
+          { line: 7, note: 'A set comprehension removes duplicates; sorted gives an A to Z list.' },
+          { line: 11, note: 'Return two values as a tuple.' },
+          { line: 15, note: 'Set difference: categories we have not seen before.' }
+        ],
+        tryIt: 'Add "health" to the known set and run it again. The new categories list becomes empty: [].',
+        check: {
+          question: 'Why does the code use sorted() on the set of categories?',
+          options: ['Sets have no order, so sorting gives a stable A to Z list', 'Sets cannot be printed', 'sorted removes duplicates'],
+          answer: 0,
+          why: 'The set already removed duplicates. sorted turns it into a list in a predictable order for display and for checks.'
+        }
+      }
+    ],
+    summary: [
+      'A tuple is a fixed group in round brackets: (12.97, 77.59). It cannot be changed.',
+      'Unpacking: lat, lng = location. Functions can return several values as a tuple.',
+      'A set holds unique values: set(list) removes duplicates. Empty set is set(), not {}.',
+      'in is very fast on a set. & gives values in both, | in either, - in one but not the other.',
+      'List for ordered changing data, tuple for fixed groups, set for unique values, dictionary for lookup by name.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: unique categories',
+      steps: [
+        'From your list of expense dictionaries, get the unique categories as a sorted list.',
+        'Write amount_range(expenses) that returns (smallest, largest).',
+        'Keep a set of "allowed" categories and print any expense whose category is not allowed.',
+        'Group item names by category with setdefault.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 13,
+    title: 'f-strings: Clean, Readable Output',
+    goal: 'You can build text with f-strings, format money and big numbers, and line up columns into a neat receipt.',
+    minutes: 30,
+    recap: 'Yesterday you used tuples for fixed groups, sets for unique values, and chose the right container for each job.',
+    parts: [
+      {
+        title: 'What an f-string is',
+        say: [
+          'Until now you built text by joining pieces with + and str(), like "Tea costs " + str(amount). It works, but it is easy to forget a space or a str(), and long lines become hard to read.',
+          'An f-string is a better way. Put the letter f just before the opening quote, and write values inside curly brackets right in the text: f"Tea costs {amount}". Python replaces {amount} with its value. No str() needed.',
+          'The f stands for formatted. f-strings are the modern, standard way to build text in Python. You will see them in almost every Python codebase and job interview.',
+          'If you forget the f, Python prints the curly brackets as they are. If you see {amount} in your output, check for a missing f.'
+        ],
+        example: 'An f-string is like a fill-in-the-blanks form letter: "Dear {name}, your order of {amount} rupees has shipped." The template is written once, and the blanks are filled in for each customer.',
+        code: lines(
+          'item = "Tea"',
+          'amount = 20',
+          'print("Old way: " + item + " costs " + str(amount))',
+          'print(f"New way: {item} costs {amount}")',
+          'print("Forgot the f: {item}")'
+        ),
+        output: lines('Old way: Tea costs 20', 'New way: Tea costs 20', 'Forgot the f: {item}'),
+        codeNotes: [
+          { line: 4, note: 'f before the quote, values in curly brackets.' },
+          { line: 5, note: 'Without the f, the brackets are printed as plain text.' }
+        ],
+        tryIt: 'Add a variable city = "Pune" and print f"{item} in {city} costs {amount}".',
+        check: {
+          question: 'What does f"Total: {5 + 5}" give?',
+          options: ['"Total: 10"', '"Total: {5 + 5}"', '"Total: 5 + 5"'],
+          answer: 0,
+          why: 'Inside the curly brackets of an f-string, Python works out the expression, so {5 + 5} becomes 10.'
+        }
+      },
+      {
+        title: 'Expressions inside the brackets',
+        say: [
+          'You can put more than a variable name inside the curly brackets. Any expression works: maths like {price * 2}, method calls like {name.upper()}, function calls like {len(items)}, or dictionary lookups.',
+          'For a dictionary lookup inside an f-string, use different quotes inside and outside. If the f-string uses double quotes, write the key with single quotes: f"{expense[\'item\']}". Mixing them up confuses Python about where the string ends.',
+          'Keep the expressions short. If the calculation is long, work it out in a variable first, then put the variable in the f-string. The goal is readable text, not clever code.',
+          'You can also put a conditional expression inside: {"paid" if paid else "pending"}. This is handy for status labels.'
+        ],
+        example: 'A bill printer does small calculations while printing: "3 x Tea = 60". It does not need a separate step for 3 times 20; it works it out in the line itself. Expressions in f-strings do the same.',
+        code: lines(
+          'price = 20',
+          'quantity = 3',
+          'name = "masala chai"',
+          'expense = {"item": "Bus", "amount": 45}',
+          'paid = False',
+          'print(f"{quantity} x {name.title()} = {price * quantity}")',
+          "print(f\"{expense['item']} cost {expense['amount']}\")",
+          'print(f"Status: {\'paid\' if paid else \'pending\'}")'
+        ),
+        output: lines('3 x Masala Chai = 60', 'Bus cost 45', 'Status: pending'),
+        codeNotes: [
+          { line: 6, note: 'A method call and a calculation, right inside the text. title() capitalises each word.' },
+          { line: 7, note: 'Single quotes for the keys inside a double-quoted f-string.' }
+        ],
+        tryIt: 'Change paid to True and run it. The status becomes paid.',
+        check: {
+          question: 'Inside f"...", how should you write a dictionary key like "item"?',
+          options: ['With single quotes: {d[\'item\']}', 'With the same double quotes: {d["item"]}', 'Without quotes: {d[item]}'],
+          answer: 0,
+          why: 'Using the other kind of quote inside avoids ending the f-string early. Without quotes, Python would look for a variable called item.'
+        }
+      },
+      {
+        title: 'Formatting numbers: decimals and commas',
+        say: [
+          'f-strings can also control how a number looks. Add a colon and a format after the value. {amount:.2f} shows exactly 2 decimal places, which is what you want for money: 20 becomes 20.00 and 99.5 becomes 99.50.',
+          'The .2f means: a float with 2 digits after the point. .1f would give 1 digit, .0f none. Formatting rounds the number for display but does not change the variable.',
+          '{n:,} adds commas as thousands separators: 1250000 becomes 1,250,000. You can combine them: {n:,.2f} gives 1,250,000.00. Note that this uses the international grouping, not the Indian lakh style.',
+          '{ratio:.1%} shows a fraction as a percentage: 0.456 becomes 45.6%. It multiplies by 100 and adds the % sign for you.'
+        ],
+        example: 'A bank statement never shows 20 or 99.5. It shows 20.00 and 99.50, always two decimals, so the columns look consistent and nobody wonders about missing paise. The format code is how you ask Python for that look.',
+        code: lines(
+          'amount = 99.5',
+          'print(f"Rs {amount:.2f}")',
+          'print(f"Rs {20:.2f}")',
+          'salary = 1250000',
+          'print(f"Rs {salary:,}")',
+          'print(f"Rs {salary:,.2f}")',
+          'used = 4815 / 5000',
+          'print(f"Budget used: {used:.1%}")'
+        ),
+        output: lines('Rs 99.50', 'Rs 20.00', 'Rs 1,250,000', 'Rs 1,250,000.00', 'Budget used: 96.3%'),
+        codeNotes: [
+          { line: 2, note: '.2f: always 2 decimal places.' },
+          { line: 5, note: ', adds thousands separators.' },
+          { line: 8, note: '.1% turns 0.963 into a percentage with 1 decimal.' }
+        ],
+        tryIt: 'Print f"{1/3:.3f}" and f"{1/3:.0%}". You should see 0.333 and 33%.',
+        check: {
+          question: 'What does f"{7:.2f}" show?',
+          options: ['7.00', '7', '7.2'],
+          answer: 0,
+          why: '.2f means show the number with exactly 2 decimal places, so 7 becomes 7.00.'
+        }
+      },
+      {
+        title: 'Lining up columns',
+        say: [
+          'To make neat tables and receipts, you need columns that line up. f-strings can pad a value to a fixed width. {item:<10} makes the item at least 10 characters wide, filling with spaces on the right. The < means left-aligned.',
+          '{amount:>8} makes the amount 8 characters wide, aligned to the right, which is how numbers look best in columns. ^ centres the value.',
+          'You can combine width with number formats: {amount:>8.2f} is right-aligned in 8 characters with 2 decimals. The width comes first, then the format.',
+          'If a value is longer than the width, it is not cut. It just pushes the rest of the line along. Choose widths that fit your longest values.'
+        ],
+        example: 'A printed restaurant bill has item names on the left and prices lined up on the right, all ending at the same place. The printer pads each line with spaces so the columns stay straight. Width formatting does that padding.',
+        code: lines(
+          'print(f"[{\'Tea\':<10}]")',
+          'print(f"[{45:>8}]")',
+          'print(f"[{\'Menu\':^10}]")',
+          'print(f"{\'Tea\':<10}{20:>8.2f}")',
+          'print(f"{\'Lunch\':<10}{120.5:>8.2f}")',
+          'print(f"{\'Rent\':<10}{8000:>8.2f}")'
+        ),
+        output: lines('[Tea       ]', '[      45]', '[   Menu   ]', 'Tea          20.00', 'Lunch       120.50', 'Rent       8000.00'),
+        codeNotes: [
+          { line: 1, note: 'Square brackets in the text show the padding clearly.' },
+          { line: 4, note: 'Name left-aligned in 10, amount right-aligned in 8 with 2 decimals.' }
+        ],
+        tryIt: 'Change the width 10 to 14 on the last three lines and run it. The amounts move right but stay lined up.',
+        check: {
+          question: 'What does the > in {amount:>8} mean?',
+          options: ['Right-align the value in a space 8 characters wide', 'Only show amounts greater than 8', 'Show 8 decimal places'],
+          answer: 0,
+          why: 'In a format, > means right-align and 8 is the width. Decimals use .2f.'
+        }
+      },
+      {
+        title: 'Multi-line text and join',
+        say: [
+          'For longer text you often build several lines. One way is to put the lines in a list and join them: "\\n".join(lines). \\n is the newline character, a special code that means "start a new line".',
+          'join works with any separator. ", ".join(names) gives "Tea, Bus, Lunch". It is the cleanest way to make a readable list of words, and the opposite of split(), which you will use on Day 16.',
+          'join only works with strings. If you have numbers, turn them into strings first, for example with a comprehension: ", ".join(str(a) for a in amounts).',
+          'Building text as a list of lines and joining at the end is a common pattern for reports, emails and receipts. It also makes the text easy to test, because a function can return the whole text instead of printing it.'
+        ],
+        example: 'Writing a message on a greeting card: you write each line, and the card places them one under the other. join with a newline is you telling Python "put these lines one under another".',
+        code: lines(
+          'names = ["Tea", "Bus", "Lunch"]',
+          'print(", ".join(names))',
+          'amounts = [20, 45, 120]',
+          'print(" + ".join(str(a) for a in amounts))',
+          'report = ["Report", "------", f"Items: {len(names)}"]',
+          'print("\\n".join(report))'
+        ),
+        output: lines('Tea, Bus, Lunch', '20 + 45 + 120', 'Report', '------', 'Items: 3'),
+        codeNotes: [
+          { line: 2, note: 'Join the names with a comma and a space between each.' },
+          { line: 4, note: 'Numbers must become text before joining.' },
+          { line: 6, note: 'Join the lines with a newline, so each goes on its own line.' }
+        ],
+        tryIt: 'Change line 4 to also show the total: print(" + ".join(str(a) for a in amounts) + f" = {sum(amounts)}"). You should see 20 + 45 + 120 = 185.',
+        check: {
+          question: 'What does "-".join(["a", "b", "c"]) give?',
+          options: ['"a-b-c"', '"-a-b-c-"', '["a-", "b-", "c"]'],
+          answer: 0,
+          why: 'join puts the separator between the items, not at the ends.'
+        }
+      },
+      {
+        title: 'Putting it together: a printed receipt',
+        say: [
+          'Let us put today\'s tools together into a proper receipt for the Expense Tracker: a centred title, a line of dashes, one neat line per expense, and a total at the bottom.',
+          'Notice that receipt_line is a function that returns a string. The report function builds a list of lines and joins them. Nothing is printed until the very end. This makes both functions easy to test and reuse.',
+          'Real apps use exactly this approach to build invoices, emails and text messages. Getting the output neat is a small detail that makes your projects look professional to recruiters.',
+          'In today\'s practice you will write money, which formats an amount with 2 decimals, and receipt_line, which lines up an item and an amount. Both are one-line f-strings.'
+        ],
+        example: 'A good shop receipt is easy to read at a glance: the shop name on top, items in a neat column, prices lined up on the right, and a clear total. Your program now prints one just like that.',
+        code: lines(
+          'def receipt_line(item, amount):',
+          '    return f"{item:<12}{amount:>9.2f}"',
+          '',
+          'def receipt(expenses):',
+          '    lines = [f"{\'MY EXPENSES\':^21}", "-" * 21]',
+          '    for e in expenses:',
+          '        lines.append(receipt_line(e["item"], e["amount"]))',
+          '    lines.append("-" * 21)',
+          '    total = sum(e["amount"] for e in expenses)',
+          '    lines.append(receipt_line("TOTAL", total))',
+          '    return "\\n".join(lines)',
+          '',
+          'data = [{"item": "Tea", "amount": 20}, {"item": "Lunch", "amount": 120.5}, {"item": "Rent", "amount": 8000}]',
+          'print(receipt(data))'
+        ),
+        output: lines(
+          '     MY EXPENSES     ',
+          '---------------------',
+          'Tea             20.00',
+          'Lunch          120.50',
+          'Rent          8000.00',
+          '---------------------',
+          'TOTAL         8140.50'
+        ),
+        codeNotes: [
+          { line: 2, note: '12 characters for the item, 9 for the amount: 21 in total.' },
+          { line: 5, note: 'The title centred in 21 characters, then a dashed line.' },
+          { line: 11, note: 'The function returns the whole text; printing happens outside.' }
+        ],
+        tryIt: 'Add a fourth expense of your own to data and run it. The total and the columns update automatically.',
+        check: {
+          question: 'Why does receipt() return the text instead of printing it?',
+          options: ['So the text can be tested, saved or sent, not only shown on screen', 'Because f-strings cannot be printed', 'Returning is faster than printing'],
+          answer: 0,
+          why: 'A returned string can be checked by tests, written to a file or emailed. Printing only shows it on the screen.'
+        }
+      }
+    ],
+    summary: [
+      'f"{value}" puts values straight into text. Do not forget the f.',
+      'Any short expression works inside the brackets. Use the other kind of quote for dictionary keys.',
+      '{amount:.2f} gives 2 decimals, {n:,} adds commas, {r:.1%} shows a percentage.',
+      '{item:<10} left-aligns in 10 characters, {amount:>8.2f} right-aligns money in 8.',
+      '", ".join(list) joins strings with a separator; "\\n" means a new line.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: a neat receipt',
+      steps: [
+        'Write money(amount) that returns text like "Rs 120.50".',
+        'Write receipt_line(item, amount) that lines up the item and the amount.',
+        'Write receipt(expenses) that returns the whole receipt text with a title and a total.',
+        'Print the receipt for your list of expenses.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 14,
+    title: 'Errors and try/except',
+    goal: 'You can read an error message, catch expected errors with try and except, and raise your own errors with clear messages.',
+    minutes: 30,
+    recap: 'Yesterday you built neat text with f-strings, formatted money, and lined up a receipt.',
+    parts: [
+      {
+        title: 'Reading an error message',
+        say: [
+          'By now you have seen several errors: NameError, TypeError, IndexError, KeyError, ValueError. Errors are normal. Every developer sees many every day. What matters is being able to read them calmly.',
+          'A full Python error message is called a traceback, and it is best read from the bottom up. The last line tells you the type of error and a short message, like ValueError: invalid literal for int() with base 10: \'abc\'. That line alone usually tells you what went wrong. The lesson editor shows you just this last line, marked [Error].',
+          'On your laptop, from Day 20, you will see the whole traceback. Above the last line, it shows the file and line number where the error happened, and the line of code itself. That tells you where to look.',
+          'The most common types: NameError is a misspelt or undefined name. TypeError is the wrong type, like adding text and a number. ValueError is the right type but a bad value. KeyError is a missing dictionary key. IndexError is a list position that does not exist. ZeroDivisionError is dividing by zero.'
+        ],
+        example: 'An error message is like a doctor\'s report: the last line is the diagnosis ("sprained ankle"), and the lines above tell you where and how it happened. You read the diagnosis first, then look at the details.',
+        code: lines(
+          'amount = int("250")',
+          'print(amount + 50)',
+          'print("Now a bad value:")',
+          'amount = int("abc")',
+          'print("This line never runs")'
+        ),
+        output: lines(
+          '300',
+          'Now a bad value:',
+          "[Error] ValueError: invalid literal for int() with base 10: 'abc'"
+        ),
+        codeNotes: [
+          { line: 4, note: 'int cannot turn "abc" into a number: ValueError.' },
+          { line: 5, note: 'Python stopped at the error, so this never runs.' }
+        ],
+        tryIt: 'Change "abc" to "12.5" and run it. It is still a ValueError, because int() does not accept decimals. Try float("12.5") instead.',
+        check: {
+          question: 'Where do you look first in a Python traceback?',
+          options: ['The last line: the error type and message', 'The first line', 'The middle'],
+          answer: 0,
+          why: 'The last line names the error and explains it. The lines above show where it happened.'
+        }
+      },
+      {
+        title: 'try and except',
+        say: [
+          'Some errors are expected. When a user types an amount, they might type "abc". Crashing the whole program because of that would be a bad experience. Instead, you can catch the error and handle it.',
+          'You put the risky code inside a try block. Below it, an except block says what to do if a certain error happens. If no error happens, the except block is skipped. If the error happens, Python jumps straight to except, and the program carries on.',
+          'Always name the error you expect: except ValueError:. A bare except: with no name catches everything, including real bugs you would want to know about. That hides problems and makes them very hard to find.',
+          'Keep the try block small. Put only the line that can fail inside it, not half your program.'
+        ],
+        example: 'A shopkeeper takes a note from a customer and checks whether it is real. If it is fake, she does not close the shop; she politely asks for another note and carries on. try is taking the note; except ValueError is the polite response to a fake one.',
+        code: lines(
+          'def safe_int(text):',
+          '    try:',
+          '        return int(text)',
+          '    except ValueError:',
+          '        return 0',
+          '',
+          'print(safe_int("45"))',
+          'print(safe_int("abc"))',
+          'print(safe_int(""))',
+          'print("The program is still running")'
+        ),
+        output: lines('45', '0', '0', 'The program is still running'),
+        codeNotes: [
+          { line: 3, note: 'The risky line goes inside try.' },
+          { line: 4, note: 'Name the exact error you expect.' },
+          { line: 5, note: 'What to do instead: return 0 and carry on.' }
+        ],
+        tryIt: 'Add print(safe_int(None)) and run it. You get a TypeError, not a ValueError, so it is not caught. That is correct: None is a different problem that you should see.',
+        check: {
+          question: 'Why should you write except ValueError: instead of a bare except:?',
+          options: ['A bare except also hides real bugs you did not expect', 'A bare except is slower', 'Python does not allow a bare except'],
+          answer: 0,
+          why: 'Naming the error catches only the problem you planned for. Other errors still show up so you can fix them.'
+        }
+      },
+      {
+        title: 'Using the error message',
+        say: [
+          'You can get the error itself with except ValueError as error:. The name error then holds the error object, and str(error) or printing it gives its message.',
+          'This is useful for logging what went wrong, or showing a helpful message. You can also catch several error types with one except by putting them in a tuple: except (ValueError, TypeError):.',
+          'Or you can have several except blocks, one per error type, each with its own response. Python uses the first one that matches.',
+          'When you show a message to a user, keep it friendly and simple: "Please enter a number" is better than the raw Python message. Save the raw message for developers, in logs.'
+        ],
+        example: 'A call centre gets different complaints: a wrong bill goes to billing, a broken phone goes to repairs. Several except blocks are like routing each kind of problem to the right desk.',
+        code: lines(
+          'def divide(a, b):',
+          '    try:',
+          '        return a / b',
+          '    except ZeroDivisionError as error:',
+          '        print("Problem:", error)',
+          '        return None',
+          '    except TypeError:',
+          '        print("Please give two numbers")',
+          '        return None',
+          '',
+          'print(divide(10, 4))',
+          'print(divide(10, 0))',
+          'print(divide(10, "2"))'
+        ),
+        output: lines('2.5', 'Problem: division by zero', 'None', 'Please give two numbers', 'None'),
+        codeNotes: [
+          { line: 4, note: 'as error gives us the error object and its message.' },
+          { line: 7, note: 'A second except for a different kind of problem.' }
+        ],
+        tryIt: 'Combine the two except blocks into one: except (ZeroDivisionError, TypeError) as error: and print the error. Run it and compare the messages.',
+        check: {
+          question: 'What does except KeyError as e: give you?',
+          options: ['The error object in e, whose message you can print', 'The missing key\'s value', 'A new dictionary'],
+          answer: 0,
+          why: 'as e stores the error that was caught, so you can print or log its message.'
+        }
+      },
+      {
+        title: 'else and finally',
+        say: [
+          'A try statement can have two more optional parts. else runs only if no error happened in the try. It is a good place for the code that should run only on success.',
+          'finally runs every time, error or not. It is used for clean-up that must always happen, like closing a file or saying "done". On Day 16 you will see a shorter way to close files with the with statement.',
+          'The full order is try, then except, then else, then finally. You rarely need all four at once. try and except are the core; add else and finally when they make the code clearer.',
+          'Do not put the success code inside try just because it is easier. Keeping the try small, with success code in else, makes it clear which line was expected to fail.'
+        ],
+        example: 'Booking a train ticket: try to pay. If payment fails (except), show an error. If it succeeds (else), show the ticket. Either way (finally), the payment screen closes.',
+        code: lines(
+          'def pay(amount_text):',
+          '    try:',
+          '        amount = float(amount_text)',
+          '    except ValueError:',
+          '        print("Not a valid amount:", amount_text)',
+          '    else:',
+          '        print(f"Paid Rs {amount:.2f}")',
+          '    finally:',
+          '        print("Payment screen closed")',
+          '',
+          'pay("250")',
+          'pay("two hundred")'
+        ),
+        output: lines('Paid Rs 250.00', 'Payment screen closed', 'Not a valid amount: two hundred', 'Payment screen closed'),
+        codeNotes: [
+          { line: 6, note: 'else runs only when the try had no error.' },
+          { line: 8, note: 'finally runs every time.' }
+        ],
+        tryIt: 'Call pay("99.5") as well. You should see Paid Rs 99.50 followed by Payment screen closed.',
+        check: {
+          question: 'When does the finally block run?',
+          options: ['Always, whether or not there was an error', 'Only when there was an error', 'Only when there was no error'],
+          answer: 0,
+          why: 'finally is for clean-up that must always happen, so it runs in both cases.'
+        }
+      },
+      {
+        title: 'Raising your own errors',
+        say: [
+          'Sometimes your own function receives a value it cannot accept, like a negative expense amount. Instead of silently continuing with bad data, you can raise an error yourself: raise ValueError("Amount must be more than 0").',
+          'raise stops the function immediately, like return, but it signals a problem. The code that called the function can catch it with try and except, or let it stop the program if it is a real bug.',
+          'Choose a fitting error type. ValueError is for a bad value of the right type. TypeError is for the wrong type. Always write a clear message that says what was wrong and what is expected.',
+          'Checking inputs at the start of a function is called validation. Good validation catches bad data early, close to where it came in, instead of causing confusing errors later.'
+        ],
+        example: 'A bank teller who receives a withdrawal slip for minus 500 rupees does not guess what you meant. She hands it back and says "the amount must be positive". raise is the function handing back the slip with a clear reason.',
+        code: lines(
+          'def add_expense(expenses, item, amount):',
+          '    if amount <= 0:',
+          '        raise ValueError(f"Amount must be more than 0, got {amount}")',
+          '    expenses.append({"item": item, "amount": amount})',
+          '',
+          'data = []',
+          'add_expense(data, "Tea", 20)',
+          'try:',
+          '    add_expense(data, "Refund?", -50)',
+          'except ValueError as error:',
+          '    print("Not added:", error)',
+          'print(data)'
+        ),
+        output: lines('Not added: Amount must be more than 0, got -50', "[{'item': 'Tea', 'amount': 20}]"),
+        codeNotes: [
+          { line: 3, note: 'Stop and signal a problem with a clear message.' },
+          { line: 10, note: 'The caller catches it and decides what to do.' },
+          { line: 12, note: 'The bad expense was never added.' }
+        ],
+        tryIt: 'Remove the try and except around line 9 (keep the add_expense call, not indented) and run it. The program stops with your own error message in the traceback.',
+        check: {
+          question: 'What does raise ValueError("...") do in a function?',
+          options: ['Stops the function and signals an error that the caller can catch', 'Prints a warning and continues', 'Returns the value ValueError'],
+          answer: 0,
+          why: 'raise ends the function with an error. The caller can catch it with try/except, or the program stops.'
+        }
+      },
+      {
+        title: 'Putting it together: safe input handling',
+        say: [
+          'Let us make the Expense Tracker safe against bad input. We simulate what a user might type, as a list of strings, and turn each one into an amount. Good values are kept, bad ones are reported, and the program never crashes.',
+          'This is exactly what real forms do: they check every field, collect the problems, and tell the user what to fix. On Day 20, when you use input() on your laptop, you will use this same function with real typing.',
+          'Notice that parse_amount raises its own ValueError for negative numbers, and the loop catches both kinds of problem, bad text and bad values, with the same except.',
+          'In today\'s practice you will write safe_int, which returns 0 for bad text, and safe_divide, which returns None when dividing by zero.'
+        ],
+        example: 'A college admissions office checks each form. Forms with a missing or wrong field go into a "please fix" pile with a note. Good forms go through. The office never shuts down because of one bad form.',
+        code: lines(
+          'def parse_amount(text):',
+          '    amount = float(text.strip())',
+          '    if amount <= 0:',
+          '        raise ValueError("must be more than 0")',
+          '    return amount',
+          '',
+          'typed = ["20", " 45.5 ", "abc", "-10", "120"]',
+          'good = []',
+          'for text in typed:',
+          '    try:',
+          '        good.append(parse_amount(text))',
+          '    except ValueError as error:',
+          '        print(f"Skipped {text!r}: {error}")',
+          'print("Saved:", good)',
+          'print(f"Total: {sum(good):.2f}")'
+        ),
+        output: lines(
+          "Skipped 'abc': could not convert string to float: 'abc'",
+          "Skipped '-10': must be more than 0",
+          'Saved: [20.0, 45.5, 120.0]',
+          'Total: 185.50'
+        ),
+        codeNotes: [
+          { line: 2, note: 'float() raises ValueError for text like "abc".' },
+          { line: 4, note: 'Our own ValueError for negative numbers.' },
+          { line: 13, note: '!r shows the text with quotes, so spaces and empty text are visible.' }
+        ],
+        tryIt: 'Add an empty string "" to the typed list and run it. It is skipped with a message about converting an empty string.',
+        check: {
+          question: 'Why does the loop keep going after "abc" fails?',
+          options: ['The error is caught by except inside the loop, so the loop continues with the next value', 'Python ignores errors in loops', 'float("abc") returns 0'],
+          answer: 0,
+          why: 'The try/except is inside the loop, so each value is handled on its own. A bad value is reported, then the loop moves on.'
+        }
+      }
+    ],
+    summary: [
+      'Read a traceback from the bottom: the error type and message, then the line.',
+      'try runs risky code; except SomeError handles that error so the program continues.',
+      'Name the error you expect. A bare except hides real bugs.',
+      'else runs on success; finally runs every time.',
+      'raise ValueError("clear message") rejects bad input early.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: never crash on bad input',
+      steps: [
+        'Write parse_amount(text) that returns a float, and raises ValueError for zero or negative amounts.',
+        'Run it over a list of typed values, keeping the good ones.',
+        'Print a friendly message for each skipped value.',
+        'Print the total of the good values with 2 decimals.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 15,
+    title: "Modules and Python's Built-in Library",
+    goal: 'You can import modules, use math, random and datetime, and split your own code into modules.',
+    minutes: 30,
+    recap: 'Yesterday you read tracebacks, caught errors with try and except, and raised your own errors.',
+    parts: [
+      {
+        title: 'What a module is and how to import it',
+        say: [
+          'Python comes with a huge collection of ready-made code called the standard library. It is split into modules, and each module is a file full of useful functions on one topic: maths, dates, random numbers, files, JSON and much more.',
+          'To use a module, you import it at the top of your file: import math. Then you use its tools with a dot: math.sqrt(16). The dot means "the sqrt tool inside the math module".',
+          'You can also import just the tools you need: from math import sqrt, pi. Then you use them directly, without the module name: sqrt(16).',
+          'Python has a saying: "batteries included". Before writing something complicated yourself, check whether the standard library already has it. It usually does, and it is well tested.'
+        ],
+        example: 'A module is like a toolbox. The standard library is a whole workshop of labelled toolboxes: one for measuring, one for dates, one for chance. import math is taking the measuring toolbox off the shelf so you can use its tools.',
+        code: lines(
+          'import math',
+          'print(math.sqrt(16))',
+          'print(math.ceil(4.1))',
+          'print(math.floor(4.9))',
+          'from math import pi',
+          'print(round(pi, 4))'
+        ),
+        output: lines('4.0', '5', '4', '3.1416'),
+        codeNotes: [
+          { line: 1, note: 'Import the whole module; use its tools with math.' },
+          { line: 3, note: 'ceil rounds up to the next whole number.' },
+          { line: 5, note: 'Import just one name, and use it directly.' }
+        ],
+        tryIt: 'Work out how many buses of 40 seats are needed for 130 students: print(math.ceil(130 / 40)). It should be 4, because you cannot book part of a bus.',
+        check: {
+          question: 'After import math, how do you call its sqrt function?',
+          options: ['math.sqrt(9)', 'sqrt(9)', 'import.sqrt(9)'],
+          answer: 0,
+          why: 'With import math, you reach its tools through the module name and a dot. from math import sqrt would let you write sqrt(9).'
+        }
+      },
+      {
+        title: 'The random module',
+        say: [
+          'The random module makes random choices. random.randint(1, 6) gives a random whole number from 1 to 6, including both ends, like a dice. random.choice(list) picks one item from a list.',
+          'random.shuffle(list) mixes up a list in place. random.random() gives a decimal between 0 and 1.',
+          'Random numbers are used for games, quizzes, simulations and test data. For example, a quiz app might shuffle the order of questions for each student.',
+          'Because the results change every run, programs that use random are harder to test. In the example below, we print things that are always true about the result, like whether the number is in range, instead of the random number itself.'
+        ],
+        example: 'Drawing a name from a hat to decide who presents first in class is random.choice. Rolling a dice in Ludo is random.randint(1, 6). Shuffling a deck of cards is random.shuffle.',
+        code: lines(
+          'import random',
+          'roll = random.randint(1, 6)',
+          'print(1 <= roll <= 6)',
+          'team = ["Asha", "Ravi", "Priya"]',
+          'pick = random.choice(team)',
+          'print(pick in team)',
+          'random.shuffle(team)',
+          'print(sorted(team))'
+        ),
+        output: lines('True', 'True', "['Asha', 'Priya', 'Ravi']"),
+        codeNotes: [
+          { line: 3, note: 'The number changes each run, but it is always between 1 and 6.' },
+          { line: 8, note: 'After shuffling, the order changes, but sorting shows the same three names.' }
+        ],
+        tryIt: 'Add print(roll) and print(pick) and run the code a few times. The values change each time.',
+        check: {
+          question: 'Which numbers can random.randint(1, 3) give?',
+          options: ['1, 2 or 3', '1 or 2 only', '0, 1, 2 or 3'],
+          answer: 0,
+          why: 'Unlike range, randint includes both ends, so 1, 2 and 3 are all possible.'
+        }
+      },
+      {
+        title: 'Dates with datetime',
+        say: [
+          'Almost every app works with dates: when an expense was made, when a bill is due, how many days are left. The datetime module handles this correctly, including different month lengths and leap years.',
+          'from datetime import date gives you the date type. date(2026, 9, 28) makes a date. date.fromisoformat("2026-09-28") turns text in year-month-day format into a date. date.today() gives today\'s date.',
+          'Subtracting two dates gives a timedelta, a length of time. Its .days tells you the number of days between them. Adding timedelta(days=30) to a date gives the date 30 days later.',
+          'A date can be turned back into text with str(d) or d.isoformat(), which gives "2026-09-28". strftime lets you choose other formats, like "28 Sep 2026" with "%d %b %Y".'
+        ],
+        example: 'Counting days to your birthday on a calendar is error-prone: does this month have 30 or 31 days? Is it a leap year? datetime is a calendar that never gets this wrong.',
+        code: lines(
+          'from datetime import date, timedelta',
+          'start = date.fromisoformat("2026-09-01")',
+          'end = date(2026, 10, 1)',
+          'print((end - start).days)',
+          'due = start + timedelta(days=45)',
+          'print(due)',
+          'print(due.strftime("%d %b %Y"))',
+          'print(date(2028, 3, 1) - date(2028, 2, 1))'
+        ),
+        output: lines('30', '2026-10-16', '16 Oct 2026', '29 days, 0:00:00'),
+        codeNotes: [
+          { line: 4, note: 'Subtracting dates gives a length of time; .days gives the number.' },
+          { line: 5, note: 'Add 45 days. datetime handles the month change.' },
+          { line: 8, note: '2028 is a leap year, so February has 29 days.' }
+        ],
+        tryIt: 'Print date.today() and run it. It shows the real date today. Then work out how many days until 2027-01-01.',
+        check: {
+          question: 'Why use datetime instead of doing date maths yourself?',
+          options: ['It handles month lengths and leap years correctly', 'It is the only way to print a date', 'It makes dates into random numbers'],
+          answer: 0,
+          why: 'Date maths has many special cases. datetime already handles all of them correctly.'
+        }
+      },
+      {
+        title: 'Other useful modules',
+        say: [
+          'The standard library has many more modules. You do not need to learn them all; you need to know they exist and where to look. Here are a few you will use soon.',
+          'json reads and writes JSON data, which you will learn on Day 17. statistics has mean, median and mode. collections has Counter, which counts things for you in one line.',
+          'Counter is a nicer version of the counting pattern from Day 10. Counter(categories) gives the count of each value, and most_common(1) gives the most frequent one.',
+          'When you need something, search "python standard library" plus what you want, for example "python standard library median". The official Python documentation at docs.python.org is the most reliable source.'
+        ],
+        example: 'You do not need to know every shop in your city by heart. You need to know that a pharmacy, a bank and a stationery shop exist and roughly where. The standard library is the same: know what exists, and look up the details when you need them.',
+        code: lines(
+          'from statistics import mean, median',
+          'from collections import Counter',
+          'amounts = [20, 45, 120, 45, 300]',
+          'print(mean(amounts))',
+          'print(median(amounts))',
+          'categories = ["food", "travel", "food", "rent", "food"]',
+          'counts = Counter(categories)',
+          'print(counts["food"])',
+          'print(counts.most_common(1))'
+        ),
+        output: lines('106', '45', '3', "[('food', 3)]"),
+        codeNotes: [
+          { line: 4, note: 'The average of the amounts.' },
+          { line: 5, note: 'The middle value when sorted.' },
+          { line: 9, note: 'A list with the most common value and its count, as a tuple.' }
+        ],
+        tryIt: 'Print counts.most_common(2) to see the top two categories. You should see food with 3, then one of the categories that appear once.',
+        check: {
+          question: 'What does Counter(["a", "b", "a"])["a"] give?',
+          options: ['2', '1', '3'],
+          answer: 0,
+          why: 'Counter counts how many times each value appears. "a" appears twice.'
+        }
+      },
+      {
+        title: 'Your own modules',
+        say: [
+          'A module is just a Python file. When your project grows, you split it into several files, each with one topic. For the Expense Tracker, you might have storage.py for saving and loading, reports.py for totals and receipts, and main.py to run everything.',
+          'In main.py you then write from reports import total, receipt, exactly like importing from the standard library. Python finds reports.py in the same folder.',
+          'When a file is imported, all its top-level code runs once. So a module should mostly contain functions, not print lines. Code that should only run when you start the file directly goes inside if __name__ == "__main__":.',
+          '__name__ is a special variable. It is "__main__" when you run the file yourself, and the module\'s name when it is imported. That check lets one file be both a module and a runnable script. You will set this up on your laptop on Day 20; the lesson editor runs one file at a time.'
+        ],
+        example: 'A big company splits work into departments: accounts, sales, HR. Each department has its own room and its own job, and they call on each other when needed. Your own modules are departments for your code.',
+        projectCode: {
+          label: 'reports.py and main.py on your laptop (Day 20 onwards)',
+          code: lines(
+            '# reports.py',
+            'def total(expenses):',
+            '    return sum(e["amount"] for e in expenses)',
+            '',
+            'if __name__ == "__main__":',
+            '    # Runs only with: python reports.py',
+            '    print(total([{"amount": 20}, {"amount": 45}]))',
+            '',
+            '# main.py',
+            'from reports import total',
+            '',
+            'expenses = [{"item": "Tea", "amount": 20}]',
+            'print("Total:", total(expenses))'
+          )
+        },
+        code: lines(
+          'def total(expenses):',
+          '    return sum(e["amount"] for e in expenses)',
+          '',
+          'print("__name__ is", __name__)',
+          'if __name__ == "__main__":',
+          '    print("Running directly, so this test runs:", total([{"amount": 20}, {"amount": 45}]))'
+        ),
+        output: lines('__name__ is __main__', 'Running directly, so this test runs: 65'),
+        codeNotes: [
+          { line: 4, note: 'When you run a file yourself, __name__ is "__main__".' },
+          { line: 5, note: 'This block runs only when the file is run directly, not when imported.' }
+        ],
+        tryIt: 'Change "__main__" on line 5 to "reports" and run it. The block no longer runs, just like when the file is imported by another file. Change it back.',
+        check: {
+          question: 'What is the purpose of if __name__ == "__main__": ?',
+          options: ['To run some code only when the file is run directly, not when it is imported', 'To make the file run faster', 'To import the main module'],
+          answer: 0,
+          why: '__name__ is "__main__" only for the file you ran. Imported modules skip that block.'
+        }
+      },
+      {
+        title: 'Putting it together: due dates for bills',
+        say: [
+          'Let us use modules in the Expense Tracker to track bills with due dates. We use datetime to work out how many days are left for each bill, and math to round up a monthly saving target.',
+          'The code imports only what it needs at the top, which is the standard style: all imports first, then functions, then the code that runs.',
+          'We use a fixed "today" date so the output is the same every time. In the real app you would use date.today(). Fixing the date like this is also how developers write reliable tests for date code.',
+          'In today\'s practice you will use math to calculate a circle\'s area, and datetime to count the days between two dates.'
+        ],
+        example: 'A phone bill reminder that says "Electricity bill due in 5 days" is doing exactly this: today\'s date, the due date, and a subtraction.',
+        code: lines(
+          'import math',
+          'from datetime import date',
+          '',
+          'today = date(2026, 9, 28)',
+          'bills = [',
+          '    {"name": "Electricity", "amount": 1450, "due": "2026-10-03"},',
+          '    {"name": "Phone", "amount": 399, "due": "2026-09-30"},',
+          '    {"name": "Rent", "amount": 8000, "due": "2026-10-05"},',
+          ']',
+          'for bill in bills:',
+          '    days_left = (date.fromisoformat(bill["due"]) - today).days',
+          '    print(f"{bill[\'name\']:<12} due in {days_left} days")',
+          'total = sum(b["amount"] for b in bills)',
+          'print("Save per day:", math.ceil(total / 7))'
+        ),
+        output: lines('Electricity  due in 5 days', 'Phone        due in 2 days', 'Rent         due in 7 days', 'Save per day: 1407'),
+        codeNotes: [
+          { line: 4, note: 'A fixed date so the output is always the same.' },
+          { line: 11, note: 'Turn the due text into a date and subtract today.' },
+          { line: 14, note: 'Round up, so saving that much each day always covers the bills.' }
+        ],
+        tryIt: 'Sort the bills by days left before printing, using sorted(bills, key=lambda b: b["due"]). Phone should come first.',
+        check: {
+          question: 'Why does the example use a fixed date instead of date.today()?',
+          options: ['So the output is the same every run, which makes it easy to check and test', 'date.today() does not work in Python', 'Fixed dates are faster'],
+          answer: 0,
+          why: 'date.today() changes every day, so the output would change. A fixed date keeps results predictable for learning and testing.'
+        }
+      }
+    ],
+    summary: [
+      'The standard library has modules for most jobs. import math, then math.sqrt(16).',
+      'from module import name lets you use the name directly.',
+      'random picks and shuffles; datetime handles dates, differences and adding days.',
+      'statistics and collections.Counter help with averages and counting.',
+      'Your own .py files are modules. if __name__ == "__main__": runs only when the file is run directly.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: bills with due dates',
+      steps: [
+        'Make a list of bills with name, amount and a due date as "YYYY-MM-DD" text.',
+        'Use datetime to print how many days are left for each bill.',
+        'Print the bills sorted by due date.',
+        'Use Counter to find your most common expense category.'
+      ]
+    }
   }
 ];
