@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
 
 import { DATABASE_30_DAYS_CONFIGS } from '../src/lib/data/database30DayData';
-import { runSqlPractice, splitSqlTask, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
+import { runSqlPractice, splitSqlTask, SQL_TEXT_PARSERS, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
 
 /** A correct answer for every practice task: [Practice 1, Practice 2] per day. */
 const SOLUTIONS: [string, string][] = [
@@ -116,7 +116,7 @@ const SOLUTIONS: [string, string][] = [
 
 let db: SqlDatabase;
 test.before(async () => {
-  db = (await PGlite.create()) as unknown as SqlDatabase;
+  db = (await PGlite.create({ parsers: SQL_TEXT_PARSERS })) as unknown as SqlDatabase;
 });
 
 test('the SQL course has 30 days and a solution for every practice task', () => {

@@ -17,6 +17,20 @@ export interface SqlDatabase {
   exec(sql: string): Promise<SqlResult[]>;
 }
 
+/**
+ * Keep dates and times as the text PostgreSQL sends (like psql shows them), instead of JavaScript
+ * Date objects, which drop the time of day and depend on the viewer's time zone.
+ * Pass as PGlite.create({ parsers: SQL_TEXT_PARSERS }).
+ */
+const keepText = (value: string) => value;
+export const SQL_TEXT_PARSERS: Record<number, (value: string) => string> = {
+  1082: keepText, // date
+  1083: keepText, // time
+  1114: keepText, // timestamp
+  1184: keepText, // timestamptz
+  1186: keepText, // interval
+};
+
 /** PostgreSQL type ids of number columns, shown right-aligned like psql does. */
 const NUMBER_TYPES = new Set([20, 21, 23, 26, 700, 701, 1700]);
 

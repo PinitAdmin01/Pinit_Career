@@ -5,11 +5,11 @@ import { PGlite } from '@electric-sql/pglite';
 import { SQL_LONG_LESSONS } from '../src/lib/data/sqlLongLessons';
 import { DATABASE_30_DAYS_CONFIGS } from '../src/lib/data/database30DayData';
 import { estimateLessonMinutes, estimateSpokenMinutes, getLongLessonLanguage } from '../src/lib/data/longLessons';
-import { runSqlLesson, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
+import { runSqlLesson, SQL_TEXT_PARSERS, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
 
 let db: SqlDatabase;
 test.before(async () => {
-  db = (await PGlite.create()) as unknown as SqlDatabase;
+  db = (await PGlite.create({ parsers: SQL_TEXT_PARSERS })) as unknown as SqlDatabase;
 });
 
 test('every SQL long lesson code sample shows exactly its stated output, every time', async () => {

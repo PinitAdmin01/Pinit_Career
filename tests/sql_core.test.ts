@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
 
-import { runSqlLesson, runSqlPractice, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
+import { runSqlLesson, runSqlPractice, SQL_TEXT_PARSERS, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
 
 let db: SqlDatabase;
 test.before(async () => {
-  db = (await PGlite.create()) as unknown as SqlDatabase;
+  db = (await PGlite.create({ parsers: SQL_TEXT_PARSERS })) as unknown as SqlDatabase;
 });
 
 test('lesson SQL prints each result as a table, numbers right-aligned', async () => {
@@ -76,4 +76,11 @@ test('a run that leaves a transaction open or prepares a statement does not brea
   await runSqlLesson(db, "PREPARE q(int) AS SELECT $1 AS n; CREATE TEMP TABLE tmp (x int);");
   assert.equal(await runSqlLesson(db, "PREPARE q(int) AS SELECT $1 AS n; EXECUTE q(7);"), ' n\n---\n 7\n(1 row)');
   assert.equal(await runSqlLesson(db, "CREATE TEMP TABLE tmp (x int); SELECT count(*) AS c FROM tmp;"), ' c\n---\n 0\n(1 row)');
+});
+
+test('dates and times are shown as PostgreSQL text, with the time of day kept', async () => {
+  assert.equal(
+    await runSqlLesson(db, "SELECT date '2026-09-28' AS d, timestamp '2026-09-28 13:05' AS ts;"),
+    ' d          | ts\n------------+---------------------\n 2026-09-28 | 2026-09-28 13:05:00\n(1 row)'
+  );
 });

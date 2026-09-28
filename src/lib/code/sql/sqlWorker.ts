@@ -5,7 +5,7 @@
  * worker, reset before every run; the page terminates the worker on a timeout and starts a new one.
  */
 import { PGlite } from '@electric-sql/pglite';
-import { runSqlLesson, runSqlPractice, type SqlDatabase } from './sqlCore';
+import { runSqlLesson, runSqlPractice, SQL_TEXT_PARSERS, type SqlDatabase } from './sqlCore';
 
 export type SqlWorkerRequest =
   | { id: number; kind: 'lesson'; code: string }
@@ -14,7 +14,7 @@ export type SqlWorkerRequest =
 let dbReady: Promise<PGlite> | null = null;
 
 function getDb(): Promise<PGlite> {
-  if (!dbReady) dbReady = PGlite.create();
+  if (!dbReady) dbReady = PGlite.create({ parsers: SQL_TEXT_PARSERS });
   return dbReady;
 }
 
