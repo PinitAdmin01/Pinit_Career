@@ -2888,7 +2888,7 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
             "note": "The k-th largest sits here in sorted order."
           },
           {
-            "line": 18,
+            "line": 19,
             "note": "The answer is to the right: ignore the left part."
           },
           {
@@ -3422,6 +3422,1222 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Add the MedianFinder class to dsa_toolkit.py.",
         "Add running_medians(nums) and check it against statistics.median on a few lists.",
         "Bonus: simulate 1,000 random response times and print the median after every 100."
+      ]
+    }
+  },
+  {
+    "day": 16,
+    "title": "Binary Trees: Preorder, Inorder, Postorder & Level-Order BFS",
+    "goal": "You can build binary trees, walk them in preorder, inorder, postorder and level order, and measure their depth.",
+    "minutes": 30,
+    "recap": "Last week ended with the stream median milestone. This week you move from lines of data to trees and graphs, where items branch.",
+    "parts": [
+      {
+        "title": "Trees: nodes with children",
+        "say": [
+          "A tree is made of nodes, like a linked list, but each node can point to several children instead of one next node. The top node is the root; nodes with no children are leaves.",
+          "In a binary tree each node has at most two children, called left and right. In Python a tree node is a small class with val, left and right, where a missing child is None.",
+          "Trees are everywhere: folders on your computer, the HTML of a web page, a company's org chart, and the decision trees used in machine learning.",
+          "The depth of a node is how many steps it is from the root. The height of the tree is the number of levels. A tree of height h can hold up to 2^h - 1 nodes, which is why balanced trees are so shallow.",
+          "Almost every tree function is recursive, because a tree is a node plus two smaller trees. The base case is an empty tree: None."
+        ],
+        "example": "A family tree: grandparents at the top, their children below, grandchildren below them. To find everyone, you start at the top and follow each branch down.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\n#        1\n#       / \\\n#      2   3\n#     / \\\n#    4   5\nroot = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3))\n\ndef count_nodes(node):\n    if node is None:\n        return 0\n    return 1 + count_nodes(node.left) + count_nodes(node.right)\n\nprint(\"nodes:\", count_nodes(root))\nprint(\"root:\", root.val, \"left child:\", root.left.val, \"right child:\", root.right.val)",
+        "output": "nodes: 5\nroot: 1 left child: 2 right child: 3",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "The tree drawn in the comments above, built from nested nodes."
+          },
+          {
+            "line": 15,
+            "note": "Base case: an empty tree has no nodes."
+          },
+          {
+            "line": 17,
+            "note": "This node plus the nodes in each subtree."
+          }
+        ],
+        "tryIt": "Write count_leaves(node) that counts nodes with no children. For this tree it should be 3 (4, 5 and 3).",
+        "check": {
+          "question": "In a binary tree, how many children can a node have?",
+          "options": [
+            "Exactly two",
+            "At most two",
+            "Any number"
+          ],
+          "answer": 1,
+          "why": "A binary tree node has a left and a right child, and either or both can be missing (None)."
+        }
+      },
+      {
+        "title": "Depth-first walks: preorder, inorder, postorder",
+        "say": [
+          "A depth-first walk goes as deep as possible down one branch before coming back. There are three orders, depending on when you visit the node itself.",
+          "Preorder visits the node, then the left subtree, then the right. It is used to copy a tree or print a folder structure top-down.",
+          "Inorder visits the left subtree, then the node, then the right. For a binary search tree (Day 17) this gives the values in sorted order.",
+          "Postorder visits left, right, and the node last. It is used to delete a tree or to add up folder sizes, because children must be handled before their parent.",
+          "All three are the same recursive function with the visit line in a different place. Each node is visited once, so every walk is O(N)."
+        ],
+        "example": "Reading a book's table of contents is preorder: chapter title, then its sections. Working out a chapter's total pages is postorder: you need every section's pages before the chapter's total.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nroot = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3))\n\ndef preorder(n, out):\n    if n:\n        out.append(n.val); preorder(n.left, out); preorder(n.right, out)\n    return out\n\ndef inorder(n, out):\n    if n:\n        inorder(n.left, out); out.append(n.val); inorder(n.right, out)\n    return out\n\ndef postorder(n, out):\n    if n:\n        postorder(n.left, out); postorder(n.right, out); out.append(n.val)\n    return out\n\nprint(\"pre: \", preorder(root, []))\nprint(\"in:  \", inorder(root, []))\nprint(\"post:\", postorder(root, []))",
+        "output": "pre:  [1, 2, 4, 5, 3]\nin:   [4, 2, 5, 1, 3]\npost: [4, 5, 2, 3, 1]",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Preorder: the node first."
+          },
+          {
+            "line": 16,
+            "note": "Inorder: the node between its subtrees."
+          },
+          {
+            "line": 21,
+            "note": "Postorder: the node last."
+          }
+        ],
+        "tryIt": "Add a right child 6 under node 3 and predict all three orders before running.",
+        "check": {
+          "question": "Which walk visits a node after both of its subtrees?",
+          "options": [
+            "Preorder",
+            "Inorder",
+            "Postorder"
+          ],
+          "answer": 2,
+          "why": "Postorder handles left, then right, then the node itself last."
+        }
+      },
+      {
+        "title": "Level order with a queue",
+        "say": [
+          "Practice 1 walks the tree level by level: the root, then all nodes on level 2, then level 3, and so on. This is breadth-first search (BFS).",
+          "BFS uses a queue (Day 6). Start with the root in a deque. Each round, note how many nodes are in the queue: that is exactly one level. Pop that many, record their values, and push their children.",
+          "Taking the length of the queue before the round begins is the key step. It separates one level from the next, even though children are being added to the same queue.",
+          "Every node enters and leaves the queue once, so level order is O(N) time. The queue holds at most one level, which can be up to about N/2 nodes in a full tree.",
+          "Level order answers questions like \"what is visible from the right side of the tree?\" (the last node of each level) and \"what is the minimum depth?\" (the first level with a leaf)."
+        ],
+        "example": "Announcing results at a family reunion generation by generation: first the grandparents, then all their children, then all the grandchildren. You finish one generation before starting the next.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nfrom collections import deque\n\ndef level_order(root):\n    if not root:\n        return []\n    result, queue = [], deque([root])\n    while queue:\n        level = []\n        for _ in range(len(queue)):\n            node = queue.popleft()\n            level.append(node.val)\n            if node.left: queue.append(node.left)\n            if node.right: queue.append(node.right)\n        result.append(level)\n    return result\n\nroot = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))\nprint(level_order(root))\nprint([level[-1] for level in level_order(root)])",
+        "output": "[[3], [9, 20], [15, 7]]\n[3, 20, 7]",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "len(queue) now is exactly the size of this level."
+          },
+          {
+            "line": 18,
+            "note": "Children join the back of the queue for the next level."
+          },
+          {
+            "line": 25,
+            "note": "The last node of each level: the right side view."
+          }
+        ],
+        "tryIt": "Change line 25 to print the first node of each level: the left side view. It should be [3, 9, 15].",
+        "check": {
+          "question": "Which data structure does level order traversal use?",
+          "options": [
+            "A stack",
+            "A queue",
+            "A heap"
+          ],
+          "answer": 1,
+          "why": "Nodes must come out in the order they were found, level by level: first in, first out, which is a queue."
+        }
+      },
+      {
+        "title": "Maximum depth",
+        "say": [
+          "Practice 2 asks for the number of levels, the maximum depth. The recursive idea is short: the depth of a tree is 1 (for this node) plus the larger depth of its two subtrees.",
+          "The base case is an empty tree, which has depth 0. A single leaf then has depth 1 + max(0, 0) = 1.",
+          "You can also answer with level order: count how many levels BFS produces. Both are O(N) time.",
+          "The recursive version uses the call stack, as deep as the tree is tall. For a very unbalanced tree (a long chain), that can hit Python's recursion limit; the BFS version cannot.",
+          "Depth matters for speed: many tree operations cost O(height). A balanced tree of a million nodes is only about 20 levels deep; a chain of a million nodes is a million levels deep."
+        ],
+        "example": "Measuring how many generations a family tree has: ask each child \"how many generations are below you?\", take the biggest answer, and add one for yourself.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef max_depth(node):\n    if node is None:\n        return 0\n    return 1 + max(max_depth(node.left), max_depth(node.right))\n\nbalanced = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3, TreeNode(6), TreeNode(7)))\nchain = TreeNode(1, None, TreeNode(2, None, TreeNode(3, None, TreeNode(4))))\nprint(max_depth(balanced), max_depth(chain), max_depth(None))",
+        "output": "3 4 0",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Empty tree: depth 0."
+          },
+          {
+            "line": 10,
+            "note": "One for this node, plus the deeper subtree."
+          }
+        ],
+        "tryIt": "The balanced tree holds 7 nodes in 3 levels; the chain holds only 4 nodes in 4 levels. Add a node to the end of the chain and watch its depth grow by 1.",
+        "check": {
+          "question": "What is the maximum depth of a tree with only a root node?",
+          "options": [
+            "0",
+            "1",
+            "2"
+          ],
+          "answer": 1,
+          "why": "The root is one level: 1 + max(depth of None, depth of None) = 1 + 0 = 1."
+        }
+      },
+      {
+        "title": "Walking a tree with your own stack",
+        "say": [
+          "Recursion uses Python's call stack. You can do the same walk with your own stack, which avoids recursion limits and shows what recursion really does.",
+          "For preorder: push the root. While the stack is not empty, pop a node, visit it, then push its right child and then its left child. Left is pushed last so it is popped first.",
+          "Swapping the queue in BFS for a stack turns breadth-first into depth-first. That one change of data structure is the whole difference between the two searches.",
+          "This matters in interviews (\"can you do it without recursion?\") and in real code that handles very deep trees, like deeply nested JSON.",
+          "The same stack-based idea works on graphs on Day 20, where the structure can be much deeper than a typical tree."
+        ],
+        "example": "Exploring a building with a to-do list of rooms: if you always take the most recently added room, you go deep down one corridor first. If you take the oldest, you sweep floor by floor.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef preorder_iterative(root):\n    if not root:\n        return []\n    out, stack = [], [root]\n    while stack:\n        node = stack.pop()\n        out.append(node.val)\n        if node.right: stack.append(node.right)\n        if node.left: stack.append(node.left)\n    return out\n\nroot = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3))\nprint(preorder_iterative(root))",
+        "output": "[1, 2, 4, 5, 3]",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Take the most recently added node: depth-first."
+          },
+          {
+            "line": 15,
+            "note": "Push left last so it is visited first."
+          }
+        ],
+        "tryIt": "Swap lines 14 and 15 and run it. You get a mirror-image order: 1, 3, 2, 5, 4.",
+        "check": {
+          "question": "What changes a breadth-first walk into a depth-first walk?",
+          "options": [
+            "Using a stack instead of a queue",
+            "Sorting the nodes",
+            "Starting from a leaf"
+          ],
+          "answer": 0,
+          "why": "A queue takes the oldest node (level by level); a stack takes the newest (deep first)."
+        }
+      },
+      {
+        "title": "Trees from lists and tree problems in general",
+        "say": [
+          "Interview platforms often describe trees as a list in level order, with None for missing children: [3, 9, 20, None, None, 15, 7]. Building a tree from that list uses the same queue idea as level order.",
+          "Most tree problems follow one of two shapes. Either combine answers from the children (depth, size, sums: postorder thinking), or pass information down to the children (the path so far, allowed ranges: preorder thinking).",
+          "Before coding, ask: what should this function return for an empty tree? What does a node need from its children, or give to them? Answering those two questions writes most of the code.",
+          "Tomorrow's binary search trees pass a range down to the children; today's depth combined answers coming up. You will see both shapes again and again.",
+          "Draw small trees on paper. Three to five nodes are enough to check any tree function by hand."
+        ],
+        "example": "In a company, the total salary cost of a team is combined upwards from each sub-team (answers coming up), while a spending limit is passed down from each manager to their team (information going down).",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nfrom collections import deque\n\ndef build(values):\n    if not values or values[0] is None:\n        return None\n    root = TreeNode(values[0])\n    queue, i = deque([root]), 1\n    while queue and i < len(values):\n        node = queue.popleft()\n        for side in (\"left\", \"right\"):\n            if i < len(values) and values[i] is not None:\n                child = TreeNode(values[i])\n                setattr(node, side, child)\n                queue.append(child)\n            i += 1\n    return root\n\ndef path_sums(node, so_far=0):\n    if node is None:\n        return []\n    total = so_far + node.val\n    if not node.left and not node.right:\n        return [total]\n    return path_sums(node.left, total) + path_sums(node.right, total)\n\nroot = build([3, 9, 20, None, None, 15, 7])\nprint(root.val, root.left.val, root.right.val, root.right.left.val)\nprint(\"root-to-leaf sums:\", path_sums(root))",
+        "output": "3 9 20 15\nroot-to-leaf sums: [12, 38, 30]",
+        "codeNotes": [
+          {
+            "line": 19,
+            "note": "setattr sets node.left or node.right by name."
+          },
+          {
+            "line": 27,
+            "note": "The running total is passed down to the children."
+          },
+          {
+            "line": 29,
+            "note": "At a leaf, the path is complete."
+          }
+        ],
+        "tryIt": "Build the tree [1, 2, 3, 4, 5] and print its root-to-leaf sums. They should be [7, 8, 4].",
+        "check": {
+          "question": "A function that computes the size of each subtree from its children's sizes is using which kind of thinking?",
+          "options": [
+            "Answers combined from the children (postorder)",
+            "Information passed down (preorder)",
+            "Level order"
+          ],
+          "answer": 0,
+          "why": "A node's size needs its children's sizes first, so the answers are combined on the way back up."
+        }
+      }
+    ],
+    "summary": [
+      "A binary tree node has a value and up to two children; an empty tree is None.",
+      "Preorder, inorder and postorder are depth-first walks that differ only in when the node is visited.",
+      "Level order is breadth-first search with a queue; len(queue) at the start of a round is one level.",
+      "Max depth = 1 + the larger depth of the two subtrees; empty trees have depth 0.",
+      "Swap a queue for a stack to go from breadth-first to depth-first."
+    ],
+    "projectStep": {
+      "title": "Tree tools",
+      "steps": [
+        "Add TreeNode, build(values) and level_order(root) to dsa_toolkit.py.",
+        "Add max_depth(node) and the three depth-first walks.",
+        "Bonus: add right_side_view(root) using level order."
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "Binary Search Trees (BST): Tree Invariants & Range Query Search",
+    "goal": "You can explain the binary search tree rule, check whether a tree follows it, search it, and find the lowest common ancestor.",
+    "minutes": 30,
+    "recap": "Yesterday you walked binary trees depth-first and level by level. Today's trees keep their values in order, which makes searching fast.",
+    "parts": [
+      {
+        "title": "The binary search tree rule",
+        "say": [
+          "A binary search tree (BST) is a binary tree with one rule: for every node, all values in its left subtree are smaller, and all values in its right subtree are bigger.",
+          "The rule applies to whole subtrees, not just the direct children. A node deep in the left subtree must be smaller than every ancestor it sits to the left of.",
+          "The rule makes searching like binary search: at each node, go left if the target is smaller and right if it is bigger. Each step skips a whole subtree.",
+          "Walking a BST in inorder (left, node, right) gives the values in sorted order. That is a quick way to check your understanding of the rule.",
+          "Databases and file systems use search trees like this (usually wider B-trees) to find records among billions quickly."
+        ],
+        "example": "A phone book arranged as a tree: at each page you ask \"is my name before or after this one?\" and open only one half. You never read the half that cannot contain your name.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef insert(node, val):\n    if node is None:\n        return TreeNode(val)\n    if val < node.val:\n        node.left = insert(node.left, val)\n    else:\n        node.right = insert(node.right, val)\n    return node\n\ndef inorder(node):\n    return inorder(node.left) + [node.val] + inorder(node.right) if node else []\n\nroot = None\nfor v in [50, 30, 70, 20, 40, 60, 80]:\n    root = insert(root, v)\nprint(inorder(root))\nprint(root.val, root.left.val, root.right.val)",
+        "output": "[20, 30, 40, 50, 60, 70, 80]\n50 30 70",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Smaller values go into the left subtree."
+          },
+          {
+            "line": 17,
+            "note": "Inorder of a BST is sorted."
+          }
+        ],
+        "tryIt": "Insert 65 and predict where it goes before running: right of 50, left of 70, right of 60.",
+        "check": {
+          "question": "In a BST, where are all values smaller than a node?",
+          "options": [
+            "In its right subtree",
+            "In its left subtree",
+            "Anywhere"
+          ],
+          "answer": 1,
+          "why": "The BST rule puts every smaller value in the left subtree and every bigger value in the right subtree."
+        }
+      },
+      {
+        "title": "Searching and the cost of balance",
+        "say": [
+          "To search a BST, start at the root and move left or right until you find the value or reach None. Each step goes one level down.",
+          "So search costs O(height). In a balanced BST the height is about log2 N, so search is O(log N): 20 steps for a million values.",
+          "But inserting sorted data makes the tree a chain: every new value goes to the right of the last one. The height becomes N, and search becomes O(N), no better than a list.",
+          "Self-balancing trees (like AVL and red-black trees) rotate nodes after inserts to keep the height near log N. You will not build them here, but you should know why they exist.",
+          "Python has no built-in BST; dicts and sets use hashing instead. When you need sorted order with fast inserts, libraries like sortedcontainers fill that gap."
+        ],
+        "example": "A librarian filing books by always adding the next one to the right: after a while the \"tree\" is one long shelf, and finding a book means walking the whole shelf.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef insert(node, val):\n    if node is None:\n        return TreeNode(val)\n    if val < node.val:\n        node.left = insert(node.left, val)\n    else:\n        node.right = insert(node.right, val)\n    return node\n\ndef search_steps(node, target):\n    steps = 0\n    while node:\n        steps += 1\n        if target == node.val:\n            return steps\n        node = node.left if target < node.val else node.right\n    return steps\n\nbalanced = None\nfor v in [8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15]:\n    balanced = insert(balanced, v)\nchain = None\nfor v in range(1, 16):\n    chain = insert(chain, v)\nprint(\"find 15 in balanced tree:\", search_steps(balanced, 15), \"steps\")\nprint(\"find 15 in chain:\", search_steps(chain, 15), \"steps\")",
+        "output": "find 15 in balanced tree: 4 steps\nfind 15 in chain: 15 steps",
+        "codeNotes": [
+          {
+            "line": 22,
+            "note": "Each step skips a whole subtree."
+          },
+          {
+            "line": 27,
+            "note": "Inserted in a good order: height 4."
+          },
+          {
+            "line": 30,
+            "note": "Inserted in sorted order: a chain of height 15."
+          }
+        ],
+        "tryIt": "Search both trees for 1. The balanced tree needs 4 steps and the chain only 1: the chain is fast only for the values at its start.",
+        "check": {
+          "question": "What is the search cost in a BST built by inserting 1, 2, 3, ..., N in order?",
+          "options": [
+            "O(log N)",
+            "O(N)",
+            "O(1)"
+          ],
+          "answer": 1,
+          "why": "Sorted inserts make every node the right child of the previous one, a chain of height N, so search is O(N)."
+        }
+      },
+      {
+        "title": "Validating a BST with ranges",
+        "say": [
+          "Practice 1 checks whether a tree follows the BST rule. The trap: checking only that left child < node < right child is not enough, because the rule covers whole subtrees.",
+          "The correct method passes an allowed range down the tree. The root may be anything. Going left, the upper limit becomes the node's value; going right, the lower limit becomes the node's value.",
+          "Each node must lie strictly inside its range. If any node falls outside, the tree is not a valid BST. Start with low = float(\"-inf\") and high = float(\"inf\").",
+          "This is the \"pass information down\" shape from yesterday. Every node is checked once: O(N).",
+          "Another correct method uses inorder: a tree is a valid BST exactly when its inorder walk is strictly increasing."
+        ],
+        "example": "A seating plan where each row's organiser tells the next row \"your numbers must be between 10 and 20\". The limits get tighter as you go down, and one person outside their limits breaks the plan.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef is_valid_bst(node, low=float(\"-inf\"), high=float(\"inf\")):\n    if node is None:\n        return True\n    if not (low < node.val < high):\n        return False\n    return is_valid_bst(node.left, low, node.val) and is_valid_bst(node.right, node.val, high)\n\ngood = TreeNode(5, TreeNode(3, TreeNode(1), TreeNode(4)), TreeNode(8))\ntricky = TreeNode(5, TreeNode(1), TreeNode(7, TreeNode(4), TreeNode(9)))\nprint(is_valid_bst(good), is_valid_bst(tricky))",
+        "output": "True False",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Each node must fit inside the range passed down to it."
+          },
+          {
+            "line": 12,
+            "note": "Left: the upper limit shrinks. Right: the lower limit rises."
+          },
+          {
+            "line": 15,
+            "note": "4 is below 7 but also in 5's right subtree, so it must be above 5."
+          }
+        ],
+        "tryIt": "Change the 4 in the tricky tree to 6. Now every node fits its range and the answer is True.",
+        "check": {
+          "question": "Why is checking only \"left child < node < right child\" not enough?",
+          "options": [
+            "It is too slow",
+            "A deeper node can break the rule for an ancestor",
+            "Leaves have no children"
+          ],
+          "answer": 1,
+          "why": "The rule covers whole subtrees; a grandchild can be on the correct side of its parent but the wrong side of the root."
+        }
+      },
+      {
+        "title": "Lowest common ancestor in a BST",
+        "say": [
+          "Practice 2: the lowest common ancestor (LCA) of two values p and q is the deepest node that has both of them in its subtree (a node counts as in its own subtree).",
+          "In a BST the rule makes this easy. Start at the root. If both p and q are smaller than the node, the LCA must be in the left subtree. If both are bigger, it is in the right subtree.",
+          "Otherwise they split: one goes left and one goes right, or one of them is the node itself. That node is the LCA.",
+          "The walk goes down one path, so it costs O(height): O(log N) in a balanced tree.",
+          "LCA answers questions like \"what is the closest shared manager of these two employees?\" or \"which folder contains both of these files?\"."
+        ],
+        "example": "Two cousins trying to find their closest shared ancestor in a family tree: follow the generations down from the oldest ancestor until the path to one cousin and the path to the other go different ways.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef lca(node, p, q):\n    while node:\n        if p < node.val and q < node.val:\n            node = node.left\n        elif p > node.val and q > node.val:\n            node = node.right\n        else:\n            return node.val\n\nroot = TreeNode(6,\n    TreeNode(2, TreeNode(0), TreeNode(4, TreeNode(3), TreeNode(5))),\n    TreeNode(8, TreeNode(7), TreeNode(9)))\nprint(lca(root, 2, 8), lca(root, 2, 4), lca(root, 3, 5))",
+        "output": "6 2 4",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Both smaller: the answer is further left."
+          },
+          {
+            "line": 14,
+            "note": "They split here (or one is this node): this is the LCA."
+          }
+        ],
+        "tryIt": "Find lca(root, 0, 5) and lca(root, 7, 9) and check them on the drawing in the code.",
+        "check": {
+          "question": "In a BST, p = 3 and q = 9 and the current node is 6. What is the LCA?",
+          "options": [
+            "3",
+            "6",
+            "9"
+          ],
+          "answer": 1,
+          "why": "3 is smaller and 9 is bigger than 6, so they split at 6, which makes 6 the lowest common ancestor."
+        }
+      },
+      {
+        "title": "The k-th smallest and range queries",
+        "say": [
+          "Because inorder gives sorted order, the k-th smallest value is simply the k-th value in the inorder walk. You can stop as soon as you reach it instead of walking the whole tree.",
+          "A range query asks for all values between low and high. Use the BST rule to skip subtrees: if the node is smaller than low, nothing useful is on its left.",
+          "Skipping subtrees makes range queries fast even on big trees: the cost is about the height plus the number of results.",
+          "These are the operations that make search trees useful in databases: \"the 10 cheapest products\" or \"orders between 1 March and 31 March\".",
+          "You will meet another way to get the k-th smallest tomorrow, using a heap."
+        ],
+        "example": "Finding every book on a shelf between call numbers 400 and 500: you skip whole sections that are clearly outside the range instead of checking every book.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef kth_smallest(root, k):\n    stack, node = [], root\n    while stack or node:\n        while node:\n            stack.append(node)\n            node = node.left\n        node = stack.pop()\n        k -= 1\n        if k == 0:\n            return node.val\n        node = node.right\n\ndef in_range(node, low, high, out):\n    if node is None:\n        return out\n    if node.val > low:\n        in_range(node.left, low, high, out)\n    if low <= node.val <= high:\n        out.append(node.val)\n    if node.val < high:\n        in_range(node.right, low, high, out)\n    return out\n\nroot = TreeNode(50, TreeNode(30, TreeNode(20), TreeNode(40)), TreeNode(70, TreeNode(60), TreeNode(80)))\nprint(kth_smallest(root, 1), kth_smallest(root, 3))\nprint(in_range(root, 35, 65, []))",
+        "output": "20 40\n[40, 50, 60]",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Go as far left as possible: the smallest values first."
+          },
+          {
+            "line": 15,
+            "note": "Count values in sorted order until the k-th."
+          },
+          {
+            "line": 22,
+            "note": "Only go left if smaller values could still be in range."
+          }
+        ],
+        "tryIt": "Ask for kth_smallest(root, 7), the largest value. It should be 80.",
+        "check": {
+          "question": "What order does an inorder walk of a BST give?",
+          "options": [
+            "Level by level",
+            "Sorted from smallest to largest",
+            "Random"
+          ],
+          "answer": 1,
+          "why": "Left subtree (smaller), node, right subtree (bigger), so inorder lists a BST in sorted order."
+        }
+      },
+      {
+        "title": "Deleting from a BST",
+        "say": [
+          "Deleting shows how the rule is protected. There are three cases. A leaf is simply removed. A node with one child is replaced by that child.",
+          "A node with two children is the tricky case. Replace its value with the smallest value in its right subtree (its successor), then delete that successor from the right subtree.",
+          "The successor is bigger than everything on the left and smaller than everything else on the right, so the rule still holds after the swap.",
+          "Each case walks down one path, so delete costs O(height), like search and insert.",
+          "You rarely write BST deletion at work, but it is a favourite interview question because it tests whether you really understand the rule."
+        ],
+        "example": "A manager leaving a company: if they have no team, the role disappears; if they have one direct report, that person moves up; with two teams, the most junior person who could lead the senior team takes the role.",
+        "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef insert(node, val):\n    if node is None:\n        return TreeNode(val)\n    if val < node.val:\n        node.left = insert(node.left, val)\n    else:\n        node.right = insert(node.right, val)\n    return node\n\ndef delete(node, val):\n    if node is None:\n        return None\n    if val < node.val:\n        node.left = delete(node.left, val)\n    elif val > node.val:\n        node.right = delete(node.right, val)\n    else:\n        if node.left is None:\n            return node.right\n        if node.right is None:\n            return node.left\n        successor = node.right\n        while successor.left:\n            successor = successor.left\n        node.val = successor.val\n        node.right = delete(node.right, successor.val)\n    return node\n\ndef inorder(node):\n    return inorder(node.left) + [node.val] + inorder(node.right) if node else []\n\nroot = None\nfor v in [50, 30, 70, 20, 40, 60, 80]:\n    root = insert(root, v)\nroot = delete(root, 50)\nprint(root.val, inorder(root))",
+        "output": "60 [20, 30, 40, 60, 70, 80]",
+        "codeNotes": [
+          {
+            "line": 25,
+            "note": "No left child: the right child takes this place (also handles leaves)."
+          },
+          {
+            "line": 28,
+            "note": "Two children: find the smallest value on the right."
+          },
+          {
+            "line": 31,
+            "note": "Copy it up, then delete it from the right subtree."
+          }
+        ],
+        "tryIt": "Delete 20 (a leaf) and then 30 (now with one child) and print inorder each time. The list stays sorted.",
+        "check": {
+          "question": "When deleting a node with two children, which value replaces it?",
+          "options": [
+            "The largest value in the whole tree",
+            "The smallest value in its right subtree",
+            "Its left child"
+          ],
+          "answer": 1,
+          "why": "The successor, the smallest value on the right, keeps everything on the left smaller and everything on the right bigger."
+        }
+      }
+    ],
+    "summary": [
+      "BST rule: everything in the left subtree is smaller, everything in the right subtree is bigger.",
+      "Search, insert and delete cost O(height): O(log N) balanced, O(N) for a chain.",
+      "Validate a BST by passing an allowed range down, not by checking only direct children.",
+      "The LCA is where p and q split to different sides.",
+      "Inorder of a BST is sorted, which gives the k-th smallest and range queries."
+    ],
+    "projectStep": {
+      "title": "BST tools",
+      "steps": [
+        "Add insert(node, val) and is_valid_bst(node) to dsa_toolkit.py.",
+        "Add lca(node, p, q) and kth_smallest(root, k).",
+        "Bonus: insert 1 to 1000 in random order and in sorted order, and compare max_depth of the two trees."
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "Min/Max Binary Heaps & Priority Queues",
+    "goal": "You can build a min-heap in a list with sift up and sift down, and use heapq for top-k problems and priority queues.",
+    "minutes": 30,
+    "recap": "Yesterday you kept values in order in a binary search tree. A heap is a different tree: it only keeps the smallest value at the top.",
+    "parts": [
+      {
+        "title": "A heap stored in a list",
+        "say": [
+          "A binary heap is a complete binary tree where every parent is smaller than or equal to its children (a min-heap). The smallest value is always at the root.",
+          "Complete means every level is full except maybe the last, which fills from the left. That shape lets us store the tree in a plain list with no node objects at all.",
+          "For the item at index i, its children are at 2i + 1 and 2i + 2, and its parent is at (i - 1) // 2. Moving around the tree is just arithmetic.",
+          "A heap is only partly ordered: siblings can be in any order, and the list is not sorted. That weaker rule is why heap operations are cheaper than keeping everything sorted.",
+          "Python's heapq module uses exactly this layout on a normal list, which is why h[0] is the smallest item."
+        ],
+        "example": "Seats in a stadium numbered row by row: seat i's two \"children\" in the row below are at fixed seat numbers, so you can find them without any map.",
+        "code": "heap = [1, 3, 2, 7, 4, 5, 6]\n\ndef children(i):\n    return 2 * i + 1, 2 * i + 2\n\ndef parent(i):\n    return (i - 1) // 2\n\nfor i in range(3):\n    l, r = children(i)\n    print(\"parent\", heap[i], \"-> children\", heap[l], heap[r])\nprint(\"parent of index 5 is\", heap[parent(5)])\nprint(\"heap rule holds:\", all(heap[parent(i)] <= heap[i] for i in range(1, len(heap))))",
+        "output": "parent 1 -> children 3 2\nparent 3 -> children 7 4\nparent 2 -> children 5 6\nparent of index 5 is 2\nheap rule holds: True",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Children of index i sit at 2i+1 and 2i+2."
+          },
+          {
+            "line": 7,
+            "note": "The parent sits at (i-1)//2."
+          },
+          {
+            "line": 13,
+            "note": "Every parent is <= its children."
+          }
+        ],
+        "tryIt": "Change heap[4] from 4 to 0 and run it. The rule breaks, because 0 is smaller than its parent 3.",
+        "check": {
+          "question": "In a list-based heap, where are the children of the item at index 3?",
+          "options": [
+            "At 4 and 5",
+            "At 7 and 8",
+            "At 6 and 7"
+          ],
+          "answer": 1,
+          "why": "Children are at 2 x 3 + 1 = 7 and 2 x 3 + 2 = 8."
+        }
+      },
+      {
+        "title": "Push with sift up",
+        "say": [
+          "To add a value, put it at the end of the list, which keeps the tree complete. The heap rule might now be broken between the new item and its parent.",
+          "Fix it by sifting up: while the new item is smaller than its parent, swap them. It rises until its parent is smaller or it reaches the root.",
+          "The tree has about log2 N levels, so sifting up takes at most log N swaps: push is O(log N).",
+          "This is Practice 1's push. You will build the whole MinHeap class across the next two parts.",
+          "A good habit: after each operation, check the heap rule holds for every parent. The check line from part 1 does this in one line."
+        ],
+        "example": "A new employee who is more senior than their manager swaps places with them, and keeps moving up the chart until their manager is more senior than them.",
+        "code": "def push(heap, val):\n    heap.append(val)\n    i = len(heap) - 1\n    while i > 0:\n        p = (i - 1) // 2\n        if heap[i] < heap[p]:\n            heap[i], heap[p] = heap[p], heap[i]\n            i = p\n        else:\n            break\n\nheap = []\nfor x in [7, 3, 9, 1, 5]:\n    push(heap, x)\n    print(\"pushed\", x, \"->\", heap)",
+        "output": "pushed 7 -> [7]\npushed 3 -> [3, 7]\npushed 9 -> [3, 7, 9]\npushed 1 -> [1, 3, 9, 7]\npushed 5 -> [1, 3, 9, 7, 5]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Add at the end: the tree stays complete."
+          },
+          {
+            "line": 7,
+            "note": "Smaller than the parent: swap and keep rising."
+          }
+        ],
+        "tryIt": "Push 0 at the end. It rises all the way to index 0 in about log2(6) swaps.",
+        "check": {
+          "question": "What is the cost of pushing into a heap of N items?",
+          "options": [
+            "O(1)",
+            "O(log N)",
+            "O(N)"
+          ],
+          "answer": 1,
+          "why": "The new item rises at most one level per swap, and there are about log N levels."
+        }
+      },
+      {
+        "title": "Pop with sift down",
+        "say": [
+          "Pop removes the smallest item, the root. To keep the tree complete, move the last item into the root's place, which probably breaks the heap rule at the top.",
+          "Fix it by sifting down: compare the item with its children and swap it with the smaller child, as long as that child is smaller. Repeat until it is smaller than both children or has none.",
+          "Swapping with the smaller child matters: it guarantees the new parent is smaller than the other child too.",
+          "Sifting down also takes at most log N steps, so pop is O(log N). peek (heap[0]) is O(1).",
+          "Popping every item one by one gives them in sorted order. That is heap sort: N pops of O(log N) each, O(N log N) in total."
+        ],
+        "example": "When the top manager leaves, the most junior person is put in charge temporarily and keeps stepping down below whichever of their two reports is more senior, until the order is right again.",
+        "code": "def pop(heap):\n    smallest = heap[0]\n    last = heap.pop()\n    if heap:\n        heap[0] = last\n        i = 0\n        while True:\n            l, r, small = 2 * i + 1, 2 * i + 2, i\n            if l < len(heap) and heap[l] < heap[small]: small = l\n            if r < len(heap) and heap[r] < heap[small]: small = r\n            if small == i:\n                break\n            heap[i], heap[small] = heap[small], heap[i]\n            i = small\n    return smallest\n\nheap = [1, 3, 7, 9, 5]\nprint([pop(heap) for _ in range(5)])",
+        "output": "[1, 3, 5, 7, 9]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The last item fills the root's place."
+          },
+          {
+            "line": 10,
+            "note": "Pick the smaller of the two children."
+          },
+          {
+            "line": 18,
+            "note": "Popping everything gives sorted order: heap sort."
+          }
+        ],
+        "tryIt": "Print heap after the first pop only. It should be [3, 5, 7, 9].",
+        "check": {
+          "question": "When sifting down, which child do you swap with?",
+          "options": [
+            "The left child always",
+            "The smaller child",
+            "The larger child"
+          ],
+          "answer": 1,
+          "why": "Swapping with the smaller child makes the new parent smaller than both children, keeping the heap rule."
+        }
+      },
+      {
+        "title": "heapq and the k-th smallest",
+        "say": [
+          "In real code, use heapq: heappush, heappop, heapify (turns a list into a heap in O(N)), nsmallest and nlargest.",
+          "Practice 2 asks for the k-th smallest number with heapq. One way: heapify the list, then pop k - 1 times; the next item is the answer. That is O(N + k log N).",
+          "Another way keeps a max-heap of size k (using negatives): push each number, and if the heap grows beyond k, pop the largest. At the end, the top is the k-th smallest. That is O(N log k) and uses only O(k) memory.",
+          "The size-k heap is the better choice when the data is a huge stream and k is small, because you never store more than k numbers.",
+          "heapq also accepts tuples, compared item by item, so you can push (priority, name) pairs and get the lowest priority first."
+        ],
+        "example": "Keeping only your 3 best exam scores on a card: when a new score beats the worst of the three, you cross that one out. You never need the full list of scores.",
+        "code": "import heapq\n\ndef kth_smallest_heapify(nums, k):\n    h = list(nums)\n    heapq.heapify(h)\n    for _ in range(k - 1):\n        heapq.heappop(h)\n    return h[0]\n\ndef kth_smallest_bounded(nums, k):\n    h = []\n    for x in nums:\n        heapq.heappush(h, -x)\n        if len(h) > k:\n            heapq.heappop(h)\n    return -h[0]\n\nnums = [7, 10, 4, 3, 20, 15]\nprint(kth_smallest_heapify(nums, 3), kth_smallest_bounded(nums, 3))\nprint(heapq.nsmallest(3, nums))",
+        "output": "7 7\n[3, 4, 7]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "heapify builds a heap from a list in O(N)."
+          },
+          {
+            "line": 15,
+            "note": "Too many: drop the largest, keeping the k smallest."
+          }
+        ],
+        "tryIt": "Find the 2nd smallest of [5, 1, 9, 1, 7]. With duplicates allowed, it is 1.",
+        "check": {
+          "question": "Why keep a heap of size k instead of heapifying all N numbers?",
+          "options": [
+            "It is always faster",
+            "It uses only O(k) memory, good for huge streams",
+            "It gives a different answer"
+          ],
+          "answer": 1,
+          "why": "The bounded heap never stores more than k items, so it works on streams too big to hold in memory."
+        }
+      },
+      {
+        "title": "Priority queues for tasks",
+        "say": [
+          "A heap is the natural way to build a priority queue: items come out by priority, not by arrival time. The operating system uses one to decide which program runs next.",
+          "Push (priority, order, task) tuples. The counter breaks ties between equal priorities, so equal-priority tasks come out in arrival order and Python never has to compare the tasks themselves.",
+          "You will use a priority queue on Day 21 (top auto-complete suggestions) and Day 22 (Dijkstra's shortest path always expands the closest node first).",
+          "When you hear \"always handle the most urgent next\" or \"repeatedly take the smallest\", think heap.",
+          "Priority queues are also how event simulations work: each event has a time, and the next event to happen is always the one with the smallest time."
+        ],
+        "example": "An airline boarding queue: business class boards first whatever time they arrived, and within business class, first come first served. Priority first, then arrival order.",
+        "code": "import heapq\nfrom itertools import count\n\nqueue, order = [], count()\ndef add(priority, task):\n    heapq.heappush(queue, (priority, next(order), task))\n\nadd(3, \"send newsletter\")\nadd(1, \"fix payment outage\")\nadd(2, \"reply to customer\")\nadd(1, \"restart server\")\nwhile queue:\n    priority, _, task = heapq.heappop(queue)\n    print(priority, task)",
+        "output": "1 fix payment outage\n1 restart server\n2 reply to customer\n3 send newsletter",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The counter breaks ties: equal priorities keep arrival order."
+          },
+          {
+            "line": 13,
+            "note": "Always the lowest priority number first."
+          }
+        ],
+        "tryIt": "Add add(0, \"security breach\") at the end, before the while loop. It jumps to the front.",
+        "check": {
+          "question": "Why include a counter in the tuples pushed into the priority queue?",
+          "options": [
+            "To make it faster",
+            "To break ties so equal priorities keep arrival order",
+            "heapq requires three items"
+          ],
+          "answer": 1,
+          "why": "With equal priorities, the counter decides the order, so tasks never need to be compared themselves."
+        }
+      },
+      {
+        "title": "Merging k sorted lists with a heap",
+        "say": [
+          "A heap solves \"merge k sorted lists\" efficiently. Put the first item of each list into a heap, along with which list it came from.",
+          "Pop the smallest, add it to the result, and push the next item from the same list. The heap always holds at most k items, one per list.",
+          "Each of the N total items is pushed and popped once, at O(log k) each: O(N log k). Merging the lists two at a time would be slower.",
+          "This is how search engines combine results from many servers, and how databases merge sorted files when sorting data too big for memory.",
+          "Python even has heapq.merge, which does exactly this lazily, producing items one at a time."
+        ],
+        "example": "Three counters selling tickets, each with its queue already sorted by token number. The announcer always calls the smallest token at the front of any counter.",
+        "code": "import heapq\n\ndef merge_k(lists):\n    heap = [(lst[0], i, 0) for i, lst in enumerate(lists) if lst]\n    heapq.heapify(heap)\n    result = []\n    while heap:\n        val, i, j = heapq.heappop(heap)\n        result.append(val)\n        if j + 1 < len(lists[i]):\n            heapq.heappush(heap, (lists[i][j + 1], i, j + 1))\n    return result\n\nlists = [[1, 4, 7], [2, 5, 8], [0, 3, 6, 9]]\nprint(merge_k(lists))\nprint(list(heapq.merge(*lists)))",
+        "output": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Start with the first item of each list."
+          },
+          {
+            "line": 11,
+            "note": "Replace it with the next item from the same list."
+          }
+        ],
+        "tryIt": "Add an empty list [] to lists. The if on line 4 skips it, and the result is unchanged.",
+        "check": {
+          "question": "What is the cost of merging k sorted lists with N items in total using a heap?",
+          "options": [
+            "O(N log k)",
+            "O(N k)",
+            "O(k)"
+          ],
+          "answer": 0,
+          "why": "Each item goes through a heap of at most k items once: O(log k) per item, O(N log k) in total."
+        }
+      }
+    ],
+    "summary": [
+      "A min-heap keeps every parent <= its children; the smallest is at index 0.",
+      "Stored in a list: children at 2i+1 and 2i+2, parent at (i-1)//2.",
+      "push sifts up and pop sifts down: both O(log N); peek is O(1).",
+      "heapq gives heappush, heappop, heapify, nsmallest, nlargest and merge.",
+      "Heaps power priority queues, top-k, k-way merge, Dijkstra and more."
+    ],
+    "projectStep": {
+      "title": "Heap tools",
+      "steps": [
+        "Add a MinHeap class with push, pop, peek and size to dsa_toolkit.py, using today's sift up and sift down.",
+        "Add kth_smallest_bounded(nums, k) with heapq.",
+        "Bonus: add merge_k(lists) and test it on three sorted lists of your own."
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Tries (Prefix Trees) & Fast Prefix Auto-Complete",
+    "goal": "You can build a trie (prefix tree), check words and prefixes in O(length of the word), and list every word with a given prefix.",
+    "minutes": 30,
+    "recap": "Yesterday you used heaps to always get the smallest item fast. Today's tree is built from letters, for finding words by their beginning.",
+    "parts": [
+      {
+        "title": "A tree of letters",
+        "say": [
+          "A trie (pronounced \"try\", from retrieval) stores words by their letters. Each node represents a prefix, and each edge adds one letter. The root is the empty prefix.",
+          "Words that share a beginning share a path. \"car\", \"card\" and \"care\" share the nodes for c, a and r, and then branch.",
+          "Each node has a dict of children, from letter to node, and a flag is_end that marks where a complete word ends. Without the flag you could not tell the word \"car\" from a mere prefix of \"card\".",
+          "Looking up a word takes one step per letter, so it costs O(L), where L is the word's length, no matter how many words are stored.",
+          "Tries power the auto-complete in search boxes, spell checkers and the routing tables inside internet routers."
+        ],
+        "example": "A dictionary with thumb tabs: you open the C section, then the CA pages, then CAR. Every word starting with CAR is together, so you never read the rest of the dictionary.",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nroot = TrieNode()\nfor word in [\"car\", \"card\", \"care\", \"dog\"]:\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, TrieNode())\n    node.is_end = True\n\nprint(\"first letters:\", sorted(root.children))\nc_a_r = root.children[\"c\"].children[\"a\"].children[\"r\"]\nprint(\"after c-a-r:\", sorted(c_a_r.children), \"| car is a word:\", c_a_r.is_end)",
+        "output": "first letters: ['c', 'd']\nafter c-a-r: ['d', 'e'] | car is a word: True",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Follow the letter's child, creating it if it is missing."
+          },
+          {
+            "line": 11,
+            "note": "Mark the end of a complete word."
+          },
+          {
+            "line": 15,
+            "note": "\"car\" ends here, and \"card\" and \"care\" continue."
+          }
+        ],
+        "tryIt": "Insert \"cat\" as well and print sorted(root.children[\"c\"].children[\"a\"].children). It should show ['r', 't'].",
+        "check": {
+          "question": "Why does each trie node need an is_end flag?",
+          "options": [
+            "To count letters",
+            "To tell complete words apart from prefixes",
+            "To sort the children"
+          ],
+          "answer": 1,
+          "why": "Without it, \"car\" would look the same as the prefix of \"card\"; is_end marks where a real word stops."
+        }
+      },
+      {
+        "title": "insert, search and starts_with",
+        "say": [
+          "Practice 1 builds a Trie class with three methods. insert walks the letters, creating missing nodes, and sets is_end on the last one.",
+          "search walks the letters; if a letter is missing it returns False straight away. If the walk finishes, the answer is the last node's is_end.",
+          "starts_with is the same walk, but it returns True as soon as the walk finishes, whether or not a word ends there.",
+          "A private helper that walks a string and returns the final node (or None) removes the repeated code from search and starts_with.",
+          "All three methods are O(L) for a word of length L. A set could check whole words in O(1), but it cannot answer \"does any word start with this?\" quickly. That is the trie's strength."
+        ],
+        "example": "Typing a phone contact's name letter by letter: after \"Ra\" the phone knows there are contacts starting that way (starts_with), and after \"Ravi\" it knows one is exactly Ravi (search).",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = TrieNode()\n\n    def insert(self, word):\n        node = self.root\n        for ch in word:\n            node = node.children.setdefault(ch, TrieNode())\n        node.is_end = True\n\n    def _walk(self, text):\n        node = self.root\n        for ch in text:\n            node = node.children.get(ch)\n            if node is None:\n                return None\n        return node\n\n    def search(self, word):\n        node = self._walk(word)\n        return node is not None and node.is_end\n\n    def starts_with(self, prefix):\n        return self._walk(prefix) is not None\n\nt = Trie()\nfor w in [\"apple\", \"app\", \"apply\"]:\n    t.insert(w)\nprint(t.search(\"app\"), t.search(\"appl\"), t.starts_with(\"appl\"), t.starts_with(\"b\"))",
+        "output": "True False True False",
+        "codeNotes": [
+          {
+            "line": 19,
+            "note": ".get returns None when the letter is missing."
+          },
+          {
+            "line": 26,
+            "note": "A whole word only if the walk ends on an is_end node."
+          },
+          {
+            "line": 29,
+            "note": "A prefix only needs the walk to succeed."
+          }
+        ],
+        "tryIt": "Insert \"ban\" and \"banana\". Check search(\"bana\") (False) and starts_with(\"bana\") (True).",
+        "check": {
+          "question": "A trie holds only \"apple\". What do search(\"app\") and starts_with(\"app\") return?",
+          "options": [
+            "True and True",
+            "False and True",
+            "False and False"
+          ],
+          "answer": 1,
+          "why": "\"app\" is a prefix of \"apple\" but not a complete word, so search is False and starts_with is True."
+        }
+      },
+      {
+        "title": "Listing words with a prefix",
+        "say": [
+          "Practice 2 lists every word starting with a prefix. First walk down to the prefix's node. If it does not exist, the answer is an empty list.",
+          "Then explore everything below that node with depth-first search, building the word letter by letter. Whenever you reach a node with is_end, add the word so far to the results.",
+          "Visiting children in sorted letter order gives the words in alphabetical order, which is what a suggestion box usually shows.",
+          "The cost is the prefix length plus the size of the part of the trie below it, which is usually small compared with the whole dictionary.",
+          "This is the first half of tomorrow's and Day 21's auto-complete engine; the second half ranks the suggestions by popularity."
+        ],
+        "example": "Typing \"pyt\" in a search bar and seeing \"python\", \"python course\" and \"pytorch\": the app jumped to the \"pyt\" section and listed everything under it.",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\ndef insert(root, word):\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, TrieNode())\n    node.is_end = True\n\ndef words_with_prefix(root, prefix):\n    node = root\n    for ch in prefix:\n        if ch not in node.children:\n            return []\n        node = node.children[ch]\n    found = []\n    def dfs(n, word):\n        if n.is_end:\n            found.append(word)\n        for ch in sorted(n.children):\n            dfs(n.children[ch], word + ch)\n    dfs(node, prefix)\n    return found\n\nroot = TrieNode()\nfor w in [\"car\", \"care\", \"card\", \"cart\", \"cat\", \"dog\"]:\n    insert(root, w)\nprint(words_with_prefix(root, \"car\"))\nprint(words_with_prefix(root, \"ca\"))\nprint(words_with_prefix(root, \"z\"))",
+        "output": "['car', 'card', 'care', 'cart']\n['car', 'card', 'care', 'cart', 'cat']\n[]",
+        "codeNotes": [
+          {
+            "line": 16,
+            "note": "The prefix is not in the trie: no words."
+          },
+          {
+            "line": 21,
+            "note": "A complete word below the prefix."
+          },
+          {
+            "line": 22,
+            "note": "Sorted letters give alphabetical results."
+          }
+        ],
+        "tryIt": "Insert your own name and a few names that start the same way, then list them by their first two letters.",
+        "check": {
+          "question": "How does words_with_prefix find the words below the prefix?",
+          "options": [
+            "It checks every word in the dictionary",
+            "It walks to the prefix node, then does a depth-first search below it",
+            "It uses binary search"
+          ],
+          "answer": 1,
+          "why": "Only the part of the trie under the prefix node is explored."
+        }
+      },
+      {
+        "title": "Counting words and prefixes",
+        "say": [
+          "Tries can store extra information in each node. A count of how many words pass through a node answers \"how many words start with this prefix?\" in O(L), without listing them.",
+          "Increase the count on every node along the path during insert. The count at the prefix's node is the answer.",
+          "You can also store a word's frequency at its end node, which is exactly what an auto-complete ranking needs. You will do that on Day 21.",
+          "Storing more in each node uses more memory but makes common questions instant. It is the same memory-for-speed trade you have seen all month.",
+          "Deleting a word is the reverse: lower the counts along its path and clear is_end on its last node."
+        ],
+        "example": "A library tracking how many borrowed books start with each call-number prefix, updated whenever a book is borrowed, instead of counting the shelves every time someone asks.",
+        "code": "class Node:\n    def __init__(self):\n        self.children = {}\n        self.count = 0\n\nroot = Node()\ndef insert(word):\n    node = root\n    for ch in word:\n        node = node.children.setdefault(ch, Node())\n        node.count += 1\n\ndef count_prefix(prefix):\n    node = root\n    for ch in prefix:\n        if ch not in node.children:\n            return 0\n        node = node.children[ch]\n    return node.count\n\nfor w in [\"apple\", \"apply\", \"ape\", \"banana\", \"band\"]:\n    insert(w)\nprint(count_prefix(\"ap\"), count_prefix(\"app\"), count_prefix(\"ban\"), count_prefix(\"x\"))",
+        "output": "3 2 2 0",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Every node on the path counts one more word."
+          },
+          {
+            "line": 19,
+            "note": "The count at the prefix node answers in O(L)."
+          }
+        ],
+        "tryIt": "Insert \"application\" and check count_prefix(\"app\") again: it goes from 2 to 3.",
+        "check": {
+          "question": "What does the count stored in a trie node represent here?",
+          "options": [
+            "How many children it has",
+            "How many inserted words pass through it",
+            "Its depth"
+          ],
+          "answer": 1,
+          "why": "Every insert adds 1 to each node along its path, so the count is the number of words with that prefix."
+        }
+      },
+      {
+        "title": "Tries versus sets and sorted lists",
+        "say": [
+          "You could store words in a set: whole-word checks are O(L) for hashing, but finding all words with a prefix means checking every word.",
+          "A sorted list with bisect can find the range of words starting with a prefix in O(log N): search for the prefix, then read forward while words still start with it.",
+          "A trie finds prefixes in O(L) regardless of N and shares memory between words with common beginnings. But each node has its own dict, so tries can use a lot of memory for large dictionaries.",
+          "For an interview auto-complete question, the trie is the expected answer. In production, sorted lists or specialised search engines are also common. Knowing the options is what matters.",
+          "Compressed tries (radix trees) merge long single-child chains into one node to save memory; routers use them for IP addresses."
+        ],
+        "example": "Three ways to find every contact starting with \"Ra\": flip through every card (set), jump to the R tab in an alphabetical card box (sorted list), or use a card box with a tab for every letter pair (trie).",
+        "code": "import bisect\n\nwords = sorted([\"car\", \"card\", \"care\", \"cat\", \"dog\", \"cart\", \"apple\"])\n\ndef prefix_range(sorted_words, prefix):\n    start = bisect.bisect_left(sorted_words, prefix)\n    out = []\n    for w in sorted_words[start:]:\n        if not w.startswith(prefix):\n            break\n        out.append(w)\n    return out\n\nprint(prefix_range(words, \"car\"))\nprint([w for w in words if w.startswith(\"car\")])",
+        "output": "['car', 'card', 'care', 'cart']\n['car', 'card', 'care', 'cart']",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Binary search finds where the prefix would go."
+          },
+          {
+            "line": 9,
+            "note": "Stop at the first word that no longer matches."
+          },
+          {
+            "line": 15,
+            "note": "The set-style approach checks every word."
+          }
+        ],
+        "tryIt": "Add \"carbon\" and \"careful\" to the words and check that both methods still agree.",
+        "check": {
+          "question": "What is a trie's main advantage over a set of words?",
+          "options": [
+            "Less memory always",
+            "Fast prefix questions, independent of how many words there are",
+            "Faster whole-word checks"
+          ],
+          "answer": 1,
+          "why": "A trie answers \"which words start with this?\" by walking only the prefix, while a set must check every word."
+        }
+      },
+      {
+        "title": "A word-search game with a trie",
+        "say": [
+          "Tries shine when you must check many prefixes at once, for example finding dictionary words in a grid of letters (like Boggle).",
+          "Without a trie you would try every path in the grid and check each one against the dictionary. With a trie you stop a path as soon as its letters are not a prefix of any word: that is the pruning idea from Day 11.",
+          "Walk the grid with depth-first search, moving through the trie at the same time. When the trie node has is_end, record the word.",
+          "Marking cells as visited during a path, and unmarking them afterwards, is backtracking again: choose, explore, un-choose.",
+          "This combines three topics from this month: tries, depth-first search and backtracking with pruning."
+        ],
+        "example": "Playing a word game where you stop reading a line of letters the moment it cannot start any real word, like \"XQZ\", instead of reading to the end.",
+        "code": "def find_words(grid, words):\n    trie = {}\n    for w in words:\n        node = trie\n        for ch in w:\n            node = node.setdefault(ch, {})\n        node[\"$\"] = w\n    rows, cols, found = len(grid), len(grid[0]), set()\n\n    def dfs(r, c, node):\n        ch = grid[r][c]\n        if ch not in node:\n            return\n        node = node[ch]\n        if \"$\" in node:\n            found.add(node[\"$\"])\n        grid[r][c] = \"#\"\n        for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:\n            nr, nc = r + dr, c + dc\n            if 0 <= nr < rows and 0 <= nc < cols:\n                dfs(nr, nc, node)\n        grid[r][c] = ch\n\n    for r in range(rows):\n        for c in range(cols):\n            dfs(r, c, trie)\n    return sorted(found)\n\ngrid = [list(\"oath\"), list(\"etae\"), list(\"ihkr\"), list(\"iflv\")]\nprint(find_words(grid, [\"oath\", \"pea\", \"eat\", \"rain\", \"hike\"]))",
+        "output": "['eat', 'oath']",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "A plain-dict trie; \"$\" marks the end and stores the word."
+          },
+          {
+            "line": 12,
+            "note": "Not a prefix of any word: stop this path (pruning)."
+          },
+          {
+            "line": 17,
+            "note": "Mark the cell used for this path, and restore it after."
+          }
+        ],
+        "tryIt": "Add \"the\" to the word list. It is in the grid too, so it appears in the result.",
+        "check": {
+          "question": "How does the trie speed up the word search?",
+          "options": [
+            "It sorts the grid",
+            "It stops paths whose letters are not a prefix of any word",
+            "It checks words in parallel"
+          ],
+          "answer": 1,
+          "why": "As soon as a path's letters are not in the trie, that path cannot become a word, so it is abandoned."
+        }
+      }
+    ],
+    "summary": [
+      "A trie stores words letter by letter; shared beginnings share nodes.",
+      "Each node has a dict of children and an is_end flag for complete words.",
+      "insert, search and starts_with all cost O(L) for a word of length L.",
+      "List words with a prefix by walking to the prefix node and doing a DFS below it.",
+      "Extra data in nodes (counts, frequencies) answers prefix questions instantly."
+    ],
+    "projectStep": {
+      "title": "Trie tools",
+      "steps": [
+        "Add the Trie class with insert, search and starts_with to dsa_toolkit.py.",
+        "Add words_with_prefix(trie_root, prefix) returning words in alphabetical order.",
+        "Bonus: load 50 words of your choice and print how many start with each letter using prefix counts."
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "Graph Representations (Adjacency List/Matrix) & BFS/DFS",
+    "goal": "You can store a graph as an adjacency list, find shortest paths with BFS, explore with DFS and count connected groups.",
+    "minutes": 30,
+    "recap": "You have used trees all week. A graph is a tree without the rules: any node can connect to any other, and there can be loops.",
+    "parts": [
+      {
+        "title": "Graphs and how to store them",
+        "say": [
+          "A graph is a set of nodes (also called vertices) connected by edges. Cities and roads, people and friendships, web pages and links are all graphs.",
+          "Edges can be undirected (a friendship goes both ways) or directed (a follow on social media goes one way). They can also have weights, like distances; that is Day 22.",
+          "The usual way to store a graph in Python is an adjacency list: a dict mapping each node to the list of its neighbours. It uses O(V + E) memory for V nodes and E edges.",
+          "An adjacency matrix, a V by V grid of 0s and 1s, answers \"is there an edge from a to b?\" in O(1), but uses V^2 memory even when few edges exist. For big sparse graphs like social networks, adjacency lists win.",
+          "Building the adjacency list from a list of edges is the first step of almost every graph problem."
+        ],
+        "example": "A metro map: stations are nodes and the tracks between them are edges. For each station, the map lists which stations you can reach in one stop: that is the adjacency list.",
+        "code": "from collections import defaultdict\n\nedges = [(\"Majestic\", \"MG Road\"), (\"MG Road\", \"Indiranagar\"), (\"Majestic\", \"Vijayanagar\"), (\"Indiranagar\", \"Baiyappanahalli\")]\ngraph = defaultdict(list)\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nfor station in sorted(graph):\n    print(station, \"->\", graph[station])\n\nn = len(graph)\nprint(\"matrix cells:\", n * n, \"| list entries:\", 2 * len(edges))",
+        "output": "Baiyappanahalli -> ['Indiranagar']\nIndiranagar -> ['MG Road', 'Baiyappanahalli']\nMG Road -> ['Majestic', 'Indiranagar']\nMajestic -> ['MG Road', 'Vijayanagar']\nVijayanagar -> ['Majestic']\nmatrix cells: 25 | list entries: 8",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "defaultdict(list) creates an empty list for a new node automatically."
+          },
+          {
+            "line": 7,
+            "note": "Undirected: add the edge in both directions."
+          },
+          {
+            "line": 13,
+            "note": "A matrix stores every pair; the list stores only real edges."
+          }
+        ],
+        "tryIt": "Make the graph directed by deleting line 7, then print it again. Stations only list the stations their tracks lead to.",
+        "check": {
+          "question": "Why is an adjacency list usually preferred for large social networks?",
+          "options": [
+            "It is faster to draw",
+            "It uses memory for real edges only, not every possible pair",
+            "It sorts friends"
+          ],
+          "answer": 1,
+          "why": "Each person has relatively few friends, so storing only real edges (O(V + E)) uses far less memory than a V x V matrix."
+        }
+      },
+      {
+        "title": "BFS: shortest path in steps",
+        "say": [
+          "Practice 1 finds the fewest edges between two nodes in an unweighted graph. Breadth-first search does this naturally, because it explores nodes in order of their distance from the start.",
+          "Use a queue of (node, distance) pairs and a visited set. Start with (start, 0). Pop a node; if it is the target, return its distance. Otherwise push each unvisited neighbour with distance + 1.",
+          "Mark a node visited when you push it, not when you pop it. That stops the same node being added to the queue many times.",
+          "Graphs can have cycles, unlike trees, so the visited set is essential. Without it, BFS on a graph with a loop would run forever.",
+          "BFS visits every node and edge at most once: O(V + E) time."
+        ],
+        "example": "Degrees of separation on social media: your friends are 1 step away, their friends are 2 steps. Checking all 1-step people before any 2-step people is exactly breadth-first search.",
+        "code": "from collections import deque\n\ndef shortest_path(graph, start, target):\n    queue = deque([(start, 0)])\n    visited = {start}\n    while queue:\n        node, dist = queue.popleft()\n        if node == target:\n            return dist\n        for nb in graph.get(node, []):\n            if nb not in visited:\n                visited.add(nb)\n                queue.append((nb, dist + 1))\n    return -1\n\ngraph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\"], \"C\": [\"D\", \"E\"], \"D\": [\"F\"], \"E\": [\"F\"], \"F\": []}\nprint(shortest_path(graph, \"A\", \"F\"), shortest_path(graph, \"A\", \"A\"), shortest_path(graph, \"F\", \"A\"))",
+        "output": "3 0 -1",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Remember nodes already queued; graphs can have loops."
+          },
+          {
+            "line": 12,
+            "note": "Mark visited when pushing, so a node is queued once."
+          },
+          {
+            "line": 14,
+            "note": "The queue emptied without reaching the target."
+          }
+        ],
+        "tryIt": "Also record each node's parent when you push it, then rebuild the actual path from F back to A.",
+        "check": {
+          "question": "Why does BFS find the fewest edges in an unweighted graph?",
+          "options": [
+            "It is random",
+            "It explores all nodes at distance d before any at distance d + 1",
+            "It uses a stack"
+          ],
+          "answer": 1,
+          "why": "Nodes leave the queue in order of distance, so the first time the target is reached, it is by a shortest path."
+        }
+      },
+      {
+        "title": "DFS: going deep",
+        "say": [
+          "Depth-first search follows one path as far as it can before backing up. It can be written recursively or with a stack, just like the tree walks on Day 16.",
+          "DFS does not find shortest paths, but it is ideal for \"can I reach this?\", \"which nodes are connected?\", finding cycles, and exploring mazes.",
+          "The visited set is still needed, for the same reason: cycles.",
+          "Recursive DFS is short and clear, but for very large graphs the recursion depth can hit Python's limit. The stack version has no such limit.",
+          "Both BFS and DFS are O(V + E). Choose BFS for shortest steps; choose either for reachability."
+        ],
+        "example": "Exploring a maze by always taking the first unexplored turn and only going back when you hit a dead end, dropping a pebble at each junction so you know where you have been.",
+        "code": "def dfs_recursive(graph, node, visited=None):\n    if visited is None:\n        visited = []\n    visited.append(node)\n    for nb in graph[node]:\n        if nb not in visited:\n            dfs_recursive(graph, nb, visited)\n    return visited\n\ndef dfs_stack(graph, start):\n    visited, stack = [], [start]\n    while stack:\n        node = stack.pop()\n        if node in visited:\n            continue\n        visited.append(node)\n        for nb in reversed(graph[node]):\n            stack.append(nb)\n    return visited\n\ngraph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\"], \"C\": [\"E\"], \"D\": [\"A\"], \"E\": []}\nprint(dfs_recursive(graph, \"A\"))\nprint(dfs_stack(graph, \"A\"))",
+        "output": "['A', 'B', 'D', 'C', 'E']\n['A', 'B', 'D', 'C', 'E']",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Skip nodes already seen: D links back to A."
+          },
+          {
+            "line": 17,
+            "note": "Reversed so the first neighbour is explored first, matching the recursive version."
+          }
+        ],
+        "tryIt": "Remove the check on line 6 and run it. The cycle A -> B -> D -> A makes it loop until Python stops it.",
+        "check": {
+          "question": "Which search should you use to find the fewest steps between two nodes?",
+          "options": [
+            "DFS",
+            "BFS",
+            "Either gives the fewest steps"
+          ],
+          "answer": 1,
+          "why": "BFS explores in order of distance; DFS may find a long path first."
+        }
+      },
+      {
+        "title": "Counting connected components",
+        "say": [
+          "Practice 2 counts how many separate groups (connected components) an undirected graph has, for n nodes and a list of edges.",
+          "Build the adjacency list. Then go through every node. If it has not been visited, it starts a new group: add 1 to the count and run BFS or DFS from it to mark its whole group visited.",
+          "Every node is visited once and every edge looked at twice (once from each end): O(V + E).",
+          "Nodes with no edges at all are groups of their own. Building the adjacency list for all n nodes, even those without edges, makes sure they are counted.",
+          "Component counting finds friend circles, separate islands on a map, and disconnected parts of a computer network."
+        ],
+        "example": "Counting how many separate friend circles there are at a school: pick any student not yet in a circle, find everyone connected to them, and call that one circle. Repeat until everyone is placed.",
+        "code": "from collections import deque\n\ndef count_components(n, edges):\n    graph = {i: [] for i in range(n)}\n    for a, b in edges:\n        graph[a].append(b)\n        graph[b].append(a)\n    visited, groups = set(), 0\n    for start in range(n):\n        if start in visited:\n            continue\n        groups += 1\n        queue = deque([start])\n        visited.add(start)\n        while queue:\n            node = queue.popleft()\n            for nb in graph[node]:\n                if nb not in visited:\n                    visited.add(nb)\n                    queue.append(nb)\n    return groups\n\nprint(count_components(5, [[0, 1], [1, 2], [3, 4]]))\nprint(count_components(4, []))",
+        "output": "2\n4",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Every node gets a list, even with no edges."
+          },
+          {
+            "line": 12,
+            "note": "An unvisited node starts a new group."
+          },
+          {
+            "line": 15,
+            "note": "BFS marks the whole group as visited."
+          }
+        ],
+        "tryIt": "Add the edge [2, 3] to the first example. The two groups join, so the answer becomes 1.",
+        "check": {
+          "question": "A graph has 6 nodes and no edges. How many connected components does it have?",
+          "options": [
+            "0",
+            "1",
+            "6"
+          ],
+          "answer": 2,
+          "why": "With no edges, every node is a group on its own: 6 components."
+        }
+      },
+      {
+        "title": "Grids are graphs too",
+        "say": [
+          "A grid, like a map of land and water, is a graph in disguise. Each cell is a node, and its neighbours are the cells up, down, left and right.",
+          "You do not need to build an adjacency list. Loop over the four directions and check the new position is inside the grid.",
+          "Counting islands (groups of land cells) is the component count from the last part, on a grid: start a BFS or DFS from every land cell not yet visited.",
+          "Shortest paths in a maze are BFS on a grid, with walls as cells you cannot enter.",
+          "Grid problems are among the most common graph questions in interviews, so practise writing the four-direction loop until it is automatic."
+        ],
+        "example": "A satellite photo of the Lakshadweep islands divided into squares: land squares that touch each other form one island. Counting islands means counting groups of touching land squares.",
+        "code": "def count_islands(grid):\n    rows, cols = len(grid), len(grid[0])\n    seen = set()\n    islands = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == \"1\" and (r, c) not in seen:\n                islands += 1\n                stack = [(r, c)]\n                seen.add((r, c))\n                while stack:\n                    cr, cc = stack.pop()\n                    for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:\n                        nr, nc = cr + dr, cc + dc\n                        if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == \"1\" and (nr, nc) not in seen:\n                            seen.add((nr, nc))\n                            stack.append((nr, nc))\n    return islands\n\ngrid = [\"11000\", \"11000\", \"00100\", \"00011\"]\nprint(count_islands(grid))",
+        "output": "3",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Unvisited land starts a new island."
+          },
+          {
+            "line": 13,
+            "note": "The four neighbours of a cell."
+          },
+          {
+            "line": 15,
+            "note": "Inside the grid, land, and not seen yet."
+          }
+        ],
+        "tryIt": "Change the grid's third row to \"01100\". The first two islands join into one, so the count drops to 2.",
+        "check": {
+          "question": "In a grid problem, what are a cell's neighbours usually?",
+          "options": [
+            "Every other cell",
+            "The cells up, down, left and right",
+            "Only the cell to the right"
+          ],
+          "answer": 1,
+          "why": "Grid graphs usually connect each cell to its four side neighbours (sometimes eight, if diagonals count)."
+        }
+      },
+      {
+        "title": "Choosing BFS or DFS and planning a graph solution",
+        "say": [
+          "For any graph problem, first decide what the nodes and edges are. Sometimes they are given; sometimes, like grids or word ladders, you have to see the graph hiding in the problem.",
+          "Then pick the search. Fewest steps in an unweighted graph: BFS. Reachability, components or cycles: BFS or DFS. Weighted shortest paths: Dijkstra on Day 22. Order of tasks: topological sort on Day 23.",
+          "Always keep a visited set, and think about the size: O(V + E) is fine for millions of edges, O(V^2) usually is not.",
+          "Write down a tiny example graph and walk your search on paper before coding. Graph bugs are much easier to see on a drawing.",
+          "Next week builds on this: auto-complete (Day 21), Dijkstra (Day 22), topological sort (Day 23) and union-find (Day 24) are all graph tools."
+        ],
+        "example": "A word ladder, turning COLD into WARM one letter at a time with real words at each step, is a hidden graph: each word is a node, and words one letter apart are connected. The fewest steps is BFS.",
+        "code": "from collections import deque\n\ndef word_ladder(start, end, words):\n    words = set(words)\n    queue, seen = deque([(start, 1)]), {start}\n    while queue:\n        word, steps = queue.popleft()\n        if word == end:\n            return steps\n        for i in range(len(word)):\n            for ch in \"abcdefghijklmnopqrstuvwxyz\":\n                nxt = word[:i] + ch + word[i + 1:]\n                if nxt in words and nxt not in seen:\n                    seen.add(nxt)\n                    queue.append((nxt, steps + 1))\n    return 0\n\nprint(word_ladder(\"cold\", \"warm\", [\"cord\", \"card\", \"ward\", \"warm\", \"word\", \"worm\", \"wold\"]))",
+        "output": "5",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Neighbours are words that differ by one letter."
+          },
+          {
+            "line": 13,
+            "note": "Only real, unseen words become new nodes."
+          }
+        ],
+        "tryIt": "Remove \"worm\" and \"wold\" from the list. Is there still a ladder? Predict the answer, then run it.",
+        "check": {
+          "question": "What is the right search for the fewest word changes in a word ladder?",
+          "options": [
+            "DFS",
+            "BFS",
+            "Binary search"
+          ],
+          "answer": 1,
+          "why": "Each change is one edge in an unweighted graph, so BFS finds the fewest steps."
+        }
+      }
+    ],
+    "summary": [
+      "A graph is nodes and edges; store it as an adjacency list (dict of neighbour lists).",
+      "BFS with a queue and a visited set finds the fewest edges: O(V + E).",
+      "DFS with recursion or a stack explores reachability and components.",
+      "Count components by starting a search from every unvisited node.",
+      "Grids and word ladders are graphs in disguise."
+    ],
+    "projectStep": {
+      "title": "Graph tools",
+      "steps": [
+        "Add shortest_path(graph, start, target) and count_components(n, edges) to dsa_toolkit.py.",
+        "Add count_islands(grid) and test it on a grid you draw yourself.",
+        "Bonus: build a graph of 6 friends and find how many steps separate each pair."
       ]
     }
   }
