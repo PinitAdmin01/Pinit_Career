@@ -1156,5 +1156,1143 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: use @lru_cache on a function that computes the n-th Fibonacci number recursively and time fib(35) with and without it."
       ]
     }
+  },
+  {
+    "day": 6,
+    "title": "Queues (FIFO), Circular Ring Buffers & Deques",
+    "goal": "You can use queues and deques in Python, build a fixed-size ring buffer, and turn a queue into a stack.",
+    "minutes": 30,
+    "recap": "Last week you built linked lists, stacks and an LRU cache. Stacks are last in, first out; today you meet their opposite.",
+    "parts": [
+      {
+        "title": "A queue: first in, first out",
+        "say": [
+          "A queue is a line where items join at the back and leave from the front. The first item in is the first item out: FIFO. Printers, customer support tickets and messages between servers all wait in queues.",
+          "You could use a Python list, with append to join and pop(0) to leave. But pop(0) shifts every other item forward, so it is O(N). With a long queue that becomes slow.",
+          "collections.deque is built for this. append adds at the back and popleft removes from the front, both O(1). Use deque whenever you need a queue in Python.",
+          "The name deque means double-ended queue: it is fast at both ends. You will use it on Day 16 for tree level order and on Day 20 for graph search."
+        ],
+        "example": "The token queue at a bank: the person who took token 1 is served first, and new customers take the next token and wait at the back.",
+        "code": "from collections import deque\n\ntickets = deque()\ntickets.append(\"T101 login problem\")\ntickets.append(\"T102 refund\")\ntickets.append(\"T103 password reset\")\nprint(\"serving:\", tickets.popleft())\nprint(\"serving:\", tickets.popleft())\nprint(\"still waiting:\", list(tickets))\nprint(\"next up:\", tickets[0])",
+        "output": "serving: T101 login problem\nserving: T102 refund\nstill waiting: ['T103 password reset']\nnext up: T103 password reset",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Join the queue at the back."
+          },
+          {
+            "line": 7,
+            "note": "popleft takes from the front: first in, first out."
+          },
+          {
+            "line": 10,
+            "note": "Look at the front without removing it."
+          }
+        ],
+        "tryIt": "Add a fourth ticket after the two popleft calls. It joins behind T103, so T103 is still next up.",
+        "check": {
+          "question": "You add A, B and C to a queue. Which comes out first?",
+          "options": [
+            "C",
+            "A",
+            "B"
+          ],
+          "answer": 1,
+          "why": "A queue is first in, first out, so A, which joined first, leaves first."
+        }
+      },
+      {
+        "title": "Why deque beats a list for queues",
+        "say": [
+          "A list keeps its items side by side starting at position 0. Removing the front item means every other item moves one place left, which is N moves.",
+          "A deque is built from linked blocks, so it can remove from the front by changing where the front starts, with no shifting. That is why popleft is O(1).",
+          "The trade-off: reading an item in the middle of a deque by index is slower than in a list. Deques are for the ends; lists are for jumping to any position.",
+          "The code below counts how many moves each approach needs for the same queue work. The numbers make the Big-O difference easy to see."
+        ],
+        "example": "Shifting every chair in a cinema row one seat left whenever the first person leaves, compared with just moving a \"row starts here\" sign one seat along.",
+        "code": "def list_queue_moves(n):\n    moves = 0\n    size = n\n    while size > 0:\n        moves += size - 1\n        size -= 1\n    return moves\n\ndef deque_queue_moves(n):\n    return 0\n\nfor n in [10, 1000, 100000]:\n    print(n, \"items: list shifts\", list_queue_moves(n), \"| deque shifts\", deque_queue_moves(n))",
+        "output": "10 items: list shifts 45 | deque shifts 0\n1000 items: list shifts 499500 | deque shifts 0\n100000 items: list shifts 4999950000 | deque shifts 0",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Each pop(0) shifts all the items behind the front one."
+          },
+          {
+            "line": 10,
+            "note": "popleft never shifts items."
+          }
+        ],
+        "tryIt": "Work out list_queue_moves(4) by hand: 3 + 2 + 1 + 0 = 6. Add 4 to the list on line 12 to check.",
+        "check": {
+          "question": "What is the cost of removing the front item from a Python list with pop(0)?",
+          "options": [
+            "O(1)",
+            "O(N)",
+            "O(log N)"
+          ],
+          "answer": 1,
+          "why": "Every remaining item shifts one place towards the front, so the work grows with N."
+        }
+      },
+      {
+        "title": "A ring buffer: a queue of fixed size",
+        "say": [
+          "Sometimes a queue must never grow past a fixed size, for example the last 100 log lines or sensor readings. A ring buffer (circular queue) stores them in a fixed list and reuses the slots.",
+          "Keep a head index (the front) and a count. The back slot is (head + count) % capacity. The % makes the index wrap round to 0 after the last slot, like the hands of a clock.",
+          "en_queue writes at the back and adds 1 to count, or refuses when count equals capacity. de_queue moves head forward with (head + 1) % capacity and takes 1 from count.",
+          "Nothing is ever shifted or copied, so both operations are O(1), and the memory used never changes. This is exactly Practice 1 today."
+        ],
+        "example": "A round table with 4 seats at a restaurant: guests are seated in the next free seat going round, and when someone leaves their seat is reused. The table never gets bigger.",
+        "code": "class RingBuffer:\n    def __init__(self, capacity):\n        self.data = [None] * capacity\n        self.capacity = capacity\n        self.head = 0\n        self.count = 0\n\n    def en_queue(self, value):\n        if self.count == self.capacity:\n            return False\n        self.data[(self.head + self.count) % self.capacity] = value\n        self.count += 1\n        return True\n\n    def de_queue(self):\n        if self.count == 0:\n            return None\n        value = self.data[self.head]\n        self.head = (self.head + 1) % self.capacity\n        self.count -= 1\n        return value\n\nrb = RingBuffer(3)\nprint(rb.en_queue(\"a\"), rb.en_queue(\"b\"), rb.en_queue(\"c\"), rb.en_queue(\"d\"))\nprint(rb.de_queue(), rb.en_queue(\"d\"))\nprint(rb.data, \"head at\", rb.head)",
+        "output": "True True True False\na True\n['d', 'b', 'c'] head at 1",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "The back slot wraps round with %."
+          },
+          {
+            "line": 19,
+            "note": "Moving head forward also wraps round."
+          },
+          {
+            "line": 26,
+            "note": "\"d\" reused slot 0, the one \"a\" left."
+          }
+        ],
+        "tryIt": "Call de_queue() three more times and print the results. You get b, c and d in the order they joined.",
+        "check": {
+          "question": "In a ring buffer of capacity 5, what is the slot after slot 4?",
+          "options": [
+            "Slot 5",
+            "Slot 0",
+            "There is none"
+          ],
+          "answer": 1,
+          "why": "(4 + 1) % 5 is 0, so the index wraps round to the start and reuses slot 0."
+        }
+      },
+      {
+        "title": "deque with a maximum length",
+        "say": [
+          "Python gives you a ring-buffer behaviour for free: deque(maxlen=n). When the deque is full and you append, the oldest item is dropped from the other end automatically.",
+          "This is perfect for \"the last N things\": the last 5 searches, the last 60 heart-rate readings, or a moving average over recent prices.",
+          "A moving average adds the new value, lets maxlen drop the oldest, and divides the sum by the length. With a small window this is cheap and very useful.",
+          "deque also has appendleft and pop, so you can add or remove at either end. Some algorithms, like the sliding window maximum, use both ends."
+        ],
+        "example": "A phone's \"recent calls\" list that only keeps the last few calls: when a new call comes in, the oldest one silently disappears from the bottom.",
+        "code": "from collections import deque\n\nrecent = deque(maxlen=3)\nfor search in [\"python\", \"dsa\", \"linked list\", \"queue\", \"deque\"]:\n    recent.append(search)\n    print(list(recent))\n\nprices = [100, 102, 101, 105, 110]\nwindow = deque(maxlen=3)\nfor p in prices:\n    window.append(p)\n    print(\"avg of last\", len(window), \"=\", round(sum(window) / len(window), 2))",
+        "output": "['python']\n['python', 'dsa']\n['python', 'dsa', 'linked list']\n['dsa', 'linked list', 'queue']\n['linked list', 'queue', 'deque']\navg of last 1 = 100.0\navg of last 2 = 101.0\navg of last 3 = 101.0\navg of last 3 = 102.67\navg of last 3 = 105.33",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "maxlen=3: the deque never holds more than 3 items."
+          },
+          {
+            "line": 5,
+            "note": "When full, appending drops the oldest from the left."
+          }
+        ],
+        "tryIt": "Change maxlen to 2 on line 9 and run it again. The average now follows the prices more closely.",
+        "check": {
+          "question": "A deque(maxlen=2) holds [1, 2]. You append 3. What does it hold now?",
+          "options": [
+            "[1, 2, 3]",
+            "[2, 3]",
+            "[1, 3]"
+          ],
+          "answer": 1,
+          "why": "It is full, so appending 3 at the right drops the oldest item, 1, from the left."
+        }
+      },
+      {
+        "title": "Building a stack from a queue",
+        "say": [
+          "Practice 2 is a classic puzzle: build a stack (last in, first out) using only queue operations. It trains you to think about the order items come out in.",
+          "The trick: after you append a new item to the back, rotate the queue by moving every older item from the front to the back. Now the newest item is at the front.",
+          "Then pop is just popleft, and top is just looking at the front. Push costs O(N) because of the rotation, but pop and top are O(1).",
+          "Puzzles like this look artificial, but they show you understand exactly what each structure can and cannot do cheaply, which is what interviewers want to see."
+        ],
+        "example": "A single-file tunnel where people can only enter at the back and leave at the front. To let the newest person out first, everyone ahead of them walks round and re-enters behind them.",
+        "code": "from collections import deque\n\nclass StackFromQueue:\n    def __init__(self):\n        self.q = deque()\n\n    def push(self, x):\n        self.q.append(x)\n        for _ in range(len(self.q) - 1):\n            self.q.append(self.q.popleft())\n\n    def pop(self):\n        return self.q.popleft()\n\n    def top(self):\n        return self.q[0]\n\ns = StackFromQueue()\nfor x in [1, 2, 3]:\n    s.push(x)\n    print(\"pushed\", x, \"queue is now\", list(s.q))\nprint(s.pop(), s.pop(), s.top())",
+        "output": "pushed 1 queue is now [1]\npushed 2 queue is now [2, 1]\npushed 3 queue is now [3, 2, 1]\n3 2 1",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Rotate every older item behind the new one."
+          },
+          {
+            "line": 13,
+            "note": "The newest item is at the front, so popleft works like a stack pop."
+          }
+        ],
+        "tryIt": "Push 4 after the two pops and print s.top(). It is 4, the most recent push.",
+        "check": {
+          "question": "In this design, which operation costs O(N)?",
+          "options": [
+            "push",
+            "pop",
+            "top"
+          ],
+          "answer": 0,
+          "why": "push rotates every older item to the back, which is N moves. pop and top only touch the front: O(1)."
+        }
+      },
+      {
+        "title": "Queues in real systems",
+        "say": [
+          "Queues are everywhere in real software. A web server puts incoming requests in a queue for its workers. Apps send emails through a queue so the user does not wait for the email to go out.",
+          "Big systems use message queues like Kafka, RabbitMQ or Amazon SQS between services. One service puts messages in, another takes them out at its own speed. The queue absorbs bursts of traffic.",
+          "The key numbers are the queue length and the rate: if items arrive faster than they are processed, the queue grows forever. Watching queue length tells you when to add workers.",
+          "The simulation below processes a burst of arrivals with a fixed number of jobs per second, the same reasoning engineers use to size a system."
+        ],
+        "example": "A railway ticket counter at festival time: when more people arrive per minute than the clerk can serve, the line keeps growing. Opening a second counter is \"adding a worker\".",
+        "code": "from collections import deque\n\narrivals = [5, 5, 5, 0, 0, 0]\nserved_per_second = 3\nqueue = deque()\njob = 0\nfor second, new in enumerate(arrivals):\n    for _ in range(new):\n        job += 1\n        queue.append(job)\n    for _ in range(min(served_per_second, len(queue))):\n        queue.popleft()\n    print(\"second\", second, \"waiting\", len(queue))",
+        "output": "second 0 waiting 2\nsecond 1 waiting 4\nsecond 2 waiting 6\nsecond 3 waiting 3\nsecond 4 waiting 0\nsecond 5 waiting 0",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "5 new jobs per second for 3 seconds, then none."
+          },
+          {
+            "line": 11,
+            "note": "Workers can only take 3 jobs per second."
+          }
+        ],
+        "tryIt": "Change served_per_second to 5 and run again. Now the queue never grows: workers keep up with arrivals.",
+        "check": {
+          "question": "Jobs arrive at 10 per second and workers finish 8 per second. What happens to the queue?",
+          "options": [
+            "It stays empty",
+            "It grows by about 2 each second",
+            "It shrinks"
+          ],
+          "answer": 1,
+          "why": "Arrivals beat processing by 2 per second, so 2 more jobs are left waiting each second, and the queue keeps growing."
+        }
+      }
+    ],
+    "summary": [
+      "A queue is first in, first out; a stack is last in, first out.",
+      "Use collections.deque for queues: append and popleft are O(1); list.pop(0) is O(N).",
+      "A ring buffer reuses a fixed list with head and count, wrapping indexes with %.",
+      "deque(maxlen=n) keeps only the last n items automatically.",
+      "If items arrive faster than they are processed, a queue grows without limit."
+    ],
+    "projectStep": {
+      "title": "Queue tools",
+      "steps": [
+        "Add the RingBuffer class to dsa_toolkit.py and test it filling up, emptying and wrapping round.",
+        "Add a moving_average(prices, window) function that uses deque(maxlen=window).",
+        "Bonus: add StackFromQueue and check that pushing 1, 2, 3 then popping gives 3, 2, 1."
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "title": "Hash Tables, Collision Resolution & Load Factors",
+    "goal": "You can explain how a hash table stores and finds keys in O(1), handle collisions, and use dicts to solve problems like two sum.",
+    "minutes": 30,
+    "recap": "Yesterday you used queues, deques and ring buffers. Today you open up the structure behind Python's dict and set.",
+    "parts": [
+      {
+        "title": "Hashing: turning a key into a position",
+        "say": [
+          "A hash table stores items in a list of buckets. To decide which bucket a key goes in, it runs the key through a hash function, which turns the key into a number, and then takes that number % the number of buckets.",
+          "The same key always gives the same hash, so to find a key later you compute the same bucket and look only there. No searching through everything: that is where O(1) comes from.",
+          "Python has a built-in hash() function, and dict and set use it inside. Strings, numbers and tuples can be hashed; lists cannot, because they can change after being stored.",
+          "A good hash function spreads keys evenly across the buckets. If many keys land in the same bucket, that bucket becomes a slow list to search."
+        ],
+        "example": "A school with lockers numbered by the first letter of your surname: Aarav goes to locker A, Meera to locker M. To find Meera's bag you go straight to M instead of opening every locker.",
+        "code": "def bucket_for(key, buckets=8):\n    total = 0\n    for ch in key:\n        total = total * 31 + ord(ch)\n    return total % buckets\n\nfor name in [\"aarav\", \"meera\", \"rohan\", \"diya\", \"kabir\"]:\n    print(name, \"-> bucket\", bucket_for(name))",
+        "output": "aarav -> bucket 7\nmeera -> bucket 4\nrohan -> bucket 0\ndiya -> bucket 5\nkabir -> bucket 5",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "A simple hash: mix the character codes into one number."
+          },
+          {
+            "line": 5,
+            "note": "% squeezes the big number into a bucket index."
+          }
+        ],
+        "tryIt": "Run bucket_for(\"meera\") twice. It always gives the same bucket; that is what makes lookups possible.",
+        "check": {
+          "question": "Why can a hash table find a key without looking at every item?",
+          "options": [
+            "It keeps the keys sorted",
+            "The key's hash tells it which bucket to look in",
+            "It remembers the last key"
+          ],
+          "answer": 1,
+          "why": "Hashing the key gives the bucket directly, so only that bucket is searched."
+        }
+      },
+      {
+        "title": "Collisions and chaining",
+        "say": [
+          "Two different keys can land in the same bucket. This is called a collision, and it is unavoidable: there are far more possible keys than buckets.",
+          "The simplest fix is chaining: each bucket holds a small list of (key, value) pairs. To find a key, go to its bucket and check the few pairs there.",
+          "As long as buckets stay short, this is still O(1) on average. In the worst case, if everything lands in one bucket, a lookup becomes O(N), which is why the hash function and the table size matter.",
+          "Practice 1 today asks you to build exactly this: a hash map without Python's dict, using buckets of pairs."
+        ],
+        "example": "Two students with surnames starting with M share locker M. Each one has a labelled bag inside, so you open locker M and check the two name tags. Still quick, because only a couple of bags share it.",
+        "code": "class SimpleHashMap:\n    def __init__(self, size=4):\n        self.buckets = [[] for _ in range(size)]\n\n    def _bucket(self, key):\n        return self.buckets[hash(key) % len(self.buckets)]\n\n    def put(self, key, value):\n        bucket = self._bucket(key)\n        for pair in bucket:\n            if pair[0] == key:\n                pair[1] = value\n                return\n        bucket.append([key, value])\n\n    def get(self, key):\n        for k, v in self._bucket(key):\n            if k == key:\n                return v\n        return -1\n\nm = SimpleHashMap(4)\nfor k in [1, 5, 9, 2]:\n    m.put(k, k * 10)\nprint(m.get(5), m.get(9), m.get(7))\nprint(m.buckets)",
+        "output": "50 90 -1\n[[], [[1, 10], [5, 50], [9, 90]], [[2, 20]], []]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "For whole numbers, hash(k) is k, so 1, 5 and 9 all land in bucket 1."
+          },
+          {
+            "line": 12,
+            "note": "The key already exists: update its value instead of adding a duplicate."
+          },
+          {
+            "line": 26,
+            "note": "Bucket 1 holds three pairs: a chain of collisions."
+          }
+        ],
+        "tryIt": "Change the size to 8 and run again. Now 1 and 9 still share bucket 1, but 5 moves to bucket 5.",
+        "check": {
+          "question": "What is a collision in a hash table?",
+          "options": [
+            "Two keys with the same value",
+            "Two different keys landing in the same bucket",
+            "A key that cannot be hashed"
+          ],
+          "answer": 1,
+          "why": "A collision is when two different keys map to the same bucket. Chaining stores both in that bucket's list."
+        }
+      },
+      {
+        "title": "Load factor and resizing",
+        "say": [
+          "The load factor is the number of items divided by the number of buckets. With 8 items in 16 buckets, the load factor is 0.5: on average half an item per bucket.",
+          "As the load factor rises, chains get longer and lookups slow down. So hash tables resize: when the load factor passes a limit (often 0.75), they make a table about twice as big and re-insert every item.",
+          "Re-inserting is O(N), but just like the dynamic array on Day 2 it happens rarely, so adding items stays amortized O(1).",
+          "Python's dict does all of this for you, which is why you can add millions of keys and still look them up instantly."
+        ],
+        "example": "A parking lot that opens a second floor when it is three-quarters full, instead of waiting until cars are circling for the last space.",
+        "code": "items = 0\nbuckets = 8\nfor new_key in range(1, 21):\n    items += 1\n    load = items / buckets\n    if load > 0.75:\n        buckets *= 2\n        print(\"item\", items, \": load\", round(load, 2), \"-> resize to\", buckets, \"buckets\")\nprint(\"final load factor:\", round(items / buckets, 2))",
+        "output": "item 7 : load 0.88 -> resize to 16 buckets\nitem 13 : load 0.81 -> resize to 32 buckets\nfinal load factor: 0.62",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Load factor: items per bucket on average."
+          },
+          {
+            "line": 7,
+            "note": "Past 0.75, double the buckets (and re-insert every item)."
+          }
+        ],
+        "tryIt": "Change the limit to 0.5 on line 6. You get more resizes and a lower final load factor: faster lookups, more memory.",
+        "check": {
+          "question": "A hash table has 12 items in 16 buckets. What is its load factor?",
+          "options": [
+            "0.75",
+            "1.33",
+            "12"
+          ],
+          "answer": 0,
+          "why": "Load factor is items divided by buckets: 12 / 16 = 0.75."
+        }
+      },
+      {
+        "title": "Counting with a dict",
+        "say": [
+          "The most common real use of a hash table is counting. counts[x] = counts.get(x, 0) + 1 counts how many times each item appears, in one O(N) pass.",
+          "collections.Counter does this in one line and adds useful methods like most_common(k), which returns the k most frequent items.",
+          "Counting solves many interview problems: are two words anagrams (same letter counts)? Which item appears most? Which appears only once?",
+          "Remember the difference from Day 1: counting with a dict is O(N), while counting by calling list.count(x) for every x is O(N^2)."
+        ],
+        "example": "A tally sheet at a class vote: each time a name is called you add a stroke next to it. You never recount the whole pile; you just add one stroke.",
+        "code": "from collections import Counter\n\nvotes = [\"asha\", \"ravi\", \"asha\", \"meena\", \"asha\", \"ravi\"]\ncounts = {}\nfor v in votes:\n    counts[v] = counts.get(v, 0) + 1\nprint(counts)\nprint(Counter(votes).most_common(2))\n\ndef is_anagram(a, b):\n    return Counter(a) == Counter(b)\n\nprint(is_anagram(\"listen\", \"silent\"), is_anagram(\"rat\", \"car\"))",
+        "output": "{'asha': 3, 'ravi': 2, 'meena': 1}\n[('asha', 3), ('ravi', 2)]\nTrue False",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "get(v, 0) starts a new name at 0 before adding 1."
+          },
+          {
+            "line": 8,
+            "note": "most_common gives the top items and their counts."
+          },
+          {
+            "line": 11,
+            "note": "Two words are anagrams if every letter count matches."
+          }
+        ],
+        "tryIt": "Check whether \"dusty\" and \"study\" are anagrams. Then try \"night\" and \"thing\".",
+        "check": {
+          "question": "What is the Big-O of counting every item in a list of N items with a dict?",
+          "options": [
+            "O(N)",
+            "O(N^2)",
+            "O(1)"
+          ],
+          "answer": 0,
+          "why": "One pass over the list, with an O(1) dict update for each item: O(N)."
+        }
+      },
+      {
+        "title": "Two sum with a hash map",
+        "say": [
+          "Practice 2 is two sum, one of the most asked interview questions: find the positions of two numbers that add up to a target.",
+          "The slow way checks every pair: O(N^2). The hash map way walks the list once. For each number x, the partner it needs is target - x. If that partner has been seen already, you have the answer.",
+          "Store each number's position in a dict as you go: seen[x] = i. Checking \"is the partner in seen?\" is O(1), so the whole solution is O(N).",
+          "Check for the partner before storing x, so a number is never paired with itself."
+        ],
+        "example": "At a party, everyone wants a dance partner whose height adds up to a target. Instead of trying every pair, each new arrival asks the host: \"Is the person I need already here?\" The host checks the guest list instantly.",
+        "code": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        partner = target - x\n        if partner in seen:\n            return [seen[partner], i]\n        seen[x] = i\n    return []\n\nprint(two_sum([2, 7, 11, 15], 9))\nprint(two_sum([3, 2, 4], 6))\nprint(two_sum([3, 3], 6))\nprint(two_sum([1, 2], 10))",
+        "output": "[0, 1]\n[1, 2]\n[0, 1]\n[]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The number we need to reach the target."
+          },
+          {
+            "line": 5,
+            "note": "O(1) check: have we already seen the partner?"
+          },
+          {
+            "line": 7,
+            "note": "Store x only after checking, so it cannot pair with itself."
+          }
+        ],
+        "tryIt": "Swap lines 5-6 and line 7 around (store first, then check) and run two_sum([3, 2, 4], 6). It wrongly pairs 3 with itself.",
+        "check": {
+          "question": "What does the dict store in the two sum solution?",
+          "options": [
+            "Each pair tried so far",
+            "Each number seen and its position",
+            "Only the target"
+          ],
+          "answer": 1,
+          "why": "seen maps each number to its index, so when the partner turns up you can return both positions."
+        }
+      },
+      {
+        "title": "Sets and what can be a key",
+        "say": [
+          "A set is a hash table with keys and no values. It answers \"have I seen this?\" in O(1), removes duplicates, and supports maths like union (|), intersection (&) and difference (-).",
+          "Keys in a dict and items in a set must be hashable: they must never change. Numbers, strings and tuples work; lists and dicts do not, because changing them would move them to the wrong bucket.",
+          "If you need a list as a key, turn it into a tuple first. For example, to group words that are anagrams, use tuple(sorted(word)) as the key.",
+          "Dicts also keep keys in the order they were added (since Python 3.7). You relied on that in the LRU cache on Day 5."
+        ],
+        "example": "Your Aadhaar number never changes, so it works as a key to find your records. Your address can change, so it would be a bad key: records filed under the old address would be lost.",
+        "code": "a = {\"python\", \"sql\", \"react\"}\nb = {\"python\", \"java\"}\nprint(sorted(a & b), sorted(a | b), sorted(a - b))\n\ngroups = {}\nfor word in [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]:\n    key = tuple(sorted(word))\n    groups.setdefault(key, []).append(word)\nprint(list(groups.values()))\n\ntry:\n    bad = {[1, 2]: \"list key\"}\nexcept TypeError as err:\n    print(\"error:\", err)",
+        "output": "['python'] ['java', 'python', 'react', 'sql'] ['react', 'sql']\n[['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]\nerror: unhashable type: 'list'",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "& is in both, | is in either, - is only in the first."
+          },
+          {
+            "line": 7,
+            "note": "A tuple of sorted letters: the same for every anagram."
+          },
+          {
+            "line": 12,
+            "note": "Lists cannot be keys because they can change."
+          }
+        ],
+        "tryIt": "Add \"tab\" to the word list. It joins \"bat\" in the same group.",
+        "check": {
+          "question": "Which of these can be a dict key?",
+          "options": [
+            "[1, 2]",
+            "(1, 2)",
+            "{1: 2}"
+          ],
+          "answer": 1,
+          "why": "A tuple cannot change, so it is hashable and can be a key. Lists and dicts can change, so they cannot."
+        }
+      }
+    ],
+    "summary": [
+      "A hash table uses hash(key) % buckets to find the right bucket in O(1) on average.",
+      "Collisions are normal; chaining keeps several pairs in one bucket.",
+      "The load factor (items / buckets) is kept low by resizing, which is amortized O(1).",
+      "Dicts count in O(N) and solve two sum in O(N) by looking up the partner.",
+      "Keys must be hashable (unchanging): numbers, strings and tuples, not lists."
+    ],
+    "projectStep": {
+      "title": "Hash map tools",
+      "steps": [
+        "Add SimpleHashMap to dsa_toolkit.py with put, get and a remove(key) method you write yourself.",
+        "Add two_sum(nums, target) and test it on at least three lists.",
+        "Bonus: add group_anagrams(words) using tuple(sorted(word)) keys."
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "title": "Two Pointers Technique (Opposite Direction & Fast/Slow Pointers)",
+    "goal": "You can solve pair and palindrome problems in O(N) with two pointers moving towards each other or at different speeds.",
+    "minutes": 30,
+    "recap": "Yesterday you used hash maps to find partners in O(N). Today you learn a way to do it with no extra memory when the data is sorted.",
+    "parts": [
+      {
+        "title": "Two pointers from both ends",
+        "say": [
+          "The two pointers technique keeps two positions in a list and moves them based on what you see. The most common version starts one pointer at the left end and one at the right end and moves them towards each other.",
+          "On a sorted list this is powerful. To find two numbers that add up to a target: if the pair sum is too small, move the left pointer right (to a bigger number); if it is too big, move the right pointer left.",
+          "Each step moves one pointer, and they never cross, so there are at most N steps: O(N) time and O(1) extra space. No dict needed.",
+          "The key is that each move safely throws away one option. When the sum is too small, the left number cannot work with any number (all are at most the right one), so it is done."
+        ],
+        "example": "Two friends searching a sorted bookshelf from both ends for two books whose prices add up to a gift card. If the total is too little, the friend at the cheap end moves up; too much, the friend at the expensive end moves down.",
+        "code": "def pair_with_sum(sorted_nums, target):\n    left, right = 0, len(sorted_nums) - 1\n    while left < right:\n        total = sorted_nums[left] + sorted_nums[right]\n        if total == target:\n            return sorted_nums[left], sorted_nums[right]\n        if total < target:\n            left += 1\n        else:\n            right -= 1\n    return None\n\nprint(pair_with_sum([1, 3, 4, 6, 8, 11], 10))\nprint(pair_with_sum([2, 5, 9], 20))",
+        "output": "(4, 6)\nNone",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Too small: the left number is too small for any partner, move it right."
+          },
+          {
+            "line": 10,
+            "note": "Too big: the right number is too big for any partner, move it left."
+          }
+        ],
+        "tryIt": "Print left and right inside the loop to watch the pointers close in on the answer.",
+        "check": {
+          "question": "In a sorted list, the pair sum is smaller than the target. Which pointer moves?",
+          "options": [
+            "The right one moves left",
+            "The left one moves right",
+            "Both move"
+          ],
+          "answer": 1,
+          "why": "A smaller sum needs a bigger number, and moving left rightwards gives a bigger number."
+        }
+      },
+      {
+        "title": "Container with the most water",
+        "say": [
+          "Practice 1: vertical lines of different heights stand at positions 0, 1, 2 and so on. Pick two lines; the water they hold is the width between them times the shorter height. Find the biggest amount.",
+          "Checking every pair is O(N^2). With two pointers at the ends you start with the widest container, then move inwards.",
+          "Which pointer to move? Always the shorter line. The water is limited by the shorter line, so keeping it and moving the taller one can only make things worse: narrower and still limited by the same short line.",
+          "Moving the shorter line gives a chance of finding a taller one that makes up for the lost width. Track the best area as you go."
+        ],
+        "example": "Two people holding a tarpaulin to catch rain: the water level can only reach the height of the shorter person. To catch more, you replace the shorter person, not the taller one.",
+        "code": "def max_area(height):\n    left, right, best = 0, len(height) - 1, 0\n    while left < right:\n        water = (right - left) * min(height[left], height[right])\n        best = max(best, water)\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return best\n\nprint(max_area([1, 8, 6, 2, 5, 4, 8, 3, 7]))\nprint(max_area([1, 1]))",
+        "output": "49\n1",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Width times the shorter of the two lines."
+          },
+          {
+            "line": 6,
+            "note": "Move the shorter line: it can never do better where it is."
+          }
+        ],
+        "tryIt": "Try max_area([4, 3, 2, 1, 4]). The best uses the two 4s at the ends: 4 x 4 = 16.",
+        "check": {
+          "question": "Why move the pointer at the shorter line?",
+          "options": [
+            "It is always on the left",
+            "The water is limited by it, so it cannot do better where it is",
+            "To save memory"
+          ],
+          "answer": 1,
+          "why": "The shorter line caps the water. Any container keeping it is narrower and still capped, so it is safe to move on from it."
+        }
+      },
+      {
+        "title": "Checking a palindrome",
+        "say": [
+          "A palindrome reads the same forwards and backwards, like \"madam\" or \"A man, a plan, a canal: Panama\" once you ignore spaces, punctuation and capitals. Practice 2 asks you to check this.",
+          "Two pointers from both ends work perfectly: compare the left and right characters, then move both inwards. If any pair differs, it is not a palindrome.",
+          "To ignore punctuation, skip characters that are not letters or digits with ch.isalnum(). To ignore case, compare ch.lower().",
+          "This uses O(1) extra space. The shortcut s == s[::-1] also works after cleaning, but it builds a reversed copy, O(N) space. Both are O(N) time."
+        ],
+        "example": "Checking a word written on a strip of paper by folding it in half: the letters on the two sides must match pair by pair, from the outside in.",
+        "code": "def is_palindrome(s):\n    left, right = 0, len(s) - 1\n    while left < right:\n        if not s[left].isalnum():\n            left += 1\n        elif not s[right].isalnum():\n            right -= 1\n        elif s[left].lower() != s[right].lower():\n            return False\n        else:\n            left += 1\n            right -= 1\n    return True\n\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))\nprint(is_palindrome(\"race a car\"))\nprint(is_palindrome(\"Malayalam\"))",
+        "output": "True\nFalse\nTrue",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Skip spaces and punctuation on the left."
+          },
+          {
+            "line": 8,
+            "note": "Compare ignoring upper and lower case."
+          }
+        ],
+        "tryIt": "Check \"Was it a car or a cat I saw?\". It is a palindrome, so you should get True.",
+        "check": {
+          "question": "What extra space does the two-pointer palindrome check use?",
+          "options": [
+            "O(1)",
+            "O(N)",
+            "O(N^2)"
+          ],
+          "answer": 0,
+          "why": "It only keeps two index numbers and compares characters in place, so the extra space is constant."
+        }
+      },
+      {
+        "title": "Removing duplicates with same-direction pointers",
+        "say": [
+          "Two pointers can also move in the same direction at different speeds. You used this on Day 2 with read and write positions, and on Day 3 with fast and slow pointers.",
+          "For a sorted list, the slow pointer marks the end of the part with no duplicates, and the fast pointer scans ahead. When fast finds a new value, it is copied next to slow.",
+          "Everything is done in place, in one pass: O(N) time and O(1) space. The same idea moves all zeros to the end of a list, or partitions numbers into two groups.",
+          "When you see \"in place\" and \"O(1) extra space\" in a question about a list, think two pointers."
+        ],
+        "example": "Sorting fruit on a conveyor belt: one worker walks ahead checking each fruit, and a second worker behind only packs the good ones into the next empty box.",
+        "code": "def move_zeros_to_end(nums):\n    write = 0\n    for read in range(len(nums)):\n        if nums[read] != 0:\n            nums[write], nums[read] = nums[read], nums[write]\n            write += 1\n    return nums\n\nprint(move_zeros_to_end([0, 1, 0, 3, 12]))\nprint(move_zeros_to_end([4, 0, 0, 2]))",
+        "output": "[1, 3, 12, 0, 0]\n[4, 2, 0, 0]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Swap the non-zero number forward to the write position."
+          },
+          {
+            "line": 6,
+            "note": "write only moves when a non-zero number is placed."
+          }
+        ],
+        "tryIt": "Run it on [0, 0, 0, 1]. The 1 moves to the front and the zeros end up at the back.",
+        "check": {
+          "question": "What do the read and write pointers do when read finds a 0 in move_zeros_to_end?",
+          "options": [
+            "Both move",
+            "Only read moves",
+            "Only write moves"
+          ],
+          "answer": 1,
+          "why": "A zero is skipped: read moves on, write stays put, waiting for the next non-zero number."
+        }
+      },
+      {
+        "title": "Three sum: two pointers inside a loop",
+        "say": [
+          "Two pointers combine with a loop to solve harder problems. Three sum asks for all groups of three numbers that add to 0.",
+          "Sort the list. Fix the first number with a loop, then use two pointers on the rest to find pairs that add up to minus that number. That is the pair-sum problem from part 1, run once per first number.",
+          "The loop is O(N) and the two pointers are O(N) inside it, so the total is O(N^2), which is much better than checking every triple, O(N^3).",
+          "Skipping repeated values after sorting stops you from reporting the same triple twice."
+        ],
+        "example": "Choosing three dishes whose calories add up to a target: pick a first dish, then use the two-ends trick on the sorted menu to find the other two, and repeat for each first dish.",
+        "code": "def three_sum(nums):\n    nums = sorted(nums)\n    result = []\n    for i in range(len(nums) - 2):\n        if i > 0 and nums[i] == nums[i - 1]:\n            continue\n        left, right = i + 1, len(nums) - 1\n        while left < right:\n            total = nums[i] + nums[left] + nums[right]\n            if total == 0:\n                result.append([nums[i], nums[left], nums[right]])\n                left += 1\n                while left < right and nums[left] == nums[left - 1]:\n                    left += 1\n            elif total < 0:\n                left += 1\n            else:\n                right -= 1\n    return result\n\nprint(three_sum([-1, 0, 1, 2, -1, -4]))",
+        "output": "[[-1, -1, 2], [-1, 0, 1]]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Skip a first number we have already tried."
+          },
+          {
+            "line": 7,
+            "note": "Two pointers on the rest of the sorted list."
+          }
+        ],
+        "tryIt": "Run three_sum([0, 0, 0, 0]). Thanks to the skipping, you get [[0, 0, 0]] only once.",
+        "check": {
+          "question": "What is the Big-O of three sum with sorting and two pointers?",
+          "options": [
+            "O(N)",
+            "O(N^2)",
+            "O(N^3)"
+          ],
+          "answer": 1,
+          "why": "For each of N first numbers, the two pointers do O(N) work, giving O(N^2). Sorting, O(N log N), is smaller."
+        }
+      },
+      {
+        "title": "Choosing between two pointers and a hash map",
+        "say": [
+          "You now have two ways to find pairs: a hash map (Day 7) and two pointers (today). Which should you use?",
+          "Two pointers need the data sorted and use O(1) extra space. If the list is not sorted, sorting first costs O(N log N) and loses the original positions.",
+          "A hash map works on unsorted data, keeps the original positions, and runs in O(N), but uses O(N) extra memory.",
+          "So: if the question gives a sorted list or asks for O(1) space, use two pointers. If the list is unsorted and you need positions, use a hash map. Interviewers like it when you say this trade-off out loud."
+        ],
+        "example": "Finding two friends in a crowd: if everyone is lined up by height, walk in from both ends (two pointers). If they are scattered, write down who you have met on a list (hash map).",
+        "code": "def pair_hash(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n\ndef pair_pointers(nums, target):\n    order = sorted(range(len(nums)), key=lambda i: nums[i])\n    left, right = 0, len(order) - 1\n    while left < right:\n        total = nums[order[left]] + nums[order[right]]\n        if total == target:\n            return sorted([order[left], order[right]])\n        if total < target:\n            left += 1\n        else:\n            right -= 1\n\nnums = [11, 2, 15, 7]\nprint(pair_hash(nums, 9), pair_pointers(nums, 9))",
+        "output": "[1, 3] [1, 3]",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Sort the positions by value so we can still report original positions."
+          },
+          {
+            "line": 21,
+            "note": "Both find positions 1 and 3 (the 2 and the 7)."
+          }
+        ],
+        "tryIt": "Which one would you pick for a list of 10 million unsorted numbers on a phone with little memory? Write your answer and reason as a comment.",
+        "check": {
+          "question": "A list is unsorted and you must return the original positions quickly. Which is the natural choice?",
+          "options": [
+            "Two pointers",
+            "A hash map",
+            "Checking every pair"
+          ],
+          "answer": 1,
+          "why": "A hash map works on unsorted data in O(N) and remembers each number's original position."
+        }
+      }
+    ],
+    "summary": [
+      "Opposite-direction pointers on sorted data find pairs in O(N) with O(1) space.",
+      "For container with most water, always move the shorter line.",
+      "Palindromes: compare from both ends, skipping non-letters and ignoring case.",
+      "Same-direction (read/write) pointers change lists in place.",
+      "Pick two pointers for sorted data or O(1) space; a hash map for unsorted data with positions."
+    ],
+    "projectStep": {
+      "title": "Two pointer tools",
+      "steps": [
+        "Add max_area(height) and is_palindrome(s) to dsa_toolkit.py.",
+        "Add move_zeros_to_end(nums) and test it on lists with zeros at the start, middle and end.",
+        "Bonus: add three_sum(nums) and test it on a list with repeated numbers."
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "title": "Sliding Window Technique (Fixed vs Dynamic Windows)",
+    "goal": "You can use fixed and flexible sliding windows to answer \"best stretch in a row\" questions in O(N).",
+    "minutes": 30,
+    "recap": "Yesterday you moved two pointers towards each other and in the same direction. A sliding window is two pointers that mark the start and end of a stretch.",
+    "parts": [
+      {
+        "title": "What a sliding window is",
+        "say": [
+          "Many questions ask about a stretch of items in a row: the best 7-day sales, the longest word with no repeated letter, the shortest part of a list that adds up to at least 50.",
+          "A window is that stretch, marked by a left and a right position. Instead of rebuilding the window from scratch at every position, you slide it: add the new item entering on the right and remove the item leaving on the left.",
+          "Rebuilding a window of size k at each of N positions is O(N x k). Sliding is O(N), because each item enters the window once and leaves once.",
+          "There are two kinds: fixed windows, where the size k stays the same, and flexible windows, where the window grows and shrinks to meet a rule. Today you will build both."
+        ],
+        "example": "Looking through a train window as it moves: new scenery enters on one side and old scenery leaves on the other. You do not rebuild the whole view; it just slides.",
+        "code": "def all_windows(nums, k):\n    return [nums[i:i + k] for i in range(len(nums) - k + 1)]\n\nfor w in all_windows([4, 2, 7, 1, 8, 3], 3):\n    print(w, \"sum\", sum(w))",
+        "output": "[4, 2, 7] sum 13\n[2, 7, 1] sum 10\n[7, 1, 8] sum 16\n[1, 8, 3] sum 12",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Every stretch of k items in a row."
+          }
+        ],
+        "tryIt": "Change k to 2 and run it. There are now 5 windows instead of 4.",
+        "check": {
+          "question": "How many windows of size 3 does a list of 6 items have?",
+          "options": [
+            "3",
+            "4",
+            "6"
+          ],
+          "answer": 1,
+          "why": "Windows start at positions 0 to 6 - 3 = 3, which is 4 windows."
+        }
+      },
+      {
+        "title": "Fixed window: the best sum of k in a row",
+        "say": [
+          "Practice 2 asks for the biggest sum of any k numbers in a row. Summing each window again is O(N x k).",
+          "Instead, sum the first k numbers once. Then, to slide one step, add the number coming in and subtract the number going out: window_sum += nums[i] - nums[i - k].",
+          "Each slide is O(1), so the whole thing is O(N). Keep the best sum you have seen as you go.",
+          "This trick works for anything you can update by adding and removing one item: sums, counts, and averages (sum divided by k)."
+        ],
+        "example": "Your 7-day step count: each new day you add today's steps and subtract the steps from 8 days ago, instead of re-adding the whole week.",
+        "code": "def max_sum_of_k(nums, k):\n    window = sum(nums[:k])\n    best = window\n    for i in range(k, len(nums)):\n        window += nums[i] - nums[i - k]\n        best = max(best, window)\n    return best\n\nsales = [120, 80, 150, 90, 200, 60, 170]\nprint(max_sum_of_k(sales, 3))\nprint(max_sum_of_k([2, 1, 5, 1, 3, 2], 3))",
+        "output": "440\n9",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Sum the first window once."
+          },
+          {
+            "line": 5,
+            "note": "Slide: add the new number, subtract the one leaving."
+          }
+        ],
+        "tryIt": "Also return the average: best / k. For the sales list with k = 3 it should be about 146.67.",
+        "check": {
+          "question": "How is the window sum updated when the window slides one step?",
+          "options": [
+            "Recount all k numbers",
+            "Add the new number and subtract the one leaving",
+            "Double it"
+          ],
+          "answer": 1,
+          "why": "Only one number enters and one leaves, so adjust the sum by those two: O(1) per step."
+        }
+      },
+      {
+        "title": "Flexible window: longest stretch with no repeats",
+        "say": [
+          "Practice 1 asks for the length of the longest part of a string with no repeated characters. The window size is not fixed; it grows while the rule holds and shrinks when it breaks.",
+          "Move right one character at a time. Keep the last position where each character was seen in a dict. If the new character was already seen inside the current window, jump left to just past that earlier position.",
+          "After each step the window has no repeats, so its length right - left + 1 is a candidate for the answer.",
+          "Each character is visited once by right, and left only moves forward, so it is O(N)."
+        ],
+        "example": "Building the longest line of students with no two wearing the same colour shirt. When a new student repeats a colour, the students from the front up to the earlier same-colour shirt step out.",
+        "code": "def longest_unique(s):\n    last_seen = {}\n    left = best = 0\n    for right, ch in enumerate(s):\n        if ch in last_seen and last_seen[ch] >= left:\n            left = last_seen[ch] + 1\n        last_seen[ch] = right\n        best = max(best, right - left + 1)\n    return best\n\nprint(longest_unique(\"abcabcbb\"))\nprint(longest_unique(\"bbbbb\"))\nprint(longest_unique(\"pwwkew\"))",
+        "output": "3\n1\n3",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A repeat inside the window?"
+          },
+          {
+            "line": 6,
+            "note": "Jump left past the earlier copy."
+          },
+          {
+            "line": 8,
+            "note": "The window has no repeats now: measure it."
+          }
+        ],
+        "tryIt": "Also return the substring itself, s[left:right + 1] at the moment best improves. For \"pwwkew\" it is \"wke\".",
+        "check": {
+          "question": "For \"abba\", what is the length of the longest part with no repeated letters?",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": 1,
+          "why": "\"ab\" and \"ba\" both have length 2; any 3 letters in a row contain a repeat."
+        }
+      },
+      {
+        "title": "Flexible window: shortest stretch reaching a total",
+        "say": [
+          "The opposite kind of flexible window finds the shortest stretch that meets a target, like the fewest days in a row whose sales reach 500.",
+          "Grow the window by moving right and adding numbers. As soon as the total reaches the target, record the length, then shrink from the left while it still reaches the target, recording shorter lengths.",
+          "This works when the numbers are all positive, because adding a number can only raise the total and removing one can only lower it.",
+          "Like before, left and right only move forward, so the whole thing is O(N)."
+        ],
+        "example": "Filling a bucket to at least 10 litres from a row of jugs: keep pouring jugs in order until it is full enough, then try pouring back the earliest jugs while it stays full, to find the fewest jugs needed.",
+        "code": "def shortest_to_reach(nums, target):\n    left = total = 0\n    best = float(\"inf\")\n    for right, x in enumerate(nums):\n        total += x\n        while total >= target:\n            best = min(best, right - left + 1)\n            total -= nums[left]\n            left += 1\n    return 0 if best == float(\"inf\") else best\n\nprint(shortest_to_reach([2, 3, 1, 2, 4, 3], 7))\nprint(shortest_to_reach([1, 1, 1], 10))",
+        "output": "2\n0",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "While the window reaches the target, try to shrink it."
+          },
+          {
+            "line": 10,
+            "note": "If nothing ever reached the target, return 0."
+          }
+        ],
+        "tryIt": "Try target 4 on the first list. [4] on its own is enough, so the answer is 1.",
+        "check": {
+          "question": "Why does this shrinking-window method need all numbers to be positive?",
+          "options": [
+            "Negative numbers are not allowed in Python",
+            "So adding always raises the total and removing always lowers it",
+            "To make it faster"
+          ],
+          "answer": 1,
+          "why": "With negative numbers, shrinking could raise the total, so \"shrink while it reaches the target\" would no longer be safe."
+        }
+      },
+      {
+        "title": "Counting letters in a window",
+        "say": [
+          "Windows often keep counts, not just sums. To check if a string contains an anagram of a pattern, slide a window the size of the pattern and keep letter counts for it.",
+          "Counter from collections holds the counts. When the window slides, add one to the count of the letter coming in and take one from the letter going out, deleting it when it reaches 0.",
+          "If the window's counts equal the pattern's counts, you have found an anagram. Comparing two small Counters is quick, because there are at most 26 letters.",
+          "This pattern, a fixed window with counts, solves \"find all anagrams\", \"permutation in string\" and many text-searching problems."
+        ],
+        "example": "Checking every 3-card hand along a row of cards to see if it has the same cards as yours, just in a different order. Each slide swaps one card in and one card out of the hand.",
+        "code": "from collections import Counter\n\ndef anagram_starts(text, pattern):\n    k = len(pattern)\n    need = Counter(pattern)\n    window = Counter(text[:k])\n    starts = [0] if window == need else []\n    for i in range(k, len(text)):\n        window[text[i]] += 1\n        window[text[i - k]] -= 1\n        if window[text[i - k]] == 0:\n            del window[text[i - k]]\n        if window == need:\n            starts.append(i - k + 1)\n    return starts\n\nprint(anagram_starts(\"cbaebabacd\", \"abc\"))",
+        "output": "[0, 6]",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "The letter entering the window."
+          },
+          {
+            "line": 10,
+            "note": "The letter leaving the window."
+          },
+          {
+            "line": 12,
+            "note": "Remove zero counts so the Counters compare correctly."
+          }
+        ],
+        "tryIt": "Try anagram_starts(\"abab\", \"ab\"). Every window of 2 is an anagram, so you get [0, 1, 2].",
+        "check": {
+          "question": "When the window slides, how many letter counts change?",
+          "options": [
+            "Only the letters entering and leaving",
+            "All 26 letters",
+            "None"
+          ],
+          "answer": 0,
+          "why": "One letter enters and one leaves, so at most two counts change: O(1) per slide."
+        }
+      },
+      {
+        "title": "Spotting a window problem",
+        "say": [
+          "Window problems have a pattern in their wording: \"in a row\", \"contiguous\", \"substring\", \"subarray\", and a question about the longest, shortest, biggest or count.",
+          "Decide first if the size is fixed (k is given) or flexible (a rule decides). Then decide what you need to track as the window slides: a sum, a count, the last positions, or a Counter.",
+          "If an item cannot be added and removed cheaply, a plain window may not work, and you might need a deque to keep the window's maximum, or a different technique.",
+          "Say the complexity out loud in interviews: \"each item enters once and leaves once, so it is O(N)\". That one sentence shows you understand why the window is fast."
+        ],
+        "example": "A mechanic hearing \"noise when turning left\" already has a good idea where to look. Words like \"in a row\" and \"substring\" point you straight at a sliding window.",
+        "code": "questions = [\n    \"max sum of 5 numbers in a row\",\n    \"longest substring with at most 2 distinct letters\",\n    \"two numbers anywhere that add to 10\",\n    \"shortest subarray with sum at least 100\",\n]\nfor q in questions:\n    window = any(word in q for word in [\"in a row\", \"substring\", \"subarray\"])\n    print(\"window\" if window else \"not a window\", \"->\", q)",
+        "output": "window -> max sum of 5 numbers in a row\nwindow -> longest substring with at most 2 distinct letters\nnot a window -> two numbers anywhere that add to 10\nwindow -> shortest subarray with sum at least 100",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "The wording is a strong hint."
+          }
+        ],
+        "tryIt": "Add \"count pairs with the same colour\" to the list. It is not about a stretch in a row, so it is not a window problem.",
+        "check": {
+          "question": "Which question is best solved with a sliding window?",
+          "options": [
+            "Find two numbers anywhere that sum to 10",
+            "Find the longest substring with no repeated letters",
+            "Sort a list"
+          ],
+          "answer": 1,
+          "why": "A substring is a stretch in a row, and \"longest with no repeats\" is a flexible window rule."
+        }
+      }
+    ],
+    "summary": [
+      "A sliding window tracks a stretch in a row with left and right positions.",
+      "Fixed windows add the new item and remove the old one: O(1) per slide.",
+      "Flexible windows grow with right and shrink with left to keep a rule true.",
+      "Each item enters and leaves the window once, so windows are O(N).",
+      "Words like \"in a row\", \"substring\" and \"subarray\" point to a window."
+    ],
+    "projectStep": {
+      "title": "Window tools",
+      "steps": [
+        "Add max_sum_of_k(nums, k) and longest_unique(s) to dsa_toolkit.py.",
+        "Add shortest_to_reach(nums, target) and test it with a target that is never reached.",
+        "Bonus: add anagram_starts(text, pattern) and try it on a paragraph of your own."
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "title": "Binary Search Algorithm & Monotonic Search Space Reduction",
+    "goal": "You can write binary search without off-by-one mistakes, search a rotated list, and binary-search an answer.",
+    "minutes": 30,
+    "recap": "Yesterday you slid windows across lists in O(N). Today you learn to find things in O(log N) by throwing away half the data at every step.",
+    "parts": [
+      {
+        "title": "Binary search on a sorted list",
+        "say": [
+          "On Day 1 you saw that halving a million items takes only 20 steps. Binary search uses this to find a value in a sorted list in O(log N).",
+          "Keep left and right bounds. Look at the middle: if it is the target, you are done. If the middle is too small, the target can only be to the right, so move left to mid + 1. If it is too big, move right to mid - 1.",
+          "Repeat while left <= right. If the bounds cross, the target is not there, so return -1.",
+          "The list must be sorted. On an unsorted list, \"too small, so look right\" is simply not true, and binary search gives wrong answers."
+        ],
+        "example": "Finding a word in a paper dictionary: you open it in the middle, see you are at M but want D, and ignore the whole second half. A few openings later you are on the right page.",
+        "code": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\nnums = [3, 8, 15, 21, 42, 57, 66]\nprint(binary_search(nums, 42), binary_search(nums, 3), binary_search(nums, 10))",
+        "output": "4 0 -1",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "<= so a single remaining item is still checked."
+          },
+          {
+            "line": 8,
+            "note": "mid is too small: everything left of it is too, so skip past mid."
+          }
+        ],
+        "tryIt": "Add a print(left, mid, right) at the start of the loop and search for 57. Watch the range halve each time.",
+        "check": {
+          "question": "Why is it left = mid + 1 and not left = mid?",
+          "options": [
+            "To go faster",
+            "mid was already checked, and keeping it can loop forever",
+            "Python needs +1"
+          ],
+          "answer": 1,
+          "why": "mid is known not to be the target. Keeping it in range wastes a step and can get stuck when left and right are next to each other."
+        }
+      },
+      {
+        "title": "The off-by-one traps",
+        "say": [
+          "Binary search is short but famous for small mistakes. The three to watch are the loop condition, how the bounds move, and what to return when the target is missing.",
+          "With right = len(nums) - 1, use while left <= right and move to mid + 1 or mid - 1. Mixing styles (for example right = len(nums) with <=) reads past the end of the list.",
+          "When the loop ends without finding the target, left is exactly where the target would be inserted to keep the list sorted. That is useful: it is how you find \"the first number bigger than x\".",
+          "Python's bisect module does this for you: bisect_left(nums, x) returns that insert position. Knowing how to write it yourself still matters for rotated lists and answer searches."
+        ],
+        "example": "Measuring a table with a tape: are you counting from 0 or 1, and is the last centimetre included? Getting the ends wrong by one is the classic mistake, in carpentry and in code.",
+        "code": "import bisect\n\ndef insert_position(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return left\n\nnums = [10, 20, 30, 40]\nfor x in [5, 20, 25, 50]:\n    print(x, insert_position(nums, x), bisect.bisect_left(nums, x))",
+        "output": "5 0 0\n20 1 1\n25 2 2\n50 4 4",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "When the loop ends, left is where target belongs."
+          },
+          {
+            "line": 15,
+            "note": "bisect_left gives the same answer."
+          }
+        ],
+        "tryIt": "Insert 25 into the list at that position with nums.insert(...) and print nums. It stays sorted.",
+        "check": {
+          "question": "After a binary search for a missing value ends, what does left tell you?",
+          "options": [
+            "Nothing useful",
+            "Where the value would go to keep the list sorted",
+            "The biggest item"
+          ],
+          "answer": 1,
+          "why": "left ends at the first position whose value is not smaller than the target: the insert position."
+        }
+      },
+      {
+        "title": "Searching a rotated sorted list",
+        "say": [
+          "Practice 1 gives a sorted list that has been rotated, like [4, 5, 6, 7, 0, 1, 2]. It is two sorted runs joined together, and you must still search in O(log N).",
+          "At any middle point, at least one half is properly sorted. If nums[left] <= nums[mid], the left half is sorted; otherwise the right half is.",
+          "Check whether the target lies inside the sorted half's range. If it does, search that half; if not, search the other half.",
+          "Each step still throws away half, so it stays O(log N). The trick is to always ask \"which half is sorted?\" first."
+        ],
+        "example": "A clock face read starting from 4 o'clock: 4, 5, 6, ... 12, 1, 2, 3. It is still in order, just starting in the middle. You can still tell which side a time is on.",
+        "code": "def search_rotated(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[left] <= nums[mid]:\n            if nums[left] <= target < nums[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            if nums[mid] < target <= nums[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    return -1\n\nnums = [4, 5, 6, 7, 0, 1, 2]\nprint(search_rotated(nums, 0), search_rotated(nums, 6), search_rotated(nums, 3))",
+        "output": "4 2 -1",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "The left half is sorted."
+          },
+          {
+            "line": 8,
+            "note": "Is the target inside the sorted left half?"
+          },
+          {
+            "line": 13,
+            "note": "Otherwise the right half is sorted; check its range."
+          }
+        ],
+        "tryIt": "Search for every number in the list with a loop and check each index is right.",
+        "check": {
+          "question": "In a rotated sorted list, what is always true at any mid point?",
+          "options": [
+            "Both halves are sorted",
+            "At least one half is sorted",
+            "Neither half is sorted"
+          ],
+          "answer": 1,
+          "why": "The rotation breaks the order in at most one place, so at least one side of mid is a normal sorted run."
+        }
+      },
+      {
+        "title": "Finding the smallest in a rotated list",
+        "say": [
+          "Practice 2 asks for the smallest number in a rotated sorted list. The smallest number is where the rotation happened, the point where the order \"resets\".",
+          "Compare the middle with the right end. If nums[mid] > nums[right], the reset is to the right of mid, so move left to mid + 1. Otherwise the smallest is at mid or to its left, so move right to mid.",
+          "Here we use while left < right and right = mid (not mid - 1), because mid itself might be the answer. When left and right meet, that position holds the smallest number.",
+          "This is a different style of binary search from part 1. Both are correct; what matters is that the loop condition and the bound moves agree."
+        ],
+        "example": "Finding the start of a circular queue of people by asking one person in the middle if the person at the very end is taller or shorter than them.",
+        "code": "def find_min(nums):\n    left, right = 0, len(nums) - 1\n    while left < right:\n        mid = (left + right) // 2\n        if nums[mid] > nums[right]:\n            left = mid + 1\n        else:\n            right = mid\n    return nums[left]\n\nprint(find_min([4, 5, 6, 7, 0, 1, 2]))\nprint(find_min([3, 4, 5, 1, 2]))\nprint(find_min([1, 2, 3]))",
+        "output": "0\n1\n1",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "mid is bigger than the end: the reset is further right."
+          },
+          {
+            "line": 8,
+            "note": "mid could be the smallest, so keep it in range."
+          }
+        ],
+        "tryIt": "What happens with a list of one item, [7]? Predict, then run find_min([7]).",
+        "check": {
+          "question": "Why is it right = mid instead of right = mid - 1 in find_min?",
+          "options": [
+            "mid might be the smallest number",
+            "It is faster",
+            "To avoid a Python error"
+          ],
+          "answer": 0,
+          "why": "When nums[mid] <= nums[right], mid could itself be the minimum, so it must stay inside the range."
+        }
+      },
+      {
+        "title": "Binary search on the answer",
+        "say": [
+          "Binary search is not only for lists. If a question asks for the smallest value that works, and \"works\" is true for every value above some point, you can binary-search the answer itself.",
+          "Example: the slowest eating speed to finish all banana piles within h hours. A higher speed always works if a lower one does. So search speeds from 1 to the biggest pile and test each middle speed.",
+          "Write a helper can_finish(speed) that checks one speed. Binary search then calls it only about log2(max pile) times instead of trying every speed.",
+          "This idea, searching over possible answers with a yes/no test, solves shipping capacity, minimum time and many optimisation questions."
+        ],
+        "example": "Setting an alarm: you want the latest time that still gets you to college on time. You try 7:30 (late), then 7:00 (on time), then 7:15, halving the gap each time instead of trying every minute.",
+        "code": "import math\n\ndef min_speed(piles, hours):\n    def can_finish(speed):\n        return sum(math.ceil(p / speed) for p in piles) <= hours\n\n    left, right = 1, max(piles)\n    while left < right:\n        mid = (left + right) // 2\n        if can_finish(mid):\n            right = mid\n        else:\n            left = mid + 1\n    return left\n\nprint(min_speed([3, 6, 7, 11], 8))\nprint(min_speed([30, 11, 23, 4, 20], 5))",
+        "output": "4\n30",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Hours needed at this speed: each pile rounded up."
+          },
+          {
+            "line": 11,
+            "note": "This speed works: try slower ones, keeping this one."
+          }
+        ],
+        "tryIt": "Give the second example 6 hours instead of 5. More time means a slower speed is enough.",
+        "check": {
+          "question": "What must be true to binary-search the answer?",
+          "options": [
+            "The input list is sorted",
+            "If a value works, every bigger value also works",
+            "The answer is always 1"
+          ],
+          "answer": 1,
+          "why": "The yes/no test must switch from \"no\" to \"yes\" only once as the value grows; then halving the range is safe."
+        }
+      },
+      {
+        "title": "Binary search in real life",
+        "say": [
+          "Binary search is inside many tools you use. Databases use sorted indexes to find rows fast. Python's bisect keeps lists sorted as you insert.",
+          "git bisect finds which commit introduced a bug by testing the middle commit and halving the history. Out of 1,000 commits, you only test about 10.",
+          "Whenever you catch yourself trying values one by one, ask: is there an order, and does the answer switch from no to yes only once? If so, halve.",
+          "The code below uses bisect to grade marks quickly: the sorted cut-offs are searched in O(log N) instead of a long chain of if statements."
+        ],
+        "example": "Finding which day your phone started draining battery: you check the middle day of the month, then the middle of the half where it was already bad, and soon you know the exact day.",
+        "code": "import bisect\nimport math\n\ndef grade(mark):\n    cutoffs = [35, 50, 60, 75, 90]\n    grades = [\"F\", \"D\", \"C\", \"B\", \"A\", \"A+\"]\n    return grades[bisect.bisect_right(cutoffs, mark)]\n\nfor mark in [20, 35, 59, 60, 88, 95]:\n    print(mark, grade(mark))\n\nprint(\"commits to test for 1000:\", math.ceil(math.log2(1000)))",
+        "output": "20 F\n35 D\n59 C\n60 B\n88 A\n95 A+\ncommits to test for 1000: 10",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "bisect_right finds how many cut-offs the mark has passed."
+          },
+          {
+            "line": 12,
+            "note": "About log2(1000), 10 tests."
+          }
+        ],
+        "tryIt": "Add a new grade band: an \"O\" (outstanding) for 98 and above. Add 98 to cutoffs and \"O\" to grades.",
+        "check": {
+          "question": "git bisect searches 1,000 commits for the one that broke the build. Roughly how many tests are needed?",
+          "options": [
+            "About 10",
+            "About 500",
+            "About 1,000"
+          ],
+          "answer": 0,
+          "why": "Each test halves the commits left, and 2 to the power 10 is 1,024, so about 10 tests."
+        }
+      }
+    ],
+    "summary": [
+      "Binary search halves a sorted range each step: O(log N).",
+      "Keep the loop condition and bound moves consistent (<= with mid + 1 / mid - 1, or < with right = mid).",
+      "When a search ends, left is the insert position; bisect gives it directly.",
+      "In a rotated list, one half is always sorted: check it first.",
+      "Binary-search the answer when \"works\" switches from no to yes only once."
+    ],
+    "projectStep": {
+      "title": "Search tools",
+      "steps": [
+        "Add binary_search(nums, target) and search_rotated(nums, target) to dsa_toolkit.py.",
+        "Add find_min(nums) and test it on a rotated list and a list that is not rotated.",
+        "Bonus: add min_speed(piles, hours) and test it with your own numbers."
+      ]
+    }
   }
 ];
