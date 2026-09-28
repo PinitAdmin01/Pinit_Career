@@ -231,9 +231,31 @@ export async function executeInTwoLayerSandbox(
                   let allPassed = true;
                   let runtimeError = null;
 
+                  const postResult = function (passed, error) {
+                    self.postMessage({
+                      type: 'WORKER_RESULT',
+                      outcomes: outcomes,
+                      allPassed: passed && !error,
+                      stdout: logs.join(NEWLINE),
+                      stderr: errLogs.join(NEWLINE),
+                      error: error
+                    });
+                  };
+
                   if (mode === 'script' || fnName === 'none' || !fnName) {
                     try {
                       const res = new Function(code)();
+                      // A script that returns a promise (a practice task's async checks) is
+                      // finished only when the promise settles.
+                      if (res && typeof res.then === 'function') {
+                        res.then(
+                          function () { postResult(true, null); },
+                          function (asyncErr) {
+                            postResult(false, asyncErr && asyncErr.message ? asyncErr.message : String(asyncErr));
+                          }
+                        );
+                        return;
+                      }
                       if (res !== undefined && logs.length === 0) {
                         logs.push(String(res));
                       }
@@ -308,14 +330,7 @@ export async function executeInTwoLayerSandbox(
                     }
                   }
 
-                  self.postMessage({
-                    type: 'WORKER_RESULT',
-                    outcomes: outcomes,
-                    allPassed: allPassed && !runtimeError,
-                    stdout: logs.join(NEWLINE),
-                    stderr: errLogs.join(NEWLINE),
-                    error: runtimeError
-                  });
+                  postResult(allPassed, runtimeError);
                 };
               \`;
 

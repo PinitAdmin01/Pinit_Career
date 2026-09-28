@@ -76,6 +76,14 @@ export function resolveQuestLanguage(quest: any, qId: string = ''): 'java' | 'py
   if (starter.includes('public class') || starter.includes('class Solution') || testSuite.includes('public class')) {
     return 'java';
   }
+  // Many older courses (DevOps, Cloud, AI, ...) write their tasks in JavaScript even though the
+  // course prefix suggests another language, so look at the code before the prefix.
+  // PostgreSQL practice tasks: setup, the checks marker, then check queries.
+  if (testSuite.includes('-- CHECKS --')) return 'sql';
+  const looksLikeJs = /\bfunction\s+\w+\s*\(|=>|\bconst\s+\w+\s*=/.test(starter) || /\bthrow new Error\(/.test(testSuite);
+  if (looksLikeJs && !/^\s*def\s/m.test(starter)) {
+    return 'javascript';
+  }
   if (starter.includes('def ') || testSuite.includes('def ') || testSuite.includes('assert ')) {
     return 'python';
   }
