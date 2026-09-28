@@ -129,7 +129,9 @@ export function getAuthoritativeQuestXp(questId: string): number | null {
 export function isAuthoritativeExam(questId: string): boolean {
   const quest = getAuthoritativeQuest(questId);
   if (!quest) return false;
-  return quest.category === 'exam' || quest.id.includes('-exam-');
+  // Course days' "-exam-day-" tasks are practice now (category 'assignment'); trust the category when set.
+  if (quest.category) return quest.category === 'exam';
+  return quest.id.includes('-exam-');
 }
 
 /**

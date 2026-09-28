@@ -554,6 +554,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             setExamPassed={state.setExamPassed}
             playChime={engine.playChime}
             launchConfetti={engine.launchConfetti}
+            quizQuestions={engine.quizQuestions}
           />
 
           <LessonNavigationBar

@@ -896,8 +896,12 @@ export function useQuestProgression() {
     const isInitiated = initiated.includes(quest.id);
 
     if (!isCompleted && !isInitiated) {
-      if (isDailyLimitReached) {
-        toast.warning('Daily Limit Reached ⏳', 'You have completed the maximum 3 quests for this course today. Come back tomorrow or explore other skill paths!');
+      // Same rule as the server: 3 lessons or practice tasks a day, and up to 5 when the extra ones are tests.
+      const isTest = quest.category === 'exam';
+      if (isTest ? dailyCount >= 5 : isDailyLimitReached) {
+        toast.warning('Daily limit reached ⏳', isTest
+          ? 'You have finished 5 tasks today. Take this test tomorrow.'
+          : 'You have finished 3 tasks for this course today. Come back tomorrow, or take your test if one is open.');
         return;
       }
 

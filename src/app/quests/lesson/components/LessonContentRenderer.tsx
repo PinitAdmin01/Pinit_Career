@@ -58,6 +58,8 @@ interface LessonContentRendererProps {
   setExamPassed: (val: boolean) => void;
   playChime: () => void;
   launchConfetti: () => void;
+  /** Questions of a course test; normal lessons use their slides' questions. */
+  quizQuestions?: Array<{ question: string; options: string[]; answerIndex: number; explanation: string }> | null;
 }
 
 export function LessonContentRenderer({
@@ -110,6 +112,7 @@ export function LessonContentRenderer({
   setExamPassed,
   playChime,
   launchConfetti,
+  quizQuestions,
 }: LessonContentRendererProps) {
   return (
     <div className="interactive-container">
@@ -354,6 +357,13 @@ export function LessonContentRenderer({
                     ? questData.desc
                     : 'Listen to your teacher, try the code, and answer one small question after each part.'}
                 </p>
+                {Array.isArray(questData?.testDays) && questData.testDays.length > 0 && (
+                  <ul style={{ textAlign: 'left', maxWidth: 520, margin: '14px auto 0', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {questData.testDays.map((day: string, i: number) => (
+                      <li key={i} style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{day}</li>
+                    ))}
+                  </ul>
+                )}
                 {syllabus.length > 0 && (
                   <ol style={{ textAlign: 'left', maxWidth: 520, margin: '14px auto 0', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 }}>
                     {syllabus.map((topic, i) => (
@@ -601,8 +611,9 @@ export function LessonContentRenderer({
                 setExamPassed={setExamPassed}
                 playChime={playChime}
                 launchConfetti={launchConfetti}
-                dynamicQuestions={slides.map(s => s.mcq).filter(Boolean)}
+                dynamicQuestions={quizQuestions ?? slides.map(s => s.mcq).filter(Boolean)}
                 questTitle={questData.title}
+                quizTitle={quizQuestions ? questData.title : 'Quick check'}
               />
             )}
           </div>

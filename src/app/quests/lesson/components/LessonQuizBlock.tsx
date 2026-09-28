@@ -38,6 +38,8 @@ interface LessonQuizBlockProps {
   launchConfetti: () => void;
   dynamicQuestions: any[];
   questTitle: string;
+  /** Heading above the questions, e.g. "Quick check" or "Test: Days 1–5". */
+  quizTitle?: string;
 }
 
 export function LessonQuizBlock({
@@ -61,6 +63,7 @@ export function LessonQuizBlock({
   launchConfetti,
   dynamicQuestions,
   questTitle,
+  quizTitle = 'Quick check',
 }: LessonQuizBlockProps) {
   const canonicalBenchmarkQuestions = [
     {
@@ -85,10 +88,9 @@ export function LessonQuizBlock({
     }
   ];
 
-  const hybridExamQuestions = [
-    ...dynamicQuestions.slice(0, 3),
-    ...canonicalBenchmarkQuestions
-  ];
+  // The lesson's (or test's) own questions. The two generic benchmark questions are only a fallback
+  // for content that has no questions at all; they used to be added to every quiz in every course.
+  const hybridExamQuestions = dynamicQuestions.length > 0 ? dynamicQuestions : canonicalBenchmarkQuestions;
 
   if (examPassed) {
     const total = hybridExamQuestions.length;
@@ -96,9 +98,9 @@ export function LessonQuizBlock({
     return (
       <div style={{ textAlign: 'center', padding: '24px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 46 }}>🎓</span>
-        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)' }}>Syllabus Exam Passed!</h3>
+        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)' }}>Passed!</h3>
         <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 500, margin: '0 auto' }}>
-          Outstanding performance! You scored <strong style={{ color: 'var(--t1)' }}>{examCorrectCount} / {total} ({pct}%)</strong>, exceeding the 70% passing threshold.
+          Well done! You scored <strong style={{ color: 'var(--t1)' }}>{examCorrectCount} / {total} ({pct}%)</strong>. You needed 70%.
         </p>
         <span style={{
           fontSize: 12,
@@ -121,11 +123,11 @@ export function LessonQuizBlock({
     return (
       <div style={{ textAlign: 'center', padding: '24px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
         <span style={{ fontSize: 46 }}>❌</span>
-        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--danger)' }}>Evaluation Exam Not Passed</h3>
+        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--danger)' }}>Not passed yet</h3>
         <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 480, margin: '0 auto' }}>
           Your score: <strong style={{ color: 'var(--t1)' }}>{examCorrectCount} / {total} ({pct}%)</strong>.
-          The passing benchmark is <strong style={{ color: 'var(--warning)' }}>70%</strong>.
-          Please review the lesson material and foundational invariants before retaking the evaluation.
+          You need <strong style={{ color: 'var(--warning)' }}>70%</strong> to pass.
+          Look back at the lesson, then try again. Mistakes are how you learn.
         </p>
         <button
           data-testid="btn-review-lesson"
@@ -141,7 +143,7 @@ export function LessonQuizBlock({
             cursor: 'pointer'
           }}
         >
-          📖 Review Lesson Material & Retake
+          📖 Review and try again
         </button>
       </div>
     );
@@ -177,10 +179,10 @@ export function LessonQuizBlock({
         setExamPassed(true);
         playChime();
         launchConfetti();
-        toast.success("Exam Passed! 🎯", `Final score: ${newCorrectCount}/${total} (${Math.round(pct)}%).`);
+        toast.success("Passed! 🎯", `Final score: ${newCorrectCount}/${total} (${Math.round(pct)}%).`);
       } else {
         setExamFailed(true);
-        toast.error("Exam Not Passed ⚠️", `Final score: ${newCorrectCount}/${total} (${Math.round(pct)}%). 70% required.`);
+        toast.error("Not passed yet", `Final score: ${newCorrectCount}/${total} (${Math.round(pct)}%). 70% required.`);
       }
     } else {
       if (mcqIsCorrect) {
@@ -196,9 +198,9 @@ export function LessonQuizBlock({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h4 style={{ fontSize: 15.5, fontWeight: 900, color: teacherAccent }}>Syllabus Evaluation Exam</h4>
+        <h4 style={{ fontSize: 15.5, fontWeight: 900, color: teacherAccent }}>{quizTitle}</h4>
         <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-          Question {examQuestionIndex + 1} of {hybridExamQuestions.length} ({examQuestionIndex < 3 ? 'AI Dynamic' : 'Canonical Benchmark'})
+          Question {examQuestionIndex + 1} of {hybridExamQuestions.length}
         </span>
       </div>
 

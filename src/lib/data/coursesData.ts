@@ -34,6 +34,7 @@ import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
 import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
+import { addBlockTests } from './courseTests';
 
 
 export interface CourseQuest {
@@ -50,6 +51,8 @@ export interface CourseQuest {
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory';
   xp: number;
   pins: number;
+  /** Tests only: the titles of the days the test covers. */
+  testDays?: string[];
 }
 
 export interface Course {
@@ -62,7 +65,7 @@ export interface Course {
   quests: CourseQuest[];
 }
 
-export const COURSES_REGISTRY: Course[] = [
+const RAW_COURSES: Course[] = [
   {
     id: 'course-java-logic',
     title: 'Java Fundamentals & Core Logic',
@@ -390,6 +393,12 @@ export const COURSES_REGISTRY: Course[] = [
     quests: NLP_30_DAYS_QUESTS as any
   }
 ];
+
+/** Every day-based course gets a short test after every 5 days (see courseTests.ts). */
+export const COURSES_REGISTRY: Course[] = RAW_COURSES.map((course) => ({
+  ...course,
+  quests: addBlockTests(course.quests),
+}));
 
 // Fallback registry matching standard quests registry if custom course quests are missing
 export function getFallbackQuestsForCourse(courseId: string): CourseQuest[] {

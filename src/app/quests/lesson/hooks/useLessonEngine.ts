@@ -5,6 +5,7 @@ import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/
 import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking, getUserSoundscapeVolume, setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
 import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getLongLesson } from '@/lib/data/longLessons';
+import { getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
@@ -156,6 +157,13 @@ export function useLessonEngine({
 
   teacherIdRef.current = teacherId;
   slidesLengthRef.current = slides.length || syllabus.length;
+
+  // A test after every 5 days: no teaching slides, only questions from those days' lessons.
+  const testInfo = useMemo(() => parseTestQuestId(questId || ''), [questId]);
+  const quizQuestions = useMemo(
+    () => (testInfo ? getTestQuestions(testInfo.prefix, testInfo.start, testInfo.end) : null),
+    [testInfo]
+  );
 
   // Written long-format lesson for this course day, if there is one.
   const longLesson = useMemo(() => {
@@ -365,6 +373,12 @@ export function useLessonEngine({
   useEffect(() => {
     setSlidesLoading(true);
 
+    if (testInfo) {
+      setSlides([]);
+      setSlidesLoading(false);
+      return;
+    }
+
     const parsed = parseQuestId(questId || '');
     const coursePrefix = parsed?.prefix || '';
     const dayNum = parsed?.dayNum || 0;
@@ -533,7 +547,7 @@ export function useLessonEngine({
 
     setSlides(staticSlides);
     setSlidesLoading(false);
-  }, [questId, questData, syllabus, longLesson, setSlides, setSlidesLoading]);
+  }, [questId, questData, syllabus, longLesson, testInfo, setSlides, setSlidesLoading]);
 
   // Audio unlock listener and hydration
   useEffect(() => {
@@ -633,6 +647,10 @@ export function useLessonEngine({
 
   const getSpeakerText = useCallback(() => {
     const slidesLength = slides.length || syllabus.length;
+    if (currentSlide === 0 && testInfo && quizQuestions) {
+      const days = testInfo.start === testInfo.end ? `day ${testInfo.start}` : `days ${testInfo.start} to ${testInfo.end}`;
+      return `Hello ${studentName}. This is your test on ${days}. There are ${quizQuestions.length} questions from those lessons. Take your time; you need 70 percent to pass, and you can try again if you need to. Good luck!`;
+    }
     if (currentSlide === 0 && longLesson) {
       return [
         `Welcome, ${studentName}! Today's lesson is ${longLesson.title}.`,
@@ -649,7 +667,7 @@ export function useLessonEngine({
       if (examPassed) {
         return `Outstanding achievement, ${studentName}! You passed the syllabus evaluation exam with flying colors! Your conceptual grounding is verified. Click Finish Quest below to return to your roadmap and collect your rewards!`;
       }
-      const qText = slides[examQuestionIndex]?.mcq?.question || "Ready for your evaluation question?";
+      const qText = (quizQuestions ? quizQuestions[examQuestionIndex]?.question : slides[examQuestionIndex]?.mcq?.question) || "Ready for your evaluation question?";
       return `Welcome to the Syllabus Evaluation Exam! Let us assess your understanding. ${qText}`;
     }
 
@@ -685,7 +703,7 @@ export function useLessonEngine({
     }
 
     return `Welcome to ${questData.title}! Study the technical principles on this slide carefully.`;
-  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName, longLesson]);
+  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName, longLesson, testInfo, quizQuestions]);
 
   getSpeakerTextRef.current = getSpeakerText;
 
@@ -734,8 +752,12 @@ export function useLessonEngine({
     setMcqIsCorrect(false);
     setExamCorrectCount(0);
     setCurrentSlide(1);
-    toast.info("Lesson Review", "Review the foundational principles and invariant rules, then retake the exam.");
-  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setCurrentSlide]);
+    if (testInfo) {
+      toast.info("Try again", "Look back at those lessons if you need to, then take the test again.");
+    } else {
+      toast.info("Review the lesson", "Go through the parts again, then answer the questions.");
+    }
+  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setCurrentSlide, testInfo]);
 
   const handlePrevSlide = useCallback(() => {
     stopSpeaking();
@@ -921,5 +943,7 @@ export function useLessonEngine({
     handlePrevSlide,
     getSpeakerText,
     sendInteractiveMessage,
+    /** Test questions for a test quest; null for a normal lesson. */
+    quizQuestions,
   };
 }

@@ -145,7 +145,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       '2-3 Months Real-Time Industry Internship',
       'Verifiable Project-Based Certificate (QR)',
       'Real-Time Internship Certificate & Recommendation',
-      'Weekly Practice Tests with Instant Diagnostic Reports',
+      'A short test after every 5 lessons, with explanations',
       'Corporate Level English Communication Module',
       'Verified Skill Passport with SHA-256 Ledger'
     ],
@@ -158,7 +158,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       careerGrowthGraph: true,
       interviewPrep: 'Basic Resume Audit & Tech Screening Q&A',
       languagesIncluded: ['Corporate Level English'],
-      practiceTestsCount: 4
+      practiceTestsCount: 6
     },
     modulesByTrack: {
       web_fullstack: [

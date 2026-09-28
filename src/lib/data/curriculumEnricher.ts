@@ -147,6 +147,11 @@ export function resolvePilotDay(prefix: string, dayNum: number): any {
   return days.find((d: any) => d?.day === dayNum) ?? null;
 }
 
+/** Older course data titles its tasks "Exam: ..." or "Assignment: ..."; both are practice now. */
+function practiceTitle(title: string | undefined): string {
+  return (title || '').replace(/^(Exam|Assignment)\s*:\s*/i, '');
+}
+
 export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
   const longLesson = getLongLesson(prefix, dayNum);
   const pilotDay: any = longLesson ? null : resolvePilotDay(prefix, dayNum);
@@ -171,13 +176,13 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 5
   };
 
-  // ── 2. Pure Coding Exam ──────────────────────────────────────────────────
+  // ── 2. Practice 1 (guided). Tests come after every 5 days (courseTests.ts), not after one lesson.
   const examTask: CourseQuest = {
     id: `${prefix}-exam-day-${dayNum}`,
-    title: `Day ${dayNum} Exam: ${cfg.eTitle || ''}`,
+    title: `Day ${dayNum} Practice 1: ${practiceTitle(cfg.eTitle)}`,
     desc: cfg.eDesc || '',
     type: 'coding',
-    category: 'exam',
+    category: 'assignment',
     requiresAvatar: false,
     starterCode: cfg.eStarter || '',
     hint: cfg.eHint || '',
@@ -187,10 +192,10 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 6
   };
 
-  // ── 3. Pure Practice Assignment ──────────────────────────────────────────
+  // ── 3. Practice 2 (on your own) ──────────────────────────────────────────
   const assignmentTask: CourseQuest = {
     id: `${prefix}-assign-day-${dayNum}`,
-    title: `Day ${dayNum} Assignment: ${cfg.aTitle || ''}`,
+    title: `Day ${dayNum} Practice 2: ${practiceTitle(cfg.aTitle)}`,
     desc: cfg.aDesc || '',
     type: 'coding',
     category: 'assignment',
@@ -203,6 +208,6 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 8
   };
 
-  // Return unified quest triad per day (Adaptive Lesson + Coding Exam + Practice Assignment)
+  // One day: the lesson, then two practice tasks
   return [lessonTask, examTask, assignmentTask];
 }
