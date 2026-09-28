@@ -84,3 +84,10 @@ test('dates and times are shown as PostgreSQL text, with the time of day kept', 
     ' d          | ts\n------------+---------------------\n 2026-09-28 | 2026-09-28 13:05:00\n(1 row)'
   );
 });
+
+test('JSON is shown as PostgreSQL text', async () => {
+  assert.equal(
+    await runSqlLesson(db, `SELECT '{"type": "click", "page": "/home"}'::jsonb AS data;`),
+    ' data\n------------------------------------\n {"page": "/home", "type": "click"}\n(1 row)'
+  );
+});
