@@ -109,7 +109,7 @@ export function getLangInfo(qId: string, quest?: any): { file: string; label: st
     case 'python':
       return { file: 'solution.py', label: 'Python runtime (Pyodide WASM)', native: true, language };
     case 'sql':
-      return { file: 'query.sql', label: 'SQL engine (In-Memory SQLite)', native: true, language };
+      return { file: 'query.sql', label: 'PostgreSQL (runs in your browser)', native: true, language };
     case 'javascript':
       return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true, language };
     case 'java':
