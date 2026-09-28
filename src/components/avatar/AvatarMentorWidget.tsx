@@ -347,8 +347,9 @@ export default function AvatarMentorWidget({
       // 2. Dispose renderer and force WebGL context release
       if (rendererRef.current) {
         rendererRef.current.dispose();
-        rendererRef.current.forceContextLoss();
-        rendererRef.current.domElement?.remove();
+        // No forceContextLoss(): the next mentor's context is created right after, and forcing the loss
+        // here made that new context start lost on some GPUs (see VRoidAvatarEngine.dispose).
+        // The canvas is React's (keyed by mentor below); removing it here made React crash later.
       }
 
       // 3. Stop all microphone tracks
@@ -1156,7 +1157,7 @@ export default function AvatarMentorWidget({
   if (onlyAvatar) {
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+        <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
         {aiState !== 'idle' && (
           <div style={{
             position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
@@ -1220,7 +1221,7 @@ export default function AvatarMentorWidget({
         <div style={{ flex: 1, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
           {/* Left Column: Avatar Canvas */}
           <div style={{ position: 'relative', flex: 1.1, background: 'var(--bg3)', overflow: 'hidden', borderRight: '1px solid var(--border)' }}>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+            <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{
                 position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
@@ -1241,7 +1242,7 @@ export default function AvatarMentorWidget({
         <>
           {/* 3D WebGL Avatar Viewport - top */}
           <div style={{ position: 'relative', height: 200, background: 'var(--bg3)', overflow: 'hidden', flexShrink: 0, borderBottom: '1px solid var(--border)' }}>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+            <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{
                 position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,

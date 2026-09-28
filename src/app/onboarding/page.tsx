@@ -145,7 +145,9 @@ export default function OnboardingPage() {
         fontFamily: 'var(--font-sans)',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
+        // clip, not hidden: the background glows reach past the edges, and a hidden box can still be
+        // scrolled by focus/scrollIntoView, which shifted the whole screen
+        overflow: 'clip',
         userSelect: 'none',
         ['--t1' as any]: 'var(--text)',
         ['--t2' as any]: '#e2e8f0',

@@ -130,7 +130,8 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <canvas ref={canvasRef} data-vroid-canvas="true" style={{ width: '100%', height: '100%', display: 'block' }} />
+      {/* keyed by mentor: each mentor gets a fresh canvas (the previous one's WebGL context is released) */}
+      <canvas key={teacherId} ref={canvasRef} data-vroid-canvas="true" style={{ width: '100%', height: '100%', display: 'block' }} />
       {isLoading && (
         <div
           style={{

@@ -1530,13 +1530,13 @@ export class VRoidAvatarEngine {
     this.eyeLookMorphMaps.clear();
 
     if (this.renderer) {
-      try {
-        this.renderer.forceContextLoss();
-      } catch {}
+      // No forceContextLoss(): when the mentor changes, the next avatar creates its context in the same
+      // moment, and on some GPUs (Intel / ANGLE) that new context then starts lost, so the second mentor
+      // only ever showed the 2D card. dispose() frees the GPU resources; the old context goes with its canvas.
       this.renderer.dispose();
-      if (this.renderer.domElement) {
-        try { this.renderer.domElement.remove(); } catch {}
-      }
+      // The canvas belongs to the React component that passed it to init(); it must stay in the page.
+      // Removing it here detached it when the mentor changed (the next avatar started on a detached
+      // canvas and never showed), and React then crashed removing a node that was already gone.
     }
     console.log('[VRoidAvatarEngine] Successfully disposed 3D avatar scene and freed WebGL GPU memory.');
   }
