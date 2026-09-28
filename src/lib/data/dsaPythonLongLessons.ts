@@ -2294,5 +2294,1135 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add min_speed(piles, hours) and test it with your own numbers."
       ]
     }
+  },
+  {
+    "day": 11,
+    "title": "Recursion, Call Stack Mechanics & Backtracking Principles",
+    "goal": "You can write recursive functions with a clear base case, and use backtracking to generate all subsets and permutations.",
+    "minutes": 30,
+    "recap": "Yesterday you halved problems with binary search. Today you learn recursion: solving a problem by solving smaller copies of itself.",
+    "parts": [
+      {
+        "title": "A function that calls itself",
+        "say": [
+          "A recursive function solves a problem by calling itself on a smaller version of the same problem. Every recursive function needs two things: a base case and a recursive step.",
+          "The base case is the smallest version, which you answer directly without recursion. Without it, the function calls itself forever and Python stops it with a RecursionError.",
+          "The recursive step makes the problem smaller and trusts the smaller call to give the right answer. For factorial: 5! is 5 x 4!, and 4! is 4 x 3!, down to the base case 1! = 1.",
+          "The trick to writing recursion is to believe the smaller call works, and only think about one level: \"if I had the answer for n - 1, how do I get the answer for n?\""
+        ],
+        "example": "Russian dolls: to count how many dolls there are, you open the outer one and ask \"how many are inside this smaller doll?\", plus one. The smallest doll, which does not open, is the base case.",
+        "code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\ndef count_down(n):\n    if n == 0:\n        print(\"lift off\")\n        return\n    print(n)\n    count_down(n - 1)\n\nprint(factorial(5))\ncount_down(3)",
+        "output": "120\n3\n2\n1\nlift off",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Base case: stop here, no more calls."
+          },
+          {
+            "line": 4,
+            "note": "Recursive step: a smaller copy of the same problem."
+          }
+        ],
+        "tryIt": "Write sum_to(n) that returns 1 + 2 + ... + n recursively. sum_to(4) should be 10.",
+        "check": {
+          "question": "What happens if a recursive function has no base case?",
+          "options": [
+            "It returns 0",
+            "It calls itself until Python raises a RecursionError",
+            "It runs once"
+          ],
+          "answer": 1,
+          "why": "Nothing stops the calls, so they pile up until Python's limit (about 1,000 levels) and it raises RecursionError."
+        }
+      },
+      {
+        "title": "The call stack",
+        "say": [
+          "Each time a function is called, Python puts a frame on the call stack: a record of that call's variables and where to return to. When the call finishes, its frame is popped off.",
+          "Recursion stacks up frames: factorial(3) waits for factorial(2), which waits for factorial(1). Only when the base case returns do the waiting calls finish, from the top of the stack down.",
+          "This is the stack from Day 4, used by Python itself. It is also why very deep recursion fails: Python allows about 1,000 frames by default.",
+          "Printing with indentation by depth, like the code below, is a great way to see the stack grow and shrink."
+        ],
+        "example": "A pile of books you are reading at once: you put one down to look something up in another, then another. You can only go back to a book once you finish the one on top of it.",
+        "code": "def factorial(n, depth=0):\n    print(\"  \" * depth + f\"factorial({n}) called\")\n    if n <= 1:\n        result = 1\n    else:\n        result = n * factorial(n - 1, depth + 1)\n    print(\"  \" * depth + f\"factorial({n}) returns {result}\")\n    return result\n\nfactorial(3)",
+        "output": "factorial(3) called\n  factorial(2) called\n    factorial(1) called\n    factorial(1) returns 1\n  factorial(2) returns 2\nfactorial(3) returns 6",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Indent by depth to see the stack of calls."
+          },
+          {
+            "line": 6,
+            "note": "This call waits here until the smaller call returns."
+          }
+        ],
+        "tryIt": "Call factorial(5) instead. Count the \"called\" lines: that is the deepest the stack gets.",
+        "check": {
+          "question": "In what order do the recursive calls of factorial(3) return?",
+          "options": [
+            "factorial(3) first",
+            "factorial(1) first, then 2, then 3",
+            "All at the same time"
+          ],
+          "answer": 1,
+          "why": "factorial(1) is on top of the stack, so it finishes first, then factorial(2) can finish, then factorial(3)."
+        }
+      },
+      {
+        "title": "Recursion on lists and repeated work",
+        "say": [
+          "Recursion is natural for things that contain smaller versions of themselves: a list is its first item plus the rest of the list, and a folder contains smaller folders.",
+          "Fibonacci is the classic warning. fib(n) = fib(n - 1) + fib(n - 2) is correct, but fib(30) makes over a million calls, because the same small values are recomputed again and again.",
+          "The fix is memoization: remember each answer the first time. Python's @lru_cache from Day 5 does this in one line and makes it O(N).",
+          "You will study this properly as dynamic programming on Day 25. For now, remember: if a recursive function solves the same small problem many times, cache it."
+        ],
+        "example": "Being asked the same maths question ten times and working it out from scratch each time, instead of writing the answer on a sticky note after the first time.",
+        "code": "from functools import lru_cache\n\ncalls = 0\ndef fib(n):\n    global calls\n    calls += 1\n    return n if n < 2 else fib(n - 1) + fib(n - 2)\n\nprint(fib(20), \"calls:\", calls)\n\n@lru_cache(maxsize=None)\ndef fib_fast(n):\n    return n if n < 2 else fib_fast(n - 1) + fib_fast(n - 2)\n\nprint(fib_fast(80))\n\ndef total(nums):\n    return 0 if not nums else nums[0] + total(nums[1:])\n\nprint(total([4, 5, 6]))",
+        "output": "6765 calls: 21891\n23416728348467685\n15",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Correct, but recomputes the same values many times."
+          },
+          {
+            "line": 11,
+            "note": "lru_cache remembers each answer: O(N) instead of exponential."
+          },
+          {
+            "line": 18,
+            "note": "A list is its first item plus the rest."
+          }
+        ],
+        "tryIt": "Try fib(25) with the slow version and look at the call count. Then try fib_fast(300).",
+        "check": {
+          "question": "Why is the plain recursive fib(n) slow?",
+          "options": [
+            "Python is slow at maths",
+            "It recomputes the same smaller values many times",
+            "It has no base case"
+          ],
+          "answer": 1,
+          "why": "fib(n - 1) and fib(n - 2) both recompute the same smaller values, so the number of calls grows exponentially."
+        }
+      },
+      {
+        "title": "Backtracking: choose, explore, un-choose",
+        "say": [
+          "Backtracking is recursion that builds answers step by step and undoes each choice when it is done exploring it. It generates every possible combination in an organised way.",
+          "The pattern has three moves. Choose: add an item to the current answer. Explore: recurse to make the remaining choices. Un-choose: remove the item, so the next choice starts clean.",
+          "Practice 1 asks for every subset of a list. For [1, 2, 3] there are 2^3 = 8, from [] to [1, 2, 3]. At each position you either take the next item or move past it.",
+          "Save a copy of the current answer with current[:] when you record it. If you saved current itself, every saved answer would be the same list that keeps changing."
+        ],
+        "example": "Trying outfits: put on a shirt, try each pair of trousers with it, then take the shirt off and try the next shirt. Taking it off is the un-choose step.",
+        "code": "def subsets(nums):\n    result = []\n    current = []\n\n    def backtrack(start):\n        result.append(current[:])\n        for i in range(start, len(nums)):\n            current.append(nums[i])\n            backtrack(i + 1)\n            current.pop()\n\n    backtrack(0)\n    return result\n\nprint(subsets([1, 2, 3]))\nprint(len(subsets([1, 2, 3, 4])))",
+        "output": "[[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]\n16",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Record a copy of the current subset."
+          },
+          {
+            "line": 8,
+            "note": "Choose nums[i]."
+          },
+          {
+            "line": 9,
+            "note": "Explore the choices after it."
+          },
+          {
+            "line": 10,
+            "note": "Un-choose, ready for the next i."
+          }
+        ],
+        "tryIt": "Replace current[:] with current on line 6 and run it. Every saved subset shows as [] because they are all the same list.",
+        "check": {
+          "question": "How many subsets does a list of 5 different items have?",
+          "options": [
+            "5",
+            "25",
+            "32"
+          ],
+          "answer": 2,
+          "why": "Each item is either in or out, so there are 2 x 2 x 2 x 2 x 2 = 32 subsets."
+        }
+      },
+      {
+        "title": "Permutations: every possible order",
+        "say": [
+          "Practice 2 asks for every order of the numbers: the permutations. [1, 2, 3] has 3! = 6 orders.",
+          "Use the same choose, explore, un-choose pattern, but at each step you may pick any number not used yet. A used list (or set) remembers which numbers are already in the current order.",
+          "When the current order has all the numbers, record a copy. Then un-choose: remove the last number and mark it unused, so it can go in a later position.",
+          "Permutations grow very fast: 10 items have 3,628,800 orders. Backtracking lists them all, so it is only practical for small inputs, which is what interview questions use."
+        ],
+        "example": "Arranging 3 friends in a photo: pick who stands on the left (3 choices), then the middle (2 left), then the right (1 left). 3 x 2 x 1 = 6 photos.",
+        "code": "def permute(nums):\n    result, current = [], []\n    used = [False] * len(nums)\n\n    def backtrack():\n        if len(current) == len(nums):\n            result.append(current[:])\n            return\n        for i, x in enumerate(nums):\n            if used[i]:\n                continue\n            used[i] = True\n            current.append(x)\n            backtrack()\n            current.pop()\n            used[i] = False\n\n    backtrack()\n    return result\n\nfor order in permute([1, 2, 3]):\n    print(order)",
+        "output": "[1, 2, 3]\n[1, 3, 2]\n[2, 1, 3]\n[2, 3, 1]\n[3, 1, 2]\n[3, 2, 1]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "A full order: record it."
+          },
+          {
+            "line": 10,
+            "note": "Skip numbers already placed."
+          },
+          {
+            "line": 15,
+            "note": "Un-choose so x can be used in a later position."
+          }
+        ],
+        "tryIt": "Run len(permute([1, 2, 3, 4])). It should be 24, which is 4!.",
+        "check": {
+          "question": "What does the used list prevent?",
+          "options": [
+            "Recording the same order twice",
+            "Using the same number twice in one order",
+            "Running out of memory"
+          ],
+          "answer": 1,
+          "why": "used marks numbers already in the current order, so each number appears once per order."
+        }
+      },
+      {
+        "title": "Pruning: stopping early",
+        "say": [
+          "Backtracking can be slow because it explores every branch. Pruning means stopping a branch as soon as you know it cannot lead to a valid answer.",
+          "Example: find combinations of numbers that add up to a target. If the running total already passes the target (with positive numbers), there is no point adding more. Return straight away.",
+          "Good pruning can turn an impossible search into a fast one. You will use it heavily on Day 28 for N-Queens and Sudoku.",
+          "The code counts how many calls are made with and without the early stop, so you can see how much work pruning saves."
+        ],
+        "example": "Planning a trip on a budget: once the hotel alone costs more than your whole budget, you do not bother checking flights for that hotel.",
+        "code": "def combos(nums, target, prune):\n    result, current = [], []\n    calls = 0\n\n    def backtrack(start, total):\n        nonlocal calls\n        calls += 1\n        if total == target:\n            result.append(current[:])\n        if prune and total >= target:\n            return\n        for i in range(start, len(nums)):\n            current.append(nums[i])\n            backtrack(i + 1, total + nums[i])\n            current.pop()\n\n    backtrack(0, 0)\n    return result, calls\n\nnums = [2, 3, 5, 6, 7, 8, 9, 10]\nprint(combos(nums, 10, prune=False))\nprint(combos(nums, 10, prune=True))",
+        "output": "([[2, 3, 5], [2, 8], [3, 7], [10]], 256)\n([[2, 3, 5], [2, 8], [3, 7], [10]], 64)",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Already at or over the target: stop exploring this branch."
+          },
+          {
+            "line": 7,
+            "note": "Count every call to measure the work."
+          }
+        ],
+        "tryIt": "Sort nums in reverse and run again. The results are the same, but the number of calls changes.",
+        "check": {
+          "question": "What does pruning do in backtracking?",
+          "options": [
+            "Finds more answers",
+            "Stops exploring branches that cannot succeed",
+            "Sorts the answers"
+          ],
+          "answer": 1,
+          "why": "Pruning cuts off a branch as soon as it is clear it cannot lead to a valid answer, saving work."
+        }
+      }
+    ],
+    "summary": [
+      "Recursion needs a base case and a step that makes the problem smaller.",
+      "Each call adds a frame to the call stack; very deep recursion raises RecursionError.",
+      "If recursion recomputes the same values, cache them with @lru_cache.",
+      "Backtracking: choose, explore, un-choose; record copies with current[:].",
+      "Subsets: 2^N; permutations: N!; prune branches that cannot succeed."
+    ],
+    "projectStep": {
+      "title": "Recursion tools",
+      "steps": [
+        "Add subsets(nums) and permute(nums) to dsa_toolkit.py.",
+        "Add a fib with @lru_cache and print fib(100).",
+        "Bonus: write a function that lists all files in a nested dict of folders recursively."
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "title": "Merge Sort & Divide-and-Conquer Recurrences",
+    "goal": "You can sort in O(N log N) with merge sort, merge sorted lists and linked lists, and explain divide and conquer.",
+    "minutes": 30,
+    "recap": "Yesterday you learned recursion and backtracking. Merge sort is recursion used to sort: split, sort the halves, merge.",
+    "parts": [
+      {
+        "title": "Divide and conquer",
+        "say": [
+          "Divide and conquer solves a big problem in three steps: divide it into smaller parts, conquer each part (usually by recursion), and combine the answers.",
+          "Binary search on Day 10 divided the problem and kept one half. Merge sort keeps both halves: it sorts each half and then merges them.",
+          "The base case for sorting is easy: a list of 0 or 1 items is already sorted.",
+          "Divide and conquer is behind fast sorting, fast multiplication of huge numbers, and many graphics and data-processing algorithms.",
+          "When you meet a new problem, ask: can I split it into two smaller problems of the same kind, and can I combine their answers cheaply? If both answers are yes, divide and conquer is worth trying, and the recursion from yesterday does the splitting for you."
+        ],
+        "example": "Marking 400 exam papers: split them among 4 teachers, each marks 100, and then the head teacher combines the four sorted mark lists into one ranking.",
+        "code": "def split(items):\n    if len(items) <= 1:\n        return [items]\n    mid = len(items) // 2\n    return split(items[:mid]) + split(items[mid:])\n\nprint(split([38, 27, 43, 3, 9, 82, 10]))",
+        "output": "[[38], [27], [43], [3], [9], [82], [10]]",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Base case: one item is already sorted."
+          },
+          {
+            "line": 5,
+            "note": "Divide in half and keep dividing."
+          }
+        ],
+        "tryIt": "Count how many single-item pieces a list of 8 items splits into, and how many levels of halving it takes (3, because 2^3 = 8).",
+        "check": {
+          "question": "What is the base case of merge sort?",
+          "options": [
+            "A list of 0 or 1 items",
+            "A list of 10 items",
+            "A sorted list"
+          ],
+          "answer": 0,
+          "why": "A list with 0 or 1 items is sorted already, so the recursion can stop there."
+        }
+      },
+      {
+        "title": "Merging two sorted lists",
+        "say": [
+          "The heart of merge sort is merging: joining two sorted lists into one sorted list. Look at the front of each list and take the smaller one. Repeat until one list is empty, then add what is left of the other.",
+          "Each step takes one item, so merging lists with N items in total is O(N).",
+          "Use <= when comparing, so equal items keep the order they had. That makes the sort stable, which matters when you sort records by one field after another.",
+          "Merging is useful on its own too: combining sorted log files or two sorted lists of search results.",
+          "Notice that merging never goes backwards: i and j only move forward. That is why it is O(N) and why it also works on data too large for memory, read piece by piece from two sorted files on disk."
+        ],
+        "example": "Two queues of students already in height order being merged into one line: the teacher always lets the shorter of the two front students go next.",
+        "code": "def merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n\nprint(merge([3, 27, 38], [9, 10, 43, 82]))\nprint(merge([], [1, 2]))",
+        "output": "[3, 9, 10, 27, 38, 43, 82]\n[1, 2]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Take the smaller front item; <= keeps equal items in order."
+          },
+          {
+            "line": 11,
+            "note": "One list is empty: the rest of the other is already sorted."
+          }
+        ],
+        "tryIt": "Merge [1, 5, 9] and [2, 3, 10, 11] on paper first, then check with the code.",
+        "check": {
+          "question": "What is the cost of merging two sorted lists with N items in total?",
+          "options": [
+            "O(N)",
+            "O(N log N)",
+            "O(N^2)"
+          ],
+          "answer": 0,
+          "why": "Each step moves one item into the result, so N steps: O(N)."
+        }
+      },
+      {
+        "title": "Merge sort put together",
+        "say": [
+          "Practice 1: merge_sort(arr) splits the list in half, merge sorts each half, and merges the two sorted halves.",
+          "Why O(N log N)? The list is halved about log N times, so there are log N levels of recursion. At each level, all the merging together touches every item once: O(N). N work times log N levels.",
+          "Merge sort is O(N log N) in every case, even on a list that is already sorted or reversed. Its cost is extra memory: the merged lists need O(N) space.",
+          "Python's own sorted() uses Timsort, which is a merge sort improved to spot runs that are already sorted."
+        ],
+        "example": "Sorting a big pile of exam papers by splitting it in half again and again until each pile has one paper, then merging piles back together in pairs.",
+        "code": "def merge(left, right):\n    result, i, j = [], 0, 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i]); i += 1\n        else:\n            result.append(right[j]); j += 1\n    return result + left[i:] + right[j:]\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr[:]\n    mid = len(arr) // 2\n    return merge(merge_sort(arr[:mid]), merge_sort(arr[mid:]))\n\ndata = [38, 27, 43, 3, 9, 82, 10]\nprint(merge_sort(data))\nprint(data)",
+        "output": "[3, 9, 10, 27, 38, 43, 82]\n[38, 27, 43, 3, 9, 82, 10]",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Return a copy so the caller's list is never changed."
+          },
+          {
+            "line": 14,
+            "note": "Sort both halves, then merge them."
+          },
+          {
+            "line": 18,
+            "note": "The original list is untouched."
+          }
+        ],
+        "tryIt": "Sort a list of words with merge_sort. Strings compare alphabetically, so it just works.",
+        "check": {
+          "question": "Why is merge sort O(N log N)?",
+          "options": [
+            "It compares every pair",
+            "log N levels of halving, O(N) merging per level",
+            "It sorts in place"
+          ],
+          "answer": 1,
+          "why": "Halving gives about log N levels, and the merges at each level touch all N items once."
+        }
+      },
+      {
+        "title": "Merging sorted linked lists",
+        "say": [
+          "Practice 2 merges two sorted linked lists into one, reusing the nodes rather than making new ones.",
+          "Use a dummy node, like on Day 3, so you never need a special case for the head. A tail pointer marks the end of the merged list so far.",
+          "Compare the front nodes, link the smaller one after tail, move that list forward and move tail forward. When one list runs out, link the rest of the other one in a single step.",
+          "This is O(N) time and O(1) extra space, because the nodes are only re-linked, never copied."
+        ],
+        "example": "Joining two sorted trains into one sorted train in a shunting yard: you keep uncoupling the front coach with the smaller number and attaching it to the new train.",
+        "code": "class ListNode:\n    def __init__(self, val, next=None):\n        self.val = val\n        self.next = next\n\ndef build(values):\n    head = None\n    for v in reversed(values):\n        head = ListNode(v, head)\n    return head\n\ndef to_list(head):\n    out = []\n    while head:\n        out.append(head.val)\n        head = head.next\n    return out\n\ndef merge_lists(a, b):\n    dummy = tail = ListNode(0)\n    while a and b:\n        if a.val <= b.val:\n            tail.next, a = a, a.next\n        else:\n            tail.next, b = b, b.next\n        tail = tail.next\n    tail.next = a or b\n    return dummy.next\n\nprint(to_list(merge_lists(build([1, 4, 7]), build([2, 3, 8, 9]))))",
+        "output": "[1, 2, 3, 4, 7, 8, 9]",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "The dummy node avoids a special case for the first node."
+          },
+          {
+            "line": 27,
+            "note": "Link whatever is left in one step."
+          }
+        ],
+        "tryIt": "Merge an empty list with build([5, 6]): merge_lists(None, build([5, 6])). It should print [5, 6].",
+        "check": {
+          "question": "Why is merging linked lists O(1) extra space?",
+          "options": [
+            "It uses a dict",
+            "It re-links the existing nodes instead of copying them",
+            "Linked lists are small"
+          ],
+          "answer": 1,
+          "why": "Only the next links change; no new nodes are made, apart from the single dummy."
+        }
+      },
+      {
+        "title": "Counting inversions with merge sort",
+        "say": [
+          "Merge sort can answer more than \"sort this\". An inversion is a pair of items that are in the wrong order: a bigger number before a smaller one.",
+          "Counting inversions by checking every pair is O(N^2). But during a merge, when an item from the right half is taken before items still left in the left half, it is smaller than all of them: that is several inversions counted at once.",
+          "Adding these counts during every merge gives the total number of inversions in O(N log N).",
+          "Inversion counts measure how different two rankings are, for example how far a user's movie ranking is from a recommended ranking."
+        ],
+        "example": "Comparing two friends' top-5 cricket player lists: the number of pairs they order differently tells you how much their opinions differ.",
+        "code": "def sort_and_count(arr):\n    if len(arr) <= 1:\n        return arr[:], 0\n    mid = len(arr) // 2\n    left, a = sort_and_count(arr[:mid])\n    right, b = sort_and_count(arr[mid:])\n    merged, count, i, j = [], a + b, 0, 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            merged.append(left[i]); i += 1\n        else:\n            merged.append(right[j]); j += 1\n            count += len(left) - i\n    return merged + left[i:] + right[j:], count\n\nprint(sort_and_count([2, 4, 1, 3, 5]))\nprint(sort_and_count([5, 4, 3, 2, 1]))",
+        "output": "([1, 2, 3, 4, 5], 3)\n([1, 2, 3, 4, 5], 10)",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "right[j] is smaller than every item left in the left half."
+          }
+        ],
+        "tryIt": "Check the first answer by hand: the pairs in the wrong order are (2, 1), (4, 1) and (4, 3). That is 3.",
+        "check": {
+          "question": "How many inversions does a list sorted in reverse, [4, 3, 2, 1], have?",
+          "options": [
+            "4",
+            "6",
+            "3"
+          ],
+          "answer": 1,
+          "why": "Every pair is in the wrong order, and 4 items have 4 x 3 / 2 = 6 pairs."
+        }
+      },
+      {
+        "title": "Sorting in practice with sorted() and key",
+        "say": [
+          "In real Python code you rarely write merge sort; you call sorted() or list.sort(), both O(N log N) and stable. sorted() returns a new list; .sort() changes the list in place.",
+          "The key argument decides what to sort by: key=len sorts by length, key=lambda s: s[\"marks\"] sorts records by marks. reverse=True sorts from biggest to smallest.",
+          "Because sorting is stable, you can sort by a second field first and then by the main field, and ties in the main field keep the second field's order.",
+          "Knowing how merge sort works tells you why these guarantees hold, and what to do when you must sort data too big for memory: sort chunks and merge them."
+        ],
+        "example": "Arranging a class list by marks, with students who have equal marks kept in alphabetical order. Sort by name first, then by marks, and stability keeps the names in order within each mark.",
+        "code": "students = [\n    {\"name\": \"Riya\", \"marks\": 88},\n    {\"name\": \"Aman\", \"marks\": 92},\n    {\"name\": \"Zoya\", \"marks\": 88},\n    {\"name\": \"Dev\", \"marks\": 75},\n]\nby_name = sorted(students, key=lambda s: s[\"name\"])\nranked = sorted(by_name, key=lambda s: s[\"marks\"], reverse=True)\nfor s in ranked:\n    print(s[\"marks\"], s[\"name\"])\n\nwords = [\"kiwi\", \"fig\", \"banana\", \"apple\"]\nprint(sorted(words, key=len))",
+        "output": "92 Aman\n88 Riya\n88 Zoya\n75 Dev\n['fig', 'kiwi', 'apple', 'banana']",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "First sort by the tie-breaker (name)."
+          },
+          {
+            "line": 8,
+            "note": "Then by the main field; stable sorting keeps names in order for equal marks."
+          }
+        ],
+        "tryIt": "Add a student named \"Bina\" with 92 marks. Predict her place before running: she ties with Aman, and A comes before B in the name sort, so she is second.",
+        "check": {
+          "question": "What does it mean that Python's sort is stable?",
+          "options": [
+            "It never crashes",
+            "Items that compare equal keep their original order",
+            "It always takes the same time"
+          ],
+          "answer": 1,
+          "why": "Stable means equal items stay in the order they were in before sorting, which makes multi-step sorting work."
+        }
+      }
+    ],
+    "summary": [
+      "Divide and conquer: split the problem, solve the parts, combine the answers.",
+      "Merging two sorted lists takes the smaller front item each step: O(N).",
+      "Merge sort is O(N log N) in every case and uses O(N) extra memory.",
+      "Merging linked lists re-links nodes with a dummy head: O(1) extra space.",
+      "Python's sorted() is stable; use key= and reverse= instead of writing your own sort."
+    ],
+    "projectStep": {
+      "title": "Sorting tools",
+      "steps": [
+        "Add merge(left, right) and merge_sort(arr) to dsa_toolkit.py.",
+        "Add merge_lists(a, b) for linked lists, using your ListNode from Day 3.",
+        "Bonus: add sort_and_count(arr) and count the inversions in a list of your choice."
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "title": "Quick Sort & Quick Select (Kth Largest Element in O(N))",
+    "goal": "You can partition a list around a pivot, sort in place with quick sort, and find the k-th largest item with quickselect.",
+    "minutes": 30,
+    "recap": "Yesterday you used merge sort: split first, then do the work while merging. Quick sort does the work first, while splitting.",
+    "parts": [
+      {
+        "title": "Partitioning around a pivot",
+        "say": [
+          "Quick sort starts by choosing a pivot, one value from the list. It then rearranges the list so everything smaller than or equal to the pivot is on its left and everything bigger is on its right.",
+          "This is called partitioning. After it, the pivot is in its final sorted position, even though the two sides are not sorted yet.",
+          "The Lomuto partition uses the last item as the pivot and a pointer p that marks where the next small item should go, like the write pointer from Day 2.",
+          "Walk through the list; each time you find an item <= pivot, swap it to position p and move p forward. Finally, swap the pivot into position p."
+        ],
+        "example": "Lining up students around one chosen student: everyone shorter stands to their left and everyone taller to their right. That chosen student is now exactly where they belong in height order.",
+        "code": "def partition(arr, lo, hi):\n    pivot = arr[hi]\n    p = lo\n    for i in range(lo, hi):\n        if arr[i] <= pivot:\n            arr[i], arr[p] = arr[p], arr[i]\n            p += 1\n    arr[p], arr[hi] = arr[hi], arr[p]\n    return p\n\narr = [7, 2, 9, 4, 3, 8, 5]\np = partition(arr, 0, len(arr) - 1)\nprint(\"pivot 5 now at\", p, \"->\", arr)",
+        "output": "pivot 5 now at 3 -> [2, 4, 3, 5, 9, 8, 7]",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "The last item is the pivot."
+          },
+          {
+            "line": 6,
+            "note": "A small item is swapped into the left part."
+          },
+          {
+            "line": 8,
+            "note": "Put the pivot between the two parts."
+          }
+        ],
+        "tryIt": "Check that every number left of position 3 is <= 5 and every number right of it is > 5.",
+        "check": {
+          "question": "After partitioning, what is true about the pivot?",
+          "options": [
+            "It is at position 0",
+            "It is in its final sorted position",
+            "It is removed"
+          ],
+          "answer": 1,
+          "why": "Everything smaller is left of it and everything bigger is right of it, so it is exactly where it belongs."
+        }
+      },
+      {
+        "title": "Quick sort",
+        "say": [
+          "Practice 2: quick sort partitions the list, then quick sorts the left part and the right part. The pivot is already in place, so it is left out of both.",
+          "Quick sort works in place: it swaps items inside the same list, so it needs no extra lists, only the recursion stack.",
+          "On average each partition splits the list roughly in half, giving about log N levels of O(N) work: O(N log N).",
+          "The base case is a range with 0 or 1 items, when lo >= hi."
+        ],
+        "example": "Sorting a class by height: pick one student, split the class into shorter and taller groups around them, then do the same inside each group until every group has one student.",
+        "code": "def partition(arr, lo, hi):\n    pivot, p = arr[hi], lo\n    for i in range(lo, hi):\n        if arr[i] <= pivot:\n            arr[i], arr[p] = arr[p], arr[i]\n            p += 1\n    arr[p], arr[hi] = arr[hi], arr[p]\n    return p\n\ndef quick_sort(arr, lo=0, hi=None):\n    if hi is None:\n        hi = len(arr) - 1\n    if lo < hi:\n        p = partition(arr, lo, hi)\n        quick_sort(arr, lo, p - 1)\n        quick_sort(arr, p + 1, hi)\n    return arr\n\nprint(quick_sort([7, 2, 9, 4, 3, 8, 5]))\nprint(quick_sort([3, 3, 1, 2, 1]))",
+        "output": "[2, 3, 4, 5, 7, 8, 9]\n[1, 1, 2, 3, 3]",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "Base case: 0 or 1 items need no sorting."
+          },
+          {
+            "line": 15,
+            "note": "Sort the left part, skipping the pivot."
+          },
+          {
+            "line": 16,
+            "note": "Sort the right part."
+          }
+        ],
+        "tryIt": "Print arr after each partition call to watch the pivots settle into place one by one.",
+        "check": {
+          "question": "Why does quick sort need very little extra memory?",
+          "options": [
+            "It swaps items inside the same list",
+            "It uses a dict",
+            "It sorts only half the list"
+          ],
+          "answer": 0,
+          "why": "Partitioning swaps items in place, so no extra lists are made, only the recursion stack."
+        }
+      },
+      {
+        "title": "The worst case and random pivots",
+        "say": [
+          "Quick sort has a weakness. If the pivot is always the smallest or largest item, one side is empty and the other has N - 1 items. Then there are N levels, and the work becomes O(N^2).",
+          "With the last item as pivot, this happens on a list that is already sorted, which is common in real data.",
+          "The fix is to choose the pivot at random, then swap it to the end before partitioning. A random pivot makes the bad case extremely unlikely, so the expected time is O(N log N).",
+          "The code counts comparisons for a sorted list with the last-item pivot versus a random pivot. The difference grows fast with N."
+        ],
+        "example": "Always picking the tallest student to split a class gives one group of everyone and one group of nobody, and nothing gets easier. Picking someone at random usually splits the class sensibly.",
+        "code": "import random\n\ndef count_comparisons(arr, randomised):\n    arr = arr[:]\n    count = 0\n    def sort(lo, hi):\n        nonlocal count\n        if lo >= hi:\n            return\n        if randomised:\n            r = random.randint(lo, hi)\n            arr[r], arr[hi] = arr[hi], arr[r]\n        pivot, p = arr[hi], lo\n        for i in range(lo, hi):\n            count += 1\n            if arr[i] <= pivot:\n                arr[i], arr[p] = arr[p], arr[i]\n                p += 1\n        arr[p], arr[hi] = arr[hi], arr[p]\n        sort(lo, p - 1)\n        sort(p + 1, hi)\n    sort(0, len(arr) - 1)\n    return count\n\nrandom.seed(1)\ndata = list(range(300))\nprint(\"sorted input, last pivot:\", count_comparisons(data, False))\nprint(\"sorted input, random pivot:\", count_comparisons(data, True))",
+        "output": "sorted input, last pivot: 44850\nsorted input, random pivot: 2535",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Pick a random pivot and move it to the end."
+          },
+          {
+            "line": 25,
+            "note": "A fixed seed so this demo prints the same numbers each run."
+          }
+        ],
+        "tryIt": "Change 300 to 600. The last-pivot count roughly quadruples (O(N^2)); the random one roughly doubles.",
+        "check": {
+          "question": "On an already sorted list, what is quick sort's cost if it always picks the last item as pivot?",
+          "options": [
+            "O(N log N)",
+            "O(N^2)",
+            "O(N)"
+          ],
+          "answer": 1,
+          "why": "The pivot is always the largest, so each partition only removes one item, giving N levels of O(N) work."
+        }
+      },
+      {
+        "title": "Quickselect: the k-th largest in O(N)",
+        "say": [
+          "Practice 1 asks for the k-th largest number without fully sorting. Quickselect uses partitioning but only follows the side that contains the answer.",
+          "The k-th largest is at position len(nums) - k in sorted order. Partition; if the pivot lands exactly there, you are done. If the pivot is too far left, search only the right part; otherwise only the left part.",
+          "Because you throw away one side each time, the work is N + N/2 + N/4 + ..., which adds up to about 2N: O(N) on average.",
+          "Quickselect is how you find a median or top-k item fast when you do not need the rest sorted."
+        ],
+        "example": "Finding the student with the 3rd highest marks without ranking the whole class: split the class around one student's marks, then only look in the group that must contain the 3rd highest.",
+        "code": "import random\n\ndef kth_largest(nums, k):\n    nums = nums[:]\n    target = len(nums) - k\n    lo, hi = 0, len(nums) - 1\n    while True:\n        r = random.randint(lo, hi)\n        nums[r], nums[hi] = nums[hi], nums[r]\n        pivot, p = nums[hi], lo\n        for i in range(lo, hi):\n            if nums[i] <= pivot:\n                nums[i], nums[p] = nums[p], nums[i]\n                p += 1\n        nums[p], nums[hi] = nums[hi], nums[p]\n        if p == target:\n            return nums[p]\n        if p < target:\n            lo = p + 1\n        else:\n            hi = p - 1\n\nprint(kth_largest([3, 2, 1, 5, 6, 4], 2))\nprint(kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))",
+        "output": "5\n4",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "The k-th largest sits here in sorted order."
+          },
+          {
+            "line": 18,
+            "note": "The answer is to the right: ignore the left part."
+          },
+          {
+            "line": 21,
+            "note": "The answer is to the left: ignore the right part."
+          }
+        ],
+        "tryIt": "Find the median of [7, 1, 5, 3, 9] with kth_largest(nums, 3). It should be 5.",
+        "check": {
+          "question": "Why is quickselect O(N) on average while quick sort is O(N log N)?",
+          "options": [
+            "Quickselect only follows one side after each partition",
+            "Quickselect does not compare items",
+            "It uses binary search"
+          ],
+          "answer": 0,
+          "why": "Quick sort sorts both sides; quickselect follows only the side with the answer, so the work shrinks by half each time."
+        }
+      },
+      {
+        "title": "heapq and choosing the right tool",
+        "say": [
+          "Python's heapq module offers another way to get the largest items: heapq.nlargest(k, nums) runs in O(N log k). You will learn how heaps work on Day 18.",
+          "So for the k-th largest you now have three tools: sort everything (O(N log N)), quickselect (O(N) average), or a heap (O(N log k)).",
+          "For small k, a heap is simple and fast. For finding a median or any single position in a big list, quickselect is the fastest. For showing a full ranking, just sort.",
+          "Interviewers love this comparison. Being able to say which tool fits which question, and why, matters as much as writing the code."
+        ],
+        "example": "Choosing between reading a whole book (sorting), jumping to the right chapter (quickselect), or only keeping track of your favourite 3 pages as you flip (a heap of size k).",
+        "code": "import heapq\n\nnums = [12, 45, 7, 23, 56, 89, 34, 78]\nprint(\"sorted:\", sorted(nums, reverse=True)[:3])\nprint(\"heapq:\", heapq.nlargest(3, nums))\nprint(\"3rd largest:\", heapq.nlargest(3, nums)[-1])\nprint(\"smallest 2:\", heapq.nsmallest(2, nums))",
+        "output": "sorted: [89, 78, 56]\nheapq: [89, 78, 56]\n3rd largest: 56\nsmallest 2: [7, 12]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "nlargest keeps only the top k while scanning."
+          },
+          {
+            "line": 6,
+            "note": "The last of the top 3 is the 3rd largest."
+          }
+        ],
+        "tryIt": "Use heapq.nsmallest to find the 2 cheapest items from a list of your own prices.",
+        "check": {
+          "question": "You need the single median of 10 million numbers. Which is the best fit?",
+          "options": [
+            "Sort them all",
+            "Quickselect",
+            "heapq.nlargest with k = 5 million"
+          ],
+          "answer": 1,
+          "why": "Quickselect finds one position in O(N) on average, without sorting everything."
+        }
+      },
+      {
+        "title": "Merge sort or quick sort?",
+        "say": [
+          "Both are O(N log N) on average. Merge sort is O(N log N) in every case and stable, but needs O(N) extra memory. Quick sort works in place and is often faster in practice, but its worst case is O(N^2) and it is not stable.",
+          "For linked lists, merge sort is the natural choice, because merging only re-links nodes. For arrays in memory, quick sort (with random pivots) is common.",
+          "Real libraries mix techniques. Python uses Timsort (merge-based and stable). C++ uses introsort, a quick sort that switches to heap sort if it detects a bad case.",
+          "Knowing these trade-offs helps you answer \"which sort would you use and why?\", a very common interview question."
+        ],
+        "example": "Choosing between a courier that always arrives in 2 days (merge sort: predictable) and one that usually arrives in 1 day but very occasionally takes a week (quick sort: faster on average).",
+        "code": "comparison = [\n    (\"average time\", \"O(N log N)\", \"O(N log N)\"),\n    (\"worst time\", \"O(N log N)\", \"O(N^2)\"),\n    (\"extra memory\", \"O(N)\", \"O(log N) stack\"),\n    (\"stable\", \"yes\", \"no\"),\n]\nprint(f\"{'':14}{'merge sort':>12}{'quick sort':>16}\")\nfor name, merge, quick in comparison:\n    print(f\"{name:14}{merge:>12}{quick:>16}\")",
+        "output": "                merge sort      quick sort\naverage time    O(N log N)      O(N log N)\nworst time      O(N log N)          O(N^2)\nextra memory          O(N)  O(log N) stack\nstable                 yes              no",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "An f-string with widths lines the table up in columns."
+          }
+        ],
+        "tryIt": "Add a row (\"works on linked lists\", \"very well\", \"awkwardly\") and run it.",
+        "check": {
+          "question": "Which sort guarantees O(N log N) even in the worst case?",
+          "options": [
+            "Quick sort",
+            "Merge sort",
+            "Both"
+          ],
+          "answer": 1,
+          "why": "Merge sort always halves evenly, so it is O(N log N) in every case. Quick sort can degrade to O(N^2)."
+        }
+      }
+    ],
+    "summary": [
+      "Partitioning puts smaller items left of the pivot and bigger ones right; the pivot lands in its final place.",
+      "Quick sort partitions and recurses on both sides, in place: O(N log N) on average.",
+      "A bad pivot gives O(N^2); a random pivot avoids it in practice.",
+      "Quickselect follows only the side with the answer: O(N) on average for the k-th item.",
+      "Merge sort: stable, predictable, O(N) memory. Quick sort: in place, usually fast, not stable."
+    ],
+    "projectStep": {
+      "title": "Quick sort tools",
+      "steps": [
+        "Add partition(arr, lo, hi) and quick_sort(arr) to dsa_toolkit.py.",
+        "Add kth_largest(nums, k) using quickselect with a random pivot.",
+        "Bonus: time quick_sort on list(range(2000)) with and without random pivots using the time module."
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "title": "Non-Comparison Sorting: Counting Sort & Radix Sort",
+    "goal": "You can sort small whole numbers in O(N + K) with counting sort, sort 0s, 1s and 2s in one pass, and explain radix sort.",
+    "minutes": 30,
+    "recap": "Yesterday you used quick sort and quickselect. Every sort so far compared items; today you sort without comparing.",
+    "parts": [
+      {
+        "title": "The O(N log N) wall and how to get round it",
+        "say": [
+          "Any sort that works only by comparing pairs of items needs about N log N comparisons in the worst case. Merge sort and quick sort already reach this limit; no comparison sort can beat it.",
+          "But if the items are small whole numbers, like marks from 0 to 100 or ages from 0 to 120, you do not need to compare them. You can count them.",
+          "These are non-comparison sorts. Counting sort runs in O(N + K), where K is the range of values. When K is small, that is effectively linear.",
+          "The trade-off: they only work on data with a known, limited range, like whole numbers or fixed-length codes."
+        ],
+        "example": "Sorting 500 coins by value: you do not compare coins with each other. You drop each one into the 1, 2, 5, 10 or 20 rupee tray, then read the trays in order.",
+        "code": "import math\n\nfor n in [1000, 1000000]:\n    comparisons = round(n * math.log2(n))\n    print(n, \"items: comparison sort about\", comparisons, \"steps; counting sort with K=100 about\", n + 100)",
+        "output": "1000 items: comparison sort about 9966 steps; counting sort with K=100 about 1100\n1000000 items: comparison sort about 19931569 steps; counting sort with K=100 about 1000100",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The best any comparison sort can do."
+          },
+          {
+            "line": 5,
+            "note": "Counting sort only walks the data and the value range."
+          }
+        ],
+        "tryIt": "Change K to 1000000 in the message. When the range is as big as the data, counting sort loses its advantage.",
+        "check": {
+          "question": "What is the best worst-case cost of a sort that only compares pairs of items?",
+          "options": [
+            "O(N)",
+            "O(N log N)",
+            "O(N^2)"
+          ],
+          "answer": 1,
+          "why": "Comparison sorts need about N log N comparisons in the worst case; merge sort already achieves it."
+        }
+      },
+      {
+        "title": "Counting sort",
+        "say": [
+          "Practice 2: counting sort sorts whole numbers from 0 to max_val. Make a counts list with one slot per possible value, all starting at 0.",
+          "Walk the data once and add 1 to counts[x] for each number. Then walk the counts from 0 upwards and write each value out as many times as it was counted.",
+          "That is one pass over the N items and one pass over the K possible values: O(N + K) time and O(K) extra space.",
+          "If K is huge compared with N, for example sorting 10 numbers that can be up to a billion, counting sort wastes time and memory. Use it when the range is small."
+        ],
+        "example": "Counting votes for 5 candidates: you make 5 tally boxes and add a stroke to the right box for each ballot. Reading the boxes gives the result without ever comparing two ballots.",
+        "code": "def counting_sort(arr, max_val):\n    counts = [0] * (max_val + 1)\n    for x in arr:\n        counts[x] += 1\n    result = []\n    for value, count in enumerate(counts):\n        result.extend([value] * count)\n    return result\n\nmarks = [7, 3, 9, 3, 0, 10, 7, 7]\nprint(counting_sort(marks, 10))",
+        "output": "[0, 3, 3, 7, 7, 7, 9, 10]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "One tally per value."
+          },
+          {
+            "line": 7,
+            "note": "Write each value as many times as it appeared."
+          }
+        ],
+        "tryIt": "Print counts before building the result. You can read how many of each mark there were straight away.",
+        "check": {
+          "question": "What is the time cost of counting sort for N numbers in the range 0 to K?",
+          "options": [
+            "O(N log N)",
+            "O(N + K)",
+            "O(N x K)"
+          ],
+          "answer": 1,
+          "why": "One pass over N items to count and one pass over K+1 slots to write out: O(N + K)."
+        }
+      },
+      {
+        "title": "Sorting 0s, 1s and 2s in one pass",
+        "say": [
+          "Practice 1 is the Dutch national flag problem: sort a list containing only 0s, 1s and 2s in place, in a single pass, with O(1) extra space.",
+          "Use three pointers. Everything before low is 0, everything after high is 2, and mid scans the unknown part in between.",
+          "If nums[mid] is 0, swap it to low and move both low and mid on. If it is 1, it is already in the middle section, so just move mid. If it is 2, swap it to high and move high back, but do not move mid, because the swapped-in item has not been checked yet.",
+          "Stop when mid passes high. Every item was looked at once: O(N) time, O(1) space."
+        ],
+        "example": "Sorting a basket of red, white and blue balls into three sections of a single tray by moving each ball once, instead of counting and refilling.",
+        "code": "def sort_colors(nums):\n    low, mid, high = 0, 0, len(nums) - 1\n    while mid <= high:\n        if nums[mid] == 0:\n            nums[low], nums[mid] = nums[mid], nums[low]\n            low += 1\n            mid += 1\n        elif nums[mid] == 1:\n            mid += 1\n        else:\n            nums[mid], nums[high] = nums[high], nums[mid]\n            high -= 1\n    return nums\n\nprint(sort_colors([2, 0, 2, 1, 1, 0]))\nprint(sort_colors([2, 2, 0]))",
+        "output": "[0, 0, 1, 1, 2, 2]\n[0, 2, 2]",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A 0: swap it into the 0 section."
+          },
+          {
+            "line": 12,
+            "note": "A 2: swap it to the end, but check the swapped-in item next."
+          }
+        ],
+        "tryIt": "Add a print(nums, low, mid, high) at the start of the loop and follow the pointers on [2, 0, 1].",
+        "check": {
+          "question": "When nums[mid] is 2 and you swap it with nums[high], why does mid not move forward?",
+          "options": [
+            "It is a mistake",
+            "The item swapped in from high has not been checked yet",
+            "mid must stay at 0"
+          ],
+          "answer": 1,
+          "why": "The item that came from the high end could be a 0, 1 or 2, so mid must look at it before moving on."
+        }
+      },
+      {
+        "title": "Stable counting sort for records",
+        "say": [
+          "Real data is usually records, not bare numbers: students with a grade, orders with a priority. You want to sort the records by a small key and keep equal keys in their original order (stable).",
+          "The stable version builds one bucket per key value and appends each record to its bucket in the order it appears. Reading the buckets in key order gives a stable sort.",
+          "This bucket idea is the building block of radix sort in the next part.",
+          "It is still O(N + K): one pass to fill the buckets and one pass over the K buckets."
+        ],
+        "example": "Hospital triage: patients are put into priority 1, 2 and 3 queues as they arrive. Within each priority they are seen in the order they came in.",
+        "code": "def sort_by_small_key(records, key, max_key):\n    buckets = [[] for _ in range(max_key + 1)]\n    for r in records:\n        buckets[key(r)].append(r)\n    return [r for bucket in buckets for r in bucket]\n\npatients = [(\"Anil\", 2), (\"Bela\", 1), (\"Chirag\", 2), (\"Divya\", 1), (\"Esha\", 3)]\nfor name, priority in sort_by_small_key(patients, key=lambda p: p[1], max_key=3):\n    print(priority, name)",
+        "output": "1 Bela\n1 Divya\n2 Anil\n2 Chirag\n3 Esha",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Each record goes into its key's bucket, keeping arrival order."
+          },
+          {
+            "line": 5,
+            "note": "Read the buckets in order: a stable sort."
+          }
+        ],
+        "tryIt": "Add a patient (\"Farah\", 1) at the end of the list. She comes after Bela and Divya among priority 1.",
+        "check": {
+          "question": "Why is the bucket version of counting sort stable?",
+          "options": [
+            "Buckets are sorted afterwards",
+            "Records join each bucket in their original order",
+            "It uses random pivots"
+          ],
+          "answer": 1,
+          "why": "Records are appended to buckets in the order they appear, so equal keys keep their original order."
+        }
+      },
+      {
+        "title": "Radix sort: digit by digit",
+        "say": [
+          "Counting sort needs a small range. Radix sort handles big numbers by sorting them one digit at a time, using a stable counting sort for each digit.",
+          "Start with the ones digit, then the tens, then the hundreds. After the last digit, the list is fully sorted, because each stable pass keeps the order from the less important digits.",
+          "For N numbers with D digits, that is D passes of O(N + 10): O(D x N). For fixed-length numbers like PIN codes or phone numbers, D is a constant, so it is effectively linear.",
+          "Getting a digit is simple arithmetic: (number // 10**place) % 10."
+        ],
+        "example": "Sorting a stack of cheques by account number: first into 10 piles by the last digit, restack in order, then into piles by the second-last digit, and so on. After the first digit, the whole stack is in order.",
+        "code": "def radix_sort(nums):\n    place = 0\n    while any(n // 10 ** place for n in nums):\n        buckets = [[] for _ in range(10)]\n        for n in nums:\n            buckets[(n // 10 ** place) % 10].append(n)\n        nums = [n for b in buckets for n in b]\n        print(\"after digit\", place, \":\", nums)\n        place += 1\n    return nums\n\nradix_sort([170, 45, 75, 90, 802, 24, 2, 66])",
+        "output": "after digit 0 : [170, 90, 802, 2, 24, 45, 75, 66]\nafter digit 1 : [802, 2, 24, 45, 66, 170, 75, 90]\nafter digit 2 : [2, 24, 45, 66, 75, 90, 170, 802]",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Put each number in the bucket for its current digit."
+          },
+          {
+            "line": 7,
+            "note": "Restack in bucket order: a stable pass."
+          }
+        ],
+        "tryIt": "Add 1000 to the list. One more pass is needed for the thousands digit.",
+        "check": {
+          "question": "Which digit does this radix sort look at first?",
+          "options": [
+            "The most significant digit",
+            "The ones digit",
+            "A random digit"
+          ],
+          "answer": 1,
+          "why": "It starts with the ones digit (place 0) and works upwards; stable passes keep the earlier ordering."
+        }
+      },
+      {
+        "title": "Choosing a sort",
+        "say": [
+          "You now know several sorts. In everyday Python, use sorted(); it is fast, stable and tested.",
+          "Reach for counting sort when you have many whole numbers in a small range, like marks, ages or ratings. Reach for radix sort for many fixed-length numbers or codes.",
+          "Use the three-pointer method when there are only two or three distinct values and you must sort in place.",
+          "In interviews, say the constraint that makes a special sort possible: \"the values are only 0 to 100, so counting sort gives O(N)\". That shows you are thinking about the data, not just the algorithm."
+        ],
+        "example": "You would not hire a truck to move one chair, or carry a sofa on a bicycle. Picking a sort is picking the right vehicle for the load.",
+        "code": "def pick_sort(n, value_range, only_three_values=False):\n    if only_three_values:\n        return \"three pointers (Dutch flag)\"\n    if value_range <= 10 * n:\n        return \"counting sort\"\n    return \"sorted() (Timsort)\"\n\nprint(pick_sort(1000000, 101))\nprint(pick_sort(20, 1000000000))\nprint(pick_sort(50, 3, only_three_values=True))",
+        "output": "counting sort\nsorted() (Timsort)\nthree pointers (Dutch flag)",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "A small range compared with the amount of data suits counting sort."
+          }
+        ],
+        "tryIt": "Add a case for exam roll numbers: 5,000 students with numbers from 1 to 5,000. Which sort does pick_sort choose?",
+        "check": {
+          "question": "You have 5 million ratings from 1 to 5 stars. Which sort fits best?",
+          "options": [
+            "Quick sort",
+            "Counting sort",
+            "Merge sort"
+          ],
+          "answer": 1,
+          "why": "The range is tiny (5 values) and the data is huge, so counting sort runs in O(N + 5)."
+        }
+      }
+    ],
+    "summary": [
+      "Comparison sorts cannot beat O(N log N); counting sorts can, for small whole-number ranges.",
+      "Counting sort tallies each value and writes them back: O(N + K).",
+      "The Dutch national flag sorts 0s, 1s and 2s in one pass with three pointers.",
+      "Bucket-based counting sort is stable, which radix sort relies on.",
+      "Radix sort sorts digit by digit from the ones digit up: O(D x N)."
+    ],
+    "projectStep": {
+      "title": "Counting sort tools",
+      "steps": [
+        "Add counting_sort(arr, max_val) and sort_colors(nums) to dsa_toolkit.py.",
+        "Add radix_sort(nums) and compare its result with sorted() on 20 random numbers.",
+        "Bonus: sort your class's marks (0 to 100) with counting sort and print how many students got each mark."
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "title": "⭐ MILESTONE 2: High-Throughput Stream Median Finder (Dual Binary Heaps)",
+    "goal": "You can keep a running median of a stream of numbers in O(log N) per number using two heaps.",
+    "minutes": 30,
+    "recap": "Two weeks done: arrays, lists, stacks, queues, hashing, windows, searching and sorting. Milestone 2 combines them into a streaming engine.",
+    "parts": [
+      {
+        "title": "Streams and why sorting every time is too slow",
+        "say": [
+          "A stream is data that keeps arriving: prices every second, sensor readings, response times of a website. You often need a statistic after every new number.",
+          "The median is the middle value when the numbers are sorted. It is better than the average for things like response times, because one huge value does not drag it up.",
+          "With an odd count there is one middle value. With an even count there are two, and the median is their average, which is why some answers today are floats like 10.0.",
+          "Sorting all the numbers again after each arrival costs O(N log N) per number. After a million numbers, that is far too slow.",
+          "Today you will build a structure that adds a number in O(log N) and gives the median in O(1). It uses two heaps, which you will study in detail on Day 18."
+        ],
+        "example": "The median salary in a company: if the CEO gets a huge raise, the average salary jumps, but the median, the person in the middle, does not change. That is why it is a fairer summary.",
+        "code": "import statistics\n\nresponse_ms = [120, 95, 110, 105, 5000]\nprint(\"average:\", statistics.mean(response_ms))\nprint(\"median:\", statistics.median(response_ms))\n\nstream = [5, 15, 1, 3]\nseen = []\nfor x in stream:\n    seen.append(x)\n    print(\"after\", x, \"median is\", statistics.median(sorted(seen)))",
+        "output": "average: 1086\nmedian: 110\nafter 5 median is 5\nafter 15 median is 10.0\nafter 1 median is 5\nafter 3 median is 4.0",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "One slow request pulls the average up a lot."
+          },
+          {
+            "line": 11,
+            "note": "Sorting everything again each time: too slow for big streams."
+          }
+        ],
+        "tryIt": "Change 5000 to 50000 on line 3. The average jumps again; the median stays 110.",
+        "check": {
+          "question": "Why is the median often better than the average for response times?",
+          "options": [
+            "It is easier to compute",
+            "One extreme value does not drag it far",
+            "It is always smaller"
+          ],
+          "answer": 1,
+          "why": "The median only depends on the middle value, so a few very slow requests do not distort it."
+        }
+      },
+      {
+        "title": "heapq: a min-heap in Python",
+        "say": [
+          "A heap is a structure where the smallest item is always at the front, and adding or removing an item costs O(log N). Python's heapq module turns a plain list into a min-heap.",
+          "heapq.heappush(h, x) adds x, heapq.heappop(h) removes and returns the smallest, and h[0] peeks at the smallest without removing it.",
+          "Python only has a min-heap. For a max-heap, a common trick is to store negative numbers: the smallest negative is the largest original number.",
+          "You will build a heap yourself on Day 18. Today, use heapq as a tool."
+        ],
+        "example": "A hospital emergency room: whoever is most urgent is always seen next, no matter when they arrived. A heap always hands you the most urgent (smallest) item.",
+        "code": "import heapq\n\nh = []\nfor x in [7, 2, 9, 4]:\n    heapq.heappush(h, x)\nprint(\"smallest:\", h[0])\nprint(\"pop:\", heapq.heappop(h), heapq.heappop(h))\n\nmax_heap = []\nfor x in [7, 2, 9, 4]:\n    heapq.heappush(max_heap, -x)\nprint(\"largest:\", -max_heap[0])",
+        "output": "smallest: 2\npop: 2 4\nlargest: 9",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "h[0] is always the smallest item."
+          },
+          {
+            "line": 11,
+            "note": "Store negatives to turn a min-heap into a max-heap."
+          }
+        ],
+        "tryIt": "Pop everything from max_heap in a loop, printing -heapq.heappop(max_heap). The numbers come out largest first.",
+        "check": {
+          "question": "How do you get a max-heap with Python's heapq?",
+          "options": [
+            "heapq.maxheap()",
+            "Store negated values in a min-heap",
+            "Sort in reverse"
+          ],
+          "answer": 1,
+          "why": "heapq only provides a min-heap, so pushing -x makes the largest original value the smallest stored value."
+        }
+      },
+      {
+        "title": "Two heaps split the numbers in half",
+        "say": [
+          "The trick: keep the smaller half of the numbers in a max-heap called low, and the larger half in a min-heap called high.",
+          "The top of low is the largest of the small half; the top of high is the smallest of the big half. The median sits right between them.",
+          "Keep the halves balanced: low may have one more number than high, but never more. With an odd count, the median is the top of low. With an even count, it is the average of the two tops.",
+          "Each heap operation is O(log N), and reading the two tops is O(1).",
+          "Why not one heap? A single heap only gives you its smallest (or largest) item quickly. The median is in the middle, and two heaps turn the middle into the meeting point of two tops, which is exactly what heaps are good at."
+        ],
+        "example": "Splitting a class into a shorter half and a taller half, standing in two lines facing each other. The tallest of the short line and the shortest of the tall line meet in the middle: that is the median height.",
+        "code": "import heapq\n\nlow, high = [], []\nfor x in [1, 3, 5]:\n    heapq.heappush(low, -x)\nfor x in [7, 9]:\n    heapq.heappush(high, x)\n\nprint(\"small half top:\", -low[0], \"| big half top:\", high[0])\ncount = len(low) + len(high)\nmedian = -low[0] if count % 2 else (-low[0] + high[0]) / 2\nprint(\"median:\", median)",
+        "output": "small half top: 5 | big half top: 7\nmedian: 5",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "low is a max-heap of the smaller half (stored as negatives)."
+          },
+          {
+            "line": 11,
+            "note": "Odd count: the top of low. Even: average the two tops."
+          }
+        ],
+        "tryIt": "Push 8 into high and run again. Now there are 6 numbers and the median is (5 + 7) / 2 = 6.0.",
+        "check": {
+          "question": "In the two-heap design, where is the median when there is an odd number of values?",
+          "options": [
+            "At the top of high",
+            "At the top of low",
+            "At the bottom of low"
+          ],
+          "answer": 1,
+          "why": "low holds the extra number when the count is odd, and its top is the middle value."
+        }
+      },
+      {
+        "title": "Adding a number and rebalancing",
+        "say": [
+          "Practice 1 builds MedianFinder with add_num and find_median. The add has two steps: put the number in the right half, then fix the sizes.",
+          "A simple safe way: push the new number into low, then move low's largest to high. That guarantees every number in low is <= every number in high.",
+          "Then, if high has more numbers than low, move high's smallest back to low. Now low has the same number or one more.",
+          "Three heap operations per add, each O(log N): O(log N) per number, however long the stream gets."
+        ],
+        "example": "A new student joins the class line-up: they first stand with the short group, the tallest of that group steps over to the tall group, and if the tall group is now bigger, its shortest steps back.",
+        "code": "import heapq\n\nclass MedianFinder:\n    def __init__(self):\n        self.low = []\n        self.high = []\n\n    def add_num(self, num):\n        heapq.heappush(self.low, -num)\n        heapq.heappush(self.high, -heapq.heappop(self.low))\n        if len(self.high) > len(self.low):\n            heapq.heappush(self.low, -heapq.heappop(self.high))\n\n    def find_median(self):\n        if len(self.low) > len(self.high):\n            return -self.low[0]\n        return (-self.low[0] + self.high[0]) / 2\n\nmf = MedianFinder()\nfor x in [5, 15, 1, 3, 8]:\n    mf.add_num(x)\n    print(\"added\", x, \"median\", mf.find_median())",
+        "output": "added 5 median 5\nadded 15 median 10.0\nadded 1 median 5\nadded 3 median 4.0\nadded 8 median 5",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Move the largest of the small half across: halves stay in order."
+          },
+          {
+            "line": 12,
+            "note": "Keep low the same size as high or one bigger."
+          }
+        ],
+        "tryIt": "Add a print of -low[0] and high[0] after each add to watch the two halves meet in the middle.",
+        "check": {
+          "question": "What is the cost of add_num in the two-heap MedianFinder?",
+          "options": [
+            "O(1)",
+            "O(log N)",
+            "O(N)"
+          ],
+          "answer": 1,
+          "why": "It does a few heap pushes and pops, each O(log N), so adding is O(log N)."
+        }
+      },
+      {
+        "title": "Running medians of a stream",
+        "say": [
+          "Practice 2 returns the median after each number is added: the running median. With MedianFinder this is one loop.",
+          "Check the answers by hand for a short stream. For [5, 15, 1, 3]: after 5 the median is 5; after 15 it is 10.0; after 1 it is 5; after 3 it is 4.0.",
+          "Notice the type: an even count gives a float from the division, like 10.0, while an odd count gives the number itself. Tests in the practice compare with exactly these values.",
+          "The same engine is used for real-time dashboards, where you want the median latency of the last requests updated live."
+        ],
+        "example": "A live cricket scoreboard showing the median runs per over, updated after every over, without re-reading all the overs from the start.",
+        "code": "import heapq\n\ndef running_medians(nums):\n    low, high, out = [], [], []\n    for num in nums:\n        heapq.heappush(low, -num)\n        heapq.heappush(high, -heapq.heappop(low))\n        if len(high) > len(low):\n            heapq.heappush(low, -heapq.heappop(high))\n        out.append(-low[0] if len(low) > len(high) else (-low[0] + high[0]) / 2)\n    return out\n\nprint(running_medians([5, 15, 1, 3]))\nprint(running_medians([2, 2, 2]))",
+        "output": "[5, 10.0, 5, 4.0]\n[2, 2.0, 2]",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Record the median after every number."
+          }
+        ],
+        "tryIt": "Run it on your own list of 6 daily temperatures and check the last value against statistics.median.",
+        "check": {
+          "question": "What is the running median list for [4, 8]?",
+          "options": [
+            "[4, 8]",
+            "[4, 6.0]",
+            "[6.0, 6.0]"
+          ],
+          "answer": 1,
+          "why": "After 4 alone the median is 4; after 4 and 8 it is (4 + 8) / 2 = 6.0."
+        }
+      },
+      {
+        "title": "Milestone review: what you built",
+        "say": [
+          "This milestone combined several ideas: Big-O thinking (O(log N) instead of re-sorting), heaps as priority queues, and careful balancing of two structures.",
+          "Compare the costs: re-sorting after every number is O(N log N) each time; keeping a sorted list with bisect.insort is O(N) each time because of shifting; two heaps are O(log N) each time.",
+          "For a million numbers, that is the difference between minutes and a fraction of a second. The code below measures the insort method against two heaps on the same stream.",
+          "You are now ready for trees and heaps in detail next week. Well done on reaching Milestone 2."
+        ],
+        "example": "Three ways to keep a queue in height order as people arrive: re-line everyone each time, squeeze each person into the right place, or keep two groups meeting in the middle. The last one is fastest for huge crowds.",
+        "code": "import bisect\nimport heapq\nimport random\nimport time\n\nrandom.seed(5)\nstream = [random.randint(1, 1000000) for _ in range(20000)]\n\nstart = time.perf_counter()\narr = []\nfor x in stream:\n    bisect.insort(arr, x)\ninsort_median = arr[len(arr) // 2]\ninsort_time = time.perf_counter() - start\n\nstart = time.perf_counter()\nlow, high = [], []\nfor x in stream:\n    heapq.heappush(low, -x)\n    heapq.heappush(high, -heapq.heappop(low))\n    if len(high) > len(low):\n        heapq.heappush(low, -heapq.heappop(high))\nheap_median = (-low[0] + high[0]) / 2\nheap_time = time.perf_counter() - start\n\nprint(\"same median:\", (arr[9999] + arr[10000]) / 2 == heap_median)\nprint(\"both finished:\", insort_time > 0 and heap_time > 0)",
+        "output": "same median: True\nboth finished: True",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "insort finds the place in O(log N) but shifting is O(N)."
+          },
+          {
+            "line": 26,
+            "note": "Both methods agree on the median of all 20,000 numbers."
+          }
+        ],
+        "tryIt": "Print round(insort_time, 3) and round(heap_time, 3) to compare them on your machine. Increase the stream to 100,000 and compare again.",
+        "check": {
+          "question": "What is the cost per number of keeping a sorted list with bisect.insort?",
+          "options": [
+            "O(log N)",
+            "O(N), because items shift to make room",
+            "O(1)"
+          ],
+          "answer": 1,
+          "why": "Finding the position is O(log N), but inserting into the list shifts items: O(N)."
+        }
+      }
+    ],
+    "summary": [
+      "The median resists extreme values; streams need it updated after every number.",
+      "heapq gives a min-heap; store negatives for a max-heap.",
+      "Keep the smaller half in a max-heap and the larger half in a min-heap.",
+      "Add with push, move across, rebalance: O(log N); read the median in O(1).",
+      "Even counts give the average of the two tops (a float); odd counts give the top of the small half."
+    ],
+    "projectStep": {
+      "title": "Milestone 2: stream median",
+      "steps": [
+        "Add the MedianFinder class to dsa_toolkit.py.",
+        "Add running_medians(nums) and check it against statistics.median on a few lists.",
+        "Bonus: simulate 1,000 random response times and print the median after every 100."
+      ]
+    }
   }
 ];
