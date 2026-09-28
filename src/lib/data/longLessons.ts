@@ -13,6 +13,7 @@ import { PYTHON_LONG_LESSONS } from './pythonLongLessons';
 import { SQL_LONG_LESSONS } from './sqlLongLessons';
 import { DSA_PYTHON_LONG_LESSONS } from './dsaPythonLongLessons';
 import { AI_PYTHON_LONG_LESSONS } from './aiPythonLongLessons';
+import { DIST_PYTHON_LONG_LESSONS } from './distPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -67,6 +68,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'sql-mastery': SQL_LONG_LESSONS,
   'dsa-py': DSA_PYTHON_LONG_LESSONS,
   'ai-py': AI_PYTHON_LONG_LESSONS,
+  'dist-py': DIST_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
