@@ -42,7 +42,63 @@ function spread<T>(items: T[], count: number): T[] {
   return Array.from({ length: count }, (_, i) => items[Math.floor(step * i + step / 2)]);
 }
 
-function questionsForDay(prefix: string, day: number): TestQuestion[] {
+/** A predict-the-output check before its answer choices are made (see getTestQuestions). */
+interface OutputQuestion {
+  question: string;
+  answer: string;
+  explanation: string;
+  seed: number;
+}
+
+/** 'number', 'code' (like VALIDATION_FAILED), 'colour' (#ffffff) or 'text', so a wrong choice looks like the right one. */
+function answerShape(answer: string): string {
+  if (/^[-+$]?[\d.,]+%?$/.test(answer.trim())) return 'number';
+  if (/^[A-Z][A-Z0-9]*(_[A-Z0-9]+)+$/.test(answer.trim())) return 'code';
+  if (/^#[0-9a-f]{3,8}$/i.test(answer.trim())) return 'colour';
+  return 'text';
+}
+
+/** Same pick every time for the same question, so a retake shows the same test. */
+function seededOrder<T>(items: T[], seed: number): T[] {
+  return items
+    .map((item, i) => ({ item, key: Math.sin(seed * 9301 + i * 49297) }))
+    .sort((a, b) => a.key - b.key)
+    .map((x) => x.item);
+}
+
+/**
+ * The right output among 3 wrong ones. The wrong ones are other lessons' outputs of the same shape
+ * (a number among numbers, a code among codes), so the answer cannot be spotted without knowing it.
+ */
+function withChoices(q: OutputQuestion, pool: string[]): TestQuestion {
+  const others = [...new Set(pool)].filter((a) => a !== q.answer);
+  const sameShape = seededOrder(others.filter((a) => answerShape(a) === answerShape(q.answer)), q.seed);
+  const otherShape = seededOrder(others.filter((a) => answerShape(a) !== answerShape(q.answer)), q.seed);
+  const fallback = ['undefined', 'null', 'An error'].filter((a) => a !== q.answer);
+  const wrong = [...sameShape, ...otherShape, ...fallback].slice(0, 3);
+  const answerIndex = q.seed % (wrong.length + 1);
+  const options = [...wrong];
+  options.splice(answerIndex, 0, q.answer);
+  return { question: q.question, options, answerIndex, explanation: q.explanation };
+}
+
+function outputQuestionsForDay(prefix: string, day: number): OutputQuestion[] {
+  if (getLongLesson(prefix, day)) return [];
+  const plan = resolvePilotDay(prefix, day);
+  const blocks: any[] = Array.isArray(plan?.blocks) ? plan.blocks : [];
+  const out: OutputQuestion[] = [];
+  blocks.forEach((block, i) => {
+    const d = block?.diagnosticCheck;
+    const question = d?.questionPrompt || d?.question;
+    const hasOptions = Array.isArray(d?.options) && d.options.length >= 2 && typeof d.correctIndex === 'number';
+    if (question && !hasOptions && typeof d.expectedStringOutput === 'string' && d.expectedStringOutput) {
+      out.push({ question, answer: d.expectedStringOutput, explanation: typeof d.explanation === 'string' ? d.explanation : '', seed: day * 7 + i });
+    }
+  });
+  return out;
+}
+
+function questionsForDay(prefix: string, day: number, pool: string[] = []): TestQuestion[] {
   const long = getLongLesson(prefix, day);
   if (long) {
     return spread(long.parts, QUESTIONS_PER_DAY).map((p) => ({
@@ -63,12 +119,8 @@ function questionsForDay(prefix: string, day: number): TestQuestion[] {
     if (Array.isArray(d.options) && d.options.length >= 2 && typeof d.correctIndex === 'number' && d.options[d.correctIndex] !== undefined) {
       fromPlan.push({ question, options: d.options, answerIndex: d.correctIndex, explanation: typeof d.explanation === 'string' ? d.explanation : '' });
     } else if (typeof d.expectedStringOutput === 'string' && d.expectedStringOutput) {
-      // Predict-the-output checks: offer the right output among two common wrong answers, at a varying position.
-      const wrong = ['undefined', 'null', 'An error'].filter((w) => w !== d.expectedStringOutput).slice(0, 2);
-      const answerIndex = (day + i) % 3;
-      const options = [...wrong];
-      options.splice(answerIndex, 0, d.expectedStringOutput);
-      fromPlan.push({ question, options, answerIndex, explanation: typeof d.explanation === 'string' ? d.explanation : '' });
+      // Predict-the-output checks: the right output among other lessons' outputs.
+      fromPlan.push(withChoices({ question, answer: d.expectedStringOutput, explanation: typeof d.explanation === 'string' ? d.explanation : '', seed: day * 7 + i }, pool));
     }
   });
   return spread(fromPlan, QUESTIONS_PER_DAY);
@@ -76,8 +128,11 @@ function questionsForDay(prefix: string, day: number): TestQuestion[] {
 
 /** The questions of the test covering days start..end of a course (empty if the days have none). */
 export function getTestQuestions(prefix: string, start: number, end: number): TestQuestion[] {
+  // Wrong choices come from the outputs of the lessons around this block (10 days either side).
+  const pool: string[] = [];
+  for (let day = Math.max(1, start - 10); day <= end + 10; day++) pool.push(...outputQuestionsForDay(prefix, day).map((q) => q.answer));
   const out: TestQuestion[] = [];
-  for (let day = start; day <= end; day++) out.push(...questionsForDay(prefix, day));
+  for (let day = start; day <= end; day++) out.push(...questionsForDay(prefix, day, pool));
   return out;
 }
 

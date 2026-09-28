@@ -62,3 +62,22 @@ test('every day-based course has a test for each block of 5 days', () => {
   }
   assert.deepEqual(missing, []);
 });
+
+test('test questions offer real wrong answers, not undefined/null filler', () => {
+  const filler = ['undefined', 'null', 'An error'];
+  let total = 0;
+  let withFiller = 0;
+  for (const course of COURSES_REGISTRY) {
+    for (const quest of course.quests) {
+      const parsed = parseTestQuestId(quest.id);
+      if (!parsed) continue;
+      for (const q of getTestQuestions(parsed.prefix, parsed.start, parsed.end)) {
+        total++;
+        assert.equal(new Set(q.options).size, q.options.length, `repeated choice in "${q.question}"`);
+        if (!filler.includes(q.options[q.answerIndex]) && q.options.some((o) => filler.includes(o))) withFiller++;
+      }
+    }
+  }
+  // Filler is only a last resort for a course with almost no other outputs to borrow from.
+  assert.ok(withFiller <= total * 0.01, `${withFiller} of ${total} questions still use filler choices`);
+});
