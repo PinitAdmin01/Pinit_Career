@@ -385,13 +385,21 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'SELECT * FROM tasks;',
           'INSERT INTO tasks (done) VALUES (true);'
         ),
-        output: '[Error] null value in column "title" of relation "tasks" violates not-null constraint',
+        output: lines(
+          ' title             | done  | priority',
+          '-------------------+-------+----------',
+          ' Finish SQL lesson | false | normal',
+          ' Pay phone bill    | false | high',
+          '(2 rows)',
+          '',
+          '[Error] null value in column "title" of relation "tasks" violates not-null constraint'
+        ),
         codeNotes: [
           { line: 2, note: 'title is required.' },
           { line: 6, note: 'Only title is given, so done becomes false and priority becomes normal.' },
-          { line: 9, note: 'No title: PostgreSQL refuses the whole run, so we only see this error.' }
+          { line: 9, note: 'No title: PostgreSQL refuses this row, and the run stops here with the error.' }
         ],
-        tryIt: 'Delete line 9 and run it again. Now you see the two tasks, with the defaults filled in for the first one.',
+        tryIt: "Fix line 9 so the new task has a title: INSERT INTO tasks (title, done) VALUES ('Water plants', true); and add SELECT * FROM tasks; after it. Now you see three tasks.",
         check: {
           question: 'What does DEFAULT false do on a done column?',
           options: ['Fills in false when a new row does not give a value', 'Makes done always false', 'Stops anyone setting done'],
@@ -2190,13 +2198,25 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'SELECT customer, total FROM orders ORDER BY total DESC LIMIT 1;',
           'SELECT customer, max(total) FROM orders;'
         ),
-        output: '[Error] column "orders.customer" must appear in the GROUP BY clause or be used in an aggregate function',
+        output: lines(
+          ' first_order | last_order | first_name_a_to_z',
+          '-------------+------------+-------------------',
+          ' 2026-09-03  | 2026-09-25 | Asha',
+          '(1 row)',
+          '',
+          ' customer | total',
+          '----------+---------',
+          ' Ravi     | 1200.00',
+          '(1 row)',
+          '',
+          '[Error] column "orders.customer" must appear in the GROUP BY clause or be used in an aggregate function'
+        ),
         codeNotes: [
           { line: 3, note: 'Earliest and latest dates, and the first name in A to Z order.' },
           { line: 4, note: 'The right way to find who placed the biggest order.' },
           { line: 5, note: 'This mixes one-per-row values with one-for-all: PostgreSQL refuses.' }
         ],
-        tryIt: 'Delete line 5 and run again. You will see the first and last order dates, and Ravi\'s order as the biggest.',
+        tryIt: 'Fix line 5 by adding GROUP BY customer at the end, and run it again. Now it shows each customer\'s biggest order.',
         check: {
           question: 'How do you find the name of the most expensive product?',
           options: ['SELECT name FROM products ORDER BY price DESC LIMIT 1', 'SELECT name, max(price) FROM products', 'SELECT max(name) FROM products'],
@@ -2369,7 +2389,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'Why? Each result row represents a whole group. The category is the same for the whole group, so it can be shown. The count is one number for the group, so it can be shown. But a product name? There are several names in the stationery group. PostgreSQL does not know which one you want, so it refuses.',
           'The error message says exactly this: column must appear in the GROUP BY clause or be used in an aggregate function. When you see it, look at the column it names and decide: do you want one row per value of that column (add it to GROUP BY), or a summary of it (wrap it in an aggregate)?',
           'There is a useful exception: if you group by a table\'s primary key, PostgreSQL knows every other column of that table has only one value per group, so you may show them. You will use this with joins later.',
-          'Some other databases, like older versions of MySQL, quietly pick a random value instead of refusing. PostgreSQL\'s strictness is a good thing: it stops wrong reports.'
+          'Some other databases, like older versions of MySQL, quietly pick a random value instead of refusing. PostgreSQL\'s strictness is a good thing: it stops wrong reports.',
+          'If you really do want one example value from each group, say so explicitly with an aggregate: min(name) or max(name) picks the first or last name in A to Z order. The query then states exactly which value you mean, and anyone reading it understands the result.'
         ],
         example: 'If a teacher reports the total marks for each house, she can say "Red house: 250 points". She cannot say "Red house: student name ___", because Red house has many students. She can only name something that is the same for the whole house, or a summary like "top scorer".',
         code: lines(
@@ -2378,12 +2399,20 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'SELECT category, max(price) AS top_price, min(name) AS first_name_a_to_z FROM products GROUP BY category ORDER BY category;',
           'SELECT category, name FROM products GROUP BY category;'
         ),
-        output: '[Error] column "products.name" must appear in the GROUP BY clause or be used in an aggregate function',
+        output: lines(
+          ' category    | top_price | first_name_a_to_z',
+          '-------------+-----------+-------------------',
+          ' electronics |   1499.00 | Headphones',
+          ' stationery  |     60.00 | Notebook',
+          '(2 rows)',
+          '',
+          '[Error] column "products.name" must appear in the GROUP BY clause or be used in an aggregate function'
+        ),
         codeNotes: [
           { line: 3, note: 'Allowed: category is grouped; max and min are aggregates.' },
           { line: 4, note: 'Not allowed: which of the names in each group should be shown?' }
         ],
-        tryIt: 'Delete line 4 and run again to see the first query\'s result. Then try GROUP BY category, name on line 4 instead: now each group is one product.',
+        tryIt: 'Change line 4 to end with GROUP BY category, name and run it again. Now each group is one product, so the query works.',
         check: {
           question: 'In SELECT city, name, count(*) FROM customers GROUP BY city, what is wrong?',
           options: ['name is neither in GROUP BY nor inside an aggregate', 'count(*) cannot be used with GROUP BY', 'city must be last'],
@@ -2926,7 +2955,17 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'ORDER BY o.id;',
           'SELECT id FROM orders o JOIN customers c ON c.id = o.customer_id;'
         ),
-        output: '[Error] column reference "id" is ambiguous',
+        output: lines(
+          ' order_id | customer_id | customer',
+          '----------+-------------+----------',
+          '      101 |           1 | Asha',
+          '      102 |           2 | Ravi',
+          '      103 |           1 | Asha',
+          '      104 |           3 | Priya',
+          '(4 rows)',
+          '',
+          '[Error] column reference "id" is ambiguous'
+        ),
         codeNotes: [
           { line: 10, note: 'o is the alias for orders, used from here on.' },
           { line: 13, note: 'Both tables have an id column, so PostgreSQL cannot tell which one you mean.' }
@@ -3824,13 +3863,22 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           'ORDER BY city, name;',
           'SELECT name, city FROM customers UNION SELECT company FROM suppliers;'
         ),
-        output: '[Error] each UNION query must have the same number of columns',
+        output: lines(
+          ' name       | city   | kind',
+          '------------+--------+----------',
+          ' Ravi       | Mumbai | customer',
+          ' Asha       | Pune   | customer',
+          ' Paper Mart | Pune   | supplier',
+          '(3 rows)',
+          '',
+          '[Error] each UNION query must have the same number of columns'
+        ),
         codeNotes: [
           { line: 5, note: 'A fixed text column records where each row came from.' },
           { line: 7, note: 'company goes under name because it is in the same position.' },
           { line: 9, note: 'Two columns on one side and one on the other: an error.' }
         ],
-        tryIt: 'Delete line 9 and run it again to see the combined list of customers and suppliers.',
+        tryIt: 'Fix line 9 by giving the suppliers part two columns: SELECT name, city FROM customers UNION SELECT company, city FROM suppliers; Now both queries work.',
         check: {
           question: 'How are columns matched between the two queries of a UNION?',
           options: ['By position: first with first, second with second', 'By column name', 'Alphabetically'],
@@ -5726,6 +5774,1484 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         'If a book can have several genres, design a book_genres table instead of a genres list column.',
         'Write down, for each column, what it is a fact about.',
         'Fix one design problem you find, using CREATE TABLE and INSERT ... SELECT.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 21,
+    title: 'Constraints That Protect Your Data',
+    goal: 'You can add UNIQUE and CHECK rules, change tables with ALTER TABLE, and choose what happens to linked rows when a row is deleted.',
+    minutes: 28,
+    recap: 'Yesterday you learned normalization: why repeated data causes problems and how to split tables so each fact is stored once.',
+    parts: [
+      {
+        title: 'Why rules belong in the database',
+        say: [
+          'A good design is only half the job. The other half is making sure bad data can never get in: a negative price, a duplicate email, an order for a customer who does not exist. Rules that PostgreSQL enforces are called constraints.',
+          'You already know several: NOT NULL, PRIMARY KEY, UNIQUE and FOREIGN KEY. Today you meet CHECK, learn to add rules to existing tables, and choose what happens to linked rows on delete.',
+          'Why not just check everything in the app? Because data reaches a database in many ways: the website, the mobile app, an admin tool, a one-off script, a data import. If the rule only lives in one app, the others can break it. A constraint protects the data whichever way it arrives.',
+          'Constraints also protect against bugs. Even careful developers make mistakes, and a constraint turns a silent bad value into a loud error at the moment it happens, which is much easier to fix than a wrong report months later.',
+          'Apps should still check input, to give users friendly messages like "please enter a positive amount". The database constraint is the final safety net behind the app, not a replacement for good forms.',
+          'Every constraint has a name. PostgreSQL makes one up if you do not, like products_price_check. Giving your own clear names makes error messages easier to understand.'
+        ],
+        example: 'A bank teller checks your withdrawal slip, but the bank\'s system also refuses to let any account go below zero, whoever enters the transaction. The teller is the app; the system rule is the constraint.',
+        code: lines(
+          'CREATE TABLE accounts (',
+          '  id int PRIMARY KEY,',
+          '  owner text NOT NULL,',
+          '  balance numeric(12,2) NOT NULL CONSTRAINT balance_not_negative CHECK (balance >= 0)',
+          ');',
+          "INSERT INTO accounts VALUES (1, 'Asha', 500);",
+          'UPDATE accounts SET balance = balance - 800 WHERE id = 1;'
+        ),
+        output: '[Error] new row for relation "accounts" violates check constraint "balance_not_negative"',
+        codeNotes: [
+          { line: 4, note: 'A named CHECK rule: the balance can never be below 0.' },
+          { line: 7, note: 'This would make the balance -300, so PostgreSQL refuses.' }
+        ],
+        tryIt: 'Change 800 to 300 on the last line and add SELECT * FROM accounts; after it. The update works, leaving 200.',
+        check: {
+          question: 'Why add a CHECK rule in the database when the app already checks the amount?',
+          options: ['Data can arrive from many places, and the rule protects it from all of them', 'Apps cannot check numbers', 'CHECK rules make queries faster'],
+          answer: 0,
+          why: 'Scripts, imports and other apps can bypass one app\'s checks. A constraint is enforced for every change.'
+        }
+      },
+      {
+        title: 'CHECK rules',
+        say: [
+          'A CHECK rule is a condition that every row must meet. You write it like a WHERE condition: CHECK (price > 0), CHECK (rating BETWEEN 1 AND 5), CHECK (status IN (\'pending\', \'shipped\', \'delivered\')).',
+          'PostgreSQL tests the condition on every INSERT and UPDATE. If it is false, the change is refused with an error naming the rule. If it is true, or NULL, the change goes ahead.',
+          'That last detail matters: a CHECK passes when the condition is NULL. So CHECK (price > 0) allows a NULL price. If the value is also required, add NOT NULL as well.',
+          'A CHECK can compare several columns of the same row: CHECK (end_date >= start_date) makes sure a booking does not end before it starts. Rules like this catch mistakes that a simple type cannot.',
+          'CHECK rules can only look at the row being changed. They cannot look at other rows or other tables. For rules that involve other tables, you use foreign keys, or more advanced tools like triggers.',
+          'Good CHECK rules describe business facts: prices are positive, discounts are between 0 and 100 percent, a quantity is at least 1. Ask the people who know the business which values should never be possible.'
+        ],
+        example: 'A cinema booking form will not let you pick a return journey before your departure, or book zero seats. Those are CHECK rules: simple facts about each booking that must always be true.',
+        code: lines(
+          'CREATE TABLE bookings (',
+          '  id int PRIMARY KEY,',
+          '  seats int NOT NULL CHECK (seats >= 1),',
+          '  start_date date NOT NULL,',
+          '  end_date date NOT NULL,',
+          '  CHECK (end_date >= start_date)',
+          ');',
+          "INSERT INTO bookings VALUES (1, 2, '2026-10-01', '2026-10-03');",
+          'SELECT * FROM bookings;',
+          "INSERT INTO bookings VALUES (2, 1, '2026-10-05', '2026-10-02');"
+        ),
+        output: lines(
+          ' id | seats | start_date | end_date',
+          '----+-------+------------+------------',
+          '  1 |     2 | 2026-10-01 | 2026-10-03',
+          '(1 row)',
+          '',
+          '[Error] new row for relation "bookings" violates check constraint "bookings_check"'
+        ),
+        codeNotes: [
+          { line: 3, note: 'At least one seat.' },
+          { line: 6, note: 'A rule about two columns of the same row.' },
+          { line: 10, note: 'Ends before it starts: refused.' }
+        ],
+        tryIt: "Fix line 10 so the booking ends after it starts, for example '2026-10-05' to '2026-10-07', and add SELECT count(*) FROM bookings; after it. Then try a booking with 0 seats.",
+        check: {
+          question: 'A column has CHECK (price > 0) but no NOT NULL. Can price be NULL?',
+          options: ['Yes, because a CHECK passes when the condition is NULL', 'No, CHECK blocks NULL', 'Only for the first row'],
+          answer: 0,
+          why: 'A NULL comparison gives NULL, not false, so the CHECK does not block it. Add NOT NULL to require a value.'
+        }
+      },
+      {
+        title: 'UNIQUE on one or several columns',
+        say: [
+          'UNIQUE stops two rows having the same value in a column, like an email or a username. You met it on Day 2. Today, two more uses.',
+          'A UNIQUE rule can cover several columns together: UNIQUE (student_id, course_id) means a student can enrol in many courses, and a course has many students, but the same student cannot enrol in the same course twice.',
+          'Combined uniqueness is very common in junction tables and in things like "one review per customer per product" or "one attendance mark per student per day".',
+          'UNIQUE treats NULLs as different from each other by default, so several rows can have a NULL email. If you need at most one row without a value, PostgreSQL has UNIQUE NULLS NOT DISTINCT, but that is rarely needed.',
+          'Behind the scenes, PostgreSQL creates an index for every UNIQUE rule and every primary key. That index is what lets it check for duplicates quickly, even in huge tables. You will learn about indexes on Day 23.',
+          'A UNIQUE rule also documents the design: anyone reading the table sees immediately that email identifies a user, or that one student has one row per course.'
+        ],
+        example: 'A college allows a student to join many clubs, and a club to have many students, but a student cannot sign up for the same club twice. The rule is about the pair: student plus club.',
+        code: lines(
+          'CREATE TABLE enrolments (',
+          '  student_id int NOT NULL,',
+          '  course_id int NOT NULL,',
+          '  enrolled_on date NOT NULL,',
+          '  UNIQUE (student_id, course_id)',
+          ');',
+          "INSERT INTO enrolments VALUES (1, 10, '2026-09-01'), (1, 20, '2026-09-01'), (2, 10, '2026-09-02');",
+          'SELECT count(*) AS enrolments FROM enrolments;',
+          "INSERT INTO enrolments VALUES (1, 10, '2026-09-05');"
+        ),
+        output: lines(
+          ' enrolments',
+          '------------',
+          '          3',
+          '(1 row)',
+          '',
+          '[Error] duplicate key value violates unique constraint "enrolments_student_id_course_id_key"'
+        ),
+        codeNotes: [
+          { line: 5, note: 'The pair must be unique; each value alone may repeat.' },
+          { line: 7, note: 'Student 1 in two courses, and course 10 with two students: all fine.' },
+          { line: 9, note: 'Student 1 in course 10 again: refused.' }
+        ],
+        tryIt: "Change line 9 to a new pair, like (2, 20, '2026-09-05'), and add SELECT count(*) FROM enrolments; after it. The new pair is accepted, making 4 enrolments.",
+        check: {
+          question: 'What does UNIQUE (student_id, course_id) prevent?',
+          options: ['The same student enrolling in the same course twice', 'A student enrolling in two courses', 'A course having two students'],
+          answer: 0,
+          why: 'A multi-column UNIQUE rule applies to the combination. Each column alone can still repeat.'
+        }
+      },
+      {
+        title: 'ALTER TABLE: changing a table that already exists',
+        say: [
+          'Tables change as an app grows: a new column, a new rule, a renamed column. You do not have to drop and recreate the table; ALTER TABLE changes it in place, keeping the data.',
+          'ALTER TABLE products ADD COLUMN discount numeric(5,2) DEFAULT 0 adds a column. ALTER TABLE products ADD CONSTRAINT price_positive CHECK (price > 0) adds a rule. ALTER TABLE products ALTER COLUMN name SET NOT NULL makes a column required.',
+          'When you add a rule, PostgreSQL checks it against every existing row first. If any row breaks the new rule, the ALTER fails, and nothing changes. That is a good thing: it tells you exactly which data needs cleaning before the rule can be added.',
+          'The usual workflow is: find the bad rows with a SELECT, fix them with an UPDATE, then add the constraint. The rule then keeps the data clean from that moment on.',
+          'You can also remove things: ALTER TABLE ... DROP COLUMN, DROP CONSTRAINT. Be careful, as dropping a column deletes its data.',
+          'In real teams, changes like these are written as migration scripts, small numbered files that are run in order on every copy of the database, so development, testing and live databases stay the same shape.'
+        ],
+        example: 'A school decides every student must now have a parent\'s phone number on file. Before making it compulsory, the office first finds the students without one and collects the numbers. Only then does the rule take effect. That is clean up first, then add the rule.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10), (2, 'Free sticker', 0), (3, 'Notebook', 60);",
+          'SELECT id, name FROM products WHERE price <= 0;',
+          "UPDATE products SET price = 1 WHERE name = 'Free sticker';",
+          'ALTER TABLE products ADD CONSTRAINT price_positive CHECK (price > 0);',
+          'ALTER TABLE products ADD COLUMN discount numeric(5,2) NOT NULL DEFAULT 0;',
+          'SELECT * FROM products ORDER BY id;'
+        ),
+        output: lines(
+          ' id | name',
+          '----+--------------',
+          '  2 | Free sticker',
+          '(1 row)',
+          '',
+          ' id | name         | price | discount',
+          '----+--------------+-------+----------',
+          '  1 | Pen          | 10.00 |     0.00',
+          '  2 | Free sticker |  1.00 |     0.00',
+          '  3 | Notebook     | 60.00 |     0.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Find the rows that would break the new rule.' },
+          { line: 4, note: 'Fix them first.' },
+          { line: 5, note: 'Now the rule can be added, and it protects the table from here on.' },
+          { line: 6, note: 'A new column; existing rows get the default.' }
+        ],
+        tryIt: 'Remove the UPDATE on line 4 and run it. The ALTER on line 5 fails, because the free sticker breaks the rule.',
+        check: {
+          question: 'What happens when you add a CHECK rule that some existing rows break?',
+          options: ['The ALTER TABLE fails, and you must fix those rows first', 'The bad rows are deleted', 'The rule is added but ignored for old rows'],
+          answer: 0,
+          why: 'PostgreSQL checks existing rows when adding a rule. If any break it, the change is refused.'
+        }
+      },
+      {
+        title: 'What happens on delete: CASCADE, SET NULL, RESTRICT',
+        say: [
+          'A foreign key links a child row to a parent row, like an order item to its order. What should happen to the children when the parent is deleted? You choose with ON DELETE.',
+          'The default is to refuse: you cannot delete an order that still has items. This is the safest choice, and you have seen its error already. RESTRICT is almost the same thing, written explicitly.',
+          'ON DELETE CASCADE deletes the children too. Delete an order, and its order items go with it. This makes sense when the children have no meaning without the parent: an order line without an order is useless.',
+          'ON DELETE SET NULL keeps the children but clears their link. Delete a salesperson, and their past orders stay, with no salesperson recorded. This makes sense when the children still matter on their own.',
+          'Choose carefully. CASCADE is convenient but powerful: deleting one customer with CASCADE all the way down could remove years of orders. For important business data, many companies prefer the default refusal, and use soft deletes instead, as you saw on Day 3.',
+          'There is also ON UPDATE, for when a parent\'s key changes, but with ids that never change, it is rarely needed.'
+        ],
+        example: 'If a school closes a club, its membership list is thrown away too, because members of a closed club mean nothing: that is CASCADE. If a teacher leaves, their old students are not deleted; the "class teacher" box just becomes empty: that is SET NULL.',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer text);',
+          'CREATE TABLE order_items (order_id int REFERENCES orders(id) ON DELETE CASCADE, product text);',
+          'CREATE TABLE staff (id int PRIMARY KEY, name text);',
+          'CREATE TABLE deliveries (id int PRIMARY KEY, staff_id int REFERENCES staff(id) ON DELETE SET NULL);',
+          "INSERT INTO orders VALUES (1, 'Asha'), (2, 'Ravi');",
+          "INSERT INTO order_items VALUES (1, 'Pen'), (1, 'Notebook'), (2, 'Backpack');",
+          "INSERT INTO staff VALUES (7, 'Vikram');",
+          'INSERT INTO deliveries VALUES (100, 7), (101, 7);',
+          'DELETE FROM orders WHERE id = 1;',
+          'DELETE FROM staff WHERE id = 7;',
+          'SELECT count(*) AS items_left FROM order_items;',
+          'SELECT id, staff_id FROM deliveries ORDER BY id;'
+        ),
+        output: lines(
+          ' items_left',
+          '------------',
+          '          1',
+          '(1 row)',
+          '',
+          ' id  | staff_id',
+          '-----+----------',
+          ' 100 |     NULL',
+          ' 101 |     NULL',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 2, note: 'CASCADE: deleting an order deletes its items.' },
+          { line: 4, note: 'SET NULL: deleting a staff member keeps the deliveries, without a name.' },
+          { line: 11, note: 'Only order 2\'s item is left.' }
+        ],
+        tryIt: 'Remove ON DELETE CASCADE from line 2 and run it. Deleting order 1 is now refused, because it still has items.',
+        check: {
+          question: 'Which ON DELETE option fits "order items should be removed when their order is deleted"?',
+          options: ['CASCADE', 'SET NULL', 'The default (refuse)'],
+          answer: 0,
+          why: 'Order items have no meaning without their order, so deleting them together with it makes sense.'
+        }
+      },
+      {
+        title: 'Putting it together: a well-protected table',
+        say: [
+          'Let us design a reviews table with every rule from this week: an id, a product that must exist, a customer, a rating from 1 to 5, and one review per customer per product. Reviews are deleted with their product.',
+          'Read the CREATE TABLE line by line: each rule is one short phrase, and together they describe exactly what a valid review is. Anyone joining the team can read the rules straight from the design.',
+          'Then we try three bad inserts inside separate statements. Each is refused with a clear message naming the broken rule. In a real app, those messages would be turned into friendly text for the user.',
+          'In today\'s practice, you will add a UNIQUE email and a CHECK on balance to an existing accounts table with ALTER TABLE, and create a books table whose rows are deleted along with their author.',
+          'Tomorrow you learn transactions: how to make several changes happen together, all or nothing, which is the other half of keeping data safe.',
+          'A table with good constraints is like a building with good foundations. You rarely think about them, but they are what stop everything falling apart when something unexpected happens.'
+        ],
+        example: 'A well-run exam hall has rules printed at the door: one seat per student, only registered students, no phones. The invigilator does not need to remember them all; the rules are on the wall for everyone. Constraints are the rules on the wall of your table.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text NOT NULL);',
+          "INSERT INTO products VALUES (1, 'Notebook');",
+          'CREATE TABLE reviews (',
+          '  id serial PRIMARY KEY,',
+          '  product_id int NOT NULL REFERENCES products(id) ON DELETE CASCADE,',
+          '  customer text NOT NULL,',
+          '  rating int NOT NULL CHECK (rating BETWEEN 1 AND 5),',
+          '  UNIQUE (product_id, customer)',
+          ');',
+          "INSERT INTO reviews (product_id, customer, rating) VALUES (1, 'Asha', 5);",
+          'SELECT product_id, customer, rating FROM reviews;',
+          "INSERT INTO reviews (product_id, customer, rating) VALUES (1, 'Asha', 4);"
+        ),
+        output: lines(
+          ' product_id | customer | rating',
+          '------------+----------+--------',
+          '          1 | Asha     |      5',
+          '(1 row)',
+          '',
+          '[Error] duplicate key value violates unique constraint "reviews_product_id_customer_key"'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Must be a real product; reviews go when the product goes.' },
+          { line: 7, note: 'Ratings from 1 to 5 only.' },
+          { line: 8, note: 'One review per customer per product.' },
+          { line: 12, note: 'Asha reviewing the same product again: refused.' }
+        ],
+        tryIt: "Change the last line to a rating of 9 for a new customer, like ('Ravi', 9), and read which rule refuses it.",
+        check: {
+          question: 'Which rule stops Asha reviewing the same product twice?',
+          options: ['UNIQUE (product_id, customer)', 'CHECK (rating BETWEEN 1 AND 5)', 'The foreign key on product_id'],
+          answer: 0,
+          why: 'The multi-column UNIQUE rule allows one row per product and customer pair.'
+        }
+      }
+    ],
+    summary: [
+      'Constraints are rules PostgreSQL enforces for every change, from every app or script.',
+      'CHECK (condition) must be true or NULL for every row; add NOT NULL to require a value.',
+      'UNIQUE can cover several columns together, like one enrolment per student per course.',
+      'ALTER TABLE adds columns and rules; fix existing bad rows first.',
+      'ON DELETE: the default refuses, CASCADE deletes children, SET NULL clears the link.'
+    ],
+    projectStep: {
+      title: 'My Library: add safety rules',
+      steps: [
+        'Add CHECK (pages > 0) to your books table with ALTER TABLE.',
+        'Add a rating column with CHECK (rating BETWEEN 1 AND 5).',
+        'Make each title unique per author with UNIQUE (title, author_id).',
+        'Decide what should happen to books when an author is deleted, and set ON DELETE.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 22,
+    title: 'Transactions: All or Nothing',
+    goal: 'You can group changes into a transaction with BEGIN and COMMIT, undo them with ROLLBACK, and explain ACID in plain words.',
+    minutes: 28,
+    recap: 'Yesterday you protected tables with CHECK, UNIQUE, ALTER TABLE and ON DELETE rules.',
+    parts: [
+      {
+        title: 'Why some changes must happen together',
+        say: [
+          'Some jobs need several changes that only make sense together. Moving 500 rupees from Asha to Ravi means taking 500 from Asha and adding 500 to Ravi. If the first change happens and the second fails, 500 rupees have simply vanished.',
+          'Failures happen: the server restarts, the network drops, a constraint rejects a value, a bug throws an error halfway. Without protection, the data is left half-changed, and nobody may notice until the numbers stop adding up.',
+          'A transaction solves this. It groups several statements into one unit that either happens completely, or not at all. There is no in-between state that anyone else can see.',
+          'You start a transaction with BEGIN, run your statements, and finish with COMMIT to make them permanent. If anything goes wrong before COMMIT, all the changes since BEGIN are undone.',
+          'Every single statement in PostgreSQL is already its own small transaction. An UPDATE that changes a thousand rows changes all of them or none of them. BEGIN and COMMIT let you extend that guarantee across several statements.',
+          'Banks, shops, ticket booking sites and every app that handles money or stock rely on transactions. Understanding them is a basic requirement for backend developer jobs.'
+        ],
+        example: 'When you pay at a shop by UPI, the money must leave your account and reach the shop together. You would be very upset if it left your account and never arrived. The bank wraps both steps in one transaction.',
+        code: lines(
+          'CREATE TABLE accounts (id int PRIMARY KEY, owner text, balance numeric(12,2) CHECK (balance >= 0));',
+          "INSERT INTO accounts VALUES (1, 'Asha', 1000), (2, 'Ravi', 200);",
+          'BEGIN;',
+          'UPDATE accounts SET balance = balance - 500 WHERE id = 1;',
+          'UPDATE accounts SET balance = balance + 500 WHERE id = 2;',
+          'COMMIT;',
+          'SELECT owner, balance FROM accounts ORDER BY id;',
+          'SELECT sum(balance) AS total_money FROM accounts;'
+        ),
+        output: lines(
+          ' owner | balance',
+          '-------+---------',
+          ' Asha  |  500.00',
+          ' Ravi  |  700.00',
+          '(2 rows)',
+          '',
+          ' total_money',
+          '-------------',
+          '     1200.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Start the transaction.' },
+          { line: 4, note: 'Both updates belong together.' },
+          { line: 6, note: 'Make both permanent at once.' },
+          { line: 8, note: 'The total is still 1200: no money appeared or vanished.' }
+        ],
+        tryIt: 'Change the amount to 5000 in both updates and run it. The first update breaks the CHECK rule, the transaction fails, and nothing changes.',
+        check: {
+          question: 'What does a transaction guarantee?',
+          options: ['All its changes happen together, or none of them happen', 'It runs faster than separate statements', 'It cannot contain UPDATE statements'],
+          answer: 0,
+          why: 'A transaction is all or nothing: either every change is committed, or all are undone.'
+        }
+      },
+      {
+        title: 'ROLLBACK: undoing on purpose',
+        say: [
+          'COMMIT keeps the changes. ROLLBACK throws them away. Everything done since BEGIN is undone, as if it never happened.',
+          'Apps use ROLLBACK when they discover a problem partway through: the item is out of stock, the payment was declined, the user pressed cancel. Instead of trying to reverse each change by hand, they simply roll back.',
+          'ROLLBACK is also a great safety tool when you work on a real database by hand. Start with BEGIN, run your UPDATE, check the result with a SELECT, and only COMMIT if it looks right. If it looks wrong, ROLLBACK, and nothing was damaged.',
+          'Inside the transaction, your own SELECTs see your changes, even before COMMIT. That is how you check them. Other people connected to the database do not see them until you commit.',
+          'Remember the Day 3 warning about UPDATE without WHERE? Working inside BEGIN turns that disaster into a small scare: you see the wrong row count, you ROLLBACK, and every row is back as it was.',
+          'Do not leave a transaction open for long. While it is open, it may hold locks that make other people wait. Check, then commit or roll back quickly.'
+        ],
+        example: 'Writing an important email: you write a draft, read it through, and either press Send or Discard. BEGIN starts the draft, SELECT is reading it through, COMMIT is Send, and ROLLBACK is Discard.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10), (2, 'Notebook', 60), (3, 'Backpack', 1200);",
+          'BEGIN;',
+          'UPDATE products SET price = 0;',
+          'SELECT count(*) AS free_products FROM products WHERE price = 0;',
+          'ROLLBACK;',
+          'SELECT name, price FROM products ORDER BY id;'
+        ),
+        output: lines(
+          ' free_products',
+          '---------------',
+          '             3',
+          '(1 row)',
+          '',
+          ' name     | price',
+          '----------+---------',
+          ' Pen      |   10.00',
+          ' Notebook |   60.00',
+          ' Backpack | 1200.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'A mistake: no WHERE, so every product becomes free.' },
+          { line: 5, note: 'Checking inside the transaction shows the damage: 3 free products.' },
+          { line: 6, note: 'ROLLBACK undoes everything since BEGIN.' },
+          { line: 7, note: 'All prices are back.' }
+        ],
+        tryIt: 'Change ROLLBACK to COMMIT and run it. This time the mistake is saved, and every price is 0.',
+        check: {
+          question: 'You ran an UPDATE inside BEGIN and it changed far more rows than expected. What should you do?',
+          options: ['ROLLBACK, so all changes since BEGIN are undone', 'COMMIT and fix it later', 'Run DELETE'],
+          answer: 0,
+          why: 'Before COMMIT, ROLLBACK safely undoes every change made in the transaction.'
+        }
+      },
+      {
+        title: 'Errors inside a transaction',
+        say: [
+          'When a statement inside a transaction fails, for example because it breaks a constraint, PostgreSQL marks the whole transaction as failed. Every further statement is refused until you end it.',
+          'You will see a message like "current transaction is aborted, commands ignored until end of transaction block". It means: something already went wrong, so nothing else will run. End the transaction, and the failed changes are all undone.',
+          'This is the "all or nothing" rule in action. PostgreSQL will not let you continue as if the failed step had worked, because that could leave the data half-changed.',
+          'In apps, database libraries handle this for you. You write your steps inside a transaction block, and if any step throws an error, the library rolls back automatically. You will see this with Python and Node.js on Day 26.',
+          'The important habit is to put all the steps of one business action, like "place an order", inside one transaction: create the order, add the items, reduce the stock. If the stock update fails, the order and its items vanish too.',
+          'In the lesson editor, the error stops the run, so you only see the error message, but the idea is exactly the same: the failed transaction changed nothing.'
+        ],
+        example: 'A train reservation for a family of four: if only three seats are available, the system does not book three people and leave the fourth stranded. The whole booking fails, and nobody is charged. One failed step cancels the whole group.',
+        code: lines(
+          'CREATE TABLE stock (product text PRIMARY KEY, units int CHECK (units >= 0));',
+          "INSERT INTO stock VALUES ('Pen', 5);",
+          'CREATE TABLE sales (product text, quantity int);',
+          'BEGIN;',
+          "INSERT INTO sales VALUES ('Pen', 8);",
+          "UPDATE stock SET units = units - 8 WHERE product = 'Pen';",
+          'COMMIT;'
+        ),
+        output: '[Error] new row for relation "stock" violates check constraint "stock_units_check"',
+        codeNotes: [
+          { line: 5, note: 'The sale is recorded first...' },
+          { line: 6, note: '...but there are only 5 pens, so the stock would go below 0 and the CHECK refuses.' },
+          { line: 7, note: 'Because of the error, the whole transaction is undone, including the sale.' }
+        ],
+        tryIt: 'Change 8 to 3 in both lines, and add SELECT * FROM stock; SELECT * FROM sales; at the end. Now both changes are saved together.',
+        check: {
+          question: 'Inside a transaction, the second of three statements fails. What happens to the first one\'s changes?',
+          options: ['They are undone along with everything else in the transaction', 'They stay saved', 'Only the third statement is undone'],
+          answer: 0,
+          why: 'A failed transaction commits nothing. All changes since BEGIN are discarded.'
+        }
+      },
+      {
+        title: 'ACID in plain words',
+        say: [
+          'Databases like PostgreSQL promise four properties for transactions, remembered as ACID. It is a classic interview question, so here it is in plain words.',
+          'A is for Atomic: all or nothing. A transaction cannot be half done. You have seen this in every example today.',
+          'C is for Consistent: a transaction takes the database from one valid state to another. Every constraint, like "balance never below zero", holds before and after. If a change would break a rule, the transaction fails instead.',
+          'I is for Isolated: transactions running at the same time do not see each other\'s unfinished work. While your transfer is half done, nobody else sees Asha\'s money gone and Ravi\'s not yet arrived.',
+          'D is for Durable: once COMMIT succeeds, the change survives, even if the server loses power a second later. PostgreSQL writes it to a log on disk before saying "committed".',
+          'These four promises are why banks, hospitals and shops trust relational databases with their most important data. Some newer databases relax them for speed, which is one of the trade-offs you will read about on Day 29.'
+        ],
+        example: 'Think of posting a registered letter. Atomic: it is either sent or not. Consistent: it follows the post office\'s rules. Isolated: nobody sees it half-posted. Durable: once you have the receipt, it is officially sent, even if the counter\'s computer crashes afterwards.',
+        code: lines(
+          'CREATE TABLE seats (seat text PRIMARY KEY, booked_by text);',
+          "INSERT INTO seats VALUES ('A1', NULL), ('A2', NULL);",
+          'BEGIN;',
+          "UPDATE seats SET booked_by = 'Asha' WHERE seat = 'A1' AND booked_by IS NULL;",
+          "UPDATE seats SET booked_by = 'Asha' WHERE seat = 'A2' AND booked_by IS NULL;",
+          'COMMIT;',
+          'SELECT seat, booked_by FROM seats ORDER BY seat;'
+        ),
+        output: lines(
+          ' seat | booked_by',
+          '------+-----------',
+          ' A1   | Asha',
+          ' A2   | Asha',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Book a seat only if it is still free.' },
+          { line: 6, note: 'Both seats are booked together, or neither is.' }
+        ],
+        tryIt: "Before BEGIN, book A2 for Ravi: UPDATE seats SET booked_by = 'Ravi' WHERE seat = 'A2'; Then run it. Asha only gets A1, because A2 was no longer free.",
+        check: {
+          question: 'What does the D in ACID mean?',
+          options: ['Durable: committed changes survive a crash', 'Deleted: rows can be removed', 'Distinct: no duplicate rows'],
+          answer: 0,
+          why: 'Durability means once COMMIT succeeds, the change is safely stored and survives power loss or restarts.'
+        }
+      },
+      {
+        title: 'When two people change the same row',
+        say: [
+          'In a real app, many users act at the same moment. Two people might try to book the last seat, or two cashiers might sell the last pen. Transactions and locks keep this safe.',
+          'When a transaction updates a row, PostgreSQL locks that row until the transaction ends. If a second transaction tries to update the same row, it waits. When the first commits, the second continues and sees the new value.',
+          'That is why the seat booking in the last example used WHERE booked_by IS NULL. The second person\'s update waits, then finds the seat is no longer free, and changes nothing. The app sees "0 rows updated" and can tell the user the seat was taken.',
+          'A classic bug is reading a value, deciding in the app, then writing it back: read the stock as 1, see it is enough, write 0. If two people do this at once, both read 1, and both sell. The fix is to do the check and the change in one UPDATE, like UPDATE stock SET units = units - 1 WHERE product = \'Pen\' AND units >= 1.',
+          'Another option is SELECT ... FOR UPDATE, which locks the rows you read so nobody else can change them until you finish. It is used when the app really must read first and decide.',
+          'The lesson editor has only one connection, so it cannot show two users at once. But these patterns, doing the check inside the UPDATE, are exactly what you should use in real apps.'
+        ],
+        example: 'Two people reach for the last packet of biscuits on a shelf at the same moment. Only one hand can take it. The shop does not sell the same packet twice; the second person finds the shelf empty. A row lock is that single packet.',
+        code: lines(
+          'CREATE TABLE stock (product text PRIMARY KEY, units int NOT NULL);',
+          "INSERT INTO stock VALUES ('Pen', 1);",
+          "UPDATE stock SET units = units - 1 WHERE product = 'Pen' AND units >= 1 RETURNING units AS left_after_first_sale;",
+          "UPDATE stock SET units = units - 1 WHERE product = 'Pen' AND units >= 1 RETURNING units AS left_after_second_sale;",
+          "SELECT units FROM stock WHERE product = 'Pen';"
+        ),
+        output: lines(
+          ' left_after_first_sale',
+          '-----------------------',
+          '                     0',
+          '(1 row)',
+          '',
+          ' left_after_second_sale',
+          '------------------------',
+          '(0 rows)',
+          '',
+          ' units',
+          '-------',
+          '     0',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The check (units >= 1) and the change happen in one statement.' },
+          { line: 4, note: 'The second sale finds no row that matches: 0 rows, so nothing is sold twice.' }
+        ],
+        tryIt: 'Remove AND units >= 1 from both updates and run it. The stock goes to -1: the same pen was sold twice.',
+        check: {
+          question: 'How do you stop two sales taking the last item?',
+          options: ['Check and change in one UPDATE: SET units = units - 1 WHERE ... AND units >= 1', 'Read the stock in the app first, then update', 'Add ORDER BY to the UPDATE'],
+          answer: 0,
+          why: 'Doing the check inside the UPDATE, on a locked row, means the second sale sees the new value and matches nothing.'
+        }
+      },
+      {
+        title: 'Putting it together: placing an order safely',
+        say: [
+          'Let us write the most important transaction in any shop: placing an order. It must create the order, add its items, and reduce the stock, all together.',
+          'Inside BEGIN and COMMIT, we insert the order and use RETURNING to see its id, insert the order item, and reduce the stock with a safe UPDATE that checks there is enough.',
+          'If the stock is too low, the CHECK rule on units refuses the update, and the whole order disappears as if it was never placed. No order without stock, no stock taken without an order.',
+          'In today\'s practice, you will transfer money between two accounts in one transaction, and record a sale while reducing the stock, all together.',
+          'Tomorrow you learn how to make queries fast with indexes, and how to read what PostgreSQL does behind the scenes with EXPLAIN.',
+          'Whenever you write code that changes several tables for one user action, ask yourself: what happens if this fails halfway? If the answer is "the data is wrong", you need a transaction.'
+        ],
+        example: 'When you order food in an app, three things happen: the order is created, your money is taken, and the restaurant\'s menu stock goes down. If any of them fails, none should stay. The app wraps them in one transaction.',
+        code: lines(
+          'CREATE TABLE stock (product text PRIMARY KEY, units int NOT NULL CHECK (units >= 0));',
+          "INSERT INTO stock VALUES ('Notebook', 10);",
+          'CREATE TABLE orders (id serial PRIMARY KEY, customer text NOT NULL);',
+          'CREATE TABLE order_items (order_id int REFERENCES orders(id), product text, quantity int);',
+          'BEGIN;',
+          "INSERT INTO orders (customer) VALUES ('Asha') RETURNING id;",
+          "INSERT INTO order_items VALUES (1, 'Notebook', 3);",
+          "UPDATE stock SET units = units - 3 WHERE product = 'Notebook';",
+          'COMMIT;',
+          "SELECT (SELECT count(*) FROM orders) AS orders, (SELECT units FROM stock WHERE product = 'Notebook') AS notebooks_left;"
+        ),
+        output: lines(
+          ' id',
+          '----',
+          '  1',
+          '(1 row)',
+          '',
+          ' orders | notebooks_left',
+          '--------+----------------',
+          '      1 |              7',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'One transaction for the whole order.' },
+          { line: 6, note: 'Create the order and see its new id.' },
+          { line: 8, note: 'Take the stock. If there were not enough, the CHECK would undo everything.' }
+        ],
+        tryIt: 'Change the quantity to 30 in lines 7 and 8 and run it. The stock update fails, and the order is not created either.',
+        check: {
+          question: 'Why is placing an order done in one transaction?',
+          options: ['So the order, its items and the stock change together, or not at all', 'Because INSERT needs a transaction', 'To make RETURNING work'],
+          answer: 0,
+          why: 'If any step fails, the transaction undoes the others, so there is never an order without stock taken, or the reverse.'
+        }
+      }
+    ],
+    summary: [
+      'A transaction groups statements: BEGIN, the changes, then COMMIT to keep them.',
+      'ROLLBACK undoes everything since BEGIN; use it to check risky changes safely.',
+      'If a statement fails inside a transaction, the whole transaction is undone.',
+      'ACID: Atomic, Consistent, Isolated, Durable.',
+      'Avoid double-selling by checking and changing in one UPDATE, like WHERE units >= 1.'
+    ],
+    projectStep: {
+      title: 'My Library: lending a book safely',
+      steps: [
+        'Create a loans table (book_id, friend, lent_on) and add an is_lent boolean DEFAULT false to books.',
+        'In one transaction, insert a loan and set is_lent = true for that book.',
+        'Make the UPDATE safe: only lend if is_lent = false.',
+        'Try lending the same book twice and check that the second time changes nothing.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 23,
+    title: 'Faster Queries: Indexes and EXPLAIN',
+    goal: 'You can explain what an index is, create one, read a simple EXPLAIN plan, and decide which columns deserve an index.',
+    minutes: 28,
+    recap: 'Yesterday you used transactions to make changes all or nothing, and learned ACID and safe updates.',
+    parts: [
+      {
+        title: 'Why big tables get slow',
+        say: [
+          'So far every table has had a handful of rows, and every query was instant. Real tables are bigger: a shop might have a million orders, a bank hundreds of millions of transactions.',
+          'Without help, finding one order by its customer means PostgreSQL reads every single row and checks it. This is called a sequential scan, or Seq Scan. On a million rows, that can take a noticeable time, and if thousands of users do it at once, the whole app slows down.',
+          'An index is a separate, sorted structure that points to where each value lives in the table. With an index on customer_id, PostgreSQL can jump straight to that customer\'s orders, instead of reading everything.',
+          'Primary keys and UNIQUE columns get an index automatically. That is why looking up a row by its id is always fast. Other columns, like customer_id in orders or email in a login table, need an index you create yourself.',
+          'Indexes are the single most important tool for database speed. Many "the app is slow" problems in real companies are solved by adding one well-chosen index.',
+          'The rest of today is about how to create them, how to check whether PostgreSQL uses them, and when not to add them.',
+          'The example below uses generate_series, a PostgreSQL function that produces a list of numbers, to create 50,000 orders in one statement. It is a handy way to make realistic amounts of test data when you want to see how a query behaves on a bigger table.'
+        ],
+        example: 'Finding a topic in a 600-page textbook by reading every page takes ages. The index at the back says "Photosynthesis: page 212", and you go straight there. A database index works exactly the same way.',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, total numeric(10,2));',
+          'INSERT INTO orders SELECT n, n % 5000, (n % 900) + 10 FROM generate_series(1, 50000) AS n;',
+          'SELECT count(*) AS orders, count(DISTINCT customer_id) AS customers FROM orders;',
+          'SELECT count(*) AS orders_of_customer_42 FROM orders WHERE customer_id = 42;'
+        ),
+        output: lines(
+          ' orders | customers',
+          '--------+-----------',
+          '  50000 |      5000',
+          '(1 row)',
+          '',
+          ' orders_of_customer_42',
+          '-----------------------',
+          '                    10',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 2, note: 'generate_series makes 50,000 numbers, so we get 50,000 orders from 5,000 customers.' },
+          { line: 4, note: 'Without an index, PostgreSQL checks all 50,000 rows to find these 10.' }
+        ],
+        tryIt: 'Change 50000 to 200000 and run it. The table is bigger, and the search still works, but on a real server, reading every row gets slower as the table grows.',
+        check: {
+          question: 'What is a sequential scan?',
+          options: ['Reading every row of the table to find the matching ones', 'Using an index to jump to the rows', 'Sorting the table'],
+          answer: 0,
+          why: 'A Seq Scan checks each row one by one. Indexes let PostgreSQL skip straight to the matching rows.'
+        }
+      },
+      {
+        title: 'EXPLAIN: seeing the plan',
+        say: [
+          'Before running a query, PostgreSQL makes a plan: which tables to read, in which order, and how. EXPLAIN in front of a query shows you that plan instead of running it.',
+          'The plan is shown as a small tree of steps. The step you will look for most is the scan: Seq Scan means "read every row", Index Scan or Bitmap Index Scan means "use an index".',
+          'By default, EXPLAIN also shows cost estimates, long numbers that depend on the machine. In the examples we use EXPLAIN (COSTS OFF) so the plan is short and stays the same every time.',
+          'EXPLAIN ANALYZE actually runs the query and adds the real time taken. It is the tool for measuring on a real database, but its timings change every run, so it is not used in the lesson examples.',
+          'Reading plans is a skill that grows with practice. For now, focus on one question: did PostgreSQL read the whole table, or did it use an index?',
+          'Notice the Filter line under a Seq Scan. It tells you the condition PostgreSQL checked on every row. That is the work an index can save.'
+        ],
+        example: 'Before a long drive, a map app shows you the route it plans to take, before you start. EXPLAIN is that route preview for your query: you see the plan without actually making the trip.',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, total numeric(10,2));',
+          'INSERT INTO orders SELECT n, n % 5000, (n % 900) + 10 FROM generate_series(1, 50000) AS n;',
+          'ANALYZE orders;',
+          'EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42;',
+          'EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE id = 42;'
+        ),
+        output: lines(
+          ' QUERY PLAN',
+          '------------------------------',
+          ' Seq Scan on orders',
+          '   Filter: (customer_id = 42)',
+          '(2 rows)',
+          '',
+          ' QUERY PLAN',
+          '----------------------------------------',
+          ' Index Scan using orders_pkey on orders',
+          '   Index Cond: (id = 42)',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'ANALYZE collects statistics so PostgreSQL can plan well.' },
+          { line: 4, note: 'No index on customer_id: a Seq Scan with a Filter.' },
+          { line: 5, note: 'The primary key has an index: an Index Scan.' }
+        ],
+        tryIt: 'Change the first EXPLAIN to search WHERE total > 900. It also reads every row, because there is no index on total.',
+        check: {
+          question: 'In an EXPLAIN plan, what does "Seq Scan on orders" tell you?',
+          options: ['PostgreSQL will read every row of orders', 'An index on orders will be used', 'The query has an error'],
+          answer: 0,
+          why: 'Seq Scan means a full read of the table. Index Scan means an index is used.'
+        }
+      },
+      {
+        title: 'CREATE INDEX',
+        say: [
+          'You create an index with CREATE INDEX name ON table (column). A clear naming style is idx_table_column, like idx_orders_customer.',
+          'After the index exists, PostgreSQL decides on its own when to use it. You do not change your queries at all. The same SELECT becomes faster because the plan changes.',
+          'Creating an index on a large table takes some time, because PostgreSQL has to read and sort the whole column. On a busy live database, teams use CREATE INDEX CONCURRENTLY, which builds it without blocking other users.',
+          'Foreign key columns, like customer_id in orders, are the most common columns to index. Joins and lookups use them constantly, and PostgreSQL does not index them automatically.',
+          'Other good candidates are columns you often filter or sort by, like status, created_at or email. Look at your most common and slowest queries, and index the columns in their WHERE, JOIN and ORDER BY.',
+          'After creating an index, run EXPLAIN again to confirm it is used. If it is not, the query or the data may not suit that index, which is the topic of part 5.'
+        ],
+        example: 'A library that adds an author index card cabinet does not change its books or how you ask for them. It simply lets the librarian find "all books by R. K. Narayan" without walking every shelf.',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, total numeric(10,2));',
+          'INSERT INTO orders SELECT n, n % 5000, (n % 900) + 10 FROM generate_series(1, 50000) AS n;',
+          'CREATE INDEX idx_orders_customer ON orders (customer_id);',
+          'ANALYZE orders;',
+          'EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42;',
+          'SELECT count(*) AS orders_of_customer_42 FROM orders WHERE customer_id = 42;'
+        ),
+        output: lines(
+          ' QUERY PLAN',
+          '------------------------------------------------',
+          ' Bitmap Heap Scan on orders',
+          '   Recheck Cond: (customer_id = 42)',
+          '   ->  Bitmap Index Scan on idx_orders_customer',
+          '         Index Cond: (customer_id = 42)',
+          '(4 rows)',
+          '',
+          ' orders_of_customer_42',
+          '-----------------------',
+          '                    10',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Create the index on the column we search by.' },
+          { line: 5, note: 'The plan now uses the index instead of reading every row.' },
+          { line: 6, note: 'The query and its answer are exactly the same as before.' }
+        ],
+        tryIt: 'Add an index on total: CREATE INDEX idx_orders_total ON orders (total); and EXPLAIN a query WHERE total = 500.',
+        check: {
+          question: 'After creating an index, what do you need to change in your SELECT queries?',
+          options: ['Nothing; PostgreSQL decides when to use the index', 'Add USE INDEX to every query', 'Rename the column'],
+          answer: 0,
+          why: 'Indexes are used automatically when the planner thinks they help. Queries stay the same.'
+        }
+      },
+      {
+        title: 'What indexes cost',
+        say: [
+          'If indexes make reading faster, why not index every column? Because indexes are not free.',
+          'Each index takes disk space, sometimes as much as the table itself. And every INSERT, UPDATE and DELETE must update every index on the table too. A table with ten indexes makes every write do ten extra pieces of work.',
+          'So indexes are a trade-off: faster reads, slower writes, more storage. A table that is read constantly, like products, can have several. A table that is written constantly, like a log of every click, should have few.',
+          'Indexes also help less when a column has very few different values. An index on a boolean is_active column, where 99 percent of rows are true, rarely helps, because reading "all the true rows" is nearly the whole table anyway.',
+          'Indexes that are never used are pure cost. PostgreSQL keeps statistics that show how often each index is used, and database teams regularly remove unused ones.',
+          'A good rule for beginners: index primary keys (automatic), foreign keys, and the columns in your most frequent WHERE and ORDER BY. Then measure with EXPLAIN before adding more.'
+        ],
+        example: 'A book with an index for every single word would be twice as thick and take much longer to update in each new edition. A good index lists the important topics only. Database indexes are the same: useful ones help, too many slow everything down.',
+        code: lines(
+          'CREATE TABLE clicks (id int, page text, clicked_at timestamp);',
+          "INSERT INTO clicks SELECT n, '/page/' || (n % 50), timestamp '2026-09-01' + n * interval '1 minute' FROM generate_series(1, 20000) AS n;",
+          'CREATE INDEX idx_clicks_page ON clicks (page);',
+          'CREATE INDEX idx_clicks_time ON clicks (clicked_at);',
+          "SELECT relname AS name, CASE WHEN relkind = 'i' THEN 'index' ELSE 'table' END AS kind",
+          'FROM pg_class',
+          "WHERE relname IN ('clicks', 'idx_clicks_page', 'idx_clicks_time')",
+          'ORDER BY kind DESC, name;'
+        ),
+        output: lines(
+          ' name            | kind',
+          '-----------------+-------',
+          ' clicks          | table',
+          ' idx_clicks_page | index',
+          ' idx_clicks_time | index',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Each index is a separate structure that every INSERT must also update.' },
+          { line: 5, note: 'pg_class lists tables and indexes: here, one table with two indexes to maintain.' }
+        ],
+        tryIt: 'Add a third index on id and run it again. Then think: for a table written to every second, is every index worth its cost?',
+        check: {
+          question: 'Why not add an index to every column?',
+          options: ['Every index uses space and slows down every INSERT, UPDATE and DELETE', 'PostgreSQL allows only one index per table', 'Indexes make SELECT slower'],
+          answer: 0,
+          why: 'Indexes speed up reads but must be maintained on every write, so each one should earn its place.'
+        }
+      },
+      {
+        title: 'Indexes on several columns and on expressions',
+        say: [
+          'An index can cover several columns: CREATE INDEX ON orders (customer_id, ordered_on). It helps queries that filter by the customer and then by date, like "this customer\'s orders in September", and it can also return them already sorted by date.',
+          'Column order matters in a multi-column index. It is sorted by the first column, then the second within it, like a phone book sorted by surname then first name. So it helps searches by customer_id alone, but not searches by ordered_on alone.',
+          'An index can also be built on an expression. If your login query searches WHERE lower(email) = lower(\'Asha@X.com\'), a normal index on email does not help, because the query compares lower(email). An index on (lower(email)) does.',
+          'A UNIQUE index on an expression enforces a rule too: CREATE UNIQUE INDEX ON users (lower(email)) makes sure nobody can register Asha@x.com and asha@x.com as two accounts.',
+          'A common reason an index is not used is exactly this mismatch: the query wraps the column in a function, or compares it with a different type. When EXPLAIN shows a Seq Scan you did not expect, check that the WHERE looks exactly like the indexed column or expression.',
+          'PostgreSQL has other index types too, like GIN for JSON and full-text search. You will meet GIN briefly on Day 25. The standard type, B-tree, is the right choice for most columns.'
+        ],
+        example: 'A phone book sorted by surname, then first name, is great for finding "Sharma, Priya". It is useless for finding everyone called Priya whatever their surname. The order of columns in an index works the same way.',
+        code: lines(
+          'CREATE TABLE users (id int PRIMARY KEY, email text);',
+          "INSERT INTO users VALUES (1, 'Asha@Example.com');",
+          'CREATE UNIQUE INDEX idx_users_email ON users (lower(email));',
+          "SELECT id FROM users WHERE lower(email) = lower('asha@example.com');",
+          "INSERT INTO users VALUES (2, 'ASHA@example.com');"
+        ),
+        output: lines(
+          ' id',
+          '----',
+          '  1',
+          '(1 row)',
+          '',
+          '[Error] duplicate key value violates unique constraint "idx_users_email"'
+        ),
+        codeNotes: [
+          { line: 3, note: 'An index on an expression, and UNIQUE at the same time.' },
+          { line: 4, note: 'The query uses the same expression, so the index can help.' },
+          { line: 5, note: 'The same email in different capitals: refused.' }
+        ],
+        tryIt: "Change line 5 to a truly different email, like 'ravi@example.com', and run it again. This time it is accepted.",
+        check: {
+          question: 'An index on (customer_id, ordered_on) helps which search most?',
+          options: ['A customer\'s orders in a date range', 'All orders on one date, for every customer', 'Orders sorted by total'],
+          answer: 0,
+          why: 'A multi-column index is sorted by the first column first, so it helps searches that start with customer_id.'
+        }
+      },
+      {
+        title: 'Putting it together: speeding up a slow report',
+        say: [
+          'Let us follow the real process of fixing a slow query. A report lists a customer\'s recent orders, newest first. The first step is always to look at the plan.',
+          'EXPLAIN shows a Seq Scan on orders with a filter on customer_id, followed by a Sort. PostgreSQL reads every row, keeps a few, and sorts them.',
+          'The fix is an index matching the query: (customer_id, ordered_on). The plan changes to an index scan, and the sort step can disappear, because the index already keeps each customer\'s orders in date order.',
+          'Always measure before and after. On a real database, you would run EXPLAIN ANALYZE to see the actual time drop. And check that the index does not slow down important writes too much.',
+          'In today\'s practice, you will create an index on orders(customer_id), and a unique index on lower(email) so two users cannot share an email in different capitals.',
+          'Tomorrow you learn views: saving a query under a name, so complicated joins can be reused like a simple table.'
+        ],
+        example: 'A mechanic does not replace random parts when a car is slow. They connect a diagnostic tool, read what is wrong, fix that one part, and test drive again. EXPLAIN is the diagnostic tool; the index is the part.',
+        code: lines(
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int, ordered_on date);',
+          "INSERT INTO orders SELECT n, n % 5000, date '2026-01-01' + (n % 270) FROM generate_series(1, 50000) AS n;",
+          'ANALYZE orders;',
+          'EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42 ORDER BY ordered_on DESC LIMIT 5;',
+          'CREATE INDEX idx_orders_customer_date ON orders (customer_id, ordered_on);',
+          'EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42 ORDER BY ordered_on DESC LIMIT 5;'
+        ),
+        output: lines(
+          ' QUERY PLAN',
+          '------------------------------------------',
+          ' Limit',
+          '   ->  Sort',
+          '         Sort Key: ordered_on DESC',
+          '         ->  Seq Scan on orders',
+          '               Filter: (customer_id = 42)',
+          '(5 rows)',
+          '',
+          ' QUERY PLAN',
+          '--------------------------------------------------------------------',
+          ' Limit',
+          '   ->  Index Scan Backward using idx_orders_customer_date on orders',
+          '         Index Cond: (customer_id = 42)',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Before: read every row, filter, then sort.' },
+          { line: 5, note: 'An index that matches the WHERE and the ORDER BY.' },
+          { line: 6, note: 'After: the index gives the rows already in order.' }
+        ],
+        tryIt: 'Change the index to be only on (ordered_on) and look at the second plan. It does not help this query as much, because the query starts with customer_id.',
+        check: {
+          question: 'What is the first step when a query is slow?',
+          options: ['Look at its plan with EXPLAIN', 'Add indexes to every column', 'Rewrite it in another language'],
+          answer: 0,
+          why: 'The plan shows where the time goes, so you can fix the real cause, often with one matching index.'
+        }
+      }
+    ],
+    summary: [
+      'Without an index, PostgreSQL reads every row (Seq Scan).',
+      'An index is a sorted structure that lets PostgreSQL jump to matching rows.',
+      'EXPLAIN shows the plan; look for Seq Scan versus Index Scan.',
+      'Indexes speed up reads but cost space and slow down writes; index foreign keys and frequent filters.',
+      'Multi-column indexes follow column order; expression indexes match WHERE lower(email) = ....'
+    ],
+    projectStep: {
+      title: 'My Library: indexes for common searches',
+      steps: [
+        'List the 3 searches you run most on your books (for example by author or title).',
+        'Create an index for each on the matching column.',
+        'Add a unique index on lower(title) and author_id to stop duplicate titles in different capitals.',
+        'Use EXPLAIN (COSTS OFF) on one search to see the plan.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 24,
+    title: 'Saved Queries: Views',
+    goal: 'You can save a query as a view, use views to simplify joins and hide columns, and refresh materialized views.',
+    minutes: 28,
+    recap: 'Yesterday you made queries faster with indexes and read query plans with EXPLAIN.',
+    parts: [
+      {
+        title: 'What a view is',
+        say: [
+          'Some queries are used again and again: "each order with its customer\'s name and total". Writing the same joins every time is tiring and error-prone. A view saves a query under a name.',
+          'You create one with CREATE VIEW name AS SELECT .... After that, you can SELECT FROM the view as if it were a table: filter it, sort it, join it, count it.',
+          'A view does not store any data. Every time you query it, PostgreSQL runs the saved query on the current tables. So a view always shows fresh data, and it takes no extra space.',
+          'Views make the database easier for everyone. A new developer or an analyst can use order_summaries without knowing how the four tables are joined. The complicated part is written once, by someone who understands it.',
+          'Because views are just saved queries, PostgreSQL can often optimise a query on a view as well as if you had written the whole query yourself. There is usually no speed penalty.',
+          'Views should have clear, descriptive names, often plural nouns like order_summaries or active_customers, so they read naturally in queries.',
+          'You can list the views in a database from information_schema.views, and see a view\'s saved query with pg_get_viewdef. That is useful when you join a new team and want to know which ready-made reports already exist before writing your own.'
+        ],
+        example: 'A "saved search" on a shopping site, like "shoes under 2000 in my size", stores the search, not the shoes. Each time you open it, it shows the shoes available right now. A view is a saved search for your database.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE VIEW order_summaries AS',
+          'SELECT o.id AS order_id, c.name AS customer, o.status, sum(p.price * oi.quantity) AS total',
+          'FROM orders o',
+          'JOIN customers c ON c.id = o.customer_id',
+          'JOIN order_items oi ON oi.order_id = o.id',
+          'JOIN products p ON p.id = oi.product_id',
+          'GROUP BY o.id, c.name, o.status;',
+          'SELECT * FROM order_summaries ORDER BY order_id;',
+          "SELECT customer, total FROM order_summaries WHERE status = 'delivered' ORDER BY total DESC;"
+        ),
+        output: lines(
+          ' order_id | customer | status    | total',
+          '----------+----------+-----------+---------',
+          '      101 | Asha     | delivered |  280.00',
+          '      102 | Ravi     | delivered | 1200.00',
+          '      103 | Asha     | shipped   |   50.00',
+          '      104 | Priya    | pending   |   60.00',
+          '(4 rows)',
+          '',
+          ' customer | total',
+          '----------+---------',
+          ' Ravi     | 1200.00',
+          ' Asha     |  280.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Save the query under the name order_summaries.' },
+          { line: 16, note: 'Use the view like a table.' },
+          { line: 17, note: 'Filter and sort it like any table; the joins are hidden inside.' }
+        ],
+        tryIt: 'Add a query: SELECT customer, sum(total) AS spent FROM order_summaries GROUP BY customer ORDER BY spent DESC;',
+        check: {
+          question: 'Does a view store a copy of the data?',
+          options: ['No, it runs its saved query each time, so it always shows current data', 'Yes, it copies the data once', 'Only for the first row'],
+          answer: 0,
+          why: 'A normal view is just a stored query. The data stays in the underlying tables.'
+        }
+      },
+      {
+        title: 'Views always show current data',
+        say: [
+          'Because a view runs its query every time, changes to the tables appear in the view immediately. There is nothing to refresh or update.',
+          'If a new order is inserted, the next SELECT from order_summaries includes it. If a price changes, every total in the view reflects it. The view is always exactly as correct as the tables.',
+          'This makes views ideal for reports that must be up to date, like "orders waiting to be shipped" for a warehouse screen.',
+          'The flip side is that a view on a large, complex query does all its work every time it is used. If thousands of people open a dashboard built on a heavy view, the database repeats that heavy work thousands of times. Part 5 shows the solution: materialized views.',
+          'You can change a view\'s query with CREATE OR REPLACE VIEW, as long as you only add columns at the end and keep the existing ones the same. To make bigger changes, drop it and create it again.',
+          'Dropping a view never deletes table data, because the view never held any. DROP VIEW simply forgets the saved query.'
+        ],
+        example: 'A live cricket scoreboard on a website does not store the score; it shows the current score every time you look. Refresh the page after a boundary, and the new score is there. A view is a live scoreboard for your data.',
+        code: lines(
+          'CREATE TABLE tasks (id serial PRIMARY KEY, title text, done boolean DEFAULT false);',
+          "INSERT INTO tasks (title) VALUES ('Pack orders'), ('Call supplier');",
+          'CREATE VIEW open_tasks AS SELECT id, title FROM tasks WHERE NOT done;',
+          'SELECT count(*) AS open_before FROM open_tasks;',
+          "INSERT INTO tasks (title) VALUES ('Update prices');",
+          'UPDATE tasks SET done = true WHERE id = 1;',
+          'SELECT * FROM open_tasks ORDER BY id;'
+        ),
+        output: lines(
+          ' open_before',
+          '-------------',
+          '           2',
+          '(1 row)',
+          '',
+          ' id | title',
+          '----+---------------',
+          '  2 | Call supplier',
+          '  3 | Update prices',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'A view of the tasks that are not done yet.' },
+          { line: 5, note: 'Change the table: one new task, one finished.' },
+          { line: 7, note: 'The view shows the changes immediately.' }
+        ],
+        tryIt: 'Add CREATE OR REPLACE VIEW open_tasks AS SELECT id, title, done FROM tasks WHERE NOT done; before the last SELECT. The new column appears at the end.',
+        check: {
+          question: 'A row is added to a table after a view was created. Does the view show it?',
+          options: ['Yes, immediately, because the view runs its query each time', 'Only after the view is recreated', 'Never'],
+          answer: 0,
+          why: 'Normal views have no stored data; every query on them reads the current tables.'
+        }
+      },
+      {
+        title: 'Views for simplicity and safety',
+        say: [
+          'Views are also a way to control what people see. A customers table might contain phone numbers and addresses. A view with only the name and city can be shared with an analytics team without exposing private details.',
+          'With PostgreSQL permissions, which you will meet on Day 29, you can let a user read a view but not the table underneath. That way, the private columns are protected by the database itself.',
+          'Views can also hide messy details. A column called cust_nm_v2 can appear in a view as customer_name. A status code can be translated into words with CASE. The view becomes a clean, friendly interface to the data.',
+          'Some teams build a whole reporting layer out of views: raw tables at the bottom, and views on top that give each team exactly the data they need, in the shape they need.',
+          'Simple views, from one table without GROUP BY, can even be updated: an UPDATE on the view changes the table underneath. For views with joins or aggregates, updates are not allowed, which is usually what you want for reports.',
+          'A good test for a view: can someone use it correctly without ever looking at its definition? If yes, the view is doing its job.',
+          'Comments help too. COMMENT ON VIEW customer_directory IS \'Public customer list without phone numbers\' stores a short description inside the database, where tools and teammates can read it.'
+        ],
+        example: 'A school notice board shows students\' names and exam rooms, but not their home addresses or parents\' phone numbers. The office has all the details; the notice board is a view with only what everyone needs to see.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text, phone text, city text, status char(1));',
+          "INSERT INTO customers VALUES (1, 'Asha', '98765 11111', 'Pune', 'a'), (2, 'Ravi', '91234 22222', 'Mumbai', 'i');",
+          'CREATE VIEW customer_directory AS',
+          "SELECT name, city, CASE status WHEN 'a' THEN 'active' ELSE 'inactive' END AS status",
+          'FROM customers;',
+          'SELECT * FROM customer_directory ORDER BY name;'
+        ),
+        output: lines(
+          ' name | city   | status',
+          '------+--------+----------',
+          ' Asha | Pune   | active',
+          ' Ravi | Mumbai | inactive',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'No phone column, and the status code is translated into words.' },
+          { line: 6, note: 'Anyone using the view sees only what they need.' }
+        ],
+        tryIt: 'Try SELECT phone FROM customer_directory; and read the error: the view has no phone column.',
+        check: {
+          question: 'How can a view protect private data?',
+          options: ['It can leave out private columns, and users can be allowed to read only the view', 'It encrypts the table', 'It deletes private columns from the table'],
+          answer: 0,
+          why: 'A view shows only the columns you choose. With permissions, users can read the view without reading the table.'
+        }
+      },
+      {
+        title: 'Building on views',
+        say: [
+          'A view can use other views. You might have a view of delivered order totals, and another view that uses it to calculate each customer\'s lifetime value.',
+          'This lets you build reports in layers, like WITH steps, but saved permanently and shared by everyone. Each layer is small and easy to understand.',
+          'Be careful not to stack too many layers. When something is wrong in a view five levels deep, it can be hard to find. Two or three layers are usually plenty.',
+          'PostgreSQL remembers which views depend on which tables and views. If you try to drop a table that a view uses, it refuses, and tells you which view depends on it. DROP ... CASCADE would drop the views too, which is rarely what you want.',
+          'This protection is useful: it stops someone changing a table and silently breaking every report built on it.',
+          'When you need to change a table that views depend on, the usual process is to change the views and the table together, in one migration script, inside a transaction.'
+        ],
+        example: 'A company\'s monthly report is built from a team\'s weekly reports, which are built from daily logs. Each level uses the one below. If someone tried to throw away the daily logs, everyone would shout, because the reports depend on them.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE VIEW delivered_totals AS',
+          'SELECT o.customer_id, sum(p.price * oi.quantity) AS total',
+          'FROM orders o JOIN order_items oi ON oi.order_id = o.id JOIN products p ON p.id = oi.product_id',
+          "WHERE o.status = 'delivered'",
+          'GROUP BY o.id, o.customer_id;',
+          'CREATE VIEW customer_value AS',
+          'SELECT c.name, coalesce(sum(d.total), 0) AS lifetime_value',
+          'FROM customers c LEFT JOIN delivered_totals d ON d.customer_id = c.id',
+          'GROUP BY c.id, c.name;',
+          'SELECT * FROM customer_value ORDER BY lifetime_value DESC, name;',
+          'DROP VIEW delivered_totals;'
+        ),
+        output: lines(
+          ' name  | lifetime_value',
+          '-------+----------------',
+          ' Ravi  |        1200.00',
+          ' Asha  |         280.00',
+          ' Meera |              0',
+          ' Priya |              0',
+          '(4 rows)',
+          '',
+          '[Error] cannot drop view delivered_totals because other objects depend on it'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Layer 1: each delivered order\'s total.' },
+          { line: 14, note: 'Layer 2 uses layer 1: each customer\'s lifetime value.' },
+          { line: 19, note: 'Dropping layer 1 is refused, because layer 2 depends on it.' }
+        ],
+        tryIt: 'Change the last line to DROP VIEW customer_value; and run it. The top layer can be dropped, because nothing depends on it.',
+        check: {
+          question: 'Why does PostgreSQL refuse to drop a view that another view uses?',
+          options: ['To stop reports that depend on it from silently breaking', 'Because views can never be dropped', 'Because the view holds data'],
+          answer: 0,
+          why: 'PostgreSQL tracks dependencies and protects them. You must drop or change the dependent view first.'
+        }
+      },
+      {
+        title: 'Materialized views: saved results you refresh',
+        say: [
+          'A normal view reruns its query every time. For a heavy report that is used often, that repeats a lot of work. A materialized view stores the result of the query, like a table, so reading it is fast.',
+          'You create one with CREATE MATERIALIZED VIEW name AS SELECT .... PostgreSQL runs the query once and saves the rows.',
+          'The catch: the saved rows do not change when the tables change. The materialized view shows the data as it was when it was last filled. To update it, you run REFRESH MATERIALIZED VIEW name, which reruns the query and replaces the saved rows.',
+          'Teams usually refresh on a schedule, like every hour or every night, depending on how fresh the numbers need to be. A dashboard of yesterday\'s sales can refresh once a night; a stock screen probably cannot use a materialized view at all.',
+          'Unlike normal views, materialized views can have their own indexes, which makes them even faster to query.',
+          'Choosing between them is a trade-off between freshness and speed: a normal view is always fresh but does the work every time; a materialized view is fast but only as fresh as the last refresh.'
+        ],
+        example: 'A printed monthly bank statement is a materialized view: quick to read, but it does not show today\'s transactions until the next statement is printed. The live banking app is a normal view: always current, but it does the work every time you open it.',
+        code: lines(
+          'CREATE TABLE sales (day date, amount numeric(10,2));',
+          "INSERT INTO sales VALUES ('2026-09-01', 280), ('2026-09-02', 1200);",
+          'CREATE MATERIALIZED VIEW sales_summary AS SELECT count(*) AS days, sum(amount) AS total FROM sales;',
+          "INSERT INTO sales VALUES ('2026-09-03', 2097);",
+          'SELECT * FROM sales_summary;',
+          'REFRESH MATERIALIZED VIEW sales_summary;',
+          'SELECT * FROM sales_summary;'
+        ),
+        output: lines(
+          ' days | total',
+          '------+---------',
+          '    2 | 1480.00',
+          '(1 row)',
+          '',
+          ' days | total',
+          '------+---------',
+          '    3 | 3577.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'The result is calculated now and stored.' },
+          { line: 5, note: 'The new sale is not included yet: the stored result is old.' },
+          { line: 6, note: 'REFRESH reruns the query and stores the new result.' }
+        ],
+        tryIt: 'Change CREATE MATERIALIZED VIEW to CREATE VIEW and remove the REFRESH line. The first SELECT now already includes the third day.',
+        check: {
+          question: 'What is the main difference between a view and a materialized view?',
+          options: ['A materialized view stores its result and must be refreshed; a view always reruns its query', 'A view is faster in every case', 'A materialized view cannot be queried'],
+          answer: 0,
+          why: 'Materialized views trade freshness for speed: fast to read, but only updated on REFRESH.'
+        }
+      },
+      {
+        title: 'Putting it together: a reporting view for the shop',
+        say: [
+          'Let us give the shop manager a simple interface for their most common questions: a view with one row per customer, showing their order count and spending, including customers with no orders.',
+          'Everything you learned in week 2 goes inside the view: LEFT JOIN, count of the right table\'s id, coalesce for zero totals. The manager only needs to write SELECT * FROM customer_order_counts.',
+          'Then, a price list view shows each product with its price including GST. Anyone in the shop can use it without knowing the tax rate or rounding rules.',
+          'In today\'s practice, you will create a price-list view with GST, and a view of each customer\'s order count that includes customers with no orders.',
+          'Tomorrow you learn how PostgreSQL stores and queries JSON, for data that does not fit neatly into columns, like app events and settings.',
+          'Views are small to write but have a big effect on a team. Every good view is one less complicated query that someone else has to get right.'
+        ],
+        example: 'A shop manager\'s favourite report is saved as a single button in their app. Behind the button is a view that joins four tables, but the manager only ever sees a clean list.',
+        code: lines(
+          MINI_SHOP,
+          'CREATE VIEW customer_order_counts AS',
+          'SELECT c.name, count(o.id) AS order_count',
+          'FROM customers c LEFT JOIN orders o ON o.customer_id = c.id',
+          'GROUP BY c.id, c.name;',
+          'CREATE VIEW price_list AS',
+          'SELECT name, price, round(price * 1.18, 2) AS price_with_gst FROM products;',
+          'SELECT * FROM customer_order_counts ORDER BY order_count DESC, name;',
+          'SELECT * FROM price_list ORDER BY price;'
+        ),
+        output: lines(
+          ' name  | order_count',
+          '-------+-------------',
+          ' Asha  |           2',
+          ' Priya |           1',
+          ' Ravi  |           1',
+          ' Meera |           0',
+          '(4 rows)',
+          '',
+          ' name     | price   | price_with_gst',
+          '----------+---------+----------------',
+          ' Pen      |   10.00 |          11.80',
+          ' Notebook |   60.00 |          70.80',
+          ' Stapler  |  150.00 |         177.00',
+          ' Backpack | 1200.00 |        1416.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'count(o.id) with LEFT JOIN, so Meera shows 0.' },
+          { line: 14, note: 'The GST rule lives in one place.' }
+        ],
+        tryIt: 'Add a new customer to the setup and run it. They appear in customer_order_counts with 0 orders, without changing the view.',
+        check: {
+          question: 'Why put the GST calculation in a view?',
+          options: ['The rule is written once, and everyone who uses the view gets it right', 'Views calculate faster than SELECT', 'GST can only be calculated in views'],
+          answer: 0,
+          why: 'A view keeps shared logic in one place, so every report uses the same rule.'
+        }
+      }
+    ],
+    summary: [
+      'CREATE VIEW name AS SELECT ... saves a query; use it like a table.',
+      'Normal views store no data and always show the current tables.',
+      'Views hide complex joins and private columns, and rename messy columns.',
+      'Views can build on views; PostgreSQL protects these dependencies.',
+      'Materialized views store results for speed and need REFRESH MATERIALIZED VIEW.'
+    ],
+    projectStep: {
+      title: 'My Library: handy views',
+      steps: [
+        'Create a view books_with_authors that joins books to authors.',
+        'Create a view unfinished_books with title, author and pages.',
+        'Create a view author_stats with each author\'s book count and total pages.',
+        'Use your views in two queries, as if they were tables.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 25,
+    title: 'JSON Data in PostgreSQL',
+    goal: 'You can store JSON in a jsonb column, read values with -> and ->>, filter and group by them, and decide when JSON is the right choice.',
+    minutes: 28,
+    recap: 'Yesterday you saved queries as views and learned materialized views for faster reports.',
+    parts: [
+      {
+        title: 'Why store JSON in a database',
+        say: [
+          'Most data fits neatly into columns: a product has a name, a price and a stock. But some data is flexible: app events where each type of event has different details, user settings that change between versions, or answers from an outside API.',
+          'JSON, which you may know from Python or JavaScript, is a text format for this kind of data: objects in curly brackets with named keys, arrays in square brackets. PostgreSQL can store JSON in a column and still query inside it.',
+          'PostgreSQL has two JSON types. json stores the text exactly as given. jsonb stores it in a processed binary form that is faster to search and supports indexes. In almost every case, use jsonb.',
+          'jsonb checks that the value is valid JSON when you insert it, and it tidies the storage: it removes extra spaces, keeps only the last copy of a duplicate key, and may store keys in a different order. The data means the same, but may print differently.',
+          'This flexibility is useful, but it has a cost. Inside a JSON value, PostgreSQL cannot enforce types, NOT NULL or foreign keys the way it can for real columns. So JSON is a tool for truly flexible data, not a way to avoid designing tables.',
+          'Many real systems use both: normal columns for the important, fixed facts, and one jsonb column for the extra details that vary.'
+        ],
+        example: 'A hospital form has fixed boxes for name, age and date, and a big free-notes box where the doctor writes whatever matters for this patient. The fixed boxes are columns; the notes box is a jsonb column, flexible but less structured.',
+        code: lines(
+          'CREATE TABLE events (id serial PRIMARY KEY, happened_at date NOT NULL, data jsonb NOT NULL);',
+          'INSERT INTO events (happened_at, data) VALUES',
+          '  (\'2026-09-01\', \'{"type": "click", "page": "/home"}\'),',
+          '  (\'2026-09-01\', \'{"type": "purchase", "amount": 499, "items": ["Pen", "Notebook"]}\'),',
+          '  (\'2026-09-02\', \'{"type": "click", "page": "/cart"}\');',
+          'SELECT id, data FROM events ORDER BY id;'
+        ),
+        output: lines(
+          ' id | data',
+          '----+-------------------------------------------------------------------',
+          '  1 | {"page": "/home", "type": "click"}',
+          '  2 | {"type": "purchase", "items": ["Pen", "Notebook"], "amount": 499}',
+          '  3 | {"page": "/cart", "type": "click"}',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'Fixed facts as columns; flexible details in one jsonb column.' },
+          { line: 4, note: 'Different events have different keys, which JSON allows.' },
+          { line: 6, note: 'jsonb may print keys in a different order than they were written.' }
+        ],
+        tryIt: "Try inserting invalid JSON, like '{type: click}' without quotes around the key, and read the error.",
+        check: {
+          question: 'Which JSON type should you usually choose in PostgreSQL?',
+          options: ['jsonb', 'json', 'text'],
+          answer: 0,
+          why: 'jsonb is faster to search, supports indexes and validates the value. json only keeps the text as written.'
+        }
+      },
+      {
+        title: 'Reading values: -> and ->>',
+        say: [
+          'To read a key from a jsonb value, PostgreSQL has two arrows. data -> \'page\' returns the value as JSON. data ->> \'page\' returns it as plain text.',
+          'The difference matters. With ->, a text value comes back with its double quotes, as JSON. With ->>, you get the text itself, ready to compare with = or show in a report. For most everyday use, ->> is what you want.',
+          'For numbers, ->> gives text, so to do maths, cast it: (data ->> \'amount\')::numeric. Then you can sum it, average it or compare it with >.',
+          'Chained arrows reach inside nested objects: data -> \'customer\' ->> \'city\' first gets the customer object, then the city inside it as text. For arrays, use a position number: data -> \'items\' ->> 0 is the first item.',
+          'If a key does not exist, the arrow returns NULL, not an error. That is convenient for flexible data, but remember to handle NULL, for example with coalesce.',
+          'Keys are case-sensitive: \'Page\' and \'page\' are different keys. Consistent naming in your JSON, usually small letters with underscores, avoids confusion.',
+          'When JSON comes from an outside API, look at a few real examples before writing queries, because keys are sometimes missing, renamed, or nested differently than the documentation says.'
+        ],
+        example: 'A parcel label has sections: "To" with a name and address inside. data -> \'to\' ->> \'city\' is like reading the To section, and inside it, the city line. The single arrow opens a section; the double arrow reads the words.',
+        code: lines(
+          "SELECT '{\"page\": \"/home\"}'::jsonb -> 'page' AS as_json, '{\"page\": \"/home\"}'::jsonb ->> 'page' AS as_text;",
+          'CREATE TABLE orders (id int, details jsonb);',
+          'INSERT INTO orders VALUES',
+          '  (1, \'{"amount": 499, "customer": {"name": "Asha", "city": "Pune"}, "items": ["Pen", "Notebook"]}\'),',
+          '  (2, \'{"amount": 1200, "customer": {"name": "Ravi", "city": "Mumbai"}, "items": ["Backpack"]}\');',
+          "SELECT id, details -> 'customer' ->> 'city' AS city, details -> 'items' ->> 0 AS first_item,",
+          "       (details ->> 'amount')::numeric * 1.18 AS amount_with_gst, details ->> 'coupon' AS coupon",
+          'FROM orders ORDER BY id;'
+        ),
+        output: lines(
+          ' as_json | as_text',
+          '---------+---------',
+          ' "/home" | /home',
+          '(1 row)',
+          '',
+          ' id | city   | first_item | amount_with_gst | coupon',
+          '----+--------+------------+-----------------+--------',
+          '  1 | Pune   | Pen        |          588.82 | NULL',
+          '  2 | Mumbai | Backpack   |         1416.00 | NULL',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 1, note: '-> keeps the JSON quotes; ->> gives plain text.' },
+          { line: 6, note: 'Two steps into a nested object, and the first array item.' },
+          { line: 7, note: 'Cast to numeric for maths. A missing key gives NULL.' }
+        ],
+        tryIt: "Add details -> 'items' ->> 1 AS second_item to the SELECT. Ravi's order has only one item, so his is NULL.",
+        check: {
+          question: "What does data ->> 'city' return?",
+          options: ['The city as plain text', 'The city as JSON, with quotes', 'An error if city is missing'],
+          answer: 0,
+          why: '->> returns text. -> returns JSON. A missing key returns NULL, not an error.'
+        }
+      },
+      {
+        title: 'Filtering and grouping by JSON values',
+        say: [
+          'Once you can read values, you can use them anywhere: WHERE data ->> \'type\' = \'click\' keeps click events, and GROUP BY data ->> \'type\' counts events of each type.',
+          'This is how product teams analyse app usage. Every tap, page view and purchase is stored as a JSON event, and SQL turns millions of them into reports: most visited pages, sign-ups per day, purchases per campaign.',
+          'PostgreSQL also has a "contains" operator, @>. data @> \'{"type": "click"}\' is true when the JSON contains that key and value. It is neat for checking several keys at once, and it can use a special index.',
+          'The ? operator checks whether a key exists: data ? \'coupon\' finds events that have a coupon key, whatever its value.',
+          'When you filter by a JSON value very often on a large table, create an index. A GIN index on the whole column, CREATE INDEX ON events USING gin (data), speeds up @> and ? searches. An index on an expression, like ((data ->> \'type\')), speeds up = searches on one key.',
+          'If you find yourself filtering by the same JSON key in almost every query, that is a hint it might deserve to be a real column instead.'
+        ],
+        example: 'A shop keeps every receipt in a big box of slips with different details. To find all receipts that used a coupon, you check each slip for a coupon line. With JSON in PostgreSQL, the database checks all the slips for you, and an index makes it quick.',
+        code: lines(
+          'CREATE TABLE events (id int, data jsonb);',
+          'INSERT INTO events VALUES',
+          '  (1, \'{"type": "click", "page": "/home"}\'), (2, \'{"type": "view", "page": "/cart"}\'),',
+          '  (3, \'{"type": "click", "page": "/cart"}\'), (4, \'{"type": "purchase", "amount": 499, "coupon": "DIWALI"}\'),',
+          '  (5, \'{"type": "click", "page": "/home"}\');',
+          "SELECT data ->> 'type' AS type, count(*) AS events FROM events GROUP BY 1 ORDER BY events DESC, type;",
+          "SELECT data ->> 'page' AS page, count(*) AS clicks FROM events WHERE data @> '{\"type\": \"click\"}' GROUP BY 1 ORDER BY clicks DESC;",
+          "SELECT id FROM events WHERE data ? 'coupon';"
+        ),
+        output: lines(
+          ' type     | events',
+          '----------+--------',
+          ' click    |      3',
+          ' purchase |      1',
+          ' view     |      1',
+          '(3 rows)',
+          '',
+          ' page  | clicks',
+          '-------+--------',
+          ' /home |      2',
+          ' /cart |      1',
+          '(2 rows)',
+          '',
+          ' id',
+          '----',
+          '  4',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'Count events per type. GROUP BY 1 means the first column.' },
+          { line: 7, note: '@> checks that the JSON contains type: click.' },
+          { line: 8, note: '? checks that a key exists.' }
+        ],
+        tryIt: "Change the page report to count views instead of clicks: '{\"type\": \"view\"}'.",
+        check: {
+          question: "What does data @> '{\"type\": \"click\"}' check?",
+          options: ['That the JSON contains the key type with the value click', 'That the JSON is exactly that object', 'That the key type exists'],
+          answer: 0,
+          why: '@> means "contains": the value may have other keys too. ? only checks that a key exists.'
+        }
+      },
+      {
+        title: 'Building and changing JSON',
+        say: [
+          'PostgreSQL can also build JSON from normal columns. jsonb_build_object(\'name\', name, \'city\', city) makes an object from a row. jsonb_agg collects many rows into a JSON array.',
+          'This is very useful for APIs. A backend can ask PostgreSQL for data already shaped as the JSON the app needs, instead of building it in code. On Day 26, you will see how apps read query results.',
+          'To change a value inside a jsonb column, use jsonb_set: UPDATE settings SET data = jsonb_set(data, \'{theme}\', \'"dark"\'). The path is written in curly brackets, and the new value must be valid JSON, which is why text needs its double quotes.',
+          'The || operator merges two objects: data || \'{"language": "hi"}\' adds or replaces the language key. The - operator removes a key: data - \'coupon\'.',
+          'These tools make jsonb columns practical for things like user preferences, feature flags and form answers, where the set of keys changes over time.',
+          'As always, keep the important, fixed facts in normal columns. Use JSON for the parts that really are flexible.'
+        ],
+        example: 'A mobile app\'s settings screen has toggles that change between versions: dark mode, language, notifications. Storing all settings as one JSON object means a new toggle needs no new column; the app just adds a key.',
+        code: lines(
+          'CREATE TABLE users (id int PRIMARY KEY, name text, settings jsonb DEFAULT \'{}\');',
+          'INSERT INTO users VALUES (1, \'Asha\', \'{"theme": "light", "notifications": true}\'), (2, \'Ravi\', \'{}\');',
+          "UPDATE users SET settings = jsonb_set(settings, '{theme}', '\"dark\"') WHERE id = 1;",
+          "UPDATE users SET settings = settings || '{\"language\": \"hi\"}' WHERE id = 2;",
+          'SELECT id, settings FROM users ORDER BY id;',
+          "SELECT jsonb_agg(jsonb_build_object('id', id, 'name', name) ORDER BY id) AS api_response FROM users;"
+        ),
+        output: lines(
+          ' id | settings',
+          '----+------------------------------------------',
+          '  1 | {"theme": "dark", "notifications": true}',
+          '  2 | {"language": "hi"}',
+          '(2 rows)',
+          '',
+          ' api_response',
+          '--------------------------------------------------------',
+          ' [{"id": 1, "name": "Asha"}, {"id": 2, "name": "Ravi"}]',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'Change one key; text values need JSON double quotes.' },
+          { line: 4, note: '|| merges in a new key.' },
+          { line: 6, note: 'Build a JSON array of objects, ready for an API.' }
+        ],
+        tryIt: "Remove the notifications key from Asha's settings with UPDATE users SET settings = settings - 'notifications' WHERE id = 1; before the SELECT.",
+        check: {
+          question: 'What does jsonb_agg do?',
+          options: ['Collects values from many rows into one JSON array', 'Counts JSON keys', 'Checks that JSON is valid'],
+          answer: 0,
+          why: 'jsonb_agg is an aggregate: it combines many rows into a single JSON array, useful for API responses.'
+        }
+      },
+      {
+        title: 'Columns or JSON: choosing well',
+        say: [
+          'JSON columns are tempting, because they never need an ALTER TABLE. But used everywhere, they bring back the problems normalization solves, and add new ones.',
+          'Inside JSON, there are no types: an amount can be the number 499 in one row and the text "499" in another. There are no NOT NULL rules, no CHECK rules, no foreign keys. Mistakes that a column would refuse slip straight in.',
+          'Queries also get longer and harder to read: (data ->> \'amount\')::numeric instead of simply amount. And the database has less information to plan fast queries.',
+          'A good rule: if every row has the key, you filter or join by it often, or it must follow rules, make it a column. If the keys vary between rows, are optional, or come from outside and change often, JSON is a good fit.',
+          'You can move a JSON key into a proper column later with ALTER TABLE ADD COLUMN and an UPDATE that copies the value out. Many teams start with JSON for a new feature and promote the stable keys to columns once they are sure.',
+          'In interviews, a balanced answer is best: "I use normal columns for structured, important data, and jsonb for flexible or external data, with indexes where needed."'
+        ],
+        example: 'A clothes shop has fixed labels on every item: size, price, colour. Special notes, like "limited edition" or "handwash only", vary from item to item, so they go on a separate tag. Fixed labels are columns; the variable tag is JSON.',
+        code: lines(
+          'CREATE TABLE orders (id int, details jsonb);',
+          'INSERT INTO orders VALUES (1, \'{"amount": 499}\'), (2, \'{"amount": "1200"}\'), (3, \'{"amount": -50}\');',
+          "SELECT id, jsonb_typeof(details -> 'amount') AS stored_as FROM orders ORDER BY id;",
+          'ALTER TABLE orders ADD COLUMN amount numeric(10,2);',
+          "UPDATE orders SET amount = (details ->> 'amount')::numeric;",
+          'ALTER TABLE orders ADD CONSTRAINT amount_positive CHECK (amount > 0);'
+        ),
+        output: lines(
+          ' id | stored_as',
+          '----+-----------',
+          '  1 | number',
+          '  2 | string',
+          '  3 | number',
+          '(3 rows)',
+          '',
+          '[Error] check constraint "amount_positive" of relation "orders" is violated by some row'
+        ),
+        codeNotes: [
+          { line: 3, note: 'One amount is a number, one is text: JSON did not stop it.' },
+          { line: 5, note: 'Promote the key to a real numeric column.' },
+          { line: 6, note: 'Now a rule can be added, and it finds the bad -50 order.' }
+        ],
+        tryIt: 'Add UPDATE orders SET amount = 50 WHERE id = 3; before the ALTER on the last line. Now the rule is accepted.',
+        check: {
+          question: 'When is a jsonb column a good choice?',
+          options: ['For flexible data whose keys vary between rows', 'For every column, to avoid ALTER TABLE', 'For ids used in joins'],
+          answer: 0,
+          why: 'JSON suits varying, optional or external data. Important fixed facts belong in typed columns with rules.'
+        }
+      },
+      {
+        title: 'Putting it together: analysing app events',
+        say: [
+          'Let us analyse a small app\'s event log the way a product team would. Each event has a date and a jsonb data column with a type and details.',
+          'The report answers three questions: how many events of each type, which pages were clicked most, and how much money purchases brought in. Each question is a short query with ->>, @> or a cast.',
+          'Notice that purchase amounts are cast to numeric before summing. Keeping amounts as JSON numbers, not text, makes that cast reliable.',
+          'In today\'s practice, you will list the pages of click events as text, and count events per type.',
+          'Tomorrow you learn how apps written in Python and Node.js talk to PostgreSQL, and the most important security rule in databases: never glue user input into SQL.',
+          'With JSON, you now have a complete toolbox: structured tables for the core data, and flexible JSON where it truly helps.'
+        ],
+        example: 'A mobile app team meets every Monday to look at last week\'s numbers: which screens people used, where they dropped off, how many paid. All of it comes from a table of JSON events and a handful of SQL queries like these.',
+        code: lines(
+          'CREATE TABLE events (id int, day date, data jsonb);',
+          'INSERT INTO events VALUES',
+          '  (1, \'2026-09-01\', \'{"type": "click", "page": "/home"}\'), (2, \'2026-09-01\', \'{"type": "click", "page": "/cart"}\'),',
+          '  (3, \'2026-09-01\', \'{"type": "purchase", "amount": 499}\'), (4, \'2026-09-02\', \'{"type": "click", "page": "/home"}\'),',
+          '  (5, \'2026-09-02\', \'{"type": "purchase", "amount": 1200}\'), (6, \'2026-09-02\', \'{"type": "view", "page": "/home"}\');',
+          "SELECT data ->> 'type' AS type, count(*) AS events FROM events GROUP BY 1 ORDER BY events DESC, type;",
+          "SELECT data ->> 'page' AS page, count(*) AS clicks FROM events WHERE data ->> 'type' = 'click' GROUP BY 1 ORDER BY clicks DESC;",
+          "SELECT day, sum((data ->> 'amount')::numeric) AS revenue FROM events WHERE data @> '{\"type\": \"purchase\"}' GROUP BY day ORDER BY day;"
+        ),
+        output: lines(
+          ' type     | events',
+          '----------+--------',
+          ' click    |      3',
+          ' purchase |      2',
+          ' view     |      1',
+          '(3 rows)',
+          '',
+          ' page  | clicks',
+          '-------+--------',
+          ' /home |      2',
+          ' /cart |      1',
+          '(2 rows)',
+          '',
+          ' day        | revenue',
+          '------------+---------',
+          ' 2026-09-01 |     499',
+          ' 2026-09-02 |    1200',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'Events per type.' },
+          { line: 7, note: 'Most clicked pages.' },
+          { line: 8, note: 'Revenue per day from purchase events, with the amount cast to numeric.' }
+        ],
+        tryIt: 'Add a purchase on 2026-09-02 for 300 and run it. The revenue for that day becomes 1500.',
+        check: {
+          question: 'Why cast (data ->> \'amount\')::numeric before sum?',
+          options: ['->> returns text, and sum needs numbers', 'JSON numbers cannot be read', 'To round the result'],
+          answer: 0,
+          why: '->> always gives text. Casting to numeric turns it into a number that sum can add.'
+        }
+      }
+    ],
+    summary: [
+      'jsonb stores flexible JSON data that PostgreSQL can search and index.',
+      "-> returns JSON, ->> returns text; chain arrows for nested keys; missing keys give NULL.",
+      'Filter and group by JSON values; @> checks "contains", ? checks a key exists.',
+      'jsonb_build_object and jsonb_agg build JSON; jsonb_set, || and - change it.',
+      'Use columns for fixed, important facts; JSON for truly flexible data.'
+    ],
+    projectStep: {
+      title: 'My Library: flexible book details',
+      steps: [
+        'Add an extras jsonb column to books, with a default of an empty object.',
+        'Store different details for different books, like {"translator": "..."} or {"awards": ["..."]}.',
+        'List books that have a translator, using ? or ->>.',
+        'Decide which extra key, if any, should become a real column, and explain why.'
       ]
     }
   }
