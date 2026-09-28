@@ -97,6 +97,7 @@ const RUNNER_LABELS: Record<string, string> = {
   'iot_sec': '🔒 IoT Security & Root of Trust Simulator',
   'iot_edge': '🧠 Edge AI & TinyML TFLM Simulator',
   'ai': '🤖 AI & LLM Engine Simulator',
+  'ai-py': '🐍 Python 3 Executing',
   'dist': '🌐 Distributed Systems Simulator',
   'iot_net': '📶 IoT Radio Protocol Simulator',
   'iot_emb': '🔌 Embedded MCU Simulator',

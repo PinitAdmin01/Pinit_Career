@@ -6,14 +6,10 @@
  */
 import { DayLessonPlan } from '../types/lessonEngine';
 import { DSA_PILOT_DAYS } from './dsaPilotDays';
-
-interface BlockCode {
-  run?: { filename: string; initialCode: string; expectedOutput: string };
-  anatomy?: { codeSnippet: string; lineNotes: Record<string, string> };
-}
+import { PythonBlockCode, toPythonLessons } from './pythonLessonOverlay';
 
 /** Python code for each lesson block, by block id. */
-export const DSA_PYTHON_BLOCK_CODE: Record<string, BlockCode> = {
+export const DSA_PYTHON_BLOCK_CODE: Record<string, PythonBlockCode> = {
   "dsa-d1-b1-asymptotic-growth": {
     "run": {
       "filename": "complexity_sim.py",
@@ -820,11 +816,10 @@ export const DSA_PYTHON_BLOCK_CODE: Record<string, BlockCode> = {
   }
 };
 
-/** Text written with JavaScript in mind, and its Python wording. Applied in this order. */
+/** DSA wording written with JavaScript in mind, and its Python wording. Applied in this order. */
 const TEXT_SWAPS: [string, string][] = [
-  ['JavaScript arrays', 'Python lists'],
-  ['JavaScript', 'Python'],
   ['true O(N)', 'truly O(N)'],
+  ['|sizeA - sizeB|', '|size_a - size_b|'],
   ['null pointer', 'None reference'],
   ['Zero null branch conditionals', 'Zero None checks'],
   ['O(1) pushFront, pushBack, popFront, popBack', 'O(1) appendleft, append, popleft, pop (collections.deque)'],
@@ -848,75 +843,7 @@ const TEXT_SWAPS: [string, string][] = [
   ['Box Key `Math.floor(r/3)}-${Math.floor(c/3)}`', 'Box key `f"{r // 3}-{c // 3}"`'],
   ['`const temp = [...prices]`', '`temp = prices[:]`'],
   ['current.push(candidate)', 'current.append(candidate)'],
-  ['Math.max(', 'max('],
-  ['Math.min(', 'min('],
-  ['!==', '!='],
-  ['===', '=='],
-  ['= Infinity', '= infinity'],
-  ['with Infinity', 'with infinity'],
 ];
-
-const snake = (word: string) => word.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
-
-function toPythonText(text: string): string {
-  let out = text;
-  for (const [from, to] of TEXT_SWAPS) out = out.split(from).join(to);
-  // camelCase names (maxSum, isEnd) are snake_case in the Python code; true/false/null likewise.
-  return out
-    .replace(/\b[a-z]+(?:[A-Z][a-z0-9]*)+\b/g, snake)
-    .replace(/\btrue\b/g, 'True')
-    .replace(/\bfalse\b/g, 'False')
-    .replace(/\bnull\b/g, 'None');
-}
-
-/** A printed JS value ("[0,1]", '["a","b"]', "true") as Python prints it ("[0, 1]", "['a', 'b']", "True"). */
-function toPythonOutput(output: string): string {
-  try {
-    const value = JSON.parse(output);
-    const repr = (v: unknown): string =>
-      Array.isArray(v) ? `[${v.map(repr).join(', ')}]`
-      : typeof v === 'string' ? `'${v}'`
-      : typeof v === 'boolean' ? (v ? 'True' : 'False')
-      : String(v);
-    if (typeof value !== 'string') return repr(value);
-  } catch {
-    // not a JSON value: fall through
-  }
-  return toPythonText(output);
-}
-
-/** Every string in a lesson block, except ids and code, in Python wording. */
-function translate(value: unknown, key = ''): unknown {
-  if (typeof value === 'string') return /^(id|conceptId|misconceptionId|primaryMisconceptionId)$/.test(key) ? value : toPythonText(value);
-  if (Array.isArray(value)) return value.map((v) => translate(v));
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, translate(v, k)]));
-  }
-  return value;
-}
-
-function pythonDay(day: DayLessonPlan): DayLessonPlan {
-  const translated = translate(day) as DayLessonPlan;
-  translated.blocks = day.blocks.map((block, i) => {
-    const out = translated.blocks[i];
-    const code = DSA_PYTHON_BLOCK_CODE[block.id];
-    out.media = (block.media as any[]).map((media: any, m: number) => {
-      const t = out.media[m] as any;
-      if (media.type === 'runnable_code' && code?.run) return { ...t, ...code.run };
-      if (media.type === 'syntax_anatomy' && code?.anatomy) return { ...t, codeSnippet: code.anatomy.codeSnippet, lineNotes: translate(code.anatomy.lineNotes) };
-      if (media.data?.type === 'broken_fixed_diff' && PYTHON_DIFFS[block.id]) return { ...t, data: { ...t.data, ...PYTHON_DIFFS[block.id] } };
-      return t;
-    });
-    const check = block.diagnosticCheck as any;
-    if (check?.expectedStringOutput) {
-      const expected = PYTHON_ANSWERS[block.id] ?? toPythonOutput(check.expectedStringOutput);
-      (out.diagnosticCheck as any).expectedStringOutput = expected;
-      (out.diagnosticCheck as any).acceptableAnswers = [expected, ...(check.acceptableAnswers || []).filter((a: string) => a !== expected)];
-    }
-    return out;
-  });
-  return translated;
-}
 
 /** The before-and-after bug fix examples, in Python. */
 const PYTHON_DIFFS: Record<string, { brokenCode: string; fixedCode: string }> = {
@@ -933,4 +860,10 @@ const PYTHON_ANSWERS: Record<string, string> = {
   'dsa-d30-b3-full-dsa-mastery-certification': '🎉 Data Structures & Algorithms in Python Certification: 100/100 [GOLD-STANDARD CERTIFIED]',
 };
 
-export const DSA_PYTHON_PILOT_DAYS: DayLessonPlan[] = DSA_PILOT_DAYS.map(pythonDay);
+for (const [id, diff] of Object.entries(PYTHON_DIFFS)) DSA_PYTHON_BLOCK_CODE[id] = { ...DSA_PYTHON_BLOCK_CODE[id], diff };
+
+export const DSA_PYTHON_PILOT_DAYS: DayLessonPlan[] = toPythonLessons(DSA_PILOT_DAYS, {
+  code: DSA_PYTHON_BLOCK_CODE,
+  textSwaps: TEXT_SWAPS,
+  answers: PYTHON_ANSWERS,
+});

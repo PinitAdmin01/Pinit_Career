@@ -163,6 +163,7 @@ export const CERTIFICATION_TRACKS = [
 
 export const COURSE_TO_ROLE: Record<string, string> = {
   'course-ai-eng': 'AI & LLM Systems Engineer',
+  'course-ai-python': 'AI & LLM Systems Engineer',
   'course-fullstack-js': 'Full-Stack Software Developer',
   'course-dsa-optim': 'Software Development Engineer (SDE)',
   'course-dsa-python': 'Software Development Engineer (SDE)',

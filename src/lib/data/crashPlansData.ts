@@ -389,7 +389,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Engineering', desc: 'Core Python, AsyncIO, and APIs', icon: '🐍', skills: ['Python', 'FastAPI'] },
         { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Advanced DSA', desc: 'Graph algorithms, Trees, and Optimization', icon: '⚡', skills: ['DSA', 'Algorithms'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
-        { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning & LLMs', desc: 'Applied AI, Vector DBs, and Embeddings', icon: '🤖', skills: ['Machine Learning', 'LLMs'] },
+        { month: 4, courseId: 'course-ai-python', title: 'Month 4: Machine Learning & LLMs', desc: 'Applied AI, Vector DBs, and Embeddings', icon: '🤖', skills: ['Machine Learning', 'LLMs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Computing', desc: 'Microservices, Message Brokers, and Queues', icon: '🌐', skills: ['Kafka', 'Distributed Systems'] },
         { month: 6, courseId: 'course-cloud-native', title: 'Month 6: Production Cloud AI', desc: 'Model deployment, Monitoring, and MLOps', icon: '☁️', skills: ['MLOps', 'Cloud Deployment'] }
       ]
@@ -470,7 +470,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
         { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
-        { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
+        { month: 4, courseId: 'course-ai-python', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
         { month: 6, courseId: 'course-cloud-native', title: 'Month 6: Cloud Native MLOps', desc: 'Docker, AWS SageMaker, and Kubernetes', icon: '☁️', skills: ['AWS', 'MLOps'] },
         { month: 7, courseId: 'course-nlp', title: 'Month 7: Natural Language Processing', desc: 'Transformers, HuggingFace, and Fine-Tuning', icon: '🧠', skills: ['Transformers', 'NLP'] },
@@ -557,7 +557,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
         { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
-        { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
+        { month: 4, courseId: 'course-ai-python', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
         { month: 6, courseId: 'course-cloud-native', title: 'Month 6: Cloud Native MLOps', desc: 'Docker, AWS SageMaker, and Kubernetes', icon: '☁️', skills: ['AWS', 'MLOps'] },
         { month: 7, courseId: 'course-nlp', title: 'Month 7: Natural Language Processing', desc: 'Transformers, HuggingFace, and Fine-Tuning', icon: '🧠', skills: ['Transformers', 'NLP'] },
@@ -565,7 +565,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 9, courseId: 'course-ai-prompt-literacy', title: 'Month 9: Autonomous AI Agents', desc: 'LangChain, Multi-Agent Systems & Production', icon: '⚡', skills: ['AI Agents', 'LangChain'] },
         { month: 10, courseId: 'course-distributed-sys', title: 'Month 10: Distributed Model Training', desc: 'DeepSpeed, FSDP & Multi-GPU Clusters', icon: '🔥', skills: ['DeepSpeed', 'Distributed Training'] },
         { month: 11, courseId: 'course-cloud-native', title: 'Month 11: Production Vector Engines', desc: 'Milvus, Pinecone & Hybrid Search Systems', icon: '🔍', skills: ['Vector DBs', 'Semantic Search'] },
-        { month: 12, courseId: 'course-ai-eng', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] }
+        { month: 12, courseId: 'course-ai-python', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] }
       ]
     }
   },
@@ -660,7 +660,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
         { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
-        { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
+        { month: 4, courseId: 'course-ai-python', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
         { month: 6, courseId: 'course-cloud-native', title: 'Month 6: Cloud Native MLOps', desc: 'Docker, AWS SageMaker, and Kubernetes', icon: '☁️', skills: ['AWS', 'MLOps'] },
         { month: 7, courseId: 'course-nlp', title: 'Month 7: Natural Language Processing', desc: 'Transformers, HuggingFace, and Fine-Tuning', icon: '🧠', skills: ['Transformers', 'NLP'] },
@@ -668,11 +668,11 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 9, courseId: 'course-ai-prompt-literacy', title: 'Month 9: Autonomous AI Agents', desc: 'LangChain, Multi-Agent Systems & Production', icon: '⚡', skills: ['AI Agents', 'LangChain'] },
         { month: 10, courseId: 'course-distributed-sys', title: 'Month 10: Distributed Model Training', desc: 'DeepSpeed, FSDP & Multi-GPU Clusters', icon: '🔥', skills: ['DeepSpeed', 'Distributed Training'] },
         { month: 11, courseId: 'course-cloud-native', title: 'Month 11: Production Vector Engines', desc: 'Milvus, Pinecone & Hybrid Search Systems', icon: '🔍', skills: ['Vector DBs', 'Semantic Search'] },
-        { month: 12, courseId: 'course-ai-eng', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] },
-        { month: 13, courseId: 'course-ai-eng', title: 'Month 13: Transformer Architecture from Scratch', desc: 'Attention Mechanisms, RoPE & CUDA Kernels', icon: '⚙️', skills: ['Custom Attention', 'CUDA'] },
+        { month: 12, courseId: 'course-ai-python', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] },
+        { month: 13, courseId: 'course-ai-python', title: 'Month 13: Transformer Architecture from Scratch', desc: 'Attention Mechanisms, RoPE & CUDA Kernels', icon: '⚙️', skills: ['Custom Attention', 'CUDA'] },
         { month: 14, courseId: 'course-quant-systems', title: 'Month 14: LLM Quantization & Hardware Acceleration', desc: 'AWQ, GPTQ, GGUF & TensorRT-LLM', icon: '⚡', skills: ['Quantization', 'TensorRT'] },
         { month: 15, courseId: 'course-nlp', title: 'Month 15: Multimodal Vision-Language Models', desc: 'CLIP, LLaVA & Vision Encoders', icon: '👁️', skills: ['Vision Models', 'Multimodal'] },
-        { month: 16, courseId: 'course-ai-eng', title: 'Month 16: Reinforcement Learning from Human Feedback', desc: 'PPO, DPO & Reward Modeling', icon: '🎯', skills: ['RLHF', 'DPO'] },
+        { month: 16, courseId: 'course-ai-python', title: 'Month 16: Reinforcement Learning from Human Feedback', desc: 'PPO, DPO & Reward Modeling', icon: '🎯', skills: ['RLHF', 'DPO'] },
         { month: 17, courseId: 'course-distributed-sys', title: 'Month 17: Large-Scale Synthetic Data Engines', desc: 'Data Distillation, Filtering & Quality Scanners', icon: '🧪', skills: ['Synthetic Data', 'Data Quality'] },
         { month: 18, courseId: 'course-cloud-native', title: 'Month 18: High-Throughput Inference Clusters', desc: 'vLLM, Continuous Batching & PagedAttention', icon: '🚀', skills: ['vLLM', 'Inference Ops'] },
         { month: 19, courseId: 'course-ai-prompt-literacy', title: 'Month 19: Long-Horizon Agent Planning', desc: 'Tree-of-Thoughts, ReAct & Sandboxed Execution', icon: '🌲', skills: ['Agent Planning', 'Sandboxing'] },

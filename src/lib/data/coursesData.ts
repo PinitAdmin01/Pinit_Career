@@ -11,6 +11,7 @@ import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
 import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
+import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
 import { IOT_EMBEDDED_30_DAYS_QUESTS } from './iotEmbedded30DayData';
 import { GRAPHICS_3D_30_DAYS_QUESTS } from './graphics3d30DayData';
@@ -175,6 +176,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 4,
     icon: '🤖',
     quests: AI_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-ai-python',
+    title: 'AI Engineering in Python',
+    desc: 'The AI Engineering course with every lesson example and practice task in Python: prompts, structured output, tool calling, embeddings, RAG, agents, caching and fine-tuning maths.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🤖',
+    quests: AI_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-fullstack-js',

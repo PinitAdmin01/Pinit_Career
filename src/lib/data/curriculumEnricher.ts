@@ -26,6 +26,7 @@ import { PYTHON_PILOT_DAYS } from './pythonPilotDays';
 import { DATABASE_PILOT_DAYS } from './databasePilotDays';
 import { DSA_PILOT_DAYS } from './dsaPilotDays';
 import { DSA_PYTHON_PILOT_DAYS } from './dsaPythonPilotDays';
+import { AI_PYTHON_PILOT_DAYS } from './aiPythonPilotDays';
 import { FULLSTACK_PILOT_DAYS } from './fullstackPilotDays';
 import { CLOUD_PILOT_DAYS } from './cloudPilotDays';
 import { DEVOPS_PILOT_DAYS } from './devopsPilotDays';
@@ -110,6 +111,7 @@ const PILOT_DAY_SOURCES: Record<string, unknown> = {
   'iot_sec': IOT_SECURITY_PILOT_DAYS,
   'iot_edge': IOT_EDGE_AI_PILOT_DAYS,
   'ai': AI_PILOT_DAYS,
+  'ai-py': AI_PYTHON_PILOT_DAYS,
   'dist': DISTRIBUTED_PILOT_DAYS,
   'iot_net': IOT_NETWORK_PILOT_DAYS,
   'iot_emb': IOT_EMBEDDED_PILOT_DAYS,

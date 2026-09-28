@@ -194,6 +194,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-ai-python': {
+    courseId: 'course-ai-python',
+    courseTitle: 'AI Engineering in Python',
+    category: 'Artificial Intelligence',
+    summary: 'Production AI systems engineering in Python: prompt orchestration, structured output with Pydantic, function calling, embeddings, RAG, agents and evaluation.',
+    realWorldAnalogy: 'Think of an LLM as an ultra-smart consultant with vast knowledge who needs a clear briefing memo (System Prompt), reference library cards (Vector RAG), and authorized phone lines (Function Calling Tools) to complete enterprise tasks.',
+    keyConcepts: [
+      {
+        heading: '1. Retrieval-Augmented Generation (RAG)',
+        explanation: 'Index proprietary enterprise documents into high-dimensional vector embeddings to augment prompt contexts with semantic search.',
+        codeOrExample: 'query_vector = embed(user_query)\nrelevant_chunks = vector_store.similarity_search(query_vector, k=3)'
+      },
+      {
+        heading: '2. Structured Function Calling',
+        explanation: 'Force LLMs to produce schema-valid JSON function call arguments for deterministic execution.',
+        codeOrExample: "tools = [{\n    'type': 'function',\n    'function': {'name': 'book_flight', 'parameters': {'type': 'object', 'properties': {'city': {'type': 'string'}}}},\n}]"
+      },
+      {
+        heading: '3. Temperature & Nucleus Sampling',
+        explanation: 'Control creativity vs determinism: temperature=0 for deterministic JSON extraction; temperature=0.7 for creative writing.',
+        codeOrExample: "completion = client.chat.completions.create(\n    model='gpt-4o',\n    temperature=0.1,\n    messages=[{'role': 'user', 'content': prompt}],\n)"
+      }
+    ],
+    cheatsheet: [
+      'RAG Formula: Raw Prompt + Retrieved Context + Grounding Guardrails = Reliable Output',
+      'Vector Distance: Cosine Similarity = dot(A, B) / (||A|| * ||B||)',
+      'Deterministic Output: Set temperature=0 and validate with a Pydantic model',
+      'Chunking Strategy: 512 tokens with 10% overlap for high semantic recall'
+    ],
+    commonPitfalls: [
+      'Sending unbounded user prompt inputs directly to LLMs without sanitization (prompt injection risk).',
+      'Failing to validate LLM JSON output against a Pydantic model before database insertion.',
+      'Exceeding model context window token limits during massive document summarization.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is RAG and why is it preferred over fine-tuning for domain knowledge?',
+        answer: 'RAG retrieves real-time, authoritative facts from vector databases at inference time, preventing hallucinations without costly GPU retraining, and allows instant updates whenever source data changes.'
+      }
+    ]
+  },
+
   'course-computer-fundamentals': {
     courseId: 'course-computer-fundamentals',
     courseTitle: 'Computer Literacy, Digital Productivity & OS Fundamentals',
