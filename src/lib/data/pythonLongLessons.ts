@@ -4776,5 +4776,1570 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         'Save expenses to expenses.json with the JSON code from Day 17, so they are still there next time you run it.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 21,
+    title: 'Testing Your Code with assert and pytest',
+    goal: 'You can write automatic tests with assert, organise them as pytest test functions, and test normal cases and edge cases.',
+    minutes: 30,
+    recap: 'Yesterday you set up Python on your laptop, ran scripts from the terminal, used input(), and installed packages with pip in a virtual environment.',
+    parts: [
+      {
+        title: 'Why developers write tests',
+        say: [
+          'So far you have checked your code by running it and looking at the output. That works for small programs, but it does not scale. When a program has fifty functions, you cannot re-check every one by eye each time you change something.',
+          'A test is a small piece of code that checks another piece of code automatically. It calls a function with known inputs and checks that the answer is what you expected. If it is, the test passes silently. If not, it fails loudly and tells you.',
+          'Tests give you confidence to change code. If you improve a function and all the tests still pass, you know you did not break anything. Companies run thousands of tests before every release for exactly this reason.',
+          'You have actually been using tests all month: every practice task is checked by a test that calls your function and compares the result. Today you learn to write them yourself. Interviewers often ask junior developers "how do you test your code?", and now you will have a real answer.'
+        ],
+        example: 'Before a car leaves the factory, it goes through a checklist: brakes work, lights work, horn works. Nobody drives every car around the city by hand to check. The checklist is fast, the same every time, and catches problems before customers do. Tests are that checklist for code.',
+        code: lines(
+          'def add_gst(price):',
+          '    return round(price * 1.18, 2)',
+          '',
+          'assert add_gst(100) == 118.0',
+          'assert add_gst(0) == 0',
+          'print("All checks passed")'
+        ),
+        output: 'All checks passed',
+        codeNotes: [
+          { line: 4, note: 'assert checks that something is True. If it is, nothing happens.' },
+          { line: 6, note: 'We only get here if every assert passed.' }
+        ],
+        tryIt: 'Change 1.18 to 1.8 on line 2 (a typo a real developer could make) and run it. The first assert fails and stops the program, pointing straight at the bug.',
+        check: {
+          question: 'What is the main benefit of automatic tests?',
+          options: ['You can change code and quickly confirm nothing broke', 'They make the program run faster', 'They replace the need to write functions'],
+          answer: 0,
+          why: 'Tests re-check your code in seconds after every change, so mistakes are caught before users see them.'
+        }
+      },
+      {
+        title: 'assert and failure messages',
+        say: [
+          'assert takes a condition. If the condition is True, nothing happens and the program continues. If it is False, Python raises an AssertionError and stops.',
+          'You can add a message after a comma: assert total == 65, "total should be 65". When the assert fails, the message is shown, which makes it much easier to understand what went wrong.',
+          'A very useful message shows both what you expected and what you actually got: f"expected 65, got {total}". When a test fails at midnight on a server, a clear message saves a lot of time.',
+          'assert is only for checking your own code in tests. Do not use it to check user input in the real program, because Python can be run in a mode that skips asserts. For user input, use if and raise, as on Day 14.'
+        ],
+        example: 'A good failure message is like a clear complaint at a restaurant: "I ordered paneer, but got chicken" is much more helpful than just "wrong". The kitchen knows exactly what to fix.',
+        code: lines(
+          'def total(amounts):',
+          '    return sum(amounts)',
+          '',
+          'result = total([20, 45])',
+          'assert result == 65, f"expected 65, got {result}"',
+          'print("First check passed")',
+          'result = total([20, 45, 10])',
+          'assert result == 70, f"expected 70, got {result}"',
+          'print("This line is never reached")'
+        ),
+        output: lines('First check passed', '[Error] AssertionError: expected 70, got 75'),
+        codeNotes: [
+          { line: 5, note: 'The message after the comma is shown only if the check fails.' },
+          { line: 8, note: 'This expectation is wrong on purpose: 20 + 45 + 10 is 75.' }
+        ],
+        tryIt: 'Fix the expected value on line 8 to 75 and run it. Now both checks pass and the last line prints.',
+        check: {
+          question: 'What happens when assert x == 5, "x should be 5" fails?',
+          options: ['An AssertionError is raised showing "x should be 5"', 'x is set to 5', 'Python prints a warning and continues'],
+          answer: 0,
+          why: 'A failing assert raises AssertionError with your message, and the program stops unless the error is caught.'
+        }
+      },
+      {
+        title: 'Test functions and pytest',
+        say: [
+          'Writing asserts at the bottom of a file gets messy. The standard approach is to put each check in its own function whose name starts with test_, in a separate file whose name also starts with test_, like test_tracker.py.',
+          'pytest is the most popular Python testing tool. You install it with pip install pytest inside your virtual environment. Then you type pytest in the terminal. It finds every file and function starting with test_, runs them all, and shows a summary: how many passed and which failed.',
+          'Each test function should check one behaviour and have a name that says what it checks, like test_total_of_empty_list_is_zero. When a test fails, its name alone tells you what broke.',
+          'pytest cannot run in the lesson editor, so today\'s code sample includes a tiny test runner written in plain Python that does the same basic job. On your laptop, you will use the real pytest.'
+        ],
+        example: 'A school exam is split into numbered questions, each testing one topic. If a student gets question 4 wrong, the teacher knows exactly which topic to review. Test functions are numbered questions for your code, and pytest is the teacher marking them.',
+        projectCode: {
+          label: 'test_tracker.py on your laptop, run with: pytest',
+          code: lines(
+            'from tracker import total',
+            '',
+            'def test_total_adds_amounts():',
+            '    assert total([20, 45]) == 65',
+            '',
+            'def test_total_of_empty_list_is_zero():',
+            '    assert total([]) == 0',
+            '',
+            '# Terminal:',
+            '# (.venv) $ pytest',
+            '# ..                                    [100%]',
+            '# 2 passed in 0.01s'
+          )
+        },
+        code: lines(
+          'def total(amounts):',
+          '    return sum(amounts)',
+          '',
+          'def test_total_adds_amounts():',
+          '    assert total([20, 45]) == 65',
+          '',
+          'def test_total_of_empty_list_is_zero():',
+          '    assert total([]) == 0',
+          '',
+          'def test_total_wrong_on_purpose():',
+          '    assert total([1, 1]) == 3, "1 + 1 is not 3"',
+          '',
+          '# A tiny version of what pytest does:',
+          'tests = [test_total_adds_amounts, test_total_of_empty_list_is_zero, test_total_wrong_on_purpose]',
+          'passed = 0',
+          'for test in tests:',
+          '    try:',
+          '        test()',
+          '        passed += 1',
+          '    except AssertionError as error:',
+          '        print("FAILED", test.__name__, "-", error)',
+          'print(passed, "passed,", len(tests) - passed, "failed")'
+        ),
+        output: lines('FAILED test_total_wrong_on_purpose - 1 + 1 is not 3', '2 passed, 1 failed'),
+        codeNotes: [
+          { line: 4, note: 'One behaviour per test, with a descriptive name starting with test_.' },
+          { line: 18, note: 'Run each test; a failing assert raises AssertionError.' },
+          { line: 21, note: 'Like pytest, show which test failed and why.' }
+        ],
+        tryIt: 'Delete the wrong-on-purpose test from the tests list and run it again. You should see 2 passed, 0 failed.',
+        check: {
+          question: 'How does pytest know which functions are tests?',
+          options: ['Their names start with test_', 'They contain the word assert', 'They are at the bottom of the file'],
+          answer: 0,
+          why: 'pytest collects files and functions whose names start with test_ and runs them automatically.'
+        }
+      },
+      {
+        title: 'Normal cases and edge cases',
+        say: [
+          'A good set of tests checks more than the obvious case. Normal cases are the usual inputs: a list of a few amounts. Edge cases are the unusual inputs at the boundaries: an empty list, a single item, zero, a negative number, very large numbers, text with extra spaces.',
+          'Bugs love edge cases. Remember the average function on Day 7: it worked for normal lists but would have crashed on an empty list by dividing by zero. A test for the empty list catches that.',
+          'Boundaries deserve special attention. If free delivery starts at 499, test 498, 499 and 500. Off-by-one mistakes, like writing > instead of >=, are some of the most common bugs, and boundary tests catch them.',
+          'When you find a bug, first write a test that shows the bug, then fix the code until the test passes. That test then protects you from the same bug coming back later. This habit is called a regression test.'
+        ],
+        example: 'When a lift is tested, engineers do not only check it goes from floor 2 to floor 5. They check the ground floor, the top floor, an empty lift and a full lift. The edges are where things break.',
+        code: lines(
+          'def delivery_fee(bill):',
+          '    return 0 if bill > 499 else 40',
+          '',
+          'cases = [(100, 40), (498, 40), (499, 0), (500, 0), (0, 40)]',
+          'for bill, expected in cases:',
+          '    got = delivery_fee(bill)',
+          '    status = "ok" if got == expected else "BUG"',
+          '    print(f"bill {bill:>3}: expected {expected:>2}, got {got:>2}  {status}")'
+        ),
+        output: lines(
+          'bill 100: expected 40, got 40  ok',
+          'bill 498: expected 40, got 40  ok',
+          'bill 499: expected  0, got 40  BUG',
+          'bill 500: expected  0, got  0  ok',
+          'bill   0: expected 40, got 40  ok'
+        ),
+        codeNotes: [
+          { line: 2, note: 'The bug: > should be >=, because delivery is free from 499.' },
+          { line: 4, note: 'A table of (input, expected) cases, including the boundary 499.' }
+        ],
+        tryIt: 'Fix the bug by changing > to >= on line 2, and run again. Every line should now say ok.',
+        check: {
+          question: 'Free delivery starts at 499. Which bills are most important to test?',
+          options: ['498, 499 and 500', 'Only 100', '10000 and 20000'],
+          answer: 0,
+          why: 'Testing just below, at, and just above the boundary catches off-by-one mistakes like > instead of >=.'
+        }
+      },
+      {
+        title: 'Testing errors and keeping functions testable',
+        say: [
+          'Some functions should raise an error for bad input, like add_expense refusing a negative amount. A good test checks that the error really happens. In pytest you write with pytest.raises(ValueError): and call the function inside; the test passes only if that error is raised.',
+          'Functions are easiest to test when they take inputs as parameters and return a result, without printing, reading input() or touching files. That is why this course asked you to keep input() at the edge of your program and write functions that return values.',
+          'Code that saves files can still be tested: pytest gives each test a temporary folder called tmp_path, so tests never touch your real data.',
+          'You do not need to test everything. Focus on the logic that matters: calculations, rules and data handling. For the Expense Tracker, that means totals, category grouping, validation, and saving and loading.'
+        ],
+        example: 'Testing a smoke alarm means making a little smoke on purpose and checking that it beeps. Testing that a function raises an error is the same: give it bad input on purpose and check that it complains.',
+        projectCode: {
+          label: 'test_tracker.py: testing an error with pytest',
+          code: lines(
+            'import pytest',
+            'from tracker import add_expense',
+            '',
+            'def test_negative_amount_is_refused():',
+            '    with pytest.raises(ValueError):',
+            '        add_expense([], "Refund", -50)'
+          )
+        },
+        code: lines(
+          'def add_expense(expenses, item, amount):',
+          '    if amount <= 0:',
+          '        raise ValueError("amount must be more than 0")',
+          '    return expenses + [{"item": item, "amount": amount}]',
+          '',
+          'def test_negative_amount_is_refused():',
+          '    try:',
+          '        add_expense([], "Refund", -50)',
+          '    except ValueError:',
+          '        return',
+          '    raise AssertionError("expected a ValueError")',
+          '',
+          'def test_good_amount_is_added():',
+          '    result = add_expense([], "Tea", 20)',
+          '    assert result == [{"item": "Tea", "amount": 20}]',
+          '',
+          'test_negative_amount_is_refused()',
+          'test_good_amount_is_added()',
+          'print("Both tests passed")'
+        ),
+        output: 'Both tests passed',
+        codeNotes: [
+          { line: 7, note: 'Without pytest: call it and expect a ValueError.' },
+          { line: 11, note: 'If no error happened, the test fails.' }
+        ],
+        tryIt: 'Remove the if check (lines 2 and 3) from add_expense and run it. The first test now fails with "expected a ValueError". Put the lines back.',
+        check: {
+          question: 'Which function is easiest to test?',
+          options: ['One that takes parameters and returns a result', 'One that reads input() and prints the result', 'One that only works with a real file on your laptop'],
+          answer: 0,
+          why: 'A test can call it with known values and compare the returned result, with no typing or files involved.'
+        }
+      },
+      {
+        title: 'Putting it together: tests for the tracker',
+        say: [
+          'Let us write a small test suite for the Expense Tracker functions: total, category totals, and the amount parser from Day 14. Each test is short and checks one behaviour, including edge cases.',
+          'Look at the test names. Reading only the names tells you what the tracker promises to do. Tests are a kind of documentation that can never go out of date, because they run.',
+          'On your laptop, put the functions in tracker.py and the tests in test_tracker.py, and run pytest. Add a test every time you add a feature or fix a bug. By the end of the month project, your GitHub repository will show recruiters that you test your code.',
+          'In today\'s practice you will write is_valid_amount, which has several edge cases, and check_equal, a tiny assert helper that raises a clear AssertionError.'
+        ],
+        example: 'A pilot runs through the same pre-flight checklist before every flight, even after thousands of flights. Your test suite is the checklist you run before every change is shared.',
+        code: lines(
+          'def category_totals(expenses):',
+          '    totals = {}',
+          '    for e in expenses:',
+          '        totals[e["category"]] = totals.get(e["category"], 0) + e["amount"]',
+          '    return totals',
+          '',
+          'def parse_amount(text):',
+          '    try:',
+          '        value = float(text.strip())',
+          '    except ValueError:',
+          '        return None',
+          '    return value if value > 0 else None',
+          '',
+          'def test_category_totals_groups_amounts():',
+          '    data = [{"category": "food", "amount": 20}, {"category": "food", "amount": 30}]',
+          '    assert category_totals(data) == {"food": 50}',
+          '',
+          'def test_category_totals_of_nothing_is_empty():',
+          '    assert category_totals([]) == {}',
+          '',
+          'def test_parse_amount_accepts_spaces():',
+          '    assert parse_amount(" 120 ") == 120.0',
+          '',
+          'def test_parse_amount_refuses_text_and_zero():',
+          '    assert parse_amount("abc") is None',
+          '    assert parse_amount("0") is None',
+          '',
+          'tests = [f for name, f in list(globals().items()) if name.startswith("test_")]',
+          'for test in tests:',
+          '    test()',
+          '    print("PASSED", test.__name__)'
+        ),
+        output: lines(
+          'PASSED test_category_totals_groups_amounts',
+          'PASSED test_category_totals_of_nothing_is_empty',
+          'PASSED test_parse_amount_accepts_spaces',
+          'PASSED test_parse_amount_refuses_text_and_zero'
+        ),
+        codeNotes: [
+          { line: 18, note: 'An edge case: no expenses at all.' },
+          { line: 26, note: 'Another edge case: zero is not a valid amount.' },
+          { line: 28, note: 'Find every function whose name starts with test_, like pytest does.' }
+        ],
+        tryIt: 'Add a test that parse_amount("-5") is None, and run it. Then add one for parse_amount("") and check it also returns None.',
+        check: {
+          question: 'Why write a test for category_totals([])?',
+          options: ['An empty list is an edge case where bugs often hide', 'Empty lists are the most common input', 'pytest needs at least one empty test'],
+          answer: 0,
+          why: 'Edge cases like empty input are where functions often crash or give wrong answers, so they deserve their own tests.'
+        }
+      }
+    ],
+    summary: [
+      'Tests check your code automatically, so you can change it with confidence.',
+      'assert condition, "message" raises AssertionError with your message when the condition is False.',
+      'pytest runs every test_ function in test_ files: pip install pytest, then pytest.',
+      'Test normal cases and edge cases: empty, zero, negative, boundaries like 498, 499, 500.',
+      'Functions that take parameters and return values are the easiest to test.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: add tests',
+      steps: [
+        'Move your functions into tracker.py and create test_tracker.py next to it.',
+        'Write at least five test_ functions, including an empty list and an invalid amount.',
+        'Install pytest in your venv and run pytest until everything passes.',
+        'Add pytest to requirements.txt with pip freeze > requirements.txt.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 22,
+    title: 'Git and GitHub: Saving and Sharing Your Code',
+    goal: 'You can save snapshots of your code with Git commits, work on branches, ignore files with .gitignore, and push your project to GitHub.',
+    minutes: 30,
+    recap: 'Yesterday you wrote automatic tests with assert and pytest, including edge cases.',
+    parts: [
+      {
+        title: 'What Git is and why every job uses it',
+        say: [
+          'Git is a tool that records the history of your code. Each time you reach a good point, you save a snapshot called a commit. You can look back at any commit, see exactly what changed, and go back if something breaks.',
+          'Git also lets many people work on the same code without overwriting each other\'s work. Every software company uses Git, or something very like it. Knowing the basics is expected even for a junior role.',
+          'GitHub is a website that stores Git projects online, called repositories or repos. It is also where recruiters look at your work. A GitHub profile with a real project, clear commits and a good README is one of the strongest things a junior developer can show.',
+          'Install Git from git-scm.com. Then, once, tell Git your name and email with git config, so your commits are labelled with who made them.'
+        ],
+        example: 'Git is like the save points in a video game. When you reach a safe spot, you save. If you make a bad move later, you go back to the last save instead of starting the whole game again. Each commit is a save point with a note saying what you did.',
+        projectCode: {
+          label: 'Terminal: one-time Git setup',
+          code: lines(
+            'git --version',
+            'git config --global user.name "Your Name"',
+            'git config --global user.email "you@example.com"'
+          )
+        },
+        code: lines(
+          'history = []',
+          'def commit(message, files):',
+          '    history.append({"id": len(history) + 1, "message": message, "files": dict(files)})',
+          '',
+          'files = {"main.py": "print(\'v1\')"}',
+          'commit("Add first version", files)',
+          'files["main.py"] = "print(\'v2 with a bug\')"',
+          'commit("Change output", files)',
+          'for c in history:',
+          '    print(c["id"], c["message"])',
+          'files = dict(history[0]["files"])',
+          'print("Went back to:", files["main.py"])'
+        ),
+        output: lines('1 Add first version', '2 Change output', "Went back to: print('v1')"),
+        codeNotes: [
+          { line: 3, note: 'A commit saves a copy of the files plus a message. (A simple imitation of Git.)' },
+          { line: 11, note: 'Going back to an earlier snapshot, like Git lets you do.' }
+        ],
+        tryIt: 'Add a third commit with the message "Fix output" that sets main.py back to a working version, and print the history again.',
+        check: {
+          question: 'What is a Git commit?',
+          options: ['A saved snapshot of your code with a message', 'A copy of your code on a USB drive', 'A test that checks your code'],
+          answer: 0,
+          why: 'A commit records the state of your files at that moment, with a message describing the change.'
+        }
+      },
+      {
+        title: 'The basic cycle: status, add, commit',
+        say: [
+          'You start using Git in a project folder with git init. This creates a hidden .git folder that holds the whole history. You only do this once per project.',
+          'The everyday cycle has three steps. git status shows which files have changed. git add chooses which changes go into the next commit; git add . adds all changes in the folder. git commit -m "message" saves the snapshot with your message.',
+          'Commit small and often: one commit per meaningful step, like "Add category totals" or "Fix empty list in average". Small commits are easy to understand and easy to undo.',
+          'git log shows the history of commits, newest first. git diff shows exactly which lines changed since the last commit. Checking git diff before committing is a great habit: you will often catch a leftover print or a mistake.'
+        ],
+        example: 'Packing a parcel: git status is looking at what is on the table, git add is putting chosen items into the box, and git commit is sealing the box and writing a label on it. You can have things on the table that you do not put in this box yet.',
+        projectCode: {
+          label: 'Terminal: the everyday Git cycle',
+          code: lines(
+            'cd expense-tracker',
+            'git init',
+            'git status',
+            'git add .',
+            'git commit -m "Add expense menu and JSON storage"',
+            'git log --oneline'
+          )
+        },
+        code: lines(
+          'def is_good_commit_message(msg):',
+          '    return 10 <= len(msg) <= 72',
+          '',
+          'messages = ["fix", "Add category totals to the report", "stuff", "Handle an empty list in average()"]',
+          'for m in messages:',
+          '    verdict = "good" if is_good_commit_message(m) else "too short or too long"',
+          '    print(f"{m!r}: {verdict}")'
+        ),
+        output: lines(
+          "'fix': too short or too long",
+          "'Add category totals to the report': good",
+          "'stuff': too short or too long",
+          "'Handle an empty list in average()': good"
+        ),
+        codeNotes: [
+          { line: 2, note: 'A simple rule of thumb: between 10 and 72 characters.' },
+          { line: 4, note: 'Good messages say what changed, starting with a verb like Add, Fix or Handle.' }
+        ],
+        tryIt: 'Write two commit messages of your own for changes you made to your tracker this week and check them with the function.',
+        check: {
+          question: 'Which command chooses the changes that go into the next commit?',
+          options: ['git add', 'git status', 'git log'],
+          answer: 0,
+          why: 'git add stages changes for the next commit. git status only shows what changed, and git log shows past commits.'
+        }
+      },
+      {
+        title: '.gitignore: files Git should skip',
+        say: [
+          'Some files should never go into Git. Your .venv folder is large and can be rebuilt from requirements.txt. The __pycache__ folders are created by Python automatically. Your personal data file, like expenses.json, is not code. And secret files, like .env with passwords or API keys, must never be shared.',
+          'A file called .gitignore in the project folder lists names and patterns for Git to skip. .venv/ skips that folder. *.pyc skips every file ending in .pyc. Each rule goes on its own line.',
+          'Create .gitignore before your first commit. If a secret file was committed by mistake, deleting it later does not remove it from the history, and anyone who can see the repository can find it. If that happens, treat the secret as leaked and change it.',
+          'GitHub offers a ready-made Python .gitignore template when you create a repository. It covers the common cases.'
+        ],
+        example: '.gitignore is like the "do not pack" list before a trip: no house keys to the neighbour\'s house, no half-eaten food, nothing private. You write the list once, and it is checked every time you pack.',
+        projectCode: {
+          label: '.gitignore for a Python project',
+          code: lines(
+            '.venv/',
+            '__pycache__/',
+            '*.pyc',
+            '.env',
+            'expenses.json'
+          )
+        },
+        code: lines(
+          'from fnmatch import fnmatch',
+          'rules = [".venv/*", "__pycache__/*", "*.pyc", ".env", "expenses.json"]',
+          'files = ["main.py", "tracker.py", ".env", ".venv/bin/python", "__pycache__/tracker.pyc", "expenses.json", "README.md"]',
+          'for f in files:',
+          '    ignored = any(fnmatch(f, rule) for rule in rules)',
+          '    print(f"{f:<26}{\'skip\' if ignored else \'commit\'}")'
+        ),
+        output: lines(
+          'main.py                   commit',
+          'tracker.py                commit',
+          '.env                      skip',
+          '.venv/bin/python          skip',
+          '__pycache__/tracker.pyc   skip',
+          'expenses.json             skip',
+          'README.md                 commit'
+        ),
+        codeNotes: [
+          { line: 1, note: 'fnmatch checks names against patterns like *.pyc, similar to .gitignore.' },
+          { line: 5, note: 'A file is skipped if it matches any rule.' }
+        ],
+        tryIt: 'Add "notes.txt" to the files list and a rule "*.txt" to the rules list, and check it is skipped.',
+        check: {
+          question: 'Why must .env files with API keys go in .gitignore?',
+          options: ['Secrets pushed to GitHub can be seen by others and stay in the history', 'Git cannot read .env files', '.env files are too large'],
+          answer: 0,
+          why: 'Anything committed can be seen by people with access to the repository, and it stays in the history even if deleted later.'
+        }
+      },
+      {
+        title: 'Branches: working safely on a feature',
+        say: [
+          'The main branch, usually called main, should always hold working code. When you start a new feature, you create a branch: a separate line of work. You can commit freely on it without affecting main.',
+          'git switch -c feature/monthly-report creates a new branch and moves to it. git switch main goes back. When the feature is finished and tested, you merge it into main with git merge, or on GitHub with a pull request.',
+          'A pull request, often called a PR, is a request to merge your branch. On a team, colleagues review your code in the PR before it is merged. This review is where juniors learn the most, so welcome comments on your PRs.',
+          'Branch names are usually short and descriptive: feature/add-export, fix/empty-average. Lower-case words joined by hyphens are the common style.'
+        ],
+        example: 'A branch is like writing a new chapter of a book in a separate notebook. The published book (main) stays clean while you draft. When the chapter is ready and an editor has checked it, you add it to the book.',
+        projectCode: {
+          label: 'Terminal: a feature branch',
+          code: lines(
+            'git switch -c feature/monthly-report',
+            '# ...edit code, run pytest...',
+            'git add .',
+            'git commit -m "Add monthly report"',
+            'git switch main',
+            'git merge feature/monthly-report'
+          )
+        },
+        code: lines(
+          'def branch_name(task):',
+          '    return "feature/" + "-".join(task.lower().split())',
+          '',
+          'print(branch_name("Add Monthly Report"))',
+          'print(branch_name("  Export to   CSV "))'
+        ),
+        output: lines('feature/add-monthly-report', 'feature/export-to-csv'),
+        codeNotes: [
+          { line: 2, note: 'Lower-case, split on any spaces, join with hyphens.' }
+        ],
+        tryIt: 'Write fix_branch_name(task) that makes names starting with "fix/" instead, and test it with "Empty list in average".',
+        check: {
+          question: 'Why work on a branch instead of directly on main?',
+          options: ['main stays working while the new feature is in progress', 'Branches make Python run faster', 'Git does not allow commits on main'],
+          answer: 0,
+          why: 'A branch keeps unfinished work separate, so main always holds code that works. You merge when the feature is ready.'
+        }
+      },
+      {
+        title: 'Pushing to GitHub',
+        say: [
+          'To share your project, create a free account on github.com, then create a new, empty repository, for example expense-tracker. GitHub then shows the commands to connect your local project to it.',
+          'git remote add origin <address> tells your project where the online copy lives. git push -u origin main uploads your commits. After the first time, just git push sends new commits.',
+          'When you work on another computer, or with a teammate, git clone <address> downloads a full copy, and git pull brings in new commits others have pushed.',
+          'GitHub will ask you to log in the first time you push. Follow its instructions for signing in from the terminal; the easiest way is usually the GitHub CLI or the sign-in window that Git opens. Never put your password in your code.'
+        ],
+        example: 'Your local Git history is your personal diary at home. Pushing to GitHub is putting a copy in a public library, where others can read it and where it is safe if your laptop breaks.',
+        projectCode: {
+          label: 'Terminal: connect and push to GitHub',
+          code: lines(
+            'git remote add origin https://github.com/your-name/expense-tracker.git',
+            'git branch -M main',
+            'git push -u origin main',
+            '',
+            '# Later, after new commits:',
+            'git push',
+            '',
+            '# On another computer:',
+            'git clone https://github.com/your-name/expense-tracker.git'
+          )
+        },
+        code: lines(
+          'def repo_url(username, repo):',
+          '    return f"https://github.com/{username}/{repo}.git"',
+          '',
+          'def looks_like_github_url(url):',
+          '    return url.startswith("https://github.com/") and url.endswith(".git") and url.count("/") == 4',
+          '',
+          'url = repo_url("priya-dev", "expense-tracker")',
+          'print(url)',
+          'print(looks_like_github_url(url))',
+          'print(looks_like_github_url("github.com/priya-dev"))'
+        ),
+        output: lines('https://github.com/priya-dev/expense-tracker.git', 'True', 'False'),
+        codeNotes: [
+          { line: 2, note: 'The address format GitHub shows for a repository.' },
+          { line: 5, note: 'https:// has two slashes, plus one after github.com and one before the repo name: 4 in total.' }
+        ],
+        tryIt: 'Make the URL for your own GitHub username and a repository called python-projects, and check it with looks_like_github_url.',
+        check: {
+          question: 'What does git push do?',
+          options: ['Uploads your local commits to the online repository', 'Downloads commits from GitHub', 'Creates a new commit'],
+          answer: 0,
+          why: 'push sends your commits to the remote (GitHub). pull and clone bring commits down from it.'
+        }
+      },
+      {
+        title: 'Putting it together: your project on GitHub',
+        say: [
+          'Let us put your Expense Tracker on GitHub step by step: create .gitignore, initialise Git, make the first commit, create the repository on GitHub, and push.',
+          'From now on, work in small steps: one feature, run the tests, commit with a clear message, push. Over the next week, your project\'s history will show a real development story, which recruiters like to see.',
+          'Add a short README.md file now, even if it is only one line. On Day 29 you will turn it into a proper project page with features, setup steps and a live link.',
+          'In today\'s practice you will write is_good_commit_message and branch_name, two small helpers based on what you learned today.'
+        ],
+        example: 'A photographer\'s portfolio shows finished photos, and a good one also shows the process. Your GitHub repository shows the finished tracker and, through its commits, how you built it step by step.',
+        projectCode: {
+          label: 'Terminal: first push of the Expense Tracker',
+          code: lines(
+            'cd expense-tracker',
+            '# create .gitignore and README.md first',
+            'git init',
+            'git add .',
+            'git status            # check .venv and expenses.json are NOT listed',
+            'git commit -m "First version of the expense tracker"',
+            'git remote add origin https://github.com/your-name/expense-tracker.git',
+            'git branch -M main',
+            'git push -u origin main'
+          )
+        },
+        code: lines(
+          'steps = [',
+          '    ("Create .gitignore", True),',
+          '    ("git init", True),',
+          '    ("git add .", True),',
+          '    ("Check git status for secrets", True),',
+          '    ("git commit", True),',
+          '    ("git push", False),',
+          ']',
+          'for number, (step, done) in enumerate(steps, start=1):',
+          '    print(f"{number}. [{\'x\' if done else \' \'}] {step}")',
+          'left = [s for s, d in steps if not d]',
+          'print("Next:", left[0] if left else "All done")'
+        ),
+        output: lines(
+          '1. [x] Create .gitignore',
+          '2. [x] git init',
+          '3. [x] git add .',
+          '4. [x] Check git status for secrets',
+          '5. [x] git commit',
+          '6. [ ] git push',
+          'Next: git push'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Unpack each (step, done) tuple while numbering with enumerate.' },
+          { line: 12, note: 'Show the first step that is not done yet.' }
+        ],
+        tryIt: 'Change the last step to True and run it. The output ends with "Next: All done".',
+        check: {
+          question: 'Before your first commit, what should you check with git status?',
+          options: ['That .venv, data files and secrets are not in the list', 'That Python is installed', 'That the internet is working'],
+          answer: 0,
+          why: 'git status shows what will be committed. Make sure .gitignore is keeping out large folders, personal data and secrets.'
+        }
+      }
+    ],
+    summary: [
+      'Git records snapshots called commits; GitHub stores repositories online.',
+      'Everyday cycle: git status, git add ., git commit -m "clear message".',
+      '.gitignore keeps out .venv, __pycache__, data files and secrets like .env.',
+      'Work on branches (git switch -c feature/name) and merge when ready.',
+      'git push uploads commits; git clone and git pull download them.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: on GitHub',
+      steps: [
+        'Create .gitignore with .venv/, __pycache__/, .env and expenses.json.',
+        'Run git init, git add . and check git status before your first commit.',
+        'Create an expense-tracker repository on GitHub and push to it.',
+        'Add a one-line README.md, commit it, and push again.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 23,
+    title: 'Planning Your Expense Tracker',
+    goal: 'You can turn an idea into user stories, a data shape and a list of small functions, and plan the order to build them.',
+    minutes: 30,
+    recap: 'Yesterday you learned Git: commits, .gitignore, branches, and pushing your project to GitHub.',
+    parts: [
+      {
+        title: 'Why plan before coding',
+        say: [
+          'This week you build the full Expense Tracker, the project you will show to employers. Before writing code, good developers spend a little time planning. It feels slower, but it saves a lot of time, because you avoid building the wrong thing or rewriting code again and again.',
+          'A simple plan answers four questions. What should the program do for the user? What does the data look like? Which functions do we need? In what order will we build them?',
+          'You do not need a long document. A short PLAN.md file in your repository, with a few bullet points under each question, is enough. It also shows recruiters how you think.',
+          'The plan is allowed to change. When you learn something new while building, update the plan. It is a guide, not a contract.'
+        ],
+        example: 'Before building a house, a family sits with an architect: how many rooms, who uses each room, where the kitchen goes. Changing a line on paper costs nothing; moving a wall after it is built costs a lot.',
+        code: lines(
+          'plan = {',
+          '    "What should it do?": ["add an expense", "list expenses", "see totals by category", "save between runs"],',
+          '    "Data shape": ["item", "amount", "category", "date"],',
+          '    "Functions": ["add_expense", "list_expenses", "category_totals", "save", "load"],',
+          '    "Order": ["data + add", "list", "totals", "save/load", "menu"],',
+          '}',
+          'for question, answers in plan.items():',
+          '    print(question)',
+          '    for a in answers:',
+          '        print("  -", a)'
+        ),
+        output: lines(
+          'What should it do?',
+          '  - add an expense',
+          '  - list expenses',
+          '  - see totals by category',
+          '  - save between runs',
+          'Data shape',
+          '  - item',
+          '  - amount',
+          '  - category',
+          '  - date',
+          'Functions',
+          '  - add_expense',
+          '  - list_expenses',
+          '  - category_totals',
+          '  - save',
+          '  - load',
+          'Order',
+          '  - data + add',
+          '  - list',
+          '  - totals',
+          '  - save/load',
+          '  - menu'
+        ),
+        codeNotes: [
+          { line: 1, note: 'The whole plan as a dictionary: each question with a list of answers.' },
+          { line: 7, note: 'Print it like the bullet points of a PLAN.md file.' }
+        ],
+        tryIt: 'Add one more feature of your own to the "What should it do?" list, like "delete an expense", and run it.',
+        check: {
+          question: 'Why write a short plan before coding a project?',
+          options: ['To avoid building the wrong thing and rewriting code', 'Because Python requires a plan file', 'To make the code run faster'],
+          answer: 0,
+          why: 'A plan makes you think about what is needed first. Changing a plan is much cheaper than changing finished code.'
+        }
+      },
+      {
+        title: 'User stories',
+        say: [
+          'A user story describes a feature from the user\'s point of view, in one sentence: As a user, I want to do something, so that I get some benefit. For example: As a student, I want to see my spending per category, so that I know where my money goes.',
+          'User stories keep you focused on real needs instead of clever code. If a feature does not serve a story, it can probably wait.',
+          'Each story should be small enough to build in a few hours. "Manage my money" is too big. "Add an expense with an amount and category" is the right size.',
+          'Mark each story as must-have or nice-to-have. Build every must-have first, so you always have a working program. Nice-to-haves come only if there is time. This is how real teams plan too.'
+        ],
+        example: 'A restaurant does not start by buying fancy equipment. It starts from what customers want: "As a customer, I want my food within 20 minutes, so that I can eat in my lunch break." Everything else is planned around that.',
+        code: lines(
+          'stories = [',
+          '    ("add an expense with amount and category", "so I record every spend", True),',
+          '    ("see the total per category", "so I know where money goes", True),',
+          '    ("keep my expenses after closing the app", "so I do not lose data", True),',
+          '    ("export to a spreadsheet", "so I can make charts", False),',
+          ']',
+          'for want, benefit, must in stories:',
+          '    label = "MUST" if must else "NICE"',
+          '    print(f"[{label}] As a student, I want to {want}, {benefit}.")'
+        ),
+        output: lines(
+          '[MUST] As a student, I want to add an expense with amount and category, so I record every spend.',
+          '[MUST] As a student, I want to see the total per category, so I know where money goes.',
+          '[MUST] As a student, I want to keep my expenses after closing the app, so I do not lose data.',
+          '[NICE] As a student, I want to export to a spreadsheet, so I can make charts.'
+        ),
+        codeNotes: [
+          { line: 2, note: 'Each story: what the user wants, why, and whether it is a must-have.' },
+          { line: 7, note: 'Unpack each tuple into three names.' }
+        ],
+        tryIt: 'Print only the must-have stories by adding if must: before the print, or with a list comprehension that filters them.',
+        check: {
+          question: 'Which is a well-sized user story?',
+          options: ['As a user, I want to add an expense with a category, so that I can track spending', 'As a user, I want a complete finance app', 'Write the add_expense function'],
+          answer: 0,
+          why: 'It is written from the user\'s view, small enough to build quickly, and says why it matters. The last one is a task, not a story.'
+        }
+      },
+      {
+        title: 'Designing the data shape',
+        say: [
+          'Next, decide exactly what one expense looks like. You already know the best shape from Week 2: a dictionary. Choose each key, its type and an example value.',
+          'For the tracker: id, a whole number to identify each expense; item, text; amount, a number above 0; category, lower-case text; date, text in YYYY-MM-DD format. All of these save easily to JSON.',
+          'Writing a small example record, and a function that checks a record has the right shape, catches mistakes early. If a bug later creates a record without a category, the check finds it straight away.',
+          'Agreeing on the data shape first is especially important in teams: the person building the API on Day 27 and the person building the reports must use the same keys.'
+        ],
+        example: 'A school admission form has fixed fields: name, date of birth, class. Because every form has the same fields, the office can file, search and count them easily. Your data shape is the admission form for an expense.',
+        code: lines(
+          'EXAMPLE = {"id": 1, "item": "Tea", "amount": 20, "category": "food", "date": "2026-09-28"}',
+          'SHAPE = {"id": int, "item": str, "amount": (int, float), "category": str, "date": str}',
+          '',
+          'def problems(record):',
+          '    found = []',
+          '    for key, kind in SHAPE.items():',
+          '        if key not in record:',
+          '            found.append(f"missing {key}")',
+          '        elif not isinstance(record[key], kind):',
+          '            found.append(f"{key} has the wrong type")',
+          '    return found',
+          '',
+          'print(problems(EXAMPLE))',
+          'print(problems({"id": 2, "item": "Bus", "amount": "45"}))'
+        ),
+        output: lines('[]', "['amount has the wrong type', 'missing category', 'missing date']"),
+        codeNotes: [
+          { line: 2, note: 'The expected type for each key. (int, float) means either is fine.' },
+          { line: 9, note: 'isinstance checks the type; "45" is text, not a number.' }
+        ],
+        tryIt: 'Add a check that the date has length 10 (like "2026-09-28"), and test it with a record whose date is "28/9".',
+        check: {
+          question: 'Why store the date as text like "2026-09-28" in this project?',
+          options: ['It saves to JSON easily and sorts correctly as text', 'Python has no date type', 'It uses less memory than a number'],
+          answer: 0,
+          why: 'JSON has no date type (Day 17), and year-month-day text sorts in date order (Day 11).'
+        }
+      },
+      {
+        title: 'Breaking the program into small functions',
+        say: [
+          'Now list the functions you need. Each should do one job, take data as parameters and return a result, so it is easy to test. Only the menu should use input() and print().',
+          'For the tracker: add_expense returns a new list with one more expense. sort_by_date returns expenses newest first. category_totals returns a dictionary of totals. summary returns the total, count and biggest item. save and load handle the JSON file.',
+          'Write each function\'s name, inputs and output in the plan before coding. This is sometimes called the function\'s signature. It lets you think about the design without getting lost in details.',
+          'Notice that most of these functions are things you have already written in earlier lessons. A real project is mostly familiar pieces, put together carefully.'
+        ],
+        example: 'A kitchen at a busy restaurant has stations: one cook for starters, one for curries, one for breads. Each station has one clear job, and the head chef only coordinates. Your menu function is the head chef; the other functions are the stations.',
+        code: lines(
+          'def sort_by_date(expenses):',
+          '    return sorted(expenses, key=lambda e: e["date"], reverse=True)',
+          '',
+          'def group_by_category(expenses):',
+          '    groups = {}',
+          '    for e in expenses:',
+          '        groups.setdefault(e["category"], []).append(e["item"])',
+          '    return groups',
+          '',
+          'data = [',
+          '    {"item": "Tea", "category": "food", "date": "2026-09-01"},',
+          '    {"item": "Bus", "category": "travel", "date": "2026-09-20"},',
+          '    {"item": "Lunch", "category": "food", "date": "2026-09-10"},',
+          ']',
+          'print([e["item"] for e in sort_by_date(data)])',
+          'print(group_by_category(data))',
+          'print(data[0]["item"])'
+        ),
+        output: lines("['Bus', 'Lunch', 'Tea']", "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}", 'Tea'),
+        codeNotes: [
+          { line: 2, note: 'sorted returns a new list; the original stays in its order.' },
+          { line: 7, note: 'setdefault from Day 12: create the list the first time, then append.' },
+          { line: 17, note: 'The original list is unchanged.' }
+        ],
+        tryIt: 'Write a function items_in(expenses, category) that returns only the item names in one category, and test it with "food".',
+        check: {
+          question: 'In the plan, which function should use input() and print()?',
+          options: ['Only the menu', 'Every function', 'category_totals'],
+          answer: 0,
+          why: 'Keeping input and printing in one place leaves the other functions pure and easy to test.'
+        }
+      },
+      {
+        title: 'Planning the build order',
+        say: [
+          'The last part of the plan is the order. Build in thin, working slices: after each step, the program should run and do something useful. Never write everything and test only at the end.',
+          'A good order for the tracker: first the data shape and add_expense with tests. Then listing. Then totals and the summary. Then saving and loading. Then the menu that ties it together. Then nice-to-haves.',
+          'After each slice: run the tests, commit with a clear message, and push. If something goes wrong, you only have to look at the last small change.',
+          'Estimate each step roughly, in hours, and compare with reality afterwards. You will get better at estimating, and being able to say "that will take about two days" is a skill managers value.'
+        ],
+        example: 'When painting a room, you do one wall at a time and let it dry before moving on. You never paint all four walls, the ceiling and the door at once and hope. Thin slices are one wall at a time.',
+        code: lines(
+          'build = [',
+          '    ("Data shape + add_expense + tests", 2),',
+          '    ("List and format expenses", 1),',
+          '    ("Totals, categories, summary", 2),',
+          '    ("Save and load with JSON", 1.5),',
+          '    ("Menu that asks the user", 1.5),',
+          ']',
+          'hours = 0',
+          'for step, (task, estimate) in enumerate(build, start=1):',
+          '    hours += estimate',
+          '    print(f"Step {step}: {task} (~{estimate}h, total {hours}h)")'
+        ),
+        output: lines(
+          'Step 1: Data shape + add_expense + tests (~2h, total 2h)',
+          'Step 2: List and format expenses (~1h, total 3h)',
+          'Step 3: Totals, categories, summary (~2h, total 5h)',
+          'Step 4: Save and load with JSON (~1.5h, total 6.5h)',
+          'Step 5: Menu that asks the user (~1.5h, total 8.0h)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'enumerate numbers the steps; each step is a (task, hours) tuple.' },
+          { line: 10, note: 'A running total of the estimated hours.' }
+        ],
+        tryIt: 'Add a sixth step "README and deploy" of 2 hours and run it. The total becomes 10.0h: once a decimal like 1.5 is added, the total stays a decimal.',
+        check: {
+          question: 'What does building in "thin slices" mean?',
+          options: ['After each small step, the program runs and does something useful', 'Writing all the code first and testing at the end', 'Making every function one line long'],
+          answer: 0,
+          why: 'Each slice adds a small working feature, so problems are found early and are easy to trace.'
+        }
+      },
+      {
+        title: 'Putting it together: PLAN.md and the first functions',
+        say: [
+          'Let us finish today by generating a PLAN.md text from the plan data, and writing the first two helper functions from it. On your laptop, you will save this text as PLAN.md in the repository and commit it.',
+          'Notice that the plan is short and specific. Someone reading it for one minute understands what the program does, what an expense looks like, and how it will be built.',
+          'Tomorrow, you start the build with add_expense and list formatting. Keep the plan open while you work, and tick off steps as you go.',
+          'In today\'s practice you will write sort_by_date, which sorts expenses newest first without changing the original, and group_by_category, which groups item names by category.'
+        ],
+        example: 'A travel itinerary for a trip: where you go each day, what to pack, and what to book first. With it, the trip goes smoothly; without it, you spend the holiday deciding what to do next.',
+        code: lines(
+          'stories = ["Add an expense", "See totals per category", "Keep data between runs"]',
+          'fields = {"id": "int", "item": "str", "amount": "number > 0", "category": "str", "date": "YYYY-MM-DD"}',
+          'lines_out = ["# Expense Tracker plan", "", "## User stories"]',
+          'lines_out += [f"- As a student, I want to {s.lower()}." for s in stories]',
+          'lines_out += ["", "## One expense"]',
+          'lines_out += [f"- {k}: {v}" for k, v in fields.items()]',
+          'print("\\n".join(lines_out))'
+        ),
+        output: lines(
+          '# Expense Tracker plan',
+          '',
+          '## User stories',
+          '- As a student, I want to add an expense.',
+          '- As a student, I want to see totals per category.',
+          '- As a student, I want to keep data between runs.',
+          '',
+          '## One expense',
+          '- id: int',
+          '- item: str',
+          '- amount: number > 0',
+          '- category: str',
+          '- date: YYYY-MM-DD'
+        ),
+        codeNotes: [
+          { line: 4, note: '+= adds the new lines to the end of the list.' },
+          { line: 7, note: 'Join with newlines to get the text of the file.' }
+        ],
+        tryIt: 'Add a "## Build order" section with your five build steps as a numbered list, using enumerate.',
+        check: {
+          question: 'What should a good PLAN.md contain?',
+          options: ['User stories, the data shape, the functions and the build order', 'All the code of the project', 'Only the project name'],
+          answer: 0,
+          why: 'A short plan answers what to build, what the data looks like, which functions are needed and in what order.'
+        }
+      }
+    ],
+    summary: [
+      'Plan before coding: what it does, the data shape, the functions and the order.',
+      'User stories: As a user, I want X, so that Y. Build must-haves first.',
+      'Define the data shape with example values, and check records against it.',
+      'Keep functions small and pure; only the menu uses input() and print().',
+      'Build in thin working slices: test, commit and push after each one.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: write PLAN.md',
+      steps: [
+        'Write 3 to 5 user stories, marked must-have or nice-to-have.',
+        'Describe one expense: id, item, amount, category, date, with types.',
+        'List the functions with their inputs and outputs.',
+        'Write the build order with rough hours, then commit PLAN.md and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 24,
+    title: 'Project Build 1: Adding and Listing Expenses',
+    goal: 'You can build the core of the Expense Tracker: adding validated expenses, listing them neatly, and a menu that ties it together.',
+    minutes: 35,
+    recap: 'Yesterday you planned the Expense Tracker: user stories, the data shape, the functions and the build order.',
+    parts: [
+      {
+        title: 'Project structure',
+        say: [
+          'Today you start the real build. First, set up the files. tracker.py holds the logic: the functions that add, list and calculate. main.py holds the menu with input() and print(). test_tracker.py holds the tests.',
+          'This split is the same idea you have heard all month: logic in pure, testable functions, and input and output at the edge. It also means that on Day 27 you can reuse tracker.py unchanged in a web API. Only the "edge" changes from a terminal menu to web requests.',
+          'Keep your virtual environment active, and commit after each part of today\'s lesson. By the end of today you will have a program you can actually use every day.',
+          'The code samples in this lesson show the functions in one piece so you can run them here. On your laptop, put each function in tracker.py, and the menu in main.py.'
+        ],
+        example: 'A restaurant has a kitchen and a dining room. The kitchen (tracker.py) cooks; the dining room (main.py) takes orders and serves. You can redesign the dining room, or add home delivery, without changing how the kitchen cooks.',
+        projectCode: {
+          label: 'Project folder on your laptop',
+          code: lines(
+            'expense-tracker/',
+            '  .gitignore',
+            '  PLAN.md',
+            '  README.md',
+            '  requirements.txt',
+            '  tracker.py        # logic: add, list, totals, save, load',
+            '  main.py           # menu: input() and print()',
+            '  test_tracker.py   # pytest tests'
+          )
+        },
+        code: lines(
+          'files = {',
+          '    "tracker.py": "logic",',
+          '    "main.py": "menu (input and print)",',
+          '    "test_tracker.py": "tests",',
+          '}',
+          'for name, job in files.items():',
+          '    print(f"{name:<17}-> {job}")',
+          'print("Web API later reuses:", [n for n, j in files.items() if j == "logic"])'
+        ),
+        output: lines('tracker.py       -> logic', 'main.py          -> menu (input and print)', 'test_tracker.py  -> tests', "Web API later reuses: ['tracker.py']"),
+        codeNotes: [
+          { line: 8, note: 'Only the logic file is reused by the API on Day 27.' }
+        ],
+        tryIt: 'On your laptop, create the three empty files in your expense-tracker folder and commit them with the message "Add project structure".',
+        check: {
+          question: 'Why keep the logic in tracker.py, separate from the menu in main.py?',
+          options: ['The logic can be tested and reused, for example by a web API later', 'Python needs at least two files', 'It makes the menu faster'],
+          answer: 0,
+          why: 'Pure logic functions can be tested easily and reused with a different "edge", like a web API instead of a terminal menu.'
+        }
+      },
+      {
+        title: 'add_expense with validation',
+        say: [
+          'The first function is add_expense. It takes the current list and the new expense\'s details, and returns a new list with the expense added. It does not change the original list, which makes it safe and easy to test.',
+          'It also cleans the input: strip spaces from the item, and make the category lower-case, so "Food " and "food" count as the same category. And it gives each expense an id: one more than the largest existing id.',
+          'Validation comes first. If the item is empty, or the amount is not a number above 0, it raises a ValueError with a clear message. The menu will catch it and show the message to the user.',
+          'Why the largest id plus one, and not the length of the list plus one? If an expense is deleted later, the length shrinks and a new expense could get an id that already exists. Using the largest id avoids that bug.'
+        ],
+        example: 'A hospital registration desk checks your form (name filled in, age a real number), tidies it (capital letters, no extra spaces), and gives you the next token number. Only then does your form go into the pile.',
+        code: lines(
+          'def next_id(expenses):',
+          '    return max((e["id"] for e in expenses), default=0) + 1',
+          '',
+          'def add_expense(expenses, item, amount, category, date):',
+          '    item = item.strip()',
+          '    if not item:',
+          '        raise ValueError("item is required")',
+          '    if not isinstance(amount, (int, float)) or amount <= 0:',
+          '        raise ValueError("amount must be more than 0")',
+          '    new = {"id": next_id(expenses), "item": item, "amount": amount,',
+          '           "category": category.strip().lower(), "date": date}',
+          '    return expenses + [new]',
+          '',
+          'data = add_expense([], " Tea ", 20, "Food ", "2026-09-28")',
+          'data = add_expense(data, "Bus", 45, "travel", "2026-09-28")',
+          'print(data[0])',
+          'print([e["id"] for e in data])',
+          'try:',
+          '    add_expense(data, "  ", 10, "food", "2026-09-28")',
+          'except ValueError as error:',
+          '    print("Refused:", error)'
+        ),
+        output: lines(
+          "{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}",
+          '[1, 2]',
+          'Refused: item is required'
+        ),
+        codeNotes: [
+          { line: 2, note: 'The largest id plus one. default=0 handles an empty list.' },
+          { line: 11, note: 'Clean the category so "Food " becomes "food".' },
+          { line: 12, note: 'Return a new list; the original is not changed.' }
+        ],
+        tryIt: 'Try add_expense(data, "Lunch", -5, "food", "2026-09-28") inside the try, and check the message says the amount must be more than 0.',
+        check: {
+          question: 'Why does add_expense use the largest id plus one instead of len(expenses) + 1?',
+          options: ['After a deletion, len + 1 could repeat an id that already exists', 'max is faster than len', 'len does not work on lists'],
+          answer: 0,
+          why: 'If expense 1 of [1, 2] is deleted, len + 1 gives 2 again. The largest id plus one gives 3, which is always new.'
+        }
+      },
+      {
+        title: 'Listing expenses neatly',
+        say: [
+          'Next, the list. format_expense turns one expense into a readable line, and list_lines turns the whole list into lines, newest first, with a header. They return text; the menu prints it.',
+          'Use the f-string widths from Day 13 so the columns line up. Money always gets two decimal places. An empty list gets a friendly message instead of a blank screen.',
+          'Handling the empty case is a small detail that makes a big difference to how finished your program feels. The first thing any new user sees is an empty list.',
+          'Remember to add tests for these functions: one with a few expenses, and one with an empty list.'
+        ],
+        example: 'A bank statement page: a header row with Date, Description and Amount, then one aligned row per transaction, newest first. When there are no transactions, it says so clearly instead of showing an empty table.',
+        code: lines(
+          'def format_expense(e):',
+          '    return f"{e[\'date\']}  {e[\'item\']:<12}{e[\'category\']:<10}{e[\'amount\']:>9.2f}"',
+          '',
+          'def list_lines(expenses):',
+          '    if not expenses:',
+          '        return ["No expenses yet. Choose 1 to add one."]',
+          '    header = f"{\'Date\':<12}{\'Item\':<12}{\'Category\':<10}{\'Amount\':>9}"',
+          '    rows = [format_expense(e) for e in sorted(expenses, key=lambda e: e["date"], reverse=True)]',
+          '    return [header, "-" * len(header)] + rows',
+          '',
+          'data = [',
+          '    {"id": 1, "item": "Tea", "amount": 20, "category": "food", "date": "2026-09-27"},',
+          '    {"id": 2, "item": "Metro card", "amount": 500, "category": "travel", "date": "2026-09-28"},',
+          ']',
+          'print("\\n".join(list_lines(data)))',
+          'print("\\n".join(list_lines([])))'
+        ),
+        output: lines(
+          'Date        Item        Category     Amount',
+          '-------------------------------------------',
+          '2026-09-28  Metro card  travel       500.00',
+          '2026-09-27  Tea         food          20.00',
+          'No expenses yet. Choose 1 to add one.'
+        ),
+        codeNotes: [
+          { line: 2, note: 'Fixed widths so every row lines up; 2 decimals for money.' },
+          { line: 6, note: 'A friendly message for the empty case.' },
+          { line: 8, note: 'Newest first.' }
+        ],
+        tryIt: 'Add a third expense with a long item name like "Birthday gift for Amma" and run it. Notice the columns shift. Try slicing the name to 11 characters in format_expense: e[\'item\'][:11].',
+        check: {
+          question: 'Why does list_lines return lines instead of printing them?',
+          options: ['So it can be tested and reused; the menu decides when to print', 'Because print does not work with lists', 'To make the list shorter'],
+          answer: 0,
+          why: 'Returning text keeps the function pure. Tests can check the lines, and the menu or an API can use them.'
+        }
+      },
+      {
+        title: 'The menu in main.py',
+        say: [
+          'Now the menu connects the user to the logic. It reads a choice, asks for the details, calls add_expense or list_lines, and prints the result. It is the only part that uses input() and print().',
+          'When add_expense raises a ValueError, the menu catches it and shows the message, then returns to the menu. The user can try again; the program never crashes because of bad typing.',
+          'The amount typed by the user is text, so the menu converts it with the parse_amount function from earlier lessons. If it returns None, the menu shows a friendly message instead of calling add_expense.',
+          'Here, the menu reads from a list of pretend answers so it can run in the lesson editor. On your laptop, replace next(answers) with input("...") and it becomes a real interactive program.'
+        ],
+        example: 'A receptionist at a clinic talks to patients, writes down their details and passes the form to the doctor. The receptionist does not examine anyone. The menu is the receptionist; the tracker functions are the doctor.',
+        projectCode: {
+          label: 'main.py on your laptop',
+          code: lines(
+            'from datetime import date',
+            'from tracker import add_expense, list_lines, parse_amount',
+            '',
+            'def main():',
+            '    expenses = []',
+            '    while True:',
+            '        choice = input("1. Add  2. List  3. Quit > ").strip()',
+            '        if choice == "1":',
+            '            item = input("Item: ")',
+            '            amount = parse_amount(input("Amount: "))',
+            '            category = input("Category: ")',
+            '            if amount is None:',
+            '                print("Please type a number above 0.")',
+            '                continue',
+            '            try:',
+            '                expenses = add_expense(expenses, item, amount, category, date.today().isoformat())',
+            '                print("Added.")',
+            '            except ValueError as error:',
+            '                print("Not added:", error)',
+            '        elif choice == "2":',
+            '            print("\\n".join(list_lines(expenses)))',
+            '        elif choice == "3":',
+            '            break',
+            '',
+            'if __name__ == "__main__":',
+            '    main()'
+          )
+        },
+        code: lines(
+          'def parse_amount(text):',
+          '    try:',
+          '        value = float(text.strip())',
+          '    except ValueError:',
+          '        return None',
+          '    return value if value > 0 else None',
+          '',
+          'def add_expense(expenses, item, amount, category, date):',
+          '    if not item.strip():',
+          '        raise ValueError("item is required")',
+          '    new_id = max((e["id"] for e in expenses), default=0) + 1',
+          '    return expenses + [{"id": new_id, "item": item.strip(), "amount": amount, "category": category.strip().lower(), "date": date}]',
+          '',
+          'answers = iter(["1", "Tea", "20", "food", "1", "Juice", "abc", "food", "1", " ", "30", "food", "2", "3"])',
+          'expenses = []',
+          'while True:',
+          '    choice = next(answers).strip()',
+          '    if choice == "1":',
+          '        item, amount, category = next(answers), parse_amount(next(answers)), next(answers)',
+          '        if amount is None:',
+          '            print("Please type a number above 0.")',
+          '            continue',
+          '        try:',
+          '            expenses = add_expense(expenses, item, amount, category, "2026-09-28")',
+          '            print("Added.")',
+          '        except ValueError as error:',
+          '            print("Not added:", error)',
+          '    elif choice == "2":',
+          '        for e in expenses:',
+          '            print(e["id"], e["item"], e["amount"])',
+          '    elif choice == "3":',
+          '        print("Bye!")',
+          '        break'
+        ),
+        output: lines('Added.', 'Please type a number above 0.', 'Not added: item is required', '1 Tea 20.0', 'Bye!'),
+        codeNotes: [
+          { line: 14, note: 'Pretend typing: a good expense, a bad amount, an empty item, then list and quit.' },
+          { line: 21, note: 'Bad amount: friendly message, back to the menu.' },
+          { line: 27, note: 'add_expense refused it: show why, back to the menu.' }
+        ],
+        tryIt: 'Add another good expense to the pretend answers before "2", for example "1", "Bus", "45", "travel", and run it. The list shows two expenses.',
+        check: {
+          question: 'What does the menu do when add_expense raises a ValueError?',
+          options: ['Shows the error message and returns to the menu', 'Crashes the program', 'Adds the expense anyway'],
+          answer: 0,
+          why: 'The menu catches the ValueError, shows why the expense was refused, and carries on so the user can try again.'
+        }
+      },
+      {
+        title: 'Testing what you built',
+        say: [
+          'Before committing, test today\'s functions. The most important checks: an expense is added with a clean item and category; ids go up; the original list is not changed; an empty item and a bad amount are refused; and listing an empty list gives the friendly message.',
+          'Run pytest after every change. If a test fails, read its name and message first; they tell you what broke.',
+          'Once the tests pass, commit: git add ., git commit -m "Add expenses and list them", git push. Your GitHub now shows a real, tested feature.',
+          'The sample below runs these checks here in the lesson editor. On your laptop they go in test_tracker.py as test_ functions.'
+        ],
+        example: 'A tailor checks a shirt before handing it over: both sleeves the same length, all buttons sewn on, no loose threads. Checking before delivery is much better than the customer finding the problem.',
+        code: lines(
+          'def add_expense(expenses, item, amount, category, date):',
+          '    item = item.strip()',
+          '    if not item:',
+          '        raise ValueError("item is required")',
+          '    if not isinstance(amount, (int, float)) or amount <= 0:',
+          '        raise ValueError("amount must be more than 0")',
+          '    new_id = max((e["id"] for e in expenses), default=0) + 1',
+          '    return expenses + [{"id": new_id, "item": item, "amount": amount, "category": category.strip().lower(), "date": date}]',
+          '',
+          'def refused(**details):',
+          '    try:',
+          '        add_expense([], **details)',
+          '    except ValueError:',
+          '        return True',
+          '    return False',
+          '',
+          'first = add_expense([], " Tea ", 20, " FOOD", "2026-09-28")',
+          'second = add_expense(first, "Bus", 45, "travel", "2026-09-28")',
+          'checks = {',
+          '    "item and category are cleaned": first[0]["item"] == "Tea" and first[0]["category"] == "food",',
+          '    "ids go up": [e["id"] for e in second] == [1, 2],',
+          '    "original list unchanged": len(first) == 1,',
+          '    "empty item refused": refused(item=" ", amount=5, category="x", date="d"),',
+          '    "negative amount refused": refused(item="Tea", amount=-5, category="x", date="d"),',
+          '    "text amount refused": refused(item="Tea", amount="20", category="x", date="d"),',
+          '}',
+          'for name, ok in checks.items():',
+          '    print("PASS" if ok else "FAIL", name)'
+        ),
+        output: lines(
+          'PASS item and category are cleaned',
+          'PASS ids go up',
+          'PASS original list unchanged',
+          'PASS empty item refused',
+          'PASS negative amount refused',
+          'PASS text amount refused'
+        ),
+        codeNotes: [
+          { line: 10, note: '**details passes named arguments through to add_expense.' },
+          { line: 19, note: 'Each check has a name, like a pytest test function.' }
+        ],
+        tryIt: 'Break add_expense on purpose by removing .lower() from the category, and run it. The first check now says FAIL. Put it back.',
+        check: {
+          question: 'Which check protects against add_expense changing the list it was given?',
+          options: ['"original list unchanged"', '"ids go up"', '"empty item refused"'],
+          answer: 0,
+          why: 'It checks that the first list still has one expense after a second one was added to a new list.'
+        }
+      },
+      {
+        title: 'Putting it together: today\'s working program',
+        say: [
+          'At the end of today, your Expense Tracker can add validated expenses and list them neatly, from a real menu, with tests. That is already a useful program and a genuine first project.',
+          'Look back at how you got here: every function today uses ideas from earlier days. Strings from Day 3, decisions from Day 5, functions from Day 7, dictionaries from Day 10, sorting from Day 11, f-strings from Day 13, errors from Day 14. Projects are built from fundamentals.',
+          'Tomorrow you add the rest of the must-haves: a summary, totals per category, and saving to JSON so the data survives between runs.',
+          'In today\'s practice you will write add_expense, which returns a new list with a clean, numbered expense, and format_expense, which returns a neat line of text.'
+        ],
+        example: 'After the first day of building a house, the walls of one room are up. You cannot live in it yet, but you can stand inside and see it is real. Tomorrow comes the roof.',
+        code: lines(
+          'def add_expense(expenses, item, amount, category, date):',
+          '    new_id = max((e["id"] for e in expenses), default=0) + 1',
+          '    return expenses + [{"id": new_id, "item": item.strip(), "amount": amount, "category": category.strip().lower(), "date": date}]',
+          '',
+          'def format_expense(e):',
+          '    return f"{e[\'item\']} - Rs {e[\'amount\']:.2f} ({e[\'category\']})"',
+          '',
+          'expenses = []',
+          'for item, amount, category in [("Tea", 20, "Food"), ("Metro", 30, "travel"), ("Notebook", 60, "study")]:',
+          '    expenses = add_expense(expenses, item, amount, category, "2026-09-28")',
+          'for e in expenses:',
+          '    print(e["id"], format_expense(e))',
+          'print("Categories so far:", sorted({e["category"] for e in expenses}))'
+        ),
+        output: lines('1 Tea - Rs 20.00 (food)', '2 Metro - Rs 30.00 (travel)', '3 Notebook - Rs 60.00 (study)', "Categories so far: ['food', 'study', 'travel']"),
+        codeNotes: [
+          { line: 9, note: 'Add three expenses in a loop, each time getting a new list.' },
+          { line: 13, note: 'A set comprehension gives the unique categories.' }
+        ],
+        tryIt: 'Add a fourth expense in the "Food" category with a capital F. The category list stays at three, because add_expense makes it lower-case.',
+        check: {
+          question: 'After today, what can the Expense Tracker do?',
+          options: ['Add validated expenses and list them from a menu, with tests', 'Only print a title', 'Save data to a web server'],
+          answer: 0,
+          why: 'Today built adding with validation, neat listing, the menu and tests. Summaries and saving come tomorrow, and the web API on Day 27.'
+        }
+      }
+    ],
+    summary: [
+      'tracker.py holds pure logic, main.py the menu, test_tracker.py the tests.',
+      'add_expense validates, cleans the input, gives a new id, and returns a new list.',
+      'Listing returns aligned lines, newest first, with a friendly empty message.',
+      'The menu catches ValueError and shows the reason, so bad typing never crashes it.',
+      'Test, commit and push after each working step.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: build step 1',
+      steps: [
+        'Write add_expense and list_lines in tracker.py.',
+        'Write the menu in main.py with options Add, List and Quit.',
+        'Write at least five tests in test_tracker.py and run pytest.',
+        'Commit with "Add expenses and list them" and push to GitHub.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 25,
+    title: 'Project Build 2: Summaries and Saving',
+    goal: 'You can add a summary, totals per category and a monthly filter to the tracker, and save and load its data as JSON.',
+    minutes: 35,
+    recap: 'Yesterday you built the core of the Expense Tracker: adding validated expenses, listing them, a menu and tests.',
+    parts: [
+      {
+        title: 'A summary of spending',
+        say: [
+          'Today the tracker becomes truly useful. First, a summary: the total spent, the number of expenses and the biggest single expense. These three numbers answer the question every user asks first: how am I doing?',
+          'The summary function returns a dictionary, not text. That keeps it flexible: the menu can print it, a test can check it, and on Day 27 the web API can send it as JSON without any changes.',
+          'Think about the empty case again. With no expenses, the total is 0, the count is 0, and there is no biggest expense, so it is None. max() on an empty list would crash, so check first.',
+          'Round the total to two decimal places, because amounts can be decimals and you learned on Day 4 that decimals are not perfectly exact.'
+        ],
+        example: 'The first screen of a banking app shows your balance, the number of transactions this month and your largest payment. Before any details, it gives you a quick picture. summary() is that first screen.',
+        code: lines(
+          'def summary(expenses):',
+          '    if not expenses:',
+          '        return {"total": 0, "count": 0, "biggest": None}',
+          '    biggest = max(expenses, key=lambda e: e["amount"])',
+          '    return {',
+          '        "total": round(sum(e["amount"] for e in expenses), 2),',
+          '        "count": len(expenses),',
+          '        "biggest": biggest["item"],',
+          '    }',
+          '',
+          'data = [{"item": "Tea", "amount": 20}, {"item": "Rent", "amount": 8000}, {"item": "Bus", "amount": 45.5}]',
+          'print(summary(data))',
+          'print(summary([]))'
+        ),
+        output: lines("{'total': 8065.5, 'count': 3, 'biggest': 'Rent'}", "{'total': 0, 'count': 0, 'biggest': None}"),
+        codeNotes: [
+          { line: 2, note: 'The empty case first, so max() never sees an empty list.' },
+          { line: 4, note: 'max with a key returns the whole expense with the largest amount.' },
+          { line: 6, note: 'Round the total to 2 decimal places.' }
+        ],
+        tryIt: 'Add an "average" key to the summary, rounded to 2 places. For the data above it should be 2688.5.',
+        check: {
+          question: 'Why does summary() return a dictionary instead of printing?',
+          options: ['So the menu, tests and later the web API can all use the same result', 'Because print cannot show numbers', 'Dictionaries are faster than print'],
+          answer: 0,
+          why: 'A returned dictionary is data. Anyone can print it, test it or send it as JSON.'
+        }
+      },
+      {
+        title: 'Totals per category',
+        say: [
+          'Next, where does the money go? category_totals uses the grouping pattern from Day 10: a dictionary where each category is a key and its total is the value.',
+          'To make the result easy to read, the menu shows categories sorted from the biggest spend to the smallest, with each category\'s share of the total as a percentage.',
+          'The percentage uses the :.0% or :.1% format from Day 13. Remember to guard against dividing by zero when there are no expenses at all.',
+          'This feature is the one users find most eye-opening. Seeing that food takes 40 percent of your spending is exactly the kind of insight that makes an app worth using.'
+        ],
+        example: 'A monthly pie chart in a budgeting app: food 40 percent, rent 35 percent, travel 15 percent, other 10 percent. The numbers behind the chart are exactly what category_totals calculates.',
+        code: lines(
+          'def category_totals(expenses):',
+          '    totals = {}',
+          '    for e in expenses:',
+          '        totals[e["category"]] = totals.get(e["category"], 0) + e["amount"]',
+          '    return totals',
+          '',
+          'def category_lines(expenses):',
+          '    totals = category_totals(expenses)',
+          '    grand = sum(totals.values())',
+          '    if grand == 0:',
+          '        return ["Nothing spent yet."]',
+          '    ordered = sorted(totals.items(), key=lambda pair: pair[1], reverse=True)',
+          '    return [f"{cat:<10}{amount:>9.2f}  {amount / grand:>4.0%}" for cat, amount in ordered]',
+          '',
+          'data = [',
+          '    {"category": "food", "amount": 400}, {"category": "rent", "amount": 350},',
+          '    {"category": "travel", "amount": 150},',
+          '    {"category": "fun", "amount": 100},',
+          ']',
+          'print("\\n".join(category_lines(data)))',
+          'print(category_lines([]))'
+        ),
+        output: lines('food         400.00   40%', 'rent         350.00   35%', 'travel       150.00   15%', 'fun          100.00   10%', "['Nothing spent yet.']"),
+        codeNotes: [
+          { line: 4, note: 'The grouping pattern: current total (0 if new) plus this amount.' },
+          { line: 12, note: 'Sort the (category, amount) pairs by amount, biggest first.' },
+          { line: 13, note: 'Share of the total as a percentage with no decimals.' }
+        ],
+        tryIt: 'Change :>4.0% to :>6.1% and run it. The percentages now have one decimal place, like 40.0%.',
+        check: {
+          question: 'Why does category_lines check if grand == 0?',
+          options: ['To avoid dividing by zero when nothing has been spent', 'Because sorted fails on zero', 'To hide small categories'],
+          answer: 0,
+          why: 'The percentage divides by the grand total. With no spending, that would be a division by zero.'
+        }
+      },
+      {
+        title: 'Filtering by month',
+        say: [
+          'Most people think about spending month by month. Because the date is stored as "YYYY-MM-DD" text, the month is simply the first seven characters: "2026-09". A slice from Day 3 is all you need.',
+          'in_month returns only the expenses in a given month. The summary and category totals can then be run on that smaller list, without changing either function. This is the power of small functions that take a list and return a result: they combine easily.',
+          'To offer the user a list of months to choose from, collect the unique months with a set comprehension and sort them.',
+          'Again, think about edge cases: a month with no expenses should give an empty list, and the summary of an empty list already works because you handled it earlier.'
+        ],
+        example: 'Your phone\'s photo gallery groups pictures by month. It does not store them in separate folders; it just looks at each photo\'s date. in_month looks at each expense\'s date in the same way.',
+        code: lines(
+          'def in_month(expenses, month):',
+          '    return [e for e in expenses if e["date"][:7] == month]',
+          '',
+          'def months(expenses):',
+          '    return sorted({e["date"][:7] for e in expenses})',
+          '',
+          'data = [',
+          '    {"item": "Tea", "amount": 20, "date": "2026-08-30"},',
+          '    {"item": "Rent", "amount": 8000, "date": "2026-09-01"},',
+          '    {"item": "Bus", "amount": 45, "date": "2026-09-15"},',
+          ']',
+          'print(months(data))',
+          'september = in_month(data, "2026-09")',
+          'print([e["item"] for e in september])',
+          'print(sum(e["amount"] for e in september))',
+          'print(in_month(data, "2026-12"))'
+        ),
+        output: lines("['2026-08', '2026-09']", "['Rent', 'Bus']", '8045', '[]'),
+        codeNotes: [
+          { line: 2, note: 'The first 7 characters of "2026-09-15" are "2026-09".' },
+          { line: 5, note: 'A set of months, sorted into a list.' },
+          { line: 16, note: 'A month with no expenses gives an empty list, not an error.' }
+        ],
+        tryIt: 'Add an expense dated "2026-10-02" and run it. A third month appears in the months list.',
+        check: {
+          question: 'For an expense dated "2026-09-15", what is e["date"][:7]?',
+          options: ['"2026-09"', '"2026-09-1"', '"15"'],
+          answer: 0,
+          why: 'The slice takes characters 0 to 6: the year, the dash and the month.'
+        }
+      },
+      {
+        title: 'Saving and loading with JSON',
+        say: [
+          'Now the most important must-have: the data should still be there after the program closes. You built this on Day 17; today you put it into tracker.py.',
+          'save writes the whole list to a JSON file with indent=2. load reads it back, and returns an empty list for a missing file, broken JSON, or data that is not a list. The menu calls load() when it starts and save() after every change.',
+          'Saving after every change is simple and safe for a small app: if the program crashes or the laptop turns off, at most one change is lost.',
+          'The file name is a parameter with a default, like load(path="expenses.json"). Tests can then pass a temporary file name, so they never touch your real data.'
+        ],
+        example: 'A good notes app saves each note as you type. You never press "save", and you never lose a note when your phone restarts. Saving after every change gives your tracker the same reliability.',
+        code: lines(
+          'import json',
+          '',
+          'def save(expenses, path="expenses.json"):',
+          '    with open(path, "w") as f:',
+          '        json.dump(expenses, f, indent=2)',
+          '',
+          'def load(path="expenses.json"):',
+          '    try:',
+          '        with open(path) as f:',
+          '            data = json.load(f)',
+          '    except (FileNotFoundError, ValueError):',
+          '        return []',
+          '    return data if isinstance(data, list) else []',
+          '',
+          'data = [{"id": 1, "item": "Tea", "amount": 20, "category": "food", "date": "2026-09-28"}]',
+          'save(data, "test_expenses.json")',
+          'print(load("test_expenses.json") == data)',
+          'print(load("does_not_exist.json"))',
+          'with open("broken.json", "w") as f:',
+          '    f.write("{not json")',
+          'print(load("broken.json"))'
+        ),
+        output: lines('True', '[]', '[]'),
+        codeNotes: [
+          { line: 3, note: 'The path has a default, so tests can use a different file.' },
+          { line: 11, note: 'A missing file or broken JSON gives an empty list.' },
+          { line: 17, note: 'The round trip: what we load equals what we saved.' }
+        ],
+        tryIt: 'Write the text "[1, 2" (a JSON list with no closing bracket) into broken.json instead, and check load still returns [].',
+        check: {
+          question: 'Why does load() take the file path as a parameter with a default?',
+          options: ['So tests can use a separate file and never touch the real data', 'Because json.load needs two parameters', 'To load two files at once'],
+          answer: 0,
+          why: 'The real app uses the default file. Tests pass a different path, keeping your real expenses safe.'
+        }
+      },
+      {
+        title: 'Connecting it all in the menu',
+        say: [
+          'The menu grows to five options: Add, List, Summary, By category, and Quit. At the start it calls load(). After a successful add, it calls save().',
+          'Each option is a few lines, because the real work happens in tracker.py. This is what good structure looks like: when you add a feature, you write one function and one menu option.',
+          'Try your program for real on your laptop: add a few expenses, quit, run it again and check they are still there. That moment, when your own program remembers your data, is a big milestone.',
+          'The sample below runs the same menu with pretend typing, including a restart of the program, to show that the data survives.'
+        ],
+        example: 'Think of a shop: the shelves (the JSON file) keep the stock overnight. Each morning the shopkeeper opens the shop (load), serves customers and restocks (add and save), and closes at night. The stock is there again tomorrow.',
+        code: lines(
+          'import json',
+          'PATH = "demo_expenses.json"',
+          'open(PATH, "w").close()  # start with an empty file on every Run',
+          '',
+          'def load():',
+          '    try:',
+          '        with open(PATH) as f:',
+          '            data = json.load(f)',
+          '    except (FileNotFoundError, ValueError):',
+          '        return []',
+          '    return data if isinstance(data, list) else []',
+          '',
+          'def save(expenses):',
+          '    with open(PATH, "w") as f:',
+          '        json.dump(expenses, f)',
+          '',
+          'def run_menu(typed):',
+          '    answers = iter(typed)',
+          '    expenses = load()',
+          '    while True:',
+          '        choice = next(answers)',
+          '        if choice == "1":',
+          '            expenses.append({"item": next(answers), "amount": float(next(answers))})',
+          '            save(expenses)',
+          '        elif choice == "3":',
+          '            total = sum(e["amount"] for e in expenses)',
+          '            print(f"{len(expenses)} expenses, total Rs {total:.2f}")',
+          '        elif choice == "5":',
+          '            return',
+          '',
+          'run_menu(["1", "Tea", "20", "1", "Bus", "45", "3", "5"])',
+          'print("--- program closed and opened again ---")',
+          'run_menu(["3", "1", "Lunch", "120", "3", "5"])'
+        ),
+        output: lines('2 expenses, total Rs 65.00', '--- program closed and opened again ---', '2 expenses, total Rs 65.00', '3 expenses, total Rs 185.00'),
+        codeNotes: [
+          { line: 19, note: 'Load saved data when the program starts.' },
+          { line: 24, note: 'Save straight after every change.' },
+          { line: 33, note: 'A second "run" starts with the saved data, not an empty list.' }
+        ],
+        tryIt: 'Remove the save(expenses) line and run it. After the restart, the program only knows about Lunch. Put the line back.',
+        check: {
+          question: 'Where does the menu call save()?',
+          options: ['Straight after every successful change', 'Only when the user quits', 'Never; the data stays in memory'],
+          answer: 0,
+          why: 'Saving after each change means a crash or power cut loses at most one change.'
+        }
+      },
+      {
+        title: 'Putting it together: all must-haves done',
+        say: [
+          'Your Expense Tracker now meets every must-have user story from your plan: add expenses, see totals per category, and keep data between runs. It also has a summary and a monthly filter. Update PLAN.md to tick them off.',
+          'Before committing, add tests: summary of an empty list, category totals, in_month with a month that has no expenses, and a save-load round trip using a test file. Run pytest, then commit and push.',
+          'Tomorrow you learn to call web APIs, and on Day 27 you turn the tracker into a small web API with FastAPI, reusing tracker.py as it is. That is the version you will put online on Day 29.',
+          'In today\'s practice you will write summary, which returns the total, count and biggest item, and category_totals, which returns the total per category.'
+        ],
+        example: 'A house with walls, a roof, doors and electricity is ready to live in, even before the paint and decoration. Your tracker is now ready to use every day; the next days add the finishing touches that make it shine.',
+        code: lines(
+          'def summary(expenses):',
+          '    if not expenses:',
+          '        return {"total": 0, "count": 0, "biggest": None}',
+          '    return {"total": sum(e["amount"] for e in expenses), "count": len(expenses),',
+          '            "biggest": max(expenses, key=lambda e: e["amount"])["item"]}',
+          '',
+          'def category_totals(expenses):',
+          '    totals = {}',
+          '    for e in expenses:',
+          '        totals[e["category"]] = totals.get(e["category"], 0) + e["amount"]',
+          '    return totals',
+          '',
+          'def in_month(expenses, month):',
+          '    return [e for e in expenses if e["date"][:7] == month]',
+          '',
+          'data = [',
+          '    {"item": "Tea", "amount": 20, "category": "food", "date": "2026-09-03"},',
+          '    {"item": "Rent", "amount": 8000, "category": "home", "date": "2026-09-01"},',
+          '    {"item": "Lunch", "amount": 150, "category": "food", "date": "2026-09-10"},',
+          '    {"item": "Train", "amount": 600, "category": "travel", "date": "2026-10-02"},',
+          ']',
+          'sept = in_month(data, "2026-09")',
+          'print(summary(sept))',
+          'print(category_totals(sept))',
+          'stories = {"add expenses": True, "totals per category": True, "keep data": True}',
+          'print("Must-haves done:", all(stories.values()))'
+        ),
+        output: lines("{'total': 8170, 'count': 3, 'biggest': 'Rent'}", "{'food': 170, 'home': 8000}", 'Must-haves done: True'),
+        codeNotes: [
+          { line: 22, note: 'Filter by month first, then reuse the other functions unchanged.' },
+          { line: 26, note: 'all() is True only if every value is True.' }
+        ],
+        tryIt: 'Run the summary for "2026-10" instead. It should show a total of 600, 1 expense, and Train as the biggest.',
+        check: {
+          question: 'Why can summary() and category_totals() work on one month without any changes?',
+          options: ['They take any list of expenses, so a filtered list works the same way', 'They check the month themselves', 'Python filters dates automatically'],
+          answer: 0,
+          why: 'Small functions that take a list and return a result combine easily: filter first, then summarise the smaller list.'
+        }
+      }
+    ],
+    summary: [
+      'summary() returns total, count and biggest, and handles an empty list.',
+      'category_totals() groups spending; show it biggest first with percentages.',
+      'The month is e["date"][:7]; in_month() filters, and other functions work on the result.',
+      'save() and load() keep data in JSON; load handles missing and broken files.',
+      'Load at start, save after every change, test everything, then commit and push.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: build step 2',
+      steps: [
+        'Add summary, category_totals, in_month, save and load to tracker.py.',
+        'Add Summary and By category options to the menu; load at start and save after every add.',
+        'Add tests for the empty cases and a save-load round trip, and run pytest.',
+        'Tick off the must-haves in PLAN.md, commit and push.'
+      ]
+    }
   }
 ];
