@@ -4630,5 +4630,1204 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: simulate a Stop button that ends the stream after N tokens."
       ]
     }
+  },
+  {
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Autonomous Multi-Agent Research Assistant with Web & Code Tools",
+    "goal": "You can build a multi-agent research assistant: a supervisor plans the work, specialist agents run each step with tools, every step is logged, and the final report is validated.",
+    "minutes": 30,
+    "recap": "This week you built memory, ReAct agents, supervisors, planning, reflection and streaming. Milestone 3 combines them into one research assistant.",
+    "parts": [
+      {
+        "title": "What the research assistant does",
+        "say": [
+          "The user gives a goal, such as \"Summarise the growth of electric two-wheelers in India and estimate next year's sales.\"",
+          "A supervisor turns the goal into a plan: research the facts, run a calculation, then write the report.",
+          "A researcher agent uses a search tool and records its sources. A coder agent uses a safe calculation tool. A writer agent turns the findings into a readable report.",
+          "Each agent has a short prompt about its own job only, which keeps it focused and makes it easy to test on its own.",
+          "Every step is logged, the final report is checked, and the whole run has a budget.",
+          "This design mirrors real products such as deep-research assistants and analyst copilots, just at a smaller scale.",
+          "Today you will build it with fake tools and agents, so every part can be tested without network access."
+        ],
+        "example": "A newspaper desk: the editor assigns stories, a reporter gathers facts, a data journalist runs the numbers, and a sub-editor writes the final piece.",
+        "code": "roles = {\n    \"Supervisor\": \"plans the steps and writes the final report\",\n    \"ResearcherAgent\": \"searches and records sources\",\n    \"CoderAgent\": \"runs safe calculations on the numbers found\",\n    \"WriterAgent\": \"turns findings into a clear summary\",\n}\nfor role, job in roles.items():\n    print(f\"{role:16} {job}\")",
+        "output": "Supervisor       plans the steps and writes the final report\nResearcherAgent  searches and records sources\nCoderAgent       runs safe calculations on the numbers found\nWriterAgent      turns findings into a clear summary",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Findings always carry their sources."
+          }
+        ],
+        "tryIt": "Add a ReviewerAgent that checks each fact has a source, and describe its job in one line.",
+        "check": {
+          "question": "What does the supervisor do in the research assistant?",
+          "options": [
+            "Runs every search itself",
+            "Plans the steps, assigns agents and writes the final report",
+            "Only formats text"
+          ],
+          "answer": 1,
+          "why": "The supervisor coordinates: it plans, delegates and produces the final synthesis."
+        }
+      },
+      {
+        "title": "The supervisor interface",
+        "say": [
+          "The supervisor exposes three methods. create_plan(goal) returns a list of steps, each with an id, an agent name and a task.",
+          "get_agent(name) returns a function that runs a task and returns its output. synthesize(goal, logs) turns all outputs into the final report.",
+          "Hiding the details behind these three methods means the orchestration code does not care whether agents are real models, fakes, or people.",
+          "It also makes testing simple: a fake supervisor with fixed answers lets you check the orchestration logic in milliseconds.",
+          "In a real system, create_plan and synthesize call a strong model, while agents may use cheaper models and tools.",
+          "Writing the interface first, before the implementation, is a good habit for any multi-part system.",
+          "The fake supervisor below returns a fixed plan so the flow is easy to follow."
+        ],
+        "example": "A restaurant head chef who writes the order tickets, hands each to the right station, and plates the final dish, without caring who at each station does the chopping.",
+        "code": "class FakeSupervisor:\n    def create_plan(self, goal):\n        return [\n            {\"id\": 1, \"agent\": \"ResearcherAgent\", \"task\": \"Find EV two-wheeler sales for 2023 and 2024\"},\n            {\"id\": 2, \"agent\": \"CoderAgent\", \"task\": \"Compute the growth rate\"},\n            {\"id\": 3, \"agent\": \"WriterAgent\", \"task\": \"Write a 2-sentence summary\"},\n        ]\n\n    def get_agent(self, name):\n        agents = {\n            \"ResearcherAgent\": lambda task: \"2023: 0.88 million, 2024: 1.14 million [source: industry-report]\",\n            \"CoderAgent\": lambda task: \"growth = 29.5%\",\n            \"WriterAgent\": lambda task: \"EV two-wheeler sales grew about 30% in 2024.\",\n        }\n        return agents[name]\n\n    def synthesize(self, goal, logs):\n        return \" \".join(log[\"output\"] for log in logs)\n\nsup = FakeSupervisor()\nfor step in sup.create_plan(\"EV report\"):\n    print(step[\"id\"], step[\"agent\"], \"->\", sup.get_agent(step[\"agent\"])(step[\"task\"]))",
+        "output": "1 ResearcherAgent -> 2023: 0.88 million, 2024: 1.14 million [source: industry-report]\n2 CoderAgent -> growth = 29.5%\n3 WriterAgent -> EV two-wheeler sales grew about 30% in 2024.",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Plan: a list of steps with id, agent and task."
+          },
+          {
+            "line": 9,
+            "note": "Look up the function that runs an agent."
+          },
+          {
+            "line": 17,
+            "note": "Combine the logged outputs into a report."
+          }
+        ],
+        "tryIt": "Add a fourth step for a ReviewerAgent and give it a fake function.",
+        "check": {
+          "question": "Why hide agents behind get_agent(name)?",
+          "options": [
+            "It makes them faster",
+            "The orchestration code works the same with real agents, fakes or people",
+            "Python requires it"
+          ],
+          "answer": 1,
+          "why": "A simple interface lets you swap implementations without changing the workflow."
+        }
+      },
+      {
+        "title": "Orchestrating the plan",
+        "say": [
+          "Practice 1: orchestrate_agents(goal, supervisor). Get the plan, run every step in order with the right agent, log {\"step\": id, \"agent\": name, \"output\": output}, then call synthesize.",
+          "Return {\"status\": \"GOAL_ACHIEVED\", \"steps_executed\": ..., \"logs\": ..., \"report\": ...}.",
+          "The logs are the audit trail: they show exactly what each agent produced, which is essential for debugging and for trust.",
+          "Store the logs with the final report, so anyone reading the report later can trace each claim back to the step that produced it.",
+          "Running steps in order keeps it simple. Independent steps could run in parallel later for speed.",
+          "Notice how short the orchestration code is. The structure (plan, run, log, synthesise) is what makes a multi-agent system understandable.",
+          "The status field leaves room for other outcomes you will add later, such as \"PARTIAL\" when a step fails."
+        ],
+        "example": "A project manager ticking off a checklist: for each task, hand it to the right person, note the result, and write a final summary for the client.",
+        "code": "class FakeSupervisor:\n    def create_plan(self, goal):\n        return [{\"id\": 1, \"agent\": \"Researcher\", \"task\": \"find sales\"}, {\"id\": 2, \"agent\": \"Writer\", \"task\": \"summarise\"}]\n    def get_agent(self, name):\n        return {\"Researcher\": lambda t: \"sales grew 30% [source: report]\", \"Writer\": lambda t: \"Sales grew about 30%.\"}[name]\n    def synthesize(self, goal, logs):\n        return f\"Report on {goal}: \" + logs[-1][\"output\"]\n\ndef orchestrate_agents(goal, supervisor):\n    logs = []\n    for step in supervisor.create_plan(goal):\n        output = supervisor.get_agent(step[\"agent\"])(step[\"task\"])\n        logs.append({\"step\": step[\"id\"], \"agent\": step[\"agent\"], \"output\": output})\n    report = supervisor.synthesize(goal, logs)\n    return {\"status\": \"GOAL_ACHIEVED\", \"steps_executed\": len(logs), \"logs\": logs, \"report\": report}\n\nresult = orchestrate_agents(\"EV two-wheelers\", FakeSupervisor())\nprint(result[\"status\"], result[\"steps_executed\"])\nfor log in result[\"logs\"]:\n    print(log)\nprint(result[\"report\"])",
+        "output": "GOAL_ACHIEVED 2\n{'step': 1, 'agent': 'Researcher', 'output': 'sales grew 30% [source: report]'}\n{'step': 2, 'agent': 'Writer', 'output': 'Sales grew about 30%.'}\nReport on EV two-wheelers: Sales grew about 30%.",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Run each step with the agent the plan names."
+          },
+          {
+            "line": 13,
+            "note": "Log every output: the audit trail."
+          },
+          {
+            "line": 14,
+            "note": "The supervisor writes the final report."
+          }
+        ],
+        "tryIt": "Make the Writer agent raise an error. Then wrap the call in try/except and log the error as the output.",
+        "check": {
+          "question": "Why log every step's output?",
+          "options": [
+            "To make the report longer",
+            "The logs show exactly what each agent produced, for debugging and trust",
+            "Logs are sent to the model"
+          ],
+          "answer": 1,
+          "why": "An audit trail lets you see where a wrong answer came from."
+        }
+      },
+      {
+        "title": "Validating the report",
+        "say": [
+          "Practice 2: has_valid_report(result) returns True only if result has a \"report\" that is a string with more than 10 characters after stripping spaces.",
+          "Use result.get(\"report\") so a missing key gives None instead of an error, and isinstance to reject lists, numbers or None.",
+          "This is the minimum check. Real systems add more: every number has a source, the report mentions the goal's key terms, and it is within the length limit.",
+          "Checks like these are cheap code, so run all of them on every report; a model-based review can be added on top for tone and completeness.",
+          "If validation fails, retry the synthesis once with the problems listed (a repair prompt), or return a clear failure.",
+          "Never show an empty or broken report to the user as if it were a success.",
+          "Validation is cheap compared with the whole run, so always do it."
+        ],
+        "example": "A publisher checking a manuscript is actually there and complete before sending it to the printer.",
+        "code": "import re\n\ndef has_valid_report(result):\n    report = result.get(\"report\")\n    return isinstance(report, str) and len(report.strip()) > 10\n\ndef unsourced_numbers(report):\n    sentences = re.split(r\"(?<=[.!?])\\s+\", report)\n    return [s for s in sentences if re.search(r\"\\d\", s) and \"[source:\" not in s]\n\nprint(has_valid_report({\"report\": \"   short  \"}), has_valid_report({}), has_valid_report({\"report\": [\"a list\"]}))\nreport = \"Sales grew 30% in 2024 [source: report-12]. Next year may reach 1.5 million.\"\nprint(has_valid_report({\"report\": report}))\nprint(\"needs a source:\", unsourced_numbers(report))",
+        "output": "False False False\nTrue\nneeds a source: ['Next year may reach 1.5 million.']",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A real string with enough content."
+          },
+          {
+            "line": 9,
+            "note": "Sentences with numbers but no source."
+          }
+        ],
+        "tryIt": "Add a source to the second sentence and check unsourced_numbers returns an empty list.",
+        "check": {
+          "question": "Why use result.get(\"report\") instead of result[\"report\"]?",
+          "options": [
+            "It is faster",
+            "A missing report gives None instead of raising an error",
+            "It strips spaces"
+          ],
+          "answer": 1,
+          "why": ".get returns None for missing keys, which the isinstance check then rejects."
+        }
+      },
+      {
+        "title": "Tools with sources and safe code",
+        "say": [
+          "The researcher's search tool should return results with a source ID, and the researcher should keep those IDs with every fact it reports.",
+          "The coder's tool should compute with numbers the researcher found, using safe, fixed operations such as growth rates and averages, not arbitrary code.",
+          "If real code execution is needed, run it in a sandbox, as discussed on Day 19.",
+          "Passing structured data between agents (numbers, sources) is more reliable than passing prose that the next agent must re-read.",
+          "When a search returns nothing, the tool should say so clearly, for example returning None, so the next agent does not calculate with made-up numbers.",
+          "Here the search result is a dict with a value and a source, and the growth tool works on those values directly.",
+          "Keeping the source attached from search to report is what makes the final answer checkable."
+        ],
+        "example": "A lab notebook where every measurement has the instrument and date written next to it, so any later calculation can be traced back.",
+        "code": "SEARCH_INDEX = {\n    \"ev two-wheeler sales 2023\": {\"value\": 0.88, \"unit\": \"million\", \"source\": \"vahan-2023\"},\n    \"ev two-wheeler sales 2024\": {\"value\": 1.14, \"unit\": \"million\", \"source\": \"vahan-2024\"},\n}\n\ndef search(query):\n    return SEARCH_INDEX.get(query.lower())\n\ndef growth_rate(old, new):\n    return round((new - old) / old * 100, 1)\n\na, b = search(\"EV two-wheeler sales 2023\"), search(\"EV two-wheeler sales 2024\")\ng = growth_rate(a[\"value\"], b[\"value\"])\nprint(f\"Growth: {g}% [sources: {a['source']}, {b['source']}]\")\nprint(f\"If growth continues: {round(b['value'] * (1 + g / 100), 2)} million next year (estimate)\")",
+        "output": "Growth: 29.5% [sources: vahan-2023, vahan-2024]\nIf growth continues: 1.48 million next year (estimate)",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Every search result carries its source."
+          },
+          {
+            "line": 10,
+            "note": "A fixed, safe calculation instead of running arbitrary code."
+          }
+        ],
+        "tryIt": "Search for a query that is not in the index. Make the code handle None gracefully.",
+        "check": {
+          "question": "Why should the coder agent use fixed calculation tools here?",
+          "options": [
+            "They are more fun",
+            "They are safe and predictable, unlike running arbitrary code",
+            "Models cannot do maths"
+          ],
+          "answer": 1,
+          "why": "Fixed operations cannot do anything harmful, and their results are easy to check."
+        }
+      },
+      {
+        "title": "Hardening the assistant",
+        "say": [
+          "Add a budget for the whole run (steps, tokens, time), as on Day 18, and stop gracefully when it is reached.",
+          "If a step fails, log the error and continue if the remaining steps can still help; mark the result \"PARTIAL\" rather than pretending success.",
+          "Stream progress to the user: \"Researching... Calculating... Writing...\" using the status logs and streaming from Days 18 and 20.",
+          "Evaluate on a set of real research goals: is the report valid, are all numbers sourced, how long and how expensive was each run?",
+          "Keep improving from the logs: vague plans, weak searches and unsourced claims are the usual problems.",
+          "Congratulations: this is Milestone 3. Next week covers caching, fine-tuning, serving and running AI in production."
+        ],
+        "example": "A shipping company that tracks every parcel, has a plan for delays, and tells customers honestly when only part of an order can arrive.",
+        "code": "def run_steps(steps, max_steps=3):\n    logs, status = [], \"GOAL_ACHIEVED\"\n    for i, (agent, fn) in enumerate(steps, start=1):\n        if i > max_steps:\n            status = \"PARTIAL\"\n            logs.append({\"agent\": agent, \"output\": \"skipped: step budget reached\"})\n            continue\n        try:\n            logs.append({\"agent\": agent, \"output\": fn()})\n        except Exception as err:\n            status = \"PARTIAL\"\n            logs.append({\"agent\": agent, \"output\": f\"error: {err}\"})\n    return status, logs\n\ndef broken():\n    raise ConnectionError(\"search timed out\")\n\nstatus, logs = run_steps([(\"Researcher\", broken), (\"Coder\", lambda: \"growth 29.5%\"), (\"Writer\", lambda: \"Summary...\"), (\"Reviewer\", lambda: \"ok\")])\nprint(status)\nfor log in logs:\n    print(log)",
+        "output": "PARTIAL\n{'agent': 'Researcher', 'output': 'error: search timed out'}\n{'agent': 'Coder', 'output': 'growth 29.5%'}\n{'agent': 'Writer', 'output': 'Summary...'}\n{'agent': 'Reviewer', 'output': 'skipped: step budget reached'}",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Over budget: record it and mark the run as partial."
+          },
+          {
+            "line": 11,
+            "note": "A failed step is logged, and the run is marked partial."
+          }
+        ],
+        "tryIt": "Raise max_steps to 4 and fix the broken step. The status should become GOAL_ACHIEVED.",
+        "check": {
+          "question": "What should the assistant report when one step fails but others succeed?",
+          "options": [
+            "GOAL_ACHIEVED",
+            "A PARTIAL status with the error logged",
+            "Nothing"
+          ],
+          "answer": 1,
+          "why": "Honest partial results with logged errors are better than false success."
+        }
+      }
+    ],
+    "summary": [
+      "A supervisor plans; specialist agents run steps; the supervisor synthesises.",
+      "A three-method interface (create_plan, get_agent, synthesize) keeps orchestration simple.",
+      "Log every step's output as an audit trail.",
+      "Validate the report: a real string, enough content, sourced numbers.",
+      "Budgets, partial results and progress updates make the assistant robust."
+    ],
+    "projectStep": {
+      "title": "Milestone 3: research assistant",
+      "steps": [
+        "Add orchestrate_agents and has_valid_report to ai_toolkit.py.",
+        "Build a fake supervisor with three agents for a research goal of your choice.",
+        "Bonus: add a step budget and a PARTIAL status when a step fails."
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "title": "LLM Caching: Exact vs Semantic Caching with Vector DBs (GPTCache)",
+    "goal": "You can speed up and cut the cost of LLM apps with exact and semantic caches, choose a safe similarity threshold, measure hit rate, and avoid stale or leaked cached answers.",
+    "minutes": 30,
+    "recap": "Your systems now answer questions with RAG and agents. Many of those questions repeat. Today you stop paying twice for the same answer.",
+    "parts": [
+      {
+        "title": "Why cache LLM answers",
+        "say": [
+          "In real products, many questions repeat: \"What are your opening hours?\", \"How do I reset my password?\". Each model call costs money and takes seconds.",
+          "A cache stores answers and returns them instantly when the same (or a very similar) question comes again.",
+          "Popular apps often find that a small set of questions makes up a large share of traffic, which is exactly where caching shines.",
+          "Even a modest hit rate saves a lot. If 30% of questions are served from cache, you cut model costs and average waiting time by roughly 30%.",
+          "Cache lookups take milliseconds, compared with seconds for generation, so users also get faster answers.",
+          "There are two kinds of cache: exact (the same text) and semantic (the same meaning).",
+          "Caching also protects you during traffic spikes and provider outages: popular answers keep working."
+        ],
+        "example": "A tea stall that keeps a flask of the most popular chai ready, instead of brewing each cup from scratch while a queue waits.",
+        "code": "calls_per_day = 50_000\ncost_per_call = 0.004\nmodel_seconds, cache_seconds = 2.5, 0.01\nfor hit_rate in [0.0, 0.3, 0.6]:\n    cost = calls_per_day * (1 - hit_rate) * cost_per_call\n    avg_wait = hit_rate * cache_seconds + (1 - hit_rate) * model_seconds\n    print(f\"hit rate {hit_rate:.0%}: ${cost:,.0f} per day, average wait {avg_wait:.2f}s\")",
+        "output": "hit rate 0%: $200 per day, average wait 2.50s\nhit rate 30%: $140 per day, average wait 1.75s\nhit rate 60%: $80 per day, average wait 1.01s",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Only misses reach the model and cost money."
+          },
+          {
+            "line": 6,
+            "note": "Hits return almost instantly."
+          }
+        ],
+        "tryIt": "Work out the monthly saving of a 30% hit rate compared with no cache.",
+        "check": {
+          "question": "What does a 40% cache hit rate mean?",
+          "options": [
+            "40% of answers are wrong",
+            "40% of questions are answered from the cache without a model call",
+            "The cache is 40% full"
+          ],
+          "answer": 1,
+          "why": "Hit rate is the share of questions served from the cache."
+        }
+      },
+      {
+        "title": "Exact caching",
+        "say": [
+          "An exact cache is a dict from question to answer. It is simple, fast and never returns a wrong match.",
+          "Normalise the key first: lower case, trim spaces and collapse repeated spaces. Then \"Opening hours?\" and \" opening  hours? \" share one entry.",
+          "Be careful not to over-normalise: removing every punctuation mark can merge questions that mean different things, such as \"order 12\" and \"order 1.2\".",
+          "Include everything that changes the answer in the key: the model name, the system prompt version and settings like temperature. Otherwise an old prompt's answer might be served after you change it.",
+          "Hashing the combined key (for example with hashlib.sha256) gives a short, fixed-length key that is convenient for databases like Redis.",
+          "Exact caches catch fewer repeats than you might hope, because people phrase the same question in many ways. That is where semantic caching helps.",
+          "Only cache answers from temperature 0 or near it; creative answers are meant to vary."
+        ],
+        "example": "A phone contact list: you find a number instantly, but only if you type the name exactly as you saved it.",
+        "code": "import hashlib\nimport re\n\ndef cache_key(question, model=\"small-v2\", prompt_version=\"3\"):\n    normal = re.sub(r\"\\s+\", \" \", question.strip().lower())\n    return hashlib.sha256(f\"{model}|{prompt_version}|{normal}\".encode()).hexdigest()[:16]\n\ncache = {}\ncache[cache_key(\"What are your opening hours?\")] = \"We are open 9 am to 9 pm.\"\nfor q in [\"  what are your OPENING hours? \", \"When do you open?\"]:\n    print(repr(q), \"->\", cache.get(cache_key(q), \"MISS\"))\nprint(cache_key(\"What are your opening hours?\", prompt_version=\"4\") in cache)",
+        "output": "'  what are your OPENING hours? ' -> We are open 9 am to 9 pm.\n'When do you open?' -> MISS\nFalse",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Normalise: lower case, trimmed, single spaces."
+          },
+          {
+            "line": 6,
+            "note": "Model and prompt version are part of the key."
+          },
+          {
+            "line": 12,
+            "note": "A new prompt version does not reuse old answers."
+          }
+        ],
+        "tryIt": "Add temperature to the key and check that a different temperature misses the cache.",
+        "check": {
+          "question": "Why include the prompt version in the cache key?",
+          "options": [
+            "To make keys longer",
+            "So answers made with an old prompt are not served after the prompt changes",
+            "Hashes need it"
+          ],
+          "answer": 1,
+          "why": "The answer depends on the prompt; a new prompt should produce new cached answers."
+        }
+      },
+      {
+        "title": "Semantic caching",
+        "say": [
+          "A semantic cache stores each question's embedding with its answer. A new question is embedded and compared by cosine similarity with the stored ones.",
+          "If the best match is above a threshold (often 0.9 to 0.97), return its answer. \"When do you open?\" can reuse the answer to \"What are your opening hours?\".",
+          "The threshold is critical. Too low, and different questions share answers: \"Can I cancel my order?\" is similar to \"Can I change my order?\" but needs a different answer.",
+          "A good practice is to log every semantic hit with both questions, so you can review a sample each week and adjust the threshold if needed.",
+          "Tune the threshold on real question pairs labelled as \"same answer\" or \"different answer\", and prefer a high threshold for safety.",
+          "Tools like GPTCache and many vector databases provide semantic caching; the idea is exactly this.",
+          "Embedding the new question costs a little, but far less than a full generation."
+        ],
+        "example": "A helpful librarian who recognises that \"books about space travel\" and \"novels on going to Mars\" might be served by the same shelf, but not \"books about space heaters\".",
+        "code": "import math\n\ndef cosine(a, b):\n    return sum(x * y for x, y in zip(a, b)) / (math.hypot(*a) * math.hypot(*b))\n\nstored = [{\"q\": \"What are your opening hours?\", \"embedding\": [0.9, 0.1, 0.2], \"response\": \"9 am to 9 pm.\"},\n          {\"q\": \"Can I change my order?\", \"embedding\": [0.1, 0.9, 0.3], \"response\": \"Yes, within 1 hour.\"}]\nnew_questions = {\"When do you open?\": [0.88, 0.15, 0.2], \"Can I cancel my order?\": [0.3, 0.8, 0.5]}\nfor q, emb in new_questions.items():\n    best = max(stored, key=lambda s: cosine(emb, s[\"embedding\"]))\n    score = cosine(emb, best[\"embedding\"])\n    for threshold in [0.9, 0.97]:\n        verdict = best[\"response\"] if score >= threshold else \"MISS\"\n        print(f\"{q:24} best {score:.3f} threshold {threshold}: {verdict}\")",
+        "output": "When do you open?        best 0.998 threshold 0.9: 9 am to 9 pm.\nWhen do you open?        best 0.998 threshold 0.97: 9 am to 9 pm.\nCan I cancel my order?   best 0.953 threshold 0.9: Yes, within 1 hour.\nCan I cancel my order?   best 0.953 threshold 0.97: MISS",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "The most similar stored question."
+          },
+          {
+            "line": 13,
+            "note": "Only reuse its answer above the threshold."
+          }
+        ],
+        "tryIt": "At 0.9 the cancel question wrongly reuses the \"change my order\" answer; at 0.97 it misses, as it should. Try 0.95: which way does it go?",
+        "check": {
+          "question": "What is the danger of a semantic cache threshold that is too low?",
+          "options": [
+            "Too few hits",
+            "Different questions get the same, wrong answer",
+            "The cache becomes slow"
+          ],
+          "answer": 1,
+          "why": "A low threshold treats merely related questions as identical."
+        }
+      },
+      {
+        "title": "Exact first, then semantic",
+        "say": [
+          "Practice 1: cached_response(query, embedding, store, threshold). Check the exact cache first; if found, return type EXACT.",
+          "Otherwise look through store[\"semantic\"] and return the first entry whose cosine similarity is at least the threshold, with type SEMANTIC.",
+          "If neither matches, return {\"hit\": False, \"type\": \"MISS\", \"response\": None}. The caller then asks the model and stores the new answer.",
+          "Checking exact first is cheaper and always correct, so it should go first.",
+          "After a miss, store the new answer in both layers: the exact text for exact hits, and the embedding for future similar questions.",
+          "Recording the type of hit lets you measure how much each layer helps, and spot semantic hits that users dislike.",
+          "Guard the cosine function against zero vectors, as on Day 7."
+        ],
+        "example": "Looking for your keys: first check the hook where they always hang (exact), then the places they usually end up (similar), and only then start a full search.",
+        "code": "import math\n\ndef cosine(a, b):\n    na, nb = math.hypot(*a), math.hypot(*b)\n    return 0.0 if na == 0 or nb == 0 else sum(x * y for x, y in zip(a, b)) / (na * nb)\n\ndef cached_response(query, embedding, store, threshold=0.95):\n    if query in store[\"exact\"]:\n        return {\"hit\": True, \"type\": \"EXACT\", \"response\": store[\"exact\"][query]}\n    for entry in store[\"semantic\"]:\n        if cosine(embedding, entry[\"embedding\"]) >= threshold:\n            return {\"hit\": True, \"type\": \"SEMANTIC\", \"response\": entry[\"response\"]}\n    return {\"hit\": False, \"type\": \"MISS\", \"response\": None}\n\nstore = {\"exact\": {\"opening hours\": \"9 to 9\"}, \"semantic\": [{\"embedding\": [1, 0], \"response\": \"9 to 9\"}]}\nprint(cached_response(\"opening hours\", [1, 0], store))\nprint(cached_response(\"when do you open\", [0.99, 0.05], store))\nprint(cached_response(\"refund policy\", [0, 1], store))",
+        "output": "{'hit': True, 'type': 'EXACT', 'response': '9 to 9'}\n{'hit': True, 'type': 'SEMANTIC', 'response': '9 to 9'}\n{'hit': False, 'type': 'MISS', 'response': None}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Exact match first: cheapest and always correct."
+          },
+          {
+            "line": 11,
+            "note": "First semantic entry above the threshold."
+          },
+          {
+            "line": 13,
+            "note": "A miss: the caller asks the model."
+          }
+        ],
+        "tryIt": "Change the threshold to 0.999. The second question now misses.",
+        "check": {
+          "question": "Why check the exact cache before the semantic cache?",
+          "options": [
+            "Semantic caches are wrong",
+            "Exact lookup is cheaper and never returns a wrong match",
+            "The order does not matter"
+          ],
+          "answer": 1,
+          "why": "An exact hit is instant and certain, so it is tried first."
+        }
+      },
+      {
+        "title": "Measuring hit rate and savings",
+        "say": [
+          "Practice 2: hit_rate(hits, misses) returns the percentage with one decimal, like \"80.0%\". With no traffic at all, return \"0.0%\".",
+          "Track hits and misses per cache type, per day. Watch for sudden drops, which often follow a prompt or model change (new keys).",
+          "Break the numbers down by feature too; a cache can work well for FAQs and hardly at all for open-ended chat, which is normal.",
+          "Also track how often users give negative feedback on cached answers, especially semantic hits. That is your signal that the threshold is too loose.",
+          "Estimate savings: hits x average cost per model call. This number justifies the cache to your team.",
+          "A low hit rate is not always bad; it may simply mean your users ask varied questions.",
+          "Dashboards on Day 28 will show these numbers together with latency and cost."
+        ],
+        "example": "A shop measuring how many customers were served from ready stock versus made-to-order, to decide how much to prepare in advance.",
+        "code": "def hit_rate(hits, misses):\n    total = hits + misses\n    return \"0.0%\" if total == 0 else f\"{hits / total * 100:.1f}%\"\n\nprint(hit_rate(80, 20), hit_rate(1, 2), hit_rate(0, 0))\ndaily = {\"EXACT\": 1200, \"SEMANTIC\": 900, \"MISS\": 5900}\nhits = daily[\"EXACT\"] + daily[\"SEMANTIC\"]\nprint(\"hit rate:\", hit_rate(hits, daily[\"MISS\"]))\nprint(f\"saved per day: ${hits * 0.004:.2f}\")",
+        "output": "80.0% 33.3% 0.0%\nhit rate: 26.2%\nsaved per day: $8.40",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "No traffic: avoid dividing by zero."
+          },
+          {
+            "line": 9,
+            "note": "Every hit is a model call you did not pay for."
+          }
+        ],
+        "tryIt": "Suppose 5% of semantic hits get a thumbs down. How many unhappy users is that per day?",
+        "check": {
+          "question": "What does hit_rate(1, 3) return?",
+          "options": [
+            "\"33.3%\"",
+            "\"25.0%\"",
+            "\"75.0%\""
+          ],
+          "answer": 1,
+          "why": "1 hit out of 4 questions is 25.0%."
+        }
+      },
+      {
+        "title": "Stale, personal and unsafe cache entries",
+        "say": [
+          "Cached answers go stale. If your refund policy changes, old cached answers are now wrong. Give entries a time-to-live (TTL) and clear related entries when documents change.",
+          "Never share personalised answers between users. \"What is my order status?\" must not return someone else's cached answer. Include the user ID in the key, or do not cache such questions.",
+          "Only cache answers that passed your guardrails; a cached bad answer is repeated to many users.",
+          "Keep the cache separate per language and per tenant in multi-customer products.",
+          "When in doubt, cache less. A missed saving costs a little money; a wrong cached answer costs trust.",
+          "The expiry example below uses a fake clock so it runs the same way every time."
+        ],
+        "example": "A bakery labels each tray with the time it was baked and removes it after a few hours, and never gives one customer a cake someone else ordered with their name on it.",
+        "code": "TTL = 3600\ncache = {}\n\ndef put(key, value, now):\n    cache[key] = (value, now + TTL)\n\ndef get(key, now):\n    if key in cache and cache[key][1] > now:\n        return cache[key][0]\n    cache.pop(key, None)\n    return None\n\nput(\"faq:refund-policy\", \"Refunds within 30 days.\", now=0)\nput(\"user:u1:order-status\", \"Out for delivery\", now=0)\nprint(get(\"faq:refund-policy\", now=1800))\nprint(get(\"faq:refund-policy\", now=4000))\nprint(get(\"user:u2:order-status\", now=10))",
+        "output": "Refunds within 30 days.\nNone\nNone",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Only return entries that have not expired."
+          },
+          {
+            "line": 14,
+            "note": "Personal answers are keyed by user ID."
+          },
+          {
+            "line": 17,
+            "note": "Another user gets nothing, not u1's answer."
+          }
+        ],
+        "tryIt": "Add a clear_prefix(\"faq:\") function to remove every FAQ entry when your documents change.",
+        "check": {
+          "question": "How should a cache handle \"What is my order status?\"?",
+          "options": [
+            "Share one answer between all users",
+            "Key it by user ID, or do not cache it",
+            "Cache it forever"
+          ],
+          "answer": 1,
+          "why": "Personal answers must never be served to other users."
+        }
+      }
+    ],
+    "summary": [
+      "Caching repeated questions cuts cost and waiting time.",
+      "Exact caches need normalised keys that include model and prompt version.",
+      "Semantic caches reuse answers above a similarity threshold; keep it high.",
+      "Check exact first, then semantic; report the hit type.",
+      "Expire entries, never share personal answers, and cache only safe answers."
+    ],
+    "projectStep": {
+      "title": "LLM cache",
+      "steps": [
+        "Add cached_response and hit_rate to ai_toolkit.py.",
+        "Build a small cache with TTL and test hits, misses and expiry.",
+        "Bonus: include the user ID in keys for personal questions."
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "title": "PEFT: LoRA & QLoRA Fine-Tuning Adapters",
+    "goal": "You can decide when fine-tuning is worth it, estimate the cost of full fine-tuning, explain how LoRA and QLoRA train small adapters, and estimate GPU memory for quantised models.",
+    "minutes": 30,
+    "recap": "So far you changed model behaviour with prompts, examples and retrieval. Today covers changing the model itself: fine-tuning, done efficiently.",
+    "parts": [
+      {
+        "title": "Prompting, RAG or fine-tuning?",
+        "say": [
+          "Prompting changes instructions; RAG adds knowledge at question time; fine-tuning changes the model's weights by training on examples.",
+          "Fine-tune for behaviour and style: a consistent output format, a company tone, a specialised task like classifying medical codes, or making a small model do what only a big one did before.",
+          "Fine-tuning can also shorten prompts: behaviour learned in training no longer needs long instructions and many examples in every call, which saves tokens.",
+          "Do not fine-tune to add facts that change. Facts belong in RAG, where they can be updated in minutes.",
+          "Fine-tuning needs good data (hundreds to thousands of examples), evaluation, and ongoing maintenance when base models update.",
+          "Always try prompting and RAG first, measure, and fine-tune only when they fall short.",
+          "A common win: fine-tune a small, cheap model on outputs of a large one for a narrow task, cutting costs a lot."
+        ],
+        "example": "Teaching a new employee: you give instructions (prompting), hand them the policy binder (RAG), or send them on a training course so the skill becomes second nature (fine-tuning).",
+        "code": "def choose(need):\n    if need in {\"new facts\", \"frequently updated knowledge\"}:\n        return \"RAG\"\n    if need in {\"output format\", \"tone of voice\", \"narrow specialised task\", \"cheaper small model\"}:\n        return \"fine-tuning (after trying prompts)\"\n    return \"prompting\"\n\nfor need in [\"new facts\", \"tone of voice\", \"one-off question\", \"cheaper small model\"]:\n    print(f\"{need:22} -> {choose(need)}\")",
+        "output": "new facts              -> RAG\ntone of voice          -> fine-tuning (after trying prompts)\none-off question       -> prompting\ncheaper small model    -> fine-tuning (after trying prompts)",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Changing knowledge belongs in retrieval."
+          },
+          {
+            "line": 4,
+            "note": "Stable behaviour can be trained in."
+          }
+        ],
+        "tryIt": "Add \"company product prices\" as a need. Which approach should it return, and why?",
+        "check": {
+          "question": "Which need is best served by RAG rather than fine-tuning?",
+          "options": [
+            "A consistent JSON format",
+            "Knowledge that changes every week",
+            "A friendly brand tone"
+          ],
+          "answer": 1,
+          "why": "Frequently changing facts should be retrieved, not trained into weights."
+        }
+      },
+      {
+        "title": "Why full fine-tuning is expensive",
+        "say": [
+          "A model with 7 billion parameters stores each weight in 2 bytes (16-bit), so the weights alone take about 13 to 14 GB.",
+          "Training needs much more: gradients for each weight, and the optimiser (Adam) keeps two extra numbers per weight, often in 32-bit. A common estimate is about 16 bytes per parameter in total.",
+          "That makes full fine-tuning of a 7B model need over 100 GB of GPU memory, which means several expensive GPUs.",
+          "It also produces a full copy of the model for every fine-tuned version, which is costly to store and serve.",
+          "Hosted providers offer fine-tuning as a service, which hides the hardware, but the same maths decides their prices.",
+          "Parameter-efficient fine-tuning (PEFT) avoids this by training only a small number of new parameters.",
+          "The numbers below make the problem concrete."
+        ],
+        "example": "Repainting every wall of a house to change the look, when adding a few new cushions and curtains would do.",
+        "code": "def full_finetune_gb(params_billions, bytes_per_param=16):\n    return params_billions * 1e9 * bytes_per_param / 1024 ** 3\n\nfor size in [1, 7, 13, 70]:\n    weights_gb = size * 1e9 * 2 / 1024 ** 3\n    print(f\"{size:>3}B model: weights {weights_gb:6.1f} GB, full fine-tuning ~{full_finetune_gb(size):7.1f} GB\")",
+        "output": "  1B model: weights    1.9 GB, full fine-tuning ~   14.9 GB\n  7B model: weights   13.0 GB, full fine-tuning ~  104.3 GB\n 13B model: weights   24.2 GB, full fine-tuning ~  193.7 GB\n 70B model: weights  130.4 GB, full fine-tuning ~ 1043.1 GB",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "About 16 bytes per parameter for weights, gradients and optimiser."
+          },
+          {
+            "line": 5,
+            "note": "Just the weights at 2 bytes each."
+          }
+        ],
+        "tryIt": "A typical large GPU has 80 GB. Which model sizes fit for full fine-tuning on one?",
+        "check": {
+          "question": "Why does full fine-tuning need far more memory than just loading a model?",
+          "options": [
+            "Training data is large",
+            "Gradients and optimiser values are stored for every weight",
+            "The model is copied twice"
+          ],
+          "answer": 1,
+          "why": "Each parameter needs extra numbers for training, multiplying memory needs."
+        }
+      },
+      {
+        "title": "LoRA: small adapters",
+        "say": [
+          "LoRA (low-rank adaptation) freezes the original weights and learns a small change beside them. For a d x d weight matrix W, it learns two thin matrices: A (d x r) and B (r x d).",
+          "Their product A x B is a full d x d update, but it is built from far fewer numbers because r (the rank) is small, such as 8 or 16.",
+          "The idea is that the change needed for a task is simple and can be described with few dimensions.",
+          "After training, the adapter is a small file (often megabytes). You can keep one base model and swap adapters per task or per customer.",
+          "Serving systems can even load several adapters on one base model at the same time, so each customer gets their own tuned behaviour without their own GPU.",
+          "LoRA usually reaches quality close to full fine-tuning for many tasks, at a small fraction of the memory.",
+          "The example builds a full-size update from two thin matrices, so you can see the idea."
+        ],
+        "example": "A clip-on lens for a phone camera: the phone stays the same, and a small attachment changes what it does. Swap lenses for different jobs.",
+        "code": "A = [[1], [2], [3], [4]]\nB = [[0.5, 0, 1, 0.25]]\nupdate = [[A[i][0] * B[0][j] for j in range(4)] for i in range(4)]\nfor row in update:\n    print(row)\nprint(\"numbers stored:\", len(A) * 1 + 1 * len(B[0]), \"instead of\", 4 * 4)",
+        "output": "[0.5, 0, 1, 0.25]\n[1.0, 0, 2, 0.5]\n[1.5, 0, 3, 0.75]\n[2.0, 0, 4, 1.0]\nnumbers stored: 8 instead of 16",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "A is d x r (here 4 x 1)."
+          },
+          {
+            "line": 3,
+            "note": "A x B gives a full 4 x 4 update."
+          },
+          {
+            "line": 6,
+            "note": "Only 8 numbers are trained instead of 16."
+          }
+        ],
+        "tryIt": "Make the matrices 4 x 2 and 2 x 4 (rank 2). How many numbers are stored now?",
+        "check": {
+          "question": "What does LoRA train?",
+          "options": [
+            "Every weight in the model",
+            "Two small matrices whose product is the update",
+            "Only the output layer"
+          ],
+          "answer": 1,
+          "why": "The base weights stay frozen; only the thin A and B matrices are trained."
+        }
+      },
+      {
+        "title": "Counting LoRA parameters",
+        "say": [
+          "Practice 1: lora_parameters(d_model, rank) returns the full matrix size d x d, the trainable count 2 x d x r, and the percentage as a string with 2 decimals.",
+          "For d = 4096 and r = 16: full is 16,777,216, trainable is 131,072, which is 0.78%.",
+          "A model has many such matrices (often in every attention layer), so total trainable parameters are larger, but still usually under 1% of the model.",
+          "Higher rank gives the adapter more capacity at more memory. Ranks 8 to 64 are common; start small and increase if quality falls short.",
+          "LoRA is usually applied to the attention matrices first, since that is where most of the benefit comes from; adding it to more layers raises the count.",
+          "Fewer trainable parameters also means training is faster and less likely to damage the base model's general abilities.",
+          "Format percentages with :.2f to keep them readable."
+        ],
+        "example": "Adjusting a few knobs on a mixing desk instead of rebuilding the whole sound system.",
+        "code": "def lora_parameters(d_model, rank=16):\n    full = d_model ** 2\n    trainable = 2 * d_model * rank\n    return {\"full\": full, \"trainable\": trainable, \"percent\": f\"{trainable / full * 100:.2f}%\"}\n\nprint(lora_parameters(4096))\nfor r in [4, 8, 32, 64]:\n    print(\"rank\", r, lora_parameters(4096, r)[\"percent\"])",
+        "output": "{'full': 16777216, 'trainable': 131072, 'percent': '0.78%'}\nrank 4 0.20%\nrank 8 0.39%\nrank 32 1.56%\nrank 64 3.12%",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "A is d x r and B is r x d: 2 x d x r numbers."
+          },
+          {
+            "line": 4,
+            "note": "Two decimals and a percent sign."
+          }
+        ],
+        "tryIt": "Compute the trainable share for d_model 8192 at rank 16.",
+        "check": {
+          "question": "For d_model 1000 and rank 10, how many trainable parameters does one LoRA adapter have?",
+          "options": [
+            "10,000",
+            "20,000",
+            "1,000,000"
+          ],
+          "answer": 1,
+          "why": "2 x 1000 x 10 = 20,000."
+        }
+      },
+      {
+        "title": "Quantisation and QLoRA",
+        "say": [
+          "Quantisation stores weights with fewer bits: 8-bit or 4-bit instead of 16-bit. A 4-bit model needs a quarter of the memory of a 16-bit one.",
+          "QLoRA loads the frozen base model in 4-bit and trains LoRA adapters on top. This lets a 7B model be fine-tuned on a single consumer GPU.",
+          "Practice 2: estimate_vram_gb(params_billions, bits) = params x 1e9 x bits / 8 bytes, plus 20% overhead, divided by 1024 cubed, as a string like \"3.9 GB\".",
+          "The 20% overhead roughly covers activations, buffers and the adapters. Real usage depends on sequence length and batch size.",
+          "Quantisation slightly lowers quality; 8-bit is nearly lossless, 4-bit usually small losses, and 2 to 3 bits more noticeable.",
+          "These estimates tell you quickly which GPU you need, before renting one."
+        ],
+        "example": "Compressing photos to save phone storage: a little detail is lost, but most people cannot tell, and you fit four times as many.",
+        "code": "def estimate_vram_gb(params_billions, bits=4):\n    gb = params_billions * 1e9 * bits / 8 * 1.2 / 1024 ** 3\n    return f\"{gb:.1f} GB\"\n\nfor bits in [16, 8, 4]:\n    print(f\"7B model at {bits:>2}-bit: {estimate_vram_gb(7, bits)}\")\nprint(\"70B at 4-bit:\", estimate_vram_gb(70, 4))",
+        "output": "7B model at 16-bit: 15.6 GB\n7B model at  8-bit: 7.8 GB\n7B model at  4-bit: 3.9 GB\n70B at 4-bit: 39.1 GB",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Bytes for the weights, plus 20% overhead, in GB."
+          }
+        ],
+        "tryIt": "A laptop GPU has 8 GB. Which of these configurations would fit?",
+        "check": {
+          "question": "What does QLoRA do?",
+          "options": [
+            "Trains every weight in 4-bit",
+            "Loads the base model in 4-bit and trains LoRA adapters on top",
+            "Removes layers from the model"
+          ],
+          "answer": 1,
+          "why": "The frozen base is quantised to save memory, and small adapters are trained."
+        }
+      },
+      {
+        "title": "Preparing training data",
+        "say": [
+          "Fine-tuning data is usually a JSONL file: one JSON object per line, each a short conversation with system, user and assistant messages.",
+          "Quality beats quantity. A few hundred clean, consistent examples often beat thousands of messy ones.",
+          "Look at a random sample of your examples by hand before training. Mistakes in the data become mistakes in the model.",
+          "Validate every example: correct roles, a non-empty assistant answer, and the output format you want the model to learn.",
+          "Hold out a test set (say 10% to 20%) that is never trained on. Use a fixed random seed so the split is the same every run.",
+          "Evaluate the fine-tuned model on the test set and your golden dataset, and compare with the base model plus a good prompt.",
+          "Tomorrow covers alignment: training models on which answers people prefer."
+        ],
+        "example": "Preparing flashcards for exam revision: each card must be correct and clearly written, and you keep some cards aside to test yourself honestly at the end.",
+        "code": "import json\nimport random\n\nrows = [{\"messages\": [{\"role\": \"user\", \"content\": f\"Classify ticket {i}\"}, {\"role\": \"assistant\", \"content\": \"BILLING\" if i % 2 else \"TECH\"}]} for i in range(10)]\nrows.append({\"messages\": [{\"role\": \"user\", \"content\": \"Classify ticket X\"}, {\"role\": \"assistant\", \"content\": \"\"}]})\n\ndef valid(row):\n    roles = [m[\"role\"] for m in row[\"messages\"]]\n    return roles[-1] == \"assistant\" and row[\"messages\"][-1][\"content\"] in {\"BILLING\", \"TECH\"}\n\nclean = [r for r in rows if valid(r)]\nrandom.Random(7).shuffle(clean)\ncut = int(len(clean) * 0.8)\ntrain, test = clean[:cut], clean[cut:]\nprint(len(rows), \"rows,\", len(clean), \"valid ->\", len(train), \"train,\", len(test), \"test\")\nprint(json.dumps(train[0]))",
+        "output": "11 rows, 10 valid -> 8 train, 2 test\n{\"messages\": [{\"role\": \"user\", \"content\": \"Classify ticket 8\"}, {\"role\": \"assistant\", \"content\": \"TECH\"}]}",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "The answer must be one of the allowed labels."
+          },
+          {
+            "line": 12,
+            "note": "A fixed seed makes the split repeatable."
+          },
+          {
+            "line": 16,
+            "note": "One JSONL line."
+          }
+        ],
+        "tryIt": "Add a row whose answer is \"billing\" in lower case. Should it be fixed or dropped?",
+        "check": {
+          "question": "Why hold out a test set that is never trained on?",
+          "options": [
+            "To save training time",
+            "To measure honestly how the model does on unseen examples",
+            "Test sets are required by JSONL"
+          ],
+          "answer": 1,
+          "why": "Scoring on training examples would overstate quality."
+        }
+      }
+    ],
+    "summary": [
+      "Prompt and retrieve first; fine-tune for behaviour, format or cheaper models.",
+      "Full fine-tuning needs about 16 bytes per parameter.",
+      "LoRA trains two thin matrices (2 x d x r numbers) beside frozen weights.",
+      "QLoRA quantises the base to 4-bit and trains adapters on top.",
+      "Clean, validated data and a held-out test set matter more than volume."
+    ],
+    "projectStep": {
+      "title": "Fine-tuning maths",
+      "steps": [
+        "Add lora_parameters and estimate_vram_gb to ai_toolkit.py.",
+        "Make a table of VRAM needs for 3B, 7B and 13B models at 16, 8 and 4 bits.",
+        "Bonus: write 10 JSONL training examples for a classifier and split them 80/20."
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "title": "Direct Preference Optimization (DPO) & RLHF Alignment",
+    "goal": "You can explain how models are aligned with human preferences, work with log probabilities, compute a DPO reward margin, and judge preference data and win rates.",
+    "minutes": 30,
+    "recap": "Yesterday you fine-tuned on examples of good answers. Today you learn how models are taught which of two answers people prefer: RLHF and DPO.",
+    "parts": [
+      {
+        "title": "From imitation to preference",
+        "say": [
+          "Supervised fine-tuning (SFT) teaches a model to copy example answers. It learns format and style, but it cannot learn that one good answer is better than another.",
+          "Preference training uses pairs: for one prompt, a chosen answer and a rejected answer, as picked by people (or a strong model).",
+          "Collecting pairs is often easier than writing perfect answers: people find it much easier to say which of two answers is better than to write the ideal one.",
+          "The model learns to make chosen-style answers more likely and rejected-style answers less likely. This is how assistants become more helpful, honest and harmless.",
+          "Preferences capture things that are hard to write as rules: clearer explanations, safer refusals, fewer unnecessary words.",
+          "The typical pipeline is pre-training, then SFT, then preference tuning with RLHF or DPO.",
+          "As an AI engineer, you are more likely to collect preference data and run DPO on an open model than to pre-train anything."
+        ],
+        "example": "Learning to cook by copying recipes (SFT), then improving by having friends taste two versions of a dish and say which they prefer (preference training).",
+        "code": "pair = {\n    \"prompt\": \"Explain what an API is to a shop owner.\",\n    \"chosen\": \"An API is like a waiter: your app asks it for something and it brings back what the kitchen prepared.\",\n    \"rejected\": \"An API is an application programming interface enabling programmatic interoperability between software components.\",\n}\nfor key, text in pair.items():\n    print(f\"{key:8}: {text}\")",
+        "output": "prompt  : Explain what an API is to a shop owner.\nchosen  : An API is like a waiter: your app asks it for something and it brings back what the kitchen prepared.\nrejected: An API is an application programming interface enabling programmatic interoperability between software components.",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Chosen: clear and suited to the audience."
+          },
+          {
+            "line": 4,
+            "note": "Rejected: correct but full of jargon."
+          }
+        ],
+        "tryIt": "Write your own preference pair for the prompt \"How do I reset my password?\".",
+        "check": {
+          "question": "What does a preference pair contain?",
+          "options": [
+            "A question and its only correct answer",
+            "A prompt, a chosen answer and a rejected answer",
+            "Two different prompts"
+          ],
+          "answer": 1,
+          "why": "Pairs show which of two answers to the same prompt is preferred."
+        }
+      },
+      {
+        "title": "RLHF in outline",
+        "say": [
+          "Reinforcement learning from human feedback (RLHF) first trains a reward model: given a prompt and an answer, it outputs a score for how much people would like it.",
+          "The reward model learns from pairs: the chosen answer should score higher than the rejected one. The probability that chosen wins is sigmoid(reward_chosen - reward_rejected).",
+          "Then the language model is trained with reinforcement learning (often PPO) to produce answers the reward model scores highly, while staying close to its original behaviour.",
+          "RLHF works well, but it is complex: two models, unstable training, and many settings to tune.",
+          "It can also learn to please the reward model in odd ways, such as writing longer answers because the reward model liked length, a problem called reward hacking.",
+          "That complexity is why DPO, which skips the separate reward model, became popular.",
+          "The sigmoid formula below is the heart of how reward models learn from pairs."
+        ],
+        "example": "A cooking competition with a trained judge: first you train the judge by showing them which dishes people preferred, then the cook practises until the judge gives high marks.",
+        "code": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\nfor chosen, rejected in [(2.0, 0.5), (1.0, 1.0), (0.2, 1.4)]:\n    p = sigmoid(chosen - rejected)\n    print(f\"reward chosen {chosen}, rejected {rejected}: P(chosen preferred) = {p:.3f}\")",
+        "output": "reward chosen 2.0, rejected 0.5: P(chosen preferred) = 0.818\nreward chosen 1.0, rejected 1.0: P(chosen preferred) = 0.500\nreward chosen 0.2, rejected 1.4: P(chosen preferred) = 0.231",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "The bigger the reward gap, the more confident the preference."
+          }
+        ],
+        "tryIt": "What reward gap gives a probability of about 0.95? Try a few values.",
+        "check": {
+          "question": "In a reward model, what does sigmoid(reward_chosen - reward_rejected) give?",
+          "options": [
+            "The answer length",
+            "The probability that the chosen answer is preferred",
+            "The learning rate"
+          ],
+          "answer": 1,
+          "why": "The sigmoid turns the reward difference into a preference probability."
+        }
+      },
+      {
+        "title": "Log probabilities",
+        "say": [
+          "A model gives each token a probability. The probability of a whole answer is the product of its token probabilities, which quickly becomes a tiny number.",
+          "So we use log probabilities (logprobs): the log of a product is the sum of the logs. Sums of negative numbers are easy to work with and do not underflow.",
+          "A logprob closer to 0 means more likely. -0.1 is very likely; -5 is unlikely.",
+          "Longer answers have more tokens and therefore lower total logprobs, so comparisons are usually made between answers to the same prompt.",
+          "Practice 2: log_prob_delta(p1, p2) returns p1 - p2 rounded to 4 decimals. Rounding hides floating-point noise such as 0.30000000000000004.",
+          "Many APIs can return token logprobs, which are useful for confidence scores and classification.",
+          "DPO, next, is built entirely from logprob differences."
+        ],
+        "example": "Adding up exam scores instead of multiplying fractions: logs turn awkward multiplication of tiny numbers into simple addition.",
+        "code": "import math\n\ntoken_probs = [0.9, 0.8, 0.95, 0.7]\nproduct = math.prod(token_probs)\nlogprob = sum(math.log(p) for p in token_probs)\nprint(f\"product {product:.4f}, sum of logs {logprob:.4f}, exp(sum) {math.exp(logprob):.4f}\")\n\ndef log_prob_delta(p1, p2):\n    return round(p1 - p2, 4)\n\nprint(0.1 + 0.2 - 0.0, \"vs\", log_prob_delta(0.1 + 0.2, 0.0))\nprint(log_prob_delta(-1.25, -3.5))",
+        "output": "product 0.4788, sum of logs -0.7365, exp(sum) 0.4788\n0.30000000000000004 vs 0.3\n2.25",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Sum of logs equals the log of the product."
+          },
+          {
+            "line": 9,
+            "note": "Rounding hides floating-point noise."
+          }
+        ],
+        "tryIt": "Add a token with probability 0.01. How much does the sum of logs drop?",
+        "check": {
+          "question": "Which log probability means the answer is more likely?",
+          "options": [
+            "-6.2",
+            "-0.3",
+            "They are equal"
+          ],
+          "answer": 1,
+          "why": "Logprobs closer to 0 correspond to higher probabilities."
+        }
+      },
+      {
+        "title": "Direct preference optimisation",
+        "say": [
+          "DPO trains directly on preference pairs without a separate reward model. For each pair, it compares how much the model favours the chosen answer over the rejected one.",
+          "The margin is logprob(chosen) - logprob(rejected). Practice 1: evaluate_dpo_pair returns whether the margin is positive, the reward margin beta x margin rounded to 4, and ALIGNED or MISALIGNED.",
+          "In full DPO, each logprob is measured relative to a frozen reference model, so training rewards improvement over the starting point, not raw likelihood.",
+          "The loss is -log(sigmoid(beta x (policy margin - reference margin))). Training lowers it by widening the margin.",
+          "Beta controls how far the model may move from the reference. Small beta keeps it close; larger beta lets preferences change it more.",
+          "Too much movement can make the model forget general skills; that is why the reference model is kept in the calculation.",
+          "DPO is simpler and more stable than RLHF, which is why many open models use it."
+        ],
+        "example": "A student comparing their own two essay drafts: they learn to lean further towards the one the teacher preferred, but without rewriting their whole style.",
+        "code": "import math\n\ndef evaluate_dpo_pair(chosen_logprob, rejected_logprob, beta=0.1):\n    margin = chosen_logprob - rejected_logprob\n    preferred = margin > 0\n    return {\"preferred\": preferred, \"reward_margin\": round(beta * margin, 4), \"status\": \"ALIGNED\" if preferred else \"MISALIGNED\"}\n\ndef dpo_loss(policy_c, policy_r, ref_c, ref_r, beta=0.1):\n    z = beta * ((policy_c - policy_r) - (ref_c - ref_r))\n    return round(-math.log(1 / (1 + math.exp(-z))), 4)\n\nprint(evaluate_dpo_pair(-12.0, -15.5))\nprint(evaluate_dpo_pair(-20.0, -18.0))\nprint(\"loss before:\", dpo_loss(-15, -15, -15, -15), \"after:\", dpo_loss(-12, -18, -15, -15))",
+        "output": "{'preferred': True, 'reward_margin': 0.35, 'status': 'ALIGNED'}\n{'preferred': False, 'reward_margin': -0.2, 'status': 'MISALIGNED'}\nloss before: 0.6931 after: 0.4375",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Positive margin: the model favours the chosen answer."
+          },
+          {
+            "line": 9,
+            "note": "Improvement over the reference model's margin."
+          },
+          {
+            "line": 14,
+            "note": "Widening the margin lowers the loss."
+          }
+        ],
+        "tryIt": "Compute the loss when the policy prefers the rejected answer: dpo_loss(-18, -12, -15, -15).",
+        "check": {
+          "question": "In DPO, what does a positive margin (chosen - rejected logprob) mean?",
+          "options": [
+            "The model prefers the rejected answer",
+            "The model already favours the chosen answer",
+            "Training has failed"
+          ],
+          "answer": 1,
+          "why": "A higher logprob for the chosen answer means the model prefers it."
+        }
+      },
+      {
+        "title": "Collecting good preference data",
+        "say": [
+          "Preference training is only as good as its pairs. Write clear guidelines for labellers: what makes an answer better (correct, clear, safe, concise)?",
+          "Check agreement: give some pairs to two labellers and measure how often they agree. Low agreement means unclear guidelines or genuinely ambiguous pairs.",
+          "Make rejected answers realistic mistakes, not obviously terrible ones; the model learns more from subtle differences.",
+          "Cover the situations your product faces: refusals, uncertain answers, long and short questions, different languages.",
+          "Strong models can generate or label pairs (AI feedback), which is cheaper, but check a sample by hand.",
+          "Keep the data versioned, like code, so you know exactly what each model was trained on."
+        ],
+        "example": "Judges at a dance competition agree on criteria beforehand and are checked for consistency; otherwise the scores mean little.",
+        "code": "labeller_a = [\"A\", \"A\", \"B\", \"A\", \"B\", \"A\", \"A\", \"B\"]\nlabeller_b = [\"A\", \"B\", \"B\", \"A\", \"B\", \"A\", \"B\", \"B\"]\nagree = sum(a == b for a, b in zip(labeller_a, labeller_b))\nprint(f\"agreement: {agree}/{len(labeller_a)} = {agree / len(labeller_a):.0%}\")\ndisputed = [i for i, (a, b) in enumerate(zip(labeller_a, labeller_b)) if a != b]\nprint(\"pairs to review with the guidelines:\", disputed)",
+        "output": "agreement: 6/8 = 75%\npairs to review with the guidelines: [1, 6]",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Count pairs where both labellers chose the same answer."
+          },
+          {
+            "line": 5,
+            "note": "Disagreements point to unclear guidelines."
+          }
+        ],
+        "tryIt": "Change labeller_b so agreement reaches 100%. Would that alone prove the labels are good?",
+        "check": {
+          "question": "What does low agreement between labellers usually indicate?",
+          "options": [
+            "The model is broken",
+            "Unclear guidelines or genuinely ambiguous pairs",
+            "Too much data"
+          ],
+          "answer": 1,
+          "why": "If people disagree, the model receives mixed signals."
+        }
+      },
+      {
+        "title": "Measuring alignment with win rates",
+        "say": [
+          "After training, compare the new model with the old one on a fixed set of prompts. For each prompt, a judge (people or a strong model) picks the better answer, or a tie.",
+          "Win rate = wins / (wins + losses), often counting ties as half a win. A win rate above 50% means the new model is preferred.",
+          "Randomise which answer is shown first; judges often favour the first or the longer answer.",
+          "Use enough prompts, at least a hundred, before trusting a win rate. With only ten, a couple of lucky judgements can swing the result.",
+          "Also check that nothing broke: accuracy on your golden dataset, safety tests, and format checks should not get worse.",
+          "Alignment is about behaviour people value, so measure what users experience: helpfulness, correctness and safety.",
+          "Tomorrow you will learn to serve open models efficiently yourself."
+        ],
+        "example": "A blind taste test of two biscuit recipes: tasters do not know which is new, the order is shuffled, and the new recipe must win clearly without failing any safety check.",
+        "code": "judgements = [\"new\", \"new\", \"old\", \"tie\", \"new\", \"new\", \"old\", \"new\", \"tie\", \"new\"]\nwins = judgements.count(\"new\")\nlosses = judgements.count(\"old\")\nties = judgements.count(\"tie\")\nwin_rate = (wins + 0.5 * ties) / len(judgements)\nprint(f\"wins {wins}, losses {losses}, ties {ties} -> win rate {win_rate:.0%}\")\nprint(\"ship it\" if win_rate > 0.55 else \"not clearly better\")",
+        "output": "wins 6, losses 2, ties 2 -> win rate 70%\nship it",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Ties count as half a win."
+          }
+        ],
+        "tryIt": "Change three \"new\" judgements to \"old\". Is the new model still clearly better?",
+        "check": {
+          "question": "Why randomise which answer the judge sees first?",
+          "options": [
+            "To save time",
+            "Judges tend to favour the first or longer answer, which would bias the result",
+            "It is required by DPO"
+          ],
+          "answer": 1,
+          "why": "Shuffling removes position bias from the comparison."
+        }
+      }
+    ],
+    "summary": [
+      "SFT copies examples; preference training learns which answers are better.",
+      "RLHF trains a reward model, then optimises the model against it.",
+      "Logprobs are sums of log token probabilities; closer to 0 is more likely.",
+      "DPO widens the chosen-minus-rejected margin relative to a reference model.",
+      "Good guidelines, labeller agreement and unbiased win rates keep alignment honest."
+    ],
+    "projectStep": {
+      "title": "Preference tools",
+      "steps": [
+        "Add evaluate_dpo_pair and log_prob_delta to ai_toolkit.py.",
+        "Write 5 preference pairs for a product of your choice.",
+        "Bonus: compute a win rate from a list of 10 judgements with ties."
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "title": "Open-Source LLMs: vLLM High-Throughput Serving & GGUF Quantization",
+    "goal": "You can decide when to self-host an open model, estimate KV cache memory, explain how PagedAttention and continuous batching raise throughput, and read GGUF quantisation names.",
+    "minutes": 30,
+    "recap": "You fine-tuned and aligned models over the last two days. Today you learn how to serve open models yourself, quickly and cheaply.",
+    "parts": [
+      {
+        "title": "Why self-host an open model?",
+        "say": [
+          "Open-weight models (such as Llama, Mistral, Qwen and Gemma) can be downloaded and run on your own hardware.",
+          "Reasons to self-host: data never leaves your servers (privacy and regulation), predictable cost at high volume, full control over versions, and custom fine-tunes.",
+          "Self-hosting also gives you stable behaviour: a hosted model can be updated by its provider, while your own copy only changes when you decide.",
+          "Reasons not to: you run GPUs, updates and scaling yourself, and the best hosted models may still be stronger.",
+          "The cost break-even depends on volume. A GPU costs money every hour whether busy or idle, while an API charges per token.",
+          "At low volume, APIs are usually cheaper; at high, steady volume, self-hosting can win.",
+          "The break-even calculation below helps you make that call with numbers."
+        ],
+        "example": "Buying a car versus using taxis: if you travel a little, taxis are cheaper; if you drive every day, owning pays off, but you handle servicing and parking.",
+        "code": "gpu_per_hour = 2.0\ntokens_per_second = 2500\napi_per_million = 0.60\nmonthly_gpu = gpu_per_hour * 24 * 30\ncapacity_millions = tokens_per_second * 3600 * 24 * 30 / 1e6\nprint(f\"GPU: ${monthly_gpu:,.0f}/month for up to {capacity_millions:,.0f}M tokens\")\nfor used in [100, 1000, 5000]:\n    print(f\"{used:>5}M tokens: API ${used * api_per_million:,.0f} vs self-host ${monthly_gpu:,.0f}\")",
+        "output": "GPU: $1,440/month for up to 6,480M tokens\n  100M tokens: API $60 vs self-host $1,440\n 1000M tokens: API $600 vs self-host $1,440\n 5000M tokens: API $3,000 vs self-host $1,440",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "The GPU costs the same every hour, busy or idle."
+          },
+          {
+            "line": 8,
+            "note": "API cost grows with usage."
+          }
+        ],
+        "tryIt": "Find the monthly token volume where both options cost the same.",
+        "check": {
+          "question": "When does self-hosting an open model usually make financial sense?",
+          "options": [
+            "At very low volume",
+            "At high, steady volume, or when data must stay in-house",
+            "Never"
+          ],
+          "answer": 1,
+          "why": "A fixed GPU cost is spread over many tokens only when usage is high."
+        }
+      },
+      {
+        "title": "The KV cache",
+        "say": [
+          "When generating, a transformer reuses the keys and values (K and V) computed for earlier tokens, stored in the KV cache, so it does not recompute them for every new token.",
+          "The KV cache grows with every token of every conversation being served. For long contexts and many users, it can use more GPU memory than the model weights.",
+          "Long system prompts add to it too, since every conversation stores keys and values for the system prompt as well as the chat.",
+          "Per token, the cache stores K and V for every layer: about 2 x layers x hidden size x bytes per number.",
+          "For a 7B-class model (32 layers, hidden size 4096, 16-bit), that is about 0.5 MB per token, so a 4,000-token conversation needs about 2 GB.",
+          "Techniques like grouped-query attention shrink this, which is why newer models can serve longer contexts.",
+          "KV cache memory is the main limit on how many users a GPU can serve at once."
+        ],
+        "example": "A student keeping notes of every earlier step while solving a long problem: the notes save rework, but a long enough problem fills the notebook.",
+        "code": "def kv_bytes_per_token(layers=32, hidden=4096, bytes_per_value=2):\n    return 2 * layers * hidden * bytes_per_value\n\nper_token = kv_bytes_per_token()\nprint(f\"per token: {per_token / 1024 ** 2:.2f} MB\")\nfor context in [1000, 4000, 32000]:\n    print(f\"{context:>6} tokens -> {per_token * context / 1024 ** 3:.2f} GB of KV cache per conversation\")",
+        "output": "per token: 0.50 MB\n  1000 tokens -> 0.49 GB of KV cache per conversation\n  4000 tokens -> 1.95 GB of KV cache per conversation\n 32000 tokens -> 15.62 GB of KV cache per conversation",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "K and V, for every layer, for every hidden unit."
+          }
+        ],
+        "tryIt": "How many 4,000-token conversations fit in 40 GB of spare GPU memory?",
+        "check": {
+          "question": "Why does the KV cache limit how many users a GPU can serve?",
+          "options": [
+            "It stores the model weights",
+            "It grows with every token of every active conversation",
+            "It only works for one user"
+          ],
+          "answer": 1,
+          "why": "Each active conversation needs its own growing cache in GPU memory."
+        }
+      },
+      {
+        "title": "PagedAttention",
+        "say": [
+          "Traditional servers reserve one big block of memory per request, sized for the longest possible answer. Most answers are shorter, so much of that memory sits empty.",
+          "PagedAttention, introduced by vLLM, stores the KV cache in small fixed-size pages, allocated only as tokens are generated, like virtual memory in an operating system.",
+          "Less wasted memory means more requests fit on the same GPU at once, which raises throughput a lot.",
+          "Operating systems have used the same paging trick for decades to share memory between programs; vLLM applied it to the KV cache.",
+          "Practice 1: paged_attention_savings(traditional_mb, paged_mb) returns the MB saved, the percentage saved (1 decimal) and the concurrency gain (traditional / paged, rounded to 1).",
+          "Pages can also be shared between requests with the same prompt prefix, such as a long system prompt, saving even more.",
+          "This one idea is a major reason vLLM serves many times more requests than simple servers."
+        ],
+        "example": "A cinema that sells seats one by one as people arrive, instead of reserving a whole row for every group in case more friends turn up.",
+        "code": "def paged_attention_savings(traditional_mb, paged_mb):\n    saved = traditional_mb - paged_mb\n    return {\"saved_mb\": saved, \"percent_saved\": f\"{saved / traditional_mb * 100:.1f}%\", \"concurrency\": round(traditional_mb / paged_mb, 1)}\n\nprint(paged_attention_savings(2048, 512))\nreserved_per_request, used_per_request = 2048, 600\nprint(f\"waste per request without paging: {(reserved_per_request - used_per_request) / reserved_per_request:.0%}\")",
+        "output": "{'saved_mb': 1536, 'percent_saved': '75.0%', 'concurrency': 4.0}\nwaste per request without paging: 71%",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "MB saved, share saved, and how many more requests fit."
+          }
+        ],
+        "tryIt": "Try paged_attention_savings(4096, 1024). How many times more requests fit?",
+        "check": {
+          "question": "How does PagedAttention save memory?",
+          "options": [
+            "It compresses the weights",
+            "It allocates KV cache in small pages as tokens are generated, instead of large reserved blocks",
+            "It deletes old conversations"
+          ],
+          "answer": 1,
+          "why": "Allocating on demand avoids reserving memory that is never used."
+        }
+      },
+      {
+        "title": "Batching and throughput",
+        "say": [
+          "A GPU is most efficient when it processes many sequences at once. Static batching waits for a whole batch to finish before starting the next, so short answers wait for long ones.",
+          "Continuous batching (used by vLLM and others) adds new requests into the running batch as soon as any sequence finishes.",
+          "This keeps the GPU busy and greatly raises total tokens per second.",
+          "It also means a short question is not stuck behind a very long answer, which improves the experience for most users.",
+          "There is a trade-off: bigger batches raise throughput but can slightly slow each individual request. Tune for your latency budget.",
+          "Measure both throughput (tokens per second for the whole server) and latency (time to first token and total time per request).",
+          "The simple simulation shows why short requests benefit most from continuous batching."
+        ],
+        "example": "A lift that leaves as soon as anyone steps out and someone new steps in, instead of waiting for everyone to reach the top floor before taking the next group.",
+        "code": "answer_lengths = [20, 200, 30, 180, 25, 40]\nslots = 2\n\nstatic_time = sum(max(answer_lengths[i:i + slots]) for i in range(0, len(answer_lengths), slots))\n\nfinish = [0] * slots\nfor length in answer_lengths:\n    slot = finish.index(min(finish))\n    finish[slot] += length\ncontinuous_time = max(finish)\nprint(\"static batching steps:\", static_time)\nprint(\"continuous batching steps:\", continuous_time)",
+        "output": "static batching steps: 420\ncontinuous batching steps: 265",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Each batch waits for its longest answer."
+          },
+          {
+            "line": 8,
+            "note": "A new request takes the first slot that frees up."
+          }
+        ],
+        "tryIt": "Change slots to 3. How do both totals change?",
+        "check": {
+          "question": "What does continuous batching do?",
+          "options": [
+            "Waits for all requests to finish before starting new ones",
+            "Adds new requests into the running batch as soon as a slot frees up",
+            "Runs one request at a time"
+          ],
+          "answer": 1,
+          "why": "Filling freed slots immediately keeps the GPU fully used."
+        }
+      },
+      {
+        "title": "GGUF and quantisation names",
+        "say": [
+          "GGUF is the file format used by llama.cpp and tools built on it (such as Ollama and LM Studio) to run quantised models on laptops and CPUs.",
+          "File names show the quantisation: Q4_K_M means about 4 bits per weight with the \"K\" method and medium quality mix; Q8_0 is 8-bit; F16 or FP16 is 16-bit.",
+          "Practice 2: quantization_bits(name) returns the bits: the number after Q for Q names, and 16 or 32 for F16/FP16 and F32/FP32.",
+          "Regular expressions make this neat: r\"Q(\\d+)\" for Q names and r\"F?P?(\\d+)$\" for float names.",
+          "Rule of thumb: Q4_K_M is a popular balance of size and quality; Q8_0 is near-lossless; Q2 and Q3 are small but noticeably weaker.",
+          "File size is roughly parameters x bits / 8, so a 7B model at Q4 is about 3.5 to 4 GB."
+        ],
+        "example": "Video quality labels like 480p, 720p and 1080p: the name tells you the quality and roughly how much space it takes.",
+        "code": "import re\n\ndef quantization_bits(name):\n    q = re.match(r\"Q(\\d+)\", name)\n    if q:\n        return int(q.group(1))\n    f = re.match(r\"F?P?(\\d+)$\", name)\n    return int(f.group(1)) if f else None\n\nfor name in [\"Q4_K_M\", \"Q8_0\", \"Q2_K\", \"FP16\", \"F32\"]:\n    bits = quantization_bits(name)\n    print(f\"{name:7} {bits:>2} bits -> 7B file about {7e9 * bits / 8 / 1024 ** 3:.1f} GB\")",
+        "output": "Q4_K_M   4 bits -> 7B file about 3.3 GB\nQ8_0     8 bits -> 7B file about 6.5 GB\nQ2_K     2 bits -> 7B file about 1.6 GB\nFP16    16 bits -> 7B file about 13.0 GB\nF32     32 bits -> 7B file about 26.1 GB",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Q names: the number right after Q."
+          },
+          {
+            "line": 7,
+            "note": "Float names: F16, FP16, F32 or FP32."
+          }
+        ],
+        "tryIt": "What does quantization_bits(\"Q5_K_S\") return? Check by running it.",
+        "check": {
+          "question": "What does Q4_K_M tell you about a GGUF model?",
+          "options": [
+            "It has 4 billion parameters",
+            "Its weights use about 4 bits each",
+            "It needs 4 GPUs"
+          ],
+          "answer": 1,
+          "why": "The number after Q is the bits per weight."
+        }
+      },
+      {
+        "title": "Choosing how to run a model",
+        "say": [
+          "On a laptop or for private experiments: llama.cpp, Ollama or LM Studio with a GGUF file. Easy, offline and free, but limited speed and users.",
+          "For a production API on GPUs: vLLM (or similar servers like TGI or SGLang), with PagedAttention and continuous batching.",
+          "Most servers offer an OpenAI-compatible API, so your application code barely changes when switching between hosted and self-hosted models.",
+          "That compatibility also makes it easy to compare models side by side on your golden dataset before switching.",
+          "Measure on your own traffic: tokens per second, time to first token, cost per million tokens and answer quality on your golden set.",
+          "Keep a fallback: if your server has trouble, route to a hosted API so users are not left waiting.",
+          "Tomorrow covers models that see images as well as text."
+        ],
+        "example": "Choosing transport: a bicycle for short personal trips, a bus service for moving many people along a busy route, and a taxi number saved for emergencies.",
+        "code": "def choose_runtime(users, needs_privacy, has_gpu):\n    if users <= 1:\n        return \"Ollama or llama.cpp with a GGUF model\"\n    if has_gpu:\n        return \"vLLM server with an OpenAI-compatible API\"\n    return \"hosted API\" + (\" in a private region\" if needs_privacy else \"\")\n\nfor case in [(1, True, False), (500, True, True), (500, True, False), (50, False, False)]:\n    print(case, \"->\", choose_runtime(*case))",
+        "output": "(1, True, False) -> Ollama or llama.cpp with a GGUF model\n(500, True, True) -> vLLM server with an OpenAI-compatible API\n(500, True, False) -> hosted API in a private region\n(50, False, False) -> hosted API",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Many users on GPUs: a high-throughput server."
+          }
+        ],
+        "tryIt": "Add a rule: if users are over 10,000 and there is no GPU team, recommend a hosted API regardless.",
+        "check": {
+          "question": "Why is an OpenAI-compatible API useful when self-hosting?",
+          "options": [
+            "It makes models smarter",
+            "Application code barely changes when switching between hosted and self-hosted models",
+            "It is required by GGUF"
+          ],
+          "answer": 1,
+          "why": "The same client code can talk to either kind of server."
+        }
+      }
+    ],
+    "summary": [
+      "Self-host for privacy, control or high steady volume; APIs win at low volume.",
+      "The KV cache grows per token per conversation and limits concurrency.",
+      "PagedAttention allocates KV memory in pages, fitting more requests.",
+      "Continuous batching fills freed slots immediately, raising throughput.",
+      "GGUF names show bits per weight: Q4_K_M is about 4 bits."
+    ],
+    "projectStep": {
+      "title": "Serving maths",
+      "steps": [
+        "Add paged_attention_savings and quantization_bits to ai_toolkit.py.",
+        "Estimate KV cache memory for your own chosen model and context length.",
+        "Bonus: compute the break-even monthly volume between an API and a GPU."
+      ]
+    }
   }
 ];
