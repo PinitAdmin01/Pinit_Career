@@ -149,7 +149,8 @@ export function LessonCodeEditor({
             </span>
             <span style={{ color: 'var(--success)', fontWeight: 600 }}>Output</span>
           </div>
-          <div style={{ whiteSpace: 'pre-line' }}>{codeOutput}</div>
+          {/* Keep every space, so tables and lined-up columns stay aligned; scroll sideways if too wide. */}
+          <div style={{ whiteSpace: 'pre', overflowX: 'auto' }}>{codeOutput}</div>
         </div>
       )}
     </div>

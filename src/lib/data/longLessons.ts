@@ -10,6 +10,7 @@
  */
 import { REACT_LONG_LESSONS } from './reactLongLessons';
 import { PYTHON_LONG_LESSONS } from './pythonLongLessons';
+import { SQL_LONG_LESSONS } from './sqlLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -61,6 +62,7 @@ export interface LongLesson {
 const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'react-basics': REACT_LONG_LESSONS,
   python: PYTHON_LONG_LESSONS,
+  'sql-mastery': SQL_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
@@ -91,4 +93,21 @@ export function estimateSpokenMinutes(lesson: LongLesson): number {
     .split(/\s+/)
     .filter(Boolean).length;
   return Math.round(words / 120);
+}
+
+/**
+ * Rough time for the hands-on work in a lesson: reading and running each example (half a minute),
+ * each "your turn" change (1 minute) and each check question (half a minute).
+ */
+export function estimateActivityMinutes(lesson: LongLesson): number {
+  const minutes = lesson.parts.reduce(
+    (total, p) => total + (p.code ? 0.5 : 0) + (p.tryIt ? 1 : 0) + 0.5,
+    0
+  );
+  return Math.round(minutes);
+}
+
+/** Rough length of a whole class: teaching (spoken) plus doing (examples, your turn, checks). */
+export function estimateLessonMinutes(lesson: LongLesson): number {
+  return estimateSpokenMinutes(lesson) + estimateActivityMinutes(lesson);
 }
