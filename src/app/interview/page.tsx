@@ -465,6 +465,7 @@ export default function InterviewPage() {
     setEvaluationResult(null);
     setArchitectureEvaluation(null);
     codeModifiedRef.current = false;
+    lastRecordedCodeRef.current = '';
 
     const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your academic background, and share your experience with ${topic}.`;
 
@@ -605,6 +606,31 @@ export default function InterviewPage() {
   };
   handleSendMessageWithTextRef.current = handleSendMessageWithText;
 
+  // The code the student submits is recorded in the server's interview record, so the evaluator
+  // judges the code itself (the in-browser test run below is feedback for the student only).
+  const lastRecordedCodeRef = useRef('');
+  const recordCodeSubmission = async () => {
+    const id = liveSessionIdRef.current;
+    const code = codeContent.trim();
+    if (!id || !code || !codeModifiedRef.current || code === lastRecordedCodeRef.current) return;
+    lastRecordedCodeRef.current = code;
+    try {
+      const headers = await getAuthHeaders();
+      await fetch('/api/interview/chat', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          liveSessionId: id,
+          event: 'code',
+          stage: 'round2_coding',
+          code,
+          language: selectedLang,
+          problemTitle: dynamicProblemData?.title || getDynamicCodingProblem(activeTopicName, selectedLang).title,
+        }),
+      });
+    } catch {}
+  };
+
   const runCodeAndTests = async () => {
     setIsRunning(true);
     setTerminalLogs([`[RUNNER] Compiling ${selectedLang.toUpperCase()} for ${activeTopicName}...`]);
@@ -633,6 +659,7 @@ export default function InterviewPage() {
         timeoutMs: 5000
       });
       setTerminalLogs(prev => [...prev, ...result.terminalLogs]);
+      void recordCodeSubmission();
       if (result.allPassed || result.passedTests > 0) {
         setCodeSubmitted(true);
         setTerminalLogs(prev => [...prev, `\n✅ [PASSED] ${result.passedTests} tests verified!`]);
@@ -694,6 +721,8 @@ export default function InterviewPage() {
       archetype
     });
 
+    // Make sure the final version of the code is in the record before it is scored.
+    await recordCodeSubmission();
     let resultObj: any = evalResult;
     try {
       const headers = await getAuthHeaders();

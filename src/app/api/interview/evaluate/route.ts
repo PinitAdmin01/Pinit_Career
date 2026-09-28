@@ -318,7 +318,9 @@ Return ONLY valid JSON matching this schema:
       logic: clampScore(sanitizedEvaluation.logic, 65),
       systems: clampScore(sanitizedEvaluation.systems, 65),
       comms: clampScore(sanitizedEvaluation.comms, 70),
-      solving: clampScore(sanitizedEvaluation.solving ?? codingScore, 65),
+      // A recorded interview is judged on the code it recorded (via the evaluator), never on a pass
+      // count the page reports.
+      solving: clampScore(sanitizedEvaluation.solving ?? (live ? undefined : codingScore), 65),
       star: clampScore(sanitizedEvaluation.star, 65),
     };
 

@@ -229,6 +229,35 @@ async function test(name, fn) {
     return db.tables.interview_live_sessions[0].status === 'abandoned' && ev.status === 409 ? true : `${db.tables.interview_live_sessions[0].status} / ${ev.status}`;
   });
 
+  await test('the code the student submits is recorded and reaches the evaluator', async () => {
+    const db = createDb(); const r = routes(db); const ai = fakeAi(PASS_EVAL);
+    const id = (await call(r.start, STUDENT, { action: 'start', topic: 'SDE', opening: 'Hi' })).body.liveSessionId;
+    const rec = await call(r.chat, STUDENT, { liveSessionId: id, event: 'code', stage: 'round2_coding', code: 'function add(a, b) { return a + b; }', language: 'javascript', problemTitle: 'Adder' });
+    const last = db.tables.interview_live_sessions[0].transcript.slice(-1)[0];
+    if (rec.status !== 200 || !/\[Code submission in javascript for "Adder"\]/.test(last.content) || !last.content.includes('return a + b')) return JSON.stringify(last);
+    const empty = await call(r.chat, STUDENT, { liveSessionId: id, event: 'code', code: '   ' });
+    if (empty.status !== 400) return 'empty code recorded';
+    await call(r.evaluate, STUDENT, { liveSessionId: id });
+    const prompt = ai.find((c) => c.body.model === 'llama-3.3-70b-versatile').body.messages[1].content;
+    return prompt.includes('return a + b') ? true : 'evaluator did not see the code';
+  });
+
+  await test('a recorded interview ignores the coding score the page reports', async () => {
+    const noSolving = { ...PASS_EVAL }; delete noSolving.solving;
+    const db = createDb(); const r = routes(db); fakeAi(noSolving);
+    const id = (await call(r.start, STUDENT, { action: 'start', topic: 'SDE', opening: 'Hi' })).body.liveSessionId;
+    const recorded = await call(r.evaluate, STUDENT, { liveSessionId: id, codingScore: 100 });
+    const practice = await call(r.evaluate, STUDENT, { domainSubTopic: 'SDE', codingScore: 100, history: [{ role: 'user', content: 'x' }] });
+    const a = recorded.body.evaluation.radar.solving; const b = practice.body.evaluation.radar.solving;
+    return a === 65 && b === 100 ? true : 'recorded solving ' + a + ', practice solving ' + b;
+  });
+
+  await test('the page records the code after each run and before the final score', async () => {
+    const page = fs.readFileSync(path.join(ROOT, 'src/app/interview/page.tsx'), 'utf8');
+    if (!/setTerminalLogs\(prev => \[\.\.\.prev, \.\.\.result\.terminalLogs\]\);\s+void recordCodeSubmission\(\);/.test(page)) return 'not recorded after a run';
+    return /await recordCodeSubmission\(\);\s+let resultObj: any = evalResult;/.test(page) ? true : 'not recorded before the final score';
+  });
+
   await test('the interview page sends its record id with answers, round changes, skips and the final score', async () => {
     const page = fs.readFileSync(path.join(ROOT, 'src/app/interview/page.tsx'), 'utf8');
     const checks = [

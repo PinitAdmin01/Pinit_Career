@@ -10,6 +10,8 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 export const LIVE_SESSION_TABLE = 'interview_live_sessions';
 /** Longest answer or question stored (characters). */
 export const MAX_TURN_CHARS = 4000;
+/** Longest code submission stored (characters). */
+export const MAX_CODE_CHARS = 8000;
 /** Most turns one interview can hold. */
 export const MAX_TURNS = 160;
 /** An interview record older than this can no longer be continued or scored. */
@@ -40,8 +42,8 @@ export interface LiveSession {
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const isLiveSessionId = (v: unknown): v is string => typeof v === 'string' && UUID_RE.test(v);
 
-export function clampTurn(role: LiveRole, content: unknown, stage?: string): LiveTurn | null {
-  const text = typeof content === 'string' ? content.trim().slice(0, MAX_TURN_CHARS) : '';
+export function clampTurn(role: LiveRole, content: unknown, stage?: string, maxChars: number = MAX_TURN_CHARS): LiveTurn | null {
+  const text = typeof content === 'string' ? content.trim().slice(0, maxChars) : '';
   if (!text) return null;
   return { role, content: text, ...(stage ? { stage: String(stage).slice(0, 40) } : {}), at: new Date().toISOString() };
 }
@@ -125,6 +127,17 @@ export function transcriptForModel(session: LiveSession): Array<{ role: LiveRole
   return (Array.isArray(session.transcript) ? session.transcript : [])
     .filter((t) => t && (t.role === 'user' || t.role === 'assistant') && typeof t.content === 'string')
     .map((t) => ({ role: t.role, content: t.content }));
+}
+
+/** The student's code as recorded for the evaluator (the code itself, not a pass count from the page). */
+export function codeSubmissionTurn(code: unknown, language: unknown, title: unknown, stage?: string): LiveTurn | null {
+  const src = typeof code === 'string' ? code.trim() : '';
+  if (!src) return null;
+  const lang = typeof language === 'string' && /^[a-z+#]{1,12}$/i.test(language) ? language.toLowerCase() : 'code';
+  const heading = typeof title === 'string' && title.trim() ? ` for "${title.trim().slice(0, 120)}"` : '';
+  const fence = '```';
+  const text = `[Code submission in ${lang}${heading}]\n${fence}${lang}\n${src.slice(0, MAX_CODE_CHARS)}\n${fence}`;
+  return clampTurn('user', text, stage, MAX_CODE_CHARS + 200);
 }
 
 /** Text recorded when the interview moves to a new round (the page shows its own wording). */

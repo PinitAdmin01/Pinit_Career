@@ -7,6 +7,7 @@ import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import {
   appendLiveTurns,
   clampTurn,
+  codeSubmissionTurn,
   loadActiveLiveSession,
   stageMarker,
   transcriptForModel,
@@ -210,9 +211,13 @@ export async function POST(req: Request) {
     const topicSource = live ? live.topic : (customTopic || domainSubTopic || (stream === 'non_tech' ? 'Finance & Strategy' : 'Software Engineering'));
     const subTopic = String(topicSource).toUpperCase();
 
-    // Round changes and skipped questions happen on the page; the record notes them too.
-    if (live && (body.event === 'stage' || body.event === 'skip')) {
-      if (body.event === 'stage') {
+    // Round changes, skipped questions and code submissions happen on the page; the record notes them.
+    if (live && (body.event === 'stage' || body.event === 'skip' || body.event === 'code')) {
+      if (body.event === 'code') {
+        const turn = codeSubmissionTurn(body.code, body.language, body.problemTitle, stage);
+        if (!turn) return NextResponse.json({ error: 'CODE_REQUIRED', message: 'No code to record.' }, { status: 400 });
+        await recordTurns([turn]);
+      } else if (body.event === 'stage') {
         await recordTurns([clampTurn('assistant', stageMarker(String(stage || '')), stage)]);
       } else {
         await recordTurns([
