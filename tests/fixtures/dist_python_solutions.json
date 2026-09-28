@@ -1,0 +1,122 @@
+[
+ [
+  "def execute_with_backoff(call, max_retries=3, base_delay_ms=100, sleep=None):\n    for attempt in range(max_retries + 1):\n        try:\n            return call()\n        except Exception:\n            if attempt == max_retries:\n                raise\n            sleep(base_delay_ms * 2 ** attempt)",
+  "def backoff_delay(attempt, base_delay=100):\n    return base_delay * 2 ** (attempt - 1)"
+ ],
+ [
+  "SYSTEMS = {\n    ('AP', 'EL'): 'AP/EL (e.g. Amazon DynamoDB, Apache Cassandra)',\n    ('CP', 'EC'): 'CP/EC (e.g. Google Cloud Spanner, CockroachDB)',\n    ('CP', 'EL'): 'CP/EL (e.g. MongoDB primary-secondary)',\n}\n\n\ndef classify_system(partition, normal):\n    return SYSTEMS.get((partition, normal), 'CUSTOM')",
+  "def has_quorum(active_nodes, total_nodes):\n    return active_nodes > total_nodes // 2"
+ ],
+ [
+  "def encode_varint(value):\n    out = []\n    while value >= 0x80:\n        out.append((value & 0x7F) | 0x80)\n        value >>= 7\n    out.append(value)\n    return out",
+  "def wire_type(tag):\n    return {0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_DELIMITED', 5: 'FIXED32'}.get(tag & 0x07, 'UNKNOWN')"
+ ],
+ [
+  "def default_hash(text):\n    h = 0\n    for ch in text:\n        h = (h * 31 + ord(ch)) % 2 ** 32\n    return h\n\n\nclass ConsistentHashRing:\n    def __init__(self, hash_fn=default_hash):\n        self.hash_fn = hash_fn\n        self.ring = []  # sorted list of (hash, node)\n\n    def add_node(self, node, vnodes=3):\n        for i in range(vnodes):\n            self.ring.append((self.hash_fn(f'{node}#{i}'), node))\n        self.ring.sort()\n\n    def remove_node(self, node):\n        self.ring = [point for point in self.ring if point[1] != node]\n\n    def get_node(self, key):\n        if not self.ring:\n            return None\n        import bisect\n        i = bisect.bisect_left([h for h, _ in self.ring], self.hash_fn(key))\n        return self.ring[i % len(self.ring)][1]",
+  "def migration_estimate(total_keys, nodes):\n    return {'fraction': f'{1 / (nodes + 1) * 100:.1f}%', 'keys_moved': round(total_keys / (nodes + 1))}"
+ ],
+ [
+  "class TtlCache:\n    def __init__(self):\n        self.store = {}  # key -> (value, expires_at)\n\n    def get_or_fetch(self, key, fetch, now, ttl=60):\n        hit = self.store.get(key)\n        if hit and hit[1] > now:\n            return hit[0]\n        value = fetch(key)\n        self.store[key] = (value, now + ttl)\n        return value\n\n    def get_many(self, keys, fetch, now, ttl=60):\n        return [self.get_or_fetch(k, fetch, now, ttl) for k in keys]",
+  "import random\n\n\ndef ttl_with_jitter(base, max_jitter=10, rng=random):\n    return base + rng.randrange(max_jitter)"
+ ],
+ [
+  "class LockManager:\n    def __init__(self):\n        self.locks = {}  # resource -> {'lock_id', 'expires_at'}\n        self.counter = 0\n\n    def acquire(self, resource, now, ttl_ms=1000):\n        held = self.locks.get(resource)\n        if held and held['expires_at'] > now:\n            return {'success': False}\n        self.counter += 1\n        lock_id = f'lock_{self.counter}'\n        self.locks[resource] = {'lock_id': lock_id, 'expires_at': now + ttl_ms}\n        return {'success': True, 'lock_id': lock_id, 'fencing_token': self.counter}\n\n    def release(self, resource, lock_id):\n        held = self.locks.get(resource)\n        if held and held['lock_id'] == lock_id:\n            del self.locks[resource]\n            return True\n        return False",
+  "def is_lock_valid(acquired_at, ttl_ms, now, drift_ms=50):\n    return now - acquired_at + drift_ms < ttl_ms"
+ ],
+ [
+  "def bully_election(node_ids, failed_leader):\n    remaining = [n for n in node_ids if n != failed_leader]\n    if not remaining:\n        return {'leader': None, 'message': '', 'status': 'NO_ACTIVE_NODES'}\n    leader = max(remaining)\n    return {'leader': leader, 'message': f'COORDINATOR: Node {leader}', 'status': 'ELECTED'}",
+  "def has_majority(votes, total):\n    return votes >= total // 2 + 1"
+ ],
+ [
+  "class SnowflakeGenerator:\n    EPOCH = 1704067200000  # 2024-01-01 in milliseconds\n\n    def __init__(self, worker_id, datacenter_id, clock):\n        self.worker_id = worker_id\n        self.datacenter_id = datacenter_id\n        self.clock = clock  # a function returning the time in milliseconds\n        self.sequence = 0\n        self.last_ms = -1\n\n    def next_id(self):\n        ms = self.clock()\n        if ms < self.last_ms:\n            raise ValueError('CLOCK_MOVED_BACKWARDS')\n        self.sequence = (self.sequence + 1) & 4095 if ms == self.last_ms else 0\n        self.last_ms = ms\n        return ((ms - self.EPOCH) << 22) | (self.datacenter_id << 17) | (self.worker_id << 12) | self.sequence",
+  "DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'\n\n\ndef time_prefix(ms):\n    if ms == 0:\n        return '0'\n    out = ''\n    while ms:\n        ms, digit = divmod(ms, 36)\n        out = DIGITS[digit] + out\n    return out"
+ ],
+ [
+  "def append_entries(log, prev_index, prev_term, entries):\n    if prev_index >= 0 and (prev_index >= len(log) or log[prev_index]['term'] != prev_term):\n        return {'success': False, 'reason': 'LOG_MISMATCH'}\n    new_log = log[:prev_index + 1] + list(entries)\n    return {'success': True, 'log': new_log, 'match_index': len(new_log) - 1}",
+  "def is_committed(match_count, cluster_size):\n    return match_count > cluster_size // 2"
+ ],
+ [
+  "def two_phase_commit(cohorts):\n    votes = [c.prepare() for c in cohorts]\n    if all(v == 'VOTE_COMMIT' for v in votes):\n        for c in cohorts:\n            c.commit()\n        return {'status': 'GLOBAL_COMMITTED', 'votes': votes}\n    for c in cohorts:\n        c.abort()\n    return {'status': 'GLOBAL_ABORTED', 'votes': votes}",
+  "def count_votes(votes):\n    return {'commit': votes.count('VOTE_COMMIT'), 'abort': votes.count('VOTE_ABORT')}"
+ ],
+ [
+  "def run_saga(steps):\n    finished = []\n    for step in steps:\n        try:\n            step['action']()\n        except Exception as err:\n            for done in reversed(finished):\n                done['compensate']()\n            return {'status': 'SAGA_COMPENSATED', 'failed_at': step['name'], 'error': str(err)}\n        finished.append(step)\n    return {'status': 'SAGA_COMPLETED'}",
+  "def format_saga_log(step, status):\n    return f'[SAGA]: {step} -> {status}'"
+ ],
+ [
+  "def assign_partitions(num_partitions, consumers):\n    assignment = {c: [] for c in consumers}\n    for p in range(num_partitions):\n        assignment[consumers[p % len(consumers)]].append(p)\n    return assignment",
+  "def route_to_partition(key, total):\n    h = 0\n    for ch in key:\n        h = (h * 31 + ord(ch)) % 2 ** 32\n    return h % total"
+ ],
+ [
+  "def process_once(message_id, payload_hash, store, handler):\n    seen = store.get(message_id)\n    if seen:\n        if seen['hash'] != payload_hash:\n            return {'duplicate': True, 'error': 'PAYLOAD_MISMATCH'}\n        return {'duplicate': True, 'result': seen['result']}\n    result = handler()\n    store[message_id] = {'hash': payload_hash, 'result': result}\n    return {'duplicate': False, 'result': result}",
+  "def idempotency_key(user_id, order_id):\n    return f'idemp_{user_id}_{order_id}'"
+ ],
+ [
+  "def handle_message(msg, handler, dlq, max_attempts=3):\n    try:\n        return {'status': 'PROCESSED', 'result': handler(msg['payload'])}\n    except Exception as err:\n        msg['retry_count'] += 1\n        if msg['retry_count'] >= max_attempts:\n            dlq.append({'message': msg, 'error': str(err)})\n            return {'status': 'ROUTED_TO_DLQ'}\n        return {'status': 'RETRY_SCHEDULED', 'attempt': msg['retry_count'] + 1}",
+  "def dlq_entry(msg_id, error, now):\n    return {'msg_id': msg_id, 'error': error, 'failed_at': now}"
+ ],
+ [
+  "def run_transaction(event, store, steps, dlq):\n    if event['key'] in store:\n        return {'status': 'DUPLICATE_DROPPED'}\n    finished = []\n    for step in steps:\n        try:\n            step['execute']()\n        except Exception as err:\n            for done in reversed(finished):\n                done['compensate']()\n            dlq.append({'event': event, 'error': str(err)})\n            return {'status': 'FAILED_COMPENSATED'}\n        finished.append(step)\n    store[event['key']] = 'COMMITTED'\n    return {'status': 'COMMITTED'}",
+  "def tx_duration(start_ms, end_ms):\n    return f'{end_ms - start_ms}ms'"
+ ],
+ [
+  "def compare_vector_clocks(a, b):\n    nodes = set(a) | set(b)\n    a_ahead = any(a.get(n, 0) > b.get(n, 0) for n in nodes)\n    b_ahead = any(b.get(n, 0) > a.get(n, 0) for n in nodes)\n    if a_ahead and b_ahead:\n        return 'CONCURRENT'\n    if b_ahead:\n        return 'A_BEFORE_B'\n    if a_ahead:\n        return 'B_BEFORE_A'\n    return 'EQUAL'",
+  "def lamport_receive(local, received):\n    return max(local, received) + 1"
+ ],
+ [
+  "class PNCounter:\n    def __init__(self, node_id):\n        self.node_id = node_id\n        self.p = {}  # node -> total added by that node\n        self.n = {}  # node -> total subtracted by that node\n\n    def increment(self, v=1):\n        self.p[self.node_id] = self.p.get(self.node_id, 0) + v\n\n    def decrement(self, v=1):\n        self.n[self.node_id] = self.n.get(self.node_id, 0) + v\n\n    def value(self):\n        return sum(self.p.values()) - sum(self.n.values())\n\n    def merge(self, other):\n        for mine, theirs in ((self.p, other.p), (self.n, other.n)):\n            for node in set(mine) | set(theirs):\n                mine[node] = max(mine.get(node, 0), theirs.get(node, 0))",
+  "def resolve_lww(a, b):\n    return a['value'] if (a['ts'], a['node']) > (b['ts'], b['node']) else b['value']"
+ ],
+ [
+  "def shard_for_customer(customer_id, directory, num_shards=4):\n    if customer_id in directory:\n        return directory[customer_id]\n    h = 0\n    for ch in customer_id:\n        h = (h * 31 + ord(ch)) % 2 ** 32\n    return f'shard_{h % num_shards}'",
+  "def range_shard(user_id):\n    if user_id <= 1000:\n        return 'shard_1'\n    if user_id <= 2000:\n        return 'shard_2'\n    return 'shard_3'"
+ ],
+ [
+  "def route_query(op, session, now, replicas):\n    if op == 'WRITE':\n        session['last_write'] = now\n        return 'MASTER'\n    last = session.get('last_write')\n    if last is not None and now - last < 5000:\n        return 'MASTER'\n    reads = session.get('reads', 0)\n    session['reads'] = reads + 1\n    return replicas[reads % len(replicas)]",
+  "def lag_exceeded(lag_seconds, max_lag=10):\n    return lag_seconds > max_lag"
+ ],
+ [
+  "class CircuitOpenError(Exception):\n    pass\n\n\nclass CircuitBreaker:\n    def __init__(self, threshold=3, reset_timeout_ms=500):\n        self.state = 'CLOSED'\n        self.failures = 0\n        self.threshold = threshold\n        self.reset_timeout_ms = reset_timeout_ms\n        self.opened_at = 0\n\n    def call(self, fn, now):\n        if self.state == 'OPEN':\n            if now - self.opened_at < self.reset_timeout_ms:\n                raise CircuitOpenError('CIRCUIT_OPEN')\n            self.state = 'HALF_OPEN'\n        try:\n            result = fn()\n        except Exception:\n            self.failures += 1\n            if self.state == 'HALF_OPEN' or self.failures >= self.threshold:\n                self.state = 'OPEN'\n                self.opened_at = now\n            raise\n        self.failures = 0\n        self.state = 'CLOSED'\n        return result",
+  "def format_circuit_status(state):\n    return f'[CIRCUIT]: {state}'"
+ ],
+ [
+  "class CircuitOpenError(Exception):\n    pass\n\n\ndef handle_gateway(client_id, is_allowed, breaker_call, backend):\n    if not is_allowed(client_id):\n        return {'status': 429}\n    try:\n        return {'status': 200, 'data': breaker_call(backend)}\n    except CircuitOpenError:\n        return {'status': 503}\n    except Exception as err:\n        return {'status': 500, 'error': str(err)}",
+  "def response_time_header(ms):\n    return f'X-Response-Time: {ms}ms'"
+ ],
+ [
+  "def swim_probe(target, ping, peers, k=2):\n    try:\n        ping(target)\n        return {'status': 'ALIVE', 'method': 'DIRECT'}\n    except TimeoutError:\n        pass\n    for peer in [p for p in peers if p != target][:k]:\n        try:\n            ping(target, via=peer)\n            return {'status': 'ALIVE', 'method': 'INDIRECT'}\n        except TimeoutError:\n            continue\n    return {'status': 'SUSPECT', 'method': 'INDIRECT'}",
+  "def fanout_peers(peers, k=3, me=None):\n    return [p for p in peers if p != me][:k]"
+ ],
+ [
+  "class WeightedRoundRobin:\n    def __init__(self):\n        self.servers = []  # dicts: {'id', 'weight', 'current'}\n\n    def add_server(self, server_id, weight):\n        self.servers.append({'id': server_id, 'weight': weight, 'current': 0})\n\n    def next_server(self):\n        for s in self.servers:\n            s['current'] += s['weight']\n        best = max(self.servers, key=lambda s: s['current'])\n        best['current'] -= sum(s['weight'] for s in self.servers)\n        return best['id']",
+  "def least_connections(servers):\n    return min(servers, key=lambda s: s['active'])['id']"
+ ],
+ [
+  "class ServiceRegistry:\n    def __init__(self):\n        self.services = {}  # name -> {instance_id: {'url', 'ttl_ms', 'expires_at'}}\n\n    def register(self, name, instance_id, url, now, ttl_ms=5000):\n        self.services.setdefault(name, {})[instance_id] = {'url': url, 'ttl_ms': ttl_ms, 'expires_at': now + ttl_ms}\n\n    def heartbeat(self, name, instance_id, now):\n        inst = self.services.get(name, {}).get(instance_id)\n        if inst is None:\n            return False\n        inst['expires_at'] = now + inst['ttl_ms']\n        return True\n\n    def healthy(self, name, now):\n        group = self.services.get(name, {})\n        for instance_id in [i for i, inst in group.items() if inst['expires_at'] <= now]:\n            del group[instance_id]\n        return [{'id': i, 'url': inst['url']} for i, inst in group.items()]",
+  "def instance_url(ip, port):\n    return f'http://{ip}:{port}'"
+ ],
+ [
+  "def aggregate_profile(user_id, get_user, get_orders, get_reviews):\n    user = get_user(user_id)\n    orders = get_orders(user_id)\n    try:\n        reviews_count, partial = len(get_reviews(user_id)), False\n    except Exception:\n        reviews_count, partial = None, True\n    return {\n        'user_id': user['id'],\n        'name': user['name'],\n        'recent_orders': orders[:3],\n        'orders_count': len(orders),\n        'reviews_count': reviews_count,\n        'partial': partial,\n    }",
+  "def cors_headers(origin, methods=('GET', 'POST', 'PUT', 'DELETE')):\n    return {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': ','.join(methods)}"
+ ],
+ [
+  "def child_span(traceparent, name, new_span_id, new_trace_id):\n    parts = (traceparent or '').split('-')\n    if len(parts) == 4:\n        trace_id, parent_id = parts[1], parts[2]\n    else:\n        trace_id, parent_id = new_trace_id, None\n    return {\n        'name': name,\n        'trace_id': trace_id,\n        'parent_id': parent_id,\n        'span_id': new_span_id,\n        'traceparent': f'00-{trace_id}-{new_span_id}-01',\n    }",
+  "import re\n\n\ndef is_valid_traceparent(header):\n    return re.fullmatch(r'00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}', header) is not None"
+ ],
+ [
+  "def audit_linearizability(reads, writes):\n    stale = []\n    for r in reads:\n        before = [w for w in writes if w['completed_at'] <= r['started_at']]\n        if before and r['observed'] != max(before, key=lambda w: w['completed_at'])['value']:\n            stale.append(r)\n    return {'linearizable': not stale, 'stale_reads': stale}",
+  "LEVELS = {\n    'STRONG': 'Linearizable (global real-time order)',\n    'CAUSAL': 'Causal (cause before effect)',\n    'EVENTUAL': 'Eventual (replicas converge)',\n}\n\n\ndef consistency_level(mode):\n    if mode not in LEVELS:\n        raise ValueError(mode)\n    return LEVELS[mode]"
+ ],
+ [
+  "import re\n\n\ndef evaluate_edge_cache(cache_control, age):\n    def seconds(name):\n        m = re.search(name + r'=(\\d+)', cache_control)\n        return int(m.group(1)) if m else 0\n\n    max_age = seconds(r'(?<![-\\w])max-age')\n    swr = seconds('stale-while-revalidate')\n    if age <= max_age:\n        return {'status': 'FRESH', 'revalidate': False}\n    if age <= max_age + swr:\n        return {'status': 'STALE_REVALIDATING', 'revalidate': True}\n    return {'status': 'EXPIRED', 'revalidate': False}",
+  "def surrogate_keys(keys):\n    return 'Surrogate-Key: ' + ' '.join(keys)"
+ ],
+ [
+  "def dr_compliance(actual_rpo, actual_rto, target_rpo, target_rto):\n    rpo_ok, rto_ok = actual_rpo <= target_rpo, actual_rto <= target_rto\n    return {\n        'compliant': rpo_ok and rto_ok,\n        'rpo': 'OK' if rpo_ok else 'BREACHED',\n        'rto': 'OK' if rto_ok else 'BREACHED',\n        'grade': 'TIER_1' if rpo_ok and rto_ok else 'FAILED',\n    }",
+  "def format_rto(minutes):\n    return f'{minutes} min RTO'"
+ ],
+ [
+  "def execute_trade(order, services):\n    if not services['is_allowed'](order['account']):\n        return {'success': False, 'error': 'RATE_LIMITED'}\n    lock = services['acquire'](order['account'])\n    if not lock['success']:\n        return {'success': False, 'error': 'ACCOUNT_LOCKED'}\n    try:\n        services['replicate']({'order_id': order['order_id'], 'amount': order['amount'], 'fencing_token': lock['fencing_token']})\n        receipt = services['commit'](order)\n        return {'success': True, 'receipt': receipt, 'fencing_token': lock['fencing_token']}\n    except Exception as err:\n        return {'success': False, 'error': str(err)}\n    finally:\n        services['release'](order['account'], lock['lock_id'])",
+  "def audit_distributed_capstone(checks):\n    failed = sorted(name for name, ok in checks.items() if not ok)\n    return {'passed': len(checks) - len(failed), 'failed': failed, 'certified': bool(checks) and not failed}"
+ ]
+]

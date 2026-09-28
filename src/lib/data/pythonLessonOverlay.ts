@@ -29,6 +29,7 @@ const COMMON_SWAPS: [string, string][] = [
   ['JSON.stringify()', 'json.dumps()'],
   ['Promise.all()', 'asyncio.gather()'],
   ['Promise.all', 'asyncio.gather'],
+  ['Date.now()', 'time.time()'],
   ['JavaScript', 'Python'],
   ['Math.max(', 'max('],
   ['Math.min(', 'min('],
@@ -40,16 +41,22 @@ const COMMON_SWAPS: [string, string][] = [
 
 const snake = (word: string) => word.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
 
+/** Python wording for text outside maths: camelCase names become snake_case, true/false/null become True/False/None. */
+function pythonWords(text: string): string {
+  // Names like vLLM (no lower-case letters after the capitals) and "false positives" are English, not code;
+  // settings written as key=true (Kafka, HTTP) keep their own lower-case values.
+  return text
+    .replace(/\b[a-z]+(?:[A-Z][a-z0-9]+)+\b/g, snake)
+    .replace(/(?<!=)\btrue\b(?! (?:positive|negative))/g, 'True')
+    .replace(/(?<!=)\bfalse\b(?! (?:positive|negative))/g, 'False')
+    .replace(/(?<!=)\bnull\b/g, 'None');
+}
+
 function toPythonText(text: string, swaps: [string, string][]): string {
   let out = text;
   for (const [from, to] of swaps) out = out.split(from).join(to);
-  // camelCase names (maxSum, isEnd) are snake_case in the Python code; true/false/null likewise.
-  // Names like vLLM (no lower-case letters after the capitals) and "false positives" are English, not code.
-  return out
-    .replace(/\b[a-z]+(?:[A-Z][a-z0-9]+)+\b/g, snake)
-    .replace(/\btrue\b(?! (?:positive|negative))/g, 'True')
-    .replace(/\bfalse\b(?! (?:positive|negative))/g, 'False')
-    .replace(/\bnull\b/g, 'None');
+  // Maths between $ signs is left alone: an _ inside \text{} would break the formula.
+  return out.split(/(\$[^$]*\$)/).map((part, i) => (i % 2 ? part : pythonWords(part))).join('');
 }
 
 /** A printed JS value ("[0,1]", '{"a":true}', "true") as Python prints it ("[0, 1]", "{'a': True}", "True"). */

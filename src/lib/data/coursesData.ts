@@ -10,6 +10,7 @@ import { NLP_30_DAYS_QUESTS } from './nlp30DayData';
 import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
 import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
+import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -167,6 +168,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🌐',
     quests: DISTRIBUTED_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-distributed-python',
+    title: 'Distributed Systems in Python',
+    desc: 'The distributed systems course with every lesson example and practice task in Python: retries, consistent hashing, locks, Raft, sagas, queues, CRDTs, sharding and circuit breakers.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🌐',
+    quests: DIST_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-ai-eng',

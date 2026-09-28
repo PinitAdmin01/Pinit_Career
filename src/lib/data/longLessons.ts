@@ -74,6 +74,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'sql-mastery': 'sql',
   'dsa-py': 'python',
   'ai-py': 'python',
+  'dist-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {

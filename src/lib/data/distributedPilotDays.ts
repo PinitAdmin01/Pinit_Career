@@ -454,19 +454,19 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
         "diagnosticCheck": {
           "type": "predict_output",
           "question": "What bandwidth savings percentage is achieved by Protobuf over JSON for the order payload above?",
-          "expectedStringOutput": "52.5%",
+          "expectedStringOutput": "54.7%",
           "acceptableAnswers": [
-            "52.5%",
-            "bandwidthSavings\":\"52.5%\""
+            "54.7%",
+            "bandwidthSavings\":\"54.7%\""
           ],
           "primaryMisconceptionId": "MC_DIST_RPC_PROTOBUF_SERIALIZATION_MULTIPLEXING",
           "diagnosisMap": {
             "20%": {
               "misconceptionId": "MC_DIST_RPC_PROTOBUF_SERIALIZATION_MULTIPLEXING",
-              "errorExplanation": "Binary tags reduce payload from 61 bytes to 29 bytes (52.5% savings).",
+              "errorExplanation": "Binary tags reduce payload from 64 bytes to 29 bytes (54.7% savings).",
               "recoveryPath": {
-                "simplerExplanation": "Saves 52.5% bandwidth.",
-                "guidedFixPrompt": "Type 52.5%"
+                "simplerExplanation": "Saves 54.7% bandwidth.",
+                "guidedFixPrompt": "Type 54.7%"
               }
             }
           }
@@ -660,20 +660,20 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
         "diagnosticCheck": {
           "type": "predict_output",
           "question": "What percentage of keys are disrupted and remapped when adding 1 server to a 9-server cluster using naive modulo hashing?",
-          "expectedStringOutput": "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
+          "expectedStringOutput": "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
           "acceptableAnswers": [
-            "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
-            "90.1%",
+            "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
+            "89.2%",
             "90%"
           ],
           "primaryMisconceptionId": "MC_DIST_CONSISTENT_HASHING_VIRTUAL_NODES",
           "diagnosisMap": {
             "10%": {
               "misconceptionId": "MC_DIST_CONSISTENT_HASHING_VIRTUAL_NODES",
-              "errorExplanation": "10% is for Consistent Hashing. Modulo hashing disrupts ~90.1% of keys.",
+              "errorExplanation": "10% is for Consistent Hashing. Modulo hashing disrupts ~89.2% of keys.",
               "recoveryPath": {
-                "simplerExplanation": "Modulo hashing disrupts 90.1% of keys.",
-                "guidedFixPrompt": "Type Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!"
+                "simplerExplanation": "Modulo hashing disrupts 89.2% of keys.",
+                "guidedFixPrompt": "Type Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!"
               }
             }
           }
@@ -3013,8 +3013,8 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "vector_clock_calc.js",
-            "initialCode": "function evaluateVectorCausality(vA, vB) {\n  let aBigger = false, bBigger = false;\n  for (const k of ['N1', 'N2']) {\n    if ((vA[k] || 0) > (vB[k] || 0)) aBigger = true;\n    if ((vB[k] || 0) > (vA[k] || 0)) bBigger = true;\n  }\n  if (aBigger && !bBigger) return 'A_CAUSED_B (A happened before B)';\n  if (bBigger && !aBigger) return 'B_CAUSED_A (B happened before A)';\n  if (aBigger && bBigger) return 'CONCURRENT_CONFLICT_REQUIRES_MERGE';\n  return 'EQUAL';\n}\n\nconsole.log('v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 1, N2: 0 }, { N1: 1, N2: 1 }));\nconsole.log('v1 [N1:2, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 2, N2: 0 }, { N1: 1, N2: 1 }));",
-            "expectedOutput": "v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]: B_CAUSED_A (B happened before A)\nv1 [N1:2, N2:0] vs v2 [N1:1, N2:1]: CONCURRENT_CONFLICT_REQUIRES_MERGE",
+            "initialCode": "function evaluateVectorCausality(vA, vB) {\n  let aBigger = false, bBigger = false;\n  for (const k of ['N1', 'N2']) {\n    if ((vA[k] || 0) > (vB[k] || 0)) aBigger = true;\n    if ((vB[k] || 0) > (vA[k] || 0)) bBigger = true;\n  }\n  if (bBigger && !aBigger) return 'A_CAUSED_B (A happened before B)';\n  if (aBigger && !bBigger) return 'B_CAUSED_A (B happened before A)';\n  if (aBigger && bBigger) return 'CONCURRENT_CONFLICT_REQUIRES_MERGE';\n  return 'EQUAL';\n}\n\nconsole.log('v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 1, N2: 0 }, { N1: 1, N2: 1 }));\nconsole.log('v1 [N1:2, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 2, N2: 0 }, { N1: 1, N2: 1 }));",
+            "expectedOutput": "v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]: A_CAUSED_B (A happened before B)\nv1 [N1:2, N2:0] vs v2 [N1:1, N2:1]: CONCURRENT_CONFLICT_REQUIRES_MERGE",
             "editable": false
           }
         ],

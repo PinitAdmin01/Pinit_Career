@@ -740,6 +740,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-distributed-python': {
+    courseId: 'course-distributed-python',
+    courseTitle: 'Distributed Systems in Python',
+    category: 'Systems Architecture',
+    summary: 'Design systems carrying millions of transactions, in Python: retries with backoff, consistent hashing, fencing-token locks, Raft consensus, sagas, idempotent queues, CRDTs, sharding and circuit breakers.',
+    realWorldAnalogy: 'Think of a Distributed System like a global diplomatic alliance. When an embassy in Tokyo receives a treaty update, it must broadcast it to London and Washington. If the Pacific undersea cable gets severed (network partition), the alliance must decide whether to continue trading with slightly outdated notes (Availability) or freeze trades until the cable is fixed (Consistency).',
+    keyConcepts: [
+      {
+        heading: '1. CAP Theorem & PACELC Tradeoffs',
+        explanation: 'In the presence of network Partitioning (P), you must choose between Consistency (C) and Availability (A). If no partition (Else), choose between Latency (L) and Consistency (C).',
+        codeOrExample: '# CP system: ZooKeeper, etcd (strict consensus, rejects writes if quorum lost)\n# AP system: Cassandra, DynamoDB (always accepts writes, resolves conflicts eventually)'
+      },
+      {
+        heading: '2. Distributed Consensus (Raft Protocol)',
+        explanation: 'Nodes elect a Leader through randomized heartbeats and replicate log entries across a majority quorum (N/2 + 1) before committing state.',
+        codeOrExample: 'def quorum(cluster_size):\n    return cluster_size // 2 + 1\n\nquorum(5)  # 3 nodes'
+      },
+      {
+        heading: '3. Resiliency Patterns: Circuit Breakers & Idempotency',
+        explanation: 'Prevent cascading system crashes using Circuit Breakers that fail fast when downstream services degrade, and enforce Idempotency Keys on mutations.',
+        codeOrExample: "headers = {'Idempotency-Key': 'req_unique_guid_84920'}  # safe to retry the payment"
+      }
+    ],
+    cheatsheet: [
+      'Consistent Hashing: Distributes data across dynamically changing server rings (bisect for the lookup)',
+      'Idempotent Operation: f(f(x)) = f(x) (Safe to retry multiple times)',
+      'Exponential Backoff: wait = min(max_wait, base * 2 ** attempt) + jitter',
+      'Gossip Protocol: Decentralized peer-to-peer heartbeat state dissemination'
+    ],
+    commonPitfalls: [
+      'Assuming network calls are instantaneous and 100% reliable (Fallacies of Distributed Computing).',
+      'Retrying failed API calls all at once without random jitter, creating thundering herd stampedes.',
+      'Ordering events by wall-clock time (time.time()) on different machines instead of logical Lamport/Vector clocks.'
+    ],
+    interviewPrep: [
+      {
+        question: 'Explain the difference between Strong Consistency and Eventual Consistency.',
+        answer: 'Strong consistency guarantees that any read operation will immediately return the latest written value across all nodes, sacrificing latency. Eventual consistency guarantees that if no new updates are made, all replicas will eventually converge to the same value, optimizing for high write availability and ultra-low latency.'
+      }
+    ]
+  },
+
   'course-iot-embedded': {
     courseId: 'course-iot-embedded',
     courseTitle: 'IoT, Firmware & Embedded Systems',

@@ -7,6 +7,8 @@ import { DSA_PYTHON_PILOT_DAYS } from '../src/lib/data/dsaPythonPilotDays';
 import { DSA_PILOT_DAYS } from '../src/lib/data/dsaPilotDays';
 import { AI_PYTHON_PILOT_DAYS } from '../src/lib/data/aiPythonPilotDays';
 import { AI_PILOT_DAYS } from '../src/lib/data/aiPilotDays';
+import { DIST_PYTHON_PILOT_DAYS } from '../src/lib/data/distPythonPilotDays';
+import { DISTRIBUTED_PILOT_DAYS } from '../src/lib/data/distributedPilotDays';
 import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
 import { CRASH_COURSE_PLANS } from '../src/lib/data/crashPlansData';
 import { resolvePilotDay } from '../src/lib/data/curriculumEnricher';
@@ -17,6 +19,7 @@ import { resolveQuestLanguage } from '../src/components/quests/workspace/useWork
 const COURSES = [
   { id: 'course-dsa-python', prefix: 'dsa-py', lessons: DSA_PYTHON_PILOT_DAYS, from: DSA_PILOT_DAYS, replaces: 'course-dsa-optim', examples: 90 },
   { id: 'course-ai-python', prefix: 'ai-py', lessons: AI_PYTHON_PILOT_DAYS, from: AI_PILOT_DAYS, replaces: 'course-ai-eng', examples: 90 },
+  { id: 'course-distributed-python', prefix: 'dist-py', lessons: DIST_PYTHON_PILOT_DAYS, from: DISTRIBUTED_PILOT_DAYS, replaces: 'course-distributed-sys', examples: 90 },
 ];
 
 const mediaOf = (days: DayLessonPlan[], type: string) =>

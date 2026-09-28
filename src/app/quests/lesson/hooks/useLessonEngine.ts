@@ -99,6 +99,7 @@ const RUNNER_LABELS: Record<string, string> = {
   'ai': '🤖 AI & LLM Engine Simulator',
   'ai-py': '🐍 Python 3 Executing',
   'dist': '🌐 Distributed Systems Simulator',
+  'dist-py': '🐍 Python 3 Executing',
   'iot_net': '📶 IoT Radio Protocol Simulator',
   'iot_emb': '🔌 Embedded MCU Simulator',
   'g3d': '🔮 WebGL2 3D Shader Sandbox',
