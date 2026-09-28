@@ -205,7 +205,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             gap: 7
           }}
         >
-          <span>📜</span> Capstone Defense & Dual Certificates
+          <span>📜</span> {INTERNSHIP_AVAILABLE ? 'Capstone Defense & Dual Certificates' : 'Final project & certificate'}
         </button>
       </div>
     </div>

@@ -20,6 +20,8 @@ interface LessonHeaderProps {
   isInteractive: boolean;
   examPassed: boolean;
   maxUnlockedSlide?: number;
+  /** A test after 5 days: no teaching slides, so no "skip to code". */
+  isTest?: boolean;
 }
 
 export function LessonHeader({
@@ -40,6 +42,7 @@ export function LessonHeader({
   isInteractive,
   examPassed,
   maxUnlockedSlide = 0,
+  isTest = false,
 }: LessonHeaderProps) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
@@ -54,7 +57,7 @@ export function LessonHeader({
           textTransform: 'uppercase',
           letterSpacing: '0.5px'
         }}>
-          Active Class Lesson
+          {isTest ? 'Test' : 'Lesson'}
         </span>
         <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginTop: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
           {questTitle}
@@ -134,12 +137,13 @@ export function LessonHeader({
             🔊 Tap to Unmute Teacher Voice
           </button>
         )}
+        {!isTest && (
         <button
           onClick={() => {
             stopSpeaking();
             setIsPlaying(false);
             setIsInteractive(false);
-            toast.success("Audio Skipped", "Jumping directly to code execution!");
+            toast.success("Audio skipped", "Jumping to the code.");
             const codeEl = document.getElementById('slide-code-execution-block');
             if (codeEl) {
               codeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -160,8 +164,9 @@ export function LessonHeader({
             transition: 'all 0.2s'
           }}
         >
-          ⚡ Skip Audio & Jump to Code
+          ⚡ Skip to the code
         </button>
+        )}
         <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
           Slide {currentSlide + 1} / {totalSlides}
         </span>
