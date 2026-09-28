@@ -6333,5 +6333,1177 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         'Add the date input to JobForm, clean new jobs with createJob, test with a checklist, commit and push.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 26,
+    title: 'Project Build 3: Saving Data and a Details Page',
+    goal: 'You can load saved data safely, finish the job details page with status changes and notes, and handle missing or broken data without crashing.',
+    minutes: 30,
+    recap: 'Yesterday you finished the All Jobs page with filter tabs, search and sorting working together.',
+    parts: [
+      {
+        title: 'Saved data can be broken',
+        say: [
+          'Your jobs are saved in localStorage. Usually that works perfectly. But saved data can go wrong: an older version of your app saved a different shape, the user cleared part of their storage, or a bug once saved something strange.',
+          'If your app assumes the data is always perfect, one bad value can crash the whole page on load, and the user sees a blank screen with no way to fix it. That is the worst kind of bug, because the user is stuck.',
+          'Professional apps are defensive when reading anything they did not just create: saved data, server answers, the address bar. Today you make loading bullet-proof.'
+        ],
+        example: 'A shopkeeper checks a delivery before putting it on the shelf. A torn packet is set aside, not placed next to good stock. Checking what comes in protects everything else.',
+        code: lines(
+          'const saved = ["[{\\"id\\":1}]", "broken{", "{\\"a\\":1}", ""];',
+          'for (const text of saved) {',
+          '  try {',
+          '    const data = JSON.parse(text);',
+          '    console.log(Array.isArray(data) ? "ok: a list" : "wrong shape");',
+          '  } catch {',
+          '    console.log("broken text");',
+          '  }',
+          '}'
+        ),
+        output: lines('ok: a list', 'broken text', 'wrong shape', 'broken text'),
+        codeNotes: [
+          { line: 1, note: 'Four kinds of saved text: good, broken, wrong shape, and empty.' },
+          { line: 5, note: 'Valid JSON can still be the wrong shape, so check it is an array.' }
+        ],
+        tryIt: 'Add "null" to the saved list. JSON.parse("null") works, but is it a list?',
+        check: {
+          question: 'Why check saved data before using it?',
+          options: ['It is faster', 'Broken or old data could crash the app on load', 'localStorage requires it'],
+          answer: 1,
+          why: 'Data you did not just create can be broken or in an old shape. Checking it keeps the app running.'
+        }
+      },
+      {
+        title: 'A safe loadJobs function',
+        say: [
+          'Put all the checks in one function: loadJobs(text). It returns an array every single time. If the text is empty, broken, or not an array, it returns an empty list. This is today\'s first practice task.',
+          'Go one step further: also clean each job with the upgradeJob idea from Day 23, filling in missing notes or dates and fixing unknown statuses. Then every component can trust the data completely.',
+          'A function that always returns the same kind of value, whatever it is given, is easy to use. The components never need to ask "what if this is undefined?".',
+          'Your useLocalStorage hook from Day 20 already has try and catch. Now add the shape check and the upgrade, so it returns clean jobs.'
+        ],
+        example: 'A water filter at home: whatever comes from the tap, what comes out of the filter is always safe to drink. loadJobs is your data filter.',
+        code: lines(
+          'function loadJobs(text) {',
+          '  try {',
+          '    const data = JSON.parse(text);',
+          '    return Array.isArray(data) ? data : [];',
+          '  } catch {',
+          '    return [];',
+          '  }',
+          '}',
+          '',
+          'console.log(loadJobs(\'[{"id":1}]\'));',
+          'console.log(loadJobs("broken{"));',
+          'console.log(loadJobs(\'{"a":1}\'));',
+          'console.log(loadJobs(""));'
+        ),
+        output: lines('[ { id: 1 } ]', '[]', '[]', '[]'),
+        codeNotes: [
+          { line: 4, note: 'Valid JSON but not a list: return an empty list.' },
+          { line: 6, note: 'Broken or empty text throws, and we return an empty list.' }
+        ],
+        tryIt: 'Change loadJobs so each job also gets notes: "" if it has none: data.map(j => ({ notes: "", ...j })).',
+        check: {
+          question: 'What should loadJobs return for broken text?',
+          options: ['undefined', 'An empty array', 'It should crash'],
+          answer: 1,
+          why: 'Always returning an array means the rest of the app never has to handle a surprise value.'
+        }
+      },
+      {
+        title: 'Finding the job for the details page',
+        say: [
+          'On Day 19 you read the id from the address with useParams. Today you make the details page complete. First, find the job safely: the id in the address is text, and it might not match any job, for example an old bookmark to a deleted job.',
+          'findJob(jobs, idText) converts the text with Number, uses find, and returns null when there is no match instead of undefined. That is today\'s second practice task. Returning null clearly says "nothing found".',
+          'If findJob returns null, the page shows a friendly message and a link back, instead of crashing on job.title. This early return is the Day 11 pattern again.'
+        ],
+        example: 'A hotel receptionist asked for room 512 in a building with only 400 rooms politely says it does not exist and gives directions to the lobby, instead of sending the guest up a lift to nowhere.',
+        code: lines(
+          'function findJob(jobs, idText) {',
+          '  const id = Number(idText);',
+          '  return jobs.find(j => j.id === id) || null;',
+          '}',
+          '',
+          'const jobs = [{ id: 1, title: "Dev" }, { id: 2, title: "Tester" }];',
+          'console.log(findJob(jobs, "2"));',
+          'console.log(findJob(jobs, "9"));',
+          'console.log(findJob(jobs, "abc"));'
+        ),
+        output: lines('{ id: 2, title: \'Tester\' }', 'null', 'null'),
+        codeNotes: [
+          { line: 2, note: 'Address values are text. Number("abc") is NaN, which never matches.' },
+          { line: 3, note: '|| null turns "not found" into a clear null.' }
+        ],
+        tryIt: 'Call findJob(jobs, "1") and print only the title.',
+        check: {
+          question: 'Someone opens /jobs/99 but job 99 was deleted. What should the page do?',
+          options: ['Crash', 'Show "Job not found" with a link back', 'Show the first job instead'],
+          answer: 1,
+          why: 'A missing item should get a friendly message and a way back, never a crash or wrong data.'
+        }
+      },
+      {
+        title: 'Changing status from the details page',
+        say: [
+          'The details page should let the user move a job through its stages: buttons for Applied, Interview, Offer and Rejected, with the current one highlighted.',
+          'The page does not own the jobs; App does. So App passes onStatusChange down through the route: <Route path="/jobs/:id" element={<JobDetails jobs={jobs} onStatusChange={changeStatus} />} />. The button calls onStatusChange(job.id, "offer"), and App updates its state with the Day 15 map pattern.',
+          'Because the details page, the list and the dashboard all read from the same jobs state, a change here updates every page at once. Go back to the dashboard after changing a status and the numbers are already right.',
+          'That is the payoff of keeping state in one place: one change, every screen correct.'
+        ],
+        example: 'Updating a parcel\'s status at the warehouse. The customer\'s app, the delivery driver\'s phone and the website all show the new status, because they read the same record.',
+        code: lines(
+          'const STATUSES = ["applied", "interview", "offer", "rejected"];',
+          'let jobs = [{ id: 1, title: "Dev", status: "applied" }];',
+          '',
+          'function changeStatus(id, status) {',
+          '  if (!STATUSES.includes(status)) return;',
+          '  jobs = jobs.map(j => (j.id === id ? { ...j, status } : j));',
+          '}',
+          '',
+          'changeStatus(1, "interview");',
+          'changeStatus(1, "hired");',
+          'console.log(jobs[0].status);'
+        ),
+        output: 'interview',
+        codeNotes: [
+          { line: 5, note: 'Ignore unknown statuses, so bad values never reach the saved data.' },
+          { line: 10, note: '"hired" is not allowed, so nothing changes.' }
+        ],
+        projectCode: {
+          label: 'Status buttons in JobDetails',
+          code: lines(
+            'const STATUSES = ["applied", "interview", "offer", "rejected"];',
+            '',
+            '<div className="status-buttons">',
+            '  {STATUSES.map(s => (',
+            '    <button',
+            '      key={s}',
+            '      className={job.status === s ? "active" : ""}',
+            '      aria-pressed={job.status === s}',
+            '      onClick={() => onStatusChange(job.id, s)}',
+            '    >',
+            '      {statusLabel(s)}',
+            '    </button>',
+            '  ))}',
+            '</div>'
+          )
+        },
+        tryIt: 'Change status to "offer" and print it.',
+        check: {
+          question: 'Why does changing a status on the details page also update the dashboard?',
+          options: ['The dashboard reloads the page', 'Both read the same jobs state held in App', 'It does not'],
+          answer: 1,
+          why: 'All pages read from one jobs state, so one update is seen everywhere.'
+        }
+      },
+      {
+        title: 'Notes: editing text that is saved',
+        say: [
+          'The last feature from your plan: notes on each job, like "HR said they will call on Monday". A textarea on the details page, with a Save button.',
+          'Keep the text being typed in local state on the details page: const [draft, setDraft] = useState(job.notes);. Only when the user clicks Save do you call onNotesChange(job.id, draft), and App saves it into the jobs. This way, the saved notes do not change on every keystroke, and the user can type freely.',
+          'Show a small "Saved" message after saving, so the user knows it worked. Feedback after an action is a simple thing that makes apps feel trustworthy.',
+          'Also limit the length, for example 500 characters, and show how many are left. It prevents accidental huge pastes and gives the user a clear boundary.'
+        ],
+        example: 'Writing a message on WhatsApp: you can type, delete and retype as much as you like. Nothing is sent until you press Send. The draft is local; sending saves it.',
+        code: lines(
+          'const MAX = 500;',
+          'function notesInfo(draft, saved) {',
+          '  const left = MAX - draft.length;',
+          '  const unsaved = draft !== saved;',
+          '  return `${left} characters left${unsaved ? " (not saved yet)" : ""}`;',
+          '}',
+          '',
+          'console.log(notesInfo("Call HR on Monday", "Call HR on Monday"));',
+          'console.log(notesInfo("Call HR on Monday at 10", "Call HR on Monday"));'
+        ),
+        output: lines('483 characters left', '477 characters left (not saved yet)'),
+        codeNotes: [
+          { line: 4, note: 'If the draft differs from what is saved, tell the user it is not saved yet.' }
+        ],
+        projectCode: {
+          label: 'Notes in JobDetails',
+          code: lines(
+            'const [draft, setDraft] = useState(job.notes);',
+            'const [savedMessage, setSavedMessage] = useState("");',
+            '',
+            'function save() {',
+            '  onNotesChange(job.id, draft.slice(0, 500));',
+            '  setSavedMessage("Saved");',
+            '}',
+            '',
+            '<label htmlFor="notes">Notes</label>',
+            '<textarea id="notes" value={draft} maxLength={500} onChange={e => { setDraft(e.target.value); setSavedMessage(""); }} />',
+            '<button onClick={save}>Save notes</button> {savedMessage}'
+          )
+        },
+        tryIt: 'Call notesInfo with an empty draft and an empty saved value.',
+        check: {
+          question: 'Why keep the notes being typed in local draft state?',
+          options: ['To save memory', 'So the saved notes change only when the user clicks Save', 'Because textarea cannot use props'],
+          answer: 1,
+          why: 'The draft can change freely; the saved value updates only on Save, which is what users expect.'
+        }
+      },
+      {
+        title: 'Feature complete',
+        say: [
+          'Run your checklist from Day 25 again, adding today\'s items: open a details page, change the status, write and save notes, refresh, open a deleted job\'s address, and put broken text into localStorage by hand in DevTools to see the app survive.',
+          'To break the data on purpose: open DevTools with F12, go to Application, then Local Storage, click your site, and change the jobs value to broken{. Refresh. Your app should show an empty list, not a blank page.',
+          'When everything passes, commit and push. Your Job Tracker is now feature complete: every must-have from your plan is done.',
+          'The next three days make it professional: finding bugs, adding automatic tests, and putting it online for everyone to see.'
+        ],
+        example: 'A car maker crash-tests cars on purpose to prove they are safe. You are crash-testing your app with broken data to prove it survives.',
+        code: lines(
+          'const checks = [',
+          '  { step: "Details page shows the job", passed: true },',
+          '  { step: "Status change updates dashboard", passed: true },',
+          '  { step: "Notes survive refresh", passed: true },',
+          '  { step: "Deleted job shows Not found", passed: true },',
+          '  { step: "Broken storage shows empty list", passed: true }',
+          '];',
+          'const passed = checks.filter(c => c.passed).length;',
+          'console.log(passed === checks.length ? "Feature complete. Commit and push!" : `${checks.length - passed} left to fix`);'
+        ),
+        output: 'Feature complete. Commit and push!',
+        codeNotes: [
+          { line: 6, note: 'The crash test: the app must survive broken saved data.' }
+        ],
+        tryIt: 'Set one check to passed: false and run again.',
+        check: {
+          question: 'How can you test that your app survives broken saved data?',
+          options: ['Wait for it to happen', 'Edit the value in DevTools, Application, Local Storage, then refresh', 'Delete the project'],
+          answer: 1,
+          why: 'Breaking the data on purpose in DevTools lets you see exactly how the app reacts.'
+        }
+      }
+    ],
+    summary: [
+      'Treat saved data as untrusted: it can be broken or in an old shape.',
+      'loadJobs always returns an array: parse inside try/catch and check the shape.',
+      'findJob converts the address id with Number and returns null when not found.',
+      'Keep state in one place so a change on one page updates every page.',
+      'Use a local draft for editable text and save on a button; give feedback after saving.'
+    ],
+    projectStep: {
+      title: 'Finish the details page',
+      steps: [
+        'Make loading safe with loadJobs and a shape check.',
+        'Add status buttons and a notes box with Save on the details page.',
+        'Crash-test with broken localStorage, run your checklist, then commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 27,
+    title: 'Debugging: Finding and Fixing Mistakes',
+    goal: 'You can read error messages, find bugs step by step with console.log and DevTools, and recognise the most common React mistakes.',
+    minutes: 30,
+    recap: 'Yesterday you finished the Job Tracker\'s features and crash-tested it with broken data.',
+    parts: [
+      {
+        title: 'Debugging is a normal part of the job',
+        say: [
+          'Every developer writes bugs, every day. Senior developers are not people who never make mistakes; they are people who find and fix them quickly and calmly. Debugging is a skill you can learn, like any other.',
+          'In a new job, your first tasks are very often bug fixes, because they teach you the codebase. Being good at debugging makes a strong first impression.',
+          'The method is always the same. One: reproduce the bug reliably. Two: read the error message. Three: narrow down where it happens. Four: find the cause and fix it. Five: check that the fix works and nothing else broke.'
+        ],
+        example: 'A doctor does not guess. They ask where it hurts, run a test, narrow down the cause, and then treat it. Debugging is the same careful process for code.',
+        code: lines(
+          'const steps = ["Reproduce it", "Read the error", "Narrow it down", "Find and fix the cause", "Check the fix"];',
+          'steps.forEach((step, i) => console.log(`${i + 1}. ${step}`));'
+        ),
+        output: lines('1. Reproduce it', '2. Read the error', '3. Narrow it down', '4. Find and fix the cause', '5. Check the fix'),
+        codeNotes: [
+          { line: 2, note: 'forEach runs a function for each item. The second value, i, is the position.' }
+        ],
+        tryIt: 'Add a sixth step: "Write down what you learned".',
+        check: {
+          question: 'What is the first step of debugging?',
+          options: ['Change random lines', 'Reproduce the bug reliably', 'Ask someone else'],
+          answer: 1,
+          why: 'If you cannot make the bug happen on purpose, you cannot be sure your fix worked.'
+        }
+      },
+      {
+        title: 'Reading an error message',
+        say: [
+          'Beginners often panic at red text and stop reading. Error messages are your friends: they usually tell you what went wrong and exactly where.',
+          'An error has three useful parts. The type, like TypeError or ReferenceError. The message, like "Cannot read properties of undefined (reading \'title\')". And the location: the file name and line number, for example JobCard.jsx:12.',
+          'Learn the common ones. "Cannot read properties of undefined" means the thing before the dot does not exist. "X is not defined" means a typo in a name or a missing import. "X is not a function" means you are calling something that is not a function, often a wrong prop name.',
+          'Copy the exact message into a search engine when you do not understand it. Thousands of developers have seen the same error before you.'
+        ],
+        example: 'A car dashboard light that says "Low oil pressure" is far more useful than the car just stopping. Error messages are your code\'s warning lights; read them.',
+        code: lines(
+          'function tryIt(fn) {',
+          '  try { fn(); } catch (err) { console.log(`${err.name}: ${err.message}`); }',
+          '}',
+          '',
+          'tryIt(() => { const job = undefined; return job.title; });',
+          'tryIt(() => { return jobz.length; });',
+          'tryIt(() => { const onDelete = "not a function"; onDelete(1); });'
+        ),
+        output: lines(
+          'TypeError: Cannot read properties of undefined (reading \'title\')',
+          'ReferenceError: jobz is not defined',
+          'TypeError: onDelete is not a function'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Reading a property of something that does not exist.' },
+          { line: 6, note: 'A typo: jobz instead of jobs.' },
+          { line: 7, note: 'Calling something that is not a function, like a wrong prop.' }
+        ],
+        tryIt: 'Add a fourth case: tryIt(() => JSON.parse("{bad")); and read its error.',
+        check: {
+          question: 'What does "Cannot read properties of undefined (reading \'title\')" mean?',
+          options: ['title is empty', 'The thing before .title is undefined', 'The title is too long'],
+          answer: 1,
+          why: 'You tried to read .title from something that does not exist. Find out why that thing is undefined.'
+        }
+      },
+      {
+        title: 'console.log and the browser DevTools',
+        say: [
+          'When there is no error but the result is wrong, you need to see what your code is actually doing. The simplest tool is console.log: print the values at each step and compare them with what you expected.',
+          'Log with labels, so you know which log is which: console.log("jobs before filter", jobs). Log objects directly; the browser console lets you expand them.',
+          'The browser DevTools, opened with F12, have more: the Console shows logs and errors, the Network tab shows every request to a server and its answer, and the Sources tab lets you pause code on a line with a breakpoint and look at every variable.',
+          'Remove your debugging logs when you are done. Leaving dozens of console.logs in finished code looks careless in a review.'
+        ],
+        example: 'A detective follows footprints step by step to see where someone went. console.log leaves footprints through your code so you can see the path the data took.',
+        code: lines(
+          'function visible(jobs, tab) {',
+          '  console.log("tab:", tab);',
+          '  const result = jobs.filter(j => j.status === tab);',
+          '  console.log("result count:", result.length);',
+          '  return result;',
+          '}',
+          '',
+          'visible([{ status: "Interview" }, { status: "interview" }], "interview");'
+        ),
+        output: lines('tab: interview', 'result count: 1'),
+        codeNotes: [
+          { line: 2, note: 'Labelled logs show what the function received and produced.' },
+          { line: 8, note: 'Only 1 of 2 matched. The first job has "Interview" with a capital I: a data bug found by logging.' }
+        ],
+        tryIt: 'Fix the filter so capital letters do not matter: compare j.status.toLowerCase() === tab.',
+        check: {
+          question: 'Which DevTools tab shows the requests your app sends to servers?',
+          options: ['Console', 'Network', 'Elements'],
+          answer: 1,
+          why: 'The Network tab lists every request, its status code and the answer.'
+        }
+      },
+      {
+        title: 'Finding the bug by narrowing down',
+        say: [
+          'When you do not know where a bug is, narrow it down. Check the data at the start: is it right? Check it in the middle: still right? Keep halving until you find the exact line where right becomes wrong.',
+          'Today\'s first practice task is a classic: a total that is too small. The loop starts at 1 instead of 0, so it skips the first job. Logging i and the running total at each step makes it obvious.',
+          'Off-by-one errors, starting at 1 instead of 0 or stopping one item too early, are among the most common bugs in all of programming. Whenever a count is exactly one off, suspect the start or end of a loop.',
+          'After fixing, run it with a few different inputs, including an empty list, to make sure the fix is complete.'
+        ],
+        example: 'Finding a leak in a long garden pipe: check the water halfway along. If it is fine there, the leak is further on. Keep halving until you find the exact spot.',
+        code: lines(
+          'function totalSalary(jobs) {',
+          '  let total = 0;',
+          '  for (let i = 1; i < jobs.length; i++) {',
+          '    console.log(`i=${i}, adding ${jobs[i].salary}`);',
+          '    total = total + jobs[i].salary;',
+          '  }',
+          '  return total;',
+          '}',
+          '',
+          'console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));'
+        ),
+        output: lines('i=1, adding 200', 'i=2, adding 300', '500'),
+        codeNotes: [
+          { line: 3, note: 'The bug: i starts at 1, so jobs[0] is never added.' },
+          { line: 4, note: 'The log shows the first job was skipped. Expected 600, got 500.' }
+        ],
+        tryIt: 'Fix it by starting at 0, run again, and then remove the log line.',
+        check: {
+          question: 'A total is missing exactly one item. What should you check first?',
+          options: ['The CSS', 'Where the loop starts and ends', 'The browser version'],
+          answer: 1,
+          why: 'Being exactly one item off is the classic sign of a loop starting or ending one step wrong.'
+        }
+      },
+      {
+        title: 'Common React mistakes',
+        say: [
+          'Some bugs appear in almost every beginner React project. Knowing them saves hours. One: changing state directly, like jobs.push(job), so the screen does not update. Fix: setJobs([...jobs, job]).',
+          'Two: calling a function in onClick, onClick={remove(id)}, so it runs while drawing. Fix: onClick={() => remove(id)}. Three: a list with no key or duplicate keys, which causes warnings and mixed-up items. Fix: key={job.id}.',
+          'Four: a useEffect with missing dependencies, which uses old values, or one that sets state it depends on, which loops forever. Five: an arrow function with curly brackets but no return in map, so the list is empty.',
+          'React DevTools, a free browser extension, shows your component tree with each component\'s props and state. When the screen looks wrong, check whether the state is wrong or the display of correct state is wrong. That tells you where to look.'
+        ],
+        example: 'Mechanics know the five most common reasons a bike will not start, and check those first. These five mistakes are React\'s common reasons.',
+        code: lines(
+          'const jobs = ["Dev"];',
+          'const same = jobs;',
+          'same.push("Tester");',
+          'console.log("Direct change, same array:", same === jobs);',
+          '',
+          'const items = ["Dev", "Tester"].map(t => { `<li>${t}</li>` });',
+          'console.log("Curly brackets without return:", items);'
+        ),
+        output: lines('Direct change, same array: true', 'Curly brackets without return: [ undefined, undefined ]'),
+        codeNotes: [
+          { line: 4, note: 'Mistake one: React would see the same array and may not update.' },
+          { line: 7, note: 'Mistake five: every item is undefined, so the list shows nothing.' }
+        ],
+        tryIt: 'Fix line 6 by removing the curly brackets, and fix line 2 by using [...jobs].',
+        check: {
+          question: 'The screen shows old data after you add a job, and there is no error. What is the most likely cause?',
+          options: ['The browser is slow', 'State was changed directly instead of with the setter and a new array', 'Too many jobs'],
+          answer: 1,
+          why: 'Changing state directly does not tell React to re-render. Use the setter with a new copy.'
+        }
+      },
+      {
+        title: 'Find and fix a bug in your project',
+        say: [
+          'Today\'s project work is a bug hunt. Go through your app with fresh eyes, and try to break it. Type very long titles, add twenty jobs, switch tabs quickly, use it on a phone size, use only the keyboard.',
+          'For each bug you find, write it down like a bug report: what you did, what you expected, and what actually happened. This is exactly how bugs are reported at work, and it forces you to be precise.',
+          'Fix them one at a time, and commit each fix separately with a message like "Fix delete button removing the wrong job". Small, clear commits make a clean history that reviewers love.',
+          'Prepare one bug story for interviews: "I found that notes were lost when... I narrowed it down to... the cause was... I fixed it by...". Interviewers ask about this constantly.'
+        ],
+        example: 'A proofreader reads a book specifically looking for mistakes, not to enjoy the story. Today you read your app like a proofreader.',
+        code: lines(
+          'const bug = {',
+          '  did: "Deleted the second job while the Interview tab was open",',
+          '  expected: "The second job is removed",',
+          '  actual: "The first job was removed"',
+          '};',
+          'console.log(`Did: ${bug.did}`);',
+          'console.log(`Expected: ${bug.expected}`);',
+          'console.log(`Actual: ${bug.actual}`);'
+        ),
+        output: lines(
+          'Did: Deleted the second job while the Interview tab was open',
+          'Expected: The second job is removed',
+          'Actual: The first job was removed'
+        ),
+        codeNotes: [
+          { line: 2, note: 'A good bug report: what you did, what you expected, what happened.' }
+        ],
+        tryIt: 'Write a bug report for any bug you found in your own project.',
+        check: {
+          question: 'What makes a useful bug report?',
+          options: ['"It is broken"', 'What you did, what you expected, and what actually happened', 'A screenshot only'],
+          answer: 1,
+          why: 'Those three facts let anyone reproduce the bug and know when it is fixed.'
+        }
+      }
+    ],
+    summary: [
+      'Debugging method: reproduce, read the error, narrow down, fix the cause, check.',
+      'Errors tell you what and where: learn the common TypeError and ReferenceError messages.',
+      'Use labelled console.logs and DevTools (Console, Network, Sources); remove logs afterwards.',
+      'Off-by-one loops and the five common React mistakes cause most beginner bugs.',
+      'Report bugs precisely and commit each fix separately.'
+    ],
+    projectStep: {
+      title: 'Bug hunt',
+      steps: [
+        'Try to break your app: long text, many jobs, phone size, keyboard only.',
+        'Write a short bug report for each problem you find.',
+        'Fix them one by one, with one commit per fix, then push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 28,
+    title: 'Testing Your Code',
+    goal: 'You can write automatic tests for your functions with Vitest, and understand how React Testing Library tests components the way a user uses them.',
+    minutes: 30,
+    recap: 'Yesterday you learned to find and fix bugs, and went on a bug hunt in your project.',
+    parts: [
+      {
+        title: 'Why automatic tests',
+        say: [
+          'Yesterday you tested by hand with a checklist. It works, but it is slow, and after every change you would have to repeat the whole list. So people skip it, and old bugs come back.',
+          'An automatic test is a small program that checks your code and says pass or fail. You write it once, and it runs in seconds, as often as you like. Change something, run the tests, and you know immediately if you broke anything.',
+          'Companies run thousands of tests before every release. Knowing how to write tests is often what separates a junior who gets hired from one who does not. You do not need to test everything; start with your most important logic.'
+        ],
+        example: 'A smoke alarm checks for smoke all the time so you do not have to sniff every room every hour. Tests watch your code the same way.',
+        code: lines(
+          'function jobStats(jobs) {',
+          '  return { total: jobs.length, offers: jobs.filter(j => j.status === "offer").length };',
+          '}',
+          '',
+          'const result = jobStats([{ status: "offer" }, { status: "applied" }]);',
+          'console.log(result.total === 2 && result.offers === 1 ? "PASS" : "FAIL");'
+        ),
+        output: 'PASS',
+        codeNotes: [
+          { line: 6, note: 'The simplest possible test: run the code and compare with the expected answer.' }
+        ],
+        tryIt: 'Break jobStats on purpose (for example count "applied" instead of "offer") and run again. The test catches it.',
+        check: {
+          question: 'What is the main advantage of automatic tests over a manual checklist?',
+          options: ['They look impressive', 'They run in seconds after every change, so bugs are caught immediately', 'They replace all manual checks forever'],
+          answer: 1,
+          why: 'Automatic tests are fast and repeatable, so you can run them after every change.'
+        }
+      },
+      {
+        title: 'Arrange, act, check',
+        say: [
+          'Every test follows the same three steps. Arrange: prepare the input, like a small list of jobs. Act: call the function you are testing. Check: compare the result with what you expect.',
+          'A good test checks one behaviour and has a name that says what it checks, in plain words: "filterJobs returns only interview jobs for the interview tab". When it fails, the name alone tells you what broke.',
+          'Test the normal case and the edge cases: an empty list, an unknown status, text with spaces. Edge cases are where bugs hide, as you learned on Day 25.',
+          'Today\'s second practice task, expectEqual, is the heart of every testing library: compare two values and throw a clear error if they differ.'
+        ],
+        example: 'A science experiment: set up the equipment (arrange), do the experiment (act), and compare the result with your prediction (check).',
+        code: lines(
+          'function expectEqual(actual, expected) {',
+          '  if (actual !== expected) throw new Error(`Expected ${expected} but got ${actual}`);',
+          '  return true;',
+          '}',
+          '',
+          'function test(name, fn) {',
+          '  try { fn(); console.log(`PASS ${name}`); }',
+          '  catch (err) { console.log(`FAIL ${name}: ${err.message}`); }',
+          '}',
+          '',
+          'const filterJobs = (jobs, tab) => (tab === "all" ? jobs : jobs.filter(j => j.status === tab));',
+          'test("all tab returns every job", () => expectEqual(filterJobs([{}, {}], "all").length, 2));',
+          'test("offer tab with no offers is empty", () => expectEqual(filterJobs([{ status: "applied" }], "offer").length, 0));',
+          'test("a wrong expectation fails", () => expectEqual(filterJobs([], "all").length, 1));'
+        ),
+        output: lines('PASS all tab returns every job', 'PASS offer tab with no offers is empty', 'FAIL a wrong expectation fails: Expected 1 but got 0'),
+        codeNotes: [
+          { line: 2, note: 'Check: throw a clear error when the result is not what we expected.' },
+          { line: 6, note: 'A tiny test runner: run each test and report pass or fail.' },
+          { line: 14, note: 'This one fails on purpose, to show what a failure looks like.' }
+        ],
+        tryIt: 'Add a test that the interview tab returns 1 job from a list with one interview and one applied job.',
+        check: {
+          question: 'What are the three steps of a test?',
+          options: ['Write, delete, repeat', 'Arrange, act, check', 'Start, stop, restart'],
+          answer: 1,
+          why: 'Prepare the input, call the code, and compare the result with the expected answer.'
+        }
+      },
+      {
+        title: 'Vitest in your project',
+        say: [
+          'Real projects use a testing library instead of a home-made runner. For Vite projects, the standard is Vitest. Install it with npm install -D vitest, and add "test": "vitest" to the scripts in package.json.',
+          'Tests live in files ending in .test.js, next to the code they test: jobStats.test.js next to jobStats.js. Inside, you write test("name", () => { ... }) and use expect(value).toBe(expected) to check.',
+          'Run npm test. Vitest finds all test files, runs them, and shows green for pass and red for fail. It also keeps watching: save a file, and the tests run again automatically.',
+          'Start with your utils: jobStats, filterJobs, visibleJobs, createJob, loadJobs. They are plain functions, so they are the easiest and most valuable things to test.'
+        ],
+        example: 'Switching from checking your homework yourself to having a teacher check it every time you hand it in. The teacher is quicker and never gets tired.',
+        projectCode: {
+          label: 'src/utils/jobStats.test.js',
+          code: lines(
+            'import { describe, test, expect } from "vitest";',
+            'import { jobStats } from "./jobStats.js";',
+            '',
+            'describe("jobStats", () => {',
+            '  test("counts jobs by status", () => {',
+            '    const jobs = [{ status: "offer" }, { status: "interview" }, { status: "interview" }];',
+            '    expect(jobStats(jobs)).toEqual({ total: 3, interviews: 2, offers: 1, rejected: 0 });',
+            '  });',
+            '',
+            '  test("works with no jobs", () => {',
+            '    expect(jobStats([]).total).toBe(0);',
+            '  });',
+            '});'
+          )
+        },
+        code: lines(
+          'function toEqual(a, b) {',
+          '  return JSON.stringify(a) === JSON.stringify(b);',
+          '}',
+          '',
+          'console.log(3 === 3);',
+          'console.log({ total: 3 } === { total: 3 });',
+          'console.log(toEqual({ total: 3 }, { total: 3 }));'
+        ),
+        output: lines('true', 'false', 'true'),
+        codeNotes: [
+          { line: 6, note: 'Two separate objects are never === equal, even with the same contents.' },
+          { line: 7, note: 'That is why Vitest has toEqual, which compares contents. toBe is for simple values.' }
+        ],
+        tryIt: 'Compare two arrays [1, 2] with === and then with toEqual.',
+        check: {
+          question: 'In Vitest, which check compares the contents of two objects?',
+          options: ['toBe', 'toEqual', '==='],
+          answer: 1,
+          why: 'toBe uses ===, which is false for two different objects. toEqual compares their contents.'
+        }
+      },
+      {
+        title: 'Testing edge cases',
+        say: [
+          'Good tests focus on the cases that are easy to get wrong. For loadJobs: valid text, broken text, empty text, valid JSON that is not a list. For createJob: spaces around the title, an empty date.',
+          'For email checks, like today\'s first practice task isValidEmail: a normal address, one with no @, one with nothing before the @, one with no dot after it. Each edge case is one short test.',
+          'When you fix a bug, first write a test that fails because of the bug, then fix the code so it passes. This proves the fix works, and the test stops the bug from ever coming back. This is called a regression test.',
+          'You do not need 100 tests. Ten well-chosen tests on your core logic are worth far more than a hundred tests of trivial things.'
+        ],
+        example: 'A bridge engineer tests the bridge with heavy trucks and strong wind, not just with one bicycle on a calm day. Edge cases are the trucks and the wind.',
+        code: lines(
+          'function isValidEmail(email) {',
+          '  return /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email);',
+          '}',
+          '',
+          'const cases = [',
+          '  ["asha@mail.com", true],',
+          '  ["asha.mail.com", false],',
+          '  ["@mail.com", false],',
+          '  ["asha@mail", false]',
+          '];',
+          'for (const [email, expected] of cases) {',
+          '  console.log(`${isValidEmail(email) === expected ? "PASS" : "FAIL"} ${email}`);',
+          '}'
+        ),
+        output: lines('PASS asha@mail.com', 'PASS asha.mail.com', 'PASS @mail.com', 'PASS asha@mail'),
+        codeNotes: [
+          { line: 2, note: 'A pattern: some text, @, some text, a dot, some text, and no spaces.' },
+          { line: 5, note: 'A table of inputs and expected answers covers many edge cases in a few lines.' }
+        ],
+        tryIt: 'Add a case "asha @mail.com" (with a space). What should the expected answer be?',
+        check: {
+          question: 'What is a regression test?',
+          options: ['A test that runs slowly', 'A test written for a fixed bug so it never comes back', 'A test of the design'],
+          answer: 1,
+          why: 'It reproduces a bug that was fixed, so if the bug returns, the test fails.'
+        }
+      },
+      {
+        title: 'Testing components like a user',
+        say: [
+          'Plain functions are easy to test. For components, the standard tool is React Testing Library. Its idea is simple: test what the user sees and does, not the code inside.',
+          'A component test renders the component, finds things the way a user would, by their text, label or role, performs actions like clicking and typing, and checks what appears. For example: render JobForm, click Add job with empty fields, and check that "Title is required" appears.',
+          'Because tests find elements by label and role, they also push you towards accessible components. A button without a proper label is hard to find in a test, and hard for a screen reader too.',
+          'Setting it up takes a few extra packages; the code box below shows a typical test. For your project, a couple of component tests next to your utility tests is plenty for a strong portfolio.'
+        ],
+        example: 'Testing a car by driving it: turn the key, press the pedal, check it moves. You do not open the engine for this test; you use it the way a driver would.',
+        projectCode: {
+          label: 'src/components/JobForm.test.jsx',
+          code: lines(
+            'import { render, screen } from "@testing-library/react";',
+            'import userEvent from "@testing-library/user-event";',
+            'import { test, expect, vi } from "vitest";',
+            'import JobForm from "./JobForm.jsx";',
+            '',
+            'test("shows an error when the title is empty", async () => {',
+            '  const onAdd = vi.fn();',
+            '  render(<JobForm onAdd={onAdd} />);',
+            '  await userEvent.click(screen.getByRole("button", { name: "Add job" }));',
+            '  expect(screen.getByText("Title is required")).toBeTruthy();',
+            '  expect(onAdd).not.toHaveBeenCalled();',
+            '});'
+          )
+        },
+        code: lines(
+          'function validateJobForm(form) {',
+          '  const errors = [];',
+          '  if (!form.title.trim()) errors.push("Title is required");',
+          '  if (!form.company.trim()) errors.push("Company is required");',
+          '  return errors;',
+          '}',
+          '',
+          'const shown = validateJobForm({ title: "", company: "TCS" });',
+          'console.log(shown.includes("Title is required") ? "PASS error shown" : "FAIL");',
+          'console.log(shown.length === 1 ? "PASS only one error" : "FAIL");'
+        ),
+        output: lines('PASS error shown', 'PASS only one error'),
+        codeNotes: [
+          { line: 9, note: 'The same check a component test makes, on the logic behind the form.' }
+        ],
+        tryIt: 'Add a check that an empty company also shows "Company is required".',
+        check: {
+          question: 'How does React Testing Library find elements?',
+          options: ['By CSS class names', 'The way a user would: by text, label or role', 'By line number'],
+          answer: 1,
+          why: 'It tests what users see and do, so it finds elements by their visible text, labels and roles.'
+        }
+      },
+      {
+        title: 'Add tests to the Job Tracker',
+        say: [
+          'Your project task: install Vitest and write tests for your utility functions: at least jobStats, filterJobs, createJob and loadJobs, with the normal case and one or two edge cases each.',
+          'Run npm test and make sure everything is green. Then break one function on purpose and watch its test turn red, so you trust that your tests really check something.',
+          'Mention the tests in your README: "Core logic covered by unit tests with Vitest. Run npm test." Reviewers notice this immediately, because many junior projects have no tests at all.',
+          'Commit and push. Tomorrow, your app goes live on the internet.'
+        ],
+        example: 'Before a new building opens, inspectors test the fire alarms and emergency exits. Your tests are your app\'s safety inspection before opening day.',
+        code: lines(
+          'const suite = {',
+          '  jobStats: 2,',
+          '  filterJobs: 3,',
+          '  createJob: 2,',
+          '  loadJobs: 4',
+          '};',
+          'const total = Object.values(suite).reduce((sum, n) => sum + n, 0);',
+          'console.log(`${Object.keys(suite).length} functions, ${total} tests`);'
+        ),
+        output: '4 functions, 11 tests',
+        codeNotes: [
+          { line: 7, note: 'reduce adds up all the values: it carries a running sum through the array.' }
+        ],
+        tryIt: 'Add visibleJobs: 3 to the suite and run again.',
+        check: {
+          question: 'Why break a function on purpose after writing its tests?',
+          options: ['For fun', 'To prove the tests really fail when the code is wrong', 'It is required by Vitest'],
+          answer: 1,
+          why: 'A test that never fails is not checking anything. Seeing it turn red proves it works.'
+        }
+      }
+    ],
+    summary: [
+      'Automatic tests check your code in seconds after every change.',
+      'Each test: arrange the input, act by calling the code, check the result.',
+      'Vitest: test(), expect(x).toBe(y) for simple values, toEqual for objects and arrays.',
+      'Test edge cases and write a regression test for every bug you fix.',
+      'React Testing Library tests components the way users use them.'
+    ],
+    projectStep: {
+      title: 'Unit tests with Vitest',
+      steps: [
+        'Install Vitest and add a test script to package.json.',
+        'Write tests for jobStats, filterJobs, createJob and loadJobs, including edge cases.',
+        'Run npm test until all pass, mention tests in the README, commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 29,
+    title: 'Putting Your App Online',
+    goal: 'You can build your app for production, deploy it to Vercel from GitHub, fix routing for a single-page app, and finish your README with a live link.',
+    minutes: 30,
+    recap: 'Yesterday you added automatic tests for your core logic with Vitest.',
+    parts: [
+      {
+        title: 'Development versus production',
+        say: [
+          'So far your app runs with npm run dev, on your own laptop only. That development server is made for building: it reloads instantly and shows detailed errors, but it is not fast or suitable for real users.',
+          'For real users, you create a production build with npm run build. Vite bundles all your files into a few small, optimised files in a folder called dist. These files can be served by any web host.',
+          'Run npm run build, then npm run preview to see the production version on your laptop before deploying. If the build fails, it is usually a mistake the dev server let pass, like a wrong import path with capital letters. Fix it before deploying.'
+        ],
+        example: 'A restaurant kitchen during recipe testing is messy and full of notes. The dish served to customers is plated neatly. The build is the plated dish.',
+        projectCode: {
+          label: 'In your terminal',
+          code: lines(
+            'npm run build',
+            '# creates the dist folder',
+            'npm run preview',
+            '# opens the production version at http://localhost:4173'
+          )
+        },
+        code: lines(
+          'const sourceFiles = ["App.jsx", "Header.jsx", "JobCard.jsx", "JobList.jsx", "JobForm.jsx", "Dashboard.jsx", "index.css"];',
+          'const dist = ["index.html", "assets/index-a1b2c3.js", "assets/index-d4e5f6.css"];',
+          'console.log(`${sourceFiles.length} source files became ${dist.length} files for users`);'
+        ),
+        output: '7 source files became 3 files for users',
+        codeNotes: [
+          { line: 2, note: 'The random letters in the file names change when the content changes, so browsers always load the newest version.' }
+        ],
+        tryIt: 'Run npm run build in your project and look inside the dist folder.',
+        check: {
+          question: 'What does npm run build create?',
+          options: ['A new React project', 'An optimised dist folder ready to put online', 'A test report'],
+          answer: 1,
+          why: 'The build bundles and optimises your app into the dist folder for real users.'
+        }
+      },
+      {
+        title: 'Deploying with Vercel',
+        say: [
+          'Vercel is a free hosting service built by the team behind Next.js. It connects to your GitHub repository and deploys your app automatically. Netlify works in a very similar way.',
+          'Sign up at vercel.com with your GitHub account. Click Add New, then Project, choose your job-tracker repository, and click Deploy. Vercel detects Vite and uses npm run build and the dist folder by itself.',
+          'In about a minute, you get a live address like job-tracker-yourname.vercel.app. Open it on your phone. Your app is on the internet, and anyone in the world can use it.',
+          'Best of all: every time you push to GitHub, Vercel deploys the new version automatically. Your daily routine of commit and push now also updates your live app.'
+        ],
+        example: 'It is like a printing press connected to your notebook. Every time you finish a page and hand it over (push), a fresh copy is printed and put on the shelf for everyone (deploy).',
+        projectCode: {
+          label: 'Vercel settings (detected automatically for Vite)',
+          code: lines(
+            'Framework Preset: Vite',
+            'Build Command:    npm run build',
+            'Output Directory: dist',
+            'Install Command:  npm install'
+          )
+        },
+        code: lines(
+          'function apiBaseUrl(env) {',
+          '  return env === "production" ? "https://jobtracker.vercel.app" : "http://localhost:5173";',
+          '}',
+          '',
+          'console.log(apiBaseUrl("development"));',
+          'console.log(apiBaseUrl("production"));'
+        ),
+        output: lines('http://localhost:5173', 'https://jobtracker.vercel.app'),
+        codeNotes: [
+          { line: 2, note: 'Apps often use a different address in development and production. Today\'s first practice task.' }
+        ],
+        tryIt: 'Add a "preview" environment that returns "http://localhost:4173".',
+        check: {
+          question: 'After connecting Vercel to GitHub, how do you publish a new version?',
+          options: ['Upload files by hand', 'Just push to GitHub; Vercel deploys automatically', 'Email Vercel'],
+          answer: 1,
+          why: 'Vercel watches your repository and builds and deploys every new push.'
+        }
+      },
+      {
+        title: 'Fixing refresh on inner pages',
+        say: [
+          'After deploying, try this: open a job\'s details page, then press refresh. You may see Vercel\'s 404 Not Found page. Why? Your app has only one real file, index.html. The address /jobs/42 exists only inside React Router, not on the server.',
+          'When you click links inside the app, React Router handles them. But on refresh, the browser asks the server for /jobs/42, and the server has no such file.',
+          'The fix: tell the server to send index.html for every address, and let React Router take over. On Vercel, add a file called vercel.json in the project root with a rewrite rule, shown below. Commit, push, and refresh works everywhere.',
+          'This is one of the most common deployment problems for React apps, and a question some interviewers like to ask. Now you know both the cause and the fix.'
+        ],
+        example: 'A mall with one main entrance. Visitors asking the car park attendant for "shop 42" are sent to the main entrance, and the mall directory inside guides them. The rewrite sends every address to index.html, and React Router is the directory.',
+        projectCode: {
+          label: 'vercel.json (in the project root)',
+          code: lines(
+            '{',
+            '  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]',
+            '}'
+          )
+        },
+        code: lines(
+          'const filesOnServer = ["/index.html", "/assets/index.js"];',
+          'function serve(path, rewrite) {',
+          '  if (filesOnServer.includes(path)) return path;',
+          '  return rewrite ? "/index.html" : "404 Not Found";',
+          '}',
+          '',
+          'console.log(serve("/jobs/42", false));',
+          'console.log(serve("/jobs/42", true));'
+        ),
+        output: lines('404 Not Found', '/index.html'),
+        codeNotes: [
+          { line: 4, note: 'Without the rewrite, unknown addresses are 404. With it, the app loads and the router shows the right page.' }
+        ],
+        tryIt: 'Check that serve("/assets/index.js", true) still returns the real file.',
+        check: {
+          question: 'Why does refreshing /jobs/42 give a 404 without the rewrite?',
+          options: ['The job was deleted', 'The server has no file at that address; only React Router knows it', 'Vercel is down'],
+          answer: 1,
+          why: 'The route exists only inside the app. The rewrite makes the server send index.html so the router can handle it.'
+        }
+      },
+      {
+        title: 'Check your live app like a user',
+        say: [
+          'Test the live app, not just your laptop version. Open it on your phone over mobile data. Add a job, refresh, change a status, open a details page and refresh there, switch to dark mode.',
+          'Run Lighthouse in Chrome DevTools on the live address. It scores performance, accessibility, best practices and search visibility, with specific suggestions. Fix the easy ones, like missing labels or a missing page title.',
+          'Remember that each visitor has their own localStorage. Your friend who opens your link will not see your jobs; they start with their own empty tracker. That is correct for this app, and worth explaining in your README so nobody thinks it is a bug.',
+          'If you want sample data for visitors, show your initialJobs when their storage is empty, with a "Clear sample data" button.'
+        ],
+        example: 'A shop owner, on opening day, walks in through the front door like a customer to see what customers see, instead of only looking from behind the counter.',
+        code: lines(
+          'const lighthouse = { performance: 96, accessibility: 88, bestPractices: 100, seo: 91 };',
+          'for (const [area, score] of Object.entries(lighthouse)) {',
+          '  console.log(`${area}: ${score}${score < 90 ? " (improve)" : ""}`);',
+          '}'
+        ),
+        output: lines('performance: 96', 'accessibility: 88 (improve)', 'bestPractices: 100', 'seo: 91'),
+        codeNotes: [
+          { line: 3, note: 'Example scores. Focus on anything below 90 first.' }
+        ],
+        tryIt: 'Change accessibility to 95 and run again.',
+        check: {
+          question: 'Your friend opens your live app and sees none of your jobs. Why?',
+          options: ['The deploy failed', 'localStorage is per browser, so each visitor has their own data', 'Vercel deletes data'],
+          answer: 1,
+          why: 'localStorage lives in each visitor\'s own browser. Sharing data between users would need a server and database.'
+        }
+      },
+      {
+        title: 'Finish the README',
+        say: [
+          'Update your README now that the app is live. Put the live link right at the top: people should be able to try the app in one click.',
+          'Add a screenshot or a short GIF of the app in use. Then keep the sections from Day 22, plus two new ones: Tests ("npm test runs the unit tests with Vitest") and What I learned, a few honest lines about the challenges you solved.',
+          'Today\'s second practice task, missingSections, checks that a README has the required sections. Run your own README through it in your head.',
+          'Also set the repository description and website link on GitHub, in the About box on the right of your repository page. Recruiters often see only that box.'
+        ],
+        example: 'A shop with a clear signboard, an open door and a price list in the window gets walk-ins. A good README with a live link is your project\'s open door.',
+        code: lines(
+          'function missingSections(readme) {',
+          '  return ["## About", "## Features", "## Setup"].filter(s => !readme.includes(s));',
+          '}',
+          '',
+          'const readme = "# Job Tracker\\nLive: https://job-tracker.vercel.app\\n## About\\nTrack applications.\\n## Setup\\nnpm install";',
+          'console.log(missingSections(readme));'
+        ),
+        output: '[ \'## Features\' ]',
+        codeNotes: [
+          { line: 5, note: 'A README with the live link first, but missing the Features section.' }
+        ],
+        tryIt: 'Add "\\n## Features\\n- Search" to the readme text and run again.',
+        check: {
+          question: 'What should be at the very top of a deployed project\'s README?',
+          options: ['The licence', 'The project name, one line about it, and the live link', 'A list of all files'],
+          answer: 1,
+          why: 'Visitors should understand the app and try it immediately.'
+        }
+      },
+      {
+        title: 'Your portfolio is live',
+        say: [
+          'Add the live link and the GitHub link to your resume, your LinkedIn profile and your PinIT Career passport. A working app that anyone can open is worth far more than a list of courses.',
+          'Write a short LinkedIn post: what you built, one thing you learned, and the link. Recruiters search LinkedIn, and a real project post gets noticed.',
+          'From now on, treat the app as a living product: small improvements, each committed, pushed and deployed automatically. That habit is exactly how developers work every day.',
+          'Tomorrow is the last day: practising for interviews and planning your next steps.'
+        ],
+        example: 'An artist hangs their finished painting in a gallery where people can see it. Your app is now hanging in the gallery.',
+        code: lines(
+          'const profile = {',
+          '  resume: true,',
+          '  linkedIn: true,',
+          '  githubAbout: false,',
+          '  pinitPassport: true',
+          '};',
+          'const todo = Object.keys(profile).filter(k => !profile[k]);',
+          'console.log(todo.length ? `Still to add the link: ${todo.join(", ")}` : "Links added everywhere!");'
+        ),
+        output: 'Still to add the link: githubAbout',
+        codeNotes: [
+          { line: 7, note: 'Keep only the places where the link is not added yet.' }
+        ],
+        tryIt: 'Set githubAbout to true and run again.',
+        check: {
+          question: 'Where should your live app link go?',
+          options: ['Nowhere, keep it private', 'Resume, LinkedIn, GitHub and your career profile', 'Only in the code'],
+          answer: 1,
+          why: 'The link is proof of your skills. Put it everywhere recruiters look.'
+        }
+      }
+    ],
+    summary: [
+      'npm run build creates an optimised dist folder; npm run preview checks it locally.',
+      'Vercel deploys from GitHub automatically on every push.',
+      'Add a vercel.json rewrite so refreshing inner pages works in a single-page app.',
+      'Test the live app on a phone and with Lighthouse; localStorage is per visitor.',
+      'Put the live link at the top of the README and on your resume and LinkedIn.'
+    ],
+    projectStep: {
+      title: 'Go live',
+      steps: [
+        'Run npm run build and npm run preview, and fix any build errors.',
+        'Deploy on Vercel from GitHub and add vercel.json for refresh on inner pages.',
+        'Add the live link to your README, GitHub About box, resume and LinkedIn.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 30,
+    title: 'Interview Practice and Your Next Steps',
+    goal: 'You can answer common junior React interview questions, explain your project clearly, solve small coding questions calmly, and plan what to learn next.',
+    minutes: 32,
+    recap: 'Yesterday you put your Job Tracker online and added the live link to your profile.',
+    parts: [
+      {
+        title: 'What junior React interviews look like',
+        say: [
+          'Congratulations on reaching the last day. Today is about turning what you built into a job offer.',
+          'Junior frontend interviews in India usually have three parts. A screening call about you and your project. A technical round with React and JavaScript questions and often a small live coding task. And sometimes a final round with a manager about how you work and learn.',
+          'Interviewers do not expect you to know everything. They look for clear basics, honest answers, and how you think when you are stuck. Saying "I am not sure, but I would try this, and here is why" is far better than guessing wildly.',
+          'The best preparation is exactly what you have done: build something real, understand every line of it, and be able to explain it simply.'
+        ],
+        example: 'A driving test does not check whether you know every road in the city. It checks that you drive safely and handle surprises calmly. Interviews check your basics and your thinking.',
+        code: lines(
+          'const rounds = [',
+          '  { name: "Screening", focus: "you and your project" },',
+          '  { name: "Technical", focus: "React, JavaScript, live coding" },',
+          '  { name: "Manager", focus: "how you work and learn" }',
+          '];',
+          'rounds.forEach((r, i) => console.log(`Round ${i + 1}: ${r.name} - ${r.focus}`));'
+        ),
+        output: lines('Round 1: Screening - you and your project', 'Round 2: Technical - React, JavaScript, live coding', 'Round 3: Manager - how you work and learn'),
+        codeNotes: [
+          { line: 6, note: 'forEach with the position i, used for numbering.' }
+        ],
+        tryIt: 'Add a round "HR" with focus "salary and joining date".',
+        check: {
+          question: 'You do not know the answer to an interview question. What is best?',
+          options: ['Guess confidently', 'Say you are not sure and explain how you would find out or approach it', 'Stay silent'],
+          answer: 1,
+          why: 'Interviewers value honesty and clear thinking over a confident wrong answer.'
+        }
+      },
+      {
+        title: 'Common React questions and short answers',
+        say: [
+          'Here are questions you will almost certainly hear, with short answers in your own words. What is the difference between props and state? Props are inputs passed from a parent and are read-only; state is data a component owns and can change, which re-renders it.',
+          'Why do list items need keys? So React can tell which item is which between renders and update the right one; use a stable unique id, not the index. What does useEffect do? It runs side effects, like loading data or timers, after rendering; the dependency list controls when it runs again, and the returned function cleans up.',
+          'What is lifting state up? Moving shared state to the closest common parent and passing it down as props. What is the virtual DOM? React\'s description of the screen as JavaScript objects, which it compares between renders to change only what is needed on the real page.',
+          'Practise saying each answer aloud in under thirty seconds, and add an example from your Job Tracker. "In my Job Tracker, the jobs are state in App, and each JobCard gets its job as props" is a strong answer.'
+        ],
+        example: 'Learning a few answers well, with examples, is like having a few well-practised dishes you can cook perfectly for guests, rather than a hundred recipes you have only read.',
+        code: lines(
+          'const questions = {',
+          '  "props vs state": "props come from the parent and are read-only; state belongs to the component and can change",',
+          '  "why keys": "so React can match list items between renders",',
+          '  "useEffect": "runs side effects after render; dependencies control when"',
+          '};',
+          'for (const [q, a] of Object.entries(questions)) console.log(`${q}: ${a}`);'
+        ),
+        output: lines(
+          'props vs state: props come from the parent and are read-only; state belongs to the component and can change',
+          'why keys: so React can match list items between renders',
+          'useEffect: runs side effects after render; dependencies control when'
+        ),
+        codeNotes: [
+          { line: 1, note: 'Keep your own question bank like this and practise it aloud.' }
+        ],
+        tryIt: 'Add your own short answer for "what is lifting state up".',
+        check: {
+          question: 'What is the difference between props and state?',
+          options: ['There is none', 'Props are read-only inputs from a parent; state is owned by the component and can change', 'State comes from the server'],
+          answer: 1,
+          why: 'Props flow in from the parent; state is the component\'s own changeable memory.'
+        }
+      },
+      {
+        title: 'Explaining your project in two minutes',
+        say: [
+          '"Tell me about a project" is the most common interview question. Prepare a two-minute answer with four parts: what it is and who it is for, how it is built, one challenge you solved, and what you would improve next.',
+          'For example: "I built a Job Tracker in React to track my applications. It has a dashboard, a searchable list with filters, and details pages with React Router. Data is saved in localStorage with a custom hook. One challenge was refresh breaking inner pages after deploying; I fixed it with a rewrite rule. Next, I would add a real backend so data syncs across devices."',
+          'Have the live app and GitHub open in a browser tab during online interviews, so you can show it when asked. Be ready to open any file and explain it; interviewers often pick one component and ask you to walk through it.',
+          'Being able to explain your own code clearly is the strongest signal that you really built it and understand it.'
+        ],
+        example: 'A short, clear story is remembered; a long, rambling one is not. Your project story is like a movie trailer: what it is, the best moment, and why to watch more.',
+        code: lines(
+          'const pitch = {',
+          '  what: "A Job Tracker in React to track my job applications",',
+          '  how: "React, React Router, custom hooks, localStorage, Vitest, deployed on Vercel",',
+          '  challenge: "Refresh broke inner pages after deploy; fixed with a rewrite rule",',
+          '  next: "Add a backend so data syncs across devices"',
+          '};',
+          'const words = Object.values(pitch).join(" ").split(" ").length;',
+          'console.log(`${words} words, about ${Math.ceil(words / 130)} minute to say`);'
+        ),
+        output: '39 words, about 1 minute to say',
+        codeNotes: [
+          { line: 8, note: 'People speak about 130 words a minute. Aim for one to two minutes.' }
+        ],
+        tryIt: 'Rewrite the challenge with a bug you really fixed in your own project.',
+        check: {
+          question: 'What should a two-minute project answer include?',
+          options: ['Every file name', 'What it is, how it is built, a challenge you solved, and what you would improve', 'Only the tech list'],
+          answer: 1,
+          why: 'Those four parts show understanding, problem solving and growth in a short, clear story.'
+        }
+      },
+      {
+        title: 'Live coding: think aloud',
+        say: [
+          'Many interviews include a small coding task, like FizzBuzz or reversing words. The task is usually easy; what is tested is how you work under a little pressure.',
+          'Follow a routine. Repeat the question in your own words and ask about unclear cases. Say your plan before typing. Write a simple working version first, then improve it. Test it with an example, including an edge case, and talk while you do all of this.',
+          'Thinking aloud matters because the interviewer cannot see inside your head. Even if you get stuck, clear reasoning earns marks. And if you spot your own bug and fix it, that is a positive signal, not a failure.',
+          'Today\'s two practice tasks are classic interview questions. Solve them with this routine, saying each step aloud, even if you are alone.'
+        ],
+        example: 'A maths exam where you show your working gets partial marks even if the final answer is wrong. Thinking aloud is showing your working.',
+        code: lines(
+          'function fizzBuzz(n) {',
+          '  if (n % 15 === 0) return "FizzBuzz";',
+          '  if (n % 3 === 0) return "Fizz";',
+          '  if (n % 5 === 0) return "Buzz";',
+          '  return String(n);',
+          '}',
+          '',
+          'const out = [];',
+          'for (let i = 1; i <= 15; i++) out.push(fizzBuzz(i));',
+          'console.log(out.join(" "));'
+        ),
+        output: '1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz',
+        codeNotes: [
+          { line: 2, note: 'Check 15 (both 3 and 5) first, otherwise 15 would stop at "Fizz". A classic trap.' }
+        ],
+        tryIt: 'Write reverseWords(sentence) that turns "I love React" into "React love I" using split, reverse and join.',
+        check: {
+          question: 'Why check n % 15 before n % 3 in FizzBuzz?',
+          options: ['It is faster', 'Otherwise numbers like 15 return "Fizz" before reaching the FizzBuzz check', 'It does not matter'],
+          answer: 1,
+          why: 'The first matching if wins. The most specific case must come first.'
+        }
+      },
+      {
+        title: 'Applying for jobs',
+        say: [
+          'Use your own Job Tracker to track your applications. It is a nice story for interviews too: "I built this, and I use it every day."',
+          'Apply widely: company career pages, LinkedIn, Naukri, Instahyre, Wellfound for startups, and referrals from friends and seniors. Referrals have a much higher response rate, so ask people you know. Search for titles like Frontend Developer, React Developer, Junior Web Developer and internship roles.',
+          'Tailor the top of your resume to each role: put React, JavaScript and your live project first. Keep it to one page, with the live link and GitHub link clearly visible.',
+          'Expect many rejections and silences; that is normal for everyone. Track every application, follow up politely after a week, and keep improving your project between applications.'
+        ],
+        example: 'Farmers plant many seeds knowing not every one will grow. Applying widely and steadily is how you get a harvest.',
+        code: lines(
+          'const applications = [',
+          '  { company: "Zoho", status: "interview" },',
+          '  { company: "TCS", status: "applied" },',
+          '  { company: "Swiggy", status: "rejected" },',
+          '  { company: "Startup X", status: "applied" }',
+          '];',
+          'const responded = applications.filter(a => a.status !== "applied").length;',
+          'console.log(`Response rate: ${Math.round((responded / applications.length) * 100)}%`);'
+        ),
+        output: 'Response rate: 50%',
+        codeNotes: [
+          { line: 7, note: 'Any status other than "applied" means the company replied, even with a rejection.' }
+        ],
+        tryIt: 'Add 4 more applications with status "applied" and see how the rate changes.',
+        check: {
+          question: 'Which usually gets the best response rate?',
+          options: ['Random mass applications', 'Referrals from people you know', 'Emailing the CEO'],
+          answer: 1,
+          why: 'Referrals come with a recommendation, so companies take them more seriously.'
+        }
+      },
+      {
+        title: 'What to learn next',
+        say: [
+          'You have finished the course. You know JavaScript for React, components, props, state, effects, forms, routing, hooks, Context, Git, testing and deployment, and you have a live project to prove it.',
+          'Good next steps, one at a time: TypeScript, which most React jobs now ask for; Next.js, the most popular React framework; a backend basics course, like Node.js with a database, so your apps can share data between users; and a second project, different from the first, such as a small e-commerce cart or a chat app.',
+          'Keep a steady rhythm: a little every day beats a lot once a week. Build, commit, push, and share what you learn. Six months of steady practice will take you very far.',
+          'After this lesson there is your final short test, covering Days 26 to 30. Well done. You started with console.log and finished with a deployed React app. Be proud of that, and keep going.'
+        ],
+        example: 'Finishing driving school does not end your learning to drive; it lets you start driving on real roads. This course is your licence. Now you drive.',
+        code: lines(
+          'const next = ["TypeScript", "Next.js", "Node.js and a database", "A second project"];',
+          'next.forEach((topic, i) => console.log(`Month ${i + 1}: ${topic}`));',
+          'console.log("You finished the 1-Month React course!");'
+        ),
+        output: lines('Month 1: TypeScript', 'Month 2: Next.js', 'Month 3: Node.js and a database', 'Month 4: A second project', 'You finished the 1-Month React course!'),
+        codeNotes: [
+          { line: 1, note: 'One focus at a time is more effective than everything at once.' }
+        ],
+        tryIt: 'Reorder the list the way that suits your own goals and run it.',
+        check: {
+          question: 'Which skill do most React job listings now also ask for?',
+          options: ['TypeScript', 'Flash', 'jQuery only'],
+          answer: 0,
+          why: 'TypeScript adds types to JavaScript and is used in most modern React codebases.'
+        }
+      }
+    ],
+    summary: [
+      'Junior interviews test clear basics, honest answers and how you think.',
+      'Practise short answers with examples from your project: props vs state, keys, useEffect, lifting state.',
+      'Prepare a two-minute project story: what, how, a challenge, what next.',
+      'In live coding, restate, plan, build simply, test, and think aloud.',
+      'Apply widely, use referrals, track applications, and keep learning: TypeScript, Next.js, backend basics.'
+    ],
+    projectStep: {
+      title: 'Interview ready',
+      steps: [
+        'Write your two-minute project story and practise it aloud.',
+        'Write short answers to five common React questions, each with an example from your project.',
+        'Track your first five job applications in your own Job Tracker.'
+      ]
+    }
   }
 ];
