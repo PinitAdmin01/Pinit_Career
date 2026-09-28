@@ -70,3 +70,10 @@ INSERT INTO products VALUES ('Pen', 10), ('Bag', 900), ('Book', 250);`;
   const wrong = await runSqlPractice(db, task, 'SELECT name FROM products', checks);
   assert.equal(wrong.passed, false);
 });
+
+test('a run that leaves a transaction open or prepares a statement does not break the next run', async () => {
+  await runSqlLesson(db, "CREATE TABLE t (n int); BEGIN; INSERT INTO t VALUES (1);");
+  await runSqlLesson(db, "PREPARE q(int) AS SELECT $1 AS n; CREATE TEMP TABLE tmp (x int);");
+  assert.equal(await runSqlLesson(db, "PREPARE q(int) AS SELECT $1 AS n; EXECUTE q(7);"), ' n\n---\n 7\n(1 row)');
+  assert.equal(await runSqlLesson(db, "CREATE TEMP TABLE tmp (x int); SELECT count(*) AS c FROM tmp;"), ' c\n---\n 0\n(1 row)');
+});

@@ -47,8 +47,14 @@ export function formatTable(result: SqlResult): string {
   return out.join('\n');
 }
 
-/** Every run starts from an empty database, so pressing Run twice gives the same result. */
+/**
+ * Every run starts from an empty database, so pressing Run twice gives the same result: close any
+ * transaction the last run left open, forget session state (prepared statements, temporary tables,
+ * settings), and drop every table, view and index.
+ */
 export async function resetDatabase(db: SqlDatabase): Promise<void> {
+  await db.exec('ROLLBACK');
+  await db.exec('DISCARD ALL');
   await db.exec('DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;');
 }
 
