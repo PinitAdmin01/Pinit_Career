@@ -91,3 +91,26 @@ test('JSON is shown as PostgreSQL text', async () => {
     ' data\n------------------------------------\n {"page": "/home", "type": "click"}\n(1 row)'
   );
 });
+
+test('SQL is split into statements without breaking quotes, dollar quotes or comments', async () => {
+  const { splitSqlStatements } = await import('../src/lib/code/sql/sqlCore');
+  assert.deepEqual(
+    splitSqlStatements("-- note; here\nSELECT 'a;b' AS t;\nSELECT \"x;y\" FROM z; /* c; */ SELECT $$d;e$$;\n-- only a comment;\n"),
+    ["-- note; here\nSELECT 'a;b' AS t", 'SELECT "x;y" FROM z', '/* c; */ SELECT $$d;e$$']
+  );
+  assert.deepEqual(splitSqlStatements("SELECT 'it''s; fine';"), ["SELECT 'it''s; fine'"]);
+});
+
+test('BEGIN ... ROLLBACK undoes only what came after BEGIN, like psql', async () => {
+  assert.equal(
+    await runSqlLesson(db, 'CREATE TABLE t (n int); INSERT INTO t VALUES (1); BEGIN; INSERT INTO t VALUES (2); ROLLBACK; SELECT count(*) AS c FROM t;'),
+    ' c\n---\n 1\n(1 row)'
+  );
+});
+
+test('results before an error are shown, followed by the error', async () => {
+  assert.equal(
+    await runSqlLesson(db, 'SELECT 1 AS one; SELECT nope FROM missing; SELECT 2 AS two;'),
+    ' one\n-----\n   1\n(1 row)\n\n[Error] relation "missing" does not exist'
+  );
+});

@@ -79,18 +79,73 @@ function errorText(err: unknown): string {
 }
 
 /**
- * Runs lesson code and returns what the lesson page shows: one table for every statement that
- * returns rows, separated by a blank line, or "[Error] ..." when PostgreSQL rejects a statement.
+ * Splits SQL text into statements at semicolons, ignoring semicolons inside quotes ('...', "..."),
+ * dollar quotes ($$...$$, $tag$...$tag$) and comments (-- and /* ... *\/). Empty statements are dropped.
+ */
+export function splitSqlStatements(sql: string): string[] {
+  const statements: string[] = [];
+  let current = '';
+  let i = 0;
+  while (i < sql.length) {
+    const ch = sql[i];
+    const next = sql[i + 1];
+    if (ch === '-' && next === '-') {
+      const end = sql.indexOf('\n', i);
+      const stop = end === -1 ? sql.length : end;
+      current += sql.slice(i, stop);
+      i = stop;
+    } else if (ch === '/' && next === '*') {
+      const end = sql.indexOf('*/', i + 2);
+      const stop = end === -1 ? sql.length : end + 2;
+      current += sql.slice(i, stop);
+      i = stop;
+    } else if (ch === "'" || ch === '"') {
+      let j = i + 1;
+      while (j < sql.length) {
+        if (sql[j] === ch && sql[j + 1] === ch) j += 2;
+        else if (sql[j] === ch) break;
+        else j += 1;
+      }
+      current += sql.slice(i, j + 1);
+      i = j + 1;
+    } else if (ch === '$' && /^\$[A-Za-z_]*\$/.test(sql.slice(i))) {
+      const tag = sql.slice(i).match(/^\$[A-Za-z_]*\$/)![0];
+      const end = sql.indexOf(tag, i + tag.length);
+      const stop = end === -1 ? sql.length : end + tag.length;
+      current += sql.slice(i, stop);
+      i = stop;
+    } else if (ch === ';') {
+      if (current.trim()) statements.push(current.trim());
+      current = '';
+      i += 1;
+    } else {
+      current += ch;
+      i += 1;
+    }
+  }
+  if (current.trim()) statements.push(current.trim());
+  return statements.filter((s) => s.split('\n').some((line) => line.trim() && !line.trim().startsWith('--')));
+}
+
+/**
+ * Runs lesson code one statement at a time, like psql running a file (so BEGIN ... ROLLBACK only
+ * undoes what came after BEGIN), and returns what the lesson page shows: one table for every
+ * statement that returns rows, separated by a blank line. If PostgreSQL rejects a statement, the
+ * run stops there and "[Error] ..." is shown after the results so far.
  */
 export async function runSqlLesson(db: SqlDatabase, code: string): Promise<string> {
   await resetDatabase(db);
-  try {
-    const results = await db.exec(code);
-    const tables = results.filter((r) => r.fields.length > 0).map(formatTable);
-    return tables.length ? tables.join('\n\n') : 'Done. Nothing to show: add a SELECT to see rows.';
-  } catch (err) {
-    return `[Error] ${errorText(err)}`;
+  const shown: string[] = [];
+  for (const statement of splitSqlStatements(code)) {
+    try {
+      const results = await db.exec(statement);
+      for (const r of results) if (r.fields.length > 0) shown.push(formatTable(r));
+    } catch (err) {
+      shown.push(`[Error] ${errorText(err)}`);
+      return shown.join('\n\n');
+    }
   }
+  return shown.length ? shown.join('\n\n') : 'Done. Nothing to show: add a SELECT to see rows.';
 }
 
 export interface SqlPracticeResult {
@@ -142,8 +197,12 @@ export async function runSqlPractice(db: SqlDatabase, setup: string, studentSql:
       const [shown] = await db.exec('SELECT * FROM answer');
       output = formatTable(shown);
     } else {
-      const results = await db.exec(studentSql);
-      output = results.filter((r) => r.fields.length > 0).map(formatTable).join('\n\n') || 'Your SQL ran.';
+      // One statement at a time, like the lesson runner and psql.
+      const tables: string[] = [];
+      for (const statement of splitSqlStatements(studentSql)) {
+        for (const r of await db.exec(statement)) if (r.fields.length > 0) tables.push(formatTable(r));
+      }
+      output = tables.join('\n\n') || 'Your SQL ran.';
     }
   } catch (err) {
     const message = `[Error] ${errorText(err)}`;
