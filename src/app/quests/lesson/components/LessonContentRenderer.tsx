@@ -468,7 +468,7 @@ export function LessonContentRenderer({
                   {slide.projectCode && (
                     <div data-testid="lesson-project-code">
                       <div style={{ background: '#1e293b', padding: '6px 12px', borderTopLeftRadius: 12, borderTopRightRadius: 12, fontSize: 11.5, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                        ⚛️ {slide.projectCode.label}
+                        💻 {slide.projectCode.label}
                       </div>
                       <pre style={{ margin: 0, background: '#0e1420', padding: '14px 18px', borderBottomLeftRadius: 12, borderBottomRightRadius: 12, fontSize: 12.5, lineHeight: 1.55, fontFamily: 'var(--font-mono)', color: '#e2e8f0', overflowX: 'auto', border: '1px solid rgba(255,255,255,0.06)', borderTop: 'none' }}>
                         <code>{slide.projectCode.code}</code>

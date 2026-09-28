@@ -3391,5 +3391,1390 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         'Use Counter to find your most common expense category.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 16,
+    title: 'Working With Files',
+    goal: 'You can write text to a file, add to it, read it back line by line, and turn each line into data.',
+    minutes: 30,
+    recap: 'Yesterday you imported modules like math, random and datetime, and learned how your own files become modules.',
+    parts: [
+      {
+        title: 'Why programs need files',
+        say: [
+          'Every program you have written so far forgets everything when it stops. Your expenses exist only while the code runs. Run it again, and you start from nothing. Real apps need to remember, and the simplest way to remember is to save data in a file.',
+          'A file is a named piece of storage on a disk. Text files hold plain text, like a .txt or .csv file. Python can create them, write to them and read them back.',
+          'You open a file with open(name, mode). The mode says what you want to do: "w" to write (it creates the file, or empties it if it exists), "a" to append (add to the end), and "r" to read.',
+          'In the lesson editor, files live in the browser\'s memory for the current page, so you can practise safely. On your laptop, from Day 20, they will be real files in your project folder that stay there after the program ends.'
+        ],
+        example: 'A file is like a notebook in your bag. What you work out in your head is forgotten tomorrow. What you write in the notebook is still there next week. Saving to a file is writing it down.',
+        code: lines(
+          'with open("notes.txt", "w") as f:',
+          '    f.write("Tea,20\\n")',
+          '    f.write("Bus,45\\n")',
+          'with open("notes.txt", "r") as f:',
+          '    content = f.read()',
+          'print(content)'
+        ),
+        output: lines('Tea,20', 'Bus,45', ''),
+        codeNotes: [
+          { line: 1, note: '"w" opens the file for writing. It is created if it does not exist.' },
+          { line: 2, note: 'write does not add a new line by itself, so we add \\n at the end.' },
+          { line: 5, note: 'read() gives the whole file as one string.' }
+        ],
+        tryIt: 'Add a third line f.write("Lunch,120\\n") in the first block and run it again. Notice the empty line at the end of the output: it comes from the last \\n plus the one print adds.',
+        check: {
+          question: 'What does the mode "w" do when the file already exists?',
+          options: ['Empties it and writes from the start', 'Adds to the end', 'Gives an error'],
+          answer: 0,
+          why: '"w" means write from scratch: an existing file is emptied first. Use "a" to add to the end instead.'
+        }
+      },
+      {
+        title: 'The with statement',
+        say: [
+          'An open file must be closed when you are done, so the data is really saved and the computer can let go of it. Forgetting to close files causes lost data and strange bugs.',
+          'The with statement closes the file for you. with open(...) as f: opens the file and names it f. The indented lines use f. As soon as the indented block ends, even if an error happened, Python closes the file automatically.',
+          'This is why you will almost always see files opened with with. It is shorter and safer than calling f.close() yourself, and it works like the finally block you learned on Day 14.',
+          'Inside the block, f is a file object with methods: write() to write text, read() to read everything, and readlines() or a for loop to read line by line.'
+        ],
+        example: 'with is like a library that automatically takes back a book when you leave the reading room. You cannot forget to return it, because returning happens by itself when you walk out.',
+        code: lines(
+          'with open("log.txt", "w") as f:',
+          '    f.write("started\\n")',
+          '    print("Inside: closed?", f.closed)',
+          'print("After: closed?", f.closed)'
+        ),
+        output: lines('Inside: closed? False', 'After: closed? True'),
+        codeNotes: [
+          { line: 3, note: 'Inside the block, the file is open.' },
+          { line: 4, note: 'After the block, Python has closed it for us.' }
+        ],
+        tryIt: 'Try writing after the block: add f.write("more") at the end, not indented. Read the error: you cannot write to a closed file.',
+        check: {
+          question: 'What does with open(...) as f: do for you?',
+          options: ['Closes the file automatically when the block ends', 'Makes the file read-only', 'Deletes the file afterwards'],
+          answer: 0,
+          why: 'The with block guarantees the file is closed at the end, even if an error happens inside.'
+        }
+      },
+      {
+        title: 'Appending and reading line by line',
+        say: [
+          'To add new data without losing the old data, open the file with "a" for append. Each write goes to the end of the file. This is what you want when a user adds a new expense.',
+          'To read a file line by line, loop over the file object: for line in f:. Each line includes its newline character at the end, so you usually call line.strip() to clean it.',
+          'Reading line by line is also better for very big files, because Python does not need to load the whole file into memory at once.',
+          'If you try to read a file that does not exist, Python raises FileNotFoundError. You can catch it with try and except, and start with empty data instead, which is exactly what a new app should do on its first run.'
+        ],
+        example: 'A diary: each day you add a new entry at the end (append), you never tear out the old pages. When you read it later, you go one entry at a time.',
+        code: lines(
+          'with open("expenses.txt", "w") as f:',
+          '    f.write("Tea,20\\n")',
+          'with open("expenses.txt", "a") as f:',
+          '    f.write("Bus,45\\n")',
+          '    f.write("Lunch,120\\n")',
+          'with open("expenses.txt") as f:',
+          '    for line in f:',
+          '        print("Line:", line.strip())',
+          'try:',
+          '    open("missing.txt")',
+          'except FileNotFoundError:',
+          '    print("No file yet, starting fresh")'
+        ),
+        output: lines('Line: Tea,20', 'Line: Bus,45', 'Line: Lunch,120', 'No file yet, starting fresh'),
+        codeNotes: [
+          { line: 3, note: '"a" adds to the end. Tea is kept.' },
+          { line: 6, note: 'No mode means "r": read.' },
+          { line: 8, note: 'strip() removes the newline at the end of each line.' },
+          { line: 11, note: 'A missing file is expected on the first run, so handle it.' }
+        ],
+        tryIt: 'Change "a" on line 3 to "w" and run it. Now Tea is gone, because "w" empties the file first. Change it back.',
+        check: {
+          question: 'Which mode adds new lines to the end of an existing file?',
+          options: ['"a"', '"w"', '"r"'],
+          answer: 0,
+          why: '"a" means append: keep what is there and add at the end. "w" would empty the file first.'
+        }
+      },
+      {
+        title: 'Turning lines into data with split',
+        say: [
+          'A line like "Tea,20" is just text. To use it, you split it into parts. "Tea,20".split(",") gives the list ["Tea", "20"]. split cuts the text wherever it finds the separator.',
+          'Then you unpack and convert: item, amount = line.split(","), and int(amount) to get a number. Remember that everything read from a file is text, just like on Day 2.',
+          'This simple format, values separated by commas, is called CSV, short for comma-separated values. Excel and Google Sheets can open CSV files directly, which makes them a popular way to export data.',
+          'Real CSV files can have commas inside values, like "Lunch, with team". For those, Python has a csv module that handles the tricky cases. For our simple tracker, split(",") is enough, as long as item names have no commas.'
+        ],
+        example: 'split is like cutting a paper strip at each fold line. "Tea,20" cut at the comma gives two pieces: the item and the price. You then read each piece separately.',
+        code: lines(
+          'line = "Tea,20\\n"',
+          'parts = line.strip().split(",")',
+          'print(parts)',
+          'item, amount = parts',
+          'print(item, int(amount) + 5)',
+          'print("a b  c".split())',
+          'print("2026-09-28".split("-"))'
+        ),
+        output: lines("['Tea', '20']", 'Tea 25', "['a', 'b', 'c']", "['2026', '09', '28']"),
+        codeNotes: [
+          { line: 2, note: 'Clean the newline first, then cut at each comma.' },
+          { line: 5, note: 'The amount is text until int() converts it.' },
+          { line: 6, note: 'split() with no separator splits on any spaces.' }
+        ],
+        tryIt: 'Split "Asha,Ravi,Priya" by commas and print how many names there are with len(). It should be 3.',
+        check: {
+          question: 'What does "10,20,30".split(",") give?',
+          options: ["['10', '20', '30']", '[10, 20, 30]', "'102030'"],
+          answer: 0,
+          why: 'split gives a list of strings. The numbers are still text until you convert them with int().'
+        }
+      },
+      {
+        title: 'Saving and loading a list of records',
+        say: [
+          'Now let us save the Expense Tracker\'s data properly. We write two functions: save_expenses writes each expense as one line, and load_expenses reads the lines back into a list of dictionaries.',
+          'This pattern, save and load functions that turn data into text and back, is the basis of every app that remembers things. Later, databases do the same job at a much bigger scale.',
+          'Look at load_expenses: it handles the missing-file case by returning an empty list, and it skips blank lines. Small details like these make a program reliable.',
+          'The round trip test at the end is important: save some data, load it back, and check that you got the same data. Tomorrow you will see that JSON makes this even easier, especially for records with many fields.'
+        ],
+        example: 'Packing for a trip and unpacking at the hotel: you fold each item into the suitcase in a known way, and unfold it the same way at the other end. Saving and loading must match exactly, or something comes out wrong.',
+        code: lines(
+          'def save_expenses(expenses, filename):',
+          '    with open(filename, "w") as f:',
+          '        for e in expenses:',
+          '            f.write(f"{e[\'item\']},{e[\'amount\']}\\n")',
+          '',
+          'def load_expenses(filename):',
+          '    try:',
+          '        with open(filename) as f:',
+          '            lines = [line.strip() for line in f if line.strip()]',
+          '    except FileNotFoundError:',
+          '        return []',
+          '    result = []',
+          '    for line in lines:',
+          '        item, amount = line.split(",")',
+          '        result.append({"item": item, "amount": int(amount)})',
+          '    return result',
+          '',
+          'data = [{"item": "Tea", "amount": 20}, {"item": "Rent", "amount": 8000}]',
+          'save_expenses(data, "tracker.csv")',
+          'loaded = load_expenses("tracker.csv")',
+          'print(loaded)',
+          'print(loaded == data)',
+          'print(load_expenses("nothing.csv"))'
+        ),
+        output: lines("[{'item': 'Tea', 'amount': 20}, {'item': 'Rent', 'amount': 8000}]", 'True', '[]'),
+        codeNotes: [
+          { line: 4, note: 'One expense per line: item, comma, amount.' },
+          { line: 9, note: 'Keep only non-empty lines, already stripped.' },
+          { line: 15, note: 'Convert the amount back to a number.' },
+          { line: 22, note: 'The round trip test: what we loaded equals what we saved.' }
+        ],
+        tryIt: 'Add a third expense to data and run it again. The loaded list grows and the round trip test is still True.',
+        check: {
+          question: 'Why does load_expenses return [] when the file is missing?',
+          options: ['On the first run there is no file yet, and an empty list is the right starting data', 'Because files cannot be read in Python', 'To hide all errors'],
+          answer: 0,
+          why: 'A missing file is expected before anything has been saved. Starting with no expenses is the sensible behaviour.'
+        }
+      },
+      {
+        title: 'Putting it together: a tracker that remembers',
+        say: [
+          'Let us simulate two runs of the Expense Tracker. In the first run, we start with nothing, add two expenses and save. In the second run, we load what was saved, add one more, save again, and print the total.',
+          'This is the core loop of every app that stores data: load, change, save. Your phone\'s notes app, a to-do app, and the Expense Tracker all do this.',
+          'Right now the data is in a simple CSV format. It works, but it only fits simple records, and every new field means changing both the save and the load code. Tomorrow JSON solves this.',
+          'In today\'s practice you will write parse_line, which turns "Tea,20" into a tuple, and to_line, which does the opposite. Together they are the heart of saving and loading.'
+        ],
+        example: 'A shop\'s account book: each morning the owner opens the book (load), writes the day\'s sales (change), and puts it back on the shelf (save). The next morning, yesterday\'s entries are still there.',
+        code: lines(
+          'FILE = "my_expenses.csv"',
+          'open(FILE, "w").close()  # start with an empty file on every Run',
+          '',
+          'def load():',
+          '    try:',
+          '        with open(FILE) as f:',
+          '            return [(i, int(a)) for i, a in (line.strip().split(",") for line in f if line.strip())]',
+          '    except FileNotFoundError:',
+          '        return []',
+          '',
+          'def save(expenses):',
+          '    with open(FILE, "w") as f:',
+          '        for item, amount in expenses:',
+          '            f.write(f"{item},{amount}\\n")',
+          '',
+          '# First run',
+          'expenses = load()',
+          'expenses.append(("Tea", 20))',
+          'expenses.append(("Bus", 45))',
+          'save(expenses)',
+          '# Second run: start again from the file',
+          'expenses = load()',
+          'print("Loaded:", expenses)',
+          'expenses.append(("Lunch", 120))',
+          'save(expenses)',
+          'print("Total:", sum(a for _, a in load()))'
+        ),
+        output: lines("Loaded: [('Tea', 20), ('Bus', 45)]", 'Total: 185'),
+        codeNotes: [
+          { line: 1, note: 'A constant in capitals: the file name used everywhere.' },
+          { line: 2, note: 'An empty file, so pressing Run twice gives the same result.' },
+          { line: 7, note: 'Read, clean, split and convert each line into an (item, amount) tuple.' },
+          { line: 22, note: 'The second run starts only from what was saved.' }
+        ],
+        tryIt: 'Line 7 is dense. Rewrite load() with a normal for loop, like load_expenses in the last part, and check the output is the same.',
+        check: {
+          question: 'What is the basic cycle of an app that remembers data?',
+          options: ['Load, change, save', 'Save, delete, print', 'Print, load, exit'],
+          answer: 0,
+          why: 'The app loads what was saved, changes it as the user works, and saves it again for next time.'
+        }
+      }
+    ],
+    summary: [
+      'open(name, mode): "w" writes from scratch, "a" appends, "r" reads.',
+      'Use with open(...) as f: so the file is always closed.',
+      'Loop over a file to read line by line, and strip() each line.',
+      'split(",") turns "Tea,20" into ["Tea", "20"]. Convert numbers with int().',
+      'Handle FileNotFoundError on the first run by starting with empty data.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: save to a file',
+      steps: [
+        'Write save_expenses(expenses, filename) that writes one line per expense.',
+        'Write load_expenses(filename) that returns a list of dictionaries, or [] if the file is missing.',
+        'Check the round trip: saving then loading gives the same data.',
+        'Simulate two runs: add expenses, save, load again and print the total.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 17,
+    title: 'JSON: Saving Structured Data',
+    goal: 'You can turn Python lists and dictionaries into JSON text and back, save them to files, and handle broken data safely.',
+    minutes: 30,
+    recap: 'Yesterday you wrote and read text files, split lines like "Tea,20", and built save and load functions.',
+    parts: [
+      {
+        title: 'What JSON is',
+        say: [
+          'JSON stands for JavaScript Object Notation. Despite the name, it is not only for JavaScript. It is a simple text format for data that almost every language, app and web service understands.',
+          'JSON looks very much like Python. A JSON object looks like a Python dictionary: {"item": "Tea", "amount": 20}. A JSON array looks like a Python list: [1, 2, 3]. Text is in double quotes, and numbers, true, false and null are written plainly.',
+          'Why does this matter? When your phone app talks to a server, the data travels as JSON. When you call a weather or payments API, the answer is JSON. When apps save settings, it is often JSON. It is the common language of data.',
+          'A few small differences from Python: JSON always uses double quotes for text, true and false are lower-case, and null means what Python calls None.'
+        ],
+        example: 'JSON is like English at an international airport: the pilots and control towers may speak different languages at home, but they all agree to use one common language to talk to each other. Apps written in different languages agree to exchange data as JSON.',
+        code: lines(
+          'import json',
+          'expense = {"item": "Tea", "amount": 20, "paid": True, "note": None}',
+          'text = json.dumps(expense)',
+          'print(text)',
+          'print(type(text))'
+        ),
+        output: lines('{"item": "Tea", "amount": 20, "paid": true, "note": null}', "<class 'str'>"),
+        codeNotes: [
+          { line: 3, note: 'dumps turns Python data into JSON text. Think "dump to string".' },
+          { line: 4, note: 'Notice: double quotes, lower-case true, and null instead of None.' },
+          { line: 5, note: 'The result is plain text, ready to save or send.' }
+        ],
+        tryIt: 'Add a list to the dictionary, like "tags": ["daily", "office"], and run it. JSON shows it as an array in square brackets.',
+        check: {
+          question: 'How does JSON write Python\'s None?',
+          options: ['null', 'None', 'nil'],
+          answer: 0,
+          why: 'JSON uses null for "no value". json.dumps converts None to null, and json.loads converts it back.'
+        }
+      },
+      {
+        title: 'loads: from JSON text back to Python',
+        say: [
+          'json.loads does the opposite of dumps. It takes JSON text and gives back Python data: dictionaries, lists, strings, numbers, True, False and None. Think "load from string".',
+          'After loads, the data is normal Python. You can read keys, loop, filter and total, exactly as you learned in Week 2.',
+          'This is how you will read API answers on Day 26: the answer arrives as JSON text, you load it, and then you work with ordinary lists and dictionaries.',
+          'dumps and loads together give you a perfect round trip for this kind of data: dumps then loads gives you back what you started with.'
+        ],
+        example: 'A courier packs your items into a box to send (dumps), and the receiver unpacks the box to use them (loads). The items arrive the same as they were packed.',
+        code: lines(
+          'import json',
+          'text = \'[{"item": "Tea", "amount": 20}, {"item": "Bus", "amount": 45}]\'',
+          'expenses = json.loads(text)',
+          'print(type(expenses))',
+          'print(expenses[1]["item"])',
+          'print(sum(e["amount"] for e in expenses))',
+          'print(json.loads(json.dumps(expenses)) == expenses)'
+        ),
+        output: lines("<class 'list'>", 'Bus', '65', 'True'),
+        codeNotes: [
+          { line: 2, note: 'JSON text inside single quotes, so the double quotes can be part of the text.' },
+          { line: 3, note: 'loads gives back a real Python list of dictionaries.' },
+          { line: 7, note: 'The round trip gives back exactly the same data.' }
+        ],
+        tryIt: 'Add a third expense inside the JSON text and check the total changes. Be careful with the commas and quotes; JSON is strict.',
+        check: {
+          question: 'What type does json.loads(\'{"a": 1}\') return?',
+          options: ['dict', 'str', 'list'],
+          answer: 0,
+          why: 'A JSON object becomes a Python dictionary.'
+        }
+      },
+      {
+        title: 'Saving and loading JSON files',
+        say: [
+          'To save data to a file as JSON, use json.dump (without the s) with an open file: json.dump(data, f). To load from a file, use json.load(f). The versions without s work with files; the ones with s work with strings.',
+          'Add indent=2 to make the file easy for humans to read: each key on its own line, nicely indented. This is very helpful when you open the file to check what your program saved.',
+          'Compare this with yesterday\'s CSV code. There is no splitting, no converting numbers, no worrying about which field comes first. Every field of every record is saved and loaded automatically. Adding a new field, like a date, needs no code changes at all.',
+          'This is why most small apps and tools save their data as JSON files.'
+        ],
+        example: 'Yesterday\'s CSV was like writing a shopping list in a fixed column order that only you understand. JSON is like a labelled form: anyone, including another program, can read it and know exactly what each value means.',
+        code: lines(
+          'import json',
+          'expenses = [',
+          '    {"item": "Tea", "amount": 20, "category": "food"},',
+          '    {"item": "Bus", "amount": 45, "category": "travel"},',
+          ']',
+          'with open("expenses.json", "w") as f:',
+          '    json.dump(expenses, f, indent=2)',
+          'with open("expenses.json") as f:',
+          '    print("\\n".join(f.read().splitlines()[:5]))',
+          'with open("expenses.json") as f:',
+          '    loaded = json.load(f)',
+          'print(loaded == expenses)'
+        ),
+        output: lines('[', '  {', '    "item": "Tea",', '    "amount": 20,', '    "category": "food"', 'True'),
+        codeNotes: [
+          { line: 7, note: 'dump writes JSON into the open file. indent=2 makes it readable.' },
+          { line: 9, note: 'Print the first 5 lines of the file so you can see its layout.' },
+          { line: 11, note: 'load reads the file and gives back the list of dictionaries.' }
+        ],
+        tryIt: 'Remove indent=2 and run it again. The file is now one long line. Both versions load the same data.',
+        check: {
+          question: 'What is the difference between json.dump and json.dumps?',
+          options: ['dump writes to a file; dumps returns a string', 'dump is for lists; dumps is for dictionaries', 'There is no difference'],
+          answer: 0,
+          why: 'The s stands for string. dumps gives you JSON text; dump writes it straight into an open file.'
+        }
+      },
+      {
+        title: 'Handling broken or unexpected data',
+        say: [
+          'Data from files and the internet is not always correct. A file might be half-written after a crash, empty, or edited by hand with a mistake. json.loads on broken text raises a json.JSONDecodeError, which is a kind of ValueError.',
+          'A reliable program catches that error and falls back to safe data, like an empty list, instead of crashing. You learned this pattern on Day 14; here is a real use for it.',
+          'Even valid JSON can have the wrong shape. You expected a list of expenses, but the file contains a single dictionary or a number. Check the type with isinstance(data, list) before using it.',
+          'Validating data at the edges of your program, where it comes in from files, users or APIs, is one of the habits that separate professional code from beginner code.'
+        ],
+        example: 'A pharmacist checks every prescription before handing out medicine: is it readable, is it complete, is it the right kind of document? If not, they do not guess; they ask for a correct one. Your program should check data the same way before trusting it.',
+        code: lines(
+          'import json',
+          '',
+          'def load_list(text):',
+          '    try:',
+          '        data = json.loads(text)',
+          '    except ValueError:',
+          '        return []',
+          '    return data if isinstance(data, list) else []',
+          '',
+          'print(load_list(\'[{"item": "Tea"}]\'))',
+          'print(load_list("[{broken"))',
+          'print(load_list(""))',
+          'print(load_list(\'{"item": "Tea"}\'))'
+        ),
+        output: lines("[{'item': 'Tea'}]", '[]', '[]', '[]'),
+        codeNotes: [
+          { line: 6, note: 'JSONDecodeError is a kind of ValueError, so this catches broken text.' },
+          { line: 8, note: 'Valid JSON, but only accept it if it is a list.' },
+          { line: 13, note: 'A dictionary, not a list: rejected safely.' }
+        ],
+        tryIt: 'Call json.loads("[{broken") directly, without the function, and read the error message. It tells you the exact position of the problem.',
+        check: {
+          question: 'Why check isinstance(data, list) after json.loads?',
+          options: ['Valid JSON can still have the wrong shape for your program', 'json.loads always returns a string', 'isinstance makes loading faster'],
+          answer: 0,
+          why: 'json.loads succeeds for any valid JSON, like a dictionary or a number. Your code expects a list, so it checks before using it.'
+        }
+      },
+      {
+        title: 'Dates and other values JSON cannot store',
+        say: [
+          'JSON only knows a few types: objects, arrays, strings, numbers, true, false and null. Python has more, like dates, sets and tuples. What happens to them?',
+          'Tuples become JSON arrays, so they come back as lists. Sets and dates cannot be saved at all: json.dumps raises a TypeError saying the object is not JSON serializable.',
+          'The simple fix is to convert them to something JSON understands before saving. For dates, store the text form, date.isoformat(), which gives "2026-09-28", and turn it back with date.fromisoformat() after loading. For sets, save sorted(list(the_set)).',
+          'This is exactly why the expenses in this course store dates as "YYYY-MM-DD" text: it saves to JSON easily, sorts correctly, and converts to a real date when needed.'
+        ],
+        example: 'Some things cannot go through the post as they are, like a cake. You send the recipe instead, and the receiver bakes it again. Saving a date as text and turning it back into a date is sending the recipe.',
+        code: lines(
+          'import json',
+          'from datetime import date',
+          'today = date(2026, 9, 28)',
+          'try:',
+          '    json.dumps({"date": today})',
+          'except TypeError as error:',
+          '    print("Error:", error)',
+          'text = json.dumps({"date": today.isoformat(), "point": (1, 2)})',
+          'print(text)',
+          'back = json.loads(text)',
+          'print(date.fromisoformat(back["date"]).year, back["point"])'
+        ),
+        output: lines('Error: Object of type date is not JSON serializable', '{"date": "2026-09-28", "point": [1, 2]}', '2026 [1, 2]'),
+        codeNotes: [
+          { line: 5, note: 'A date object cannot be turned into JSON directly.' },
+          { line: 8, note: 'Save the date as text. The tuple becomes a JSON array.' },
+          { line: 11, note: 'Turn the text back into a real date. The tuple came back as a list.' }
+        ],
+        tryIt: 'Try json.dumps({"tags": {"food", "daily"}}) and read the error. Then fix it with sorted(...) around the set.',
+        check: {
+          question: 'How should you store a date in JSON?',
+          options: ['As text like "2026-09-28", using isoformat()', 'As a Python date object', 'Dates cannot be stored at all'],
+          answer: 0,
+          why: 'JSON has no date type, so store the date as text and convert it back with date.fromisoformat() when loading.'
+        }
+      },
+      {
+        title: 'Putting it together: a JSON-backed tracker',
+        say: [
+          'Let us replace yesterday\'s CSV storage in the Expense Tracker with JSON. The save function is now two lines, and the load function handles a missing file, broken JSON and the wrong shape.',
+          'The records can have any fields: item, amount, category, date. Adding a new field later, like a payment method, needs no change to save or load.',
+          'This is the storage layer you will use in the Week 4 project, and on Day 27 your FastAPI web API will send and receive this same JSON.',
+          'In today\'s practice you will write to_json, which uses json.dumps, and load_expenses, which safely returns [] for broken, empty or non-list text.'
+        ],
+        example: 'Upgrading from a paper notebook with columns to a proper labelled filing system: every record keeps all its details, anyone can read it, and adding a new detail does not mean redrawing every page.',
+        code: lines(
+          'import json',
+          'FILE = "tracker.json"',
+          'open(FILE, "w").close()  # start with an empty file on every Run',
+          '',
+          'def save(expenses):',
+          '    with open(FILE, "w") as f:',
+          '        json.dump(expenses, f, indent=2)',
+          '',
+          'def load():',
+          '    try:',
+          '        with open(FILE) as f:',
+          '            data = json.load(f)',
+          '    except (FileNotFoundError, ValueError):',
+          '        return []',
+          '    return data if isinstance(data, list) else []',
+          '',
+          'expenses = load()',
+          'expenses.append({"item": "Tea", "amount": 20, "category": "food", "date": "2026-09-28"})',
+          'save(expenses)',
+          'expenses = load()',
+          'expenses.append({"item": "Metro", "amount": 30, "category": "travel", "date": "2026-09-28", "paid_by": "UPI"})',
+          'save(expenses)',
+          'final = load()',
+          'print(len(final), "expenses")',
+          'print(final[-1]["paid_by"])',
+          'print(sum(e["amount"] for e in final))'
+        ),
+        output: lines('2 expenses', 'UPI', '50'),
+        codeNotes: [
+          { line: 13, note: 'Catch a missing file and broken JSON in one line. An empty file is broken JSON, so load() starts with [].' },
+          { line: 21, note: 'A new field, paid_by, with no change to save or load.' }
+        ],
+        tryIt: 'Write the text "oops" into tracker.json with a normal open and write, just before the line expenses = load(), then run it. load() safely returns [] and the program still works.',
+        check: {
+          question: 'What happens in this tracker if you add a new field to an expense?',
+          options: ['It is saved and loaded automatically, with no code changes', 'save() must be rewritten', 'JSON cannot store new fields'],
+          answer: 0,
+          why: 'json.dump and json.load save every key of every dictionary, so new fields just work.'
+        }
+      }
+    ],
+    summary: [
+      'JSON is the common text format for data between apps and APIs.',
+      'json.dumps(data) gives JSON text; json.loads(text) gives Python data.',
+      'json.dump(data, f, indent=2) and json.load(f) work with open files.',
+      'Catch ValueError for broken JSON and check the shape with isinstance.',
+      'Dates and sets are not JSON: store dates as "YYYY-MM-DD" text.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: JSON storage',
+      steps: [
+        'Write save(expenses) with json.dump and indent=2.',
+        'Write load() that returns [] for a missing file, broken JSON or a non-list.',
+        'Store each expense with item, amount, category and a date as text.',
+        'Add an expense, save, load again and print the total.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 18,
+    title: 'Classes and Objects',
+    goal: 'You can write a class with __init__, attributes and methods, and create objects from it.',
+    minutes: 30,
+    recap: 'Yesterday you saved and loaded data as JSON and handled broken data safely.',
+    parts: [
+      {
+        title: 'What classes and objects are',
+        say: [
+          'So far, data and the functions that work on it have been separate: an expense dictionary here, a describe function there. A class lets you keep data and its actions together in one place.',
+          'A class is a blueprint. It describes what information something has and what it can do. An object is one real thing made from that blueprint. From one Expense class, you can make many Expense objects: tea, bus, lunch.',
+          'You already use objects every day in Python. Every string is an object of the str class; that is why "tea".upper() works. upper is an action that belongs to strings. Lists, dictionaries and dates are objects too.',
+          'Most large Python programs and libraries are built from classes. FastAPI, which you will use on Day 27, uses classes to describe the data an API accepts. So understanding classes is important for the job, not just for exams.'
+        ],
+        example: 'An architect draws one blueprint for a house. From it, the builder can build many houses on different streets. Each house is real and separate: one has blue walls, one has red, but they all follow the same plan. The blueprint is the class; each house is an object.',
+        code: lines(
+          'class Expense:',
+          '    pass',
+          '',
+          'tea = Expense()',
+          'bus = Expense()',
+          'print(type(tea).__name__)',
+          'print(tea is bus)',
+          'print(type("hello").__name__, type([1, 2]).__name__)'
+        ),
+        output: lines('Expense', 'False', 'str list'),
+        codeNotes: [
+          { line: 1, note: 'class and a name starting with a capital letter. pass means "nothing yet".' },
+          { line: 4, note: 'Calling the class like a function creates a new object.' },
+          { line: 7, note: 'Two separate objects from the same class.' }
+        ],
+        tryIt: 'Print type(3.5).__name__ and type({}).__name__. Numbers and dictionaries are objects of classes too: float and dict.',
+        check: {
+          question: 'What is the relationship between a class and an object?',
+          options: ['A class is a blueprint; an object is one thing made from it', 'They are the same thing', 'An object is a blueprint for classes'],
+          answer: 0,
+          why: 'The class describes what things of that kind have and can do. Each object is one real instance built from it.'
+        }
+      },
+      {
+        title: '__init__ and self: giving objects their data',
+        say: [
+          'An empty object is not very useful. You want each expense to have its own item and amount. For that, a class has a special method called __init__, with two underscores on each side. Python runs it automatically every time you create a new object.',
+          'The first parameter of every method is self. self means "this particular object". Inside __init__, self.item = item stores the item on this object. Values stored like this are called attributes.',
+          'When you write Expense("Tea", 20), Python creates a new object, then calls __init__ with self as the new object, item as "Tea" and amount as 20. You never pass self yourself; Python does it.',
+          'After that, tea.item gives "Tea". Each object has its own attributes, so tea.amount and bus.amount can be different.'
+        ],
+        example: 'When a baby is born, the hospital fills in a birth certificate: name, date, weight. __init__ is filling in that certificate for each new object. self is "this baby", so the details go on the right certificate.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          'tea = Expense("Tea", 20)',
+          'bus = Expense("Bus", 45)',
+          'print(tea.item, tea.amount)',
+          'print(bus.item, bus.amount)',
+          'tea.amount = 25',
+          'print(tea.amount, bus.amount)'
+        ),
+        output: lines('Tea 20', 'Bus 45', '25 45'),
+        codeNotes: [
+          { line: 2, note: '__init__ runs automatically for every new object.' },
+          { line: 3, note: 'Store the value on this object as an attribute.' },
+          { line: 10, note: 'Changing one object\'s attribute does not affect the other.' }
+        ],
+        tryIt: 'Add a third parameter category to __init__, store it as self.category, and pass "food" when creating tea. Remember to pass a category for bus too.',
+        check: {
+          question: 'Inside a method, what does self refer to?',
+          options: ['The particular object the method is working on', 'The class itself', 'The first argument you pass'],
+          answer: 0,
+          why: 'self is the object itself. Python passes it automatically, which is why Expense("Tea", 20) has only two arguments.'
+        }
+      },
+      {
+        title: 'Methods: actions that belong to an object',
+        say: [
+          'A method is a function defined inside a class. It always takes self first, so it can use the object\'s attributes. You call it with a dot: tea.label().',
+          'Methods keep the actions next to the data they use. Instead of a separate describe(expense) function, the expense knows how to describe itself. Anyone reading the class sees everything an Expense can do in one place.',
+          'Methods can take extra parameters after self, and they can return values, exactly like normal functions. They can also change the object\'s attributes.',
+          'A common beginner mistake is forgetting self in the def line, like def label():. Python then complains that the method got one more argument than expected, because it always passes the object as self.'
+        ],
+        example: 'A TV remote is an object with actions built in: power, volume up, change channel. You do not need a separate machine to change the channel; you press a button on the remote itself. Methods are the buttons on your object.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def label(self):',
+          '        return f"{self.item}: {self.amount}"',
+          '',
+          '    def with_gst(self, rate=0.18):',
+          '        return round(self.amount * (1 + rate), 2)',
+          '',
+          'lunch = Expense("Lunch", 120)',
+          'print(lunch.label())',
+          'print(lunch.with_gst())',
+          'print(lunch.with_gst(0.05))'
+        ),
+        output: lines('Lunch: 120', '141.6', '126.0'),
+        codeNotes: [
+          { line: 6, note: 'A method: self first, then it can read self.item and self.amount.' },
+          { line: 9, note: 'Methods can have extra parameters and defaults.' },
+          { line: 13, note: 'Call a method with a dot and brackets.' }
+        ],
+        tryIt: 'Add a method is_big(self) that returns True when self.amount is over 1000. Test it on lunch (False) and on Expense("Rent", 8000) (True).',
+        check: {
+          question: 'What is the first parameter of every normal method?',
+          options: ['self', 'this', 'the class name'],
+          answer: 0,
+          why: 'Python passes the object as the first argument, and by convention it is always named self.'
+        }
+      },
+      {
+        title: 'Methods that change the object',
+        say: [
+          'Objects can hold state: information that changes over time. A wallet has a balance that goes down when you spend. A method can change an attribute, like self.balance = self.balance - amount.',
+          'This is where classes really help. The rule "you cannot spend more than you have" lives inside the spend method. Every part of the program that spends money goes through that one method, so the rule is always followed.',
+          'A method that changes the object can also return a value to say whether it worked, like True for success and False for "not enough money". That lets the caller react.',
+          'Keeping rules inside the class, next to the data, is called encapsulation. It means the object protects its own data from being put into a bad state.'
+        ],
+        example: 'A metro card machine will not let you travel if your balance is too low. The rule lives in the machine, not in each passenger\'s head. A spend method on a Wallet class is that machine.',
+        code: lines(
+          'class Wallet:',
+          '    def __init__(self, balance):',
+          '        self.balance = balance',
+          '',
+          '    def spend(self, amount):',
+          '        if amount > self.balance:',
+          '            return False',
+          '        self.balance -= amount',
+          '        return True',
+          '',
+          '    def add(self, amount):',
+          '        self.balance += amount',
+          '',
+          'w = Wallet(100)',
+          'print(w.spend(30), w.balance)',
+          'print(w.spend(500), w.balance)',
+          'w.add(1000)',
+          'print(w.spend(500), w.balance)'
+        ),
+        output: lines('True 70', 'False 70', 'True 570'),
+        codeNotes: [
+          { line: 6, note: 'The rule: never spend more than the balance.' },
+          { line: 8, note: 'Change this wallet\'s balance.' },
+          { line: 16, note: 'Not enough money: nothing changes, and False tells the caller.' }
+        ],
+        tryIt: 'Add a history list in __init__ (self.history = []) and append the amount in spend when it succeeds. Print w.history at the end: [30, 500].',
+        check: {
+          question: 'Why put the "not enough money" check inside spend()?',
+          options: ['So every spend in the program follows the rule automatically', 'Because if statements only work in classes', 'To make spend faster'],
+          answer: 0,
+          why: 'All spending goes through that one method, so the rule can never be skipped by accident.'
+        }
+      },
+      {
+        title: 'Many objects in a list',
+        say: [
+          'Objects work perfectly with everything you already know. You can keep many objects in a list, loop over them, filter them with comprehensions, and sort them with a key.',
+          'The only change is how you read values: e.amount with a dot instead of e["amount"] with brackets. Many developers find the dot version easier to read.',
+          'Methods make loops cleaner too. Instead of building a label with an f-string in the loop, you call e.label(), and the class decides what a label looks like.',
+          'When should you use a class instead of a dictionary? A dictionary is great for simple data, especially data that goes to and from JSON. A class is better when the data has rules and actions that belong to it. In real projects, you will see both.'
+        ],
+        example: 'A school has many student objects, each with a name and marks, and each able to say whether they passed. The principal loops over all of them to make the results list, calling "did you pass?" on each student.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount, category):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '        self.category = category',
+          '',
+          '    def label(self):',
+          '        return f"{self.item} ({self.category}): {self.amount}"',
+          '',
+          'expenses = [Expense("Tea", 20, "food"), Expense("Rent", 8000, "home"), Expense("Lunch", 120, "food")]',
+          'for e in sorted(expenses, key=lambda e: e.amount, reverse=True):',
+          '    print(e.label())',
+          'print(sum(e.amount for e in expenses if e.category == "food"))'
+        ),
+        output: lines('Rent (home): 8000', 'Lunch (food): 120', 'Tea (food): 20', '140'),
+        codeNotes: [
+          { line: 11, note: 'Sort objects by an attribute, biggest first.' },
+          { line: 13, note: 'Filter and total with dots instead of square brackets.' }
+        ],
+        tryIt: 'Find the cheapest expense with min(expenses, key=lambda e: e.amount) and print its label. It should be Tea (food): 20.',
+        check: {
+          question: 'For an Expense object e, how do you read its amount?',
+          options: ['e.amount', 'e["amount"]', 'e.amount()'],
+          answer: 0,
+          why: 'Attributes are read with a dot and no brackets. Square brackets are for dictionaries, and brackets after a name call a method.'
+        }
+      },
+      {
+        title: 'Putting it together: an ExpenseBook class',
+        say: [
+          'Let us wrap the Expense Tracker\'s main actions in a class. ExpenseBook holds a list of expenses and a budget, and has methods to add an expense, get the total, and check how much is left.',
+          'The add method validates the amount, raising a ValueError for bad values, as you learned on Day 14. So an ExpenseBook can never contain a negative expense, whoever uses it.',
+          'The rest of the program now just talks to the book: book.add(...), book.total(), book.left(). The details are hidden inside. This makes the program easier to change later, for example to save to JSON inside add.',
+          'In today\'s practice you will write an Expense class with a label method, and a Wallet class with a spend method that refuses to spend more than the balance.'
+        ],
+        example: 'A bank passbook is an object: it holds your transactions and knows your balance. You do not calculate the balance yourself; the passbook does it. ExpenseBook is a passbook for your spending.',
+        code: lines(
+          'class ExpenseBook:',
+          '    def __init__(self, budget):',
+          '        self.budget = budget',
+          '        self.expenses = []',
+          '',
+          '    def add(self, item, amount):',
+          '        if amount <= 0:',
+          '            raise ValueError("amount must be more than 0")',
+          '        self.expenses.append({"item": item, "amount": amount})',
+          '',
+          '    def total(self):',
+          '        return sum(e["amount"] for e in self.expenses)',
+          '',
+          '    def left(self):',
+          '        return self.budget - self.total()',
+          '',
+          'book = ExpenseBook(5000)',
+          'book.add("Tea", 20)',
+          'book.add("Groceries", 1500)',
+          'try:',
+          '    book.add("Mistake", -10)',
+          'except ValueError as error:',
+          '    print("Refused:", error)',
+          'print("Spent:", book.total())',
+          'print("Left:", book.left())',
+          'print(len(book.expenses), "expenses")'
+        ),
+        output: lines('Refused: amount must be more than 0', 'Spent: 1520', 'Left: 3480', '2 expenses'),
+        codeNotes: [
+          { line: 4, note: 'Each book starts with its own empty list.' },
+          { line: 8, note: 'The rule lives in the class: no bad amounts, ever.' },
+          { line: 15, note: 'A method can call another method with self.' }
+        ],
+        tryIt: 'Add a method by_category(self, category) that returns the expenses of one category. You will need to add a category parameter to add() first.',
+        check: {
+          question: 'Why does ExpenseBook.add raise a ValueError for negative amounts?',
+          options: ['So the book can never contain bad data, whoever calls add', 'Because Python does not allow negative numbers', 'To stop the program every time'],
+          answer: 0,
+          why: 'Checking inside add means every expense passes the same rule. The caller can catch the error and show a message.'
+        }
+      }
+    ],
+    summary: [
+      'A class is a blueprint; an object is one thing made from it: tea = Expense("Tea", 20).',
+      '__init__ runs for every new object and stores attributes on self.',
+      'Methods are functions inside the class. self is always the first parameter.',
+      'Methods can change the object\'s state and keep its rules in one place.',
+      'Read attributes with a dot: e.amount. Objects work in lists, loops and sorting.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: an ExpenseBook class',
+      steps: [
+        'Write an ExpenseBook class with a budget and an empty list of expenses.',
+        'Add an add(item, amount, category) method that rejects amounts of 0 or less.',
+        'Add total() and left() methods.',
+        'Create a book, add a few expenses and print the total and what is left.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 19,
+    title: 'Better Classes: __str__ and Inheritance',
+    goal: 'You can make objects print nicely, build new classes from existing ones with inheritance, and use super().',
+    minutes: 30,
+    recap: 'Yesterday you wrote classes with __init__, attributes and methods, and built an ExpenseBook.',
+    parts: [
+      {
+        title: 'Making objects print nicely with __str__',
+        say: [
+          'If you print an object from yesterday\'s classes, you get something unhelpful, like <__main__.Expense object at 0x7f3a...>. The strange number is where the object lives in memory. It tells you nothing about the expense.',
+          'You can choose what an object looks like when printed by adding a special method called __str__. It takes only self and must return a string. print(obj) and str(obj) both use it.',
+          'Methods with double underscores on both sides, like __init__ and __str__, are called special methods, or dunder methods, short for double underscore. Python calls them automatically at the right moment. You rarely call them yourself.',
+          'A good __str__ gives a short, human-friendly description. It makes debugging much easier, because printing an object tells you straight away what is inside.'
+        ],
+        example: 'A name badge at a conference. Without it, people see just "a person". With it, they immediately see "Priya, Developer, Pune". __str__ is the name badge for your objects.',
+        code: lines(
+          'class Plain:',
+          '    def __init__(self, item):',
+          '        self.item = item',
+          '',
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def __str__(self):',
+          '        return f"{self.item} (Rs {self.amount})"',
+          '',
+          'print(str(Plain("Tea")).startswith("<"))',
+          'tea = Expense("Tea", 20)',
+          'print(tea)',
+          'print("Today: " + str(tea))'
+        ),
+        output: lines('True', 'Tea (Rs 20)', 'Today: Tea (Rs 20)'),
+        codeNotes: [
+          { line: 10, note: '__str__ returns the text to show when the object is printed.' },
+          { line: 13, note: 'Without __str__, the text starts with < and a memory address.' },
+          { line: 15, note: 'print uses __str__ automatically.' }
+        ],
+        tryIt: 'Add print(Plain("Tea")) and run it to see the unhelpful default. Then change the f-string in __str__ to show the amount with 2 decimals: {self.amount:.2f}.',
+        check: {
+          question: 'What does print(obj) use to decide what to show?',
+          options: ['The object\'s __str__ method', 'The object\'s __init__ method', 'The class name only'],
+          answer: 0,
+          why: 'print calls str(obj), which uses __str__. Without it, Python shows a default text with a memory address.'
+        }
+      },
+      {
+        title: 'Inheritance: building on an existing class',
+        say: [
+          'Sometimes you need a class that is almost the same as an existing one, with a little extra. For example, a Subscription is an Expense that repeats every month. It has an item and an amount, plus a yearly cost.',
+          'Instead of copying the Expense code, you write class Subscription(Expense):. The class in brackets is the parent. The new class, the child, automatically gets all the parent\'s attributes and methods.',
+          'You then add only what is new. The child can use the parent\'s __init__ and __str__ without writing them again. This avoids duplicated code, which is a common source of bugs.',
+          'isinstance(obj, Expense) is True for a Subscription too, because a subscription is a kind of expense. Code written for expenses works with subscriptions without changes.'
+        ],
+        example: 'A mobile phone model family: the base model has calling, messaging and a camera. The Pro model has everything the base model has, plus a better camera. The Pro is built on the base design; nobody designs calling again from scratch.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def __str__(self):',
+          '        return f"{self.item} (Rs {self.amount})"',
+          '',
+          'class Subscription(Expense):',
+          '    def yearly_cost(self):',
+          '        return self.amount * 12',
+          '',
+          'music = Subscription("Music app", 99)',
+          'print(music)',
+          'print(music.yearly_cost())',
+          'print(isinstance(music, Expense))'
+        ),
+        output: lines('Music app (Rs 99)', '1188', 'True'),
+        codeNotes: [
+          { line: 9, note: 'Subscription inherits from Expense.' },
+          { line: 13, note: 'Uses the parent\'s __init__: no need to write it again.' },
+          { line: 14, note: 'Uses the parent\'s __str__ too.' }
+        ],
+        tryIt: 'Create a normal Expense("Tea", 20) and call yearly_cost() on it. Read the AttributeError: only subscriptions have that method.',
+        check: {
+          question: 'In class Subscription(Expense):, what does Subscription get from Expense?',
+          options: ['All of Expense\'s attributes and methods', 'Nothing unless it copies the code', 'Only the __init__ method'],
+          answer: 0,
+          why: 'A child class inherits everything from its parent. It only needs to add or change what is different.'
+        }
+      },
+      {
+        title: 'Overriding methods',
+        say: [
+          'A child class can also replace a parent\'s method with its own version. This is called overriding. If Subscription defines its own __str__, Python uses that one for subscriptions, and the parent\'s one for normal expenses.',
+          'Python looks for a method first in the object\'s own class, and then in the parent. The first one found is used.',
+          'This lets different kinds of objects respond to the same method call in their own way. You can loop over a mixed list of expenses and subscriptions, call str() or a method on each, and each one does the right thing. This idea is called polymorphism.',
+          'Overriding is powerful, but use it for real differences in behaviour. If you find yourself overriding almost everything, the child probably should not inherit from that parent at all.'
+        ],
+        example: 'Every vehicle at a toll booth is asked "pay the toll". A car pays the car rate, a truck pays the truck rate, and a bike pays the bike rate. The same request, but each type answers in its own way.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def __str__(self):',
+          '        return f"{self.item} (Rs {self.amount})"',
+          '',
+          '    def monthly_cost(self):',
+          '        return 0',
+          '',
+          'class Subscription(Expense):',
+          '    def __str__(self):',
+          '        return f"{self.item} (Rs {self.amount} every month)"',
+          '',
+          '    def monthly_cost(self):',
+          '        return self.amount',
+          '',
+          'items = [Expense("Tea", 20), Subscription("Gym", 900), Subscription("Music app", 99)]',
+          'for thing in items:',
+          '    print(thing)',
+          'print("Fixed monthly cost:", sum(t.monthly_cost() for t in items))'
+        ),
+        output: lines('Tea (Rs 20)', 'Gym (Rs 900 every month)', 'Music app (Rs 99 every month)', 'Fixed monthly cost: 999'),
+        codeNotes: [
+          { line: 13, note: 'Subscription overrides __str__ with its own version.' },
+          { line: 16, note: 'And overrides monthly_cost.' },
+          { line: 22, note: 'One call works for both kinds; each answers in its own way.' }
+        ],
+        tryIt: 'Add a third class Refund(Expense) whose __str__ shows the amount with a minus sign, and add Refund("Shoes", 1200) to the list.',
+        check: {
+          question: 'If both Expense and Subscription define __str__, which one does a Subscription object use?',
+          options: ['Subscription\'s own version', 'Expense\'s version', 'Both, one after the other'],
+          answer: 0,
+          why: 'Python looks in the object\'s own class first. The child\'s version overrides the parent\'s.'
+        }
+      },
+      {
+        title: 'super(): reusing the parent\'s work',
+        say: [
+          'Sometimes the child needs extra data. A Subscription might need a renewal day, as well as an item and amount. So it needs its own __init__. But you do not want to repeat the parent\'s lines that store item and amount.',
+          'super() gives you the parent class, so you can call its version of a method. super().__init__(item, amount) runs the parent\'s __init__, which stores item and amount. Then the child adds its own attribute.',
+          'The same works for other methods. A child\'s __str__ can call super().__str__() and add something to the end, instead of writing the whole text again.',
+          'A common bug is forgetting to call super().__init__(). The child\'s own attributes are set, but the parent\'s are missing, and you get an AttributeError later when you use them.'
+        ],
+        example: 'A new branch of a bank follows all the head office rules, and adds one local rule of its own. It does not rewrite the whole rule book; it says "all head office rules apply, plus this one". super() is "all head office rules apply".',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def __str__(self):',
+          '        return f"{self.item} (Rs {self.amount})"',
+          '',
+          'class Subscription(Expense):',
+          '    def __init__(self, item, amount, renews_on):',
+          '        super().__init__(item, amount)',
+          '        self.renews_on = renews_on',
+          '',
+          '    def __str__(self):',
+          '        return super().__str__() + f", renews on day {self.renews_on}"',
+          '',
+          'gym = Subscription("Gym", 900, 5)',
+          'print(gym.item, gym.amount, gym.renews_on)',
+          'print(gym)'
+        ),
+        output: lines('Gym 900 5', 'Gym (Rs 900), renews on day 5'),
+        codeNotes: [
+          { line: 11, note: 'Let the parent store item and amount.' },
+          { line: 12, note: 'Then add the child\'s own attribute.' },
+          { line: 15, note: 'Reuse the parent\'s text and add to it.' }
+        ],
+        tryIt: 'Delete line 11 (the super call) and run it. Read the AttributeError about item: the parent\'s setup never ran. Put the line back.',
+        check: {
+          question: 'What does super().__init__(item, amount) do in a child class?',
+          options: ['Runs the parent\'s __init__ so the parent\'s attributes are set', 'Creates a second object', 'Deletes the parent class'],
+          answer: 0,
+          why: 'super() refers to the parent. Calling its __init__ sets up everything the parent normally sets up.'
+        }
+      },
+      {
+        title: 'When to use classes and inheritance',
+        say: [
+          'Classes are a tool, not a goal. For simple data, a dictionary is often enough, especially data that goes to and from JSON. Use a class when data has rules and actions that belong together, like the Wallet or ExpenseBook.',
+          'Use inheritance when the child really is a kind of the parent: a Subscription is a kind of Expense. If the sentence "X is a kind of Y" sounds wrong, do not use inheritance.',
+          'Keep inheritance shallow. One or two levels is normal. Long chains, where a class inherits from a class that inherits from another, become hard to follow.',
+          'In real work, you will mostly use classes that libraries give you, and inherit from them. On Day 27, FastAPI will ask you to write class NewExpense(BaseModel): to describe incoming data. That is inheritance from a library class, and you now know exactly what it means.'
+        ],
+        example: 'You do not need a toolbox with twenty compartments to carry one pen. A simple pouch is fine. Classes are the toolbox: great when you have many related tools and rules, unnecessary for a single simple value.',
+        code: lines(
+          'class Shape:',
+          '    def area(self):',
+          '        return 0',
+          '',
+          'class Rectangle(Shape):',
+          '    def __init__(self, w, h):',
+          '        self.w, self.h = w, h',
+          '    def area(self):',
+          '        return self.w * self.h',
+          '',
+          'class Square(Rectangle):',
+          '    def __init__(self, side):',
+          '        super().__init__(side, side)',
+          '',
+          'shapes = [Rectangle(3, 4), Square(5)]',
+          'print([s.area() for s in shapes])',
+          'print(isinstance(Square(2), Rectangle), isinstance(Square(2), Shape))'
+        ),
+        output: lines('[12, 25]', 'True True'),
+        codeNotes: [
+          { line: 11, note: 'A square is a kind of rectangle, so inheritance makes sense.' },
+          { line: 13, note: 'A square is a rectangle with equal sides.' },
+          { line: 17, note: 'A Square counts as a Rectangle and as a Shape.' }
+        ],
+        tryIt: 'Add a Circle(Shape) class with a radius and an area method using 3.14 * r * r, and add Circle(1) to the list. The areas become [12, 25, 3.14].',
+        check: {
+          question: 'Which sentence suggests inheritance is a good fit?',
+          options: ['"A Subscription is a kind of Expense"', '"A Wallet has a list of expenses"', '"An Expense has an amount"'],
+          answer: 0,
+          why: '"Is a kind of" fits inheritance. "Has a" means one object holds another as an attribute instead.'
+        }
+      },
+      {
+        title: 'Putting it together: expenses and subscriptions',
+        say: [
+          'Let us use today\'s ideas in the Expense Tracker. We have one-time expenses and subscriptions in the same list. Each prints nicely, and each knows its yearly cost: a one-time expense counts once, a subscription counts twelve times.',
+          'The report loop does not need to know which kind each item is. It just calls str() and yearly_cost(), and every object answers correctly. That is polymorphism in a real use.',
+          'Seeing your subscriptions as yearly costs is eye-opening: 99 rupees a month is 1188 rupees a year. This is a feature real budgeting apps highlight.',
+          'In today\'s practice you will write an Expense class with a __str__, and a Subscription class that inherits from Expense and adds yearly_cost.'
+        ],
+        example: 'When you list your spending for a year, a one-time phone purchase appears once, but your streaming plan appears twelve times. Each item knows how often it repeats, and the yearly total comes out right.',
+        code: lines(
+          'class Expense:',
+          '    def __init__(self, item, amount):',
+          '        self.item = item',
+          '        self.amount = amount',
+          '',
+          '    def yearly_cost(self):',
+          '        return self.amount',
+          '',
+          '    def __str__(self):',
+          '        return f"{self.item:<10} Rs {self.amount:>6}"',
+          '',
+          'class Subscription(Expense):',
+          '    def yearly_cost(self):',
+          '        return self.amount * 12',
+          '',
+          '    def __str__(self):',
+          '        return super().__str__() + " / month"',
+          '',
+          'things = [Expense("Phone", 15000), Subscription("Music", 99), Subscription("Gym", 900)]',
+          'for t in things:',
+          '    print(t)',
+          'print("Yearly total:", sum(t.yearly_cost() for t in things))',
+          'subs = [t for t in things if isinstance(t, Subscription)]',
+          'print("Subscriptions per year:", sum(s.yearly_cost() for s in subs))'
+        ),
+        output: lines(
+          'Phone      Rs  15000',
+          'Music      Rs     99 / month',
+          'Gym        Rs    900 / month',
+          'Yearly total: 26988',
+          'Subscriptions per year: 11988'
+        ),
+        codeNotes: [
+          { line: 10, note: 'Lined-up output with f-string widths from Day 13.' },
+          { line: 17, note: 'Reuse the parent\'s text and add " / month".' },
+          { line: 23, note: 'isinstance picks out only the subscriptions.' }
+        ],
+        tryIt: 'Add Subscription("Cloud", 75) to the list. Predict the new subscriptions total before running: 11988 + 900 = 12888.',
+        check: {
+          question: 'Why can the report loop call t.yearly_cost() without checking the type of t?',
+          options: ['Each class has its own yearly_cost, and Python calls the right one', 'Python converts every object to an Expense', 'yearly_cost ignores the object'],
+          answer: 0,
+          why: 'Both classes define yearly_cost. Python uses the version from each object\'s own class, so each answer is correct.'
+        }
+      }
+    ],
+    summary: [
+      '__str__ returns the text shown when an object is printed.',
+      'class Child(Parent): inherits all the parent\'s attributes and methods.',
+      'A child can override a method with its own version.',
+      'super().__init__(...) runs the parent\'s setup; super().method() reuses the parent\'s version.',
+      'Use inheritance only when "X is a kind of Y" is true, and keep it shallow.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: subscriptions',
+      steps: [
+        'Give your Expense class a __str__ and a yearly_cost method.',
+        'Write Subscription(Expense) that overrides yearly_cost to return amount * 12.',
+        'Put expenses and subscriptions in one list and print each one.',
+        'Print the yearly total and the yearly cost of subscriptions only.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 20,
+    title: 'Python on Your Laptop: Scripts, input() and pip',
+    goal: 'You can install Python and VS Code, run .py files from the terminal, read what users type with input(), and install packages with pip in a virtual environment.',
+    minutes: 35,
+    recap: 'Yesterday you made objects print nicely with __str__ and built classes on top of other classes with inheritance.',
+    parts: [
+      {
+        title: 'Installing Python and VS Code',
+        say: [
+          'So far you have written Python in the lesson editor. Real work happens on your own computer, in files, with an editor and a terminal. Today you set that up. From now on, the project steps assume you have it.',
+          'First, install Python from python.org. On Windows, run the installer and tick the box "Add python.exe to PATH" before clicking Install. This box matters: without it, the terminal will not find Python. On a Mac, use the installer from python.org too.',
+          'Second, install Visual Studio Code, usually called VS Code, from code.visualstudio.com. It is a free editor used by a huge number of professional developers. Open it, go to Extensions, and install the official Python extension from Microsoft.',
+          'Finally, check it works. Open a terminal (in VS Code: Terminal, then New Terminal) and type python --version, or python3 --version on a Mac. You should see something like Python 3.12. If you get "not found", reinstall Python and make sure the PATH box is ticked.'
+        ],
+        example: 'Until now you have been cooking in a cookery class kitchen where everything was set up for you. Today you set up your own kitchen at home: buy the stove (Python), the counter (VS Code), and learn where the switches are (the terminal).',
+        projectCode: {
+          label: 'In a terminal on your laptop',
+          code: lines(
+            '# Windows',
+            'python --version',
+            '',
+            '# Mac or Linux',
+            'python3 --version',
+            '',
+            '# Expected: Python 3.12.x (any 3.10 or newer is fine)'
+          )
+        },
+        code: lines(
+          'import sys',
+          'major, minor = sys.version_info[:2]',
+          'print("Python", major)',
+          'print("Recent enough:", (major, minor) >= (3, 10))'
+        ),
+        output: lines('Python 3', 'Recent enough: True'),
+        codeNotes: [
+          { line: 2, note: 'The running Python version as numbers, like (3, 12).' },
+          { line: 4, note: 'Tuples compare item by item, so this checks for 3.10 or newer.' }
+        ],
+        tryIt: 'Run the same four lines in a file on your laptop after installing Python. You should get the same answers.',
+        check: {
+          question: 'On Windows, which installer option is important so the terminal can find Python?',
+          options: ['"Add python.exe to PATH"', '"Install for all users"', '"Disable path length limit"'],
+          answer: 0,
+          why: 'Adding Python to PATH lets the terminal find the python command from any folder.'
+        }
+      },
+      {
+        title: 'Running a .py file from the terminal',
+        say: [
+          'Python programs are saved in files ending in .py. Create a folder for your project, for example expense-tracker, and open it in VS Code with File, Open Folder. Create a file called main.py and write print("Hello from my laptop").',
+          'To run it, open the terminal in VS Code. The terminal is a text window where you type commands. Make sure it is in your project folder, then type python main.py (or python3 main.py on a Mac) and press Enter.',
+          'A few terminal commands you will use every day: cd folder_name moves into a folder, cd .. moves up one level, and ls on Mac or dir on Windows lists the files in the current folder. pwd on Mac, or cd on its own on Windows, shows where you are.',
+          'VS Code also has a Run button in the top right corner of a Python file. It runs the same command for you. Both are fine, but knowing the terminal command matters, because servers and deployment use it.'
+        ],
+        example: 'The terminal is like talking to the computer by text message instead of tapping icons. "Go to the expense-tracker folder" is cd expense-tracker. "Run my program" is python main.py.',
+        projectCode: {
+          label: 'Terminal: create and run your first file',
+          code: lines(
+            'mkdir expense-tracker',
+            'cd expense-tracker',
+            'code .            # opens this folder in VS Code',
+            '',
+            '# after creating main.py in VS Code:',
+            'python main.py    # Mac: python3 main.py'
+          )
+        },
+        code: lines(
+          '# main.py',
+          'def main():',
+          '    print("Hello from my laptop")',
+          '    print("Expense Tracker starting...")',
+          '',
+          'if __name__ == "__main__":',
+          '    main()'
+        ),
+        output: lines('Hello from my laptop', 'Expense Tracker starting...'),
+        codeNotes: [
+          { line: 2, note: 'Put the program\'s steps in a main() function.' },
+          { line: 6, note: 'Run main() only when this file is run directly (from Day 15).' }
+        ],
+        tryIt: 'Create main.py on your laptop with this code and run python main.py in the terminal. You should see the same two lines.',
+        check: {
+          question: 'How do you run a file called main.py from the terminal?',
+          options: ['python main.py (python3 on a Mac)', 'run main', 'open main.py'],
+          answer: 0,
+          why: 'The python command followed by the file name runs the file. The terminal must be in the folder where the file is.'
+        }
+      },
+      {
+        title: 'Reading what the user types with input()',
+        say: [
+          'On your laptop, a program can ask the user a question and wait for an answer. input("Item: ") shows the text Item: and waits. When the user types something and presses Enter, input returns what they typed as a string.',
+          'input always returns a string, even if the user typed a number. To use it as a number, convert it with int() or float(). And because users make mistakes, wrap the conversion in try and except, exactly like Day 14.',
+          'input() does not work in the lesson editor, because a web page cannot pause and wait for you to type into a running program. That is why the practice tasks give you functions that receive text as a parameter. On your laptop, you pass input(...) into those same functions.',
+          'This is a good design anyway: keep the logic in functions that take plain values, and keep input() at the edge of the program. Functions without input() are easy to test.'
+        ],
+        example: 'input() is like a shopkeeper asking "What would you like?" and waiting for your answer. Whatever you say, the shopkeeper hears words, not numbers, and has to understand "two" or "2" as a quantity.',
+        projectCode: {
+          label: 'main.py on your laptop (input() only works there)',
+          code: lines(
+            'def parse_amount(text):',
+            '    try:',
+            '        return float(text.strip())',
+            '    except ValueError:',
+            '        return None',
+            '',
+            'item = input("Item: ")',
+            'amount = parse_amount(input("Amount: "))',
+            'if amount is None:',
+            '    print("Please type a number, like 120 or 99.5")',
+            'else:',
+            '    print(f"Added {item}: Rs {amount:.2f}")'
+          )
+        },
+        code: lines(
+          'def parse_amount(text):',
+          '    try:',
+          '        return float(text.strip())',
+          '    except ValueError:',
+          '        return None',
+          '',
+          '# In the lesson editor we pretend these were typed:',
+          'for typed in [" 120 ", "99.5", "abc"]:',
+          '    print(repr(typed), "->", parse_amount(typed))'
+        ),
+        output: lines("' 120 ' -> 120.0", "'99.5' -> 99.5", "'abc' -> None"),
+        codeNotes: [
+          { line: 3, note: 'Everything typed is text: strip spaces, then convert.' },
+          { line: 8, note: 'We test the function with pretend input instead of input().' },
+          { line: 9, note: 'repr shows the text with quotes, so the spaces are visible.' }
+        ],
+        tryIt: 'Run the projectCode version on your laptop. Type an item and an amount, then try typing letters for the amount to see the friendly message.',
+        check: {
+          question: 'What type does input() always return?',
+          options: ['str (text)', 'int', 'Whatever type the user typed'],
+          answer: 0,
+          why: 'input() always gives a string. Convert it with int() or float(), inside try/except, when you need a number.'
+        }
+      },
+      {
+        title: 'A menu loop',
+        say: [
+          'Most small command-line programs are a menu in a loop: show the options, read a choice, do the action, and repeat until the user chooses to quit.',
+          'The loop is a while True: loop, which would run forever, with a break when the user picks Quit. You saw break on Day 6.',
+          'Each option calls a function: add an expense, list expenses, show the total. The menu itself stays short and easy to read.',
+          'We check the choice with a small function, menu_choice, which returns 1, 2 or 3 for valid choices and None for anything else. That function has no input() in it, so it can be tested, and it is one of today\'s practice tasks.'
+        ],
+        example: 'An ATM shows a menu: withdraw, balance, mini statement, exit. After each action, it shows the menu again, until you press exit. Your Expense Tracker menu works the same way.',
+        projectCode: {
+          label: 'main.py: the Expense Tracker menu (on your laptop)',
+          code: lines(
+            'def menu_choice(text):',
+            '    value = text.strip()',
+            '    return int(value) if value in ("1", "2", "3") else None',
+            '',
+            'expenses = []',
+            'while True:',
+            '    print("1. Add  2. List  3. Quit")',
+            '    choice = menu_choice(input("Choose: "))',
+            '    if choice == 1:',
+            '        item = input("Item: ")',
+            '        amount = float(input("Amount: "))',
+            '        expenses.append({"item": item, "amount": amount})',
+            '    elif choice == 2:',
+            '        for e in expenses:',
+            '            print(f"{e[\'item\']:<12}{e[\'amount\']:>9.2f}")',
+            '    elif choice == 3:',
+            '        print("Bye!")',
+            '        break',
+            '    else:',
+            '        print("Please type 1, 2 or 3")'
+          )
+        },
+        code: lines(
+          'def menu_choice(text):',
+          '    value = text.strip()',
+          '    return int(value) if value in ("1", "2", "3") else None',
+          '',
+          'expenses = []',
+          'pretend_typing = ["1", "Tea", "20", "1", "Bus", "45", "7", "2", "3"]',
+          'answers = iter(pretend_typing)',
+          'while True:',
+          '    choice = menu_choice(next(answers))',
+          '    if choice == 1:',
+          '        expenses.append({"item": next(answers), "amount": float(next(answers))})',
+          '    elif choice == 2:',
+          '        for e in expenses:',
+          '            print(f"{e[\'item\']:<12}{e[\'amount\']:>9.2f}")',
+          '    elif choice == 3:',
+          '        print("Bye!")',
+          '        break',
+          '    else:',
+          '        print("Please type 1, 2 or 3")'
+        ),
+        output: lines('Please type 1, 2 or 3', 'Tea             20.00', 'Bus             45.00', 'Bye!'),
+        codeNotes: [
+          { line: 6, note: 'Pretend answers, in the order a user would type them.' },
+          { line: 9, note: 'next(answers) gives the next pretend answer, like input() would.' },
+          { line: 17, note: 'break ends the while True loop.' }
+        ],
+        tryIt: 'Change "7" in the pretend typing to "2" and run it. Now the list is printed twice and there is no "Please type" message.',
+        check: {
+          question: 'How does a while True: menu loop end?',
+          options: ['With break when the user chooses Quit', 'It ends after 10 rounds', 'When the list is empty'],
+          answer: 0,
+          why: 'while True never becomes False by itself. A break inside the Quit option ends the loop.'
+        }
+      },
+      {
+        title: 'pip and packages',
+        say: [
+          'Python\'s standard library is big, but the wider Python community has written hundreds of thousands of extra packages: requests for calling APIs, FastAPI for building web APIs, pytest for testing, and many more. They live on a website called PyPI, the Python Package Index.',
+          'pip is the tool that installs these packages. In the terminal, pip install requests downloads and installs the requests package so your code can import it.',
+          'Only install packages you need, from names you trust. Check the spelling carefully: attackers sometimes publish fake packages with names one letter different from popular ones.',
+          'pip list shows what is installed. pip freeze > requirements.txt writes the exact packages and versions to a file, so another computer, or a server, can install the same set with pip install -r requirements.txt. You will need this file on Day 29 when you deploy.'
+        ],
+        example: 'PyPI is like an app store for Python code, and pip is the "Install" button. requirements.txt is a shopping list of the exact apps and versions your project needs, so a new phone can be set up the same way.',
+        projectCode: {
+          label: 'Terminal: installing packages',
+          code: lines(
+            'pip install requests',
+            'pip list',
+            'pip freeze > requirements.txt',
+            '',
+            '# On another computer or a server:',
+            'pip install -r requirements.txt'
+          )
+        },
+        code: lines(
+          'requirements = """requests==2.32.3',
+          'fastapi==0.115.0',
+          'pytest==8.3.3"""',
+          'for line in requirements.splitlines():',
+          '    name, version = line.split("==")',
+          '    print(f"{name:<10} version {version}")'
+        ),
+        output: lines('requests   version 2.32.3', 'fastapi    version 0.115.0', 'pytest     version 8.3.3'),
+        codeNotes: [
+          { line: 1, note: 'This is what a requirements.txt file looks like: name==version per line.' },
+          { line: 5, note: 'Each line splits into the package name and its exact version.' }
+        ],
+        tryIt: 'On your laptop (inside a virtual environment, next part), run pip install requests and then pip list to see it installed.',
+        check: {
+          question: 'What is requirements.txt for?',
+          options: ['Listing the exact packages a project needs, so they can be installed elsewhere', 'Storing your Python code', 'Listing Python\'s built-in modules'],
+          answer: 0,
+          why: 'pip install -r requirements.txt installs the same packages and versions on another computer or server.'
+        }
+      },
+      {
+        title: 'Virtual environments',
+        say: [
+          'If every project installs packages into one shared Python, projects start to clash: one needs version 1 of a package, another needs version 2. The solution is a virtual environment, usually called a venv: a private set of packages for one project.',
+          'You create one inside your project folder with python -m venv .venv. Then you activate it: on Windows, .venv\\Scripts\\activate; on Mac or Linux, source .venv/bin/activate. The terminal prompt then shows (.venv) at the start.',
+          'While the venv is active, pip install puts packages only into this project. VS Code usually notices the .venv folder and asks whether to use it; say yes.',
+          'Do not put the .venv folder in Git; it is large and can be rebuilt from requirements.txt. You will set up a .gitignore file for that on Day 22. Creating a venv at the start of every Python project is a professional habit that interviewers like to hear about.'
+        ],
+        example: 'A virtual environment is like each project having its own pencil box. Your art project\'s colours do not get mixed into your maths project\'s box. If one project needs a special pen, only its box gets it.',
+        projectCode: {
+          label: 'Terminal: set up the Expense Tracker project',
+          code: lines(
+            'cd expense-tracker',
+            'python -m venv .venv',
+            '',
+            '# Windows',
+            '.venv\\Scripts\\activate',
+            '# Mac or Linux',
+            'source .venv/bin/activate',
+            '',
+            '# The prompt now starts with (.venv)',
+            'pip install pytest',
+            'pip freeze > requirements.txt',
+            'python main.py'
+          )
+        },
+        code: lines(
+          'import sys',
+          'in_venv = sys.prefix != sys.base_prefix',
+          'print("Checking for a virtual environment...")',
+          'print("This check is useful on your laptop:", type(in_venv).__name__)'
+        ),
+        output: lines('Checking for a virtual environment...', 'This check is useful on your laptop: bool'),
+        codeNotes: [
+          { line: 2, note: 'Inside a venv, sys.prefix points to the .venv folder instead of the main Python.' }
+        ],
+        tryIt: 'On your laptop, run print(sys.prefix != sys.base_prefix) with and without the venv activated. It is True only when the venv is active.',
+        check: {
+          question: 'Why use a virtual environment for each project?',
+          options: ['So each project has its own packages and versions without clashing', 'To make Python run faster', 'Because pip only works in a venv'],
+          answer: 0,
+          why: 'A venv keeps one project\'s packages separate from others, so different projects can use different versions safely.'
+        }
+      }
+    ],
+    summary: [
+      'Install Python (tick "Add to PATH" on Windows) and VS Code with the Python extension.',
+      'Save code in .py files and run them with python main.py (python3 on a Mac).',
+      'input() returns text. Convert with int() or float() inside try/except.',
+      'pip install adds packages; requirements.txt lists the exact versions.',
+      'Create a venv per project: python -m venv .venv, then activate it.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: move to your laptop',
+      steps: [
+        'Create an expense-tracker folder, open it in VS Code and create a .venv.',
+        'Copy your functions (parse_amount, save, load) into main.py.',
+        'Write the menu loop with input(): add, list, quit.',
+        'Save expenses to expenses.json with the JSON code from Day 17, so they are still there next time you run it.'
+      ]
+    }
   }
 ];

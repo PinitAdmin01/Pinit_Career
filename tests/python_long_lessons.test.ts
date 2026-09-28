@@ -28,7 +28,7 @@ async function runLikeLessonPage(pyodide: PyodideInterface, code: string): Promi
   return [out.join('\n'), error ? `[Error] ${error}` : ''].filter(Boolean).join('\n');
 }
 
-test('every Python long lesson code sample shows exactly its stated output in the browser runner', async () => {
+test('every Python long lesson code sample shows exactly its stated output in the browser runner, every time', async () => {
   const pyodide = await loadPyodide();
   for (const lesson of PYTHON_LONG_LESSONS) {
     for (const [i, part] of lesson.parts.entries()) {
@@ -37,6 +37,8 @@ test('every Python long lesson code sample shows exactly its stated output in th
       assert.ok(part.output !== undefined, `${where}: code has no output`);
       assert.ok(!/\binput\(/.test(part.code), `${where}: input() cannot run in the browser`);
       assert.equal(await runLikeLessonPage(pyodide, part.code), part.output, where);
+      // Students often press Run Code again; files written by the first run must not change the result.
+      assert.equal(await runLikeLessonPage(pyodide, part.code), part.output, `${where}, second run`);
     }
   }
 });
