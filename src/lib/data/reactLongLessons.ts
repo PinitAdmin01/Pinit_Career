@@ -2279,5 +2279,1291 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         'Make Summary show the real total with total={jobs.length}.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 11,
+    title: 'Showing Things Only When Needed',
+    goal: 'You can make a component show different things in different situations using if, && and the ? : operator.',
+    minutes: 30,
+    recap: 'Yesterday you showed a whole list of jobs with map and gave each card a key.',
+    parts: [
+      {
+        title: 'Why screens change with the situation',
+        say: [
+          'Look at any app you use and notice how often the screen changes with the situation. While data loads, you see a spinner. If your inbox is empty, you see "No new mail". If you are logged out, you see a Login button; logged in, you see your photo.',
+          'This is called conditional rendering: showing something only when a condition is true, or choosing between two things. It is not a new React feature. It is the if and ? : you learned on Day 3, used inside components.',
+          'Your Job Tracker needs it right away: an empty-list message, an "Offer!" badge only on offer jobs, and different colours for different statuses. Today you learn the three ways to do it and when to use each.'
+        ],
+        example: 'A lift display shows the floor number normally, "Door opening" when the door opens, and "Overload" only when too many people get in. Same display, different message for each situation.',
+        code: lines(
+          'function Greeting(user) {',
+          '  if (user) {',
+          '    return `Welcome back, ${user.name}!`;',
+          '  }',
+          '  return "Please log in.";',
+          '}',
+          '',
+          'console.log(Greeting({ name: "Asha" }));',
+          'console.log(Greeting(null));'
+        ),
+        output: lines('Welcome back, Asha!', 'Please log in.'),
+        codeNotes: [
+          { line: 2, note: 'If there is a user, show a welcome.' },
+          { line: 5, note: 'Otherwise, this line runs instead.' }
+        ],
+        tryIt: 'Add a check: if the user has isAdmin: true, return "Welcome, admin!" before the normal welcome.',
+        check: {
+          question: 'What is conditional rendering?',
+          options: ['Showing different things depending on a condition', 'Making the page load faster', 'A special React library'],
+          answer: 0,
+          why: 'It means choosing what to show based on conditions, using normal JavaScript like if and ? :.'
+        }
+      },
+      {
+        title: 'Way 1: if with an early return',
+        say: [
+          'The clearest way is a normal if before the main return. If a special situation applies, return something different straight away. This is called an early return.',
+          'For example, at the top of JobList: if (jobs.length === 0) return <p>No jobs yet.</p>;. The rest of the component only runs when there are jobs, so the main return stays simple.',
+          'Use early returns for "whole screen" situations: loading, errors, empty lists, not logged in. Each situation gets its own if at the top, and the happy path comes last.',
+          'You already did this on Day 10 in JobList. Now you know its name and why it is a good pattern.'
+        ],
+        example: 'A security guard at the building gate checks your ID first. No ID? You are turned back right there, and the rest of the building never needs to deal with you. That is an early return.',
+        projectCode: {
+          label: 'src/components/JobList.jsx',
+          code: lines(
+            'export default function JobList({ jobs, loading }) {',
+            '  if (loading) {',
+            '    return <p>Loading your jobs...</p>;',
+            '  }',
+            '  if (jobs.length === 0) {',
+            '    return <p>No jobs yet. Add your first one!</p>;',
+            '  }',
+            '  return (',
+            '    <div className="job-list">',
+            '      {jobs.map(job => <JobCard key={job.id} {...job} />)}',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'function JobList(jobs, loading) {',
+          '  if (loading) return "Loading your jobs...";',
+          '  if (jobs.length === 0) return "No jobs yet. Add your first one!";',
+          '  return `Showing ${jobs.length} jobs`;',
+          '}',
+          '',
+          'console.log(JobList([], true));',
+          'console.log(JobList([], false));',
+          'console.log(JobList([{}, {}], false));'
+        ),
+        output: lines('Loading your jobs...', 'No jobs yet. Add your first one!', 'Showing 2 jobs'),
+        codeNotes: [
+          { line: 2, note: 'Special situations first, each with its own early return.' },
+          { line: 4, note: 'The normal case comes last.' }
+        ],
+        tryIt: 'Add an error parameter and, before the others, return "Could not load jobs" when error is true.',
+        check: {
+          question: 'Where do early returns usually go in a component?',
+          options: ['At the top, before the main return', 'At the very end', 'Inside the JSX'],
+          answer: 0,
+          why: 'Special cases are handled first at the top, so the main return only deals with the normal case.'
+        }
+      },
+      {
+        title: 'Way 2: && to show something or nothing',
+        say: [
+          'Sometimes you do not want a whole different screen, just one small extra piece: a badge, a warning, a button. For "show this or show nothing", use && inside the JSX: {job.status === "offer" && <span>Offer!</span>}.',
+          'How does it work? In JavaScript, a && b gives b when a is true, and gives a (false) when a is false. React shows nothing for false, null and undefined. So the badge appears only when the condition is true.',
+          'Remember the trap from Day 10: numbers. {count && <p>...</p>} shows a 0 on screen when count is 0, because 0 is not false, it is a number React happily displays. Always use a real comparison on the left: {count > 0 && ...}.',
+          'The runnable box shows what && gives back in different cases, so you can see the trap for yourself.'
+        ],
+        example: 'A shop puts a "SALE" sticker on a product only if it is discounted. No discount, no sticker. The shelf is otherwise the same.',
+        code: lines(
+          'console.log(true && "Offer!");',
+          'console.log(false && "Offer!");',
+          'console.log(0 && "You have jobs");',
+          'console.log(0 > 0 && "You have jobs");'
+        ),
+        output: lines('Offer!', 'false', '0', 'false'),
+        codeNotes: [
+          { line: 1, note: 'True on the left: && gives the right side.' },
+          { line: 2, note: 'False: React shows nothing for false.' },
+          { line: 3, note: 'The trap: 0 is returned, and React would show "0" on screen.' },
+          { line: 4, note: 'The fix: a real comparison gives false, which shows nothing.' }
+        ],
+        projectCode: {
+          label: 'Inside JobCard',
+          code: lines(
+            '<div className="job-card">',
+            '  <h3>{title}</h3>',
+            '  {status === "offer" && <span className="badge">Offer!</span>}',
+            '</div>'
+          )
+        },
+        tryIt: 'Try console.log("" && "Hello"). Empty text is also falsy. Does it print anything visible?',
+        check: {
+          question: 'What does {jobs.length && <p>Jobs</p>} show when there are no jobs?',
+          options: ['Nothing', 'The number 0', 'An error'],
+          answer: 1,
+          why: 'jobs.length is 0, so && gives 0, and React displays numbers. Use jobs.length > 0 instead.'
+        }
+      },
+      {
+        title: 'Way 3: ? : to choose between two things',
+        say: [
+          'When you need one thing or another, use the ternary operator: condition ? whenTrue : whenFalse. In JSX: {isLoggedIn ? <LogoutButton /> : <LoginButton />}.',
+          'It is also great for small values like text or class names: <span>{remote ? "Remote" : "Office"}</span> or className={status === "offer" ? "card green" : "card"}.',
+          'Keep ternaries short. If you find yourself nesting one ternary inside another, a ? b ? c : d : e, stop. It becomes very hard to read. Use an early return, a small helper function, or an object lookup instead.',
+          'An object lookup is a neat trick: const colors = { applied: "grey", interview: "blue", offer: "green" }; then colors[status]. One line replaces a long chain of if statements.'
+        ],
+        example: 'A railway signal shows green or red. One of the two, always. The ternary is your two-light signal.',
+        code: lines(
+          'const remote = false;',
+          'console.log(remote ? "Remote" : "Office");',
+          '',
+          'const colors = { applied: "grey", interview: "blue", offer: "green" };',
+          'const status = "interview";',
+          'console.log(colors[status] ?? "grey");',
+          'console.log(`card ${status === "offer" ? "highlight" : ""}`.trim());'
+        ),
+        output: lines('Office', 'blue', 'card'),
+        codeNotes: [
+          { line: 2, note: 'One of two texts, chosen by the condition.' },
+          { line: 6, note: 'Object lookup instead of many ifs. ?? gives a fallback for unknown statuses.' },
+          { line: 7, note: 'A class name that changes with the status.' }
+        ],
+        tryIt: 'Add rejected: "red" to the colors object and change status to "rejected".',
+        check: {
+          question: 'Which is best for choosing between exactly two things in JSX?',
+          options: ['&&', '? :', 'A for loop'],
+          answer: 1,
+          why: 'The ternary picks one of two options. && is for "something or nothing".'
+        }
+      },
+      {
+        title: 'Choosing the right way',
+        say: [
+          'Here is a simple guide. Whole different screen for a situation, like loading, error, empty or logged out: use an early return with if. Show an extra piece or nothing: use &&, with a real comparison on the left. One of two pieces or values: use ? :.',
+          'Many situations: use an object lookup or a small function that returns the right piece. Never write long nested ternaries.',
+          'A good test is to read your JSX out loud. "If the status is offer, show the badge" reads well. "If a then if b then c else d else e" does not. Code is read far more often than it is written, so write for the reader.',
+          'Interviewers love asking "how do you conditionally render in React?". Now you can answer with all three ways and when to use each.'
+        ],
+        example: 'Choosing transport: for a long trip you take a train (early return, big decision), for an extra stop you add a detour (&&), for two routes you pick one (? :). The right tool depends on the size of the choice.',
+        code: lines(
+          'function statusLabel(status) {',
+          '  const labels = { applied: "Applied", interview: "Interview", offer: "Offer" };',
+          '  return labels[status] ?? "Unknown";',
+          '}',
+          '',
+          'console.log(statusLabel("offer"));',
+          'console.log(statusLabel("ghosted"));'
+        ),
+        output: lines('Offer', 'Unknown'),
+        codeNotes: [
+          { line: 2, note: 'An object lookup: clean even with many statuses.' }
+        ],
+        tryIt: 'Add rejected: "Rejected" to the labels and call statusLabel("rejected").',
+        check: {
+          question: 'Your page needs a completely different view while data is loading. Which way?',
+          options: ['An early return with if', 'A nested ternary', '&&'],
+          answer: 0,
+          why: 'A whole different screen for a situation is clearest as an early return at the top of the component.'
+        }
+      },
+      {
+        title: 'Make the Job Tracker react to status',
+        say: [
+          'Let us use all this in your project. JobCard gets a coloured status badge using an object lookup, and an "Offer!" celebration only on offer jobs using &&.',
+          'Summary shows "No interviews yet" when there are none, and "2 interviews!" otherwise, using a ternary.',
+          'JobList keeps its early return for the empty list. With these three changes, your app already looks like it understands the data.',
+          'Tomorrow is a big day: state. Your screen will finally be able to change while the user is using it, instead of only showing fixed data.'
+        ],
+        example: 'A good receptionist greets a regular customer by name, a new visitor politely, and a VIP with extra care. Your components now greet each job according to its situation.',
+        projectCode: {
+          label: 'src/components/JobCard.jsx',
+          code: lines(
+            'const STATUS_COLORS = { applied: "#64748b", interview: "#2563eb", offer: "#16a34a", rejected: "#dc2626" };',
+            '',
+            'export default function JobCard({ title, company, status = "applied" }) {',
+            '  return (',
+            '    <div className="job-card">',
+            '      <h3>{title}</h3>',
+            '      <p>{company}</p>',
+            '      <span style={{ color: STATUS_COLORS[status] ?? "#64748b" }}>{status}</span>',
+            '      {status === "offer" && <strong> 🎉 Offer!</strong>}',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Update JobCard in your project like this, then change one job\'s status to "offer" in App and watch the badge appear.',
+        check: {
+          question: 'In style={{ color: STATUS_COLORS[status] }}, what are the double curly braces?',
+          options: ['A mistake', 'Outer braces for JavaScript, inner braces for an object of styles', 'A special React loop'],
+          answer: 1,
+          why: 'The outer braces switch to JavaScript; the inner braces are the object holding the CSS values.'
+        }
+      }
+    ],
+    summary: [
+      'Conditional rendering is normal JavaScript used inside components.',
+      'Early return with if for whole-screen situations like loading, errors and empty lists.',
+      '&& for "this or nothing"; always put a real comparison on the left to avoid a stray 0.',
+      '? : for one of two things; use an object lookup for many options.'
+    ],
+    projectStep: {
+      title: 'Status badges and smart messages',
+      steps: [
+        'Add coloured status badges to JobCard with an object lookup.',
+        'Show "🎉 Offer!" only on offer jobs using &&.',
+        'Make Summary say "No interviews yet" or "N interviews!" with a ternary.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 12,
+    title: 'State with useState: Making the Screen Change',
+    goal: 'You can give a component memory with useState, update it the right way, and understand why the screen redraws when state changes.',
+    minutes: 32,
+    recap: 'Yesterday you made components show different things in different situations.',
+    parts: [
+      {
+        title: 'Why normal variables are not enough',
+        say: [
+          'So far your screens show data that never changes while the app is open. Real apps change all the time: a counter goes up, a menu opens, a new job is added. For that, a component needs memory that survives, and a way to tell React "something changed, please redraw".',
+          'You might think a normal variable would do: let count = 0; and count = count + 1 on click. It does not work. The variable changes, but React does not know, so the screen stays the same. And every time React redraws the component, the function runs again from the top, and let count = 0 resets it.',
+          'React\'s answer is state. State is data that React stores for your component between redraws. When you change it through React, React redraws the component with the new value automatically.'
+        ],
+        example: 'Writing a number on a whiteboard in an empty room changes nothing for anyone. Telling the class teacher "the score changed" means the teacher updates the scoreboard everyone sees. State is telling React.',
+        code: lines(
+          'function Counter() {',
+          '  let count = 0;',
+          '  count = count + 1;',
+          '  return `Count: ${count}`;',
+          '}',
+          '',
+          'console.log(Counter());',
+          'console.log(Counter());',
+          'console.log(Counter());'
+        ),
+        output: lines('Count: 1', 'Count: 1', 'Count: 1'),
+        codeNotes: [
+          { line: 2, note: 'Every time the component runs, this resets to 0.' },
+          { line: 7, note: 'Each call is like a redraw. The count never goes past 1: normal variables forget.' }
+        ],
+        tryIt: 'Move let count = 0; outside the function (above it) and run again. It counts now, but React components cannot rely on outside variables like this; state is the proper way.',
+        check: {
+          question: 'Why does a normal let variable not work for a click counter in React?',
+          options: ['let is not allowed in React', 'It resets on every redraw and React does not know it changed', 'Numbers cannot change'],
+          answer: 1,
+          why: 'The component function runs again on each redraw, resetting the variable, and changing it does not tell React to redraw.'
+        }
+      },
+      {
+        title: 'useState: value and setter',
+        say: [
+          'To use state, import useState from React and call it at the top of your component: const [count, setCount] = useState(0);. This is the array destructuring from Day 6.',
+          'useState gives back two things. count is the current value. setCount is a function to change it. The 0 you pass in is the starting value, used only the very first time.',
+          'To change the value, call the setter: setCount(count + 1). React stores the new value and redraws the component. On the redraw, useState gives back the new value, so count is now 1.',
+          'The names are your choice, but the convention is always [something, setSomething]: [jobs, setJobs], [isOpen, setIsOpen], [name, setName]. Following it makes your code instantly readable to other developers.'
+        ],
+        example: 'State is like a locker with a key. React keeps the locker (the value). useState gives you the current contents and the only key that can change them (the setter).',
+        projectCode: {
+          label: 'src/components/Counter.jsx',
+          code: lines(
+            'import { useState } from "react";',
+            '',
+            'export default function Counter() {',
+            '  const [count, setCount] = useState(0);',
+            '  return (',
+            '    <div>',
+            '      <p>Jobs applied today: {count}</p>',
+            '      <button onClick={() => setCount(count + 1)}>+1</button>',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        code: lines(
+          'let stored = 0;',
+          'function useStateDemo() {',
+          '  const setValue = (next) => { stored = next; render(); };',
+          '  return [stored, setValue];',
+          '}',
+          '',
+          'function render() {',
+          '  const [count, setCount] = useStateDemo();',
+          '  console.log(`Screen shows: ${count}`);',
+          '  return setCount;',
+          '}',
+          '',
+          'const setCount = render();',
+          'setCount(1);',
+          'setCount(2);'
+        ),
+        output: lines('Screen shows: 0', 'Screen shows: 1', 'Screen shows: 2'),
+        codeNotes: [
+          { line: 1, note: 'React keeps the value somewhere safe, outside your component.' },
+          { line: 3, note: 'The setter saves the new value and redraws.' },
+          { line: 14, note: 'Each setter call redraws the "screen" with the new value.' }
+        ],
+        tryIt: 'In your project, create Counter.jsx from the React code, use <Counter /> in App, and click the button a few times.',
+        check: {
+          question: 'In const [open, setOpen] = useState(false), what is false?',
+          options: ['The value forever', 'The starting value', 'The setter'],
+          answer: 1,
+          why: 'The argument to useState is only the starting value. After that, the setter changes it.'
+        }
+      },
+      {
+        title: 'Never change state directly',
+        say: [
+          'The golden rule of state: never change it directly. count = 5 or jobs.push(newJob) will not redraw the screen, and can cause strange bugs later. Always use the setter.',
+          'For arrays and objects, this means giving the setter a new copy, exactly the Day 6 spread patterns. To add a job: setJobs([...jobs, newJob]). To change a field: setJob({ ...job, status: "offer" }).',
+          'Why a new copy? React checks whether the new value is a different array or object from the old one. If you push into the same array and pass it back, React sees the same array and may decide nothing changed. A new copy makes the change obvious.',
+          'This is why you practised spread so carefully. It is not style; it is how React knows what changed.'
+        ],
+        example: 'A bank notices you updated your address only when you submit a new form. Scribbling on your old passbook at home changes nothing in the bank\'s records.',
+        code: lines(
+          'const jobs = ["Dev"];',
+          '',
+          'const sameArray = jobs;',
+          'sameArray.push("Tester");',
+          'console.log(sameArray === jobs);',
+          '',
+          'const newArray = [...jobs, "Designer"];',
+          'console.log(newArray === jobs);',
+          'console.log(newArray);'
+        ),
+        output: lines('true', 'false', '[ \'Dev\', \'Tester\', \'Designer\' ]'),
+        codeNotes: [
+          { line: 5, note: 'After push it is still the same array. React would think nothing changed.' },
+          { line: 8, note: 'A new array: React sees clearly that something changed.' }
+        ],
+        tryIt: 'Write the object version: const job = { status: "applied" }; const updated = { ...job, status: "offer" }; and print updated === job.',
+        check: {
+          question: 'How do you add newJob to the jobs state?',
+          options: ['jobs.push(newJob)', 'setJobs([...jobs, newJob])', 'jobs = [...jobs, newJob]'],
+          answer: 1,
+          why: 'Always use the setter with a new array. push and direct assignment do not tell React.'
+        }
+      },
+      {
+        title: 'Updating from the previous value',
+        say: [
+          'There is one subtle case. When the new value depends on the old one, like a counter, React recommends passing a function to the setter: setCount(c => c + 1).',
+          'Why? React does not always update state immediately; it may group several updates together for speed. If you call setCount(count + 1) three times in one click, all three use the same old count, and you get +1 instead of +3. With setCount(c => c + 1), each call receives the latest value, so you get +3.',
+          'You do not need this every time, but it is a safe habit whenever the new value is calculated from the old one: counters, toggles like setOpen(o => !o), and adding to lists like setJobs(prev => [...prev, newJob]).',
+          'The runnable box shows the difference with a small fake of how React groups updates.'
+        ],
+        example: 'Three people each told "the count is 5, add one" all write 6. Three people passing a notebook, each adding one to whatever the last person wrote, end at 8. The function form is passing the notebook.',
+        code: lines(
+          'function runUpdates(start, updates) {',
+          '  let value = start;',
+          '  for (const u of updates) {',
+          '    value = typeof u === "function" ? u(value) : u;',
+          '  }',
+          '  return value;',
+          '}',
+          '',
+          'const count = 5;',
+          'console.log(runUpdates(count, [count + 1, count + 1, count + 1]));',
+          'console.log(runUpdates(count, [c => c + 1, c => c + 1, c => c + 1]));'
+        ),
+        output: lines('6', '8'),
+        codeNotes: [
+          { line: 4, note: 'Like React: a function gets the latest value; a plain value just replaces it.' },
+          { line: 10, note: 'Three times count + 1 with the old count: only 6.' },
+          { line: 11, note: 'Three updater functions: each builds on the last, giving 8.' }
+        ],
+        tryIt: 'Add a fourth updater c => c * 2 to the second list. What do you get?',
+        check: {
+          question: 'Which is the safe way to add 1 based on the previous value?',
+          options: ['setCount(count + 1)', 'setCount(c => c + 1)', 'count++'],
+          answer: 1,
+          why: 'The function form always receives the latest value, even when React groups several updates.'
+        }
+      },
+      {
+        title: 'What happens when state changes',
+        say: [
+          'Let us be clear about what happens, because interviewers love this question. When you call a setter, React stores the new value and schedules a redraw, called a re-render, of that component.',
+          'During the re-render, React calls your component function again from the top. useState now gives back the new value. Your JSX is calculated again with it. React compares the new result with the old one and changes only the parts of the real page that differ.',
+          'Child components re-render too, because they may depend on the changed value through props. That is how one setJobs call in App updates the Summary, the JobList and every JobCard at once.',
+          'Important: the value does not change inside the current run. If you write setCount(5); console.log(count); the log still shows the old value. The new value appears in the next run of the component.'
+        ],
+        example: 'When a cricket score changes, the whole scoreboard is recalculated, but the electrician only replaces the digits that actually changed. React is that careful electrician.',
+        code: lines(
+          'let renders = 0;',
+          'let stateValue = "applied";',
+          '',
+          'function JobCard() {',
+          '  renders = renders + 1;',
+          '  return `Render ${renders}: status is ${stateValue}`;',
+          '}',
+          '',
+          'console.log(JobCard());',
+          'stateValue = "interview";',
+          'console.log(JobCard());'
+        ),
+        output: lines('Render 1: status is applied', 'Render 2: status is interview'),
+        codeNotes: [
+          { line: 4, note: 'The component is just a function that runs again on every render.' },
+          { line: 10, note: 'In React, a setter call does this and triggers the next render for you.' }
+        ],
+        tryIt: 'Add a third render after changing stateValue to "offer".',
+        check: {
+          question: 'After setCount(5), when does count become 5?',
+          options: ['Immediately on the next line', 'In the next render of the component', 'Never'],
+          answer: 1,
+          why: 'The setter schedules a re-render; the new value is available when the component runs again.'
+        }
+      },
+      {
+        title: 'Put the jobs into state',
+        say: [
+          'Now the Job Tracker. Move the jobs array into state in App: const [jobs, setJobs] = useState(initialJobs);. Keep your sample jobs in a constant called initialJobs above the component, used only as the starting value.',
+          'Add a button "Add sample job" that calls setJobs(prev => [...prev, { id: Date.now(), title: "New Job", company: "Somewhere", status: "applied" }]). Date.now() gives the current time in milliseconds, a quick way to get a unique id.',
+          'Click it and watch: a new card appears, and the Summary total goes up by itself, because both read from the same state. You wrote no code to update the Summary. That is the magic of React.',
+          'Tomorrow you will connect real buttons and typing, and on Day 14 you will replace the sample button with a real form.'
+        ],
+        example: 'A shared shopping list on the fridge: whoever adds an item, everyone looking at the list sees it. State in App is the list on the fridge, and every component reads from it.',
+        projectCode: {
+          label: 'src/App.jsx',
+          code: lines(
+            'import { useState } from "react";',
+            'import Header from "./components/Header.jsx";',
+            'import Summary from "./components/Summary.jsx";',
+            'import JobList from "./components/JobList.jsx";',
+            '',
+            'const initialJobs = [ /* your jobs */ ];',
+            '',
+            'export default function App() {',
+            '  const [jobs, setJobs] = useState(initialJobs);',
+            '',
+            '  function addSample() {',
+            '    const job = { id: Date.now(), title: "New Job", company: "Somewhere", status: "applied" };',
+            '    setJobs(prev => [...prev, job]);',
+            '  }',
+            '',
+            '  return (',
+            '    <div>',
+            '      <Header />',
+            '      <Summary total={jobs.length} />',
+            '      <button onClick={addSample}>Add sample job</button>',
+            '      <JobList jobs={jobs} />',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Make this change in your project and click the button three times. Check that the total and the list both update.',
+        check: {
+          question: 'Why does Summary update when you add a job, without extra code?',
+          options: ['Summary checks every second', 'App re-renders with new state and passes the new total down as a prop', 'The browser refreshes'],
+          answer: 1,
+          why: 'setJobs re-renders App, which passes the new jobs.length to Summary as a prop, so Summary re-renders too.'
+        }
+      }
+    ],
+    summary: [
+      'Normal variables reset on every render and do not tell React about changes.',
+      'const [value, setValue] = useState(start) gives a remembered value and a setter.',
+      'Never change state directly; give the setter a new copy: setJobs([...jobs, job]).',
+      'Use the function form when the new value depends on the old: setCount(c => c + 1).',
+      'A setter call re-renders the component and its children with the new value.'
+    ],
+    projectStep: {
+      title: 'Jobs in state',
+      steps: [
+        'Move jobs into useState in App, starting from initialJobs.',
+        'Add an "Add sample job" button that adds a job with setJobs(prev => [...prev, job]).',
+        'Check that Summary and JobList update together.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 13,
+    title: 'Handling Clicks and Typing',
+    goal: 'You can respond to clicks, typing and key presses, pass the right function to an event, and use the event object.',
+    minutes: 30,
+    recap: 'Yesterday you gave components memory with useState and saw the screen update when state changes.',
+    parts: [
+      {
+        title: 'What events are',
+        say: [
+          'An event is something the user does: a click, typing a letter, pressing Enter, moving the mouse, submitting a form. Your app reacts to events by running a function you choose. That function is called an event handler.',
+          'In React, you attach a handler with a prop that starts with on: onClick, onChange, onSubmit, onKeyDown. The value is the function to run: <button onClick={handleClick}>.',
+          'Most handlers do one thing: update state. The click changes state, the state change re-renders the screen. Event, then state, then screen. Remember that chain; it is how every interactive React feature works.'
+        ],
+        example: 'A doorbell is an event. You wire it to a bell (the handler). When someone presses it, the bell rings. You decide in advance what happens; the visitor decides when.',
+        code: lines(
+          'const handlers = {};',
+          'function on(eventName, fn) { handlers[eventName] = fn; }',
+          'function userDoes(eventName) { handlers[eventName](); }',
+          '',
+          'let likes = 0;',
+          'on("click", () => {',
+          '  likes = likes + 1;',
+          '  console.log(`Likes: ${likes}`);',
+          '});',
+          '',
+          'userDoes("click");',
+          'userDoes("click");'
+        ),
+        output: lines('Likes: 1', 'Likes: 2'),
+        codeNotes: [
+          { line: 6, note: 'We decide in advance what should happen on a click.' },
+          { line: 11, note: 'The user clicks: our function runs.' }
+        ],
+        tryIt: 'Add a "reset" handler that sets likes to 0 and prints it, then call userDoes("reset").',
+        check: {
+          question: 'What is an event handler?',
+          options: ['A function that runs when the user does something', 'A CSS rule', 'A type of state'],
+          answer: 0,
+          why: 'A handler is the function you give React to run when an event like a click happens.'
+        }
+      },
+      {
+        title: 'onClick: pass the function, do not call it',
+        say: [
+          'The most common beginner bug with events: writing onClick={handleClick()} with brackets. The brackets call the function immediately, while the page is being drawn, not when the user clicks. If it changes state, you can even get an endless loop of redraws.',
+          'The right way is onClick={handleClick}, without brackets: you hand React the function itself, and React calls it later, on the click.',
+          'What if you need to pass a value, like which job to delete? Wrap it in an arrow function: onClick={() => deleteJob(job.id)}. The arrow function is created now but runs only on click, and then it calls deleteJob with the id.',
+          'So: no value needed, write the name. Value needed, write an arrow function around the call.'
+        ],
+        example: 'Giving someone your phone number (the function) so they can call later, versus calling them right now (handleClick()). onClick needs the number, not a call.',
+        code: lines(
+          'function sayHi() {',
+          '  console.log("Hi!");',
+          '  return "done";',
+          '}',
+          '',
+          'const good = sayHi;',
+          'console.log(typeof good);',
+          '',
+          'const bad = sayHi();',
+          'console.log(typeof bad);'
+        ),
+        output: lines('function', 'Hi!', 'string'),
+        codeNotes: [
+          { line: 6, note: 'Without brackets: we keep the function itself to call later. Nothing runs yet.' },
+          { line: 9, note: 'With brackets: it runs right now ("Hi!" appears) and we keep only its result.' }
+        ],
+        projectCode: {
+          label: 'Right and wrong',
+          code: lines(
+            '<button onClick={addSample}>Add</button>                  // right',
+            '<button onClick={addSample()}>Add</button>                // wrong: runs while drawing',
+            '<button onClick={() => deleteJob(job.id)}>Delete</button> // right, with a value'
+          )
+        },
+        tryIt: 'Notice "Hi!" printed before "string". That is the wrong version running immediately. Remove line 9 and 10 and check that nothing prints "Hi!" now.',
+        check: {
+          question: 'How do you call removeJob(5) when a button is clicked?',
+          options: ['onClick={removeJob(5)}', 'onClick={() => removeJob(5)}', 'onClick="removeJob(5)"'],
+          answer: 1,
+          why: 'The arrow function runs only on click, and then calls removeJob with 5.'
+        }
+      },
+      {
+        title: 'The event object',
+        say: [
+          'When React calls your handler, it passes one argument: the event object, usually named e. It holds details about what happened.',
+          'The most used parts: e.target is the element the event happened on, so e.target.value is what is typed in an input. e.key is the key pressed, like "Enter" or "a". e.preventDefault() stops the browser\'s default action, such as reloading the page when a form is submitted.',
+          'You do not have to use the event object if you do not need it. But for typing and forms, you always will.',
+          'Today\'s first practice task, isEnterKey(event), checks event.key, exactly as a real key handler does.'
+        ],
+        example: 'A courier delivery comes with a slip: who sent it, when, and what is inside. The event object is that slip for every user action.',
+        code: lines(
+          'function handleKeyDown(e) {',
+          '  if (e.key === "Enter") {',
+          '    console.log(`Search for: ${e.target.value}`);',
+          '  } else {',
+          '    console.log(`Typed: ${e.key}`);',
+          '  }',
+          '}',
+          '',
+          'handleKeyDown({ key: "r", target: { value: "r" } });',
+          'handleKeyDown({ key: "Enter", target: { value: "react" } });'
+        ),
+        output: lines('Typed: r', 'Search for: react'),
+        codeNotes: [
+          { line: 2, note: 'e.key tells you which key was pressed.' },
+          { line: 3, note: 'e.target.value is the current text in the input.' },
+          { line: 9, note: 'Here we build fake event objects; in React the browser provides them.' }
+        ],
+        tryIt: 'Add a case: if e.key is "Escape", print "Cleared".',
+        check: {
+          question: 'How do you read what the user typed in an input from its onChange event?',
+          options: ['e.key', 'e.target.value', 'e.value.target'],
+          answer: 1,
+          why: 'e.target is the input element, and its value is the current text.'
+        }
+      },
+      {
+        title: 'onChange: reacting to typing',
+        say: [
+          'To react to typing, use onChange on an input. It fires on every letter typed or deleted. Usually you store the text in state: onChange={e => setSearch(e.target.value)}.',
+          'Now search always holds what is in the box, and you can use it anywhere: to filter the job list, show a character count, or enable a button only when something is typed.',
+          'Let us add a search box to the Job Tracker. Keep search in state in App, filter the jobs by title with it, and pass the filtered list to JobList. The list updates as the user types. This is your Day 5 filter, now live.',
+          'Tomorrow you will learn the full pattern for inputs, called controlled inputs, and use it for a whole form.'
+        ],
+        example: 'Swiggy\'s search box shows matching dishes as you type each letter. Every letter is an onChange event that updates the search and the results.',
+        code: lines(
+          'const jobs = [{ title: "React Developer" }, { title: "Java Developer" }, { title: "Tester" }];',
+          'let search = "";',
+          '',
+          'function onChange(e) {',
+          '  search = e.target.value;',
+          '  const shown = jobs.filter(j => j.title.toLowerCase().includes(search.toLowerCase()));',
+          '  console.log(`"${search}" -> ${shown.length} jobs`);',
+          '}',
+          '',
+          'onChange({ target: { value: "d" } });',
+          'onChange({ target: { value: "de" } });',
+          'onChange({ target: { value: "dev" } });'
+        ),
+        output: lines('"d" -> 2 jobs', '"de" -> 2 jobs', '"dev" -> 2 jobs'),
+        codeNotes: [
+          { line: 5, note: 'In React: setSearch(e.target.value).' },
+          { line: 6, note: 'Filter by the latest search text, ignoring capital letters.' }
+        ],
+        projectCode: {
+          label: 'In App.jsx',
+          code: lines(
+            'const [search, setSearch] = useState("");',
+            'const shownJobs = jobs.filter(job =>',
+            '  job.title.toLowerCase().includes(search.toLowerCase())',
+            ');',
+            '',
+            '// in the JSX:',
+            '<input placeholder="Search jobs" value={search} onChange={e => setSearch(e.target.value)} />',
+            '<JobList jobs={shownJobs} />'
+          )
+        },
+        tryIt: 'Add a fourth onChange call with "react". How many jobs match?',
+        check: {
+          question: 'When does onChange run for a text input?',
+          options: ['Only when the user presses Enter', 'On every change to the text', 'Once when the page loads'],
+          answer: 1,
+          why: 'onChange fires on every letter typed or deleted.'
+        }
+      },
+      {
+        title: 'Handlers that update objects',
+        say: [
+          'Many clicks update one item, not a simple number. A like button flips liked and changes the like count at the same time. You update both in one new object with spread.',
+          'Write the logic as a small function that takes the old item and returns the new one. Then the handler is just: setPost(p => clickLike(p)). Keeping the logic in a separate, plain function makes it easy to test, which is exactly what today\'s second practice task does.',
+          'This split, plain logic functions plus thin handlers, is how good React code is written in companies. Components stay short, and the logic can be tested without any screen at all.'
+        ],
+        example: 'A restaurant writes its recipes in a book (logic functions). The waiter just takes the order and passes it to the kitchen (handler). The recipe can be checked without any customers.',
+        code: lines(
+          'function clickLike(post) {',
+          '  return post.liked',
+          '    ? { ...post, liked: false, likes: post.likes - 1 }',
+          '    : { ...post, liked: true, likes: post.likes + 1 };',
+          '}',
+          '',
+          'let post = { liked: false, likes: 10 };',
+          'post = clickLike(post);',
+          'console.log(post);',
+          'post = clickLike(post);',
+          'console.log(post);'
+        ),
+        output: lines('{ liked: true, likes: 11 }', '{ liked: false, likes: 10 }'),
+        codeNotes: [
+          { line: 2, note: 'Already liked? Unlike and subtract one. Otherwise like and add one.' },
+          { line: 8, note: 'In React: setPost(p => clickLike(p)).' }
+        ],
+        tryIt: 'Add a third clickLike call and print the result. It should be liked again with 11.',
+        check: {
+          question: 'Why put the like logic in a separate plain function?',
+          options: ['React requires it', 'It keeps components short and the logic easy to test', 'It runs faster'],
+          answer: 1,
+          why: 'Plain functions can be tested on their own, and the component just calls them.'
+        }
+      },
+      {
+        title: 'Status buttons in the Job Tracker',
+        say: [
+          'Let us make each job card interactive. Each JobCard gets a "Next stage" button that moves a job from applied to interview to offer.',
+          'But JobCard does not own the jobs state; App does. So App writes a function moveToNext(id) and passes it down as a prop: <JobList jobs={shownJobs} onNext={moveToNext} />, and JobList passes it to each JobCard. The card calls onNext(id) on click. This is how a child tells a parent something happened, as promised on Day 9.',
+          'Inside moveToNext, App uses map to change only the matching job: setJobs(prev => prev.map(job => job.id === id ? { ...job, status: next(job.status) } : job)). You will study this pattern properly on Day 15.',
+          'After today, your Job Tracker has search, an add button and status buttons. It is a real interactive app.'
+        ],
+        example: 'In a hospital, a nurse notices a patient needs attention and presses the call button. The nurse does not change the doctor\'s schedule; the call tells the doctor, who decides. The child calls onNext, and the parent updates state.',
+        code: lines(
+          'const order = ["applied", "interview", "offer"];',
+          'function nextStatus(status) {',
+          '  const i = order.indexOf(status);',
+          '  return i >= 0 && i < order.length - 1 ? order[i + 1] : status;',
+          '}',
+          '',
+          'let jobs = [{ id: 1, status: "applied" }, { id: 2, status: "interview" }];',
+          'function moveToNext(id) {',
+          '  jobs = jobs.map(job => job.id === id ? { ...job, status: nextStatus(job.status) } : job);',
+          '}',
+          '',
+          'moveToNext(2);',
+          'console.log(jobs);'
+        ),
+        output: '[ { id: 1, status: \'applied\' }, { id: 2, status: \'offer\' } ]',
+        codeNotes: [
+          { line: 4, note: 'Move one step forward, but stay at the last stage.' },
+          { line: 9, note: 'Only the job with the matching id changes. In React: setJobs(prev => prev.map(...)).' }
+        ],
+        tryIt: 'Call moveToNext(1) twice and print jobs. Job 1 should reach "offer".',
+        check: {
+          question: 'How does a JobCard tell App that its button was clicked?',
+          options: ['It changes the jobs array directly', 'It calls a function App passed down as a prop', 'It reloads the page'],
+          answer: 1,
+          why: 'App passes a function like onNext as a prop; the child calls it, and App updates state.'
+        }
+      }
+    ],
+    summary: [
+      'Events are user actions; handlers are the functions that respond, usually by updating state.',
+      'Pass the function: onClick={handleClick}. Need a value? onClick={() => remove(id)}.',
+      'The event object e has e.target.value for inputs and e.key for key presses.',
+      'onChange fires on every change; keep the text in state.',
+      'Children tell parents about events by calling functions passed as props.'
+    ],
+    projectStep: {
+      title: 'Search and status buttons',
+      steps: [
+        'Add a search input in App that filters jobs by title as you type.',
+        'Add a "Next stage" button to JobCard that calls onNext(id).',
+        'Write moveToNext in App and pass it down through JobList.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 14,
+    title: 'Forms: Getting Input From the User',
+    goal: 'You can build a form with controlled inputs, keep all fields in one state object, check the input, show errors and add a new job.',
+    minutes: 32,
+    recap: 'Yesterday you handled clicks and typing, added search and status buttons to the Job Tracker.',
+    parts: [
+      {
+        title: 'Why forms matter',
+        say: [
+          'Almost every app collects information through forms: sign up, log in, add to cart, post a comment, apply for a job. Forms are also one of the most common tasks given to junior developers, so doing them well matters.',
+          'A good form does four things. It shows the current values, it updates as the user types, it checks the values and shows clear errors, and on submit it saves the data and resets.',
+          'Today you build the Add Job form for your Job Tracker, doing all four. It replaces yesterday\'s "Add sample job" button.'
+        ],
+        example: 'A bank account form with a friendly clerk: the clerk reads what you wrote, points out a missing signature before you leave, and only then accepts it. A good form is that clerk.',
+        code: lines(
+          'const form = { title: "", company: "" };',
+          'console.log(form);',
+          'const filled = { ...form, title: "React Developer" };',
+          'console.log(filled);'
+        ),
+        output: lines('{ title: \'\', company: \'\' }', '{ title: \'React Developer\', company: \'\' }'),
+        codeNotes: [
+          { line: 1, note: 'A form\'s data is just an object: one property per field.' },
+          { line: 3, note: 'Typing in a field makes an updated copy.' }
+        ],
+        tryIt: 'Add a status field to the form object with the value "applied".',
+        check: {
+          question: 'What should a good form do before saving?',
+          options: ['Nothing, just save', 'Check the values and show clear errors', 'Reload the page'],
+          answer: 1,
+          why: 'Checking values first prevents bad data and tells the user exactly what to fix.'
+        }
+      },
+      {
+        title: 'Controlled inputs',
+        say: [
+          'In React, the usual way to handle an input is a controlled input. The input\'s value comes from state, and onChange updates that state: <input value={title} onChange={e => setTitle(e.target.value)} />.',
+          'Why "controlled"? Because React state, not the browser, is in charge of what the box shows. So you always know exactly what the user typed, and you can also change it from code, for example to clear the box after saving.',
+          'A common mistake: giving value without onChange. The box then refuses all typing, because React keeps setting it back to the state, which never changes. If an input will not let you type, check for a missing onChange.',
+          'The runnable box shows the controlled loop: typing calls onChange, onChange updates state, and state decides what the input shows.'
+        ],
+        example: 'A digital thermostat: you press the button (onChange), the thermostat updates its setting (state), and the display shows the setting (value). The display never shows anything the thermostat does not know.',
+        code: lines(
+          'let title = "";',
+          'function render() { console.log(`<input value="${title}" />`); }',
+          'function onChange(e) { title = e.target.value; render(); }',
+          '',
+          'render();',
+          'onChange({ target: { value: "R" } });',
+          'onChange({ target: { value: "Re" } });'
+        ),
+        output: lines('<input value="" />', '<input value="R" />', '<input value="Re" />'),
+        codeNotes: [
+          { line: 2, note: 'The input always shows what is in state.' },
+          { line: 3, note: 'Typing updates state, which redraws the input.' }
+        ],
+        projectCode: {
+          label: 'A controlled input',
+          code: lines(
+            'const [title, setTitle] = useState("");',
+            '',
+            '<input',
+            '  value={title}',
+            '  onChange={e => setTitle(e.target.value)}',
+            '  placeholder="Job title"',
+            '/>'
+          )
+        },
+        tryIt: 'Add one more onChange call for "Rea". Then think: what would happen if onChange did not update title?',
+        check: {
+          question: 'An input with value={name} but no onChange...',
+          options: ['Works normally', 'Will not let the user type', 'Crashes the app'],
+          answer: 1,
+          why: 'React keeps setting the value back to state, which never changes, so typing has no effect.'
+        }
+      },
+      {
+        title: 'One state object for the whole form',
+        say: [
+          'A form with five fields could have five useState calls. It works, but it repeats a lot. A neater way is one state object: const [form, setForm] = useState({ title: "", company: "", status: "applied" });.',
+          'Give every input a name attribute matching its property, and use one shared handler: function handleChange(e) { setForm({ ...form, [e.target.name]: e.target.value }); }.',
+          'The square brackets [e.target.name] are the Day 4 bracket access, used to create a property whose name comes from a variable. If the title input changes, it sets title; if the company input changes, it sets company. One handler for every field.',
+          'This is today\'s second practice task, updateField, and it is a pattern you will write in almost every React job.'
+        ],
+        example: 'One reception desk handling every department by reading the name on each visitor\'s slip, instead of a separate desk for every department.',
+        code: lines(
+          'let form = { title: "", company: "", status: "applied" };',
+          '',
+          'function handleChange(e) {',
+          '  form = { ...form, [e.target.name]: e.target.value };',
+          '}',
+          '',
+          'handleChange({ target: { name: "title", value: "React Developer" } });',
+          'handleChange({ target: { name: "company", value: "Zoho" } });',
+          'console.log(form);'
+        ),
+        output: '{ title: \'React Developer\', company: \'Zoho\', status: \'applied\' }',
+        codeNotes: [
+          { line: 4, note: '[e.target.name] uses the input\'s name as the property to change.' },
+          { line: 7, note: 'The title input sends name "title", so title changes.' }
+        ],
+        projectCode: {
+          label: 'Inputs with name',
+          code: lines(
+            '<input name="title" value={form.title} onChange={handleChange} />',
+            '<input name="company" value={form.company} onChange={handleChange} />',
+            '<select name="status" value={form.status} onChange={handleChange}>',
+            '  <option value="applied">Applied</option>',
+            '  <option value="interview">Interview</option>',
+            '</select>'
+          )
+        },
+        tryIt: 'Add a third handleChange call that sets status to "interview", and print form.',
+        check: {
+          question: 'What does { ...form, [name]: value } do when name is "company"?',
+          options: ['Adds a property literally called name', 'Copies the form and sets company to value', 'Deletes company'],
+          answer: 1,
+          why: 'The square brackets use the value of the name variable, "company", as the property name.'
+        }
+      },
+      {
+        title: 'Checking the form and showing errors',
+        say: [
+          'Before saving, check the input. Is the title empty? Is the company missing? Write a validate function that takes the form and returns a list of error messages. An empty list means everything is fine.',
+          'Keep the errors in state, so you can show them under the form: errors.map(err => <p key={err}>{err}</p>). Use friendly, specific messages: "Company is required" is far better than "Invalid input".',
+          'Also trim spaces: a title of "   " is really empty. form.title.trim() removes spaces at both ends, so a user cannot sneak past with only spaces.',
+          'Today\'s first practice task is exactly this validate function. Checking in plain JavaScript first, then using it in the component, is the same split you learned yesterday.'
+        ],
+        example: 'An exam invigilator checking your answer sheet before you leave: "You forgot your roll number." Specific, polite, and before it is too late.',
+        code: lines(
+          'function validateJobForm(form) {',
+          '  const errors = [];',
+          '  if (!form.title.trim()) errors.push("Title is required");',
+          '  if (!form.company.trim()) errors.push("Company is required");',
+          '  return errors;',
+          '}',
+          '',
+          'console.log(validateJobForm({ title: "  ", company: "" }));',
+          'console.log(validateJobForm({ title: "Dev", company: "TCS" }));'
+        ),
+        output: lines('[ \'Title is required\', \'Company is required\' ]', '[]'),
+        codeNotes: [
+          { line: 3, note: '.trim() removes spaces, so "  " counts as empty.' },
+          { line: 9, note: 'A full form gives an empty list: no errors.' }
+        ],
+        tryIt: 'Add a rule: if the title is shorter than 3 letters, push "Title is too short".',
+        check: {
+          question: 'Why use .trim() when checking a required field?',
+          options: ['To make the text shorter', 'So a value of only spaces counts as empty', 'It is required by React'],
+          answer: 1,
+          why: 'Spaces alone are not a real title. trim() removes them before checking.'
+        }
+      },
+      {
+        title: 'Submitting the form',
+        say: [
+          'Wrap the inputs in a <form> with onSubmit={handleSubmit}, and give it a submit button. Pressing Enter in a field or clicking the button then submits.',
+          'The first line of handleSubmit must be e.preventDefault(). Without it, the browser does its old default behaviour: it reloads the whole page, and your app loses its state. This is one of the most common React bugs.',
+          'Then: validate. If there are errors, save them in state and stop. If not, build the new job, add it with setJobs(prev => [...prev, job]), clear the errors, and reset the form to its empty starting values.',
+          'Resetting is easy because the inputs are controlled: setForm(emptyForm) empties every box at once.'
+        ],
+        example: 'Posting a letter: first check the address (validate), then drop it in the box (save), then take a fresh sheet for the next letter (reset).',
+        code: lines(
+          'const emptyForm = { title: "", company: "" };',
+          'let form = { title: " React Dev ", company: "Zoho" };',
+          'let jobs = [];',
+          'let prevented = false;',
+          '',
+          'function handleSubmit(e) {',
+          '  e.preventDefault();',
+          '  const job = { id: jobs.length + 1, title: form.title.trim(), company: form.company.trim(), status: "applied" };',
+          '  jobs = [...jobs, job];',
+          '  form = emptyForm;',
+          '}',
+          '',
+          'handleSubmit({ preventDefault() { prevented = true; } });',
+          'console.log(prevented);',
+          'console.log(jobs);',
+          'console.log(form);'
+        ),
+        output: lines('true', '[ { id: 1, title: \'React Dev\', company: \'Zoho\', status: \'applied\' } ]', '{ title: \'\', company: \'\' }'),
+        codeNotes: [
+          { line: 7, note: 'Always first: stop the browser from reloading the page.' },
+          { line: 8, note: 'Build the new job from the form, trimming spaces.' },
+          { line: 10, note: 'Reset the form so the boxes are empty again.' }
+        ],
+        tryIt: 'Add a validation step inside handleSubmit: if form.title.trim() is empty, print "Title is required" and return before adding.',
+        check: {
+          question: 'What happens if you forget e.preventDefault() in onSubmit?',
+          options: ['Nothing', 'The page reloads and the app loses its state', 'The form submits twice'],
+          answer: 1,
+          why: 'The browser\'s default submit reloads the page, wiping everything React was holding.'
+        }
+      },
+      {
+        title: 'Build the Add Job form',
+        say: [
+          'Put it all together in a JobForm component. It keeps its own form state and errors. When the form is valid, it calls onAdd(job), a function App passes as a prop, and App adds the job to its state.',
+          'Notice the split: JobForm knows about typing and errors, App knows about the list. Each component has one job, and they talk through props.',
+          'Delete the "Add sample job" button from Day 12. Now users add real jobs with a real form, see clear errors, and the form empties after each save.',
+          'This form is worth showing in interviews: controlled inputs, one state object, validation and a clean submit are exactly what interviewers look for.'
+        ],
+        example: 'The form at a clinic\'s reception: the receptionist makes sure it is complete, then hands it to the doctor\'s list. The receptionist is JobForm, the doctor\'s list is App.',
+        projectCode: {
+          label: 'src/components/JobForm.jsx',
+          code: lines(
+            'import { useState } from "react";',
+            '',
+            'const emptyForm = { title: "", company: "", status: "applied" };',
+            '',
+            'export default function JobForm({ onAdd }) {',
+            '  const [form, setForm] = useState(emptyForm);',
+            '  const [errors, setErrors] = useState([]);',
+            '',
+            '  function handleChange(e) {',
+            '    setForm({ ...form, [e.target.name]: e.target.value });',
+            '  }',
+            '',
+            '  function handleSubmit(e) {',
+            '    e.preventDefault();',
+            '    const found = [];',
+            '    if (!form.title.trim()) found.push("Title is required");',
+            '    if (!form.company.trim()) found.push("Company is required");',
+            '    setErrors(found);',
+            '    if (found.length > 0) return;',
+            '    onAdd({ ...form, id: Date.now(), title: form.title.trim(), company: form.company.trim() });',
+            '    setForm(emptyForm);',
+            '  }',
+            '',
+            '  return (',
+            '    <form onSubmit={handleSubmit}>',
+            '      <input name="title" placeholder="Job title" value={form.title} onChange={handleChange} />',
+            '      <input name="company" placeholder="Company" value={form.company} onChange={handleChange} />',
+            '      <button type="submit">Add job</button>',
+            '      {errors.map(err => <p key={err} className="error">{err}</p>)}',
+            '    </form>',
+            '  );',
+            '}',
+            '',
+            '// In App.jsx:  <JobForm onAdd={job => setJobs(prev => [...prev, job])} />'
+          )
+        },
+        tryIt: 'Build JobForm in your project. Try submitting empty, then with only a title, then with both fields.',
+        check: {
+          question: 'How does JobForm get the new job into App\'s list?',
+          options: ['It changes App\'s jobs array directly', 'It calls the onAdd function App passed as a prop', 'It saves to a file'],
+          answer: 1,
+          why: 'App owns the jobs state and passes onAdd. JobForm calls it with the new job.'
+        }
+      }
+    ],
+    summary: [
+      'Controlled inputs: value from state, onChange updates state.',
+      'One form object with a shared handler: { ...form, [e.target.name]: e.target.value }.',
+      'Validate with trim() and show specific, friendly error messages.',
+      'onSubmit must call e.preventDefault() first; then validate, save and reset.',
+      'The form calls a parent function (onAdd) to add to the parent\'s state.'
+    ],
+    projectStep: {
+      title: 'The Add Job form',
+      steps: [
+        'Create JobForm with title, company and status fields.',
+        'Show errors for empty title or company.',
+        'Add valid jobs through onAdd, reset the form, and remove the old sample button.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 15,
+    title: 'Sharing Data Between Components',
+    goal: 'You can decide where state should live, pass data down and actions up, and add, remove and change items in a list stored in state.',
+    minutes: 30,
+    recap: 'Yesterday you built the Add Job form with controlled inputs, validation and a clean submit.',
+    parts: [
+      {
+        title: 'Where should state live?',
+        say: [
+          'As your app grows, the most important question becomes: which component should own each piece of state? The rule is simple. Put state in the closest common parent of every component that needs it.',
+          'Your jobs are needed by Summary (to count), JobList (to show) and JobForm (to add). Their closest common parent is App, so App owns jobs. The search text is needed by App to filter, so it lives in App too. But the form\'s typing state is needed only by JobForm, so it stays inside JobForm.',
+          'Keeping state as low as possible, but high enough to be shared, keeps components simple. This decision is called "lifting state up" when you move state from a child to a parent so it can be shared.'
+        ],
+        example: 'A family keeps the house key with a parent, not with one child, because everyone needs it. But each child keeps their own school bag. Shared things live higher up; personal things stay with each person.',
+        code: lines(
+          'const needs = {',
+          '  jobs: ["Summary", "JobList", "JobForm"],',
+          '  formText: ["JobForm"]',
+          '};',
+          '',
+          'for (const [stateName, users] of Object.entries(needs)) {',
+          '  const owner = users.length > 1 ? "App (shared parent)" : users[0];',
+          '  console.log(`${stateName} lives in ${owner}`);',
+          '}'
+        ),
+        output: lines('jobs lives in App (shared parent)', 'formText lives in JobForm'),
+        codeNotes: [
+          { line: 6, note: 'Object.entries gives [name, value] pairs, destructured into two variables.' },
+          { line: 7, note: 'Used by several components: lift to the parent. Used by one: keep it there.' }
+        ],
+        tryIt: 'Add a "theme" entry used by ["Header", "JobCard"] and run it.',
+        check: {
+          question: 'Summary and JobList both need the jobs. Where should jobs state live?',
+          options: ['In Summary', 'In JobList', 'In their shared parent, App'],
+          answer: 2,
+          why: 'Shared state lives in the closest common parent, which then passes it down as props.'
+        }
+      },
+      {
+        title: 'Data down, actions up',
+        say: [
+          'Once state lives in the parent, the pattern is always the same: data goes down as props, and actions come up as function calls. App passes jobs down to JobList, and passes functions like onDelete and onNext down too. When the user clicks, the child calls the function, and App updates its state.',
+          'Name these function props with on at the start: onDelete, onAdd, onStatusChange. It matches React\'s own onClick and makes it obvious that the prop is something that happens, not data.',
+          'If a function has to travel through several layers, like App to JobList to JobCard, each layer just passes it along. That is fine for a few layers. For data needed almost everywhere, Day 21 teaches Context.'
+        ],
+        example: 'In a school, notices come down from the principal to classes, and requests go up from students through the class teacher to the principal. Information down, requests up.',
+        projectCode: {
+          label: 'Passing actions down',
+          code: lines(
+            '// App.jsx',
+            '<JobList jobs={shownJobs} onDelete={deleteJob} onNext={moveToNext} />',
+            '',
+            '// JobList.jsx',
+            '{jobs.map(job => (',
+            '  <JobCard key={job.id} {...job} onDelete={onDelete} onNext={onNext} />',
+            '))}',
+            '',
+            '// JobCard.jsx',
+            '<button onClick={() => onDelete(id)}>Delete</button>'
+          )
+        },
+        code: lines(
+          'function App() {',
+          '  let jobs = [{ id: 1, title: "Dev" }, { id: 2, title: "Tester" }];',
+          '  const onDelete = (id) => { jobs = jobs.filter(j => j.id !== id); console.log(`App now has ${jobs.length} job(s)`); };',
+          '  JobCard({ job: jobs[0], onDelete });',
+          '}',
+          '',
+          'function JobCard({ job, onDelete }) {',
+          '  console.log(`Card for ${job.title}: delete clicked`);',
+          '  onDelete(job.id);',
+          '}',
+          '',
+          'App();'
+        ),
+        output: lines('Card for Dev: delete clicked', 'App now has 1 job(s)'),
+        codeNotes: [
+          { line: 4, note: 'Data (job) and an action (onDelete) go down to the card.' },
+          { line: 9, note: 'The card calls the action; App changes its own data.' }
+        ],
+        tryIt: 'Change line 4 to pass jobs[1] instead, and run. Which job is deleted now?',
+        check: {
+          question: 'In "data down, actions up", what goes up?',
+          options: ['State values', 'Calls to functions the parent passed down', 'CSS'],
+          answer: 1,
+          why: 'Children send actions up by calling functions from props; the parent then changes its state.'
+        }
+      },
+      {
+        title: 'Removing an item',
+        say: [
+          'To remove a job from state, keep every job except the one with that id: setJobs(prev => prev.filter(job => job.id !== id)). This is the filter pattern from Day 5, now used with state.',
+          'filter always gives a new array, so React sees the change and re-renders. The card disappears, the Summary total goes down, and the search results update, all from one line.',
+          'A kind touch for real apps: ask before deleting. The simplest way in the browser is if (!window.confirm("Delete this job?")) return;. Later you can build a nicer confirm box in your own design.'
+        ],
+        example: 'Removing one name from a guest list by writing a fresh list with everyone except that person. The old list is untouched; the new list is what you use.',
+        code: lines(
+          'function removeJob(jobs, id) {',
+          '  return jobs.filter(job => job.id !== id);',
+          '}',
+          '',
+          'const jobs = [{ id: 1 }, { id: 2 }, { id: 3 }];',
+          'const after = removeJob(jobs, 2);',
+          'console.log(after);',
+          'console.log(jobs.length);'
+        ),
+        output: lines('[ { id: 1 }, { id: 3 } ]', '3'),
+        codeNotes: [
+          { line: 2, note: 'Keep every job whose id is not the one to remove.' },
+          { line: 8, note: 'The original array still has 3 jobs; React gets the new one.' }
+        ],
+        tryIt: 'Remove id 9, which does not exist. What happens? (Nothing is removed and nothing breaks.)',
+        check: {
+          question: 'Which line removes the job with id 7 from state?',
+          options: ['jobs.splice(7, 1)', 'setJobs(prev => prev.filter(job => job.id !== 7))', 'delete jobs[7]'],
+          answer: 1,
+          why: 'filter creates a new array without that job, and the setter tells React about it.'
+        }
+      },
+      {
+        title: 'Changing one item',
+        say: [
+          'To change one job, use map: go through every job, and for the one with the matching id, return an updated copy; for all the others, return them unchanged. setJobs(prev => prev.map(job => job.id === id ? { ...job, status } : job)).',
+          'This single line is the most common state update in React apps. Marking a to-do done, changing a quantity in a cart, editing a profile field: all are this pattern.',
+          'Read it slowly: for each job, if it is the one, make a copy with the new status; otherwise keep it as it is. The result is a new array, with a new object only for the changed job.',
+          'Today\'s second practice task, changeJobStatus, is exactly this. Master it and you can update any list in React.'
+        ],
+        example: 'Updating one student\'s marks in a register by copying the register, changing only that row, and keeping every other row as it was.',
+        code: lines(
+          'function changeJobStatus(jobs, id, status) {',
+          '  return jobs.map(job => job.id === id ? { ...job, status } : job);',
+          '}',
+          '',
+          'const jobs = [{ id: 1, status: "applied" }, { id: 2, status: "applied" }];',
+          'const after = changeJobStatus(jobs, 2, "interview");',
+          'console.log(after);',
+          'console.log(after[0] === jobs[0]);',
+          'console.log(after[1] === jobs[1]);'
+        ),
+        output: lines('[ { id: 1, status: \'applied\' }, { id: 2, status: \'interview\' } ]', 'true', 'false'),
+        codeNotes: [
+          { line: 2, note: '{ ...job, status } is short for { ...job, status: status }.' },
+          { line: 8, note: 'Unchanged jobs are the very same objects.' },
+          { line: 9, note: 'Only the changed job is a new object.' }
+        ],
+        tryIt: 'Use changeJobStatus to set job 1 to "offer" and print the result.',
+        check: {
+          question: 'In the map update, what happens to jobs that do not match the id?',
+          options: ['They are removed', 'They are returned unchanged', 'They get the new status too'],
+          answer: 1,
+          why: 'The ? : returns an updated copy for the matching job and the original job for all others.'
+        }
+      },
+      {
+        title: 'Derived data: calculate, do not store',
+        say: [
+          'A common mistake is storing things in state that can be calculated from other state. For example, keeping a separate totalJobs state and updating it whenever jobs changes. Sooner or later you forget to update it, and the screen shows a wrong number.',
+          'Instead, calculate it during render: const total = jobs.length; const interviews = jobs.filter(j => j.status === "interview").length;. It is always correct because it is recalculated from the jobs on every render.',
+          'The same applies to your search results: shownJobs is calculated from jobs and search, not stored. Keep state minimal: only what cannot be calculated from other state.',
+          'Rule of thumb: if you can compute it from existing state or props, do not put it in state.'
+        ],
+        example: 'You do not write your age on your fridge and update it every birthday. You calculate it from your date of birth when needed, and it is never wrong.',
+        code: lines(
+          'function jobStats(jobs) {',
+          '  return {',
+          '    total: jobs.length,',
+          '    interviews: jobs.filter(j => j.status === "interview").length,',
+          '    offers: jobs.filter(j => j.status === "offer").length',
+          '  };',
+          '}',
+          '',
+          'const jobs = [{ status: "applied" }, { status: "interview" }, { status: "offer" }];',
+          'console.log(jobStats(jobs));'
+        ),
+        output: '{ total: 3, interviews: 1, offers: 1 }',
+        codeNotes: [
+          { line: 1, note: 'All numbers are calculated from jobs, so they can never be out of date.' }
+        ],
+        tryIt: 'Add rejected to jobStats and a rejected job to the list.',
+        check: {
+          question: 'Should the number of offers be kept in its own state?',
+          options: ['Yes, always', 'No, calculate it from jobs during render', 'Only on Mondays'],
+          answer: 1,
+          why: 'It can be calculated from jobs, so storing it separately only risks it becoming wrong.'
+        }
+      },
+      {
+        title: 'Finish the core Job Tracker',
+        say: [
+          'Let us complete the core of your app. App owns jobs and search. It defines three actions: addJob, deleteJob and changeStatus, each one line using the patterns from today. It calculates shownJobs and the stats during render.',
+          'App passes onAdd to JobForm, the stats to Summary, and shownJobs, onDelete and onStatusChange to JobList, which passes them to each JobCard. Each JobCard gets a Delete button and a status dropdown.',
+          'When you finish, you have a complete working app: add, search, change status, delete, and a live summary. This is real React, built the way companies build it.',
+          'After this lesson there is your third short test, covering Days 11 to 15. Next week you will make the app save its data, load data from the internet and have multiple pages.'
+        ],
+        example: 'Like the manager of a small shop who keeps the stock register (state), while the counter staff (components) only report sales and returns (actions). The register is always correct because only the manager writes in it.',
+        projectCode: {
+          label: 'src/App.jsx (core)',
+          code: lines(
+            'const [jobs, setJobs] = useState(initialJobs);',
+            'const [search, setSearch] = useState("");',
+            '',
+            'const addJob = job => setJobs(prev => [...prev, job]);',
+            'const deleteJob = id => setJobs(prev => prev.filter(j => j.id !== id));',
+            'const changeStatus = (id, status) =>',
+            '  setJobs(prev => prev.map(j => (j.id === id ? { ...j, status } : j)));',
+            '',
+            'const shownJobs = jobs.filter(j => j.title.toLowerCase().includes(search.toLowerCase()));',
+            'const stats = {',
+            '  total: jobs.length,',
+            '  interviews: jobs.filter(j => j.status === "interview").length,',
+            '  offers: jobs.filter(j => j.status === "offer").length',
+            '};',
+            '',
+            'return (',
+            '  <div>',
+            '    <Header />',
+            '    <Summary {...stats} />',
+            '    <JobForm onAdd={addJob} />',
+            '    <input placeholder="Search" value={search} onChange={e => setSearch(e.target.value)} />',
+            '    <JobList jobs={shownJobs} onDelete={deleteJob} onStatusChange={changeStatus} />',
+            '  </div>',
+            ');'
+          )
+        },
+        tryIt: 'Build this in your project. Add 3 jobs, change one to "offer", delete one, and search. Check that the summary is always right.',
+        check: {
+          question: 'Why is stats calculated in App instead of stored in state?',
+          options: ['State cannot hold objects', 'It can be computed from jobs, so it is always correct', 'It makes the app slower'],
+          answer: 1,
+          why: 'Derived values recalculated each render can never go out of date.'
+        }
+      }
+    ],
+    summary: [
+      'Put state in the closest common parent of the components that need it.',
+      'Data goes down as props; actions come up as calls to function props named onSomething.',
+      'Remove: prev.filter(j => j.id !== id). Change: prev.map(j => j.id === id ? { ...j, ... } : j).',
+      'Do not store what you can calculate; derive totals and filtered lists during render.'
+    ],
+    projectStep: {
+      title: 'The complete core app',
+      steps: [
+        'In App, add deleteJob and changeStatus next to addJob.',
+        'Give JobCard a Delete button and a status dropdown that call onDelete and onStatusChange.',
+        'Calculate stats in App and pass them to Summary. Test add, search, change and delete together.'
+      ]
+    }
   }
 ];
