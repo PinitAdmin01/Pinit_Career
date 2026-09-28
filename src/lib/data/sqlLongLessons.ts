@@ -4276,5 +4276,1457 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         'Show each author with their number of books using a subquery in SELECT.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 16,
+    title: 'Readable Queries with WITH',
+    goal: 'You can break a long query into named steps with WITH, reuse a step, and write recursive queries for sequences and hierarchies.',
+    minutes: 28,
+    recap: 'Yesterday you used subqueries: one value, IN lists, tables in FROM, and EXISTS checks.',
+    parts: [
+      {
+        title: 'Why long queries need names',
+        say: [
+          'At the end of yesterday\'s lesson, the "customers above average" query calculated each customer\'s total twice, inside brackets inside brackets. It worked, but it was hard to read, and if you changed one copy and forgot the other, the answer would be wrong.',
+          'WITH solves this. It lets you give a step a name, write it once at the top, and then use that name like a table in the rest of the query. The named step is called a CTE, short for common table expression.',
+          'The shape is: WITH step_name AS ( SELECT ... ) SELECT ... FROM step_name. Read it like a recipe: "first make this, and call it step_name; then use it to make the final dish".',
+          'A CTE only exists while that one query runs. It is not saved as a table, and it does not change any data. The next query starts fresh.',
+          'The biggest benefit is readability. A complicated report becomes a series of small, named steps, each easy to check on its own. Analysts and backend developers write long reports this way every day.',
+          'You can test each step separately: copy the SELECT inside the brackets, run it on its own, and check its rows before building the next step on top of it.'
+        ],
+        example: 'A good cooking recipe says: "Step 1, make the masala. Step 2, cook the vegetables. Step 3, add the masala to the vegetables." Each step has a name and is done once. WITH turns a long query into that kind of recipe.',
+        code: lines(
+          MINI_SHOP,
+          'WITH order_totals AS (',
+          '  SELECT oi.order_id, sum(p.price * oi.quantity) AS total',
+          '  FROM order_items oi',
+          '  JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY oi.order_id',
+          ')',
+          'SELECT order_id, total',
+          'FROM order_totals',
+          'WHERE total > 100',
+          'ORDER BY total DESC;'
+        ),
+        output: lines(
+          ' order_id | total',
+          '----------+---------',
+          '      102 | 1200.00',
+          '      101 |  280.00',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'WITH gives the step a name: order_totals.' },
+          { line: 17, note: 'The main query uses order_totals like a table.' }
+        ],
+        tryIt: 'Change the main query to SELECT count(*) AS big_orders FROM order_totals WHERE total > 100; and run it.',
+        check: {
+          question: 'What is a CTE made with WITH?',
+          options: ['A named step that exists only while the query runs', 'A new table saved in the database', 'A copy of the whole database'],
+          answer: 0,
+          why: 'A CTE is a temporary, named result used by the rest of the query. It is not saved and does not change data.'
+        }
+      },
+      {
+        title: 'Several steps, one after another',
+        say: [
+          'A WITH can hold several steps, separated by commas. Each step can use the steps above it. This is how you build a report in layers.',
+          'The shape is: WITH step_one AS ( ... ), step_two AS ( SELECT ... FROM step_one ... ) SELECT ... FROM step_two. There is only one WITH word at the top; the next steps just follow after commas.',
+          'Now the "customers above average" question from yesterday becomes clear. Step one: each customer\'s total. Step two is not even needed as a separate table; the main query compares each total with the average of the same step.',
+          'Because the step is written once, a change to how totals are calculated, for example leaving out cancelled orders, happens in exactly one place.',
+          'Give steps descriptive names, like customer_totals or delivered_orders, not t1 and t2. The names are what make the query readable months later.',
+          'A good way to plan a layered query is to write the steps in plain words first, as comments, and then fill in the SQL under each comment.',
+          'WITH also works in front of INSERT, UPDATE and DELETE, not only SELECT. For example, a step can find the ids of old cancelled orders, and the DELETE that follows removes exactly those. You will not need this often yet, but it is good to know the tool is there.'
+        ],
+        example: 'A school report card is built in layers: first each subject\'s marks, then the total per student, then the class average, then who is above it. Each layer uses the one before. WITH lets you write those layers in order.',
+        code: lines(
+          MINI_SHOP,
+          'WITH customer_totals AS (',
+          '  SELECT c.name, sum(p.price * oi.quantity) AS spent',
+          '  FROM customers c',
+          '  JOIN orders o ON o.customer_id = c.id',
+          '  JOIN order_items oi ON oi.order_id = o.id',
+          '  JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY c.id, c.name',
+          '),',
+          'average AS (',
+          '  SELECT avg(spent) AS avg_spent FROM customer_totals',
+          ')',
+          'SELECT ct.name, ct.spent, round(a.avg_spent, 2) AS average',
+          'FROM customer_totals ct, average a',
+          'WHERE ct.spent > a.avg_spent;'
+        ),
+        output: lines(
+          ' name | spent   | average',
+          '------+---------+---------',
+          ' Ravi | 1200.00 |  530.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Step 1: each customer\'s total, written once.' },
+          { line: 17, note: 'Step 2 uses step 1: the average of those totals.' },
+          { line: 21, note: 'average has one row, so listing it in FROM adds that one value to every customer row.' }
+        ],
+        tryIt: 'Remove the WHERE line and run it. You now see every customer with the average next to them.',
+        check: {
+          question: 'In WITH a AS (...), b AS (...) SELECT ..., which steps can b use?',
+          options: ['a, because it is defined above b', 'Only tables, not a', 'Only the main query can use a'],
+          answer: 0,
+          why: 'Each step can use the steps defined before it. That is how layers are built.'
+        }
+      },
+      {
+        title: 'WITH versus subqueries',
+        say: [
+          'Anything you can write with WITH, you can usually write with subqueries too. So why prefer WITH? Mostly for people, not for the computer.',
+          'A subquery is read from the inside out: you have to find the innermost brackets first. A WITH query is read from top to bottom, in the order the steps happen. That matches how people think about a problem.',
+          'WITH also lets you use the same step several times without repeating it, as you saw with customer_totals. With subqueries, you would copy the same SQL twice.',
+          'In modern PostgreSQL, a simple CTE is usually just as fast as the same subquery, because the database optimiser can merge them. So you can choose WITH for clarity without worrying about speed in most cases.',
+          'Short, one-step questions are still fine as subqueries. WHERE price > (SELECT avg(price) FROM products) is perfectly clear. Reach for WITH when a query has two or more steps, or when a step is used twice.',
+          'In job interviews, writing a multi-step answer with clearly named CTEs makes a strong impression, because the interviewer can follow your thinking step by step.'
+        ],
+        example: 'Directions to a friend\'s house can be given as one long sentence full of "after the thing that is next to the place where...", or as a numbered list. Both get you there, but the numbered list is much easier to follow. WITH is the numbered list.',
+        code: lines(
+          MINI_SHOP,
+          '-- As a subquery:',
+          'SELECT count(*) AS big_orders FROM (',
+          '  SELECT oi.order_id FROM order_items oi JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY oi.order_id HAVING sum(p.price * oi.quantity) > 100',
+          ') AS t;',
+          '-- The same with WITH:',
+          'WITH big_orders AS (',
+          '  SELECT oi.order_id FROM order_items oi JOIN products p ON p.id = oi.product_id',
+          '  GROUP BY oi.order_id HAVING sum(p.price * oi.quantity) > 100',
+          ')',
+          'SELECT count(*) AS big_orders FROM big_orders;'
+        ),
+        output: lines(
+          ' big_orders',
+          '------------',
+          '          2',
+          '(1 row)',
+          '',
+          ' big_orders',
+          '------------',
+          '          2',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'The subquery version: read the inside first.' },
+          { line: 15, note: 'The WITH version: the step is named first, then used.' }
+        ],
+        tryIt: 'Change the limit from 100 to 1000 in both queries. Both answers change the same way, because they are the same query.',
+        check: {
+          question: 'What is the main reason to prefer WITH over nested subqueries?',
+          options: ['It is easier to read top to bottom and a step can be reused', 'It is always much faster', 'Subqueries are not allowed in PostgreSQL'],
+          answer: 0,
+          why: 'WITH mainly helps people: named steps in order, written once. Speed is usually the same.'
+        }
+      },
+      {
+        title: 'Recursive WITH: counting and sequences',
+        say: [
+          'WITH has a special form, WITH RECURSIVE, where a step refers to itself. It sounds strange, but it is the SQL way of repeating something until a condition stops it, like a loop.',
+          'A recursive CTE has two parts joined by UNION ALL. The first part is the starting row, like SELECT 1. The second part takes the rows made so far and makes the next ones, like SELECT n + 1 FROM nums WHERE n < 10.',
+          'PostgreSQL runs the starting part once, then runs the second part again and again on the newest rows, until it produces no new rows. The WHERE in the second part is what stops it.',
+          'If you forget the stopping condition, the query runs forever. In the lesson editor, it is stopped after a few seconds, but on a real server it could run until someone notices. Always check the WHERE in the recursive part.',
+          'A simple use is generating a list of dates, like every day of a month, to make sure a report shows days with no sales as zero. PostgreSQL also has generate_series for this, but the recursive form shows the idea.',
+          'Recursive queries are an advanced topic. You do not need to use them often, but knowing how they work helps with the next part: walking through a hierarchy.'
+        ],
+        example: 'Counting stairs as you climb: start at step 1, and each time go up one, until you reach the top floor. The starting step is the first part; "go up one until the top" is the recursive part.',
+        code: lines(
+          'WITH RECURSIVE days(day) AS (',
+          "  SELECT date '2026-09-01'",
+          '  UNION ALL',
+          "  SELECT day + 1 FROM days WHERE day < date '2026-09-05'",
+          ')',
+          'SELECT day, to_char(day, \'Dy\') AS weekday FROM days;'
+        ),
+        output: lines(
+          ' day        | weekday',
+          '------------+---------',
+          ' 2026-09-01 | Tue',
+          ' 2026-09-02 | Wed',
+          ' 2026-09-03 | Thu',
+          ' 2026-09-04 | Fri',
+          ' 2026-09-05 | Sat',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 2, note: 'The starting row: 1 September.' },
+          { line: 4, note: 'The next row is the day after, until 5 September. The WHERE stops it.' },
+          { line: 6, note: 'Use the generated days like a table.' }
+        ],
+        tryIt: 'Change the end date to 2026-09-10 and run it. You get ten days.',
+        check: {
+          question: 'What stops a recursive CTE from running forever?',
+          options: ['A WHERE condition in the recursive part that eventually produces no new rows', 'The UNION ALL keyword', 'The name of the CTE'],
+          answer: 0,
+          why: 'The recursive part runs until it returns no rows. Its WHERE condition is what makes that happen.'
+        }
+      },
+      {
+        title: 'Recursive WITH: walking a hierarchy',
+        say: [
+          'The most useful job for WITH RECURSIVE is walking down a tree of data: a company\'s reporting chain, categories and sub-categories, or folders inside folders.',
+          'The starting part picks the top of the tree, for example the boss with no manager. The recursive part finds everyone whose manager is someone already found, level by level.',
+          'You can carry extra information down the tree, like a level number that goes up by one each step, or a path of names that grows longer. That lets you show the whole structure clearly.',
+          'Without recursion, you would need a separate self join for every level, and you would have to know in advance how deep the tree goes. The recursive CTE works for any depth.',
+          'On large trees, add a limit on the level as a safety net, like WHERE level < 20, in case the data has a loop by mistake, for example two people listed as each other\'s manager.',
+          'You will not write these every day, but when a question says "everyone under this manager" or "all sub-categories of electronics", recursive WITH is the tool.'
+        ],
+        example: 'A family tree drawn from a great-grandmother down: first her, then her children, then their children, each generation one level lower. Walking a hierarchy with recursion is drawing that tree one generation at a time.',
+        code: lines(
+          'CREATE TABLE employees (id int PRIMARY KEY, name text, manager_id int);',
+          "INSERT INTO employees VALUES (1, 'Anita', NULL), (2, 'Vikram', 1), (3, 'Sara', 1), (4, 'Joel', 2), (5, 'Nisha', 4);",
+          'WITH RECURSIVE chain AS (',
+          "  SELECT id, name, 1 AS level, name AS path FROM employees WHERE manager_id IS NULL",
+          '  UNION ALL',
+          "  SELECT e.id, e.name, c.level + 1, c.path || ' > ' || e.name",
+          '  FROM employees e JOIN chain c ON e.manager_id = c.id',
+          ')',
+          'SELECT level, name, path FROM chain ORDER BY path;'
+        ),
+        output: lines(
+          ' level | name   | path',
+          '-------+--------+-------------------------------',
+          '     1 | Anita  | Anita',
+          '     2 | Sara   | Anita > Sara',
+          '     2 | Vikram | Anita > Vikram',
+          '     3 | Joel   | Anita > Vikram > Joel',
+          '     4 | Nisha  | Anita > Vikram > Joel > Nisha',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Start at the top: the person with no manager.' },
+          { line: 6, note: 'Each step: people whose manager was already found, one level deeper, with a growing path.' },
+          { line: 9, note: 'Sorting by path shows the tree in order.' }
+        ],
+        tryIt: "Add a new employee under Sara: (6, 'Ravi', 3) to the INSERT and run it. Ravi appears at level 3 under Sara.",
+        check: {
+          question: 'Why use a recursive CTE for "everyone under this manager"?',
+          options: ['It works for any number of levels without knowing the depth in advance', 'Self joins are not allowed', 'It is the only way to use JOIN'],
+          answer: 0,
+          why: 'Each recursive step goes one level deeper, as many times as needed, so the depth does not have to be known.'
+        }
+      },
+      {
+        title: 'Putting it together: a monthly report in steps',
+        say: [
+          'Let us write a report the way professionals do: in named steps. The question is "for each customer, their delivered spending, and whether it is above the average customer\'s delivered spending".',
+          'Step one keeps only delivered order lines with their values. Step two adds them up per customer. The main query compares each customer with the average of step two, and labels them.',
+          'Each step is short and testable on its own. If the numbers look wrong, you can run step one alone and check the lines, then step two, and so on. That is much easier than debugging one giant query.',
+          'In today\'s practice, you will use WITH to find orders with a total above 500, and WITH RECURSIVE to produce the numbers 1 to 10.',
+          'Tomorrow you meet window functions, which calculate across rows without grouping them away: ranks, row numbers and the top item per group.',
+          'Keep the habit you practised today: when a question has several steps, write them as named steps in a WITH. It is one of the clearest signs of a thoughtful SQL writer.'
+        ],
+        example: 'An accountant preparing a yearly summary works in labelled sheets: one for raw transactions, one for totals per client, one for the final comparison. Anyone can check each sheet. A WITH query is that set of labelled sheets.',
+        code: lines(
+          MINI_SHOP,
+          'WITH delivered_lines AS (',
+          '  SELECT o.customer_id, p.price * oi.quantity AS value',
+          '  FROM orders o',
+          '  JOIN order_items oi ON oi.order_id = o.id',
+          '  JOIN products p ON p.id = oi.product_id',
+          "  WHERE o.status = 'delivered'",
+          '),',
+          'per_customer AS (',
+          '  SELECT customer_id, sum(value) AS spent FROM delivered_lines GROUP BY customer_id',
+          ')',
+          'SELECT c.name, pc.spent,',
+          "       pc.spent > (SELECT avg(spent) FROM per_customer) AS above_average",
+          'FROM per_customer pc',
+          'JOIN customers c ON c.id = pc.customer_id',
+          'ORDER BY pc.spent DESC;'
+        ),
+        output: lines(
+          ' name | spent   | above_average',
+          '------+---------+---------------',
+          ' Ravi | 1200.00 | true',
+          ' Asha |  280.00 | false',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 9, note: 'Step 1: only delivered order lines, with their value.' },
+          { line: 16, note: 'Step 2: one total per customer.' },
+          { line: 20, note: 'Compare each total with the average of step 2.' }
+        ],
+        tryIt: "Change 'delivered' to 'shipped' in step 1 and run it. Only Asha has a shipped order.",
+        check: {
+          question: 'Why is a WITH query easier to debug than one big nested query?',
+          options: ['Each named step can be run and checked on its own', 'WITH queries never have mistakes', 'PostgreSQL explains WITH errors better'],
+          answer: 0,
+          why: 'You can copy one step\'s SELECT, run it, and check its rows before looking at the next step.'
+        }
+      }
+    ],
+    summary: [
+      'WITH name AS (...) names a step (a CTE) that the rest of the query uses like a table.',
+      'Several steps are separated by commas; each can use the steps above it.',
+      'WITH reads top to bottom and avoids repeating the same subquery.',
+      'WITH RECURSIVE repeats a step until it returns no rows: sequences and hierarchies.',
+      'Always make sure a recursive step has a condition that stops it.'
+    ],
+    projectStep: {
+      title: 'My Library: a reading report in steps',
+      steps: [
+        'Write a WITH step that finds pages per author for finished books.',
+        'Add a second step with the average of those totals.',
+        'Show each author with their pages and whether they are above average.',
+        'Use WITH RECURSIVE to list the numbers 1 to 12, one for each month of your reading goal.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 17,
+    title: 'Ranking Rows: Window Functions',
+    goal: 'You can number and rank rows with window functions, rank inside groups with PARTITION BY, and find the top item per group.',
+    minutes: 28,
+    recap: 'Yesterday you wrote readable multi-step queries with WITH, and walked sequences and hierarchies with WITH RECURSIVE.',
+    parts: [
+      {
+        title: 'What a window function is',
+        say: [
+          'GROUP BY squeezes many rows into one row per group. But sometimes you want to keep every row and still calculate something across the rows, like each product\'s rank by price, or each product\'s price compared with its category average.',
+          'Window functions do exactly that. They calculate across a set of rows, called a window, but they do not remove any rows. Every row stays, with a new column added.',
+          'You recognise a window function by the word OVER after it. rank() OVER (ORDER BY price DESC) gives each product its position in a list sorted by price, most expensive first.',
+          'Even normal aggregates become window functions when you add OVER. avg(price) OVER () shows the overall average price next to every product, without grouping them away.',
+          'Window functions are one of the most asked-about topics in data analyst and backend interviews, because they answer "rank", "top N per group" and "compared with others" questions elegantly.',
+          'They are calculated after WHERE and GROUP BY, just before ORDER BY. So they work on the rows that are left after filtering, which is usually exactly what you want.',
+          'You can even use a window function on top of a GROUP BY result. For example, group sales by category to get each category\'s total, and then rank the categories by that total with rank() OVER (ORDER BY sum(amount) DESC), all in one query. The grouping happens first, then the ranking.'
+        ],
+        example: 'A class result sheet lists every student with their marks and their rank in the class. Nobody is removed from the sheet; the rank is just an extra column. That rank column is a window function.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT name, price,',
+          '       rank() OVER (ORDER BY price DESC) AS price_rank,',
+          '       round(avg(price) OVER (), 2) AS overall_average',
+          'FROM products',
+          'ORDER BY price_rank;'
+        ),
+        output: lines(
+          ' name     | price   | price_rank | overall_average',
+          '----------+---------+------------+-----------------',
+          ' Backpack | 1200.00 |          1 |          355.00',
+          ' Stapler  |  150.00 |          2 |          355.00',
+          ' Notebook |   60.00 |          3 |          355.00',
+          ' Pen      |   10.00 |          4 |          355.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'A rank based on price, highest first. Every product keeps its row.' },
+          { line: 11, note: 'The overall average, shown on every row. OVER () means "all rows".' }
+        ],
+        tryIt: 'Add a column price - avg(price) OVER () AS above_average to see how far each price is from the average.',
+        check: {
+          question: 'What is the key difference between GROUP BY and a window function?',
+          options: ['A window function keeps every row; GROUP BY returns one row per group', 'Window functions only work on dates', 'GROUP BY is faster in every case'],
+          answer: 0,
+          why: 'Window functions add a calculated column to each row without collapsing the rows.'
+        }
+      },
+      {
+        title: 'ROW_NUMBER, RANK and DENSE_RANK',
+        say: [
+          'There are three ways to number rows in order, and they differ only in how they treat ties, rows with the same value.',
+          'row_number() gives 1, 2, 3, 4 with no repeats, even for ties. If two products have the same price, one gets 2 and the other gets 3, and which one is not guaranteed unless you add a tie-breaker to the ORDER BY.',
+          'rank() gives tied rows the same number and then skips: 1, 2, 2, 4. It is like a sports result where two runners share second place and nobody is third.',
+          'dense_rank() gives tied rows the same number but does not skip: 1, 2, 2, 3. Use it when you want "the 3rd highest price" to mean the 3rd different price.',
+          'Which one to use depends on the question. For numbering rows or picking exactly one row per group, use row_number. For fair rankings with ties, use rank or dense_rank.',
+          'Interviewers love this difference. A classic question is "find the second highest salary", and dense_rank is one of the cleanest answers, because it handles ties correctly.'
+        ],
+        example: 'In a race, two runners finish together in second place. The official results say 1st, 2nd, 2nd, 4th: that is rank. A medal list would say gold, silver, silver, bronze: that is dense_rank. The start list numbers everyone 1, 2, 3, 4: that is row_number.',
+        code: lines(
+          'CREATE TABLE scores (student text, marks int);',
+          "INSERT INTO scores VALUES ('Asha', 92), ('Ravi', 88), ('Priya', 88), ('Karan', 75);",
+          'SELECT student, marks,',
+          '       row_number() OVER (ORDER BY marks DESC, student) AS row_num,',
+          '       rank() OVER (ORDER BY marks DESC) AS rank,',
+          '       dense_rank() OVER (ORDER BY marks DESC) AS dense_rank',
+          'FROM scores',
+          'ORDER BY marks DESC, student;'
+        ),
+        output: lines(
+          ' student | marks | row_num | rank | dense_rank',
+          '---------+-------+---------+------+------------',
+          ' Asha    |    92 |       1 |    1 |          1',
+          ' Priya   |    88 |       2 |    2 |          2',
+          ' Ravi    |    88 |       3 |    2 |          2',
+          ' Karan   |    75 |       4 |    4 |          3',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Always different numbers; student name breaks the tie.' },
+          { line: 5, note: 'Ties share a rank, then a number is skipped.' },
+          { line: 6, note: 'Ties share a rank, and no number is skipped.' }
+        ],
+        tryIt: "Give Karan 88 marks too and run it. Compare the three columns for the three students on 88.",
+        check: {
+          question: 'Marks are 92, 88, 88, 75. What dense_rank does 75 get?',
+          options: ['3', '4', '2'],
+          answer: 0,
+          why: 'dense_rank does not skip numbers after a tie: 92 is 1, both 88s are 2, and 75 is 3. rank would give 4.'
+        }
+      },
+      {
+        title: 'PARTITION BY: ranking inside each group',
+        say: [
+          'Often you want a ranking inside each group, not across everything: the most expensive product in each category, the top student in each class, the latest order of each customer.',
+          'PARTITION BY splits the rows into groups for the window function. rank() OVER (PARTITION BY category ORDER BY price DESC) ranks products by price separately inside each category. Each category starts again at 1.',
+          'It is similar to GROUP BY, but again, no rows are removed. Every product stays, with its rank inside its own category.',
+          'You can combine PARTITION BY with any window function: count(*) OVER (PARTITION BY category) shows the size of each product\'s category, and avg(price) OVER (PARTITION BY category) shows the category\'s average price next to each product.',
+          'A handy example is percentages within a group: price / sum(price) OVER (PARTITION BY category) gives each product\'s share of its category\'s total. Multiply by 100 and round, and you have a column that shows at a glance which products dominate each category.',
+          'That lets you compare each row with its own group, for example "this product is 200 rupees above its category average". With GROUP BY alone you would need a join back to the grouped result.',
+          'Remember: PARTITION BY decides the groups, ORDER BY inside OVER decides the order within each group. Both go inside the brackets after OVER.'
+        ],
+        example: 'A school has three sections of class 10. Each section announces its own topper; section A\'s rank 1 and section B\'s rank 1 are different students. Ranking with PARTITION BY section is exactly that.',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2));',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60), ('Pen', 'stationery', 10), ('Stapler', 'stationery', 150),",
+          "  ('Headphones', 'electronics', 1499), ('Phone stand', 'electronics', 299);",
+          'SELECT category, name, price,',
+          '       rank() OVER (PARTITION BY category ORDER BY price DESC) AS rank_in_category,',
+          '       round(avg(price) OVER (PARTITION BY category), 2) AS category_average',
+          'FROM products',
+          'ORDER BY category, rank_in_category;'
+        ),
+        output: lines(
+          ' category    | name        | price   | rank_in_category | category_average',
+          '-------------+-------------+---------+------------------+------------------',
+          ' electronics | Headphones  | 1499.00 |                1 |           899.00',
+          ' electronics | Phone stand |  299.00 |                2 |           899.00',
+          ' stationery  | Stapler     |  150.00 |                1 |            73.33',
+          ' stationery  | Notebook    |   60.00 |                2 |            73.33',
+          ' stationery  | Pen         |   10.00 |                3 |            73.33',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'Ranks restart at 1 in each category.' },
+          { line: 6, note: 'Each product sees its own category\'s average.' }
+        ],
+        tryIt: 'Add count(*) OVER (PARTITION BY category) AS products_in_category to the SELECT.',
+        check: {
+          question: 'What does PARTITION BY category do inside OVER?',
+          options: ['Calculates the window function separately for each category', 'Removes all but one row per category', 'Sorts the final result by category'],
+          answer: 0,
+          why: 'PARTITION BY makes separate windows per category. Rows are kept; only the calculation is per group.'
+        }
+      },
+      {
+        title: 'The top item per group',
+        say: [
+          'A very common question is "the top one (or top three) in each group": the latest order per customer, the best-selling product per category, the highest-paid employee per department.',
+          'The recipe has two steps. First, number the rows inside each group with row_number() OVER (PARTITION BY group ORDER BY what_matters DESC). Second, keep only the rows where that number is 1, or at most 3 for a top three.',
+          'You cannot use a window function directly in WHERE, because WHERE runs before window functions are calculated. So you put the first step in a WITH (or a subquery in FROM), and filter in the main query.',
+          'Choose row_number when you want exactly one row per group, even if there is a tie. Choose rank when tied rows should all appear, for example two products sharing the top price.',
+          'This two-step pattern, window function in a CTE and then WHERE rn = 1, appears in real reports every day. It is worth learning by heart.',
+          'Before window functions existed, people solved this with complicated self joins or correlated subqueries. The window function way is shorter, clearer and usually faster.',
+          'If a question asks for the top three per group, change the filter to rn <= 3. If it asks for everything except the top one, use rn > 1. The numbering step stays exactly the same; only the final WHERE changes, which makes the pattern easy to adapt.'
+        ],
+        example: 'Each hostel in a college picks its best cook for a festival. Inside each hostel, the students are ranked, and only number 1 from each hostel goes forward. Number inside each group, then keep the first.',
+        code: lines(
+          MINI_SHOP,
+          'WITH numbered AS (',
+          '  SELECT c.name, o.id AS order_id, o.ordered_on,',
+          '         row_number() OVER (PARTITION BY c.id ORDER BY o.ordered_on DESC) AS rn',
+          '  FROM customers c',
+          '  JOIN orders o ON o.customer_id = c.id',
+          ')',
+          'SELECT name, order_id, ordered_on AS latest_order',
+          'FROM numbered',
+          'WHERE rn = 1',
+          'ORDER BY name;'
+        ),
+        output: lines(
+          ' name  | order_id | latest_order',
+          '-------+----------+--------------',
+          ' Asha  |      103 | 2026-09-10',
+          ' Priya |      104 | 2026-09-12',
+          ' Ravi  |      102 | 2026-09-03',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Number each customer\'s orders, newest first.' },
+          { line: 17, note: 'Keep only number 1: the latest order per customer.' }
+        ],
+        tryIt: 'Change ORDER BY o.ordered_on DESC to ASC inside OVER. Now you get each customer\'s first order instead.',
+        check: {
+          question: 'Why is the row_number step put inside WITH before filtering rn = 1?',
+          options: ['WHERE runs before window functions, so it cannot filter on them directly', 'row_number only works inside WITH', 'To make the query faster'],
+          answer: 0,
+          why: 'Window functions are calculated after WHERE. Computing them in a CTE first lets the main query filter on the result.'
+        }
+      },
+      {
+        title: 'Comparing with the previous row: LAG and LEAD',
+        say: [
+          'Two more window functions look at neighbouring rows. lag(column) gives the value from the previous row in the window\'s order, and lead(column) gives the value from the next row.',
+          'This makes "compared with last time" questions easy: this month\'s sales versus last month\'s, or the gap in days between a customer\'s orders.',
+          'For the first row, there is no previous row, so lag returns NULL. You can give a default instead: lag(amount, 1, 0) uses 0. The number 1 means "one row back"; 2 would look two rows back.',
+          'Combine lag with PARTITION BY to compare within each group, for example each customer\'s order with that same customer\'s previous order, not with someone else\'s.',
+          'A typical calculation is the change: amount - lag(amount) OVER (ORDER BY month). With the growth as a percentage, this is the basis of many business charts.',
+          'Tomorrow you will go further with frames, which let a window cover "the last 3 rows" or "everything so far", for running totals and moving averages.'
+        ],
+        example: 'A shopkeeper compares today\'s sales with yesterday\'s: "we sold 300 rupees more than yesterday". Looking one row back in time order is exactly what lag does.',
+        code: lines(
+          'CREATE TABLE monthly_sales (month date, amount numeric(10,2));',
+          "INSERT INTO monthly_sales VALUES ('2026-06-01', 12000), ('2026-07-01', 15000), ('2026-08-01', 13500), ('2026-09-01', 18000);",
+          'SELECT month, amount,',
+          '       lag(amount) OVER (ORDER BY month) AS previous,',
+          '       amount - lag(amount) OVER (ORDER BY month) AS change',
+          'FROM monthly_sales',
+          'ORDER BY month;'
+        ),
+        output: lines(
+          ' month      | amount   | previous | change',
+          '------------+----------+----------+----------',
+          ' 2026-06-01 | 12000.00 |     NULL |     NULL',
+          ' 2026-07-01 | 15000.00 | 12000.00 |  3000.00',
+          ' 2026-08-01 | 13500.00 | 15000.00 | -1500.00',
+          ' 2026-09-01 | 18000.00 | 13500.00 |  4500.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'The previous month\'s amount; NULL for the first month.' },
+          { line: 5, note: 'The change from the previous month.' }
+        ],
+        tryIt: 'Add lead(amount) OVER (ORDER BY month) AS next_month and run it. The last month has no next month, so it shows NULL.',
+        check: {
+          question: 'What does lag(amount) OVER (ORDER BY month) return for the first month?',
+          options: ['NULL, because there is no previous row', '0', 'The same month\'s amount'],
+          answer: 0,
+          why: 'The first row has no row before it. Use lag(amount, 1, 0) if you want a default instead of NULL.'
+        }
+      },
+      {
+        title: 'Putting it together: top products per category',
+        say: [
+          'Let us answer a question every shop asks: "What is the most expensive product in each category?", and "what are the top 2 by price overall, with ties handled fairly?".',
+          'The first uses the top-per-group recipe: row_number with PARTITION BY category, then keep rn = 1. The second uses dense_rank across all products and keeps ranks 1 and 2.',
+          'Notice how short and readable both queries are. The same questions with self joins or correlated subqueries would be much longer and harder to get right.',
+          'In today\'s practice, you will rank products by price inside their category, and show the most expensive product in each category.',
+          'Tomorrow you learn running totals and moving averages, which use window functions with frames, a way of saying exactly which rows each calculation should include.',
+          'If you remember one thing from today: window functions add information to each row without removing rows, and PARTITION BY makes them work per group.'
+        ],
+        example: 'An online shop\'s category pages each show a "premium pick", the priciest item in that category. One query with a window function finds all of them at once.',
+        code: lines(
+          'CREATE TABLE products (name text, category text, price numeric(10,2));',
+          "INSERT INTO products VALUES ('Notebook', 'stationery', 60), ('Pen', 'stationery', 10), ('Stapler', 'stationery', 150),",
+          "  ('Headphones', 'electronics', 1499), ('Phone stand', 'electronics', 299), ('Backpack', 'bags', 1200), ('Tote bag', 'bags', 1200);",
+          'WITH ranked AS (',
+          '  SELECT category, name, price,',
+          '         row_number() OVER (PARTITION BY category ORDER BY price DESC, name) AS rn',
+          '  FROM products',
+          ')',
+          'SELECT category, name, price FROM ranked WHERE rn = 1 ORDER BY category;',
+          'WITH ranked AS (',
+          '  SELECT name, price, dense_rank() OVER (ORDER BY price DESC) AS dr FROM products',
+          ')',
+          'SELECT name, price, dr FROM ranked WHERE dr <= 2 ORDER BY dr, name;'
+        ),
+        output: lines(
+          ' category    | name       | price',
+          '-------------+------------+---------',
+          ' bags        | Backpack   | 1200.00',
+          ' electronics | Headphones | 1499.00',
+          ' stationery  | Stapler    |  150.00',
+          '(3 rows)',
+          '',
+          ' name       | price   | dr',
+          '------------+---------+----',
+          ' Headphones | 1499.00 |  1',
+          ' Backpack   | 1200.00 |  2',
+          ' Tote bag   | 1200.00 |  2',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 6, note: 'One row per category; the name breaks the tie between the two 1200 bags.' },
+          { line: 11, note: 'dense_rank: both 1200 products share place 2.' }
+        ],
+        tryIt: 'In the first query, change row_number to rank and remove ", name" from its ORDER BY. Now both bags appear for the bags category.',
+        check: {
+          question: 'Two products tie for the top price in a category. Which function shows both as number 1?',
+          options: ['rank() or dense_rank()', 'row_number()', 'lag()'],
+          answer: 0,
+          why: 'rank and dense_rank give tied rows the same number. row_number always gives different numbers.'
+        }
+      }
+    ],
+    summary: [
+      'Window functions (with OVER) add a calculated column without removing rows.',
+      'row_number never repeats; rank repeats ties then skips; dense_rank repeats ties without skipping.',
+      'PARTITION BY makes the calculation separate for each group; ORDER BY inside OVER sets the order.',
+      'Top per group: row_number in a WITH step, then WHERE rn = 1.',
+      'lag and lead look at the previous or next row, for "compared with last time" questions.'
+    ],
+    projectStep: {
+      title: 'My Library: ranking your books',
+      steps: [
+        'Rank your books by pages, longest first, with rank().',
+        'Rank books by pages inside each author with PARTITION BY.',
+        'Show each author\'s longest book using row_number and rn = 1.',
+        'Show each book\'s pages next to the average pages of its author.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 18,
+    title: 'Running Totals and Moving Averages',
+    goal: 'You can calculate running totals, moving averages and period-over-period changes with window frames.',
+    minutes: 28,
+    recap: 'Yesterday you ranked rows with window functions, used PARTITION BY, and compared rows with lag and lead.',
+    parts: [
+      {
+        title: 'Running totals with SUM OVER',
+        say: [
+          'A running total adds up values as you go down a list: the first day\'s sales, then the first two days together, then the first three, and so on. It answers "how much so far?", which is one of the most common questions in business.',
+          'In SQL, it is a window function: sum(amount) OVER (ORDER BY day). The ORDER BY inside OVER is essential. It tells PostgreSQL to add up all rows from the start up to the current row, in date order.',
+          'Without an ORDER BY inside OVER, sum(amount) OVER () gives the grand total on every row instead. That difference, one small ORDER BY, changes the meaning completely.',
+          'Every row stays in the result. You see each day\'s own amount next to the total so far, which makes it easy to spot when a target was reached.',
+          'Running totals also work per group with PARTITION BY, for example a running total of spending for each customer separately, restarting at zero for each one.',
+          'In finance, running totals give account balances: each transaction\'s amount, and the balance after it. In sales, they show progress towards a monthly target.',
+          'Running totals can also be turned into percentages of a goal. If the monthly target is 5,000, then round(sum(amount) OVER (ORDER BY day) / 5000 * 100) shows how far along the month the shop is each day, which is exactly the progress bar many sales dashboards show.'
+        ],
+        example: 'A savings jar where you add some money every day. Each evening you count the whole jar: that count is the running total. The daily amount is what you added; the running total is what you have so far.',
+        code: lines(
+          'CREATE TABLE daily_sales (day date, amount numeric(10,2));',
+          "INSERT INTO daily_sales VALUES ('2026-09-01', 280), ('2026-09-02', 1200), ('2026-09-03', 2097), ('2026-09-04', 760);",
+          'SELECT day, amount,',
+          '       sum(amount) OVER (ORDER BY day) AS running_total,',
+          '       sum(amount) OVER () AS grand_total',
+          'FROM daily_sales',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | amount  | running_total | grand_total',
+          '------------+---------+---------------+-------------',
+          ' 2026-09-01 |  280.00 |        280.00 |     4337.00',
+          ' 2026-09-02 | 1200.00 |       1480.00 |     4337.00',
+          ' 2026-09-03 | 2097.00 |       3577.00 |     4337.00',
+          ' 2026-09-04 |  760.00 |       4337.00 |     4337.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'With ORDER BY: the total so far, day by day.' },
+          { line: 5, note: 'Without ORDER BY: the grand total on every row.' }
+        ],
+        tryIt: 'Add a column showing each day\'s share of the grand total: round(amount / sum(amount) OVER () * 100, 1) AS percent.',
+        check: {
+          question: 'What turns sum(amount) OVER () into a running total?',
+          options: ['Adding ORDER BY day inside OVER', 'Adding GROUP BY day', 'Adding LIMIT'],
+          answer: 0,
+          why: 'With ORDER BY inside OVER, the sum covers all rows from the start up to the current row.'
+        }
+      },
+      {
+        title: 'Frames: which rows the window covers',
+        say: [
+          'When you write ORDER BY inside OVER, PostgreSQL uses a default frame: all rows from the first one up to the current row. That is why sum becomes a running total. A frame is simply the set of rows the calculation looks at for each row.',
+          'You can choose the frame yourself with ROWS BETWEEN. ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW means "from the very first row to this one", which is the running total written out in full.',
+          'ROWS BETWEEN 2 PRECEDING AND CURRENT ROW means "this row and the two before it", a sliding window of three rows. That is the basis of a moving average.',
+          'There is also FOLLOWING, for rows after the current one. ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING looks at the row before, this row and the row after.',
+          'There is one subtle trap with the default frame: it uses RANGE, not ROWS, and treats rows with the same ORDER BY value as one. If two rows have the same date, both get the total including both. Writing ROWS explicitly, or adding a tie-breaker to the ORDER BY, avoids surprises.',
+          'Frames sound technical, but the idea is simple: for each row, which neighbours should be included? Say it in words first, then write the frame.'
+        ],
+        example: 'Standing in a queue, you can look at "everyone ahead of me and me" (a running count), or "me and the two people just ahead" (a small sliding window). The frame is which people you choose to look at.',
+        code: lines(
+          'CREATE TABLE daily_sales (day date, amount numeric(10,2));',
+          "INSERT INTO daily_sales VALUES ('2026-09-01', 100), ('2026-09-02', 200), ('2026-09-03', 300), ('2026-09-04', 400), ('2026-09-05', 500);",
+          'SELECT day, amount,',
+          '       sum(amount) OVER (ORDER BY day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS so_far,',
+          '       sum(amount) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS last_3_days,',
+          '       sum(amount) OVER (ORDER BY day ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) AS around',
+          'FROM daily_sales',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | amount | so_far  | last_3_days | around',
+          '------------+--------+---------+-------------+---------',
+          ' 2026-09-01 | 100.00 |  100.00 |      100.00 |  300.00',
+          ' 2026-09-02 | 200.00 |  300.00 |      300.00 |  600.00',
+          ' 2026-09-03 | 300.00 |  600.00 |      600.00 |  900.00',
+          ' 2026-09-04 | 400.00 | 1000.00 |      900.00 | 1200.00',
+          ' 2026-09-05 | 500.00 | 1500.00 |     1200.00 |  900.00',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'From the first row to this row: the running total.' },
+          { line: 5, note: 'This row and the two before it.' },
+          { line: 6, note: 'The row before, this row and the row after.' }
+        ],
+        tryIt: 'Change 2 PRECEDING to 1 PRECEDING in the last_3_days column and rename it last_2_days.',
+        check: {
+          question: 'What does ROWS BETWEEN 2 PRECEDING AND CURRENT ROW include?',
+          options: ['The current row and the two rows before it', 'Only the two rows before', 'All rows'],
+          answer: 0,
+          why: 'The frame starts two rows back and ends at the current row: three rows in total (fewer at the start).'
+        }
+      },
+      {
+        title: 'Moving averages',
+        say: [
+          'Daily numbers jump up and down: a big order one day, a quiet day the next. A moving average smooths this out by averaging each day with the few days before it, so the trend is easier to see.',
+          'A 3-day moving average is avg(amount) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW). For each day, it averages that day and the two before it.',
+          'At the start of the list there are fewer rows before, so the first day averages just itself, and the second averages two days. Some reports hide those first rows, because they are based on less data.',
+          'Round moving averages for reading, with round(..., 2). And label them clearly, like avg_3_days, so nobody confuses them with the day\'s own value.',
+          'Moving averages are everywhere: the 7-day average of cases in health reports, the 50-day average of a share price in finance, the weekly average of app sign-ups in product teams.',
+          'The window size is a choice. A small window follows changes quickly but is still bumpy; a large window is smooth but slow to show real changes. Seven days is common for daily data because it covers every weekday once.'
+        ],
+        example: 'When you track your daily steps, one lazy Sunday does not mean you have stopped walking. Looking at your average over the last 7 days shows the real habit. That is a moving average.',
+        code: lines(
+          'CREATE TABLE daily_sales (day date, amount numeric(10,2));',
+          "INSERT INTO daily_sales VALUES ('2026-09-01', 280), ('2026-09-02', 1200), ('2026-09-03', 2097), ('2026-09-04', 760), ('2026-09-05', 450);",
+          'SELECT day, amount,',
+          '       round(avg(amount) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS avg_3_days',
+          'FROM daily_sales',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | amount  | avg_3_days',
+          '------------+---------+------------',
+          ' 2026-09-01 |  280.00 |     280.00',
+          ' 2026-09-02 | 1200.00 |     740.00',
+          ' 2026-09-03 | 2097.00 |    1192.33',
+          ' 2026-09-04 |  760.00 |    1352.33',
+          ' 2026-09-05 |  450.00 |    1102.33',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Each day averaged with up to two days before it, rounded.' }
+        ],
+        tryIt: 'Add count(*) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS days_used to see how many days each average is based on.',
+        check: {
+          question: 'Why use a moving average on daily sales?',
+          options: ['To smooth out day-to-day jumps and show the trend', 'To make the numbers bigger', 'To remove days with no sales'],
+          answer: 0,
+          why: 'Averaging each day with its neighbours reduces the effect of single unusual days, so the trend is clearer.'
+        }
+      },
+      {
+        title: 'Running totals per group',
+        say: [
+          'PARTITION BY works with frames too. sum(amount) OVER (PARTITION BY customer ORDER BY paid_on) gives each customer their own running total, which restarts at zero for the next customer.',
+          'This is exactly how a bank statement is built for each account: each transaction, and the balance after it, separately for every account holder.',
+          'Deposits are positive and withdrawals negative, so a running sum of the amounts gives the balance. If you store withdrawals as positive numbers with a type column, use CASE, which you will learn tomorrow, to make them negative first.',
+          'When you partition, make sure the ORDER BY inside OVER has a clear order within each group. If two payments of the same customer have the same timestamp, add the id as a tie-breaker, or the balance order could differ between runs.',
+          'Running totals per group are also used for goals: each salesperson\'s sales so far this month, each student\'s marks so far this term.',
+          'Remember that nothing is grouped away. Every transaction stays in the result, and the running total column simply grows within each customer.'
+        ],
+        example: 'Each family member keeps their own piggy bank. When Asha adds money, only her total grows; Ravi\'s is separate. PARTITION BY person is keeping one piggy bank per person.',
+        code: lines(
+          'CREATE TABLE payments (id int, customer text, paid_on date, amount numeric(10,2));',
+          "INSERT INTO payments VALUES (1, 'Asha', '2026-09-01', 500), (2, 'Ravi', '2026-09-01', 1000), (3, 'Asha', '2026-09-05', -200),",
+          "  (4, 'Asha', '2026-09-09', 300), (5, 'Ravi', '2026-09-10', -400);",
+          'SELECT customer, paid_on, amount,',
+          '       sum(amount) OVER (PARTITION BY customer ORDER BY paid_on, id) AS balance',
+          'FROM payments',
+          'ORDER BY customer, paid_on, id;'
+        ),
+        output: lines(
+          ' customer | paid_on    | amount  | balance',
+          '----------+------------+---------+---------',
+          ' Asha     | 2026-09-01 |  500.00 |  500.00',
+          ' Asha     | 2026-09-05 | -200.00 |  300.00',
+          ' Asha     | 2026-09-09 |  300.00 |  600.00',
+          ' Ravi     | 2026-09-01 | 1000.00 | 1000.00',
+          ' Ravi     | 2026-09-10 | -400.00 |  600.00',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'A separate running total for each customer; id breaks ties on the same day.' }
+        ],
+        tryIt: "Add a new payment (6, 'Ravi', '2026-09-12', 250) and run it. Only Ravi's balance changes.",
+        check: {
+          question: 'What does PARTITION BY customer do to a running total?',
+          options: ['Gives each customer their own running total that starts from zero', 'Adds all customers together', 'Removes all but the last payment'],
+          answer: 0,
+          why: 'Each partition has its own window, so the running total restarts for each customer.'
+        }
+      },
+      {
+        title: 'Period-over-period growth',
+        say: [
+          'Managers often ask "how much did we grow compared with last month?". You met lag yesterday: it fetches the previous row\'s value. Growth is this month minus last month, and the percentage is that change divided by last month.',
+          'In SQL: round((amount - lag(amount) OVER (ORDER BY month)) / lag(amount) OVER (ORDER BY month) * 100, 1). It looks long, so it is cleaner to put lag in a WITH step first and calculate the percentage in the main query.',
+          'Be careful with division. If last month\'s value was 0, dividing by it causes an error. nullif(previous, 0) turns a zero into NULL, and dividing by NULL gives NULL instead of an error. It is a neat safety trick.',
+          'The first month has no previous month, so its growth is NULL. That is honest: there is nothing to compare with. A report can show it as a dash.',
+          'You can combine growth with monthly totals from GROUP BY: first group sales by month in a WITH step, then apply lag to the monthly totals.',
+          'Growth figures are often misread. A 50 percent rise from a tiny number is not impressive, so reports usually show both the amounts and the percentage.',
+          'It also helps to compare the same period last year, not just last month, because many businesses are seasonal. Festival months are always busy in India, so comparing October with September can mislead, while October this year against October last year tells the real story. That uses lag with 12 rows back on monthly data.'
+        ],
+        example: 'A school compares this year\'s admissions with last year\'s: 600 against 500 is 100 more, a 20 percent increase. Growth needs both numbers side by side, and lag puts them there.',
+        code: lines(
+          'CREATE TABLE sales (sold_on date, amount numeric(10,2));',
+          "INSERT INTO sales VALUES ('2026-07-03', 5000), ('2026-07-20', 7000), ('2026-08-11', 9000), ('2026-08-25', 6000), ('2026-09-02', 18000);",
+          'WITH monthly AS (',
+          "  SELECT date_trunc('month', sold_on)::date AS month, sum(amount) AS total",
+          '  FROM sales GROUP BY 1',
+          '),',
+          'with_previous AS (',
+          '  SELECT month, total, lag(total) OVER (ORDER BY month) AS previous FROM monthly',
+          ')',
+          'SELECT month, total, previous,',
+          '       round((total - previous) / nullif(previous, 0) * 100, 1) AS growth_percent',
+          'FROM with_previous',
+          'ORDER BY month;'
+        ),
+        output: lines(
+          ' month      | total    | previous | growth_percent',
+          '------------+----------+----------+----------------',
+          ' 2026-07-01 | 12000.00 |     NULL |           NULL',
+          ' 2026-08-01 | 15000.00 | 12000.00 |           25.0',
+          ' 2026-09-01 | 18000.00 | 15000.00 |           20.0',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Step 1: total sales per month. GROUP BY 1 means "group by the first column".' },
+          { line: 8, note: 'Step 2: each month next to the previous month.' },
+          { line: 11, note: 'Growth in percent; nullif avoids dividing by zero.' }
+        ],
+        tryIt: "Add a sale in October: ('2026-10-05', 9000). The October growth is negative: sales fell by half.",
+        check: {
+          question: 'What does nullif(previous, 0) protect against?',
+          options: ['Dividing by zero when the previous value is 0', 'NULL values in the current month', 'Negative growth'],
+          answer: 0,
+          why: 'nullif turns 0 into NULL. Dividing by NULL gives NULL instead of a division-by-zero error.'
+        }
+      },
+      {
+        title: 'Putting it together: a sales trend report',
+        say: [
+          'Let us build a small but complete trend report from daily sales: each day\'s amount, the running total for the month, and a 3-day moving average. This is the kind of table behind a sales chart on a company dashboard.',
+          'All three columns come from the same rows, so one query with three window functions does the job. Each window has the same ORDER BY day, but different frames.',
+          'When a window definition repeats, PostgreSQL lets you name it once with a WINDOW clause at the end: WINDOW by_day AS (ORDER BY day), and then write OVER by_day. It keeps long queries tidy.',
+          'In today\'s practice, you will calculate a running total of daily sales, and a 3-day moving average rounded to 2 decimals.',
+          'Tomorrow you learn CASE, which lets a query make decisions like "if the price is under 100, call it budget". Combined with what you learned this week, it opens up almost any report.',
+          'You now know the advanced analysis tools that many junior developers never learn properly. Being comfortable with window functions and frames is a real advantage in interviews.'
+        ],
+        example: 'A shop owner looks at one simple chart each evening: today\'s bar, a line for the month so far, and a smooth line for the recent trend. Those three lines are the three window functions in this query.',
+        code: lines(
+          'CREATE TABLE daily_sales (day date, amount numeric(10,2));',
+          "INSERT INTO daily_sales VALUES ('2026-09-01', 280), ('2026-09-02', 1200), ('2026-09-03', 2097), ('2026-09-04', 760), ('2026-09-05', 450);",
+          'SELECT day, amount,',
+          '       sum(amount) OVER by_day AS month_so_far,',
+          '       round(avg(amount) OVER (by_day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS avg_3_days',
+          'FROM daily_sales',
+          'WINDOW by_day AS (ORDER BY day)',
+          'ORDER BY day;'
+        ),
+        output: lines(
+          ' day        | amount  | month_so_far | avg_3_days',
+          '------------+---------+--------------+------------',
+          ' 2026-09-01 |  280.00 |       280.00 |     280.00',
+          ' 2026-09-02 | 1200.00 |      1480.00 |     740.00',
+          ' 2026-09-03 | 2097.00 |      3577.00 |    1192.33',
+          ' 2026-09-04 |  760.00 |      4337.00 |    1352.33',
+          ' 2026-09-05 |  450.00 |      4787.00 |    1102.33',
+          '(5 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Running total using the named window.' },
+          { line: 5, note: 'The same named window, with a 3-row frame added.' },
+          { line: 7, note: 'The window is defined once, by name.' }
+        ],
+        tryIt: 'Add a column amount - lag(amount) OVER by_day AS change_from_yesterday.',
+        check: {
+          question: 'What is the WINDOW clause for?',
+          options: ['Naming a window definition once so several functions can reuse it', 'Filtering rows before window functions', 'Creating a new table'],
+          answer: 0,
+          why: 'WINDOW by_day AS (...) defines the window once; each function can then say OVER by_day.'
+        }
+      }
+    ],
+    summary: [
+      'sum(x) OVER (ORDER BY day) is a running total; without ORDER BY it is the grand total.',
+      'A frame chooses the rows: ROWS BETWEEN n PRECEDING AND CURRENT ROW, UNBOUNDED PRECEDING, FOLLOWING.',
+      'avg(x) over a small frame is a moving average that smooths the trend.',
+      'PARTITION BY gives each group its own running total, like a balance per account.',
+      'Growth: compare with lag, and use nullif(previous, 0) to avoid dividing by zero.'
+    ],
+    projectStep: {
+      title: 'My Library: pages read over time',
+      steps: [
+        'Create a reading_log table with day and pages_read, and add 7 days of reading.',
+        'Show a running total of pages read.',
+        'Show a 3-day moving average of pages per day.',
+        'Show the change in pages compared with the previous day using lag.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 19,
+    title: 'Decisions Inside a Query: CASE',
+    goal: 'You can make decisions inside queries with CASE: label rows, sort in custom orders, count by condition and build pivot-style reports.',
+    minutes: 28,
+    recap: 'Yesterday you calculated running totals, moving averages and growth with window frames.',
+    parts: [
+      {
+        title: 'CASE: if-then-else inside SQL',
+        say: [
+          'Many reports need a decision for each row: "if the price is under 100, call it budget; if under 1000, mid; otherwise premium". CASE is SQL\'s if-then-else.',
+          'The shape is: CASE WHEN condition THEN value WHEN another_condition THEN another_value ELSE default_value END. It works out one value for each row, and you give that value a name with AS.',
+          'PostgreSQL checks the WHEN conditions from top to bottom and uses the first one that is true. So the order matters, exactly like elif in Python or else if in JavaScript. Put the most specific conditions first.',
+          'If no WHEN is true and there is no ELSE, the result is NULL. It is good practice to always write an ELSE, even if it is just ELSE \'other\', so nothing slips through unlabelled.',
+          'Every THEN and the ELSE should return the same type: all text, or all numbers. Mixing \'budget\' and 5 in one CASE gives an error.',
+          'CASE can be used almost anywhere a value can: in SELECT, WHERE, ORDER BY, GROUP BY, and inside aggregates. That makes it one of the most versatile tools in SQL.',
+          'Writing each WHEN on its own line, indented under CASE, makes long decisions much easier to read and review. It also makes it obvious if two branches overlap, or if a case has been forgotten.'
+        ],
+        example: 'A college grading table: 75 and above is Distinction, 60 and above is First class, 40 and above is Pass, otherwise Fail. The clerk checks from the top and stops at the first rule that fits. CASE follows those same rules for every row.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT name, price,',
+          '       CASE',
+          "         WHEN price < 100 THEN 'budget'",
+          "         WHEN price < 1000 THEN 'mid'",
+          "         ELSE 'premium'",
+          '       END AS price_band',
+          'FROM products',
+          'ORDER BY price;'
+        ),
+        output: lines(
+          ' name     | price   | price_band',
+          '----------+---------+------------',
+          ' Pen      |   10.00 | budget',
+          ' Notebook |   60.00 | budget',
+          ' Stapler  |  150.00 | mid',
+          ' Backpack | 1200.00 | premium',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Checked first: anything under 100 is budget.' },
+          { line: 12, note: 'Only reached if the first condition was false.' },
+          { line: 13, note: 'Everything else.' }
+        ],
+        tryIt: "Swap the order of the first two WHEN lines and run it. The Pen and the Notebook are now called mid, because price < 1000 is checked first.",
+        check: {
+          question: 'Which WHEN branch does CASE use when several are true?',
+          options: ['The first true one, from the top', 'The last true one', 'All of them'],
+          answer: 0,
+          why: 'CASE stops at the first WHEN that is true, so the order of conditions matters.'
+        }
+      },
+      {
+        title: 'Simple CASE and cleaning codes into words',
+        say: [
+          'When you compare one column with several fixed values, there is a shorter form: CASE status WHEN \'d\' THEN \'Delivered\' WHEN \'p\' THEN \'Pending\' ELSE \'Unknown\' END. The column is written once after CASE.',
+          'This is very common when data stores short codes, like d, p, c, or 1, 2, 3, and a report needs readable words. The database keeps the compact codes, and the query translates them for people.',
+          'The short form only checks equality. For ranges or several columns, use the full form with WHEN condition, as in the first part.',
+          'If the same translation is needed in many queries, a small lookup table is usually better than repeating the CASE everywhere: a table of codes and their names, joined when needed. Then a new code means adding one row, not editing many queries.',
+          'CASE can also produce numbers, for example a score for each status, which you can then add up or sort by.',
+          'Always handle unexpected values with ELSE. Real data eventually contains a code nobody planned for, and "Unknown" is much better than a silent NULL.',
+          'Showing the unexpected code in the label, like "Unknown code: x", is better than a plain "Unknown", because the person reading the report can tell the development team exactly which value appeared. Small touches like this make data problems much faster to fix.'
+        ],
+        example: 'At a railway station, the board shows "Delayed" and "On time", but the computer behind it stores status codes like D and O. Something translates the codes into words for travellers. That translator is a CASE.',
+        code: lines(
+          'CREATE TABLE tickets (id int, status char(1));',
+          "INSERT INTO tickets VALUES (1, 'o'), (2, 'c'), (3, 'o'), (4, 'x');",
+          'SELECT id,',
+          '       CASE status',
+          "         WHEN 'o' THEN 'Open'",
+          "         WHEN 'c' THEN 'Closed'",
+          "         ELSE 'Unknown code: ' || status",
+          '       END AS status_text',
+          'FROM tickets',
+          'ORDER BY id;'
+        ),
+        output: lines(
+          ' id | status_text',
+          '----+-----------------',
+          '  1 | Open',
+          '  2 | Closed',
+          '  3 | Open',
+          '  4 | Unknown code: x',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'The short form: the column is written once.' },
+          { line: 7, note: 'ELSE catches codes nobody planned for, and shows them.' }
+        ],
+        tryIt: "Add a code for 'x': WHEN 'x' THEN 'Cancelled', and run it again.",
+        check: {
+          question: 'When is the short form CASE column WHEN value THEN ... useful?',
+          options: ['When comparing one column with several fixed values', 'When checking ranges like price < 100', 'When joining tables'],
+          answer: 0,
+          why: 'The short form only checks equality with fixed values. Ranges need the full CASE WHEN condition form.'
+        }
+      },
+      {
+        title: 'CASE in ORDER BY: custom sort orders',
+        say: [
+          'Sometimes the natural order is not alphabetical or numeric. Order statuses, for example, should appear as pending, shipped, delivered, cancelled: the order in which things happen, not A to Z.',
+          'CASE in ORDER BY solves this. Give each value a number with CASE, and sort by that number: ORDER BY CASE status WHEN \'pending\' THEN 1 WHEN \'shipped\' THEN 2 WHEN \'delivered\' THEN 3 ELSE 4 END.',
+          'You can combine it with other sort columns: first by the custom status order, then by date within each status.',
+          'Another use is pinning certain rows to the top: ORDER BY CASE WHEN is_featured THEN 0 ELSE 1 END, price puts featured products first, then everything else by price.',
+          'The CASE in ORDER BY does not have to appear in the SELECT. It only controls the order, and the result shows the columns you chose.',
+          'If the same custom order is used in many places, a lookup table with a sort_order column is again the tidier solution. But for one report, CASE in ORDER BY is quick and clear.'
+        ],
+        example: 'A hospital waiting room is not served A to Z by name, but by urgency: emergencies first, then appointments, then walk-ins, and within each group by arrival time. That custom priority is CASE in ORDER BY.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT id, status, ordered_on',
+          'FROM orders',
+          'ORDER BY CASE status',
+          "           WHEN 'pending' THEN 1",
+          "           WHEN 'shipped' THEN 2",
+          "           WHEN 'delivered' THEN 3",
+          '           ELSE 4',
+          '         END,',
+          '         ordered_on;'
+        ),
+        output: lines(
+          ' id  | status    | ordered_on',
+          '-----+-----------+------------',
+          ' 104 | pending   | 2026-09-12',
+          ' 103 | shipped   | 2026-09-10',
+          ' 101 | delivered | 2026-09-01',
+          ' 102 | delivered | 2026-09-03',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 11, note: 'Each status gets a number that sets its place in the order.' },
+          { line: 17, note: 'Inside each status, oldest first.' }
+        ],
+        tryIt: 'Change the numbers so delivered orders come first, and run it.',
+        check: {
+          question: 'How do you sort statuses in a custom order like pending, shipped, delivered?',
+          options: ['ORDER BY a CASE that gives each status a number', 'ORDER BY status', 'GROUP BY status'],
+          answer: 0,
+          why: 'CASE turns each status into a sort number, and ORDER BY uses that number instead of alphabetical order.'
+        }
+      },
+      {
+        title: 'Counting by condition',
+        say: [
+          'CASE inside an aggregate lets you count or add up only some rows, several ways at once, in a single query. sum(CASE WHEN status = \'delivered\' THEN 1 ELSE 0 END) counts delivered orders.',
+          'You met FILTER on Day 8, which does the same job more neatly in PostgreSQL: count(*) FILTER (WHERE status = \'delivered\'). The CASE version works in every SQL database, so you will see both in real code.',
+          'The same trick adds up amounts conditionally: sum(CASE WHEN status = \'delivered\' THEN total ELSE 0 END) is the value of delivered orders only.',
+          'With GROUP BY, this produces compact summary tables: one row per customer, with columns for delivered, shipped and pending orders side by side.',
+          'This pattern is sometimes called conditional aggregation. It is much faster than running three separate queries, because PostgreSQL reads the data once.',
+          'Watch out for ELSE: in a sum, ELSE 0 keeps the total a number; without an ELSE, the CASE gives NULL for other rows, which sum skips, so the result is the same unless no rows match, in which case you get NULL instead of 0.'
+        ],
+        example: 'A teacher collecting a class survey counts three things in one pass through the papers: how many said yes, how many said no, and how many left it blank. She does not go through the pile three times. Conditional aggregation is that single pass.',
+        code: lines(
+          MINI_SHOP,
+          'SELECT c.name,',
+          "       sum(CASE WHEN o.status = 'delivered' THEN 1 ELSE 0 END) AS delivered,",
+          "       count(*) FILTER (WHERE o.status IN ('shipped', 'pending')) AS open,",
+          '       count(o.id) AS all_orders',
+          'FROM customers c',
+          'LEFT JOIN orders o ON o.customer_id = c.id',
+          'GROUP BY c.id, c.name',
+          'ORDER BY c.name;'
+        ),
+        output: lines(
+          ' name  | delivered | open | all_orders',
+          '-------+-----------+------+------------',
+          ' Asha  |         1 |    1 |          2',
+          ' Meera |         0 |    0 |          0',
+          ' Priya |         0 |    1 |          1',
+          ' Ravi  |         1 |    0 |          1',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 10, note: 'The CASE way: 1 for each delivered order, 0 otherwise, then add up.' },
+          { line: 11, note: 'The PostgreSQL FILTER way: same idea, shorter.' }
+        ],
+        tryIt: "Add a column for cancelled orders using either style. Everyone has 0, because no order is cancelled.",
+        check: {
+          question: 'What does sum(CASE WHEN status = \'delivered\' THEN 1 ELSE 0 END) calculate?',
+          options: ['The number of delivered orders', 'The total value of all orders', 'The number of statuses'],
+          answer: 0,
+          why: 'Each delivered order adds 1 and every other order adds 0, so the sum is the count of delivered orders.'
+        }
+      },
+      {
+        title: 'Pivot-style reports',
+        say: [
+          'Spreadsheets often show data as a grid: one row per product, one column per month. This is called a pivot table. SQL naturally returns long lists, one row per product per month, but conditional aggregation can turn them into a grid.',
+          'For each column of the grid, write one sum with a CASE (or FILTER) that keeps only that column\'s rows: sum(amount) FILTER (WHERE month = \'2026-08\') AS aug, and the same for September.',
+          'Group by the row labels, like the product name, and you get one row per product with one column per month.',
+          'The limitation is that the columns must be known when you write the query. A new month means adding a new column to the SQL. For fully dynamic pivots, apps usually fetch the long list and pivot it in code or in a spreadsheet tool.',
+          'Pivot reports are popular with managers because they are easy to scan. Being able to produce one directly in SQL saves a lot of copying into Excel.',
+          'Use coalesce around each column, or ELSE 0 inside the CASE, so empty cells show 0 instead of NULL. A grid full of NULLs looks broken, even when it is correct.'
+        ],
+        example: 'A school attendance summary shows each student as a row and each month as a column, with days present in each cell. The attendance register is a long list of days; the summary grid is a pivot of it.',
+        code: lines(
+          'CREATE TABLE sales (product text, sold_on date, amount numeric(10,2));',
+          "INSERT INTO sales VALUES ('Pen', '2026-08-05', 100), ('Pen', '2026-09-02', 150), ('Notebook', '2026-08-20', 180),",
+          "  ('Notebook', '2026-09-11', 60), ('Backpack', '2026-09-15', 1200), ('Pen', '2026-09-20', 50);",
+          'SELECT product,',
+          "       coalesce(sum(amount) FILTER (WHERE sold_on >= '2026-08-01' AND sold_on < '2026-09-01'), 0) AS aug,",
+          "       coalesce(sum(amount) FILTER (WHERE sold_on >= '2026-09-01' AND sold_on < '2026-10-01'), 0) AS sep,",
+          '       sum(amount) AS total',
+          'FROM sales',
+          'GROUP BY product',
+          'ORDER BY total DESC;'
+        ),
+        output: lines(
+          ' product  | aug    | sep     | total',
+          '----------+--------+---------+---------',
+          ' Backpack |      0 | 1200.00 | 1200.00',
+          ' Pen      | 100.00 |  200.00 |  300.00',
+          ' Notebook | 180.00 |   60.00 |  240.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 5, note: 'One column for August: only August rows are added.' },
+          { line: 6, note: 'One column for September.' },
+          { line: 9, note: 'One row per product.' }
+        ],
+        tryIt: "Add an October column the same way, and a sale ('Backpack', '2026-10-01', 1200) to the INSERT.",
+        check: {
+          question: 'How do you turn "one row per product per month" into "one row per product, one column per month"?',
+          options: ['GROUP BY product, with one conditional sum per month column', 'ORDER BY month', 'UNION the months together'],
+          answer: 0,
+          why: 'Each month column adds up only that month\'s rows, and grouping by product gives one row per product.'
+        }
+      },
+      {
+        title: 'Putting it together: a product dashboard',
+        say: [
+          'Let us combine today\'s ideas into a small product dashboard: each product with a price band, a stock status in words, and a custom order that shows products needing attention first.',
+          'The price band and stock status are CASE expressions in SELECT. The custom order is a CASE in ORDER BY that puts out-of-stock products first, then low stock, then the rest, cheapest first within each group.',
+          'Below it, a one-row summary counts the products in each price band using conditional aggregation. Together they are the kind of overview a shop owner checks every morning.',
+          'In today\'s practice, you will label every product as budget, mid or premium, and write a one-row summary counting delivered, open and cancelled orders.',
+          'Tomorrow is about design rather than queries: how to split data into good tables in the first place, called normalization. It explains why the shop database looks the way it does.',
+          'CASE is simple, but it appears in a huge share of real-world queries. Whenever a report needs a label, a custom order or a conditional count, reach for CASE.'
+        ],
+        example: 'A shop owner\'s morning checklist says: first look at anything out of stock, then anything running low, then the rest. And tell me roughly how many cheap, mid and expensive items we carry. One query answers both.',
+        code: lines(
+          'CREATE TABLE products (name text, price numeric(10,2), stock int);',
+          "INSERT INTO products VALUES ('Notebook', 60, 120), ('Pen', 10, 500), ('Backpack', 1200, 15), ('Desk lamp', 899, 0), ('Headphones', 1499, 25), ('Stapler', 150, 8);",
+          'SELECT name, price, stock,',
+          "       CASE WHEN stock = 0 THEN 'out of stock' WHEN stock < 20 THEN 'low' ELSE 'ok' END AS stock_status",
+          'FROM products',
+          'ORDER BY CASE WHEN stock = 0 THEN 1 WHEN stock < 20 THEN 2 ELSE 3 END, price;',
+          'SELECT count(*) FILTER (WHERE price < 100) AS budget,',
+          '       count(*) FILTER (WHERE price >= 100 AND price < 1000) AS mid,',
+          '       count(*) FILTER (WHERE price >= 1000) AS premium',
+          'FROM products;'
+        ),
+        output: lines(
+          ' name       | price   | stock | stock_status',
+          '------------+---------+-------+--------------',
+          ' Desk lamp  |  899.00 |     0 | out of stock',
+          ' Stapler    |  150.00 |     8 | low',
+          ' Backpack   | 1200.00 |    15 | low',
+          ' Pen        |   10.00 |   500 | ok',
+          ' Notebook   |   60.00 |   120 | ok',
+          ' Headphones | 1499.00 |    25 | ok',
+          '(6 rows)',
+          '',
+          ' budget | mid | premium',
+          '--------+-----+---------',
+          '      2 |   2 |       2',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'A readable stock status for each product.' },
+          { line: 6, note: 'Products needing attention first, then by price.' },
+          { line: 7, note: 'A one-row count of each price band.' }
+        ],
+        tryIt: 'Change the low-stock limit from 20 to 30 in both places and run it. The Headphones move into the low group.',
+        check: {
+          question: 'Why does the query repeat the stock conditions in SELECT and in ORDER BY?',
+          options: ['SELECT shows the label; ORDER BY uses its own CASE to decide the order', 'PostgreSQL requires every CASE twice', 'To make the query faster'],
+          answer: 0,
+          why: 'The label and the sort order are separate jobs. (You could also ORDER BY the label\'s name, but custom numbers give full control.)'
+        }
+      }
+    ],
+    summary: [
+      'CASE WHEN ... THEN ... ELSE ... END makes a decision for each row; the first true WHEN wins.',
+      'The short form CASE column WHEN value THEN ... translates codes into words.',
+      'CASE in ORDER BY creates custom sort orders.',
+      'sum(CASE ...) or count(*) FILTER (...) counts and totals by condition in one pass.',
+      'One conditional sum per column turns a long list into a pivot-style grid.'
+    ],
+    projectStep: {
+      title: 'My Library: book labels',
+      steps: [
+        'Label each book short (under 200 pages), medium (under 400) or long.',
+        'Sort unfinished books first, then by title, with CASE in ORDER BY.',
+        'Count short, medium and long books in one row.',
+        'Show each author with columns for finished and unfinished books.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 20,
+    title: 'Designing Good Tables: Normalization',
+    goal: 'You can spot problems caused by repeated data, explain 1NF, 2NF and 3NF in plain words, and split a flat table into linked tables.',
+    minutes: 28,
+    recap: 'Yesterday you used CASE to label rows, sort in custom orders and count by condition.',
+    parts: [
+      {
+        title: 'What goes wrong with repeated data',
+        say: [
+          'Imagine a shop that keeps everything in one big sheet: each row is an order line, with the customer\'s name, city and phone, the product name and price, and the quantity. It seems simple. But look what happens over time.',
+          'Asha\'s phone number is copied onto every one of her order lines. When she changes her number, someone must update all those rows. Miss one, and the database now has two different phone numbers for Asha. Nobody knows which is right. This is called an update anomaly.',
+          'If a product has not been ordered yet, there is nowhere to store its price, because every row is an order line. That is an insert anomaly: you cannot record a fact until something else happens.',
+          'And if Asha\'s only order is deleted, her details disappear with it, even though she is still a customer. That is a delete anomaly.',
+          'All three problems come from the same cause: one table trying to store facts about several different things, customers, products and orders, at once. The solution is to split the data so each fact is stored once.',
+          'This process of splitting tables to remove repeated facts is called normalization. It has formal rules, but the idea is exactly what you practised on Day 10: one table per kind of thing, linked by ids.'
+        ],
+        example: 'A class keeps a single notebook where every page records one homework submission, with the student\'s name, parent\'s phone and address copied each time. When a parent changes their phone, the teacher must fix dozens of pages. A separate contact list, written once, solves it.',
+        code: lines(
+          'CREATE TABLE orders_flat (order_id int, customer text, phone text, product text, price numeric(10,2));',
+          "INSERT INTO orders_flat VALUES (1, 'Asha', '98765 11111', 'Pen', 10), (2, 'Asha', '98765 11111', 'Notebook', 60), (3, 'Ravi', '91234 22222', 'Pen', 10);",
+          "UPDATE orders_flat SET phone = '90000 33333' WHERE order_id = 1;",
+          "SELECT customer, count(DISTINCT phone) AS phone_numbers_on_record FROM orders_flat GROUP BY customer ORDER BY customer;"
+        ),
+        output: lines(
+          ' customer | phone_numbers_on_record',
+          '----------+-------------------------',
+          ' Asha     |                       2',
+          ' Ravi     |                       1',
+          '(2 rows)'
+        ),
+        codeNotes: [
+          { line: 2, note: 'Asha\'s phone is copied onto each of her orders.' },
+          { line: 3, note: 'Someone updates only one of her rows.' },
+          { line: 4, note: 'Now the database holds two different phone numbers for Asha.' }
+        ],
+        tryIt: "Fix it properly by updating every Asha row: UPDATE orders_flat SET phone = '90000 33333' WHERE customer = 'Asha'; and run again. That is the extra work normalization avoids.",
+        check: {
+          question: 'Asha\'s phone number is stored on 20 order rows and only one is updated. What is this problem called?',
+          options: ['An update anomaly', 'A syntax error', 'A foreign key'],
+          answer: 0,
+          why: 'Repeated data that is updated in some places but not others leaves the database disagreeing with itself.'
+        }
+      },
+      {
+        title: 'First normal form: one value per cell',
+        say: [
+          'Normalization has levels called normal forms. You only need the first three for almost all real work, and each has a simple idea behind the formal name.',
+          'First normal form, 1NF, says: each cell holds a single value, and each row can be identified. A column like phones containing "98765 11111, 91234 22222" breaks this rule, because one cell holds a list.',
+          'Lists in a cell cause real problems. You cannot easily search for one phone number, count how many phones a customer has, or make sure each one is valid. And every app that reads the data has to split the text itself.',
+          'The fix is to move the list into its own table, with one row per value: customer_phones(customer_id, phone). Now each phone is a separate row, easy to search, count and check.',
+          'The same applies to columns like phone1, phone2, phone3. They look tidy, but a fourth phone needs a new column, and searching means checking three columns. A separate table handles any number of phones.',
+          'PostgreSQL does have array and JSON columns, which you will meet on Day 25. They are useful for some data, but for things you search, count or link to, separate rows are almost always the better design.'
+        ],
+        example: 'A registration form with one box that says "subjects: Maths, Physics, Chemistry" is hard to sort by subject. A form with one line per subject, each in its own box, lets the office count how many students take Physics in seconds.',
+        code: lines(
+          'CREATE TABLE customers_bad (id int, name text, phones text);',
+          "INSERT INTO customers_bad VALUES (1, 'Asha', '98765 11111, 90000 33333'), (2, 'Ravi', '91234 22222');",
+          'CREATE TABLE customer_phones (customer_id int, phone text);',
+          "INSERT INTO customer_phones VALUES (1, '98765 11111'), (1, '90000 33333'), (2, '91234 22222');",
+          'SELECT customer_id, count(*) AS phones FROM customer_phones GROUP BY customer_id ORDER BY customer_id;',
+          "SELECT customer_id FROM customer_phones WHERE phone = '90000 33333';"
+        ),
+        output: lines(
+          ' customer_id | phones',
+          '-------------+--------',
+          '           1 |      2',
+          '           2 |      1',
+          '(2 rows)',
+          '',
+          ' customer_id',
+          '-------------',
+          '           1',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'Breaks 1NF: one cell holds a list of phones.' },
+          { line: 3, note: 'Fixed: one row per phone.' },
+          { line: 5, note: 'Counting and searching are now simple.' }
+        ],
+        tryIt: "Try finding the customer with phone '90000 33333' in customers_bad. You would need LIKE '%90000 33333%', which is slow and easy to get wrong.",
+        check: {
+          question: 'Which design follows first normal form?',
+          options: ['A separate table with one row per phone number', 'A phones column with numbers separated by commas', 'Columns phone1, phone2 and phone3'],
+          answer: 0,
+          why: '1NF means one value per cell. A separate table stores each phone as its own row.'
+        }
+      },
+      {
+        title: 'Second normal form: facts about the whole key',
+        say: [
+          'Second normal form, 2NF, matters when a table\'s primary key is made of two or more columns, like order_items with the key (order_id, product_id).',
+          'The rule says: every other column must depend on the whole key, not just part of it. In order_items, quantity depends on both the order and the product: it is "how many of this product in this order". That is fine.',
+          'But if order_items also stored the product\'s name, that name depends only on product_id, just part of the key. The same product name would be repeated on every order line for that product, which brings back the update anomaly.',
+          'The fix is the same as always: move the fact to the table where it belongs. The product name belongs in products, keyed by product_id alone.',
+          'A good test: for each column, ask "what is this a fact about?". If the answer is "about the product", it belongs in products. If it is "about this product in this order", it belongs in order_items.',
+          'Tables with a single-column id key, like most tables in this course, automatically satisfy 2NF, because there is no "part of the key" to depend on. So 2NF is mostly about junction tables.'
+        ],
+        example: 'A wedding seating chart lists each guest at each table. The number of chairs reserved depends on both the guest and the table. But the guest\'s home city depends only on the guest, so it belongs on the guest list, not copied onto every seating line.',
+        code: lines(
+          'CREATE TABLE order_items_bad (order_id int, product_id int, product_name text, quantity int, PRIMARY KEY (order_id, product_id));',
+          "INSERT INTO order_items_bad VALUES (101, 1, 'Notebook', 3), (102, 1, 'Notebook', 1), (103, 1, 'Note book', 2);",
+          'SELECT product_id, count(DISTINCT product_name) AS different_names FROM order_items_bad GROUP BY product_id;'
+        ),
+        output: lines(
+          ' product_id | different_names',
+          '------------+-----------------',
+          '          1 |               2',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 1, note: 'product_name depends only on product_id, part of the key: this breaks 2NF.' },
+          { line: 2, note: 'A typo on one line means product 1 now has two different names.' }
+        ],
+        tryIt: 'Design the fix on paper: which columns stay in order_items, and which move to products?',
+        check: {
+          question: 'In order_items with key (order_id, product_id), which column belongs there?',
+          options: ['quantity', 'product_name', 'customer_name'],
+          answer: 0,
+          why: 'quantity depends on both the order and the product. product_name depends only on the product, and customer_name on the order\'s customer.'
+        }
+      },
+      {
+        title: 'Third normal form: no facts about other facts',
+        say: [
+          'Third normal form, 3NF, says: every column should be a fact about the key, and not a fact about another non-key column.',
+          'For example, an orders table with customer_id, customer_city and customer_pincode. The city is really a fact about the customer, not about the order. It depends on customer_id, which is not the order\'s key. That is a "fact about another fact", and it breaks 3NF.',
+          'The problem is the familiar one: if the customer moves, every one of their orders must be updated, and any row that is missed disagrees with the rest.',
+          'The fix: keep customer_id in orders, and move city and pincode to the customers table. When you need the city on an order report, you join, which is exactly what you learned in week 2.',
+          'A famous way to remember the first three forms is: every column must depend on the key, the whole key, and nothing but the key. The first part is roughly 1NF and identifying rows, the whole key is 2NF, and nothing but the key is 3NF.',
+          'In practice, a well-designed database in 3NF simply has one table per kind of thing, with each fact stored once and linked by ids. If you design like that from the start, you rarely need to think about the formal names.'
+        ],
+        example: 'A student\'s marksheet shows their roll number and their class teacher\'s name. But the teacher\'s name is a fact about the class, not the student. If the teacher changes, every student\'s sheet would need editing. Stored with the class, it changes once.',
+        code: lines(
+          'CREATE TABLE customers (id int PRIMARY KEY, name text, city text);',
+          "INSERT INTO customers VALUES (1, 'Asha', 'Pune'), (2, 'Ravi', 'Mumbai');",
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int REFERENCES customers(id), total numeric(10,2));',
+          'INSERT INTO orders VALUES (101, 1, 280), (102, 2, 1200), (103, 1, 50);',
+          "UPDATE customers SET city = 'Bengaluru' WHERE id = 1;",
+          'SELECT o.id, c.name, c.city, o.total FROM orders o JOIN customers c ON c.id = o.customer_id ORDER BY o.id;'
+        ),
+        output: lines(
+          ' id  | name | city      | total',
+          '-----+------+-----------+---------',
+          ' 101 | Asha | Bengaluru |  280.00',
+          ' 102 | Ravi | Mumbai    | 1200.00',
+          ' 103 | Asha | Bengaluru |   50.00',
+          '(3 rows)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'orders stores only customer_id: the city lives with the customer.' },
+          { line: 5, note: 'One update, and every order report shows the new city.' }
+        ],
+        tryIt: 'Add a pincode column to customers in the CREATE TABLE and show it in the joined result. It is stored once per customer.',
+        check: {
+          question: 'Where should a customer\'s city be stored?',
+          options: ['In the customers table, once per customer', 'In every order row', 'In order_items'],
+          answer: 0,
+          why: 'The city is a fact about the customer. Storing it once and joining when needed follows 3NF and avoids update anomalies.'
+        }
+      },
+      {
+        title: 'When to break the rules: denormalization',
+        say: [
+          'Normalization is the right starting point, but there are good reasons to repeat data on purpose. This is called denormalization, and experienced developers do it carefully.',
+          'The most common reason is history. An order should record the price the customer actually paid, even if the product\'s price changes later. So order_items stores a unit_price column, a deliberate copy of the price at the time of the order. It is not a mistake; it is a different fact: "the price on this order".',
+          'Another example is an address on an invoice. The customer may move later, but the invoice must still show the address it was sent to. Legal documents need to stay exactly as they were.',
+          'A third reason is speed. Reporting databases sometimes store totals and joined data ready-made, so dashboards load quickly. These copies are refreshed on a schedule and are not where data is edited.',
+          'The key difference is intention. Accidental repetition causes anomalies. Deliberate repetition records a different fact, like a snapshot in time, or a read-only copy for speed.',
+          'When in doubt, start normalized. It is much easier to add a deliberate copy later than to clean up a messy, repeated design that is already full of contradictory data.'
+        ],
+        example: 'A hotel bill from last year shows the room rate you paid then, not today\'s rate. The hotel deliberately keeps that old price on your bill. That is a sensible copy, because it records what really happened.',
+        code: lines(
+          'CREATE TABLE products (id int PRIMARY KEY, name text, price numeric(10,2));',
+          "INSERT INTO products VALUES (1, 'Pen', 10);",
+          'CREATE TABLE order_items (order_id int, product_id int REFERENCES products(id), quantity int, unit_price numeric(10,2));',
+          'INSERT INTO order_items VALUES (101, 1, 10, 10);',
+          'UPDATE products SET price = 12 WHERE id = 1;',
+          'SELECT oi.order_id, p.name, oi.unit_price AS paid_then, p.price AS price_now',
+          'FROM order_items oi JOIN products p ON p.id = oi.product_id;'
+        ),
+        output: lines(
+          ' order_id | name | paid_then | price_now',
+          '----------+------+-----------+-----------',
+          '      101 | Pen  |     10.00 |     12.00',
+          '(1 row)'
+        ),
+        codeNotes: [
+          { line: 3, note: 'unit_price is a deliberate copy: the price on this order.' },
+          { line: 5, note: 'The catalogue price goes up later.' },
+          { line: 6, note: 'The order still shows what the customer really paid.' }
+        ],
+        tryIt: 'Add a second order line (102, 1, 5, 12) after the price change and run it. The two orders show different prices paid, both correct.',
+        check: {
+          question: 'Why store unit_price in order_items when products already has a price?',
+          options: ['To record the price actually paid, which should not change when the catalogue price changes', 'Because joins are not allowed', 'It is always a design mistake'],
+          answer: 0,
+          why: 'It is a different fact: the price at the time of the order. Deliberate copies like this are sensible denormalization.'
+        }
+      },
+      {
+        title: 'Putting it together: splitting a flat table',
+        say: [
+          'Let us take a messy flat table of orders, where customer details repeat on every row, and split it into a proper customers table and an orders table, using only SQL.',
+          'Step one: create customers with a serial id, and fill it with each distinct customer using INSERT ... SELECT DISTINCT. Step two: create orders with a customer_id foreign key, and fill it by joining the flat rows to the new customers table to find each id.',
+          'INSERT ... SELECT is new here: instead of VALUES, the rows to insert come from a query. It is the standard way to move and reshape data inside a database.',
+          'After the split, each customer\'s details are stored once. A final join shows the same information as the flat table, but now a change of city is a single update.',
+          'In today\'s practice, you will list each customer once from a flat table with DISTINCT, and create and fill a people table from it with INSERT ... SELECT.',
+          'Tomorrow you learn the constraints that protect a good design: UNIQUE, CHECK and what happens to linked rows when something is deleted.'
+        ],
+        example: 'A college moving from a single overflowing spreadsheet to a proper student system first copies each student once into a student list, then links every record to the right student number. The data is the same; the structure is now safe.',
+        code: lines(
+          'CREATE TABLE orders_flat (order_id int, customer_name text, customer_city text, total numeric(10,2));',
+          "INSERT INTO orders_flat VALUES (1, 'Asha', 'Pune', 280), (2, 'Asha', 'Pune', 60), (3, 'Ravi', 'Mumbai', 1200), (4, 'Priya', 'Pune', 760);",
+          'CREATE TABLE customers (id serial PRIMARY KEY, name text, city text);',
+          'INSERT INTO customers (name, city) SELECT DISTINCT customer_name, customer_city FROM orders_flat ORDER BY customer_name;',
+          'CREATE TABLE orders (id int PRIMARY KEY, customer_id int REFERENCES customers(id), total numeric(10,2));',
+          'INSERT INTO orders SELECT f.order_id, c.id, f.total FROM orders_flat f JOIN customers c ON c.name = f.customer_name AND c.city = f.customer_city;',
+          'SELECT * FROM customers ORDER BY id;',
+          'SELECT o.id, c.name, o.total FROM orders o JOIN customers c ON c.id = o.customer_id ORDER BY o.id;'
+        ),
+        output: lines(
+          ' id | name  | city',
+          '----+-------+--------',
+          '  1 | Asha  | Pune',
+          '  2 | Priya | Pune',
+          '  3 | Ravi  | Mumbai',
+          '(3 rows)',
+          '',
+          ' id | name  | total',
+          '----+-------+---------',
+          '  1 | Asha  |  280.00',
+          '  2 | Asha  |   60.00',
+          '  3 | Ravi  | 1200.00',
+          '  4 | Priya |  760.00',
+          '(4 rows)'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Each customer once, from the flat table.' },
+          { line: 6, note: 'Each order, linked to the new customer id by matching name and city.' },
+          { line: 8, note: 'The same information as before, now stored without repetition.' }
+        ],
+        tryIt: "Move Asha to Bengaluru with one UPDATE on customers, then run the last query again. Both her orders show the new city if you add c.city to it.",
+        check: {
+          question: 'What does INSERT INTO customers (name, city) SELECT DISTINCT ... do?',
+          options: ['Inserts one row for each different customer returned by the query', 'Copies the whole flat table', 'Deletes duplicate customers'],
+          answer: 0,
+          why: 'INSERT ... SELECT inserts the rows a query returns. DISTINCT makes sure each customer appears once.'
+        }
+      }
+    ],
+    summary: [
+      'Repeated data causes update, insert and delete anomalies.',
+      '1NF: one value per cell; lists go into their own table, one row per value.',
+      '2NF: every column depends on the whole key (matters for multi-column keys).',
+      '3NF: no facts about other non-key columns; "the key, the whole key, and nothing but the key".',
+      'Deliberate copies, like the price paid on an order, are sensible denormalization.'
+    ],
+    projectStep: {
+      title: 'My Library: check your design',
+      steps: [
+        'Look at your books, authors and wishlist tables. Is any fact stored twice?',
+        'If a book can have several genres, design a book_genres table instead of a genres list column.',
+        'Write down, for each column, what it is a fact about.',
+        'Fix one design problem you find, using CREATE TABLE and INSERT ... SELECT.'
+      ]
+    }
   }
 ];
