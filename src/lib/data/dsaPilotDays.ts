@@ -2375,7 +2375,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "partition_demo.js",
             "initialCode": "function partition(arr, left, right) {\n  const pivot = arr[right];\n  let p = left;\n  for (let i = left; i < right; i++) {\n    if (arr[i] <= pivot) { [arr[i], arr[p]] = [arr[p], arr[i]]; p++; }\n  }\n  [arr[p], arr[right]] = [arr[right], arr[p]];\n  return p;\n}\n\nconst arr = [5, 2, 9, 1, 3];\nconst pivotIdx = partition(arr, 0, arr.length - 1);\nconsole.log(`Pivot placed at index ${pivotIdx}, Array: [${arr.join(', ')}]`);",
-            "expectedOutput": "Pivot placed at index 2, Array: [2, 1, 3, 9, 5]",
+            "expectedOutput": "Pivot placed at index 2, Array: [2, 1, 3, 5, 9]",
             "editable": false
           }
         ],
@@ -3508,7 +3508,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "prefix_collect.js",
-            "initialCode": "function getWordsWithPrefix(trie, prefix) {\n  let node = trie.root;\n  for (const ch of prefix) {\n    if (!node.children[ch]) return [];\n    node = node.children[ch];\n  }\n  const results = [];\n  function dfs(curr, str) {\n    if (curr.isEnd) results.push(str);\n    for (const ch in curr.children) dfs(curr.children[ch], str + ch);\n  }\n  dfs(node, prefix);\n  return results;\n}\n\nconst t = new Trie();\nt.insert('car'); t.insert('card'); t.insert('care'); t.insert('dog');\nconsole.log('Prefix \"car\" matches:', JSON.stringify(getWordsWithPrefix(t, 'car')));",
+            "initialCode": "// From the first part of today's lesson:\nclass TrieNode {\n  constructor() { this.children = {}; this.isEnd = false; }\n}\nclass Trie {\n  constructor() { this.root = new TrieNode(); }\n  insert(word) {\n    let node = this.root;\n    for (const ch of word) {\n      if (!node.children[ch]) node.children[ch] = new TrieNode();\n      node = node.children[ch];\n    }\n    node.isEnd = true;\n  }\n}\n\nfunction getWordsWithPrefix(trie, prefix) {\n  let node = trie.root;\n  for (const ch of prefix) {\n    if (!node.children[ch]) return [];\n    node = node.children[ch];\n  }\n  const results = [];\n  function dfs(curr, str) {\n    if (curr.isEnd) results.push(str);\n    for (const ch in curr.children) dfs(curr.children[ch], str + ch);\n  }\n  dfs(node, prefix);\n  return results;\n}\n\nconst t = new Trie();\nt.insert('car'); t.insert('card'); t.insert('care'); t.insert('dog');\nconsole.log('Prefix \"car\" matches:', JSON.stringify(getWordsWithPrefix(t, 'car')));",
             "expectedOutput": "Prefix \"car\" matches: [\"car\",\"card\",\"care\"]",
             "editable": false
           }
@@ -4117,7 +4117,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "network_delay.js",
-            "initialCode": "function networkDelayTime(times, n, k) {\n  const g = {};\n  for (let i = 1; i <= n; i++) g[i] = [];\n  for (const [u, v, w] of times) g[u].push([v, w]);\n  const dist = dijkstra(g, k);\n  let maxD = 0;\n  for (let i = 1; i <= n; i++) {\n    if (dist[i] === Infinity) return -1;\n    maxD = Math.max(maxD, dist[i]);\n  }\n  return maxD;\n}\n\nconsole.log('Network Delay Time for [[2,1,1],[2,3,1],[3,4,1]] from source 2:', networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2));",
+            "initialCode": "// From the first part of today's lesson:\nfunction dijkstra(graph, start) {\n  const dist = {};\n  for (const node in graph) dist[node] = Infinity;\n  dist[start] = 0;\n  const pq = [[start, 0]];\n  while (pq.length > 0) {\n    pq.sort((a, b) => a[1] - b[1]);\n    const [curr, d] = pq.shift();\n    if (d > dist[curr]) continue;\n    for (const [neighbor, weight] of (graph[curr] || [])) {\n      if (dist[curr] + weight < dist[neighbor]) {\n        dist[neighbor] = dist[curr] + weight;\n        pq.push([neighbor, dist[neighbor]]);\n      }\n    }\n  }\n  return dist;\n}\n\nfunction networkDelayTime(times, n, k) {\n  const g = {};\n  for (let i = 1; i <= n; i++) g[i] = [];\n  for (const [u, v, w] of times) g[u].push([v, w]);\n  const dist = dijkstra(g, k);\n  let maxD = 0;\n  for (let i = 1; i <= n; i++) {\n    if (dist[i] === Infinity) return -1;\n    maxD = Math.max(maxD, dist[i]);\n  }\n  return maxD;\n}\n\nconsole.log('Network Delay Time for [[2,1,1],[2,3,1],[3,4,1]] from source 2:', networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2));",
             "expectedOutput": "Network Delay Time for [[2,1,1],[2,3,1],[3,4,1]] from source 2: 2",
             "editable": false
           }
@@ -4252,7 +4252,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "cycle_schedule.js",
-            "initialCode": "function canFinish(numCourses, prerequisites) {\n  const order = findOrder(numCourses, prerequisites);\n  return order.length === numCourses;\n}\n\nconsole.log('Can finish cyclic courses [[1,0], [0,1]]?:', canFinish(2, [[1,0], [0,1]]));",
+            "initialCode": "// From the first part of today's lesson:\nfunction findOrder(numCourses, prerequisites) {\n  const inDegree = new Array(numCourses).fill(0);\n  const adj = Array.from({ length: numCourses }, () => []);\n  for (const [course, pre] of prerequisites) {\n    adj[pre].push(course);\n    inDegree[course]++;\n  }\n  const queue = [];\n  for (let i = 0; i < numCourses; i++) if (inDegree[i] === 0) queue.push(i);\n  const order = [];\n  while (queue.length > 0) {\n    const u = queue.shift();\n    order.push(u);\n    for (const v of adj[u]) if (--inDegree[v] === 0) queue.push(v);\n  }\n  return order.length === numCourses ? order : [];\n}\n\nfunction canFinish(numCourses, prerequisites) {\n  const order = findOrder(numCourses, prerequisites);\n  return order.length === numCourses;\n}\n\nconsole.log('Can finish cyclic courses [[1,0], [0,1]]?:', canFinish(2, [[1,0], [0,1]]));",
             "expectedOutput": "Can finish cyclic courses [[1,0], [0,1]]?: false",
             "editable": false
           }
@@ -4415,7 +4415,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "redundant_conn.js",
-            "initialCode": "function findRedundantConnection(edges) {\n  const uf = new UnionFind(edges.length + 1);\n  for (const [u, v] of edges) {\n    if (!uf.union(u, v)) return [u, v];\n  }\n  return [];\n}\n\nconsole.log('Redundant Cycle Edge in [[1,2],[1,3],[2,3]]:', JSON.stringify(findRedundantConnection([[1,2],[1,3],[2,3]])));",
+            "initialCode": "// From the first part of today's lesson:\nclass UnionFind {\n  constructor(n) {\n    this.parent = Array.from({ length: n }, (_, i) => i);\n    this.rank = new Array(n).fill(0);\n  }\n  find(x) {\n    if (this.parent[x] !== x) this.parent[x] = this.find(this.parent[x]);\n    return this.parent[x];\n  }\n  union(x, y) {\n    const rootX = this.find(x), rootY = this.find(y);\n    if (rootX === rootY) return false;\n    if (this.rank[rootX] < this.rank[rootY]) this.parent[rootX] = rootY;\n    else if (this.rank[rootX] > this.rank[rootY]) this.parent[rootY] = rootX;\n    else { this.parent[rootY] = rootX; this.rank[rootX]++; }\n    return true;\n  }\n}\n\nfunction findRedundantConnection(edges) {\n  const uf = new UnionFind(edges.length + 1);\n  for (const [u, v] of edges) {\n    if (!uf.union(u, v)) return [u, v];\n  }\n  return [];\n}\n\nconsole.log('Redundant Cycle Edge in [[1,2],[1,3],[2,3]]:', JSON.stringify(findRedundantConnection([[1,2],[1,3],[2,3]])));",
             "expectedOutput": "Redundant Cycle Edge in [[1,2],[1,3],[2,3]]: [2,3]",
             "editable": false
           }
@@ -4464,7 +4464,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "kruskal_demo.js",
-            "initialCode": "function kruskalMST(n, edges) {\n  edges.sort((a, b) => a[2] - b[2]); // Sort by weight\n  const uf = new UnionFind(n);\n  let totalWeight = 0;\n  for (const [u, v, w] of edges) {\n    if (uf.union(u, v)) totalWeight += w;\n  }\n  return totalWeight;\n}\n\nconst edges = [[0,1,1], [1,2,2], [0,2,5]];\nconsole.log('Minimum Spanning Tree Total Weight:', kruskalMST(3, edges));",
+            "initialCode": "// From the first part of today's lesson:\nclass UnionFind {\n  constructor(n) {\n    this.parent = Array.from({ length: n }, (_, i) => i);\n    this.rank = new Array(n).fill(0);\n  }\n  find(x) {\n    if (this.parent[x] !== x) this.parent[x] = this.find(this.parent[x]);\n    return this.parent[x];\n  }\n  union(x, y) {\n    const rootX = this.find(x), rootY = this.find(y);\n    if (rootX === rootY) return false;\n    if (this.rank[rootX] < this.rank[rootY]) this.parent[rootX] = rootY;\n    else if (this.rank[rootX] > this.rank[rootY]) this.parent[rootY] = rootX;\n    else { this.parent[rootY] = rootX; this.rank[rootX]++; }\n    return true;\n  }\n}\n\nfunction kruskalMST(n, edges) {\n  edges.sort((a, b) => a[2] - b[2]); // Sort by weight\n  const uf = new UnionFind(n);\n  let totalWeight = 0;\n  for (const [u, v, w] of edges) {\n    if (uf.union(u, v)) totalWeight += w;\n  }\n  return totalWeight;\n}\n\nconst edges = [[0,1,1], [1,2,2], [0,2,5]];\nconsole.log('Minimum Spanning Tree Total Weight:', kruskalMST(3, edges));",
             "expectedOutput": "Minimum Spanning Tree Total Weight: 3",
             "editable": false
           }
@@ -5145,7 +5145,7 @@ export const DSA_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "pruning_sim.js",
-            "initialCode": "function simulatePruning(totalStates, prunedPercent = 0.999) {\n  return totalStates * (1 - prunedPercent);\n}\n\nconsole.log('Active states explored after 99.9% pruning of 1,000,000 branches:', simulatePruning(1000000));",
+            "initialCode": "function simulatePruning(totalStates, prunedPercent = 0.999) {\n  return Math.round(totalStates * (1 - prunedPercent)); // whole states only\n}\n\nconsole.log('Active states explored after 99.9% pruning of 1,000,000 branches:', simulatePruning(1000000));",
             "expectedOutput": "Active states explored after 99.9% pruning of 1,000,000 branches: 1000",
             "editable": false
           }

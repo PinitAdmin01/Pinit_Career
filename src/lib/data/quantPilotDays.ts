@@ -1591,7 +1591,7 @@ export const QUANT_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "fix_checksum_demo.js",
             "initialCode": "function calculateFixChecksum(fixWithoutChecksum) {\n  let sum = 0;\n  for (let i = 0; i < fixWithoutChecksum.length; i++) {\n    sum += fixWithoutChecksum.charCodeAt(i);\n  }\n  const checksumVal = sum % 256;\n  const checksumStr = checksumVal.toString().padStart(3, '0');\n  return {\n    asciiByteSum: sum,\n    modulo256: checksumVal,\n    formattedTag10: `10=${checksumStr}\\x01`,\n    status: 'FIX_CHECKSUM_COMPUTED'\n  };\n}\n\nconst sampleMsg = '8=FIX.4.4\\x019=42\\x0135=D\\x0155=AAPL\\x0138=100\\x01';\nconsole.log(JSON.stringify(calculateFixChecksum(sampleMsg)));",
-            "expectedOutput": "{\"asciiByteSum\":1917,\"modulo256\":125,\"formattedTag10\":\"10=125\\x01\",\"status\":\"FIX_CHECKSUM_COMPUTED\"}",
+            "expectedOutput": "{\"asciiByteSum\":1768,\"modulo256\":232,\"formattedTag10\":\"10=232\\u0001\",\"status\":\"FIX_CHECKSUM_COMPUTED\"}",
             "editable": false
           }
         ],

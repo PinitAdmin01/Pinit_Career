@@ -11,7 +11,11 @@
  */
 export const LOG_FORMAT_SOURCE = `
 function __pinitFormatLog(value, depth) {
-  if (typeof value === 'string') return depth > 0 ? "'" + value + "'" : value;
+  if (typeof value === 'string') {
+    if (depth === 0) return value;
+    // Like Node: a string that contains ' is shown in double quotes.
+    return value.indexOf("'") >= 0 && value.indexOf('"') < 0 ? '"' + value + '"' : "'" + value + "'";
+  }
   if (value === null || value === undefined) return String(value);
   if (typeof value === 'function') return '[Function: ' + (value.name || 'anonymous') + ']';
   if (typeof value !== 'object') return String(value);

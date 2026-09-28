@@ -11,6 +11,7 @@ import { getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
+import { withLessonHelpers } from '@/lib/code/sandbox/lessonHelpers';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { LessonState } from './useLessonState';
 
@@ -308,7 +309,9 @@ export function useLessonEngine({
         return;
       }
 
-      const executable = adaptCodeForSandbox(codeSnippet, questId);
+      // Run the example inside an async function so examples that await (or print after a
+      // promise settles) show all their output, with the hash helpers added when it uses them.
+      const executable = `return (async () => {\n${withLessonHelpers(adaptCodeForSandbox(codeSnippet, questId))}\n})();`;
       const result = await executeSandboxScript(executable, 4000);
 
       let formattedOutput = '';

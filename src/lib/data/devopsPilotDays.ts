@@ -3472,7 +3472,7 @@ export const DEVOPS_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "base64_secret_demo.js",
-            "initialCode": "function decodeSecret(base64Str) {\n  return Buffer.from(base64Str, 'base64').toString('utf8');\n}\n\nconst encoded = Buffer.from('superSecretDbPass9981').toString('base64');\nconsole.log('Encoded in Manifest YAML:', encoded);\nconsole.log('Decoded by Container in RAM:', decodeSecret(encoded));",
+            "initialCode": "function decodeSecret(base64Str) {\n  return atob(base64Str); // Node: Buffer.from(base64Str, 'base64').toString('utf8')\n}\n\nconst encoded = btoa('superSecretDbPass9981'); // Node: Buffer.from(text).toString('base64')\nconsole.log('Encoded in Manifest YAML:', encoded);\nconsole.log('Decoded by Container in RAM:', decodeSecret(encoded));",
             "expectedOutput": "Encoded in Manifest YAML: c3VwZXJTZWNyZXREYlBhc3M5OTgx\nDecoded by Container in RAM: superSecretDbPass9981",
             "editable": false
           }

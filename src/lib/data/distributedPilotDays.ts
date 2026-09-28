@@ -447,7 +447,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "wire_size_demo.js",
             "initialCode": "function compareWirePayloads(orderId, amount, ts) {\n  const jsonStr = JSON.stringify({ order_id: orderId, amount: amount, timestamp: ts });\n  const estimatedProtobufBytes = 1 + orderId.length + 1 + 8 + 1 + 8;\n  return {\n    jsonBytes: jsonStr.length,\n    protobufBytes: estimatedProtobufBytes,\n    bandwidthSavings: `${(((jsonStr.length - estimatedProtobufBytes) / jsonStr.length) * 100).toFixed(1)}%`\n  };\n}\n\nconsole.log(JSON.stringify(compareWirePayloads('ord_998124', 499.99, 1704067200)));",
-            "expectedOutput": "{\"jsonBytes\":61,\"protobufBytes\":29,\"bandwidthSavings\":\"52.5%\"}",
+            "expectedOutput": "{\"jsonBytes\":64,\"protobufBytes\":29,\"bandwidthSavings\":\"54.7%\"}",
             "editable": false
           }
         ],
@@ -653,7 +653,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "modulo_churn_demo.js",
             "initialCode": "function calculateModuloChurn(keyCount, originalNodes, newNodes) {\n  let remapped = 0;\n  for (let k = 0; k < keyCount; k++) {\n    const nodeA = k % originalNodes;\n    const nodeB = k % newNodes;\n    if (nodeA !== nodeB) remapped++;\n  }\n  const churnPercent = (remapped / keyCount) * 100;\n  return `Modulo Churn from ${originalNodes} to ${newNodes} servers: ${churnPercent.toFixed(1)}% of keys shifted!`;\n}\n\nconsole.log(calculateModuloChurn(1000, 9, 10));",
-            "expectedOutput": "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
+            "expectedOutput": "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
             "editable": false
           }
         ],
@@ -1519,7 +1519,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "ulid_demo.js",
             "initialCode": "function generateMockUlid(ts = Date.now()) {\n  const timePart = ts.toString(36).toUpperCase().padStart(10, '0');\n  const randPart = '01ARZ3NDEKTSV4RRFFQ69G5FAV'.substr(0, 16);\n  return `${timePart}${randPart}`;\n}\n\nconst ulid1 = generateMockUlid(1700000000000);\nconst ulid2 = generateMockUlid(1700000001000);\nconsole.log('ULID 1 (earlier):', ulid1);\nconsole.log('ULID 2 (later):  ', ulid2);\nconsole.log('Lexicographical sort order correct?:', ulid1 < ulid2);",
-            "expectedOutput": "ULID 1 (earlier): 01IZBRN10001ARZ3NDEKTSV4RR\nULID 2 (later):   01IZBRN10W01ARZ3NDEKTSV4RR\nLexicographical sort order correct?: true",
+            "expectedOutput": "ULID 1 (earlier): 00LOYW3V2801ARZ3NDEKTSV4RR\nULID 2 (later):   00LOYW3VU001ARZ3NDEKTSV4RR\nLexicographical sort order correct?: true",
             "editable": false
           }
         ],
@@ -2158,7 +2158,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "partition_hash_demo.js",
             "initialCode": "function calculatePartition(key, totalPartitions = 6) {\n  let hash = 0;\n  for (let i = 0; i < key.length; i++) hash = (Math.imul(31, hash) + key.charCodeAt(i)) | 0;\n  const partition = Math.abs(hash) % totalPartitions;\n  return { key, partition, totalPartitions };\n}\n\nconsole.log(JSON.stringify(calculatePartition('order_cust_101', 6)));\nconsole.log(JSON.stringify(calculatePartition('order_cust_101', 6))); // Deterministic same partition!",
-            "expectedOutput": "{\"key\":\"order_cust_101\",\"partition\":4,\"totalPartitions\":6}\n{\"key\":\"order_cust_101\",\"partition\":4,\"totalPartitions\":6}",
+            "expectedOutput": "{\"key\":\"order_cust_101\",\"partition\":3,\"totalPartitions\":6}\n{\"key\":\"order_cust_101\",\"partition\":3,\"totalPartitions\":6}",
             "editable": false
           }
         ],

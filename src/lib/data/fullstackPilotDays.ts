@@ -51,7 +51,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "runtime_env_check.js",
             "initialCode": "function getRuntimeEnvironment() {\n  const isBrowser = typeof window !== 'undefined';\n  const isNode = typeof process !== 'undefined' && Boolean(process.versions?.node);\n  return { isBrowser, isNode, runtime: isNode ? 'Node.js Server' : 'Browser Client' };\n}\n\nconsole.log('Detected Runtime:', getRuntimeEnvironment().runtime);",
-            "expectedOutput": "Detected Runtime: Node.js Server",
+            "expectedOutput": "Detected Runtime: Browser Client",
             "editable": false
           }
         ],
@@ -239,7 +239,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "emitter_demo.js",
-            "initialCode": "const EventEmitter = require('events');\nconst bus = new EventEmitter();\n\nlet totalOrders = 0;\nbus.on('order', () => totalOrders++);\nbus.emit('order'); bus.emit('order');\n\nconsole.log('Total Orders Emitted:', totalOrders);",
+            "initialCode": "// On Node.js: const EventEmitter = require('events');\n// The browser sandbox has no require, so here is the same idea in a few lines:\nclass EventEmitter {\n  constructor() { this.listeners = {}; }\n  on(event, fn) { (this.listeners[event] ||= []).push(fn); return this; }\n  emit(event, ...args) { (this.listeners[event] || []).forEach((fn) => fn(...args)); }\n}\n\nconst bus = new EventEmitter();\n\nlet totalOrders = 0;\nbus.on('order', () => totalOrders++);\nbus.emit('order'); bus.emit('order');\n\nconsole.log('Total Orders Emitted:', totalOrders);",
             "expectedOutput": "Total Orders Emitted: 2",
             "editable": false
           }
@@ -288,7 +288,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "buffer_demo.js",
-            "initialCode": "const ascii = 'Hello';\nconst emoji = '🚀';\n\nconsole.log('ASCII length:', ascii.length, 'Bytes:', Buffer.byteLength(ascii));\nconsole.log('Emoji length:', emoji.length, 'Bytes:', Buffer.byteLength(emoji));",
+            "initialCode": "const ascii = 'Hello';\nconst emoji = '🚀';\nconst byteLength = (text) => new TextEncoder().encode(text).length; // Node: Buffer.byteLength(text)\n\nconsole.log('ASCII length:', ascii.length, 'Bytes:', byteLength(ascii));\nconsole.log('Emoji length:', emoji.length, 'Bytes:', byteLength(emoji));",
             "expectedOutput": "ASCII length: 5 Bytes: 5\nEmoji length: 2 Bytes: 4",
             "editable": false
           }
@@ -1492,7 +1492,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "jwt_anatomy_demo.js",
-            "initialCode": "function decodeJwtPayload(token) {\n  const parts = token.split('.');\n  if (parts.length !== 3) throw new Error('Invalid JWT format');\n  return JSON.parse(Buffer.from(parts[1], 'base64').toString('utf8'));\n}\n\nconst samplePayload = Buffer.from(JSON.stringify({ userId: 42, role: 'EDITOR' })).toString('base64');\nconst mockToken = `eyJhbGciOiJIUzI1NiJ9.${samplePayload}.mock_signature`;\nconsole.log('Decoded Claims:', JSON.stringify(decodeJwtPayload(mockToken)));",
+            "initialCode": "function decodeJwtPayload(token) {\n  const parts = token.split('.');\n  if (parts.length !== 3) throw new Error('Invalid JWT format');\n  return JSON.parse(atob(parts[1])); // Node: Buffer.from(parts[1], 'base64').toString('utf8')\n}\n\nconst samplePayload = btoa(JSON.stringify({ userId: 42, role: 'EDITOR' }));\nconst mockToken = `eyJhbGciOiJIUzI1NiJ9.${samplePayload}.mock_signature`;\nconsole.log('Decoded Claims:', JSON.stringify(decodeJwtPayload(mockToken)));",
             "expectedOutput": "Decoded Claims: {\"userId\":42,\"role\":\"EDITOR\"}",
             "editable": false
           }
@@ -1551,7 +1551,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "jwt_verify_demo.js",
-            "initialCode": "function verifyMockJwt(token, secret) {\n  const [h, p, s] = token.split('.');\n  const expected = Buffer.from(`${h}.${p}:${secret}`).toString('base64');\n  return s === expected;\n}\n\nconst h = 'eyJhbGciOiJIUzI1NiJ9';\nconst p = Buffer.from('{\"user\":\"Alex\"}').toString('base64');\nconst validSig = Buffer.from(`${h}.${p}:my-secret`).toString('base64');\nconst token = `${h}.${p}.${validSig}`;\n\nconsole.log('Valid Secret Match?:', verifyMockJwt(token, 'my-secret'));\nconsole.log('Wrong Secret Match?:', verifyMockJwt(token, 'wrong-secret'));",
+            "initialCode": "function verifyMockJwt(token, secret) {\n  const [h, p, s] = token.split('.');\n  const expected = btoa(`${h}.${p}:${secret}`);\n  return s === expected;\n}\n\nconst h = 'eyJhbGciOiJIUzI1NiJ9';\nconst p = btoa('{\"user\":\"Alex\"}');\nconst validSig = btoa(`${h}.${p}:my-secret`);\nconst token = `${h}.${p}.${validSig}`;\n\nconsole.log('Valid Secret Match?:', verifyMockJwt(token, 'my-secret'));\nconsole.log('Wrong Secret Match?:', verifyMockJwt(token, 'wrong-secret'));",
             "expectedOutput": "Valid Secret Match?: true\nWrong Secret Match?: false",
             "editable": false
           }
@@ -1868,7 +1868,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "salt_demo.js",
-            "initialCode": "function mockHash(password, salt) {\n  return Buffer.from(`${salt}:${password}`).toString('base64');\n}\n\nconst hashUser1 = mockHash('hunter2', 'salt_AAA');\nconst hashUser2 = mockHash('hunter2', 'salt_BBB');\n\nconsole.log('Are hashes for identical password different?:', hashUser1 !== hashUser2);",
+            "initialCode": "function mockHash(password, salt) {\n  return btoa(`${salt}:${password}`);\n}\n\nconst hashUser1 = mockHash('hunter2', 'salt_AAA');\nconst hashUser2 = mockHash('hunter2', 'salt_BBB');\n\nconsole.log('Are hashes for identical password different?:', hashUser1 !== hashUser2);",
             "expectedOutput": "Are hashes for identical password different?: true",
             "editable": false
           }
@@ -2323,7 +2323,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "per_request_dl.js",
-            "initialCode": "function createContext(req) {\n  return {\n    userId: req.user?.id,\n    userLoader: new SimpleBatchLoader(ids => ids)\n  };\n}\n\nconst ctx1 = createContext({ user: { id: 1 } });\nconst ctx2 = createContext({ user: { id: 2 } });\nconsole.log('Are loaders isolated per request?:', ctx1.userLoader !== ctx2.userLoader);",
+            "initialCode": "class SimpleBatchLoader {\n  constructor(batchFn) { this.batchFn = batchFn; this.cache = new Map(); }\n}\n\nfunction createContext(req) {\n  return {\n    userId: req.user?.id,\n    userLoader: new SimpleBatchLoader(ids => ids)\n  };\n}\n\nconst ctx1 = createContext({ user: { id: 1 } });\nconst ctx2 = createContext({ user: { id: 2 } });\nconsole.log('Are loaders isolated per request?:', ctx1.userLoader !== ctx2.userLoader);",
             "expectedOutput": "Are loaders isolated per request?: true",
             "editable": false
           }
@@ -3208,7 +3208,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "magic_bytes_demo.js",
-            "initialCode": "function detectFileType(buffer) {\n  if (buffer[0] === 0x89 && buffer[1] === 0x50) return 'image/png';\n  if (buffer[0] === 0xFF && buffer[1] === 0xD8) return 'image/jpeg';\n  return 'application/octet-stream';\n}\n\nconst mockPng = Buffer.from([0x89, 0x50, 0x4E, 0x47]);\nconst mockJpg = Buffer.from([0xFF, 0xD8, 0xFF, 0xE0]);\nconsole.log('Buffer 1:', detectFileType(mockPng));\nconsole.log('Buffer 2:', detectFileType(mockJpg));",
+            "initialCode": "function detectFileType(bytes) {\n  if (bytes[0] === 0x89 && bytes[1] === 0x50) return 'image/png';\n  if (bytes[0] === 0xFF && bytes[1] === 0xD8) return 'image/jpeg';\n  return 'application/octet-stream';\n}\n\n// Node's Buffer.from([...]) is a Uint8Array too.\nconst mockPng = new Uint8Array([0x89, 0x50, 0x4E, 0x47]);\nconst mockJpg = new Uint8Array([0xFF, 0xD8, 0xFF, 0xE0]);\nconsole.log('Buffer 1:', detectFileType(mockPng));\nconsole.log('Buffer 2:', detectFileType(mockJpg));",
             "expectedOutput": "Buffer 1: image/png\nBuffer 2: image/jpeg",
             "editable": false
           }
@@ -4300,8 +4300,8 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "grpc_comparison.js",
-            "initialCode": "function comparePayloadSizes(obj) {\n  const jsonBytes = Buffer.byteLength(JSON.stringify(obj));\n  const protobufBytesEst = Math.ceil(jsonBytes / 5);\n  return { jsonBytes, protobufBytesEst };\n}\n\nconst user = { id: 101, email: 'alexander@pinit.io', status: 'ACTIVE', role: 'PLATFORM_ARCHITECT' };\nconsole.log('Payload Comparison:', JSON.stringify(comparePayloadSizes(user)));",
-            "expectedOutput": "Payload Comparison: {\"jsonBytes\":90,\"protobufBytesEst\":18}",
+            "initialCode": "function comparePayloadSizes(obj) {\n  const jsonBytes = new TextEncoder().encode(JSON.stringify(obj)).length;\n  const protobufBytesEst = Math.ceil(jsonBytes / 5);\n  return { jsonBytes, protobufBytesEst };\n}\n\nconst user = { id: 101, email: 'alexander@pinit.io', status: 'ACTIVE', role: 'PLATFORM_ARCHITECT' };\nconsole.log('Payload Comparison:', JSON.stringify(comparePayloadSizes(user)));",
+            "expectedOutput": "Payload Comparison: {\"jsonBytes\":85,\"protobufBytesEst\":17}",
             "editable": false
           }
         ],
@@ -5508,7 +5508,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "jsx_attributes_demo.js",
             "initialCode": "// [TEACHING SIMULATION — Normalizing JSX Attributes to React Props]\nfunction normalizeJsxProps(jsxAttributes) {\n  const props = {};\n  for (const [key, value] of Object.entries(jsxAttributes)) {\n    if (key === 'className') props.className = value;\n    else if (key === 'htmlFor') props.htmlFor = value;\n    else if (key.startsWith('on')) props[key] = value; // Event handlers\n    else props[key] = value;\n  }\n  return props;\n}\n\nconsole.log(normalizeJsxProps({ className: 'box', htmlFor: 'user-input', onClick: 'handleClick' }));",
-            "expectedOutput": "{\n  \"className\": \"box\",\n  \"htmlFor\": \"user-input\",\n  \"onClick\": \"handleClick\"\n}",
+            "expectedOutput": "{ className: 'box', htmlFor: 'user-input', onClick: 'handleClick' }",
             "editable": false
           }
         ],
@@ -5576,7 +5576,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "props_read_only_sim.js",
-            "initialCode": "// [TEACHING SIMULATION — Demonstrating props as immutable snapshots]\nfunction UserGreeting(props) {\n  try {\n    props.name = 'Hacked Name'; // Throws in strict mode / frozen object!\n  } catch (err) {\n    console.log('Props are immutable snapshots. Direct mutation rejected.');\n  }\n  return `Hello, ${props.name}!`;\n}\n\nconst frozenProps = Object.freeze({ name: 'Alex' });\nconsole.log(UserGreeting(frozenProps));",
+            "initialCode": "// [TEACHING SIMULATION — Demonstrating props as immutable snapshots]\nfunction UserGreeting(props) {\n  'use strict'; // React components run in strict mode, where writing to a frozen object throws\n  try {\n    props.name = 'Hacked Name';\n  } catch (err) {\n    console.log('Props are immutable snapshots. Direct mutation rejected.');\n  }\n  return `Hello, ${props.name}!`;\n}\n\nconst frozenProps = Object.freeze({ name: 'Alex' });\nconsole.log(UserGreeting(frozenProps));",
             "expectedOutput": "Props are immutable snapshots. Direct mutation rejected.\nHello, Alex!",
             "editable": false
           }
@@ -7849,7 +7849,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "normalized_kanban_sim.js",
             "initialCode": "// [TEACHING SIMULATION — Teaching Model: Moving a Task in Normalized State]\nfunction moveTaskNormalized(state, taskId, sourceColId, targetColId) {\n  const nextColumns = { ...state.columnsById };\n  // Remove from source column:\n  nextColumns[sourceColId] = {\n    ...nextColumns[sourceColId],\n    taskIds: nextColumns[sourceColId].taskIds.filter(id => id !== taskId)\n  };\n  // Append to target column:\n  nextColumns[targetColId] = {\n    ...nextColumns[targetColId],\n    taskIds: [...nextColumns[targetColId].taskIds, taskId]\n  };\n  return { ...state, columnsById: nextColumns };\n}\n\nconst initial = {\n  tasksById: { 't1': { id: 't1', title: 'Architecture' } },\n  columnsById: {\n    'todo': { id: 'todo', taskIds: ['t1'] },\n    'done': { id: 'done', taskIds: [] }\n  }\n};\nconst updated = moveTaskNormalized(initial, 't1', 'todo', 'done');\nconsole.log('Todo taskIds:', updated.columnsById.todo.taskIds);\nconsole.log('Done taskIds:', updated.columnsById.done.taskIds);",
-            "expectedOutput": "Todo taskIds: []\nDone taskIds: [\"t1\"]",
+            "expectedOutput": "Todo taskIds: []\nDone taskIds: [ 't1' ]",
             "editable": false
           }
         ],
@@ -13913,8 +13913,8 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-75-b2_sim.js",
-            "initialCode": "// Simulation: Empirical Data Structure Profiler (JSON String vs Hash)\nfunction compareStorageStructures(profile) {\n  const jsonString = JSON.stringify(profile);\n  const jsonByteSize = Buffer.byteLength(jsonString);\n\n  // Measure memory footprint and update cost for equivalent workloads; determine trade-off empirically\n  const estimatedHashMemory = jsonByteSize + 48; // compact encoding overhead\n  const estimatedStringMemory = jsonByteSize + 32; // raw SDS overhead\n\n  return {\n    rawPayloadBytes: jsonByteSize,\n    stringMemoryEstimate: estimatedStringMemory,\n    hashMemoryEstimate: estimatedHashMemory,\n    guidance: 'Do not assume Hashes are universally more compact than JSON strings. Measure memory footprint and update cost for equivalent workloads; determine trade-offs empirically.'\n  };\n}\n\nconsole.log(compareStorageStructures({ id: 'u_101', name: 'Dev', tier: 'PRO', credits: 500 }));",
-            "expectedOutput": "{\n  rawPayloadBytes: 52,\n  stringMemoryEstimate: 84,\n  hashMemoryEstimate: 100,\n  guidance: 'Do not assume Hashes are universally more compact than JSON strings. Measure memory footprint and update cost for equivalent workloads; determine trade-offs empirically.'\n}",
+            "initialCode": "// Simulation: Empirical Data Structure Profiler (JSON String vs Hash)\nfunction compareStorageStructures(profile) {\n  const jsonString = JSON.stringify(profile);\n  const jsonByteSize = new TextEncoder().encode(jsonString).length;\n\n  // Measure memory footprint and update cost for equivalent workloads; determine trade-off empirically\n  const estimatedHashMemory = jsonByteSize + 48; // compact encoding overhead\n  const estimatedStringMemory = jsonByteSize + 32; // raw SDS overhead\n\n  return {\n    rawPayloadBytes: jsonByteSize,\n    stringMemoryEstimate: estimatedStringMemory,\n    hashMemoryEstimate: estimatedHashMemory,\n    guidance: 'Do not assume Hashes are universally more compact than JSON strings. Measure memory footprint and update cost for equivalent workloads; determine trade-offs empirically.'\n  };\n}\n\nconsole.log(compareStorageStructures({ id: 'u_101', name: 'Dev', tier: 'PRO', credits: 500 }));",
+            "expectedOutput": "{ rawPayloadBytes: 54, stringMemoryEstimate: 86, hashMemoryEstimate: 102, guidance: 'Do not assume Hashes are universally more compact than JSON strings. Measure memory footprint and update cost for equivalent workloads; determine trade-offs empirically.' }",
             "editable": false
           }
         ],
@@ -15190,7 +15190,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-83-b1_sim.js",
-            "initialCode": "// Simulation: RFC 6455 Handshake Sec-WebSocket-Accept Proof Calculation\nconst crypto = require('crypto');\n\nfunction computeAcceptKey(clientKey) {\n  const GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';\n  return crypto.createHash('sha1').update(clientKey + GUID).digest('base64');\n}\n\nconst clientNonce = 'dGhlIHNhbXBsZSBub25jZQ==';\nconst serverAccept = computeAcceptKey(clientNonce);\nconsole.log('Client Key:', clientNonce);\nconsole.log('Server Sec-WebSocket-Accept Proof:', serverAccept);",
+            "initialCode": "// Simulation: RFC 6455 Handshake Sec-WebSocket-Accept Proof Calculation\n// Node: crypto.createHash('sha1').update(text).digest('base64'); the lesson runner gives you sha1Base64.\nfunction computeAcceptKey(clientKey) {\n  const GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';\n  return sha1Base64(clientKey + GUID);\n}\n\nconst clientNonce = 'dGhlIHNhbXBsZSBub25jZQ==';\nconst serverAccept = computeAcceptKey(clientNonce);\nconsole.log('Client Key:', clientNonce);\nconsole.log('Server Sec-WebSocket-Accept Proof:', serverAccept);",
             "expectedOutput": "Client Key: dGhlIHNhbXBsZSBub25jZQ==\nServer Sec-WebSocket-Accept Proof: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=",
             "editable": false
           }
@@ -16267,7 +16267,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-89-b2_sim.js",
-            "initialCode": "// Simulation: RFC 7636 PKCE S256 Cryptographic Challenge Calculation\nconst crypto = require('crypto');\n\nfunction base64Url(buf) {\n  return buf.toString('base64').replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/, '');\n}\n\nfunction generatePkce() {\n  const verifier = base64Url(crypto.randomBytes(32)); // High-entropy unguessable string\n  const challenge = base64Url(crypto.createHash('sha256').update(verifier).digest());\n  return { verifier, challenge };\n}\n\nfunction verifyChallenge(presentedVerifier, storedChallenge) {\n  const computed = base64Url(crypto.createHash('sha256').update(presentedVerifier).digest());\n  return computed === storedChallenge;\n}\n\nconst pkce = generatePkce();\nconsole.log('PKCE Challenge Generated: Length =', pkce.challenge.length);\nconsole.log('Valid Verifier Verification:', verifyChallenge(pkce.verifier, pkce.challenge));\nconsole.log('Forged Verifier Verification:', verifyChallenge('attacker_forged_verifier', pkce.challenge));",
+            "initialCode": "// Simulation: RFC 7636 PKCE S256 Cryptographic Challenge Calculation\n// Node: crypto.createHash('sha256'); the lesson runner gives you sha256Base64Url and randomHex.\nfunction generatePkce() {\n  const verifier = randomHex(32); // 64 random hex characters: high-entropy and unguessable\n  const challenge = sha256Base64Url(verifier);\n  return { verifier, challenge };\n}\n\nfunction verifyChallenge(presentedVerifier, storedChallenge) {\n  return sha256Base64Url(presentedVerifier) === storedChallenge;\n}\n\nconst pkce = generatePkce();\nconsole.log('PKCE Challenge Generated: Length =', pkce.challenge.length);\nconsole.log('Valid Verifier Verification:', verifyChallenge(pkce.verifier, pkce.challenge));\nconsole.log('Forged Verifier Verification:', verifyChallenge('attacker_forged_verifier', pkce.challenge));",
             "expectedOutput": "PKCE Challenge Generated: Length = 43\nValid Verifier Verification: true\nForged Verifier Verification: false",
             "editable": false
           }
@@ -16605,7 +16605,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-91-b2_sim.js",
-            "initialCode": "// Simulation: Session-Bound HMAC Double Submit with Length-Safe Comparison\nconst crypto = require('crypto');\nconst secretKey = 'prod-csrf-secret-key';\n\nfunction generateSessionCsrf(sessionId) {\n  const raw = crypto.randomBytes(16).toString('hex');\n  const sig = crypto.createHmac('sha256', secretKey).update(sessionId + ':' + raw).digest('hex');\n  return raw + '.' + sig;\n}\n\nfunction validateCsrf(cookieToken, headerToken, sessionId) {\n  if (!cookieToken || !headerToken) return { valid: false, code: 'MISSING' };\n  if (typeof cookieToken !== 'string' || typeof headerToken !== 'string') return { valid: false, code: 'MALFORMED' };\n  if (cookieToken.length !== headerToken.length) return { valid: false, code: 'LENGTH_MISMATCH' }; // Prevent RangeError!\n  \n  const isMatch = crypto.timingSafeEqual(Buffer.from(cookieToken), Buffer.from(headerToken));\n  if (!isMatch) return { valid: false, code: 'TAMPERED' };\n  \n  const [raw, sig] = headerToken.split('.');\n  if (!raw || !sig) return { valid: false, code: 'MALFORMED' };\n  const expectedSig = crypto.createHmac('sha256', secretKey).update(sessionId + ':' + raw).digest('hex');\n  if (sig.length !== expectedSig.length || !crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig))) {\n    return { valid: false, code: 'SESSION_MISMATCH' };\n  }\n  return { valid: true, code: 'OK' };\n}\n\nconst tok = generateSessionCsrf('sess_user1');\nconsole.log('Valid Token:', validateCsrf(tok, tok, 'sess_user1'));\nconsole.log('Wrong Session:', validateCsrf(tok, tok, 'sess_user2'));\nconsole.log('Unequal Length:', validateCsrf(tok, 'short', 'sess_user1'));",
+            "initialCode": "// Simulation: Session-Bound HMAC Double Submit with Length-Safe Comparison\n// Node: crypto.createHmac / crypto.timingSafeEqual; the lesson runner gives you hmacSha256Hex and randomHex.\nconst secretKey = 'prod-csrf-secret-key';\n\nfunction timingSafeEqual(a, b) {\n  let diff = 0;\n  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i); // never stops early\n  return diff === 0;\n}\n\nfunction generateSessionCsrf(sessionId) {\n  const raw = randomHex(16);\n  return raw + '.' + hmacSha256Hex(secretKey, sessionId + ':' + raw);\n}\n\nfunction validateCsrf(cookieToken, headerToken, sessionId) {\n  if (!cookieToken || !headerToken) return { valid: false, code: 'MISSING' };\n  if (typeof cookieToken !== 'string' || typeof headerToken !== 'string') return { valid: false, code: 'MALFORMED' };\n  if (cookieToken.length !== headerToken.length) return { valid: false, code: 'LENGTH_MISMATCH' }; // check length first\n\n  if (!timingSafeEqual(cookieToken, headerToken)) return { valid: false, code: 'TAMPERED' };\n\n  const [raw, sig] = headerToken.split('.');\n  if (!raw || !sig) return { valid: false, code: 'MALFORMED' };\n  const expectedSig = hmacSha256Hex(secretKey, sessionId + ':' + raw);\n  if (sig.length !== expectedSig.length || !timingSafeEqual(sig, expectedSig)) {\n    return { valid: false, code: 'SESSION_MISMATCH' };\n  }\n  return { valid: true, code: 'OK' };\n}\n\nconst tok = generateSessionCsrf('sess_user1');\nconsole.log('Valid Token:', validateCsrf(tok, tok, 'sess_user1'));\nconsole.log('Wrong Session:', validateCsrf(tok, tok, 'sess_user2'));\nconsole.log('Unequal Length:', validateCsrf(tok, 'short', 'sess_user1'));",
             "expectedOutput": "Valid Token: { valid: true, code: 'OK' }\nWrong Session: { valid: false, code: 'SESSION_MISMATCH' }\nUnequal Length: { valid: false, code: 'LENGTH_MISMATCH' }",
             "editable": false
           }
@@ -16659,7 +16659,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-91-b3_sim.js",
-            "initialCode": "// Simulation: W3C CSP Level 3 Nonce Generation & Policy Assembly\nconst crypto = require('crypto');\n\nfunction generateCspLevel3Policy() {\n  const nonce = crypto.randomBytes(16).toString('base64'); // 128-bit high-entropy nonce\n  const policy = [\n    \"default-src 'none'\",\n    `script-src 'nonce-${nonce}' 'strict-dynamic'`,\n    `style-src 'self' 'nonce-${nonce}'`,\n    \"connect-src 'self'\",\n    \"img-src 'self' data:\",\n    \"object-src 'none'\",\n    \"base-uri 'none'\",\n    \"frame-ancestors 'none'\"\n  ].join('; ');\n  return { nonce, header: policy };\n}\n\nconst csp = generateCspLevel3Policy();\nconsole.log('Generated 128-bit Nonce Length:', Buffer.from(csp.nonce, 'base64').length, 'bytes');\nconsole.log('Includes strict-dynamic:', csp.header.includes(\"'strict-dynamic'\"));\nconsole.log('Excludes unsafe-inline:', !csp.header.includes(\"'unsafe-inline'\"));",
+            "initialCode": "// Simulation: W3C CSP Level 3 Nonce Generation & Policy Assembly\nfunction generateCspLevel3Policy() {\n  const bytes = crypto.getRandomValues(new Uint8Array(16)); // 128-bit high-entropy nonce\n  const nonce = btoa(String.fromCharCode(...bytes));\n  const policy = [\n    \"default-src 'none'\",\n    `script-src 'nonce-${nonce}' 'strict-dynamic'`,\n    `style-src 'self' 'nonce-${nonce}'`,\n    \"connect-src 'self'\",\n    \"img-src 'self' data:\",\n    \"object-src 'none'\",\n    \"base-uri 'none'\",\n    \"frame-ancestors 'none'\"\n  ].join('; ');\n  return { nonce, header: policy };\n}\n\nconst csp = generateCspLevel3Policy();\nconsole.log('Generated 128-bit Nonce Length:', atob(csp.nonce).length, 'bytes');\nconsole.log('Includes strict-dynamic:', csp.header.includes(\"'strict-dynamic'\"));\nconsole.log('Excludes unsafe-inline:', !csp.header.includes(\"'unsafe-inline'\"));",
             "expectedOutput": "Generated 128-bit Nonce Length: 16 bytes\nIncludes strict-dynamic: true\nExcludes unsafe-inline: true",
             "editable": false
           }
@@ -16720,7 +16720,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-92-b1_sim.js",
-            "initialCode": "// Simulation: Best-Effort Plaintext DEK Memory Hygiene\nconst crypto = require('crypto');\n\nfunction performCryptographicOperation(plaintext) {\n  const plaintextDek = crypto.randomBytes(32); // Ephemeral 256-bit key\n  try {\n    const cipher = crypto.createCipheriv('aes-256-gcm', plaintextDek, crypto.randomBytes(12));\n    const ct = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);\n    return { success: true, ctLength: ct.length };\n  } finally {\n    // Best-effort memory hygiene: overwrite buffer with zeros immediately after use\n    plaintextDek.fill(0);\n    console.log('Plaintext DEK Buffer Zeroed: First Byte =', plaintextDek[0]);\n  }\n}\n\nperformCryptographicOperation('Secret Employee Data');",
+            "initialCode": "// Simulation: Best-Effort Plaintext DEK Memory Hygiene\n// toyAead is the lesson runner's stand-in for AES-256-GCM (the browser sandbox has no Node crypto).\nfunction performCryptographicOperation(plaintext) {\n  const plaintextDek = crypto.getRandomValues(new Uint8Array(32)); // Ephemeral 256-bit key\n  try {\n    const box = toyAead.seal(bytesToHex(Array.from(plaintextDek)), plaintext);\n    return { success: true, ctLength: box.ciphertext.length / 2 };\n  } finally {\n    // Best-effort memory hygiene: overwrite the key bytes with zeros right after use\n    plaintextDek.fill(0);\n    console.log('Plaintext DEK Buffer Zeroed: First Byte =', plaintextDek[0]);\n  }\n}\n\nperformCryptographicOperation('Secret Employee Data');",
             "expectedOutput": "Plaintext DEK Buffer Zeroed: First Byte = 0",
             "editable": false
           }
@@ -16773,7 +16773,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-92-b2_sim.js",
-            "initialCode": "// Simulation: AES-256-GCM Envelope Encryption with AAD Context Binding\nconst crypto = require('crypto');\n\nfunction encryptWithAad(plaintext, dek, iv, aadString) {\n  const cipher = crypto.createCipheriv('aes-256-gcm', dek, iv);\n  cipher.setAAD(Buffer.from(aadString, 'utf8'));\n  const ciphertext = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);\n  const authTag = cipher.getAuthTag();\n  return { ciphertext: ciphertext.toString('hex'), authTag: authTag.toString('hex') };\n}\n\nfunction decryptWithAad(ctHex, tagHex, dek, iv, aadString) {\n  const decipher = crypto.createDecipheriv('aes-256-gcm', dek, iv);\n  decipher.setAuthTag(Buffer.from(tagHex, 'hex'));\n  decipher.setAAD(Buffer.from(aadString, 'utf8'));\n  return Buffer.concat([decipher.update(Buffer.from(ctHex, 'hex')), decipher.final()]).toString('utf8');\n}\n\nconst key = crypto.randomBytes(32);\nconst iv = crypto.randomBytes(12); // 96-bit standardized IV\nconst enc = encryptWithAad('Confidential Bonus', key, iv, 'tenant_alpha:user_123:bonus:v1');\n\nconsole.log('Valid Decrypt:', decryptWithAad(enc.ciphertext, enc.authTag, key, iv, 'tenant_alpha:user_123:bonus:v1'));\ntry {\n  decryptWithAad(enc.ciphertext, enc.authTag, key, iv, 'tenant_beta:user_999:bonus:v1'); // TRANSPLANT ATTACK!\n} catch (e) {\n  console.log('Transplant Attack Blocked:', e.message.includes('authenticate data'));\n}",
+            "initialCode": "// Simulation: Envelope Encryption with AAD Context Binding\n// toyAead is the lesson runner's stand-in for AES-256-GCM: seal(key, text, aad) and open(key, box, aad).\nconst key = randomHex(32);\nconst box = toyAead.seal(key, 'Confidential Bonus', 'tenant_alpha:user_123:bonus:v1');\n\nconsole.log('Valid Decrypt:', toyAead.open(key, box, 'tenant_alpha:user_123:bonus:v1'));\ntry {\n  toyAead.open(key, box, 'tenant_beta:user_999:bonus:v1'); // TRANSPLANT ATTACK!\n} catch (e) {\n  console.log('Transplant Attack Blocked:', e.message.includes('authenticate data'));\n}",
             "expectedOutput": "Valid Decrypt: Confidential Bonus\nTransplant Attack Blocked: true",
             "editable": false
           }
@@ -16825,7 +16825,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-92-b3_sim.js",
-            "initialCode": "// Simulation: Zero-Knowledge Master Key Rotation (Re-wrapping DEK)\nconst crypto = require('crypto');\n\nfunction wrapDek(dek, kek) {\n  const iv = crypto.randomBytes(12);\n  const c = crypto.createCipheriv('aes-256-gcm', kek, iv);\n  return { wrapped: Buffer.concat([c.update(dek), c.final()]).toString('hex'), iv: iv.toString('hex'), tag: c.getAuthTag().toString('hex') };\n}\n\nfunction rewrapDek(wrappedInfo, oldKek, newKek) {\n  const d = crypto.createDecipheriv('aes-256-gcm', oldKek, Buffer.from(wrappedInfo.iv, 'hex'));\n  d.setAuthTag(Buffer.from(wrappedInfo.tag, 'hex'));\n  const rawDek = Buffer.concat([d.update(Buffer.from(wrappedInfo.wrapped, 'hex')), d.final()]);\n  const rewrapped = wrapDek(rawDek, newKek);\n  rawDek.fill(0); // Best-effort memory hygiene\n  return rewrapped;\n}\n\nconst KEK_v1 = crypto.randomBytes(32);\nconst KEK_v2 = crypto.randomBytes(32);\nconst DEK = crypto.randomBytes(32);\n\nconst w1 = wrapDek(DEK, KEK_v1);\nconst w2 = rewrapDek(w1, KEK_v1, KEK_v2);\nconsole.log('DEK Successfully Re-wrapped under KEK_v2: Different Ciphertext =', w1.wrapped !== w2.wrapped);",
+            "initialCode": "// Simulation: Zero-Knowledge Master Key Rotation (Re-wrapping DEK)\n// toyAead is the lesson runner's stand-in for AES-256-GCM.\nfunction wrapDek(dek, kek) {\n  return toyAead.seal(kek, dek);\n}\n\nfunction rewrapDek(wrapped, oldKek, newKek) {\n  const rawDek = toyAead.open(oldKek, wrapped); // unwrap with the old master key\n  return wrapDek(rawDek, newKek);              // wrap again with the new one; the data never changes\n}\n\nconst KEK_v1 = randomHex(32);\nconst KEK_v2 = randomHex(32);\nconst DEK = randomHex(32);\n\nconst w1 = wrapDek(DEK, KEK_v1);\nconst w2 = rewrapDek(w1, KEK_v1, KEK_v2);\nconsole.log('DEK Successfully Re-wrapped under KEK_v2: Different Ciphertext =', w1.ciphertext !== w2.ciphertext);",
             "expectedOutput": "DEK Successfully Re-wrapped under KEK_v2: Different Ciphertext = true",
             "editable": false
           }
@@ -16995,7 +16995,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-93-b3_sim.js",
-            "initialCode": "// Flawed Tautological Test vs State Verification\nclass CartService {\n  constructor(taxRepo) { this.taxRepo = taxRepo; }\n  computeTotal(items) {\n    const subtotal = items.reduce((s, i) => s + i.price, 0);\n    const taxRate = this.taxRepo.getRate(); \n    return { subtotal, total: subtotal * (1 + taxRate) };\n  }\n}\n\n// Tautological Mock Test: Merely asserts getRate() was called\nlet called = false;\nconst mockRepo = { getRate: () => { called = true; return 0.10; } };\nconst service = new CartService(mockRepo);\nconst result = service.computeTotal([{ price: 100 }]);\n\nconsole.log('Mock Called:', called);\nconsole.log('Result Computed Correctly:', result.total === 110);",
+            "initialCode": "// Flawed Tautological Test vs State Verification\nclass CartService {\n  constructor(taxRepo) { this.taxRepo = taxRepo; }\n  computeTotal(items) {\n    const subtotal = items.reduce((s, i) => s + i.price, 0);\n    const taxRate = this.taxRepo.getRate();\n    return { subtotal, total: Math.round(subtotal * (1 + taxRate) * 100) / 100 }; // round money to cents\n  }\n}\n\n// Tautological Mock Test: Merely asserts getRate() was called\nlet called = false;\nconst mockRepo = { getRate: () => { called = true; return 0.10; } };\nconst service = new CartService(mockRepo);\nconst result = service.computeTotal([{ price: 100 }]);\n\nconsole.log('Mock Called:', called);\nconsole.log('Result Computed Correctly:', result.total === 110);",
             "expectedOutput": "Mock Called: true\nResult Computed Correctly: true",
             "editable": false
           }
@@ -17058,7 +17058,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-94-b1_sim.js",
             "initialCode": "// Simulation: PostgreSQL Dialect Feature vs SQLite Incompatibility\nconst pgQuery = \"INSERT INTO orders (id, payload) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET payload = EXCLUDED.payload RETURNING payload->>'status';\";\nconst sqliteSupported = false;\n\nconsole.log('PostgreSQL Native Query:', pgQuery.slice(0, 50) + '...');\nconsole.log('Can SQLite In-Memory Mock Execute PG JSONB Operators?:', sqliteSupported);",
-            "expectedOutput": "PostgreSQL Native Query: INSERT INTO orders (id, payload) VALUES ($1, $2...\nCan SQLite In-Memory Mock Execute PG JSONB Operators?: false",
+            "expectedOutput": "PostgreSQL Native Query: INSERT INTO orders (id, payload) VALUES ($1, $2) O...\nCan SQLite In-Memory Mock Execute PG JSONB Operators?: false",
             "editable": false
           }
         ],
@@ -18247,8 +18247,8 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "day-101-b1_sim.js",
-            "initialCode": "// Simulation: Git Object Store Content-Addressable Hashing\nconst crypto = require('crypto');\n\nfunction gitHash(type, content) {\n  const header = `${type} ${Buffer.byteLength(content)}\\0`;\n  const store = Buffer.concat([Buffer.from(header), Buffer.from(content)]);\n  return crypto.createHash('sha1').update(store).digest('hex');\n}\n\nconst blobContent = 'console.log(\"production\");\\n';\nconst blobHash = gitHash('blob', blobContent);\nconsole.log('Blob SHA-1:', blobHash);\n\nconst commitMetadata = `tree abc1234\\nauthor Dev <dev@example.com> 1700000000 +0000\\n\\nfeat: init`;\nconst commitHash = gitHash('commit', commitMetadata);\nconsole.log('Commit SHA-1:', commitHash);",
-            "expectedOutput": "Blob SHA-1: 9a3e20e8b1d9bf16c52a5c4cfcbf1f62137119f9\nCommit SHA-1: 0dfb9e5d4cb05f886f4a8607a7501a3cfb06d860",
+            "initialCode": "// Simulation: Git Object Store Content-Addressable Hashing\n// Node: crypto.createHash('sha1'); the lesson runner gives you sha1Hex.\nfunction gitHash(type, content) {\n  const length = new TextEncoder().encode(content).length;\n  return sha1Hex(`${type} ${length}\\0${content}`);\n}\n\nconst blobContent = 'console.log(\"production\");\\n';\nconst blobHash = gitHash('blob', blobContent);\nconsole.log('Blob SHA-1:', blobHash);\n\nconst commitMetadata = `tree abc1234\\nauthor Dev <dev@example.com> 1700000000 +0000\\n\\nfeat: init`;\nconst commitHash = gitHash('commit', commitMetadata);\nconsole.log('Commit SHA-1:', commitHash);",
+            "expectedOutput": "Blob SHA-1: 354d7fc65a6a069e61e7aa034ed72aa82c364ff9\nCommit SHA-1: 4face8359e8c30d3522336e3eba5ef999bb8ab4f",
             "editable": false
           }
         ],
@@ -18356,7 +18356,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-101-b3_sim.js",
             "initialCode": "// Simulation: Binary Bisect Search Space Reduction\nconst totalCommits = 1000;\nconst steps = Math.ceil(Math.log2(totalCommits));\nconsole.log(`Searching ${totalCommits} commits requires at most ${steps} test evaluations.`);\n\nlet low = 0, high = totalCommits - 1, stepCount = 0;\nconst bugIntroducedAt = 437;\n\nwhile (low < high) {\n  stepCount++;\n  const mid = Math.floor((low + high) / 2);\n  if (mid >= bugIntroducedAt) {\n    high = mid; // bad\n  } else {\n    low = mid + 1; // good\n  }\n}\nconsole.log(`Found regression at commit #${low} in exactly ${stepCount} steps.`);",
-            "expectedOutput": "Searching 1000 commits requires at most 10 test evaluations.\nFound regression at commit #437 in exactly 10 steps.",
+            "expectedOutput": "Searching 1000 commits requires at most 10 test evaluations.\nFound regression at commit #437 in exactly 9 steps.",
             "editable": false
           }
         ],
@@ -19413,7 +19413,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-108-b1_sim.js",
             "initialCode": "// Simulation: Dr. Neil Gunther's Universal Scalability Law (USL)\n// C(N) = N / (1 + sigma*(N - 1) + kappa*N*(N - 1))\nfunction calculateUSL(N, sigma, kappa) {\n  const denominator = 1 + sigma * (N - 1) + kappa * N * (N - 1);\n  return N / denominator;\n}\n\nfunction findRetrogradePoint(sigma, kappa, maxN = 64) {\n  let peakN = 1;\n  let peakThroughput = 0;\n  for (let n = 1; n <= maxN; n++) {\n    const throughput = calculateUSL(n, sigma, kappa);\n    if (throughput > peakThroughput) {\n      peakThroughput = throughput;\n      peakN = n;\n    }\n  }\n  return { peakN, peakThroughput: Number(peakThroughput.toFixed(2)) };\n}\n\nconsole.log('Ideal (sigma=0, kappa=0, N=16):', calculateUSL(16, 0, 0));\nconsole.log('Contention Only (sigma=0.05, kappa=0, N=16):', Number(calculateUSL(16, 0.05, 0).toFixed(2)));\nconsole.log('Retrograde Point (sigma=0.03, kappa=0.002):', findRetrogradePoint(0.03, 0.002));",
-            "expectedOutput": "Ideal (sigma=0, kappa=0, N=16): 16\nContention Only (sigma=0.05, kappa=0, N=16): 9.14\nRetrograde Point (sigma=0.03, kappa=0.002): { peakN: 22, peakThroughput: 10.98 }",
+            "expectedOutput": "Ideal (sigma=0, kappa=0, N=16): 16\nContention Only (sigma=0.05, kappa=0, N=16): 9.14\nRetrograde Point (sigma=0.03, kappa=0.002): { peakN: 22, peakThroughput: 8.61 }",
             "editable": false
           }
         ],
@@ -19601,7 +19601,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-109-b2_sim.js",
             "initialCode": "// Simulation: Naive Modulo Sharding Rehashing Catastrophe\nfunction calculateModuloKeyMovement(keyCount, oldNodeCount, newNodeCount) {\n  let movedKeys = 0;\n  for (let key = 0; key < keyCount; key++) {\n    const oldShard = key % oldNodeCount;\n    const newShard = key % newNodeCount;\n    if (oldShard !== newShard) {\n      movedKeys++;\n    }\n  }\n  return {\n    totalKeys: keyCount,\n    movedKeys,\n    movementPercentage: Number(((movedKeys / keyCount) * 100).toFixed(1))\n  };\n}\n\nconsole.log('Growing from 3 to 4 nodes (10,000 keys):', calculateModuloKeyMovement(10000, 3, 4));\nconsole.log('Growing from 9 to 10 nodes (10,000 keys):', calculateModuloKeyMovement(10000, 9, 10));",
-            "expectedOutput": "Growing from 3 to 4 nodes (10,000 keys): {\n  totalKeys: 10000,\n  movedKeys: 7500,\n  movementPercentage: 75\n}\nGrowing from 9 to 10 nodes (10,000 keys): {\n  totalKeys: 10000,\n  movedKeys: 9000,\n  movementPercentage: 90\n}",
+            "expectedOutput": "Growing from 3 to 4 nodes (10,000 keys): { totalKeys: 10000, movedKeys: 7498, movementPercentage: 75 }\nGrowing from 9 to 10 nodes (10,000 keys): { totalKeys: 10000, movedKeys: 8992, movementPercentage: 89.9 }",
             "editable": false
           }
         ],
@@ -19646,7 +19646,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-109-b3_sim.js",
             "initialCode": "// Simulation: Consistent Hashing Idealized Key Movement vs Modulo\nfunction compareKeyMovement(totalKeys, initialNodes) {\n  const moduloMoved = totalKeys * (initialNodes / (initialNodes + 1));\n  const consistentHashIdealMoved = totalKeys / (initialNodes + 1);\n\n  return {\n    totalKeys,\n    nodes: `${initialNodes} -> ${initialNodes + 1}`,\n    moduloRelocation: Math.round(moduloMoved),\n    consistentHashIdealRelocation: Math.round(consistentHashIdealMoved),\n    savingsRatio: Number((moduloMoved / consistentHashIdealMoved).toFixed(1))\n  };\n}\n\nconsole.log('Scaling 9 to 10 nodes (100,000 keys):', compareKeyMovement(100000, 9));",
-            "expectedOutput": "Scaling 9 to 10 nodes (100,000 keys): {\n  totalKeys: 10000,\n  nodes: '9 -> 10',\n  moduloRelocation: 90000,\n  consistentHashIdealRelocation: 10000,\n  savingsRatio: 9\n}",
+            "expectedOutput": "Scaling 9 to 10 nodes (100,000 keys): { totalKeys: 100000, nodes: '9 -> 10', moduloRelocation: 90000, consistentHashIdealRelocation: 10000, savingsRatio: 9 }",
             "editable": false
           }
         ],
@@ -19887,7 +19887,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-111-b2_sim.js",
             "initialCode": "// Simulation: Storage Trajectory & Working-Set Cache Sizing\nfunction calculateStorageAndCache(avgWriteRps, recordBytes, overheadFactor, hotObjects, objectBytes, targetHitRate) {\n  const dailyRawBytes = avgWriteRps * 86400 * recordBytes;\n  const dailyTotalBytesWithOverhead = dailyRawBytes * overheadFactor;\n  const yearlyStorageGB = (dailyTotalBytesWithOverhead * 365) / (1024 ** 3);\n\n  const cacheRamGB = (hotObjects * objectBytes * targetHitRate * 1.25) / (1024 ** 3);\n\n  return {\n    dailyRawGB: Number((dailyRawBytes / (1024 ** 3)).toFixed(2)),\n    yearlyStorageGB: Math.round(yearlyStorageGB),\n    cacheRamGB: Number(cacheRamGB.toFixed(2))\n  };\n}\n\nconsole.log('46.3 write RPS, 1.5 KB record, 2.5x overhead, 2M hot objects (2 KB):',\n  calculateStorageAndCache(46.3, 1536, 2.5, 2000000, 2048, 0.8));",
-            "expectedOutput": "46.3 write RPS, 1.5 KB record, 2.5x overhead, 2M hot objects (2 KB): {\n  dailyRawGB: 5.72,\n  yearlyStorageGB: 5220,\n  cacheRamGB: 3.81\n}",
+            "expectedOutput": "46.3 write RPS, 1.5 KB record, 2.5x overhead, 2M hot objects (2 KB): { dailyRawGB: 5.72, yearlyStorageGB: 5222, cacheRamGB: 3.81 }",
             "editable": false
           }
         ],
@@ -19932,7 +19932,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "day-111-b3_sim.js",
             "initialCode": "// Simulation: Network Egress Bandwidth & Parameterized Cloud Cost\nfunction calculateEgressAndCost(readRps, avgReadPayloadBytes, monthlyEgressRatePerGB) {\n  const egressGbps = (readRps * avgReadPayloadBytes * 8) / 1e9;\n  const monthlyEgressGB = (readRps * avgReadPayloadBytes * 86400 * 30.5) / (1024 ** 3);\n  const monthlyEgressCost = monthlyEgressGB * monthlyEgressRatePerGB;\n\n  return {\n    egressGbps: Number(egressGbps.toFixed(3)),\n    monthlyEgressGB: Math.round(monthlyEgressGB),\n    monthlyEgressCostUSD: Math.round(monthlyEgressCost)\n  };\n}\n\nconsole.log('1,250 Read RPS, 10 KB payload, $0.08/GB egress:', calculateEgressAndCost(1250, 10240, 0.08));",
-            "expectedOutput": "1,250 Read RPS, 10 KB payload, $0.08/GB egress: {\n  egressGbps: 0.102,\n  monthlyEgressGB: 32726,\n  monthlyEgressCostUSD: 2618\n}",
+            "expectedOutput": "1,250 Read RPS, 10 KB payload, $0.08/GB egress: { egressGbps: 0.102, monthlyEgressGB: 31414, monthlyEgressCostUSD: 2513 }",
             "editable": false
           }
         ],

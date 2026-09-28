@@ -28,6 +28,8 @@ export interface SandboxExecutionOptions {
   testCases?: TestCase[];
   timeoutMs?: number;
   mode?: 'suite' | 'script';
+  /** Script mode: wait until pending setTimeout timers have run before sending the output (lesson examples). */
+  waitForTimers?: boolean;
 }
 
 export interface UntrustedExecutionPayload {
@@ -219,6 +221,32 @@ export async function executeInTwoLayerSandbox(
                   }
                 };
 
+                // Remember pending setTimeout timers, so a lesson example that prints from a timer
+                // (a debounce, a simulated network delay) can finish before its output is sent.
+                const pendingTimers = new Set();
+                const nativeSetTimeout = self.setTimeout.bind(self);
+                const nativeClearTimeout = self.clearTimeout.bind(self);
+                self.setTimeout = function (fn, ms) {
+                  const extra = Array.prototype.slice.call(arguments, 2);
+                  const id = nativeSetTimeout(function () {
+                    pendingTimers.delete(id);
+                    if (typeof fn === 'function') fn.apply(null, extra);
+                  }, ms);
+                  pendingTimers.add(id);
+                  return id;
+                };
+                self.clearTimeout = function (id) {
+                  pendingTimers.delete(id);
+                  nativeClearTimeout(id);
+                };
+                const whenTimersDone = function (done) {
+                  const check = function () {
+                    if (pendingTimers.size === 0) done();
+                    else nativeSetTimeout(check, 5);
+                  };
+                  nativeSetTimeout(check, 0);
+                };
+
                 self.onmessage = function(e) {
                   const data = e.data;
                   if (!data || data.type !== 'RUN_CODE') return;
@@ -231,7 +259,7 @@ export async function executeInTwoLayerSandbox(
                   let allPassed = true;
                   let runtimeError = null;
 
-                  const postResult = function (passed, error) {
+                  const sendResult = function (passed, error) {
                     self.postMessage({
                       type: 'WORKER_RESULT',
                       outcomes: outcomes,
@@ -241,8 +269,13 @@ export async function executeInTwoLayerSandbox(
                       error: error
                     });
                   };
+                  const isScript = mode === 'script' || fnName === 'none' || !fnName;
+                  const postResult = function (passed, error) {
+                    if (isScript && data.waitForTimers) whenTimersDone(function () { sendResult(passed, error); });
+                    else sendResult(passed, error);
+                  };
 
-                  if (mode === 'script' || fnName === 'none' || !fnName) {
+                  if (isScript) {
                     try {
                       const res = new Function(code)();
                       // A script that returns a promise (a practice task's async checks) is
@@ -410,7 +443,8 @@ export async function executeInTwoLayerSandbox(
                         code: req.code,
                         fnName: req.fnName,
                         testCases: req.testCases,
-                        mode: req.mode
+                        mode: req.mode,
+                        waitForTimers: Boolean(req.waitForTimers)
                       });
                     } catch (workerInitErr) {
                       port.postMessage({
@@ -516,7 +550,8 @@ export async function executeInTwoLayerSandbox(
           fnName,
           testCases,
           timeoutMs,
-          mode: options?.mode || (fnName && fnName !== 'none' ? 'suite' : 'script')
+          mode: options?.mode || (fnName && fnName !== 'none' ? 'suite' : 'script'),
+          waitForTimers: Boolean(options?.waitForTimers)
         });
       };
 
@@ -539,6 +574,7 @@ export async function executeSandboxScript(
     functionName: 'none',
     testCases: [],
     timeoutMs,
+    waitForTimers: true,
   });
 
   const stdout = result.stdout || result.terminalLogs.filter(l => l.startsWith('stdout: ')).map(l => l.slice(8)).join('\n');

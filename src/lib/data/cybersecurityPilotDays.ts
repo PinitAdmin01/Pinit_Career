@@ -3261,7 +3261,7 @@ export const CYBER_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "entropy_demo.js",
             "initialCode": "function calcEntropy(str) {\n  if (!str) return { entropy: 0, isHighEntropySecret: false };\n  const freqs = {};\n  for (const c of str) freqs[c] = (freqs[c] || 0) + 1;\n  let h = 0;\n  const len = str.length;\n  for (const cnt of Object.values(freqs)) {\n    const p = cnt / len;\n    h -= p * Math.log2(p);\n  }\n  const rH = Number(h.toFixed(4));\n  const isSec = rH >= 4.5;\n  return {\n    entropy: rH,\n    isHighEntropySecret: isSec,\n    status: isSec ? 'HIGH_ENTROPY_SECRET_DETECTED' : 'STANDARD_LOW_ENTROPY_STRING'\n  };\n}\n\nconsole.log(JSON.stringify(calcEntropy('wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')));\nconsole.log(JSON.stringify(calcEntropy('aaaaaaaaaaaaaaaa')));",
-            "expectedOutput": "{\"entropy\":4.7819,\"isHighEntropySecret\":true,\"status\":\"HIGH_ENTROPY_SECRET_DETECTED\"}\n{\"entropy\":0,\"isHighEntropySecret\":false,\"status\":\"STANDARD_LOW_ENTROPY_STRING\"}",
+            "expectedOutput": "{\"entropy\":4.6628,\"isHighEntropySecret\":true,\"status\":\"HIGH_ENTROPY_SECRET_DETECTED\"}\n{\"entropy\":0,\"isHighEntropySecret\":false,\"status\":\"STANDARD_LOW_ENTROPY_STRING\"}",
             "editable": false
           }
         ],
