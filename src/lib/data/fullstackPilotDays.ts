@@ -5481,7 +5481,7 @@ export const FULLSTACK_PILOT_DAYS: DayLessonPlan[] = [
             "`className` instead of `class` (`class` is a reserved keyword in JavaScript)",
             "`htmlFor` instead of `for` (`for` is a reserved keyword in JavaScript)",
             "camelCase Attributes (`onClick`, `tabIndex`, `aria-*` and `data-*` stay hyphenated)",
-            "Inline Style Objects (`style={{ color: 'red', fontSize: '17.5px' }}`)",
+            "Inline Style Objects (`style={{ color: 'red', fontSize: '16px' }}`)",
             "Self-Closing Tags (Tags with no children must be explicitly closed, e.g. `<img />`, `<input />`)"
           ]
         },

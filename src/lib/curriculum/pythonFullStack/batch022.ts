@@ -539,7 +539,7 @@ export const DAY_110_MANIFEST: DayContentManifest = {
   body {
     color: #111827;
     background-color: #ffffff;
-    font-size: 17.5px;
+    font-size: 16px;
     line-height: 1.5;
   }
 
@@ -799,7 +799,7 @@ export const DAY_111_MANIFEST: DayContentManifest = {
     body { font-family: sans-serif; background: #ffffff; color: #111; }
     .product-card { border: 1px solid #e5e7eb; padding: 16px; width: 300px; }
     .product-img { width: 100%; height: auto; } /* No aspect ratio or height! */
-    .price { color: #a1a1aa; font-size: 15.5px; }  /* FAILS 1.4.3: 2.4:1 contrast */
+    .price { color: #a1a1aa; font-size: 14px; }  /* FAILS 1.4.3: 2.4:1 contrast */
     .btn-cart { background: #3b82f6; border: none; padding: 6px; } /* Target size < 24px */
   </style>
 </head>
@@ -837,7 +837,7 @@ export const DAY_111_MANIFEST: DayContentManifest = {
       display: block; 
       background-color: #f3f4f6;
     }
-    .price { color: #1f2937; font-size: 17.5px; font-weight: 600; } /* 12.6:1 contrast (>= 4.5:1) */
+    .price { color: #1f2937; font-size: 16px; font-weight: 600; } /* 12.6:1 contrast (>= 4.5:1) */
     .btn-cart { 
       background: #1d4ed8; 
       color: #ffffff;
@@ -1076,7 +1076,7 @@ export const DAY_112_ASSESSMENT: CurriculumAssessment | Assessment = {
     button, summary, input, select, textarea {
       min-width: 24px;
       min-height: 24px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       padding: 0.5rem 0.75rem;
       border: 1.5px solid var(--color-border);
       border-radius: 4px;
