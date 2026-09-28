@@ -5802,5 +5802,1197 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "Bonus: add min_cost_climbing(cost) and write the five recipe steps as comments."
       ]
     }
+  },
+  {
+    "day": 26,
+    "title": "⭐ MILESTONE 4: 0/1 Knapsack & Coin Change Optimization Engine",
+    "goal": "You can solve coin change and the 0/1 knapsack problem with dynamic programming, and explain why greedy choices fail on them.",
+    "minutes": 30,
+    "recap": "Yesterday you learned memoization, tabulation and the five-step DP recipe. Milestone 4 uses that recipe on two classic optimisation problems.",
+    "parts": [
+      {
+        "title": "When greedy choices fail",
+        "say": [
+          "A greedy algorithm always takes the choice that looks best right now. For Indian rupee coins (1, 2, 5, 10), always taking the biggest coin that fits does give the fewest coins.",
+          "But with coins 1, 3 and 4, making 6 greedily gives 4 + 1 + 1, which is three coins, while 3 + 3 uses only two. The locally best choice led to a worse overall answer.",
+          "When greedy fails, dynamic programming tries every choice systematically, but reuses answers so it stays fast.",
+          "That is today's theme: optimisation problems where you must compare combinations, not just grab the biggest piece.",
+          "Always test a greedy idea on small tricky inputs before trusting it. A single counter-example proves it wrong."
+        ],
+        "example": "Packing for a trip by always grabbing the heaviest useful item first: the big blanket fills the bag, and there is no room left for the three small things you needed more.",
+        "code": "def greedy_coins(coins, amount):\n    used = []\n    for c in sorted(coins, reverse=True):\n        while amount >= c:\n            amount -= c\n            used.append(c)\n    return used if amount == 0 else None\n\nprint(\"rupees, 18:\", greedy_coins([1, 2, 5, 10], 18))\nprint(\"1/3/4, 6:  \", greedy_coins([1, 3, 4], 6))\nprint(\"best for 6 is [3, 3], only 2 coins\")",
+        "output": "rupees, 18: [10, 5, 2, 1]\n1/3/4, 6:   [4, 1, 1]\nbest for 6 is [3, 3], only 2 coins",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Greedy: always try the biggest coin first."
+          },
+          {
+            "line": 10,
+            "note": "Greedy picks 4 + 1 + 1: three coins."
+          }
+        ],
+        "tryIt": "Try greedy_coins([5, 2], 6). Greedy takes 5 and gets stuck with 1 left, even though 2 + 2 + 2 works.",
+        "check": {
+          "question": "With coins 1, 3 and 4, what is the fewest number of coins that make 6?",
+          "options": [
+            "3",
+            "2",
+            "1"
+          ],
+          "answer": 1,
+          "why": "3 + 3 = 6 uses two coins; greedy's 4 + 1 + 1 uses three."
+        }
+      },
+      {
+        "title": "Coin change with a DP table",
+        "say": [
+          "Practice 1: coin_change(coins, amount) returns the fewest coins that make the amount, using each coin as often as you like, or -1 if it cannot be done.",
+          "Follow the recipe. best[x] means the fewest coins that make x. The base case is best[0] = 0, since zero needs no coins. Everything else starts at infinity, meaning \"not possible yet\".",
+          "The recurrence comes from the last coin used: if the last coin was c, the rest makes x - c. So best[x] = min over coins c of best[x - c] + 1.",
+          "Fill x from 1 up to the amount, so best[x - c] is always ready. The answer is best[amount], or -1 if it is still infinity.",
+          "Time is O(amount x number of coins), and memory is O(amount)."
+        ],
+        "example": "A shopkeeper who writes down, for every amount from 1 rupee upwards, the fewest coins needed. For a new amount, they just look at their notes for the amounts one coin smaller.",
+        "code": "def coin_change(coins, amount):\n    best = [0] + [float(\"inf\")] * amount\n    for x in range(1, amount + 1):\n        for c in coins:\n            if c <= x and best[x - c] + 1 < best[x]:\n                best[x] = best[x - c] + 1\n    return best[amount] if best[amount] != float(\"inf\") else -1\n\nprint(coin_change([1, 3, 4], 6))\nprint(coin_change([1, 2, 5], 11))\nprint(coin_change([2], 3))",
+        "output": "2\n3\n-1",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "best[0] = 0; every other amount starts as impossible."
+          },
+          {
+            "line": 5,
+            "note": "Using coin c last: the rest is best[x - c]."
+          },
+          {
+            "line": 7,
+            "note": "Still infinity means it cannot be made."
+          }
+        ],
+        "tryIt": "Print the whole best list for coins [1, 3, 4] and amount 6. Check that best[6] is 2 and best[5] is 2 (4 + 1).",
+        "check": {
+          "question": "In coin change, what does best[x - c] + 1 represent?",
+          "options": [
+            "Using coin c twice",
+            "Using coin c last, plus the fewest coins for the rest",
+            "The number of coin types"
+          ],
+          "answer": 1,
+          "why": "If the last coin is c, the remaining x - c needs best[x - c] coins, plus one for c."
+        }
+      },
+      {
+        "title": "Counting the ways instead",
+        "say": [
+          "A close cousin asks how many different combinations of coins make the amount, rather than the fewest coins.",
+          "The table now stores counts: ways[0] = 1 (one way to make zero: use nothing), and each coin adds ways[x - c] to ways[x].",
+          "The loop order matters. Putting coins in the outer loop counts combinations (1 + 2 and 2 + 1 are the same). Putting amounts in the outer loop would count orders as different.",
+          "Small changes in the question (\"fewest\", \"how many ways\", \"is it possible\") change min, sum or or in the recurrence, but the table idea stays the same.",
+          "Reading the question slowly and deciding what dp[x] stores is half of every DP solution."
+        ],
+        "example": "Counting how many ways you can pay 10 rupees exactly using 2 and 5 rupee coins: five 2s, or two 5s. That is 2 ways, and the order you hand them over does not matter.",
+        "code": "def count_ways(coins, amount):\n    ways = [1] + [0] * amount\n    for c in coins:\n        for x in range(c, amount + 1):\n            ways[x] += ways[x - c]\n    return ways[amount]\n\nprint(count_ways([2, 5], 10))\nprint(count_ways([1, 2, 5], 5))\nprint(count_ways([2], 3))",
+        "output": "2\n4\n0",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "One way to make zero: use no coins."
+          },
+          {
+            "line": 3,
+            "note": "Coins outside: each combination is counted once."
+          }
+        ],
+        "tryIt": "List the 4 ways to make 5 from coins 1, 2 and 5 on paper, then compare with the output.",
+        "check": {
+          "question": "Coin change asks for the fewest coins. What changes when you want the number of ways?",
+          "options": [
+            "Nothing",
+            "The table stores counts and adds them instead of taking a minimum",
+            "You must use recursion"
+          ],
+          "answer": 1,
+          "why": "Same table idea, different question: add up the ways instead of taking the minimum."
+        }
+      },
+      {
+        "title": "The 0/1 knapsack problem",
+        "say": [
+          "Practice 2: each item has a weight and a value, and your bag holds a limited weight. Each item can be taken at most once. What is the largest total value you can carry?",
+          "For each item there are two choices: skip it, or take it (if it fits). That is the \"choose or skip\" pattern from house robber, now with a weight limit.",
+          "best[c] means the biggest value that fits in capacity c using the items seen so far. Taking item (w, v) gives best[c - w] + v.",
+          "The trick: loop the capacity from high to low. Then best[c - w] still holds the value from before this item was considered, so the item cannot be used twice.",
+          "Time is O(number of items x capacity). This \"pseudo-polynomial\" cost is fine when the capacity is a modest number."
+        ],
+        "example": "A trekker choosing gear for a 5 kg bag limit: a stove, a tent, a camera, a book. Each has a weight and a usefulness score, and they must pick the best set that stays under 5 kg.",
+        "code": "def knapsack(weights, values, capacity):\n    best = [0] * (capacity + 1)\n    for w, v in zip(weights, values):\n        for c in range(capacity, w - 1, -1):\n            best[c] = max(best[c], best[c - w] + v)\n    return best[capacity]\n\nprint(knapsack([2, 3, 4, 5], [3, 4, 5, 6], 5))\nprint(knapsack([1, 1, 1], [10, 20, 30], 2))\nprint(knapsack([5], [10], 4))",
+        "output": "7\n50\n0",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "High to low, so each item is used at most once."
+          },
+          {
+            "line": 5,
+            "note": "Skip the item, or take it and add its value."
+          }
+        ],
+        "tryIt": "Change the capacity in the first example to 9. The answer becomes 12, from the items weighing 2, 3 and 4.",
+        "check": {
+          "question": "Why does the knapsack loop go through capacities from high to low?",
+          "options": [
+            "It is faster",
+            "So each item is only counted once",
+            "So the answer is sorted"
+          ],
+          "answer": 1,
+          "why": "Going downwards means best[c - w] has not yet been updated for this item, so the item cannot be added twice."
+        }
+      },
+      {
+        "title": "Which items were taken?",
+        "say": [
+          "A useful answer names the chosen items, not just the value. For that, keep the full two-dimensional table: dp[i][c] is the best value using the first i items with capacity c.",
+          "After filling it, walk backwards from dp[n][capacity]. If dp[i][c] differs from dp[i - 1][c], item i was taken, so record it and reduce c by its weight.",
+          "This costs more memory, O(n x capacity), but it lets you explain the answer, which matters in real products like budget planners.",
+          "The same backtracking walk works for most DP tables: the answer tells you the value, and the table remembers how you got there.",
+          "You will use the same idea tomorrow to rebuild the common letters of two strings."
+        ],
+        "example": "A shopping bill that not only says the total came to 950 rupees, but lists which items made up that total.",
+        "code": "def knapsack_items(names, weights, values, capacity):\n    n = len(names)\n    dp = [[0] * (capacity + 1) for _ in range(n + 1)]\n    for i in range(1, n + 1):\n        w, v = weights[i - 1], values[i - 1]\n        for c in range(capacity + 1):\n            dp[i][c] = dp[i - 1][c]\n            if w <= c:\n                dp[i][c] = max(dp[i][c], dp[i - 1][c - w] + v)\n    taken, c = [], capacity\n    for i in range(n, 0, -1):\n        if dp[i][c] != dp[i - 1][c]:\n            taken.append(names[i - 1])\n            c -= weights[i - 1]\n    return dp[n][capacity], taken[::-1]\n\nprint(knapsack_items([\"stove\", \"tent\", \"camera\", \"book\"], [2, 3, 4, 1], [3, 4, 5, 1], 5))",
+        "output": "(7, ['stove', 'tent'])",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Skip item i: same as without it."
+          },
+          {
+            "line": 12,
+            "note": "The value changed, so item i was taken."
+          },
+          {
+            "line": 14,
+            "note": "Take away its weight and keep walking back."
+          }
+        ],
+        "tryIt": "Change the book's value to 4 and run it. Now the best choice changes to the camera and the book.",
+        "check": {
+          "question": "When walking back through the table, how do you know item i was taken?",
+          "options": [
+            "dp[i][c] is 0",
+            "dp[i][c] is different from dp[i - 1][c]",
+            "The item is the heaviest"
+          ],
+          "answer": 1,
+          "why": "If adding item i changed the best value, the best answer must use item i."
+        }
+      },
+      {
+        "title": "Milestone 4: an optimisation engine",
+        "say": [
+          "Your Milestone 4 combines both tools into one small engine: make change with the fewest coins and pack the most valuable load under a limit.",
+          "Put them behind clear function names, validate the inputs (no negative amounts or weights), and return helpful results such as -1 or an empty list when nothing works.",
+          "These two problems are the parents of many real systems: cutting stock in factories, choosing ads for a page, budgeting a project, and loading delivery trucks.",
+          "In interviews, if you hear \"choose items with a limit to maximise or minimise something\", think knapsack. If you hear \"make an amount from pieces\", think coin change.",
+          "Test with the greedy counter-examples from part 1. If your engine passes those, it is truly doing DP."
+        ],
+        "example": "A small business planner that tells a caterer both the fewest serving trays to reach 37 portions and which dishes to bring within a budget for the biggest crowd satisfaction.",
+        "code": "def coin_change(coins, amount):\n    if amount < 0:\n        raise ValueError(\"amount must not be negative\")\n    best = [0] + [float(\"inf\")] * amount\n    for x in range(1, amount + 1):\n        best[x] = min([best[x - c] + 1 for c in coins if c <= x], default=float(\"inf\"))\n    return best[amount] if best[amount] != float(\"inf\") else -1\n\ndef knapsack(weights, values, capacity):\n    best = [0] * (capacity + 1)\n    for w, v in zip(weights, values):\n        for c in range(capacity, w - 1, -1):\n            best[c] = max(best[c], best[c - w] + v)\n    return best[capacity]\n\nprint(\"trays of 4, 6, 10 for 37 portions:\", coin_change([4, 6, 10], 37))\nprint(\"trays of 4, 6, 10 for 38 portions:\", coin_change([4, 6, 10], 38))\nprint(\"best value in a 10 kg budget:\", knapsack([5, 4, 6, 3], [10, 40, 30, 50], 10))",
+        "output": "trays of 4, 6, 10 for 37 portions: -1\ntrays of 4, 6, 10 for 38 portions: 5\nbest value in a 10 kg budget: 90",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "The same recurrence in one line, with default for \"no coin fits\"."
+          },
+          {
+            "line": 16,
+            "note": "37 is odd and every tray is even, so it is impossible."
+          }
+        ],
+        "tryIt": "Try coin_change([1, 3, 4], 6) with this engine to confirm it beats the greedy answer from part 1.",
+        "check": {
+          "question": "A question says: \"choose projects within a 100-hour budget to maximise profit\". Which pattern fits?",
+          "options": [
+            "Coin change",
+            "0/1 knapsack",
+            "Binary search"
+          ],
+          "answer": 1,
+          "why": "Each project is taken once or not at all, under a limit, to maximise a value: the 0/1 knapsack."
+        }
+      }
+    ],
+    "summary": [
+      "Greedy choices can fail; one small counter-example proves it.",
+      "Coin change: best[x] = min over coins of best[x - c] + 1.",
+      "Counting ways adds counts instead of taking the minimum.",
+      "0/1 knapsack: loop capacity downwards so each item is used once.",
+      "Keep the 2D table and walk back to find which items were chosen."
+    ],
+    "projectStep": {
+      "title": "Milestone 4: optimisation engine",
+      "steps": [
+        "Add coin_change(coins, amount) and knapsack(weights, values, capacity) to dsa_toolkit.py.",
+        "Add knapsack_items to report which items were chosen.",
+        "Bonus: plan a weekend with 5 activities (hours and fun score) and a 10-hour limit."
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "title": "2D Dynamic Programming: Longest Common Subsequence & Edit Distance",
+    "goal": "You can fill a two-dimensional DP table to find the longest common subsequence and the edit distance between two strings.",
+    "minutes": 30,
+    "recap": "Yesterday's DP tables had one index (an amount or a capacity). Comparing two strings needs two indexes, one for each string.",
+    "parts": [
+      {
+        "title": "Comparing two strings",
+        "say": [
+          "Many tools compare two pieces of text: git diff shows changed lines, spell checkers suggest the closest word, and DNA tools line up two gene sequences.",
+          "A subsequence keeps letters in their order but may skip some. \"ace\" is a subsequence of \"abcde\"; \"aec\" is not, because the order changed.",
+          "The longest common subsequence (LCS) of two strings is the longest subsequence found in both. For \"abcde\" and \"ace\" it is \"ace\", length 3.",
+          "Trying every subsequence is exponential: a string of 20 letters has over a million subsequences. DP brings it down to O(M x N).",
+          "The key new idea: dp[i][j] describes the first i letters of one string and the first j letters of the other."
+        ],
+        "example": "Two friends comparing their to-do lists for the day: the longest list of tasks that both have, in the same order, even if other tasks sit in between.",
+        "code": "def is_subsequence(small, big):\n    it = iter(big)\n    return all(ch in it for ch in small)\n\nprint(is_subsequence(\"ace\", \"abcde\"))\nprint(is_subsequence(\"aec\", \"abcde\"))\nprint(is_subsequence(\"\", \"abc\"))",
+        "output": "True\nFalse\nTrue",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "\"ch in it\" moves forward through big, so the order is enforced."
+          }
+        ],
+        "tryIt": "Check whether \"gta\" is a subsequence of \"genetics data\". Then try \"atg\".",
+        "check": {
+          "question": "Is \"ace\" a subsequence of \"abcde\"?",
+          "options": [
+            "No, the letters are not next to each other",
+            "Yes, the letters appear in the same order",
+            "Only if the strings are the same length"
+          ],
+          "answer": 1,
+          "why": "A subsequence may skip letters; it just has to keep their order."
+        }
+      },
+      {
+        "title": "The LCS recurrence",
+        "say": [
+          "Compare the last letters of the two prefixes, text1[i - 1] and text2[j - 1].",
+          "If they match, that letter can end the common subsequence: dp[i][j] = dp[i - 1][j - 1] + 1, one more than the answer without both letters.",
+          "If they do not match, at least one of them is not used. Drop one or the other and keep the better: dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]).",
+          "The base case is an empty prefix: dp[0][j] = dp[i][0] = 0, since nothing is common with an empty string. That is why the table has one extra row and column.",
+          "Fill the table row by row; every cell needs only the cell above, the cell to the left and the diagonal, all filled already."
+        ],
+        "example": "Two people reading their lists from the end. If the last tasks match, count it and step both back. If not, one of them steps back, and they keep whichever way finds more matches.",
+        "code": "def lcs_table(a, b):\n    dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]\n    for i in range(1, len(a) + 1):\n        for j in range(1, len(b) + 1):\n            if a[i - 1] == b[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1] + 1\n            else:\n                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])\n    return dp\n\ndp = lcs_table(\"abcde\", \"ace\")\nprint(\"    -  a  c  e\")\nfor letter, row in zip(\"-abcde\", dp):\n    print(letter, \" \".join(f\"{v:2}\" for v in row))\nprint(\"LCS length:\", dp[-1][-1])",
+        "output": "    -  a  c  e\n-  0  0  0  0\na  0  1  1  1\nb  0  1  1  1\nc  0  1  2  2\nd  0  1  2  2\ne  0  1  2  3\nLCS length: 3",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Letters match: diagonal plus one."
+          },
+          {
+            "line": 8,
+            "note": "No match: best of dropping a letter from either string."
+          },
+          {
+            "line": 15,
+            "note": "The answer is in the bottom-right cell."
+          }
+        ],
+        "tryIt": "Print the table for \"abc\" and \"def\". Every cell stays 0, because there is nothing in common.",
+        "check": {
+          "question": "When the current letters match, what is dp[i][j]?",
+          "options": [
+            "max(dp[i - 1][j], dp[i][j - 1])",
+            "dp[i - 1][j - 1] + 1",
+            "0"
+          ],
+          "answer": 1,
+          "why": "A matching letter extends the best common subsequence of the two shorter prefixes by one."
+        }
+      },
+      {
+        "title": "Rebuilding the common letters",
+        "say": [
+          "Practice 1 asks only for the length, but seeing the actual letters helps you trust the table.",
+          "Start at the bottom-right cell. If the letters match, that letter is part of the answer, so step diagonally up-left. Otherwise step towards the neighbour (up or left) with the bigger value.",
+          "You collect the letters backwards, so reverse them at the end. This is the same walk-back idea as knapsack_items yesterday.",
+          "When there are ties, several different LCS strings may exist with the same length. Any one of them is a correct answer.",
+          "Diff tools use this walk to decide which lines stayed the same and which were added or removed."
+        ],
+        "example": "Retracing footprints in the snow: from the end point, each footprint tells you which step came before, until you are back at the start.",
+        "code": "def lcs_string(a, b):\n    dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]\n    for i in range(1, len(a) + 1):\n        for j in range(1, len(b) + 1):\n            if a[i - 1] == b[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1] + 1\n            else:\n                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])\n    i, j, letters = len(a), len(b), []\n    while i > 0 and j > 0:\n        if a[i - 1] == b[j - 1]:\n            letters.append(a[i - 1])\n            i, j = i - 1, j - 1\n        elif dp[i - 1][j] >= dp[i][j - 1]:\n            i -= 1\n        else:\n            j -= 1\n    return \"\".join(reversed(letters))\n\nprint(lcs_string(\"abcde\", \"ace\"))\nprint(lcs_string(\"bangalore\", \"mangalore\"))\nprint(repr(lcs_string(\"abc\", \"xyz\")))",
+        "output": "ace\nangalore\n''",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "A match is part of the answer."
+          },
+          {
+            "line": 14,
+            "note": "Otherwise move towards the bigger neighbour."
+          },
+          {
+            "line": 18,
+            "note": "Letters were collected backwards."
+          }
+        ],
+        "tryIt": "Try lcs_string(\"programming\", \"gaming\"). Check the answer is a subsequence of both words.",
+        "check": {
+          "question": "Why are the letters reversed at the end?",
+          "options": [
+            "To sort them",
+            "The walk goes from the end of the strings to the start",
+            "Python strings are stored backwards"
+          ],
+          "answer": 1,
+          "why": "The walk starts at the last letters, so the letters come out in reverse order."
+        }
+      },
+      {
+        "title": "Edit distance",
+        "say": [
+          "Practice 2: edit distance is the fewest single-letter inserts, deletes or replacements that turn one word into another. It powers \"did you mean...?\" in search and spell checkers.",
+          "dp[i][j] is the edit distance between the first i letters of word1 and the first j letters of word2. The base cases: dp[i][0] = i (delete everything) and dp[0][j] = j (insert everything).",
+          "If the current letters match, no edit is needed: dp[i][j] = dp[i - 1][j - 1].",
+          "Otherwise try all three edits and take the cheapest, plus one: delete (dp[i - 1][j]), insert (dp[i][j - 1]) or replace (dp[i - 1][j - 1]).",
+          "Like LCS, it is O(M x N) time. \"horse\" to \"ros\" takes 3 edits: replace h with r, delete r, delete e."
+        ],
+        "example": "Correcting a typo on your phone: the keyboard suggests the dictionary word that needs the fewest letter changes from what you typed.",
+        "code": "def min_distance(word1, word2):\n    m, n = len(word1), len(word2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(m + 1):\n        dp[i][0] = i\n    for j in range(n + 1):\n        dp[0][j] = j\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if word1[i - 1] == word2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1]\n            else:\n                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])\n    return dp[m][n]\n\nprint(min_distance(\"horse\", \"ros\"))\nprint(min_distance(\"kitten\", \"sitting\"))\nprint(min_distance(\"\", \"abc\"), min_distance(\"same\", \"same\"))",
+        "output": "3\n3\n3 0",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Turning i letters into nothing takes i deletes."
+          },
+          {
+            "line": 11,
+            "note": "Same letter: no edit needed."
+          },
+          {
+            "line": 13,
+            "note": "Delete, insert or replace: take the cheapest."
+          }
+        ],
+        "tryIt": "Work out min_distance(\"cat\", \"cut\") in your head first (1 replace), then run it to check.",
+        "check": {
+          "question": "What is dp[i][0] in the edit distance table?",
+          "options": [
+            "0",
+            "i, because turning i letters into an empty word takes i deletes",
+            "j"
+          ],
+          "answer": 1,
+          "why": "An empty target means every one of the i letters must be deleted."
+        }
+      },
+      {
+        "title": "A tiny spell checker",
+        "say": [
+          "Put edit distance to work: given a typed word and a dictionary, suggest the dictionary words closest to it.",
+          "Compute the distance to every word and keep those within a small limit, often 2. Sort by distance, then alphabetically for ties.",
+          "This checks every word, which is fine for a few thousand words. Large systems first narrow the candidates using tries or indexes of letter groups, then run edit distance on the few that remain.",
+          "Notice how the DP function becomes a building block. You do not rewrite it; you call it inside a bigger feature, just like the auto-complete engine used the trie.",
+          "That habit, small tested functions composed into features, is what makes large programs manageable."
+        ],
+        "example": "A teacher marking spelling tests who, for each wrong word, writes the closest correct word in the margin.",
+        "code": "def min_distance(a, b):\n    prev = list(range(len(b) + 1))\n    for i in range(1, len(a) + 1):\n        cur = [i] + [0] * len(b)\n        for j in range(1, len(b) + 1):\n            if a[i - 1] == b[j - 1]:\n                cur[j] = prev[j - 1]\n            else:\n                cur[j] = 1 + min(prev[j], cur[j - 1], prev[j - 1])\n        prev = cur\n    return prev[-1]\n\ndef suggest(word, dictionary, limit=2):\n    scored = sorted((min_distance(word, w), w) for w in dictionary)\n    return [w for d, w in scored if d <= limit]\n\nwords = [\"python\", \"pyramid\", \"typhoon\", \"java\", \"pythons\", \"person\"]\nprint(suggest(\"pyhton\", words))\nprint(suggest(\"jav\", words))",
+        "output": "['python']\n['java']",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Only the previous row is needed, saving memory."
+          },
+          {
+            "line": 14,
+            "note": "Closest first, alphabetical on ties."
+          }
+        ],
+        "tryIt": "Add \"pylon\" to the dictionary and suggest(\"pyhon\", words). Which words come back, and at what distance?",
+        "check": {
+          "question": "Why does min_distance here keep only two rows?",
+          "options": [
+            "It gives a different answer",
+            "Each row only needs the row above it, so memory drops to O(N)",
+            "Python limits list sizes"
+          ],
+          "answer": 1,
+          "why": "Every cell uses the current and previous rows only, so older rows can be thrown away."
+        }
+      },
+      {
+        "title": "Spotting 2D DP problems",
+        "say": [
+          "Two inputs to compare (two strings, two lists) usually means a table with one index for each: dp[i][j].",
+          "Grid questions, like counting paths in a grid from the top-left to the bottom-right, are 2D DP too: each cell's answer comes from the cell above and the cell to the left.",
+          "Ask the recipe questions again: what does dp[i][j] mean, how does it come from neighbours, what are the first row and column, and where is the answer?",
+          "Draw the table for a tiny example before coding. Most bugs in 2D DP are off-by-one mistakes between table indexes and string indexes, which a drawing catches.",
+          "Tomorrow switches to backtracking, for problems where you must list or count every valid arrangement."
+        ],
+        "example": "A city laid out in square blocks: the number of ways to walk from home to school moving only right or down is the ways to the block above plus the ways to the block on the left.",
+        "code": "def grid_paths(rows, cols):\n    dp = [[1] * cols for _ in range(rows)]\n    for r in range(1, rows):\n        for c in range(1, cols):\n            dp[r][c] = dp[r - 1][c] + dp[r][c - 1]\n    return dp[-1][-1]\n\nprint(grid_paths(2, 2), grid_paths(3, 3), grid_paths(3, 7))",
+        "output": "2 6 28",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "First row and column: only one way to reach them."
+          },
+          {
+            "line": 5,
+            "note": "From above plus from the left."
+          }
+        ],
+        "tryIt": "Calculate grid_paths(10, 10). It is 48620: far too many to list by hand, but instant with DP.",
+        "check": {
+          "question": "In a grid where you can only move right or down, where does the number of paths to a cell come from?",
+          "options": [
+            "Only the cell above",
+            "The cell above plus the cell to the left",
+            "The diagonal cell"
+          ],
+          "answer": 1,
+          "why": "The last move into the cell was either down (from above) or right (from the left)."
+        }
+      }
+    ],
+    "summary": [
+      "Two strings need a 2D table: dp[i][j] for the first i and first j letters.",
+      "LCS: match gives diagonal + 1; otherwise take the best of up and left.",
+      "Edit distance: match copies the diagonal; otherwise 1 + the cheapest of three edits.",
+      "Walk back through the table to rebuild the actual answer.",
+      "Two rows are enough when each row only needs the one above."
+    ],
+    "projectStep": {
+      "title": "String DP tools",
+      "steps": [
+        "Add longest_common_subsequence and min_distance to dsa_toolkit.py.",
+        "Add suggest(word, dictionary) and test it with 10 words you often mistype.",
+        "Bonus: add lcs_string and use it to show what two sentences have in common."
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "title": "Backtracking: N-Queens & Constraint Satisfaction",
+    "goal": "You can solve search problems with backtracking: choose, explore, un-choose, and prune early, as in N-Queens and Sudoku validation.",
+    "minutes": 30,
+    "recap": "DP helped when subproblems overlap. Some problems instead ask for every valid arrangement. Backtracking explores those arrangements, abandoning bad paths early.",
+    "parts": [
+      {
+        "title": "Choose, explore, un-choose",
+        "say": [
+          "Backtracking builds a solution one choice at a time. After each choice it explores further. If that path fails, or once it is finished, it undoes the choice and tries the next one.",
+          "The pattern is always the same: choose (add to the current solution), explore (recurse), un-choose (remove it again).",
+          "It is a depth-first search over a tree of partial solutions. Each level is one decision, and each leaf is a complete candidate.",
+          "Generating all permutations of a list is the simplest example: pick an unused item for each position.",
+          "The un-choose step is what people forget. Without it, choices from one branch leak into the next, and the results are wrong."
+        ],
+        "example": "Finding your way through a maze by hand: at each junction pick a path, and if it dead-ends, walk back to the junction and try the next path.",
+        "code": "def permutations(items):\n    result, current, used = [], [], [False] * len(items)\n    def explore():\n        if len(current) == len(items):\n            result.append(current[:])\n            return\n        for i, item in enumerate(items):\n            if not used[i]:\n                used[i] = True\n                current.append(item)\n                explore()\n                current.pop()\n                used[i] = False\n    explore()\n    return result\n\nfor p in permutations([\"tea\", \"coffee\", \"juice\"]):\n    print(p)",
+        "output": "['tea', 'coffee', 'juice']\n['tea', 'juice', 'coffee']\n['coffee', 'tea', 'juice']\n['coffee', 'juice', 'tea']\n['juice', 'tea', 'coffee']\n['juice', 'coffee', 'tea']",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "A complete arrangement: save a copy."
+          },
+          {
+            "line": 10,
+            "note": "Choose."
+          },
+          {
+            "line": 11,
+            "note": "Explore."
+          },
+          {
+            "line": 12,
+            "note": "Un-choose, so the next branch starts clean."
+          }
+        ],
+        "tryIt": "Remove the current.pop() line and run it. The output breaks, showing why un-choosing matters.",
+        "check": {
+          "question": "What are the three steps of backtracking?",
+          "options": [
+            "Sort, search, return",
+            "Choose, explore, un-choose",
+            "Divide, conquer, combine"
+          ],
+          "answer": 1,
+          "why": "Make a choice, explore what follows from it, then undo it before trying the next choice."
+        }
+      },
+      {
+        "title": "Pruning: stop early",
+        "say": [
+          "A plain search tries every arrangement, which grows factorially: 10 items have 3,628,800 orders.",
+          "Pruning means checking constraints as you go and abandoning a path as soon as it cannot lead to a valid answer. Whole subtrees are skipped.",
+          "Subset sum shows this well: choose numbers that add up to a target. If the numbers are sorted and the running total already exceeds the target, every bigger number will too, so stop.",
+          "Good pruning can turn an impossible search into an instant one. The earlier a bad choice is detected, the more work is saved.",
+          "In the code, the counter shows how many calls happen with and without pruning."
+        ],
+        "example": "A chef testing recipes who stops tasting a sauce the moment it is too salty, instead of finishing the whole dish to find out.",
+        "code": "calls = 0\ndef subsets_with_sum(nums, target, prune):\n    global calls\n    nums, found, current = sorted(nums), [], []\n    def explore(start, total):\n        global calls\n        calls += 1\n        if total == target:\n            found.append(current[:])\n        for i in range(start, len(nums)):\n            if prune and total + nums[i] > target:\n                break\n            current.append(nums[i])\n            explore(i + 1, total + nums[i])\n            current.pop()\n    explore(0, 0)\n    return found\n\nnums = [3, 34, 4, 12, 5, 2, 8, 21, 13, 7]\nfor prune in [False, True]:\n    calls = 0\n    answer = subsets_with_sum(nums, 9, prune)\n    print(\"prune\" if prune else \"no prune\", answer, \"calls:\", calls)",
+        "output": "no prune [[2, 3, 4], [2, 7], [4, 5]] calls: 1024\nprune [[2, 3, 4], [2, 7], [4, 5]] calls: 15",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Sorted numbers: once one is too big, all later ones are too."
+          },
+          {
+            "line": 13,
+            "note": "Choose, explore, un-choose."
+          }
+        ],
+        "tryIt": "Change the target to 20 and compare the call counts again.",
+        "check": {
+          "question": "What does pruning do in backtracking?",
+          "options": [
+            "Removes duplicate answers",
+            "Abandons a path as soon as it cannot lead to a valid answer",
+            "Sorts the answers"
+          ],
+          "answer": 1,
+          "why": "Stopping early skips the whole subtree of choices below a bad partial solution."
+        }
+      },
+      {
+        "title": "N-Queens",
+        "say": [
+          "Practice 1: place n queens on an n x n chessboard so that no two attack each other: no shared row, column or diagonal. Count the ways.",
+          "Place one queen per row. For each row, try every column, skipping any square that is attacked by the queens already placed.",
+          "Checking attacks quickly is the clever part. Squares on the same \"\\\" diagonal share row - col, and squares on the same \"/\" diagonal share row + col. Keep three sets: used columns, used row - col, used row + col.",
+          "Each check is O(1), and bad squares are skipped straight away, which prunes huge parts of the search. 8 queens has 92 solutions and is found in a blink.",
+          "When a row has no safe column, the function simply returns 0 for that branch, and the loop above tries the next column: that is the backtrack."
+        ],
+        "example": "Seating guests at a wedding where certain relatives must not sit in the same row, column or diagonal line of tables. You seat them one row at a time and move someone the moment a conflict appears.",
+        "code": "def total_n_queens(n):\n    cols, diag1, diag2 = set(), set(), set()\n    def place(row):\n        if row == n:\n            return 1\n        count = 0\n        for col in range(n):\n            if col in cols or row - col in diag1 or row + col in diag2:\n                continue\n            cols.add(col); diag1.add(row - col); diag2.add(row + col)\n            count += place(row + 1)\n            cols.remove(col); diag1.remove(row - col); diag2.remove(row + col)\n        return count\n    return place(0)\n\nfor n in [1, 4, 6, 8]:\n    print(n, \"queens:\", total_n_queens(n), \"solutions\")",
+        "output": "1 queens: 1 solutions\n4 queens: 2 solutions\n6 queens: 4 solutions\n8 queens: 92 solutions",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Attacked square: prune immediately."
+          },
+          {
+            "line": 10,
+            "note": "Choose: mark the column and both diagonals."
+          },
+          {
+            "line": 12,
+            "note": "Un-choose before trying the next column."
+          }
+        ],
+        "tryIt": "Try n = 2 and n = 3. Both have 0 solutions: no safe arrangement exists.",
+        "check": {
+          "question": "Two squares are on the same \"\\\" diagonal when...",
+          "options": [
+            "Their rows are equal",
+            "Their row - col values are equal",
+            "Their row + col values are equal"
+          ],
+          "answer": 1,
+          "why": "Moving one step down-right adds 1 to both row and col, so row - col stays the same."
+        }
+      },
+      {
+        "title": "Printing a board",
+        "say": [
+          "Counting is useful, but it helps to see one solution. Instead of counting, record the column chosen in each row and stop at the first complete board.",
+          "Returning True as soon as a solution is found stops the whole search early. This is a common variation: \"find one\" is usually much faster than \"find all\".",
+          "Printing Q for queens and dots for empty squares makes the answer easy to check by eye.",
+          "This small change, from counting to recording, is typical. The backtracking skeleton stays the same; only what happens at the leaf changes.",
+          "Try reading the board and checking by hand that no two queens share a column or diagonal."
+        ],
+        "example": "Solving a jigsaw and stopping as soon as it is complete, rather than looking for every other way the pieces could fit.",
+        "code": "def one_board(n):\n    queens = []\n    def place(row):\n        if row == n:\n            return True\n        for col in range(n):\n            if all(col != c and abs(col - c) != row - r for r, c in enumerate(queens)):\n                queens.append(col)\n                if place(row + 1):\n                    return True\n                queens.pop()\n        return False\n    place(0)\n    return [\"\".join(\"Q\" if c == col else \".\" for c in range(n)) for col in queens]\n\nfor line in one_board(6):\n    print(line)",
+        "output": ".Q....\n...Q..\n.....Q\nQ.....\n..Q...\n....Q.",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Same column, or same diagonal (column gap equals row gap)."
+          },
+          {
+            "line": 10,
+            "note": "Found a full board: stop searching."
+          }
+        ],
+        "tryIt": "Print one_board(8). It is a valid 8-queens board: check two of the diagonals by hand.",
+        "check": {
+          "question": "Why is \"find one solution\" usually faster than \"count all solutions\"?",
+          "options": [
+            "It uses less memory",
+            "The search stops as soon as the first solution is found",
+            "It skips pruning"
+          ],
+          "answer": 1,
+          "why": "Returning True up the call chain ends the search immediately."
+        }
+      },
+      {
+        "title": "Sudoku validation with sets",
+        "say": [
+          "Practice 2 is a constraint check rather than a search: is a partly filled Sudoku board valid, with no digit repeated in any row, column or 3 x 3 box?",
+          "Record each digit three ways in one set: (\"row\", r, d), (\"col\", c, d) and (\"box\", r // 3, c // 3, d). If any record is already in the set, the board breaks a rule.",
+          "r // 3 and c // 3 turn a cell's position into its box number, from (0, 0) to (2, 2).",
+          "This single pass over 81 cells is O(1) for a fixed board size. It is exactly the check a Sudoku solver runs before each choice, which is how solvers prune.",
+          "A full solver is backtracking plus this check: fill an empty cell with each digit that keeps the board valid, recurse, and undo on failure."
+        ],
+        "example": "A cinema checking seat bookings: no seat number twice in a row, a column, or a small section. One list of \"already booked\" records catches every clash.",
+        "code": "def is_valid_sudoku(board):\n    seen = set()\n    for r in range(9):\n        for c in range(9):\n            d = board[r][c]\n            if d == \".\":\n                continue\n            records = [(\"row\", r, d), (\"col\", c, d), (\"box\", r // 3, c // 3, d)]\n            if any(rec in seen for rec in records):\n                return False\n            seen.update(records)\n    return True\n\nboard = [[\".\"] * 9 for _ in range(9)]\nboard[0][0], board[0][4], board[4][4] = \"5\", \"3\", \"7\"\nprint(is_valid_sudoku(board))\nboard[2][2] = \"5\"\nprint(is_valid_sudoku(board))",
+        "output": "True\nFalse",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "One digit, three records: its row, column and box."
+          },
+          {
+            "line": 9,
+            "note": "A record already seen means a clash."
+          },
+          {
+            "line": 17,
+            "note": "Another 5 in the top-left box: invalid."
+          }
+        ],
+        "tryIt": "Instead of [2][2], put the second 5 at board[0][8] (same row). It should also print False.",
+        "check": {
+          "question": "Which box does the cell at row 4, column 7 belong to?",
+          "options": [
+            "(1, 2)",
+            "(4, 7)",
+            "(2, 1)"
+          ],
+          "answer": 0,
+          "why": "4 // 3 = 1 and 7 // 3 = 2, so it is box (1, 2)."
+        }
+      },
+      {
+        "title": "When to reach for backtracking",
+        "say": [
+          "Clues in a question: \"list all\", \"every combination\", \"count arrangements\", \"place pieces so that...\", or puzzles like Sudoku and crosswords.",
+          "Backtracking is exponential in the worst case, so it suits small inputs, typically up to around 20 choices, or problems where pruning is very strong.",
+          "If the same partial states repeat, add memoization and it becomes DP. If you only need the best value, DP or greedy may be far faster.",
+          "Write the skeleton first: a base case that records a solution, a loop over choices, a validity check, then choose, explore and un-choose. Fill in the problem-specific parts after.",
+          "Tomorrow is a change of pace: bit manipulation, small tricks that save memory and time."
+        ],
+        "example": "A locksmith trying combinations on a 3-digit lock: 1000 options is fine to try, but a 20-digit lock needs something smarter than trying them all.",
+        "code": "def combinations(items, k):\n    result, current = [], []\n    def explore(start):\n        if len(current) == k:\n            result.append(current[:])\n            return\n        for i in range(start, len(items)):\n            current.append(items[i])\n            explore(i + 1)\n            current.pop()\n    explore(0)\n    return result\n\nteams = combinations([\"Asha\", \"Bala\", \"Chitra\", \"Dev\"], 2)\nprint(len(teams), \"pairs:\", teams)",
+        "output": "6 pairs: [['Asha', 'Bala'], ['Asha', 'Chitra'], ['Asha', 'Dev'], ['Bala', 'Chitra'], ['Bala', 'Dev'], ['Chitra', 'Dev']]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Base case: a complete choice."
+          },
+          {
+            "line": 9,
+            "note": "Start after i, so each pair appears once in one order."
+          }
+        ],
+        "tryIt": "Make teams of 3 instead. There should be 4 of them.",
+        "check": {
+          "question": "Which clue suggests backtracking?",
+          "options": [
+            "\"Find the shortest route\"",
+            "\"List all valid arrangements\"",
+            "\"Find the maximum in a list\""
+          ],
+          "answer": 1,
+          "why": "Listing or counting every valid arrangement is the classic backtracking job."
+        }
+      }
+    ],
+    "summary": [
+      "Backtracking: choose, explore, un-choose, over a tree of partial solutions.",
+      "Pruning abandons paths early, skipping whole subtrees.",
+      "N-Queens tracks columns and both diagonals (row - col, row + col) in sets.",
+      "Returning as soon as one solution is found stops the search early.",
+      "Sudoku validation records (row, col, box) facts in one set."
+    ],
+    "projectStep": {
+      "title": "Backtracking tools",
+      "steps": [
+        "Add total_n_queens(n) and is_valid_sudoku(board) to dsa_toolkit.py.",
+        "Add combinations(items, k) and list every pair of 5 friends for a doubles game.",
+        "Bonus: turn is_valid_sudoku into a full solver using backtracking."
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "title": "Bit Manipulation & XOR Tricks (O(1) Space Magic)",
+    "goal": "You can read numbers in binary and use &, |, ^, << and >> to solve problems with O(1) extra memory, including single number and counting 1 bits.",
+    "minutes": 30,
+    "recap": "Yesterday you searched arrangements with backtracking. Today's tools work on the individual bits inside a number.",
+    "parts": [
+      {
+        "title": "Numbers in binary",
+        "say": [
+          "Computers store whole numbers in binary: each digit is a bit, 0 or 1, and each position is worth double the one to its right: 1, 2, 4, 8, 16 and so on.",
+          "11 is 1011 in binary: 8 + 0 + 2 + 1. In Python, bin(11) gives \"0b1011\", and format(11, \"04b\") gives \"1011\" padded to 4 digits.",
+          "Bit manipulation works on these bits directly. It is very fast, because the processor does it in one step, and it can pack many true/false values into one number.",
+          "You will find it in permissions (read, write, execute), network addresses, graphics, compression, and in many interview questions.",
+          "Before any trick, get comfortable converting small numbers between decimal and binary."
+        ],
+        "example": "A row of light switches: each switch is on or off, and the whole row together can be read as one number.",
+        "code": "for n in [1, 2, 5, 11, 16, 255]:\n    print(n, \"=\", format(n, \"08b\"))\nprint(int(\"1011\", 2))\nprint(bin(13).count(\"1\"), \"one bits in 13\")",
+        "output": "1 = 00000001\n2 = 00000010\n5 = 00000101\n11 = 00001011\n16 = 00010000\n255 = 11111111\n11\n3 one bits in 13",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Show each number as 8 binary digits."
+          },
+          {
+            "line": 3,
+            "note": "Convert binary text back to a number."
+          }
+        ],
+        "tryIt": "Write 6 and 9 in binary on paper, then print them to check.",
+        "check": {
+          "question": "What is 1011 in binary as a decimal number?",
+          "options": [
+            "13",
+            "11",
+            "7"
+          ],
+          "answer": 1,
+          "why": "8 + 0 + 2 + 1 = 11."
+        }
+      },
+      {
+        "title": "The bitwise operators",
+        "say": [
+          "a & b (AND) keeps a bit only if it is 1 in both. a | b (OR) keeps a bit if it is 1 in either. a ^ b (XOR) keeps a bit if it is 1 in exactly one.",
+          "a << k shifts the bits left by k places, which multiplies by 2 to the power k. a >> k shifts right, dividing by 2 to the power k and dropping the remainder.",
+          "Common single-bit jobs: n & (1 << i) tests bit i, n | (1 << i) sets it, and n & ~(1 << i) clears it.",
+          "n & 1 tells you whether n is odd, without using the % operator.",
+          "Read each result in binary in the code output; the patterns become obvious once you see them lined up."
+        ],
+        "example": "Two class attendance sheets written as rows of 1s and 0s. AND shows who came both days, OR shows who came on any day, and XOR shows who came on only one of the days.",
+        "code": "a, b = 0b1100, 0b1010\nprint(\"a     \", format(a, \"04b\"))\nprint(\"b     \", format(b, \"04b\"))\nprint(\"a & b \", format(a & b, \"04b\"))\nprint(\"a | b \", format(a | b, \"04b\"))\nprint(\"a ^ b \", format(a ^ b, \"04b\"))\nprint(\"5 << 1 =\", 5 << 1, \"| 20 >> 2 =\", 20 >> 2)\nn = 0b0101\nprint(\"bit 2 set?\", bool(n & (1 << 2)), \"| odd?\", bool(n & 1))",
+        "output": "a      1100\nb      1010\na & b  1000\na | b  1110\na ^ b  0110\n5 << 1 = 10 | 20 >> 2 = 5\nbit 2 set? True | odd? True",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "AND: 1 only where both are 1."
+          },
+          {
+            "line": 6,
+            "note": "XOR: 1 where exactly one is 1."
+          },
+          {
+            "line": 7,
+            "note": "Shifts multiply or divide by powers of 2."
+          }
+        ],
+        "tryIt": "Set bit 1 of n with n | (1 << 1) and print it in binary. It becomes 0111.",
+        "check": {
+          "question": "What is 6 ^ 3?",
+          "options": [
+            "7",
+            "5",
+            "2"
+          ],
+          "answer": 1,
+          "why": "110 XOR 011 = 101, which is 5."
+        }
+      },
+      {
+        "title": "XOR magic: single number",
+        "say": [
+          "Practice 1: every number in a list appears twice, except one. Find it using O(1) extra memory.",
+          "XOR has three useful rules: x ^ x = 0 (a number cancels itself), x ^ 0 = x, and the order of XORs does not matter.",
+          "So XOR all the numbers together. Every pair cancels to 0, and only the single number is left.",
+          "A set or Counter would work too, but uses O(N) memory. XOR solves it in one pass with a single variable.",
+          "The same rules find a missing number from 0 to n: XOR all indexes and all values, and everything cancels except the missing one."
+        ],
+        "example": "Socks on a washing line: take down every matching pair, and the one left hanging is the odd sock.",
+        "code": "def single_number(nums):\n    result = 0\n    for x in nums:\n        result ^= x\n    return result\n\ndef missing_number(nums):\n    result = len(nums)\n    for i, x in enumerate(nums):\n        result ^= i ^ x\n    return result\n\nprint(single_number([4, 1, 2, 1, 2]))\nprint(single_number([7, 3, 7]))\nprint(missing_number([3, 0, 1]))",
+        "output": "4\n3\n2",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Pairs cancel: x ^ x = 0."
+          },
+          {
+            "line": 10,
+            "note": "Indexes and values cancel except the missing one."
+          }
+        ],
+        "tryIt": "Print the value of result inside the loop for [4, 1, 2, 1, 2] in binary to watch the pairs cancel.",
+        "check": {
+          "question": "Why does XOR-ing all numbers find the single one?",
+          "options": [
+            "XOR sorts the list",
+            "Each pair cancels (x ^ x = 0), leaving only the single number",
+            "XOR finds the largest value"
+          ],
+          "answer": 1,
+          "why": "Order does not matter for XOR, so every pair cancels out and only the unpaired number remains."
+        }
+      },
+      {
+        "title": "Counting 1 bits",
+        "say": [
+          "Practice 2: count how many 1 bits a number has. This is called the Hamming weight, and it is used in error detection and in comparing fingerprints of images.",
+          "The simple way checks the lowest bit with n & 1, then shifts right, once for every bit.",
+          "The clever way uses n & (n - 1), which clears the lowest 1 bit. Subtracting 1 flips the lowest 1 to 0 and the 0s after it to 1, and AND wipes those out.",
+          "So repeat n &= n - 1 until n is 0, counting the steps. It loops once per 1 bit, not once per bit.",
+          "A related trick: n > 0 and n & (n - 1) == 0 is True exactly when n is a power of two, because powers of two have a single 1 bit."
+        ],
+        "example": "Crossing off the lowest ticked box on a form, one tick at a time, and counting how many times you did it.",
+        "code": "def hamming_weight(n):\n    count = 0\n    while n:\n        n &= n - 1\n        count += 1\n    return count\n\nn = 12\nprint(format(n, \"04b\"), \"&\", format(n - 1, \"04b\"), \"=\", format(n & (n - 1), \"04b\"))\nprint(hamming_weight(11), hamming_weight(255), hamming_weight(0))\nprint([x for x in range(1, 70) if x & (x - 1) == 0])",
+        "output": "1100 & 1011 = 1000\n3 8 0\n[1, 2, 4, 8, 16, 32, 64]",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Clear the lowest 1 bit."
+          },
+          {
+            "line": 9,
+            "note": "1100 & 1011 = 1000: the lowest 1 disappeared."
+          },
+          {
+            "line": 11,
+            "note": "Powers of two have exactly one 1 bit."
+          }
+        ],
+        "tryIt": "Count the 1 bits of 1023 before running. (1023 is 2 to the power 10 minus 1.)",
+        "check": {
+          "question": "What does n & (n - 1) do?",
+          "options": [
+            "Doubles n",
+            "Clears the lowest 1 bit of n",
+            "Sets all bits to 1"
+          ],
+          "answer": 1,
+          "why": "Subtracting 1 flips the lowest 1 and the zeros below it; AND-ing removes that lowest 1."
+        }
+      },
+      {
+        "title": "Bitmasks as tiny sets",
+        "say": [
+          "A number with n bits can represent any subset of n items: bit i is 1 if item i is in the set. This is a bitmask.",
+          "Adding item i is mask | (1 << i), checking it is mask & (1 << i), and joining two sets is a | b. All are single, fast operations.",
+          "Looping mask from 0 to 2 to the power n minus 1 visits every subset exactly once, a neat alternative to backtracking for small n.",
+          "Unix file permissions are bitmasks: read = 4, write = 2, execute = 1, so 7 means all three and 5 means read and execute.",
+          "Bitmask DP, where the mask is part of the DP state, solves problems like the travelling salesman for small numbers of cities."
+        ],
+        "example": "A pizza order form with a checkbox for each topping. The row of ticks is one number, and every combination of toppings is a different number.",
+        "code": "toppings = [\"cheese\", \"corn\", \"onion\", \"paneer\"]\ndef describe(mask):\n    return [t for i, t in enumerate(toppings) if mask & (1 << i)]\n\norder = 0\norder |= 1 << 0\norder |= 1 << 3\nprint(format(order, \"04b\"), describe(order))\nprint(\"all subsets:\", 2 ** len(toppings))\nfor mask in range(4):\n    print(format(mask, \"04b\"), describe(mask))\nREAD, WRITE, EXECUTE = 4, 2, 1\nperm = READ | EXECUTE\nprint(\"permission\", perm, \"can write?\", bool(perm & WRITE))",
+        "output": "1001 ['cheese', 'paneer']\nall subsets: 16\n0000 []\n0001 ['cheese']\n0010 ['corn']\n0011 ['cheese', 'corn']\npermission 5 can write? False",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Add cheese (bit 0)."
+          },
+          {
+            "line": 10,
+            "note": "Every mask is a different subset."
+          },
+          {
+            "line": 13,
+            "note": "Read and execute: 4 + 1 = 5."
+          }
+        ],
+        "tryIt": "Change the loop to range(16) to list every possible pizza.",
+        "check": {
+          "question": "With READ = 4, WRITE = 2 and EXECUTE = 1, what does permission 6 mean?",
+          "options": [
+            "Read and execute",
+            "Read and write",
+            "Write and execute"
+          ],
+          "answer": 1,
+          "why": "6 = 4 + 2, which is read and write."
+        }
+      },
+      {
+        "title": "Using bits wisely",
+        "say": [
+          "Bit tricks are fast and compact, but they are harder to read. In everyday application code, a clear set or boolean is usually better.",
+          "Use bits when memory really matters (millions of flags), when a format demands it (network protocols, file headers), or when an interview question asks for O(1) extra space.",
+          "Python integers never overflow, which makes some tricks behave differently from languages like Java or C. For example, ~5 is -6 in Python, not a large positive number.",
+          "Always add a short comment explaining a bit trick, so the next reader does not have to decode it.",
+          "Tomorrow is the capstone, where you combine graphs, heaps and DP into a flight-routing engine."
+        ],
+        "example": "Shorthand notes are quick to write but hard for someone else to read. Use them when speed truly matters, and add a legend so others can follow.",
+        "code": "def is_power_of_two(n):\n    # A power of two has exactly one 1 bit; n & (n - 1) clears it.\n    return n > 0 and n & (n - 1) == 0\n\nflags = 0\nfor day in [1, 3, 4, 10]:\n    flags |= 1 << day\nprint(\"attended day 3?\", bool(flags & (1 << 3)), \"| day 5?\", bool(flags & (1 << 5)))\nprint(\"days attended:\", bin(flags).count(\"1\"))\nprint([n for n in [0, 1, 6, 8, 64, 100] if is_power_of_two(n)])\nprint(~5)",
+        "output": "attended day 3? True | day 5? False\ndays attended: 4\n[1, 8, 64]\n-6",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "A short comment explains the trick."
+          },
+          {
+            "line": 7,
+            "note": "One number stores attendance for many days."
+          },
+          {
+            "line": 11,
+            "note": "Python's ~5 is -6."
+          }
+        ],
+        "tryIt": "Store your own attendance for the past two weeks in one number and print how many days you attended.",
+        "check": {
+          "question": "When is a bit trick a good choice over a plain set?",
+          "options": [
+            "Always",
+            "When memory or speed really matters, or a format requires it",
+            "Never"
+          ],
+          "answer": 1,
+          "why": "Bits save memory and time, but cost readability, so use them where those savings matter."
+        }
+      }
+    ],
+    "summary": [
+      "Each bit is a power of two; bin() and format(n, \"b\") show them.",
+      "&, |, ^ combine bits; << and >> multiply and divide by powers of two.",
+      "XOR cancels pairs: x ^ x = 0, which finds the single number.",
+      "n & (n - 1) clears the lowest 1 bit, used to count bits and test powers of two.",
+      "Bitmasks store small sets in one number."
+    ],
+    "projectStep": {
+      "title": "Bit tools",
+      "steps": [
+        "Add single_number(nums) and hamming_weight(n) to dsa_toolkit.py.",
+        "Add is_power_of_two(n) with a comment explaining the trick.",
+        "Bonus: use a bitmask loop to list every subset of 4 study topics."
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Real-Time Global Flight Path Routing & Navigation Optimizer",
+    "goal": "You can build a flight-routing engine that finds the cheapest route with at most k stops, audits the network, and explain the trade-offs of the algorithms you chose.",
+    "minutes": 30,
+    "recap": "In 30 days you learned complexity, arrays, hashing, recursion, sorting, trees, heaps, tries, graphs, DP, backtracking and bits. The capstone brings the most important of them together.",
+    "parts": [
+      {
+        "title": "The capstone problem",
+        "say": [
+          "You are building the route engine for a flight search site. Airports are numbered 0 to n - 1, and each flight is [from, to, price].",
+          "Travellers want the cheapest ticket from src to dst, but many refuse more than k stops. So the question is: the cheapest route that uses at most k + 1 flights.",
+          "Plain Dijkstra finds the cheapest route overall, but it ignores the number of stops, so it may return a cheap route with too many changes.",
+          "Practice 1 is find_cheapest_flight(n, flights, src, dst, k). Practice 2 is audit_flight_graph(flights), a summary of the network for the operations team.",
+          "Before coding, model the data: which structure fits flights, and what does each step of the algorithm need to know?"
+        ],
+        "example": "Booking a Delhi to Goa trip: a route with three changes might be cheapest, but most people would pay a little more for at most one stop.",
+        "code": "flights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]\nnames = {0: \"DEL\", 1: \"BOM\", 2: \"BLR\", 3: \"GOI\"}\nfor u, v, price in flights:\n    print(names[u], \"->\", names[v], \"Rs\", price)\nprint(\"DEL-BOM-GOI costs\", 100 + 600, \"with 1 stop\")\nprint(\"DEL-BOM-BLR-GOI costs\", 100 + 100 + 200, \"with 2 stops\")",
+        "output": "DEL -> BOM Rs 100\nBOM -> BLR Rs 100\nBLR -> DEL Rs 100\nBOM -> GOI Rs 600\nBLR -> GOI Rs 200\nDEL-BOM-GOI costs 700 with 1 stop\nDEL-BOM-BLR-GOI costs 400 with 2 stops",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Each flight: from, to, price."
+          },
+          {
+            "line": 6,
+            "note": "Cheaper, but needs two stops."
+          }
+        ],
+        "tryIt": "Add a direct flight [0, 3, 750]. With k = 0 stops, it is now the only allowed route.",
+        "check": {
+          "question": "Why is plain Dijkstra not enough for \"at most k stops\"?",
+          "options": [
+            "It is too slow",
+            "It finds the cheapest route but ignores how many stops it uses",
+            "It cannot handle prices"
+          ],
+          "answer": 1,
+          "why": "Dijkstra minimises cost alone; the cheapest route overall may have too many stops."
+        }
+      },
+      {
+        "title": "Bellman-Ford limited to k + 1 rounds",
+        "say": [
+          "Recall Bellman-Ford from Day 22: relax every edge, round after round. After round r, the costs are correct for routes using at most r flights.",
+          "That is exactly the stop limit we need. Run k + 1 rounds (k stops means k + 1 flights) and read cost[dst].",
+          "One important detail: in each round, read from the costs of the previous round, and write into a copy. Otherwise one round could chain several flights together and break the limit.",
+          "Each round is O(E), so the total is O(k x E). Airports that stay at infinity cannot be reached within the limit, so return -1.",
+          "This is the DP idea too: the state is (airport, flights used), and each round builds on the round before."
+        ],
+        "example": "Spreading news round by round: in each round, only people who already knew at the start of the round can pass it on. After k + 1 rounds, you know who can be reached in k + 1 hops.",
+        "code": "def find_cheapest_flight(n, flights, src, dst, k):\n    cost = [float(\"inf\")] * n\n    cost[src] = 0\n    for _ in range(k + 1):\n        new = cost[:]\n        for u, v, price in flights:\n            if cost[u] + price < new[v]:\n                new[v] = cost[u] + price\n        cost = new\n    return cost[dst] if cost[dst] != float(\"inf\") else -1\n\nflights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]\nprint(find_cheapest_flight(4, flights, 0, 3, 1))\nprint(find_cheapest_flight(4, flights, 0, 3, 2))\nprint(find_cheapest_flight(3, [[0, 1, 100], [1, 2, 200]], 0, 2, 0))",
+        "output": "700\n400\n-1",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "k stops means at most k + 1 flights: one round per flight."
+          },
+          {
+            "line": 5,
+            "note": "Write into a copy so one round adds only one flight."
+          },
+          {
+            "line": 7,
+            "note": "Read from last round's costs."
+          }
+        ],
+        "tryIt": "Change the code to update cost directly instead of new and run the k = 1 case. It wrongly returns 400.",
+        "check": {
+          "question": "Why does each round work on a copy of the costs?",
+          "options": [
+            "To save memory",
+            "So a single round cannot chain several flights and exceed the stop limit",
+            "To sort the prices"
+          ],
+          "answer": 1,
+          "why": "Reading only last round's costs guarantees each round extends routes by exactly one flight."
+        }
+      },
+      {
+        "title": "A heap-based alternative",
+        "say": [
+          "A second approach adapts Dijkstra: put (cost, airport, stops used) on a heap, always expanding the cheapest state first.",
+          "Only expand a state if its stops are within the limit. The first time dst is popped, its cost is the cheapest valid answer.",
+          "To avoid endless work, remember the fewest stops with which each airport has been reached; a state that is both more expensive and uses more stops can be skipped.",
+          "Which is better? Bellman-Ford is simpler and has a clear O(k x E) bound. The heap version is often faster when k is large and the answer is found early.",
+          "Comparing two correct approaches and choosing one with reasons is what senior engineers do every day."
+        ],
+        "example": "Two travel agents: one checks every route level by level, the other always follows up on the cheapest lead first. Both find the best ticket; they just search in a different order.",
+        "code": "import heapq\nfrom collections import defaultdict\n\ndef cheapest_with_heap(n, flights, src, dst, k):\n    graph = defaultdict(list)\n    for u, v, price in flights:\n        graph[u].append((v, price))\n    fewest_stops = {}\n    heap = [(0, src, 0)]\n    while heap:\n        cost, node, flights_used = heapq.heappop(heap)\n        if node == dst:\n            return cost\n        if flights_used > k or fewest_stops.get(node, float(\"inf\")) <= flights_used:\n            continue\n        fewest_stops[node] = flights_used\n        for nb, price in graph[node]:\n            heapq.heappush(heap, (cost + price, nb, flights_used + 1))\n    return -1\n\nflights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]\nprint([cheapest_with_heap(4, flights, 0, 3, k) for k in [0, 1, 2]])",
+        "output": "[-1, 700, 400]",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "The first time dst comes off the heap, it is the cheapest valid route."
+          },
+          {
+            "line": 14,
+            "note": "Too many flights, or already reached more cheaply with fewer stops."
+          }
+        ],
+        "tryIt": "Compare its answers with find_cheapest_flight for k = 0, 1 and 2. They should match.",
+        "check": {
+          "question": "In the heap version, what does each heap entry hold?",
+          "options": [
+            "Only the airport",
+            "(cost so far, airport, flights used)",
+            "The whole route"
+          ],
+          "answer": 1,
+          "why": "The heap orders states by cost, and flights used enforces the stop limit."
+        }
+      },
+      {
+        "title": "Auditing the network",
+        "say": [
+          "Practice 2: audit_flight_graph(flights) returns a summary with the number of routes, the number of different airports, and the cheapest price (or None when there are no flights).",
+          "A set collects airports from both ends of every flight, so each is counted once, which is the hashing idea from Week 1.",
+          "min(..., default=None) handles the empty network without a special if.",
+          "Audits like this are the first thing an operations team looks at: they catch empty data, missing airports, or suspicious prices before any routing runs.",
+          "Always handle the empty case. Real data feeds fail, and your code should give a clear answer rather than crash."
+        ],
+        "example": "An airport manager's morning report: how many flights today, how many destinations, and the lowest fare on the board.",
+        "code": "def audit_flight_graph(flights):\n    airports = {a for f in flights for a in f[:2]}\n    cheapest = min((f[2] for f in flights), default=None)\n    return {\"routes\": len(flights), \"airports\": len(airports), \"cheapest\": cheapest}\n\nprint(audit_flight_graph([[0, 1, 100], [1, 2, 80], [0, 2, 150]]))\nprint(audit_flight_graph([]))",
+        "output": "{'routes': 3, 'airports': 3, 'cheapest': 80}\n{'routes': 0, 'airports': 0, 'cheapest': None}",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Both ends of every flight, each airport counted once."
+          },
+          {
+            "line": 3,
+            "note": "default=None handles an empty network."
+          }
+        ],
+        "tryIt": "Add a \"busiest\" key: the airport that appears in the most flights. Hint: use collections.Counter.",
+        "check": {
+          "question": "Why is a set used to count airports?",
+          "options": [
+            "Sets are sorted",
+            "Each airport appears in many flights but should be counted once",
+            "Sets use less memory than numbers"
+          ],
+          "answer": 1,
+          "why": "A set keeps one copy of each airport, however many flights mention it."
+        }
+      },
+      {
+        "title": "Putting the engine together",
+        "say": [
+          "The final engine wraps both functions in a class, adds input validation, and returns the route itself, not just its price.",
+          "To return the route, keep the route that produced each cost alongside it. When a flight improves an airport's price, its new route is the route to the departure airport plus this airport. Copying routes per round keeps them within the stop limit.",
+          "Validate early: airport numbers must be in range, prices must not be negative, and k must be at least 0. Clear error messages save hours of debugging later.",
+          "This is what \"production-ready\" means at small scale: correct algorithm, clear interface, validated inputs, handled edge cases and tests.",
+          "Your dsa_toolkit.py now contains every tool from the course, ready to reuse and to show in interviews."
+        ],
+        "example": "A finished product at a shop counter: not just a working engine inside, but a label, instructions, safety checks and a receipt that shows what you bought.",
+        "code": "class FlightRouter:\n    def __init__(self, n, flights):\n        for u, v, price in flights:\n            if not (0 <= u < n and 0 <= v < n) or price < 0:\n                raise ValueError(\"bad flight: \" + str([u, v, price]))\n        self.n, self.flights = n, flights\n\n    def cheapest(self, src, dst, k):\n        cost = [float(\"inf\")] * self.n\n        route = [[] for _ in range(self.n)]\n        cost[src], route[src] = 0, [src]\n        for _ in range(k + 1):\n            new_cost, new_route = cost[:], route[:]\n            for u, v, price in self.flights:\n                if cost[u] + price < new_cost[v]:\n                    new_cost[v], new_route[v] = cost[u] + price, route[u] + [v]\n            cost, route = new_cost, new_route\n        if cost[dst] == float(\"inf\"):\n            return -1, []\n        return cost[dst], route[dst]\n\nrouter = FlightRouter(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]])\nprint(router.cheapest(0, 3, 1))\nprint(router.cheapest(0, 3, 2))\nprint(router.cheapest(3, 0, 2))",
+        "output": "(700, [0, 1, 3])\n(400, [0, 1, 2, 3])\n(-1, [])",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Validate every flight before using it."
+          },
+          {
+            "line": 16,
+            "note": "The new route: the route to u, then fly to v."
+          },
+          {
+            "line": 19,
+            "note": "Unreachable within k stops."
+          }
+        ],
+        "tryIt": "Try FlightRouter(4, [[0, 9, 100]]). It should raise a clear error about the bad flight.",
+        "check": {
+          "question": "What does \"production-ready\" add beyond a correct algorithm?",
+          "options": [
+            "More comments only",
+            "A clear interface, validated inputs, handled edge cases and tests",
+            "Faster hardware"
+          ],
+          "answer": 1,
+          "why": "Correctness is the start; real code also has to be safe to call, clear to use and tested."
+        }
+      },
+      {
+        "title": "Looking back, and next steps",
+        "say": [
+          "You began with Big-O and ended by comparing two graph algorithms and choosing one with reasons. That judgement, not memorised code, is what interviews and real jobs test.",
+          "Review plan: redo one practice problem from each week without looking at your old code. Where you get stuck, reread that day's lesson summary.",
+          "Keep solving: two or three problems a week keep the patterns fresh. Label each by pattern (two pointers, sliding window, BFS, DP, backtracking) so you notice them faster.",
+          "Explain your solutions out loud. Being able to say \"I used a heap because I need the smallest item repeatedly\" is as important as the code.",
+          "Finish the capstone project and final assessment to earn your certificate. Congratulations on completing the course!"
+        ],
+        "example": "Finishing a driving course: you know the rules and have practised every manoeuvre, but confidence comes from driving a little every week.",
+        "code": "patterns = {\n    \"fast lookup\": \"dict / set\",\n    \"smallest repeatedly\": \"heap\",\n    \"prefix search\": \"trie\",\n    \"fewest steps\": \"BFS\",\n    \"cheapest route\": \"Dijkstra\",\n    \"dependency order\": \"topological sort\",\n    \"merging groups\": \"union-find\",\n    \"overlapping subproblems\": \"dynamic programming\",\n    \"all arrangements\": \"backtracking\",\n}\nfor need, tool in patterns.items():\n    print(f\"{need:24} -> {tool}\")",
+        "output": "fast lookup              -> dict / set\nsmallest repeatedly      -> heap\nprefix search            -> trie\nfewest steps             -> BFS\ncheapest route           -> Dijkstra\ndependency order         -> topological sort\nmerging groups           -> union-find\noverlapping subproblems  -> dynamic programming\nall arrangements         -> backtracking",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "A cheat sheet from the whole course."
+          }
+        ],
+        "tryIt": "Add three more rows from earlier weeks, for example \"sorted array search\" -> \"binary search\".",
+        "check": {
+          "question": "What is the most valuable skill this course aimed to build?",
+          "options": [
+            "Memorising code",
+            "Recognising the right pattern and explaining why it fits",
+            "Typing fast"
+          ],
+          "answer": 1,
+          "why": "Choosing a structure or algorithm, and explaining the choice, is what interviews and real work reward."
+        }
+      }
+    ],
+    "summary": [
+      "Cheapest route with at most k stops: Bellman-Ford limited to k + 1 rounds.",
+      "Each round reads the previous round's costs and writes a copy.",
+      "A heap with (cost, airport, flights used) is an alternative approach.",
+      "Audit data first: count routes and airports, handle the empty case.",
+      "Production-ready means validation, clear results and tests, not just a correct algorithm."
+    ],
+    "projectStep": {
+      "title": "Final capstone: flight router",
+      "steps": [
+        "Add find_cheapest_flight and audit_flight_graph to dsa_toolkit.py.",
+        "Build the FlightRouter class that returns both the price and the route.",
+        "Model 6 real airports with made-up prices and print the cheapest route for k = 0, 1 and 2."
+      ]
+    }
   }
 ];
