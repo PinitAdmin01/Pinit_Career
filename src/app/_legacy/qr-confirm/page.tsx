@@ -223,8 +223,8 @@ function QRConfirmInner() {
 
   if (!token) return (
     <div style={S.centred}>
-      <div style={{ color:'var(--coral)', fontSize:13, marginBottom:12 }}>Invalid QR link — no token found.</div>
-      <Link href="/qr-login" style={{ color:'var(--accent)', fontSize:12 }}>← Generate new QR</Link>
+      <div style={{ color:'var(--coral)', fontSize:14.5, marginBottom:12 }}>Invalid QR link — no token found.</div>
+      <Link href="/qr-login" style={{ color:'var(--accent)', fontSize:13 }}>← Generate new QR</Link>
     </div>
   );
 
@@ -236,18 +236,18 @@ function QRConfirmInner() {
       {/* Success */}
       {state === 'success' && (
         <div style={S.centred}>
-          <div style={{ fontSize:52, marginBottom:8 }}>🎉</div>
-          <div style={{ fontFamily:'var(--font-display)', fontSize:16, fontWeight:800, color:'var(--green)', marginBottom:6 }}>Login confirmed!</div>
-          <div style={{ fontSize:13, color:'var(--t2)', textAlign:'center', lineHeight:1.55 }}>{message}</div>
-          <div style={{ fontSize:11, color:'var(--t4)', marginTop:12 }}>You can close this tab.</div>
+          <div style={{ fontSize:57, marginBottom:8 }}>🎉</div>
+          <div style={{ fontFamily:'var(--font-display)', fontSize:17.5, fontWeight:800, color:'var(--green)', marginBottom:6 }}>Login confirmed!</div>
+          <div style={{ fontSize:14.5, color:'var(--t2)', textAlign:'center', lineHeight:1.55 }}>{message}</div>
+          <div style={{ fontSize:12, color:'var(--t4)', marginTop:12 }}>You can close this tab.</div>
         </div>
       )}
 
       {/* Error */}
       {state === 'error' && (
         <div style={S.centred}>
-          <div style={{ fontSize:32, marginBottom:8 }}>⚠️</div>
-          <div style={{ fontSize:13, color:'var(--coral)', textAlign:'center', lineHeight:1.55, marginBottom:16 }}>{message}</div>
+          <div style={{ fontSize:35, marginBottom:8 }}>⚠️</div>
+          <div style={{ fontSize:14.5, color:'var(--coral)', textAlign:'center', lineHeight:1.55, marginBottom:16 }}>{message}</div>
           <button onClick={() => { setState('ready'); setMessage(''); scannedRef.current = false; }} className="btn-ghost btn-sm">Try Again</button>
         </div>
       )}
@@ -256,9 +256,9 @@ function QRConfirmInner() {
       {state === 'ready' && (
         <>
           <div style={{ textAlign:'center', marginBottom:18 }}>
-            <div style={{ fontSize:28, marginBottom:8 }}>🔐</div>
-            <div style={{ fontSize:14, fontWeight:700, color:'var(--t1)', marginBottom:4 }}>Confirm web login</div>
-            <div style={{ fontSize:12, color:'var(--t3)', lineHeight:1.5 }}>A browser is waiting for your approval. Log in to confirm.</div>
+            <div style={{ fontSize:31, marginBottom:8 }}>🔐</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:'var(--t1)', marginBottom:4 }}>Confirm web login</div>
+            <div style={{ fontSize:13, color:'var(--t3)', lineHeight:1.5 }}>A browser is waiting for your approval. Log in to confirm.</div>
           </div>
           <form onSubmit={confirmWithPassword} style={{ display:'flex', flexDirection:'column', gap:10 }}>
             <div>
@@ -280,9 +280,9 @@ function QRConfirmInner() {
       {state === 'authed' && (
         <>
           <div style={{ textAlign:'center', marginBottom:16 }}>
-            <div style={{ fontSize:28, marginBottom:8 }}>👋</div>
-            <div style={{ fontSize:14, fontWeight:700, color:'var(--t1)', marginBottom:4 }}>Hi, {authUser}!</div>
-            <div style={{ fontSize:12, color:'var(--t3)', lineHeight:1.5 }}>Tap below to log this web browser in using your account.</div>
+            <div style={{ fontSize:31, marginBottom:8 }}>👋</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:'var(--t1)', marginBottom:4 }}>Hi, {authUser}!</div>
+            <div style={{ fontSize:13, color:'var(--t3)', lineHeight:1.5 }}>Tap below to log this web browser in using your account.</div>
           </div>
           <button onClick={confirmWithSession} disabled={checking} className="btn-primary" style={{ width:'100%', marginBottom:10 }}>
             {checking ? '⏳ Confirming...' : '✓ Confirm — Log in Web Browser'}
@@ -301,7 +301,7 @@ function QRConfirmInner() {
 
 // ── Spinner ────────────────────────────────────────────────────────────
 function Spinner() {
-  return <div style={{ fontSize:24, animation:'spin 1s linear infinite' }}>⬡</div>;
+  return <div style={{ fontSize:26.5, animation:'spin 1s linear infinite' }}>⬡</div>;
 }
 
 // ── Page shell (Suspense wrapper required by Next.js 14) ───────────────
@@ -312,15 +312,15 @@ export default function QRConfirmPage() {
         {/* Logo */}
         <div style={{ textAlign:'center', marginBottom:20 }}>
           <div style={S.logo}>Pi</div>
-          <div style={{ fontFamily:'var(--font-display)', fontSize:18, fontWeight:800, color:'var(--t1)', marginTop:10 }}>PinIT Careers</div>
-          <div style={{ fontSize:11, color:'var(--t4)', marginTop:3 }}>QR Login Confirmation</div>
+          <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, color:'var(--t1)', marginTop:10 }}>PinIT Careers</div>
+          <div style={{ fontSize:12, color:'var(--t4)', marginTop:3 }}>QR Login Confirmation</div>
         </div>
 
         {/* CRITICAL: Suspense required here — useSearchParams() inside */}
         <Suspense fallback={
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:10, padding:20 }}>
-            <div style={{ fontSize:24, animation:'spin 1s linear infinite' }}>⬡</div>
-            <div style={{ fontSize:12, color:'var(--t3)' }}>Loading...</div>
+            <div style={{ fontSize:26.5, animation:'spin 1s linear infinite' }}>⬡</div>
+            <div style={{ fontSize:13, color:'var(--t3)' }}>Loading...</div>
           </div>
         }>
           <QRConfirmInner />
@@ -331,8 +331,8 @@ export default function QRConfirmPage() {
 }
 
 const S = {
-  logo:    { width:40, height:40, background:'linear-gradient(135deg,var(--accent),var(--purple))', borderRadius:11, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'var(--font-display)', fontSize:15, fontWeight:800, color:'white', margin:'0 auto', boxShadow:'0 4px 14px rgba(79,70,229,.35)' } as const,
+  logo:    { width:40, height:40, background:'linear-gradient(135deg,var(--accent),var(--purple))', borderRadius:11, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'var(--font-display)', fontSize:16.5, fontWeight:800, color:'white', margin:'0 auto', boxShadow:'0 4px 14px rgba(79,70,229,.35)' } as const,
   centred: { display:'flex', flexDirection:'column' as const, alignItems:'center', textAlign:'center' as const, gap:8, padding:'12px 0' },
-  sub:     { fontSize:13, color:'var(--t2)', marginTop:4 },
-  label:   { display:'block', fontSize:11, fontWeight:600, color:'var(--t3)', marginBottom:4, fontFamily:'var(--font-mono)', textTransform:'uppercase' as const, letterSpacing:'0.5px' },
+  sub:     { fontSize:14.5, color:'var(--t2)', marginTop:4 },
+  label:   { display:'block', fontSize:12, fontWeight:600, color:'var(--t3)', marginBottom:4, fontFamily:'var(--font-mono)', textTransform:'uppercase' as const, letterSpacing:'0.5px' },
 };

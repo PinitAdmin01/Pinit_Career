@@ -107,11 +107,11 @@ export default function IntegrationsPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {!isAdmin && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center', justifyContent: 'center', minHeight: '50vh', textAlign: 'center' }}>
-          <span style={{ fontSize: 64 }}>🔒</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--coral)', margin: 0 }}>
+          <span style={{ fontSize: 70.5 }}>🔒</span>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--coral)', margin: 0 }}>
             Enterprise Security: Administrator Shield Active
           </h2>
-          <p style={{ color: 'var(--t3)', fontSize: 13, maxWidth: 450, lineHeight: 1.5, margin: 0 }}>
+          <p style={{ color: 'var(--t3)', fontSize: 14.5, maxWidth: 450, lineHeight: 1.5, margin: 0 }}>
             Institutional ERP system connections, biometric endpoints, and SMTP server structures are restricted from student access. Contact campus IT.
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function IntegrationsPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {isAdmin && (
         <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 20, alignItems: 'start' }}>
-          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 13, fontWeight: 700 }}>
             Preview connectors — these ERP, LMS, and payment rows are a local catalog, not live campus links.
           </div>
           
@@ -142,7 +142,7 @@ export default function IntegrationsPage() {
                   borderRadius: 8,
                   background: activeTab === t ? 'var(--accent-light)' : 'transparent',
                   color: activeTab === t ? 'var(--accent)' : 'var(--t2)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: activeTab === t ? 800 : 500,
                   cursor: 'pointer',
                   transition: 'all 0.15s'
@@ -159,19 +159,19 @@ export default function IntegrationsPage() {
             {/* UNIVERSITY ERP TAB */}
             {activeTab === 'University ERP' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>University ERP Connectors</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Integrate student profiles, admission records, and fee payment indexes.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>University ERP Connectors</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Integrate student profiles, admission records, and fee payment indexes.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {erpConnectors.map(c => (
                     <div key={c.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                       <div>
-                        <h4 style={{ margin: 0, fontSize: 13, fontWeight: 700 }}>{c.name}</h4>
-                        <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>Last Sync: {c.lastSynced}</div>
+                        <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 700 }}>{c.name}</h4>
+                        <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>Last Sync: {c.lastSynced}</div>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <span style={{ fontSize: 11, fontWeight: 800, color: c.status === 'Connected' ? 'var(--green)' : 'var(--coral)' }}>{c.status}</span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: c.status === 'Connected' ? 'var(--green)' : 'var(--coral)' }}>{c.status}</span>
                         {c.status === 'Connected' && (
-                          <button onClick={() => runSync(c.id)} style={{ padding: '6px 12px', fontSize: 11, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
+                          <button onClick={() => runSync(c.id)} style={{ padding: '6px 12px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
                             Sync Now
                           </button>
                         )}
@@ -185,16 +185,16 @@ export default function IntegrationsPage() {
             {/* LMS TAB */}
             {activeTab === 'LMS' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Learning Management Systems</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Canvas, Moodle, and Blackboard connections populate student GPA and course completion logs.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>Learning Management Systems</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Canvas, Moodle, and Blackboard connections populate student GPA and course completion logs.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {lmsConnectors.map(l => (
                     <div key={l.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>{l.name}</span>
-                        <span style={{ fontSize: 11, background: 'var(--green-light)', color: 'var(--green)', padding: '2px 6px', borderRadius: 4 }}>{l.status}</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 700 }}>{l.name}</span>
+                        <span style={{ fontSize: 12, background: 'var(--green-light)', color: 'var(--green)', padding: '2px 6px', borderRadius: 4 }}>{l.status}</span>
                       </div>
-                      <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--t3)' }}>
+                      <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--t3)' }}>
                         <span>LTI Version: {l.version}</span>
                         <span>Synced {l.lastSynced}</span>
                       </div>
@@ -207,16 +207,16 @@ export default function IntegrationsPage() {
             {/* BIOMETRIC DEVICES TAB */}
             {activeTab === 'Biometric Devices' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Campus Attendance hardware</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Biometric card-readers feed daily classroom attendance metrics.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>Campus Attendance hardware</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Biometric card-readers feed daily classroom attendance metrics.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {biometrics.map(b => (
                     <div key={b.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>{b.name}</span>
-                        <span style={{ fontSize: 11, color: 'var(--green)', fontWeight: 800 }}>{b.status}</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 700 }}>{b.name}</span>
+                        <span style={{ fontSize: 12, color: 'var(--green)', fontWeight: 800 }}>{b.status}</span>
                       </div>
-                      <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--t3)' }}>
+                      <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--t3)' }}>
                         <span>Rate: {b.rate}</span>
                         <span>Device Count: {b.deviceCount}</span>
                       </div>
@@ -229,16 +229,16 @@ export default function IntegrationsPage() {
             {/* PAYMENT GATEWAYS TAB */}
             {activeTab === 'Payment Gateways' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Student Fee Pay Gateways</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Automate academic invoices and receipt clearing.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>Student Fee Pay Gateways</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Automate academic invoices and receipt clearing.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {gateways.map(g => (
                     <div key={g.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>{g.name}</span>
-                        <span style={{ fontSize: 11.5, color: 'var(--green)', fontWeight: 800 }}>{g.webhookStatus}</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 700 }}>{g.name}</span>
+                        <span style={{ fontSize: 12.5, color: 'var(--green)', fontWeight: 800 }}>{g.webhookStatus}</span>
                       </div>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Gateway Mode: {g.mode}</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>Gateway Mode: {g.mode}</div>
                     </div>
                   ))}
                 </div>
@@ -248,16 +248,16 @@ export default function IntegrationsPage() {
             {/* RECRUITER PLATFORMS TAB */}
             {activeTab === 'Recruiter Platforms' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>SDE Recruiters Integration</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Forward student portfolio packages directly to target employers.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>SDE Recruiters Integration</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Forward student portfolio packages directly to target employers.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {recruiterPlatforms.map(r => (
                     <div key={r.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>{r.name}</span>
-                        <span style={{ fontSize: 11, color: 'var(--green)', fontWeight: 800 }}>Connected</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 700 }}>{r.name}</span>
+                        <span style={{ fontSize: 12, color: 'var(--green)', fontWeight: 800 }}>Connected</span>
                       </div>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Sync Interval: {r.syncInterval}</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>Sync Interval: {r.syncInterval}</div>
                     </div>
                   ))}
                 </div>
@@ -267,16 +267,16 @@ export default function IntegrationsPage() {
             {/* EMAIL & SMS TAB */}
             {activeTab === 'Email & SMS' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Broadcast notification Gateways</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>SendGrid SMTP and Twilio SMS configuration endpoints.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>Broadcast notification Gateways</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>SendGrid SMTP and Twilio SMS configuration endpoints.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {emailSms.map(e => (
                     <div key={e.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>{e.name}</span>
-                        <span style={{ fontSize: 11, color: 'var(--green)', fontWeight: 800 }}>Connected</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 700 }}>{e.name}</span>
+                        <span style={{ fontSize: 12, color: 'var(--green)', fontWeight: 800 }}>Connected</span>
                       </div>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>API Quota: {e.quota}</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>API Quota: {e.quota}</div>
                     </div>
                   ))}
                 </div>
@@ -286,18 +286,18 @@ export default function IntegrationsPage() {
             {/* WEBHOOKS TAB */}
             {activeTab === 'Webhooks' && (
               <div>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>Enterprise Outgoing Webhooks</h3>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Subscribe endpoints to live student activity events.</p>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: 16.5, fontWeight: 800 }}>Enterprise Outgoing Webhooks</h3>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 14 }}>Subscribe endpoints to live student activity events.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {webhooks.map(wh => (
                     <div key={wh.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 800 }}>{wh.url}</span>
-                        <span style={{ fontSize: 11, background: 'var(--green-light)', color: 'var(--green)', padding: '2px 6px', borderRadius: 4 }}>{wh.status}</span>
+                        <span style={{ fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 800 }}>{wh.url}</span>
+                        <span style={{ fontSize: 12, background: 'var(--green-light)', color: 'var(--green)', padding: '2px 6px', borderRadius: 4 }}>{wh.status}</span>
                       </div>
                       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
                         {wh.events.map(ev => (
-                          <span key={ev} style={{ fontSize: 9.5, padding: '2px 6px', borderRadius: 4, background: 'var(--bg2)', color: 'var(--t3)' }}>{ev}</span>
+                          <span key={ev} style={{ fontSize: 10.5, padding: '2px 6px', borderRadius: 4, background: 'var(--bg2)', color: 'var(--t3)' }}>{ev}</span>
                         ))}
                       </div>
                     </div>
@@ -311,10 +311,10 @@ export default function IntegrationsPage() {
               <div>
                 <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <div>
-                    <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Gateway Keys</h3>
-                    <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>API tokens for institutional sync daemons.</p>
+                    <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 800 }}>Gateway Keys</h3>
+                    <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>API tokens for institutional sync daemons.</p>
                   </div>
-                  <button onClick={createApiKey} style={{ padding: '8px 16px', fontSize: 11.5, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>
+                  <button onClick={createApiKey} style={{ padding: '8px 16px', fontSize: 12.5, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>
                     Generate Key
                   </button>
                 </div>
@@ -323,10 +323,10 @@ export default function IntegrationsPage() {
                   {apiKeys.map(k => (
                     <div key={k.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700 }}>{k.name}</div>
-                        <div style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>{k.prefix}</div>
+                        <div style={{ fontSize: 14.5, fontWeight: 700 }}>{k.name}</div>
+                        <div style={{ fontSize: 12.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>{k.prefix}</div>
                       </div>
-                      <span style={{ fontSize: 11, color: 'var(--t3)' }}>Created: {k.created}</span>
+                      <span style={{ fontSize: 12, color: 'var(--t3)' }}>Created: {k.created}</span>
                     </div>
                   ))}
                 </div>
@@ -336,12 +336,12 @@ export default function IntegrationsPage() {
             {/* SYNCHRONIZATION LOGS TAB */}
             {activeTab === 'Synchronization Logs' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>API Sync Audit Trail</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>API Sync Audit Trail</h3>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg3)' }}>
                       {['Time', 'Connector Module', 'Sync Event Description', 'Sync Outcome'].map(h => (
-                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, borderBottom: '1px solid var(--border)' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -353,7 +353,7 @@ export default function IntegrationsPage() {
                         <td style={{ padding: '10px 12px', color: 'var(--t2)' }}>{log.event}</td>
                         <td style={{ padding: '10px 12px' }}>
                           <span style={{
-                            fontSize: 10, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
+                            fontSize: 11, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
                             background: log.status === 'Success' ? 'var(--green-light)' : 'var(--amber-light)',
                             color: log.status === 'Success' ? 'var(--green)' : 'var(--amber)'
                           }}>{log.status}</span>
@@ -379,7 +379,7 @@ const card: React.CSSProperties = {
   borderRadius: 'var(--radius-xl)', padding: 20, boxShadow: 'var(--shadow-sm)'
 };
 const cardLabel: React.CSSProperties = {
-  fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase',
+  fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase',
   color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
   marginBottom: 14, display: 'block'
 };

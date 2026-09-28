@@ -335,8 +335,8 @@ export default function StudentAttendanceView() {
         alignItems: 'center',
         gap: 12
       }}>
-        <span style={{ fontSize: 20 }}>🏛️</span>
-        <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
+        <span style={{ fontSize: 22 }}>🏛️</span>
+        <div style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5 }}>
           <strong style={{ color: 'var(--t1)' }}>Official Campus Attendance Registry:</strong> Official classroom attendance is recorded exclusively by faculty mentors during lecture sessions and verified campus biometric hardware. Student self-marking is not permitted.
         </div>
       </div>
@@ -354,23 +354,23 @@ export default function StudentAttendanceView() {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 18 }}>👨‍🏫</span>
-              <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+              <span style={{ fontSize: 20 }}>👨‍🏫</span>
+              <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>
                 Faculty Attendance Control Desk
               </span>
-              <span style={{ fontSize: 11, background: 'rgba(59, 130, 246, 0.2)', color: '#2563eb', padding: '2px 8px', borderRadius: 6, fontWeight: 800 }}>
+              <span style={{ fontSize: 12, background: 'rgba(59, 130, 246, 0.2)', color: '#2563eb', padding: '2px 8px', borderRadius: 6, fontWeight: 800 }}>
                 STAFF OVERRIDE ACTIVE
               </span>
             </div>
             {saveFeedback && (
-              <span style={{ fontSize: 12, color: '#16a34a', fontWeight: 800 }}>
+              <span style={{ fontSize: 13, color: '#16a34a', fontWeight: 800 }}>
                 {saveFeedback}
               </span>
             )}
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+            <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>
               Select Student to View & Manage Records:
             </label>
             <select
@@ -384,7 +384,7 @@ export default function StudentAttendanceView() {
                 border: '1px solid var(--border)',
                 background: 'var(--card)',
                 color: 'var(--t1)',
-                fontSize: 13,
+                fontSize: 14.5,
                 fontWeight: 600,
                 outline: 'none'
               }}
@@ -398,7 +398,7 @@ export default function StudentAttendanceView() {
           </div>
 
           {selectedStudentObj && (
-            <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+            <div style={{ fontSize: 13, color: 'var(--t3)' }}>
               Currently managing attendance for: <strong>{selectedStudentObj.name}</strong> ({selectedStudentObj.rollNo || selectedStudentObj.id})
             </div>
           )}
@@ -408,10 +408,10 @@ export default function StudentAttendanceView() {
       {/* Page Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h1 style={{ fontSize: 28.5, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
             <span>📅</span> Class Attendance & Academic Compliance
           </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: 15, color: 'var(--t3)' }}>
             Monitor curricular threshold compliance, calculate safety leave margins, and track official faculty endorsements.
           </p>
         </div>
@@ -422,7 +422,7 @@ export default function StudentAttendanceView() {
             onClick={() => setShowLeaveModal(true)}
             style={{
               background: 'var(--card)', color: 'var(--t1)', border: '1px solid var(--border)',
-              padding: '10px 18px', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: 'pointer',
+              padding: '10px 18px', borderRadius: 10, fontSize: 14.5, fontWeight: 700, cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: 8
             }}
           >
@@ -434,12 +434,12 @@ export default function StudentAttendanceView() {
       {/* ── 🎯 1. ATTENDANCE CADENCE BANNER ── */}
       <div style={{ background: 'linear-gradient(135deg, rgba(212,168,67,0.12), rgba(var(--warning-rgb), 0.12))', border: '1px solid #d4a843', borderRadius: 16, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>📅</div>
+          <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26.5 }}>📅</div>
           <div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: '#d4a843', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ fontSize: 16.5, fontWeight: 800, color: '#d4a843', display: 'flex', alignItems: 'center', gap: 8 }}>
               {focusStreak > 0 ? `${focusStreak}-Day Lecture Attendance Continuity` : 'Official Academic Session Active'}
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 2 }}>
+            <div style={{ fontSize: 14, color: 'var(--t2)', marginTop: 2 }}>
               {lastCheckInDate ? `Last lecture attendance recorded on ${lastCheckInDate}.` : 'Attendance is synchronized with the institutional lecture timetable.'}
             </div>
           </div>
@@ -450,42 +450,42 @@ export default function StudentAttendanceView() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
         {/* Cumulative Attendance */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-          <div style={{ fontSize: 12, color: 'var(--t3)' }}>Cumulative Attendance</div>
-          <div style={{ fontSize: 30, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : 'var(--danger-deep)', margin: '4px 0 0' }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Cumulative Attendance</div>
+          <div style={{ fontSize: 33, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : 'var(--danger-deep)', margin: '4px 0 0' }}>
             {overallPercentage}%
           </div>
-          <div style={{ fontSize: 11, color: Number(overallPercentage) >= 75 ? '#16a34a' : 'var(--danger-deep)', fontWeight: 700, marginTop: 4 }}>
+          <div style={{ fontSize: 12, color: Number(overallPercentage) >= 75 ? '#16a34a' : 'var(--danger-deep)', fontWeight: 700, marginTop: 4 }}>
             {Number(overallPercentage) >= 75 ? '✓ Compliant (≥ 75% Threshold)' : '⚠️ Below 75% Minimum Criteria'}
           </div>
         </div>
 
         {/* Lectures Attended */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-          <div style={{ fontSize: 12, color: 'var(--t3)' }}>Lectures Attended</div>
-          <div style={{ fontSize: 30, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0' }}>
-            {totalAttended} <span style={{ fontSize: 16, color: 'var(--t3)', fontWeight: 500 }}>/ {totalLectures}</span>
+          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Lectures Attended</div>
+          <div style={{ fontSize: 33, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0' }}>
+            {totalAttended} <span style={{ fontSize: 17.5, color: 'var(--t3)', fontWeight: 500 }}>/ {totalLectures}</span>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Total Conducted Classes</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Total Conducted Classes</div>
         </div>
 
         {/* Attendance Continuity (Dynamic) */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-          <div style={{ fontSize: 12, color: 'var(--t3)' }}>Attendance Streak</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: focusStreak >= 3 ? '#d97706' : 'var(--t1)', margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Attendance Streak</div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: focusStreak >= 3 ? '#d97706' : 'var(--t1)', margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             {focusStreak >= 3 ? '🔥 Consistent Learner' : '📚 Standard Cadence'}
           </div>
-          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
             {focusStreak > 0 ? `${focusStreak} consecutive days attended` : 'No active streak'}
           </div>
         </div>
 
         {/* Curricular Status (Dynamic) */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-          <div style={{ fontSize: 12, color: 'var(--t3)' }}>Curricular Status</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : '#dc2626', margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Curricular Status</div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : '#dc2626', margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             {Number(overallPercentage) >= 85 ? '✅ Honors Eligible' : Number(overallPercentage) >= 75 ? '⚠️ Standard Eligible' : '🚨 Shortage Risk'}
           </div>
-          <div style={{ fontSize: 11, color: Number(overallPercentage) >= 75 ? '#16a34a' : '#dc2626', fontWeight: 700, marginTop: 4 }}>
+          <div style={{ fontSize: 12, color: Number(overallPercentage) >= 75 ? '#16a34a' : '#dc2626', fontWeight: 700, marginTop: 4 }}>
             {Number(overallPercentage) >= 75 ? 'Meets Hall Ticket Clearance' : 'Condonation Approval Required'}
           </div>
         </div>
@@ -495,14 +495,14 @@ export default function StudentAttendanceView() {
       <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '22px 24px', boxShadow: 'var(--shadow-sm)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <h2 style={{ fontSize: 18.5, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
               🧩 Attendance Risk & Safety Buffer Calculator
             </h2>
-            <p style={{ color: 'var(--t3)', fontSize: 13, margin: '2px 0 0' }}>
+            <p style={{ color: 'var(--t3)', fontSize: 14.5, margin: '2px 0 0' }}>
               Simulate leave budgets, calculate exact safe skip margins, and plan recovery steps to maintain examination eligibility.
             </p>
           </div>
-          <button onClick={() => router.push('/attention-span')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => router.push('/attention-span')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', padding: '6px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
             Attention Training ▶
           </button>
         </div>
@@ -510,18 +510,18 @@ export default function StudentAttendanceView() {
         {/* Calculator Controls */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, background: 'var(--bg3)', padding: 16, borderRadius: 14, border: '1px solid var(--border)', marginBottom: 18 }}>
           <div>
-            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Select Subject:</label>
-            <select value={calcSubjectId} onChange={(e) => setCalcSubjectId(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', fontSize: 13, fontWeight: 600, outline: 'none' }}>
+            <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Select Subject:</label>
+            <select value={calcSubjectId} onChange={(e) => setCalcSubjectId(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', fontSize: 14.5, fontWeight: 600, outline: 'none' }}>
               <option value="all">All Subjects Combined</option>
               {subjects.map(s => <option key={s.id} value={s.id}>{s.subject} ({s.percentage}%)</option>)}
             </select>
           </div>
 
           <div>
-            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Mandatory Criteria:</label>
+            <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Mandatory Criteria:</label>
             <div style={{ display: 'flex', gap: 8 }}>
               {[75, 85].map(t => (
-                <button key={t} onClick={() => setCalcThreshold(t)} style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${calcThreshold === t ? '#d4a843' : 'var(--border)'}`, background: calcThreshold === t ? 'rgba(212,168,67,0.15)' : 'var(--card)', color: calcThreshold === t ? '#d4a843' : 'var(--t2)', fontSize: 13, fontWeight: 800, cursor: 'pointer' }}>
+                <button key={t} onClick={() => setCalcThreshold(t)} style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${calcThreshold === t ? '#d4a843' : 'var(--border)'}`, background: calcThreshold === t ? 'rgba(212,168,67,0.15)' : 'var(--card)', color: calcThreshold === t ? '#d4a843' : 'var(--t2)', fontSize: 14.5, fontWeight: 800, cursor: 'pointer' }}>
                   {t}% Minimum
                 </button>
               ))}
@@ -529,35 +529,35 @@ export default function StudentAttendanceView() {
           </div>
 
           <div>
-            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Simulate Upcoming Missed Lectures:</label>
-            <input type="number" min="0" max="20" value={simulatedMisses} onChange={(e) => setSimulatedMisses(Math.max(0, Number(e.target.value)))} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', fontSize: 13, fontWeight: 700, outline: 'none' }} />
+            <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>Simulate Upcoming Missed Lectures:</label>
+            <input type="number" min="0" max="20" value={simulatedMisses} onChange={(e) => setSimulatedMisses(Math.max(0, Number(e.target.value)))} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', fontSize: 14.5, fontWeight: 700, outline: 'none' }} />
           </div>
         </div>
 
         {/* Output Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
           <div style={{ background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)', borderRadius: 12, padding: 14 }}>
-            <div style={{ fontSize: 11, color: '#15803d', fontWeight: 700 }}>Safe Skip Buffer Margin</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: '#16a34a', margin: '4px 0 0' }}>
+            <div style={{ fontSize: 12, color: '#15803d', fontWeight: 700 }}>Safe Skip Buffer Margin</div>
+            <div style={{ fontSize: 26.5, fontWeight: 900, color: '#16a34a', margin: '4px 0 0' }}>
               {bufferCalc.maxMissable} Lecture{bufferCalc.maxMissable !== 1 ? 's' : ''}
             </div>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>Can safely miss without dropping below {calcThreshold}%</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Can safely miss without dropping below {calcThreshold}%</div>
           </div>
 
           <div style={{ background: bufferCalc.neededToRecover > 0 ? 'rgba(var(--danger-rgb), 0.08)' : 'rgba(var(--info-rgb), 0.08)', border: `1px solid ${bufferCalc.neededToRecover > 0 ? 'rgba(var(--danger-rgb), 0.3)' : 'rgba(var(--info-rgb), 0.3)'}`, borderRadius: 12, padding: 14 }}>
-            <div style={{ fontSize: 11, color: bufferCalc.neededToRecover > 0 ? '#b91c1c' : '#1d4ed8', fontWeight: 700 }}>Required Recovery Plan</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.neededToRecover > 0 ? 'var(--danger-deep)' : '#2563eb', margin: '4px 0 0' }}>
+            <div style={{ fontSize: 12, color: bufferCalc.neededToRecover > 0 ? '#b91c1c' : '#1d4ed8', fontWeight: 700 }}>Required Recovery Plan</div>
+            <div style={{ fontSize: 26.5, fontWeight: 900, color: bufferCalc.neededToRecover > 0 ? 'var(--danger-deep)' : '#2563eb', margin: '4px 0 0' }}>
               {bufferCalc.neededToRecover > 0 ? `${bufferCalc.neededToRecover} Consecutive Lectures` : '✓ On Track'}
             </div>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{bufferCalc.neededToRecover > 0 ? `Must attend to reach ${calcThreshold}% minimum` : `Currently above ${calcThreshold}% criteria`}</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>{bufferCalc.neededToRecover > 0 ? `Must attend to reach ${calcThreshold}% minimum` : `Currently above ${calcThreshold}% criteria`}</div>
           </div>
 
           <div style={{ background: bufferCalc.simStatus === 'SAFE' ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--danger-rgb), 0.08)', border: `1px solid ${bufferCalc.simStatus === 'SAFE' ? 'rgba(var(--success-rgb), 0.3)' : 'rgba(var(--danger-rgb), 0.3)'}`, borderRadius: 12, padding: 14 }}>
-            <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>Simulated Result ({simulatedMisses} Misses)</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.simStatus === 'SAFE' ? '#16a34a' : 'var(--danger-deep)', margin: '4px 0 0' }}>
+            <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700 }}>Simulated Result ({simulatedMisses} Misses)</div>
+            <div style={{ fontSize: 26.5, fontWeight: 900, color: bufferCalc.simStatus === 'SAFE' ? '#16a34a' : 'var(--danger-deep)', margin: '4px 0 0' }}>
               {bufferCalc.simPct}% ({bufferCalc.simStatus})
             </div>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>Predicted ratio after missing {simulatedMisses} lectures</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Predicted ratio after missing {simulatedMisses} lectures</div>
           </div>
         </div>
       </div>
@@ -566,30 +566,30 @@ export default function StudentAttendanceView() {
       <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
         <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>Subject Compliance & Attendance Registry</h2>
-            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
+            <h2 style={{ fontSize: 17.5, fontWeight: 800, margin: 0 }}>Subject Compliance & Attendance Registry</h2>
+            <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2 }}>
               {isFacultyOrAdmin
                 ? "Faculty Mode: Use '+ Attend' or '+ Miss' to record official academic registry updates."
                 : "Official subject attendance records maintained by faculty mentors."}
             </div>
           </div>
-          {loadingStudent && <span style={{ fontSize: 12, color: 'var(--t2)' }}>Loading student records...</span>}
+          {loadingStudent && <span style={{ fontSize: 13, color: 'var(--t2)' }}>Loading student records...</span>}
         </div>
 
         {subjects.length === 0 ? (
-          <div style={{ padding: 32, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+          <div style={{ padding: 32, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
             No subject attendance records found for this student. Records appear once faculty conducts lecture sessions.
           </div>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', textAlign: 'left' }}>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)' }}>Subject Code & Title</th>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)' }}>Total Lectures</th>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)' }}>Attended</th>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)' }}>Percentage</th>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)' }}>Compliance Status</th>
-                <th style={{ padding: 14, fontSize: 13, color: 'var(--t2)', textAlign: 'right' }}>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)' }}>Subject Code & Title</th>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)' }}>Total Lectures</th>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)' }}>Attended</th>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)' }}>Percentage</th>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)' }}>Compliance Status</th>
+                <th style={{ padding: 14, fontSize: 14.5, color: 'var(--t2)', textAlign: 'right' }}>
                   {isFacultyOrAdmin ? 'Faculty Action' : 'Verification'}
                 </th>
               </tr>
@@ -598,13 +598,13 @@ export default function StudentAttendanceView() {
               {subjects.map((row) => (
                 <tr key={row.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: 14 }}>
-                    <div style={{ fontWeight: 700, fontSize: 14 }}>{row.subject}</div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>Code: {row.code}</div>
+                    <div style={{ fontWeight: 700, fontSize: 15.5 }}>{row.subject}</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>Code: {row.code}</div>
                   </td>
-                  <td style={{ padding: 14, fontSize: 14 }}>{row.totalClasses}</td>
-                  <td style={{ padding: 14, fontSize: 14, color: '#16a34a', fontWeight: 700 }}>{row.attended}</td>
+                  <td style={{ padding: 14, fontSize: 15.5 }}>{row.totalClasses}</td>
+                  <td style={{ padding: 14, fontSize: 15.5, color: '#16a34a', fontWeight: 700 }}>{row.attended}</td>
                   <td style={{ padding: 14 }}>
-                    <div style={{ fontSize: 15, fontWeight: 900, color: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : 'var(--danger-deep)' }}>
+                    <div style={{ fontSize: 16.5, fontWeight: 900, color: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : 'var(--danger-deep)' }}>
                       {row.percentage}%
                     </div>
                     <div style={{ width: 80, height: 4, background: 'var(--bg3)', borderRadius: 2, overflow: 'hidden', marginTop: 4 }}>
@@ -617,7 +617,7 @@ export default function StudentAttendanceView() {
                       style={{
                         padding: '4px 10px',
                         borderRadius: 6,
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 800,
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -634,16 +634,16 @@ export default function StudentAttendanceView() {
                   <td style={{ padding: 14, textAlign: 'right' }}>
                     {isFacultyOrAdmin ? (
                       <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                        <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
                           + Attend
                         </button>
-                        <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(var(--danger-rgb), 0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(var(--danger-rgb), 0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
                           + Miss
                         </button>
                       </div>
                     ) : (
                       <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'var(--bg3)', border: '1px solid var(--border)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                        <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'var(--bg3)', border: '1px solid var(--border)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                           🔒 Faculty Verified
                         </span>
                       </div>
@@ -661,10 +661,10 @@ export default function StudentAttendanceView() {
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
-              <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>Submitted Leave Applications</h2>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Official record of student leave requests recorded in the campus registry.</div>
+              <h2 style={{ fontSize: 17.5, fontWeight: 800, margin: 0 }}>Submitted Leave Applications</h2>
+              <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2 }}>Official record of student leave requests recorded in the campus registry.</div>
             </div>
-            <span style={{ fontSize: 12, color: '#3b82f6', fontWeight: 700 }}>{submittedLeaves.length} Application{submittedLeaves.length !== 1 ? 's' : ''}</span>
+            <span style={{ fontSize: 13, color: '#3b82f6', fontWeight: 700 }}>{submittedLeaves.length} Application{submittedLeaves.length !== 1 ? 's' : ''}</span>
           </div>
 
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -672,14 +672,14 @@ export default function StudentAttendanceView() {
               <div key={leave.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontWeight: 800, fontSize: 13, color: 'var(--t1)' }}>{leave.id}</span>
-                    <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 4, background: 'rgba(59, 130, 246, 0.1)', color: '#2563eb' }}>{leave.category}</span>
-                    <span style={{ fontSize: 12, color: 'var(--t2)', fontWeight: 600 }}>• {leave.dates}</span>
+                    <span style={{ fontWeight: 800, fontSize: 14.5, color: 'var(--t1)' }}>{leave.id}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 8px', borderRadius: 4, background: 'rgba(59, 130, 246, 0.1)', color: '#2563eb' }}>{leave.category}</span>
+                    <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 600 }}>• {leave.dates}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Reason: {leave.reason}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4 }}>Reason: {leave.reason}</div>
                 </div>
                 <div>
-                  <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'rgba(234, 179, 8, 0.12)', color: '#b45309', border: '1px solid rgba(234, 179, 8, 0.3)' }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'rgba(234, 179, 8, 0.12)', color: '#b45309', border: '1px solid rgba(234, 179, 8, 0.3)' }}>
                     ⏳ {leave.status}
                   </span>
                 </div>
@@ -694,17 +694,17 @@ export default function StudentAttendanceView() {
         <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(10,10,15,0.85)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, width: '100%', maxWidth: 480, padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>📄 Apply for Class Leave</h3>
-              <button onClick={() => setShowLeaveModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, color: 'var(--t1)' }}>✕</button>
+              <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>📄 Apply for Class Leave</h3>
+              <button onClick={() => setShowLeaveModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--t1)' }}>✕</button>
             </div>
 
             <form onSubmit={handleApplyLeave} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Leave Category</label>
+                <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Leave Category</label>
                 <select
                   value={leaveCategory}
                   onChange={(e) => setLeaveCategory(e.target.value as any)}
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 13 }}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 14.5 }}
                 >
                   <option value="Medical">Medical Leave (Requires Doctor Note)</option>
                   <option value="Academic">Academic / Hackathon / Conference</option>
@@ -714,35 +714,35 @@ export default function StudentAttendanceView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Start Date</label>
+                  <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Start Date</label>
                   <input
                     type="date"
                     required
                     value={leaveStartDate}
                     onChange={(e) => setLeaveStartDate(e.target.value)}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 13 }}
+                    style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 14.5 }}
                   />
                 </div>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>End Date (Optional)</label>
+                  <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>End Date (Optional)</label>
                   <input
                     type="date"
                     value={leaveEndDate}
                     onChange={(e) => setLeaveEndDate(e.target.value)}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 13 }}
+                    style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 14.5 }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Reason & Justification</label>
+                <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 4, color: 'var(--t2)' }}>Reason & Justification</label>
                 <textarea
                   required
                   rows={3}
                   value={leaveReason}
                   onChange={(e) => setLeaveReason(e.target.value)}
                   placeholder="State the reason for absence for your faculty mentor's review..."
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 13 }}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 14.5 }}
                 />
               </div>
 
@@ -750,14 +750,14 @@ export default function StudentAttendanceView() {
                 <button
                   type="button"
                   onClick={() => setShowLeaveModal(false)}
-                  style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--t2)', cursor: 'pointer', fontSize: 13 }}
+                  style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--t2)', cursor: 'pointer', fontSize: 14.5 }}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmittingLeave}
-                  style={{ padding: '8px 18px', borderRadius: 8, border: 'none', background: '#2563eb', color: '#fff', fontWeight: 800, cursor: 'pointer', fontSize: 13 }}
+                  style={{ padding: '8px 18px', borderRadius: 8, border: 'none', background: '#2563eb', color: '#fff', fontWeight: 800, cursor: 'pointer', fontSize: 14.5 }}
                 >
                   {isSubmittingLeave ? 'Submitting...' : 'Submit to Faculty Mentor'}
                 </button>

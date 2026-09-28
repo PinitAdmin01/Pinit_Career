@@ -115,13 +115,13 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
         background: 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)',
         color: '#fff', textAlign: 'center', padding: 20
       }}>
-        <div style={{ fontSize: 64, marginBottom: 12, filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.4))' }}>
+        <div style={{ fontSize: 70.5, marginBottom: 12, filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.4))' }}>
           {teacherId === 'priya' ? '👩‍💼' : teacherId === 'rohan' ? '👨‍💻' : teacherId === 'vikram' ? '👨‍⚖️' : '👩‍🏫'}
         </div>
-        <div style={{ fontSize: 16, fontWeight: 900, textTransform: 'capitalize' }}>
+        <div style={{ fontSize: 17.5, fontWeight: 900, textTransform: 'capitalize' }}>
           {teacherId} (AI Interviewer)
         </div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
           2D Mode Active • Audio Vocal Track Connected
         </div>
       </div>
@@ -163,7 +163,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
               to { transform: rotate(360deg); }
             }
           `}</style>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginTop: 12, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginTop: 12, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
             Synthesizing 3D Mentor...
           </div>
         </div>

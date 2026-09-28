@@ -56,7 +56,7 @@ export function IndustryProjectsTab({
                 padding: '6px 16px',
                 border: 'none',
                 borderRadius: 6,
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 700,
                 cursor: 'pointer',
                 background: projectsTab === 'browse' ? 'var(--bg2)' : 'transparent',
@@ -71,7 +71,7 @@ export function IndustryProjectsTab({
                 padding: '6px 16px',
                 border: 'none',
                 borderRadius: 6,
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 700,
                 cursor: 'pointer',
                 background: projectsTab === 'track' ? 'var(--bg2)' : 'transparent',
@@ -86,11 +86,11 @@ export function IndustryProjectsTab({
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
               {projects.filter(p => p.status === 'approved' && !p.applied).length === 0 ? (
                 <div style={{ padding: '36px 20px', textAlign: 'center', background: 'var(--bg3)', borderRadius: 14, border: '1px dashed var(--border)', gridColumn: '1 / -1' }}>
-                  <div style={{ fontSize: 28, marginBottom: 8 }}>💼</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>
+                  <div style={{ fontSize: 31, marginBottom: 8 }}>💼</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>
                     No Available Client Briefs
                   </div>
-                  <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>
+                  <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>
                     New industry partner project briefs will appear here as corporate recruiters publish opportunities.
                   </p>
                 </div>
@@ -99,17 +99,17 @@ export function IndustryProjectsTab({
                   <div key={proj.id} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 18, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: 180 }}>
                     <div>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-                        <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: 0 }}>{proj.title}</h3>
-                        <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)' }}>₹{proj.budget}</span>
+                        <h3 style={{ fontSize: 16, fontWeight: 900, margin: 0 }}>{proj.title}</h3>
+                        <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)' }}>₹{proj.budget}</span>
                       </div>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8 }}>{proj.company} · Duration: {proj.duration}</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 8 }}>{proj.company} · Duration: {proj.duration}</div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 12 }}>
                         {proj.tech.map(t => (
-                          <span key={t} style={{ fontSize: 10, padding: '2px 6px', background: 'var(--bg3)', borderRadius: 4, border: '1px solid var(--border)' }}>{t}</span>
+                          <span key={t} style={{ fontSize: 11, padding: '2px 6px', background: 'var(--bg3)', borderRadius: 4, border: '1px solid var(--border)' }}>{t}</span>
                         ))}
                       </div>
                     </div>
-                    <button onClick={() => applyToProject(proj.id)} className="btn-primary" style={{ width: '100%', padding: '8px', fontSize: 11.5 }}>
+                    <button onClick={() => applyToProject(proj.id)} className="btn-primary" style={{ width: '100%', padding: '8px', fontSize: 12.5 }}>
                       Apply to Project
                     </button>
                   </div>
@@ -122,11 +122,11 @@ export function IndustryProjectsTab({
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {projects.filter(p => p.applied).length === 0 ? (
                   <div style={{ padding: '36px 20px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 10, border: '1px dashed var(--border)' }}>
-                    <div style={{ fontSize: 24, marginBottom: 6 }}>📋</div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>
+                    <div style={{ fontSize: 26.5, marginBottom: 6 }}>📋</div>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>
                       No Active Industry Projects Applied Yet
                     </div>
-                    <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>
+                    <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>
                       Browse available client briefs in the &quot;Browse Projects&quot; tab to apply and start working on real production deliverables.
                     </p>
                   </div>
@@ -134,10 +134,10 @@ export function IndustryProjectsTab({
                   projects.filter(p => p.applied).map(proj => (
                     <div key={proj.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div>
-                        <div style={{ fontWeight: 800, fontSize: 13.5 }}>{proj.title}</div>
-                        <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>{proj.company} · Budget: ₹{proj.budget}</div>
+                        <div style={{ fontWeight: 800, fontSize: 15 }}>{proj.title}</div>
+                        <div style={{ fontSize: 12.5, color: 'var(--t3)' }}>{proj.company} · Budget: ₹{proj.budget}</div>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: proj.status === 'completed' ? 'var(--green)' : 'var(--amber)' }}>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: proj.status === 'completed' ? 'var(--green)' : 'var(--amber)' }}>
                         {proj.status === 'completed' ? `Completed (${proj.grade})` : 'In Progress'}
                       </span>
                     </div>
@@ -157,8 +157,8 @@ export function IndustryProjectsTab({
               {projects.map(proj => (
                 <div key={proj.id} style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 800 }}>{proj.title}</div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>Budget: ₹{proj.budget} · Status: {proj.status}</div>
+                    <div style={{ fontSize: 14.5, fontWeight: 800 }}>{proj.title}</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>Budget: ₹{proj.budget} · Status: {proj.status}</div>
                   </div>
                 </div>
               ))}
@@ -173,14 +173,14 @@ export function IndustryProjectsTab({
                 value={newTitle}
                 onChange={e => setNewTitle(e.target.value)}
                 placeholder="Project Title"
-                style={{ padding: '8px 12px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--t1)', fontSize: 12.5 }}
+                style={{ padding: '8px 12px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--t1)', fontSize: 14 }}
               />
               <input
                 type="text"
                 value={newTech}
                 onChange={e => setNewTech(e.target.value)}
                 placeholder="Required Tech (comma separated)"
-                style={{ padding: '8px 12px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--t1)', fontSize: 12.5 }}
+                style={{ padding: '8px 12px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--t1)', fontSize: 14 }}
               />
               <button type="submit" className="btn-primary" style={{ padding: '10px' }}>Submit Brief</button>
             </form>
@@ -195,10 +195,10 @@ export function IndustryProjectsTab({
             {projects.filter(p => p.status === 'pending').map(proj => (
               <div key={proj.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <div style={{ fontSize: 13.5, fontWeight: 800 }}>{proj.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>{proj.company} · Budget: ₹{proj.budget}</div>
+                  <div style={{ fontSize: 15, fontWeight: 800 }}>{proj.title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t3)' }}>{proj.company} · Budget: ₹{proj.budget}</div>
                 </div>
-                <button onClick={() => approveProject(proj.id)} className="btn-primary" style={{ padding: '6px 14px', fontSize: 11 }}>
+                <button onClick={() => approveProject(proj.id)} className="btn-primary" style={{ padding: '6px 14px', fontSize: 12 }}>
                   Approve Listing
                 </button>
               </div>
@@ -214,8 +214,8 @@ export function IndustryProjectsTab({
             {projects.filter(p => p.applied && p.status !== 'completed').map(proj => (
               <div key={proj.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <div style={{ fontSize: 13.5, fontWeight: 800 }}>{proj.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>Student: {proj.studentName}</div>
+                  <div style={{ fontSize: 15, fontWeight: 800 }}>{proj.title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t3)' }}>Student: {proj.studentName}</div>
                 </div>
                 {gradingProjId === proj.id ? (
                   <form onSubmit={submitGrade} style={{ display: 'flex', gap: 6 }}>
@@ -243,7 +243,7 @@ export function IndustryProjectsTab({
                 ) : (
                   <button
                     onClick={() => setGradingProjId(proj.id)}
-                    style={{ padding: '6px 12px', fontSize: 11, background: 'var(--accent)', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 800 }}
+                    style={{ padding: '6px 12px', fontSize: 12, background: 'var(--accent)', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 800 }}
                   >
                     Evaluate Task
                   </button>

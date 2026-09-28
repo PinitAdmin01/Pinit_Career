@@ -59,7 +59,7 @@ function RecruiterPageInner() {
             color: 'var(--text)',
             padding: '11px 20px',
             borderRadius: 10,
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 600,
             boxShadow: 'var(--shadow-lg)',
           }}
@@ -137,7 +137,7 @@ function RecruiterPageInner() {
                 borderRadius: 'var(--radius)',
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 600,
                 fontFamily: 'var(--font-display)',
                 background: activeTab === tabKey ? 'var(--bg2)' : 'transparent',
@@ -159,7 +159,7 @@ function RecruiterPageInner() {
               recruiter.setShowJobModal(true);
             }}
             className="btn-primary"
-            style={{ padding: '8px 16px', fontSize: 12 }}
+            style={{ padding: '8px 16px', fontSize: 13 }}
           >
             + Post New Job
           </button>
@@ -302,38 +302,38 @@ function RecruiterPageInner() {
             width: '100%', maxWidth: 440, padding: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <div style={{ fontWeight: 800, fontSize: 16 }}>🗓️ Schedule Candidate Interview</div>
+              <div style={{ fontWeight: 800, fontSize: 17.5 }}>🗓️ Schedule Candidate Interview</div>
               <button
                 onClick={() => recruiter.setSchedulingCandidate(null)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 18 }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 20 }}
               >
                 ✕
               </button>
             </div>
 
-            <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '0 0 16px 0' }}>
+            <p style={{ fontSize: 14, color: 'var(--t2)', margin: '0 0 16px 0' }}>
               Dispatching formal calendar invitation and student dashboard notification to <strong>{recruiter.schedulingCandidate.name}</strong>.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Date & Time</label>
+                <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4 }}>Date & Time</label>
                 <input
                   type="datetime-local"
                   className="form-input"
                   value={recruiter.scheduleDate}
                   onChange={e => recruiter.setScheduleDate(e.target.value)}
-                  style={{ width: '100%', fontSize: 12 }}
+                  style={{ width: '100%', fontSize: 13 }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Interview Mode</label>
+                <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4 }}>Interview Mode</label>
                 <select
                   className="form-input"
                   value={recruiter.scheduleMode}
                   onChange={e => recruiter.setScheduleMode(e.target.value)}
-                  style={{ width: '100%', fontSize: 12 }}
+                  style={{ width: '100%', fontSize: 13 }}
                 >
                   <option value="Virtual Video Call">Virtual Video Call (Platform / WebRTC)</option>
                   <option value="AI Technical Interview (Autonomous Evaluation)">AI Technical Interview (Autonomous Evaluation)</option>
@@ -343,14 +343,14 @@ function RecruiterPageInner() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Target Role / Topic</label>
+                <label style={{ fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 4 }}>Target Role / Topic</label>
                 <input
                   type="text"
                   className="form-input"
                   value={recruiter.scheduleRole}
                   onChange={e => recruiter.setScheduleRole(e.target.value)}
                   placeholder="e.g. Software Engineering Role"
-                  style={{ width: '100%', fontSize: 12 }}
+                  style={{ width: '100%', fontSize: 13 }}
                 />
               </div>
             </div>
@@ -359,14 +359,14 @@ function RecruiterPageInner() {
               <button
                 onClick={() => recruiter.setSchedulingCandidate(null)}
                 className="btn-ghost"
-                style={{ fontSize: 12, padding: '8px 16px' }}
+                style={{ fontSize: 13, padding: '8px 16px' }}
               >
                 Cancel
               </button>
               <button
                 onClick={recruiter.confirmScheduleInterview}
                 className="btn-primary"
-                style={{ fontSize: 12, padding: '8px 16px', background: 'var(--accent)' }}
+                style={{ fontSize: 13, padding: '8px 16px', background: 'var(--accent)' }}
               >
                 Confirm & Dispatch
               </button>

@@ -61,8 +61,8 @@ export default function ConsultantDocumentHub({
       {/* Top Title & Sub-tabs */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>📄 Document Intelligence Vault</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>📄 Document Intelligence Vault</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Audit applicant CVs or generate tailored Statement of Purposes (SOPs) instantly.
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function ConsultantDocumentHub({
                 borderRadius: 6,
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: documentsSubMode === sub.id ? 800 : 600,
                 background: documentsSubMode === sub.id ? 'var(--bg2)' : 'transparent',
                 color: documentsSubMode === sub.id ? 'var(--accent)' : 'var(--t3)',
@@ -115,7 +115,7 @@ export default function ConsultantDocumentHub({
           alignItems: 'center',
         }}
       >
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
+        <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
         <select
           value={selectedDocStudent}
           onChange={e => {
@@ -126,7 +126,7 @@ export default function ConsultantDocumentHub({
             setGeneratedSop('');
           }}
           className="form-input"
-          style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
+          style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 220 }}
         >
           {allStudents.length === 0 ? (
             <option value="">No pipeline data</option>
@@ -175,7 +175,7 @@ export default function ConsultantDocumentHub({
                 gap: 12,
               }}
             >
-              <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Submitted Files: {selectedDocStudent}
               </span>
 
@@ -192,10 +192,10 @@ export default function ConsultantDocumentHub({
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Statement of Purpose (SOP)</span>
+                  <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>📄 Statement of Purpose (SOP)</span>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       background: hasSop ? 'rgba(var(--warning-rgb), 0.08)' : 'rgba(255,255,255,0.05)',
                       color: hasSop ? 'var(--amber)' : 'var(--t3)',
                       padding: '2px 6px',
@@ -213,7 +213,7 @@ export default function ConsultantDocumentHub({
                     setShowLorAudit(false);
                   }}
                   className="btn-primary btn-sm"
-                  style={{ width: '100%', padding: '6px 0', fontSize: 11, justifyContent: 'center' }}
+                  style={{ width: '100%', padding: '6px 0', fontSize: 12, justifyContent: 'center' }}
                 >
                   🔍 AI Audit SOP Content
                 </button>
@@ -232,10 +232,10 @@ export default function ConsultantDocumentHub({
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Resume (CV)</span>
+                  <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>📄 Resume (CV)</span>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       background: hasResume ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(255,255,255,0.05)',
                       color: hasResume ? 'var(--success)' : 'var(--t3)',
                       padding: '2px 6px',
@@ -253,7 +253,7 @@ export default function ConsultantDocumentHub({
                     setShowLorAudit(false);
                   }}
                   className="btn-primary btn-sm"
-                  style={{ width: '100%', padding: '6px 0', fontSize: 11, justifyContent: 'center' }}
+                  style={{ width: '100%', padding: '6px 0', fontSize: 12, justifyContent: 'center' }}
                 >
                   ⚡ AI ATS CV Scan
                 </button>
@@ -272,10 +272,10 @@ export default function ConsultantDocumentHub({
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Letter of Recommendation</span>
+                  <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>📄 Letter of Recommendation</span>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       background: hasLor ? (lorVaultItem.verified ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--brand-rgb), 0.08)') : 'rgba(255,255,255,0.05)',
                       color: hasLor ? (lorVaultItem.verified ? 'var(--success)' : 'var(--accent)') : 'var(--t3)',
                       padding: '2px 6px',
@@ -293,7 +293,7 @@ export default function ConsultantDocumentHub({
                     setShowLorAudit(true);
                   }}
                   className="btn-primary btn-sm"
-                  style={{ width: '100%', padding: '6px 0', fontSize: 11, justifyContent: 'center' }}
+                  style={{ width: '100%', padding: '6px 0', fontSize: 12, justifyContent: 'center' }}
                 >
                   🤝 AI LOR Content Review
                 </button>
@@ -312,7 +312,7 @@ export default function ConsultantDocumentHub({
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: 'var(--t3)',
-                    fontSize: 13,
+                    fontSize: 14.5,
                     fontStyle: 'italic',
                     padding: 40,
                     textAlign: 'center',
@@ -326,7 +326,7 @@ export default function ConsultantDocumentHub({
                   {showSopAudit && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-                        <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>SOP Quality Audit: {selectedDocStudent}</strong>
+                        <strong style={{ color: 'var(--t1)', fontSize: 16 }}>SOP Quality Audit: {selectedDocStudent}</strong>
                         {hasSop ? (() => {
                           const sopText = savedSopText || (sopVaultItem?.content || '');
                           const words = sopText.trim() ? sopText.trim().split(/\s+/).length : 0;
@@ -340,7 +340,7 @@ export default function ConsultantDocumentHub({
                           return (
                             <span
                               style={{
-                                fontSize: 11.5,
+                                fontSize: 12.5,
                                 background: 'rgba(var(--brand-rgb), 0.08)',
                                 color: 'var(--accent)',
                                 padding: '3px 8px',
@@ -352,7 +352,7 @@ export default function ConsultantDocumentHub({
                             </span>
                           );
                         })() : (
-                          <span style={{ fontSize: 11, color: 'var(--coral)', fontWeight: 700 }}>
+                          <span style={{ fontSize: 12, color: 'var(--coral)', fontWeight: 700 }}>
                             Document Missing
                           </span>
                         )}
@@ -371,26 +371,26 @@ export default function ConsultantDocumentHub({
                           <>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, padding: 10 }}>
-                                <span style={{ fontSize: 9.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Grammar & Structure</span>
-                                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--success)', marginTop: 4 }}>{grammar}%</div>
+                                <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Grammar & Structure</span>
+                                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--success)', marginTop: 4 }}>{grammar}%</div>
                               </div>
                               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, padding: 10 }}>
-                                <span style={{ fontSize: 9.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Lexical Diversity</span>
-                                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{uniqueness}%</div>
+                                <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Lexical Diversity</span>
+                                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{uniqueness}%</div>
                               </div>
                               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, padding: 10 }}>
-                                <span style={{ fontSize: 9.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Program / Research Match</span>
-                                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--teal)', marginTop: 4 }}>{research}%</div>
+                                <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Program / Research Match</span>
+                                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--teal)', marginTop: 4 }}>{research}%</div>
                               </div>
                               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, padding: 10 }}>
-                                <span style={{ fontSize: 9.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Leadership Indication</span>
-                                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--amber)', marginTop: 4 }}>{leadership}%</div>
+                                <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase' }}>Leadership Indication</span>
+                                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--amber)', marginTop: 4 }}>{leadership}%</div>
                               </div>
                             </div>
 
                             <div
                               style={{
-                                fontSize: 12.5,
+                                fontSize: 14,
                                 color: 'var(--t2)',
                                 background: 'rgba(255,255,255,0.01)',
                                 border: '1px solid var(--border)',
@@ -417,16 +417,16 @@ export default function ConsultantDocumentHub({
                             alignItems: 'center',
                           }}
                         >
-                          <span style={{ fontSize: 13, color: 'var(--t2)' }}>
+                          <span style={{ fontSize: 14.5, color: 'var(--t2)' }}>
                             📄 No Statement of Purpose on file for <strong>{selectedDocStudent}</strong>.
                           </span>
-                          <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                          <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>
                             You can generate a tailored draft instantly using the AI SOP Builder or request the candidate upload their draft.
                           </span>
                           <button
                             onClick={() => setDocumentsSubMode('builder')}
                             className="btn-primary btn-sm"
-                            style={{ padding: '6px 14px', fontSize: 11.5 }}
+                            style={{ padding: '6px 14px', fontSize: 12.5 }}
                           >
                             ✍️ Open AI SOP Builder
                           </button>
@@ -439,11 +439,11 @@ export default function ConsultantDocumentHub({
                   {showResumeAudit && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-                        <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>Resume ATS Scan: {selectedDocStudent}</strong>
+                        <strong style={{ color: 'var(--t1)', fontSize: 16 }}>Resume ATS Scan: {selectedDocStudent}</strong>
                         {hasResume ? (
                           <span
                             style={{
-                              fontSize: 11.5,
+                              fontSize: 12.5,
                               background: 'rgba(var(--accent-teal-rgb), 0.08)',
                               color: 'var(--teal)',
                               padding: '3px 8px',
@@ -454,7 +454,7 @@ export default function ConsultantDocumentHub({
                             ATS Score: {activeStudent?.atsScore || 78}/100
                           </span>
                         ) : (
-                          <span style={{ fontSize: 11, color: 'var(--coral)', fontWeight: 700 }}>
+                          <span style={{ fontSize: 12, color: 'var(--coral)', fontWeight: 700 }}>
                             No Resume Uploaded
                           </span>
                         )}
@@ -462,10 +462,10 @@ export default function ConsultantDocumentHub({
 
                       {hasResume ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                          <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                          <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
                             AI Improvement Checklist for {activeStudent?.targetCountry || 'International'} Admissions
                           </span>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, color: 'var(--t2)' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
                             <div>
                               • <strong>Quantified Project Impact</strong>: Ensure project bullets highlight quantifiable results (e.g. <em>latency reduction, data volume, benchmark accuracy</em>).
                             </div>
@@ -486,7 +486,7 @@ export default function ConsultantDocumentHub({
                             border: '1px solid rgba(var(--danger-rgb), 0.15)',
                             borderRadius: 10,
                             color: 'var(--t2)',
-                            fontSize: 12.5,
+                            fontSize: 14,
                           }}
                         >
                           No resume document or ATS score recorded for <strong>{selectedDocStudent}</strong>. The applicant has not yet uploaded a CV for ATS parsing.
@@ -499,10 +499,10 @@ export default function ConsultantDocumentHub({
                   {showLorAudit && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-                        <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>LOR Tone & Verification: {selectedDocStudent}</strong>
+                        <strong style={{ color: 'var(--t1)', fontSize: 16 }}>LOR Tone & Verification: {selectedDocStudent}</strong>
                         <span
                           style={{
-                            fontSize: 11.5,
+                            fontSize: 12.5,
                             background: hasLor && lorVaultItem.verified ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--warning-rgb), 0.08)',
                             color: hasLor && lorVaultItem.verified ? 'var(--success)' : 'var(--amber)',
                             padding: '3px 8px',
@@ -516,7 +516,7 @@ export default function ConsultantDocumentHub({
 
                       <div
                         style={{
-                          fontSize: 12.5,
+                          fontSize: 14,
                           color: 'var(--t2)',
                           background: 'rgba(255,255,255,0.01)',
                           border: '1px solid var(--border)',
@@ -565,56 +565,56 @@ export default function ConsultantDocumentHub({
               gap: 14,
             }}
           >
-            <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>AI SOP Generator Parameters</h4>
+            <h4 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--accent)' }}>AI SOP Generator Parameters</h4>
 
             <div>
-              <label className="form-label" style={{ fontSize: 11.5 }}>
+              <label className="form-label" style={{ fontSize: 12.5 }}>
                 Core Academic/Professional Projects
               </label>
               <textarea
                 value={sopProjects}
                 onChange={e => setSopProjects(e.target.value)}
                 className="form-input"
-                style={{ width: '100%', minHeight: 60, fontSize: 12.5 }}
+                style={{ width: '100%', minHeight: 60, fontSize: 14 }}
                 placeholder="e.g. Built decentralized chat app using WebRTC and IPFS for privacy-preserving p2p messages."
               />
             </div>
 
             <div>
-              <label className="form-label" style={{ fontSize: 11.5 }}>
+              <label className="form-label" style={{ fontSize: 12.5 }}>
                 Research Experience & Focus
               </label>
               <textarea
                 value={sopResearch}
                 onChange={e => setSopResearch(e.target.value)}
                 className="form-input"
-                style={{ width: '100%', minHeight: 60, fontSize: 12.5 }}
+                style={{ width: '100%', minHeight: 60, fontSize: 14 }}
                 placeholder="e.g. Analyzed low-resource NLP datasets with transformer-based adapters at NLP labs."
               />
             </div>
 
             <div>
-              <label className="form-label" style={{ fontSize: 11.5 }}>
+              <label className="form-label" style={{ fontSize: 12.5 }}>
                 Target Career Goal
               </label>
               <input
                 value={sopGoal}
                 onChange={e => setSopGoal(e.target.value)}
                 className="form-input"
-                style={{ width: '100%', fontSize: 12.5 }}
+                style={{ width: '100%', fontSize: 14 }}
                 placeholder="e.g. AI Research Engineer / ML Infrastructure Architect"
               />
             </div>
 
             <div>
-              <label className="form-label" style={{ fontSize: 11.5 }}>
+              <label className="form-label" style={{ fontSize: 12.5 }}>
                 Key Achievements / Awards
               </label>
               <textarea
                 value={sopAchievements}
                 onChange={e => setSopAchievements(e.target.value)}
                 className="form-input"
-                style={{ width: '100%', minHeight: 60, fontSize: 12.5 }}
+                style={{ width: '100%', minHeight: 60, fontSize: 14 }}
                 placeholder="e.g. Ranked 1st in State Coding Quest, CGPA 8.4/10"
               />
             </div>
@@ -648,7 +648,7 @@ export default function ConsultantDocumentHub({
                 }, 600);
               }}
               className="btn-primary"
-              style={{ justifyContent: 'center', padding: '10px 0', fontSize: 12.5, fontWeight: 700 }}
+              style={{ justifyContent: 'center', padding: '10px 0', fontSize: 14, fontWeight: 700 }}
             >
               {generatingSop ? 'Athena Generating SOP...' : '⚡ Generate Statement of Purpose'}
             </button>
@@ -657,11 +657,11 @@ export default function ConsultantDocumentHub({
           {/* Right Column: Generated SOP Output Editor */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>Generated Draft Editor</h4>
+              <h4 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>Generated Draft Editor</h4>
               {generatedSop && (
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     background: 'rgba(var(--success-rgb), 0.08)',
                     color: 'var(--success)',
                     padding: '2px 8px',
@@ -683,7 +683,7 @@ export default function ConsultantDocumentHub({
                   width: '100%',
                   flex: 1,
                   minHeight: 280,
-                  fontSize: 13,
+                  fontSize: 14.5,
                   fontFamily: 'var(--font-mono)',
                   lineHeight: 1.5,
                   background: 'var(--bg3)',
@@ -721,7 +721,7 @@ export default function ConsultantDocumentHub({
                     color: 'white',
                     border: 'none',
                     padding: '10px 0',
-                    fontSize: 12.5,
+                    fontSize: 14,
                     fontWeight: 700,
                     justifyContent: 'center',
                   }}

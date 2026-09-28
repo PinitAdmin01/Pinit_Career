@@ -25,10 +25,10 @@ export function AttentionHistoryView({
     <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 26px', position: 'relative', boxShadow: 'var(--shadow-sm)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
         <div>
-          <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
             Session history
           </h2>
-          <p style={{ color: 'var(--t2)', fontSize: 13, margin: '4px 0 0' }}>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5, margin: '4px 0 0' }}>
             Complete log of all your focus game sessions, accuracy gains, and difficulty levels.
           </p>
         </div>
@@ -43,7 +43,7 @@ export function AttentionHistoryView({
               color: 'var(--t2)',
               padding: '6px 14px',
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 700,
               cursor: 'pointer',
             }}
@@ -60,7 +60,7 @@ export function AttentionHistoryView({
                 color: 'var(--danger)',
                 padding: '6px 14px',
                 borderRadius: 8,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 700,
                 cursor: 'pointer',
               }}
@@ -84,7 +84,7 @@ export function AttentionHistoryView({
               color: historyFilter === f.id ? 'var(--amber)' : 'var(--t2)',
               borderRadius: 8,
               padding: '5px 12px',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 700,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
@@ -97,7 +97,7 @@ export function AttentionHistoryView({
 
       {/* History List */}
       {filteredHistory.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--t2)', fontSize: 14, background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
+        <div style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--t2)', fontSize: 15.5, background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
           No sessions yet. Play a drill above to start the log.
         </div>
       ) : (
@@ -116,12 +116,12 @@ export function AttentionHistoryView({
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ fontSize: 24, width: 36, textAlign: 'center' }}>{item.gameIcon}</div>
+                <div style={{ fontSize: 26.5, width: 36, textAlign: 'center' }}>{item.gameIcon}</div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
                     {item.gameName}
                     <span style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       padding: '1px 6px',
                       borderRadius: 4,
                       fontWeight: 700,
@@ -133,17 +133,17 @@ export function AttentionHistoryView({
                       {item.difficulty}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                     {item.timestamp}
                   </div>
                 </div>
               </div>
 
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--success)' }}>
                   +{item.accuracyEarned} Accuracy • {item.scoreDisplay}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--purple-mid, #8b5cf6)', fontWeight: 600 }}>
+                <div style={{ fontSize: 12, color: 'var(--purple-mid, #8b5cf6)', fontWeight: 600 }}>
                   +{item.xpEarned} XP Earned
                 </div>
               </div>

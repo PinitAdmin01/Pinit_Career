@@ -70,17 +70,17 @@ export default function IdentityPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, marginBottom: 60 }}>
             {pillars.map((pillar, idx) => (
               <div key={idx} className="gain-card" style={{ padding: 32, textAlign: 'left' }}>
-                <div style={{ fontSize: 36, marginBottom: 16 }}>{pillar.icon}</div>
-                <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 10 }}>{pillar.title}</h3>
-                <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{pillar.desc}</p>
+                <div style={{ fontSize: 39.5, marginBottom: 16 }}>{pillar.icon}</div>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 10 }}>{pillar.title}</h3>
+                <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{pillar.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Verification CTA */}
           <div className="glass-card" style={{ padding: '40px 32px', textAlign: 'center', maxWidth: 840, margin: '0 auto' }}>
-            <h2 style={{ fontSize: 24, fontWeight: 900, marginBottom: 12 }}>Ready to Unlock Your Career DNA?</h2>
-            <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 24px' }}>
+            <h2 style={{ fontSize: 26.5, fontWeight: 900, marginBottom: 12 }}>Ready to Unlock Your Career DNA?</h2>
+            <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 24px' }}>
               Complete the 20-minute diagnostic and claim your sovereign cryptographic credential.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 14, flexWrap: 'wrap' }}>

@@ -103,7 +103,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             <div style={{
               position: 'absolute', bottom: 3, left: 3, right: 3,
               background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
-              borderRadius: 6, padding: '2px 6px', fontSize: 8.5, color: 'var(--text)',
+              borderRadius: 6, padding: '2px 6px', fontSize: 9.5, color: 'var(--text)',
               display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
             }}>
               <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
@@ -118,7 +118,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div style={{
           position: 'absolute', top: 14, left: 14, padding: '6px 14px', borderRadius: 100,
           background: isAvatarSpeaking ? 'var(--accent)' : isVoiceListening ? 'var(--danger)' : 'var(--green)',
-          backdropFilter: 'blur(8px)', color: 'var(--text)', fontSize: 11, fontWeight: 800,
+          backdropFilter: 'blur(8px)', color: 'var(--text)', fontSize: 12, fontWeight: 800,
           display: 'flex', alignItems: 'center', gap: 6, boxShadow: 'var(--shadow-md)'
         }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff', display: 'inline-block' }} />
@@ -129,7 +129,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div style={{
           position: 'absolute', bottom: 14, left: 14, right: 14, padding: '10px 16px',
           background: 'rgba(0,0,0,0.80)', backdropFilter: 'blur(10px)', borderRadius: 12,
-          color: 'var(--text)', fontSize: 12, lineHeight: 1.4, border: '1px solid rgba(255,255,255,0.12)'
+          color: 'var(--text)', fontSize: 13, lineHeight: 1.4, border: '1px solid rgba(255,255,255,0.12)'
         }}>
           <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
         </div>
@@ -145,16 +145,16 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
       }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
-            <h2 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral & Background Intro</h2>
+            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
+            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral & Background Intro</h2>
           </div>
-          <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
+          <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '6px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
             Proceed to Round 2 ➔
           </button>
         </div>
 
         {/* Telemetry Bar */}
-        <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: '8px 12px', border: '1px solid var(--border)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+        <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: '8px 12px', border: '1px solid var(--border)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
           <div>👀 Eye Contact: <strong style={{ color: eyeContactScore !== null ? 'var(--green-mid)' : 'var(--t3)' }}>{eyeContactScore !== null ? `${eyeContactScore}%` : 'Cam Off'}</strong></div>
           <div>⚡ Pace: <strong style={{ color: 'var(--accent-mid)' }}>{wpmScore !== null ? `${wpmScore} WPM` : 'Mic Off'}</strong></div>
           <div>💬 Fillers: <strong style={{ color: 'var(--green-mid)' }}>{wpmScore !== null ? fillerWordCount : 'N/A'}</strong></div>
@@ -164,7 +164,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div className="scroll-container" style={{ flex: 1, minHeight: 120, maxHeight: isAssistModeActive ? 220 : 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
           {messages.map((m, i) => (
             <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
-              <div className={m.role === 'user' ? 'iv-chat-user' : 'iv-chat-assistant'} style={{ padding: '10px 14px', borderRadius: 14, fontSize: 12, lineHeight: 1.5 }}>
+              <div className={m.role === 'user' ? 'iv-chat-user' : 'iv-chat-assistant'} style={{ padding: '10px 14px', borderRadius: 14, fontSize: 13, lineHeight: 1.5 }}>
                 {m.content}
               </div>
             </div>
@@ -189,10 +189,10 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             {/* Header with Title & Level Selector */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 14 }}>🎯</span>
-                <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>AI Teleprompter Script</span>
+                <span style={{ fontSize: 15.5 }}>🎯</span>
+                <span style={{ fontSize: 12.5, fontWeight: 900, color: 'var(--reward-bright)' }}>AI Teleprompter Script</span>
                 <span style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: '1px 5px',
                   borderRadius: 4,
                   background: 'rgba(var(--reward-rgb), 0.2)',
@@ -217,7 +217,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                       color: 'var(--reward-bright)',
                       borderRadius: 6,
                       padding: '2px 6px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}
@@ -236,7 +236,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                       color: 'var(--text)',
                       borderRadius: 6,
                       padding: '2px 6px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}
@@ -247,7 +247,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                 {setIsAssistModeActive && (
                   <button
                     onClick={() => setIsAssistModeActive(false)}
-                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 11, cursor: 'pointer', padding: '0 2px' }}
+                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: '0 2px' }}
                     title="Close Assist Mode"
                   >
                     ✕
@@ -267,7 +267,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                       flex: 1,
                       padding: '3px 6px',
                       borderRadius: 5,
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 800,
                       background: assistTab === tabKey ? 'var(--reward)' : 'rgba(255,255,255,0.06)',
                       color: assistTab === tabKey ? '#000' : 'var(--text-muted)',
@@ -283,14 +283,14 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
 
             {/* Tab Body */}
             {isFetchingAssist ? (
-              <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
+              <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 12, fontStyle: 'italic' }}>
                 ✨ Crafting spoken answer for this question...
               </div>
             ) : assistData ? (
               <div>
                 {assistTab === 'script' && (
                   <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
-                    <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--text)', maxHeight: 110, overflowY: 'auto' }}>
+                    <div style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--text)', maxHeight: 110, overflowY: 'auto' }}>
                       &ldquo;
                       {(assistData.script || '').split(' ').map((word: string, wIdx: number) => {
                         const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -311,7 +311,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                       })}
                       &rdquo;
                     </div>
-                    <div style={{ marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 9.5, color: 'var(--reward-bright)' }}>
+                    <div style={{ marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 10.5, color: 'var(--reward-bright)' }}>
                       <span>🎙️ {liveSpeechTranscript ? '🟢 Word matches glow green as you speak' : 'Read aloud into mic to practice'}</span>
                       <span>{assistData.deliveryGuide?.pacing || '~125 WPM'}</span>
                     </div>
@@ -320,7 +320,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
 
                 {assistTab === 'bullets' && (
                   <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', maxHeight: 110, overflowY: 'auto' }}>
-                    <ul style={{ margin: 0, paddingLeft: 14, fontSize: 11, lineHeight: 1.5, color: 'var(--text)' }}>
+                    <ul style={{ margin: 0, paddingLeft: 14, fontSize: 12, lineHeight: 1.5, color: 'var(--text)' }}>
                       {(assistData.bulletPoints || []).map((pt: string, idx: number) => (
                         <li key={idx} style={{ marginBottom: 2 }}>{pt}</li>
                       ))}
@@ -329,12 +329,12 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                 )}
 
                 {assistTab === 'delivery' && (
-                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', fontSize: 11, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', fontSize: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <div><strong>Tone:</strong> {assistData.deliveryGuide?.tone || 'Confident and structured'}</div>
                     <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center' }}>
                       <strong>Key words:</strong>
                       {(assistData.deliveryGuide?.emphasisWords || []).map((w: string, i: number) => (
-                        <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '1px 5px', borderRadius: 4, fontSize: 9.5 }}>
+                        <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '1px 5px', borderRadius: 4, fontSize: 10.5 }}>
                           {w}
                         </span>
                       ))}
@@ -344,7 +344,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
               </div>
             ) : (
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 0' }}>
-                <span style={{ fontSize: 11, color: 'var(--t3)' }}>No script generated yet.</span>
+                <span style={{ fontSize: 12, color: 'var(--t3)' }}>No script generated yet.</span>
                 {fetchAssistScript && (
                   <button
                     onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
@@ -354,7 +354,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                       color: '#000',
                       borderRadius: 6,
                       padding: '4px 10px',
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}
@@ -373,7 +373,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             style={{
               width: '100%',
               background: isVoiceListening ? 'var(--danger)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-              border: 'none', color: 'var(--text)', borderRadius: 10, padding: '10px', fontSize: 12, fontWeight: 900, cursor: 'pointer',
+              border: 'none', color: 'var(--text)', borderRadius: 10, padding: '10px', fontSize: 13, fontWeight: 900, cursor: 'pointer',
               boxShadow: isVoiceListening ? '0 0 14px rgba(var(--danger-rgb),0.7)' : 'var(--shadow-sm)'
             }}
           >
@@ -404,7 +404,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                 border: '1px solid var(--border)',
                 background: 'var(--bg3)',
                 color: 'var(--t1)',
-                fontSize: 11.5
+                fontSize: 12.5
               }}
             />
             <button
@@ -416,7 +416,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                 border: 'none',
                 background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
                 color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 800,
                 cursor: manualTextInput.trim() ? 'pointer' : 'default'
               }}

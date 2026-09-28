@@ -958,7 +958,7 @@ export default function AvatarMentorWidget({
           position:'fixed', bottom:24, left:'50%', transform:'translateX(-50%)', zIndex:100,
           width:58, height:58, borderRadius:'50%',
           background: teacher.color, border:'none', cursor:'pointer',
-          fontSize:26, boxShadow:`0 4px 20px ${teacher.color}60`,
+          fontSize:28.5, boxShadow:`0 4px 20px ${teacher.color}60`,
           display:'flex', alignItems:'center', justifyContent:'center',
           opacity: 0.75,
           transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -991,7 +991,7 @@ export default function AvatarMentorWidget({
               }}
             >
               {!isUser && (
-                <span style={{ fontSize: 20, marginTop: 4, flexShrink: 0 }}>
+                <span style={{ fontSize: 22, marginTop: 4, flexShrink: 0 }}>
                   {teacher.emoji}
                 </span>
               )}
@@ -999,7 +999,7 @@ export default function AvatarMentorWidget({
                 style={{
                   padding: '10px 14px',
                   borderRadius: 14,
-                  fontSize: 12.5,
+                  fontSize: 14,
                   lineHeight: 1.5,
                   background: isUser ? teacher.color : 'var(--bg3)',
                   color: isUser ? 'var(--text)' : 'var(--t1)',
@@ -1014,7 +1014,7 @@ export default function AvatarMentorWidget({
           );
         })}
         {loading && (
-          <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 12, paddingLeft: 28 }}>
+          <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 13, paddingLeft: 28 }}>
             <span>{teacher.emoji}</span>
             <div style={{
               background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: '10px 16px', display: 'flex', gap: 4, alignItems: 'center'
@@ -1054,7 +1054,7 @@ export default function AvatarMentorWidget({
               border: '1px solid var(--border)',
               background: 'var(--bg2)',
               color: 'var(--t2)',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               cursor: 'pointer',
               transition: 'all 0.15s',
@@ -1091,7 +1091,7 @@ export default function AvatarMentorWidget({
             border: '1px solid var(--border)',
             background: 'var(--bg3)',
             color: 'var(--t1)',
-            fontSize: 12.5,
+            fontSize: 14,
             outline: 'none',
           }}
           disabled={loading}
@@ -1111,7 +1111,7 @@ export default function AvatarMentorWidget({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 14,
+            fontSize: 15.5,
             transition: 'all 0.15s',
           }}
         >
@@ -1131,7 +1131,7 @@ export default function AvatarMentorWidget({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 14,
+            fontSize: 15.5,
             transition: 'all 0.15s',
             boxShadow: input.trim() && !loading ? `0 2px 8px ${teacher.color}40` : 'none',
           }}
@@ -1160,7 +1160,7 @@ export default function AvatarMentorWidget({
         <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
         {aiState !== 'idle' && (
           <div style={{
-            position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+            position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
             padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
             color: aiState === 'talking' ? '#a5b4fc' : aiState === 'thinking' ? '#fde68a' : '#86efac',
             backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)', zIndex: 10
@@ -1177,10 +1177,10 @@ export default function AvatarMentorWidget({
       {/* Header */}
       <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: '12px 16px' }}>
         <div className="mentor-info">
-          <span className="mentor-emoji" style={{ fontSize: '28px', marginRight: '4px' }}>{teacher.emoji}</span>
+          <span className="mentor-emoji" style={{ fontSize: '31px', marginRight: '4px' }}>{teacher.emoji}</span>
           <div>
-            <p className="mentor-name" style={{ fontSize: '14px' }}>{teacher.name}</p>
-            <p className="mentor-subtitle" style={{ fontSize: '10.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
+            <p className="mentor-name" style={{ fontSize: '15.5px' }}>{teacher.name}</p>
+            <p className="mentor-subtitle" style={{ fontSize: '11.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
           </div>
         </div>
         <div className="mentor-controls" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1198,7 +1198,7 @@ export default function AvatarMentorWidget({
                   toast.info("Voice Lock Reset", "Owner voice lock disabled.");
                 }
               }}
-              style={{ fontSize: 9, background: 'rgba(255,255,255,0.15)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
+              style={{ fontSize: 10, background: 'rgba(255,255,255,0.15)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
               title="Voice lock active (Synced to Supabase). Click to reset."
             >
               🔐 Voice Lock ({voicePrint?.avgPitch || voiceFreq}Hz)
@@ -1206,7 +1206,7 @@ export default function AvatarMentorWidget({
           ) : (
             <span 
               onClick={startVoiceRegistration}
-              style={{ fontSize: 9, background: isRecordingVoice ? 'var(--coral)' : 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
+              style={{ fontSize: 10, background: isRecordingVoice ? 'var(--coral)' : 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
               title="Click to analyze and register your voice signature into Supabase"
             >
               {isRecordingVoice ? '🎙️ Analyzing...' : '🎙️ Register Voice'}
@@ -1224,7 +1224,7 @@ export default function AvatarMentorWidget({
             <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{
-                position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+                position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
                 padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
                 color: aiState === 'talking' ? '#a5b4fc' : aiState === 'thinking' ? '#fde68a' : '#86efac',
                 backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'
@@ -1245,7 +1245,7 @@ export default function AvatarMentorWidget({
             <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{
-                position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
+                position: 'absolute', top: 8, right: 8, fontSize: 10, fontWeight: 700,
                 padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.6)',
                 color: aiState === 'talking' ? '#a5b4fc' : aiState === 'thinking' ? '#fde68a' : '#86efac',
                 backdropFilter: 'blur(4px)', fontFamily: 'var(--font-mono)'

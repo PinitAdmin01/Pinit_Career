@@ -73,10 +73,10 @@ export default function MissionsEvolveBanner({
           overflow: 'hidden',
         }}
       >
-        <div style={{ position: 'absolute', top: -10, right: -10, fontSize: 80, opacity: 0.06 }}>🧠</div>
+        <div style={{ position: 'absolute', top: -10, right: -10, fontSize: 88, opacity: 0.06 }}>🧠</div>
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 800,
             letterSpacing: '1.2px',
             textTransform: 'uppercase',
@@ -94,7 +94,7 @@ export default function MissionsEvolveBanner({
         <h2
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 22,
+            fontSize: 24,
             fontWeight: 800,
             color: theme.tPrimary,
             margin: '0 0 10px',
@@ -105,7 +105,7 @@ export default function MissionsEvolveBanner({
         <p
           style={{
             color: theme.tSecondary,
-            fontSize: 13,
+            fontSize: 14.5,
             maxWidth: 580,
             margin: '0 auto 20px',
             lineHeight: 1.5,
@@ -135,7 +135,7 @@ export default function MissionsEvolveBanner({
           >
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 color: theme.tTertiary,
                 display: 'block',
                 textTransform: 'uppercase',
@@ -145,7 +145,7 @@ export default function MissionsEvolveBanner({
             >
               Mindset Archetype
             </span>
-            <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--purple)' }}>
+            <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--purple)' }}>
               {onboardingAnswers?.mindset_archetype || 'Pattern Hunter'}
             </span>
           </div>
@@ -159,7 +159,7 @@ export default function MissionsEvolveBanner({
           >
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 color: theme.tTertiary,
                 display: 'block',
                 textTransform: 'uppercase',
@@ -169,7 +169,7 @@ export default function MissionsEvolveBanner({
             >
               QT2 Mindset Index
             </span>
-            <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--teal)' }}>
+            <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--teal)' }}>
               🧠 {onboardingAnswers?.qt2_score || 75} pts
             </span>
           </div>
@@ -181,7 +181,7 @@ export default function MissionsEvolveBanner({
           className="btn-primary"
           style={{
             padding: '12px 28px',
-            fontSize: 13.5,
+            fontSize: 15,
             borderRadius: 14,
             margin: '0 auto',
             boxShadow: '0 4px 14px rgba(168,85,247,0.3)',
@@ -201,7 +201,7 @@ export default function MissionsEvolveBanner({
               background: 'none',
               border: 'none',
               color: theme.tTertiary,
-              fontSize: 11.5,
+              fontSize: 12.5,
               cursor: 'pointer',
               textDecoration: 'underline',
             }}

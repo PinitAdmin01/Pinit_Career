@@ -111,13 +111,13 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
     <div style={{ display:'flex', flexDirection:'column', height:'calc(100vh - 180px)', background:'var(--card)', border:'1px solid var(--border)', borderRadius:14, overflow:'hidden' }}>
       {/* Header */}
       <div style={{ padding:'12px 16px', borderBottom:'1px solid var(--border)', display:'flex', alignItems:'center', gap:10, flexShrink:0 }}>
-        <span style={{ fontSize:22 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
+        <span style={{ fontSize:24 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
         <div>
-          <div style={{ fontSize:13, fontWeight:700 }}>{TEACHER_NAMES[teacherId] || 'Teacher'}</div>
-          <div style={{ fontSize:10, color:'var(--t3)' }}>{mode} mode {speaking ? '🔊' : ''}</div>
+          <div style={{ fontSize:14.5, fontWeight:700 }}>{TEACHER_NAMES[teacherId] || 'Teacher'}</div>
+          <div style={{ fontSize:11, color:'var(--t3)' }}>{mode} mode {speaking ? '🔊' : ''}</div>
         </div>
         {careerContext && (
-          <div style={{ marginLeft:'auto', fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
+          <div style={{ marginLeft:'auto', fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>
             ATS: {(careerContext as {ats_score?:number}).ats_score || 0}
           </div>
         )}
@@ -128,13 +128,13 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
         {messages.map((m, i) => (
           <div key={i} style={{ display:'flex', gap:8, justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
             {m.role === 'assistant' && (
-              <span style={{ fontSize:18, flexShrink:0, marginTop:2 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
+              <span style={{ fontSize:20, flexShrink:0, marginTop:2 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
             )}
             <div style={{
               maxWidth:'80%', padding:'10px 14px', borderRadius:10,
               background: m.role === 'user' ? 'var(--accent)' : 'var(--bg3)',
               color: m.role === 'user' ? 'white' : 'var(--t1)',
-              fontSize:13, lineHeight:1.6, whiteSpace:'pre-wrap',
+              fontSize:14.5, lineHeight:1.6, whiteSpace:'pre-wrap',
             }}>
               {m.content}
             </div>
@@ -142,7 +142,7 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
         ))}
         {loading && (
           <div style={{ display:'flex', gap:8 }}>
-            <span style={{ fontSize:18 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
+            <span style={{ fontSize:20 }}>{TEACHER_EMOJIS[teacherId] || '👩‍🏫'}</span>
             <div style={{ padding:'10px 14px', background:'var(--bg3)', borderRadius:10, display:'flex', gap:4, alignItems:'center' }}>
               {[0,1,2].map(i => (
                 <span key={i} style={{ width:6, height:6, borderRadius:'50%', background:'var(--t3)', display:'inline-block', animation:`pulse 1.2s ${i*0.2}s infinite` }} />
@@ -164,7 +164,7 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
           style={{
             flex:1, background:'var(--bg3)', border:'1px solid var(--border)',
             borderRadius:8, padding:'9px 14px', color:'var(--t1)',
-            fontSize:13, fontFamily:'var(--font-body)', outline:'none',
+            fontSize:14.5, fontFamily:'var(--font-body)', outline:'none',
           }}
         />
         <button

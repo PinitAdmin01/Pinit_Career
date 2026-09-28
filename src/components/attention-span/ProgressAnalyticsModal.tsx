@@ -141,14 +141,14 @@ export function ProgressAnalyticsModal({
       <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 20, width: '100%', maxWidth: 760, maxHeight: '90vh', overflowY: 'auto', padding: '28px 30px', position: 'relative', boxShadow: 'var(--shadow-md)', color: 'var(--t1)' }}>
         
         {/* Exit Button */}
-        <button onClick={onClose} style={{ position: 'absolute', top: 20, right: 24, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text)', padding: '8px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>✕ Close</button>
+        <button onClick={onClose} style={{ position: 'absolute', top: 20, right: 24, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text)', padding: '8px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 14.5, fontWeight: 700 }}>✕ Close</button>
 
         {/* Modal Title */}
         <div style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h2 style={{ fontSize: 26.5, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
             <span>📊</span> Long-Term Progress Analytics
           </h2>
-          <p style={{ color: 'var(--t2)', fontSize: 13, margin: '4px 0 0' }}>Authentic focus growth, reaction speed, and accuracy tracked across actual play sessions.</p>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5, margin: '4px 0 0' }}>Authentic focus growth, reaction speed, and accuracy tracked across actual play sessions.</p>
         </div>
 
         {/* View Mode Toggle */}
@@ -162,7 +162,7 @@ export function ProgressAnalyticsModal({
               border: 'none',
               background: viewMode === 'day' ? 'linear-gradient(135deg, #d4a843, #f5d78e)' : 'transparent',
               color: viewMode === 'day' ? '#0a0a0f' : 'var(--t2)',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 800,
               cursor: 'pointer',
               transition: 'all 0.2s ease',
@@ -179,7 +179,7 @@ export function ProgressAnalyticsModal({
               border: 'none',
               background: viewMode === 'month' ? 'linear-gradient(135deg, #d4a843, #f5d78e)' : 'transparent',
               color: viewMode === 'month' ? '#0a0a0f' : 'var(--t2)',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 800,
               cursor: 'pointer',
               transition: 'all 0.2s ease',
@@ -192,32 +192,32 @@ export function ProgressAnalyticsModal({
         {/* ── DAY-TO-DAY COMPARISON VIEW ── */}
         {viewMode === 'day' && (
           <div style={{ animation: 'attFadeIn 0.3s ease' }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t2)', marginBottom: 14 }}>
+            <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t2)', marginBottom: 14 }}>
               Comparing <strong style={{ color: 'var(--amber)' }}>Today ({todayStr})</strong> vs <strong style={{ color: 'var(--t1)' }}>Yesterday ({yesterdayStr})</strong>
             </div>
 
             {/* Day Comparison Metric Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Focus Score</div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: '#d4a843' }}>{todayLog.avgFocusScore}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: scoreDelta.hasPrior ? (scoreDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 4 }}>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 4 }}>Focus Score</div>
+                <div style={{ fontSize: 26.5, fontWeight: 900, color: '#d4a843' }}>{todayLog.avgFocusScore}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: scoreDelta.hasPrior ? (scoreDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 4 }}>
                   {scoreDelta.hasPrior ? `${scoreDelta.isUp ? '▲' : '▼'} ${scoreDelta.pct} vs yesterday (${yesterdayLog.avgFocusScore})` : 'No yesterday activity'}
                 </div>
               </div>
 
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Accuracy Earned Today</div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--success)' }}>+{todayLog.totalAccuracy}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: accDelta.hasPrior ? (accDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 4 }}>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 4 }}>Accuracy Earned Today</div>
+                <div style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--success)' }}>+{todayLog.totalAccuracy}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: accDelta.hasPrior ? (accDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 4 }}>
                   {accDelta.hasPrior ? `${accDelta.isUp ? '▲' : '▼'} ${accDelta.pct} vs yesterday (+${yesterdayLog.totalAccuracy})` : 'No yesterday activity'}
                 </div>
               </div>
 
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Sessions Played</div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--info)' }}>{todayLog.sessionsCompleted}</div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 4 }}>Sessions Played</div>
+                <div style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--info)' }}>{todayLog.sessionsCompleted}</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
                   {hasYesterdayData ? `Yesterday: ${yesterdayLog.sessionsCompleted} session${yesterdayLog.sessionsCompleted !== 1 ? 's' : ''}` : 'Yesterday: 0 sessions'}
                 </div>
               </div>
@@ -225,7 +225,7 @@ export function ProgressAnalyticsModal({
 
             {/* Daily Trend Curve */}
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }}>
-              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 14 }}>📈 7-Day Focus Score Trajectory</div>
+              <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 14 }}>📈 7-Day Focus Score Trajectory</div>
               {hasAny7DayActivity ? (
                 <>
                   <svg viewBox="0 0 500 120" style={{ width: '100%', height: 120 }}>
@@ -253,7 +253,7 @@ export function ProgressAnalyticsModal({
                       );
                     })}
                   </svg>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 20px', marginTop: 6, fontSize: 10.5, color: 'var(--t3)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 20px', marginTop: 6, fontSize: 11.5, color: 'var(--t3)' }}>
                     {past7Days.map(d => (
                       <span key={d.date} style={{ textAlign: 'center' }}>
                         <div>{d.label}</div>
@@ -263,7 +263,7 @@ export function ProgressAnalyticsModal({
                   </div>
                 </>
               ) : (
-                <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+                <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
                   No sessions recorded in the past 7 days. Play games to generate your authentic focus trajectory.
                 </div>
               )}
@@ -274,34 +274,34 @@ export function ProgressAnalyticsModal({
         {/* ── MONTH-TO-MONTH COMPARISON VIEW ── */}
         {viewMode === 'month' && (
           <div style={{ animation: 'attFadeIn 0.3s ease' }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t2)', marginBottom: 14 }}>
+            <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t2)', marginBottom: 14 }}>
               Comparing <strong style={{ color: 'var(--success)' }}>{thisMonthSummary.monthLabel}</strong> vs <strong style={{ color: 'var(--info)' }}>{lastMonthSummary.monthLabel}</strong>
             </div>
 
             {/* Monthly Comparison Grid Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14, marginBottom: 24 }}>
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 6 }}>Monthly Average Focus Score</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 6 }}>Monthly Average Focus Score</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-                  <span style={{ fontSize: 28, fontWeight: 900, color: 'var(--success)' }}>{thisMonthSummary.avgFocusScore}</span>
+                  <span style={{ fontSize: 31, fontWeight: 900, color: 'var(--success)' }}>{thisMonthSummary.avgFocusScore}</span>
                   {hasLastMonthData && (
-                    <span style={{ fontSize: 16, color: 'var(--t3)', textDecoration: 'line-through' }}>{lastMonthSummary.avgFocusScore}</span>
+                    <span style={{ fontSize: 17.5, color: 'var(--t3)', textDecoration: 'line-through' }}>{lastMonthSummary.avgFocusScore}</span>
                   )}
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: monthScoreDelta.hasPrior ? (monthScoreDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 6 }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: monthScoreDelta.hasPrior ? (monthScoreDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 6 }}>
                   {monthScoreDelta.hasPrior ? `${monthScoreDelta.isUp ? '📈 Growth:' : '📉 Drop:'} ${monthScoreDelta.pct} vs last month` : 'First active month recorded'}
                 </div>
               </div>
 
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 6 }}>Total Accuracy Points Earned</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 6 }}>Total Accuracy Points Earned</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-                  <span style={{ fontSize: 28, fontWeight: 900, color: '#d4a843' }}>+{thisMonthSummary.totalAccuracy}</span>
+                  <span style={{ fontSize: 31, fontWeight: 900, color: '#d4a843' }}>+{thisMonthSummary.totalAccuracy}</span>
                   {hasLastMonthData && (
-                    <span style={{ fontSize: 16, color: 'var(--t3)' }}>vs +{lastMonthSummary.totalAccuracy}</span>
+                    <span style={{ fontSize: 17.5, color: 'var(--t3)' }}>vs +{lastMonthSummary.totalAccuracy}</span>
                   )}
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: monthAccDelta.hasPrior ? (monthAccDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 6 }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: monthAccDelta.hasPrior ? (monthAccDelta.isUp ? 'var(--success)' : 'var(--danger)') : 'var(--t3)', marginTop: 6 }}>
                   {monthAccDelta.hasPrior ? `${monthAccDelta.isUp ? '⚡ Acceleration:' : '📉 Drop:'} ${monthAccDelta.pct} volume change` : 'Baseline month established'}
                 </div>
               </div>
@@ -309,7 +309,7 @@ export function ProgressAnalyticsModal({
 
             {/* Dual Cognitive Domain Growth Overlay Radar */}
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, textAlign: 'center' }}>
-              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
+              <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
                 🕸️ Cognitive Domain Comparison (<span style={{ color: 'var(--success)' }}>This Month</span> vs <span style={{ color: 'var(--info)' }}>Last Month</span>)
               </div>
               {hasThisMonthRadar || hasLastMonthRadar ? (
@@ -340,7 +340,7 @@ export function ProgressAnalyticsModal({
                       />
                     )}
                   </svg>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: 20, fontSize: 11, fontWeight: 700, marginTop: 6 }}>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: 20, fontSize: 12, fontWeight: 700, marginTop: 6 }}>
                     <span style={{ color: 'var(--success)' }}>● This Month</span>
                     {hasLastMonthRadar ? (
                       <span style={{ color: 'var(--info)' }}>-- Last Month</span>
@@ -350,7 +350,7 @@ export function ProgressAnalyticsModal({
                   </div>
                 </>
               ) : (
-                <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+                <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
                   Play sessions across cognitive games to plot your authentic multi-domain radar profile.
                 </div>
               )}

@@ -21,10 +21,10 @@ export default function PinsEarnNotice({ earnAmount, activity, description }: Pr
     }}>
       <PinCoin size={20} glow />
       <div>
-        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
           +{earnAmount} pins
         </span>
-        <span style={{ fontSize: 12, color: 'var(--t2)', marginLeft: 6 }}>
+        <span style={{ fontSize: 13, color: 'var(--t2)', marginLeft: 6 }}>
           for {activity}
           {description && <span style={{ color: 'var(--t3)', marginLeft: 4 }}>· {description}</span>}
         </span>

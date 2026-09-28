@@ -145,22 +145,22 @@ function ProfilePageInner() {
         <div style={{
           width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--teal))',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 24, fontWeight: 900, color: 'var(--text)', flexShrink: 0
+          fontSize: 26.5, fontWeight: 900, color: 'var(--text)', flexShrink: 0
         }}>
           {initials}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--t1)', marginBottom: 3 }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 3 }}>
             {effectiveUser.displayName}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 8 }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 8 }}>
             {effectiveUser.username}
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 10, padding: '2px 10px', borderRadius: 100, background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'capitalize' }}>
+            <span style={{ fontSize: 11, padding: '2px 10px', borderRadius: 100, background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'capitalize' }}>
               {effectiveUser.role}
             </span>
-            <span style={{ fontSize: 10, padding: '2px 10px', borderRadius: 100, background: 'var(--bg3)', color: 'var(--t3)', border: '1px solid var(--border)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 11, padding: '2px 10px', borderRadius: 100, background: 'var(--bg3)', color: 'var(--t3)', border: '1px solid var(--border)', fontFamily: 'var(--font-mono)' }}>
               {effectiveUser.subscription_tier || 'free'} plan
             </span>
           </div>
@@ -184,7 +184,7 @@ function ProfilePageInner() {
         ].map(t => (
           <button key={t.id} onClick={() => handleTabChange(t.id as TabType)} style={{
             padding: '8px 16px', border: 'none', borderRadius: 'var(--radius)', cursor: 'pointer',
-            fontSize: 12.5, fontWeight: 600, fontFamily: 'var(--font-display)', whiteSpace: 'nowrap',
+            fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-display)', whiteSpace: 'nowrap',
             background: tab === t.id ? 'var(--bg2)' : 'transparent',
             color: tab === t.id ? 'var(--t1)' : 'var(--t3)',
             boxShadow: tab === t.id ? 'var(--shadow-sm)' : 'none',

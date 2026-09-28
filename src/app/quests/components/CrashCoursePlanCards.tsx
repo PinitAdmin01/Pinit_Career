@@ -54,12 +54,12 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 24 }}>⚡</span>
-            <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+            <span style={{ fontSize: 26.5 }}>⚡</span>
+            <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
               {INTERNSHIP_AVAILABLE ? 'Industry Crash Certification & Real-Time Internship Programs' : 'Industry Crash Certification Programs'}
             </h3>
           </div>
-          <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
             {INTERNSHIP_AVAILABLE
               ? 'Daily 1-Hour micro-learning, 1-Month production capstone, 2-3 Months PinIT Tech Labs fellowship, and dual verifiable credentials.'
               : 'Daily 1-Hour micro-learning, a 1-Month production capstone, and a verifiable certificate.'}
@@ -83,7 +83,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
               gap: 6,
               padding: '8px 14px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 800,
               cursor: 'pointer',
               border: activeTrack === 'web_fullstack' ? '1px solid #6366f1' : '1px solid transparent',
@@ -103,7 +103,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
               gap: 6,
               padding: '8px 14px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 800,
               cursor: 'pointer',
               border: activeTrack === 'python_ai' ? '1px solid #10b981' : '1px solid transparent',
@@ -123,7 +123,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
               gap: 6,
               padding: '8px 14px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 700,
               cursor: 'pointer',
               border: '1px solid rgba(255, 255, 255, 0.08)',

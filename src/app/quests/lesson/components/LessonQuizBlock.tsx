@@ -95,13 +95,13 @@ export function LessonQuizBlock({
     const pct = Math.round((examCorrectCount / (total || 1)) * 100);
     return (
       <div style={{ textAlign: 'center', padding: '24px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <span style={{ fontSize: 42 }}>🎓</span>
-        <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--green)' }}>Syllabus Exam Passed!</h3>
-        <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 500, margin: '0 auto' }}>
+        <span style={{ fontSize: 46 }}>🎓</span>
+        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)' }}>Syllabus Exam Passed!</h3>
+        <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 500, margin: '0 auto' }}>
           Outstanding performance! You scored <strong style={{ color: 'var(--t1)' }}>{examCorrectCount} / {total} ({pct}%)</strong>, exceeding the 70% passing threshold.
         </p>
         <span style={{
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           color: 'var(--success)',
           background: 'rgba(var(--success-rgb), 0.1)',
@@ -120,9 +120,9 @@ export function LessonQuizBlock({
     const pct = Math.round((examCorrectCount / (total || 1)) * 100);
     return (
       <div style={{ textAlign: 'center', padding: '24px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-        <span style={{ fontSize: 42 }}>❌</span>
-        <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--danger)' }}>Evaluation Exam Not Passed</h3>
-        <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 480, margin: '0 auto' }}>
+        <span style={{ fontSize: 46 }}>❌</span>
+        <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--danger)' }}>Evaluation Exam Not Passed</h3>
+        <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, maxWidth: 480, margin: '0 auto' }}>
           Your score: <strong style={{ color: 'var(--t1)' }}>{examCorrectCount} / {total} ({pct}%)</strong>.
           The passing benchmark is <strong style={{ color: 'var(--warning)' }}>70%</strong>.
           Please review the lesson material and foundational invariants before retaking the evaluation.
@@ -134,7 +134,7 @@ export function LessonQuizBlock({
           style={{
             marginTop: 8,
             padding: '10px 24px',
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 800,
             borderRadius: 10,
             background: 'var(--accent)',
@@ -151,7 +151,7 @@ export function LessonQuizBlock({
   if (!question) {
     return (
       <div style={{ textAlign: 'center', padding: '12px 0' }}>
-        <p style={{ fontSize: 11.5, color: 'var(--t3)' }}>Loading exam questions...</p>
+        <p style={{ fontSize: 12.5, color: 'var(--t3)' }}>Loading exam questions...</p>
       </div>
     );
   }
@@ -196,8 +196,8 @@ export function LessonQuizBlock({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h4 style={{ fontSize: 14, fontWeight: 900, color: teacherAccent }}>Syllabus Evaluation Exam</h4>
-        <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+        <h4 style={{ fontSize: 15.5, fontWeight: 900, color: teacherAccent }}>Syllabus Evaluation Exam</h4>
+        <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
           Question {examQuestionIndex + 1} of {hybridExamQuestions.length} ({examQuestionIndex < 3 ? 'AI Dynamic' : 'Canonical Benchmark'})
         </span>
       </div>
@@ -209,7 +209,7 @@ export function LessonQuizBlock({
         padding: 16,
         boxShadow: 'var(--shadow-sm)'
       }}>
-        <p style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', marginBottom: 12 }}>
+        <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 12 }}>
           ❓ {question.question}
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -234,7 +234,7 @@ export function LessonQuizBlock({
                 style={{
                   textAlign: 'left',
                   padding: '10px 14px',
-                  fontSize: 11.5
+                  fontSize: 12.5
                 }}
               >
                 {option}
@@ -260,7 +260,7 @@ export function LessonQuizBlock({
             style={{
               marginTop: 12,
               padding: '10px 20px',
-              fontSize: 12,
+              fontSize: 13,
               borderRadius: 10,
               background: teacherAccent
             }}
@@ -278,7 +278,7 @@ export function LessonQuizBlock({
                   border: '1px solid rgba(var(--success-rgb),  0.3)',
                   borderRadius: 10,
                   padding: 12,
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   color: 'var(--t1)',
                   lineHeight: 1.5,
                   marginBottom: 12
@@ -287,7 +287,7 @@ export function LessonQuizBlock({
                     <span>🎯</span>
                     <span>Concept Mastery & Optimal Principle:</span>
                   </div>
-                  <div style={{ color: 'var(--t2)', fontSize: 11 }}>
+                  <div style={{ color: 'var(--t2)', fontSize: 12 }}>
                     {explanationText || "This solution directly satisfies the architectural requirement and prevents runtime degradation."}
                   </div>
                 </div>
@@ -297,7 +297,7 @@ export function LessonQuizBlock({
                   className="btn-primary"
                   style={{
                     padding: '8px 18px',
-                    fontSize: 11,
+                    fontSize: 12,
                     borderRadius: 8,
                     background: 'var(--green)'
                   }}
@@ -312,7 +312,7 @@ export function LessonQuizBlock({
                   border: '1px solid rgba(var(--danger-rgb),  0.3)',
                   borderRadius: 10,
                   padding: 12,
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   color: 'var(--t1)',
                   lineHeight: 1.5,
                   marginBottom: 12
@@ -321,10 +321,10 @@ export function LessonQuizBlock({
                     <span>⚠️</span>
                     <span>Suboptimal Selection:</span>
                   </div>
-                  <div style={{ color: 'var(--t2)', fontSize: 11, marginBottom: 6 }}>
+                  <div style={{ color: 'var(--t2)', fontSize: 12, marginBottom: 6 }}>
                     {targetedErrorText || "The selected option fails to enforce safety invariants or violates optimal system constraints for this topic."}
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--warning)', fontSize: 10.5 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--warning)', fontSize: 11.5 }}>
                     <span>💡 Principle:</span>
                     <span>{explanationText || 'System integrity requires explicit boundary validation and clean resource deallocation.'}</span>
                   </div>
@@ -335,7 +335,7 @@ export function LessonQuizBlock({
                   className="btn-primary"
                   style={{
                     padding: '8px 18px',
-                    fontSize: 11,
+                    fontSize: 12,
                     borderRadius: 8,
                     background: 'var(--accent)'
                   }}

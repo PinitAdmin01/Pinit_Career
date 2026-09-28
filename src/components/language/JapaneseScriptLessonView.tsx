@@ -47,7 +47,7 @@ export const JapaneseScriptLessonView: React.FC<JapaneseScriptLessonViewProps> =
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Roadmaps
         </button>
-        <span style={{ fontSize: 13, color: '#ec4899', fontWeight: 600 }}>
+        <span style={{ fontSize: 14.5, color: '#ec4899', fontWeight: 600 }}>
           INTENT: {currentIntent.toUpperCase()}
         </span>
       </div>
@@ -65,7 +65,7 @@ export const JapaneseScriptLessonView: React.FC<JapaneseScriptLessonViewProps> =
               border: 'none',
               borderRadius: 8,
               padding: '8px 12px',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 600,
               cursor: 'pointer',
               textTransform: 'capitalize'
@@ -78,32 +78,32 @@ export const JapaneseScriptLessonView: React.FC<JapaneseScriptLessonViewProps> =
 
       {/* Character Display Card */}
       <div style={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 16, padding: 32, textAlign: 'center' }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', marginBottom: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', marginBottom: 8 }}>
           JAPANESE SCRIPT ({currentIndex + 1} / {characters.length}) — {currentChar.type.toUpperCase()}
         </div>
 
         {/* Display Text according to Mode */}
         <div style={{ margin: '20px 0' }}>
           {displayMode === 'romaji' ? (
-            <div style={{ fontSize: 48, fontWeight: 800, color: '#38bdf8' }}>{currentChar.romaji}</div>
+            <div style={{ fontSize: 53, fontWeight: 800, color: '#38bdf8' }}>{currentChar.romaji}</div>
           ) : displayMode === 'kana' ? (
-            <div style={{ fontSize: 80, fontWeight: 900, color: '#ec4899', fontFamily: 'serif' }}>{currentChar.character}</div>
+            <div style={{ fontSize: 88, fontWeight: 900, color: '#ec4899', fontFamily: 'serif' }}>{currentChar.character}</div>
           ) : (
             <div>
               {currentChar.furigana && (
-                <div style={{ fontSize: 20, color: '#a78bfa', fontWeight: 600, marginBottom: 4 }}>{currentChar.furigana}</div>
+                <div style={{ fontSize: 22, color: '#a78bfa', fontWeight: 600, marginBottom: 4 }}>{currentChar.furigana}</div>
               )}
-              <div style={{ fontSize: 80, fontWeight: 900, color: '#f4f4f5', fontFamily: 'serif' }}>{currentChar.character}</div>
+              <div style={{ fontSize: 88, fontWeight: 900, color: '#f4f4f5', fontFamily: 'serif' }}>{currentChar.character}</div>
             </div>
           )}
         </div>
 
-        <div style={{ fontSize: 18, color: '#e4e4e7', fontWeight: 600, marginBottom: 12 }}>
+        <div style={{ fontSize: 20, color: '#e4e4e7', fontWeight: 600, marginBottom: 12 }}>
           Meaning: {currentChar.meaning || currentChar.romaji}
         </div>
 
         {currentChar.strokeOrderHint && (
-          <div style={{ fontSize: 13, color: '#a1a1aa', fontStyle: 'italic', marginBottom: 20 }}>
+          <div style={{ fontSize: 14.5, color: '#a1a1aa', fontStyle: 'italic', marginBottom: 20 }}>
             Stroke Hint: {currentChar.strokeOrderHint}
           </div>
         )}

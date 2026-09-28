@@ -330,10 +330,10 @@ function AdminSettingsContent() {
       
       {/* Header */}
       <div style={{ marginBottom: 24 }} className="page-header">
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
           ⚙️ Enterprise Implementation Suite
         </h1>
-        <p style={{ color: 'var(--t2)', fontSize: 13.5, margin: 0 }}>
+        <p style={{ color: 'var(--t2)', fontSize: 15, margin: 0 }}>
           Manage multi-campus migration wizards, pilot cohort rollouts, ERP endpoints configuration, and change logs.
         </p>
       </div>
@@ -353,7 +353,7 @@ function AdminSettingsContent() {
         ].map(t => (
           <button key={t.id} onClick={() => setSettingsTab(t.id as SettingsTab)} style={{
             padding: '8px 16px', border: 'none', borderRadius: 'var(--radius)', cursor: 'pointer',
-            fontSize: 13, fontWeight: 600, fontFamily: 'var(--font-display)',
+            fontSize: 14.5, fontWeight: 600, fontFamily: 'var(--font-display)',
             background: settingsTab === t.id ? 'var(--bg2)' : 'transparent',
             color: settingsTab === t.id ? 'var(--t1)' : 'var(--t3)',
             boxShadow: settingsTab === t.id ? 'var(--shadow-sm)' : 'none',
@@ -392,7 +392,7 @@ function AdminSettingsContent() {
                       borderRadius: 9,
                       border: 'none',
                       cursor: 'pointer',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 700,
                       fontFamily: 'var(--font-display)',
                       textTransform: 'capitalize',
@@ -412,9 +412,9 @@ function AdminSettingsContent() {
                 {REQUIREMENTS_DATA[activeTab].map(req => (
                   <div key={req.id} style={card}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 6 }}>
-                      <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--t1)' }}>{req.title}</div>
+                      <div style={{ fontWeight: 700, fontSize: 15.5, color: 'var(--t1)' }}>{req.title}</div>
                       <span style={{
-                        fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 6,
+                        fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 6,
                         fontFamily: 'var(--font-mono)',
                         background: req.status === 'completed' ? 'var(--green-light)' : 'var(--amber-light)',
                         color: req.status === 'completed' ? 'var(--green)' : 'var(--amber)',
@@ -423,8 +423,8 @@ function AdminSettingsContent() {
                         {req.status === 'completed' ? '✓ Active' : '⚡ In Progress'}
                       </span>
                     </div>
-                    <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>{req.description}</p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10, marginTop: 10 }}>
+                    <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>{req.description}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, borderTop: '1px solid var(--border)', paddingTop: 10, marginTop: 10 }}>
                       <div style={{ color: 'var(--t3)' }}>
                         Note: <span style={{ color: 'var(--t2)' }}>{req.notes}</span>
                       </div>
@@ -449,15 +449,15 @@ function AdminSettingsContent() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
                   {cohorts.map(c => (
                     <div key={c.name} style={{ background: 'var(--bg3)', borderRadius: 12, padding: 14, border: '1px solid var(--border)' }}>
-                      <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{c.name}</div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)' }}>
+                      <div style={{ fontWeight: 700, fontSize: 14.5, marginBottom: 4 }}>{c.name}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)' }}>
                         <span>Size: {c.size} students</span>
                         <span style={{
                           fontWeight: 700,
                           color: c.status === 'Active' ? 'var(--green)' : c.status === 'Training' ? 'var(--blue)' : 'var(--amber)'
                         }}>{c.status}</span>
                       </div>
-                      <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 8 }}>Launch: {c.launchDate}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8 }}>Launch: {c.launchDate}</div>
                     </div>
                   ))}
                 </div>
@@ -468,16 +468,16 @@ function AdminSettingsContent() {
                 <div style={cardLabel}>Log Cohort Rollout Observation & Feedback</div>
                 <form onSubmit={handleAddFeedback} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 12 }}>
-                    <select className="form-input" style={{ fontSize: 12.5 }} value={selectedCohort} onChange={e => setSelectedCohort(e.target.value)}>
+                    <select className="form-input" style={{ fontSize: 14 }} value={selectedCohort} onChange={e => setSelectedCohort(e.target.value)}>
                       {cohorts.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
                     </select>
                     <input
-                      type="text" className="form-input" style={{ fontSize: 12.5 }}
+                      type="text" className="form-input" style={{ fontSize: 14 }}
                       placeholder="e.g. Students successfully completed orientation. System response was stable."
                       value={feedbackNote} onChange={e => setFeedbackNote(e.target.value)}
                     />
                   </div>
-                  <button type="submit" className="btn-primary" style={{ width: 'fit-content', alignSelf: 'flex-end', fontSize: 12.5 }}>
+                  <button type="submit" className="btn-primary" style={{ width: 'fit-content', alignSelf: 'flex-end', fontSize: 14 }}>
                     📝 Post Feedback Log
                   </button>
                 </form>
@@ -487,14 +487,14 @@ function AdminSettingsContent() {
               <div style={card}>
                 <div style={cardLabel}>Pilot Observations Logs</div>
                 {feedbackLogs.length === 0 ? (
-                  <div style={{ color: 'var(--t3)', fontSize: 13 }}>No observation feedback logged yet.</div>
+                  <div style={{ color: 'var(--t3)', fontSize: 14.5 }}>No observation feedback logged yet.</div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {feedbackLogs.map((log: any) => (
-                      <div key={log.id} style={{ padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12 }}>
+                      <div key={log.id} style={{ padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 13 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, fontWeight: 700 }}>
                           <span style={{ color: 'var(--accent)' }}>{log.cohort}</span>
-                          <span style={{ fontSize: 10, color: 'var(--t3)' }}>{log.date}</span>
+                          <span style={{ fontSize: 11, color: 'var(--t3)' }}>{log.date}</span>
                         </div>
                         <div style={{ color: 'var(--t2)' }}>{log.note}</div>
                       </div>
@@ -511,7 +511,7 @@ function AdminSettingsContent() {
               <div style={card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                   <div style={cardLabel}>Enterprise Import & Migration Wizard</div>
-                  <div style={{ fontSize: 11, fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '3px 8px', borderRadius: 4 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '3px 8px', borderRadius: 4 }}>
                     Step {migrationStep} of 4
                   </div>
                 </div>
@@ -530,7 +530,7 @@ function AdminSettingsContent() {
                 {/* Step contents */}
                 {migrationStep === 1 && (
                   <div>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 14 }}>
+                    <p style={{ fontSize: 14.5, color: 'var(--t2)', marginBottom: 14 }}>
                       Select the destination registry database table target schema:
                     </p>
                     <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
@@ -547,8 +547,8 @@ function AdminSettingsContent() {
                             transition: 'all 0.15s'
                           }}
                         >
-                          <div style={{ fontWeight: 700, fontSize: 13, color: 'var(--t1)' }}>{t.label}</div>
-                          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>{t.desc}</div>
+                          <div style={{ fontWeight: 700, fontSize: 14.5, color: 'var(--t1)' }}>{t.label}</div>
+                          <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4 }}>{t.desc}</div>
                         </div>
                       ))}
                     </div>
@@ -559,9 +559,9 @@ function AdminSettingsContent() {
                         textAlign: 'center', cursor: 'pointer', background: 'var(--bg3)'
                       }}
                     >
-                      <span style={{ fontSize: 24, display: 'block', marginBottom: 8 }}>📄</span>
-                      <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--accent)' }}>Click to Simulate Excel / CSV Upload</span>
-                      <p style={{ fontSize: 11, color: 'var(--t3)', margin: '4px 0 0' }}>Accepts .csv, .xls, .xlsx files up to 20MB</p>
+                      <span style={{ fontSize: 26.5, display: 'block', marginBottom: 8 }}>📄</span>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--accent)' }}>Click to Simulate Excel / CSV Upload</span>
+                      <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>Accepts .csv, .xls, .xlsx files up to 20MB</p>
                     </div>
                   </div>
                 )}
@@ -569,18 +569,18 @@ function AdminSettingsContent() {
                 {migrationStep === 2 && (
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--bg3)', borderRadius: 8, padding: 12, marginBottom: 20 }}>
-                      <span style={{ fontSize: 18 }}>✓</span>
+                      <span style={{ fontSize: 20 }}>✓</span>
                       <div>
-                        <div style={{ fontSize: 12.5, fontWeight: 700 }}>{draggedFile}</div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)' }}>Format: CSV File (UTF-8 format)</div>
+                        <div style={{ fontSize: 14, fontWeight: 700 }}>{draggedFile}</div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)' }}>Format: CSV File (UTF-8 format)</div>
                       </div>
                     </div>
 
                     <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-                      <button className="btn-secondary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                      <button className="btn-secondary" style={{ fontSize: 14 }} onClick={handleResetMigration}>
                         Cancel
                       </button>
-                      <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleValidateFile} disabled={isValidating}>
+                      <button className="btn-primary" style={{ fontSize: 14 }} onClick={handleValidateFile} disabled={isValidating}>
                         {isValidating ? 'Validating CSV...' : 'Validate CSV Schema ➔'}
                       </button>
                     </div>
@@ -589,13 +589,13 @@ function AdminSettingsContent() {
 
                 {migrationStep === 3 && validationReport && (
                   <div>
-                    <div style={{ background: 'var(--amber-light)', border: '1px solid rgba(217,119,6,0.2)', borderRadius: 8, padding: 12, fontSize: 12.5, marginBottom: 16 }}>
+                    <div style={{ background: 'var(--amber-light)', border: '1px solid rgba(217,119,6,0.2)', borderRadius: 8, padding: 12, fontSize: 14, marginBottom: 16 }}>
                       ⚠️ <strong>Parsing Report:</strong> Checked {validationReport.rowsDetected} lines. Valid columns matched: <code>{validationReport.validColumns.join(', ')}</code>. Detected 2 syntax errors.
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
                       {validationReport.issues.map((iss: any) => (
-                        <div key={iss.row} style={{ background: 'var(--bg3)', padding: '8px 12px', borderRadius: 6, fontSize: 11.5, display: 'flex', justifyContent: 'space-between' }}>
+                        <div key={iss.row} style={{ background: 'var(--bg3)', padding: '8px 12px', borderRadius: 6, fontSize: 12.5, display: 'flex', justifyContent: 'space-between' }}>
                           <span style={{ color: 'var(--coral)', fontWeight: 700 }}>Row {iss.row}</span>
                           <span style={{ color: 'var(--t2)' }}>{iss.message}</span>
                         </div>
@@ -603,10 +603,10 @@ function AdminSettingsContent() {
                     </div>
 
                     <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-                      <button className="btn-secondary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                      <button className="btn-secondary" style={{ fontSize: 14 }} onClick={handleResetMigration}>
                         Cancel
                       </button>
-                      <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleExecuteImport} disabled={isImporting}>
+                      <button className="btn-primary" style={{ fontSize: 14 }} onClick={handleExecuteImport} disabled={isImporting}>
                         {isImporting ? 'Executing Sync...' : 'Execute Bulk Migration (140 records) ➔'}
                       </button>
                     </div>
@@ -615,12 +615,12 @@ function AdminSettingsContent() {
 
                 {migrationStep === 4 && importResult && (
                   <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                    <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
-                    <div style={{ fontSize: 16, fontWeight: 900, marginBottom: 6 }}>Migration Executed Successfully</div>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, margin: '0 auto 20px' }}>
+                    <div style={{ fontSize: 44, marginBottom: 10 }}>🎉</div>
+                    <div style={{ fontSize: 17.5, fontWeight: 900, marginBottom: 6 }}>Migration Executed Successfully</div>
+                    <p style={{ fontSize: 14.5, color: 'var(--t2)', maxWidth: 460, margin: '0 auto 20px' }}>
                       {importResult.message} Integrated <strong>{importResult.loaded}</strong> rows successfully. Failed {importResult.failed} rows.
                     </p>
-                    <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                    <button className="btn-primary" style={{ fontSize: 14 }} onClick={handleResetMigration}>
                       Start New Migration
                     </button>
                   </div>
@@ -646,7 +646,7 @@ function AdminSettingsContent() {
                       key={c.id} onClick={() => setErpConnector(c.id)}
                       style={{
                         padding: '6px 12px', border: '1px solid var(--border)', borderRadius: 8, cursor: 'pointer',
-                        fontSize: 11.5, fontWeight: 700,
+                        fontSize: 12.5, fontWeight: 700,
                         background: erpConnector === c.id ? 'var(--accent)' : 'var(--bg3)',
                         color: erpConnector === c.id ? '#fff' : 'var(--t2)'
                       }}
@@ -658,24 +658,24 @@ function AdminSettingsContent() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>ERP OData / REST Endpoint API URL</label>
-                    <input type="text" className="form-input" style={{ width: '100%', fontSize: 12.5 }} value={erpUrl} onChange={e => setErpUrl(e.target.value)} />
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>ERP OData / REST Endpoint API URL</label>
+                    <input type="text" className="form-input" style={{ width: '100%', fontSize: 14 }} value={erpUrl} onChange={e => setErpUrl(e.target.value)} />
                   </div>
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Client Sync Secret Passkey</label>
-                    <input type="password" className="form-input" style={{ width: '100%', fontSize: 12.5 }} value={erpKey} onChange={e => setErpKey(e.target.value)} />
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Client Sync Secret Passkey</label>
+                    <input type="password" className="form-input" style={{ width: '100%', fontSize: 14 }} value={erpKey} onChange={e => setErpKey(e.target.value)} />
                   </div>
                 </div>
 
                 {configSavedNotice && (
-                  <div style={{ color: 'var(--success)', fontSize: 12, fontWeight: 700, textAlign: 'right', marginBottom: 8 }}>
+                  <div style={{ color: 'var(--success)', fontSize: 13, fontWeight: 700, textAlign: 'right', marginBottom: 8 }}>
                     {configSavedNotice}
                   </div>
                 )}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
                   <button
                     className="btn-secondary"
-                    style={{ fontSize: 12.5 }}
+                    style={{ fontSize: 14 }}
                     onClick={() => {
                       if (typeof window !== 'undefined') {
                         localStorage.setItem('pinit_erp_connector_config', JSON.stringify({
@@ -690,7 +690,7 @@ function AdminSettingsContent() {
                   >
                     Save Configurations
                   </button>
-                  <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleTriggerSync} disabled={isSyncing}>
+                  <button className="btn-primary" style={{ fontSize: 14 }} onClick={handleTriggerSync} disabled={isSyncing}>
                     {isSyncing ? 'Syncing...' : '🔌 Trigger Sync Test'}
                   </button>
                 </div>
@@ -701,14 +701,14 @@ function AdminSettingsContent() {
                 <div style={cardLabel}>ERP Sync Execution Logs</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {syncLogs.map(log => (
-                    <div key={log.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', background: 'var(--bg3)', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12 }}>
+                    <div key={log.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', background: 'var(--bg3)', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)', fontSize: 13 }}>
                       <div>
                         <span style={{ fontWeight: 700 }}>{log.connector}</span>
-                        <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Sync Date: {log.date}</div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>Sync Date: {log.date}</div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
                         <span style={{ color: 'var(--green)', fontWeight: 700 }}>{log.status}</span>
-                        <div style={{ fontSize: 10, color: 'var(--t2)', marginTop: 2 }}>{log.count} records merged</div>
+                        <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>{log.count} records merged</div>
                       </div>
                     </div>
                   ))}
@@ -730,7 +730,7 @@ function AdminSettingsContent() {
                       style={{
                         display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
                         background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)',
-                        cursor: 'pointer', fontSize: 12.5
+                        cursor: 'pointer', fontSize: 14
                       }}
                     >
                       <input type="checkbox" checked={item.checked} readOnly style={{ cursor: 'pointer' }} />
@@ -750,29 +750,29 @@ function AdminSettingsContent() {
                 <div style={cardLabel}>Scheduled Training Webinars & Workshops</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
                   {trainingList.map(t => (
-                    <div key={t.topic} style={{ background: 'var(--bg3)', padding: '12px 16px', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5 }}>
+                    <div key={t.topic} style={{ background: 'var(--bg3)', padding: '12px 16px', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14 }}>
                       <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.topic}</div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t2)', fontSize: 11.5 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t2)', fontSize: 12.5 }}>
                         <span>📅 {t.date} at {t.time}</span>
                         <span>Enrolled: {t.enrolled} staff</span>
                       </div>
-                      <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 6 }}>Instructor Host: {t.host}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 6 }}>Instructor Host: {t.host}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Add Webinar */}
                 <form onSubmit={handleAddTraining} style={{ display: 'flex', flexDirection: 'column', gap: 12, borderTop: '1px solid var(--border)', paddingTop: 16 }}>
-                  <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)' }}>Schedule New Training Webinar</div>
+                  <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)' }}>Schedule New Training Webinar</div>
                   <input
-                    type="text" className="form-input" style={{ fontSize: 12.5 }} placeholder="Webinar Title (e.g. Faculty HR Workspace Orientation)"
+                    type="text" className="form-input" style={{ fontSize: 14 }} placeholder="Webinar Title (e.g. Faculty HR Workspace Orientation)"
                     value={newTopic} onChange={e => setNewTopic(e.target.value)} required
                   />
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                    <input type="date" className="form-input" style={{ fontSize: 12.5 }} value={newDate} onChange={e => setNewDate(e.target.value)} required />
-                    <input type="time" className="form-input" style={{ fontSize: 12.5 }} value={newTime} onChange={e => setNewTime(e.target.value)} required />
+                    <input type="date" className="form-input" style={{ fontSize: 14 }} value={newDate} onChange={e => setNewDate(e.target.value)} required />
+                    <input type="time" className="form-input" style={{ fontSize: 14 }} value={newTime} onChange={e => setNewTime(e.target.value)} required />
                   </div>
-                  <button type="submit" className="btn-primary" style={{ fontSize: 12.5, width: 'fit-content', alignSelf: 'flex-end' }}>
+                  <button type="submit" className="btn-primary" style={{ fontSize: 14, width: 'fit-content', alignSelf: 'flex-end' }}>
                     🗓️ Schedule Session
                   </button>
                 </form>
@@ -787,10 +787,10 @@ function AdminSettingsContent() {
           
           {/* API Keys */}
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 20 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 14.5, fontWeight: 700, marginBottom: 12 }}>
               🔌 API Key Configurations
             </div>
-            <p style={{ color: 'var(--t2)', fontSize: 11.5, lineHeight: 1.5, marginBottom: 14 }}>
+            <p style={{ color: 'var(--t2)', fontSize: 12.5, lineHeight: 1.5, marginBottom: 14 }}>
               Integrations are driven securely via variables specified in the system config environment.
             </p>
             {[
@@ -807,21 +807,21 @@ function AdminSettingsContent() {
                 padding: '8px 10px', 
                 background: 'var(--bg3)', 
                 borderRadius: 8, 
-                fontSize: 11, 
+                fontSize: 12, 
                 marginBottom: 4 
               }}>
                 <div>
                   <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--t1)', marginBottom: 2 }}>{k}</div>
-                  <div style={{ fontSize: 9.5, color: 'var(--t3)' }}>{desc}</div>
+                  <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>{desc}</div>
                 </div>
-                <span style={{ color: 'var(--green)', fontSize: 9, fontFamily: 'var(--font-mono)' }}>{status}</span>
+                <span style={{ color: 'var(--green)', fontSize: 10, fontFamily: 'var(--font-mono)' }}>{status}</span>
               </div>
             ))}
           </div>
 
           {/* Quick Shortcuts */}
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 20 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 14.5, fontWeight: 700, marginBottom: 12 }}>
               ⚡ Portal Quick Access
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -843,7 +843,7 @@ function AdminSettingsContent() {
                     borderRadius: 8, 
                     textDecoration: 'none', 
                     color: 'var(--t1)', 
-                    fontSize: 12, 
+                    fontSize: 13, 
                     border: '1px solid var(--border)', 
                     transition: 'all 0.15s' 
                   }}
@@ -874,7 +874,7 @@ const card: React.CSSProperties = {
   borderRadius: 'var(--radius-xl)', padding: 20, boxShadow: 'var(--shadow-sm)'
 };
 const cardLabel: React.CSSProperties = {
-  fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase',
+  fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase',
   color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
   marginBottom: 14, display: 'block'
 };

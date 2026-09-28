@@ -46,12 +46,12 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             paddingBottom: 10,
           }}
         >
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800 }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800 }}>
             📄 {viewResumeData.name}&apos;s Resume
           </h3>
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 22, lineHeight: 1 }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 24, lineHeight: 1 }}
           >
             ×
           </button>
@@ -77,16 +77,16 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
               marginBottom: '1.5rem',
             }}
           >
-            <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#111827', margin: 0 }}>
+            <h1 style={{ fontSize: '1.98rem', fontWeight: 800, color: '#111827', margin: 0 }}>
               {viewResumeData.resume.fullName || viewResumeData.name}
             </h1>
-            <p style={{ color: '#4b5563', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+            <p style={{ color: '#4b5563', fontSize: '0.99rem', marginTop: '0.5rem' }}>
               {[viewResumeData.resume.email, viewResumeData.resume.phone, viewResumeData.resume.address]
                 .filter(Boolean)
                 .join('  |  ')}
             </p>
             {(viewResumeData.resume.linkedin || viewResumeData.resume.portfolio) && (
-              <p style={{ fontSize: '0.85rem', marginTop: '0.25rem', color: 'var(--accent)' }}>
+              <p style={{ fontSize: '0.94rem', marginTop: '0.25rem', color: 'var(--accent)' }}>
                 {viewResumeData.resume.linkedin && (
                   <a
                     href={viewResumeData.resume.linkedin}
@@ -116,7 +116,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -128,7 +128,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
               >
                 Summary
               </h4>
-              <p style={{ fontSize: '0.92rem', lineHeight: 1.6, color: '#374151', margin: 0 }}>
+              <p style={{ fontSize: '1.01rem', lineHeight: 1.6, color: '#374151', margin: 0 }}>
                 {viewResumeData.resume.summary}
               </p>
             </div>
@@ -139,7 +139,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -158,18 +158,18 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                       display: 'flex',
                       justifyContent: 'space-between',
                       fontWeight: 700,
-                      fontSize: '0.95rem',
+                      fontSize: '1.05rem',
                     }}
                   >
                     <span>{exp.role}</span>
-                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.94rem' }}>
                       {exp.startDate} – {exp.currentlyWorking ? 'Present' : exp.endDate}
                     </span>
                   </div>
-                  <div style={{ fontStyle: 'italic', fontSize: '0.9rem', color: '#4b5563', marginBottom: '0.25rem' }}>
+                  <div style={{ fontStyle: 'italic', fontSize: '0.99rem', color: '#4b5563', marginBottom: '0.25rem' }}>
                     {exp.company}
                   </div>
-                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: '#374151', margin: 0 }}>
+                  <p style={{ fontSize: '0.99rem', lineHeight: 1.5, color: '#374151', margin: 0 }}>
                     {exp.description}
                   </p>
                 </div>
@@ -182,7 +182,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -201,17 +201,17 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                       display: 'flex',
                       justifyContent: 'space-between',
                       fontWeight: 700,
-                      fontSize: '0.95rem',
+                      fontSize: '1.05rem',
                     }}
                   >
                     <span>{edu.degree}</span>
-                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.85rem' }}>{edu.year}</span>
+                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.94rem' }}>{edu.year}</span>
                   </div>
-                  <div style={{ fontStyle: 'italic', fontSize: '0.9rem', color: '#4b5563', marginBottom: '0.25rem' }}>
+                  <div style={{ fontStyle: 'italic', fontSize: '0.99rem', color: '#4b5563', marginBottom: '0.25rem' }}>
                     {edu.institution}
                   </div>
                   {edu.gpa && (
-                    <p style={{ fontSize: '0.88rem', color: '#4b5563', margin: 0 }}>GPA / Percentage: {edu.gpa}</p>
+                    <p style={{ fontSize: '0.97rem', color: '#4b5563', margin: 0 }}>GPA / Percentage: {edu.gpa}</p>
                   )}
                 </div>
               ))}
@@ -223,7 +223,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -236,12 +236,12 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                 Skills
               </h4>
               {viewResumeData.resume.skills.technical && (
-                <p style={{ fontSize: '0.9rem', margin: '0 0 0.3rem' }}>
+                <p style={{ fontSize: '0.99rem', margin: '0 0 0.3rem' }}>
                   <strong>Technical Skills:</strong> {viewResumeData.resume.skills.technical}
                 </p>
               )}
               {viewResumeData.resume.skills.professional && (
-                <p style={{ fontSize: '0.9rem', margin: '0 0 0.3rem' }}>
+                <p style={{ fontSize: '0.99rem', margin: '0 0 0.3rem' }}>
                   <strong>Professional Competencies:</strong> {viewResumeData.resume.skills.professional}
                 </p>
               )}
@@ -253,7 +253,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -272,7 +272,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                       display: 'flex',
                       justifyContent: 'space-between',
                       fontWeight: 700,
-                      fontSize: '0.95rem',
+                      fontSize: '1.05rem',
                     }}
                   >
                     <span>{proj.name}</span>
@@ -281,18 +281,18 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                         href={proj.link}
                         target="_blank"
                         rel="noreferrer"
-                        style={{ fontSize: '0.85rem', textDecoration: 'underline', color: 'var(--accent)' }}
+                        style={{ fontSize: '0.94rem', textDecoration: 'underline', color: 'var(--accent)' }}
                       >
                         View Project
                       </a>
                     )}
                   </div>
                   {proj.technologies && (
-                    <div style={{ fontStyle: 'italic', fontSize: '0.88rem', color: '#4b5563', marginBottom: '0.25rem' }}>
+                    <div style={{ fontStyle: 'italic', fontSize: '0.97rem', color: '#4b5563', marginBottom: '0.25rem' }}>
                       Technologies: {proj.technologies}
                     </div>
                   )}
-                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: '#374151', margin: 0 }}>
+                  <p style={{ fontSize: '0.99rem', lineHeight: 1.5, color: '#374151', margin: 0 }}>
                     {proj.description}
                   </p>
                 </div>
@@ -305,7 +305,7 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
             <div style={{ marginBottom: '1.5rem' }}>
               <h4
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 800,
                   borderBottom: '1px solid #d1d5db',
                   paddingBottom: '0.25rem',
@@ -324,13 +324,13 @@ export default function ResumeViewerModal({ viewResumeData, onClose }: ResumeVie
                       display: 'flex',
                       justifyContent: 'space-between',
                       fontWeight: 700,
-                      fontSize: '0.9rem',
+                      fontSize: '0.99rem',
                     }}
                   >
                     <span>{cert.name}</span>
-                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.85rem' }}>{cert.date}</span>
+                    <span style={{ fontWeight: 400, color: '#6b7280', fontSize: '0.94rem' }}>{cert.date}</span>
                   </div>
-                  <div style={{ fontStyle: 'italic', fontSize: '0.88rem', color: '#4b5563' }}>
+                  <div style={{ fontStyle: 'italic', fontSize: '0.97rem', color: '#4b5563' }}>
                     Issuer: {cert.issuer}
                   </div>
                 </div>

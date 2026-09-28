@@ -109,7 +109,7 @@ function ConsultantPageInner() {
             color: 'var(--text)',
             padding: '11px 20px',
             borderRadius: 10,
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 600,
             boxShadow: 'var(--shadow-lg)',
           }}
@@ -132,7 +132,7 @@ function ConsultantPageInner() {
         <button
           onClick={() => setShowCopilotSidebar(prev => !prev)}
           className="btn-primary"
-          style={{ position: 'relative', zIndex: 1, padding: '8px 16px', borderRadius: 8, fontSize: 12.5 }}
+          style={{ position: 'relative', zIndex: 1, padding: '8px 16px', borderRadius: 8, fontSize: 14 }}
         >
           🤖 {showCopilotSidebar ? 'Hide Copilot Sidebar' : 'Show Copilot Sidebar'}
         </button>
@@ -173,7 +173,7 @@ function ConsultantPageInner() {
               borderRadius: 8,
               border: 'none',
               cursor: 'pointer',
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: activeTab === tab.id ? 800 : 600,
               background: activeTab === tab.id ? 'rgba(var(--brand-rgb), 0.08)' : 'transparent',
               color: activeTab === tab.id ? 'var(--accent)' : 'var(--t2)',
@@ -331,7 +331,7 @@ function ConsultantPageInner() {
                 >
                   <div
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       letterSpacing: 0.5,
                       textTransform: 'uppercase',
                       color: 'var(--t3)',
@@ -340,7 +340,7 @@ function ConsultantPageInner() {
                   >
                     {s.label}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, color: s.color }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 35, fontWeight: 800, color: s.color }}>
                     {s.value}
                   </div>
                 </div>

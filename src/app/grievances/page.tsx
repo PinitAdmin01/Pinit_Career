@@ -66,7 +66,7 @@ export default function StudentGrievances() {
         }
         .page-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 24px;
+          font-size: 26.5px;
           font-weight: 900;
           letter-spacing: -0.6px;
           margin-bottom: 24px;
@@ -93,7 +93,7 @@ export default function StudentGrievances() {
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 16px;
+          font-size: 17.5px;
           font-weight: 800;
           margin-bottom: 16px;
           display: flex;
@@ -106,7 +106,7 @@ export default function StudentGrievances() {
         }
         .tbl-grv th {
           text-align: left;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 800;
           text-transform: uppercase;
           color: var(--t2);
@@ -115,13 +115,13 @@ export default function StudentGrievances() {
         }
         .tbl-grv td {
           padding: 12px 0;
-          font-size: 13.5px;
+          font-size: 15px;
           border-bottom: 1px solid var(--border);
         }
         .status-badge {
           padding: 3px 8px;
           border-radius: 20px;
-          font-size: 10.5px;
+          font-size: 11.5px;
           font-weight: 700;
         }
         .overlay {
@@ -146,7 +146,7 @@ export default function StudentGrievances() {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 13px;
+          font-size: 14.5px;
           color: var(--t2);
           cursor: pointer;
           user-select: none;
@@ -163,7 +163,7 @@ export default function StudentGrievances() {
 
             <form onSubmit={handleSubmitGrievance} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Grievance Category</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Grievance Category</label>
                 <select className="form-input" value={category} onChange={e => setCategory(e.target.value)}>
                   <option value="Academic">Academic / Syllabus</option>
                   <option value="Hostel Facilities">Hostel Facilities</option>
@@ -174,7 +174,7 @@ export default function StudentGrievances() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Complaint Subject Title *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Complaint Subject Title *</label>
                 <input
                   type="text"
                   required
@@ -186,7 +186,7 @@ export default function StudentGrievances() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Description *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Description *</label>
                 <textarea
                   className="form-input"
                   rows={4}
@@ -206,7 +206,7 @@ export default function StudentGrievances() {
                   />
                   <span>File complaint anonymously</span>
                 </label>
-                <div style={{ fontSize: 10.5, color: 'var(--t2)', marginTop: 4, marginLeft: 22 }}>
+                <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4, marginLeft: 22 }}>
                   If checked, your name and profile information will be completely hidden from administrators.
                 </div>
               </div>
@@ -240,11 +240,11 @@ export default function StudentGrievances() {
                 <tbody>
                   {grievances.map(g => (
                     <tr key={g.id}>
-                      <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{g.id}</td>
+                      <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700 }}>{g.id}</td>
                       <td style={{ fontWeight: 600 }}>{g.category}</td>
                       <td>
                         <div>{g.title}</div>
-                        {g.anonymous && <span style={{ fontSize: 9.5, background: 'var(--bg3)', color: 'var(--t2)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
+                        {g.anonymous && <span style={{ fontSize: 10.5, background: 'var(--bg3)', color: 'var(--t2)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
                       </td>
                       <td style={{ color: 'var(--t2)' }}>{new Date(g.filedOn).toLocaleDateString()}</td>
                       <td>
@@ -257,7 +257,7 @@ export default function StudentGrievances() {
                         <button
                           onClick={() => setSelectedTicket(g)}
                           className="btn-ghost btn-sm"
-                          style={{ border: '1px solid var(--border2)', fontSize: 11 }}
+                          style={{ border: '1px solid var(--border2)', fontSize: 12 }}
                         >
                           Details
                         </button>
@@ -275,11 +275,11 @@ export default function StudentGrievances() {
       {selectedTicket && (
         <div className="overlay">
           <div className="ticket-modal">
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 800, borderBottom: '1px solid var(--border)', paddingBottom: 10, marginBottom: 14 }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18.5, fontWeight: 800, borderBottom: '1px solid var(--border)', paddingBottom: 10, marginBottom: 14 }}>
               Grievance Ticket details ({selectedTicket.id})
             </h3>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13.5, color: 'var(--t1)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15, color: 'var(--t1)' }}>
               <div>
                 <strong>Category:</strong> {selectedTicket.category}
               </div>
@@ -310,10 +310,10 @@ export default function StudentGrievances() {
                 <div style={{ background: 'var(--green-light)', border: '1px solid var(--green-light)', padding: 12, borderRadius: 10, color: 'var(--green)' }}>
                   <strong>Board Resolution Note:</strong>
                   <p style={{ marginTop: 4, lineHeight: 1.5 }}>{selectedTicket.resolution}</p>
-                  <div style={{ fontSize: 10.5, color: 'var(--green)', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--green)', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>
                 </div>
               ) : (
-                <div style={{ fontSize: 12.5, color: 'var(--t2)', background: 'var(--accent-light)', padding: 10, borderRadius: 8, border: '1px solid var(--accent-light)' }}>
+                <div style={{ fontSize: 14, color: 'var(--t2)', background: 'var(--accent-light)', padding: 10, borderRadius: 8, border: '1px solid var(--accent-light)' }}>
                   ℹ️ This grievance ticket is currently being investigated by the institutional administrative committee. Action responses will update here automatically.
                 </div>
               )}

@@ -113,7 +113,7 @@ function AdminExamsContent() {
     return (
       <div style={{ padding: 40, color: 'var(--coral)', textAlign: 'center', maxWidth: 460, margin: '40px auto', background: 'var(--bg2)', borderRadius: 12, border: '1px solid var(--border)' }}>
         <h3>Access Denied</h3>
-        <p style={{ fontSize: 13, color: 'var(--t3)' }}>Administrative credentials are required to access Exam Manager.</p>
+        <p style={{ fontSize: 14.5, color: 'var(--t3)' }}>Administrative credentials are required to access Exam Manager.</p>
       </div>
     );
   }
@@ -212,10 +212,10 @@ function AdminExamsContent() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
             Exam Engine Administration
           </h1>
-          <p style={{ color: 'var(--t3)', fontSize: 13, marginTop: 4 }}>
+          <p style={{ color: 'var(--t3)', fontSize: 14.5, marginTop: 4 }}>
             Create papers, manage schedules, and audit proctored student submissions.
           </p>
         </div>
@@ -225,7 +225,7 @@ function AdminExamsContent() {
           <button
             onClick={() => setActiveTab('schedules')}
             style={{
-              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600,
+              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 14.5, fontWeight: 600,
               background: activeTab === 'schedules' ? 'var(--accent)' : 'transparent',
               color: activeTab === 'schedules' ? '#fff' : 'var(--t2)',
             }}
@@ -235,7 +235,7 @@ function AdminExamsContent() {
           <button
             onClick={() => setActiveTab('create')}
             style={{
-              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600,
+              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 14.5, fontWeight: 600,
               background: activeTab === 'create' ? 'var(--accent)' : 'transparent',
               color: activeTab === 'create' ? '#fff' : 'var(--t2)',
             }}
@@ -245,7 +245,7 @@ function AdminExamsContent() {
           <button
             onClick={() => setActiveTab('submissions')}
             style={{
-              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600,
+              padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 14.5, fontWeight: 600,
               background: activeTab === 'submissions' ? 'var(--accent)' : 'transparent',
               color: activeTab === 'submissions' ? '#fff' : 'var(--t2)',
             }}
@@ -262,9 +262,9 @@ function AdminExamsContent() {
         <div>
           {schedules.length === 0 ? (
             <div style={{ padding: 40, textAlign: 'center', background: 'var(--bg2)', borderRadius: 12, border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>📝</div>
+              <div style={{ fontSize: 35, marginBottom: 8 }}>📝</div>
               <h3>No Exam Schedules Active</h3>
-              <p style={{ color: 'var(--t3)', fontSize: 13, marginBottom: 16 }}>Create your first examination paper to schedule exams for students.</p>
+              <p style={{ color: 'var(--t3)', fontSize: 14.5, marginBottom: 16 }}>Create your first examination paper to schedule exams for students.</p>
               <button onClick={() => setActiveTab('create')} className="btn-primary">Schedule New Exam →</button>
             </div>
           ) : (
@@ -280,35 +280,35 @@ function AdminExamsContent() {
                   <div key={exam.id} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <span style={{
-                        padding: '3px 8px', borderRadius: 6, fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)',
+                        padding: '3px 8px', borderRadius: 6, fontSize: 11, fontWeight: 700, fontFamily: 'var(--font-mono)',
                         background: isActive ? 'rgba(5, 150, 105, 0.12)' : isEnded ? 'var(--bg3)' : 'rgba(59, 130, 246, 0.12)',
                         color: isActive ? 'var(--green)' : isEnded ? 'var(--t3)' : 'var(--accent)'
                       }}>
                         {isActive ? '● ACTIVE NOW' : isEnded ? 'CLOSED' : 'UPCOMING'}
                       </span>
-                      <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>{exam.code || 'EXAM'}</span>
+                      <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>{exam.code || 'EXAM'}</span>
                     </div>
 
                     <div>
-                      <h3 style={{ fontSize: 16, fontWeight: 700, margin: '0 0 4px', color: 'var(--t1)' }}>{exam.title}</h3>
-                      <div style={{ fontSize: 12, color: 'var(--t3)' }}>{exam.course} · Batch: <strong>{exam.batch}</strong></div>
+                      <h3 style={{ fontSize: 17.5, fontWeight: 700, margin: '0 0 4px', color: 'var(--t1)' }}>{exam.title}</h3>
+                      <div style={{ fontSize: 13, color: 'var(--t3)' }}>{exam.course} · Batch: <strong>{exam.batch}</strong></div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, padding: '10px 12px', background: 'var(--bg3)', borderRadius: 8, fontSize: 12 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, padding: '10px 12px', background: 'var(--bg3)', borderRadius: 8, fontSize: 13 }}>
                       <div>⏱ <strong>{exam.duration || exam.durationMinutes} mins</strong></div>
                       <div>🎯 <strong>{exam.totalMarks} Marks</strong></div>
                       <div>❓ <strong>{exam.questionCount || exam.questions?.length || 0} Questions</strong></div>
                       <div>🔒 <strong>{exam.allowedSwitches ?? 3} Tab Switches</strong></div>
                     </div>
 
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                       Valid: {new Date(exam.startDateTime).toLocaleDateString()} – {new Date(exam.endDateTime).toLocaleDateString()}
                     </div>
 
                     <div style={{ display: 'flex', gap: 8, marginTop: 'auto', paddingTop: 8 }}>
                       <button
                         onClick={() => handleDelete(exam.id)}
-                        style={{ padding: '6px 12px', borderRadius: 6, border: '1px solid var(--border)', background: 'transparent', color: 'var(--coral)', fontSize: 12, cursor: 'pointer' }}
+                        style={{ padding: '6px 12px', borderRadius: 6, border: '1px solid var(--border)', background: 'transparent', color: 'var(--coral)', fontSize: 13, cursor: 'pointer' }}
                       >
                         Delete
                       </button>
@@ -322,11 +322,11 @@ function AdminExamsContent() {
       ) : activeTab === 'create' ? (
         /* ── CREATE TAB ── */
         <form onSubmit={handleCreateExam} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: 28 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20, color: 'var(--t1)' }}>Configure Examination Paper</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 20, color: 'var(--t1)' }}>Configure Examination Paper</h2>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>EXAM TITLE *</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>EXAM TITLE *</label>
               <input
                 value={title}
                 onChange={e => setTitle(e.target.value)}
@@ -336,7 +336,7 @@ function AdminExamsContent() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>COURSE CODE</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>COURSE CODE</label>
               <input
                 value={code}
                 onChange={e => setCode(e.target.value)}
@@ -345,7 +345,7 @@ function AdminExamsContent() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>TARGET BATCH</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>TARGET BATCH</label>
               <input
                 value={batch}
                 onChange={e => setBatch(e.target.value)}
@@ -354,7 +354,7 @@ function AdminExamsContent() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>DURATION (MINUTES)</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>DURATION (MINUTES)</label>
               <input
                 type="number"
                 min={5}
@@ -365,7 +365,7 @@ function AdminExamsContent() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>START DATE & TIME</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>START DATE & TIME</label>
               <input
                 type="datetime-local"
                 value={startDate}
@@ -374,7 +374,7 @@ function AdminExamsContent() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>END DATE & TIME</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 6 }}>END DATE & TIME</label>
               <input
                 type="datetime-local"
                 value={endDate}
@@ -387,7 +387,7 @@ function AdminExamsContent() {
           {/* Question Builder */}
           <div style={{ marginTop: 28, marginBottom: 20 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>
+              <h3 style={{ fontSize: 17.5, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>
                 Questions ({questions.length}) · Total Marks: {questions.reduce((a, b) => a + (Number(b.marks) || 0), 0)}
               </h3>
               <div style={{ display: 'flex', gap: 8 }}>
@@ -400,11 +400,11 @@ function AdminExamsContent() {
               {questions.map((q, idx) => (
                 <div key={q.id || idx} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 18 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
                       Q{idx + 1} · {q.type.toUpperCase()}
                     </span>
                     <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                      <label style={{ fontSize: 12, color: 'var(--t2)' }}>
+                      <label style={{ fontSize: 13, color: 'var(--t2)' }}>
                         Marks:{' '}
                         <input
                           type="number"
@@ -418,7 +418,7 @@ function AdminExamsContent() {
                           style={{ width: 60, padding: '4px 6px', borderRadius: 4, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--t1)' }}
                         />
                       </label>
-                      <button type="button" onClick={() => removeQuestion(idx)} style={{ color: 'var(--coral)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 16 }}>×</button>
+                      <button type="button" onClick={() => removeQuestion(idx)} style={{ color: 'var(--coral)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 17.5 }}>×</button>
                     </div>
                   </div>
 
@@ -451,7 +451,7 @@ function AdminExamsContent() {
                                 options: (item.options || []).map((o, oi) => oi === optIdx ? val : o)
                               } : item));
                             }}
-                            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--t1)', fontSize: 13 }}
+                            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--t1)', fontSize: 14.5 }}
                           />
                         </div>
                       ))}
@@ -459,7 +459,7 @@ function AdminExamsContent() {
                   )}
 
                   {q.type === 'coding' && (
-                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+                    <div style={{ fontSize: 13, color: 'var(--t3)' }}>
                       Function name: <code>{q.functionName || 'solution'}</code> · Language: {q.defaultLang || 'python'} · {q.testCases?.length || 0} test cases configured
                     </div>
                   )}
@@ -468,7 +468,7 @@ function AdminExamsContent() {
             </div>
           </div>
 
-          <button type="submit" disabled={saving} className="btn-primary" style={{ padding: '12px 24px', fontSize: 14 }}>
+          <button type="submit" disabled={saving} className="btn-primary" style={{ padding: '12px 24px', fontSize: 15.5 }}>
             {saving ? 'Saving Exam...' : 'Publish Examination Schedule →'}
           </button>
         </form>
@@ -476,7 +476,7 @@ function AdminExamsContent() {
         /* ── SUBMISSIONS TAB ── */
         <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: 'var(--t1)' }}>Proctored Examination Records</h3>
+            <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 700, color: 'var(--t1)' }}>Proctored Examination Records</h3>
             <button onClick={loadData} className="btn-ghost btn-sm">⟳ Refresh</button>
           </div>
 
@@ -484,7 +484,7 @@ function AdminExamsContent() {
             <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>No student submissions recorded yet.</div>
           ) : (
             <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, textAlign: 'left' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5, textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: 'var(--bg3)', color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>
                     <th style={{ padding: '10px 16px' }}>Student / Reg No</th>
@@ -505,7 +505,7 @@ function AdminExamsContent() {
                         <td style={{ padding: '12px 16px', fontWeight: 600, color: 'var(--t1)' }}>
                           {sub.registerNumber || sub.studentId}
                         </td>
-                        <td style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--t2)' }}>
+                        <td style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--t2)' }}>
                           {sub.examScheduleId}
                         </td>
                         <td style={{ padding: '12px 16px', fontWeight: 700, color: sub.passed ? 'var(--green)' : 'var(--coral)' }}>
@@ -513,7 +513,7 @@ function AdminExamsContent() {
                         </td>
                         <td style={{ padding: '12px 16px' }}>
                           <span style={{
-                            padding: '3px 8px', borderRadius: 6, fontSize: 11, fontWeight: 700,
+                            padding: '3px 8px', borderRadius: 6, fontSize: 12, fontWeight: 700,
                             background: sub.passed ? 'rgba(5, 150, 105, 0.1)' : 'rgba(239, 68, 68, 0.1)',
                             color: sub.passed ? 'var(--green)' : 'var(--coral)'
                           }}>
@@ -525,7 +525,7 @@ function AdminExamsContent() {
                             {sub.tabSwitches ?? 0} {flagged ? '⚠ Flagged' : ''}
                           </span>
                         </td>
-                        <td style={{ padding: '12px 16px', color: 'var(--t3)', fontSize: 12 }}>
+                        <td style={{ padding: '12px 16px', color: 'var(--t3)', fontSize: 13 }}>
                           {time}
                         </td>
                       </tr>

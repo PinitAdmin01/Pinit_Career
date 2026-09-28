@@ -104,19 +104,19 @@ export default function ThreeWorldsPortalRevamp({ onOpenLogin }: { onOpenLogin?:
                 {current.tag}
               </div>
 
-              <h3 style={{ margin: 0, fontSize: 24, fontWeight: 850, color: 'var(--text-primary)', lineHeight: 1.25 }}>
+              <h3 style={{ margin: 0, fontSize: 26.5, fontWeight: 850, color: 'var(--text-primary)', lineHeight: 1.25 }}>
                 {current.title}
               </h3>
 
-              <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <p style={{ margin: 0, fontSize: 15.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 {current.subtitle}
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, paddingTop: 8 }}>
                 {current.bulletPoints.map((bp, i) => (
                   <div key={i} style={{ padding: 12, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                    <div style={{ fontSize: 12, fontWeight: 750, color: 'var(--accent)', marginBottom: 2 }}>✓ {bp.title}</div>
-                    <div style={{ fontSize: 11, color: 'var(--text-secondary)', lineHeight: 1.4 }}>{bp.desc}</div>
+                    <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--accent)', marginBottom: 2 }}>✓ {bp.title}</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.4 }}>{bp.desc}</div>
                   </div>
                 ))}
               </div>
@@ -125,12 +125,12 @@ export default function ThreeWorldsPortalRevamp({ onOpenLogin }: { onOpenLogin?:
                 <Link
                   href={current.ctaRole === 'teacher' ? '/campus-demo' : current.ctaRole === 'recruiter' ? '/recruiter' : '/login'}
                   className="pc-btn-primary"
-                  style={{ padding: '12px 24px', fontSize: '14px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                  style={{ padding: '12px 24px', fontSize: '15.5px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                 >
                   <span>{current.ctaText}</span>
                   <span>→</span>
                 </Link>
-                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}>
+                <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}>
                   {current.metric}
                 </span>
               </div>
@@ -140,12 +140,12 @@ export default function ThreeWorldsPortalRevamp({ onOpenLogin }: { onOpenLogin?:
             <div style={{ padding: 24, borderRadius: 18, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: 12 }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--text-primary)' }}>
+                  <div style={{ fontSize: 14.5, fontWeight: 750, color: 'var(--text-primary)' }}>
                     {activeRole === 'students' ? 'Sample Student Profile' : activeRole === 'colleges' ? 'Sample Placement Cell HUD' : 'Sample Recruiter Console'}
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>Interactive Preview — not a live user</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Interactive Preview — not a live user</div>
                 </div>
-                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(245,158,11,0.15)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.3)', fontSize: 10.5, fontFamily: 'var(--font-mono)' }}>
+                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(245,158,11,0.15)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.3)', fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
                   {activeRole === 'students' ? 'Simulated Profile' : activeRole === 'colleges' ? 'Sample HUD' : 'Demo Console'}
                 </span>
               </div>
@@ -153,53 +153,53 @@ export default function ThreeWorldsPortalRevamp({ onOpenLogin }: { onOpenLogin?:
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {activeRole === 'students' ? (
                   <>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>100 Quests Completed</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SIMULATED]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SIMULATED]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>GitHub Commits Verified</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SIMULATED]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SIMULATED]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>Skill Passport Hash</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SIMULATED]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SIMULATED]</span>
                     </div>
                   </>
                 ) : activeRole === 'colleges' ? (
                   <>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>1,240 Students Active</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>42 Enterprise Recruiters</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>98.4% Mock Interview Pass</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[SAMPLE DATA]</span>
                     </div>
                   </>
                 ) : (
                   <>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>Talent Pool: Verified Engineers</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[DEMO]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[DEMO]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>Benchmark Code Scores</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[DEMO]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[DEMO]</span>
                     </div>
-                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 13, color: 'var(--text-primary)', display: 'flex', justifyContent: 'space-between' }}>
                       <span>Instant Interview Scheduling</span>
-                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700 }}>[DEMO]</span>
+                      <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 }}>[DEMO]</span>
                     </div>
                   </>
                 )}
               </div>
 
-              <div style={{ padding: 10, borderRadius: 10, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', textAlign: 'center', fontSize: 11.5, color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+              <div style={{ padding: 10, borderRadius: 10, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', textAlign: 'center', fontSize: 12.5, color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                 ⚡ Interactive Simulation Preview
               </div>
             </div>

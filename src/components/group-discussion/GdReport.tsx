@@ -29,7 +29,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
     }} className="animate-fade-in">
       
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
           📊 Collaborative SDE Performance Report
         </h2>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
@@ -43,7 +43,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
                 border: 'none',
                 background: activeTab === 'assessment' ? 'var(--accent)' : 'none',
                 color: activeTab === 'assessment' ? 'white' : 'var(--t2)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 800,
                 cursor: 'pointer',
                 transition: 'all 0.15s'
@@ -59,7 +59,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
                 border: 'none',
                 background: activeTab === 'transcript' ? 'var(--accent)' : 'none',
                 color: activeTab === 'transcript' ? 'white' : 'var(--t2)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 800,
                 cursor: 'pointer',
                 transition: 'all 0.15s'
@@ -75,7 +75,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
             borderRadius: 12,
             padding: '8px 16px',
             color: report.evaluated === false ? 'var(--red, #ef4444)' : 'var(--teal)',
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: 900
           }}>
             {report.evaluated === false
@@ -88,22 +88,22 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
       {activeTab === 'assessment' ? (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="animate-fade-in">
           <div>
-            <h3 style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Summary & Verdict</h3>
-            <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Summary & Verdict</h3>
+            <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5 }}>
               {report.verdict}
             </p>
 
-            <h3 style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginTop: 20, marginBottom: 10 }}>Key Panel Highlights</h3>
-            <ul style={{ fontSize: 12.5, color: 'var(--t2)', paddingLeft: 18, margin: 0, lineHeight: 1.6 }}>
+            <h3 style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 20, marginBottom: 10 }}>Key Panel Highlights</h3>
+            <ul style={{ fontSize: 14, color: 'var(--t2)', paddingLeft: 18, margin: 0, lineHeight: 1.6 }}>
               {report.keyMoments.map((m, idx) => <li key={idx}>{m}</li>)}
             </ul>
           </div>
 
           <div>
-            <h3 style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Target Gaps Identified</h3>
+            <h3 style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>Target Gaps Identified</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {report.gapsIdentified.map((g, idx) => (
-                <div key={idx} style={{ background: 'var(--bg3)', border: '1.5px solid var(--border)', borderRadius: 8, padding: '8px 12px', fontSize: 12, color: 'var(--t1)' }}>
+                <div key={idx} style={{ background: 'var(--bg3)', border: '1.5px solid var(--border)', borderRadius: 8, padding: '8px 12px', fontSize: 13, color: 'var(--t1)' }}>
                   🚨 {g}
                 </div>
               ))}
@@ -135,7 +135,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
           }}>
             {transcript.map((msg, idx) => (
               <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'SDE Candidate' ? 'flex-end' : 'flex-start' }}>
-                <div style={{ display: 'flex', gap: 4, fontSize: 8.5, color: 'var(--t3)', marginBottom: 2 }}>
+                <div style={{ display: 'flex', gap: 4, fontSize: 9.5, color: 'var(--t3)', marginBottom: 2 }}>
                   <span>{msg.emoji}</span>
                   <strong>{msg.sender}</strong>
                   <span>({msg.role})</span>
@@ -143,7 +143,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
                 <div style={{
                   padding: '8px 12px',
                   borderRadius: 10,
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   background: msg.role === 'SDE Candidate' ? 'var(--accent)' : 'var(--bg2)',
                   color: msg.role === 'SDE Candidate' ? 'white' : 'var(--t1)',
                   maxWidth: '85%',
@@ -159,7 +159,7 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
             <button
               onClick={onRestart}
               className="btn-primary"
-              style={{ padding: '10px 20px', fontSize: 12, fontWeight: 800, borderRadius: 10, border: 'none', cursor: 'pointer' }}
+              style={{ padding: '10px 20px', fontSize: 13, fontWeight: 800, borderRadius: 10, border: 'none', cursor: 'pointer' }}
             >
               Restart New Discussion Loop
             </button>

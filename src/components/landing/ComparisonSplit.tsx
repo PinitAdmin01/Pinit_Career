@@ -51,13 +51,13 @@ export default function ComparisonSplitRevamp() {
           <div className="comparison-card old-way">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(244,63,94,0.2)', paddingBottom: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 24 }}>📄</span>
+                <span style={{ fontSize: 26.5 }}>📄</span>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 750, color: '#f43f5e' }}>The Broken Old Way</h3>
-                  <div style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>Static PDF Resumes & ATS Black Holes</div>
+                  <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 750, color: '#f43f5e' }}>The Broken Old Way</h3>
+                  <div style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>Static PDF Resumes & ATS Black Holes</div>
                 </div>
               </div>
-              <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 11, fontWeight: 700 }}>
+              <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 12, fontWeight: 700 }}>
                 High Dropout
               </span>
             </div>
@@ -65,16 +65,16 @@ export default function ComparisonSplitRevamp() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {comparisons.map((c, i) => (
                 <div key={i} className="comparison-item" style={{ background: 'rgba(244,63,94,0.03)', borderColor: 'rgba(244,63,94,0.12)' }}>
-                  <span style={{ color: '#f43f5e', fontSize: 14, fontWeight: 800 }}>✕</span>
+                  <span style={{ color: '#f43f5e', fontSize: 15.5, fontWeight: 800 }}>✕</span>
                   <div>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>{c.dimension}</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.45 }}>{c.oldWay}</div>
+                    <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>{c.dimension}</div>
+                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.45 }}>{c.oldWay}</div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div style={{ padding: 12, borderRadius: 12, background: 'rgba(244,63,94,0.06)', border: '1px solid rgba(244,63,94,0.15)', textAlign: 'center', fontSize: 12, color: '#f43f5e', fontStyle: 'italic' }}>
+            <div style={{ padding: 12, borderRadius: 12, background: 'rgba(244,63,94,0.06)', border: '1px solid rgba(244,63,94,0.15)', textAlign: 'center', fontSize: 13, color: '#f43f5e', fontStyle: 'italic' }}>
               &ldquo;Traditional resume-based hiring has high friction and low transparency.&rdquo;
             </div>
           </div>
@@ -83,13 +83,13 @@ export default function ComparisonSplitRevamp() {
           <div className="comparison-card pinit-way">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 24 }}>⚡</span>
+                <span style={{ fontSize: 26.5 }}>⚡</span>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 750, color: 'var(--accent)' }}>The PinIT Career OS Way</h3>
-                  <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>Verifiable Identity & Socratic Intelligence</div>
+                  <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 750, color: 'var(--accent)' }}>The PinIT Career OS Way</h3>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Verifiable Identity & Socratic Intelligence</div>
                 </div>
               </div>
-              <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(0,163,255,0.15)', border: '1px solid rgba(0,163,255,0.4)', color: 'var(--accent)', fontSize: 11, fontWeight: 700 }}>
+              <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(0,163,255,0.15)', border: '1px solid rgba(0,163,255,0.4)', color: 'var(--accent)', fontSize: 12, fontWeight: 700 }}>
                 Industry-Aligned
               </span>
             </div>
@@ -97,16 +97,16 @@ export default function ComparisonSplitRevamp() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {comparisons.map((c, i) => (
                 <div key={i} className="comparison-item" style={{ borderColor: 'var(--border-color)' }}>
-                  <span style={{ color: 'var(--accent-green)', fontSize: 14, fontWeight: 800 }}>✓</span>
+                  <span style={{ color: 'var(--accent-green)', fontSize: 15.5, fontWeight: 800 }}>✓</span>
                   <div>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--accent)', marginBottom: 2 }}>{c.icon} {c.dimension}</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-primary)', lineHeight: 1.45 }}>{c.pinitWay}</div>
+                    <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--accent)', marginBottom: 2 }}>{c.icon} {c.dimension}</div>
+                    <div style={{ fontSize: 13, color: 'var(--text-primary)', lineHeight: 1.45 }}>{c.pinitWay}</div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div style={{ padding: 12, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', textAlign: 'center', fontSize: 12, color: 'var(--text-primary)', fontWeight: 600 }}>
+            <div style={{ padding: 12, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', textAlign: 'center', fontSize: 13, color: 'var(--text-primary)', fontWeight: 600 }}>
               ⚡ Recruiter Match: &ldquo;Candidate completed 30-Day Java & Distributed Systems Capstone with full test assertion coverage.&rdquo;
             </div>
           </div>

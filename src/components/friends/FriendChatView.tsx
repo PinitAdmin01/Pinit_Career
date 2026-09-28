@@ -175,7 +175,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               background: 'rgba(30, 41, 59, 0.6)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               color: '#ffffff',
-              fontSize: 12.5,
+              fontSize: 14,
               outline: 'none',
               boxSizing: 'border-box'
             }}
@@ -185,7 +185,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         {/* Friends List */}
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
           {filteredFriends.length === 0 ? (
-            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
               {searchFilter ? `No friends match "${searchFilter}"` : 'No friends found.'}
             </div>
           ) : (
@@ -216,10 +216,10 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {friend.name}
                     </div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: 12, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {friend.course} • {friend.college}
                     </div>
                   </div>
@@ -233,9 +233,9 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
       {/* ── Right Pane: Active Chat Window ── */}
       {!activeFriend ? (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', gap: 12, padding: 32, textAlign: 'center', background: 'rgba(10, 15, 30, 0.6)' }}>
-          <span style={{ fontSize: 40 }}>💬</span>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#ffffff' }}>Select a Conversation</div>
-          <div style={{ fontSize: 13, maxWidth: 320, lineHeight: 1.5 }}>Choose a classmate or project partner from the sidebar to chat, share code, or initiate arena duels.</div>
+          <span style={{ fontSize: 44 }}>💬</span>
+          <div style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff' }}>Select a Conversation</div>
+          <div style={{ fontSize: 14.5, maxWidth: 320, lineHeight: 1.5 }}>Choose a classmate or project partner from the sidebar to chat, share code, or initiate arena duels.</div>
         </div>
       ) : (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(10, 15, 30, 0.6)' }}>
@@ -258,8 +258,8 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               {activeFriend.online && <span className="online-beacon" />}
             </div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{activeFriend.name}</div>
-              <div style={{ fontSize: 11.5, color: '#34d399' }}>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff' }}>{activeFriend.name}</div>
+              <div style={{ fontSize: 12.5, color: '#34d399' }}>
                 {activeFriend.online ? 'Online on campus' : 'Offline'} • {activeFriend.college}
               </div>
             </div>
@@ -268,21 +268,21 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           <div style={{ display: 'flex', gap: 8 }}>
             <button
               className="friends-btn friends-btn-secondary"
-              style={{ padding: '6px 12px', fontSize: 11.5 }}
+              style={{ padding: '6px 12px', fontSize: 12.5 }}
               onClick={() => onOpenProfile(activeFriend)}
             >
               Profile
             </button>
             <button
               className="friends-btn friends-btn-secondary"
-              style={{ padding: '6px 12px', fontSize: 11.5 }}
+              style={{ padding: '6px 12px', fontSize: 12.5 }}
               onClick={() => onOpenChallenge(activeFriend)}
             >
               ⚔️ Duel
             </button>
             <button
               className="friends-btn friends-btn-secondary"
-              style={{ padding: '6px 12px', fontSize: 11.5 }}
+              style={{ padding: '6px 12px', fontSize: 12.5 }}
               onClick={() => onOpenProjectInvite(activeFriend)}
             >
               👥 Project
@@ -293,16 +293,16 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         {/* Message Stream */}
         <div style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
           {loadingMessages && messages.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 13 }}>
+            <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14.5 }}>
               Loading conversation...
             </div>
           ) : messages.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '50px 20px', color: '#94a3b8' }}>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>👋</div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', marginBottom: 4 }}>
+              <div style={{ fontSize: 35, marginBottom: 8 }}>👋</div>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', marginBottom: 4 }}>
                 Say hello to {activeFriend.name}!
               </div>
-              <div style={{ fontSize: 12 }}>
+              <div style={{ fontSize: 13 }}>
                 This is the beginning of your direct conversation on PinIT Campus.
               </div>
             </div>
@@ -342,13 +342,13 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
                       ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
                       : 'rgba(30, 41, 59, 0.75)',
                     color: '#ffffff',
-                    fontSize: 13,
+                    fontSize: 14.5,
                     lineHeight: 1.45,
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
                   }}>
                     <div>{msg.message}</div>
                     <div style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       color: isMe ? 'rgba(255, 255, 255, 0.7)' : '#94a3b8',
                       textAlign: 'right',
                       marginTop: 4
@@ -372,7 +372,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: 12,
               padding: '4px 10px',
-              fontSize: 11,
+              fontSize: 12,
               color: '#94a3b8',
               cursor: 'pointer',
               whiteSpace: 'nowrap'
@@ -387,7 +387,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: 12,
               padding: '4px 10px',
-              fontSize: 11,
+              fontSize: 12,
               color: '#94a3b8',
               cursor: 'pointer',
               whiteSpace: 'nowrap'
@@ -420,14 +420,14 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               background: 'rgba(30, 41, 59, 0.6)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               color: '#ffffff',
-              fontSize: 13,
+              fontSize: 14.5,
               outline: 'none'
             }}
           />
           <button
             className="friends-btn friends-btn-primary"
             onClick={handleSendMessage}
-            style={{ padding: '10px 16px', fontSize: 13 }}
+            style={{ padding: '10px 16px', fontSize: 14.5 }}
           >
             Send ➤
           </button>

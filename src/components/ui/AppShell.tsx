@@ -427,8 +427,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   if (loading) return (
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--bg)' }}>
       <div style={{ textAlign:'center' }}>
-        <div style={{ fontSize:32, marginBottom:12, animation:'spin 1s linear infinite' }}>⬡</div>
-        <div style={{ fontFamily:'var(--font-mono)', fontSize:11, color:'var(--t3)' }}>Loading...</div>
+        <div style={{ fontSize:35, marginBottom:12, animation:'spin 1s linear infinite' }}>⬡</div>
+        <div style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--t3)' }}>Loading...</div>
       </div>
     </div>
   );
@@ -572,11 +572,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {/* Header */}
           {!rightCollapsed ? (
             <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>BGS Academic</div>
-              <div style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Portal</div>
+              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>BGS Academic</div>
+              <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Portal</div>
             </div>
           ) : (
-            <div style={{ padding: '16px 0 12px', borderBottom: '1px solid var(--border)', textAlign: 'center', fontSize: 12, fontWeight: 900, color: 'var(--accent)' }}>
+            <div style={{ padding: '16px 0 12px', borderBottom: '1px solid var(--border)', textAlign: 'center', fontSize: 13, fontWeight: 900, color: 'var(--accent)' }}>
               BGS
             </div>
           )}
@@ -584,11 +584,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {/* Student Info Card */}
           {!rightCollapsed ? (
             <div style={{ padding: '14px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent-light), var(--bg2))', textAlign: 'center' }}>
-              <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 20, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
+              <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 22, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
                 👤
               </div>
-              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'Student'}</div>
-              <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || user?.registerNumber || 'Student'}</div>
+              <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'Student'}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || user?.registerNumber || 'Student'}</div>
               {(() => {
                 const batchName = (user as any)?.batch || 'General Batch';
                 const rawColor = colorMap[batchName] || 'var(--brand)';
@@ -596,14 +596,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 return (
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: `${safeColor}18`, border: `1px solid ${safeColor}33`, borderRadius: 20, padding: '3px 10px' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: safeColor, display: 'inline-block' }} />
-                    <span style={{ fontSize: 11, fontWeight: 700, color: safeColor }}>{batchName}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: safeColor }}>{batchName}</span>
                   </div>
                 );
               })()}
             </div>
           ) : (
             <div style={{ padding: '14px 0', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: 'white', boxShadow: '0 2px 8px color-mix(in srgb, var(--accent) 18%, transparent)' }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15.5, color: 'white', boxShadow: '0 2px 8px color-mix(in srgb, var(--accent) 18%, transparent)' }}>
                 👤
               </div>
             </div>
@@ -648,7 +648,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                     cursor: 'pointer',
                     color: isTourSpotlight ? '#fff' : (active ? '#1d4ed8' : 'var(--t2)'),
                     fontWeight: (active || isTourSpotlight) ? 700 : 500,
-                    fontSize: 13,
+                    fontSize: 14.5,
                     transition: 'all 0.15s',
                     outline: 'none',
                     textAlign: 'left',
@@ -657,7 +657,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   }}
                   title={item.label}
                 >
-                  <span style={{ fontSize: 16, flexShrink: 0, transform: isTourSpotlight ? 'scale(1.15)' : undefined }}>{item.icon}</span>
+                  <span style={{ fontSize: 17.5, flexShrink: 0, transform: isTourSpotlight ? 'scale(1.15)' : undefined }}>{item.icon}</span>
                   {!rightCollapsed && <span>{item.label}</span>}
                 </button>
               );
@@ -679,7 +679,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 borderRadius: 9,
                 cursor: 'pointer',
                 color: 'var(--t3)',
-                fontSize: 14,
+                fontSize: 15.5,
                 outline: 'none'
               }}
             >
@@ -727,7 +727,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 18,
+              fontSize: 20,
               transition: 'transform 0.2s',
               outline: 'none'
             }}
@@ -756,18 +756,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             boxSizing: 'border-box'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
+              <h3 style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
                 <span>📓</span> Study Notebook
               </h3>
               <button
                 onClick={() => setNotesOpen(false)}
-                style={{ background: 'transparent', border: 'none', color: 'var(--t3)', fontSize: 13, cursor: 'pointer' }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--t3)', fontSize: 14.5, cursor: 'pointer' }}
               >
                 ✕
               </button>
             </div>
             
-            <p style={{ fontSize: 10, color: 'var(--t3)', lineHeight: 1.4, margin: 0 }}>
+            <p style={{ fontSize: 11, color: 'var(--t3)', lineHeight: 1.4, margin: 0 }}>
               Take notes during this quest. They are saved to local storage and carry over between lecture slides and coding assignments automatically!
             </p>
 
@@ -780,7 +780,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   color: 'var(--t2)',
                   padding: '8px 12px',
                   borderRadius: 8,
-                  fontSize: 10.5,
+                  fontSize: 11.5,
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'background 0.2s',
@@ -803,7 +803,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 padding: 12,
                 color: 'var(--t1)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: 11,
+                fontSize: 12,
                 lineHeight: 1.5,
                 resize: 'none',
                 outline: 'none'

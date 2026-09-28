@@ -90,12 +90,12 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 24 }}>📋</span>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
+            <span style={{ fontSize: 26.5 }}>📋</span>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
               Universal History Command Center
             </h2>
           </div>
-          <p style={{ fontSize: 13, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14.5, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.5 }}>
             Audit and review past Socratic Crisis evaluations, Workplace Comm rewrites, and Daily Mission proofs.
           </p>
         </div>
@@ -108,7 +108,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
             border: 'none',
             borderRadius: 12,
             padding: '10px 18px',
-            fontSize: 12.5,
+            fontSize: 14,
             fontWeight: 800,
             cursor: 'pointer',
             display: 'flex',
@@ -136,7 +136,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
             border: `1px solid ${theme.border}`,
             borderRadius: 12,
             padding: '10px 14px',
-            fontSize: 13,
+            fontSize: 14.5,
             color: theme.tPrimary,
             outline: 'none'
           }}
@@ -153,7 +153,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
                 border: 'none',
                 borderRadius: 8,
                 padding: '6px 12px',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.15s ease'
@@ -181,11 +181,11 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
           alignItems: 'center',
           gap: 12
         }}>
-          <span style={{ fontSize: 36 }}>📋</span>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: theme.tPrimary, margin: 0 }}>
+          <span style={{ fontSize: 39.5 }}>📋</span>
+          <h3 style={{ fontSize: 17.5, fontWeight: 700, color: theme.tPrimary, margin: 0 }}>
             No History Records Found
           </h3>
-          <p style={{ fontSize: 12.5, color: theme.tSecondary, maxWidth: 420, margin: 0, lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14, color: theme.tSecondary, maxWidth: 420, margin: 0, lineHeight: 1.5 }}>
             Complete Socratic Crisis roleplays in Sub-tab 1 or Workplace Comm exercises in Sub-tab 2 to generate evaluation records.
           </p>
         </div>
@@ -210,7 +210,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <span style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 800,
                   textTransform: 'uppercase',
                   padding: '3px 8px',
@@ -221,17 +221,17 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
                 }}>
                   {item.scenarioTitle ? '🧩 Socratic Crisis' : '🗣️ Workplace Comm'}
                 </span>
-                <span style={{ fontSize: 10, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 11, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
                   {new Date(item.timestamp || Date.now()).toLocaleDateString()}
                 </span>
               </div>
 
-              <h4 style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary, margin: 0, lineHeight: 1.35 }}>
+              <h4 style={{ fontSize: 15.5, fontWeight: 800, color: theme.tPrimary, margin: 0, lineHeight: 1.35 }}>
                 {item.scenarioTitle || item.title || `Evaluation Record #${idx + 1}`}
               </h4>
 
               <p style={{
-                fontSize: 12,
+                fontSize: 13,
                 color: theme.tSecondary,
                 margin: 0,
                 lineHeight: 1.45,
@@ -244,11 +244,11 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
               </p>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4, paddingTop: 8, borderTop: `1px solid ${theme.border}` }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)' }}>
                   Inspect Report ➔
                 </span>
                 {item.metrics && (
-                  <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
+                  <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
                     Comm: {item.metrics.comm}% • Exec: {item.metrics.exec}%
                   </span>
                 )}
@@ -287,8 +287,8 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 20 }}>📋</span>
-                <h3 style={{ fontSize: 18, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
+                <span style={{ fontSize: 22 }}>📋</span>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
                   {selectedHistoryRecord.scenarioTitle || selectedHistoryRecord.title || 'Evaluation Record Details'}
                 </h3>
               </div>
@@ -300,7 +300,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
                   color: theme.tPrimary,
                   width: 32, height: 32,
                   borderRadius: '50%',
-                  fontSize: 16,
+                  fontSize: 17.5,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -316,7 +316,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
               borderRadius: 14,
               padding: 16,
               border: `1px solid ${theme.border}`,
-              fontSize: 12.5,
+              fontSize: 14,
               color: theme.tSecondary,
               lineHeight: 1.6,
               whiteSpace: 'pre-wrap'
@@ -333,7 +333,7 @@ export const MissionsHistoryTab: React.FC<MissionsHistoryTabProps> = ({
                   border: 'none',
                   borderRadius: 10,
                   padding: '8px 20px',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   fontWeight: 700,
                   cursor: 'pointer'
                 }}

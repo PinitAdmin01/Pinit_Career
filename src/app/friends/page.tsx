@@ -460,7 +460,7 @@ function FriendsContent() {
                 {isSearching && (
                   <div style={{ position: 'absolute', right: searchQuery ? 46 : 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                     <div style={{ width: 14, height: 14, border: '2px solid rgba(99, 102, 241, 0.25)', borderTopColor: '#818cf8', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-                    <span style={{ fontSize: 11.5, color: '#818cf8', fontWeight: 600 }}>Searching...</span>
+                    <span style={{ fontSize: 12.5, color: '#818cf8', fontWeight: 600 }}>Searching...</span>
                   </div>
                 )}
               </div>
@@ -526,7 +526,7 @@ function FriendsContent() {
 
                 {isLoading ? (
                   <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>
-                    <div style={{ fontSize: 28, marginBottom: 10 }}>⚡</div>
+                    <div style={{ fontSize: 31, marginBottom: 10 }}>⚡</div>
                     <div>Querying Supabase campus directory...</div>
                   </div>
                 ) : activeSuggested.length === 0 ? (
@@ -597,14 +597,14 @@ function FriendsContent() {
                           <button
                             className="friends-btn friends-btn-secondary"
                             onClick={() => setSelectedStudent(peer)}
-                            style={{ padding: '7px 12px', fontSize: 12 }}
+                            style={{ padding: '7px 12px', fontSize: 13 }}
                           >
                             View Profile
                           </button>
                           {sentRequests[peer.id] ? (
                             <button
                               className="friends-btn friends-btn-pending"
-                              style={{ padding: '7px 12px', fontSize: 12 }}
+                              style={{ padding: '7px 12px', fontSize: 13 }}
                               disabled
                             >
                               ✓ Sent
@@ -613,7 +613,7 @@ function FriendsContent() {
                             <button
                               className="friends-btn friends-btn-primary"
                               onClick={() => handleAddFriend(peer.id, peer.name)}
-                              style={{ padding: '7px 12px', fontSize: 12 }}
+                              style={{ padding: '7px 12px', fontSize: 13 }}
                             >
                               + Add Friend
                             </button>
@@ -732,19 +732,19 @@ function FriendsContent() {
                             <button
                               className="friends-btn friends-btn-secondary"
                               onClick={() => setSelectedStudent(student)}
-                              style={{ padding: '7px 12px', fontSize: 12 }}
+                              style={{ padding: '7px 12px', fontSize: 13 }}
                             >
                               View Profile
                             </button>
                             {sentRequests[student.id] ? (
-                              <button className="friends-btn friends-btn-pending" disabled style={{ padding: '7px 12px', fontSize: 12 }}>
+                              <button className="friends-btn friends-btn-pending" disabled style={{ padding: '7px 12px', fontSize: 13 }}>
                                 ✓ Sent
                               </button>
                             ) : (
                               <button
                                 className="friends-btn friends-btn-primary"
                                 onClick={() => handleAddFriend(student.id, student.name)}
-                                style={{ padding: '7px 12px', fontSize: 12 }}
+                                style={{ padding: '7px 12px', fontSize: 13 }}
                               >
                                 + Add Friend
                               </button>
@@ -764,10 +764,10 @@ function FriendsContent() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'rgba(15, 23, 42, 0.7)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14 }}>
                 <div>
-                  <h2 style={{ fontSize: 18, fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  <h2 style={{ fontSize: 20, fontWeight: 800, color: '#ffffff', margin: 0 }}>
                     My Friends ({friendsNetwork.length})
                   </h2>
-                  <p style={{ fontSize: 12, color: '#94a3b8', margin: '4px 0 0' }}>
+                  <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0' }}>
                     Active campus connections for collaboration, practice duels, and squad builds.
                   </p>
                 </div>
@@ -805,12 +805,12 @@ function FriendsContent() {
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
                           <div
-                            style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
+                            style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
                             onClick={() => handleNavigateToProfile(friend.id)}
                           >
                             {friend.name}
                           </div>
-                          <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{friend.course} • {friend.college}</div>
+                          <div style={{ fontSize: 12.5, color: '#94a3b8' }}>{friend.course} • {friend.college}</div>
                         </div>
                       </div>
 
@@ -823,28 +823,28 @@ function FriendsContent() {
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, paddingTop: 4 }}>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 11.5, padding: '7px' }}
+                          style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => { setActiveChatFriendId(friend.id); setActiveTab('messages'); }}
                         >
                           💬 Chat
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 11.5, padding: '7px' }}
+                          style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => setChallengeStudent(friend)}
                         >
                           ⚔️ Duel
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 11.5, padding: '7px' }}
+                          style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => setProjectStudent(friend)}
                         >
                           👥 Project
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 11.5, padding: '7px' }}
+                          style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => setSelectedStudent(friend)}
                         >
                           Profile
@@ -861,7 +861,7 @@ function FriendsContent() {
           {activeTab === 'requests' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', marginBottom: 12 }}>
                   Incoming Friend Requests ({incomingRequestsList.length})
                 </h3>
                 {incomingRequestsList.length === 0 ? (
@@ -885,12 +885,12 @@ function FriendsContent() {
                           />
                           <div>
                             <div
-                              style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
+                              style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
                               onClick={() => handleNavigateToProfile(req.studentId)}
                             >
                               {req.name}
                             </div>
-                            <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{req.course} • {req.college}</div>
+                            <div style={{ fontSize: 12.5, color: '#94a3b8' }}>{req.course} • {req.college}</div>
                           </div>
                         </div>
 
@@ -903,14 +903,14 @@ function FriendsContent() {
                         <div style={{ display: 'flex', gap: 8 }}>
                           <button
                             className="friends-btn friends-btn-primary"
-                            style={{ flex: 1, fontSize: 12, padding: '8px' }}
+                            style={{ flex: 1, fontSize: 13, padding: '8px' }}
                             onClick={() => handleAcceptRequest(req.id, req.name)}
                           >
                             ✓ Accept
                           </button>
                           <button
                             className="friends-btn friends-btn-secondary"
-                            style={{ flex: 1, fontSize: 12, padding: '8px' }}
+                            style={{ flex: 1, fontSize: 13, padding: '8px' }}
                             onClick={() => handleDeclineRequest(req.id)}
                           >
                             Decline
@@ -962,7 +962,7 @@ function FriendsContent() {
             <div className="ref-sidebar-header">
               <span>Your Network</span>
               <span
-                style={{ fontSize: 13, color: '#818cf8', cursor: 'pointer', fontWeight: 600 }}
+                style={{ fontSize: 14.5, color: '#818cf8', cursor: 'pointer', fontWeight: 600 }}
                 onClick={() => setActiveTab('network')}
               >
                 View all ›
@@ -1000,13 +1000,13 @@ function FriendsContent() {
           <div className="ref-sidebar-card">
             <div className="ref-sidebar-header">
               <span>Direct Chat</span>
-              <span className="see-all-link" style={{ fontSize: 11.5 }} onClick={() => setActiveTab('messages')}>
+              <span className="see-all-link" style={{ fontSize: 12.5 }} onClick={() => setActiveTab('messages')}>
                 Open chat →
               </span>
             </div>
 
             {friendsNetwork.length === 0 ? (
-              <div style={{ padding: '16px 8px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>
+              <div style={{ padding: '16px 8px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
                 No active conversations yet.<br />
                 Connect with peers to unlock 1v1 chat!
               </div>
@@ -1182,8 +1182,8 @@ export default function FriendsPage() {
     <Suspense
       fallback={
         <div style={{ maxWidth: 1200, margin: '60px auto', padding: '0 24px', textAlign: 'center', color: '#94a3b8' }}>
-          <div style={{ fontSize: 32, marginBottom: 12 }}>⚡</div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>Loading Campus Network...</div>
+          <div style={{ fontSize: 35, marginBottom: 12 }}>⚡</div>
+          <div style={{ fontSize: 17.5, fontWeight: 700, color: '#f8fafc' }}>Loading Campus Network...</div>
         </div>
       }
     >

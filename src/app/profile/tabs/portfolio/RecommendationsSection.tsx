@@ -26,7 +26,7 @@ export function RecommendationsSection({ recommendations, addRecommendation }: R
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Mentor & Faculty Endorsements</h3>
+        <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 800 }}>Mentor & Faculty Endorsements</h3>
         <button
           onClick={() => setShowAddRec(!showAddRec)}
           style={{
@@ -35,7 +35,7 @@ export function RecommendationsSection({ recommendations, addRecommendation }: R
             border: 'none',
             padding: '6px 12px',
             borderRadius: 8,
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
             cursor: 'pointer'
           }}
@@ -53,14 +53,14 @@ export function RecommendationsSection({ recommendations, addRecommendation }: R
                 placeholder="Mentor / Faculty Name (e.g. Dr. Rajesh Sharma)"
                 value={newRecAuthor}
                 onChange={e => setNewRecAuthor(e.target.value)}
-                style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 14 }}
               />
               <input
                 type="text"
                 placeholder="Designation / Role (e.g. Professor & Head of CS)"
                 value={newRecRole}
                 onChange={e => setNewRecRole(e.target.value)}
-                style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 14 }}
               />
             </div>
             <textarea
@@ -68,18 +68,18 @@ export function RecommendationsSection({ recommendations, addRecommendation }: R
               placeholder="Recommendation or letter of endorsement quote..."
               value={newRecText}
               onChange={e => setNewRecText(e.target.value)}
-              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5, resize: 'vertical' }}
+              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 14, resize: 'vertical' }}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
               <button
                 onClick={() => setShowAddRec(false)}
-                style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 12, color: 'var(--t2)', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 13, color: 'var(--t2)', cursor: 'pointer' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}
+                style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 13, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}
               >
                 Save Endorsement
               </button>
@@ -94,27 +94,27 @@ export function RecommendationsSection({ recommendations, addRecommendation }: R
             <div key={r.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <div>
-                  <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{r.author}</span>
-                  {r.role && <span style={{ fontSize: 11.5, color: 'var(--t3)', marginLeft: 8 }}>&middot; {r.role}</span>}
+                  <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>{r.author}</span>
+                  {r.role && <span style={{ fontSize: 12.5, color: 'var(--t3)', marginLeft: 8 }}>&middot; {r.role}</span>}
                 </div>
-                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: 'rgba(34,197,94,0.1)', color: 'var(--green)', fontWeight: 700 }}>
+                <span style={{ fontSize: 11, padding: '2px 7px', borderRadius: 4, background: 'rgba(34,197,94,0.1)', color: 'var(--green)', fontWeight: 700 }}>
                   {r.verified ? '✓ Faculty Endorsed' : 'Pending Audit'}
                 </span>
               </div>
-              <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: 0, fontStyle: 'italic', lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, color: 'var(--t2)', margin: 0, fontStyle: 'italic', lineHeight: 1.5 }}>
                 &ldquo;{r.text}&rdquo;
               </p>
               {r.date && (
-                <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 8 }}>Endorsed on {r.date}</div>
+                <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 8 }}>Endorsed on {r.date}</div>
               )}
             </div>
           ))}
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '36px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
-          <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>✍️</span>
-          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Endorsements Recorded Yet</div>
-          <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 16px', lineHeight: 1.5 }}>
+          <span style={{ fontSize: 39.5, display: 'block', marginBottom: 10 }}>✍️</span>
+          <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Endorsements Recorded Yet</div>
+          <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 16px', lineHeight: 1.5 }}>
             Add cryptographically signed letters of recommendation and mentor endorsements above to showcase academic and industry credibility.
           </p>
         </div>

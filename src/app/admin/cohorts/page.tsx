@@ -71,12 +71,12 @@ export default function CollegeCohortsAdminPage() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 16 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 28 }}>🏫</span>
+            <span style={{ fontSize: 31 }}>🏫</span>
             <div>
-              <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800, letterSpacing: '-0.5px' }}>
+              <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 800, letterSpacing: '-0.5px' }}>
                 Institutional Cohort & Placement Analytics
               </h1>
-              <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>
+              <p style={{ margin: 0, fontSize: 14.5, color: 'var(--text-muted)' }}>
                 Multi-Tenant Campus Telemetry · Departmental Readiness Funnel · Cryptographic Evidence Audit
               </p>
             </div>
@@ -86,13 +86,13 @@ export default function CollegeCohortsAdminPage() {
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <Link
             href="/admin"
-            style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', fontSize: 13, textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)' }}
+            style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', fontSize: 14.5, textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)' }}
           >
             ← Admin Console
           </Link>
           <Link
             href="/leaderboard"
-            style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: 'var(--text)', fontSize: 13, textDecoration: 'none', fontWeight: 600 }}
+            style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: 'var(--text)', fontSize: 14.5, textDecoration: 'none', fontWeight: 600 }}
           >
             🏆 Campus Leaderboard
           </Link>
@@ -102,40 +102,40 @@ export default function CollegeCohortsAdminPage() {
       {/* Top Level Metric HUD */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, marginBottom: 24 }}>
         <div style={{ padding: 20, borderRadius: 14, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Total Enrolled Students</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--text)' }}>{stats.totalStudents}</div>
-          <div style={{ fontSize: 12, color: 'var(--text-dim)', marginTop: 4 }}>Across {stats.departments.length} Engineering Departments</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Total Enrolled Students</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: 'var(--text)' }}>{stats.totalStudents}</div>
+          <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 4 }}>Across {stats.departments.length} Engineering Departments</div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 14, background: 'rgba(var(--success-rgb),  0.05)', border: '1px solid rgba(var(--success-rgb),  0.15)' }}>
-          <div style={{ fontSize: 11, color: 'var(--success-bright)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Interview Ready %</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--success-bright)' }}>{stats.overallPlacementReadyPct}%</div>
-          <div style={{ fontSize: 12, color: 'var(--text-dim)', marginTop: 4 }}>Passed 100% Gates + Oral Defense</div>
+          <div style={{ fontSize: 12, color: 'var(--success-bright)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Interview Ready %</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: 'var(--success-bright)' }}>{stats.overallPlacementReadyPct}%</div>
+          <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 4 }}>Passed 100% Gates + Oral Defense</div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 14, background: 'rgba(79, 70, 229, 0.05)', border: '1px solid rgba(79, 70, 229, 0.15)' }}>
-          <div style={{ fontSize: 11, color: '#a5b4fc', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Verified Skills Sealed</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: '#a5b4fc' }}>{stats.totalVerifiedCredentials}</div>
-          <div style={{ fontSize: 12, color: 'var(--text-dim)', marginTop: 4 }}>SHA-256 Verified Artifacts</div>
+          <div style={{ fontSize: 12, color: '#a5b4fc', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Verified Skills Sealed</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: '#a5b4fc' }}>{stats.totalVerifiedCredentials}</div>
+          <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 4 }}>SHA-256 Verified Artifacts</div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 14, background: 'rgba(251, 191, 36, 0.05)', border: '1px solid rgba(251, 191, 36, 0.15)' }}>
-          <div style={{ fontSize: 11, color: '#facc15', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Avg Viva Defense Score</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: '#facc15' }}>🎙️ {stats.avgOralDefenseScore}/100</div>
-          <div style={{ fontSize: 12, color: 'var(--text-dim)', marginTop: 4 }}>Independent Panel / AI Evaluation</div>
+          <div style={{ fontSize: 12, color: '#facc15', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>Avg Viva Defense Score</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: '#facc15' }}>🎙️ {stats.avgOralDefenseScore}/100</div>
+          <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 4 }}>Independent Panel / AI Evaluation</div>
         </div>
       </div>
 
       {/* Department Breakdown Table */}
       <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24, marginBottom: 24 }}>
-        <h3 style={{ margin: '0 0 16px 0', fontSize: 16, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <h3 style={{ margin: '0 0 16px 0', fontSize: 17.5, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
           <span>🏢</span> Departmental Placement & Readiness Breakdown
         </h3>
 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 13 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-muted)', fontSize: 11, textTransform: 'uppercase' }}>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-muted)', fontSize: 12, textTransform: 'uppercase' }}>
                 <th style={{ padding: '12px 16px' }}>Department</th>
                 <th style={{ padding: '12px 16px' }}>Enrolled</th>
                 <th style={{ padding: '12px 16px' }}>Interview Ready</th>
@@ -175,13 +175,13 @@ export default function CollegeCohortsAdminPage() {
       {/* Student Telemetry Matrix */}
       <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
-          <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>👥 Student Placement & Evidence Dossier</h3>
+          <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>👥 Student Placement & Evidence Dossier</h3>
 
           <div style={{ display: 'flex', gap: 10 }}>
             <select
               value={selectedDept}
               onChange={e => setSelectedDept(e.target.value)}
-              style={{ padding: '8px 12px', borderRadius: 8, background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text)', fontSize: 12 }}
+              style={{ padding: '8px 12px', borderRadius: 8, background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text)', fontSize: 13 }}
             >
               <option value="all">All Departments</option>
               {stats.departments.map(d => (
@@ -194,15 +194,15 @@ export default function CollegeCohortsAdminPage() {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="🔍 Search student..."
-              style={{ padding: '8px 12px', borderRadius: 8, background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text)', fontSize: 12, width: 180 }}
+              style={{ padding: '8px 12px', borderRadius: 8, background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text)', fontSize: 13, width: 180 }}
             />
           </div>
         </div>
 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 13 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-muted)', fontSize: 11, textTransform: 'uppercase' }}>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-muted)', fontSize: 12, textTransform: 'uppercase' }}>
                 <th style={{ padding: '12px 16px' }}>Student</th>
                 <th style={{ padding: '12px 16px' }}>Department</th>
                 <th style={{ padding: '12px 16px' }}>Verified Skills</th>
@@ -223,11 +223,11 @@ export default function CollegeCohortsAdminPage() {
                   <tr key={student.studentId} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                     <td style={{ padding: '14px 16px' }}>
                       <div style={{ fontWeight: 700, color: 'var(--text)' }}>{student.name}</div>
-                      <div style={{ fontSize: 11, color: 'var(--text-dim)' }}>Batch of {student.batchYear}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>Batch of {student.batchYear}</div>
                     </td>
                     <td style={{ padding: '14px 16px', color: 'var(--text-muted)' }}>{student.department}</td>
                     <td style={{ padding: '14px 16px' }}>
-                      <span style={{ padding: '3px 8px', borderRadius: 4, background: 'rgba(var(--success-rgb),  0.12)', color: 'var(--success-bright)', fontWeight: 700, fontSize: 11 }}>
+                      <span style={{ padding: '3px 8px', borderRadius: 4, background: 'rgba(var(--success-rgb),  0.12)', color: 'var(--success-bright)', fontWeight: 700, fontSize: 12 }}>
                         🛡️ {student.verifiedCount} Verified
                       </span>
                     </td>
@@ -235,14 +235,14 @@ export default function CollegeCohortsAdminPage() {
                       {student.defenseScore > 0 ? (
                         <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>🎙️ {student.defenseScore}/100</span>
                       ) : (
-                        <span style={{ color: 'var(--text-dim)', fontSize: 12 }}>Pending</span>
+                        <span style={{ color: 'var(--text-dim)', fontSize: 13 }}>Pending</span>
                       )}
                     </td>
                     <td style={{ padding: '14px 16px' }}>
                       <span style={{
                         padding: '3px 8px',
                         borderRadius: 4,
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         background: student.readinessStatus === 'ready_for_interview' ? 'rgba(var(--success-rgb),  0.15)' : 'rgba(var(--info-rgb),  0.15)',
@@ -254,7 +254,7 @@ export default function CollegeCohortsAdminPage() {
                     <td style={{ padding: '14px 16px' }}>
                       <Link
                         href={`/verify/${student.studentId}`}
-                        style={{ fontSize: 12, color: '#38bdf8', textDecoration: 'none', fontWeight: 600 }}
+                        style={{ fontSize: 13, color: '#38bdf8', textDecoration: 'none', fontWeight: 600 }}
                       >
                         Audit Proof ↗
                       </Link>

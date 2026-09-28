@@ -345,13 +345,13 @@ export default function LiteChatInterface() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 18
+            fontSize: 20
           }}>
             👩‍💼
           </div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Ms. Priya</div>
-            <div style={{ fontSize: 11, color: 'var(--teal)', display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>Ms. Priya</div>
+            <div style={{ fontSize: 12, color: 'var(--teal)', display: 'flex', alignItems: 'center', gap: 5 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', display: 'inline-block' }} />
               Active Mentor Guide
             </div>
@@ -367,12 +367,12 @@ export default function LiteChatInterface() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        fontSize: 12,
+        fontSize: 13,
         position: 'relative'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontWeight: 800, color: 'var(--teal)' }}>🧠 Evolution: {levelName}</span>
-          <span style={{ fontSize: 11, color: 'var(--t3)' }}>({totalXp} XP)</span>
+          <span style={{ fontSize: 12, color: 'var(--t3)' }}>({totalXp} XP)</span>
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -380,11 +380,11 @@ export default function LiteChatInterface() {
           <div style={{ width: 120, height: 6, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
             <div style={{ width: `${syncPercent}%`, height: '100%', background: 'linear-gradient(90deg, var(--teal), var(--accent))', transition: 'width 0.3s' }} />
           </div>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>{syncPercent}% Synced</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>{syncPercent}% Synced</span>
           
           <button 
             onClick={() => setShowStatsMenu(!showStatsMenu)}
-            style={{ background: 'none', border: '1px solid var(--border)', borderRadius: 6, padding: '2px 8px', color: 'var(--t2)', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+            style={{ background: 'none', border: '1px solid var(--border)', borderRadius: 6, padding: '2px 8px', color: 'var(--t2)', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
           >
             📊 Training Stats {showStatsMenu ? '▲' : '▼'}
           </button>
@@ -397,10 +397,10 @@ export default function LiteChatInterface() {
             border: '1px solid var(--border)', borderRadius: 12, padding: 14, zIndex: 10,
             boxShadow: '0 10px 25px rgba(0,0,0,0.3)', color: 'var(--t1)'
           }}>
-            <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', marginBottom: 8, letterSpacing: '0.5px', textAlign: 'left' }}>
+            <div style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', marginBottom: 8, letterSpacing: '0.5px', textAlign: 'left' }}>
               Model Weight Vectors:
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 11.5, marginBottom: 12 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12.5, marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--t3)' }}>Completed Quests (+50 XP):</span>
                 <span style={{ fontWeight: 700, color: 'var(--teal)' }}>{completedQuestsCount}</span>
@@ -448,7 +448,7 @@ export default function LiteChatInterface() {
                   setShowStatsMenu(false);
                 }
               }}
-              style={{ width: '100%', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, padding: '6px 0', color: '#f87171', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
+              style={{ width: '100%', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, padding: '6px 0', color: '#f87171', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
             >
               Reset Mentor Training Data
             </button>
@@ -471,7 +471,7 @@ export default function LiteChatInterface() {
             <div key={m.id} style={{ display: 'flex', justifyContent: isPriya ? 'flex-start' : 'flex-end' }}>
               <div style={{ display: 'flex', gap: 10, maxWidth: '85%' }}>
                 {isPriya && (
-                  <span style={{ fontSize: 20, alignSelf: 'flex-start', marginTop: 4 }}>👩‍💼</span>
+                  <span style={{ fontSize: 22, alignSelf: 'flex-start', marginTop: 4 }}>👩‍💼</span>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{
@@ -480,7 +480,7 @@ export default function LiteChatInterface() {
                     background: isPriya ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                     border: isPriya ? '1px solid var(--border)' : 'none',
                     color: isPriya ? 'var(--t1)' : '#fff',
-                    fontSize: 13,
+                    fontSize: 14.5,
                     lineHeight: 1.5,
                     whiteSpace: 'pre-wrap'
                   }}>
@@ -500,7 +500,7 @@ export default function LiteChatInterface() {
                             borderRadius: 12,
                             padding: '8px 14px',
                             color: 'var(--accent)',
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: 700,
                             cursor: 'pointer',
                             transition: 'all 0.15s'
@@ -526,7 +526,7 @@ export default function LiteChatInterface() {
         {/* typing indicator */}
         {isTyping && (
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <span style={{ fontSize: 20 }}>👩‍💼</span>
+            <span style={{ fontSize: 22 }}>👩‍💼</span>
             <div style={{
               padding: '12px 18px',
               background: 'var(--bg3)',
@@ -576,7 +576,7 @@ export default function LiteChatInterface() {
             borderRadius: 12,
             padding: '0 16px',
             color: 'var(--t1)',
-            fontSize: 13,
+            fontSize: 14.5,
             outline: 'none'
           }}
         />
@@ -591,7 +591,7 @@ export default function LiteChatInterface() {
             borderRadius: 12,
             color: '#fff',
             fontWeight: 700,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             opacity: !input.trim() ? 0.5 : 1,
             transition: 'opacity 0.15s'

@@ -437,12 +437,12 @@ Thank you for enrolling with PinIT Career OS!
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <span style={{ fontSize: 26 }}>🚀</span>
-              <h2 style={{ fontSize: 21, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
+              <span style={{ fontSize: 28.5 }}>🚀</span>
+              <h2 style={{ fontSize: 23, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
                 {paymentState === 'success' ? 'Welcome Aboard!' : 'Secure Checkout'}
               </h2>
             </div>
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)' }}>
+            <p style={{ margin: 0, fontSize: 14.5, color: 'var(--t3)' }}>
               {paymentState === 'success' ? 'Your enrollment is confirmed. Let\'s build your future.' : 'Complete your enrollment in under 2 minutes.'}
             </p>
           </div>
@@ -455,7 +455,7 @@ Thank you for enrolling with PinIT Career OS!
               background: 'rgba(255, 255, 255, 0.06)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               color: 'var(--t2)',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 700,
               cursor: 'pointer',
             }}
@@ -476,15 +476,15 @@ Thank you for enrolling with PinIT Career OS!
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 40,
+              fontSize: 44,
               boxShadow: '0 12px 32px rgba(16, 185, 129, 0.4)',
             }}>
               ✓
             </div>
-            <h3 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 6px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
+            <h3 style={{ fontSize: 24, fontWeight: 900, margin: '0 0 6px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
               Enrollment Confirmed!
             </h3>
-            <p style={{ fontSize: 13.5, color: 'var(--t3)', marginBottom: 22 }}>
+            <p style={{ fontSize: 15, color: 'var(--t3)', marginBottom: 22 }}>
               You're now enrolled in <strong style={{ color: 'var(--accent)' }}>{plan.title}</strong>.
             </p>
 
@@ -497,16 +497,16 @@ Thank you for enrolling with PinIT Career OS!
               textAlign: 'left',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Transaction ID</span>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', fontFamily: 'monospace' }}>{transactionId}</span>
+                <span style={{ fontSize: 13, color: 'var(--t3)' }}>Transaction ID</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', fontFamily: 'monospace' }}>{transactionId}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Order ID</span>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', fontFamily: 'monospace' }}>{orderId}</span>
+                <span style={{ fontSize: 13, color: 'var(--t3)' }}>Order ID</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', fontFamily: 'monospace' }}>{orderId}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Program Start Date</span>
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>{new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-IN')}</span>
+                <span style={{ fontSize: 13, color: 'var(--t3)' }}>Program Start Date</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#10b981' }}>{new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-IN')}</span>
               </div>
             </div>
 
@@ -519,7 +519,7 @@ Thank you for enrolling with PinIT Career OS!
                   background: 'var(--bg3)',
                   border: '1px solid var(--border)',
                   color: 'var(--t1)',
-                  fontSize: 13.5,
+                  fontSize: 15,
                   fontWeight: 800,
                   cursor: 'pointer',
                 }}
@@ -535,7 +535,7 @@ Thank you for enrolling with PinIT Career OS!
                   background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                   border: 'none',
                   color: '#fff',
-                  fontSize: 14,
+                  fontSize: 15.5,
                   fontWeight: 900,
                   cursor: 'pointer',
                   boxShadow: '0 6px 20px rgba(99, 102, 241, 0.35)',
@@ -552,10 +552,10 @@ Thank you for enrolling with PinIT Career OS!
             <div style={{ padding: '20px 28px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
                 <div>
-                  <h3 style={{ fontSize: 17, fontWeight: 900, margin: '0 0 4px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
+                  <h3 style={{ fontSize: 18.5, fontWeight: 900, margin: '0 0 4px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
                     {plan.title}
                   </h3>
-                  <p style={{ margin: 0, fontSize: 12, color: 'var(--t3)' }}>{plan.subtitle}</p>
+                  <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)' }}>{plan.subtitle}</p>
                 </div>
                 <span style={{
                   padding: '5px 12px',
@@ -563,7 +563,7 @@ Thank you for enrolling with PinIT Career OS!
                   background: plan.highlightColor + '22',
                   border: `1px solid ${plan.highlightColor}55`,
                   color: plan.highlightColor,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 800,
                   whiteSpace: 'nowrap',
                 }}>
@@ -578,7 +578,7 @@ Thank you for enrolling with PinIT Career OS!
                 border: '1px solid rgba(56, 189, 248, 0.2)',
                 marginBottom: 16,
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: '#38bdf8' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, color: '#38bdf8' }}>
                   <span>⏱️</span>
                   <span>{plan.totalProgramDuration} (Course + 1M Project{INTERNSHIP_AVAILABLE ? ` + ${plan.internshipDurationMonths} Real-time Internship` : ''})</span>
                 </div>
@@ -592,9 +592,9 @@ Thank you for enrolling with PinIT Career OS!
                     background: 'var(--bg3)',
                     border: '1px solid var(--border)',
                   }}>
-                    <div style={{ fontSize: 18, marginBottom: 4 }}>{item.icon}</div>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t1)', marginBottom: 2 }}>{item.label}</div>
-                    <div style={{ fontSize: 9.5, color: 'var(--t4)' }}>{item.sub}</div>
+                    <div style={{ fontSize: 20, marginBottom: 4 }}>{item.icon}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', marginBottom: 2 }}>{item.label}</div>
+                    <div style={{ fontSize: 10.5, color: 'var(--t4)' }}>{item.sub}</div>
                   </div>
                 ))}
               </div>
@@ -602,22 +602,22 @@ Thank you for enrolling with PinIT Career OS!
 
             {/* ── Pricing Breakdown ───────────────────────────────── */}
             <div style={{ padding: '20px 28px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              <h4 style={{ fontSize: 14, fontWeight: 900, margin: '0 0 14px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
+              <h4 style={{ fontSize: 15.5, fontWeight: 900, margin: '0 0 14px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
                 💰 Pricing Breakdown
               </h4>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
                   <span style={{ color: 'var(--t2)' }}>Base Tuition Fee</span>
                   <span style={{ fontWeight: 800, color: 'var(--t1)' }}>{formatINR(baseTuition)}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
                   <span style={{ color: 'var(--t2)' }}>Scholar Scholarship / Early Bird Promo</span>
                   <span style={{ fontWeight: 800, color: '#10b981' }}>
                     {promoApplied ? `− ${formatINR(PROMO_DISCOUNT)}` : 'Not applied'}
                   </span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
                   <span style={{ color: 'var(--t2)' }}>18% GST</span>
                   <span style={{ fontWeight: 800, color: 'var(--t1)' }}>{formatINR(gstAmount)}</span>
                 </div>
@@ -643,7 +643,7 @@ Thank you for enrolling with PinIT Career OS!
                       border: '1px solid var(--border)',
                       background: 'var(--bg2)',
                       color: 'var(--text)',
-                      fontSize: 12.5,
+                      fontSize: 14,
                       fontWeight: 600,
                       outline: 'none',
                     }}
@@ -657,7 +657,7 @@ Thank you for enrolling with PinIT Career OS!
                       background: 'linear-gradient(135deg, #f59e0b, #f97316)',
                       border: 'none',
                       color: '#fff',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 800,
                       cursor: 'pointer',
                     }}
@@ -665,7 +665,7 @@ Thank you for enrolling with PinIT Career OS!
                     Apply
                   </button>
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--t4)' }}>
+                <div style={{ fontSize: 12, color: 'var(--t4)' }}>
                   💡 Use code <strong style={{ color: '#f59e0b', fontFamily: 'monospace' }}>PINIT2026</strong> to save ₹1,000 instantly
                 </div>
               </div>
@@ -679,8 +679,8 @@ Thank you for enrolling with PinIT Career OS!
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-                <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Final Payable</span>
-                <span style={{ fontSize: 24, fontWeight: 900, color: '#fff', fontFamily: 'var(--font-display)' }}>
+                <span style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)' }}>Final Payable</span>
+                <span style={{ fontSize: 26.5, fontWeight: 900, color: '#fff', fontFamily: 'var(--font-display)' }}>
                   {formatINR(finalPayable)}
                 </span>
               </div>
@@ -688,7 +688,7 @@ Thank you for enrolling with PinIT Career OS!
 
             {/* ── Payment Methods ─────────────────────────────────── */}
             <div style={{ padding: '20px 28px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              <h4 style={{ fontSize: 14, fontWeight: 900, margin: '0 0 12px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
+              <h4 style={{ fontSize: 15.5, fontWeight: 900, margin: '0 0 12px', fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
                 🛡️ Choose Payment Method
               </h4>
 
@@ -727,21 +727,21 @@ Thank you for enrolling with PinIT Career OS!
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 19,
+                        fontSize: 21,
                         flexShrink: 0,
                       }}>
                         {method.icon}
                       </span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)', marginBottom: 2 }}>
+                        <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', marginBottom: 2 }}>
                           {method.title}
                         </div>
-                        <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', marginBottom: 3 }}>
+                        <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)', marginBottom: 3 }}>
                           {method.subtitle}
                         </div>
-                        <div style={{ fontSize: 11, color: 'var(--t4)' }}>{method.description}</div>
+                        <div style={{ fontSize: 12, color: 'var(--t4)' }}>{method.description}</div>
                         {method.id === 'pins' && (
-                          <div style={{ fontSize: 11, fontWeight: 700, color: canPayWithPins ? '#f59e0b' : '#ef4444', marginTop: 3 }}>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: canPayWithPins ? '#f59e0b' : '#ef4444', marginTop: 3 }}>
                             {canPayWithPins ? `Balance: ${userPins} Pins • Price: ${plan.pinsPrice} Pins` : `Need ${plan.pinsPrice} Pins • You have ${userPins}`}
                           </div>
                         )}
@@ -755,7 +755,7 @@ Thank you for enrolling with PinIT Career OS!
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 900,
                         color: isSelected ? '#fff' : 'transparent',
                         flexShrink: 0,
@@ -785,10 +785,10 @@ Thank you for enrolling with PinIT Career OS!
                   borderRightColor: '#8b5cf6',
                   animation: 'spin 1s linear infinite',
                 }} />
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>
                   {processingMessage}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+                <div style={{ fontSize: 13, color: 'var(--t3)' }}>
                   Please do not close this window...
                 </div>
               </div>
@@ -802,7 +802,7 @@ Thank you for enrolling with PinIT Career OS!
               gap: 10,
               background: 'var(--bg3)',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--t4)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--t4)' }}>
                 <span>🔒</span>
                 <span>Payments are encrypted and secure. By enrolling, you agree to the program terms.</span>
               </div>
@@ -815,7 +815,7 @@ Thank you for enrolling with PinIT Career OS!
                   background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                   border: 'none',
                   color: '#fff',
-                  fontSize: 14.5,
+                  fontSize: 16,
                   fontWeight: 900,
                   cursor: paymentState === 'processing' ? 'not-allowed' : 'pointer',
                   boxShadow: '0 6px 20px rgba(99, 102, 241, 0.35)',

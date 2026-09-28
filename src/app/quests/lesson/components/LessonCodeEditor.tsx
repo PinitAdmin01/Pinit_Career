@@ -40,7 +40,7 @@ export function LessonCodeEditor({
         borderTopRightRadius: 12,
         borderBottom: '1px solid rgba(255,255,255,0.06)'
       }}>
-        <span style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+        <span style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
           {fileName}
         </span>
         <button
@@ -51,7 +51,7 @@ export function LessonCodeEditor({
             background: codeRunning ? 'rgba(255,255,255,0.1)' : 'var(--success)',
             border: 'none',
             color: 'var(--text)',
-            fontSize: 9.5,
+            fontSize: 10.5,
             fontWeight: 700,
             padding: '3px 8px',
             borderRadius: 6,
@@ -70,7 +70,7 @@ export function LessonCodeEditor({
         padding: '14px 18px',
         borderBottomLeftRadius: codeOutput ? 0 : 12,
         borderBottomRightRadius: codeOutput ? 0 : 12,
-        fontSize: 10.5,
+        fontSize: 11.5,
         fontFamily: 'var(--font-mono)',
         color: 'var(--text-muted)',
         overflowX: 'auto',
@@ -90,10 +90,10 @@ export function LessonCodeEditor({
           borderBottomRightRadius: 12,
           padding: '10px 14px',
           fontFamily: 'var(--font-mono)',
-          fontSize: 10,
+          fontSize: 11,
           color: '#a7f3d0'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-dim)', marginBottom: 6, fontSize: 9.5 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-dim)', marginBottom: 6, fontSize: 10.5 }}>
             <span>
               {fileName.endsWith('.java')
                 ? '$ javac Solution.java && java Solution'

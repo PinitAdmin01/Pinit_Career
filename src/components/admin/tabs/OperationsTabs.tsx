@@ -7,8 +7,8 @@ export function AdmissionsTab() {
 
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid var(--border)' }}>
-      <h2 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700 }}>🎓 Admissions & Seat Matrix</h2>
-      <p style={{ color: '#64748b', fontSize: 14, margin: '0 0 16px' }}>Manage incoming student applications, merit lists, and department quota allocations.</p>
+      <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 700 }}>🎓 Admissions & Seat Matrix</h2>
+      <p style={{ color: '#64748b', fontSize: 15.5, margin: '0 0 16px' }}>Manage incoming student applications, merit lists, and department quota allocations.</p>
       
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
@@ -26,7 +26,7 @@ export function AdmissionsTab() {
               <td style={{ padding: 10 }}>{app.course}</td>
               <td style={{ padding: 10, color: '#16a34a', fontWeight: 700 }}>{app.score}</td>
               <td style={{ padding: 10 }}>
-                <span style={{ padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600, background: '#dcfce7', color: '#15803d' }}>
+                <span style={{ padding: '2px 8px', borderRadius: 4, fontSize: 13, fontWeight: 600, background: '#dcfce7', color: '#15803d' }}>
                   {app.status}
                 </span>
               </td>
@@ -41,17 +41,17 @@ export function AdmissionsTab() {
 export function FinanceTab() {
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid var(--border)' }}>
-      <h2 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700 }}>💰 University Finance & Dues Manager</h2>
-      <p style={{ color: '#64748b', fontSize: 14, margin: '0 0 16px' }}>Track tuition fee collections, pending semester dues, scholarship disbursements, and financial audits.</p>
+      <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 700 }}>💰 University Finance & Dues Manager</h2>
+      <p style={{ color: '#64748b', fontSize: 15.5, margin: '0 0 16px' }}>Track tuition fee collections, pending semester dues, scholarship disbursements, and financial audits.</p>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
         <div style={{ padding: 16, background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8 }}>
-          <div style={{ fontSize: 12, color: '#64748b' }}>Total Fee Collected</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#16a34a', marginTop: 4 }}>$1.42M</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>Total Fee Collected</div>
+          <div style={{ fontSize: 26.5, fontWeight: 800, color: '#16a34a', marginTop: 4 }}>$1.42M</div>
         </div>
         <div style={{ padding: 16, background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8 }}>
-          <div style={{ fontSize: 12, color: '#64748b' }}>Pending Dues</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#dc2626', marginTop: 4 }}>$48,500</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>Pending Dues</div>
+          <div style={{ fontSize: 26.5, fontWeight: 800, color: '#dc2626', marginTop: 4 }}>$48,500</div>
         </div>
       </div>
     </div>
@@ -61,8 +61,8 @@ export function FinanceTab() {
 export function LibraryTab() {
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid var(--border)' }}>
-      <h2 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700 }}>📚 Library Catalog & Digital Assets</h2>
-      <p style={{ color: '#64748b', fontSize: 14 }}>Manage physical book inventory, digital research paper access, and student issue logs.</p>
+      <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 700 }}>📚 Library Catalog & Digital Assets</h2>
+      <p style={{ color: '#64748b', fontSize: 15.5 }}>Manage physical book inventory, digital research paper access, and student issue logs.</p>
     </div>
   );
 }
@@ -70,8 +70,8 @@ export function LibraryTab() {
 export function HostelTab() {
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid var(--border)' }}>
-      <h2 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700 }}>🏢 Hostel & Residence Allotments</h2>
-      <p style={{ color: '#64748b', fontSize: 14 }}>Oversee block room allocations, warden assignments, and maintenance requests.</p>
+      <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 700 }}>🏢 Hostel & Residence Allotments</h2>
+      <p style={{ color: '#64748b', fontSize: 15.5 }}>Oversee block room allocations, warden assignments, and maintenance requests.</p>
     </div>
   );
 }
@@ -79,8 +79,8 @@ export function HostelTab() {
 export function TransportTab() {
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid var(--border)' }}>
-      <h2 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700 }}>🚌 Campus Transit & Route Operations</h2>
-      <p style={{ color: '#64748b', fontSize: 14 }}>Monitor shuttle bus schedules, driver allocations, and GPS transit routes.</p>
+      <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 700 }}>🚌 Campus Transit & Route Operations</h2>
+      <p style={{ color: '#64748b', fontSize: 15.5 }}>Monitor shuttle bus schedules, driver allocations, and GPS transit routes.</p>
     </div>
   );
 }

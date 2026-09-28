@@ -67,7 +67,7 @@
   color: var(--att-mute);
   padding: 7px 14px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -128,7 +128,7 @@
 
 .att-title {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 31px;
   font-weight: 750;
   letter-spacing: -0.03em;
   margin: 0 0 8px;
@@ -136,14 +136,14 @@
 }
 .att-sub {
   color: var(--att-mute);
-  font-size: 14px;
+  font-size: 15.5px;
   line-height: 1.55;
   margin: 0 auto 8px;
   max-width: 440px;
 }
 .att-score {
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--att-key);
@@ -156,7 +156,7 @@
   border: 1px solid transparent;
   border-radius: 12px;
   padding: 12px 22px;
-  font-size: 13px;
+  font-size: 14.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -188,13 +188,13 @@
   border-radius: 14px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 10px 24px rgba(0,0,0,0.18);
 }
-.att-hud b { display: block; font-size: 20px; font-weight: 800; letter-spacing: -0.03em; color: var(--att-ink); }
-.att-hud span { display: block; font-size: 11px; color: var(--att-mute); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.att-hud b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--att-ink); }
+.att-hud span { display: block; font-size: 12px; color: var(--att-mute); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 .att-hud .att-hud-key b { color: var(--att-key); }
 .att-phase {
   padding: 5px 10px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -269,7 +269,7 @@
   border-radius: 12px;
   padding: 14px 16px;
   color: var(--att-ink);
-  font-size: 16px;
+  font-size: 17.5px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 5px 0 var(--att-plinth);
@@ -293,7 +293,7 @@
   border: 1px solid var(--att-line);
   box-shadow: 0 6px 0 var(--att-plinth);
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 750;
   color: var(--att-ink);
 }
@@ -322,7 +322,7 @@
   border: 1px solid var(--att-line);
   background: color-mix(in srgb, var(--bg3) 88%, #fff 4%);
   color: var(--att-ink);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 750;
   cursor: pointer;
   box-shadow: 0 5px 0 var(--att-plinth);
@@ -345,7 +345,7 @@
 }
 .att-count b {
   font-family: var(--font-display);
-  font-size: 72px;
+  font-size: 79px;
   font-weight: 800;
   letter-spacing: -0.05em;
   color: var(--att-key);
@@ -354,7 +354,7 @@
 .att-count b.is-go { color: var(--green); }
 .att-count span {
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -368,7 +368,7 @@
   border: 1px solid var(--att-line);
   border-radius: 999px;
   padding: 8px 14px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -387,20 +387,20 @@
   background: var(--att-key-soft);
   text-align: center;
 }
-.att-banner strong { display: block; font-size: 14px; margin-bottom: 4px; color: var(--att-key); }
-.att-banner p { margin: 0 0 10px; font-size: 13px; color: var(--att-mute); }
+.att-banner strong { display: block; font-size: 15.5px; margin-bottom: 4px; color: var(--att-key); }
+.att-banner p { margin: 0 0 10px; font-size: 14.5px; color: var(--att-mute); }
 
 /* Dashboard */
 .att-dash { padding: 28px 24px 48px; max-width: 1080px; margin: 0 auto; color: var(--t1); animation: attFadeIn 0.4s ease; }
 .att-dash-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .att-dash-head h1 {
   font-family: var(--font-display);
-  font-size: 30px;
+  font-size: 33px;
   font-weight: 750;
   letter-spacing: -0.04em;
   margin: 0;
 }
-.att-dash-head p { color: var(--t2); margin: 6px 0 0; font-size: 14px; }
+.att-dash-head p { color: var(--t2); margin: 6px 0 0; font-size: 15.5px; }
 .att-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .att-tool {
   appearance: none;
@@ -410,7 +410,7 @@
   color: var(--t2);
   padding: 8px 12px;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -433,8 +433,8 @@
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
-.att-quest h3 { margin: 0; font-size: 15px; font-weight: 750; }
-.att-quest p { margin: 3px 0 0; font-size: 13px; color: var(--t2); }
+.att-quest h3 { margin: 0; font-size: 16.5px; font-weight: 750; }
+.att-quest p { margin: 3px 0 0; font-size: 14.5px; color: var(--t2); }
 
 .att-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 26px; }
 .att-stat {
@@ -446,12 +446,12 @@
     0 1px 0 rgba(255,255,255,0.5) inset,
     0 8px 0 color-mix(in srgb, #000 8%, var(--bg3));
 }
-.att-stat em { display: block; font-style: normal; font-size: 11px; color: var(--t2); font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
-.att-stat b { font-family: var(--font-display); font-size: 26px; letter-spacing: -0.04em; }
+.att-stat em { display: block; font-style: normal; font-size: 12px; color: var(--t2); font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.att-stat b { font-family: var(--font-display); font-size: 28.5px; letter-spacing: -0.04em; }
 
 .att-section-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.att-section-h h2 { margin: 0; font-family: var(--font-display); font-size: 18px; letter-spacing: -0.03em; }
-.att-section-h span { font-size: 12px; color: var(--t3); }
+.att-section-h h2 { margin: 0; font-family: var(--font-display); font-size: 20px; letter-spacing: -0.03em; }
+.att-section-h span { font-size: 13px; color: var(--t3); }
 
 .att-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
 .att-card {
@@ -509,13 +509,13 @@
 .att-card-mark[data-kind='logic-circuit']::after { inset: 12px 7px; border-radius: 2px; }
 .att-card-mark[data-kind='store-sim']::after { inset: auto 7px 7px 7px; height: 10px; border: 0; background: var(--card-key); clip-path: polygon(0 40%, 12% 0, 88% 0, 100% 40%, 100% 100%, 0 100%); }
 .att-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-.att-card-skill { font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-key); }
-.att-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 750; letter-spacing: -0.02em; }
-.att-card p { margin: 0 0 12px; font-size: 12px; line-height: 1.45; color: var(--t2); min-height: 34px; }
+.att-card-skill { font-size: 11px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-key); }
+.att-card h3 { margin: 0 0 6px; font-size: 17.5px; font-weight: 750; letter-spacing: -0.02em; }
+.att-card p { margin: 0 0 12px; font-size: 13px; line-height: 1.45; color: var(--t2); min-height: 34px; }
 .att-tiers { display: flex; gap: 4px; margin-bottom: 10px; }
 .att-tiers i {
   font-style: normal;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 750;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -532,7 +532,7 @@
   justify-content: space-between;
   padding-top: 10px;
   border-top: 1px solid var(--border);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--t3);
 }
 .att-card-foot b { color: var(--card-key); font-weight: 750; }
@@ -541,7 +541,7 @@
   color: var(--amber);
   padding: 5px 12px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
 }
@@ -575,7 +575,7 @@
   color: var(--t2);
   border-radius: 8px;
   padding: 5px 11px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
@@ -602,8 +602,8 @@
 .att-trigger.is-down { transform: rotateX(8deg) translateY(8px); box-shadow: 0 6px 0 var(--att-plinth); }
 .att-trigger.is-go { background: color-mix(in srgb, var(--green) 55%, var(--bg3)); border-color: var(--green); }
 .att-trigger.is-no { background: color-mix(in srgb, var(--coral) 50%, var(--bg3)); border-color: var(--coral); }
-.att-trigger h3 { margin: 0; font-family: var(--font-display); font-size: 22px; letter-spacing: -0.03em; }
-.att-trigger p { margin: 6px 0 0; font-size: 13px; color: var(--att-mute); }
+.att-trigger h3 { margin: 0; font-family: var(--font-display); font-size: 24px; letter-spacing: -0.03em; }
+.att-trigger p { margin: 6px 0 0; font-size: 14.5px; color: var(--att-mute); }
 
 /* Vortex / flash */
 .att-well {
@@ -641,7 +641,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 56px;
+  font-size: 61.5px;
   cursor: pointer;
   background: var(--att-face);
   border: 1px solid var(--att-line);
@@ -718,10 +718,10 @@
   border-radius: 18px 18px 10px 10px;
   background: color-mix(in srgb, var(--bot, var(--teal)) 40%, var(--bg3));
 }
-.att-buyer h4 { margin: 0; font-size: 14px; font-weight: 750; text-align: center; }
-.att-buyer em { display: block; text-align: center; font-style: normal; font-size: 11px; color: var(--att-mute); margin: 2px 0 10px; }
+.att-buyer h4 { margin: 0; font-size: 15.5px; font-weight: 750; text-align: center; }
+.att-buyer em { display: block; text-align: center; font-style: normal; font-size: 12px; color: var(--att-mute); margin: 2px 0 10px; }
 .att-quote {
-  font-size: 13px;
+  font-size: 14.5px;
   line-height: 1.5;
   color: var(--att-ink);
   background: var(--bg3);
@@ -763,8 +763,8 @@
 .att-sku:hover { transform: translateY(-3px); }
 .att-sku.is-on { border-color: var(--att-key); transform: translateY(-4px); }
 .att-sku.is-miss { opacity: 0.45; }
-.att-sku b { display: block; font-size: 13px; margin-bottom: 3px; }
-.att-sku span { display: block; font-size: 11px; color: var(--att-mute); line-height: 1.35; }
+.att-sku b { display: block; font-size: 14.5px; margin-bottom: 3px; }
+.att-sku span { display: block; font-size: 12px; color: var(--att-mute); line-height: 1.35; }
 .att-prices { display: flex; gap: 8px; margin-top: 12px; }
 .att-prices button { flex: 1; }
 
@@ -772,7 +772,7 @@
   margin-top: 12px;
   padding: 10px 12px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 14.5px;
   font-weight: 650;
   background: var(--bg3);
   border: 1px solid var(--att-line);

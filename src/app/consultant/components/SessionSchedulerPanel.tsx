@@ -24,13 +24,13 @@ export default function SessionSchedulerPanel({
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 20 }} className="fade-in">
       {/* Scheduled Sessions list */}
       <div>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 700, marginBottom: 12 }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 700, marginBottom: 12 }}>
           Scheduled consultations
         </h3>
         {sessions.length === 0 ? (
           <div
             style={{
-              fontSize: 12,
+              fontSize: 13,
               color: 'var(--t3)',
               fontStyle: 'italic',
               padding: 20,
@@ -48,16 +48,16 @@ export default function SessionSchedulerPanel({
                 style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 12, padding: 16 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <h4 style={{ margin: 0, fontWeight: 700, fontSize: 14 }}>{s.title}</h4>
-                  <span className="badge badge-purple" style={{ fontSize: 10 }}>
+                  <h4 style={{ margin: 0, fontWeight: 700, fontSize: 15.5 }}>{s.title}</h4>
+                  <span className="badge badge-purple" style={{ fontSize: 11 }}>
                     {s.date} @ {s.time}
                   </span>
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>
+                <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 4 }}>
                   Student: <strong>{s.studentName}</strong>
                 </div>
                 {s.link && (
-                  <div style={{ marginTop: 8, fontSize: 11 }}>
+                  <div style={{ marginTop: 8, fontSize: 12 }}>
                     Meeting URL:{' '}
                     <a href={s.link} target="_blank" rel="noreferrer" style={{ color: 'var(--accent)' }}>
                       {s.link}
@@ -65,7 +65,7 @@ export default function SessionSchedulerPanel({
                   </div>
                 )}
                 {s.notes && (
-                  <div style={{ marginTop: 6, fontSize: 11, color: 'var(--t3)', fontStyle: 'italic' }}>
+                  <div style={{ marginTop: 6, fontSize: 12, color: 'var(--t3)', fontStyle: 'italic' }}>
                     Notes: {s.notes}
                   </div>
                 )}
@@ -85,7 +85,7 @@ export default function SessionSchedulerPanel({
           height: 'fit-content',
         }}
       >
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 700, marginBottom: 14 }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 700, marginBottom: 14 }}>
           Schedule a New Session
         </h3>
         <form onSubmit={scheduleSessions} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

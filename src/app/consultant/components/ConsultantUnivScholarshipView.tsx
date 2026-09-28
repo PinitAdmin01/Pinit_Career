@@ -25,8 +25,8 @@ export default function ConsultantUnivScholarshipView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>🏫 AI University Matching Engine</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>🏫 AI University Matching Engine</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Align student scores, budgets, and Career DNA with global universities using the Dream-Reach-Safe classifier.
           </p>
         </div>
@@ -43,12 +43,12 @@ export default function ConsultantUnivScholarshipView({
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
           <select
             value={matchingStudent}
             onChange={e => setMatchingStudent(e.target.value)}
             className="form-input"
-            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
+            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 220 }}
           >
             {allStudents.length === 0 ? (
               <option value="">No pipeline data</option>
@@ -68,7 +68,7 @@ export default function ConsultantUnivScholarshipView({
             padding: 28,
             textAlign: 'center',
             color: 'var(--t3)',
-            fontSize: 13,
+            fontSize: 14.5,
             border: '1px solid var(--border)',
             borderRadius: 12,
           }}
@@ -169,10 +169,10 @@ export default function ConsultantUnivScholarshipView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
             🏆 Global Scholarship Matching Center
           </h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Auto-identify scholarship qualifiers from candidate registration logs.
           </p>
         </div>
@@ -189,12 +189,12 @@ export default function ConsultantUnivScholarshipView({
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
           <select
             value={matchingStudent}
             onChange={e => setMatchingStudent(e.target.value)}
             className="form-input"
-            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
+            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 220 }}
           >
             {allStudents.length === 0 ? (
               <option value="">No pipeline data</option>
@@ -224,7 +224,7 @@ export default function ConsultantUnivScholarshipView({
                 borderRadius: 6,
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: scholarshipSubTab === sub.id ? 850 : 600,
                 background: scholarshipSubTab === sub.id ? 'var(--bg3)' : 'transparent',
                 color: scholarshipSubTab === sub.id ? 'var(--accent)' : 'var(--t2)',
@@ -242,7 +242,7 @@ export default function ConsultantUnivScholarshipView({
               padding: 28,
               textAlign: 'center',
               color: 'var(--t3)',
-              fontSize: 13,
+              fontSize: 14.5,
               border: '1px solid var(--border)',
               borderRadius: 12,
             }}
@@ -269,11 +269,11 @@ export default function ConsultantUnivScholarshipView({
                   }}
                 >
                   <div>
-                    <strong style={{ fontSize: 13.5, color: 'var(--t1)' }}>{s.name}</strong>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
+                    <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{s.name}</strong>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
                       Funding: <strong>{s.funding}</strong>
                     </div>
-                    <p style={{ margin: '6px 0 0 0', fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{s.desc}</p>
+                    <p style={{ margin: '6px 0 0 0', fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>{s.desc}</p>
                   </div>
 
                   <div
@@ -288,7 +288,7 @@ export default function ConsultantUnivScholarshipView({
                   >
                     <span
                       style={{
-                        fontSize: 10.5,
+                        fontSize: 11.5,
                         fontWeight: 900,
                         background: eligible ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--danger-rgb), 0.08)',
                         color: eligible ? 'var(--success)' : 'var(--danger)',
@@ -298,7 +298,7 @@ export default function ConsultantUnivScholarshipView({
                     >
                       {eligible ? '✓ AUTO MATCHED' : '✗ INELIGIBLE'}
                     </span>
-                    <span style={{ fontSize: 10, color: 'var(--t3)' }}>Required CGPA: {s.reqCgpa}</span>
+                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>Required CGPA: {s.reqCgpa}</span>
                   </div>
                 </div>
               );
@@ -313,10 +313,10 @@ export default function ConsultantUnivScholarshipView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
             🚀 Placement After Graduation Timeline
           </h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Follow active candidates through their academic lifecycle and global career placements.
           </p>
         </div>
@@ -332,12 +332,12 @@ export default function ConsultantUnivScholarshipView({
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
           <select
             value={matchingStudent}
             onChange={e => setMatchingStudent(e.target.value)}
             className="form-input"
-            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
+            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 220 }}
           >
             {allStudents.length === 0 ? (
               <option value="">No pipeline data</option>
@@ -356,7 +356,7 @@ export default function ConsultantUnivScholarshipView({
             padding: 28,
             textAlign: 'center',
             color: 'var(--t3)',
-            fontSize: 13,
+            fontSize: 14.5,
             border: '1px solid var(--border)',
             borderRadius: 12,
           }}
@@ -380,15 +380,15 @@ export default function ConsultantUnivScholarshipView({
           }}
         >
           <div>
-            <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
+            <h4 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--accent)' }}>
               🎓 Post-Admission Academic & Career Roadmap
             </h4>
-            <p style={{ margin: '2px 0 0 0', fontSize: 11, color: 'var(--t3)' }}>
+            <p style={{ margin: '2px 0 0 0', fontSize: 12, color: 'var(--t3)' }}>
               Follow and update candidate progress semester-by-semester inside their target master program.
             </p>
           </div>
 
-          <div style={{ padding: 28, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+          <div style={{ padding: 28, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
             {allStudents.length === 0
               ? 'No pipeline-linked data'
               : matchingStudent
@@ -405,8 +405,8 @@ export default function ConsultantUnivScholarshipView({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>📡 Global Opportunity Radar</h3>
-            <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+            <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>📡 Global Opportunity Radar</h3>
+            <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
               Continuously scanning and matching global hackathons, research positions, internships, and fellowships to
               candidate profiles.
             </p>
@@ -416,7 +416,7 @@ export default function ConsultantUnivScholarshipView({
               toastObj.success('Radar Sync Complete', 'Scanned 14 active international channels. Mapped new target slots.');
             }}
             className="btn-primary"
-            style={{ padding: '8px 16px', borderRadius: 8, fontSize: 12 }}
+            style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13 }}
           >
             🔄 Scan Global Channels
           </button>
@@ -433,12 +433,12 @@ export default function ConsultantUnivScholarshipView({
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Profile:</span>
           <select
             value={matchingStudent}
             onChange={e => setMatchingStudent(e.target.value)}
             className="form-input"
-            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
+            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 220 }}
           >
             {allStudents.length === 0 ? (
               <option value="">No pipeline data</option>
@@ -457,7 +457,7 @@ export default function ConsultantUnivScholarshipView({
             padding: 28,
             textAlign: 'center',
             color: 'var(--t3)',
-            fontSize: 13,
+            fontSize: 14.5,
             border: '1px solid var(--border)',
             borderRadius: 12,
           }}

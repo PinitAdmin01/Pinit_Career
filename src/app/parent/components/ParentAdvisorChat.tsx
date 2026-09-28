@@ -75,10 +75,10 @@ export default function ParentAdvisorChat({
             padding: 18,
           }}
         >
-          <h4 style={{ margin: '0 0 6px 0', fontSize: 13.5, fontWeight: 900, color: 'var(--success)' }}>
+          <h4 style={{ margin: '0 0 6px 0', fontSize: 15, fontWeight: 900, color: 'var(--success)' }}>
             📋 Live Overview Snapshot
           </h4>
-          <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
+          <p style={{ margin: 0, fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.45 }}>
             {overview.profile?.displayName || 'Student'}: Career readiness {overview.profile?.career_readiness ?? '—'}%,
             ATS {overview.profile?.ats_score ?? '—'}, streak {overview.profile?.mission_streak ?? 0} days. Attendance and CGPA
             are unavailable until linked to institutional feeds.
@@ -99,7 +99,7 @@ export default function ParentAdvisorChat({
             style={{
               background: 'var(--bg3)',
               padding: '10px 14px',
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 800,
               color: 'var(--t3)',
               borderBottom: '1px solid var(--border)',
@@ -128,7 +128,7 @@ export default function ParentAdvisorChat({
                   color: m.role === 'assistant' ? 'var(--t1)' : 'white',
                   padding: '10px 14px',
                   borderRadius: 10,
-                  fontSize: 12.5,
+                  fontSize: 14,
                   maxWidth: '85%',
                   border: m.role === 'assistant' ? '1px solid var(--border)' : 'none',
                 }}
@@ -180,7 +180,7 @@ export default function ParentAdvisorChat({
                 }}
                 style={{
                   padding: '6px 10px',
-                  fontSize: 11,
+                  fontSize: 12,
                   background: 'var(--card)',
                   border: '1px solid var(--border)',
                   borderRadius: 6,
@@ -217,7 +217,7 @@ export default function ParentAdvisorChat({
                 border: '1px solid var(--border)',
                 background: 'var(--bg3)',
                 color: 'var(--t1)',
-                fontSize: 12.5,
+                fontSize: 14,
               }}
             />
             <button
@@ -229,7 +229,7 @@ export default function ParentAdvisorChat({
                 color: 'white',
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 700,
               }}
             >
@@ -245,10 +245,10 @@ export default function ParentAdvisorChat({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
             💬 Institution & Faculty Communication
           </h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Chat with advisors, book Parent-Teacher Meetings (PTM), and view general announcements.
           </p>
         </div>
@@ -277,8 +277,8 @@ export default function ParentAdvisorChat({
               }}
             >
               <div>
-                <strong style={{ fontSize: 12.5, color: 'var(--t1)' }}>Prof. Vikram Sen</strong>
-                <div style={{ fontSize: 10, color: 'var(--t3)' }}>Course Director / Placement Advisor</div>
+                <strong style={{ fontSize: 14, color: 'var(--t1)' }}>Prof. Vikram Sen</strong>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>Course Director / Placement Advisor</div>
               </div>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--success)' }} />
             </div>
@@ -304,7 +304,7 @@ export default function ParentAdvisorChat({
                     color: m.role === 'teacher' ? 'var(--t1)' : 'white',
                     padding: '8px 12px',
                     borderRadius: 8,
-                    fontSize: 12,
+                    fontSize: 13,
                     maxWidth: '85%',
                     border: m.role === 'teacher' ? '1px solid var(--border)' : 'none',
                   }}
@@ -338,7 +338,7 @@ export default function ParentAdvisorChat({
                   border: '1px solid var(--border)',
                   background: 'var(--card)',
                   color: 'var(--t1)',
-                  fontSize: 12,
+                  fontSize: 13,
                 }}
               />
               <button
@@ -350,7 +350,7 @@ export default function ParentAdvisorChat({
                   color: 'white',
                   border: 'none',
                   cursor: 'pointer',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 700,
                 }}
               >
@@ -363,11 +363,11 @@ export default function ParentAdvisorChat({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* PTM card */}
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>
                 Upcoming Virtual PTM
               </span>
-              <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>July 29, 04:00 PM</div>
-              <p style={{ margin: '4px 0 8px 0', fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>July 29, 04:00 PM</div>
+              <p style={{ margin: '4px 0 8px 0', fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.4 }}>
                 Agenda: Pre-placement eligibility and communication lab checkups.
               </p>
               <button
@@ -385,7 +385,7 @@ export default function ParentAdvisorChat({
                   border: 'none',
                   borderRadius: 6,
                   cursor: 'pointer',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 700,
                 }}
               >
@@ -395,13 +395,13 @@ export default function ParentAdvisorChat({
 
             {/* Announcements */}
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Institutional Announcements
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
                 <div
                   style={{
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     color: 'var(--t2)',
                     borderBottom: '1px solid var(--border)',
                     paddingBottom: 6,
@@ -409,7 +409,7 @@ export default function ParentAdvisorChat({
                 >
                   📢 <strong>Placement Drive</strong> starting Aug 10. Direct resume screening schedules have been locked.
                 </div>
-                <div style={{ fontSize: 11.5, color: 'var(--t2)' }}>
+                <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>
                   📢 <strong>Summer Internships</strong> details are now downloadable in the Documents tab.
                 </div>
               </div>
@@ -421,10 +421,10 @@ export default function ParentAdvisorChat({
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           {/* Meeting request */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
               📞 Request 1-on-1 Callback Advisor Call
             </h4>
-            <p style={{ margin: '0 0 12px 0', fontSize: 11, color: 'var(--t3)' }}>
+            <p style={{ margin: '0 0 12px 0', fontSize: 12, color: 'var(--t3)' }}>
               Select a preferred slot to request a phone advisor callback from Prof Vikram Sen.
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -433,7 +433,7 @@ export default function ParentAdvisorChat({
                 style={{
                   flex: 1,
                   padding: '8px 10px',
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   background: 'var(--card)',
                   border: '1px solid var(--border)',
                   borderRadius: 6,
@@ -448,7 +448,7 @@ export default function ParentAdvisorChat({
                 style={{
                   flex: 1,
                   padding: '8px 10px',
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   background: 'var(--card)',
                   border: '1px solid var(--border)',
                   borderRadius: 6,
@@ -463,10 +463,10 @@ export default function ParentAdvisorChat({
 
           {/* Support helpdesk */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
               🛠️ Institute Support Ticket
             </h4>
-            <p style={{ margin: '0 0 10px 0', fontSize: 11, color: 'var(--t3)' }}>
+            <p style={{ margin: '0 0 10px 0', fontSize: 12, color: 'var(--t3)' }}>
               Submit a concern to general student support advisors.
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -479,7 +479,7 @@ export default function ParentAdvisorChat({
                   borderRadius: 6,
                   background: 'var(--card)',
                   color: 'var(--t1)',
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                 }}
               />
               <button
@@ -493,7 +493,7 @@ export default function ParentAdvisorChat({
                   border: 'none',
                   borderRadius: 6,
                   cursor: 'pointer',
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   fontWeight: 700,
                 }}
               >

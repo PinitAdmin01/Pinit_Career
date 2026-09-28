@@ -133,14 +133,14 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
     }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
             ➕ Dynamic Archetype Matrix
           </span>
           {selectedQuadrant ? (
             <button
               onClick={() => setSelectedQuadrant(null)}
               style={{
-                fontSize: 9.5,
+                fontSize: 10.5,
                 fontWeight: 700,
                 padding: '2px 8px',
                 borderRadius: 6,
@@ -153,12 +153,12 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
               Reset Lock ✕
             </button>
           ) : (
-            <span style={{ fontSize: 9.5, fontWeight: 700, padding: '2px 7px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)' }}>
+            <span style={{ fontSize: 10.5, fontWeight: 700, padding: '2px 7px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)' }}>
               ● Live Reactive
             </span>
           )}
         </div>
-        <p style={{ fontSize: 11, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
+        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
           Hover or click quadrants to inspect cognitive archetypes. Updates in real-time as you complete missions.
         </p>
       </div>
@@ -291,22 +291,22 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
         }} />
 
         {/* Axis Direction Labels */}
-        <span style={{ position: 'absolute', top: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 8, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{ position: 'absolute', top: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
           ▲ High Logic / EQ
         </span>
-        <span style={{ position: 'absolute', bottom: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 8, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{ position: 'absolute', bottom: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
           ▼ High Execution
         </span>
-        <span style={{ position: 'absolute', left: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 8, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{ position: 'absolute', left: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
           ◀ People
         </span>
-        <span style={{ position: 'absolute', right: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 8, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{ position: 'absolute', right: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
           Systems ▶
         </span>
 
         {/* 4 Quadrant Labels with dynamic highlighting */}
         <div style={{
-          position: 'absolute', top: 22, left: 14, fontSize: 10, fontWeight: 800,
+          position: 'absolute', top: 22, left: 14, fontSize: 11, fontWeight: 800,
           color: activeKey === 'social' ? '#14b8a6' : theme.tTertiary,
           transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
@@ -314,7 +314,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
         </div>
 
         <div style={{
-          position: 'absolute', top: 22, right: 14, fontSize: 10, fontWeight: 800,
+          position: 'absolute', top: 22, right: 14, fontSize: 11, fontWeight: 800,
           color: activeKey === 'pattern' ? '#8b5cf6' : theme.tTertiary,
           textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
@@ -322,7 +322,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
         </div>
 
         <div style={{
-          position: 'absolute', bottom: 22, left: 14, fontSize: 10, fontWeight: 800,
+          position: 'absolute', bottom: 22, left: 14, fontSize: 11, fontWeight: 800,
           color: activeKey === 'architect' ? '#3b82f6' : theme.tTertiary,
           transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
@@ -330,7 +330,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
         </div>
 
         <div style={{
-          position: 'absolute', bottom: 22, right: 14, fontSize: 10, fontWeight: 800,
+          position: 'absolute', bottom: 22, right: 14, fontSize: 11, fontWeight: 800,
           color: activeKey === 'executor' ? '#f59e0b' : theme.tTertiary,
           textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
@@ -360,13 +360,13 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 9.5,
+            fontSize: 10.5,
             color: '#ffffff'
           }}>
             📍
           </div>
           <span style={{
-            fontSize: 8.5,
+            fontSize: 9.5,
             fontWeight: 800,
             color: theme.tPrimary,
             background: theme.bgCard,
@@ -395,19 +395,19 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontSize: 14 }}>{currentMeta.emoji}</span>
-            <span style={{ fontSize: 12.5, fontWeight: 800, color: theme.tPrimary }}>
+            <span style={{ fontSize: 15.5 }}>{currentMeta.emoji}</span>
+            <span style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary }}>
               {currentMeta.label}
             </span>
           </div>
-          <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '2px 7px', borderRadius: 6 }}>
+          <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '2px 7px', borderRadius: 6 }}>
             {isInspectMode ? 'INSPECTING' : `QT2: ${qt2Score} pts`}
           </span>
         </div>
-        <p style={{ fontSize: 11, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
+        <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
           {currentMeta.desc}
         </p>
-        <div style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary, marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary, marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>{currentMeta.focus}</span>
           <span>X: {userX.toFixed(0)}% • Y: {(100 - userY).toFixed(0)}%</span>
         </div>

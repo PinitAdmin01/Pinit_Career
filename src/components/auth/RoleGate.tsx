@@ -53,15 +53,15 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '24px',
+            fontSize: '26.5px',
             margin: '0 auto 16px'
           }}>
             🔒
           </div>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
             {label ? `${label} Access Required` : 'Restricted Portal Access'}
           </h2>
-          <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '20px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '14.5px', color: '#94a3b8', marginBottom: '20px', lineHeight: 1.5 }}>
             This section is restricted to authorized <strong>{allow.join(' / ')}</strong> role{allow.length > 1 ? 's' : ''}.
             {user === null
               ? ' Please sign in with a verified institutional account.'
@@ -78,7 +78,7 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                 color: '#ffffff',
                 fontWeight: 600,
-                fontSize: '13px',
+                fontSize: '14.5px',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
@@ -92,7 +92,7 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
             <a
               href="/"
               style={{
-                fontSize: '12px',
+                fontSize: '13px',
                 color: '#64748b',
                 textDecoration: 'underline',
                 marginTop: '6px'

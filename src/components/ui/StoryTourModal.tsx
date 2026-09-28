@@ -309,8 +309,8 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
         {/* Top Bar: Mentor Name & Step Counter */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <span style={{ fontSize: 11.5 }}>{currentSlide?.emoji || '✨'}</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
+            <span style={{ fontSize: 12.5 }}>{currentSlide?.emoji || '✨'}</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
             {isSpeaking && (
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, marginLeft: 3 }} title="Mentor Speaking">
                 <span style={{ width: 2, height: 6, background: '#38bdf8', borderRadius: 1, opacity: 0.9 }} />
@@ -321,7 +321,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
           </div>
           <div style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: 7.5,
+            fontSize: 8.5,
             fontWeight: 800,
             color: '#a5b4fc',
             background: 'rgba(79,70,229,0.25)',
@@ -348,7 +348,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
         {/* Slide Title */}
         <div style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 10.5,
+          fontSize: 11.5,
           fontWeight: 900,
           color: '#f8fafc',
           letterSpacing: '-0.2px',
@@ -360,7 +360,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
 
         {/* Narration Text */}
         <div style={{
-          fontSize: 9.5,
+          fontSize: 10.5,
           color: 'var(--text-muted)',
           lineHeight: 1.38,
           fontFamily: 'var(--font-sans)',
@@ -376,7 +376,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
           <div style={{
             marginTop: 4,
             fontFamily: 'var(--font-mono)',
-            fontSize: 8,
+            fontSize: 9,
             fontWeight: 700,
             color: '#fbbf24',
           }}>
@@ -396,7 +396,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
               border: '1px solid rgba(255,255,255,0.15)',
               borderRadius: 6,
               color: 'var(--text)',
-              fontSize: 8.5,
+              fontSize: 9.5,
               fontWeight: 700,
               padding: '4px 6px',
               cursor: 'pointer',
@@ -415,7 +415,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
             border: '1px solid rgba(255,255,255,0.15)',
             borderRadius: 6,
             color: 'var(--text)',
-            fontSize: 8.5,
+            fontSize: 9.5,
             fontWeight: 700,
             padding: '4px 6px',
             cursor: 'pointer',
@@ -434,7 +434,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
             border: 'none',
             borderRadius: 6,
             color: 'var(--text)',
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 800,
             padding: '4px 0',
             cursor: 'pointer',
@@ -454,7 +454,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
             border: '1px solid rgba(255,255,255,0.12)',
             borderRadius: 6,
             color: 'var(--t3)',
-            fontSize: 8.5,
+            fontSize: 9.5,
             fontWeight: 600,
             padding: '4px 6px',
             cursor: 'pointer',
@@ -572,12 +572,12 @@ export const CongratCard: React.FC<CongratModalProps> = ({
         : '0 0 30px rgba(79,70,229,0.5), inset 0 1px 1px rgba(255,255,255,0.2)',
     }}>
       {/* Animated burst */}
-      <div style={{ fontSize: 32, animation: 'bounce 0.6s ease infinite alternate', lineHeight: 1 }}>
+      <div style={{ fontSize: 35, animation: 'bounce 0.6s ease infinite alternate', lineHeight: 1 }}>
         {passed ? '🎉' : '💪'}
       </div>
       <div style={{
         fontFamily: 'var(--font-display)',
-        fontSize: 12.5,
+        fontSize: 14,
         fontWeight: 900,
         color: 'var(--text)',
         textAlign: 'center',
@@ -587,7 +587,7 @@ export const CongratCard: React.FC<CongratModalProps> = ({
         {msg.headline}
       </div>
       <div style={{
-        fontSize: 10.5,
+        fontSize: 11.5,
         color: 'rgba(255,255,255,0.9)',
         textAlign: 'center',
         lineHeight: 1.45,
@@ -603,7 +603,7 @@ export const CongratCard: React.FC<CongratModalProps> = ({
           borderRadius: 20,
           padding: '2px 12px',
           fontFamily: 'var(--font-mono)',
-          fontSize: 12.5,
+          fontSize: 14,
           fontWeight: 800,
           color: 'var(--text)',
         }}>
@@ -611,7 +611,7 @@ export const CongratCard: React.FC<CongratModalProps> = ({
         </div>
       )}
       <div style={{
-        fontSize: 10,
+        fontSize: 11,
         color: 'rgba(255,255,255,0.8)',
         textAlign: 'center',
         lineHeight: 1.4,
@@ -628,7 +628,7 @@ export const CongratCard: React.FC<CongratModalProps> = ({
           border: '1px solid rgba(255,255,255,0.4)',
           borderRadius: 20,
           color: 'var(--text)',
-          fontSize: 10,
+          fontSize: 11,
           fontWeight: 700,
           padding: '4px 14px',
           cursor: 'pointer',

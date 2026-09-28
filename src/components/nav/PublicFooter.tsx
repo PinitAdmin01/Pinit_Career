@@ -29,15 +29,15 @@ export default function PublicFooter() {
                 <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
               </span>
             </Link>
-            <p style={{ color: '#94A3B8', fontSize: '13.5px', lineHeight: '1.6', maxWidth: '320px' }}>
+            <p style={{ color: '#94A3B8', fontSize: '15px', lineHeight: '1.6', maxWidth: '320px' }}>
               We don&apos;t help students find jobs. We help them discover who they are. Discover · Connect · Grow.
             </p>
           </div>
 
           {/* PLATFORM */}
           <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Platform</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px' }}>
+            <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Platform</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px' }}>
               <li><Link href="/" style={{ color: '#94A3B8', textDecoration: 'none' }}>Home</Link></li>
               <li><Link href="/about" style={{ color: '#94A3B8', textDecoration: 'none' }}>About Us</Link></li>
               <li><Link href="/pricing" style={{ color: '#94A3B8', textDecoration: 'none' }}>Pricing & Plans</Link></li>
@@ -47,8 +47,8 @@ export default function PublicFooter() {
 
           {/* FOR ENTERPRISE */}
           <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Enterprise</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px' }}>
+            <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Enterprise</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px' }}>
               <li><Link href="/recruiter" style={{ color: '#94A3B8', textDecoration: 'none' }}>For Companies</Link></li>
               <li><Link href="/contact" style={{ color: '#94A3B8', textDecoration: 'none' }}>Campus Consultation</Link></li>
               <li><Link href="/pricing" style={{ color: '#94A3B8', textDecoration: 'none' }}>Campus OS Pass</Link></li>
@@ -57,8 +57,8 @@ export default function PublicFooter() {
 
           {/* RESOURCES */}
           <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Resources</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px' }}>
+            <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Resources</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px' }}>
               <li><Link href="/quests" style={{ color: '#94A3B8', textDecoration: 'none' }}>S-Curve Quests</Link></li>
               <li><Link href="/interview" style={{ color: '#94A3B8', textDecoration: 'none' }}>AI Mock Interview</Link></li>
               <li><Link href="/contact" style={{ color: '#94A3B8', textDecoration: 'none' }}>Support Center</Link></li>
@@ -67,8 +67,8 @@ export default function PublicFooter() {
 
           {/* LEGAL */}
           <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Legal</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px' }}>
+            <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF', marginBottom: '18px' }}>Legal</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px' }}>
               <li><Link href="/privacy" style={{ color: '#94A3B8', textDecoration: 'none' }}>Privacy Policy</Link></li>
               <li><Link href="/terms" style={{ color: '#94A3B8', textDecoration: 'none' }}>Terms of Service</Link></li>
             </ul>
@@ -84,7 +84,7 @@ export default function PublicFooter() {
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '16px',
-          fontSize: '13px',
+          fontSize: '14.5px',
           color: '#64748B'
         }}>
           <div>© 2026 PinitCareer Technologies Inc. All rights reserved.</div>

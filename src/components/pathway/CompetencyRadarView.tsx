@@ -105,7 +105,7 @@ export default function CompetencyRadarView({
                 border: '1px solid var(--border)',
                 background: domainFilter === d.id ? 'var(--accent)' : 'transparent',
                 color: domainFilter === d.id ? 'var(--text)' : 'var(--t2)',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
@@ -127,7 +127,7 @@ export default function CompetencyRadarView({
               background: 'var(--bg3)',
               color: 'var(--t1)',
               border: '1px solid var(--border)',
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
             }}
@@ -150,7 +150,7 @@ export default function CompetencyRadarView({
               background: 'var(--bg3)',
               border: '1px solid var(--border)',
               color: 'var(--t1)',
-              fontSize: 11.5,
+              fontSize: 12.5,
               outline: 'none',
               width: 180,
             }}
@@ -193,7 +193,7 @@ export default function CompetencyRadarView({
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
                     <span style={{
-                      fontSize: 10.5,
+                      fontSize: 11.5,
                       fontWeight: 800,
                       background: 'rgba(255, 255, 255, 0.08)',
                       padding: '2px 6px',
@@ -203,17 +203,17 @@ export default function CompetencyRadarView({
                     }}>
                       {comp.level}
                     </span>
-                    <span style={{ fontSize: 10.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>
+                    <span style={{ fontSize: 11.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {comp.domain}
                     </span>
                   </div>
-                  <h4 style={{ fontSize: 14, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+                  <h4 style={{ fontSize: 15.5, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
                     {comp.title}
                   </h4>
                 </div>
 
                 <span style={{
-                  fontSize: 10.5,
+                  fontSize: 11.5,
                   fontWeight: 800,
                   padding: '3px 8px',
                   borderRadius: 6,
@@ -227,7 +227,7 @@ export default function CompetencyRadarView({
               </div>
 
               {/* Description */}
-              <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, lineHeight: 1.4 }}>
+              <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0, lineHeight: 1.4 }}>
                 {comp.description}
               </p>
 
@@ -261,14 +261,14 @@ export default function CompetencyRadarView({
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 10, fontWeight: 700, color: isPassed ? 'var(--success)' : 'var(--t3)', textTransform: 'capitalize' }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: isPassed ? 'var(--success)' : 'var(--t3)', textTransform: 'capitalize' }}>
                           {getEvidenceClassIcon(req.evidenceClass)} {req.evidenceClass.slice(0, 5)}
                         </span>
-                        <span style={{ fontSize: 9.5, fontWeight: 800, color: isPassed ? 'var(--success)' : 'var(--t3)' }}>
+                        <span style={{ fontSize: 10.5, fontWeight: 800, color: isPassed ? 'var(--success)' : 'var(--t3)' }}>
                           {isPassed ? '✓' : `${currentScore}/${req.minScore}`}
                         </span>
                       </div>
-                      <div style={{ fontSize: 9, color: 'var(--t3)' }}>
+                      <div style={{ fontSize: 10, color: 'var(--t3)' }}>
                         {currentCount}/{req.minCount} tasks ({req.minimumDifficulty})
                       </div>
                     </div>
@@ -283,7 +283,7 @@ export default function CompetencyRadarView({
                 alignItems: 'center',
                 paddingTop: 10,
                 borderTop: '1px solid var(--border)',
-                fontSize: 11,
+                fontSize: 12,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--t3)' }}>
                   <span>🛡️ Evidence: <strong>{status?.independentEvidenceCount || 0}</strong></span>
@@ -293,7 +293,7 @@ export default function CompetencyRadarView({
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ color: 'var(--t3)' }}>Score:</span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: score >= 75 ? 'var(--success)' : 'var(--t1)' }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 800, color: score >= 75 ? 'var(--success)' : 'var(--t1)' }}>
                     {score}/100
                   </span>
                 </div>

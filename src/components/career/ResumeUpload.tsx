@@ -158,18 +158,18 @@ export default function ResumeUpload() {
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <div style={{ fontSize: 42, marginBottom: 14 }}>{uploading ? '⏳' : '📄'}</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 700, color: 'var(--t1)', marginBottom: 6, letterSpacing: '-0.3px' }}>
+            <div style={{ fontSize: 46, marginBottom: 14 }}>{uploading ? '⏳' : '📄'}</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 6, letterSpacing: '-0.3px' }}>
               {uploading ? 'Claude is analyzing your resume...' : 'Drop your resume here'}
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 16 }}>
+            <div style={{ fontSize: 14, color: 'var(--t3)', marginBottom: 16 }}>
               PDF, DOCX, DOC, TXT · Max 10MB
             </div>
             {!uploading && <span className="btn-primary btn-sm" style={{ pointerEvents: 'none' }}>Browse Files</span>}
             {uploading && (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, color: 'var(--accent)' }}>
-                <span style={{ fontSize: 14 }} className="animate-spin">⟳</span>
-                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)' }}>Analyzing with Claude AI...</span>
+                <span style={{ fontSize: 15.5 }} className="animate-spin">⟳</span>
+                <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)' }}>Analyzing with Claude AI...</span>
               </div>
             )}
             <input
@@ -191,7 +191,7 @@ export default function ResumeUpload() {
               background: 'rgba(79, 70, 229, 0.08)',
               border: '1px solid rgba(79, 70, 229, 0.2)',
               color: 'var(--accent)',
-              cursor: 'pointer', fontSize: 13.5, fontWeight: 700,
+              cursor: 'pointer', fontSize: 15, fontWeight: 700,
               transition: 'all 0.15s',
               fontFamily: 'var(--font-display)',
               boxShadow: 'var(--shadow-sm)',
@@ -222,10 +222,10 @@ export default function ResumeUpload() {
             gap: 20
           }} className="animate-fade-in">
             <div>
-              <h2 style={{ fontSize: 18, fontWeight: 900, fontFamily: 'var(--font-display)', margin: 0, color: 'var(--t1)' }}>
+              <h2 style={{ fontSize: 20, fontWeight: 900, fontFamily: 'var(--font-display)', margin: 0, color: 'var(--t1)' }}>
                 📁 Secure Mobile Vault Documents
               </h2>
-              <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>
+              <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0' }}>
                 Select a document from your secure vault to compile and analyze.
               </p>
             </div>
@@ -242,7 +242,7 @@ export default function ResumeUpload() {
                       key={item.id} 
                       onClick={() => setSelectedVaultItemId(item.id)}
                       style={{ 
-                        display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--t1)',
+                        display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--t1)',
                         cursor: 'pointer',
                         padding: '10px 14px', borderRadius: 10,
                         background: isSelected ? 'rgba(79,70,229,0.08)' : 'var(--bg3)',
@@ -250,9 +250,9 @@ export default function ResumeUpload() {
                         transition: 'all 0.15s'
                       }}
                     >
-                      <span style={{ fontSize: 14 }}>{isSelected ? '🟢' : '⚪'}</span>
+                      <span style={{ fontSize: 15.5 }}>{isSelected ? '🟢' : '⚪'}</span>
                       <span style={{ flex: 1, fontWeight: 600 }}>{item.title}</span>
-                      <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.type}</span>
+                      <span style={{ fontSize: 10.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.type}</span>
                     </div>
                   );
                 })
@@ -264,7 +264,7 @@ export default function ResumeUpload() {
                       key={item.id} 
                       onClick={() => setSelectedVaultItemId(item.id)}
                       style={{ 
-                        display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--t1)',
+                        display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--t1)',
                         cursor: 'pointer',
                         padding: '10px 14px', borderRadius: 10,
                         background: isSelected ? 'rgba(79,70,229,0.08)' : 'var(--bg3)',
@@ -272,9 +272,9 @@ export default function ResumeUpload() {
                         transition: 'all 0.15s'
                       }}
                     >
-                      <span style={{ fontSize: 14 }}>{isSelected ? '🟢' : '⚪'}</span>
+                      <span style={{ fontSize: 15.5 }}>{isSelected ? '🟢' : '⚪'}</span>
                       <span style={{ flex: 1, fontWeight: 600 }}>{item.title}</span>
-                      <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.item_type}</span>
+                      <span style={{ fontSize: 10.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.item_type}</span>
                     </div>
                   );
                 })
@@ -286,7 +286,7 @@ export default function ResumeUpload() {
                 type="button"
                 className="btn-ghost" 
                 onClick={() => setShowVaultModal(false)}
-                style={{ padding: '8px 16px', fontSize: 13 }}
+                style={{ padding: '8px 16px', fontSize: 14.5 }}
               >
                 Cancel
               </button>
@@ -294,7 +294,7 @@ export default function ResumeUpload() {
                 type="button"
                 className="btn-primary" 
                 onClick={() => handleImportFromVault(selectedVaultItemId)}
-                style={{ padding: '8px 20px', fontSize: 13 }}
+                style={{ padding: '8px 20px', fontSize: 14.5 }}
               >
                 Compile Document
               </button>
@@ -324,10 +324,10 @@ export default function ResumeUpload() {
                 borderTop: `3px solid var(--${s.color})`,
                 boxShadow: 'var(--shadow-sm)',
               }}>
-                <div style={{ fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 8 }}>{s.label}</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: s.isNum ? 32 : 22, fontWeight: 800, color: `var(--${s.color})`, letterSpacing: '-1px' }}>
+                <div style={{ fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 8 }}>{s.label}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: s.isNum ? 35 : 24, fontWeight: 800, color: `var(--${s.color})`, letterSpacing: '-1px' }}>
                   {s.val}
-                  {s.isNum && <span style={{ fontSize: 14, color: 'var(--t4)', fontWeight: 400, letterSpacing: 0 }}>{s.max}</span>}
+                  {s.isNum && <span style={{ fontSize: 15.5, color: 'var(--t4)', fontWeight: 400, letterSpacing: 0 }}>{s.max}</span>}
                 </div>
                 {s.isNum && (
                   <div style={{ height: 4, background: 'var(--bg3)', borderRadius: 4, marginTop: 12, overflow: 'hidden', border: '1px solid var(--border)' }}>
@@ -371,8 +371,8 @@ export default function ResumeUpload() {
           {/* Keyword gaps → Learn link (this is the existing cross-module wire) */}
           {(a.keyword_gaps || []).length > 0 && (
             <div style={{ background: 'var(--coral-light)', border: '1px solid #fecaca', borderRadius: 'var(--radius-xl)', padding: '18px 20px' }}>
-              <div style={{ fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--coral)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 6 }}>⚠ Missing Keywords</div>
-              <div style={{ fontSize: 11, color: 'var(--coral)', marginBottom: 10, opacity: 0.8 }}>Click any gap to open a targeted study session →</div>
+              <div style={{ fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--coral)', fontFamily: 'var(--font-mono)', fontWeight: 600, marginBottom: 6 }}>⚠ Missing Keywords</div>
+              <div style={{ fontSize: 12, color: 'var(--coral)', marginBottom: 10, opacity: 0.8 }}>Click any gap to open a targeted study session →</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
                 {a.keyword_gaps.map((k) => (
                   <a key={k} href={`/learn?topic=${encodeURIComponent(k)}`} style={{ textDecoration: 'none' }} title={`Study ${k} in Learn`}>
@@ -395,19 +395,19 @@ export default function ResumeUpload() {
 
           {improved && (
             <div style={{ background: 'var(--accent-light)', border: '1px solid #c7d2fe', borderRadius: 'var(--radius-xl)', padding: 22 }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 700, marginBottom: 14, color: 'var(--accent)', letterSpacing: '-0.3px' }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 700, marginBottom: 14, color: 'var(--accent)', letterSpacing: '-0.3px' }}>
                 ✦ AI-Improved Resume Sections
               </div>
               {improved.rewritten_summary && (
                 <div style={{ marginBottom: 16 }}>
                   <div style={{ ...cardLabel, color: 'var(--accent)', marginBottom: 7 }}>Professional Summary</div>
-                  <div style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.7, background: 'var(--bg2)', padding: '13px 16px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
+                  <div style={{ fontSize: 14.5, color: 'var(--t1)', lineHeight: 1.7, background: 'var(--bg2)', padding: '13px 16px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
                     {improved.rewritten_summary}
                   </div>
                 </div>
               )}
               {improved.projected_ats_score && (
-                <div style={{ fontSize: 13, color: 'var(--green)', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
+                <div style={{ fontSize: 14.5, color: 'var(--green)', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
                   ↑ Projected ATS: {improved.projected_ats_score}/100
                   <span style={{ color: 'var(--t3)', fontWeight: 400 }}> (from {Math.round(a.ats_score)})</span>
                 </div>
@@ -424,7 +424,7 @@ export default function ResumeUpload() {
             gap: 10,
           }}>
             <div style={{
-              fontSize: 11, letterSpacing: '0.8px', textTransform: 'uppercase',
+              fontSize: 12, letterSpacing: '0.8px', textTransform: 'uppercase',
               color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
               marginBottom: 2,
             }}>
@@ -466,7 +466,7 @@ const cardStyle = {
 } as const;
 
 const cardLabel = {
-  fontSize: 10.5,
+  fontSize: 11.5,
   letterSpacing: '0.8px',
   textTransform: 'uppercase' as const,
   color: 'var(--t3)',
@@ -479,7 +479,7 @@ const listRow = {
   display: 'flex',
   gap: 9,
   marginBottom: 7,
-  fontSize: 12.5,
+  fontSize: 14,
   color: 'var(--t1)',
   alignItems: 'flex-start' as const,
 };

@@ -80,10 +80,10 @@ export const ArenaChallengeModal: React.FC<ArenaChallengeModalProps> = ({
       <div className="friends-modal-dialog" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 500 }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 20 }}>⚔️</span>
+            <span style={{ fontSize: 22 }}>⚔️</span>
             <div>
-              <h3 style={{ margin: 0, fontSize: 17, color: '#ffffff' }}>1v1 Arena Duel Challenge</h3>
-              <span style={{ fontSize: 11, color: '#f87171' }}>Challenging Arena Live Match</span>
+              <h3 style={{ margin: 0, fontSize: 18.5, color: '#ffffff' }}>1v1 Arena Duel Challenge</h3>
+              <span style={{ fontSize: 12, color: '#f87171' }}>Challenging Arena Live Match</span>
             </div>
           </div>
           <button className="drawer-close-btn" onClick={onClose}>✕</button>
@@ -106,8 +106,8 @@ export const ArenaChallengeModal: React.FC<ArenaChallengeModalProps> = ({
                 <img src={student.avatar} alt={student.name} style={{ width: 42, height: 42, borderRadius: '50%', objectFit: 'cover' }} />
               )}
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
-                <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{student.college} • {student.arenaWins || 12} Arena Wins</div>
+                <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
+                <div style={{ fontSize: 12.5, color: '#94a3b8' }}>{student.college} • {student.arenaWins || 12} Arena Wins</div>
               </div>
             </div>
 

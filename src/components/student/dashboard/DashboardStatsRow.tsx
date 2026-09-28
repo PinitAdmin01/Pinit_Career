@@ -65,16 +65,16 @@ export default function DashboardStatsRow({
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2.5" />
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={level.color} strokeDasharray={`${level.pct}, 100`} strokeWidth="2.5" strokeLinecap="round" style={{ transition:'stroke-dasharray 1s ease' }} />
           </svg>
-          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontSize:20, lineHeight:1 }}>{level.emoji}</div>
+          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontSize:22, lineHeight:1 }}>{level.emoji}</div>
         </div>
         <div style={{ flex:1, zIndex:1, minWidth:0 }}>
-          <div style={{ fontSize:9, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px', marginBottom:4 }}>🎓 Reputation Tier</div>
-          <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:900, color:level.color, marginBottom:2 }}>{level.label}</div>
-          <div style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:6 }}>Tier {level.index} · <AnimatedNum value={xp} /> XP</div>
+          <div style={{ fontSize:10, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px', marginBottom:4 }}>🎓 Reputation Tier</div>
+          <div style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:900, color:level.color, marginBottom:2 }}>{level.label}</div>
+          <div style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)', marginBottom:6 }}>Tier {level.index} · <AnimatedNum value={xp} /> XP</div>
           <div style={{ height:3, background:'var(--bg3)', borderRadius:2, overflow:'hidden' }}>
             <div style={{ height:'100%', width:`${level.pct}%`, background:`linear-gradient(90deg, var(--accent), ${level.color})`, borderRadius:2, transition:'width 0.8s ease' }} />
           </div>
-          <div style={{ fontSize:9.5, color:'var(--t4)', fontFamily:'var(--font-mono)', marginTop:4 }}>{level.pct}% to {level.next || 'Max Tier'}</div>
+          <div style={{ fontSize:10.5, color:'var(--t4)', fontFamily:'var(--font-mono)', marginTop:4 }}>{level.pct}% to {level.next || 'Max Tier'}</div>
         </div>
       </div>
 
@@ -82,12 +82,12 @@ export default function DashboardStatsRow({
       <div className="db-glass" style={{ padding:20, display:'flex', alignItems:'center', gap:16, overflow:'hidden' }}>
         <div style={{ position:'absolute', top:-30, right:-30, width:120, height:120, background:'rgba(99,102,241,0.15)', borderRadius:'50%', filter:'blur(40px)', pointerEvents:'none' }} />
         <div style={{ flex:1, zIndex:1, minWidth:0 }}>
-          <div style={{ fontSize:9, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px', marginBottom:4 }}>💻 Career Score</div>
-          <div style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:900, color:'var(--t1)', marginBottom:2 }}>
+          <div style={{ fontSize:10, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px', marginBottom:4 }}>💻 Career Score</div>
+          <div style={{ fontFamily:'var(--font-display)', fontSize:31, fontWeight:900, color:'var(--t1)', marginBottom:2 }}>
             <span style={{ color:'var(--accent)' }}><AnimatedNum value={careerScore} /></span>
-            <span style={{ fontSize:13, color:'var(--dash-subtext)' }}>/100</span>
+            <span style={{ fontSize:14.5, color:'var(--dash-subtext)' }}>/100</span>
           </div>
-          <div style={{ fontSize:11, color:'var(--dash-subtext)', display:'flex', flexDirection:'column', gap:3 }}>
+          <div style={{ fontSize:12, color:'var(--dash-subtext)', display:'flex', flexDirection:'column', gap:3 }}>
             <div>🛡️ Verified Records: <strong style={{ color:'var(--green-mid)' }}>{vaultItemsCount > 0 ? `${Math.max(0, vaultItemsCount - unverifiedCount)} / ${vaultItemsCount} Verified` : 'No Credentials in Vault'}</strong></div>
             <div>📊 Industry Readiness: <strong style={{ color:'var(--accent)' }}>{careerScore >= 75 ? 'Industry Benchmark Ready' : careerScore >= 40 ? 'Developing Competency' : 'Foundational Progress'}</strong></div>
           </div>
@@ -104,7 +104,7 @@ export default function DashboardStatsRow({
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2.5" />
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent)" strokeDasharray={`${careerScore}, 100`} strokeWidth="2.5" strokeLinecap="round" style={{ transition:'stroke-dasharray 1s ease' }} />
           </svg>
-          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontFamily:'var(--font-display)', fontSize:16, fontWeight:900, color:'var(--t1)' }}>
+          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontFamily:'var(--font-display)', fontSize:17.5, fontWeight:900, color:'var(--t1)' }}>
             {Math.round(careerScore)}
           </div>
         </div>
@@ -115,12 +115,12 @@ export default function DashboardStatsRow({
         <div style={{ position:'absolute', bottom:-30, right:-30, width:120, height:120, background:'rgba(5,150,105,0.1)', borderRadius:'50%', filter:'blur(40px)', pointerEvents:'none' }} />
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', zIndex:1 }}>
           <div>
-            <div style={{ fontSize:9, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px' }}>🔐 Trust Quotient</div>
-            <div style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:900, color:'var(--green-mid)', marginTop:2 }}>
+            <div style={{ fontSize:10, fontFamily:'var(--font-mono)', fontWeight:800, color:'var(--dash-subtext)', textTransform:'uppercase', letterSpacing:'1px' }}>🔐 Trust Quotient</div>
+            <div style={{ fontFamily:'var(--font-display)', fontSize:31, fontWeight:900, color:'var(--green-mid)', marginTop:2 }}>
               <AnimatedNum value={trustScore} />%
             </div>
           </div>
-          <span style={{ fontSize:10, fontWeight:700, color:'var(--green-mid)', background:'var(--green-light)', padding:'2px 9px', borderRadius:8, border:'1px solid rgba(5,150,105,0.2)', marginTop:2 }}>
+          <span style={{ fontSize:11, fontWeight:700, color:'var(--green-mid)', background:'var(--green-light)', padding:'2px 9px', borderRadius:8, border:'1px solid rgba(5,150,105,0.2)', marginTop:2 }}>
             {trustScore >= 70 ? 'High Trust' : 'Moderate'}
           </span>
         </div>
@@ -142,7 +142,7 @@ export default function DashboardStatsRow({
                 border:'1px solid var(--border)',
                 borderRadius:8,
                 padding:'8px',
-                fontSize:11.5,
+                fontSize:12.5,
                 fontWeight:700,
                 color:'var(--t1)',
                 textDecoration:'none',
@@ -155,17 +155,17 @@ export default function DashboardStatsRow({
               📋 Review {unverifiedCount} Unverified in Vault ↗
             </Link>
           ) : vaultItemsCount === 0 ? (
-            <div style={{ fontSize:11.5, color:'var(--dash-subtext)' }}>
+            <div style={{ fontSize:12.5, color:'var(--dash-subtext)' }}>
               No credentials in Vault.{' '}
               <Link href="/vault" style={{ color:'var(--accent)', textDecoration:'none', fontWeight:600 }}>
                 Upload to Vault ↗
               </Link>
             </div>
           ) : (
-            <div style={{ fontSize:11.5, color:'var(--dash-subtext)' }}>
+            <div style={{ fontSize:12.5, color:'var(--dash-subtext)' }}>
               ✓ All {vaultItemsCount} credentials verified.
               {userRole === 'admin' && onSeedDemo && (
-                <button onClick={onSeedDemo} style={{ marginLeft:8, background:'none', border:'1px solid var(--border)', borderRadius:6, color:'var(--accent)', fontSize:10, padding:'2px 8px', cursor:'pointer' }}>+ Seed Demo</button>
+                <button onClick={onSeedDemo} style={{ marginLeft:8, background:'none', border:'1px solid var(--border)', borderRadius:6, color:'var(--accent)', fontSize:11, padding:'2px 8px', cursor:'pointer' }}>+ Seed Demo</button>
               )}
             </div>
           )}

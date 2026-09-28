@@ -34,8 +34,8 @@ export function ConsultantCopilotTab({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: 420 }} className="fade-in">
       <div>
-        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Consultant Copilot Chat</h3>
-        <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+        <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Consultant Copilot Chat</h3>
+        <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
           Athena AI assistant helping you audit cohort admissions probability and scholarship matches.
         </p>
       </div>
@@ -71,7 +71,7 @@ export function ConsultantCopilotTab({
                 color: m.role === 'assistant' ? 'var(--t1)' : 'white',
                 padding: '8px 12px',
                 borderRadius: 8,
-                fontSize: 12,
+                fontSize: 13,
                 maxWidth: '85%',
                 border: m.role === 'assistant' ? '1px solid var(--border)' : 'none',
               }}
@@ -112,7 +112,7 @@ export function ConsultantCopilotTab({
               }}
               style={{
                 padding: '6px 10px',
-                fontSize: 11,
+                fontSize: 12,
                 background: 'var(--card)',
                 border: '1px solid var(--border)',
                 borderRadius: 6,
@@ -150,7 +150,7 @@ export function ConsultantCopilotTab({
               border: '1px solid var(--border)',
               background: 'var(--bg3)',
               color: 'var(--t1)',
-              fontSize: 12.5,
+              fontSize: 14,
             }}
           />
           <button
@@ -162,7 +162,7 @@ export function ConsultantCopilotTab({
               color: 'white',
               border: 'none',
               cursor: 'pointer',
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 700,
             }}
           >
@@ -207,13 +207,13 @@ export function ConsultantCopilotSidebar({
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ fontSize: 18 }}>🤖</span>
-          <strong style={{ fontSize: 13, color: 'var(--t1)' }}>AI Copilot Workspace</strong>
+          <span style={{ fontSize: 20 }}>🤖</span>
+          <strong style={{ fontSize: 14.5, color: 'var(--t1)' }}>AI Copilot Workspace</strong>
         </div>
         <button
           onClick={() => setShowCopilotSidebar(false)}
           className="btn-ghost"
-          style={{ fontSize: 11, padding: '3px 8px', borderRadius: 4, border: '1px solid var(--border)' }}
+          style={{ fontSize: 12, padding: '3px 8px', borderRadius: 4, border: '1px solid var(--border)' }}
         >
           Hide
         </button>
@@ -242,7 +242,7 @@ export function ConsultantCopilotSidebar({
               color: m.role === 'assistant' ? 'var(--t1)' : 'white',
               padding: '6px 10px',
               borderRadius: 8,
-              fontSize: 11.5,
+              fontSize: 12.5,
               maxWidth: '90%',
               border: m.role === 'assistant' ? '1px solid var(--border)' : 'none',
               whiteSpace: 'pre-wrap',
@@ -255,7 +255,7 @@ export function ConsultantCopilotSidebar({
 
       {/* Clickable Consultant Prompts */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <span style={{ fontSize: 9.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase' }}>
           Quick Actions Console
         </span>
         {[
@@ -300,7 +300,7 @@ export function ConsultantCopilotSidebar({
             }}
             style={{
               padding: '6px 10px',
-              fontSize: 11,
+              fontSize: 12,
               background: 'var(--card)',
               border: '1px solid var(--border)',
               borderRadius: 6,

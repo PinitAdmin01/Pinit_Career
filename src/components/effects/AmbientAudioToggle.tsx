@@ -46,7 +46,7 @@ export default function AmbientAudioToggle() {
         background: 'var(--bg-card)',
         border: '1px solid var(--border-color)',
         color: 'var(--text-primary)',
-        fontSize: '12.5px',
+        fontSize: '14px',
         fontWeight: 750,
         cursor: 'pointer',
         boxShadow: 'var(--card-shadow)',
@@ -63,7 +63,7 @@ export default function AmbientAudioToggle() {
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      <span style={{ fontSize: '14px' }}>{isMuted ? '🔇' : '🔊'}</span>
+      <span style={{ fontSize: '15.5px' }}>{isMuted ? '🔇' : '🔊'}</span>
       <span>{isMuted ? 'Audio: Muted' : 'Audio: Live'}</span>
     </button>
   );

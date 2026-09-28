@@ -23,8 +23,8 @@ export default function ConsultantStudentIntelligenceView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>💼 AI Career & Path Planner</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>💼 AI Career & Path Planner</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Shift candidate mapping conversations from simple country choice to strategic goal-driven pathways.
           </p>
         </div>
@@ -41,12 +41,12 @@ export default function ConsultantStudentIntelligenceView({
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Goal Target:</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t2)' }}>Select Candidate Goal Target:</span>
           <select
             value={selectedGoal}
             onChange={e => setSelectedGoal(e.target.value)}
             className="form-input"
-            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 250 }}
+            style={{ padding: '6px 12px', borderRadius: 8, fontSize: 14.5, width: 250 }}
           >
             <option value="AI Engineer">AI Engineer</option>
             <option value="Cloud Architect">Cloud Infrastructure Architect</option>
@@ -131,8 +131,8 @@ export default function ConsultantStudentIntelligenceView({
                 gap: 6,
               }}
             >
-              <span style={{ fontSize: 9.5, fontWeight: 900, color: 'var(--t3)', letterSpacing: '0.5px' }}>{node.step}</span>
-              <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)', lineHeight: 1.45 }}>{node.val}</div>
+              <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--t3)', letterSpacing: '0.5px' }}>{node.step}</span>
+              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', lineHeight: 1.45 }}>{node.val}</div>
             </div>
           ))}
         </div>
@@ -143,7 +143,7 @@ export default function ConsultantStudentIntelligenceView({
             style={{
               background: 'var(--bg3)',
               padding: '10px 14px',
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 800,
               color: 'var(--t3)',
               borderBottom: '1px solid var(--border)',
@@ -153,7 +153,7 @@ export default function ConsultantStudentIntelligenceView({
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
             {allStudents.length === 0 ? (
-              <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5 }}>No pipeline data</div>
+              <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14 }}>No pipeline data</div>
             ) : (
               allStudents.map((raw: any, idx: number) => {
                 const mapItem = {
@@ -169,12 +169,12 @@ export default function ConsultantStudentIntelligenceView({
                       justifyContent: 'space-between',
                       padding: '12px 14px',
                       borderBottom: idx < allStudents.length - 1 ? '1px solid var(--border)' : 'none',
-                      fontSize: 12.5,
+                      fontSize: 14,
                     }}
                   >
                     <div>
                       <strong style={{ color: 'var(--t1)' }}>{mapItem.name}</strong>
-                      <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>Targeting: {mapItem.goal}</span>
+                      <span style={{ fontSize: 12, color: 'var(--t3)', marginLeft: 8 }}>Targeting: {mapItem.goal}</span>
                     </div>
                     <span style={{ color: 'var(--success)', fontWeight: 800 }}>{mapItem.progress}</span>
                   </div>
@@ -190,10 +190,10 @@ export default function ConsultantStudentIntelligenceView({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="fade-in">
       <div>
-        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+        <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
           🔍 Candidate Employability & Academic Intelligence
         </h3>
-        <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+        <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
           Comprehensive review of student transcripts, tests, and international placement indicators.
         </p>
       </div>
@@ -205,7 +205,7 @@ export default function ConsultantStudentIntelligenceView({
             style={{
               background: 'var(--bg3)',
               padding: '10px 14px',
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 800,
               color: 'var(--t3)',
               borderBottom: '1px solid var(--border)',
@@ -215,7 +215,7 @@ export default function ConsultantStudentIntelligenceView({
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
             {allStudents.length === 0 ? (
-              <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5 }}>No pipeline data</div>
+              <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 14 }}>No pipeline data</div>
             ) : (
               allStudents.map((raw: any, idx: number) => {
                 const stud = {
@@ -249,14 +249,14 @@ export default function ConsultantStudentIntelligenceView({
                       <strong
                         style={{
                           color: selectedIntelStudent?.name === stud.name ? 'var(--accent)' : 'var(--t1)',
-                          fontSize: 13.5,
+                          fontSize: 15,
                         }}
                       >
                         {stud.name}
                       </strong>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)' }}>{stud.placement} Ready</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--success)' }}>{stud.placement} Ready</span>
                     </div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
                       ATS: {stud.ats}/100 | Trust: {stud.coding}
                     </div>
                   </div>
@@ -291,10 +291,10 @@ export default function ConsultantStudentIntelligenceView({
               }}
             >
               <div>
-                <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>{selectedIntelStudent.name}</h4>
+                <h4 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>{selectedIntelStudent.name}</h4>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     color: 'var(--accent)',
                     fontWeight: 800,
                     textTransform: 'uppercase',
@@ -306,36 +306,36 @@ export default function ConsultantStudentIntelligenceView({
                 </span>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <span style={{ fontSize: 11, color: 'var(--t3)' }}>Career Readiness</span>
-                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--success)' }}>{selectedIntelStudent.placement}</div>
+                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Career Readiness</span>
+                <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--success)' }}>{selectedIntelStudent.placement}</div>
               </div>
             </div>
 
             {/* Core Parameters Row 1 */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Resume ATS Score
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>
+                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>
                   {selectedIntelStudent.ats} / 100
                 </div>
               </div>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Coding Pass Rate
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--success)', marginTop: 4 }}>
+                <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--success)', marginTop: 4 }}>
                   {selectedIntelStudent.coding}%
                 </div>
               </div>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Communication
                 </span>
                 <div
                   style={{
-                    fontSize: 13.5,
+                    fontSize: 15,
                     fontWeight: 800,
                     color: selectedIntelStudent.comm.includes('Needs') ? 'var(--danger)' : 'var(--t1)',
                     marginTop: 6,
@@ -349,26 +349,26 @@ export default function ConsultantStudentIntelligenceView({
             {/* Core Parameters Row 2 */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Research Publications
                 </span>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
                   {selectedIntelStudent.research}
                 </div>
               </div>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Projects Built
                 </span>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
                   {selectedIntelStudent.projects}
                 </div>
               </div>
               <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Academic CGPA
                 </span>
-                <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>
+                <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>
                   {selectedIntelStudent.cgpa}
                 </div>
               </div>
@@ -385,14 +385,14 @@ export default function ConsultantStudentIntelligenceView({
               }}
             >
               <div style={{ background: 'rgba(255,255,255,0.01)', borderRadius: 8, padding: 8 }}>
-                <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>IELTS Band</span>
-                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>
+                <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>IELTS Band</span>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>
                   {selectedIntelStudent.ielts}
                 </div>
               </div>
               <div style={{ background: 'rgba(255,255,255,0.01)', borderRadius: 8, padding: 8 }}>
-                <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>GRE Score</span>
-                <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>
+                <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>GRE Score</span>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>
                   {selectedIntelStudent.gre}
                 </div>
               </div>
@@ -404,8 +404,8 @@ export default function ConsultantStudentIntelligenceView({
                   border: '1px solid rgba(var(--accent-teal-rgb), 0.1)',
                 }}
               >
-                <span style={{ fontSize: 9.5, color: 'var(--teal)' }}>Scholarship Match</span>
-                <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--teal)', marginTop: 2 }}>
+                <span style={{ fontSize: 10.5, color: 'var(--teal)' }}>Scholarship Match</span>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--teal)', marginTop: 2 }}>
                   {selectedIntelStudent.scholarship}
                 </div>
               </div>
@@ -417,8 +417,8 @@ export default function ConsultantStudentIntelligenceView({
                   border: '1px solid rgba(var(--brand-rgb), 0.1)',
                 }}
               >
-                <span style={{ fontSize: 9.5, color: 'var(--accent)' }}>Admission Odds</span>
-                <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>
+                <span style={{ fontSize: 10.5, color: 'var(--accent)' }}>Admission Odds</span>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>
                   {selectedIntelStudent.probability}
                 </div>
               </div>

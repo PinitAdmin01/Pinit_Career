@@ -75,7 +75,7 @@ export default function MissionListView({
               borderRadius: 8,
               border: 'none',
               cursor: 'pointer',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 600,
               background: tab === 'today' ? theme.bgCard : 'transparent',
               color: tab === 'today' ? theme.tPrimary : theme.tTertiary,
@@ -92,7 +92,7 @@ export default function MissionListView({
               borderRadius: 8,
               border: 'none',
               cursor: 'pointer',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 600,
               background: tab === 'history' ? theme.bgCard : 'transparent',
               color: tab === 'history' ? theme.tPrimary : theme.tTertiary,
@@ -108,7 +108,7 @@ export default function MissionListView({
             onClick={handleTriggerRegenerate}
             className="btn-ghost btn-sm"
             disabled={generating}
-            style={{ fontSize: 11, color: theme.tSecondary }}
+            style={{ fontSize: 12, color: theme.tSecondary }}
           >
             {generating ? '⟳ Re-generating...' : '⟳ Regenerate'}
           </button>
@@ -140,7 +140,7 @@ export default function MissionListView({
               borderRadius: 8,
               padding: '8px 12px',
               color: theme.tPrimary,
-              fontSize: 12,
+              fontSize: 13,
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleGenerateCustomQuests();
@@ -150,7 +150,7 @@ export default function MissionListView({
             onClick={handleGenerateCustomQuests}
             disabled={generatingSkill}
             className="btn-primary btn-sm"
-            style={{ fontSize: 11, whiteSpace: 'nowrap' }}
+            style={{ fontSize: 12, whiteSpace: 'nowrap' }}
           >
             {generatingSkill ? '⚡ Generating...' : '⚡ Add Quest'}
           </button>
@@ -170,11 +170,11 @@ export default function MissionListView({
             }}
           >
             <div className="empty-state" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 36, marginBottom: 10 }}>🎉</div>
-              <div style={{ fontSize: 16, fontWeight: 800, color: theme.tPrimary, marginBottom: 4 }}>
+              <div style={{ fontSize: 39.5, marginBottom: 10 }}>🎉</div>
+              <div style={{ fontSize: 17.5, fontWeight: 800, color: theme.tPrimary, marginBottom: 4 }}>
                 All Gaps Successfully Addressed!
               </div>
-              <div style={{ fontSize: 12.5, color: theme.tTertiary, marginBottom: 16 }}>
+              <div style={{ fontSize: 14, color: theme.tTertiary, marginBottom: 16 }}>
                 Your daily roadmap is fully clear. Great work! Come back tomorrow or match new benchmarks.
               </div>
               <Link href="/dashboard" className="btn-primary btn-sm">
@@ -194,7 +194,7 @@ export default function MissionListView({
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 5,
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 600,
                       padding: '4px 10px',
                       borderRadius: 8,
@@ -218,7 +218,7 @@ export default function MissionListView({
                         position: 'absolute',
                         bottom: 12,
                         right: 140,
-                        fontSize: 10,
+                        fontSize: 11,
                         fontFamily: 'var(--font-mono)',
                         background: theme.bgInside,
                         border: `1px solid ${theme.border}`,
@@ -254,7 +254,7 @@ export default function MissionListView({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div
               style={{
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: 700,
                 color: theme.tTertiary,
                 fontFamily: 'var(--font-mono)',

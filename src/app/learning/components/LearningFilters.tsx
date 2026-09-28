@@ -22,10 +22,10 @@ export function LearningFilters({
       {/* Header */}
       <div className="page-header" style={{ marginBottom: 20, display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
             📖 Learning Roadmap & Digital Career Twin
           </h1>
-          <p style={{ color: 'var(--t2)', fontSize: 13.5, margin: 0 }}>
+          <p style={{ color: 'var(--t2)', fontSize: 15, margin: 0 }}>
             {activeRole === 'student' && "Continuous personalized path to placement derived dynamically from your Career DNA and learning logs."}
             {activeRole === 'faculty' && "Monitor students struggling with specific curriculum modules and prescribe custom tasks."}
           </p>
@@ -47,7 +47,7 @@ export function LearningFilters({
                   border: 'none',
                   background: activeRole === role.id ? 'var(--accent)' : 'transparent',
                   color: activeRole === role.id ? '#fff' : 'var(--t2)',
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   fontWeight: 800,
                   cursor: 'pointer',
                   transition: 'all 0.2s'
@@ -76,7 +76,7 @@ export function LearningFilters({
                 padding: '8px 18px',
                 border: 'none',
                 borderRadius: 8,
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 800,
                 cursor: 'pointer',
                 background: activeTab === t.id ? 'var(--bg2)' : 'transparent',

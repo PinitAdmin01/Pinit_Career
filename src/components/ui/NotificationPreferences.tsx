@@ -83,17 +83,17 @@ export default function NotificationPreferences() {
       {/* Header */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:18 }}>
         <div>
-          <div style={{ fontFamily:'var(--font-display)', fontSize:15, fontWeight:700, marginBottom:3 }}>
+          <div style={{ fontFamily:'var(--font-display)', fontSize:16.5, fontWeight:700, marginBottom:3 }}>
             🔔 Notification Preferences
           </div>
-          <div style={{ fontSize:12, color:'var(--t3)' }}>
+          <div style={{ fontSize:13, color:'var(--t3)' }}>
             {enabledCount} of {PREFS_META.length} notification types enabled
           </div>
         </div>
         <div style={{ display:'flex', gap:8, alignItems:'center' }}>
-          {saved && <span style={{ fontSize:12, color:'var(--green)', fontWeight:600 }}>✓ Saved</span>}
-          {error && <span style={{ fontSize:12, color:'var(--coral)' }}>⚠ {error}</span>}
-          <button onClick={save} disabled={saving} className="btn-primary" style={{ fontSize:13 }}>
+          {saved && <span style={{ fontSize:13, color:'var(--green)', fontWeight:600 }}>✓ Saved</span>}
+          {error && <span style={{ fontSize:13, color:'var(--coral)' }}>⚠ {error}</span>}
+          <button onClick={save} disabled={saving} className="btn-primary" style={{ fontSize:14.5 }}>
             {saving ? '⟳ Saving…' : 'Save Preferences'}
           </button>
         </div>
@@ -120,14 +120,14 @@ export default function NotificationPreferences() {
               }}
             >
               {/* Icon */}
-              <span style={{ fontSize:20, flexShrink:0 }}>{p.icon}</span>
+              <span style={{ fontSize:22, flexShrink:0 }}>{p.icon}</span>
 
               {/* Text */}
               <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontWeight:600, fontSize:13.5, marginBottom:2, color: prefs[p.key] ? 'var(--t1)' : 'var(--t2)' }}>
+                <div style={{ fontWeight:600, fontSize:15, marginBottom:2, color: prefs[p.key] ? 'var(--t1)' : 'var(--t2)' }}>
                   {p.label}
                 </div>
-                <div style={{ fontSize:12, color:'var(--t3)', lineHeight:1.45 }}>{p.desc}</div>
+                <div style={{ fontSize:13, color:'var(--t3)', lineHeight:1.45 }}>{p.desc}</div>
               </div>
 
               {/* Toggle */}

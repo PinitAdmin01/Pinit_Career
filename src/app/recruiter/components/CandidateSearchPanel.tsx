@@ -79,7 +79,7 @@ export default function CandidateSearchPanel({
             <div className="metric-label">
               {s.icon} {s.label}
             </div>
-            <div className="metric-value" style={{ color: s.color, fontSize: 24 }}>
+            <div className="metric-value" style={{ color: s.color, fontSize: 26.5 }}>
               {s.value}
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function CandidateSearchPanel({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 800,
                       color: i < 3 ? 'white' : 'var(--t3)',
                       boxShadow: i < 3 ? '0 0 10px rgba(var(--brand-rgb), 0.3)' : 'none',
@@ -167,10 +167,10 @@ export default function CandidateSearchPanel({
 
                   <div style={{ flex: 1, minWidth: 200 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontWeight: 800, fontSize: 14.5, color: 'var(--t1)' }}>{c.display_name}</span>
+                      <span style={{ fontWeight: 800, fontSize: 16, color: 'var(--t1)' }}>{c.display_name}</span>
                       <span
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
                           background: 'var(--accent-light)',
                           color: 'var(--accent)',
                           padding: '1px 5px',
@@ -180,7 +180,7 @@ export default function CandidateSearchPanel({
                       >
                         {c.programType || 'B.Tech CS'}
                       </span>
-                      <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                      <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                         (🎯 {c.missions_done || 0} quests · 🎙 {c.interviews_done || 0} interviews)
                       </span>
                     </div>
@@ -189,7 +189,7 @@ export default function CandidateSearchPanel({
                         <span
                           key={s}
                           style={{
-                            fontSize: 10,
+                            fontSize: 11,
                             padding: '2px 7px',
                             borderRadius: 4,
                             background: 'var(--bg3)',
@@ -240,7 +240,7 @@ export default function CandidateSearchPanel({
                         <div
                           style={{
                             fontFamily: 'var(--font-mono)',
-                            fontSize: 15,
+                            fontSize: 16.5,
                             fontWeight: 800,
                             color: s.color,
                           }}
@@ -249,7 +249,7 @@ export default function CandidateSearchPanel({
                         </div>
                         <div
                           style={{
-                            fontSize: 8.5,
+                            fontSize: 9.5,
                             color: 'var(--t3)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.4px',
@@ -296,19 +296,19 @@ export default function CandidateSearchPanel({
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
-                    fontSize: 15,
+                    fontSize: 16.5,
                   }}
                 >
                   {selectedCandidate.display_name.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, color: 'var(--t1)' }}>
                     {selectedCandidate.display_name}
                   </div>
                   {selectedCandidate.programType && (
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         background: 'var(--accent-light)',
                         color: 'var(--accent)',
                         padding: '1px 6px',
@@ -323,7 +323,7 @@ export default function CandidateSearchPanel({
               </div>
               <button
                 onClick={() => setSelectedCandidate(null)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 16 }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 17.5 }}
               >
                 ✕
               </button>
@@ -337,12 +337,12 @@ export default function CandidateSearchPanel({
                   borderRadius: 8,
                   padding: '10px 12px',
                   marginBottom: 14,
-                  fontSize: 11,
+                  fontSize: 12,
                 }}
               >
                 <div
                   style={{
-                    fontSize: 9.5,
+                    fontSize: 10.5,
                     color: 'var(--t3)',
                     textTransform: 'uppercase',
                     letterSpacing: 0.5,
@@ -367,8 +367,8 @@ export default function CandidateSearchPanel({
                 { l: 'Interviews', v: selectedCandidate.interviews_done, c: 'var(--blue)' },
               ].map((s) => (
                 <div key={s.l} style={{ background: 'var(--bg3)', borderRadius: 8, padding: '8px 12px' }}>
-                  <div style={{ fontSize: 9, color: 'var(--t3)', letterSpacing: 0.5, marginBottom: 3 }}>{s.l}</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: s.c }}>{s.v}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', letterSpacing: 0.5, marginBottom: 3 }}>{s.l}</div>
+                  <div style={{ fontSize: 17.5, fontWeight: 700, color: s.c }}>{s.v}</div>
                 </div>
               ))}
             </div>
@@ -378,7 +378,7 @@ export default function CandidateSearchPanel({
               <div style={{ marginBottom: 14 }}>
                 <div
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     color: 'var(--t3)',
                     letterSpacing: 1,
                     textTransform: 'uppercase',
@@ -393,7 +393,7 @@ export default function CandidateSearchPanel({
                     <span
                       key={skill}
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         padding: '3px 8px',
                         borderRadius: 4,
                         background: 'var(--bg3)',
@@ -414,7 +414,7 @@ export default function CandidateSearchPanel({
               <div style={{ marginBottom: 14 }}>
                 <div
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     color: 'var(--t3)',
                     letterSpacing: 1,
                     textTransform: 'uppercase',
@@ -429,7 +429,7 @@ export default function CandidateSearchPanel({
                     <div
                       key={idx}
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         background: 'var(--bg3)',
                         padding: '6px 10px',
                         borderRadius: 6,
@@ -439,7 +439,7 @@ export default function CandidateSearchPanel({
                       }}
                     >
                       <span style={{ color: 'var(--t1)' }}>🎯 {m.title}</span>
-                      <span className="badge badge-green" style={{ fontSize: 9, padding: '1px 4px' }}>
+                      <span className="badge badge-green" style={{ fontSize: 10, padding: '1px 4px' }}>
                         {m.status}
                       </span>
                     </div>
@@ -452,7 +452,7 @@ export default function CandidateSearchPanel({
             <div style={{ marginBottom: 14 }}>
               <div
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: 'var(--t3)',
                   letterSpacing: 1,
                   textTransform: 'uppercase',
@@ -463,7 +463,7 @@ export default function CandidateSearchPanel({
                 Candidate Document & Proof Vault
               </div>
               {!selectedCandidate.vaultItems || selectedCandidate.vaultItems.length === 0 ? (
-                <div style={{ fontSize: 11, color: 'var(--t3)', fontStyle: 'italic' }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic' }}>
                   No document proofs attached yet.
                 </div>
               ) : (
@@ -478,14 +478,14 @@ export default function CandidateSearchPanel({
                           border: '1px solid var(--border)',
                           borderRadius: 8,
                           padding: '8px 10px',
-                          fontSize: 11,
+                          fontSize: 12,
                         }}
                       >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ fontWeight: 600 }}>📄 {item.label || item.type || item.title}</span>
                           <span
                             className={`badge ${isItemVerified ? 'badge-green' : 'badge-amber'}`}
-                            style={{ fontSize: 9, padding: '1px 5px' }}
+                            style={{ fontSize: 10, padding: '1px 5px' }}
                           >
                             {isItemVerified ? '✅ Verified by Campus' : '⏳ Self-Uploaded / Pending Review'}
                           </span>
@@ -516,7 +516,7 @@ export default function CandidateSearchPanel({
             <div style={{ marginBottom: 14 }}>
               <div
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: 'var(--t3)',
                   letterSpacing: 1,
                   textTransform: 'uppercase',
@@ -535,7 +535,7 @@ export default function CandidateSearchPanel({
                       key={stg}
                       onClick={() => handleUpdateStage(selectedCandidate.id, stg, selectedCandidate.display_name)}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '3px 8px',
                         borderRadius: 4,
                         border: 'none',
@@ -556,7 +556,7 @@ export default function CandidateSearchPanel({
             <div style={{ marginBottom: 14 }}>
               <div
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: 'var(--t3)',
                   letterSpacing: 1,
                   textTransform: 'uppercase',
@@ -572,7 +572,7 @@ export default function CandidateSearchPanel({
                   onChange={(e) => setNewNoteText(e.target.value)}
                   placeholder="Add evaluation note..."
                   className="form-input"
-                  style={{ flex: 1, fontSize: 11, padding: '6px 10px' }}
+                  style={{ flex: 1, fontSize: 12, padding: '6px 10px' }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') handleAddRecruiterNote(selectedCandidate.id);
                   }}
@@ -580,7 +580,7 @@ export default function CandidateSearchPanel({
                 <button
                   onClick={() => handleAddRecruiterNote(selectedCandidate.id)}
                   className="btn-primary"
-                  style={{ fontSize: 11, padding: '6px 10px' }}
+                  style={{ fontSize: 12, padding: '6px 10px' }}
                 >
                   Save
                 </button>
@@ -594,12 +594,12 @@ export default function CandidateSearchPanel({
                       background: 'var(--bg3)',
                       borderRadius: 6,
                       padding: '6px 8px',
-                      fontSize: 10.5,
+                      fontSize: 11.5,
                       border: '1px solid var(--border)',
                     }}
                   >
                     <div style={{ color: 'var(--t1)' }}>{note.text}</div>
-                    <div style={{ color: 'var(--t3)', fontSize: 9, marginTop: 2 }}>
+                    <div style={{ color: 'var(--t3)', fontSize: 10, marginTop: 2 }}>
                       {note.author} · {note.date}
                     </div>
                   </div>

@@ -54,10 +54,10 @@ export default function GdAvatarGuideModal({
           background: 'var(--bg3)'
         }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
+            <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>
               🤖 Multi-Agent Avatar & Voice Cast Guide
             </h3>
-            <p style={{ margin: '2px 0 0', fontSize: 11, color: 'var(--t3)' }}>
+            <p style={{ margin: '2px 0 0', fontSize: 12, color: 'var(--t3)' }}>
               Preview visual profiles, behavioral traits, and listen to neural Kokoro/Kitten voice samples.
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function GdAvatarGuideModal({
               background: 'none',
               border: 'none',
               color: 'var(--t2)',
-              fontSize: 20,
+              fontSize: 22,
               cursor: 'pointer',
               fontWeight: 'bold'
             }}
@@ -101,7 +101,7 @@ export default function GdAvatarGuideModal({
                     right: 10,
                     background: 'var(--accent)',
                     color: 'white',
-                    fontSize: 8.5,
+                    fontSize: 9.5,
                     fontWeight: 900,
                     padding: '2px 6px',
                     borderRadius: 6,
@@ -112,16 +112,16 @@ export default function GdAvatarGuideModal({
                 )}
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 26 }}>{avatar.emoji}</span>
+                  <span style={{ fontSize: 28.5 }}>{avatar.emoji}</span>
                   <div>
-                    <h4 style={{ margin: 0, fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>{avatar.name}</h4>
-                    <span style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{avatar.role}</span>
+                    <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>{avatar.name}</h4>
+                    <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{avatar.role}</span>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   <span style={{
-                    fontSize: 8.5,
+                    fontSize: 9.5,
                     background: 'rgba(var(--accent-teal-rgb), 0.1)',
                     border: '1px solid var(--teal)',
                     color: 'var(--teal)',
@@ -133,7 +133,7 @@ export default function GdAvatarGuideModal({
                     Trait: {avatar.trait}
                   </span>
                   <span style={{
-                    fontSize: 8.5,
+                    fontSize: 9.5,
                     background: 'rgba(79,70,229,0.1)',
                     border: '1px solid #4f46e5',
                     color: '#818cf8',
@@ -146,7 +146,7 @@ export default function GdAvatarGuideModal({
                   </span>
                 </div>
 
-                <p style={{ margin: 0, fontSize: 11, color: 'var(--t2)', flex: 1 }}>{avatar.description}</p>
+                <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', flex: 1 }}>{avatar.description}</p>
 
                 <button
                   onClick={() => onPlayDemo(avatar.id, avatar.name)}
@@ -154,7 +154,7 @@ export default function GdAvatarGuideModal({
                   style={{
                     width: '100%',
                     padding: '6px',
-                    fontSize: 10.5,
+                    fontSize: 11.5,
                     borderRadius: 8,
                     background: 'var(--bg2)',
                     border: '1.5px solid var(--border)',
@@ -178,7 +178,7 @@ export default function GdAvatarGuideModal({
           <button
             onClick={onClose}
             className="btn-primary"
-            style={{ padding: '8px 16px', fontSize: 12, cursor: 'pointer' }}
+            style={{ padding: '8px 16px', fontSize: 13, cursor: 'pointer' }}
           >
             Close Cast Guide
           </button>

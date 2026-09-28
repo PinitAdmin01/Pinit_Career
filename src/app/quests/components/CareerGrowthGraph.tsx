@@ -119,15 +119,15 @@ export default function CareerGrowthGraph({
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
             📈 Career Growth Trajectory
           </h2>
-          <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>
             {monthsCount}-Month Crash Program • Baseline vs Current vs Industry Target
           </span>
         </div>
         <span style={{
-          fontSize: 11, fontWeight: 800, padding: '4px 12px', borderRadius: 8,
+          fontSize: 12, fontWeight: 800, padding: '4px 12px', borderRadius: 8,
           background: 'rgba(99,102,241,0.15)', color: '#6366f1', border: '1px solid rgba(99,102,241,0.2)',
         }}>{monthsCount} Months</span>
       </div>
@@ -144,8 +144,8 @@ export default function CareerGrowthGraph({
             background: pill.bg, border: `1px solid ${pill.color}33`,
             textAlign: 'center',
           }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 2 }}>{pill.label}</div>
-            <div style={{ fontSize: 18, fontWeight: 900, color: pill.color, fontFamily: 'var(--font-display)' }}>{pill.value}</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 2 }}>{pill.label}</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: pill.color, fontFamily: 'var(--font-display)' }}>{pill.value}</div>
           </div>
         ))}
       </div>
@@ -165,7 +165,7 @@ export default function CareerGrowthGraph({
                 x1={padding.left} y1={getY(tick)} x2={width - padding.right} y2={getY(tick)}
                 stroke="rgba(255,255,255,0.06)" strokeWidth="1"
               />
-              <text x={padding.left - 8} y={getY(tick) + 4} textAnchor="end" fill="var(--t3)" fontSize="10" fontFamily="var(--font-display)">
+              <text x={padding.left - 8} y={getY(tick) + 4} textAnchor="end" fill="var(--t3)" fontSize="11" fontFamily="var(--font-display)">
                 {tick}
               </text>
             </g>
@@ -178,7 +178,7 @@ export default function CareerGrowthGraph({
               return null;
             }
             return (
-              <text key={i} x={getX(i, monthsCount)} y={height - 10} textAnchor="middle" fill="var(--t3)" fontSize="10.5" fontFamily="var(--font-display)">
+              <text key={i} x={getX(i, monthsCount)} y={height - 10} textAnchor="middle" fill="var(--t3)" fontSize="11.5" fontFamily="var(--font-display)">
                 M{i + 1}
               </text>
             );
@@ -236,10 +236,10 @@ export default function CareerGrowthGraph({
           {/* Final value labels */}
           {monthsCount > 0 && (
             <>
-              <text x={currentPoints[monthsCount - 1].x} y={currentPoints[monthsCount - 1].y - 12} textAnchor="middle" fill="#10b981" fontSize="12" fontWeight="800" fontFamily="var(--font-display)">
+              <text x={currentPoints[monthsCount - 1].x} y={currentPoints[monthsCount - 1].y - 12} textAnchor="middle" fill="#10b981" fontSize="13" fontWeight="800" fontFamily="var(--font-display)">
                 {current[monthsCount - 1]?.toFixed(0)}
               </text>
-              <text x={targetPoints[monthsCount - 1].x} y={targetPoints[monthsCount - 1].y - 12} textAnchor="middle" fill="#6366f1" fontSize="12" fontWeight="800" fontFamily="var(--font-display)">
+              <text x={targetPoints[monthsCount - 1].x} y={targetPoints[monthsCount - 1].y - 12} textAnchor="middle" fill="#6366f1" fontSize="13" fontWeight="800" fontFamily="var(--font-display)">
                 {target[monthsCount - 1]?.toFixed(0)}
               </text>
             </>
@@ -255,7 +255,7 @@ export default function CareerGrowthGraph({
               <g key={item.label} transform={`translate(${i * 80}, 0)`}>
                 <line x1="0" y1="0" x2="20" y2="0" stroke={item.color} strokeWidth="2" strokeDasharray={item.dash} />
                 <circle cx="10" cy="0" r="3" fill={item.color} />
-                <text x="26" y="4" fill="var(--t3)" fontSize="9" fontFamily="var(--font-display)">{item.label}</text>
+                <text x="26" y="4" fill="var(--t3)" fontSize="10" fontFamily="var(--font-display)">{item.label}</text>
               </g>
             ))}
           </g>
@@ -269,10 +269,10 @@ export default function CareerGrowthGraph({
           </defs>
 
           {/* Axis labels */}
-          <text x={width / 2} y={height - 2} textAnchor="middle" fill="var(--t3)" fontSize="11" fontFamily="var(--font-display)">
+          <text x={width / 2} y={height - 2} textAnchor="middle" fill="var(--t3)" fontSize="12" fontFamily="var(--font-display)">
             Month
           </text>
-          <text x={14} y={height / 2} textAnchor="middle" fill="var(--t3)" fontSize="11" fontFamily="var(--font-display)" transform={`rotate(-90, 14, ${height / 2})`}>
+          <text x={14} y={height / 2} textAnchor="middle" fill="var(--t3)" fontSize="12" fontFamily="var(--font-display)" transform={`rotate(-90, 14, ${height / 2})`}>
             Competency Score
           </text>
         </svg>
@@ -280,13 +280,13 @@ export default function CareerGrowthGraph({
 
       {/* Bottom Summary */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16, flexWrap: 'wrap', gap: 8 }}>
-        <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+        <div style={{ fontSize: 12, color: 'var(--t3)' }}>
           📊 Day 1 Baseline: {baseline[0]?.toFixed(0)} → Now: {current[monthsCount - 1]?.toFixed(0)} → Target: {target[monthsCount - 1]?.toFixed(0)}
         </div>
         <div style={{
           padding: '6px 14px', borderRadius: 8,
           background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-          border: 'none', color: '#fff', fontSize: 11, fontWeight: 800,
+          border: 'none', color: '#fff', fontSize: 12, fontWeight: 800,
           fontFamily: 'var(--font-display)',
         }}>
           Growth: +{Math.round((current[monthsCount - 1] ?? 0) - (baseline[0] ?? 0))} pts

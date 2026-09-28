@@ -39,12 +39,12 @@ function ToastItem({ id, type, title, message }: {
         animation: 'slideIn 0.2s ease',
       }}
     >
-      <span style={{ fontSize: 14, fontWeight: 700, color: style.border, flexShrink: 0 }}>
+      <span style={{ fontSize: 15.5, fontWeight: 700, color: style.border, flexShrink: 0 }}>
         {style.icon}
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t1)' }}>{title}</div>
-        {message && <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>{message}</div>}
+        <div style={{ fontSize: 14.5, fontWeight: 600, color: 'var(--t1)' }}>{title}</div>
+        {message && <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 2 }}>{message}</div>}
       </div>
     </div>
   );

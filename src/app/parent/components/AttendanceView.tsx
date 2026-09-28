@@ -20,8 +20,8 @@ export default function AttendanceView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>📸 Attendance</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>📸 Attendance</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Live attendance feeds are not connected for this student yet.
           </p>
         </div>
@@ -33,7 +33,7 @@ export default function AttendanceView({
             padding: 28,
             textAlign: 'center',
             color: 'var(--t3)',
-            fontSize: 13,
+            fontSize: 14.5,
           }}
         >
           {overview.profile?.attendance != null
@@ -48,10 +48,10 @@ export default function AttendanceView({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
             🔔 Centralized Notifications Hub
           </h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Important institution advisories, exam timelines, assignment reminders, and placement news alerts.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function AttendanceView({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 900,
                       color: n.color,
                       textTransform: 'uppercase',
@@ -119,15 +119,15 @@ export default function AttendanceView({
                   >
                     {n.type}
                   </span>
-                  <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>{n.time}</span>
+                  <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>{n.time}</span>
                 </div>
-                <h4 style={{ margin: '4px 0 0 0', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{n.title}</h4>
-                <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{n.desc}</p>
+                <h4 style={{ margin: '4px 0 0 0', fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{n.title}</h4>
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>{n.desc}</p>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
                   {acknowledgedAlerts[n.title] ? (
                     <span
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 700,
                         color: 'var(--success)',
                         background: 'rgba(var(--success-rgb), 0.1)',
@@ -142,7 +142,7 @@ export default function AttendanceView({
                     <button
                       onClick={() => handleAcknowledgeAlert(n.title)}
                       style={{
-                        fontSize: 11.5,
+                        fontSize: 12.5,
                         fontWeight: 700,
                         padding: '5px 12px',
                         borderRadius: 6,

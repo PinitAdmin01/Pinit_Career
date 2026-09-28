@@ -112,12 +112,12 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 24 }}>👥</span>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: '#ffffff', margin: 0 }}>
+            <span style={{ fontSize: 26.5 }}>👥</span>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', margin: 0 }}>
               Squad Collaboration & Group Projects
             </h2>
           </div>
-          <p style={{ fontSize: 13, color: '#94a3b8', margin: '6px 0 0' }}>
+          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '6px 0 0' }}>
             Build production-ready applications with your friends, divide engineering roles, and level up together.
           </p>
         </div>
@@ -128,7 +128,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
             background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
             border: '1px solid rgba(52, 211, 153, 0.4)',
             padding: '10px 18px',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 700
           }}
           onClick={() => onOpenInviteModal?.()}
@@ -141,8 +141,8 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       {incomingInvites.length > 0 && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-            <span style={{ fontSize: 16 }}>📩</span>
-            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <span style={{ fontSize: 17.5 }}>📩</span>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
               Incoming Squad Invitations ({incomingInvites.length})
             </h3>
           </div>
@@ -163,7 +163,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
@@ -175,10 +175,10 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                   }}>
                     Squad Invitation
                   </span>
-                  <span style={{ fontSize: 11, color: '#64748b' }}>{inv.status}</span>
+                  <span style={{ fontSize: 12, color: '#64748b' }}>{inv.status}</span>
                 </div>
 
-                <div style={{ fontSize: 16, fontWeight: 700, color: '#ffffff' }}>{inv.title}</div>
+                <div style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff' }}>{inv.title}</div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <img
@@ -187,8 +187,8 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                     style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover' }}
                   />
                   <div>
-                    <div style={{ fontSize: 12.5, fontWeight: 600, color: '#e2e8f0' }}>Invited by {inv.sender.name}</div>
-                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{inv.details}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#e2e8f0' }}>Invited by {inv.sender.name}</div>
+                    <div style={{ fontSize: 12, color: '#94a3b8' }}>{inv.details}</div>
                   </div>
                 </div>
 
@@ -198,7 +198,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                     style={{
                       flex: 1,
                       background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      fontSize: 12,
+                      fontSize: 13,
                       padding: '8px 12px'
                     }}
                     disabled={respondingId === inv.id}
@@ -208,7 +208,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                   </button>
                   <button
                     className="friends-btn friends-btn-secondary"
-                    style={{ flex: 1, fontSize: 12, padding: '8px 12px' }}
+                    style={{ flex: 1, fontSize: 13, padding: '8px 12px' }}
                     disabled={respondingId === inv.id}
                     onClick={() => handleRespond(inv.id, 'decline')}
                   >
@@ -225,12 +225,12 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 16 }}>🚀</span>
-            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <span style={{ fontSize: 17.5 }}>🚀</span>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
               Active Collaborative Squads ({squadProjects.length})
             </h3>
           </div>
-          <span style={{ fontSize: 12, color: '#94a3b8' }}>Synced with PinIT Projects</span>
+          <span style={{ fontSize: 13, color: '#94a3b8' }}>Synced with PinIT Projects</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 16 }}>
@@ -251,13 +251,13 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
               {/* Top Row: Title & Status */}
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                 <div>
-                  <h4 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', margin: '0 0 6px' }}>{proj.title}</h4>
-                  <p style={{ fontSize: 12, color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>{proj.description}</p>
+                  <h4 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: '0 0 6px' }}>{proj.title}</h4>
+                  <p style={{ fontSize: 13, color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>{proj.description}</p>
                 </div>
                 <span style={{
                   padding: '4px 10px',
                   borderRadius: 8,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 700,
                   background: 'rgba(99, 102, 241, 0.15)',
                   color: '#818cf8',
@@ -270,7 +270,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
 
               {/* Progress Bar */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, marginBottom: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 6 }}>
                   <span style={{ color: '#94a3b8' }}>Milestone Progress</span>
                   <span style={{ color: '#34d399', fontWeight: 700 }}>{proj.progress}%</span>
                 </div>
@@ -287,7 +287,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
               {/* Tech Stack Pills */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {proj.techStack.map((tech, idx) => (
-                  <span key={idx} className="mini-skill-pill" style={{ fontSize: 10.5 }}>{tech}</span>
+                  <span key={idx} className="mini-skill-pill" style={{ fontSize: 11.5 }}>{tech}</span>
                 ))}
               </div>
 
@@ -298,7 +298,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                 borderRadius: 12,
                 border: '1px solid rgba(255, 255, 255, 0.05)'
               }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 8 }}>
                   Squad Team ({proj.members.length})
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -306,9 +306,9 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                     <div key={m.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <img src={m.avatar} alt={m.name} style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }} />
-                        <span style={{ fontSize: 12, fontWeight: 600, color: '#f1f5f9' }}>{m.name}</span>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9' }}>{m.name}</span>
                       </div>
-                      <span style={{ fontSize: 11, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '2px 6px', borderRadius: 4 }}>
+                      <span style={{ fontSize: 12, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '2px 6px', borderRadius: 4 }}>
                         {m.role}
                       </span>
                     </div>
@@ -318,11 +318,11 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 6 }}>
-                <span style={{ fontSize: 11, color: '#64748b' }}>Target: {proj.deadline}</span>
+                <span style={{ fontSize: 12, color: '#64748b' }}>Target: {proj.deadline}</span>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
                     className="friends-btn friends-btn-secondary"
-                    style={{ padding: '6px 12px', fontSize: 11.5 }}
+                    style={{ padding: '6px 12px', fontSize: 12.5 }}
                     onClick={() => onOpenInviteModal?.(proj.title)}
                   >
                     + Add Peer
@@ -332,7 +332,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                     className="friends-btn friends-btn-primary"
                     style={{
                       padding: '6px 12px',
-                      fontSize: 11.5,
+                      fontSize: 12.5,
                       textDecoration: 'none',
                       display: 'inline-flex',
                       alignItems: 'center',

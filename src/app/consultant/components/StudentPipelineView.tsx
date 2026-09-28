@@ -98,7 +98,7 @@ export default function StudentPipelineView({
                   >
                     <span
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 800,
                         color: 'var(--t2)',
                         textTransform: 'uppercase',
@@ -110,7 +110,7 @@ export default function StudentPipelineView({
                     </span>
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         background: 'var(--bg3)',
                         padding: '2px 8px',
                         borderRadius: 10,
@@ -139,16 +139,16 @@ export default function StudentPipelineView({
                           position: 'relative',
                         }}
                       >
-                        <div style={{ fontWeight: 800, fontSize: 13.5, color: 'var(--t1)', marginBottom: 4 }}>
+                        <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--t1)', marginBottom: 4 }}>
                           {s.displayName}
                         </div>
-                        <div style={{ fontSize: 10.5, color: 'var(--t3)', marginBottom: 8 }}>
+                        <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8 }}>
                           {s.targetCountry} · {s.programType}
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span
                             style={{
-                              fontSize: 9.5,
+                              fontSize: 10.5,
                               padding: '2px 7px',
                               borderRadius: 8,
                               background: `${VISA_STATUS_COLOR[s.visa_status || 'not_started']}15`,
@@ -174,7 +174,7 @@ export default function StudentPipelineView({
                               className="btn-ghost"
                               style={{
                                 padding: '2px 6px',
-                                fontSize: 11,
+                                fontSize: 12,
                                 borderRadius: 6,
                                 background: 'rgba(255,255,255,0.03)',
                               }}
@@ -184,7 +184,7 @@ export default function StudentPipelineView({
                             {s.vaultItems && s.vaultItems.length > 0 && (
                               <span
                                 style={{
-                                  fontSize: 10,
+                                  fontSize: 11,
                                   color: 'var(--green)',
                                   fontWeight: 700,
                                   display: 'flex',
@@ -225,13 +225,13 @@ export default function StudentPipelineView({
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div
-              style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, color: 'var(--t1)' }}
             >
               {selectedStudent.displayName}
             </div>
             <button
               onClick={() => setSelectedStudent(null)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 18 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 20 }}
             >
               ✕
             </button>
@@ -239,7 +239,7 @@ export default function StudentPipelineView({
 
           <div
             style={{
-              fontSize: 11.5,
+              fontSize: 12.5,
               color: 'var(--t2)',
               background: 'var(--bg3)',
               border: '1px solid var(--border)',
@@ -258,7 +258,7 @@ export default function StudentPipelineView({
 
           <div
             style={{
-              fontSize: 12.5,
+              fontSize: 14,
               background: 'var(--bg3)',
               border: '1px solid var(--border)',
               borderRadius: 10,
@@ -274,7 +274,7 @@ export default function StudentPipelineView({
             <label
               className="form-label"
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 700,
                 color: 'var(--t3)',
                 textTransform: 'uppercase',
@@ -301,7 +301,7 @@ export default function StudentPipelineView({
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14 }}>
             <div
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 color: 'var(--t3)',
                 letterSpacing: '0.8px',
                 textTransform: 'uppercase',
@@ -315,7 +315,7 @@ export default function StudentPipelineView({
             {!selectedStudent?.vaultItems || selectedStudent.vaultItems.length === 0 ? (
               <div
                 style={{
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   color: 'var(--t3)',
                   fontStyle: 'italic',
                   padding: 8,
@@ -342,7 +342,7 @@ export default function StudentPipelineView({
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontWeight: 700, fontSize: 12, color: 'var(--t1)' }}>
+                      <span style={{ fontWeight: 700, fontSize: 13, color: 'var(--t1)' }}>
                         📄 {item.label || item.type}
                       </span>
                       <span
@@ -353,7 +353,7 @@ export default function StudentPipelineView({
                             ? 'badge-coral'
                             : 'badge-amber'
                         }`}
-                        style={{ fontSize: 9, padding: '2px 6px', fontFamily: 'var(--font-mono)' }}
+                        style={{ fontSize: 10, padding: '2px 6px', fontFamily: 'var(--font-mono)' }}
                       >
                         {item.status || 'pending'}
                       </span>
@@ -364,7 +364,7 @@ export default function StudentPipelineView({
                           href={item.fileUrl}
                           target="_blank"
                           rel="noreferrer"
-                          style={{ color: 'var(--accent)', textDecoration: 'underline', fontSize: 11 }}
+                          style={{ color: 'var(--accent)', textDecoration: 'underline', fontSize: 12 }}
                         >
                           Review File
                         </a>
@@ -375,7 +375,7 @@ export default function StudentPipelineView({
                         <button
                           onClick={() => handleVerifyDocument(item.id, 'verified')}
                           className="btn-primary btn-sm"
-                          style={{ padding: '4px 10px', fontSize: 10.5, flex: 1, justifyContent: 'center' }}
+                          style={{ padding: '4px 10px', fontSize: 11.5, flex: 1, justifyContent: 'center' }}
                         >
                           ✓ Verify
                         </button>
@@ -384,7 +384,7 @@ export default function StudentPipelineView({
                           className="btn-ghost btn-sm"
                           style={{
                             padding: '4px 10px',
-                            fontSize: 10.5,
+                            fontSize: 11.5,
                             color: 'var(--coral)',
                             border: '1px solid rgba(var(--danger-rgb), 0.2)',
                             flex: 1,
@@ -405,7 +405,7 @@ export default function StudentPipelineView({
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14 }}>
             <div
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 color: 'var(--t3)',
                 letterSpacing: '0.8px',
                 textTransform: 'uppercase',
@@ -422,7 +422,7 @@ export default function StudentPipelineView({
                 onChange={(e) => setNewTask(e.target.value)}
                 placeholder="Assign new task..."
                 className="form-input"
-                style={{ fontSize: 11, padding: '6px 10px' }}
+                style={{ fontSize: 12, padding: '6px 10px' }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') addTask();
                 }}
@@ -432,7 +432,7 @@ export default function StudentPipelineView({
                   value={newTaskPriority}
                   onChange={(e) => setNewTaskPriority(e.target.value as any)}
                   className="form-input"
-                  style={{ fontSize: 10.5, padding: '4px 8px', flex: 1 }}
+                  style={{ fontSize: 11.5, padding: '4px 8px', flex: 1 }}
                 >
                   <option value="high">High Priority</option>
                   <option value="medium">Medium Priority</option>
@@ -443,12 +443,12 @@ export default function StudentPipelineView({
                   value={newTaskDueDate}
                   onChange={(e) => setNewTaskDueDate(e.target.value)}
                   className="form-input"
-                  style={{ fontSize: 10.5, padding: '4px 8px', flex: 1 }}
+                  style={{ fontSize: 11.5, padding: '4px 8px', flex: 1 }}
                 />
                 <button
                   onClick={addTask}
                   className="btn-primary"
-                  style={{ padding: '4px 12px', fontSize: 11 }}
+                  style={{ padding: '4px 12px', fontSize: 12 }}
                 >
                   Add
                 </button>
@@ -463,7 +463,7 @@ export default function StudentPipelineView({
                     background: 'var(--bg3)',
                     borderRadius: 8,
                     padding: '8px 10px',
-                    fontSize: 11,
+                    fontSize: 12,
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
@@ -478,7 +478,7 @@ export default function StudentPipelineView({
                         ? 'badge-amber'
                         : 'badge-blue'
                     }`}
-                    style={{ fontSize: 9 }}
+                    style={{ fontSize: 10 }}
                   >
                     {t.priority}
                   </span>

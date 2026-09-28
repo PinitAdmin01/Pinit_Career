@@ -37,12 +37,12 @@ export function CapstoneNextStep({ projects, onStartInterview, onGetCertificate,
       }}
     >
       <div>
-        <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+        <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
           {isInterview
             ? `🎓 Capstone verified: "${next.project.name}"`
             : `🏅 Capstone interview passed (${next.project.capstoneInterview?.score ?? 0}%)`}
         </div>
-        <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4 }}>
+        <div style={{ fontSize: 14, color: 'var(--t3)', marginTop: 4 }}>
           {isInterview
             ? 'Next step: your capstone interview. Defend this project for your target role. No Pins needed.'
             : certificateId
@@ -55,7 +55,7 @@ export function CapstoneNextStep({ projects, onStartInterview, onGetCertificate,
           type="button"
           onClick={() => onStartInterview(next.project)}
           className="btn-primary"
-          style={{ fontSize: 12, padding: '8px 14px' }}
+          style={{ fontSize: 13, padding: '8px 14px' }}
         >
           Start capstone interview ➔
         </button>
@@ -65,7 +65,7 @@ export function CapstoneNextStep({ projects, onStartInterview, onGetCertificate,
           type="button"
           onClick={() => onViewCertificate(certificateId)}
           className="btn-primary"
-          style={{ fontSize: 12, padding: '8px 14px' }}
+          style={{ fontSize: 13, padding: '8px 14px' }}
         >
           View certificate ➔
         </button>
@@ -76,7 +76,7 @@ export function CapstoneNextStep({ projects, onStartInterview, onGetCertificate,
           disabled={issuing}
           onClick={() => onGetCertificate(next.project)}
           className="btn-primary"
-          style={{ fontSize: 12, padding: '8px 14px', opacity: issuing ? 0.6 : 1 }}
+          style={{ fontSize: 13, padding: '8px 14px', opacity: issuing ? 0.6 : 1 }}
         >
           {issuing ? 'Issuing…' : 'Get my certificate ➔'}
         </button>

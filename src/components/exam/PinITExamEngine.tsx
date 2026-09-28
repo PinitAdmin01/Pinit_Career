@@ -130,40 +130,40 @@ export function ExamStartModal({ exam, student, onConfirm, onCancel }: ExamStart
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
           <div>
-            <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 4 }}>
+            <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 4 }}>
               {institution}
             </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
               📋 {exam.title}
             </h2>
           </div>
-          <button onClick={onCancel} style={{ background: 'none', border: 'none', fontSize: 20, color: 'var(--t3)', cursor: 'pointer' }}>×</button>
+          <button onClick={onCancel} style={{ background: 'none', border: 'none', fontSize: 22, color: 'var(--t3)', cursor: 'pointer' }}>×</button>
         </div>
 
         {/* Details Card */}
         <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 18, marginBottom: 18 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, fontSize: 13 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, fontSize: 14.5 }}>
             <div>
-              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 11, fontFamily: 'var(--font-mono)' }}>DURATION</span>
+              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 12, fontFamily: 'var(--font-mono)' }}>DURATION</span>
               <strong style={{ color: 'var(--t1)' }}>⏱ {duration} Minutes</strong>
             </div>
             <div>
-              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 11, fontFamily: 'var(--font-mono)' }}>MAX TAB SWITCHES</span>
+              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 12, fontFamily: 'var(--font-mono)' }}>MAX TAB SWITCHES</span>
               <strong style={{ color: 'var(--coral)' }}>⚠ {allowedSwitches} Allowed</strong>
             </div>
             <div>
-              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 11, fontFamily: 'var(--font-mono)' }}>STUDENT</span>
+              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 12, fontFamily: 'var(--font-mono)' }}>STUDENT</span>
               <strong style={{ color: 'var(--t1)' }}>{student?.name || 'Student'}</strong>
             </div>
             <div>
-              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 11, fontFamily: 'var(--font-mono)' }}>REGISTER NO</span>
+              <span style={{ color: 'var(--t3)', display: 'block', fontSize: 12, fontFamily: 'var(--font-mono)' }}>REGISTER NO</span>
               <strong style={{ color: 'var(--t1)', fontFamily: 'var(--font-mono)' }}>{student?.registerNumber || 'N/A'}</strong>
             </div>
           </div>
         </div>
 
         {/* Rules & Warnings */}
-        <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)', borderRadius: 12, padding: 14, marginBottom: 24, fontSize: 12, color: 'var(--coral)', lineHeight: 1.6 }}>
+        <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)', borderRadius: 12, padding: 14, marginBottom: 24, fontSize: 13, color: 'var(--coral)', lineHeight: 1.6 }}>
           <div>🔒 <strong>Proctored Environment</strong>: Switching browser tabs or minimizing the window is logged.</div>
           <div>⚠️ <strong>Auto-Submission</strong>: Exceeding {allowedSwitches} tab switches will automatically submit your exam.</div>
           <div>🛡️ <strong>Single Attempt</strong>: Once submitted, attempts are locked. Answers are graded authoritatively by the server.</div>
@@ -182,7 +182,7 @@ export function ExamStartModal({ exam, student, onConfirm, onCancel }: ExamStart
               background: 'transparent',
               color: 'var(--t2)',
               fontWeight: 600,
-              fontSize: 14,
+              fontSize: 15.5,
               cursor: 'pointer'
             }}
           >
@@ -199,7 +199,7 @@ export function ExamStartModal({ exam, student, onConfirm, onCancel }: ExamStart
               background: 'var(--accent)',
               color: '#ffffff',
               fontWeight: 700,
-              fontSize: 14,
+              fontSize: 15.5,
               cursor: 'pointer'
             }}
           >
@@ -345,9 +345,9 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
   if (loadingQuestions) {
     return (
       <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--t2)' }}>
-        <div style={{ fontSize: 32, marginBottom: 12 }}>⏱</div>
+        <div style={{ fontSize: 35, marginBottom: 12 }}>⏱</div>
         <h3>Loading Exam Paper...</h3>
-        <p style={{ color: 'var(--t3)', fontSize: 13 }}>Fetching sanitized questions from the examination server</p>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>Fetching sanitized questions from the examination server</p>
       </div>
     );
   }
@@ -356,9 +356,9 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
   if (loadError || !exam.questions || exam.questions.length === 0) {
     return (
       <div style={{ maxWidth: 480, margin: '60px auto', textAlign: 'center', padding: 32, background: 'var(--bg2)', borderRadius: 16, border: '1px solid var(--border)' }}>
-        <div style={{ fontSize: 40, marginBottom: 16 }}>⚠️</div>
+        <div style={{ fontSize: 44, marginBottom: 16 }}>⚠️</div>
         <h3 style={{ color: 'var(--t1)', marginBottom: 8 }}>Unable to Load Exam</h3>
-        <p style={{ color: 'var(--t3)', fontSize: 13, marginBottom: 20 }}>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5, marginBottom: 20 }}>
           {loadError || 'No questions are configured for this examination.'}
         </p>
         <button
@@ -382,19 +382,19 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
 
     return (
       <div style={{ maxWidth: 520, margin: '60px auto', textAlign: 'center', padding: 36, background: 'var(--bg2)', borderRadius: 16, border: '1px solid var(--border)', boxShadow: '0 12px 30px rgba(0,0,0,0.1)' }}>
-        <div style={{ fontSize: 56, marginBottom: 16 }}>{passed ? '🏆' : '📝'}</div>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, marginBottom: 8, color: 'var(--t1)' }}>
+        <div style={{ fontSize: 61.5, marginBottom: 16 }}>{passed ? '🏆' : '📝'}</div>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 800, marginBottom: 8, color: 'var(--t1)' }}>
           Exam Submitted Successfully
         </h2>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 800, color: passed ? 'var(--green)' : 'var(--coral)', marginBottom: 8 }}>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: 53, fontWeight: 800, color: passed ? 'var(--green)' : 'var(--coral)', marginBottom: 8 }}>
           {pct}%
         </div>
-        <div style={{ fontSize: 14, color: 'var(--t2)', marginBottom: 6 }}>
+        <div style={{ fontSize: 15.5, color: 'var(--t2)', marginBottom: 6 }}>
           Score: {score} / {totalMarks} marks · Status: <strong style={{ color: passed ? 'var(--green)' : 'var(--coral)' }}>{passed ? 'PASSED' : 'NEEDS IMPROVEMENT'}</strong>
         </div>
-        <div style={{ fontSize: 13, color: 'var(--t3)' }}>Tab switches recorded: {tabSwitches}</div>
+        <div style={{ fontSize: 14.5, color: 'var(--t3)' }}>Tab switches recorded: {tabSwitches}</div>
         {finalResult?.flagged && (
-          <div style={{ marginTop: 14, padding: '10px 14px', background: 'var(--amber-light)', borderRadius: 8, fontSize: 12, color: 'var(--amber)', fontWeight: 600 }}>
+          <div style={{ marginTop: 14, padding: '10px 14px', background: 'var(--amber-light)', borderRadius: 8, fontSize: 13, color: 'var(--amber)', fontWeight: 600 }}>
             ⚠️ Proctored audit notice: Excessive tab switches flagged for academic review.
           </div>
         )}
@@ -410,17 +410,17 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
       <div style={{ background: 'var(--bg2)', borderRight: '1px solid var(--border)', padding: 18, display: 'flex', flexDirection: 'column', gap: 8 }}>
         {/* Timer */}
         <div style={{ padding: '12px 14px', borderRadius: 10, background: urgent ? 'var(--coral-light)' : 'var(--bg3)', border: `1px solid ${urgent ? 'var(--coral)' : 'var(--border)'}`, textAlign: 'center', marginBottom: 8 }}>
-          <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 2 }}>TIME REMAINING</div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 24, fontWeight: 800, color: urgent ? 'var(--coral)' : 'var(--t1)' }}>{timeDisplay}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 2 }}>TIME REMAINING</div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26.5, fontWeight: 800, color: urgent ? 'var(--coral)' : 'var(--t1)' }}>{timeDisplay}</div>
         </div>
 
         {/* Tab-switch counter */}
-        <div style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 11, color: tabSwitches > 0 ? 'var(--coral)' : 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 6 }}>
+        <div style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: tabSwitches > 0 ? 'var(--coral)' : 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 6 }}>
           🔒 Tab Switches: {tabSwitches} / {maxSwitches}
         </div>
 
         {/* Q list */}
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--t3)', letterSpacing: '0.8px', textTransform: 'uppercase', margin: '8px 0 4px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--t3)', letterSpacing: '0.8px', textTransform: 'uppercase', margin: '8px 0 4px' }}>
           Questions ({exam.questions.length})
         </div>
         {exam.questions.map((ques, i) => {
@@ -430,18 +430,18 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
               padding: '8px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', textAlign: 'left',
               background: i === currentQ ? 'var(--accent-light)' : answered ? 'rgba(5,150,105,0.08)' : 'var(--bg3)',
               color:      i === currentQ ? 'var(--accent)' : 'var(--t2)',
-              fontSize: 12, fontWeight: i === currentQ ? 700 : 500,
+              fontSize: 13, fontWeight: i === currentQ ? 700 : 500,
               borderLeft: `3px solid ${i === currentQ ? 'var(--accent)' : answered ? 'var(--green)' : 'transparent'}`,
             }}>
-              Q{i + 1} <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--t3)' }}>{ques.marks}m</span>
-              <span style={{ float: 'right', fontSize: 10 }}>{ques.type === 'mcq' ? 'MCQ' : ques.type === 'coding' ? 'Code' : 'Essay'}</span>
+              Q{i + 1} <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--t3)' }}>{ques.marks}m</span>
+              <span style={{ float: 'right', fontSize: 11 }}>{ques.type === 'mcq' ? 'MCQ' : ques.type === 'coding' ? 'Code' : 'Essay'}</span>
             </button>
           );
         })}
 
         <button type="button" onClick={handleSubmit} disabled={submitting} style={{
           marginTop: 'auto', padding: '12px', borderRadius: 8, border: 'none', cursor: submitting ? 'wait' : 'pointer',
-          background: 'var(--accent)', color: '#fff', fontWeight: 700, fontSize: 13, fontFamily: 'var(--font-display)',
+          background: 'var(--accent)', color: '#fff', fontWeight: 700, fontSize: 14.5, fontFamily: 'var(--font-display)',
         }}>
           {submitting ? '⟳ Submitting…' : '✓ Submit Exam'}
         </button>
@@ -450,14 +450,14 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
       {/* ── Question area ── */}
       <div style={{ padding: 32, overflowY: 'auto' }}>
         {tabWarning && (
-          <div style={{ marginBottom: 16, padding: '12px 16px', background: 'var(--coral-light)', border: '1px solid var(--coral)', borderRadius: 8, fontSize: 13, fontWeight: 700, color: 'var(--coral)' }}>
+          <div style={{ marginBottom: 16, padding: '12px 16px', background: 'var(--coral-light)', border: '1px solid var(--coral)', borderRadius: 8, fontSize: 14.5, fontWeight: 700, color: 'var(--coral)' }}>
             ⚠️ Maximum tab switches exceeded! Exam will auto-submit in 5 seconds…
           </div>
         )}
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
           <div>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)', letterSpacing: '0.8px' }}>
+            <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t3)', letterSpacing: '0.8px' }}>
               Q{currentQ + 1} OF {exam.questions.length} · {q.marks} MARKS · {q.type.toUpperCase()}
             </span>
           </div>
@@ -467,7 +467,7 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
           </div>
         </div>
 
-        <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--t1)', lineHeight: 1.6, marginBottom: 24 }}>{q.text}</div>
+        <div style={{ fontSize: 17.5, fontWeight: 600, color: 'var(--t1)', lineHeight: 1.6, marginBottom: 24 }}>{q.text}</div>
 
         {/* ── MCQ ── */}
         {q.type === 'mcq' && (
@@ -477,7 +477,7 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
                 display: 'flex', gap: 12, alignItems: 'flex-start', padding: '14px 18px', borderRadius: 10,
                 border: `1.5px solid ${answers[q.id] === i ? 'var(--accent)' : 'var(--border)'}`,
                 background: answers[q.id] === i ? 'var(--accent-light)' : 'var(--bg2)',
-                cursor: 'pointer', fontSize: 14, color: 'var(--t1)',
+                cursor: 'pointer', fontSize: 15.5, color: 'var(--t1)',
               }}>
                 <input type="radio" name={q.id} checked={answers[q.id] === i} onChange={() => setAnswers(a => ({ ...a, [q.id]: i }))} style={{ marginTop: 3, flexShrink: 0 }} />
                 <span>{opt}</span>
@@ -493,7 +493,7 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
             onChange={e => setAnswers(a => ({ ...a, [q.id]: e.target.value }))}
             rows={10}
             placeholder="Write your detailed academic response here..."
-            style={{ width: '100%', padding: '14px 18px', borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 14, fontFamily: 'inherit', lineHeight: 1.65, resize: 'vertical' }}
+            style={{ width: '100%', padding: '14px 18px', borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 15.5, fontFamily: 'inherit', lineHeight: 1.65, resize: 'vertical' }}
           />
         )}
 
@@ -505,7 +505,7 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
                 <button key={l} type="button"
                   onClick={() => setLang(prev => ({ ...prev, [q.id]: l }))}
                   style={{
-                    padding: '4px 12px', borderRadius: 6, border: '1.5px solid', fontSize: 11, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-mono)',
+                    padding: '4px 12px', borderRadius: 6, border: '1.5px solid', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-mono)',
                     borderColor: (lang[q.id] || q.defaultLang || 'python') === l ? 'var(--accent)' : 'var(--border)',
                     background:  (lang[q.id] || q.defaultLang || 'python') === l ? 'var(--accent-light)' : 'var(--bg3)',
                     color:       (lang[q.id] || q.defaultLang || 'python') === l ? 'var(--accent)' : 'var(--t3)',
@@ -519,48 +519,48 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
               onChange={e => setCode(prev => ({ ...prev, [q.id]: e.target.value }))}
               rows={14}
               spellCheck={false}
-              style={{ width: '100%', padding: '14px 18px', borderRadius: 10, border: '1px solid var(--border)', background: '#0d1117', color: '#e6edf3', fontSize: 13, fontFamily: 'var(--font-mono)', lineHeight: 1.6, resize: 'vertical', tabSize: 4 }}
+              style={{ width: '100%', padding: '14px 18px', borderRadius: 10, border: '1px solid var(--border)', background: '#0d1117', color: '#e6edf3', fontSize: 14.5, fontFamily: 'var(--font-mono)', lineHeight: 1.6, resize: 'vertical', tabSize: 4 }}
               onKeyDown={e => {
                 if (e.key === 'Tab') { e.preventDefault(); const s = e.currentTarget; const st = s.selectionStart; const en = s.selectionEnd; const val = s.value; s.value = val.substring(0, st) + '    ' + val.substring(en); s.selectionStart = s.selectionEnd = st + 4; setCode(prev => ({ ...prev, [q.id]: s.value })); }
               }}
             />
 
             {q.constraints && (
-              <div style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)', padding: '6px 10px', background: 'var(--bg3)', borderRadius: 6 }}>
+              <div style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', padding: '6px 10px', background: 'var(--bg3)', borderRadius: 6 }}>
                 Constraints: {q.constraints}
               </div>
             )}
 
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <button type="button" onClick={() => runCode(q)} disabled={running} className="btn-primary" style={{ fontSize: 13 }}>
+              <button type="button" onClick={() => runCode(q)} disabled={running} className="btn-primary" style={{ fontSize: 14.5 }}>
                 {running ? '⟳ Running Tests…' : '▶ Run Public Tests'}
               </button>
               {results[q.id] && (
-                <span style={{ fontSize: 13, fontWeight: 700, color: results[q.id].passed === results[q.id].total ? 'var(--green)' : 'var(--amber)' }}>
+                <span style={{ fontSize: 14.5, fontWeight: 700, color: results[q.id].passed === results[q.id].total ? 'var(--green)' : 'var(--amber)' }}>
                   {results[q.id].passed} / {results[q.id].total} public test cases passed
                 </span>
               )}
             </div>
 
             {results[q.id]?.error && (
-              <div style={{ padding: '8px 12px', background: 'var(--coral-light)', borderRadius: 6, fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--coral)' }}>
+              <div style={{ padding: '8px 12px', background: 'var(--coral-light)', borderRadius: 6, fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--coral)' }}>
                 {results[q.id].error}
               </div>
             )}
             {results[q.id]?.output && !results[q.id]?.error && (
-              <div style={{ padding: '8px 12px', background: 'var(--bg3)', borderRadius: 6, fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)' }}>
+              <div style={{ padding: '8px 12px', background: 'var(--bg3)', borderRadius: 6, fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--t2)' }}>
                 Output: {results[q.id].output}
               </div>
             )}
 
             {(q.testCases || []).filter(tc => !tc.hidden).length > 0 && (
               <div>
-                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>Sample Test Cases</div>
+                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>Sample Test Cases</div>
                 {(q.testCases || []).filter(tc => !tc.hidden).map((tc, i) => (
-                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8, padding: '8px 12px', background: 'var(--bg3)', borderRadius: 6, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8, padding: '8px 12px', background: 'var(--bg3)', borderRadius: 6, fontSize: 13, fontFamily: 'var(--font-mono)' }}>
                     <div><span style={{ color: 'var(--t3)' }}>Input: </span><span style={{ color: 'var(--teal)' }}>{tc.input}</span></div>
                     <div><span style={{ color: 'var(--t3)' }}>Expected: </span><span style={{ color: 'var(--green)' }}>{tc.output}</span></div>
-                    {tc.explanation && <div style={{ gridColumn: '1/-1', color: 'var(--t3)', fontSize: 11 }}>{tc.explanation}</div>}
+                    {tc.explanation && <div style={{ gridColumn: '1/-1', color: 'var(--t3)', fontSize: 12 }}>{tc.explanation}</div>}
                   </div>
                 ))}
               </div>

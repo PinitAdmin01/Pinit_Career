@@ -166,14 +166,14 @@ function LoginContent() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 32,
+            fontSize: 35,
             margin: '0 auto 20px',
             border: '2px solid #10b981'
           }}>✓</div>
-          <h2 style={{ fontSize: 22, fontWeight: 800, margin: '0 0 8px', color: 'var(--text)' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 800, margin: '0 0 8px', color: 'var(--text)' }}>
             Authentication Verified
           </h2>
-          <p style={{ fontSize: 14, color: '#9ca3af', margin: 0 }}>
+          <p style={{ fontSize: 15.5, color: '#9ca3af', margin: 0 }}>
             Preparing your Sovereign Career Workspace...
           </p>
           <div style={{
@@ -250,7 +250,7 @@ function LoginContent() {
               flex: 1,
               padding: '9px 12px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 750,
               border: 'none',
               cursor: 'pointer',
@@ -268,7 +268,7 @@ function LoginContent() {
               flex: 1,
               padding: '9px 12px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 750,
               border: 'none',
               cursor: 'pointer',
@@ -288,7 +288,7 @@ function LoginContent() {
               justifyContent: 'center',
               padding: '9px 12px',
               borderRadius: 10,
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 750,
               color: 'var(--text-secondary, #94A3B8)',
               textDecoration: 'none',
@@ -307,7 +307,7 @@ function LoginContent() {
             color: 'var(--danger-bright)',
             padding: '12px 16px',
             borderRadius: 14,
-            fontSize: 13,
+            fontSize: 14.5,
             marginBottom: 20
           }}>
             ⚠️ {errorMsg}
@@ -320,10 +320,10 @@ function LoginContent() {
         {mainTab === 'vault' && (
           <div>
             <div style={{ textAlign: 'center', marginBottom: 16 }}>
-              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
+              <h2 style={{ fontSize: 21, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
                 PinIT Vault Login
               </h2>
-              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
+              <p style={{ fontSize: 14, color: 'var(--text-tertiary)', margin: 0 }}>
                 Secure cross-device QR authentication
               </p>
             </div>
@@ -342,10 +342,10 @@ function LoginContent() {
                 gap: 12
               }}>
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--warning-bright)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--warning-bright)', display: 'flex', alignItems: 'center', gap: 6 }}>
                     ⚡ Developer Mode Enabled
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 2 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>
                     Skip Vault &amp; create a fresh unique user to test Onboarding.
                   </div>
                 </div>
@@ -359,7 +359,7 @@ function LoginContent() {
                     border: 'none',
                     padding: '7px 12px',
                     borderRadius: 8,
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: 800,
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
@@ -389,13 +389,13 @@ function LoginContent() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 28,
+                fontSize: 31,
                 margin: '0 auto 16px'
               }}>📱</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>
+              <div style={{ fontSize: 16.5, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>
                 PinIT Vault App Required
               </div>
-              <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 20 }}>
+              <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 20 }}>
                 QR login requires the <strong>PinIT Vault</strong> mobile app to scan and approve the challenge on a second device.
                 The app is not yet available — this feature is coming soon.
               </div>
@@ -408,7 +408,7 @@ function LoginContent() {
                   background: 'var(--accent)',
                   color: '#fff',
                   border: 'none',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   fontWeight: 750,
                   cursor: 'pointer'
                 }}
@@ -424,7 +424,7 @@ function LoginContent() {
               gap: 8,
               paddingTop: 14,
               borderTop: '1px solid var(--border-color)',
-              fontSize: 12.5,
+              fontSize: 14,
               color: 'var(--text-tertiary)'
             }}>
               <div>
@@ -443,16 +443,16 @@ function LoginContent() {
         {mainTab === 'password' && (
           <form onSubmit={handlePasswordLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ textAlign: 'center', marginBottom: 12 }}>
-              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
+              <h2 style={{ fontSize: 21, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
                 Sign In With Password
               </h2>
-              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
+              <p style={{ fontSize: 14, color: 'var(--text-tertiary)', margin: 0 }}>
                 Unified Portal for Students, Faculty & Recruiters
               </p>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
                 Email / Roll Number / Username
               </label>
               <input
@@ -468,14 +468,14 @@ function LoginContent() {
                   background: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  fontSize: 13.5,
+                  fontSize: 15,
                   outline: 'none'
                 }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
                 Password
               </label>
               <input
@@ -491,7 +491,7 @@ function LoginContent() {
                   background: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  fontSize: 13.5,
+                  fontSize: 15,
                   outline: 'none'
                 }}
               />
@@ -507,7 +507,7 @@ function LoginContent() {
                 background: 'var(--accent)',
                 color: 'var(--text)',
                 border: 'none',
-                fontSize: 13.5,
+                fontSize: 15,
                 fontWeight: 750,
                 cursor: 'pointer',
                 marginTop: 6,
@@ -520,7 +520,7 @@ function LoginContent() {
         )}
 
         {/* 🧭 Universal Footer Switcher */}
-        <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: 12.5, color: 'var(--text-tertiary)' }}>
+        <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: 14, color: 'var(--text-tertiary)' }}>
           {mainTab === 'vault' ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
               <span>

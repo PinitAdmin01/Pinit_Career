@@ -28,8 +28,8 @@ export default function TeacherRoleGate() {
           color: 'var(--t3, #64748b)',
         }}
       >
-        <div style={{ fontSize: 32, marginBottom: 12, animation: 'spin 1s linear infinite' }}>⬡</div>
-        <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: 12 }}>
+        <div style={{ fontSize: 35, marginBottom: 12, animation: 'spin 1s linear infinite' }}>⬡</div>
+        <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: 13 }}>
           Verifying faculty credentials...
         </div>
       </div>
@@ -95,16 +95,16 @@ export default function TeacherRoleGate() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '28px',
+              fontSize: '31px',
               margin: '0 auto 16px',
             }}
           >
             👨‍🏫
           </div>
-          <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
             Faculty & Teacher Studio
           </h2>
-          <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '24px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '14.5px', color: '#94a3b8', marginBottom: '24px', lineHeight: 1.5 }}>
             This workspace is restricted to authorized professors, instructors, and campus administrators. Please sign in with your faculty account.
           </p>
 
@@ -116,7 +116,7 @@ export default function TeacherRoleGate() {
                 background: 'rgba(239, 68, 68, 0.1)',
                 border: '1px solid rgba(239, 68, 68, 0.3)',
                 color: '#f87171',
-                fontSize: '12px',
+                fontSize: '13px',
                 marginBottom: '16px',
                 textAlign: 'left',
               }}
@@ -135,7 +135,7 @@ export default function TeacherRoleGate() {
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                 color: '#ffffff',
                 fontWeight: 600,
-                fontSize: '14px',
+                fontSize: '15.5px',
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
@@ -155,7 +155,7 @@ export default function TeacherRoleGate() {
                   background: 'rgba(59, 130, 246, 0.1)',
                   color: '#60a5fa',
                   fontWeight: 500,
-                  fontSize: '13px',
+                  fontSize: '14.5px',
                   border: '1px solid rgba(59, 130, 246, 0.3)',
                   cursor: isLoggingIn ? 'wait' : 'pointer',
                   display: 'flex',
@@ -208,16 +208,16 @@ export default function TeacherRoleGate() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '28px',
+              fontSize: '31px',
               margin: '0 auto 16px',
             }}
           >
             🚫
           </div>
-          <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
             403 — Faculty Access Required
           </h2>
-          <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '8px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '14.5px', color: '#94a3b8', marginBottom: '8px', lineHeight: 1.5 }}>
             You are currently signed in as <strong>{user.displayName || user.username || user.email}</strong> with role{' '}
             <code
               style={{
@@ -231,7 +231,7 @@ export default function TeacherRoleGate() {
             </code>
             .
           </p>
-          <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '24px' }}>
+          <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '24px' }}>
             This studio requires faculty, instructor, or campus administrator privileges.
           </p>
 
@@ -245,7 +245,7 @@ export default function TeacherRoleGate() {
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                 color: '#ffffff',
                 fontWeight: 600,
-                fontSize: '13px',
+                fontSize: '14.5px',
                 border: 'none',
                 cursor: 'pointer',
               }}
@@ -264,7 +264,7 @@ export default function TeacherRoleGate() {
                 background: 'transparent',
                 color: '#cbd5e1',
                 fontWeight: 500,
-                fontSize: '12px',
+                fontSize: '13px',
                 border: '1px solid #334155',
                 cursor: 'pointer',
               }}

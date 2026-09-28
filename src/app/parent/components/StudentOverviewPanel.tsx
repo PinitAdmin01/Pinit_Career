@@ -33,10 +33,10 @@ export default function StudentOverviewPanel({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 18 }}>🤖</span>
-            <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--success)' }}>Live Overview Summary</span>
+            <span style={{ fontSize: 20 }}>🤖</span>
+            <span style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--success)' }}>Live Overview Summary</span>
           </div>
-          <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
+          <p style={{ margin: 0, fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5 }}>
             Showing metrics returned by the parent overview API for {overview.profile?.displayName || 'this student'}.
             Attendance, CGPA, and institutional alerts appear only when those data sources are connected.
           </p>
@@ -56,12 +56,12 @@ export default function StudentOverviewPanel({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 16 }}>🛡️</span>
-              <span style={{ fontSize: 12.5, color: 'var(--success)', fontWeight: 800 }}>
+              <span style={{ fontSize: 17.5 }}>🛡️</span>
+              <span style={{ fontSize: 14, color: 'var(--success)', fontWeight: 800 }}>
                 {Object.keys(acknowledgedAlerts).length} Institutional Advisory Alert(s) Formally Acknowledged
               </span>
             </div>
-            <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
               SEAL #ACK-PAR-{Object.keys(acknowledgedAlerts).length}
             </span>
           </div>
@@ -131,13 +131,13 @@ export default function StudentOverviewPanel({
                 gap: 4,
               }}
             >
-              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 {card.label}
               </span>
-              <span style={{ fontSize: 24, fontWeight: 900, color: card.color, fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 26.5, fontWeight: 900, color: card.color, fontFamily: 'var(--font-mono)' }}>
                 {card.value}
               </span>
-              <span style={{ fontSize: 10, color: 'var(--t3)' }}>{card.desc}</span>
+              <span style={{ fontSize: 11, color: 'var(--t3)' }}>{card.desc}</span>
             </div>
           ))}
         </div>
@@ -149,8 +149,8 @@ export default function StudentOverviewPanel({
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
         <div>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>👤 Student Registry Profile</h3>
-          <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+          <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>👤 Student Registry Profile</h3>
+          <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
             Verified institutional registration details, emergency contact indexes, and parent credentials.
           </p>
         </div>
@@ -176,18 +176,18 @@ export default function StudentOverviewPanel({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 24,
+              fontSize: 26.5,
             }}
           >
             👨‍💻
           </div>
           <div>
-            <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
+            <h4 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>
               {overview.profile?.displayName ||
                 students?.find(s => s.id === selectedStudent)?.display_name ||
                 'Student'}
             </h4>
-            <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>
               Registration ID:{' '}
               <strong style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
                 {students?.find(s => s.id === selectedStudent)?.register_number || selectedStudent}
@@ -202,39 +202,39 @@ export default function StudentOverviewPanel({
           {/* Left column: Academic parameters */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Department
               </span>
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
                 {overview.profile?.department || 'Department of Computer Science'}
               </div>
             </div>
 
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Current Semester
               </span>
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
                 {overview.profile?.semester || 'Semester in Progress'}
               </div>
             </div>
 
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Academic Batch
               </span>
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
                 {overview.profile?.batch || 'Active Academic Cohort'}
               </div>
             </div>
 
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Roll Number
               </span>
               <div
                 style={{
-                  fontSize: 14.5,
+                  fontSize: 16,
                   fontWeight: 800,
                   color: 'var(--t1)',
                   marginTop: 4,
@@ -249,12 +249,12 @@ export default function StudentOverviewPanel({
           {/* Right column: Guardianship parameters */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Emergency Contact
               </span>
               <div
                 style={{
-                  fontSize: 14.5,
+                  fontSize: 16,
                   fontWeight: 800,
                   color: 'var(--danger)',
                   marginTop: 4,
@@ -263,7 +263,7 @@ export default function StudentOverviewPanel({
               >
                 {overview.profile?.emergencyContact || 'Not Specified'}
               </div>
-              <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>Verified Guardian Record</span>
+              <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Verified Guardian Record</span>
             </div>
 
             <div
@@ -278,29 +278,29 @@ export default function StudentOverviewPanel({
                 justifyContent: 'center',
               }}
             >
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
                 Guardian Credentials
               </span>
               {overview.profile?.parentDetails?.fatherName || overview.profile?.parentDetails?.motherName ? (
                 <>
                   {overview.profile.parentDetails.fatherName && (
-                    <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 4 }}>
+                    <div style={{ fontSize: 14.5, color: 'var(--t1)', fontWeight: 700, marginTop: 4 }}>
                       Father: {overview.profile.parentDetails.fatherName}
                     </div>
                   )}
                   {overview.profile.parentDetails.motherName && (
-                    <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 2 }}>
+                    <div style={{ fontSize: 14.5, color: 'var(--t1)', fontWeight: 700, marginTop: 2 }}>
                       Mother: {overview.profile.parentDetails.motherName}
                     </div>
                   )}
                   {overview.profile.parentDetails.parentEmail && (
-                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+                    <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
                       Email: {overview.profile.parentDetails.parentEmail}
                     </div>
                   )}
                 </>
               ) : (
-                <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 4 }}>
+                <div style={{ fontSize: 14, color: 'var(--t2)', marginTop: 4 }}>
                   Self-registered student profile. Primary guardian portal authenticated via registered ID.
                 </div>
               )}
@@ -324,7 +324,7 @@ export default function StudentOverviewPanel({
               border: 'none',
               borderRadius: 8,
               cursor: 'pointer',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 700,
             }}
           >
@@ -340,16 +340,16 @@ export default function StudentOverviewPanel({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }} className="fade-in">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>
+            <h3 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
               📅 Monthly AI Parent Summary Report
             </h3>
-            <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+            <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
               Comprehensive monthly student performance report compiled by Athena AI.
             </p>
           </div>
           <span
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 900,
               background: 'var(--bg3)',
               border: '1px solid var(--border)',
@@ -366,10 +366,10 @@ export default function StudentOverviewPanel({
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           {/* Block 1: Academic & Career Progress */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 900, color: 'var(--accent)' }}>
+            <h4 style={{ margin: '0 0 12px 0', fontSize: 14.5, fontWeight: 900, color: 'var(--accent)' }}>
               📈 Performance Summary
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 14, color: 'var(--t2)' }}>
               <div>
                 <strong>Academic Evaluations:</strong>{' '}
                 {(overview.recentExams || []).length > 0
@@ -385,10 +385,10 @@ export default function StudentOverviewPanel({
 
           {/* Block 2: Attendance Trends & Achievements */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 900, color: 'var(--teal)' }}>
+            <h4 style={{ margin: '0 0 12px 0', fontSize: 14.5, fontWeight: 900, color: 'var(--teal)' }}>
               🏆 Achievements & Continuous Learning
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 14, color: 'var(--t2)' }}>
               <div>
                 <strong>Learning Streak:</strong>{' '}
                 {overview.profile?.mission_streak != null
@@ -408,10 +408,10 @@ export default function StudentOverviewPanel({
           {/* Left: Support Needs & Upcoming Milestones */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
-              <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
+              <h4 style={{ margin: '0 0 8px 0', fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
                 🎯 Focus Areas for Semester
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, color: 'var(--t2)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
                 <div>• <strong>Technical Portfolio</strong>: Ensure git projects have live deployment links.</div>
                 <div>• <strong>ATS Resume Tuning</strong>: Maintain keyword alignment with target {overview.profile?.career_track || 'career track'}.</div>
                 <div>• <strong>Continuous Assessments</strong>: Participate in scheduled departmental quizzes and practice mock tests.</div>
@@ -419,10 +419,10 @@ export default function StudentOverviewPanel({
             </div>
 
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
-              <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
+              <h4 style={{ margin: '0 0 8px 0', fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
                 📅 Academic Period Status
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, color: 'var(--t2)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
                 <div>• <strong>Academic Cohort</strong>: {overview.profile?.batch || 'Active Enrollment'}</div>
                 <div>• <strong>Current Status</strong>: Active Student Registry</div>
                 <div>• <strong>Evaluation Cycle</strong>: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
@@ -443,13 +443,13 @@ export default function StudentOverviewPanel({
               justifyItems: 'center',
             }}
           >
-            <h4 style={{ margin: '0 0 8px 0', fontSize: 13, fontWeight: 900, color: 'var(--success)' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: 14.5, fontWeight: 900, color: 'var(--success)' }}>
               💡 Action Plan for Home
             </h4>
-            <p style={{ margin: '0 0 12px 0', fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>
+            <p style={{ margin: '0 0 12px 0', fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
               Practical tips to help you support your child's placement preparation:
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 12, color: 'var(--t2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, color: 'var(--t2)' }}>
               <div>1. <strong>Encourage regular class attendance</strong> to prevent backlog drops.</div>
               <div>2. <strong>Monitor quest and lab progress</strong> inside the student career workspace.</div>
               <div>3. <strong>Verify portfolio projects</strong> are updated with verified credentials.</div>
@@ -470,12 +470,12 @@ export default function StudentOverviewPanel({
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; padding: 36px; color: #0f172a; max-width: 800px; margin: 0 auto; line-height: 1.6; }
     h1 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 20px; }
-    .header-meta { margin-bottom: 24px; font-size: 14px; color: #475569; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .header-meta { margin-bottom: 24px; font-size: 15.5px; color: #475569; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; }
     .section { margin-bottom: 24px; padding: 18px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff; }
     .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
     .metric-card { background: #f8fafc; padding: 14px; border-radius: 6px; border: 1px solid #cbd5e1; }
-    .metric-val { font-size: 24px; font-weight: bold; color: #16a34a; }
-    .footer { margin-top: 36px; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 12px; }
+    .metric-val { font-size: 26.5px; font-weight: bold; color: #16a34a; }
+    .footer { margin-top: 36px; font-size: 13px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 12px; }
   </style>
 </head>
 <body>
@@ -527,7 +527,7 @@ export default function StudentOverviewPanel({
                   border: 'none',
                   borderRadius: 8,
                   cursor: 'pointer',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: 700,
                 }}
               >

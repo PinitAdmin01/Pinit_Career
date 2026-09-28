@@ -267,9 +267,9 @@ export default function GearAudioHub({
             paddingBottom: '12px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '15px' }}>⚙️</span>
+              <span style={{ fontSize: '16.5px' }}>⚙️</span>
               <span style={{
-                fontSize: '13px',
+                fontSize: '14.5px',
                 fontWeight: 800,
                 color: isDark ? '#FFFFFF' : '#0F172A',
                 letterSpacing: '0.02em'
@@ -278,7 +278,7 @@ export default function GearAudioHub({
               </span>
             </div>
             <span style={{
-              fontSize: '10px',
+              fontSize: '11px',
               fontFamily: 'var(--font-mono)',
               padding: '2px 8px',
               borderRadius: '20px',
@@ -310,9 +310,9 @@ export default function GearAudioHub({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '14px' }}>{storeTheme === 'dark' ? '🌙' : '☀️'}</span>
+              <span style={{ fontSize: '15.5px' }}>{storeTheme === 'dark' ? '🌙' : '☀️'}</span>
               <span style={{
-                fontSize: '12px',
+                fontSize: '13px',
                 fontWeight: 750,
                 color: isDark ? '#FFFFFF' : '#0F172A'
               }}>
@@ -320,7 +320,7 @@ export default function GearAudioHub({
               </span>
             </div>
             <span style={{
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 800,
               fontFamily: 'var(--font-mono)',
               color: isDark ? 'var(--accent, #00A3FF)' : '#0284c7'
@@ -331,7 +331,7 @@ export default function GearAudioHub({
 
           {/* 1. 🗣️ AVATAR MENTOR VOICE VOLUME */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
               <span style={{
                 color: isDark ? 'var(--text-muted)' : '#475569',
                 fontWeight: 650,
@@ -346,7 +346,7 @@ export default function GearAudioHub({
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 750,
                 color: isDark ? '#FFFFFF' : '#0F172A',
-                fontSize: '11px'
+                fontSize: '12px'
               }}>
                 {isMuted ? '0%' : `${avatarVolume}%`}
               </span>
@@ -373,7 +373,7 @@ export default function GearAudioHub({
 
           {/* 2. 🎵 AMBIENT MUSIC VOLUME SLIDER */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
               <span style={{
                 color: isDark ? 'var(--text-muted)' : '#475569',
                 fontWeight: 650,
@@ -388,7 +388,7 @@ export default function GearAudioHub({
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 750,
                 color: isDark ? '#FFFFFF' : '#0F172A',
-                fontSize: '11px'
+                fontSize: '12px'
               }}>
                 {isMuted ? '0%' : `${ambientVolume}%`}
               </span>
@@ -424,17 +424,17 @@ export default function GearAudioHub({
             border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '14px' }}>✨</span>
+              <span style={{ fontSize: '15.5px' }}>✨</span>
               <div>
                 <div style={{
-                  fontSize: '12px',
+                  fontSize: '13px',
                   fontWeight: 750,
                   color: isDark ? '#FFFFFF' : '#0F172A'
                 }}>
                   Sky Animations
                 </div>
                 <div style={{
-                  fontSize: '10px',
+                  fontSize: '11px',
                   color: isDark ? 'var(--text-muted)' : 'var(--text-dim)'
                 }}>
                   {animationsEnabled ? 'Meteors & Sunlight active' : 'Background paused'}
@@ -453,7 +453,7 @@ export default function GearAudioHub({
                 gap: '5px',
                 padding: '4px 10px',
                 borderRadius: '20px',
-                fontSize: '11px',
+                fontSize: '12px',
                 fontWeight: 800,
                 fontFamily: 'var(--font-mono)',
                 cursor: 'pointer',
@@ -492,7 +492,7 @@ export default function GearAudioHub({
                 : (isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)'),
               border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)',
               color: isMuted ? '#FFF' : (isDark ? '#FFF' : '#0F172A'),
-              fontSize: '12px',
+              fontSize: '13px',
               fontWeight: 750,
               display: 'flex',
               alignItems: 'center',
@@ -507,7 +507,7 @@ export default function GearAudioHub({
 
           {/* 5. 🔊 AMBIENT FOCUS SOUNDSCAPE */}
           <div style={{
-            fontSize: '11px',
+            fontSize: '12px',
             color: isDark ? 'var(--text-muted)' : 'var(--text-dim)',
             background: isDark ? 'rgba(0, 163, 255, 0.08)' : 'rgba(2, 132, 199, 0.08)',
             border: isDark ? '1px solid rgba(0, 163, 255, 0.2)' : '1px solid rgba(2, 132, 199, 0.25)',
@@ -534,7 +534,7 @@ export default function GearAudioHub({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            fontSize: '11px',
+            fontSize: '12px',
           }}>
             <span style={{ color: isDark ? 'var(--text-muted)' : 'var(--text-dim)' }}>
               Voice Cache: {cacheStats.count} {cacheStats.count === 1 ? 'clip' : 'clips'} ({(cacheStats.totalSizeBytes / 1024).toFixed(0)} KB)
@@ -546,7 +546,7 @@ export default function GearAudioHub({
                 background: 'transparent',
                 border: 'none',
                 color: cacheCleared ? '#10B981' : (isDark ? '#00A3FF' : '#0284c7'),
-                fontSize: '11px',
+                fontSize: '12px',
                 fontWeight: 700,
                 cursor: 'pointer',
                 padding: '2px 6px',

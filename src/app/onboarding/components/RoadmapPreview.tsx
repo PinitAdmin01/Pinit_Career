@@ -110,24 +110,24 @@ export default function RoadmapPreview({
       <style>{`
         .rp-root { height: 100%; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
           gap: clamp(8px, 1.5vh, 16px); padding: clamp(14px, 2.2vh, 28px) clamp(18px, 2.2vw, 36px); color: #f8fafc; }
-        .rp-chip { align-self: flex-start; font-size: 15px; font-weight: 800; color: #a5b4fc; background: rgba(99,102,241,0.16);
+        .rp-chip { align-self: flex-start; font-size: 16.5px; font-weight: 800; color: #a5b4fc; background: rgba(99,102,241,0.16);
           border: 1px solid rgba(129,140,248,0.4); border-radius: 999px; padding: 5px 14px; }
         .rp-title { margin: 0; font-size: clamp(28px, 2.2vw + 1.2vh, 42px); font-weight: 900; line-height: 1.15; color: #fff; }
         .rp-sub { margin: 0; font-size: clamp(17px, 0.8vw + 0.8vh, 21px); color: #e2e8f0; line-height: 1.4; }
         .rp-bars { display: flex; flex-direction: column; gap: clamp(6px, 1vh, 10px); }
         .rp-bar-row { display: grid; grid-template-columns: minmax(150px, 34%) 1fr; align-items: center; gap: 12px; }
-        .rp-bar-name { font-size: 17px; font-weight: 700; color: #f1f5f9; white-space: nowrap; }
+        .rp-bar-name { font-size: 18.5px; font-weight: 700; color: #f1f5f9; white-space: nowrap; }
         .rp-bar-track { height: 14px; border-radius: 999px; background: rgba(255,255,255,0.1); overflow: hidden; display: block; }
         .rp-bar-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brand, #6366f1), var(--accent, #22d3ee)); }
         .rp-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
         .rp-card { display: flex; flex-direction: column; gap: 4px; padding: 12px 16px; border-radius: 16px;
           background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); }
-        .rp-card-label { font-size: 14px; font-weight: 800; color: #a5b4fc; }
-        .rp-card-text { font-size: 17px; font-weight: 700; color: #f8fafc; line-height: 1.35; }
-        .rp-mentor { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 17px; color: #e2e8f0; }
+        .rp-card-label { font-size: 15.5px; font-weight: 800; color: #a5b4fc; }
+        .rp-card-text { font-size: 18.5px; font-weight: 700; color: #f8fafc; line-height: 1.35; }
+        .rp-mentor { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 18.5px; color: #e2e8f0; }
         .rp-switch { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #f1f5f9; border-radius: 999px;
-          padding: 8px 16px; font-size: 15px; font-weight: 700; cursor: pointer; }
-        .rp-start { height: clamp(50px, 7vh, 60px); border: none; border-radius: 16px; font-size: 20px; font-weight: 900; color: #fff; cursor: pointer;
+          padding: 8px 16px; font-size: 16.5px; font-weight: 700; cursor: pointer; }
+        .rp-start { height: clamp(50px, 7vh, 60px); border: none; border-radius: 16px; font-size: 22px; font-weight: 900; color: #fff; cursor: pointer;
           background: linear-gradient(135deg, var(--teal, #14b8a6) 0%, var(--accent, #22d3ee) 100%); box-shadow: 0 8px 24px rgba(20,184,166,0.3); }
         .rp-start:disabled, .rp-switch:disabled { opacity: 0.6; cursor: not-allowed; }
       `}</style>

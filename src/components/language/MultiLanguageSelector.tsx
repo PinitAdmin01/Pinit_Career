@@ -52,9 +52,9 @@ export const MultiLanguageSelector: React.FC<MultiLanguageSelectorProps> = ({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, width: '100%', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 20 }}>{meta.flag}</span>
+              <span style={{ fontSize: 22 }}>{meta.flag}</span>
               <span style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 800,
                 padding: '2px 6px',
                 borderRadius: 8,
@@ -65,11 +65,11 @@ export const MultiLanguageSelector: React.FC<MultiLanguageSelectorProps> = ({
               </span>
             </div>
 
-            <div style={{ marginTop: 6, fontWeight: 800, fontSize: 13 }}>
+            <div style={{ marginTop: 6, fontWeight: 800, fontSize: 14.5 }}>
               {meta.name}
             </div>
 
-            <div style={{ fontSize: 10, opacity: 0.6, marginTop: 2 }}>
+            <div style={{ fontSize: 11, opacity: 0.6, marginTop: 2 }}>
               {meta.nativeName} • {prog.totalXpEarned} XP
             </div>
           </button>

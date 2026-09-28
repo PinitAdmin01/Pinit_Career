@@ -127,7 +127,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
                 href={link.href}
                 className={isActive ? 'lp-nav-link is-on' : 'lp-nav-link'}
                 style={{
-                  fontSize: '13.5px',
+                  fontSize: '15px',
                   fontWeight: isActive ? 750 : 600,
                   color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
                   textDecoration: 'none',
@@ -148,7 +148,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             className="lp-login-link"
             style={{
               padding: '7px 14px',
-              fontSize: '12.5px',
+              fontSize: '14px',
               fontWeight: 700,
               textDecoration: 'none',
               borderRadius: '8px',
@@ -168,7 +168,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             className="lp-start"
             style={{
               padding: '8px 16px',
-              fontSize: '12.5px',
+              fontSize: '14px',
               fontWeight: 750,
               textDecoration: 'none',
               borderRadius: '8px',
@@ -196,7 +196,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
+              fontSize: '17.5px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -216,7 +216,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               display: 'none',
               background: 'none',
               border: 'none',
-              fontSize: '22px',
+              fontSize: '24px',
               color: theme === 'dark' ? '#FFF' : '#000',
               cursor: 'pointer',
               marginLeft: '4px'
@@ -250,7 +250,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
-                  fontSize: '15px',
+                  fontSize: '16.5px',
                   fontWeight: isActive ? 750 : 500,
                   color: isActive ? 'var(--accent)' : (theme === 'dark' ? '#94A3B8' : '#475569'),
                   textDecoration: 'none',
@@ -265,7 +265,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             href="/signup"
             onClick={() => setMobileMenuOpen(false)}
             style={{
-              fontSize: '15px',
+              fontSize: '16.5px',
               fontWeight: 800,
               color: '#041018',
               background: 'linear-gradient(135deg, #5ad0ff, #0077cc)',

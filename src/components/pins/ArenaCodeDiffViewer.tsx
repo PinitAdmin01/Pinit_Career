@@ -129,9 +129,9 @@ export default function ArenaCodeDiffViewer({
             background: 'var(--bg3)',
           }}
         >
-          <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
+          <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)' }}>
             <span id="code-diff-title">Code Comparison</span>
-            <span style={{ fontSize: 11, textTransform: 'uppercase', color: '#818cf8' }}>
+            <span style={{ fontSize: 12, textTransform: 'uppercase', color: '#818cf8' }}>
               {problemId}
             </span>
           </div>
@@ -143,7 +143,7 @@ export default function ArenaCodeDiffViewer({
               background: 'var(--bg3)',
               border: '1px solid var(--border)',
               color: 'var(--t2)',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 600,
               cursor: 'pointer',
               flexShrink: 0,
@@ -162,7 +162,7 @@ export default function ArenaCodeDiffViewer({
             justifyContent: 'space-between',
             alignItems: 'center',
             background: 'var(--bg3)',
-            fontSize: 12,
+            fontSize: 13,
             color: 'var(--t3)',
           }}
         >
@@ -195,7 +195,7 @@ export default function ArenaCodeDiffViewer({
               background: activeTab === 'my' ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
               color: activeTab === 'my' ? '#6366f1' : 'var(--t1)',
               fontWeight: 600,
-              fontSize: 12,
+              fontSize: 13,
               cursor: 'pointer',
               width: '50%',
               borderRight: '1px solid var(--border)',
@@ -211,7 +211,7 @@ export default function ArenaCodeDiffViewer({
               background: activeTab === 'opponent' ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
               color: activeTab === 'opponent' ? '#6366f1' : 'var(--t1)',
               fontWeight: 600,
-              fontSize: 12,
+              fontSize: 13,
               cursor: 'pointer',
               width: '50%',
               borderLeft: '1px solid var(--border)',
@@ -239,7 +239,7 @@ export default function ArenaCodeDiffViewer({
                 style={{
                   margin: 0,
                   fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   lineHeight: 1.5,
                   color: 'var(--t1)',
                   whiteSpace: 'pre-wrap',
@@ -266,7 +266,7 @@ export default function ArenaCodeDiffViewer({
                 style={{
                   margin: 0,
                   fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   lineHeight: 1.5,
                   color: 'var(--t1)',
                   whiteSpace: 'pre-wrap',
@@ -285,11 +285,11 @@ export default function ArenaCodeDiffViewer({
             padding: 12,
             borderTop: '1px solid var(--border)',
             background: 'var(--bg3)',
-            fontSize: 11,
+            fontSize: 12,
             color: 'var(--t2)',
           }}
         >
-          <p style={{ margin: '4px 0 8px', fontSize: 10 }}>
+          <p style={{ margin: '4px 0 8px', fontSize: 11 }}>
             <span
               style={{
                 display: 'inline-block',
@@ -321,7 +321,7 @@ export default function ArenaCodeDiffViewer({
             </span>
             Different approach
           </p>
-          <p style={{ margin: 0, fontSize: 10 }}>
+          <p style={{ margin: 0, fontSize: 11 }}>
             Lines marked ✓ have similar logic; ✗ lines show where the opponent's algorithm
             diverges — study these to learn optimization and edge-case handling techniques.
           </p>

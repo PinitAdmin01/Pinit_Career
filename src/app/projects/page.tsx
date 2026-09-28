@@ -720,8 +720,8 @@ function ProjectsPageContent() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>🚀 Projects & Squads Innovation Hub</h1>
-          <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>
+          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>🚀 Projects & Squads Innovation Hub</h1>
+          <p style={{ margin: '4px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
             Build individual GitHub-verified Capstones or collaborate with 3-person Hackathon Squads.
           </p>
         </div>
@@ -753,7 +753,7 @@ function ProjectsPageContent() {
             color: mainTab === 'solo' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -780,7 +780,7 @@ function ProjectsPageContent() {
             color: mainTab === 'squads' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -813,21 +813,21 @@ function ProjectsPageContent() {
               border: '1.5px dashed var(--border)',
               borderRadius: 20, padding: '60px 24px', textAlign: 'center', margin: '40px auto', maxWidth: 640
             }}>
-              <div style={{ fontSize: 64, marginBottom: 20 }}>🔒</div>
-              <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
-          <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
+              <div style={{ fontSize: 70.5, marginBottom: 20 }}>🔒</div>
+              <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
+          <p style={{ fontSize: 15.5, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
             To ensure foundational skills are solid before building, the Projects tab unlocks after completing **25%** of your active course quests (or completing 3 quests).
           </p>
 
           <div style={{ maxWidth: 400, margin: '0 auto 30px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
               <span>{activeCourse.title} Progress</span>
               <span>{progressPercent}%</span>
             </div>
             <div style={{ height: 10, background: 'var(--bg3)', borderRadius: 5, overflow: 'hidden', border: '1px solid var(--border)' }}>
               <div style={{ height: '100%', width: `${progressPercent}%`, background: 'linear-gradient(90deg, var(--accent), var(--purple))', transition: 'width 0.5s' }} />
             </div>
-            <div style={{ marginTop: 10, fontSize: 12, color: 'var(--t3)' }}>
+            <div style={{ marginTop: 10, fontSize: 13, color: 'var(--t3)' }}>
               {completedCount} of {totalQuestsCount} quests completed.
             </div>
           </div>
@@ -839,32 +839,32 @@ function ProjectsPageContent() {
           {/* AI Generator Control */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
-              <h3 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>⚡ AI Dynamic Portfolio Generator</h3>
-              <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
+              <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>⚡ AI Dynamic Portfolio Generator</h3>
+              <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
                 Constructs 5 real-world projects utilizing target parameters: `projects = quests + academic degree + DNA score + career goal`.
               </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 14, alignItems: 'center' }}>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Academic Course / Degree</span>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{degree}</div>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Academic Course / Degree</span>
+                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{degree}</div>
               </div>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Quests Completed</span>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{completedCount} Quests</div>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Quests Completed</span>
+                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{completedCount} Quests</div>
               </div>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Overall DNA Score</span>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', marginTop: 4 }}>{Math.min(95, 60 + (completedCount * 1.5))}/100</div>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Overall DNA Score</span>
+                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--accent)', marginTop: 4 }}>{Math.min(95, 60 + (completedCount * 1.5))}/100</div>
               </div>
               <div>
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Target Career Goal</span>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Target Career Goal</span>
                 <select
                   value={selectedGoal}
                   onChange={e => setSelectedGoal(e.target.value)}
                   className="form-input"
-                  style={{ width: '100%', fontSize: 12, padding: '6px 8px', marginTop: 4 }}
+                  style={{ width: '100%', fontSize: 13, padding: '6px 8px', marginTop: 4 }}
                 >
                   {selectedGoal && !['AI Engineer', 'Backend Engineer', 'Cybersecurity Engineer', 'Full Stack Developer', 'Frontend Developer', 'Cloud & DevOps Engineer', 'Data Scientist / ML Engineer'].includes(selectedGoal) && (
                     <option value={selectedGoal}>{selectedGoal}</option>
@@ -884,7 +884,7 @@ function ProjectsPageContent() {
               onClick={() => handleGenerate()}
               disabled={generating}
               className="btn-primary"
-              style={{ padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center', marginTop: 8 }}
+              style={{ padding: '12px 0', fontSize: 14.5, fontWeight: 800, justifyContent: 'center', marginTop: 8 }}
             >
               {generating ? '🧬 Simulating Career Optimization Formula...' : '⚡ Generate My Personalised Career Projects'}
             </button>
@@ -919,32 +919,32 @@ function ProjectsPageContent() {
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4, fontWeight: 900, color: borderColors[p.level], border: `1px solid ${borderColors[p.level]}40` }}>
+                          <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4, fontWeight: 900, color: borderColors[p.level], border: `1px solid ${borderColors[p.level]}40` }}>
                             {p.level === 'Beginner' ? 'P1' : p.level === 'Intermediate' ? 'P2' : p.level === 'Advanced' ? 'P3 ⚡' : p.level === 'Enterprise' ? 'P4' : 'P5'} · {p.level.toUpperCase()}
                           </span>
                           {p.level === 'Advanced' && (
-                            <span style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--danger-rgb), 0.15)', color: 'var(--danger)', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
+                            <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--danger-rgb), 0.15)', color: 'var(--danger)', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
                               INTERVIEW GATE
                             </span>
                           )}
                           {p.isTemplate ? (
-                            <span title="Curated industry blueprint" style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--teal-rgb, 13,148,136), 0.12)', color: 'var(--teal, #0d9488)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--teal-rgb, 13,148,136), 0.25)' }}>
+                            <span title="Curated industry blueprint" style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--teal-rgb, 13,148,136), 0.12)', color: 'var(--teal, #0d9488)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--teal-rgb, 13,148,136), 0.25)' }}>
                               📐 BLUEPRINT
                             </span>
                           ) : (
-                            <span title="AI synthesized for your profile" style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--purple-rgb, 147,51,234), 0.15)', color: 'var(--purple, #9333ea)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--purple-rgb, 147,51,234), 0.25)' }}>
+                            <span title="AI synthesized for your profile" style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--purple-rgb, 147,51,234), 0.15)', color: 'var(--purple, #9333ea)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--purple-rgb, 147,51,234), 0.25)' }}>
                               🤖 AI TAILORED
                             </span>
                           )}
-                          <strong style={{ fontSize: 13.5, color: 'var(--t1)' }}>{p.name}</strong>
+                          <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{p.name}</strong>
                         </div>
-                        <span style={{ fontSize: 10, color: 'var(--t3)' }}>+{p.xpReward} XP</span>
+                        <span style={{ fontSize: 11, color: 'var(--t3)' }}>+{p.xpReward} XP</span>
                       </div>
 
-                      <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>{p.description}</p>
+                      <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{p.description}</p>
                       
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-                        <span style={{ fontSize: 11, color: 'var(--t3)' }}>⚙️ {p.techStack}</span>
+                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>⚙️ {p.techStack}</span>
                         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                           
                           {p.status === 'Not Started' && (
@@ -954,7 +954,7 @@ function ProjectsPageContent() {
                                 handleChangeProject(p.id, p.level);
                               }}
                               style={{
-                                padding: '4px 8px', borderRadius: 6, fontSize: 10, fontWeight: 800,
+                                padding: '4px 8px', borderRadius: 6, fontSize: 11, fontWeight: 800,
                                 background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)',
                                 color: 'var(--t2)', cursor: 'pointer'
                               }}
@@ -970,16 +970,16 @@ function ProjectsPageContent() {
                                 handleStart(p.id);
                               }}
                               className="btn-primary"
-                              style={{ padding: '4px 10px', fontSize: 10, borderRadius: 6 }}
+                              style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6 }}
                             >
                               🚀 Start Project
                             </button>
                           )}
                           {p.status === 'In Progress' && (
-                            <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--amber)' }}>⚡ In Progress</span>
+                            <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--amber)' }}>⚡ In Progress</span>
                           )}
                           {p.status === 'Completed' && (
-                            <span style={{ fontSize: 11, fontWeight: 900, color: p.certificateType === 'reference' ? 'var(--amber)' : 'var(--success)' }}>
+                            <span style={{ fontSize: 12, fontWeight: 900, color: p.certificateType === 'reference' ? 'var(--amber)' : 'var(--success)' }}>
                               {p.certificateType === 'reference'
                                 ? '📖 External Reference'
                                 : p.vivaPassed ? '🏆 Verified Excellence' : '🏅 AI Verified'}
@@ -1002,15 +1002,15 @@ function ProjectsPageContent() {
                   {/* Top Info & Action Panel */}
                   <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <h2 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>{selectedGuideProject.name}</h2>
-                      <span style={{ fontSize: 11, color: 'var(--t3)' }}>Workspace Level: <strong>{selectedGuideProject.level}</strong></span>
+                      <h2 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>{selectedGuideProject.name}</h2>
+                      <span style={{ fontSize: 12, color: 'var(--t3)' }}>Workspace Level: <strong>{selectedGuideProject.level}</strong></span>
                     </div>
 
                     {selectedGuideProject.status === 'Not Started' ? (
                       <button
                         onClick={() => handleStart(selectedGuideProject.id)}
                         className="btn-primary"
-                        style={{ padding: '8px 16px', fontSize: 12 }}
+                        style={{ padding: '8px 16px', fontSize: 13 }}
                       >
                         🚀 Open Workspace
                       </button>
@@ -1022,7 +1022,7 @@ function ProjectsPageContent() {
                             key={tab}
                             onClick={() => setActiveWorkspaceTab(tab)}
                             style={{
-                              padding: '6px 10px', border: 'none', borderRadius: 6, fontSize: 11, fontWeight: 800,
+                              padding: '6px 10px', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 800,
                               background: activeWorkspaceTab === tab ? 'var(--card)' : 'transparent',
                               color: activeWorkspaceTab === tab ? 'var(--accent)' : 'var(--t3)',
                               cursor: 'pointer'
@@ -1043,16 +1043,16 @@ function ProjectsPageContent() {
                       {activeWorkspaceTab === 'overview' && (
                         <>
                           <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>🎯 Project Overview:</strong>
-                            <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.description}</p>
+                            <strong style={{ fontSize: 13, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>🎯 Project Overview:</strong>
+                            <p style={{ margin: 0, fontSize: 14, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.description}</p>
                           </div>
                           <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>⚠️ Real-World Problem:</strong>
-                            <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.problem}</p>
+                            <strong style={{ fontSize: 13, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>⚠️ Real-World Problem:</strong>
+                            <p style={{ margin: 0, fontSize: 14, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.problem}</p>
                           </div>
                           <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>📦 Required Outcome:</strong>
-                            <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.deliverable}</p>
+                            <strong style={{ fontSize: 13, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>📦 Required Outcome:</strong>
+                            <p style={{ margin: 0, fontSize: 14, color: 'var(--t2)', lineHeight: 1.45 }}>{selectedGuideProject.deliverable}</p>
                           </div>
                         </>
                       )}
@@ -1068,10 +1068,10 @@ function ProjectsPageContent() {
                             return (
                               <div style={{ background: 'var(--bg3)', borderRadius: 12, padding: '12px 16px', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                  <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--t1)' }}>
+                                  <span style={{ fontSize: 12.5, fontWeight: 900, color: 'var(--t1)' }}>
                                     📊 Milestone Progress: {doneIndices.length} of {steps.length} Steps Completed
                                   </span>
-                                  <span style={{ fontSize: 11, fontWeight: 800, color: percent === 100 ? 'var(--green-mid)' : 'var(--accent)' }}>
+                                  <span style={{ fontSize: 12, fontWeight: 800, color: percent === 100 ? 'var(--green-mid)' : 'var(--accent)' }}>
                                     {percent}%
                                   </span>
                                 </div>
@@ -1079,7 +1079,7 @@ function ProjectsPageContent() {
                                   <div style={{ height: '100%', width: `${percent}%`, background: percent === 100 ? 'var(--green)' : 'linear-gradient(90deg, var(--accent), var(--purple))', transition: 'width 0.4s ease' }} />
                                 </div>
                                 {percent === 100 && (
-                                  <span style={{ fontSize: 10.5, color: 'var(--green-mid)', fontWeight: 800 }}>
+                                  <span style={{ fontSize: 11.5, color: 'var(--green-mid)', fontWeight: 800 }}>
                                     🎉 All implementation milestones completed! Ready for GitHub repository verification.
                                   </span>
                                 )}
@@ -1088,7 +1088,7 @@ function ProjectsPageContent() {
                           })()}
 
                           <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>🛠️ Step-by-Step Implementation Guide & Interactive Milestones:</strong>
+                            <strong style={{ fontSize: 13, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>🛠️ Step-by-Step Implementation Guide & Interactive Milestones:</strong>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                               {(selectedGuideProject.guideSteps || []).map((step, idx) => {
                                 const isDone = (completedMilestones[selectedGuideProject.id] || []).includes(idx);
@@ -1111,7 +1111,7 @@ function ProjectsPageContent() {
                                       style={{ cursor: 'pointer', accentColor: 'var(--green)', width: 15, height: 15 }}
                                     />
                                     <span style={{
-                                      fontSize: 12,
+                                      fontSize: 13,
                                       color: isDone ? 'var(--t1)' : 'var(--t2)',
                                       lineHeight: 1.4,
                                       textDecoration: isDone ? 'line-through' : 'none',
@@ -1126,8 +1126,8 @@ function ProjectsPageContent() {
                           </div>
                           {selectedGuideProject.tips && (
                             <div style={{ padding: 12, background: 'rgba(var(--brand-rgb),0.02)', border: '1px solid rgba(var(--brand-rgb),0.1)', borderRadius: 10 }}>
-                              <strong style={{ fontSize: 11.5, color: 'var(--accent)', display: 'block', marginBottom: 4 }}>💡 Developer Tips & Gotchas:</strong>
-                              <ul style={{ margin: 0, paddingLeft: 16, fontSize: 11.5, color: 'var(--t3)', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                              <strong style={{ fontSize: 12.5, color: 'var(--accent)', display: 'block', marginBottom: 4 }}>💡 Developer Tips & Gotchas:</strong>
+                              <ul style={{ margin: 0, paddingLeft: 16, fontSize: 12.5, color: 'var(--t3)', display: 'flex', flexDirection: 'column', gap: 4 }}>
                                 {selectedGuideProject.tips.map((t, idx) => <li key={idx}>{t}</li>)}
                               </ul>
                             </div>
@@ -1139,10 +1139,10 @@ function ProjectsPageContent() {
                       {activeWorkspaceTab === 'reqs' && (
                         <>
                           <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>✅ AI Verification Requirements Checklist:</strong>
+                            <strong style={{ fontSize: 13, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>✅ AI Verification Requirements Checklist:</strong>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                               {(selectedGuideProject.verificationReqs || ['API endpoints validation', 'Database mappings', 'Documentation README']).map((req, idx) => (
-                                <div key={idx} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 12.5, color: 'var(--t2)' }}>
+                                <div key={idx} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, color: 'var(--t2)' }}>
                                   <span style={{ color: 'var(--success)' }}>✓</span>
                                   <span>{req}</span>
                                 </div>
@@ -1150,8 +1150,8 @@ function ProjectsPageContent() {
                             </div>
                           </div>
                           <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Minimum Pass Threshold:</span>
-                            <strong style={{ fontSize: 13, color: 'var(--danger)' }}>{selectedGuideProject.minScore || 80}% AI Score</strong>
+                            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Minimum Pass Threshold:</span>
+                            <strong style={{ fontSize: 14.5, color: 'var(--danger)' }}>{selectedGuideProject.minScore || 80}% AI Score</strong>
                           </div>
                         </>
                       )}
@@ -1159,15 +1159,15 @@ function ProjectsPageContent() {
                       {/* Resources Tab */}
                       {activeWorkspaceTab === 'resources' && (
                         <>
-                          <strong style={{ fontSize: 12, color: 'var(--t2)' }}>📚 Reference Links & SDKs:</strong>
+                          <strong style={{ fontSize: 13, color: 'var(--t2)' }}>📚 Reference Links & SDKs:</strong>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                            <div style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, fontSize: 12 }}>
+                            <div style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, fontSize: 13 }}>
                               <a href="https://github.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 700 }}>GitHub Developer documentation 🔗</a>
-                              <p style={{ margin: '4px 0 0 0', color: 'var(--t3)', fontSize: 11 }}>Setup SSH keys and configure action workflows.</p>
+                              <p style={{ margin: '4px 0 0 0', color: 'var(--t3)', fontSize: 12 }}>Setup SSH keys and configure action workflows.</p>
                             </div>
-                            <div style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, fontSize: 12 }}>
+                            <div style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, fontSize: 13 }}>
                               <a href="https://qdrant.tech" target="_blank" rel="noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 700 }}>Vector Indexing with Qdrant Vector database 🔗</a>
-                              <p style={{ margin: '4px 0 0 0', color: 'var(--t3)', fontSize: 11 }}>Configure Cosine and Euclidean distance parameters.</p>
+                              <p style={{ margin: '4px 0 0 0', color: 'var(--t3)', fontSize: 12 }}>Configure Cosine and Euclidean distance parameters.</p>
                             </div>
                           </div>
                         </>
@@ -1185,12 +1185,12 @@ function ProjectsPageContent() {
                               marginBottom: 4
                             }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                <span style={{ fontSize: 20 }}>✅</span>
+                                <span style={{ fontSize: 22 }}>✅</span>
                                 <div>
-                                  <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
+                                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>
                                     Project Previously Verified & Completed ({selectedGuideProject.verificationScore || 80}%)
                                   </div>
-                                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                                     Certificate ID: <code style={{ fontFamily: 'var(--font-mono)' }}>{selectedGuideProject.certificateId}</code> · Re-verification will update audit metrics (+0 XP repeat completion).
                                   </div>
                                 </div>
@@ -1198,7 +1198,7 @@ function ProjectsPageContent() {
                               <button
                                 onClick={() => setActiveCertificate(selectedGuideProject)}
                                 className="btn-secondary"
-                                style={{ padding: '6px 12px', fontSize: 11, fontWeight: 700 }}
+                                style={{ padding: '6px 12px', fontSize: 12, fontWeight: 700 }}
                               >
                                 View Certificate
                               </button>
@@ -1206,32 +1206,32 @@ function ProjectsPageContent() {
                           )}
 
                           <div>
-                            <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>GitHub Repository URL *</label>
+                            <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>GitHub Repository URL *</label>
                             <input
                               type="text"
                               value={githubUrl}
                               onChange={e => setGithubUrl(e.target.value)}
                               className="form-input"
                               placeholder="https://github.com/username/project-repo"
-                              style={{ width: '100%', fontSize: 12, padding: '8px 12px' }}
+                              style={{ width: '100%', fontSize: 13, padding: '8px 12px' }}
                             />
                           </div>
 
                           <div>
-                            <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Live Demo Link (Optional)</label>
+                            <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Live Demo Link (Optional)</label>
                             <input
                               type="text"
                               value={liveDemoUrl}
                               onChange={e => setLiveDemoUrl(e.target.value)}
                               className="form-input"
                               placeholder="https://myprojectdemo.vercel.app"
-                              style={{ width: '100%', fontSize: 12, padding: '8px 12px' }}
+                              style={{ width: '100%', fontSize: 13, padding: '8px 12px' }}
                             />
                           </div>
 
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>ZIP Upload Backup (Optional)</span>
+                              <span style={{ fontSize: 12.5, color: 'var(--t2)' }}>ZIP Upload Backup (Optional)</span>
                               <input
                                 ref={zipInputRef}
                                 type="file"
@@ -1248,7 +1248,7 @@ function ProjectsPageContent() {
                               />
                               {uploadedZipFile ? (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                  <span style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700 }}>
+                                  <span style={{ fontSize: 12, color: 'var(--success)', fontWeight: 700 }}>
                                     ✓ {uploadedZipFile.name} ({(uploadedZipFile.size / (1024 * 1024)).toFixed(1)} MB)
                                   </span>
                                   <button
@@ -1257,7 +1257,7 @@ function ProjectsPageContent() {
                                       setZipFileSelected(false);
                                       if (zipInputRef.current) zipInputRef.current.value = '';
                                     }}
-                                    style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12 }}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 13 }}
                                     title="Remove ZIP file"
                                   >
                                     ✕
@@ -1267,7 +1267,7 @@ function ProjectsPageContent() {
                                 <button
                                   onClick={() => zipInputRef.current?.click()}
                                   style={{
-                                    padding: '4px 10px', fontSize: 10, borderRadius: 6, cursor: 'pointer',
+                                    padding: '4px 10px', fontSize: 11, borderRadius: 6, cursor: 'pointer',
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--t2)',
                                     border: '1px solid var(--border)'
@@ -1281,12 +1281,12 @@ function ProjectsPageContent() {
 
                           {auditReport && (
                             auditReport.keyFilesFound?.some(f => f.toLowerCase().includes('readme.md')) ? (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.04)', padding: 8, borderRadius: 6 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.04)', padding: 8, borderRadius: 6 }}>
                                 <span>✓</span>
                                 <span>Auto-detected: <strong>README.md</strong> file confirmed in repository structure.</span>
                               </div>
                             ) : (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: 8, borderRadius: 6 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: 8, borderRadius: 6 }}>
                                 <span>⚠️</span>
                                 <span>Notice: No <strong>README.md</strong> file detected in repository root. Adding documentation improves evidence score.</span>
                               </div>
@@ -1298,7 +1298,7 @@ function ProjectsPageContent() {
                               onClick={handleVerifyProject}
                               disabled={verifying}
                               className="btn-primary"
-                              style={{ width: '100%', padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center' }}
+                              style={{ width: '100%', padding: '12px 0', fontSize: 14.5, fontWeight: 800, justifyContent: 'center' }}
                             >
                               {verifying ? '🤖 Connecting to Verification Pipeline...' : (selectedGuideProject.status === 'Completed' ? 'Re-Verify Project' : 'Submit and Verify Project')}
                             </button>
@@ -1316,14 +1316,14 @@ function ProjectsPageContent() {
                       background: 'var(--bg3)',
                       textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12
                     }}>
-                      <div style={{ fontSize: 28 }}>{selectedGuideProject.certificateType === 'reference' ? '📖' : '🏅'}</div>
+                      <div style={{ fontSize: 31 }}>{selectedGuideProject.certificateType === 'reference' ? '📖' : '🏅'}</div>
                       <div>
-                        <strong style={{ fontSize: 14, color: 'var(--t1)', display: 'block' }}>
+                        <strong style={{ fontSize: 15.5, color: 'var(--t1)', display: 'block' }}>
                           {selectedGuideProject.certificateType === 'reference'
                             ? '📖 External Reference Record'
                             : selectedGuideProject.vivaPassed ? '🏆 AI Verified Excellence Certificate' : '🏅 AI Verified Project Certificate'}
                         </strong>
-                        <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                        <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>
                           Status: <strong>{selectedGuideProject.certificateType === 'reference' ? 'EXTERNAL REFERENCE (Unverified Authorship)' : `VERIFIED (${selectedGuideProject.verificationScore || 91}%)`}</strong>
                         </span>
                       </div>
@@ -1332,12 +1332,12 @@ function ProjectsPageContent() {
                         <button
                           onClick={() => setActiveCertificate(selectedGuideProject)}
                           className="btn-primary"
-                          style={{ padding: '8px 16px', fontSize: 12, justifyContent: 'center' }}
+                          style={{ padding: '8px 16px', fontSize: 13, justifyContent: 'center' }}
                         >
                           🎓 View Certificate
                         </button>
                       ) : (
-                        <div style={{ fontSize: 11, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: '8px 12px', borderRadius: 8, border: '1px dashed rgba(245, 158, 11, 0.3)' }}>
+                        <div style={{ fontSize: 12, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: '8px 12px', borderRadius: 8, border: '1px dashed rgba(245, 158, 11, 0.3)' }}>
                           ℹ️ Ingested as External Reference. Link an original repository owned by your GitHub account to unlock full Capstone Certificate & Placement Credit.
                         </div>
                       )}
@@ -1361,8 +1361,8 @@ function ProjectsPageContent() {
         }}>
           <div style={{ width: 440, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 28, display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <strong style={{ fontSize: 15, color: 'var(--t1)' }}>🤖 AI Project Verification</strong>
-              <div style={{ fontSize: 12, color: 'var(--accent)', animation: 'spin 1.5s linear infinite' }}>⬡</div>
+              <strong style={{ fontSize: 16.5, color: 'var(--t1)' }}>🤖 AI Project Verification</strong>
+              <div style={{ fontSize: 13, color: 'var(--accent)', animation: 'spin 1.5s linear infinite' }}>⬡</div>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -1376,7 +1376,7 @@ function ProjectsPageContent() {
                 const isPassed = verificationStep > idx;
                 const isActive = verificationStep === idx;
                 return (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12.5, color: isPassed ? 'var(--success)' : isActive ? 'var(--t1)' : 'var(--t4)' }}>
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 14, color: isPassed ? 'var(--success)' : isActive ? 'var(--t1)' : 'var(--t4)' }}>
                     <span>{step}</span>
                     <span>
                       {isPassed ? (
@@ -1425,41 +1425,41 @@ function ProjectsPageContent() {
           <div style={{ width: 500, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Repository Evidence Report</h3>
-                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(var(--info-rgb),0.1)', color: 'var(--accent)' }}>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Repository Evidence Report</h3>
+                <span style={{ fontSize: 11.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(var(--info-rgb),0.1)', color: 'var(--accent)' }}>
                   {auditReport?.projectComplexityTier || 'Advanced'}
                 </span>
               </div>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Repository: {auditReport?.metadata?.fullName || selectedGuideProject.name}</span>
+              <span style={{ fontSize: 12, color: 'var(--t3)' }}>Repository: {auditReport?.metadata?.fullName || selectedGuideProject.name}</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
                 <span style={{ color: 'var(--t2)' }}>Architecture & Modularity</span>
                 <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.architectureScore || 85}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
                 <span style={{ color: 'var(--t2)' }}>Testing & QA Depth</span>
                 <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.testingScore || 70}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
                 <span style={{ color: 'var(--t2)' }}>DevOps & CI/CD Evidence</span>
                 <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.devopsScore || 75}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
                 <span style={{ color: 'var(--t2)' }}>Documentation & Setup</span>
                 <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.documentationScore || 80}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, paddingTop: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15.5, paddingTop: 6 }}>
                 <strong>Evidence-Backed Score</strong>
-                <strong style={{ color: 'var(--accent)', fontSize: 16 }}>{auditReport?.overallEvidenceScore ?? 0}%</strong>
+                <strong style={{ color: 'var(--accent)', fontSize: 17.5 }}>{auditReport?.overallEvidenceScore ?? 0}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
                 <span>Evidence Hash:</span>
                 <strong style={{ fontFamily: 'monospace' }}>{auditReport?.proofRecord?.evidenceHash || 'PIN-GH-PENDING'}</strong>
               </div>
               {auditReport?.detectedSkills && auditReport.detectedSkills.length > 0 && (
-                <div style={{ fontSize: 11, color: 'var(--t3)', display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)', display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
                   <span style={{ fontWeight: 700 }}>Signals:</span>
                   {auditReport.detectedSkills.slice(0, 4).map((s, idx) => (
                     <span key={idx} style={{ background: 'var(--bg3)', padding: '1px 6px', borderRadius: 4, border: '1px solid var(--border)' }}>
@@ -1471,7 +1471,7 @@ function ProjectsPageContent() {
             </div>
 
             {/* Optional AI Viva Prompt */}
-            <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 12, lineHeight: 1.45 }}>
+            <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 13, lineHeight: 1.45 }}>
               <strong style={{ color: 'var(--t1)' }}>Earn AI Excellence Badge? 🏆</strong>
               <p style={{ margin: '4px 0 10px 0', color: 'var(--t3)' }}>
                 Take a 3-Minute **Project Viva** interview to test your deployment choices and upgrade your credentials to an **Excellence Certificate**.
@@ -1481,14 +1481,14 @@ function ProjectsPageContent() {
                   type="button"
                   onClick={() => router.push(`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}`)}
                   className="btn-primary"
-                  style={{ fontSize: 11, padding: '6px 12px' }}
+                  style={{ fontSize: 12, padding: '6px 12px' }}
                 >
                   🎙️ Start AI Viva
                 </button>
                 <button
                   onClick={handleIssueStandardCertificate}
                   className="btn-ghost"
-                  style={{ border: '1px solid var(--border)', fontSize: 11, padding: '6px 12px' }}
+                  style={{ border: '1px solid var(--border)', fontSize: 12, padding: '6px 12px' }}
                 >
                   Skip & Issue Standard
                 </button>
@@ -1517,7 +1517,7 @@ function ProjectsPageContent() {
               style={{
                 position: 'absolute', top: 20, right: 20, zIndex: 100,
                 background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '50%',
-                width: 32, height: 32, cursor: 'pointer', color: 'var(--text)', fontSize: 16
+                width: 32, height: 32, cursor: 'pointer', color: 'var(--text)', fontSize: 17.5
               }}
             >
               ✕
@@ -1542,18 +1542,18 @@ function ProjectsPageContent() {
                 display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: 5
               }}>
                 <div>
-                  <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Date</span>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.issueDate || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                  <span style={{ fontSize: 10, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Date</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.issueDate || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                 </div>
                 
                 <div>
-                  <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Project Level</span>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.level}</div>
+                  <span style={{ fontSize: 10, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Project Level</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.level}</div>
                 </div>
 
                 <div>
-                  <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Verification Score</span>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: '#D4AF37', marginTop: 4 }}>{activeCertificate.verificationScore ?? 80}%</div>
+                  <span style={{ fontSize: 10, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Verification Score</span>
+                  <div style={{ fontSize: 17.5, fontWeight: 900, color: '#D4AF37', marginTop: 4 }}>{activeCertificate.verificationScore ?? 80}%</div>
                 </div>
               </div>
 
@@ -1564,9 +1564,9 @@ function ProjectsPageContent() {
                 boxShadow: '0 8px 24px rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexDirection: 'column', zIndex: 10, border: '4px double #8e701d'
               }}>
-                <span style={{ fontSize: 8, fontWeight: 800, color: '#4a3306', textTransform: 'uppercase' }}>PinIT</span>
-                <span style={{ fontSize: 18 }}>🛡️</span>
-                <span style={{ fontSize: 7, fontWeight: 800, color: '#4a3306', textTransform: 'uppercase', letterSpacing: 0.5 }}>Verified</span>
+                <span style={{ fontSize: 9, fontWeight: 800, color: '#4a3306', textTransform: 'uppercase' }}>PinIT</span>
+                <span style={{ fontSize: 20 }}>🛡️</span>
+                <span style={{ fontSize: 7.5, fontWeight: 800, color: '#4a3306', textTransform: 'uppercase', letterSpacing: 0.5 }}>Verified</span>
               </div>
 
               {/* Main Content Pane */}
@@ -1574,89 +1574,89 @@ function ProjectsPageContent() {
                 
                 {/* Logo */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 20, color: 'var(--info)' }}>⬡</span>
-                  <strong style={{ fontSize: 13, letterSpacing: 1.5, color: 'var(--text)', fontFamily: 'var(--font-mono)' }}>
-                    PinIT <span style={{ color: 'var(--text-muted)', fontSize: 10, fontWeight: 400 }}>AI CAREER OS</span>
+                  <span style={{ fontSize: 22, color: 'var(--info)' }}>⬡</span>
+                  <strong style={{ fontSize: 14.5, letterSpacing: 1.5, color: 'var(--text)', fontFamily: 'var(--font-mono)' }}>
+                    PinIT <span style={{ color: 'var(--text-muted)', fontSize: 11, fontWeight: 400 }}>AI CAREER OS</span>
                   </strong>
                 </div>
 
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 900, color: 'var(--text)', letterSpacing: '2px', margin: '10px 0 2px 0', textTransform: 'uppercase' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 33, fontWeight: 900, color: 'var(--text)', letterSpacing: '2px', margin: '10px 0 2px 0', textTransform: 'uppercase' }}>
                   Certificate
                 </h2>
-                <div style={{ fontSize: 10, color: '#8e701d', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: '#8e701d', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 16 }}>
                   of Project Achievement
                 </div>
 
-                <div style={{ fontSize: 10.5, color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: 4, letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: 11.5, color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: 4, letterSpacing: '0.5px' }}>
                   PROUDLY PRESENTED TO
                 </div>
 
                 <h1 style={{
-                  fontFamily: 'Georgia, serif', fontSize: 40, fontStyle: 'italic', color: '#D4AF37',
+                  fontFamily: 'Georgia, serif', fontSize: 44, fontStyle: 'italic', color: '#D4AF37',
                   margin: '4px 0 12px 0', letterSpacing: 1, textShadow: '0 2px 4px rgba(0,0,0,0.5)'
                 }}>
                   {user?.displayName || (onboardingAnswers as any)?.displayName || user?.name || 'Verified Student'}
                 </h1>
 
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', margin: '0 0 12px 0' }}>
+                <p style={{ fontSize: 12, color: 'var(--text-muted)', margin: '0 0 12px 0' }}>
                   for successfully completing and getting
                 </p>
 
                 {/* Badge ribbon with Laurel branch wreaths */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-                  <span style={{ color: '#D4AF37', fontSize: 14 }}>🌿</span>
-                  <strong style={{ fontSize: 12, color: '#D4AF37', textTransform: 'uppercase', letterSpacing: 1.5 }}>
+                  <span style={{ color: '#D4AF37', fontSize: 15.5 }}>🌿</span>
+                  <strong style={{ fontSize: 13, color: '#D4AF37', textTransform: 'uppercase', letterSpacing: 1.5 }}>
                     {activeCertificate.vivaPassed ? 'AI EXCELLENCE' : 'AI VERIFIED'}
                   </strong>
-                  <span style={{ color: '#D4AF37', fontSize: 14 }}>🌿</span>
+                  <span style={{ color: '#D4AF37', fontSize: 15.5 }}>🌿</span>
                 </div>
 
-                <div style={{ fontSize: 11, color: 'var(--text-muted)', margin: '0 0 10px 0' }}>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)', margin: '0 0 10px 0' }}>
                   for the project
                 </div>
 
                 {/* Project Details Box with Brain icon */}
                 <div style={{
                   background: 'linear-gradient(90deg, #091128, #0e1b38)', border: '1px solid #8e701d', borderRadius: 8,
-                  padding: '8px 24px', fontSize: 13, fontWeight: 700, color: 'var(--text)', display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '8px 24px', fontSize: 14.5, fontWeight: 700, color: 'var(--text)', display: 'flex', alignItems: 'center', gap: 10,
                   boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.5)', marginBottom: 20
                 }}>
-                  <span style={{ fontSize: 14 }}>🧠</span>
+                  <span style={{ fontSize: 15.5 }}>🧠</span>
                   <span>{activeCertificate.name}</span>
                 </div>
 
-                <div style={{ fontSize: 10, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
                   <span>🚀</span>
                   <span>Real Project. Verified by AI. Built for Your Future.</span>
                 </div>
 
                 {/* Footer Signing details */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 14, marginTop: 10 }}>
-                  <div style={{ textAlign: 'left', fontSize: 9 }}>
-                    <div style={{ color: 'var(--text-muted)', fontSize: 8 }}>SCAN TO VERIFY</div>
+                  <div style={{ textAlign: 'left', fontSize: 10 }}>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 9 }}>SCAN TO VERIFY</div>
                     <div style={{ color: '#D4AF37', marginTop: 2, fontWeight: 700 }}>pinIt.in/verify</div>
                   </div>
                   
                   <div style={{ display: 'flex', gap: 24 }}>
                     <div style={{ textAlign: 'center', width: 140 }}>
-                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 12, color: 'var(--text)' }}>PinIT Evaluation Authority</div>
+                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--text)' }}>PinIT Evaluation Authority</div>
                       <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                      <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Autonomous Audit Engine</div>
-                      <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Platform Certification Authority</div>
+                      <div style={{ fontSize: 9, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Autonomous Audit Engine</div>
+                      <div style={{ fontSize: 7.5, color: '#8e701d', textTransform: 'uppercase' }}>Platform Certification Authority</div>
                     </div>
 
                     {activeCertificate.vivaPassed && (
                       <div style={{ textAlign: 'center', width: 140 }}>
-                        <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 12, color: '#D4AF37' }}>Academic Evaluation Board</div>
+                        <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: '#D4AF37' }}>Academic Evaluation Board</div>
                         <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                        <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Faculty Review Panel</div>
-                        <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Verified Viva Assessor</div>
+                        <div style={{ fontSize: 9, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Faculty Review Panel</div>
+                        <div style={{ fontSize: 7.5, color: '#8e701d', textTransform: 'uppercase' }}>Verified Viva Assessor</div>
                       </div>
                     )}
                   </div>
 
-                  <div style={{ textAlign: 'right', fontSize: 9 }}>
-                    <div style={{ color: 'var(--text-muted)', fontSize: 8 }}>CERTIFICATE ID</div>
+                  <div style={{ textAlign: 'right', fontSize: 10 }}>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 9 }}>CERTIFICATE ID</div>
                     <div style={{ color: 'var(--text-muted)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>{activeCertificate.certificateId || 'PIN-CREDENTIAL-VERIFIED'}</div>
                   </div>
                 </div>
@@ -1683,7 +1683,7 @@ function ProjectsPageContent() {
                   borderRadius: 10,
                   padding: '9px 18px',
                   color: '#D4AF37',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 800,
                   cursor: 'pointer',
                   display: 'flex',
@@ -1705,7 +1705,7 @@ function ProjectsPageContent() {
                     borderRadius: 10,
                     padding: '9px 20px',
                     color: '#000',
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 900,
                     cursor: 'pointer',
                     boxShadow: '0 4px 14px rgba(212,175,55,0.4)'
@@ -1721,7 +1721,7 @@ function ProjectsPageContent() {
                     borderRadius: 10,
                     padding: '9px 18px',
                     color: 'var(--text)',
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 700,
                     cursor: 'pointer'
                   }}
@@ -1743,10 +1743,10 @@ function ProjectsPageContent() {
           {/* Squads Action Bar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div>
-              <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+              <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
                 Active Hackathon Squads ({squads.length})
               </h2>
-              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '2px 0 0 0' }}>
+              <p style={{ fontSize: 14, color: 'var(--t3)', margin: '2px 0 0 0' }}>
                 Join multi-disciplinary engineering squads or form your own capstone team.
               </p>
             </div>
@@ -1757,7 +1757,7 @@ function ProjectsPageContent() {
                 borderRadius: 10,
                 background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
                 color: 'var(--text)',
-                fontSize: 13,
+                fontSize: 14.5,
                 fontWeight: 800,
                 border: 'none',
                 cursor: 'pointer',
@@ -1789,11 +1789,11 @@ function ProjectsPageContent() {
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: isSelected ? 'var(--reward-bright)' : 'var(--t1)' }}>
+                      <span style={{ fontSize: 15.5, fontWeight: 800, color: isSelected ? 'var(--reward-bright)' : 'var(--t1)' }}>
                         {squad.name}
                       </span>
                       <span style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: 700,
                         padding: '2px 6px',
                         borderRadius: 4,
@@ -1805,11 +1805,11 @@ function ProjectsPageContent() {
                       </span>
                     </div>
 
-                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {squad.hackathonTitle}
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12 }}>
                       <span style={{ color: 'var(--t2)', fontWeight: 600 }}>👥 {squad.members.length} Members</span>
                       {isMember && <span style={{ color: 'var(--info-bright)', fontWeight: 800 }}>★ Your Squad</span>}
                     </div>
@@ -1825,11 +1825,11 @@ function ProjectsPageContent() {
                 <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
                     <div>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--reward)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         {activeSquad.hackathonTitle}
                       </span>
-                      <h2 style={{ margin: '4px 0 8px 0', fontSize: 22, fontWeight: 900, color: 'var(--t1)' }}>{activeSquad.name}</h2>
-                      <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 13 }}>
+                      <h2 style={{ margin: '4px 0 8px 0', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>{activeSquad.name}</h2>
+                      <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 14.5 }}>
                         <a href={activeSquad.repoUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--info-bright)', textDecoration: 'none', fontWeight: 700 }}>
                           🔗 GitHub Repo ↗
                         </a>
@@ -1843,7 +1843,7 @@ function ProjectsPageContent() {
 
                     <div style={{ textAlign: 'right' }}>
                       {activeSquad.status === 'verified' ? (
-                        <div style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid rgba(var(--success-rgb), 0.3)', color: 'var(--success)', fontWeight: 800, fontSize: 13 }}>
+                        <div style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid rgba(var(--success-rgb), 0.3)', color: 'var(--success)', fontWeight: 800, fontSize: 14.5 }}>
                           ✓ JURY VERIFIED ({activeSquad.finalScore}/100)
                         </div>
                       ) : (
@@ -1856,7 +1856,7 @@ function ProjectsPageContent() {
                             background: 'linear-gradient(135deg, var(--reward), var(--reward))',
                             border: 'none',
                             color: 'var(--text)',
-                            fontSize: 13,
+                            fontSize: 14.5,
                             fontWeight: 800,
                             cursor: 'pointer',
                             boxShadow: '0 4px 14px rgba(var(--reward-rgb),0.3)'
@@ -1869,7 +1869,7 @@ function ProjectsPageContent() {
                   </div>
 
                   {activeSquad.juryFeedback && (
-                    <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.2)', fontSize: 13, color: 'var(--t2)' }}>
+                    <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.2)', fontSize: 14.5, color: 'var(--t2)' }}>
                       <strong style={{ color: 'var(--success)' }}>Jury Feedback:</strong> {activeSquad.juryFeedback}
                     </div>
                   )}
@@ -1877,7 +1877,7 @@ function ProjectsPageContent() {
 
                 {/* Squad Members & Role Allocation */}
                 <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                  <h3 style={{ margin: '0 0 16px 0', fontSize: 15, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <h3 style={{ margin: '0 0 16px 0', fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span>🛡️</span> Squad Roles & Task Allocation
                   </h3>
 
@@ -1887,20 +1887,20 @@ function ProjectsPageContent() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                           <Image src={member.avatarUrl} alt={member.name} width={36} height={36} style={{ borderRadius: 18 }} unoptimized />
                           <div>
-                            <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
-                            <div style={{ fontSize: 10.5, color: 'var(--reward-bright)', fontWeight: 700, textTransform: 'uppercase' }}>
+                            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
+                            <div style={{ fontSize: 11.5, color: 'var(--reward-bright)', fontWeight: 700, textTransform: 'uppercase' }}>
                               {member.role.replace('_', ' ')}
                             </div>
                           </div>
                         </div>
 
-                        <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8 }}>
+                        <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 8 }}>
                           Contribution: <strong style={{ color: 'var(--t1)' }}>{member.contributionPct}%</strong>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                           {member.assignedTasks.map((t, tIdx) => (
-                            <span key={tIdx} style={{ fontSize: 10.5, color: 'var(--t2)', background: 'var(--bg2)', padding: '3px 6px', borderRadius: 4 }}>
+                            <span key={tIdx} style={{ fontSize: 11.5, color: 'var(--t2)', background: 'var(--bg2)', padding: '3px 6px', borderRadius: 4 }}>
                               • {t}
                             </span>
                           ))}
@@ -1911,7 +1911,7 @@ function ProjectsPageContent() {
 
                   {!activeSquad.members.some(m => m.studentId === studentId) && (
                     <div style={{ marginTop: 16, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: 12.5, color: 'var(--t3)', fontWeight: 700 }}>Join this Squad as:</span>
+                      <span style={{ fontSize: 14, color: 'var(--t3)', fontWeight: 700 }}>Join this Squad as:</span>
                       {(['frontend_lead', 'backend_lead', 'devops_cloud', 'data_engineer'] as const).map(role => (
                         <button
                           key={role}
@@ -1922,7 +1922,7 @@ function ProjectsPageContent() {
                             background: 'rgba(var(--reward-rgb), 0.12)',
                             border: '1px solid rgba(var(--reward-rgb), 0.3)',
                             color: 'var(--reward-bright)',
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: 700,
                             cursor: 'pointer'
                           }}
@@ -1936,7 +1936,7 @@ function ProjectsPageContent() {
 
                 {/* Sprints & Milestones Checklist */}
                 <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                  <h3 style={{ margin: '0 0 16px 0', fontSize: 15, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <h3 style={{ margin: '0 0 16px 0', fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span>🎯</span> Sprint Milestones & Provenance Checklist
                   </h3>
 
@@ -1957,15 +1957,15 @@ function ProjectsPageContent() {
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          <span style={{ fontSize: 18 }}>{milestone.isCompleted ? '✅' : '⬜'}</span>
+                          <span style={{ fontSize: 20 }}>{milestone.isCompleted ? '✅' : '⬜'}</span>
                           <div>
-                            <div style={{ fontSize: 13.5, fontWeight: 800, color: milestone.isCompleted ? 'var(--success)' : 'var(--t1)', textDecoration: milestone.isCompleted ? 'line-through' : 'none' }}>
+                            <div style={{ fontSize: 15, fontWeight: 800, color: milestone.isCompleted ? 'var(--success)' : 'var(--t1)', textDecoration: milestone.isCompleted ? 'line-through' : 'none' }}>
                               {milestone.title}
                             </div>
-                            <div style={{ fontSize: 12, color: 'var(--t3)' }}>{milestone.description}</div>
+                            <div style={{ fontSize: 13, color: 'var(--t3)' }}>{milestone.description}</div>
                           </div>
                         </div>
-                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Due: {milestone.dueDate}</span>
+                        <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>Due: {milestone.dueDate}</span>
                       </div>
                     ))}
                   </div>
@@ -1978,26 +1978,26 @@ function ProjectsPageContent() {
           {showCreateModal && (
             <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(6px)' }}>
               <div style={{ width: 480, background: 'var(--bg1)', border: '1px solid var(--border)', borderRadius: 20, padding: 28, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }}>
-                <h3 style={{ margin: '0 0 16px 0', fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>Assemble New Hackathon Squad</h3>
+                <h3 style={{ margin: '0 0 16px 0', fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>Assemble New Hackathon Squad</h3>
                 <form onSubmit={handleCreateSquad} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Squad Name</label>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Squad Name</label>
                     <input
                       type="text"
                       value={newSquadName}
                       onChange={e => setNewSquadName(e.target.value)}
                       placeholder="e.g. Nexus Distributed Core"
                       required
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14.5 }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Your Role in Squad</label>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Your Role in Squad</label>
                     <select
                       value={newRole}
                       onChange={e => setNewRole(e.target.value as any)}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14.5 }}
                     >
                       <option value="backend_lead">Backend Lead (APIs & Microservices)</option>
                       <option value="frontend_lead">Frontend Lead (React/Next.js)</option>
@@ -2007,14 +2007,14 @@ function ProjectsPageContent() {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>GitHub Repository URL</label>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>GitHub Repository URL</label>
                     <input
                       type="url"
                       value={newRepoUrl}
                       onChange={e => setNewRepoUrl(e.target.value)}
                       placeholder="https://github.com/org/repo"
                       required
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14.5 }}
                     />
                   </div>
 
@@ -2022,13 +2022,13 @@ function ProjectsPageContent() {
                     <button
                       type="button"
                       onClick={() => setShowCreateModal(false)}
-                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'var(--bg3)', color: 'var(--t2)', border: '1px solid var(--border)', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
+                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'var(--bg3)', color: 'var(--t2)', border: '1px solid var(--border)', cursor: 'pointer', fontSize: 14.5, fontWeight: 700 }}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, var(--success), var(--success-deep))', color: 'var(--text)', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 800 }}
+                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, var(--success), var(--success-deep))', color: 'var(--text)', border: 'none', cursor: 'pointer', fontSize: 14.5, fontWeight: 800 }}
                     >
                       Create Squad
                     </button>

@@ -112,14 +112,14 @@ export default function InternshipsPage() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 24 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <h1 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+            <h1 style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
               💼 External Internship & Industry Residency
             </h1>
-            <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)', fontWeight: 800 }}>
+            <span style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)', fontWeight: 800 }}>
               Career Booster
             </span>
           </div>
-          <p style={{ fontSize: 13, color: 'var(--t3)', margin: '6px 0 0' }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t3)', margin: '6px 0 0' }}>
             Document your real-world corporate or campus internships to reinforce your ATS resume and skill passport.
           </p>
         </div>
@@ -133,7 +133,7 @@ export default function InternshipsPage() {
             background: 'var(--accent)',
             color: '#fff',
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: 14.5,
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
             display: 'flex',
@@ -149,18 +149,18 @@ export default function InternshipsPage() {
       {/* Navigation Quick-Bridge to Placement Predictor */}
       <div style={{ background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.25)', borderRadius: 12, padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 18 }}>🔮</span>
-          <span style={{ fontSize: 12.5, color: 'var(--t1)' }}>Looking for the <strong>AI Placement Predictor</strong> and company readiness matrix?</span>
+          <span style={{ fontSize: 20 }}>🔮</span>
+          <span style={{ fontSize: 14, color: 'var(--t1)' }}>Looking for the <strong>AI Placement Predictor</strong> and company readiness matrix?</span>
         </div>
-        <Link href="/career-intelligence?tab=tracker" style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', background: 'var(--bg2)', padding: '6px 12px', borderRadius: 8, border: '1px solid var(--border)' }}>
+        <Link href="/career-intelligence?tab=tracker" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', background: 'var(--bg2)', padding: '6px 12px', borderRadius: 8, border: '1px solid var(--border)' }}>
           Open AI Placement Predictor →
         </Link>
       </div>
 
       {/* Info Notice */}
       <div style={{ background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)', borderRadius: 12, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-        <span style={{ fontSize: 20 }}>💡</span>
-        <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+        <span style={{ fontSize: 22 }}>💡</span>
+        <div style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5 }}>
           <strong>Policy Notice:</strong> External internships provide valuable industry evidence, but are <strong>not a mandatory blocker</strong> for reaching <em>Interview Ready</em> status. Students who pass the P3 Project defense and core mastery gates reach Interview Readiness immediately.
         </div>
       </div>
@@ -168,12 +168,12 @@ export default function InternshipsPage() {
       {/* Logged Internships List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {loading ? (
-          <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>Loading internship ledger...</div>
+          <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>Loading internship ledger...</div>
         ) : records.length === 0 ? (
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 40, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 36 }}>🏢</span>
-            <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>No Internship Records Logged Yet</h3>
-            <p style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 450, margin: 0, lineHeight: 1.5 }}>
+            <span style={{ fontSize: 39.5 }}>🏢</span>
+            <h3 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>No Internship Records Logged Yet</h3>
+            <p style={{ fontSize: 14, color: 'var(--t3)', maxWidth: 450, margin: 0, lineHeight: 1.5 }}>
               Have you worked at a tech startup, corporate firm, or open-source fellowship? Log your experience to bolster your recruiter trust quotient.
             </p>
             <button
@@ -186,7 +186,7 @@ export default function InternshipsPage() {
                 background: 'rgba(99, 102, 241, 0.1)',
                 color: 'var(--accent)',
                 fontWeight: 700,
-                fontSize: 12,
+                fontSize: 13,
                 cursor: 'pointer',
               }}
             >
@@ -211,31 +211,31 @@ export default function InternshipsPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 10 }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                    <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                       {record.role}
                     </h3>
-                    <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6, color: 'var(--t2)', fontWeight: 700 }}>
+                    <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6, color: 'var(--t2)', fontWeight: 700 }}>
                       @ {record.companyName}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
                     📅 {record.startDate} &mdash; {record.endDate || 'Present'} &middot; <span style={{ textTransform: 'capitalize' }}>{record.type.replace(/_/g, ' ')}</span>
                   </div>
                 </div>
 
-                <span style={{ fontSize: 11, background: record.isVerified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)', color: record.isVerified ? '#10b981' : '#f59e0b', padding: '3px 8px', borderRadius: 6, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 12, background: record.isVerified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)', color: record.isVerified ? '#10b981' : '#f59e0b', padding: '3px 8px', borderRadius: 6, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
                   {record.isVerified ? '✓ VERIFIED' : '⏳ PENDING REVIEW'}
                 </span>
               </div>
 
-              <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--t2)', lineHeight: 1.5 }}>
                 {record.projectDescription}
               </p>
 
               {record.skillsUsed && record.skillsUsed.length > 0 && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 4 }}>
                   {record.skillsUsed.map((skill: string, i: number) => (
-                    <span key={i} style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 6px', borderRadius: 4, color: 'var(--t2)' }}>
+                    <span key={i} style={{ fontSize: 11, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 6px', borderRadius: 4, color: 'var(--t2)' }}>
                       {skill}
                     </span>
                   ))}
@@ -243,10 +243,10 @@ export default function InternshipsPage() {
               )}
 
               {(record.mentorName || record.mentorContact) && (
-                <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 8, marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 8, marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                   <span>Mentor: <strong>{record.mentorName || 'Unspecified'}</strong></span>
                   {record.mentorContact && (
-                    <span style={{ color: 'var(--t2)', background: 'var(--bg3)', padding: '1px 6px', borderRadius: 4, fontSize: 10.5, fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ color: 'var(--t2)', background: 'var(--bg3)', padding: '1px 6px', borderRadius: 4, fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
                       {record.mentorContact}
                     </span>
                   )}
@@ -262,44 +262,44 @@ export default function InternshipsPage() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}>
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, width: 560, maxWidth: '100%', maxHeight: '90vh', overflowY: 'auto', boxShadow: 'var(--shadow-lg)', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+              <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 💼 Log Internship Experience
               </h3>
-              <button onClick={() => setShowLogModal(false)} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}>✕</button>
+              <button onClick={() => setShowLogModal(false)} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}>✕</button>
             </div>
 
             <form onSubmit={handleSaveRecord} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>COMPANY / ORGANIZATION NAME *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>COMPANY / ORGANIZATION NAME *</label>
                 <input
                   type="text"
                   value={companyName}
                   onChange={e => setCompanyName(e.target.value)}
                   placeholder="e.g. Acme Corp, Google Summer of Code, Razorpay"
-                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                   required
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>ROLE / POSITION TITLE *</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>ROLE / POSITION TITLE *</label>
                   <input
                     type="text"
                     value={role}
                     onChange={e => setRole(e.target.value)}
                     placeholder="e.g. Software Engineering Intern"
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                     required
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>EXPERIENCE TYPE</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>EXPERIENCE TYPE</label>
                   <select
                     value={internshipType}
                     onChange={e => setInternshipType(e.target.value as any)}
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                   >
                     <option value="external_employment">External Corporate Employment</option>
                     <option value="campus_internship">Campus / Research Internship</option>
@@ -310,29 +310,29 @@ export default function InternshipsPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>START DATE *</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>START DATE *</label>
                   <input
                     type="month"
                     value={startDate}
                     onChange={e => setStartDate(e.target.value)}
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                     required
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>END DATE</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>END DATE</label>
                   <input
                     type="month"
                     value={endDate}
                     onChange={e => setEndDate(e.target.value)}
                     disabled={isCurrentlyActive}
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5, opacity: isCurrentlyActive ? 0.5 : 1 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14, opacity: isCurrentlyActive ? 0.5 : 1 }}
                   />
                 </div>
               </div>
 
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--t2)', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--t2)', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
                   checked={isCurrentlyActive}
@@ -342,60 +342,60 @@ export default function InternshipsPage() {
               </label>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>PROJECT / DELIVERABLES DESCRIPTION *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>PROJECT / DELIVERABLES DESCRIPTION *</label>
                 <textarea
                   value={projectDescription}
                   onChange={e => setProjectDescription(e.target.value)}
                   placeholder="Describe the production services, APIs, features, or pipelines you contributed to..."
                   rows={3}
-                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5, resize: 'vertical' }}
+                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14, resize: 'vertical' }}
                   required
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>TECHNOLOGIES / SKILLS USED (comma separated)</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>TECHNOLOGIES / SKILLS USED (comma separated)</label>
                 <input
                   type="text"
                   value={skillsTaught}
                   onChange={e => setSkillsTaught(e.target.value)}
                   placeholder="e.g. React, Next.js, Node.js, PostgreSQL, Docker, AWS"
-                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>MENTOR / MANAGER NAME</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>MENTOR / MANAGER NAME</label>
                   <input
                     type="text"
                     value={mentorName}
                     onChange={e => setMentorName(e.target.value)}
                     placeholder="e.g. Alex Johnson (Tech Lead)"
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>MENTOR EMAIL / LINKEDIN</label>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>MENTOR EMAIL / LINKEDIN</label>
                   <input
                     type="text"
                     value={mentorContact}
                     onChange={e => setMentorContact(e.target.value)}
                     placeholder="e.g. alex@acme.com or linkedin.com/in/..."
-                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                    style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>CERTIFICATE / OFFER LETTER URL (Optional)</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>CERTIFICATE / OFFER LETTER URL (Optional)</label>
                 <input
                   type="url"
                   value={certificateUrl}
                   onChange={e => setCertificateUrl(e.target.value)}
                   placeholder="https://..."
-                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 12.5 }}
+                  style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--t1)', fontSize: 14 }}
                 />
               </div>
 
@@ -403,14 +403,14 @@ export default function InternshipsPage() {
                 <button
                   type="button"
                   onClick={() => setShowLogModal(false)}
-                  style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t2)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                  style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t2)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: 'var(--accent)', color: '#fff', fontSize: 12, fontWeight: 800, cursor: saving ? 'not-allowed' : 'pointer' }}
+                  style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: 'var(--accent)', color: '#fff', fontSize: 13, fontWeight: 800, cursor: saving ? 'not-allowed' : 'pointer' }}
                 >
                   {saving ? 'Sealing Record...' : 'Save & Seal Record ➔'}
                 </button>

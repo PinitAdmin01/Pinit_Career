@@ -409,7 +409,7 @@ export default function FaceAnalyzer({
                 border: '3px solid rgba(var(--brand-rgb), 0.2)', borderTopColor: 'var(--brand)',
                 animation: 'spin 0.8s linear infinite', marginBottom: 12
               }} />
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#f3f4f6' }}>
+              <span style={{ fontSize: 14.5, fontWeight: 600, color: '#f3f4f6' }}>
                 {state === 'verifying' ? 'Verifying 128D Biometrics...' : 'Initializing Face AI...'}
               </span>
             </div>
@@ -421,9 +421,9 @@ export default function FaceAnalyzer({
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               background: 'rgba(var(--success-rgb),  0.15)', backdropFilter: 'blur(8px)', padding: 20, textAlign: 'center'
             }}>
-              <div style={{ fontSize: 48, color: 'var(--success)', marginBottom: 6 }}>✓</div>
-              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--success)' }}>Authenticated</div>
-              <div style={{ fontSize: 12, color: '#a7f3d0', marginTop: 4 }}>
+              <div style={{ fontSize: 53, color: 'var(--success)', marginBottom: 6 }}>✓</div>
+              <div style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--success)' }}>Authenticated</div>
+              <div style={{ fontSize: 13, color: '#a7f3d0', marginTop: 4 }}>
                 {metrics.matchConfidence > 0
                   ? `Biometric Match (${metrics.matchConfidence}% Confidence)`
                   : 'Biometric enrollment recorded'}
@@ -434,7 +434,7 @@ export default function FaceAnalyzer({
           {/* Real-time frame progress bar */}
           {state === 'analyzing' && (
             <div style={{ position: 'absolute', bottom: 10, left: 14, right: 14, zIndex: 10 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#e5e7eb', marginBottom: 4, fontWeight: 600 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#e5e7eb', marginBottom: 4, fontWeight: 600 }}>
                 <span>Scanning 128D Vector ({metrics.capturedFrames}/5)</span>
                 <span>{metrics.livenessVerified ? 'Liveness ✓' : 'Blink to verify'}</span>
               </div>
@@ -467,7 +467,7 @@ export default function FaceAnalyzer({
 
         {/* Guidance / Status Text */}
         <div style={{
-          fontSize: 13,
+          fontSize: 14.5,
           color: state === 'error' ? 'var(--danger-bright)' : state === 'success' ? 'var(--success-bright)' : 'var(--t2, #d1d5db)',
           textAlign: 'center',
           maxWidth: 340,
@@ -490,7 +490,7 @@ export default function FaceAnalyzer({
                 background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
                 color: 'var(--text)',
                 fontWeight: 700,
-                fontSize: 14,
+                fontSize: 15.5,
                 border: 'none',
                 cursor: 'pointer',
                 boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
@@ -511,7 +511,7 @@ export default function FaceAnalyzer({
                 background: 'linear-gradient(135deg, var(--accent) 0%, var(--brand) 100%)',
                 color: 'var(--text)',
                 fontWeight: 700,
-                fontSize: 14,
+                fontSize: 15.5,
                 border: 'none',
                 cursor: 'pointer',
                 boxShadow: '0 4px 14px rgba(79, 70, 229, 0.35)',
@@ -531,7 +531,7 @@ export default function FaceAnalyzer({
                 background: 'transparent',
                 border: '1px solid var(--border, #374151)',
                 color: 'var(--t3, #9ca3af)',
-                fontSize: 13,
+                fontSize: 14.5,
                 cursor: 'pointer',
               }}
             >
@@ -558,7 +558,7 @@ export default function FaceAnalyzer({
 
 function badgeStyle(active: boolean): React.CSSProperties {
   return {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: 600,
     padding: '4px 10px',
     borderRadius: 20,

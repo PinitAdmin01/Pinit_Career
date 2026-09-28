@@ -79,11 +79,11 @@ export function LessonCompletionModal({
             alignItems: 'center',
             gap: 16
           }}>
-            <span style={{ fontSize: 48, animation: 'pulse 2s infinite' }}>🏆</span>
-            <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)', fontFamily: 'var(--font-display)', margin: 0 }}>
+            <span style={{ fontSize: 53, animation: 'pulse 2s infinite' }}>🏆</span>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--green)', fontFamily: 'var(--font-display)', margin: 0 }}>
               Syllabus Passed!
             </h2>
-            <p style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
               Congratulations, developer! You successfully cleared all Socratic slide checkpoints and passed the syllabus evaluation exam.
             </p>
 
@@ -101,8 +101,8 @@ export function LessonCompletionModal({
                 padding: '10px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>XP Earned</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--green)', marginTop: 2 }}>+{displayXp} XP</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>XP Earned</div>
+                <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--green)', marginTop: 2 }}>+{displayXp} XP</div>
               </div>
               <div style={{
                 flex: 1,
@@ -112,8 +112,8 @@ export function LessonCompletionModal({
                 padding: '10px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Pins Bonus</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+{displayPins} Pins</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Pins Bonus</div>
+                <div style={{ fontSize: 20, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+{displayPins} Pins</div>
               </div>
             </div>
 
@@ -124,7 +124,7 @@ export function LessonCompletionModal({
                 marginTop: 10,
                 width: '100%',
                 padding: '12px 20px',
-                fontSize: 13,
+                fontSize: 14.5,
                 fontWeight: 900,
                 borderRadius: 12,
                 background: 'var(--green)'

@@ -75,10 +75,10 @@ export default function AttendancePage() {
   return (
     <div style={{ maxWidth: 900, margin: '0 auto' }}>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800 }}>
           Secure Attendance
         </h1>
-        <p style={{ color: 'var(--t2)', fontSize: 13 }}>
+        <p style={{ color: 'var(--t2)', fontSize: 14.5 }}>
           AI face recognition attendance — liveness detection prevents proxy attendance
         </p>
       </div>
@@ -88,7 +88,7 @@ export default function AttendancePage() {
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             style={{
-              padding: '6px 14px', borderRadius: 8, fontSize: 13, cursor: 'pointer',
+              padding: '6px 14px', borderRadius: 8, fontSize: 14.5, cursor: 'pointer',
               background: tab === t.id ? 'var(--accent)' : 'var(--bg2)',
               color: tab === t.id ? '#fff' : 'var(--t2)',
               border: tab === t.id ? 'none' : '1px solid var(--border)',
@@ -99,25 +99,25 @@ export default function AttendancePage() {
       {/* Mark attendance */}
       {tab === 'mark' && (
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 32, textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>📸</div>
-          <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Face Scan</h2>
-          <p style={{ color: 'var(--t2)', fontSize: 13, marginBottom: 24 }}>
+          <div style={{ fontSize: 53, marginBottom: 16 }}>📸</div>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Face Scan</h2>
+          <p style={{ color: 'var(--t2)', fontSize: 14.5, marginBottom: 24 }}>
             Look directly at the camera. The system will verify your identity and mark attendance.
           </p>
           <button
             onClick={startScan}
             disabled={scanning || identifyMutation.isPending}
             style={{
-              padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 600,
+              padding: '12px 32px', borderRadius: 10, fontSize: 15.5, fontWeight: 600,
               background: 'var(--accent)', color: '#fff', border: 'none', cursor: 'pointer',
               opacity: (scanning || identifyMutation.isPending) ? 0.6 : 1,
             }}
           >
             {scanning ? 'Scanning...' : identifyMutation.isPending ? 'Processing...' : 'Start Face Scan'}
           </button>
-          <div style={{ marginTop: 16, fontSize: 12, color: 'var(--t3)' }}>
+          <div style={{ marginTop: 16, fontSize: 13, color: 'var(--t3)' }}>
             Having trouble? <button onClick={() => toast.info('OTP Fallback', 'Check your registered email for OTP')}
-              style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: 12 }}>
+              style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: 13 }}>
               Use OTP instead
             </button>
           </div>
@@ -132,7 +132,7 @@ export default function AttendancePage() {
           ) : (
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: 'var(--bg2)', fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: 1 }}>
+                <tr style={{ background: 'var(--bg2)', fontSize: 12, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: 1 }}>
                   {['User', 'Event', 'Confidence', 'Time', 'Status'].map(h => (
                     <th key={h} style={{ padding: '10px 14px', textAlign: 'left' }}>{h}</th>
                   ))}
@@ -140,12 +140,12 @@ export default function AttendancePage() {
               </thead>
               <tbody>
                 {(logs || []).map((log, i) => (
-                  <tr key={i} style={{ borderTop: '1px solid var(--border)', fontSize: 13 }}>
+                  <tr key={i} style={{ borderTop: '1px solid var(--border)', fontSize: 14.5 }}>
                     <td style={{ padding: '10px 14px' }}>{log.userId?.slice(0, 8)}...</td>
                     <td style={{ padding: '10px 14px' }}>
                       <span style={{ background: log.event === 'present' ? 'var(--green-light)' : 'var(--amber-light)',
                         color: log.event === 'present' ? 'var(--green)' : 'var(--amber)',
-                        padding: '2px 8px', borderRadius: 20, fontSize: 11 }}>
+                        padding: '2px 8px', borderRadius: 20, fontSize: 12 }}>
                         {log.event}
                       </span>
                     </td>
@@ -154,7 +154,7 @@ export default function AttendancePage() {
                       {new Date(log.timestamp).toLocaleString()}
                     </td>
                     <td style={{ padding: '10px 14px' }}>
-                      {log.flagged && <span style={{ color: 'var(--amber)', fontSize: 11 }}>⚠ Flagged</span>}
+                      {log.flagged && <span style={{ color: 'var(--amber)', fontSize: 12 }}>⚠ Flagged</span>}
                     </td>
                   </tr>
                 ))}
@@ -169,13 +169,13 @@ export default function AttendancePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 12 }}>
           {(report || []).map((r, i) => (
             <div key={i} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 12, padding: 16 }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 4 }}>Student</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>{r.userId?.slice(0, 8)}...</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 4 }}>Student</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}>{r.userId?.slice(0, 8)}...</div>
               <div style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 24, fontWeight: 700, color: r.attendanceRate >= 75 ? 'var(--green)' : 'var(--coral)' }}>
+                <div style={{ fontSize: 26.5, fontWeight: 700, color: r.attendanceRate >= 75 ? 'var(--green)' : 'var(--coral)' }}>
                   {Math.round(r.attendanceRate || 0)}%
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                   {r.presentDays}/{r.totalDays} days
                 </div>
               </div>

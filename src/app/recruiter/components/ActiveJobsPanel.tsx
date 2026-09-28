@@ -59,33 +59,33 @@ export default function ActiveJobsPanel({
         >
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-              <h4 style={{ fontWeight: 800, fontSize: 15.5, color: 'var(--t1)', margin: 0 }}>{job.title}</h4>
-              <span className="badge badge-purple" style={{ fontSize: 10 }}>
+              <h4 style={{ fontWeight: 800, fontSize: 17, color: 'var(--t1)', margin: 0 }}>{job.title}</h4>
+              <span className="badge badge-purple" style={{ fontSize: 11 }}>
                 {job.job_type}
               </span>
             </div>
-            <div style={{ fontSize: 12, color: 'var(--t2)', fontWeight: 600, marginBottom: 8 }}>🏢 {job.company}</div>
+            <div style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 600, marginBottom: 8 }}>🏢 {job.company}</div>
 
             {job.location && (
-              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 4 }}>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 4 }}>
                 📍 {job.location} ({job.work_mode})
               </div>
             )}
             {job.department && (
-              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 4 }}>🏛 {job.department}</div>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 4 }}>🏛 {job.department}</div>
             )}
             {job.salary_range && (
-              <div style={{ fontSize: 11.5, color: 'var(--teal)', fontWeight: 700, marginBottom: 4 }}>
+              <div style={{ fontSize: 12.5, color: 'var(--teal)', fontWeight: 700, marginBottom: 4 }}>
                 💰 {job.salary_range}
               </div>
             )}
             {job.interview_rounds && (
-              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 4 }}>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 4 }}>
                 🔄 {job.interview_rounds} rounds
               </div>
             )}
             {job.bond_period && (
-              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 4 }}>📜 {job.bond_period}</div>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 4 }}>📜 {job.bond_period}</div>
             )}
 
             {job.skills_required && (
@@ -97,7 +97,7 @@ export default function ActiveJobsPanel({
                     <span
                       key={s}
                       style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         padding: '2px 7px',
                         background: 'var(--bg3)',
                         borderRadius: 4,
@@ -129,7 +129,7 @@ export default function ActiveJobsPanel({
                 setShowJobModal(true);
               }}
               className="btn-ghost btn-sm"
-              style={{ fontSize: 11, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
+              style={{ fontSize: 12, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
             >
               ✏ Edit
             </button>
@@ -146,7 +146,7 @@ export default function ActiveJobsPanel({
                   });
               }}
               className="btn-ghost btn-sm"
-              style={{ fontSize: 11, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
+              style={{ fontSize: 12, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
             >
               🔗 Share
             </button>
@@ -156,7 +156,7 @@ export default function ActiveJobsPanel({
               style={{
                 color: 'var(--coral)',
                 border: '1px solid rgba(var(--danger-rgb), 0.2)',
-                fontSize: 11,
+                fontSize: 12,
                 padding: '4px 10px',
                 flex: 1,
                 justifyContent: 'center',

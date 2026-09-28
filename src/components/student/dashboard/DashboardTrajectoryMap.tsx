@@ -79,19 +79,19 @@ export default function DashboardTrajectoryMap({
         style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 20px', cursor:'pointer', borderBottom: open ? '1px solid var(--border)' : 'none', transition:'border 0.2s', userSelect:'none' }}
       >
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-          <span style={{ fontSize:16 }}>🗺️</span>
+          <span style={{ fontSize:17.5 }}>🗺️</span>
           <div>
-            <div style={{ fontFamily:'var(--font-display)', fontSize:13.5, fontWeight:800, color:'var(--t1)' }}>SDE Trajectory Progress Map</div>
-            <div style={{ fontSize:10.5, color:'var(--t3)', fontFamily:'var(--font-mono)', marginTop:1 }}>
+            <div style={{ fontFamily:'var(--font-display)', fontSize:15, fontWeight:800, color:'var(--t1)' }}>SDE Trajectory Progress Map</div>
+            <div style={{ fontSize:11.5, color:'var(--t3)', fontFamily:'var(--font-mono)', marginTop:1 }}>
               {roadmapGenerated ? '✅ Active Track — click to view progress' : 'Select a trajectory to unlock your quest roadmap'}
             </div>
           </div>
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-          <span style={{ fontSize:10, fontFamily:'var(--font-mono)', color:'var(--t3)', background:'var(--bg3)', padding:'2px 8px', borderRadius:6, border:'1px solid var(--border)' }}>
+          <span style={{ fontSize:11, fontFamily:'var(--font-mono)', color:'var(--t3)', background:'var(--bg3)', padding:'2px 8px', borderRadius:6, border:'1px solid var(--border)' }}>
             {roadmapGenerated ? 'Active' : 'Setup Required'}
           </span>
-          <span style={{ fontSize:14, color:'var(--t3)', transition:'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', display:'inline-block' }}>⌄</span>
+          <span style={{ fontSize:15.5, color:'var(--t3)', transition:'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', display:'inline-block' }}>⌄</span>
         </div>
       </div>
 
@@ -100,7 +100,7 @@ export default function DashboardTrajectoryMap({
         <div style={{ padding:20 }}>
           {roadmapGenerated && roadmapModules.length > 0 ? (
             <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
-              <p style={{ fontSize:12.5, color:'var(--t2)', margin:0, lineHeight:1.5 }}>Your dynamic roadmap was generated from your profile. Complete quests to clear modules.</p>
+              <p style={{ fontSize:14, color:'var(--t2)', margin:0, lineHeight:1.5 }}>Your dynamic roadmap was generated from your profile. Complete quests to clear modules.</p>
               <div style={{ display:'flex', flexDirection:'column', gap:16, maxHeight:300, overflowY:'auto', paddingRight:4 }}>
                 {roadmapModules.map((module, mIdx) => {
                   const allQ = module.quests || [];
@@ -114,10 +114,10 @@ export default function DashboardTrajectoryMap({
                       <div style={{ flex:1, minWidth:0 }}>
                         <div style={{ display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:6, marginBottom:4 }}>
                           <div>
-                            <h4 style={{ fontSize:13, fontWeight:800, color:'var(--t1)', margin:0 }}>{module.title}</h4>
-                            <span style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{done}/{allQ.length} Quests</span>
+                            <h4 style={{ fontSize:14.5, fontWeight:800, color:'var(--t1)', margin:0 }}>{module.title}</h4>
+                            <span style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)' }}>{done}/{allQ.length} Quests</span>
                           </div>
-                          <span style={{ fontSize:9.5, fontFamily:'var(--font-mono)', fontWeight:700, padding:'2px 8px', borderRadius:6, background: isComplete ? 'var(--green-light)' : isActive ? 'var(--accent-light)' : 'var(--bg3)', color: isComplete ? 'var(--green-mid)' : isActive ? 'var(--accent)' : 'var(--t3)' }}>
+                          <span style={{ fontSize:10.5, fontFamily:'var(--font-mono)', fontWeight:700, padding:'2px 8px', borderRadius:6, background: isComplete ? 'var(--green-light)' : isActive ? 'var(--accent-light)' : 'var(--bg3)', color: isComplete ? 'var(--green-mid)' : isActive ? 'var(--accent)' : 'var(--t3)' }}>
                             {isComplete ? '✓ Done' : isActive ? '⚡ Active' : '🔒 Locked'}
                           </span>
                         </div>
@@ -128,7 +128,7 @@ export default function DashboardTrajectoryMap({
                               const catIcon = q.category === 'learning' ? '🎓' : q.category === 'exam' ? '📝' : '💻';
                               return (
                                 <Link key={q.id} href={`/quests/lesson?questId=${q.id}`} prefetch={false} style={{ textDecoration:'none' }}>
-                                  <div style={{ display:'flex', alignItems:'center', gap:5, padding:'4px 10px', borderRadius:7, background: done2 ? 'rgba(5,150,105,0.08)' : 'var(--bg3)', border:`1px solid ${done2 ? 'rgba(5,150,105,0.2)' : 'var(--border)'}`, fontSize:11, fontWeight:600, color: done2 ? 'var(--green-mid)' : 'var(--t1)', cursor:'pointer', transition:'all 0.15s' }}>
+                                  <div style={{ display:'flex', alignItems:'center', gap:5, padding:'4px 10px', borderRadius:7, background: done2 ? 'rgba(5,150,105,0.08)' : 'var(--bg3)', border:`1px solid ${done2 ? 'rgba(5,150,105,0.2)' : 'var(--border)'}`, fontSize:12, fontWeight:600, color: done2 ? 'var(--green-mid)' : 'var(--t1)', cursor:'pointer', transition:'all 0.15s' }}>
                                     <span>{done2 ? '✓' : catIcon}</span><span>{q.title}</span>
                                   </div>
                                 </Link>
@@ -144,17 +144,17 @@ export default function DashboardTrajectoryMap({
             </div>
           ) : isGeneratingRoadmap ? (
             <div style={{ textAlign:'center', padding:'28px 20px', background:'var(--bg3)', borderRadius:14 }}>
-              <div style={{ fontSize:28, marginBottom:10, display:'inline-block', animation:'spin 1.5s linear infinite' }}>🗺️</div>
-              <div style={{ fontSize:12.5, fontWeight:700, color:'var(--t1)' }}>Generating AI Quest Roadmap…</div>
-              <p style={{ fontSize:11, color:'var(--t3)', margin:'4px 0 0' }}>Fusing your strengths and trajectory gaps into a custom socratic quest path.</p>
+              <div style={{ fontSize:31, marginBottom:10, display:'inline-block', animation:'spin 1.5s linear infinite' }}>🗺️</div>
+              <div style={{ fontSize:14, fontWeight:700, color:'var(--t1)' }}>Generating AI Quest Roadmap…</div>
+              <p style={{ fontSize:12, color:'var(--t3)', margin:'4px 0 0' }}>Fusing your strengths and trajectory gaps into a custom socratic quest path.</p>
             </div>
           ) : (
             <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
               <div style={{ padding:'12px 16px', background:'rgba(220,38,38,0.04)', border:'1px solid rgba(220,38,38,0.1)', borderRadius:10, display:'flex', gap:10, alignItems:'center' }}>
-                <span style={{ fontSize:20 }}>🔒</span>
+                <span style={{ fontSize:22 }}>🔒</span>
                 <div>
-                  <div style={{ fontSize:12.5, fontWeight:700, color:'var(--t1)' }}>Roadmap Not Configured</div>
-                  <p style={{ fontSize:11, color:'var(--t3)', margin:0 }}>Click a trajectory below to generate your custom quest path.</p>
+                  <div style={{ fontSize:14, fontWeight:700, color:'var(--t1)' }}>Roadmap Not Configured</div>
+                  <p style={{ fontSize:12, color:'var(--t3)', margin:0 }}>Click a trajectory below to generate your custom quest path.</p>
                 </div>
               </div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))', gap:10 }}>
@@ -175,11 +175,11 @@ export default function DashboardTrajectoryMap({
                     style={{ background:'var(--bg3)', border:`1.5px solid ${selectedTrajectory === track.title ? track.color : 'var(--border)'}`, borderRadius:12, padding:14, cursor:'pointer', transition:'all 0.15s', boxShadow: selectedTrajectory === track.title ? `0 0 12px ${track.color}40` : 'none', outline: 'none' }}
                   >
                     <div style={{ display:'flex', justifyContent:'space-between', marginBottom:6 }}>
-                      <span style={{ fontSize:20 }}>{track.icon}</span>
+                      <span style={{ fontSize:22 }}>{track.icon}</span>
                       {selectedTrajectory === track.title && <span style={{ width:6, height:6, borderRadius:'50%', background:track.color, boxShadow:`0 0 6px ${track.color}` }} />}
                     </div>
-                    <div style={{ fontSize:12.5, fontWeight:800, color:'var(--t1)', marginBottom:8 }}>{track.title}</div>
-                    <span style={{ fontSize:10.5, fontWeight:700, color:track.color, fontFamily:'var(--font-mono)' }}>Choose Path ➔</span>
+                    <div style={{ fontSize:14, fontWeight:800, color:'var(--t1)', marginBottom:8 }}>{track.title}</div>
+                    <span style={{ fontSize:11.5, fontWeight:700, color:track.color, fontFamily:'var(--font-mono)' }}>Choose Path ➔</span>
                   </div>
                 ))}
               </div>

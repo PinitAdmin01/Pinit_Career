@@ -109,7 +109,7 @@ export default function GdMeetGrid({
             background: micActive ? 'var(--teal)' : 'var(--danger)',
             boxShadow: micActive ? '0 0 8px var(--teal)' : 'none'
           }} />
-          <span style={{ fontSize: 11, fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--t2)' }}>
+          <span style={{ fontSize: 12, fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--t2)' }}>
             {micActive ? 'AUDIO STREAM ACTIVE' : 'MUTED'}
           </span>
         </div>
@@ -126,13 +126,13 @@ export default function GdMeetGrid({
               color: 'var(--orange)',
               padding: '2px 8px',
               borderRadius: 8,
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800
             }}>
               ✋ Hand Raised
             </span>
           )}
-          <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
+          <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
             {Math.floor(callDurationSeconds / 60).toString().padStart(2, '0')}:{(callDurationSeconds % 60).toString().padStart(2, '0')}
           </span>
         </div>

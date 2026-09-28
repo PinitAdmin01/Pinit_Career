@@ -83,17 +83,17 @@ export default function RoadmapSCurveRevamp() {
                 className={`scurve-stage-btn ${isSelected ? 'active' : ''}`}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                  <span style={{ fontSize: 20 }}>{stage.icon}</span>
-                  <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: 4, background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
+                  <span style={{ fontSize: 22 }}>{stage.icon}</span>
+                  <span style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: 4, background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
                     {stage.days}
                   </span>
                 </div>
 
-                <div style={{ fontSize: 11, fontWeight: 750, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 2 }}>
+                <div style={{ fontSize: 12, fontWeight: 750, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 2 }}>
                   {stage.level}
                 </div>
 
-                <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 750, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {stage.title}
                 </div>
               </button>
@@ -110,29 +110,29 @@ export default function RoadmapSCurveRevamp() {
                 <span className="lp-badge-tag cyan" style={{ margin: 0 }}>
                   {current.level} • {current.days}
                 </span>
-                <span style={{ fontSize: 11.5, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>1-Concept Cognitive Budget</span>
+                <span style={{ fontSize: 12.5, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>1-Concept Cognitive Budget</span>
               </div>
 
-              <h3 style={{ margin: 0, fontSize: 24, fontWeight: 850, color: 'var(--text-primary)', lineHeight: 1.3 }}>
+              <h3 style={{ margin: 0, fontSize: 26.5, fontWeight: 850, color: 'var(--text-primary)', lineHeight: 1.3 }}>
                 {current.title}
               </h3>
 
-              <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <p style={{ margin: 0, fontSize: 15.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 {current.desc}
               </p>
 
-              <div style={{ padding: '12px 16px', borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', color: 'var(--accent)', fontSize: 12.5, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ padding: '12px 16px', borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', color: 'var(--accent)', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span>🏆</span>
                 <span>{current.milestoneTitle}</span>
               </div>
 
               <div style={{ paddingTop: 8 }}>
-                <div style={{ fontSize: 11, fontWeight: 750, color: 'var(--text-tertiary)', textTransform: 'uppercase', marginBottom: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 750, color: 'var(--text-tertiary)', textTransform: 'uppercase', marginBottom: 8 }}>
                   Verified Skills Tested in this Stage:
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {current.skills.map((skill, i) => (
-                    <span key={i} style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', fontSize: 11.5, color: 'var(--text-primary)' }}>
+                    <span key={i} style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', fontSize: 12.5, color: 'var(--text-primary)' }}>
                       <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>✓</span> {skill}
                     </span>
                   ))}
@@ -141,7 +141,7 @@ export default function RoadmapSCurveRevamp() {
             </div>
 
             {/* Right Stage Verify Mock — honest, no fake certification */}
-            <div style={{ padding: 22, borderRadius: 18, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 12, fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
+            <div style={{ padding: 22, borderRadius: 18, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 12, fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: 10 }}>
                 <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Stage Verification Suite</span>
                 <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Auto-Evaluated</span>

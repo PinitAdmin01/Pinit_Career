@@ -44,10 +44,10 @@ export default function ConsultantDashboardOverview({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-          <span style={{ fontSize: 20 }}>🤖</span>
-          <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>Pipeline Snapshot</span>
+          <span style={{ fontSize: 22 }}>🤖</span>
+          <span style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--accent)' }}>Pipeline Snapshot</span>
         </div>
-        <div style={{ fontSize: 13, color: 'var(--t2)' }}>
+        <div style={{ fontSize: 14.5, color: 'var(--t2)' }}>
           {allStudents.length} candidate{allStudents.length === 1 ? '' : 's'} in pipeline.
           {analytics?.totalStudents != null ? ` Analytics reports ${analytics.totalStudents} total students.` : ''} No fabricated
           scholarship or visa alerts are shown.
@@ -71,10 +71,10 @@ export default function ConsultantDashboardOverview({
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 18 }}>🚨</span>
+            <span style={{ fontSize: 20 }}>🚨</span>
             <span
               style={{
-                fontSize: 13.5,
+                fontSize: 15,
                 fontWeight: 900,
                 color: 'var(--coral)',
                 textTransform: 'uppercase',
@@ -84,7 +84,7 @@ export default function ConsultantDashboardOverview({
               At-Risk Advisory Trigger (Care Team Early Warning)
             </span>
           </div>
-          <p style={{ margin: '4px 0 0 0', fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>
+          <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
             2 candidates flagged for low mock test engagement or attendance drop. Assign a multi-disciplinary Care Team to
             intervene.
           </p>
@@ -98,7 +98,7 @@ export default function ConsultantDashboardOverview({
             color: 'var(--text)',
             border: 'none',
             fontWeight: 800,
-            fontSize: 12,
+            fontSize: 13,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
             boxShadow: '0 4px 12px rgba(var(--danger-rgb),  0.25)',
@@ -141,11 +141,11 @@ export default function ConsultantDashboardOverview({
               gap: 4,
             }}
           >
-            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
               {c.label}
             </span>
-            <span style={{ fontSize: 22, fontWeight: 900, color: c.color }}>{c.value}</span>
-            <span style={{ fontSize: 10, color: 'var(--t3)' }}>{c.desc}</span>
+            <span style={{ fontSize: 24, fontWeight: 900, color: c.color }}>{c.value}</span>
+            <span style={{ fontSize: 11, color: 'var(--t3)' }}>{c.desc}</span>
           </div>
         ))}
       </div>
@@ -156,7 +156,7 @@ export default function ConsultantDashboardOverview({
             style={{
               background: 'var(--bg3)',
               padding: '10px 14px',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 800,
               color: 'var(--t3)',
               borderBottom: '1px solid var(--border)',
@@ -166,7 +166,7 @@ export default function ConsultantDashboardOverview({
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
             {sessions.length === 0 ? (
-              <div style={{ padding: 20, color: 'var(--t3)', fontSize: 12.5, textAlign: 'center' }}>
+              <div style={{ padding: 20, color: 'var(--t3)', fontSize: 14, textAlign: 'center' }}>
                 No pipeline sessions scheduled.
               </div>
             ) : (
@@ -178,15 +178,15 @@ export default function ConsultantDashboardOverview({
                     justifyContent: 'space-between',
                     padding: '12px 14px',
                     borderBottom: idx < Math.min(sessions.length, 6) - 1 ? '1px solid var(--border)' : 'none',
-                    fontSize: 12.5,
+                    fontSize: 14,
                   }}
                 >
                   <div>
                     <strong style={{ color: 'var(--t1)' }}>{s.title}</strong>
-                    <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Student: {s.studentName || s.studentId}</div>
+                    <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>Student: {s.studentName || s.studentId}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700 }}>{s.time || s.date}</span>
+                    <span style={{ fontSize: 12.5, color: 'var(--accent)', fontWeight: 700 }}>{s.time || s.date}</span>
                   </div>
                 </div>
               ))
@@ -199,7 +199,7 @@ export default function ConsultantDashboardOverview({
             style={{
               background: 'var(--bg3)',
               padding: '10px 14px',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 800,
               color: 'var(--t3)',
               borderBottom: '1px solid var(--border)',
@@ -216,7 +216,7 @@ export default function ConsultantDashboardOverview({
                   border: '1px solid var(--border)',
                   borderRadius: 10,
                   padding: 10,
-                  fontSize: 12,
+                  fontSize: 13,
                 }}
               >
                 <strong>{s.displayName || s.name}</strong>: {s.status || 'onboarding'} · Visa {s.visa_status || 'not_started'}

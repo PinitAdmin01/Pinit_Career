@@ -19,9 +19,9 @@ const PinITExamEngine = dynamic(
     ssr: false,
     loading: () => (
       <div style={{ minHeight:'60vh', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', gap:16 }}>
-        <div style={{ fontSize:36, animation:'spin 1s linear infinite' }}>⚙</div>
-        <p style={{ color:'var(--t2)', fontFamily:'var(--font-mono)', fontSize:13 }}>Initialising exam engine…</p>
-        <p style={{ color:'var(--t3)', fontSize:11 }}>Loading Python runtime for code evaluation</p>
+        <div style={{ fontSize:39.5, animation:'spin 1s linear infinite' }}>⚙</div>
+        <p style={{ color:'var(--t2)', fontFamily:'var(--font-mono)', fontSize:14.5 }}>Initialising exam engine…</p>
+        <p style={{ color:'var(--t3)', fontSize:12 }}>Loading Python runtime for code evaluation</p>
       </div>
     ),
   }
@@ -90,12 +90,12 @@ function ExamList({ onTake }: { onTake: (id:string) => void }) {
             background: exam.exam_type==='coding' ? 'rgba(79,70,229,0.12)'
                        : exam.exam_type==='mcq'    ? 'rgba(0,201,167,0.12)'
                        : 'rgba(245,158,11,0.12)',
-            display:'flex', alignItems:'center', justifyContent:'center', fontSize:22 }}>
+            display:'flex', alignItems:'center', justifyContent:'center', fontSize:24 }}>
             {exam.exam_type==='coding' ? '</>' : exam.exam_type==='mcq' ? '✅' : '📝'}
           </div>
           <div style={{ flex:1, minWidth:0 }}>
-            <div style={{ fontWeight:700, fontSize:14, color:'var(--t1)', marginBottom:4 }}>{exam.title}</div>
-            <div style={{ display:'flex', gap:12, fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)', flexWrap:'wrap' }}>
+            <div style={{ fontWeight:700, fontSize:15.5, color:'var(--t1)', marginBottom:4 }}>{exam.title}</div>
+            <div style={{ display:'flex', gap:12, fontSize:12, color:'var(--t3)', fontFamily:'var(--font-mono)', flexWrap:'wrap' }}>
               <span>⏱ {exam.duration_minutes} min</span>
               <span>📝 {exam.question_count} questions</span>
               <span>🎯 {exam.total_marks} marks</span>
@@ -105,7 +105,7 @@ function ExamList({ onTake }: { onTake: (id:string) => void }) {
               </span>}
             </div>
           </div>
-          <button onClick={() => onTake(exam.id)} className="btn-primary" style={{ flexShrink:0, fontSize:13 }}>
+          <button onClick={() => onTake(exam.id)} className="btn-primary" style={{ flexShrink:0, fontSize:14.5 }}>
             Start Exam →
           </button>
         </div>
@@ -125,7 +125,7 @@ function TakeExam({ examId, studentId, onDone }: { examId:string; studentId:stri
 
   if (isLoading) return (
     <div style={{ textAlign:'center', padding:60 }}>
-      <div style={{ fontSize:32, marginBottom:12, animation:'spin 1s linear infinite' }}>⚙</div>
+      <div style={{ fontSize:35, marginBottom:12, animation:'spin 1s linear infinite' }}>⚙</div>
       <p style={{ color:'var(--t2)' }}>Loading exam questions…</p>
     </div>
   );
@@ -182,23 +182,23 @@ function ResultsView() {
             display:'flex', alignItems:'center', gap:16, boxShadow:'var(--shadow-sm)',
           }}>
             {badge
-              ? <span style={{ fontSize:32, flexShrink:0 }}>{badge.icon}</span>
-              : <span style={{ fontSize:28, flexShrink:0, opacity:0.4 }}>📋</span>
+              ? <span style={{ fontSize:35, flexShrink:0 }}>{badge.icon}</span>
+              : <span style={{ fontSize:31, flexShrink:0, opacity:0.4 }}>📋</span>
             }
             <div style={{ flex:1, minWidth:0 }}>
-              <div style={{ fontSize:13.5, fontWeight:700, color:'var(--t1)', marginBottom:3 }}>{r.exam_name}</div>
-              <div style={{ fontSize:11, color:'var(--t3)', fontFamily:'var(--font-mono)', display:'flex', gap:12, flexWrap:'wrap' }}>
+              <div style={{ fontSize:15, fontWeight:700, color:'var(--t1)', marginBottom:3 }}>{r.exam_name}</div>
+              <div style={{ fontSize:12, color:'var(--t3)', fontFamily:'var(--font-mono)', display:'flex', gap:12, flexWrap:'wrap' }}>
                 <span>{new Date(r.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}</span>
                 <span>{r.score}/{r.total_marks} marks</span>
                 {r.tab_switches > 0 && <span style={{ color:r.tab_switches>5?'var(--coral)':'var(--amber)' }}>⚠ {r.tab_switches} tab switch{r.tab_switches>1?'es':''}</span>}
               </div>
             </div>
             <div style={{ textAlign:'right', flexShrink:0 }}>
-              <div style={{ fontFamily:'var(--font-display)', fontSize:26, fontWeight:800, letterSpacing:'-0.5px',
+              <div style={{ fontFamily:'var(--font-display)', fontSize:28.5, fontWeight:800, letterSpacing:'-0.5px',
                 color: pct>=70 ? 'var(--green)' : 'var(--coral)' }}>{pct}%</div>
               {badge
-                ? <div style={{ fontSize:11, fontWeight:600, color:badge.color }}>{badge.label} Badge</div>
-                : <div style={{ fontSize:11, color:'var(--t3)' }}>Did not pass</div>
+                ? <div style={{ fontSize:12, fontWeight:600, color:badge.color }}>{badge.label} Badge</div>
+                : <div style={{ fontSize:12, color:'var(--t3)' }}>Did not pass</div>
               }
             </div>
           </div>
@@ -215,27 +215,27 @@ function FinishOverlay({ result, onBack }: { result:any; onBack:()=>void }) {
     <div style={{ maxWidth:480, margin:'60px auto', textAlign:'center', padding:36,
                   background:'var(--bg2)', borderRadius:'var(--radius-xl)', border:'1px solid var(--border)',
                   boxShadow:'var(--shadow-lg)' }}>
-      <div style={{ fontSize:60, marginBottom:16 }}>
+      <div style={{ fontSize:66, marginBottom:16 }}>
         {pct >= 90 ? '🥇' : pct >= 80 ? '🥈' : pct >= 70 ? '🥉' : pct >= 50 ? '📊' : '📝'}
       </div>
-      <h2 style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800, marginBottom:8 }}>Exam Complete!</h2>
-      <div style={{ fontFamily:'var(--font-display)', fontSize:52, fontWeight:800, letterSpacing:'-2px',
+      <h2 style={{ fontFamily:'var(--font-display)', fontSize:24, fontWeight:800, marginBottom:8 }}>Exam Complete!</h2>
+      <div style={{ fontFamily:'var(--font-display)', fontSize:57, fontWeight:800, letterSpacing:'-2px',
         color: pct>=70 ? 'var(--green)' : pct>=50 ? 'var(--amber)' : 'var(--coral)', marginBottom:6 }}>
         {pct}%
       </div>
-      <div style={{ fontSize:14, color:'var(--t2)', marginBottom:6 }}>{result.score} / {result.totalMarks} marks</div>
+      <div style={{ fontSize:15.5, color:'var(--t2)', marginBottom:6 }}>{result.score} / {result.totalMarks} marks</div>
       {result.tabSwitches > 0 && (
-        <div style={{ fontSize:12, color:'var(--amber)', marginBottom:12 }}>
+        <div style={{ fontSize:13, color:'var(--amber)', marginBottom:12 }}>
           ⚠ {result.tabSwitches} tab switch{result.tabSwitches>1?'es':''} recorded
         </div>
       )}
       {pct >= 70 && (
-        <div style={{ padding:'10px 16px', background:'var(--green-light)', borderRadius:'var(--radius)', fontSize:13, color:'var(--green)', fontWeight:600, marginBottom:16 }}>
+        <div style={{ padding:'10px 16px', background:'var(--green-light)', borderRadius:'var(--radius)', fontSize:14.5, color:'var(--green)', fontWeight:600, marginBottom:16 }}>
           ✅ Passed! Badge added to your Vault.
         </div>
       )}
       {pct < 70 && (
-        <div style={{ padding:'10px 16px', background:'var(--amber-light)', borderRadius:'var(--radius)', fontSize:13, color:'var(--amber)', fontWeight:600, marginBottom:16 }}>
+        <div style={{ padding:'10px 16px', background:'var(--amber-light)', borderRadius:'var(--radius)', fontSize:14.5, color:'var(--amber)', fontWeight:600, marginBottom:16 }}>
           You need 70% to earn a badge. Review the topics and try again.
         </div>
       )}
@@ -332,8 +332,8 @@ export default function ExamPage() {
     <Suspense fallback={
       <div style={{ minHeight:'60vh', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <div style={{ textAlign:'center' }}>
-          <div style={{ fontSize:32, marginBottom:12, animation:'spin 1s linear infinite' }}>⚙</div>
-          <p style={{ color:'var(--t2)', fontFamily:'var(--font-mono)', fontSize:13 }}>Loading…</p>
+          <div style={{ fontSize:35, marginBottom:12, animation:'spin 1s linear infinite' }}>⚙</div>
+          <p style={{ color:'var(--t2)', fontFamily:'var(--font-mono)', fontSize:14.5 }}>Loading…</p>
         </div>
       </div>
     }>

@@ -165,8 +165,8 @@ export default function AdminOverview() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>🏛️ Campus System Overview</h2>
-          <p style={{ margin: '4px 0 0', color: 'var(--t3)', fontSize: 14 }}>Real-time institutional metrics, active sessions, and system-wide broadcast management.</p>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>🏛️ Campus System Overview</h2>
+          <p style={{ margin: '4px 0 0', color: 'var(--t3)', fontSize: 15.5 }}>Real-time institutional metrics, active sessions, and system-wide broadcast management.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
@@ -179,7 +179,7 @@ export default function AdminOverview() {
               borderRadius: 8,
               cursor: 'pointer',
               fontWeight: 600,
-              fontSize: 13,
+              fontSize: 14.5,
               color: 'var(--t1)',
             }}
           >
@@ -195,7 +195,7 @@ export default function AdminOverview() {
               borderRadius: 8,
               cursor: 'pointer',
               fontWeight: 600,
-              fontSize: 13,
+              fontSize: 14.5,
             }}
           >
             ⚡ Clear Server Cache
@@ -211,7 +211,7 @@ export default function AdminOverview() {
             border: `1px solid ${actionFeedback.type === 'success' ? 'var(--success)' : 'var(--accent)'}`,
             padding: 12,
             borderRadius: 10,
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 600,
             color: 'var(--t1)',
           }}
@@ -226,7 +226,7 @@ export default function AdminOverview() {
         <div style={{ background: '#fef3c7', border: '1px solid #f59e0b', padding: 16, borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ fontWeight: 800, color: '#92400e', marginRight: 8 }}>📢 Live Campus Broadcast:</span>
-            <span style={{ color: '#78350f', fontSize: 14 }}>{activeNotice}</span>
+            <span style={{ color: '#78350f', fontSize: 15.5 }}>{activeNotice}</span>
           </div>
           <button onClick={() => setActiveNotice(null)} style={{ background: 'none', border: 'none', color: '#92400e', cursor: 'pointer', fontWeight: 700 }}>✕ Dismiss</button>
         </div>
@@ -235,41 +235,41 @@ export default function AdminOverview() {
       {/* Summary Stat Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
         <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--card, #fff)' }}>
-          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Total Registered Students</div>
-          <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: 'var(--accent, #2563eb)' }}>
+          <div style={{ fontSize: 14.5, color: 'var(--t3)' }}>Total Registered Students</div>
+          <div style={{ fontSize: 35, fontWeight: 800, margin: '6px 0 0', color: 'var(--accent, #2563eb)' }}>
             {stats.totalUsers.toLocaleString()}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>
+          <div style={{ fontSize: 13, color: 'var(--success)', marginTop: 4 }}>
             {stats.totalUsers > 0 ? '✓ Live Verified Roster' : 'Waiting for student registrations'}
           </div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--card, #fff)' }}>
-          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Active Faculty & Departments</div>
-          <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: 'var(--purple, #9333ea)' }}>
+          <div style={{ fontSize: 14.5, color: 'var(--t3)' }}>Active Faculty & Departments</div>
+          <div style={{ fontSize: 35, fontWeight: 800, margin: '6px 0 0', color: 'var(--purple, #9333ea)' }}>
             {stats.activeFaculty}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4 }}>
             {stats.departmentCount} Academic {stats.departmentCount === 1 ? 'Department' : 'Departments'}
           </div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--card, #fff)' }}>
-          <div style={{ fontSize: 13, color: 'var(--t3)' }}>Flagged Fraud Alerts</div>
-          <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: stats.fraudAlertsCount > 0 ? 'var(--coral, #ef4444)' : 'var(--success)' }}>
+          <div style={{ fontSize: 14.5, color: 'var(--t3)' }}>Flagged Fraud Alerts</div>
+          <div style={{ fontSize: 35, fontWeight: 800, margin: '6px 0 0', color: stats.fraudAlertsCount > 0 ? 'var(--coral, #ef4444)' : 'var(--success)' }}>
             {stats.fraudAlertsCount}
           </div>
-          <div style={{ fontSize: 12, color: stats.fraudAlertsCount > 0 ? 'var(--coral)' : 'var(--success)', marginTop: 4 }}>
+          <div style={{ fontSize: 13, color: stats.fraudAlertsCount > 0 ? 'var(--coral)' : 'var(--success)', marginTop: 4 }}>
             {stats.fraudAlertsCount > 0 ? 'Requires administrative review' : 'Zero active infractions'}
           </div>
         </div>
 
         <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--card, #fff)' }}>
-          <div style={{ fontSize: 13, color: 'var(--t3)' }}>System Status</div>
-          <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: 'var(--success, #10b981)' }}>
+          <div style={{ fontSize: 14.5, color: 'var(--t3)' }}>System Status</div>
+          <div style={{ fontSize: 35, fontWeight: 800, margin: '6px 0 0', color: 'var(--success, #10b981)' }}>
             {stats.uptimeStatus}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>
+          <div style={{ fontSize: 13, color: 'var(--success)', marginTop: 4 }}>
             All API routes operational
           </div>
         </div>
@@ -277,8 +277,8 @@ export default function AdminOverview() {
 
       {/* Broadcast Form */}
       <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
-        <h3 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: 'var(--t1)' }}>📢 Send System-Wide Broadcast Notice</h3>
-        <p style={{ color: 'var(--t3)', fontSize: 13, margin: '0 0 12px' }}>Publish announcements to all student and faculty dashboards instantly.</p>
+        <h3 style={{ margin: '0 0 8px', fontSize: 17.5, fontWeight: 700, color: 'var(--t1)' }}>📢 Send System-Wide Broadcast Notice</h3>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5, margin: '0 0 12px' }}>Publish announcements to all student and faculty dashboards instantly.</p>
         
         <div style={{ display: 'flex', gap: 12 }}>
           <input

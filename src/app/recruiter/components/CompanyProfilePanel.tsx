@@ -26,7 +26,7 @@ export default function CompanyProfilePanel({
   return (
     <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 24, maxWidth: 700 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 700, margin: 0 }}>Company Profile</h3>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 700, margin: 0 }}>Company Profile</h3>
         {!companyEditing && (
           <button onClick={() => setCompanyEditing(true)} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)' }}>
             ✏ Edit Profile
@@ -49,7 +49,7 @@ export default function CompanyProfilePanel({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 24,
+                fontSize: 26.5,
               }}
             >
               {companyProfile.logo_url ? (
@@ -66,27 +66,27 @@ export default function CompanyProfilePanel({
               )}
             </div>
             <div>
-              <h4 style={{ fontWeight: 800, fontSize: 16, margin: 0 }}>{companyProfile.company_name}</h4>
-              <p style={{ color: 'var(--t3)', fontSize: 12, margin: '2px 0 0' }}>
+              <h4 style={{ fontWeight: 800, fontSize: 17.5, margin: 0 }}>{companyProfile.company_name}</h4>
+              <p style={{ color: 'var(--t3)', fontSize: 13, margin: '2px 0 0' }}>
                 {companyProfile.tagline || 'No tagline added'}
               </p>
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10 }}>
-            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
               <span style={{ color: 'var(--t3)' }}>Industry: </span>
               <strong>{companyProfile.industry}</strong>
             </div>
-            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
               <span style={{ color: 'var(--t3)' }}>Staff Size: </span>
               <strong>{companyProfile.company_size}</strong>
             </div>
-            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
               <span style={{ color: 'var(--t3)' }}>Founded: </span>
               <strong>{companyProfile.founded_year || '—'}</strong>
             </div>
-            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
               <span style={{ color: 'var(--t3)' }}>HQ: </span>
               <strong>
                 {[companyProfile.headquarters, companyProfile.city, companyProfile.state, companyProfile.country]
@@ -95,13 +95,13 @@ export default function CompanyProfilePanel({
               </strong>
             </div>
             {companyProfile.contact_email && (
-              <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+              <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
                 <span style={{ color: 'var(--t3)' }}>Contact Email: </span>
                 <strong>{companyProfile.contact_email}</strong>
               </div>
             )}
             {companyProfile.contact_phone && (
-              <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 12 }}>
+              <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: 10, fontSize: 13 }}>
                 <span style={{ color: 'var(--t3)' }}>Contact Phone: </span>
                 <strong>{companyProfile.contact_phone}</strong>
               </div>
@@ -109,7 +109,7 @@ export default function CompanyProfilePanel({
           </div>
 
           {companyProfile.website && (
-            <div style={{ fontSize: 12 }}>
+            <div style={{ fontSize: 13 }}>
               Website:{' '}
               <a
                 href={companyProfile.website}
@@ -123,14 +123,14 @@ export default function CompanyProfilePanel({
           )}
 
           {companyProfile.about && (
-            <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 14, fontSize: 12, lineHeight: 1.6 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 14, fontSize: 13, lineHeight: 1.6 }}>
               <div style={{ fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>About us</div>
               {companyProfile.about}
             </div>
           )}
 
           {companyProfile.benefits && (
-            <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 14, fontSize: 12, lineHeight: 1.6 }}>
+            <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 14, fontSize: 13, lineHeight: 1.6 }}>
               <div style={{ fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Benefits & Perks</div>
               {companyProfile.benefits}
             </div>

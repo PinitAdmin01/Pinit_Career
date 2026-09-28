@@ -172,7 +172,7 @@
   border: 1px solid var(--badge-border);
   padding: 6px 14px;
   border-radius: 999px;
-  font-size: 11.5px;
+  font-size: 12.5px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -189,7 +189,7 @@
   padding: 12px 24px;
   border-radius: 50px;
   font-weight: 750;
-  font-size: 14px;
+  font-size: 15.5px;
   transition: all 0.2s cubic-bezier(0.2, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
@@ -209,7 +209,7 @@
 
 .landing-page .pc-btn-primary.btn-sm {
   padding: 8px 18px;
-  font-size: 12.5px;
+  font-size: 14px;
 }
 
 .landing-page .pc-btn-outline {
@@ -219,7 +219,7 @@
   padding: 12px 24px;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15.5px;
   transition: all 0.2s cubic-bezier(0.2, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
@@ -235,7 +235,7 @@
 
 .landing-page .pc-btn-outline.btn-sm {
   padding: 8px 18px;
-  font-size: 12.5px;
+  font-size: 14px;
 }
 
 /* --------------------------------------------------------------------------
@@ -293,14 +293,14 @@
 }
 
 .landing-page .hero-title {
-  font-size: 46px;
+  font-size: 50.5px;
   line-height: 1.15;
   margin-bottom: 20px;
   letter-spacing: -0.04em;
 }
 
 .landing-page .hero-subtitle {
-  font-size: 16px;
+  font-size: 17.5px;
   color: var(--text-secondary);
   line-height: 1.65;
   margin-bottom: 28px;
@@ -327,7 +327,7 @@
   border: 1px solid var(--border-color);
   border-radius: 50px;
   padding: 6px 14px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-primary);
   display: flex;
@@ -338,11 +338,11 @@
 .landing-page .hero-path li span {
   color: var(--accent);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .landing-page .trust-text {
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--text-tertiary);
   font-weight: 500;
   line-height: 1.5;
@@ -527,7 +527,7 @@
   color: var(--text-primary);
   padding: 8px 16px;
   border-radius: 50px;
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 750;
   display: inline-flex;
   align-items: center;
@@ -585,7 +585,7 @@
 }
 
 .landing-page .lp-node-tooltip-title {
-  font-size: 11.5px;
+  font-size: 12.5px;
   font-weight: 800;
   color: var(--accent);
   text-transform: uppercase;
@@ -595,7 +595,7 @@
 }
 
 .landing-page .lp-node-tooltip-desc {
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--text-secondary);
   line-height: 1.45;
   margin: 0;
@@ -614,7 +614,7 @@
 .landing-page .lp-terms li em {
   font-style: normal;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   color: var(--accent);
   background: var(--badge-bg);
@@ -662,7 +662,7 @@
   align-items: center;
   justify-content: center;
   gap: 36px;
-  font-size: 15px;
+  font-size: 16.5px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -697,7 +697,7 @@
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 16px 20px;
-  font-size: 14px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--text-primary);
   box-shadow: var(--card-shadow);
@@ -723,20 +723,20 @@
 }
 
 .landing-page .brief-worlds-row article strong {
-  font-size: 17px;
+  font-size: 18.5px;
   color: var(--text-primary);
   font-weight: 800;
 }
 
 .landing-page .brief-worlds-row article span {
-  font-size: 13.5px;
+  font-size: 15px;
   color: var(--text-secondary);
   font-weight: 500;
 }
 
 .landing-page .brief-worlds-end {
   text-align: center;
-  font-size: 14px;
+  font-size: 15.5px;
   font-weight: 600;
   color: var(--accent);
   margin-top: 12px;
@@ -746,7 +746,7 @@
    10. CAREER IDENTITY & SIGNALS
    -------------------------------------------------------------------------- */
 .landing-page .brief-identity-lead {
-  font-size: 15px;
+  font-size: 16.5px;
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 780px;
@@ -764,7 +764,7 @@
   border: 1px solid var(--border-color);
   border-radius: 50px;
   padding: 8px 18px;
-  font-size: 13px;
+  font-size: 14.5px;
   font-weight: 650;
   color: var(--text-primary);
   box-shadow: var(--card-shadow);
@@ -794,7 +794,7 @@
 }
 
 .landing-page .brief-audience-grid h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 16px;
@@ -807,7 +807,7 @@
 }
 
 .landing-page .brief-audience-grid li {
-  font-size: 13.5px;
+  font-size: 15px;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -843,14 +843,14 @@
 }
 
 .landing-page .gain-card h3 {
-  font-size: 17px;
+  font-size: 18.5px;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .landing-page .gain-card p {
-  font-size: 13.5px;
+  font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -911,7 +911,7 @@
   gap: 6px;
   padding: 5px 14px;
   border-radius: 50px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -931,7 +931,7 @@
 }
 
 .landing-page .lp-section-title {
-  font-size: 36px;
+  font-size: 39.5px;
   font-weight: 900;
   color: var(--text-primary);
   line-height: 1.25;
@@ -952,7 +952,7 @@
 }
 
 .landing-page .lp-section-subtitle {
-  font-size: 15.5px;
+  font-size: 17px;
   color: var(--text-secondary);
   line-height: 1.65;
   margin: 0;
@@ -970,7 +970,7 @@
 .landing-page .three-worlds-btn {
   padding: 10px 22px;
   border-radius: 12px;
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 750;
   border: 1px solid var(--border-color);
   background: var(--bg-card);
@@ -1000,7 +1000,7 @@
   gap: 6px;
   padding: 8px 16px;
   border-radius: 10px;
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
   border: 1px solid var(--border-color);
   background: var(--bg-card);
@@ -1183,7 +1183,7 @@
   }
 
   .landing-page .hero-title {
-    font-size: 34px;
+    font-size: 37.5px;
   }
 
   .landing-page .hero-subtitle {
@@ -1206,7 +1206,7 @@
   }
 
   .landing-page .lp-terms li {
-    font-size: 11px;
+    font-size: 12px;
     padding: 6px 12px;
   }
 }
@@ -1258,7 +1258,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 15.5px;
 }
 
 /* --- THE ANIMATION --- */
@@ -1275,7 +1275,7 @@
 /* --- responsive: smaller on mobile --- */
 @media (max-width: 640px) {
   .marquee-item {
-    font-size: 12px;
+    font-size: 13px;
   }
   .marquee-track {
     gap: 1.5rem;

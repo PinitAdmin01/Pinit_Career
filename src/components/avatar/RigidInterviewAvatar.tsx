@@ -72,23 +72,23 @@ export default function RigidInterviewAvatar({ teacherId = 'priya', animState = 
         {/* Top Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase' }}>
               📡 NEURAL HUMAN INTERFACE v5.0
             </div>
-            <div style={{ fontSize: 10, fontWeight: 800, color: '#f8fafc', marginTop: 2, textTransform: 'capitalize' }}>
+            <div style={{ fontSize: 11, fontWeight: 800, color: '#f8fafc', marginTop: 2, textTransform: 'capitalize' }}>
               RECRUITER FEED: {teacherId}
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : 'var(--accent)', display: 'inline-block' }} />
-            <span style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase' }}>
               {animState}
             </span>
           </div>
         </div>
 
         {/* Bottom Details */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 8, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
           <div>
             <div>RESOLUTION: 2048 x 1536</div>
             <div>COMPRESSION: NEURAL STREAM</div>

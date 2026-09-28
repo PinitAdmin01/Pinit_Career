@@ -7,5 +7,5 @@ export default function PortfolioRedirectPage() {
   useEffect(() => {
     router.replace('/profile?tab=portfolio');
   }, [router]);
-  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 13 }}>Redirecting to Profile Portfolio...</div>;
+  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 14.5 }}>Redirecting to Profile Portfolio...</div>;
 }

@@ -130,7 +130,7 @@ export default function AttendanceTracker() {
           background: 'linear-gradient(135deg, rgba(var(--warning-rgb),  0.08) 0%, rgba(217, 119, 6, 0.03) 100%)',
           border: '1.5px solid rgba(var(--warning-rgb),  0.3)', borderRadius: 12, padding: 16
         }}>
-          <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--amber)', textTransform: 'uppercase', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--amber)', textTransform: 'uppercase', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>📄</span> Pending Student Leave Requests ({pendingLeaveRequests.filter(l => l.status === 'Pending').length})
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -140,22 +140,22 @@ export default function AttendanceTracker() {
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10
               }}>
                 <div>
-                  <strong style={{ fontSize: 13, color: 'var(--t1)' }}>{leave.studentName} ({leave.rollNo})</strong>
-                  <span style={{ fontSize: 10.5, color: 'var(--amber)', background: 'rgba(var(--warning-rgb),  0.1)', padding: '2px 6px', borderRadius: 4, marginLeft: 8, fontWeight: 700 }}>
+                  <strong style={{ fontSize: 14.5, color: 'var(--t1)' }}>{leave.studentName} ({leave.rollNo})</strong>
+                  <span style={{ fontSize: 11.5, color: 'var(--amber)', background: 'rgba(var(--warning-rgb),  0.1)', padding: '2px 6px', borderRadius: 4, marginLeft: 8, fontWeight: 700 }}>
                     {leave.category}
                   </span>
-                  <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
+                  <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
                 </div>
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button
                     onClick={() => handleReviewLeave(leave.id, 'Approved')}
-                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--success)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--success)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700 }}
                   >
                     ✓ Approve Leave
                   </button>
                   <button
                     onClick={() => handleReviewLeave(leave.id, 'Rejected')}
-                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--danger-deep)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--danger-deep)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700 }}
                   >
                     ✕ Reject
                   </button>
@@ -167,8 +167,8 @@ export default function AttendanceTracker() {
       )}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📋 Quick-Grid Class Attendance Tracker</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3)' }}>Fast 1-click attendance sheet grid inspired by Gibbon ERP.</p>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📋 Quick-Grid Class Attendance Tracker</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 15.5, color: 'var(--t3)' }}>Fast 1-click attendance sheet grid inspired by Gibbon ERP.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
@@ -176,7 +176,7 @@ export default function AttendanceTracker() {
             <button
               onClick={() => setViewMode('grid')}
               style={{
-                padding: '6px 12px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                padding: '6px 12px', fontSize: 13, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
                 background: viewMode === 'grid' ? 'var(--card)' : 'transparent',
                 color: viewMode === 'grid' ? 'var(--accent)' : 'var(--t3)'
               }}
@@ -186,7 +186,7 @@ export default function AttendanceTracker() {
             <button
               onClick={() => setViewMode('table')}
               style={{
-                padding: '6px 12px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                padding: '6px 12px', fontSize: 13, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
                 background: viewMode === 'table' ? 'var(--card)' : 'transparent',
                 color: viewMode === 'table' ? 'var(--accent)' : 'var(--t3)'
               }}
@@ -216,19 +216,19 @@ export default function AttendanceTracker() {
 
       {/* Summary Pills */}
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#dcfce7', color: '#166534', fontWeight: 700, fontSize: 13 }}>
+        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#dcfce7', color: '#166534', fontWeight: 700, fontSize: 14.5 }}>
           Present: {presentCount}
         </span>
-        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#fee2e2', color: '#991b1b', fontWeight: 700, fontSize: 13 }}>
+        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#fee2e2', color: '#991b1b', fontWeight: 700, fontSize: 14.5 }}>
           Absent: {absentCount}
         </span>
-        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#fef3c7', color: '#92400e', fontWeight: 700, fontSize: 13 }}>
+        <span style={{ padding: '6px 14px', borderRadius: 20, background: '#fef3c7', color: '#92400e', fontWeight: 700, fontSize: 14.5 }}>
           Late: {lateCount}
         </span>
 
         <button
           onClick={markAllPresent}
-          style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer', background: '#fff', fontWeight: 700 }}
+          style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 13, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer', background: '#fff', fontWeight: 700 }}
         >
           ✓ Mark All Present
         </button>
@@ -246,22 +246,22 @@ export default function AttendanceTracker() {
               boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{s.rollNo}</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{s.rollNo}</span>
                 <span style={{
-                  fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase',
+                  fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase',
                   color: s.status === 'present' ? 'var(--success)' : s.status === 'late' ? 'var(--warning)' : 'var(--danger-deep)'
                 }}>
                   ● {s.status}
                 </span>
               </div>
 
-              <div style={{ fontWeight: 800, fontSize: 13.5, color: 'var(--t1)' }}>{s.studentName}</div>
+              <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--t1)' }}>{s.studentName}</div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 4 }}>
                 <button
                   onClick={() => setStatus(s.id, 'present')}
                   style={{
-                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    padding: '6px 0', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
                     background: s.status === 'present' ? 'var(--success)' : 'var(--bg3)',
                     color: s.status === 'present' ? 'var(--text)' : 'var(--t2)'
                   }}
@@ -271,7 +271,7 @@ export default function AttendanceTracker() {
                 <button
                   onClick={() => setStatus(s.id, 'late')}
                   style={{
-                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    padding: '6px 0', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
                     background: s.status === 'late' ? 'var(--warning)' : 'var(--bg3)',
                     color: s.status === 'late' ? 'var(--text)' : 'var(--t2)'
                   }}
@@ -281,7 +281,7 @@ export default function AttendanceTracker() {
                 <button
                   onClick={() => setStatus(s.id, 'absent')}
                   style={{
-                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    padding: '6px 0', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
                     background: s.status === 'absent' ? 'var(--danger-deep)' : 'var(--bg3)',
                     color: s.status === 'absent' ? 'var(--text)' : 'var(--t2)'
                   }}
@@ -297,23 +297,23 @@ export default function AttendanceTracker() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: 'var(--bg2, var(--bg3))', borderBottom: '1px solid var(--border, var(--border))', textAlign: 'left' }}>
-                <th style={{ padding: 12, fontSize: 13 }}>Roll No</th>
-                <th style={{ padding: 12, fontSize: 13 }}>Student Name</th>
-                <th style={{ padding: 12, fontSize: 13, textAlign: 'right' }}>Attendance Status</th>
+                <th style={{ padding: 12, fontSize: 14.5 }}>Roll No</th>
+                <th style={{ padding: 12, fontSize: 14.5 }}>Student Name</th>
+                <th style={{ padding: 12, fontSize: 14.5, textAlign: 'right' }}>Attendance Status</th>
               </tr>
             </thead>
             <tbody>
               {students.map(s => (
                 <tr key={s.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
-                  <td style={{ padding: 12, fontWeight: 600, fontSize: 13 }}>{s.rollNo}</td>
-                  <td style={{ padding: 12, fontSize: 14 }}>{s.studentName}</td>
+                  <td style={{ padding: 12, fontWeight: 600, fontSize: 14.5 }}>{s.rollNo}</td>
+                  <td style={{ padding: 12, fontSize: 15.5 }}>{s.studentName}</td>
                   <td style={{ padding: 12, textAlign: 'right' }}>
                     <div style={{ display: 'inline-flex', gap: 6 }}>
                       <button
                         onClick={() => setStatus(s.id, 'present')}
                         style={{
                           padding: '4px 12px',
-                          fontSize: 12,
+                          fontSize: 13,
                           borderRadius: 6,
                           border: 'none',
                           background: s.status === 'present' ? 'var(--success)' : 'var(--border)',
@@ -328,7 +328,7 @@ export default function AttendanceTracker() {
                         onClick={() => setStatus(s.id, 'late')}
                         style={{
                           padding: '4px 12px',
-                          fontSize: 12,
+                          fontSize: 13,
                           borderRadius: 6,
                           border: 'none',
                           background: s.status === 'late' ? 'var(--warning)' : 'var(--border)',
@@ -343,7 +343,7 @@ export default function AttendanceTracker() {
                         onClick={() => setStatus(s.id, 'absent')}
                         style={{
                           padding: '4px 12px',
-                          fontSize: 12,
+                          fontSize: 13,
                           borderRadius: 6,
                           border: 'none',
                           background: s.status === 'absent' ? 'var(--danger-deep)' : 'var(--border)',
@@ -378,8 +378,8 @@ export default function AttendanceTracker() {
         >
           💾 Save Attendance Record
         </button>
-        {saved && <span style={{ color: 'var(--success)', fontWeight: 600, fontSize: 14 }}>✓ Saved permanently for {date}!</span>}
-        {saveError && <span style={{ color: 'var(--danger-deep)', fontWeight: 600, fontSize: 14 }}>⚠️ {saveError}</span>}
+        {saved && <span style={{ color: 'var(--success)', fontWeight: 600, fontSize: 15.5 }}>✓ Saved permanently for {date}!</span>}
+        {saveError && <span style={{ color: 'var(--danger-deep)', fontWeight: 600, fontSize: 15.5 }}>⚠️ {saveError}</span>}
       </div>
     </div>
   );

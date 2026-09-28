@@ -29,17 +29,17 @@ function StatCard({ icon, label, value, sub, color, trend, href }: {
     <div className="score-card card-hover" style={{ cursor: href ? 'pointer' : 'default', padding: '16px 20px' }}>
       <div className="sc-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
         <div className="sc-icon-wrap" style={{ background: `${color}18`, width: 32, height: 32, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontSize: 16 }}>{icon}</span>
+          <span style={{ fontSize: 17.5 }}>{icon}</span>
         </div>
         {trend !== undefined && (
-          <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 7px', borderRadius: 6, background: trend >= 0 ? 'var(--green-light)' : 'var(--coral-light)', color: trend >= 0 ? 'var(--green)' : 'var(--coral)' }}>
+          <span style={{ fontSize: 12, fontWeight: 600, padding: '2px 7px', borderRadius: 6, background: trend >= 0 ? 'var(--green-light)' : 'var(--coral-light)', color: trend >= 0 ? 'var(--green)' : 'var(--coral)' }}>
             {trend >= 0 ? '↑' : '↓'}{Math.abs(trend)}%
           </span>
         )}
       </div>
-      <div className="sc-label" style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{label}</div>
-      <div className="sc-value" style={{ fontSize: 20, fontWeight: 900, marginTop: 4, color: 'var(--t1)' }}>{value}</div>
-      {sub && <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 3 }}>{sub}</div>}
+      <div className="sc-label" style={{ fontSize: 12, color: 'var(--t3)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{label}</div>
+      <div className="sc-value" style={{ fontSize: 22, fontWeight: 900, marginTop: 4, color: 'var(--t1)' }}>{value}</div>
+      {sub && <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 3 }}>{sub}</div>}
     </div>
   );
   return href ? <Link href={href} style={{ textDecoration: 'none' }}>{cardContent}</Link> : cardContent;
@@ -130,7 +130,7 @@ export default function AnalyticsTab() {
               <div key={chart.label} style={CS.card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <span style={CS.cardLabel}>{chart.label}</span>
-                  <span style={{ fontSize: 18, fontWeight: 900, color: chart.color, fontFamily: 'var(--font-mono)' }}>{chart.val}</span>
+                  <span style={{ fontSize: 20, fontWeight: 900, color: chart.color, fontFamily: 'var(--font-mono)' }}>{chart.val}</span>
                 </div>
                 <MiniLineChart data={chart.data} color={chart.color} height={44} />
               </div>
@@ -148,8 +148,8 @@ export default function AnalyticsTab() {
                 { label: 'Silver Badges', val: ex.silver || 0, color: 'var(--t2)' },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)' }}>
-                  <span style={{ fontSize: 12, color: 'var(--t2)' }}>{item.label}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: item.color, fontFamily: 'var(--font-mono)' }}>{item.val}</span>
+                  <span style={{ fontSize: 13, color: 'var(--t2)' }}>{item.label}</span>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: item.color, fontFamily: 'var(--font-mono)' }}>{item.val}</span>
                 </div>
               ))}
             </div>
@@ -163,8 +163,8 @@ export default function AnalyticsTab() {
                 { label: 'Interviews Completed', val: iv.total || 0, color: 'var(--accent)' },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)' }}>
-                  <span style={{ fontSize: 12, color: 'var(--t2)' }}>{item.label}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: item.color, fontFamily: 'var(--font-mono)' }}>{item.val}</span>
+                  <span style={{ fontSize: 13, color: 'var(--t2)' }}>{item.label}</span>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: item.color, fontFamily: 'var(--font-mono)' }}>{item.val}</span>
                 </div>
               ))}
             </div>

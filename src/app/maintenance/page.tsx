@@ -126,7 +126,7 @@ export default function StudentMaintenancePortal() {
     }
     .page-title {
       font-family: var(--font-display), sans-serif;
-      font-size: 24px;
+      font-size: 26.5px;
       font-weight: 900;
       letter-spacing: -0.6px;
       margin-bottom: 24px;
@@ -153,7 +153,7 @@ export default function StudentMaintenancePortal() {
     }
     .card-title {
       font-family: var(--font-display), sans-serif;
-      font-size: 16px;
+      font-size: 17.5px;
       font-weight: 800;
       margin-bottom: 16px;
       display: flex;
@@ -166,7 +166,7 @@ export default function StudentMaintenancePortal() {
     }
     .tbl-mnt th {
       text-align: left;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--t2);
@@ -175,13 +175,13 @@ export default function StudentMaintenancePortal() {
     }
     .tbl-mnt td {
       padding: 12px 0;
-      font-size: 13px;
+      font-size: 14.5px;
       border-bottom: 1px solid var(--border);
     }
     .status-badge {
       padding: 3px 8px;
       border-radius: 20px;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
     }
     .metric-grid {
@@ -215,8 +215,8 @@ export default function StudentMaintenancePortal() {
             { label: 'Issues Resolved', value: `${tickets.filter(t => t.status === 'Resolved').length} Succeeded`, color: 'var(--green)' }
           ].map(s => (
             <div key={s.label} className="metric-card">
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: 0.4 }}>{s.label}</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: s.color, marginTop: 4 }}>{s.value}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: 0.4 }}>{s.label}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: s.color, marginTop: 4 }}>{s.value}</div>
             </div>
           ))}
         </div>
@@ -228,7 +228,7 @@ export default function StudentMaintenancePortal() {
             
             <form onSubmit={handleReportIssue} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Issue Category *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Issue Category *</label>
                 <select
                   className="form-input"
                   value={category}
@@ -242,7 +242,7 @@ export default function StudentMaintenancePortal() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Urgency Level *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Urgency Level *</label>
                 <select
                   className="form-input"
                   value={urgency}
@@ -261,7 +261,7 @@ export default function StudentMaintenancePortal() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Exact Campus Location *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Exact Campus Location *</label>
                 <input
                   type="text"
                   required
@@ -273,7 +273,7 @@ export default function StudentMaintenancePortal() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Fault Description *</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Fault Description *</label>
                 <textarea
                   required
                   className="form-input"
@@ -302,7 +302,7 @@ export default function StudentMaintenancePortal() {
                     onClick={() => setScopeFilter('all')}
                     style={{
                       padding: '4px 8px',
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: scopeFilter === 'all' ? 800 : 600,
                       background: scopeFilter === 'all' ? 'var(--card)' : 'transparent',
                       border: 'none',
@@ -318,7 +318,7 @@ export default function StudentMaintenancePortal() {
                     onClick={() => setScopeFilter('my')}
                     style={{
                       padding: '4px 8px',
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: scopeFilter === 'my' ? 800 : 600,
                       background: scopeFilter === 'my' ? 'var(--card)' : 'transparent',
                       border: 'none',
@@ -333,7 +333,7 @@ export default function StudentMaintenancePortal() {
 
                 <select
                   className="form-input"
-                  style={{ fontSize: 11, padding: '4px 8px', width: 110 }}
+                  style={{ fontSize: 12, padding: '4px 8px', width: 110 }}
                   value={categoryFilter}
                   onChange={e => setCategoryFilter(e.target.value)}
                 >
@@ -346,7 +346,7 @@ export default function StudentMaintenancePortal() {
 
                 <select
                   className="form-input"
-                  style={{ fontSize: 11, padding: '4px 8px', width: 100 }}
+                  style={{ fontSize: 12, padding: '4px 8px', width: 100 }}
                   value={statusFilter}
                   onChange={e => setStatusFilter(e.target.value)}
                 >
@@ -386,25 +386,25 @@ export default function StudentMaintenancePortal() {
 
                       return (
                         <tr key={t.id}>
-                          <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>
+                          <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700 }}>
                             <div>{t.id}</div>
                             {t.urgency === 'Emergency' && (
-                              <span style={{ fontSize: 9.5, fontWeight: 800, padding: '2px 6px', borderRadius: 4, background: 'rgba(239,68,68,0.15)', color: 'var(--coral)', display: 'inline-block', marginTop: 4 }}>
+                              <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 6px', borderRadius: 4, background: 'rgba(239,68,68,0.15)', color: 'var(--coral)', display: 'inline-block', marginTop: 4 }}>
                                 🚨 Emergency
                               </span>
                             )}
                             {t.urgency === 'High' && (
-                              <span style={{ fontSize: 9.5, fontWeight: 800, padding: '2px 6px', borderRadius: 4, background: 'rgba(234,179,8,0.15)', color: 'var(--amber)', display: 'inline-block', marginTop: 4 }}>
+                              <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 6px', borderRadius: 4, background: 'rgba(234,179,8,0.15)', color: 'var(--amber)', display: 'inline-block', marginTop: 4 }}>
                                 ⚡ High
                               </span>
                             )}
                           </td>
                           <td>
-                            <strong style={{ display: 'block', fontSize: 13 }}>{t.category}</strong>
-                            <span style={{ fontSize: 11, color: 'var(--t2)' }}>📍 {t.location}</span>
+                            <strong style={{ display: 'block', fontSize: 14.5 }}>{t.category}</strong>
+                            <span style={{ fontSize: 12, color: 'var(--t2)' }}>📍 {t.location}</span>
                           </td>
-                          <td style={{ maxWidth: 200, fontSize: 12 }}>{t.description}</td>
-                          <td style={{ fontSize: 12, fontWeight: 600 }}>{t.technician || 'Not assigned yet'}</td>
+                          <td style={{ maxWidth: 200, fontSize: 13 }}>{t.description}</td>
+                          <td style={{ fontSize: 13, fontWeight: 600 }}>{t.technician || 'Not assigned yet'}</td>
                           <td>
                             <span className="status-badge" style={{ background: bg, color: fg }}>{t.status}</span>
                           </td>

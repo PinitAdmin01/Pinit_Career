@@ -72,7 +72,7 @@ export default function FacultyResearchPortal() {
         }
         .page-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 24px;
+          font-size: 26.5px;
           font-weight: 900;
           letter-spacing: -0.6px;
           margin-bottom: 24px;
@@ -94,7 +94,7 @@ export default function FacultyResearchPortal() {
           box-shadow: 0 4px 20px var(--border);
         }
         .metric-label {
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 800;
           text-transform: uppercase;
           color: var(--t2);
@@ -102,7 +102,7 @@ export default function FacultyResearchPortal() {
         }
         .metric-value {
           font-family: var(--font-display), sans-serif;
-          font-size: 22px;
+          font-size: 24px;
           font-weight: 850;
           margin-top: 6px;
         }
@@ -125,7 +125,7 @@ export default function FacultyResearchPortal() {
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 16px;
+          font-size: 17.5px;
           font-weight: 800;
           margin-bottom: 16px;
           display: flex;
@@ -152,7 +152,7 @@ export default function FacultyResearchPortal() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          font-size: 10px;
+          font-size: 11px;
           font-weight: 700;
           color: var(--t2);
         }
@@ -224,16 +224,16 @@ export default function FacultyResearchPortal() {
                   return (
                     <div key={p.id} style={{ border: '1px solid var(--border)', borderRadius: 14, padding: 18, background: 'var(--card)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700, background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
                         <span style={{
-                          padding: '3px 8px', borderRadius: 20, fontSize: 10.5, fontWeight: 700,
+                          padding: '3px 8px', borderRadius: 20, fontSize: 11.5, fontWeight: 700,
                           background: p.status === 'Published' ? 'var(--green-light)' : (p.status === 'Accepted' ? 'var(--accent-light)' : 'var(--amber-light)'),
                           color: p.status === 'Published' ? 'var(--green)' : (p.status === 'Accepted' ? 'var(--accent)' : 'var(--amber)')
                         }}>{p.status}</span>
                       </div>
                       
-                      <h4 style={{ margin: '8px 0 4px 0', fontSize: 14.5, fontWeight: 800 }}>{p.title}</h4>
-                      <div style={{ fontSize: 11.5, color: 'var(--t2)' }}>Authors: {p.authors} | Target Journal: {p.journal}</div>
+                      <h4 style={{ margin: '8px 0 4px 0', fontSize: 16, fontWeight: 800 }}>{p.title}</h4>
+                      <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>Authors: {p.authors} | Target Journal: {p.journal}</div>
 
                       {/* Timeline steps */}
                       <div className="tracker-bar">
@@ -256,7 +256,7 @@ export default function FacultyResearchPortal() {
 
               {/* Manuscript Composer */}
               <form onSubmit={handlePublishPaper} style={{ borderTop: '1px solid var(--border)', paddingTop: 20, marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <h4 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>➕ Log Manuscript/Draft Paper</h4>
+                <h4 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>➕ Log Manuscript/Draft Paper</h4>
                 <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 10 }}>
                   <input
                     type="text"
@@ -288,14 +288,14 @@ export default function FacultyResearchPortal() {
                 {patents.map(pat => (
                   <div key={pat.id} style={{ padding: 16, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <strong style={{ fontSize: 13.5 }}>{pat.title}</strong>
-                      <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
+                      <strong style={{ fontSize: 15 }}>{pat.title}</strong>
+                      <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 4 }}>
                         Inventors: {pat.inventors} | File Ref: {pat.fileNo}
                       </div>
-                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Filed Date: {pat.filedOn}</div>
+                      <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>Filed Date: {pat.filedOn}</div>
                     </div>
                     <span style={{
-                      padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
+                      padding: '3px 8px', borderRadius: 20, fontSize: 11, fontWeight: 700,
                       background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--accent-light)'
                     }}>{pat.status}</span>
                   </div>
@@ -315,13 +315,13 @@ export default function FacultyResearchPortal() {
               <div>
                 {projects.map(proj => (
                   <div key={proj.id} className="project-card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
                       <span>Ref: {proj.id}</span>
                       <span>Budget: ₹{(proj.grantAmount || 0).toLocaleString()}</span>
                     </div>
-                    <h4 style={{ margin: '0 0 6px 0', fontSize: 14, fontWeight: 800 }}>{proj.title}</h4>
+                    <h4 style={{ margin: '0 0 6px 0', fontSize: 15.5, fontWeight: 800 }}>{proj.title}</h4>
                     
-                    <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 12 }}>
+                    <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 12 }}>
                       <div>Principal Inv. (PI): <strong>{proj.pi}</strong></div>
                       <div>Co-PI: {proj.coPi}</div>
                       <div>Funding Agency: {proj.fundingAgency}</div>
@@ -329,7 +329,7 @@ export default function FacultyResearchPortal() {
                     </div>
 
                     <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
                         <span>Research Milestones</span>
                         <span>{proj.progress}%</span>
                       </div>
@@ -347,14 +347,14 @@ export default function FacultyResearchPortal() {
               <h3 className="card-title">💰 Grants & Seed Funding</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {funding.map(f => (
-                  <div key={f.id} style={{ padding: 14, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12.5 }}>
+                  <div key={f.id} style={{ padding: 14, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 14 }}>
                     <div>
                       <strong>{f.title}</strong>
-                      <div style={{ color: 'var(--t2)', fontSize: 11, marginTop: 2 }}>PI: {f.pi} | Agency: {f.agency}</div>
+                      <div style={{ color: 'var(--t2)', fontSize: 12, marginTop: 2 }}>PI: {f.pi} | Agency: {f.agency}</div>
                       <div style={{ fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>Amount: ₹{f.amount.toLocaleString()}</div>
                     </div>
                     <span style={{
-                      padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
+                      padding: '3px 8px', borderRadius: 20, fontSize: 11, fontWeight: 700,
                       background: f.status === 'Approved' ? 'var(--green-light)' : 'var(--amber-light)',
                       color: f.status === 'Approved' ? 'var(--green)' : 'var(--amber)'
                     }}>{f.status}</span>

@@ -118,12 +118,12 @@ export default function WhatToDoToday({ profile }: { profile: Profile | null | u
       {/* Header */}
       <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
         <div>
-          <div style={{ fontSize:10.5, letterSpacing:'0.8px', textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', fontWeight:600, marginBottom:3 }}>
+          <div style={{ fontSize:11.5, letterSpacing:'0.8px', textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', fontWeight:600, marginBottom:3 }}>
             What to do today
           </div>
-          <div style={{ fontSize:13, color:'var(--t2)' }}>3 actions personalised to your career profile</div>
+          <div style={{ fontSize:14.5, color:'var(--t2)' }}>3 actions personalised to your career profile</div>
         </div>
-        <Link href="/missions" style={{ fontSize:11, color:'var(--accent)', textDecoration:'none', fontFamily:'var(--font-mono)' }}>
+        <Link href="/missions" style={{ fontSize:12, color:'var(--accent)', textDecoration:'none', fontFamily:'var(--font-mono)' }}>
           All missions →
         </Link>
       </div>
@@ -142,16 +142,16 @@ export default function WhatToDoToday({ profile }: { profile: Profile | null | u
             onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='none'; }}
             >
               <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
-                <span style={{ fontSize:20 }}>{action.icon}</span>
-                <span style={{ fontSize:11.5, fontWeight:700, color:action.color }}>Priority {i+1}</span>
+                <span style={{ fontSize:22 }}>{action.icon}</span>
+                <span style={{ fontSize:12.5, fontWeight:700, color:action.color }}>Priority {i+1}</span>
               </div>
-              <div style={{ fontWeight:700, fontSize:13, color:'var(--t1)', marginBottom:5, lineHeight:1.3 }}>
+              <div style={{ fontWeight:700, fontSize:14.5, color:'var(--t1)', marginBottom:5, lineHeight:1.3 }}>
                 {action.title}
               </div>
-              <div style={{ fontSize:11.5, color:'var(--t2)', lineHeight:1.55, marginBottom:10 }}>
+              <div style={{ fontSize:12.5, color:'var(--t2)', lineHeight:1.55, marginBottom:10 }}>
                 {action.desc}
               </div>
-              <div style={{ fontSize:11.5, fontWeight:700, color:action.color }}>
+              <div style={{ fontSize:12.5, fontWeight:700, color:action.color }}>
                 {action.cta}
               </div>
             </div>

@@ -104,11 +104,11 @@ export default function CompanyCRMPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {!isAdmin && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center', justifyContent: 'center', minHeight: '50vh', textAlign: 'center' }}>
-          <span style={{ fontSize: 64 }}>🛡️</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--coral)', margin: 0 }}>
+          <span style={{ fontSize: 70.5 }}>🛡️</span>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--coral)', margin: 0 }}>
             Secure Portal: Access Prohibited
           </h2>
-          <p style={{ color: 'var(--t3)', fontSize: 13, maxWidth: 450, lineHeight: 1.5, margin: 0 }}>
+          <p style={{ color: 'var(--t3)', fontSize: 14.5, maxWidth: 450, lineHeight: 1.5, margin: 0 }}>
             This segment is exclusively restricted to verified Placement Officer staff. Candidates and student portals are blocked from CRM access to preserve recruiter contact integrity.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function CompanyCRMPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {isAdmin && (
         <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 20, alignItems: 'start' }}>
-          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 13, fontWeight: 700 }}>
             Preview data — this CRM is a local catalog, not a live recruiter feed.
           </div>
           
@@ -136,7 +136,7 @@ export default function CompanyCRMPage() {
                   borderRadius: 8,
                   background: activeTab === t ? 'var(--accent-light)' : 'transparent',
                   color: activeTab === t ? 'var(--accent)' : 'var(--t2)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: activeTab === t ? 800 : 500,
                   cursor: 'pointer',
                   transition: 'all 0.15s'
@@ -153,12 +153,12 @@ export default function CompanyCRMPage() {
             {/* COMPANIES TAB */}
             {activeTab === 'Companies' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Corporate Partnerships</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Corporate Partnerships</h3>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg3)' }}>
                       {['Corporate Name', 'Industry Sector', 'Recruiting Status'].map(h => (
-                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, borderBottom: '1px solid var(--border)' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -169,7 +169,7 @@ export default function CompanyCRMPage() {
                         <td style={{ padding: '10px 12px', color: 'var(--t2)' }}>{c.industry}</td>
                         <td style={{ padding: '10px 12px' }}>
                           <span style={{
-                            fontSize: 10, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
+                            fontSize: 11, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
                             background: c.status === 'Active recruiter' ? 'var(--green-light)' : c.status === 'Partner' ? 'var(--accent-light)' : 'var(--coral-light)',
                             color: c.status === 'Active recruiter' ? 'var(--green)' : c.status === 'Partner' ? 'var(--accent)' : 'var(--coral)'
                           }}>{c.status}</span>
@@ -184,12 +184,12 @@ export default function CompanyCRMPage() {
             {/* HR CONTACTS TAB */}
             {activeTab === 'HR Contacts' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Corporate HR Directory</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Corporate HR Directory</h3>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg3)' }}>
                       {['HR Contact Name', 'Corporate Role', 'Assigned Company', 'Direct Email Address'].map(h => (
-                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, borderBottom: '1px solid var(--border)' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -210,16 +210,16 @@ export default function CompanyCRMPage() {
             {/* DRIVES TAB */}
             {activeTab === 'Drives' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>SDE Campus Placements drive Schedules</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>SDE Campus Placements drive Schedules</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {drives.map(drive => (
                     <div key={drive.company} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                       <div>
-                        <span style={{ fontSize: 11, color: 'var(--t3)' }}>Drive Date: {drive.date}</span>
-                        <h4 style={{ margin: '2px 0 0 0', fontSize: 13, fontWeight: 700 }}>{drive.company} · {drive.profile}</h4>
+                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>Drive Date: {drive.date}</span>
+                        <h4 style={{ margin: '2px 0 0 0', fontSize: 14.5, fontWeight: 700 }}>{drive.company} · {drive.profile}</h4>
                       </div>
                       <span style={{
-                        fontSize: 10.5, fontWeight: 800, padding: '4px 10px', borderRadius: 6,
+                        fontSize: 11.5, fontWeight: 800, padding: '4px 10px', borderRadius: 6,
                         background: drive.status === 'Scheduled' ? 'var(--accent-light)' : drive.status === 'Ongoing' ? 'var(--amber-light)' : 'var(--green-light)',
                         color: drive.status === 'Scheduled' ? 'var(--accent)' : drive.status === 'Ongoing' ? 'var(--amber)' : 'var(--green)'
                       }}>{drive.status}</span>
@@ -232,34 +232,34 @@ export default function CompanyCRMPage() {
             {/* INTERNSHIPS TAB */}
             {activeTab === 'Internships' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Corporate Interns Conversions Dashboard</h3>
-                <p style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14 }}>Track active conversions and conversions from summer internship programs.</p>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Corporate Interns Conversions Dashboard</h3>
+                <p style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14 }}>Track active conversions and conversions from summer internship programs.</p>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
                   <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 10 }}>
-                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>Total Active Placed Interns</span>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{activePlacedCount} Students</div>
+                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>Total Active Placed Interns</span>
+                    <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{activePlacedCount} Students</div>
                   </div>
                   <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 10 }}>
-                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>Offer Conversion PPO Ratio</span>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--green)', marginTop: 4 }}>{conversionRate}% Conversions</div>
+                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>Offer Conversion PPO Ratio</span>
+                    <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--green)', marginTop: 4 }}>{conversionRate}% Conversions</div>
                   </div>
                 </div>
 
                 {placedStudents.length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <h4 style={{ fontSize: 13, fontWeight: 700, margin: '8px 0 4px' }}>Placed Cohort Candidates</h4>
+                    <h4 style={{ fontSize: 14.5, fontWeight: 700, margin: '8px 0 4px' }}>Placed Cohort Candidates</h4>
                     {placedStudents.map(s => (
                       <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)' }}>
                         <div>
-                          <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                          <div style={{ fontSize: 11, color: 'var(--t3)' }}>{s.rollNo} · {s.department}</div>
+                          <span style={{ fontSize: 14.5, fontWeight: 700 }}>{s.name}</span>
+                          <div style={{ fontSize: 12, color: 'var(--t3)' }}>{s.rollNo} · {s.department}</div>
                         </div>
-                        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)', background: 'var(--green-light)', padding: '2px 8px', borderRadius: 4 }}>Placed</span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)', background: 'var(--green-light)', padding: '2px 8px', borderRadius: 4 }}>Placed</span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div style={{ fontSize: 12, color: 'var(--t3)', background: 'var(--bg3)', padding: 12, borderRadius: 8, border: '1px solid var(--border)' }}>
+                  <div style={{ fontSize: 13, color: 'var(--t3)', background: 'var(--bg3)', padding: 12, borderRadius: 8, border: '1px solid var(--border)' }}>
                     No students currently tagged with &apos;placed&apos; status in active roster ({totalEnrolled} total enrolled candidates).
                   </div>
                 )}
@@ -269,13 +269,13 @@ export default function CompanyCRMPage() {
             {/* VISITS TAB */}
             {activeTab === 'Visits' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Campus Guest Visits & tech Talks</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Campus Guest Visits & tech Talks</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {visits.map(v => (
                     <div key={v.topic} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 12, borderRadius: 10 }}>
-                      <span style={{ fontSize: 11, color: 'var(--t3)' }}>Visit Scheduled: {v.date}</span>
-                      <h4 style={{ margin: '4px 0 2px 0', fontSize: 13, fontWeight: 700 }}>{v.topic}</h4>
-                      <div style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 600 }}>Speaker: {v.guest}</div>
+                      <span style={{ fontSize: 12, color: 'var(--t3)' }}>Visit Scheduled: {v.date}</span>
+                      <h4 style={{ margin: '4px 0 2px 0', fontSize: 14.5, fontWeight: 700 }}>{v.topic}</h4>
+                      <div style={{ fontSize: 12.5, color: 'var(--accent)', fontWeight: 600 }}>Speaker: {v.guest}</div>
                     </div>
                   ))}
                 </div>
@@ -285,12 +285,12 @@ export default function CompanyCRMPage() {
             {/* HISTORY TAB */}
             {activeTab === 'History' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Historical Campus Placements Audit</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Historical Campus Placements Audit</h3>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg3)' }}>
                       {['Placement Season', 'Total Hired', 'Average Package (LPA)', 'Top Recruiting Partner'].map(h => (
-                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                        <th key={h} style={{ padding: '10px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, borderBottom: '1px solid var(--border)' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -311,15 +311,15 @@ export default function CompanyCRMPage() {
             {/* FEEDBACK TAB */}
             {activeTab === 'Feedback' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Corporate HR Feedback Logs</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Corporate HR Feedback Logs</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {feedbacks.map(f => (
                     <div key={f.company} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 12, borderRadius: 10 }}>
                       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                        <span style={{ fontSize: 13, fontWeight: 800 }}>{f.company}</span>
-                        <span style={{ color: 'var(--amber)', fontSize: 12 }}>{f.rating}</span>
+                        <span style={{ fontSize: 14.5, fontWeight: 800 }}>{f.company}</span>
+                        <span style={{ color: 'var(--amber)', fontSize: 13 }}>{f.rating}</span>
                       </div>
-                      <p style={{ fontSize: 12, color: 'var(--t2)', margin: 0, lineHeight: 1.4 }}>"{f.comment}"</p>
+                      <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0, lineHeight: 1.4 }}>"{f.comment}"</p>
                     </div>
                   ))}
                 </div>
@@ -329,15 +329,15 @@ export default function CompanyCRMPage() {
             {/* ANALYTICS TAB */}
             {activeTab === 'Analytics' && (
               <div>
-                <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Recruiters Analytics</h3>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: 16.5, fontWeight: 800 }}>Recruiters Analytics</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                   <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 10 }}>
-                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>Average Package Growth</span>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--green)', marginTop: 4 }}>{avgPackageGrowth}</div>
+                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>Average Package Growth</span>
+                    <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--green)', marginTop: 4 }}>{avgPackageGrowth}</div>
                   </div>
                   <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 10 }}>
-                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>Corporate Placement Index</span>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{placementIndex}</div>
+                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>Corporate Placement Index</span>
+                    <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{placementIndex}</div>
                   </div>
                 </div>
               </div>
@@ -357,7 +357,7 @@ const card: React.CSSProperties = {
   borderRadius: 'var(--radius-xl)', padding: 20, boxShadow: 'var(--shadow-sm)'
 };
 const cardLabel: React.CSSProperties = {
-  fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase',
+  fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase',
   color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
   marginBottom: 14, display: 'block'
 };

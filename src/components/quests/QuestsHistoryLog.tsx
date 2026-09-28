@@ -32,10 +32,10 @@ export function QuestsHistoryLog() {
     <div className="glass-card-premium" style={{ padding: 24, borderRadius: 20, marginTop: 32 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div>
-          <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+          <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
             📜 Activity & Completion Log
           </h3>
-          <p style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
+          <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>
             Your full trajectory milestone history, XP gains, and Pin rewards
           </p>
         </div>
@@ -52,7 +52,7 @@ export function QuestsHistoryLog() {
                 border: 'none',
                 background: filterTab === tab ? 'var(--bg2)' : 'transparent',
                 color: filterTab === tab ? 'var(--t1)' : 'var(--t3)',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 cursor: 'pointer',
                 textTransform: 'capitalize'
@@ -65,7 +65,7 @@ export function QuestsHistoryLog() {
       </div>
 
       {filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '30px 20px', color: 'var(--t3)', fontSize: 12 }}>
+        <div style={{ textAlign: 'center', padding: '30px 20px', color: 'var(--t3)', fontSize: 13 }}>
           No logged activity yet. Complete your first quest above to populate your log!
         </div>
       ) : (
@@ -84,22 +84,22 @@ export function QuestsHistoryLog() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 16 }}>✅</span>
+                <span style={{ fontSize: 17.5 }}>✅</span>
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>
                     {item.title}
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>
                     Completed • {item.timestamp}
                   </div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)' }}>
+                <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--accent)' }}>
                   +{item.xpEarned} XP
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, color: '#eab308' }}>
+                <span style={{ fontSize: 12, fontWeight: 900, color: '#eab308' }}>
                   +{item.pinsEarned} Pins
                 </span>
                 <button
@@ -110,7 +110,7 @@ export function QuestsHistoryLog() {
                     background: 'rgba(99,102,241,0.12)',
                     color: 'var(--accent)',
                     border: 'none',
-                    fontSize: 10.5,
+                    fontSize: 11.5,
                     fontWeight: 800,
                     cursor: 'pointer'
                   }}

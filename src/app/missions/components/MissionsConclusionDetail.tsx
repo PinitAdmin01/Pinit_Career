@@ -48,7 +48,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
             border: `1px solid ${theme.border}`,
             padding: '8px 14px',
             borderRadius: 10,
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
             cursor: 'pointer',
             color: theme.tPrimary,
@@ -59,7 +59,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
         >
           ← Back to History Timeline
         </button>
-        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
+        <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
           Recorded on {record.date}
         </span>
       </div>
@@ -69,7 +69,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
           style={{
             padding: '5px 12px',
             borderRadius: 8,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             background:
               record.type === 'corporate_comm'
@@ -104,7 +104,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
             style={{
               padding: '5px 12px',
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               background: 'rgba(var(--accent-teal-rgb), 0.1)',
               color: 'var(--teal)',
@@ -120,7 +120,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
             style={{
               padding: '5px 12px',
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               background: record.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.1)' : 'rgba(var(--danger-rgb), 0.1)',
               color: record.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)',
@@ -136,7 +136,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
 
       <h2
         style={{
-          fontSize: 19,
+          fontSize: 21,
           fontWeight: 900,
           color: theme.tPrimary,
           margin: '0 0 14px',
@@ -152,7 +152,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
           border: `1px solid ${theme.border}`,
           borderRadius: 18,
           padding: 20,
-          fontSize: 13,
+          fontSize: 14.5,
           lineHeight: 1.65,
           color: theme.tSecondary,
           maxHeight: 520,
@@ -169,7 +169,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
                     margin: '16px 0 6px',
                     color: 'var(--accent)',
                     fontWeight: 800,
-                    fontSize: 13.5,
+                    fontSize: 15,
                     textTransform: 'uppercase',
                     fontFamily: 'var(--font-mono)',
                   }}
@@ -180,7 +180,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
             }
             if (line.startsWith('## ')) {
               return (
-                <h3 key={idx} style={{ margin: '20px 0 8px', color: theme.tPrimary, fontWeight: 800, fontSize: 15 }}>
+                <h3 key={idx} style={{ margin: '20px 0 8px', color: theme.tPrimary, fontWeight: 800, fontSize: 16.5 }}>
                   {line.replace('## ', '')}
                 </h3>
               );
@@ -202,7 +202,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
           <div>
             <h4
               style={{
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 800,
                 color: 'var(--accent)',
                 textTransform: 'uppercase',
@@ -212,7 +212,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
             >
               Candidate Submission Proof:
             </h4>
-            <p style={{ fontSize: 13, color: theme.tPrimary, fontStyle: 'italic', margin: '0 0 14px' }}>
+            <p style={{ fontSize: 14.5, color: theme.tPrimary, fontStyle: 'italic', margin: '0 0 14px' }}>
               &ldquo;{record.userSubmission}&rdquo;
             </p>
           </div>

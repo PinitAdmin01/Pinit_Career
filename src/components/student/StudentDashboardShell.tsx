@@ -42,21 +42,21 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 24 }}>🎓</span>
+          <span style={{ fontSize: 26.5 }}>🎓</span>
           <div>
-            <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Student Learning Portal</h1>
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Campus OS • {student?.department || 'Computer Science & AI'}</span>
+            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Student Learning Portal</h1>
+            <span style={{ fontSize: 13, color: 'var(--t3)' }}>Campus OS • {student?.department || 'Computer Science & AI'}</span>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div role="meter" aria-label={`ATS Readiness: ${atsScore} out of 100`} aria-valuenow={atsScore} aria-valuemin={0} aria-valuemax={100} style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#1d4ed8' }}>
+          <div role="meter" aria-label={`ATS Readiness: ${atsScore} out of 100`} aria-valuenow={atsScore} aria-valuemin={0} aria-valuemax={100} style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 700, color: '#1d4ed8' }}>
             <span aria-hidden="true">🎯</span> ATS Readiness: {atsScore}/100
           </div>
-          <div role="status" aria-label={`Pins Balance: ${pinsBalance}`} style={{ background: '#fef3c7', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#92400e' }}>
+          <div role="status" aria-label={`Pins Balance: ${pinsBalance}`} style={{ background: '#fef3c7', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 700, color: '#92400e' }}>
             <span aria-hidden="true">📍</span> Pins: {pinsBalance}
           </div>
-          <div style={{ fontSize: 14, fontWeight: 600 }}>{displayName}</div>
+          <div style={{ fontSize: 15.5, fontWeight: 600 }}>{displayName}</div>
         </div>
       </header>
 
@@ -107,28 +107,28 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
           {activeTab === 'overview' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
-                <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Welcome back, {displayName}! 👋</h2>
+                <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>Welcome back, {displayName}! 👋</h2>
                 <p style={{ color: 'var(--t3)', margin: '4px 0 0' }}>Track your active courses, assignments, and career readiness scores.</p>
               </div>
 
               {/* Quick Action Cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>ATS Resume Score</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#2563eb', margin: '4px 0 0' }}>{atsScore}%</div>
-                  <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>High match for AI roles</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>ATS Resume Score</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, color: '#2563eb', margin: '4px 0 0' }}>{atsScore}%</div>
+                  <div style={{ fontSize: 13, color: 'var(--success)', marginTop: 4 }}>High match for AI roles</div>
                 </div>
 
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>Pending Assessments</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--warning)', margin: '4px 0 0' }}>1 Test</div>
-                  <div style={{ fontSize: 12, color: 'var(--warning)', marginTop: 4 }}>Due in 3 days</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>Pending Assessments</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, color: 'var(--warning)', margin: '4px 0 0' }}>1 Test</div>
+                  <div style={{ fontSize: 13, color: 'var(--warning)', marginTop: 4 }}>Due in 3 days</div>
                 </div>
 
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>Attendance Average</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--success)', margin: '4px 0 0' }}>91.2%</div>
-                  <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>All criteria met</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--text-dim)' }}>Attendance Average</div>
+                  <div style={{ fontSize: 31, fontWeight: 800, color: 'var(--success)', margin: '4px 0 0' }}>91.2%</div>
+                  <div style={{ fontSize: 13, color: 'var(--success)', marginTop: 4 }}>All criteria met</div>
                 </div>
               </div>
             </div>

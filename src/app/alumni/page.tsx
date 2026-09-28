@@ -14,14 +14,14 @@ export default function StudentAlumniPortal() {
         textAlign: 'center',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)'
       }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>🤝</div>
+        <div style={{ fontSize: 53, marginBottom: 16 }}>🤝</div>
         <div style={{
           display: 'inline-block',
           padding: '4px 12px',
           borderRadius: 9999,
           background: 'rgba(234, 179, 8, 0.15)',
           color: '#b45309',
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: 700,
           letterSpacing: 0.5,
           textTransform: 'uppercase',
@@ -30,11 +30,11 @@ export default function StudentAlumniPortal() {
           Module Staged for Production Integration
         </div>
 
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--t1, #0f172a)', margin: '0 0 12px' }}>
+        <h1 style={{ fontSize: 26.5, fontWeight: 800, color: 'var(--t1, #0f172a)', margin: '0 0 12px' }}>
           Alumni Network &amp; Endowments
         </h1>
 
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--t3, #64748b)', maxWidth: 580, margin: '0 auto 24px' }}>
+        <p style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--t3, #64748b)', maxWidth: 580, margin: '0 auto 24px' }}>
           This module is temporarily hidden from active campus workflows. Production activation requires direct integration with verified institutional identity providers, transactional notification dispatch, and a PCI-compliant payment gateway (e.g. Razorpay / Stripe).
         </p>
 
@@ -43,7 +43,7 @@ export default function StudentAlumniPortal() {
           border: '1px solid var(--border, #e2e8f0)',
           borderRadius: 12,
           padding: 16,
-          fontSize: 13,
+          fontSize: 14.5,
           color: 'var(--t2, #334155)',
           textAlign: 'left',
           maxWidth: 540,
@@ -67,7 +67,7 @@ export default function StudentAlumniPortal() {
             background: 'var(--accent, #6366f1)',
             color: '#ffffff',
             borderRadius: 8,
-            fontSize: 14,
+            fontSize: 15.5,
             fontWeight: 600,
             textDecoration: 'none'
           }}

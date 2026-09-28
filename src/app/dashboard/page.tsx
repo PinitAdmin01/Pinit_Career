@@ -78,7 +78,7 @@ const DB_STYLES = `
   .db-glass:hover { border-color: var(--border2); transform: translateY(-2px) translateZ(0); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
 
   /* Section label */
-  .db-label { font-size:8.5px; font-family:var(--font-mono); font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); display:block; }
+  .db-label { font-size:9.5px; font-family:var(--font-mono); font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); display:block; }
 
   /* Animations */
   @keyframes hud-pulse { 0%,100% { opacity:0.4; } 50% { opacity:1; } }
@@ -341,7 +341,7 @@ export default function DashboardPage() {
   if (!mounted || authLoading) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14.5, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ display: 'inline-block', width: 14, height: 14, borderRadius: '50%', border: '2px solid var(--accent)', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
           Verifying authenticated student session...
         </div>
@@ -353,11 +353,11 @@ export default function DashboardPage() {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center', padding: 32, maxWidth: 420 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8, color: 'var(--t1)' }}>Authentication Required</h2>
-          <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 20 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8, color: 'var(--t1)' }}>Authentication Required</h2>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', marginBottom: 20 }}>
             You must be logged in to access the private student workspace and competency progress.
           </p>
-          <Link href="/login?redirect=/dashboard" style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 8, background: 'var(--accent)', color: '#fff', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
+          <Link href="/login?redirect=/dashboard" style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 8, background: 'var(--accent)', color: '#fff', fontWeight: 600, fontSize: 14.5, textDecoration: 'none' }}>
             Go to Login
           </Link>
         </div>
@@ -385,9 +385,9 @@ export default function DashboardPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
           <div>
             <span className="db-label">🎯 ACTIVE CAREER PATHWAY</span>
-            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 2, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginTop: 2, display: 'flex', alignItems: 'center', gap: 8 }}>
               {roleReadiness?.targetRole || 'Full-Stack Software Engineer'}
-              <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(59, 130, 246, 0.15)', color: '#3b82f6', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
+              <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(59, 130, 246, 0.15)', color: '#3b82f6', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
                 ⚡ 9M Accelerated
               </span>
             </div>
@@ -395,8 +395,8 @@ export default function DashboardPage() {
 
           {/* Readiness Stage Badge */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>STATUS:</span>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 800, color: roleReadiness?.status === 'ready_for_interview' || roleReadiness?.status === 'placement_ready' ? '#10b981' : roleReadiness?.status === 'ready_for_internship' ? '#3b82f6' : '#f59e0b' }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>STATUS:</span>
+            <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 800, color: roleReadiness?.status === 'ready_for_interview' || roleReadiness?.status === 'placement_ready' ? '#10b981' : roleReadiness?.status === 'ready_for_internship' ? '#3b82f6' : '#f59e0b' }}>
               {(roleReadiness?.status || 'DEVELOPING').toUpperCase().replace(/_/g, ' ')}
             </span>
           </div>
@@ -404,17 +404,17 @@ export default function DashboardPage() {
 
         {/* 3-Tier Skill Summary */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontFamily: 'var(--font-mono)' }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
             <span style={{ color: 'var(--t2)' }}>Verified:</span>
             <strong style={{ color: '#10b981' }}>{skillProfile?.verified.length || 0}</strong>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontFamily: 'var(--font-mono)' }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#3b82f6', display: 'inline-block' }} />
             <span style={{ color: 'var(--t2)' }}>Demonstrated:</span>
             <strong style={{ color: '#3b82f6' }}>{skillProfile?.demonstrated.length || 0}</strong>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontFamily: 'var(--font-mono)' }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--t4)', display: 'inline-block' }} />
             <span style={{ color: 'var(--t3)' }}>Claimed:</span>
             <strong style={{ color: 'var(--t2)' }}>{skillProfile?.claimed.length || 0}</strong>
@@ -423,7 +423,7 @@ export default function DashboardPage() {
           <Link
             href="/quests?tab=passport"
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontFamily: 'var(--font-mono)',
               fontWeight: 800,
               color: 'var(--accent)',

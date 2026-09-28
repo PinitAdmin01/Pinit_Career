@@ -75,10 +75,10 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
               🧭 Dynamic Career Roadmap ({COURSES_REGISTRY.find(c => c.id === activeCourseId)?.title.split('(')[0].trim() || onboardingAnswers?.role || trajectory.roleTitle})
             </h2>
-            <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4 }}>
+            <p style={{ fontSize: 14.5, color: 'var(--t3)', marginTop: 4 }}>
               Sequential milestone nodes. Single-click any node to launch its quests.
             </p>
           </div>
@@ -92,7 +92,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 border: '1.5px solid var(--success)',
                 background: 'rgba(var(--success-rgb),0.15)',
                 color: 'var(--success)',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 900,
                 cursor: 'pointer',
                 display: 'flex',
@@ -104,7 +104,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
             >
               📜 View Entire Detailed Journey ➔
             </button>
-            <span style={{ fontSize: 11, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '6px 12px', borderRadius: 20, fontWeight: 700 }}>
+            <span style={{ fontSize: 12, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '6px 12px', borderRadius: 20, fontWeight: 700 }}>
               ✓ Single-Click Active Node Execution
             </span>
           </div>
@@ -142,7 +142,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   borderBottom: learningPathMode === 'fused_roadmap' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
                   background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(var(--success-rgb),0.25), rgba(var(--success-deep-rgb),0.15))' : 'var(--bg2)',
                   color: learningPathMode === 'fused_roadmap' ? 'var(--success-bright)' : 'var(--t2)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   fontWeight: 900,
                   cursor: 'pointer',
                   display: 'flex',
@@ -154,7 +154,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 }}
               >
                 <span>🗺️ Fused Career Trajectory</span>
-                <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(var(--success-rgb),0.25)', padding: '2px 7px', borderRadius: 6, color: 'var(--success)' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, background: 'rgba(var(--success-rgb),0.25)', padding: '2px 7px', borderRadius: 6, color: 'var(--success)' }}>
                   Roadmap 1
                 </span>
               </button>
@@ -185,7 +185,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                       border: `1.5px solid ${isOn ? 'var(--warning)' : 'rgba(255,255,255,0.08)'}`,
                       background: isOn ? 'linear-gradient(135deg, rgba(var(--warning-rgb),0.28), rgba(var(--warning-rgb),0.16))' : 'var(--bg2)',
                       color: isOn ? 'var(--warning-bright)' : 'var(--t2)',
-                      fontSize: 13,
+                      fontSize: 14.5,
                       fontWeight: 900,
                       cursor: 'pointer',
                       display: 'flex',
@@ -213,7 +213,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         background: isOn ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.06)',
                         color: isOn ? '#fff' : 'var(--t3)',
                         cursor: 'pointer',
-                        fontSize: 13,
+                        fontSize: 14.5,
                         lineHeight: '20px',
                         padding: 0,
                         flexShrink: 0
@@ -239,7 +239,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   border: '1.5px dashed rgba(var(--success-rgb),0.45)',
                   background: 'rgba(var(--success-rgb),0.08)',
                   color: 'var(--success-bright)',
-                  fontSize: 20,
+                  fontSize: 22,
                   fontWeight: 800,
                   cursor: 'pointer',
                   flexShrink: 0,
@@ -266,11 +266,11 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <div>
-                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
                   🗺️ Visual Roadmap Chart
                 </h3>
               </div>
-              <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(var(--success-rgb),0.15)', color: 'var(--green)', padding: '3px 10px', borderRadius: 20 }}>
+              <span style={{ fontSize: 11, fontWeight: 800, background: 'rgba(var(--success-rgb),0.15)', color: 'var(--green)', padding: '3px 10px', borderRadius: 20 }}>
                 Interactive Flow
               </span>
             </div>
@@ -339,11 +339,11 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 20
+                  fontSize: 22
                 }}>
                   🚀
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--danger)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--danger)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
                   START
                 </span>
               </div>
@@ -409,7 +409,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                       alignItems: 'center'
                     }}>
                       <div style={{
-                        fontSize: 8.5,
+                        fontSize: 9.5,
                         fontWeight: 900,
                         background: currentWaypoint.color,
                         color: 'var(--text)',
@@ -431,7 +431,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 16
+                        fontSize: 17.5
                       }}>
                         🧑‍💻
                       </div>
@@ -498,7 +498,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             justifyContent: 'center',
                             color: isFullyCompleted ? '#ffffff' : '#1e293b',
                             fontWeight: 900,
-                            fontSize: isFullyCompleted ? 20 : 19,
+                            fontSize: isFullyCompleted ? 22 : 21,
                             flexShrink: 0,
                             transition: 'all 0.3s ease'
                           }}>
@@ -523,19 +523,19 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             maxWidth: 220,
                             transition: 'all 0.3s ease'
                           }}>
-                            <span style={{ fontSize: 10, fontWeight: 900, color: isFullyCompleted ? 'var(--success)' : itemColor, textTransform: 'uppercase', flexShrink: 0 }}>
+                            <span style={{ fontSize: 11, fontWeight: 900, color: isFullyCompleted ? 'var(--success)' : itemColor, textTransform: 'uppercase', flexShrink: 0 }}>
                               Step {idx + 1}
                             </span>
-                            <span style={{ fontSize: 11.5, fontWeight: 800, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            <span style={{ fontSize: 12.5, fontWeight: 800, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {node.title}
                             </span>
                             {isCurrentStep && (
-                              <span style={{ fontSize: 8.5, fontWeight: 900, background: `${itemColor}22`, color: itemColor, padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
+                              <span style={{ fontSize: 9.5, fontWeight: 900, background: `${itemColor}22`, color: itemColor, padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
                                 ACTIVE
                               </span>
                             )}
                             {isFullyCompleted && (
-                              <span style={{ fontSize: 8.5, fontWeight: 900, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success)', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
+                              <span style={{ fontSize: 9.5, fontWeight: 900, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success)', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
                                 CLEARED
                               </span>
                             )}
@@ -549,7 +549,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
 
               {/* 🏆 BOTTOM-RIGHT CELEBRATION GOAL NODE */}
               <div style={{ position: 'absolute', bottom: 10, right: 20, zIndex: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--warning)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--warning)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
                   CAREER GOAL REACHED
                 </span>
                 <div style={{
@@ -562,7 +562,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 20
+                  fontSize: 22
                 }}>
                   🎉
                 </div>
@@ -586,18 +586,18 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               marginBottom: -6
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 16 }}>🔒</span>
+                <span style={{ fontSize: 17.5 }}>🔒</span>
                 <div>
-                  <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t1)' }}>
+                  <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
                     Authoritative Curriculum Progression
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>
                     Stages unlock sequentially as you complete and verify prerequisite quests.
                   </div>
                 </div>
               </div>
               <span style={{
-                fontSize: 10.5,
+                fontSize: 11.5,
                 fontWeight: 800,
                 padding: '4px 10px',
                 borderRadius: 8,
@@ -646,8 +646,8 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         flexShrink: 0,
                         zIndex: 2
                       }}>
-                        <span style={{ fontSize: 8.5, textTransform: 'uppercase', opacity: 0.9 }}>Stage</span>
-                        <span style={{ fontSize: 18, lineHeight: 1.1 }}>{idx + 1}</span>
+                        <span style={{ fontSize: 9.5, textTransform: 'uppercase', opacity: 0.9 }}>Stage</span>
+                        <span style={{ fontSize: 20, lineHeight: 1.1 }}>{idx + 1}</span>
                       </div>
 
                       {/* Main Stage Card */}
@@ -693,24 +693,24 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: 20,
+                              fontSize: 22,
                               flexShrink: 0
                             }}>
                               {isStageCompleted ? '✓' : isLocked ? '🔒' : (idx === 0 ? '🌱' : idx === 1 ? '⚡' : idx === 2 ? '🚀' : '🏆')}
                             </div>
                             <div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                                <span style={{ fontSize: 9.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
+                                <span style={{ fontSize: 10.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
                                   STAGE {idx + 1}
                                 </span>
-                                <span style={{ fontSize: 9.5, fontWeight: 900, background: 'rgba(255,255,255,0.06)', color: 'var(--t2)', padding: '2px 7px', borderRadius: 5, border: '1px solid var(--border)' }}>
+                                <span style={{ fontSize: 10.5, fontWeight: 900, background: 'rgba(255,255,255,0.06)', color: 'var(--t2)', padding: '2px 7px', borderRadius: 5, border: '1px solid var(--border)' }}>
                                   {mod.difficulty || 'Beginner'} · ~{mod.estimatedWeeks || 1}w
                                 </span>
-                                <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                                <h3 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                                   {mod.title.replace(/^.*—\s*Stage\s*\d+:\s*/i, '').trim() || mod.title}
                                 </h3>
                               </div>
-                              <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 0, lineHeight: 1.35 }}>
+                              <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4, marginBottom: 0, lineHeight: 1.35 }}>
                                 {mod.desc}
                               </p>
                             </div>
@@ -718,7 +718,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
 
                           {/* Action Gauge & Button */}
                           <div style={{ minWidth: 140, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, marginLeft: 'auto' }}>
-                            <div style={{ fontSize: 11.5, fontWeight: 800, color: isStageCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
+                            <div style={{ fontSize: 12.5, fontWeight: 800, color: isStageCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
                               {stageCompletedCount} / {stageQuests.length} Cleared ({stageProgressPct}%)
                             </div>
                             <div style={{ width: 120, height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
@@ -732,7 +732,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                 color: isStageCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
                                 padding: '6px 14px',
                                 borderRadius: 9,
-                                fontSize: 11,
+                                fontSize: 12,
                                 fontWeight: 800,
                                 cursor: isLocked ? 'not-allowed' : 'pointer'
                               }}
@@ -765,7 +765,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                     handleLaunchQuest(q, activeCourseId || 'course-java-logic');
                                   }}
                                   style={{
-                                    fontSize: 11,
+                                    fontSize: 12,
                                     fontWeight: 700,
                                     background: isQDone ? 'rgba(var(--success-rgb), 0.15)' : 'var(--bg3)',
                                     border: `1px solid ${isQDone ? 'var(--green)' : 'var(--border)'}`,
@@ -781,7 +781,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                   className={isLocked ? '' : 'card-hover'}
                                 >
                                   <span>{isQDone ? '✓' : catIcon}</span>
-                                  <span style={{ fontSize: 10, opacity: 0.8, textTransform: 'uppercase' }}>[{catLabel}]</span>
+                                  <span style={{ fontSize: 11, opacity: 0.8, textTransform: 'uppercase' }}>[{catLabel}]</span>
                                   <span>{q.title.replace(/^Day \d+[:\s-]*/i, '').replace(/Challenge:?\s*/i, '').replace(/Assignment:?\s*/i, '').slice(0, 36)}</span>
                                 </button>
                               );
@@ -802,9 +802,9 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 borderRadius: 20,
                 margin: '20px 0'
               }}>
-                <div style={{ fontSize: 40, marginBottom: 12 }}>🧭</div>
-                <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)' }}>Personalized Roadmap Initializing</h3>
-                <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 440, margin: '8px auto 20px', lineHeight: 1.5 }}>
+                <div style={{ fontSize: 44, marginBottom: 12 }}>🧭</div>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>Personalized Roadmap Initializing</h3>
+                <p style={{ fontSize: 14.5, color: 'var(--t3)', maxWidth: 440, margin: '8px auto 20px', lineHeight: 1.5 }}>
                   We are crafting your stage-by-stage learning path tailored to your archetype and career goals.
                 </p>
                 <button
@@ -814,7 +814,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                     }
                   }}
                   className="btn-primary"
-                  style={{ padding: '10px 20px', borderRadius: 10, fontSize: 12, fontWeight: 700 }}
+                  style={{ padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 700 }}
                 >
                   ⚡ Synchronize Roadmap
                 </button>
@@ -862,7 +862,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 8,
-                          fontSize: 11,
+                          fontSize: 12,
                           fontWeight: 700,
                           color: 'var(--amber)',
                           cursor: 'pointer'
@@ -902,8 +902,8 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         flexShrink: 0,
                         zIndex: 2
                       }}>
-                        <span style={{ fontSize: 8.5, textTransform: 'uppercase', opacity: 0.9 }}>Step</span>
-                        <span style={{ fontSize: 18, lineHeight: 1.1 }}>{idx + 1}</span>
+                        <span style={{ fontSize: 9.5, textTransform: 'uppercase', opacity: 0.9 }}>Step</span>
+                        <span style={{ fontSize: 20, lineHeight: 1.1 }}>{idx + 1}</span>
                       </div>
 
                       {/* Main Interactive Stage Card */}
@@ -948,7 +948,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: 22,
+                          fontSize: 24,
                           flexShrink: 0
                         }}>
                           {isNodeCompleted ? '✓' : isLocked ? '🔒' : node.icon}
@@ -957,7 +957,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         {/* Info Text */}
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: 9.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
+                            <span style={{ fontSize: 10.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
                               STAGE {idx + 1}
                             </span>
                             {(() => {
@@ -969,25 +969,25 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               };
                               const badge = getLevelBadge(idx);
                               return (
-                                <span style={{ fontSize: 9.5, fontWeight: 900, background: `${badge.color}15`, color: badge.color, padding: '2px 7px', borderRadius: 5, border: `1px solid ${badge.color}33` }}>
+                                <span style={{ fontSize: 10.5, fontWeight: 900, background: `${badge.color}15`, color: badge.color, padding: '2px 7px', borderRadius: 5, border: `1px solid ${badge.color}33` }}>
                                   {badge.label}
                                 </span>
                               );
                             })()}
-                            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{node.title}</h3>
-                            <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
+                            <h3 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{node.title}</h3>
+                            <span style={{ fontSize: 10.5, fontWeight: 800, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
                               {node.careerImpact}
                             </span>
                           </div>
 
-                          <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 6, lineHeight: 1.35 }}>
+                          <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4, marginBottom: 6, lineHeight: 1.35 }}>
                             {node.shortDesc}
                           </p>
 
                           {/* Skills Learned Badges */}
                           <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                             {node.skillsLearned.map(skill => (
-                              <span key={skill} style={{ fontSize: 10, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 7px', borderRadius: 5, color: 'var(--t2)', fontWeight: 600 }}>
+                              <span key={skill} style={{ fontSize: 11, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 7px', borderRadius: 5, color: 'var(--t2)', fontWeight: 600 }}>
                                 ✓ {skill}
                               </span>
                             ))}
@@ -996,7 +996,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
 
                         {/* Action Gauge & Button */}
                         <div style={{ minWidth: 140, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-                          <div style={{ fontSize: 11.5, fontWeight: 800, color: isNodeCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
+                          <div style={{ fontSize: 12.5, fontWeight: 800, color: isNodeCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
                             {nodeCompletedCount} / {nodeQuests.length || 30} Cleared ({nodeProgressPct}%)
                           </div>
 
@@ -1012,7 +1012,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               color: isNodeCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
                               padding: '6px 14px',
                               borderRadius: 9,
-                              fontSize: 11,
+                              fontSize: 12,
                               fontWeight: 800,
                               cursor: isLocked ? 'not-allowed' : 'pointer'
                             }}
@@ -1048,10 +1048,10 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           {/* Section Header & Metrics Summary */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 16 }}>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)' }}>
+              <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)' }}>
                 <span>📜</span> Quest Completion & Learning Activity History
               </h3>
-              <span style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, display: 'block' }}>
+              <span style={{ fontSize: 14, color: 'var(--t3)', marginTop: 4, display: 'block' }}>
                 Verified record of completed syllabus lectures, passed coding exams, and earned reward milestones.
               </span>
             </div>
@@ -1067,13 +1067,13 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               }
               return (
                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--success-rgb),0.1)', border: '1px solid rgba(var(--success-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--success-bright)' }}>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--success-rgb),0.1)', border: '1px solid rgba(var(--success-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--success-bright)' }}>
                     ✓ {completedQuests.length} Quests Cleared
                   </div>
-                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--brand-bright)' }}>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--brand-bright)' }}>
                     ⚡ +{totalXp} XP Accumulated
                   </div>
-                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--warning-bright)' }}>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--warning-bright)' }}>
                     🪙 +{totalPins} Pins Bonus
                   </div>
                 </div>
@@ -1097,7 +1097,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   border: `1.5px solid ${historyFilter === tab.id ? 'var(--success)' : 'transparent'}`,
                   background: historyFilter === tab.id ? 'rgba(var(--success-rgb),0.15)' : 'var(--bg3)',
                   color: historyFilter === tab.id ? 'var(--success-bright)' : 'var(--t2)',
-                  fontSize: 12.5,
+                  fontSize: 14,
                   fontWeight: 800,
                   cursor: 'pointer',
                   transition: 'all 0.2s'
@@ -1179,9 +1179,9 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   borderRadius: 16,
                   border: '1px dashed var(--border)'
                 }}>
-                  <div style={{ fontSize: 32, marginBottom: 8 }}>📜</div>
-                  <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>No Activity History Recorded Yet</h4>
-                  <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0 }}>
+                  <div style={{ fontSize: 35, marginBottom: 8 }}>📜</div>
+                  <h4 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>No Activity History Recorded Yet</h4>
+                  <p style={{ fontSize: 14, color: 'var(--t3)', margin: 0 }}>
                     Complete your first quest or pass a syllabus exam above to build your permanent learning history!
                   </p>
                 </div>
@@ -1216,33 +1216,33 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 22
+                        fontSize: 24
                       }}>
                         {item.icon}
                       </div>
 
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{item.title}</span>
-                          <span style={{ fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.06)', color: 'var(--success)', border: '1px solid var(--border)' }}>
+                          <span style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{item.title}</span>
+                          <span style={{ fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.06)', color: 'var(--success)', border: '1px solid var(--border)' }}>
                             {item.courseTitle}
                           </span>
                         </div>
-                        <p style={{ fontSize: 12, color: 'var(--t3)', margin: '3px 0 0 0', lineHeight: 1.4 }}>{item.desc}</p>
+                        <p style={{ fontSize: 13, color: 'var(--t3)', margin: '3px 0 0 0', lineHeight: 1.4 }}>{item.desc}</p>
                       </div>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 700 }}>{item.date}</span>
+                      <span style={{ fontSize: 12, color: 'var(--t4)', fontWeight: 700 }}>{item.date}</span>
                       
                       {item.xp > 0 && (
-                        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--brand-bright)', background: 'rgba(var(--brand-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--brand-bright)', background: 'rgba(var(--brand-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
                           +{item.xp} XP
                         </span>
                       )}
 
                       {item.pins !== 0 && (
-                        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--warning-bright)', background: 'rgba(var(--warning-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--warning-bright)', background: 'rgba(var(--warning-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
                           {item.pins > 0 ? `+${item.pins}` : item.pins} Pins
                         </span>
                       )}
@@ -1256,7 +1256,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             border: '1px solid var(--border)',
                             background: 'var(--bg2)',
                             color: 'var(--t1)',
-                            fontSize: 11.5,
+                            fontSize: 12.5,
                             fontWeight: 800,
                             cursor: 'pointer'
                           }}

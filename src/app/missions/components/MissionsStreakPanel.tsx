@@ -63,7 +63,7 @@ export default function MissionsStreakPanel({
       >
         <span
           style={{
-            fontSize: 10.5,
+            fontSize: 11.5,
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '1.2px',
@@ -82,7 +82,7 @@ export default function MissionsStreakPanel({
             <div
               style={{
                 display: 'flex',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 color: theme.tSecondary,
                 marginBottom: 6,
@@ -109,7 +109,7 @@ export default function MissionsStreakPanel({
             <div
               style={{
                 display: 'flex',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 color: theme.tSecondary,
                 marginBottom: 6,
@@ -129,7 +129,7 @@ export default function MissionsStreakPanel({
                 }}
               />
             </div>
-            <p style={{ fontSize: 11, color: theme.tTertiary, lineHeight: 1.4, marginTop: 6, marginBlockEnd: 0 }}>
+            <p style={{ fontSize: 12, color: theme.tTertiary, lineHeight: 1.4, marginTop: 6, marginBlockEnd: 0 }}>
               Each completed mission satisfies verified skills requirements mapping to your Digital Twin.
             </p>
           </div>
@@ -145,7 +145,7 @@ export default function MissionsStreakPanel({
           >
             <div
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 700,
                 color: theme.tTertiary,
                 textTransform: 'uppercase',
@@ -155,14 +155,14 @@ export default function MissionsStreakPanel({
             >
               Target Alignment Path
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: theme.tPrimary }}>
+            <div style={{ fontSize: 14.5, fontWeight: 700, color: theme.tPrimary }}>
               {onboardingAnswers?.role || 'Not Configured'}
             </div>
             {!onboardingAnswers?.hasCompleted && (
               <Link
                 href="/career-twin"
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   color: 'var(--accent)',
                   textDecoration: 'none',
                   display: 'block',
@@ -208,10 +208,10 @@ export default function MissionsStreakPanel({
         }}
       >
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, alignItems: 'center' }}>
-          <span style={{ fontSize: 16 }}>{teacher.emoji}</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: theme.tPrimary }}>{teacher.name}'s Tip</span>
+          <span style={{ fontSize: 17.5 }}>{teacher.emoji}</span>
+          <span style={{ fontSize: 14.5, fontWeight: 700, color: theme.tPrimary }}>{teacher.name}'s Tip</span>
         </div>
-        <p style={{ fontSize: 11.5, color: theme.tSecondary, lineHeight: 1.5, margin: 0 }}>
+        <p style={{ fontSize: 12.5, color: theme.tSecondary, lineHeight: 1.5, margin: 0 }}>
           &ldquo;Completing missions directly feeds your Consistency Index and raises your Reputation Level.
           Verified uploads to Vault automatically clear relevant pending missions.&rdquo;
         </p>

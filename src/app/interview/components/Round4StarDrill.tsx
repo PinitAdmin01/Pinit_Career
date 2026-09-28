@@ -83,7 +83,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             <div style={{
               position: 'absolute', bottom: 3, left: 3, right: 3,
               background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
-              borderRadius: 6, padding: '2px 6px', fontSize: 8.5, color: 'var(--text)',
+              borderRadius: 6, padding: '2px 6px', fontSize: 9.5, color: 'var(--text)',
               display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
             }}>
               <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
@@ -94,7 +94,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           </div>
         )}
 
-        <div style={{ position: 'absolute', bottom: 16, left: '5%', right: '5%', background: 'rgba(0,0,0,0.80)', backdropFilter: 'blur(8px)', padding: '10px 16px', borderRadius: 12, color: 'var(--text)', fontSize: 12.5, lineHeight: 1.4, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ position: 'absolute', bottom: 16, left: '5%', right: '5%', background: 'rgba(0,0,0,0.80)', backdropFilter: 'blur(8px)', padding: '10px 16px', borderRadius: 12, color: 'var(--text)', fontSize: 14, lineHeight: 1.4, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
           <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
         </div>
       </div>
@@ -129,10 +129,10 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                   textAlign: 'center'
                 }}
               >
-                <div style={{ fontSize: 11, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
+                <div style={{ fontSize: 12, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
                   {step.key} — {step.label}
                 </div>
-                <div style={{ fontSize: 9.5, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
+                <div style={{ fontSize: 10.5, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
                   {step.desc}
                 </div>
               </div>
@@ -146,14 +146,14 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             style={{
               flex: 1,
               background: isVoiceListening ? 'var(--danger)' : 'linear-gradient(135deg, var(--success) 0%, var(--success-deep) 100%)',
-              border: 'none', color: 'var(--text)', borderRadius: 12, padding: '12px', fontSize: 12.5, fontWeight: 900, cursor: 'pointer',
+              border: 'none', color: 'var(--text)', borderRadius: 12, padding: '12px', fontSize: 14, fontWeight: 900, cursor: 'pointer',
               boxShadow: isVoiceListening ? '0 0 16px rgba(var(--danger-rgb),0.6)' : 'var(--shadow-md)'
             }}
           >
             {isVoiceListening ? '🎙️ Listening to Your Voice... (Speak Now)' : '🎤 Click to Speak STAR Response'}
           </button>
 
-          <button onClick={finishInterview} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 12, padding: '12px 18px', fontSize: 12.5, fontWeight: 900, cursor: 'pointer' }}>
+          <button onClick={finishInterview} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 12, padding: '12px 18px', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}>
             View Results ➔
           </button>
         </div>
@@ -182,7 +182,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               border: '1px solid var(--border)',
               background: 'var(--bg3)',
               color: 'var(--t1)',
-              fontSize: 12
+              fontSize: 13
             }}
           />
           <button
@@ -194,7 +194,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               border: 'none',
               background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
               color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 800,
               cursor: manualTextInput.trim() ? 'pointer' : 'default'
             }}
@@ -219,10 +219,10 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             {/* Header with Title & Level Selector */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 14 }}>🎯</span>
-                <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>AI Teleprompter Script (STAR Answer)</span>
+                <span style={{ fontSize: 15.5 }}>🎯</span>
+                <span style={{ fontSize: 12.5, fontWeight: 900, color: 'var(--reward-bright)' }}>AI Teleprompter Script (STAR Answer)</span>
                 <span style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: '1px 5px',
                   borderRadius: 4,
                   background: 'rgba(var(--reward-rgb), 0.2)',
@@ -247,7 +247,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       color: 'var(--reward-bright)',
                       borderRadius: 6,
                       padding: '2px 6px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}
@@ -266,7 +266,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       color: 'var(--text)',
                       borderRadius: 6,
                       padding: '2px 6px',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}
@@ -277,7 +277,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                 {setIsAssistModeActive && (
                   <button
                     onClick={() => setIsAssistModeActive(false)}
-                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 11, cursor: 'pointer', padding: '0 2px' }}
+                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: '0 2px' }}
                     title="Close Assist Mode"
                   >
                     ✕
@@ -297,7 +297,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       flex: 1,
                       padding: '3px 6px',
                       borderRadius: 5,
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 800,
                       background: assistTab === tabKey ? 'var(--reward)' : 'rgba(255,255,255,0.06)',
                       color: assistTab === tabKey ? '#000' : 'var(--text-muted)',
@@ -313,14 +313,14 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
 
             {/* Tab Body */}
             {isFetchingAssist ? (
-              <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
+              <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 12, fontStyle: 'italic' }}>
                 ✨ Crafting spoken STAR answer for this question...
               </div>
             ) : assistData ? (
               <div>
                 {assistTab === 'script' && (
                   <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
-                    <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--text)', maxHeight: 120, overflowY: 'auto' }}>
+                    <div style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--text)', maxHeight: 120, overflowY: 'auto' }}>
                       &ldquo;
                       {(assistData.script || '').split(' ').map((word: string, wIdx: number) => {
                         const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -341,7 +341,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       })}
                       &rdquo;
                     </div>
-                    <div style={{ marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 9.5, color: 'var(--reward-bright)' }}>
+                    <div style={{ marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 10.5, color: 'var(--reward-bright)' }}>
                       <span>🎙️ {liveSpeechTranscript ? '🟢 Spoken words glow green in real time' : 'Read aloud into mic to answer'}</span>
                       <span>{assistData.deliveryGuide?.pacing || '~125 WPM'}</span>
                     </div>
@@ -350,7 +350,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
 
                 {assistTab === 'bullets' && (
                   <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', maxHeight: 110, overflowY: 'auto' }}>
-                    <ul style={{ margin: 0, paddingLeft: 14, fontSize: 11, lineHeight: 1.5, color: 'var(--text)' }}>
+                    <ul style={{ margin: 0, paddingLeft: 14, fontSize: 12, lineHeight: 1.5, color: 'var(--text)' }}>
                       {(assistData.bulletPoints || []).map((pt: string, idx: number) => (
                         <li key={idx} style={{ marginBottom: 2 }}>{pt}</li>
                       ))}
@@ -359,12 +359,12 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                 )}
 
                 {assistTab === 'delivery' && (
-                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', fontSize: 11, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', fontSize: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <div><strong>Tone:</strong> {assistData.deliveryGuide?.tone || 'Confident and structured'}</div>
                     <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center' }}>
                       <strong>Key words:</strong>
                       {(assistData.deliveryGuide?.emphasisWords || []).map((w: string, i: number) => (
-                        <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '1px 5px', borderRadius: 4, fontSize: 9.5 }}>
+                        <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '1px 5px', borderRadius: 4, fontSize: 10.5 }}>
                           {w}
                         </span>
                       ))}
@@ -374,7 +374,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               </div>
             ) : (
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 0' }}>
-                <span style={{ fontSize: 11, color: 'var(--t3)' }}>No STAR script generated yet.</span>
+                <span style={{ fontSize: 12, color: 'var(--t3)' }}>No STAR script generated yet.</span>
                 {fetchAssistScript && (
                   <button
                     onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
@@ -384,7 +384,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       color: '#000',
                       borderRadius: 6,
                       padding: '4px 10px',
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 800,
                       cursor: 'pointer'
                     }}

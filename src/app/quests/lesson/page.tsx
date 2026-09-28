@@ -88,7 +88,7 @@ const lessonStyles = `
     text-align: left;
     padding: 10px 14px;
     border-radius: 10px;
-    font-size: 11.5px;
+    font-size: 12.5px;
     font-weight: 500;
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -125,7 +125,7 @@ const lessonStyles = `
   .chat-bubble {
     padding: 8px 12px;
     border-radius: 14px;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.45;
     max-width: 85%;
     box-shadow: var(--shadow-sm);
@@ -151,7 +151,7 @@ const lessonStyles = `
     border: 1px solid var(--border);
     background: var(--bg1);
     color: var(--t2);
-    font-size: 10.5px;
+    font-size: 11.5px;
     fontWeight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -344,9 +344,9 @@ function LessonPageRouter() {
         padding: 24,
         textAlign: 'center'
       }}>
-        <div style={{ fontSize: 48 }}>🛡️</div>
-        <h2 style={{ fontSize: 20, fontWeight: 900 }}>Unregistered Quest Lesson</h2>
-        <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 53 }}>🛡️</div>
+        <h2 style={{ fontSize: 22, fontWeight: 900 }}>Unregistered Quest Lesson</h2>
+        <p style={{ fontSize: 14.5, color: 'var(--t2)', maxWidth: 460, lineHeight: 1.5 }}>
           The requested lesson ID <code style={{ color: 'var(--accent)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4 }}>{questId || 'unknown'}</code> does not exist in any registered course or curriculum.
         </p>
         <button
@@ -360,7 +360,7 @@ function LessonPageRouter() {
             padding: '10px 20px',
             borderRadius: 10,
             cursor: 'pointer',
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 800
           }}
         >
@@ -465,7 +465,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
           padding: '8px 16px',
           color: 'var(--t2)',
           cursor: 'pointer',
-          fontSize: 11.5,
+          fontSize: 12.5,
           fontWeight: 700,
           display: 'flex',
           alignItems: 'center',
@@ -479,7 +479,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
       {/* Main lesson content */}
       {!state.isHydrated ? (
-        <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13, fontWeight: 700, gap: 8 }}>
+        <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 14.5, fontWeight: 700, gap: 8 }}>
           ⚡ Synchronizing Classroom Environment...
         </div>
       ) : (

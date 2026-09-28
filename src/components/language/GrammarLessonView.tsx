@@ -48,17 +48,17 @@ export const GrammarLessonView: React.FC<GrammarLessonViewProps> = ({
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Level Roadmap
         </button>
-        <span style={{ fontSize: 13, color: '#10b981', fontWeight: 600 }}>
+        <span style={{ fontSize: 14.5, color: '#10b981', fontWeight: 600 }}>
           GRAMMAR TOPIC: {grammar.title}
         </span>
       </div>
 
       {/* Concept Box */}
       <div style={{ background: '#27272a', padding: 16, borderRadius: 12, marginBottom: 20 }}>
-        <h3 style={{ fontSize: 16, margin: '0 0 8px 0', color: '#10b981' }}>Grammar Rule:</h3>
-        <p style={{ fontSize: 14, color: '#e4e4e7', margin: 0 }}>{grammar.ruleExplanation}</p>
+        <h3 style={{ fontSize: 17.5, margin: '0 0 8px 0', color: '#10b981' }}>Grammar Rule:</h3>
+        <p style={{ fontSize: 15.5, color: '#e4e4e7', margin: 0 }}>{grammar.ruleExplanation}</p>
         {grammar.patternExamples && grammar.patternExamples.length > 0 && (
-          <div style={{ fontSize: 13, color: '#a1a1aa', fontStyle: 'italic', marginTop: 8 }}>
+          <div style={{ fontSize: 14.5, color: '#a1a1aa', fontStyle: 'italic', marginTop: 8 }}>
             Pattern Examples: "{grammar.patternExamples.join(' • ')}"
           </div>
         )}
@@ -66,10 +66,10 @@ export const GrammarLessonView: React.FC<GrammarLessonViewProps> = ({
 
       {/* Question Exercise */}
       <div style={{ background: '#18181b', border: '1px solid #27272a', padding: 20, borderRadius: 12 }}>
-        <div style={{ fontSize: 12, color: '#a1a1aa', marginBottom: 8 }}>QUESTION {currentIdx + 1} OF {questions.length}</div>
-        <h4 style={{ fontSize: 16, margin: '0 0 16px 0' }}>{currentQ.prompt}</h4>
+        <div style={{ fontSize: 13, color: '#a1a1aa', marginBottom: 8 }}>QUESTION {currentIdx + 1} OF {questions.length}</div>
+        <h4 style={{ fontSize: 17.5, margin: '0 0 16px 0' }}>{currentQ.prompt}</h4>
         {currentQ.sentenceWithBlank && (
-          <div style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px 0', color: '#8b5cf6' }}>
+          <div style={{ fontSize: 16.5, fontWeight: 700, margin: '0 0 16px 0', color: '#8b5cf6' }}>
             {currentQ.sentenceWithBlank}
           </div>
         )}
@@ -95,7 +95,7 @@ export const GrammarLessonView: React.FC<GrammarLessonViewProps> = ({
                   padding: 12,
                   textAlign: 'left',
                   cursor: 'pointer',
-                  fontSize: 14
+                  fontSize: 15.5
                 }}
               >
                 {opt}
@@ -106,7 +106,7 @@ export const GrammarLessonView: React.FC<GrammarLessonViewProps> = ({
 
         {selectedIdx !== null && (
           <div style={{ marginTop: 20 }}>
-            <div style={{ fontSize: 13, color: selectedIdx === correctIdx ? '#10b981' : '#ef4444', marginBottom: 12 }}>
+            <div style={{ fontSize: 14.5, color: selectedIdx === correctIdx ? '#10b981' : '#ef4444', marginBottom: 12 }}>
               {selectedIdx === correctIdx ? 'Correct!' : 'Incorrect.'} {currentQ.explanation}
             </div>
             <button

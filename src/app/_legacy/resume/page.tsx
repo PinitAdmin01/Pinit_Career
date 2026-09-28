@@ -262,7 +262,7 @@ export default function ResumePage() {
           border: 'none', cursor: resumeId ? 'pointer' : 'not-allowed',
           background: resumeId ? 'var(--accent)' : 'var(--bg3)',
           color: resumeId ? '#fff' : 'var(--t3)',
-          fontSize: 13, fontWeight: 600,
+          fontSize: 14.5, fontWeight: 600,
           fontFamily: 'var(--font-display)',
           opacity: downloading ? 0.7 : 1,
           transition: 'all 0.15s',
@@ -286,7 +286,7 @@ export default function ResumePage() {
             border: '1.5px solid var(--accent)', cursor: resumeId ? 'pointer' : 'not-allowed',
             background: 'var(--accent-light)',
             color: 'var(--accent)',
-            fontSize: 13, fontWeight: 600,
+            fontSize: 14.5, fontWeight: 600,
             fontFamily: 'var(--font-display)',
             opacity: improving ? 0.7 : 1,
             transition: 'all 0.15s',
@@ -302,20 +302,20 @@ export default function ResumePage() {
 
       {/* Save state badge */}
       {saveState === 'saving' && (
-        <span style={{ fontSize: 12, color: 'var(--t3)', display: 'flex', alignItems: 'center', gap: 5 }}>
+        <span style={{ fontSize: 13, color: 'var(--t3)', display: 'flex', alignItems: 'center', gap: 5 }}>
           <span style={{ display: 'inline-block', animation: 'spin 0.8s linear infinite' }}>⟳</span> Saving…
         </span>
       )}
       {saveState === 'saved' && (
-        <span style={{ fontSize: 12, color: 'var(--green)', fontWeight: 600 }}>✓ Saved</span>
+        <span style={{ fontSize: 13, color: 'var(--green)', fontWeight: 600 }}>✓ Saved</span>
       )}
       {saveState === 'error' && (
-        <span style={{ fontSize: 12, color: 'var(--coral)' }}>⚠ {saveError}</span>
+        <span style={{ fontSize: 13, color: 'var(--coral)' }}>⚠ {saveError}</span>
       )}
 
       {/* No resume ID hint */}
       {!resumeId && (
-        <span style={{ fontSize: 11, color: 'var(--t3)', fontStyle: 'italic' }}>
+        <span style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic' }}>
           Fill in your details and save to enable PDF &amp; AI Improve
         </span>
       )}
@@ -340,13 +340,13 @@ export default function ResumePage() {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 18 }}>✨</span>
+            <span style={{ fontSize: 20 }}>✨</span>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: 'var(--font-display)' }}>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: '#fff', fontFamily: 'var(--font-display)' }}>
                 AI Improvements Ready
               </div>
               {improvements.projected_ats_score !== undefined && (
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)' }}>
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.8)' }}>
                   Projected ATS score: <strong style={{ color: '#fff' }}>{improvements.projected_ats_score}/100</strong>
                 </div>
               )}
@@ -354,7 +354,7 @@ export default function ResumePage() {
           </div>
           <button
             onClick={() => setImprovements(null)}
-            style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', cursor: 'pointer', fontSize: 18, lineHeight: 1 }}
+            style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}
           >×</button>
         </div>
 
@@ -363,12 +363,12 @@ export default function ResumePage() {
           {/* Key changes */}
           {(improvements.key_changes?.length || 0) > 0 && (
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
                 Key Changes
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {improvements.key_changes!.map((c, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 8, fontSize: 13, color: 'var(--t1)' }}>
+                  <div key={i} style={{ display: 'flex', gap: 8, fontSize: 14.5, color: 'var(--t1)' }}>
                     <span style={{ color: 'var(--accent)', flexShrink: 0 }}>→</span>
                     <span>{c}</span>
                   </div>
@@ -389,22 +389,22 @@ export default function ResumePage() {
           {/* Improved experience bullets */}
           {(improvements.experience_bullets?.length || 0) > 0 && (
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
                 Improved Experience Bullets
               </div>
               {improvements.experience_bullets!.map((exp, i) => (
                 <div key={i} style={{ marginBottom: 12 }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 5 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t2)', marginBottom: 5 }}>
                     {exp.role} · {exp.company}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                     {exp.bullets.map((b, j) => (
-                      <div key={j} style={{ display: 'flex', gap: 8, fontSize: 13, color: 'var(--t1)', background: 'var(--bg2)', borderRadius: 6, padding: '6px 10px' }}>
+                      <div key={j} style={{ display: 'flex', gap: 8, fontSize: 14.5, color: 'var(--t1)', background: 'var(--bg2)', borderRadius: 6, padding: '6px 10px' }}>
                         <span style={{ color: 'var(--accent)', flexShrink: 0 }}>•</span>
                         <span style={{ flex: 1 }}>{b}</span>
                         <button
                           onClick={() => navigator.clipboard.writeText(b)}
-                          style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 11, flexShrink: 0 }}
+                          style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12, flexShrink: 0 }}
                           title="Copy"
                         >Copy</button>
                       </div>
@@ -418,7 +418,7 @@ export default function ResumePage() {
           {/* Improved skills */}
           {(improvements.skills_technical || improvements.skills_professional) && (
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
                 Improved Skills
               </div>
               {improvements.skills_technical && (
@@ -433,7 +433,7 @@ export default function ResumePage() {
           {/* Missing keywords */}
           {(improvements.keyword_additions?.length || 0) > 0 && (
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
                 Missing Keywords (add these to boost ATS)
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -441,7 +441,7 @@ export default function ResumePage() {
                   <span key={i} style={{
                     padding: '4px 10px', borderRadius: 100,
                     background: 'var(--accent)', color: '#fff',
-                    fontSize: 11.5, fontWeight: 600,
+                    fontSize: 12.5, fontWeight: 600,
                   }}>{k}</span>
                 ))}
               </div>
@@ -467,11 +467,11 @@ export default function ResumePage() {
             overflow: 'hidden'
           }}>
             <div style={{ position: 'absolute', top: -60, right: -60, width: 220, height: 220, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%)', pointerEvents: 'none' }} />
-            <div style={{ fontSize: 44, marginBottom: 16 }}>💼</div>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.5px', marginBottom: 10 }}>
+            <div style={{ fontSize: 48.5, marginBottom: 16 }}>💼</div>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.5px', marginBottom: 10 }}>
               AI Asset Generation Studio
             </h1>
-            <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, maxWidth: 500, margin: '0 auto 24px' }}>
+            <p style={{ fontSize: 15, color: 'var(--t2)', lineHeight: 1.6, maxWidth: 500, margin: '0 auto 24px' }}>
               Select a primary document from your Secure Mobile Vault. {teacher.name}'s AI Resume Model will analyze it, compile SDE sections, and generate your resume, CV, and custom roadmap quests.
             </p>
 
@@ -486,10 +486,10 @@ export default function ResumePage() {
               maxWidth: 460, 
               margin: '0 auto 20px' 
             }}>
-              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                 <span>📤</span> Upload Document to Vault
               </div>
-              <p style={{ fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.4, marginBottom: 12 }}>
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.4, marginBottom: 12 }}>
                 Simulate uploading an old resume or document to secure database storage in your Mobile Vault.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -504,7 +504,7 @@ export default function ResumePage() {
                     border: '1px solid var(--border)',
                     background: 'var(--bg3)',
                     color: 'var(--t1)',
-                    fontSize: 12.5,
+                    fontSize: 14,
                     width: '100%',
                     outline: 'none'
                   }}
@@ -519,7 +519,7 @@ export default function ResumePage() {
                       border: '1px solid var(--border)',
                       background: 'var(--bg3)',
                       color: 'var(--t1)',
-                      fontSize: 12.5,
+                      fontSize: 14,
                       flex: 1,
                       outline: 'none'
                     }}
@@ -536,7 +536,7 @@ export default function ResumePage() {
                     className="btn-primary"
                     style={{ 
                       padding: '8px 16px', 
-                      fontSize: 12.5, 
+                      fontSize: 14, 
                       borderRadius: 8, 
                       cursor: uploadDocName.trim() ? 'pointer' : 'not-allowed',
                       opacity: uploadDocName.trim() ? 1 : 0.6
@@ -550,7 +550,7 @@ export default function ResumePage() {
 
             {/* Selectable Synced Vault Items list */}
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: '16px 20px', textAlign: 'left', marginBottom: 28, maxWidth: 460, margin: '0 auto 28px' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', marginBottom: 10, display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', marginBottom: 10, display: 'flex', justifyContent: 'space-between' }}>
                 <span>📁 Select Secure Vault Document</span>
                 <span style={{ color: 'var(--green)' }}>● SECURE HASH ACTIVE</span>
               </div>
@@ -566,7 +566,7 @@ export default function ResumePage() {
                         key={item.id} 
                         onClick={() => !generating && setSelectedVaultItemId(item.id)}
                         style={{ 
-                          display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--t1)',
+                          display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--t1)',
                           cursor: generating ? 'not-allowed' : 'pointer',
                           padding: '8px 12px', borderRadius: 8,
                           background: isSelected ? 'rgba(79,70,229,0.08)' : 'var(--bg3)',
@@ -574,9 +574,9 @@ export default function ResumePage() {
                           transition: 'all 0.15s'
                         }}
                       >
-                        <span style={{ fontSize: 14 }}>{isSelected ? '🟢' : '⚪'}</span>
+                        <span style={{ fontSize: 15.5 }}>{isSelected ? '🟢' : '⚪'}</span>
                         <span style={{ flex: 1, fontWeight: 600 }}>{item.title}</span>
-                        <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.type}</span>
+                        <span style={{ fontSize: 10.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.type}</span>
                       </div>
                     );
                   })}
@@ -590,7 +590,7 @@ export default function ResumePage() {
                         key={item.id} 
                         onClick={() => !generating && setSelectedVaultItemId(item.id)}
                         style={{ 
-                          display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--t1)',
+                          display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--t1)',
                           cursor: generating ? 'not-allowed' : 'pointer',
                           padding: '8px 12px', borderRadius: 8,
                           background: isSelected ? 'rgba(79,70,229,0.08)' : 'var(--bg3)',
@@ -598,9 +598,9 @@ export default function ResumePage() {
                           transition: 'all 0.15s'
                         }}
                       >
-                        <span style={{ fontSize: 14 }}>{isSelected ? '🟢' : '⚪'}</span>
+                        <span style={{ fontSize: 15.5 }}>{isSelected ? '🟢' : '⚪'}</span>
                         <span style={{ flex: 1, fontWeight: 600 }}>{item.title}</span>
-                        <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.item_type}</span>
+                        <span style={{ fontSize: 10.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.item_type}</span>
                       </div>
                     );
                   })}
@@ -610,7 +610,7 @@ export default function ResumePage() {
 
             {generating ? (
               <div style={{ maxWidth: 360, margin: '0 auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--t2)', marginBottom: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--t2)', marginBottom: 8 }}>
                   <span>
                     {genProgress < 25 ? 'Analyzing Vault contents with Groq...' :
                      genProgress < 55 ? 'ML model compiling SDE resume & CV...' :
@@ -627,7 +627,7 @@ export default function ResumePage() {
               <button
                 onClick={handleGenerateAIAssets}
                 className="btn-primary"
-                style={{ display: 'inline-flex', margin: '0 auto', padding: '12px 28px', fontSize: 13.5, gap: 8 }}
+                style={{ display: 'inline-flex', margin: '0 auto', padding: '12px 28px', fontSize: 15, gap: 8 }}
               >
                 <span>✨</span> Generate My AI Resume, CV & Quests
               </button>
@@ -653,25 +653,25 @@ export default function ResumePage() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
                   📂 Generated AI Career Assets
                 </h3>
                 {isRoadmapCompleted ? (
-                  <span style={{ fontSize: 11.5, color: 'var(--green)', fontWeight: 600 }}>
+                  <span style={{ fontSize: 12.5, color: 'var(--green)', fontWeight: 600 }}>
                     🔓 Unlocked — All developer assets are live and recruiter-accessible!
                   </span>
                 ) : (
-                  <span style={{ fontSize: 11.5, color: 'var(--coral)', fontWeight: 600 }}>
+                  <span style={{ fontSize: 12.5, color: 'var(--coral)', fontWeight: 600 }}>
                     🔒 Locked — Complete Roadmap Quests to unlock sharing &amp; export privileges.
                   </span>
                 )}
               </div>
               {isRoadmapCompleted ? (
-                <span style={{ background: 'rgba(5,150,105,0.1)', border: '1px solid rgba(5,150,105,0.2)', color: 'var(--green)', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 10 }}>
+                <span style={{ background: 'rgba(5,150,105,0.1)', border: '1px solid rgba(5,150,105,0.2)', color: 'var(--green)', fontSize: 12, fontWeight: 700, padding: '3px 10px', borderRadius: 10 }}>
                   Assets Live &amp; Unlocked
                 </span>
               ) : (
-                <span style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: 'var(--coral)', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 10 }}>
+                <span style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: 'var(--coral)', fontSize: 12, fontWeight: 700, padding: '3px 10px', borderRadius: 10 }}>
                   Gamified Lock Active
                 </span>
               )}
@@ -695,20 +695,20 @@ export default function ResumePage() {
                   opacity: asset.canAction ? 1 : 0.65
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(79,70,229,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(79,70,229,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
                       {asset.icon}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{asset.title}</div>
-                      <div style={{ fontSize: 11, color: 'var(--t3)' }}>{asset.type}</div>
+                      <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{asset.title}</div>
+                      <div style={{ fontSize: 12, color: 'var(--t3)' }}>{asset.type}</div>
                     </div>
                     {!isRoadmapCompleted && !asset.canAction && (
-                      <div style={{ position: 'absolute', top: 12, right: 12, fontSize: 12 }} title="Asset Locked">
+                      <div style={{ position: 'absolute', top: 12, right: 12, fontSize: 13 }} title="Asset Locked">
                         🔒
                       </div>
                     )}
                     {isRoadmapCompleted && (
-                      <div style={{ position: 'absolute', top: 12, right: 12, fontSize: 12, color: 'var(--green)' }} title="Asset Unlocked">
+                      <div style={{ position: 'absolute', top: 12, right: 12, fontSize: 13, color: 'var(--green)' }} title="Asset Unlocked">
                         ✓
                       </div>
                     )}
@@ -717,22 +717,22 @@ export default function ResumePage() {
                   {asset.canAction && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4, borderTop: '1px solid var(--border)', paddingTop: 10 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 10, color: 'var(--t3)', fontWeight: 600 }}>PORTFOLIO THEME</span>
+                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>PORTFOLIO THEME</span>
                         <div style={{ display: 'flex', gap: 4 }}>
                           <button 
                             onClick={() => setPortfolioTheme('modern')}
-                            style={{ padding: '2px 8px', borderRadius: 4, fontSize: 10, border: 'none', background: portfolioTheme === 'modern' ? 'var(--accent)' : 'var(--bg2)', color: portfolioTheme === 'modern' ? 'white' : 'var(--t2)', cursor: 'pointer', fontWeight: 600 }}
+                            style={{ padding: '2px 8px', borderRadius: 4, fontSize: 11, border: 'none', background: portfolioTheme === 'modern' ? 'var(--accent)' : 'var(--bg2)', color: portfolioTheme === 'modern' ? 'white' : 'var(--t2)', cursor: 'pointer', fontWeight: 600 }}
                           >Modern</button>
                           <button 
                             onClick={() => setPortfolioTheme('advanced')}
-                            style={{ padding: '2px 8px', borderRadius: 4, fontSize: 10, border: 'none', background: portfolioTheme === 'advanced' ? 'var(--accent)' : 'var(--bg2)', color: portfolioTheme === 'advanced' ? 'white' : 'var(--t2)', cursor: 'pointer', fontWeight: 600 }}
+                            style={{ padding: '2px 8px', borderRadius: 4, fontSize: 11, border: 'none', background: portfolioTheme === 'advanced' ? 'var(--accent)' : 'var(--bg2)', color: portfolioTheme === 'advanced' ? 'white' : 'var(--t2)', cursor: 'pointer', fontWeight: 600 }}
                           >Advanced</button>
                         </div>
                       </div>
                       <button 
                         onClick={() => setShowPortfolioPreview(true)}
                         className="btn-ghost btn-sm" 
-                        style={{ width: '100%', justifyContent: 'center', padding: '5px', fontSize: 11.5 }}
+                        style={{ width: '100%', justifyContent: 'center', padding: '5px', fontSize: 12.5 }}
                       >
                         👁 Preview Custom Theme
                       </button>
@@ -759,7 +759,7 @@ export default function ResumePage() {
                   display: 'flex', alignItems: 'center', gap: 8,
                   padding: '8px 18px', border: 'none',
                   borderRadius: 'var(--radius)',
-                  cursor: 'pointer', fontSize: 13, fontWeight: 600,
+                  cursor: 'pointer', fontSize: 14.5, fontWeight: 600,
                   fontFamily: 'var(--font-display)',
                   background: tab === t.id ? 'var(--bg2)' : 'transparent',
                   color:      tab === t.id ? 'var(--t1)'  : 'var(--t3)',
@@ -773,7 +773,7 @@ export default function ResumePage() {
             ))}
           </div>
 
-          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 18, fontStyle: 'italic' }}>
+          <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 18, fontStyle: 'italic' }}>
             {TABS.find((t) => t.id === tab)?.hint}
           </div>
 
@@ -787,15 +787,15 @@ export default function ResumePage() {
 
               {/* Error banners */}
               {downloadError && (
-                <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--coral-light)', border: '1px solid var(--coral)', borderRadius: 'var(--radius)', fontSize: 13, color: 'var(--coral)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--coral-light)', border: '1px solid var(--coral)', borderRadius: 'var(--radius)', fontSize: 14.5, color: 'var(--coral)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>⚠ {downloadError}</span>
-                  <button onClick={() => setDownloadError('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--coral)', fontSize: 16 }}>×</button>
+                  <button onClick={() => setDownloadError('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--coral)', fontSize: 17.5 }}>×</button>
                 </div>
               )}
               {improveError && (
-                <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--amber-light)', border: '1px solid var(--amber)', borderRadius: 'var(--radius)', fontSize: 13, color: 'var(--amber)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--amber-light)', border: '1px solid var(--amber)', borderRadius: 'var(--radius)', fontSize: 14.5, color: 'var(--amber)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>⚠ {improveError}</span>
-                  <button onClick={() => setImproveError('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--amber)', fontSize: 16 }}>×</button>
+                  <button onClick={() => setImproveError('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--amber)', fontSize: 17.5 }}>×</button>
                 </div>
               )}
 
@@ -806,7 +806,7 @@ export default function ResumePage() {
                 </>
               ) : (
                 <div style={{ textAlign: 'center', padding: 60, color: 'var(--t3)' }}>
-                  <div style={{ fontSize: 22, marginBottom: 12 }}>⟳</div>
+                  <div style={{ fontSize: 24, marginBottom: 12 }}>⟳</div>
                   Loading your resume…
                 </div>
               )}
@@ -839,10 +839,10 @@ export default function ResumePage() {
             {/* Header controls */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
               <div>
-                <h2 style={{ fontSize: 18, fontWeight: 900, fontFamily: 'var(--font-display)', margin: 0, color: portfolioTheme === 'modern' ? '#a5b4fc' : 'var(--accent)' }}>
+                <h2 style={{ fontSize: 20, fontWeight: 900, fontFamily: 'var(--font-display)', margin: 0, color: portfolioTheme === 'modern' ? '#a5b4fc' : 'var(--accent)' }}>
                   👤 Web Portfolio Live Preview
                 </h2>
-                <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+                <span style={{ fontSize: 12, color: 'var(--t3)' }}>
                   Simulated deployment matching: <strong>{portfolioTheme.toUpperCase()} THEME</strong>
                 </span>
               </div>
@@ -850,13 +850,13 @@ export default function ResumePage() {
                 <button 
                   onClick={() => setPortfolioTheme(t => t === 'modern' ? 'advanced' : 'modern')}
                   className="btn-ghost btn-sm"
-                  style={{ fontSize: 11 }}
+                  style={{ fontSize: 12 }}
                 >
                   🔄 Switch Theme
                 </button>
                 <button 
                   onClick={() => setShowPortfolioPreview(false)}
-                  style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 22 }}
+                  style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 24 }}
                 >
                   ✕
                 </button>
@@ -872,20 +872,20 @@ export default function ResumePage() {
               {/* Profile Intro */}
               <div style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 16 }}>
                 <h1 style={{ 
-                  fontSize: 26, fontWeight: 900, margin: 0, 
+                  fontSize: 28.5, fontWeight: 900, margin: 0, 
                   fontFamily: 'var(--font-display)',
                   color: portfolioTheme === 'modern' ? '#fff' : '#50fa7b' 
                 }}>
                   {initialData?.fullName || "Candidate Display Name"}
                 </h1>
-                <p style={{ fontSize: 14, color: portfolioTheme === 'modern' ? '#cbd5e1' : '#ff79c6', fontWeight: 600, margin: '4px 0 0' }}>
+                <p style={{ fontSize: 15.5, color: portfolioTheme === 'modern' ? '#cbd5e1' : '#ff79c6', fontWeight: 600, margin: '4px 0 0' }}>
                   💻 Java Backend Software Developer Candidate
                 </p>
                 <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 9.5, padding: '2px 8px', borderRadius: 10, background: 'rgba(5,150,105,0.15)', color: '#34d399', fontWeight: 700, border: '1px solid rgba(5,150,105,0.3)' }}>
+                  <span style={{ fontSize: 10.5, padding: '2px 8px', borderRadius: 10, background: 'rgba(5,150,105,0.15)', color: '#34d399', fontWeight: 700, border: '1px solid rgba(5,150,105,0.3)' }}>
                     ✓ AI-MATCH SDE VERIFIED
                   </span>
-                  <span style={{ fontSize: 9.5, padding: '2px 8px', borderRadius: 10, background: 'rgba(124,106,247,0.15)', color: '#a5b4fc', fontWeight: 700, border: '1px solid rgba(124,106,247,0.3)' }}>
+                  <span style={{ fontSize: 10.5, padding: '2px 8px', borderRadius: 10, background: 'rgba(124,106,247,0.15)', color: '#a5b4fc', fontWeight: 700, border: '1px solid rgba(124,106,247,0.3)' }}>
                     🗄️ SECURE VAULT INDEX ACTIVE
                   </span>
                 </div>
@@ -893,23 +893,23 @@ export default function ResumePage() {
 
               {/* Bio summary */}
               <div>
-                <h3 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 6 }}>
+                <h3 style={{ fontSize: 14.5, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 6 }}>
                   Professional Profile Summary
                 </h3>
-                <p style={{ fontSize: 12.5, lineHeight: 1.6, margin: 0, color: portfolioTheme === 'modern' ? '#94a3b8' : '#f8f8f2' }}>
+                <p style={{ fontSize: 14, lineHeight: 1.6, margin: 0, color: portfolioTheme === 'modern' ? '#94a3b8' : '#f8f8f2' }}>
                   {initialData?.summary || "AI-generated profile summary loading from synced Certifications, Projects, and Academics..."}
                 </p>
               </div>
 
               {/* Verified Documents Checklist */}
               <div>
-                <h3 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 10 }}>
+                <h3 style={{ fontSize: 14.5, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 10 }}>
                   📂 Synced Vault Evidence &amp; Verification Hashes
                 </h3>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {vaultItems.length === 0 ? (
-                    <div style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic' }}>
+                    <div style={{ fontSize: 13, color: 'var(--t3)', fontStyle: 'italic' }}>
                       No items currently synced in Secure Vault.
                     </div>
                   ) : (
@@ -923,16 +923,16 @@ export default function ResumePage() {
                         }}
                       >
                         <div>
-                          <div style={{ fontSize: 12.5, fontWeight: 700, color: portfolioTheme === 'modern' ? '#fff' : '#f8f8f2' }}>{item.title}</div>
-                          <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: portfolioTheme === 'modern' ? '#fff' : '#f8f8f2' }}>{item.title}</div>
+                          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
                             Source: {item.organization_name || 'Self Upload'} · Type: {item.item_type.toUpperCase()}
                           </div>
                         </div>
                         <div style={{ textAlign: 'right' }}>
-                          <span style={{ fontSize: 9.5, fontWeight: 700, color: '#50fa7b', fontFamily: 'var(--font-mono)' }}>
+                          <span style={{ fontSize: 10.5, fontWeight: 700, color: '#50fa7b', fontFamily: 'var(--font-mono)' }}>
                             ✓ SHA-256 SIGNED
                           </span>
-                          <div style={{ fontSize: 8.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                          <div style={{ fontSize: 9.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
                             ID: 0x{(item.id || '9b2a').substring(0, 8)}...
                           </div>
                         </div>
@@ -945,13 +945,13 @@ export default function ResumePage() {
               {/* Skills breakdown radar */}
               {initialData && initialData.skills && initialData.skills.technical && (
                 <div>
-                  <h3 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 14.5, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--t3)', marginBottom: 8 }}>
                     ⚙️ Technical Core Competencies
                   </h3>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {initialData.skills.technical.split(',').map((skill, idx) => (
                       <span key={idx} style={{
-                        fontSize: 11, padding: '3px 10px', borderRadius: 6,
+                        fontSize: 12, padding: '3px 10px', borderRadius: 6,
                         background: portfolioTheme === 'modern' ? 'rgba(79,70,229,0.15)' : '#6272a4',
                         color: portfolioTheme === 'modern' ? '#8b8bf5' : '#8be9fd',
                         border: portfolioTheme === 'modern' ? '1px solid rgba(79,70,229,0.3)' : '1px solid #44475a',
@@ -975,8 +975,8 @@ export default function ResumePage() {
                 textAlign: 'center',
                 marginTop: 'auto'
               }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--green)' }}>✓ Live Index Compiled</div>
-                <p style={{ fontSize: 11.5, color: 'var(--t2)', margin: '4px 0 0' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--green)' }}>✓ Live Index Compiled</div>
+                <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '4px 0 0' }}>
                   Your portfolio is currently live and indexed. Recruiters can view your verified credentials.
                 </p>
               </div>
@@ -989,8 +989,8 @@ export default function ResumePage() {
                 textAlign: 'center',
                 marginTop: 'auto'
               }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--coral)' }}>🔒 Live Deployment Gated</div>
-                <p style={{ fontSize: 11.5, color: 'var(--t2)', margin: '4px 0 0' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--coral)' }}>🔒 Live Deployment Gated</div>
+                <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '4px 0 0' }}>
                   Complete the daily roadmap quests inside the <strong>Quests</strong> tab to unlock recruiter visibility and live index compilation.
                 </p>
               </div>
@@ -1016,11 +1016,11 @@ function SuggestionBlock({ label, content, copyText, compact = false }: {
 
   return (
     <div style={{ marginBottom: compact ? 8 : 12 }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--t2)', marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--t2)', marginBottom: 4 }}>{label}</div>
       <div style={{
         background: 'var(--bg2)', borderRadius: 8,
         padding: compact ? '8px 12px' : '12px 14px',
-        fontSize: 13, color: 'var(--t1)', lineHeight: 1.6,
+        fontSize: 14.5, color: 'var(--t1)', lineHeight: 1.6,
         border: '1px solid var(--border)',
         position: 'relative',
       }}>
@@ -1032,7 +1032,7 @@ function SuggestionBlock({ label, content, copyText, compact = false }: {
             background: copied ? 'var(--green-light)' : 'var(--bg3)',
             border: '1px solid var(--border)',
             borderRadius: 6, cursor: 'pointer',
-            fontSize: 11, fontWeight: 600,
+            fontSize: 12, fontWeight: 600,
             color: copied ? 'var(--green)' : 'var(--t2)',
             padding: '3px 8px',
           }}

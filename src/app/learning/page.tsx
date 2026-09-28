@@ -10,7 +10,7 @@ import { CourseGrid } from './components/CourseGrid';
 
 export default function LearningPage() {
   return (
-    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t2)', fontSize: 13 }}>Loading Learning Hub...</div>}>
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t2)', fontSize: 14.5 }}>Loading Learning Hub...</div>}>
       <LearningPageInner />
     </Suspense>
   );

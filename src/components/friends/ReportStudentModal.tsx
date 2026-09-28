@@ -86,10 +86,10 @@ export const ReportStudentModal: React.FC<ReportStudentModalProps> = ({
         
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 20 }}>⚠️</span>
+            <span style={{ fontSize: 22 }}>⚠️</span>
             <div>
-              <h3 style={{ margin: 0, fontSize: 17, color: '#f87171' }}>Report Student</h3>
-              <span style={{ fontSize: 11, color: '#94a3b8' }}>PinIT Campus Trust & Safety</span>
+              <h3 style={{ margin: 0, fontSize: 18.5, color: '#f87171' }}>Report Student</h3>
+              <span style={{ fontSize: 12, color: '#94a3b8' }}>PinIT Campus Trust & Safety</span>
             </div>
           </div>
           <button className="drawer-close-btn" onClick={onClose}>✕</button>
@@ -111,8 +111,8 @@ export const ReportStudentModal: React.FC<ReportStudentModalProps> = ({
                 <img src={student.avatar} alt={student.name} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} />
               )}
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
-                <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{student.course} • {student.college}</div>
+                <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff' }}>{student.name}</div>
+                <div style={{ fontSize: 12.5, color: '#94a3b8' }}>{student.course} • {student.college}</div>
               </div>
             </div>
 
@@ -153,8 +153,8 @@ export const ReportStudentModal: React.FC<ReportStudentModalProps> = ({
               border: '1px solid rgba(255, 255, 255, 0.06)'
             }}>
               <div>
-                <div style={{ fontSize: 12.5, fontWeight: 600, color: '#ffffff' }}>Also block this student</div>
-                <div style={{ fontSize: 10.5, color: '#94a3b8' }}>Prevent further messages, duels, and collaboration requests</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: '#ffffff' }}>Also block this student</div>
+                <div style={{ fontSize: 11.5, color: '#94a3b8' }}>Prevent further messages, duels, and collaboration requests</div>
               </div>
               <input
                 type="checkbox"

@@ -47,10 +47,10 @@ export default function GdTranscriptDrawer({
       {/* Window Header */}
       <div className="gd-chat-window-header">
         <div>
-          <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>BOARD OBJECTIVE</span>
+          <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>BOARD OBJECTIVE</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <div style={{
-              fontSize: 11.5,
+              fontSize: 12.5,
               fontWeight: 900,
               color: 'var(--t1)',
               overflow: 'hidden',
@@ -79,7 +79,7 @@ export default function GdTranscriptDrawer({
               border: '1px solid var(--teal)',
               borderRadius: 6,
               padding: '3px 8px',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800,
               color: 'var(--teal)',
               cursor: 'pointer'
@@ -117,7 +117,7 @@ export default function GdTranscriptDrawer({
         ))}
         {loading && (
           <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: 4 }}>
-            <span style={{ fontSize: 10, color: 'var(--t3)' }}>⚡ Avatars thinking...</span>
+            <span style={{ fontSize: 11, color: 'var(--t3)' }}>⚡ Avatars thinking...</span>
           </div>
         )}
         <div ref={bottomRef} />
@@ -136,7 +136,7 @@ export default function GdTranscriptDrawer({
             position: 'relative'
           }} className="animate-fade-in">
             <div style={{
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: 900,
               color: 'var(--teal)',
               display: 'flex',
@@ -147,12 +147,12 @@ export default function GdTranscriptDrawer({
               <span>📖 SUGGESTED ARGUMENT (READ THIS ALOUD)</span>
               <button
                 onClick={onClearHelperText}
-                style={{ background: 'none', border: 'none', color: 'var(--t4)', cursor: 'pointer', fontSize: 11, fontWeight: 900 }}
+                style={{ background: 'none', border: 'none', color: 'var(--t4)', cursor: 'pointer', fontSize: 12, fontWeight: 900 }}
               >
                 ✕
               </button>
             </div>
-            <p style={{ margin: 0, fontSize: 11, color: 'var(--t1)', lineHeight: 1.4 }}>
+            <p style={{ margin: 0, fontSize: 12, color: 'var(--t1)', lineHeight: 1.4 }}>
               "{suggestedHelperText}"
             </p>
           </div>
@@ -172,7 +172,7 @@ export default function GdTranscriptDrawer({
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              fontSize: 14,
+              fontSize: 15.5,
               transition: 'all 0.2s',
               outline: 'none'
             }}
@@ -188,7 +188,7 @@ export default function GdTranscriptDrawer({
             border: '1px solid var(--border)',
             background: 'var(--bg2)',
             color: micActive ? 'var(--teal)' : 'var(--t3)',
-            fontSize: 10.5,
+            fontSize: 11.5,
             fontWeight: 800,
             fontFamily: 'var(--font-mono)',
             display: 'flex',
@@ -210,7 +210,7 @@ export default function GdTranscriptDrawer({
               borderRadius: 12,
               padding: '8px 12px',
               color: 'var(--teal)',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -231,7 +231,7 @@ export default function GdTranscriptDrawer({
               borderRadius: 12,
               padding: '8px 12px',
               color: handRaised ? 'var(--orange)' : 'var(--t2)',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -245,7 +245,7 @@ export default function GdTranscriptDrawer({
         </div>
 
         {micActive && (
-          <div style={{ fontSize: 8.5, color: 'var(--coral)', textAlign: 'center', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: 9.5, color: 'var(--coral)', textAlign: 'center', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
             🔴 MICROPHONE IS RECORDING IN REAL-TIME
           </div>
         )}

@@ -34,7 +34,7 @@ function PageLoader() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 280, flexDirection: 'column', gap: 14 }}>
       <Spinner size={32} />
-      <p style={{ color: 'var(--t3)', fontSize: 13, fontWeight: 500 }}>Loading…</p>
+      <p style={{ color: 'var(--t3)', fontSize: 14.5, fontWeight: 500 }}>Loading…</p>
     </div>
   );
 }
@@ -74,8 +74,8 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
   return (
     <div className="fade-in" style={{ color: 'var(--t1)' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px' }}>Welcome back, {(student?.name || 'Student').split(' ')[0]}! 👋</h1>
-        <p style={{ color: 'var(--t3)', fontSize: 13, marginTop: 4 }}>Here's your academic overview</p>
+        <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px' }}>Welcome back, {(student?.name || 'Student').split(' ')[0]}! 👋</h1>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5, marginTop: 4 }}>Here's your academic overview</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 12, marginBottom: 20 }}>
@@ -86,10 +86,10 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
           { value: data.myNotifs.length, label: 'Notifications', icon: '🔔', color: '#d97706', bg: 'rgba(217,119,6,0.05)' },
         ].map((s, i) => (
           <div key={i} style={{ background: s.bg, border: `1px solid ${s.color}20`, borderRadius: 12, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 38, height: 38, borderRadius: 10, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{s.icon}</div>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>{s.icon}</div>
             <div>
-              <div style={{ fontSize: 20, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 3, fontWeight: 600 }}>{s.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 3, fontWeight: 600 }}>{s.label}</div>
             </div>
           </div>
         ))}
@@ -99,15 +99,15 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
         <div style={{ marginBottom: 18, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: '16px 18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#dc2626', display: 'inline-block' }} />
-            <h3 style={{ fontWeight: 800, fontSize: 13, color: '#dc2626' }}>LIVE EXAMS AVAILABLE</h3>
+            <h3 style={{ fontWeight: 800, fontSize: 14.5, color: '#dc2626' }}>LIVE EXAMS AVAILABLE</h3>
           </div>
           {data.activeExams.map((exam: any) => {
             const attempted = data.attemptedIds.includes(exam.id);
             return (
               <div key={exam.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '11px 14px', background: 'var(--bg3)', borderRadius: 10, marginBottom: 8, border: '1px solid var(--border)' }}>
                 <div>
-                  <div style={{ fontWeight: 700, marginBottom: 3, fontSize: 13, color: 'var(--t1)' }}>{exam.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>⏱ {exam.duration} min · Ends {new Date(exam.endDateTime).toLocaleTimeString()}</div>
+                  <div style={{ fontWeight: 700, marginBottom: 3, fontSize: 14.5, color: 'var(--t1)' }}>{exam.title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t3)' }}>⏱ {exam.duration} min · Ends {new Date(exam.endDateTime).toLocaleTimeString()}</div>
                 </div>
                 {attempted ? <Badge type="success">✅ Completed</Badge> : (
                   <Btn variant="primary" size="sm" onClick={() => onStartExam(exam)} disabled={examCheckLoading}>
@@ -123,13 +123,13 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
         {data.myNotifs.length > 0 && (
           <Card>
-            <h3 style={{ fontWeight: 700, fontSize: 13, marginBottom: 12, color: 'var(--t1)' }}>🔔 Recent Notifications</h3>
+            <h3 style={{ fontWeight: 700, fontSize: 14.5, marginBottom: 12, color: 'var(--t1)' }}>🔔 Recent Notifications</h3>
             {data.myNotifs.slice(0, 3).map((n: any) => (
               <div key={n.id} style={{ display: 'flex', gap: 8, padding: '8px 0', borderBottom: '1px solid var(--border)', alignItems: 'flex-start' }}>
                 <Badge type={n.type === 'Warning' ? 'warning' : n.type === 'Alert' ? 'danger' : 'info'}>{n.type || 'Info'}</Badge>
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--t1)' }}>{n.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>{n.message}</div>
+                  <div style={{ fontWeight: 600, fontSize: 14.5, color: 'var(--t1)' }}>{n.title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 2 }}>{n.message}</div>
                 </div>
               </div>
             ))}
@@ -137,12 +137,12 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
         )}
         {data.news.length > 0 && (
           <Card>
-            <h3 style={{ fontWeight: 700, fontSize: 13, marginBottom: 12, color: 'var(--t1)' }}>📰 Latest News</h3>
+            <h3 style={{ fontWeight: 700, fontSize: 14.5, marginBottom: 12, color: 'var(--t1)' }}>📰 Latest News</h3>
             {data.news.slice(0, 3).map((n: any) => (
               <div key={n.id} style={{ padding: '8px 0', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2, color: 'var(--t1)' }}>{n.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>{(n.content || '').slice(0, 100)}{(n.content || '').length > 100 ? '…' : ''}</div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 3 }}>{new Date(n.createdAt).toLocaleDateString()}</div>
+                <div style={{ fontWeight: 600, fontSize: 14.5, marginBottom: 2, color: 'var(--t1)' }}>{n.title}</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>{(n.content || '').slice(0, 100)}{(n.content || '').length > 100 ? '…' : ''}</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 3 }}>{new Date(n.createdAt).toLocaleDateString()}</div>
               </div>
             ))}
           </Card>
@@ -175,19 +175,19 @@ export function ExamsTab({ student, onStartExam, examCheckLoading }: any) {
   return (
     <div className="fade-in" style={{ color: 'var(--t1)' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📝 My Exams</h1>
-        <p style={{ color: 'var(--t3)', fontSize: 13 }}>{student.batch}</p>
+        <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📝 My Exams</h1>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>{student.batch}</p>
       </div>
 
       <Card style={{ marginBottom: 14, border: '1px solid rgba(220,38,38,0.2)' }}>
-        <h3 style={{ fontWeight: 700, fontSize: 13, color: '#dc2626', marginBottom: 12 }}>🔴 Active Exams</h3>
+        <h3 style={{ fontWeight: 700, fontSize: 14.5, color: '#dc2626', marginBottom: 12 }}>🔴 Active Exams</h3>
         {data.active.length === 0 ? <EmptyState icon="📝" text="No active exams right now" /> : data.active.map((exam: any) => {
           const attempted = data.attemptedIds.includes(exam.id);
           return (
             <div key={exam.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 14px', background: 'var(--bg3)', borderRadius: 10, marginBottom: 8, border: '1px solid var(--border)' }}>
               <div>
-                <div style={{ fontWeight: 700, marginBottom: 3, fontSize: 13, color: 'var(--t1)' }}>{exam.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--t3)' }}>⏱ {exam.duration} min · Ends {new Date(exam.endDateTime).toLocaleString()}</div>
+                <div style={{ fontWeight: 700, marginBottom: 3, fontSize: 14.5, color: 'var(--t1)' }}>{exam.title}</div>
+                <div style={{ fontSize: 13, color: 'var(--t3)' }}>⏱ {exam.duration} min · Ends {new Date(exam.endDateTime).toLocaleString()}</div>
               </div>
               {attempted ? <Badge type="success">✅ Done</Badge> : (
                 <Btn variant="primary" size="sm" onClick={() => onStartExam(exam)} disabled={examCheckLoading}>
@@ -200,22 +200,22 @@ export function ExamsTab({ student, onStartExam, examCheckLoading }: any) {
       </Card>
 
       <Card style={{ marginBottom: 14 }}>
-        <h3 style={{ fontWeight: 700, fontSize: 13, color: '#2563eb', marginBottom: 12 }}>⏳ Upcoming Exams</h3>
+        <h3 style={{ fontWeight: 700, fontSize: 14.5, color: '#2563eb', marginBottom: 12 }}>⏳ Upcoming Exams</h3>
         {data.upcoming.length === 0 ? <EmptyState icon="📅" text="No upcoming exams" /> : data.upcoming.map((exam: any) => (
           <div key={exam.id} style={{ padding: '10px 14px', background: 'var(--bg3)', borderRadius: 10, marginBottom: 8, border: '1px solid var(--border)' }}>
-            <div style={{ fontWeight: 600, marginBottom: 2, fontSize: 13, color: 'var(--t1)' }}>{exam.title}</div>
-            <div style={{ fontSize: 12, color: 'var(--t3)' }}>⏱ {exam.duration} min · Starts {new Date(exam.startDateTime).toLocaleString()}</div>
+            <div style={{ fontWeight: 600, marginBottom: 2, fontSize: 14.5, color: 'var(--t1)' }}>{exam.title}</div>
+            <div style={{ fontSize: 13, color: 'var(--t3)' }}>⏱ {exam.duration} min · Starts {new Date(exam.startDateTime).toLocaleString()}</div>
           </div>
         ))}
       </Card>
 
       <Card>
-        <h3 style={{ fontWeight: 700, fontSize: 13, color: 'var(--t3)', marginBottom: 12 }}>✅ Past Exams</h3>
+        <h3 style={{ fontWeight: 700, fontSize: 14.5, color: 'var(--t3)', marginBottom: 12 }}>✅ Past Exams</h3>
         {data.past.length === 0 ? <EmptyState icon="📋" text="No past exams" /> : data.past.map((exam: any) => (
           <div key={exam.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 14px', borderBottom: '1px solid var(--border)' }}>
             <div>
-              <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--t1)' }}>{exam.title}</div>
-              <div style={{ fontSize: 12, color: 'var(--t3)' }}>{new Date(exam.startDateTime).toLocaleDateString()}</div>
+              <div style={{ fontWeight: 600, fontSize: 14.5, color: 'var(--t1)' }}>{exam.title}</div>
+              <div style={{ fontSize: 13, color: 'var(--t3)' }}>{new Date(exam.startDateTime).toLocaleDateString()}</div>
             </div>
             {data.attemptedIds.includes(exam.id) ? <Badge type="success">Submitted</Badge> : <Badge type="danger">Missed</Badge>}
           </div>
@@ -251,14 +251,14 @@ export function ResultsTab({ student }: any) {
   return (
     <div className="fade-in" style={{ color: 'var(--t1)' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📊 My Results</h1>
-        <p style={{ color: 'var(--t3)', fontSize: 13 }}>{results.length} exam{results.length !== 1 ? 's' : ''} taken · {student.batch}</p>
+        <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📊 My Results</h1>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>{results.length} exam{results.length !== 1 ? 's' : ''} taken · {student.batch}</p>
       </div>
 
       {hidden > 0 && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.2)', borderRadius: 12, padding: '11px 14px', marginBottom: 14 }}>
-          <span style={{ fontSize: 18 }}>🔒</span>
-          <p style={{ color: 'var(--amber)', fontWeight: 500, fontSize: 12, margin: 0 }}>
+          <span style={{ fontSize: 20 }}>🔒</span>
+          <p style={{ color: 'var(--amber)', fontWeight: 500, fontSize: 13, margin: 0 }}>
             <strong>{hidden}</strong> result{hidden !== 1 ? 's are' : ' is'} pending release by admin.
           </p>
         </div>
@@ -275,17 +275,17 @@ export function ResultsTab({ student }: any) {
               { label: 'Best Score', value: `${best}%`, icon: '🏆', color: '#d97706', bg: 'rgba(217,119,6,0.05)' },
             ].map((s, i) => (
               <div key={i} style={{ background: s.bg, border: `1px solid ${s.color}20`, borderRadius: 12, padding: '13px 15px', display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{s.icon}</div>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>{s.icon}</div>
                 <div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
-                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 3, fontWeight: 600 }}>{s.label}</div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 3, fontWeight: 600 }}>{s.label}</div>
                 </div>
               </div>
             ))}
           </div>
           <Card style={{ padding: 0 }}>
             <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 13 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--t3)' }}>Exam</th>
@@ -303,7 +303,7 @@ export function ResultsTab({ student }: any) {
                       <td style={{ padding: '12px 16px', color: 'var(--t3)' }}>{new Date(r.submittedAt).toLocaleDateString()}</td>
                       <td style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)' }}>{r.score}</td>
                       <td style={{ padding: '12px 16px' }}><Badge type={parseFloat(r.percentage) >= 50 ? 'success' : 'danger'}>{r.percentage}</Badge></td>
-                      <td style={{ padding: '12px 16px', fontWeight: 800, color: parseFloat(r.percentage) >= 50 ? 'var(--green)' : 'var(--coral)', fontSize: 14 }}>{r.grade}</td>
+                      <td style={{ padding: '12px 16px', fontWeight: 800, color: parseFloat(r.percentage) >= 50 ? 'var(--green)' : 'var(--coral)', fontSize: 15.5 }}>{r.grade}</td>
                       <td style={{ padding: '12px 16px' }}><Badge type={r.tabSwitches > 0 ? 'warning' : 'success'}>{r.tabSwitches || 0}</Badge></td>
                     </tr>
                   ))}
@@ -364,8 +364,8 @@ export function NotesTab({ student }: any) {
   return (
     <div className="fade-in" style={{ color: 'var(--t1)' }}>
       <div style={{ marginBottom: 14 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📚 Study Notes</h1>
-        <p style={{ color: 'var(--t3)', fontSize: 13 }}>Materials for {student.batch}</p>
+        <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>📚 Study Notes</h1>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>Materials for {student.batch}</p>
       </div>
 
       <div style={{ display: 'flex', gap: 0, marginBottom: 12, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 10, padding: 3, width: 'fit-content', flexWrap: 'wrap' }}>
@@ -377,11 +377,11 @@ export function NotesTab({ student }: any) {
               padding: '6px 12px', borderRadius: 7, border: 'none',
               background: active ? 'var(--accent)' : 'transparent',
               color: active ? 'white' : count === 0 ? 'var(--t4)' : 'var(--t2)',
-              fontWeight: active ? 700 : 500, fontSize: 12,
+              fontWeight: active ? 700 : 500, fontSize: 13,
               cursor: count === 0 && s !== 'All' ? 'default' : 'pointer',
               transition: 'all 0.15s', whiteSpace: 'nowrap',
             }}>
-              {s} {count > 0 && <span style={{ marginLeft: 3, opacity: 0.6, fontSize: 10 }}>({count})</span>}
+              {s} {count > 0 && <span style={{ marginLeft: 3, opacity: 0.6, fontSize: 11 }}>({count})</span>}
             </button>
           );
         })}
@@ -397,16 +397,16 @@ export function NotesTab({ student }: any) {
             <Card key={note.id} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 16 }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 24 }}>{fileIcon(note.fileName)}</span>
+                  <span style={{ fontSize: 26.5 }}>{fileIcon(note.fileName)}</span>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{note.title}</div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{note.subject} · Sem {note.semester}</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{note.title}</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>{note.subject} · Sem {note.semester}</div>
                   </div>
                 </div>
-                <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 14px 0', lineHeight: 1.4 }}>{note.description || 'No description provided.'}</p>
+                <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 14px 0', lineHeight: 1.4 }}>{note.description || 'No description provided.'}</p>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{fmt(note.fileSize)}</span>
+                <span style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{fmt(note.fileSize)}</span>
                 <Btn size="sm" onClick={async () => {
                   try {
                     let href = note.fileUrl || note.fileData;
@@ -445,8 +445,8 @@ export function NotificationsTab({ student }: any) {
   return (
     <div className="fade-in" style={{ color: 'var(--t1)' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>🔔 Notifications</h1>
-        <p style={{ color: 'var(--t3)', fontSize: 13 }}>Broadcast alerts for {student.batch}</p>
+        <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>🔔 Notifications</h1>
+        <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>Broadcast alerts for {student.batch}</p>
       </div>
 
       {notifs.length === 0 ? <Card><EmptyState icon="🔔" text="No notifications yet" /></Card> : (
@@ -455,9 +455,9 @@ export function NotificationsTab({ student }: any) {
             <div key={n.id} style={{ display: 'flex', gap: 12, padding: 16, borderBottom: i < notifs.length - 1 ? '1px solid var(--border)' : 'none', alignItems: 'flex-start' }}>
               <Badge type={n.type === 'Warning' ? 'warning' : n.type === 'Urgent' ? 'danger' : 'info'}>{n.type || 'Info'}</Badge>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--t1)' }}>{n.title}</div>
-                <p style={{ fontSize: 13, color: 'var(--t2)', marginTop: 4, margin: '4px 0 0 0', lineHeight: 1.5 }}>{n.message}</p>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, fontFamily: 'var(--font-mono)' }}>{new Date(n.createdAt || Date.now()).toLocaleString()}</div>
+                <div style={{ fontWeight: 700, fontSize: 15.5, color: 'var(--t1)' }}>{n.title}</div>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', marginTop: 4, margin: '4px 0 0 0', lineHeight: 1.5 }}>{n.message}</p>
+                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 8, fontFamily: 'var(--font-mono)' }}>{new Date(n.createdAt || Date.now()).toLocaleString()}</div>
               </div>
             </div>
           ))}
@@ -583,14 +583,14 @@ export function ContactTab({ student }: any) {
     <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, color: 'var(--t1)' }}>
       <div>
         <div style={{ marginBottom: 20 }}>
-          <h1 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>💬 Contact Faculty & Teachers</h1>
-          <p style={{ color: 'var(--t3)', fontSize: 13 }}>Send questions directly to your assigned faculty & mentors</p>
+          <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 3 }}>💬 Contact Faculty & Teachers</h1>
+          <p style={{ color: 'var(--t3)', fontSize: 14.5 }}>Send questions directly to your assigned faculty & mentors</p>
         </div>
 
         <Card>
           <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--t2)' }}>Select Teacher / Faculty</label>
+              <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--t2)' }}>Select Teacher / Faculty</label>
               <select
                 value={recipient}
                 onChange={e => setRecipient(e.target.value)}
@@ -601,7 +601,7 @@ export function ContactTab({ student }: any) {
                   borderRadius: 8,
                   padding: 10,
                   color: 'var(--t1)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   outline: 'none'
                 }}
               >
@@ -612,7 +612,7 @@ export function ContactTab({ student }: any) {
             </div>
             <Input label="Subject / Topic" value={subj} onChange={(e: any) => setSubj(e.target.value)} placeholder="e.g. Guidance for Assignment 2" />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--t2)' }}>Message</label>
+              <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--t2)' }}>Message</label>
               <textarea
                 value={msg}
                 onChange={e => setMsg(e.target.value)}
@@ -625,7 +625,7 @@ export function ContactTab({ student }: any) {
                   borderRadius: 8,
                   padding: 10,
                   color: 'var(--t1)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   outline: 'none',
                   resize: 'none',
                   boxSizing: 'border-box'
@@ -640,23 +640,23 @@ export function ContactTab({ student }: any) {
       </div>
 
       <div>
-        <h3 style={{ fontWeight: 700, fontSize: 13, marginBottom: 12 }}>📬 Conversation History</h3>
+        <h3 style={{ fontWeight: 700, fontSize: 14.5, marginBottom: 12 }}>📬 Conversation History</h3>
         {history.length === 0 ? <Card onClick={() => {}} hoverable={false}><EmptyState icon="💬" text="No previous queries" action={null} /></Card> : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {history.map(m => (
               <Card key={m.id} style={{ padding: 14 }} onClick={() => {}} hoverable={false}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: 'var(--t1)' }}>{m.subject}</div>
+                  <div style={{ fontWeight: 700, fontSize: 14.5, color: 'var(--t1)' }}>{m.subject}</div>
                   <Badge type={m.status === 'Replied' ? 'success' : 'warning'}>{m.status}</Badge>
                 </div>
-                <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 10px 0', lineHeight: 1.4 }}>{m.message}</p>
+                <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 10px 0', lineHeight: 1.4 }}>{m.message}</p>
                 {m.reply && (
                   <div style={{ background: 'var(--bg3)', borderLeft: '3px solid var(--accent)', padding: 10, borderRadius: '0 8px 8px 0', marginTop: 8 }}>
-                    <div style={{ fontWeight: 700, fontSize: 11, color: 'var(--accent)', marginBottom: 2 }}>Admin Response:</div>
-                    <p style={{ fontSize: 12, color: 'var(--t1)', margin: 0, lineHeight: 1.4 }}>{m.reply}</p>
+                    <div style={{ fontWeight: 700, fontSize: 12, color: 'var(--accent)', marginBottom: 2 }}>Admin Response:</div>
+                    <p style={{ fontSize: 13, color: 'var(--t1)', margin: 0, lineHeight: 1.4 }}>{m.reply}</p>
                   </div>
                 )}
-                <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 8, fontFamily: 'var(--font-mono)' }}>Sent: {new Date(m.sentAt).toLocaleString()}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, fontFamily: 'var(--font-mono)' }}>Sent: {new Date(m.sentAt).toLocaleString()}</div>
               </Card>
             ))}
           </div>

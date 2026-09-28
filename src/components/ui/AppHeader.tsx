@@ -60,7 +60,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         className="mobile-menu-btn"
         aria-label="Toggle navigation menu"
         aria-expanded={mobileOpen}
-        style={{ background:'none', border:'none', cursor:'pointer', color:'var(--t2)', fontSize:18, padding:4, borderRadius:6, display:'none' }}>
+        style={{ background:'none', border:'none', cursor:'pointer', color:'var(--t2)', fontSize:20, padding:4, borderRadius:6, display:'none' }}>
         ☰
       </button>
 
@@ -78,7 +78,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               width: 24, height: 24, borderRadius: 6,
               background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 10, fontWeight: 800, color: 'white', cursor: 'pointer',
+              fontSize: 11, fontWeight: 800, color: 'white', cursor: 'pointer',
               fontFamily: 'var(--font-display)', marginRight: 6
             }}
           >
@@ -162,12 +162,12 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               border: effectiveFocusMode ? '1px solid rgba(220,38,38,0.3)' : '1px solid var(--border)',
               borderRadius: 20, padding: '3px 12px', display: 'flex',
               alignItems: 'center', gap: 4, cursor: 'pointer',
-              fontSize: 10.5, fontWeight: 700, fontFamily: 'var(--font-mono)',
+              fontSize: 11.5, fontWeight: 700, fontFamily: 'var(--font-mono)',
               color: effectiveFocusMode ? 'var(--coral)' : 'var(--t2)', outline: 'none',
               transition: 'all 0.15s ease'
             }}
           >
-            <span aria-hidden="true">🤫</span> {!effectiveFocusMode && <span style={{ fontSize: 10 }}>Focus</span>}
+            <span aria-hidden="true">🤫</span> {!effectiveFocusMode && <span style={{ fontSize: 11 }}>Focus</span>}
           </button>
         )}
       </div>
@@ -191,7 +191,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             position:'absolute', top:2, right:2,
             minWidth:14, height:14, borderRadius:7,
             background:'var(--coral)', color:'white',
-            fontSize:9, fontWeight:700, fontFamily:'var(--font-mono)',
+            fontSize:10, fontWeight:700, fontFamily:'var(--font-mono)',
             display:'flex', alignItems:'center', justifyContent:'center',
             border:'2px solid var(--bg2)', padding:'0 3px',
           }}>

@@ -134,7 +134,7 @@ export default function StudentExams() {
         }
         .page-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 24px;
+          font-size: 26.5px;
           font-weight: 900;
           letter-spacing: -0.6px;
           margin-bottom: 24px;
@@ -156,7 +156,7 @@ export default function StudentExams() {
           background: transparent;
           padding: 8px 18px;
           border-radius: 9px;
-          font-size: 12.5px;
+          font-size: 14px;
           font-weight: 700;
           cursor: pointer;
           color: var(--t2);
@@ -192,7 +192,7 @@ export default function StudentExams() {
           right: 16px;
           padding: 3px 8px;
           border-radius: 20px;
-          font-size: 10px;
+          font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
           background: var(--accent-light);
@@ -204,7 +204,7 @@ export default function StudentExams() {
         }
         .tbl-results th {
           text-align: left;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 800;
           text-transform: uppercase;
           color: var(--t2);
@@ -213,14 +213,14 @@ export default function StudentExams() {
         }
         .tbl-results td {
           padding: 14px 0;
-          font-size: 13.5px;
+          font-size: 15px;
           border-bottom: 1px solid var(--border);
         }
         .badge-grade {
           padding: 3px 8px;
           border-radius: 6px;
           font-weight: 800;
-          font-size: 11px;
+          font-size: 12px;
         }
         .badge-green { background: var(--green-light); color: var(--green); }
         .badge-gray { background: var(--bg3); color: var(--t2); }
@@ -262,7 +262,7 @@ export default function StudentExams() {
           position: absolute;
           top: 50%; left: 50%;
           transform: translate(-50%, -50%) rotate(-30deg);
-          font-size: 48px;
+          font-size: 53px;
           font-weight: 900;
           color: rgba(15, 23, 42, 0.03);
           pointer-events: none;
@@ -288,21 +288,21 @@ export default function StudentExams() {
             <div className="card-box" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, margin: 0 }}>🎫 Semester Hall Entry Ticket</h3>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, margin: 0 }}>🎫 Semester Hall Entry Ticket</h3>
                   {isHallTicketEligible ? (
-                    <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: 'var(--green)', fontWeight: 800, border: '1px solid rgba(16, 185, 129, 0.25)' }}>
+                    <span style={{ fontSize: 12, padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: 'var(--green)', fontWeight: 800, border: '1px solid rgba(16, 185, 129, 0.25)' }}>
                       ✓ CLEARANCE VERIFIED
                     </span>
                   ) : (
-                    <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(239, 68, 68, 0.12)', color: 'var(--coral)', fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
+                    <span style={{ fontSize: 12, padding: '2px 8px', borderRadius: 6, background: 'rgba(239, 68, 68, 0.12)', color: 'var(--coral)', fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
                       ⚠️ CLEARANCE HOLD
                     </span>
                   )}
                 </div>
-                <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: 0 }}>
+                <p style={{ fontSize: 14, color: 'var(--t2)', margin: 0 }}>
                   Download or view your verified entry pass for the upcoming semester laboratory and theory blocks.
                 </p>
-                <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 6 }}>
+                <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 6 }}>
                   Attendance: <strong style={{ color: isAttendanceEligible ? 'var(--green)' : 'var(--coral)' }}>{attendancePct ?? 85}%</strong> (Min 75%) • 
                   Accounts: <strong style={{ color: isFeeEligible ? 'var(--green)' : 'var(--coral)' }}>{hasFeeDues ? duesSummary : 'Fees Cleared'}</strong>
                 </div>
@@ -324,15 +324,15 @@ export default function StudentExams() {
             </div>
 
             <div className="card-box">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, marginBottom: 16 }}>🗓 Upcoming Timetable</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, marginBottom: 16 }}>🗓 Upcoming Timetable</h3>
               <div className="grid-schedule">
                 {schedule.map(s => (
                   <div key={s.id} className="slot-card">
                     <span className="slot-badge">{s.slot}</span>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{s.code}</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '6px 0 10px', maxWidth: '80%' }}>{s.course}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{s.code}</div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', margin: '6px 0 10px', maxWidth: '80%' }}>{s.course}</div>
                     
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 12, color: 'var(--t2)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 13, color: 'var(--t2)' }}>
                       <div>📅 Date: <strong>{new Date(s.date).toLocaleDateString()}</strong></div>
                       <div>⏰ Time: <strong>{s.time}</strong></div>
                       <div>🚪 Assigned Hall: <strong>{s.room}</strong></div>
@@ -349,12 +349,12 @@ export default function StudentExams() {
           <div>
             {!resultsSheet.isPublished ? (
               <div className="card-box" style={{ background: 'var(--coral-light)', border: '1px solid var(--coral-light)', textAlign: 'center', padding: '40px 20px' }}>
-                <div style={{ fontSize: 44, marginBottom: 12 }}>⚠️</div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--coral)' }}>Results Audit Status</h3>
-                <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, margin: '8px auto 0' }}>
+                <div style={{ fontSize: 48.5, marginBottom: 12 }}>⚠️</div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--coral)' }}>Results Audit Status</h3>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', maxWidth: 460, margin: '8px auto 0' }}>
                   The Semester Grades for Academic Year 2025–26 have not been published by the Exam Cell. Marks are currently undergoing board verification audits.
                 </p>
-                <div style={{ fontSize: 11, color: 'var(--coral)', marginTop: 14, fontFamily: 'var(--font-mono)' }}>
+                <div style={{ fontSize: 12, color: 'var(--coral)', marginTop: 14, fontFamily: 'var(--font-mono)' }}>
                   ESTIMATED RELEASE: Immediate after officer audit confirmation.
                 </div>
               </div>
@@ -363,13 +363,13 @@ export default function StudentExams() {
                 {/* GPA summary & transcript button */}
                 <div className="card-box" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
                   <div>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800 }}>Consolidated Report Card</h3>
-                    <p style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 4 }}>Marks and grades for all semester course codes are locked and published.</p>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800 }}>Consolidated Report Card</h3>
+                    <p style={{ fontSize: 14, color: 'var(--t2)', marginTop: 4 }}>Marks and grades for all semester course codes are locked and published.</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>CUMULATIVE GPA</div>
-                      <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--green)' }}>{resultsSheet.gpa} / 10</div>
+                      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>CUMULATIVE GPA</div>
+                      <div style={{ fontSize: 31, fontWeight: 900, color: 'var(--green)' }}>{resultsSheet.gpa} / 10</div>
                     </div>
                     <button onClick={() => setShowTranscript(true)} className="btn-primary" style={{ background: 'var(--green)', borderColor: 'var(--green)', padding: '10px 20px' }}>
                       🎓 View Official Transcript
@@ -379,7 +379,7 @@ export default function StudentExams() {
 
                 {/* Grades details table */}
                 <div className="card-box">
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, marginBottom: 16 }}>📊 Semester Roster</h3>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, marginBottom: 16 }}>📊 Semester Roster</h3>
                   
                   <table className="tbl-results">
                     <thead>
@@ -399,7 +399,7 @@ export default function StudentExams() {
                         const isPass = total >= 40;
                         return (
                           <tr key={r.code}>
-                            <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{r.code}</td>
+                            <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700 }}>{r.code}</td>
                             <td style={{ fontWeight: 600 }}>{r.course}</td>
                             <td>{r.internals} / 30</td>
                             <td>{r.semester} / 70</td>
@@ -429,14 +429,14 @@ export default function StudentExams() {
         <div className="overlay">
           <div className="ticket-modal">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, margin: 0 }}>🎫 Examination Hall Entry Pass</h3>
-              <button onClick={() => setShowHallTicket(false)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, margin: 0 }}>🎫 Examination Hall Entry Pass</h3>
+              <button onClick={() => setShowHallTicket(false)} style={{ border: 'none', background: 'none', fontSize: 20, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
             </div>
 
             <div className="ticket-body">
               {/* Eligibility Notice Banner */}
               {!isHallTicketEligible && (
-                <div style={{ padding: '10px 14px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', marginBottom: 14, fontSize: 12, color: 'var(--coral)' }}>
+                <div style={{ padding: '10px 14px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', marginBottom: 14, fontSize: 13, color: 'var(--coral)' }}>
                   <strong>⚠️ Academic Hold Notice:</strong>
                   {!isAttendanceEligible && <div>• Attendance is {attendancePct}% (Minimum 75% required; condonation approval needed).</div>}
                   {!isFeeEligible && <div>• Outstanding tuition fee balance recorded ({duesSummary}). Clear accounts before entrance.</div>}
@@ -444,26 +444,26 @@ export default function StudentExams() {
               )}
 
               {isHallTicketEligible && (
-                <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', marginBottom: 14, fontSize: 11.5, color: 'var(--green)', fontWeight: 700 }}>
+                <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', marginBottom: 14, fontSize: 12.5, color: 'var(--green)', fontWeight: 700 }}>
                   ✓ Official Clearance Verified: Attendance Compliant ({attendancePct}%) & Tuition Accounts Cleared.
                 </div>
               )}
 
               <div style={{ display: 'flex', gap: 16, borderBottom: '1px dashed var(--border2)', paddingBottom: 14 }}>
-                <div style={{ width: 64, height: 64, borderRadius: 8, background: 'var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🧑‍🎓</div>
+                <div style={{ width: 64, height: 64, borderRadius: 8, background: 'var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26.5 }}>🧑‍🎓</div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 800 }}>{studentName}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>Register Number: <strong>{registerNumber}</strong></div>
-                  <div style={{ fontSize: 12, color: 'var(--t2)' }}>Institution: <strong>{institutionName}</strong></div>
-                  <div style={{ fontSize: 12, color: 'var(--t2)' }}>Program: <strong>{studentProgram} ({studentMajor})</strong></div>
+                  <div style={{ fontSize: 15.5, fontWeight: 800 }}>{studentName}</div>
+                  <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 2 }}>Register Number: <strong>{registerNumber}</strong></div>
+                  <div style={{ fontSize: 13, color: 'var(--t2)' }}>Institution: <strong>{institutionName}</strong></div>
+                  <div style={{ fontSize: 13, color: 'var(--t2)' }}>Program: <strong>{studentProgram} ({studentMajor})</strong></div>
                 </div>
               </div>
 
               <div style={{ marginTop: 14 }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', marginBottom: 8 }}>LICENSED EXAMINATION SCHEDULE</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', marginBottom: 8 }}>LICENSED EXAMINATION SCHEDULE</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {schedule.map(s => (
-                    <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, background: 'var(--card)', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}>
+                    <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, background: 'var(--card)', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}>
                       <span><strong>{s.code}</strong> · {(s.course || '').slice(0, 24)}...</span>
                       <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{s.room}</span>
                     </div>
@@ -471,7 +471,7 @@ export default function StudentExams() {
                 </div>
               </div>
 
-              <div style={{ borderTop: '1px dashed var(--border2)', marginTop: 14, paddingTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--t2)' }}>
+              <div style={{ borderTop: '1px dashed var(--border2)', marginTop: 14, paddingTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t2)' }}>
                 <div>
                   <span>🔒 Pass Code: </span>
                   <strong style={{ fontFamily: 'var(--font-mono)', color: 'var(--t1)' }}>{securityCode}</strong>
@@ -499,20 +499,20 @@ export default function StudentExams() {
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '3px double var(--t1)', paddingBottom: 14, marginBottom: 20 }}>
                 <div>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900, margin: 0 }}>{institutionName.toUpperCase()}</h3>
-                  <div style={{ fontSize: 10, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>EXAMINATION CONTROL CELL OFFICE</div>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 900, margin: 0 }}>{institutionName.toUpperCase()}</h3>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>EXAMINATION CONTROL CELL OFFICE</div>
                 </div>
-                <button onClick={() => setShowTranscript(false)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
+                <button onClick={() => setShowTranscript(false)} style={{ border: 'none', background: 'none', fontSize: 20, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: 12, marginBottom: 20, background: 'var(--bg3)', padding: 12, borderRadius: 8, border: '1px solid var(--border2)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: 13, marginBottom: 20, background: 'var(--bg3)', padding: 12, borderRadius: 8, border: '1px solid var(--border2)' }}>
                 <div>Name: <strong>{studentName}</strong></div>
                 <div>Reg No: <strong>{registerNumber}</strong></div>
                 <div>Program: <strong>{studentProgram} ({studentMajor})</strong></div>
                 <div>Date Issued: <strong>{new Date().toLocaleDateString()}</strong></div>
               </div>
 
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, marginBottom: 20 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, marginBottom: 20 }}>
                 <thead>
                   <tr style={{ borderBottom: '2px solid var(--t1)', fontWeight: 800 }}>
                     <th style={{ textAlign: 'left', padding: '6px 0' }}>Code</th>
@@ -537,7 +537,7 @@ export default function StudentExams() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderTop: '2px solid var(--border2)', paddingTop: 16 }}>
                 <div>
-                  <div style={{ fontSize: 10, color: 'var(--t2)', marginBottom: 4 }}>VERIFICATION SECURITY QR</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 4 }}>VERIFICATION SECURITY QR</div>
                   <a
                     href={`/verify/${encodeURIComponent(verificationId)}`}
                     target="_blank"
@@ -566,17 +566,17 @@ export default function StudentExams() {
                         <rect x="19" y="18" width="3" height="3" fill="#0f172a" />
                       </svg>
                     </div>
-                    <span style={{ fontSize: 9, color: 'var(--accent)', fontWeight: 700 }}>Verify Online ↗</span>
+                    <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700 }}>Verify Online ↗</span>
                   </a>
                 </div>
 
-                <div style={{ textAlign: 'right', fontSize: 13 }}>
-                  <div>Cumulative CGPA: <strong style={{ color: 'var(--green)', fontSize: 16 }}>{resultsSheet.gpa}</strong></div>
-                  <div style={{ fontSize: 10, color: 'var(--t2)', marginTop: 6 }}>CONTROLLER OF EXAMINATIONS</div>
-                  <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--green)', letterSpacing: 0.5 }}>
+                <div style={{ textAlign: 'right', fontSize: 14.5 }}>
+                  <div>Cumulative CGPA: <strong style={{ color: 'var(--green)', fontSize: 17.5 }}>{resultsSheet.gpa}</strong></div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 6 }}>CONTROLLER OF EXAMINATIONS</div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)', letterSpacing: 0.5 }}>
                     🛡️ CRYPTOGRAPHICALLY VERIFIED & SEALED
                   </div>
-                  <div style={{ fontSize: 9, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
                     REF: {verificationId}
                   </div>
                 </div>

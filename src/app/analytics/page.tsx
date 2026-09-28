@@ -7,5 +7,5 @@ export default function AnalyticsRedirectPage() {
   useEffect(() => {
     router.replace('/profile?tab=analytics');
   }, [router]);
-  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 13 }}>Redirecting to Profile Analytics...</div>;
+  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 14.5 }}>Redirecting to Profile Analytics...</div>;
 }

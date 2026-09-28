@@ -388,13 +388,13 @@ export default function ExamGradingManager() {
             boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>🤖 AI Quiz Generator (Topic-Aware)</h3>
-              <button onClick={() => setShowAiModal(false)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>×</button>
+              <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>🤖 AI Quiz Generator (Topic-Aware)</h3>
+              <button onClick={() => setShowAiModal(false)} style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer' }}>×</button>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Topic / Subject *</label>
+                <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Topic / Subject *</label>
                 <input
                   type="text"
                   placeholder="e.g. Quantum Computing, Taxation Law, Microservices"
@@ -406,7 +406,7 @@ export default function ExamGradingManager() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Difficulty</label>
+                  <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Difficulty</label>
                   <select
                     value={aiDifficulty}
                     onChange={e => setAiDifficulty(e.target.value)}
@@ -418,7 +418,7 @@ export default function ExamGradingManager() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>No. of Questions</label>
+                  <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>No. of Questions</label>
                   <select
                     value={aiNumQuestions}
                     onChange={e => setAiNumQuestions(Number(e.target.value))}
@@ -470,7 +470,7 @@ export default function ExamGradingManager() {
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                   <span style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 700,
                     padding: '2px 8px',
                     borderRadius: 4,
@@ -479,26 +479,26 @@ export default function ExamGradingManager() {
                   }}>
                     {exam.status.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>Due: {exam.dueDate}</span>
+                  <span style={{ fontSize: 13, color: 'var(--t3)' }}>Due: {exam.dueDate}</span>
                 </div>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{exam.title}</h3>
-                <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3)' }}>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>{exam.title}</h3>
+                <p style={{ margin: '4px 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
                   {exam.subject} • {exam.batch}
                 </p>
                 {exam.questions && exam.questions.length > 0 && (
-                  <span style={{ fontSize: 12, color: 'var(--purple)', fontWeight: 600, marginTop: 6, display: 'inline-block' }}>
+                  <span style={{ fontSize: 13, color: 'var(--purple)', fontWeight: 600, marginTop: 6, display: 'inline-block' }}>
                     ✨ {exam.questions.length} AI-Generated Questions attached
                   </span>
                 )}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border, var(--border))', paddingTop: 12 }}>
-                <span style={{ fontSize: 13, fontWeight: 600 }}>📩 {exam.submissionsCount} Submissions</span>
+                <span style={{ fontSize: 14.5, fontWeight: 600 }}>📩 {exam.submissionsCount} Submissions</span>
                 <button
                   onClick={() => setActiveTab('grading')}
                   style={{
                     padding: '6px 12px',
-                    fontSize: 13,
+                    fontSize: 14.5,
                     borderRadius: 6,
                     border: 'none',
                     background: 'var(--primary)',
@@ -526,10 +526,10 @@ export default function ExamGradingManager() {
           gap: 16,
           maxWidth: 600
         }}>
-          <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>➕ Create New Exam / Quiz</h3>
+          <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>➕ Create New Exam / Quiz</h3>
 
           <div>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Exam Title</label>
+            <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Exam Title</label>
             <input
               type="text"
               value={newTitle}
@@ -542,7 +542,7 @@ export default function ExamGradingManager() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Subject</label>
+              <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Subject</label>
               <input
                 type="text"
                 value={newSubject}
@@ -551,7 +551,7 @@ export default function ExamGradingManager() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Target Batch</label>
+              <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Target Batch</label>
               <select
                 value={newBatch}
                 onChange={e => setNewBatch(e.target.value)}
@@ -565,7 +565,7 @@ export default function ExamGradingManager() {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Total Marks</label>
+            <label style={{ display: 'block', fontSize: 14.5, fontWeight: 600, marginBottom: 4 }}>Total Marks</label>
             <input
               type="number"
               value={newMarks}
@@ -576,8 +576,8 @@ export default function ExamGradingManager() {
 
           {generatedQuestions.length > 0 && (
             <div style={{ background: '#f3e8ff', border: '1px solid #c084fc', padding: 12, borderRadius: 8 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#6b21a8' }}>✨ {generatedQuestions.length} AI-Generated Topic Questions Attached:</div>
-              <ul style={{ margin: '6px 0 0', paddingLeft: 20, fontSize: 12, color: '#581c87' }}>
+              <div style={{ fontSize: 14.5, fontWeight: 700, color: '#6b21a8' }}>✨ {generatedQuestions.length} AI-Generated Topic Questions Attached:</div>
+              <ul style={{ margin: '6px 0 0', paddingLeft: 20, fontSize: 13, color: '#581c87' }}>
                 {generatedQuestions.map(q => <li key={q.id}><strong>{q.questionText}</strong> (Choice: {q.options[0]})</li>)}
               </ul>
             </div>
@@ -606,11 +606,11 @@ export default function ExamGradingManager() {
         <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, padding: 20 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <div>
-              <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
-              <p style={{ color: 'var(--t3)', fontSize: 14, margin: 0 }}>Type authentic student marks and record them directly to live academic records.</p>
+              <h3 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
+              <p style={{ color: 'var(--t3)', fontSize: 15.5, margin: 0 }}>Type authentic student marks and record them directly to live academic records.</p>
             </div>
             {syncNotice && (
-              <span style={{ background: 'rgba(var(--success-rgb), 0.1)', border: '1px solid var(--success)', color: 'var(--success)', padding: '6px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700 }}>
+              <span style={{ background: 'rgba(var(--success-rgb), 0.1)', border: '1px solid var(--success)', color: 'var(--success)', padding: '6px 14px', borderRadius: 8, fontSize: 14.5, fontWeight: 700 }}>
                 ✓ {syncNotice}
               </span>
             )}
@@ -656,7 +656,7 @@ export default function ExamGradingManager() {
                             padding: '6px 8px',
                             borderRadius: 6,
                             border: '1px solid var(--border, #cbd5e1)',
-                            fontSize: 13,
+                            fontSize: 14.5,
                             fontWeight: 700
                           }}
                         />
@@ -667,7 +667,7 @@ export default function ExamGradingManager() {
                           }}
                           style={{
                             padding: '6px 12px',
-                            fontSize: 12,
+                            fontSize: 13,
                             borderRadius: 6,
                             border: 'none',
                             background: sub.graded ? 'var(--accent, #3b82f6)' : 'var(--success, #16a34a)',

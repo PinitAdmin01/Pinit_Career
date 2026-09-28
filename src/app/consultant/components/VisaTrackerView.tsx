@@ -95,10 +95,10 @@ export default function VisaTrackerView({
       {/* Left Column: Countries list & Target states */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <h3 style={{ margin: '0 0 4px 0', fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>
+          <h3 style={{ margin: '0 0 4px 0', fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>
             Global Admissions Pipelines
           </h3>
-          <p style={{ margin: 0, fontSize: 11, color: 'var(--t3)' }}>
+          <p style={{ margin: 0, fontSize: 12, color: 'var(--t3)' }}>
             Select a candidate to view their active visa advisor status.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function VisaTrackerView({
                 padding: 20,
                 textAlign: 'center',
                 color: 'var(--t3)',
-                fontSize: 12.5,
+                fontSize: 14,
                 border: '1px solid var(--border)',
                 borderRadius: 12,
               }}
@@ -143,16 +143,16 @@ export default function VisaTrackerView({
                   }}
                 >
                   <div>
-                    <strong style={{ fontSize: 13, color: isSelected ? 'var(--accent)' : 'var(--t1)' }}>
+                    <strong style={{ fontSize: 14.5, color: isSelected ? 'var(--accent)' : 'var(--t1)' }}>
                       {c.name}
                     </strong>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                       {c.program} · Target: {c.country}
                     </div>
                   </div>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       background:
                         c.visa === 'approved' || c.visa === 'Approved'
                           ? 'rgba(var(--success-rgb), 0.08)'
@@ -173,7 +173,7 @@ export default function VisaTrackerView({
 
         {/* Onboard new candidate */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
-          <h4 style={{ margin: '0 0 10px 0', fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
+          <h4 style={{ margin: '0 0 10px 0', fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
             Onboard New Candidate
           </h4>
           <form onSubmit={addStudent} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -181,7 +181,7 @@ export default function VisaTrackerView({
               value={studentForm.displayName}
               onChange={(e) => setStudentForm((x) => ({ ...x, displayName: e.target.value }))}
               className="form-input"
-              style={{ fontSize: 12, padding: '6px 10px' }}
+              style={{ fontSize: 13, padding: '6px 10px' }}
               placeholder="Full name *"
               required
             />
@@ -189,34 +189,34 @@ export default function VisaTrackerView({
               value={studentForm.email}
               onChange={(e) => setStudentForm((x) => ({ ...x, email: e.target.value }))}
               className="form-input"
-              style={{ fontSize: 12, padding: '6px 10px' }}
+              style={{ fontSize: 13, padding: '6px 10px' }}
               placeholder="Email address"
             />
             <input
               value={studentForm.phone}
               onChange={(e) => setStudentForm((x) => ({ ...x, phone: e.target.value }))}
               className="form-input"
-              style={{ fontSize: 12, padding: '6px 10px' }}
+              style={{ fontSize: 13, padding: '6px 10px' }}
               placeholder="Phone number"
             />
             <input
               value={studentForm.targetCountry}
               onChange={(e) => setStudentForm((x) => ({ ...x, targetCountry: e.target.value }))}
               className="form-input"
-              style={{ fontSize: 12, padding: '6px 10px' }}
+              style={{ fontSize: 13, padding: '6px 10px' }}
               placeholder="Target Country (USA, Germany...)"
             />
             <input
               value={studentForm.programType}
               onChange={(e) => setStudentForm((x) => ({ ...x, programType: e.target.value }))}
               className="form-input"
-              style={{ fontSize: 12, padding: '6px 10px' }}
+              style={{ fontSize: 13, padding: '6px 10px' }}
               placeholder="Program Type (MS, MBA...)"
             />
             <button
               type="submit"
               className="btn-primary"
-              style={{ justifyContent: 'center', padding: '8px 0', fontSize: 12 }}
+              style={{ justifyContent: 'center', padding: '8px 0', fontSize: 13 }}
             >
               + Add Candidate Profile
             </button>
@@ -239,7 +239,7 @@ export default function VisaTrackerView({
                 borderRadius: 6,
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 11.5,
+                fontSize: 12.5,
                 fontWeight: studyAbroadSubTab === subTab.id ? 800 : 600,
                 background: studyAbroadSubTab === subTab.id ? 'rgba(var(--brand-rgb), 0.08)' : 'transparent',
                 color: studyAbroadSubTab === subTab.id ? 'var(--accent)' : 'var(--t3)',
@@ -263,7 +263,7 @@ export default function VisaTrackerView({
                   padding: 28,
                   textAlign: 'center',
                   color: 'var(--t3)',
-                  fontSize: 13,
+                  fontSize: 14.5,
                   border: '1px solid var(--border)',
                   borderRadius: 12,
                 }}
@@ -293,16 +293,16 @@ export default function VisaTrackerView({
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>
+                  <h4 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>
                     Visa Dossier: {activeStudent.displayName || activeStudent.name}
                   </h4>
-                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>
                     Destination: {targetCountry} · {activeStudent.programType || 'Masters Degree'}
                   </span>
                 </div>
                 <span
                   style={{
-                    fontSize: 10.5,
+                    fontSize: 11.5,
                     padding: '3px 8px',
                     borderRadius: 6,
                     fontWeight: 800,
@@ -334,10 +334,10 @@ export default function VisaTrackerView({
                       textAlign: 'center',
                     }}
                   >
-                    <div style={{ fontSize: 10, fontWeight: 800, color: step.done ? 'var(--accent)' : 'var(--t3)' }}>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: step.done ? 'var(--accent)' : 'var(--t3)' }}>
                       Step {idx + 1}
                     </div>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: step.done ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: step.done ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
                       {step.label}
                     </div>
                   </div>
@@ -351,7 +351,7 @@ export default function VisaTrackerView({
                   border: '1px solid var(--border)',
                   borderRadius: 10,
                   padding: 12,
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   color: 'var(--t2)',
                   lineHeight: 1.5,
                 }}
@@ -376,24 +376,24 @@ export default function VisaTrackerView({
             className="fade-in"
           >
             <div>
-              <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
+              <h4 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--accent)' }}>
                 🗺️ Country Intelligence Comparer
               </h4>
-              <p style={{ margin: '2px 0 0 0', fontSize: 11, color: 'var(--t3)' }}>
+              <p style={{ margin: '2px 0 0 0', fontSize: 12, color: 'var(--t3)' }}>
                 Compare study abroad destinations across PR ease, visa difficulty, and costs.
               </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
               <div>
-                <label className="form-label" style={{ fontSize: 10.5 }}>
+                <label className="form-label" style={{ fontSize: 11.5 }}>
                   Country A
                 </label>
                 <select
                   value={countryCompA}
                   onChange={(e) => setCountryCompA(e.target.value)}
                   className="form-input"
-                  style={{ width: '100%', fontSize: 12, padding: '6px 10px' }}
+                  style={{ width: '100%', fontSize: 13, padding: '6px 10px' }}
                 >
                   <option value="Canada">Canada</option>
                   <option value="Germany">Germany</option>
@@ -402,14 +402,14 @@ export default function VisaTrackerView({
                 </select>
               </div>
               <div>
-                <label className="form-label" style={{ fontSize: 10.5 }}>
+                <label className="form-label" style={{ fontSize: 11.5 }}>
                   Country B
                 </label>
                 <select
                   value={countryCompB}
                   onChange={(e) => setCountryCompB(e.target.value)}
                   className="form-input"
-                  style={{ width: '100%', fontSize: 12, padding: '6px 10px' }}
+                  style={{ width: '100%', fontSize: 13, padding: '6px 10px' }}
                 >
                   <option value="Canada">Canada</option>
                   <option value="Germany">Germany</option>
@@ -432,10 +432,10 @@ export default function VisaTrackerView({
               }}
             >
               <div>
-                <h5 style={{ margin: '0 0 8px 0', fontSize: 13, fontWeight: 800, color: 'var(--accent)' }}>
+                <h5 style={{ margin: '0 0 8px 0', fontSize: 14.5, fontWeight: 800, color: 'var(--accent)' }}>
                   {countryCompA}
                 </h5>
-                <div style={{ fontSize: 11.5, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ fontSize: 12.5, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   <div>
                     <span style={{ color: 'var(--t3)' }}>PR Pathway: </span>
                     <strong>{dataA.prEase}</strong>
@@ -460,10 +460,10 @@ export default function VisaTrackerView({
               </div>
 
               <div>
-                <h5 style={{ margin: '0 0 8px 0', fontSize: 13, fontWeight: 800, color: 'var(--teal)' }}>
+                <h5 style={{ margin: '0 0 8px 0', fontSize: 14.5, fontWeight: 800, color: 'var(--teal)' }}>
                   {countryCompB}
                 </h5>
-                <div style={{ fontSize: 11.5, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ fontSize: 12.5, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   <div>
                     <span style={{ color: 'var(--t3)' }}>PR Pathway: </span>
                     <strong>{dataB.prEase}</strong>

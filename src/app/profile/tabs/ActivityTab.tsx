@@ -39,14 +39,14 @@ export default function ActivityTab({ user }: ActivityTabProps) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }} className="animate-fade-in">
       <div style={CS.card}>
         <div style={CS.cardTitle}>📜 Activity History</div>
-        <p style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 16 }}>
+        <p style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 16 }}>
           Your history of actions, quest completions, and session metrics recorded on PinIT Career OS.
         </p>
 
         {isActivityLoading ? (
-          <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>Loading activity logs...</div>
+          <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>Loading activity logs...</div>
         ) : auditLogs.length === 0 ? (
-          <div style={{ padding: 30, textAlign: 'center', color: 'var(--t3)', border: '1px dashed var(--border)', borderRadius: 12, fontSize: 13 }}>
+          <div style={{ padding: 30, textAlign: 'center', color: 'var(--t3)', border: '1px dashed var(--border)', borderRadius: 12, fontSize: 14.5 }}>
             No recent activity records found.
           </div>
         ) : (
@@ -62,21 +62,21 @@ export default function ActivityTab({ user }: ActivityTabProps) {
                 border: '1px solid var(--border)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ fontSize: 18 }}>⚡</span>
+                  <span style={{ fontSize: 20 }}>⚡</span>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', textTransform: 'capitalize' }}>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', textTransform: 'capitalize' }}>
                       {log.action.replace(/_/g, ' ')}
                     </div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
                       {log.meta?.questTitle || log.meta?.title || log.meta?.roomTitle || (log.action === 'login' ? 'Logged in securely' : log.action === 'logout' ? 'Logged out securely' : 'System update')}
                     </div>
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                     {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
-                  <div style={{ fontSize: 9.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                  <div style={{ fontSize: 10.5, color: 'var(--t4)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
                     {new Date(log.timestamp).toLocaleDateString()}
                   </div>
                 </div>

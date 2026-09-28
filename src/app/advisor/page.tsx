@@ -240,18 +240,18 @@ export default function AdvisorPage() {
   const calculatedAttendanceRisk = simAttendance >= 80 ? 'Low' : simAttendance >= 75 ? 'Medium' : 'High';
 
   const emptyState = (
-    <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 13, padding: 36 }}>
-      <div style={{ fontSize: 36, marginBottom: 12 }}>📊</div>
-      <h3 style={{ fontSize: 16, fontWeight: 700, margin: '0 0 8px 0', color: 'var(--t1)' }}>
+    <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 14.5, padding: 36 }}>
+      <div style={{ fontSize: 39.5, marginBottom: 12 }}>📊</div>
+      <h3 style={{ fontSize: 17.5, fontWeight: 700, margin: '0 0 8px 0', color: 'var(--t1)' }}>
         No Recorded Academic Data Yet
       </h3>
-      <p style={{ maxWidth: 480, margin: '0 auto 20px auto', lineHeight: 1.6, color: 'var(--t3)', fontSize: 13 }}>
+      <p style={{ maxWidth: 480, margin: '0 auto 20px auto', lineHeight: 1.6, color: 'var(--t3)', fontSize: 14.5 }}>
         {loadError || 'The AI Academic Advisor calculates predictions from your official lecture attendance and exam marks once submitted by faculty. No official records have been published yet.'}
       </p>
       <button
         onClick={handleActivateDemo}
         style={{
-          padding: '10px 20px', borderRadius: 8, fontSize: 13, fontWeight: 700,
+          padding: '10px 20px', borderRadius: 8, fontSize: 14.5, fontWeight: 700,
           background: 'var(--accent)', color: '#fff', border: 'none',
           cursor: 'pointer', boxShadow: 'var(--shadow-sm)'
         }}
@@ -264,10 +264,10 @@ export default function AdvisorPage() {
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
       <div className="page-header" style={{ marginBottom: 20 }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
           AI Academic Advisor & Mentor
         </h1>
-        <p style={{ color: 'var(--t2)', fontSize: 13.5, margin: 0 }}>
+        <p style={{ color: 'var(--t2)', fontSize: 15, margin: 0 }}>
           {activeRole === 'student' && 'Predictive performance modeling from your recorded academic data.'}
           {activeRole === 'faculty' && 'Students flagged by recorded attendance and assignment risk — not demo identities.'}
           {activeRole === 'parent' && 'Insights for a linked child only. Nothing is invented when no child is linked.'}
@@ -282,7 +282,7 @@ export default function AdvisorPage() {
           color: 'var(--green)',
           padding: '12px 18px',
           borderRadius: 12,
-          fontSize: 13,
+          fontSize: 14.5,
           fontWeight: 700,
           marginBottom: 16
         }}>
@@ -302,7 +302,7 @@ export default function AdvisorPage() {
                 color: 'var(--amber)',
                 padding: '12px 18px',
                 borderRadius: 12,
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 700,
                 display: 'flex',
                 alignItems: 'center',
@@ -313,7 +313,7 @@ export default function AdvisorPage() {
                   onClick={() => { setStats(null); setIsDemoMode(false); }}
                   style={{
                     background: 'none', border: '1px solid var(--amber)', color: 'var(--amber)',
-                    borderRadius: 6, padding: '4px 10px', fontSize: 11.5, cursor: 'pointer', fontWeight: 800
+                    borderRadius: 6, padding: '4px 10px', fontSize: 12.5, cursor: 'pointer', fontWeight: 800
                   }}
                 >
                   Exit Demo
@@ -324,12 +324,12 @@ export default function AdvisorPage() {
               background: 'var(--accent-light)', border: '1px solid var(--accent)', borderRadius: 16,
               padding: 20, display: 'flex', gap: 16, alignItems: 'flex-start'
             }}>
-              <span style={{ fontSize: 28 }}>🤖</span>
+              <span style={{ fontSize: 31 }}>🤖</span>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--accent)', marginBottom: 6 }}>
+                <div style={{ fontWeight: 700, fontSize: 15.5, color: 'var(--accent)', marginBottom: 6 }}>
                   AI Advisor snapshot
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>
                   Current CGPA <strong>{stats.currentCgpa}</strong>. Predicted CGPA <strong>{stats.predictedCgpa}</strong>.
                   Weakest recorded area: <strong>{stats.weakestSubject}</strong>. Backlog risk <strong>{stats.backlogRisk}%</strong>.
                 </p>
@@ -338,13 +338,13 @@ export default function AdvisorPage() {
 
             <div style={card}>
               <div style={cardLabel}>AI Risk Sandbox (What-If Predictor)</div>
-              <p style={{ color: 'var(--t3)', fontSize: 11.5, marginBottom: 16 }}>
+              <p style={{ color: 'var(--t3)', fontSize: 12.5, marginBottom: 16 }}>
                 Sliders start from your recorded values. They do not persist until you complete a quest.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 20 }}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                     <span style={{ fontWeight: 600 }}>Target Lecture Attendance</span>
                     <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>{simAttendance}%</span>
                   </div>
@@ -352,7 +352,7 @@ export default function AdvisorPage() {
                     value={simAttendance} onChange={e => setSimAttendance(parseInt(e.target.value))} />
                 </div>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                     <span style={{ fontWeight: 600 }}>Coding Quests Completed</span>
                     <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>{simQuests} quests</span>
                   </div>
@@ -360,7 +360,7 @@ export default function AdvisorPage() {
                     value={simQuests} onChange={e => setSimQuests(parseInt(e.target.value))} />
                 </div>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                     <span style={{ fontWeight: 600 }}>Daily Study / Revision Hours</span>
                     <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>{simStudyTime} hrs/day</span>
                   </div>
@@ -371,18 +371,18 @@ export default function AdvisorPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, background: 'var(--bg3)', padding: 12, borderRadius: 10 }}>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 9.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Simulated CGPA</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--accent)' }}>{calculatedCgpa}</div>
+                  <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Simulated CGPA</div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--accent)' }}>{calculatedCgpa}</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 9.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Backlog Risk</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: calculatedBacklogRisk > 50 ? 'var(--coral)' : calculatedBacklogRisk > 25 ? 'var(--amber)' : 'var(--green)' }}>
+                  <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Backlog Risk</div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: calculatedBacklogRisk > 50 ? 'var(--coral)' : calculatedBacklogRisk > 25 ? 'var(--amber)' : 'var(--green)' }}>
                     {calculatedBacklogRisk}%
                   </div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 9.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Attendance Risk</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: calculatedAttendanceRisk === 'High' ? 'var(--coral)' : 'var(--t1)' }}>
+                  <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t3)' }}>Attendance Risk</div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: calculatedAttendanceRisk === 'High' ? 'var(--coral)' : 'var(--t1)' }}>
                     {calculatedAttendanceRisk}
                   </div>
                 </div>
@@ -392,14 +392,14 @@ export default function AdvisorPage() {
             <div style={card}>
               <div style={cardLabel}>Subject-wise Attendance & Internal Marks</div>
               {stats.subjects.length === 0 ? (
-                <p style={{ color: 'var(--t3)', fontSize: 13, margin: 0 }}>No subject rows recorded.</p>
+                <p style={{ color: 'var(--t3)', fontSize: 14.5, margin: 0 }}>No subject rows recorded.</p>
               ) : (
                 <div style={{ overflowX: 'auto' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                     <thead>
                       <tr style={{ background: 'var(--bg3)' }}>
                         {['Subject Course', 'Current Attendance', 'Internals Score', 'Min Passing Internals', 'Academic Risk Status'].map(h => (
-                          <th key={h} style={{ padding: '8px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)' }}>{h}</th>
+                          <th key={h} style={{ padding: '8px 12px', textAlign: 'left', color: 'var(--t3)', fontSize: 12, fontWeight: 700, borderBottom: '1px solid var(--border)' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -416,7 +416,7 @@ export default function AdvisorPage() {
                           <td style={{ padding: '10px 12px', color: 'var(--t3)' }}>{s.minInternals}/30</td>
                           <td style={{ padding: '10px 12px' }}>
                             <span style={{
-                              fontSize: 10, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
+                              fontSize: 11, padding: '3px 8px', borderRadius: 100, fontWeight: 700,
                               background: s.risk === 'High' ? 'var(--coral-light)' : s.risk === 'Medium' ? 'var(--amber-light)' : 'var(--green-light)',
                               color: s.risk === 'High' ? 'var(--coral)' : s.risk === 'Medium' ? 'var(--amber)' : 'var(--green)'
                             }}>
@@ -434,7 +434,7 @@ export default function AdvisorPage() {
             <div style={card}>
               <div style={cardLabel}>Intervention Quests</div>
               {stats.recommendations.length === 0 ? (
-                <p style={{ color: 'var(--t3)', fontSize: 13, margin: 0 }}>No recommended actions yet.</p>
+                <p style={{ color: 'var(--t3)', fontSize: 14.5, margin: 0 }}>No recommended actions yet.</p>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {stats.recommendations.map(r => (
@@ -447,11 +447,11 @@ export default function AdvisorPage() {
                       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                         <input type="checkbox" checked={r.completed} disabled={r.completed}
                           onChange={() => handleQuestAction(r.id)} style={{ cursor: r.completed ? 'default' : 'pointer' }} />
-                        <span style={{ fontSize: 13, textDecoration: r.completed ? 'line-through' : 'none', color: r.completed ? 'var(--t3)' : 'var(--t1)' }}>
+                        <span style={{ fontSize: 14.5, textDecoration: r.completed ? 'line-through' : 'none', color: r.completed ? 'var(--t3)' : 'var(--t1)' }}>
                           {r.text}
                         </span>
                       </div>
-                      <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--green)', background: 'var(--green-light)', padding: '2px 8px', borderRadius: 6 }}>
+                      <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--green)', background: 'var(--green-light)', padding: '2px 8px', borderRadius: 6 }}>
                         -{r.impact}% Backlog Risk
                       </span>
                     </div>
@@ -463,11 +463,11 @@ export default function AdvisorPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, textAlign: 'center' }}>
-              <div style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t3)', fontWeight: 700, letterSpacing: 0.5, marginBottom: 14 }}>
+              <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--t3)', fontWeight: 700, letterSpacing: 0.5, marginBottom: 14 }}>
                 Predicted Backlog Risk
               </div>
-              <div style={{ fontSize: 24, fontWeight: 900 }}>{stats.backlogRisk}%</div>
-              <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 8 }}>
+              <div style={{ fontSize: 26.5, fontWeight: 900 }}>{stats.backlogRisk}%</div>
+              <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 8 }}>
                 Attendance risk: <span style={{ fontWeight: 700 }}>{stats.attendanceRisk}</span>
               </div>
             </div>
@@ -483,8 +483,8 @@ export default function AdvisorPage() {
                 { label: 'Target Study Hours / Day', value: `${stats.recommendedStudyHours} hrs` }
               ].map(kpi => (
                 <div key={kpi.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
-                  <span style={{ fontSize: 12, color: 'var(--t2)' }}>{kpi.label}</span>
-                  <span style={{ fontWeight: 700, fontSize: 13 }}>{kpi.value}</span>
+                  <span style={{ fontSize: 13, color: 'var(--t2)' }}>{kpi.label}</span>
+                  <span style={{ fontWeight: 700, fontSize: 14.5 }}>{kpi.value}</span>
                 </div>
               ))}
             </div>
@@ -498,7 +498,7 @@ export default function AdvisorPage() {
                 { label: 'Completed Quests', val: `${stats.inputs.codingQuestsCompleted} completed` },
                 { label: 'LMS Progress Ratio', val: `${stats.inputs.lmsProgress}%` }
               ].map(inp => (
-                <div key={inp.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, padding: '4px 0' }}>
+                <div key={inp.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, padding: '4px 0' }}>
                   <span style={{ color: 'var(--t3)' }}>{inp.label}</span>
                   <span style={{ fontWeight: 600, color: 'var(--t2)' }}>{inp.val}</span>
                 </div>
@@ -515,27 +515,27 @@ export default function AdvisorPage() {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center'
           }}>
             <div>
-              <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4 }}>
+              <div style={{ fontWeight: 800, fontSize: 16.5, marginBottom: 4 }}>
                 {activeRole === 'admin' ? 'Campus at-risk roster' : 'Curriculum Intervention Desk'}
               </div>
-              <p style={{ color: 'var(--t3)', fontSize: 12.5, margin: 0 }}>
+              <p style={{ color: 'var(--t3)', fontSize: 14, margin: 0 }}>
                 Sourced from advisor_performance / campus store. No demo students.
               </p>
             </div>
             <div style={{ display: 'flex', gap: 12 }}>
-              <span style={{ fontSize: 12, background: 'var(--coral-light)', color: 'var(--coral)', padding: '6px 12px', borderRadius: 8, fontWeight: 700 }}>
+              <span style={{ fontSize: 13, background: 'var(--coral-light)', color: 'var(--coral)', padding: '6px 12px', borderRadius: 8, fontWeight: 700 }}>
                 {highRisk.length} High Risk
               </span>
-              <span style={{ fontSize: 12, background: 'var(--amber-light)', color: 'var(--amber)', padding: '6px 12px', borderRadius: 8, fontWeight: 700 }}>
+              <span style={{ fontSize: 13, background: 'var(--amber-light)', color: 'var(--amber)', padding: '6px 12px', borderRadius: 8, fontWeight: 700 }}>
                 {mediumRisk.length} Medium Risk
               </span>
             </div>
           </div>
 
-          {risksLoading && <div style={{ color: 'var(--t2)', fontSize: 13 }}>Loading at-risk students…</div>}
+          {risksLoading && <div style={{ color: 'var(--t2)', fontSize: 14.5 }}>Loading at-risk students…</div>}
 
           {!risksLoading && riskStudents.length === 0 && (
-            <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 13 }}>
+            <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 14.5 }}>
               No at-risk students recorded. Run campus SQL and record attendance before this list fills.
             </div>
           )}
@@ -548,30 +548,30 @@ export default function AdvisorPage() {
                 { label: 'Low / Watch', color: 'var(--green)', items: lowRisk },
               ].map(col => (
                 <div key={col.label} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <div style={{ fontSize: 12.5, fontWeight: 900, color: col.color, textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: 14, fontWeight: 900, color: col.color, textTransform: 'uppercase' }}>
                     {col.label}
                   </div>
                   {col.items.length === 0 && (
-                    <div style={{ ...card, fontSize: 12, color: 'var(--t3)' }}>None in this band.</div>
+                    <div style={{ ...card, fontSize: 13, color: 'var(--t3)' }}>None in this band.</div>
                   )}
                   {col.items.map(student => (
                     <div key={student.id} style={{
                       background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: 16
                     }}>
-                      <h4 style={{ margin: '0 0 4px 0', fontSize: 14, fontWeight: 800 }}>{student.name}</h4>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 12 }}>ID: {student.id}</div>
-                      <div style={{ display: 'flex', gap: 14, background: 'var(--bg3)', padding: '8px 12px', borderRadius: 8, fontSize: 11.5, marginBottom: 14 }}>
+                      <h4 style={{ margin: '0 0 4px 0', fontSize: 15.5, fontWeight: 800 }}>{student.name}</h4>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 12 }}>ID: {student.id}</div>
+                      <div style={{ display: 'flex', gap: 14, background: 'var(--bg3)', padding: '8px 12px', borderRadius: 8, fontSize: 12.5, marginBottom: 14 }}>
                         <div>GPA: <strong>{student.cgpa}</strong></div>
                         <div>Attendance: <strong>{student.attendance}%</strong></div>
                       </div>
                       {typeof student.pendingAssignments === 'number' && (
-                        <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 12px 0' }}>
+                        <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 12px 0' }}>
                           Pending assignments: {student.pendingAssignments}
                         </p>
                       )}
                       <button
                         onClick={() => triggerIntervention(student.id, student.name, 'Dashboard alert')}
-                        style={{ width: '100%', padding: '8px 4px', fontSize: 10.5, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}
+                        style={{ width: '100%', padding: '8px 4px', fontSize: 11.5, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}
                       >
                         Send alert
                       </button>
@@ -588,11 +588,11 @@ export default function AdvisorPage() {
         <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <span style={{ fontSize: 11.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Your Child</span>
-              <h2 style={{ fontSize: 17, fontWeight: 900, margin: '2px 0 0 0' }}>
+              <span style={{ fontSize: 12.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Your Child</span>
+              <h2 style={{ fontSize: 18.5, fontWeight: 900, margin: '2px 0 0 0' }}>
                 {linkedChildLoading ? 'Loading…' : (linkedChild?.display_name || 'No linked child')}
               </h2>
-              <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+              <span style={{ fontSize: 13, color: 'var(--t3)' }}>
                 Register Number: {linkedChild?.register_number || 'Not available'}
                 {linkedChild?.dept ? ` | Major: ${linkedChild.dept}` : ''}
               </span>
@@ -600,14 +600,14 @@ export default function AdvisorPage() {
             <div style={{
               background: linkedChild ? 'var(--green-light)' : 'var(--bg3)',
               color: linkedChild ? 'var(--green)' : 'var(--t3)',
-              padding: '6px 14px', borderRadius: 30, fontSize: 12, fontWeight: 800
+              padding: '6px 14px', borderRadius: 30, fontSize: 13, fontWeight: 800
             }}>
               {linkedChild ? 'Linked' : 'No student linked'}
             </div>
           </div>
 
           {!linkedChild && !linkedChildLoading && (
-            <div style={{ ...card, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+            <div style={{ ...card, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
               Link a student from the Parent Portal to view recorded attendance and academics.
             </div>
           )}
@@ -617,7 +617,7 @@ export default function AdvisorPage() {
           {linkedChild && stats && (
             <div style={card}>
               <div style={cardLabel}>Recorded child metrics</div>
-              <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0 }}>
+              <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: 0 }}>
                 Attendance {stats.inputs.attendance}%. CGPA {stats.currentCgpa}. Attendance risk {stats.attendanceRisk}.
               </p>
             </div>
@@ -633,7 +633,7 @@ const card: React.CSSProperties = {
   borderRadius: 'var(--radius-xl)', padding: 20, boxShadow: 'var(--shadow-sm)'
 };
 const cardLabel: React.CSSProperties = {
-  fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase',
+  fontSize: 11.5, letterSpacing: '0.8px', textTransform: 'uppercase',
   color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
   marginBottom: 14, display: 'block'
 };

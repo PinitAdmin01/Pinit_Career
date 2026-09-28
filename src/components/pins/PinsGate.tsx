@@ -92,7 +92,7 @@ export default function PinsGate({
           className={active ? 'pins-badge-glow' : ''}
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
-            fontSize: 10.5, fontFamily: 'var(--font-mono)', fontWeight: 700,
+            fontSize: 11.5, fontFamily: 'var(--font-mono)', fontWeight: 700,
             color: active ? '#10b981' : affordable ? '#6366f1' : '#ef4444',
             background: active 
               ? 'rgba(16,185,129,0.12)' 
@@ -111,7 +111,7 @@ export default function PinsGate({
           ) : (
             <span>{meta.cost} pins{targetCategory !== 'attention_span_game' ? ' · 30m access' : ''}</span>
           )}
-          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 9.5 }}>· Need {meta.cost - totalPins} more</span>}
+          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 10.5 }}>· Need {meta.cost - totalPins} more</span>}
         </div>
 
         {/* Action Trigger */}
@@ -140,17 +140,17 @@ export default function PinsGate({
           <div className="pins-glass-card pins-modal-content" style={{ padding: '32px 36px' }}>
             <div style={{ textAlign: 'center', marginBottom: 24 }}>
               <div style={{ 
-                fontSize: 48, 
+                fontSize: 53, 
                 marginBottom: 12,
                 display: 'inline-block',
                 filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.3))'
               }}>
                 {meta.icon}
               </div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                 {affordable ? `Unlock ${meta.label}?` : 'Insufficient Pins'}
               </h3>
-              <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6 }}>
+              <p style={{ fontSize: 15, color: 'var(--t2)', lineHeight: 1.6 }}>
                 {affordable
                   ? targetCategory === 'attention_span_game'
                     ? `Use ${meta.cost} of your ${totalPins} pins to launch a focus training game.`
@@ -166,8 +166,8 @@ export default function PinsGate({
               padding: '12px 18px', background: 'rgba(255,255,255,0.05)', borderRadius: 14,
               border: '1px solid rgba(255,255,255,0.1)', marginBottom: 22,
             }}>
-              <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 500 }}>Current Student Balance</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: 15, color: affordable ? '#818cf8' : '#ef4444' }}>
+              <span style={{ fontSize: 14.5, color: 'var(--t2)', fontWeight: 500 }}>Current Student Balance</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: 16.5, color: affordable ? '#818cf8' : '#ef4444' }}>
                 <PinCoin size={14} /> {totalPins} pins {bonusPins > 0 ? `(${pins} daily + ${bonusPins} vault)` : ''}
               </span>
             </div>
@@ -179,7 +179,7 @@ export default function PinsGate({
                   className="pins-shimmer-button"
                   style={{
                     flex: 1, padding: '14px 20px', borderRadius: 14, color: '#fff',
-                    fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer',
+                    fontWeight: 700, fontSize: 15.5, border: 'none', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
                   }}
                 >
@@ -195,7 +195,7 @@ export default function PinsGate({
               </div>
             ) : (
               <div style={{ display: 'flex', gap: 12, flexDirection: 'column' }}>
-                <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 4, fontWeight: 600 }}>
+                <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 4, fontWeight: 600 }}>
                   Student Pin System Rules:
                 </div>
                 {[
@@ -203,7 +203,7 @@ export default function PinsGate({
                   { icon: '💳', text: 'Buy Packs: Instantly top up your pin balance' },
                   { icon: '⏱', text: '30 Min Duration: Access remains active for 30 minutes per item' },
                 ].map((tip, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
+                  <div key={i} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--t2)' }}>
                     <span>{tip.icon}</span><span>{tip.text}</span>
                   </div>
                 ))}

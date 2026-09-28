@@ -26,23 +26,23 @@ export default function ArenaAndVoiceShowcaseRevamp() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 24 }}>⚔️</span>
+                  <span style={{ fontSize: 26.5 }}>⚔️</span>
                   <div>
-                    <h3 style={{ margin: 0, fontSize: 16, fontWeight: 750, color: 'var(--text-primary)' }}>Multiplayer Code Wars Arena</h3>
-                    <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>Head-to-Head Algorithmic Duels</div>
+                    <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 750, color: 'var(--text-primary)' }}>Multiplayer Code Wars Arena</h3>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Head-to-Head Algorithmic Duels</div>
                   </div>
                 </div>
-                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(245,158,11,0.15)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.3)', fontSize: 10.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(245,158,11,0.15)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.3)', fontSize: 11.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
                   INTERACTIVE SIMULATION
                 </span>
               </div>
 
-              <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+              <p style={{ margin: 0, fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.55 }}>
                 Compete in real-time coding matches with students worldwide. Solve optimization challenges, pass automated test cases, and raise your global Elo rating.
               </p>
 
               {/* Match Visualizer — clearly labelled as a simulation demo */}
-              <div style={{ padding: 16, borderRadius: 14, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 10, fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
+              <div style={{ padding: 16, borderRadius: 14, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, fontFamily: 'var(--font-mono)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: 8 }}>
                   <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>Competitor A (Elo ~1620)</span>
                   <span style={{ color: 'var(--accent-amber)', fontWeight: 800 }}>VS</span>
@@ -51,7 +51,7 @@ export default function ArenaAndVoiceShowcaseRevamp() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 10.5, marginBottom: 3 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 11.5, marginBottom: 3 }}>
                       <span>Competitor A: 4/4 Tests</span>
                       <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>0.42s</span>
                     </div>
@@ -61,7 +61,7 @@ export default function ArenaAndVoiceShowcaseRevamp() {
                   </div>
 
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 10.5, marginBottom: 3 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 11.5, marginBottom: 3 }}>
                       <span>Competitor B: 3/4 Tests</span>
                       <span style={{ color: 'var(--accent)', fontWeight: 700 }}>0.89s</span>
                     </div>
@@ -71,7 +71,7 @@ export default function ArenaAndVoiceShowcaseRevamp() {
                   </div>
                 </div>
 
-                <div style={{ padding: 8, borderRadius: 8, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', textAlign: 'center', fontSize: 11, color: 'var(--accent-green)', fontWeight: 700 }}>
+                <div style={{ padding: 8, borderRadius: 8, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', textAlign: 'center', fontSize: 12, color: 'var(--accent-green)', fontWeight: 700 }}>
                   Simulation: Match Complete — Elo Transfer Applied
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function ArenaAndVoiceShowcaseRevamp() {
                 background: 'linear-gradient(135deg, #f59e0b, #ea580c)',
                 color: '#ffffff',
                 fontWeight: 750,
-                fontSize: 13,
+                fontSize: 14.5,
                 textDecoration: 'none',
                 textAlign: 'center',
                 display: 'block',
@@ -102,39 +102,39 @@ export default function ArenaAndVoiceShowcaseRevamp() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 24 }}>🎙️</span>
+                  <span style={{ fontSize: 26.5 }}>🎙️</span>
                   <div>
-                    <h3 style={{ margin: 0, fontSize: 16, fontWeight: 750, color: 'var(--text-primary)' }}>AI Avatar Voice Studio</h3>
-                    <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>24/7 Spoken Technical Mock Interviews</div>
+                    <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 750, color: 'var(--text-primary)' }}>AI Avatar Voice Studio</h3>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>24/7 Spoken Technical Mock Interviews</div>
                   </div>
                 </div>
-                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(168,85,247,0.15)', color: '#a855f7', border: '1px solid rgba(168,85,247,0.3)', fontSize: 10.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                <span style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(168,85,247,0.15)', color: '#a855f7', border: '1px solid rgba(168,85,247,0.3)', fontSize: 11.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
                   SIMULATION PREVIEW
                 </span>
               </div>
 
-              <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+              <p style={{ margin: 0, fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.55 }}>
                 Practice live spoken technical interviews with AI voice personas. Get instant evaluations on your technical depth, voice confidence, and clarity.
               </p>
 
               {/* Voice Mock Box — labelled as AI simulation */}
               <div style={{ padding: 16, borderRadius: 14, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>
+                  <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17.5 }}>
                     🤖
                   </div>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 750, color: 'var(--text-primary)' }}>AI Interviewer Persona • Domain Expert</div>
-                    <div style={{ fontSize: 10.5, color: 'var(--text-secondary)', fontStyle: 'italic' }}>&ldquo;Explain how Kafka guarantees message ordering across partitions.&rdquo;</div>
+                    <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--text-primary)' }}>AI Interviewer Persona • Domain Expert</div>
+                    <div style={{ fontSize: 11.5, color: 'var(--text-secondary)', fontStyle: 'italic' }}>&ldquo;Explain how Kafka guarantees message ordering across partitions.&rdquo;</div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12.5, fontFamily: 'var(--font-mono)' }}>
                   <span style={{ color: 'var(--text-secondary)' }}>Speech Confidence:</span>
                   <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>AI-Generated Demo Score</span>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: 'var(--bg-card)', border: '1px solid var(--border-color)', fontSize: 12.5, fontFamily: 'var(--font-mono)' }}>
                   <span style={{ color: 'var(--text-secondary)' }}>BLUF Structure & Clarity:</span>
                   <span style={{ color: 'var(--accent)', fontWeight: 700 }}>AI-Generated Demo Score</span>
                 </div>
@@ -150,7 +150,7 @@ export default function ArenaAndVoiceShowcaseRevamp() {
                 background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
                 color: '#ffffff',
                 fontWeight: 750,
-                fontSize: 13,
+                fontSize: 14.5,
                 textDecoration: 'none',
                 textAlign: 'center',
                 display: 'block',

@@ -232,7 +232,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               : 'transparent',
             color: activeSubTab === 'certification_passport' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
@@ -240,7 +240,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 18 }}>🏆</span>
+          <span style={{ fontSize: 20 }}>🏆</span>
           <span>Certification & Skill Passport</span>
         </button>
 
@@ -262,7 +262,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               : 'transparent',
             color: activeSubTab === 'custom_roadmap' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
@@ -270,7 +270,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 18 }}>🗺️</span>
+          <span style={{ fontSize: 20 }}>🗺️</span>
           <span>Custom Roadmap</span>
         </button>
 
@@ -292,7 +292,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               : 'transparent',
             color: activeSubTab === 'standalone' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
@@ -300,7 +300,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 18 }}>📦</span>
+          <span style={{ fontSize: 20 }}>📦</span>
           <span>Standalone Course</span>
         </button>
 
@@ -322,7 +322,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               : 'transparent',
             color: activeSubTab === 'language' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
-            fontSize: 13,
+            fontSize: 14.5,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
@@ -330,7 +330,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 18 }}>🌐</span>
+          <span style={{ fontSize: 20 }}>🌐</span>
           <span>Language Academy</span>
         </button>
       </div>
@@ -358,12 +358,12 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 24 }}>🏆</span>
-                <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+                <span style={{ fontSize: 26.5 }}>🏆</span>
+                <h3 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
                   Industrial Certification & Verifiable Skill Passport
                 </h3>
               </div>
-              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+              <p style={{ fontSize: 14, color: 'var(--t3)', margin: '4px 0 0 0' }}>
                 Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • {INTERNSHIP_AVAILABLE ? '2-3 Months Real-Time Internship • Dual Verifiable Credentials' : 'Verifiable Certificate'}.
               </p>
             </div>
@@ -374,7 +374,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   <button
                     onClick={() => setShowCapstonePortal(true)}
                     style={{
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 800,
                       padding: '8px 16px',
                       borderRadius: 10,
@@ -394,7 +394,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   <button
                     onClick={() => setShowQrModal(true)}
                     style={{
-                      fontSize: 12,
+                      fontSize: 13,
                       color: 'var(--text)',
                       fontWeight: 800,
                       padding: '8px 16px',
@@ -414,7 +414,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                   <span style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 800,
                     padding: '4px 10px',
                     borderRadius: 20,
@@ -425,7 +425,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                     🛡️ NASSCOM Aligned
                   </span>
                   <span style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 800,
                     padding: '4px 10px',
                     borderRadius: 20,
@@ -493,10 +493,10 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 }}>
                   {/* Target Role & Readiness */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                       Target Role & Readiness
                     </span>
-                    <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
+                    <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
                       {roleReadiness.targetRole}
                     </div>
                     {(() => {
@@ -508,7 +508,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                           width: 'fit-content',
                           padding: '3px 8px',
                           borderRadius: 6,
-                          fontSize: 10.5,
+                          fontSize: 11.5,
                           fontWeight: 800,
                           background: badge.bg,
                           border: `1px solid ${badge.border}`,
@@ -522,26 +522,26 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
 
                   {/* Verified Gates & Freshness */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                       Verified Gates & Freshness
                     </span>
-                    <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
                       {roleReadiness.verifiedCompetenciesCount} / {roleReadiness.totalRequiredCompetenciesCount} Verified
                     </div>
-                    <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                    <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>
                       Freshness: <strong>{roleReadiness.assessmentFreshnessDays === 0 ? 'Active (Today)' : `${roleReadiness.assessmentFreshnessDays}d ago`}</strong>
                     </span>
                   </div>
 
                   {/* Demonstrated Learning Gain */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                       Learning Gain
                     </span>
-                    <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
                       {roleReadiness.learningGain.currentCompositeScore}/100 Composite
                     </div>
-                    <span style={{ fontSize: 11.5, color: 'var(--success)' }}>
+                    <span style={{ fontSize: 12.5, color: 'var(--success)' }}>
                       {roleReadiness.learningGain.pointsGained !== undefined && roleReadiness.learningGain.pointsGained > 0
                         ? `Gain: +${roleReadiness.learningGain.pointsGained} Points`
                         : 'Diagnostic Baseline: Ready'}
@@ -550,15 +550,15 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
 
                   {/* Capstone Oral Defense Review */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                       Oral Capstone Defense
                     </span>
-                    <div style={{ fontSize: 14.5, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? 'var(--success)' : 'var(--t3)' }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? 'var(--success)' : 'var(--t3)' }}>
                       {roleReadiness.capstoneDefenseScore !== undefined
                         ? `Passed (${roleReadiness.capstoneDefenseScore}/100)`
                         : 'Pending Oral Defense'}
                     </div>
-                    <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                    <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>
                       Evaluator: {roleReadiness.capstoneDefenseEvaluator || 'Senior Engineer Board'}
                     </span>
                   </div>
@@ -578,12 +578,12 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 gap: 10
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 18 }}>🎓</span>
+                  <span style={{ fontSize: 20 }}>🎓</span>
                   <div>
-                    <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>
                       {showPassportDetails ? 'Hide Competency Evidence Matrix' : 'Full Multi-Semester Competency Matrix & Evidence Transcript'}
                     </span>
-                    <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>
+                    <span style={{ fontSize: 12, color: 'var(--t3)', marginLeft: 8 }}>
                       (SHA-256 Verified Ledger)
                     </span>
                   </div>
@@ -595,7 +595,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                     borderRadius: 8,
                     background: showPassportDetails ? 'var(--bg3)' : 'linear-gradient(135deg, var(--success), var(--success-deep))',
                     color: 'var(--text)',
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: 800,
                     border: 'none',
                     cursor: 'pointer',
@@ -618,7 +618,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                         border: 'none',
                         background: passportView === 'timeline' ? 'var(--accent)' : 'transparent',
                         color: passportView === 'timeline' ? '#fff' : 'var(--t3)',
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 800,
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
@@ -634,7 +634,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                         border: 'none',
                         background: passportView === 'matrix' ? 'var(--accent)' : 'transparent',
                         color: passportView === 'matrix' ? '#fff' : 'var(--t3)',
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: 800,
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
@@ -773,12 +773,12 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 22 }}>🗺️</span>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+              <span style={{ fontSize: 24 }}>🗺️</span>
+              <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 Dynamic Career Roadmap ({trajectory.roleTitle})
               </h3>
             </div>
-            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+            <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0 0' }}>
               Personalized AI roadmap compiled from your target role, skill DNA, and diagnostic assessment.
             </p>
           </div>
@@ -791,7 +791,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               borderRadius: 10,
               padding: '8px 18px',
               color: 'var(--text)',
-              fontSize: 12.5,
+              fontSize: 14,
               fontWeight: 800,
               cursor: 'pointer',
               boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
@@ -818,18 +818,18 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 22 }}>📚</span>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+              <span style={{ fontSize: 24 }}>📚</span>
+              <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 Standalone Single-Course Learning
               </h3>
             </div>
-            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+            <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0 0' }}>
               Direct curriculum for focused language, library, or engineering tracks.
             </p>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Select Standalone Course:</span>
+            <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)' }}>Select Standalone Course:</span>
             <select
               value={selectedStandaloneCourseId}
               onChange={e => {
@@ -844,7 +844,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 border: '1.5px solid var(--info)',
                 background: '#090d16',
                 color: 'var(--text)',
-                fontSize: 12.5,
+                fontSize: 14,
                 fontWeight: 800,
                 cursor: 'pointer',
                 outline: 'none',
@@ -880,7 +880,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             gap: 10
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 📍 My Active Roadmaps ({count}/3):
               </span>
 
@@ -910,7 +910,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                       border: `1.5px solid ${isCurrent ? 'var(--success)' : 'var(--border)'}`,
                       background: isCurrent ? 'rgba(var(--success-rgb),0.12)' : 'var(--bg3)',
                       color: isCurrent ? 'var(--success)' : 'var(--t1)',
-                      fontSize: 11.5,
+                      fontSize: 12.5,
                       fontWeight: 800,
                       cursor: isCurrent ? 'default' : 'pointer',
                       transition: 'all 0.2s',
@@ -919,7 +919,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   >
                     <span>{cObj.icon}</span>
                     <span>{cObj.title.split('(')[0].trim()}</span>
-                    <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 6, background: isCurrent ? 'var(--success)' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
+                    <span style={{ fontSize: 11, padding: '1px 5px', borderRadius: 6, background: isCurrent ? 'var(--success)' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
                       Day {cActiveDay} • {cProgressPct}%
                     </span>
                     {count > 1 && (
@@ -935,7 +935,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                             }
                           }
                         }}
-                        style={{ marginLeft: 4, color: 'var(--t4)', cursor: 'pointer', fontSize: 11 }}
+                        style={{ marginLeft: 4, color: 'var(--t4)', cursor: 'pointer', fontSize: 12 }}
                       >
                         ✕
                       </span>
@@ -954,7 +954,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   border: '1px dashed var(--success)',
                   background: 'rgba(var(--success-rgb),0.08)',
                   color: 'var(--success)',
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 800,
                   cursor: 'pointer'
                 }}
@@ -962,7 +962,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 + Add Active Track ({count}/3)
               </button>
             ) : (
-              <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t4)' }}>
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t4)' }}>
                 📌 Max 3 Active Tracks Enrolled
               </span>
             )}
@@ -974,10 +974,10 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
       {activeSubTab !== 'language' && (showCourseLibrary ? (
         <div className="animate-fade-in">
           <div style={{ marginBottom: 24 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
               📚 All 20 Industry Learning Tracks
             </h2>
-            <p style={{ fontSize: 13, color: 'var(--t3)', marginTop: 4 }}>
+            <p style={{ fontSize: 14.5, color: 'var(--t3)', marginTop: 4 }}>
               Browse standalone 30-day curriculum tracks. Learning any course automatically updates your career skill heatmap!
             </p>
           </div>
@@ -1007,9 +1007,9 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 >
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-                      <span style={{ fontSize: 32 }}>{course.icon}</span>
+                      <span style={{ fontSize: 35 }}>{course.icon}</span>
                       <span style={{
-                        fontSize: 9.5,
+                        fontSize: 10.5,
                         background: course.difficulty === 'Beginner' ? 'rgba(var(--success-deep-rgb),0.1)' : 'rgba(var(--brand-rgb),0.1)',
                         color: course.difficulty === 'Beginner' ? 'var(--green)' : 'var(--accent)',
                         padding: '3px 8px',
@@ -1020,12 +1020,12 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                       </span>
                     </div>
 
-                    <h3 style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>{course.title}</h3>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.4 }}>{course.desc}</p>
+                    <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>{course.title}</h3>
+                    <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.4 }}>{course.desc}</p>
                   </div>
 
                   <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 11, color: 'var(--t4)' }}>⏱ 30 Days (3 Quests/day)</span>
+                    <span style={{ fontSize: 12, color: 'var(--t4)' }}>⏱ 30 Days (3 Quests/day)</span>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                       <button
                         onClick={(e) => {
@@ -1042,14 +1042,14 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                           borderRadius: 6,
                           padding: '3px 8px',
                           color: 'var(--info-bright)',
-                          fontSize: 10.5,
+                          fontSize: 11.5,
                           fontWeight: 800,
                           cursor: 'pointer'
                         }}
                       >
                         📖 Notes
                       </button>
-                      <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 800 }}>
+                      <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 800 }}>
                         {isActive ? 'Active Track ➔' : 'Select Track ➔'}
                       </span>
                     </div>
@@ -1069,14 +1069,14 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           border: '1.5px dashed rgba(var(--success-rgb),0.3)',
           background: 'linear-gradient(135deg, rgba(var(--success-rgb),0.04), rgba(var(--brand-rgb),0.03))'
         }}>
-          <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px auto', boxShadow: '0 8px 24px rgba(var(--success-rgb),0.2)' }}>
+          <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 35, margin: '0 auto 16px auto', boxShadow: '0 8px 24px rgba(var(--success-rgb),0.2)' }}>
             🎯
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, fontFamily: 'var(--font-display)' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, fontFamily: 'var(--font-display)' }}>
             Welcome to PinIT Career OS Quests!
           </h2>
-          <p style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 540, margin: '0 auto 24px auto', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 540, margin: '0 auto 24px auto', lineHeight: 1.6 }}>
             No preloaded dummy data. Click the button below to generate your personalized dynamic AI roadmap tailored to your knowledge score, mindset archetype, and target career goal.
           </p>
 
@@ -1084,7 +1084,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             <button
               onClick={() => setShowRoadmapModal(true)}
               className="btn-emerald-glow"
-              style={{ padding: '14px 28px', fontSize: 14, fontWeight: 800, cursor: 'pointer' }}
+              style={{ padding: '14px 28px', fontSize: 15.5, fontWeight: 800, cursor: 'pointer' }}
             >
               ✨ Generate Custom AI Roadmap ➔
             </button>
@@ -1097,7 +1097,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 border: '1px solid var(--border)',
                 background: 'var(--bg3)',
                 color: 'var(--t1)',
-                fontSize: 13.5,
+                fontSize: 15,
                 fontWeight: 700,
                 cursor: 'pointer'
               }}

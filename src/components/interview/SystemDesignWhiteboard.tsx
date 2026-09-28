@@ -295,10 +295,10 @@ export default function SystemDesignWhiteboard({
       {/* Header Toolbar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
         <div>
-          <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>
+          <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>
             Interactive System Whiteboard
           </span>
-          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>
             Architecture Topology: {activeTopic}
           </h3>
         </div>
@@ -307,7 +307,7 @@ export default function SystemDesignWhiteboard({
           <select
             value={activeProtocol}
             onChange={(e) => setActiveProtocol(e.target.value)}
-            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', padding: '5px 8px', borderRadius: 8, fontSize: 11, fontWeight: 800 }}
+            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', padding: '5px 8px', borderRadius: 8, fontSize: 12, fontWeight: 800 }}
           >
             <option value='HTTPS/REST'>Protocol: HTTPS/REST</option>
             <option value='gRPC'>Protocol: gRPC</option>
@@ -328,7 +328,7 @@ export default function SystemDesignWhiteboard({
               color: isConnectMode ? 'var(--text)' : 'var(--t1)',
               borderRadius: 8,
               padding: '6px 12px',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -339,11 +339,11 @@ export default function SystemDesignWhiteboard({
             <span>{isConnectMode ? '🔗 Connection Mode ON' : '🔗 Connect Nodes'}</span>
           </button>
 
-          <button onClick={() => loadPreset('3tier')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}>
+          <button onClick={() => loadPreset('3tier')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
             ⚡ 3-Tier Web App
           </button>
 
-          <button onClick={() => loadPreset('microservices')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}>
+          <button onClick={() => loadPreset('microservices')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
             ⚙️ Microservices Bus
           </button>
 
@@ -353,7 +353,7 @@ export default function SystemDesignWhiteboard({
               setLinks([]);
               setSelectedSourceId(null);
             }}
-            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--danger-bright, #ef4444)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
+            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--danger-bright, #ef4444)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}
             title="Reset canvas to blank"
           >
             🗑️ Clear Canvas
@@ -369,7 +369,7 @@ export default function SystemDesignWhiteboard({
                 color: 'var(--text)',
                 borderRadius: 8,
                 padding: '6px 14px',
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 900,
                 cursor: isAnalyzing ? 'not-allowed' : 'pointer',
                 boxShadow: 'var(--shadow-sm)'
@@ -383,7 +383,7 @@ export default function SystemDesignWhiteboard({
 
       {/* Palette Toolbar */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', background: 'var(--bg3)', padding: 8, borderRadius: 10 }}>
-        <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)', marginRight: 4 }}>+ ADD:</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', marginRight: 4 }}>+ ADD:</span>
         {palette.map(item => (
           <button
             key={item.type}
@@ -394,7 +394,7 @@ export default function SystemDesignWhiteboard({
               color: 'var(--t1)',
               borderRadius: 6,
               padding: '4px 8px',
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
@@ -483,11 +483,11 @@ export default function SystemDesignWhiteboard({
             alignItems: 'center', justifyContent: 'center', pointerEvents: 'none',
             color: 'var(--t3)', textAlign: 'center', padding: 20
           }}>
-            <div style={{ fontSize: 32, marginBottom: 8, opacity: 0.6 }}>📐</div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 4 }}>
+            <div style={{ fontSize: 35, marginBottom: 8, opacity: 0.6 }}>📐</div>
+            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 4 }}>
               Empty Architecture Whiteboard
             </div>
-            <div style={{ fontSize: 11, maxWidth: 360, lineHeight: 1.4, color: 'var(--t3)' }}>
+            <div style={{ fontSize: 12, maxWidth: 360, lineHeight: 1.4, color: 'var(--t3)' }}>
               Click components from the palette above to place nodes, then toggle <strong>🔗 Connect Nodes</strong> to draw data flow arrows.
             </div>
           </div>
@@ -514,7 +514,7 @@ export default function SystemDesignWhiteboard({
                 borderLeft: '4px solid ' + (n.color || 'var(--accent)'),
                 borderRadius: 10,
                 color: 'var(--t1)',
-                fontSize: 11,
+                fontSize: 12,
                 cursor: isConnectMode ? 'pointer' : 'grab',
                 boxShadow: 'var(--shadow-sm)',
                 userSelect: 'none',
@@ -522,7 +522,7 @@ export default function SystemDesignWhiteboard({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                <span style={{ fontSize: 9.5, fontWeight: 900, color: n.color || 'var(--accent)', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 10.5, fontWeight: 900, color: n.color || 'var(--accent)', textTransform: 'uppercase' }}>
                   {n.type}
                 </span>
                 <button
@@ -537,7 +537,7 @@ export default function SystemDesignWhiteboard({
                     borderRadius: '50%',
                     width: 15,
                     height: 15,
-                    fontSize: 8,
+                    fontSize: 9,
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -564,7 +564,7 @@ export default function SystemDesignWhiteboard({
                     color: 'var(--t1)',
                     borderRadius: 4,
                     padding: '2px 4px',
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 700
                   }}
                 />
@@ -574,16 +574,16 @@ export default function SystemDesignWhiteboard({
                     e.stopPropagation();
                     setEditingNodeId(n.id);
                   }}
-                  style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t1)', cursor: 'text' }}
+                  style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t1)', cursor: 'text' }}
                   title='Double click to rename'
                 >
                   {n.label}
                 </div>
               )}
 
-              <div style={{ fontSize: 8.5, color: isSelected ? 'var(--accent)' : 'var(--t3)', marginTop: 4, display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ fontSize: 9.5, color: isSelected ? 'var(--accent)' : 'var(--t3)', marginTop: 4, display: 'flex', justifyContent: 'space-between' }}>
                 <span>{isSelected ? '🎯 Source Node' : isConnectMode ? 'Click to Link' : 'Drag to Move'}</span>
-                <span style={{ fontSize: 8 }}>2x click</span>
+                <span style={{ fontSize: 9 }}>2x click</span>
               </div>
             </div>
           );
@@ -591,7 +591,7 @@ export default function SystemDesignWhiteboard({
       </div>
 
       {/* Footer Metrics */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--t3)', fontWeight: 800, padding: '4px 6px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t3)', fontWeight: 800, padding: '4px 6px' }}>
         <div>
           <span>Nodes: {nodes.length}</span> • <span>Connections: {links.length}</span> • <span>Mode: {domainStream.toUpperCase()}</span>
         </div>

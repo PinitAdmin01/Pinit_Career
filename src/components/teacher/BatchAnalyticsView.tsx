@@ -73,8 +73,8 @@ export default function BatchAnalyticsView() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div>
-        <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📈 Batch & Class Analytics</h2>
-        <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Comprehensive performance tracking, attendance distribution, and student drop-off risk analysis.</p>
+        <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📈 Batch & Class Analytics</h2>
+        <p style={{ margin: '4px 0 0', fontSize: 15.5, color: 'var(--t3, #64748b)' }}>Comprehensive performance tracking, attendance distribution, and student drop-off risk analysis.</p>
       </div>
 
       {/* Batch Cards Selection */}
@@ -92,10 +92,10 @@ export default function BatchAnalyticsView() {
               transition: 'all 0.2s ease'
             }}
           >
-            <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', fontWeight: 600 }}>{batch.department}</div>
-            <h3 style={{ margin: '4px 0 12px', fontSize: 16, fontWeight: 700 }}>{batch.batchName}</h3>
+            <div style={{ fontSize: 13, color: 'var(--t3, #64748b)', fontWeight: 600 }}>{batch.department}</div>
+            <h3 style={{ margin: '4px 0 12px', fontSize: 17.5, fontWeight: 700 }}>{batch.batchName}</h3>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
               <span>Students: <strong>{batch.totalStudents}</strong></span>
               <span>Avg Grade: <strong style={{ color: '#16a34a' }}>{batch.avgGrade}%</strong></span>
             </div>
@@ -107,8 +107,8 @@ export default function BatchAnalyticsView() {
       <div style={{ background: 'var(--bg1, #fff)', padding: 24, borderRadius: 12, border: '1px solid var(--border, var(--border))', display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border, var(--border))', paddingBottom: 16 }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>{selectedBatch.batchName} - Deep Dive</h3>
-            <span style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Academic Semester 2026 • Top Student: {selectedBatch.topPerformer}</span>
+            <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{selectedBatch.batchName} - Deep Dive</h3>
+            <span style={{ fontSize: 14.5, color: 'var(--t3, #64748b)' }}>Academic Semester 2026 • Top Student: {selectedBatch.topPerformer}</span>
           </div>
           <button style={{ padding: '8px 16px', background: '#3b82f6', color: '#fff', borderRadius: 8, border: 'none', fontWeight: 600, cursor: 'pointer' }}>
             📥 Export Report (PDF)
@@ -117,16 +117,16 @@ export default function BatchAnalyticsView() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
           <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-            <div style={{ fontSize: 12, color: '#64748b' }}>Average Attendance</div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: '#2563eb', marginTop: 4 }}>{selectedBatch.avgAttendance}%</div>
+            <div style={{ fontSize: 13, color: '#64748b' }}>Average Attendance</div>
+            <div style={{ fontSize: 26.5, fontWeight: 800, color: '#2563eb', marginTop: 4 }}>{selectedBatch.avgAttendance}%</div>
           </div>
           <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-            <div style={{ fontSize: 12, color: '#64748b' }}>Average Score</div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: '#16a34a', marginTop: 4 }}>{selectedBatch.avgGrade}%</div>
+            <div style={{ fontSize: 13, color: '#64748b' }}>Average Score</div>
+            <div style={{ fontSize: 26.5, fontWeight: 800, color: '#16a34a', marginTop: 4 }}>{selectedBatch.avgGrade}%</div>
           </div>
           <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-            <div style={{ fontSize: 12, color: '#64748b' }}>Students At Risk (&lt;60%)</div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: '#dc2626', marginTop: 4 }}>{selectedBatch.atRiskCount}</div>
+            <div style={{ fontSize: 13, color: '#64748b' }}>Students At Risk (&lt;60%)</div>
+            <div style={{ fontSize: 26.5, fontWeight: 800, color: '#dc2626', marginTop: 4 }}>{selectedBatch.atRiskCount}</div>
           </div>
         </div>
       </div>

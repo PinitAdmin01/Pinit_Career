@@ -96,8 +96,8 @@ export default function StudentCourseViewer() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div>
-        <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📖 Course Notes & Materials</h2>
-        <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Access published lecture slides, lab manuals, and revision summaries from your faculty.</p>
+        <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📖 Course Notes & Materials</h2>
+        <p style={{ margin: '4px 0 0', fontSize: 15.5, color: 'var(--t3, #64748b)' }}>Access published lecture slides, lab manuals, and revision summaries from your faculty.</p>
       </div>
 
       {/* DEF-016: Dark mode compliant search input */}
@@ -137,9 +137,9 @@ export default function StudentCourseViewer() {
             gap: 12
           }}
         >
-          <span style={{ fontSize: 32 }} aria-hidden="true">🔍</span>
-          <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>No course materials found</h3>
-          <p style={{ margin: 0, fontSize: 13, color: 'var(--t3, #64748b)', maxWidth: 360 }}>
+          <span style={{ fontSize: 35 }} aria-hidden="true">🔍</span>
+          <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>No course materials found</h3>
+          <p style={{ margin: 0, fontSize: 14.5, color: 'var(--t3, #64748b)', maxWidth: 360 }}>
             No notes or slides matched &ldquo;<strong>{search}</strong>&rdquo;. Try searching by subject name or professor.
           </p>
           <button
@@ -147,7 +147,7 @@ export default function StudentCourseViewer() {
             style={{
               marginTop: 6,
               padding: '6px 16px',
-              fontSize: 13,
+              fontSize: 14.5,
               borderRadius: 6,
               border: '1px solid var(--border, #cbd5e1)',
               background: 'var(--bg3, #f1f5f9)',
@@ -177,27 +177,27 @@ export default function StudentCourseViewer() {
             }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 22 }} aria-hidden="true">
+                  <span style={{ fontSize: 24 }} aria-hidden="true">
                     {item.type === 'pdf' ? '📕' : item.type === 'pptx' ? '📊' : item.type === 'docx' ? '📝' : '🔗'}
                   </span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: '#3b82f6', background: 'rgba(59, 130, 246, 0.1)', padding: '2px 8px', borderRadius: 4 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#3b82f6', background: 'rgba(59, 130, 246, 0.1)', padding: '2px 8px', borderRadius: 4 }}>
                     {item.subject}
                   </span>
                 </div>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{item.title}</h3>
-                <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--t3, #64748b)' }}>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 700 }}>{item.title}</h3>
+                <p style={{ margin: '6px 0 0', fontSize: 14.5, color: 'var(--t3, #64748b)' }}>
                   Faculty: <strong>{item.instructor}</strong> • {item.uploadedAt}
                 </p>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border, #e2e8f0)', paddingTop: 12 }}>
-                <span style={{ fontSize: 12, color: 'var(--t3, #94a3b8)' }}>{item.size}</span>
+                <span style={{ fontSize: 13, color: 'var(--t3, #94a3b8)' }}>{item.size}</span>
                 <button
                   onClick={() => handleDownload(item)}
                   disabled={downloadingId === item.id}
                   style={{
                     padding: '6px 14px',
-                    fontSize: 13,
+                    fontSize: 14.5,
                     borderRadius: 6,
                     border: 'none',
                     background: 'var(--primary, #3b82f6)',

@@ -100,12 +100,12 @@ export default function SkillRadar({ scores }: Props) {
             x={pos.x} y={pos.y}
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize={9}
+            fontSize={10}
             fill="var(--t3)"
             fontFamily="var(--font-mono)"
           >
             {label}
-            <tspan x={pos.x} dy={10} fontSize={9} fill="var(--t2)" fontWeight={600}>
+            <tspan x={pos.x} dy={10} fontSize={10} fill="var(--t2)" fontWeight={600}>
               {Math.round(values[i])}
             </tspan>
           </text>

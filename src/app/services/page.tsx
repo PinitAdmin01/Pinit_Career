@@ -199,7 +199,7 @@ export default function StudentServicesPortal() {
     }
     .page-title {
       font-family: var(--font-display), sans-serif;
-      font-size: 24px;
+      font-size: 26.5px;
       font-weight: 900;
       letter-spacing: -0.6px;
       margin-bottom: 24px;
@@ -233,7 +233,7 @@ export default function StudentServicesPortal() {
     .pill-btn {
       padding: 12px 16px;
       text-align: left;
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--t2);
       border: 1px solid var(--border);
@@ -253,11 +253,11 @@ export default function StudentServicesPortal() {
     .tbl-services {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 14.5px;
     }
     .tbl-services th {
       text-align: left;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--t2);
       padding-bottom: 10px;
@@ -271,7 +271,7 @@ export default function StudentServicesPortal() {
     .badge-status {
       padding: 3px 8px;
       border-radius: 20px;
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 800;
     }
   `;
@@ -298,10 +298,10 @@ export default function StudentServicesPortal() {
             gap: 12
           }}>
             <div>
-              <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1, #1e293b)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ fontWeight: 800, fontSize: 15.5, color: 'var(--t1, #1e293b)', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span>👩‍🏫</span> Looking for Staff & Admin Portals?
               </div>
-              <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>
+              <div style={{ fontSize: 13, color: 'var(--t3, #64748b)', marginTop: 2 }}>
                 Student Services is shown below. Use the quick buttons to open the Faculty or Admin Management Consoles.
               </div>
             </div>
@@ -314,7 +314,7 @@ export default function StudentServicesPortal() {
                   background: 'var(--accent, #4f46e5)',
                   color: '#fff',
                   fontWeight: 700,
-                  fontSize: 12,
+                  fontSize: 13,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -331,7 +331,7 @@ export default function StudentServicesPortal() {
                   background: 'rgba(51, 65, 85, 0.8)',
                   color: '#fff',
                   fontWeight: 700,
-                  fontSize: 12,
+                  fontSize: 13,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -348,7 +348,7 @@ export default function StudentServicesPortal() {
           {/* Left Block: Services Selector & Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div className="card-box">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, marginBottom: 12 }}>Select Service Category</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, marginBottom: 12 }}>Select Service Category</h3>
               
               <div className="category-pills">
                 {[
@@ -373,21 +373,21 @@ export default function StudentServicesPortal() {
             <div className="card-box">
               {activeCat === 'leave' && (
                 <form onSubmit={handleApplyLeave} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Apply for College Leave</h3>
+                  <h3 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>Apply for College Leave</h3>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Start Date *</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Start Date *</label>
                       <input type="date" required className="form-input" value={leaveStart} onChange={e => setLeaveStart(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>End Date *</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>End Date *</label>
                       <input type="date" required className="form-input" value={leaveEnd} onChange={e => setLeaveEnd(e.target.value)} />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Leave Category Type</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Leave Category Type</label>
                     <select className="form-input" value={leaveType} onChange={e => setLeaveType(e.target.value)}>
                       <option value="Personal">Personal Leave</option>
                       <option value="Medical">Medical Leave (Fit cert required)</option>
@@ -396,7 +396,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Reason Details *</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Reason Details *</label>
                     <textarea required className="form-input" style={{ minHeight: 70 }} placeholder="State reason for leave of absence..." value={leaveReason} onChange={e => setLeaveReason(e.target.value)} />
                   </div>
 
@@ -408,10 +408,10 @@ export default function StudentServicesPortal() {
 
               {activeCat === 'certificate' && (
                 <form onSubmit={handleRequestCert} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Request Document / Certificate</h3>
+                  <h3 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>Request Document / Certificate</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Certificate Type</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Certificate Type</label>
                     <select className="form-input" value={certType} onChange={e => setCertType(e.target.value)}>
                       <option value="Bonafide Certificate">Bonafide Certificate</option>
                       <option value="Transfer Certificate">Transfer Certificate (TC)</option>
@@ -421,7 +421,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Request *</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Request *</label>
                     <input type="text" required className="form-input" placeholder="e.g. Visa request, internship onboarding" value={certPurpose} onChange={e => setCertPurpose(e.target.value)} />
                   </div>
 
@@ -433,10 +433,10 @@ export default function StudentServicesPortal() {
 
               {activeCat === 'general' && (
                 <form onSubmit={handleFileRequest} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>File Service Request</h3>
+                  <h3 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>File Service Request</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Request Category</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Request Category</label>
                     <select className="form-input" value={reqCategory} onChange={e => setReqCategory(e.target.value)}>
                       <option value="ID Card Replacement">ID Card Replacement (RFID card reissue)</option>
                       <option value="Hostel Room Change">Hostel Room Change Request</option>
@@ -446,7 +446,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Detailed Description *</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Detailed Description *</label>
                     <textarea required className="form-input" style={{ minHeight: 70 }} placeholder="Elaborate request details..." value={reqDesc} onChange={e => setReqDesc(e.target.value)} />
                   </div>
 
@@ -458,10 +458,10 @@ export default function StudentServicesPortal() {
 
               {activeCat === 'appointment' && (
                 <form onSubmit={handleBookAppt} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Book Faculty Appointment Slot</h3>
+                  <h3 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>Book Faculty Appointment Slot</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Select Staff / Faculty Member</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Select Staff / Faculty Member</label>
                     <select className="form-input" value={apptStaff} onChange={e => setApptStaff(e.target.value)}>
                       {facultyStaffList.map(s => (
                         <option key={s} value={s}>{s}</option>
@@ -471,11 +471,11 @@ export default function StudentServicesPortal() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
                       <input type="date" required className="form-input" value={apptDate} onChange={e => setApptDate(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
                       <select className="form-input" value={apptTime} onChange={e => setApptTime(e.target.value)}>
                         <option value="10:00 AM">10:00 AM - 10:30 AM</option>
                         <option value="11:30 AM">11:30 AM - 12:00 PM</option>
@@ -485,7 +485,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Visit *</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Visit *</label>
                     <input type="text" required className="form-input" placeholder="e.g. project review or grade check" value={apptPurpose} onChange={e => setApptPurpose(e.target.value)} />
                   </div>
 
@@ -497,10 +497,10 @@ export default function StudentServicesPortal() {
 
               {activeCat === 'counselling' && (
                 <form onSubmit={handleBookCouns} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Book Guidance / Counselling session</h3>
+                  <h3 style={{ fontSize: 15.5, fontWeight: 800, margin: 0 }}>Book Guidance / Counselling session</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Counselor Specialist</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Counselor Specialist</label>
                     <select className="form-input" value={counsName} onChange={e => setCounsName(e.target.value)}>
                       {counselorsList.map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -510,11 +510,11 @@ export default function StudentServicesPortal() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
                       <input type="date" required className="form-input" value={counsDate} onChange={e => setCounsDate(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
                       <select className="form-input" value={counsTime} onChange={e => setCounsTime(e.target.value)}>
                         <option value="09:30 AM">09:30 AM - 10:30 AM</option>
                         <option value="02:00 PM">02:00 PM - 03:00 PM</option>
@@ -534,7 +534,7 @@ export default function StudentServicesPortal() {
           {/* Right Block: Request Registry Tracker List */}
           <div className="card-box" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, marginBottom: 12 }}>📋 Leave Applications Log</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, marginBottom: 12 }}>📋 Leave Applications Log</h3>
               <table className="tbl-services">
                 <thead>
                   <tr>
@@ -552,11 +552,11 @@ export default function StudentServicesPortal() {
 
                     return (
                       <tr key={l.id}>
-                        <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{l.id}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700 }}>{l.id}</td>
                         <td>{l.startDate} to {l.endDate}</td>
                         <td>
                           <strong>{l.type}</strong>
-                          <div style={{ fontSize: 11, color: 'var(--t2)' }}>{l.reason}</div>
+                          <div style={{ fontSize: 12, color: 'var(--t2)' }}>{l.reason}</div>
                         </td>
                         <td>
                           <span className="badge-status" style={{ background: bg, color: fg }}>{l.status}</span>
@@ -569,7 +569,7 @@ export default function StudentServicesPortal() {
             </div>
 
             <div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800, marginBottom: 12 }}>📋 Service & Document Requests</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16.5, fontWeight: 800, marginBottom: 12 }}>📋 Service & Document Requests</h3>
               <table className="tbl-services">
                 <thead>
                   <tr>
@@ -587,9 +587,9 @@ export default function StudentServicesPortal() {
 
                     return (
                       <tr key={r.id}>
-                        <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{r.id}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700 }}>{r.id}</td>
                         <td style={{ fontWeight: 600 }}>{r.category}</td>
-                        <td style={{ fontSize: 11, color: 'var(--t2)' }}>{r.description}</td>
+                        <td style={{ fontSize: 12, color: 'var(--t2)' }}>{r.description}</td>
                         <td>
                           <span className="badge-status" style={{ background: bg, color: fg }}>{r.status}</span>
                         </td>
@@ -602,23 +602,23 @@ export default function StudentServicesPortal() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <div>
-                <h4 style={{ fontSize: 12, fontWeight: 800, marginBottom: 6 }}>📅 HOD Appointments</h4>
+                <h4 style={{ fontSize: 13, fontWeight: 800, marginBottom: 6 }}>📅 HOD Appointments</h4>
                 {data.appointments.map(a => (
-                  <div key={a.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12, marginBottom: 6 }}>
+                  <div key={a.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 13, marginBottom: 6 }}>
                     <strong>{a.staffName}</strong>
-                    <div style={{ color: 'var(--t2)', fontSize: 11 }}>📅 {a.date} | {a.time}</div>
-                    <div style={{ fontSize: 11, fontStyle: 'italic', marginTop: 2 }}>"{a.purpose}"</div>
+                    <div style={{ color: 'var(--t2)', fontSize: 12 }}>📅 {a.date} | {a.time}</div>
+                    <div style={{ fontSize: 12, fontStyle: 'italic', marginTop: 2 }}>"{a.purpose}"</div>
                   </div>
                 ))}
               </div>
 
               <div>
-                <h4 style={{ fontSize: 12, fontWeight: 800, marginBottom: 6 }}>🧠 Counselling Slots</h4>
+                <h4 style={{ fontSize: 13, fontWeight: 800, marginBottom: 6 }}>🧠 Counselling Slots</h4>
                 {data.counselling.map(c => (
-                  <div key={c.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12, marginBottom: 6 }}>
+                  <div key={c.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 13, marginBottom: 6 }}>
                     <strong>{c.counselorName}</strong>
-                    <div style={{ color: 'var(--t2)', fontSize: 11 }}>📅 {c.date} | {c.time}</div>
-                    <span style={{ fontSize: 9.5, color: 'var(--green)', fontWeight: 800 }}>● {c.status}</span>
+                    <div style={{ color: 'var(--t2)', fontSize: 12 }}>📅 {c.date} | {c.time}</div>
+                    <span style={{ fontSize: 10.5, color: 'var(--green)', fontWeight: 800 }}>● {c.status}</span>
                   </div>
                 ))}
               </div>

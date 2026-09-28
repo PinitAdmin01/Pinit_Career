@@ -106,11 +106,11 @@ function TeacherSelectPageContent() {
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 20px' }} className="animate-fade-in">
       <div style={{ textAlign: 'center', marginBottom: 40 }}>
-        <span style={{ fontSize: 44 }}>🎙️</span>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 900, color: 'var(--t1)', marginTop: 12 }}>
+        <span style={{ fontSize: 48.5 }}>🎙️</span>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 31, fontWeight: 900, color: 'var(--t1)', marginTop: 12 }}>
           Select Your Quest Teacher
         </h1>
-        <p style={{ fontSize: 13.5, color: 'var(--t2)', marginTop: 8, maxWidth: 500, margin: '8px auto 0', lineHeight: 1.5 }}>
+        <p style={{ fontSize: 15, color: 'var(--t2)', marginTop: 8, maxWidth: 500, margin: '8px auto 0', lineHeight: 1.5 }}>
           Choose a specialized digital teacher from the local catalog to narrate and guide you through this learning module.
         </p>
       </div>
@@ -144,23 +144,23 @@ function TeacherSelectPageContent() {
               }}
             >
               <div>
-                <div style={{ fontSize: 50, marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ fontSize: 55, marginBottom: 16, textAlign: 'center' }}>
                   {teacher.avatar}
                 </div>
-                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 2 }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 2 }}>
                   {teacher.name}
                 </h3>
-                <div style={{ fontSize: 10.5, fontWeight: 700, color: teacher.accent, textTransform: 'uppercase', letterSpacing: '0.5px', textAlign: 'center', marginBottom: 12 }}>
+                <div style={{ fontSize: 11.5, fontWeight: 700, color: teacher.accent, textTransform: 'uppercase', letterSpacing: '0.5px', textAlign: 'center', marginBottom: 12 }}>
                   {teacher.role}
                 </div>
-                <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, textAlign: 'center' }}>
+                <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, textAlign: 'center' }}>
                   {teacher.desc}
                 </p>
               </div>
 
               <div style={{ marginTop: 20 }}>
                 <div style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 800,
                   color: 'var(--t3)',
                   textTransform: 'uppercase',
@@ -182,7 +182,7 @@ function TeacherSelectPageContent() {
                     color: isCurrent ? '#fff' : 'var(--t1)',
                     padding: '8px 16px',
                     borderRadius: 10,
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: 700,
                     cursor: 'pointer',
                     transition: 'all 0.2s'

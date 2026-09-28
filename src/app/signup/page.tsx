@@ -70,14 +70,14 @@ export default function SignupPage() {
               borderRadius: 10,
               background: 'rgba(239,68,68,0.1)',
               color: '#b91c1c',
-              fontSize: 13,
+              fontSize: 14.5,
               fontWeight: 600,
             }}>
               {error}
             </div>
           )}
 
-          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>
             Email / Username
             <input
               className="form-input"
@@ -89,7 +89,7 @@ export default function SignupPage() {
             />
           </label>
 
-          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>
             Display name
             <input
               className="form-input"
@@ -101,7 +101,7 @@ export default function SignupPage() {
             />
           </label>
 
-          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, fontWeight: 700, color: 'var(--t2)' }}>
             Password
             <input
               className="form-input"
@@ -115,7 +115,7 @@ export default function SignupPage() {
             />
           </label>
 
-          <p style={{ margin: 0, fontSize: 12, color: 'var(--t3)', lineHeight: 1.5 }}>
+          <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
             New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by an administrator — it cannot be self-selected at signup.
           </p>
 
@@ -124,7 +124,7 @@ export default function SignupPage() {
           </button>
         </form>
 
-        <div style={{ marginTop: 18, textAlign: 'center', fontSize: 13, color: 'var(--t3)' }}>
+        <div style={{ marginTop: 18, textAlign: 'center', fontSize: 14.5, color: 'var(--t3)' }}>
           Already have an account? <Link href="/login">Sign in</Link>
         </div>
       </div>

@@ -77,12 +77,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       <div className="iv-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--teal-mid)' }}>ROUND 3 OF 4</span>
-            <h2 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>
+            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--teal-mid)' }}>ROUND 3 OF 4</span>
+            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>
               {domainStream === 'non_tech' ? 'Business Workflow Canvas:' : 'System Architecture Canvas:'} {activeTopicName}
             </h2>
           </div>
-          <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
+          <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '6px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
             Proceed to Round 4 ➔
           </button>
         </div>
@@ -110,10 +110,10 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 18 }}>🏛️</span>
+                <span style={{ fontSize: 20 }}>🏛️</span>
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
-                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
                 </div>
               </div>
               <div style={{
@@ -122,17 +122,17 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                 background: 'var(--accent-light)',
                 color: 'var(--accent)',
                 fontWeight: 900,
-                fontSize: 14
+                fontSize: 15.5
               }}>
                 Grade: {architectureEvaluation.verdict || 'A'} ({architectureEvaluation.score ?? 85}/100)
               </div>
             </div>
 
             {/* Radar / Metrics Bar */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 11 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 12 }}>
               {architectureEvaluation.radar && Object.entries(architectureEvaluation.radar).map(([metric, val]: any) => (
                 <div key={metric} style={{ background: 'rgba(255,255,255,0.04)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
-                  <div style={{ color: 'var(--t3)', textTransform: 'uppercase', fontSize: 9.5, fontWeight: 700 }}>{metric}</div>
+                  <div style={{ color: 'var(--t3)', textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
                   <div style={{ fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{val} / 100</div>
                 </div>
               ))}
@@ -140,12 +140,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
 
             {/* Weaknesses / Bottlenecks & Recommendations */}
             {architectureEvaluation.weaknesses && (
-              <div style={{ fontSize: 11, color: 'var(--coral-mid)', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 12, color: 'var(--coral-mid)', lineHeight: 1.4 }}>
                 <strong>Bottlenecks identified:</strong> {Array.isArray(architectureEvaluation.weaknesses) ? architectureEvaluation.weaknesses.join('; ') : architectureEvaluation.weaknesses}
               </div>
             )}
             {architectureEvaluation.improvements && (
-              <div style={{ fontSize: 11, color: 'var(--teal-mid)', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 12, color: 'var(--teal-mid)', lineHeight: 1.4 }}>
                 <strong>Recommendations:</strong> {architectureEvaluation.improvements}
               </div>
             )}
@@ -157,7 +157,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ height: 190, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
-          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(0,0,0,0.65)', color: 'var(--text)', fontSize: 10, fontWeight: 800 }}>
+          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(0,0,0,0.65)', color: 'var(--text)', fontSize: 11, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
@@ -167,7 +167,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           style={{
             width: '100%',
             background: isVoiceListening ? 'var(--danger)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-            border: 'none', color: 'var(--text)', borderRadius: 10, padding: '9px 12px', fontSize: 11.5, fontWeight: 900, cursor: 'pointer',
+            border: 'none', color: 'var(--text)', borderRadius: 10, padding: '9px 12px', fontSize: 12.5, fontWeight: 900, cursor: 'pointer',
             boxShadow: isVoiceListening ? '0 0 12px rgba(var(--danger-rgb),0.7)' : 'var(--shadow-sm)'
           }}
         >
@@ -175,8 +175,8 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
         </button>
 
         <div className="iv-panel" style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK & QUESTIONS</div>
-          <div style={{ fontSize: 11.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
+          <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK & QUESTIONS</div>
+          <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
           </div>
 
@@ -194,14 +194,14 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 12 }}>🎯</span>
-                  <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--reward-bright)' }}>Defense Teleprompter</span>
+                  <span style={{ fontSize: 13 }}>🎯</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>Defense Teleprompter</span>
                 </div>
                 <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
                   {assistData?.script && (
                     <button
                       onClick={() => navigator.clipboard.writeText(assistData.script)}
-                      style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 4, padding: '2px 5px', fontSize: 9, fontWeight: 800, cursor: 'pointer' }}
+                      style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 4, padding: '2px 5px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
                     >
                       📋 Copy
                     </button>
@@ -209,7 +209,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   {setIsAssistModeActive && (
                     <button
                       onClick={() => setIsAssistModeActive(false)}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 10, cursor: 'pointer', padding: '0 2px' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 11, cursor: 'pointer', padding: '0 2px' }}
                       title="Close"
                     >
                       ✕
@@ -219,12 +219,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
               </div>
 
               {isFetchingAssist ? (
-                <div style={{ padding: '6px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 10, fontStyle: 'italic' }}>
+                <div style={{ padding: '6px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
                   ✨ Crafting defense script...
                 </div>
               ) : assistData?.script ? (
                 <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 6, padding: '6px 8px' }}>
-                  <div style={{ fontSize: 11, lineHeight: 1.4, color: 'var(--text)', maxHeight: 100, overflowY: 'auto' }}>
+                  <div style={{ fontSize: 12, lineHeight: 1.4, color: 'var(--text)', maxHeight: 100, overflowY: 'auto' }}>
                     &ldquo;
                     {assistData.script.split(' ').map((word: string, wIdx: number) => {
                       const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -247,11 +247,11 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                 </div>
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 10, color: 'var(--t3)' }}>No defense script ready.</span>
+                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>No defense script ready.</span>
                   {fetchAssistScript && (
                     <button
                       onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
-                      style={{ background: 'var(--reward)', border: 'none', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 9.5, fontWeight: 800, cursor: 'pointer' }}
+                      style={{ background: 'var(--reward)', border: 'none', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
                     >
                       ✨ Generate Script
                     </button>
@@ -285,7 +285,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   border: '1px solid var(--border)',
                   background: 'var(--bg3)',
                   color: 'var(--t1)',
-                  fontSize: 11
+                  fontSize: 12
                 }}
               />
               <button
@@ -297,7 +297,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   border: 'none',
                   background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
                   color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 800,
                   cursor: manualTextInput.trim() ? 'pointer' : 'default'
                 }}

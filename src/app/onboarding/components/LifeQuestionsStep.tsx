@@ -147,13 +147,13 @@ export default function LifeQuestionsStep({ onComplete, onBack, onQuestion }: Li
           padding: clamp(14px, 2.2vh, 26px) clamp(18px, 2.2vw, 36px); gap: clamp(8px, 1.4vh, 14px); color: #f8fafc; }
         .lq-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
         .lq-back { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #f1f5f9;
-          border-radius: 999px; padding: 8px 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
+          border-radius: 999px; padding: 8px 18px; font-size: 17.5px; font-weight: 700; cursor: pointer; }
         .lq-back:hover { background: rgba(255,255,255,0.14); }
-        .lq-count { font-size: 16px; font-weight: 700; color: #cbd5e1; }
+        .lq-count { font-size: 17.5px; font-weight: 700; color: #cbd5e1; }
         .lq-bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.1); overflow: hidden; flex-shrink: 0; }
         .lq-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brand, #6366f1), var(--accent, #22d3ee)); transition: width 0.3s ease; }
         .lq-body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 2vh, 22px); }
-        .lq-chip { align-self: flex-start; font-size: 15px; font-weight: 800; letter-spacing: 0.3px; color: #a5b4fc;
+        .lq-chip { align-self: flex-start; font-size: 16.5px; font-weight: 800; letter-spacing: 0.3px; color: #a5b4fc;
           background: rgba(99,102,241,0.16); border: 1px solid rgba(129,140,248,0.4); border-radius: 999px; padding: 5px 14px; }
         .lq-question { margin: 0; font-size: clamp(26px, 2.2vw + 1.2vh, 40px); line-height: 1.2; font-weight: 800; color: #ffffff; letter-spacing: -0.3px; }
         .lq-grid { flex: 0 1 auto; min-height: 0; max-height: 440px; display: grid; grid-template-columns: 1fr 1fr;
@@ -169,8 +169,8 @@ export default function LifeQuestionsStep({ onComplete, onBack, onQuestion }: Li
         .lq-option-on { background: linear-gradient(135deg, var(--brand, #6366f1), var(--accent, #22d3ee)); border-color: transparent; color: #ffffff; }
         .lq-icon { font-size: clamp(30px, 2.2vw + 1vh, 44px); line-height: 1; }
         .lq-label { font-size: clamp(18px, 1vw + 0.9vh, 24px); font-weight: 800; line-height: 1.25; }
-        .lq-key { position: absolute; top: 8px; right: 12px; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.45); }
-        .lq-hint { margin: 0; font-size: 16px; color: #cbd5e1; }
+        .lq-key { position: absolute; top: 8px; right: 12px; font-size: 14.5px; font-weight: 800; color: rgba(255,255,255,0.45); }
+        .lq-hint { margin: 0; font-size: 17.5px; color: #cbd5e1; }
         @media (max-height: 640px) { .lq-hint { display: none; } }
       `}</style>
     </div>

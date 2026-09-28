@@ -707,7 +707,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 14,
+            fontSize: 15.5,
             boxShadow: '0 2px 10px rgba(79,70,229,0.5)',
             position: 'relative'
           }}>
@@ -724,10 +724,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             }} />
           </div>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: 'var(--text)' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>
               {teacher.name}
             </div>
-            <div style={{ fontSize: 8.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div style={{ fontSize: 9.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
               {voiceListeningActive ? (
                 <>
                   <span style={{ color: '#ef4444' }}>🎙️</span> Listening
@@ -750,7 +750,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 10,
+              fontSize: 11,
               cursor: 'pointer',
               marginLeft: 3,
               color: voiceListeningActive ? '#ef4444' : '#94a3b8'
@@ -808,7 +808,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 overflow: 'hidden',
                 background: 'radial-gradient(circle at 50% 50%, rgba(var(--brand-rgb), 0.2) 0%, rgba(15,23,42,0.8) 100%)',
               }}>
-                <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 11 }}>Loading mentor...</div>}>
+                <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>Loading mentor...</div>}>
                   <AvatarMentorWidget
                     userId={user?.id}
                     careerProfile={profile || undefined}
@@ -847,8 +847,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13 }}>{teacher.emoji}</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
+                  <span style={{ fontSize: 14.5 }}>{teacher.emoji}</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online & Listening" />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -860,7 +860,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                       border: 'none',
                       borderRadius: 6,
                       color: 'var(--text)',
-                      fontSize: 9.5,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       padding: '2px 7px',
                       cursor: 'pointer',
@@ -879,7 +879,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                       border: '1px solid rgba(255,255,255,0.2)',
                       borderRadius: 6,
                       color: 'var(--text)',
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 700,
                       padding: '2px 7px',
                       cursor: 'pointer',
@@ -893,7 +893,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               </div>
 
               <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : '20px 20px 0 0' }}>
-                <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 11 }}>Loading mentor...</div>}>
+                <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>Loading mentor...</div>}>
                   <AvatarMentorWidget
                     userId={user?.id}
                     careerProfile={profile || undefined}
@@ -928,7 +928,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   zIndex: 10,
                   boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
                 }}>
-                  <div style={{ fontSize: 11, color: 'var(--text)', lineHeight: 1.45, maxHeight: 90, overflowY: 'auto' }}>
+                  <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.45, maxHeight: 90, overflowY: 'auto' }}>
                     {dialogueText}
                   </div>
                   {showButton && (
@@ -942,7 +942,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                         border: 'none',
                         background: 'var(--accent)',
                         color: 'white',
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: 800,
                         cursor: 'pointer'
                       }}

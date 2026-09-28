@@ -94,7 +94,7 @@ export default function StudentEvents() {
         }
         .page-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 24px;
+          font-size: 26.5px;
           font-weight: 900;
           letter-spacing: -0.6px;
           display: flex;
@@ -112,7 +112,7 @@ export default function StudentEvents() {
         .filter-btn {
           padding: 6px 14px;
           border-radius: 20px;
-          font-size: 13px;
+          font-size: 14.5px;
           font-weight: 600;
           border: 1px solid var(--border);
           background: var(--card);
@@ -144,7 +144,7 @@ export default function StudentEvents() {
           align-self: flex-start;
           padding: 3px 8px;
           border-radius: 20px;
-          font-size: 10px;
+          font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -152,18 +152,18 @@ export default function StudentEvents() {
         }
         .evt-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 16px;
+          font-size: 17.5px;
           font-weight: 800;
           margin: 0 0 8px 0;
         }
         .evt-desc {
-          font-size: 13px;
+          font-size: 14.5px;
           color: var(--t2);
           line-height: 1.5;
           margin-bottom: 16px;
         }
         .evt-meta {
-          font-size: 12px;
+          font-size: 13px;
           color: var(--t2);
           display: flex;
           flex-direction: column;
@@ -306,18 +306,18 @@ export default function StudentEvents() {
 
         {/* Certificates Section */}
         <div className="card-box" style={{ marginTop: 24 }}>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, marginBottom: 16 }}>📜 Event Participation Certificates</h3>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17.5, fontWeight: 800, marginBottom: 16 }}>📜 Event Participation Certificates</h3>
           
           {completedRsvps.length === 0 ? (
-            <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 13.5 }}>
+            <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 15 }}>
               No completed events with RSVP confirmations found. Certificates unlock automatically once coordinators close events.
             </div>
           ) : (
             completedRsvps.map((c: any) => (
               <div key={c.id} className="cert-card">
                 <div>
-                  <strong style={{ fontSize: 14 }}>{c.title}</strong>
-                  <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
+                  <strong style={{ fontSize: 15.5 }}>{c.title}</strong>
+                  <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 4 }}>
                     Held: {c.date} | Category: {c.category}
                   </div>
                 </div>
@@ -331,7 +331,7 @@ export default function StudentEvents() {
                     🎓 View Certificate
                   </button>
                 ) : (
-                  <span style={{ fontSize: 12, color: 'var(--amber)', fontWeight: 600 }}>Processing Approval</span>
+                  <span style={{ fontSize: 13, color: 'var(--amber)', fontWeight: 600 }}>Processing Approval</span>
                 )}
               </div>
             ))
@@ -345,35 +345,35 @@ export default function StudentEvents() {
         <div className="overlay">
           <div className="cert-modal">
             <div className="cert-border">
-              <div style={{ fontFamily: 'Georgia, serif', fontSize: 32, fontWeight: 'bold', color: 'var(--t1)', marginBottom: 12 }}>
+              <div style={{ fontFamily: 'Georgia, serif', fontSize: 35, fontWeight: 'bold', color: 'var(--t1)', marginBottom: 12 }}>
                 Certificate of Participation
               </div>
-              <div style={{ fontSize: 14, fontStyle: 'italic', color: 'var(--t2)', marginBottom: 20 }}>
+              <div style={{ fontSize: 15.5, fontStyle: 'italic', color: 'var(--t2)', marginBottom: 20 }}>
                 This is proudly presented to
               </div>
-              <div style={{ fontSize: 24, fontWeight: 800, textDecoration: 'underline', color: 'var(--t1)', marginBottom: 18 }}>
+              <div style={{ fontSize: 26.5, fontWeight: 800, textDecoration: 'underline', color: 'var(--t1)', marginBottom: 18 }}>
                 {(viewingCertificate.rsvpInfo?.studentName || studentName || 'STUDENT SCHOLAR').toUpperCase()}
               </div>
-              <div style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
+              <div style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
                 for outstanding active attendance and contributions during the campus event <strong>{viewingCertificate.title}</strong>, hosted by the {viewingCertificate.host} on {viewingCertificate.date} at {viewingCertificate.venue}.
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: 40 }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, borderBottom: '1px solid var(--t3)', minWidth: 160, margin: '0 auto 4px auto', paddingBottom: 6 }}>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, borderBottom: '1px solid var(--t3)', minWidth: 160, margin: '0 auto 4px auto', paddingBottom: 6 }}>
                     {(() => {
                       const ob = (user?.onboardingAnswers || {}) as Record<string, any>;
                       const inst = ob.college || ob.university || user?.institutionName || 'Campus';
                       return `Dean of Affairs · ${inst}`;
                     })()}
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>Authorized Signatory</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)' }}>Authorized Signatory</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>
+                  <div style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
                     {viewingCertificate.rsvpInfo.certificateCode}
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>Verification Hash ID</div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)' }}>Verification Hash ID</div>
                 </div>
               </div>
             </div>
