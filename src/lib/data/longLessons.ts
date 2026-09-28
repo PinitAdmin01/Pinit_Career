@@ -9,6 +9,7 @@
  * When a course day has a long lesson, it replaces that day's older short lesson plan.
  */
 import { REACT_LONG_LESSONS } from './reactLongLessons';
+import { PYTHON_LONG_LESSONS } from './pythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -59,6 +60,7 @@ export interface LongLesson {
 
 const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'react-basics': REACT_LONG_LESSONS,
+  python: PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide. */
