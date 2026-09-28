@@ -348,10 +348,19 @@ export function LessonContentRenderer({
           }}>
             {currentSlide === 0 && (
               <div style={{ textAlign: 'center', padding: '12px 0' }}>
-                <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>Welcome to your Quest roadmap!</h3>
+                <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{questData?.title || 'Today\'s lesson'}</h3>
                 <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.45, maxWidth: 650, margin: '4px auto 0' }}>
-                  We will step through each requirement of the course syllabus. Listen closely to each slide before unlocking your immediate coding test.
+                  {questData?.desc && questData.desc.length < 220
+                    ? questData.desc
+                    : 'Listen to your teacher, try the code, and answer one small question after each part.'}
                 </p>
+                {syllabus.length > 0 && (
+                  <ol style={{ textAlign: 'left', maxWidth: 520, margin: '14px auto 0', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {syllabus.map((topic, i) => (
+                      <li key={i} style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{topic.length > 60 ? topic.split(':')[0] : topic}</li>
+                    ))}
+                  </ol>
+                )}
               </div>
             )}
 
@@ -372,8 +381,24 @@ export function LessonContentRenderer({
                     {slide.title || 'Lesson Slide'}
                   </h4>
 
+                  {/* Long-format lesson: the teacher's explanation, in plain words */}
+                  {Array.isArray(slide.explain) && slide.explain.length > 0 && (
+                    <div data-testid="lesson-explain" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {slide.explain.map((para: string, i: number) => (
+                        <p key={i} style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.6, margin: 0 }}>{para}</p>
+                      ))}
+                    </div>
+                  )}
+
+                  {slide.example && (
+                    <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--info-rgb), 0.08)', border: '1px solid rgba(var(--info-rgb), 0.3)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--info)', marginBottom: 4 }}>🌍 Everyday example</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.example}</div>
+                    </div>
+                  )}
+
                   {/* 🏢 1ST: REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD (Introductory Slide 1 Only) */}
-                  {currentSlide === 1 && (() => {
+                  {currentSlide === 1 && !slide.explain && (() => {
                     const desc = questData?.desc || '';
                     let realWorldStory = '';
                     if (desc.includes('(Real world:')) {
@@ -397,7 +422,7 @@ export function LessonContentRenderer({
                         boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                       }}>
                         <div style={{ fontSize: 11.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
-                          🏢 1. Real-World Industry Story & Production Context
+                          🏢 Real-life example
                         </div>
                         <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
                           {realWorldStory || matchedAnalogy.analogy}
@@ -420,7 +445,7 @@ export function LessonContentRenderer({
                       border: '1px solid var(--border)'
                     }}>
                       <div style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
-                        💡 2. Core Technical Rules & Execution Model
+                        💡 Key points
                       </div>
                       <ul style={{ listStyleType: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: 8, margin: 0 }}>
                         {bulletPoints.map((bp: string, i: number) => (
@@ -438,14 +463,34 @@ export function LessonContentRenderer({
                       mockOutput={slide.mockOutput}
                       codeRunning={codeRunning[currentSlide - 1]}
                       codeOutput={codeOutputs[currentSlide - 1]}
-                      onRunCode={() => {
+                      onRunCode={(code: string) => {
                         if (runSlideCode) {
-                          runSlideCode(currentSlide - 1, slide.codeExample);
+                          runSlideCode(currentSlide - 1, code || slide.codeExample);
                         } else {
                           simulateCodeRun(currentSlide - 1, slide.mockOutput);
                         }
                       }}
                     />
+                  )}
+
+                  {Array.isArray(slide.codeNotes) && slide.codeNotes.length > 0 && (
+                    <div style={{ padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t2)', marginBottom: 6 }}>🔎 What the code does</div>
+                      <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        {slide.codeNotes.map((n: { line: number; note: string }, i: number) => (
+                          <li key={i} style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.5 }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', color: teacher.accent, fontWeight: 800 }}>Line {n.line}:</span> {n.note}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {slide.tryIt && (
+                    <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--success)', marginBottom: 4 }}>✍️ Your turn</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.tryIt}</div>
+                    </div>
                   )}
 
                   {/* Interactive Understanding Check on content slides */}

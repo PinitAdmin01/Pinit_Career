@@ -288,7 +288,9 @@ export default function AvatarMentorWidget({
   const [subtitleRole, setSubtitleRole] = useState<'user' | 'assistant' | 'system' | null>(null);
   const recognitionRef = useRef<any>(null);
 
-  const isMinimized = minimized !== undefined ? minimized : localMinimized;
+  // onlyAvatar embeds the 3D teacher in a page (e.g. the lesson screen), which has no minimise
+  // control. localMinimized starts true, so without this the 3D scene was never initialised there.
+  const isMinimized = onlyAvatar ? false : minimized !== undefined ? minimized : localMinimized;
   const setIsMinimized = setMinimized !== undefined ? setMinimized : setLocalMinimized;
 
   // Initialize 3D Viewport on mount and reload when teacherId changes

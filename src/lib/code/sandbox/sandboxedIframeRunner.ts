@@ -21,6 +21,7 @@
  */
 
 import { TestCase, SingleTestOutcome, SuiteExecutionResult } from '../types';
+import { LOG_FORMAT_SOURCE } from './logFormat';
 
 export interface SandboxExecutionOptions {
   functionName?: string;
@@ -191,20 +192,30 @@ export async function executeInTwoLayerSandbox(
                   }
                 } catch {}
 
+                // Never write backslash escapes in this worker source: it sits inside a template literal,
+                // so an escaped newline turned into a raw line break inside a quoted string and the
+                // whole worker failed to parse. Use NEWLINE instead.
+                const NEWLINE = String.fromCharCode(10);
                 let logs = [];
                 let errLogs = [];
                 const MAX_LOG_LINES = 100;
                 const MAX_LOG_CHAR = 2000;
                 const origLog = console.log;
                 const origErr = console.error;
+                ${LOG_FORMAT_SOURCE}
+                function __pinitFormatArgs(args) {
+                  return args.map(function (a) {
+                    try { return __pinitFormatLog(a, 0); } catch (fmtErr) { return String(a); }
+                  }).join(' ');
+                }
                 console.log = function(...args) {
                   if (logs.length < MAX_LOG_LINES) {
-                    logs.push(args.map(String).join(' ').slice(0, MAX_LOG_CHAR));
+                    logs.push(__pinitFormatArgs(args).slice(0, MAX_LOG_CHAR));
                   }
                 };
                 console.error = function(...args) {
                   if (errLogs.length < MAX_LOG_LINES) {
-                    errLogs.push(args.map(String).join(' ').slice(0, MAX_LOG_CHAR));
+                    errLogs.push(__pinitFormatArgs(args).slice(0, MAX_LOG_CHAR));
                   }
                 };
 
@@ -236,7 +247,7 @@ export async function executeInTwoLayerSandbox(
                       // Evaluate student solution in isolated worker scope
                       let compiledFn;
                       try {
-                        compiledFn = new Function(code + '\\nreturn ' + fnName + ';')();
+                        compiledFn = new Function(code + NEWLINE + 'return ' + fnName + ';')();
                       } catch (compileInner) {
                         // Fallback: evaluate directly as script so console logs still execute
                         const res = new Function(code)();
@@ -253,7 +264,7 @@ export async function executeInTwoLayerSandbox(
                           const tStart = Date.now();
                           let args = [];
                           try {
-                            args = JSON.parse('[' + (tc.input || '').replace(/^\\(|\\)$/g, '') + ']');
+                            args = JSON.parse('[' + (tc.input || '').replace(/^[(]|[)]$/g, '') + ']');
                           } catch {
                             args = [tc.input];
                           }
@@ -301,8 +312,8 @@ export async function executeInTwoLayerSandbox(
                     type: 'WORKER_RESULT',
                     outcomes: outcomes,
                     allPassed: allPassed && !runtimeError,
-                    stdout: logs.join('\\n'),
-                    stderr: errLogs.join('\\n'),
+                    stdout: logs.join(NEWLINE),
+                    stderr: errLogs.join(NEWLINE),
                     error: runtimeError
                   });
                 };

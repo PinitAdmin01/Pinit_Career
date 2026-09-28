@@ -20,9 +20,9 @@ export interface DayConfig {
 
 export type { CourseQuest } from './coursesData';
 import { CourseQuest } from './coursesData';
+import { getLongLesson } from './longLessons';
 import { JAVA_PILOT_DAYS } from './javaPilotDays';
 import { PYTHON_PILOT_DAYS } from './pythonPilotDays';
-import { REACT_PILOT_DAYS } from './reactPilotDays';
 import { DATABASE_PILOT_DAYS } from './databasePilotDays';
 import { DSA_PILOT_DAYS } from './dsaPilotDays';
 import { FULLSTACK_PILOT_DAYS } from './fullstackPilotDays';
@@ -81,7 +81,6 @@ import { CYBER_PILOT_DAYS } from './cybersecurityPilotDays';
 const PILOT_DAY_SOURCES: Record<string, unknown> = {
   'java-basics': JAVA_PILOT_DAYS,
   'python': PYTHON_PILOT_DAYS,
-  'react-basics': REACT_PILOT_DAYS,
   'sql-mastery': DATABASE_PILOT_DAYS,
   'dsa-optim': DSA_PILOT_DAYS,
   'fullstack-js': FULLSTACK_PILOT_DAYS,
@@ -149,17 +148,22 @@ export function resolvePilotDay(prefix: string, dayNum: number): any {
 }
 
 export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
-  const pilotDay: any = resolvePilotDay(prefix, dayNum);
+  const longLesson = getLongLesson(prefix, dayNum);
+  const pilotDay: any = longLesson ? null : resolvePilotDay(prefix, dayNum);
 
   // ── 1. Unified Socratic Adaptive Lesson ──────────────────────────────────
   const lessonTask: CourseQuest = {
     id: `${prefix}-lecture1-day-${dayNum}`,
-    title: pilotDay ? `Day ${dayNum}: ${pilotDay.title}` : `Day ${dayNum}: ${cfg.title}`,
-    desc: pilotDay ? pilotDay.overviewMetaphor : cfg.desc,
+    title: longLesson
+      ? `Day ${dayNum}: ${longLesson.title}`
+      : pilotDay ? `Day ${dayNum}: ${pilotDay.title}` : `Day ${dayNum}: ${cfg.title}`,
+    desc: longLesson ? longLesson.goal : pilotDay ? pilotDay.overviewMetaphor : cfg.desc,
     type: 'lecture',
     category: 'learning',
     requiresAvatar: true,
-    syllabus: pilotDay
+    syllabus: longLesson
+      ? longLesson.parts.map((p) => p.title)
+      : pilotDay
       ? pilotDay.blocks.map((b: any) => `${b.title}: ${b.conceptBudget.primaryConcept}`)
       : cfg.syllabus,
     skillCategory: 'theory',

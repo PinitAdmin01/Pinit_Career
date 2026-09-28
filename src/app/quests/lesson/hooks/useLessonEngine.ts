@@ -4,6 +4,7 @@ import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
 import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking, getUserSoundscapeVolume, setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
 import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
+import { getLongLesson } from '@/lib/data/longLessons';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
@@ -155,6 +156,12 @@ export function useLessonEngine({
 
   teacherIdRef.current = teacherId;
   slidesLengthRef.current = slides.length || syllabus.length;
+
+  // Written long-format lesson for this course day, if there is one.
+  const longLesson = useMemo(() => {
+    const parsed = parseQuestId(questId || '');
+    return parsed ? getLongLesson(parsed.prefix, parsed.dayNum) : null;
+  }, [questId]);
 
   const startVoiceInput = useCallback(() => {
     if (typeof window === 'undefined') return;
@@ -335,7 +342,7 @@ export function useLessonEngine({
       let nextSpeechText = "";
       if (slides && slides[nextSlideIdx]) {
         const slide = slides[nextSlideIdx];
-        nextSpeechText = `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints?.[0] || ''}. Second, ${slide.bulletPoints?.[1] || ''}. And third, ${slide.bulletPoints?.[2] || ''}. Make sure you understand these before proceeding to the coding evaluation!`;
+        nextSpeechText = slide.speech || `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints?.[0] || ''}. Second, ${slide.bulletPoints?.[1] || ''}. And third, ${slide.bulletPoints?.[2] || ''}. Make sure you understand these before proceeding to the coding evaluation!`;
       } else if (syllabus && nextSlideIdx < syllabus.length) {
         const concept = syllabus[nextSlideIdx];
         nextSpeechText = `Let us explore Section ${currentSlide + 1}: "${concept}". Observe the live code example and see what happens when it runs. Feel free to ask me any questions!`;
@@ -361,6 +368,34 @@ export function useLessonEngine({
     const parsed = parseQuestId(questId || '');
     const coursePrefix = parsed?.prefix || '';
     const dayNum = parsed?.dayNum || 0;
+
+    if (longLesson) {
+      setSlides(longLesson.parts.map((part, i) => ({
+        title: part.title,
+        bulletPoints: [],
+        explain: part.say,
+        example: part.example,
+        codeExample: part.code,
+        mockOutput: part.output,
+        codeNotes: part.codeNotes,
+        tryIt: part.tryIt,
+        speech: [
+          `Part ${i + 1}: ${part.title}.`,
+          ...part.say,
+          part.example ? `Here is an everyday example. ${part.example}` : '',
+          part.tryIt ? `Now you try. ${part.tryIt}` : '',
+        ].filter(Boolean).join(' '),
+        mcq: {
+          question: part.check.question,
+          options: part.check.options,
+          answerIndex: part.check.answer,
+          explanation: part.check.why,
+        },
+      })));
+      setSlidesLoading(false);
+      return;
+    }
+
     const pilotDay = resolvePilotDay(coursePrefix, dayNum);
 
     if (pilotDay && pilotDay.blocks && pilotDay.blocks.length > 0) {
@@ -371,14 +406,23 @@ export function useLessonEngine({
         const diagram = block.media.find((m: any) => m.type === 'diagram') as any;
 
         const bulletPoints: string[] = [];
+        // Lesson plans store the teaching text in metaphor/simpleExplanation, lineNotes and
+        // data.title; reading only caption/title showed "Analogy: undefined" on every slide.
         if (analogy) {
-          bulletPoints.push(`Analogy: ${analogy.caption || analogy.title}`);
+          const name = analogy.metaphor || analogy.caption || analogy.title;
+          const text = analogy.simpleExplanation || analogy.explanation;
+          const line = [name, text].filter(Boolean).join(': ');
+          if (line) bulletPoints.push(`Analogy: ${line}`);
         }
         if (syntax) {
-          bulletPoints.push(`Syntax Rule: ${syntax.title}`);
+          if (syntax.title) bulletPoints.push(`Syntax Rule: ${syntax.title}`);
+          for (const note of Object.values(syntax.lineNotes || {})) {
+            if (typeof note === 'string' && note.trim()) bulletPoints.push(note);
+          }
         }
         if (diagram) {
-          bulletPoints.push(`Visual Blueprint: ${diagram.caption || diagram.title}`);
+          const label = diagram.caption || diagram.title || diagram.data?.title;
+          if (label) bulletPoints.push(`Visual Blueprint: ${label}`);
         }
         if (block.takeaway) {
           bulletPoints.push(`Core Rule: ${block.takeaway}`);
@@ -488,7 +532,7 @@ export function useLessonEngine({
 
     setSlides(staticSlides);
     setSlidesLoading(false);
-  }, [questId, questData, syllabus, setSlides, setSlidesLoading]);
+  }, [questId, questData, syllabus, longLesson, setSlides, setSlidesLoading]);
 
   // Audio unlock listener and hydration
   useEffect(() => {
@@ -588,6 +632,14 @@ export function useLessonEngine({
 
   const getSpeakerText = useCallback(() => {
     const slidesLength = slides.length || syllabus.length;
+    if (currentSlide === 0 && longLesson) {
+      return [
+        `Welcome, ${studentName}! Today's lesson is ${longLesson.title}.`,
+        longLesson.recap || '',
+        `By the end of this lesson, ${longLesson.goal.charAt(0).toLowerCase()}${longLesson.goal.slice(1)}`,
+        `We will go step by step, in ${longLesson.parts.length} parts. After each part there is a small question, and you can ask me anything if something is not clear.`,
+      ].filter(Boolean).join(' ');
+    }
     if (currentSlide === 0) {
       return `Welcome, ${studentName}, to your classroom lesson for ${questData.title}. I am your AI instructor. We will explore each requirement from your syllabus in detail. Please pay close attention, and confirm your understanding before taking the final syllabus exam!`;
     }
@@ -603,6 +655,7 @@ export function useLessonEngine({
     const idx = currentSlide - 1;
     if (slides && slides[idx]) {
       const slide = slides[idx];
+      if (slide.speech) return slide.speech;
       if (idx === 0) {
         const desc = questData?.desc || '';
         let story = '';
@@ -631,7 +684,7 @@ export function useLessonEngine({
     }
 
     return `Welcome to ${questData.title}! Study the technical principles on this slide carefully.`;
-  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName]);
+  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName, longLesson]);
 
   getSpeakerTextRef.current = getSpeakerText;
 
