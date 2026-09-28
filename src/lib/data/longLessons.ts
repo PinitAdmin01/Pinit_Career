@@ -25,7 +25,7 @@ export interface LongLessonPart {
   say: string[];
   /** An everyday, non-computer example of the idea. */
   example?: string;
-  /** Runnable JavaScript that prints with console.log. */
+  /** Runnable code that prints its result: JavaScript (console.log) or, for Python courses, Python (print). */
   code?: string;
   /** What the code prints, so students can compare. */
   output?: string;
@@ -60,6 +60,16 @@ export interface LongLesson {
 const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'react-basics': REACT_LONG_LESSONS,
 };
+
+/** Language of each course's lesson code. Python runs in the browser with Pyodide. */
+const LONG_LESSON_LANGUAGE: Record<string, 'javascript' | 'python'> = {
+  'react-basics': 'javascript',
+  python: 'python',
+};
+
+export function getLongLessonLanguage(prefix: string): 'javascript' | 'python' {
+  return LONG_LESSON_LANGUAGE[prefix] ?? 'javascript';
+}
 
 /** The long lesson for a course prefix and day number, if one has been written. */
 export function getLongLesson(prefix: string, dayNum: number): LongLesson | null {

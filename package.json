@@ -3,7 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/utils/copy-pyodide.cjs",
     "dev": "next dev -p 3000",
+    "prebuild": "node scripts/utils/copy-pyodide.cjs",
     "build": "next build",
     "start": "next start",
     "export": "next build",
@@ -28,6 +30,7 @@
     "firebase": "^10.9.0",
     "jose": "^6.2.12",
     "next": "14.2.29",
+    "pyodide": "0.26.4",
     "qrcode.react": "^3.1.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",

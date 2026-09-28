@@ -4,7 +4,8 @@ import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
 import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking, getUserSoundscapeVolume, setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
 import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
-import { getLongLesson } from '@/lib/data/longLessons';
+import { getLongLesson, getLongLessonLanguage } from '@/lib/data/longLessons';
+import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
 import { getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
@@ -290,6 +291,15 @@ export function useLessonEngine({
         return;
       }
 
+      const parsedId = parseQuestId(questId || '');
+      if (longLesson && parsedId && getLongLessonLanguage(parsedId.prefix) === 'python') {
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting Python... (the first run takes a few seconds)" }));
+        const py = await runPythonInBrowser(codeSnippet);
+        const shown = [py.stdout, py.error ? `[Error] ${py.error}` : ''].filter(Boolean).join('\n');
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown || 'Your code ran but printed nothing. Use print(...) to see a result.' }));
+        return;
+      }
+
       const executable = adaptCodeForSandbox(codeSnippet, questId);
       const result = await executeSandboxScript(executable, 4000);
 
@@ -312,7 +322,7 @@ export function useLessonEngine({
     } finally {
       setCodeRunning(prev => ({ ...prev, [slideIdx]: false }));
     }
-  }, [slides, questId, setCodeOutputs, setCodeRunning]);
+  }, [slides, questId, longLesson, setCodeOutputs, setCodeRunning]);
 
   const simulateCodeRun = useCallback((slideIdx: number, _mockOutput?: string) => {
     const rawCode = slides[slideIdx]?.codeExample;
