@@ -22,6 +22,7 @@ self.onmessage = async (event) => {
     pyodide.setStderr({ batched: (line) => out.push(line) });
     // A fresh namespace for every run, so one run's variables never leak into the next.
     const globals = pyodide.globals.get('dict')();
+    globals.set('__name__', '__main__');
     try {
       await pyodide.runPythonAsync(code, { globals });
     } finally {

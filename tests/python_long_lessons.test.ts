@@ -1,28 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { loadPyodide, type PyodideInterface } from 'pyodide';
 
 import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
 import { PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/python30DayData';
 import { estimateSpokenMinutes, getLongLessonLanguage } from '../src/lib/data/longLessons';
 
-const hasPython = spawnSync('python3', ['--version']).status === 0;
-
-/** Runs a sample in a fresh Python, like the lesson page does (a fresh namespace per run). */
-function runPython(code: string): string {
-  const r = spawnSync('python3', ['-c', code], { encoding: 'utf8', timeout: 10000 });
-  return `${r.stdout}${r.stderr}`.replace(/\n$/, '');
+/**
+ * Runs a sample the way the lesson page does (public/python-worker.js + useLessonEngine):
+ * Pyodide, a fresh namespace named __main__, and on an error the last traceback line as "[Error] ...".
+ */
+async function runLikeLessonPage(pyodide: PyodideInterface, code: string): Promise<string> {
+  const out: string[] = [];
+  pyodide.setStdout({ batched: (line: string) => out.push(line) });
+  pyodide.setStderr({ batched: (line: string) => out.push(line) });
+  const globals = pyodide.globals.get('dict')();
+  globals.set('__name__', '__main__');
+  let error = '';
+  try {
+    await pyodide.runPythonAsync(code, { globals });
+  } catch (err) {
+    const lines = String((err as Error).message).trim().split('\n');
+    error = lines[lines.length - 1];
+  } finally {
+    globals.destroy();
+  }
+  return [out.join('\n'), error ? `[Error] ${error}` : ''].filter(Boolean).join('\n');
 }
 
-test('every Python long lesson code sample prints exactly its stated output', { skip: !hasPython && 'python3 not installed' }, () => {
+test('every Python long lesson code sample shows exactly its stated output in the browser runner', async () => {
+  const pyodide = await loadPyodide();
   for (const lesson of PYTHON_LONG_LESSONS) {
-    lesson.parts.forEach((part, i) => {
-      if (!part.code) return;
+    for (const [i, part] of lesson.parts.entries()) {
+      if (!part.code) continue;
       const where = `Day ${lesson.day} part ${i + 1} (${part.title})`;
       assert.ok(part.output !== undefined, `${where}: code has no output`);
       assert.ok(!/\binput\(/.test(part.code), `${where}: input() cannot run in the browser`);
-      assert.equal(runPython(part.code), part.output, where);
-    });
+      assert.equal(await runLikeLessonPage(pyodide, part.code), part.output, where);
+    }
   }
 });
 
