@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
 import { resolveQuestLanguage } from '../src/components/quests/workspace/useWorkspaceState';
@@ -10,7 +12,8 @@ type Quest = { id: string; category?: string; starterCode?: string; testSuite?: 
 
 /** Runs a JavaScript practice task the way the sandbox worker does (new Function(script)(), then waits). */
 async function gradeJs(code: string, testSuite: string): Promise<{ passed: boolean; error?: string }> {
-  const context = vm.createContext({ console: { log() {}, error() {} }, setTimeout, clearTimeout, Promise });
+  // The browser worker has these too.
+  const context = vm.createContext({ console: { log() {}, error() {} }, setTimeout, clearTimeout, Promise, URL, URLSearchParams, TextEncoder, TextDecoder });
   try {
     const result = vm.runInContext(`(function () {\n${buildJsTaskScript(code, testSuite)}\n})()`, context, { timeout: 3000 });
     await result;
@@ -60,5 +63,36 @@ test('every React practice task fails when the student has not written the answe
   for (const q of react) {
     const result = await gradeJs(String(q.starterCode || ''), String(q.testSuite));
     assert.equal(result.passed, false, `${q.id}: the starter code already passes`);
+  }
+});
+
+/** Reference answers, kept out of the app so students never download them. */
+const SOLUTIONS: Record<string, string> = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/practice_solutions.json'), 'utf8'));
+
+const CHECKED_COURSES = ['course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+
+test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
+  // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
+  let late = 0;
+  const onLate = () => { late++; };
+  process.on('unhandledRejection', onLate);
+  try {
+    for (const courseId of CHECKED_COURSES) {
+      const list = tasks(courseId);
+      assert.equal(list.length, 60, courseId);
+      for (const q of list) {
+        const solution = SOLUTIONS[q.id];
+        assert.ok(solution, `${q.id}: no reference answer in tests/fixtures/practice_solutions.json`);
+        const right = await gradeJs(solution, String(q.testSuite));
+        assert.equal(right.passed, true, `${q.id}: the reference answer fails: ${right.error}`);
+        const blank = await gradeJs(String(q.starterCode || ''), String(q.testSuite));
+        assert.equal(blank.passed, false, `${q.id}: the starting code already passes`);
+        assert.ok(!String(q.starterCode).includes(solution.trim()), `${q.id}: the starting code contains the answer`);
+      }
+    }
+    await new Promise((r) => setTimeout(r, 50));
+    assert.equal(late, 0, 'a check threw after the task finished (missing await)');
+  } finally {
+    process.off('unhandledRejection', onLate);
   }
 });
