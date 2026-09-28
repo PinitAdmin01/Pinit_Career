@@ -1,4 +1,4 @@
-// scripts/test_batch023.ts
+// scripts/tests/test_batch023.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 023 (Days 113–117 · COMPLETE)
 // Modern Vanilla JavaScript, DOM Mutation Mechanics, Event Propagation & Accessible Interactive Components
 
@@ -6,8 +6,8 @@ import {
   BATCH_023_MANIFEST,
   DAY_117_ASSESSMENT,
   COMPETENCY_ID_VANILLA_JS_AND_DOM,
-} from '../src/lib/curriculum/pythonFullStack/batch023';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch023';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

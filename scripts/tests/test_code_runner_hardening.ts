@@ -1,10 +1,10 @@
-// scripts/test_code_runner_hardening.ts
+// scripts/tests/test_code_runner_hardening.ts
 // Verification test suite for T7: Code Runner Sandboxing & Execution Hardening
 
 import fs from 'fs';
 import path from 'path';
-import { executeJavaScriptSuite } from '../src/lib/code/runners/jsRunner';
-import { runTestSuite } from '../src/lib/code/codeRunner';
+import { executeJavaScriptSuite } from '../../src/lib/code/runners/jsRunner';
+import { runTestSuite } from '../../src/lib/code/codeRunner';
 
 let passed = 0;
 let failed = 0;

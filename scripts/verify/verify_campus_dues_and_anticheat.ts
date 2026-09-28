@@ -1,5 +1,5 @@
 /**
- * scripts/verify_campus_dues_and_anticheat.ts
+ * scripts/verify/verify_campus_dues_and_anticheat.ts
  * Friend 3 Verification: Database Architect, Campus ERP & Anti-Cheat (P3)
  *
  * Verifies:

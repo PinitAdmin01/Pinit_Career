@@ -3,10 +3,10 @@
  * Validates Code Wars, Team Hackathons, Verified Leaderboards, and Interview Defense Bridge.
  */
 
-import { CodeWarsApiService, CODE_WARS_PROBLEMS_CATALOG } from '../src/lib/api/codeWarsApi';
-import { TeamsApiService, INITIAL_HACKATHON_SQUADS } from '../src/lib/api/teamsApi';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
+import { CodeWarsApiService, CODE_WARS_PROBLEMS_CATALOG } from '../../src/lib/api/codeWarsApi';
+import { TeamsApiService, INITIAL_HACKATHON_SQUADS } from '../../src/lib/api/teamsApi';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
 
 let passCount = 0;
 let failCount = 0;

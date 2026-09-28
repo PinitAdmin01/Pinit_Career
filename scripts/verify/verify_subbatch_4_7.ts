@@ -1,4 +1,4 @@
-// scripts/verify_subbatch_4_7.ts
+// scripts/verify/verify_subbatch_4_7.ts
 /**
  * Verification Suite for Issue 30:
  * Identity & Anti-Fraud Check, Trust Score Integrity & Unreadable Document Defenses
@@ -21,8 +21,8 @@ import {
   auditDocumentCollection,
   calculateLiveQTMetrics,
   VaultDocumentSlot
-} from '../src/lib/ats/documentAuditEngine';
-import { evaluateQT2Model } from '../src/lib/ats/qt2AnalysisEngine';
+} from '../../src/lib/ats/documentAuditEngine';
+import { evaluateQT2Model } from '../../src/lib/ats/qt2AnalysisEngine';
 
 let passed = 0;
 let failed = 0;

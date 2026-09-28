@@ -1,10 +1,10 @@
-// scripts/test_assessment_security_audit.ts
+// scripts/tests/test_assessment_security_audit.ts
 // Empirical Security Audit & Vulnerability Verification for BUILD 03 Assessment Engine
 
 import {
   assessmentEngine,
   Assessment,
-} from '../src/lib/curriculum/index';
+} from '../../src/lib/curriculum/index';
 
 let auditChecksPassed = 0;
 let auditVulnerabilitiesFound = 0;

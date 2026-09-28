@@ -34,7 +34,7 @@ let totalPassedSuites = 0;
 let totalFailedSuites = 0;
 const results: Array<{ name: string; file: string; passed: boolean; durationMs: number }> = [];
 
-const scriptsDir = __dirname;
+const scriptsDir = path.join(__dirname, '..', 'tests');
 
 for (const suite of testSuites) {
   const filePath = path.join(scriptsDir, suite.file);

@@ -3,7 +3,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 function decode(s) {
   return s.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"').replace(/\\\\/g, '\\');

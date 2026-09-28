@@ -1,4 +1,4 @@
-// scripts/test_batch018.ts
+// scripts/tests/test_batch018.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 018 (Days 88–92)
 // Advanced Python: Iterator Protocol, Generator Architecture, Lazy Streaming Pipelines & Memory Physics
 
@@ -8,9 +8,9 @@ import {
   BATCH_018_MANIFEST,
   DAY_92_ASSESSMENT,
   COMPETENCY_ID_ITERATORS_AND_GENERATORS,
-} from '../src/lib/curriculum/pythonFullStack/batch018';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch018';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 // ── CANONICAL EXCEPTIONS (Mirroring Python Contracts) ──
 

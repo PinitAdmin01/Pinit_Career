@@ -15,7 +15,7 @@ console.log('  PINIT GATE 1: LIVE SUPABASE CLOUD RLS & DB VERIFICATION');
 console.log('================================================================\n');
 
 // Read .env file for Supabase credentials
-const envPath = path.join(__dirname, '../.env');
+const envPath = path.join(__dirname, '../../.env');
 const envContent = fs.readFileSync(envPath, 'utf8');
 
 const urlMatch = envContent.match(/NEXT_PUBLIC_SUPABASE_URL=(https:\/\/[^\s]+)/);

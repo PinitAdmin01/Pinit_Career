@@ -1,7 +1,7 @@
 /**
  * Test: API Client Fail-Closed Behavior (Friend 1: T1.1 Verification)
  */
-import { api, ApiError } from '../src/lib/api/client';
+import { api, ApiError } from '../../src/lib/api/client';
 
 let passed = 0;
 let failed = 0;
@@ -86,15 +86,13 @@ async function run() {
     assert(err instanceof ApiError && err.code === 'NETWORK_ERROR', 'Test 7: Network TypeError throws ApiError(NETWORK_ERROR)');
   }
 
-  // Test 8: 404 Not Found correctly falls back to legacy router
+  // Test 8: 404 Not Found throws ApiError (there is no in-browser router to fall back to)
   try {
     global.fetch = async () => new Response('Not Found', { status: 404 });
-    // Calling an endpoint handled by firestoreRouter on 404
-    const res = await api.get('/api/notes');
-    assert(Array.isArray(res), 'Test 8: 404 endpoint falls through to client-side firestoreRouter');
+    await api.get('/api/notes');
+    assert(false, 'Test 8: 404 should have thrown ApiError');
   } catch (err: any) {
-    // If firestoreRouter handles it, it returns an array or object
-    assert(true, 'Test 8: 404 falls back cleanly');
+    assert(err instanceof ApiError && err.status === 404, 'Test 8: 404 throws ApiError instead of falling back to a client-side router');
   }
 
   global.fetch = originalFetch;

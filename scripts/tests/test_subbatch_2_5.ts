@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_5.ts
+// scripts/tests/test_subbatch_2_5.ts
 // Verification test suite for Sub-Batch 2.5: XP Exploits & Progression Caps (Issues 048 – 052)
 
 import * as dotenv from 'dotenv';
@@ -9,8 +9,8 @@ process.env.NODE_ENV = 'test';
 import fs from 'fs';
 import path from 'path';
 import { PGlite } from '@electric-sql/pglite';
-import { POST as addXpHandler } from '../src/app/api/xp/add/route';
-import { POST as awardBadgeHandler } from '../src/app/api/user/award-badge/route';
+import { POST as addXpHandler } from '../../src/app/api/xp/add/route';
+import { POST as awardBadgeHandler } from '../../src/app/api/user/award-badge/route';
 
 async function runSubBatch25Tests() {
   console.log('========================================================================');

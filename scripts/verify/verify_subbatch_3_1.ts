@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { mapRowToProfile } from '../src/lib/supabaseService';
+import { mapRowToProfile } from '../../src/lib/supabaseService';
 
 async function runSubBatch31Verification() {
   console.log('========================================================================');

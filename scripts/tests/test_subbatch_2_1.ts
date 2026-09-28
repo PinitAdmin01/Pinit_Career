@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_1.ts
+// scripts/tests/test_subbatch_2_1.ts
 // Verification test suite for Sub-Batch 2.1: Atomic Pin Deductions & Mutex Locks (Issues 028 – 032)
 
 import * as dotenv from 'dotenv';
@@ -7,7 +7,7 @@ dotenv.config();
 import fs from 'fs';
 import path from 'path';
 import { PGlite } from '@electric-sql/pglite';
-import { financeService, acquireDistributedLock, releaseDistributedLock } from '../src/lib/services/financeService';
+import { financeService, acquireDistributedLock, releaseDistributedLock } from '../../src/lib/services/financeService';
 
 async function runSubBatch21Tests() {
   console.log('========================================================================');

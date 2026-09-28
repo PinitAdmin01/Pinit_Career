@@ -1,10 +1,10 @@
-// scripts/test_ui_components.ts
+// scripts/tests/test_ui_components.ts
 // Exhaustive 360-degree forensic audit for Phase 4 UI Components & Integration Contracts
 
 import React from 'react';
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
-import { CAREER_PROGRAMS_CATALOG, evaluateStageProgression } from '../src/lib/pathway/programEngine';
-import { CompetencyMasteryStatus, MasteryState } from '../src/lib/pathway/competencySchema';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
+import { CAREER_PROGRAMS_CATALOG, evaluateStageProgression } from '../../src/lib/pathway/programEngine';
+import { CompetencyMasteryStatus, MasteryState } from '../../src/lib/pathway/competencySchema';
 
 console.log('================================================================');
 console.log('  PINIT UI COMPONENTS & INTEGRATION: 360° FORENSIC AUDIT        ');

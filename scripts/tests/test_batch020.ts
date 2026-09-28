@@ -1,4 +1,4 @@
-// scripts/test_batch020.ts
+// scripts/tests/test_batch020.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 020 (Days 98–102)
 // Advanced Python: Type Architecture, Protocols (PEP 544), Generics, Variance & Dual Mypy Verification
 
@@ -6,9 +6,9 @@ import {
   BATCH_020_MANIFEST,
   DAY_102_ASSESSMENT,
   COMPETENCY_ID_TYPE_SYSTEM_AND_PROTOCOLS,
-} from '../src/lib/curriculum/pythonFullStack/batch020';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch020';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 // ── REFERENCE IMPLEMENTATION OF BATCH 020 BEHAVIORAL CONTRACTS ──
 

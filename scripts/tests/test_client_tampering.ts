@@ -1,4 +1,4 @@
-// scripts/test_client_tampering.ts
+// scripts/tests/test_client_tampering.ts
 console.log("========================================================================");
 console.log("??? AUDITING CLIENT-SIDE LOCALSTORAGE & CACHE TAMPERING");
 console.log("========================================================================\n");
@@ -19,10 +19,10 @@ mockLocalStorage["pinit_hacked_admin"] = "true";
 console.log("\n  2. Tampered Client State (Simulated DevTools Manipulation):", mockLocalStorage);
 
 console.log("\n  3. Evaluating Backend Authority & Credential Trust:");
-console.log("     • Does backend Postgres update XP automatically? -> NO (Rejected: requires authenticated server ledger).");
-console.log("     • Can client issue signed certificate from localStorage? -> NO (Server rejects without cryptographic evidence hash).");
-console.log("     • Can client access restricted admin routes via localStorage? -> NO (Middleware & API reject without verified Supabase role).");
+console.log("     ï¿½ Does backend Postgres update XP automatically? -> NO (Rejected: requires authenticated server ledger).");
+console.log("     ï¿½ Can client issue signed certificate from localStorage? -> NO (Server rejects without cryptographic evidence hash).");
+console.log("     ï¿½ Can client access restricted admin routes via localStorage? -> NO (Middleware & API reject without verified Supabase role).");
 
 console.log("\n========================================================================");
-console.log("?? TAMPERING CLASSIFICATION: CLIENT CACHE TAMPERING — NON-AUTHORITATIVE");
+console.log("?? TAMPERING CLASSIFICATION: CLIENT CACHE TAMPERING ï¿½ NON-AUTHORITATIVE");
 console.log("========================================================================");

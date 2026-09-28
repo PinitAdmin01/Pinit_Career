@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { CohortsApiService } from '../src/lib/api/cohortsApi';
+import { CohortsApiService } from '../../src/lib/api/cohortsApi';
 
 console.log('--- STARTING CONSULTANT & ADMIN PORTAL INTEGRITY VERIFICATION ---');
 
@@ -26,7 +26,7 @@ async function testCohortApiIntegrity() {
   assert(overview.overallPlacementReadyPct > 0, 'Placement ready pct should be derived from students >= 65 ats score');
 
   // Check file src/lib/api/cohortsApi.ts for hardcoded mock names
-  const cohortsApiContent = fs.readFileSync(path.resolve(__dirname, '../src/lib/api/cohortsApi.ts'), 'utf-8');
+  const cohortsApiContent = fs.readFileSync(path.resolve(__dirname, '../../src/lib/api/cohortsApi.ts'), 'utf-8');
   assert(!cohortsApiContent.includes('Aarav Patel'), 'cohortsApi.ts must not contain Aarav Patel');
   assert(!cohortsApiContent.includes('Devin Vance'), 'cohortsApi.ts must not contain Devin Vance');
   assert(!cohortsApiContent.includes('Priya Sharma'), 'cohortsApi.ts must not contain Priya Sharma');
@@ -36,7 +36,7 @@ async function testCohortApiIntegrity() {
 
 function testConsultantDocumentHubIntegrity() {
   console.log('[2/7] Testing Consultant Document Hub Integrity...');
-  const docHubContent = fs.readFileSync(path.resolve(__dirname, '../src/app/consultant/components/ConsultantDocumentHub.tsx'), 'utf-8');
+  const docHubContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/consultant/components/ConsultantDocumentHub.tsx'), 'utf-8');
 
   // Must not have fixed static scores 87/100, ATS 82, or fake LOR tone verification
   assert(!docHubContent.includes('87/100'), 'ConsultantDocumentHub must not contain fixed 87/100 score');
@@ -52,18 +52,15 @@ function testConsultantDocumentHubIntegrity() {
 function testDocumentRejectionSafety() {
   console.log('[3/7] Testing Document Rejection & Verification Safety...');
   
-  // 1. Check legacy router
-  const routerContent = fs.readFileSync(path.resolve(__dirname, '../src/lib/api/legacyFirestoreRouter.ts'), 'utf-8');
-  assert(routerContent.includes("verified: status === 'verified'"), 'legacyFirestoreRouter must set verified: false on rejection');
 
-  // 2. Check verify-document API route
-  const verifyRouteContent = fs.readFileSync(path.resolve(__dirname, '../src/app/api/consultant/student/[id]/verify-document/route.ts'), 'utf-8');
+  // 1. Check verify-document API route
+  const verifyRouteContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/api/consultant/student/[id]/verify-document/route.ts'), 'utf-8');
   assert(verifyRouteContent.includes("const isVerified = status === 'verified'"), 'verify-document route must check for verified status');
   assert(verifyRouteContent.includes("verified: isVerified"), 'verify-document route must set verified to isVerified');
   assert(verifyRouteContent.includes("if (isVerified)"), 'Trust score boost must only occur when verified, never when rejected');
 
-  // 3. Check credentialService.ts
-  const credServiceContent = fs.readFileSync(path.resolve(__dirname, '../src/lib/services/supabase/credentialService.ts'), 'utf-8');
+  // 2. Check credentialService.ts
+  const credServiceContent = fs.readFileSync(path.resolve(__dirname, '../../src/lib/services/supabase/credentialService.ts'), 'utf-8');
   assert(credServiceContent.includes("statusOrNote === 'rejected'"), 'credentialService must handle rejected status');
   assert(credServiceContent.includes("VAULT_ITEM_REJECTED"), 'credentialService must audit rejection');
   assert(credServiceContent.includes("if (isVerified && item.user_id)"), 'Trust score boost must be conditional on verification');
@@ -73,7 +70,7 @@ function testDocumentRejectionSafety() {
 
 function testAdminOverviewAndActions() {
   console.log('[4/7] Testing Admin Overview & Institutional Actions...');
-  const overviewContent = fs.readFileSync(path.resolve(__dirname, '../src/components/admin/AdminOverview.tsx'), 'utf-8');
+  const overviewContent = fs.readFileSync(path.resolve(__dirname, '../../src/components/admin/AdminOverview.tsx'), 'utf-8');
 
   // Check no raw alert() calls for backup and clear cache
   assert(!overviewContent.includes("alert('Backup initiated')"), 'AdminOverview must not use fake backup alert');
@@ -90,13 +87,13 @@ function testAuditLogAndCsvExport() {
   console.log('[5/7] Testing Admin Audit Log & Institutional CSV Export...');
   
   // 1. Audit Log
-  const auditLogContent = fs.readFileSync(path.resolve(__dirname, '../src/components/admin/AuditLogView.tsx'), 'utf-8');
+  const auditLogContent = fs.readFileSync(path.resolve(__dirname, '../../src/components/admin/AuditLogView.tsx'), 'utf-8');
   assert(!auditLogContent.includes('SYSTEM_BOOT_INITIALIZED'), 'AuditLogView must not contain fake SYSTEM_BOOT_INITIALIZED');
   assert(!auditLogContent.includes('DATABASE_MIGRATION_V4'), 'AuditLogView must not contain fake DATABASE_MIGRATION_V4');
   assert(auditLogContent.includes('/api/admin/audit-log'), 'AuditLogView must fetch real logs from API');
 
   // 2. CSV Export in Shell
-  const shellContent = fs.readFileSync(path.resolve(__dirname, '../src/components/admin/AdminDashboardShell.tsx'), 'utf-8');
+  const shellContent = fs.readFileSync(path.resolve(__dirname, '../../src/components/admin/AdminDashboardShell.tsx'), 'utf-8');
   assert(!shellContent.includes('2026-08-17'), 'AdminDashboardShell must not hardcode 2026-08-17 CSV');
   assert(!shellContent.includes('STU-9941,Jane Doe'), 'AdminDashboardShell must not hardcode Jane Doe in CSV');
   assert(shellContent.includes('portalService.getEnrolledStudents()'), 'AdminDashboardShell must fetch real enrolled students for CSV export');
@@ -106,7 +103,7 @@ function testAuditLogAndCsvExport() {
 
 function testUserManagementAndRBAC() {
   console.log('[6/7] Testing User Management RBAC & Account Actions...');
-  const userMgmtContent = fs.readFileSync(path.resolve(__dirname, '../src/components/admin/UserManagement.tsx'), 'utf-8');
+  const userMgmtContent = fs.readFileSync(path.resolve(__dirname, '../../src/components/admin/UserManagement.tsx'), 'utf-8');
   
   // Enforce genuine RBAC: superadmin !== any admin
   assert(userMgmtContent.includes("currentUser?.role === 'superadmin'"), 'Only role === superadmin receives SuperAdmin privileges');
@@ -114,11 +111,11 @@ function testUserManagementAndRBAC() {
   assert(userMgmtContent.includes('/api/admin/users/'), 'UserManagement must call API endpoints for user actions');
 
   // Check banUser in admin/students/page.tsx
-  const studentsPageContent = fs.readFileSync(path.resolve(__dirname, '../src/app/admin/students/page.tsx'), 'utf-8');
+  const studentsPageContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/admin/students/page.tsx'), 'utf-8');
   assert(studentsPageContent.includes('!res.ok || data.ok === false'), 'banUser must check res.ok before modifying state');
   
   // Check user DELETE route
-  const deleteRouteContent = fs.readFileSync(path.resolve(__dirname, '../src/app/api/admin/users/[id]/route.ts'), 'utf-8');
+  const deleteRouteContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/api/admin/users/[id]/route.ts'), 'utf-8');
   assert(deleteRouteContent.includes("role: 'suspended'"), 'DELETE user endpoint must update role: suspended, not non-existent column');
   assert(!deleteRouteContent.includes('suspended: true'), 'DELETE user must not attempt to set non-existent suspended column');
 
@@ -129,14 +126,14 @@ function testAdminSettingsAndCohortsPage() {
   console.log('[7/7] Testing Admin Settings & Cohorts Page Integrity...');
   
   // Settings page
-  const settingsContent = fs.readFileSync(path.resolve(__dirname, '../src/app/admin/settings/page.tsx'), 'utf-8');
+  const settingsContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/admin/settings/page.tsx'), 'utf-8');
   assert(!settingsContent.includes('ANTHROPIC_API_KEY'), 'Admin settings must not show unused ANTHROPIC_API_KEY');
   assert(!settingsContent.includes('DATABASE_URL'), 'Admin settings must not show unused DATABASE_URL');
   assert(settingsContent.includes('NEXT_PUBLIC_SUPABASE_URL'), 'Admin settings must display actual system keys');
   assert(settingsContent.includes('localStorage.setItem'), 'Admin settings must persist configuration on save');
 
   // Cohorts page
-  const cohortsPageContent = fs.readFileSync(path.resolve(__dirname, '../src/app/admin/cohorts/page.tsx'), 'utf-8');
+  const cohortsPageContent = fs.readFileSync(path.resolve(__dirname, '../../src/app/admin/cohorts/page.tsx'), 'utf-8');
   assert(cohortsPageContent.includes('portalService.getEnrolledStudents()'), 'Cohorts page must fetch enrolled students from portalService');
   assert(cohortsPageContent.includes('No departmental cohort telemetry found'), 'Cohorts page must have empty state for departments');
   assert(cohortsPageContent.includes('No student placement or evidence dossiers found'), 'Cohorts page must have empty state for student list');

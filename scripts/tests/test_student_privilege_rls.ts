@@ -1,4 +1,4 @@
-// scripts/test_student_privilege_rls.ts
+// scripts/tests/test_student_privilege_rls.ts
 // Verifies that plain students CANNOT SELECT or DELETE from staff_catalogs
 // and that public_catalogs remain readable but non-writable by students.
 

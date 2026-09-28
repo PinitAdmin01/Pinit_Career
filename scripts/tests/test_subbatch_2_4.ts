@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_4.ts
+// scripts/tests/test_subbatch_2_4.ts
 // Verification test suite for Sub-Batch 2.4: Feature Unlocks & Grace Periods (Issues 043 – 047)
 
 import * as dotenv from 'dotenv';
@@ -10,9 +10,9 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { PGlite } from '@electric-sql/pglite';
-import { POST as extendGraceHandler } from '../src/app/api/pins/extend-grace/route';
-import { POST as buyAiMinutesHandler } from '../src/app/api/pins/buy-ai-minutes/route';
-import { generateTxId } from '../src/lib/hooks/usePins';
+import { POST as extendGraceHandler } from '../../src/app/api/pins/extend-grace/route';
+import { POST as buyAiMinutesHandler } from '../../src/app/api/pins/buy-ai-minutes/route';
+import { generateTxId } from '../../src/lib/hooks/usePins';
 
 async function runSubBatch24Tests() {
   console.log('========================================================================');

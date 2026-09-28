@@ -1,4 +1,4 @@
-# scripts/test_real_packaging.py
+# scripts/tests/test_real_packaging.py
 # PinIT Real OS-Level Packaging, Installation & Entry-Point Verification
 # Complies with Batch 010 Specification: Dual-Artifact Verification (Wheel + Sdist) in Isolated Virtual Environments
 

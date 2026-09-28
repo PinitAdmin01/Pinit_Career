@@ -1,4 +1,4 @@
-// scripts/test_batch013.ts
+// scripts/tests/test_batch013.ts
 // Comprehensive Invariant & Technical Audit Test Suite for PinIT Batch 013 (Days 63–67: Month 4 Week 13)
 // Problem Solving & DSA Foundations: Asymptotic Complexity, Memory Physics & Search Mechanics
 
@@ -13,9 +13,9 @@ import {
   DAY_67_MANIFEST,
   DAY_67_ASSESSMENT,
   COMPETENCY_ID_DSA_FOUNDATIONS,
-} from '../src/lib/curriculum/pythonFullStack/batch013';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch013';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

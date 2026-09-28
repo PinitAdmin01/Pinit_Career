@@ -1,4 +1,4 @@
-// scripts/test_batch012.ts
+// scripts/tests/test_batch012.ts
 // Invariant & Technical Audit Test Suite for PinIT Batch 012 (Days 56–60: Month 3 Week 12)
 // Milestone Project 3 & Gate 1 Foundation Exit Assessment: Modular Multi-Source Inventory & Configuration Management System
 
@@ -13,9 +13,9 @@ import {
   DAY_60_MANIFEST,
   DAY_60_ASSESSMENT,
   COMPETENCY_ID_APPLICATION_SYNTHESIS,
-} from '../src/lib/curriculum/pythonFullStack/batch012';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch012';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

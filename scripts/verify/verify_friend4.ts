@@ -1,6 +1,6 @@
-import { POST as contactHandler } from '../src/app/api/contact/route';
-import { portalService } from '../src/lib/services/portalService';
-import { inboxSyncService } from '../src/lib/chat/inboxSyncService';
+import { POST as contactHandler } from '../../src/app/api/contact/route';
+import { portalService } from '../../src/lib/services/portalService';
+import { inboxSyncService } from '../../src/lib/chat/inboxSyncService';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -9,7 +9,7 @@ async function runFriend4Verification() {
 
   // 1. Check for personal emails in source files
   console.log('1. Checking for personal emails (vinayrocker2002)...');
-  const srcDir = path.resolve(__dirname, '../src');
+  const srcDir = path.resolve(__dirname, '../../src');
   function scanDir(dir: string): string[] {
     const findings: string[] = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

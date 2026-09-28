@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { classifyDocumentCategory, VaultCategory, checkNameSimilarity } from '../src/lib/ats/documentAuditEngine';
-import { auditResumeATS } from '../src/lib/ats/atsScreener';
+import { classifyDocumentCategory, VaultCategory, checkNameSimilarity } from '../../src/lib/ats/documentAuditEngine';
+import { auditResumeATS } from '../../src/lib/ats/atsScreener';
 
 console.log('================================================================');
 console.log('🧪 VERIFY SUBBATCH 4.11: SECURE VAULT UPLOAD & DELETION HARDENING');

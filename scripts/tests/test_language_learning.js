@@ -67,22 +67,22 @@ function loadTsModule(absoluteOrRelativePath) {
 }
 
 // Load Modules
-const languageTypes = loadTsModule('../src/lib/language/languageTypes');
-const curriculumIndex = loadTsModule('../src/lib/language/curriculum/index');
-const englishCurriculum = loadTsModule('../src/lib/language/curriculum/english/index');
-const frenchCurriculum = loadTsModule('../src/lib/language/curriculum/french/index');
-const spanishCurriculum = loadTsModule('../src/lib/language/curriculum/spanish/index');
-const germanCurriculum = loadTsModule('../src/lib/language/curriculum/german/index');
-const japaneseCurriculum = loadTsModule('../src/lib/language/curriculum/japanese/index');
-const japaneseScript = loadTsModule('../src/lib/language/curriculum/japanese/kanaScript');
-const placementEngine = loadTsModule('../src/lib/language/placementEngine');
-const xpEngine = loadTsModule('../src/lib/language/languageXpEngine');
-const srsEngine = loadTsModule('../src/lib/language/srsEngine');
-const stringMatcher = loadTsModule('../src/lib/language/stringMatcher');
-const speakingEvaluator = loadTsModule('../src/lib/language/speakingEvaluator');
-const archetypeFuser = loadTsModule('../src/lib/language/archetypeFuser');
-const exerciseEngine = loadTsModule('../src/lib/language/exerciseEngine');
-const learnerMemoryService = loadTsModule('../src/lib/language/learnerMemoryService');
+const languageTypes = loadTsModule('../../src/lib/language/languageTypes');
+const curriculumIndex = loadTsModule('../../src/lib/language/curriculum/index');
+const englishCurriculum = loadTsModule('../../src/lib/language/curriculum/english/index');
+const frenchCurriculum = loadTsModule('../../src/lib/language/curriculum/french/index');
+const spanishCurriculum = loadTsModule('../../src/lib/language/curriculum/spanish/index');
+const germanCurriculum = loadTsModule('../../src/lib/language/curriculum/german/index');
+const japaneseCurriculum = loadTsModule('../../src/lib/language/curriculum/japanese/index');
+const japaneseScript = loadTsModule('../../src/lib/language/curriculum/japanese/kanaScript');
+const placementEngine = loadTsModule('../../src/lib/language/placementEngine');
+const xpEngine = loadTsModule('../../src/lib/language/languageXpEngine');
+const srsEngine = loadTsModule('../../src/lib/language/srsEngine');
+const stringMatcher = loadTsModule('../../src/lib/language/stringMatcher');
+const speakingEvaluator = loadTsModule('../../src/lib/language/speakingEvaluator');
+const archetypeFuser = loadTsModule('../../src/lib/language/archetypeFuser');
+const exerciseEngine = loadTsModule('../../src/lib/language/exerciseEngine');
+const learnerMemoryService = loadTsModule('../../src/lib/language/learnerMemoryService');
 
 const { SUPPORTED_LANGUAGES, CURRICULUM_VERSION } = languageTypes;
 const { calculatePlacementResult } = placementEngine;
@@ -274,20 +274,20 @@ test('59. Speech Evaluator: German Transcript Evaluation (de-DE)', () => {
 test('60. Archetype Fuser: Pattern Hunter Preference', () => { assert.strictEqual(calculatePracticeStyle({ patternHunter: 50, explorer: 10, socialIQ: 20, stabilizer: 20 }).primaryArchetype, 'Pattern Hunter'); });
 
 // --- CATEGORY 7: DATABASE DDL, RLS & CURRICULUM VERSIONING (TESTS 61-70) ---
-test('61. Schema DDL: Composite Primary Keys (student_id, language_code) Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('primary key (student_id, language_code)')); });
-test('62. Schema DDL: Unique Constraint (student_id, language_code, lesson_id) on XP Awards Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('unique(student_id, language_code, lesson_id)')); });
-test('63. Schema DDL: curriculum_version Default Present on All Language Tables', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes("curriculum_version text default '1.0'")); });
+test('61. Schema DDL: Composite Primary Keys (student_id, language_code) Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('primary key (student_id, language_code)')); });
+test('62. Schema DDL: Unique Constraint (student_id, language_code, lesson_id) on XP Awards Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('unique(student_id, language_code, lesson_id)')); });
+test('63. Schema DDL: curriculum_version Default Present on All Language Tables', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes("curriculum_version text default '1.0'")); });
 test('64. Schema DDL: Explicit 6-Role CREATE POLICY Statements Present', () => {
-  const ddl = fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8');
+  const ddl = fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8');
   assert.ok(ddl.includes('create policy "Student SELECT own language progress"'));
   assert.ok(ddl.includes('create policy "Teacher SELECT assigned student progress"'));
   assert.ok(ddl.includes('create policy "Parent SELECT linked child language progress"'));
   assert.ok(ddl.includes('create policy "Admin ALL language progress"'));
 });
-test('65. Schema DDL: Japanese Script Mastery Columns (hiragana_mastery, katakana_mastery, kanji_mastery) Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('hiragana_mastery numeric default 0')); });
-test('66. Schema DDL: P0 SRS Table student_language_srs_cards Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('create table if not exists public.student_language_srs_cards')); });
-test('67. Schema DDL: SRS Composite Key primary key (student_id, language_code, item_id) Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('primary key (student_id, language_code, item_id)')); });
-test('68. Schema DDL: SRS Table RLS Policy Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('create policy "Student ALL own srs cards" on public.student_language_srs_cards')); });
+test('65. Schema DDL: Japanese Script Mastery Columns (hiragana_mastery, katakana_mastery, kanji_mastery) Present', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('hiragana_mastery numeric default 0')); });
+test('66. Schema DDL: P0 SRS Table student_language_srs_cards Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('create table if not exists public.student_language_srs_cards')); });
+test('67. Schema DDL: SRS Composite Key primary key (student_id, language_code, item_id) Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('primary key (student_id, language_code, item_id)')); });
+test('68. Schema DDL: SRS Table RLS Policy Defined', () => { assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('create policy "Student ALL own srs cards" on public.student_language_srs_cards')); });
 test('69. Speech Evaluator: French Transcript Evaluation (fr-FR)', () => { assert.strictEqual(evaluateSpeakingTranscript({ languageCode: 'fr', transcript: 'Bonjour, je suis étudiant en informatique.', expectedKeywords: ['bonjour', 'étudiant'], minWordCount: 5, durationSeconds: 5 }).sttLangCode, 'fr-FR'); });
 test('70. Speech Evaluator: Spanish Transcript Evaluation (es-ES)', () => { assert.strictEqual(evaluateSpeakingTranscript({ languageCode: 'es', transcript: 'Hola, me llamo Carlos y soy estudiante de ingeniería.', expectedKeywords: ['hola', 'estudiante'], minWordCount: 5, durationSeconds: 5 }).sttLangCode, 'es-ES'); });
 
@@ -358,10 +358,10 @@ test('83. Japanese Script: Kanji + Furigana Display Mode Compatibility', () => {
   assert.strictEqual(char.furigana, 'にち');
 });
 test('84. Schema DDL: student_language_memories DDL Table Present in campus_tables.sql', () => {
-  assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('create table if not exists public.student_language_memories'));
+  assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('create table if not exists public.student_language_memories'));
 });
 test('85. Schema DDL: student_language_memories RLS Policy Present in campus_tables.sql', () => {
-  assert.ok(fs.readFileSync(path.join(__dirname, '../supabase/campus_tables.sql'), 'utf-8').includes('create policy "Student ALL own language memories" on public.student_language_memories'));
+  assert.ok(fs.readFileSync(path.join(__dirname, '../../supabase/campus_tables.sql'), 'utf-8').includes('create policy "Student ALL own language memories" on public.student_language_memories'));
 });
 
 console.log(`\n================================================================`);

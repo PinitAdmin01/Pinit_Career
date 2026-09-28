@@ -28,7 +28,7 @@
  * is applied to the live project — that is the honest, current state, not a
  * test bug. Once applied, this test should report PASS.
  *
- * Run: node scripts/completion-xp-authorization.test.js
+ * Run: node scripts/utils/completion-xp-authorization.test.js
  */
 
 import * as fs from 'fs';
@@ -36,7 +36,7 @@ import * as path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
 function getEnvVar(name: string): string {
-  const envPath = path.join(__dirname, '..', '.env');
+  const envPath = path.join(__dirname, '..', '..', '.env');
   const text = fs.readFileSync(envPath, 'utf8');
   const match = new RegExp(`^${name}=(.*)$`, 'm').exec(text);
   return match ? match[1].trim().replace(/\r$/, '') : '';

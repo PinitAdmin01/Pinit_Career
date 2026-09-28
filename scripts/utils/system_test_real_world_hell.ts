@@ -2,14 +2,14 @@ import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 
-import { GET as getFriends, POST as postFriend, PATCH as patchFriend, DELETE as deleteFriend } from '../src/app/api/friends/route';
-import { GET as getMessages, POST as postMessage, PATCH as patchMessage } from '../src/app/api/friends/messages/route';
-import { GET as getChallenges, POST as postChallenge, PATCH as patchChallenge } from '../src/app/api/friends/challenges/route';
-import { GET as getProjects, POST as postProject, PATCH as patchProject } from '../src/app/api/friends/projects/route';
-import { GET as getPrivacy, PUT as putPrivacy, POST as postPrivacy } from '../src/app/api/friends/privacy/route';
-import { POST as postReport } from '../src/app/api/friends/report/route';
-import { GET as getSuggestions } from '../src/app/api/friends/suggestions/route';
-import { computeStudentMatch, CURRENT_STUDENT_PROFILE, rankAndFilterStudents, MatchStudentProfile } from '../src/lib/friends/matching';
+import { GET as getFriends, POST as postFriend, PATCH as patchFriend, DELETE as deleteFriend } from '../../src/app/api/friends/route';
+import { GET as getMessages, POST as postMessage, PATCH as patchMessage } from '../../src/app/api/friends/messages/route';
+import { GET as getChallenges, POST as postChallenge, PATCH as patchChallenge } from '../../src/app/api/friends/challenges/route';
+import { GET as getProjects, POST as postProject, PATCH as patchProject } from '../../src/app/api/friends/projects/route';
+import { GET as getPrivacy, PUT as putPrivacy, POST as postPrivacy } from '../../src/app/api/friends/privacy/route';
+import { POST as postReport } from '../../src/app/api/friends/report/route';
+import { GET as getSuggestions } from '../../src/app/api/friends/suggestions/route';
+import { computeStudentMatch, CURRENT_STUDENT_PROFILE, rankAndFilterStudents, MatchStudentProfile } from '../../src/lib/friends/matching';
 
 const DB_PATH = path.join(process.cwd(), 'src', 'lib', 'data', 'friends_db.json');
 

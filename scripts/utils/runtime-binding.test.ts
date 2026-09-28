@@ -21,15 +21,15 @@
  * resolvePilotDay() from curriculumEnricher.ts — not a re-implementation, so
  * it fails if either dispatch site drifts from the shared resolver again.
  *
- * Run:  node scripts/runtime-binding.test.js
+ * Run:  node scripts/utils/runtime-binding.test.js
  */
 
-import { parseQuestId, resolvePilotDay } from '../src/lib/data/curriculumEnricher';
-import { BLOCKCHAIN_PILOT_DAYS } from '../src/lib/data/blockchainPilotDays';
-import { IOT_SECURITY_PILOT_DAYS } from '../src/lib/data/iotSecurityPilotDays';
-import { AI_PILOT_DAYS } from '../src/lib/data/aiPilotDays';
-import { CYBER_PILOT_DAYS } from '../src/lib/data/cybersecurityPilotDays';
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
+import { parseQuestId, resolvePilotDay } from '../../src/lib/data/curriculumEnricher';
+import { BLOCKCHAIN_PILOT_DAYS } from '../../src/lib/data/blockchainPilotDays';
+import { IOT_SECURITY_PILOT_DAYS } from '../../src/lib/data/iotSecurityPilotDays';
+import { AI_PILOT_DAYS } from '../../src/lib/data/aiPilotDays';
+import { CYBER_PILOT_DAYS } from '../../src/lib/data/cybersecurityPilotDays';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
 
 let failures = 0;
 let passed = 0;

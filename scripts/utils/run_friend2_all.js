@@ -1,18 +1,18 @@
-// scripts/run_friend2_all.js
+// scripts/utils/run_friend2_all.js
 // Master test runner for Friend 2: Economy, Financial Ledger, Pins & Concurrency (Issues 028 to 054)
 
 const { spawnSync } = require('child_process');
 const path = require('path');
 
 const suites = [
-  { name: 'Sub-Batch 2.1 (Issues 028-032: Atomic Pins & Locks)', file: 'scripts/test_subbatch_2_1.ts' },
-  { name: 'Sub-Batch 2.2 (Issues 033-037: Time Integrity & Scholarships)', file: 'scripts/test_subbatch_2_2.ts' },
-  { name: 'Sub-Batch 2.3 (Issues 038-042: Payment Gateways & Webhooks)', file: 'scripts/test_subbatch_2_3.ts' },
-  { name: 'Sub-Batch 2.4 (Issues 043-047: Feature Unlocks & Grace)', file: 'scripts/test_subbatch_2_4.ts' },
-  { name: 'Sub-Batch 2.5 (Issues 048-052: XP Progression & Scoring)', file: 'scripts/test_subbatch_2_5.ts' },
-  { name: 'Sub-Batch 2.6 (Issues 053-054: Store Sync & Realtime)', file: 'scripts/test_subbatch_2_6.ts' },
-  { name: 'Dual-Router Parity (Task 2.1: LIVE_API_PREFIXES Parity Linter)', file: 'scripts/verify_api_parity.ts' },
-  { name: 'Blueprint 10/10 (Tasks 2.1-2.3: Cryptographic Receipts, 45s Fail-Closed Locks, Daily XP Cap)', file: 'scripts/test_friend2_blueprint.ts' },
+  { name: 'Sub-Batch 2.1 (Issues 028-032: Atomic Pins & Locks)', file: 'scripts/tests/test_subbatch_2_1.ts' },
+  { name: 'Sub-Batch 2.2 (Issues 033-037: Time Integrity & Scholarships)', file: 'scripts/tests/test_subbatch_2_2.ts' },
+  { name: 'Sub-Batch 2.3 (Issues 038-042: Payment Gateways & Webhooks)', file: 'scripts/tests/test_subbatch_2_3.ts' },
+  { name: 'Sub-Batch 2.4 (Issues 043-047: Feature Unlocks & Grace)', file: 'scripts/tests/test_subbatch_2_4.ts' },
+  { name: 'Sub-Batch 2.5 (Issues 048-052: XP Progression & Scoring)', file: 'scripts/tests/test_subbatch_2_5.ts' },
+  { name: 'Sub-Batch 2.6 (Issues 053-054: Store Sync & Realtime)', file: 'scripts/tests/test_subbatch_2_6.ts' },
+  { name: 'Client-Server API Parity (Task 2.1: every /api call has a route)', file: 'scripts/verify/verify_api_parity.ts' },
+  { name: 'Blueprint 10/10 (Tasks 2.1-2.3: Cryptographic Receipts, 45s Fail-Closed Locks, Daily XP Cap)', file: 'scripts/tests/test_friend2_blueprint.ts' },
 ];
 
 console.log('========================================================================');

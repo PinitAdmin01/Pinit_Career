@@ -1,17 +1,17 @@
-// scripts/test_evidence_mastery.ts
+// scripts/tests/test_evidence_mastery.ts
 // Exhaustive 360-degree forensic audit runner for Evidence Ledger & Gated Mastery Engine
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
-import { CompetencyEvidenceRecord } from '../src/lib/pathway/competencySchema';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
+import { CompetencyEvidenceRecord } from '../../src/lib/pathway/competencySchema';
 import {
   generateEvidenceIntegrityHash,
   processEvidenceLedger,
   verifyEvidenceIntegrity,
-} from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/evidenceEngine';
 import {
   evaluateCompetencyMastery,
   MASTERY_POLICY_VERSION,
-} from '../src/lib/pathway/masteryEngine';
+} from '../../src/lib/pathway/masteryEngine';
 
 console.log('================================================================');
 console.log('  PINIT EVIDENCE & MASTERY ENGINE: 360° FORENSIC AUDIT SUITE    ');

@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { evaluateQT2Model } from '../src/lib/ats/qt2AnalysisEngine';
-import { VaultDocumentSlot, IdentityAuditReport } from '../src/lib/ats/documentAuditEngine';
+import { evaluateQT2Model } from '../../src/lib/ats/qt2AnalysisEngine';
+import { VaultDocumentSlot, IdentityAuditReport } from '../../src/lib/ats/documentAuditEngine';
 
 console.log('================================================================');
 console.log('🧪 VERIFY SUBBATCH 4.10: QT2 ENGINE HARDENING & METHODOLOGY AUDIT');

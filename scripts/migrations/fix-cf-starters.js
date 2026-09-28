@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 // ── Computer Fundamentals: trivial no-param aStarters ──────────────────────
 function fixCfTrivialStarters(text) {

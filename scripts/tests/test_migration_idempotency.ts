@@ -1,5 +1,5 @@
 /**
- * scripts/test_migration_idempotency.ts
+ * scripts/tests/test_migration_idempotency.ts
  *
  * Verifies that supabase/migrations/PRODUCTION_CONSOLIDATED_MIGRATIONS.sql
  * is 100% IDEMPOTENT by executing it TWICE sequentially against a real
@@ -10,7 +10,7 @@
  *   2. Run 2 succeeds with exit 0 (proving zero 42710 duplicate policy/table/trigger aborts).
  *   3. All 23 missing tables exist and are verified.
  *
- * Run: npx tsx scripts/test_migration_idempotency.ts
+ * Run: npx tsx scripts/tests/test_migration_idempotency.ts
  */
 import { PGlite } from '@electric-sql/pglite';
 import fs from 'fs';
@@ -81,7 +81,7 @@ async function main() {
   `);
   check('Baseline roles, auth schema, and public.users initialized', true);
 
-  const bundlePath = path.join(__dirname, '..', 'supabase', 'migrations', 'PRODUCTION_CONSOLIDATED_MIGRATIONS.sql');
+  const bundlePath = path.join(__dirname, '..', '..', 'supabase', 'migrations', 'PRODUCTION_CONSOLIDATED_MIGRATIONS.sql');
   const bundleSql = fs.readFileSync(bundlePath, 'utf8');
 
   // 2. PASS 1: Initial migration application

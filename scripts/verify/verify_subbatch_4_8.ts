@@ -1,4 +1,4 @@
-// scripts/verify_subbatch_4_8.ts
+// scripts/verify/verify_subbatch_4_8.ts
 /**
  * Verification Script for Subbatch 4.8 / Issue 31:
  * "Deterministic fact grounding with location provenance"
@@ -14,8 +14,8 @@
  * 8. Corroboration: Identical facts across distinct documents elevate to CROSS_VALIDATED.
  */
 
-import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
-import { evaluateDocumentContradictions } from '../src/lib/ats/contradictionEngine';
+import { groundAndValidateEvidence } from '../../src/lib/ats/factCheckValidator';
+import { evaluateDocumentContradictions } from '../../src/lib/ats/contradictionEngine';
 
 let passed = 0;
 let failed = 0;

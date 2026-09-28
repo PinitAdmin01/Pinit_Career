@@ -1,4 +1,4 @@
-// scripts/audit_production_performance.ts
+// scripts/audit/audit_production_performance.ts
 import fs from 'fs';
 import path from 'path';
 

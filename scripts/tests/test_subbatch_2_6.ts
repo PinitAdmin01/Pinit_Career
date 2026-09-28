@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_6.ts
+// scripts/tests/test_subbatch_2_6.ts
 // Verification test suite for Sub-Batch 2.6: Store Sync & Streak Calculations (Issues 053 – 054)
 
 import * as dotenv from 'dotenv';
@@ -6,7 +6,7 @@ dotenv.config();
 
 import fs from 'fs';
 import path from 'path';
-import { PinTransaction } from '../src/lib/hooks/usePins';
+import { PinTransaction } from '../../src/lib/hooks/usePins';
 
 async function runSubBatch26Tests() {
   console.log('========================================================================');

@@ -77,9 +77,9 @@ curl -s -w "\n%{http_code}\n" https://pinit-careers.web.app/api/code/run-java
 ```
 
 Then re-run, from a machine with a real logged-in student session:
-`scripts/java-judge-compile.test.js` covers the compile pipeline; a full
+`scripts/utils/java-judge-compile.test.js` covers the compile pipeline; a full
 browser-based re-check of the empirical proof in
-`scripts/java-judge-routing.test.ts`'s header comment (this time against
+`scripts/utils/java-judge-routing.test.ts`'s header comment (this time against
 `pinit-careers.web.app` instead of `localhost:3000`) is the way to confirm the
 production path specifically.
 

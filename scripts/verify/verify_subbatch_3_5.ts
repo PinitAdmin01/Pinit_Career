@@ -3,8 +3,8 @@
  * Tests Defects 075 – 079
  */
 
-import { getUsersPage, getAllUsers, updateApplicationStatus } from '../src/lib/supabaseService';
-import { adminService } from '../src/lib/services/adminService';
+import { getUsersPage, getAllUsers, updateApplicationStatus } from '../../src/lib/supabaseService';
+import { adminService } from '../../src/lib/services/adminService';
 
 async function runSubBatch35Tests() {
   console.log('🧪 ========================================================');

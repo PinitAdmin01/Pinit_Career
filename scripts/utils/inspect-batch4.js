@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const [,, courseFile] = process.argv;
-const filePath = path.join(__dirname, '..', 'src', 'lib', 'data', courseFile);
+const filePath = path.join(__dirname, '..', '..', 'src', 'lib', 'data', courseFile);
 const text = fs.readFileSync(filePath, 'utf8');
 
 const starts = [];

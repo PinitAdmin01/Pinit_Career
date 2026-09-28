@@ -3,7 +3,7 @@
  * Tests Defects 070 – 074
  */
 
-import { isQuotaExceededError, pruneStorageCache, safeLocalStorageSetItem } from '../src/lib/storage/careerStorage';
+import { isQuotaExceededError, pruneStorageCache, safeLocalStorageSetItem } from '../../src/lib/storage/careerStorage';
 
 // Mock localStorage for headless Node environment
 class MockLocalStorage {

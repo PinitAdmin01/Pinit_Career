@@ -8,12 +8,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const suites = [
-  { id: '4.1', name: 'Speech-to-Text & Audio Fallback (Issues 082 - 086)', script: 'scripts/verify_subbatch_4_1.ts' },
-  { id: '4.2', name: 'Interview Evaluation & Socratic Grading (Issues 087 - 091)', script: 'scripts/verify_subbatch_4_2.ts' },
-  { id: '4.3', name: 'Practical Verification & Anti-Cheat Logic (Issues 092 - 096)', script: 'scripts/verify_subbatch_4_3.ts' },
-  { id: '4.4', name: 'Career Twin & Real Data Simulation (Issues 097 - 101)', script: 'scripts/verify_subbatch_4_4.ts' },
-  { id: '4.5', name: 'Leaderboard Legitimacy & Cohort Data (Issues 102 - 106)', script: 'scripts/verify_subbatch_4_5.ts' },
-  { id: '4.6', name: 'Global Context Decomposition (Issue 107)', script: 'scripts/verify_subbatch_4_6.ts' },
+  { id: '4.1', name: 'Speech-to-Text & Audio Fallback (Issues 082 - 086)', script: 'scripts/verify/verify_subbatch_4_1.ts' },
+  { id: '4.2', name: 'Interview Evaluation & Socratic Grading (Issues 087 - 091)', script: 'scripts/verify/verify_subbatch_4_2.ts' },
+  { id: '4.3', name: 'Practical Verification & Anti-Cheat Logic (Issues 092 - 096)', script: 'scripts/verify/verify_subbatch_4_3.ts' },
+  { id: '4.4', name: 'Career Twin & Real Data Simulation (Issues 097 - 101)', script: 'scripts/verify/verify_subbatch_4_4.ts' },
+  { id: '4.5', name: 'Leaderboard Legitimacy & Cohort Data (Issues 102 - 106)', script: 'scripts/verify/verify_subbatch_4_5.ts' },
+  { id: '4.6', name: 'Global Context Decomposition (Issue 107)', script: 'scripts/verify/verify_subbatch_4_6.ts' },
 ];
 
 console.log('========================================================================');

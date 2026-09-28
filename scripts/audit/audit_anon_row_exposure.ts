@@ -1,12 +1,12 @@
 /**
- * scripts/audit_anon_row_exposure.ts
+ * scripts/audit/audit_anon_row_exposure.ts
  *
  * Does the anon (public) key actually return ROWS from any table?
  *
  * ─────────────────────────────────────────────────────────────────────────────
  * WHY THIS REPLACES THE STATUS-CODE AUDIT
  * ─────────────────────────────────────────────────────────────────────────────
- * scripts/audit_full_schema_inventory.ts reports "ALLOWED (200)" for a table
+ * scripts/audit/audit_full_schema_inventory.ts reports "ALLOWED (200)" for a table
  * whenever the HTTP status is 200. It never reads the response body:
  *
  *     resolve(res.statusCode || 0);                         // line 58
@@ -26,7 +26,7 @@
  * performs on page load. Writes nothing. Never prints key material, and
  * truncates any leaked values so this output can be pasted safely.
  *
- * Run: npx tsx scripts/audit_anon_row_exposure.ts
+ * Run: npx tsx scripts/audit/audit_anon_row_exposure.ts
  */
 import https from 'https';
 import fs from 'fs';
@@ -34,7 +34,7 @@ import path from 'path';
 
 function loadEnv(): { url: string; anon: string } {
   for (const f of ['.env.local', '.env']) {
-    const p = path.join(__dirname, '..', f);
+    const p = path.join(__dirname, '..', '..', f);
     if (!fs.existsSync(p)) continue;
     const txt = fs.readFileSync(p, 'utf8');
     const url = txt.match(/NEXT_PUBLIC_SUPABASE_URL\s*=\s*(.+)/)?.[1]?.trim().replace(/^["']|["']$/g, '');

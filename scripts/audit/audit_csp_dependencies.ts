@@ -1,4 +1,4 @@
-// scripts/audit_csp_dependencies.ts
+// scripts/audit/audit_csp_dependencies.ts
 // Exhaustive Runtime Dependency Inventory for Dynamic Evaluation (eval, new Function, WebAssembly)
 
 import fs from 'fs';

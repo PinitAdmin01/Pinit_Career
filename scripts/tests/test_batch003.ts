@@ -1,4 +1,4 @@
-// scripts/test_batch003.ts
+// scripts/tests/test_batch003.ts
 // Automated Quality, Pedagogical Progression, Assessment Sanitization & Verification Test Suite for PinIT Batch 003
 
 import {
@@ -10,12 +10,12 @@ import {
   DAY_15_MANIFEST,
   DAY_15_ASSESSMENT,
   COMPETENCY_ID_FUNCTIONS_MODULAR,
-} from '../src/lib/curriculum/pythonFullStack/batch003';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
-import { assessmentEngine } from '../src/lib/curriculum/assessmentEngine';
-import { evidenceLedger } from '../src/lib/curriculum/evidenceLedger';
-import { PYTHON_FULLSTACK_COURSE } from '../src/lib/curriculum/pythonFullStack/curriculumSpine';
+} from '../../src/lib/curriculum/pythonFullStack/batch003';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
+import { assessmentEngine } from '../../src/lib/curriculum/assessmentEngine';
+import { evidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
+import { PYTHON_FULLSTACK_COURSE } from '../../src/lib/curriculum/pythonFullStack/curriculumSpine';
 
 let testsPassed = 0;
 let testsFailed = 0;

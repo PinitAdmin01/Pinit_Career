@@ -13,12 +13,12 @@ process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
 import {
   generateEvidenceIntegrityHash,
   verifyEvidenceIntegrity
-} from '../src/lib/pathway/evidenceEngine';
-import { CompetencyEvidenceRecord } from '../src/lib/pathway/competencySchema';
-import { GET as verifyRouteGET } from '../src/app/api/verify/[credentialId]/route';
-import { GET as transcriptRouteGET } from '../src/app/api/passport/transcript/route';
-import { resolveLinkedStudent, POST as githubWebhookPOST } from '../src/app/api/webhooks/github/route';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+} from '../../src/lib/pathway/evidenceEngine';
+import { CompetencyEvidenceRecord } from '../../src/lib/pathway/competencySchema';
+import { GET as verifyRouteGET } from '../../src/app/api/verify/[credentialId]/route';
+import { GET as transcriptRouteGET } from '../../src/app/api/passport/transcript/route';
+import { resolveLinkedStudent, POST as githubWebhookPOST } from '../../src/app/api/webhooks/github/route';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('========================================================================');
 console.log('🧪 VERIFY SUBBATCH 4.13: PASSPORT TRANSCRIPT, VERIFY LINK & GITHUB EVIDENCE');

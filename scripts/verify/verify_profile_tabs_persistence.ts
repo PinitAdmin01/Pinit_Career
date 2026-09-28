@@ -44,7 +44,7 @@ async function run() {
 
   // Test 4: Data Contract mappings in userService.ts
   console.log('Test 4: userService endorsed_skills contract mappings');
-  const { mapRowToProfile, mapProfileToRow, stripSelfServicePrivileges } = await import('../src/lib/services/supabase/userService');
+  const { mapRowToProfile, mapProfileToRow, stripSelfServicePrivileges } = await import('../../src/lib/services/supabase/userService');
 
   // 4a. mapRowToProfile maps endorsed_skills to both endorsedSkills and endorsed_skills
   const testRow = {
@@ -88,7 +88,7 @@ async function run() {
 
   // Test 5: Route handler tests for /api/student/activity
   console.log('Test 5: /api/student/activity GET & POST route testing');
-  const { GET, POST } = await import('../src/app/api/student/activity/route');
+  const { GET, POST } = await import('../../src/app/api/student/activity/route');
 
   // 5a. Unauthenticated GET rejected with 401
   const unauthReq = new Request('http://localhost:3000/api/student/activity');

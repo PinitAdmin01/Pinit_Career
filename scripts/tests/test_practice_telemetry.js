@@ -21,7 +21,7 @@ const {
   evaluateSpeakingPace,
   evaluateFacialMovement,
   synthesizePracticeTelemetryReport
-} = transpileAndRequire(path.join(__dirname, '../src/lib/telemetry/practiceTelemetry.ts'));
+} = transpileAndRequire(path.join(__dirname, '../../src/lib/telemetry/practiceTelemetry.ts'));
 
 let passed = 0;
 let failed = 0;

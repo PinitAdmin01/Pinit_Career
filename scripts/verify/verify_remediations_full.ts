@@ -1,11 +1,11 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { DEMO_PASSWORDS, isDemoPassword, DEMO_ROLE_BY_EMAIL } from '../src/lib/demoAuth';
-import { financeService } from '../src/lib/services/financeService';
-import { examsService } from '../src/lib/services/examsService';
-import { CodeWarsApiService } from '../src/lib/api/codeWarsApi';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+import { DEMO_PASSWORDS, isDemoPassword, DEMO_ROLE_BY_EMAIL } from '../../src/lib/demoAuth';
+import { financeService } from '../../src/lib/services/financeService';
+import { examsService } from '../../src/lib/services/examsService';
+import { CodeWarsApiService } from '../../src/lib/api/codeWarsApi';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 async function runVerification() {
   console.log('========================================================================');

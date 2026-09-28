@@ -6,13 +6,13 @@ process.env.NODE_ENV = 'test';
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { resolveQuestLanguage, getLangInfo } from '../src/components/quests/workspace/useWorkspaceState';
-import { executePythonSuite } from '../src/lib/code/runners/pythonRunner';
-import { executeJavaScriptSuite } from '../src/lib/code/runners/jsRunner';
-import { PIN_COSTS, PIN_EARN } from '../src/lib/hooks/usePinBalance';
-import { POST as verifyQuestPost } from '../src/app/api/quests/verify/route';
-import { POST as earnPinsPost } from '../src/app/api/pins/earn/route';
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
+import { resolveQuestLanguage, getLangInfo } from '../../src/components/quests/workspace/useWorkspaceState';
+import { executePythonSuite } from '../../src/lib/code/runners/pythonRunner';
+import { executeJavaScriptSuite } from '../../src/lib/code/runners/jsRunner';
+import { PIN_COSTS, PIN_EARN } from '../../src/lib/hooks/usePinBalance';
+import { POST as verifyQuestPost } from '../../src/app/api/quests/verify/route';
+import { POST as earnPinsPost } from '../../src/app/api/pins/earn/route';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
 
 async function runWorkspaceAndRewardsVerification() {
   console.log('========================================================================');
@@ -89,8 +89,8 @@ async function runWorkspaceAndRewardsVerification() {
   // 2. CSP Headers: cdn.jsdelivr.net Ingress Allowance
   // ─────────────────────────────────────────────────────────────────────────────
   console.log('\n2. CSP Configuration & CDN Ingress');
-  const nextConfigPath = path.join(__dirname, '../next.config.js');
-  const firebaseJsonPath = path.join(__dirname, '../firebase.json');
+  const nextConfigPath = path.join(__dirname, '../../next.config.js');
+  const firebaseJsonPath = path.join(__dirname, '../../firebase.json');
 
   const nextConfigContent = fs.readFileSync(nextConfigPath, 'utf8');
   const firebaseJsonContent = fs.readFileSync(firebaseJsonPath, 'utf8');
@@ -261,7 +261,7 @@ solve()
   assert(PIN_EARN.exam_pass > 0, `PIN_EARN.exam_pass is > 0 (Got: ${PIN_EARN.exam_pass})`);
 
   // WorkspaceSubmitPanel must use PIN_COSTS.quest?.cost ?? 20
-  const submitPanelPath = path.join(__dirname, '../src/components/quests/workspace/WorkspaceSubmitPanel.tsx');
+  const submitPanelPath = path.join(__dirname, '../../src/components/quests/workspace/WorkspaceSubmitPanel.tsx');
   const submitPanelContent = fs.readFileSync(submitPanelPath, 'utf8');
   assert(!submitPanelContent.includes('Cost: 5 Pins'), 'Hardcoded "Cost: 5 Pins" removed from WorkspaceSubmitPanel');
   assert(submitPanelContent.includes('PIN_COSTS.quest?.cost ?? 20'), 'WorkspaceSubmitPanel derives cost from PIN_COSTS.quest.cost');

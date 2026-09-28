@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { buildFreshDatabase, createPlatformDb } from '../helpers/db';
-import { collectExpectedObjects, INVENTORY_PATH, renderInventorySql } from '../../scripts/generate_db_inventory';
+import { collectExpectedObjects, INVENTORY_PATH, renderInventorySql } from '../../scripts/utils/generate_db_inventory';
 
 const inventorySql = () => fs.readFileSync(INVENTORY_PATH, 'utf8');
 

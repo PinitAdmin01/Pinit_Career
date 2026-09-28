@@ -54,7 +54,7 @@ async function runTests() {
     markNotificationRead,
     markAllNotificationsRead,
     sendBroadcastNotification
-  } = await import('../src/lib/services/supabase/socialService');
+  } = await import('../../src/lib/services/supabase/socialService');
 
   const normalized = normalizeNotification({
     id: 'test_n_1',
@@ -107,9 +107,9 @@ async function runTests() {
 
   // --- Test 3: API Route Handlers ---
   console.log('\n--- 3. Dedicated Next.js Notification API Routes ---');
-  const { GET: notifGET, POST: notifPOST } = await import('../src/app/api/notifications/route');
-  const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
-  const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
+  const { GET: notifGET, POST: notifPOST } = await import('../../src/app/api/notifications/route');
+  const { POST: markAllPOST } = await import('../../src/app/api/notifications/mark-all-read/route');
+  const { PATCH: markOnePATCH } = await import('../../src/app/api/notifications/[id]/read/route');
 
   // GET notifications
   const getReq = new NextRequest(`http://localhost:3000/api/notifications`, {
@@ -158,8 +158,7 @@ async function runTests() {
 
   // --- Test 4: Leaderboard Audit & Real ELO Rating ---
   console.log('\n--- 4. Leaderboard Audit & Real ELO Rating ---');
-  const { GET: leaderboardGET } = await import('../src/app/api/leaderboard/route');
-  const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+  const { GET: leaderboardGET } = await import('../../src/app/api/leaderboard/route');
 
   const lbReq = new NextRequest('http://localhost:3000/api/leaderboard?mode=code_wars', {
     headers: { 'authorization': 'Bearer demo-token-bypass' }
@@ -179,19 +178,6 @@ async function runTests() {
     const first = lbJson.leaderboard[0];
     check('Leaderboard entries have genuine eloRating number', typeof first.eloRating === 'number' && first.eloRating >= 1000);
   }
-
-  // Verify browser shim fallback in legacyFirestoreRouter
-  const shimResult = await firestoreRouter('GET', '/api/leaderboard', undefined) as any;
-  check('legacyFirestoreRouter /api/leaderboard returns ok: true', shimResult.ok === true);
-  check('legacyFirestoreRouter /api/leaderboard returns multi-peer cohort (not just "You")', Array.isArray(shimResult.leaderboard) && shimResult.leaderboard.length >= 2);
-  const shimHasElo = shimResult.leaderboard.every((e: any) => typeof e.eloRating === 'number');
-  check('legacyFirestoreRouter all entries have valid numeric eloRating', shimHasElo);
-
-  // Verify router notifications handling
-  const routerMarkAll = await firestoreRouter('POST', '/api/notifications/mark-all-read', {}) as any;
-  check('legacyFirestoreRouter POST /api/notifications/mark-all-read returns ok: true', routerMarkAll.ok === true);
-  const routerMarkOne = await firestoreRouter('PATCH', '/api/notifications/notif_abc/read', {}) as any;
-  check('legacyFirestoreRouter /api/notifications/[id]/read returns ok: true', routerMarkOne.ok === true);
 
   console.log('\n========================================================================');
   console.log(`📊 RESULT: ${passed} / ${passed + failed} TESTS PASSED`);

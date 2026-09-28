@@ -1,11 +1,11 @@
-// scripts/test_golden_student_journey.ts
+// scripts/tests/test_golden_student_journey.ts
 // End-to-End Fresh-Student Golden Journey Simulation Test Suite for PinIT Career OS
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
 import {
   CAREER_PROGRAMS_CATALOG,
   calculateDynamicRoleReadiness,
-} from '../src/lib/pathway/programEngine';
+} from '../../src/lib/pathway/programEngine';
 import {
   CompetencyEvidenceRecord,
   DailyMissionSlot,
@@ -13,9 +13,9 @@ import {
   JobDescriptionSkillGap,
   StudentSkillProfile,
   WorkloadBand,
-} from '../src/lib/pathway/competencySchema';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/competencySchema';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
 
 console.log('================================================================');
 console.log('  PINIT GOLDEN JOURNEY: END-TO-END STUDENT LIFECYCLE TEST       ');

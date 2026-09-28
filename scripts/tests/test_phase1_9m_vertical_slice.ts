@@ -1,4 +1,4 @@
-// scripts/test_phase1_9m_vertical_slice.ts
+// scripts/tests/test_phase1_9m_vertical_slice.ts
 // Phase 1 Verification Suite: 9-Month Full-Stack Vertical Slice & Real State Traversal
 
 import {
@@ -6,13 +6,13 @@ import {
   calculateDynamicRoleReadiness,
   evaluateProgramGraduation,
   evaluateStageProgression,
-} from '../src/lib/pathway/programEngine';
+} from '../../src/lib/pathway/programEngine';
 import {
   CompetencyEvidenceRecord,
   DynamicRoleReadiness,
   ProjectLevel,
-} from '../src/lib/pathway/competencySchema';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+} from '../../src/lib/pathway/competencySchema';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('================================================================');
 console.log('  PINIT PHASE 1: 9-MONTH FULL-STACK VERTICAL SLICE & E2E TEST   ');

@@ -1,4 +1,4 @@
-// scripts/audit_production_bundle_secrets.ts
+// scripts/audit/audit_production_bundle_secrets.ts
 // Comprehensive Secret Scan of Production Bundle (out/ and .next/)
 
 import fs from 'fs';

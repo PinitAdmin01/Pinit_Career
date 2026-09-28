@@ -1,8 +1,8 @@
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
-import { getDomainFallback } from '../src/lib/projects/projectCatalog';
-import { analyzeRepositoryEvidence, GITHUB_INGESTION_VERSION } from '../src/lib/github/githubIngestion';
+import { getDomainFallback } from '../../src/lib/projects/projectCatalog';
+import { analyzeRepositoryEvidence, GITHUB_INGESTION_VERSION } from '../../src/lib/github/githubIngestion';
 
 console.log('🧪 Running Projects & Career Intelligence Integrity Verification...\n');
 

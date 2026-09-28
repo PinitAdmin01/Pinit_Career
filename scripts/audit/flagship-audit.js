@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 // 15 flagship courses
 const FLAGSHIP_FILES = {

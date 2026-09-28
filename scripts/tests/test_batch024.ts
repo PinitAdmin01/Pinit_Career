@@ -1,4 +1,4 @@
-// scripts/test_batch024.ts
+// scripts/tests/test_batch024.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 024 (Days 118–122 · COMPLETE)
 // Asynchronous Browser Communication, Fetch API, Resilient Client Networking & Gate 2 Web Foundations Exit Assessment
 
@@ -7,8 +7,8 @@ import {
   GATE_2_ASSESSMENT,
   DAY_122_ASSESSMENT,
   COMPETENCY_ID_BROWSER_NETWORKING_AND_GATE2,
-} from '../src/lib/curriculum/pythonFullStack/batch024';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch024';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

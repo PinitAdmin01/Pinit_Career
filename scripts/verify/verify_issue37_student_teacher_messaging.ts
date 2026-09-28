@@ -7,10 +7,10 @@ import {
   getTeacherInbox,
   markMessagesAsRead,
   getUnreadMessageCount
-} from '../src/lib/services/supabase/socialService';
-import { inboxSyncService } from '../src/lib/chat/inboxSyncService';
-import { GET as directMessagesGET, POST as directMessagesPOST } from '../src/app/api/messages/direct/route';
-import { GET as teacherInboxGET, POST as teacherInboxPOST } from '../src/app/api/teacher/inbox/route';
+} from '../../src/lib/services/supabase/socialService';
+import { inboxSyncService } from '../../src/lib/chat/inboxSyncService';
+import { GET as directMessagesGET, POST as directMessagesPOST } from '../../src/app/api/messages/direct/route';
+import { GET as teacherInboxGET, POST as teacherInboxPOST } from '../../src/app/api/teacher/inbox/route';
 import { NextRequest } from 'next/server';
 
 console.log('========================================================================');

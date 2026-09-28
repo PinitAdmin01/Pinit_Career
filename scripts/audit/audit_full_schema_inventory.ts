@@ -1,4 +1,4 @@
-// scripts/audit_full_schema_inventory.ts
+// scripts/audit/audit_full_schema_inventory.ts
 /**
  * ============================================================================
  * LIVE SCHEMA INVENTORY & ROW-LEVEL EXPOSURE AUDIT

@@ -1,5 +1,5 @@
-// scripts/test_production_killswitch.ts
-import { executeJavaScriptSuite } from '../src/lib/code/runners/jsRunner';
+// scripts/tests/test_production_killswitch.ts
+import { executeJavaScriptSuite } from '../../src/lib/code/runners/jsRunner';
 import fs from 'fs';
 
 console.log('========================================================================');

@@ -1,4 +1,4 @@
-// scripts/test_postgres_enforcement.ts
+// scripts/tests/test_postgres_enforcement.ts
 // Live PostgreSQL Integration Test Suite: Real Engine Privileges, Ownership Boundary & Append-Only Trigger Enforcement
 // Proves Real PostgreSQL Engine Enforces Security Contracts (Option A)
 

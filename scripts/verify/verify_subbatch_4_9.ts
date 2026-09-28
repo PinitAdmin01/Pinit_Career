@@ -1,4 +1,4 @@
-// scripts/verify_subbatch_4_9.ts
+// scripts/verify/verify_subbatch_4_9.ts
 /**
  * Verification Script for Subbatch 4.9 / Issue 32:
  * "Skills are matched as substrings, so ordinary English becomes a skill list"
@@ -12,10 +12,10 @@
  * 5. Legitimate skills ("Next.js", "Node.js", "Express.js", "CI/CD Pipeline") are correctly extracted from technical sections.
  */
 
-import { extractCanonicalSkillsWithPolarity } from '../src/lib/ats/skillOntology';
-import { extractDocumentSkills } from '../src/lib/ats/documentAuditEngine';
-import { extractContacts, auditResumeATS } from '../src/lib/ats/atsScreener';
-import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
+import { extractCanonicalSkillsWithPolarity } from '../../src/lib/ats/skillOntology';
+import { extractDocumentSkills } from '../../src/lib/ats/documentAuditEngine';
+import { extractContacts, auditResumeATS } from '../../src/lib/ats/atsScreener';
+import { groundAndValidateEvidence } from '../../src/lib/ats/factCheckValidator';
 
 let passed = 0;
 let failed = 0;

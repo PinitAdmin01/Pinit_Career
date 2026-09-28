@@ -13,7 +13,7 @@
  *
  * PART B: the real route depends on `javac`/`java` being on PATH. This
  * environment has neither installed. That half of the pipeline is exercised by
- * scripts/java-judge-compile.test.ts, which reports SKIPPED (not a fabricated
+ * scripts/utils/java-judge-compile.test.ts, which reports SKIPPED (not a fabricated
  * pass) when no JDK is present — see that file and the Stage 1/Risk-3 report
  * for the full picture and the unresolved production-deployment-target question
  * (Node server vs. Firebase static hosting with no /api/* backend at all).
@@ -43,7 +43,11 @@
  * the SAME "Bearer session token required" signature is now what
  * javaJudgeRunner.ts's actual fetch call receives.
  *
- * Run: node scripts/java-judge-routing.test.js
+ * UPDATE 2026-09-28: the in-browser router is gone and fetchInterceptor.ts only
+ * adds the Authorization header, so X-Pinit-Direct no longer changes anything.
+ * Checks [1] and [3] now guard that contract instead of the bypass header.
+ *
+ * Run: node scripts/utils/java-judge-routing.test.js
  */
 
 import * as fs from 'fs';
@@ -57,30 +61,34 @@ function assert(condition: boolean, message: string): void {
 function ok(message: string): void { passed++; console.log(`  ok:   ${message}`); }
 
 const runnerSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'src', 'lib', 'code', 'runners', 'javaJudgeRunner.ts'), 'utf8');
+  path.join(__dirname, '..', '..', 'src', 'lib', 'code', 'runners', 'javaJudgeRunner.ts'), 'utf8');
 const interceptorSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'src', 'lib', 'fetchInterceptor.ts'), 'utf8');
+  path.join(__dirname, '..', '..', 'src', 'lib', 'fetchInterceptor.ts'), 'utf8');
 const routeSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'src', 'app', 'api', 'code', 'run-java', 'route.ts'), 'utf8');
+  path.join(__dirname, '..', '..', 'src', 'app', 'api', 'code', 'run-java', 'route.ts'), 'utf8');
 const requireAuthSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'src', 'lib', 'server', 'requireAuth.ts'), 'utf8');
+  path.join(__dirname, '..', '..', 'src', 'lib', 'server', 'requireAuth.ts'), 'utf8');
 
-console.log('\n[1] javaJudgeRunner.ts sends the interceptor bypass header\n');
-assert(/X-Pinit-Direct['"]\s*:\s*['"]1['"]/.test(runnerSrc),
-  'fetch(\'/api/code/run-java\', ...) includes header X-Pinit-Direct: 1');
-if (failures === 0) ok('bypass header present in the actual fetch call');
+console.log('\n[1] javaJudgeRunner.ts calls the real route\n');
+assert(/fetch\(\s*['"]\/api\/code\/run-java['"]/.test(runnerSrc),
+  'javaJudgeRunner.ts fetches /api/code/run-java');
+if (failures === 0) ok('submissions go to the run-java route');
 
 console.log('\n[2] javaJudgeRunner.ts attempts to attach a real bearer token\n');
 assert(/Authorization\s*[:=]/.test(runnerSrc) && /getSession\(\)/.test(runnerSrc),
   'fetch call headers include an Authorization bearer token sourced from supabase.auth.getSession()');
 if (failures === 0) ok('auth token attachment present — the real route requires this independently of the bypass header');
 
-console.log('\n[3] fetchInterceptor.ts still honors the bypass header (regression guard)\n');
-assert(/X-Pinit-Direct['"]\)\s*===\s*['"]1['"]/.test(interceptorSrc),
-  'fetchInterceptor.ts still checks headers.get(\'X-Pinit-Direct\') === \'1\' before intercepting');
+console.log('\n[3] fetchInterceptor.ts never answers /api/* itself (regression guard)\n');
+// The PART A defect was the interceptor answering the request in the browser. It now only adds the
+// Authorization header and passes every request on to the real fetch, so no bypass header is needed.
+assert(!/new Response\(/.test(interceptorSrc),
+  'fetchInterceptor.ts never builds a Response of its own');
+assert(!/firestoreRouter|legacyFirestoreRouter|api\.(get|post|put|patch|delete)\(/.test(interceptorSrc),
+  'fetchInterceptor.ts does not reroute requests through the api client or an in-browser router');
 assert(/return originalFetch\(/.test(interceptorSrc),
-  'fetchInterceptor.ts still calls the REAL captured fetch when the bypass header is present');
-if (failures === 0) ok('interceptor escape hatch this fix depends on is still present and unmodified in meaning');
+  'fetchInterceptor.ts hands requests to the REAL captured fetch');
+if (failures === 0) ok('every /api/* request, including run-java, reaches the server route');
 
 console.log('\n[4] The real route\'s auth gate is what the empirical proof identifies (sanity check on the proof itself)\n');
 assert(requireAuthSrc.includes('Bearer session token required.'),

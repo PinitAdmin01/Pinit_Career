@@ -10,10 +10,9 @@ import {
   verifyExamSessionToken,
   verifyAndConsumeExamSessionToken,
   isNonceConsumed
-} from '../src/lib/portfolio/examToken';
-import { POST as verifyExamPOST } from '../src/app/api/portfolio/verify-exam/route';
-import { POST as analyzeCertPOST } from '../src/app/api/portfolio/analyze-certificate/route';
-import { firestoreRouter } from '../src/lib/api/legacyFirestoreRouter';
+} from '../../src/lib/portfolio/examToken';
+import { POST as verifyExamPOST } from '../../src/app/api/portfolio/verify-exam/route';
+import { POST as analyzeCertPOST } from '../../src/app/api/portfolio/analyze-certificate/route';
 
 console.log('========================================================================');
 console.log('🧪 VERIFY SUBBATCH 4.12: CERTIFICATE ANALYSIS & EXAM TOKEN ORACLE HARDENING');
@@ -116,59 +115,7 @@ async function runTests() {
     assert.ok(replayJson.error?.includes('NONCE_REPLAY_DETECTED'));
   });
 
-  // ── TEST 4: Legacy Router does NOT leak plaintext answers in Base64 ──
-  await test('Legacy router security: examSessionToken does NOT contain plaintext answers', async () => {
-    const res = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
-      title: 'Python for Data Science',
-      issuer: 'University'
-    }) as any;
-
-    assert.strictEqual(res.ok, true);
-    assert.ok(res.examSessionToken?.startsWith('token_'));
-
-    const b64 = res.examSessionToken.replace(/^token_/, '');
-    const decodedStr = Buffer.from(b64, 'base64').toString('utf-8');
-    const payload = JSON.parse(decodedStr);
-
-    assert.strictEqual(payload.answers, undefined, 'Plaintext answers map MUST NOT be present in token');
-    assert.ok(payload.answerHashes, 'answerHashes must be present instead of answers');
-    assert.ok(payload.nonce, 'nonce must be present');
-  });
-
-  // ── TEST 5: Legacy Router replay rejection and no correctCount on failure ──
-  await test('Legacy router replay rejection: Replay throws 409 and failure does not leak correctCount', async () => {
-    const analyzeRes = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
-      title: 'React Fundamentals',
-      issuer: 'Frontend Masters'
-    }) as any;
-
-    const token = analyzeRes.examSessionToken;
-
-    // First attempt with wrong answers
-    const verifyRes = await firestoreRouter('POST', '/api/portfolio/verify-exam', {
-      examSessionToken: token,
-      selectedAnswers: { q1: 99, q2: 99, q3: 99 }
-    }) as any;
-
-    assert.strictEqual(verifyRes.passed, false);
-    assert.strictEqual(verifyRes.correctCount, undefined, 'correctCount MUST NOT be returned in legacy router failure');
-
-    // Second attempt with same token -> must throw 409 NONCE_REPLAY
-    let threwReplay = false;
-    try {
-      await firestoreRouter('POST', '/api/portfolio/verify-exam', {
-        examSessionToken: token,
-        selectedAnswers: { q1: 99, q2: 99, q3: 99 }
-      });
-    } catch (err: any) {
-      if (err.status === 409 && err.code === 'NONCE_REPLAY') {
-        threwReplay = true;
-      }
-    }
-    assert.strictEqual(threwReplay, true, 'Legacy router must throw 409 NONCE_REPLAY on token reuse');
-  });
-
-  // ── TEST 6: Passing quiz awards KNOWLEDGE_ASSESSED, NOT verified: true ──
+  // ── TEST 4: Passing quiz awards KNOWLEDGE_ASSESSED, NOT verified: true ──
   await test('Honest credential status: Passing quiz awards KNOWLEDGE_ASSESSED, keeps verified: false', async () => {
     const answers = { q1: 1, q2: 2, q3: 0 };
     const token = signExamSessionToken(answers, 30, 'test_user_001', 'AWS Solutions Architect');
@@ -223,7 +170,7 @@ async function runTests() {
     }
   });
 
-  // ── TEST 7: analyze-certificate produces randomized questions with shuffled options ──
+  // ── TEST 5: analyze-certificate produces randomized questions with shuffled options ──
   await test('analyze-certificate produces dynamic questions with randomized option orders', async () => {
     const req1 = new NextRequest('http://localhost:3000/api/portfolio/analyze-certificate', {
       method: 'POST',

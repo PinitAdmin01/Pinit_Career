@@ -1,4 +1,4 @@
-// scripts/test_p0_security_remediations.ts
+// scripts/tests/test_p0_security_remediations.ts
 // Comprehensive regression verification for the 10 critical audit remediations
 
 import crypto from 'crypto';

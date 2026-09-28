@@ -1,4 +1,4 @@
-// scripts/test_staging_telemetry_migration.ts
+// scripts/tests/test_staging_telemetry_migration.ts
 // Staging Database Isolation & Migration Validation for Telemetry Ingestion Boundary
 
 import { PGlite } from '@electric-sql/pglite';

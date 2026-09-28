@@ -1,4 +1,4 @@
-// scripts/check_bare_writes.js
+// scripts/utils/check_bare_writes.js
 // Automated CI guard: ensures no bare `await supabase.from(...)` writes exist in services
 const fs = require('fs');
 const path = require('path');

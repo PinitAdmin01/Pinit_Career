@@ -8,31 +8,31 @@
  * 5. Founder & Boss (Single Source of Truth)
  */
 
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { CodeWarsApiService } from '../src/lib/api/codeWarsApi';
-import { TeamsApiService } from '../src/lib/api/teamsApi';
-import { CohortsApiService, StudentCohortRecord } from '../src/lib/api/cohortsApi';
-import { OfflineSyncService } from '../src/lib/offline/offlineSync';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { CodeWarsApiService } from '../../src/lib/api/codeWarsApi';
+import { TeamsApiService } from '../../src/lib/api/teamsApi';
+import { CohortsApiService, StudentCohortRecord } from '../../src/lib/api/cohortsApi';
+import { OfflineSyncService } from '../../src/lib/offline/offlineSync';
 import {
   computeEvidenceIntegrityHash,
   verifyEvidenceIntegrity,
   evaluateEvidenceCollection,
   evaluateDecayStatus
-} from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/evidenceEngine';
 import {
   validateCompetencyCatalog,
   evaluateCompetencyMastery,
   evaluateTopologicalMastery
-} from '../src/lib/pathway/masteryEngine';
+} from '../../src/lib/pathway/masteryEngine';
 import {
   COMPETENCY_CATALOG_V1,
-} from '../src/lib/pathway/competencyCatalog';
+} from '../../src/lib/pathway/competencyCatalog';
 import {
   calculateDynamicRoleReadiness,
   evaluateStageProgression,
   PROGRAMS_CATALOG
-} from '../src/lib/pathway/programEngine';
-import { CompetencyEvidenceRecord, EvidenceDifficulty } from '../src/lib/pathway/competencySchema';
+} from '../../src/lib/pathway/programEngine';
+import { CompetencyEvidenceRecord, EvidenceDifficulty } from '../../src/lib/pathway/competencySchema';
 
 let passCount = 0;
 let failCount = 0;

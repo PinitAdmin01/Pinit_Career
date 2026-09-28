@@ -1,4 +1,4 @@
-// scripts/test_batch026.ts
+// scripts/tests/test_batch026.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 026 (Days 128–132 · COMPLETE)
 // Django 6.0 Object-Relational Mapping (ORM), Reversible Migrations & QuerySet Optimization
 
@@ -8,8 +8,8 @@ import {
   BATCH_026_MANIFEST,
   COMPETENCY_ID_DJANGO_ORM_AND_MIGRATIONS,
   DAY_132_ASSESSMENT,
-} from '../src/lib/curriculum/pythonFullStack/batch026';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch026';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

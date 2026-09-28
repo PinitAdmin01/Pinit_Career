@@ -1,6 +1,6 @@
 /**
  * Inspect eStarters for specified course and days.
- * Usage: node scripts/inspect-starters.js <courseFile> <day1> [day2] ...
+ * Usage: node scripts/utils/inspect-starters.js <courseFile> <day1> [day2] ...
  */
 
 const fs = require('fs');
@@ -9,7 +9,7 @@ const path = require('path');
 const [,, courseFile, ...dayArgs] = process.argv;
 const targetDays = dayArgs.map(Number);
 
-const filePath = path.join(__dirname, '..', 'src', 'lib', 'data', courseFile);
+const filePath = path.join(__dirname, '..', '..', 'src', 'lib', 'data', courseFile);
 const text = fs.readFileSync(filePath, 'utf8');
 
 const starts = [];

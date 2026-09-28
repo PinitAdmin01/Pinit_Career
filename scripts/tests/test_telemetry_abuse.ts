@@ -1,4 +1,4 @@
-// scripts/test_telemetry_abuse.ts
+// scripts/tests/test_telemetry_abuse.ts
 // Direct Adversarial HTTP / REST Abuse Testing against Supabase Telemetry Endpoint
 
 import https from 'https';

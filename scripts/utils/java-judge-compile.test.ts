@@ -26,7 +26,7 @@
  * test's SKIP result is itself evidence for that unresolved question, not a
  * failure of this fix.
  *
- * Run: node scripts/java-judge-compile.test.js
+ * Run: node scripts/utils/java-judge-compile.test.js
  */
 
 import { exec } from 'child_process';

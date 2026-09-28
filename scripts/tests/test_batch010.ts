@@ -1,4 +1,4 @@
-// scripts/test_batch010.ts
+// scripts/tests/test_batch010.ts
 // Invariant & Technical Audit Test Suite for PinIT Batch 010 (Days 46–50: Month 3 Week 10)
 // Configuration, Type-Modeled Data & Modern Python Packaging
 
@@ -11,7 +11,7 @@ import {
   DAY_50_MANIFEST,
   DAY_50_ASSESSMENT,
   COMPETENCY_ID_PACKAGING_CONFIGURATION,
-} from '../src/lib/curriculum/pythonFullStack/batch010';
+} from '../../src/lib/curriculum/pythonFullStack/batch010';
 import {
   BATCH_001_MANIFEST,
   BATCH_002_MANIFEST,
@@ -22,12 +22,12 @@ import {
   BATCH_007_MANIFEST,
   BATCH_008_MANIFEST,
   BATCH_009_MANIFEST,
-} from '../src/lib/curriculum';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
-import { AssessmentEngine } from '../src/lib/curriculum/assessmentEngine';
-import { EvidenceLedger } from '../src/lib/curriculum/evidenceLedger';
-import { ProgressEngine } from '../src/lib/curriculum/progressEngine';
+} from '../../src/lib/curriculum';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
+import { AssessmentEngine } from '../../src/lib/curriculum/assessmentEngine';
+import { EvidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
+import { ProgressEngine } from '../../src/lib/curriculum/progressEngine';
 import * as fs from 'fs';
 import * as path from 'path';
 

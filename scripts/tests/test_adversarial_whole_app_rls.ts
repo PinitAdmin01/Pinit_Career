@@ -1,4 +1,4 @@
-// scripts/test_adversarial_whole_app_rls.ts
+// scripts/tests/test_adversarial_whole_app_rls.ts
 // Comprehensive Multi-Table Adversarial RLS & Authorization Audit across PostgreSQL
 
 import { PGlite } from '@electric-sql/pglite';

@@ -1,4 +1,4 @@
-// scripts/test_batch028.ts
+// scripts/tests/test_batch028.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 028 (Days 138–142 · COMPLETE)
 // Enterprise User Modeling, Authentication Architecture, Session Security & Django RBAC
 
@@ -8,8 +8,8 @@ import {
   BATCH_028_MANIFEST,
   DAY_142_ASSESSMENT,
   COMPETENCY_ID_USER_AUTH_AND_SECURITY,
-} from '../src/lib/curriculum/pythonFullStack/batch028';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch028';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

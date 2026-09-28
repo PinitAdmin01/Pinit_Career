@@ -1,4 +1,4 @@
-// scripts/test_batch025.ts
+// scripts/tests/test_batch025.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 025 (Days 123–125 · PARTIAL)
 // Semester 2 Launch: Django 6.0 Architecture, Gateway Interfaces & Template Foundations
 
@@ -8,8 +8,8 @@ import {
   BATCH_025_MANIFEST,
   COMPETENCY_ID_DJANGO_FOUNDATIONS,
   DAY_127_ASSESSMENT,
-} from '../src/lib/curriculum/pythonFullStack/batch025';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch025';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 
@@ -174,7 +174,7 @@ export async function runBatch025Audit(): Promise<number> {
 
   // ── GROUP 3: Strict ORM Firewall Enforcement ──
   console.log('\n── GROUP 3: Strict ORM Firewall Enforcement ──');
-  const batch025FilePath = path.join(__dirname, '../src/lib/curriculum/pythonFullStack/batch025.ts');
+  const batch025FilePath = path.join(__dirname, '../../src/lib/curriculum/pythonFullStack/batch025.ts');
   const fileContent = fs.readFileSync(batch025FilePath, 'utf8');
 
   // Forbidden ORM patterns across all Days 123–127

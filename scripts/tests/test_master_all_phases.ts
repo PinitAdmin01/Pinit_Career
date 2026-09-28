@@ -1,41 +1,41 @@
-// scripts/test_master_all_phases.ts
+// scripts/tests/test_master_all_phases.ts
 // Master 360-Degree Forensic Audit Runner for all 5 Phases of PinIT Career OS
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
 import {
   validateCompetencyCatalog,
   validateCompetencyGraph,
   validateCompetencyReferences,
-} from '../src/lib/pathway/graphValidator';
+} from '../../src/lib/pathway/graphValidator';
 import {
   CompetencyDefinition,
   CompetencyEvidenceRecord,
   CompetencyMasteryStatus,
   MasteryState,
   ProgramStage,
-} from '../src/lib/pathway/competencySchema';
+} from '../../src/lib/pathway/competencySchema';
 import {
   generateEvidenceIntegrityHash,
   processEvidenceLedger,
   verifyEvidenceIntegrity,
-} from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/evidenceEngine';
 import {
   evaluateCompetencyMastery,
   MASTERY_POLICY_VERSION,
-} from '../src/lib/pathway/masteryEngine';
+} from '../../src/lib/pathway/masteryEngine';
 import {
   CAREER_PROGRAMS_CATALOG,
   evaluateProgramGraduation,
   evaluateStageProgression,
-} from '../src/lib/pathway/programEngine';
+} from '../../src/lib/pathway/programEngine';
 import {
   COURSE_COMPETENCY_MATRIX,
   getCompetenciesForCourse,
   getCoursesForCompetency,
   mapQuestToCompetencyEvidence,
-} from '../src/lib/pathway/competencyMatrix';
-import { generateDynamicStudentRoadmap } from '../src/lib/data/roadmapFuser';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+} from '../../src/lib/pathway/competencyMatrix';
+import { generateDynamicStudentRoadmap } from '../../src/lib/data/roadmapFuser';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('================================================================');
 console.log('  PINIT CAREER OS: MASTER 360° ALL-PHASE FORENSIC AUDIT MATRIX  ');

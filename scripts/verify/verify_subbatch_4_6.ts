@@ -1,4 +1,4 @@
-// scripts/verify_subbatch_4_6.ts
+// scripts/verify/verify_subbatch_4_6.ts
 /**
  * Verification Suite for Issue 29:
  * Résumé, Vault, Certificates & Document Verification Integrity
@@ -20,11 +20,11 @@ import zlib from 'zlib';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { extractDocumentEvidence, extractTextFromDocxBuffer } from '../src/lib/ats/pdfTextExtractor';
-import { extractTextFromImageBuffer } from '../src/lib/ats/imageOcrWorker';
-import { checkNameSimilarity } from '../src/lib/ats/documentAuditEngine';
-import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
-import { POST as vaultUploadHandler } from '../src/app/api/vault/upload/route';
+import { extractDocumentEvidence, extractTextFromDocxBuffer } from '../../src/lib/ats/pdfTextExtractor';
+import { extractTextFromImageBuffer } from '../../src/lib/ats/imageOcrWorker';
+import { checkNameSimilarity } from '../../src/lib/ats/documentAuditEngine';
+import { groundAndValidateEvidence } from '../../src/lib/ats/factCheckValidator';
+import { POST as vaultUploadHandler } from '../../src/app/api/vault/upload/route';
 
 let passed = 0;
 let failed = 0;

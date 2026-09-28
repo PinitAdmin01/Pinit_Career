@@ -1,19 +1,19 @@
-// scripts/test_program_matrix_fuser.ts
+// scripts/tests/test_program_matrix_fuser.ts
 // Exhaustive 360-degree forensic audit runner for Program Engine, Matrix & Roadmap Fuser
 
 import {
   CAREER_PROGRAMS_CATALOG,
   evaluateProgramGraduation,
   evaluateStageProgression,
-} from '../src/lib/pathway/programEngine';
+} from '../../src/lib/pathway/programEngine';
 import {
   COURSE_COMPETENCY_MATRIX,
   getCompetenciesForCourse,
   getCoursesForCompetency,
   mapQuestToCompetencyEvidence,
-} from '../src/lib/pathway/competencyMatrix';
-import { generateDynamicStudentRoadmap } from '../src/lib/data/roadmapFuser';
-import { CompetencyMasteryStatus, ProgramStage } from '../src/lib/pathway/competencySchema';
+} from '../../src/lib/pathway/competencyMatrix';
+import { generateDynamicStudentRoadmap } from '../../src/lib/data/roadmapFuser';
+import { CompetencyMasteryStatus, ProgramStage } from '../../src/lib/pathway/competencySchema';
 
 console.log('================================================================');
 console.log('  PINIT PROGRAM ENGINE, MATRIX & FUSER: 360° FORENSIC AUDIT     ');

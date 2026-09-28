@@ -7,12 +7,12 @@ import { execSync } from 'child_process';
 import * as path from 'path';
 
 const suites = [
-  { id: '3.1', name: 'Table Alignment (profiles vs users) (Issues 055 - 059)', script: 'scripts/verify_subbatch_3_1.ts' },
-  { id: '3.2', name: 'LocalStorage Decoupling & Server-First State (Issues 060 - 064)', script: 'scripts/verify_subbatch_3_2.ts' },
-  { id: '3.3', name: 'Competency Evidence & Cryptographic Ledger (Issues 065 - 069)', script: 'scripts/verify_subbatch_3_3.ts' },
-  { id: '3.4', name: 'Multi-Tab Race & Cross-User Pollution (Issues 070 - 074)', script: 'scripts/verify_subbatch_3_4.ts' },
-  { id: '3.5', name: 'Database Query Scale (N+1 & OOM Elimination) (Issues 075 - 079)', script: 'scripts/verify_subbatch_3_5.ts' },
-  { id: '3.6', name: 'Campus KV Isolation & Exam Cooldown (Issues 080 - 081)', script: 'scripts/verify_subbatch_3_6.ts' },
+  { id: '3.1', name: 'Table Alignment (profiles vs users) (Issues 055 - 059)', script: 'scripts/verify/verify_subbatch_3_1.ts' },
+  { id: '3.2', name: 'LocalStorage Decoupling & Server-First State (Issues 060 - 064)', script: 'scripts/verify/verify_subbatch_3_2.ts' },
+  { id: '3.3', name: 'Competency Evidence & Cryptographic Ledger (Issues 065 - 069)', script: 'scripts/verify/verify_subbatch_3_3.ts' },
+  { id: '3.4', name: 'Multi-Tab Race & Cross-User Pollution (Issues 070 - 074)', script: 'scripts/verify/verify_subbatch_3_4.ts' },
+  { id: '3.5', name: 'Database Query Scale (N+1 & OOM Elimination) (Issues 075 - 079)', script: 'scripts/verify/verify_subbatch_3_5.ts' },
+  { id: '3.6', name: 'Campus KV Isolation & Exam Cooldown (Issues 080 - 081)', script: 'scripts/verify/verify_subbatch_3_6.ts' },
 ];
 
 console.log('========================================================================');

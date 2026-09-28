@@ -6,11 +6,9 @@
  * 2. B2: PRODUCTION_CONSOLIDATED_MIGRATIONS.sql contains Section 11 audit_logs adjustments before COMMIT
  * 3. B2: supabase/schema.sql contains updated audit_logs schema and RLS policies
  * 4. B2: src/app/api/student/activity/route.ts handles resilient created_at / timestamp querying and inserting
- * 5. B2: src/lib/api/legacyFirestoreRouter.ts routes mission completion to student activity & handles student activity fallback
- * 6. B3: normalizeVisibility maps private (0), institution_only (50), recruiters_only (80), public (100), boolean and numeric values
- * 7. B3: legacyFirestoreRouter recruiter visibility handles both visibility string and visible boolean
- * 8. B3: src/app/profile/page.tsx syncs recruiter_visibility and invalidates query cache
- * 9. B3: UserProgressContext hydrates recruiterVisible from user and provides authoritative sync
+ * 5. B3: normalizeVisibility maps private (0), institution_only (50), recruiters_only (80), public (100), boolean and numeric values
+ * 6. B3: src/app/profile/page.tsx syncs recruiter_visibility and invalidates query cache
+ * 7. B3: UserProgressContext hydrates recruiterVisible from user and provides authoritative sync
  */
 
 import assert from 'assert';
@@ -30,7 +28,13 @@ async function run() {
   assert.ok(migSql.includes('ADD COLUMN IF NOT EXISTS actor_id'), 'Must add actor_id column');
   assert.ok(migSql.includes('ADD COLUMN IF NOT EXISTS created_at'), 'Must add created_at column');
   assert.ok(migSql.includes('CREATE POLICY "Users can view own audit logs"'), 'Must have user select RLS policy');
-  assert.ok(migSql.includes('CREATE POLICY "Users can insert own audit logs"'), 'Must have user insert RLS policy');
+  // The user insert policy lives in 20260918_fix_campus_dues_and_anticheat.sql (strict: actor_id = auth.uid(),
+  // admin_id IS NULL). This file must not redefine it, or it would replace the strict version with a weaker one.
+  assert.ok(!migSql.includes('CREATE POLICY "Users can insert own audit logs"'), 'Must not redefine the user insert RLS policy');
+  const antiCheatSql = fs.readFileSync(path.resolve('supabase/migrations/20260918_fix_campus_dues_and_anticheat.sql'), 'utf-8');
+  const insertPolicy = antiCheatSql.slice(antiCheatSql.indexOf('CREATE POLICY "Users can insert own audit logs"'));
+  assert.ok(insertPolicy.length > 0 && insertPolicy.includes('actor_id = auth.uid()') && insertPolicy.includes('admin_id IS NULL'),
+    'Strict user insert RLS policy must be defined in 20260918_fix_campus_dues_and_anticheat.sql');
   console.log('✓ Migration 20260918 contains correct schema adjustments, indexes, and RLS policies');
 
   // Test 2: Consolidated Migrations Section 11
@@ -67,19 +71,9 @@ async function run() {
   assert.ok(activityRouteCode.includes('insertPayload.admin_id = studentId'), 'Must provide fallback admin_id for legacy schema');
   console.log('✓ student activity route has resilient multi-schema query and insertion fallbacks');
 
-  // Test 5: legacyFirestoreRouter.ts mission completion audit and student activity handler
-  console.log('Test 5: legacyFirestoreRouter.ts audit routing & student activity handler');
-  const routerPath = path.resolve('src/lib/api/legacyFirestoreRouter.ts');
-  const routerCode = fs.readFileSync(routerPath, 'utf-8');
-
-  assert.ok(!routerCode.includes("api.post('/api/admin/audit-log/add'"), 'Mission complete must not dispatch to admin audit log');
-  assert.ok(routerCode.includes("api.post('/api/student/activity'"), 'Mission complete must dispatch to /api/student/activity');
-  assert.ok(routerCode.includes("cleanPath === '/api/student/activity'"), 'legacy router must provide fallback handler for /api/student/activity');
-  console.log('✓ legacy router correctly dispatches mission audit to student activity and includes student activity fallback');
-
-  // Test 6: Recruiter visibility normalization function
-  console.log('Test 6: normalizeVisibility contract unit tests');
-  const { normalizeVisibility } = await import('../src/app/api/recruiter/visibility/route');
+  // Test 5: Recruiter visibility normalization function
+  console.log('Test 5: normalizeVisibility contract unit tests');
+  const { normalizeVisibility } = await import('../../src/app/api/recruiter/visibility/route');
 
   assert.deepStrictEqual(normalizeVisibility('private'), { score: 0, label: 'private' });
   assert.deepStrictEqual(normalizeVisibility(false), { score: 0, label: 'private' });
@@ -94,15 +88,8 @@ async function run() {
   assert.deepStrictEqual(normalizeVisibility(150), { score: 100, label: 'public' });
   console.log('✓ normalizeVisibility correctly maps all inputs (strings, booleans, clamped numbers)');
 
-  // Test 7: legacyFirestoreRouter recruiter visibility contract
-  console.log('Test 7: legacyFirestoreRouter recruiter visibility contract check');
-  assert.ok(routerCode.includes("cleanPath.startsWith('/api/recruiter/visibility')"), 'Must have recruiter visibility handler');
-  assert.ok(routerCode.includes('b.visibility ?? b.visible ?? b.recruiter_visibility ?? b.recruiterVisibility'), 'Must extract visibility or visible from body');
-  assert.ok(routerCode.includes("score = 0") && routerCode.includes("score = 50") && routerCode.includes("score = 80") && routerCode.includes("score = 100"), 'Must support 0, 50, 80, 100 scoring in router');
-  console.log('✓ legacyFirestoreRouter handles { visibility } and { visible } robustly');
-
-  // Test 8: src/app/profile/page.tsx state sync
-  console.log('Test 8: src/app/profile/page.tsx state sync & cache invalidation');
+  // Test 6: src/app/profile/page.tsx state sync
+  console.log('Test 6: src/app/profile/page.tsx state sync & cache invalidation');
   const profilePath = path.resolve('src/app/profile/page.tsx');
   const profileCode = fs.readFileSync(profilePath, 'utf-8');
 
@@ -111,8 +98,8 @@ async function run() {
   assert.ok(profileCode.includes("if (user.selectedTeacherId)"), 'Must sync teacherId from user');
   console.log('✓ Profile page synchronizes recruiter visibility and teacher preferences from user object');
 
-  // Test 9: UserProgressContext recruiterVisible hydration & sync
-  console.log('Test 9: UserProgressContext recruiterVisible hydration & sync');
+  // Test 7: UserProgressContext recruiterVisible hydration & sync
+  console.log('Test 7: UserProgressContext recruiterVisible hydration & sync');
   const userProgressPath = path.resolve('src/lib/context/UserProgressContext.tsx');
   const userProgressCode = fs.readFileSync(userProgressPath, 'utf-8');
 
@@ -121,7 +108,7 @@ async function run() {
   assert.ok(userProgressCode.includes("api.patch('/api/recruiter/visibility', { visible: val })"), 'Authoritative setter must notify /api/recruiter/visibility');
   console.log('✓ UserProgressContext hydrates and authoritatively synchronizes recruiterVisible state');
 
-  console.log('\n--- ALL B2 & B3 INTEGRITY TESTS PASSED (9/9) ---');
+  console.log('\n--- ALL B2 & B3 INTEGRITY TESTS PASSED (7/7) ---');
 }
 
 run().catch(err => {

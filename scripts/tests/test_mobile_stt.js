@@ -21,7 +21,7 @@ const {
   getSupportedMimeType,
   isWebSpeechAvailable,
   UnifiedSpeechRecognizer
-} = transpileAndRequire(path.join(__dirname, '../src/lib/audio/mobileSTTBuffer.ts'));
+} = transpileAndRequire(path.join(__dirname, '../../src/lib/audio/mobileSTTBuffer.ts'));
 
 let passed = 0;
 let failed = 0;

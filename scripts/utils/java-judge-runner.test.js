@@ -1,8 +1,8 @@
 /**
- * Bootstrap for scripts/java-judge-runner.test.ts — same ts-node/tsconfig-paths
+ * Bootstrap for scripts/utils/java-judge-runner.test.ts — same ts-node/tsconfig-paths
  * approach as the other Stage 0/1 test scripts. No new dependency.
  *
- * Usage: node scripts/java-judge-runner.test.js
+ * Usage: node scripts/utils/java-judge-runner.test.js
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

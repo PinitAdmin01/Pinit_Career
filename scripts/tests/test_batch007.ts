@@ -1,4 +1,4 @@
-// scripts/test_batch007.ts
+// scripts/tests/test_batch007.ts
 // Comprehensive Automated Quality, Pedagogical Progression, Assessment Sanitization & Invariant Test Suite for PinIT Batch 007 (Days 31–35)
 // Includes Multi-Design Grading Validation, AST Semantic Scans, and Programmatic Progress Engine Invariant Verification
 
@@ -11,7 +11,7 @@ import {
   DAY_35_MANIFEST,
   DAY_35_ASSESSMENT,
   COMPETENCY_ID_INHERITANCE_POLYMORPHISM,
-} from '../src/lib/curriculum/pythonFullStack/batch007';
+} from '../../src/lib/curriculum/pythonFullStack/batch007';
 import {
   BATCH_001_MANIFEST,
   BATCH_002_MANIFEST,
@@ -19,13 +19,13 @@ import {
   BATCH_004_MANIFEST,
   BATCH_005_MANIFEST,
   BATCH_006_MANIFEST,
-} from '../src/lib/curriculum';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
-import { assessmentEngine } from '../src/lib/curriculum/assessmentEngine';
-import { evidenceLedger } from '../src/lib/curriculum/evidenceLedger';
-import { ProgressEngine } from '../src/lib/curriculum/progressEngine';
-import { PYTHON_FULLSTACK_COURSE } from '../src/lib/curriculum/pythonFullStack/curriculumSpine';
+} from '../../src/lib/curriculum';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
+import { assessmentEngine } from '../../src/lib/curriculum/assessmentEngine';
+import { evidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
+import { ProgressEngine } from '../../src/lib/curriculum/progressEngine';
+import { PYTHON_FULLSTACK_COURSE } from '../../src/lib/curriculum/pythonFullStack/curriculumSpine';
 
 let testsPassed = 0;
 let testsFailed = 0;

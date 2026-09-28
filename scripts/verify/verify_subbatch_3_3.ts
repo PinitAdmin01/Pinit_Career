@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
-import { evaluateCompetencyMastery } from '../src/lib/pathway/masteryEngine';
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
+import { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
+import { evaluateCompetencyMastery } from '../../src/lib/pathway/masteryEngine';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
 
 async function runSubBatch33Verification() {
   console.log('========================================================================');

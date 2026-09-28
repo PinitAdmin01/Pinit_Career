@@ -4,7 +4,7 @@ import {
   getSanitizationMetadata,
   sanitizeEvaluationResult,
   StreamingTextSanitizer,
-} from '../src/lib/sanitizeLLM';
+} from '../../src/lib/sanitizeLLM';
 
 let passed = 0;
 let failed = 0;

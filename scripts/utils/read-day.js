@@ -1,10 +1,10 @@
 /**
  * Read full content of specific days for fixing.
- * Usage: node scripts/read-day.js <courseFile> <day1> [day2] ...
+ * Usage: node scripts/utils/read-day.js <courseFile> <day1> [day2] ...
  */
 const fs = require('fs');
 const path = require('path');
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 const [,, courseFile, ...dayArgs] = process.argv;
 const targetDays = dayArgs.map(Number);

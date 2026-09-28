@@ -1,4 +1,4 @@
-// scripts/test_post_gate_01.ts
+// scripts/tests/test_post_gate_01.ts
 // Comprehensive Technical and Behavioral Audit Suite for Days 61–62
 // Post-Gate 1 Consolidation & Architectural Transition Block
 
@@ -6,8 +6,8 @@ import {
   POST_GATE_01_CONSOLIDATION_MANIFEST,
   DAY_61_MANIFEST,
   DAY_62_MANIFEST,
-} from '../src/lib/curriculum/pythonFullStack/postGate01Consolidation';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/postGate01Consolidation';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -71,7 +71,7 @@ async function runPostGate01Tests() {
   // ── GROUP 3: Pedagogical Invariants & Gatekeeper Corrections ──
   console.log('\n── GROUP 3: Pedagogical Invariants & Gatekeeper Corrections ──');
   const fileContent = fs.readFileSync(
-    path.join(__dirname, '../src/lib/curriculum/pythonFullStack/postGate01Consolidation.ts'),
+    path.join(__dirname, '../../src/lib/curriculum/pythonFullStack/postGate01Consolidation.ts'),
     'utf-8'
   );
 

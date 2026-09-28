@@ -1,6 +1,6 @@
 /**
- * Bootstrap for scripts/java-judge-routing.test.ts.
- * Usage: node scripts/java-judge-routing.test.js
+ * Bootstrap for scripts/utils/java-judge-routing.test.ts.
+ * Usage: node scripts/utils/java-judge-routing.test.js
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

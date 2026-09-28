@@ -1,9 +1,9 @@
 /**
- * Bootstrap for scripts/verify-quest-grading.test.ts — same ts-node/tsconfig-paths
- * approach as scripts/content-qa.js. No new dependency; does not alter the app's
+ * Bootstrap for scripts/utils/verify-quest-grading.test.ts — same ts-node/tsconfig-paths
+ * approach as scripts/utils/content-qa.js. No new dependency; does not alter the app's
  * tsconfig or build.
  *
- * Usage: node scripts/verify-quest-grading.test.js
+ * Usage: node scripts/utils/verify-quest-grading.test.js
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

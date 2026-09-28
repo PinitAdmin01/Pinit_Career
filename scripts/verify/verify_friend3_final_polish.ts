@@ -71,7 +71,7 @@ async function run() {
   assert.ok(!privilegedMatch[1].includes("'recruiter_visibility'"), "'recruiter_visibility' must be removed from PRIVILEGED_FIELDS");
 
   // Dynamic test: stripSelfServicePrivileges
-  const { stripSelfServicePrivileges } = await import('../src/lib/services/supabase/userService');
+  const { stripSelfServicePrivileges } = await import('../../src/lib/services/supabase/userService');
   const payload = {
     display_name: 'Bob',
     recruiter_visibility: 1,

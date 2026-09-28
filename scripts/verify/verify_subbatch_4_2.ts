@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 
-import { POST, formatTranscriptForEvaluation } from '../src/app/api/interview/evaluate/route';
-import { evaluateSystemTopology } from '../src/lib/interview/systemDesignEvaluator';
-import { generateTelemetryDiagnostics } from '../src/lib/interview/scoringMatrix';
+import { POST, formatTranscriptForEvaluation } from '../../src/app/api/interview/evaluate/route';
+import { evaluateSystemTopology } from '../../src/lib/interview/systemDesignEvaluator';
+import { generateTelemetryDiagnostics } from '../../src/lib/interview/scoringMatrix';
 
 async function runSubBatch4_2Tests() {
   console.log('========================================================================');

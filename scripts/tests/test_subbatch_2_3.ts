@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_3.ts
+// scripts/tests/test_subbatch_2_3.ts
 // Verification test suite for Sub-Batch 2.3: Payment Gateways & Transaction Logs (Issues 038 – 042)
 
 import * as dotenv from 'dotenv';
@@ -10,10 +10,10 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { PGlite } from '@electric-sql/pglite';
-import { POST as verifyPaymentHandler } from '../src/app/api/payment/verify/route';
-import { POST as webhookHandler } from '../src/app/api/payment/webhook/route';
-import { POST as claimStreakBonusHandler } from '../src/app/api/pins/claim-streak-bonus/route';
-import { financeService } from '../src/lib/services/financeService';
+import { POST as verifyPaymentHandler } from '../../src/app/api/payment/verify/route';
+import { POST as webhookHandler } from '../../src/app/api/payment/webhook/route';
+import { POST as claimStreakBonusHandler } from '../../src/app/api/pins/claim-streak-bonus/route';
+import { financeService } from '../../src/lib/services/financeService';
 
 async function runSubBatch23Tests() {
   console.log('========================================================================');

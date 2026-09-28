@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataDir = path.join(__dirname, '..', 'src', 'lib', 'data');
+const dataDir = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 const files = fs.readdirSync(dataDir).filter(f => f.endsWith('30DayData.ts') || f.endsWith('Data.ts'));
 
 console.log(`Auditing ${files.length} curriculum data files for schema and data integrity...`);

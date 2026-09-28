@@ -39,21 +39,21 @@ function setupMockSupabaseFetch() {
 setupMockSupabaseFetch();
 
 import crypto from 'crypto';
-import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
-import { evaluateDocumentContradictions } from '../src/lib/ats/contradictionEngine';
-import { auditDocumentCollection, checkNameSimilarity } from '../src/lib/ats/documentAuditEngine';
-import { evaluateQT2Model } from '../src/lib/ats/qt2AnalysisEngine';
-import { auditResumeATS } from '../src/lib/ats/atsScreener';
-import { evaluateSystemTopology } from '../src/lib/interview/systemDesignEvaluator';
-import { POST as vaultDeletePOST } from '../src/app/api/vault/delete/route';
-import { POST as gdEvaluatePOST } from '../src/app/api/group-discussion/evaluate/route';
-import { POST as verifyExamPOST } from '../src/app/api/portfolio/verify-exam/route';
-import { POST as analyzeCertPOST } from '../src/app/api/portfolio/analyze-certificate/route';
-import { signExamSessionToken } from '../src/lib/portfolio/examToken';
-import { GET as verifyRouteGET } from '../src/app/api/verify/[credentialId]/route';
-import { GET as transcriptRouteGET } from '../src/app/api/passport/transcript/route';
-import { POST as githubWebhookPOST } from '../src/app/api/webhooks/github/route';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+import { groundAndValidateEvidence } from '../../src/lib/ats/factCheckValidator';
+import { evaluateDocumentContradictions } from '../../src/lib/ats/contradictionEngine';
+import { auditDocumentCollection, checkNameSimilarity } from '../../src/lib/ats/documentAuditEngine';
+import { evaluateQT2Model } from '../../src/lib/ats/qt2AnalysisEngine';
+import { auditResumeATS } from '../../src/lib/ats/atsScreener';
+import { evaluateSystemTopology } from '../../src/lib/interview/systemDesignEvaluator';
+import { POST as vaultDeletePOST } from '../../src/app/api/vault/delete/route';
+import { POST as gdEvaluatePOST } from '../../src/app/api/group-discussion/evaluate/route';
+import { POST as verifyExamPOST } from '../../src/app/api/portfolio/verify-exam/route';
+import { POST as analyzeCertPOST } from '../../src/app/api/portfolio/analyze-certificate/route';
+import { signExamSessionToken } from '../../src/lib/portfolio/examToken';
+import { GET as verifyRouteGET } from '../../src/app/api/verify/[credentialId]/route';
+import { GET as transcriptRouteGET } from '../../src/app/api/passport/transcript/route';
+import { POST as githubWebhookPOST } from '../../src/app/api/webhooks/github/route';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('========================================================================');
 console.log('🏗️  END-TO-END SYSTEM INTEGRATION TEST FOR ALL FIXED ISSUES');
@@ -591,10 +591,10 @@ async function runSystemTests() {
 
   // --- SYSTEM TEST 12: End-to-End Student ↔ Teacher Messaging on Database ---
   await systemTest('System Pipeline: Student ↔ Teacher messaging via database with dual-column sync, teacher inbox, and cross-device sync', async () => {
-    const { sendDirectMessage, getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../src/lib/services/supabase/socialService');
-    const { inboxSyncService } = await import('../src/lib/chat/inboxSyncService');
-    const { GET: directGET, POST: directPOST } = await import('../src/app/api/messages/direct/route');
-    const { GET: inboxGET, POST: inboxPOST } = await import('../src/app/api/teacher/inbox/route');
+    const { sendDirectMessage, getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../../src/lib/services/supabase/socialService');
+    const { inboxSyncService } = await import('../../src/lib/chat/inboxSyncService');
+    const { GET: directGET, POST: directPOST } = await import('../../src/app/api/messages/direct/route');
+    const { GET: inboxGET, POST: inboxPOST } = await import('../../src/app/api/teacher/inbox/route');
 
     // 1. Student sends message via API route
     const studentReq = new NextRequest('http://localhost:3000/api/messages/direct', {
@@ -651,10 +651,10 @@ async function runSystemTests() {
 
   // --- SYSTEM TEST 13: End-to-End Notifications Lifecycle & Leaderboard ELO Verification ---
   await systemTest('System Pipeline: Notifications creation, dual-column sync, mark read API handlers, and leaderboard ELO rating', async () => {
-    const { GET: notifGET, POST: notifPOST } = await import('../src/app/api/notifications/route');
-    const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
-    const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
-    const { GET: leaderboardGET } = await import('../src/app/api/leaderboard/route');
+    const { GET: notifGET, POST: notifPOST } = await import('../../src/app/api/notifications/route');
+    const { POST: markAllPOST } = await import('../../src/app/api/notifications/mark-all-read/route');
+    const { PATCH: markOnePATCH } = await import('../../src/app/api/notifications/[id]/read/route');
+    const { GET: leaderboardGET } = await import('../../src/app/api/leaderboard/route');
 
     // 1. Create notification via API
     const postReq = new NextRequest('http://localhost:3000/api/notifications', {
@@ -719,15 +719,15 @@ async function runSystemTests() {
 
   // --- SYSTEM TEST 14: Enterprise Multi-Portal Data Flow & Service Authority ---
   await systemTest('System Pipeline: Multi-portal enterprise workflows (Parent, Recruiter, Consultant, Admin) with role gating, real metrics, and zero fabricated fallbacks', async () => {
-    const { GET: parentStudentsGET } = await import('../src/app/api/parent/students/route');
-    const { GET: recruiterPipeGET } = await import('../src/app/api/recruiter/pipeline/route');
-    const { POST: recruiterShortlistPOST } = await import('../src/app/api/recruiter/shortlist/route');
-    const { PATCH: recruiterVisPATCH } = await import('../src/app/api/recruiter/visibility/route');
-    const { GET: consultantAnalyticsGET } = await import('../src/app/api/consultant/analytics/route');
-    const { POST: consultantAddStudentPOST } = await import('../src/app/api/consultant/student/add/route');
-    const { GET: adminDashboardGET } = await import('../src/app/api/admin/dashboard/route');
-    const { GET: adminMetricsGET } = await import('../src/app/api/admin/metrics-summary/route');
-    const { PATCH: adminRolePATCH } = await import('../src/app/api/admin/users/[id]/role/route');
+    const { GET: parentStudentsGET } = await import('../../src/app/api/parent/students/route');
+    const { GET: recruiterPipeGET } = await import('../../src/app/api/recruiter/pipeline/route');
+    const { POST: recruiterShortlistPOST } = await import('../../src/app/api/recruiter/shortlist/route');
+    const { PATCH: recruiterVisPATCH } = await import('../../src/app/api/recruiter/visibility/route');
+    const { GET: consultantAnalyticsGET } = await import('../../src/app/api/consultant/analytics/route');
+    const { POST: consultantAddStudentPOST } = await import('../../src/app/api/consultant/student/add/route');
+    const { GET: adminDashboardGET } = await import('../../src/app/api/admin/dashboard/route');
+    const { GET: adminMetricsGET } = await import('../../src/app/api/admin/metrics-summary/route');
+    const { PATCH: adminRolePATCH } = await import('../../src/app/api/admin/users/[id]/role/route');
 
     // 1. Parent portal: student token rejected (403), parent token accepted (200)
     const pStudentReq = new NextRequest('http://localhost:3000/api/parent/students', {

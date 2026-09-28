@@ -1,4 +1,4 @@
-// scripts/audit_evidence_immutability.ts
+// scripts/audit/audit_evidence_immutability.ts
 // Exhaustive Evidence Immutability & Historical Mutation Audit for PinIT Career OS Days 01–40
 
 import * as fs from 'fs';
@@ -20,11 +20,11 @@ import {
   DAY_30_ASSESSMENT,
   DAY_35_ASSESSMENT,
   DAY_40_ASSESSMENT,
-} from '../src/lib/curriculum';
-import { EvidenceLedger } from '../src/lib/curriculum/evidenceLedger';
-import { GENESIS_EVIDENCE_HASH, EvidenceRecord } from '../src/lib/curriculum/evidenceTypes';
-import { computeEvidenceHash, verifyStudentEvidenceChain } from '../src/lib/curriculum/evidenceHasher';
-import { ProgressEngine } from '../src/lib/curriculum/progressEngine';
+} from '../../src/lib/curriculum';
+import { EvidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
+import { GENESIS_EVIDENCE_HASH, EvidenceRecord } from '../../src/lib/curriculum/evidenceTypes';
+import { computeEvidenceHash, verifyStudentEvidenceChain } from '../../src/lib/curriculum/evidenceHasher';
+import { ProgressEngine } from '../../src/lib/curriculum/progressEngine';
 
 interface AuditSection {
   title: string;

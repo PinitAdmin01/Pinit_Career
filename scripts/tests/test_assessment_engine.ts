@@ -1,4 +1,4 @@
-// scripts/test_assessment_engine.ts
+// scripts/tests/test_assessment_engine.ts
 // Comprehensive Behavioral & Adversarial Test Suite for PinIT Assessment Engine
 
 import {
@@ -8,7 +8,7 @@ import {
   AssessmentItem,
   RubricDimension,
   CurriculumValidationError,
-} from '../src/lib/curriculum/index';
+} from '../../src/lib/curriculum/index';
 
 let testsPassed = 0;
 let testsFailed = 0;

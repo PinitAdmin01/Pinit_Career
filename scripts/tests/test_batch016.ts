@@ -1,4 +1,4 @@
-// scripts/test_batch016.ts
+// scripts/tests/test_batch016.ts
 // Comprehensive Invariant & Technical Audit Test Suite for PinIT Batch 016 (Days 78–82: Month 4 Week 16)
 // Algorithmic Paradigms, Recursion, Sorting Invariants & Composite LRU Cache Architecture
 
@@ -13,9 +13,9 @@ import {
   DAY_82_MANIFEST,
   DAY_82_ASSESSMENT,
   COMPETENCY_ID_ALGORITHMIC_SYNTHESIS_AND_COMPOSITE,
-} from '../src/lib/curriculum/pythonFullStack/batch016';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch016';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

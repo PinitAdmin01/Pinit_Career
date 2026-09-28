@@ -1,4 +1,4 @@
-// scripts/verify_subbatch_4_3.ts
+// scripts/verify/verify_subbatch_4_3.ts
 // Automated Verification Suite for Sub-Batch 4.3: Interview Questions, Problems, Assist, History & Chat
 
 import * as dotenv from 'dotenv';
@@ -8,20 +8,20 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NEXTAUTH_SECRET = 'test-secret-key-for-hmac-verification';
 
 import assert from 'assert';
-import { POST as generateQuestionsRoute } from '../src/app/api/interview/generate-questions/route';
+import { POST as generateQuestionsRoute } from '../../src/app/api/interview/generate-questions/route';
 import {
   isUserInActiveLiveInterview,
   recordActiveLiveInterview,
   completeActiveLiveInterview,
   clearAllActiveSessionsForTesting
-} from '../src/lib/interview/activeSessionRegistry';
+} from '../../src/lib/interview/activeSessionRegistry';
 import {
   createEvaluationSignature,
   verifyEvaluationSignature
-} from '../src/lib/interview/evaluationSignature';
-import { generateProgressiveFallbackQuestion } from '../src/app/api/interview/chat/route';
-import { POST as assistRoute } from '../src/app/api/interview/assist/route';
-import { POST as historyRoute } from '../src/app/api/interview/history/route';
+} from '../../src/lib/interview/evaluationSignature';
+import { generateProgressiveFallbackQuestion } from '../../src/app/api/interview/chat/route';
+import { POST as assistRoute } from '../../src/app/api/interview/assist/route';
+import { POST as historyRoute } from '../../src/app/api/interview/history/route';
 
 async function runTests() {
   console.log('========================================================================');
@@ -105,7 +105,7 @@ async function runTests() {
   // -------------------------------------------------------------------------
   console.log('\n── 2. Dynamic Problem Fallback: Stubbed Code & Valid Test Cases ──');
   try {
-    const problemRouteSource = await import('../src/app/api/interview/generate-problem/route');
+    const problemRouteSource = await import('../../src/app/api/interview/generate-problem/route');
     assert.ok(problemRouteSource.POST, 'POST exported from generate-problem');
 
     const reqProb = new Request('http://localhost/api/interview/generate-problem', {

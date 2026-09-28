@@ -1,4 +1,4 @@
-// scripts/test_batch029.ts
+// scripts/tests/test_batch029.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 029 (Days 143–147 · COMPLETE)
 // PostgreSQL 18 Relational Schemas, Constraints & Advanced Data Types in Django 6.0
 
@@ -8,8 +8,8 @@ import {
   BATCH_029_MANIFEST,
   DAY_147_ASSESSMENT,
   COMPETENCY_ID_POSTGRES_SCHEMAS_AND_TYPES,
-} from '../src/lib/curriculum/pythonFullStack/batch029';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch029';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 import * as crypto from 'crypto';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──

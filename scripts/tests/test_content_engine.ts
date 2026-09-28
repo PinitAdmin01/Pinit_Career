@@ -1,4 +1,4 @@
-// scripts/test_content_engine.ts
+// scripts/tests/test_content_engine.ts
 // Comprehensive Automated Behavioral Test Suite for PinIT Content Engine Infrastructure
 
 import {
@@ -20,7 +20,7 @@ import {
   DebuggingChallengeBlock,
   TransferChallengeBlock,
   MiniProjectBlock,
-} from '../src/lib/curriculum/index';
+} from '../../src/lib/curriculum/index';
 
 let testsPassed = 0;
 let testsFailed = 0;

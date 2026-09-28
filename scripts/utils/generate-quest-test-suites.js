@@ -1,9 +1,9 @@
 /**
- * Bootstrap for scripts/generate-quest-test-suites.ts — same ts-node/tsconfig-paths
- * approach as scripts/content-qa.js. No new dependency; does not alter the app's
+ * Bootstrap for scripts/utils/generate-quest-test-suites.ts — same ts-node/tsconfig-paths
+ * approach as scripts/utils/content-qa.js. No new dependency; does not alter the app's
  * tsconfig or build.
  *
- * Usage: node scripts/generate-quest-test-suites.js
+ * Usage: node scripts/utils/generate-quest-test-suites.js
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

@@ -11,16 +11,16 @@ function transpileAndRequire(filePath) {
   const moduleObj = { exports: {} };
   const runner = new Function('module', 'exports', 'require', compiled.outputText);
   runner(moduleObj, moduleObj.exports, (modPath) => {
-    if (modPath === './types' || modPath === '../types') return require('../src/lib/code/types');
-    if (modPath === './runners/jsRunner') return require('../src/lib/code/runners/jsRunner');
-    if (modPath === './runners/pythonRunner') return require('../src/lib/code/runners/pythonRunner');
-    if (modPath === './runners/sqlRunner') return require('../src/lib/code/runners/sqlRunner');
+    if (modPath === './types' || modPath === '../types') return require('../../src/lib/code/types');
+    if (modPath === './runners/jsRunner') return require('../../src/lib/code/runners/jsRunner');
+    if (modPath === './runners/pythonRunner') return require('../../src/lib/code/runners/pythonRunner');
+    if (modPath === './runners/sqlRunner') return require('../../src/lib/code/runners/sqlRunner');
     return require(modPath);
   });
   return moduleObj.exports;
 }
 
-const { executeJavaScriptSuite } = transpileAndRequire(path.join(__dirname, '../src/lib/code/runners/jsRunner.ts'));
+const { executeJavaScriptSuite } = transpileAndRequire(path.join(__dirname, '../../src/lib/code/runners/jsRunner.ts'));
 
 let passed = 0;
 let failed = 0;

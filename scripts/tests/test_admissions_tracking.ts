@@ -1,5 +1,5 @@
 /**
- * scripts/test_admissions_tracking.ts
+ * scripts/tests/test_admissions_tracking.ts
  *
  * Verifies the hardening of the public admissions tracking lookup.
  *
@@ -12,7 +12,7 @@
  *   4. "No such application" and "wrong name" produce an IDENTICAL result, so
  *      the endpoint cannot be used as an existence oracle.
  *
- * Run: npx tsx scripts/test_admissions_tracking.ts
+ * Run: npx tsx scripts/tests/test_admissions_tracking.ts
  */
 
 let passed = 0;
@@ -39,7 +39,7 @@ function generateApplicationId(): string {
   return `APP-${year}-${suffix}`;
 }
 
-// Mirrors nameMatches() in the route and campusFallback
+// Mirrors nameMatches() in the route
 const normalise = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
 function nameMatches(supplied: string, stored: unknown): boolean {
   if (typeof stored !== 'string' || !stored.trim()) return false;

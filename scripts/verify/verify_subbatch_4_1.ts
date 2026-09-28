@@ -14,7 +14,7 @@ import {
   MAX_STT_BYTES,
   MIN_STT_BYTES,
   ALLOWED_MIME_PREFIXES,
-} from '../src/app/api/stt/route';
+} from '../../src/app/api/stt/route';
 
 async function runSubBatch4_1Tests() {
   console.log('========================================================================');

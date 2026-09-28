@@ -1,4 +1,4 @@
-// scripts/verify_live_telemetry_delivery.ts
+// scripts/verify/verify_live_telemetry_delivery.ts
 import fs from 'fs';
 import https from 'https';
 import path from 'path';
@@ -67,9 +67,9 @@ async function sendTelemetryProbe() {
 
     if (res.statusCode === 201 || res.statusCode === 200) {
       console.log('  ? [PASS] Live Backend Telemetry Ingestion Verified: Event accepted by PostgreSQL with HTTP 201 Created.');
-      console.log(`     • Probe Event ID: ${probeEvent.id}`);
-      console.log(`     • Ingest Timestamp: ${probeEvent.timestamp}`);
-      console.log(`     • Transport: Direct HTTPS REST to Supabase PostgreSQL`);
+      console.log(`     ï¿½ Probe Event ID: ${probeEvent.id}`);
+      console.log(`     ï¿½ Ingest Timestamp: ${probeEvent.timestamp}`);
+      console.log(`     ï¿½ Transport: Direct HTTPS REST to Supabase PostgreSQL`);
     } else {
       console.error(`  ? [FAIL] Unexpected HTTP status: ${res.statusCode}`, res.body);
       process.exit(1);

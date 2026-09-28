@@ -1,4 +1,4 @@
-// scripts/test_batch006.ts
+// scripts/tests/test_batch006.ts
 // Comprehensive Automated Quality, Pedagogical Progression, Assessment Sanitization & Invariant Test Suite for PinIT Batch 006 (Days 26–30)
 // Includes Adversarial OOP Tests, Multi-Design Grading Validation, and Python 3.14 Method Binding Verifications
 
@@ -11,12 +11,12 @@ import {
   DAY_30_MANIFEST,
   DAY_30_ASSESSMENT,
   COMPETENCY_ID_OOP_FOUNDATIONS,
-} from '../src/lib/curriculum/pythonFullStack/batch006';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
-import { assessmentEngine } from '../src/lib/curriculum/assessmentEngine';
-import { evidenceLedger } from '../src/lib/curriculum/evidenceLedger';
-import { PYTHON_FULLSTACK_COURSE } from '../src/lib/curriculum/pythonFullStack/curriculumSpine';
+} from '../../src/lib/curriculum/pythonFullStack/batch006';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
+import { assessmentEngine } from '../../src/lib/curriculum/assessmentEngine';
+import { evidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
+import { PYTHON_FULLSTACK_COURSE } from '../../src/lib/curriculum/pythonFullStack/curriculumSpine';
 
 let testsPassed = 0;
 let testsFailed = 0;

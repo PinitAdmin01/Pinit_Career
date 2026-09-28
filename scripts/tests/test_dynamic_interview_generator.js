@@ -1,4 +1,4 @@
-// scripts/test_dynamic_interview_generator.js
+// scripts/tests/test_dynamic_interview_generator.js
 // Automated verification for 100% Dynamic Generative Problem Engine across arbitrary domains
 
 const assert = require('assert');

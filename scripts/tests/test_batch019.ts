@@ -1,4 +1,4 @@
-// scripts/test_batch019.ts
+// scripts/tests/test_batch019.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 019 (Days 93–97)
 // Advanced Python: Context Managers, Resource Lifecycle Protocols, Dunder Protocol Engineering & Defensive Transaction Architecture
 
@@ -8,9 +8,9 @@ import {
   BATCH_019_MANIFEST,
   DAY_97_ASSESSMENT,
   COMPETENCY_ID_CONTEXT_MANAGERS_AND_RESOURCES,
-} from '../src/lib/curriculum/pythonFullStack/batch019';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch019';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 // ── CANONICAL EXCEPTIONS (Mirroring Python Contracts) ──
 

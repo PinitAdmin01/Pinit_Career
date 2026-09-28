@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const dsaPath = path.join(__dirname, '..', 'src', 'lib', 'data', 'dsa30DayData.ts');
+const dsaPath = path.join(__dirname, '..', '..', 'src', 'lib', 'data', 'dsa30DayData.ts');
 
 // ── Stub generator ───────────────────────────────────────────────────────────
 

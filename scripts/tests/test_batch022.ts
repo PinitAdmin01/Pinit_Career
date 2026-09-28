@@ -1,4 +1,4 @@
-// scripts/test_batch022.ts
+// scripts/tests/test_batch022.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 022 (Days 108–111 · PARTIAL)
 // Semantic HTML5, Accessible Forms, Declarative WCAG 2.2 AA Accessibility & Web Performance (CLS)
 
@@ -8,8 +8,8 @@ import {
   BATCH_022_MANIFEST,
   DAY_112_ASSESSMENT,
   COMPETENCY_ID_SEMANTIC_HTML_AND_ACCESSIBILITY,
-} from '../src/lib/curriculum/pythonFullStack/batch022';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch022';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 
@@ -117,7 +117,7 @@ export async function runBatch022Audit(): Promise<number> {
 
   // ── GROUP 3: Prerequisite Firewall: ZERO JavaScript in Days 108–111 ──
   console.log('\n── GROUP 3: Prerequisite Firewall: ZERO JavaScript in Days 108–111 ──');
-  const batch022FilePath = path.join(__dirname, '../src/lib/curriculum/pythonFullStack/batch022.ts');
+  const batch022FilePath = path.join(__dirname, '../../src/lib/curriculum/pythonFullStack/batch022.ts');
   const fileContent = fs.readFileSync(batch022FilePath, 'utf8');
 
   // Forbidden JavaScript keywords / APIs in executable teaching artifacts

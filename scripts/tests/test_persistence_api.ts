@@ -1,8 +1,8 @@
-// scripts/test_persistence_api.ts
+// scripts/tests/test_persistence_api.ts
 // Exhaustive 360-degree forensic audit for PathwayApiService and Persistence Contracts
 
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
 
 console.log('================================================================');
 console.log('  PINIT PERSISTENCE & API SERVICE: 360° FORENSIC AUDIT          ');

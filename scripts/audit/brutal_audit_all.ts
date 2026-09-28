@@ -1,4 +1,4 @@
-// scripts/brutal_audit_all.ts
+// scripts/audit/brutal_audit_all.ts
 // Comprehensive, unsparing, deep technical & pedagogical audit script for PinIT Career OS Days 01–40
 
 import * as fs from 'fs';
@@ -13,12 +13,12 @@ import {
   BATCH_007_MANIFEST,
   BATCH_008_MANIFEST,
   BATCH_009_MANIFEST,
-} from '../src/lib/curriculum';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
-import { AssessmentEngine } from '../src/lib/curriculum/assessmentEngine';
-import { ProgressEngine } from '../src/lib/curriculum/progressEngine';
-import { EvidenceLedger } from '../src/lib/curriculum/evidenceLedger';
+} from '../../src/lib/curriculum';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
+import { AssessmentEngine } from '../../src/lib/curriculum/assessmentEngine';
+import { ProgressEngine } from '../../src/lib/curriculum/progressEngine';
+import { EvidenceLedger } from '../../src/lib/curriculum/evidenceLedger';
 
 interface AuditFinding {
   severity: 'CRITICAL' | 'MAJOR' | 'MINOR' | 'PASS';
@@ -50,30 +50,30 @@ async function runBrutalAudit() {
     { num: 7, manifest: BATCH_007_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch007.ts' },
     { num: 8, manifest: BATCH_008_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch008.ts' },
     { num: 9, manifest: BATCH_009_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch009.ts' },
-    { num: 10, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch010')).BATCH_010_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch010.ts' },
-    { num: 11, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch011')).BATCH_011_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch011.ts' },
-    { num: 12, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch012')).BATCH_012_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch012.ts' },
-    { num: 13, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch013')).BATCH_013_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch013.ts' },
-    { num: 14, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch014')).BATCH_014_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch014.ts' },
-    { num: 15, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch015')).BATCH_015_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch015.ts' },
-    { num: 16, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch016')).BATCH_016_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch016.ts' },
-    { num: 17, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch017')).BATCH_017_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch017.ts' },
-    { num: 18, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch018')).BATCH_018_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch018.ts' },
-    { num: 19, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch019')).BATCH_019_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch019.ts' },
-    { num: 20, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch020')).BATCH_020_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch020.ts' },
-    { num: 21, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch021')).BATCH_021_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch021.ts' },
-    { num: 22, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch022')).BATCH_022_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch022.ts' },
-    { num: 23, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch023')).BATCH_023_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch023.ts' },
-    { num: 24, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch024')).BATCH_024_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch024.ts' },
-    { num: 25, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch025')).BATCH_025_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch025.ts' },
-    { num: 26, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch026')).BATCH_026_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch026.ts' },
-    { num: 27, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch027')).BATCH_027_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch027.ts' },
-    { num: 28, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch028')).BATCH_028_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch028.ts' },
-    { num: 29, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch029')).BATCH_029_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch029.ts' },
-    { num: 30, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch030')).BATCH_030_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch030.ts' },
-    { num: 31, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch031')).BATCH_031_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch031.ts' },
-    { num: 32, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch032')).BATCH_032_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch032.ts' },
-    { num: 33, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch033')).BATCH_033_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch033.ts' },
+    { num: 10, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch010')).BATCH_010_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch010.ts' },
+    { num: 11, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch011')).BATCH_011_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch011.ts' },
+    { num: 12, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch012')).BATCH_012_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch012.ts' },
+    { num: 13, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch013')).BATCH_013_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch013.ts' },
+    { num: 14, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch014')).BATCH_014_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch014.ts' },
+    { num: 15, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch015')).BATCH_015_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch015.ts' },
+    { num: 16, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch016')).BATCH_016_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch016.ts' },
+    { num: 17, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch017')).BATCH_017_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch017.ts' },
+    { num: 18, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch018')).BATCH_018_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch018.ts' },
+    { num: 19, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch019')).BATCH_019_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch019.ts' },
+    { num: 20, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch020')).BATCH_020_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch020.ts' },
+    { num: 21, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch021')).BATCH_021_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch021.ts' },
+    { num: 22, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch022')).BATCH_022_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch022.ts' },
+    { num: 23, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch023')).BATCH_023_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch023.ts' },
+    { num: 24, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch024')).BATCH_024_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch024.ts' },
+    { num: 25, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch025')).BATCH_025_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch025.ts' },
+    { num: 26, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch026')).BATCH_026_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch026.ts' },
+    { num: 27, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch027')).BATCH_027_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch027.ts' },
+    { num: 28, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch028')).BATCH_028_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch028.ts' },
+    { num: 29, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch029')).BATCH_029_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch029.ts' },
+    { num: 30, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch030')).BATCH_030_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch030.ts' },
+    { num: 31, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch031')).BATCH_031_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch031.ts' },
+    { num: 32, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch032')).BATCH_032_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch032.ts' },
+    { num: 33, manifest: (await import('../../src/lib/curriculum/pythonFullStack/batch033')).BATCH_033_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch033.ts' },
   ];
 
   // ── PHASE 1: MANIFEST & STRUCTURAL INTEGRITY ──
@@ -127,7 +127,7 @@ async function runBrutalAudit() {
 
   // Validate Post-Gate 1 Consolidation Block
   try {
-    const { POST_GATE_01_CONSOLIDATION_MANIFEST } = await import('../src/lib/curriculum/pythonFullStack/postGate01Consolidation');
+    const { POST_GATE_01_CONSOLIDATION_MANIFEST } = await import('../../src/lib/curriculum/pythonFullStack/postGate01Consolidation');
     ContentValidator.validateConsolidationBlockManifest(POST_GATE_01_CONSOLIDATION_MANIFEST);
     record('PASS', 'Manifest Validator', 'Post-Gate 1 Consolidation Block', 'Schema & sequencing valid (Days 61–62)');
 
@@ -186,39 +186,39 @@ async function runBrutalAudit() {
   // ── PHASE 3: ASSESSMENT SECURITY & FORMATIVE CLASSIFICATION ──
   console.log('\n── PHASE 3: ASSESSMENT SECURITY & FORMATIVE CLASSIFICATION ──');
   const assessments = [
-    { day: 5, batch: 1, asm: (await import('../src/lib/curriculum/pythonFullStack/batch001')).DAY_05_ASSESSMENT },
-    { day: 10, batch: 2, asm: (await import('../src/lib/curriculum/pythonFullStack/batch002')).DAY_10_ASSESSMENT },
-    { day: 15, batch: 3, asm: (await import('../src/lib/curriculum/pythonFullStack/batch003')).DAY_15_ASSESSMENT },
-    { day: 20, batch: 4, asm: (await import('../src/lib/curriculum/pythonFullStack/batch004')).DAY_20_ASSESSMENT },
-    { day: 25, batch: 5, asm: (await import('../src/lib/curriculum/pythonFullStack/batch005')).DAY_25_ASSESSMENT },
-    { day: 30, batch: 6, asm: (await import('../src/lib/curriculum/pythonFullStack/batch006')).DAY_30_ASSESSMENT },
-    { day: 35, batch: 7, asm: (await import('../src/lib/curriculum/pythonFullStack/batch007')).DAY_35_ASSESSMENT },
-    { day: 40, batch: 8, asm: (await import('../src/lib/curriculum/pythonFullStack/batch008')).DAY_40_ASSESSMENT },
-    { day: 45, batch: 9, asm: (await import('../src/lib/curriculum/pythonFullStack/batch009')).DAY_45_ASSESSMENT },
-    { day: 50, batch: 10, asm: (await import('../src/lib/curriculum/pythonFullStack/batch010')).DAY_50_ASSESSMENT },
-    { day: 55, batch: 11, asm: (await import('../src/lib/curriculum/pythonFullStack/batch011')).DAY_55_ASSESSMENT },
-    { day: 60, batch: 12, asm: (await import('../src/lib/curriculum/pythonFullStack/batch012')).DAY_60_ASSESSMENT },
-    { day: 67, batch: 13, asm: (await import('../src/lib/curriculum/pythonFullStack/batch013')).DAY_67_ASSESSMENT },
-    { day: 72, batch: 14, asm: (await import('../src/lib/curriculum/pythonFullStack/batch014')).DAY_72_ASSESSMENT },
-    { day: 77, batch: 15, asm: (await import('../src/lib/curriculum/pythonFullStack/batch015')).DAY_77_ASSESSMENT },
-    { day: 82, batch: 16, asm: (await import('../src/lib/curriculum/pythonFullStack/batch016')).DAY_82_ASSESSMENT },
-    { day: 87, batch: 17, asm: (await import('../src/lib/curriculum/pythonFullStack/batch017')).DAY_87_ASSESSMENT },
-    { day: 92, batch: 18, asm: (await import('../src/lib/curriculum/pythonFullStack/batch018')).DAY_92_ASSESSMENT },
-    { day: 97, batch: 19, asm: (await import('../src/lib/curriculum/pythonFullStack/batch019')).DAY_97_ASSESSMENT },
-    { day: 102, batch: 20, asm: (await import('../src/lib/curriculum/pythonFullStack/batch020')).DAY_102_ASSESSMENT },
-    { day: 107, batch: 21, asm: (await import('../src/lib/curriculum/pythonFullStack/batch021')).DAY_107_ASSESSMENT },
-    { day: 112, batch: 22, asm: (await import('../src/lib/curriculum/pythonFullStack/batch022')).DAY_112_ASSESSMENT },
-    { day: 117, batch: 23, asm: (await import('../src/lib/curriculum/pythonFullStack/batch023')).DAY_117_ASSESSMENT },
-    { day: 122, batch: 24, asm: (await import('../src/lib/curriculum/pythonFullStack/batch024')).GATE_2_ASSESSMENT },
-    { day: 127, batch: 25, asm: (await import('../src/lib/curriculum/pythonFullStack/batch025')).DAY_127_ASSESSMENT },
-    { day: 132, batch: 26, asm: (await import('../src/lib/curriculum/pythonFullStack/batch026')).DAY_132_ASSESSMENT },
-    { day: 137, batch: 27, asm: (await import('../src/lib/curriculum/pythonFullStack/batch027')).DAY_137_ASSESSMENT },
-    { day: 142, batch: 28, asm: (await import('../src/lib/curriculum/pythonFullStack/batch028')).DAY_142_ASSESSMENT },
-    { day: 147, batch: 29, asm: (await import('../src/lib/curriculum/pythonFullStack/batch029')).DAY_147_ASSESSMENT },
-    { day: 152, batch: 30, asm: (await import('../src/lib/curriculum/pythonFullStack/batch030')).DAY_152_ASSESSMENT },
-    { day: 157, batch: 31, asm: (await import('../src/lib/curriculum/pythonFullStack/batch031')).DAY_157_ASSESSMENT },
-    { day: 162, batch: 32, asm: (await import('../src/lib/curriculum/pythonFullStack/batch032')).DAY_162_ASSESSMENT },
-    { day: 167, batch: 33, asm: (await import('../src/lib/curriculum/pythonFullStack/batch033')).DAY_167_ASSESSMENT },
+    { day: 5, batch: 1, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch001')).DAY_05_ASSESSMENT },
+    { day: 10, batch: 2, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch002')).DAY_10_ASSESSMENT },
+    { day: 15, batch: 3, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch003')).DAY_15_ASSESSMENT },
+    { day: 20, batch: 4, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch004')).DAY_20_ASSESSMENT },
+    { day: 25, batch: 5, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch005')).DAY_25_ASSESSMENT },
+    { day: 30, batch: 6, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch006')).DAY_30_ASSESSMENT },
+    { day: 35, batch: 7, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch007')).DAY_35_ASSESSMENT },
+    { day: 40, batch: 8, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch008')).DAY_40_ASSESSMENT },
+    { day: 45, batch: 9, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch009')).DAY_45_ASSESSMENT },
+    { day: 50, batch: 10, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch010')).DAY_50_ASSESSMENT },
+    { day: 55, batch: 11, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch011')).DAY_55_ASSESSMENT },
+    { day: 60, batch: 12, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch012')).DAY_60_ASSESSMENT },
+    { day: 67, batch: 13, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch013')).DAY_67_ASSESSMENT },
+    { day: 72, batch: 14, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch014')).DAY_72_ASSESSMENT },
+    { day: 77, batch: 15, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch015')).DAY_77_ASSESSMENT },
+    { day: 82, batch: 16, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch016')).DAY_82_ASSESSMENT },
+    { day: 87, batch: 17, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch017')).DAY_87_ASSESSMENT },
+    { day: 92, batch: 18, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch018')).DAY_92_ASSESSMENT },
+    { day: 97, batch: 19, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch019')).DAY_97_ASSESSMENT },
+    { day: 102, batch: 20, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch020')).DAY_102_ASSESSMENT },
+    { day: 107, batch: 21, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch021')).DAY_107_ASSESSMENT },
+    { day: 112, batch: 22, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch022')).DAY_112_ASSESSMENT },
+    { day: 117, batch: 23, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch023')).DAY_117_ASSESSMENT },
+    { day: 122, batch: 24, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch024')).GATE_2_ASSESSMENT },
+    { day: 127, batch: 25, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch025')).DAY_127_ASSESSMENT },
+    { day: 132, batch: 26, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch026')).DAY_132_ASSESSMENT },
+    { day: 137, batch: 27, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch027')).DAY_137_ASSESSMENT },
+    { day: 142, batch: 28, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch028')).DAY_142_ASSESSMENT },
+    { day: 147, batch: 29, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch029')).DAY_147_ASSESSMENT },
+    { day: 152, batch: 30, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch030')).DAY_152_ASSESSMENT },
+    { day: 157, batch: 31, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch031')).DAY_157_ASSESSMENT },
+    { day: 162, batch: 32, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch032')).DAY_162_ASSESSMENT },
+    { day: 167, batch: 33, asm: (await import('../../src/lib/curriculum/pythonFullStack/batch033')).DAY_167_ASSESSMENT },
   ];
 
   for (const a of assessments) {
@@ -250,7 +250,7 @@ async function runBrutalAudit() {
 
   // ── PHASE 4: PROGRESS ENGINE DYNAMIC RECONCILIATION ──
   console.log('\n── PHASE 4: PROGRESS ENGINE DYNAMIC RECONCILIATION ──');
-  const { POST_GATE_01_CONSOLIDATION_MANIFEST } = await import('../src/lib/curriculum/pythonFullStack/postGate01Consolidation');
+  const { POST_GATE_01_CONSOLIDATION_MANIFEST } = await import('../../src/lib/curriculum/pythonFullStack/postGate01Consolidation');
   const manifests = allBatches.map(b => b.manifest);
   const prog = ProgressEngine.computeProgress([...manifests, POST_GATE_01_CONSOLIDATION_MANIFEST]);
 
@@ -282,7 +282,7 @@ async function runBrutalAudit() {
 
   // ── PHASE 4.5: CANONICAL DAY INVENTORY VALIDATION ──
   console.log('\n── PHASE 4.5: CANONICAL DAY INVENTORY VALIDATION ──');
-  const { validateDayInventory } = await import('../src/lib/curriculum/dayInventory');
+  const { validateDayInventory } = await import('../../src/lib/curriculum/dayInventory');
   const invReport = validateDayInventory();
   if (!invReport.valid) {
     record('CRITICAL', 'Day Inventory', 'Canonical Invariants', `Day inventory validation failed: ${invReport.errors.join('; ')}`);

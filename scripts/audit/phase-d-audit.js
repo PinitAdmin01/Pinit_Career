@@ -17,7 +17,7 @@
 
 const fs   = require('fs');
 const path = require('path');
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 // ── Course registry ──────────────────────────────────────────────────────────
 
@@ -432,11 +432,11 @@ for (const course of COURSES) {
 }
 
 // Write JSON report
-const reportPath = path.join(__dirname, '..', 'scripts', 'phase-d-report.json');
+const reportPath = path.join(__dirname, '..', '..', 'scripts', 'phase-d-report.json');
 fs.writeFileSync(reportPath, JSON.stringify(allResults, null, 2), 'utf8');
 
 // Write RED/YELLOW summary for quick review
-const summaryPath = path.join(__dirname, '..', 'scripts', 'phase-d-summary.json');
+const summaryPath = path.join(__dirname, '..', '..', 'scripts', 'phase-d-summary.json');
 const issues = allResults
   .filter(r => r.overall_status !== G)
   .map(r => ({
@@ -470,5 +470,5 @@ allResults.filter(r => r.overall_status === R).forEach(r => {
   r.issues.slice(0, 3).forEach(i => console.log(`    • ${i}`));
 });
 
-console.log(`\nReport: scripts/phase-d-report.json`);
-console.log(`Issues: scripts/phase-d-summary.json`);
+console.log(`\nReport: scripts/audit/phase-d-report.json`);
+console.log(`Issues: scripts/audit/phase-d-summary.json`);

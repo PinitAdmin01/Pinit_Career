@@ -3,9 +3,9 @@
  * Validates Offline Sync, GitHub Webhook bridge, and Transcript Verification formatting.
  */
 
-import { OfflineSyncService } from '../src/lib/offline/offlineSync';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
+import { OfflineSyncService } from '../../src/lib/offline/offlineSync';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
 
 let passCount = 0;
 let failCount = 0;

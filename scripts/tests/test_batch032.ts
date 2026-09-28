@@ -1,4 +1,4 @@
-// scripts/test_batch032.ts
+// scripts/tests/test_batch032.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 032 (Days 158–162 · COMPLETE)
 // PostgreSQL Indexing Architecture, Query Planning & Performance Tuning
 
@@ -13,8 +13,8 @@ import {
   DAY_162_MANIFEST,
   DAY_162_ASSESSMENT,
   COMPETENCY_ID_POSTGRES_INDEXING,
-} from '../src/lib/curriculum/pythonFullStack/batch032';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch032';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

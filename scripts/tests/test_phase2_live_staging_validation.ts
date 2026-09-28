@@ -1,5 +1,5 @@
 /**
- * scripts/test_phase2_live_staging_validation.ts
+ * scripts/tests/test_phase2_live_staging_validation.ts
  *
  * 🏛️ PinitCareer Phase 2: Live Staging Validation Harness (Sub-Gates C1.1–C5.1)
  *
@@ -32,7 +32,7 @@ import {
   validateKmsPrivilegedAction,
   validateBiometricRamOnlyPolicy,
   evaluateSigningKeyLifecycle,
-} from '../src/lib/services/credentialIssuanceService';
+} from '../../src/lib/services/credentialIssuanceService';
 
 export type GateStatus = 'PASS' | 'FAIL' | 'NOT_EXECUTED' | 'NOT_APPLICABLE';
 export type EvidenceType =

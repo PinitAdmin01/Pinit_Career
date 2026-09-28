@@ -1,4 +1,4 @@
-// scripts/test_batch033.ts
+// scripts/tests/test_batch033.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 033 (Days 163–167 · COMPLETE)
 // Advanced Django Full-Stack Architecture, Custom QuerySets, Tiered Caching & HTMX
 
@@ -13,8 +13,8 @@ import {
   DAY_167_MANIFEST,
   DAY_167_ASSESSMENT,
   COMPETENCY_ID_FULL_STACK_HTMX,
-} from '../src/lib/curriculum/pythonFullStack/batch033';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch033';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

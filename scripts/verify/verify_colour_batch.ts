@@ -1,5 +1,5 @@
 /**
- * scripts/verify_colour_batch.ts
+ * scripts/verify/verify_colour_batch.ts
  *
  * Adversarial verifier for colour-token migration batches.
  *
@@ -20,8 +20,8 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * USAGE
  * ─────────────────────────────────────────────────────────────────────────────
- *   BEFORE the work:  npx tsx scripts/verify_colour_batch.ts snapshot <batch.txt>
- *   AFTER the work:   npx tsx scripts/verify_colour_batch.ts verify   <batch.txt>
+ *   BEFORE the work:  npx tsx scripts/verify/verify_colour_batch.ts snapshot <batch.txt>
+ *   AFTER the work:   npx tsx scripts/verify/verify_colour_batch.ts verify   <batch.txt>
  *
  * <batch.txt> is one repo-relative file path per line.
  *
@@ -32,7 +32,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(__dirname, '..', '..');
 const SNAP = path.join(__dirname, '.colour-batch-snapshot.json');
 
 // Colour forms. Missing any one of these is how every previous undercount

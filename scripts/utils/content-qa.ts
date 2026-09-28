@@ -16,51 +16,51 @@
  * and content; it does NOT typecheck. `npx tsc --noEmit` remains a separate
  * mandatory CI gate.
  *
- * Run:  node scripts/content-qa.js
+ * Run:  node scripts/utils/content-qa.js
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vm from 'vm';
 
-import { COURSES_REGISTRY, Course, CourseQuest } from '../src/lib/data/coursesData';
+import { COURSES_REGISTRY, Course, CourseQuest } from '../../src/lib/data/coursesData';
 
-import { JAVA_PILOT_DAYS } from '../src/lib/data/javaPilotDays';
-import { PYTHON_PILOT_DAYS } from '../src/lib/data/pythonPilotDays';
-import { REACT_PILOT_DAYS } from '../src/lib/data/reactPilotDays';
-import { DATABASE_PILOT_DAYS } from '../src/lib/data/databasePilotDays';
-import { DSA_PILOT_DAYS } from '../src/lib/data/dsaPilotDays';
-import { FULLSTACK_PILOT_DAYS } from '../src/lib/data/fullstackPilotDays';
-import { CLOUD_PILOT_DAYS } from '../src/lib/data/cloudPilotDays';
-import { DEVOPS_PILOT_DAYS } from '../src/lib/data/devopsPilotDays';
-import { AI_PILOT_DAYS } from '../src/lib/data/aiPilotDays';
-import { DISTRIBUTED_PILOT_DAYS } from '../src/lib/data/distributedPilotDays';
-import { IOT_EMBEDDED_PILOT_DAYS } from '../src/lib/data/iotEmbeddedPilotDays';
-import { GRAPHICS_3D_PILOT_DAYS } from '../src/lib/data/graphics3dPilotDays';
-import { BLOCKCHAIN_PILOT_DAYS } from '../src/lib/data/blockchainPilotDays';
-import { IOT_NETWORK_PILOT_DAYS } from '../src/lib/data/iotNetworkPilotDays';
-import { IOT_EDGE_AI_PILOT_DAYS } from '../src/lib/data/iotEdgeAiPilotDays';
-import { IOT_SECURITY_PILOT_DAYS } from '../src/lib/data/iotSecurityPilotDays';
-import { QUANT_PILOT_DAYS } from '../src/lib/data/quantPilotDays';
-import { BCOM_ACCOUNTING_PILOT_DAYS } from '../src/lib/data/bcomAccountingPilotDays';
-import { BCOM_FINANCE_PILOT_DAYS } from '../src/lib/data/bcomFinancePilotDays';
-import { BCOM_ANALYTICS_PILOT_DAYS } from '../src/lib/data/bcomAnalyticsPilotDays';
-import { BCOM_MARKETING_PILOT_DAYS } from '../src/lib/data/bcomMarketingPilotDays';
-import { BCOM_DIGITAL_MARKETING_PILOT_DAYS } from '../src/lib/data/bcomDigitalMarketingPilotDays';
-import { BCOM_ECOMMERCE_PILOT_DAYS } from '../src/lib/data/bcomEcommercePilotDays';
-import { BCOM_ENTREPRENEURSHIP_PILOT_DAYS } from '../src/lib/data/bcomEntrepreneurshipPilotDays';
-import { BCOM_SALES_CRM_PILOT_DAYS } from '../src/lib/data/bcomSalesCrmPilotDays';
-import { BCOM_OPERATIONS_PILOT_DAYS } from '../src/lib/data/bcomOperationsPilotDays';
-import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from '../src/lib/data/bcomAiTransformationPilotDays';
-import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from '../src/lib/data/computerFundamentalsPilotDays';
-import { AI_PROMPT_LITERACY_PILOT_DAYS } from '../src/lib/data/aiPromptLiteracyPilotDays';
-import { EXCEL_DATA_VIZ_PILOT_DAYS } from '../src/lib/data/excelDataVizPilotDays';
-import { GIT_VERSION_CONTROL_PILOT_DAYS } from '../src/lib/data/gitVersionControlPilotDays';
-import { SOFTSKILLS_PILOT_DAYS } from '../src/lib/data/softskillsPilotDays';
-import { DESIGN_PILOT_DAYS } from '../src/lib/data/designPilotDays';
-import { MOBILE_PILOT_DAYS } from '../src/lib/data/mobilePilotDays';
-import { NLP_PILOT_DAYS } from '../src/lib/data/nlpPilotDays';
-import { CYBER_PILOT_DAYS } from '../src/lib/data/cybersecurityPilotDays';
+import { JAVA_PILOT_DAYS } from '../../src/lib/data/javaPilotDays';
+import { PYTHON_PILOT_DAYS } from '../../src/lib/data/pythonPilotDays';
+import { REACT_PILOT_DAYS } from '../../src/lib/data/reactPilotDays';
+import { DATABASE_PILOT_DAYS } from '../../src/lib/data/databasePilotDays';
+import { DSA_PILOT_DAYS } from '../../src/lib/data/dsaPilotDays';
+import { FULLSTACK_PILOT_DAYS } from '../../src/lib/data/fullstackPilotDays';
+import { CLOUD_PILOT_DAYS } from '../../src/lib/data/cloudPilotDays';
+import { DEVOPS_PILOT_DAYS } from '../../src/lib/data/devopsPilotDays';
+import { AI_PILOT_DAYS } from '../../src/lib/data/aiPilotDays';
+import { DISTRIBUTED_PILOT_DAYS } from '../../src/lib/data/distributedPilotDays';
+import { IOT_EMBEDDED_PILOT_DAYS } from '../../src/lib/data/iotEmbeddedPilotDays';
+import { GRAPHICS_3D_PILOT_DAYS } from '../../src/lib/data/graphics3dPilotDays';
+import { BLOCKCHAIN_PILOT_DAYS } from '../../src/lib/data/blockchainPilotDays';
+import { IOT_NETWORK_PILOT_DAYS } from '../../src/lib/data/iotNetworkPilotDays';
+import { IOT_EDGE_AI_PILOT_DAYS } from '../../src/lib/data/iotEdgeAiPilotDays';
+import { IOT_SECURITY_PILOT_DAYS } from '../../src/lib/data/iotSecurityPilotDays';
+import { QUANT_PILOT_DAYS } from '../../src/lib/data/quantPilotDays';
+import { BCOM_ACCOUNTING_PILOT_DAYS } from '../../src/lib/data/bcomAccountingPilotDays';
+import { BCOM_FINANCE_PILOT_DAYS } from '../../src/lib/data/bcomFinancePilotDays';
+import { BCOM_ANALYTICS_PILOT_DAYS } from '../../src/lib/data/bcomAnalyticsPilotDays';
+import { BCOM_MARKETING_PILOT_DAYS } from '../../src/lib/data/bcomMarketingPilotDays';
+import { BCOM_DIGITAL_MARKETING_PILOT_DAYS } from '../../src/lib/data/bcomDigitalMarketingPilotDays';
+import { BCOM_ECOMMERCE_PILOT_DAYS } from '../../src/lib/data/bcomEcommercePilotDays';
+import { BCOM_ENTREPRENEURSHIP_PILOT_DAYS } from '../../src/lib/data/bcomEntrepreneurshipPilotDays';
+import { BCOM_SALES_CRM_PILOT_DAYS } from '../../src/lib/data/bcomSalesCrmPilotDays';
+import { BCOM_OPERATIONS_PILOT_DAYS } from '../../src/lib/data/bcomOperationsPilotDays';
+import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from '../../src/lib/data/bcomAiTransformationPilotDays';
+import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from '../../src/lib/data/computerFundamentalsPilotDays';
+import { AI_PROMPT_LITERACY_PILOT_DAYS } from '../../src/lib/data/aiPromptLiteracyPilotDays';
+import { EXCEL_DATA_VIZ_PILOT_DAYS } from '../../src/lib/data/excelDataVizPilotDays';
+import { GIT_VERSION_CONTROL_PILOT_DAYS } from '../../src/lib/data/gitVersionControlPilotDays';
+import { SOFTSKILLS_PILOT_DAYS } from '../../src/lib/data/softskillsPilotDays';
+import { DESIGN_PILOT_DAYS } from '../../src/lib/data/designPilotDays';
+import { MOBILE_PILOT_DAYS } from '../../src/lib/data/mobilePilotDays';
+import { NLP_PILOT_DAYS } from '../../src/lib/data/nlpPilotDays';
+import { CYBER_PILOT_DAYS } from '../../src/lib/data/cybersecurityPilotDays';
 
 // ── Explicit course → pilot-source binding ─────────────────────────────────
 // This map is deliberately explicit. It is the seed for the Stage 5.1

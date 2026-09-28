@@ -11,26 +11,25 @@ import fs from 'fs';
 import path from 'path';
 
 // 1. Imports of services
-import { writeLocalJson, readLocalJson } from '../src/lib/services/localJsonDb';
-import { examsService } from '../src/lib/services/examsService';
-import { grievancesService } from '../src/lib/services/grievancesService';
-import { advisorService, getDemoAdvisorStats } from '../src/lib/services/advisorService';
-import { communicationService } from '../src/lib/services/communicationService';
-import { alumniService } from '../src/lib/services/alumniService';
-import { hrService } from '../src/lib/services/hrService';
-import { procurementService } from '../src/lib/services/procurementService';
-import { assetsService } from '../src/lib/services/assetsService';
-import { documentsService } from '../src/lib/services/documentsService';
-import { eventsService } from '../src/lib/services/eventsService';
-import { notesService } from '../src/lib/services/notesService';
-import { researchService } from '../src/lib/services/researchService';
-import { servicesService } from '../src/lib/services/servicesService';
-import { libraryService } from '../src/lib/services/libraryService';
-import { hostelService } from '../src/lib/services/hostelService';
-import { transportService } from '../src/lib/services/transportService';
-import { maintenanceService } from '../src/lib/services/maintenanceService';
-import { financeService, acquireDistributedLock } from '../src/lib/services/financeService';
-import { tryCampusFallback } from '../src/lib/campusFallback';
+import { writeLocalJson, readLocalJson } from '../../src/lib/services/localJsonDb';
+import { examsService } from '../../src/lib/services/examsService';
+import { grievancesService } from '../../src/lib/services/grievancesService';
+import { advisorService, getDemoAdvisorStats } from '../../src/lib/services/advisorService';
+import { communicationService } from '../../src/lib/services/communicationService';
+import { alumniService } from '../../src/lib/services/alumniService';
+import { hrService } from '../../src/lib/services/hrService';
+import { procurementService } from '../../src/lib/services/procurementService';
+import { assetsService } from '../../src/lib/services/assetsService';
+import { documentsService } from '../../src/lib/services/documentsService';
+import { eventsService } from '../../src/lib/services/eventsService';
+import { notesService } from '../../src/lib/services/notesService';
+import { researchService } from '../../src/lib/services/researchService';
+import { servicesService } from '../../src/lib/services/servicesService';
+import { libraryService } from '../../src/lib/services/libraryService';
+import { hostelService } from '../../src/lib/services/hostelService';
+import { transportService } from '../../src/lib/services/transportService';
+import { maintenanceService } from '../../src/lib/services/maintenanceService';
+import { financeService, acquireDistributedLock } from '../../src/lib/services/financeService';
 
 let totalTests = 0;
 let passedTests = 0;
@@ -57,7 +56,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 26: Interview Questions, Problems, Assist, History & Chat ---');
 
   await test('Question Generator: No Leaked Solutions & Difficulty Respected', async () => {
-    const { POST: generateQuestionsRoute } = await import('../src/app/api/interview/generate-questions/route');
+    const { POST: generateQuestionsRoute } = await import('../../src/app/api/interview/generate-questions/route');
 
     const authHeaders = {
       authorization: 'Bearer test-token-001',
@@ -94,7 +93,7 @@ async function runAllVerifications() {
   });
 
   await test('Dynamic Problem Fallback: Stubbed Starter Code & Machine-Checkable Test Cases', async () => {
-    const { POST: generateProblemRoute } = await import('../src/app/api/interview/generate-problem/route');
+    const { POST: generateProblemRoute } = await import('../../src/app/api/interview/generate-problem/route');
 
     const reqProb = new Request('http://localhost/api/interview/generate-problem', {
       method: 'POST',
@@ -125,8 +124,8 @@ async function runAllVerifications() {
       recordActiveLiveInterview,
       completeActiveLiveInterview,
       clearAllActiveSessionsForTesting
-    } = await import('../src/lib/interview/activeSessionRegistry');
-    const { POST: assistRoute } = await import('../src/app/api/interview/assist/route');
+    } = await import('../../src/lib/interview/activeSessionRegistry');
+    const { POST: assistRoute } = await import('../../src/app/api/interview/assist/route');
 
     clearAllActiveSessionsForTesting();
     const testUserId = 'test_user_001';
@@ -159,8 +158,8 @@ async function runAllVerifications() {
     const {
       createEvaluationSignature,
       verifyEvaluationSignature
-    } = await import('../src/lib/interview/evaluationSignature');
-    const { POST: historyRoute } = await import('../src/app/api/interview/history/route');
+    } = await import('../../src/lib/interview/evaluationSignature');
+    const { POST: historyRoute } = await import('../../src/app/api/interview/history/route');
 
     const studentId = 'test_user_001';
     const validSig = createEvaluationSignature(studentId, 88, 'Hire');
@@ -195,7 +194,7 @@ async function runAllVerifications() {
   });
 
   await test('Chat Route: Progressive Fallback Conversation Engine Without Repetition', async () => {
-    const { generateProgressiveFallbackQuestion } = await import('../src/app/api/interview/chat/route');
+    const { generateProgressiveFallbackQuestion } = await import('../../src/app/api/interview/chat/route');
 
     const q1 = generateProgressiveFallbackQuestion({
       stage: 'round1_behavioral',
@@ -226,7 +225,7 @@ async function runAllVerifications() {
   // SUBBATCH 4.6 (Issue 29): Résumé, Vault, Certificates & Document Verification Integrity
   // =========================================================================
   await test('Issue 29: Native PDF extraction extracts real candidate text without leaking browser metadata', async () => {
-    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
+    const { extractDocumentEvidence } = await import('../../src/lib/ats/pdfTextExtractor');
     const os = await import('os');
     const pdfPath = path.join(os.tmpdir(), 'edge_resume.pdf');
     if (fs.existsSync(pdfPath)) {
@@ -244,7 +243,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Pure Node.js DOCX extraction decompresses PKZip XML paragraphs and text', async () => {
-    const { extractTextFromDocxBuffer } = await import('../src/lib/ats/pdfTextExtractor');
+    const { extractTextFromDocxBuffer } = await import('../../src/lib/ats/pdfTextExtractor');
     const zlib = await import('zlib');
     const xmlContent = Buffer.from('<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Aarav Patel</w:t></w:r></w:p><w:p><w:r><w:t>Email: aarav@example.com | Phone: +91 9988776655</w:t></w:r></w:p><w:p><w:r><w:t>Education: Indian Institute of Technology Bombay - B.Tech Computer Science</w:t></w:r></w:p><w:p><w:r><w:t>CGPA: 9.2</w:t></w:r></w:p></w:body></w:document>');
     const compXml = zlib.deflateRawSync(xmlContent);
@@ -283,8 +282,8 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Honest refusal on unreadable files and honest image OCR without ASCII scraping', async () => {
-    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
-    const { extractTextFromImageBuffer } = await import('../src/lib/ats/imageOcrWorker');
+    const { extractDocumentEvidence } = await import('../../src/lib/ats/pdfTextExtractor');
+    const { extractTextFromImageBuffer } = await import('../../src/lib/ats/imageOcrWorker');
     const emptyPdfBuf = Buffer.from('%PDF-1.4\n1 0 obj\n<< >>\nendobj\nxref\n0 1\ntrailer\n<< >>\n%%EOF');
     const pdfRes = extractDocumentEvidence(emptyPdfBuf, 'PDF');
     assert.strictEqual(pdfRes.extractionConfidence, 0.0);
@@ -297,7 +296,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Anti-Fraud Identity Sentinel prevents surname vulnerability (friend/sibling match)', async () => {
-    const { checkNameSimilarity } = await import('../src/lib/ats/documentAuditEngine');
+    const { checkNameSimilarity } = await import('../../src/lib/ats/documentAuditEngine');
     const friendResult = checkNameSimilarity('Rohan Sharma', 'Priya Sharma');
     assert.strictEqual(friendResult.isMatch, false);
     assert.ok(friendResult.reason?.includes('same surname'));
@@ -310,7 +309,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Fact check entity grounding rejects Mozilla/5.0 as GPA and Adobe as Degree', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
     const fakeMetadata = 'Resume\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\nSkia/PDF m153\nAdobe Systems Inc.\n';
     const fakeGraph = groundAndValidateEvidence(fakeMetadata, 'test.pdf', 'fakehash');
     assert.strictEqual(fakeGraph.candidateName, 'Candidate');
@@ -325,7 +324,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Vault upload route returns HTTP 422 UNREADABLE_DOCUMENT on unreadable files', async () => {
-    const { POST: vaultUploadPOST } = await import('../src/app/api/vault/upload/route');
+    const { POST: vaultUploadPOST } = await import('../../src/app/api/vault/upload/route');
     const unreadableFormData = new FormData();
     const tinyBlob = new Blob(['%PDF-1.4 empty'], { type: 'application/pdf' });
     unreadableFormData.append('file', tinyBlob, 'corrupt.pdf');
@@ -350,7 +349,7 @@ async function runAllVerifications() {
   // SUBBATCH 4.7 (Issue 30): Trust Score Integrity, Anti-Fraud & Empty Defenses
   // =========================================================================
   await test('Issue 30: Three empty files yield 0 Evidence Trust, 0 QT2, 0 ATS and unreadable status', async () => {
-    const { auditDocumentCollection, calculateLiveQTMetrics } = await import('../src/lib/ats/documentAuditEngine');
+    const { auditDocumentCollection, calculateLiveQTMetrics } = await import('../../src/lib/ats/documentAuditEngine');
     const emptyDocs = [
       { id: '1', category: 'sem1', title: '1', fileName: 'sem1.pdf', fileSize: '0 KB', fileType: 'pdf', candidateName: 'Candidate', scoreOrGpa: '1st Semester University Marksheet', skills: [], verificationStatus: 'provisional', uploadedAt: 1 },
       { id: '2', category: 'sem2', title: '2', fileName: 'sem2.pdf', fileSize: '0 KB', fileType: 'pdf', candidateName: 'Candidate', scoreOrGpa: '2nd Semester University Marksheet', skills: [], verificationStatus: 'provisional', uploadedAt: 1 },
@@ -369,7 +368,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 30: Zero documents and single document yield accurate baseline trust scores', async () => {
-    const { auditDocumentCollection } = await import('../src/lib/ats/documentAuditEngine');
+    const { auditDocumentCollection } = await import('../../src/lib/ats/documentAuditEngine');
     const zeroAudit = auditDocumentCollection('', []);
     assert.strictEqual(zeroAudit.trustScore, 0);
     assert.strictEqual(zeroAudit.overallStatus, 'AWAITING_UPLOADS');
@@ -394,7 +393,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 30: Name matching rejects same-surname friends and empty strings, marks mismatch as REVIEW_REQUIRED', async () => {
-    const { checkNameSimilarity, auditDocumentCollection } = await import('../src/lib/ats/documentAuditEngine');
+    const { checkNameSimilarity, auditDocumentCollection } = await import('../../src/lib/ats/documentAuditEngine');
     const p1 = checkNameSimilarity('Rahul Kumar', 'Amit Kumar');
     assert.strictEqual(p1.isMatch, false);
 
@@ -651,27 +650,6 @@ async function runAllVerifications() {
     assert.ok(res.error?.includes('PAYROLL_GATEWAY_NOT_CONFIGURED'));
   });
 
-  await test('campusFallback intercepts simulated API endpoints with 503 disabled status', async () => {
-    const dummyActor = { name: 'Tester', email: 'test@campus.edu' };
-    const params = new URLSearchParams();
-
-    const hrRes = await tryCampusFallback('GET', '/api/hr/stats', 'u1', null, params, dummyActor);
-    assert.strictEqual((hrRes as any).ok, false);
-    assert.strictEqual((hrRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
-
-    const procRes = await tryCampusFallback('GET', '/api/procurement/stats', 'u1', null, params, dummyActor);
-    assert.strictEqual((procRes as any).ok, false);
-    assert.strictEqual((procRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
-
-    const assetRes = await tryCampusFallback('GET', '/api/assets/stats', 'u1', null, params, dummyActor);
-    assert.strictEqual((assetRes as any).ok, false);
-    assert.strictEqual((assetRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
-
-    const alumniRes = await tryCampusFallback('GET', '/api/alumni/stats', 'u1', null, params, dummyActor);
-    assert.strictEqual((alumniRes as any).ok, false);
-    assert.strictEqual((alumniRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
-  });
-
   // -------------------------------------------------------------
   // ISSUE 7: Documents Vault Verification Code & Profile Details
   // -------------------------------------------------------------
@@ -819,7 +797,7 @@ async function runAllVerifications() {
     const roomCode = `R-CAP-${Date.now()}`;
 
     // Read local db and insert a test room with capacity 1
-    const { readLocalJson, writeLocalJson } = await import('../src/lib/services/localJsonDb');
+    const { readLocalJson, writeLocalJson } = await import('../../src/lib/services/localJsonDb');
     const db = await readLocalJson('src/lib/data/hostel_db.json', { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] });
     db.rooms.push({
       code: roomCode,
@@ -961,7 +939,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 16: Profile Mass-Assignment & Privilege Escalation ---');
 
   await test('ALLOWED_PROFILE_KEYS strictly permits only safe self-editable fields', async () => {
-    const { ALLOWED_PROFILE_KEYS } = await import('../src/app/api/auth/me/route');
+    const { ALLOWED_PROFILE_KEYS } = await import('../../src/app/api/auth/me/route');
     assert.ok(ALLOWED_PROFILE_KEYS instanceof Set, 'ALLOWED_PROFILE_KEYS must be a Set');
 
     // Permitted fields
@@ -1007,7 +985,7 @@ async function runAllVerifications() {
   });
 
   await test('userService.stripSelfServicePrivileges strips subscription, unlocks, xp, and badges', async () => {
-    const { stripSelfServicePrivileges } = await import('../src/lib/services/supabase/userService');
+    const { stripSelfServicePrivileges } = await import('../../src/lib/services/supabase/userService');
 
     const maliciousInput = {
       display_name: 'Legit Student',
@@ -1036,7 +1014,7 @@ async function runAllVerifications() {
   });
 
   await test('PATCH /api/auth/me rejects disallowed fields with HTTP 400 DISALLOWED_FIELD', async () => {
-    const { PATCH } = await import('../src/app/api/auth/me/route');
+    const { PATCH } = await import('../../src/app/api/auth/me/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1095,7 +1073,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 17: Quest Registry & Authoritative XP Integrity ---');
 
   await test('getAuthoritativeQuest returns registered quest metadata and fails closed on unknown quests', async () => {
-    const { getAuthoritativeQuest, getAuthoritativeQuestXp, isAuthoritativeExam } = await import('../src/lib/quests/questRegistry');
+    const { getAuthoritativeQuest, getAuthoritativeQuestXp, isAuthoritativeExam } = await import('../../src/lib/quests/questRegistry');
 
     // Known quest lookup
     const q1 = getAuthoritativeQuest('fizzbuzz');
@@ -1116,7 +1094,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/quest/complete rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
-    const { POST } = await import('../src/app/api/quest/complete/route');
+    const { POST } = await import('../../src/app/api/quest/complete/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1142,7 +1120,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/code/run-java rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
-    const { POST } = await import('../src/app/api/code/run-java/route');
+    const { POST } = await import('../../src/app/api/code/run-java/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1183,7 +1161,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 18: Authoritative Badge Registry & Fail-Closed XP Defense ---');
 
   await test('BADGE_REGISTRY contains canonical badges and fails closed on unknown milestones', async () => {
-    const { getRegisteredBadge, getRegisteredMilestone, verifyMilestoneEligibility } = await import('../src/lib/badges/badgeRegistry');
+    const { getRegisteredBadge, getRegisteredMilestone, verifyMilestoneEligibility } = await import('../../src/lib/badges/badgeRegistry');
     const badge = getRegisteredBadge('trust_sentinel_99');
     assert.ok(badge, 'trust_sentinel_99 must be registered');
     assert.strictEqual(badge.milestoneKey, 'trust_score_99');
@@ -1204,7 +1182,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/user/award-badge rejects unregistered badges with HTTP 400 UNREGISTERED_BADGE', async () => {
-    const { POST } = await import('../src/app/api/user/award-badge/route');
+    const { POST } = await import('../../src/app/api/user/award-badge/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1229,7 +1207,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/user/award-badge rejects unearned milestones with HTTP 403 MILESTONE_REQUIREMENTS_NOT_MET', async () => {
-    const { POST } = await import('../src/app/api/user/award-badge/route');
+    const { POST } = await import('../../src/app/api/user/award-badge/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1256,7 +1234,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/xp/add rejects direct minting of quest / exam / milestone XP with HTTP 403', async () => {
-    const { POST } = await import('../src/app/api/xp/add/route');
+    const { POST } = await import('../../src/app/api/xp/add/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1282,7 +1260,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/xp/add caps unverified client awards at 50 XP', async () => {
-    const { POST } = await import('../src/app/api/xp/add/route');
+    const { POST } = await import('../../src/app/api/xp/add/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1320,7 +1298,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 19: Python Code Execution Hardening & Isolated Judge ---');
 
   await test('POST /api/code/run-python rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
-    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { POST } = await import('../../src/app/api/code/run-python/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1345,7 +1323,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/code/run-python blocks early exit() and SystemExit exploit with allPassed: false', async () => {
-    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { POST } = await import('../../src/app/api/code/run-python/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1368,7 +1346,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/code/run-python blocks forbidden modules and dynamic escape patterns', async () => {
-    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { POST } = await import('../../src/app/api/code/run-python/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1407,16 +1385,8 @@ async function runAllVerifications() {
   // ISSUE 20: Pins Economy Leaks (Balance, Spend, Streak, AI Minutes)
   // -------------------------------------------------------------
   console.log('\n--- Issue 20: Pins Economy Leaks Defense ---');
-  await test('legacyFirestoreRouter preserves 0 pins balance and does not fallback to 100 or 50', async () => {
-    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
-    const routerCode = fs.readFileSync(routerPath, 'utf8');
-    assert.ok(!routerCode.includes('pins||100'), 'legacyFirestoreRouter must not contain pins||100');
-    assert.ok(!routerCode.includes('pins || 100'), 'legacyFirestoreRouter must not contain pins || 100');
-    assert.ok(routerCode.includes("typeof (p as any)?.pins === 'number' ? (p as any).pins : 50"), 'Balance route must preserve exact number');
-  });
-
   await test('/api/pins/spend blocks spend loophole: 5-pin attention game cannot unlock itemId ai', async () => {
-    const { POST } = await import('../src/app/api/pins/spend/route');
+    const { POST } = await import('../../src/app/api/pins/spend/route');
     const { NextRequest } = await import('next/server');
 
     process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
@@ -1477,18 +1447,12 @@ async function runAllVerifications() {
     assert.ok(!code.includes('const roadmapGen = true;'), 'Must NOT unconditionally force const roadmapGen = true;');
   });
 
-  await test('legacyFirestoreRouter merges partial onboarding answers', async () => {
-    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
-    const routerCode = fs.readFileSync(routerPath, 'utf8');
-    assert.ok(routerCode.includes('mergedAnswers = { ...existingAnswers'), 'legacy router must perform safe merge of onboarding answers');
-  });
-
   // -------------------------------------------------------------
   // ISSUE 22: Group Discussion LLM Evaluation & Fail-Closed Defense
   // -------------------------------------------------------------
   console.log('\n--- Issue 22: Group Discussion LLM Evaluation & Fail-Closed Defense ---');
   await test('POST /api/group-discussion/evaluate returns score 0 when candidate sends 0 messages', async () => {
-    const { POST: gdEvaluatePOST } = await import('../src/app/api/group-discussion/evaluate/route');
+    const { POST: gdEvaluatePOST } = await import('../../src/app/api/group-discussion/evaluate/route');
     const { NextRequest } = await import('next/server');
 
     const req = new NextRequest('http://localhost:3000/api/group-discussion/evaluate', {
@@ -1517,7 +1481,7 @@ async function runAllVerifications() {
   });
 
   await test('POST /api/group-discussion/evaluate does NOT award 92 on 4 messages and fails closed (HTTP 503) when LLM offline', async () => {
-    const { POST: gdEvaluatePOST } = await import('../src/app/api/group-discussion/evaluate/route');
+    const { POST: gdEvaluatePOST } = await import('../../src/app/api/group-discussion/evaluate/route');
     const { NextRequest } = await import('next/server');
 
     const origGroq = process.env.GROQ_API_KEYS;
@@ -1573,11 +1537,6 @@ async function runAllVerifications() {
     assert.ok(!routeCode.includes('score: 75,'), 'Must not return fake 75 on error');
     assert.ok(routeCode.includes('AI_EVALUATION_OFFLINE'), 'Must include AI_EVALUATION_OFFLINE fail-closed error');
     assert.ok(routeCode.includes('llama-3.3-70b-versatile'), 'Must use llama-3.3-70b-versatile for evaluation');
-
-    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
-    const routerCode = fs.readFileSync(routerPath, 'utf8');
-    assert.ok(!routerCode.includes('score: 75,\n        verdict: \'Standard architectural layout approved.\''), 'Legacy router must not default to 75');
-    assert.ok(routerCode.includes('ApiError(503'), 'Legacy router must fail closed with ApiError(503)');
   });
 
   // -------------------------------------------------------------
@@ -1585,7 +1544,7 @@ async function runAllVerifications() {
   // -------------------------------------------------------------
   console.log('\n--- Issue 23: Interview Scorecard Rubric Normalization ---');
   await test('normalizeRoleKey maps engineering and specialized roles accurately using whole-word matching', async () => {
-    const { normalizeRoleKey } = await import('../src/lib/interview/scoringMatrix');
+    const { normalizeRoleKey } = await import('../../src/lib/interview/scoringMatrix');
 
     // 1. "Software Development Engineer" must NOT match 'pm' via 'development'
     assert.strictEqual(normalizeRoleKey('Software Development Engineer'), 'sde');
@@ -1618,7 +1577,7 @@ async function runAllVerifications() {
   // -------------------------------------------------------------
   console.log('\n--- Issue 24: Telemetry Diagnostics Honest Absent Assessment ---');
   await test('generateTelemetryDiagnostics does NOT invent metrics when telemetry is absent', async () => {
-    const { generateTelemetryDiagnostics } = await import('../src/lib/interview/scoringMatrix');
+    const { generateTelemetryDiagnostics } = await import('../../src/lib/interview/scoringMatrix');
 
     // 1. Completely absent telemetry
     const absentDiag = generateTelemetryDiagnostics();
@@ -1652,7 +1611,7 @@ async function runAllVerifications() {
   // -------------------------------------------------------------
   console.log('\n--- Issue 25: System Design Whiteboard & Problem-Specific Scoring ---');
   await test('evaluateSystemTopology awards 0 for blank canvas and evaluates problem-specific requirements', async () => {
-    const { evaluateSystemTopology } = await import('../src/lib/interview/systemDesignEvaluator');
+    const { evaluateSystemTopology } = await import('../../src/lib/interview/systemDesignEvaluator');
 
     // 1. Blank whiteboard receives 0, 'Needs Work'
     const blankEval = evaluateSystemTopology({
@@ -1739,7 +1698,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 27: Attention-Span Persistence, PII Masking, Rate Limiting & HMAC ---');
 
   await test('Attention-Span Analytics: Persists to storage across cold starts', async () => {
-    const { GET: analyticsGET, POST: analyticsPOST } = await import('../src/app/api/attention-span/analytics/route');
+    const { GET: analyticsGET, POST: analyticsPOST } = await import('../../src/app/api/attention-span/analytics/route');
 
     const authHeaders = {
       authorization: 'Bearer test-token-001',
@@ -1768,8 +1727,8 @@ async function runAllVerifications() {
   });
 
   await test('Attention-Span Leaderboard: Never leaks email addresses or @ domains', async () => {
-    const { sanitizeDisplayName } = await import('../src/lib/attention/progress');
-    const { POST: leaderboardPOST } = await import('../src/app/api/attention-span/leaderboard/route');
+    const { sanitizeDisplayName } = await import('../../src/lib/attention/progress');
+    const { POST: leaderboardPOST } = await import('../../src/app/api/attention-span/leaderboard/route');
 
     assert.strictEqual(sanitizeDisplayName('john.doe@company.com'), 'John.doe');
     assert.strictEqual(sanitizeDisplayName('alice@college.edu'), 'Alice');
@@ -1794,7 +1753,7 @@ async function runAllVerifications() {
   });
 
   await test('Attention-Span Progress: Uses keyed HMAC integrity hash and enforces reaction floor', async () => {
-    const { computeIntegrityHash, POST: progressPOST } = await import('../src/app/api/attention-span/progress/route');
+    const { computeIntegrityHash, POST: progressPOST } = await import('../../src/app/api/attention-span/progress/route');
 
     const dummyStats = {
       focusFireBest: 300,
@@ -1839,7 +1798,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 28: AI Projects Generator Integrity & Honest Blueprints ---');
 
   await test('AI Projects Generator: Raises LLM timeout to 25s (>=20,000ms)', async () => {
-    const { LLM_GENERATION_TIMEOUT_MS } = await import('../src/app/api/projects/generate/route');
+    const { LLM_GENERATION_TIMEOUT_MS } = await import('../../src/app/api/projects/generate/route');
     assert.ok(
       typeof LLM_GENERATION_TIMEOUT_MS === 'number' && LLM_GENERATION_TIMEOUT_MS >= 20000,
       `Expected LLM_GENERATION_TIMEOUT_MS >= 20000ms, got ${LLM_GENERATION_TIMEOUT_MS}ms`
@@ -1847,7 +1806,7 @@ async function runAllVerifications() {
   });
 
   await test('AI Projects Generator: Blocks unauthenticated requests from spending LLM tokens', async () => {
-    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const { POST: projectsPOST } = await import('../../src/app/api/projects/generate/route');
     const res = await projectsPOST(new Request('http://localhost/api/projects/generate', {
       method: 'POST',
       headers: {
@@ -1862,7 +1821,7 @@ async function runAllVerifications() {
   });
 
   await test('AI Projects Generator: Allows zero-cost blueprint preview with honest isTemplate labeling', async () => {
-    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const { POST: projectsPOST } = await import('../../src/app/api/projects/generate/route');
     const res = await projectsPOST(new Request('http://localhost/api/projects/generate?preview=true', {
       method: 'POST',
       headers: {
@@ -1880,7 +1839,7 @@ async function runAllVerifications() {
   });
 
   await test('AI Projects Generator: Dynamic Domain Fallback covers AI, Mobile, Cyber, and injects skills', async () => {
-    const { getDomainFallback } = await import('../src/app/api/projects/generate/route');
+    const { getDomainFallback } = await import('../../src/app/api/projects/generate/route');
     const ai = getDomainFallback('AI / Machine Learning Engineer', ['PyTorch', 'LangChain']);
     assert.ok(ai.some(p => p.name.includes('RAG') || p.name.includes('Agent')));
     assert.ok(ai[0].techStack.includes('PyTorch'));
@@ -1891,7 +1850,7 @@ async function runAllVerifications() {
   });
 
   await test('AI Projects Generator: Streams SSE responses with structured events and [DONE]', async () => {
-    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const { POST: projectsPOST } = await import('../../src/app/api/projects/generate/route');
     const res = await projectsPOST(new Request('http://localhost/api/projects/generate?preview=true&stream=true', {
       method: 'POST',
       headers: {
@@ -1914,7 +1873,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 29: Document Evidence Extraction & Verification Integrity ---');
 
   await test('Issue 29: Native PDF extraction extracts real candidate text without leaking browser metadata', async () => {
-    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
+    const { extractDocumentEvidence } = await import('../../src/lib/ats/pdfTextExtractor');
     const os = await import('os');
     const pdfPath = path.join(os.tmpdir(), 'edge_resume.pdf');
     if (fs.existsSync(pdfPath)) {
@@ -1932,7 +1891,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Pure Node.js DOCX extraction decompresses PKZip XML paragraphs and text', async () => {
-    const { extractTextFromDocxBuffer } = await import('../src/lib/ats/pdfTextExtractor');
+    const { extractTextFromDocxBuffer } = await import('../../src/lib/ats/pdfTextExtractor');
     const zlib = await import('zlib');
     const xmlContent = Buffer.from('<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Aarav Patel</w:t></w:r></w:p><w:p><w:r><w:t>Email: aarav@example.com | Phone: +91 9988776655</w:t></w:r></w:p><w:p><w:r><w:t>Education: Indian Institute of Technology Bombay - B.Tech Computer Science</w:t></w:r></w:p><w:p><w:r><w:t>CGPA: 9.2</w:t></w:r></w:p></w:body></w:document>');
     const compXml = zlib.deflateRawSync(xmlContent);
@@ -1971,8 +1930,8 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Honest refusal on unreadable files and honest image OCR without ASCII scraping', async () => {
-    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
-    const { extractTextFromImageBuffer } = await import('../src/lib/ats/imageOcrWorker');
+    const { extractDocumentEvidence } = await import('../../src/lib/ats/pdfTextExtractor');
+    const { extractTextFromImageBuffer } = await import('../../src/lib/ats/imageOcrWorker');
     const emptyPdfBuf = Buffer.from('%PDF-1.4\n1 0 obj\n<< >>\nendobj\nxref\n0 1\ntrailer\n<< >>\n%%EOF');
     const pdfRes = extractDocumentEvidence(emptyPdfBuf, 'PDF');
     assert.strictEqual(pdfRes.extractionConfidence, 0.0);
@@ -1985,7 +1944,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Anti-Fraud Identity Sentinel prevents surname vulnerability (friend/sibling match)', async () => {
-    const { checkNameSimilarity } = await import('../src/lib/ats/documentAuditEngine');
+    const { checkNameSimilarity } = await import('../../src/lib/ats/documentAuditEngine');
     const friendResult = checkNameSimilarity('Rohan Sharma', 'Priya Sharma');
     assert.strictEqual(friendResult.isMatch, false);
     assert.ok(friendResult.reason?.includes('same surname'));
@@ -1998,7 +1957,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Fact check entity grounding rejects Mozilla/5.0 as GPA and Adobe as Degree', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
     const fakeMetadata = 'Resume\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\nSkia/PDF m153\nAdobe Systems Inc.\n';
     const fakeGraph = groundAndValidateEvidence(fakeMetadata, 'test.pdf', 'fakehash');
     assert.strictEqual(fakeGraph.candidateName, 'Candidate');
@@ -2013,7 +1972,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 29: Vault upload route returns HTTP 422 UNREADABLE_DOCUMENT on unreadable files', async () => {
-    const { POST: vaultUploadPOST } = await import('../src/app/api/vault/upload/route');
+    const { POST: vaultUploadPOST } = await import('../../src/app/api/vault/upload/route');
     const unreadableFormData = new FormData();
     const tinyBlob = new Blob(['%PDF-1.4 empty'], { type: 'application/pdf' });
     unreadableFormData.append('file', tinyBlob, 'corrupt.pdf');
@@ -2040,7 +1999,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 30: Anti-Fraud Check, Trust Score Integrity & Empty File Defenses ---');
 
   await test('Issue 30: Three empty files yield 0 Evidence Trust, 0 QT2, 0 ATS and unreadable status', async () => {
-    const { auditDocumentCollection, calculateLiveQTMetrics } = await import('../src/lib/ats/documentAuditEngine');
+    const { auditDocumentCollection, calculateLiveQTMetrics } = await import('../../src/lib/ats/documentAuditEngine');
     const emptyDocs = [
       { id: '1', category: 'sem1', title: '1', fileName: 'sem1.pdf', fileSize: '0 KB', fileType: 'pdf', candidateName: 'Candidate', scoreOrGpa: '1st Semester University Marksheet', skills: [], verificationStatus: 'provisional', uploadedAt: 1 },
       { id: '2', category: 'sem2', title: '2', fileName: 'sem2.pdf', fileSize: '0 KB', fileType: 'pdf', candidateName: 'Candidate', scoreOrGpa: '2nd Semester University Marksheet', skills: [], verificationStatus: 'provisional', uploadedAt: 1 },
@@ -2059,7 +2018,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 30: Zero documents and single document yield accurate baseline trust scores', async () => {
-    const { auditDocumentCollection } = await import('../src/lib/ats/documentAuditEngine');
+    const { auditDocumentCollection } = await import('../../src/lib/ats/documentAuditEngine');
     const zeroAudit = auditDocumentCollection('', []);
     assert.strictEqual(zeroAudit.trustScore, 0);
     assert.strictEqual(zeroAudit.overallStatus, 'AWAITING_UPLOADS');
@@ -2084,7 +2043,7 @@ async function runAllVerifications() {
   });
 
   await test('Issue 30: Name matching rejects same-surname friends and empty strings, marks mismatch as REVIEW_REQUIRED', async () => {
-    const { checkNameSimilarity, auditDocumentCollection } = await import('../src/lib/ats/documentAuditEngine');
+    const { checkNameSimilarity, auditDocumentCollection } = await import('../../src/lib/ats/documentAuditEngine');
     const p1 = checkNameSimilarity('Rahul Kumar', 'Amit Kumar');
     assert.strictEqual(p1.isMatch, false);
 
@@ -2114,7 +2073,7 @@ async function runAllVerifications() {
   console.log('\n--- Issue 31: Deterministic Fact Grounding & Location Provenance ---');
 
   await test('Issue 31: University header is never extracted as candidate name; explicit student names are grounded', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
     const vtuText = `
 VISVESVARAYA TECHNOLOGICAL UNIVERSITY
 BELAGAVI, KARNATAKA, INDIA
@@ -2139,7 +2098,7 @@ CGPA: 7.60
   });
 
   await test('Issue 31: Degree extractor rejects club activities, cities, and dates', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
     const resumeNoise = `
 Rohan Mehta
 rohan.mehta@example.com
@@ -2158,7 +2117,7 @@ CGPA: 8.40
   });
 
   await test('Issue 31: Provenance records contain non-zero character offsets and dynamic confidence', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
     const rawResume = `
 Rohan Mehta
 rohan.mehta@example.com
@@ -2185,8 +2144,8 @@ Distributed event pipeline using TypeScript
   });
 
   await test('Issue 31: Precedence routing resolves conflicting facts and corroborates identical facts', async () => {
-    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
-    const { evaluateDocumentContradictions } = await import('../src/lib/ats/contradictionEngine');
+    const { groundAndValidateEvidence } = await import('../../src/lib/ats/factCheckValidator');
+    const { evaluateDocumentContradictions } = await import('../../src/lib/ats/contradictionEngine');
 
     const marksheet = groundAndValidateEvidence('CGPA: 8.25', 'marksheet.pdf', 'h1', 'NATIVE_PDF', 0.95, 'sem8');
     const resume = groundAndValidateEvidence('CGPA: 9.50', 'resume.pdf', 'h2', 'NATIVE_PDF', 0.95, 'resume');
@@ -2210,14 +2169,14 @@ Distributed event pipeline using TypeScript
   console.log('\n--- Issue 32: Word-Boundary Skill Matching & Contact Parsing ---');
 
   await test('Issue 32: English prose does not match Next.js, Node.js, Express, or CI/CD', async () => {
-    const { extractCanonicalSkillsWithPolarity } = await import('../src/lib/ats/skillOntology');
+    const { extractCanonicalSkillsWithPolarity } = await import('../../src/lib/ats/skillOntology');
     const prose = "Our next goal is to express ideas clearly. Each tree node stores a value. The sales pipeline grew.";
     const skills = extractCanonicalSkillsWithPolarity(prose, 'GENERAL_BODY');
     assert.strictEqual(skills.length, 0);
   });
 
   await test('Issue 32: extractDocumentSkills avoids substring traps (git/digital, excel/excellent, java/javascript, sql/mysql)', async () => {
-    const { extractDocumentSkills } = await import('../src/lib/ats/documentAuditEngine');
+    const { extractDocumentSkills } = await import('../../src/lib/ats/documentAuditEngine');
     const sample = "digital transformation with excellent javascript and mysql database engineering";
     const skills = extractDocumentSkills('resume', 'resume.pdf', sample);
     assert.ok(!skills.includes('Git'));
@@ -2229,7 +2188,7 @@ Distributed event pipeline using TypeScript
   });
 
   await test('Issue 32: Indian mobile formats are parsed without parseability penalties', async () => {
-    const { extractContacts, auditResumeATS } = await import('../src/lib/ats/atsScreener');
+    const { extractContacts, auditResumeATS } = await import('../../src/lib/ats/atsScreener');
     const c1 = extractContacts('Phone: 98765 43210');
     assert.ok(c1.phone?.includes('98765'));
 
@@ -2257,7 +2216,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 32: Portfolio extraction does not extract email domains (gmail.com)', async () => {
-    const { extractContacts } = await import('../src/lib/ats/atsScreener');
+    const { extractContacts } = await import('../../src/lib/ats/atsScreener');
     const c1 = extractContacts('Email: rohan@gmail.com');
     assert.strictEqual(c1.portfolio, undefined);
 
@@ -2272,7 +2231,7 @@ TypeScript, React, Node.js
   console.log('\n--- Issue 33: QT2 Cognitive Engine Hardening & Trajectory Math ---');
 
   await test('Issue 33: File name "latest_resume.pdf" is ignored; does not award Stabilizer archetype', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const doc = {
       id: 'doc-1',
       fileName: 'latest_resume.pdf',
@@ -2301,7 +2260,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Substring "misleading" does not match "lead" or award Social IQ', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const doc = {
       id: 'doc-2',
       fileName: 'analysis.pdf',
@@ -2328,7 +2287,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Multiple unverified self-submitted documents receive provisional integrity (<= 14), not flat 25', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const docA = {
       id: 'doc-a',
       fileName: 'res1.pdf',
@@ -2360,7 +2319,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Institutional credential unlocks full 25/25 integrity score', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const docA = {
       id: 'doc-a',
       fileName: 'resume.pdf',
@@ -2393,7 +2352,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Declining GPA (9.20 -> 6.10) scores low growth (<= 4), while improving GPA scores high (>= 14)', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const sem1High = {
       id: 's1',
       fileName: 'sem1.pdf',
@@ -2434,7 +2393,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Self-awareness index drops below 50 when stated preferences diverge completely from simulation actions', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const doc = {
       id: 'd1',
       fileName: 'resume.pdf',
@@ -2456,7 +2415,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 33: Execution Focus pillar has no artificial 10-point floor for sparse evidence', async () => {
-    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const { evaluateQT2Model } = await import('../../src/lib/ats/qt2AnalysisEngine');
     const doc = {
       id: 'd1',
       fileName: 'resume.pdf',
@@ -2482,7 +2441,7 @@ TypeScript, React, Node.js
   console.log('\n--- Issue 34: Secure Vault Upload & Deletion Hardening ---');
 
   await test('Issue 34: Unvalidated client categories are rejected and fallback to auto-classification', async () => {
-    const { classifyDocumentCategory } = await import('../src/lib/ats/documentAuditEngine');
+    const { classifyDocumentCategory } = await import('../../src/lib/ats/documentAuditEngine');
     const VALID_CATEGORIES = new Set([
       '10th', '12th_puc', 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8',
       'resume', 'achievement', 'certification', 'internship', 'other'
@@ -2523,7 +2482,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 34: Non-resume documents do not receive ATS score (undefined)', async () => {
-    const { auditResumeATS } = await import('../src/lib/ats/atsScreener');
+    const { auditResumeATS } = await import('../../src/lib/ats/atsScreener');
     const categories = ['10th', '12th_puc', 'sem1', 'sem4', 'certification', 'achievement', 'other'];
     for (const cat of categories) {
       let atsScore: number | undefined = undefined;
@@ -2543,7 +2502,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 34: Matching candidate name sets provisional status and verified=false in DB', async () => {
-    const { checkNameSimilarity } = await import('../src/lib/ats/documentAuditEngine');
+    const { checkNameSimilarity } = await import('../../src/lib/ats/documentAuditEngine');
     const profileName = 'Vikram Malhotra';
     const detectedName = 'Vikram Malhotra';
 
@@ -2643,7 +2602,7 @@ TypeScript, React, Node.js
       signExamSessionToken,
       verifyAndConsumeExamSessionToken,
       isNonceConsumed
-    } = await import('../src/lib/portfolio/examToken');
+    } = await import('../../src/lib/portfolio/examToken');
 
     const answers = { q1: 1, q2: 2, q3: 0 };
     const token = signExamSessionToken(answers, 30, 'student_123', 'AWS Certified Developer');
@@ -2665,8 +2624,8 @@ TypeScript, React, Node.js
 
   await test('Issue 35: Oracle defense - Failed verify-exam does NOT leak correctCount, score, or total', async () => {
     const { NextRequest } = await import('next/server');
-    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
-    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+    const { signExamSessionToken } = await import('../../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../../src/app/api/portfolio/verify-exam/route');
 
     const answers = { q1: 1, q2: 2, q3: 0 };
     const token = signExamSessionToken(answers, 30, 'test_user_001', 'Docker Deep Dive');
@@ -2699,8 +2658,8 @@ TypeScript, React, Node.js
 
   await test('Issue 35: Token replay defense - Submitting same token 2nd time fails with HTTP 409 NONCE_REPLAY', async () => {
     const { NextRequest } = await import('next/server');
-    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
-    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+    const { signExamSessionToken } = await import('../../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../../src/app/api/portfolio/verify-exam/route');
 
     const answers = { q1: 1, q2: 2, q3: 0 };
     const token = signExamSessionToken(answers, 30, 'test_user_001', 'Cloud Architecture');
@@ -2728,62 +2687,10 @@ TypeScript, React, Node.js
     assert.ok(replayJson.error?.includes('NONCE_REPLAY_DETECTED'));
   });
 
-  await test('Issue 35: Legacy router security - examSessionToken does NOT contain plaintext answers', async () => {
-    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
-
-    const res = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
-      title: 'Python for Data Science',
-      issuer: 'University'
-    }) as any;
-
-    assert.strictEqual(res.ok, true);
-    assert.ok(res.examSessionToken?.startsWith('token_'));
-
-    const b64 = res.examSessionToken.replace(/^token_/, '');
-    const decodedStr = Buffer.from(b64, 'base64').toString('utf-8');
-    const payload = JSON.parse(decodedStr);
-
-    assert.strictEqual(payload.answers, undefined);
-    assert.ok(payload.answerHashes);
-    assert.ok(payload.nonce);
-  });
-
-  await test('Issue 35: Legacy router replay rejection - Replay throws 409 and failure does not leak correctCount', async () => {
-    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
-
-    const analyzeRes = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
-      title: 'React Fundamentals',
-      issuer: 'Frontend Masters'
-    }) as any;
-
-    const token = analyzeRes.examSessionToken;
-
-    const verifyRes = await firestoreRouter('POST', '/api/portfolio/verify-exam', {
-      examSessionToken: token,
-      selectedAnswers: { q1: 99, q2: 99, q3: 99 }
-    }) as any;
-
-    assert.strictEqual(verifyRes.passed, false);
-    assert.strictEqual(verifyRes.correctCount, undefined);
-
-    let threwReplay = false;
-    try {
-      await firestoreRouter('POST', '/api/portfolio/verify-exam', {
-        examSessionToken: token,
-        selectedAnswers: { q1: 99, q2: 99, q3: 99 }
-      });
-    } catch (err: any) {
-      if (err.status === 409 && err.code === 'NONCE_REPLAY') {
-        threwReplay = true;
-      }
-    }
-    assert.strictEqual(threwReplay, true);
-  });
-
   await test('Issue 35: Honest credential status - Passing quiz awards KNOWLEDGE_ASSESSED, keeps verified: false', async () => {
     const { NextRequest } = await import('next/server');
-    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
-    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+    const { signExamSessionToken } = await import('../../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../../src/app/api/portfolio/verify-exam/route');
 
     const answers = { q1: 1, q2: 2, q3: 0 };
     const token = signExamSessionToken(answers, 30, 'test_user_001', 'AWS Solutions Architect');
@@ -2840,7 +2747,7 @@ TypeScript, React, Node.js
 
   await test('Issue 35: analyze-certificate produces dynamic questions with randomized option orders', async () => {
     const { NextRequest } = await import('next/server');
-    const { POST: analyzeCertPOST } = await import('../src/app/api/portfolio/analyze-certificate/route');
+    const { POST: analyzeCertPOST } = await import('../../src/app/api/portfolio/analyze-certificate/route');
 
     const req = new NextRequest('http://localhost:3000/api/portfolio/analyze-certificate', {
       method: 'POST',
@@ -2893,7 +2800,7 @@ TypeScript, React, Node.js
 
   await test('Issue 36: Plain unkeyed SHA-256 forged hash is rejected (forgery defense)', async () => {
     const crypto = await import('crypto');
-    const { verifyEvidenceIntegrity } = await import('../src/lib/pathway/evidenceEngine');
+    const { verifyEvidenceIntegrity } = await import('../../src/lib/pathway/evidenceEngine');
 
     const canonicalPayload = JSON.stringify({
       competencyId: issue36BaseEvidence.competencyId,
@@ -2925,7 +2832,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: Authentic HMAC-SHA256 passes; altered payload fails', async () => {
-    const { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } = await import('../src/lib/pathway/evidenceEngine');
+    const { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } = await import('../../src/lib/pathway/evidenceEngine');
 
     const authenticHash = generateEvidenceIntegrityHash(issue36BaseEvidence);
     const validRecord = { ...issue36BaseEvidence, integrityHash: authenticHash };
@@ -2936,8 +2843,8 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: Server Verification Route GET /api/verify/[credentialId] rejects tampered HMAC', async () => {
-    const { GET: verifyRouteGET } = await import('../src/app/api/verify/[credentialId]/route');
-    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { GET: verifyRouteGET } = await import('../../src/app/api/verify/[credentialId]/route');
+    const { PathwayApiService } = await import('../../src/lib/api/pathwayApi');
     const { NextRequest } = await import('next/server');
 
     const recorded = await PathwayApiService.recordEvidence({
@@ -2972,8 +2879,8 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: Server Verification Route GET /api/verify/[credentialId] verifies authentic evidence record', async () => {
-    const { GET: verifyRouteGET } = await import('../src/app/api/verify/[credentialId]/route');
-    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { GET: verifyRouteGET } = await import('../../src/app/api/verify/[credentialId]/route');
+    const { PathwayApiService } = await import('../../src/lib/api/pathwayApi');
     const { NextRequest } = await import('next/server');
 
     const recorded = await PathwayApiService.recordEvidence({
@@ -3004,7 +2911,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: Passport Transcript does NOT claim SHA-256 verified when evidence is unverified', async () => {
-    const { GET: transcriptRouteGET } = await import('../src/app/api/passport/transcript/route');
+    const { GET: transcriptRouteGET } = await import('../../src/app/api/passport/transcript/route');
     const { NextRequest } = await import('next/server');
 
     const req = new NextRequest('http://localhost:3000/api/passport/transcript', {
@@ -3022,7 +2929,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: Passport Transcript oral defense displays "Pending Evaluation" when score is 0', async () => {
-    const { GET: transcriptRouteGET } = await import('../src/app/api/passport/transcript/route');
+    const { GET: transcriptRouteGET } = await import('../../src/app/api/passport/transcript/route');
     const { NextRequest } = await import('next/server');
 
     const req = new NextRequest('http://localhost:3000/api/passport/transcript', {
@@ -3039,7 +2946,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 36: GitHub Webhook rejects repository when student has empty claimed_repos', async () => {
-    const { resolveLinkedStudent } = await import('../src/app/api/webhooks/github/route');
+    const { resolveLinkedStudent } = await import('../../src/app/api/webhooks/github/route');
 
     const origFetch = globalThis.fetch;
     globalThis.fetch = async (input: any, init?: any) => {
@@ -3075,8 +2982,8 @@ TypeScript, React, Node.js
 
   await test('Issue 36: GitHub Webhook commit classified as application (never production), score capped <= 75', async () => {
     const crypto = await import('crypto');
-    const { POST: githubWebhookPOST } = await import('../src/app/api/webhooks/github/route');
-    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { POST: githubWebhookPOST } = await import('../../src/app/api/webhooks/github/route');
+    const { PathwayApiService } = await import('../../src/lib/api/pathwayApi');
     const { NextRequest } = await import('next/server');
 
     const secret = 'webhook_test_secret_32_bytes_xyz!';
@@ -3159,7 +3066,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 37: sendDirectMessage populates dual recipient/receiver and is_read false', async () => {
-    const { sendDirectMessage } = await import('../src/lib/services/supabase/socialService');
+    const { sendDirectMessage } = await import('../../src/lib/services/supabase/socialService');
     const result = await sendDirectMessage({
       sender_id: 'std_auto_test_37',
       sender_name: 'Ananya Verma',
@@ -3177,7 +3084,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 37: getTeacherInbox, markMessagesAsRead and getUnreadMessageCount operate on is_read without column errors', async () => {
-    const { getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../src/lib/services/supabase/socialService');
+    const { getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../../src/lib/services/supabase/socialService');
     const inbox = await getTeacherInbox('priya');
     assert.ok(Array.isArray(inbox), 'Inbox must be array');
     const markRes = await markMessagesAsRead('priya', 'std_auto_test_37');
@@ -3187,7 +3094,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 37: inboxSyncService syncFromDatabase reconciles multi-device message threads', async () => {
-    const { inboxSyncService } = await import('../src/lib/chat/inboxSyncService');
+    const { inboxSyncService } = await import('../../src/lib/chat/inboxSyncService');
     inboxSyncService.sendStudentMessage({
       studentId: 'std_multi_37',
       studentName: 'Sanjay Dutt',
@@ -3213,8 +3120,8 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 37: /api/messages/direct and /api/teacher/inbox HTTP handlers succeed', async () => {
-    const { GET: getDirect, POST: postDirect } = await import('../src/app/api/messages/direct/route');
-    const { GET: getInbox, POST: postInbox } = await import('../src/app/api/teacher/inbox/route');
+    const { GET: getDirect, POST: postDirect } = await import('../../src/app/api/messages/direct/route');
+    const { GET: getInbox, POST: postInbox } = await import('../../src/app/api/teacher/inbox/route');
     const { NextRequest } = await import('next/server');
 
     const pReq = new NextRequest('http://localhost:3000/api/messages/direct', {
@@ -3251,7 +3158,7 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 38: normalizeNotification synchronizes is_read and read consistently', async () => {
-    const { normalizeNotification } = await import('../src/lib/services/supabase/socialService');
+    const { normalizeNotification } = await import('../../src/lib/services/supabase/socialService');
     const n1 = normalizeNotification({ id: 'n1', user_id: 'u1', is_read: true });
     assert.strictEqual(n1.is_read, true);
     assert.strictEqual(n1.read, true);
@@ -3267,7 +3174,7 @@ TypeScript, React, Node.js
       getNotifications,
       markNotificationRead,
       markAllNotificationsRead
-    } = await import('../src/lib/services/supabase/socialService');
+    } = await import('../../src/lib/services/supabase/socialService');
 
     const uid = 'stu_test_issue38_' + Date.now();
     const created = await createNotification({
@@ -3297,15 +3204,15 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 38: sendBroadcastNotification creates notifications with sender_id and is_read false', async () => {
-    const { sendBroadcastNotification } = await import('../src/lib/services/supabase/socialService');
+    const { sendBroadcastNotification } = await import('../../src/lib/services/supabase/socialService');
     const bRes = await sendBroadcastNotification('admin_user', 'System Upgrade', 'Maintenance scheduled.', 'warning', 'all');
     assert.ok(bRes.ok);
   });
 
   await test('Issue 38: Dedicated notification API routes (GET, POST, mark-all-read, [id]/read) succeed', async () => {
-    const { GET: nGET, POST: nPOST } = await import('../src/app/api/notifications/route');
-    const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
-    const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
+    const { GET: nGET, POST: nPOST } = await import('../../src/app/api/notifications/route');
+    const { POST: markAllPOST } = await import('../../src/app/api/notifications/mark-all-read/route');
+    const { PATCH: markOnePATCH } = await import('../../src/app/api/notifications/[id]/read/route');
     const { NextRequest } = await import('next/server');
 
     const gReq = new NextRequest('http://localhost:3000/api/notifications', {
@@ -3337,9 +3244,8 @@ TypeScript, React, Node.js
     assert.strictEqual(mRes.status, 200);
   });
 
-  await test('Issue 38: Leaderboard route queries arena_elo, contains 0 invented students, and legacyFirestoreRouter returns multi-peer cohort', async () => {
-    const { GET: lbGET } = await import('../src/app/api/leaderboard/route');
-    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+  await test('Issue 38: Leaderboard route queries arena_elo and contains 0 invented students', async () => {
+    const { GET: lbGET } = await import('../../src/app/api/leaderboard/route');
     const { NextRequest } = await import('next/server');
 
     const req = new NextRequest('http://localhost:3000/api/leaderboard?mode=code_wars', {
@@ -3356,12 +3262,6 @@ TypeScript, React, Node.js
 
     // Verify elo rating is numeric
     assert.ok(typeof json.leaderboard[0].eloRating === 'number');
-
-    // Test legacyFirestoreRouter shim
-    const shim = await firestoreRouter('GET', '/api/leaderboard', undefined) as any;
-    assert.ok(shim.ok);
-    assert.ok(Array.isArray(shim.leaderboard) && shim.leaderboard.length >= 2, 'Must return multi-peer cohort');
-    assert.ok(shim.leaderboard.every((e: any) => typeof e.eloRating === 'number'));
   });
 
   // =========================================================================
@@ -3370,9 +3270,9 @@ TypeScript, React, Node.js
   console.log('\n--- Issue 39: Enterprise Portals Real Data, Role Gating & Server Authority ---');
 
   await test('Issue 39: Parent portal rejects unauthenticated/student callers, allows parents, and link-student validates input', async () => {
-    const { GET: getParentStudents } = await import('../src/app/api/parent/students/route');
-    const { POST: linkStudent } = await import('../src/app/api/parent/link-student/route');
-    const { GET: getParentStudentOverview } = await import('../src/app/api/parent/student/[id]/overview/route');
+    const { GET: getParentStudents } = await import('../../src/app/api/parent/students/route');
+    const { POST: linkStudent } = await import('../../src/app/api/parent/link-student/route');
+    const { GET: getParentStudentOverview } = await import('../../src/app/api/parent/student/[id]/overview/route');
     const { NextRequest } = await import('next/server');
 
     // 1. Gating
@@ -3422,11 +3322,11 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 39: Recruiter portal enforces recruiter role, notifies candidates, and updates visibility via service role', async () => {
-    const { GET: getRecruiterPipeline } = await import('../src/app/api/recruiter/pipeline/route');
-    const { POST: shortlistCandidate } = await import('../src/app/api/recruiter/shortlist/route');
-    const { POST: contactRequest } = await import('../src/app/api/recruiter/contact-request/route');
-    const { POST: scheduleInterview } = await import('../src/app/api/recruiter/schedule-interview/route');
-    const { GET: getVisibility, PATCH: updateVisibility } = await import('../src/app/api/recruiter/visibility/route');
+    const { GET: getRecruiterPipeline } = await import('../../src/app/api/recruiter/pipeline/route');
+    const { POST: shortlistCandidate } = await import('../../src/app/api/recruiter/shortlist/route');
+    const { POST: contactRequest } = await import('../../src/app/api/recruiter/contact-request/route');
+    const { POST: scheduleInterview } = await import('../../src/app/api/recruiter/schedule-interview/route');
+    const { GET: getVisibility, PATCH: updateVisibility } = await import('../../src/app/api/recruiter/visibility/route');
     const { NextRequest } = await import('next/server');
 
     // 1. Pipeline gating
@@ -3492,9 +3392,9 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 39: Consultant portal computes genuine analytics (zero 80% floor) and provisions students server-side', async () => {
-    const { GET: getConsultantAnalytics } = await import('../src/app/api/consultant/analytics/route');
-    const { GET: getConsultantPipeline } = await import('../src/app/api/consultant/pipeline/route');
-    const { POST: addConsultantStudent } = await import('../src/app/api/consultant/student/add/route');
+    const { GET: getConsultantAnalytics } = await import('../../src/app/api/consultant/analytics/route');
+    const { GET: getConsultantPipeline } = await import('../../src/app/api/consultant/pipeline/route');
+    const { POST: addConsultantStudent } = await import('../../src/app/api/consultant/student/add/route');
     const { NextRequest } = await import('next/server');
 
     // 1. Gating
@@ -3540,16 +3440,15 @@ TypeScript, React, Node.js
   });
 
   await test('Issue 39: Admin portal evaluates actual user timestamps, honest 0 metric defaults, and privileged service actions', async () => {
-    const { GET: getAdminDashboard } = await import('../src/app/api/admin/dashboard/route');
-    const { GET: getAdminMetricsSummary } = await import('../src/app/api/admin/metrics-summary/route');
-    const { GET: getAdminPlatformStats } = await import('../src/app/api/admin/platform-stats/route');
-    const { GET: getAdminFraudAlerts } = await import('../src/app/api/admin/fraud-alerts/route');
-    const { GET: getAdminUsers } = await import('../src/app/api/admin/users/route');
-    const { PATCH: updateAdminRole } = await import('../src/app/api/admin/users/[id]/role/route');
-    const { POST: suspendAdminUser } = await import('../src/app/api/admin/users/[id]/suspend/route');
-    const { POST: scoreOverrideAdminUser } = await import('../src/app/api/admin/users/[id]/score-override/route');
-    const { DELETE: deleteAdminUser } = await import('../src/app/api/admin/users/[id]/route');
-    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+    const { GET: getAdminDashboard } = await import('../../src/app/api/admin/dashboard/route');
+    const { GET: getAdminMetricsSummary } = await import('../../src/app/api/admin/metrics-summary/route');
+    const { GET: getAdminPlatformStats } = await import('../../src/app/api/admin/platform-stats/route');
+    const { GET: getAdminFraudAlerts } = await import('../../src/app/api/admin/fraud-alerts/route');
+    const { GET: getAdminUsers } = await import('../../src/app/api/admin/users/route');
+    const { PATCH: updateAdminRole } = await import('../../src/app/api/admin/users/[id]/role/route');
+    const { POST: suspendAdminUser } = await import('../../src/app/api/admin/users/[id]/suspend/route');
+    const { POST: scoreOverrideAdminUser } = await import('../../src/app/api/admin/users/[id]/score-override/route');
+    const { DELETE: deleteAdminUser } = await import('../../src/app/api/admin/users/[id]/route');
     const { NextRequest } = await import('next/server');
 
     // 1. Dashboard gating & evaluation
@@ -3629,15 +3528,6 @@ TypeScript, React, Node.js
     });
     const deleteRes = await deleteAdminUser(deleteReq, { params: { id: 'test_user_001' } });
     assert.strictEqual(deleteRes.status, 200);
-
-    // 5. Legacy router sanitization
-    const routerMetrics: any = await firestoreRouter('GET', '/api/admin/metrics-summary');
-    assert.strictEqual(routerMetrics.ok, true);
-    assert.notStrictEqual(routerMetrics.summary?.totalUsers, 120);
-
-    const routerCons: any = await firestoreRouter('GET', '/api/consultant/analytics');
-    assert.ok(typeof routerCons.totalRevenue === 'number');
-    assert.notStrictEqual(routerCons.totalRevenue, 30000);
   });
 
   console.log('\n================================================================');

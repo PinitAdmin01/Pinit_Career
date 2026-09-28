@@ -1,7 +1,7 @@
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
-import { COURSE_NOTES_REGISTRY, getCourseNotes } from '../src/lib/data/courseNotesRegistry';
-import { CONCEPT_ANALOGIES_REGISTRY, findConceptAnalogy } from '../src/lib/data/conceptAnalogies';
-import { CodeWarsApiService, CODE_WARS_PROBLEMS_CATALOG } from '../src/lib/api/codeWarsApi';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
+import { COURSE_NOTES_REGISTRY, getCourseNotes } from '../../src/lib/data/courseNotesRegistry';
+import { CONCEPT_ANALOGIES_REGISTRY, findConceptAnalogy } from '../../src/lib/data/conceptAnalogies';
+import { CodeWarsApiService, CODE_WARS_PROBLEMS_CATALOG } from '../../src/lib/api/codeWarsApi';
 import fs from 'fs';
 import path from 'path';
 
@@ -198,7 +198,7 @@ async function run() {
   console.log('--- 4. VERIFYING ARENA UI, MONACO & XP INTEGRITY ---');
   console.log('======================================================');
 
-  const arenaPagePath = path.join(__dirname, '../src/app/arena/page.tsx');
+  const arenaPagePath = path.join(__dirname, '../../src/app/arena/page.tsx');
   const arenaContent = fs.readFileSync(arenaPagePath, 'utf-8');
 
   assert(arenaContent.includes('<MonacoEditor'), 'Arena page renders MonacoEditor component');

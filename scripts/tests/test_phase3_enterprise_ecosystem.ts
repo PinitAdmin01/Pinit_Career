@@ -3,9 +3,9 @@
  * Validates Public Verifier (/verify/[id]), QR Credential Export, and Cohort Analytics.
  */
 
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { CohortsApiService } from '../src/lib/api/cohortsApi';
-import { verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { CohortsApiService } from '../../src/lib/api/cohortsApi';
+import { verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
 
 let passCount = 0;
 let failCount = 0;

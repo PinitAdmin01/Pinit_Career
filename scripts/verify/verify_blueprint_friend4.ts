@@ -4,8 +4,8 @@ dotenv.config();
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 
-import { POST as evaluateRoutePOST } from '../src/app/api/code/evaluate/route';
-import { CodeWarsApiService } from '../src/lib/api/codeWarsApi';
+import { POST as evaluateRoutePOST } from '../../src/app/api/code/evaluate/route';
+import { CodeWarsApiService } from '../../src/lib/api/codeWarsApi';
 import * as fs from 'fs';
 import * as path from 'path';
 

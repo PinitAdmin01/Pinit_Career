@@ -1,4 +1,4 @@
-// scripts/test_batch027.ts
+// scripts/tests/test_batch027.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 027 (Days 133–137 · COMPLETE)
 // Django 6.0 Forms, ModelForms, Mass-Assignment Defense & Class-Based Views (CBVs)
 
@@ -8,8 +8,8 @@ import {
   BATCH_027_MANIFEST,
   COMPETENCY_ID_DJANGO_FORMS_AND_CBVS,
   DAY_137_ASSESSMENT,
-} from '../src/lib/curriculum/pythonFullStack/batch027';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch027';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

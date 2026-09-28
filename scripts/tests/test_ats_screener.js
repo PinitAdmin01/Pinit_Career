@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const atsCode = fs.readFileSync(path.join(__dirname, '../src/lib/ats/atsScreener.ts'), 'utf8');
+const atsCode = fs.readFileSync(path.join(__dirname, '../../src/lib/ats/atsScreener.ts'), 'utf8');
 const compiled = ts.transpileModule(atsCode, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 }
 });

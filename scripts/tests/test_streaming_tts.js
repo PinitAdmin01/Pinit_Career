@@ -12,7 +12,7 @@ function transpileAndRequire(filePath) {
   const runner = new Function('module', 'exports', 'require', compiled.outputText);
   runner(moduleObj, moduleObj.exports, (modPath) => {
     if (modPath === '../sanitizeLLM' || modPath === './sanitizeLLM') {
-      return transpileAndRequire(path.join(__dirname, '../src/lib/sanitizeLLM.ts'));
+      return transpileAndRequire(path.join(__dirname, '../../src/lib/sanitizeLLM.ts'));
     }
     if (modPath === '../smartVoiceRouter' || modPath === './smartVoiceRouter') {
       return { synthesizeVoice: async () => ({ audioBuffer: new ArrayBuffer(8) }) };
@@ -27,7 +27,7 @@ const {
   MAX_IN_FLIGHT_TTS,
   splitIntoSentences,
   SentenceAudioQueuePlayer,
-} = transpileAndRequire(path.join(__dirname, '../src/lib/audio/streamingAudioQueue.ts'));
+} = transpileAndRequire(path.join(__dirname, '../../src/lib/audio/streamingAudioQueue.ts'));
 
 let passed = 0;
 let failed = 0;

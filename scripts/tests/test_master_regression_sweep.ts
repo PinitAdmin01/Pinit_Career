@@ -1,29 +1,29 @@
-// scripts/test_master_regression_sweep.ts
+// scripts/tests/test_master_regression_sweep.ts
 // Comprehensive 360-Degree Regression Sweep for PinIT Career OS & Phase 1 Deliverables
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
 import {
   CAREER_PROGRAMS_CATALOG,
   calculateDynamicRoleReadiness,
   evaluateProgramGraduation,
   evaluateStageProgression,
-} from '../src/lib/pathway/programEngine';
+} from '../../src/lib/pathway/programEngine';
 import {
   CompetencyEvidenceRecord,
   CompetencyMasteryStatus,
   DynamicRoleReadiness,
-} from '../src/lib/pathway/competencySchema';
+} from '../../src/lib/pathway/competencySchema';
 import {
   generateEvidenceIntegrityHash,
   processEvidenceLedger,
   verifyEvidenceIntegrity,
-} from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/evidenceEngine';
 import {
   evaluateCompetencyMastery,
   MASTERY_POLICY_VERSION,
-} from '../src/lib/pathway/masteryEngine';
-import { generateDynamicStudentRoadmap } from '../src/lib/data/roadmapFuser';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+} from '../../src/lib/pathway/masteryEngine';
+import { generateDynamicStudentRoadmap } from '../../src/lib/data/roadmapFuser';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('================================================================');
 console.log('  PINIT MASTER 360° COMPREHENSIVE REGRESSION & INTEGRITY SWEEP  ');

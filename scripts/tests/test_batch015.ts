@@ -1,4 +1,4 @@
-// scripts/test_batch015.ts
+// scripts/tests/test_batch015.ts
 // Comprehensive Invariant & Technical Audit Test Suite for PinIT Batch 015 (Days 73–77: Month 4 Week 15)
 // Core Data Structures: Hashing, Hash Tables, Collision Resolution & Key-Value Invariants
 
@@ -13,9 +13,9 @@ import {
   DAY_77_MANIFEST,
   DAY_77_ASSESSMENT,
   COMPETENCY_ID_HASHING_AND_KEY_VALUE,
-} from '../src/lib/curriculum/pythonFullStack/batch015';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch015';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

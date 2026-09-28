@@ -429,28 +429,11 @@ async function runAllTests() {
     assert.strictEqual(data.ok, true);
   });
 
-  // ── 6. Legacy Router Sanitization Verification ──
-  console.log('\n--- 6. Legacy Router Sanitization ---');
-
-  const { firestoreRouter } = await import('@/lib/api/legacyFirestoreRouter');
-
-  await check('Router /api/admin/metrics-summary returns honest 0 when empty (never 120 / 74 / 82 / 71 / 15)', async () => {
-    const res: any = await firestoreRouter('GET', '/api/admin/metrics-summary');
-    assert.strictEqual(res.ok, true);
-    assert.notStrictEqual(res.summary.totalUsers, 120, 'Must never invent 120 users fallback');
-  });
-
-  await check('Router /api/consultant/analytics returns honest metrics (never 30000 multiplier)', async () => {
-    const res: any = await firestoreRouter('GET', '/api/consultant/analytics');
-    assert.ok(typeof res.totalRevenue === 'number');
-    assert.notStrictEqual(res.totalRevenue, 30000, 'Must not use flat ₹30k revenue');
-  });
-
   console.log('\n========================================================================');
   console.log(`📊 RESULT: ${passed} / ${passed + failed} TESTS PASSED`);
   console.log('========================================================================\n');
 
-  if (failed > 0) process.exit(1);
+  process.exit(failed > 0 ? 1 : 0); // explicit: open DB sockets or timers must not keep the run alive
 }
 
 runAllTests().catch((err) => {

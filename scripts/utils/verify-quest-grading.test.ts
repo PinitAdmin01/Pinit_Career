@@ -17,14 +17,14 @@
  *   Content-QA reviewed, not Runtime-QA verified against production. See the
  *   Stage 1 report for the exact blocker (gcloud tooling).
  *
- * Run:  node scripts/verify-quest-grading.test.js
+ * Run:  node scripts/utils/verify-quest-grading.test.js
  *   (with cloud-run/js-judge's container running on localhost:18081 —
  *    docker run -d -p 18081:8080 pinit-js-judge:local)
  */
 
-import { gradeSubmission } from '../supabase/functions/verify-quest/grading';
-import { QUEST_TEST_SUITES } from '../supabase/functions/verify-quest/questTestSuites.generated';
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
+import { gradeSubmission } from '../../supabase/functions/verify-quest/grading';
+import { QUEST_TEST_SUITES } from '../../supabase/functions/verify-quest/questTestSuites.generated';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
 
 const JUDGE_URL = process.env.JS_JUDGE_URL || 'http://localhost:18081';
 

@@ -18,10 +18,10 @@
  * 'RUNTIME_ERROR' — fail closed, matching how a non-2xx HTTP response already
  * behaved.
  *
- * Run: node scripts/java-judge-runner.test.js
+ * Run: node scripts/utils/java-judge-runner.test.js
  */
 
-import { executeJavaJudgeSuite } from '../src/lib/code/runners/javaJudgeRunner';
+import { executeJavaJudgeSuite } from '../../src/lib/code/runners/javaJudgeRunner';
 
 let failures = 0;
 let passed = 0;

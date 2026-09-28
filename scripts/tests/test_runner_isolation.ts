@@ -1,4 +1,4 @@
-import { executeJavaScriptSuite } from '../src/lib/code/runners/jsRunner';
+import { executeJavaScriptSuite } from '../../src/lib/code/runners/jsRunner';
 
 (global as any).window = {
   localStorage: {

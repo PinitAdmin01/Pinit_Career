@@ -1,9 +1,9 @@
 /**
- * Bootstrap for scripts/runtime-binding.test.ts — same ts-node/tsconfig-paths
- * approach as scripts/content-qa.js (see that file for rationale). No new
+ * Bootstrap for scripts/utils/runtime-binding.test.ts — same ts-node/tsconfig-paths
+ * approach as scripts/utils/content-qa.js (see that file for rationale). No new
  * dependency; does not alter the app's tsconfig or build.
  *
- * Usage: node scripts/runtime-binding.test.js
+ * Usage: node scripts/utils/runtime-binding.test.js
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

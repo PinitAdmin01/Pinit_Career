@@ -1,4 +1,4 @@
-// scripts/measure_live_performance.ts
+// scripts/utils/measure_live_performance.ts
 // Real Synthetic Performance & Timing Audit for PinIT Production Portal
 
 import https from 'https';
@@ -52,7 +52,7 @@ async function measureRoute(path: string): Promise<MetricResult> {
     try {
       const res = await measureRoute(r);
       const sizeKb = (res.contentLengthBytes / 1024).toFixed(2);
-      console.log(`  • ${r.padEnd(16)} | Status: ${res.statusCode} | TTFB: ${res.ttfbMs.toString().padStart(6)} ms | Total: ${res.totalTimeMs.toString().padStart(6)} ms | Size: ${sizeKb.padStart(6)} KB | Cache: ${res.cacheStatus}`);
+      console.log(`  ï¿½ ${r.padEnd(16)} | Status: ${res.statusCode} | TTFB: ${res.ttfbMs.toString().padStart(6)} ms | Total: ${res.totalTimeMs.toString().padStart(6)} ms | Size: ${sizeKb.padStart(6)} KB | Cache: ${res.cacheStatus}`);
     } catch (e: any) {
       console.error(`  ? Failed route ${r}:`, e.message);
     }

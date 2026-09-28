@@ -1,4 +1,4 @@
-// scripts/test_postgres_multisession.ts
+// scripts/tests/test_postgres_multisession.ts
 // Programmatic Verification Suite: Tier 2 Multi-Session Live Concurrency Engine Verification
 // Tests Real PostgreSQL Concurrency Invariants: Row Locking Contention, SKIP LOCKED, Deadlocks, & Non-Atomic Indexing
 

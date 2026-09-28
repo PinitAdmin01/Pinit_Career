@@ -47,7 +47,7 @@ const corsHeaders = {
 
 // ── Supported quest test suites ───────────────────────────────────────────────
 // STAGE 1 FIX (§3.1 + §3.2): QUEST_TEST_SUITES is now a SERVER-OWNED registry
-// generated from the authoritative course data (scripts/generate-quest-test-suites.ts,
+// generated from the authoritative course data (scripts/utils/generate-quest-test-suites.ts,
 // see questTestSuites.generated.ts), not a 4-entry hand-written map. The previous
 // map's only fallback key was `generic`, whose body never throws — so EVERY quest ID
 // that wasn't one of the 3 hardcoded demo IDs fell through to a no-op test and
@@ -257,7 +257,7 @@ serve(async (req: Request) => {
   //     entirely through its own separate judge and never reached this path.
   // grading.ts has no Deno-specific APIs, so the exact same function is
   // exercised directly (not re-implemented) by the Node-based regression test
-  // at scripts/verify-quest-grading.test.ts, pointed at a real locally-running
+  // at scripts/utils/verify-quest-grading.test.ts, pointed at a real locally-running
   // instance of cloud-run/js-judge/ — see that file and the Stage 1 report for
   // what was actually executed vs. what could only be reviewed (this deployed
   // function itself cannot be invoked from a dev session; JS_JUDGE_URL is not

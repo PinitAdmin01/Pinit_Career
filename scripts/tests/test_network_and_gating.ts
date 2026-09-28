@@ -1,6 +1,6 @@
 /**
  * Test Suite: Friend 1 - Network & Gating
- * 1. client.ts includes '/api/student' in LIVE_API_PREFIXES and routes /api/student/activity to live server
+ * 1. client.ts sends every /api/* path (including /api/student/activity) to its server route, with no in-browser fallback
  * 2. AppShell.tsx strictly blocks regular tabs when onboardingStep < 3 and removes /crm & /integrations
  * 3. login/page.tsx does not switch authMode to 'trusted' on mount and defaults to 'password'
  */
@@ -14,33 +14,34 @@ async function run() {
   console.log('🛡️ TESTING NETWORK & GATING REMEDIATIONS (FRIEND 1)');
   console.log('========================================================================\n');
 
-  // ── TEST 1: client.ts: LIVE_API_PREFIXES includes '/api/student' ──
-  console.log('── TEST 1: API Client Live Prefixes ──');
+  // ── TEST 1: client.ts sends every /api/* path, including /api/student/activity, to the server ──
+  console.log('── TEST 1: API Client Routes /api/student/activity to the Server ──');
   const clientFile = fs.readFileSync(path.resolve('src/lib/api/client.ts'), 'utf-8');
   assert.ok(
-    clientFile.includes("'/api/student'"),
-    'client.ts must include /api/student in LIVE_API_PREFIXES'
+    clientFile.includes("path.startsWith('/api/')"),
+    'client.ts request() must treat every /api/ path as a server call'
   );
-
-  // Dynamically verify prefix matching logic
-  const livePrefixMatch = clientFile.match(/const LIVE_API_PREFIXES:\s*(?:readonly\s+)?string\[\]\s*=\s*\[([\s\S]*?)\];/);
-  assert.ok(livePrefixMatch, 'Could not find LIVE_API_PREFIXES in client.ts');
-  const prefixes = eval(`[${livePrefixMatch[1]}]`) as string[];
-  assert.ok(prefixes.includes('/api/student'), '/api/student must be in prefixes array');
-
-  const testStudentPath = '/api/student/activity';
-  const isLivePreferred = prefixes.some(p => testStudentPath === p || testStudentPath.startsWith(p + '/') || testStudentPath.startsWith(p + '?'));
-  assert.strictEqual(isLivePreferred, true, '/api/student/activity must prefer live server');
-  console.log('  ✅ [PASS] LIVE_API_PREFIXES contains /api/student and unblocks /api/student/activity\n');
+  assert.ok(!/firestoreRouter/i.test(clientFile), 'client.ts must not fall back to an in-browser router');
+  assert.ok(
+    fs.existsSync(path.resolve('src/app/api/student/activity/route.ts')),
+    'a server route must exist for /api/student/activity'
+  );
+  console.log('  ✅ [PASS] /api/student/activity goes to its server route (no client-side fallback)\n');
 
   // ── TEST 2: AppShell.tsx: Onboarding Enforcement & Student Tabs ──
   console.log('── TEST 2: AppShell Onboarding Enforcement & Student Tab Authorization ──');
   const appShellFile = fs.readFileSync(path.resolve('src/components/ui/AppShell.tsx'), 'utf-8');
 
+  // The gate is one shared rule (src/lib/onboarding/onboardingStatus.ts): finished means step >= 3,
+  // roadmap generated, or answers marked complete. AppShell redirects students who are not finished.
   assert.ok(
-    appShellFile.includes("if (onboardingStep < 3 && pathname !== '/onboarding')"),
-    'AppShell must strictly redirect to /onboarding when onboardingStep < 3'
+    appShellFile.includes('isOnboardingComplete(') && /if \(!onboardingDone[^)]*\)\s*\{[\s\S]{0,300}router\.push\('\/onboarding'\)/.test(appShellFile),
+    'AppShell must redirect to /onboarding when isOnboardingComplete() says the student is not finished'
   );
+  const { isOnboardingComplete } = await import('../../src/lib/onboarding/onboardingStatus');
+  assert.strictEqual(isOnboardingComplete({ onboardingStep: 2 }), false, 'onboardingStep 2 is not complete');
+  assert.strictEqual(isOnboardingComplete({ onboardingStep: 3 }), true, 'onboardingStep 3 is complete');
+  assert.strictEqual(isOnboardingComplete(null, { onboardingStep: 1 }), false, 'partial local progress is not complete');
 
   // Extract allowedStudentTabs array
   const studentTabsMatch = appShellFile.match(/const allowedStudentTabs = \[([\s\S]*?)\];/);

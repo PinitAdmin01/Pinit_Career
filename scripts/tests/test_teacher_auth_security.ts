@@ -1,9 +1,9 @@
-// scripts/test_teacher_auth_security.ts
+// scripts/tests/test_teacher_auth_security.ts
 // Comprehensive verification suite for T5: Teacher Auth & Studio Hardening
 
 import fs from 'fs';
 import path from 'path';
-import { GET as teacherAuthGet, POST as teacherAuthPost } from '../src/app/api/teacher/auth/route';
+import { GET as teacherAuthGet, POST as teacherAuthPost } from '../../src/app/api/teacher/auth/route';
 
 let passed = 0;
 let failed = 0;

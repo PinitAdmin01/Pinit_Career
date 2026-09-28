@@ -3,7 +3,7 @@
   CredentialIssuanceService,
   evaluateSigningKeyLifecycle,
   SigningKeyRecord,
-} from '../src/lib/services/credentialIssuanceService';
+} from '../../src/lib/services/credentialIssuanceService';
 
 async function runCredentialTests() {
   console.log('========================================================================');

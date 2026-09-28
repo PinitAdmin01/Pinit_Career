@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const matrixCode = fs.readFileSync(path.join(__dirname, '../src/lib/interview/scoringMatrix.ts'), 'utf8');
+const matrixCode = fs.readFileSync(path.join(__dirname, '../../src/lib/interview/scoringMatrix.ts'), 'utf8');
 const compiled = ts.transpileModule(matrixCode, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 }
 });

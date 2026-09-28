@@ -1,9 +1,9 @@
-// scripts/test_pathway_validation.ts
+// scripts/tests/test_pathway_validation.ts
 // Exhaustive 360-degree forensic validation runner for Competency Graph & Schema
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
-import { validateCompetencyCatalog } from '../src/lib/pathway/graphValidator';
-import { CompetencyDefinition } from '../src/lib/pathway/competencySchema';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
+import { validateCompetencyCatalog } from '../../src/lib/pathway/graphValidator';
+import { CompetencyDefinition } from '../../src/lib/pathway/competencySchema';
 
 console.log('================================================================');
 console.log('  PINIT PATHWAY & GRAPH VALIDATION: 360° FORENSIC AUDIT SUITE  ');

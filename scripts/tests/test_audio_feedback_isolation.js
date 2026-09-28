@@ -34,8 +34,8 @@ function transpileAndRequire(filePath) {
   return moduleObj.exports;
 }
 
-const { UnifiedSpeechRecognizer } = transpileAndRequire(path.join(__dirname, '../src/lib/audio/mobileSTTBuffer.ts'));
-const { SentenceAudioQueuePlayer } = transpileAndRequire(path.join(__dirname, '../src/lib/audio/streamingAudioQueue.ts'));
+const { UnifiedSpeechRecognizer } = transpileAndRequire(path.join(__dirname, '../../src/lib/audio/mobileSTTBuffer.ts'));
+const { SentenceAudioQueuePlayer } = transpileAndRequire(path.join(__dirname, '../../src/lib/audio/streamingAudioQueue.ts'));
 
 let passed = 0;
 let failed = 0;

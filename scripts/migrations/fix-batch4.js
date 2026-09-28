@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const BASE = path.join(__dirname, '..', 'src', 'lib', 'data');
+const BASE = path.join(__dirname, '..', '..', 'src', 'lib', 'data');
 
 // ── Stub engine (same as fix-dsa-starters.js) ───────────────────────────────
 

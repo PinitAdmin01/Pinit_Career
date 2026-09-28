@@ -7,7 +7,7 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 async function runTests() {
   console.log('=== VERIFYING SUB-BATCH 4.5: Issue 28 - AI Projects Generator Integrity ===\n');
 
-  const { POST, getDomainFallback, LLM_GENERATION_TIMEOUT_MS } = await import('../src/app/api/projects/generate/route');
+  const { POST, getDomainFallback, LLM_GENERATION_TIMEOUT_MS } = await import('../../src/app/api/projects/generate/route');
 
   // Test 1: LLM timeout is raised to at least 20,000ms (not 3,500ms)
   console.log('Test 1: Verifying LLM timeout threshold...');

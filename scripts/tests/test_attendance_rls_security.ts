@@ -84,7 +84,7 @@ async function run() {
   `);
 
   // 2. Apply our migration
-  const migrationPath = path.join(__dirname, '../supabase/migrations/20260909_staff_write_self_read_attendance_exams.sql');
+  const migrationPath = path.join(__dirname, '../../supabase/migrations/20260909_staff_write_self_read_attendance_exams.sql');
   const migrationSql = fs.readFileSync(migrationPath, 'utf8');
   await db.exec(migrationSql);
   console.log('✅ Applied migration 20260909_staff_write_self_read_attendance_exams.sql');

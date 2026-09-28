@@ -31,7 +31,7 @@ function it(desc: string, fn: () => void | Promise<void>) {
   }
 }
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(__dirname, '..', '..');
 
 async function runTests() {
   console.log('1. Verification of Authoritative Pin Gates (No Un-Awaited Promises)');

@@ -11,12 +11,12 @@
  * 8. Offline Proof-of-Work Enqueue & Auto-Sync
  */
 
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
-import { CodeWarsApiService } from '../src/lib/api/codeWarsApi';
-import { TeamsApiService } from '../src/lib/api/teamsApi';
-import { CohortsApiService } from '../src/lib/api/cohortsApi';
-import { OfflineSyncService } from '../src/lib/offline/offlineSync';
-import { verifyEvidenceIntegrity } from '../src/lib/pathway/evidenceEngine';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
+import { CodeWarsApiService } from '../../src/lib/api/codeWarsApi';
+import { TeamsApiService } from '../../src/lib/api/teamsApi';
+import { CohortsApiService } from '../../src/lib/api/cohortsApi';
+import { OfflineSyncService } from '../../src/lib/offline/offlineSync';
+import { verifyEvidenceIntegrity } from '../../src/lib/pathway/evidenceEngine';
 
 let passCount = 0;
 let failCount = 0;

@@ -5,7 +5,7 @@
 // `fetch` to the judge). This lets the exact same code be:
 //   1. imported by index.ts (the deployed Supabase Edge Function), and
 //   2. imported and exercised directly by a Node-based regression test
-//      (scripts/verify-quest-grading.test.ts) — so this is actually executed
+//      (scripts/utils/verify-quest-grading.test.ts) — so this is actually executed
 //      and asserted on, not just read and trusted.
 //
 // STAGE 1 HISTORY (see index.ts for the surrounding HTTP/auth/persistence

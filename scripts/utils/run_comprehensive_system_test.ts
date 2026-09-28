@@ -1,4 +1,4 @@
-// scripts/run_comprehensive_system_test.ts
+// scripts/utils/run_comprehensive_system_test.ts
 // MASTER SYSTEM TESTING RUNNER
 // Tests every single remediation implemented across the entire application lifecycle:
 // 1. Examination Engine & Anti-Tampering Suite
@@ -27,7 +27,7 @@ const suites: Array<{ name: string; category: string; command: string }> = [
   {
     name: 'Examination Architecture & Anti-Tampering Suite',
     category: 'Academic & Examination Engine',
-    command: 'npx tsx scripts/test_exam_system.ts'
+    command: 'npx tsx scripts/tests/test_exam_system.ts'
   },
   {
     name: 'Voice Privacy, Biometrics & Audio Engine Suite',
@@ -42,22 +42,22 @@ const suites: Array<{ name: string; category: string; command: string }> = [
   {
     name: 'P0 Security Remediations Suite',
     category: 'Security & Core Hardening',
-    command: 'npx tsx scripts/test_p0_security_remediations.ts'
+    command: 'npx tsx scripts/tests/test_p0_security_remediations.ts'
   },
   {
     name: 'Student Privilege & RLS Access Control Suite',
     category: 'Database & Access Control',
-    command: 'npx tsx scripts/test_student_privilege_rls.ts'
+    command: 'npx tsx scripts/tests/test_student_privilege_rls.ts'
   },
   {
     name: 'Zero Bare Supabase Writes Static Analysis Guard',
     category: 'Code Quality & Static Analysis',
-    command: 'node scripts/check_bare_writes.js'
+    command: 'node scripts/utils/check_bare_writes.js'
   },
   {
     name: 'Enterprise End-to-End System Integration Pipelines',
     category: 'System Integration Pipelines',
-    command: 'npx tsx scripts/system_test_all_fixed_issues.ts'
+    command: 'npx tsx scripts/utils/system_test_all_fixed_issues.ts'
   },
   {
     name: 'Core Database, Course Registry & Schema Migration Suite',
@@ -81,7 +81,7 @@ async function runMasterSystemTest() {
 
     try {
       const stdout = execSync(suite.command, {
-        cwd: path.resolve(__dirname, '..'),
+        cwd: path.resolve(__dirname, '..', '..'),
         stdio: 'pipe',
         encoding: 'utf-8',
         timeout: 120000

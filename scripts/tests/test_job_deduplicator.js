@@ -24,7 +24,7 @@ const {
   computeStringSimilarity,
   calculateJobSimilarity,
   deduplicateJobListings
-} = transpileAndRequire(path.join(__dirname, '../src/lib/opportunities/jobDeduplicator.ts'));
+} = transpileAndRequire(path.join(__dirname, '../../src/lib/opportunities/jobDeduplicator.ts'));
 
 let passed = 0;
 let failed = 0;

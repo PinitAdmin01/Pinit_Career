@@ -38,7 +38,7 @@ async function run() {
   assert.ok(userServiceCode.includes("console.error('[updateUserProfile] Supabase update error:'"), 'updateUserProfile must log errors with console.error');
 
   // Dynamic mapping checks
-  const { mapProfileToRow, mapRowToProfile } = await import('../src/lib/services/supabase/userService');
+  const { mapProfileToRow, mapRowToProfile } = await import('../../src/lib/services/supabase/userService');
   const mappedRow = mapProfileToRow({
     completed_missions: ['mission_1', 'mission_2'],
     endorsed_skills: ['skill_react'],
@@ -73,7 +73,7 @@ async function run() {
   assert.ok(!activityRouteCode.includes("adminDataAccess"), 'Route must NOT write student events to adminDataAccess');
 
   // Route runtime invocation test
-  const { GET, POST } = await import('../src/app/api/student/activity/route');
+  const { GET, POST } = await import('../../src/app/api/student/activity/route');
   const unauthReq = new Request('http://localhost:3000/api/student/activity');
   const unauthRes = await GET(unauthReq);
   assert.strictEqual(unauthRes.status, 401, 'Unauthenticated request returns 401');

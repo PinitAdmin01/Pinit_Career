@@ -21,7 +21,7 @@ const {
   evaluateRepositoryTree,
   analyzeRepositoryEvidence,
   generateEvidenceHash
-} = transpileAndRequire(path.join(__dirname, '../src/lib/github/githubIngestion.ts'));
+} = transpileAndRequire(path.join(__dirname, '../../src/lib/github/githubIngestion.ts'));
 
 let passed = 0;
 let failed = 0;

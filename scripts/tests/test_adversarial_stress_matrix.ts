@@ -1,29 +1,29 @@
-// scripts/test_adversarial_stress_matrix.ts
+// scripts/tests/test_adversarial_stress_matrix.ts
 // Ruthless Adversarial, Chaos & Fuzz Testing Suite for PinIT Career OS Pathway Engine
 
-import { COMPETENCY_CATALOG_V1 } from '../src/lib/pathway/competencyCatalog';
-import { validateCompetencyCatalog } from '../src/lib/pathway/graphValidator';
+import { COMPETENCY_CATALOG_V1 } from '../../src/lib/pathway/competencyCatalog';
+import { validateCompetencyCatalog } from '../../src/lib/pathway/graphValidator';
 import {
   CompetencyDefinition,
   CompetencyEvidenceRecord,
   CompetencyMasteryStatus,
   DIFFICULTY_RANK,
-} from '../src/lib/pathway/competencySchema';
+} from '../../src/lib/pathway/competencySchema';
 import {
   generateEvidenceIntegrityHash,
   processEvidenceLedger,
   verifyEvidenceIntegrity,
-} from '../src/lib/pathway/evidenceEngine';
+} from '../../src/lib/pathway/evidenceEngine';
 import {
   evaluateCompetencyMastery,
   MASTERY_POLICY_VERSION,
-} from '../src/lib/pathway/masteryEngine';
+} from '../../src/lib/pathway/masteryEngine';
 import {
   CAREER_PROGRAMS_CATALOG,
   evaluateProgramGraduation,
   evaluateStageProgression,
-} from '../src/lib/pathway/programEngine';
-import { PathwayApiService } from '../src/lib/api/pathwayApi';
+} from '../../src/lib/pathway/programEngine';
+import { PathwayApiService } from '../../src/lib/api/pathwayApi';
 
 console.log('================================================================');
 console.log('  PINIT ADVERSARIAL STRESS & CHAOS TEST HARNESS (ZERO TOLERANCE)');

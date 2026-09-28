@@ -1,4 +1,4 @@
-// scripts/test_batch030.ts
+// scripts/tests/test_batch030.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 030 (Days 148–152 · COMPLETE)
 // Advanced SQL Querying, Joins, Aggregations & QuerySet Compilation Internals
 
@@ -8,8 +8,8 @@ import {
   BATCH_030_MANIFEST,
   DAY_152_ASSESSMENT,
   COMPETENCY_ID_SQL_JOINS_AND_QUERYSETS,
-} from '../src/lib/curriculum/pythonFullStack/batch030';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch030';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

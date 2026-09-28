@@ -1,4 +1,4 @@
-// scripts/test_batch017.ts
+// scripts/tests/test_batch017.ts
 // Comprehensive technical, structural, and behavioral audit test suite for PinIT Batch 017 (Days 83–87)
 // Advanced Python: Closures, Lexical Scoping Invariants, First-Class Functions & Decorator Architecture
 
@@ -13,9 +13,9 @@ import {
   DAY_87_MANIFEST,
   DAY_87_ASSESSMENT,
   COMPETENCY_ID_CLOSURES_AND_DECORATORS,
-} from '../src/lib/curriculum/pythonFullStack/batch017';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch017';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 let totalChecks = 0;
 let passedChecks = 0;

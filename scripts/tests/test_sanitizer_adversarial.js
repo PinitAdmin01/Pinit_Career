@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const sanitizeCode = fs.readFileSync(path.join(__dirname, '../src/lib/sanitizeLLM.ts'), 'utf8');
+const sanitizeCode = fs.readFileSync(path.join(__dirname, '../../src/lib/sanitizeLLM.ts'), 'utf8');
 const compiled = ts.transpileModule(sanitizeCode, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 }
 });

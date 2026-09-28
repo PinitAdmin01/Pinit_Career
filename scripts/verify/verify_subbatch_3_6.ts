@@ -3,8 +3,8 @@
  * Tests Defects 080 – 081
  */
 
-import { readLocalJson, writeLocalJson } from '../src/lib/services/localJsonDb';
-import { examsService } from '../src/lib/services/examsService';
+import { readLocalJson, writeLocalJson } from '../../src/lib/services/localJsonDb';
+import { examsService } from '../../src/lib/services/examsService';
 import * as fs from 'fs';
 import * as path from 'path';
 

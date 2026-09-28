@@ -1,4 +1,4 @@
-// scripts/test_evidence_engine.ts
+// scripts/tests/test_evidence_engine.ts
 // Comprehensive Behavioral, Hash-Chaining, Append-Only, and Adversarial Test Suite for Evidence Ledger
 
 import {
@@ -14,7 +14,7 @@ import {
   AssessmentAttempt,
   AssessmentResult,
   CurriculumValidationError,
-} from '../src/lib/curriculum/index';
+} from '../../src/lib/curriculum/index';
 
 let testsPassed = 0;
 let testsFailed = 0;

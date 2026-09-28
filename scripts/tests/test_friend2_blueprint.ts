@@ -1,4 +1,4 @@
-// scripts/test_friend2_blueprint.ts
+// scripts/tests/test_friend2_blueprint.ts
 // Verification test suite for Friend 2 Master Blueprint: Elevating to 10/10 (Tasks 2.1, 2.2, 2.3)
 
 import * as dotenv from 'dotenv';
@@ -8,9 +8,9 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 
 import fs from 'fs';
 import path from 'path';
-import { generateTxId } from '../src/lib/utils/transactionId';
-import { acquireDistributedLock, financeService } from '../src/lib/services/financeService';
-import { POST as addXpHandler, VALID_ACTION_TYPES, DAILY_XP_MAX_CAP } from '../src/app/api/xp/add/route';
+import { generateTxId } from '../../src/lib/utils/transactionId';
+import { acquireDistributedLock, financeService } from '../../src/lib/services/financeService';
+import { POST as addXpHandler, VALID_ACTION_TYPES, DAILY_XP_MAX_CAP } from '../../src/app/api/xp/add/route';
 
 async function runFriend2BlueprintTests() {
   console.log('========================================================================');

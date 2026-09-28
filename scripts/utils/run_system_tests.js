@@ -1,4 +1,4 @@
-// scripts/run_system_tests.js
+// scripts/utils/run_system_tests.js
 // PinIT Career OS - Master End-to-End System Test Runner
 // Executes all 10 specialized unit suites + 4 comprehensive cross-module integration pipelines
 
@@ -58,21 +58,21 @@ function recordAssert(suiteName, testName, condition, details = '') {
 logHeader('PHASE 1: EXECUTING ALL 10 MODULE UNIT TEST SUITES');
 
 const suites = [
-  'scripts/test_sanitizer.js',
-  'scripts/test_sanitizer_adversarial.js',
-  'scripts/test_interview_scoring.js',
-  'scripts/test_ats_screener.js',
-  'scripts/test_code_runner.js',
-  'scripts/test_streaming_tts.js',
-  'scripts/test_github_ingestion.js',
-  'scripts/test_job_deduplicator.js',
-  'scripts/test_mobile_stt.js',
-  'scripts/test_practice_telemetry.js',
-  'scripts/test_audio_feedback_isolation.js'
+  'scripts/tests/test_sanitizer.js',
+  'scripts/tests/test_sanitizer_adversarial.js',
+  'scripts/tests/test_interview_scoring.js',
+  'scripts/tests/test_ats_screener.js',
+  'scripts/tests/test_code_runner.js',
+  'scripts/tests/test_streaming_tts.js',
+  'scripts/tests/test_github_ingestion.js',
+  'scripts/tests/test_job_deduplicator.js',
+  'scripts/tests/test_mobile_stt.js',
+  'scripts/tests/test_practice_telemetry.js',
+  'scripts/tests/test_audio_feedback_isolation.js'
 ];
 
 for (const suite of suites) {
-  const suitePath = path.join(__dirname, '..', suite);
+  const suitePath = path.join(__dirname, '..', '..', suite);
   try {
     const output = execSync(`node "${suitePath}"`, { encoding: 'utf8', stdio: 'pipe' });
     const passMatches = (output.match(/\[PASS\]/g) || []).length;
@@ -90,14 +90,14 @@ for (const suite of suites) {
 logHeader('PHASE 2: CROSS-MODULE END-TO-END INTEGRATION PIPELINES');
 
 // Import All Core Modules
-const { sanitizeLLMOutput, sanitizeForSpeech } = transpileAndRequire(path.join(__dirname, '../src/lib/sanitizeLLM.ts'));
-const { splitIntoSentences } = transpileAndRequire(path.join(__dirname, '../src/lib/audio/streamingAudioQueue.ts'));
-const { calculateRoleWeightedScore, generatePersonaCoaching } = transpileAndRequire(path.join(__dirname, '../src/lib/interview/scoringMatrix.ts'));
-const { auditResumeATS } = transpileAndRequire(path.join(__dirname, '../src/lib/ats/atsScreener.ts'));
-const { deduplicateJobListings } = transpileAndRequire(path.join(__dirname, '../src/lib/opportunities/jobDeduplicator.ts'));
-const { analyzeGithubRepository } = transpileAndRequire(path.join(__dirname, '../src/lib/github/githubIngestion.ts'));
-const { executeJavaScriptCode } = transpileAndRequire(path.join(__dirname, '../src/lib/code/runners/jsRunner.ts'));
-const { synthesizePracticeTelemetryReport } = transpileAndRequire(path.join(__dirname, '../src/lib/telemetry/practiceTelemetry.ts'));
+const { sanitizeLLMOutput, sanitizeForSpeech } = transpileAndRequire(path.join(__dirname, '../../src/lib/sanitizeLLM.ts'));
+const { splitIntoSentences } = transpileAndRequire(path.join(__dirname, '../../src/lib/audio/streamingAudioQueue.ts'));
+const { calculateRoleWeightedScore, generatePersonaCoaching } = transpileAndRequire(path.join(__dirname, '../../src/lib/interview/scoringMatrix.ts'));
+const { auditResumeATS } = transpileAndRequire(path.join(__dirname, '../../src/lib/ats/atsScreener.ts'));
+const { deduplicateJobListings } = transpileAndRequire(path.join(__dirname, '../../src/lib/opportunities/jobDeduplicator.ts'));
+const { analyzeGithubRepository } = transpileAndRequire(path.join(__dirname, '../../src/lib/github/githubIngestion.ts'));
+const { executeJavaScriptCode } = transpileAndRequire(path.join(__dirname, '../../src/lib/code/runners/jsRunner.ts'));
+const { synthesizePracticeTelemetryReport } = transpileAndRequire(path.join(__dirname, '../../src/lib/telemetry/practiceTelemetry.ts'));
 
 // -------------------------------------------------------------
 // Scenario A: AI Interview Cross-Module Lifecycle
@@ -186,7 +186,7 @@ recordAssert('E2E ATS & Jobs', 'B5. Keeps distinct locations (Bengaluru vs Hyder
 // -------------------------------------------------------------
 console.log(`\n🚀 [Integration C] GitHub Proof-of-Work Pipeline (SSRF Guard -> AST Analysis -> PIN-GH Proof Hash)`);
 
-const { parseAndValidateGithubUrl, analyzeRepositoryEvidence } = transpileAndRequire(path.join(__dirname, '../src/lib/github/githubIngestion.ts'));
+const { parseAndValidateGithubUrl, analyzeRepositoryEvidence } = transpileAndRequire(path.join(__dirname, '../../src/lib/github/githubIngestion.ts'));
 
 const validUrlCheck = parseAndValidateGithubUrl('https://github.com/sample-dev/production-api');
 recordAssert('E2E GitHub Ingestion', 'C1. Validates and parses public GitHub repository URL safely', validUrlCheck.valid && validUrlCheck.owner === 'sample-dev' && validUrlCheck.repo === 'production-api');
@@ -214,7 +214,7 @@ recordAssert('E2E GitHub Ingestion', 'C4. Extracts detected skill signals (TypeS
 // -------------------------------------------------------------
 console.log(`\n🚀 [Integration D] Code Arena Sandbox (Sandboxed Execution -> Multi-Case Assertions)`);
 
-const { executeJavaScriptSuite } = transpileAndRequire(path.join(__dirname, '../src/lib/code/runners/jsRunner.ts'));
+const { executeJavaScriptSuite } = transpileAndRequire(path.join(__dirname, '../../src/lib/code/runners/jsRunner.ts'));
 
 const validJsCode = `
   function solution(arr) {

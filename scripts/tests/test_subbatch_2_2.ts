@@ -1,4 +1,4 @@
-// scripts/test_subbatch_2_2.ts
+// scripts/tests/test_subbatch_2_2.ts
 // Verification test suite for Sub-Batch 2.2: Time Integrity, Scholarships & Financial Analytics (Issues 033 – 037)
 
 import * as dotenv from 'dotenv';
@@ -7,8 +7,8 @@ dotenv.config();
 import fs from 'fs';
 import path from 'path';
 import { PGlite } from '@electric-sql/pglite';
-import { GET as getTimeHandler, OPTIONS as optionsTimeHandler } from '../src/app/api/time/route';
-import { consecutiveCalendarStreak } from '../src/lib/missions/streak';
+import { GET as getTimeHandler, OPTIONS as optionsTimeHandler } from '../../src/app/api/time/route';
+import { consecutiveCalendarStreak } from '../../src/lib/missions/streak';
 
 async function runSubBatch22Tests() {
   console.log('========================================================================');

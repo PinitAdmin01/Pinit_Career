@@ -78,7 +78,7 @@ npx tsc --noEmit && npx next lint
   - Ensure all dev tokens require `ALLOW_DEV_AUTH_BYPASS === 'true' && NODE_ENV !== 'production'`.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/test_p0_security_remediations.ts
+  npx tsx scripts/tests/test_p0_security_remediations.ts
   ```
 
 ---
@@ -109,14 +109,14 @@ npx tsc --noEmit && npx next lint
 - **Problem**: The onboarding progress screen previously froze at 100% because `/api/xp` was missing from `LIVE_API_PREFIXES` in `client.ts`.
 - **Target Files**:
   - [`src/lib/api/client.ts`](file:///c:/Users/vinay/Desktop/project%20working/Present-Career-os/src/lib/api/client.ts)
-  - `scripts/verify_api_parity.ts`
+  - `scripts/verify/verify_api_parity.ts`
 - **Implementation**:
-  - Create `scripts/verify_api_parity.ts` to inspect all directories under `src/app/api/`.
+  - Create `scripts/verify/verify_api_parity.ts` to inspect all directories under `src/app/api/`.
   - For every endpoint that contains a `route.ts`, assert that its prefix is declared inside `LIVE_API_PREFIXES` in `client.ts`.
   - If any endpoint is missing, exit with Code 1.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/verify_api_parity.ts
+  npx tsx scripts/verify/verify_api_parity.ts
   ```
 
 #### Task 2.2: Distributed Lock TTL Auto-Expiration
@@ -129,7 +129,7 @@ npx tsc --noEmit && npx next lint
   - Ensure fail-closed cleanup (`activePaymentLocks.delete(lockKey)`, `activeScholarshipLocks.delete(lockKey)`) and `return false` when database is down in production.
 - **Verification Command**:
   ```bash
-  node scripts/run_friend2_all.js
+  node scripts/utils/run_friend2_all.js
   ```
 
 #### Task 2.3: XP Reason Metadata & Anti-Farming Verification
@@ -142,7 +142,7 @@ npx tsc --noEmit && npx next lint
   - Reject requests exceeding 3,000 XP/day with HTTP 429 `DAILY_XP_LIMIT_EXCEEDED`.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/test_friend2_blueprint.ts
+  npx tsx scripts/tests/test_friend2_blueprint.ts
   ```
 
 ---
@@ -171,13 +171,13 @@ npx tsc --noEmit && npx next lint
 - **Problem**: Dead `require('crypto')` blocks and `// eslint-disable-next-line @typescript-eslint/...` comments cause immediate Vercel build errors.
 - **Target Files**:
   - [`src/lib/utils/transactionId.ts`](file:///c:/Users/vinay/Desktop/project%20working/Present-Career-os/src/lib/utils/transactionId.ts)
-  - `scripts/check_eslint_comments.js`
+  - `scripts/utils/check_eslint_comments.js`
 - **Implementation**:
-  - Build `scripts/check_eslint_comments.js` to scan all `.ts` and `.tsx` files for `@typescript-eslint`.
+  - Build `scripts/utils/check_eslint_comments.js` to scan all `.ts` and `.tsx` files for `@typescript-eslint`.
   - If any occurrence is detected, exit with Code 1 and print: `"FATAL: @typescript-eslint comments are forbidden. Use standard ESLint rules only."`
 - **Verification Command**:
   ```bash
-  node scripts/check_eslint_comments.js && npx next lint
+  node scripts/utils/check_eslint_comments.js && npx next lint
   ```
 
 #### Task 3.2: Complete Elimination of Legacy `profiles` Queries
@@ -190,20 +190,20 @@ npx tsc --noEmit && npx next lint
   - Ensure all records map to canonical `users` using UUID v4 keys.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/verify_friend3_full.ts
+  npx tsx scripts/verify/verify_friend3_full.ts
   ```
 
 #### Task 3.3: Storage Quota Auto-Eviction Stress Testing
 - **Problem**: Mobile browsers with low storage limits crash when `localStorage.setItem` throws `QuotaExceededError`.
 - **Target Files**:
   - `src/lib/context/CareerOSContext.tsx`
-  - `scripts/verify_subbatch_3_4.ts`
+  - `scripts/verify/verify_subbatch_3_4.ts`
 - **Implementation**:
   - Ensure `safeLocalStorageSetItem` intercepts `QuotaExceededError`.
   - Auto-evict cached diagnostic logs and test runs while strictly preserving user credentials, tokens, and credentials.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/verify_subbatch_3_4.ts
+  npx tsx scripts/verify/verify_subbatch_3_4.ts
   ```
 
 ---
@@ -253,7 +253,7 @@ npx tsc --noEmit && npx next lint
   - Enforce the 2,500ms timeout around `script.runInContext`.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/verify_blueprint_friend4.ts
+  npx tsx scripts/verify/verify_blueprint_friend4.ts
   ```
 
 #### Task 4.3: Onboarding Instant Navigation Lock
@@ -265,7 +265,7 @@ npx tsc --noEmit && npx next lint
   - Guarantee navigation triggers within 1.2 seconds of reaching 100%.
 - **Verification Command**:
   ```bash
-  npx tsx scripts/verify_friend4_full.ts
+  npx tsx scripts/verify/verify_friend4_full.ts
   ```
 
 ---
@@ -275,7 +275,7 @@ npx tsc --noEmit && npx next lint
 | Friend | Primary Domain | Critical Deliverable | Verification Command | Gate Criteria |
 | :--- | :--- | :--- | :--- | :--- |
 | **Friend 1** | Security, CSP & Auth | Keep `'wasm-unsafe-eval'` in CSP, bounded rate limiting, secure dev bypass | `npm run audit:headers && npm run test:security` | 0 findings |
-| **Friend 2** | Economy & Concurrency | Dual-router parity, distributed lock TTL (45s), server daily XP cap (3,000) | `node scripts/run_friend2_all.js` | 162/162 Passed |
-| **Friend 3** | Storage & DB Canonicalization | Ban `@typescript-eslint` comments, eradicate `profiles`, quota-safe storage | `node scripts/check_eslint_comments.js && npx tsx scripts/verify_friend3_full.ts` | 27/27 Passed |
-| **Friend 4** | AI, Avatars & CodeWars | Avatar preloading & 2D fallback, node:vm CodeWars sandbox, onboarding redirect | `npx tsx scripts/verify_blueprint_friend4.ts && npx tsx scripts/verify_friend4_full.ts` | 57/57 Passed |
+| **Friend 2** | Economy & Concurrency | Dual-router parity, distributed lock TTL (45s), server daily XP cap (3,000) | `node scripts/utils/run_friend2_all.js` | 162/162 Passed |
+| **Friend 3** | Storage & DB Canonicalization | Ban `@typescript-eslint` comments, eradicate `profiles`, quota-safe storage | `node scripts/utils/check_eslint_comments.js && npx tsx scripts/verify/verify_friend3_full.ts` | 27/27 Passed |
+| **Friend 4** | AI, Avatars & CodeWars | Avatar preloading & 2D fallback, node:vm CodeWars sandbox, onboarding redirect | `npx tsx scripts/verify/verify_blueprint_friend4.ts && npx tsx scripts/verify/verify_friend4_full.ts` | 57/57 Passed |
 | **ALL** | Production Build | Clean TypeScript compilation and Next.js linting | `npx tsc --noEmit && npx next lint` | 0 errors |

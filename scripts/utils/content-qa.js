@@ -1,5 +1,5 @@
 /**
- * Bootstrap for scripts/content-qa.ts (Stage 0.1).
+ * Bootstrap for scripts/utils/content-qa.ts (Stage 0.1).
  *
  * The repository tsconfig targets the Next.js bundler (module: esnext,
  * moduleResolution: bundler, jsx: preserve, noEmit), which ts-node cannot execute
@@ -10,8 +10,8 @@
  * No new dependency is introduced.
  *
  * Usage:
- *   node scripts/content-qa.js                    # measure + compare to baseline
- *   node scripts/content-qa.js --write-baseline   # freeze the current measurement
+ *   node scripts/utils/content-qa.js                    # measure + compare to baseline
+ *   node scripts/utils/content-qa.js --write-baseline   # freeze the current measurement
  */
 
 process.env.TS_NODE_TRANSPILE_ONLY = 'true';

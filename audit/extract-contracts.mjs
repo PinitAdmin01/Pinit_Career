@@ -3,27 +3,19 @@
  * Read-only. Maps every /api/* path the client calls to whatever actually
  * serves it in production.
  *
- * Production is Firebase static hosting (build.js copies .next/server/app into
- * out/, firebase.json serves out/ with a ** -> /index.html rewrite), so nothing
- * in src/app/api/ executes. The browser is the backend, and a request passes
- * through FOUR layers before it is answered:
+ * Every /api/* call goes to the app's own server routes under src/app/api:
+ * request() in src/lib/api/client.ts sends it over the network, and
+ * src/lib/fetchInterceptor.ts only attaches the auth header. A path is served
+ * when a route file matches it and exports the method (verdict SERVER);
+ * otherwise it is UNHANDLED-404.
  *
- *   1. src/lib/fetchInterceptor.ts  — hijacks fetch('/api/*'), except paths it
- *      explicitly exempts, which reach the network and get index.html back.
- *   2. request() in src/lib/api/client.ts — for ~28 "preferLive" prefixes it
- *      first tries the network. Under static hosting that returns index.html
- *      with HTTP 200, res.json() throws, and it falls through. Costs one wasted
- *      request per prefix, never succeeds.
- *   3. campusFallback.ts — a switch over ~102 campus paths delegating to the
- *      services in src/lib/services/. Its default case throws.
- *   4. firestoreRouter() in client.ts — an ordered if-chain of ~172 guards.
- *      First match wins; later guards for the same path are unreachable.
+ * Until 2026-09-28 the browser also carried its own backend — campusFallback.ts
+ * and firestoreRouter() in legacyFirestoreRouter.ts — which this script still
+ * evaluates if those files exist (guard conditions are EVALUATED, not
+ * pattern-matched). They were removed as unreachable, so those layers are empty.
  *
- * Guard conditions are EVALUATED, not pattern-matched, because conditions like
- *   cleanPath.includes('/api/exam/') && cleanPath.includes('/questions')
- * give the wrong winner if you only read the string literals out of them.
- *
- * Outputs audit/contracts.json and audit/CONTRACTS.md. Writes nothing else.
+ * Outputs audit/contracts.json, audit/CONTRACTS.md and audit/LEDGER.md.
+ * Writes nothing else.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -87,6 +79,7 @@ const routeOf = (file) => file
   || '/';
 
 const isBuiltRoute = (r) => {
+  if (/\/_[^/]+/.test(r)) return false;         // Next.js never routes a private `_folder`
   if (builtRoutes.size === 0) return true;      // no build to compare against
   if (r === '/' || builtRoutes.has(r)) return true;
   // dynamic segment: /quests/[id] ships if /quests does
@@ -226,6 +219,7 @@ const campusPrefixes = (() => {
   return m ? [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]) : [];
 })();
 const isCampusApiPath = (p) => {
+  if (!campusSrc) return false; // the campus switch was removed; nothing is routed through it
   if (p === '/api/communication/evaluate') return false;
   if (p.startsWith('/api/communication')) return true;
   return campusPrefixes.some((x) => p === x || p.startsWith(x + '/'));
@@ -410,10 +404,16 @@ for (const f of SOURCES) {
     }
   }
 
-  routeSpecs.set(m[1].replace(/\[\.\.\.(\w+)\]/g, ':$1').replace(/\[(\w+)\]/g, ':$1'), {
+  // `export async function GET`, `export function GET`, `export const GET =`, `export { GET } from '…'`
+  const exported = new Set([
+    ...[...src.matchAll(/export\s+(?:async\s+)?function\s+([A-Z]+)\b/g)].map((x) => x[1]),
+    ...[...src.matchAll(/export\s+(?:const|let|var)\s+([A-Z]+)\s*[=:]/g)].map((x) => x[1]),
+    ...[...src.matchAll(/export\s*\{([^}]*)\}/g)].flatMap((x) => x[1].split(',').map((s) => s.trim().split(/\s+as\s+/).pop())),
+  ]);
+  routeSpecs.set(m[1].replace(/\[\.\.\.(\w+)\]/g, ':$1*').replace(/\[(\w+)\]/g, ':$1'), {
     file: f,
     lines: src.split('\n').length,
-    methods: [...new Set([...src.matchAll(/export\s+async\s+function\s+(GET|POST|PUT|PATCH|DELETE)/g)].map((x) => x[1]))],
+    methods: METHODS.filter((x) => exported.has(x)),
     usesSecret: secrets.size > 0,
     secrets: [...secrets],
     secretVia: Object.fromEntries(secretVia),
@@ -421,7 +421,33 @@ for (const f of SOURCES) {
   });
 }
 
-// ── 8. resolve a path through all four layers ───────────────────────────────
+// The route file that serves a called path. `:param` in the called path is an
+// interpolation, so it can stand for any one segment; the most specific route
+// wins (static segment > [param] > [...catchAll]), as in Next.js.
+function serverRoute(p) {
+  const call = p.split('/').filter(Boolean);
+  let best = null, bestScore = -1;
+  for (const [key, spec] of routeSpecs) {
+    const route = key.split('/').filter(Boolean);
+    let score = 0;
+    for (let i = 0; i < route.length && score >= 0; i++) {
+      const r = route[i], c = call[i];
+      if (r.endsWith('*')) { if (i >= call.length) score = -1; break; }
+      if (c === undefined) score = -1;
+      else if (r.startsWith(':')) score += 2;
+      else if (c === ':param') score += 1;
+      else if (c === r) score += 3;
+      else score = -1;
+    }
+    if (score >= 0 && !route[route.length - 1]?.endsWith('*') && route.length !== call.length) score = -1;
+    if (score > bestScore) { best = spec; bestScore = score; }
+  }
+  return best;
+}
+
+// ── 8. resolve a path ───────────────────────────────────────────────────────
+// Every /api/* call now goes to the server, so after the (now empty) legacy
+// browser layers the answer is the route under src/app/api, if there is one.
 const reachedGuards = new Set();
 function resolve(p, method) {
   if (bypassed.some((b) => p.includes(b))) {
@@ -438,10 +464,16 @@ function resolve(p, method) {
     if (r === true) { reachedGuards.add(g.idx); return { layer: 'firestoreRouter', verdict: g.verdict, where: 'client.ts:' + g.line, returns: g.returns }; }
     if (r === null) { reachedGuards.add(g.idx); return { layer: 'firestoreRouter', verdict: g.verdict, where: 'client.ts:' + g.line, undecidable: true }; }
   }
-  return { layer: 'none', verdict: 'UNHANDLED-404', where: 'client.ts throws Unhandled API path' };
+  const route = serverRoute(p);
+  if (route && route.methods.includes(method)) {
+    return { layer: 'server', verdict: 'SERVER', where: route.file };
+  }
+  return route
+    ? { layer: 'none', verdict: 'UNHANDLED-404', where: route.file + ' does not export ' + method }
+    : { layer: 'none', verdict: 'UNHANDLED-404', where: 'no route under src/app/api' };
 }
 
-const RANK = ['UNHANDLED-404', 'CAMPUS-404', 'THROWS', 'BYPASSES-SHIM', 'STUB', 'DECLINED', 'LOCAL-STORE', 'COMPUTE', 'EXTERNAL', 'REAL'];
+const RANK = ['UNHANDLED-404', 'CAMPUS-404', 'THROWS', 'BYPASSES-SHIM', 'STUB', 'DECLINED', 'LOCAL-STORE', 'COMPUTE', 'EXTERNAL', 'SERVER', 'REAL'];
 const contracts = [...callSites.keys()].sort().map((p) => {
   const perMethod = {};
   for (const m of METHODS) perMethod[m] = resolve(p, m);
@@ -453,11 +485,12 @@ const contracts = [...callSites.keys()].sort().map((p) => {
   const handled = METHODS.filter((m) => perMethod[m].layer !== 'none');
   const verdicts = [...new Set((handled.length ? handled : METHODS).map((m) => perMethod[m].verdict))];
   const worst = RANK.find((v) => verdicts.includes(v)) || 'REAL';
-  const spec = routeSpecs.get(p) || null;
-  const bucket = worst === 'REAL' ? 'OK'
+  const spec = serverRoute(p);
+  // B and C only came from the removed in-browser router's verdicts.
+  const bucket = worst === 'REAL' || worst === 'SERVER' ? 'OK'
     : worst === 'EXTERNAL' || worst === 'COMPUTE' ? 'C'
     : worst === 'THROWS' ? 'B'
-    : (spec && spec.usesSecret ? 'B' : 'A');
+    : 'A';
   const sites = callSites.get(p);
   const allSites = sites.direct.concat(sites.indirect);
   const liveSites = allSites.filter((s) => s.live);
@@ -485,7 +518,7 @@ const contracts = [...callSites.keys()].sort().map((p) => {
 const counts = (a, k) => a.reduce((o, x) => { o[x[k]] = (o[x[k]] || 0) + 1; return o; }, {});
 // DECLINED counts as working: the handler correctly reports that the feature
 // needs a real server, rather than pretending to have done something.
-const WORKING = new Set(['REAL', 'EXTERNAL', 'COMPUTE', 'DECLINED', 'LOCAL-STORE']);
+const WORKING = new Set(['SERVER', 'REAL', 'EXTERNAL', 'COMPUTE', 'DECLINED', 'LOCAL-STORE']);
 // A path can resolve differently per HTTP method (e.g. /api/vault/upload is
 // REAL on POST and a stub on everything else). We do not extract the method
 // from the call site, so separate "broken no matter how it is called" from
@@ -569,13 +602,11 @@ fs.writeFileSync(path.join(ROOT, 'audit/LEDGER.md'), [
   'Regenerate: `node audit/extract-contracts.mjs`. Status is not stored here —',
   'it is derived from the code, so a vertical leaves this list by being fixed.',
   '',
-  'A **vertical** is one session of work: the pages, the handler branches that',
-  'serve them, and the dead route under `src/app/api/` that specifies what the',
-  'handler should do.',
+  'A **vertical** is one session of work: the pages and the routes under',
+  '`src/app/api/` that serve them.',
   '',
-  '**Bucket** — `A` port to the client (plain datastore CRUD) · `B` needs a trusted',
-  'server, move to `backend/` (secrets, signature verification, presigning) ·',
-  '`C` genuinely stateless.',
+  '**Bucket** — `A` no server route answers the path (or none exports the method):',
+  'add the route under `src/app/api/`, or fix the caller.',
   '',
   '## Remaining (' + verticalList.filter((v) => v.broken + v.partial > 0).length + ' verticals, '
     + broken.length + ' broken + ' + partial.length + ' partial paths)',
@@ -634,12 +665,12 @@ fs.writeFileSync(path.join(ROOT, 'audit/CONTRACTS.md'), [
   '', 'Regenerate: `node audit/extract-contracts.mjs`', '',
   Object.entries(summary).map(([k, v]) => '- **' + k + '**: ' + (typeof v === 'object' ? JSON.stringify(v) : v)).join('\n'),
   '',
-  '**Verdict** — `REAL` reaches a datastore · `STUB` returns a literal · `THROWS` raises ApiError',
-  '· `EXTERNAL` calls out over the network · `COMPUTE` local computation only',
-  '· `UNHANDLED-404` no guard matches · `CAMPUS-404` campus switch has no case, default throws',
-  '· `BYPASSES-SHIM` interceptor exempts it, so the Firebase `**` rewrite answers with index.html.',
+  '**Verdict** — `SERVER` a route under `src/app/api/` exports the method',
+  '· `UNHANDLED-404` no route serves the path, or the route does not export the method.',
+  'Methods are not read from call sites here; `npm run audit:contracts` runs',
+  '`scripts/verify/verify_api_parity.ts` next, which checks each call\'s method.',
   '',
-  '**Bucket** — `A` port to client · `B` needs a trusted server · `C` genuinely stateless · `OK` already real.',
+  '**Bucket** — `OK` a server route answers it · `A` nothing does: add the route or fix the caller.',
   '',
   '## Broken no matter how they are called (' + broken.length + ')',
   '', HEAD, broken.map(row).join('\n'), '',

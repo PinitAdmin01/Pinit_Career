@@ -6,7 +6,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const javaPath = path.join(__dirname, '..', 'src', 'lib', 'data', 'java30DayData.ts');
+const javaPath = path.join(__dirname, '..', '..', 'src', 'lib', 'data', 'java30DayData.ts');
 
 const FIXES = [
   // Day 16 eStarter (BankAccount — missed in first pass)

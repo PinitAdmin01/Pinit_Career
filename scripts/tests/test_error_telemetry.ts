@@ -1,5 +1,5 @@
-// scripts/test_error_telemetry.ts
-import { recordTelemetryEvent, triggerTestTelemetryException } from '../src/lib/telemetry/errorTelemetry';
+// scripts/tests/test_error_telemetry.ts
+import { recordTelemetryEvent, triggerTestTelemetryException } from '../../src/lib/telemetry/errorTelemetry';
 
 console.log('========================================================================');
 console.log('📡 AUDITING CLIENT ERROR TELEMETRY SENTINEL');

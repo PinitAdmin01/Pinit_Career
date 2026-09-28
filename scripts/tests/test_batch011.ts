@@ -1,4 +1,4 @@
-// scripts/test_batch011.ts
+// scripts/tests/test_batch011.ts
 // Invariant & Technical Audit Test Suite for PinIT Batch 011 (Days 51–55: Month 3 Week 11)
 // Automated Testing Foundations, pytest Mechanics & Regression Defense
 
@@ -11,9 +11,9 @@ import {
   DAY_55_MANIFEST,
   DAY_55_ASSESSMENT,
   COMPETENCY_ID_TESTING_FOUNDATIONS,
-} from '../src/lib/curriculum/pythonFullStack/batch011';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch011';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

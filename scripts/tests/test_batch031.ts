@@ -1,4 +1,4 @@
-// scripts/test_batch031.ts
+// scripts/tests/test_batch031.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 031 (Days 153–157 · COMPLETE)
 // Database Transactions, Row-Level Locking, Deadlock Resolution & Concurrency Control
 
@@ -13,8 +13,8 @@ import {
   DAY_157_MANIFEST,
   DAY_157_ASSESSMENT,
   COMPETENCY_ID_DATABASE_TRANSACTIONS,
-} from '../src/lib/curriculum/pythonFullStack/batch031';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch031';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

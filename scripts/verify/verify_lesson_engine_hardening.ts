@@ -1,5 +1,5 @@
-import { getAuthoritativeQuest, isAuthoritativeExam } from '../src/lib/quests/questRegistry';
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
+import { getAuthoritativeQuest, isAuthoritativeExam } from '../../src/lib/quests/questRegistry';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -44,7 +44,7 @@ if (realExamQuest) {
 
 // 2. Dynamic Banner & Runner Hardening in LessonCodeEditor
 console.log('\n2. Testing Dynamic Banner and Runner Hardening');
-const codeEditorFile = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/components/LessonCodeEditor.tsx'), 'utf-8');
+const codeEditorFile = fs.readFileSync(path.join(__dirname, '../../src/app/quests/lesson/components/LessonCodeEditor.tsx'), 'utf-8');
 assert(!codeEditorFile.includes('$ javac Solution.java && java Solution') || codeEditorFile.includes('fileName.endsWith'),
   'Hardcoded Java compile footer removed from generic editor');
 assert(codeEditorFile.includes('python3 main.py') && codeEditorFile.includes('sqlite3 < query.sql'),
@@ -54,7 +54,7 @@ assert(codeEditorFile.includes("codeRunning ? 'wait' : 'pointer'") || codeEditor
 
 // 3. Lesson Engine simulateCodeRun Replacement
 console.log('\n3. Testing useLessonEngine simulateCodeRun vs Real Runner');
-const engineFile = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/hooks/useLessonEngine.ts'), 'utf-8');
+const engineFile = fs.readFileSync(path.join(__dirname, '../../src/app/quests/lesson/hooks/useLessonEngine.ts'), 'utf-8');
 assert(!engineFile.includes('Program execution completed successfully.\nMemory allocated: 12MB\nExit code 0'),
   'Canned simulateCodeRun string completely removed');
 assert(engineFile.includes('executeSandboxScript'),
@@ -71,7 +71,7 @@ assert(engineFile.includes('Python execution') && engineFile.includes('SQL Query
 
 // 5. LessonQuizBlock Exam Scoring & Gating
 console.log('\n5. Testing LessonQuizBlock Failure & Score Threshold');
-const quizBlockFile = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/components/LessonQuizBlock.tsx'), 'utf-8');
+const quizBlockFile = fs.readFileSync(path.join(__dirname, '../../src/app/quests/lesson/components/LessonQuizBlock.tsx'), 'utf-8');
 assert(quizBlockFile.includes('examFailed'),
   'examFailed state handled in LessonQuizBlock');
 assert(quizBlockFile.includes('pct >= 70') || quizBlockFile.includes('>= 70'),
@@ -83,7 +83,7 @@ assert(quizBlockFile.includes('Review Lesson Material & Retake'),
 
 // 6. LessonHeader Lock Gating
 console.log('\n6. Testing LessonHeader Slide Progression Gating');
-const headerFile = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/components/LessonHeader.tsx'), 'utf-8');
+const headerFile = fs.readFileSync(path.join(__dirname, '../../src/app/quests/lesson/components/LessonHeader.tsx'), 'utf-8');
 assert(headerFile.includes('maxUnlockedSlide'),
   'maxUnlockedSlide prop passed to LessonHeader');
 assert(headerFile.includes('isLocked = idx > maxUnlockedSlide'),
@@ -93,7 +93,7 @@ assert(headerFile.includes("cursor: isLocked ? 'not-allowed' : 'pointer'"),
 
 // 7. Page Router Unregistered Quest Rejection
 console.log('\n7. Testing Lesson Page Router Rejection of Fabricated Quests');
-const pageFile = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/page.tsx'), 'utf-8');
+const pageFile = fs.readFileSync(path.join(__dirname, '../../src/app/quests/lesson/page.tsx'), 'utf-8');
 assert(pageFile.includes('Unregistered Quest Lesson'),
   'Unregistered quest IDs rejected with error card instead of fake lesson');
 assert(!pageFile.includes('addCompletedQuest(id, true, 150'),
@@ -103,7 +103,7 @@ assert(pageFile.includes('isAuthoritativeExam(id)'),
 
 // 8. Progress Service Fail-Closed Protection
 console.log('\n8. Testing Progress Service Fail-Closed Protection');
-const progressServiceFile = fs.readFileSync(path.join(__dirname, '../src/lib/services/supabase/progressService.ts'), 'utf-8');
+const progressServiceFile = fs.readFileSync(path.join(__dirname, '../../src/lib/services/supabase/progressService.ts'), 'utf-8');
 assert(progressServiceFile.includes('Cannot complete unregistered quest'),
   'progressService fails closed on unregistered quest IDs');
 assert(progressServiceFile.includes('Quest completion rejected by server'),

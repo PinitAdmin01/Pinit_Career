@@ -1,4 +1,4 @@
-// scripts/test_batch014.ts
+// scripts/tests/test_batch014.ts
 // Comprehensive Invariant & Technical Audit Test Suite for PinIT Batch 014 (Days 68–72: Month 4 Week 14)
 // Core Data Structures: Linear Structures, ADTs & Invariant Defense
 
@@ -13,9 +13,9 @@ import {
   DAY_72_MANIFEST,
   DAY_72_ASSESSMENT,
   COMPETENCY_ID_CORE_DATA_STRUCTURES,
-} from '../src/lib/curriculum/pythonFullStack/batch014';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch014';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

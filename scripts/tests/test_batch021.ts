@@ -1,4 +1,4 @@
-// scripts/test_batch021.ts
+// scripts/tests/test_batch021.ts
 // Programmatic Verification Suite for PinIT Career OS Batch 021 (Days 103–107)
 // Web Fundamentals: Wire-Level HTTP/1.1 Framing Subset, Sockets, Slowloris & Request-Smuggling Defenses
 
@@ -7,9 +7,9 @@ import {
   BATCH_021_MANIFEST,
   DAY_107_ASSESSMENT,
   COMPETENCY_ID_HTTP_WIRE_PROTOCOL_AND_SOCKETS,
-} from '../src/lib/curriculum/pythonFullStack/batch021';
-import { ContentValidator } from '../src/lib/curriculum/contentValidator';
-import { AssessmentValidator } from '../src/lib/curriculum/assessmentValidator';
+} from '../../src/lib/curriculum/pythonFullStack/batch021';
+import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
+import { AssessmentValidator } from '../../src/lib/curriculum/assessmentValidator';
 
 // ── REFERENCE BEHAVIORAL IMPLEMENTATIONS (FOR AUDIT RIGOR) ──
 

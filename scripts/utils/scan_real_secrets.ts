@@ -1,4 +1,4 @@
-// scripts/scan_real_secrets.ts
+// scripts/utils/scan_real_secrets.ts
 import fs from 'fs';
 import path from 'path';
 

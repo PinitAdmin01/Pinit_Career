@@ -4,7 +4,7 @@
 import fs from 'fs';
 import path from 'path';
 import assert from 'assert';
-import { computeIntegrityHash } from '../src/app/api/attention-span/progress/route';
+import { computeIntegrityHash } from '../../src/app/api/attention-span/progress/route';
 
 console.log('--- Starting Attention-Span & Learning Hub Integrity Verification ---');
 

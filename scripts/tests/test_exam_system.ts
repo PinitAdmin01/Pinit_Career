@@ -1,4 +1,4 @@
-// scripts/test_exam_system.ts
+// scripts/tests/test_exam_system.ts
 // Comprehensive automated test suite for the Examination Engine Remediations:
 // 1. Authoritative server-side grading
 // 2. Secret sanitization (no correctIndex or hidden test cases sent to client)
@@ -6,7 +6,7 @@
 // 4. Anti-false-lockout protection (aborted/cancelled exams never lock out students)
 // 5. Admin exam schedule authoring and submission auditing
 
-import { examsService, DEFAULT_EXAM_SCHEDULES } from '../src/lib/services/examsService';
+import { examsService, DEFAULT_EXAM_SCHEDULES } from '../../src/lib/services/examsService';
 
 let passed = 0;
 let failed = 0;

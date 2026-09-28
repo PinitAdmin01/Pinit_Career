@@ -37,7 +37,7 @@ if (typeof (global as any).window === 'undefined') {
   };
 }
 
-import { VRoidAvatarEngine, AnimState } from '../src/components/avatar/VRoidAvatarEngine';
+import { VRoidAvatarEngine, AnimState } from '../../src/components/avatar/VRoidAvatarEngine';
 
 interface BoneSet {
   hips: THREE.Object3D;

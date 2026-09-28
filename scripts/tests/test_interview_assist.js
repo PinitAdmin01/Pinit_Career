@@ -1,4 +1,4 @@
-// scripts/test_interview_assist.js
+// scripts/tests/test_interview_assist.js
 // Automated verification for Interview Assist Mode script generation & fallback guarantees
 
 const assert = require('assert');

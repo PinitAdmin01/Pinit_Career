@@ -1,6 +1,6 @@
 /**
- * Bootstrap for scripts/java-judge-compile.test.ts.
- * Usage: node scripts/java-judge-compile.test.js
+ * Bootstrap for scripts/utils/java-judge-compile.test.ts.
+ * Usage: node scripts/utils/java-judge-compile.test.js
  * Exit codes: 0 = all pass, 1 = failure, 2 = skipped (no JDK available).
  */
 

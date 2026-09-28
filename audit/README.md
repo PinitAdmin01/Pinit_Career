@@ -13,7 +13,7 @@ There are three defect classes, and they need three different checks:
 
 | check | question it answers |
 |---|---|
-| `audit:contracts` | Is there a handler for this path, and does it persist anything? |
+| `audit:contracts` | Does a server route under `src/app/api/` serve every path (and method) the client calls? |
 | `audit:headers` | Will the browser even permit the call, given the headers `firebase.json` sends? |
 | `audit:runtime` | What does the app actually do when a real browser loads the page? |
 
@@ -35,70 +35,60 @@ compare two things that sit in different files.
 
 ## What actually serves a request in production
 
-Production is Firebase static hosting: `build.js` copies `.next/server/app`
-into `out/`, and `firebase.json` serves `out/` with a `**` → `/index.html`
-rewrite. Nothing in `src/app/api/` executes — those 122 files compile to
-`out/api/*/route.js` and are served as inert static text. The browser is the
-backend, and a request passes through four layers:
+The app runs on a server host (`npm run build`), so the route handlers under
+`src/app/api/` execute, and every `/api/*` call the browser makes goes to them:
 
 | # | layer | file | what it does |
 |---|---|---|---|
-| 1 | interceptor | `src/lib/fetchInterceptor.ts` | hijacks `fetch('/api/*')`. Exempt paths reach the network and get `index.html` back. |
-| 2 | preferLive | `src/lib/api/client.ts` `request()` | for 27 prefixes, tries the network first. Under static hosting that returns `index.html` with HTTP 200, `res.json()` throws, and it falls through — one wasted request per prefix, never a success. |
-| 3 | campus switch | *(removed 2026-09-28)* | was `src/lib/campusFallback.ts`. Unreachable: every `/api/*` call goes to the server. |
-| 4 | firestoreRouter | *(removed 2026-09-28)* | was `src/lib/api/legacyFirestoreRouter.ts`. Unreachable for the same reason; a path with no server route is `UNHANDLED-404`. |
+| 1 | interceptor | `src/lib/fetchInterceptor.ts` | attaches the Supabase session as `Authorization` to same-origin `fetch('/api/*')` calls. Nothing else. |
+| 2 | request() | `src/lib/api/client.ts` | `api.get/post/…` send every `/api/*` path to the server and throw `ApiError` on any non-2xx. There is no in-browser fallback. |
+| 3 | campus switch | *(removed 2026-09-28)* | was `src/lib/campusFallback.ts`. Unreachable once every `/api/*` call went to the server. |
+| 4 | firestoreRouter | *(removed 2026-09-28)* | was `src/lib/api/legacyFirestoreRouter.ts`. Unreachable for the same reason. |
 
-`src/app/api/**` is dead code in production — but it is not garbage. It is the
-written specification for what each handler should do, and every fix should be
-ported from it.
+So a call works only if a route file matches its path and exports its method.
+A path with no route is `UNHANDLED-404` and the page gets a 404 `ApiError`.
+(`LIVE_API_PREFIXES` in `client.ts` no longer decides anything: `request()`
+already treats every `/api/` path as live.)
+
+`npm run build:static` (legacy Firebase hosting) still exists; under it nothing
+in `src/app/api/` runs and every one of these calls fails.
 
 ## Outputs
 
 | file | contents |
 |---|---|
-| `CONTRACTS.md` / `contracts.json` | every `/api` path the client calls, which layer answers it, and whether that answer touches a datastore |
+| `CONTRACTS.md` / `contracts.json` | every `/api` path the client calls and the `src/app/api/` route that serves it, if any |
 | `LEDGER.md` | the same data rolled up per feature vertical — the work queue |
+| *(stdout)* `scripts/verify/verify_api_parity.ts` | second half of `audit:contracts`: each call site's path **and method** against the routes; exits 1 if a reachable call has no route or uses a method the route does not export |
 | `HEADERS.md` | hosts blocked by CSP, devices denied by Permissions-Policy, secrets shipped to the browser |
 | `RUNTIME.md` / `runtime.json` | console errors and shim distress signals per route, from a real page load |
 
 ## Reading the verdicts
 
-- `REAL` — reaches a datastore. Working.
-- `STUB` — returns a hardcoded literal. **The feature silently does nothing.**
-- `THROWS` — raises `ApiError`. Visibly broken.
-- `UNHANDLED-404` — no guard matches; the end of the chain throws.
-- `CAMPUS-404` — campus path with no `case`; the switch default throws.
-- `BYPASSES-SHIM` — the interceptor exempts it, so the Firebase rewrite answers
-  with `index.html` and `res.json()` fails.
-- `EXTERNAL` / `COMPUTE` — calls out over the network, or computes locally. Fine.
+- `SERVER` — a route under `src/app/api/` matches the path and exports the method.
+- `UNHANDLED-404` — no route matches the path (or none exports the method); the
+  server answers 404 and `request()` throws `ApiError`.
 
-Severity separates `BROKEN` (every HTTP method that reaches a handler fails)
-from `PARTIAL` (some methods work). Guards are commonly written as
-`path === X && method === 'POST'`, so the other four methods legitimately fall
-through to the 404 at the end of the chain; counting those as defects would
-report almost every POST-only endpoint as missing.
+`REAL`, `STUB`, `THROWS`, `CAMPUS-404`, `BYPASSES-SHIM`, `EXTERNAL` and
+`COMPUTE` were verdicts for the in-browser router; they only appear if those
+removed files come back.
 
 ## Buckets
 
-- **A** — port to the client. Plain datastore CRUD; adapt the dead route's logic
-  and enforce access in Firestore/Supabase rules, since there is no server.
-- **B** — needs a trusted server. Reads a secret, verifies a signature, or
-  presigns a URL. Cannot be done in a browser at any quality level; belongs in
-  the existing `backend/` FastAPI service, reached via `NEXT_PUBLIC_BACKEND_URL`.
-- **C** — genuinely stateless. No action.
+- **OK** — a server route answers it.
+- **A** — nothing answers it. Add the route under `src/app/api/`, or point the
+  caller at the route that already does the job.
 
 ## Known limits
 
 Stated plainly so nobody over-trusts the output:
 
-- **Call-site methods are not extracted.** A path's severity is judged across
-  every HTTP method that reaches a handler, not the method the call site uses.
-  Check the call site before treating a `PARTIAL` as a defect.
-- **`REAL` means "reaches a datastore", not "correct".** It does not check that
-  the shape it returns matches what the page expects. That check is the reading
-  work in each vertical's session.
-- **Some services write to `src/lib/services/localJsonDb.ts`**, not to Firestore.
-  Those count as `REAL` here but do not persist across devices.
+- **`extract-contracts.mjs` does not read call-site methods**; it judges a path
+  across every method its route exports. `verify_api_parity.ts` does read them
+  (from `api.get/post/…` and `fetch(…, { method })`) and fails on a mismatch.
+- **`SERVER` means "a route exists", not "correct".** It does not check that the
+  route persists anything or returns the shape the page expects. That check is
+  the reading work in each vertical's session.
 - **Dynamically built paths are matched by their literal fragments.** A path
   assembled entirely at runtime will not appear.
 - **The runtime walk is unauthenticated by default.** Authenticated pages

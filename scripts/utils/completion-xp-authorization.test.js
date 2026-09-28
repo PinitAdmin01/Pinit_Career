@@ -1,10 +1,10 @@
 /**
- * Bootstrap for scripts/completion-xp-authorization.test.ts.
+ * Bootstrap for scripts/utils/completion-xp-authorization.test.ts.
  *
  * ⚠ Mutates a live Supabase project (creates one throwaway auth account per
  * run). Run manually/on demand — not part of the routine tsc/content-qa loop.
  *
- * Usage: node scripts/completion-xp-authorization.test.js
+ * Usage: node scripts/utils/completion-xp-authorization.test.js
  * Exit codes: 0 = blocked (secure), 1 = vulnerable or test failure, 2 = skipped.
  */
 

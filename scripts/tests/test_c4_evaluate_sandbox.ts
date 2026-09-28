@@ -1,11 +1,11 @@
-// scripts/test_c4_evaluate_sandbox.ts
+// scripts/tests/test_c4_evaluate_sandbox.ts
 // Verification test suite for C4: Code Runner Sandbox Isolation & Infinite Loop Guard
 
 import {
   validateVmCodeSecurity,
   runEvaluationInSandbox,
   CODEWARS_PROBLEM_REGISTRY,
-} from '../src/app/api/code/evaluate/route';
+} from '../../src/app/api/code/evaluate/route';
 
 let passed = 0;
 let failed = 0;

@@ -1,4 +1,4 @@
-// scripts/test_curriculum_infrastructure.ts
+// scripts/tests/test_curriculum_infrastructure.ts
 // Comprehensive Automated Behavioral Test Suite for PinIT Curriculum & Competency Infrastructure
 
 import {
@@ -15,8 +15,8 @@ import {
   ThreeDayPacketMeta,
   Day,
   Competency,
-} from '../src/lib/curriculum/index';
-import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
+} from '../../src/lib/curriculum/index';
+import { COURSES_REGISTRY } from '../../src/lib/data/coursesData';
 
 let testsPassed = 0;
 let testsFailed = 0;

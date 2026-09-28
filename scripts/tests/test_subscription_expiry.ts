@@ -1,5 +1,5 @@
 /**
- * scripts/test_subscription_expiry.ts
+ * scripts/tests/test_subscription_expiry.ts
  *
  * Verifies migration 20260907_subscription_expiry.sql against a REAL PostgreSQL
  * engine (PGlite), not a mock. Proves four things:
@@ -12,7 +12,7 @@
  *      subscription_expires_at. Without this, adding the column would have
  *      handed every user a free subscription.
  *
- * Run: npx tsx scripts/test_subscription_expiry.ts
+ * Run: npx tsx scripts/tests/test_subscription_expiry.ts
  */
 import { PGlite } from '@electric-sql/pglite';
 import fs from 'fs';
@@ -106,7 +106,7 @@ async function main() {
 
   // ── 1. Apply the real migration file ──────────────────────────────────────
   console.log('\n── 1. Migration applies cleanly ──');
-  const sqlPath = path.join(__dirname, '..', 'supabase', 'migrations', '20260907_subscription_expiry.sql');
+  const sqlPath = path.join(__dirname, '..', '..', 'supabase', 'migrations', '20260907_subscription_expiry.sql');
   const migration = fs.readFileSync(sqlPath, 'utf8');
   try {
     await db.exec(migration);

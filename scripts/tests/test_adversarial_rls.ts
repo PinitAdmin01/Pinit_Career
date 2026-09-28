@@ -1,4 +1,4 @@
-// scripts/test_adversarial_rls.ts
+// scripts/tests/test_adversarial_rls.ts
 // Adversarial RLS & Immutability Test against PostgreSQL Engine
 
 import { PGlite } from '@electric-sql/pglite';
