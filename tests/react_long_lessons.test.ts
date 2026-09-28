@@ -9,7 +9,8 @@ import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
 
 function runLikeSandbox(code: string): string {
   const out: string[] = [];
-  const sandbox = { console: { log: (...args: unknown[]) => out.push(formatLogArgs(args)) } };
+  // The real runner is a browser Web Worker, which also provides URLSearchParams.
+  const sandbox = { console: { log: (...args: unknown[]) => out.push(formatLogArgs(args)) }, URLSearchParams };
   vm.runInNewContext(code, sandbox, { timeout: 2000 });
   return out.join('\n');
 }

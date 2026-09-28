@@ -5005,5 +5005,1333 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         'Test add, search, status change, delete, refresh and the details page.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 21,
+    title: 'Context: Sharing Data With the Whole App',
+    goal: 'You can share data such as the theme or the logged-in user with any component using React Context, and know when Context is the right tool.',
+    minutes: 30,
+    recap: 'Yesterday you moved repeated logic into custom hooks and refactored the Job Tracker.',
+    parts: [
+      {
+        title: 'The problem: passing props through every layer',
+        say: [
+          'Some data is needed almost everywhere: the logged-in user, the colour theme, the language. With props, App passes it to a page, the page passes it to a list, the list passes it to each card, even though the page and the list never use it themselves. This is called prop drilling.',
+          'Prop drilling is fine for two or three layers. But in a big app it becomes tiring and fragile: adding one new piece of shared data means editing every component in between, and it is easy to forget one.',
+          'React Context solves this. You put the data in a Context at the top, and any component below can read it directly, skipping the layers in between.'
+        ],
+        example: 'Instead of passing a message from person to person down a long line, you announce it on the office speaker. Everyone who needs it hears it directly.',
+        code: lines(
+          'function App() {',
+          '  const theme = "dark";',
+          '  return Page(theme);',
+          '}',
+          'function Page(theme) { return List(theme); }',
+          'function List(theme) { return Card(theme); }',
+          'function Card(theme) { return `Card drawn in ${theme} mode`; }',
+          '',
+          'console.log(App());'
+        ),
+        output: 'Card drawn in dark mode',
+        codeNotes: [
+          { line: 5, note: 'Page and List never use theme; they only pass it along. That is prop drilling.' }
+        ],
+        tryIt: 'Imagine adding a second shared value, language. How many functions would you need to change? (All four.)',
+        check: {
+          question: 'What is prop drilling?',
+          options: ['A way to style props', 'Passing props through components that do not use them, just to reach a deeper one', 'Deleting props'],
+          answer: 1,
+          why: 'Prop drilling is passing data through many layers only so a deep component can use it.'
+        }
+      },
+      {
+        title: 'createContext and the Provider',
+        say: [
+          'Using Context has three steps. First, create it: const ThemeContext = createContext("light");. The value in brackets is the default, used only if a component is not inside a Provider.',
+          'Second, provide a value near the top of your app: <ThemeContext.Provider value={theme}> ... </ThemeContext.Provider>. Everything inside can read that value. When the value changes, every component reading it re-renders with the new one.',
+          'Third, read it in any component below: const theme = useContext(ThemeContext);. No props needed in between.',
+          'Usually you put the context, the provider and a small hook in one file, so the rest of the app just imports useTheme(). You will build exactly that in this lesson.'
+        ],
+        example: 'A school\'s timetable pinned in the corridor. The school creates it (createContext), pins it up (Provider), and any class reads it when needed (useContext) without the office sending a copy to each room.',
+        code: lines(
+          'function createContext(defaultValue) {',
+          '  return { value: defaultValue };',
+          '}',
+          'function useContext(context) { return context.value; }',
+          '',
+          'const ThemeContext = createContext("light");',
+          'ThemeContext.value = "dark";',
+          '',
+          'function Card() { return `Card drawn in ${useContext(ThemeContext)} mode`; }',
+          'console.log(Card());'
+        ),
+        output: 'Card drawn in dark mode',
+        codeNotes: [
+          { line: 7, note: 'Like the Provider: set the value once near the top.' },
+          { line: 9, note: 'Card reads it directly, with no props passed through Page or List.' }
+        ],
+        projectCode: {
+          label: 'src/context/ThemeContext.jsx',
+          code: lines(
+            'import { createContext, useContext, useState } from "react";',
+            '',
+            'const ThemeContext = createContext(null);',
+            '',
+            'export function ThemeProvider({ children }) {',
+            '  const [theme, setTheme] = useState("light");',
+            '  const toggleTheme = () => setTheme(t => (t === "light" ? "dark" : "light"));',
+            '  return (',
+            '    <ThemeContext.Provider value={{ theme, toggleTheme }}>',
+            '      {children}',
+            '    </ThemeContext.Provider>',
+            '  );',
+            '}',
+            '',
+            'export function useTheme() {',
+            '  return useContext(ThemeContext);',
+            '}'
+          )
+        },
+        tryIt: 'Change the value on line 7 to "light" and run again.',
+        check: {
+          question: 'Which part makes a value available to all components inside it?',
+          options: ['createContext', 'The Provider', 'useContext'],
+          answer: 1,
+          why: 'createContext creates it, the Provider supplies the value, and useContext reads it.'
+        }
+      },
+      {
+        title: 'children: components that wrap other components',
+        say: [
+          'Look at ThemeProvider above: it receives a prop called children and puts it inside the Provider. children is special: it is whatever you write between a component\'s opening and closing tags.',
+          'So <ThemeProvider><App /></ThemeProvider> passes <App /> as children, and ThemeProvider wraps it. This is how you build "wrapper" components: providers, layouts, cards with a border, modal boxes.',
+          'In main.jsx, wrap your App: <BrowserRouter><ThemeProvider><App /></ThemeProvider></BrowserRouter>. Now every component in the app can call useTheme().',
+          'You can also use children for your own layout components, like a Card that adds a border and padding around anything you put inside.'
+        ],
+        example: 'A gift box does not care what gift you put inside. It just wraps it nicely. A component with children wraps whatever you put between its tags.',
+        code: lines(
+          'function Card({ title, children }) {',
+          '  return `[ ${title} | ${children} ]`;',
+          '}',
+          '',
+          'console.log(Card({ title: "Offer", children: "Zoho, React Developer" }));',
+          'console.log(Card({ title: "Note", children: "Call HR on Monday" }));'
+        ),
+        output: lines('[ Offer | Zoho, React Developer ]', '[ Note | Call HR on Monday ]'),
+        codeNotes: [
+          { line: 1, note: 'children is whatever sits between <Card> and </Card> in JSX.' }
+        ],
+        projectCode: {
+          label: 'A wrapper with children',
+          code: lines(
+            'function Card({ title, children }) {',
+            '  return (',
+            '    <section className="card">',
+            '      <h3>{title}</h3>',
+            '      {children}',
+            '    </section>',
+            '  );',
+            '}',
+            '',
+            '<Card title="Offer">',
+            '  <p>Zoho, React Developer</p>',
+            '</Card>'
+          )
+        },
+        tryIt: 'Call Card with a title "Reminder" and your own message as children.',
+        check: {
+          question: 'In <Layout><Dashboard /></Layout>, what is Layout\'s children prop?',
+          options: ['Nothing', '<Dashboard />', 'Layout itself'],
+          answer: 1,
+          why: 'children is whatever is written between the opening and closing tags.'
+        }
+      },
+      {
+        title: 'A dark mode for the Job Tracker',
+        say: [
+          'Let us use the ThemeProvider. Add a toggle button in the Header: const { theme, toggleTheme } = useTheme(); <button onClick={toggleTheme}>{theme === "light" ? "Dark mode" : "Light mode"}</button>.',
+          'To actually change the colours, put the theme as a class on the outer div of App: <div className={`app ${theme}`}>. Then in CSS, .app.dark sets dark background and light text. Every component inside changes at once, with no extra props.',
+          'Better still, combine it with Day 20: store the theme with useLocalStorage("theme", "light") instead of useState, so the user\'s choice is remembered after refresh.',
+          'Today\'s first practice task, themeColors, returns the right colours for each theme. It is the same decision in plain JavaScript.'
+        ],
+        example: 'A switch by the door that changes the lights in every room of the house at once. You do not visit each room; the wiring (Context) reaches them all.',
+        code: lines(
+          'function themeColors(theme) {',
+          '  return theme === "dark"',
+          '    ? { background: "#111111", text: "#ffffff" }',
+          '    : { background: "#ffffff", text: "#111111" };',
+          '}',
+          '',
+          'let theme = "light";',
+          'const toggleTheme = () => { theme = theme === "light" ? "dark" : "light"; };',
+          'console.log(themeColors(theme));',
+          'toggleTheme();',
+          'console.log(themeColors(theme));'
+        ),
+        output: lines('{ background: \'#ffffff\', text: \'#111111\' }', '{ background: \'#111111\', text: \'#ffffff\' }'),
+        codeNotes: [
+          { line: 8, note: 'The same toggle as in ThemeProvider.' }
+        ],
+        projectCode: {
+          label: 'Header toggle and CSS',
+          code: lines(
+            'const { theme, toggleTheme } = useTheme();',
+            '<button onClick={toggleTheme}>{theme === "light" ? "Dark mode" : "Light mode"}</button>',
+            '',
+            '/* index.css */',
+            '.app.dark {',
+            '  background: #111827;',
+            '  color: #f3f4f6;',
+            '}',
+            '.app.dark .job-card {',
+            '  background: #1f2937;',
+            '  border-color: #374151;',
+            '}'
+          )
+        },
+        tryIt: 'Call toggleTheme() once more and print the colours. You should be back to light.',
+        check: {
+          question: 'How can every component change colour when the theme changes, without new props?',
+          options: ['Each component checks localStorage every second', 'A theme class on the outer div plus CSS rules for it', 'Reload the page'],
+          answer: 1,
+          why: 'The class on the outer element changes, and CSS styles everything inside accordingly.'
+        }
+      },
+      {
+        title: 'A user context: who is logged in',
+        say: [
+          'The other classic use of Context is the current user. Almost every screen needs to know: is someone logged in, what is their name, what are they allowed to do.',
+          'An AuthProvider holds user state (null when logged out) and login and logout functions. Any component calls useAuth() to show the user\'s name, hide buttons for logged-out users, or check permissions.',
+          'Your Job Tracker has no real login; that needs a server. But you can practise with a simple pretend login that just sets a name, and show "Hi, Asha" in the Header. Real apps swap the pretend login for a real service later, and the rest of the code stays the same.',
+          'Today\'s second practice task, canEdit(user, job), is a real permission check: only the owner may edit. Notice it handles user being null safely.'
+        ],
+        example: 'An office building\'s visitor badge. Every door checks the badge (useAuth) to decide whether to open. No badge (null user), and only the lobby is open.',
+        code: lines(
+          'function canEdit(user, job) {',
+          '  return Boolean(user) && user.id === job.ownerId;',
+          '}',
+          '',
+          'const job = { title: "Dev", ownerId: 1 };',
+          'console.log(canEdit({ id: 1, name: "Asha" }, job));',
+          'console.log(canEdit({ id: 2, name: "Ravi" }, job));',
+          'console.log(canEdit(null, job));'
+        ),
+        output: lines('true', 'false', 'false'),
+        codeNotes: [
+          { line: 2, note: 'Boolean(user) is false for null, so user.id is never read when logged out. No crash.' }
+        ],
+        projectCode: {
+          label: 'Using a user context',
+          code: lines(
+            'const { user, logout } = useAuth();',
+            '',
+            'return user ? (',
+            '  <span>Hi, {user.name} <button onClick={logout}>Log out</button></span>',
+            ') : (',
+            '  <button onClick={() => login("Asha")}>Log in</button>',
+            ');'
+          )
+        },
+        tryIt: 'Remove Boolean(user) && from the function and run it. Read the error on the last call.',
+        check: {
+          question: 'Why write Boolean(user) && user.id === ... ?',
+          options: ['To make it faster', 'So a logged-out (null) user does not crash the check', 'It is required by Context'],
+          answer: 1,
+          why: 'If user is null, reading user.id crashes. Checking user first stops the check safely.'
+        }
+      },
+      {
+        title: 'When to use Context, and when not to',
+        say: [
+          'Context is powerful, so beginners sometimes put everything in it. Do not. Use Context for data that many unrelated components need: theme, current user, language, maybe app-wide settings.',
+          'For data used by a parent and a few children, like the job list in App, props are clearer: you can see exactly where data comes from by reading the component. Context hides that path, which makes bugs harder to trace.',
+          'Also, every component reading a context re-renders when its value changes. Putting fast-changing data like search text in a big context can make the whole app re-render on every keystroke.',
+          'A good rule: start with props. When you notice prop drilling through three or more layers for the same data, consider Context. Interviewers love hearing that balanced answer.'
+        ],
+        example: 'The office speaker (Context) is great for "the building closes at 7". You would not use it to tell one colleague their tea is ready; you just tell them (props).',
+        code: lines(
+          'const candidates = [',
+          '  { name: "theme", usedBy: 12 },',
+          '  { name: "currentUser", usedBy: 9 },',
+          '  { name: "searchText", usedBy: 2 }',
+          '];',
+          '',
+          'for (const c of candidates) {',
+          '  const tool = c.usedBy >= 5 ? "Context" : "props";',
+          '  console.log(`${c.name}: ${tool}`);',
+          '}'
+        ),
+        output: lines('theme: Context', 'currentUser: Context', 'searchText: props'),
+        codeNotes: [
+          { line: 8, note: 'A rough rule of thumb: widely used data in Context, local data in props.' }
+        ],
+        tryIt: 'Add language, used by 15 components, and see which tool it gets.',
+        check: {
+          question: 'Where should the search text for one page live?',
+          options: ['In a global Context', 'In that page\'s state, passed by props if needed', 'In localStorage only'],
+          answer: 1,
+          why: 'It is local to one page. Context is for data needed widely across the app.'
+        }
+      }
+    ],
+    summary: [
+      'Prop drilling means passing data through layers that do not use it.',
+      'createContext, a Provider near the top, and useContext below share data without drilling.',
+      'children is what is written between a component\'s tags; use it for wrappers and providers.',
+      'Good uses: theme, current user, language. Keep local data in state and props.',
+      'Start with props; reach for Context when the same data drills through many layers.'
+    ],
+    projectStep: {
+      title: 'Dark mode with Context',
+      steps: [
+        'Create ThemeProvider and useTheme in src/context/ThemeContext.jsx.',
+        'Wrap App with ThemeProvider in main.jsx and add a toggle button to Header.',
+        'Add .app.dark CSS rules and remember the choice with useLocalStorage.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 22,
+    title: 'Git and GitHub: Saving and Sharing Your Code',
+    goal: 'You can save your work with Git commits, work on a branch, push to GitHub, and write clear commit messages.',
+    minutes: 32,
+    recap: 'Yesterday you shared the theme with the whole app using Context and added dark mode.',
+    parts: [
+      {
+        title: 'Why every developer uses Git',
+        say: [
+          'Imagine working on your Job Tracker for a week, then breaking something and not remembering what you changed. Or your laptop dies. Or two people edit the same file at once. Git solves all three.',
+          'Git is a version control system. It saves snapshots of your project, called commits. You can see what changed between any two snapshots, go back to an old one, and work on different ideas in parallel.',
+          'GitHub is a website that stores your Git projects online. It is your backup, the way teams share code, and your public portfolio. Recruiters look at GitHub profiles, and every company developer uses Git every single day. Today is not optional.'
+        ],
+        example: 'Git is like the save points in a video game. Before a hard level, you save. If things go wrong, you load the save instead of starting the whole game again.',
+        code: lines(
+          'const history = [];',
+          'function commit(message, files) {',
+          '  history.push({ id: history.length + 1, message, files: [...files] });',
+          '}',
+          '',
+          'commit("Create Vite project", ["App.jsx"]);',
+          'commit("Add JobCard component", ["App.jsx", "JobCard.jsx"]);',
+          'for (const c of history) console.log(`${c.id}: ${c.message} (${c.files.length} files)`);'
+        ),
+        output: lines('1: Create Vite project (1 files)', '2: Add JobCard component (2 files)'),
+        codeNotes: [
+          { line: 3, note: 'Each commit is a saved snapshot with a message. Git keeps every one.' }
+        ],
+        tryIt: 'Add a third commit "Add dark mode" with three files and run again.',
+        check: {
+          question: 'What is a commit in Git?',
+          options: ['A saved snapshot of your project with a message', 'A website', 'A type of React hook'],
+          answer: 0,
+          why: 'A commit records the state of your files at one moment, with a message describing the change.'
+        }
+      },
+      {
+        title: 'Your first commits',
+        say: [
+          'Install Git from git-scm.com, then tell it who you are, once: git config --global user.name "Your Name" and git config --global user.email "you@example.com".',
+          'In your job-tracker folder, run git init to start tracking the project. Vite already created a .gitignore file, which tells Git to ignore node_modules and other generated files. Never commit node_modules: it is huge and anyone can recreate it with npm install.',
+          'Saving is two steps. git add . chooses the changed files for the next snapshot; this is called staging. git commit -m "Your message" saves the snapshot. git status shows what changed, and git log --oneline shows your history.',
+          'Make it a habit: finish a small piece of work, check it works, commit. Many small commits are much better than one giant commit at the end of the week.'
+        ],
+        example: 'Staging is like putting items into a courier box; the commit is sealing and labelling the box. You can add or remove items until you seal it.',
+        projectCode: {
+          label: 'In your terminal, inside job-tracker',
+          code: lines(
+            'git init',
+            'git status',
+            'git add .',
+            'git commit -m "Build Job Tracker with pages, search and dark mode"',
+            'git log --oneline'
+          )
+        },
+        code: lines(
+          'const changed = ["src/App.jsx", "node_modules/react/index.js", "src/index.css"];',
+          'const ignored = ["node_modules/"];',
+          'const staged = changed.filter(f => !ignored.some(i => f.startsWith(i)));',
+          'console.log(staged);'
+        ),
+        output: '[ \'src/App.jsx\', \'src/index.css\' ]',
+        codeNotes: [
+          { line: 2, note: 'Like .gitignore: anything in node_modules is left out.' }
+        ],
+        tryIt: 'Add "dist/" to the ignored list and a changed file "dist/index.html". Check it is left out too.',
+        check: {
+          question: 'Why should you never commit node_modules?',
+          options: ['It is secret', 'It is huge and can be recreated with npm install', 'Git cannot read it'],
+          answer: 1,
+          why: 'node_modules is generated from package.json and can be rebuilt any time with npm install.'
+        }
+      },
+      {
+        title: 'Good commit messages',
+        say: [
+          'A commit message tells future you, and your teammates, what changed and why. "fix" or "changes" or "final final 2" helps nobody. "Add validation to the job form" tells the story at a glance.',
+          'Simple rules used in most companies: start with a verb in the present tense, like Add, Fix, Update, Remove. Keep the first line short, under about 72 characters. Describe what the change does, not what you typed.',
+          'Some teams add a prefix like feat: for new features and fix: for bug fixes: "feat: add dark mode toggle". It is called Conventional Commits, and you will see it often.',
+          'Good messages are one of the first things a reviewer notices in your GitHub project. Today\'s first practice task checks a message\'s length, the same way some teams\' tools do automatically.'
+        ],
+        example: 'Labelling boxes when moving house. "Kitchen: plates and glasses" helps you find things months later. "Stuff" does not.',
+        code: lines(
+          'function isGoodCommitMessage(msg) {',
+          '  return msg.length >= 10 && msg.length <= 72;',
+          '}',
+          '',
+          'const messages = ["fix", "Add validation to the job form", "changes"];',
+          'for (const m of messages) console.log(`${isGoodCommitMessage(m) ? "good" : "too short"}: ${m}`);'
+        ),
+        output: lines('too short: fix', 'good: Add validation to the job form', 'too short: changes'),
+        codeNotes: [
+          { line: 2, note: 'A simple length check. Real teams also check the wording.' }
+        ],
+        tryIt: 'Write a good message for yesterday\'s work (dark mode) and add it to the list.',
+        check: {
+          question: 'Which is the best commit message?',
+          options: ['update', 'Fix delete button removing the wrong job', 'asdf'],
+          answer: 1,
+          why: 'It starts with a verb and says exactly what changed.'
+        }
+      },
+      {
+        title: 'Branches: trying ideas safely',
+        say: [
+          'A branch is a separate line of work. Your main branch holds the working version. When you start something new, like an edit-job feature, create a branch: git switch -c feature/edit-job. Your commits go there, and main stays safe.',
+          'If the idea works, you merge the branch back into main. If it fails, you just switch back to main and delete the branch. Nothing is lost and nothing is broken.',
+          'In companies, every task happens on a branch, and a teammate reviews it in a pull request before it is merged. Even working alone, branches make experimenting stress-free.',
+          'Name branches clearly: feature/edit-job, fix/delete-wrong-job. Today\'s second practice task, branchName, builds such a name from a task title.'
+        ],
+        example: 'Writing a risky new chapter in a separate notebook. If it turns out well, you copy it into the main book. If not, you tear it out, and the main book was never touched.',
+        projectCode: {
+          label: 'Branching in the terminal',
+          code: lines(
+            'git switch -c feature/edit-job',
+            '# ...make changes, then:',
+            'git add .',
+            'git commit -m "Add edit button to job details"',
+            'git switch main',
+            'git merge feature/edit-job'
+          )
+        },
+        code: lines(
+          'function branchName(task) {',
+          '  return "feature/" + task.trim().toLowerCase().split(" ").join("-");',
+          '}',
+          '',
+          'console.log(branchName("Add Login Page"));',
+          'console.log(branchName("  Edit job details "));'
+        ),
+        output: lines('feature/add-login-page', 'feature/edit-job-details'),
+        codeNotes: [
+          { line: 2, note: 'Trim spaces, lower case, and join the words with dashes.' }
+        ],
+        tryIt: 'Make a version for bug fixes that starts with "fix/" instead.',
+        check: {
+          question: 'Why work on a branch?',
+          options: ['Branches make code faster', 'Your main version stays safe while you try something new', 'GitHub requires it'],
+          answer: 1,
+          why: 'Changes on a branch do not touch main until you decide to merge them.'
+        }
+      },
+      {
+        title: 'Pushing to GitHub',
+        say: [
+          'Create a free account on github.com, then click New repository. Name it job-tracker, keep it public so recruiters can see it, and do not add a README yet, because your project already has files.',
+          'GitHub then shows commands to connect your folder. The important ones: git remote add origin followed by your repository\'s address, then git push -u origin main. Push uploads your commits. After the first time, just git push.',
+          'The first push asks you to sign in. The easiest way on Windows is the browser sign-in window that Git opens. If it asks for a password, GitHub needs a personal access token instead of your normal password; GitHub\'s help pages explain it step by step.',
+          'Refresh your repository page on GitHub: your code is online. From now on, commit and push at the end of every study day. Your GitHub activity graph turning green is visible proof of consistent work.'
+        ],
+        example: 'Your laptop is your notebook; GitHub is a copy in a bank locker that you can also show to others. Push is the trip to the locker.',
+        projectCode: {
+          label: 'Connect and push',
+          code: lines(
+            'git branch -M main',
+            'git remote add origin https://github.com/YOUR-NAME/job-tracker.git',
+            'git push -u origin main',
+            '',
+            '# every day after that:',
+            'git add .',
+            'git commit -m "Describe what you did"',
+            'git push'
+          )
+        },
+        code: lines(
+          'const local = ["c1", "c2", "c3", "c4"];',
+          'const onGitHub = ["c1", "c2"];',
+          'const toPush = local.filter(c => !onGitHub.includes(c));',
+          'console.log(`Commits to push: ${toPush.join(", ")}`);'
+        ),
+        output: 'Commits to push: c3, c4',
+        codeNotes: [
+          { line: 3, note: 'git push uploads only the commits GitHub does not have yet.' }
+        ],
+        tryIt: 'Add a fifth local commit and run again.',
+        check: {
+          question: 'What does git push do?',
+          options: ['Deletes your local commits', 'Uploads your new commits to GitHub', 'Downloads other people\'s code'],
+          answer: 1,
+          why: 'push sends your local commits that are not yet on GitHub up to it. git pull does the opposite.'
+        }
+      },
+      {
+        title: 'A README that sells your project',
+        say: [
+          'The README.md file is the first thing people see on your repository page. A recruiter spends maybe thirty seconds there. Make those seconds count.',
+          'A good README has: the project name and one sentence about what it does; a screenshot; the features as a short list; the tech used (React, React Router, Vite); and how to run it: npm install then npm run dev. Later you will add the live link.',
+          'README files use Markdown: # for a heading, - for a list item, and ![text](image.png) for an image. GitHub shows it nicely formatted.',
+          'Write it in your own words and keep it honest. "A job application tracker I built to learn React: add, search, filter and track job applications" is better than exaggerated claims.'
+        ],
+        example: 'A README is the front cover and back blurb of a book. A great book with a blank cover rarely gets picked up.',
+        projectCode: {
+          label: 'README.md',
+          code: lines(
+            '# Job Tracker',
+            '',
+            'A React app to track job applications: add jobs, search, change status and see a summary.',
+            '',
+            '## Features',
+            '- Add jobs with validation',
+            '- Search and filter by status',
+            '- Job details pages with React Router',
+            '- Dark mode and saved data (localStorage)',
+            '',
+            '## Tech',
+            'React, React Router, Vite',
+            '',
+            '## Run it',
+            'npm install',
+            'npm run dev'
+          )
+        },
+        code: lines(
+          'function missingSections(readme) {',
+          '  return ["## Features", "## Tech", "## Run it"].filter(s => !readme.includes(s));',
+          '}',
+          '',
+          'console.log(missingSections("# Job Tracker\\n## Features\\n- Add jobs"));'
+        ),
+        output: '[ \'## Tech\', \'## Run it\' ]',
+        codeNotes: [
+          { line: 2, note: 'Keep the sections that the README does not contain yet.' }
+        ],
+        tryIt: 'Add the missing sections to the text and check the result is [].',
+        check: {
+          question: 'What should a good README include?',
+          options: ['Only the project name', 'What it does, a screenshot, features, tech and how to run it', 'Your full CV'],
+          answer: 1,
+          why: 'A README should let a visitor understand, see and run the project in under a minute.'
+        }
+      }
+    ],
+    summary: [
+      'Git saves snapshots called commits; GitHub stores them online and is your portfolio.',
+      'git add . stages changes; git commit -m "message" saves them; never commit node_modules.',
+      'Write messages that start with a verb and say what changed.',
+      'Branches let you try ideas without breaking main; merge when it works.',
+      'git push uploads commits; a clear README sells your project.'
+    ],
+    projectStep: {
+      title: 'Your project on GitHub',
+      steps: [
+        'Install Git, run git init in job-tracker, and make your first commit.',
+        'Create a public job-tracker repository on GitHub and push to it.',
+        'Write a README with features, tech and how to run it, then commit and push again.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 23,
+    title: 'Planning Your Job Tracker App',
+    goal: 'You can plan the final version of an app: its screens, components, data shape and state, before writing more code.',
+    minutes: 30,
+    recap: 'Yesterday you saved your project with Git and put it on GitHub with a README.',
+    parts: [
+      {
+        title: 'Why developers plan before coding',
+        say: [
+          'Your Job Tracker already works. This week you turn it into a finished, portfolio-ready product. Before adding more code, stop and plan, like a professional.',
+          'Coding without a plan leads to rewriting: you build a screen, realise the data needs another field, change five components, and break two. Twenty minutes of planning saves hours of rework.',
+          'Today you plan the final version: which screens, which components on each, what data each job needs, where state lives, and which features come first. You will use this plan for the next three days.',
+          'Planning also protects you from a common trap: adding feature after feature and never finishing. Split your ideas into must-have and nice-to-have. A finished app with five solid features impresses far more than an unfinished one with fifteen.'
+        ],
+        example: 'Builders work from a drawing of the house before laying a single brick. Moving a wall on paper costs a pencil stroke; moving it after it is built costs a lot.',
+        code: lines(
+          'const plan = {',
+          '  screens: ["Dashboard", "All jobs", "Job details"],',
+          '  mustHave: ["filter tabs", "sort by date", "applied date on each job"],',
+          '  niceToHave: ["notes on a job", "salary field"]',
+          '};',
+          '',
+          'console.log(`Screens: ${plan.screens.length}`);',
+          'console.log(`First: ${plan.mustHave.join(", ")}`);'
+        ),
+        output: lines('Screens: 3', 'First: filter tabs, sort by date, applied date on each job'),
+        codeNotes: [
+          { line: 3, note: 'Decide what must be in the final version, and what can wait.' }
+        ],
+        tryIt: 'Add one feature you want to the niceToHave list.',
+        check: {
+          question: 'What is the main benefit of planning before coding?',
+          options: ['It looks professional', 'Changing a plan is much cheaper than rewriting code', 'It is required by React'],
+          answer: 1,
+          why: 'Mistakes caught on paper cost minutes; the same mistakes caught in code cost hours.'
+        }
+      },
+      {
+        title: 'Screens and user stories',
+        say: [
+          'Start from the user, not the code. Write short user stories: "As a job seeker, I want to see how many interviews I have, so I know how my search is going." Each story describes a real need.',
+          'Group the stories into screens. The Dashboard answers "how is my search going?": totals by status and the latest applications. All Jobs answers "where is every application?": search, filter tabs and sorting. Job Details answers "what is happening with this one job?": details, status changes, notes.',
+          'Draw each screen on paper with boxes. Do not worry about colours; just decide what goes where. A quick sketch is worth more than a long description.',
+          'Keep the stories. They also make a great section in your README and a clear answer when an interviewer asks "what does your app do?".'
+        ],
+        example: 'A restaurant plans its menu from what customers want to eat, not from what pans it owns. User stories are what your customers want to eat.',
+        code: lines(
+          'const stories = [',
+          '  { screen: "Dashboard", want: "see how many interviews I have" },',
+          '  { screen: "All jobs", want: "find a job by company" },',
+          '  { screen: "All jobs", want: "see my newest applications first" },',
+          '  { screen: "Job details", want: "update the status after an interview" }',
+          '];',
+          '',
+          'const byScreen = {};',
+          'for (const s of stories) byScreen[s.screen] = (byScreen[s.screen] || 0) + 1;',
+          'console.log(byScreen);'
+        ),
+        output: '{ Dashboard: 1, \'All jobs\': 2, \'Job details\': 1 }',
+        codeNotes: [
+          { line: 9, note: 'The counting pattern from Day 7, used on your plan.' },
+          { line: 10, note: '\'All jobs\' has quotes because the name contains a space.' }
+        ],
+        tryIt: 'Add a story for the Dashboard: "see my latest 3 applications".',
+        check: {
+          question: 'What is a user story?',
+          options: ['A bug report', 'A short description of what a user wants and why', 'A list of files'],
+          answer: 1,
+          why: 'A user story states a real need from the user\'s point of view, which guides what to build.'
+        }
+      },
+      {
+        title: 'The final data shape of a job',
+        say: [
+          'Next, decide exactly what data each job has. Your jobs so far have id, title, company and status. For the final version, add appliedOn, the date you applied, written like "2026-09-28", and notes, a short text.',
+          'Why that date format? Year first, then month, then day: dates in this format sort correctly as plain text, and it is the standard format computers exchange. You show it in a friendlier way on screen.',
+          'Write the shape down as one example object, and list the allowed statuses: applied, interview, offer, rejected. Every component will rely on this shape, so changing it later is expensive; that is why it is decided today.',
+          'Old saved jobs will not have the new fields. When you load them, fill in safe defaults, as the code shows. This is called a data migration, and real apps do it all the time.'
+        ],
+        example: 'A school admission form decides its fields before printing a thousand copies. Adding a field later means reprinting, and old forms are missing it.',
+        code: lines(
+          'const STATUSES = ["applied", "interview", "offer", "rejected"];',
+          '',
+          'function upgradeJob(job) {',
+          '  return { notes: "", appliedOn: "2026-09-01", ...job, status: STATUSES.includes(job.status) ? job.status : "applied" };',
+          '}',
+          '',
+          'console.log(upgradeJob({ id: 1, title: "Dev", company: "TCS", status: "applied" }));',
+          'console.log(upgradeJob({ id: 2, title: "Tester", company: "Zoho", status: "waiting" }).status);'
+        ),
+        output: lines(
+          '{ notes: \'\', appliedOn: \'2026-09-01\', id: 1, title: \'Dev\', company: \'TCS\', status: \'applied\' }',
+          'applied'
+        ),
+        codeNotes: [
+          { line: 4, note: 'Defaults first, then the saved job overrides them. Unknown statuses become "applied".' }
+        ],
+        tryIt: 'Upgrade a job that already has notes: "Call HR". Check the notes are kept.',
+        check: {
+          question: 'Why store dates like "2026-09-28"?',
+          options: ['It looks modern', 'Year-month-day text sorts correctly and is a standard format', 'React requires it'],
+          answer: 1,
+          why: 'In year-month-day format, sorting the text also sorts the dates correctly.'
+        }
+      },
+      {
+        title: 'Sorting: newest first',
+        say: [
+          'One must-have from the plan: newest applications first. Arrays have a sort method, but it has two traps.',
+          'Trap one: sort changes the original array. In React, that means changing state directly, which you know is wrong. So always copy first: [...jobs].sort(...).',
+          'Trap two: sort needs a compare function telling it the order. For text like dates, use localeCompare: (a, b) => b.appliedOn.localeCompare(a.appliedOn) puts newer dates first. Swap a and b for oldest first.',
+          'This is today\'s first practice task, sortByNewest. Sorting a copy with a compare function is something you will write in almost every job.',
+          'How does the compare function work? sort calls it with two items at a time. A negative answer means a comes first, a positive answer means b comes first, and zero means keep them as they are. localeCompare gives exactly those answers for text. For numbers, a - b sorts smallest first.'
+        ],
+        example: 'Arranging exam papers by roll number: you would photocopy the pile before rearranging it if someone else needs the original order.',
+        code: lines(
+          'const jobs = [',
+          '  { id: 1, appliedOn: "2026-09-01" },',
+          '  { id: 2, appliedOn: "2026-09-20" },',
+          '  { id: 3, appliedOn: "2026-09-10" }',
+          '];',
+          '',
+          'const newest = [...jobs].sort((a, b) => b.appliedOn.localeCompare(a.appliedOn));',
+          'console.log(newest.map(j => j.id));',
+          'console.log(jobs.map(j => j.id));'
+        ),
+        output: lines('[ 2, 3, 1 ]', '[ 1, 2, 3 ]'),
+        codeNotes: [
+          { line: 7, note: 'Copy with spread, then sort with a compare function: b before a means newest first.' },
+          { line: 9, note: 'The original order is untouched.' }
+        ],
+        tryIt: 'Sort oldest first by swapping a and b in the compare function.',
+        check: {
+          question: 'Why write [...jobs].sort(...) instead of jobs.sort(...)?',
+          options: ['It is faster', 'sort changes the array it is called on, so we sort a copy', 'jobs.sort does not exist'],
+          answer: 1,
+          why: 'sort changes the original array. Copying first keeps React state unchanged.'
+        }
+      },
+      {
+        title: 'Components and state for the final version',
+        say: [
+          'Now map the screens to components, reusing what you have. Dashboard: StatCards, RecentJobs. All Jobs: SearchBox, FilterTabs, SortSelect, JobList with JobCards. Job Details: status buttons, a notes box. Shared: Header, JobForm.',
+          'Then decide state. jobs stay in App, saved with useLocalStorage, because every page needs them. The filter tab, the sort order and the search text belong to the All Jobs page only, so they live there. The theme lives in Context.',
+          'Write this down as a simple tree. When you get stuck later, the tree reminds you where things belong. It is also a great picture to explain your app in an interview.',
+          'Notice that most components already exist from earlier days. Good planning reuses what works. You only add the new pieces, like StatCards, FilterTabs and SortSelect, instead of rebuilding everything.'
+        ],
+        example: 'A family tree shows who belongs where. Your component tree shows which piece belongs inside which, and who holds what.',
+        code: lines(
+          'const tree = {',
+          '  App: ["Header", "Dashboard", "AllJobs", "JobDetails"],',
+          '  Dashboard: ["StatCards", "RecentJobs"],',
+          '  AllJobs: ["SearchBox", "FilterTabs", "SortSelect", "JobList"],',
+          '  JobList: ["JobCard"]',
+          '};',
+          '',
+          'function printTree(name, depth) {',
+          '  console.log("  ".repeat(depth) + name);',
+          '  for (const child of tree[name] || []) printTree(child, depth + 1);',
+          '}',
+          'printTree("App", 0);'
+        ),
+        output: lines(
+          'App',
+          '  Header',
+          '  Dashboard',
+          '    StatCards',
+          '    RecentJobs',
+          '  AllJobs',
+          '    SearchBox',
+          '    FilterTabs',
+          '    SortSelect',
+          '    JobList',
+          '      JobCard',
+          '  JobDetails'
+        ),
+        codeNotes: [
+          { line: 10, note: 'A function that calls itself for each child. This is called recursion.' }
+        ],
+        tryIt: 'Add NotesBox under JobDetails in the tree and run again.',
+        check: {
+          question: 'Where should the selected filter tab live?',
+          options: ['In App, for every page', 'In the All Jobs page, the only page that uses it', 'In Context'],
+          answer: 1,
+          why: 'Only the All Jobs page uses the filter, so its state lives there.'
+        }
+      },
+      {
+        title: 'Grouping jobs and writing the plan down',
+        say: [
+          'One more piece of logic for the dashboard: grouping jobs by status, so you can show a column or a count for each. Build an object whose keys are statuses and whose values are arrays of jobs. This is today\'s second practice task, groupByStatus.',
+          'Finally, write your plan in a file called PLAN.md in your project: the user stories, the data shape, the component tree, and the order you will build things in. Commit it. It shows reviewers you think before you code.',
+          'Your build order for the next days: Day 24 the dashboard and layout, Day 25 filter tabs, sorting and dates, Day 26 notes and the details page, Day 27 fixing bugs. Small steps, each one working and committed before the next.'
+        ],
+        example: 'Sorting laundry into piles by colour before washing. Each pile is one status, and each item goes into exactly one pile.',
+        code: lines(
+          'function groupByStatus(jobs) {',
+          '  const groups = {};',
+          '  for (const job of jobs) {',
+          '    if (!groups[job.status]) groups[job.status] = [];',
+          '    groups[job.status].push(job.title);',
+          '  }',
+          '  return groups;',
+          '}',
+          '',
+          'console.log(groupByStatus([',
+          '  { title: "Dev", status: "applied" },',
+          '  { title: "Tester", status: "offer" },',
+          '  { title: "Designer", status: "applied" }',
+          ']));'
+        ),
+        output: '{ applied: [ \'Dev\', \'Designer\' ], offer: [ \'Tester\' ] }',
+        codeNotes: [
+          { line: 4, note: 'Create the pile the first time a status appears.' },
+          { line: 5, note: 'Then put the job in its pile.' }
+        ],
+        tryIt: 'Add a job with status "interview" and check a new group appears.',
+        check: {
+          question: 'What does groupByStatus return?',
+          options: ['A number', 'An object with one array of jobs per status', 'A sorted array'],
+          answer: 1,
+          why: 'Each key is a status and each value is the list of jobs with that status.'
+        }
+      }
+    ],
+    summary: [
+      'Plan before coding: changing a plan is much cheaper than rewriting code.',
+      'Start from user stories, group them into screens, and sketch each screen.',
+      'Decide the data shape early; upgrade old saved data with safe defaults.',
+      'Sort a copy with a compare function: [...jobs].sort((a, b) => ...).',
+      'Map screens to a component tree and decide where each piece of state lives.'
+    ],
+    projectStep: {
+      title: 'Write PLAN.md',
+      steps: [
+        'Write 5 user stories and group them into the three screens.',
+        'Add appliedOn and notes to your job data, upgrading old saved jobs with defaults.',
+        'Write the component tree and build order in PLAN.md, then commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 24,
+    title: 'Project Build 1: Layout and Components',
+    goal: 'You can build a clean dashboard with statistic cards and recent jobs, using small reusable components and a consistent layout.',
+    minutes: 30,
+    recap: 'Yesterday you planned the final version of the Job Tracker in PLAN.md.',
+    parts: [
+      {
+        title: 'The dashboard layout',
+        say: [
+          'Today you build the Dashboard from your plan. At the top, four statistic cards: total, interviews, offers, rejected. Below, the three most recent applications. At the side or below on phones, the Add Job form.',
+          'Start with the layout only, using placeholder boxes, and check it on a phone size and a laptop size. Get the structure right first; details come later. This is how designers and developers work together in companies.',
+          'Use grid for the stat cards: four across on a laptop, two across on a phone. You learned exactly how on Day 18.',
+          'A useful trick while building layout: give each section a temporary coloured border, like border: 2px dashed red. You can see exactly where each box starts and ends. Remove the borders when the layout is right.'
+        ],
+        example: 'When setting up a new shop, you first place the shelves and the counter, and only then fill the shelves with products.',
+        projectCode: {
+          label: 'src/pages/Dashboard.jsx (layout first)',
+          code: lines(
+            'export default function Dashboard({ jobs, onAdd }) {',
+            '  return (',
+            '    <div className="dashboard">',
+            '      <section className="stats">{/* 4 StatCards */}</section>',
+            '      <section className="recent">{/* 3 recent jobs */}</section>',
+            '      <section className="add">{/* JobForm */}</section>',
+            '    </div>',
+            '  );',
+            '}',
+            '',
+            '/* CSS */',
+            '.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }',
+            '@media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }'
+          )
+        },
+        code: lines(
+          'function statColumns(width) {',
+          '  return width >= 900 ? 4 : 2;',
+          '}',
+          'console.log(`Phone: ${statColumns(375)} cards per row`);',
+          'console.log(`Laptop: ${statColumns(1280)} cards per row`);'
+        ),
+        output: lines('Phone: 2 cards per row', 'Laptop: 4 cards per row'),
+        codeNotes: [
+          { line: 2, note: 'The same decision as the media query in the CSS.' }
+        ],
+        tryIt: 'Add a middle size: 3 cards per row from 600px.',
+        check: {
+          question: 'What should you build first on a new screen?',
+          options: ['Animations', 'The layout structure, checked on phone and laptop sizes', 'Colours'],
+          answer: 1,
+          why: 'Getting the structure right first means details are added to a solid base.'
+        }
+      },
+      {
+        title: 'Calculating the statistics',
+        say: [
+          'The statistic cards need numbers, calculated from jobs during render, as you learned on Day 15. Write one function jobStats(jobs) that returns { total, interviews, offers, rejected }.',
+          'Keep it in its own file, src/utils/jobStats.js, as a plain function. Then it is easy to test and reuse, and the Dashboard only calls it: const stats = jobStats(jobs);.',
+          'This is today\'s first practice task. Separating calculations from components is one of the habits that makes your code look professional.',
+          'Because the function only depends on the jobs you pass in, you can check it in the code box with any sample data, without starting the app. On Day 28, you will write automatic tests for exactly this kind of function.'
+        ],
+        example: 'An accountant prepares the monthly totals from the sales book. The shop display only shows the totals; it does not do the maths.',
+        code: lines(
+          'function jobStats(jobs) {',
+          '  const count = (status) => jobs.filter(j => j.status === status).length;',
+          '  return { total: jobs.length, interviews: count("interview"), offers: count("offer"), rejected: count("rejected") };',
+          '}',
+          '',
+          'const jobs = [{ status: "applied" }, { status: "interview" }, { status: "offer" }, { status: "interview" }];',
+          'console.log(jobStats(jobs));'
+        ),
+        output: '{ total: 4, interviews: 2, offers: 1, rejected: 0 }',
+        codeNotes: [
+          { line: 2, note: 'A small helper inside the function avoids writing the same filter three times.' }
+        ],
+        tryIt: 'Add applied: count("applied") to the result.',
+        check: {
+          question: 'Where should the statistics calculation live?',
+          options: ['Inside the JSX', 'In a plain function in a utils file, called by the page', 'In localStorage'],
+          answer: 1,
+          why: 'A plain function is easy to test and reuse, and keeps the component simple.'
+        }
+      },
+      {
+        title: 'A reusable StatCard component',
+        say: [
+          'Four statistic cards look the same, only the label, number and colour differ. That is a component with props: <StatCard label="Interviews" value={stats.interviews} tone="blue" />.',
+          'Map an array to create them, so adding a fifth card later is one line in the array: const cards = [{ label: "Total", value: stats.total }, ...]; then cards.map(c => <StatCard key={c.label} {...c} />).',
+          '{...c} spreads every property of c as a prop, a short way to pass many props at once. It works because the object\'s keys match the prop names.',
+          'Small, reusable pieces like StatCard are exactly what a component library is made of. You are designing like a real frontend team.',
+          'Choose tones by meaning, not by taste: blue for interviews, green for offers, red for rejections. Colours that mean something help users read the dashboard at a glance. And keep the number big and the label small: the number is what people look for.'
+        ],
+        example: 'Four matching photo frames on a wall. The frame is the same design; only the photo inside changes.',
+        projectCode: {
+          label: 'src/components/StatCard.jsx',
+          code: lines(
+            'export default function StatCard({ label, value, tone = "grey" }) {',
+            '  return (',
+            '    <div className={`stat-card ${tone}`}>',
+            '      <span className="stat-value">{value}</span>',
+            '      <span className="stat-label">{label}</span>',
+            '    </div>',
+            '  );',
+            '}',
+            '',
+            '// In Dashboard:',
+            'const cards = [',
+            '  { label: "Total", value: stats.total },',
+            '  { label: "Interviews", value: stats.interviews, tone: "blue" },',
+            '  { label: "Offers", value: stats.offers, tone: "green" },',
+            '  { label: "Rejected", value: stats.rejected, tone: "red" }',
+            '];',
+            '{cards.map(c => <StatCard key={c.label} {...c} />)}'
+          )
+        },
+        code: lines(
+          'const StatCard = ({ label, value, tone = "grey" }) => `[${tone}] ${label}: ${value}`;',
+          'const stats = { total: 4, interviews: 2, offers: 1, rejected: 0 };',
+          'const cards = [',
+          '  { label: "Total", value: stats.total },',
+          '  { label: "Offers", value: stats.offers, tone: "green" }',
+          '];',
+          'for (const c of cards) console.log(StatCard({ ...c }));'
+        ),
+        output: lines('[grey] Total: 4', '[green] Offers: 1'),
+        codeNotes: [
+          { line: 1, note: 'tone defaults to grey when a card does not set one.' },
+          { line: 7, note: 'Spreading the object passes all its properties as props.' }
+        ],
+        tryIt: 'Add the Interviews card with tone "blue" to the array.',
+        check: {
+          question: 'What does <StatCard {...c} /> do?',
+          options: ['Passes c as one prop called c', 'Passes every property of c as a separate prop', 'Copies the component'],
+          answer: 1,
+          why: 'Spreading an object in JSX turns each of its properties into a prop.'
+        }
+      },
+      {
+        title: 'Readable labels and dates',
+        say: [
+          'Data is stored in a computer-friendly way: statuses in lower case like "interview", dates like "2026-09-28". On screen, show them in a human-friendly way: "Interview", "28 Sep 2026".',
+          'For statuses, use an object lookup, as on Day 11, with "Unknown" as a fallback. This is today\'s second practice task, statusLabel.',
+          'For dates, JavaScript can format them for India: new Date("2026-09-28").toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }). Always convert only for display, and keep the stored format unchanged.',
+          'Keeping "how it is stored" separate from "how it is shown" is a principle that makes apps easy to translate and change later.'
+        ],
+        example: 'A train ticket stores the date as a code the railway computers understand, but prints "Mon, 28 Sep" for you. Same date, two forms.',
+        code: lines(
+          'function statusLabel(status) {',
+          '  const labels = { applied: "Applied", interview: "Interview", offer: "Offer", rejected: "Rejected" };',
+          '  return labels[status] || "Unknown";',
+          '}',
+          '',
+          'function prettyDate(iso) {',
+          '  const [y, m, d] = iso.split("-").map(Number);',
+          '  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];',
+          '  return `${d} ${months[m - 1]} ${y}`;',
+          '}',
+          '',
+          'console.log(statusLabel("interview"));',
+          'console.log(prettyDate("2026-09-28"));'
+        ),
+        output: lines('Interview', '28 Sep 2026'),
+        codeNotes: [
+          { line: 7, note: 'Split the stored date into year, month and day numbers.' },
+          { line: 9, note: 'Months are counted from 1 in the date but from 0 in the array, hence m - 1.' }
+        ],
+        tryIt: 'Format "2026-01-05". Check the day shows as 5, not 05.',
+        check: {
+          question: 'Should you store dates as "28 Sep 2026"?',
+          options: ['Yes, it is readable', 'No, store "2026-09-28" and format only for display', 'Store both'],
+          answer: 1,
+          why: 'The year-month-day format sorts and compares correctly. The readable form is only for the screen.'
+        }
+      },
+      {
+        title: 'Recent jobs and empty states',
+        say: [
+          'Below the stats, show the three most recent applications. Combine what you know: sort a copy newest first, then take the first three with slice(0, 3). slice returns a new array and does not change the original.',
+          'Now think about a brand-new user with no jobs. The stat cards show zeros, and the recent list is empty. Instead of a sad blank area, show a friendly empty state: a short message and a clear next step, like "No applications yet. Add your first job below."',
+          'Empty states are often forgotten, but they are the very first thing a new user sees. Designers care about them a lot, and so should you.',
+          'Also think about the opposite case: a user with 200 jobs. The recent list still shows only three, so the dashboard stays short. Designing for zero, one and many items is a habit that prevents most layout surprises.'
+        ],
+        example: 'A new photo album app that says "No photos yet. Tap + to add your first memory" feels welcoming. A blank white screen feels broken.',
+        code: lines(
+          'function recentJobs(jobs, count) {',
+          '  return [...jobs].sort((a, b) => b.appliedOn.localeCompare(a.appliedOn)).slice(0, count);',
+          '}',
+          '',
+          'const jobs = [',
+          '  { title: "A", appliedOn: "2026-09-01" },',
+          '  { title: "B", appliedOn: "2026-09-25" },',
+          '  { title: "C", appliedOn: "2026-09-10" },',
+          '  { title: "D", appliedOn: "2026-09-20" }',
+          '];',
+          'console.log(recentJobs(jobs, 3).map(j => j.title));',
+          'const empty = recentJobs([], 3);',
+          'console.log(empty.length === 0 ? "No applications yet. Add your first job below." : "");'
+        ),
+        output: lines('[ \'B\', \'D\', \'C\' ]', 'No applications yet. Add your first job below.'),
+        codeNotes: [
+          { line: 2, note: 'Sort a copy newest first, then keep only the first few with slice.' },
+          { line: 13, note: 'An empty list gets a helpful message instead of a blank area.' }
+        ],
+        tryIt: 'Show the 2 most recent jobs instead of 3.',
+        check: {
+          question: 'What should a screen show when there is no data yet?',
+          options: ['Nothing', 'A friendly message with a clear next step', 'An error'],
+          answer: 1,
+          why: 'An empty state guides a new user to their first action.'
+        }
+      },
+      {
+        title: 'Accessibility: an app everyone can use',
+        say: [
+          'Accessibility means people with disabilities can use your app too, for example someone using a screen reader or only a keyboard. It is also a sign of quality that good companies look for.',
+          'A few simple habits cover most of it. Use real buttons for actions (<button>), not clickable divs, so they work with the keyboard. Give every input a label. Give images an alt text. Do not show status only by colour; also show the word, so colour-blind users can read it.',
+          'Test with the keyboard: press Tab to move through your page. Can you reach every button and input, and see where the focus is? If not, fix it.',
+          'Chrome has a free checker built in: open DevTools with F12, go to the Lighthouse tab, tick Accessibility, and run it. It lists problems like missing labels and low colour contrast, with explanations. Aim for a score above 90.',
+          'Commit and push today\'s work with a clear message. Tomorrow: filter tabs, sorting and dates on the All Jobs page.'
+        ],
+        example: 'A building with a ramp next to the stairs. It helps wheelchair users, and also parents with prams and people with suitcases. Accessible apps work better for everyone.',
+        projectCode: {
+          label: 'Accessible form field and badge',
+          code: lines(
+            '<label htmlFor="title">Job title</label>',
+            '<input id="title" name="title" value={form.title} onChange={handleChange} />',
+            '',
+            '<span className={`badge ${status}`}>{statusLabel(status)}</span>',
+            '',
+            '<button type="button" onClick={() => onDelete(id)} aria-label={`Delete ${title}`}>',
+            '  🗑',
+            '</button>'
+          )
+        },
+        code: lines(
+          'const controls = [',
+          '  { type: "button", label: "Add job" },',
+          '  { type: "div", label: "Delete", clickable: true },',
+          '  { type: "input", label: "" }',
+          '];',
+          '',
+          'for (const c of controls) {',
+          '  const problems = [];',
+          '  if (c.type === "div" && c.clickable) problems.push("use a <button>");',
+          '  if (c.type === "input" && !c.label) problems.push("add a label");',
+          '  console.log(`${c.type}: ${problems.length ? problems.join(", ") : "ok"}`);',
+          '}'
+        ),
+        output: lines('button: ok', 'div: use a <button>', 'input: add a label'),
+        codeNotes: [
+          { line: 9, note: 'A clickable div does not work with the keyboard; a button does.' },
+          { line: 10, note: 'Inputs need labels so screen readers can announce them.' }
+        ],
+        tryIt: 'Give the input a label "Company" and run again.',
+        check: {
+          question: 'Why use <button> instead of a clickable <div>?',
+          options: ['Buttons look nicer', 'Buttons work with the keyboard and screen readers', 'Divs cannot have onClick'],
+          answer: 1,
+          why: 'Real buttons are focusable and announced correctly, so everyone can use them.'
+        }
+      }
+    ],
+    summary: [
+      'Build the layout first and check it on phone and laptop sizes.',
+      'Calculate statistics in a plain function in a utils file.',
+      'Make repeated UI a component and map an array to create it; {...obj} spreads props.',
+      'Store data in a computer-friendly form; format labels and dates only for display.',
+      'Design empty states and follow basic accessibility habits.'
+    ],
+    projectStep: {
+      title: 'The final dashboard',
+      steps: [
+        'Build the Dashboard layout with four StatCards and the three most recent jobs.',
+        'Add readable status labels and dates, and a friendly empty state.',
+        'Check keyboard use with Tab, then commit and push.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 25,
+    title: 'Project Build 2: Adding Jobs and Filters',
+    goal: 'You can finish the All Jobs page with filter tabs, sorting and search working together, and add jobs with a date and clean data.',
+    minutes: 30,
+    recap: 'Yesterday you built the final dashboard with statistic cards, recent jobs and an empty state.',
+    parts: [
+      {
+        title: 'Filter tabs',
+        say: [
+          'The All Jobs page gets tabs: All, Applied, Interview, Offer, Rejected. Clicking a tab shows only jobs with that status. The selected tab is state in the page: const [tab, setTab] = useState("all");.',
+          'The filter logic is one line: tab === "all" ? jobs : jobs.filter(j => j.status === tab). That is today\'s second practice task, filterJobs.',
+          'Show the count on each tab, like "Interview (2)", so users see the numbers before clicking. And highlight the selected tab with a class, so users always know where they are.',
+          'The tab buttons get role="tab" and aria-selected, which tell screen readers that these buttons are tabs and which one is chosen. Small details like this are part of the accessibility habits from yesterday.'
+        ],
+        example: 'Gmail\'s tabs, Primary, Social and Promotions, show the same inbox filtered in different ways. The emails are all still there.',
+        code: lines(
+          'function filterJobs(jobs, tab) {',
+          '  return tab === "all" ? jobs : jobs.filter(j => j.status === tab);',
+          '}',
+          '',
+          'const jobs = [{ status: "applied" }, { status: "interview" }, { status: "interview" }];',
+          'const tabs = ["all", "applied", "interview", "offer"];',
+          'console.log(tabs.map(t => `${t} (${filterJobs(jobs, t).length})`).join(" | "));'
+        ),
+        output: 'all (3) | applied (1) | interview (2) | offer (0)',
+        codeNotes: [
+          { line: 2, note: '"all" means no filtering; any other tab keeps one status.' },
+          { line: 7, note: 'The count shown on each tab.' }
+        ],
+        projectCode: {
+          label: 'src/components/FilterTabs.jsx',
+          code: lines(
+            'const TABS = ["all", "applied", "interview", "offer", "rejected"];',
+            '',
+            'export default function FilterTabs({ tab, onChange, jobs }) {',
+            '  return (',
+            '    <div className="tabs" role="tablist">',
+            '      {TABS.map(t => (',
+            '        <button',
+            '          key={t}',
+            '          role="tab"',
+            '          aria-selected={tab === t}',
+            '          className={tab === t ? "tab active" : "tab"}',
+            '          onClick={() => onChange(t)}',
+            '        >',
+            '          {t} ({t === "all" ? jobs.length : jobs.filter(j => j.status === t).length})',
+            '        </button>',
+            '      ))}',
+            '    </div>',
+            '  );',
+            '}'
+          )
+        },
+        tryIt: 'Add "rejected" to the tabs list in the runnable code.',
+        check: {
+          question: 'Where should the selected tab be stored?',
+          options: ['In the All Jobs page\'s state', 'In localStorage only', 'In every JobCard'],
+          answer: 0,
+          why: 'Only that page uses the tab, so it is local state there.'
+        }
+      },
+      {
+        title: 'Search, filter and sort together',
+        say: [
+          'Now combine three things: search text, the selected tab and the sort order. Each one is a small step, chained in order: filter by tab, then search, then sort.',
+          'Write it as one function, visibleJobs(jobs, { tab, search, sort }), in your utils file. The page calls it during render. All three controls then work together automatically, whatever the user clicks.',
+          'The order of the steps matters for speed on big lists: filter first, so fewer items are left to sort. On small lists you will not notice, but it is a good habit and a good interview point.',
+          'Keeping this logic in one plain function also means the page stays short: it holds three pieces of state and calls one function. If a bug appears in the results, you know exactly which function to check.'
+        ],
+        example: 'Shopping online: pick a category (tab), type "blue" (search), sort by price (sort). Every combination works because each step narrows the list the previous step gave it.',
+        code: lines(
+          'function visibleJobs(jobs, { tab, search, sort }) {',
+          '  const q = search.toLowerCase();',
+          '  const list = jobs',
+          '    .filter(j => tab === "all" || j.status === tab)',
+          '    .filter(j => j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q));',
+          '  return [...list].sort((a, b) =>',
+          '    sort === "newest" ? b.appliedOn.localeCompare(a.appliedOn) : a.appliedOn.localeCompare(b.appliedOn));',
+          '}',
+          '',
+          'const jobs = [',
+          '  { title: "React Dev", company: "Zoho", status: "interview", appliedOn: "2026-09-02" },',
+          '  { title: "Tester", company: "TCS", status: "applied", appliedOn: "2026-09-20" },',
+          '  { title: "UI Dev", company: "Swiggy", status: "interview", appliedOn: "2026-09-15" }',
+          '];',
+          'console.log(visibleJobs(jobs, { tab: "interview", search: "dev", sort: "newest" }).map(j => j.title));'
+        ),
+        output: '[ \'UI Dev\', \'React Dev\' ]',
+        codeNotes: [
+          { line: 4, note: 'Step 1: keep the selected tab.' },
+          { line: 5, note: 'Step 2: keep jobs matching the search in title or company.' },
+          { line: 6, note: 'Step 3: sort a copy by date.' }
+        ],
+        tryIt: 'Change sort to "oldest" and search to "". What order do you get?',
+        check: {
+          question: 'Why filter before sorting?',
+          options: ['Sorting first is not allowed', 'Fewer items are left to sort, which is faster on big lists', 'It changes the result'],
+          answer: 1,
+          why: 'The result is the same either way, but sorting a smaller list is less work.'
+        }
+      },
+      {
+        title: 'Clean data when adding a job',
+        say: [
+          'The Add Job form must now also save the applied date. Use a date input: <input type="date" name="appliedOn" />. Its value is already in the year-month-day format you chose, so no conversion is needed.',
+          'Default the date to today, so most users do not have to touch it. Today in that format is new Date().toISOString().slice(0, 10).',
+          'Before saving, clean the data: trim the title and company, set the status to "applied", give an id. Put this in a createJob(form, id, today) function. That is today\'s first practice task.',
+          'Clean data at the door is much easier than fixing messy data later. Every real app validates and cleans what users type.'
+        ],
+        example: 'A post office clerk checks and neatly writes the PIN code on every parcel as it comes in. Sorting later becomes easy because every parcel is labelled the same way.',
+        code: lines(
+          'function createJob(form, id, today) {',
+          '  return {',
+          '    id,',
+          '    title: form.title.trim(),',
+          '    company: form.company.trim(),',
+          '    status: "applied",',
+          '    appliedOn: form.appliedOn || today,',
+          '    notes: ""',
+          '  };',
+          '}',
+          '',
+          'console.log(createJob({ title: "  React Dev ", company: " Zoho", appliedOn: "" }, 7, "2026-09-28"));'
+        ),
+        output: '{ id: 7, title: \'React Dev\', company: \'Zoho\', status: \'applied\', appliedOn: \'2026-09-28\', notes: \'\' }',
+        codeNotes: [
+          { line: 4, note: 'Remove extra spaces users type by accident.' },
+          { line: 7, note: 'If the date was left empty, use today.' }
+        ],
+        projectCode: {
+          label: 'Date input in JobForm',
+          code: lines(
+            'const today = new Date().toISOString().slice(0, 10);',
+            'const emptyForm = { title: "", company: "", appliedOn: today };',
+            '',
+            '<label htmlFor="appliedOn">Applied on</label>',
+            '<input id="appliedOn" type="date" name="appliedOn" value={form.appliedOn} onChange={handleChange} />'
+          )
+        },
+        tryIt: 'Call createJob with appliedOn: "2026-09-15" and check that date is kept.',
+        check: {
+          question: 'Why trim the title before saving?',
+          options: ['To make it shorter', 'To remove accidental spaces so data is clean and searchable', 'React requires it'],
+          answer: 1,
+          why: 'Accidental spaces make matching and sorting unreliable. Cleaning at input keeps data consistent.'
+        }
+      },
+      {
+        title: 'Keeping filters in the address',
+        say: [
+          'Here is a professional touch. If a user selects the Interview tab and shares the link, or refreshes, the tab resets to All. Better: keep the tab in the address, like /jobs?status=interview.',
+          'The part after the question mark is the query string. React Router\'s useSearchParams hook reads and changes it: const [params, setParams] = useSearchParams(); const tab = params.get("status") ?? "all";. Changing the tab calls setParams({ status: t }).',
+          'Now the tab survives refresh, the back button moves between tabs, and links can be shared. Many real apps, like online shops, keep their filters this way.',
+          'The runnable box uses URLSearchParams, the browser\'s built-in tool for query strings, which React Router uses underneath.'
+        ],
+        example: 'A shared link to a Myntra search with filters opens exactly the same filtered results for your friend, because the filters are in the address.',
+        code: lines(
+          'const params = new URLSearchParams("status=interview&sort=newest");',
+          'console.log(params.get("status"));',
+          'console.log(params.get("search") ?? "(none)");',
+          'params.set("status", "offer");',
+          'console.log(params.toString());'
+        ),
+        output: lines('interview', '(none)', 'status=offer&sort=newest'),
+        codeNotes: [
+          { line: 2, note: 'Read a value from the query string.' },
+          { line: 3, note: 'Missing values come back as null, so ?? gives a fallback.' },
+          { line: 4, note: 'Change a value; toString gives the new query string.' }
+        ],
+        projectCode: {
+          label: 'Tab in the address',
+          code: lines(
+            'import { useSearchParams } from "react-router-dom";',
+            '',
+            'const [params, setParams] = useSearchParams();',
+            'const tab = params.get("status") ?? "all";',
+            '',
+            '<FilterTabs tab={tab} jobs={jobs} onChange={t => setParams({ status: t })} />'
+          )
+        },
+        tryIt: 'Set a search value with params.set("search", "react") and print the query string.',
+        check: {
+          question: 'What is the benefit of keeping the selected tab in the address?',
+          options: ['It looks technical', 'It survives refresh, works with back, and can be shared', 'It is faster'],
+          answer: 1,
+          why: 'State in the URL is kept on refresh, remembered by browser history, and included in shared links.'
+        }
+      },
+      {
+        title: 'Testing your features by hand',
+        say: [
+          'Before calling a feature done, test it the way a user would, including the awkward cases. Write a short checklist and go through it each time you change something.',
+          'For today: add a job with spaces around the title; add one with no date; switch every tab; search for text in a company name; search for something that matches nothing; sort both ways; refresh on the Interview tab; press back.',
+          'The tricky cases are where bugs hide: empty results, empty inputs, very long titles, many jobs. Try adding a job with a 100-letter title and see if the card still looks fine.',
+          'On Day 28 you will automate some of these checks with tests. For now, a written checklist already makes you more careful than many developers.',
+          'When you find a bug, fix one thing at a time and re-run the whole checklist. Fixing one bug sometimes creates another somewhere else, and the checklist catches that before your users do.'
+        ],
+        example: 'A pilot goes through a checklist before every flight, even after thousands of flights. Checklists catch what memory misses.',
+        code: lines(
+          'const checklist = [',
+          '  { step: "Add job with spaces in title", passed: true },',
+          '  { step: "Search with no matches shows a message", passed: false },',
+          '  { step: "Refresh keeps the selected tab", passed: true }',
+          '];',
+          '',
+          'const failed = checklist.filter(c => !c.passed);',
+          'console.log(`${checklist.length - failed.length}/${checklist.length} passed`);',
+          'for (const f of failed) console.log(`To fix: ${f.step}`);'
+        ),
+        output: lines('2/3 passed', 'To fix: Search with no matches shows a message'),
+        codeNotes: [
+          { line: 7, note: 'Collect what failed, so you know exactly what to fix next.' }
+        ],
+        tryIt: 'Add a check "Long title does not break the card" with passed: false.',
+        check: {
+          question: 'Where do bugs usually hide?',
+          options: ['In the most common, normal use', 'In edge cases like empty input, no results and very long text', 'Only in CSS'],
+          answer: 1,
+          why: 'Normal use is usually tested; unusual cases like empty or very long input are easy to forget.'
+        }
+      },
+      {
+        title: 'Finish, commit and look back',
+        say: [
+          'Fix anything your checklist found, like a friendly "No jobs match your search" message when results are empty. Then commit with a clear message and push.',
+          'Look at what you have now: a dashboard with statistics, an All Jobs page with tabs, search and sorting that work together and survive refresh, clean data with dates, and dark mode. That is a real, complete app.',
+          'After this lesson comes your fifth short test, covering Days 21 to 25. The final week is about making the app professional: saving data safely, debugging, testing, deploying it online, and practising for interviews.',
+          'Take a moment to notice how far you have come since Day 1\'s console.log. You now build React apps the way companies do.'
+        ],
+        example: 'A student who finishes the last chapter of a textbook is ready for revision and the exam. You have built the app; the final week gets it ready to show the world.',
+        code: lines(
+          'const features = ["dashboard", "filter tabs", "search", "sorting", "dates", "dark mode", "details page"];',
+          'console.log(`Features built: ${features.length}`);',
+          'console.log(features.map(f => `- ${f}`).join("\\n"));'
+        ),
+        output: lines('Features built: 7', '- dashboard', '- filter tabs', '- search', '- sorting', '- dates', '- dark mode', '- details page'),
+        codeNotes: [
+          { line: 3, note: 'A ready-made Features list for your README.' }
+        ],
+        tryIt: 'Add any extra feature you built yourself to the list.',
+        check: {
+          question: 'What should you do before moving on from a finished feature?',
+          options: ['Nothing', 'Test it with a checklist, fix issues, then commit and push', 'Delete the old code'],
+          answer: 1,
+          why: 'Testing, fixing and committing each finished feature keeps your project safe and working.'
+        }
+      }
+    ],
+    summary: [
+      'Filter tabs are page state; filterJobs keeps "all" or one status.',
+      'Chain filter by tab, then search, then sort a copy, in one visibleJobs function.',
+      'Clean data when adding: trim text, default the date to today, set a starting status.',
+      'Keep filters in the URL with useSearchParams so they survive refresh and can be shared.',
+      'Test with a checklist that includes edge cases, then commit and push.'
+    ],
+    projectStep: {
+      title: 'The final All Jobs page',
+      steps: [
+        'Add FilterTabs with counts, and keep the selected tab in the URL.',
+        'Combine tab, search and sort with a visibleJobs function.',
+        'Add the date input to JobForm, clean new jobs with createJob, test with a checklist, commit and push.'
+      ]
+    }
   }
 ];

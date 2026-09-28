@@ -35,4 +35,5 @@ test('console.log values are shown readably', () => {
   assert.equal(formatLogArgs([{ title: 'Dev', salary: 5, tags: [] }]), "{ title: 'Dev', salary: 5, tags: [] }");
   assert.equal(formatLogArgs(['Total:', 540]), 'Total: 540');
   assert.equal(formatLogArgs([null, undefined, true]), 'null undefined true');
+  assert.equal(formatLogArgs([{ Dashboard: 1, 'All jobs': 2 }]), "{ Dashboard: 1, 'All jobs': 2 }");
 });

@@ -8,7 +8,7 @@ import { getLongLesson } from '../src/lib/data/longLessons';
 // The 1-month React course is being rewritten as long lessons; these days are not written yet.
 // Remove days from this list as they are added to reactLongLessons.ts.
 const PENDING_LONG_LESSONS = new Set(
-  Array.from({ length: 10 }, (_, i) => `react-basics-lecture1-day-${i + 21}`)
+  Array.from({ length: 5 }, (_, i) => `react-basics-lecture1-day-${i + 26}`)
 );
 
 // Every course lesson must load its written lesson plan. When the quest's course prefix has no

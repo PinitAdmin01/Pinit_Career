@@ -3,7 +3,8 @@
  *
  * String(value) printed arrays as "a,b,c" and objects as "[object Object]", which hides exactly
  * what a beginner is trying to see. This formats them the way Node.js does on one line:
- * [ 'HTML', 'CSS' ] and { title: 'Dev', salary: 400000 }. Top-level strings print as-is.
+ * [ 'HTML', 'CSS' ] and { title: 'Dev', 'job title': 'x' } (names that are not plain words are quoted).
+ * Top-level strings print as-is.
  *
  * It is kept as source text because the runner builds its worker script from a string. The source
  * must not contain backticks, backslashes or "${", since it is placed inside a template literal.
@@ -22,7 +23,10 @@ function __pinitFormatLog(value, depth) {
   }
   var keys = Object.keys(value);
   if (keys.length === 0) return '{}';
-  return '{ ' + keys.map(function (k) { return k + ': ' + __pinitFormatLog(value[k], depth + 1); }).join(', ') + ' }';
+  return '{ ' + keys.map(function (k) {
+    var name = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(k) ? k : "'" + k + "'";
+    return name + ': ' + __pinitFormatLog(value[k], depth + 1);
+  }).join(', ') + ' }';
 }
 `;
 
