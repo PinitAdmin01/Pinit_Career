@@ -66,11 +66,20 @@ export function formatTable(result: SqlResult): string {
 /**
  * Every run starts from an empty database, so pressing Run twice gives the same result: close any
  * transaction the last run left open, forget session state (prepared statements, temporary tables,
- * settings), and drop every table, view and index.
+ * settings, SET ROLE), remove roles a run created, and drop every table, view and index.
  */
 export async function resetDatabase(db: SqlDatabase): Promise<void> {
   await db.exec('ROLLBACK');
   await db.exec('DISCARD ALL');
+  // Roles belong to the whole server, not the schema, so remove the ones a lesson created.
+  await db.exec(`DO $$
+    DECLARE r text;
+    BEGIN
+      FOR r IN SELECT rolname FROM pg_roles WHERE rolname NOT LIKE 'pg\\_%' AND rolname <> current_user LOOP
+        EXECUTE format('DROP OWNED BY %I', r);
+        EXECUTE format('DROP ROLE %I', r);
+      END LOOP;
+    END $$;`);
   await db.exec('DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;');
 }
 

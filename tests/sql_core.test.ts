@@ -114,3 +114,12 @@ test('results before an error are shown, followed by the error', async () => {
     ' one\n-----\n   1\n(1 row)\n\n[Error] relation "missing" does not exist'
   );
 });
+
+test('roles created by a run are removed, so the same lesson can create them again', async () => {
+  const code = 'CREATE TABLE t (n int); CREATE ROLE reader; GRANT SELECT ON t TO reader; SELECT has_table_privilege(\'reader\', \'t\', \'SELECT\') AS can_read;';
+  const first = await runSqlLesson(db, code);
+  assert.equal(first, ' can_read\n----------\n true\n(1 row)');
+  assert.equal(await runSqlLesson(db, code), first);
+  await runSqlLesson(db, 'CREATE ROLE reader; SET ROLE reader;');
+  assert.equal(await runSqlLesson(db, 'SELECT current_user = session_user AS back_to_normal;'), ' back_to_normal\n----------------\n true\n(1 row)');
+});
