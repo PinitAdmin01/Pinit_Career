@@ -7,7 +7,7 @@ import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getLongLesson, getLongLessonLanguage } from '@/lib/data/longLessons';
 import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
 import { runSqlInBrowser } from '@/lib/code/sql/sqlRunner';
-import { getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
+import { getLessonCheck, getTestQuestions, parseTestQuestId } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
@@ -66,6 +66,7 @@ const RUNNER_LABELS: Record<string, string> = {
   'react-basics': '⚛️ React Node Sandbox',
   'sql-mastery': '🗄️ SQLite Engine',
   'dsa-optim': '🔢 DSA Node Sandbox',
+  'dsa-py': '🐍 Python 3 Executing',
   'fullstack-js': '🌐 Fullstack Node/Next Sandbox',
   'cloud': '☁️ AWS Cloud Simulator',
   'devops': '🚀 DevOps Pipeline Simulator',
@@ -294,7 +295,7 @@ export function useLessonEngine({
       }
 
       const parsedId = parseQuestId(questId || '');
-      if (longLesson && parsedId && getLongLessonLanguage(parsedId.prefix) === 'python') {
+      if (parsedId && getLongLessonLanguage(parsedId.prefix) === 'python') {
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting Python... (the first run takes a few seconds)" }));
         const py = await runPythonInBrowser(codeSnippet);
         const shown = [py.stdout, py.error ? `[Error] ${py.error}` : ''].filter(Boolean).join('\n');
@@ -302,7 +303,7 @@ export function useLessonEngine({
         return;
       }
 
-      if (longLesson && parsedId && getLongLessonLanguage(parsedId.prefix) === 'sql') {
+      if (parsedId && getLongLessonLanguage(parsedId.prefix) === 'sql') {
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting PostgreSQL... (the first run can take up to 15 seconds)" }));
         const shown = await runSqlInBrowser(codeSnippet);
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown }));
@@ -435,7 +436,7 @@ export function useLessonEngine({
     const pilotDay = resolvePilotDay(coursePrefix, dayNum);
 
     if (pilotDay && pilotDay.blocks && pilotDay.blocks.length > 0) {
-      const pilotSlides = pilotDay.blocks.map((block: any) => {
+      const pilotSlides = pilotDay.blocks.map((block: any, blockIndex: number) => {
         const analogy = block.media.find((m: any) => m.type === 'analogy') as any;
         const runnable = block.media.find((m: any) => m.type === 'runnable_code') as any;
         const syntax = block.media.find((m: any) => m.type === 'syntax_anatomy') as any;
@@ -472,8 +473,15 @@ export function useLessonEngine({
         const mockOutput = runnable ? `${runnerPrefix} ${runnable.filename}...\nOutput:\n${runnable.expectedOutput || 'Execution completed successfully (0 errors)'}` : undefined;
 
         const diag = block.diagnosticCheck;
-        const options = diag?.options || (diag?.expectedStringOutput ? [diag.expectedStringOutput, 'null', 'undefined'] : ['Optimal design', 'Suboptimal design', 'Syntax Error']);
-        const answerIndex = diag?.correctIndex !== undefined ? diag.correctIndex : 0;
+        const check = getLessonCheck(coursePrefix, dayNum, blockIndex);
+        const options = check?.options || ['Optimal design', 'Suboptimal design', 'Syntax Error'];
+        const answerIndex = check?.answerIndex ?? 0;
+        // Written checks explain wrong picks by option number; the options were reordered, so key them by text.
+        const diagnosisMap: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(diag?.diagnosisMap || {})) {
+          const original = /^\d+$/.test(key) && Array.isArray(diag?.options) ? diag.options[Number(key)] : undefined;
+          diagnosisMap[original ?? key] = value;
+        }
         const firstDiagnosis = Object.values(diag?.diagnosisMap || {})[0] as any;
         const explanation = (typeof diag?.explanation === 'string' && diag.explanation.trim().length > 0)
           ? diag.explanation
@@ -487,11 +495,11 @@ export function useLessonEngine({
           codeExample,
           mockOutput,
           mcq: {
-            question: diag?.questionPrompt || `What is the core takeaway for ${block.title}?`,
+            question: check?.question || `What is the core takeaway for ${block.title}?`,
             options,
             answerIndex,
             explanation,
-            diagnosisMap: diag?.diagnosisMap
+            diagnosisMap
           }
         };
       });

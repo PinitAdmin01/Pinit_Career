@@ -98,6 +98,36 @@ function outputQuestionsForDay(prefix: string, day: number): OutputQuestion[] {
   return out;
 }
 
+/**
+ * A lesson block's check as a multiple-choice question, or null if it has none. Written checks put
+ * the right answer first, so it is moved to a fixed spot picked by the seed. Predict-the-output
+ * checks get their wrong choices from `pool` (see withChoices).
+ */
+function checkQuestion(block: any, seed: number, pool: string[]): TestQuestion | null {
+  const d = block?.diagnosticCheck;
+  const question = d?.questionPrompt || d?.question;
+  if (!question) return null;
+  const explanation = typeof d.explanation === 'string' ? d.explanation : '';
+  if (Array.isArray(d.options) && d.options.length >= 2 && typeof d.correctIndex === 'number' && d.options[d.correctIndex] !== undefined) {
+    const right: string = d.options[d.correctIndex];
+    const options: string[] = seededOrder(d.options.filter((_: string, i: number) => i !== d.correctIndex), seed);
+    const answerIndex = seed % d.options.length;
+    options.splice(answerIndex, 0, right);
+    return { question, options, answerIndex, explanation };
+  }
+  if (typeof d.expectedStringOutput === 'string' && d.expectedStringOutput) {
+    return withChoices({ question, answer: d.expectedStringOutput, explanation, seed }, pool);
+  }
+  return null;
+}
+
+/** Outputs of the lessons from 10 days before `start` to 10 days after `end`: the wrong choices. */
+function outputPool(prefix: string, start: number, end: number): string[] {
+  const pool: string[] = [];
+  for (let day = Math.max(1, start - 10); day <= end + 10; day++) pool.push(...outputQuestionsForDay(prefix, day).map((q) => q.answer));
+  return pool;
+}
+
 function questionsForDay(prefix: string, day: number, pool: string[] = []): TestQuestion[] {
   const long = getLongLesson(prefix, day);
   if (long) {
@@ -111,26 +141,24 @@ function questionsForDay(prefix: string, day: number, pool: string[] = []): Test
 
   const plan = resolvePilotDay(prefix, day);
   const blocks: any[] = Array.isArray(plan?.blocks) ? plan.blocks : [];
-  const fromPlan: TestQuestion[] = [];
-  blocks.forEach((block, i) => {
-    const d = block?.diagnosticCheck;
-    const question = d?.questionPrompt || d?.question;
-    if (!question) return;
-    if (Array.isArray(d.options) && d.options.length >= 2 && typeof d.correctIndex === 'number' && d.options[d.correctIndex] !== undefined) {
-      fromPlan.push({ question, options: d.options, answerIndex: d.correctIndex, explanation: typeof d.explanation === 'string' ? d.explanation : '' });
-    } else if (typeof d.expectedStringOutput === 'string' && d.expectedStringOutput) {
-      // Predict-the-output checks: the right output among other lessons' outputs.
-      fromPlan.push(withChoices({ question, answer: d.expectedStringOutput, explanation: typeof d.explanation === 'string' ? d.explanation : '', seed: day * 7 + i }, pool));
-    }
-  });
+  const fromPlan = blocks
+    .map((block, i) => checkQuestion(block, day * 7 + i, pool))
+    .filter((q): q is TestQuestion => q !== null);
   return spread(fromPlan, QUESTIONS_PER_DAY);
+}
+
+/** The check question shown after block `blockIndex` of a lesson day, with its answer choices. */
+export function getLessonCheck(prefix: string, day: number, blockIndex: number): TestQuestion | null {
+  const plan = resolvePilotDay(prefix, day);
+  const block = Array.isArray(plan?.blocks) ? plan.blocks[blockIndex] : null;
+  if (!block) return null;
+  return checkQuestion(block, day * 7 + blockIndex, outputPool(prefix, day, day));
 }
 
 /** The questions of the test covering days start..end of a course (empty if the days have none). */
 export function getTestQuestions(prefix: string, start: number, end: number): TestQuestion[] {
   // Wrong choices come from the outputs of the lessons around this block (10 days either side).
-  const pool: string[] = [];
-  for (let day = Math.max(1, start - 10); day <= end + 10; day++) pool.push(...outputQuestionsForDay(prefix, day).map((q) => q.answer));
+  const pool = outputPool(prefix, start, end);
   const out: TestQuestion[] = [];
   for (let day = start; day <= end; day++) out.push(...questionsForDay(prefix, day, pool));
   return out;

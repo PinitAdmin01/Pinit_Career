@@ -165,6 +165,7 @@ export const COURSE_TO_ROLE: Record<string, string> = {
   'course-ai-eng': 'AI & LLM Systems Engineer',
   'course-fullstack-js': 'Full-Stack Software Developer',
   'course-dsa-optim': 'Software Development Engineer (SDE)',
+  'course-dsa-python': 'Software Development Engineer (SDE)',
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
   'course-java-logic': 'Software Development Engineer (SDE)',

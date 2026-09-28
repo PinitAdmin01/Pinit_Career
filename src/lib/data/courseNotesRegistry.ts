@@ -488,6 +488,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-dsa-python': {
+    courseId: 'course-dsa-python',
+    courseTitle: 'Data Structures & Algorithms in Python',
+    category: 'Computer Science Core',
+    summary: 'The DSA course in Python: Big-O, lists, linked lists, stacks, queues, hash maps (dict), trees, heaps (heapq), graphs and dynamic programming.',
+    realWorldAnalogy: 'Think of Data Structures & Algorithms like a GPS Navigation Engine. Instead of blindly driving down every dead-end street (brute force O(N!)), the navigation algorithm uses graph heuristics (A* / Dijkstra) to calculate the absolute optimal highway route.',
+    keyConcepts: [
+      {
+        heading: '1. Big-O Space-Time Complexity Analysis',
+        explanation: 'Measure asymptotic growth rates: O(1) constant, O(log N) logarithmic, O(N) linear, O(N log N) linearithmic, and O(N^2) quadratic.',
+        codeOrExample: '# Binary Search: O(log N) time, O(1) space\nleft, right = 0, len(arr) - 1\nwhile left <= right:\n    mid = (left + right) // 2\n    if arr[mid] == target:\n        return mid\n    if arr[mid] < target:\n        left = mid + 1\n    else:\n        right = mid - 1'
+      },
+      {
+        heading: '2. Non-Linear Structures: Trees & Graphs',
+        explanation: 'Traverse hierarchically linked data structures using Breadth-First Search (collections.deque as a queue) and Depth-First Search (a list as a stack, or recursion).',
+        codeOrExample: 'def dfs(node, visited=None):\n    visited = visited if visited is not None else set()\n    if node is None or node.id in visited:\n        return\n    visited.add(node.id)\n    for n in node.neighbors:\n        dfs(n, visited)'
+      },
+      {
+        heading: '3. Dynamic Programming & Memoization',
+        explanation: 'Break complex recursive problems into overlapping subproblems, caching results to convert exponential time O(2^N) to polynomial time O(N).',
+        codeOrExample: 'from functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)'
+      }
+    ],
+    cheatsheet: [
+      'dict / set lookup: O(1) average, O(N) worst case',
+      'list.append and list.pop(): O(1); list.pop(0) and list.insert(0, x): O(N), so use collections.deque',
+      'heapq.heappush / heapq.heappop: O(log N) (a min-heap)',
+      'sorted() / list.sort(): O(N log N)'
+    ],
+    commonPitfalls: [
+      'Recursion without a base case hits RecursionError (Python stops at about 1000 levels).',
+      'Using a mutable default argument (def f(x=[])): the same list is shared between calls.',
+      'Using list.pop(0) as a queue, which makes BFS O(N^2) instead of O(N).'
+    ],
+    interviewPrep: [
+      {
+        question: 'When would you choose a list over a linked list, and vice versa?',
+        answer: 'A Python list gives O(1) index access and appends at the end, and its items sit together in memory. A linked list gives O(1) insertions and deletions at a node you already hold, without shifting items, but finding a node takes O(N).'
+      }
+    ]
+  },
+
   'course-mobile-dev': {
     courseId: 'course-mobile-dev',
     courseTitle: 'Mobile Application Development',

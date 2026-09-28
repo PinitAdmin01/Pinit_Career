@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
-import { parseQuestId } from '../src/lib/data/curriculumEnricher';
-import { parseTestQuestId, getTestQuestions } from '../src/lib/data/courseTests';
+import { parseQuestId, resolvePilotDay } from '../src/lib/data/curriculumEnricher';
+import { parseTestQuestId, getTestQuestions, getLessonCheck } from '../src/lib/data/courseTests';
 import { REACT_30_DAYS_QUESTS } from '../src/lib/data/react30DayData';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '../src/lib/quests/questRegistry';
 
@@ -80,4 +80,22 @@ test('test questions offer real wrong answers, not undefined/null filler', () =>
   }
   // Filler is only a last resort for a course with almost no other outputs to borrow from.
   assert.ok(withFiller <= total * 0.01, `${withFiller} of ${total} questions still use filler choices`);
+});
+
+test('lesson checks show the written question, and the right answer is not always first', () => {
+  const positions = new Set<number>();
+  for (let day = 1; day <= 30; day++) {
+    const plan = resolvePilotDay('dsa-optim', day);
+    plan.blocks.forEach((block: any, i: number) => {
+      const check = getLessonCheck('dsa-optim', day, i)!;
+      const d = block.diagnosticCheck;
+      assert.equal(check.question, d.question, block.id);
+      const right = d.options ? d.options[d.correctIndex] : d.expectedStringOutput;
+      assert.equal(check.options[check.answerIndex], right, block.id);
+      assert.equal(new Set(check.options).size, check.options.length, `${block.id}: repeated choice`);
+      assert.ok(!check.options.includes('undefined') || right === 'undefined', `${block.id}: filler choice`);
+      positions.add(check.answerIndex);
+    });
+  }
+  assert.ok(positions.size >= 3, 'the right answer moves between positions');
 });

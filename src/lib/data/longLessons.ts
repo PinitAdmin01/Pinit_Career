@@ -72,6 +72,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'react-basics': 'javascript',
   python: 'python',
   'sql-mastery': 'sql',
+  'dsa-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {

@@ -300,7 +300,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         },
         {
           month: 2,
-          courseId: 'course-dsa-optim',
+          courseId: 'course-dsa-python',
           title: 'Month 2: Algorithms & Problem Solving',
           desc: 'Data structures, algorithm optimization, and competitive coding.',
           icon: '⚡',
@@ -387,7 +387,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       ],
       python_ai: [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Engineering', desc: 'Core Python, AsyncIO, and APIs', icon: '🐍', skills: ['Python', 'FastAPI'] },
-        { month: 2, courseId: 'course-dsa-optim', title: 'Month 2: Advanced DSA', desc: 'Graph algorithms, Trees, and Optimization', icon: '⚡', skills: ['DSA', 'Algorithms'] },
+        { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Advanced DSA', desc: 'Graph algorithms, Trees, and Optimization', icon: '⚡', skills: ['DSA', 'Algorithms'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning & LLMs', desc: 'Applied AI, Vector DBs, and Embeddings', icon: '🤖', skills: ['Machine Learning', 'LLMs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Computing', desc: 'Microservices, Message Brokers, and Queues', icon: '🌐', skills: ['Kafka', 'Distributed Systems'] },
@@ -468,7 +468,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       ],
       python_ai: [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
-        { month: 2, courseId: 'course-dsa-optim', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
+        { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
@@ -555,7 +555,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       ],
       python_ai: [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
-        { month: 2, courseId: 'course-dsa-optim', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
+        { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
@@ -658,7 +658,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
       ],
       python_ai: [
         { month: 1, courseId: 'course-python-backend', title: 'Month 1: Python Core & AsyncIO', desc: 'High-performance Python Services', icon: '🐍', skills: ['Python', 'FastAPI'] },
-        { month: 2, courseId: 'course-dsa-optim', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
+        { month: 2, courseId: 'course-dsa-python', title: 'Month 2: Algorithms & Problem Solving', desc: 'DSA Optimization & Interview Patterns', icon: '⚡', skills: ['DSA', 'Patterns'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-ai-eng', title: 'Month 4: Machine Learning Pipelines', desc: 'Scikit-learn, Vector DBs, and Embeddings', icon: '🤖', skills: ['ML', 'Vector DBs'] },
         { month: 5, courseId: 'course-distributed-sys', title: 'Month 5: Distributed Data Streams', desc: 'Kafka, Celery Workers, and Redis Queues', icon: '🌐', skills: ['Celery', 'Kafka'] },
@@ -680,7 +680,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 21, courseId: 'course-cybersecurity', title: 'Month 21: Model Extraction & Red Teaming', desc: 'Jailbreaks, Prompt Injections & Model Armor', icon: '🛡️', skills: ['AI Red Teaming', 'Security'] },
         { month: 22, courseId: 'course-cloud-native', title: 'Month 22: Edge AI & Mobile Neural Engines', desc: 'ONNX Runtime, CoreML & TFLite Deployment', icon: '📱', skills: ['Edge AI', 'Mobile Models'] },
         { month: 23, courseId: 'course-design-systems', title: 'Month 23: AI Ethics, Compliance & Governance', desc: 'EU AI Act, Bias Auditing & Watermarking', icon: '⚖️', skills: ['AI Governance', 'Compliance'] },
-        { month: 24, courseId: 'course-dsa-optim', title: 'Month 24: Principal AI Architect Defense', desc: 'Foundational Model Defense & Staff Level Placements', icon: '🏆', skills: ['Staff AI', 'Architecture'] }
+        { month: 24, courseId: 'course-dsa-python', title: 'Month 24: Principal AI Architect Defense', desc: 'Foundational Model Defense & Staff Level Placements', icon: '🏆', skills: ['Staff AI', 'Architecture'] }
       ]
     }
   }

@@ -4,6 +4,7 @@ import { CLOUD_30_DAYS_QUESTS } from './cloud30DayData';
 import { DEVOPS_30_DAYS_QUESTS } from './devops30DayData';
 import { DESIGN_30_DAYS_QUESTS } from './design30DayData';
 import { DSA_30_DAYS_QUESTS } from './dsa30DayData';
+import { DSA_PYTHON_30_DAYS_QUESTS } from './dsaPython30DayData';
 import { MOBILE_30_DAYS_QUESTS } from './mobile30DayData';
 import { NLP_30_DAYS_QUESTS } from './nlp30DayData';
 import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
@@ -120,6 +121,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🔢',
     quests: DSA_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-dsa-python',
+    title: 'Data Structures & Algorithms in Python',
+    desc: 'The DSA course with every lesson example and practice task in Python: complexity, lists, hash maps, trees, graphs and dynamic programming.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '🐍',
+    quests: DSA_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-mobile-dev',

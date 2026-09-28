@@ -25,6 +25,7 @@ import { JAVA_PILOT_DAYS } from './javaPilotDays';
 import { PYTHON_PILOT_DAYS } from './pythonPilotDays';
 import { DATABASE_PILOT_DAYS } from './databasePilotDays';
 import { DSA_PILOT_DAYS } from './dsaPilotDays';
+import { DSA_PYTHON_PILOT_DAYS } from './dsaPythonPilotDays';
 import { FULLSTACK_PILOT_DAYS } from './fullstackPilotDays';
 import { CLOUD_PILOT_DAYS } from './cloudPilotDays';
 import { DEVOPS_PILOT_DAYS } from './devopsPilotDays';
@@ -83,6 +84,7 @@ const PILOT_DAY_SOURCES: Record<string, unknown> = {
   'python': PYTHON_PILOT_DAYS,
   'sql-mastery': DATABASE_PILOT_DAYS,
   'dsa-optim': DSA_PILOT_DAYS,
+  'dsa-py': DSA_PYTHON_PILOT_DAYS,
   'fullstack-js': FULLSTACK_PILOT_DAYS,
   'cloud': CLOUD_PILOT_DAYS,
   'devops': DEVOPS_PILOT_DAYS,

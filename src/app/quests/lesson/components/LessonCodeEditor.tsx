@@ -1,4 +1,6 @@
 import React from 'react';
+import { parseQuestId } from '@/lib/data/curriculumEnricher';
+import { getLongLessonLanguage } from '@/lib/data/longLessons';
 
 interface LessonCodeEditorProps {
   questId: string;
@@ -28,13 +30,18 @@ export function LessonCodeEditor({
 
   if (!codeExample) return null;
 
-  const fileName = questId.toLowerCase().includes('react')
+  const id = questId.toLowerCase();
+  const prefix = parseQuestId(questId)?.prefix || '';
+  const language = getLongLessonLanguage(prefix);
+  const fileName = id.includes('react')
     ? 'app.js'
-    : questId.toLowerCase().includes('sql')
+    : language === 'sql' || id.includes('sql')
     ? 'query.sql'
-    : questId.toLowerCase().includes('python')
+    : language === 'python' || id.includes('python')
     ? 'main.py'
-    : 'Solution.java';
+    : prefix.startsWith('java')
+    ? 'Solution.java'
+    : 'main.js';
 
   const edited = code !== codeExample;
   const rows = Math.min(Math.max(code.split('\n').length, 3), 18);
