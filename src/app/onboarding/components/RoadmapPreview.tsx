@@ -9,7 +9,7 @@
 import React from 'react';
 import type { CompleteDiagnosticProfile } from '@/lib/onboarding/diagnosticEngine';
 import type { BehavioralDimension } from '@/lib/onboarding/diagnosticRegistry';
-import { BALANCED_TIP, DIMENSIONS, PLAIN_TIPS, PLAIN_TRAITS, workLabelFor } from '@/lib/onboarding/lifeQuestions';
+import { BALANCED_TIP, DIMENSIONS, PLAIN_TIPS, PLAIN_TRAITS, withArticle, workLabelFor } from '@/lib/onboarding/lifeQuestions';
 import { QT2MindsetBreakdown } from '../types';
 
 export interface RoadmapPreviewProps {
@@ -57,7 +57,7 @@ export default function RoadmapPreview({
     <div className="rp-root">
       <span className="rp-chip">Your result</span>
       <h2 className="rp-title">
-        <span aria-hidden="true">{top.icon}</span> You are a {top.name}
+        <span aria-hidden="true">{top.icon}</span> You are {withArticle(top.name)}
       </h2>
       <p className="rp-sub">
         {top.line} With a bit of {second.name} {second.icon}.

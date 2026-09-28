@@ -7,7 +7,7 @@
  */
 import {
   STUDY_QUESTION, NEXT_QUESTION, LIFE_SCENES, TIE_BREAKERS, DIMENSIONS, MAX_QUESTIONS,
-  workQuestion, questionSequence, tieBreakerFor, isComplete, evaluateLifeOnboarding, plainPersona,
+  workQuestion, questionSequence, tieBreakerFor, isComplete, evaluateLifeOnboarding, plainPersona, withArticle, PLAIN_TRAITS,
   type LifeAnswer, type LifeQuestion,
 } from '../../src/lib/onboarding/lifeQuestions';
 import { matchTrackFromGoal } from '../../src/lib/onboarding/trackResolver';
@@ -145,6 +145,11 @@ test('the result carries what the rest of the app reads', () => {
     && p.systemMetadata.routerConfig.selectedMentor === 'anish' && matchTrackFromGoal(r.role)?.courseId
     && typeof p.roadmapStrategy.allocations.executionPct === 'number';
   return ok ? true : JSON.stringify({ track: r.degreeTrack, type: r.studentType, role: r.role, v: p.systemMetadata.diagnosticVersion });
+});
+
+test('the result reads correctly: "an Explorer", "a Thinker", "a People Person"', () => {
+  const got = (['EX', 'PH', 'SIQ', 'ST'] as const).map((d) => withArticle(PLAIN_TRAITS[d].name));
+  return got.join(' / ') === 'an Explorer / a Thinker / a People Person / a Planner' ? true : got.join(' / ');
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);

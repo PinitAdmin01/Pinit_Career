@@ -21,7 +21,7 @@ import {
   DiagnosticAnswerSession,
   CompleteDiagnosticProfile,
 } from '@/lib/onboarding/diagnosticEngine';
-import { evaluateLifeOnboarding, plainPersona, PLAIN_TRAITS, type LifeAnswer } from '@/lib/onboarding/lifeQuestions';
+import { evaluateLifeOnboarding, plainPersona, PLAIN_TRAITS, withArticle, type LifeAnswer } from '@/lib/onboarding/lifeQuestions';
 import {
   speakWithAvatar,
   stopSpeaking,
@@ -1059,7 +1059,7 @@ export function useOnboardingWizard() {
     setActiveScreen('BLUEPRINT_REVEAL');
     setAnimState('nod');
     const { top, second } = plainPersona(result.profile);
-    speakReply(`All done! You are a ${PLAIN_TRAITS[top].name}, with a bit of ${PLAIN_TRAITS[second].name}. Here is your plan.`);
+    speakReply(`All done! You are ${withArticle(PLAIN_TRAITS[top].name)}, with a bit of ${PLAIN_TRAITS[second].name}. Here is your plan.`);
   };
 
   // Handle chatbot answers (Deep Path)

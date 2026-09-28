@@ -57,6 +57,9 @@ export const PLAIN_TRAITS: Record<BehavioralDimension, { name: string; icon: str
   SIQ: { name: 'People Person', icon: '🤝', line: 'You do your best work with people.' },
 };
 
+/** "a Thinker" / "an Explorer". */
+export const withArticle = (name: string) => `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`;
+
 /* ── About you ─────────────────────────────────────────────────────────── */
 
 export const STUDY_QUESTION: LifeQuestion = {
