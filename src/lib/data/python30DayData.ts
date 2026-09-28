@@ -1,579 +1,603 @@
 import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 import { CourseQuest } from './coursesData';
 
+/**
+ * 1-Month Python course (course-python-backend): from a first print() to a small web API online.
+ *
+ * Week 1: Python basics. Week 2: working with data (lists, dictionaries). Week 3: building
+ * programs (modules, files, JSON, classes, testing). Week 4: Git, the month project, web APIs,
+ * debugging, deploying and interview practice.
+ *
+ * Month project: an Expense Tracker (add expenses, see totals by category, save them, then serve
+ * them from a small FastAPI web API).
+ * Practice tasks are small Python functions checked with assert. They never use input(), because
+ * the browser cannot type into a running program; input() is taught for the laptop on Day 20.
+ *
+ * Quest ids (python-lecture1/exam/assign-day-N) are unchanged, so saved progress stays valid.
+ */
+const lines = (...l: string[]) => l.join('\n');
+const done = "print('All checks passed.')";
+
 export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
+  // ── WEEK 1: Python basics ─────────────────────────────────────────────────
   {
-    "title": "Program Execution, print(), Case-Sensitivity & Comments",
-    "desc": "Understand how Python executes code sequentially from top to bottom, print output with print(), and write comments.",
-    "syllabus": [
-      "Sequential line-by-line execution",
-      "The print() function with single and multiple arguments",
-      "Single-line (#) comments and case sensitivity rules"
+    title: "Your First Python Program",
+    desc: "Python is a programming language known for being easy to read. It is used for websites, automation, data analysis and AI. Today you run your first lines of Python and learn how Python reads your code. (Real world: Instagram's servers and YouTube's tools use Python.)",
+    syllabus: [
+      "What Python is and what people build with it.",
+      "print() and running code line by line.",
+      "Comments with # and why capital letters matter."
     ],
-    "eTitle": "System Initialization Banner Printer",
-    "eDesc": "Write a Python function `get_system_banner(system_name: str, version: str) -> str` that returns 'SYSTEM: <system_name> | VERSION: <version> | STATUS: ONLINE'.",
-    "eStarter": "def get_system_banner(system_name: str, version: str) -> str:\n    # Return formatted system banner\n    pass\n",
-    "eHint": "Use an f-string: f'SYSTEM: {system_name} | VERSION: {version} | STATUS: ONLINE'",
-    "eTest": "assert get_system_banner('AUTH_SRV', '1.0.4') == 'SYSTEM: AUTH_SRV | VERSION: 1.0.4 | STATUS: ONLINE', 'Test 1 Failed'\nassert get_system_banner('CORE', '2.0.0') == 'SYSTEM: CORE | VERSION: 2.0.0 | STATUS: ONLINE', 'Test 2 Failed'\nassert get_system_banner('GATEWAY', '3.1.2') == 'SYSTEM: GATEWAY | VERSION: 3.1.2 | STATUS: ONLINE', 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Receipt Header Formatter",
-    "aDesc": "Write a Python function `format_receipt_header(store_name: str, terminal_id: int) -> str` returning '*** <STORE_NAME> (TERM #<terminal_id>) ***'.",
-    "aStarter": "def format_receipt_header(store_name: str, terminal_id: int) -> str:\n    # Format receipt header with store name and terminal id\n    pass\n",
-    "aHint": "Return f'*** {store_name} (TERM #{terminal_id}) ***'",
-    "aTest": "assert format_receipt_header('METRO MART', 4) == '*** METRO MART (TERM #4) ***', 'Test 1 Failed'\nassert format_receipt_header('PINIT STORE', 12) == '*** PINIT STORE (TERM #12) ***', 'Test 2 Failed'\nassert format_receipt_header('QUICK STOP', 1) == '*** QUICK STOP (TERM #1) ***', 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Your App's Title",
+    eDesc: "Write a function `page_title()` that returns the text `'My Expense Tracker'`.",
+    eStarter: lines("def page_title():", "    # Return the text 'My Expense Tracker'", "    pass"),
+    eHint: "return 'My Expense Tracker'",
+    eTest: lines("assert page_title() == 'My Expense Tracker', 'Expected My Expense Tracker'", done),
+    aTitle: "Say Hello",
+    aDesc: "Write `say_hello(name)` that returns `'Hello, '` followed by the name. Example: `say_hello('Asha')` returns `'Hello, Asha'`.",
+    aStarter: lines("def say_hello(name):", "    # Join 'Hello, ' and name with +", "    pass"),
+    aHint: "return 'Hello, ' + name",
+    aTest: lines("assert say_hello('Asha') == 'Hello, Asha', 'say_hello(\"Asha\") should be Hello, Asha'", "assert say_hello('Ravi') == 'Hello, Ravi'", done)
   },
   {
-    "title": "Variables, Dynamic Typing & The type() Function",
-    "desc": "Master variable assignment, dynamic type binding in memory, and type inspection using Python's built-in type() and isinstance() functions.",
-    "syllabus": [
-      "Variables as name tags pointing to objects in heap memory",
-      "Primitive data types: int, float, str, bool",
-      "Inspecting data types with type() and isinstance()"
+    title: "Variables and Data Types",
+    desc: "A variable is a labelled box that stores a value. Python has a few basic kinds of values: text (str), whole numbers (int), decimal numbers (float) and True/False (bool). (Real world: a shopping app keeps your cart total in a variable.)",
+    syllabus: [
+      "Creating and changing variables.",
+      "str, int, float and bool, and checking them with type().",
+      "Turning numbers into text with str() and text into numbers with int() and float()."
     ],
-    "eTitle": "Payload Type Inspector",
-    "eDesc": "Write a Python function `identify_data_type(val) -> str` that returns 'INTEGER', 'FLOAT', 'STRING', 'BOOLEAN', or 'OTHER'.",
-    "eStarter": "def identify_data_type(val) -> str:\n    # Return string label of the type\n    pass\n",
-    "eHint": "Check isinstance(val, bool) first (since bool is a subclass of int in Python), then int, float, str.",
-    "eTest": "assert identify_data_type(True) == 'BOOLEAN', 'Test 1 Failed'\nassert identify_data_type(42) == 'INTEGER', 'Test 2 Failed'\nassert identify_data_type(3.14) == 'FLOAT', 'Test 3 Failed'\nassert identify_data_type('hello') == 'STRING', 'Test 4 Failed'\nassert identify_data_type([]) == 'OTHER', 'Test 5 Failed'\nprint('All 5 assertions passed.')",
-    "aTitle": "Sensor Tag Formatter",
-    "aDesc": "Write a Python function `format_sensor_reading(name: str, reading: float, active: bool) -> str` returning '<name>: <reading> (Active: <active>)'.",
-    "aStarter": "def format_sensor_reading(name: str, reading: float, active: bool) -> str:\n    # Return formatted sensor reading string\n    pass\n",
-    "aHint": "Return f'{name}: {reading} (Active: {active})'",
-    "aTest": "assert format_sensor_reading('TEMP_1', 24.5, True) == 'TEMP_1: 24.5 (Active: True)', 'Test 1 Failed'\nassert format_sensor_reading('PRESSURE', 101.3, False) == 'PRESSURE: 101.3 (Active: False)', 'Test 2 Failed'\nassert format_sensor_reading('HUMIDITY', 65.0, True) == 'HUMIDITY: 65.0 (Active: True)', 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Describe an Expense",
+    eDesc: "Write `describe_expense(item, amount)` that returns text like `'Tea costs 20'`.",
+    eStarter: lines("def describe_expense(item, amount):", "    # Join item, ' costs ' and the amount as text", "    pass"),
+    eHint: "return item + ' costs ' + str(amount)",
+    eTest: lines("assert describe_expense('Tea', 20) == 'Tea costs 20', 'Expected Tea costs 20'", "assert describe_expense('Bus ticket', 45) == 'Bus ticket costs 45'", done),
+    aTitle: "Is It a Big Expense?",
+    aDesc: "Write `is_big_expense(amount)` that returns `True` when the amount is 1000 or more, otherwise `False`.",
+    aStarter: lines("def is_big_expense(amount):", "    # Compare amount with 1000 using >=", "    pass"),
+    aHint: "return amount >= 1000",
+    aTest: lines("assert is_big_expense(1000) is True", "assert is_big_expense(2500) is True", "assert is_big_expense(999) is False", done)
   },
   {
-    "title": "User Input, String Parsing & Type Casting (int, float, str)",
-    "desc": "Handle user input, parse string numbers, and cast safely between types with defensive validation and try-except blocks.",
-    "syllabus": [
-      "The input() function and string returns",
-      "Explicit casting with int(), float(), str()",
-      "Preventing ValueError traps with validation"
+    title: "Working With Text",
+    desc: "Text in Python is called a string. You will join strings, count their letters, pick out single characters, and change them with built-in tools like upper() and strip(). (Real world: apps clean up the names people type before saving them.)",
+    syllabus: [
+      "Joining strings and repeating them.",
+      "len(), and picking characters by position.",
+      "String tools: upper(), lower(), strip(), replace()."
     ],
-    "eTitle": "Safe Integer Parser with Fallback",
-    "eDesc": "Write a Python function `safe_parse_int(text: str, fallback: int) -> int` that parses text to an int, or returns fallback if conversion fails.",
-    "eStarter": "def safe_parse_int(text: str, fallback: int) -> int:\n    # Try to convert text to int; return fallback on error\n    pass\n",
-    "eHint": "Use a try-except block to catch ValueError during int(text) conversion. If ValueError occurs, safely return fallback.",
-    "eTest": "assert safe_parse_int('120', 0) == 120, 'Test 1 Failed'\nassert safe_parse_int('invalid', 10) == 10, 'Test 2 Failed'\nassert safe_parse_int('-45', 0) == -45, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Currency String to Cents Converter",
-    "aDesc": "Write a Python function `dollars_to_cents(dollar_str: str) -> int` that converts a string like '19.99' into integer cents (1999).",
-    "aStarter": "def dollars_to_cents(dollar_str: str) -> int:\n    # Convert dollar string to total integer cents\n    pass\n",
-    "aHint": "Convert dollar_str to float, multiply by 100, and wrap with round() and int() for exact integer conversion.",
-    "aTest": "assert dollars_to_cents('19.99') == 1999, 'Test 1 Failed'\nassert dollars_to_cents('5.00') == 500, 'Test 2 Failed'\nassert dollars_to_cents('0.75') == 75, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Shout It",
+    eDesc: "Write `shout(text)` that returns the text in capital letters with `'!'` at the end. Example: `shout('sale')` returns `'SALE!'`.",
+    eStarter: lines("def shout(text):", "    # Use upper() and add '!'", "    pass"),
+    eHint: "return text.upper() + '!'",
+    eTest: lines("assert shout('sale') == 'SALE!', 'Expected SALE!'", "assert shout('Hi') == 'HI!'", done),
+    aTitle: "Initials",
+    aDesc: "Write `initials(first, last)` that returns the first letter of each name in capitals. Example: `initials('asha', 'rao')` returns `'AR'`.",
+    aStarter: lines("def initials(first, last):", "    # first[0] is the first letter", "    pass"),
+    aHint: "return (first[0] + last[0]).upper()",
+    aTest: lines("assert initials('asha', 'rao') == 'AR', 'Expected AR'", "assert initials('Ravi', 'kumar') == 'RK'", done)
   },
   {
-    "title": "Arithmetic Operations, Float Division /, Floor Division // & Modulo %",
-    "desc": "Master mathematical operators in Python including floor division, modulo, and precedence rules.",
-    "syllabus": [
-      "Addition (+), subtraction (-), multiplication (*)",
-      "Float division (/) vs floor division (//)",
-      "The remainder operator (%) and even/odd parity checks"
+    title: "Numbers and Maths",
+    desc: "Python is an excellent calculator. You will use +, -, *, /, and two special operators: // for dividing without the decimal part, and % for the remainder. You will also round money to 2 decimal places. (Real world: every bill, discount and GST calculation.)",
+    syllabus: [
+      "+, -, *, / and the order of operations.",
+      "// (floor division) and % (remainder).",
+      "round() and why 0.1 + 0.2 is not exactly 0.3."
     ],
-    "eTitle": "Time Splitter: Total Seconds to Hours, Minutes, Seconds",
-    "eDesc": "Write a Python function `split_seconds(total_seconds: int) -> tuple` returning `(hours, minutes, seconds)`.",
-    "eStarter": "def split_seconds(total_seconds: int) -> tuple:\n    # Return (hours, minutes, seconds)\n    pass\n",
-    "eHint": "Calculate hours with floor division (total_seconds // 3600), remainder with %, then minutes (rem // 60), and remaining seconds.",
-    "eTest": "assert split_seconds(3665) == (1, 1, 5), 'Test 1 Failed'\nassert split_seconds(60) == (0, 1, 0), 'Test 2 Failed'\nassert split_seconds(7200) == (2, 0, 0), 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Even/Odd Number Classifier",
-    "aDesc": "Write a Python function `is_even(n: int) -> bool` returning True if n is even, False otherwise.",
-    "aStarter": "def is_even(n: int) -> bool:\n    # Return True if even, False if odd\n    pass\n",
-    "aHint": "Return n % 2 == 0",
-    "aTest": "assert is_even(4) == True, 'Test 1 Failed'\nassert is_even(7) == False, 'Test 2 Failed'\nassert is_even(0) == True, 'Test 3 Failed'\nassert is_even(-2) == True, 'Test 4 Failed'\nprint('All 4 assertions passed.')"
+    eTitle: "Add GST",
+    eDesc: "Write `add_gst(price)` that returns the price plus 18% GST, rounded to 2 decimal places.",
+    eStarter: lines("def add_gst(price):", "    # price + 18 percent, then round(..., 2)", "    pass"),
+    eHint: "return round(price * 1.18, 2)",
+    eTest: lines("assert add_gst(100) == 118.0, 'Expected 118.0'", "assert add_gst(250) == 295.0", "assert add_gst(99.99) == 117.99", done),
+    aTitle: "Split the Bill",
+    aDesc: "Write `split_bill(total, people)` that returns each person's share rounded to 2 decimal places.",
+    aStarter: lines("def split_bill(total, people):", "    # Divide, then round to 2 places", "    pass"),
+    aHint: "return round(total / people, 2)",
+    aTest: lines("assert split_bill(1000, 4) == 250.0", "assert split_bill(100, 3) == 33.33, 'Expected 33.33'", done)
   },
   {
-    "title": "⭐ MILESTONE 1: Interactive Decision Console & Rule Engine",
-    "desc": "Synthesize if, elif, else branch logic, boolean comparison operators, and short-circuit evaluation into an enterprise rule evaluator.",
-    "syllabus": [
-      "Comparison operators (==, !=, <, <=, >, >=)",
-      "Boolean operators (and, or, not) and truth tables",
-      "Milestone Project: Loan Eligibility & Risk Rule Engine"
+    title: "Making Decisions",
+    desc: "Programs make choices: free delivery above a bill amount, a warning when you overspend. You will use if, elif and else, and combine conditions with and, or and not. Python uses indentation, the spaces at the start of a line, to know which lines belong to an if. (Real world: a food app deciding the delivery fee.)",
+    syllabus: [
+      "Comparisons: ==, !=, <, >, <=, >=.",
+      "if, elif, else and indentation.",
+      "and, or, not."
     ],
-    "eTitle": "Loan Risk Score Evaluator",
-    "eDesc": "Write a Python function `evaluate_loan_risk(credit_score: int, annual_income: int, has_defaults: bool) -> str` returning 'APPROVED' (credit >= 700 and income >= 50000 and not defaults), 'MANUAL_REVIEW' (credit >= 600 and income >= 30000 and not defaults), or 'REJECTED'.",
-    "eStarter": "def evaluate_loan_risk(credit_score: int, annual_income: int, has_defaults: bool) -> str:\n    # Return 'APPROVED', 'MANUAL_REVIEW', or 'REJECTED'\n    pass\n",
-    "eHint": "Check the APPROVED condition first (credit >= 700 and income >= 50000 and not defaults), then MANUAL_REVIEW (credit >= 600 and income >= 30000 and not defaults), else return 'REJECTED'.",
-    "eTest": "assert evaluate_loan_risk(750, 60000, False) == 'APPROVED', 'Test 1 Failed'\nassert evaluate_loan_risk(650, 40000, False) == 'MANUAL_REVIEW', 'Test 2 Failed'\nassert evaluate_loan_risk(750, 60000, True) == 'REJECTED', 'Test 3 Failed'\nassert evaluate_loan_risk(550, 80000, False) == 'REJECTED', 'Test 4 Failed'\nprint('All 4 assertions passed.')",
-    "aTitle": "E-Commerce Discount Tier Calculator",
-    "aDesc": "Write a Python function `calculate_discount_tier(cart_total: float, is_vip: bool) -> float` returning discount percentage (0.20 if VIP and cart >= 100; 0.10 if cart >= 100; 0.05 if VIP; 0.0 otherwise).",
-    "aStarter": "def calculate_discount_tier(cart_total: float, is_vip: bool) -> float:\n    # Return discount rate\n    pass\n",
-    "aHint": "Check both conditions (cart >= 100 and is_vip) first.",
-    "aTest": "assert calculate_discount_tier(150.0, True) == 0.20, 'Test 1 Failed'\nassert calculate_discount_tier(120.0, False) == 0.10, 'Test 2 Failed'\nassert calculate_discount_tier(50.0, True) == 0.05, 'Test 3 Failed'\nassert calculate_discount_tier(40.0, False) == 0.0, 'Test 4 Failed'\nprint('All 4 assertions passed.')"
+    eTitle: "Pass or Fail",
+    eDesc: "Write `grade(score)` that returns `'Pass'` when the score is 40 or more, otherwise `'Fail'`.",
+    eStarter: lines("def grade(score):", "    # Use if and else", "    pass"),
+    eHint: "if score >= 40: return 'Pass', otherwise return 'Fail'",
+    eTest: lines("assert grade(40) == 'Pass'", "assert grade(85) == 'Pass'", "assert grade(39) == 'Fail'", done),
+    aTitle: "Delivery Fee",
+    aDesc: "Write `delivery_fee(bill)` that returns 0 when the bill is 499 or more, otherwise 40.",
+    aStarter: lines("def delivery_fee(bill):", "    # Free delivery from 499", "    pass"),
+    aHint: "return 0 if bill >= 499 else 40",
+    aTest: lines("assert delivery_fee(499) == 0", "assert delivery_fee(1200) == 0", "assert delivery_fee(300) == 40", done)
   },
   {
-    "title": "The while Loop & Sentinel Input Validation",
-    "desc": "Master condition-first iteration, sentinel loops, break statements, and continue keywords.",
-    "syllabus": [
-      "The while loop syntax and condition re-evaluation",
-      "Loop termination guards and preventing infinite loops",
-      "Using break and continue for fine-grained loop control"
+    title: "Loops: Doing Things Again and Again",
+    desc: "Loops repeat work. A for loop goes through every item in a list or every number in a range. A while loop repeats as long as a condition is true. You will also learn the accumulator pattern: start a total at 0 and add to it in the loop. (Real world: adding up every item in your cart.)",
+    syllabus: [
+      "for loops with lists and range().",
+      "The accumulator pattern: totals and counts.",
+      "while loops, and how to avoid endless loops."
     ],
-    "eTitle": "Collatz Conjecture Step Counter",
-    "eDesc": "Write a Python function `collatz_steps(n: int) -> int` that calculates how many steps it takes to reach 1 (if even: n // 2, if odd: 3*n + 1). Return 0 for n=1.",
-    "eStarter": "def collatz_steps(n: int) -> int:\n    # Count steps until n reaches 1\n    pass\n",
-    "eHint": "Initialize a step counter to 0. While n > 1, update n = n // 2 if n is even else 3 * n + 1, and increment the step counter.",
-    "eTest": "assert collatz_steps(1) == 0, 'Test 1 Failed'\nassert collatz_steps(6) == 8, 'Test 2 Failed'\nassert collatz_steps(27) == 111, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Target Balance Investment Doubler",
-    "aDesc": "Write a Python function `years_to_target(principal: float, rate: float, target: float) -> int` that calculates years required to reach or exceed target balance with annual compound interest.",
-    "aStarter": "def years_to_target(principal: float, rate: float, target: float) -> int:\n    # Count years until principal >= target\n    pass\n",
-    "aHint": "while balance < target: balance += balance * rate; years += 1",
-    "aTest": "assert years_to_target(1000.0, 0.10, 2000.0) == 8, 'Test 1 Failed'\nassert years_to_target(500.0, 0.05, 500.0) == 0, 'Test 2 Failed'\nassert years_to_target(1000.0, 0.05, 1102.5) == 2, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Add Them Up",
+    eDesc: "Write `total(amounts)` that adds up all the numbers in the list with a for loop. An empty list gives 0.",
+    eStarter: lines("def total(amounts):", "    result = 0", "    # add each amount to result", "    return result"),
+    eHint: "for amount in amounts: result = result + amount",
+    eTest: lines("assert total([20, 45, 100]) == 165, 'Expected 165'", "assert total([]) == 0", done),
+    aTitle: "Count the Big Ones",
+    aDesc: "Write `count_above(amounts, limit)` that returns how many amounts are greater than the limit.",
+    aStarter: lines("def count_above(amounts, limit):", "    count = 0", "    # add 1 for each amount bigger than limit", "    return count"),
+    aHint: "if amount > limit: count = count + 1",
+    aTest: lines("assert count_above([100, 500, 1200, 50], 400) == 2, 'Expected 2'", "assert count_above([], 10) == 0", done)
   },
   {
-    "title": "The for Loop with range() & The Accumulator Pattern",
-    "desc": "Iterate over definite sequences using range(start, stop, step) and accumulate sums and products.",
-    "syllabus": [
-      "range(stop), range(start, stop), range(start, stop, step)",
-      "The accumulator pattern (running totals and running products)",
-      "Counting backwards with negative steps"
+    title: "Functions: Your Own Tools",
+    desc: "A function is a named set of steps you write once and use many times. It takes inputs (parameters) and gives back an answer with return. Good functions do one job and have clear names. (Real world: a calculate_gst function used on every bill in a shop app.)",
+    syllabus: [
+      "def, parameters and return.",
+      "Default values for parameters.",
+      "Why return is different from print."
     ],
-    "eTitle": "Sum of Multiples in Range",
-    "eDesc": "Write a Python function `sum_multiples(limit: int, factor: int) -> int` returning the sum of all multiples of `factor` strictly less than `limit`.",
-    "eStarter": "def sum_multiples(limit: int, factor: int) -> int:\n    # Return sum of multiples of factor < limit\n    pass\n",
-    "eHint": "Python's `range` can step by a fixed amount — set the start to `factor`, the stop to `limit`, and the step to `factor` to generate all multiples; then pass to `sum`.",
-    "eTest": "assert sum_multiples(10, 3) == 18, 'Test 1 Failed'\nassert sum_multiples(20, 5) == 30, 'Test 2 Failed'\nassert sum_multiples(5, 10) == 0, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Factorial Calculator",
-    "aDesc": "Write a Python function `calculate_factorial(n: int) -> int` that calculates n! (return 1 for n=0).",
-    "aStarter": "def calculate_factorial(n: int) -> int:\n    # Calculate n factorial\n    pass\n",
-    "aHint": "total = 1; for i in range(1, n + 1): total *= i; return total",
-    "aTest": "assert calculate_factorial(0) == 1, 'Test 1 Failed'\nassert calculate_factorial(5) == 120, 'Test 2 Failed'\nassert calculate_factorial(6) == 720, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Average",
+    eDesc: "Write `average(numbers)` that returns the average of the list rounded to 2 places, or 0 for an empty list.",
+    eStarter: lines("def average(numbers):", "    # Handle the empty list first", "    pass"),
+    eHint: "if not numbers: return 0. Otherwise return round(sum(numbers) / len(numbers), 2)",
+    eTest: lines("assert average([10, 20, 30]) == 20.0", "assert average([1, 2]) == 1.5", "assert average([]) == 0, 'An empty list should give 0'", done),
+    aTitle: "Greeting With a Default",
+    aDesc: "Write `greet(name, greeting='Hello')` that returns text like `'Hello, Asha!'`. If a greeting is given, use it instead.",
+    aStarter: lines("def greet(name, greeting='Hello'):", "    # Join greeting, ', ', name and '!'", "    pass"),
+    aHint: "return greeting + ', ' + name + '!'",
+    aTest: lines("assert greet('Asha') == 'Hello, Asha!'", "assert greet('Ravi', 'Namaste') == 'Namaste, Ravi!'", done)
+  },
+
+  // ── WEEK 2: Working with data ─────────────────────────────────────────────
+  {
+    title: "Lists: Keeping Many Values Together",
+    desc: "A list keeps many values in order, like a shopping list. You can read items by position (starting at 0), add items, remove items and count them. (Real world: your recent transactions in a banking app are a list.)",
+    syllabus: [
+      "Creating lists and reading items by position, including negative positions.",
+      "append(), remove(), len() and in.",
+      "Slicing: taking part of a list with [start:stop]."
+    ],
+    eTitle: "First and Last",
+    eDesc: "Write `first_and_last(items)` that returns a new list with the first and the last item.",
+    eStarter: lines("def first_and_last(items):", "    # items[-1] is the last item", "    pass"),
+    eHint: "return [items[0], items[-1]]",
+    eTest: lines("assert first_and_last(['a', 'b', 'c', 'd']) == ['a', 'd'], 'Expected [a, d]'", done),
+    aTitle: "Add Without Changing",
+    aDesc: "Write `add_item(items, item)` that returns a NEW list with the item at the end. The original list must not change.",
+    aStarter: lines("def add_item(items, item):", "    # items + [item] makes a new list", "    pass"),
+    aHint: "return items + [item]",
+    aTest: lines("original = ['Tea']", "result = add_item(original, 'Bus')", "assert result == ['Tea', 'Bus']", "assert original == ['Tea'], 'The original list was changed'", done)
   },
   {
-    "title": "Nested Loops, Grid Traversal & String Formatting (f-strings)",
-    "desc": "Master nested loop iterations for 2D matrix grids, coordinate generation, and structured f-string reporting.",
-    "syllabus": [
-      "Nested for loop mechanics (outer row, inner column)",
-      "2D coordinate space mapping",
-      "Precision f-string formatting (decimals, padding, alignment)"
+    title: "Looping Over Lists and List Comprehensions",
+    desc: "Most work with lists means doing something for every item: changing each one, or keeping only some. Python has a short, popular way to do this called a list comprehension. (Real world: showing only this month's expenses.)",
+    syllabus: [
+      "for loops over lists, and enumerate() for positions.",
+      "List comprehensions: [x * 2 for x in numbers].",
+      "Filtering: [x for x in numbers if x > 100]."
     ],
-    "eTitle": "Multiplication Table Grid Generator",
-    "eDesc": "Write a Python function `generate_grid(rows: int, cols: int) -> list` that returns a 2D list of products where cell [r][c] = (r+1) * (c+1).",
-    "eStarter": "def generate_grid(rows: int, cols: int) -> list:\n    # Return 2D list of products\n    pass\n",
-    "eHint": "Use nested list comprehension: [[(r+1)*(c+1) for c in range(cols)] for r in range(rows)]",
-    "eTest": "assert generate_grid(2, 3) == [[1, 2, 3], [2, 4, 6]], 'Test 1 Failed'\nassert generate_grid(1, 1) == [[1]], 'Test 2 Failed'\nassert generate_grid(3, 2) == [[1, 2], [2, 4], [3, 6]], 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Coordinate Pair Flattener",
-    "aDesc": "Write a Python function `generate_coordinates(max_x: int, max_y: int) -> list` returning a list of tuple pairs `(x, y)` for x in 0..max_x and y in 0..max_y.",
-    "aStarter": "def generate_coordinates(max_x: int, max_y: int) -> list:\n    # Return list of coordinate tuples\n    pass\n",
-    "aHint": "[(x, y) for x in range(max_x + 1) for y in range(max_y + 1)]",
-    "aTest": "assert generate_coordinates(1, 1) == [(0, 0), (0, 1), (1, 0), (1, 1)], 'Test 1 Failed'\nassert len(generate_coordinates(2, 2)) == 9, 'Test 2 Failed'\nassert generate_coordinates(0, 2) == [(0, 0), (0, 1), (0, 2)], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Double Everything",
+    eDesc: "Write `double_all(numbers)` that returns a new list with every number doubled, using a list comprehension.",
+    eStarter: lines("def double_all(numbers):", "    # [ ... for n in numbers]", "    pass"),
+    eHint: "return [n * 2 for n in numbers]",
+    eTest: lines("assert double_all([1, 2, 3]) == [2, 4, 6]", "assert double_all([]) == []", done),
+    aTitle: "Only the Big Ones",
+    aDesc: "Write `above(numbers, limit)` that returns only the numbers greater than the limit.",
+    aStarter: lines("def above(numbers, limit):", "    # [n for n in numbers if ...]", "    pass"),
+    aHint: "return [n for n in numbers if n > limit]",
+    aTest: lines("assert above([100, 500, 1200, 50], 400) == [500, 1200]", "assert above([1, 2], 5) == []", done)
   },
   {
-    "title": "Functions with def, Parameters, Return Values & Docstrings",
-    "desc": "Master reusable modular programming, parameter passing, return statements, and documentation docstrings.",
-    "syllabus": [
-      "The def keyword and function anatomy",
-      "Parameters vs arguments and multiple return values",
-      "Writing docstrings and pure functions"
+    title: "Dictionaries: Named Details",
+    desc: "A dictionary stores values under names called keys, like a form with labelled fields. You read a value by its key, add new keys, and use get() to avoid errors when a key is missing. (Real world: a product's name, price and stock in a shopping app.)",
+    syllabus: [
+      "Creating dictionaries and reading values by key.",
+      "Adding and changing keys; get() with a default.",
+      "Looping over keys, values and items()."
     ],
-    "eTitle": "Celsius to Fahrenheit & Kelvin Converter",
-    "eDesc": "Write a Python function `convert_temperature(celsius: float) -> tuple` returning `(fahrenheit, kelvin)` rounded to 2 decimals.",
-    "eStarter": "def convert_temperature(celsius: float) -> tuple:\n    # Return (f, k)\n    pass\n",
-    "eHint": "f = round((celsius * 9/5) + 32, 2); k = round(celsius + 273.15, 2); return (f, k)",
-    "eTest": "assert convert_temperature(0.0) == (32.0, 273.15), 'Test 1 Failed'\nassert convert_temperature(100.0) == (212.0, 373.15), 'Test 2 Failed'\nassert convert_temperature(-40.0) == (-40.0, 233.15), 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Volume of Cylinder Calculator",
-    "aDesc": "Write a Python function `cylinder_volume(radius: float, height: float) -> float` returning volume $V = \\pi r^2 h$ rounded to 2 decimal places (use 3.14159 for pi).",
-    "aStarter": "def cylinder_volume(radius: float, height: float) -> float:\n    # Calculate cylinder volume\n    pass\n",
-    "aHint": "return round(3.14159 * (radius ** 2) * height, 2)",
-    "aTest": "assert cylinder_volume(3.0, 5.0) == 141.37, 'Test 1 Failed'\nassert cylinder_volume(1.0, 1.0) == 3.14, 'Test 2 Failed'\nassert cylinder_volume(2.0, 10.0) == 125.66, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Make an Expense",
+    eDesc: "Write `make_expense(item, amount, category)` that returns a dictionary with the keys `'item'`, `'amount'` and `'category'`.",
+    eStarter: lines("def make_expense(item, amount, category):", "    # return { ... }", "    pass"),
+    eHint: "return {'item': item, 'amount': amount, 'category': category}",
+    eTest: lines("e = make_expense('Tea', 20, 'food')", "assert e == {'item': 'Tea', 'amount': 20, 'category': 'food'}, 'Wrong dictionary'", done),
+    aTitle: "Price Lookup",
+    aDesc: "Write `price_of(prices, item)` that returns the item's price from the dictionary, or 0 if the item is not there.",
+    aStarter: lines("def price_of(prices, item):", "    # Use prices.get(...)", "    pass"),
+    aHint: "return prices.get(item, 0)",
+    aTest: lines("prices = {'tea': 20, 'coffee': 40}", "assert price_of(prices, 'coffee') == 40", "assert price_of(prices, 'juice') == 0", done)
   },
   {
-    "title": "⭐ MILESTONE 2: Multi-Function Financial Utility Engine & Stack Frames",
-    "desc": "Synthesize multi-function composition, local vs global scope, and call stack frame execution into a modular financial engine.",
-    "syllabus": [
-      "Variable scope (Local, Enclosing, Global, Built-in - LEGB)",
-      "Function composition and passing functions as inputs",
-      "Milestone Project: Modular Payroll & Tax Deduction Engine"
+    title: "Lists of Dictionaries: Real Data",
+    desc: "Real app data is usually a list of dictionaries: a list of expenses, where each expense is a dictionary. Today you add up, filter and search this kind of data, exactly what your Expense Tracker will do. (Real world: every API answer you will ever read looks like this.)",
+    syllabus: [
+      "Reading values: expenses[0]['amount'].",
+      "Totals and filters over a list of dictionaries.",
+      "sum() with a comprehension."
     ],
-    "eTitle": "Net Salary & Tax Deduction Engine",
-    "eDesc": "Write a Python function `compute_net_salary(gross_pay: float, deduction_rate: float, bonus: float) -> float` that deducts tax from gross_pay and adds bonus. Return net rounded to 2 decimals.",
-    "eStarter": "def compute_net_salary(gross_pay: float, deduction_rate: float, bonus: float) -> float:\n    # Return net pay\n    pass\n",
-    "eHint": "tax = gross_pay * deduction_rate; return round(gross_pay - tax + bonus, 2)",
-    "eTest": "assert compute_net_salary(5000.0, 0.20, 500.0) == 4500.0, 'Test 1 Failed'\nassert compute_net_salary(3000.0, 0.10, 0.0) == 2700.0, 'Test 2 Failed'\nassert compute_net_salary(4000.0, 0.15, 250.0) == 3650.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Compound Interest Metric Engine",
-    "aDesc": "Write a Python function `compound_interest(principal: float, rate: float, times_per_year: int, years: int) -> float` returning total future value $A = P(1 + r/n)^{nt}$ rounded to 2 decimals.",
-    "aStarter": "def compound_interest(principal: float, rate: float, times_per_year: int, years: int) -> float:\n    # Calculate future value\n    pass\n",
-    "aHint": "return round(principal * ((1 + (rate / times_per_year)) ** (times_per_year * years)), 2)",
-    "aTest": "assert compound_interest(1000.0, 0.05, 1, 2) == 1102.5, 'Test 1 Failed'\nassert compound_interest(5000.0, 0.08, 12, 5) == 7449.23, 'Test 2 Failed'\nassert compound_interest(2000.0, 0.06, 4, 3) == 2391.24, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Total Spent",
+    eDesc: "Write `total_spent(expenses)` that returns the sum of every expense's `'amount'`.",
+    eStarter: lines("def total_spent(expenses):", "    # sum(... for e in expenses)", "    pass"),
+    eHint: "return sum(e['amount'] for e in expenses)",
+    eTest: lines("data = [{'item': 'Tea', 'amount': 20}, {'item': 'Bus', 'amount': 45}]", "assert total_spent(data) == 65", "assert total_spent([]) == 0", done),
+    aTitle: "One Category",
+    aDesc: "Write `by_category(expenses, category)` that returns only the expenses in that category.",
+    aStarter: lines("def by_category(expenses, category):", "    # keep e when e['category'] == category", "    pass"),
+    aHint: "return [e for e in expenses if e['category'] == category]",
+    aTest: lines("data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]", "result = by_category(data, 'food')", "assert [e['item'] for e in result] == ['Tea', 'Lunch']", done)
   },
   {
-    "title": "Python Lists — Indexing, Slicing [start:stop:step] & CRUD Operations",
-    "desc": "Master mutable sequences, 0-based and negative indexing, slicing tricks, and list mutation methods.",
-    "syllabus": [
-      "List creation, append(), insert(), pop(), remove()",
-      "Negative indexing (arr[-1] for last element)",
-      "Slicing syntax [start:stop:step] and reverse slicing [::-1]"
+    title: "Tuples and Sets",
+    desc: "Two more ways to group values. A tuple is like a list that cannot be changed, good for fixed pairs like (latitude, longitude). A set keeps only unique values, perfect for removing duplicates. (Real world: finding the different categories you spent money on.)",
+    syllabus: [
+      "Tuples: creating, reading and unpacking.",
+      "Sets: unique values, add() and in.",
+      "When to use a list, tuple, set or dictionary."
     ],
-    "eTitle": "List Middle Window Extractor",
-    "eDesc": "Write a Python function `extract_middle_window(items: list, k: int) -> list` that removes `k` elements from both the start and end of the list.",
-    "eStarter": "def extract_middle_window(items: list, k: int) -> list:\n    # Return sublist excluding first k and last k elements\n    pass\n",
-    "eHint": "Use slicing: items[k : -k] if k > 0 else items",
-    "eTest": "assert extract_middle_window([10, 20, 30, 40, 50, 60], 1) == [20, 30, 40, 50], 'Test 1 Failed'\nassert extract_middle_window([1, 2, 3, 4, 5], 2) == [3], 'Test 2 Failed'\nassert extract_middle_window([1, 2, 3], 0) == [1, 2, 3], 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "List Deduplicator and Reverser",
-    "aDesc": "Write a Python function `reverse_unique_order(items: list) -> list` that keeps only the first occurrence of each element, then returns the result reversed.",
-    "aStarter": "def reverse_unique_order(items: list) -> list:\n    # Preserve first-seen uniqueness and reverse\n    pass\n",
-    "aHint": "Use a seen set or dict.fromkeys(items), convert to list, and slice [::-1]",
-    "aTest": "assert reverse_unique_order([1, 2, 2, 3, 1, 4]) == [4, 3, 2, 1], 'Test 1 Failed'\nassert reverse_unique_order(['a', 'b', 'a']) == ['b', 'a'], 'Test 2 Failed'\nassert reverse_unique_order([]) == [], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Unique Categories",
+    eDesc: "Write `unique_categories(expenses)` that returns the different categories, sorted A to Z, as a list.",
+    eStarter: lines("def unique_categories(expenses):", "    # a set removes duplicates; sorted() gives a sorted list", "    pass"),
+    eHint: "return sorted({e['category'] for e in expenses})",
+    eTest: lines("data = [{'category': 'food'}, {'category': 'travel'}, {'category': 'food'}]", "assert unique_categories(data) == ['food', 'travel']", done),
+    aTitle: "Smallest and Largest",
+    aDesc: "Write `min_max(numbers)` that returns a tuple `(smallest, largest)`.",
+    aStarter: lines("def min_max(numbers):", "    # return (..., ...)", "    pass"),
+    aHint: "return (min(numbers), max(numbers))",
+    aTest: lines("assert min_max([40, 10, 90]) == (10, 90)", "assert min_max([5]) == (5, 5)", done)
   },
   {
-    "title": "List Comprehensions, Filtering & In-Place vs Copy Sorting",
-    "desc": "Write clean, Pythonic transformations using list comprehensions, sorting with sort() vs sorted(), and lambda keys.",
-    "syllabus": [
-      "List comprehension syntax: [expr for item in list if condition]",
-      "In-place mutation (list.sort()) vs return copy (sorted(list))",
-      "Sorting with custom key functions"
+    title: "f-strings: Clean, Readable Output",
+    desc: "f-strings are the modern way to put values into text: f'Total: {total}'. They can also format numbers, like showing exactly 2 decimal places or lining up columns. (Real world: printing a neat receipt.)",
+    syllabus: [
+      "f'...' with {values} and expressions inside.",
+      "Number formats: {amount:.2f} and {n:,}.",
+      "Lining up text with {name:<10} and {amount:>8}."
     ],
-    "eTitle": "Transaction Threshold Filter & Squared Magnitude",
-    "eDesc": "Write a Python function `filter_and_square_evens(numbers: list, threshold: int) -> list` returning a list of squares for all even numbers > threshold.",
-    "eStarter": "def filter_and_square_evens(numbers: list, threshold: int) -> list:\n    # Return squares of even numbers > threshold\n    pass\n",
-    "eHint": "Use [n ** 2 for n in numbers if n > threshold and n % 2 == 0]",
-    "eTest": "assert filter_and_square_evens([2, 5, 8, 11, 14], 4) == [64, 196], 'Test 1 Failed'\nassert filter_and_square_evens([1, 3, 5], 0) == [], 'Test 2 Failed'\nassert filter_and_square_evens([10, 12, 15], 10) == [144], 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Sort Strings by Length Descending",
-    "aDesc": "Write a Python function `sort_by_length_desc(words: list) -> list` that returns words sorted by length from longest to shortest.",
-    "aStarter": "def sort_by_length_desc(words: list) -> list:\n    # Return copy of words sorted by length descending\n    pass\n",
-    "aHint": "Use sorted(words, key=len, reverse=True)",
-    "aTest": "assert sort_by_length_desc(['apple', 'pie', 'banana']) == ['banana', 'apple', 'pie'], 'Test 1 Failed'\nassert sort_by_length_desc(['a', 'bbb', 'cc']) == ['bbb', 'cc', 'a'], 'Test 2 Failed'\nassert sort_by_length_desc([]) == [], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Show Money",
+    eDesc: "Write `money(amount)` that returns text like `'Rs 1250.50'`, always with 2 decimal places.",
+    eStarter: lines("def money(amount):", "    # f'Rs {amount:.2f}'", "    pass"),
+    eHint: "return f'Rs {amount:.2f}'",
+    eTest: lines("assert money(1250.5) == 'Rs 1250.50', 'Expected Rs 1250.50'", "assert money(20) == 'Rs 20.00'", done),
+    aTitle: "Receipt Line",
+    aDesc: "Write `receipt_line(item, amount)` that returns the item padded to 10 characters on the left, then the amount right-aligned in 8 characters with 2 decimals. Example: `receipt_line('Tea', 20)` returns `'Tea          20.00'`.",
+    aStarter: lines("def receipt_line(item, amount):", "    # f'{item:<10}{amount:>8.2f}'", "    pass"),
+    aHint: "return f'{item:<10}{amount:>8.2f}'",
+    aTest: lines("assert receipt_line('Tea', 20) == 'Tea          20.00', repr(receipt_line('Tea', 20))", "assert len(receipt_line('Lunch', 150.5)) == 18", done)
   },
   {
-    "title": "Tuples (Immutability) & Sets (Uniqueness & O(1) Lookups)",
-    "desc": "Master immutable fixed records with tuples and ultra-fast unique hash sets with union/intersection operators.",
-    "syllabus": [
-      "Tuple creation and immutability security",
-      "Set hashing, uniqueness, and add()/remove()",
-      "Set mathematical operations (union |, intersection &, difference -)"
+    title: "Errors and try/except",
+    desc: "Things go wrong: a user types 'abc' where a number was expected, or divides by zero. Instead of crashing, a good program catches the error with try and except and handles it calmly. (Real world: a payment form that says 'Please enter a valid amount' instead of crashing.)",
+    syllabus: [
+      "Reading an error message: its type and line.",
+      "try and except for specific errors.",
+      "else, finally, and raising your own errors."
     ],
-    "eTitle": "Shared Customer ID Finder (Set Intersection)",
-    "eDesc": "Write a Python function `find_common_customers(list_a: list, list_b: list) -> set` that returns a set of IDs present in both lists.",
-    "eStarter": "def find_common_customers(list_a: list, list_b: list) -> set:\n    # Return set intersection\n    pass\n",
-    "eHint": "Convert each list to a set first to eliminate duplicates; Python's `&` operator on two sets returns only the elements present in both.",
-    "eTest": "assert find_common_customers([101, 102, 103], [102, 103, 104]) == {102, 103}, 'Test 1 Failed'\nassert find_common_customers([1, 2], [3, 4]) == set(), 'Test 2 Failed'\nassert find_common_customers([1, 2, 3], [1, 2, 3]) == {1, 2, 3}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Immutable Coordinate Distance",
-    "aDesc": "Write a Python function `euclidean_distance(pt1: tuple, pt2: tuple) -> float` returning distance $\\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ rounded to 2 decimals.",
-    "aStarter": "def euclidean_distance(pt1: tuple, pt2: tuple) -> float:\n    # Calculate Euclidean distance between two (x, y) tuples\n    pass\n",
-    "aHint": "import math; return round(math.sqrt((pt2[0]-pt1[0])**2 + (pt2[1]-pt1[1])**2), 2)",
-    "aTest": "assert euclidean_distance((0, 0), (3, 4)) == 5.0, 'Test 1 Failed'\nassert euclidean_distance((1, 1), (4, 5)) == 5.0, 'Test 2 Failed'\nassert euclidean_distance((0, 0), (0, 0)) == 0.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Safe Number",
+    eDesc: "Write `safe_int(text)` that returns the text as a whole number, or 0 if it is not a valid number.",
+    eStarter: lines("def safe_int(text):", "    try:", "        # convert with int()", "        pass", "    except ValueError:", "        pass"),
+    eHint: "try: return int(text) / except ValueError: return 0",
+    eTest: lines("assert safe_int('42') == 42", "assert safe_int('abc') == 0", "assert safe_int('') == 0", done),
+    aTitle: "Safe Divide",
+    aDesc: "Write `safe_divide(a, b)` that returns `a / b`, or `None` when `b` is 0.",
+    aStarter: lines("def safe_divide(a, b):", "    # catch ZeroDivisionError", "    pass"),
+    aHint: "try: return a / b / except ZeroDivisionError: return None",
+    aTest: lines("assert safe_divide(10, 4) == 2.5", "assert safe_divide(1, 0) is None", done)
+  },
+
+  // ── WEEK 3: Building programs ─────────────────────────────────────────────
+  {
+    title: "Modules and Python's Built-in Library",
+    desc: "Python comes with a huge library of ready-made tools called modules. You import what you need: math for maths, random for random choices, datetime for dates. You can also split your own code into modules. (Real world: apps use datetime for every 'due date' and 'last seen'.)",
+    syllabus: [
+      "import and from ... import ...",
+      "math, random and datetime.",
+      "Your own modules, and if __name__ == '__main__'."
+    ],
+    eTitle: "Circle Area",
+    eDesc: "Write `circle_area(r)` that returns the area of a circle (pi times r squared), rounded to 2 decimal places, using the math module.",
+    eStarter: lines("import math", "", "def circle_area(r):", "    # math.pi * r * r", "    pass"),
+    eHint: "return round(math.pi * r * r, 2)",
+    eTest: lines("assert circle_area(1) == 3.14", "assert circle_area(2) == 12.57", done),
+    aTitle: "Days Between Dates",
+    aDesc: "Write `days_between(start, end)` where both are dates as text like `'2026-09-01'`. Return how many days are between them.",
+    aStarter: lines("from datetime import date", "", "def days_between(start, end):", "    # date.fromisoformat(...) turns text into a date", "    pass"),
+    aHint: "return (date.fromisoformat(end) - date.fromisoformat(start)).days",
+    aTest: lines("assert days_between('2026-09-01', '2026-09-28') == 27", "assert days_between('2026-01-01', '2026-01-01') == 0", done)
   },
   {
-    "title": "Dictionaries — Key-Value Mapping & O(1) Hash Lookups",
-    "desc": "Master associative arrays, hash lookups, dictionary CRUD, and safe key access with .get().",
-    "syllabus": [
-      "Dictionary initialization, key hashing rules (immutable keys)",
-      "Safe lookups with dict.get(key, default)",
-      "Iterating keys(), values(), and items() tuples"
+    title: "Working With Files",
+    desc: "Programs forget everything when they stop, unless they save to a file. You will write text to files and read it back with open() and the with statement, which closes the file safely. You will use a simple format: one expense per line, like 'Tea,20'. (Real world: apps export your data as CSV files for Excel.)",
+    syllabus: [
+      "open() with 'w', 'a' and 'r', and why we use with.",
+      "Writing and reading lines.",
+      "Splitting a line like 'Tea,20' into parts."
     ],
-    "eTitle": "Character Frequency Counter",
-    "eDesc": "Write a Python function `count_char_frequencies(text: str) -> dict` returning a dict mapping each lowercase letter (ignoring spaces) to its count.",
-    "eStarter": "def count_char_frequencies(text: str) -> dict:\n    # Return frequency dict for lowercase non-space characters\n    pass\n",
-    "eHint": "Iterate text.lower(): if char != ' ': freq[char] = freq.get(char, 0) + 1",
-    "eTest": "assert count_char_frequencies('Hello') == {'h': 1, 'e': 1, 'l': 2, 'o': 1}, 'Test 1 Failed'\nassert count_char_frequencies('A a') == {'a': 2}, 'Test 2 Failed'\nassert count_char_frequencies('') == {}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Inventory Reorder Alert Filter",
-    "aDesc": "Write a Python function `get_low_stock_items(inventory: dict, threshold: int) -> dict` returning items where quantity <= threshold.",
-    "aStarter": "def get_low_stock_items(inventory: dict, threshold: int) -> dict:\n    # Return low stock subset\n    pass\n",
-    "aHint": "{k: v for k, v in inventory.items() if v <= threshold}",
-    "aTest": "assert get_low_stock_items({'pens': 50, 'erasers': 5, 'notebooks': 12}, 10) == {'erasers': 5}, 'Test 1 Failed'\nassert get_low_stock_items({'a': 20}, 5) == {}, 'Test 2 Failed'\nassert get_low_stock_items({'rulers': 10, 'clips': 15}, 10) == {'rulers': 10}, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Read One Line",
+    eDesc: "Write `parse_line(line)` that turns text like `'Tea,20'` into a tuple `('Tea', 20)` with the amount as a whole number. Ignore spaces and the newline at the end.",
+    eStarter: lines("def parse_line(line):", "    # strip(), then split(',')", "    pass"),
+    eHint: "item, amount = line.strip().split(','); return (item.strip(), int(amount))",
+    eTest: lines("assert parse_line('Tea,20') == ('Tea', 20)", "assert parse_line(' Bus ticket , 45 \\n') == ('Bus ticket', 45)", done),
+    aTitle: "Write One Line",
+    aDesc: "Write `to_line(item, amount)` that returns the line to save, like `'Tea,20'`.",
+    aStarter: lines("def to_line(item, amount):", "    # f'{item},{amount}'", "    pass"),
+    aHint: "return f'{item},{amount}'",
+    aTest: lines("assert to_line('Tea', 20) == 'Tea,20'", "assert to_line('Bus', 45) == 'Bus,45'", done)
   },
   {
-    "title": "⭐ MILESTONE 3: Fast Ledger Lookup & Dictionary Search Engine",
-    "desc": "Synthesize dictionary lookups, grouping operations, and fast search indexing into a high-performance ledger aggregator.",
-    "syllabus": [
-      "Dictionary grouping patterns (grouping records by category)",
-      "Inverted index construction",
-      "Milestone Project: High-Speed Transaction Search & Grouping Engine"
+    title: "JSON: Saving Structured Data",
+    desc: "JSON is the standard text format for data on the internet and in files. Python's json module turns lists and dictionaries into JSON text with dumps(), and back with loads(). It is how your Expense Tracker will save its data, and how APIs talk. (Real world: every app's settings and API answers.)",
+    syllabus: [
+      "json.dumps() and json.loads().",
+      "Saving and loading a list of dictionaries to a file.",
+      "Handling broken or missing data safely."
     ],
-    "eTitle": "Ledger Category Aggregator",
-    "eDesc": "Write a Python function `aggregate_by_category(transactions: list) -> dict` where each transaction is `{'category': str, 'amount': float}`. Return dict summing amounts per category.",
-    "eStarter": "def aggregate_by_category(transactions: list) -> dict:\n    # Sum transaction amounts per category\n    pass\n",
-    "eHint": "totals = {}; for t in transactions: totals[t['category']] = round(totals.get(t['category'], 0.0) + t['amount'], 2); return totals",
-    "eTest": "txs = [{'category': 'FOOD', 'amount': 15.5}, {'category': 'TECH', 'amount': 120.0}, {'category': 'FOOD', 'amount': 10.5}]\nassert aggregate_by_category(txs) == {'FOOD': 26.0, 'TECH': 120.0}, 'Test 1 Failed'\nassert aggregate_by_category([]) == {}, 'Test 2 Failed'\nassert aggregate_by_category([{'category': 'UTIL', 'amount': 45.0}]) == {'UTIL': 45.0}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "User Search by Email Domain Indexer",
-    "aDesc": "Write a Python function `index_users_by_domain(users: list) -> dict` where users is a list of emails. Return dict mapping domain (after '@') to list of usernames.",
-    "aStarter": "def index_users_by_domain(users: list) -> dict:\n    # Group usernames by domain\n    pass\n",
-    "aHint": "domain_map = {}; for u in users: user, domain = u.split('@'); domain_map.setdefault(domain, []).append(user); return domain_map",
-    "aTest": "users = ['alice@pinit.ai', 'bob@gmail.com', 'charlie@pinit.ai']\nassert index_users_by_domain(users) == {'pinit.ai': ['alice', 'charlie'], 'gmail.com': ['bob']}, 'Test 1 Failed'\nassert index_users_by_domain([]) == {}, 'Test 2 Failed'\nassert index_users_by_domain(['dev@yahoo.com']) == {'yahoo.com': ['dev']}, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "To JSON",
+    eDesc: "Write `to_json(expenses)` that returns the list as JSON text using json.dumps.",
+    eStarter: lines("import json", "", "def to_json(expenses):", "    pass"),
+    eHint: "return json.dumps(expenses)",
+    eTest: lines("assert to_json([{'item': 'Tea', 'amount': 20}]) == '[{\"item\": \"Tea\", \"amount\": 20}]'", done),
+    aTitle: "Safe Load",
+    aDesc: "Write `load_expenses(text)` that turns JSON text into a list, and returns `[]` if the text is broken, empty, or not a list.",
+    aStarter: lines("import json", "", "def load_expenses(text):", "    try:", "        # json.loads, then check it is a list", "        pass", "    except ValueError:", "        return []"),
+    aHint: "data = json.loads(text); return data if isinstance(data, list) else []",
+    aTest: lines("assert load_expenses('[{\"item\": \"Tea\"}]') == [{'item': 'Tea'}]", "assert load_expenses('broken{') == []", "assert load_expenses('{\"a\": 1}') == []", "assert load_expenses('') == []", done)
   },
   {
-    "title": "Object-Oriented Programming — Classes, self & Object Instantiation",
-    "desc": "Understand the blueprint-to-instance relationship, self parameter, and object state in Python.",
-    "syllabus": [
-      "The class keyword and instantiating objects",
-      "The self parameter (explicit receiver of method calls)",
-      "Instance attributes vs class variables"
+    title: "Classes and Objects",
+    desc: "A class is a blueprint for creating objects that keep data and actions together. An Expense class can hold an item and an amount, and know how to describe itself. Most large Python programs and libraries are built from classes. (Real world: a Wallet object that knows its balance and can pay.)",
+    syllabus: [
+      "class, __init__ and self.",
+      "Attributes: data inside an object.",
+      "Methods: functions that belong to an object."
     ],
-    "eTitle": "BankAccount Class with Deposit & Balance",
-    "eDesc": "Implement `BankAccount` with `__init__(self, owner: str, balance: float = 0.0)`, `deposit(self, amount: float)`, and `get_balance(self) -> float`.",
-    "eStarter": "class BankAccount:\n    def __init__(self, owner: str, balance: float = 0.0):\n        # TODO: Initialize owner and balance\n        pass\n\n    def deposit(self, amount: float):\n        # TODO: Add amount to balance only if amount > 0\n        pass\n\n    def get_balance(self) -> float:\n        # TODO: Return current balance\n        pass\n",
-    "eHint": "Ensure deposit increases balance only when amount > 0. Return self.balance in get_balance.",
-    "eTest": "acc = BankAccount('Alex', 100.0)\nacc.deposit(50.0)\nassert acc.get_balance() == 150.0, 'Test 1 Failed'\nacc.deposit(-20.0)\nassert acc.get_balance() == 150.0, 'Test 2 Failed'\nacc.deposit(0.0)\nassert acc.get_balance() == 150.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Item Product Entity with Discount",
-    "aDesc": "Implement `Product` with `__init__(self, name: str, price: float)`, `apply_discount(self, rate: float)`, and `get_price(self) -> float`.",
-    "aStarter": "class Product:\n    def __init__(self, name: str, price: float):\n        # TODO: Initialize name and price\n        pass\n\n    def apply_discount(self, rate: float):\n        # TODO: Apply discount rate to price and round to 2 decimals\n        pass\n\n    def get_price(self) -> float:\n        # TODO: Return current price\n        pass\n",
-    "aHint": "price after discount is round(self.price * (1 - rate), 2)",
-    "aTest": "p = Product('Keyboard', 100.0)\np.apply_discount(0.15)\nassert p.get_price() == 85.0, 'Test 1 Failed'\np2 = Product('Mouse', 50.0)\np2.apply_discount(0.0)\nassert p2.get_price() == 50.0, 'Test 2 Failed'\np3 = Product('Desk', 200.0)\np3.apply_discount(0.50)\nassert p3.get_price() == 100.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "An Expense Class",
+    eDesc: "Write a class `Expense` with `item` and `amount`, and a method `label()` that returns text like `'Tea: 20'`.",
+    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        # save item and amount on self", "        pass", "", "    def label(self):", "        pass"),
+    eHint: "self.item = item; self.amount = amount; label returns f'{self.item}: {self.amount}'",
+    eTest: lines("e = Expense('Tea', 20)", "assert e.item == 'Tea' and e.amount == 20", "assert e.label() == 'Tea: 20'", done),
+    aTitle: "A Wallet",
+    aDesc: "Write a class `Wallet` that starts with a `balance`. Its method `spend(amount)` subtracts the amount and returns `True`, or returns `False` and changes nothing if there is not enough money.",
+    aStarter: lines("class Wallet:", "    def __init__(self, balance):", "        self.balance = balance", "", "    def spend(self, amount):", "        pass"),
+    aHint: "if amount > self.balance: return False. Otherwise subtract and return True.",
+    aTest: lines("w = Wallet(100)", "assert w.spend(30) is True and w.balance == 70", "assert w.spend(500) is False and w.balance == 70", done)
   },
   {
-    "title": "Constructors (__init__), Default Values & Instance State",
-    "desc": "Master Python constructor initialization, parameter defaults, instance invariants, and defensive validation in __init__.",
-    "syllabus": [
-      "The __init__() dunder method lifecycle",
-      "Parameter defaults in constructors",
-      "Validating arguments during instantiation"
+    title: "Better Classes: __str__ and Inheritance",
+    desc: "Make your objects print nicely with __str__, and build new classes from existing ones with inheritance: a Subscription is an Expense that repeats every month. (Real world: Netflix and gym fees are subscriptions.)",
+    syllabus: [
+      "__str__ for readable printing.",
+      "Inheritance: class Subscription(Expense).",
+      "super() and adding new methods to a child class."
     ],
-    "eTitle": "Validated User Profile Constructor",
-    "eDesc": "Implement `UserProfile` with `__init__(self, username: str, email: str, role: str = 'STUDENT')`. Raise `ValueError` if username is empty or email lacks '@'.",
-    "eStarter": "class UserProfile:\n    def __init__(self, username: str, email: str, role: str = 'STUDENT'):\n        # TODO: Validate username not empty and '@' in email, then assign fields\n        pass\n",
-    "eHint": "Check if not username: raise ValueError; if '@' not in email: raise ValueError; then set self.username, self.email, self.role.",
-    "eTest": "u = UserProfile('sarah', 'sarah@pinit.ai')\nassert u.role == 'STUDENT', 'Test 1 Failed'\ntry:\n    UserProfile('', 'test@pinit.ai')\n    assert False, 'Test 2 Failed'\nexcept ValueError:\n    pass\ntry:\n    UserProfile('valid', 'noatsign')\n    assert False, 'Test 3 Failed'\nexcept ValueError:\n    pass\nprint('All 3 assertions passed.')",
-    "aTitle": "Timer Config Entity",
-    "aDesc": "Implement `TimerConfig` with `__init__(self, duration_sec: int, is_countdown: bool = True)`. If duration_sec <= 0, raise ValueError.",
-    "aStarter": "class TimerConfig:\n    def __init__(self, duration_sec: int, is_countdown: bool = True):\n        # TODO: Validate duration_sec > 0, then assign duration_sec and is_countdown\n        pass\n",
-    "aHint": "Validate duration_sec > 0 in __init__, otherwise raise ValueError('Duration must be positive').",
-    "aTest": "t = TimerConfig(60)\nassert t.is_countdown == True, 'Test 1 Failed'\ntry:\n    TimerConfig(-5)\n    assert False, 'Test 2 Failed'\nexcept ValueError:\n    pass\ntry:\n    TimerConfig(0)\n    assert False, 'Test 3 Failed'\nexcept ValueError:\n    pass\nprint('All 3 assertions passed.')"
+    eTitle: "Printable Expense",
+    eDesc: "Write a class `Expense` whose `str()` looks like `'Tea (Rs 20)'`.",
+    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "    def __str__(self):", "        pass"),
+    eHint: "return f'{self.item} (Rs {self.amount})'",
+    eTest: lines("assert str(Expense('Tea', 20)) == 'Tea (Rs 20)'", done),
+    aTitle: "Subscription",
+    aDesc: "Given an `Expense` class with `item` and `amount`, write `Subscription(Expense)` with a method `yearly_cost()` that returns amount times 12.",
+    aStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "class Subscription(Expense):", "    def yearly_cost(self):", "        pass"),
+    aHint: "return self.amount * 12",
+    aTest: lines("s = Subscription('Music app', 99)", "assert s.item == 'Music app'", "assert s.yearly_cost() == 1188", "assert isinstance(s, Expense)", done)
   },
   {
-    "title": "Encapsulation, Private Attributes (_var, __var) & Properties (@property)",
-    "desc": "Protect object internal state using naming conventions, name mangling, and @property getters and setters.",
-    "syllabus": [
-      "Single underscore (_protected) vs double underscore (__private name mangling)",
-      "The @property decorator for clean attribute access",
-      "The @<field>.setter decorator with validation"
+    title: "Python on Your Laptop: Scripts, input() and pip",
+    desc: "Today you set up Python on your own laptop, write .py files in VS Code, run them from the terminal, read what the user types with input(), and install packages with pip inside a virtual environment. (Real world: every Python job starts with this setup.)",
+    syllabus: [
+      "Installing Python and VS Code; running python file.py.",
+      "input() and turning what users type into numbers.",
+      "pip, virtual environments and requirements.txt."
     ],
-    "eTitle": "Encapsulated Temperature with Kelvin Property",
-    "eDesc": "Implement `Temperature` class with `@property celsius` and `@property kelvin`. Setting celsius should validate that celsius >= -273.15 (else raise ValueError).",
-    "eStarter": "class Temperature:\n    def __init__(self, celsius: float = 0.0):\n        self.celsius = celsius\n\n    @property\n    def celsius(self) -> float:\n        # TODO: Return private _celsius\n        pass\n\n    @celsius.setter\n    def celsius(self, val: float):\n        # TODO: Validate val >= -273.15, assign to _celsius\n        pass\n\n    @property\n    def kelvin(self) -> float:\n        # TODO: Return _celsius + 273.15 rounded to 2 decimals\n        pass\n",
-    "eHint": "Use @property and @celsius.setter with self._celsius backing field.",
-    "eTest": "t = Temperature(25.0)\nassert t.kelvin == 298.15, 'Test 1 Failed'\nt.celsius = 0.0\nassert t.kelvin == 273.15, 'Test 2 Failed'\ntry:\n    t.celsius = -300.0\n    assert False, 'Test 3 Failed'\nexcept ValueError:\n    pass\nprint('All 3 assertions passed.')",
-    "aTitle": "Wallet with Non-Negative Balance Property",
-    "aDesc": "Implement `Wallet` with `@property balance` and `@balance.setter` raising ValueError if balance is set to negative.",
-    "aStarter": "class Wallet:\n    def __init__(self, balance: float = 0.0):\n        self.balance = balance\n\n    @property\n    def balance(self) -> float:\n        # TODO: Return private _balance\n        pass\n\n    @balance.setter\n    def balance(self, val: float):\n        # TODO: Validate val >= 0, assign to _balance\n        pass\n",
-    "aHint": "Validate val >= 0 in setter, else raise ValueError('Negative balance').",
-    "aTest": "w = Wallet(50.0)\nw.balance = 20.0\nassert w.balance == 20.0, 'Test 1 Failed'\ntry:\n    w.balance = -10.0\n    assert False, 'Test 2 Failed'\nexcept ValueError:\n    pass\nw2 = Wallet(0.0)\nassert w2.balance == 0.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Clean Up Typed Amounts",
+    eDesc: "People type amounts with spaces. Write `parse_amount(text)` that removes spaces and returns the amount as a float, or `None` if it is not a number.",
+    eStarter: lines("def parse_amount(text):", "    # strip(), then float(), inside try/except", "    pass"),
+    eHint: "try: return float(text.strip()) / except ValueError: return None",
+    eTest: lines("assert parse_amount(' 250 ') == 250.0", "assert parse_amount('99.5') == 99.5", "assert parse_amount('abc') is None", done),
+    aTitle: "Menu Choice",
+    aDesc: "Write `menu_choice(text)` that returns the number 1, 2 or 3 when the user typed one of them, otherwise `None`.",
+    aStarter: lines("def menu_choice(text):", "    # compare text.strip() with '1', '2', '3'", "    pass"),
+    aHint: "value = text.strip(); return int(value) if value in ('1', '2', '3') else None",
+    aTest: lines("assert menu_choice('2') == 2", "assert menu_choice(' 3 ') == 3", "assert menu_choice('7') is None", "assert menu_choice('x') is None", done)
   },
   {
-    "title": "Inheritance (class Child(Parent)), Method Overriding & super()",
-    "desc": "Master parent-child class hierarchies, code reuse, method overriding, and calling super().__init__().",
-    "syllabus": [
-      "Single inheritance syntax: class Child(Parent)",
-      "Calling parent constructor with super().__init__(...)",
-      "Method overriding and extending base behavior"
+    title: "Testing Your Code with assert and pytest",
+    desc: "Tests are small programs that check your code works, so you can change it without fear. You will write checks with assert and use pytest, the most popular Python testing tool. (Real world: companies run thousands of tests before every release.)",
+    syllabus: [
+      "assert and clear failure messages.",
+      "Writing test_ functions and running pytest.",
+      "Testing normal cases and edge cases."
     ],
-    "eTitle": "Employee & Manager Class Hierarchy",
-    "eDesc": "Implement `Employee(name, base_salary)` with `get_total_compensation()` returning base_salary, and `Manager(Employee)` with `bonus` added in `get_total_compensation()`.",
-    "eStarter": "class Employee:\n    def __init__(self, name: str, base_salary: float):\n        # TODO: Initialize name and base_salary\n        pass\n\n    def get_total_compensation(self) -> float:\n        # TODO: Return base_salary\n        pass\n\nclass Manager(Employee):\n    def __init__(self, name: str, base_salary: float, bonus: float):\n        # TODO: Call super().__init__ and set bonus\n        pass\n\n    def get_total_compensation(self) -> float:\n        # TODO: Return base_salary + bonus\n        pass\n",
-    "eHint": "Use super().__init__(name, base_salary) in Manager constructor and return self.base_salary + self.bonus in get_total_compensation.",
-    "eTest": "e = Employee('Alice', 5000.0)\nassert e.get_total_compensation() == 5000.0, 'Test 1 Failed'\nm = Manager('Bob', 7000.0, 2000.0)\nassert m.get_total_compensation() == 9000.0, 'Test 2 Failed'\nm0 = Manager('Charlie', 6000.0, 0.0)\nassert m0.get_total_compensation() == 6000.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Shape & Rectangle Class Hierarchy",
-    "aDesc": "Implement `Shape(color)` and `Rectangle(Shape)` with `width` and `height`, and `get_area()` returning width * height.",
-    "aStarter": "class Shape:\n    def __init__(self, color: str):\n        # TODO: Initialize color\n        pass\n\nclass Rectangle(Shape):\n    def __init__(self, color: str, width: float, height: float):\n        # TODO: Call super().__init__(color) and set width and height\n        pass\n\n    def get_area(self) -> float:\n        # TODO: Return width * height\n        pass\n",
-    "aHint": "Pass color to super().__init__(color) and return self.width * self.height.",
-    "aTest": "r = Rectangle('blue', 4.0, 5.0)\nassert r.color == 'blue', 'Test 1 Failed'\nassert r.get_area() == 20.0, 'Test 2 Failed'\nr2 = Rectangle('red', 10.0, 2.5)\nassert r2.get_area() == 25.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Valid Amount",
+    eDesc: "Write `is_valid_amount(value)` that returns `True` only for numbers greater than 0 (int or float, not bool or text).",
+    eStarter: lines("def is_valid_amount(value):", "    # isinstance(value, (int, float)), not bool, and > 0", "    pass"),
+    eHint: "return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0",
+    eTest: lines("assert is_valid_amount(20) is True", "assert is_valid_amount(9.5) is True", "assert is_valid_amount(0) is False", "assert is_valid_amount('20') is False", "assert is_valid_amount(True) is False", done),
+    aTitle: "Your Own Check",
+    aDesc: "Write `check_equal(actual, expected)` that returns `True` when they are equal and raises `AssertionError` with the message `'Expected X but got Y'` when they are not.",
+    aStarter: lines("def check_equal(actual, expected):", "    # raise AssertionError(...) when different", "    pass"),
+    aHint: "if actual != expected: raise AssertionError(f'Expected {expected} but got {actual}'); return True",
+    aTest: lines("assert check_equal(2, 2) is True", "try:", "    check_equal(1, 2)", "    raised = False", "except AssertionError as err:", "    raised = 'Expected 2 but got 1' in str(err)", "assert raised, 'Should raise Expected 2 but got 1'", done)
+  },
+
+  // ── WEEK 4: Build, ship and get job-ready ─────────────────────────────────
+  {
+    title: "Git and GitHub: Saving and Sharing Your Code",
+    desc: "Every developer job uses Git. It saves snapshots of your code (commits), lets you try ideas on branches, and GitHub stores your code online so recruiters can see it. (Real world: every change to this app is a Git commit.)",
+    syllabus: [
+      "git init, add, commit and good commit messages.",
+      "Branches: working on a feature safely.",
+      "Pushing to GitHub; a .gitignore for Python projects."
+    ],
+    eTitle: "Good Commit Message",
+    eDesc: "Write `is_good_commit_message(msg)` that returns `True` when the message is between 10 and 72 characters long.",
+    eStarter: lines("def is_good_commit_message(msg):", "    pass"),
+    eHint: "return 10 <= len(msg) <= 72",
+    eTest: lines("assert is_good_commit_message('Add expense summary by category') is True", "assert is_good_commit_message('fix') is False", done),
+    aTitle: "Branch Name",
+    aDesc: "Write `branch_name(task)` that turns `'Add Monthly Report'` into `'feature/add-monthly-report'`.",
+    aStarter: lines("def branch_name(task):", "    # lower case, spaces become '-'", "    pass"),
+    aHint: "return 'feature/' + '-'.join(task.lower().split())",
+    aTest: lines("assert branch_name('Add Monthly Report') == 'feature/add-monthly-report'", "assert branch_name('  Fix  total ') == 'feature/fix-total'", done)
   },
   {
-    "title": "Polymorphism, Duck Typing & Magic Methods (__str__, __len__, __eq__)",
-    "desc": "Master dynamic dispatch, Pythonic duck typing ('if it walks like a duck'), and operator overloading with dunder methods.",
-    "syllabus": [
-      "Duck typing: focusing on behavior rather than explicit inheritance",
-      "Overloading string representation: __str__ and __repr__",
-      "Overloading length __len__ and equality __eq__"
+    title: "Planning Your Expense Tracker",
+    desc: "Before building, plan: what the program should do, the shape of one expense, the functions you need, and the order to build them. Today you plan the Expense Tracker you will build this week. (Real world: teams plan before they code.)",
+    syllabus: [
+      "User stories: what the user wants and why.",
+      "The data shape of an expense.",
+      "Splitting the program into small functions."
     ],
-    "eTitle": "Cart Item Container with Magic Methods",
-    "eDesc": "Implement `Cart` with `items` list, `add_item(item)`, `__len__(self)` returning count of items, and `__str__(self)` returning 'Cart: <count> items'.",
-    "eStarter": "class Cart:\n    def __init__(self):\n        # TODO: Initialize empty items list\n        pass\n\n    def add_item(self, item: str):\n        # TODO: Append item to items list\n        pass\n\n    def __len__(self) -> int:\n        # TODO: Return number of items\n        pass\n\n    def __str__(self) -> str:\n        # TODO: Return f'Cart: {len(self.items)} items'\n        pass\n",
-    "eHint": "Implement def __len__(self) -> int returning len(self.items) and def __str__(self) -> str returning f'Cart: {len(self.items)} items'.",
-    "eTest": "c = Cart()\nc.add_item('Laptop')\nc.add_item('Mouse')\nassert len(c) == 2, 'Test 1 Failed'\nassert str(c) == 'Cart: 2 items', 'Test 2 Failed'\nempty = Cart()\nassert len(empty) == 0 and str(empty) == 'Cart: 0 items', 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "2D Vector with Vector Addition (__add__)",
-    "aDesc": "Implement `Vector(x, y)` with `__add__(self, other)` returning a new Vector with added coordinates `(self.x + other.x, self.y + other.y)`.",
-    "aStarter": "class Vector:\n    def __init__(self, x: float, y: float):\n        # TODO: Initialize x and y\n        pass\n\n    def __add__(self, other: 'Vector') -> 'Vector':\n        # TODO: Return new Vector with summed coordinates\n        pass\n\n    def __eq__(self, other) -> bool:\n        # TODO: Return True if coordinates match\n        pass\n",
-    "aHint": "Return Vector(self.x + other.x, self.y + other.y) inside __add__.",
-    "aTest": "v1 = Vector(2, 3)\nv2 = Vector(4, 5)\nv3 = v1 + v2\nassert v3.x == 6 and v3.y == 8, 'Test 1 Failed'\nassert (Vector(1, 2) + Vector(0, 0)) == Vector(1, 2), 'Test 2 Failed'\nassert (Vector(-1, -2) + Vector(1, 2)) == Vector(0, 0), 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Newest First",
+    eDesc: "Write `sort_by_date(expenses)` that returns a new list sorted by `'date'` (text like `'2026-09-01'`), newest first. The original must not change.",
+    eStarter: lines("def sort_by_date(expenses):", "    # sorted(..., key=..., reverse=True)", "    pass"),
+    eHint: "return sorted(expenses, key=lambda e: e['date'], reverse=True)",
+    eTest: lines("data = [{'id': 1, 'date': '2026-09-01'}, {'id': 2, 'date': '2026-09-20'}, {'id': 3, 'date': '2026-09-10'}]", "assert [e['id'] for e in sort_by_date(data)] == [2, 3, 1]", "assert data[0]['id'] == 1, 'The original list was changed'", done),
+    aTitle: "Group by Category",
+    aDesc: "Write `group_by_category(expenses)` that returns a dictionary like `{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}` with item names.",
+    aStarter: lines("def group_by_category(expenses):", "    groups = {}", "    # add each item name to groups[category]", "    return groups"),
+    aHint: "groups.setdefault(e['category'], []).append(e['item'])",
+    aTest: lines("data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]", "assert group_by_category(data) == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}", done)
   },
   {
-    "title": "⭐ MILESTONE 4: Enterprise Polymorphic Payment Gateway Engine",
-    "desc": "Synthesize abstract contracts, multiple polymorphic processors (CreditCard, UPI, Crypto), and fee calculations into an enterprise gateway.",
-    "syllabus": [
-      "Designing pluggable payment contracts",
-      "Polymorphic collection iteration and transaction dispatch",
-      "Milestone Project: Multi-Provider Payment Gateway Engine"
+    title: "Project Build 1: Adding and Listing Expenses",
+    desc: "Today you build the core of the Expense Tracker: a program with a menu to add an expense and list all expenses neatly, using the functions and data shape from your plan. (Real world: this is the heart of every budgeting app.)",
+    syllabus: [
+      "A main menu loop with input().",
+      "add_expense and list_expenses functions.",
+      "Neat output with f-strings."
     ],
-    "eTitle": "Polymorphic Payment Processor Engine",
-    "eDesc": "Implement `CreditCardProcessor(fee_rate=0.02)` and `UPIProcessor(flat_fee=0.50)` both having `process_payment(amount: float) -> dict` returning `{'net': amount - fee, 'fee': fee, 'status': 'PROCESSED'}`.",
-    "eStarter": "class CreditCardProcessor:\n    def __init__(self, fee_rate: float = 0.02):\n        # TODO: Set fee_rate\n        pass\n\n    def process_payment(self, amount: float) -> dict:\n        # TODO: Compute fee = round(amount * fee_rate, 2), return dict\n        pass\n\nclass UPIProcessor:\n    def __init__(self, flat_fee: float = 0.50):\n        # TODO: Set flat_fee\n        pass\n\n    def process_payment(self, amount: float) -> dict:\n        # TODO: Deduct flat_fee and return dict\n        pass\n",
-    "eHint": "Calculate the fee according to the processor type (percentage for CreditCard, flat fee for UPI), then return a dictionary with keys 'net', 'fee', and 'status' set to 'PROCESSED'.",
-    "eTest": "cc = CreditCardProcessor(0.02)\nassert cc.process_payment(100.0) == {'net': 98.0, 'fee': 2.0, 'status': 'PROCESSED'}, 'Test 1 Failed'\nupi = UPIProcessor(0.50)\nassert upi.process_payment(100.0) == {'net': 99.50, 'fee': 0.50, 'status': 'PROCESSED'}, 'Test 2 Failed'\ncc2 = CreditCardProcessor(0.05)\nassert cc2.process_payment(200.0) == {'net': 190.0, 'fee': 10.0, 'status': 'PROCESSED'}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Polymorphic Notification Service",
-    "aDesc": "Implement `EmailNotifier` and `SMSNotifier` both having `send(recipient: str, message: str) -> str` returning '[EMAIL] to <recipient>: <message>' and '[SMS] to <recipient>: <message>'.",
-    "aStarter": "class EmailNotifier:\n    def send(self, recipient: str, message: str) -> str:\n        # TODO: Return f'[EMAIL] to {recipient}: {message}'\n        pass\n\nclass SMSNotifier:\n    def send(self, recipient: str, message: str) -> str:\n        # TODO: Return f'[SMS] to {recipient}: {message}'\n        pass\n",
-    "aHint": "Return formatted string with prefix f'[EMAIL] to {recipient}: {message}' or f'[SMS] to {recipient}: {message}'.",
-    "aTest": "e = EmailNotifier()\nassert e.send('a@b.com', 'Hi') == '[EMAIL] to a@b.com: Hi', 'Test 1 Failed'\ns = SMSNotifier()\nassert s.send('+1234', 'Hi') == '[SMS] to +1234: Hi', 'Test 2 Failed'\nassert e.send('test@pin.it', 'Alert') == '[EMAIL] to test@pin.it: Alert', 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Add an Expense",
+    eDesc: "Write `add_expense(expenses, item, amount, category, date)` that returns a NEW list with the new expense added. Its `'id'` is one more than the number of expenses. Remove extra spaces from item and category.",
+    eStarter: lines("def add_expense(expenses, item, amount, category, date):", "    new = {", "        # id, item, amount, category, date", "    }", "    return expenses + [new]"),
+    eHint: "new = {'id': len(expenses) + 1, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}",
+    eTest: lines("result = add_expense([], ' Tea ', 20, 'food ', '2026-09-28')", "assert result == [{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}], result", "second = add_expense(result, 'Bus', 45, 'travel', '2026-09-28')", "assert second[1]['id'] == 2 and len(result) == 1", done),
+    aTitle: "Format an Expense",
+    aDesc: "Write `format_expense(e)` that returns text like `'Tea - Rs 20.00 (food)'`.",
+    aStarter: lines("def format_expense(e):", "    pass"),
+    aHint: "return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"",
+    aTest: lines("assert format_expense({'item': 'Tea', 'amount': 20, 'category': 'food'}) == 'Tea - Rs 20.00 (food)'", done)
   },
   {
-    "title": "Exception Handling — try, except, else, finally & Custom Exceptions",
-    "desc": "Build resilient systems using structured exception handling, specific catch hierarchies, finally cleanup, and custom Exception classes.",
-    "syllabus": [
-      "The try...except Exception as e block structure",
-      "The else (success only) and finally (guaranteed run) blocks",
-      "Creating custom exceptions with class MyError(Exception)"
+    title: "Project Build 2: Summaries and Saving",
+    desc: "Now the tracker becomes useful: a summary with the total, the number of expenses and the biggest one, totals per category, and saving everything to a JSON file so nothing is lost when the program closes. (Real world: the monthly report in your banking app.)",
+    syllabus: [
+      "A summary function.",
+      "Totals per category with a dictionary.",
+      "Saving and loading with json and files."
     ],
-    "eTitle": "Safe Division with Error Telemetry",
-    "eDesc": "Write a Python function `safe_divide_logged(a: float, b: float) -> dict` returning `{'result': a/b, 'error': None}` or `{'result': None, 'error': 'ZeroDivisionError'}` on divide-by-zero.",
-    "eStarter": "def safe_divide_logged(a: float, b: float) -> dict:\n    # Return result or caught error name\n    pass\n",
-    "eHint": "try: return {'result': a / b, 'error': None} except ZeroDivisionError: return {'result': None, 'error': 'ZeroDivisionError'}",
-    "eTest": "assert safe_divide_logged(10, 2) == {'result': 5.0, 'error': None}, 'Test 1 Failed'\nassert safe_divide_logged(10, 0) == {'result': None, 'error': 'ZeroDivisionError'}, 'Test 2 Failed'\nassert safe_divide_logged(-20, 4) == {'result': -5.0, 'error': None}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Custom InsufficientFundsError Validator",
-    "aDesc": "Define `InsufficientFundsError(Exception)`. Write `withdraw(balance: float, amount: float) -> float` raising `InsufficientFundsError('Overdraft')` if amount > balance, else returning balance - amount.",
-    "aStarter": "class InsufficientFundsError(Exception):\n    pass\n\ndef withdraw(balance: float, amount: float) -> float:\n    # TODO: Raise InsufficientFundsError('Overdraft') if amount > balance, else return balance - amount\n    pass\n",
-    "aHint": "Raise InsufficientFundsError('Overdraft') when amount > balance; else return balance - amount.",
-    "aTest": "assert withdraw(100.0, 40.0) == 60.0, 'Test 1 Failed'\ntry:\n    withdraw(50.0, 80.0)\n    assert False, 'Test 2 Failed'\nexcept InsufficientFundsError:\n    pass\nassert withdraw(50.0, 50.0) == 0.0, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Summary",
+    eDesc: "Write `summary(expenses)` that returns `{'total': ..., 'count': ..., 'biggest': ...}` where biggest is the item name of the largest expense, or `None` for an empty list.",
+    eStarter: lines("def summary(expenses):", "    # max(expenses, key=...) finds the biggest", "    pass"),
+    eHint: "biggest = max(expenses, key=lambda e: e['amount'])['item'] if expenses else None",
+    eTest: lines("data = [{'item': 'Tea', 'amount': 20}, {'item': 'Rent', 'amount': 8000}, {'item': 'Bus', 'amount': 45}]", "assert summary(data) == {'total': 8065, 'count': 3, 'biggest': 'Rent'}", "assert summary([]) == {'total': 0, 'count': 0, 'biggest': None}", done),
+    aTitle: "Totals per Category",
+    aDesc: "Write `category_totals(expenses)` that returns a dictionary like `{'food': 170, 'travel': 45}`.",
+    aStarter: lines("def category_totals(expenses):", "    totals = {}", "    # add each amount to totals[category]", "    return totals"),
+    aHint: "totals[e['category']] = totals.get(e['category'], 0) + e['amount']",
+    aTest: lines("data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]", "assert category_totals(data) == {'food': 170, 'travel': 45}", done)
   },
   {
-    "title": "Context Managers & Safe File I/O (with open(...) as f:)",
-    "desc": "Master automated resource management with context managers, reading and writing files safely without descriptor leaks.",
-    "syllabus": [
-      "The with statement and context manager protocol (__enter__, __exit__)",
-      "Reading text line by line with readline() and for line in f",
-      "Parsing comma-separated value (CSV) text streams"
+    title: "Calling Web APIs",
+    desc: "Many programs get data from other services through web APIs: exchange rates, weather, job listings. You will call an API with the requests library, read its JSON answer, and handle errors like 'not found'. (Real world: a travel app getting live flight prices.)",
+    syllabus: [
+      "What an API is: URLs that answer with JSON.",
+      "requests.get(), status codes and .json().",
+      "Handling errors and missing data."
     ],
-    "eTitle": "Log Stream Error Counter (Context Safe)",
-    "eDesc": "Write a Python function `count_errors_in_stream(lines: list) -> int` that counts how many lines start with '[ERROR]'.",
-    "eStarter": "def count_errors_in_stream(lines: list) -> int:\n    # Count lines starting with '[ERROR]'\n    pass\n",
-    "eHint": "Use a generator expression or list comprehension: sum(1 for line in lines if line.strip().startswith('[ERROR]')).",
-    "eTest": "logs = ['[INFO] Booting', '[ERROR] Disk Full', '[WARN] High RAM', '[ERROR] Timeout']\nassert count_errors_in_stream(logs) == 2, 'Test 1 Failed'\nassert count_errors_in_stream(['[OK] Normal']) == 0, 'Test 2 Failed'\nassert count_errors_in_stream([]) == 0, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "CSV Line Column Parser",
-    "aDesc": "Write a Python function `parse_csv_header(header_line: str) -> list` that splits a comma-separated line and returns stripped column names.",
-    "aStarter": "def parse_csv_header(header_line: str) -> list:\n    # Return list of stripped column headers\n    pass\n",
-    "aHint": "[col.strip() for col in header_line.split(',')]",
-    "aTest": "assert parse_csv_header('id, name , email ') == ['id', 'name', 'email'], 'Test 1 Failed'\nassert parse_csv_header('a,b,c') == ['a', 'b', 'c'], 'Test 2 Failed'\nassert parse_csv_header(' single ') == ['single'], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Read the Answer",
+    eDesc: "APIs often answer like `{'results': [...]}`. Write `parse_results(data)` that returns `data['results']`, or `[]` if it is missing.",
+    eStarter: lines("def parse_results(data):", "    pass"),
+    eHint: "return data.get('results', [])",
+    eTest: lines("assert parse_results({'results': [1, 2]}) == [1, 2]", "assert parse_results({}) == []", done),
+    aTitle: "Status Message",
+    aDesc: "Write `status_message(code)` that returns `'OK'` for 200, `'Not found'` for 404, and `'Something went wrong'` for anything else.",
+    aStarter: lines("def status_message(code):", "    pass"),
+    aHint: "if code == 200: return 'OK'; if code == 404: return 'Not found'; return 'Something went wrong'",
+    aTest: lines("assert status_message(200) == 'OK'", "assert status_message(404) == 'Not found'", "assert status_message(500) == 'Something went wrong'", done)
   },
   {
-    "title": "JSON Serialization & Deserialization (json.dumps, json.loads)",
-    "desc": "Master interoperable data exchange, converting Python dicts to JSON strings and parsing JSON payloads safely.",
-    "syllabus": [
-      "json.dumps() for serialization and json.loads() for deserialization",
-      "Formatting with indent and sort_keys",
-      "Handling JSONDecodeError on corrupted input payloads"
+    title: "Building Your Own API with FastAPI",
+    desc: "Now you build your own web API so other apps can use your Expense Tracker: GET to list expenses, POST to add one, with automatic checks on the data sent. FastAPI is a popular, beginner-friendly Python framework used by many companies. (Real world: a phone app talking to its server.)",
+    syllabus: [
+      "What a web API is: routes, GET and POST.",
+      "Your first FastAPI app and the automatic /docs page.",
+      "Checking incoming data and returning errors."
     ],
-    "eTitle": "Safe JSON Payload Decoder with Validation",
-    "eDesc": "Write a Python function `decode_user_payload(json_str: str) -> dict` returning parsed dict if valid and contains 'user_id', else returning `{'error': 'INVALID_PAYLOAD'}`.",
-    "eStarter": "import json\n\ndef decode_user_payload(json_str: str) -> dict:\n    # Parse JSON safely\n    pass\n",
-    "eHint": "try: data = json.loads(json_str); return data if 'user_id' in data else {'error': 'INVALID_PAYLOAD'} except Exception: return {'error': 'INVALID_PAYLOAD'}",
-    "eTest": "import json\nassert decode_user_payload('{\"user_id\": 101, \"name\": \"Alex\"}') == {'user_id': 101, 'name': 'Alex'}, 'Test 1 Failed'\nassert decode_user_payload('{\"name\": \"NoId\"}') == {'error': 'INVALID_PAYLOAD'}, 'Test 2 Failed'\nassert decode_user_payload('bad json') == {'error': 'INVALID_PAYLOAD'}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Configuration Serializer with Sorting",
-    "aDesc": "Write a Python function `serialize_config(config_dict: dict) -> str` that serializes config_dict to a sorted JSON string without indentation.",
-    "aStarter": "import json\n\ndef serialize_config(config_dict: dict) -> str:\n    # Return sorted JSON string\n    pass\n",
-    "aHint": "return json.dumps(config_dict, sort_keys=True)",
-    "aTest": "import json\nassert serialize_config({'b': 2, 'a': 1}) == '{\"a\": 1, \"b\": 2}', 'Test 1 Failed'\nassert serialize_config({}) == '{}', 'Test 2 Failed'\nassert serialize_config({'z': 10, 'a': 20}) == '{\"a\": 20, \"z\": 10}', 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Check Incoming Data",
+    eDesc: "Write `validate_expense(data)` that returns a list of errors: `'item is required'` if item is missing or empty, and `'amount must be more than 0'` if amount is missing or not above 0.",
+    eStarter: lines("def validate_expense(data):", "    errors = []", "    # append the error messages", "    return errors"),
+    eHint: "if not str(data.get('item', '')).strip(): errors.append(...); amount = data.get('amount'); if not isinstance(amount, (int, float)) or amount <= 0: errors.append(...)",
+    eTest: lines("assert validate_expense({'item': 'Tea', 'amount': 20}) == []", "assert validate_expense({'item': ' ', 'amount': 0}) == ['item is required', 'amount must be more than 0']", "assert validate_expense({}) == ['item is required', 'amount must be more than 0']", done),
+    aTitle: "Pages of Results",
+    aDesc: "APIs send long lists in pages. Write `paginate(items, page, size)` that returns the items for that page, where page 1 is the first page.",
+    aStarter: lines("def paginate(items, page, size):", "    # slice from (page - 1) * size", "    pass"),
+    aHint: "start = (page - 1) * size; return items[start:start + size]",
+    aTest: lines("items = list(range(1, 8))", "assert paginate(items, 1, 3) == [1, 2, 3]", "assert paginate(items, 3, 3) == [7]", "assert paginate(items, 4, 3) == []", done)
   },
   {
-    "title": "Decorators, Higher-Order Functions & Lambda Expressions",
-    "desc": "Master meta-programming in Python: treating functions as first-class citizens, creating wrapper decorators, and anonymous lambdas.",
-    "syllabus": [
-      "First-class functions and closures",
-      "Writing function decorators with @functools.wraps",
-      "Anonymous lambda functions and map()/filter()"
+    title: "Debugging: Reading Tracebacks",
+    desc: "Every developer spends a lot of time fixing bugs. Today you learn to read Python tracebacks from the bottom up, find the exact line, use print() and the VS Code debugger, and recognise the most common beginner mistakes. (Real world: a junior developer's first tasks are usually bug fixes.)",
+    syllabus: [
+      "Reading a traceback: error type, message and line.",
+      "Common errors: NameError, TypeError, KeyError, IndexError.",
+      "print() debugging and breakpoints."
     ],
-    "eTitle": "Execution Logger Decorator",
-    "eDesc": "Implement a decorator `@log_execution` that modifies a function to return a dict `{'result': <output>, 'function': <func_name>}`.",
-    "eStarter": "def log_execution(func):\n    # TODO: Define wrapper that calls func(*args, **kwargs) and returns {'result': res, 'function': func.__name__}\n    pass\n",
-    "eHint": "Define `def wrapper(*args, **kwargs): return {'result': func(*args, **kwargs), 'function': func.__name__}`; return wrapper.",
-    "eTest": "@log_execution\ndef add(a, b):\n    return a + b\n\nassert add(3, 4) == {'result': 7, 'function': 'add'}, 'Test 1 Failed'\nassert add(0, 0) == {'result': 0, 'function': 'add'}, 'Test 2 Failed: zero edge case'\n@log_execution\ndef greet(name):\n    return f'Hello, {name}'\nassert greet('PinIT') == {'result': 'Hello, PinIT', 'function': 'greet'}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Lambda Sort by Nested Value",
-    "aDesc": "Write a Python function `sort_products_by_price(products: list) -> list` sorting a list of dicts `[{'name': 'a', 'price': 10}]` by price ascending using a lambda.",
-    "aStarter": "def sort_products_by_price(products: list) -> list:\n    # Return sorted copy of products by price\n    pass\n",
-    "aHint": "return sorted(products, key=lambda p: p['price'])",
-    "aTest": "prods = [{'name': 'B', 'price': 30}, {'name': 'A', 'price': 10}]\nassert sort_products_by_price(prods) == [{'name': 'A', 'price': 10}, {'name': 'B', 'price': 30}], 'Test 1 Failed'\nassert sort_products_by_price([]) == [], 'Test 2 Failed'\nassert sort_products_by_price([{'name': 'X', 'price': 5}]) == [{'name': 'X', 'price': 5}], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Fix the Bug",
+    eDesc: "This function should add up every expense's amount, but it has a bug. Find it and fix it.",
+    eStarter: lines("def total_amount(expenses):", "    total = 0", "    for i in range(1, len(expenses)):", "        total = total + expenses[i]['amount']", "    return total"),
+    eHint: "Lists start at position 0, not 1.",
+    eTest: lines("assert total_amount([{'amount': 100}, {'amount': 200}, {'amount': 300}]) == 600, 'Expected 600'", done),
+    aTitle: "Find the Bad Record",
+    aDesc: "Write `first_invalid(expenses)` that returns the first expense whose amount is 0 or less, or `None` if all are fine.",
+    aStarter: lines("def first_invalid(expenses):", "    pass"),
+    aHint: "for e in expenses: if e['amount'] <= 0: return e. After the loop, return None.",
+    aTest: lines("data = [{'id': 1, 'amount': 20}, {'id': 2, 'amount': 0}, {'id': 3, 'amount': -5}]", "assert first_invalid(data)['id'] == 2", "assert first_invalid([{'id': 1, 'amount': 5}]) is None", done)
   },
   {
-    "title": "⭐ MILESTONE 5: Word Frequency & Inverted Index Search Engine",
-    "desc": "Synthesize text parsing, dictionary hashing, frequency ranking, and inverted indexing into a search engine indexer.",
-    "syllabus": [
-      "Text tokenization, lowercasing, and punctuation stripping",
-      "Building an inverted document index (word -> set of doc_ids)",
-      "Milestone Project: Full-Text Mini Search Engine"
+    title: "Putting Your API Online",
+    desc: "An API on your laptop helps nobody. Today you put the Expense Tracker API online with a free hosting service, keep secrets in environment variables, and write a README with the live link. (Real world: every portfolio project should have a live link.)",
+    syllabus: [
+      "requirements.txt and the start command.",
+      "Deploying from GitHub to a free host.",
+      "Environment variables and a good README."
     ],
-    "eTitle": "Inverted Document Index Builder",
-    "eDesc": "Write a Python function `build_inverted_index(docs: dict) -> dict` where docs is `{doc_id: 'text string'}`. Return dict mapping each word (lowercase, stripped) to sorted list of doc_ids where it appears.",
-    "eStarter": "def build_inverted_index(docs: dict) -> dict:\n    # Build inverted index\n    pass\n",
-    "eHint": "index = {}; for doc_id, text in docs.items(): for w in set(text.lower().split()): index.setdefault(w, []).append(doc_id); return {k: sorted(v) for k, v in index.items()}",
-    "eTest": "docs = {1: 'Python is great', 2: 'Great systems use Python'}\nidx = build_inverted_index(docs)\nassert idx['python'] == [1, 2], 'Test 1 Failed'\nassert idx['systems'] == [2], 'Test 2 Failed'\nassert build_inverted_index({}) == {}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Top-K Word Frequency Ranker",
-    "aDesc": "Write a Python function `top_k_words(text: str, k: int) -> list` returning the top `k` most frequent lowercase words as a list of `(word, count)` tuples sorted by count descending.",
-    "aStarter": "def top_k_words(text: str, k: int) -> list:\n    # Return top k word tuples\n    pass\n",
-    "aHint": "from collections import Counter; return Counter(text.lower().split()).most_common(k)",
-    "aTest": "res = top_k_words('apple banana apple apple banana cherry', 2)\nassert res == [('apple', 3), ('banana', 2)], 'Test 1 Failed'\nassert top_k_words('one one one', 1) == [('one', 3)], 'Test 2 Failed'\nassert top_k_words('cat dog cat bird', 3) == [('cat', 2), ('dog', 1), ('bird', 1)], 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "Which Address?",
+    eDesc: "Write `base_url(env)` that returns `'https://expense-api.onrender.com'` for `'production'` and `'http://127.0.0.1:8000'` for anything else.",
+    eStarter: lines("def base_url(env):", "    pass"),
+    eHint: "return 'https://expense-api.onrender.com' if env == 'production' else 'http://127.0.0.1:8000'",
+    eTest: lines("assert base_url('production') == 'https://expense-api.onrender.com'", "assert base_url('development') == 'http://127.0.0.1:8000'", done),
+    aTitle: "README Checker",
+    aDesc: "Write `missing_sections(readme)` that returns which of `'## About'`, `'## Features'`, `'## Setup'` are missing from the README text, in that order.",
+    aStarter: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    pass"),
+    aHint: "return [s for s in needed if s not in readme]",
+    aTest: lines("text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'", "assert missing_sections(text) == ['## Features']", done)
   },
   {
-    "title": "Asynchronous Python (async, await & asyncio Event Loops)",
-    "desc": "Master asynchronous concurrency, non-blocking I/O, coroutines with async/await, and gathering tasks with asyncio.",
-    "syllabus": [
-      "Synchronous blocking vs Asynchronous non-blocking event loops",
-      "Defining coroutines with async def and awaiting with await",
-      "Running concurrent tasks with asyncio.gather()"
+    title: "Interview Practice and Your Next Steps",
+    desc: "You have built a Python program and a web API and put it online. Today you practise the questions junior Python interviews ask, learn to explain your project clearly, and solve two classic coding questions. (Real world: most junior interviews include a short coding task and questions about your project.)",
+    syllabus: [
+      "Common Python questions: lists vs tuples, dictionaries, exceptions.",
+      "Explaining your project in 2 minutes.",
+      "Solving small coding questions calmly."
     ],
-    "eTitle": "Async Coroutine Aggregator",
-    "eDesc": "Write an async Python function `fetch_all_metrics(coros: list) -> list` that executes a list of coroutines concurrently using `asyncio.gather`.",
-    "eStarter": "import asyncio\n\nasync def fetch_all_metrics(coros: list) -> list:\n    # Await and gather all coroutines\n    pass\n",
-    "eHint": "asyncio.gather(*coros) runs all coroutines concurrently and returns their results in order. Unpack the list with * so gather receives individual coroutines, then await the combined result.",
-    "eTest": "import asyncio\n\nasync def sample(x):\n    return x * 2\n\nasync def runner():\n    res = await fetch_all_metrics([sample(1), sample(2), sample(3)])\n    assert res == [2, 4, 6], 'Test 1 Failed: three coroutines'\n    empty = await fetch_all_metrics([])\n    assert empty == [], 'Test 2 Failed: empty list should return []'\n    single = await fetch_all_metrics([sample(5)])\n    assert single == [10], 'Test 3 Failed: single coroutine result'\n\nasyncio.run(runner())\nprint('All 3 assertions passed.')",
-    "aTitle": "Async Rate-Limited Task Runner",
-    "aDesc": "Write an async Python function `run_with_delay(val: int) -> int` that awaits asyncio.sleep(0.01) and returns val * 10.",
-    "aStarter": "import asyncio\n\nasync def run_with_delay(val: int) -> int:\n    # Await sleep then return result\n    pass\n",
-    "aHint": "await asyncio.sleep(0.01); return val * 10",
-    "aTest": "import asyncio\n\nasync def runner():\n    res = await run_with_delay(5)\n    assert res == 50, 'Test 1 Failed'\n    res2 = await run_with_delay(0)\n    assert res2 == 0, 'Test 2 Failed'\n    res3 = await run_with_delay(-2)\n    assert res3 == -20, 'Test 3 Failed'\n\nasyncio.run(runner())\nprint('All 3 assertions passed.')"
-  },
-  {
-    "title": "Modern Type Hints, Static Typing & Pydantic Data Models",
-    "desc": "Write production-grade, self-documenting Python using PEP 484 type hints, Optional/Union types, and schema validation.",
-    "syllabus": [
-      "Type annotations: int, str, list[str], dict[str, Any]",
-      "Optional[T] and Union[A, B] from typing",
-      "Data validation principles and type safety in backend services"
-    ],
-    "eTitle": "Typed User Record Validator",
-    "eDesc": "Write a Python function `validate_user_record(record: dict) -> bool` returning True if record contains 'id' (int), 'email' (str containing '@'), and 'is_active' (bool), else False.",
-    "eStarter": "def validate_user_record(record: dict) -> bool:\n    # Validate dictionary structure and types\n    pass\n",
-    "eHint": "Check isinstance for all 3 fields and '@' in record['email'].",
-    "eTest": "assert validate_user_record({'id': 1, 'email': 'a@b.com', 'is_active': True}) == True, 'Test 1 Failed'\nassert validate_user_record({'id': '1', 'email': 'a@b.com', 'is_active': True}) == False, 'Test 2 Failed'\nassert validate_user_record({'id': 2, 'email': 'bad', 'is_active': True}) == False, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "Typed API Query Parameter Formatter",
-    "aDesc": "Write a Python function `build_query_string(params: dict) -> str` returning a URL query string like '?key1=val1&key2=val2' with sorted keys, or '' if empty.",
-    "aStarter": "def build_query_string(params: dict) -> str:\n    # Return formatted URL query string\n    pass\n",
-    "aHint": "if not params: return ''; return '?' + '&'.join(f'{k}={params[k]}' for k in sorted(params.keys()))",
-    "aTest": "assert build_query_string({'limit': 10, 'offset': 0}) == '?limit=10&offset=0', 'Test 1 Failed'\nassert build_query_string({}) == '', 'Test 2 Failed'\nassert build_query_string({'page': 1}) == '?page=1', 'Test 3 Failed'\nprint('All 3 assertions passed.')"
-  },
-  {
-    "title": "Web API Architecture with FastAPI & HTTP Route Controllers",
-    "desc": "Master modern RESTful backend services, HTTP methods (GET, POST), request payloads, and status codes in FastAPI.",
-    "syllabus": [
-      "Client-server HTTP request/response cycle",
-      "FastAPI app instance and route decorators (@app.get, @app.post)",
-      "Handling query parameters, path parameters, and JSON response bodies"
-    ],
-    "eTitle": "HTTP Status Code & Route Response Builder",
-    "eDesc": "Write a Python function `build_api_response(status_code: int, data: dict = None, error_msg: str = None) -> dict` returning `{'status': status_code, 'data': data, 'error': error_msg}`.",
-    "eStarter": "def build_api_response(status_code: int, data: dict = None, error_msg: str = None) -> dict:\n    # Return structured API response dictionary\n    pass\n",
-    "eHint": "Return {'status': status_code, 'data': data, 'error': error_msg}",
-    "eTest": "assert build_api_response(200, {'id': 1}) == {'status': 200, 'data': {'id': 1}, 'error': None}, 'Test 1 Failed'\nassert build_api_response(404, error_msg='Not Found') == {'status': 404, 'data': None, 'error': 'Not Found'}, 'Test 2 Failed'\nassert build_api_response(201, {'created': True}) == {'status': 201, 'data': {'created': True}, 'error': None}, 'Test 3 Failed'\nprint('All 3 assertions passed.')",
-    "aTitle": "API Route Endpoint Path Parser",
-    "aDesc": "Write a Python function `extract_path_params(route_template: str, actual_path: str) -> dict` extracting `{param}` from matching paths (e.g. '/users/{id}' and '/users/42' -> `{'id': '42'}`).",
-    "aStarter": "def extract_path_params(route_template: str, actual_path: str) -> dict:\n    # Extract path parameters\n    pass\n",
-    "aHint": "Zip template parts and actual parts; if part starts with '{' and ends with '}': key = part[1:-1]; params[key] = actual_part",
-    "aTest": "assert extract_path_params('/users/{id}', '/users/42') == {'id': '42'}, 'Test 1 Failed'\nassert extract_path_params('/items/{category}/{id}', '/items/books/101') == {'category': 'books', 'id': '101'}, 'Test 2 Failed'\nassert extract_path_params('/api/v1/health', '/api/v1/health') == {}, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
-  },
-  {
-    "title": "🏆 FINAL CAPSTONE: Enterprise High-Performance Transaction Ledger Auditor & Backend API",
-    "desc": "The ultimate synthesis of PinIT Python Backend Engineering: end-to-end Ledger Transaction Auditor, balance reconciler, defensive anomaly detector, and metric summary generator.",
-    "syllabus": [
-      "End-to-end domain entity architecture",
-      "Transaction reconciliation and audit reporting",
-      "Final Capstone Certification Project"
-    ],
-    "eTitle": "Final Capstone: Ledger Transaction Auditor Engine",
-    "eDesc": "Implement `LedgerAuditor` with `__init__(self, initial_balance: float)`, `add_transaction(self, tx_type: str, amount: float, category: str)`, `reconcile_balance(self) -> float`, and `generate_audit_report(self) -> dict` returning `{'final_balance': float, 'total_credits': float, 'total_debits': float, 'transaction_count': int}`.",
-    "eStarter": "class LedgerAuditor:\n    def __init__(self, initial_balance: float = 0.0):\n        # TODO: Initialize initial_balance and empty transactions list\n        pass\n\n    def add_transaction(self, tx_type: str, amount: float, category: str):\n        # TODO: Validate amount > 0 and tx_type in ('CREDIT', 'DEBIT'), append transaction dict\n        pass\n\n    def reconcile_balance(self) -> float:\n        # TODO: Apply credits and debits to initial_balance, return rounded to 2 decimals\n        pass\n\n    def generate_audit_report(self) -> dict:\n        # TODO: Return dict with 'final_balance', 'total_credits', 'total_debits', and 'transaction_count'\n        pass\n",
-    "eHint": "Reconcile balance by adding CREDIT and subtracting DEBIT; calculate totals in report.",
-    "eTest": "auditor = LedgerAuditor(1000.0)\nauditor.add_transaction('CREDIT', 500.0, 'SALARY')\nauditor.add_transaction('DEBIT', 200.0, 'GROCERIES')\nassert auditor.reconcile_balance() == 1300.0, 'Test 1 Failed'\nrep = auditor.generate_audit_report()\nassert rep == {'final_balance': 1300.0, 'total_credits': 500.0, 'total_debits': 200.0, 'transaction_count': 2}, 'Test 2 Failed'\ntry:\n    auditor.add_transaction('INVALID', 10.0, 'TEST')\n    assert False, 'Test 3 Failed'\nexcept ValueError:\n    pass\nprint('All 3 assertions passed.')",
-    "aTitle": "Final Capstone: Account Balance Reconciler & Category Filter",
-    "aDesc": "Write a Python function `reconcile_ledger_by_category(initial_balance: float, transactions: list, filter_category: str) -> dict` returning net balance after applying only transactions of that category, plus count of transactions processed.",
-    "aStarter": "def reconcile_ledger_by_category(initial_balance: float, transactions: list, filter_category: str) -> dict:\n    # Filter and reconcile transactions by category\n    pass\n",
-    "aHint": "bal = initial_balance; count = 0; for t in transactions: if t['category'] == filter_category: bal += t['amount'] if t['type'] == 'CREDIT' else -t['amount']; count += 1; return {'filtered_balance': round(bal, 2), 'processed_count': count}",
-    "aTest": "txs = [{'type': 'CREDIT', 'amount': 100.0, 'category': 'TECH'}, {'type': 'DEBIT', 'amount': 30.0, 'category': 'TECH'}, {'type': 'DEBIT', 'amount': 50.0, 'category': 'FOOD'}]\nres = reconcile_ledger_by_category(500.0, txs, 'TECH')\nassert res == {'filtered_balance': 570.0, 'processed_count': 2}, 'Test 1 Failed'\nassert reconcile_ledger_by_category(100.0, [], 'TECH') == {'filtered_balance': 100.0, 'processed_count': 0}, 'Test 2 Failed'\nassert reconcile_ledger_by_category(200.0, [{'type': 'CREDIT', 'amount': 50.0, 'category': 'OTHER'}], 'TECH') == {'filtered_balance': 200.0, 'processed_count': 0}, 'Test 3 Failed'\nprint('All 3 assertions passed.')"
+    eTitle: "FizzBuzz",
+    eDesc: "Write `fizz_buzz(n)` that returns `'FizzBuzz'` if n divides by 3 and 5, `'Fizz'` if by 3, `'Buzz'` if by 5, otherwise the number as text.",
+    eStarter: lines("def fizz_buzz(n):", "    # check 3 and 5 together first", "    pass"),
+    eHint: "if n % 15 == 0: return 'FizzBuzz' ... return str(n)",
+    eTest: lines("assert fizz_buzz(15) == 'FizzBuzz'", "assert fizz_buzz(9) == 'Fizz'", "assert fizz_buzz(10) == 'Buzz'", "assert fizz_buzz(7) == '7'", done),
+    aTitle: "Reverse the Words",
+    aDesc: "Write `reverse_words(sentence)` that reverses the order of the words. Example: `'I love Python'` gives `'Python love I'`.",
+    aStarter: lines("def reverse_words(sentence):", "    # split, reverse, join", "    pass"),
+    aHint: "return ' '.join(reversed(sentence.split()))",
+    aTest: lines("assert reverse_words('I love Python') == 'Python love I'", done)
   }
 ];
 
-export const PYTHON_30_DAYS_QUESTS: CourseQuest[] = PYTHON_30_DAYS_CONFIGS.flatMap((cfg, idx) => 
+export const PYTHON_30_DAYS_QUESTS: CourseQuest[] = PYTHON_30_DAYS_CONFIGS.flatMap((cfg, idx) =>
   buildEnrichedDayQuests('python', idx + 1, cfg)
 );
