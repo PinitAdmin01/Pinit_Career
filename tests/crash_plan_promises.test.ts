@@ -40,3 +40,22 @@ test('capstone sprints use the plan wording for its track and the generic wordin
   assert.equal(python[2].title, CAPSTONE_SPRINTS[2].title, 'sprint 3 keeps the generic title');
   assert.deepEqual(getCapstoneSprints(undefined, undefined).map((s) => s.title), CAPSTONE_SPRINTS.map((s) => s.title));
 });
+
+// Every month that uses the SQL course must only list skills the SQL course teaches.
+// It used to promise Redis, MongoDB, Prisma, ETL and "Big Data" under Month 3.
+test('plan months that use the SQL course only list skills the SQL course teaches', async () => {
+  const { CRASH_COURSE_PLANS } = await import('../src/lib/data/crashPlansData');
+  const { DATABASE_30_DAYS_CONFIGS } = await import('../src/lib/data/database30DayData');
+  // The syllabus, not the lesson text: Day 29 mentions Redis and MongoDB only to compare them.
+  const courseText = DATABASE_30_DAYS_CONFIGS.map((d) => [d.title, d.desc, ...(d.syllabus ?? [])].join(' ')).join(' ').toLowerCase();
+  for (const plan of CRASH_COURSE_PLANS) {
+    for (const track of ['web_fullstack', 'python_ai'] as const) {
+      for (const m of plan.modulesByTrack[track].filter((x) => x.courseId === 'course-database-eng' && x.month === 3)) {
+        // Day 29 names Redis and MongoDB only to compare them; the course does not teach using them.
+        const comparedOnly = ['redis', 'mongodb'];
+        const untaught = m.skills.filter((skill) => !courseText.includes(skill.toLowerCase()) || comparedOnly.includes(skill.toLowerCase()));
+        assert.deepEqual(untaught, [], `${plan.id} ${track} month 3 lists untaught skills: ${untaught.join(', ')}`);
+      }
+    }
+  }
+});
