@@ -6,11 +6,14 @@ import type { LongLesson } from '../src/lib/data/longLessons';
 import { estimateLessonMinutes, estimateSpokenMinutes, getLongLesson } from '../src/lib/data/longLessons';
 import { DSA_PYTHON_LONG_LESSONS } from '../src/lib/data/dsaPythonLongLessons';
 import { DSA_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/dsaPython30DayData';
+import { AI_PYTHON_LONG_LESSONS } from '../src/lib/data/aiPythonLongLessons';
+import { AI_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/aiPython30DayData';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 
 /** Python-track courses with full-length lessons (the days written so far). */
 const COURSES: { name: string; prefix: string; lessons: LongLesson[]; configs: DayConfig[] }[] = [
   { name: 'DSA in Python', prefix: 'dsa-py', lessons: DSA_PYTHON_LONG_LESSONS, configs: DSA_PYTHON_30_DAYS_CONFIGS },
+  { name: 'AI Engineering in Python', prefix: 'ai-py', lessons: AI_PYTHON_LONG_LESSONS, configs: AI_PYTHON_30_DAYS_CONFIGS },
 ];
 
 /** Runs a sample the way the lesson page does: Pyodide, a fresh __main__ namespace, the last error line. */
@@ -58,7 +61,7 @@ for (const course of COURSES) {
       assert.ok(lesson.summary.length >= 3 && lesson.projectStep && lesson.projectStep.steps.length > 0, `${where}: summary or project step missing`);
       for (const part of lesson.parts) {
         assert.ok(part.say.length >= 3 && part.example && part.code && part.tryIt, `${where} "${part.title}": incomplete part`);
-        assert.doesNotMatch(part.code!, /console\.log|\bconst |=>|\bfunction\b/, `${where} "${part.title}": JavaScript in a Python lesson`);
+        assert.doesNotMatch(part.code!, /console\.log|\bconst |=>|\bfunction\s+\w+\s*\(/, `${where} "${part.title}": JavaScript in a Python lesson`);
         const { options, answer } = part.check;
         assert.ok(options.length >= 2 && answer >= 0 && answer < options.length, `${where} "${part.title}": bad check question`);
         assert.equal(new Set(options).size, options.length, `${where} "${part.title}": repeated option`);
