@@ -120,7 +120,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function isLockValid(acquiredAt, ttlMs, driftMs = 50) checking if `(now - acquiredAt + drift) < ttl`.",
     "aStarter": "function isLockValid(at, ttl, drift = 50) {\n  // TODO: write your code here\n}",
     "aHint": "Check elapsed time < ttl.",
-    "aTest": "if (isLockValid(Date.now(), 1000) !== true) throw new Error('Fresh lock should be valid');"
+    "aTest": "if (isLockValid(Date.now(), 1000) !== true) throw new Error('Fresh lock should be valid');\nif (isLockValid(Date.now() - 5000, 1000) !== false) throw new Error('A lock taken 5 seconds ago with a 1 second TTL has expired');"
   },
   {
     "day": 7,
@@ -160,7 +160,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function getUlidPrefix(timestamp) returning timestamp slice.",
     "aStarter": "function getUlidPrefix(t) {\n  // TODO: write your code here\n}",
     "aHint": "Convert to base36.",
-    "aTest": "if (typeof getUlidPrefix(1700000000) !== 'string') throw new Error('ULID prefix failed');"
+    "aTest": "if (typeof getUlidPrefix(1700000000) !== 'string') throw new Error('ULID prefix failed');\nif (getUlidPrefix(1700000000) === getUlidPrefix(1700000001)) throw new Error('Different timestamps must give different prefixes');\nif (getUlidPrefix(1700000000) !== getUlidPrefix(1700000000)) throw new Error('The same timestamp must always give the same prefix');"
   },
   {
     "day": 9,
@@ -240,7 +240,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function routeToPartition(key, totalPartitions) returning `hash(key) % total`.",
     "aStarter": "function routeToPartition(k, total) {\n  // TODO: write your code here\n}",
     "aHint": "Compute abs(hash) % total.",
-    "aTest": "const p = routeToPartition('order_101', 4);\nif (!Number.isInteger(p) || p < 0 || p >= 4) throw new Error('Partition routing out of range');\nif (routeToPartition('order_101', 4) !== p) throw new Error('The same key must always go to the same partition');"
+    "aTest": "const p = routeToPartition('order_101', 4);\nif (!Number.isInteger(p) || p < 0 || p >= 4) throw new Error('Partition routing out of range');\nif (routeToPartition('order_101', 4) !== p) throw new Error('The same key must always go to the same partition');\nconst used = new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((k) => routeToPartition('order_' + k, 4)));\nif (used.size < 2) throw new Error('Different keys must spread over more than one partition');"
   },
   {
     "day": 13,
@@ -380,7 +380,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function isReplicationLagExceeded(lagSeconds, maxLag = 10) returning true if lag > maxLag.",
     "aStarter": "function isReplicationLagExceeded(lag, max = 10) {\n  // TODO: write your code here\n}",
     "aHint": "Check lag > max.",
-    "aTest": "if (isReplicationLagExceeded(15, 10) !== true) throw new Error('Lag alert failed');"
+    "aTest": "if (isReplicationLagExceeded(15, 10) !== true) throw new Error('Lag alert failed');\nif (isReplicationLagExceeded(5, 10) !== false) throw new Error('5 seconds of lag is under the 10 second limit');"
   },
   {
     "day": 20,
@@ -520,7 +520,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function isValidTraceparent(h) checking `00-32hex-16hex-01` format.",
     "aStarter": "function isValidTraceparent(h) {\n  // TODO: write your code here\n}",
     "aHint": "Test with regex.",
-    "aTest": "if (isValidTraceparent('00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01') !== true) throw new Error('Validation failed');"
+    "aTest": "if (isValidTraceparent('00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01') !== true) throw new Error('Validation failed');\nif (isValidTraceparent('00-short-01') !== false) throw new Error('A malformed traceparent must be rejected');"
   },
   {
     "day": 27,

