@@ -14,7 +14,7 @@ type Quest = { id: string; category?: string; starterCode?: string; testSuite?: 
 /** Runs a JavaScript practice task the way the sandbox worker does (new Function(script)(), then waits). */
 async function gradeJs(code: string, testSuite: string): Promise<{ passed: boolean; error?: string }> {
   // The browser worker has these too.
-  const context = vm.createContext({ console: { log() {}, error() {} }, setTimeout, clearTimeout, Promise, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa });
+  const context = vm.createContext({ console: { log() {}, error() {} }, setTimeout, clearTimeout, Promise, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa, crypto: globalThis.crypto });
   try {
     const result = vm.runInContext(`(function () {\n${buildJsTaskScript(code, testSuite)}\n})()`, context, { timeout: 3000 });
     await result;
@@ -92,7 +92,7 @@ function lazyAnswer(starter: string, value: string): string {
 }
 type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
 
-const CHECKED_COURSES = ['course-react-web', 'course-cloud-native', 'course-devops-cicd', 'course-quant-systems', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
+const CHECKED_COURSES = ['course-fullstack-js', 'course-react-web', 'course-cloud-native', 'course-devops-cicd', 'course-quant-systems', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
 test('every practice task in the checked courses: the reference answer passes, the starting code fails', async () => {
   // A check that forgets to wait for async code can throw after the test ends; count it as a failure there instead.
@@ -102,7 +102,7 @@ test('every practice task in the checked courses: the reference answer passes, t
   try {
     for (const courseId of CHECKED_COURSES) {
       const list = tasks(courseId);
-      assert.equal(list.length, 60, courseId);
+      assert.equal(list.length, courseId === 'course-fullstack-js' ? 240 : 60, courseId);
       for (const q of list) {
         const solution = SOLUTIONS[q.id];
         assert.ok(solution, `${q.id}: no reference answer in tests/fixtures/practice_solutions.json`);
@@ -133,6 +133,10 @@ test('checks never require a made-up code the student is not told about', () => 
       for (const m of suite.matchAll(/[!=]==\s*'([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+)'/g)) {
         // A value the check itself passes in as input (for example a stage name) is not hidden.
         const usedAsInput = suite.split(`'${m[1]}'`).length - 1 > suite.split(new RegExp(`[!=]==\\s*'${m[1]}'`)).length - 1;
+        assert.ok(visible.includes(m[1]) || usedAsInput, `${q.id}: the check needs '${m[1]}' but the task never mentions it`);
+      }
+      for (const m of suite.matchAll(/assert\.strictEqual\([^,]+,\s*'([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+)'/g)) {
+        const usedAsInput = suite.split(`'${m[1]}'`).length - 1 > suite.split(new RegExp(`,\\s*'${m[1]}'`)).length - 1;
         assert.ok(visible.includes(m[1]) || usedAsInput, `${q.id}: the check needs '${m[1]}' but the task never mentions it`);
       }
       for (const m of suite.matchAll(/includes\('([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+)'\)/g)) {
