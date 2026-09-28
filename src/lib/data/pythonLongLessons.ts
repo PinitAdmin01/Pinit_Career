@@ -1050,5 +1050,1138 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         'Otherwise print how much is left today.'
       ]
     }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 6,
+    title: 'Loops: Doing Things Again and Again',
+    goal: 'You can repeat work with for and while loops, and add up or count values with the accumulator pattern.',
+    minutes: 30,
+    recap: 'Yesterday you made decisions with if, elif and else, and combined conditions with and, or and not.',
+    parts: [
+      {
+        title: 'Why we need loops',
+        say: [
+          'Imagine you have 100 expenses and want to print each one. You could write 100 print lines, but that is slow, boring and easy to get wrong. Computers are good at repeating work, and a loop is how you tell Python to repeat.',
+          'Today you meet the for loop. It goes through a group of values one at a time and runs the same indented lines for each one. When there are no values left, the loop ends and Python carries on with the next line.',
+          'To have something to loop over, you need a group of values. The simplest group is a list: values inside square brackets, separated by commas, like [20, 45, 120]. You will learn lists properly on Day 8. Today you just loop over them.',
+          'Like if, a for line ends with a colon, and the lines that repeat are indented by four spaces underneath. The indentation tells Python which lines are inside the loop.'
+        ],
+        example: 'A teacher correcting 40 answer sheets does the same steps for each sheet: pick it up, check the answers, write the marks, put it on the done pile. She does not need 40 different instructions, just one set of steps repeated for each sheet. That is a loop.',
+        code: lines(
+          'expenses = [20, 45, 120]',
+          'for amount in expenses:',
+          '    print("Expense:", amount)',
+          'print("Done")'
+        ),
+        output: lines('Expense: 20', 'Expense: 45', 'Expense: 120', 'Done'),
+        codeNotes: [
+          { line: 1, note: 'A list: three values in square brackets.' },
+          { line: 2, note: 'Each time round the loop, amount holds the next value from the list.' },
+          { line: 4, note: 'Not indented, so it runs once, after the loop finishes.' }
+        ],
+        tryIt: 'Add two more numbers to the list, for example 60 and 300, and run it. The loop prints five lines without you changing anything else.',
+        check: {
+          question: 'How many times does the indented line run in: for x in [5, 6, 7, 8]:',
+          options: ['4 times', '1 time', '8 times'],
+          answer: 0,
+          why: 'A for loop runs its indented lines once for every value in the list. The list has four values, so four times.'
+        }
+      },
+      {
+        title: 'Looping over text and range()',
+        say: [
+          'A for loop can go through more than lists. If you loop over a string, you get one character at a time. This is useful for checking or counting letters.',
+          'Very often you just want to repeat something a number of times, or count. For that, Python has range(). range(5) gives the numbers 0, 1, 2, 3 and 4. Notice it starts at 0 and stops before 5, the same "up to but not including" rule you saw with slicing.',
+          'range can also take a start: range(1, 6) gives 1 to 5. And a step: range(0, 20, 5) gives 0, 5, 10 and 15. The step is how much to jump each time.',
+          'The loop variable, the name after for, can be any name you like. Use a meaningful one, like amount or day. For simple counting, programmers often use i, short for index.'
+        ],
+        example: 'range is like the numbered stops on a bus route. range(1, 6) is "stop 1 to stop 5". The bus visits each stop in order and stops before stop 6. A step of 2 would be an express bus that skips every other stop.',
+        code: lines(
+          'for letter in "Tea":',
+          '    print(letter)',
+          'for day in range(1, 4):',
+          '    print("Day", day)',
+          'for n in range(0, 20, 5):',
+          '    print(n)'
+        ),
+        output: lines('T', 'e', 'a', 'Day 1', 'Day 2', 'Day 3', '0', '5', '10', '15'),
+        codeNotes: [
+          { line: 1, note: 'Looping over a string gives one character at a time.' },
+          { line: 3, note: 'range(1, 4) gives 1, 2 and 3. It stops before 4.' },
+          { line: 5, note: 'Start at 0, stop before 20, jump by 5.' }
+        ],
+        tryIt: 'Print the 7 times table: for i in range(1, 11): print(7, "x", i, "=", 7 * i). Put the print on its own indented line.',
+        check: {
+          question: 'Which numbers does range(2, 6) give?',
+          options: ['2, 3, 4, 5', '2, 3, 4, 5, 6', '0, 1, 2, 3, 4, 5'],
+          answer: 0,
+          why: 'range starts at the first number and stops before the second one. So 2 up to 5, not including 6.'
+        }
+      },
+      {
+        title: 'The accumulator pattern: running totals',
+        say: [
+          'One of the most useful patterns in programming is the accumulator. You start a variable at zero before the loop, and inside the loop you add to it each time. When the loop finishes, the variable holds the total.',
+          'The start line must be before the loop, not inside it. If you write total = 0 inside the loop, it resets to zero every time round, and you end up with only the last value. This is one of the most common beginner bugs.',
+          'The same pattern works for counting. Start count = 0, and add 1 each time something happens. Combined with an if inside the loop, you can count only the values you care about, like expenses over 100.',
+          'You already know sum() does totals for you. So why learn this? Because the accumulator works for anything: totals, counts, the biggest value so far, or building up a message. sum() only does one of those jobs.'
+        ],
+        example: 'A shopkeeper at the end of the day starts with an empty counting sheet. For each bill in the drawer, she adds the amount to her running total. When the last bill is added, the sheet shows the day\'s sales. She wrote "0" once at the start, not before every bill.',
+        code: lines(
+          'expenses = [20, 45, 120, 300, 60]',
+          'total = 0',
+          'big = 0',
+          'for amount in expenses:',
+          '    total = total + amount',
+          '    if amount > 100:',
+          '        big = big + 1',
+          'print("Total:", total)',
+          'print("Expenses over 100:", big)'
+        ),
+        output: lines('Total: 545', 'Expenses over 100: 2'),
+        codeNotes: [
+          { line: 2, note: 'Start at zero, before the loop.' },
+          { line: 5, note: 'Add each amount to the running total.' },
+          { line: 7, note: 'Indented twice: inside the if, which is inside the loop. Counts only the big ones.' }
+        ],
+        tryIt: 'Move total = 0 inside the loop (indent it under the for line, above line 5) and run it. The total is now just 60, the last value. Move it back.',
+        check: {
+          question: 'Where should total = 0 go when adding up a list with a loop?',
+          options: ['Before the loop', 'Inside the loop', 'After the loop'],
+          answer: 0,
+          why: 'It must be set once, before the loop starts. Inside the loop it would reset to 0 every time round.'
+        }
+      },
+      {
+        title: 'while loops',
+        say: [
+          'A for loop repeats once for each value in a group. A while loop is different: it repeats as long as a condition is True. It checks the condition before every round, and stops as soon as the condition becomes False.',
+          'while loops are useful when you do not know in advance how many rounds you need. For example: keep saving 500 rupees a month until you reach 3000. How many months is that? The loop works it out.',
+          'The big danger with while is an endless loop. If nothing inside the loop ever makes the condition False, the loop runs forever and the program freezes. Always check that something inside the loop moves you towards the end.',
+          'In the lesson editor, a program that runs too long is stopped after a few seconds, so you cannot break anything. But in real programs, endless loops are a serious bug, so build the habit of checking now.'
+        ],
+        example: 'Filling a bucket with a mug: while the bucket is not full, pour one more mug. You do not count the mugs in advance; you just keep going until the condition "not full" stops being true. If the bucket had a hole, you would pour forever.',
+        code: lines(
+          'savings = 0',
+          'months = 0',
+          'while savings < 3000:',
+          '    savings = savings + 500',
+          '    months = months + 1',
+          'print("Months needed:", months)',
+          'print("Saved:", savings)'
+        ),
+        output: lines('Months needed: 6', 'Saved: 3000'),
+        codeNotes: [
+          { line: 3, note: 'Checked before every round. When savings reaches 3000, the loop stops.' },
+          { line: 4, note: 'This line moves us towards the end. Without it, the loop would never stop.' }
+        ],
+        tryIt: 'Change the monthly saving from 500 to 700. Predict the months before running. It should be 5 months, with 3500 saved.',
+        check: {
+          question: 'What makes a while loop stop?',
+          options: ['Its condition becomes False', 'It has run 10 times', 'It reaches the end of a list'],
+          answer: 0,
+          why: 'A while loop keeps going as long as its condition is True, and stops as soon as the condition is False.'
+        }
+      },
+      {
+        title: 'break and continue',
+        say: [
+          'Sometimes you want to leave a loop early. break stops the loop immediately, and Python continues with the first line after the loop. It is useful when you are searching for something and have found it.',
+          'continue is different. It skips the rest of the current round and jumps to the next value. The loop keeps going. It is useful for ignoring values you do not want, like zero or negative amounts.',
+          'Both break and continue are usually inside an if, because you only want to stop or skip in certain cases.',
+          'Use them when they make the code simpler. If a loop has many breaks and continues, it can become hard to follow, and a clearer if is often better.'
+        ],
+        example: 'Looking for your keys in a row of drawers: you open them one by one, and as soon as you find the keys, you stop. That is break. Sorting mangoes: if a mango is spoiled, you skip it and move on to the next one. That is continue.',
+        code: lines(
+          'expenses = [20, 0, 45, -5, 120, 900, 30]',
+          'total = 0',
+          'for amount in expenses:',
+          '    if amount <= 0:',
+          '        continue',
+          '    if amount > 500:',
+          '        print("Found a large expense:", amount)',
+          '        break',
+          '    total = total + amount',
+          'print("Total before the large one:", total)'
+        ),
+        output: lines('Found a large expense: 900', 'Total before the large one: 185'),
+        codeNotes: [
+          { line: 5, note: 'Skip zero and negative amounts, and go to the next value.' },
+          { line: 8, note: 'Stop the whole loop. The 30 at the end is never looked at.' }
+        ],
+        tryIt: 'Change 900 to 90 and run it. Now no amount is over 500, so the loop never breaks and the total includes every positive amount: 305.',
+        check: {
+          question: 'What does continue do inside a loop?',
+          options: ['Skips the rest of this round and goes to the next value', 'Stops the loop completely', 'Starts the loop again from the first value'],
+          answer: 0,
+          why: 'continue jumps to the next round. break is the one that stops the loop completely.'
+        }
+      },
+      {
+        title: 'Putting it together: a spending report',
+        say: [
+          'Let us put today\'s loops into the Expense Tracker. We have a list of amounts and want a small report: each expense numbered, the total, the number of big expenses and the largest one.',
+          'To number the lines, we keep a counter that goes up by one each round. To find the largest, we use the accumulator idea again: keep the biggest seen so far, and replace it whenever we see something bigger.',
+          'Notice that this one loop does four jobs at the same time. That is common in real code: you go through the data once and collect everything you need.',
+          'In today\'s practice you will write two small loops: one that adds up a list, and one that counts the values above a limit. They are the two halves of the loop in this example.'
+        ],
+        example: 'A cricket scorer watches every ball of an innings. On each ball, they update the total runs, the ball count and the highest score so far. One pass through the match fills the whole scorecard.',
+        code: lines(
+          'expenses = [20, 45, 120, 300, 60]',
+          'number = 0',
+          'total = 0',
+          'largest = 0',
+          'for amount in expenses:',
+          '    number += 1',
+          '    total += amount',
+          '    if amount > largest:',
+          '        largest = amount',
+          '    print(str(number) + ". Rs", amount)',
+          'print("Total:", total)',
+          'print("Largest:", largest)'
+        ),
+        output: lines('1. Rs 20', '2. Rs 45', '3. Rs 120', '4. Rs 300', '5. Rs 60', 'Total: 545', 'Largest: 300'),
+        codeNotes: [
+          { line: 6, note: 'The counter goes 1, 2, 3... one per expense.' },
+          { line: 8, note: 'Keep the biggest amount seen so far.' }
+        ],
+        tryIt: 'Add a count of expenses under 50, using a new variable small = 0 before the loop and an if inside it. Print it at the end. The answer should be 2.',
+        check: {
+          question: 'How does the loop find the largest expense?',
+          options: ['It keeps the biggest value so far and replaces it when it sees a bigger one', 'It sorts the list first', 'It uses the last value in the list'],
+          answer: 0,
+          why: 'largest starts at 0 and is replaced whenever a bigger amount appears. At the end, it holds the biggest one.'
+        }
+      }
+    ],
+    summary: [
+      'A for loop runs its indented lines once for each value in a list, string or range.',
+      'range(start, stop, step) counts from start up to, but not including, stop.',
+      'The accumulator pattern: start a total or count before the loop, add to it inside.',
+      'A while loop repeats while its condition is True. Make sure something moves it towards the end.',
+      'break leaves the loop early; continue skips to the next round.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: a loop report',
+      steps: [
+        'Store a list of at least five expense amounts.',
+        'Loop over it to print each one with a number in front.',
+        'Work out the total and the largest expense in the same loop.',
+        'Count how many expenses are over 100 and print it.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 7,
+    title: 'Functions: Your Own Tools',
+    goal: 'You can write your own functions with parameters, default values and return, and know why return is different from print.',
+    minutes: 30,
+    recap: 'Yesterday you repeated work with for and while loops and built totals and counts with the accumulator pattern.',
+    parts: [
+      {
+        title: 'What a function is',
+        say: [
+          'You have been using functions since Day 1: print, len, round, max. Each one is a named tool that does one job. Today you learn to write your own.',
+          'A function is a named set of steps. You write the steps once, give them a name, and then use that name whenever you need those steps. Using a function is called calling it.',
+          'You create a function with def, short for define, then the name, round brackets, and a colon. The steps go underneath, indented, just like with if and for. Defining a function does not run it. It only runs when you call it by name with brackets.',
+          'Functions are how real programs are organised. Instead of one long list of instructions, a program is made of many small functions, each with a clear name and one job. This makes code easier to read, test and fix.'
+        ],
+        example: 'A function is like a recipe card for masala chai. You write the recipe once. Whenever someone wants chai, you do not re-invent it; you just say "make chai" and follow the card. Writing the card is defining the function; making the chai is calling it.',
+        code: lines(
+          'def show_title():',
+          '    print("=== My Expense Tracker ===")',
+          '    print("Track every rupee")',
+          '',
+          'show_title()',
+          'print("...some other work...")',
+          'show_title()'
+        ),
+        output: lines('=== My Expense Tracker ===', 'Track every rupee', '...some other work...', '=== My Expense Tracker ===', 'Track every rupee'),
+        codeNotes: [
+          { line: 1, note: 'def starts a function definition. Nothing prints yet.' },
+          { line: 5, note: 'Calling the function runs its two indented lines.' },
+          { line: 7, note: 'Called again: the same steps run again.' }
+        ],
+        tryIt: 'Delete the two calls on lines 5 and 7 and run it. Only "...some other work..." prints, because defining a function does not run it. Then put the calls back.',
+        check: {
+          question: 'When do the lines inside a function run?',
+          options: ['When the function is called by its name with brackets', 'As soon as Python reads the def line', 'Only at the end of the program'],
+          answer: 0,
+          why: 'def only defines the function. Its lines run each time you call it, like show_title().'
+        }
+      },
+      {
+        title: 'Parameters: giving a function information',
+        say: [
+          'Most functions need some information to do their job. print needs to know what to print; round needs a number. The names inside the brackets of a def are called parameters. They are like empty boxes that get filled when the function is called.',
+          'When you call the function, the values you put in the brackets are called arguments. Python puts the first argument into the first parameter, the second into the second, and so on. The order matters.',
+          'Inside the function, parameters work just like variables. When the function finishes, they disappear. Each call gets fresh boxes with its own values.',
+          'A function can have as many parameters as it needs, separated by commas. Give them clear names, because they tell the reader what information the function expects.'
+        ],
+        example: 'A courier form has blanks for name, address and phone. The form is the same for every parcel; only what you write in the blanks changes. Parameters are the blanks; arguments are what you write in them for this parcel.',
+        code: lines(
+          'def show_expense(item, amount):',
+          '    print(item, "costs Rs", amount)',
+          '',
+          'show_expense("Tea", 20)',
+          'show_expense("Bus", 45)',
+          'show_expense(120, "Lunch")'
+        ),
+        output: lines('Tea costs Rs 20', 'Bus costs Rs 45', '120 costs Rs Lunch'),
+        codeNotes: [
+          { line: 1, note: 'Two parameters: item and amount.' },
+          { line: 4, note: '"Tea" goes into item and 20 goes into amount.' },
+          { line: 6, note: 'Wrong order: Python does not know what you meant, so the output is nonsense.' }
+        ],
+        tryIt: 'Fix line 6 by swapping the two arguments. Then add a third call for your own expense.',
+        check: {
+          question: 'In def greet(name, city), what is name when you call greet("Ravi", "Pune")?',
+          options: ['"Ravi"', '"Pune"', 'Nothing until you set it'],
+          answer: 0,
+          why: 'Arguments are matched to parameters in order. The first argument, "Ravi", goes into the first parameter, name.'
+        }
+      },
+      {
+        title: 'return: giving back an answer',
+        say: [
+          'The functions so far printed something. But usually you want a function to work out an answer and give it back, so you can use it in the rest of your program. That is what return does.',
+          'return sends a value back to the place where the function was called. You can store it in a variable, print it, or use it in a calculation. len("Tea") returns 3; that is why you can write len("Tea") + 1.',
+          'When Python reaches a return line, the function ends immediately. Any lines after it inside the function do not run.',
+          'If a function has no return, it gives back a special value called None, which means "nothing". If you ever see None printed where you expected a number, you probably forgot a return.'
+        ],
+        example: 'You send a friend to the shop with money and a list. return is your friend coming back and handing you the items. If your friend just shouts "I bought them!" from the shop but never comes back, you have nothing in your hand. That is print without return.',
+        code: lines(
+          'def add_gst(price):',
+          '    return round(price * 1.18, 2)',
+          '',
+          'tea = add_gst(20)',
+          'lunch = add_gst(120)',
+          'print(tea)',
+          'print(lunch)',
+          'print("Total:", tea + lunch)'
+        ),
+        output: lines('23.6', '141.6', 'Total: 165.2'),
+        codeNotes: [
+          { line: 2, note: 'Work out the price with GST and send it back.' },
+          { line: 4, note: 'The returned value is stored in tea.' },
+          { line: 8, note: 'Because the function returns numbers, we can add them.' }
+        ],
+        tryIt: 'Change return on line 2 to print and run it. Notice the values still print, but then tea and lunch are None, and the total line gives an error. Change it back to return.',
+        check: {
+          question: 'What does a function give back if it has no return?',
+          options: ['None', '0', 'The last value it printed'],
+          answer: 0,
+          why: 'Without a return, a function gives back None, Python\'s way of saying "nothing".'
+        }
+      },
+      {
+        title: 'Why return is different from print',
+        say: [
+          'This is the most important idea of today, so let us be very clear. print shows a value on the screen for a human to read. return hands a value back to the program so it can keep working with it.',
+          'A printed value is gone for the program. It is on the screen, but the code cannot pick it up again. A returned value can be stored, compared, added and passed to other functions.',
+          'Good functions usually return, and let the code that called them decide whether to print. This makes functions reusable: the same add_gst function can be used for a bill on screen, a saved file or a web API.',
+          'This matters for your practice tasks too. The checks call your function and look at what it returns. If you print the answer instead of returning it, the check sees None and fails, even though the right answer appeared on screen.'
+        ],
+        example: 'A cashier who reads your total out loud is doing print. A cashier who writes the total on a slip and hands it to you is doing return. With the slip in your hand, you can do things with it: pay, check it, or add it to your monthly budget.',
+        code: lines(
+          'def total_with_print(a, b):',
+          '    print(a + b)',
+          '',
+          'def total_with_return(a, b):',
+          '    return a + b',
+          '',
+          'x = total_with_print(20, 45)',
+          'y = total_with_return(20, 45)',
+          'print("x is", x)',
+          'print("y is", y)'
+        ),
+        output: lines('65', 'x is None', 'y is 65'),
+        codeNotes: [
+          { line: 7, note: 'This prints 65 on screen, but gives back None.' },
+          { line: 8, note: 'This prints nothing, but gives back 65, which is stored in y.' }
+        ],
+        tryIt: 'Add print(y * 2) at the bottom. It works: 130. Then add print(x * 2) and read the error: you cannot multiply None.',
+        check: {
+          question: 'A practice check calls your function and gets None. What is the most likely mistake?',
+          options: ['The function prints the answer instead of returning it', 'The function name is too long', 'The function has a comment'],
+          answer: 0,
+          why: 'Checks use the returned value. A function that only prints gives back None, so the check fails.'
+        }
+      },
+      {
+        title: 'Default values for parameters',
+        say: [
+          'Sometimes a parameter usually has the same value. For example, most items have 18 percent GST. You can give a parameter a default value in the def line: def add_gst(price, rate=0.18).',
+          'If the caller does not give that argument, Python uses the default. If the caller does give it, their value is used instead. This makes functions easy to use in the common case, and still flexible.',
+          'Parameters with defaults must come after the ones without defaults. def add_gst(rate=0.18, price) is an error, because Python would not know which value goes where.',
+          'You can also name arguments when calling: add_gst(100, rate=0.05). Naming makes calls easier to read, especially when a function has several parameters.'
+        ],
+        example: 'When you order tea at a stall, the default is with sugar. If you say nothing, you get sugar. If you say "no sugar", you get that instead. The stall has a sensible default, but you can change it.',
+        code: lines(
+          'def add_gst(price, rate=0.18):',
+          '    return round(price * (1 + rate), 2)',
+          '',
+          'print(add_gst(100))',
+          'print(add_gst(100, 0.05))',
+          'print(add_gst(100, rate=0.12))'
+        ),
+        output: lines('118.0', '105.0', '112.0'),
+        codeNotes: [
+          { line: 1, note: 'rate has a default of 0.18.' },
+          { line: 4, note: 'No rate given, so the default 0.18 is used.' },
+          { line: 6, note: 'Naming the argument makes the call clear.' }
+        ],
+        tryIt: 'Add a third parameter to the function, discount=0, and subtract it from the price before adding GST. Check that add_gst(100) still gives 118.0 and add_gst(100, discount=10) gives 106.2.',
+        check: {
+          question: 'For def greet(name, greeting="Hello"), what does greet("Asha") use as greeting?',
+          options: ['"Hello"', 'Nothing, it is an error', '"Asha"'],
+          answer: 0,
+          why: 'The caller did not give a greeting, so Python uses the default value "Hello".'
+        }
+      },
+      {
+        title: 'Putting it together: tracker functions',
+        say: [
+          'Let us rebuild the Expense Tracker report from yesterday using functions. Each job gets its own small function: one for the total, one for the average, one to format a line of text.',
+          'Look at how short and readable the last few lines are. They read almost like a sentence: print the total of expenses, print the average. The details are hidden inside the functions, where you only need to look when something is wrong.',
+          'The average function checks for an empty list first. Dividing by zero would crash, so a good function handles that edge case and returns 0 instead. Thinking about empty inputs is a habit that professional developers have.',
+          'In today\'s practice you will write exactly this kind of function: an average that handles an empty list, and a greeting with a default value.'
+        ],
+        example: 'A kitchen with a separate person for chopping, cooking and plating works faster and makes fewer mistakes than one person doing everything at once. Small functions are the same: each has one job and does it well.',
+        code: lines(
+          'def total(amounts):',
+          '    result = 0',
+          '    for amount in amounts:',
+          '        result += amount',
+          '    return result',
+          '',
+          'def average(amounts):',
+          '    if len(amounts) == 0:',
+          '        return 0',
+          '    return round(total(amounts) / len(amounts), 2)',
+          '',
+          'def money(amount):',
+          '    return "Rs " + str(amount)',
+          '',
+          'expenses = [20, 45, 120, 300, 60]',
+          'print("Total:", money(total(expenses)))',
+          'print("Average:", money(average(expenses)))',
+          'print("Average of nothing:", average([]))'
+        ),
+        output: lines('Total: Rs 545', 'Average: Rs 109.0', 'Average of nothing: 0'),
+        codeNotes: [
+          { line: 8, note: 'Handle the empty list first, so we never divide by zero.' },
+          { line: 10, note: 'A function can call another function: average uses total.' },
+          { line: 16, note: 'The result of total() is passed straight into money().' }
+        ],
+        tryIt: 'Write a new function largest(amounts) that returns the biggest amount using a loop, and print money(largest(expenses)). It should show Rs 300.',
+        check: {
+          question: 'Why does average() check for an empty list first?',
+          options: ['To avoid dividing by zero, which would crash', 'Because Python needs it for every function', 'To make it run faster'],
+          answer: 0,
+          why: 'An empty list has length 0, and dividing by 0 is an error. Returning 0 early handles that case safely.'
+        }
+      }
+    ],
+    summary: [
+      'def defines a function; it only runs when you call it with brackets.',
+      'Parameters are the names in the def line; arguments are the values you pass in, in order.',
+      'return gives a value back to the program. Without return, a function gives None.',
+      'print shows a value to a person; return hands it to the code. Practice checks need return.',
+      'Default values (rate=0.18) make a parameter optional.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: split into functions',
+      steps: [
+        'Write total(amounts) and average(amounts) functions that return values.',
+        'Make average return 0 for an empty list.',
+        'Write money(amount) that returns text like "Rs 545".',
+        'Use the three functions to print a short report.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 8,
+    title: 'Lists: Keeping Many Values Together',
+    goal: 'You can create lists, read items by position, add and remove items, and take slices.',
+    minutes: 30,
+    recap: 'Yesterday you wrote your own functions with parameters, return and default values.',
+    parts: [
+      {
+        title: 'Creating a list and reading items',
+        say: [
+          'Welcome to Week 2, where you learn to work with groups of data. Real apps never deal with just one value. They deal with many: all your expenses, all your contacts, all your orders. The most common way to keep many values together in Python is a list.',
+          'A list is written with square brackets and commas: items = ["Tea", "Bus", "Lunch"]. A list keeps its items in order, and it can hold any type: text, numbers, even other lists.',
+          'You read an item by its position, called its index, just like characters in a string. items[0] is the first item. items[-1] is the last. len(items) tells you how many items there are.',
+          'Asking for a position that does not exist, like items[10] in a list of three, gives an IndexError. The last valid index is always len(items) - 1, because counting starts at 0.'
+        ],
+        example: 'A list is like the queue at a ticket counter. People stand in order, and you can say "the first person" (position 0) or "the last person" (position -1). You can also count how long the queue is.',
+        code: lines(
+          'items = ["Tea", "Bus", "Lunch", "Movie"]',
+          'print(items)',
+          'print(items[0])',
+          'print(items[-1])',
+          'print(len(items))',
+          'print(items[len(items) - 1])'
+        ),
+        output: lines("['Tea', 'Bus', 'Lunch', 'Movie']", 'Tea', 'Movie', '4', 'Movie'),
+        codeNotes: [
+          { line: 2, note: 'Printing a whole list shows it with square brackets and quotes around text.' },
+          { line: 6, note: 'The last index is len - 1, which is 3 here. -1 is the shorter way to write it.' }
+        ],
+        tryIt: 'Print items[1] and items[-2]. Before running, say which items you expect: Bus and Lunch.',
+        check: {
+          question: 'For a list with 5 items, what is the index of the last item?',
+          options: ['4', '5', '6'],
+          answer: 0,
+          why: 'Counting starts at 0, so 5 items have the indexes 0 to 4. The last one is 4, which is also -1.'
+        }
+      },
+      {
+        title: 'Changing a list: append, insert, remove',
+        say: [
+          'Lists can change. This is a big difference from strings, which cannot be changed. You can add items, remove items and replace items in a list.',
+          'append(value) adds an item to the end. This is the one you will use most, for example every time the user adds a new expense. insert(position, value) puts an item at a chosen position and shifts the others along.',
+          'remove(value) removes the first item that equals that value. pop() removes and returns the last item; pop(0) removes the first. You can also replace an item directly: items[1] = "Auto".',
+          'These methods change the list itself. They do not give back a new list. So you write items.append("Tea") on its own line, not items = items.append("Tea"). The second version would store None, because append returns nothing.'
+        ],
+        example: 'A shopping list on the fridge: you add milk at the bottom (append), squeeze eggs in at the top because they are urgent (insert), cross off bread when you buy it (remove), and change "rice" to "basmati rice" (replace by position).',
+        code: lines(
+          'items = ["Tea", "Bus"]',
+          'items.append("Lunch")',
+          'print(items)',
+          'items.insert(0, "Breakfast")',
+          'print(items)',
+          'items.remove("Bus")',
+          'items[1] = "Masala tea"',
+          'print(items)',
+          'last = items.pop()',
+          'print("Removed:", last)',
+          'print(items)'
+        ),
+        output: lines(
+          "['Tea', 'Bus', 'Lunch']",
+          "['Breakfast', 'Tea', 'Bus', 'Lunch']",
+          "['Breakfast', 'Masala tea', 'Lunch']",
+          'Removed: Lunch',
+          "['Breakfast', 'Masala tea']"
+        ),
+        codeNotes: [
+          { line: 2, note: 'append adds to the end.' },
+          { line: 4, note: 'insert at position 0 puts it at the front.' },
+          { line: 9, note: 'pop removes the last item and gives it back.' }
+        ],
+        tryIt: 'Add items.remove("Pizza") at the end and run it. Read the ValueError: you cannot remove an item that is not in the list. Then delete that line.',
+        check: {
+          question: 'What does items.append("Juice") do?',
+          options: ['Adds "Juice" to the end of the list', 'Adds "Juice" to the start', 'Replaces the last item with "Juice"'],
+          answer: 0,
+          why: 'append always adds a new item at the end, and the list gets one item longer.'
+        }
+      },
+      {
+        title: 'Checking and searching: in, count, index',
+        say: [
+          'You can ask whether a value is in a list with the word in, just like with strings: "Tea" in items gives True or False. This is very common before removing something, to avoid an error.',
+          'count(value) tells you how many times a value appears. index(value) tells you the position of its first appearance. Like remove, index gives an error if the value is not there, so check with in first.',
+          'You also already know the built-in tools that work on lists of numbers: sum(), min(), max() and len(). Together they answer most simple questions about a list.',
+          'sorted(list) gives you a new list in order, from small to large or A to Z. The original list is not changed. sorted(list, reverse=True) gives the opposite order.'
+        ],
+        example: 'A class register: "Is Priya in this class?" is in. "How many students are called Rahul?" is count. "Which roll number is Priya?" is index. "List everyone alphabetically" is sorted.',
+        code: lines(
+          'amounts = [120, 20, 45, 20, 300]',
+          'print(20 in amounts)',
+          'print(999 in amounts)',
+          'print(amounts.count(20))',
+          'print(amounts.index(45))',
+          'print(sorted(amounts))',
+          'print(sorted(amounts, reverse=True))',
+          'print(amounts)'
+        ),
+        output: lines('True', 'False', '2', '2', '[20, 20, 45, 120, 300]', '[300, 120, 45, 20, 20]', '[120, 20, 45, 20, 300]'),
+        codeNotes: [
+          { line: 5, note: '45 is at position 2.' },
+          { line: 8, note: 'sorted gave new lists. The original order is unchanged.' }
+        ],
+        tryIt: 'Print the three biggest amounts using sorted and a slice: sorted(amounts, reverse=True)[:3]. You will learn slices properly in the next part.',
+        check: {
+          question: 'After nums = [3, 1, 2] and sorted(nums), what is nums?',
+          options: ['[3, 1, 2]', '[1, 2, 3]', 'None'],
+          answer: 0,
+          why: 'sorted() gives back a new sorted list and does not change the original.'
+        }
+      },
+      {
+        title: 'Slicing lists',
+        say: [
+          'Slicing works on lists exactly as it does on strings. items[start:stop] gives a new list with the items from start up to, but not including, stop.',
+          'items[:3] gives the first three items. items[-3:] gives the last three. items[1:] gives everything except the first. These three shapes cover most real uses.',
+          'A slice is always a new list. Changing the slice does not change the original. items[:] is a quick way to make a full copy of a list.',
+          'Slices never give an IndexError. If you ask for more than there is, you just get what exists. items[:100] on a list of four items gives all four.'
+        ],
+        example: 'On a phone, the "recent calls" screen shows only the latest few calls from your full call history. That is a slice: a piece of the full list, while the full history is still stored.',
+        code: lines(
+          'history = [20, 45, 120, 300, 60, 90]',
+          'print(history[:3])',
+          'print(history[-2:])',
+          'print(history[1:4])',
+          'print(history[:100])',
+          'recent = history[-3:]',
+          'print("Recent total:", sum(recent))'
+        ),
+        output: lines('[20, 45, 120]', '[60, 90]', '[45, 120, 300]', '[20, 45, 120, 300, 60, 90]', 'Recent total: 450'),
+        codeNotes: [
+          { line: 4, note: 'Positions 1, 2 and 3.' },
+          { line: 5, note: 'Asking for more than exists is fine with slices.' }
+        ],
+        tryIt: 'Print the first and last item together as a new list: [history[0], history[-1]]. It should be [20, 90].',
+        check: {
+          question: 'What does [10, 20, 30, 40][-2:] give?',
+          options: ['[30, 40]', '[40]', '[10, 20]'],
+          answer: 0,
+          why: 'Starting from the second-last item to the end gives the last two items.'
+        }
+      },
+      {
+        title: 'Copies and the "same list" trap',
+        say: [
+          'Here is a trap that catches many beginners and even experienced developers. If you write b = a where a is a list, you do not get a copy. You get a second name for the same list. Changing b also changes a.',
+          'Why? A variable is a label pointing to a value. b = a sticks a second label on the same list. There is still only one list.',
+          'To get a real copy, use a[:] or list(a) or a.copy(). Or build a new list with +: a + [new_item] gives a new, longer list and leaves a alone.',
+          'This matters for functions too. If your function changes a list it was given, the caller\'s list changes as well. Often the safer choice is to return a new list, which is exactly what one of today\'s practice tasks asks you to do.'
+        ],
+        example: 'If two people share one Google Doc, when one of them edits it, the other sees the change: there is only one document. Making a copy gives each person their own document to change freely. b = a is sharing; a.copy() is making a copy.',
+        code: lines(
+          'a = ["Tea", "Bus"]',
+          'b = a',
+          'b.append("Lunch")',
+          'print("a:", a)',
+          'c = a.copy()',
+          'c.append("Movie")',
+          'print("a:", a)',
+          'print("c:", c)',
+          'd = a + ["Snacks"]',
+          'print("a:", a)',
+          'print("d:", d)'
+        ),
+        output: lines(
+          "a: ['Tea', 'Bus', 'Lunch']",
+          "a: ['Tea', 'Bus', 'Lunch']",
+          "c: ['Tea', 'Bus', 'Lunch', 'Movie']",
+          "a: ['Tea', 'Bus', 'Lunch']",
+          "d: ['Tea', 'Bus', 'Lunch', 'Snacks']"
+        ),
+        codeNotes: [
+          { line: 2, note: 'Not a copy: b and a are two names for one list.' },
+          { line: 4, note: 'a changed too, because it is the same list as b.' },
+          { line: 9, note: '+ builds a new list; a is not changed.' }
+        ],
+        tryIt: 'Change line 2 to b = a.copy() and run again. Now the first print shows only Tea and Bus, because b is a separate list.',
+        check: {
+          question: 'After a = [1, 2], b = a, b.append(3), what is a?',
+          options: ['[1, 2, 3]', '[1, 2]', 'An error'],
+          answer: 0,
+          why: 'b = a does not copy. Both names point to one list, so appending through b also changes a.'
+        }
+      },
+      {
+        title: 'Putting it together: a list of expenses',
+        say: [
+          'Let us use lists in the Expense Tracker. Instead of separate variables, we keep all item names in one list and all amounts in another, and we add new ones with append.',
+          'Keeping two separate lists works, but it is fragile: position 2 in the names must match position 2 in the amounts. If you remove from one and forget the other, they get out of step. On Day 10 you will learn dictionaries, and on Day 11 a much better way to keep each expense together.',
+          'For now, notice how much the list tools give you for free: len for the count, sum for the total, max for the biggest, and slices for the most recent ones.',
+          'In today\'s practice you will return the first and last items of a list, and add an item without changing the original list. Remember the copy trap from the last part.'
+        ],
+        example: 'A small shop notebook with two columns, item and price, is exactly this: two lists side by side. It works, as long as nobody writes an item on one line and its price on another.',
+        code: lines(
+          'names = ["Tea", "Bus", "Lunch"]',
+          'amounts = [20, 45, 120]',
+          'names.append("Movie")',
+          'amounts.append(300)',
+          'print("Count:", len(amounts))',
+          'print("Total:", sum(amounts))',
+          'biggest = max(amounts)',
+          'print("Biggest:", names[amounts.index(biggest)], biggest)',
+          'print("Last two:", names[-2:])'
+        ),
+        output: lines('Count: 4', 'Total: 485', 'Biggest: Movie 300', "Last two: ['Lunch', 'Movie']"),
+        codeNotes: [
+          { line: 8, note: 'Find where the biggest amount is, then read the name at the same position.' }
+        ],
+        tryIt: 'Add a new expense ("Auto", 80) to both lists with append, and run again. The count becomes 5 and the total 565.',
+        check: {
+          question: 'Why is keeping names and amounts in two separate lists risky?',
+          options: ['The positions can get out of step if one list changes and the other does not', 'Python only allows one list per program', 'Lists cannot hold numbers'],
+          answer: 0,
+          why: 'Each name must stay at the same position as its amount. Changing one list and not the other breaks that link.'
+        }
+      }
+    ],
+    summary: [
+      'A list keeps values in order: ["Tea", "Bus"]. Index 0 is the first, -1 the last.',
+      'append adds to the end, insert adds at a position, remove and pop take items out.',
+      'in, count, index, sum, min, max and sorted answer questions about a list.',
+      'Slices like items[:3] and items[-3:] give new lists and never raise errors.',
+      'b = a does not copy a list. Use a.copy() or a + [...] for a new list.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: keep expenses in lists',
+      steps: [
+        'Store expense names and amounts in two lists.',
+        'Add two new expenses with append.',
+        'Print the count, the total and the biggest expense with its name.',
+        'Print the three most recent expenses with a slice.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 9,
+    title: 'Looping Over Lists and List Comprehensions',
+    goal: 'You can loop over lists with positions, and build new lists by changing or filtering items with list comprehensions.',
+    minutes: 30,
+    recap: 'Yesterday you created lists, added and removed items, took slices, and learned that b = a does not copy a list.',
+    parts: [
+      {
+        title: 'enumerate: items with their positions',
+        say: [
+          'On Day 6 you looped over lists with for. Sometimes you need the position of each item as well as the item, for example to number the lines of a report. You could keep your own counter, but Python has a neater tool: enumerate.',
+          'for i, item in enumerate(items): gives you two things each round: the position i and the item. Writing two names separated by a comma after for is called unpacking.',
+          'By default enumerate starts counting at 0. For numbered lists shown to people, you usually want to start at 1: enumerate(items, start=1).',
+          'Another useful tool is zip, which walks through two lists side by side. for name, amount in zip(names, amounts): gives you one name and its matching amount each round.'
+        ],
+        example: 'When a teacher reads the attendance register, she reads the roll number and the name together: "1, Aarav. 2, Diya." enumerate gives you both the number and the item in the same way.',
+        code: lines(
+          'names = ["Tea", "Bus", "Lunch"]',
+          'amounts = [20, 45, 120]',
+          'for i, name in enumerate(names, start=1):',
+          '    print(i, name)',
+          'for name, amount in zip(names, amounts):',
+          '    print(name, "-", amount)'
+        ),
+        output: lines('1 Tea', '2 Bus', '3 Lunch', 'Tea - 20', 'Bus - 45', 'Lunch - 120'),
+        codeNotes: [
+          { line: 3, note: 'Each round gives a position and an item. start=1 counts from 1.' },
+          { line: 5, note: 'zip pairs up the two lists, item by item.' }
+        ],
+        tryIt: 'Remove start=1 and run it. The numbering now starts at 0, which is how Python counts positions internally.',
+        check: {
+          question: 'What does enumerate give you in each round of a loop?',
+          options: ['The position and the item', 'Only the item', 'Only the length of the list'],
+          answer: 0,
+          why: 'enumerate gives pairs of (position, item), which you can unpack into two names like i and item.'
+        }
+      },
+      {
+        title: 'Building a new list with a loop',
+        say: [
+          'A very common job is to make a new list from an old one: every price with GST added, every name in capitals, every amount in dollars. The basic way is a loop with an empty list and append.',
+          'You start with an empty list, result = [], before the loop. Inside the loop, you work out the new value and append it. After the loop, result holds all the new values. This is the accumulator pattern again, but building a list instead of a number.',
+          'The original list stays the same, which is usually what you want. You now have both: the old values and the new ones.',
+          'This pattern is so common that Python has a shorter way to write it, called a list comprehension. In the next part you will see the same result in one line. But first make sure this longer version makes sense to you, because the short version does exactly the same thing.'
+        ],
+        example: 'A photocopy shop that takes your document and returns a copy with the company logo stamped on each page. It starts with an empty tray, stamps each page and puts it in the tray. Your original pages are untouched.',
+        code: lines(
+          'prices = [100, 250, 40]',
+          'with_gst = []',
+          'for price in prices:',
+          '    with_gst.append(round(price * 1.18, 2))',
+          'print(with_gst)',
+          'print(prices)'
+        ),
+        output: lines('[118.0, 295.0, 47.2]', '[100, 250, 40]'),
+        codeNotes: [
+          { line: 2, note: 'Start with an empty list.' },
+          { line: 4, note: 'Work out the new value and add it to the new list.' },
+          { line: 6, note: 'The original list is unchanged.' }
+        ],
+        tryIt: 'Make a second new list called labels that holds text like "Rs 100" for each price, using "Rs " + str(price). It should print [\'Rs 100\', \'Rs 250\', \'Rs 40\'].',
+        check: {
+          question: 'Where should result = [] go when building a new list with a loop?',
+          options: ['Before the loop', 'Inside the loop', 'After the loop'],
+          answer: 0,
+          why: 'Like a total, the empty list is created once before the loop. Inside the loop it would be emptied every round.'
+        }
+      },
+      {
+        title: 'List comprehensions: the one-line version',
+        say: [
+          'A list comprehension builds a new list in one line. [price * 2 for price in prices] means: for each price in prices, work out price * 2, and collect the answers in a new list.',
+          'Read it from the middle: "for price in prices" is the loop, and the part before it, price * 2, is what goes into the new list. The square brackets around everything say "make a list".',
+          'It does exactly the same as the loop-and-append version. It is not faster to learn, but once you are used to it, it is quicker to read and write, and Python programmers use it everywhere. You will see it in interviews and in almost every Python codebase.',
+          'You can use any expression before for: a calculation, a method like name.upper(), or a function call like round(p, 2).'
+        ],
+        example: 'It is like telling a friend in one sentence: "For each of these shirts, give me the size label." Instead of a long step-by-step instruction, you say what you want for each item and they hand you the new pile.',
+        code: lines(
+          'prices = [100, 250, 40]',
+          'doubled = [p * 2 for p in prices]',
+          'with_gst = [round(p * 1.18, 2) for p in prices]',
+          'names = ["tea", "bus", "lunch"]',
+          'shout = [n.upper() for n in names]',
+          'print(doubled)',
+          'print(with_gst)',
+          'print(shout)'
+        ),
+        output: lines('[200, 500, 80]', '[118.0, 295.0, 47.2]', "['TEA', 'BUS', 'LUNCH']"),
+        codeNotes: [
+          { line: 2, note: 'For each p in prices, put p * 2 in the new list.' },
+          { line: 3, note: 'The same result as the loop in the last part, in one line.' },
+          { line: 5, note: 'Any expression works, including string methods.' }
+        ],
+        tryIt: 'Make a list of the lengths of each name with [len(n) for n in names]. It should be [3, 3, 5].',
+        check: {
+          question: 'What is [x + 1 for x in [1, 2, 3]]?',
+          options: ['[2, 3, 4]', '[1, 2, 3, 1]', '6'],
+          answer: 0,
+          why: 'For each x, the comprehension puts x + 1 in the new list: 2, 3 and 4.'
+        }
+      },
+      {
+        title: 'Filtering with if',
+        say: [
+          'A list comprehension can also keep only some items. Add an if at the end: [p for p in prices if p > 100] keeps only the prices above 100.',
+          'Read it as: for each p in prices, if p is more than 100, keep p. Items where the condition is False are simply left out. The new list can be shorter than the original, or even empty.',
+          'You can change and filter at the same time: [p * 2 for p in prices if p > 100] doubles only the big prices and drops the rest.',
+          'Filtering is everywhere in real apps: only this month\'s expenses, only unread messages, only products in stock. When you catch yourself writing a loop with an if and an append, a comprehension with if is usually the shorter way.'
+        ],
+        example: 'A sieve in the kitchen keeps the rice and lets the water go. The if in a comprehension is the sieve: items that pass the condition stay in the new list, and the rest fall through.',
+        code: lines(
+          'amounts = [20, 450, 45, 1200, 120, 60]',
+          'big = [a for a in amounts if a > 100]',
+          'small = [a for a in amounts if a <= 100]',
+          'print(big)',
+          'print(small)',
+          'print("Big total:", sum(big))',
+          'names = ["Tea", "Taxi", "Lunch", "Train"]',
+          'print([n for n in names if n.startswith("T")])'
+        ),
+        output: lines('[450, 1200, 120]', '[20, 45, 60]', 'Big total: 1770', "['Tea', 'Taxi', 'Train']"),
+        codeNotes: [
+          { line: 2, note: 'Keep only the amounts over 100.' },
+          { line: 8, note: 'Any True/False check works as a filter, including string methods.' }
+        ],
+        tryIt: 'Make a list of only the even amounts using a % 2 == 0. It should be [20, 450, 1200, 120, 60].',
+        check: {
+          question: 'What is [n for n in [5, 12, 8, 20] if n > 10]?',
+          options: ['[12, 20]', '[5, 8]', '[True, False]'],
+          answer: 0,
+          why: 'Only the values where n > 10 is True are kept: 12 and 20.'
+        }
+      },
+      {
+        title: 'When not to use a comprehension',
+        say: [
+          'Comprehensions are great for short, simple transformations. But they can be overused. If a comprehension gets long, has several ifs, or needs a line of explanation, a normal loop is easier to read.',
+          'Also, a comprehension is for building a list. If you only want to print things, or add up a total, use a normal loop or sum(). Do not build a list you never use.',
+          'A nice combination is sum() with a comprehension-like expression: sum(a for a in amounts if a > 100) adds up only the big amounts, without building a list first. This is called a generator expression, and it looks like a comprehension without the square brackets.',
+          'The golden rule: code is read many more times than it is written. Choose the version your teammate will understand fastest.'
+        ],
+        example: 'A short sentence is great for a simple message: "Pass the salt." For complex instructions, like how to reach your house, clear separate steps work better than one very long sentence. Comprehensions are the short sentence.',
+        code: lines(
+          'amounts = [20, 450, 45, 1200, 120, 60]',
+          'print(sum(a for a in amounts if a > 100))',
+          'print(len([a for a in amounts if a < 50]))',
+          '# A normal loop is clearer when there are several steps',
+          'for a in amounts:',
+          '    if a > 1000:',
+          '        print("Check this one:", a)'
+        ),
+        output: lines('1770', '2', 'Check this one: 1200'),
+        codeNotes: [
+          { line: 2, note: 'Add up only the big amounts, without a separate list.' },
+          { line: 5, note: 'Printing is a job for a normal loop, not a comprehension.' }
+        ],
+        tryIt: 'Use sum() with a generator expression to add up only the amounts under 100. The answer should be 125.',
+        check: {
+          question: 'When is a normal for loop better than a list comprehension?',
+          options: ['When the logic is long or you only want to print', 'Never; comprehensions are always better', 'When the list has more than 10 items'],
+          answer: 0,
+          why: 'Comprehensions are for short list-building. For long logic, or for actions like printing, a normal loop is clearer.'
+        }
+      },
+      {
+        title: 'Putting it together: filtered reports',
+        say: [
+          'Let us use today\'s tools in the Expense Tracker. With names and amounts side by side, we print a numbered list with enumerate and zip, then use comprehensions to find big expenses and to add GST.',
+          'Notice line 6: zip gives us each name with its amount, and the if keeps only the pairs where the amount is over 100. The new list holds just the names. That is a lot of work in one readable line.',
+          'Comprehensions will become even more useful on Day 11, when each expense becomes a dictionary with its name, amount and category together.',
+          'In today\'s practice you will double every number in a list, and keep only the numbers above a limit. Both are one-line comprehensions.'
+        ],
+        example: 'Your bank app has a filter: "show only debits above 1000 this month". Behind the button, the app does exactly this kind of filtering on the list of your transactions.',
+        code: lines(
+          'names = ["Tea", "Rent", "Bus", "Groceries"]',
+          'amounts = [20, 8000, 45, 1500]',
+          'for i, (name, amount) in enumerate(zip(names, amounts), start=1):',
+          '    print(str(i) + ".", name, amount)',
+          'big_names = [n for n, a in zip(names, amounts) if a > 100]',
+          'print("Big:", big_names)',
+          'print("With GST:", [round(a * 1.18) for a in amounts])'
+        ),
+        output: lines('1. Tea 20', '2. Rent 8000', '3. Bus 45', '4. Groceries 1500', "Big: ['Rent', 'Groceries']", 'With GST: [24, 9440, 53, 1770]'),
+        codeNotes: [
+          { line: 3, note: 'zip pairs the lists; enumerate numbers the pairs. The brackets unpack each pair.' },
+          { line: 5, note: 'Keep the name n only when its amount a is over 100.' }
+        ],
+        tryIt: 'Change the limit on line 5 from 100 to 5000 and run it. Now only Rent is left in the Big list.',
+        check: {
+          question: 'In [n for n, a in zip(names, amounts) if a > 100], what ends up in the new list?',
+          options: ['The names whose amount is over 100', 'The amounts over 100', 'Pairs of names and amounts'],
+          answer: 0,
+          why: 'The part before for is n, the name. The if keeps only pairs where the amount a is over 100.'
+        }
+      }
+    ],
+    summary: [
+      'enumerate gives each item with its position; zip walks two lists side by side.',
+      'Build a new list with an empty list, a loop and append.',
+      'A list comprehension does the same in one line: [p * 2 for p in prices].',
+      'Add if at the end to filter: [p for p in prices if p > 100].',
+      'Keep comprehensions short. Use a normal loop for long logic or printing.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: filtered views',
+      steps: [
+        'Print a numbered list of your expenses with enumerate and zip.',
+        'Make a list of the names of expenses over 100 with a comprehension.',
+        'Print the total of only the big expenses with sum().',
+        'Make a list of all amounts with 18% GST added.'
+      ]
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    day: 10,
+    title: 'Dictionaries: Named Details',
+    goal: 'You can store details under names in a dictionary, read them safely with get(), change them, and loop over them.',
+    minutes: 30,
+    recap: 'Yesterday you looped with enumerate and zip, and built and filtered lists with list comprehensions.',
+    parts: [
+      {
+        title: 'What a dictionary is',
+        say: [
+          'A list keeps values in order and you find them by position. But many things are better described by names than by positions. An expense has an item, an amount and a category. Remembering that position 2 means category is awkward. A dictionary solves this.',
+          'A dictionary stores values under names called keys. You write it with curly brackets: {"item": "Tea", "amount": 20}. Each entry is a key, a colon, and its value, and entries are separated by commas. Each key and value pair is often called an item of the dictionary.',
+          'You read a value with its key in square brackets: expense["amount"] gives 20. No counting positions, no guessing. The code tells you exactly what you are reading.',
+          'Keys are usually strings. Values can be anything: text, numbers, True/False, lists, even other dictionaries. Each key appears only once in a dictionary.'
+        ],
+        example: 'A dictionary is like a form, for example a bank account opening form. Each field has a label (name, phone, city) and a value filled in next to it. To find someone\'s phone number, you look for the label "phone", not "the third box".',
+        code: lines(
+          'expense = {"item": "Tea", "amount": 20, "category": "food"}',
+          'print(expense)',
+          'print(expense["item"])',
+          'print(expense["amount"] * 2)',
+          'print(len(expense))'
+        ),
+        output: lines("{'item': 'Tea', 'amount': 20, 'category': 'food'}", 'Tea', '40', '3'),
+        codeNotes: [
+          { line: 1, note: 'Three key and value pairs inside curly brackets.' },
+          { line: 3, note: 'Read a value by its key.' },
+          { line: 5, note: 'len counts the number of keys.' }
+        ],
+        tryIt: 'Add a fourth key "paid_by" with the value "UPI" inside the curly brackets, and print expense["paid_by"].',
+        check: {
+          question: 'How do you read the value stored under the key "city" in a dictionary called person?',
+          options: ['person["city"]', 'person[2]', 'person.city()'],
+          answer: 0,
+          why: 'Dictionary values are read with the key in square brackets. There are no positions like in a list.'
+        }
+      },
+      {
+        title: 'Adding and changing keys',
+        say: [
+          'Dictionaries can change, like lists. To add a new key, just assign to it: expense["date"] = "2026-09-28". If the key did not exist, it is created.',
+          'The same syntax changes an existing key. expense["amount"] = 25 replaces the old amount. Python does not ask whether you meant to add or change; if the key exists, it is changed, otherwise it is added.',
+          'To remove a key, use del expense["date"] or expense.pop("date"). pop also gives back the value it removed, just like with lists.',
+          'You can start with an empty dictionary, {}, and fill it step by step. This is common when you build up information as your program runs.'
+        ],
+        example: 'Your contact card for a friend on your phone: you add a new email address, update their phone number when they change it, and delete an old address. The card is the dictionary, and each field is a key.',
+        code: lines(
+          'expense = {"item": "Tea", "amount": 20}',
+          'expense["category"] = "food"',
+          'expense["amount"] = 25',
+          'print(expense)',
+          'removed = expense.pop("category")',
+          'print("Removed:", removed)',
+          'print(expense)',
+          'settings = {}',
+          'settings["currency"] = "INR"',
+          'print(settings)'
+        ),
+        output: lines(
+          "{'item': 'Tea', 'amount': 25, 'category': 'food'}",
+          'Removed: food',
+          "{'item': 'Tea', 'amount': 25}",
+          "{'currency': 'INR'}"
+        ),
+        codeNotes: [
+          { line: 2, note: 'A new key is added.' },
+          { line: 3, note: 'An existing key is changed.' },
+          { line: 8, note: 'An empty dictionary, filled on the next line.' }
+        ],
+        tryIt: 'Add settings["monthly_budget"] = 5000 and print settings again. Then change the budget to 6000 and print once more.',
+        check: {
+          question: 'd = {"a": 1}. What is d after d["a"] = 5?',
+          options: ['{"a": 5}', '{"a": 1, "a": 5}', 'An error'],
+          answer: 0,
+          why: 'Keys are unique. Assigning to an existing key replaces its value.'
+        }
+      },
+      {
+        title: 'Missing keys and get()',
+        say: [
+          'If you ask for a key that is not in the dictionary, like expense["date"] when there is no date, Python gives a KeyError. This is one of the most common errors in real programs, because data from users and other systems is often incomplete.',
+          'You can check first with in: "date" in expense gives True or False. For dictionaries, in checks the keys, not the values.',
+          'Even better, use get(). expense.get("date") gives the value if the key exists, and None if it does not, with no error. expense.get("date", "unknown") lets you choose the value to use when the key is missing.',
+          'As a habit: use square brackets when the key must be there and a missing key is a real bug. Use get() when a key is optional.'
+        ],
+        example: 'At a restaurant, asking for a dish that is not on the menu: a strict waiter says "that does not exist" and stops (KeyError). A friendly waiter says "we do not have that, would you like the house special?" That friendly waiter is get() with a default.',
+        code: lines(
+          'prices = {"tea": 20, "coffee": 40}',
+          'print("tea" in prices)',
+          'print("juice" in prices)',
+          'print(prices.get("coffee"))',
+          'print(prices.get("juice"))',
+          'print(prices.get("juice", 0))'
+        ),
+        output: lines('True', 'False', '40', 'None', '0'),
+        codeNotes: [
+          { line: 2, note: 'in checks whether a key exists.' },
+          { line: 5, note: 'Missing key with get: None, not an error.' },
+          { line: 6, note: 'Missing key with a default: 0.' }
+        ],
+        tryIt: 'Add print(prices["juice"]) at the end and read the KeyError. Then delete that line.',
+        check: {
+          question: 'What does {"a": 1}.get("b", 99) give?',
+          options: ['99', 'None', 'A KeyError'],
+          answer: 0,
+          why: 'The key "b" is missing, so get() returns the default value you gave, 99.'
+        }
+      },
+      {
+        title: 'Looping over a dictionary',
+        say: [
+          'You can loop over a dictionary with for. Looping directly gives you the keys, one at a time. Dictionaries keep the order in which keys were added.',
+          'values() gives just the values. That is handy with sum(): sum(prices.values()) adds up all the prices.',
+          'items() gives both the key and the value each round. for name, price in prices.items(): is the most common way to loop over a dictionary, because you usually want both.',
+          'Do not add or remove keys while looping over the same dictionary. Python will complain. If you need to change keys, loop over a copy, or build a new dictionary instead.'
+        ],
+        example: 'Reading a menu card: you can read only the dish names (keys), only the prices (values), or each dish with its price (items). The menu is the same; you just choose what to read.',
+        code: lines(
+          'prices = {"tea": 20, "coffee": 40, "samosa": 15}',
+          'for name in prices:',
+          '    print(name)',
+          'print(sum(prices.values()))',
+          'for name, price in prices.items():',
+          '    print(name, "costs", price)'
+        ),
+        output: lines('tea', 'coffee', 'samosa', '75', 'tea costs 20', 'coffee costs 40', 'samosa costs 15'),
+        codeNotes: [
+          { line: 2, note: 'Looping over a dictionary gives the keys.' },
+          { line: 4, note: 'values() gives the prices; sum adds them.' },
+          { line: 5, note: 'items() gives each key with its value.' }
+        ],
+        tryIt: 'Print only the items that cost more than 18, using an if inside the items() loop. You should see tea and coffee.',
+        check: {
+          question: 'What does for k, v in d.items(): give you each round?',
+          options: ['A key and its value', 'Only the values', 'The position and the key'],
+          answer: 0,
+          why: 'items() gives key and value pairs, which you unpack into two names like k and v.'
+        }
+      },
+      {
+        title: 'Counting with a dictionary',
+        say: [
+          'A classic use of dictionaries is counting or adding up by group. For example: how much did I spend in each category? The categories become keys, and the totals become values.',
+          'The pattern is: start with an empty dictionary. For each expense, look up the current total for its category with get(category, 0), add the amount, and store it back. The first time a category appears, get gives 0, so there is no KeyError.',
+          'This pattern appears everywhere: counting words in a text, votes per candidate, orders per city, visits per page. Learn it well; it is also a common interview question.',
+          'You will use this exact pattern in Week 4 for the category totals of your Expense Tracker.'
+        ],
+        example: 'Counting votes in a class election on a blackboard. When a new name is read out for the first time, you write the name with 1 next to it. When a name is read again, you add one to its number. The blackboard is the dictionary.',
+        code: lines(
+          'categories = ["food", "travel", "food", "rent", "food", "travel"]',
+          'amounts = [20, 45, 120, 8000, 60, 30]',
+          'totals = {}',
+          'for category, amount in zip(categories, amounts):',
+          '    totals[category] = totals.get(category, 0) + amount',
+          'print(totals)',
+          'counts = {}',
+          'for category in categories:',
+          '    counts[category] = counts.get(category, 0) + 1',
+          'print(counts)'
+        ),
+        output: lines("{'food': 200, 'travel': 75, 'rent': 8000}", "{'food': 3, 'travel': 2, 'rent': 1}"),
+        codeNotes: [
+          { line: 5, note: 'Current total for this category (0 if new), plus this amount, stored back.' },
+          { line: 9, note: 'The same pattern, adding 1 each time, counts the categories.' }
+        ],
+        tryIt: 'Add "shopping" to the categories list and 999 to the amounts list, and run it. A new key appears in both dictionaries automatically.',
+        check: {
+          question: 'Why use totals.get(category, 0) instead of totals[category]?',
+          options: ['The first time a category appears it is not in the dictionary yet, and get gives 0 instead of an error', 'get is faster', 'Square brackets do not work with strings'],
+          answer: 0,
+          why: 'For a new category the key does not exist yet. totals[category] would raise a KeyError; get(category, 0) starts it at 0.'
+        }
+      },
+      {
+        title: 'Putting it together: one expense as a dictionary',
+        say: [
+          'On Day 8 you kept names and amounts in two separate lists, and saw how fragile that was. A dictionary keeps all the details of one expense together, so they can never get out of step.',
+          'In this example, a function builds an expense dictionary from its parts, and another function turns it into a readable line. This is a pattern you will use for the rest of the course: data as dictionaries, and small functions that create and use them.',
+          'Tomorrow you take the next step: a list of these dictionaries, one per expense. That is the shape of almost all real app data, and exactly what a web API sends and receives.',
+          'In today\'s practice you will write make_expense, which returns a dictionary, and price_of, which reads a price safely with get().'
+        ],
+        example: 'A paper bill for one purchase keeps the item, price, date and payment method together on one slip. You never have to match a price from one notebook with an item from another. One expense as one dictionary is that slip.',
+        code: lines(
+          'def make_expense(item, amount, category):',
+          '    return {"item": item, "amount": amount, "category": category}',
+          '',
+          'def describe(expense):',
+          '    return expense["item"] + " (" + expense["category"] + "): Rs " + str(expense["amount"])',
+          '',
+          'tea = make_expense("Tea", 20, "food")',
+          'rent = make_expense("Rent", 8000, "home")',
+          'print(describe(tea))',
+          'print(describe(rent))',
+          'print(tea.get("date", "no date yet"))'
+        ),
+        output: lines('Tea (food): Rs 20', 'Rent (home): Rs 8000', 'no date yet'),
+        codeNotes: [
+          { line: 2, note: 'Return a new dictionary built from the three parameters.' },
+          { line: 5, note: 'Read each detail by its key name. Easy to understand later.' },
+          { line: 11, note: 'An optional key read safely with a default.' }
+        ],
+        tryIt: 'Add a date parameter to make_expense and a "date" key to the dictionary. Update the two calls to pass a date like "2026-09-28", and check the last line now prints it.',
+        check: {
+          question: 'Why is a dictionary better than two separate lists for one expense\'s details?',
+          options: ['All details of one expense stay together under clear names', 'Dictionaries use less memory', 'Lists cannot hold text'],
+          answer: 0,
+          why: 'A dictionary keeps item, amount and category together, read by name, so they can never get out of step.'
+        }
+      }
+    ],
+    summary: [
+      'A dictionary stores values under keys: {"item": "Tea", "amount": 20}.',
+      'Read with d["key"]; add or change with d["key"] = value; remove with pop or del.',
+      'A missing key with [] is a KeyError. Use in to check, or get(key, default) to read safely.',
+      'Loop with for k in d, d.values(), or for k, v in d.items().',
+      'Group totals with totals[key] = totals.get(key, 0) + amount.'
+    ],
+    projectStep: {
+      title: 'Expense Tracker: expenses as dictionaries',
+      steps: [
+        'Write make_expense(item, amount, category) that returns a dictionary.',
+        'Create three expenses with it.',
+        'Write describe(expense) that returns a readable line, and print each expense.',
+        'Add up the amount of each category into a totals dictionary with get().'
+      ]
+    }
   }
 ];
