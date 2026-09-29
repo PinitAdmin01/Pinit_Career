@@ -11,6 +11,7 @@ import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
 import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
 import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
+import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -96,6 +97,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '☁️',
     quests: CLOUD_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-cloud-python',
+    title: 'Cloud Engineering in Python (AWS)',
+    desc: 'The AWS cloud course with every practice task in Python: VPCs and subnets, IAM policies, auto scaling, load balancers, S3, Lambda, DynamoDB, RDS, queues and events, Terraform, monitoring, security, FinOps and disaster recovery.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '☁️',
+    quests: CLOUD_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-devops-cicd',

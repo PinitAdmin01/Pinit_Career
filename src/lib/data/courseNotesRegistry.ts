@@ -446,6 +446,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-cloud-python': {
+    courseId: 'course-cloud-python',
+    courseTitle: 'Cloud Engineering in Python (AWS)',
+    category: 'Cloud & Infrastructure',
+    summary: 'Build on Amazon Web Services with Python: VPCs, IAM policies, EC2 auto scaling, load balancers, S3, Lambda, DynamoDB, RDS, SQS/SNS/EventBridge, Terraform, CloudWatch, KMS, WAF, FinOps and disaster recovery.',
+    realWorldAnalogy: 'Think of Cloud Native AWS like a municipal power grid. Instead of maintaining an expensive diesel generator in your backyard (on-prem servers), you plug into regional substations and pay only for the exact kilowatt-hours consumed.',
+    keyConcepts: [
+      {
+        heading: '1. IAM Least Privilege & Role Assumption',
+        explanation: 'Enforce zero-trust access controls by granting services IAM Roles with temporary STS credentials rather than long-lived keys.',
+        codeOrExample: '{\n  "Version": "2012-10-17",\n  "Statement": [{\n    "Effect": "Allow",\n    "Action": ["s3:GetObject"],\n    "Resource": "arn:aws:s3:::company-bucket/*"\n  }]\n}'
+      },
+      {
+        heading: '2. Serverless Event-Driven Architectures',
+        explanation: 'Trigger stateless Lambda compute functions from S3 uploads, SQS message queues, or API Gateway HTTP requests.',
+        codeOrExample: "import json\n\ndef handler(event, context):\n    record = event['Records'][0]\n    return {'statusCode': 200, 'body': json.dumps({'processed': record['messageId']})}"
+      },
+      {
+        heading: '3. VPC Subnets & Multi-AZ High Availability',
+        explanation: 'Isolate database instances in private subnets behind NAT Gateways across multiple Availability Zones to ensure 99.99% uptime.',
+        codeOrExample: '# Public Subnet: Internet Gateway -> ALB\n# Private Subnet: Backend ECS/Lambda -> RDS Database'
+      }
+    ],
+    cheatsheet: [
+      'AWS S3 CLI: aws s3 sync ./dist s3://my-prod-bucket',
+      'Lambda Invocation: aws lambda invoke --function-name MyFunction out.json',
+      'CloudWatch Logs: aws logs tail /aws/lambda/MyFunction --follow',
+      'Storage Classes: S3 Standard -> S3 Infrequent Access -> S3 Glacier'
+    ],
+    commonPitfalls: [
+      'Leaving S3 buckets publicly readable without bucket policies or block public access enabled.',
+      'Placing databases directly in public subnets with public IP addresses.',
+      'Unbounded Lambda concurrency consuming all RDS database connection pools.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is the difference between horizontal scaling and vertical scaling in AWS?',
+        answer: 'Vertical scaling upgrades the compute capacity (CPU, RAM) of a single instance (e.g. t3.micro to m5.2xlarge). Horizontal scaling provisions additional instance replicas in an Auto Scaling Group behind an Application Load Balancer.'
+      }
+    ]
+  },
+
   'course-design-systems': {
     courseId: 'course-design-systems',
     courseTitle: 'UI/UX Design Systems & Visual Frontend',

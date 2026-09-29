@@ -10,6 +10,8 @@ import { AI_PYTHON_LONG_LESSONS } from '../src/lib/data/aiPythonLongLessons';
 import { AI_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/aiPython30DayData';
 import { DIST_PYTHON_LONG_LESSONS } from '../src/lib/data/distPythonLongLessons';
 import { DIST_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/distPython30DayData';
+import { CLOUD_PYTHON_LONG_LESSONS } from '../src/lib/data/cloudPythonLongLessons';
+import { CLOUD_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/cloudPython30DayData';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 
 /** Python-track courses with full-length lessons (the days written so far). */
@@ -17,6 +19,7 @@ const COURSES: { name: string; prefix: string; lessons: LongLesson[]; configs: D
   { name: 'DSA in Python', prefix: 'dsa-py', lessons: DSA_PYTHON_LONG_LESSONS, configs: DSA_PYTHON_30_DAYS_CONFIGS },
   { name: 'AI Engineering in Python', prefix: 'ai-py', lessons: AI_PYTHON_LONG_LESSONS, configs: AI_PYTHON_30_DAYS_CONFIGS },
   { name: 'Distributed Systems in Python', prefix: 'dist-py', lessons: DIST_PYTHON_LONG_LESSONS, configs: DIST_PYTHON_30_DAYS_CONFIGS },
+  { name: 'Cloud Engineering in Python', prefix: 'cloud-py', lessons: CLOUD_PYTHON_LONG_LESSONS, configs: CLOUD_PYTHON_30_DAYS_CONFIGS },
 ];
 
 /** Runs a sample the way the lesson page does: Pyodide, a fresh __main__ namespace, the last error line. */

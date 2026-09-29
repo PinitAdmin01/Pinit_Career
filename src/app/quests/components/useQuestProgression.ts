@@ -170,6 +170,7 @@ export const COURSE_TO_ROLE: Record<string, string> = {
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
   'course-distributed-python': 'Cloud Architect & Infrastructure Specialist',
+  'course-cloud-python': 'Cloud Architect & Infrastructure Specialist',
   'course-java-logic': 'Software Development Engineer (SDE)',
   'course-digital-accounting': 'Digital Accountant & Taxation Specialist',
   'course-finance-investment': 'Financial Analyst & Investment Specialist',
