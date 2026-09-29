@@ -1389,7 +1389,9 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           'To build React apps on your laptop, you need two tools. Node.js lets your computer run JavaScript outside the browser. npm, which comes with Node.js, downloads packages: code that other developers have shared, like React itself.',
           'Install Node.js from nodejs.org: choose the LTS version, which means the stable one. Then open a terminal. On Windows, that is PowerShell or the terminal inside VS Code. Type node -v and npm -v. If both print a version number, you are ready.',
           'You also need a code editor. Most companies use VS Code, which is free. Install it from code.visualstudio.com.',
-          'Every project has a file called package.json. It lists the packages the project needs. When you run npm install, npm reads that list and downloads everything into a folder called node_modules. You never edit node_modules yourself.'
+          'Every project has a file called package.json. It lists the packages the project needs. When you run npm install, npm reads that list and downloads everything into a folder called node_modules. You never edit node_modules yourself.',
+          'node_modules can be very large, hundreds of megabytes, so it is never shared or uploaded. Anyone who downloads your project runs npm install once, and npm rebuilds the folder from package.json. That is why package.json matters so much: it is the shopping list that lets anyone recreate your project exactly.',
+          'If a command fails with "command not found", Node.js is usually not installed or the terminal was opened before the installation finished. Close the terminal, open a new one, and try again. Reading the error message slowly, word by word, solves most setup problems.'
         ],
         example: 'npm is like the Play Store for code. Instead of writing a camera app yourself, you install one. Instead of writing React yourself, npm installs it for you.',
         projectCode: {
@@ -1415,7 +1417,9 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           'Now the exciting part: creating your own React app. We use a tool called Vite, pronounced "veet", which is French for fast. It sets up a React project in seconds.',
           'Open the terminal in the folder where you keep your projects, and run the four commands shown below, one at a time. The first one creates a folder called job-tracker with a ready-made React app inside. When it asks questions, choose React and then JavaScript.',
           'The last command, npm run dev, starts a small development server. It prints an address like http://localhost:5173. Open it in your browser, and you will see the Vite and React welcome page. That page is running from your own laptop.',
-          'Keep that terminal open while you work. To stop the server, press Ctrl+C in the terminal. To start it again later, go into the folder and run npm run dev again.'
+          'Keep that terminal open while you work. To stop the server, press Ctrl+C in the terminal. To start it again later, go into the folder and run npm run dev again.',
+          'Vite (a French word meaning "fast", said like "veet") is the tool most new React projects use. It starts a development server in about a second and reloads the page the moment you save a file, so you see every change instantly.',
+          'While the development server runs, keep that terminal open. Stopping it with Ctrl + C stops the site on localhost. Open a second terminal whenever you need to run other commands at the same time.'
         ],
         example: 'It is like buying a flat that comes with the walls, wiring and plumbing already done. You move in and start decorating right away instead of building from bricks.',
         projectCode: {
