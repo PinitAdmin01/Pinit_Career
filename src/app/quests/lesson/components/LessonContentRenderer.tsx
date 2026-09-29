@@ -45,6 +45,7 @@ interface LessonContentRendererProps {
   setExamFailed: (val: boolean) => void;
   examCorrectCount: number;
   setExamCorrectCount: React.Dispatch<React.SetStateAction<number>>;
+  setExamAnswers: React.Dispatch<React.SetStateAction<(number | null)[]>>;
   onReviewLesson: () => void;
   runSlideCode?: (slideIdx: number, rawCode?: string) => void;
   examQuestionIndex: number;
@@ -99,6 +100,7 @@ export function LessonContentRenderer({
   setExamFailed,
   examCorrectCount,
   setExamCorrectCount,
+  setExamAnswers,
   onReviewLesson,
   runSlideCode,
   examQuestionIndex,
@@ -599,6 +601,7 @@ export function LessonContentRenderer({
                 setExamFailed={setExamFailed}
                 examCorrectCount={examCorrectCount}
                 setExamCorrectCount={setExamCorrectCount}
+                setExamAnswers={setExamAnswers}
                 onReviewLesson={onReviewLesson}
                 examQuestionIndex={examQuestionIndex}
                 setExamQuestionIndex={setExamQuestionIndex}

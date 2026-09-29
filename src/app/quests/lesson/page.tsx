@@ -399,7 +399,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     if (state.returningRef.current) return;
     state.returningRef.current = true;
     const id = resolveQuestId();
-    if (id) {
+    // Course tests are recorded by the lesson engine once the server has marked them.
+    if (id && !parseTestQuestId(id)) {
       const authQuest = getAuthoritativeQuest(id);
       const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
       const isExam = isAuthoritativeExam(id);
@@ -544,6 +545,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             setExamFailed={state.setExamFailed}
             examCorrectCount={state.examCorrectCount}
             setExamCorrectCount={state.setExamCorrectCount}
+            setExamAnswers={state.setExamAnswers}
             onReviewLesson={engine.onReviewLesson}
             examQuestionIndex={state.examQuestionIndex}
             setExamQuestionIndex={state.setExamQuestionIndex}

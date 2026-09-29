@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
+import { questNeedsPassReceipt } from '@/lib/courses/gradeTest';
+import { verifyPassReceipt } from '@/lib/server/passReceipt';
 
 /**
  * POST /api/quest/complete
@@ -34,6 +36,14 @@ export async function POST(req: Request) {
           message: `Quest '${questId}' does not exist in the authoritative quest registry.`,
         },
         { status: 400 }
+      );
+    }
+
+    // Course tests are marked by the server (/api/quests/grade-test); only its signed pass receipt counts.
+    if (questNeedsPassReceipt(questId) && !verifyPassReceipt(body?.passReceipt, userId, questId)) {
+      return NextResponse.json(
+        { error: 'PASS_NOT_VERIFIED', message: 'This test must be passed before it can be completed.' },
+        { status: 403 }
       );
     }
 

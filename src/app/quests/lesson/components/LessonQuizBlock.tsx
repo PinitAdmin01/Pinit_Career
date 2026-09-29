@@ -24,6 +24,8 @@ interface LessonQuizBlockProps {
   setExamFailed: (val: boolean) => void;
   examCorrectCount: number;
   setExamCorrectCount: React.Dispatch<React.SetStateAction<number>>;
+  /** Records the option chosen for each question, in order. */
+  setExamAnswers?: React.Dispatch<React.SetStateAction<(number | null)[]>>;
   onReviewLesson: () => void;
   examQuestionIndex: number;
   setExamQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -49,6 +51,7 @@ export function LessonQuizBlock({
   setExamFailed,
   examCorrectCount,
   setExamCorrectCount,
+  setExamAnswers,
   onReviewLesson,
   examQuestionIndex,
   setExamQuestionIndex,
@@ -171,6 +174,11 @@ export function LessonQuizBlock({
 
   const handleNextOrSubmit = () => {
     const newCorrectCount = examCorrectCount + (mcqIsCorrect ? 1 : 0);
+    setExamAnswers?.((prev) => {
+      const next = prev.slice(0, examQuestionIndex);
+      next[examQuestionIndex] = selectedMcqAnswer;
+      return next;
+    });
     if (isLastQuestion) {
       setExamCorrectCount(newCorrectCount);
       const total = hybridExamQuestions.length;

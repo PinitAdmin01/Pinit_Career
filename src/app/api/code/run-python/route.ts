@@ -9,6 +9,7 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { getAuthoritativeQuest, getAuthoritativeQuestXp } from '@/lib/quests/questRegistry';
 import { findForbiddenPython } from '@/lib/code/python/pythonGuard';
+import { questNeedsPassReceipt } from '@/lib/courses/gradeTest';
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
     // ── Authoritative Quest & Test Suite Validation ───────────────────────────
     let effectiveTestSuite = typeof testSuite === 'string' ? testSuite : '';
     let authoritativeXpAwarded = 0;
+    let canRecordCompletion = false;
     const cleanQuestId = typeof questId === 'string' ? questId.trim() : '';
 
     if (cleanQuestId) {
@@ -83,8 +85,10 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
       }
-      // Forcefully overwrite testSuite with server-owned suite
+      // Forcefully overwrite testSuite with server-owned suite. A pass is only recorded against the
+      // quest's own suite: never a browser-supplied one, and never for server-graded course tests.
       effectiveTestSuite = registeredQuest.testSuite || effectiveTestSuite;
+      canRecordCompletion = Boolean(registeredQuest.testSuite && registeredQuest.testSuite.trim()) && !questNeedsPassReceipt(cleanQuestId);
       authoritativeXpAwarded = registeredQuest.xp;
     }
 
@@ -109,7 +113,7 @@ export async function POST(req: NextRequest) {
 
         if (judgeRes.ok) {
           const result = await judgeRes.json();
-          if (result.allPassed && cleanQuestId && gated.user?.id) {
+          if (result.allPassed && canRecordCompletion && gated.user?.id) {
             await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
           }
           return NextResponse.json(result);
@@ -300,7 +304,7 @@ except Exception as ex:
       }
 
       // Clean, verified success
-      if (cleanQuestId && gated.user?.id) {
+      if (canRecordCompletion && gated.user?.id) {
         await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
       }
 

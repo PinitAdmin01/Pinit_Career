@@ -65,7 +65,7 @@ export interface UserProgressContextType {
   switchActiveCourse?: (courseId: string) => void;
   archiveActiveCourse?: (courseId: string) => void;
   completedQuests: string[];
-  addCompletedQuest: (questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => void;
+  addCompletedQuest: (questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => void;
   saveQuestCode: (questId: string, code: string) => void;
   saveCareerProjects: (projects: any[]) => void;
   javaTestPassed: boolean;
@@ -402,8 +402,9 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
           try {
             await api.post('/api/quest/complete', item);
             await persistQuestCompletion(userId, item.questId, item.isExam, item.xpAmount || 150, item.courseId);
-          } catch {
-            remaining.push(item);
+          } catch (err: unknown) {
+            const status = (err as { status?: unknown })?.status;
+            if (!(typeof status === 'number' && status > 0)) remaining.push(item);
           }
         }
         if (remaining.length > 0) {
@@ -500,7 +501,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     toast.success('Mission Complete! 🎯', 'Great progress today!');
   }, [commitAnswers, completedMissions, keys, missionStreak, save, userId]);
 
-  const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => {
+  const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => {
     const timestamps = answersRef.current.completedQuestsTimestamps || [];
     const today = new Date().toDateString();
     const todayCompletions = timestamps.filter(raw => {
@@ -528,8 +529,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     commitAnswers(nextAnswers);
 
     if (userId && userId !== 'guest') {
-      const payload = { questId, isExam, xpAmount, courseId, timestamp: new Date().toISOString() };
-      api.post('/api/quest/complete', payload).catch(() => {
+      const payload = { questId, isExam, xpAmount, courseId, passReceipt, timestamp: new Date().toISOString() };
+      api.post('/api/quest/complete', payload).catch((err: unknown) => {
+        // Queue only real network failures for a retry; a refusal from the server (for example a test
+        // without a server pass receipt, or the daily cap) would be refused again.
+        const status = (err as { status?: unknown })?.status;
+        if (typeof status === 'number' && status > 0) return;
         try {
           const queueKey = `pinit_${userId}_pending_quest_completions`;
           const raw = localStorage.getItem(queueKey);

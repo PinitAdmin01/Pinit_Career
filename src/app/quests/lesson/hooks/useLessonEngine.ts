@@ -111,7 +111,7 @@ interface UseLessonEngineProps {
   questData: any;
   teacherId: string;
   user: any;
-  addCompletedQuest: (id: string, completed?: boolean, xp?: number, courseId?: string) => void;
+  addCompletedQuest: (id: string, completed?: boolean, xp?: number, courseId?: string, passReceipt?: string) => void;
   state: LessonState;
   finishLessonAndReturn: () => void;
 }
@@ -143,6 +143,7 @@ export function useLessonEngine({
     examPassed, setExamPassed,
     examFailed, setExamFailed,
     examCorrectCount, setExamCorrectCount,
+    examAnswers, setExamAnswers,
     maxUnlockedSlide, setMaxUnlockedSlide,
     setIsRecording,
     setConfettiParticles,
@@ -659,18 +660,37 @@ export function useLessonEngine({
     }
   }, [doubtCount, userId, questId]);
 
-  // Mark completed quest on exam pass
+  // Mark completed quest on exam pass. Course tests are marked again by the server, and only its
+  // signed receipt lets /api/quest/complete record them.
   useEffect(() => {
-    if (examPassed) {
-      const authQuest = getAuthoritativeQuest(questId);
-      const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === questId));
-      if (authQuest || course) {
-        const isExam = isAuthoritativeExam(questId);
-        const xp = authQuest?.xp || 150;
-        addCompletedQuest(questId, isExam, xp, course?.id);
-      }
+    if (!examPassed) return;
+    const authQuest = getAuthoritativeQuest(questId);
+    const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === questId));
+    if (!authQuest && !course) return;
+    const isExam = isAuthoritativeExam(questId);
+    const xp = authQuest?.xp || 150;
+    if (!testInfo) {
+      addCompletedQuest(questId, isExam, xp, course?.id);
+      return;
     }
-  }, [examPassed, questId, addCompletedQuest]);
+    let cancelled = false;
+    api.post<{ ok: boolean; passed: boolean; receipt: string | null; correct: number; total: number }>('/api/quests/grade-test', {
+      questId,
+      answers: examAnswers,
+    })
+      .then((res) => {
+        if (cancelled) return;
+        if (res?.passed && res.receipt) {
+          addCompletedQuest(questId, isExam, xp, course?.id, res.receipt);
+        } else {
+          toast.error('Test not recorded', `The server marked ${res?.correct ?? 0}/${res?.total ?? 0}. Please take the test again.`);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) toast.error('Test not recorded', 'Could not reach the server to mark your test. Please check your connection and try again.');
+      });
+    return () => { cancelled = true; };
+  }, [examPassed, questId, addCompletedQuest, testInfo, examAnswers]);
 
   const meta = (user?.user_metadata as any) || {};
   const studentName = (meta.full_name || meta.name || user?.email?.split('@')[0] || 'Developer');
@@ -781,13 +801,14 @@ export function useLessonEngine({
     setMcqChecked(false);
     setMcqIsCorrect(false);
     setExamCorrectCount(0);
+    setExamAnswers([]);
     setCurrentSlide(1);
     if (testInfo) {
       toast.info("Try again", "Look back at those lessons if you need to, then take the test again.");
     } else {
       toast.info("Review the lesson", "Go through the parts again, then answer the questions.");
     }
-  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setCurrentSlide, testInfo]);
+  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo]);
 
   const handlePrevSlide = useCallback(() => {
     stopSpeaking();

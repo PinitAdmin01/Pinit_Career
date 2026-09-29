@@ -44,6 +44,8 @@ export function useLessonState(teacherId: string = 'kashyap') {
   const [examPassed, setExamPassed] = useState(false);
   const [examFailed, setExamFailed] = useState(false);
   const [examCorrectCount, setExamCorrectCount] = useState(0);
+  /** The option chosen for each quiz question, in order (sent to the server to mark course tests). */
+  const [examAnswers, setExamAnswers] = useState<(number | null)[]>([]);
 
   // Sequential progression lock
   const [maxUnlockedSlide, setMaxUnlockedSlide] = useState(0);
@@ -85,6 +87,7 @@ export function useLessonState(teacherId: string = 'kashyap') {
     examPassed, setExamPassed,
     examFailed, setExamFailed,
     examCorrectCount, setExamCorrectCount,
+    examAnswers, setExamAnswers,
     maxUnlockedSlide, setMaxUnlockedSlide,
     isRecording, setIsRecording,
     confettiParticles, setConfettiParticles,

@@ -412,7 +412,13 @@ export function useWorkspaceState({
               }
             })
             .catch(err => {
-              // Network disconnection / offline resilience: client automated judge already cleared all test assertions
+              // Only a real network failure falls back to the browser's result; a refusal from the
+              // server (failed tests, expired exam time) must not count as a pass.
+              const status = (err as { status?: unknown })?.status;
+              if (typeof status === 'number' && status > 0) {
+                setOutput({ success: false, message: 'Security Validation Failed: ' + ((err as Error)?.message || 'Verification rejected') });
+                return;
+              }
               console.warn('[useWorkspaceState] Server verification network failed, applying client-passed completion:', err);
               applySuccess(true);
             });
