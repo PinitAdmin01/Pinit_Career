@@ -30,24 +30,33 @@ export async function loadPyodideRuntime(): Promise<any> {
   window.__pyodideLoadingPromise = (async () => {
     if (!window.loadPyodide) {
       const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js';
+      script.src = `${pyodideBase()}pyodide.js`;
       script.async = true;
       document.head.appendChild(script);
 
       await new Promise((resolve, reject) => {
         script.onload = resolve;
-        script.onerror = () => reject(new Error('Failed to load Pyodide WebAssembly script from CDN.'));
+        script.onerror = () => reject(new Error('Failed to load the Python runtime (Pyodide).'));
       });
     }
 
     window.pyodide = await window.loadPyodide({
-      indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'
+      indexURL: pyodideBase()
     });
 
     return window.pyodide;
   })();
 
   return window.__pyodideLoadingPromise;
+}
+
+/**
+ * The same self-hosted Pyodide the lesson pages use (public/pyodide/, the version in package.json),
+ * so practice tasks do not depend on an outside CDN that school or office networks may block.
+ * An absolute URL, because the worker runs from a blob: URL where relative paths do not resolve.
+ */
+function pyodideBase(): string {
+  return `${window.location.origin}/pyodide/`;
 }
 
 const PYODIDE_WORKER_SOURCE = `
@@ -58,9 +67,9 @@ async function getPyodide() {
   if (pyodide) return pyodide;
   if (initPromise) return initPromise;
   initPromise = (async () => {
-    importScripts('https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js');
+    importScripts('__PYODIDE_BASE__pyodide.js');
     pyodide = await self.loadPyodide({
-      indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'
+      indexURL: '__PYODIDE_BASE__'
     });
     return pyodide;
   })();
@@ -122,7 +131,7 @@ function executeInBrowserWorker(
     };
 
     try {
-      const blob = new Blob([PYODIDE_WORKER_SOURCE], { type: 'application/javascript' });
+      const blob = new Blob([PYODIDE_WORKER_SOURCE.split('__PYODIDE_BASE__').join(pyodideBase())], { type: 'application/javascript' });
       blobUrl = URL.createObjectURL(blob);
       worker = new Worker(blobUrl);
 

@@ -9,6 +9,9 @@ interface LessonCompletionModalProps {
   questId?: string;
   xp?: number;
   pins?: number;
+  /** Course tests only: the server's verdict. The pass is not celebrated until it is recorded. */
+  testRecord?: { state: 'checking' | 'recorded' | 'failed'; message?: string } | null;
+  onRetryTest?: () => void;
 }
 
 export function LessonCompletionModal({
@@ -18,7 +21,11 @@ export function LessonCompletionModal({
   questId,
   xp,
   pins,
+  testRecord,
+  onRetryTest,
 }: LessonCompletionModalProps) {
+  const checking = testRecord?.state === 'checking';
+  const failed = testRecord?.state === 'failed';
   const authQuest = questId ? getAuthoritativeQuest(questId) : null;
   const displayXp = xp ?? authQuest?.xp ?? 150;
   const displayPins = pins ?? authQuest?.pins ?? 5;
@@ -67,7 +74,7 @@ export function LessonCompletionModal({
         }} className="animate-fade-in">
           <div style={{
             background: 'var(--bg2)',
-            border: '1.5px solid var(--green)',
+            border: failed ? '1.5px solid var(--danger)' : '1.5px solid var(--green)',
             borderRadius: 24,
             padding: '32px 24px',
             maxWidth: 420,
@@ -79,15 +86,21 @@ export function LessonCompletionModal({
             alignItems: 'center',
             gap: 16
           }}>
-            <span style={{ fontSize: 53, animation: 'pulse 2s infinite' }}>🏆</span>
-            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--green)', fontFamily: 'var(--font-display)', margin: 0 }}>
-              Syllabus Passed!
+            <span style={{ fontSize: 53, animation: checking || failed ? undefined : 'pulse 2s infinite' }}>{checking ? '⏳' : failed ? '⚠️' : '🏆'}</span>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: failed ? 'var(--danger)' : 'var(--green)', fontFamily: 'var(--font-display)', margin: 0 }}>
+              {checking ? 'Checking your answers…' : failed ? 'Test not recorded' : testRecord ? 'Test Passed!' : 'Syllabus Passed!'}
             </h2>
             <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
-              Congratulations, developer! You successfully cleared all Socratic slide checkpoints and passed the syllabus evaluation exam.
+              {checking
+                ? 'Your answers are being marked by the server. This only takes a moment.'
+                : failed
+                  ? testRecord?.message
+                  : testRecord
+                    ? 'Well done! The server has marked and recorded your test.'
+                    : 'Congratulations, developer! You successfully cleared all Socratic slide checkpoints and passed the syllabus evaluation exam.'}
             </p>
 
-            <div style={{
+            {!checking && !failed && <div style={{
               display: 'flex',
               gap: 12,
               width: '100%',
@@ -115,9 +128,27 @@ export function LessonCompletionModal({
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Pins Bonus</div>
                 <div style={{ fontSize: 20, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+{displayPins} Pins</div>
               </div>
-            </div>
+            </div>}
 
-            <button
+            {failed && onRetryTest && (
+              <button
+                onClick={onRetryTest}
+                className="btn-primary"
+                style={{ marginTop: 10, width: '100%', padding: '12px 20px', fontSize: 14.5, fontWeight: 900, borderRadius: 12, background: 'var(--accent)' }}
+              >
+                Take the test again
+              </button>
+            )}
+            {failed && (
+              <button
+                onClick={finishLessonAndReturn}
+                style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 13, textDecoration: 'underline', cursor: 'pointer' }}
+              >
+                Back to the roadmap
+              </button>
+            )}
+
+            {!checking && !failed && <button
               onClick={finishLessonAndReturn}
               className="btn-primary animate-pulse"
               style={{
@@ -131,7 +162,7 @@ export function LessonCompletionModal({
               }}
             >
               Return to Roadmap 🏁
-            </button>
+            </button>}
           </div>
         </div>
       )}

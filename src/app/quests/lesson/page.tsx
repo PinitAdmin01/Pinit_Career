@@ -585,6 +585,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
         confettiParticles={state.confettiParticles}
         finishLessonAndReturn={finishLessonAndReturn}
         questId={questId}
+        testRecord={engine.testRecord}
+        onRetryTest={engine.onReviewLesson}
       />
     </div>
   );

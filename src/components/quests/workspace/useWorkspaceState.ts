@@ -416,7 +416,12 @@ export function useWorkspaceState({
               // server (failed tests, expired exam time) must not count as a pass.
               const status = (err as { status?: unknown })?.status;
               if (typeof status === 'number' && status > 0) {
-                setOutput({ success: false, message: 'Security Validation Failed: ' + ((err as Error)?.message || 'Verification rejected') });
+                setOutput({
+                  success: false,
+                  message: status === 401
+                    ? 'Your tests passed, but your session has expired, so this was not recorded. Please sign in again and submit once more.'
+                    : 'Your tests passed, but the server did not accept the submission: ' + ((err as Error)?.message || 'verification rejected'),
+                });
                 return;
               }
               console.warn('[useWorkspaceState] Server verification network failed, applying client-passed completion:', err);

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo, useState } from 'react';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
@@ -660,6 +660,9 @@ export function useLessonEngine({
     }
   }, [doubtCount, userId, questId]);
 
+  /** For course tests: the server's verdict after the student passes on screen. */
+  const [testRecord, setTestRecord] = useState<{ state: 'checking' | 'recorded' | 'failed'; message?: string } | null>(null);
+
   // Mark completed quest on exam pass. Course tests are marked again by the server, and only its
   // signed receipt lets /api/quest/complete record them.
   useEffect(() => {
@@ -674,6 +677,7 @@ export function useLessonEngine({
       return;
     }
     let cancelled = false;
+    setTestRecord({ state: 'checking' });
     api.post<{ ok: boolean; passed: boolean; receipt: string | null; correct: number; total: number }>('/api/quests/grade-test', {
       questId,
       answers: examAnswers,
@@ -682,12 +686,20 @@ export function useLessonEngine({
         if (cancelled) return;
         if (res?.passed && res.receipt) {
           addCompletedQuest(questId, isExam, xp, course?.id, res.receipt);
+          setTestRecord({ state: 'recorded' });
         } else {
-          toast.error('Test not recorded', `The server marked ${res?.correct ?? 0}/${res?.total ?? 0}. Please take the test again.`);
+          setTestRecord({ state: 'failed', message: `The server marked ${res?.correct ?? 0} of ${res?.total ?? 0} correct, below the 70% needed. Please take the test again.` });
         }
       })
-      .catch(() => {
-        if (!cancelled) toast.error('Test not recorded', 'Could not reach the server to mark your test. Please check your connection and try again.');
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        const status = (err as { status?: unknown })?.status;
+        setTestRecord({
+          state: 'failed',
+          message: typeof status === 'number' && status === 401
+            ? 'Your session has expired, so the test could not be recorded. Please sign in again and retake the test.'
+            : 'Your test could not be recorded because the server could not be reached. Please check your connection and try again.',
+        });
       });
     return () => { cancelled = true; };
   }, [examPassed, questId, addCompletedQuest, testInfo, examAnswers]);
@@ -796,19 +808,21 @@ export function useLessonEngine({
 
   const onReviewLesson = useCallback(() => {
     setExamFailed(false);
+    setExamPassed(false);
     setExamQuestionIndex(0);
     setSelectedMcqAnswer(null);
     setMcqChecked(false);
     setMcqIsCorrect(false);
     setExamCorrectCount(0);
     setExamAnswers([]);
+    setTestRecord(null);
     setCurrentSlide(1);
     if (testInfo) {
       toast.info("Try again", "Look back at those lessons if you need to, then take the test again.");
     } else {
       toast.info("Review the lesson", "Go through the parts again, then answer the questions.");
     }
-  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo]);
+  }, [setExamFailed, setExamPassed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo]);
 
   const handlePrevSlide = useCallback(() => {
     stopSpeaking();
@@ -988,6 +1002,7 @@ export function useLessonEngine({
     runSlideCode,
     simulateCodeRun,
     onReviewLesson,
+    testRecord,
     playSpeech,
     handleTogglePlay,
     handleNextSlide,
