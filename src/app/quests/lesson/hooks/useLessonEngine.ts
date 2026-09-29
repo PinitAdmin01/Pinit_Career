@@ -102,6 +102,7 @@ const RUNNER_LABELS: Record<string, string> = {
   'dist-py': '🐍 Python 3 Executing',
   'cloud-py': '🐍 Python 3 Executing',
   'nlp-py': '🐍 Python 3 Executing',
+  'quant-py': '🐍 Python 3 Executing',
   'iot_net': '📶 IoT Radio Protocol Simulator',
   'iot_emb': '🔌 Embedded MCU Simulator',
   'g3d': '🔮 WebGL2 3D Shader Sandbox',

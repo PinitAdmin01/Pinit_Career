@@ -1118,6 +1118,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-quant-python': {
+    courseId: 'course-quant-python',
+    courseTitle: 'Quantitative Trading Systems in Python',
+    category: 'Quantitative Finance',
+    summary: 'Master Limit Order Book (LOB) matching queues, volume-weighted average price (VWAP) execution algorithms, market slippage modeling, TCP socket kernel bypass, and nanosecond latency.',
+    realWorldAnalogy: 'Think of Quantitative High-Frequency Trading like a laser-speed digital auction room. When an institutional investor wants to buy 100,000 shares of stock, algorithmic matching engines analyze order books in 500 nanoseconds, calculating volume curves to prevent price spikes.',
+    keyConcepts: [
+      {
+        heading: '1. Limit Order Book (LOB) Architecture',
+        explanation: 'Maintain sorted bid (buy) and ask (sell) price ladders using double-linked lists indexed by array rings for O(1) order additions, cancellations, and matches.',
+        codeOrExample: 'struct Order {\n    uint64_t order_id;\n    uint32_t price;\n    uint32_t qty;\n    Order* next;\n    Order* prev;\n};'
+      },
+      {
+        heading: '2. Kernel Bypass & Zero-Copy Networking',
+        explanation: 'Bypass the operating system Linux network stack using Solarflare OpenOnload or DPDK to read UDP multicast market data packets directly from NIC ring buffers.',
+        codeOrExample: '// Direct NIC ring buffer poll (Kernel Bypass zero context-switch):\nonload_zc_recv(socket_fd, &msg, flags);'
+      },
+      {
+        heading: '3. VWAP / TWAP Algorithmic Execution',
+        explanation: 'Execute massive institutional parent orders by slicing them into small child orders distributed across time and historical trading volume profiles to minimize slippage.',
+        codeOrExample: 'VWAP = sum(Price_i * Volume_i) / sum(Volume_i)'
+      }
+    ],
+    cheatsheet: [
+      'Order Book Complexity: Price-Time Priority FIFO queue lookup in O(1) time',
+      'Kernel Bypass: Eliminates OS kernel context switching saving 2-4 microseconds',
+      'Memory Strategy: Zero dynamic allocation (no malloc/free) in critical trading hot path',
+      'L1 Data Cache: Keep order structs cache-line aligned to 64 bytes'
+    ],
+    commonPitfalls: [
+      'Allocating heap memory or triggering garbage collection pauses in the critical order matching path.',
+      'Neglecting market impact and slippage in backtested quantitative trading models.',
+      'Failing to implement automated kill-switches when market price limits trip.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is Kernel Bypass in low-latency trading and why is it used?',
+        answer: 'Kernel bypass allows user-space trading applications to communicate directly with the Network Interface Card (NIC) hardware without routing packets through the standard operating system TCP/IP stack, eliminating OS context switches, CPU interrupts, and buffer copies, cutting latency to sub-microsecond levels.'
+      }
+    ]
+  },
+
   'course-finance-investment': {
     courseId: 'course-finance-investment',
     courseTitle: 'Business Finance & Investment Management (B.Com / BBA)',

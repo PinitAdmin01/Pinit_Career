@@ -14,6 +14,8 @@ import { CLOUD_PYTHON_LONG_LESSONS } from '../src/lib/data/cloudPythonLongLesson
 import { CLOUD_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/cloudPython30DayData';
 import { NLP_PYTHON_LONG_LESSONS } from '../src/lib/data/nlpPythonLongLessons';
 import { NLP_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/nlpPython30DayData';
+import { QUANT_PYTHON_LONG_LESSONS } from '../src/lib/data/quantPythonLongLessons';
+import { QUANT_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/quantPython30DayData';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 
 /** Python-track courses with full-length lessons (the days written so far). */
@@ -23,6 +25,7 @@ const COURSES: { name: string; prefix: string; lessons: LongLesson[]; configs: D
   { name: 'Distributed Systems in Python', prefix: 'dist-py', lessons: DIST_PYTHON_LONG_LESSONS, configs: DIST_PYTHON_30_DAYS_CONFIGS },
   { name: 'Cloud Engineering in Python', prefix: 'cloud-py', lessons: CLOUD_PYTHON_LONG_LESSONS, configs: CLOUD_PYTHON_30_DAYS_CONFIGS },
   { name: 'NLP in Python', prefix: 'nlp-py', lessons: NLP_PYTHON_LONG_LESSONS, configs: NLP_PYTHON_30_DAYS_CONFIGS },
+  { name: 'Quantitative Trading Systems in Python', prefix: 'quant-py', lessons: QUANT_PYTHON_LONG_LESSONS, configs: QUANT_PYTHON_30_DAYS_CONFIGS },
 ];
 
 /** Runs a sample the way the lesson page does: Pyodide, a fresh __main__ namespace, the last error line. */

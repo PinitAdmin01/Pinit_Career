@@ -13,6 +13,7 @@ import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
 import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
 import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
 import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
+import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -287,6 +288,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 4,
     icon: '📈',
     quests: QUANT_SYSTEMS_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-quant-python',
+    title: 'Quantitative Trading Systems in Python',
+    desc: 'Electronic trading engineering with every lesson example and practice task in Python: order books and matching engines, VWAP and TWAP, market impact, micro-price, market making, FIX and ITCH, kernel bypass, lock-free queues, cache and SIMD, Black-Scholes and implied volatility, VaR and Expected Shortfall, portfolios, stat arb, smart order routing, latency physics, backtest integrity, risk controls, crypto perpetuals and FPGAs.',
+    difficulty: 'Advanced',
+    durationWeeks: 4,
+    icon: '📈',
+    quests: QUANT_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-digital-accounting',
