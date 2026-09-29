@@ -15,6 +15,7 @@ import { DSA_PYTHON_LONG_LESSONS } from './dsaPythonLongLessons';
 import { AI_PYTHON_LONG_LESSONS } from './aiPythonLongLessons';
 import { DIST_PYTHON_LONG_LESSONS } from './distPythonLongLessons';
 import { CLOUD_PYTHON_LONG_LESSONS } from './cloudPythonLongLessons';
+import { NLP_PYTHON_LONG_LESSONS } from './nlpPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -71,6 +72,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'ai-py': AI_PYTHON_LONG_LESSONS,
   'dist-py': DIST_PYTHON_LONG_LESSONS,
   'cloud-py': CLOUD_PYTHON_LONG_LESSONS,
+  'nlp-py': NLP_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
@@ -84,6 +86,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'ai-py': 'python',
   'dist-py': 'python',
   'cloud-py': 'python',
+  'nlp-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {

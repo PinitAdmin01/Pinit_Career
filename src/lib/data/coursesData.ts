@@ -12,6 +12,7 @@ import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
 import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
 import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
+import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -431,6 +432,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '📚',
     quests: NLP_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-nlp-python',
+    title: 'NLP in Python',
+    desc: 'Natural language processing with every lesson example and practice task in Python: text cleaning, TF-IDF search, embeddings, HMM taggers, NER, Naive Bayes, RNNs and LSTMs, attention, Transformers, BPE, BERT, GPT, question answering, retrieval, decoding, metrics and LoRA.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📚',
+    quests: NLP_PYTHON_30_DAYS_QUESTS as any
   }
 ];
 

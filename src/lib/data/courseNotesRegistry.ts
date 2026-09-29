@@ -1704,6 +1704,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
         answer: 'RNNs process tokens sequentially step-by-step, creating an architectural bottleneck that prevents parallel GPU computation and suffers from vanishing gradients over long sequences. Transformers process all tokens simultaneously using multi-head self-attention, allowing massive distributed GPU pre-training over trillions of tokens.'
       }
     ]
+  },
+
+  'course-nlp-python': {
+    courseId: 'course-nlp-python',
+    courseTitle: 'NLP in Python',
+    category: 'Artificial Intelligence Core',
+    summary: 'Master computational linguistics, subword tokenization, word embeddings, sequence modeling, Multi-Head Transformer Self-Attention, BERT/GPT architectures, and LoRA fine-tuning.',
+    realWorldAnalogy: 'Think of Natural Language Processing like building a universal mathematical dictionary for human thought. Words and phrases are not just letters; they are multidimensional coordinates in space where words with similar contextual meanings cluster together like stars in a galaxy.',
+    keyConcepts: [
+      {
+        heading: '1. Subword Tokenization & Dense Vector Spaces',
+        explanation: 'Byte-Pair Encoding (BPE) breaks vocabulary into subword units, mapped into high-dimensional embedding spaces where semantic relationships reflect vector arithmetic.',
+        codeOrExample: '# Semantic Vector Arithmetic:\n# vector("King") - vector("Man") + vector("Woman") ≈ vector("Queen")'
+      },
+      {
+        heading: '2. Scaled Dot-Product Self-Attention',
+        explanation: 'Compute query-key affinities to dynamically weight which surrounding words provide context to each token in parallel across multi-head projections.',
+        codeOrExample: 'Attention(Q, K, V) = softmax( (Q * K^T) / sqrt(d_k) ) * V'
+      },
+      {
+        heading: '3. Parameter-Efficient Fine-Tuning (PEFT / LoRA)',
+        explanation: 'Freeze the massive pre-trained weight matrices W and train low-rank decomposition matrices A and B (rank r << d), updating under 1% of total parameters.',
+        codeOrExample: 'from peft import LoraConfig, get_peft_model\nconfig = LoraConfig(r=8, lora_alpha=32, target_modules=["q_proj", "v_proj"])\npeft_model = get_peft_model(base_model, config)'
+      }
+    ],
+    cheatsheet: [
+      'Self-Attention Complexity: O(N^2 * d) where N is sequence length and d is dimension',
+      'Temperature Sampling: P(token_i) = exp(logit_i / T) / sum(exp(logit_j / T))',
+      'LoRA Decomposition: W_updated = W_frozen + (B * A) * (alpha / r)',
+      'Perplexity (PPL): Exponential of cross-entropy loss measuring language model uncertainty'
+    ],
+    commonPitfalls: [
+      'Applying quadratic O(N^2) vanilla attention to ultra-long 100,000-token documents without FlashAttention or chunking.',
+      'Training language models on raw text without Unicode normalization (causing broken subword token splits).',
+      'Overfitting small domain datasets during full-parameter fine-tuning instead of using LoRA or prompt tuning.'
+    ],
+    interviewPrep: [
+      {
+        question: 'Why did the Transformer architecture replace recurrent neural networks (RNNs and LSTMs) in modern NLP?',
+        answer: 'RNNs process tokens sequentially step-by-step, creating an architectural bottleneck that prevents parallel GPU computation and suffers from vanishing gradients over long sequences. Transformers process all tokens simultaneously using multi-head self-attention, allowing massive distributed GPU pre-training over trillions of tokens.'
+      }
+    ]
   }
 };
 
