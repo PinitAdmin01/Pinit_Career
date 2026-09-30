@@ -3,6 +3,10 @@ import type {
   ClientInternshipTask,
   InternshipEnrollmentRow,
   ClientInternshipEnrollment,
+  InternshipTeamRow,
+  ClientInternshipTeam,
+  InternshipTeamMemberRow,
+  ClientInternshipTeamMember,
 } from './types';
 
 /**
@@ -83,3 +87,51 @@ export function enrollmentToClient(
     updatedAt: String(r.updated_at || r.updatedAt || ''),
   };
 }
+
+/**
+ * Converts an internship team database row to a client-safe object.
+ */
+export function teamToClient(
+  row:
+    | InternshipTeamRow
+    | (Partial<InternshipTeamRow> & { [key: string]: unknown })
+    | Record<string, unknown>
+): ClientInternshipTeam {
+  const r = row as unknown as Record<string, unknown>;
+  return {
+    id: String(r.id || ''),
+    tier: String(r.tier || ''),
+    status: (r.status || 'forming') as ClientInternshipTeam['status'],
+    projectBrief:
+      r.project_brief && typeof r.project_brief === 'object'
+        ? (r.project_brief as Record<string, unknown>)
+        : (r.projectBrief as Record<string, unknown> | null) || null,
+    repoUrl: r.repo_url ? String(r.repo_url) : (r.repoUrl ? String(r.repoUrl) : null),
+    windowStart: r.window_start ? String(r.window_start) : (r.windowStart ? String(r.windowStart) : null),
+    createdAt: String(r.created_at || r.createdAt || ''),
+  };
+}
+
+/**
+ * Converts an internship team member database row to a client-safe object.
+ */
+export function teamMemberToClient(
+  row:
+    | InternshipTeamMemberRow
+    | (Partial<InternshipTeamMemberRow> & { [key: string]: unknown })
+    | Record<string, unknown>
+): ClientInternshipTeamMember {
+  const r = row as unknown as Record<string, unknown>;
+  return {
+    teamId: String(r.team_id || r.teamId || ''),
+    studentId: String(r.student_id || r.studentId || ''),
+    internshipEnrollmentId: String(
+      r.internship_enrollment_id || r.internshipEnrollmentId || ''
+    ),
+    stories:
+      r.stories && typeof r.stories === 'object'
+        ? (r.stories as Record<string, unknown>)
+        : null,
+  };
+}
+

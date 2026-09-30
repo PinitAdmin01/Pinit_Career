@@ -7,6 +7,7 @@ import { checkInternshipEligibility } from '@/lib/internships/eligibility';
 import { generateCompanyProfile } from '@/lib/internships/companyProfile';
 import { generateTier1Tasks } from '@/lib/internships/tier1Tickets';
 import { taskToClient, enrollmentToClient } from '@/lib/internships/toClient';
+import { matchPendingTeams } from '@/lib/internships/teams';
 import type { InternshipEnrollmentRow, InternshipTaskRow } from '@/lib/internships/types';
 
 const fail = (status: number, error: string, message: string) =>
@@ -126,6 +127,38 @@ export async function POST(req: NextRequest) {
         'GENERATION_FAILED',
         'We could not prepare your internship right now. Please try again in a few minutes.'
       );
+    }
+
+    // 2b. Tier 2 Virtual Internship: Join matching queue and attempt team formation
+    if (eligibility.tier === 't2_virtual_team') {
+      const now = new Date();
+      const dueAt = new Date(now.getTime() + 28 * 24 * 60 * 60 * 1000);
+      const { data: activeEnrollment, error: updateErr } = await admin
+        .from('internship_enrollments')
+        .update({
+          status: 'active',
+          company_profile: companyRes.profile,
+          started_at: now.toISOString(),
+          due_at: dueAt.toISOString(),
+        })
+        .eq('id', internshipId)
+        .select()
+        .single();
+
+      if (updateErr || !activeEnrollment) {
+        return fail(500, 'ACTIVATION_FAILED', 'Could not activate Tier 2 virtual internship enrollment.');
+      }
+
+      // Trigger matching pass
+      await matchPendingTeams();
+
+      return NextResponse.json({
+        ok: true,
+        enrollment: enrollmentToClient(activeEnrollment as InternshipEnrollmentRow),
+        tasks: [],
+        inQueue: true,
+        message: 'Joined Tier 2 virtual internship matching queue.',
+      });
     }
 
     // 3. Generate tickets for Tier 1
