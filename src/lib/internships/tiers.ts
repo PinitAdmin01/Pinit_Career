@@ -112,3 +112,10 @@ export const INTERNSHIP_TIERS: Record<InternshipTier, TierConfig> = {
     needsPartner: true,
   },
 };
+
+/**
+ * Owner Decision D1: Default is no human mentors.
+ * AI review + admin spot-check alone can approve Tier 2 sprints until mentors exist.
+ */
+export const MENTOR_REVIEW_REQUIRED = false;
+

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import { reviewSprint } from '@/lib/internships/sprintReview';
 
 const fail = (status: number, error: string, message: string) =>
   NextResponse.json({ ok: false, error, message }, { status });
@@ -79,10 +80,17 @@ export async function POST(
       return fail(500, 'UPDATE_FAILED', 'Could not submit sprint for review.');
     }
 
+    // 5. Trigger sprint review (AI mentor review under default D1)
+    const reviewResult = await reviewSprint(sprintId);
+
     return NextResponse.json({
       ok: true,
-      status: 'submitted',
-      message: 'Sprint successfully submitted for review.',
+      status: reviewResult.decision || 'submitted',
+      review: reviewResult,
+      message:
+        reviewResult.decision === 'approved'
+          ? 'Sprint reviewed and approved!'
+          : 'Sprint submitted. Changes requested.',
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
