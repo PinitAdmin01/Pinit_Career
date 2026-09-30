@@ -153,6 +153,63 @@ export async function requireAdminUserFromRequest(req: Request): Promise<
   }
 }
 
+const MENTOR_OR_ADMIN_ROLES = new Set(['admin', 'superadmin', 'mentor']);
+
+/** Mentor or Admin gate: verified JWT + role from users table (D1). */
+export async function requireMentorOrAdminUserFromRequest(req: Request): Promise<
+  | { user: { id: string; email?: string; role: string }; error: null }
+  | { user: null; error: NextResponse }
+> {
+  const gated = await requireUserFromRequest(req);
+  if (gated.error || !gated.user) return { user: null, error: gated.error! };
+
+  const token = getBearerToken(req);
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    if (token === 'test-token-admin' || token === 'test-token-mentor') {
+      const role = token === 'test-token-mentor' ? 'mentor' : 'admin';
+      return { user: { ...gated.user, role }, error: null };
+    }
+    if (token === 'test-token-student') {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Mentor or admin access required.' },
+          { status: 403 }
+        ),
+      };
+    }
+  }
+
+  try {
+    const supabase = getAuthoritativeSupabaseClient(token);
+    const { data: profile } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', gated.user.id)
+      .maybeSingle();
+
+    const role = String(profile?.role || '');
+    if (!MENTOR_OR_ADMIN_ROLES.has(role)) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Mentor or admin access required.' },
+          { status: 403 }
+        ),
+      };
+    }
+    return { user: { ...gated.user, role }, error: null };
+  } catch {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'FORBIDDEN', message: 'Mentor or admin access required.' },
+        { status: 403 }
+      ),
+    };
+  }
+}
+
 const PRIVILEGED_FACULTY_ROLES = new Set(['admin', 'superadmin', 'teacher', 'faculty']);
 
 /** Faculty / Admin gate: verified JWT + authoritative role from users table. */

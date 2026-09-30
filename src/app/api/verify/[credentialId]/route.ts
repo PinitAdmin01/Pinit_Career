@@ -5,6 +5,11 @@ import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 import { CompetencyEvidenceRecord } from '@/lib/pathway/competencySchema';
 import { ROADMAP_CERTIFICATE_KIND, ROADMAP_CERTIFICATE_PREFIX, verifyRoadmapCertificate } from '@/lib/certificates/roadmapCertificate';
 import { COURSE_CERTIFICATE_KIND, COURSE_CERTIFICATE_PREFIX } from '@/lib/certificates/courseCertificate';
+import {
+  INTERNSHIP_CERTIFICATE_KIND,
+  INTERNSHIP_CERTIFICATE_PREFIX,
+  getInternshipHonestyLabel,
+} from '@/lib/certificates/internshipCertificate';
 
 export async function GET(
   _req: NextRequest,
@@ -21,10 +26,12 @@ export async function GET(
 
     const credentialId = decodeURIComponent(rawId).trim();
 
-    // 0. Signed PinIT certificates (HMAC): roadmap journey (PIN-RC-…, /api/certificates/roadmap)
-    //    and certificate-course capstone (PIN-CP-…, /api/certificates/course).
+    // 0. Signed PinIT certificates (HMAC): roadmap journey (PIN-RC-…, /api/certificates/roadmap),
+    //    certificate-course capstone (PIN-CP-…, /api/certificates/course),
+    //    and internship program certificates (PIN-IN-…, /api/internship/certificate).
     const certKind = credentialId.startsWith(ROADMAP_CERTIFICATE_PREFIX) ? ROADMAP_CERTIFICATE_KIND
       : credentialId.startsWith(COURSE_CERTIFICATE_PREFIX) ? COURSE_CERTIFICATE_KIND
+      : credentialId.startsWith(INTERNSHIP_CERTIFICATE_PREFIX) ? INTERNSHIP_CERTIFICATE_KIND
       : null;
     if (certKind) {
       const supabase = getSupabaseAdmin();
@@ -57,6 +64,47 @@ export async function GET(
         .eq('id', cert.student_id)
         .maybeSingle();
 
+      // For internship certificates, fetch enrollment & task details for FR-CERT-2 honesty display
+      let honesty = null;
+      let tasksDone: string[] = [];
+      let startDate: string | undefined = undefined;
+      let completionDate: string | undefined = undefined;
+
+      if (certKind === INTERNSHIP_CERTIFICATE_KIND) {
+        honesty = getInternshipHonestyLabel(cert.course_id || 't1_job_sim', cert.project_name || 'Simulated Company');
+
+        if (cert.project_id) {
+          const { data: enrollmentRow } = await supabase
+            .from('internship_enrollments')
+            .select('started_at, completed_at')
+            .eq('id', cert.project_id)
+            .maybeSingle();
+
+          if (enrollmentRow?.started_at) {
+            startDate = String(enrollmentRow.started_at).split('T')[0];
+          }
+          if (enrollmentRow?.completed_at) {
+            completionDate = String(enrollmentRow.completed_at).split('T')[0];
+          }
+
+          const { data: tasksRows } = await supabase
+            .from('internship_tasks')
+            .select('title')
+            .eq('internship_enrollment_id', cert.project_id)
+            .order('seq', { ascending: true });
+
+          if (tasksRows && Array.isArray(tasksRows)) {
+            tasksDone = tasksRows.map((t: { title?: string }) => t.title || '').filter(Boolean);
+          }
+        }
+      }
+
+      const purpose = certKind === INTERNSHIP_CERTIFICATE_KIND
+        ? (honesty?.purposeWording || `Completed internship simulation with automated test verification and AI review.`)
+        : certKind === COURSE_CERTIFICATE_KIND
+        ? `Completed every lesson of the course, the four-sprint capstone project "${cert.project_name || 'Capstone'}" (public repository and live deployment checked by PinIT) and the capstone defense (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`
+        : `Completed the career roadmap, the capstone project "${cert.project_name || 'Capstone'}" and the capstone interview (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`;
+
       return NextResponse.json({
         valid: true,
         status: 'VERIFIED',
@@ -67,14 +115,18 @@ export async function GET(
           studentName: student?.display_name || 'PinIT Student',
           registerNumber: student?.register_number || 'UNASSIGNED',
           institution: 'PinIT Career OS',
-          department: cert.role || (certKind === COURSE_CERTIFICATE_KIND ? 'Certificate Course' : 'Career Roadmap'),
+          department: cert.role || (certKind === INTERNSHIP_CERTIFICATE_KIND ? (honesty?.role || 'Internship Simulation') : certKind === COURSE_CERTIFICATE_KIND ? 'Certificate Course' : 'Career Roadmap'),
           academicYear: String(new Date(cert.issued_at).getFullYear()),
-          purpose: certKind === COURSE_CERTIFICATE_KIND
-            ? `Completed every lesson of the course, the four-sprint capstone project "${cert.project_name || 'Capstone'}" (public repository and live deployment checked by PinIT) and the capstone defense (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`
-            : `Completed the career roadmap, the capstone project "${cert.project_name || 'Capstone'}" and the capstone interview (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`,
+          purpose,
           dateIssued: String(cert.issued_at).split('T')[0],
           status: 'Issued',
           sealed: true,
+          isSimulated: certKind === INTERNSHIP_CERTIFICATE_KIND ? honesty?.isSimulated : undefined,
+          tierName: certKind === INTERNSHIP_CERTIFICATE_KIND ? honesty?.tierName : undefined,
+          verificationMethod: certKind === INTERNSHIP_CERTIFICATE_KIND ? honesty?.verificationMethod : undefined,
+          tasksDone: tasksDone.length > 0 ? tasksDone : undefined,
+          startDate,
+          completionDate: completionDate || String(cert.issued_at).split('T')[0],
         },
       });
     }

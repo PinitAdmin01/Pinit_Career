@@ -1,6 +1,11 @@
-import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
-import type { CrashPlan } from '@/lib/data/crashPlansData';
-import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
+import {
+  INTERNSHIP_AVAILABLE,
+  INTERNSHIP_TIER_AVAILABLE,
+  PLAN_TIER_TO_INTERNSHIP,
+  type InternshipTier,
+  type CrashPlan,
+} from '../data/crashPlansData';
+import type { CrashCourseEnrollment } from '../services/crashCourseEnrollmentService';
 
 /**
  * Progress of a purchased certificate course (quests sub-tab 1).
@@ -10,9 +15,9 @@ import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollment
  * Each phase unlocks only when the previous one is really done:
  *   1 training   → complete when every lesson of the curriculum is completed
  *   2 capstone   → complete when every sprint milestone passed (or the project certificate exists)
- *   3 internship → complete when the internship certificate is issued (only while INTERNSHIP_AVAILABLE)
+ *   3 internship → complete when the internship certificate is issued (only when tier switch is ON)
  *   4 graduation → complete when the certificate(s) are issued (only then can they be shared)
- * While the internship is hidden, graduation follows the capstone directly.
+ * While the internship tier is off, graduation follows the capstone directly.
  */
 
 export type CrashTrack = 'web_fullstack' | 'python_ai';
@@ -37,7 +42,12 @@ export interface CrashCourseProgress {
   next: CurriculumLesson | null;
   capstoneComplete: boolean;
   internshipComplete: boolean;
-  phases: { training: PhaseStatus; capstone: PhaseStatus; internship: PhaseStatus; graduation: PhaseStatus };
+  phases: {
+    training: PhaseStatus;
+    capstone: PhaseStatus;
+    internship: PhaseStatus;
+    graduation: PhaseStatus;
+  };
 }
 
 const CAPSTONE_DEFENSE_PASS = 60;
@@ -63,7 +73,9 @@ export function getCrashCourseCurriculum(
   return lessons;
 }
 
-export function isCapstoneComplete(enrollment: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null | undefined): boolean {
+export function isCapstoneComplete(
+  enrollment: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null | undefined
+): boolean {
   if (!enrollment) return false;
   if (enrollment.certificatesIssued?.projectCertHash) return true;
   const m = enrollment.milestoneProgress;
@@ -76,15 +88,51 @@ export function isCapstoneComplete(enrollment: Pick<CrashCourseEnrollment, 'mile
   );
 }
 
+export function resolvePlanInternshipTier(
+  plan?: { tier?: string; id?: string } | null,
+  enrollment?: { planId?: string; tier?: string } | null
+): InternshipTier | null {
+  const tier = plan?.tier || enrollment?.tier;
+  if (tier && tier in PLAN_TIER_TO_INTERNSHIP) {
+    return PLAN_TIER_TO_INTERNSHIP[tier as keyof typeof PLAN_TIER_TO_INTERNSHIP];
+  }
+  const planId = plan?.id || enrollment?.planId;
+  if (planId) {
+    if (planId.includes('1m')) return 't1_job_sim';
+    if (planId.includes('3m')) return 't2_virtual_team';
+    if (planId.includes('6m')) return 't3_project';
+    if (planId.includes('9m')) return 't4_industry';
+    if (planId.includes('12m')) return 't5_fellowship';
+  }
+  return null;
+}
+
+export function isInternshipTierAvailable(
+  plan?: { tier?: string; id?: string } | null,
+  enrollment?: { planId?: string; tier?: string } | null,
+  tierSwitchOverride?: Partial<Record<InternshipTier, boolean>>
+): boolean {
+  const tier = resolvePlanInternshipTier(plan, enrollment);
+  if (!tier) return false;
+  if (tierSwitchOverride && tier in tierSwitchOverride) {
+    return Boolean(tierSwitchOverride[tier]);
+  }
+  return Boolean(INTERNSHIP_TIER_AVAILABLE[tier]);
+}
+
 export function getCrashCourseProgress(
-  plan: Pick<CrashPlan, 'modulesByTrack'>,
+  plan: Pick<CrashPlan, 'modulesByTrack'> & { tier?: string; id?: string },
   track: CrashTrack,
   registry: ReadonlyArray<CourseLike>,
   completedQuests: ReadonlyArray<string> | null | undefined,
-  enrollment: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null | undefined,
-  options: { includeInternship?: boolean } = {}
+  enrollment: (Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> & { planId?: string; tier?: string }) | null | undefined,
+  options: {
+    includeInternship?: boolean;
+    tierSwitchOverride?: Partial<Record<InternshipTier, boolean>>;
+  } = {}
 ): CrashCourseProgress {
-  const includeInternship = options.includeInternship ?? INTERNSHIP_AVAILABLE;
+  const perTierAvailable = isInternshipTierAvailable(plan, enrollment, options.tierSwitchOverride);
+  const includeInternship = options.includeInternship ?? perTierAvailable;
   const lessons = getCrashCourseCurriculum(plan, track, registry);
   const done = new Set(completedQuests ?? []);
   const completed = lessons.filter((l) => done.has(l.questId)).length;

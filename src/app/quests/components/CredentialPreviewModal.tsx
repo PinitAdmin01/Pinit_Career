@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
-import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_AVAILABLE, INTERNSHIP_TIER_AVAILABLE } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_TIERS } from '@/lib/internships/tiers';
 
 export interface CredentialPreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   planTitle?: string;
   trackTitle?: string;
+  tierKey?: keyof typeof INTERNSHIP_TIERS;
   onProceedToEnroll?: () => void;
 }
 
 const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
   isOpen, onClose, planTitle = INTERNSHIP_AVAILABLE ? 'Crash Course & Internship' : 'Crash Course',
-  trackTitle = 'Full-Stack Software Architecture', onProceedToEnroll,
+  trackTitle = 'Full-Stack Software Architecture', tierKey = 't1_job_sim', onProceedToEnroll,
 }) => {
   useEffect(() => {
     if (!isOpen) return;
@@ -25,6 +27,19 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
   const track = trackTitle;
   const ig = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
   const eg = 'linear-gradient(135deg, #10b981, #059669)';
+
+  const t1Available = INTERNSHIP_TIER_AVAILABLE.t1_job_sim;
+  const t2Available = INTERNSHIP_TIER_AVAILABLE.t2_virtual_team;
+
+  const getTierWording = () => {
+    if (tierKey === 't1_job_sim' || t1Available) {
+      return '2-Week Python Job Simulation (simulated company)';
+    }
+    if (tierKey === 't2_virtual_team' || t2Available) {
+      return '4-Week Virtual Internship – Backend (team, simulated company)';
+    }
+    return INTERNSHIP_TIERS[tierKey]?.name || 'Industrial Project Certification';
+  };
 
   const base = (s: Partial<React.CSSProperties>): React.CSSProperties => s as React.CSSProperties;
   const s = {
@@ -76,8 +91,8 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
           </article>
           {INTERNSHIP_AVAILABLE && <article style={bCard(eg)}>
             <span style={bBadge('rgba(16,185,129,0.18)','#6ee7b7','rgba(16,185,129,0.3)')}>VENTURE APPRENTICESHIP & FELLOWSHIP</span>
-            <h3 style={s.heading}>PinIT Tech Labs • Engineering Fellow</h3>
-            <p style={s.details}>2–3 Months verified software development fellowship contributing to production-grade repositories.</p>
+            <h3 style={s.heading}>{getTierWording()}</h3>
+            <p style={s.details}>Verified software development program contributing to production-grade repositories.</p>
             <div style={s.seal}><span style={s.sealIcon('#10b981')}>🛡️</span><span>✓ SHA-256 Tamper-Proof Hash • QR Verifiable</span></div>
           </article>}
         </div>

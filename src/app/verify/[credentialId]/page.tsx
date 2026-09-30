@@ -212,9 +212,53 @@ export default function PublicVerifyCredentialPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, fontSize: 14.5, padding: 14, borderRadius: 8, background: 'rgba(255,255,255,0.03)', marginBottom: 16 }}>
                     <div>Candidate: <strong>{document.studentName}</strong></div>
                     <div>Register No: <strong>{document.registerNumber}</strong></div>
-                    <div>Department: <strong>{document.department}</strong></div>
+                    <div>Department / Track: <strong>{document.department}</strong></div>
                     <div>Academic Year: <strong>{document.academicYear}</strong></div>
+                    {document.startDate && <div>Started: <strong>{document.startDate}</strong></div>}
+                    {document.completionDate && <div>Completed: <strong>{document.completionDate}</strong></div>}
                   </div>
+
+                  {document.tierName && (
+                    <div style={{ marginBottom: 16, padding: '12px 14px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.06)', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                        <span style={{ fontSize: 13, fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase' }}>
+                          {document.tierName}
+                        </span>
+                        <span style={{
+                          padding: '2px 8px',
+                          borderRadius: 4,
+                          fontSize: 12,
+                          fontWeight: 800,
+                          background: document.isSimulated ? 'rgba(245, 158, 11, 0.15)' : 'rgba(34, 197, 94, 0.15)',
+                          color: document.isSimulated ? '#fbbf24' : '#4ade80',
+                          border: `1px solid ${document.isSimulated ? 'rgba(245, 158, 11, 0.3)' : 'rgba(34, 197, 94, 0.3)'}`,
+                        }}>
+                          {document.isSimulated ? 'Simulated Experience' : 'Verified Industry Experience'}
+                        </span>
+                      </div>
+                      {document.verificationMethod && (
+                        <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+                          <strong>Verification Method:</strong> {document.verificationMethod}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {Array.isArray(document.tasksDone) && document.tasksDone.length > 0 && (
+                    <div style={{ marginBottom: 16, padding: '12px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 8 }}>
+                        Completed Engineering Backlog ({document.tasksDone.length} Tickets)
+                      </div>
+                      <div style={{ display: 'grid', gap: 6 }}>
+                        {document.tasksDone.map((taskTitle: string, idx: number) => (
+                          <div key={idx} style={{ fontSize: 13, display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ color: 'var(--success-bright)', fontWeight: 800 }}>✓</span>
+                            <span>{taskTitle}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-muted)', padding: '10px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.02)', marginBottom: 16 }}>
                     <div style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 2 }}>Designated Purpose</div>
@@ -223,7 +267,7 @@ export default function PublicVerifyCredentialPage() {
 
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
                     <span>Verification Ref: <code style={{ color: '#38bdf8' }}>{document.verificationId}</code></span>
-                    <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>🛡️ Certified by Office of the Registrar</span>
+                    <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>🛡️ Certified by PinIT Career OS</span>
                   </div>
                 </div>
               )}

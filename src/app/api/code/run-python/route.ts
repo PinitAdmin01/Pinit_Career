@@ -1,15 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
-import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
-import { getAuthoritativeQuest, getAuthoritativeQuestXp } from '@/lib/quests/questRegistry';
-import { findForbiddenPython } from '@/lib/code/python/pythonGuard';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 import { questNeedsPassReceipt } from '@/lib/courses/gradeTest';
+import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -123,10 +118,19 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // ── Security Sandbox — Forbidden Python APIs across BOTH code and testSuite ──
-    const combinedSource = `${code}\n${effectiveTestSuite}`;
+    // Clamp timeout strictly between 500ms and 4000ms
+    const clampedTimeout = Math.min(Math.max(Number(timeoutMs) || 3000, 500), 4000);
 
-    if (findForbiddenPython(combinedSource)) {
+    const sandboxRes = await runPythonInSandbox({
+      code,
+      tests: effectiveTestSuite,
+      timeoutMs: clampedTimeout,
+      stdin,
+    });
+
+    const duration = Date.now() - startTime;
+
+    if (sandboxRes.isSecurityViolation) {
       return NextResponse.json({
         language: 'python',
         totalTests: 1,
@@ -134,151 +138,50 @@ export async function POST(req: NextRequest) {
         failedTests: 1,
         allPassed: false,
         status: 'RUNTIME_ERROR',
-        totalDurationMs: Date.now() - startTime,
+        totalDurationMs: duration,
         terminalLogs: [
-          '[SECURITY GUARD] Restricted Python module/call detected in code or testSuite. Process execution, eval, network, dynamic imports, and process exit traps are disallowed.'
+          '[SECURITY GUARD] Restricted Python module/call detected in code or testSuite. Process execution, eval, network, dynamic imports, and process exit traps are disallowed.',
         ],
-        testOutcomes: [{
-          index: 1,
-          testCaseName: 'Security Sandbox Check',
-          input: 'Forbidden Module',
-          expectedOutput: 'Clean Execution',
-          actualOutput: 'Security Violation',
-          passed: false,
-          durationMs: Date.now() - startTime
-        }]
+        testOutcomes: [
+          {
+            index: 1,
+            testCaseName: 'Security Sandbox Check',
+            input: 'Forbidden Module',
+            expectedOutput: 'Clean Execution',
+            actualOutput: 'Security Violation',
+            passed: false,
+            durationMs: duration,
+          },
+        ],
       });
     }
 
-    // Clamp timeout strictly between 500ms and 4000ms
-    const clampedTimeout = Math.min(Math.max(Number(timeoutMs) || 3000, 500), 4000);
-
-    const runId = crypto.randomBytes(8).toString('hex');
-    const tempDir = path.join(os.tmpdir(), 'pinit_python_' + runId);
-    fs.mkdirSync(tempDir, { recursive: true });
-
-    try {
-      fs.writeFileSync(path.join(tempDir, 'solution.py'), code, 'utf8');
-
-      // Runner imports solution, runs tests, and emits sentinel ONLY upon full success
-      const indentedTestSuite = effectiveTestSuite && effectiveTestSuite.trim()
-        ? effectiveTestSuite.split('\n').map(line => '    ' + line).join('\n')
-        : '    pass';
-
-      const testRunnerCode = `import sys
-try:
-    from solution import *
-except Exception as e:
-    sys.stderr.write(f"ImportError: {e}\\n")
-    sys.exit(1)
-
-try:
-${indentedTestSuite}
-    print("${PASS_SENTINEL}")
-except AssertionError as ae:
-    sys.stderr.write(f"AssertionError: {ae}\\n")
-    sys.exit(2)
-except Exception as ex:
-    sys.stderr.write(f"RuntimeError: {ex}\\n")
-    sys.exit(3)
-`;
-
-      fs.writeFileSync(path.join(tempDir, 'test_runner.py'), testRunnerCode, 'utf8');
-
-      // SCRUB PROCESS ENVIRONMENT: Do NOT pass server secrets to child process!
-      const sanitizedEnv: NodeJS.ProcessEnv = {
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        PATH: process.env.PATH || '',
-        SYSTEMROOT: process.env.SYSTEMROOT || '',
-        TMP: tempDir,
-        TEMP: tempDir,
-        PYTHONDONTWRITEBYTECODE: '1',
-        PYTHONUNBUFFERED: '1',
-      };
-
-      const pythonBin = process.platform === 'win32' ? 'python' : 'python3';
-
-      const runPromise = new Promise<{ error: Error | null; stdout: string; stderr: string; timedOut: boolean }>((resolve) => {
-        const proc = exec(
-          `${pythonBin} test_runner.py`,
-          { cwd: tempDir, timeout: clampedTimeout, env: sanitizedEnv },
-          (error, stdout, stderr) => {
-            const timedOut = Boolean(error && (error as any).killed);
-            resolve({
-              error,
-              stdout: stdout || '',
-              stderr: stderr || (error ? error.message : ''),
-              timedOut
-            });
-          }
-        );
-
-        if (stdin && typeof stdin === 'string') {
-          proc.stdin?.write(stdin);
-          proc.stdin?.end();
-        }
-      });
-
-      const { error, stdout, stderr, timedOut } = await runPromise;
-      const duration = Date.now() - startTime;
-
-      if (timedOut) {
-        return NextResponse.json({
-          language: 'python',
-          totalTests: 1,
-          passedTests: 0,
-          failedTests: 1,
-          allPassed: false,
-          status: 'TIMEOUT',
-          totalDurationMs: duration,
-          terminalLogs: ['⚙️ Python 3 Executing test_runner.py...', stderr],
-          testOutcomes: [{
+    if (sandboxRes.timedOut) {
+      return NextResponse.json({
+        language: 'python',
+        totalTests: 1,
+        passedTests: 0,
+        failedTests: 1,
+        allPassed: false,
+        status: 'TIMEOUT',
+        totalDurationMs: duration,
+        terminalLogs: ['⚙️ Python 3 Executing test_runner.py...', sandboxRes.stderr],
+        testOutcomes: [
+          {
             index: 1,
             testCaseName: 'Time Limit Execution',
             input: stdin || 'Default',
             expectedOutput: '< 3000ms',
             actualOutput: 'Time Limit Exceeded',
             passed: false,
-            durationMs: duration
-          }]
-        });
-      }
+            durationMs: duration,
+          },
+        ],
+      });
+    }
 
-      // FAIL-CLOSED DEFENSE: If child process failed or exited non-zero
-      if (error) {
-        const isAssertion = stderr.includes('AssertionError');
-        const isMissingPython = stderr.includes('not recognized') || stderr.includes('not found') || (error as any).code === 'ENOENT';
-        const status = isAssertion ? 'ASSERTION_FAILED' : (isMissingPython ? 'ENVIRONMENT_ERROR' : 'RUNTIME_ERROR');
-        const lastError = stderr.trim().split('\n').pop() || error.message;
-
-        return NextResponse.json({
-          language: 'python',
-          totalTests: 1,
-          passedTests: 0,
-          failedTests: 1,
-          allPassed: false,
-          status,
-          totalDurationMs: duration,
-          terminalLogs: [
-            '⚙️ Python 3 Executing test_runner.py...',
-            stdout,
-            `[TEST FAILURE] ${lastError}`
-          ].filter(Boolean),
-          testOutcomes: [{
-            index: 1,
-            testCaseName: 'Proctored Python Test Suite',
-            input: stdin || 'Test Inputs',
-            expectedOutput: 'Passing Assertions',
-            actualOutput: lastError,
-            passed: false,
-            durationMs: duration
-          }]
-        });
-      }
-
-      // POSITIVE PASS SENTINEL CHECK: Must contain sentinel, else exit() or premature termination occurred
-      const hasPassedSentinel = stdout.includes(PASS_SENTINEL);
-      if (!hasPassedSentinel) {
+    if (!sandboxRes.passed) {
+      if (sandboxRes.status === 'ABNORMAL_TERMINATION') {
         return NextResponse.json({
           language: 'python',
           totalTests: 1,
@@ -289,55 +192,83 @@ except Exception as ex:
           totalDurationMs: duration,
           terminalLogs: [
             '⚙️ Python 3 Executing test_runner.py...',
-            '[TEST FAILURE] Process terminated prematurely without completing test assertions (e.g. exit() or SystemExit).'
+            '[TEST FAILURE] Process terminated prematurely without completing test assertions (e.g. exit() or SystemExit).',
           ],
-          testOutcomes: [{
-            index: 1,
-            testCaseName: 'Proctored Python Test Suite',
-            input: 'Execution Flow',
-            expectedOutput: 'All Test Assertions Executed',
-            actualOutput: 'Abnormal Process Termination',
-            passed: false,
-            durationMs: duration
-          }]
+          testOutcomes: [
+            {
+              index: 1,
+              testCaseName: 'Proctored Python Test Suite',
+              input: 'Execution Flow',
+              expectedOutput: 'All Test Assertions Executed',
+              actualOutput: 'Abnormal Process Termination',
+              passed: false,
+              durationMs: duration,
+            },
+          ],
         });
       }
 
-      // Clean, verified success
-      if (canRecordCompletion && gated.user?.id) {
-        await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
-      }
-
-      const cleanStdout = stdout.replace(PASS_SENTINEL, '').trim();
+      const lastError =
+        sandboxRes.stderr.trim().split('\n').pop() ||
+        (sandboxRes.error ? sandboxRes.error.message : 'Unknown execution error');
 
       return NextResponse.json({
         language: 'python',
         totalTests: 1,
-        passedTests: 1,
-        failedTests: 0,
-        allPassed: true,
-        status: 'SUCCESS',
+        passedTests: 0,
+        failedTests: 1,
+        allPassed: false,
+        status: sandboxRes.status,
         totalDurationMs: duration,
         terminalLogs: [
           '⚙️ Python 3 Executing test_runner.py...',
-          cleanStdout || '[SUCCESS] All Python test assertions verified cleanly.',
-          `[OK] Completed in ${duration}ms.`
+          sandboxRes.stdout,
+          `[TEST FAILURE] ${lastError}`,
+        ].filter(Boolean),
+        testOutcomes: [
+          {
+            index: 1,
+            testCaseName: 'Proctored Python Test Suite',
+            input: stdin || 'Test Inputs',
+            expectedOutput: 'Passing Assertions',
+            actualOutput: lastError,
+            passed: false,
+            durationMs: duration,
+          },
         ],
-        testOutcomes: [{
+      });
+    }
+
+    // Clean, verified success
+    if (canRecordCompletion && gated.user?.id) {
+      await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
+    }
+
+    return NextResponse.json({
+      language: 'python',
+      totalTests: 1,
+      passedTests: 1,
+      failedTests: 0,
+      allPassed: true,
+      status: 'SUCCESS',
+      totalDurationMs: duration,
+      terminalLogs: [
+        '⚙️ Python 3 Executing test_runner.py...',
+        sandboxRes.stdout || '[SUCCESS] All Python test assertions verified cleanly.',
+        `[OK] Completed in ${duration}ms.`,
+      ],
+      testOutcomes: [
+        {
           index: 1,
           testCaseName: 'Proctored Python Test Suite',
           input: stdin || 'Test Inputs',
           expectedOutput: 'All Assertions Passed',
-          actualOutput: cleanStdout || 'Passed',
+          actualOutput: sandboxRes.stdout || 'Passed',
           passed: true,
-          durationMs: duration
-        }]
-      });
-    } finally {
-      try {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-      } catch {}
-    }
+          durationMs: duration,
+        },
+      ],
+    });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Internal Server Error' }, { status: 500 });
   }
