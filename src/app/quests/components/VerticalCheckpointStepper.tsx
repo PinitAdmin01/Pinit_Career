@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CrashPlan, getCrashPlanById } from '@/lib/data/crashPlansData';
-import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
+import { CrashPlan, getCrashPlanById, INTERNSHIP_TIER_AVAILABLE, PLAN_TIER_TO_INTERNSHIP } from '@/lib/data/crashPlansData';
 import type { CrashCourseProgress, PhaseStatus } from '@/lib/courses/crashCourseProgress';
 
 export interface VerticalCheckpointStepperProps {
@@ -36,6 +35,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
   onOpenInternshipDesk,
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
+  const internshipTier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
+  const isTierOn = internshipTier ? Boolean(INTERNSHIP_TIER_AVAILABLE[internshipTier]) : false;
   const flagship = plan.flagshipBuildByTrack[activeTrack];
   const { phases } = progress;
 
@@ -101,12 +102,12 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
     {
       key: 'graduation',
       phaseName: 'GRADUATION & TRUST',
-      title: INTERNSHIP_AVAILABLE ? 'Oral Defense & Dual Verifiable Credentials' : 'Verifiable Capstone Certificate',
-      subtitle: INTERNSHIP_AVAILABLE
+      title: isTierOn ? 'Oral Defense & Dual Verifiable Credentials' : 'Verifiable Capstone Certificate',
+      subtitle: isTierOn
         ? 'Present your production capstone to a senior panel, pass defense, and unlock cryptographically signed SHA-256 credentials.'
         : 'Your capstone passed its defense: get a signed certificate that anyone can verify online.',
       status: phases.graduation,
-      badgeText: badgeFor(phases.graduation, { completed: '🎓 Certificate issued', active: '🎓 Certificate ready', locked: INTERNSHIP_AVAILABLE ? '🔒 Unlocks after the fellowship' : '🔒 Unlocks after your capstone' }),
+      badgeText: badgeFor(phases.graduation, { completed: '🎓 Certificate issued', active: '🎓 Certificate ready', locked: isTierOn ? '🔒 Unlocks after the fellowship' : '🔒 Unlocks after your capstone' }),
       color: '#f59e0b',
       // Sharing is only offered once the credentials really exist; before that, a labelled sample.
       primaryAction: phases.graduation === 'completed'
@@ -123,7 +124,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 
   // Hidden phases are removed and the rest renumbered (PHASE 1, 2, 3 …).
   const visibleSteps = steps
-    .filter((s) => INTERNSHIP_AVAILABLE || s.key !== 'internship')
+    .filter((s) => isTierOn || s.key !== 'internship')
     .map((s, i) => ({ ...s, stepNumber: String(i + 1).padStart(2, '0'), phaseTag: `PHASE ${i + 1} • ${s.phaseName}` }));
 
   return (
@@ -189,7 +190,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
             </h3>
           </div>
           <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0' }}>
-            {INTERNSHIP_AVAILABLE
+            {isTierOn
               ? 'Structured 4-checkpoint progression from daily learning to corporate fellowship and verifiable graduation.'
               : 'Structured 3-checkpoint progression from daily learning to a production capstone and a verifiable certificate.'}
           </p>
