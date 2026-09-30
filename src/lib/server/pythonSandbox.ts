@@ -12,6 +12,7 @@ export interface PythonSandboxOptions {
   tests?: string;
   timeoutMs?: number;
   stdin?: string;
+  sentinel?: string;
 }
 
 export type PythonSandboxStatus =
@@ -40,7 +41,7 @@ export interface PythonSandboxResult {
 export async function runPythonInSandbox(
   options: PythonSandboxOptions
 ): Promise<PythonSandboxResult> {
-  const { code, tests = '', timeoutMs = 3000, stdin } = options;
+  const { code, tests = '', timeoutMs = 3000, stdin, sentinel = PASS_SENTINEL } = options;
 
   // 1. Security Check
   const combinedSource = `${code}\n${tests}`;
@@ -83,7 +84,7 @@ except Exception as e:
 
 try:
 ${indentedTestSuite}
-    print("${PASS_SENTINEL}")
+    print("${sentinel}")
 except AssertionError as ae:
     sys.stderr.write(f"AssertionError: {ae}\\n")
     sys.exit(2)
@@ -168,7 +169,7 @@ except Exception as ex:
       };
     }
 
-    const hasPassedSentinel = stdout.includes(PASS_SENTINEL);
+    const hasPassedSentinel = stdout.includes(sentinel);
     if (!hasPassedSentinel) {
       return {
         passed: false,
@@ -181,7 +182,7 @@ except Exception as ex:
       };
     }
 
-    const cleanStdout = stdout.replace(PASS_SENTINEL, '').trim();
+    const cleanStdout = stdout.replace(sentinel, '').trim();
 
     return {
       passed: true,
