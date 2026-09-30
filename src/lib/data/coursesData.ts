@@ -17,6 +17,7 @@ import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
 import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
 import { CYBER_PYTHON_30_DAYS_QUESTS } from './cyberPython30DayData';
 import { TRAIN_PYTHON_30_DAYS_QUESTS } from './trainPython30DayData';
+import { VECTOR_PYTHON_30_DAYS_QUESTS } from './vectorPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -111,6 +112,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '☁️',
     quests: CLOUD_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-vector-python',
+    title: 'Vector Search Engines in Python',
+    desc: 'How vector databases and retrieval for AI work, with every lesson example and practice task in Python: embeddings and similarity, exact k-NN, BM25, hybrid search, chunking and filters, k-means, IVF, product, scalar and binary quantisation, LSH, graph search and HNSW, tuning, upserts and deletes, sharding, access control, re-ranking, query rewriting, RAG context and citations, semantic caching, index migrations, nDCG, monitoring, capacity planning and privacy.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🔍',
+    quests: VECTOR_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-devops-cicd',

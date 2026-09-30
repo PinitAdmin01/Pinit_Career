@@ -20,6 +20,7 @@ import { QUANT_PYTHON_LONG_LESSONS } from './quantPythonLongLessons';
 import { PROMPT_PYTHON_LONG_LESSONS } from './promptPythonLongLessons';
 import { CYBER_PYTHON_LONG_LESSONS } from './cyberPythonLongLessons';
 import { TRAIN_PYTHON_LONG_LESSONS } from './trainPythonLongLessons';
+import { VECTOR_PYTHON_LONG_LESSONS } from './vectorPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -81,6 +82,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'prompt-py': PROMPT_PYTHON_LONG_LESSONS,
   'cyber-py': CYBER_PYTHON_LONG_LESSONS,
   'train-py': TRAIN_PYTHON_LONG_LESSONS,
+  'vec-py': VECTOR_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
@@ -99,6 +101,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'prompt-py': 'python',
   'cyber-py': 'python',
   'train-py': 'python',
+  'vec-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
