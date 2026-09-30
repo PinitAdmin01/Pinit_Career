@@ -7,7 +7,8 @@
  *  3. Certificate generation for verified tiers
  *  4. Data mapping to internship_records format
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { newInternshipCertificateId } from '../src/lib/certificates/internshipCertificate';
 import { INTERNSHIP_TIERS } from '../src/lib/internships/tiers';
 
@@ -15,27 +16,27 @@ describe('T-36 — Admin Verification and Records', () => {
   describe('Tier configurations for verification', () => {
     it('t4_industry is marked as needing partner and real company', () => {
       const tier = INTERNSHIP_TIERS.t4_industry;
-      expect(tier.simulated).toBe(false);
-      expect(tier.needsPartner).toBe(true);
+      assert.strictEqual(tier.simulated, false);
+      assert.strictEqual(tier.needsPartner, true);
     });
 
     it('t5_fellowship is marked as needing partner and real company', () => {
       const tier = INTERNSHIP_TIERS.t5_fellowship;
-      expect(tier.simulated).toBe(false);
-      expect(tier.needsPartner).toBe(true);
+      assert.strictEqual(tier.simulated, false);
+      assert.strictEqual(tier.needsPartner, true);
     });
 
     it('t3_project is marked as needing partner and real company', () => {
       const tier = INTERNSHIP_TIERS.t3_project;
-      expect(tier.simulated).toBe(false);
-      expect(tier.needsPartner).toBe(true);
+      assert.strictEqual(tier.simulated, false);
+      assert.strictEqual(tier.needsPartner, true);
     });
   });
 
   describe('Certificate ID generation for verified tiers', () => {
     it('generates valid certificate ID format', () => {
       const certId = newInternshipCertificateId();
-      expect(certId).toMatch(/^PIN-IN-[A-Za-z0-9_-]+$/);
+      assert.strictEqual(/^PIN-IN-[A-Za-z0-9_-]+$/.test(certId), true);
     });
   });
 
@@ -64,10 +65,10 @@ describe('T-36 — Admin Verification and Records', () => {
         verified: true,
       };
 
-      expect(recordPayload.company_name).toBe('Acme AI Corp');
-      expect(recordPayload.role).toBe('Verified Industry Internship');
-      expect(recordPayload.verified).toBe(true);
-      expect(recordPayload.status).toBe('completed');
+      assert.strictEqual(recordPayload.company_name, 'Acme AI Corp');
+      assert.strictEqual(recordPayload.role, 'Verified Industry Internship');
+      assert.strictEqual(recordPayload.verified, true);
+      assert.strictEqual(recordPayload.status, 'completed');
     });
   });
 });

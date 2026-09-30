@@ -7,7 +7,8 @@
  *  3. SimulatedClientMessageSchema validation
  *  4. buildSimulatedClientPrompt inclusion of project goal and phase
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import {
   getSimulatedClientHonestyLabel,
   SimulatedClientMessageSchema,
@@ -17,11 +18,11 @@ import {
 describe('T-37 — Simulated Client Fallback for Tier 3', () => {
   describe('getSimulatedClientHonestyLabel', () => {
     it('returns "(simulated client)" for simulated client fallback', () => {
-      expect(getSimulatedClientHonestyLabel(true)).toBe('(simulated client)');
+      assert.strictEqual(getSimulatedClientHonestyLabel(true), '(simulated client)');
     });
 
     it('returns "(real client)" when not simulated', () => {
-      expect(getSimulatedClientHonestyLabel(false)).toBe('(real client)');
+      assert.strictEqual(getSimulatedClientHonestyLabel(false), '(real client)');
     });
   });
 
@@ -35,7 +36,7 @@ describe('T-37 — Simulated Client Fallback for Tier 3', () => {
         newRequirement: 'Add GET /api/export/json endpoint',
       };
       const result = SimulatedClientMessageSchema.safeParse(msg);
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
 
     it('validates a student message', () => {
@@ -45,7 +46,7 @@ describe('T-37 — Simulated Client Fallback for Tier 3', () => {
         timestamp: '2025-08-01T10:05:00Z',
       };
       const result = SimulatedClientMessageSchema.safeParse(msg);
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
   });
 
@@ -56,9 +57,9 @@ describe('T-37 — Simulated Client Fallback for Tier 3', () => {
         'Build real-time metric graphs',
         2
       );
-      expect(prompt).toContain('Analytics Dashboard');
-      expect(prompt).toContain('Build real-time metric graphs');
-      expect(prompt).toContain('Current Phase: 2 of 4');
+      assert.strictEqual(prompt.includes('Analytics Dashboard'), true);
+      assert.strictEqual(prompt.includes('Build real-time metric graphs'), true);
+      assert.strictEqual(prompt.includes('Current Phase: 2 of 4'), true);
     });
   });
 });

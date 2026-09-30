@@ -7,22 +7,23 @@
  *  3. Override switch for t2_virtual_team activates Tier 2 eligibility only
  *  4. Default state exhibits zero unintended side effects
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { INTERNSHIP_TIER_AVAILABLE, INTERNSHIP_AVAILABLE } from '../src/lib/data/crashPlansData';
 import { checkInternshipEligibility } from '../src/lib/internships/eligibility';
 
 describe('T-40 — Feature Flag Switch Readiness', () => {
   describe('Default Production Safeguard State', () => {
     it('INTERNSHIP_AVAILABLE is hardcoded false', () => {
-      expect(INTERNSHIP_AVAILABLE).toBe(false);
+      assert.strictEqual(INTERNSHIP_AVAILABLE, false);
     });
 
     it('All tier flags are hardcoded false', () => {
-      expect(INTERNSHIP_TIER_AVAILABLE.t1_job_sim).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t2_virtual_team).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t3_project).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t4_industry).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t5_fellowship).toBe(false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t1_job_sim, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t2_virtual_team, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t3_project, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t4_industry, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t5_fellowship, false);
     });
 
     it('Student cannot start Tier 1 when switch is off', () => {
@@ -35,9 +36,9 @@ describe('T-40 — Feature Flag Switch Readiness', () => {
         track: 'python_ai',
       });
 
-      expect(res.ok).toBe(false);
+      assert.strictEqual(res.ok, false);
       if (!res.ok) {
-        expect(res.error).toBe('TIER_NOT_AVAILABLE');
+        assert.strictEqual(res.error, 'TIER_NOT_AVAILABLE');
       }
     });
   });
@@ -54,9 +55,9 @@ describe('T-40 — Feature Flag Switch Readiness', () => {
         tierSwitchOverride: { t1_job_sim: true },
       });
 
-      expect(res.ok).toBe(true);
+      assert.strictEqual(res.ok, true);
       if (res.ok) {
-        expect(res.tier).toBe('t1_job_sim');
+        assert.strictEqual(res.tier, 't1_job_sim');
       }
     });
 
@@ -71,9 +72,9 @@ describe('T-40 — Feature Flag Switch Readiness', () => {
         tierSwitchOverride: { t1_job_sim: true },
       });
 
-      expect(res.ok).toBe(false);
+      assert.strictEqual(res.ok, false);
       if (!res.ok) {
-        expect(res.error).toBe('TIER_NOT_AVAILABLE');
+        assert.strictEqual(res.error, 'TIER_NOT_AVAILABLE');
       }
     });
 
@@ -88,9 +89,9 @@ describe('T-40 — Feature Flag Switch Readiness', () => {
         tierSwitchOverride: { t2_virtual_team: true },
       });
 
-      expect(res.ok).toBe(true);
+      assert.strictEqual(res.ok, true);
       if (res.ok) {
-        expect(res.tier).toBe('t2_virtual_team');
+        assert.strictEqual(res.tier, 't2_virtual_team');
       }
     });
   });

@@ -6,7 +6,8 @@
  *  2. applicationToClient with all statuses
  *  3. opportunityToClient kind filtering
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { applicationToClient, opportunityToClient } from '../src/lib/internships/toClient';
 
 describe('T-31 — Student Applications', () => {
@@ -20,22 +21,22 @@ describe('T-31 — Student Applications', () => {
 
   describe('Tier eligibility filtering', () => {
     it('t3_project student qualifies for t3_project opportunity', () => {
-      expect(tierOrder['t3_project'] >= tierOrder['t3_project']).toBe(true);
+      assert.strictEqual(tierOrder['t3_project'] >= tierOrder['t3_project'], true);
     });
 
     it('t2_virtual_team student does NOT qualify for t3_project', () => {
-      expect(tierOrder['t2_virtual_team'] >= tierOrder['t3_project']).toBe(false);
+      assert.strictEqual(tierOrder['t2_virtual_team'] >= tierOrder['t3_project'], false);
     });
 
     it('t5_fellowship qualifies for all tiers', () => {
       for (const tier of Object.keys(tierOrder)) {
-        expect(tierOrder['t5_fellowship'] >= tierOrder[tier]).toBe(true);
+        assert.strictEqual(tierOrder['t5_fellowship'] >= tierOrder[tier], true);
       }
     });
 
     it('t1_job_sim only qualifies for t1_job_sim', () => {
-      expect(tierOrder['t1_job_sim'] >= tierOrder['t1_job_sim']).toBe(true);
-      expect(tierOrder['t1_job_sim'] >= tierOrder['t2_virtual_team']).toBe(false);
+      assert.strictEqual(tierOrder['t1_job_sim'] >= tierOrder['t1_job_sim'], true);
+      assert.strictEqual(tierOrder['t1_job_sim'] >= tierOrder['t2_virtual_team'], false);
     });
   });
 
@@ -53,8 +54,8 @@ describe('T-31 — Student Applications', () => {
           created_at: '2025-07-01',
         };
         const client = applicationToClient(row);
-        expect(client.status).toBe(status);
-        expect(client.id).toBe(`app-${status}`);
+        assert.strictEqual(client.status, status);
+        assert.strictEqual(client.id, `app-${status}`);
       });
     }
   });
@@ -80,7 +81,7 @@ describe('T-31 — Student Applications', () => {
           created_at: '2025-01-01',
         };
         const client = opportunityToClient(row);
-        expect(client.kind).toBe(kind);
+        assert.strictEqual(client.kind, kind);
       });
     }
   });

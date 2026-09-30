@@ -174,17 +174,14 @@ export function instrumentHiddenPythonTests(hiddenTests: string): string {
     .map((l) => (l.trim() ? `    ${l}` : ''))
     .join('\n');
 
-  return `import sys
-__pinit_hidden_check_idx = 1
+  return `__pinit_hidden_check_idx = 1
 try:
 ${indentedSuite}
     print("__PINIT_TESTS_PASSED__")
 except AssertionError:
-    sys.stderr.write(f"Hidden check {__pinit_hidden_check_idx} failed\\n")
-    sys.exit(2)
+    print(f"Hidden check {__pinit_hidden_check_idx} failed")
 except Exception:
-    sys.stderr.write(f"Hidden check {__pinit_hidden_check_idx} failed\\n")
-    sys.exit(3)
+    print(f"Hidden check {__pinit_hidden_check_idx} failed")
 `;
 }
 
@@ -255,10 +252,11 @@ export async function executeTicketCode(opts: {
       timeoutMs: 4000,
     });
 
-    if (!hiddenRes.passed) {
-      const rawHidden = hiddenRes.stderr.trim() || 'Hidden check 1 failed';
-      // Match "Hidden check N failed"
-      const match = rawHidden.match(/Hidden check \d+ failed/);
+    const combined = `${hiddenRes.stdout || ''}\n${hiddenRes.stderr || ''}`;
+    const hasPassedMarker = combined.includes('__PINIT_TESTS_PASSED__');
+
+    if (!hiddenRes.passed || !hasPassedMarker) {
+      const match = combined.match(/Hidden check \d+ failed/);
       const safeOutput = match ? match[0] : 'Hidden check failed';
 
       return {

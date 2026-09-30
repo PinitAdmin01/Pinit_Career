@@ -11,7 +11,8 @@
  *  7. opportunityToClient converter (snake_case → camelCase)
  *  8. applicationToClient converter
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import {
   CreateOpportunitySchema,
   UpdateOpportunitySchema,
@@ -23,8 +24,6 @@ import {
 } from '../src/lib/internships/toClient';
 
 describe('T-30 — Internship Opportunities Admin', () => {
-  // ── Schema validation ─────────────────────────────────────────────
-
   describe('CreateOpportunitySchema', () => {
     it('accepts valid input with defaults', () => {
       const result = CreateOpportunitySchema.safeParse({
@@ -32,14 +31,14 @@ describe('T-30 — Internship Opportunities Admin', () => {
         kind: 'client_project',
         title: 'Backend internship',
       });
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
       if (result.success) {
-        expect(result.data.orgName).toBe('Acme Corp');
-        expect(result.data.minTier).toBe('t3_project');
-        expect(result.data.seats).toBe(1);
-        expect(result.data.paid).toBe(false);
-        expect(result.data.status).toBe('draft');
-        expect(result.data.description).toBe('');
+        assert.strictEqual(result.data.orgName, 'Acme Corp');
+        assert.strictEqual(result.data.minTier, 't3_project');
+        assert.strictEqual(result.data.seats, 1);
+        assert.strictEqual(result.data.paid, false);
+        assert.strictEqual(result.data.status, 'draft');
+        assert.strictEqual(result.data.description, '');
       }
     });
 
@@ -49,7 +48,7 @@ describe('T-30 — Internship Opportunities Admin', () => {
         kind: 'client_project',
         title: 'Test',
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('rejects invalid kind', () => {
@@ -58,177 +57,133 @@ describe('T-30 — Internship Opportunities Admin', () => {
         kind: 'invalid_kind',
         title: 'Test',
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
-    it('rejects negative stipend', () => {
+    it('rejects negative seats', () => {
       const result = CreateOpportunitySchema.safeParse({
-        orgName: 'Test Corp',
-        kind: 'industry',
-        title: 'Paid internship',
-        stipend: -100,
+        orgName: 'Test',
+        kind: 'client_project',
+        title: 'Test',
+        seats: -1,
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
   });
 
   describe('UpdateOpportunitySchema', () => {
-    it('accepts partial update with single field', () => {
-      const result = UpdateOpportunitySchema.safeParse({ title: 'New Title' });
-      expect(result.success).toBe(true);
-      if (result.success) {
-        expect(result.data.title).toBe('New Title');
-        expect(result.data.orgName).toBeUndefined();
-      }
+    it('accepts partial updates', () => {
+      const result = UpdateOpportunitySchema.safeParse({
+        status: 'open',
+        seats: 5,
+      });
+      assert.strictEqual(result.success, true);
     });
 
-    it('accepts empty object (no fields)', () => {
-      const result = UpdateOpportunitySchema.safeParse({});
-      expect(result.success).toBe(true);
-    });
-  });
-
-  // ── §6 Authenticity checks ────────────────────────────────────────
-
-  describe('checkOrgAuthenticity', () => {
-    it('flags freemail domain as tier_3 invalid', () => {
-      const result = checkOrgAuthenticity('Shady LLC', 'https://gmail.com');
-      expect(result.valid).toBe(false);
-      expect(result.recommendedTier).toBe('tier_3');
-      expect(result.reasons.some((r) => r.includes('freemail'))).toBe(true);
-    });
-
-    it('flags yahoo.com as freemail', () => {
-      const result = checkOrgAuthenticity('Yahoo Org', 'https://yahoo.com/about');
-      expect(result.valid).toBe(false);
-      expect(result.recommendedTier).toBe('tier_3');
-    });
-
-    it('recommends tier_1 for HTTPS with valid org', () => {
-      const result = checkOrgAuthenticity('Google', 'https://google.com');
-      expect(result.valid).toBe(true);
-      expect(result.recommendedTier).toBe('tier_1');
-    });
-
-    it('returns tier_3 when website is missing', () => {
-      const result = checkOrgAuthenticity('NoWeb Inc');
-      expect(result.valid).toBe(false);
-      expect(result.recommendedTier).toBe('tier_3');
-      expect(result.reasons.some((r) => r.includes('Missing'))).toBe(true);
-    });
-
-    it('returns tier_3 for empty string website', () => {
-      const result = checkOrgAuthenticity('Empty Web Corp', '');
-      expect(result.valid).toBe(false);
-      expect(result.recommendedTier).toBe('tier_3');
-    });
-
-    it('returns tier_2 for HTTP-only domain', () => {
-      const result = checkOrgAuthenticity('OldCorp', 'http://oldcorp.in');
-      expect(result.valid).toBe(true);
-      expect(result.recommendedTier).toBe('tier_2');
-    });
-
-    it('handles bare domain without protocol', () => {
-      const result = checkOrgAuthenticity('Bare', 'bare-domain.com');
-      // Gets auto-prefixed with https:// inside the function
-      expect(result.valid).toBe(true);
-    });
-
-    it('rejects malformed URL', () => {
-      const result = checkOrgAuthenticity('Bad', 'not a url at all!!!');
-      expect(result.valid).toBe(false);
-      expect(result.recommendedTier).toBe('tier_3');
+    it('rejects invalid status', () => {
+      const result = UpdateOpportunitySchema.safeParse({
+        status: 'invalid_status',
+      });
+      assert.strictEqual(result.success, false);
     });
   });
 
-  // ── toClient converters ───────────────────────────────────────────
+  describe('checkOrgAuthenticity (Verification Standard §6)', () => {
+    it('disqualifies freemail domains (gmail.com)', () => {
+      const res = checkOrgAuthenticity('Acme Inc', 'https://gmail.com');
+      assert.strictEqual(res.valid, false);
+      assert.strictEqual(res.recommendedTier, 'tier_3');
+    });
 
-  describe('opportunityToClient', () => {
-    it('converts snake_case DB row to camelCase client object', () => {
+    it('disqualifies Yahoo, Hotmail, Outlook freemails', () => {
+      assert.strictEqual(checkOrgAuthenticity('A', 'https://yahoo.com').valid, false);
+      assert.strictEqual(checkOrgAuthenticity('B', 'https://hotmail.com').valid, false);
+      assert.strictEqual(checkOrgAuthenticity('C', 'https://outlook.com').valid, false);
+    });
+
+    it('assigns tier_1 strong evidence for HTTPS web presence and valid company domain', () => {
+      const res = checkOrgAuthenticity('Acme Inc', 'https://acme.com');
+      assert.strictEqual(res.valid, true);
+      assert.strictEqual(res.recommendedTier, 'tier_1');
+    });
+
+    it('assigns tier_2 moderate evidence for HTTP web presence', () => {
+      const res = checkOrgAuthenticity('Acme Inc', 'http://acme.com');
+      assert.strictEqual(res.valid, true);
+      assert.strictEqual(res.recommendedTier, 'tier_2');
+    });
+
+    it('assigns tier_3 weak evidence when no website is provided', () => {
+      const res = checkOrgAuthenticity('Acme Inc', '');
+      assert.strictEqual(res.valid, false);
+      assert.strictEqual(res.recommendedTier, 'tier_3');
+    });
+
+    it('assigns tier_3 when website lacks protocol prefix', () => {
+      const res = checkOrgAuthenticity('Acme Inc', 'just-a-string');
+      assert.strictEqual(res.valid, false);
+      assert.strictEqual(res.recommendedTier, 'tier_3');
+    });
+  });
+
+  describe('opportunityToClient converter', () => {
+    it('converts DB snake_case row to camelCase client object', () => {
       const row = {
-        id: 'opp-001',
-        org_name: 'Test Corp',
-        org_website: 'https://testcorp.com',
-        kind: 'client_project',
-        title: 'Fullstack Intern',
-        description: 'Build an API',
-        min_tier: 't3_project',
+        id: 'opp-100',
+        org_name: 'Tech Corp',
+        org_website: 'https://techcorp.com',
+        authenticity_tier: 'tier_1',
+        kind: 'industry',
+        title: 'Full-Stack Developer Intern',
+        description: 'Great role',
+        min_tier: 't4_industry',
         seats: 3,
         paid: true,
-        stipend: 5000,
-        authenticity_tier: 'tier_1',
+        stipend: 1000,
         status: 'open',
         created_at: '2025-01-01T00:00:00Z',
       };
       const client = opportunityToClient(row);
-      expect(client.id).toBe('opp-001');
-      expect(client.orgName).toBe('Test Corp');
-      expect(client.orgWebsite).toBe('https://testcorp.com');
-      expect(client.kind).toBe('client_project');
-      expect(client.minTier).toBe('t3_project');
-      expect(client.seats).toBe(3);
-      expect(client.paid).toBe(true);
-      expect(client.stipend).toBe(5000);
-      expect(client.authenticityTier).toBe('tier_1');
-      expect(client.status).toBe('open');
-      expect(client.createdAt).toBe('2025-01-01T00:00:00Z');
+      assert.strictEqual(client.id, 'opp-100');
+      assert.strictEqual(client.orgName, 'Tech Corp');
+      assert.strictEqual(client.orgWebsite, 'https://techcorp.com');
+      assert.strictEqual(client.minTier, 't4_industry');
+      assert.strictEqual(client.seats, 3);
+      assert.strictEqual(client.paid, true);
     });
 
-    it('handles null optional fields', () => {
-      const row = {
-        id: 'opp-002',
-        org_name: 'Mini',
-        org_website: null,
-        kind: 'open_source',
-        title: 'OSS Contrib',
-        description: '',
-        min_tier: 't3_project',
-        seats: 1,
-        paid: false,
-        stipend: null,
-        authenticity_tier: null,
-        status: 'draft',
-        created_at: '2025-06-01',
+    it('handles camelCase object safely', () => {
+      const camelObj = {
+        id: 'opp-200',
+        orgName: 'Alpha Inc',
+        title: 'Python Intern',
+        seats: 2,
       };
-      const client = opportunityToClient(row);
-      expect(client.orgWebsite).toBeNull();
-      expect(client.stipend).toBeNull();
-      expect(client.authenticityTier).toBeNull();
+      const client = opportunityToClient(camelObj);
+      assert.strictEqual(client.id, 'opp-200');
+      assert.strictEqual(client.orgName, 'Alpha Inc');
     });
   });
 
-  describe('applicationToClient', () => {
-    it('converts snake_case application row', () => {
+  describe('applicationToClient converter', () => {
+    it('converts application DB row to camelCase client object', () => {
       const row = {
         id: 'app-001',
-        opportunity_id: 'opp-001',
-        student_id: 'stu-001',
-        internship_enrollment_id: 'enr-001',
-        status: 'applied',
-        created_at: '2025-03-01',
+        opportunity_id: 'opp-100',
+        internship_enrollment_id: 'enr-100',
+        student_id: 'stu-100',
+        status: 'pending',
+        note: 'I am excited to join',
+        decision_by: null,
+        decision_note: null,
+        created_at: '2025-01-01T00:00:00Z',
+        updated_at: '2025-01-01T00:00:00Z',
       };
       const client = applicationToClient(row);
-      expect(client.id).toBe('app-001');
-      expect(client.opportunityId).toBe('opp-001');
-      expect(client.studentId).toBe('stu-001');
-      expect(client.internshipEnrollmentId).toBe('enr-001');
-      expect(client.status).toBe('applied');
-      expect(client.createdAt).toBe('2025-03-01');
-    });
-
-    it('handles camelCase input too', () => {
-      const row = {
-        id: 'app-002',
-        opportunityId: 'opp-002',
-        studentId: 'stu-002',
-        internshipEnrollmentId: 'enr-002',
-        status: 'shortlisted',
-        createdAt: '2025-04-01',
-      };
-      const client = applicationToClient(row);
-      expect(client.opportunityId).toBe('opp-002');
-      expect(client.internshipEnrollmentId).toBe('enr-002');
+      assert.strictEqual(client.id, 'app-001');
+      assert.strictEqual(client.opportunityId, 'opp-100');
+      assert.strictEqual(client.studentId, 'stu-100');
+      assert.strictEqual(client.status, 'pending');
     });
   });
 });

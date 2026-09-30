@@ -8,7 +8,8 @@
  *  4. Cache TTL and clearPrCache
  *  5. Pass criteria: >= 3 merged PRs
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import {
   OssFallbackSchema,
   APPROVED_REPOS_LIST,
@@ -23,7 +24,7 @@ describe('T-35 — Open-source Fallback Check', () => {
         githubUsername: 'testuser',
         repos: ['owner/repo1', 'owner/repo2'],
       });
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
 
     it('rejects empty username', () => {
@@ -31,7 +32,7 @@ describe('T-35 — Open-source Fallback Check', () => {
         githubUsername: '',
         repos: ['owner/repo'],
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('rejects empty repos array', () => {
@@ -39,17 +40,17 @@ describe('T-35 — Open-source Fallback Check', () => {
         githubUsername: 'testuser',
         repos: [],
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
   });
 
   describe('APPROVED_REPOS_LIST', () => {
     it('is an array', () => {
-      expect(Array.isArray(APPROVED_REPOS_LIST)).toBe(true);
+      assert.strictEqual(Array.isArray(APPROVED_REPOS_LIST), true);
     });
 
     it('starts empty (placeholder for owner)', () => {
-      expect(APPROVED_REPOS_LIST.length).toBe(0);
+      assert.strictEqual(APPROVED_REPOS_LIST.length, 0);
     });
   });
 
@@ -71,27 +72,27 @@ describe('T-35 — Open-source Fallback Check', () => {
         rateLimitRemaining: 4999,
         passed: true,
       };
-      expect(result.username).toBe('testuser');
-      expect(result.passed).toBe(true);
-      expect(result.qualifyingPrs).toHaveLength(1);
+      assert.strictEqual(result.username, 'testuser');
+      assert.strictEqual(result.passed, true);
+      assert.strictEqual(result.qualifyingPrs.length, 1);
     });
   });
 
   describe('Pass criteria', () => {
     it('passes with >= 3 merged PRs', () => {
-      expect(3 >= 3).toBe(true);
-      expect(5 >= 3).toBe(true);
+      assert.strictEqual(3 >= 3, true);
+      assert.strictEqual(5 >= 3, true);
     });
 
     it('fails with < 3 merged PRs', () => {
-      expect(2 >= 3).toBe(false);
-      expect(0 >= 3).toBe(false);
+      assert.strictEqual(2 >= 3, false);
+      assert.strictEqual(0 >= 3, false);
     });
   });
 
   describe('clearPrCache', () => {
     it('does not throw', () => {
-      expect(() => clearPrCache()).not.toThrow();
+      assert.doesNotThrow(() => clearPrCache());
     });
   });
 
@@ -104,8 +105,8 @@ describe('T-35 — Open-source Fallback Check', () => {
         mergedAt: '2025-01-01',
         url: 'https://github.com/torvalds/linux/pull/1',
       };
-      expect(pr.prNumber).toBe(1);
-      expect(pr.repo).toBe('torvalds/linux');
+      assert.strictEqual(pr.prNumber, 1);
+      assert.strictEqual(pr.repo, 'torvalds/linux');
     });
   });
 });

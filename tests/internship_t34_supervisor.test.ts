@@ -9,7 +9,8 @@
  *  5. SupervisorEvaluationSchema — 4 rated areas
  *  6. Token is 64 hex chars (32 bytes)
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import {
   generateSupervisorToken,
   hashToken,
@@ -23,55 +24,55 @@ describe('T-34 — Supervisor Evaluation Link', () => {
   describe('generateSupervisorToken', () => {
     it('returns a token and hash pair', () => {
       const { token, hash } = generateSupervisorToken();
-      expect(token).toBeTruthy();
-      expect(hash).toBeTruthy();
-      expect(token).not.toBe(hash);
+      assert.ok(token);
+      assert.ok(hash);
+      assert.notStrictEqual(token, hash);
     });
 
     it('token is 64 hex characters (32 bytes)', () => {
       const { token } = generateSupervisorToken();
-      expect(token).toMatch(/^[a-f0-9]{64}$/);
+      assert.match(token, /^[a-f0-9]{64}$/);
     });
 
     it('hash matches hashToken(token)', () => {
       const { token, hash } = generateSupervisorToken();
-      expect(hashToken(token)).toBe(hash);
+      assert.strictEqual(hashToken(token), hash);
     });
 
     it('each call produces a unique token', () => {
       const a = generateSupervisorToken();
       const b = generateSupervisorToken();
-      expect(a.token).not.toBe(b.token);
-      expect(a.hash).not.toBe(b.hash);
+      assert.notStrictEqual(a.token, b.token);
+      assert.notStrictEqual(a.hash, b.hash);
     });
   });
 
   describe('hashToken', () => {
     it('produces consistent hash for same input', () => {
       const input = 'test-token-abc123';
-      expect(hashToken(input)).toBe(hashToken(input));
+      assert.strictEqual(hashToken(input), hashToken(input));
     });
 
     it('produces 64-char hex string', () => {
       const result = hashToken('any-input');
-      expect(result).toMatch(/^[a-f0-9]{64}$/);
+      assert.match(result, /^[a-f0-9]{64}$/);
     });
   });
 
   describe('isTokenExpired', () => {
     it('returns true for past date', () => {
-      expect(isTokenExpired('2020-01-01T00:00:00Z')).toBe(true);
+      assert.strictEqual(isTokenExpired('2020-01-01T00:00:00Z'), true);
     });
 
     it('returns false for future date', () => {
       const future = new Date(Date.now() + 3600_000).toISOString();
-      expect(isTokenExpired(future)).toBe(false);
+      assert.strictEqual(isTokenExpired(future), false);
     });
   });
 
   describe('SUPERVISOR_TOKEN_EXPIRY_HOURS', () => {
     it('is 72 hours', () => {
-      expect(SUPERVISOR_TOKEN_EXPIRY_HOURS).toBe(72);
+      assert.strictEqual(SUPERVISOR_TOKEN_EXPIRY_HOURS, 72);
     });
   });
 
@@ -81,7 +82,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
         supervisorName: 'John Doe',
         supervisorEmail: 'john@company.com',
       });
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
 
     it('rejects short name', () => {
@@ -89,7 +90,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
         supervisorName: 'J',
         supervisorEmail: 'j@c.com',
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('rejects invalid email', () => {
@@ -97,7 +98,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
         supervisorName: 'John Doe',
         supervisorEmail: 'not-an-email',
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
   });
 
@@ -112,7 +113,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
         },
         comments: 'Good intern overall.',
       });
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
 
     it('rejects score above 5', () => {
@@ -124,7 +125,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
           professionalism: 4,
         },
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('rejects score below 1', () => {
@@ -136,7 +137,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
           professionalism: 4,
         },
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('requires all 4 areas', () => {
@@ -146,7 +147,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
           communication: 3,
         },
       });
-      expect(result.success).toBe(false);
+      assert.strictEqual(result.success, false);
     });
 
     it('comments are optional', () => {
@@ -158,7 +159,7 @@ describe('T-34 — Supervisor Evaluation Link', () => {
           professionalism: 3,
         },
       });
-      expect(result.success).toBe(true);
+      assert.strictEqual(result.success, true);
     });
   });
 });

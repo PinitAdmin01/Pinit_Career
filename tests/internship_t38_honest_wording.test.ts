@@ -6,46 +6,47 @@
  *  2. Tier 2 honest wording: "4-Week Virtual Internship – Backend (team, simulated company)"
  *  3. INTERNSHIP_TIERS names in tiers.ts match requirements
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { INTERNSHIP_TIERS } from '../src/lib/internships/tiers';
 import { INTERNSHIP_TIER_AVAILABLE, INTERNSHIP_AVAILABLE } from '../src/lib/data/crashPlansData';
 
 describe('T-38 — Honest Plan Wording Per Tier', () => {
   describe('INTERNSHIP_TIERS naming transparency', () => {
     it('Tier 1 config name is "Python Job Simulation"', () => {
-      expect(INTERNSHIP_TIERS.t1_job_sim.name).toBe('Python Job Simulation');
+      assert.strictEqual(INTERNSHIP_TIERS.t1_job_sim.name, 'Python Job Simulation');
     });
 
     it('Tier 1 config is marked as simulated', () => {
-      expect(INTERNSHIP_TIERS.t1_job_sim.simulated).toBe(true);
+      assert.strictEqual(INTERNSHIP_TIERS.t1_job_sim.simulated, true);
     });
 
     it('Tier 2 config name is "Virtual Internship – Backend"', () => {
-      expect(INTERNSHIP_TIERS.t2_virtual_team.name).toBe('Virtual Internship – Backend');
+      assert.strictEqual(INTERNSHIP_TIERS.t2_virtual_team.name, 'Virtual Internship – Backend');
     });
 
     it('Tier 2 config is marked as simulated', () => {
-      expect(INTERNSHIP_TIERS.t2_virtual_team.simulated).toBe(true);
+      assert.strictEqual(INTERNSHIP_TIERS.t2_virtual_team.simulated, true);
     });
 
     it('Tiers 3-5 are marked as real (simulated = false)', () => {
-      expect(INTERNSHIP_TIERS.t3_project.simulated).toBe(false);
-      expect(INTERNSHIP_TIERS.t4_industry.simulated).toBe(false);
-      expect(INTERNSHIP_TIERS.t5_fellowship.simulated).toBe(false);
+      assert.strictEqual(INTERNSHIP_TIERS.t3_project.simulated, false);
+      assert.strictEqual(INTERNSHIP_TIERS.t4_industry.simulated, false);
+      assert.strictEqual(INTERNSHIP_TIERS.t5_fellowship.simulated, false);
     });
   });
 
   describe('Feature flag defaults', () => {
     it('INTERNSHIP_AVAILABLE is false when all switches are off', () => {
-      expect(INTERNSHIP_AVAILABLE).toBe(false);
+      assert.strictEqual(INTERNSHIP_AVAILABLE, false);
     });
 
     it('all individual tier switches default to false', () => {
-      expect(INTERNSHIP_TIER_AVAILABLE.t1_job_sim).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t2_virtual_team).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t3_project).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t4_industry).toBe(false);
-      expect(INTERNSHIP_TIER_AVAILABLE.t5_fellowship).toBe(false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t1_job_sim, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t2_virtual_team, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t3_project, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t4_industry, false);
+      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t5_fellowship, false);
     });
   });
 
@@ -58,15 +59,15 @@ describe('T-38 — Honest Plan Wording Per Tier', () => {
     }
 
     it('returns "Active Certification Track" when switch is off', () => {
-      expect(getHonestWording('t1_job_sim', false)).toBe('Active Certification Track');
+      assert.strictEqual(getHonestWording('t1_job_sim', false), 'Active Certification Track');
     });
 
     it('returns Tier 1 honest wording when switch is on', () => {
-      expect(getHonestWording('t1_job_sim', true)).toBe('2-Week Python Job Simulation (simulated company)');
+      assert.strictEqual(getHonestWording('t1_job_sim', true), '2-Week Python Job Simulation (simulated company)');
     });
 
     it('returns Tier 2 honest wording when switch is on', () => {
-      expect(getHonestWording('t2_virtual_team', true)).toBe('4-Week Virtual Internship – Backend (team, simulated company)');
+      assert.strictEqual(getHonestWording('t2_virtual_team', true), '4-Week Virtual Internship – Backend (team, simulated company)');
     });
   });
 });

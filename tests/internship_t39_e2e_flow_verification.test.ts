@@ -15,7 +15,8 @@
  *    - Demo URL check & cryptographic oral defense signature verification
  *    - Dual certificate issuance
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { checkInternshipEligibility } from '../src/lib/internships/eligibility';
 import { generateTier1Tasks } from '../src/lib/internships/tier1Tickets';
 import { getDeterministicTier2Tasks } from '../src/lib/internships/tier2Tasks';
@@ -48,14 +49,14 @@ describe('T-39 — End-to-End Internship Flow Verification', () => {
         tierSwitchOverride: { t1_job_sim: true },
       });
 
-      expect(eligibility.ok).toBe(true);
+      assert.strictEqual(eligibility.ok, true);
       if (eligibility.ok) {
-        expect(eligibility.tier).toBe('t1_job_sim');
+        assert.strictEqual(eligibility.tier, 't1_job_sim');
       }
     });
 
     it('Step 2: Server generates fictional company disclosure for tier 1', () => {
-      expect(FICTIONAL_COMPANY_PREFIX).toContain('fictional company');
+      assert.strictEqual(FICTIONAL_COMPANY_PREFIX.includes('fictional company'), true);
     });
 
     it('Step 3: Student passes all 5 tickets, submits report and passes complete check', () => {
@@ -72,16 +73,16 @@ describe('T-39 — End-to-End Internship Flow Verification', () => {
         })),
       });
 
-      expect(isComplete).toBe(true);
+      assert.strictEqual(isComplete, true);
     });
 
     it('Step 4: Server issues tamper-proof certificate ID and honest label', () => {
       const certId = newInternshipCertificateId();
       const label = getInternshipHonestyLabel('t1_job_sim', 'Acme Corp');
 
-      expect(certId).toMatch(/^PIN-IN-/);
-      expect(label.isSimulated).toBe(true);
-      expect(label.role).toBe('Software Engineering Intern (Simulated)');
+      assert.strictEqual(/^PIN-IN-/.test(certId), true);
+      assert.strictEqual(label.isSimulated, true);
+      assert.strictEqual(label.role, 'Software Engineering Intern (Simulated)');
     });
   });
 
@@ -96,22 +97,22 @@ describe('T-39 — End-to-End Internship Flow Verification', () => {
       ];
 
       const sizes = findTeamSizes(3);
-      expect(sizes).toEqual([3]);
+      assert.deepStrictEqual(sizes, [3]);
 
       const result = formTeams(queue, 7, 3, 4);
-      expect(result.teams).toHaveLength(1);
-      expect(result.teams[0].members).toHaveLength(3);
+      assert.strictEqual(result.teams.length, 1);
+      assert.strictEqual(result.teams[0].members.length, 3);
     });
 
     it('Step 2: Server generates product brief and 8 sprint tasks', () => {
       const brief = getDeterministicProductBrief('seed-team-01', false);
-      expect(brief.stories.length).toBeGreaterThanOrEqual(6);
+      assert.strictEqual(brief.stories.length >= 6, true);
 
       const tasks = getDeterministicTier2Tasks(brief.stories);
-      expect(tasks).toHaveLength(8);
+      assert.strictEqual(tasks.length, 8);
       // Week 1 tasks open, rest locked
-      expect(tasks[0].seq).toBe(1);
-      expect(tasks[1].seq).toBe(2);
+      assert.strictEqual(tasks[0].seq, 1);
+      assert.strictEqual(tasks[1].seq, 2);
     });
 
     it('Step 3: Cryptographic oral defense signature verification', () => {
@@ -128,7 +129,7 @@ describe('T-39 — End-to-End Internship Flow Verification', () => {
         overrideSecretForTesting: 'test-secret',
       });
 
-      expect(typeof validSig).toBe('boolean');
+      assert.strictEqual(typeof validSig, 'boolean');
     });
 
     it('Step 4: Tier 2 completion check with 8 tasks + 4 sprints + defense', () => {
@@ -149,15 +150,15 @@ describe('T-39 — End-to-End Internship Flow Verification', () => {
         defensePassed: true,
       });
 
-      expect(isComplete).toBe(true);
+      assert.strictEqual(isComplete, true);
     });
 
     it('Step 5: Server issues Tier 2 Virtual Internship certificate', () => {
       const certId = newInternshipCertificateId();
       const label = getInternshipHonestyLabel('t2_virtual_team', 'HealthPulse');
 
-      expect(certId).toMatch(/^PIN-IN-/);
-      expect(label.isSimulated).toBe(true);
+      assert.strictEqual(/^PIN-IN-/.test(certId), true);
+      assert.strictEqual(label.isSimulated, true);
     });
   });
 });
