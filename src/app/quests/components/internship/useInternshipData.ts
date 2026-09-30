@@ -162,6 +162,7 @@ export function useInternshipData(crashEnrollment: CrashCourseEnrollment | null)
     isExtending,
     isRestarting,
     isClaimingCert,
+    fetchInternship,
     startSimulation,
     extendDeadline,
     restartSimulation,

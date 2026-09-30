@@ -7,6 +7,7 @@ import type { ClientInternshipTask } from '@/lib/internships/types';
 import { CompanyProfileCard } from './CompanyProfileCard';
 import { InternshipDeadlineBanner } from './InternshipDeadlineBanner';
 import { TicketListCard } from './TicketListCard';
+import { TicketWorkspace } from './TicketWorkspace';
 import {
   InternshipStatusBanner,
   type InternshipPanelState,
@@ -42,11 +43,14 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
     isExtending,
     isRestarting,
     isClaimingCert,
+    fetchInternship,
     startSimulation,
     extendDeadline,
     restartSimulation,
     claimCertificate,
   } = useInternshipData(crashEnrollment);
+
+  const [activeWorkspaceTicket, setActiveWorkspaceTicket] = React.useState<ClientInternshipTask | null>(null);
 
   let state: InternshipPanelState = 'loading';
   let notEligibleReason = '';
@@ -215,9 +219,29 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
 
             <TicketListCard
               tasks={tasks}
-              onSelectTicket={onSelectTicket}
+              onSelectTicket={(task) => {
+                if (onSelectTicket) {
+                  onSelectTicket(task);
+                } else {
+                  setActiveWorkspaceTicket(task);
+                }
+              }}
             />
           </>
+        )}
+
+        {/* Ticket Workspace Modal */}
+        {activeWorkspaceTicket && (
+          <TicketWorkspace
+            task={activeWorkspaceTicket}
+            onBack={() => {
+              setActiveWorkspaceTicket(null);
+              fetchInternship();
+            }}
+            onTaskPassed={async () => {
+              await fetchInternship();
+            }}
+          />
         )}
       </div>
     </div>
