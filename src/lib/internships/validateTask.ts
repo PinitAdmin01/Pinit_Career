@@ -208,7 +208,7 @@ export function countAssertLines(testSource: string): number {
 /**
  * Helper to verify SQL tasks against PGlite database.
  */
-async function runSqlVerification(
+export async function runSqlVerification(
   setup: string,
   code: string,
   checks: string
