@@ -8,7 +8,10 @@ import { isCapstoneComplete } from '@/lib/courses/crashCourseProgress';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 
 export interface CheckEligibilityOptions {
-  enrollment?: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null;
+  enrollment?:
+    | Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'>
+    | { milestoneProgress?: Record<string, unknown> | null; certificatesIssued?: Record<string, unknown> | null }
+    | null;
   plan?: Pick<CrashPlan, 'tier'> | null;
   track?: string | null;
   activeInternship?: boolean;
@@ -69,7 +72,7 @@ export function checkInternshipEligibility(
   }
 
   // 3. Capstone complete check (isCapstoneComplete)
-  if (!isCapstoneComplete(enrollment)) {
+  if (!isCapstoneComplete(enrollment as unknown as Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'>)) {
     return {
       ok: false,
       error: 'CAPSTONE_NOT_COMPLETE',

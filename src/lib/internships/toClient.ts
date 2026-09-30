@@ -14,30 +14,34 @@ import type {
  * - model and generation_meta MUST NOT be included.
  */
 export function taskToClient(
-  row: Partial<InternshipTaskRow> & Record<string, unknown>
+  row:
+    | InternshipTaskRow
+    | (Partial<InternshipTaskRow> & { [key: string]: unknown })
+    | Record<string, unknown>
 ): ClientInternshipTask {
+  const r = row as unknown as Record<string, unknown>;
   return {
-    id: String(row.id || ''),
+    id: String(r.id || ''),
     internshipEnrollmentId: String(
-      row.internship_enrollment_id || row.internshipEnrollmentId || ''
+      r.internship_enrollment_id || r.internshipEnrollmentId || ''
     ),
-    seq: Number(row.seq ?? 0),
-    week: row.week !== undefined && row.week !== null ? Number(row.week) : null,
-    kind: String(row.kind || ''),
-    language: row.language === 'sql' ? 'sql' : 'python',
-    title: String(row.title || ''),
-    brief: String(row.brief || ''),
-    starterCode: String(row.starter_code ?? row.starterCode ?? ''),
-    visibleTests: String(row.visible_tests ?? row.visibleTests ?? ''),
+    seq: Number(r.seq ?? 0),
+    week: r.week !== undefined && r.week !== null ? Number(r.week) : null,
+    kind: String(r.kind || ''),
+    language: r.language === 'sql' ? 'sql' : 'python',
+    title: String(r.title || ''),
+    brief: String(r.brief || ''),
+    starterCode: String(r.starter_code ?? r.starterCode ?? ''),
+    visibleTests: String(r.visible_tests ?? r.visibleTests ?? ''),
     sqlSetup:
-      row.sql_setup !== undefined
-        ? row.sql_setup ? String(row.sql_setup) : null
-        : row.sqlSetup ? String(row.sqlSetup) : null,
-    skills: Array.isArray(row.skills) ? row.skills.map(String) : [],
-    status: (row.status || 'locked') as ClientInternshipTask['status'],
-    attempts: Number(row.attempts ?? 0),
-    passedAt: row.passed_at ? String(row.passed_at) : (row.passedAt ? String(row.passedAt) : null),
-    createdAt: String(row.created_at || row.createdAt || ''),
+      r.sql_setup !== undefined
+        ? r.sql_setup ? String(r.sql_setup) : null
+        : r.sqlSetup ? String(r.sqlSetup) : null,
+    skills: Array.isArray(r.skills) ? r.skills.map(String) : [],
+    status: (r.status || 'locked') as ClientInternshipTask['status'],
+    attempts: Number(r.attempts ?? 0),
+    passedAt: r.passed_at ? String(r.passed_at) : (r.passedAt ? String(r.passedAt) : null),
+    createdAt: String(r.created_at || r.createdAt || ''),
   };
 }
 
@@ -45,33 +49,37 @@ export function taskToClient(
  * Converts an internship enrollment database row to a client-safe object.
  */
 export function enrollmentToClient(
-  row: Partial<InternshipEnrollmentRow> & Record<string, unknown>
+  row:
+    | InternshipEnrollmentRow
+    | (Partial<InternshipEnrollmentRow> & { [key: string]: unknown })
+    | Record<string, unknown>
 ): ClientInternshipEnrollment {
+  const r = row as unknown as Record<string, unknown>;
   return {
-    id: String(row.id || ''),
-    studentId: String(row.student_id || row.studentId || ''),
+    id: String(r.id || ''),
+    studentId: String(r.student_id || r.studentId || ''),
     crashEnrollmentId: String(
-      row.crash_enrollment_id || row.crashEnrollmentId || ''
+      r.crash_enrollment_id || r.crashEnrollmentId || ''
     ),
-    tier: String(row.tier || ''),
-    track: String(row.track || 'python_ai'),
-    status: (row.status || 'generating') as ClientInternshipEnrollment['status'],
-    startedAt: row.started_at ? String(row.started_at) : (row.startedAt ? String(row.startedAt) : null),
-    dueAt: row.due_at ? String(row.due_at) : (row.dueAt ? String(row.dueAt) : null),
-    extended: Boolean(row.extended),
-    restarts: Number(row.restarts ?? 0),
-    completedAt: row.completed_at ? String(row.completed_at) : (row.completedAt ? String(row.completedAt) : null),
-    certificateId: row.certificate_id ? String(row.certificate_id) : (row.certificateId ? String(row.certificateId) : null),
+    tier: String(r.tier || ''),
+    track: String(r.track || 'python_ai'),
+    status: (r.status || 'generating') as ClientInternshipEnrollment['status'],
+    startedAt: r.started_at ? String(r.started_at) : (r.startedAt ? String(r.startedAt) : null),
+    dueAt: r.due_at ? String(r.due_at) : (r.dueAt ? String(r.dueAt) : null),
+    extended: Boolean(r.extended),
+    restarts: Number(r.restarts ?? 0),
+    completedAt: r.completed_at ? String(r.completed_at) : (r.completedAt ? String(r.completedAt) : null),
+    certificateId: r.certificate_id ? String(r.certificate_id) : (r.certificateId ? String(r.certificateId) : null),
     companyProfile:
-      row.company_profile && typeof row.company_profile === 'object'
-        ? (row.company_profile as Record<string, unknown>)
+      r.company_profile && typeof r.company_profile === 'object'
+        ? (r.company_profile as Record<string, unknown>)
         : null,
-    finalReport: row.final_report ? String(row.final_report) : null,
+    finalReport: r.final_report ? String(r.final_report) : null,
     finalReportCheck:
-      row.final_report_check && typeof row.final_report_check === 'object'
-        ? (row.final_report_check as Record<string, unknown>)
+      r.final_report_check && typeof r.final_report_check === 'object'
+        ? (r.final_report_check as Record<string, unknown>)
         : null,
-    createdAt: String(row.created_at || row.createdAt || ''),
-    updatedAt: String(row.updated_at || row.updatedAt || ''),
+    createdAt: String(r.created_at || r.createdAt || ''),
+    updatedAt: String(r.updated_at || r.updatedAt || ''),
   };
 }
