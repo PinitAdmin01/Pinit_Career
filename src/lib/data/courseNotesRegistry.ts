@@ -909,6 +909,49 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-vector-python': {
+    courseId: 'course-vector-python',
+    courseTitle: 'Vector Search Engines in Python',
+    category: 'Search & Retrieval Engineering',
+    summary: 'How vector databases and AI retrieval work inside: embeddings and similarity, exact and approximate nearest-neighbour search (IVF, PQ, LSH, HNSW), BM25 and hybrid search, chunking and filters, re-ranking and MMR, RAG context and citations, semantic caching, evaluation with recall, MRR and nDCG, monitoring, capacity planning, access control and privacy.',
+    realWorldAnalogy: 'A vector search engine is like a huge library where every book is placed on a map by its meaning. Finding related books means looking for nearby points; indexes are the road signs that get you to the right neighbourhood quickly, and the librarian re-checks the shortlist before handing it over.',
+    keyConcepts: [
+      {
+        heading: '1. Similarity and Exact Search',
+        explanation: 'Texts become vectors; cosine similarity compares their directions. Exact k-NN compares the query with every vector and is the baseline every approximate index is measured against.',
+        codeOrExample: 'def cosine(a, b):\n    dot = sum(x * y for x, y in zip(a, b))\n    na = sum(x * x for x in a) ** 0.5\n    nb = sum(y * y for y in b) ** 0.5\n    return 0.0 if na == 0 or nb == 0 else dot / (na * nb)'
+      },
+      {
+        heading: '2. Approximate Indexes',
+        explanation: 'IVF scans only the nprobe nearest clusters, PQ compresses vectors into short codes, and HNSW walks a layered graph with a beam of width ef. Each trades a little recall for large gains in speed or memory.',
+        codeOrExample: '# IVF: probe the nearest lists only\nprobe = sorted(range(len(centroids)), key=lambda c: dist(q, centroids[c]))[:nprobe]\ncandidates = [i for c in probe for i in lists[c]]'
+      },
+      {
+        heading: '3. Hybrid Retrieval and Evaluation',
+        explanation: 'Combine keyword (BM25) and vector rankings with reciprocal rank fusion, re-rank the top candidates, and measure quality on a golden set with recall@k, MRR and nDCG.',
+        codeOrExample: 'def rrf(rankings, k=60):\n    scores = {}\n    for ranking in rankings:\n        for rank, doc in enumerate(ranking, 1):\n            scores[doc] = scores.get(doc, 0) + 1 / (k + rank)\n    return sorted(scores, key=lambda d: -scores[d])'
+      }
+    ],
+    cheatsheet: [
+      'Normalise vectors once; then dot product equals cosine similarity',
+      'IVF: about sqrt(n) lists; raise nprobe for recall',
+      'HNSW: M and efConstruction at build time, ef per query',
+      'Memory = n x dims x bytes per dim (+ about 8M bytes per node for HNSW links)',
+      'Always evaluate against exact search and a labelled golden set'
+    ],
+    commonPitfalls: [
+      'Comparing vectors made by different embedding models, which gives meaningless similarities.',
+      'Post-filtering after approximate search and silently returning too few results for selective filters.',
+      'Forgetting to copy access rules onto every chunk, so restricted documents leak through retrieval.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How would you choose between IVF-PQ and HNSW for a 100-million-vector collection?',
+        answer: 'Estimate memory first: HNSW with float32 vectors needs roughly 300 GB plus links, while IVF-PQ with 64-byte codes needs a few GB. If memory allows, HNSW usually gives higher recall at the same latency; if not, IVF-PQ with re-scoring of the top candidates is the practical choice. Benchmark both on real queries, plot recall against latency, and pick the fastest configuration that meets the recall target.'
+      }
+    ]
+  },
+
   'course-iot-embedded': {
     courseId: 'course-iot-embedded',
     courseTitle: 'IoT, Firmware & Embedded Systems',
