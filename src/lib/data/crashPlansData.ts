@@ -565,7 +565,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 9, courseId: 'course-ai-prompt-python', title: 'Month 9: Autonomous AI Agents', desc: 'LangChain, Multi-Agent Systems & Production', icon: '⚡', skills: ['AI Agents', 'LangChain'] },
         { month: 10, courseId: 'course-train-python', title: 'Month 10: Distributed Model Training', desc: 'DeepSpeed, FSDP & Multi-GPU Clusters', icon: '🔥', skills: ['DeepSpeed', 'Distributed Training'] },
         { month: 11, courseId: 'course-vector-python', title: 'Month 11: Production Vector Engines', desc: 'Milvus, Pinecone & Hybrid Search Systems', icon: '🔍', skills: ['Vector DBs', 'Semantic Search'] },
-        { month: 12, courseId: 'course-ai-python', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] }
+        { month: 12, courseId: 'course-safety-python', title: 'Month 12: Production AI Safety & Guardrails', desc: 'Alignment, Adversarial Robustness & Auditing', icon: '🛡️', skills: ['AI Safety', 'Guardrails'] }
       ]
     }
   },

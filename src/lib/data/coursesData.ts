@@ -18,6 +18,7 @@ import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
 import { CYBER_PYTHON_30_DAYS_QUESTS } from './cyberPython30DayData';
 import { TRAIN_PYTHON_30_DAYS_QUESTS } from './trainPython30DayData';
 import { VECTOR_PYTHON_30_DAYS_QUESTS } from './vectorPython30DayData';
+import { SAFETY_PYTHON_30_DAYS_QUESTS } from './safetyPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -121,6 +122,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🔍',
     quests: VECTOR_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-safety-python',
+    title: 'Production AI Safety & Guardrails in Python',
+    desc: 'How to make AI products safe in production, with every lesson example and practice task in Python: risk registers and the OWASP LLM Top 10, input validation, prompt injection, untrusted documents, output schemas, card masking, moderation thresholds, precision and recall, groundedness and citations, refusals, safe tool use, human approval, rate limits, red-teaming, obfuscation, fairness, calibration, abstention, regression gates, audit logs, incident response, model cards, the EU AI Act and NIST AI RMF, data hygiene, watermarking, reward models and monitoring.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🛡️',
+    quests: SAFETY_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-devops-cicd',

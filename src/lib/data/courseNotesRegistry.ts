@@ -952,6 +952,49 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-safety-python': {
+    courseId: 'course-safety-python',
+    courseTitle: 'Production AI Safety & Guardrails in Python',
+    category: 'AI Safety Engineering',
+    summary: 'How to keep AI products safe in production: risk registers and the OWASP LLM Top 10, input validation, prompt injection and untrusted documents, output schemas, card masking, moderation thresholds, precision and recall, groundedness and citations, refusals, safe tool use and human approval, rate limits, red-teaming, obfuscation, fairness, calibration and abstention, regression gates, audit logs, incident response, model cards, the EU AI Act and NIST AI RMF, data hygiene, watermarking, reward models and monitoring.',
+    realWorldAnalogy: 'AI safety in production is like securing a castle: a moat, a wall, a gate and guards each stop some attackers, and together they stop far more. Inspectors test the defences before visitors arrive, guards keep a logbook, and a watchman raises the alarm when something changes.',
+    keyConcepts: [
+      {
+        heading: '1. Layered Guardrails',
+        explanation: 'Validate input, detect injection patterns on normalised text, check output against a schema, mask personal data, and gate every tool call with an allowlist and human approval for risky actions. Each layer is simple; together they are strong.',
+        codeOrExample: 'def decide(reasons):\n    if any(r != "CARD" for r in reasons):\n        return "BLOCK"\n    return "REDACT" if reasons else "ALLOW"'
+      },
+      {
+        heading: '2. Measuring Safety',
+        explanation: 'Use labelled sets to compute precision and recall, over- and under-refusal rates, attack success rate per category, fairness gaps and calibration error. Choose thresholds from data, not guesses.',
+        codeOrExample: 'def prf(tp, fp, fn):\n    p = tp / (tp + fp) if tp + fp else 0.0\n    r = tp / (tp + fn) if tp + fn else 0.0\n    return p, r, (2 * p * r / (p + r) if p + r else 0.0)'
+      },
+      {
+        heading: '3. Operating Safely',
+        explanation: 'Block releases that regress with a regression gate, keep privacy-safe audit logs, watch dashboards for spikes, respond to incidents with pre-built kill switches, and document everything in model cards mapped to the EU AI Act and NIST AI RMF.',
+        codeOrExample: 'def regressed(baseline, current, max_drop):\n    return sorted(m for m, v in baseline.items()\n                  if m not in current or current[m] < v - max_drop)'
+      }
+    ],
+    cheatsheet: [
+      'Treat user input, documents, tool results and model output as untrusted',
+      'Escape & first, then < and >, before wrapping documents in tags',
+      'Precision = TP / (TP + FP); recall = TP / (TP + FN)',
+      'ECE = sum of (bin share x |accuracy - confidence|)',
+      'A missing metric is a failed metric in a regression gate'
+    ],
+    commonPitfalls: [
+      'Trusting a single filter instead of layering controls, so one bypass defeats the whole system.',
+      'Logging raw prompts and user ids, which turns the audit log into a data leak.',
+      'Tuning thresholds only for missed harm and ignoring over-refusal, which drives honest users away.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How would you protect an AI agent that reads emails and can issue refunds?',
+        answer: 'Treat every email as untrusted: strip hidden characters, scan for injection, and wrap it as escaped data. Give the agent only the tools it needs, validate every call against a registry, and require human approval for refunds above a limit or any irreversible action. Log each decision privately, red-team the agent with injected emails before release, gate releases on attack success rate, and monitor block and approval rates for spikes.'
+      }
+    ]
+  },
+
   'course-iot-embedded': {
     courseId: 'course-iot-embedded',
     courseTitle: 'IoT, Firmware & Embedded Systems',

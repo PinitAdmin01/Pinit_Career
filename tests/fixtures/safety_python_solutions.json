@@ -1,0 +1,122 @@
+[
+ [
+  "def prioritise_risks(risks):\n    rows = []\n    for r in risks:\n        for key in ('likelihood', 'impact'):\n            v = r[key]\n            if not isinstance(v, int) or isinstance(v, bool) or not 1 <= v <= 5:\n                raise ValueError(f'{key} must be an integer from 1 to 5')\n        score = r['likelihood'] * r['impact']\n        level = 'LOW' if score <= 5 else 'MEDIUM' if score <= 12 else 'HIGH' if score <= 19 else 'CRITICAL'\n        rows.append((r['name'], score, level))\n    return sorted(rows, key=lambda x: (-x[1], x[0]))",
+  "def residual_risk(score, control_effects):\n    residual = float(score)\n    for e in control_effects:\n        if not 0 <= e <= 1:\n            raise ValueError('control effects must be between 0 and 1')\n        residual *= 1 - e\n    return round(residual, 2)"
+ ],
+ [
+  "TAGS = [\n    ('LLM01', ['injection', 'jailbreak']),\n    ('LLM02', ['leak', 'disclos', 'personal data']),\n    ('LLM03', ['dependency', 'supply chain', 'third-party model']),\n    ('LLM04', ['poison']),\n    ('LLM05', ['unescaped', 'output handling', 'xss']),\n    ('LLM06', ['excessive', 'autonomous', 'too many permissions']),\n    ('LLM07', ['system prompt']),\n    ('LLM08', ['embedding', 'vector store']),\n    ('LLM09', ['hallucinat', 'misinformation']),\n    ('LLM10', ['unbounded', 'cost', 'denial of service']),\n]\n\n\ndef owasp_tags(finding):\n    low = finding.lower()\n    return [code for code, stems in TAGS if any(s in low for s in stems)]",
+  "def coverage_gaps(threats, controls):\n    return sorted({t for t in threats if not controls.get(t)})"
+ ],
+ [
+  "def validate_input(text, max_chars, max_lines):\n    if not text.strip():\n        return (False, 'EMPTY')\n    if len(text) > max_chars:\n        return (False, 'TOO_LONG')\n    if text.count('\\n') + 1 > max_lines:\n        return (False, 'TOO_MANY_LINES')\n    if any(ord(c) < 32 and c not in '\\n\\t' for c in text):\n        return (False, 'CONTROL_CHARS')\n    return (True, 'OK')",
+  "def truncate_tokens(text, max_tokens):\n    if max_tokens < 1:\n        raise ValueError('max_tokens must be at least 1')\n    words = text.split()\n    return (' '.join(words[:max_tokens]), len(words) > max_tokens)"
+ ],
+ [
+  "import re\n\nPATTERNS = {\n    'override': r'ignore (all |the )?(previous|prior|above) instructions',\n    'persona': r'you are now|pretend to be',\n    'system': r'system prompt',\n    'disregard': r'disregard (your|the) (rules|guidelines)',\n    'developer': r'developer mode',\n    'exfiltrate': r'reveal (your|the) (password|key|secret)',\n}\n\n\ndef injection_score(text):\n    hits = sorted(name for name, pat in PATTERNS.items() if re.search(pat, text, re.IGNORECASE))\n    return (len(hits), hits)",
+  "def injection_decision(score, block_at=2):\n    if score >= block_at:\n        return 'BLOCK'\n    if score >= 1:\n        return 'REVIEW'\n    return 'ALLOW'\n\n\ndef triage_inputs(scored):\n    out = {'ALLOW': [], 'REVIEW': [], 'BLOCK': []}\n    for message_id, score in scored:\n        out[injection_decision(score)].append(message_id)\n    return out"
+ ],
+ [
+  "def wrap_untrusted(docs):\n    lines = []\n    for i, d in enumerate(docs, 1):\n        safe = d.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\n        lines.append(f'<document index=\"{i}\">{safe}</document>')\n    return '\\n'.join(lines)",
+  "HIDDEN = {'\\u200b', '\\u200c', '\\u200d', '\\u2060', '\\ufeff'}\n\n\ndef strip_hidden(text):\n    clean = ''.join(c for c in text if c not in HIDDEN)\n    return (clean, len(text) - len(clean))"
+ ],
+ [
+  "import json\n\n\ndef extract_json(text):\n    start, end = text.find('{'), text.rfind('}')\n    if start == -1 or end <= start:\n        return (None, 'NO_JSON')\n    try:\n        obj = json.loads(text[start:end + 1])\n    except ValueError:\n        return (None, 'INVALID_JSON')\n    if not isinstance(obj, dict):\n        return (None, 'INVALID_JSON')\n    return (obj, None)",
+  "def _ok(value, type_name):\n    if type_name == 'bool':\n        return isinstance(value, bool)\n    if isinstance(value, bool):\n        return False\n    if type_name == 'int':\n        return isinstance(value, int)\n    if type_name == 'float':\n        return isinstance(value, (int, float))\n    if type_name == 'str':\n        return isinstance(value, str)\n    if type_name == 'list':\n        return isinstance(value, list)\n    return False\n\n\ndef check_schema(data, schema):\n    errors = []\n    for field, type_name in schema.items():\n        if field not in data:\n            errors.append(f'missing:{field}')\n        elif not _ok(data[field], type_name):\n            errors.append(f'type:{field}')\n    errors += [f'extra:{f}' for f in data if f not in schema]\n    return sorted(errors)"
+ ],
+ [
+  "def luhn_valid(number):\n    raw = number.replace(' ', '').replace('-', '')\n    if not raw.isdigit() or not 13 <= len(raw) <= 19:\n        return False\n    total = 0\n    for i, ch in enumerate(reversed(raw)):\n        d = int(ch)\n        if i % 2 == 1:\n            d *= 2\n            if d > 9:\n                d -= 9\n        total += d\n    return total % 10 == 0",
+  "import re\n\n\ndef luhn_valid(number):\n    raw = number.replace(' ', '').replace('-', '')\n    if not raw.isdigit() or not 13 <= len(raw) <= 19:\n        return False\n    total = 0\n    for i, ch in enumerate(reversed(raw)):\n        d = int(ch)\n        if i % 2 == 1:\n            d *= 2\n            if d > 9:\n                d -= 9\n        total += d\n    return total % 10 == 0\n\n\ndef mask_cards(text):\n    count = 0\n\n    def repl(m):\n        nonlocal count\n        digits = m.group(0).replace(' ', '').replace('-', '')\n        if luhn_valid(digits):\n            count += 1\n            return '**** **** **** ' + digits[-4:]\n        return m.group(0)\n\n    masked = re.sub(r'\\b(?:\\d[ -]?){12,18}\\d\\b', repl, text)\n    return (masked, count)"
+ ],
+ [
+  "def moderate(scores, thresholds):\n    flagged = sorted(c for c, s in scores.items() if c in thresholds and s >= thresholds[c])\n    return {'flagged': flagged, 'action': 'BLOCK' if flagged else 'ALLOW'}",
+  "def threshold_counts(examples, threshold):\n    out = {'caught': 0, 'missed': 0, 'false_alarms': 0, 'passed': 0}\n    for score, harmful in examples:\n        flagged = score >= threshold\n        if harmful:\n            out['caught' if flagged else 'missed'] += 1\n        else:\n            out['false_alarms' if flagged else 'passed'] += 1\n    return out\n\n\ndef best_threshold(examples, candidates, max_missed):\n    for t in sorted(candidates, reverse=True):\n        if threshold_counts(examples, t)['missed'] <= max_missed:\n            return t\n    return None"
+ ],
+ [
+  "def confusion(y_true, y_pred):\n    if len(y_true) != len(y_pred):\n        raise ValueError('lists must have the same length')\n    out = {'tp': 0, 'fp': 0, 'fn': 0, 'tn': 0}\n    for t, p in zip(y_true, y_pred):\n        if t and p:\n            out['tp'] += 1\n        elif p:\n            out['fp'] += 1\n        elif t:\n            out['fn'] += 1\n        else:\n            out['tn'] += 1\n    return out",
+  "def prf(tp, fp, fn):\n    p = tp / (tp + fp) if tp + fp else 0.0\n    r = tp / (tp + fn) if tp + fn else 0.0\n    f1 = 2 * p * r / (p + r) if p + r else 0.0\n    return {'precision': round(p, 4), 'recall': round(r, 4), 'f1': round(f1, 4)}"
+ ],
+ [
+  "import re\n\n\ndef _words(text):\n    return {w for w in re.findall(r'[a-z0-9]+', text.lower()) if len(w) > 3}\n\n\ndef groundedness(answer_sentences, sources):\n    if not answer_sentences:\n        return (1.0, [])\n    source_words = [_words(s) for s in sources]\n    unsupported = []\n    for sentence in answer_sentences:\n        w = _words(sentence)\n        if w and not any(len(w & sw) * 2 >= len(w) for sw in source_words):\n            unsupported.append(sentence)\n    supported = len(answer_sentences) - len(unsupported)\n    return (round(supported / len(answer_sentences), 4), unsupported)",
+  "import re\n\n\ndef unsupported_numbers(answer, sources):\n    pattern = r'\\d+(?:\\.\\d+)?'\n    known = set()\n    for s in sources:\n        known |= set(re.findall(pattern, s))\n    return sorted(set(re.findall(pattern, answer)) - known)"
+ ],
+ [
+  "import re\n\n\ndef _words(text):\n    return {w for w in re.findall(r'[a-z0-9]+', text.lower()) if len(w) > 3}\n\n\ndef bad_citations(sentences, sources):\n    bad = []\n    for i, (text, cited) in enumerate(sentences):\n        if not cited:\n            continue\n        if any(c not in sources for c in cited):\n            bad.append(i)\n            continue\n        w = _words(text)\n        if w and not any(len(w & _words(sources[c])) * 2 >= len(w) for c in cited):\n            bad.append(i)\n    return bad",
+  "def citation_coverage(sentences, min_words=4):\n    needing = [i for i, (t, _) in enumerate(sentences) if len(t.split()) >= min_words]\n    if not needing:\n        return (1.0, [])\n    uncited = [i for i in needing if not sentences[i][1]]\n    return (round((len(needing) - len(uncited)) / len(needing), 3), uncited)"
+ ],
+ [
+  "PHRASES = [\"i can't\", 'i cannot', \"i'm not able to\", 'i am not able to', \"i won't\", \"i'm unable to\", 'as an ai']\n\n\ndef is_refusal(text):\n    low = text.lower().replace('\\u2019', \"'\")\n    return any(p in low for p in PHRASES)",
+  "def refusal_rates(results):\n    benign = [d for s, d in results if not s]\n    harmful = [d for s, d in results if s]\n    over = sum(benign) / len(benign) if benign else 0.0\n    under = sum(1 for d in harmful if not d) / len(harmful) if harmful else 0.0\n    return {'over_refusal': round(over, 3), 'under_refusal': round(under, 3)}"
+ ],
+ [
+  "def _type_ok(value, type_name):\n    if type_name == 'bool':\n        return isinstance(value, bool)\n    if isinstance(value, bool):\n        return False\n    return isinstance(value, {'str': str, 'int': int}[type_name])\n\n\ndef check_tool_call(call, registry):\n    spec = registry.get(call['tool'])\n    if spec is None:\n        return ['unknown_tool']\n    args = call.get('args', {})\n    errors = [f'missing:{a}' for a in spec['required'] if a not in args]\n    for name, value in args.items():\n        if name not in spec['args']:\n            errors.append(f'unexpected:{name}')\n        elif not _type_ok(value, spec['args'][name]):\n            errors.append(f'type:{name}')\n    return sorted(errors)",
+  "import posixpath\n\n\ndef safe_join(base, user_path):\n    if posixpath.isabs(user_path):\n        raise ValueError('absolute paths are not allowed')\n    joined = posixpath.normpath(posixpath.join(base, user_path))\n    if joined != base and not joined.startswith(base + '/'):\n        raise ValueError('path escapes the base folder')\n    return joined"
+ ],
+ [
+  "def needs_approval(action, policy):\n    if action['tool'] in policy['always']:\n        return (True, 'ALWAYS')\n    if action.get('amount', 0) > policy['amount_limit']:\n        return (True, 'AMOUNT')\n    return (False, 'AUTO')",
+  "def run_plan(steps, allowed_tools, approved):\n    executed = []\n    for step in steps:\n        if step['tool'] not in allowed_tools:\n            return {'executed': executed, 'status': 'BLOCKED', 'stopped_at': step['id']}\n        if step['tool'].startswith('danger_') and step['id'] not in approved:\n            return {'executed': executed, 'status': 'WAITING_APPROVAL', 'stopped_at': step['id']}\n        executed.append(step['id'])\n    return {'executed': executed, 'status': 'DONE', 'stopped_at': None}"
+ ],
+ [
+  "class SlidingWindowLimiter:\n    def __init__(self, limit, window_seconds):\n        self.limit = limit\n        self.window = window_seconds\n        self.history = {}\n\n    def allow(self, user, t):\n        times = [x for x in self.history.get(user, []) if x > t - self.window]\n        if len(times) >= self.limit:\n            self.history[user] = times\n            return False\n        times.append(t)\n        self.history[user] = times\n        return True",
+  "def abuse_flags(events, max_blocked=3, max_per_minute=30):\n    blocked, per_minute = {}, {}\n    for e in events:\n        if e['blocked']:\n            blocked[e['user']] = blocked.get(e['user'], 0) + 1\n        key = (e['user'], e['minute'])\n        per_minute[key] = per_minute.get(key, 0) + 1\n    flags = {}\n    for user, n in blocked.items():\n        if n > max_blocked:\n            flags.setdefault(user, []).append('REPEATED_ATTACKS')\n    for (user, _), n in per_minute.items():\n        if n > max_per_minute and 'FLOODING' not in flags.get(user, []):\n            flags.setdefault(user, []).append('FLOODING')\n    return {u: sorted(f) for u, f in flags.items()}"
+ ],
+ [
+  "def attack_success_rate(results):\n    attempts, wins = {}, {}\n    for cat, ok in results:\n        attempts[cat] = attempts.get(cat, 0) + 1\n        wins[cat] = wins.get(cat, 0) + (1 if ok else 0)\n    return {c: round(wins[c] / attempts[c], 3) for c in sorted(attempts)}",
+  "def weakest_categories(results, min_attempts, top):\n    attempts, wins = {}, {}\n    for cat, ok in results:\n        attempts[cat] = attempts.get(cat, 0) + 1\n        wins[cat] = wins.get(cat, 0) + (1 if ok else 0)\n    eligible = [c for c in attempts if attempts[c] >= min_attempts]\n    eligible.sort(key=lambda c: (-wins[c] / attempts[c], c))\n    return eligible[:top]"
+ ],
+ [
+  "import unicodedata\n\nLEET = {'0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '@': 'a', '$': 's'}\nZERO_WIDTH = {'\\u200b', '\\u200c', '\\u200d', '\\u2060', '\\ufeff'}\n\n\ndef normalize_text(text):\n    t = unicodedata.normalize('NFKC', text).lower()\n    return ''.join(LEET.get(c, c) for c in t if c not in ZERO_WIDTH)",
+  "import re\nimport unicodedata\n\nLEET = {'0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '@': 'a', '$': 's'}\nZERO_WIDTH = {'\\u200b', '\\u200c', '\\u200d', '\\u2060', '\\ufeff'}\n\n\ndef find_banned(text, banned):\n    t = unicodedata.normalize('NFKC', text).lower()\n    t = ''.join(LEET.get(c, c) for c in t if c not in ZERO_WIDTH)\n    collapsed = re.sub(r'[^a-z]', '', t)\n    return sorted(w for w in banned if w in collapsed)"
+ ],
+ [
+  "def demographic_parity(preds, groups):\n    pos, tot = {}, {}\n    for p, g in zip(preds, groups):\n        tot[g] = tot.get(g, 0) + 1\n        pos[g] = pos.get(g, 0) + (1 if p else 0)\n    if not tot:\n        return {'rates': {}, 'gap': 0.0}\n    rates = {g: pos[g] / tot[g] for g in sorted(tot)}\n    return {'rates': {g: round(r, 3) for g, r in rates.items()}, 'gap': round(max(rates.values()) - min(rates.values()), 3)}",
+  "def equal_opportunity(y_true, y_pred, groups):\n    hits, pos = {}, {}\n    for t, p, g in zip(y_true, y_pred, groups):\n        if t:\n            pos[g] = pos.get(g, 0) + 1\n            hits[g] = hits.get(g, 0) + (1 if p else 0)\n    rates = {g: hits[g] / pos[g] for g in sorted(pos)}\n    gap = max(rates.values()) - min(rates.values()) if len(rates) >= 2 else 0.0\n    return {'tpr': {g: round(r, 3) for g, r in rates.items()}, 'gap': round(gap, 3)}"
+ ],
+ [
+  "def ece(confidences, correct, bins=5):\n    if not confidences:\n        return 0.0\n    groups = {}\n    for c, ok in zip(confidences, correct):\n        groups.setdefault(min(int(c * bins), bins - 1), []).append((c, ok))\n    n = len(confidences)\n    total = 0.0\n    for items in groups.values():\n        acc = sum(1 for _, ok in items if ok) / len(items)\n        avg = sum(c for c, _ in items) / len(items)\n        total += len(items) / n * abs(acc - avg)\n    return round(total, 4)",
+  "def reliability_table(confidences, correct, bins=5):\n    groups = {}\n    for c, ok in zip(confidences, correct):\n        groups.setdefault(min(int(c * bins), bins - 1), []).append((c, ok))\n    table = []\n    for b in sorted(groups):\n        items = groups[b]\n        avg = sum(c for c, _ in items) / len(items)\n        acc = sum(1 for _, ok in items if ok) / len(items)\n        table.append((round(b / bins, 2), round((b + 1) / bins, 2), len(items), round(avg, 3), round(acc, 3)))\n    return table"
+ ],
+ [
+  "def selective(confidences, correct, threshold):\n    if not confidences:\n        return {'coverage': 0.0, 'accuracy': 0.0}\n    answered = [ok for c, ok in zip(confidences, correct) if c >= threshold]\n    acc = sum(answered) / len(answered) if answered else 0.0\n    return {'coverage': round(len(answered) / len(confidences), 3), 'accuracy': round(acc, 3)}",
+  "def threshold_for(confidences, correct, target):\n    for t in sorted(set(confidences)):\n        answered = [ok for c, ok in zip(confidences, correct) if c >= t]\n        if answered and sum(answered) / len(answered) >= target:\n            return t\n    return None"
+ ],
+ [
+  "def run_suite(cases, guard):\n    failures = [c['id'] for c in cases if guard(c['input']) != c['expect']]\n    rate = (len(cases) - len(failures)) / len(cases) if cases else 0.0\n    return {'pass_rate': round(rate, 3), 'failures': failures}",
+  "def regression_gate(baseline, current, max_drop):\n    bad = sorted(m for m, v in baseline.items() if m not in current or current[m] < v - max_drop)\n    return (not bad, bad)"
+ ],
+ [
+  "import hashlib\n\n\ndef audit_entry(user_id, prompt, decision, reasons):\n    return {\n        'user': hashlib.sha256(user_id.encode()).hexdigest()[:12],\n        'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest()[:16],\n        'prompt_chars': len(prompt),\n        'decision': decision,\n        'reasons': sorted(reasons),\n    }",
+  "def audit_summary(entries):\n    decisions, reasons = {}, {}\n    for e in entries:\n        decisions[e['decision']] = decisions.get(e['decision'], 0) + 1\n        for r in e['reasons']:\n            reasons[r] = reasons.get(r, 0) + 1\n    top = min(reasons, key=lambda r: (-reasons[r], r)) if reasons else None\n    return {'total': len(entries), 'by_decision': {d: decisions[d] for d in sorted(decisions)}, 'top_reason': top}"
+ ],
+ [
+  "def incident_severity(users_affected, data_exposed, harmful_output):\n    if data_exposed or users_affected >= 10000:\n        return 'SEV1'\n    if harmful_output or users_affected >= 1000:\n        return 'SEV2'\n    if users_affected >= 10:\n        return 'SEV3'\n    return 'SEV4'",
+  "from datetime import datetime\n\n\ndef incident_times(events):\n    s, d, m = (datetime.fromisoformat(events[k]) for k in ('started', 'detected', 'mitigated'))\n    if not s <= d <= m:\n        raise ValueError('times are out of order')\n    minutes = lambda a, b: int((b - a).total_seconds() // 60)\n    return {'time_to_detect': minutes(s, d), 'time_to_mitigate': minutes(d, m), 'total': minutes(s, m)}"
+ ],
+ [
+  "def missing_sections(card, required):\n    return [s for s in required if not str(card.get(s, '')).strip()]",
+  "def render_card(name, card, order):\n    blocks = ['# ' + name]\n    for s in order:\n        text = str(card.get(s, '')).strip()\n        if text:\n            blocks.append('## ' + s.replace('_', ' ').capitalize() + '\\n' + text)\n    return '\\n\\n'.join(blocks)"
+ ],
+ [
+  "TIERS = [\n    ('PROHIBITED', ['social scoring', 'subliminal manipulation', 'real-time remote biometric']),\n    ('HIGH', ['hiring', 'recruitment', 'credit scoring', 'exam', 'admission', 'medical device',\n              'critical infrastructure', 'law enforcement']),\n    ('LIMITED', ['chatbot', 'deepfake', 'generated content']),\n]\n\n\ndef ai_act_tier(use_case):\n    low = use_case.lower()\n    for tier, words in TIERS:\n        if any(w in low for w in words):\n            return tier\n    return 'MINIMAL'",
+  "FUNCTIONS = ['GOVERN', 'MAP', 'MEASURE', 'MANAGE']\n\n\ndef rmf_coverage(activities):\n    counts = {f: 0 for f in FUNCTIONS}\n    for _, f in activities:\n        if f not in counts:\n            raise ValueError(f'unknown function {f}')\n        counts[f] += 1\n    return {'counts': counts, 'missing': [f for f in FUNCTIONS if counts[f] == 0]}"
+ ],
+ [
+  "def dedupe(docs):\n    seen, kept = set(), []\n    for i, d in enumerate(docs):\n        key = ' '.join(d.lower().split())\n        if key not in seen:\n            seen.add(key)\n            kept.append(i)\n    return (kept, len(docs) - len(kept))",
+  "def licence_filter(docs, allowed):\n    ok = {a.lower() for a in allowed}\n    kept, excluded = [], {}\n    for d in docs:\n        lic = (d.get('licence') or 'unknown').lower()\n        if lic in ok:\n            kept.append(d['id'])\n        else:\n            excluded[lic] = excluded.get(lic, 0) + 1\n    return (kept, {k: excluded[k] for k in sorted(excluded)})"
+ ],
+ [
+  "import hashlib\n\n\ndef is_green(prev, token, key):\n    return int(hashlib.md5(f'{key}|{prev}|{token}'.encode()).hexdigest(), 16) % 2 == 0\n\n\ndef green_count(tokens, key):\n    return sum(is_green(tokens[i - 1], tokens[i], key) for i in range(1, len(tokens)))",
+  "import hashlib\nimport math\n\n\ndef watermark_z(tokens, key, gamma=0.5):\n    T = len(tokens) - 1\n    if T < 1:\n        return 0.0\n    G = sum(int(hashlib.md5(f'{key}|{tokens[i - 1]}|{tokens[i]}'.encode()).hexdigest(), 16) % 2 == 0 for i in range(1, len(tokens)))\n    return round((G - gamma * T) / math.sqrt(T * gamma * (1 - gamma)), 3)"
+ ],
+ [
+  "import math\n\n\ndef _p(r_a, r_b):\n    return 1 / (1 + math.exp(r_b - r_a))\n\n\ndef bt_prob(r_a, r_b):\n    return round(_p(r_a, r_b), 4)\n\n\ndef pair_loss(r_chosen, r_rejected):\n    return round(-math.log(_p(r_chosen, r_rejected)), 4)",
+  "import math\n\n\ndef fit_ratings(items, comparisons, lr=0.1, epochs=100):\n    r = {i: 0.0 for i in items}\n    for _ in range(epochs):\n        for w, l in comparisons:\n            p = 1 / (1 + math.exp(r[l] - r[w]))\n            r[w] += lr * (1 - p)\n            r[l] -= lr * (1 - p)\n    return {i: round(r[i], 3) + 0.0 for i in items}"
+ ],
+ [
+  "def dashboard(decisions):\n    counts = {k: decisions.count(k) for k in ('ALLOW', 'REVIEW', 'BLOCK')}\n    n = len(decisions)\n    return {'total': n, 'counts': counts,\n            'block_rate': round(counts['BLOCK'] / n, 3) if n else 0.0,\n            'review_rate': round(counts['REVIEW'] / n, 3) if n else 0.0}",
+  "def spike_days(rates, factor=2.0, window=7):\n    days = []\n    for i in range(window, len(rates)):\n        mean = sum(rates[i - window:i]) / window\n        if rates[i] > factor * mean:\n            days.append(i)\n    return days"
+ ],
+ [
+  "import re\n\nINJECTION = [r'ignore (all |the )?(previous|prior|above) instructions', r'system prompt', r'developer mode']\nLEET = {'0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '@': 'a', '$': 's'}\n\n\ndef luhn_valid(digits):\n    if not digits.isdigit() or not 13 <= len(digits) <= 19:\n        return False\n    total = 0\n    for i, ch in enumerate(reversed(digits)):\n        d = int(ch)\n        if i % 2 == 1:\n            d = d * 2 - 9 if d * 2 > 9 else d * 2\n        total += d\n    return total % 10 == 0\n\n\ndef guardrail(text, max_chars, banned):\n    reasons = []\n    if not text.strip():\n        reasons.append('EMPTY')\n    if len(text) > max_chars:\n        reasons.append('TOO_LONG')\n    if any(re.search(p, text, re.IGNORECASE) for p in INJECTION):\n        reasons.append('INJECTION')\n    collapsed = re.sub(r'[^a-z]', '', ''.join(LEET.get(c, c) for c in text.lower()))\n    if any(w in collapsed for w in banned):\n        reasons.append('BANNED')\n    for m in re.finditer(r'\\b(?:\\d[ -]?){12,18}\\d\\b', text):\n        if luhn_valid(m.group(0).replace(' ', '').replace('-', '')):\n            reasons.append('CARD')\n            break\n    if any(r != 'CARD' for r in reasons):\n        decision = 'BLOCK'\n    elif reasons:\n        decision = 'REDACT'\n    else:\n        decision = 'ALLOW'\n    return {'decision': decision, 'reasons': reasons}",
+  "def safety_scorecard(metrics, targets):\n    results = {}\n    for name, (op, target) in targets.items():\n        if name not in metrics:\n            results[name] = 'MISSING'\n            continue\n        value = metrics[name]\n        ok = value >= target if op == '>=' else value <= target\n        results[name] = 'PASS' if ok else 'FAIL'\n    passed = sum(1 for v in results.values() if v == 'PASS')\n    total = len(targets)\n    share = passed / total if total else 0.0\n    grade = 'A' if total and passed == total else 'B' if share >= 0.8 else 'C' if share >= 0.5 else 'D'\n    return {'results': results, 'passed': passed, 'total': total, 'grade': grade}"
+ ]
+]

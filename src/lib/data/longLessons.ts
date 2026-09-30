@@ -21,6 +21,7 @@ import { PROMPT_PYTHON_LONG_LESSONS } from './promptPythonLongLessons';
 import { CYBER_PYTHON_LONG_LESSONS } from './cyberPythonLongLessons';
 import { TRAIN_PYTHON_LONG_LESSONS } from './trainPythonLongLessons';
 import { VECTOR_PYTHON_LONG_LESSONS } from './vectorPythonLongLessons';
+import { SAFETY_PYTHON_LONG_LESSONS } from './safetyPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -83,6 +84,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'cyber-py': CYBER_PYTHON_LONG_LESSONS,
   'train-py': TRAIN_PYTHON_LONG_LESSONS,
   'vec-py': VECTOR_PYTHON_LONG_LESSONS,
+  'safe-py': SAFETY_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
@@ -102,6 +104,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'cyber-py': 'python',
   'train-py': 'python',
   'vec-py': 'python',
+  'safe-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
