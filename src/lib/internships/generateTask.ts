@@ -110,3 +110,77 @@ Generate the JSON ticket now.`;
 
   return { system, user };
 }
+
+export interface GenerateValidatedTaskOptions extends BuildTaskPromptOptions {
+  maxAttempts?: number;
+  model?: string;
+}
+
+export type GenerateValidatedTaskResult =
+  | {
+      ok: true;
+      task: GeneratedTask;
+      model: string;
+      attempts: number;
+    }
+  | {
+      ok: false;
+      reasons: string[];
+    };
+
+/**
+ * Loops up to maxAttempts (default 3) calling askForJson and running validateGeneratedTask.
+ * Returns the first task that passes all validation steps V1-V7.
+ */
+export async function generateValidatedTask(
+  opts: GenerateValidatedTaskOptions
+): Promise<GenerateValidatedTaskResult> {
+  // Dynamically import askForJson and validateGeneratedTask to avoid eager module cycles
+  const { askForJson } = await import('@/lib/server/llmJson');
+  const { validateGeneratedTask } = await import('./validateTask');
+
+  const maxAttempts = opts.maxAttempts || 3;
+  const reasons: string[] = [];
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const seed = `${opts.seed}-attempt-${attempt}`;
+    const { system, user } = buildTaskPrompt({ ...opts, seed });
+
+    const askRes = await askForJson({
+      system,
+      user,
+      schema: GeneratedTaskSchema,
+      maxTokens: 4000,
+      model: opts.model,
+    });
+
+    if (!askRes.ok) {
+      reasons.push(`Attempt ${attempt} generation failed: ${askRes.reason}`);
+      continue;
+    }
+
+    const validationRes = await validateGeneratedTask(
+      askRes.data,
+      opts.language || 'python'
+    );
+
+    if (!validationRes.ok) {
+      reasons.push(
+        `Attempt ${attempt} validation failed at ${validationRes.step}: ${validationRes.reason}`
+      );
+      continue;
+    }
+
+    return {
+      ok: true,
+      task: askRes.data,
+      model: askRes.model,
+      attempts: attempt,
+    };
+  }
+
+  return {
+    ok: false,
+    reasons,
+  };
+}
