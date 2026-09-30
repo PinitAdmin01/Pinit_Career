@@ -82,21 +82,49 @@ export function getInternshipHonestyLabel(
   }
 }
 
-/**
- * Validates whether an internship meets all requirements for certificate issuance (C7 / T-19).
- * For Tier 1: all 5 tickets passed + final report present and accepted by AI.
- */
-export function isInternshipComplete(opts: {
+export interface InternshipCompletionCheckOptions {
   enrollment: {
+    tier?: string | null;
     status?: string | null;
     final_report?: string | null;
-    final_report_check?: { matches?: boolean } | null;
+    final_report_check?: {
+      matches?: boolean;
+      defenseResult?: { passed?: boolean; score?: number; verdict?: string };
+    } | null;
   } | null | undefined;
   tasks: Array<{ status?: string | null }> | null | undefined;
-}): boolean {
-  if (!opts.enrollment || !opts.tasks) return false;
+  sprints?: Array<{ status?: string | null }> | null | undefined;
+  defensePassed?: boolean;
+}
 
-  // Must have 5 tasks and every task must be 'passed'
+/**
+ * Validates whether an internship meets all requirements for certificate issuance (C7 / T-19 / T-29).
+ * - Tier 1: all 5 tickets passed + final report present and accepted by AI.
+ * - Tier 2: all 8 tickets passed + all 4 sprints approved + oral defense passed (FR-T2-9).
+ */
+export function isInternshipComplete(opts: InternshipCompletionCheckOptions): boolean {
+  if (!opts.enrollment || !opts.tasks) return false;
+  const tier = opts.enrollment.tier;
+
+  // Tier 2: Virtual Internship – Backend (FR-T2-9)
+  if (tier === 't2_virtual_team') {
+    if (opts.tasks.length < 8) return false;
+    const allTasksPassed = opts.tasks.every((t) => t.status === 'passed');
+    if (!allTasksPassed) return false;
+
+    // Must have all 4 sprints approved
+    if (!opts.sprints || opts.sprints.length < 4) return false;
+    const allSprintsApproved = opts.sprints.every((s) => s.status === 'approved');
+    if (!allSprintsApproved) return false;
+
+    // Defense must be passed
+    const defensePassed =
+      opts.defensePassed ??
+      Boolean(opts.enrollment.final_report_check?.defenseResult?.passed);
+    return defensePassed;
+  }
+
+  // Tier 1: Python Job Simulation (FR-T1-6 / C7)
   if (opts.tasks.length < 5) return false;
   const allPassed = opts.tasks.every((t) => t.status === 'passed');
   if (!allPassed) return false;
@@ -109,3 +137,4 @@ export function isInternshipComplete(opts: {
   const check = opts.enrollment.final_report_check;
   return Boolean(check && check.matches === true);
 }
+

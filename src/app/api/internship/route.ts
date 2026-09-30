@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
-import { taskToClient, enrollmentToClient } from '@/lib/internships/toClient';
-import type { InternshipEnrollmentRow, InternshipTaskRow } from '@/lib/internships/types';
+import { taskToClient, enrollmentToClient, sprintToClient } from '@/lib/internships/toClient';
+import { getStudentTeam } from '@/lib/internships/teams';
+import type {
+  InternshipEnrollmentRow,
+  InternshipTaskRow,
+  InternshipSprintRow,
+  ClientInternshipTeam,
+  ClientInternshipTeamMember,
+  ClientInternshipSprint,
+} from '@/lib/internships/types';
 
 const fail = (status: number, error: string, message: string) =>
   NextResponse.json({ ok: false, error, message }, { status });
@@ -58,10 +66,42 @@ export async function GET(req: NextRequest) {
     const clientEnrollment = enrollmentToClient(enrollment as InternshipEnrollmentRow);
     const clientTasks = ((tasks as unknown as InternshipTaskRow[]) || []).map(taskToClient);
 
+    let team: ClientInternshipTeam | null = null;
+    let members: ClientInternshipTeamMember[] = [];
+    let sprints: ClientInternshipSprint[] = [];
+    let isSolo = false;
+
+    if (clientEnrollment.tier === 't2_virtual_team') {
+      const teamData = await getStudentTeam(userId);
+      team = teamData.team;
+      members = teamData.members;
+      isSolo = teamData.isSolo;
+
+      if (team) {
+        const { data: sprintRows } = await admin
+          .from('internship_sprints')
+          .select('*')
+          .eq('team_id', team.id)
+          .order('number', { ascending: true });
+        sprints = ((sprintRows as unknown as InternshipSprintRow[]) || []).map(sprintToClient);
+      } else {
+        const { data: sprintRows } = await admin
+          .from('internship_sprints')
+          .select('*')
+          .eq('internship_enrollment_id', clientEnrollment.id)
+          .order('number', { ascending: true });
+        sprints = ((sprintRows as unknown as InternshipSprintRow[]) || []).map(sprintToClient);
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       enrollment: clientEnrollment,
       tasks: clientTasks,
+      team,
+      members,
+      sprints,
+      isSolo,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

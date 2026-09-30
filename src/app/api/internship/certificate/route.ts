@@ -93,8 +93,49 @@ export async function POST(req: NextRequest) {
       Pick<InternshipTaskRow, 'id' | 'seq' | 'title' | 'brief' | 'status'>
     >;
 
-    // 3. Verify that the internship is 100% complete (5 passed + report accepted)
-    if (!isInternshipComplete({ enrollment, tasks })) {
+    // 2b. If Tier 2, fetch team sprints
+    let sprints: Array<{ status?: string | null }> = [];
+    if (enrollment.tier === 't2_virtual_team') {
+      const { data: member } = await admin
+        .from('internship_team_members')
+        .select('team_id')
+        .eq('student_id', studentId)
+        .limit(1)
+        .maybeSingle();
+
+      if (member?.team_id) {
+        const { data: teamSprints } = await admin
+          .from('internship_sprints')
+          .select('id, number, status')
+          .eq('team_id', member.team_id)
+          .order('number', { ascending: true });
+        sprints = teamSprints || [];
+      } else {
+        const { data: enrSprints } = await admin
+          .from('internship_sprints')
+          .select('id, number, status')
+          .eq('internship_enrollment_id', enrollment.id)
+          .order('number', { ascending: true });
+        sprints = enrSprints || [];
+      }
+    }
+
+    // 3. Verify that the internship is 100% complete
+    if (!isInternshipComplete({ enrollment, tasks, sprints })) {
+      if (enrollment.tier === 't2_virtual_team') {
+        const passedTasks = tasks.filter((t) => t.status === 'passed').length;
+        const approvedSprints = sprints.filter((s) => s.status === 'approved').length;
+        const defensePassed = Boolean(
+          (enrollment.final_report_check as { defenseResult?: { passed?: boolean } } | null)
+            ?.defenseResult?.passed
+        );
+        return fail(
+          409,
+          'INTERNSHIP_NOT_COMPLETE',
+          `Tier 2 virtual internship is not yet complete: ${passedTasks}/8 tasks passed, ${approvedSprints}/4 sprints approved, defense passed: ${defensePassed}.`
+        );
+      }
+
       const passedCount = tasks.filter((t) => t.status === 'passed').length;
       return fail(
         409,

@@ -7,6 +7,8 @@ import type {
   ClientInternshipTeam,
   InternshipTeamMemberRow,
   ClientInternshipTeamMember,
+  InternshipSprintRow,
+  ClientInternshipSprint,
 } from './types';
 
 /**
@@ -132,6 +134,36 @@ export function teamMemberToClient(
       r.stories && typeof r.stories === 'object'
         ? (r.stories as Record<string, unknown>)
         : null,
+  };
+}
+
+/**
+ * Converts an internship sprint database row to a client-safe object.
+ */
+export function sprintToClient(
+  row:
+    | InternshipSprintRow
+    | (Partial<InternshipSprintRow> & { [key: string]: unknown })
+    | Record<string, unknown>
+): ClientInternshipSprint {
+  const r = row as unknown as Record<string, unknown>;
+  return {
+    id: String(r.id || ''),
+    teamId: r.team_id ? String(r.team_id) : (r.teamId ? String(r.teamId) : null),
+    internshipEnrollmentId: r.internship_enrollment_id
+      ? String(r.internship_enrollment_id)
+      : (r.internshipEnrollmentId ? String(r.internshipEnrollmentId) : null),
+    number: Number(r.number ?? 0),
+    goal: String(r.goal || ''),
+    dueAt: r.due_at ? String(r.due_at) : (r.dueAt ? String(r.dueAt) : null),
+    status: (r.status || 'open') as ClientInternshipSprint['status'],
+    review:
+      r.review && typeof r.review === 'object'
+        ? (r.review as Record<string, unknown>)
+        : null,
+    reviewedBy: r.reviewed_by ? String(r.reviewed_by) : (r.reviewedBy ? String(r.reviewedBy) : null),
+    reviewedAt: r.reviewed_at ? String(r.reviewed_at) : (r.reviewedAt ? String(r.reviewedAt) : null),
+    createdAt: String(r.created_at || r.createdAt || ''),
   };
 }
 

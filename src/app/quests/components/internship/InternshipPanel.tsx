@@ -4,9 +4,8 @@ import React from 'react';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import { isCapstoneComplete } from '@/lib/courses/crashCourseProgress';
 import type { ClientInternshipTask } from '@/lib/internships/types';
-import { CompanyProfileCard } from './CompanyProfileCard';
-import { InternshipDeadlineBanner } from './InternshipDeadlineBanner';
-import { TicketListCard } from './TicketListCard';
+import { Tier1Desk } from './Tier1Desk';
+import { Tier2Desk } from './Tier2Desk';
 import { TicketWorkspace } from './TicketWorkspace';
 import { FinalReportModal } from './FinalReportModal';
 import { InternshipCertificateCard } from './InternshipCertificateCard';
@@ -40,6 +39,10 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
     panelError,
     enrollment,
     tasks,
+    team,
+    members,
+    sprints,
+    isSolo,
     isStarting,
     startError,
     isExtending,
@@ -50,6 +53,11 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
     extendDeadline,
     restartSimulation,
     claimCertificate,
+    updateRepo,
+    submitPrLink,
+    submitSprint,
+    submitStandup,
+    submitDemoUrl,
   } = useInternshipData(crashEnrollment);
 
   const [activeWorkspaceTicket, setActiveWorkspaceTicket] = React.useState<ClientInternshipTask | null>(null);
@@ -122,7 +130,10 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
               </h2>
             </div>
             <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>
-              Assigned Engineer: <strong style={{ color: 'var(--text)' }}>{studentName}</strong> · Tier 1 (Simulated Python Experience)
+              Assigned Engineer: <strong style={{ color: 'var(--text)' }}>{studentName}</strong> ·{' '}
+              {enrollment?.tier === 't2_virtual_team'
+                ? 'Tier 2 (Virtual Internship Team)'
+                : 'Tier 1 (Simulated Python Experience)'}
             </p>
           </div>
           <button
@@ -177,69 +188,38 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
 
         {/* Active & Backlog Content Area */}
         {(state === 'active' || state === 'completed' || state === 'expired') && enrollment && (
-          <>
-            <InternshipDeadlineBanner
-              dueAt={enrollment.dueAt}
-              extended={enrollment.extended}
-              status={enrollment.status}
-              onRequestExtension={extendDeadline}
-              isRequestingExtension={isExtending}
-            />
-
-            <CompanyProfileCard profile={enrollment.companyProfile} />
-
-            {needsFinalReport && (
-              <div
-                style={{
-                  borderRadius: 12,
-                  padding: '16px 20px',
-                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(16, 185, 129, 0.15))',
-                  border: '1.5px solid rgba(16, 185, 129, 0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: 12,
-                }}
-              >
-                <div>
-                  <h4 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--text)' }}>
-                    🎉 Backlog Complete! Ready for Final Stand-Up Report
-                  </h4>
-                  <span style={{ fontSize: 12.5, color: 'var(--t2)' }}>
-                    Summarize what you built (100–300 words) to verify your cohort and unlock your credential.
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={onOpenReport || (() => setShowReportModal(true))}
-                  style={{
-                    padding: '8px 18px',
-                    borderRadius: 8,
-                    background: '#10b981',
-                    color: '#fff',
-                    border: 'none',
-                    fontSize: 13,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                  }}
-                >
-                  📝 Submit Stand-Up Report →
-                </button>
-              </div>
-            )}
-
-            <TicketListCard
+          enrollment.tier === 't2_virtual_team' ? (
+            <Tier2Desk
+              enrollment={enrollment}
               tasks={tasks}
+              team={team}
+              members={members}
+              sprints={sprints}
+              isSolo={isSolo}
+              onUpdateRepo={updateRepo}
+              onSubmitPrLink={submitPrLink}
+              onSubmitSprint={submitSprint}
+              onSubmitStandup={submitStandup}
+              onSubmitDemoUrl={submitDemoUrl}
               onSelectTicket={(task) => {
-                if (onSelectTicket) {
-                  onSelectTicket(task);
-                } else {
-                  setActiveWorkspaceTicket(task);
-                }
+                if (onSelectTicket) onSelectTicket(task);
+                else setActiveWorkspaceTicket(task);
               }}
             />
-          </>
+          ) : (
+            <Tier1Desk
+              enrollment={enrollment}
+              tasks={tasks}
+              needsFinalReport={needsFinalReport}
+              onExtendDeadline={extendDeadline}
+              isExtending={isExtending}
+              onOpenReport={onOpenReport || (() => setShowReportModal(true))}
+              onSelectTicket={(task) => {
+                if (onSelectTicket) onSelectTicket(task);
+                else setActiveWorkspaceTicket(task);
+              }}
+            />
+          )
         )}
 
         {/* Ticket Workspace Modal */}
