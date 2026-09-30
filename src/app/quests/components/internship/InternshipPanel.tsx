@@ -8,6 +8,8 @@ import { CompanyProfileCard } from './CompanyProfileCard';
 import { InternshipDeadlineBanner } from './InternshipDeadlineBanner';
 import { TicketListCard } from './TicketListCard';
 import { TicketWorkspace } from './TicketWorkspace';
+import { FinalReportModal } from './FinalReportModal';
+import { InternshipCertificateCard } from './InternshipCertificateCard';
 import {
   InternshipStatusBanner,
   type InternshipPanelState,
@@ -51,6 +53,8 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
   } = useInternshipData(crashEnrollment);
 
   const [activeWorkspaceTicket, setActiveWorkspaceTicket] = React.useState<ClientInternshipTask | null>(null);
+  const [showReportModal, setShowReportModal] = React.useState(false);
+  const [viewingCertificateId, setViewingCertificateId] = React.useState<string | null>(null);
 
   let state: InternshipPanelState = 'loading';
   let notEligibleReason = '';
@@ -157,9 +161,17 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
           isRestarting={isRestarting}
           certificateId={enrollment?.certificateId}
           hasFinalReport={!!enrollment?.finalReport}
-          onOpenReport={onOpenReport}
-          onViewCertificate={onOpenCertificate}
-          onRequestCertificate={() => claimCertificate(onOpenCertificate)}
+          onOpenReport={onOpenReport || (() => setShowReportModal(true))}
+          onViewCertificate={(certId) => {
+            if (onOpenCertificate) onOpenCertificate(certId);
+            else setViewingCertificateId(certId);
+          }}
+          onRequestCertificate={() =>
+            claimCertificate((certId) => {
+              if (onOpenCertificate) onOpenCertificate(certId);
+              else setViewingCertificateId(certId);
+            })
+          }
           isRequestingCertificate={isClaimingCert}
         />
 
@@ -176,7 +188,7 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
 
             <CompanyProfileCard profile={enrollment.companyProfile} />
 
-            {needsFinalReport && onOpenReport && (
+            {needsFinalReport && (
               <div
                 style={{
                   borderRadius: 12,
@@ -200,7 +212,7 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
                 </div>
                 <button
                   type="button"
-                  onClick={onOpenReport}
+                  onClick={onOpenReport || (() => setShowReportModal(true))}
                   style={{
                     padding: '8px 18px',
                     borderRadius: 8,
@@ -241,6 +253,30 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
             onTaskPassed={async () => {
               await fetchInternship();
             }}
+          />
+        )}
+
+        {/* Stand-Up Report Modal */}
+        {showReportModal && enrollment && (
+          <FinalReportModal
+            enrollmentId={enrollment.id}
+            existingReport={enrollment.finalReport}
+            onClose={() => setShowReportModal(false)}
+            onReportAccepted={async () => {
+              await fetchInternship();
+            }}
+          />
+        )}
+
+        {/* Verifiable Certificate Modal */}
+        {viewingCertificateId && (
+          <InternshipCertificateCard
+            certificateId={viewingCertificateId}
+            studentName={studentName}
+            planTitle={planTitle}
+            companyName={String(enrollment?.companyProfile?.name || 'Simulated Host Organization')}
+            completedAt={enrollment?.completedAt}
+            onClose={() => setViewingCertificateId(null)}
           />
         )}
       </div>
