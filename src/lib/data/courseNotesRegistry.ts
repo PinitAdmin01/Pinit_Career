@@ -866,6 +866,49 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-train-python': {
+    courseId: 'course-train-python',
+    courseTitle: 'Distributed Model Training in Python',
+    category: 'Machine Learning Infrastructure',
+    summary: 'How large models are trained across many GPUs: memory and compute planning, data parallelism and all-reduce, gradient accumulation, mixed precision, ZeRO and FSDP sharding, tensor and pipeline parallelism, activation checkpointing, optimizers and schedules, checkpoints and fault tolerance, communication costs, scaling laws, MFU, mixture of experts, LoRA, quantisation and distillation.',
+    realWorldAnalogy: 'Training a large model is like building a skyscraper with thousands of workers. Each crew works on its own section (data or model parallelism), everyone follows the same plans (synchronised weights), materials are delivered just in time (sharding and prefetching), progress is saved at each floor (checkpoints), and the site manager tracks cost and pace every day (MFU and budgets).',
+    keyConcepts: [
+      {
+        heading: '1. Memory and Compute Arithmetic',
+        explanation: 'Mixed-precision Adam needs about 16 bytes per parameter for model states, and training costs about 6 x parameters x tokens FLOPs. These two rules decide how many GPUs a run needs and how long it takes.',
+        codeOrExample: 'params, tokens = 7e9, 1e12\nstates_gb = 16 * params / 1e9          # 112 GB\nflops = 6 * params * tokens             # 4.2e22\ndays = flops / (512 * 312e12 * 0.4) / 86400  # about 7.6 days on 512 GPUs'
+      },
+      {
+        heading: '2. Sharding with ZeRO and FSDP',
+        explanation: 'Plain data parallelism copies model states onto every GPU. ZeRO stage 1 shards optimizer states, stage 2 also shards gradients, and stage 3 (FSDP) shards the parameters too, gathering each layer just before it is used.',
+        codeOrExample: 'def zero_gb(params, gpus, stage):\n    per_param = [16, 4 + 12 / gpus, 2 + 14 / gpus, 16 / gpus][stage]\n    return per_param * params / 1e9\n\nzero_gb(7.5e9, 64, 3)  # about 1.9 GB per GPU'
+      },
+      {
+        heading: '3. Parallelism, Communication and Efficiency',
+        explanation: 'Tensor parallelism splits layers inside a node, pipeline parallelism splits groups of layers across nodes, and ring all-reduce moves 2(p - 1)/p of the data per GPU. MFU measures how much of the hardware does useful work.',
+        codeOrExample: 'bubble = (stages - 1) / (micro_batches + stages - 1)\nmfu = 6 * params * tokens_per_sec / (gpus * peak_flops)'
+      }
+    ],
+    cheatsheet: [
+      'Training compute: about 6 x parameters x tokens FLOPs',
+      'Model states with mixed-precision Adam: 16 bytes per parameter',
+      'Effective batch = micro-batch x accumulation steps x GPUs',
+      'Chinchilla rule: about 20 training tokens per parameter',
+      'LoRA trains r x (d_in + d_out) parameters per adapted matrix'
+    ],
+    commonPitfalls: [
+      'Summing instead of averaging gradients during accumulation, which silently multiplies the learning rate.',
+      'Resuming from a checkpoint without the optimizer, scheduler and data position, which changes the run.',
+      'Using tensor parallelism across slow network links, where per-layer all-reduces dominate step time.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How would you decide whether a 13B-parameter model can be trained on 64 GPUs with 80 GB each?',
+        answer: 'Count model states at 16 bytes per parameter (208 GB), then apply ZeRO: stage 1 needs 4 x 13e9 + 12 x 13e9 / 64 bytes, about 54 GB per GPU, and stage 3 about 3.3 GB. Add activation memory for the chosen micro-batch and sequence length, use checkpointing if needed, and pick the smallest stage that fits with headroom, since it communicates least.'
+      }
+    ]
+  },
+
   'course-iot-embedded': {
     courseId: 'course-iot-embedded',
     courseTitle: 'IoT, Firmware & Embedded Systems',

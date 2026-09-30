@@ -19,6 +19,7 @@ import { NLP_PYTHON_LONG_LESSONS } from './nlpPythonLongLessons';
 import { QUANT_PYTHON_LONG_LESSONS } from './quantPythonLongLessons';
 import { PROMPT_PYTHON_LONG_LESSONS } from './promptPythonLongLessons';
 import { CYBER_PYTHON_LONG_LESSONS } from './cyberPythonLongLessons';
+import { TRAIN_PYTHON_LONG_LESSONS } from './trainPythonLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -79,6 +80,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'quant-py': QUANT_PYTHON_LONG_LESSONS,
   'prompt-py': PROMPT_PYTHON_LONG_LESSONS,
   'cyber-py': CYBER_PYTHON_LONG_LESSONS,
+  'train-py': TRAIN_PYTHON_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
@@ -96,6 +98,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'quant-py': 'python',
   'prompt-py': 'python',
   'cyber-py': 'python',
+  'train-py': 'python',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {

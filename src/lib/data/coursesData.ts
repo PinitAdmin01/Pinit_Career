@@ -16,6 +16,7 @@ import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
 import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
 import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
 import { CYBER_PYTHON_30_DAYS_QUESTS } from './cyberPython30DayData';
+import { TRAIN_PYTHON_30_DAYS_QUESTS } from './trainPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -200,6 +201,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🌐',
     quests: DIST_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-train-python',
+    title: 'Distributed Model Training in Python',
+    desc: 'How large models are trained on many GPUs, with every lesson example and practice task in Python: memory and compute planning, data parallelism, all-reduce, gradient accumulation, mixed precision, ZeRO and FSDP, tensor and pipeline parallelism, checkpointing, optimizers and schedules, fault tolerance, communication costs, scaling laws, MFU, mixture of experts, LoRA, quantisation, distillation and cluster cost.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🔥',
+    quests: TRAIN_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-ai-eng',
