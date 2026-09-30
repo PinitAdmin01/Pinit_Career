@@ -2,7 +2,8 @@
 
 import React from 'react';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
-import { CRASH_COURSE_PLANS, INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
+import { CRASH_COURSE_PLANS, INTERNSHIP_AVAILABLE, INTERNSHIP_TIER_AVAILABLE, PLAN_TIER_TO_INTERNSHIP } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_TIERS } from '@/lib/internships/tiers';
 
 export interface ActiveEnrollmentBannerProps {
   enrollment: CrashCourseEnrollment;
@@ -19,6 +20,17 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
 }) => {
   const plan = CRASH_COURSE_PLANS.find((p) => p.id === enrollment.planId) || CRASH_COURSE_PLANS[1];
   const trackLabel = enrollment.track === 'python_ai' ? 'Python & AI Engineering' : 'Full-Stack Web Dev';
+
+  const tierKey = PLAN_TIER_TO_INTERNSHIP[plan.tier];
+  const isTierOn = tierKey ? INTERNSHIP_TIER_AVAILABLE[tierKey] : false;
+  const tierConfig = tierKey ? INTERNSHIP_TIERS[tierKey] : null;
+
+  const getActiveTrackLabel = () => {
+    if (!isTierOn) return 'Active Certification Track';
+    if (tierKey === 't1_job_sim') return '2-Week Python Job Simulation (simulated company)';
+    if (tierKey === 't2_virtual_team') return '4-Week Virtual Internship – Backend (team, simulated company)';
+    return tierConfig ? tierConfig.name : 'Active Internship Track';
+  };
 
   const sprintLabels = [
     'Sprint 1: Architecture & Data Schema',
@@ -85,7 +97,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
                 boxShadow: '0 0 8px #10b981'
               }}
             />
-            {INTERNSHIP_AVAILABLE ? 'Active Fellowship Track' : 'Active Certification Track'}
+            {getActiveTrackLabel()}
           </span>
           <span
             style={{
