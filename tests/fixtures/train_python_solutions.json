@@ -1,0 +1,122 @@
+[
+ [
+  "BYTES = {'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8': 1, 'int4': 0.5}\n\n\ndef model_memory_gb(params, precision):\n    if precision not in BYTES:\n        raise ValueError(f'unknown precision {precision}')\n    if not isinstance(params, (int, float)) or params <= 0:\n        raise ValueError('params must be positive')\n    return round(params * BYTES[precision] / 10**9, 2)",
+  "def training_days(params, tokens, gpus, peak_flops, mfu):\n    if gpus < 1 or not 0 < mfu <= 1:\n        raise ValueError('need at least one GPU and 0 < mfu <= 1')\n    seconds = 6 * params * tokens / (gpus * peak_flops * mfu)\n    return round(seconds / 86400, 1)"
+ ],
+ [
+  "def mse_and_grads(w, b, xs, ys):\n    n = len(xs)\n    errors = [w * x + b - y for x, y in zip(xs, ys)]\n    loss = sum(e * e for e in errors) / n\n    dw = sum(2 * e * x for e, x in zip(errors, xs)) / n\n    db = sum(2 * e for e in errors) / n\n    return (round(loss, 4), round(dw, 4), round(db, 4))",
+  "def fit_line(xs, ys, lr, steps):\n    w, b = 0.0, 0.0\n    n = len(xs)\n    for _ in range(steps):\n        errors = [w * x + b - y for x, y in zip(xs, ys)]\n        dw = sum(2 * e * x for e, x in zip(errors, xs)) / n\n        db = sum(2 * e for e in errors) / n\n        w -= lr * dw\n        b -= lr * db\n    return (round(w, 3) + 0.0, round(b, 3) + 0.0)"
+ ],
+ [
+  "def make_batches(n, batch_size, drop_last=False):\n    if batch_size < 1:\n        raise ValueError('batch_size must be at least 1')\n    batches = []\n    for start in range(0, n, batch_size):\n        end = min(start + batch_size, n)\n        if drop_last and end - start < batch_size:\n            break\n        batches.append((start, end))\n    return batches",
+  "import math\n\n\ndef scaled_lr(base_lr, base_batch, new_batch, rule='linear'):\n    ratio = new_batch / base_batch\n    if rule == 'linear':\n        factor = ratio\n    elif rule == 'sqrt':\n        factor = math.sqrt(ratio)\n    else:\n        raise ValueError(f'unknown rule {rule}')\n    return round(base_lr * factor, 6)"
+ ],
+ [
+  "import math\n\n\ndef shard_indices(n, world_size, rank):\n    if not 0 <= rank < world_size:\n        raise ValueError('rank out of range')\n    total = math.ceil(n / world_size) * world_size\n    indices = list(range(n))\n    while len(indices) < total:\n        indices += indices[:total - len(indices)]\n    return indices[rank::world_size]",
+  "def average_gradients(worker_grads):\n    if not worker_grads or len({len(g) for g in worker_grads}) != 1:\n        raise ValueError('need gradients of equal length')\n    n = len(worker_grads)\n    return [round(sum(vals) / n, 4) for vals in zip(*worker_grads)]"
+ ],
+ [
+  "def all_reduce(vectors, op='sum'):\n    if op == 'sum':\n        combined = [sum(v) for v in zip(*vectors)]\n    elif op == 'mean':\n        combined = [round(sum(v) / len(vectors), 4) for v in zip(*vectors)]\n    elif op == 'max':\n        combined = [max(v) for v in zip(*vectors)]\n    else:\n        raise ValueError(f'unknown op {op}')\n    return [list(combined) for _ in vectors]",
+  "def ring_cost(size_mb, workers):\n    if workers < 1:\n        raise ValueError('need at least one worker')\n    p = workers\n    return {'steps': 2 * (p - 1), 'sent_mb_per_worker': round(2 * (p - 1) / p * size_mb, 2)}"
+ ],
+ [
+  "def accumulate(micro_grads, accum_steps):\n    updates = []\n    for i in range(0, len(micro_grads) - accum_steps + 1, accum_steps):\n        group = micro_grads[i:i + accum_steps]\n        updates.append([round(sum(v) / accum_steps, 4) for v in zip(*group)])\n    return updates",
+  "def accum_steps_needed(target_batch, micro_batch, gpus):\n    if min(target_batch, micro_batch, gpus) < 1:\n        raise ValueError('all arguments must be at least 1')\n    per_step = micro_batch * gpus\n    if target_batch % per_step:\n        raise ValueError('target batch is not a multiple of micro_batch x gpus')\n    return target_batch // per_step"
+ ],
+ [
+  "def fp16_status(x):\n    if abs(x) > 65504:\n        return 'OVERFLOW'\n    if x != 0 and abs(x) < 2 ** -24:\n        return 'UNDERFLOW'\n    return 'OK'",
+  "class LossScaler:\n    def __init__(self, scale=65536.0, growth_interval=2000):\n        self.scale = scale\n        self.growth_interval = growth_interval\n        self.good_steps = 0\n\n    def update(self, found_overflow):\n        if found_overflow:\n            self.scale = max(1.0, self.scale / 2)\n            self.good_steps = 0\n            return False\n        self.good_steps += 1\n        if self.good_steps >= self.growth_interval:\n            self.scale *= 2\n            self.good_steps = 0\n        return True"
+ ],
+ [
+  "BYTES_PER_PARAM = {'adam_mixed': 16, 'adam_fp32': 16, 'sgd_momentum_fp32': 12, 'inference_fp16': 2}\n\n\ndef training_memory_gb(params, setup):\n    if setup not in BYTES_PER_PARAM:\n        raise ValueError(f'unknown setup {setup}')\n    return round(params * BYTES_PER_PARAM[setup] / 1e9, 1)",
+  "def fits_on_gpu(params, batch, seq_len, hidden, layers, gpu_gb):\n    states = round(16 * params / 1e9, 1)\n    acts = round(batch * seq_len * hidden * layers * 34 / 1e9, 1)\n    total = round(states + acts, 1)\n    return {'states_gb': states, 'activations_gb': acts, 'total_gb': total, 'fits': total <= gpu_gb}"
+ ],
+ [
+  "def zero_memory_gb(params, gpus, stage):\n    if stage == 0:\n        b = 16 * params\n    elif stage == 1:\n        b = 4 * params + 12 * params / gpus\n    elif stage == 2:\n        b = 2 * params + 14 * params / gpus\n    elif stage == 3:\n        b = 16 * params / gpus\n    else:\n        raise ValueError('stage must be 0, 1, 2 or 3')\n    return round(b / 1e9, 1)",
+  "import math\n\n\ndef max_params_billion(gpu_gb, gpus, stage, reserve_gb=0):\n    per_param = [16, 4 + 12 / gpus, 2 + 14 / gpus, 16 / gpus][stage]\n    params = (gpu_gb - reserve_gb) * 1e9 / per_param\n    return math.floor(params / 1e9 * 10 + 1e-9) / 10"
+ ],
+ [
+  "def fsdp_schedule(layers):\n    events = []\n    for layer in layers:\n        events += [f'gather:{layer}', f'forward:{layer}', f'free:{layer}']\n    for layer in reversed(layers):\n        events += [f'gather:{layer}', f'backward:{layer}', f'reduce_scatter:{layer}', f'free:{layer}']\n    return events",
+  "import math\n\n\ndef shard(values, world_size):\n    size = math.ceil(len(values) / world_size)\n    padded = list(values) + [0] * (size * world_size - len(values))\n    return [padded[i * size:(i + 1) * size] for i in range(world_size)]\n\n\ndef gather(shards, original_length):\n    flat = [v for s in shards for v in s]\n    return flat[:original_length]"
+ ],
+ [
+  "def col_parallel_matmul(x, W, parts):\n    cols = len(W[0]) // parts\n    output = []\n    for k in range(parts):\n        for j in range(k * cols, (k + 1) * cols):\n            output.append(sum(x[i] * W[i][j] for i in range(len(x))))\n    return (output, cols)",
+  "def row_parallel_matmul(x, W, parts):\n    rows = len(x) // parts\n    cols = len(W[0])\n    partials = []\n    for k in range(parts):\n        part = [sum(x[i] * W[i][j] for i in range(k * rows, (k + 1) * rows)) for j in range(cols)]\n        partials.append(part)\n    output = [sum(p[j] for p in partials) for j in range(cols)]\n    return (output, partials)"
+ ],
+ [
+  "def bubble_fraction(stages, micro_batches):\n    return round((stages - 1) / (micro_batches + stages - 1), 3)\n\n\ndef micro_batches_for(stages, max_bubble):\n    m = 1\n    while (stages - 1) / (m + stages - 1) > max_bubble:\n        m += 1\n    return m",
+  "def gpipe_forward(stages, micro_batches):\n    timeline = []\n    for t in range(micro_batches + stages - 1):\n        row = []\n        for s in range(stages):\n            k = t - s + 1\n            row.append(k if 1 <= k <= micro_batches else None)\n        timeline.append(row)\n    return timeline"
+ ],
+ [
+  "def activation_memory(layers, per_layer_gb, every=None):\n    if every is None:\n        return round(layers * per_layer_gb, 2)\n    if layers % every:\n        raise ValueError('every must divide layers')\n    return round((layers / every + every) * per_layer_gb, 2)",
+  "def best_interval(layers):\n    best = None\n    for k in range(1, layers + 1):\n        if layers % k == 0:\n            cost = layers / k + k\n            if best is None or cost < best[0]:\n                best = (cost, k)\n    return best[1]"
+ ],
+ [
+  "def momentum_step(w, g, v, lr, beta):\n    new_w, new_v = [], []\n    for wi, gi, vi in zip(w, g, v):\n        vn = beta * vi + gi\n        new_v.append(round(vn, 6))\n        new_w.append(round(wi - lr * vn, 6))\n    return (new_w, new_v)",
+  "import math\n\n\nclass Adam:\n    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):\n        self.lr, self.b1, self.b2, self.eps = lr, beta1, beta2, eps\n        self.m = None\n        self.v = None\n        self.t = 0\n\n    def step(self, w, g):\n        if self.m is None:\n            self.m = [0.0] * len(w)\n            self.v = [0.0] * len(w)\n        self.t += 1\n        out = []\n        for i, (wi, gi) in enumerate(zip(w, g)):\n            self.m[i] = self.b1 * self.m[i] + (1 - self.b1) * gi\n            self.v[i] = self.b2 * self.v[i] + (1 - self.b2) * gi * gi\n            m_hat = self.m[i] / (1 - self.b1 ** self.t)\n            v_hat = self.v[i] / (1 - self.b2 ** self.t)\n            out.append(round(wi - self.lr * m_hat / (math.sqrt(v_hat) + self.eps), 6) + 0.0)\n        return out"
+ ],
+ [
+  "import math\n\n\ndef lr_at(step, max_lr, warmup, total, min_lr=0.0):\n    if step < warmup:\n        lr = max_lr * (step + 1) / warmup\n    elif step >= total:\n        lr = min_lr\n    else:\n        progress = (step - warmup) / (total - warmup)\n        lr = min_lr + 0.5 * (max_lr - min_lr) * (1 + math.cos(math.pi * progress))\n    return round(lr, 8)",
+  "def step_decay(step, base_lr, drop, every):\n    return round(base_lr * drop ** (step // every), 8)\n\n\ndef schedule(steps, base_lr, drop, every):\n    return [(s, step_decay(s, base_lr, drop, every)) for s in range(0, steps, every)]"
+ ],
+ [
+  "import math\n\n\ndef clip_by_global_norm(grads, max_norm):\n    norm = math.sqrt(sum(v * v for layer in grads for v in layer))\n    scale = max_norm / norm if norm > max_norm else 1.0\n    return ([[round(v * scale, 4) for v in layer] for layer in grads], round(norm, 4))",
+  "import math\n\n\ndef first_instability(losses, window=3, factor=2.0):\n    for i, loss in enumerate(losses):\n        if math.isnan(loss):\n            return i\n        if i >= window:\n            mean = sum(losses[i - window:i]) / window\n            if loss > factor * mean:\n                return i\n    return None"
+ ],
+ [
+  "import json\n\nREQUIRED = ('step', 'weights', 'optimizer', 'seed')\n\n\ndef save_checkpoint(step, weights, optimizer_state, seed):\n    return json.dumps({'version': 1, 'step': step, 'weights': weights, 'optimizer': optimizer_state, 'seed': seed},\n                      sort_keys=True)\n\n\ndef load_checkpoint(text):\n    data = json.loads(text)\n    if data.get('version') != 1:\n        raise ValueError('unsupported checkpoint version')\n    missing = [k for k in REQUIRED if k not in data]\n    if missing:\n        raise ValueError(f'checkpoint is missing {missing}')\n    return data",
+  "def latest_valid(checkpoints, shards):\n    needed = set(range(shards))\n    valid = [c['step'] for c in checkpoints if needed <= set(c['written']) and not c['bad_checksums']]\n    return max(valid) if valid else None"
+ ],
+ [
+  "def elastic_plan(global_batch, micro_batch, gpus):\n    for n in range(gpus, 0, -1):\n        if global_batch % (micro_batch * n) == 0:\n            return {'gpus': n, 'accum_steps': global_batch // (micro_batch * n)}\n    raise ValueError('global batch cannot be split into micro-batches')",
+  "def lost_work(fail_step, checkpoint_every, step_seconds, restart_seconds):\n    resume = fail_step // checkpoint_every * checkpoint_every\n    lost = fail_step - resume\n    return {'resume_from': resume, 'lost_steps': lost,\n            'lost_minutes': round((lost * step_seconds + restart_seconds) / 60, 1)}"
+ ],
+ [
+  "import random\n\n\ndef epoch_order(n, seed, epoch):\n    order = list(range(n))\n    random.Random(seed * 1000 + epoch).shuffle(order)\n    return order",
+  "def assign_shards(sizes, workers):\n    load = [0] * workers\n    out = [[] for _ in range(workers)]\n    for i in sorted(range(len(sizes)), key=lambda i: (-sizes[i], i)):\n        w = min(range(workers), key=lambda k: (load[k], k))\n        load[w] += sizes[i]\n        out[w].append(i)\n    return [sorted(x) for x in out]"
+ ],
+ [
+  "def transfer_ms(size_mb, latency_us, bandwidth_gbps):\n    return round(latency_us / 1000 + size_mb * 8 / (bandwidth_gbps * 1000) * 1000, 3)",
+  "def allreduce_ms(size_mb, gpus, latency_us, bandwidth_gbps):\n    if gpus <= 1:\n        return 0.0\n    chunk_ms = latency_us / 1000 + (size_mb / gpus) * 8 / (bandwidth_gbps * 1000) * 1000\n    return round(2 * (gpus - 1) * chunk_ms, 2)"
+ ],
+ [
+  "def make_buckets(layer_sizes_mb, bucket_mb):\n    buckets, current, total = [], [], 0\n    for i in reversed(range(len(layer_sizes_mb))):\n        size = layer_sizes_mb[i]\n        if current and total + size > bucket_mb:\n            buckets.append(current)\n            current, total = [], 0\n        current.append(i)\n        total += size\n    if current:\n        buckets.append(current)\n    return buckets",
+  "def step_time(compute_ms, comm_ms):\n    compute_done = comm_done = 0\n    for c, m in zip(compute_ms, comm_ms):\n        compute_done += c\n        comm_done = max(comm_done, compute_done) + m\n    sequential = sum(compute_ms) + sum(comm_ms)\n    return {'overlapped': comm_done, 'sequential': sequential,\n            'saved_pct': round((sequential - comm_done) / sequential * 100, 1)}"
+ ],
+ [
+  "import math\n\n\ndef chinchilla(compute_flops):\n    n = math.sqrt(compute_flops / 120)\n    return {'params_b': round(n / 1e9, 1), 'tokens_b': round(20 * n / 1e9, 1)}",
+  "def budget_report(params, tokens, gpu_peak_flops, mfu, price_per_gpu_hour):\n    flops = 6 * params * tokens\n    hours = int(round(flops / (gpu_peak_flops * mfu) / 3600))\n    tpp = round(tokens / params, 1)\n    verdict = 'UNDERTRAINED' if tpp < 15 else 'OVERTRAINED' if tpp > 100 else 'BALANCED'\n    return {'flops': flops, 'gpu_hours': hours, 'cost': int(round(hours * price_per_gpu_hour)),\n            'tokens_per_param': tpp, 'verdict': verdict}"
+ ],
+ [
+  "def mfu(tokens_per_second, params, gpus, peak_flops_per_gpu):\n    return round(6 * params * tokens_per_second / (gpus * peak_flops_per_gpu), 3)",
+  "import statistics\n\n\ndef throughput_report(step_seconds, tokens_per_step):\n    median = statistics.median(step_seconds)\n    return {\n        'tokens_per_sec': int(round(tokens_per_step * len(step_seconds) / sum(step_seconds))),\n        'median_step': round(median, 3),\n        'slowest_step': round(max(step_seconds), 3),\n        'slow_steps': sum(t > 1.5 * median for t in step_seconds),\n    }"
+ ],
+ [
+  "def top_phase(profile):\n    if not profile:\n        return (None, 0.0)\n    name = min(profile, key=lambda k: (-profile[k], k))\n    return (name, round(profile[name] / sum(profile.values()) * 100, 1))",
+  "ADVICE = {\n    'INPUT_BOUND': 'add data loader workers and prefetch',\n    'COMM_BOUND': 'overlap communication or increase batch per GPU',\n    'COMPUTE_BOUND': 'use mixed precision and fused kernels',\n}\n\n\ndef classify_step(data_wait_ms, compute_ms, comm_ms):\n    total = data_wait_ms + compute_ms + comm_ms\n    if data_wait_ms > 0.2 * total:\n        return 'INPUT_BOUND'\n    if comm_ms > compute_ms:\n        return 'COMM_BOUND'\n    return 'COMPUTE_BOUND'\n\n\ndef advice(kind):\n    return ADVICE[kind]"
+ ],
+ [
+  "def route(gate_scores, k):\n    return [sorted(range(len(s)), key=lambda e: (-s[e], e))[:k] for s in gate_scores]",
+  "def apply_capacity(assignments, experts, capacity):\n    load = [0] * experts\n    dropped = []\n    for i, e in enumerate(assignments):\n        if load[e] < capacity:\n            load[e] += 1\n        else:\n            dropped.append(i)\n    mean = sum(load) / experts\n    return {'load': load, 'dropped': dropped, 'imbalance': round(max(load) / mean, 2) if mean else 0.0}"
+ ],
+ [
+  "def lora_params(layers, d_in, d_out, rank):\n    full = layers * d_in * d_out\n    lora = layers * rank * (d_in + d_out)\n    return {'full': full, 'lora': lora, 'trainable_pct': round(lora / full * 100, 3)}",
+  "def matvec(x, M):\n    return [sum(x[i] * M[i][j] for i in range(len(x))) for j in range(len(M[0]))]\n\n\ndef lora_forward(x, W, A, B, alpha, rank):\n    base = matvec(x, W)\n    low = matvec(matvec(x, A), B)\n    s = alpha / rank\n    return [round(b + s * l, 4) for b, l in zip(base, low)]\n\n\ndef merge(W, A, B, alpha, rank):\n    s = alpha / rank\n    return [[round(W[i][j] + s * sum(A[i][k] * B[k][j] for k in range(len(B))), 4) for j in range(len(W[0]))]\n            for i in range(len(W))]"
+ ],
+ [
+  "def quantize(values):\n    peak = max(abs(v) for v in values)\n    scale = peak / 127 if peak else 1.0\n    q = [max(-127, min(127, round(v / scale))) for v in values]\n    return (q, round(scale, 6))\n\n\ndef dequantize(q, scale):\n    return [round(qi * scale, 4) + 0.0 for qi in q]",
+  "def model_size_gb(params, bits):\n    return round(params * bits / 8 / 1e9, 1)\n\n\ndef max_error(values):\n    scale = max(abs(v) for v in values) / 127\n    return round(max(abs(v - round(v / scale) * scale) for v in values), 4)"
+ ],
+ [
+  "import math\n\n\ndef softmax_t(logits, temperature=1.0):\n    if temperature <= 0:\n        raise ValueError('temperature must be positive')\n    z = [l / temperature for l in logits]\n    m = max(z)\n    e = [math.exp(v - m) for v in z]\n    total = sum(e)\n    return [round(v / total, 4) for v in e]",
+  "import math\n\n\ndef _softmax(logits, t):\n    z = [l / t for l in logits]\n    m = max(z)\n    e = [math.exp(v - m) for v in z]\n    s = sum(e)\n    return [v / s for v in e]\n\n\ndef distill_loss(student_logits, teacher_logits, temperature):\n    p = _softmax(teacher_logits, temperature)\n    q = _softmax(student_logits, temperature)\n    kl = sum(pi * math.log(pi / qi) for pi, qi in zip(p, q) if pi > 0)\n    return round(temperature ** 2 * kl, 4) + 0.0"
+ ],
+ [
+  "def place_job(gpus_needed, free_gpus):\n    if sum(free_gpus) < gpus_needed:\n        return None\n    fits = [i for i, f in enumerate(free_gpus) if f >= gpus_needed]\n    if fits:\n        best = min(fits, key=lambda i: (free_gpus[i], i))\n        return {best: gpus_needed}\n    plan, left = {}, gpus_needed\n    for i in sorted(range(len(free_gpus)), key=lambda i: (-free_gpus[i], i)):\n        if left == 0:\n            break\n        take = min(free_gpus[i], left)\n        if take:\n            plan[i] = take\n            left -= take\n    return plan",
+  "def run_cost(gpu_hours, on_demand_price, spot_discount_pct, spot_share_pct, failure_overhead_pct):\n    hours = gpu_hours * (1 + failure_overhead_pct / 100)\n    spot = hours * spot_share_pct / 100\n    cost = spot * on_demand_price * (1 - spot_discount_pct / 100) + (hours - spot) * on_demand_price\n    return round(cost, 2)"
+ ],
+ [
+  "def plan_training(params, gpus, gpu_gb, activation_gb):\n    per_param = [16, 4 + 12 / gpus, 2 + 14 / gpus, 16 / gpus]\n    for stage, b in enumerate(per_param):\n        total = b * params / 1e9 + activation_gb\n        if total <= gpu_gb:\n            return {'stage': stage, 'per_gpu_gb': round(total, 1)}\n    return {'stage': None, 'per_gpu_gb': round(per_param[3] * params / 1e9 + activation_gb, 1)}",
+  "import math\n\n\ndef run_report(log):\n    if not log:\n        return {'steps': 0, 'final_loss': None, 'best_loss': None, 'nan_steps': [], 'tokens_per_sec': 0}\n    good = [e['loss'] for e in log if not math.isnan(e['loss'])]\n    last = log[-1]['loss']\n    return {\n        'steps': len(log),\n        'final_loss': None if math.isnan(last) else round(last, 4),\n        'best_loss': round(min(good), 4) if good else None,\n        'nan_steps': [e['step'] for e in log if math.isnan(e['loss'])],\n        'tokens_per_sec': int(round(sum(e['tokens'] for e in log) / sum(e['seconds'] for e in log))),\n    }"
+ ]
+]
