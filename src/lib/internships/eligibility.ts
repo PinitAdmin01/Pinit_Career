@@ -3,9 +3,9 @@ import {
   INTERNSHIP_TIER_AVAILABLE,
   type InternshipTier,
   type CrashPlan,
-} from '@/lib/data/crashPlansData';
-import { isCapstoneComplete } from '@/lib/courses/crashCourseProgress';
-import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
+} from '../data/crashPlansData';
+import { isCapstoneComplete } from '../courses/crashCourseProgress';
+import type { CrashCourseEnrollment } from '../services/crashCourseEnrollmentService';
 
 export interface CheckEligibilityOptions {
   enrollment?:

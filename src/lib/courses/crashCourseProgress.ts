@@ -4,8 +4,8 @@ import {
   PLAN_TIER_TO_INTERNSHIP,
   type InternshipTier,
   type CrashPlan,
-} from '@/lib/data/crashPlansData';
-import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
+} from '../data/crashPlansData';
+import type { CrashCourseEnrollment } from '../services/crashCourseEnrollmentService';
 
 /**
  * Progress of a purchased certificate course (quests sub-tab 1).

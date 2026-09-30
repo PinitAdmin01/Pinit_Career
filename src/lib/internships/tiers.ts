@@ -1,4 +1,4 @@
-import type { InternshipTier } from '@/lib/data/crashPlansData';
+import type { InternshipTier } from '../data/crashPlansData';
 
 /**
  * Static configuration for one internship tier. Names and rules live here
