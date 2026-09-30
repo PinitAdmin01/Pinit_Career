@@ -72,12 +72,35 @@ export interface CrashPlan {
   };
 }
 
+export type InternshipTier = 't1_job_sim' | 't2_virtual_team' | 't3_project' | 't4_industry' | 't5_fellowship';
+
+/** Maps each training plan tier to its internship tier (24m has none). */
+export const PLAN_TIER_TO_INTERNSHIP: Record<string, InternshipTier> = {
+  '1m': 't1_job_sim',
+  '3m': 't2_virtual_team',
+  '6m': 't3_project',
+  '9m': 't4_industry',
+  '12m': 't5_fellowship',
+};
+
 /**
- * The internship / PinIT Labs fellowship phase is not built yet (owner decision 2026-09-27: hide it
- * until it exists). While false, plans shown to students and buyers promise no internship, no
- * fellowship step and no internship certificate. Set to true once the internship module ships.
+ * Per-tier switch. The owner turns each one on when that tier's internship
+ * module is built and tested. **NEVER set any of these to true** without
+ * explicit owner permission (see T-40).
  */
-export const INTERNSHIP_AVAILABLE = false;
+export const INTERNSHIP_TIER_AVAILABLE: Record<InternshipTier, boolean> = {
+  t1_job_sim: false,
+  t2_virtual_team: false,
+  t3_project: false,
+  t4_industry: false,
+  t5_fellowship: false,
+};
+
+/**
+ * True when at least one internship tier is turned on. Derived from
+ * INTERNSHIP_TIER_AVAILABLE so it never needs to be edited by hand.
+ */
+export const INTERNSHIP_AVAILABLE = Object.values(INTERNSHIP_TIER_AVAILABLE).some(Boolean);
 
 const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
   {
@@ -704,9 +727,11 @@ function withoutInternship(plan: CrashPlan): CrashPlan {
   };
 }
 
-export const CRASH_COURSE_PLANS: CrashPlan[] = INTERNSHIP_AVAILABLE
-  ? ALL_CRASH_COURSE_PLANS
-  : ALL_CRASH_COURSE_PLANS.map(withoutInternship);
+export const CRASH_COURSE_PLANS: CrashPlan[] = ALL_CRASH_COURSE_PLANS.map((plan) => {
+  const internshipTier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
+  if (internshipTier && INTERNSHIP_TIER_AVAILABLE[internshipTier]) return plan;
+  return withoutInternship(plan);
+});
 
 export function getCrashPlanById(id: string): CrashPlan | undefined {
   return CRASH_COURSE_PLANS.find(p => p.id === id);
