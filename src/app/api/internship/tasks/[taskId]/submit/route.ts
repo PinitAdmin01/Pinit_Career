@@ -7,6 +7,7 @@ import {
   executeTicketCode,
 } from '@/lib/internships/submission';
 import type { InternshipTaskRow, InternshipEnrollmentRow } from '@/lib/internships/types';
+import type { CodeReview } from '@/lib/internships/codeReview';
 
 const fail = (status: number, error: string, message: string) =>
   NextResponse.json({ ok: false, error, message }, { status });
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest, context: RouteContext) {
     // Load task (Explicit projection: NEVER select * from internship_tasks)
     const { data: rawTask, error: taskErr } = await admin
       .from('internship_tasks')
-      .select('id, internship_enrollment_id, seq, language, starter_code, visible_tests, hidden_tests, sql_setup, status, attempts')
+      .select('id, internship_enrollment_id, seq, language, title, brief, starter_code, visible_tests, hidden_tests, sql_setup, status, attempts')
       .eq('id', taskId)
       .maybeSingle();
 
@@ -67,6 +68,8 @@ export async function POST(req: NextRequest, context: RouteContext) {
       | 'internship_enrollment_id'
       | 'seq'
       | 'language'
+      | 'title'
+      | 'brief'
       | 'starter_code'
       | 'visible_tests'
       | 'hidden_tests'
@@ -120,6 +123,24 @@ export async function POST(req: NextRequest, context: RouteContext) {
     const newAttempts = Number(task.attempts || 0) + 1;
     const nowIso = new Date().toISOString();
 
+    // On pass, request AI code review without blocking for > 20s (FR-T1-6 / T-17)
+    let aiReview: CodeReview | null = null;
+    if (execution.passed) {
+      try {
+        const { generateCodeReview } = await import('@/lib/internships/codeReview');
+        aiReview = await generateCodeReview({
+          title: task.title,
+          brief: task.brief,
+          starterCode: task.starter_code,
+          code,
+          language: task.language,
+          timeoutMs: 18000,
+        });
+      } catch {
+        aiReview = null;
+      }
+    }
+
     // 1. Record submission in internship_submissions
     await admin.from('internship_submissions').insert({
       task_id: task.id,
@@ -127,7 +148,7 @@ export async function POST(req: NextRequest, context: RouteContext) {
       code,
       passed: execution.passed,
       output: execution.output,
-      ai_review: null,
+      ai_review: aiReview,
       created_at: nowIso,
     });
 
@@ -164,6 +185,7 @@ export async function POST(req: NextRequest, context: RouteContext) {
         output: execution.output,
         attempts: newAttempts,
         taskId: task.id,
+        aiReview,
       });
     }
 
