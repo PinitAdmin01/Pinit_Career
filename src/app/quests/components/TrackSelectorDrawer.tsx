@@ -10,6 +10,7 @@ import { VerticalCheckpointStepper } from './VerticalCheckpointStepper';
 import { PracticeTestReportModal } from './PracticeTestReportModal';
 import PracticeTestQuizRunner from './PracticeTestQuizRunner';
 import CapstoneInternshipPortal from './CapstoneInternshipPortal';
+import { InternshipPanel } from './internship/InternshipPanel';
 import CareerGrowthGraph from './CareerGrowthGraph';
 import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
 import CredentialPreviewModal from './CredentialPreviewModal';
@@ -116,6 +117,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
   const [practiceTestResult, setPracticeTestResult] = React.useState<any>(null);
   const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
+  const [showInternshipPanel, setShowInternshipPanel] = React.useState<boolean>(false);
   const [activeEnrollment, setActiveEnrollment] = React.useState<CrashCourseEnrollment | null>(null);
   const [checkoutModalOpen, setCheckoutModalOpen] = React.useState<boolean>(false);
 
@@ -490,6 +492,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   onOpenCapstoneDesk={() => setShowCapstonePortal(true)}
                   onOpenQrModal={() => setShowCapstonePortal(true)}
                   onGetCertificate={() => setShowCapstonePortal(true)}
+                  onOpenInternshipDesk={() => setShowInternshipPanel(true)}
                   onOpenPreviewCredentials={() => {
                     const p = getCrashPlanById(activeCrashPlanId) || CRASH_COURSE_PLANS[1];
                     setPreviewPlan(p);
@@ -774,6 +777,18 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               }}
               onClose={() => setShowCapstonePortal(false)}
               sprints={getCapstoneSprints(enrolledPlan, activeEnrollment.track)}
+            />
+          )}
+
+          {showInternshipPanel && activeEnrollment && (
+            <InternshipPanel
+              crashEnrollment={activeEnrollment}
+              planTitle={enrolledPlan?.title || 'Python Job Simulation'}
+              studentName={studentName}
+              onClose={() => setShowInternshipPanel(false)}
+              onOpenCertificate={(certId) => {
+                window.open(`/verify/${encodeURIComponent(certId)}`, '_blank');
+              }}
             />
           )}
 

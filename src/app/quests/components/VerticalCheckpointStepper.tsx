@@ -17,6 +17,8 @@ export interface VerticalCheckpointStepperProps {
   onContinueTodayQuest?: () => void;
   /** Issues the course certificate once the capstone passed (graduation phase). */
   onGetCertificate?: () => void;
+  /** Opens the internship simulation desk. */
+  onOpenInternshipDesk?: () => void;
 }
 
 const badgeFor = (status: PhaseStatus, labels: { completed: string; active: string; locked: string }) => labels[status];
@@ -30,7 +32,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
   onOpenQrModal,
   onOpenPreviewCredentials,
   onContinueTodayQuest,
-  onGetCertificate
+  onGetCertificate,
+  onOpenInternshipDesk,
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
   const flagship = plan.flagshipBuildByTrack[activeTrack];
@@ -86,8 +89,14 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         'Senior engineer mentor assignment',
         'Official Corporate Experience Letter'
       ],
-      // No fellowship desk exists yet (the capstone desk is a different phase), so no action here.
-      primaryAction: undefined as { label: string; onClick: () => void } | undefined
+      primaryAction: onOpenInternshipDesk ? {
+        label: phases.internship === 'completed'
+          ? '🎓 View Internship Outcome'
+          : phases.internship === 'active'
+          ? '🏢 Open Internship Desk'
+          : '🏢 View Internship Desk',
+        onClick: onOpenInternshipDesk,
+      } : undefined
     },
     {
       key: 'graduation',
