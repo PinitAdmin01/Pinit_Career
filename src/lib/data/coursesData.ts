@@ -15,6 +15,7 @@ import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
 import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
 import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
 import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
+import { CYBER_PYTHON_30_DAYS_QUESTS } from './cyberPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -163,6 +164,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🛡️',
     quests: CYBER_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-cyber-python',
+    title: 'Cybersecurity in Python',
+    desc: 'Defensive security with every lesson example and practice task in Python: threat modelling, SQL injection, XSS, CSRF, WAF rules, cryptography, password hashing, certificates, JWTs, TOTP, access control, rate limiting, SSRF, safe deserialisation, secret scanning, dependency audits, log detection, IDS rules, CVSS scoring, zero trust, cloud IAM and incident response.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🛡️',
+    quests: CYBER_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-database-eng',

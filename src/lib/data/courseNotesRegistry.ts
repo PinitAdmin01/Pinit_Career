@@ -698,6 +698,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-cyber-python': {
+    courseId: 'course-cyber-python',
+    courseTitle: 'Cybersecurity in Python',
+    category: 'Information Security',
+    summary: 'Protect code against OWASP Top 10 vulnerabilities, SQL injection, Cross-Site Scripting (XSS), CSRF attacks, cryptographic hashing, and Zero-Trust access control.',
+    realWorldAnalogy: 'Think of Cybersecurity like a high-security international bullion vault. You do not just put a lock on the front door; you employ biometric multi-factor authentication, tamper-evident seals, encrypted courier manifests, and assume any single barrier can be breached.',
+    keyConcepts: [
+      {
+        heading: '1. OWASP Top 10 Defense: SQLi & XSS',
+        explanation: 'Never trust user input. Use parameterized SQL statements to stop SQLi, and escape rendered HTML to neutralize XSS attacks.',
+        codeOrExample: '// Vulnerable: db.query(`SELECT * FROM users WHERE name = "${userInput}"`)\n// Secure Parameterized Query:\ndb.query("SELECT * FROM users WHERE name = $1", [userInput]);'
+      },
+      {
+        heading: '2. Cryptographic Salted Password Hashing',
+        explanation: 'Store passwords using slow, compute-intensive cryptographic hashing functions (Argon2id or bcrypt) with random salts to defeat rainbow tables.',
+        codeOrExample: 'import bcrypt from "bcrypt";\nconst saltRounds = 12;\nconst hash = await bcrypt.hash(rawPassword, saltRounds);\nconst match = await bcrypt.compare(attemptPassword, hash);'
+      },
+      {
+        heading: '3. Zero-Trust Architecture & OAuth2/JWT Tokens',
+        explanation: 'Never verify trust based on internal network perimeter. Authenticate and authorize every single HTTP request using signed cryptographic tokens.',
+        codeOrExample: 'const token = jwt.sign({ sub: userId, role: "auditor" }, privateKey, { algorithm: "RS256", expiresIn: "15m" });'
+      }
+    ],
+    cheatsheet: [
+      'SQLi Prevention: Parameterized queries & prepared statements only',
+      'XSS Prevention: Content-Security-Policy (CSP) headers & output encoding',
+      'Cookie Security: Set HttpOnly, Secure, and SameSite=Strict flags',
+      'Principle of Least Privilege: Grant only the minimum permissions required'
+    ],
+    commonPitfalls: [
+      'Storing user passwords in plain text or using obsolete hash functions like MD5 or SHA-1.',
+      'Exposing internal database primary keys directly in URLs without IDOR authorization checks.',
+      'Committing `.env` files with secret API credentials into public git repositories.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is the difference between Symmetric and Asymmetric encryption?',
+        answer: 'Symmetric encryption (like AES-256) uses the exact same secret key to encrypt and decrypt data, making it ultra-fast for bulk data. Asymmetric encryption (like RSA/ECC) uses a public key for encryption and a distinct private key for decryption, making it ideal for key exchange and digital signatures.'
+      }
+    ]
+  },
+
   'course-database-eng': {
     courseId: 'course-database-eng',
     courseTitle: 'Database Engineering & Query Performance',

@@ -12,6 +12,7 @@ import { CLOUD_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/cloudPython30DayDa
 import { NLP_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/nlpPython30DayData';
 import { QUANT_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/quantPython30DayData';
 import { PROMPT_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/promptPython30DayData';
+import { CYBER_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/cyberPython30DayData';
 import { findForbiddenPython } from '../src/lib/code/python/pythonGuard';
 
 /** Python-track courses whose reference answers are in tests/fixtures (not shipped to students). */
@@ -22,6 +23,7 @@ const COURSES: { name: string; configs: DayConfig[]; solutions: string }[] = [
   { name: 'NLP in Python', configs: NLP_PYTHON_30_DAYS_CONFIGS, solutions: 'nlp_python_solutions.json' },
   { name: 'Quantitative Trading Systems in Python', configs: QUANT_PYTHON_30_DAYS_CONFIGS, solutions: 'quant_python_solutions.json' },
   { name: 'Everyday AI & Prompt Engineering in Python', configs: PROMPT_PYTHON_30_DAYS_CONFIGS, solutions: 'prompt_python_solutions.json' },
+  { name: 'Cybersecurity in Python', configs: CYBER_PYTHON_30_DAYS_CONFIGS, solutions: 'cyber_python_solutions.json' },
 ];
 
 const hasPython = spawnSync('python3', ['--version']).status === 0;
