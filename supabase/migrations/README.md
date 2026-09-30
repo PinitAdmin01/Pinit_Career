@@ -19,6 +19,7 @@ Run only the NEW individual files not yet applied to the remote schema.
 9. `20260915_finance_dues_and_scholarships.sql`
 10. `20260914_interview_sessions.sql`     ← NEW (Friend 3 Task 3.2: Interview persistence & get_pin_balance RPC)
 11. `20260916_create_recruiter_activity_logs.sql`
+12. `20261001_internship_program.sql`          ← NEW (Internship program tables)
 
 ## Tables that exist in BOTH consolidated AND individual files:
 Run consolidated first — individual files strictly utilize `CREATE TABLE IF NOT EXISTS`, `CREATE INDEX IF NOT EXISTS`, and `CREATE OR REPLACE FUNCTION`, making sequential re-runs safe and non-destructive.

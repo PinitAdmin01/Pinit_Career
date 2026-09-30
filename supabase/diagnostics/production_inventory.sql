@@ -281,7 +281,19 @@ with expected(ord, file, kind, name) as (
     (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.tasks'),
     (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.visa_status'),
     (45, 'supabase/migrations/20260927_phase_b5_interview_live_sessions.sql', 'table', 'public.interview_live_sessions'),
-    (46, 'supabase/migrations/20260928_phase_b6a_finance_staff.sql', 'function', 'public.campus_is_finance_staff')
+    (46, 'supabase/migrations/20260928_phase_b6a_finance_staff.sql', 'function', 'public.campus_is_finance_staff'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_applications'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_enrollments'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_opportunities'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_pr_links'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_sprints'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_standups'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_submissions'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_supervisor_evaluations'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_tasks'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_team_members'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_teams'),
+    (47, 'supabase/migrations/20261001_internship_program.sql', 'table', 'public.internship_weekly_logs')
 ),
 checked as (
   select e.ord, e.file, e.name,
