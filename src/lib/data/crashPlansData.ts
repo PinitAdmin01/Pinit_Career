@@ -90,7 +90,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     trainingDurationDays: 30,
     dailyCommitment: 'About 1 hour a day: lesson, practice and a project step',
     projectDurationMonths: 1,
-    internshipDurationMonths: '2-3 Months',
+    internshipDurationMonths: '2 Weeks',
     totalProgramDuration: '3-4 Months Total',
     pinsPrice: 500,
     inrPrice: 4999,
@@ -157,12 +157,12 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Core React/Python Foundation', duration: 'Month 1', icon: '⚡' },
       { step: 2, title: '1-Month Capstone Project', subtitle: 'Build and deploy your own app', duration: 'Month 2', icon: '🚀' },
-      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Code Review & SHA-256 Pass', duration: 'Months 3–4', icon: '🏢' }
+      { step: 3, title: 'Python Job Simulation', subtitle: '5 Checked Tickets in a Simulated Company', duration: '2 Weeks', icon: '🏢' }
     ],
     features: [
       'Daily 1-Hour Micro-Learning & Hands-on Quests',
       '1-Month Production Capstone Project',
-      '2-3 Months Real-Time Industry Internship',
+      '2-Week Python Job Simulation',
       'Verifiable Project-Based Certificate (QR)',
       'Real-Time Internship Certificate & Recommendation',
       'A short test after every 5 lessons, with explanations',
@@ -214,7 +214,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     trainingDurationDays: 90,
     dailyCommitment: 'Daily 1 Hr Learning + Practice Labs',
     projectDurationMonths: 1,
-    internshipDurationMonths: '2-3 Months',
+    internshipDurationMonths: '4 Weeks',
     totalProgramDuration: '5-6 Months Total',
     pinsPrice: 1200,
     inrPrice: 9999,
@@ -239,12 +239,12 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Frontend, APIs & Databases', duration: 'Months 1–3', icon: '📚' },
       { step: 2, title: '1-Month Live Capstone', subtitle: 'Build Multi-Tenant Platform', duration: 'Month 4', icon: '🚀' },
-      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Sprint Audits & Experience Letter', duration: 'Months 5–6', icon: '🏢' }
+      { step: 3, title: 'Virtual Internship – Backend', subtitle: 'Team Sprints & AI Code Review', duration: '4 Weeks', icon: '🏢' }
     ],
     features: [
       '90 Days of Structured Daily 1-Hour Curriculum',
       '1-Month End-to-End Capstone Project with Code Review',
-      '2-3 Months Real-Time Industry Internship Experience',
+      '4-Week Virtual Internship – Backend',
       'Dual Verifiable Certificates (Project + Real-Time Internship)',
       'Production Student Portfolio Hosted & Live on Web',
       'Bi-Weekly Practice Tests with Immediate Radar Reports',
@@ -328,7 +328,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     trainingDurationDays: 180,
     dailyCommitment: 'Daily 1 Hr Learning + Practice Labs',
     projectDurationMonths: 1,
-    internshipDurationMonths: '2-3 Months',
+    internshipDurationMonths: '6-8 Weeks',
     totalProgramDuration: '8-9 Months Total',
     pinsPrice: 2200,
     inrPrice: 17999,
@@ -353,12 +353,12 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Full-Stack, Cloud & DevOps', duration: 'Months 1–6', icon: '⚙️' },
       { step: 2, title: '1-Month Live Capstone', subtitle: 'Enterprise Distributed System', duration: 'Month 7', icon: '🚀' },
-      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Senior Code Defense & Letters', duration: 'Months 8–9', icon: '🏢' }
+      { step: 3, title: 'Project Internship – AI Services', subtitle: 'Real Client or Open-Source Project', duration: '6-8 Weeks', icon: '🏢' }
     ],
     features: [
       '180 Days of Advanced Multi-Tier Software Engineering',
       '1-Month Production Enterprise Capstone Project',
-      '2-3 Months Real-Time Industry Internship with Live Mentorship',
+      '6-8 Week Project Internship – AI Services',
       'Dual Verifiable Certificates (Project + Real-Time Internship)',
       'Multi-Repository Production Portfolio on GitHub',
       'Weekly Comprehensive Mock Tests with Skill Gap Diagnosis',
@@ -406,7 +406,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     trainingDurationDays: 270,
     dailyCommitment: 'Daily 1 Hr Learning + Practice Labs',
     projectDurationMonths: 1,
-    internshipDurationMonths: '2-3 Months',
+    internshipDurationMonths: '8-12 Weeks',
     totalProgramDuration: '1 Year Total Immersion',
     pinsPrice: 3500,
     inrPrice: 24999,
@@ -431,12 +431,12 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Full Software Lifecycle & AI', duration: 'Months 1–9', icon: '🎓' },
       { step: 2, title: '1-Month Live Capstone', subtitle: 'Flagship Autonomous Platform', duration: 'Month 10', icon: '🚀' },
-      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Venture Studio Apprenticeship', duration: 'Months 11–12', icon: '🏢' }
+      { step: 3, title: 'Verified Industry Internship', subtitle: 'Work at a Real Company', duration: '8-12 Weeks', icon: '🏢' }
     ],
     features: [
       '270 Days of Rigorous Full-Lifecycle Software Engineering',
       '1-Month Enterprise Scaled Capstone (Multi-service Production)',
-      '2-3 Months Real-Time Industry Internship with Corporate Credentials',
+      '8-12 Week Verified Industry Internship',
       'Dual Verifiable Certificates (Project + Real-Time Internship)',
       'Full Placement-Ready Interview Preparation & Company Specific Mock Tests',
       'Comprehensive Practice Tests with Instant Diagnostic Reports & Skill Heatmap',
@@ -490,7 +490,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     trainingDurationDays: 360,
     dailyCommitment: 'Daily 1 Hr Learning + Practice Labs',
     projectDurationMonths: 2,
-    internshipDurationMonths: '4-6 Months',
+    internshipDurationMonths: '3-6 Months',
     totalProgramDuration: '16-18 Months Total Immersion',
     pinsPrice: 4500,
     inrPrice: 34999,
@@ -515,12 +515,12 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     journeySteps: [
       { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Architecture, Cloud & DSA', duration: 'Months 1–12', icon: '🏛️' },
       { step: 2, title: '2-Month Flagship Capstone', subtitle: 'Multi-Region Distributed Platform', duration: 'Months 13–14', icon: '🚀' },
-      { step: 3, title: 'Corporate Fellowship', subtitle: 'Tier-1 Company Real-Time Apprenticeship', duration: 'Months 15–18', icon: '🏢' }
+      { step: 3, title: 'Verified Fellowship + Placement', subtitle: 'Real Company Role & Placement Support', duration: '3-6 Months', icon: '🏢' }
     ],
     features: [
       '360 Days of Rigorous Architectural & Systems Engineering',
       '2-Month Multi-Region Enterprise Capstone Project',
-      '4-6 Months Guaranteed Real-Time Industry Fellowship',
+      '3-6 Month Verified Fellowship + Placement',
       'Dual Verifiable Credentials (Flagship Project + Corporate Fellowship)',
       'Direct Tier-1 Product Company Referral Pipeline',
       'Comprehensive Practice Assessments with Live Diagnostic Reports',
