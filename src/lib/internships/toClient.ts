@@ -9,6 +9,10 @@ import type {
   ClientInternshipTeamMember,
   InternshipSprintRow,
   ClientInternshipSprint,
+  InternshipOpportunityRow,
+  ClientInternshipOpportunity,
+  InternshipApplicationRow,
+  ClientInternshipApplication,
 } from './types';
 
 /**
@@ -163,6 +167,53 @@ export function sprintToClient(
         : null,
     reviewedBy: r.reviewed_by ? String(r.reviewed_by) : (r.reviewedBy ? String(r.reviewedBy) : null),
     reviewedAt: r.reviewed_at ? String(r.reviewed_at) : (r.reviewedAt ? String(r.reviewedAt) : null),
+    createdAt: String(r.created_at || r.createdAt || ''),
+  };
+}
+
+/**
+ * Converts an internship opportunity database row to a client-safe object.
+ */
+export function opportunityToClient(
+  row:
+    | InternshipOpportunityRow
+    | (Partial<InternshipOpportunityRow> & { [key: string]: unknown })
+    | Record<string, unknown>
+): ClientInternshipOpportunity {
+  const r = row as unknown as Record<string, unknown>;
+  return {
+    id: String(r.id || ''),
+    orgName: String(r.org_name || r.orgName || ''),
+    orgWebsite: r.org_website ? String(r.org_website) : (r.orgWebsite ? String(r.orgWebsite) : null),
+    kind: (r.kind || 'client_project') as ClientInternshipOpportunity['kind'],
+    title: String(r.title || ''),
+    description: String(r.description || ''),
+    minTier: String(r.min_tier || r.minTier || 't3_project'),
+    seats: Number(r.seats ?? 1),
+    paid: Boolean(r.paid),
+    stipend: r.stipend !== null && r.stipend !== undefined ? Number(r.stipend) : null,
+    authenticityTier: r.authenticity_tier ? String(r.authenticity_tier) : (r.authenticityTier ? String(r.authenticityTier) : null),
+    status: (r.status || 'draft') as ClientInternshipOpportunity['status'],
+    createdAt: String(r.created_at || r.createdAt || ''),
+  };
+}
+
+/**
+ * Converts an internship application database row to a client-safe object.
+ */
+export function applicationToClient(
+  row:
+    | InternshipApplicationRow
+    | (Partial<InternshipApplicationRow> & { [key: string]: unknown })
+    | Record<string, unknown>
+): ClientInternshipApplication {
+  const r = row as unknown as Record<string, unknown>;
+  return {
+    id: String(r.id || ''),
+    opportunityId: String(r.opportunity_id || r.opportunityId || ''),
+    studentId: String(r.student_id || r.studentId || ''),
+    internshipEnrollmentId: String(r.internship_enrollment_id || r.internshipEnrollmentId || ''),
+    status: (r.status || 'applied') as ClientInternshipApplication['status'],
     createdAt: String(r.created_at || r.createdAt || ''),
   };
 }
