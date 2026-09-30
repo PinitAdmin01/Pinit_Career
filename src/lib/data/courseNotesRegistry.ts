@@ -1580,6 +1580,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-ai-prompt-python': {
+    courseId: 'course-ai-prompt-python',
+    courseTitle: 'Everyday AI & Prompt Engineering in Python',
+    category: 'Applied Artificial Intelligence',
+    summary: 'Essential AI skills for every modern professional. Master prompt architecture, multi-turn steering, role-based prompting, automated document summarization, and workflow automation.',
+    realWorldAnalogy: 'Think of Prompt Engineering like delegating tasks to a brilliant Harvard graduate intern who reads 10,000 words per second. If you give vague instructions ("Write something about sales"), you get a bland generic answer. If you provide context, explicit constraints, and target examples, you get executive-grade deliverables.',
+    keyConcepts: [
+      {
+        heading: '1. The Core Prompt Architecture Framework',
+        explanation: 'Structure prompts using Role (persona), Context (background facts), Task (specific action), Constraints (boundaries), and Output Format (tables, JSON, markdown).',
+        codeOrExample: 'You are a senior CFO auditor. [ROLE]\nReview the attached Q3 balance sheet. [CONTEXT]\nIdentify the top 3 working capital liquidity risks. [TASK]\nDo not exceed 300 words; use bullet points. [CONSTRAINTS]\nOutput as a Markdown table with Risk, Severity, and Action. [FORMAT]'
+      },
+      {
+        heading: '2. Few-Shot In-Context Demonstration',
+        explanation: 'Provide 2-3 input-output exemplar pairs in the prompt to condition the LLM to follow exact formatting and classification standards without training.',
+        codeOrExample: 'Input: "Delivery was 3 days late, ruined my wedding." -> Sentiment: Negative | Intent: Complaint\nInput: "Can I exchange for size Large?" -> Sentiment: Neutral | Intent: Exchange\nInput: "Love the new interface, so fast!" -> Sentiment: Positive | Intent: Praise'
+      },
+      {
+        heading: '3. Chain-of-Thought (CoT) & Structured Reasoning',
+        explanation: 'Instruct the model to "think step by step" or decompose multi-step business problems into logical intermediate phases to prevent reasoning errors.',
+        codeOrExample: 'Before providing your final recommendation, write out your intermediate calculation steps and assumption checks.'
+      }
+    ],
+    cheatsheet: [
+      'Prompt Formula: Role + Context + Task + Constraints + Format',
+      'Few-Shot: 2-3 real examples dramatically boost formatting precision',
+      'Delimiters: Use triple backticks (```) or XML tags (<doc>) to separate data from instructions',
+      'Temperature: 0.0 - 0.2 for analytical/factual tasks; 0.7+ for creative brainstorming'
+    ],
+    commonPitfalls: [
+      'Giving vague, one-line prompts and expecting nuanced, expert-level outputs.',
+      'Blindly accepting factual citations without verifying against ground-truth source documents (hallucination risk).',
+      'Pasting confidential customer PII or proprietary trade secrets into consumer AI tools without enterprise data protection agreements.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is Chain-of-Thought prompting and why does it improve mathematical and logical accuracy?',
+        answer: 'Chain-of-Thought prompting directs the LLM to generate explicit intermediate reasoning steps before generating the final answer. Because LLMs predict the next token based on all prior tokens, writing out intermediate reasoning builds the necessary context tokens that guide the model to mathematically sound conclusions.'
+      }
+    ]
+  },
+
   'course-excel-data-viz': {
     courseId: 'course-excel-data-viz',
     courseTitle: 'Excel & Data Analysis Fundamentals',

@@ -14,6 +14,7 @@ import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
 import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
 import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
 import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
+import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
 import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
@@ -406,6 +407,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 4,
     icon: '🤖',
     quests: AI_PROMPT_LITERACY_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-ai-prompt-python',
+    title: 'Everyday AI & Prompt Engineering in Python',
+    desc: 'Practical AI literacy with every lesson example and practice task in Python: prompt structure, few-shot and chain-of-thought, token budgets, decoding settings, JSON validation, summarisation, RAG with citations, source checking, prompt chains, OCR, image prompts, transcription, hallucination and bias checks, PII redaction, injection defence, agents, automation, custom assistants, model evaluation and local models.',
+    difficulty: 'Beginner',
+    durationWeeks: 4,
+    icon: '🤖',
+    quests: PROMPT_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-excel-data-viz',
