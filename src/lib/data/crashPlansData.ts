@@ -677,7 +677,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 18, courseId: 'course-cloud-python', title: 'Month 18: High-Throughput Inference Clusters', desc: 'vLLM, Continuous Batching & PagedAttention', icon: '🚀', skills: ['vLLM', 'Inference Ops'] },
         { month: 19, courseId: 'course-ai-prompt-python', title: 'Month 19: Long-Horizon Agent Planning', desc: 'Tree-of-Thoughts, ReAct & Sandboxed Execution', icon: '🌲', skills: ['Agent Planning', 'Sandboxing'] },
         { month: 20, courseId: 'course-database-eng', title: 'Month 20: Graph Neural Networks & Knowledge Graphs', desc: 'PyTorch Geometric, Neo4j & Graph Embeddings', icon: '🕸️', skills: ['GNN', 'Knowledge Graphs'] },
-        { month: 21, courseId: 'course-cybersecurity', title: 'Month 21: Model Extraction & Red Teaming', desc: 'Jailbreaks, Prompt Injections & Model Armor', icon: '🛡️', skills: ['AI Red Teaming', 'Security'] },
+        { month: 21, courseId: 'course-cyber-python', title: 'Month 21: Model Extraction & Red Teaming', desc: 'Jailbreaks, Prompt Injections & Model Armor', icon: '🛡️', skills: ['AI Red Teaming', 'Security'] },
         { month: 22, courseId: 'course-cloud-python', title: 'Month 22: Edge AI & Mobile Neural Engines', desc: 'ONNX Runtime, CoreML & TFLite Deployment', icon: '📱', skills: ['Edge AI', 'Mobile Models'] },
         { month: 23, courseId: 'course-design-systems', title: 'Month 23: AI Ethics, Compliance & Governance', desc: 'EU AI Act, Bias Auditing & Watermarking', icon: '⚖️', skills: ['AI Governance', 'Compliance'] },
         { month: 24, courseId: 'course-dsa-python', title: 'Month 24: Principal AI Architect Defense', desc: 'Foundational Model Defense & Staff Level Placements', icon: '🏆', skills: ['Staff AI', 'Architecture'] }
