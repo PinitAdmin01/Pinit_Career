@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  getDeterministicTier2Tasks,
   TIER2_PYTHON_SKILLS,
   TIER2_SQL_SKILLS,
 } from '../src/lib/internships/tier2Tasks';
+import { getDeterministicTier2Tasks } from './fixtures/deterministicInternshipData';
 import type { UserStory } from '../src/lib/internships/productBrief';
 
 const mockStories: UserStory[] = [

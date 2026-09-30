@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getDeterministicTier2Tasks } from '../src/lib/internships/tier2Tasks';
+import { getDeterministicTier2Tasks } from './fixtures/deterministicInternshipData';
 import { validateGeneratedTask, runSqlVerification } from '../src/lib/internships/validateTask';
 
 test('W-00-2: Tier 2 SQL tasks compare values strictly and reject lazy/cheat queries', async () => {

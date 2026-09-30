@@ -19,9 +19,11 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { checkInternshipEligibility } from '../src/lib/internships/eligibility';
 import { generateTier1Tasks } from '../src/lib/internships/tier1Tickets';
-import { getDeterministicTier2Tasks } from '../src/lib/internships/tier2Tasks';
 import { findTeamSizes, formTeams } from '../src/lib/internships/teams';
-import { getDeterministicProductBrief } from '../src/lib/internships/productBrief';
+import {
+  getDeterministicProductBrief,
+  getDeterministicTier2Tasks,
+} from './fixtures/deterministicInternshipData';
 import {
   isInternshipComplete,
   newInternshipCertificateId,
