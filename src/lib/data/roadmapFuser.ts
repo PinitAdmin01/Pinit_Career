@@ -3,6 +3,7 @@ import { recommendCareerTrajectory } from './careerTrajectories';
 import { mapQuestToCompetencyEvidence } from '../pathway/competencyMatrix';
 import { MasteryState } from '../pathway/competencySchema';
 import { parseQuestId } from './curriculumEnricher';
+import { parseTestQuestId } from './courseTests';
 import { getRoadmapCourseIds } from '../roadmap/roadmapCourses';
 import {
   CompleteDiagnosticProfile,
@@ -139,7 +140,7 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
 
     // Attach Competency Mapping (authoritative day resolution: 3 quests per day)
     const parsedDay = parseQuestId(q.id)?.dayNum;
-    const dayNumber = parsedDay ?? (Math.floor(idx / 3) + 1);
+    const dayNumber = parsedDay ?? parseTestQuestId(q.id)?.end ?? (Math.floor(idx / 3) + 1);
     const compMapping = mapQuestToCompetencyEvidence(sourceCourseId, dayNumber, q.id);
     const compTag = compMapping ? {
       competencyId: compMapping.competencyId,

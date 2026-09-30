@@ -1,12 +1,17 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo, useState } from 'react';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
 import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking, getUserSoundscapeVolume, setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
 import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
+import { getLongLesson, getLongLessonLanguage } from '@/lib/data/longLessons';
+import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
+import { runSqlInBrowser } from '@/lib/code/sql/sqlRunner';
+import { getLessonCheck, getTestQuestions, parseTestQuestId, withAnswerAt } from '@/lib/data/courseTests';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
+import { withLessonHelpers } from '@/lib/code/sandbox/lessonHelpers';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { LessonState } from './useLessonState';
 
@@ -61,11 +66,12 @@ const RUNNER_LABELS: Record<string, string> = {
   'react-basics': '⚛️ React Node Sandbox',
   'sql-mastery': '🗄️ SQLite Engine',
   'dsa-optim': '🔢 DSA Node Sandbox',
+  'dsa-py': '🐍 Python 3 Executing',
   'fullstack-js': '🌐 Fullstack Node/Next Sandbox',
-  'cloud-native': '☁️ AWS Cloud Simulator',
+  'cloud': '☁️ AWS Cloud Simulator',
   'devops': '🚀 DevOps Pipeline Simulator',
   'git_vcs': '🐙 Git, GitHub & Version Control Sandbox',
-  'softskills': '🗣️ Professional Tech Communication & Interview Sandbox',
+  'soft-skills': '🗣️ Professional Tech Communication & Interview Sandbox',
   'design': '🎨 UI/UX Design Systems & Visual Frontend Sandbox',
   'mobile': '📱 Mobile Application Development & React Native Sandbox',
   'nlp': '📚 Natural Language Processing & LLM Infrastructure Sandbox',
@@ -77,21 +83,27 @@ const RUNNER_LABELS: Record<string, string> = {
   'bcom_ops': '⚙️ Operations, Supply Chain & Business Compliance Simulator',
   'bcom_tax': '📋 Corporate & Direct Tax Simulator',
   'bcom_aud': '🔍 Forensic & Statutory Audit Simulator',
-  'bcom_fin': '💹 Corporate Financial Management Simulator',
+  'bcom-finance': '💹 Corporate Financial Management Simulator',
   'bcom_law': '⚖️ Corporate & Commercial Law Simulator',
   'bcom_ban': '🏛️ Commercial Banking & Treasury Simulator',
   'bcom_scrm': '🤝 Sales, Customer Success & CRM Simulator',
   'bcom_ent': '💡 Entrepreneurship & Business Management Simulator',
   'bcom_ecom': '🛒 E-Commerce & Digital Business Simulator',
   'bcom_dmkt': '🚀 Digital Marketing & Growth Strategy Simulator',
-  'bcom_mkt': '📢 Digital Marketing & Growth Simulator',
+  'bcom-marketing': '📢 Digital Marketing & Growth Simulator',
   'bcom_ana': '📊 Business Analytics & Decision Intelligence Simulator',
-  'bcom_acc': '📊 Digital Accounting & ERP Simulator',
-  'quant': '📈 Quantitative Trading & Low-Latency Simulator',
+  'bcom-accounting': '📊 Digital Accounting & ERP Simulator',
+  'quant-systems': '📈 Quantitative Trading & Low-Latency Simulator',
   'iot_sec': '🔒 IoT Security & Root of Trust Simulator',
   'iot_edge': '🧠 Edge AI & TinyML TFLM Simulator',
   'ai': '🤖 AI & LLM Engine Simulator',
+  'ai-py': '🐍 Python 3 Executing',
   'dist': '🌐 Distributed Systems Simulator',
+  'dist-py': '🐍 Python 3 Executing',
+  'cloud-py': '🐍 Python 3 Executing',
+  'nlp-py': '🐍 Python 3 Executing',
+  'quant-py': '🐍 Python 3 Executing',
+  'prompt-py': '🐍 Python 3 Executing',
   'iot_net': '📶 IoT Radio Protocol Simulator',
   'iot_emb': '🔌 Embedded MCU Simulator',
   'g3d': '🔮 WebGL2 3D Shader Sandbox',
@@ -103,7 +115,7 @@ interface UseLessonEngineProps {
   questData: any;
   teacherId: string;
   user: any;
-  addCompletedQuest: (id: string, completed?: boolean, xp?: number, courseId?: string) => void;
+  addCompletedQuest: (id: string, completed?: boolean, xp?: number, courseId?: string, passReceipt?: string) => void;
   state: LessonState;
   finishLessonAndReturn: () => void;
 }
@@ -135,6 +147,7 @@ export function useLessonEngine({
     examPassed, setExamPassed,
     examFailed, setExamFailed,
     examCorrectCount, setExamCorrectCount,
+    examAnswers, setExamAnswers,
     maxUnlockedSlide, setMaxUnlockedSlide,
     setIsRecording,
     setConfettiParticles,
@@ -155,6 +168,19 @@ export function useLessonEngine({
 
   teacherIdRef.current = teacherId;
   slidesLengthRef.current = slides.length || syllabus.length;
+
+  // A test after every 5 days: no teaching slides, only questions from those days' lessons.
+  const testInfo = useMemo(() => parseTestQuestId(questId || ''), [questId]);
+  const quizQuestions = useMemo(
+    () => (testInfo ? getTestQuestions(testInfo.prefix, testInfo.start, testInfo.end) : null),
+    [testInfo]
+  );
+
+  // Written long-format lesson for this course day, if there is one.
+  const longLesson = useMemo(() => {
+    const parsed = parseQuestId(questId || '');
+    return parsed ? getLongLesson(parsed.prefix, parsed.dayNum) : null;
+  }, [questId]);
 
   const startVoiceInput = useCallback(() => {
     if (typeof window === 'undefined') return;
@@ -275,7 +301,25 @@ export function useLessonEngine({
         return;
       }
 
-      const executable = adaptCodeForSandbox(codeSnippet, questId);
+      const parsedId = parseQuestId(questId || '');
+      if (parsedId && getLongLessonLanguage(parsedId.prefix) === 'python') {
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting Python... (the first run takes a few seconds)" }));
+        const py = await runPythonInBrowser(codeSnippet);
+        const shown = [py.stdout, py.error ? `[Error] ${py.error}` : ''].filter(Boolean).join('\n');
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown || 'Your code ran but printed nothing. Use print(...) to see a result.' }));
+        return;
+      }
+
+      if (parsedId && getLongLessonLanguage(parsedId.prefix) === 'sql') {
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Starting PostgreSQL... (the first run can take up to 15 seconds)" }));
+        const shown = await runSqlInBrowser(codeSnippet);
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown }));
+        return;
+      }
+
+      // Run the example inside an async function so examples that await (or print after a
+      // promise settles) show all their output, with the hash helpers added when it uses them.
+      const executable = `return (async () => {\n${withLessonHelpers(adaptCodeForSandbox(codeSnippet, questId))}\n})();`;
       const result = await executeSandboxScript(executable, 4000);
 
       let formattedOutput = '';
@@ -297,7 +341,7 @@ export function useLessonEngine({
     } finally {
       setCodeRunning(prev => ({ ...prev, [slideIdx]: false }));
     }
-  }, [slides, questId, setCodeOutputs, setCodeRunning]);
+  }, [slides, questId, longLesson, setCodeOutputs, setCodeRunning]);
 
   const simulateCodeRun = useCallback((slideIdx: number, _mockOutput?: string) => {
     const rawCode = slides[slideIdx]?.codeExample;
@@ -335,7 +379,7 @@ export function useLessonEngine({
       let nextSpeechText = "";
       if (slides && slides[nextSlideIdx]) {
         const slide = slides[nextSlideIdx];
-        nextSpeechText = `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints?.[0] || ''}. Second, ${slide.bulletPoints?.[1] || ''}. And third, ${slide.bulletPoints?.[2] || ''}. Make sure you understand these before proceeding to the coding evaluation!`;
+        nextSpeechText = slide.speech || `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints?.[0] || ''}. Second, ${slide.bulletPoints?.[1] || ''}. And third, ${slide.bulletPoints?.[2] || ''}. Make sure you understand these before proceeding to the coding evaluation!`;
       } else if (syllabus && nextSlideIdx < syllabus.length) {
         const concept = syllabus[nextSlideIdx];
         nextSpeechText = `Let us explore Section ${currentSlide + 1}: "${concept}". Observe the live code example and see what happens when it runs. Feel free to ask me any questions!`;
@@ -358,27 +402,70 @@ export function useLessonEngine({
   useEffect(() => {
     setSlidesLoading(true);
 
+    if (testInfo) {
+      setSlides([]);
+      setSlidesLoading(false);
+      return;
+    }
+
     const parsed = parseQuestId(questId || '');
     const coursePrefix = parsed?.prefix || '';
     const dayNum = parsed?.dayNum || 0;
+
+    if (longLesson) {
+      setSlides(longLesson.parts.map((part, i) => ({
+        title: part.title,
+        bulletPoints: [],
+        explain: part.say,
+        example: part.example,
+        codeExample: part.code,
+        mockOutput: part.output,
+        codeNotes: part.codeNotes,
+        tryIt: part.tryIt,
+        projectCode: part.projectCode,
+        speech: [
+          `Part ${i + 1}: ${part.title}.`,
+          ...part.say,
+          part.example ? `Here is an everyday example. ${part.example}` : '',
+          part.tryIt ? `Now you try. ${part.tryIt}` : '',
+        ].filter(Boolean).join(' '),
+        mcq: {
+          question: part.check.question,
+          ...withAnswerAt(part.check.options, part.check.answer, dayNum * 7 + i),
+          explanation: part.check.why,
+        },
+      })));
+      setSlidesLoading(false);
+      return;
+    }
+
     const pilotDay = resolvePilotDay(coursePrefix, dayNum);
 
     if (pilotDay && pilotDay.blocks && pilotDay.blocks.length > 0) {
-      const pilotSlides = pilotDay.blocks.map((block: any) => {
+      const pilotSlides = pilotDay.blocks.map((block: any, blockIndex: number) => {
         const analogy = block.media.find((m: any) => m.type === 'analogy') as any;
         const runnable = block.media.find((m: any) => m.type === 'runnable_code') as any;
         const syntax = block.media.find((m: any) => m.type === 'syntax_anatomy') as any;
         const diagram = block.media.find((m: any) => m.type === 'diagram') as any;
 
         const bulletPoints: string[] = [];
+        // Lesson plans store the teaching text in metaphor/simpleExplanation, lineNotes and
+        // data.title; reading only caption/title showed "Analogy: undefined" on every slide.
         if (analogy) {
-          bulletPoints.push(`Analogy: ${analogy.caption || analogy.title}`);
+          const name = analogy.metaphor || analogy.caption || analogy.title;
+          const text = analogy.simpleExplanation || analogy.explanation;
+          const line = [name, text].filter(Boolean).join(': ');
+          if (line) bulletPoints.push(`Analogy: ${line}`);
         }
         if (syntax) {
-          bulletPoints.push(`Syntax Rule: ${syntax.title}`);
+          if (syntax.title) bulletPoints.push(`Syntax Rule: ${syntax.title}`);
+          for (const note of Object.values(syntax.lineNotes || {})) {
+            if (typeof note === 'string' && note.trim()) bulletPoints.push(note);
+          }
         }
         if (diagram) {
-          bulletPoints.push(`Visual Blueprint: ${diagram.caption || diagram.title}`);
+          const label = diagram.caption || diagram.title || diagram.data?.title;
+          if (label) bulletPoints.push(`Visual Blueprint: ${label}`);
         }
         if (block.takeaway) {
           bulletPoints.push(`Core Rule: ${block.takeaway}`);
@@ -392,8 +479,15 @@ export function useLessonEngine({
         const mockOutput = runnable ? `${runnerPrefix} ${runnable.filename}...\nOutput:\n${runnable.expectedOutput || 'Execution completed successfully (0 errors)'}` : undefined;
 
         const diag = block.diagnosticCheck;
-        const options = diag?.options || (diag?.expectedStringOutput ? [diag.expectedStringOutput, 'null', 'undefined'] : ['Optimal design', 'Suboptimal design', 'Syntax Error']);
-        const answerIndex = diag?.correctIndex !== undefined ? diag.correctIndex : 0;
+        const check = getLessonCheck(coursePrefix, dayNum, blockIndex);
+        const options = check?.options || ['Optimal design', 'Suboptimal design', 'Syntax Error'];
+        const answerIndex = check?.answerIndex ?? 0;
+        // Written checks explain wrong picks by option number; the options were reordered, so key them by text.
+        const diagnosisMap: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(diag?.diagnosisMap || {})) {
+          const original = /^\d+$/.test(key) && Array.isArray(diag?.options) ? diag.options[Number(key)] : undefined;
+          diagnosisMap[original ?? key] = value;
+        }
         const firstDiagnosis = Object.values(diag?.diagnosisMap || {})[0] as any;
         const explanation = (typeof diag?.explanation === 'string' && diag.explanation.trim().length > 0)
           ? diag.explanation
@@ -407,11 +501,11 @@ export function useLessonEngine({
           codeExample,
           mockOutput,
           mcq: {
-            question: diag?.questionPrompt || `What is the core takeaway for ${block.title}?`,
+            question: check?.question || `What is the core takeaway for ${block.title}?`,
             options,
             answerIndex,
             explanation,
-            diagnosisMap: diag?.diagnosisMap
+            diagnosisMap
           }
         };
       });
@@ -488,7 +582,7 @@ export function useLessonEngine({
 
     setSlides(staticSlides);
     setSlidesLoading(false);
-  }, [questId, questData, syllabus, setSlides, setSlidesLoading]);
+  }, [questId, questData, syllabus, longLesson, testInfo, setSlides, setSlidesLoading]);
 
   // Audio unlock listener and hydration
   useEffect(() => {
@@ -570,24 +664,67 @@ export function useLessonEngine({
     }
   }, [doubtCount, userId, questId]);
 
-  // Mark completed quest on exam pass
+  /** For course tests: the server's verdict after the student passes on screen. */
+  const [testRecord, setTestRecord] = useState<{ state: 'checking' | 'recorded' | 'failed'; message?: string } | null>(null);
+
+  // Mark completed quest on exam pass. Course tests are marked again by the server, and only its
+  // signed receipt lets /api/quest/complete record them.
   useEffect(() => {
-    if (examPassed) {
-      const authQuest = getAuthoritativeQuest(questId);
-      const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === questId));
-      if (authQuest || course) {
-        const isExam = isAuthoritativeExam(questId);
-        const xp = authQuest?.xp || 150;
-        addCompletedQuest(questId, isExam, xp, course?.id);
-      }
+    if (!examPassed) return;
+    const authQuest = getAuthoritativeQuest(questId);
+    const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === questId));
+    if (!authQuest && !course) return;
+    const isExam = isAuthoritativeExam(questId);
+    const xp = authQuest?.xp || 150;
+    if (!testInfo) {
+      addCompletedQuest(questId, isExam, xp, course?.id);
+      return;
     }
-  }, [examPassed, questId, addCompletedQuest]);
+    let cancelled = false;
+    setTestRecord({ state: 'checking' });
+    api.post<{ ok: boolean; passed: boolean; receipt: string | null; correct: number; total: number }>('/api/quests/grade-test', {
+      questId,
+      answers: examAnswers,
+    })
+      .then((res) => {
+        if (cancelled) return;
+        if (res?.passed && res.receipt) {
+          addCompletedQuest(questId, isExam, xp, course?.id, res.receipt);
+          setTestRecord({ state: 'recorded' });
+        } else {
+          setTestRecord({ state: 'failed', message: `The server marked ${res?.correct ?? 0} of ${res?.total ?? 0} correct, below the 70% needed. Please take the test again.` });
+        }
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        const status = (err as { status?: unknown })?.status;
+        setTestRecord({
+          state: 'failed',
+          message: typeof status === 'number' && status === 401
+            ? 'Your session has expired, so the test could not be recorded. Please sign in again and retake the test.'
+            : 'Your test could not be recorded because the server could not be reached. Please check your connection and try again.',
+        });
+      });
+    return () => { cancelled = true; };
+  }, [examPassed, questId, addCompletedQuest, testInfo, examAnswers]);
 
   const meta = (user?.user_metadata as any) || {};
   const studentName = (meta.full_name || meta.name || user?.email?.split('@')[0] || 'Developer');
 
   const getSpeakerText = useCallback(() => {
     const slidesLength = slides.length || syllabus.length;
+    if (currentSlide === 0 && testInfo && quizQuestions) {
+      const days = testInfo.start === testInfo.end ? `day ${testInfo.start}` : `days ${testInfo.start} to ${testInfo.end}`;
+      return `Hello ${studentName}. This is your test on ${days}. There are ${quizQuestions.length} questions from those lessons. Take your time; you need 70 percent to pass, and you can try again if you need to. Good luck!`;
+    }
+    if (currentSlide === 0 && longLesson) {
+      return [
+        `Welcome, ${studentName}! Today's lesson is ${longLesson.title}.`,
+        longLesson.recap || '',
+        `By the end of this lesson, ${longLesson.goal.charAt(0).toLowerCase()}${longLesson.goal.slice(1)}`,
+        `We will go step by step, in ${longLesson.parts.length} parts. After each part there is a small question, and you can ask me anything if something is not clear.`,
+      ].filter(Boolean).join(' ');
+    }
     if (currentSlide === 0) {
       return `Welcome, ${studentName}, to your classroom lesson for ${questData.title}. I am your AI instructor. We will explore each requirement from your syllabus in detail. Please pay close attention, and confirm your understanding before taking the final syllabus exam!`;
     }
@@ -596,13 +733,14 @@ export function useLessonEngine({
       if (examPassed) {
         return `Outstanding achievement, ${studentName}! You passed the syllabus evaluation exam with flying colors! Your conceptual grounding is verified. Click Finish Quest below to return to your roadmap and collect your rewards!`;
       }
-      const qText = slides[examQuestionIndex]?.mcq?.question || "Ready for your evaluation question?";
+      const qText = (quizQuestions ? quizQuestions[examQuestionIndex]?.question : slides[examQuestionIndex]?.mcq?.question) || "Ready for your evaluation question?";
       return `Welcome to the Syllabus Evaluation Exam! Let us assess your understanding. ${qText}`;
     }
 
     const idx = currentSlide - 1;
     if (slides && slides[idx]) {
       const slide = slides[idx];
+      if (slide.speech) return slide.speech;
       if (idx === 0) {
         const desc = questData?.desc || '';
         let story = '';
@@ -631,7 +769,7 @@ export function useLessonEngine({
     }
 
     return `Welcome to ${questData.title}! Study the technical principles on this slide carefully.`;
-  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName]);
+  }, [currentSlide, slides, syllabus, examPassed, examQuestionIndex, questData, studentName, longLesson, testInfo, quizQuestions]);
 
   getSpeakerTextRef.current = getSpeakerText;
 
@@ -674,14 +812,21 @@ export function useLessonEngine({
 
   const onReviewLesson = useCallback(() => {
     setExamFailed(false);
+    setExamPassed(false);
     setExamQuestionIndex(0);
     setSelectedMcqAnswer(null);
     setMcqChecked(false);
     setMcqIsCorrect(false);
     setExamCorrectCount(0);
+    setExamAnswers([]);
+    setTestRecord(null);
     setCurrentSlide(1);
-    toast.info("Lesson Review", "Review the foundational principles and invariant rules, then retake the exam.");
-  }, [setExamFailed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setCurrentSlide]);
+    if (testInfo) {
+      toast.info("Try again", "Look back at those lessons if you need to, then take the test again.");
+    } else {
+      toast.info("Review the lesson", "Go through the parts again, then answer the questions.");
+    }
+  }, [setExamFailed, setExamPassed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo]);
 
   const handlePrevSlide = useCallback(() => {
     stopSpeaking();
@@ -861,11 +1006,14 @@ export function useLessonEngine({
     runSlideCode,
     simulateCodeRun,
     onReviewLesson,
+    testRecord,
     playSpeech,
     handleTogglePlay,
     handleNextSlide,
     handlePrevSlide,
     getSpeakerText,
     sendInteractiveMessage,
+    /** Test questions for a test quest; null for a normal lesson. */
+    quizQuestions,
   };
 }

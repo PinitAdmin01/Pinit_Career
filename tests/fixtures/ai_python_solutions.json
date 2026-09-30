@@ -1,0 +1,122 @@
+[
+ [
+  "import math\n\n\ndef scaled_attention(q, k_mat, v_mat, d_k=4):\n    scores = [sum(a * b for a, b in zip(q, k)) / math.sqrt(d_k) for k in k_mat]\n    top = max(scores)\n    exps = [math.exp(s - top) for s in scores]\n    total = sum(exps)\n    weights = [e / total for e in exps]\n    context = [sum(w * row[j] for w, row in zip(weights, v_mat)) for j in range(len(v_mat[0]))]\n    return {\n        'attention_weights': [round(w, 4) for w in weights],\n        'context_vector': [round(c, 4) for c in context],\n    }",
+  "import math\n\n\ndef softmax(logits):\n    top = max(logits)\n    exps = [math.exp(x - top) for x in logits]\n    total = sum(exps)\n    return [round(e / total, 4) for e in exps]"
+ ],
+ [
+  "def apply_bpe_merges(tokens, merge_rules):\n    current = list(tokens)\n    for left, right, merged in merge_rules:\n        out = []\n        i = 0\n        while i < len(current):\n            if i + 1 < len(current) and current[i] == left and current[i + 1] == right:\n                out.append(merged)\n                i += 2\n            else:\n                out.append(current[i])\n                i += 1\n        current = out\n    return current",
+  "def llm_cost(input_tokens, output_tokens, input_per_million=2.50, output_per_million=10.00):\n    cost = input_tokens / 1_000_000 * input_per_million + output_tokens / 1_000_000 * output_per_million\n    return round(cost, 6)"
+ ],
+ [
+  "def build_system_prompt(persona, rules, output_format):\n    lines = ['<system_instructions>', f'<persona>{persona}</persona>', '<rules>']\n    lines += [f'<rule>{r}</rule>' for r in rules]\n    lines += ['</rules>', f'<output_contract>{output_format}</output_contract>', '</system_instructions>']\n    return '\\n'.join(lines)",
+  "import re\n\n\ndef sanitize_user_input(text):\n    return re.sub(r'</?[A-Za-z_]+>', '', text)"
+ ],
+ [
+  "def format_few_shot_prompt(task, examples, query):\n    blocks = [task]\n    for e in examples:\n        blocks.append(f\"Input: {e['input']}\\nThought: {e['thought']}\\nOutput: {e['output']}\")\n    blocks.append(f'Input: {query}\\nThought:')\n    return '\\n\\n'.join(blocks)",
+  "from collections import Counter\n\n\ndef majority_vote(samples):\n    return Counter(samples).most_common(1)[0][0]"
+ ],
+ [
+  "import json\nimport re\n\n\ndef validate_and_heal_json(raw, required_keys):\n    text = raw.strip()\n    fence = re.search(r'```(?:json)?\\s*(.*?)\\s*```', text, re.S)\n    if fence:\n        text = fence.group(1)\n    try:\n        data = json.loads(text)\n    except json.JSONDecodeError:\n        return {'valid': False, 'error': 'JSON_SYNTAX_ERROR'}\n    missing = [k for k in required_keys if k not in data]\n    if missing:\n        return {'valid': False, 'error': 'MISSING_KEYS: ' + ', '.join(missing)}\n    return {'valid': True, 'data': data}",
+  "def validate_type(value, expected):\n    if isinstance(value, bool):\n        return expected == 'bool'\n    types = {'str': str, 'int': int, 'float': float, 'list': list, 'dict': dict, 'bool': bool}\n    return isinstance(value, types[expected])"
+ ],
+ [
+  "import json\n\n\ndef dispatch_tool_call(declaration, call, handlers):\n    if call['name'] != declaration['name']:\n        return {'success': False, 'error': 'UNKNOWN_TOOL'}\n    handler = handlers.get(call['name'])\n    if handler is None:\n        return {'success': False, 'error': 'NO_HANDLER'}\n    result = handler(json.loads(call['arguments']))\n    return {'success': True, 'tool_call_id': call['id'], 'result': result}",
+  "def is_valid_tool(tool):\n    return bool(tool.get('name')) and bool(tool.get('description')) and isinstance(tool.get('parameters'), dict)"
+ ],
+ [
+  "import math\n\n\ndef cosine_similarity(a, b):\n    dot = sum(x * y for x, y in zip(a, b))\n    na = math.sqrt(sum(x * x for x in a))\n    nb = math.sqrt(sum(y * y for y in b))\n    if na == 0 or nb == 0:\n        return 0.0\n    return round(dot / (na * nb), 4)",
+  "import math\n\n\ndef vector_norm(v):\n    return math.sqrt(sum(x * x for x in v))"
+ ],
+ [
+  "import math\n\n\ndef search_vector_index(query, docs, top_k=2, filters=None):\n    filters = filters or {}\n\n    def cosine(a, b):\n        dot = sum(x * y for x, y in zip(a, b))\n        na = math.sqrt(sum(x * x for x in a))\n        nb = math.sqrt(sum(y * y for y in b))\n        return dot / (na * nb) if na and nb else 0.0\n\n    hits = [\n        {'id': d['id'], 'score': round(cosine(query, d['embedding']), 4)}\n        for d in docs\n        if all(d['metadata'].get(k) == v for k, v in filters.items())\n    ]\n    hits.sort(key=lambda h: h['score'], reverse=True)\n    return hits[:top_k]",
+  "def top_k(items, k):\n    return sorted(items, key=lambda i: i['score'], reverse=True)[:k]"
+ ],
+ [
+  "def chunk_text(text, max_chunk=100, overlap=20):\n    chunks = []\n    start = 0\n    while start < len(text):\n        end = min(start + max_chunk, len(text))\n        chunks.append(text[start:end])\n        if end == len(text):\n            break\n        start += max_chunk - overlap\n    return chunks",
+  "def overlap_ratio(chunk_size, overlap):\n    return f'{overlap / chunk_size * 100:.1f}%'"
+ ],
+ [
+  "def reciprocal_rank_fusion(dense, sparse, k=60):\n    scores = {}\n    texts = {}\n    for results in (dense, sparse):\n        for rank, d in enumerate(results, start=1):\n            scores[d['id']] = scores.get(d['id'], 0) + 1 / (k + rank)\n            texts[d['id']] = d['text']\n    fused = [{'id': i, 'text': texts[i], 'rrf_score': round(s, 6)} for i, s in scores.items()]\n    fused.sort(key=lambda r: r['rrf_score'], reverse=True)\n    return fused",
+  "import re\n\n\ndef count_term_frequency(doc, term):\n    return len(re.findall(r'\\b' + re.escape(term) + r'\\b', doc, re.I))"
+ ],
+ [
+  "def rerank(query, chunks, score_fn, top_n=2):\n    scored = [{'id': c['id'], 'text': c['text'], 'relevance_score': score_fn(query, c['text'])} for c in chunks]\n    scored.sort(key=lambda c: c['relevance_score'], reverse=True)\n    return scored[:top_n]",
+  "def filter_by_min_score(results, min_score=0.5):\n    return [r for r in results if r['relevance_score'] >= min_score]"
+ ],
+ [
+  "def arrange_lost_in_middle(chunks):\n    if len(chunks) <= 2:\n        return list(chunks)\n    result = [None] * len(chunks)\n    left, right = 0, len(chunks) - 1\n    for i, chunk in enumerate(chunks):\n        if i % 2 == 0:\n            result[right] = chunk\n            right -= 1\n        else:\n            result[left] = chunk\n            left += 1\n    return result",
+  "import math\n\n\ndef estimate_tokens(chunks):\n    words = sum(len(c['text'].split()) for c in chunks)\n    return math.ceil(words * 1.33)"
+ ],
+ [
+  "def evaluate_faithfulness(context, claims):\n    ctx = context.lower()\n    unsupported = [c for c in claims if c.lower() not in ctx]\n    score = round((len(claims) - len(unsupported)) / len(claims), 2) if claims else 0\n    return {'score': score, 'is_grounded': score >= 0.8, 'unsupported': unsupported}",
+  "def ragas_composite(faithfulness, relevance, recall):\n    scores = [faithfulness, relevance, recall]\n    if 0 in scores:\n        return 0.0\n    return round(3 / sum(1 / s for s in scores), 2)"
+ ],
+ [
+  "import re\n\nPATTERNS = [\n    r'ignore\\s+(all\\s+)?(previous|prior|above)\\s+instructions',\n    r'you\\s+are\\s+now\\s+in\\s+(dan|developer|unrestricted)\\s+mode',\n    r'(reveal|print|repeat)\\s+(the\\s+|your\\s+)?system\\s+prompt',\n]\n\n\ndef detect_prompt_injection(prompt):\n    threat = any(re.search(p, prompt, re.I) for p in PATTERNS)\n    return {'is_threat': threat, 'action': 'BLOCK' if threat else 'ALLOW'}",
+  "import re\n\n\ndef strip_malicious_markup(text):\n    text = re.sub(r'!\\[.*?\\]\\(.*?\\)', '', text)\n    return re.sub(r'<script.*?</script>', '', text, flags=re.I | re.S)"
+ ],
+ [
+  "def run_rag_pipeline(query, vector_search, keyword_search, rerank):\n    merged, seen = [], set()\n    for chunk in vector_search(query) + keyword_search(query):\n        if chunk['id'] not in seen:\n            seen.add(chunk['id'])\n            merged.append(chunk)\n    ranked = sorted(rerank(query, merged), key=lambda c: c['score'], reverse=True)[:3]\n    context = '\\n---\\n'.join(c['text'] for c in ranked)\n    return {'status': 'RAG_READY', 'top_chunks': ranked, 'prompt': f'Context:\\n{context}\\n\\nQuestion: {query}'}",
+  "def rag_latency(retrieval_ms, rerank_ms, generation_ms):\n    return f'{(retrieval_ms + rerank_ms + generation_ms) / 1000:.2f}s'"
+ ],
+ [
+  "def update_memory(history, new_turn, max_tokens=100):\n    messages = history + [new_turn]\n    if sum(m['tokens'] for m in messages) <= max_tokens:\n        return {'memory': messages, 'summarized': False}\n    older, recent = messages[:-2], messages[-2:]\n    summary = {'role': 'system', 'text': 'Summary: discussed ' + ', '.join(m['topic'] for m in older), 'topic': 'summary', 'tokens': 20}\n    return {'memory': [summary] + recent, 'summarized': True}",
+  "def count_roles(messages):\n    return {\n        'user': sum(1 for m in messages if m['role'] == 'user'),\n        'assistant': sum(1 for m in messages if m['role'] == 'assistant'),\n    }"
+ ],
+ [
+  "def parse_react_step(output):\n    if 'Final Answer:' in output:\n        return {'type': 'FINAL_ANSWER', 'answer': output.split('Final Answer:', 1)[1].strip()}\n    step = {'type': 'ACTION_STEP', 'thought': '', 'action': '', 'action_input': ''}\n    for line in output.splitlines():\n        if line.startswith('Thought:'):\n            step['thought'] = line[len('Thought:'):].strip()\n        elif line.startswith('Action Input:'):\n            step['action_input'] = line[len('Action Input:'):].strip()\n        elif line.startswith('Action:'):\n            step['action'] = line[len('Action:'):].strip()\n    return step",
+  "def max_iterations_reached(current, max_iter=5):\n    return current >= max_iter"
+ ],
+ [
+  "def route_task(prompt, agents):\n    lower = prompt.lower()\n    if any(w in lower for w in ('code', 'function', 'bug')):\n        name = 'CoderAgent'\n    elif any(w in lower for w in ('research', 'search', 'find')):\n        name = 'ResearcherAgent'\n    else:\n        name = 'GeneralistAgent'\n    return {'agent': name, 'endpoint': agents[name]}",
+  "def format_agent_status(name, status):\n    return f'[{name.upper()}]: {status}'"
+ ],
+ [
+  "def build_repair_prompt(code, error):\n    if not error:\n        return {'needs_correction': False, 'prompt': ''}\n    prompt = f'The code failed with this error: {error}\\n\\nCode:\\n{code}\\n\\nFind the cause and return the corrected code.'\n    return {'needs_correction': True, 'prompt': prompt}",
+  "def plan_progress(steps):\n    if not steps:\n        return '0%'\n    done = sum(1 for s in steps if s['status'] == 'DONE')\n    return f'{round(done / len(steps) * 100)}%'"
+ ],
+ [
+  "import json\n\n\ndef parse_sse_chunk(chunk):\n    text, done = '', False\n    for line in chunk.splitlines():\n        if line == 'data: [DONE]':\n            done = True\n        elif line.startswith('data: '):\n            delta = json.loads(line[len('data: '):])['choices'][0]['delta']\n            text += delta.get('content', '')\n    return {'text': text, 'done': done}",
+  "import json\n\n\ndef format_sse_line(obj):\n    return f'data: {json.dumps(obj)}\\n\\n'"
+ ],
+ [
+  "def orchestrate_agents(goal, supervisor):\n    logs = []\n    plan = supervisor.create_plan(goal)\n    for step in plan:\n        output = supervisor.get_agent(step['agent'])(step['task'])\n        logs.append({'step': step['id'], 'agent': step['agent'], 'output': output})\n    return {'status': 'GOAL_ACHIEVED', 'steps_executed': len(plan), 'logs': logs, 'report': supervisor.synthesize(goal, logs)}",
+  "def has_valid_report(result):\n    report = result.get('report')\n    return isinstance(report, str) and len(report.strip()) > 10"
+ ],
+ [
+  "import math\n\n\ndef cached_response(query, embedding, store, threshold=0.95):\n    if query in store['exact']:\n        return {'hit': True, 'type': 'EXACT', 'response': store['exact'][query]}\n    for entry in store['semantic']:\n        e = entry['embedding']\n        dot = sum(a * b for a, b in zip(embedding, e))\n        norms = math.sqrt(sum(a * a for a in embedding)) * math.sqrt(sum(b * b for b in e))\n        if norms and dot / norms >= threshold:\n            return {'hit': True, 'type': 'SEMANTIC', 'response': entry['response']}\n    return {'hit': False, 'type': 'MISS', 'response': None}",
+  "def hit_rate(hits, misses):\n    total = hits + misses\n    return f'{hits / total * 100:.1f}%' if total else '0.0%'"
+ ],
+ [
+  "def lora_parameters(d_model, rank=16):\n    full = d_model * d_model\n    trainable = 2 * d_model * rank\n    return {'full': full, 'trainable': trainable, 'percent': f'{trainable / full * 100:.2f}%'}",
+  "def estimate_vram_gb(params_billions, bits=4):\n    gb = params_billions * 1e9 * bits / 8 * 1.2 / 1024 ** 3\n    return f'{gb:.1f} GB'"
+ ],
+ [
+  "def evaluate_dpo_pair(chosen_logprob, rejected_logprob, beta=0.1):\n    margin = chosen_logprob - rejected_logprob\n    preferred = margin > 0\n    return {'preferred': preferred, 'reward_margin': round(beta * margin, 4), 'status': 'ALIGNED' if preferred else 'MISALIGNED'}",
+  "def log_prob_delta(p1, p2):\n    return round(p1 - p2, 4)"
+ ],
+ [
+  "def paged_attention_savings(traditional_mb, paged_mb):\n    saved = traditional_mb - paged_mb\n    return {'saved_mb': saved, 'percent_saved': f'{saved / traditional_mb * 100:.1f}%', 'concurrency': round(traditional_mb / paged_mb, 1)}",
+  "import re\n\n\ndef quantization_bits(name):\n    match = re.match(r'Q(\\d+)', name) or re.match(r'FP?(\\d+)$', name)\n    return int(match.group(1))"
+ ],
+ [
+  "import math\n\n\ndef vision_tokens(width, height, patch=14):\n    px, py = math.ceil(width / patch), math.ceil(height / patch)\n    return {'patches_x': px, 'patches_y': py, 'total_tokens': px * py + 1}",
+  "import math\n\n\ndef aspect_ratio(width, height):\n    g = math.gcd(width, height)\n    return f'{width // g}:{height // g}'"
+ ],
+ [
+  "def token_bucket(requested, available, capacity=100000):\n    if requested > capacity:\n        return {'allowed': False, 'remaining': available, 'status': 413}\n    if requested > available:\n        return {'allowed': False, 'remaining': available, 'status': 429}\n    return {'allowed': True, 'remaining': available - requested, 'status': 200}",
+  "def rpm_exceeded(count, max_rpm=60):\n    return count > max_rpm"
+ ],
+ [
+  "def aggregate_traces(spans):\n    return {\n        'total_tokens': sum(s['prompt_tokens'] + s['completion_tokens'] for s in spans),\n        'total_cost': round(sum(s['cost'] for s in spans), 4),\n        'total_seconds': round(sum(s['latency_ms'] for s in spans) / 1000, 2),\n    }",
+  "def feedback_score(thumbs_up, thumbs_down):\n    total = thumbs_up + thumbs_down\n    return f'{thumbs_up / total * 100:.1f}%' if total else '0.0%'"
+ ],
+ [
+  "def traverse_graph(graph, start, relation):\n    props = {n['id']: n['properties'] for n in graph['nodes']}\n    return [\n        {'entity': e['to'], 'properties': props.get(e['to'], {})}\n        for e in graph['edges']\n        if e['from'] == start and e['type'] == relation\n    ]",
+  "def build_match_cypher(a, relation, b):\n    return f\"MATCH (a {{id: '{a}'}})-[:{relation}]->(b {{id: '{b}'}}) RETURN b\""
+ ],
+ [
+  "def run_ai_platform(query, services):\n    if services['is_threat'](query):\n        return {'success': False, 'error': 'BLOCKED'}\n    cached = services['cache_get'](query)\n    if cached is not None:\n        return {'success': True, 'source': 'CACHE', 'response': cached}\n    sources = services['retrieve'](query)\n    response = services['answer'](query, sources)\n    services['cache_set'](query, response)\n    return {'success': True, 'source': 'RAG', 'response': response, 'sources': sources}",
+  "def audit_capstone(scores):\n    average = round(sum(scores.values()) / len(scores), 1)\n    failed = sorted(m for m, s in scores.items() if s < 70)\n    return {'average': average, 'failed': failed, 'certified': average >= 80 and not failed}"
+ ]
+]

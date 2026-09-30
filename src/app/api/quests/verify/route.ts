@@ -62,40 +62,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // 4. Authoritative grading evaluation: if test suite is defined, evaluate test cases
-    if (authQuest.testSuite && typeof authQuest.testSuite === 'string') {
-      try {
-        // Execute grading through isolated sandbox or fail closed if execution fails
-        const testFn = new Function('code', `
-          try {
-            ${authQuest.testSuite}
-            return { passed: true };
-          } catch (err) {
-            return { passed: false, error: err?.message || 'Test assertion failure' };
-          }
-        `);
-        const gradeRes = testFn(code);
-        if (!gradeRes || !gradeRes.passed) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: 'ASSERTION_FAILED',
-              message: gradeRes?.error || 'Submitted solution failed authoritative test cases.'
-            },
-            { status: 422 }
-          );
-        }
-      } catch (judgeErr: any) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'EXECUTION_ERROR',
-            message: judgeErr?.message || 'Authoritative execution verification failed.'
-          },
-          { status: 422 }
-        );
-      }
-    }
+    // 4. The tests themselves run in the student's browser sandbox. The old check here ran the quest's
+    // test suite inside the server process WITHOUT the student's code, so it could not grade anything
+    // (correct answers failed with "not defined"). Running untrusted code needs an isolated judge
+    // service; until one is configured, this endpoint checks the quest, timing and submission only.
 
     return NextResponse.json({
       success: true,

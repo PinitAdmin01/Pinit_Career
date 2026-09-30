@@ -1,0 +1,122 @@
+[
+ [
+  "def nbbo_spread(bid, ask, tick=0.01):\n    if bid >= ask:\n        raise ValueError('locked or crossed book')\n    spread = round(ask - bid, 4)\n    mid = round((bid + ask) / 2, 4)\n    return {'spread': spread, 'ticks': round(spread / tick), 'mid': mid, 'spread_bps': round(spread / mid * 10000, 2)}",
+  "import math\n\n\ndef snap_to_tick(price, tick, side):\n    if side == 'BUY':\n        steps = math.floor(price / tick + 1e-9)\n    else:\n        steps = math.ceil(price / tick - 1e-9)\n    return round(steps * tick, 4)"
+ ],
+ [
+  "def insert_order(book, order):\n    if order['side'] == 'BUY':\n        side, worse = book['bids'], lambda resting: resting['price'] < order['price']\n    else:\n        side, worse = book['asks'], lambda resting: resting['price'] > order['price']\n    pos = len(side)\n    for i, resting in enumerate(side):\n        if worse(resting):\n            pos = i\n            break\n    side.insert(pos, order)\n    return book",
+  "def cumulative_depth(levels, n):\n    out, total = [], 0\n    for price, qty in levels[:n]:\n        total += qty\n        out.append((price, total))\n    return out"
+ ],
+ [
+  "def insert_order(book, order):\n    if order['side'] == 'BUY':\n        side, worse = book['bids'], lambda r: r['price'] < order['price']\n    else:\n        side, worse = book['asks'], lambda r: r['price'] > order['price']\n    pos = next((i for i, r in enumerate(side) if worse(r)), len(side))\n    side.insert(pos, order)\n    return book\n\n\ndef match_order(book, incoming):\n    buy = incoming['side'] == 'BUY'\n    opposite = book['asks'] if buy else book['bids']\n    crosses = (lambda r: r['price'] <= incoming['price']) if buy else (lambda r: r['price'] >= incoming['price'])\n    remaining, trades = incoming['qty'], []\n    while remaining and opposite and crosses(opposite[0]):\n        resting = opposite[0]\n        qty = min(remaining, resting['qty'])\n        trades.append((resting['id'], resting['price'], qty))\n        remaining -= qty\n        resting['qty'] -= qty\n        if resting['qty'] == 0:\n            opposite.pop(0)\n    if remaining:\n        insert_order(book, dict(incoming, qty=remaining))\n    return {'trades': trades, 'remaining': remaining}",
+  "def average_fill_price(trades):\n    total_qty = sum(q for _, _, q in trades)\n    if not total_qty:\n        return 0.0\n    return round(sum(p * q for _, p, q in trades) / total_qty, 4)"
+ ],
+ [
+  "def vwap_schedule(total, volume_pcts):\n    slices = [round(total * p) for p in volume_pcts[:-1]]\n    slices.append(total - sum(slices))\n    return slices",
+  "def twap_schedule(qty, duration_min, interval_min):\n    n = duration_min // interval_min\n    if n <= 0:\n        raise ValueError('no slices')\n    base, extra = divmod(qty, n)\n    return [base + (1 if i < extra else 0) for i in range(n)]"
+ ],
+ [
+  "def insert_order(book, order):\n    if order['side'] == 'BUY':\n        side, worse = book['bids'], lambda r: r['price'] < order['price']\n    else:\n        side, worse = book['asks'], lambda r: r['price'] > order['price']\n    pos = next((i for i, r in enumerate(side) if worse(r)), len(side))\n    side.insert(pos, order)\n\n\ndef match_order(book, incoming):\n    buy = incoming['side'] == 'BUY'\n    opposite = book['asks'] if buy else book['bids']\n    crosses = (lambda r: r['price'] <= incoming['price']) if buy else (lambda r: r['price'] >= incoming['price'])\n    remaining, trades = incoming['qty'], []\n    while remaining and opposite and crosses(opposite[0]):\n        resting = opposite[0]\n        qty = min(remaining, resting['qty'])\n        trades.append((resting['id'], resting['price'], qty))\n        remaining -= qty\n        resting['qty'] -= qty\n        if resting['qty'] == 0:\n            opposite.pop(0)\n    if remaining:\n        insert_order(book, dict(incoming, qty=remaining))\n    return trades\n\n\ndef run_matching(orders):\n    book = {'bids': [], 'asks': []}\n    trades = []\n    for o in orders:\n        trades += match_order(book, dict(o))\n    return {\n        'trades': len(trades),\n        'volume': sum(q for _, _, q in trades),\n        'best_bid': book['bids'][0]['price'] if book['bids'] else None,\n        'best_ask': book['asks'][0]['price'] if book['asks'] else None,\n    }",
+  "def engine_throughput(orders, elapsed_us):\n    if orders <= 0 or elapsed_us <= 0:\n        raise ValueError('orders and time must be positive')\n    return {'orders_per_sec': round(orders / (elapsed_us / 1_000_000)), 'ns_per_order': round(elapsed_us * 1000 / orders, 1)}"
+ ],
+ [
+  "def impact_cost(shares, rate, gamma, eta):\n    permanent = 0.5 * gamma * shares ** 2\n    temporary = eta * rate * shares\n    return {'permanent': round(permanent, 4), 'temporary': round(temporary, 4), 'total': round(permanent + temporary, 4)}",
+  "def slippage_bps(decision_price, fill_price, side):\n    diff = fill_price - decision_price if side == 'BUY' else decision_price - fill_price\n    return round(diff / decision_price * 10000, 2)"
+ ],
+ [
+  "def micro_price(bid, bid_qty, ask, ask_qty):\n    total = bid_qty + ask_qty\n    obi = (bid_qty - ask_qty) / total\n    micro = (bid * ask_qty + ask * bid_qty) / total\n    return {'obi': round(obi, 4), 'micro': round(micro, 4)}",
+  "def obi_signal(obi, threshold=0.3):\n    obi = max(-1.0, min(1.0, obi))\n    if obi >= threshold:\n        signal = 'BUY_PRESSURE'\n    elif obi <= -threshold:\n        signal = 'SELL_PRESSURE'\n    else:\n        signal = 'NEUTRAL'\n    return signal, round((obi + 1) / 2 * 100, 1)"
+ ],
+ [
+  "def as_quotes(mid, inventory, gamma, sigma, t_left, half_spread):\n    r = mid - inventory * gamma * sigma ** 2 * t_left\n    return {'reservation': round(r, 4), 'bid': round(r - half_spread, 4), 'ask': round(r + half_spread, 4)}",
+  "def inventory_action(inventory, limit):\n    if abs(inventory) >= limit:\n        return 'STOP_BUYING' if inventory > 0 else 'STOP_SELLING'\n    if abs(inventory) >= 0.8 * limit:\n        return 'SKEW_QUOTES'\n    return 'NORMAL'"
+ ],
+ [
+  "SOH = '\\x01'\n\n\ndef fix_message(msg_type, fields):\n    body = f'35={msg_type}{SOH}' + ''.join(f'{t}={v}{SOH}' for t, v in fields)\n    head = f'8=FIX.4.4{SOH}9={len(body)}{SOH}'\n    checksum = sum(ord(c) for c in head + body) % 256\n    return f'{head}{body}10={checksum:03d}{SOH}'",
+  "def valid_fix_checksum(raw):\n    i = raw.rfind('\\x0110=')\n    if i == -1:\n        return False\n    start = i + 1\n    value = raw[start + 3:].rstrip('\\x01')\n    if not value.isdigit():\n        return False\n    return sum(ord(c) for c in raw[:start]) % 256 == int(value)"
+ ],
+ [
+  "import struct\n\n\ndef parse_add_order(buf):\n    if len(buf) != 26:\n        raise ValueError('an add order is 26 bytes')\n    kind, ref, side, shares, stock, price = struct.unpack('>cQcI8sI', buf)\n    if kind != b'A':\n        raise ValueError('not an add order')\n    return {'ref': ref, 'side': 'BUY' if side == b'B' else 'SELL', 'shares': shares,\n            'stock': stock.decode('ascii').strip(), 'price': price / 10000}",
+  "def to_fixed(price):\n    return int(round(price * 10000))\n\n\ndef from_fixed(raw):\n    return round(raw / 10000, 4)"
+ ],
+ [
+  "def consume_ring(ring, head, tail, max_batch):\n    n = max(0, min(max_batch, head - tail))\n    packets = [ring[(tail + i) % len(ring)] for i in range(n)]\n    return {'packets': packets, 'new_tail': tail + n}",
+  "def bypass_savings(kernel_ns, bypass_ns, msgs_per_day):\n    saved = kernel_ns - bypass_ns\n    return {'speedup': round(kernel_ns / bypass_ns, 2), 'saved_ns': saved,\n            'saved_seconds_per_day': round(saved * msgs_per_day / 1e9, 3)}"
+ ],
+ [
+  "class SpscQueue:\n    def __init__(self, capacity):\n        if capacity <= 0 or capacity & (capacity - 1):\n            raise ValueError('capacity must be a power of two')\n        self.capacity = capacity\n        self.mask = capacity - 1\n        self.slots = [None] * capacity\n        self.head = 0\n        self.tail = 0\n\n    def enqueue(self, item):\n        if self.head - self.tail == self.capacity:\n            return False\n        self.slots[self.head & self.mask] = item\n        self.head += 1\n        return True\n\n    def dequeue(self):\n        if self.head == self.tail:\n            return None\n        item = self.slots[self.tail & self.mask]\n        self.tail += 1\n        return item\n\n    def size(self):\n        return self.head - self.tail",
+  "def is_power_of_two(n):\n    return n > 0 and n & (n - 1) == 0\n\n\ndef next_power_of_two(n):\n    p = 1\n    while p < n:\n        p *= 2\n    return p"
+ ],
+ [
+  "def false_sharing(fields, line=64):\n    def lines(f):\n        return set(range(f['offset'] // line, (f['offset'] + f['size'] - 1) // line + 1))\n    pairs = []\n    for i in range(len(fields)):\n        for j in range(i + 1, len(fields)):\n            a, b = fields[i], fields[j]\n            if a['thread'] != b['thread'] and lines(a) & lines(b):\n                pairs.append(tuple(sorted((a['name'], b['name']))))\n    return sorted(pairs)",
+  "def padding_bytes(size, line=64):\n    return (-size) % line\n\n\ndef padded_size(size, line=64):\n    return size + padding_bytes(size, line)"
+ ],
+ [
+  "def simd_dot(a, b, width=8):\n    full = len(a) // width * width\n    total = 0.0\n    for start in range(0, full, width):\n        total += sum(x * y for x, y in zip(a[start:start + width], b[start:start + width]))\n    total += sum(a[i] * b[i] for i in range(full, len(a)))\n    return {'dot': round(total, 4), 'simd_steps': len(a) // width, 'tail_steps': len(a) % width}",
+  "def amdahl_speedup(width, parallel_fraction):\n    p = parallel_fraction\n    return round(1 / ((1 - p) + p / width), 2)"
+ ],
+ [
+  "def gateway(arrivals, capacity, per_tick):\n    depth = processed = dropped = max_depth = 0\n    for n in arrivals:\n        accepted = min(n, capacity - depth)\n        dropped += n - accepted\n        depth += accepted\n        max_depth = max(max_depth, depth)\n        done = min(depth, per_tick)\n        processed += done\n        depth -= done\n    return {'processed': processed, 'dropped': dropped, 'max_depth': max_depth}",
+  "import math\n\n\ndef latency_percentiles(samples):\n    if not samples:\n        raise ValueError('no samples')\n    s = sorted(samples)\n    rank = lambda p: s[math.ceil(p / 100 * len(s)) - 1]\n    return {'p50': rank(50), 'p90': rank(90), 'p99': rank(99), 'max': s[-1]}"
+ ],
+ [
+  "import math\n\n\ndef black_scholes(S, K, T, r, sigma):\n    N = lambda x: 0.5 * (1 + math.erf(x / math.sqrt(2)))\n    n = lambda x: math.exp(-x * x / 2) / math.sqrt(2 * math.pi)\n    sq = sigma * math.sqrt(T)\n    d1 = (math.log(S / K) + (r + sigma ** 2 / 2) * T) / sq\n    d2 = d1 - sq\n    disc = K * math.exp(-r * T)\n    call = S * N(d1) - disc * N(d2)\n    put = disc * N(-d2) - S * N(-d1)\n    return {'call': round(call, 4), 'put': round(put, 4), 'delta': round(N(d1), 4), 'gamma': round(n(d1) / (S * sq), 4)}",
+  "import math\n\n\ndef parity_gap(C, P, S, K, r, T, tolerance=0.05):\n    gap = round((C - P) - (S - K * math.exp(-r * T)), 4)\n    return {'gap': gap, 'status': 'OK' if abs(gap) <= tolerance else 'ARBITRAGE'}"
+ ],
+ [
+  "import math\n\n\ndef implied_vol(price, S, K, T, r, guess=0.2, tol=1e-6, max_iter=50):\n    N = lambda x: 0.5 * (1 + math.erf(x / math.sqrt(2)))\n    n = lambda x: math.exp(-x * x / 2) / math.sqrt(2 * math.pi)\n\n    def d1(sig):\n        return (math.log(S / K) + (r + sig ** 2 / 2) * T) / (sig * math.sqrt(T))\n\n    def bs_call(sig):\n        a = d1(sig)\n        return S * N(a) - K * math.exp(-r * T) * N(a - sig * math.sqrt(T))\n\n    sigma = guess\n    for _ in range(max_iter):\n        if sigma <= 0:\n            return None\n        diff = bs_call(sigma) - price\n        if abs(diff) < tol:\n            return round(sigma, 4)\n        vega = S * n(d1(sigma)) * math.sqrt(T)\n        if vega < 1e-8:\n            return None\n        sigma -= diff / vega\n    return None",
+  "import math\n\n\ndef bs_vega(S, K, T, r, sigma):\n    d1 = (math.log(S / K) + (r + sigma ** 2 / 2) * T) / (sigma * math.sqrt(T))\n    vega = S * math.exp(-d1 * d1 / 2) / math.sqrt(2 * math.pi) * math.sqrt(T)\n    return round(vega, 4), round(vega / 100, 4)"
+ ],
+ [
+  "Z = {0.95: 1.645, 0.99: 2.326}\n\n\ndef parametric_var(value, mean, vol, confidence=0.95):\n    if confidence not in Z:\n        raise ValueError('confidence must be 0.95 or 0.99')\n    pct = Z[confidence] * vol - mean\n    return {'var_pct': round(pct, 6), 'var_amount': round(value * pct, 2)}",
+  "import math\n\n\ndef historical_var(returns, value, confidence=0.95):\n    s = sorted(returns)\n    cut = s[int(math.floor((1 - confidence) * len(s) + 1e-9))]\n    return round(value * -cut, 2)\n\n\ndef scale_var(one_day, days):\n    return round(one_day * math.sqrt(days), 2)"
+ ],
+ [
+  "def expected_shortfall(returns, confidence=0.95):\n    k = max(1, round((1 - confidence) * len(returns)))\n    tail = sorted(returns)[:k]\n    return {'var': round(-tail[-1], 4), 'es': round(-sum(tail) / k, 4)}",
+  "def diversification(risk_a, risk_b, risk_combined):\n    total = risk_a + risk_b\n    benefit = round(total - risk_combined, 2)\n    return {'subadditive': risk_combined <= total, 'benefit': benefit, 'benefit_pct': round(benefit / total * 100, 1)}"
+ ],
+ [
+  "import math\n\n\ndef portfolio_metrics(w, mu_a, sig_a, mu_b, sig_b, rho, rf=0.02):\n    mu = w * mu_a + (1 - w) * mu_b\n    var = (w * sig_a) ** 2 + ((1 - w) * sig_b) ** 2 + 2 * w * (1 - w) * rho * sig_a * sig_b\n    sigma = math.sqrt(max(var, 0.0))\n    sharpe = (mu - rf) / sigma if sigma else 0.0\n    return {'return': round(mu, 4), 'risk': round(sigma, 4), 'sharpe': round(sharpe, 4)}",
+  "def min_variance_weight(sig_a, sig_b, rho):\n    num = sig_b ** 2 - rho * sig_a * sig_b\n    den = sig_a ** 2 + sig_b ** 2 - 2 * rho * sig_a * sig_b\n    return round(num / den, 4)"
+ ],
+ [
+  "def risk_engine(positions, pnl_scenarios, confidence=0.99):\n    net_delta = sum(p['qty'] * p['delta'] for p in positions)\n    net_vega = sum(p['qty'] * p['vega'] for p in positions)\n    k = max(1, round((1 - confidence) * len(pnl_scenarios)))\n    tail = sorted(pnl_scenarios)[:k]\n    return {'net_delta': round(net_delta, 2), 'net_vega': round(net_vega, 2),\n            'var': round(-tail[-1], 2), 'es': round(-sum(tail) / k, 2)}",
+  "def delta_hedge(net_delta, delta_per_unit=1.0):\n    units = -round(net_delta / delta_per_unit)\n    return units or 0"
+ ],
+ [
+  "def pairs_signal(price_a, price_b, beta, mean, std, entry=2.0, exit_z=0.5):\n    z = (price_a - beta * price_b - mean) / std\n    if z >= entry:\n        signal = 'SHORT_SPREAD'\n    elif z <= -entry:\n        signal = 'LONG_SPREAD'\n    elif abs(z) <= exit_z:\n        signal = 'EXIT'\n    else:\n        signal = 'HOLD'\n    return {'z': round(z, 4), 'signal': signal}",
+  "import math\n\n\ndef half_life(theta):\n    if theta <= 0:\n        raise ValueError('no mean reversion')\n    return round(math.log(2) / theta, 4)"
+ ],
+ [
+  "def route_buy(qty, venues):\n    left, fills, cost = qty, [], 0.0\n    for v in sorted(venues, key=lambda v: (v['price'] + v['fee'], v['name'])):\n        if left == 0:\n            break\n        take = min(left, v['size'])\n        if take:\n            fills.append((v['name'], take))\n            cost += (v['price'] + v['fee']) * take\n            left -= take\n    filled = qty - left\n    return {'fills': fills, 'unfilled': left, 'avg_cost': round(cost / filled, 4) if filled else 0.0}",
+  "def net_fee(shares, fee_per_share):\n    amount = round(shares * fee_per_share, 2)\n    kind = 'FEE' if amount > 0 else ('REBATE' if amount < 0 else 'NONE')\n    return {'amount': amount, 'kind': kind}"
+ ],
+ [
+  "C = 299_792_458\n\n\ndef fibre_latency(meters, n=1.4682):\n    one_way = meters * n / C * 1e9\n    return {'one_way_ns': round(one_way, 2), 'round_trip_ns': round(one_way * 2, 2)}",
+  "C = 299_792_458\n\n\ndef microwave_advantage(distance_km, fibre_route_factor=1.1):\n    us = lambda meters, n: meters * n / C * 1e6\n    fibre = us(distance_km * 1000 * fibre_route_factor, 1.4682)\n    micro = us(distance_km * 1000, 1.0003)\n    return {'fibre_us': round(fibre, 3), 'microwave_us': round(micro, 3), 'saved_us': round(fibre - micro, 3)}"
+ ],
+ [
+  "def microwave_link(distance_km, towers, hop_ns, rain_mm_h, rain_limit=25.0):\n    if rain_mm_h >= rain_limit:\n        return {'latency_ns': None, 'status': 'DOWN'}\n    prop = distance_km * 1000 * 1.0003 / 299_792_458 * 1e9\n    status = 'UP' if rain_mm_h < rain_limit * 0.6 else 'DEGRADED'\n    return {'latency_ns': round(prop + towers * hop_ns), 'status': status}",
+  "import math\n\n\ndef towers_needed(distance_km, max_hop_km=50):\n    hops = math.ceil(distance_km / max_hop_km)\n    return max(0, hops - 1)"
+ ],
+ [
+  "def lookahead_audit(decisions):\n    bad = sorted(d['id'] for d in decisions if any(t > d['decided_at'] for t in d['data_times']))\n    return {'clean': not bad, 'bad_ids': bad}",
+  "import math\n\n\ndef haircut_sharpe(observed, trials, sr_std=0.5):\n    if trials <= 1:\n        return observed\n    return round(observed - sr_std * math.sqrt(2 * math.log(trials)), 4)"
+ ],
+ [
+  "def pre_trade_check(order, limits, mid):\n    reasons = []\n    if order['qty'] > limits['max_qty']:\n        reasons.append('MAX_QTY')\n    if order['qty'] * order['price'] > limits['max_notional']:\n        reasons.append('MAX_NOTIONAL')\n    if abs(order['price'] - mid) / mid * 100 > limits['collar_pct']:\n        reasons.append('PRICE_COLLAR')\n    return {'approved': not reasons, 'reasons': reasons}",
+  "def kill_switch_index(orders, daily_cap):\n    total = 0.0\n    for i, (qty, price) in enumerate(orders):\n        total += qty * price\n        if total > daily_cap:\n            return i\n    return None"
+ ],
+ [
+  "def funding(notional, rate_8h_pct, periods, side='LONG'):\n    amount = notional * rate_8h_pct / 100 * periods\n    payment = -amount if side == 'LONG' else amount\n    return {'payment': round(payment, 2) + 0.0, 'apr_pct': round(rate_8h_pct * 3 * 365, 2)}",
+  "def liquidation_price(entry, leverage, maintenance_pct=0.5, side='LONG'):\n    m = maintenance_pct / 100\n    if side == 'LONG':\n        return round(entry * (1 - 1 / leverage + m), 2)\n    return round(entry * (1 + 1 / leverage - m), 2)"
+ ],
+ [
+  "def fpga_latency(stages, clock_mhz, cycles_per_stage=1):\n    cycles = stages * cycles_per_stage\n    return {'cycles': cycles, 'latency_ns': round(cycles / clock_mhz * 1000, 2),\n            'max_msgs_per_sec': clock_mhz * 1_000_000 // cycles_per_stage}",
+  "def lut_utilization(used, total):\n    pct = used / total * 100\n    if pct > 100:\n        status = 'DOES_NOT_FIT'\n    elif pct > 90:\n        status = 'RISKY'\n    elif pct >= 70:\n        status = 'TIGHT'\n    else:\n        status = 'OK'\n    return {'pct': round(pct, 1), 'status': status}"
+ ],
+ [
+  "def on_tick(tick, inventory, params, limits):\n    total = tick['bid_qty'] + tick['ask_qty']\n    micro = (tick['bid'] * tick['ask_qty'] + tick['ask'] * tick['bid_qty']) / total\n    r = micro - inventory * params['gamma'] * params['sigma'] ** 2 * params['t_left']\n    bid = round(r - params['half_spread'], 4)\n    ask = round(r + params['half_spread'], 4)\n\n    def allowed(price):\n        return params['size'] <= limits['max_qty'] and abs(price - micro) / micro * 100 <= limits['collar_pct']\n\n    send_bid = allowed(bid) and inventory < limits['max_inventory']\n    send_ask = allowed(ask) and inventory > -limits['max_inventory']\n    return {'micro': round(micro, 4), 'bid': bid, 'ask': ask, 'send_bid': send_bid, 'send_ask': send_ask}",
+  "def readiness(checks, p99_ns, budget_ns):\n    failed = sorted(n for n, ok in checks.items() if not ok)\n    if p99_ns > budget_ns:\n        failed.append('LATENCY')\n    return {'failed': failed, 'ready': bool(checks) and not failed}"
+ ]
+]

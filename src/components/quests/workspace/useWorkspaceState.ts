@@ -76,6 +76,14 @@ export function resolveQuestLanguage(quest: any, qId: string = ''): 'java' | 'py
   if (starter.includes('public class') || starter.includes('class Solution') || testSuite.includes('public class')) {
     return 'java';
   }
+  // Many older courses (DevOps, Cloud, AI, ...) write their tasks in JavaScript even though the
+  // course prefix suggests another language, so look at the code before the prefix.
+  // PostgreSQL practice tasks: setup, the checks marker, then check queries.
+  if (testSuite.includes('-- CHECKS --')) return 'sql';
+  const looksLikeJs = /\bfunction\s+\w+\s*\(|=>|\bconst\s+\w+\s*=/.test(starter) || /\bthrow new Error\(/.test(testSuite);
+  if (looksLikeJs && !/^\s*def\s/m.test(starter)) {
+    return 'javascript';
+  }
   if (starter.includes('def ') || testSuite.includes('def ') || testSuite.includes('assert ')) {
     return 'python';
   }
@@ -109,7 +117,7 @@ export function getLangInfo(qId: string, quest?: any): { file: string; label: st
     case 'python':
       return { file: 'solution.py', label: 'Python runtime (Pyodide WASM)', native: true, language };
     case 'sql':
-      return { file: 'query.sql', label: 'SQL engine (In-Memory SQLite)', native: true, language };
+      return { file: 'query.sql', label: 'PostgreSQL (runs in your browser)', native: true, language };
     case 'javascript':
       return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true, language };
     case 'java':
@@ -404,7 +412,18 @@ export function useWorkspaceState({
               }
             })
             .catch(err => {
-              // Network disconnection / offline resilience: client automated judge already cleared all test assertions
+              // Only a real network failure falls back to the browser's result; a refusal from the
+              // server (failed tests, expired exam time) must not count as a pass.
+              const status = (err as { status?: unknown })?.status;
+              if (typeof status === 'number' && status > 0) {
+                setOutput({
+                  success: false,
+                  message: status === 401
+                    ? 'Your tests passed, but your session has expired, so this was not recorded. Please sign in again and submit once more.'
+                    : 'Your tests passed, but the server did not accept the submission: ' + ((err as Error)?.message || 'verification rejected'),
+                });
+                return;
+              }
               console.warn('[useWorkspaceState] Server verification network failed, applying client-passed completion:', err);
               applySuccess(true);
             });

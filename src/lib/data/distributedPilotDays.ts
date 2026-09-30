@@ -447,26 +447,26 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "wire_size_demo.js",
             "initialCode": "function compareWirePayloads(orderId, amount, ts) {\n  const jsonStr = JSON.stringify({ order_id: orderId, amount: amount, timestamp: ts });\n  const estimatedProtobufBytes = 1 + orderId.length + 1 + 8 + 1 + 8;\n  return {\n    jsonBytes: jsonStr.length,\n    protobufBytes: estimatedProtobufBytes,\n    bandwidthSavings: `${(((jsonStr.length - estimatedProtobufBytes) / jsonStr.length) * 100).toFixed(1)}%`\n  };\n}\n\nconsole.log(JSON.stringify(compareWirePayloads('ord_998124', 499.99, 1704067200)));",
-            "expectedOutput": "{\"jsonBytes\":61,\"protobufBytes\":29,\"bandwidthSavings\":\"52.5%\"}",
+            "expectedOutput": "{\"jsonBytes\":64,\"protobufBytes\":29,\"bandwidthSavings\":\"54.7%\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
           "type": "predict_output",
           "question": "What bandwidth savings percentage is achieved by Protobuf over JSON for the order payload above?",
-          "expectedStringOutput": "52.5%",
+          "expectedStringOutput": "54.7%",
           "acceptableAnswers": [
-            "52.5%",
-            "bandwidthSavings\":\"52.5%\""
+            "54.7%",
+            "bandwidthSavings\":\"54.7%\""
           ],
           "primaryMisconceptionId": "MC_DIST_RPC_PROTOBUF_SERIALIZATION_MULTIPLEXING",
           "diagnosisMap": {
             "20%": {
               "misconceptionId": "MC_DIST_RPC_PROTOBUF_SERIALIZATION_MULTIPLEXING",
-              "errorExplanation": "Binary tags reduce payload from 61 bytes to 29 bytes (52.5% savings).",
+              "errorExplanation": "Binary tags reduce payload from 64 bytes to 29 bytes (54.7% savings).",
               "recoveryPath": {
-                "simplerExplanation": "Saves 52.5% bandwidth.",
-                "guidedFixPrompt": "Type 52.5%"
+                "simplerExplanation": "Saves 54.7% bandwidth.",
+                "guidedFixPrompt": "Type 54.7%"
               }
             }
           }
@@ -653,27 +653,27 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "modulo_churn_demo.js",
             "initialCode": "function calculateModuloChurn(keyCount, originalNodes, newNodes) {\n  let remapped = 0;\n  for (let k = 0; k < keyCount; k++) {\n    const nodeA = k % originalNodes;\n    const nodeB = k % newNodes;\n    if (nodeA !== nodeB) remapped++;\n  }\n  const churnPercent = (remapped / keyCount) * 100;\n  return `Modulo Churn from ${originalNodes} to ${newNodes} servers: ${churnPercent.toFixed(1)}% of keys shifted!`;\n}\n\nconsole.log(calculateModuloChurn(1000, 9, 10));",
-            "expectedOutput": "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
+            "expectedOutput": "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
             "editable": false
           }
         ],
         "diagnosticCheck": {
           "type": "predict_output",
           "question": "What percentage of keys are disrupted and remapped when adding 1 server to a 9-server cluster using naive modulo hashing?",
-          "expectedStringOutput": "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
+          "expectedStringOutput": "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
           "acceptableAnswers": [
-            "Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!",
-            "90.1%",
+            "Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!",
+            "89.2%",
             "90%"
           ],
           "primaryMisconceptionId": "MC_DIST_CONSISTENT_HASHING_VIRTUAL_NODES",
           "diagnosisMap": {
             "10%": {
               "misconceptionId": "MC_DIST_CONSISTENT_HASHING_VIRTUAL_NODES",
-              "errorExplanation": "10% is for Consistent Hashing. Modulo hashing disrupts ~90.1% of keys.",
+              "errorExplanation": "10% is for Consistent Hashing. Modulo hashing disrupts ~89.2% of keys.",
               "recoveryPath": {
-                "simplerExplanation": "Modulo hashing disrupts 90.1% of keys.",
-                "guidedFixPrompt": "Type Modulo Churn from 9 to 10 servers: 90.1% of keys shifted!"
+                "simplerExplanation": "Modulo hashing disrupts 89.2% of keys.",
+                "guidedFixPrompt": "Type Modulo Churn from 9 to 10 servers: 89.2% of keys shifted!"
               }
             }
           }
@@ -1519,7 +1519,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "ulid_demo.js",
             "initialCode": "function generateMockUlid(ts = Date.now()) {\n  const timePart = ts.toString(36).toUpperCase().padStart(10, '0');\n  const randPart = '01ARZ3NDEKTSV4RRFFQ69G5FAV'.substr(0, 16);\n  return `${timePart}${randPart}`;\n}\n\nconst ulid1 = generateMockUlid(1700000000000);\nconst ulid2 = generateMockUlid(1700000001000);\nconsole.log('ULID 1 (earlier):', ulid1);\nconsole.log('ULID 2 (later):  ', ulid2);\nconsole.log('Lexicographical sort order correct?:', ulid1 < ulid2);",
-            "expectedOutput": "ULID 1 (earlier): 01IZBRN10001ARZ3NDEKTSV4RR\nULID 2 (later):   01IZBRN10W01ARZ3NDEKTSV4RR\nLexicographical sort order correct?: true",
+            "expectedOutput": "ULID 1 (earlier): 00LOYW3V2801ARZ3NDEKTSV4RR\nULID 2 (later):   00LOYW3VU001ARZ3NDEKTSV4RR\nLexicographical sort order correct?: true",
             "editable": false
           }
         ],
@@ -2158,7 +2158,7 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "partition_hash_demo.js",
             "initialCode": "function calculatePartition(key, totalPartitions = 6) {\n  let hash = 0;\n  for (let i = 0; i < key.length; i++) hash = (Math.imul(31, hash) + key.charCodeAt(i)) | 0;\n  const partition = Math.abs(hash) % totalPartitions;\n  return { key, partition, totalPartitions };\n}\n\nconsole.log(JSON.stringify(calculatePartition('order_cust_101', 6)));\nconsole.log(JSON.stringify(calculatePartition('order_cust_101', 6))); // Deterministic same partition!",
-            "expectedOutput": "{\"key\":\"order_cust_101\",\"partition\":4,\"totalPartitions\":6}\n{\"key\":\"order_cust_101\",\"partition\":4,\"totalPartitions\":6}",
+            "expectedOutput": "{\"key\":\"order_cust_101\",\"partition\":3,\"totalPartitions\":6}\n{\"key\":\"order_cust_101\",\"partition\":3,\"totalPartitions\":6}",
             "editable": false
           }
         ],
@@ -3013,8 +3013,8 @@ export const DISTRIBUTED_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "vector_clock_calc.js",
-            "initialCode": "function evaluateVectorCausality(vA, vB) {\n  let aBigger = false, bBigger = false;\n  for (const k of ['N1', 'N2']) {\n    if ((vA[k] || 0) > (vB[k] || 0)) aBigger = true;\n    if ((vB[k] || 0) > (vA[k] || 0)) bBigger = true;\n  }\n  if (aBigger && !bBigger) return 'A_CAUSED_B (A happened before B)';\n  if (bBigger && !aBigger) return 'B_CAUSED_A (B happened before A)';\n  if (aBigger && bBigger) return 'CONCURRENT_CONFLICT_REQUIRES_MERGE';\n  return 'EQUAL';\n}\n\nconsole.log('v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 1, N2: 0 }, { N1: 1, N2: 1 }));\nconsole.log('v1 [N1:2, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 2, N2: 0 }, { N1: 1, N2: 1 }));",
-            "expectedOutput": "v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]: B_CAUSED_A (B happened before A)\nv1 [N1:2, N2:0] vs v2 [N1:1, N2:1]: CONCURRENT_CONFLICT_REQUIRES_MERGE",
+            "initialCode": "function evaluateVectorCausality(vA, vB) {\n  let aBigger = false, bBigger = false;\n  for (const k of ['N1', 'N2']) {\n    if ((vA[k] || 0) > (vB[k] || 0)) aBigger = true;\n    if ((vB[k] || 0) > (vA[k] || 0)) bBigger = true;\n  }\n  if (bBigger && !aBigger) return 'A_CAUSED_B (A happened before B)';\n  if (aBigger && !bBigger) return 'B_CAUSED_A (B happened before A)';\n  if (aBigger && bBigger) return 'CONCURRENT_CONFLICT_REQUIRES_MERGE';\n  return 'EQUAL';\n}\n\nconsole.log('v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 1, N2: 0 }, { N1: 1, N2: 1 }));\nconsole.log('v1 [N1:2, N2:0] vs v2 [N1:1, N2:1]:', evaluateVectorCausality({ N1: 2, N2: 0 }, { N1: 1, N2: 1 }));",
+            "expectedOutput": "v1 [N1:1, N2:0] vs v2 [N1:1, N2:1]: A_CAUSED_B (A happened before B)\nv1 [N1:2, N2:0] vs v2 [N1:1, N2:1]: CONCURRENT_CONFLICT_REQUIRES_MERGE",
             "editable": false
           }
         ],

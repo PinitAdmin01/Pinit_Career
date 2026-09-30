@@ -229,7 +229,7 @@ export const AI_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "token_estimate_demo.js",
             "initialCode": "function estimateTokens(text) {\n  const charCount = text.length;\n  const estimatedTokens = Math.ceil(charCount / 4);\n  return { charCount, estimatedTokens, estimatedWords: text.split(/\\s+/).length };\n}\n\nconsole.log('100-char paragraph:', JSON.stringify(estimateTokens('Artificial intelligence is transforming enterprise software engineering across global engineering.')));",
-            "expectedOutput": "100-char paragraph: {\"charCount\":99,\"estimatedTokens\":25,\"estimatedWords\":10}",
+            "expectedOutput": "100-char paragraph: {\"charCount\":98,\"estimatedTokens\":25,\"estimatedWords\":10}",
             "editable": false
           }
         ],
@@ -1553,7 +1553,7 @@ export const AI_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "recursive_chunk_demo.js",
             "initialCode": "function splitOnParagraphs(text, maxLen = 80) {\n  const paragraphs = text.split('\\n\\n');\n  return paragraphs.map((p, idx) => ({ chunkId: idx + 1, length: p.length, text: p }));\n}\n\nconst sampleDoc = 'Amazon EC2 provides scalable compute.\\n\\nAmazon S3 provides durable object storage.\\n\\nAmazon DynamoDB provides fast NoSQL.';\nconsole.log(JSON.stringify(splitOnParagraphs(sampleDoc)));",
-            "expectedOutput": "[{\"chunkId\":1,\"length\":36,\"text\":\"Amazon EC2 provides scalable compute.\"},{\"chunkId\":2,\"length\":41,\"text\":\"Amazon S3 provides durable object storage.\"},{\"chunkId\":3,\"length\":35,\"text\":\"Amazon DynamoDB provides fast NoSQL.\"}]",
+            "expectedOutput": "[{\"chunkId\":1,\"length\":37,\"text\":\"Amazon EC2 provides scalable compute.\"},{\"chunkId\":2,\"length\":42,\"text\":\"Amazon S3 provides durable object storage.\"},{\"chunkId\":3,\"length\":36,\"text\":\"Amazon DynamoDB provides fast NoSQL.\"}]",
             "editable": false
           }
         ],
@@ -2252,7 +2252,7 @@ export const AI_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "llmlingua_demo.js",
             "initialCode": "function compressPrompt(rawText) {\n  const compressed = rawText\n    .replace(/\\b(in order to|as a matter of fact|it is important to note that)\\b/gi, '')\n    .replace(/\\s+/g, ' ')\n    .trim();\n  return { originalLen: rawText.length, compressedLen: compressed.length, compressedText: compressed };\n}\n\nconst raw = 'It is important to note that in order to deploy AWS Lambda, you need an IAM role.';\nconsole.log(JSON.stringify(compressPrompt(raw)));",
-            "expectedOutput": "{\"originalLen\":80,\"compressedLen\":37,\"compressedText\":\"deploy AWS Lambda, you need an IAM role.\"}",
+            "expectedOutput": "{\"originalLen\":81,\"compressedLen\":40,\"compressedText\":\"deploy AWS Lambda, you need an IAM role.\"}",
             "editable": false
           }
         ],
@@ -2342,7 +2342,7 @@ export const AI_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "faithfulness_eval_demo.js",
-            "initialCode": "function calculateFaithfulness(contextText, answerClaims) {\n  const verified = answerClaims.filter(claim => contextText.toLowerCase().includes(claim.toLowerCase()));\n  const score = verified.length / answerClaims.length;\n  return {\n    totalClaims: answerClaims.length,\n    verifiedClaims: verified.length,\n    faithfulnessScore: Number(score.toFixed(2)),\n    hallucinationDetected: score < 1.0\n  };\n}\n\nconst context = 'AWS Lambda supports Python, Node.js, and Java. Maximum timeout is 15 minutes.';\nconsole.log('Faithful Answer:', JSON.stringify(calculateFaithfulness(context, ['AWS Lambda supports Python', 'Max timeout is 15 minutes'])));\nconsole.log('Hallucinated Answer:', JSON.stringify(calculateFaithfulness(context, ['AWS Lambda supports Python', 'Max timeout is 60 minutes'])));",
+            "initialCode": "function calculateFaithfulness(contextText, answerClaims) {\n  const verified = answerClaims.filter(claim => contextText.toLowerCase().includes(claim.toLowerCase()));\n  const score = verified.length / answerClaims.length;\n  return {\n    totalClaims: answerClaims.length,\n    verifiedClaims: verified.length,\n    faithfulnessScore: Number(score.toFixed(2)),\n    hallucinationDetected: score < 1.0\n  };\n}\n\nconst context = 'AWS Lambda supports Python, Node.js, and Java. Maximum timeout is 15 minutes.';\nconsole.log('Faithful Answer:', JSON.stringify(calculateFaithfulness(context, ['AWS Lambda supports Python', 'Maximum timeout is 15 minutes'])));\nconsole.log('Hallucinated Answer:', JSON.stringify(calculateFaithfulness(context, ['AWS Lambda supports Python', 'Maximum timeout is 60 minutes'])));",
             "expectedOutput": "Faithful Answer: {\"totalClaims\":2,\"verifiedClaims\":2,\"faithfulnessScore\":1,\"hallucinationDetected\":false}\nHallucinated Answer: {\"totalClaims\":2,\"verifiedClaims\":1,\"faithfulnessScore\":0.5,\"hallucinationDetected\":true}",
             "editable": false
           }
@@ -3313,7 +3313,7 @@ export const AI_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "supervisor_sim_demo.js",
-            "initialCode": "function routeSupervisor(task) {\n  if (task.includes('find') || task.includes('search')) return 'DELEGATE_TO_RESEARCH_AGENT';\n  if (task.includes('write code') || task.includes('refactor')) return 'DELEGATE_TO_CODER_AGENT';\n  if (task.includes('review') || task.includes('audit')) return 'DELEGATE_TO_CRITIC_AGENT';\n  return 'SUPERVISOR_SYNTHESIS_FINISH';\n}\n\nconsole.log('Task: \"Search 2024 AI papers\":', routeSupervisor('Search 2024 AI papers'));\nconsole.log('Task: \"Write Python script for RAG\":', routeSupervisor('Write Python script for RAG'));\nconsole.log('Task: \"Review security of code\":', routeSupervisor('Review security of code'));",
+            "initialCode": "function routeSupervisor(task) {\n  const t = task.toLowerCase();\n  if (t.includes('find') || t.includes('search')) return 'DELEGATE_TO_RESEARCH_AGENT';\n  if (t.includes('write') || t.includes('refactor')) return 'DELEGATE_TO_CODER_AGENT';\n  if (t.includes('review') || t.includes('audit')) return 'DELEGATE_TO_CRITIC_AGENT';\n  return 'SUPERVISOR_SYNTHESIS_FINISH';\n}\n\nconsole.log('Task: \"Search 2024 AI papers\":', routeSupervisor('Search 2024 AI papers'));\nconsole.log('Task: \"Write Python script for RAG\":', routeSupervisor('Write Python script for RAG'));\nconsole.log('Task: \"Review security of code\":', routeSupervisor('Review security of code'));",
             "expectedOutput": "Task: \"Search 2024 AI papers\": DELEGATE_TO_RESEARCH_AGENT\nTask: \"Write Python script for RAG\": DELEGATE_TO_CODER_AGENT\nTask: \"Review security of code\": DELEGATE_TO_CRITIC_AGENT",
             "editable": false
           }

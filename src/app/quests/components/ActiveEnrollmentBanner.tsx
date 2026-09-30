@@ -148,7 +148,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             {plan.title}
           </h3>
           <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0', fontWeight: 500 }}>
-            {trackLabel} • {plan.totalProgramDuration} Total Program Duration
+            {trackLabel} • {plan.totalProgramDuration.replace(/\s*Total$/i, '')} in total
           </p>
         </div>
         <div style={{ textAlign: 'right' }}>
@@ -205,7 +205,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             gap: 7
           }}
         >
-          <span>📜</span> Capstone Defense & Dual Certificates
+          <span>📜</span> {INTERNSHIP_AVAILABLE ? 'Capstone Defense & Dual Certificates' : 'Final project & certificate'}
         </button>
       </div>
     </div>

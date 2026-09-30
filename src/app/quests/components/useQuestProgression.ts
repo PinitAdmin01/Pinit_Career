@@ -163,10 +163,15 @@ export const CERTIFICATION_TRACKS = [
 
 export const COURSE_TO_ROLE: Record<string, string> = {
   'course-ai-eng': 'AI & LLM Systems Engineer',
+  'course-ai-python': 'AI & LLM Systems Engineer',
   'course-fullstack-js': 'Full-Stack Software Developer',
   'course-dsa-optim': 'Software Development Engineer (SDE)',
+  'course-dsa-python': 'Software Development Engineer (SDE)',
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
+  'course-distributed-python': 'Cloud Architect & Infrastructure Specialist',
+  'course-cloud-python': 'Cloud Architect & Infrastructure Specialist',
+  'course-nlp-python': 'AI & LLM Systems Engineer',
   'course-java-logic': 'Software Development Engineer (SDE)',
   'course-digital-accounting': 'Digital Accountant & Taxation Specialist',
   'course-finance-investment': 'Financial Analyst & Investment Specialist',
@@ -896,8 +901,12 @@ export function useQuestProgression() {
     const isInitiated = initiated.includes(quest.id);
 
     if (!isCompleted && !isInitiated) {
-      if (isDailyLimitReached) {
-        toast.warning('Daily Limit Reached ⏳', 'You have completed the maximum 3 quests for this course today. Come back tomorrow or explore other skill paths!');
+      // Same rule as the server: 3 lessons or practice tasks a day, and up to 5 when the extra ones are tests.
+      const isTest = quest.category === 'exam';
+      if (isTest ? dailyCount >= 5 : isDailyLimitReached) {
+        toast.warning('Daily limit reached ⏳', isTest
+          ? 'You have finished 5 tasks today. Take this test tomorrow.'
+          : 'You have finished 3 tasks for this course today. Come back tomorrow, or take your test if one is open.');
         return;
       }
 

@@ -7,6 +7,7 @@ import { api } from '@/lib/api/client';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import {
   CAPSTONE_SPRINTS,
+  type CapstoneSprintInfo,
   COURSE_DEFENSE_PATH,
   isSprintApproved,
   nextCapstoneSprint,
@@ -27,6 +28,8 @@ interface CapstoneInternshipPortalProps {
   lessonsLeft: number;
   onEnrollmentUpdated: (enrollment: CrashCourseEnrollment) => void;
   onClose: () => void;
+  /** The plan's wording of the four sprints; defaults to the generic wording. */
+  sprints?: ReadonlyArray<CapstoneSprintInfo>;
 }
 
 interface SubmitResponse { ok: boolean; approved: boolean; message: string; enrollment: CrashCourseEnrollment }
@@ -63,11 +66,12 @@ export default function CapstoneInternshipPortal({
   lessonsLeft,
   onEnrollmentUpdated,
   onClose,
+  sprints = CAPSTONE_SPRINTS,
 }: CapstoneInternshipPortalProps) {
   const milestones = (enrollment.milestoneProgress || {}) as CapstoneMilestones;
   const trainingDone = lessonsLeft === 0;
   const current = trainingDone ? nextCapstoneSprint(milestones) : null;
-  const approvedCount = CAPSTONE_SPRINTS.filter((s) => isSprintApproved(milestones, s.sprint)).length;
+  const approvedCount = sprints.filter((s) => isSprintApproved(milestones, s.sprint)).length;
   const certificateId = enrollment.certificatesIssued?.projectCertHash;
 
   const [fields, setFields] = useState({ repoUrl: '', designUrl: '', apiUrl: '', liveUrl: '' });
@@ -111,9 +115,11 @@ export default function CapstoneInternshipPortal({
   const verifyPath = certificateId ? `/verify/${encodeURIComponent(certificateId)}` : '';
   const verifyUrl = certificateId && typeof window !== 'undefined' ? `${window.location.origin}${verifyPath}` : verifyPath;
 
+  const fieldOf = (sprint: CapstoneSprint) => sprints.find((s) => s.sprint === sprint)?.field;
+
   const submitted = (sprint: CapstoneSprint): Array<[string, string]> => {
-    if (sprint === 1) return [['Repository', milestones.sprint1RepoUrl || ''], ['Design', milestones.sprint1DesignUrl || '']];
-    if (sprint === 2) return [['API code', milestones.sprint2ApiUrl || '']];
+    if (sprint === 1) return [['Repository', milestones.sprint1RepoUrl || ''], [fieldOf(1)?.label || 'Design', milestones.sprint1DesignUrl || '']];
+    if (sprint === 2) return [[fieldOf(2)?.label || 'API code', milestones.sprint2ApiUrl || '']];
     if (sprint === 3) return [['Live URL', milestones.sprint3LiveUrl || '']];
     return [['Defense', `${milestones.sprint4DefenseScore ?? 0}% · ${milestones.sprint4Verdict || 'Passed'}`]];
   };
@@ -143,13 +149,13 @@ export default function CapstoneInternshipPortal({
           <>
             <input type="url" placeholder="https://github.com/you/your-project" value={fields.repoUrl}
               onChange={setField('repoUrl')} style={inputStyle} aria-label="GitHub repository URL" />
-            <input type="url" placeholder="https://github.com/you/your-project/blob/main/docs/architecture.md" value={fields.designUrl}
-              onChange={setField('designUrl')} style={inputStyle} aria-label="Design file or folder URL" />
+            <input type="url" placeholder={fieldOf(1)?.placeholder || 'https://github.com/you/your-project/blob/main/docs/architecture.md'} value={fields.designUrl}
+              onChange={setField('designUrl')} style={inputStyle} aria-label={`${fieldOf(1)?.label || 'Design'} file or folder URL`} />
           </>
         )}
         {sprint === 2 && (
-          <input type="url" placeholder={`${milestones.sprint1RepoUrl || 'https://github.com/you/your-project'}/tree/main/src/api`}
-            value={fields.apiUrl} onChange={setField('apiUrl')} style={inputStyle} aria-label="API code URL" />
+          <input type="url" placeholder={fieldOf(2)?.placeholder || `${milestones.sprint1RepoUrl || 'https://github.com/you/your-project'}/tree/main/src/api`}
+            value={fields.apiUrl} onChange={setField('apiUrl')} style={inputStyle} aria-label={`${fieldOf(2)?.label || 'API code'} file or folder URL`} />
         )}
         {sprint === 3 && (
           <input type="url" placeholder="https://your-project.vercel.app" value={fields.liveUrl}
@@ -202,11 +208,11 @@ export default function CapstoneInternshipPortal({
           <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Sprints approved:</span>
           <div style={{ flex: 1, minWidth: 120, height: 8, borderRadius: 4, background: 'var(--bg3)', overflow: 'hidden' }}>
             <div style={{
-              width: `${(approvedCount / CAPSTONE_SPRINTS.length) * 100}%`, height: '100%',
+              width: `${(approvedCount / sprints.length) * 100}%`, height: '100%',
               borderRadius: 4, background: 'linear-gradient(90deg, #6366f1, #10b981)', transition: 'width 0.5s ease',
             }} />
           </div>
-          <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--accent)' }}>{approvedCount}/{CAPSTONE_SPRINTS.length}</span>
+          <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--accent)' }}>{approvedCount}/{sprints.length}</span>
         </div>
 
         <div style={{ flex: 1, overflow: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -230,7 +236,7 @@ export default function CapstoneInternshipPortal({
             </div>
           )}
 
-          {CAPSTONE_SPRINTS.map((s) => {
+          {sprints.map((s) => {
             const state: SprintState = isSprintApproved(milestones, s.sprint) ? 'approved' : current === s.sprint ? 'open' : 'locked';
             const style = STATE_STYLE[state];
             return (

@@ -45,6 +45,7 @@ interface LessonContentRendererProps {
   setExamFailed: (val: boolean) => void;
   examCorrectCount: number;
   setExamCorrectCount: React.Dispatch<React.SetStateAction<number>>;
+  setExamAnswers: React.Dispatch<React.SetStateAction<(number | null)[]>>;
   onReviewLesson: () => void;
   runSlideCode?: (slideIdx: number, rawCode?: string) => void;
   examQuestionIndex: number;
@@ -58,6 +59,8 @@ interface LessonContentRendererProps {
   setExamPassed: (val: boolean) => void;
   playChime: () => void;
   launchConfetti: () => void;
+  /** Questions of a course test; normal lessons use their slides' questions. */
+  quizQuestions?: Array<{ question: string; options: string[]; answerIndex: number; explanation: string }> | null;
 }
 
 export function LessonContentRenderer({
@@ -97,6 +100,7 @@ export function LessonContentRenderer({
   setExamFailed,
   examCorrectCount,
   setExamCorrectCount,
+  setExamAnswers,
   onReviewLesson,
   runSlideCode,
   examQuestionIndex,
@@ -110,6 +114,7 @@ export function LessonContentRenderer({
   setExamPassed,
   playChime,
   launchConfetti,
+  quizQuestions,
 }: LessonContentRendererProps) {
   return (
     <div className="interactive-container">
@@ -348,10 +353,26 @@ export function LessonContentRenderer({
           }}>
             {currentSlide === 0 && (
               <div style={{ textAlign: 'center', padding: '12px 0' }}>
-                <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>Welcome to your Quest roadmap!</h3>
+                <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{questData?.title || 'Today\'s lesson'}</h3>
                 <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4, lineHeight: 1.45, maxWidth: 650, margin: '4px auto 0' }}>
-                  We will step through each requirement of the course syllabus. Listen closely to each slide before unlocking your immediate coding test.
+                  {questData?.desc && questData.desc.length < 220
+                    ? questData.desc
+                    : 'Listen to your teacher, try the code, and answer one small question after each part.'}
                 </p>
+                {Array.isArray(questData?.testDays) && questData.testDays.length > 0 && (
+                  <ul style={{ textAlign: 'left', maxWidth: 520, margin: '14px auto 0', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {questData.testDays.map((day: string, i: number) => (
+                      <li key={i} style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{day}</li>
+                    ))}
+                  </ul>
+                )}
+                {syllabus.length > 0 && (
+                  <ol style={{ textAlign: 'left', maxWidth: 520, margin: '14px auto 0', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {syllabus.map((topic, i) => (
+                      <li key={i} style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>{topic.length > 60 ? topic.split(':')[0] : topic}</li>
+                    ))}
+                  </ol>
+                )}
               </div>
             )}
 
@@ -372,8 +393,24 @@ export function LessonContentRenderer({
                     {slide.title || 'Lesson Slide'}
                   </h4>
 
+                  {/* Long-format lesson: the teacher's explanation, in plain words */}
+                  {Array.isArray(slide.explain) && slide.explain.length > 0 && (
+                    <div data-testid="lesson-explain" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {slide.explain.map((para: string, i: number) => (
+                        <p key={i} style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.6, margin: 0 }}>{para}</p>
+                      ))}
+                    </div>
+                  )}
+
+                  {slide.example && (
+                    <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--info-rgb), 0.08)', border: '1px solid rgba(var(--info-rgb), 0.3)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--info)', marginBottom: 4 }}>🌍 Everyday example</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.example}</div>
+                    </div>
+                  )}
+
                   {/* 🏢 1ST: REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD (Introductory Slide 1 Only) */}
-                  {currentSlide === 1 && (() => {
+                  {currentSlide === 1 && !slide.explain && (() => {
                     const desc = questData?.desc || '';
                     let realWorldStory = '';
                     if (desc.includes('(Real world:')) {
@@ -397,7 +434,7 @@ export function LessonContentRenderer({
                         boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                       }}>
                         <div style={{ fontSize: 11.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
-                          🏢 1. Real-World Industry Story & Production Context
+                          🏢 Real-life example
                         </div>
                         <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
                           {realWorldStory || matchedAnalogy.analogy}
@@ -420,13 +457,24 @@ export function LessonContentRenderer({
                       border: '1px solid var(--border)'
                     }}>
                       <div style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
-                        💡 2. Core Technical Rules & Execution Model
+                        💡 Key points
                       </div>
                       <ul style={{ listStyleType: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: 8, margin: 0 }}>
                         {bulletPoints.map((bp: string, i: number) => (
                           <li key={i} style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>{bp}</li>
                         ))}
                       </ul>
+                    </div>
+                  )}
+
+                  {slide.projectCode && (
+                    <div data-testid="lesson-project-code">
+                      <div style={{ background: '#1e293b', padding: '6px 12px', borderTopLeftRadius: 12, borderTopRightRadius: 12, fontSize: 11.5, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                        💻 {slide.projectCode.label}
+                      </div>
+                      <pre style={{ margin: 0, background: '#0e1420', padding: '14px 18px', borderBottomLeftRadius: 12, borderBottomRightRadius: 12, fontSize: 12.5, lineHeight: 1.55, fontFamily: 'var(--font-mono)', color: '#e2e8f0', overflowX: 'auto', border: '1px solid rgba(255,255,255,0.06)', borderTop: 'none' }}>
+                        <code>{slide.projectCode.code}</code>
+                      </pre>
                     </div>
                   )}
 
@@ -438,14 +486,34 @@ export function LessonContentRenderer({
                       mockOutput={slide.mockOutput}
                       codeRunning={codeRunning[currentSlide - 1]}
                       codeOutput={codeOutputs[currentSlide - 1]}
-                      onRunCode={() => {
+                      onRunCode={(code: string) => {
                         if (runSlideCode) {
-                          runSlideCode(currentSlide - 1, slide.codeExample);
+                          runSlideCode(currentSlide - 1, code || slide.codeExample);
                         } else {
                           simulateCodeRun(currentSlide - 1, slide.mockOutput);
                         }
                       }}
                     />
+                  )}
+
+                  {Array.isArray(slide.codeNotes) && slide.codeNotes.length > 0 && (
+                    <div style={{ padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t2)', marginBottom: 6 }}>🔎 What the code does</div>
+                      <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        {slide.codeNotes.map((n: { line: number; note: string }, i: number) => (
+                          <li key={i} style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.5 }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', color: teacher.accent, fontWeight: 800 }}>Line {n.line}:</span> {n.note}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {slide.tryIt && (
+                    <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--success)', marginBottom: 4 }}>✍️ Your turn</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.tryIt}</div>
+                    </div>
                   )}
 
                   {/* Interactive Understanding Check on content slides */}
@@ -533,6 +601,7 @@ export function LessonContentRenderer({
                 setExamFailed={setExamFailed}
                 examCorrectCount={examCorrectCount}
                 setExamCorrectCount={setExamCorrectCount}
+                setExamAnswers={setExamAnswers}
                 onReviewLesson={onReviewLesson}
                 examQuestionIndex={examQuestionIndex}
                 setExamQuestionIndex={setExamQuestionIndex}
@@ -545,8 +614,9 @@ export function LessonContentRenderer({
                 setExamPassed={setExamPassed}
                 playChime={playChime}
                 launchConfetti={launchConfetti}
-                dynamicQuestions={slides.map(s => s.mcq).filter(Boolean)}
+                dynamicQuestions={quizQuestions ?? slides.map(s => s.mcq).filter(Boolean)}
                 questTitle={questData.title}
+                quizTitle={quizQuestions ? questData.title : 'Quick check'}
               />
             )}
           </div>

@@ -92,7 +92,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Bastion Host (Jump Box) / AWS Systems Manager Session Manager for SSH-less management."
     ],
     "eTitle": "VPC Network Topology Validator",
-    "eDesc": "Implement function `validateVpcTopology(vpcConfig)` ensuring at least 2 AZs, 2 public subnets with IGW, and 2 private subnets with NAT Gateways.",
+    "eDesc": "Implement function `validateVpcTopology(vpcConfig)` ensuring at least 2 AZs, 2 public subnets with IGW, and 2 private subnets with NAT Gateways. The result must have the field: `validVpc`.",
     "eStarter": "function validateVpcTopology(cfg) {\n  // TODO: Validate that VPC contains at least 2 AZs, public subnets with IGW, and private subnets with NAT\n  \n}",
     "eHint": "Verify at least 2 AZs, 2 public, 2 private, hasInternetGateway, and hasNatGateway; return { valid: boolean, azCount: number }.",
     "eTest": "const validVpc = {\n  cidr: '10.0.0.0/16',\n  hasInternetGateway: true,\n  hasNatGateway: true,\n  subnets: [\n    { id: 's-1', az: 'us-east-1a', type: 'PUBLIC' },\n    { id: 's-2', az: 'us-east-1b', type: 'PUBLIC' },\n    { id: 's-3', az: 'us-east-1a', type: 'PRIVATE' },\n    { id: 's-4', az: 'us-east-1b', type: 'PRIVATE' }\n  ]\n};\nconst res = validateVpcTopology(validVpc);\nif (!res.valid || res.azCount !== 2) throw new Error('Valid VPC topology was rejected');\nconst invalidVpc = { ...validVpc, hasNatGateway: false };\nif (validateVpcTopology(invalidVpc).valid !== false) throw new Error('VPC without NAT gateway should be rejected');\nconst singleAzVpc = { ...validVpc, subnets: [{ id: 's-1', az: 'us-east-1a', type: 'PUBLIC' }] };\nif (validateVpcTopology(singleAzVpc).valid !== false) throw new Error('Single AZ VPC should be rejected');",
@@ -112,7 +112,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "IAM Roles vs IAM Users: Temporary short-lived credentials via AWS STS instead of hardcoded API keys."
     ],
     "eTitle": "IAM Policy Decision Evaluator Engine",
-    "eDesc": "Implement function `evaluateIamPermission(statements, request)` resolving Allow/Deny decisions with Explicit Deny precedence.",
+    "eDesc": "Implement function `evaluateIamPermission(statements, request)` resolving Allow/Deny decisions with Explicit Deny precedence. Return 'ALLOW' or 'DENY'. A pattern ending in * matches anything that starts with the text before the *.",
     "eStarter": "function evaluateIamPermission(statements, req) {\n  // TODO: Check for explicit Deny matches first, then check for Allow matches, defaulting to Implicit Deny\n  \n}",
     "eHint": "Iterate statements: if any matching statement has effect 'Deny' return 'DENY'; if any matches with 'Allow' return 'ALLOW'; otherwise default to 'DENY'.",
     "eTest": "const statements = [\n  { effect: 'Allow', action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/*' },\n  { effect: 'Deny', action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/confidential/*' }\n];\nif (evaluateIamPermission(statements, { action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/photo.jpg' }) !== 'ALLOW') throw new Error('Photo read should be allowed');\nif (evaluateIamPermission(statements, { action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/confidential/keys.txt' }) !== 'DENY') throw new Error('Explicit Deny failed to override Allow');\nif (evaluateIamPermission(statements, { action: 'sqs:SendMessage', resource: 'arn:aws:sqs:::queue' }) !== 'DENY') throw new Error('Implicit deny failed for unlisted action');",
@@ -152,7 +152,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Deregistration Delay (Connection Draining): Graceful in-flight HTTP request completion before terminating instances."
     ],
     "eTitle": "ALB Path-Based Routing Rule Dispatcher",
-    "eDesc": "Implement function `routeAlbRequest(pathRules, incomingPath)` resolving the matching target group ARN or returning default target group.",
+    "eDesc": "Implement function `routeAlbRequest(pathRules, incomingPath)` resolving the matching target group ARN or returning default target group. A pattern like '/api/v1/*' matches every path that starts with '/api/v1/'. When no rule matches, return 'arn:tg:default'.",
     "eStarter": "function routeAlbRequest(rules, path) {\n  // TODO: Match incomingPath against rule path patterns, returning matched targetGroupArn or default target\n  \n}",
     "eHint": "Iterate path rules; if path matches pattern (or wildcard), return rule.targetGroupArn; else return default target group ARN.",
     "eTest": "const rules = [\n  { pathPattern: '/api/v1/*', targetGroupArn: 'arn:tg:api-v1' },\n  { pathPattern: '/static/*', targetGroupArn: 'arn:tg:static-assets' }\n];\nif (routeAlbRequest(rules, '/api/v1/users') !== 'arn:tg:api-v1') throw new Error('API v1 routing failed');\nif (routeAlbRequest(rules, '/static/logo.png') !== 'arn:tg:static-assets') throw new Error('Static asset routing failed');\nif (routeAlbRequest(rules, '/home') !== 'arn:tg:default') throw new Error('Default fallback routing failed');",
@@ -172,7 +172,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "S3 Lifecycle Transitions: Noncurrent version expiration and automated transition to Glacier after N days."
     ],
     "eTitle": "S3 Lifecycle Transition Rule Evaluator",
-    "eDesc": "Implement function `getS3StorageClass(objectAgeDays, accessFrequency)` determining optimal storage tier.",
+    "eDesc": "Implement function `getS3StorageClass(objectAgeDays, accessFrequency)` determining optimal storage tier. Return 'DEEP_ARCHIVE' when the object is 365 days or older, 'GLACIER_FLEXIBLE' when 90 days or older, 'INTELLIGENT_TIERING' when accessFrequency is 'INFREQUENT', otherwise 'STANDARD'.",
     "eStarter": "function getS3StorageClass(ageDays, freq) {\n  // TODO: Return Glacier Deep Archive if age >= 365, Glacier if age >= 90, Intelligent-Tiering if low freq, else Standard\n  \n}",
     "eHint": "Evaluate objectAgeDays: >= 365 -> 'DEEP_ARCHIVE'; >= 90 -> 'GLACIER_FLEXIBLE'; freq === 'INFREQUENT' -> 'INTELLIGENT_TIERING'; default -> 'STANDARD'.",
     "eTest": "if (getS3StorageClass(400, 'INFREQUENT') !== 'DEEP_ARCHIVE') throw new Error('365+ days should transition to Deep Archive');\nif (getS3StorageClass(100, 'INFREQUENT') !== 'GLACIER_FLEXIBLE') throw new Error('90+ days should transition to Glacier');\nif (getS3StorageClass(10, 'FREQUENT') !== 'STANDARD') throw new Error('Fresh frequently accessed data must be Standard');",
@@ -192,7 +192,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Enforcing TLS: S3 Bucket Policy condition `aws:SecureTransport: false` -> Explicit Deny."
     ],
     "eTitle": "S3 Bucket Policy TLS Enforcement Validator",
-    "eDesc": "Implement function `validateS3TlsEnforcement(bucketPolicy)` verifying explicit deny for insecure HTTP requests.",
+    "eDesc": "Implement function `validateS3TlsEnforcement(bucketPolicy)` verifying explicit deny for insecure HTTP requests. Return true only when some statement has Effect 'Deny' with Condition.Bool['aws:SecureTransport'] equal to 'false'.",
     "eStarter": "function validateS3TlsEnforcement(policy) {\n  // TODO: Search policy statements for Effect: Deny where aws:SecureTransport is false\n  \n}",
     "eHint": "Iterate statements; look for effect === 'Deny' with condition matching aws:SecureTransport === false; return boolean.",
     "eTest": "const securePolicy = {\n  Statement: [\n    {\n      Effect: 'Deny',\n      Action: 's3:*',\n      Resource: 'arn:aws:s3:::my-bucket/*',\n      Condition: { Bool: { 'aws:SecureTransport': 'false' } }\n    }\n  ]\n};\nif (validateS3TlsEnforcement(securePolicy) !== true) throw new Error('Valid TLS enforcing policy was rejected');\nconst insecurePolicy = { Statement: [{ Effect: 'Allow', Action: 's3:GetObject' }] };\nif (validateS3TlsEnforcement(insecurePolicy) !== false) throw new Error('Insecure policy should fail validation');\nconst emptyPolicy = { Statement: [] };\nif (validateS3TlsEnforcement(emptyPolicy) !== false) throw new Error('Empty policy should fail validation');",
@@ -212,7 +212,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Provisioned Concurrency: Keeping pre-initialized execution environments warm for latency-sensitive microservices."
     ],
     "eTitle": "Lambda Pricing & Memory Allocation Optimizer",
-    "eDesc": "Implement function `calculateLambdaExecutionCost(invocations, durationMs, memoryMb)` calculating monthly compute cost.",
+    "eDesc": "Implement function `calculateLambdaExecutionCost(invocations, durationMs, memoryMb)` calculating monthly compute cost. Round the dollar cost to 4 decimal places (return a number).",
     "eStarter": "function calculateLambdaExecutionCost(invocations, durationMs, memoryMb) {\n  // TODO: Compute gigabyte-seconds = invocations * (durationMs / 1000) * (memoryMb / 1024), multiply by $0.0000166667\n  \n}",
     "eHint": "Compute gbSeconds = invocations * (durationMs / 1000) * (memoryMb / 1024); cost = gbSeconds * 0.0000166667; return Number(cost.toFixed(4)).",
     "eTest": "const cost = calculateLambdaExecutionCost(1000000, 200, 512); // 1M * 0.2s * 0.5 GB = 100,000 GB-s * 0.0000166667 = $1.6667\nif (cost !== 1.6667) throw new Error('Lambda cost computation failed');\nconst lowMem = calculateLambdaExecutionCost(1000000, 100, 128); // 1M * 0.1 * 0.125 = 12,500 GB-s * 0.0000166667 = $0.2083\nif (lowMem !== 0.2083) throw new Error('Low memory Lambda cost failed');\nconst zeroCost = calculateLambdaExecutionCost(0, 500, 1024);\nif (zeroCost !== 0.0000) throw new Error('Zero invocations cost check failed');",
@@ -237,7 +237,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Return object { principalId, policyDocument: { Version: '2012-10-17', Statement: [{ Action: 'execute-api:Invoke', Effect: effect, Resource: resourceArn }] } }.",
     "eTest": "const auth = generateAuthorizerResponse('user_101', 'Allow', 'arn:aws:execute-api:us-east-1:*:*/*');\nif (auth.principalId !== 'user_101' || auth.policyDocument.Statement[0].Effect !== 'Allow') throw new Error('Authorizer policy generator failed');\nconst denyAuth = generateAuthorizerResponse('user_bad', 'Deny', 'arn:aws:execute-api:us-east-1:*:*/*');\nif (denyAuth.policyDocument.Statement[0].Effect !== 'Deny') throw new Error('Deny authorizer effect failed');\nif (auth.policyDocument.Statement[0].Action !== 'execute-api:Invoke') throw new Error('Authorizer action failed');",
     "aTitle": "CORS Header Generator",
-    "aDesc": "Implement function `generateCorsHeaders(allowedOrigin)` returning standard Access-Control headers for browser web applications.",
+    "aDesc": "Implement function `generateCorsHeaders(allowedOrigin)` returning standard Access-Control headers for browser web applications. Include at least 'Access-Control-Allow-Origin' (the given origin) and 'Access-Control-Allow-Methods'.",
     "aStarter": "function generateCorsHeaders(origin) {\n  // TODO: Construct standard CORS response headers including Access-Control-Allow-Origin\n  \n}",
     "aHint": "Return object with 'Access-Control-Allow-Origin': allowedOrigin, 'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS'.",
     "aTest": "const cors = generateCorsHeaders('https://app.pinit.com');\nif (cors['Access-Control-Allow-Origin'] !== 'https://app.pinit.com') throw new Error('CORS header generator failed');\nif (!cors['Access-Control-Allow-Methods']) throw new Error('CORS methods header missing');"
@@ -255,7 +255,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function `getPartitionShard(partitionKey, totalShards)` calculating deterministic shard index using character code checksum.",
     "eStarter": "function getPartitionShard(partitionKey, totalShards) {\n  // TODO: Compute sum of char codes in partitionKey and return sum % totalShards\n  \n}",
     "eHint": "Sum char codes in partitionKey string: key.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) % totalShards.",
-    "eTest": "const shardA = getPartitionShard('user_101', 8);\nconst shardB = getPartitionShard('user_101', 8);\nif (shardA !== shardB || shardA < 0 || shardA >= 8) throw new Error('Consistent partition hashing failed');\nconst shardC = getPartitionShard('user_102', 8);\nif (typeof shardC !== 'number') throw new Error('Shard must return integer number');\nconst singleShard = getPartitionShard('user_999', 1);\nif (singleShard !== 0) throw new Error('Single shard index should be 0');",
+    "eTest": "const shardA = getPartitionShard('user_101', 8);\nconst shardB = getPartitionShard('user_101', 8);\nif (shardA !== shardB || shardA < 0 || shardA >= 8) throw new Error('Consistent partition hashing failed');\nconst shardC = getPartitionShard('user_102', 8);\nif (typeof shardC !== 'number') throw new Error('Shard must return integer number');\nconst singleShard = getPartitionShard('user_999', 1);\nif (singleShard !== 0) throw new Error('Single shard index should be 0');\nconst spread = new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'].map((k) => getPartitionShard('user_' + k, 8)));\nif (spread.size < 3) throw new Error('Different keys must spread over several shards, not all land in one');",
     "aTitle": "DynamoDB RCU Provisioning Calculator",
     "aDesc": "Implement function `calculateRequiredRcu(itemSizeBytes, readsPerSec, isStronglyConsistent)` calculating required provisioned RCU.",
     "aStarter": "function calculateRequiredRcu(itemBytes, rps, strong) {\n  // TODO: 1 RCU per 4KB chunk (strongly consistent) or 2 reads per RCU (eventually consistent)\n  \n}",
@@ -277,7 +277,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "If (!cluster.multiAzEnabled) return { success: false, reason: 'MULTI_AZ_DISABLED' }; swap primaryAz and standbyAz; return { success: true, newPrimaryAz: cluster.primaryAz }.",
     "eTest": "const cluster = { primaryAz: 'us-east-1a', standbyAz: 'us-east-1b', multiAzEnabled: true };\nconst res = triggerRdsMultiAzFailover(cluster);\nif (!res.success || cluster.primaryAz !== 'us-east-1b') throw new Error('RDS Multi-AZ failover failed');\nconst failCluster = { primaryAz: 'us-east-1a', standbyAz: null, multiAzEnabled: false };\nif (triggerRdsMultiAzFailover(failCluster).success !== false) throw new Error('Disabled Multi-AZ should reject failover');\nif (cluster.standbyAz !== 'us-east-1a') throw new Error('Standby AZ swap failed');",
     "aTitle": "Read Replica Query Router",
-    "aDesc": "Implement function `routeSqlQuery(queryType, primaryEndpoint, replicaEndpoints)` routing writes to primary and reads to read replicas.",
+    "aDesc": "Implement function `routeSqlQuery(queryType, primaryEndpoint, replicaEndpoints)` routing writes to primary and reads to read replicas. Return the endpoint string to use.",
     "aStarter": "function routeSqlQuery(type, primary, replicas) {\n  // TODO: If SELECT query, round-robin across replicas; if INSERT/UPDATE/DELETE, route to primaryEndpoint\n  \n}",
     "aHint": "Check if queryType === 'READ' || queryType === 'SELECT'; if true return a replica endpoint; else return primaryEndpoint.",
     "aTest": "const ep = routeSqlQuery('SELECT', 'db-primary.aws.com', ['db-replica-1.aws.com']);\nif (ep !== 'db-replica-1.aws.com') throw new Error('Read query should route to replica');\nconst writeEp = routeSqlQuery('INSERT', 'db-primary.aws.com', ['db-replica-1.aws.com']);\nif (writeEp !== 'db-primary.aws.com') throw new Error('Write query should route to primary');"
@@ -292,7 +292,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "End-to-end media transcoding microservice architecture."
     ],
     "eTitle": "Serverless Video Pipeline Orchestrator",
-    "eDesc": "Implement function `orchestrateVideoPipeline(s3Event, dbStore, transcoderClient)` executing end-to-end event-driven video transcoding.",
+    "eDesc": "Implement function `orchestrateVideoPipeline(s3Event, dbStore, transcoderClient)` executing end-to-end event-driven video transcoding. transcoder.transcode(bucket, key) is async and resolves to { url }. Save a record in dbStore (a Map) under the object key and return { success: true, outputUrl }; when there are no Records, return { success: false }.",
     "eStarter": "function orchestrateVideoPipeline(event, db, transcoder) {\n  // TODO: Extract bucket and key from s3Event, trigger transcoding, and record status in dbStore\n  \n}",
     "eHint": "Extract bucket = event.Records[0].s3.bucket.name and key = event.Records[0].s3.object.key; call transcoder.transcode(bucket, key); write metadata to db; return result.",
     "eTest": "const db = new Map();\nconst transcoder = { transcode: async (b, k) => ({ url: `https://${b}.s3.amazonaws.com/processed/${k}` }) };\nconst event = { Records: [{ s3: { bucket: { name: 'raw-videos' }, object: { key: 'demo.mp4' } } }] };\nconst res = await orchestrateVideoPipeline(event, db, transcoder);\nif (!res.success || !res.outputUrl.includes('processed/demo.mp4')) throw new Error('Serverless video pipeline failed');\nif (!db.has('demo.mp4')) throw new Error('Database metadata record was not persisted');\nconst invalidEvent = { Records: [] };\nconst failRes = await orchestrateVideoPipeline(invalidEvent, db, transcoder);\nif (failRes.success !== false) throw new Error('Empty event records should fail gracefully');",
@@ -357,7 +357,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Compute elapsed = Date.now() - receivedTimestampMs; return elapsed >= timeoutSeconds * 1000 to determine if visibility expired.",
     "eTest": "const now = Date.now();\nif (isMessageVisibilityExpired(now - 40000, 30) !== true) throw new Error('40s past 30s timeout must be expired');\nif (isMessageVisibilityExpired(now - 10000, 30) !== false) throw new Error('10s past 30s timeout must remain hidden');\nif (isMessageVisibilityExpired(now, 10) !== false) throw new Error('Brand new message should remain invisible');",
     "aTitle": "SQS FIFO Deduplication Window Evaluator",
-    "aDesc": "Implement function `isMessageDuplicate(dedupId, recentDedupIds, windowSeconds)` checking for duplicate messages within the 5-minute FIFO window.",
+    "aDesc": "Implement function `isMessageDuplicate(dedupId, recentDedupIds, windowSeconds)` checking for duplicate messages within the 5-minute FIFO window. recentDedupIds is a Map from dedup id to the time (in milliseconds) it was last seen.",
     "aStarter": "function isMessageDuplicate(dedupId, recentIds, windowSec) {\n  // TODO: Check if dedupId exists in recentIds map and timestamp is within windowSec\n  \n}",
     "aHint": "Check if recentDedupIds.has(dedupId) and whether (Date.now() - recentDedupIds.get(dedupId)) <= windowSeconds * 1000; return boolean.",
     "aTest": "const map = new Map([['msg_1', Date.now() - 5000]]);\nif (isMessageDuplicate('msg_1', map, 300) !== true) throw new Error('Duplicate FIFO message failed to detect');\nif (isMessageDuplicate('msg_2', map, 300) !== false) throw new Error('New FIFO message flagged as duplicate');"
@@ -372,7 +372,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Message Filtering: Subscription filter policies routing subsets of messages based on JSON attributes."
     ],
     "eTitle": "SNS Topic Subscription Fanout Dispatcher",
-    "eDesc": "Implement function `fanoutSnsMessage(subscriptions, messagePayload)` dispatching payload to all confirmed subscriber endpoints.",
+    "eDesc": "Implement function `fanoutSnsMessage(subscriptions, messagePayload)` dispatching payload to all confirmed subscriber endpoints. Return { totalDelivered, subscribers } where subscribers lists the endpointArn of every subscription whose status is 'CONFIRMED'.",
     "eStarter": "function fanoutSnsMessage(subs, payload) {\n  // TODO: Filter confirmed subscriptions, dispatch message to endpoints, and return delivery summary\n  \n}",
     "eHint": "Filter subscriptions where sub.status === 'CONFIRMED'; map to delivered array; return { totalDelivered: confirmed.length, subscribers: confirmed.map(s => s.endpointArn) }.",
     "eTest": "const subs = [{ endpointArn: 'arn:sqs:queueA', status: 'CONFIRMED' }, { endpointArn: 'arn:sqs:queueB', status: 'CONFIRMED' }, { endpointArn: 'arn:sqs:queueC', status: 'PENDING' }];\nconst res = fanoutSnsMessage(subs, { event: 'ORDER_PLACED' });\nif (res.totalDelivered !== 2) throw new Error('SNS Fanout should deliver to exactly 2 confirmed subscriptions');\nconst emptyRes = fanoutSnsMessage([], { event: 'TEST' });\nif (emptyRes.totalDelivered !== 0) throw new Error('Empty subscription list should deliver to 0 endpoints');\nif (res.subscribers[0] !== 'arn:sqs:queueA') throw new Error('Subscriber ARN mismatch');",
@@ -397,7 +397,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Check if (!pattern.source || pattern.source.includes(event.source)) && (!pattern['detail-type'] || pattern['detail-type'].includes(event['detail-type'])); return boolean.",
     "eTest": "const pattern = { source: ['pinit.billing'], 'detail-type': ['PaymentSucceeded'] };\nconst event = { source: 'pinit.billing', 'detail-type': 'PaymentSucceeded', detail: { amount: 500 } };\nif (matchEventPattern(pattern, event) !== true) throw new Error('Valid EventBridge pattern was rejected');\nconst badEvent = { source: 'pinit.auth', 'detail-type': 'Login' };\nif (matchEventPattern(pattern, badEvent) !== false) throw new Error('Mismatched EventBridge pattern should fail');\nconst wildcardPattern = {};\nif (matchEventPattern(wildcardPattern, event) !== true) throw new Error('Empty pattern should match any event');",
     "aTitle": "CloudWatch Event Envelope Formatter",
-    "aDesc": "Implement function `createEventBridgeEnvelope(source, detailType, detailObject)` creating standard AWS event payload.",
+    "aDesc": "Implement function `createEventBridgeEnvelope(source, detailType, detailObject)` creating standard AWS event payload. Use the EventBridge field names: version ('0'), id, source, 'detail-type', time and detail.",
     "aStarter": "function createEventBridgeEnvelope(src, type, detail) {\n  // TODO: Construct standard EventBridge envelope with Version, Id, Source, DetailType, Time, and Detail\n  \n}",
     "aHint": "Return object with version: '0', id: 'evt_' + Math.random(), source, 'detail-type': detailType, time: new Date().toISOString(), detail: detailObject.",
     "aTest": "const env = createEventBridgeEnvelope('pinit.orders', 'OrderPlaced', { id: 101 });\nif (env.source !== 'pinit.orders' || env['detail-type'] !== 'OrderPlaced') throw new Error('Envelope formatting failed');\nif (!env.time || env.version !== '0') throw new Error('Envelope metadata failed');"
@@ -412,7 +412,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "High-throughput event bus scalability stress test."
     ],
     "eTitle": "Microservices Event Bus Dispatcher Kernel",
-    "eDesc": "Implement function `routeMicroserviceEvent(event, routingRules, queueStore)` matching event patterns and pushing messages to targeted service queues.",
+    "eDesc": "Implement function `routeMicroserviceEvent(event, routingRules, queueStore)` matching event patterns and pushing messages to targeted service queues. A rule matches when its source and detailType equal the event's source and 'detail-type'. Push the event into queueStore.get(targetQueue) for every match and return { matchedRules, status: 'EVENT_ROUTED_SUCCESSFULLY' }.",
     "eStarter": "function routeMicroserviceEvent(event, rules, queues) {\n  // TODO: Match event against routingRules and push event payload into matched queueStore targets\n  \n}",
     "eHint": "Iterate rules; if rule.source === event.source && rule.detailType === event['detail-type'], push event to queues.get(rule.targetQueue); return { matchedRules: count, status: 'EVENT_ROUTED_SUCCESSFULLY' }.",
     "eTest": "const queues = new Map([['inventory_queue', []], ['notification_queue', []]]);\nconst rules = [\n  { source: 'order_service', detailType: 'OrderCreated', targetQueue: 'inventory_queue' },\n  { source: 'order_service', detailType: 'OrderCreated', targetQueue: 'notification_queue' }\n];\nconst event = { source: 'order_service', 'detail-type': 'OrderCreated', detail: { orderId: 'ord_99' } };\nconst res = routeMicroserviceEvent(event, rules, queues);\nif (res.matchedRules !== 2 || queues.get('inventory_queue').length !== 1 || queues.get('notification_queue').length !== 1) throw new Error('Microservices event fanout routing failed');\nconst unmatchedEvent = { source: 'auth_service', 'detail-type': 'UserLogin' };\nconst unres = routeMicroserviceEvent(unmatchedEvent, rules, queues);\nif (unres.matchedRules !== 0) throw new Error('Unmatched event should route to 0 queues');\nif (res.status !== 'EVENT_ROUTED_SUCCESSFULLY') throw new Error('Status flag check failed');",
@@ -437,7 +437,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Check cpu: 256 -> 512, 1024, 2048 MB; 512 -> 1024-4096 MB; 1024 -> 2048-8192 MB; 2048 -> 4096-16384 MB; 4096 -> 8192-30720 MB; return boolean.",
     "eTest": "if (validateFargateTaskSize(256, 512) !== true) throw new Error('256 CPU with 512MB RAM must be valid');\nif (validateFargateTaskSize(256, 8192) !== false) throw new Error('256 CPU cannot support 8192MB RAM');\nif (validateFargateTaskSize(1024, 4096) !== true) throw new Error('1024 CPU with 4096MB RAM must be valid');",
     "aTitle": "ECS Container Definition Environment Fuser",
-    "aDesc": "Implement function `fuseContainerEnvVars(baseEnv, secretsList)` merging plain-text environment variables and Secrets Manager ARNs into task definition format.",
+    "aDesc": "Implement function `fuseContainerEnvVars(baseEnv, secretsList)` merging plain-text environment variables and Secrets Manager ARNs into task definition format. Return { environment, secrets, totalVariableCount } where environment is the base list and totalVariableCount counts both lists.",
     "aStarter": "function fuseContainerEnvVars(base, secrets) {\n  // TODO: Merge base environment array and secrets array into a unified ECS container definition environment list\n  \n}",
     "aHint": "Return object containing environment: baseEnv, secrets: secretsList, totalVariableCount: baseEnv.length + secretsList.length.",
     "aTest": "const f = fuseContainerEnvVars([{ name: 'PORT', value: '8080' }], [{ name: 'DB_PASS', valueFrom: 'arn:secret' }]);\nif (f.totalVariableCount !== 2 || f.environment[0].name !== 'PORT') throw new Error('ECS environment fusion failed');"
@@ -472,12 +472,12 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "State Locking: Amazon S3 remote state + DynamoDB LockID table preventing concurrent conflicting applies."
     ],
     "eTitle": "Terraform Resource Address Identifier Parser",
-    "eDesc": "Implement function `parseTerraformAddress(addressString)` extracting resource type, resource name, and module hierarchy.",
+    "eDesc": "Implement function `parseTerraformAddress(addressString)` extracting resource type, resource name, and module hierarchy. Return { module, resourceType, resourceName }; module is the name after 'module.' (or null when there is none).",
     "eStarter": "function parseTerraformAddress(address) {\n  // TODO: Parse standard Terraform address string (e.g. module.vpc.aws_subnet.public[0]) into structured object\n  \n}",
     "eHint": "Split address by '.'; parse module prefix if present; extract resourceType (e.g. aws_s3_bucket) and resourceName.",
     "eTest": "const res = parseTerraformAddress('aws_s3_bucket.data_lake');\nif (res.resourceType !== 'aws_s3_bucket' || res.resourceName !== 'data_lake') throw new Error('Standard Terraform address parse failed');\nconst modRes = parseTerraformAddress('module.vpc.aws_subnet.public');\nif (modRes.module !== 'vpc' || modRes.resourceType !== 'aws_subnet') throw new Error('Module Terraform address parse failed');\nif (modRes.resourceName !== 'public') throw new Error('Module resource name failed');",
     "aTitle": "Terraform State Lock Table Schema Validator",
-    "aDesc": "Implement function `isValidDynamoDbLockTable(tableSchema)` verifying that DynamoDB lock table has primary partition key named 'LockID' of type String.",
+    "aDesc": "Implement function `isValidDynamoDbLockTable(tableSchema)` verifying that DynamoDB lock table has primary partition key named 'LockID' of type String. The schema looks like { partitionKey: { name, type } }.",
     "aStarter": "function isValidDynamoDbLockTable(schema) {\n  // TODO: Verify schema has partition key AttributeName === 'LockID' and AttributeType === 'S'\n  \n}",
     "aHint": "Check if schema.partitionKey.name === 'LockID' && schema.partitionKey.type === 'S'; return boolean.",
     "aTest": "const valid = { partitionKey: { name: 'LockID', type: 'S' } };\nif (isValidDynamoDbLockTable(valid) !== true) throw new Error('Valid LockID schema was rejected');\nconst invalid = { partitionKey: { name: 'id', type: 'N' } };\nif (isValidDynamoDbLockTable(invalid) !== false) throw new Error('Invalid lock schema should fail');"
@@ -497,7 +497,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Slice last evaluationPeriods datapoints; verify if every point breaches threshold based on op ('GreaterThanThreshold' -> pt > threshold); return 'ALARM' or 'OK'.",
     "eTest": "const pts = [45, 60, 85, 90, 95];\nif (evaluateCloudWatchAlarm(pts, 80, 'GreaterThanThreshold', 3) !== 'ALARM') throw new Error('3 consecutive breaches should trigger ALARM');\nif (evaluateCloudWatchAlarm([70, 75, 80], 80, 'GreaterThanThreshold', 3) !== 'OK') throw new Error('Non-breaching points should return OK');\nif (evaluateCloudWatchAlarm([85, 90, 75], 80, 'GreaterThanThreshold', 3) !== 'OK') throw new Error('Intermittent dip must reset consecutive alarm evaluation');",
     "aTitle": "CloudWatch Log Insights Query Filter Formatter",
-    "aDesc": "Implement function `formatLogFilterQuery(statusCodeThreshold)` generating a standard CloudWatch Logs Insights query string to isolate error logs.",
+    "aDesc": "Implement function `formatLogFilterQuery(statusCodeThreshold)` generating a standard CloudWatch Logs Insights query string to isolate error logs. The query must contain 'fields @timestamp' and 'filter status >= THRESHOLD'.",
     "aStarter": "function formatLogFilterQuery(codeThreshold) {\n  // TODO: Return CloudWatch Logs Insights query string filtering logs where status is greater than or equal to threshold\n  \n}",
     "aHint": "Return string formatted as: `fields @timestamp, @message | filter status >= ${statusCodeThreshold} | sort @timestamp desc | limit 50`.",
     "aTest": "const q = formatLogFilterQuery(500);\nif (!q.includes('filter status >= 500') || !q.includes('fields @timestamp')) throw new Error('Log query formatter failed');"
@@ -512,7 +512,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
       "Automatic Key Rotation: Annual automated rotation of cryptographic key material without re-encrypting existing data."
     ],
     "eTitle": "KMS Envelope Encryption Simulator",
-    "eDesc": "Implement function `simulateEnvelopeEncryption(plainData, kmsMasterKeyArn)` generating simulated data key and encrypted payload.",
+    "eDesc": "Implement function `simulateEnvelopeEncryption(plainData, kmsMasterKeyArn)` generating simulated data key and encrypted payload. Return { ciphertext, encryptedDataKey, kmsMasterKeyId }. The ciphertext must not contain the plain text.",
     "eStarter": "function simulateEnvelopeEncryption(plainData, masterKeyArn) {\n  // TODO: Simulate GenerateDataKey, encrypt plainData with dataKey, and return { ciphertext, encryptedDataKey, kmsMasterKeyId }\n  \n}",
     "eHint": "Generate random dataKey; simulate encryption of plainData; encrypt dataKey with masterKeyArn; return envelope object containing ciphertext, encryptedDataKey, and kmsMasterKeyId.",
     "eTest": "const env = simulateEnvelopeEncryption('CustomerSSN_123', 'arn:aws:kms:us-east-1:key-123');\nif (!env.ciphertext || !env.encryptedDataKey || env.kmsMasterKeyId !== 'arn:aws:kms:us-east-1:key-123') throw new Error('Envelope encryption failed');\nif (env.ciphertext.includes('CustomerSSN_123')) throw new Error('Plaintext must not be exposed in ciphertext');\nconst env2 = simulateEnvelopeEncryption('CreditCard_456', 'arn:aws:kms:us-east-1:key-456');\nif (env2.kmsMasterKeyId !== 'arn:aws:kms:us-east-1:key-456') throw new Error('Key ARN assignment failed');",
@@ -597,7 +597,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Filter regions where region.healthStatus === 'HEALTHY'; sort by latencyMs ascending; if empty return { success: false, reason: 'NO_HEALTHY_REGIONS' }; return { success: true, routedRegion: healthy[0].regionCode, latencyMs: healthy[0].latencyMs }.",
     "eTest": "const regions = [\n  { regionCode: 'us-east-1', healthStatus: 'HEALTHY', latencyMs: 25 },\n  { regionCode: 'eu-west-1', healthStatus: 'HEALTHY', latencyMs: 110 },\n  { regionCode: 'ap-southeast-1', healthStatus: 'UNHEALTHY', latencyMs: 15 }\n];\nconst res = routeGlobalBankingTransaction(regions, { amount: 5000 });\nif (res.success !== true || res.routedRegion !== 'us-east-1') throw new Error('Global banking transaction should route to closest healthy region us-east-1');\nconst allDead = [{ regionCode: 'us-east-1', healthStatus: 'UNHEALTHY', latencyMs: 20 }];\nif (routeGlobalBankingTransaction(allDead, {}).success !== false) throw new Error('All unhealthy regions should fail gracefully');\nif (res.latencyMs !== 25) throw new Error('Latency property mismatch');",
     "aTitle": "Multi-Region Cloud Architecture Readiness Auditor",
-    "aDesc": "Implement function `auditGlobalCloudReadiness(multiRegionReady, securityReady, finOpsScore, backupValidated)` certifying enterprise cloud architecture readiness.",
+    "aDesc": "Implement function `auditGlobalCloudReadiness(multiRegionReady, securityReady, finOpsScore, backupValidated)` certifying enterprise cloud architecture readiness. Return { isEnterpriseCertified, complianceGrade }; when certified, complianceGrade is 'TIER_1_ENTERPRISE_CLOUD_ARCHITECT'.",
     "aStarter": "function auditGlobalCloudReadiness(mr, sec, finOps, backup) {\n  // TODO: Verify all readiness flags are true and finOpsScore >= 80, returning certification report\n  \n}",
     "aHint": "isCertified = Boolean(multiRegionReady && securityReady && finOpsScore >= 80 && backupValidated); return { isEnterpriseCertified: isCertified, complianceGrade: isCertified ? 'TIER_1_ENTERPRISE_CLOUD_ARCHITECT' : 'REMEDIATION_REQUIRED' }.",
     "aTest": "const cert = auditGlobalCloudReadiness(true, true, 85, true);\nif (!cert.isEnterpriseCertified || cert.complianceGrade !== 'TIER_1_ENTERPRISE_CLOUD_ARCHITECT') throw new Error('Cloud readiness certification failed');\nconst fail = auditGlobalCloudReadiness(true, false, 90, true);\nif (fail.isEnterpriseCertified) throw new Error('Unsecured architecture should not pass certification');"

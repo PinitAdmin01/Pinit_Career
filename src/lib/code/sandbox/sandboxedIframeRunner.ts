@@ -21,12 +21,15 @@
  */
 
 import { TestCase, SingleTestOutcome, SuiteExecutionResult } from '../types';
+import { LOG_FORMAT_SOURCE } from './logFormat';
 
 export interface SandboxExecutionOptions {
   functionName?: string;
   testCases?: TestCase[];
   timeoutMs?: number;
   mode?: 'suite' | 'script';
+  /** Script mode: wait until pending setTimeout timers have run before sending the output (lesson examples). */
+  waitForTimers?: boolean;
 }
 
 export interface UntrustedExecutionPayload {
@@ -191,21 +194,57 @@ export async function executeInTwoLayerSandbox(
                   }
                 } catch {}
 
+                // Never write backslash escapes in this worker source: it sits inside a template literal,
+                // so an escaped newline turned into a raw line break inside a quoted string and the
+                // whole worker failed to parse. Use NEWLINE instead.
+                const NEWLINE = String.fromCharCode(10);
                 let logs = [];
                 let errLogs = [];
                 const MAX_LOG_LINES = 100;
                 const MAX_LOG_CHAR = 2000;
                 const origLog = console.log;
                 const origErr = console.error;
+                ${LOG_FORMAT_SOURCE}
+                function __pinitFormatArgs(args) {
+                  return args.map(function (a) {
+                    try { return __pinitFormatLog(a, 0); } catch (fmtErr) { return String(a); }
+                  }).join(' ');
+                }
                 console.log = function(...args) {
                   if (logs.length < MAX_LOG_LINES) {
-                    logs.push(args.map(String).join(' ').slice(0, MAX_LOG_CHAR));
+                    logs.push(__pinitFormatArgs(args).slice(0, MAX_LOG_CHAR));
                   }
                 };
                 console.error = function(...args) {
                   if (errLogs.length < MAX_LOG_LINES) {
-                    errLogs.push(args.map(String).join(' ').slice(0, MAX_LOG_CHAR));
+                    errLogs.push(__pinitFormatArgs(args).slice(0, MAX_LOG_CHAR));
                   }
+                };
+
+                // Remember pending setTimeout timers, so a lesson example that prints from a timer
+                // (a debounce, a simulated network delay) can finish before its output is sent.
+                const pendingTimers = new Set();
+                const nativeSetTimeout = self.setTimeout.bind(self);
+                const nativeClearTimeout = self.clearTimeout.bind(self);
+                self.setTimeout = function (fn, ms) {
+                  const extra = Array.prototype.slice.call(arguments, 2);
+                  const id = nativeSetTimeout(function () {
+                    pendingTimers.delete(id);
+                    if (typeof fn === 'function') fn.apply(null, extra);
+                  }, ms);
+                  pendingTimers.add(id);
+                  return id;
+                };
+                self.clearTimeout = function (id) {
+                  pendingTimers.delete(id);
+                  nativeClearTimeout(id);
+                };
+                const whenTimersDone = function (done) {
+                  const check = function () {
+                    if (pendingTimers.size === 0) done();
+                    else nativeSetTimeout(check, 5);
+                  };
+                  nativeSetTimeout(check, 0);
                 };
 
                 self.onmessage = function(e) {
@@ -220,9 +259,36 @@ export async function executeInTwoLayerSandbox(
                   let allPassed = true;
                   let runtimeError = null;
 
-                  if (mode === 'script' || fnName === 'none' || !fnName) {
+                  const sendResult = function (passed, error) {
+                    self.postMessage({
+                      type: 'WORKER_RESULT',
+                      outcomes: outcomes,
+                      allPassed: passed && !error,
+                      stdout: logs.join(NEWLINE),
+                      stderr: errLogs.join(NEWLINE),
+                      error: error
+                    });
+                  };
+                  const isScript = mode === 'script' || fnName === 'none' || !fnName;
+                  const postResult = function (passed, error) {
+                    if (isScript && data.waitForTimers) whenTimersDone(function () { sendResult(passed, error); });
+                    else sendResult(passed, error);
+                  };
+
+                  if (isScript) {
                     try {
                       const res = new Function(code)();
+                      // A script that returns a promise (a practice task's async checks) is
+                      // finished only when the promise settles.
+                      if (res && typeof res.then === 'function') {
+                        res.then(
+                          function () { postResult(true, null); },
+                          function (asyncErr) {
+                            postResult(false, asyncErr && asyncErr.message ? asyncErr.message : String(asyncErr));
+                          }
+                        );
+                        return;
+                      }
                       if (res !== undefined && logs.length === 0) {
                         logs.push(String(res));
                       }
@@ -236,7 +302,7 @@ export async function executeInTwoLayerSandbox(
                       // Evaluate student solution in isolated worker scope
                       let compiledFn;
                       try {
-                        compiledFn = new Function(code + '\\nreturn ' + fnName + ';')();
+                        compiledFn = new Function(code + NEWLINE + 'return ' + fnName + ';')();
                       } catch (compileInner) {
                         // Fallback: evaluate directly as script so console logs still execute
                         const res = new Function(code)();
@@ -253,7 +319,7 @@ export async function executeInTwoLayerSandbox(
                           const tStart = Date.now();
                           let args = [];
                           try {
-                            args = JSON.parse('[' + (tc.input || '').replace(/^\\(|\\)$/g, '') + ']');
+                            args = JSON.parse('[' + (tc.input || '').replace(/^[(]|[)]$/g, '') + ']');
                           } catch {
                             args = [tc.input];
                           }
@@ -297,14 +363,7 @@ export async function executeInTwoLayerSandbox(
                     }
                   }
 
-                  self.postMessage({
-                    type: 'WORKER_RESULT',
-                    outcomes: outcomes,
-                    allPassed: allPassed && !runtimeError,
-                    stdout: logs.join('\\n'),
-                    stderr: errLogs.join('\\n'),
-                    error: runtimeError
-                  });
+                  postResult(allPassed, runtimeError);
                 };
               \`;
 
@@ -384,7 +443,8 @@ export async function executeInTwoLayerSandbox(
                         code: req.code,
                         fnName: req.fnName,
                         testCases: req.testCases,
-                        mode: req.mode
+                        mode: req.mode,
+                        waitForTimers: Boolean(req.waitForTimers)
                       });
                     } catch (workerInitErr) {
                       port.postMessage({
@@ -490,7 +550,8 @@ export async function executeInTwoLayerSandbox(
           fnName,
           testCases,
           timeoutMs,
-          mode: options?.mode || (fnName && fnName !== 'none' ? 'suite' : 'script')
+          mode: options?.mode || (fnName && fnName !== 'none' ? 'suite' : 'script'),
+          waitForTimers: Boolean(options?.waitForTimers)
         });
       };
 
@@ -513,6 +574,7 @@ export async function executeSandboxScript(
     functionName: 'none',
     testCases: [],
     timeoutMs,
+    waitForTimers: true,
   });
 
   const stdout = result.stdout || result.terminalLogs.filter(l => l.startsWith('stdout: ')).map(l => l.slice(8)).join('\n');

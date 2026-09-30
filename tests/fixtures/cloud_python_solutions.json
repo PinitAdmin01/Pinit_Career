@@ -1,0 +1,122 @@
+[
+ [
+  "LAYERS = ['PHYSICAL_DATACENTER', 'HYPERVISOR', 'OS_PATCHING', 'RUNTIME', 'APPLICATION_CODE', 'DATA']\n\n\ndef responsibility_owner(layer, model):\n    aws_layers = {'IaaS': 2, 'PaaS': 4, 'SaaS': 5}[model]\n    return 'AWS' if LAYERS.index(layer) < aws_layers else 'CUSTOMER'",
+  "MODELS = {\n    'EC2': 'IaaS', 'EBS': 'IaaS', 'VPC': 'IaaS',\n    'RDS': 'PaaS', 'Lambda': 'PaaS', 'Elastic Beanstalk': 'PaaS', 'DynamoDB': 'PaaS',\n    'WorkDocs': 'SaaS', 'Chime': 'SaaS', 'QuickSight': 'SaaS',\n}\n\n\ndef cloud_model(service):\n    return MODELS.get(service, 'UNKNOWN')"
+ ],
+ [
+  "def is_fault_tolerant(nodes):\n    return len({node['az'] for node in nodes}) >= 2",
+  "import re\n\nDIRECTIONS = 'north|south|east|west|central|northeast|northwest|southeast|southwest'\n\n\ndef is_valid_region(code):\n    return re.fullmatch(rf'[a-z]{{2}}-({DIRECTIONS})-\\d+', code) is not None"
+ ],
+ [
+  "def usable_subnet_ips(mask):\n    if not 16 <= mask <= 28:\n        return 0\n    return 2 ** (32 - mask) - 5",
+  "def has_internet_route(routes):\n    return any(r['destination'] == '0.0.0.0/0' and r['target'].startswith('igw-') for r in routes)"
+ ],
+ [
+  "def security_group_allows(rules, traffic):\n    if traffic.get('is_return'):\n        return True\n    return any(\n        rule['protocol'] == traffic['protocol'] and rule['from_port'] <= traffic['port'] <= rule['to_port']\n        for rule in rules\n    )",
+  "def nacl_decision(rules, port):\n    for rule in sorted(rules, key=lambda r: r['rule_number']):\n        if rule['port'] == '*' or rule['port'] == port:\n            return rule['action']\n    return 'DENY'"
+ ],
+ [
+  "def validate_vpc(vpc):\n    subnets = vpc['subnets']\n    azs = {s['az'] for s in subnets}\n    public = sum(1 for s in subnets if s['type'] == 'PUBLIC')\n    private = sum(1 for s in subnets if s['type'] == 'PRIVATE')\n    problems = []\n    if len(azs) < 2:\n        problems.append('NEEDS_2_AZS')\n    if public < 2:\n        problems.append('NEEDS_2_PUBLIC_SUBNETS')\n    if private < 2:\n        problems.append('NEEDS_2_PRIVATE_SUBNETS')\n    if not vpc['has_internet_gateway']:\n        problems.append('NO_INTERNET_GATEWAY')\n    if not vpc['has_nat_gateway']:\n        problems.append('NO_NAT_GATEWAY')\n    return {'valid': not problems, 'az_count': len(azs), 'problems': problems}",
+  "import ipaddress\n\n\ndef subnets_distinct(cidrs):\n    nets = [ipaddress.ip_network(c) for c in cidrs]\n    for i in range(len(nets)):\n        for j in range(i + 1, len(nets)):\n            if nets[i].overlaps(nets[j]):\n                return False\n    return True"
+ ],
+ [
+  "def matches(pattern, value):\n    if pattern.endswith('*'):\n        return value.startswith(pattern[:-1])\n    return pattern == value\n\n\ndef evaluate_iam(statements, request):\n    hits = [s for s in statements if matches(s['action'], request['action']) and matches(s['resource'], request['resource'])]\n    if any(s['effect'] == 'Deny' for s in hits):\n        return 'DENY'\n    if any(s['effect'] == 'Allow' for s in hits):\n        return 'ALLOW'\n    return 'DENY'",
+  "def parse_arn(arn):\n    parts = arn.split(':', 5)\n    if len(parts) != 6 or parts[0] != 'arn':\n        return None\n    _, partition, service, region, account, resource = parts\n    return {'partition': partition, 'service': service, 'region': region, 'account': account, 'resource': resource}"
+ ],
+ [
+  "import math\n\n\ndef desired_capacity(current, metric, target, min_size, max_size):\n    wanted = math.ceil(current * metric / target)\n    return max(min_size, min(max_size, wanted))",
+  "def spot_action(seconds_notice):\n    if seconds_notice <= 0:\n        return 'ALREADY_GONE'\n    if seconds_notice <= 120:\n        return 'DRAIN_NOW'\n    return 'KEEP_WORKING'"
+ ],
+ [
+  "def route_alb(rules, path):\n    for rule in rules:\n        pattern = rule['pattern']\n        if pattern.endswith('*'):\n            if path.startswith(pattern[:-1]):\n                return rule['target_group']\n        elif pattern == path:\n            return rule['target_group']\n    return 'tg-default'",
+  "def target_state(results, healthy_threshold=3, unhealthy_threshold=2):\n    state, passes, failures = 'UNHEALTHY', 0, 0\n    for ok in results:\n        if ok:\n            passes, failures = passes + 1, 0\n            if passes >= healthy_threshold:\n                state = 'HEALTHY'\n        else:\n            passes, failures = 0, failures + 1\n            if failures >= unhealthy_threshold:\n                state = 'UNHEALTHY'\n    return state"
+ ],
+ [
+  "def storage_class(age_days, access):\n    if age_days >= 365:\n        return 'DEEP_ARCHIVE'\n    if age_days >= 90:\n        return 'GLACIER_FLEXIBLE'\n    if age_days >= 30 and access == 'INFREQUENT':\n        return 'STANDARD_IA'\n    return 'STANDARD'",
+  "def current_version(versions):\n    if not versions or versions[-1]['is_delete_marker']:\n        return None\n    return versions[-1]['version_id']"
+ ],
+ [
+  "def enforces_tls(policy):\n    for s in policy.get('Statement', []):\n        if s.get('Effect') == 'Deny' and s.get('Condition', {}).get('Bool', {}).get('aws:SecureTransport') == 'false':\n            return True\n    return False",
+  "import re\n\n\ndef is_valid_bucket_name(name):\n    if not re.fullmatch(r'[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]', name):\n        return False\n    if '..' in name:\n        return False\n    return not re.fullmatch(r'\\d+\\.\\d+\\.\\d+\\.\\d+', name)"
+ ],
+ [
+  "def lambda_cost(invocations, duration_ms, memory_mb):\n    gb_seconds = invocations * (duration_ms / 1000) * (memory_mb / 1024)\n    return round(gb_seconds * 0.0000166667 + invocations / 1_000_000 * 0.20, 4)",
+  "def concurrency_model(cold_start_ms, latency_critical):\n    if not latency_critical:\n        return 'ON_DEMAND'\n    if cold_start_ms > 200:\n        return 'PROVISIONED'\n    if cold_start_ms > 100:\n        return 'SNAPSTART'\n    return 'ON_DEMAND'"
+ ],
+ [
+  "def authorizer_response(principal_id, effect, resource_arn):\n    if effect not in ('Allow', 'Deny'):\n        raise ValueError('effect must be Allow or Deny')\n    return {\n        'principalId': principal_id,\n        'policyDocument': {\n            'Version': '2012-10-17',\n            'Statement': [{'Action': 'execute-api:Invoke', 'Effect': effect, 'Resource': resource_arn}],\n        },\n    }",
+  "def cors_headers(origin, allowed_origins):\n    if origin not in allowed_origins:\n        return {}\n    return {\n        'Access-Control-Allow-Origin': origin,\n        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',\n        'Access-Control-Allow-Headers': 'Content-Type,Authorization',\n        'Vary': 'Origin',\n    }"
+ ],
+ [
+  "from collections import Counter\n\n\ndef hot_keys(access_log, share=0.5):\n    if not access_log:\n        return []\n    total = len(access_log)\n    return sorted(key for key, n in Counter(access_log).items() if n / total > share)",
+  "import math\n\n\ndef required_rcu(item_size_bytes, reads_per_sec, strongly_consistent):\n    units = math.ceil(item_size_bytes / 4096) * reads_per_sec\n    if not strongly_consistent:\n        units = units / 2\n    return math.ceil(units)"
+ ],
+ [
+  "def failover(cluster):\n    if not cluster['multi_az'] or not cluster['standby_az']:\n        return {'success': False, 'new_primary': None}\n    cluster['primary_az'], cluster['standby_az'] = cluster['standby_az'], cluster['primary_az']\n    return {'success': True, 'new_primary': cluster['primary_az']}",
+  "def route_query(sql, primary, replicas, counter):\n    if sql.strip().upper().startswith('SELECT') and replicas:\n        return replicas[counter % len(replicas)]\n    return primary"
+ ],
+ [
+  "def process_upload(event, db, transcode):\n    done = failed = 0\n    for record in event.get('Records', []):\n        bucket = record['s3']['bucket']['name']\n        key = record['s3']['object']['key']\n        try:\n            url = transcode(bucket, key)\n            db[key] = {'bucket': bucket, 'output_url': url, 'status': 'DONE'}\n            done += 1\n        except Exception:\n            db[key] = {'bucket': bucket, 'output_url': None, 'status': 'FAILED'}\n            failed += 1\n    return {'processed': done, 'failed': failed}",
+  "def parse_s3_record(record):\n    obj = record['s3']['object']\n    return {\n        'bucket': record['s3']['bucket']['name'],\n        'key': obj['key'].replace('+', ' ').replace('%20', ' '),\n        'size': obj['size'],\n    }"
+ ],
+ [
+  "def edge_ttl(cache_control, default_ttl=86400):\n    directives = [d.strip() for d in cache_control.split(',') if d.strip()]\n    if 'no-store' in directives or 'private' in directives:\n        return 0\n    for name in ('s-maxage=', 'max-age='):\n        for d in directives:\n            if d.startswith(name):\n                return int(d[len(name):])\n    return default_ttl",
+  "def cache_key(path, headers, query, key_headers, key_params):\n    lower = {name.lower(): value for name, value in headers.items()}\n    kept_headers = sorted((name, lower[name]) for name in key_headers if name in lower)\n    kept_params = sorted((name, query[name]) for name in key_params if name in query)\n    join = lambda pairs: '&'.join(f'{n}={v}' for n, v in pairs)\n    return f'{path}|{join(kept_headers)}|{join(kept_params)}'"
+ ],
+ [
+  "def resolve_dns(config, health):\n    primary = config['primary']\n    if config['policy'] == 'SIMPLE':\n        return primary\n    if health.get(primary, False):\n        return primary\n    secondary = config.get('secondary')\n    if secondary and health.get(secondary, False):\n        return secondary\n    return primary",
+  "def pick_weighted(records, roll):\n    total = 0\n    for record in records:\n        total += record['weight']\n        if roll < total:\n            return record['endpoint']\n    return None"
+ ],
+ [
+  "class Queue:\n    def __init__(self, visibility_timeout=30):\n        self.visibility_timeout = visibility_timeout\n        self.messages = []\n        self.next_id = 1\n\n    def send(self, body):\n        self.messages.append({'id': f'm{self.next_id}', 'body': body, 'receive_count': 0, 'visible_at': 0})\n        self.next_id += 1\n\n    def receive(self, now):\n        for m in self.messages:\n            if m['visible_at'] <= now:\n                m['visible_at'] = now + self.visibility_timeout\n                m['receive_count'] += 1\n                return {'id': m['id'], 'body': m['body'], 'receive_count': m['receive_count']}\n        return None\n\n    def delete(self, message_id):\n        self.messages = [m for m in self.messages if m['id'] != message_id]",
+  "def accept_messages(messages, window=300):\n    last_accepted, accepted = {}, []\n    for dedup_id, t in messages:\n        if dedup_id not in last_accepted or t - last_accepted[dedup_id] >= window:\n            last_accepted[dedup_id] = t\n            accepted.append(dedup_id)\n    return accepted"
+ ],
+ [
+  "def fanout(subscriptions, message, deliver):\n    delivered, failed, skipped = [], [], 0\n    for sub in subscriptions:\n        if sub['status'] != 'CONFIRMED':\n            skipped += 1\n            continue\n        try:\n            deliver(sub['endpoint'], message)\n            delivered.append(sub['endpoint'])\n        except Exception:\n            failed.append(sub['endpoint'])\n    return {'delivered': delivered, 'failed': failed, 'skipped': skipped}",
+  "def matches_filter(policy, attributes):\n    return all(name in attributes and attributes[name]['Value'] in allowed for name, allowed in policy.items())"
+ ],
+ [
+  "def match_pattern(pattern, event):\n    for key, want in pattern.items():\n        if key not in event:\n            return False\n        if isinstance(want, dict):\n            if not isinstance(event[key], dict) or not match_pattern(want, event[key]):\n                return False\n        elif event[key] not in want:\n            return False\n    return True",
+  "def make_event(source, detail_type, detail, event_id, time):\n    if '.' not in source or source.startswith('aws.'):\n        raise ValueError('source must look like company.service and not start with aws.')\n    return {'version': '0', 'id': event_id, 'source': source, 'detail-type': detail_type, 'time': time, 'detail': detail}"
+ ],
+ [
+  "def route_event(event, rules, queues):\n    matched = dead = delivered = 0\n    for rule in rules:\n        if rule['source'] == event['source'] and rule['detail_type'] == event['detail-type']:\n            matched += 1\n            if rule['target'] in queues:\n                queues[rule['target']].append(event)\n                delivered += 1\n            else:\n                dead += 1\n    return {'matched': matched, 'dead_letters': dead, 'status': 'ROUTED' if delivered else 'NO_MATCH'}",
+  "def redrive(messages, max_receive_count):\n    main = [m['id'] for m in messages if m['receive_count'] <= max_receive_count]\n    dlq = [m['id'] for m in messages if m['receive_count'] > max_receive_count]\n    return main, dlq"
+ ],
+ [
+  "ALLOWED = {\n    256: {512, 1024, 2048},\n    512: set(range(1024, 4096 + 1, 1024)),\n    1024: set(range(2048, 8192 + 1, 1024)),\n    2048: set(range(4096, 16384 + 1, 1024)),\n    4096: set(range(8192, 30720 + 1, 1024)),\n}\n\n\ndef valid_fargate_size(cpu, memory_mb):\n    return memory_mb in ALLOWED.get(cpu, set())",
+  "def container_env(plain, secrets):\n    if set(plain) & set(secrets):\n        raise ValueError('a name cannot be both a plain setting and a secret')\n    return {\n        'environment': [{'name': n, 'value': plain[n]} for n in sorted(plain)],\n        'secrets': [{'name': n, 'valueFrom': secrets[n]} for n in sorted(secrets)],\n    }"
+ ],
+ [
+  "def run_saga(steps):\n    done = []\n    for step in steps:\n        try:\n            step['do']()\n        except Exception:\n            undone = []\n            for prev in reversed(done):\n                prev['undo']()\n                undone.append(prev['name'])\n            return {'success': False, 'failed_step': step['name'], 'undone': undone}\n        done.append(step)\n    return {'success': True, 'failed_step': None, 'undone': []}",
+  "VALID_TYPES = {'Task', 'Choice', 'Parallel', 'Map', 'Pass', 'Wait', 'Succeed', 'Fail'}\n\n\ndef validate_state_machine(definition):\n    states = definition['States']\n    problems = []\n    if definition['StartAt'] not in states:\n        problems.append('BAD_START')\n    for name, state in states.items():\n        if state.get('Type') not in VALID_TYPES:\n            problems.append(f'BAD_TYPE:{name}')\n        if 'Next' in state and state['Next'] not in states:\n            problems.append(f'BAD_NEXT:{name}')\n    return sorted(problems)"
+ ],
+ [
+  "def parse_tf_address(address):\n    parts = address.split('.')\n    modules = []\n    while parts[0] == 'module':\n        modules.append(parts[1])\n        parts = parts[2:]\n    return {'modules': modules, 'type': parts[0], 'name': parts[1]}",
+  "def plan_summary(changes):\n    add = change = destroy = 0\n    replace = []\n    for c in changes:\n        actions = c['actions']\n        if 'create' in actions:\n            add += 1\n        if 'delete' in actions:\n            destroy += 1\n        if 'update' in actions:\n            change += 1\n        if 'create' in actions and 'delete' in actions:\n            replace.append(c['address'])\n    return {'add': add, 'change': change, 'destroy': destroy, 'replace': sorted(replace)}"
+ ],
+ [
+  "def alarm_state(datapoints, threshold, operator, periods):\n    if len(datapoints) < periods:\n        return 'INSUFFICIENT_DATA'\n    recent = datapoints[-periods:]\n    if operator == 'GreaterThanThreshold':\n        breached = all(v > threshold for v in recent)\n    else:\n        breached = all(v < threshold for v in recent)\n    return 'ALARM' if breached else 'OK'",
+  "from collections import Counter\n\n\ndef error_summary(logs, min_status=500):\n    counts = Counter(entry['path'] for entry in logs if entry['status'] >= min_status)\n    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))"
+ ],
+ [
+  "def xor_bytes(data, key):\n    return bytes(b ^ key[i % len(key)] for i, b in enumerate(data))\n\n\ndef envelope_encrypt(plaintext, data_key, master_key, key_id):\n    return {\n        'ciphertext': xor_bytes(plaintext.encode(), data_key).hex(),\n        'encrypted_data_key': xor_bytes(data_key, master_key).hex(),\n        'key_id': key_id,\n    }\n\n\ndef envelope_decrypt(envelope, master_key):\n    data_key = xor_bytes(bytes.fromhex(envelope['encrypted_data_key']), master_key)\n    return xor_bytes(bytes.fromhex(envelope['ciphertext']), data_key).decode()",
+  "def key_policy_risks(policy):\n    risks = set()\n    for s in policy.get('Statement', []):\n        if s.get('Effect') != 'Allow':\n            continue\n        principal = s.get('Principal')\n        if isinstance(principal, dict):\n            principal = principal.get('AWS')\n        if principal == '*' and not s.get('Condition'):\n            risks.add('PUBLIC_PRINCIPAL')\n        if s.get('Action') == 'kms:*' and not str(principal).endswith(':root'):\n            risks.add('KMS_WILDCARD')\n    return sorted(risks)"
+ ],
+ [
+  "SQLI_SIGNS = [\"' or 1=1\", 'union select', '; drop table', '--']\n\n\ndef inspect_request(rules, request):\n    for rule in rules:\n        kind = rule['type']\n        if kind == 'IP_BLOCK' and request['ip'] in rule['ips']:\n            return {'action': 'BLOCK', 'rule': kind}\n        if kind == 'SQLI' and any(sign in request['query'].lower() for sign in SQLI_SIGNS):\n            return {'action': 'BLOCK', 'rule': kind}\n        if kind == 'RATE_LIMIT' and request['count_5min'] > rule['limit']:\n            return {'action': 'BLOCK', 'rule': kind}\n    return {'action': 'ALLOW', 'rule': None}",
+  "import ipaddress\n\n\ndef valid_ip_set(ranges):\n    if not ranges:\n        return False\n    for r in ranges:\n        if '/' not in r:\n            return False\n        try:\n            ipaddress.ip_network(r, strict=True)\n        except ValueError:\n            return False\n    return True"
+ ],
+ [
+  "def cloud_bill(hours_used, plan_rate, on_demand_rate, committed_hours):\n    return round(committed_hours * plan_rate + max(0, hours_used - committed_hours) * on_demand_rate, 2)",
+  "def untagged_resources(resources, required):\n    report = {}\n    for r in resources:\n        missing = sorted(tag for tag in required if not r['tags'].get(tag))\n        if missing:\n            report[r['id']] = missing\n    return report"
+ ],
+ [
+  "TIERS = [('BackupAndRestore', 1440, 60), ('PilotLight', 60, 10), ('WarmStandby', 5, 1)]\n\n\ndef dr_strategy(rto_minutes, rpo_minutes):\n    for name, rto, rpo in TIERS:\n        if rto_minutes >= rto and rpo_minutes >= rpo:\n            return name\n    return 'MultiSiteActiveActive'",
+  "def outage_cost(rto_minutes, rpo_minutes, orders_per_minute, order_value):\n    per_minute = orders_per_minute * order_value\n    lost_sales = rto_minutes * per_minute\n    lost_data = rpo_minutes * per_minute\n    return {'lost_sales': lost_sales, 'lost_data': lost_data, 'total': lost_sales + lost_data}"
+ ],
+ [
+  "def route_transaction(regions, txn):\n    ok = [r for r in regions if r['healthy'] and txn['country'] in r['allowed_countries']]\n    if not ok:\n        return {'success': False, 'region': None}\n    best = min(ok, key=lambda r: r['latency_ms'])\n    return {'success': True, 'region': best['code']}",
+  "def readiness_audit(checks):\n    score = checks.get('finops_score', 0)\n    flags = {name: ok for name, ok in checks.items() if name != 'finops_score'}\n    failed = sorted(name for name, ok in flags.items() if not ok)\n    certified = bool(flags) and not failed and score >= 80\n    if certified:\n        grade = 'TIER_1'\n    elif flags and len(failed) <= 1 and score >= 60:\n        grade = 'TIER_2'\n    else:\n        grade = 'NOT_READY'\n    return {'certified': certified, 'failed': failed, 'grade': grade}"
+ ]
+]

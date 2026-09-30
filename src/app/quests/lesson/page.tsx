@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
+import { parseTestQuestId } from '@/lib/data/courseTests';
 import { stopSpeaking } from '@/lib/tts';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -398,7 +399,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     if (state.returningRef.current) return;
     state.returningRef.current = true;
     const id = resolveQuestId();
-    if (id) {
+    // Course tests are recorded by the lesson engine once the server has marked them.
+    if (id && !parseTestQuestId(id)) {
       const authQuest = getAuthoritativeQuest(id);
       const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
       const isExam = isAuthoritativeExam(id);
@@ -502,6 +504,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             isInteractive={state.isInteractive}
             examPassed={state.examPassed}
             maxUnlockedSlide={state.maxUnlockedSlide}
+            isTest={Boolean(parseTestQuestId(questId))}
           />
 
           <LessonContentRenderer
@@ -542,6 +545,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             setExamFailed={state.setExamFailed}
             examCorrectCount={state.examCorrectCount}
             setExamCorrectCount={state.setExamCorrectCount}
+            setExamAnswers={state.setExamAnswers}
             onReviewLesson={engine.onReviewLesson}
             examQuestionIndex={state.examQuestionIndex}
             setExamQuestionIndex={state.setExamQuestionIndex}
@@ -554,6 +558,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             setExamPassed={state.setExamPassed}
             playChime={engine.playChime}
             launchConfetti={engine.launchConfetti}
+            quizQuestions={engine.quizQuestions}
           />
 
           <LessonNavigationBar
@@ -580,6 +585,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
         confettiParticles={state.confettiParticles}
         finishLessonAndReturn={finishLessonAndReturn}
         questId={questId}
+        testRecord={engine.testRecord}
+        onRetryTest={engine.onReviewLesson}
       />
     </div>
   );

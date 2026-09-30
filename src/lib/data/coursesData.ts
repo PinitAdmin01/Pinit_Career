@@ -4,12 +4,19 @@ import { CLOUD_30_DAYS_QUESTS } from './cloud30DayData';
 import { DEVOPS_30_DAYS_QUESTS } from './devops30DayData';
 import { DESIGN_30_DAYS_QUESTS } from './design30DayData';
 import { DSA_30_DAYS_QUESTS } from './dsa30DayData';
+import { DSA_PYTHON_30_DAYS_QUESTS } from './dsaPython30DayData';
 import { MOBILE_30_DAYS_QUESTS } from './mobile30DayData';
 import { NLP_30_DAYS_QUESTS } from './nlp30DayData';
 import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
 import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
+import { DIST_PYTHON_30_DAYS_QUESTS } from './distPython30DayData';
+import { CLOUD_PYTHON_30_DAYS_QUESTS } from './cloudPython30DayData';
+import { NLP_PYTHON_30_DAYS_QUESTS } from './nlpPython30DayData';
+import { QUANT_PYTHON_30_DAYS_QUESTS } from './quantPython30DayData';
+import { PROMPT_PYTHON_30_DAYS_QUESTS } from './promptPython30DayData';
 import { AI_30_DAYS_QUESTS } from './ai30DayData';
+import { AI_PYTHON_30_DAYS_QUESTS } from './aiPython30DayData';
 import { FULLSTACK_30_DAYS_QUESTS } from './fullstack30DayData';
 import { IOT_EMBEDDED_30_DAYS_QUESTS } from './iotEmbedded30DayData';
 import { GRAPHICS_3D_30_DAYS_QUESTS } from './graphics3d30DayData';
@@ -34,6 +41,7 @@ import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
 import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
+import { addBlockTests } from './courseTests';
 
 
 export interface CourseQuest {
@@ -50,6 +58,8 @@ export interface CourseQuest {
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory';
   xp: number;
   pins: number;
+  /** Tests only: the titles of the days the test covers. */
+  testDays?: string[];
 }
 
 export interface Course {
@@ -62,7 +72,7 @@ export interface Course {
   quests: CourseQuest[];
 }
 
-export const COURSES_REGISTRY: Course[] = [
+const RAW_COURSES: Course[] = [
   {
     id: 'course-java-logic',
     title: 'Java Fundamentals & Core Logic',
@@ -92,6 +102,15 @@ export const COURSES_REGISTRY: Course[] = [
     quests: CLOUD_30_DAYS_QUESTS as any
   },
   {
+    id: 'course-cloud-python',
+    title: 'Cloud Engineering in Python (AWS)',
+    desc: 'The AWS cloud course with every practice task in Python: VPCs and subnets, IAM policies, auto scaling, load balancers, S3, Lambda, DynamoDB, RDS, queues and events, Terraform, monitoring, security, FinOps and disaster recovery.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '☁️',
+    quests: CLOUD_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
     id: 'course-devops-cicd',
     title: 'DevOps & CI/CD Pipeline Automation',
     desc: 'Understand Docker containers, GitHub actions runners, CI/CD automated test suites, Kubernetes pods, and deployment pipelines.',
@@ -117,6 +136,15 @@ export const COURSES_REGISTRY: Course[] = [
     durationWeeks: 6,
     icon: '🔢',
     quests: DSA_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-dsa-python',
+    title: 'Data Structures & Algorithms in Python',
+    desc: 'The DSA course with every lesson example and practice task in Python: complexity, lists, hash maps, trees, graphs and dynamic programming.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '🐍',
+    quests: DSA_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-mobile-dev',
@@ -155,6 +183,15 @@ export const COURSES_REGISTRY: Course[] = [
     quests: DISTRIBUTED_30_DAYS_QUESTS as any
   },
   {
+    id: 'course-distributed-python',
+    title: 'Distributed Systems in Python',
+    desc: 'The distributed systems course with every lesson example and practice task in Python: retries, consistent hashing, locks, Raft, sagas, queues, CRDTs, sharding and circuit breakers.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🌐',
+    quests: DIST_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
     id: 'course-ai-eng',
     title: 'AI Engineering & LLM Integration',
     desc: 'Deploy custom LLM agents, dynamic prompting templates, RAG query pipelines, vector databases, and agentic workflows.',
@@ -162,6 +199,15 @@ export const COURSES_REGISTRY: Course[] = [
     durationWeeks: 4,
     icon: '🤖',
     quests: AI_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-ai-python',
+    title: 'AI Engineering in Python',
+    desc: 'The AI Engineering course with every lesson example and practice task in Python: prompts, structured output, tool calling, embeddings, RAG, agents, caching and fine-tuning maths.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🤖',
+    quests: AI_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-fullstack-js',
@@ -243,6 +289,15 @@ export const COURSES_REGISTRY: Course[] = [
     durationWeeks: 4,
     icon: '📈',
     quests: QUANT_SYSTEMS_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-quant-python',
+    title: 'Quantitative Trading Systems in Python',
+    desc: 'Electronic trading engineering with every lesson example and practice task in Python: order books and matching engines, VWAP and TWAP, market impact, micro-price, market making, FIX and ITCH, kernel bypass, lock-free queues, cache and SIMD, Black-Scholes and implied volatility, VaR and Expected Shortfall, portfolios, stat arb, smart order routing, latency physics, backtest integrity, risk controls, crypto perpetuals and FPGAs.',
+    difficulty: 'Advanced',
+    durationWeeks: 4,
+    icon: '📈',
+    quests: QUANT_PYTHON_30_DAYS_QUESTS as any
   },
   {
     id: 'course-digital-accounting',
@@ -354,6 +409,15 @@ export const COURSES_REGISTRY: Course[] = [
     quests: AI_PROMPT_LITERACY_30_DAYS_QUESTS as any
   },
   {
+    id: 'course-ai-prompt-python',
+    title: 'Everyday AI & Prompt Engineering in Python',
+    desc: 'Practical AI literacy with every lesson example and practice task in Python: prompt structure, few-shot and chain-of-thought, token budgets, decoding settings, JSON validation, summarisation, RAG with citations, source checking, prompt chains, OCR, image prompts, transcription, hallucination and bias checks, PII redaction, injection defence, agents, automation, custom assistants, model evaluation and local models.',
+    difficulty: 'Beginner',
+    durationWeeks: 4,
+    icon: '🤖',
+    quests: PROMPT_PYTHON_30_DAYS_QUESTS as any
+  },
+  {
     id: 'course-excel-data-viz',
     title: 'Excel & Data Analysis Fundamentals',
     desc: 'The universal language of business & tech. Master Excel formulas, VLOOKUP/XLOOKUP, Pivot Tables, data cleaning, charts, and executive dashboard reporting.',
@@ -388,8 +452,23 @@ export const COURSES_REGISTRY: Course[] = [
     durationWeeks: 6,
     icon: '📚',
     quests: NLP_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-nlp-python',
+    title: 'NLP in Python',
+    desc: 'Natural language processing with every lesson example and practice task in Python: text cleaning, TF-IDF search, embeddings, HMM taggers, NER, Naive Bayes, RNNs and LSTMs, attention, Transformers, BPE, BERT, GPT, question answering, retrieval, decoding, metrics and LoRA.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📚',
+    quests: NLP_PYTHON_30_DAYS_QUESTS as any
   }
 ];
+
+/** Every day-based course gets a short test after every 5 days (see courseTests.ts). */
+export const COURSES_REGISTRY: Course[] = RAW_COURSES.map((course) => ({
+  ...course,
+  quests: addBlockTests(course.quests),
+}));
 
 // Fallback registry matching standard quests registry if custom course quests are missing
 export function getFallbackQuestsForCourse(courseId: string): CourseQuest[] {

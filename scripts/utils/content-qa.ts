@@ -27,7 +27,6 @@ import { COURSES_REGISTRY, Course, CourseQuest } from '../../src/lib/data/course
 
 import { JAVA_PILOT_DAYS } from '../../src/lib/data/javaPilotDays';
 import { PYTHON_PILOT_DAYS } from '../../src/lib/data/pythonPilotDays';
-import { REACT_PILOT_DAYS } from '../../src/lib/data/reactPilotDays';
 import { DATABASE_PILOT_DAYS } from '../../src/lib/data/databasePilotDays';
 import { DSA_PILOT_DAYS } from '../../src/lib/data/dsaPilotDays';
 import { FULLSTACK_PILOT_DAYS } from '../../src/lib/data/fullstackPilotDays';
@@ -75,7 +74,6 @@ interface CourseBinding {
 
 const COURSE_BINDINGS: CourseBinding[] = [
   { courseId: 'course-java-logic', exportName: 'JAVA_PILOT_DAYS', source: JAVA_PILOT_DAYS },
-  { courseId: 'course-react-web', exportName: 'REACT_PILOT_DAYS', source: REACT_PILOT_DAYS },
   { courseId: 'course-cloud-native', exportName: 'CLOUD_PILOT_DAYS', source: CLOUD_PILOT_DAYS },
   { courseId: 'course-devops-cicd', exportName: 'DEVOPS_PILOT_DAYS', source: DEVOPS_PILOT_DAYS },
   { courseId: 'course-design-systems', exportName: 'DESIGN_PILOT_DAYS', source: DESIGN_PILOT_DAYS },

@@ -2419,7 +2419,7 @@ export const CLOUD_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "dynamo_hash_demo.js",
             "initialCode": "function getPartitionId(pk, totalPartitions = 8) {\n  let hash = 0;\n  for (let i = 0; i < pk.length; i++) hash = (hash * 31 + pk.charCodeAt(i)) >>> 0;\n  return hash % totalPartitions;\n}\n\nconsole.log('User 101 Partition Node:', getPartitionId('USER#101'));\nconsole.log('User 102 Partition Node:', getPartitionId('USER#102'));",
-            "expectedOutput": "User 101 Partition Node: 4\nUser 102 Partition Node: 5",
+            "expectedOutput": "User 101 Partition Node: 2\nUser 102 Partition Node: 3",
             "editable": false
           }
         ],
@@ -4361,7 +4361,7 @@ export const CLOUD_PILOT_DAYS: DayLessonPlan[] = [
           {
             "type": "runnable_code",
             "filename": "saga_demo.js",
-            "initialCode": "async function runSaga(steps) {\n  const history = [];\n  for (const s of steps) {\n    if (s.shouldFail) {\n      // Rollback in reverse\n      for (let i = history.length - 1; i >= 0; i--) {\n        history[i].compensated = true;\n      }\n      return { status: 'SAGA_FAILED_COMPENSATED', rolledBack: history.map(h => h.name) };\n    }\n    history.push({ name: s.name, compensated: false });\n  }\n  return { status: 'SAGA_SUCCESS' };\n}\n\nconst steps = [{ name: 'BookFlight' }, { name: 'BookHotel' }, { name: 'RentCar', shouldFail: true }];\nrunSaga(steps).then(res => {\n  console.log('Saga Outcome:', res.status);\n  console.log('Compensated Steps:', JSON.stringify(res.rolledBack));\n});",
+            "initialCode": "async function runSaga(steps) {\n  const history = [];\n  for (const s of steps) {\n    if (s.shouldFail) {\n      // Roll back in reverse: undo the most recent step first\n      const rolledBack = [];\n      for (let i = history.length - 1; i >= 0; i--) {\n        history[i].compensated = true;\n        rolledBack.push(history[i].name);\n      }\n      return { status: 'SAGA_FAILED_COMPENSATED', rolledBack };\n    }\n    history.push({ name: s.name, compensated: false });\n  }\n  return { status: 'SAGA_SUCCESS' };\n}\n\nconst steps = [{ name: 'BookFlight' }, { name: 'BookHotel' }, { name: 'RentCar', shouldFail: true }];\nrunSaga(steps).then(res => {\n  console.log('Saga Outcome:', res.status);\n  console.log('Compensated Steps:', JSON.stringify(res.rolledBack));\n});",
             "expectedOutput": "Saga Outcome: SAGA_FAILED_COMPENSATED\nCompensated Steps: [\"BookHotel\",\"BookFlight\"]",
             "editable": false
           }

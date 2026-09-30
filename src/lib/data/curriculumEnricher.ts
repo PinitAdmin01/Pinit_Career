@@ -20,11 +20,14 @@ export interface DayConfig {
 
 export type { CourseQuest } from './coursesData';
 import { CourseQuest } from './coursesData';
+import { getLongLesson } from './longLessons';
 import { JAVA_PILOT_DAYS } from './javaPilotDays';
 import { PYTHON_PILOT_DAYS } from './pythonPilotDays';
-import { REACT_PILOT_DAYS } from './reactPilotDays';
 import { DATABASE_PILOT_DAYS } from './databasePilotDays';
 import { DSA_PILOT_DAYS } from './dsaPilotDays';
+import { DSA_PYTHON_PILOT_DAYS } from './dsaPythonPilotDays';
+import { AI_PYTHON_PILOT_DAYS } from './aiPythonPilotDays';
+import { DIST_PYTHON_PILOT_DAYS } from './distPythonPilotDays';
 import { FULLSTACK_PILOT_DAYS } from './fullstackPilotDays';
 import { CLOUD_PILOT_DAYS } from './cloudPilotDays';
 import { DEVOPS_PILOT_DAYS } from './devopsPilotDays';
@@ -81,14 +84,14 @@ import { CYBER_PILOT_DAYS } from './cybersecurityPilotDays';
 const PILOT_DAY_SOURCES: Record<string, unknown> = {
   'java-basics': JAVA_PILOT_DAYS,
   'python': PYTHON_PILOT_DAYS,
-  'react-basics': REACT_PILOT_DAYS,
   'sql-mastery': DATABASE_PILOT_DAYS,
   'dsa-optim': DSA_PILOT_DAYS,
+  'dsa-py': DSA_PYTHON_PILOT_DAYS,
   'fullstack-js': FULLSTACK_PILOT_DAYS,
-  'cloud-native': CLOUD_PILOT_DAYS,
+  'cloud': CLOUD_PILOT_DAYS,
   'devops': DEVOPS_PILOT_DAYS,
   'git_vcs': GIT_VERSION_CONTROL_PILOT_DAYS,
-  'softskills': SOFTSKILLS_PILOT_DAYS,
+  'soft-skills': SOFTSKILLS_PILOT_DAYS,
   'design': DESIGN_PILOT_DAYS,
   'mobile': MOBILE_PILOT_DAYS,
   'nlp': NLP_PILOT_DAYS,
@@ -101,15 +104,17 @@ const PILOT_DAY_SOURCES: Record<string, unknown> = {
   'bcom_ent': BCOM_ENTREPRENEURSHIP_PILOT_DAYS,
   'bcom_ecom': BCOM_ECOMMERCE_PILOT_DAYS,
   'bcom_dmkt': BCOM_DIGITAL_MARKETING_PILOT_DAYS,
-  'bcom_mkt': BCOM_MARKETING_PILOT_DAYS,
+  'bcom-marketing': BCOM_MARKETING_PILOT_DAYS,
   'bcom_ana': BCOM_ANALYTICS_PILOT_DAYS,
-  'bcom_fin': BCOM_FINANCE_PILOT_DAYS,
-  'bcom_acc': BCOM_ACCOUNTING_PILOT_DAYS,
-  'quant': QUANT_PILOT_DAYS,
+  'bcom-finance': BCOM_FINANCE_PILOT_DAYS,
+  'bcom-accounting': BCOM_ACCOUNTING_PILOT_DAYS,
+  'quant-systems': QUANT_PILOT_DAYS,
   'iot_sec': IOT_SECURITY_PILOT_DAYS,
   'iot_edge': IOT_EDGE_AI_PILOT_DAYS,
   'ai': AI_PILOT_DAYS,
+  'ai-py': AI_PYTHON_PILOT_DAYS,
   'dist': DISTRIBUTED_PILOT_DAYS,
+  'dist-py': DIST_PYTHON_PILOT_DAYS,
   'iot_net': IOT_NETWORK_PILOT_DAYS,
   'iot_emb': IOT_EMBEDDED_PILOT_DAYS,
   'g3d': GRAPHICS_3D_PILOT_DAYS,
@@ -148,18 +153,28 @@ export function resolvePilotDay(prefix: string, dayNum: number): any {
   return days.find((d: any) => d?.day === dayNum) ?? null;
 }
 
+/** Older course data titles its tasks "Exam: ..." or "Assignment: ..."; both are practice now. */
+function practiceTitle(title: string | undefined): string {
+  return (title || '').replace(/^(Exam|Assignment)\s*:\s*/i, '');
+}
+
 export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
-  const pilotDay: any = resolvePilotDay(prefix, dayNum);
+  const longLesson = getLongLesson(prefix, dayNum);
+  const pilotDay: any = longLesson ? null : resolvePilotDay(prefix, dayNum);
 
   // ── 1. Unified Socratic Adaptive Lesson ──────────────────────────────────
   const lessonTask: CourseQuest = {
     id: `${prefix}-lecture1-day-${dayNum}`,
-    title: pilotDay ? `Day ${dayNum}: ${pilotDay.title}` : `Day ${dayNum}: ${cfg.title}`,
-    desc: pilotDay ? pilotDay.overviewMetaphor : cfg.desc,
+    title: longLesson
+      ? `Day ${dayNum}: ${longLesson.title}`
+      : pilotDay ? `Day ${dayNum}: ${pilotDay.title}` : `Day ${dayNum}: ${cfg.title}`,
+    desc: longLesson ? longLesson.goal : pilotDay ? pilotDay.overviewMetaphor : cfg.desc,
     type: 'lecture',
     category: 'learning',
     requiresAvatar: true,
-    syllabus: pilotDay
+    syllabus: longLesson
+      ? longLesson.parts.map((p) => p.title)
+      : pilotDay
       ? pilotDay.blocks.map((b: any) => `${b.title}: ${b.conceptBudget.primaryConcept}`)
       : cfg.syllabus,
     skillCategory: 'theory',
@@ -167,13 +182,13 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 5
   };
 
-  // ── 2. Pure Coding Exam ──────────────────────────────────────────────────
+  // ── 2. Practice 1 (guided). Tests come after every 5 days (courseTests.ts), not after one lesson.
   const examTask: CourseQuest = {
     id: `${prefix}-exam-day-${dayNum}`,
-    title: `Day ${dayNum} Exam: ${cfg.eTitle || ''}`,
+    title: `Day ${dayNum} Practice 1: ${practiceTitle(cfg.eTitle)}`,
     desc: cfg.eDesc || '',
     type: 'coding',
-    category: 'exam',
+    category: 'assignment',
     requiresAvatar: false,
     starterCode: cfg.eStarter || '',
     hint: cfg.eHint || '',
@@ -183,10 +198,10 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 6
   };
 
-  // ── 3. Pure Practice Assignment ──────────────────────────────────────────
+  // ── 3. Practice 2 (on your own) ──────────────────────────────────────────
   const assignmentTask: CourseQuest = {
     id: `${prefix}-assign-day-${dayNum}`,
-    title: `Day ${dayNum} Assignment: ${cfg.aTitle || ''}`,
+    title: `Day ${dayNum} Practice 2: ${practiceTitle(cfg.aTitle)}`,
     desc: cfg.aDesc || '',
     type: 'coding',
     category: 'assignment',
@@ -199,6 +214,6 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pins: 8
   };
 
-  // Return unified quest triad per day (Adaptive Lesson + Coding Exam + Practice Assignment)
+  // One day: the lesson, then two practice tasks
   return [lessonTask, examTask, assignmentTask];
 }

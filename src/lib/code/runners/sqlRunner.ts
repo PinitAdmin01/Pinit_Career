@@ -4,6 +4,39 @@
 
 import { SqlTestCase, SuiteExecutionResult } from '../types';
 import { runPythonScript } from './pythonRunner';
+import { splitSqlTask } from '../sql/sqlCore';
+import { gradeSqlInBrowser } from '../sql/sqlRunner';
+
+/** New-format SQL tasks (setup, "-- CHECKS --", checks) are graded on PostgreSQL with real checks. */
+async function executePostgresTask(query: string, setup: string, checks: string): Promise<SuiteExecutionResult> {
+  const startTime = Date.now();
+  const result = await gradeSqlInBrowser(setup, query, checks);
+  const duration = Date.now() - startTime;
+  const failed = result.messages.filter((m) => !m.startsWith('PASS'));
+  const isError = result.messages.some((m) => m.startsWith('[Error]'));
+  return {
+    language: 'sql',
+    totalTests: Math.max(result.messages.length, 1),
+    passedTests: result.messages.length - failed.length,
+    failedTests: failed.length,
+    allPassed: result.passed,
+    status: result.passed ? 'SUCCESS' : isError ? 'SYNTAX_ERROR' : 'PARTIAL_PASS',
+    totalDurationMs: duration,
+    terminalLogs: ['[PostgreSQL] Your result:', ...result.output.split('\n'), '', ...result.messages],
+    testOutcomes: result.messages.map((m, i) => ({
+      index: i + 1,
+      testCaseName: m.replace(/^(PASS|FAIL) /, ''),
+      input: query,
+      expectedOutput: '',
+      actualOutput: m,
+      passed: m.startsWith('PASS'),
+      durationMs: duration,
+      error: m.startsWith('PASS') ? undefined : m,
+    })),
+    stdout: result.output,
+    error: result.passed ? undefined : failed[0],
+  };
+}
 
 export async function executeSqlSuite(
   query: string,
@@ -11,6 +44,9 @@ export async function executeSqlSuite(
   timeoutMs: number = 4000,
   testSuite?: string
 ): Promise<SuiteExecutionResult> {
+  const postgresTask = splitSqlTask(testSuite);
+  if (postgresTask) return executePostgresTask(query, postgresTask.setup, postgresTask.checks);
+
   const startTime = Date.now();
   const terminalLogs: string[] = [];
 

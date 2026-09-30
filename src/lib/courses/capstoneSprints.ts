@@ -30,18 +30,32 @@ export interface CapstoneMilestones {
   sprint4LastAttempt?: { score: number; verdict: string; at: string };
 }
 
-export const CAPSTONE_SPRINTS: ReadonlyArray<{ sprint: CapstoneSprint; title: string; description: string; check: string }> = [
+export interface CapstoneSprintInfo {
+  sprint: CapstoneSprint;
+  title: string;
+  description: string;
+  check: string;
+  /** Label and example link for the file or folder this sprint asks for (sprints 1 and 2). */
+  field?: { label: string; placeholder: string };
+}
+
+/** Wording a plan can change per sprint. The checks the server runs stay the same. */
+export type CapstoneSprintText = Partial<Pick<CapstoneSprintInfo, 'title' | 'description' | 'check' | 'field'>>;
+
+export const CAPSTONE_SPRINTS: ReadonlyArray<CapstoneSprintInfo> = [
   {
     sprint: 1,
     title: 'Sprint 1: Architecture & Data Schema',
     description: 'Create the public GitHub repository for your project and add your architecture and data schema design (for example docs/architecture.md).',
     check: 'We check that the repository is public and the design file or folder exists in it.',
+    field: { label: 'Design', placeholder: 'https://github.com/you/your-project/blob/main/docs/architecture.md' },
   },
   {
     sprint: 2,
     title: 'Sprint 2: Core Services & APIs',
     description: 'Build the core services and API endpoints in the same repository.',
     check: 'We check that the API code you link exists in your project repository.',
+    field: { label: 'API code', placeholder: 'https://github.com/you/your-project/tree/main/src/api' },
   },
   {
     sprint: 3,
@@ -56,6 +70,15 @@ export const CAPSTONE_SPRINTS: ReadonlyArray<{ sprint: CapstoneSprint; title: st
     check: 'Pass with a Hire or Conditional Hire verdict and a score of 65 or more.',
   },
 ];
+
+/** The sprints as a plan words them for one track (its own titles and descriptions, same checks). */
+export function getCapstoneSprints(
+  plan: Pick<CrashPlan, 'capstoneSprintsByTrack'> | null | undefined,
+  track: CrashTrack | null | undefined
+): CapstoneSprintInfo[] {
+  const custom = track ? plan?.capstoneSprintsByTrack?.[track] : undefined;
+  return CAPSTONE_SPRINTS.map((s) => ({ ...s, ...(custom?.[s.sprint] ?? {}) }));
+}
 
 export function isSprintApproved(m: CapstoneMilestones | null | undefined, sprint: CapstoneSprint): boolean {
   if (!m) return false;

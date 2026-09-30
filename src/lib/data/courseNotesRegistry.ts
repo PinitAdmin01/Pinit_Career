@@ -194,6 +194,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-ai-python': {
+    courseId: 'course-ai-python',
+    courseTitle: 'AI Engineering in Python',
+    category: 'Artificial Intelligence',
+    summary: 'Production AI systems engineering in Python: prompt orchestration, structured output with Pydantic, function calling, embeddings, RAG, agents and evaluation.',
+    realWorldAnalogy: 'Think of an LLM as an ultra-smart consultant with vast knowledge who needs a clear briefing memo (System Prompt), reference library cards (Vector RAG), and authorized phone lines (Function Calling Tools) to complete enterprise tasks.',
+    keyConcepts: [
+      {
+        heading: '1. Retrieval-Augmented Generation (RAG)',
+        explanation: 'Index proprietary enterprise documents into high-dimensional vector embeddings to augment prompt contexts with semantic search.',
+        codeOrExample: 'query_vector = embed(user_query)\nrelevant_chunks = vector_store.similarity_search(query_vector, k=3)'
+      },
+      {
+        heading: '2. Structured Function Calling',
+        explanation: 'Force LLMs to produce schema-valid JSON function call arguments for deterministic execution.',
+        codeOrExample: "tools = [{\n    'type': 'function',\n    'function': {'name': 'book_flight', 'parameters': {'type': 'object', 'properties': {'city': {'type': 'string'}}}},\n}]"
+      },
+      {
+        heading: '3. Temperature & Nucleus Sampling',
+        explanation: 'Control creativity vs determinism: temperature=0 for deterministic JSON extraction; temperature=0.7 for creative writing.',
+        codeOrExample: "completion = client.chat.completions.create(\n    model='gpt-4o',\n    temperature=0.1,\n    messages=[{'role': 'user', 'content': prompt}],\n)"
+      }
+    ],
+    cheatsheet: [
+      'RAG Formula: Raw Prompt + Retrieved Context + Grounding Guardrails = Reliable Output',
+      'Vector Distance: Cosine Similarity = dot(A, B) / (||A|| * ||B||)',
+      'Deterministic Output: Set temperature=0 and validate with a Pydantic model',
+      'Chunking Strategy: 512 tokens with 10% overlap for high semantic recall'
+    ],
+    commonPitfalls: [
+      'Sending unbounded user prompt inputs directly to LLMs without sanitization (prompt injection risk).',
+      'Failing to validate LLM JSON output against a Pydantic model before database insertion.',
+      'Exceeding model context window token limits during massive document summarization.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is RAG and why is it preferred over fine-tuning for domain knowledge?',
+        answer: 'RAG retrieves real-time, authoritative facts from vector databases at inference time, preventing hallucinations without costly GPU retraining, and allows instant updates whenever source data changes.'
+      }
+    ]
+  },
+
   'course-computer-fundamentals': {
     courseId: 'course-computer-fundamentals',
     courseTitle: 'Computer Literacy, Digital Productivity & OS Fundamentals',
@@ -404,6 +446,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-cloud-python': {
+    courseId: 'course-cloud-python',
+    courseTitle: 'Cloud Engineering in Python (AWS)',
+    category: 'Cloud & Infrastructure',
+    summary: 'Build on Amazon Web Services with Python: VPCs, IAM policies, EC2 auto scaling, load balancers, S3, Lambda, DynamoDB, RDS, SQS/SNS/EventBridge, Terraform, CloudWatch, KMS, WAF, FinOps and disaster recovery.',
+    realWorldAnalogy: 'Think of Cloud Native AWS like a municipal power grid. Instead of maintaining an expensive diesel generator in your backyard (on-prem servers), you plug into regional substations and pay only for the exact kilowatt-hours consumed.',
+    keyConcepts: [
+      {
+        heading: '1. IAM Least Privilege & Role Assumption',
+        explanation: 'Enforce zero-trust access controls by granting services IAM Roles with temporary STS credentials rather than long-lived keys.',
+        codeOrExample: '{\n  "Version": "2012-10-17",\n  "Statement": [{\n    "Effect": "Allow",\n    "Action": ["s3:GetObject"],\n    "Resource": "arn:aws:s3:::company-bucket/*"\n  }]\n}'
+      },
+      {
+        heading: '2. Serverless Event-Driven Architectures',
+        explanation: 'Trigger stateless Lambda compute functions from S3 uploads, SQS message queues, or API Gateway HTTP requests.',
+        codeOrExample: "import json\n\ndef handler(event, context):\n    record = event['Records'][0]\n    return {'statusCode': 200, 'body': json.dumps({'processed': record['messageId']})}"
+      },
+      {
+        heading: '3. VPC Subnets & Multi-AZ High Availability',
+        explanation: 'Isolate database instances in private subnets behind NAT Gateways across multiple Availability Zones to ensure 99.99% uptime.',
+        codeOrExample: '# Public Subnet: Internet Gateway -> ALB\n# Private Subnet: Backend ECS/Lambda -> RDS Database'
+      }
+    ],
+    cheatsheet: [
+      'AWS S3 CLI: aws s3 sync ./dist s3://my-prod-bucket',
+      'Lambda Invocation: aws lambda invoke --function-name MyFunction out.json',
+      'CloudWatch Logs: aws logs tail /aws/lambda/MyFunction --follow',
+      'Storage Classes: S3 Standard -> S3 Infrequent Access -> S3 Glacier'
+    ],
+    commonPitfalls: [
+      'Leaving S3 buckets publicly readable without bucket policies or block public access enabled.',
+      'Placing databases directly in public subnets with public IP addresses.',
+      'Unbounded Lambda concurrency consuming all RDS database connection pools.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is the difference between horizontal scaling and vertical scaling in AWS?',
+        answer: 'Vertical scaling upgrades the compute capacity (CPU, RAM) of a single instance (e.g. t3.micro to m5.2xlarge). Horizontal scaling provisions additional instance replicas in an Auto Scaling Group behind an Application Load Balancer.'
+      }
+    ]
+  },
+
   'course-design-systems': {
     courseId: 'course-design-systems',
     courseTitle: 'UI/UX Design Systems & Visual Frontend',
@@ -484,6 +568,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
       {
         question: 'When would you choose an Array over a LinkedList, and vice versa?',
         answer: 'Arrays provide O(1) random index access and superior CPU cache locality due to contiguous memory. LinkedLists provide O(1) insertions/deletions at known nodes without reallocation overhead but require O(N) traversal.'
+      }
+    ]
+  },
+
+  'course-dsa-python': {
+    courseId: 'course-dsa-python',
+    courseTitle: 'Data Structures & Algorithms in Python',
+    category: 'Computer Science Core',
+    summary: 'The DSA course in Python: Big-O, lists, linked lists, stacks, queues, hash maps (dict), trees, heaps (heapq), graphs and dynamic programming.',
+    realWorldAnalogy: 'Think of Data Structures & Algorithms like a GPS Navigation Engine. Instead of blindly driving down every dead-end street (brute force O(N!)), the navigation algorithm uses graph heuristics (A* / Dijkstra) to calculate the absolute optimal highway route.',
+    keyConcepts: [
+      {
+        heading: '1. Big-O Space-Time Complexity Analysis',
+        explanation: 'Measure asymptotic growth rates: O(1) constant, O(log N) logarithmic, O(N) linear, O(N log N) linearithmic, and O(N^2) quadratic.',
+        codeOrExample: '# Binary Search: O(log N) time, O(1) space\nleft, right = 0, len(arr) - 1\nwhile left <= right:\n    mid = (left + right) // 2\n    if arr[mid] == target:\n        return mid\n    if arr[mid] < target:\n        left = mid + 1\n    else:\n        right = mid - 1'
+      },
+      {
+        heading: '2. Non-Linear Structures: Trees & Graphs',
+        explanation: 'Traverse hierarchically linked data structures using Breadth-First Search (collections.deque as a queue) and Depth-First Search (a list as a stack, or recursion).',
+        codeOrExample: 'def dfs(node, visited=None):\n    visited = visited if visited is not None else set()\n    if node is None or node.id in visited:\n        return\n    visited.add(node.id)\n    for n in node.neighbors:\n        dfs(n, visited)'
+      },
+      {
+        heading: '3. Dynamic Programming & Memoization',
+        explanation: 'Break complex recursive problems into overlapping subproblems, caching results to convert exponential time O(2^N) to polynomial time O(N).',
+        codeOrExample: 'from functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)'
+      }
+    ],
+    cheatsheet: [
+      'dict / set lookup: O(1) average, O(N) worst case',
+      'list.append and list.pop(): O(1); list.pop(0) and list.insert(0, x): O(N), so use collections.deque',
+      'heapq.heappush / heapq.heappop: O(log N) (a min-heap)',
+      'sorted() / list.sort(): O(N log N)'
+    ],
+    commonPitfalls: [
+      'Recursion without a base case hits RecursionError (Python stops at about 1000 levels).',
+      'Using a mutable default argument (def f(x=[])): the same list is shared between calls.',
+      'Using list.pop(0) as a queue, which makes BFS O(N^2) instead of O(N).'
+    ],
+    interviewPrep: [
+      {
+        question: 'When would you choose a list over a linked list, and vice versa?',
+        answer: 'A Python list gives O(1) index access and appends at the end, and its items sit together in memory. A linked list gives O(1) insertions and deletions at a node you already hold, without shifting items, but finding a node takes O(N).'
       }
     ]
   },
@@ -647,6 +773,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
       'Assuming network calls are instantaneous and 100% reliable (Fallacies of Distributed Computing).',
       'Retrying failed API requests simultaneously without randomized jitter, creating thundering herd stampedes.',
       'Relying on physical machine clock synchronization (`System.currentTimeMillis()`) to order events instead of logical Lamport/Vector clocks.'
+    ],
+    interviewPrep: [
+      {
+        question: 'Explain the difference between Strong Consistency and Eventual Consistency.',
+        answer: 'Strong consistency guarantees that any read operation will immediately return the latest written value across all nodes, sacrificing latency. Eventual consistency guarantees that if no new updates are made, all replicas will eventually converge to the same value, optimizing for high write availability and ultra-low latency.'
+      }
+    ]
+  },
+
+  'course-distributed-python': {
+    courseId: 'course-distributed-python',
+    courseTitle: 'Distributed Systems in Python',
+    category: 'Systems Architecture',
+    summary: 'Design systems carrying millions of transactions, in Python: retries with backoff, consistent hashing, fencing-token locks, Raft consensus, sagas, idempotent queues, CRDTs, sharding and circuit breakers.',
+    realWorldAnalogy: 'Think of a Distributed System like a global diplomatic alliance. When an embassy in Tokyo receives a treaty update, it must broadcast it to London and Washington. If the Pacific undersea cable gets severed (network partition), the alliance must decide whether to continue trading with slightly outdated notes (Availability) or freeze trades until the cable is fixed (Consistency).',
+    keyConcepts: [
+      {
+        heading: '1. CAP Theorem & PACELC Tradeoffs',
+        explanation: 'In the presence of network Partitioning (P), you must choose between Consistency (C) and Availability (A). If no partition (Else), choose between Latency (L) and Consistency (C).',
+        codeOrExample: '# CP system: ZooKeeper, etcd (strict consensus, rejects writes if quorum lost)\n# AP system: Cassandra, DynamoDB (always accepts writes, resolves conflicts eventually)'
+      },
+      {
+        heading: '2. Distributed Consensus (Raft Protocol)',
+        explanation: 'Nodes elect a Leader through randomized heartbeats and replicate log entries across a majority quorum (N/2 + 1) before committing state.',
+        codeOrExample: 'def quorum(cluster_size):\n    return cluster_size // 2 + 1\n\nquorum(5)  # 3 nodes'
+      },
+      {
+        heading: '3. Resiliency Patterns: Circuit Breakers & Idempotency',
+        explanation: 'Prevent cascading system crashes using Circuit Breakers that fail fast when downstream services degrade, and enforce Idempotency Keys on mutations.',
+        codeOrExample: "headers = {'Idempotency-Key': 'req_unique_guid_84920'}  # safe to retry the payment"
+      }
+    ],
+    cheatsheet: [
+      'Consistent Hashing: Distributes data across dynamically changing server rings (bisect for the lookup)',
+      'Idempotent Operation: f(f(x)) = f(x) (Safe to retry multiple times)',
+      'Exponential Backoff: wait = min(max_wait, base * 2 ** attempt) + jitter',
+      'Gossip Protocol: Decentralized peer-to-peer heartbeat state dissemination'
+    ],
+    commonPitfalls: [
+      'Assuming network calls are instantaneous and 100% reliable (Fallacies of Distributed Computing).',
+      'Retrying failed API calls all at once without random jitter, creating thundering herd stampedes.',
+      'Ordering events by wall-clock time (time.time()) on different machines instead of logical Lamport/Vector clocks.'
     ],
     interviewPrep: [
       {
@@ -911,6 +1079,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
   'course-quant-systems': {
     courseId: 'course-quant-systems',
     courseTitle: 'Quantitative Engineering & Low-Latency Trading Systems',
+    category: 'Quantitative Finance',
+    summary: 'Master Limit Order Book (LOB) matching queues, volume-weighted average price (VWAP) execution algorithms, market slippage modeling, TCP socket kernel bypass, and nanosecond latency.',
+    realWorldAnalogy: 'Think of Quantitative High-Frequency Trading like a laser-speed digital auction room. When an institutional investor wants to buy 100,000 shares of stock, algorithmic matching engines analyze order books in 500 nanoseconds, calculating volume curves to prevent price spikes.',
+    keyConcepts: [
+      {
+        heading: '1. Limit Order Book (LOB) Architecture',
+        explanation: 'Maintain sorted bid (buy) and ask (sell) price ladders using double-linked lists indexed by array rings for O(1) order additions, cancellations, and matches.',
+        codeOrExample: 'struct Order {\n    uint64_t order_id;\n    uint32_t price;\n    uint32_t qty;\n    Order* next;\n    Order* prev;\n};'
+      },
+      {
+        heading: '2. Kernel Bypass & Zero-Copy Networking',
+        explanation: 'Bypass the operating system Linux network stack using Solarflare OpenOnload or DPDK to read UDP multicast market data packets directly from NIC ring buffers.',
+        codeOrExample: '// Direct NIC ring buffer poll (Kernel Bypass zero context-switch):\nonload_zc_recv(socket_fd, &msg, flags);'
+      },
+      {
+        heading: '3. VWAP / TWAP Algorithmic Execution',
+        explanation: 'Execute massive institutional parent orders by slicing them into small child orders distributed across time and historical trading volume profiles to minimize slippage.',
+        codeOrExample: 'VWAP = sum(Price_i * Volume_i) / sum(Volume_i)'
+      }
+    ],
+    cheatsheet: [
+      'Order Book Complexity: Price-Time Priority FIFO queue lookup in O(1) time',
+      'Kernel Bypass: Eliminates OS kernel context switching saving 2-4 microseconds',
+      'Memory Strategy: Zero dynamic allocation (no malloc/free) in critical trading hot path',
+      'L1 Data Cache: Keep order structs cache-line aligned to 64 bytes'
+    ],
+    commonPitfalls: [
+      'Allocating heap memory or triggering garbage collection pauses in the critical order matching path.',
+      'Neglecting market impact and slippage in backtested quantitative trading models.',
+      'Failing to implement automated kill-switches when market price limits trip.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is Kernel Bypass in low-latency trading and why is it used?',
+        answer: 'Kernel bypass allows user-space trading applications to communicate directly with the Network Interface Card (NIC) hardware without routing packets through the standard operating system TCP/IP stack, eliminating OS context switches, CPU interrupts, and buffer copies, cutting latency to sub-microsecond levels.'
+      }
+    ]
+  },
+
+  'course-quant-python': {
+    courseId: 'course-quant-python',
+    courseTitle: 'Quantitative Trading Systems in Python',
     category: 'Quantitative Finance',
     summary: 'Master Limit Order Book (LOB) matching queues, volume-weighted average price (VWAP) execution algorithms, market slippage modeling, TCP socket kernel bypass, and nanosecond latency.',
     realWorldAnalogy: 'Think of Quantitative High-Frequency Trading like a laser-speed digital auction room. When an institutional investor wants to buy 100,000 shares of stock, algorithmic matching engines analyze order books in 500 nanoseconds, calculating volume curves to prevent price spikes.',
@@ -1370,6 +1580,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-ai-prompt-python': {
+    courseId: 'course-ai-prompt-python',
+    courseTitle: 'Everyday AI & Prompt Engineering in Python',
+    category: 'Applied Artificial Intelligence',
+    summary: 'Essential AI skills for every modern professional. Master prompt architecture, multi-turn steering, role-based prompting, automated document summarization, and workflow automation.',
+    realWorldAnalogy: 'Think of Prompt Engineering like delegating tasks to a brilliant Harvard graduate intern who reads 10,000 words per second. If you give vague instructions ("Write something about sales"), you get a bland generic answer. If you provide context, explicit constraints, and target examples, you get executive-grade deliverables.',
+    keyConcepts: [
+      {
+        heading: '1. The Core Prompt Architecture Framework',
+        explanation: 'Structure prompts using Role (persona), Context (background facts), Task (specific action), Constraints (boundaries), and Output Format (tables, JSON, markdown).',
+        codeOrExample: 'You are a senior CFO auditor. [ROLE]\nReview the attached Q3 balance sheet. [CONTEXT]\nIdentify the top 3 working capital liquidity risks. [TASK]\nDo not exceed 300 words; use bullet points. [CONSTRAINTS]\nOutput as a Markdown table with Risk, Severity, and Action. [FORMAT]'
+      },
+      {
+        heading: '2. Few-Shot In-Context Demonstration',
+        explanation: 'Provide 2-3 input-output exemplar pairs in the prompt to condition the LLM to follow exact formatting and classification standards without training.',
+        codeOrExample: 'Input: "Delivery was 3 days late, ruined my wedding." -> Sentiment: Negative | Intent: Complaint\nInput: "Can I exchange for size Large?" -> Sentiment: Neutral | Intent: Exchange\nInput: "Love the new interface, so fast!" -> Sentiment: Positive | Intent: Praise'
+      },
+      {
+        heading: '3. Chain-of-Thought (CoT) & Structured Reasoning',
+        explanation: 'Instruct the model to "think step by step" or decompose multi-step business problems into logical intermediate phases to prevent reasoning errors.',
+        codeOrExample: 'Before providing your final recommendation, write out your intermediate calculation steps and assumption checks.'
+      }
+    ],
+    cheatsheet: [
+      'Prompt Formula: Role + Context + Task + Constraints + Format',
+      'Few-Shot: 2-3 real examples dramatically boost formatting precision',
+      'Delimiters: Use triple backticks (```) or XML tags (<doc>) to separate data from instructions',
+      'Temperature: 0.0 - 0.2 for analytical/factual tasks; 0.7+ for creative brainstorming'
+    ],
+    commonPitfalls: [
+      'Giving vague, one-line prompts and expecting nuanced, expert-level outputs.',
+      'Blindly accepting factual citations without verifying against ground-truth source documents (hallucination risk).',
+      'Pasting confidential customer PII or proprietary trade secrets into consumer AI tools without enterprise data protection agreements.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is Chain-of-Thought prompting and why does it improve mathematical and logical accuracy?',
+        answer: 'Chain-of-Thought prompting directs the LLM to generate explicit intermediate reasoning steps before generating the final answer. Because LLMs predict the next token based on all prior tokens, writing out intermediate reasoning builds the necessary context tokens that guide the model to mathematically sound conclusions.'
+      }
+    ]
+  },
+
   'course-excel-data-viz': {
     courseId: 'course-excel-data-viz',
     courseTitle: 'Excel & Data Analysis Fundamentals',
@@ -1499,6 +1751,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
   'course-nlp': {
     courseId: 'course-nlp',
     courseTitle: 'Natural Language Processing & Computational Linguistics',
+    category: 'Artificial Intelligence Core',
+    summary: 'Master computational linguistics, subword tokenization, word embeddings, sequence modeling, Multi-Head Transformer Self-Attention, BERT/GPT architectures, and LoRA fine-tuning.',
+    realWorldAnalogy: 'Think of Natural Language Processing like building a universal mathematical dictionary for human thought. Words and phrases are not just letters; they are multidimensional coordinates in space where words with similar contextual meanings cluster together like stars in a galaxy.',
+    keyConcepts: [
+      {
+        heading: '1. Subword Tokenization & Dense Vector Spaces',
+        explanation: 'Byte-Pair Encoding (BPE) breaks vocabulary into subword units, mapped into high-dimensional embedding spaces where semantic relationships reflect vector arithmetic.',
+        codeOrExample: '# Semantic Vector Arithmetic:\n# vector("King") - vector("Man") + vector("Woman") ≈ vector("Queen")'
+      },
+      {
+        heading: '2. Scaled Dot-Product Self-Attention',
+        explanation: 'Compute query-key affinities to dynamically weight which surrounding words provide context to each token in parallel across multi-head projections.',
+        codeOrExample: 'Attention(Q, K, V) = softmax( (Q * K^T) / sqrt(d_k) ) * V'
+      },
+      {
+        heading: '3. Parameter-Efficient Fine-Tuning (PEFT / LoRA)',
+        explanation: 'Freeze the massive pre-trained weight matrices W and train low-rank decomposition matrices A and B (rank r << d), updating under 1% of total parameters.',
+        codeOrExample: 'from peft import LoraConfig, get_peft_model\nconfig = LoraConfig(r=8, lora_alpha=32, target_modules=["q_proj", "v_proj"])\npeft_model = get_peft_model(base_model, config)'
+      }
+    ],
+    cheatsheet: [
+      'Self-Attention Complexity: O(N^2 * d) where N is sequence length and d is dimension',
+      'Temperature Sampling: P(token_i) = exp(logit_i / T) / sum(exp(logit_j / T))',
+      'LoRA Decomposition: W_updated = W_frozen + (B * A) * (alpha / r)',
+      'Perplexity (PPL): Exponential of cross-entropy loss measuring language model uncertainty'
+    ],
+    commonPitfalls: [
+      'Applying quadratic O(N^2) vanilla attention to ultra-long 100,000-token documents without FlashAttention or chunking.',
+      'Training language models on raw text without Unicode normalization (causing broken subword token splits).',
+      'Overfitting small domain datasets during full-parameter fine-tuning instead of using LoRA or prompt tuning.'
+    ],
+    interviewPrep: [
+      {
+        question: 'Why did the Transformer architecture replace recurrent neural networks (RNNs and LSTMs) in modern NLP?',
+        answer: 'RNNs process tokens sequentially step-by-step, creating an architectural bottleneck that prevents parallel GPU computation and suffers from vanishing gradients over long sequences. Transformers process all tokens simultaneously using multi-head self-attention, allowing massive distributed GPU pre-training over trillions of tokens.'
+      }
+    ]
+  },
+
+  'course-nlp-python': {
+    courseId: 'course-nlp-python',
+    courseTitle: 'NLP in Python',
     category: 'Artificial Intelligence Core',
     summary: 'Master computational linguistics, subword tokenization, word embeddings, sequence modeling, Multi-Head Transformer Self-Attention, BERT/GPT architectures, and LoRA fine-tuning.',
     realWorldAnalogy: 'Think of Natural Language Processing like building a universal mathematical dictionary for human thought. Words and phrases are not just letters; they are multidimensional coordinates in space where words with similar contextual meanings cluster together like stars in a galaxy.',

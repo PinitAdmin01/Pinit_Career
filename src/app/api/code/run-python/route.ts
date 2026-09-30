@@ -8,6 +8,8 @@ import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { getAuthoritativeQuest, getAuthoritativeQuestXp } from '@/lib/quests/questRegistry';
+import { findForbiddenPython } from '@/lib/code/python/pythonGuard';
+import { questNeedsPassReceipt } from '@/lib/courses/gradeTest';
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -68,6 +70,7 @@ export async function POST(req: NextRequest) {
     // ── Authoritative Quest & Test Suite Validation ───────────────────────────
     let effectiveTestSuite = typeof testSuite === 'string' ? testSuite : '';
     let authoritativeXpAwarded = 0;
+    let canRecordCompletion = false;
     const cleanQuestId = typeof questId === 'string' ? questId.trim() : '';
 
     if (cleanQuestId) {
@@ -82,8 +85,10 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
       }
-      // Forcefully overwrite testSuite with server-owned suite
+      // Forcefully overwrite testSuite with server-owned suite. A pass is only recorded against the
+      // quest's own suite: never a browser-supplied one, and never for server-graded course tests.
       effectiveTestSuite = registeredQuest.testSuite || effectiveTestSuite;
+      canRecordCompletion = Boolean(registeredQuest.testSuite && registeredQuest.testSuite.trim()) && !questNeedsPassReceipt(cleanQuestId);
       authoritativeXpAwarded = registeredQuest.xp;
     }
 
@@ -108,7 +113,7 @@ export async function POST(req: NextRequest) {
 
         if (judgeRes.ok) {
           const result = await judgeRes.json();
-          if (result.allPassed && cleanQuestId && gated.user?.id) {
+          if (result.allPassed && canRecordCompletion && gated.user?.id) {
             await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
           }
           return NextResponse.json(result);
@@ -119,71 +124,30 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Security Sandbox — Forbidden Python APIs across BOTH code and testSuite ──
-    const forbiddenPatterns = [
-      /os./,                    // Any os module usage (os.environ, os.system, os.popen, etc.)
-      /\bimport\s+os\b/,         // import os
-      /\bfrom\s+os\b/,           // from os import ...
-      /sys\./,                   // sys module access (sys.modules, etc.)
-      /\bimport\s+sys\b/,        // import sys
-      /\bfrom\s+sys\b/,          // from sys import ...
-      /subprocess/,              // Subprocess spawning
-      /__import__/,              // Dynamic import (bypass restrictions)
-      /importlib/,               // Import library (dynamic loading)
-      /eval\s*\(/,               // Dynamic code evaluation
-      /exec\s*\(/,               // Code execution
-      /compile\s*\(/,            // Code compilation
-      /\bopen\s*\(/,             // Any file access
-      /\bpathlib\b/,             // Pathlib filesystem access
-      /\bPath\s*\(/,             // Path(...) construction
-      /\bio\./,                  // io module (io.open, etc.)
-      /\bimport\s+io\b/,         // import io
-      /\bfrom\s+io\b/,           // from io import ...
-      /shutil/,                  // File manipulation
-      /socket/,                  // Raw network socket
-      /urllib/,                  // HTTP requests
-      /requests/,                // HTTP requests library
-      /http\.client/,            // Python http.client exfiltration
-      /\bhttp\./,                // Any http module usage
-      /httpx/,                   // Async HTTP
-      /aiohttp/,                 // Async HTTP
-      /ctypes/,                  // C library interop (bypass sandbox)
-      /__subclasses__/,          // Class hierarchy traversal / sandbox escape
-      /__builtins__/,            // Builtin dictionary override
-      /ftplib|telnetlib/,        // Legacy network protocols
-      /\bpty\b|\bposix\b|\bfcntl\b/, // Low-level OS/process interop
-      /\bexit\s*\(/,             // Early exit exploit
-      /\bquit\s*\(/,             // Early quit exploit
-      /\braise\s+SystemExit\b/,  // Early SystemExit exploit
-      /sys\.exit/,               // sys.exit exploit
-      /os\._exit/,               // os._exit exploit
-    ];
-
     const combinedSource = `${code}\n${effectiveTestSuite}`;
 
-    for (const pattern of forbiddenPatterns) {
-      if (pattern.test(combinedSource)) {
-        return NextResponse.json({
-          language: 'python',
-          totalTests: 1,
-          passedTests: 0,
-          failedTests: 1,
-          allPassed: false,
-          status: 'RUNTIME_ERROR',
-          totalDurationMs: Date.now() - startTime,
-          terminalLogs: [
-            '[SECURITY GUARD] Restricted Python module/call detected in code or testSuite. Process execution, eval, network, dynamic imports, and process exit traps are disallowed.'
-          ],
-          testOutcomes: [{
-            index: 1,
-            testCaseName: 'Security Sandbox Check',
-            input: 'Forbidden Module',
-            expectedOutput: 'Clean Execution',
-            actualOutput: 'Security Violation',
-            passed: false,
-            durationMs: Date.now() - startTime
-          }]
-        });
-      }
+    if (findForbiddenPython(combinedSource)) {
+      return NextResponse.json({
+        language: 'python',
+        totalTests: 1,
+        passedTests: 0,
+        failedTests: 1,
+        allPassed: false,
+        status: 'RUNTIME_ERROR',
+        totalDurationMs: Date.now() - startTime,
+        terminalLogs: [
+          '[SECURITY GUARD] Restricted Python module/call detected in code or testSuite. Process execution, eval, network, dynamic imports, and process exit traps are disallowed.'
+        ],
+        testOutcomes: [{
+          index: 1,
+          testCaseName: 'Security Sandbox Check',
+          input: 'Forbidden Module',
+          expectedOutput: 'Clean Execution',
+          actualOutput: 'Security Violation',
+          passed: false,
+          durationMs: Date.now() - startTime
+        }]
+      });
     }
 
     // Clamp timeout strictly between 500ms and 4000ms
@@ -340,7 +304,7 @@ except Exception as ex:
       }
 
       // Clean, verified success
-      if (cleanQuestId && gated.user?.id) {
+      if (canRecordCompletion && gated.user?.id) {
         await persistPythonCompletionServerSide(gated.user.id, cleanQuestId, authoritativeXpAwarded);
       }
 

@@ -87,10 +87,10 @@ export async function POST(req: NextRequest) {
       if (!repo) return fail(409, 'REPO_MISSING', 'Submit Sprint 1 with your repository first.');
       const api = parseGithubLink(submission.apiUrl);
       if (!api || !api.isPath || !sameGithubRepo(repo, api)) {
-        return fail(400, 'INVALID_API_URL', `Link a file or folder with your API code inside ${repo.repoUrl}.`);
+        return fail(400, 'INVALID_API_URL', `Link the file or folder for this sprint inside ${repo.repoUrl}.`);
       }
       const apiProbe = await probePublicUrl(api.url);
-      if (!apiProbe.ok) return githubFailure(apiProbe, 'API code');
+      if (!apiProbe.ok) return githubFailure(apiProbe, 'file or folder');
       updates = { sprint2Approved: true, sprint2ApiUrl: api.url, sprint2ApprovedAt: now };
     } else if (submission.sprint === 3) {
       const repo = parseGithubLink(milestones.sprint1RepoUrl);

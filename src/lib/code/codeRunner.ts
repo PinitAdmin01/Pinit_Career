@@ -4,6 +4,7 @@
 
 import { CodeLanguage, TestCase, SqlTestCase, SuiteExecutionResult } from './types';
 import { executeJavaScriptSuite } from './runners/jsRunner';
+import { executeJsTaskScript } from './runners/jsTaskScript';
 import { executePythonSuite, loadPyodideRuntime } from './runners/pythonRunner';
 import { executeSqlSuite } from './runners/sqlRunner';
 import { executeJavaJudgeSuite } from './runners/javaJudgeRunner';
@@ -50,6 +51,10 @@ export async function runTestSuite(
 
   switch (language) {
     case 'javascript':
+      // Practice tasks carry their checks as a JavaScript test suite instead of input/output cases.
+      if (testCases.length === 0 && options?.testSuite?.trim()) {
+        return executeJsTaskScript(code, options.testSuite, Math.max(timeoutMs, 8000));
+      }
       return executeJavaScriptSuite(code, fnName, testCases, timeoutMs);
 
     case 'python':

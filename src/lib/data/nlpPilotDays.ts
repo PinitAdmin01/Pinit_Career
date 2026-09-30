@@ -244,7 +244,7 @@ export const NLP_PILOT_DAYS: DayLessonPlan[] = [
             "type": "runnable_code",
             "filename": "morphology_demo.js",
             "initialCode": "function classifyMorph(w, pos, isLemma) {\n  const dict = { 'better_adj': 'good', 'running_verb': 'run' };\n  const key = `${w.toLowerCase()}_${pos.toLowerCase()}`;\n  if (isLemma && dict[key]) {\n    return { original: w, reducedForm: dict[key], strategy: 'LEMMATIZATION_DICTIONARY_ROOT', status: 'MORPHOLOGICAL_REDUCTION_NOMINAL' };\n  }\n  const stem = w.toLowerCase().replace(/(ing|ed|s)$/, '');\n  return { original: w, reducedForm: stem, strategy: 'HEURISTIC_SUFFIX_STRIPPING', status: 'MORPHOLOGICAL_REDUCTION_NOMINAL' };\n}\n\nconsole.log(JSON.stringify(classifyMorph('better', 'adj', true)));\nconsole.log(JSON.stringify(classifyMorph('running', 'verb', false)));",
-            "expectedOutput": "{\"original\":\"better\",\"reducedForm\":\"good\",\"strategy\":\"LEMMATIZATION_DICTIONARY_ROOT\",\"status\":\"MORPHOLOGICAL_REDUCTION_NOMINAL\"}\n{\"original\":\"running\",\"reducedForm\":\"run\",\"strategy\":\"HEURISTIC_SUFFIX_STRIPPING\",\"status\":\"MORPHOLOGICAL_REDUCTION_NOMINAL\"}",
+            "expectedOutput": "{\"original\":\"better\",\"reducedForm\":\"good\",\"strategy\":\"LEMMATIZATION_DICTIONARY_ROOT\",\"status\":\"MORPHOLOGICAL_REDUCTION_NOMINAL\"}\n{\"original\":\"running\",\"reducedForm\":\"runn\",\"strategy\":\"HEURISTIC_SUFFIX_STRIPPING\",\"status\":\"MORPHOLOGICAL_REDUCTION_NOMINAL\"}",
             "editable": false
           }
         ],

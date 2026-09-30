@@ -377,8 +377,8 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Traverse character nodes in hash map children; mark isEnd true on the last node.",
     "eTest": "const trie = new Trie();\ntrie.insert('apple');\nif (trie.search('apple') !== true) throw new Error('Search apple should return true');\nif (trie.search('app') !== false) throw new Error('Search app should return false');\nif (trie.startsWith('app') !== true) throw new Error('startsWith app should return true');",
     "aTitle": "Find All Words with Prefix",
-    "aDesc": "Implement `function findWordsWithPrefix(trie, prefix)` returning array of matching dictionary words.",
-    "aStarter": "function findWordsWithPrefix(trie, prefix) {\n  // Navigate to the prefix endpoint and run DFS to collect all words.\n  \n}",
+    "aDesc": "Implement `function findWordsWithPrefix(trie, prefix)` returning an array of every inserted word that starts with prefix. A working Trie class (from Practice 1) is already in the editor: each node has `children` (letter -> node) and `isEnd`; start from `trie.root`.",
+    "aStarter": "class TrieNode {\n  constructor() { this.children = {}; this.isEnd = false; }\n}\nclass Trie {\n  constructor() { this.root = new TrieNode(); }\n  insert(word) {\n    let node = this.root;\n    for (const ch of word) node = node.children[ch] || (node.children[ch] = new TrieNode());\n    node.isEnd = true;\n  }\n  search(word) {\n    const node = this._walk(word);\n    return Boolean(node && node.isEnd);\n  }\n  startsWith(prefix) { return Boolean(this._walk(prefix)); }\n  _walk(text) {\n    let node = this.root;\n    for (const ch of text) { node = node.children[ch]; if (!node) return null; }\n    return node;\n  }\n}\n\nfunction findWordsWithPrefix(trie, prefix) {\n  // Walk down to the node for the last letter of prefix, then collect every word below it (DFS).\n  \n}",
     "aHint": "Navigate to the prefix endpoint and run DFS to collect all words.",
     "aTest": "const t = new Trie();\nt.insert('card'); t.insert('care'); t.insert('cart');\nconst matches = findWordsWithPrefix(t, 'car');\nif (matches.length !== 3) throw new Error('Expected 3 words matching prefix car');"
   },
@@ -416,11 +416,11 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class AutocompleteSystem {\n  constructor() {\n    // Filter by prefix, sort by descending frequency (tiebreak alphabetically), and slice top k.\n    \n  }\n  insert(word, freq) {\n    // Filter by prefix, sort by descending frequency (tiebreak alphabetically), and slice top k.\n    \n  }\n  suggest(prefix, k = 3) {\n    // Filter by prefix, sort by descending frequency (tiebreak alphabetically), and slice top k.\n    \n  }\n\n}",
     "eHint": "Filter by prefix, sort by descending frequency (tiebreak alphabetically), and slice top k.",
     "eTest": "const ac = new AutocompleteSystem();\nac.insert('react', 100); ac.insert('redux', 50); ac.insert('reach', 80);\nconst top2 = ac.suggest('rea', 2);\nif (top2[0] !== 'react' || top2[1] !== 'reach') throw new Error('Top 2 suggestions mismatched');\nconst topAll = ac.suggest('r', 5);\nif (topAll.length !== 3 || topAll[0] !== 'react') throw new Error('Top all suggestions failed');\nconst none = ac.suggest('xyz', 2);\nif (none.length !== 0) throw new Error('Nonexistent prefix suggestions must be empty');",
-    "aTitle": "Verify Suggestion Ranking",
-    "aDesc": "Use the AutocompleteSystem from the exercise: insert 'apple' and 'avocado' with equal frequency, call suggest('a', 2), and return true only if the result is ['apple', 'avocado'] (alphabetical tiebreak).",
-    "aStarter": "function testRank() {\n  // Return true if the auto-complete engine ranks correctly:\n  \n}",
+    "aTitle": "Rank Suggestions by Frequency",
+    "aDesc": "Implement `function rankSuggestions(words, prefix, k)` where words maps each word to how often it was searched (for example { apple: 5, avocado: 5 }). Return the k most searched words that start with prefix, highest count first; when two words have the same count, put them in alphabetical order.",
+    "aStarter": "function rankSuggestions(words, prefix, k) {\n  // Keep the words that start with prefix, sort by count (high to low, ties alphabetical), and take the first k.\n  \n}",
     "aHint": "When two words share the same frequency, the tiebreaker is alphabetical order — 'apple' < 'avocado' lexicographically, so it must appear first in the suggestions list.",
-    "aTest": "if (testRank() !== true) throw new Error('Rank test failed');"
+    "aTest": "const tie = rankSuggestions({ avocado: 5, apple: 5, banana: 9 }, 'a', 2);\nif (JSON.stringify(tie) !== JSON.stringify(['apple', 'avocado'])) throw new Error('Equal counts must be in alphabetical order: expected [apple, avocado]');\nconst top = rankSuggestions({ react: 100, redux: 50, reach: 80, vue: 90 }, 're', 2);\nif (JSON.stringify(top) !== JSON.stringify(['react', 'reach'])) throw new Error('Expected the 2 most searched re- words: [react, reach]');\nif (rankSuggestions({ react: 1 }, 'x', 3).length !== 0) throw new Error('No word starts with x, so the result must be empty');"
   },
   {
     "day": 22,
@@ -460,7 +460,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function canFinish(numCourses, prerequisites)` returning boolean.",
     "aStarter": "function canFinish(numCourses, prerequisites) {\n  // Verify if topological order length equals total number of courses.\n  \n}",
     "aHint": "Verify if topological order length equals total number of courses.",
-    "aTest": "if (canFinish(2, [[1,0]]) !== true) throw new Error('Valid prerequisites rejected');"
+    "aTest": "if (canFinish(2, [[1,0]]) !== true) throw new Error('Valid prerequisites rejected');\nif (canFinish(2, [[1,0],[0,1]]) !== false) throw new Error('Two courses that need each other can never be finished');\nif (canFinish(3, [[1,0],[2,1]]) !== true) throw new Error('A chain 0 -> 1 -> 2 can be finished');"
   },
   {
     "day": 24,
@@ -560,7 +560,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function isValidSudoku(board)` verifying rows, columns, and 3x3 sub-boxes.",
     "aStarter": "function isValidSudoku(board) {\n  // Check uniqueness across each row, column, and 3x3 box.\n  \n}",
     "aHint": "Check uniqueness across each row, column, and 3x3 box.",
-    "aTest": "const b = Array.from({length: 9}, () => Array(9).fill('.'));\nb[0][0] = '5'; b[0][1] = '3';\nif (isValidSudoku(b) !== true) throw new Error('Valid sudoku board rejected');"
+    "aTest": "const b = Array.from({length: 9}, () => Array(9).fill('.'));\nb[0][0] = '5'; b[0][1] = '3';\nif (isValidSudoku(b) !== true) throw new Error('Valid sudoku board rejected');\nconst sameCol = Array.from({length: 9}, () => Array(9).fill('.'));\nsameCol[0][0] = '5'; sameCol[4][0] = '5';\nif (isValidSudoku(sameCol) !== false) throw new Error('Two 5s in one column must be invalid');\nconst sameBox = Array.from({length: 9}, () => Array(9).fill('.'));\nsameBox[0][0] = '7'; sameBox[2][2] = '7';\nif (isValidSudoku(sameBox) !== false) throw new Error('Two 7s in one 3x3 box must be invalid');"
   },
   {
     "day": 29,
