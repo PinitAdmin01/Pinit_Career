@@ -87,8 +87,8 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'safe-py': SAFETY_PYTHON_LONG_LESSONS,
 };
 
-/** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
-export type LongLessonLanguage = 'javascript' | 'python' | 'sql';
+/** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */
+export type LongLessonLanguage = 'javascript' | 'python' | 'sql' | 'typescript';
 
 const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'react-basics': 'javascript',
@@ -105,6 +105,10 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'train-py': 'python',
   'vec-py': 'python',
   'safe-py': 'python',
+  'node-web': 'typescript',
+  'sre-web': 'typescript',
+  'stream-web': 'typescript',
+  'aideploy-web': 'typescript',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {

@@ -23,6 +23,19 @@ import {
   assertHeadingsInOrder,
 } from '../web/htmlCssChecks';
 
+declare const __non_webpack_require__: ((id: string) => any) | undefined;
+
+function getNodeVm(): any {
+  if (typeof __non_webpack_require__ !== 'undefined') {
+    return __non_webpack_require__('node:vm');
+  }
+  const nodeReq = typeof module !== 'undefined' && module.require ? module.require.bind(module) : undefined;
+  if (nodeReq) {
+    return nodeReq('node:vm');
+  }
+  return null;
+}
+
 export const UNTRUSTED_CLIENT_OBSERVATION_NOTICE =
   '[SECURITY NOTICE] Sandbox output is UNTRUSTED CLIENT OBSERVATION (Formative only).';
 
@@ -74,7 +87,7 @@ export async function executeTypeScriptTask(
   }
 
   // Node.js test environment: execute in node:vm
-  const vm = await import('node:vm');
+  const vm = getNodeVm();
   const stdoutLogs: string[] = [];
 
   const sandbox: Record<string, any> = {
@@ -196,7 +209,7 @@ export async function executeHtmlCssTask(
 
   if (typeof window === 'undefined') {
     // Node.js environment
-    const vm = await import('node:vm');
+    const vm = getNodeVm();
     vm.createContext(sandbox);
 
     try {

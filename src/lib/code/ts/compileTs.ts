@@ -47,8 +47,9 @@ function getNodeEsbuild(): any {
   if (typeof __non_webpack_require__ !== 'undefined') {
     return __non_webpack_require__('esbuild');
   }
-  if (typeof require !== 'undefined') {
-    return require('esbuild');
+  const nodeReq = typeof module !== 'undefined' && module.require ? module.require.bind(module) : undefined;
+  if (nodeReq) {
+    return nodeReq('esbuild');
   }
   throw new Error('esbuild is only available in Node.js');
 }
