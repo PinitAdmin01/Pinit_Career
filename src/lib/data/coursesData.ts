@@ -48,6 +48,8 @@ import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
 import { addBlockTests } from './courseTests';
 
 
+import type { CodeLanguage } from '../code/types';
+
 export interface CourseQuest {
   id: string;
   title: string;
@@ -58,6 +60,7 @@ export interface CourseQuest {
   starterCode?: string;
   hint?: string;
   testSuite?: string;
+  language?: CodeLanguage;
   syllabus?: string[];
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory';
   xp: number;
