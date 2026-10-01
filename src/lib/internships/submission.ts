@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
 import type { InternshipTaskRow, InternshipEnrollmentRow } from './types';
 
@@ -177,11 +178,10 @@ export function instrumentHiddenPythonTests(hiddenTests: string): string {
   return `__pinit_hidden_check_idx = 1
 try:
 ${indentedSuite}
-    print("__PINIT_TESTS_PASSED__")
 except AssertionError:
-    print(f"Hidden check {__pinit_hidden_check_idx} failed")
+    raise AssertionError(f"Hidden check {__pinit_hidden_check_idx} failed") from None
 except Exception:
-    print(f"Hidden check {__pinit_hidden_check_idx} failed")
+    raise AssertionError(f"Hidden check {__pinit_hidden_check_idx} failed") from None
 `;
 }
 
@@ -229,10 +229,12 @@ export async function executeTicketCode(opts: {
 
   if (language === 'python') {
     // 1. Run visible tests
+    const visibleSentinel = crypto.randomBytes(16).toString('hex');
     const visibleRes = await runPythonInSandbox({
       code,
       tests: visibleTests,
       timeoutMs: 4000,
+      sentinel: visibleSentinel,
     });
 
     if (!visibleRes.passed) {
@@ -245,17 +247,17 @@ export async function executeTicketCode(opts: {
     }
 
     // 2. Run hidden tests (with source scrubbed and check instrumentation)
+    const hiddenSentinel = crypto.randomBytes(16).toString('hex');
     const instrumentedTests = instrumentHiddenPythonTests(hiddenTests);
     const hiddenRes = await runPythonInSandbox({
       code,
       tests: instrumentedTests,
       timeoutMs: 4000,
+      sentinel: hiddenSentinel,
     });
 
-    const combined = `${hiddenRes.stdout || ''}\n${hiddenRes.stderr || ''}`;
-    const hasPassedMarker = combined.includes('__PINIT_TESTS_PASSED__');
-
-    if (!hiddenRes.passed || !hasPassedMarker) {
+    if (!hiddenRes.passed) {
+      const combined = `${hiddenRes.stderr || ''}\n${hiddenRes.stdout || ''}`;
       const match = combined.match(/Hidden check \d+ failed/);
       const safeOutput = match ? match[0] : 'Hidden check failed';
 

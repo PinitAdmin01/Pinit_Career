@@ -70,20 +70,12 @@ export async function POST(req: NextRequest) {
       .in('status', ['active', 'generating'])
       .maybeSingle();
 
-    if (existingActive) {
-      return fail(
-        409,
-        'ALREADY_ACTIVE',
-        'You already have an active internship for this course enrollment.'
-      );
-    }
-
-    // Eligibility check
+    // Eligibility check (includes active-internship guard via check #5)
     const eligibility = checkInternshipEligibility({
       enrollment,
       plan,
       track: enrollment.track,
-      activeInternship: false,
+      activeInternship: !!existingActive,
     });
 
     if (!eligibility.ok) {

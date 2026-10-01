@@ -85,7 +85,7 @@
  "ai_prompt-assign-day-30": "function auditAiMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_AI_LITERACY_AND_PROMPT_ENGINEERING_MASTER_CERTIFIED' }; }",
  "ai_prompt-assign-day-4": "function getZeroShotCotPhrase() { return 'LETS_THINK_STEP_BY_STEP'; }",
  "ai_prompt-assign-day-5": "function formatPromptFoundationsStatus(o) { return `PROMPT_FOUNDATIONS_${o ? 'ACTIVE' : 'OFFLINE'}`; }",
- "ai_prompt-assign-day-6": "function getDeterministicTemperature() { return 0.0; }",
+ "ai_prompt-assign-day-6": "function getZeroTemperature() { return 0.0; }",
  "ai_prompt-assign-day-7": "function getJsonModeParameter() { return 'JSON_OBJECT'; }",
  "ai_prompt-assign-day-8": "function getMaxExecutiveCompressionRatio() { return 0.20; }",
  "ai_prompt-assign-day-9": "function getMinRagSimilarityThreshold() { return 0.80; }",

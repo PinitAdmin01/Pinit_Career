@@ -31,13 +31,21 @@ export async function GET(req: NextRequest) {
       .select('id, started_at, created_at, status, tier')
       .eq('student_id', userId)
       .eq('tier', 't2_virtual_team')
-      .in('status', ['generating', 'active'])
+      .in('status', ['generating', 'active', 'generation_failed'])
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle();
 
     if (enrErr) {
       return fail(500, 'LOOKUP_FAILED', 'Could not check your matching status.');
+    }
+
+    if (enrollment?.status === 'generation_failed') {
+      return fail(
+        500,
+        'GENERATION_FAILED',
+        'We could not prepare your internship right now. Please try again in a few minutes.'
+      );
     }
 
     if (!enrollment) {
@@ -87,6 +95,25 @@ export async function POST(req: NextRequest) {
         members: existing.members,
         isSolo: existing.isSolo,
       });
+    }
+
+    const admin = getSupabaseAdmin();
+    const { data: failedEnr } = await admin
+      .from('internship_enrollments')
+      .select('status')
+      .eq('student_id', userId)
+      .eq('tier', 't2_virtual_team')
+      .eq('status', 'generation_failed')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (failedEnr) {
+      return fail(
+        500,
+        'GENERATION_FAILED',
+        'We could not prepare your internship right now. Please try again in a few minutes.'
+      );
     }
 
     // 2. Trigger team matching pass for all pending Tier 2 students

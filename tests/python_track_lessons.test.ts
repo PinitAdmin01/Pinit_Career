@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, execSync } from 'node:child_process';
 
 import { DayLessonPlan } from '../src/lib/types/lessonEngine';
 import { DSA_PYTHON_PILOT_DAYS } from '../src/lib/data/dsaPythonPilotDays';
@@ -15,6 +15,16 @@ import { resolvePilotDay } from '../src/lib/data/curriculumEnricher';
 import { getLongLessonLanguage } from '../src/lib/data/longLessons';
 import { resolveQuestLanguage } from '../src/components/quests/workspace/useWorkspaceState';
 
+/* Check for python3 once at the top so tests skip visibly instead of silently. */
+const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+let hasPython = false;
+try {
+  execSync(`${pythonCmd} --version`, { stdio: 'pipe' });
+  hasPython = true;
+} catch {
+  hasPython = false;
+}
+
 /** Each Python-track course: its lessons, the JavaScript course they come from, and what it replaces in the plans. */
 const COURSES = [
   { id: 'course-dsa-python', prefix: 'dsa-py', lessons: DSA_PYTHON_PILOT_DAYS, from: DSA_PILOT_DAYS, replaces: 'course-dsa-optim', examples: 90 },
@@ -28,21 +38,13 @@ const mediaOf = (days: DayLessonPlan[], type: string) =>
 const JS = /console\.log|\bconst |\blet |===|=>|\bfunction\s+\w+\s*\(|Math\.|\.length\b|\bnull\b|\bundefined\b|JavaScript|JSON\.parse|Promise\./;
 
 for (const course of COURSES) {
-  test(`${course.id}: every lesson example runs in python3 and prints its expected output`, () => {
+  test(`${course.id}: every lesson example runs in python3 and prints its expected output`, { skip: !hasPython ? 'python3 not installed' : false }, () => {
     const examples = mediaOf(course.lessons, 'runnable_code');
     assert.equal(examples.length, course.examples);
     for (const { id, m } of examples) {
       assert.match(m.filename, /\.py$/, id);
-    try {
-      const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
       const out = execFileSync(pythonCmd, ['-c', m.initialCode], { encoding: 'utf8' }).trimEnd();
       assert.equal(out, m.expectedOutput, id);
-    } catch (err: any) {
-      if (err.code === 'ENOENT' || err.status === 9009 || err.message?.includes('Python was not found')) {
-        return; // Native python CLI not installed in environment, skip host execution check
-      }
-      throw err;
-    }
     }
   });
 

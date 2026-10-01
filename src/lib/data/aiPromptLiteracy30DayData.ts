@@ -117,10 +117,10 @@ export const AI_PROMPT_LITERACY_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Deterministic requires temp === 0.0. Creative requires temp >= 0.7 and topP >= 0.9.",
     "eTest": "const det = auditDecodingHyperparameters(0.0, 1.0, 'DETERMINISTIC_EXTRACTION');\nconst creat = auditDecodingHyperparameters(0.8, 0.95, 'CREATIVE_GENERATION');\nconst bad = auditDecodingHyperparameters(0.9, 0.95, 'DETERMINISTIC_EXTRACTION');\nif (!det.isHyperparameterConfigOptimal || !creat.isHyperparameterConfigOptimal || bad.isHyperparameterConfigOptimal) throw new Error('Hyperparameter audit failed');",
     "aTitle": "Deterministic Extraction Optimal Temperature Formatter",
-    "aDesc": "Implement function getDeterministicTemperature() returning `0.0`.",
-    "aStarter": "function getDeterministicTemperature() {\n  // TODO: write your code here\n}",
+    "aDesc": "Implement function getZeroTemperature() returning `0.0`.",
+    "aStarter": "function getZeroTemperature() {\n  // TODO: write your code here\n}",
     "aHint": "Return 0.0.",
-    "aTest": "if (getDeterministicTemperature() !== 0.0) throw new Error('Temperature check failed');"
+    "aTest": "if (getZeroTemperature() !== 0.0) throw new Error('Temperature check failed');"
   },
   {
     "day": 7,

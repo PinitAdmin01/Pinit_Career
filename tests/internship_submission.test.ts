@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { execSync } from 'node:child_process';
 import {
   validateTaskSubmissionEligibility,
   instrumentHiddenPythonTests,
@@ -7,6 +8,15 @@ import {
   sanitizeHiddenOutput,
   executeTicketCode,
 } from '../src/lib/internships/submission';
+
+let hasPython = false;
+try {
+  const pyCmd = process.platform === 'win32' ? 'python' : 'python3';
+  execSync(`${pyCmd} --version`, { stdio: 'pipe' });
+  hasPython = true;
+} catch {
+  hasPython = false;
+}
 
 test('validateTaskSubmissionEligibility: rejects missing task or enrollment', () => {
   const res1 = validateTaskSubmissionEligibility({
@@ -132,8 +142,7 @@ assert add(0, 0) == 0
   assert.ok(instrumented.includes('__pinit_hidden_check_idx = 1'));
   assert.ok(instrumented.includes('__pinit_hidden_check_idx = 2'));
   assert.ok(instrumented.includes('__pinit_hidden_check_idx = 3'));
-  assert.ok(instrumented.includes('Hidden check {__pinit_hidden_check_idx} failed'));
-  assert.ok(instrumented.includes('__PINIT_TESTS_PASSED__'));
+  assert.ok(instrumented.includes('raise AssertionError(f"Hidden check {__pinit_hidden_check_idx} failed")'));
 });
 
 test('trimSubmissionOutput: bounds output to 4,000 characters', () => {
@@ -187,3 +196,73 @@ test('executeTicketCode: passes valid SQL practice checks and rejects failing on
   assert.equal(failRes.passed, false);
   assert.equal(failRes.failedStage, 'visible');
 });
+
+test('W-00-1 real sandbox: (a) a correct add passes', { skip: !hasPython ? 'python3 not installed' : false }, async () => {
+  const code = `def add(a, b):\n    return a + b\n`;
+  const visibleTests = `assert add(1, 2) == 3\n`;
+  const hiddenTests = `assert add(2, 3) == 5\nassert add(-1, -1) == -2\n`;
+
+  const res = await executeTicketCode({
+    language: 'python',
+    code,
+    visibleTests,
+    hiddenTests,
+  });
+
+  assert.equal(res.passed, true);
+  assert.ok(res.output.includes('All tests passed'));
+});
+
+test('W-00-1 real sandbox: (b) a wrong add fails with "Hidden check N failed"', { skip: !hasPython ? 'python3 not installed' : false }, async () => {
+  const code = `def add(a, b):\n    return a + b if a == 1 else 999\n`;
+  const visibleTests = `assert add(1, 2) == 3\n`;
+  const hiddenTests = `assert add(1, 4) == 5\nassert add(2, 3) == 5\n`;
+
+  const res = await executeTicketCode({
+    language: 'python',
+    code,
+    visibleTests,
+    hiddenTests,
+  });
+
+  assert.equal(res.passed, false);
+  assert.equal(res.failedStage, 'hidden');
+  assert.equal(res.output, 'Hidden check 2 failed');
+});
+
+test('W-00-1 real sandbox: (c) the wrong add plus print("__PINIT_TESTS_PASSED__") fails', { skip: !hasPython ? 'python3 not installed' : false }, async () => {
+  const code = `def add(a, b):\n    print("__PINIT_TESTS_PASSED__")\n    return 0\n`;
+  const visibleTests = `assert add(0, 0) == 0\n`;
+  const hiddenTests = `assert add(1, 2) == 3\n`;
+
+  const res = await executeTicketCode({
+    language: 'python',
+    code,
+    visibleTests,
+    hiddenTests,
+  });
+
+  assert.equal(res.passed, false);
+  assert.equal(res.failedStage, 'hidden');
+  assert.equal(res.output, 'Hidden check 1 failed');
+});
+
+test('W-00-1 real sandbox: (d) the output never contains any hidden test line', { skip: !hasPython ? 'python3 not installed' : false }, async () => {
+  const code = `def add(a, b):\n    return 0\n`;
+  const visibleTests = `assert add(0, 0) == 0\n`;
+  const hiddenTests = `assert add(9999, 1111) == 11110\n`;
+
+  const res = await executeTicketCode({
+    language: 'python',
+    code,
+    visibleTests,
+    hiddenTests,
+  });
+
+  assert.equal(res.passed, false);
+  assert.equal(res.failedStage, 'hidden');
+  assert.ok(!res.output.includes('9999'));
+  assert.ok(!res.output.includes('assert'));
+  assert.equal(res.output, 'Hidden check 1 failed');
+});
+

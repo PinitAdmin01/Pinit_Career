@@ -34,7 +34,7 @@ export const QUEST_TEST_SUITES: Record<string, string> = {
   "ai_prompt-assign-day-30": "if (!auditAiMasterCert().certified) throw new Error('Capstone cert failed');",
   "ai_prompt-assign-day-4": "if (getZeroShotCotPhrase() !== 'LETS_THINK_STEP_BY_STEP') throw new Error('CoT phrase check failed');",
   "ai_prompt-assign-day-5": "if (formatPromptFoundationsStatus(true) !== 'PROMPT_FOUNDATIONS_ACTIVE') throw new Error('Status check failed');",
-  "ai_prompt-assign-day-6": "if (getDeterministicTemperature() !== 0.0) throw new Error('Temperature check failed');",
+  "ai_prompt-assign-day-6": "if (getZeroTemperature() !== 0.0) throw new Error('Temperature check failed');",
   "ai_prompt-assign-day-7": "if (getJsonModeParameter() !== 'JSON_OBJECT') throw new Error('JSON mode check failed');",
   "ai_prompt-assign-day-8": "if (getMaxExecutiveCompressionRatio() !== 0.20) throw new Error('Ratio check failed');",
   "ai_prompt-assign-day-9": "if (getMinRagSimilarityThreshold() !== 0.80) throw new Error('RAG threshold check failed');",

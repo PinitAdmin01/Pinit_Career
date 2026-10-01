@@ -67,63 +67,6 @@ export function assignStoriesToMembers(
 }
 
 /**
- * Deterministic fallback product briefs for offline testing and fast unit verification.
- */
-export function getDeterministicProductBrief(
-  seed: string,
-  isSolo: boolean = false
-): ProductBrief {
-  const domains = [
-    {
-      productName: 'ClinicFlow Appointment Backend',
-      summary:
-        'A high-performance simulated backend service for clinical appointment management, patient record routing, and doctor schedule conflict prevention. Designed for Python + PostgreSQL REST services.',
-      dataModel: [
-        {
-          table: 'patients',
-          columns: ['id UUID PRIMARY KEY', 'full_name TEXT NOT NULL', 'email TEXT UNIQUE', 'created_at TIMESTAMPTZ'],
-        },
-        {
-          table: 'doctors',
-          columns: ['id UUID PRIMARY KEY', 'name TEXT NOT NULL', 'specialization TEXT', 'active BOOLEAN'],
-        },
-        {
-          table: 'appointments',
-          columns: ['id UUID PRIMARY KEY', 'patient_id UUID REFERENCES patients(id)', 'doctor_id UUID REFERENCES doctors(id)', 'slot_time TIMESTAMPTZ', 'status TEXT'],
-        },
-        {
-          table: 'consultation_notes',
-          columns: ['id UUID PRIMARY KEY', 'appointment_id UUID REFERENCES appointments(id)', 'diagnosis TEXT', 'prescriptions JSONB'],
-        },
-      ],
-      stories: [
-        { id: 'US-01', title: 'Register new patient with duplicate email validation', acceptance: ['Validate email RFC compliance', 'Return 409 Conflict if email exists', 'Persist record'] },
-        { id: 'US-02', title: 'List doctors by specialty and availability', acceptance: ['Filter by specialization', 'Order by seniority', 'Exclude inactive doctors'] },
-        { id: 'US-03', title: 'Book appointment slot with race condition prevention', acceptance: ['Atomic transaction lock on doctor slot', 'Reject overlapping times', 'Return booking confirmation'] },
-        { id: 'US-04', title: 'Cancel appointment with audit logging', acceptance: ['Update status to cancelled', 'Record cancellation reason', 'Release slot for rebooking'] },
-        { id: 'US-05', title: 'Fetch daily appointment schedule for a clinic doctor', acceptance: ['Sort chronologically', 'Include patient name and contact', 'Omit cancelled slots'] },
-        { id: 'US-06', title: 'Attach clinical consultation notes to appointment', acceptance: ['Authorize attending doctor', 'Store structured diagnosis', 'Append prescriptions'] },
-        { id: 'US-07', title: 'Calculate doctor patient throughput analytics', acceptance: ['Aggregate count by month', 'Calculate average consultation duration', 'Return summary metrics'] },
-        { id: 'US-08', title: 'Export patient medical history timeline', acceptance: ['Chronological list of all visits', 'Include prescription summary', 'Mask sensitive patient identifiers'] },
-        { id: 'US-09', title: 'Automated appointment reminder dispatch queue', acceptance: ['Query appointments 24h away', 'Generate notification payload', 'Track notification status'] },
-        { id: 'US-10', title: 'Doctor leave and unavailabilty blackout periods', acceptance: ['Block calendar date ranges', 'Prevent bookings during blackout', 'Notify affected patients'] },
-        { id: 'US-11', title: 'Emergency priority triage booking', acceptance: ['Bypass standard queue', 'Flag appointment as urgent', 'Assign next on-duty physician'] },
-        { id: 'US-12', title: 'Prescription inventory cross-reference validation', acceptance: ['Verify medication name against formulary', 'Warn on dosage thresholds', 'Store validation status'] },
-        { id: 'US-13', title: 'Clinic revenue and billing ledger generator', acceptance: ['Sum completed visit fees', 'Calculate specialty breakdown', 'Output monthly balance'] },
-        { id: 'US-14', title: 'Patient feedback and satisfaction ratings', acceptance: ['Accept 1-5 star ratings', 'Store optional text feedback', 'Compute rolling average'] },
-      ],
-    },
-  ];
-
-  const brief = domains[0];
-  const storyCount = isSolo ? 7 : 14;
-  return {
-    ...brief,
-    stories: brief.stories.slice(0, storyCount),
-  };
-}
-
-/**
  * Generates an AI-authored product brief and sprint backlog for Tier 2 Virtual Internships (T-25, FR-T2-2).
  * Scaled to 12-16 stories for collaborative teams, and 6-8 stories for solo mode.
  */
@@ -206,16 +149,8 @@ CRITICAL REQUIREMENTS:
     };
   }
 
-  // If live LLM calls failed or are unconfigured in test environments, use deterministic fallback
-  const fallback = getDeterministicProductBrief(opts.seed, isSolo);
-  const memberIds = opts.memberIds || (isSolo ? ['solo-student'] : []);
-  const assignments = assignStoriesToMembers(fallback.stories, memberIds);
-
   return {
-    ok: true,
-    brief: fallback,
-    assignments,
-    model: 'deterministic-fallback',
-    attempts: maxAttempts,
+    ok: false,
+    reasons,
   };
 }

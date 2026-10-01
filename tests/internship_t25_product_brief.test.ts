@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import {
   ProductBriefSchema,
   assignStoriesToMembers,
-  getDeterministicProductBrief,
   generateProductBrief,
   type UserStory,
 } from '../src/lib/internships/productBrief';
+import { getDeterministicProductBrief } from './fixtures/deterministicInternshipData';
+import { setLlmJsonTransportForTests } from '../src/lib/server/llmJson';
 
 test('ProductBriefSchema validates compliant product brief structure', () => {
   const valid = {
@@ -83,17 +84,24 @@ test('getDeterministicProductBrief scales stories according to team vs solo mode
 });
 
 test('generateProductBrief produces valid brief with member story assignments', async () => {
-  const res = await generateProductBrief({
-    seed: 'test-seed-100',
-    isSolo: false,
-    memberIds: ['user-1', 'user-2', 'user-3'],
-  });
+  setLlmJsonTransportForTests(async () =>
+    JSON.stringify(getDeterministicProductBrief('test-seed-100', false))
+  );
+  try {
+    const res = await generateProductBrief({
+      seed: 'test-seed-100',
+      isSolo: false,
+      memberIds: ['user-1', 'user-2', 'user-3'],
+    });
 
-  assert.equal(res.ok, true);
-  if (!res.ok) return;
+    assert.equal(res.ok, true);
+    if (!res.ok) return;
 
-  assert.equal(typeof res.brief.productName, 'string');
-  assert.equal(res.brief.stories.length >= 12, true);
-  assert.equal(Object.keys(res.assignments).length, 3);
-  assert.equal(res.assignments['user-1'].length > 0, true);
+    assert.equal(typeof res.brief.productName, 'string');
+    assert.equal(res.brief.stories.length >= 12, true);
+    assert.equal(Object.keys(res.assignments).length, 3);
+    assert.equal(res.assignments['user-1'].length > 0, true);
+  } finally {
+    setLlmJsonTransportForTests(null);
+  }
 });
