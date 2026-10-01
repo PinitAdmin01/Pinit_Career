@@ -90,7 +90,230 @@ function lazyAnswer(starter: string, value: string): string {
   for (const b of bodies.sort((x, y) => y.start - x.start)) out = out.slice(0, b.start) + `{ return ${value}; }` + out.slice(b.end);
   return out;
 }
-type AcornNode = { type: string; start: number; end: number; kind?: string; body?: AcornNode & { body?: AcornNode[] }; value?: { body?: AcornNode } };
+type AcornNode = {
+  type: string;
+  start: number;
+  end: number;
+  id?: { name: string };
+  kind?: string;
+  declaration?: AcornNode;
+  body?: any;
+  value?: any;
+};
+
+export function extractFunctionNames(code: string): string[] {
+  const names: string[] = [];
+  try {
+    const ast = acorn.parse(code, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+    for (const node of ast.body) {
+      if (node.type === 'FunctionDeclaration' && node.id?.name) {
+        names.push(node.id.name);
+      } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+        if (node.declaration.type === 'FunctionDeclaration' && node.declaration.id?.name) {
+          names.push(node.declaration.id.name);
+        }
+      }
+    }
+  } catch {}
+  return names;
+}
+
+export async function getFirstReturnValues(solution: string, testSuite: string, fnNames: string[]): Promise<Record<string, any>> {
+  if (fnNames.length === 0) return {};
+  const context = vm.createContext({
+    console: { log() {}, error() {}, warn() {} },
+    setTimeout,
+    clearTimeout,
+    Promise,
+    URL,
+    URLSearchParams,
+    TextEncoder,
+    TextDecoder,
+    atob,
+    btoa,
+    crypto: globalThis.crypto,
+  });
+
+  const spyWrappers = fnNames
+    .map(
+      (name) => `
+    if (typeof ${name} === 'function') {
+      const __orig_${name} = ${name};
+      let __called_${name} = false;
+      ${name} = function(...args) {
+        const res = __orig_${name}.apply(this, args);
+        if (!__called_${name}) {
+          __called_${name} = true;
+          try {
+            __first_returns__[${JSON.stringify(name)}] = res;
+          } catch {}
+        }
+        return res;
+      };
+    }
+  `
+    )
+    .join('\n');
+
+  const harness = `
+    const __first_returns__ = {};
+    ${solution}
+    ${spyWrappers}
+    (async () => {
+      try {
+        ${testSuite}
+      } catch {}
+      return __first_returns__;
+    })()
+  `;
+
+  try {
+    const res = await vm.runInContext(harness, context, { timeout: 3000 });
+    return res || {};
+  } catch {
+    return {};
+  }
+}
+
+export function constantAnswer(starter: string, firstReturns: Record<string, any>): string {
+  try {
+    const ast = acorn.parse(starter, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+    const replacements: { start: number; end: number; name: string }[] = [];
+
+    for (const node of ast.body) {
+      if (node.type === 'FunctionDeclaration' && node.id?.name && node.body) {
+        replacements.push({ start: node.body.start, end: node.body.end, name: node.id.name });
+      } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+        if (node.declaration.type === 'FunctionDeclaration' && node.declaration.id?.name && node.declaration.body) {
+          replacements.push({
+            start: node.declaration.body.start,
+            end: node.declaration.body.end,
+            name: node.declaration.id.name,
+          });
+        }
+      }
+    }
+
+    let out = starter;
+    for (const rep of replacements.sort((a, b) => b.start - a.start)) {
+      const val = firstReturns[rep.name];
+      const serialized = typeof val === 'undefined' ? 'undefined' : JSON.stringify(val);
+      out = out.slice(0, rep.start) + `{ return ${serialized}; }` + out.slice(rep.end);
+    }
+    return out;
+  } catch {
+    return starter;
+  }
+}
+
+/**
+ * Tasks known to return a constant answer in existing courses (W-09).
+ * This list must shrink to empty by the end of Phase 3 as each course is upgraded.
+ */
+export const KNOWN_CONSTANT_TASKS = new Set<string>([
+  // course-fullstack-js (48 tasks)
+  'fullstack-js-assign-day-1', 'fullstack-js-exam-day-10', 'fullstack-js-assign-day-10', 'fullstack-js-assign-day-11',
+  'fullstack-js-exam-day-12', 'fullstack-js-assign-day-12', 'fullstack-js-assign-day-13', 'fullstack-js-assign-day-14',
+  'fullstack-js-assign-day-15', 'fullstack-js-assign-day-17', 'fullstack-js-exam-day-18', 'fullstack-js-assign-day-20',
+  'fullstack-js-assign-day-21', 'fullstack-js-assign-day-22', 'fullstack-js-exam-day-23', 'fullstack-js-assign-day-23',
+  'fullstack-js-assign-day-24', 'fullstack-js-exam-day-26', 'fullstack-js-assign-day-26', 'fullstack-js-assign-day-27',
+  'fullstack-js-assign-day-28', 'fullstack-js-assign-day-29', 'fullstack-js-assign-day-33', 'fullstack-js-assign-day-34',
+  'fullstack-js-assign-day-35', 'fullstack-js-assign-day-41', 'fullstack-js-assign-day-42', 'fullstack-js-assign-day-43',
+  'fullstack-js-assign-day-44', 'fullstack-js-assign-day-48', 'fullstack-js-assign-day-51', 'fullstack-js-assign-day-56',
+  'fullstack-js-exam-day-60', 'fullstack-js-assign-day-69', 'fullstack-js-exam-day-71', 'fullstack-js-assign-day-74',
+  'fullstack-js-assign-day-75', 'fullstack-js-assign-day-76', 'fullstack-js-assign-day-80', 'fullstack-js-assign-day-85',
+  'fullstack-js-assign-day-90', 'fullstack-js-assign-day-91', 'fullstack-js-exam-day-97', 'fullstack-js-exam-day-98',
+  'fullstack-js-exam-day-107', 'fullstack-js-exam-day-111', 'fullstack-js-exam-day-117', 'fullstack-js-exam-day-120',
+  // course-react-web (23 tasks)
+  'react-basics-exam-day-1', 'react-basics-exam-day-2', 'react-basics-exam-day-4', 'react-basics-assign-day-4',
+  'react-basics-exam-day-5', 'react-basics-assign-day-5', 'react-basics-exam-day-6', 'react-basics-assign-day-6',
+  'react-basics-exam-day-7', 'react-basics-assign-day-7', 'react-basics-exam-day-8', 'react-basics-assign-day-8',
+  'react-basics-assign-day-14', 'react-basics-exam-day-15', 'react-basics-assign-day-15', 'react-basics-assign-day-22',
+  'react-basics-exam-day-23', 'react-basics-assign-day-23', 'react-basics-exam-day-24', 'react-basics-exam-day-25',
+  'react-basics-exam-day-27', 'react-basics-assign-day-29', 'react-basics-assign-day-30',
+  // course-cloud-native (8 tasks)
+  'cloud-assign-day-4', 'cloud-assign-day-6', 'cloud-assign-day-12', 'cloud-assign-day-15',
+  'cloud-assign-day-16', 'cloud-assign-day-20', 'cloud-assign-day-22', 'cloud-assign-day-25',
+  // course-devops-cicd (8 tasks)
+  'devops-assign-day-7', 'devops-assign-day-10', 'devops-exam-day-22', 'devops-assign-day-24',
+  'devops-assign-day-25', 'devops-assign-day-27', 'devops-assign-day-28', 'devops-assign-day-29',
+  // course-quant-systems (24 tasks)
+  'quant-systems-assign-day-2', 'quant-systems-assign-day-3', 'quant-systems-assign-day-4', 'quant-systems-assign-day-5',
+  'quant-systems-exam-day-9', 'quant-systems-exam-day-10', 'quant-systems-assign-day-11', 'quant-systems-assign-day-14',
+  'quant-systems-assign-day-15', 'quant-systems-exam-day-16', 'quant-systems-assign-day-16', 'quant-systems-assign-day-17',
+  'quant-systems-assign-day-18', 'quant-systems-exam-day-19', 'quant-systems-assign-day-20', 'quant-systems-assign-day-21',
+  'quant-systems-assign-day-22', 'quant-systems-assign-day-23', 'quant-systems-assign-day-24', 'quant-systems-assign-day-25',
+  'quant-systems-assign-day-26', 'quant-systems-exam-day-28', 'quant-systems-assign-day-28', 'quant-systems-assign-day-29',
+  // course-dsa-optim (20 tasks)
+  'dsa-optim-exam-day-3', 'dsa-optim-assign-day-4', 'dsa-optim-assign-day-5', 'dsa-optim-assign-day-7',
+  'dsa-optim-assign-day-9', 'dsa-optim-assign-day-11', 'dsa-optim-assign-day-12', 'dsa-optim-assign-day-14',
+  'dsa-optim-assign-day-15', 'dsa-optim-assign-day-17', 'dsa-optim-assign-day-18', 'dsa-optim-assign-day-19',
+  'dsa-optim-assign-day-20', 'dsa-optim-assign-day-22', 'dsa-optim-assign-day-24', 'dsa-optim-assign-day-25',
+  'dsa-optim-assign-day-26', 'dsa-optim-assign-day-27', 'dsa-optim-assign-day-29', 'dsa-optim-assign-day-30',
+  // course-design-systems (36 tasks)
+  'design-assign-day-1', 'design-assign-day-2', 'design-assign-day-3', 'design-assign-day-4',
+  'design-exam-day-5', 'design-assign-day-5', 'design-assign-day-6', 'design-assign-day-7',
+  'design-assign-day-8', 'design-assign-day-9', 'design-assign-day-10', 'design-assign-day-11',
+  'design-assign-day-12', 'design-assign-day-13', 'design-assign-day-14', 'design-exam-day-15',
+  'design-assign-day-15', 'design-exam-day-16', 'design-assign-day-16', 'design-exam-day-17',
+  'design-assign-day-17', 'design-assign-day-18', 'design-exam-day-19', 'design-assign-day-19',
+  'design-assign-day-20', 'design-exam-day-21', 'design-assign-day-21', 'design-assign-day-22',
+  'design-assign-day-23', 'design-assign-day-24', 'design-assign-day-25', 'design-assign-day-26',
+  'design-assign-day-27', 'design-assign-day-28', 'design-assign-day-29', 'design-assign-day-30',
+  // course-ai-eng (39 tasks)
+  'ai-exam-day-1', 'ai-assign-day-1', 'ai-exam-day-2', 'ai-assign-day-2',
+  'ai-exam-day-3', 'ai-assign-day-3', 'ai-exam-day-4', 'ai-assign-day-4',
+  'ai-assign-day-7', 'ai-exam-day-8', 'ai-assign-day-8', 'ai-exam-day-9',
+  'ai-assign-day-9', 'ai-exam-day-10', 'ai-assign-day-10', 'ai-assign-day-11',
+  'ai-exam-day-12', 'ai-assign-day-12', 'ai-assign-day-13', 'ai-assign-day-15',
+  'ai-exam-day-16', 'ai-assign-day-16', 'ai-assign-day-18', 'ai-exam-day-19',
+  'ai-assign-day-19', 'ai-exam-day-20', 'ai-assign-day-20', 'ai-exam-day-22',
+  'ai-assign-day-22', 'ai-exam-day-23', 'ai-assign-day-23', 'ai-exam-day-25',
+  'ai-exam-day-26', 'ai-assign-day-26', 'ai-exam-day-28', 'ai-assign-day-28',
+  'ai-exam-day-29', 'ai-assign-day-29', 'ai-assign-day-30',
+  // course-distributed-sys (25 tasks)
+  'dist-assign-day-4', 'dist-assign-day-5', 'dist-exam-day-7', 'dist-exam-day-9',
+  'dist-assign-day-10', 'dist-assign-day-11', 'dist-exam-day-12', 'dist-assign-day-13',
+  'dist-assign-day-14', 'dist-assign-day-15', 'dist-assign-day-16', 'dist-assign-day-17',
+  'dist-exam-day-18', 'dist-exam-day-19', 'dist-assign-day-20', 'dist-assign-day-21',
+  'dist-assign-day-22', 'dist-assign-day-23', 'dist-assign-day-24', 'dist-assign-day-25',
+  'dist-exam-day-26', 'dist-assign-day-27', 'dist-assign-day-28', 'dist-assign-day-29',
+  'dist-assign-day-30',
+  // course-cybersecurity (39 tasks)
+  'cyber-assign-day-1', 'cyber-assign-day-2', 'cyber-exam-day-3', 'cyber-assign-day-3',
+  'cyber-assign-day-4', 'cyber-exam-day-5', 'cyber-assign-day-5', 'cyber-assign-day-6',
+  'cyber-assign-day-7', 'cyber-exam-day-8', 'cyber-assign-day-8', 'cyber-assign-day-9',
+  'cyber-exam-day-10', 'cyber-assign-day-10', 'cyber-assign-day-11', 'cyber-assign-day-12',
+  'cyber-assign-day-13', 'cyber-exam-day-14', 'cyber-assign-day-14', 'cyber-exam-day-15',
+  'cyber-assign-day-15', 'cyber-assign-day-16', 'cyber-assign-day-17', 'cyber-assign-day-18',
+  'cyber-exam-day-19', 'cyber-assign-day-19', 'cyber-assign-day-20', 'cyber-exam-day-21',
+  'cyber-assign-day-21', 'cyber-assign-day-22', 'cyber-assign-day-23', 'cyber-exam-day-24',
+  'cyber-assign-day-24', 'cyber-assign-day-25', 'cyber-assign-day-26', 'cyber-assign-day-27',
+  'cyber-assign-day-28', 'cyber-assign-day-29', 'cyber-assign-day-30',
+  // course-nlp (48 tasks)
+  'nlp-exam-day-1', 'nlp-assign-day-1', 'nlp-assign-day-2', 'nlp-assign-day-3',
+  'nlp-exam-day-4', 'nlp-assign-day-4', 'nlp-exam-day-5', 'nlp-assign-day-5',
+  'nlp-assign-day-6', 'nlp-exam-day-7', 'nlp-assign-day-7', 'nlp-exam-day-8',
+  'nlp-assign-day-8', 'nlp-assign-day-9', 'nlp-exam-day-10', 'nlp-assign-day-10',
+  'nlp-assign-day-11', 'nlp-exam-day-12', 'nlp-assign-day-12', 'nlp-exam-day-13',
+  'nlp-assign-day-13', 'nlp-exam-day-14', 'nlp-assign-day-14', 'nlp-exam-day-15',
+  'nlp-assign-day-15', 'nlp-assign-day-16', 'nlp-exam-day-17', 'nlp-assign-day-17',
+  'nlp-exam-day-18', 'nlp-assign-day-18', 'nlp-assign-day-19', 'nlp-assign-day-20',
+  'nlp-exam-day-21', 'nlp-assign-day-21', 'nlp-exam-day-22', 'nlp-assign-day-22',
+  'nlp-exam-day-23', 'nlp-assign-day-23', 'nlp-assign-day-24', 'nlp-exam-day-25',
+  'nlp-assign-day-25', 'nlp-assign-day-26', 'nlp-exam-day-27', 'nlp-assign-day-27',
+  'nlp-assign-day-28', 'nlp-exam-day-29', 'nlp-assign-day-29', 'nlp-assign-day-30',
+  // course-ai-prompt-literacy (34 tasks)
+  'ai_prompt-assign-day-1', 'ai_prompt-assign-day-2', 'ai_prompt-assign-day-3', 'ai_prompt-exam-day-4',
+  'ai_prompt-assign-day-4', 'ai_prompt-exam-day-5', 'ai_prompt-assign-day-5', 'ai_prompt-assign-day-6',
+  'ai_prompt-assign-day-7', 'ai_prompt-assign-day-8', 'ai_prompt-assign-day-9', 'ai_prompt-assign-day-10',
+  'ai_prompt-assign-day-11', 'ai_prompt-assign-day-12', 'ai_prompt-assign-day-13', 'ai_prompt-assign-day-14',
+  'ai_prompt-exam-day-15', 'ai_prompt-assign-day-15', 'ai_prompt-assign-day-16', 'ai_prompt-assign-day-17',
+  'ai_prompt-assign-day-18', 'ai_prompt-assign-day-19', 'ai_prompt-assign-day-20', 'ai_prompt-exam-day-21',
+  'ai_prompt-assign-day-21', 'ai_prompt-assign-day-22', 'ai_prompt-assign-day-23', 'ai_prompt-assign-day-24',
+  'ai_prompt-assign-day-25', 'ai_prompt-assign-day-26', 'ai_prompt-assign-day-27', 'ai_prompt-assign-day-28',
+  'ai_prompt-assign-day-29', 'ai_prompt-assign-day-30',
+]);
 
 const CHECKED_COURSES = ['course-fullstack-js', 'course-react-web', 'course-cloud-native', 'course-devops-cicd', 'course-quant-systems', 'course-dsa-optim', 'course-design-systems', 'course-ai-eng', 'course-distributed-sys', 'course-cybersecurity', 'course-nlp', 'course-ai-prompt-literacy'];
 
@@ -145,4 +368,28 @@ test('checks never require a made-up code the student is not told about', () => 
       }
     }
   }
+});
+
+test('W-09: constant-answer detector catches lazy constant solutions', async () => {
+  const goodSuite = `
+    if (doubleNum(2) !== 4) throw new Error('2 -> 4');
+    if (doubleNum(3) !== 6) throw new Error('3 -> 6');
+  `;
+  const goodSolution = 'function doubleNum(n) { return n * 2; }';
+  const fnNames = extractFunctionNames(goodSolution);
+  const firstReturns = await getFirstReturnValues(goodSolution, goodSuite, fnNames);
+  assert.equal(firstReturns.doubleNum, 4);
+
+  const constCode = constantAnswer(goodSolution, firstReturns);
+  const result = await gradeJs(constCode, goodSuite);
+  assert.equal(result.passed, false, 'Constant answer returning 4 must fail on 3 -> 6');
+
+  const constantSuite = `
+    if (getConstant() !== "fixed") throw new Error('must be fixed');
+  `;
+  const constantSolution = 'function getConstant() { return "fixed"; }';
+  const constFns = extractFunctionNames(constantSolution);
+  const constFirst = await getFirstReturnValues(constantSolution, constantSuite, constFns);
+  const constResult = await gradeJs(constantAnswer(constantSolution, constFirst), constantSuite);
+  assert.equal(constResult.passed, true, 'Constant task passes constant answer');
 });
