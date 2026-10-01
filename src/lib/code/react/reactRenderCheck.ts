@@ -32,7 +32,7 @@ export async function getReactRuntime(): Promise<string> {
   const path = await import('path');
   const runtimePath = path.resolve(process.cwd(), 'public/sandbox/react-runtime.js');
   cachedRuntimeCode = fs.readFileSync(runtimePath, 'utf8');
-  return cachedRuntimeCode;
+  return cachedRuntimeCode!;
 }
 
 /**
@@ -44,7 +44,7 @@ export function getReactRuntimeSync(): string {
   const path = require('path');
   const runtimePath = path.resolve(process.cwd(), 'public/sandbox/react-runtime.js');
   cachedRuntimeCode = fs.readFileSync(runtimePath, 'utf8');
-  return cachedRuntimeCode;
+  return cachedRuntimeCode!;
 }
 
 /**
