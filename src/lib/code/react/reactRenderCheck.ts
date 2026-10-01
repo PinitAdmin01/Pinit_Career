@@ -9,7 +9,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { findForbiddenJs } from '../js/jsGuard';
 import { compileTs } from '../ts/compileTs';
 
-export { getReactRuntime, getReactRuntimeSync } from './reactRuntime';
+import { getReactRuntime, getReactRuntimeSync } from './reactRuntime';
+export { getReactRuntime, getReactRuntimeSync };
 
 /**
  * Renders a React component or element to an HTML string without a DOM (CHK-3).
