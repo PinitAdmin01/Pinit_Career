@@ -41,6 +41,18 @@ export async function initBrowserWasm(): Promise<void> {
   return wasmInitPromise;
 }
 
+declare const __non_webpack_require__: ((id: string) => any) | undefined;
+
+function getNodeEsbuild(): any {
+  if (typeof __non_webpack_require__ !== 'undefined') {
+    return __non_webpack_require__('esbuild');
+  }
+  if (typeof require !== 'undefined') {
+    return require('esbuild');
+  }
+  throw new Error('esbuild is only available in Node.js');
+}
+
 /**
  * Compiles TypeScript or TSX source code into JavaScript.
  * In Node environments, uses the native `esbuild` package.
@@ -64,7 +76,7 @@ export async function compileTs(
       return { ok: true, js: result.code };
     } else {
       // Node.js environment: load native esbuild
-      const esbuild = typeof require !== 'undefined' ? require('esbuild') : await import('esbuild');
+      const esbuild = getNodeEsbuild();
       const result = await esbuild.transform(source, {
         loader,
         target: 'es2022',
@@ -97,7 +109,7 @@ export function compileTsSync(
   const loader = options?.jsx ? 'tsx' : 'ts';
 
   try {
-    const esbuild = require('esbuild');
+    const esbuild = getNodeEsbuild();
     const result = esbuild.transformSync(source, {
       loader,
       target: 'es2022',

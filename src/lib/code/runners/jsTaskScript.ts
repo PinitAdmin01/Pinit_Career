@@ -7,7 +7,7 @@
 
 import { SuiteExecutionResult } from '../types';
 import { executeInTwoLayerSandbox } from '../sandbox/sandboxedIframeRunner';
-import { getReactRuntime } from '../react/reactRenderCheck';
+import { getReactRuntime } from '../react/reactRuntime';
 
 export const REACT_RENDER_HELPER_SCRIPT = `
 const render = function (Component, props) {
