@@ -9,6 +9,7 @@ import { executePythonSuite, loadPyodideRuntime } from './runners/pythonRunner';
 import { executeSqlSuite } from './runners/sqlRunner';
 import { executeJavaJudgeSuite } from './runners/javaJudgeRunner';
 import { executePythonJudgeSuite } from './runners/pythonJudgeRunner';
+import { executeTypeScriptTask, executeHtmlCssTask } from './runners/webTaskRunner';
 
 export const CODE_RUNNER_VERSION = 'v1.0';
 
@@ -65,6 +66,14 @@ export async function runTestSuite(
 
     case 'java':
       return executeJavaJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs, options?.questId, options?.xp);
+
+    case 'typescript':
+    case 'tsx':
+      return executeTypeScriptTask(code, options?.testSuite || '', Math.max(timeoutMs, 8000), language);
+
+    case 'html':
+    case 'css':
+      return executeHtmlCssTask(code, options?.testSuite || '', Math.max(timeoutMs, 8000), language);
 
     case 'cpp': {
       // Static AST structural checks for C++ in browser environment
