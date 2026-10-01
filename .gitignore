@@ -56,3 +56,4 @@ graphify-out/
 public/pyodide/
 public/sql/
 public/esbuild/
+public/sandbox/

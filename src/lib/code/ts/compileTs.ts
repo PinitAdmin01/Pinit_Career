@@ -64,7 +64,6 @@ export async function compileTs(
       return { ok: true, js: result.code };
     } else {
       // Node.js environment: load native esbuild
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const esbuild = typeof require !== 'undefined' ? require('esbuild') : await import('esbuild');
       const result = await esbuild.transform(source, {
         loader,
@@ -98,7 +97,6 @@ export function compileTsSync(
   const loader = options?.jsx ? 'tsx' : 'ts';
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const esbuild = require('esbuild');
     const result = esbuild.transformSync(source, {
       loader,
