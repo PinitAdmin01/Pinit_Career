@@ -105,6 +105,9 @@ export async function executeTypeScriptTask(
     TextDecoder: typeof TextDecoder !== 'undefined' ? TextDecoder : undefined,
     Uint8Array,
     crypto: globalThis.crypto,
+    atob: typeof atob !== 'undefined' ? atob : undefined,
+    btoa: typeof btoa !== 'undefined' ? btoa : undefined,
+    Buffer: typeof Buffer !== 'undefined' ? Buffer : undefined,
   };
 
   if (language === 'tsx') {
