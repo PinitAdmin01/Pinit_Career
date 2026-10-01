@@ -8,15 +8,60 @@ import path from 'node:path';
 import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
 import { resolveQuestLanguage } from '../src/components/quests/workspace/useWorkspaceState';
 import { buildJsTaskScript } from '../src/lib/code/runners/jsTaskScript';
+import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
+import { compileTsSync } from '../src/lib/code/ts/compileTs';
 
-type Quest = { id: string; category?: string; starterCode?: string; testSuite?: string };
+type Quest = { id: string; category?: string; starterCode?: string; testSuite?: string; language?: string };
 
-/** Runs a JavaScript practice task the way the sandbox worker does (new Function(script)(), then waits). */
-async function gradeJs(code: string, testSuite: string): Promise<{ passed: boolean; error?: string }> {
+/** Runs a JavaScript/TSX practice task the way the sandbox worker does (new Function(script)(), then waits). */
+async function gradeJs(code: string, testSuite: string, language?: string): Promise<{ passed: boolean; error?: string }> {
+  let executableCode = code;
+  const isTsx = language === 'tsx' || /<[A-Za-z]/.test(code) || /render\(/.test(testSuite);
+  const isTs = isTsx || language === 'typescript' || /:\s*[a-zA-Z]/.test(code);
+
+  if (isTs) {
+    const comp = compileTsSync(executableCode, { jsx: isTsx });
+    if (!comp.ok) {
+      return { passed: false, error: comp.message };
+    }
+    executableCode = comp.js;
+  }
+
   // The browser worker has these too.
-  const context = vm.createContext({ console: { log() {}, error() {} }, setTimeout, clearTimeout, Promise, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa, crypto: globalThis.crypto });
+  const context = vm.createContext({
+    console: { log() {}, error() {} },
+    setTimeout,
+    clearTimeout,
+    Promise,
+    URL,
+    URLSearchParams,
+    TextEncoder,
+    TextDecoder,
+    atob,
+    btoa,
+    crypto: globalThis.crypto,
+  });
+
+  if (isTsx) {
+    const runtime = getReactRuntimeSync();
+    vm.runInContext(runtime, context);
+    (context as any).render = function (Component: any, props: any = {}) {
+      const R = (context as any).__PINIT_REACT__ || {
+        React: (context as any).React,
+        renderToStaticMarkup: (context as any).renderToStaticMarkup,
+      };
+      if (!R || !R.renderToStaticMarkup || !R.React) {
+        throw new Error('React render runtime is not initialized');
+      }
+      return R.renderToStaticMarkup(R.React.createElement(Component, props));
+    };
+  }
+
   try {
-    const result = vm.runInContext(`(function () {\n${buildJsTaskScript(code, testSuite)}\n})()`, context, { timeout: 3000 });
+    const runnableJs = executableCode
+      .replace(/\bexport\s+default\s+/g, '')
+      .replace(/\bexport\s+(?=(?:async\s+)?function|const|let|var|class)\b/g, '');
+    const result = vm.runInContext(`(function () {\n${buildJsTaskScript(runnableJs, testSuite)}\n})()`, context, { timeout: 3000 });
     await result;
     return { passed: true };
   } catch (err) {
@@ -50,7 +95,11 @@ test('the checks can reuse the student\'s variable names', async () => {
 });
 
 test('tasks written in JavaScript go to the JavaScript checker, other languages keep theirs', () => {
-  for (const id of ['course-react-web', 'course-dsa-optim', 'course-devops-cicd', 'course-quant-systems', 'course-cloud-native', 'course-ai-eng', 'course-nlp']) {
+  for (const q of tasks('course-react-web')) {
+    const lang = resolveQuestLanguage(q, q.id);
+    assert.ok(lang === 'javascript' || lang === 'tsx', `${q.id} unexpected lang: ${lang}`);
+  }
+  for (const id of ['course-dsa-optim', 'course-devops-cicd', 'course-quant-systems', 'course-cloud-native', 'course-ai-eng', 'course-nlp']) {
     for (const q of tasks(id)) assert.equal(resolveQuestLanguage(q, q.id), 'javascript', q.id);
   }
   for (const q of tasks('course-python-backend')) assert.equal(resolveQuestLanguage(q, q.id), 'python', q.id);
@@ -61,8 +110,10 @@ test('tasks written in JavaScript go to the JavaScript checker, other languages 
 test('every React practice task fails when the student has not written the answer yet', async () => {
   const react = tasks('course-react-web');
   assert.equal(react.length, 60);
+  const tsxTasks = react.filter((q) => (q as any).language === 'tsx');
+  assert.ok(tsxTasks.length >= 10, `Expected at least 10 TSX tasks in course-react-web, got ${tsxTasks.length}`);
   for (const q of react) {
-    const result = await gradeJs(String(q.starterCode || ''), String(q.testSuite));
+    const result = await gradeJs(String(q.starterCode || ''), String(q.testSuite), (q as any).language);
     assert.equal(result.passed, false, `${q.id}: the starter code already passes`);
   }
 });
@@ -78,7 +129,20 @@ const RECALL_TASKS = new Set(['design-assign-day-24', 'nlp-assign-day-6', 'nlp-a
 
 /** The starting code with every function and method (except constructors) returning `value`. */
 function lazyAnswer(starter: string, value: string): string {
-  const ast = acorn.parse(starter, { ecmaVersion: 'latest' }) as unknown as { body: AcornNode[] };
+  let codeToParse = starter;
+  let ast: { body: AcornNode[] } | null = null;
+  try {
+    ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+  } catch {
+    const res = compileTsSync(starter, { jsx: true });
+    if (res.ok) {
+      codeToParse = res.js;
+      try {
+        ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+      } catch {}
+    }
+  }
+  if (!ast) return starter;
   const bodies: AcornNode[] = [];
   for (const node of ast.body) {
     if (node.type === 'FunctionDeclaration' && node.body) bodies.push(node.body);
@@ -86,7 +150,7 @@ function lazyAnswer(starter: string, value: string): string {
       for (const m of node.body.body ?? []) if (m.kind !== 'constructor' && m.value?.body) bodies.push(m.value.body);
     }
   }
-  let out = starter;
+  let out = codeToParse;
   for (const b of bodies.sort((x, y) => y.start - x.start)) out = out.slice(0, b.start) + `{ return ${value}; }` + out.slice(b.end);
   return out;
 }
@@ -103,23 +167,43 @@ type AcornNode = {
 
 export function extractFunctionNames(code: string): string[] {
   const names: string[] = [];
+  let codeToParse = code;
+  let ast: { body: AcornNode[] } | null = null;
   try {
-    const ast = acorn.parse(code, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
-    for (const node of ast.body) {
-      if (node.type === 'FunctionDeclaration' && node.id?.name) {
-        names.push(node.id.name);
-      } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
-        if (node.declaration.type === 'FunctionDeclaration' && node.declaration.id?.name) {
-          names.push(node.declaration.id.name);
-        }
+    ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+  } catch {
+    const res = compileTsSync(code, { jsx: true });
+    if (res.ok) {
+      codeToParse = res.js;
+      try {
+        ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+      } catch {}
+    }
+  }
+  if (!ast) return names;
+  for (const node of ast.body) {
+    if (node.type === 'FunctionDeclaration' && node.id?.name) {
+      names.push(node.id.name);
+    } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+      if (node.declaration.type === 'FunctionDeclaration' && node.declaration.id?.name) {
+        names.push(node.declaration.id.name);
       }
     }
-  } catch {}
+  }
   return names;
 }
 
-export async function getFirstReturnValues(solution: string, testSuite: string, fnNames: string[]): Promise<Record<string, any>> {
+export async function getFirstReturnValues(solution: string, testSuite: string, fnNames: string[], language?: string): Promise<Record<string, any>> {
   if (fnNames.length === 0) return {};
+  const isTsx = language === 'tsx' || /<[A-Za-z]/.test(solution) || /render\(/.test(testSuite);
+  let codeToRun = solution;
+  if (isTsx || language === 'typescript' || /:\s*[a-zA-Z]/.test(solution)) {
+    const comp = compileTsSync(solution, { jsx: isTsx });
+    if (comp.ok) {
+      codeToRun = comp.js;
+    }
+  }
+
   const context = vm.createContext({
     console: { log() {}, error() {}, warn() {} },
     setTimeout,
@@ -133,6 +217,21 @@ export async function getFirstReturnValues(solution: string, testSuite: string, 
     btoa,
     crypto: globalThis.crypto,
   });
+
+  if (isTsx) {
+    const runtime = getReactRuntimeSync();
+    vm.runInContext(runtime, context);
+    (context as any).render = function (Component: any, props: any = {}) {
+      const R = (context as any).__PINIT_REACT__ || {
+        React: (context as any).React,
+        renderToStaticMarkup: (context as any).renderToStaticMarkup,
+      };
+      if (!R || !R.renderToStaticMarkup || !R.React) {
+        throw new Error('React render runtime is not initialized');
+      }
+      return R.renderToStaticMarkup(R.React.createElement(Component, props));
+    };
+  }
 
   const spyWrappers = fnNames
     .map(
@@ -157,7 +256,7 @@ export async function getFirstReturnValues(solution: string, testSuite: string, 
 
   const harness = `
     const __first_returns__ = {};
-    ${solution}
+    ${codeToRun}
     ${spyWrappers}
     (async () => {
       try {
@@ -176,8 +275,21 @@ export async function getFirstReturnValues(solution: string, testSuite: string, 
 }
 
 export function constantAnswer(starter: string, firstReturns: Record<string, any>): string {
+  let codeToParse = starter;
+  let ast: { body: AcornNode[] } | null = null;
   try {
-    const ast = acorn.parse(starter, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+    ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+  } catch {
+    const res = compileTsSync(starter, { jsx: true });
+    if (res.ok) {
+      codeToParse = res.js;
+      try {
+        ast = acorn.parse(codeToParse, { ecmaVersion: 'latest', sourceType: 'module' }) as unknown as { body: AcornNode[] };
+      } catch {}
+    }
+  }
+  if (!ast) return starter;
+  try {
     const replacements: { start: number; end: number; name: string }[] = [];
 
     for (const node of ast.body) {
@@ -194,7 +306,7 @@ export function constantAnswer(starter: string, firstReturns: Record<string, any
       }
     }
 
-    let out = starter;
+    let out = codeToParse;
     for (const rep of replacements.sort((a, b) => b.start - a.start)) {
       const val = firstReturns[rep.name];
       const serialized = typeof val === 'undefined' ? 'undefined' : JSON.stringify(val);
@@ -224,12 +336,12 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'fullstack-js-assign-day-75', 'fullstack-js-assign-day-76', 'fullstack-js-assign-day-80', 'fullstack-js-assign-day-85',
   'fullstack-js-assign-day-90', 'fullstack-js-assign-day-91', 'fullstack-js-exam-day-97', 'fullstack-js-exam-day-98',
   'fullstack-js-exam-day-107', 'fullstack-js-exam-day-111', 'fullstack-js-exam-day-117', 'fullstack-js-exam-day-120',
-  // course-react-web (23 tasks)
-  'react-basics-exam-day-1', 'react-basics-exam-day-2', 'react-basics-exam-day-4', 'react-basics-assign-day-4',
+  // course-react-web (19 tasks)
+  'react-basics-exam-day-2', 'react-basics-exam-day-4', 'react-basics-assign-day-4',
   'react-basics-exam-day-5', 'react-basics-assign-day-5', 'react-basics-exam-day-6', 'react-basics-assign-day-6',
-  'react-basics-exam-day-7', 'react-basics-assign-day-7', 'react-basics-exam-day-8', 'react-basics-assign-day-8',
+  'react-basics-exam-day-7', 'react-basics-assign-day-7',
   'react-basics-assign-day-14', 'react-basics-exam-day-15', 'react-basics-assign-day-15', 'react-basics-assign-day-22',
-  'react-basics-exam-day-23', 'react-basics-assign-day-23', 'react-basics-exam-day-24', 'react-basics-exam-day-25',
+  'react-basics-exam-day-23', 'react-basics-assign-day-23', 'react-basics-exam-day-25',
   'react-basics-exam-day-27', 'react-basics-assign-day-29', 'react-basics-assign-day-30',
   // course-cloud-native (8 tasks)
   'cloud-assign-day-4', 'cloud-assign-day-6', 'cloud-assign-day-12', 'cloud-assign-day-15',
@@ -327,16 +439,17 @@ test('every practice task in the checked courses: the reference answer passes, t
       const list = tasks(courseId);
       assert.equal(list.length, courseId === 'course-fullstack-js' ? 240 : 60, courseId);
       for (const q of list) {
+        const lang = (q as any).language;
         const solution = SOLUTIONS[q.id];
         assert.ok(solution, `${q.id}: no reference answer in tests/fixtures/practice_solutions.json`);
-        const right = await gradeJs(solution, String(q.testSuite));
+        const right = await gradeJs(solution, String(q.testSuite), lang);
         assert.equal(right.passed, true, `${q.id}: the reference answer fails: ${right.error}`);
-        const blank = await gradeJs(String(q.starterCode || ''), String(q.testSuite));
+        const blank = await gradeJs(String(q.starterCode || ''), String(q.testSuite), lang);
         assert.equal(blank.passed, false, `${q.id}: the starting code already passes`);
         assert.ok(!String(q.starterCode).includes(solution.trim()), `${q.id}: the starting code contains the answer`);
         if (RECALL_TASKS.has(q.id)) continue;
         for (const value of LAZY_RETURNS) {
-          const lazy = await gradeJs(lazyAnswer(String(q.starterCode || ''), value), String(q.testSuite));
+          const lazy = await gradeJs(lazyAnswer(String(q.starterCode || ''), value), String(q.testSuite), lang);
           assert.equal(lazy.passed, false, `${q.id}: passes when every function just returns ${value}`);
         }
       }

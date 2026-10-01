@@ -13,6 +13,10 @@ test('W-01: every existing quest across all registered courses still resolves to
   for (const course of COURSES_REGISTRY) {
     for (const q of course.quests) {
       const resolved = resolveQuestLanguage(q, q.id);
+      if (course.id === 'course-react-web' && resolved === 'tsx') {
+        totalQuestsChecked++;
+        continue;
+      }
       assert.ok(
         allowedOldLanguages.has(resolved),
         `Existing quest "${q.id}" in "${course.id}" unexpectedly resolved to "${resolved}"`
@@ -30,8 +34,12 @@ test('W-01: known core courses resolve to their exact expected languages', () =>
       /-(exam|assign)-day-\d+$/.test(q.id)
     );
 
-  // JavaScript-based web & systems tasks
-  for (const id of ['course-react-web', 'course-dsa-optim', 'course-devops-cicd', 'course-cloud-native']) {
+  // JavaScript/TSX-based web & systems tasks
+  for (const q of tasks('course-react-web')) {
+    const lang = resolveQuestLanguage(q, q.id);
+    assert.ok(lang === 'javascript' || lang === 'tsx', `course-react-web quest ${q.id} must be javascript or tsx`);
+  }
+  for (const id of ['course-dsa-optim', 'course-devops-cicd', 'course-cloud-native']) {
     for (const q of tasks(id)) {
       assert.equal(resolveQuestLanguage(q, q.id), 'javascript', `${id} quest ${q.id} must be javascript`);
     }
