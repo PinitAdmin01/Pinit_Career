@@ -22,6 +22,7 @@ import { CYBER_PYTHON_LONG_LESSONS } from './cyberPythonLongLessons';
 import { TRAIN_PYTHON_LONG_LESSONS } from './trainPythonLongLessons';
 import { VECTOR_PYTHON_LONG_LESSONS } from './vectorPythonLongLessons';
 import { SAFETY_PYTHON_LONG_LESSONS } from './safetyPythonLongLessons';
+import { NODE_WEB_LONG_LESSONS } from './nodeWebLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -85,6 +86,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'train-py': TRAIN_PYTHON_LONG_LESSONS,
   'vec-py': VECTOR_PYTHON_LONG_LESSONS,
   'safe-py': SAFETY_PYTHON_LONG_LESSONS,
+  'node-web': NODE_WEB_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */
