@@ -435,7 +435,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function `renderHelmTemplate(templateString, valuesObject)` substituting `{{ .Values.key }}` expressions with provided value overrides.",
     "eStarter": "function renderHelmTemplate(tmpl, values) {\n  // TODO: Replace all occurrences of {{ .Values.path.to.key }} with the corresponding value from valuesObject\n  \n}",
     "eHint": "Use regex /\\{\\{\\s*\\.Values\\.([a-zA-Z0-9_.]+)\\s*\\}\\}/g; resolve nested property paths against valuesObject; replace with value; return rendered string.",
-    "eTest": "const tmpl = 'replicas: {{ .Values.replicaCount }}\\nimage: {{ .Values.image.repository }}:{{ .Values.image.tag }}';\nconst vals = { replicaCount: 3, image: { repository: 'pinit/api', tag: 'v2.0' } };\nconst res = renderHelmTemplate(tmpl, vals);\nif (!res.includes('replicas: 3') || !res.includes('pinit/api:v2.0')) throw new Error('Helm template substitution failed');\nconst missingVals = renderHelmTemplate('name: {{ .Values.appName }}', {});\nif (missingVals.includes('{{')) throw new Error('Unresolved template tags should be handled');\nif (typeof res !== 'string') throw new Error('Helm rendered result must be string');",
+    "eTest": "const tmpl1 = 'replicas: {{ .Values.replicaCount }}\\nimage: {{ .Values.image.repository }}:{{ .Values.image.tag }}';\nconst vals1 = { replicaCount: 3, image: { repository: 'pinit/api', tag: 'v2.0' } };\nconst res1 = renderHelmTemplate(tmpl1, vals1);\nif (res1 !== 'replicas: 3\\nimage: pinit/api:v2.0') throw new Error('Helm template substitution failed');\nconst tmpl2 = 'service: {{ .Values.svc.name }}-{{ .Values.svc.port }}';\nconst vals2 = { svc: { name: 'web', port: 8080 } };\nconst res2 = renderHelmTemplate(tmpl2, vals2);\nif (res2 !== 'service: web-8080') throw new Error('Helm nested value substitution failed');\nconst missingVals = renderHelmTemplate('name: {{ .Values.appName }}', {});\nif (missingVals !== 'name: ') throw new Error('Unresolved template tags should be replaced with empty string');",
     "aTitle": "Helm Chart SemVer Version Validator",
     "aDesc": "Implement function `isValidChartVersion(versionString)` verifying that Helm chart version strictly complies with SemVer specifications.",
     "aStarter": "function isValidChartVersion(ver) {\n  // TODO: Check if versionString matches standard SemVer pattern\n  \n}",
@@ -480,7 +480,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatPrometheusMetric(metricName, labelsObject, metricValue)` formatting standard Prometheus exposition text format.",
     "aStarter": "function formatPrometheusMetric(name, labels, val) {\n  // TODO: Format string as metric_name{label1=\"val1\",label2=\"val2\"} value\n  \n}",
     "aHint": "Format labels: Object.entries(labels).map(([k, v]) => `${k}=\"${v}\"`).join(','); return `${name}{${labelStr}} ${val}`;",
-    "aTest": "const line = formatPrometheusMetric('http_requests_total', { method: 'GET', status: '200' }, 1520);\nif (line !== 'http_requests_total{method=\"GET\",status=\"200\"} 1520') throw new Error('Prometheus metric formatting failed');"
+    "aTest": "const l1 = formatPrometheusMetric('http_requests_total', { method: 'GET', status: '200' }, 1520);\nif (l1 !== 'http_requests_total{method=\"GET\",status=\"200\"} 1520') throw new Error('Prometheus metric formatting failed');\nconst l2 = formatPrometheusMetric('cpu_usage_seconds', { cpu: '0', mode: 'idle' }, 42.5);\nif (l2 !== 'cpu_usage_seconds{cpu=\"0\",mode=\"idle\"} 42.5') throw new Error('CPU metric formatting failed');\nconst l3 = formatPrometheusMetric('node_memory_bytes', { instance: 'worker-1' }, 1048576);\nif (l3 !== 'node_memory_bytes{instance=\"worker-1\"} 1048576') throw new Error('Memory metric formatting failed');"
   },
   {
     "day": 25,
@@ -500,7 +500,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `extractTraceparentFields(traceparentString)` parsing version, traceId, parentSpanId, and traceFlags.",
     "aStarter": "function extractTraceparentFields(header) {\n  // TODO: Split traceparent string by '-' and map to { version, traceId, parentSpanId, flags }\n  \n}",
     "aHint": "Split on '-': parts[0] is version, parts[1] is traceId, parts[2] is parentSpanId, parts[3] is flags; return object.",
-    "aTest": "const p = extractTraceparentFields('00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01');\nif (p.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736' || p.parentSpanId !== '00f067aa0ba902b7') throw new Error('Traceparent parse failed');"
+    "aTest": "const p1 = extractTraceparentFields('00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01');\nif (p1.version !== '00' || p1.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736' || p1.parentSpanId !== '00f067aa0ba902b7' || p1.flags !== '01') throw new Error('Traceparent parse failed');\nconst p2 = extractTraceparentFields('01-abcdef1234567890abcdef1234567890-1122334455667788-00');\nif (p2.version !== '01' || p2.traceId !== 'abcdef1234567890abcdef1234567890' || p2.parentSpanId !== '1122334455667788' || p2.flags !== '00') throw new Error('Second traceparent parse failed');\nconst p3 = extractTraceparentFields('00-11112222333344445555666677778888-9999888877776666-02');\nif (p3.traceId !== '11112222333344445555666677778888' || p3.parentSpanId !== '9999888877776666') throw new Error('Third traceparent parse failed');"
   },
   {
     "day": 26,
@@ -540,7 +540,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `calculateRollingUpdateBounds(replicaCount, maxSurgePercent, maxUnavailablePercent)` calculating max allowed pods and min active pods. Return { maxPods, minPods } (replicas plus the surge, replicas minus the unavailable pods).",
     "aStarter": "function calculateRollingUpdateBounds(replicas, surgePct, unavailPct) {\n  // TODO: Compute maxSurge = ceil(replicas * (surgePct/100)), maxUnavail = floor(replicas * (unavailPct/100))\n  \n}",
     "aHint": "maxPods = replicaCount + Math.ceil(replicaCount * (maxSurgePercent / 100)); minPods = replicaCount - Math.floor(replicaCount * (maxUnavailablePercent / 100)); return { maxPods, minPods }.",
-    "aTest": "const b = calculateRollingUpdateBounds(10, 25, 25); // max = 10 + 3 = 13, min = 10 - 2 = 8\nif (b.maxPods !== 13 || b.minPods !== 8) throw new Error('Rolling update bounds calculation failed');"
+    "aTest": "const b1 = calculateRollingUpdateBounds(10, 25, 25); // max = 10 + 3 = 13, min = 10 - 2 = 8\nif (b1.maxPods !== 13 || b1.minPods !== 8) throw new Error('Rolling update bounds calculation failed');\nconst b2 = calculateRollingUpdateBounds(4, 50, 0); // max = 4 + 2 = 6, min = 4 - 0 = 4\nif (b2.maxPods !== 6 || b2.minPods !== 4) throw new Error('50% surge 0% unavail failed');\nconst b3 = calculateRollingUpdateBounds(20, 10, 20); // max = 20 + 2 = 22, min = 20 - 4 = 16\nif (b3.maxPods !== 22 || b3.minPods !== 16) throw new Error('Large replica set bounds calculation failed');"
   },
   {
     "day": 28,
@@ -560,7 +560,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatSbomComponent(pkgName, pkgVersion, licenseType)` constructing standard CycloneDX JSON component representation.",
     "aStarter": "function formatSbomComponent(name, ver, lic) {\n  // TODO: Return object with name: pkgName, version: pkgVersion, licenses: [{ license: { id: lic } }]\n  \n}",
     "aHint": "Return object { name: pkgName, version: pkgVersion, licenses: [{ license: { id: licenseType } }] };",
-    "aTest": "const comp = formatSbomComponent('express', '4.18.2', 'MIT');\nif (comp.name !== 'express' || comp.version !== '4.18.2' || comp.licenses[0].license.id !== 'MIT') throw new Error('SBOM component format failed');"
+    "aTest": "const c1 = formatSbomComponent('express', '4.18.2', 'MIT');\nif (c1.name !== 'express' || c1.version !== '4.18.2' || c1.licenses[0]?.license?.id !== 'MIT') throw new Error('SBOM component format failed');\nconst c2 = formatSbomComponent('lodash', '4.17.21', 'Apache-2.0');\nif (c2.name !== 'lodash' || c2.version !== '4.17.21' || c2.licenses[0]?.license?.id !== 'Apache-2.0') throw new Error('Second SBOM component format failed');\nconst c3 = formatSbomComponent('zod', '3.22.4', 'MIT');\nif (c3.name !== 'zod' || c3.version !== '3.22.4') throw new Error('Third SBOM component format failed');"
   },
   {
     "day": 29,
@@ -580,7 +580,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatMigrationFilename(migrationSequence, descriptionSlug)` generating timestamped migration filename `V{seq}__{slug}.sql`. Pad the sequence number to 4 digits (1 becomes 0001).",
     "aStarter": "function formatMigrationFilename(seq, slug) {\n  // TODO: Format migration string as V{sequence}__{slug}.sql with padded sequence number\n  \n}",
     "aHint": "Pad sequence: String(migrationSequence).padStart(4, '0'); return `V${padded}__${descriptionSlug}.sql`;",
-    "aTest": "const fn = formatMigrationFilename(1, 'add_users_table');\nif (fn !== 'V0001__add_users_table.sql') throw new Error('Migration filename formatting failed');\nif (!fn.endsWith('.sql')) throw new Error('Migration filename must end in .sql');"
+    "aTest": "const fn1 = formatMigrationFilename(1, 'add_users_table');\nif (fn1 !== 'V0001__add_users_table.sql') throw new Error('Migration filename formatting failed');\nconst fn2 = formatMigrationFilename(24, 'create_orders_index');\nif (fn2 !== 'V0024__create_orders_index.sql') throw new Error('Two-digit migration formatting failed');\nconst fn3 = formatMigrationFilename(1050, 'drop_legacy_columns');\nif (fn3 !== 'V1050__drop_legacy_columns.sql') throw new Error('Four-digit migration formatting failed');"
   },
   {
     "day": 30,
