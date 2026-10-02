@@ -17,6 +17,8 @@ import { DSA_WEB_LONG_LESSONS } from '../src/lib/data/dsaWebLongLessons';
 import { DSA_30_DAYS_CONFIGS } from '../src/lib/data/dsa30DayData';
 import { DISTRIBUTED_WEB_LONG_LESSONS } from '../src/lib/data/distributedWebLongLessons';
 import { DISTRIBUTED_30_DAYS_CONFIGS } from '../src/lib/data/distributed30DayData';
+import { CYBER_WEB_LONG_LESSONS } from '../src/lib/data/cyberWebLongLessons';
+import { CYBER_30_DAYS_CONFIGS } from '../src/lib/data/cybersecurity30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -81,6 +83,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-distributed-sys',
     lessons: DISTRIBUTED_WEB_LONG_LESSONS,
     configs: DISTRIBUTED_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'Cybersecurity Principles & Secure Systems',
+    prefix: 'cyber',
+    courseId: 'course-cybersecurity',
+    lessons: CYBER_WEB_LONG_LESSONS,
+    configs: CYBER_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];
