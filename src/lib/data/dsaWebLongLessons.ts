@@ -2491,4 +2491,1300 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 11,
+  "title": "Recursion, Call Stack Mechanics & Backtracking Principles",
+  "goal": "Understand call stack execution frames, base cases, tree branching, and state backtracking.",
+  "minutes": 25,
+  "recap": "Welcome to Day eleven! Having mastered linear and logarithmic structures, we now explore the computational power of recursion and the systematic exploration of combinatorial spaces via backtracking.",
+  "parts": [
+    {
+      "title": "Base Case vs Recursive Step Invariants",
+      "say": [
+        "Recursion is a computational paradigm where a function solves a complex problem by calling itself on smaller instances of the same problem.",
+        "Every recursive function requires two essential components: a base case that stops execution, and a recursive step that shrinks input size.",
+        "The base case represents the simplest, trivial instance of the problem that can be resolved immediately without further recursive calls.",
+        "Without an unambiguous, reachable base case, recursion executes indefinitely until the host runtime exhausts all stack memory and crashes.",
+        "The recursive step must strictly make progress toward the base case, reducing problem size along a well-defined mathematical ordering.",
+        "In a factorial calculation, multiplying N by factorial of N minus one reduces the integer argument monotonically toward the base case of zero.",
+        "At each recursive invocation, the runtime pauses the current caller frame, pushes a new activation frame onto the call stack, and transfers control.",
+        "Once the deepest frame reaches the base case, return values propagate backward through the stack, unrolling computation to the initial caller.",
+        "Understanding this two-phase call-and-unroll lifecycle provides the foundational mental model for analyzing trees, graphs, and divide-and-conquer algorithms."
+      ],
+      "example": "Russian nesting dolls: to find the miniature figure hidden inside, you open each outer doll one by one until you reach the solid innermost wooden figurine.",
+      "code": "function factorial(n: number): number {\n  if (n <= 1) return 1;\n  return n * factorial(n - 1);\n}\n\nconsole.log('Factorial of 5:', factorial(5));\nconsole.log('Factorial of 3:', factorial(3));\nconsole.log('Factorial of 0:', factorial(0));",
+      "output": "Factorial of 5: 120\nFactorial of 3: 6\nFactorial of 0: 1",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Base case terminates recursion immediately when n reaches 1 or 0, returning 1."
+        },
+        {
+          "line": 3,
+          "note": "Recursive step reduces problem size by passing n - 1, guaranteeing progress toward the base case."
+        }
+      ],
+      "tryIt": "Call factorial(6) and verify the returned value is 720.",
+      "check": {
+        "question": "What catastrophic error occurs if a recursive function lacks a reachable base case?",
+        "options": [
+          "Call stack overflow (RangeError: Maximum call stack size exceeded) causing process termination",
+          "A compilation syntax error before runtime",
+          "Automatic conversion into an infinite while loop that continues silently"
+        ],
+        "answer": 0,
+        "why": "Each recursive invocation allocates a new frame on the call stack; unbounded calls exhaust memory limits, triggering stack overflow."
+      }
+    },
+    {
+      "title": "Call Stack Memory Growth & Stack Overflow Defense",
+      "say": [
+        "Every time a function is invoked, the JavaScript runtime allocates a memory chunk called an activation record or stack frame.",
+        "A stack frame stores local variables, parameter values, intermediate expression results, and the return instruction address.",
+        "When recursion reaches depth D, exactly D stack frames coexist simultaneously in the thread's allocated call stack memory space.",
+        "Consequently, even if a recursive algorithm requires zero heap allocations, its auxiliary space complexity is strictly bounded by O(D).",
+        "Most JavaScript runtimes (including Google V8 and Node.js) allocate approximately ten thousand call stack frames before throwing a RangeError.",
+        "For deep linear recursion on large datasets, engineers must convert deep recursive calls into iterative loops using explicit array stacks.",
+        "Alternatively, tail-call optimization can reuse the existing stack frame, though widespread production runtime support remains limited.",
+        "Tracking maximum recursion depth is essential when designing recursive graph traversals, AST parsers, and nested document serializers.",
+        "Defensive programming practices enforce explicit recursion depth limits, rejecting malformed deeply nested inputs before stack corruption occurs."
+      ],
+      "example": "A stack of physical cafeteria trays: every meal order adds a new heavy tray on top; if the stack rises to the ceiling, the entire tower collapses.",
+      "code": "function traceCallStack(depth: number, maxDepth: number): string[] {\n  const frames: string[] = [`Entering frame ${depth}`];\n  if (depth < maxDepth) {\n    frames.push(...traceCallStack(depth + 1, maxDepth));\n  } else {\n    frames.push('Base condition reached at peak stack depth');\n  }\n  frames.push(`Exiting frame ${depth}`);\n  return frames;\n}\n\nconst trace = traceCallStack(1, 3);\nfor (const entry of trace) console.log(entry);",
+      "output": "Entering frame 1\nEntering frame 2\nEntering frame 3\nBase condition reached at peak stack depth\nExiting frame 3\nExiting frame 2\nExiting frame 1",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Records frame allocation when descending into the recursive call chain."
+        },
+        {
+          "line": 7,
+          "note": "Records frame deallocation in LIFO order as recursive calls return back up the call chain."
+        }
+      ],
+      "tryIt": "Change maxDepth to 2 and trace the order of frame entries and exits.",
+      "check": {
+        "question": "Why does recursive call stack depth matter for space complexity analysis?",
+        "options": [
+          "Each active recursive call occupies a stack frame in memory, making auxiliary space proportional to maximum recursion depth O(D)",
+          "Stack frames are allocated on external disk drives",
+          "Recursive calls automatically free memory before invoking child functions"
+        ],
+        "answer": 0,
+        "why": "Stack frames cannot be garbage-collected while their child calls are still executing, consuming O(D) concurrent stack memory."
+      }
+    },
+    {
+      "title": "Branching Recursion & Exponential State Trees",
+      "say": [
+        "While linear recursion invokes itself once per frame, branching recursion invokes itself multiple times, spawning an exponential state tree.",
+        "The textbook example is naive recursive Fibonacci: fib(n) invokes both fib(n-1) and fib(n-2) at each decision node.",
+        "At depth zero there is one call; at depth one, two calls; at depth two, four calls; and at depth K, approximately two to the power K calls.",
+        "This produces an explosive O(2^N) time complexity that becomes practically uncomputable for inputs larger than forty.",
+        "Visualizing this execution tree reveals why naive branching recursion struggles: the exact same subproblems are recalculated repeatedly.",
+        "Computing fib(5) recalculates fib(3) two separate times and fib(2) three separate times from scratch across independent branches.",
+        "Recognizing overlapping subproblems in branching recursive trees is the critical gateway skill leading to dynamic programming memoization.",
+        "However, branching recursion remains the correct conceptual strategy when each branch explores a genuinely distinct combinatorial choice.",
+        "Analyzing branching factors and maximum tree depth enables precise asymptotic upper bound classification for complex recursive systems."
+      ],
+      "example": "A family tree extending backward in time: every individual has two biological parents, four grandparents, and eight great-grandparents, doubling each generation.",
+      "code": "let callCounter = 0;\n\nfunction branchingFib(n: number): number {\n  callCounter++;\n  if (n <= 1) return n;\n  return branchingFib(n - 1) + branchingFib(n - 2);\n}\n\ncallCounter = 0;\nconst fib5 = branchingFib(5);\nconsole.log('fib(5):', fib5, 'calls:', callCounter);\n\ncallCounter = 0;\nconst fib6 = branchingFib(6);\nconsole.log('fib(6):', fib6, 'calls:', callCounter);",
+      "output": "fib(5): 5 calls: 15\nfib(6): 8 calls: 25",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Increments call counter on every function entry to measure total state tree nodes."
+        },
+        {
+          "line": 6,
+          "note": "Branching step spawns two recursive children, creating a binary execution tree."
+        }
+      ],
+      "tryIt": "Run branchingFib(7) and observe that total calls surge to 41 operations.",
+      "check": {
+        "question": "Why does naive branching Fibonacci exhibit exponential O(2^N) time complexity?",
+        "options": [
+          "Each non-base node spawns two recursive children, forming an execution tree whose total node count doubles with each additional depth level",
+          "Because addition is an exponential arithmetic operation in JavaScript",
+          "Because the function uses two separate call stacks simultaneously"
+        ],
+        "answer": 0,
+        "why": "A branching factor of 2 across depth N creates a binary call tree containing up to 2^(N+1) - 1 total invocations."
+      }
+    },
+    {
+      "title": "Backtracking Search Mechanics (Subsets & Combinations)",
+      "say": [
+        "Backtracking is an algorithmic paradigm that systematically searches for solutions by constructing candidate states incrementally.",
+        "The core mechanism follows a disciplined four-step cadence: choose an option, explore recursively, unchoose (revert state), and try the next option.",
+        "This 'unchoose' step is what distinguishes backtracking from ordinary brute-force recursion: state changes are cleanly undone before exploring neighbor branches.",
+        "By mutating a shared array during descent and popping the element upon return, backtracking avoids copying arrays at every step.",
+        "This saves massive memory, achieving O(N) auxiliary space instead of allocating exponential numbers of intermediate array copies.",
+        "For generating all 2^N subsets of an array, at each index we make a binary choice: either include the current element, or exclude it.",
+        "The recursive function descends to the leaf level (index === length), records the current subset snapshot, and returns to explore the alternate choice.",
+        "Backtracking effectively traverses the implicit state-space tree of the problem via depth-first search, visiting every valid configuration.",
+        "This foundational pattern applies to pathfinding, puzzle solvers, combinatorial optimization, and automated theorem provers."
+      ],
+      "example": "Exploring a dark hedge maze with a spool of thread: you unroll thread as you walk forward, and when you hit a dead end, you rewind the thread back to the junction.",
+      "code": "function generateSubsets(nums: number[]): number[][] {\n  const result: number[][] = [];\n  const current: number[] = [];\n\n  function backtrack(index: number): void {\n    if (index === nums.length) {\n      result.push([...current]); // Snapshot\n      return;\n    }\n    // Choice 1: Include nums[index]\n    current.push(nums[index]);\n    backtrack(index + 1);\n    current.pop(); // Backtrack (revert state)\n\n    // Choice 2: Exclude nums[index]\n    backtrack(index + 1);\n  }\n\n  backtrack(0);\n  return result;\n}\n\nconst subsets = generateSubsets([1, 2]);\nfor (const s of subsets) console.log(JSON.stringify(s));",
+      "output": "[1,2]\n[1]\n[2]\n[]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Pushes snapshot copy of current candidate path when reaching base case."
+        },
+        {
+          "line": 14,
+          "note": "The crucial backtrack step: pops the choice from the path before exploring alternative branches."
+        }
+      ],
+      "tryIt": "Pass [1, 2, 3] and verify that all 8 subsets (2^3) are generated in correct order.",
+      "check": {
+        "question": "Why must backtracking algorithms revert their state modifications (e.g., current.pop()) after recursive return?",
+        "options": [
+          "To restore the shared state so subsequent branches can explore alternatives from the exact same decision context",
+          "To trigger JavaScript garbage collection",
+          "Because arrays cannot hold more than three elements in recursive functions"
+        ],
+        "answer": 0,
+        "why": "A single shared path array is mutated across branches; popping undoes the choice so the caller can explore other candidates."
+      }
+    },
+    {
+      "title": "Pruning Search Branches (Bounding & Early Termination)",
+      "say": [
+        "In many combinatorial problems, exploring the entire state-space tree is far too slow because the tree contains billions of dead ends.",
+        "Branch pruning is the practice of evaluating feasibility constraints early, immediately abandoning branches that cannot possibly lead to a valid answer.",
+        "In the Combination Sum problem, where candidate numbers must sum to a target, any branch whose running sum exceeds the target is immediately pruned.",
+        "By sorting the input candidates in ascending order, if adding a candidate exceeds the target, all subsequent candidates will also exceed the target.",
+        "This allows an entire sub-tree of recursive branches to be terminated with a single break statement, eliminating millions of wasted operations.",
+        "Pruning transforms worst-case exponential runtimes into practical, high-speed solvers capable of passing rigorous production time limits.",
+        "The effectiveness of pruning depends directly on the strength of bounding functions and the heuristic ordering of candidate choices.",
+        "Search algorithms that evaluate the most promising choices first trigger early constraints sooner, pruning larger sections of the state tree.",
+        "Branch-and-bound techniques represent the enterprise optimization evolution of simple backtracking, powering logistics routers and scheduling engines."
+      ],
+      "example": "A security guard checking luggage weight at an airport: as soon as the scale exceeds 50 pounds, the passenger is told to repack immediately without weighing remaining bags.",
+      "code": "function combinationSum(candidates: number[], target: number): number[][] {\n  candidates.sort((a, b) => a - b);\n  const results: number[][] = [];\n  const path: number[] = [];\n\n  function backtrack(start: number, remaining: number): void {\n    if (remaining === 0) {\n      results.push([...path]);\n      return;\n    }\n    for (let i = start; i < candidates.length; i++) {\n      if (candidates[i] > remaining) break; // Prune branch!\n      path.push(candidates[i]);\n      backtrack(i, remaining - candidates[i]);\n      path.pop(); // Backtrack\n    }\n  }\n\n  backtrack(0, target);\n  return results;\n}\n\nconst combos = combinationSum([2, 3, 6, 7], 7);\nfor (const c of combos) console.log(JSON.stringify(c));",
+      "output": "[2,2,3]\n[7]",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Pruning condition: since array is sorted, if candidates[i] > remaining, all later elements will also fail."
+        },
+        {
+          "line": 14,
+          "note": "Recursively passes index i (not i + 1) to allow repeated selection of the same candidate number."
+        }
+      ],
+      "tryIt": "Run with candidates [2, 3, 5] and target 8 to find all valid partitions.",
+      "check": {
+        "question": "How does sorting candidates in ascending order enable aggressive branch pruning in Combination Sum?",
+        "options": [
+          "When a candidate exceeds the remaining sum, all subsequent larger candidates will also exceed it, allowing an immediate loop break",
+          "Sorting guarantees that the first answer returned is the longest combination",
+          "Sorting eliminates duplicate elements automatically"
+        ],
+        "answer": 0,
+        "why": "Monotonic candidate ordering ensures that once candidates[i] > remaining, no future candidate can satisfy the equality."
+      }
+    },
+    {
+      "title": "Production Permutation Generator with In-Place Swapping",
+      "say": [
+        "We now assemble our complete production-grade backtracking engine: generating all N! permutations of an array.",
+        "While subsets involve inclusion/exclusion choices, permutations involve ordering: arranging all N distinct items into every possible sequence.",
+        "A naive approach maintains a visited boolean array or checks array.includes(), requiring O(N) lookup overhead per step.",
+        "The optimal production algorithm uses in-place swapping: swapping the current element with each subsequent candidate position.",
+        "At step index, we iterate i from index to length-1, swap nums[index] with nums[i], recurse to index+1, and swap them back.",
+        "This in-place swap strategy requires zero auxiliary array allocations and zero visited sets, operating in strict O(N) call stack space.",
+        "Total permutations generated is exactly N! (N factorial), meaning an array of size 4 produces 24 permutations, while size 10 produces 3,628,800.",
+        "Today you have mastered the foundational mechanics of recursion, call stack memory, exponential branching, backtracking, pruning, and permutations.",
+        "These backtracking principles form the core computational engine behind chess engines, SAT solvers, compiler register allocators, and layout algorithms."
+      ],
+      "example": "Shuffling a deck of cards by hand: swapping cards between positions to create every possible sequence without ever bringing in a second deck.",
+      "code": "function permute(nums: number[]): number[][] {\n  const result: number[][] = [];\n\n  function backtrack(first: number): void {\n    if (first === nums.length) {\n      result.push([...nums]);\n      return;\n    }\n    for (let i = first; i < nums.length; i++) {\n      [nums[first], nums[i]] = [nums[i], nums[first]]; // Swap choice\n      backtrack(first + 1);\n      [nums[first], nums[i]] = [nums[i], nums[first]]; // Swap backtrack\n    }\n  }\n\n  backtrack(0);\n  return result;\n}\n\nconst perms = permute([1, 2, 3]);\nconsole.log('Total permutations:', perms.length);\nconsole.log('First permutation:', JSON.stringify(perms[0]));\nconsole.log('Last permutation:', JSON.stringify(perms[perms.length - 1]));",
+      "output": "Total permutations: 6\nFirst permutation: [1,2,3]\nLast permutation: [3,1,2]",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Swaps candidate element into the current position in-place without auxiliary memory."
+        },
+        {
+          "line": 11,
+          "note": "Backtracks by reversing the exact same swap, restoring original order for subsequent branches."
+        }
+      ],
+      "tryIt": "Pass [1, 2] and verify that exactly 2! = 2 permutations are generated.",
+      "check": {
+        "question": "What is the time complexity of generating all permutations of an array containing N unique elements?",
+        "options": [
+          "O(N * N!) because there are N! permutations and each takes O(N) time to copy into results",
+          "O(N^2) polynomial time",
+          "O(2^N) exponential time"
+        ],
+        "answer": 0,
+        "why": "There are N! distinct permutations, and copying the leaf array into the results array takes O(N) operations, totaling O(N * N!)."
+      }
+    }
+  ],
+  "summary": [
+    "Recursion requires a base case to terminate execution and a recursive step that monotonically shrinks problem size.",
+    "Call stack depth D consumes O(D) concurrent auxiliary space; exceeding runtime limits triggers RangeError stack overflow.",
+    "Branching recursion spawns exponential state trees, frequently recomputing overlapping subproblems without memoization.",
+    "Backtracking systematically explores combinatorial trees via choose, explore, and unchoose (reverting state mutations).",
+    "Branch pruning terminates dead-end recursive paths early, eliminating exponential search spaces in production solvers."
+  ],
+  "projectStep": {
+    "title": "Backtracking & Permutation Engine Implementation",
+    "steps": [
+      "Implement traceCallStack to observe frame allocation and LIFO deallocation order.",
+      "Implement generateSubsets using the choose-explore-unchoose backtracking pattern.",
+      "Build in-place permute generator achieving O(N * N!) factorial state exploration."
+    ]
+  }
+},
+{
+  "day": 12,
+  "title": "Merge Sort & Divide-and-Conquer Recurrences",
+  "goal": "Implement stable O(N log N) Merge Sort, Master Theorem recurrences, and inverted pair counting.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered recursion and backtracking search. Today we apply divide-and-conquer principles to sorting: breaking arrays in half, sorting halves independently, and merging them in linear time.",
+  "parts": [
+    {
+      "title": "Divide and Conquer Paradigm & Master Theorem",
+      "say": [
+        "The divide-and-conquer strategy solves problems by breaking them into smaller subproblems of the exact same type.",
+        "The paradigm consists of three distinct phases: Divide the problem into subproblems, Conquer subproblems recursively, and Combine solutions.",
+        "For sorting an array of size N, Merge Sort divides the array into two equal halves of size N/2 until reaching subarrays of length one.",
+        "Subarrays of length one or zero are inherently sorted by definition, serving as the recursion base case.",
+        "The Conquer phase sorts both halves, while the Combine phase merges two sorted halves into a single sorted array in O(N) time.",
+        "The recurrence relation for Merge Sort is mathematically expressed as T(N) = 2T(N/2) + O(N).",
+        "Applying the Master Theorem (Case 2, where a = 2, b = 2, and work is O(N)), this recurrence evaluates strictly to O(N log N).",
+        "Crucially, Merge Sort achieves O(N log N) in the worst case, best case, and average case, providing completely predictable performance.",
+        "This guaranteed upper bound makes Merge Sort the sorting algorithm of choice for database engines and external disk storage systems."
+      ],
+      "example": "Sorting a messy 100-page manuscript: split the stack into two 50-page piles, sort each independently, then weave the two sorted piles together page by page.",
+      "code": "function masterTheoremMergeCost(n: number): string {\n  const levels = Math.ceil(Math.log2(n));\n  const workPerLevel = n;\n  const totalWork = n * levels;\n  return `N=${n}: ${levels} tree levels * ${workPerLevel} work = ${totalWork} operations [O(N log N)]`;\n}\n\nconsole.log(masterTheoremMergeCost(8));\nconsole.log(masterTheoremMergeCost(16));\nconsole.log(masterTheoremMergeCost(1024));",
+      "output": "N=8: 3 tree levels * 8 work = 24 operations [O(N log N)]\nN=16: 4 tree levels * 16 work = 64 operations [O(N log N)]\nN=1024: 10 tree levels * 1024 work = 10240 operations [O(N log N)]",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Binary division creates exactly log2(N) levels in the recursion tree."
+        },
+        {
+          "line": 3,
+          "note": "Every level performs a total of N work across all its combined merge operations."
+        }
+      ],
+      "tryIt": "Calculate cost for N=64 and verify it requires 6 levels and 384 operations.",
+      "check": {
+        "question": "What is the recurrence relation that characterizes Merge Sort?",
+        "options": [
+          "T(N) = 2T(N/2) + O(N), resolving to O(N log N) by the Master Theorem",
+          "T(N) = T(N - 1) + O(1), resolving to O(N)",
+          "T(N) = 2T(N/2) + O(N^2), resolving to O(N^2)"
+        ],
+        "answer": 0,
+        "why": "Dividing into two halves of size N/2 plus linear O(N) merging work produces T(N) = 2T(N/2) + O(N) = O(N log N)."
+      }
+    },
+    {
+      "title": "The Linear O(N) Two-Pointer Merge Operation",
+      "say": [
+        "The beating heart of Merge Sort is the merge subroutine, which combines two already-sorted arrays into one unified sorted array.",
+        "We initialize two pointers, i pointing to the beginning of the left array and j pointing to the beginning of the right array.",
+        "At each step, we compare left[i] with right[j] and append the smaller element to the output array, advancing that pointer.",
+        "If left[i] and right[j] are equal, we choose the left element first; this specific tie-breaking rule preserves algorithmic stability.",
+        "When one pointer exhausts its array, all remaining elements in the other array are guaranteed to be larger than all merged elements.",
+        "We simply append all leftover elements from the non-empty array to the output buffer in a single slice operation.",
+        "Because each comparison places exactly one element into its final sorted position, the merge routine executes in strict O(left + right) time.",
+        "The merge operation requires allocating an auxiliary output array of size (left.length + right.length), consuming O(N) auxiliary space.",
+        "Mastering this two-pointer merge pattern is essential for external merge sorting, stream joins, and interval union algorithms."
+      ],
+      "example": "Two lines of people sorted by height merging into a single line: the usher compares the front person in each line and waves the shorter one forward.",
+      "code": "function mergeTwoSorted(left: number[], right: number[]): number[] {\n  const result: number[] = [];\n  let i = 0;\n  let j = 0;\n\n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) {\n      result.push(left[i]);\n      i++;\n    } else {\n      result.push(right[j]);\n      j++;\n    }\n  }\n  // Append remaining items\n  while (i < left.length) { result.push(left[i]); i++; }\n  while (j < right.length) { result.push(right[j]); j++; }\n  return result;\n}\n\nconsole.log('Merged:', JSON.stringify(mergeTwoSorted([1, 4, 7], [2, 5, 8])));\nconsole.log('Duplicate tie test:', JSON.stringify(mergeTwoSorted([2, 5], [2, 6])));",
+      "output": "Merged: [1,2,4,5,7,8]\nDuplicate tie test: [2,2,5,6]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Using '<=' ensures stability: duplicate items from the left array appear before duplicates from right."
+        },
+        {
+          "line": 16,
+          "note": "Drains remaining elements once one pointer reaches the end."
+        }
+      ],
+      "tryIt": "Merge [1, 10] with [2, 3, 4] and verify the output is [1, 2, 3, 4, 10].",
+      "check": {
+        "question": "Why does the comparison 'left[i] <= right[j]' make Merge Sort a 'stable' sort?",
+        "options": [
+          "It guarantees that equal elements preserve their original relative order by picking the left element first",
+          "It prevents numeric integer overflow",
+          "It forces the algorithm to use less memory"
+        ],
+        "answer": 0,
+        "why": "A stable sort preserves the relative order of duplicate elements; favoring left on ties ensures left elements stay ahead."
+      }
+    },
+    {
+      "title": "Full Recursive Merge Sort Implementation",
+      "say": [
+        "We now combine the divide step and the merge step into the full recursive Merge Sort algorithm.",
+        "The function takes an array, checks if its length is less than or equal to one (base case), and returns immediately if true.",
+        "It then calculates the midpoint index: mid = Math.floor(arr.length / 2).",
+        "The array is sliced into two halves: left = arr.slice(0, mid) and right = arr.slice(mid).",
+        "We recursively invoke mergeSort on left, recursively invoke mergeSort on right, and pass both sorted halves to mergeTwoSorted.",
+        "The depth of the recursive call tree is strictly ceil(log2(N)), with each level processing N elements across all merges.",
+        "Unlike Quick Sort, Merge Sort does not depend on pivot choices; it divides the array exactly in half every single time.",
+        "This architectural symmetry guarantees that worst-case inputs (such as already-sorted or reverse-sorted data) still sort in O(N log N) time.",
+        "Merge Sort represents the gold standard of predictable, deterministic divide-and-conquer algorithm design."
+      ],
+      "example": "A tournament bracket: 16 teams are split into two brackets of 8, each of which splits into 4, until 1v1 matchups resolve upward to crown the champion.",
+      "code": "function mergeSort(arr: number[]): number[] {\n  if (arr.length <= 1) return arr;\n\n  const mid = Math.floor(arr.length / 2);\n  const left = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n\n  // Inlined merge\n  const merged: number[] = [];\n  let i = 0; let j = 0;\n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) merged.push(left[i++]);\n    else merged.push(right[j++]);\n  }\n  return merged.concat(left.slice(i)).concat(right.slice(j));\n}\n\nconst input = [38, 27, 43, 3, 9, 82, 10];\nconst sorted = mergeSort(input);\nconsole.log('Original:', JSON.stringify(input));\nconsole.log('Sorted:', JSON.stringify(sorted));",
+      "output": "Original: [38,27,43,3,9,82,10]\nSorted: [3,9,10,27,38,43,82]",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Base case: arrays of 0 or 1 element are already sorted."
+        },
+        {
+          "line": 5,
+          "note": "Divides problem into two independent subproblems of equal size N/2."
+        },
+        {
+          "line": 14,
+          "note": "Concatenates leftover elements in O(remainder) time."
+        }
+      ],
+      "tryIt": "Sort [5, 4, 3, 2, 1] and verify reverse-sorted arrays sort in the same O(N log N) steps.",
+      "check": {
+        "question": "What is the worst-case time complexity of Merge Sort, and why does it never degrade to O(N^2)?",
+        "options": [
+          "O(N log N), because the array is always split exactly in half regardless of data distribution",
+          "O(N^2), when the array is already sorted in reverse order",
+          "O(N), because merging is linear"
+        ],
+        "answer": 0,
+        "why": "Splitting at the exact midpoint Math.floor(length / 2) guarantees a balanced binary recursion tree of depth log2(N)."
+      }
+    },
+    {
+      "title": "Stability & Auxiliary Space Trade-offs",
+      "say": [
+        "A sorting algorithm is classified as stable if elements with identical keys maintain their original relative order after sorting.",
+        "Stability is critical when sorting records by multiple criteria, such as sorting employees by salary and then by last name.",
+        "If the second sort is unstable, it shuffles the carefully ordered salary groupings, corrupting the multi-column sort.",
+        "Merge Sort is naturally stable because the merge step intentionally prefers the left element whenever values tie.",
+        "However, Merge Sort's stability and guaranteed O(N log N) bound come with a trade-off: auxiliary space consumption.",
+        "Standard array-based Merge Sort requires O(N) additional memory to store the merged elements during combining.",
+        "In naive implementations using arr.slice(), total allocated memory across all recursion levels can reach O(N log N).",
+        "For linked lists, however, Merge Sort requires O(1) auxiliary space because nodes can be spliced by updating pointer references.",
+        "This makes Merge Sort the universally preferred algorithm for sorting singly and doubly linked lists."
+      ],
+      "example": "Sorting a deck of cards by suit, then by number: a stable sort keeps all the Clubs in ascending number order when you group by suit.",
+      "code": "interface RecordItem { id: number; score: number; label: string; }\n\nfunction stableMergeSort(items: RecordItem[]): RecordItem[] {\n  if (items.length <= 1) return items;\n  const mid = Math.floor(items.length / 2);\n  const left = stableMergeSort(items.slice(0, mid));\n  const right = stableMergeSort(items.slice(mid));\n\n  const res: RecordItem[] = [];\n  let i = 0; let j = 0;\n  while (i < left.length && j < right.length) {\n    if (left[i].score <= right[j].score) res.push(left[i++]);\n    else res.push(right[j++]);\n  }\n  return res.concat(left.slice(i)).concat(right.slice(j));\n}\n\nconst students: RecordItem[] = [\n  { id: 1, score: 90, label: 'Alice-First' },\n  { id: 2, score: 80, label: 'Bob' },\n  { id: 3, score: 90, label: 'Charlie-Second' }\n];\n\nconst ranked = stableMergeSort(students);\nfor (const s of ranked) console.log(`${s.score}: ${s.label}`);",
+      "output": "80: Bob\n90: Alice-First\n90: Charlie-Second",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Tie-breaker '<=' preserves Alice before Charlie because Alice arrived from the left array."
+        },
+        {
+          "line": 26,
+          "note": "Verifies stability: Alice-First precedes Charlie-Second even though their scores are equal."
+        }
+      ],
+      "tryIt": "Change Alice's score to 80 and observe that Alice appears before Bob.",
+      "check": {
+        "question": "Why is Merge Sort preferred over Quick Sort for sorting linked lists?",
+        "options": [
+          "Linked lists allow O(1) pointer splicing during merge without allocating O(N) auxiliary array buffers",
+          "Quick Sort cannot access linked list nodes",
+          "Linked lists cannot store numbers"
+        ],
+        "answer": 0,
+        "why": "Linked list nodes can be repointed in O(1) space, eliminating the primary memory drawback of Merge Sort."
+      }
+    },
+    {
+      "title": "Counting Inversions via Merge Sort in O(N log N)",
+      "say": [
+        "An inversion in an array is a pair of indices (i, j) such that i < j but arr[i] > arr[j].",
+        "The number of inversions measures how far an array is from being completely sorted; a sorted array has zero inversions.",
+        "An inverted array in reverse order has the maximum possible number of inversions: N * (N - 1) / 2.",
+        "In collaborative filtering engines, the number of inversions between two users' movie ratings measures their preference similarity.",
+        "A brute-force solution checks all pairs using nested loops, costing O(N^2) quadratic time.",
+        "We can count inversions in O(N log N) time by piggybacking directly on the merge step of Merge Sort.",
+        "When an element from the right array is smaller than the current left element, it is smaller than all remaining elements in the left array.",
+        "Therefore, right[j] forms an inversion with every remaining element in left, adding (mid - i) inversions in a single O(1) step.",
+        "This ingenious reduction demonstrates how divide-and-conquer algorithms solve complex analytical problems beyond simple sorting."
+      ],
+      "example": "Comparing music playlists: if song A is above song B on your list but below it on a friend's list, that flip represents an inversion.",
+      "code": "function countInversions(arr: number[]): { count: number; sorted: number[] } {\n  if (arr.length <= 1) return { count: 0, sorted: arr };\n\n  const mid = Math.floor(arr.length / 2);\n  const leftRes = countInversions(arr.slice(0, mid));\n  const rightRes = countInversions(arr.slice(mid));\n\n  let totalCount = leftRes.count + rightRes.count;\n  const merged: number[] = [];\n  let i = 0; let j = 0;\n  const left = leftRes.sorted;\n  const right = rightRes.sorted;\n\n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) {\n      merged.push(left[i++]);\n    } else {\n      merged.push(right[j++]);\n      totalCount += left.length - i; // All remaining left items are inversions!\n    }\n  }\n  return {\n    count: totalCount,\n    sorted: merged.concat(left.slice(i)).concat(right.slice(j))\n  };\n}\n\nconsole.log('Inversions in [2, 4, 1, 3, 5]:', countInversions([2, 4, 1, 3, 5]).count);\nconsole.log('Inversions in [1, 2, 3]:', countInversions([1, 2, 3]).count);\nconsole.log('Inversions in [3, 2, 1]:', countInversions([3, 2, 1]).count);",
+      "output": "Inversions in [2, 4, 1, 3, 5]: 3\nInversions in [1, 2, 3]: 0\nInversions in [3, 2, 1]: 3",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "When right[j] is smaller than left[i], it is smaller than all (left.length - i) elements remaining in left."
+        },
+        {
+          "line": 8,
+          "note": "Aggregates inversions across left half, right half, and cross-boundary split pairs."
+        }
+      ],
+      "tryIt": "Count inversions in [4, 3, 2, 1] and verify it returns 4 * 3 / 2 = 6.",
+      "check": {
+        "question": "Why does selecting right[j] during merge add exactly (left.length - i) to the inversion count?",
+        "options": [
+          "Because the left subarray is sorted; if right[j] is smaller than left[i], it is strictly smaller than every subsequent element in left",
+          "Because the right subarray has left.length - i elements",
+          "Because inversion counts must always be even numbers"
+        ],
+        "answer": 0,
+        "why": "Since left is sorted, left[i] <= left[i+1] <= left[end]; right[j] < left[i] implies right[j] is inverted with all remaining left items."
+      }
+    },
+    {
+      "title": "Production Merge Sort with Single Auxiliary Buffer",
+      "say": [
+        "In production enterprise systems, allocating new arrays on every slice() creates severe garbage collection pressure.",
+        "A production-grade Merge Sort allocates a single auxiliary scratch buffer of size N at the very beginning.",
+        "Instead of slicing subarrays, the algorithm passes boundary indices (left, right) down the recursion stack.",
+        "During the merge step, elements from the source array are copied into the auxiliary buffer, and merged back into the source array.",
+        "This optimization bounds total heap allocations to exactly one array of size N, reducing memory footprint by over 60%.",
+        "Many production runtimes use Timsort (a hybrid of Merge Sort and Insertion Sort) for their standard library sort functions.",
+        "Timsort identifies already-sorted runs in the data and uses Insertion Sort on small chunks (under 32 items) before merging.",
+        "Today you have mastered the Master Theorem, two-pointer merging, stability invariants, inversion counting, and buffer-optimized sorting.",
+        "These divide-and-conquer principles form the bedrock of distributed map-reduce architectures and external sorting engines."
+      ],
+      "example": "A carpenter working with a single spare workbench: rather than buying twenty new tables, he uses the one spare bench to hold pieces while assembling the final cabinet.",
+      "code": "function productionMergeSort(nums: number[]): number[] {\n  const aux = new Array(nums.length);\n\n  function sort(lo: number, hi: number): void {\n    if (lo >= hi) return;\n    const mid = lo + Math.floor((hi - lo) / 2);\n    sort(lo, mid);\n    sort(mid + 1, hi);\n\n    // Merge in-place using auxiliary buffer\n    for (let k = lo; k <= hi; k++) aux[k] = nums[k];\n    let i = lo;\n    let j = mid + 1;\n    for (let k = lo; k <= hi; k++) {\n      if (i > mid) nums[k] = aux[j++];\n      else if (j > hi) nums[k] = aux[i++];\n      else if (aux[i] <= aux[j]) nums[k] = aux[i++];\n      else nums[k] = aux[j++];\n    }\n  }\n\n  sort(0, nums.length - 1);\n  return nums;\n}\n\nconst arr = [9, 3, 7, 5, 6, 4, 8, 2];\nproductionMergeSort(arr);\nconsole.log('Buffer-optimized sorted:', JSON.stringify(arr));",
+      "output": "Buffer-optimized sorted: [2,3,4,5,6,7,8,9]",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Allocates a single auxiliary buffer once upfront, avoiding O(N log N) slice allocations."
+        },
+        {
+          "line": 6,
+          "note": "Passes integer indices (lo, mid, hi) down the call stack to eliminate array slice overhead."
+        },
+        {
+          "line": 15,
+          "note": "Merges aux elements back into nums in-place, preserving stability."
+        }
+      ],
+      "tryIt": "Sort [100, -5, 0, 50, -20] and verify it handles negative values correctly.",
+      "check": {
+        "question": "What is the primary memory advantage of passing boundary indices over using array.slice()?",
+        "options": [
+          "It avoids allocating new subarray objects at every recursive level, bounding heap allocation to a single buffer of size N",
+          "It allows the algorithm to run in O(log N) time",
+          "It converts the sort into an unstable sort"
+        ],
+        "answer": 0,
+        "why": "Index-based recursion mutates within pre-allocated buffers, reducing garbage collection overhead from O(N log N) to O(N)."
+      }
+    }
+  ],
+  "summary": [
+    "Merge Sort divides arrays in half, sorts halves recursively, and merges them in O(N) time, yielding O(N log N) guaranteed.",
+    "Master Theorem recurrence T(N) = 2T(N/2) + O(N) proves worst-, average-, and best-case O(N log N) bounds.",
+    "Stable sorting is preserved during merge by picking the left element whenever values tie (left[i] <= right[j]).",
+    "Counting inversions runs in O(N log N) by accumulating (left.length - i) each time an element from right is chosen.",
+    "Production implementations allocate a single auxiliary buffer upfront, eliminating array slice memory bloat."
+  ],
+  "projectStep": {
+    "title": "Merge Sort & Inversion Counter Implementation",
+    "steps": [
+      "Implement mergeTwoSorted with stability tie-breaking.",
+      "Implement recursive countInversions to calculate disordered pairs in O(N log N).",
+      "Build productionMergeSort with a single pre-allocated auxiliary buffer."
+    ]
+  }
+},
+{
+  "day": 13,
+  "title": "Quick Sort & Quick Select (Kth Largest Element in O(N))",
+  "goal": "Master in-place Lomuto/Hoare partitioning, randomized pivots, and finding Kth elements in average O(N) time.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered Merge Sort's divide-and-conquer combining. Today we explore Quick Sort: partitioning in-place around a pivot, trading Merge Sort's O(N) auxiliary space for O(1) in-place sorting.",
+  "parts": [
+    {
+      "title": "Lomuto Partitioning Mechanics",
+      "say": [
+        "Quick Sort is an in-place divide-and-conquer sorting algorithm centered around the concept of partitioning.",
+        "A partition selects an element called the pivot and rearranges the array so all smaller elements move to the left and larger to the right.",
+        "Once partitioned, the pivot element sits in its final, permanently sorted position in the array.",
+        "The Lomuto partition scheme selects the last element as the pivot and maintains a boundary pointer i for smaller elements.",
+        "A second pointer j scans from left to right; whenever arr[j] is less than or equal to the pivot, i advances and arr[i] swaps with arr[j].",
+        "After the scan completes, swapping arr[i + 1] with the pivot places the pivot precisely between the two partitions.",
+        "The partition routine executes in linear O(N) time while using strict O(1) auxiliary space, requiring zero new array allocations.",
+        "Lomuto partitioning is straightforward to implement and reason about, making it the standard partitioning introductory pattern.",
+        "However, Lomuto performs approximately three times more swaps than Hoare's scheme when elements are already sorted or identical."
+      ],
+      "example": "A gym teacher picking team captains: anyone shorter than the captain steps to the left; anyone taller steps to the right.",
+      "code": "function lomutoPartition(arr: number[], lo: number, hi: number): number {\n  const pivot = arr[hi];\n  let i = lo - 1;\n\n  for (let j = lo; j < hi; j++) {\n    if (arr[j] <= pivot) {\n      i++;\n      [arr[i], arr[j]] = [arr[j], arr[i]];\n    }\n  }\n  [arr[i + 1], arr[hi]] = [arr[hi], arr[i + 1]];\n  return i + 1; // Pivot index\n}\n\nconst nums = [10, 80, 30, 90, 40, 50, 70];\nconst pivotIdx = lomutoPartition(nums, 0, nums.length - 1);\nconsole.log('Pivot element:', nums[pivotIdx]);\nconsole.log('Partitioned array:', JSON.stringify(nums));",
+      "output": "Pivot element: 70\nPartitioned array: [10,30,40,50,70,90,80]",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Chooses the last element arr[hi] as the pivot value."
+        },
+        {
+          "line": 7,
+          "note": "Swaps smaller elements behind the boundary pointer i."
+        },
+        {
+          "line": 11,
+          "note": "Places pivot at its exact final sorted position (i + 1)."
+        }
+      ],
+      "tryIt": "Partition [5, 2, 8, 1, 3] and verify the pivot 3 ends up at index 2.",
+      "check": {
+        "question": "What is guaranteed about the pivot element after a partition operation completes?",
+        "options": [
+          "The pivot is placed at its exact final sorted position, with all smaller elements to its left and larger to its right",
+          "The entire array is completely sorted",
+          "The pivot is always placed at index 0"
+        ],
+        "answer": 0,
+        "why": "Partitioning guarantees that the pivot is in its definitive position; only the left and right partitions need further sorting."
+      }
+    },
+    {
+      "title": "Hoare Partitioning Scheme & Efficiency Comparison",
+      "say": [
+        "Invented by Sir Tony Hoare in 1959, Hoare's partition scheme is the original and more efficient partitioning algorithm.",
+        "Instead of a single forward scan, Hoare uses two pointers converging inward from both ends of the subarray.",
+        "The left pointer moves rightward until it finds an element greater than or equal to the pivot.",
+        "The right pointer moves leftward until it finds an element less than or equal to the pivot.",
+        "If the pointers have not crossed, the two out-of-place elements are swapped, and the inward scan continues.",
+        "When the pointers cross, the partition is complete, returning the split index where the two halves meet.",
+        "Hoare's scheme performs on average three times fewer element swaps than Lomuto's scheme.",
+        "Furthermore, Hoare handles duplicate elements gracefully by stopping both pointers on values equal to the pivot.",
+        "This balanced convergence prevents the degenerate partitions that plague Lomuto when sorting arrays with many identical keys."
+      ],
+      "example": "Two inspectors starting from opposite ends of a row of parked cars: swapping poorly parked cars until the two inspectors meet in the middle.",
+      "code": "function hoarePartition(arr: number[], lo: number, hi: number): number {\n  const pivot = arr[Math.floor(lo + (hi - lo) / 2)];\n  let i = lo - 1;\n  let j = hi + 1;\n\n  while (true) {\n    do { i++; } while (arr[i] < pivot);\n    do { j--; } while (arr[j] > pivot);\n    if (i >= j) return j;\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n}\n\nconst data = [5, 3, 8, 4, 2, 7, 1, 10];\nconst splitIdx = hoarePartition(data, 0, data.length - 1);\nconsole.log('Split index:', splitIdx);\nconsole.log('Left partition max <= Right partition min:', Math.max(...data.slice(0, splitIdx + 1)) <= Math.min(...data.slice(splitIdx + 1)));",
+      "output": "Split index: 3\nLeft partition max <= Right partition min: true",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Picks midpoint pivot to prevent worst-case performance on pre-sorted inputs."
+        },
+        {
+          "line": 7,
+          "note": "Pointers converge toward each other, swapping pairs of inverted elements."
+        }
+      ],
+      "tryIt": "Partition [9, 1, 8, 2, 7, 3] and verify all items in left partition are <= right partition items.",
+      "check": {
+        "question": "Why is Hoare's partition scheme practically faster than Lomuto's?",
+        "options": [
+          "It converges from both ends, executing approximately three times fewer swaps on average",
+          "It uses binary search inside the loop",
+          "It sorts the array in O(log N) time"
+        ],
+        "answer": 0,
+        "why": "Hoare only swaps when elements are strictly out of order on both sides, minimizing memory write operations."
+      }
+    },
+    {
+      "title": "Recursive Quick Sort Implementation",
+      "say": [
+        "Armed with a partition subroutine, Quick Sort recursively sorts the subarrays to the left and right of the pivot.",
+        "Unlike Merge Sort, which does all its combining work after the recursive calls return, Quick Sort does its partition work before recursing.",
+        "The divide step partitions the array in O(N) time; the conquer step recursively sorts arr[lo..pivot-1] and arr[pivot+1..hi].",
+        "Because elements are already in their correct partitioned relative halves, zero combine work is needed upon return.",
+        "The average-case time complexity is O(N log N) with an exceptionally small constant factor due to cache-friendly in-place operations.",
+        "The auxiliary space complexity is O(log N) on average, required strictly for the call stack frames.",
+        "However, if the pivot repeatedly splits the array into 0 and N-1 elements, the recursion tree degenerates into a linear chain of depth N.",
+        "In this worst case, Quick Sort degrades to O(N^2) quadratic time, illustrating the paramount importance of good pivot selection.",
+        "Engineers optimize Quick Sort by sorting the smaller partition first, guaranteeing call stack space never exceeds O(log N)."
+      ],
+      "example": "Organizing an encyclopedia: place volume M in the middle, then independently organize volumes A through L on the left shelf and N through Z on the right shelf.",
+      "code": "function quickSort(arr: number[], lo = 0, hi = arr.length - 1): number[] {\n  if (lo < hi) {\n    // Lomuto partition\n    const pivot = arr[hi];\n    let i = lo - 1;\n    for (let j = lo; j < hi; j++) {\n      if (arr[j] <= pivot) {\n        i++;\n        [arr[i], arr[j]] = [arr[j], arr[i]];\n      }\n    }\n    [arr[i + 1], arr[hi]] = [arr[hi], arr[i + 1]];\n    const p = i + 1;\n\n    quickSort(arr, lo, p - 1);\n    quickSort(arr, p + 1, hi);\n  }\n  return arr;\n}\n\nconst input = [10, 7, 8, 9, 1, 5];\nquickSort(input);\nconsole.log('QuickSorted:', JSON.stringify(input));",
+      "output": "QuickSorted: [1,5,7,8,9,10]",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Base case: single-element or empty subarrays (lo >= hi) are inherently sorted."
+        },
+        {
+          "line": 15,
+          "note": "Recursively sorts left subarray up to p - 1, leaving the pivot in place."
+        },
+        {
+          "line": 16,
+          "note": "Recursively sorts right subarray from p + 1 to hi."
+        }
+      ],
+      "tryIt": "Sort [3, -1, 4, 1, 5, 9, 2, 6] and verify all numbers are sorted in ascending order.",
+      "check": {
+        "question": "When does Quick Sort degrade to its worst-case O(N^2) time complexity?",
+        "options": [
+          "When the pivot selection repeatedly yields maximally unbalanced partitions (e.g., 0 elements on one side, N - 1 on the other)",
+          "When the array contains floating-point numbers",
+          "When the array size is a power of 2"
+        ],
+        "answer": 0,
+        "why": "Unbalanced splits produce N recursive levels with O(N) work per level, resulting in O(N^2) total execution time."
+      }
+    },
+    {
+      "title": "Pivot Selection Strategies & Randomized Quick Sort",
+      "say": [
+        "The performance of Quick Sort hinges entirely on picking a pivot that splits the array into roughly equal halves.",
+        "Choosing the first or last element causes worst-case O(N^2) behavior on already-sorted or reverse-sorted input arrays.",
+        "To defend against this vulnerability, production implementations employ randomized pivot selection.",
+        "Randomized Quick Sort chooses a random index between lo and hi, swaps that element with arr[hi], and proceeds with standard partitioning.",
+        "By randomizing the pivot, no specific input ordering can reliably trigger the worst-case O(N^2) behavior.",
+        "Another industry-standard strategy is the 'Median-of-Three' heuristic: inspecting arr[lo], arr[mid], and arr[hi] and using their median value.",
+        "Median-of-three guarantees balanced partitions for sorted and nearly-sorted datasets while eliminating the overhead of random number generators.",
+        "Randomized pivot selection is mathematically proven to achieve O(N log N) expected time on all possible input distributions.",
+        "This probabilistic guarantee makes Randomized Quick Sort immune to algorithmic complexity denial-of-service attacks."
+      ],
+      "example": "Picking a fair referee: instead of always picking the first volunteer, draw a random name from a hat so no single player can manipulate the choice.",
+      "code": "function randomizedPartition(arr: number[], lo: number, hi: number): number {\n  // Deterministic pseudo-random pick for reproducible testing\n  const randomIdx = lo + Math.floor((hi - lo) / 2); // Pick midpoint\n  [arr[randomIdx], arr[hi]] = [arr[hi], arr[randomIdx]];\n\n  const pivot = arr[hi];\n  let i = lo - 1;\n  for (let j = lo; j < hi; j++) {\n    if (arr[j] <= pivot) {\n      i++;\n      [arr[i], arr[j]] = [arr[j], arr[i]];\n    }\n  }\n  [arr[i + 1], arr[hi]] = [arr[hi], arr[i + 1]];\n  return i + 1;\n}\n\nconst presorted = [1, 2, 3, 4, 5, 6, 7];\nconst p = randomizedPartition(presorted, 0, presorted.length - 1);\nconsole.log('Balanced pivot chosen:', presorted[p]);\nconsole.log('Left size:', p, 'Right size:', presorted.length - 1 - p);",
+      "output": "Balanced pivot chosen: 4\nLeft size: 3 Right size: 3",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Picks pivot from center rather than extreme end to prevent O(N^2) on sorted data."
+        },
+        {
+          "line": 4,
+          "note": "Swaps chosen pivot to arr[hi] so standard partition logic runs unchanged."
+        }
+      ],
+      "tryIt": "Verify that partitioning pre-sorted data produces balanced halves of size 3 on each side.",
+      "check": {
+        "question": "Why does randomized pivot selection protect against algorithmic complexity attacks?",
+        "options": [
+          "An attacker cannot construct an adversarial input that deterministically triggers worst-case O(N^2) splits",
+          "Random numbers make the algorithm run in O(1) time",
+          "It encrypts the array elements during sorting"
+        ],
+        "answer": 0,
+        "why": "With random pivot choices, the probability of encountering catastrophic unbalance on every level is astronomically small."
+      }
+    },
+    {
+      "title": "Quick Select Algorithm (Kth Element in Average O(N))",
+      "say": [
+        "Finding the Kth smallest (or Kth largest) element in an unsorted array is one of the most common selection problems.",
+        "A naive approach sorts the entire array in O(N log N) time and returns arr[k], doing unnecessary work sorting unneeded elements.",
+        "Quick Select, also invented by Tony Hoare, solves the selection problem in average O(N) linear time.",
+        "Quick Select partitions the array around a pivot, placing the pivot at its exact final sorted index p.",
+        "If p equals the target index k, we have found our answer immediately and return arr[p].",
+        "If k is less than p, the target must lie in the left partition, so we recurse only on the left subarray.",
+        "If k is greater than p, the target must lie in the right partition, so we recurse only on the right subarray.",
+        "Unlike Quick Sort, which recurses into both halves (T(N) = 2T(N/2) + O(N)), Quick Select recurses into only one half (T(N) = T(N/2) + O(N)).",
+        "By the Master Theorem, N + N/2 + N/4 + ... converges to a geometric series sum of 2N, achieving strict O(N) average time."
+      ],
+      "example": "Finding the 10th tallest student among 100 students: divide into two groups around an average student; if the shorter group has 30 students, the 10th tallest is definitely in the shorter group.",
+      "code": "function quickSelect(nums: number[], k: number, lo = 0, hi = nums.length - 1): number {\n  if (lo === hi) return nums[lo];\n\n  const pivot = nums[hi];\n  let i = lo - 1;\n  for (let j = lo; j < hi; j++) {\n    if (nums[j] <= pivot) {\n      i++;\n      [nums[i], nums[j]] = [nums[j], nums[i]];\n    }\n  }\n  [nums[i + 1], nums[hi]] = [nums[hi], nums[i + 1]];\n  const p = i + 1;\n\n  if (p === k) return nums[p];\n  if (k < p) return quickSelect(nums, k, lo, p - 1);\n  return quickSelect(nums, k, p + 1, hi);\n}\n\nfunction findKthLargest(nums: number[], k: number): number {\n  // Kth largest is (N - k)th smallest (0-indexed)\n  const targetIdx = nums.length - k;\n  return quickSelect([...nums], targetIdx);\n}\n\nconst list = [3, 2, 1, 5, 6, 4];\nconsole.log('1st largest (max):', findKthLargest(list, 1));\nconsole.log('2nd largest:', findKthLargest(list, 2));\nconsole.log('4th largest:', findKthLargest(list, 4));",
+      "output": "1st largest (max): 6\n2nd largest: 5\n4th largest: 3",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "If pivot index matches k, the Kth element is found without sorting the remaining elements."
+        },
+        {
+          "line": 16,
+          "note": "Recourses into only one half, reducing problem size by half on each iteration."
+        }
+      ],
+      "tryIt": "Find the 3rd largest element in [7, 10, 4, 3, 20, 15] and verify the result is 10.",
+      "check": {
+        "question": "Why does Quick Select execute in O(N) average time while Quick Sort takes O(N log N)?",
+        "options": [
+          "Quick Select recurses into only one partition at each step, forming a geometric series N + N/2 + N/4 + ... = 2N",
+          "Quick Select uses a hash map to skip comparisons",
+          "Quick Select does not use partitioning"
+        ],
+        "answer": 0,
+        "why": "Dropping half the elements at each step creates a geometric series that converges to 2N, achieving O(N) average time."
+      }
+    },
+    {
+      "title": "Three-Way Partitioning (Dutch National Flag & Duplicates)",
+      "say": [
+        "A major weakness of standard two-way Quick Sort is poor performance on arrays with many duplicate elements.",
+        "When an array contains all identical values, standard Lomuto partitioning splits N into 0 and N-1, degrading to O(N^2) time.",
+        "Edsger Dijkstra solved this problem with the Dutch National Flag 3-Way Partitioning algorithm.",
+        "Three-way partitioning divides the array into three distinct sections: elements strictly less than pivot, equal to pivot, and greater than pivot.",
+        "We maintain three pointers: lt (less than boundary), i (current inspection pointer), and gt (greater than boundary).",
+        "If arr[i] < pivot, we swap arr[lt] with arr[i], increment both lt and i.",
+        "If arr[i] > pivot, we swap arr[i] with arr[gt] and decrement gt (without advancing i, since the swapped item must be evaluated).",
+        "If arr[i] === pivot, we simply advance i.",
+        "When the scan finishes, all elements equal to the pivot are in their final positions; recursive calls only sort the < and > regions.",
+        "This delivers linear O(N) performance on arrays with all identical elements, providing bulletproof sorting efficiency."
+      ],
+      "example": "Sorting laundry into three baskets: whites to the left, colors to the right, and delicates grouped in the center.",
+      "code": "function threeWayQuickSort(arr: number[], lo = 0, hi = arr.length - 1): number[] {\n  if (lo >= hi) return arr;\n\n  const pivot = arr[lo];\n  let lt = lo;\n  let i = lo + 1;\n  let gt = hi;\n\n  while (i <= gt) {\n    if (arr[i] < pivot) {\n      [arr[lt], arr[i]] = [arr[i], arr[lt]];\n      lt++; i++;\n    } else if (arr[i] > pivot) {\n      [arr[i], arr[gt]] = [arr[gt], arr[i]];\n      gt--;\n    } else {\n      i++;\n    }\n  }\n\n  threeWayQuickSort(arr, lo, lt - 1);\n  threeWayQuickSort(arr, gt + 1, hi);\n  return arr;\n}\n\nconst duplicates = [2, 0, 2, 1, 1, 0, 2, 1, 0];\nthreeWayQuickSort(duplicates);\nconsole.log('3-Way QuickSorted duplicates:', JSON.stringify(duplicates));",
+      "output": "3-Way QuickSorted duplicates: [0,0,0,1,1,1,2,2,2]",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Pushes items smaller than pivot before lt."
+        },
+        {
+          "line": 13,
+          "note": "Pushes items larger than pivot behind gt without advancing i."
+        },
+        {
+          "line": 20,
+          "note": "Recursively sorts only strictly smaller and strictly larger segments; equals are done."
+        }
+      ],
+      "tryIt": "Sort [1, 1, 1, 1, 1] with threeWayQuickSort and verify it sorts in a single pass.",
+      "check": {
+        "question": "How does 3-way partitioning prevent Quick Sort from degrading on arrays with many duplicate elements?",
+        "options": [
+          "All elements equal to the pivot are grouped together in one pass and excluded from subsequent recursive calls",
+          "It uses Counting Sort internally for duplicates",
+          "It removes duplicate values from the output array"
+        ],
+        "answer": 0,
+        "why": "Equal elements are placed in their final positions in the middle; recursion only processes strictly smaller and larger elements."
+      }
+    }
+  ],
+  "summary": [
+    "Quick Sort partitions in-place around a pivot, placing the pivot at its final sorted position with O(1) auxiliary space.",
+    "Hoare partitioning converges from both ends, executing three times fewer swaps than Lomuto's forward scan.",
+    "Average time complexity is O(N log N); worst-case O(N^2) occurs on unbalanced partitions.",
+    "Randomized pivot selection and median-of-three protect against adversarial worst-case inputs.",
+    "Quick Select finds the Kth largest element in O(N) average time by recursing into only one partition.",
+    "Dijkstra's 3-way partitioning groups duplicate elements, guaranteeing O(N) performance on duplicate-heavy arrays."
+  ],
+  "projectStep": {
+    "title": "Quick Sort & Quick Select Implementation",
+    "steps": [
+      "Implement Lomuto and Hoare partition subroutines.",
+      "Build quickSelect to find Kth largest elements in average O(N) time.",
+      "Implement threeWayQuickSort with Dutch National Flag duplicate grouping."
+    ]
+  }
+},
+{
+  "day": 14,
+  "title": "Non-Comparison Sorting: Counting Sort & Radix Sort",
+  "goal": "Sort integers in O(N + K) linear time by exploiting key distributions and byte digit buckets.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered comparison-based Quick Sort and Quick Select. Today we break through the theoretical O(N log N) comparison barrier by exploiting numerical key properties to sort in linear O(N) time.",
+  "parts": [
+    {
+      "title": "Comparison Lower Bound & Non-Comparison Feasibility",
+      "say": [
+        "In computer science, a comparison sort determines ordering exclusively by comparing pairs of elements with the less-than operator.",
+        "Any comparison sort can be modeled as a binary decision tree where each leaf represents one of N! possible permutations.",
+        "A binary tree with N! leaves must have a minimum height of ceil(log2(N!)), which by Stirling's approximation is Omega(N log N).",
+        "Therefore, no comparison-based sorting algorithm (including Merge Sort, Quick Sort, or Heap Sort) can ever beat O(N log N) in the worst case.",
+        "However, this lower bound applies strictly to algorithms that rely solely on pairwise element comparisons.",
+        "If we know additional information about our keys—such as keys being integers within a bounded range—we can bypass comparisons entirely.",
+        "Non-comparison sorting algorithms exploit the mathematical structure of keys, using digit values or integer values as direct array indices.",
+        "By mapping values directly to index buckets, algorithms like Counting Sort and Radix Sort achieve linear O(N + K) time.",
+        "Understanding this theoretical boundary enables engineers to select the optimal sorting strategy for specialized high-throughput systems."
+      ],
+      "example": "Sorting numbered raffle tickets: instead of comparing ticket 42 with ticket 87, you walk directly to bucket 42 and drop the ticket in.",
+      "code": "function compareTheoreticalBounds(n: number): string {\n  // Stirling approximation: log2(n!) ~= n*log2(n) - n*log2(e)\n  const comparisonBound = Math.round(n * Math.log2(n) - n * Math.log2(Math.E));\n  const nonComparisonBound = n; // O(N) when K <= N\n  return `N=${n}: Comparison Min Ops = ${comparisonBound}, Non-Comparison Linear Ops = ${nonComparisonBound}`;\n}\n\nconsole.log(compareTheoreticalBounds(10));\nconsole.log(compareTheoreticalBounds(100));\nconsole.log(compareTheoreticalBounds(1000));",
+      "output": "N=10: Comparison Min Ops = 19, Non-Comparison Linear Ops = 10\nN=100: Comparison Min Ops = 520, Non-Comparison Linear Ops = 100\nN=1000: Comparison Min Ops = 8523, Non-Comparison Linear Ops = 1000",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Computes theoretical minimum comparison count log2(N!) using Stirling's approximation."
+        },
+        {
+          "line": 4,
+          "note": "Demonstrates linear scaling advantage when non-comparison sorting conditions are met."
+        }
+      ],
+      "tryIt": "Calculate bounds for N=10000 and observe that linear sorting is over 10x faster theoretically.",
+      "check": {
+        "question": "Why can non-comparison sorting algorithms achieve O(N) time while comparison sorts cannot beat O(N log N)?",
+        "options": [
+          "They treat keys as integer indices rather than performing pairwise comparisons, bypassing the decision tree lower bound",
+          "They use multi-threaded GPU processors",
+          "They only sort the first half of the array"
+        ],
+        "answer": 0,
+        "why": "Using keys directly as array indices bypasses the binary decision tree height constraint of log2(N!)."
+      }
+    },
+    {
+      "title": "Counting Sort with Prefix Sum Reconstruction",
+      "say": [
+        "Counting Sort works by counting the occurrences of each distinct key value in an auxiliary frequency array.",
+        "First, we find the minimum and maximum values in the input array to determine the range K = max - min + 1.",
+        "We allocate a count array of size K, initialized to zero, and iterate through the input to increment counts for each element.",
+        "To make Counting Sort stable, we transform the count array into a prefix sum array where count[i] stores the cumulative count of elements <= i.",
+        "The prefix sum array indicates the exact ending position of each value in the final output array.",
+        "We then iterate through the original array in reverse order, placing each element at its prefix-sum index and decrementing the count.",
+        "Iterating in reverse preserves stability: identical elements maintain their original relative order in the output.",
+        "The time complexity is O(N + K) where N is the number of elements and K is the range of values.",
+        "When K is O(N) (range is proportional to element count), Counting Sort runs in strict linear O(N) time.",
+        "However, if K is extremely large (e.g., sorting [1, 10^9]), allocating the count array causes severe memory exhaustion."
+      ],
+      "example": "Tallying votes in an election with 5 candidates: count the ballots for each candidate, then line up voters by candidate in one continuous line.",
+      "code": "function countingSort(nums: number[]): number[] {\n  if (nums.length <= 1) return nums;\n  const min = Math.min(...nums);\n  const max = Math.max(...nums);\n  const range = max - min + 1;\n\n  const count = new Array(range).fill(0);\n  for (const n of nums) count[n - min]++;\n\n  // Build prefix sums\n  for (let i = 1; i < range; i++) count[i] += count[i - 1];\n\n  const output = new Array(nums.length);\n  // Iterate backward for stability\n  for (let i = nums.length - 1; i >= 0; i--) {\n    const val = nums[i];\n    const targetIdx = count[val - min] - 1;\n    output[targetIdx] = val;\n    count[val - min]--;\n  }\n  return output;\n}\n\nconst input = [4, 2, 2, 8, 3, 3, 1];\nconsole.log('Counting sorted:', JSON.stringify(countingSort(input)));",
+      "output": "Counting sorted: [1,2,2,3,3,4,8]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Counts frequencies of each integer offset by min."
+        },
+        {
+          "line": 11,
+          "note": "Computes prefix sums so count[i] gives ending index position."
+        },
+        {
+          "line": 15,
+          "note": "Traverses backward to preserve stability for duplicate items."
+        }
+      ],
+      "tryIt": "Sort [10, -2, 5, 0, -2, 5] and verify negative numbers are handled via min offset.",
+      "check": {
+        "question": "When is Counting Sort practical to use over Quick Sort or Merge Sort?",
+        "options": [
+          "When the range of integer values K is small and roughly proportional to the number of elements N (K = O(N))",
+          "When sorting arbitrary strings of varying lengths",
+          "When memory is extremely limited and K = 1,000,000,000"
+        ],
+        "answer": 0,
+        "why": "Counting Sort requires O(K) space for the count array; it is only efficient when the range K is compact."
+      }
+    },
+    {
+      "title": "Dutch National Flag Algorithm (3-Way In-Place Sort)",
+      "say": [
+        "A special case of non-comparison sorting occurs when the input contains only three distinct key values (e.g., 0, 1, and 2).",
+        "The Dutch National Flag problem, proposed by Edsger Dijkstra, sorts such arrays in a single pass with O(1) auxiliary space.",
+        "Instead of allocating count arrays, we maintain three pointers dividing the array into four regions: red (0s), white (1s), unexamined, and blue (2s).",
+        "Pointer low tracks the boundary of 0s; pointer mid tracks the current element; pointer high tracks the boundary of 2s.",
+        "If arr[mid] is 0, we swap arr[low] with arr[mid], increment low, and increment mid.",
+        "If arr[mid] is 1, it belongs in the middle region, so we simply increment mid.",
+        "If arr[mid] is 2, we swap arr[mid] with arr[high] and decrement high (without incrementing mid, as the swapped element must be inspected).",
+        "The loop terminates when mid crosses high, guaranteeing all elements are sorted in exactly N iterations.",
+        "This algorithm requires zero auxiliary memory allocations, achieving optimal O(N) time and O(1) space."
+      ],
+      "example": "Sorting laundry into three piles (whites, colors, darks) in a single pass across a laundry basket using two sorting hands.",
+      "code": "function sortColors(nums: number[]): void {\n  let low = 0;\n  let mid = 0;\n  let high = nums.length - 1;\n\n  while (mid <= high) {\n    if (nums[mid] === 0) {\n      [nums[low], nums[mid]] = [nums[mid], nums[low]];\n      low++;\n      mid++;\n    } else if (nums[mid] === 1) {\n      mid++;\n    } else {\n      [nums[mid], nums[high]] = [nums[high], nums[mid]];\n      high--;\n    }\n  }\n}\n\nconst colors = [2, 0, 2, 1, 1, 0];\nsortColors(colors);\nconsole.log('Dutch National Flag sorted:', JSON.stringify(colors));",
+      "output": "Dutch National Flag sorted: [0,0,1,1,2,2]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Pushes 0s into the low region and advances both pointers."
+        },
+        {
+          "line": 13,
+          "note": "Pushes 2s into the high region; does not advance mid because swapped item must be evaluated."
+        }
+      ],
+      "tryIt": "Sort [2, 0, 1] and verify all three values end up in [0, 1, 2] order.",
+      "check": {
+        "question": "Why does the Dutch National Flag algorithm not increment 'mid' when swapping with 'high'?",
+        "options": [
+          "The element swapped from 'high' was previously unexamined and must be evaluated on the next iteration",
+          "Because high is always smaller than mid",
+          "Because mid must only advance on even iterations"
+        ],
+        "answer": 0,
+        "why": "The element at 'high' has not been inspected yet; advancing mid would skip validating that element."
+      }
+    },
+    {
+      "title": "Least Significant Digit (LSD) Radix Sort",
+      "say": [
+        "When integer keys span a large range, Counting Sort becomes impractical due to massive count array allocations.",
+        "Radix Sort solves this limitation by sorting numbers digit by digit, from the Least Significant Digit (LSD) to the Most Significant Digit (MSD).",
+        "At each digit place (units, tens, hundreds, thousands), Radix Sort uses a stable sub-sort—typically Counting Sort—with a base of 10.",
+        "Because the base is fixed at 10, each digit pass requires a count array of only 10 buckets (indices 0 through 9).",
+        "Crucially, the sub-sorting algorithm MUST be stable; if two numbers share the same tens digit, their relative units digit order must be preserved.",
+        "After D passes (where D is the number of digits in the maximum value), the entire array is completely sorted.",
+        "The time complexity is O(D * (N + B)) where D is digits, N is elements, and B is the number base (typically 10 or 256 for bytes).",
+        "When D is treated as a small constant, Radix Sort achieves strict linear O(N) performance on arbitrary integer arrays.",
+        "Radix Sort powers high-performance network packet sorting, graphics vertex processing, and financial ticker ordering engines."
+      ],
+      "example": "Sorting playing cards by rank and suit: first sort all cards by rank (2 through Ace), then stably sort them into four suit piles.",
+      "code": "function radixSort(nums: number[]): number[] {\n  if (nums.length <= 1) return nums;\n  const max = Math.max(...nums);\n\n  // Run counting sort for each digit exp (1, 10, 100, ...)\n  for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {\n    const count = new Array(10).fill(0);\n    const output = new Array(nums.length);\n\n    for (const n of nums) {\n      const digit = Math.floor(n / exp) % 10;\n      count[digit]++;\n    }\n    for (let i = 1; i < 10; i++) count[i] += count[i - 1];\n\n    for (let i = nums.length - 1; i >= 0; i--) {\n      const digit = Math.floor(nums[i] / exp) % 10;\n      output[count[digit] - 1] = nums[i];\n      count[digit]--;\n    }\n    for (let i = 0; i < nums.length; i++) nums[i] = output[i];\n  }\n  return nums;\n}\n\nconst data = [170, 45, 75, 90, 802, 24, 2, 66];\nconsole.log('Radix sorted:', JSON.stringify(radixSort(data)));",
+      "output": "Radix sorted: [2,24,45,66,75,90,170,802]",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Loops over digit positions: 1 (units), 10 (tens), 100 (hundreds)."
+        },
+        {
+          "line": 16,
+          "note": "Stable backward iteration places numbers according to current digit prefix sums."
+        }
+      ],
+      "tryIt": "Sort [329, 457, 657, 839, 436, 720, 355] and verify the output is fully sorted.",
+      "check": {
+        "question": "Why must the digit sub-sorting algorithm in LSD Radix Sort be stable?",
+        "options": [
+          "To preserve the sorted order established by less significant digits when sorting by more significant digits",
+          "To keep memory usage under 10 megabytes",
+          "Because unstable sorts cannot sort numbers larger than 100"
+        ],
+        "answer": 0,
+        "why": "If the sub-sort were unstable, sorting by tens would shuffle the units order, destroying earlier digit work."
+      }
+    },
+    {
+      "title": "Bucket Sort for Uniformly Distributed Data",
+      "say": [
+        "Bucket Sort distributes elements across a fixed number of buckets, sorts each bucket individually, and concatenates the results.",
+        "Bucket Sort is ideally suited for floating-point numbers uniformly distributed across a known range, such as [0.0, 1.0).",
+        "We create N empty buckets and map each value to a bucket index using the formula: index = Math.floor(value * N).",
+        "Under uniform distribution, each bucket receives an expected O(1) number of elements.",
+        "Each bucket is sorted using a simple sorting algorithm like Insertion Sort; since buckets contain very few elements, this is near-instant.",
+        "Finally, we iterate through the buckets in order, appending their sorted elements into the final output array.",
+        "When inputs are uniformly distributed, Bucket Sort achieves linear O(N) average-case time complexity.",
+        "However, if elements cluster heavily into a single bucket, performance degrades to the complexity of the bucket sort algorithm (O(N^2)).",
+        "Bucket Sort is widely used in geospatial indexing, histogram equalization in image processing, and external merge buffers."
+      ],
+      "example": "Sorting mail by zip code: letters are distributed into zip code mailbags, each mailbag is sorted by street address, and bags are packed in numerical zip code order.",
+      "code": "function bucketSort(arr: number[]): number[] {\n  if (arr.length <= 1) return arr;\n  const n = arr.length;\n  const buckets: number[][] = Array.from({ length: n }, () => []);\n\n  // Distribute into buckets\n  for (const x of arr) {\n    const bIdx = Math.min(n - 1, Math.floor(x * n));\n    buckets[bIdx].push(x);\n  }\n\n  // Sort each bucket and concatenate\n  const result: number[] = [];\n  for (const bucket of buckets) {\n    bucket.sort((a, b) => a - b);\n    result.push(...bucket);\n  }\n  return result;\n}\n\nconst floats = [0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12];\nconst sortedFloats = bucketSort(floats);\nconsole.log('Bucket sorted floats:', sortedFloats.map(x => x.toFixed(2)).join(', '));",
+      "output": "Bucket sorted floats: 0.12, 0.17, 0.21, 0.26, 0.39, 0.72, 0.78, 0.94",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Maps floating point number in [0, 1) to bucket index in O(1) time."
+        },
+        {
+          "line": 15,
+          "note": "Sorts each small bucket independently and concatenates them in order."
+        }
+      ],
+      "tryIt": "Pass [0.5, 0.2, 0.8, 0.1] and verify it returns [0.1, 0.2, 0.5, 0.8].",
+      "check": {
+        "question": "Under what input condition does Bucket Sort achieve optimal O(N) average time?",
+        "options": [
+          "When elements are uniformly distributed across the interval, distributing a constant number of items per bucket",
+          "When all elements have the exact same value",
+          "When the input array is already sorted in reverse order"
+        ],
+        "answer": 0,
+        "why": "Uniform distribution ensures each of the N buckets receives O(1) expected elements, making per-bucket sorting O(1)."
+      }
+    },
+    {
+      "title": "Sorting Algorithm Taxonomy & Decision Matrix",
+      "say": [
+        "We now synthesize the complete landscape of sorting algorithms into a production engineering decision matrix.",
+        "Quick Sort is the default general-purpose in-place sort: O(N log N) average time, O(log N) space, but unstable.",
+        "Merge Sort is the gold standard for stability and guaranteed worst-case bounds: O(N log N) always, but requires O(N) auxiliary space.",
+        "Heap Sort provides O(N log N) worst-case time with strict O(1) auxiliary space, but suffers from poor cache locality.",
+        "Counting Sort runs in linear O(N + K) time, ideal for integers when range K <= O(N).",
+        "Radix Sort sorts large integers in O(D * N) time with small bucket overhead, beating comparison sorts for large datasets.",
+        "Insertion Sort excels on small arrays (N < 32) and nearly-sorted data, operating in O(N) time with zero allocation overhead.",
+        "Production engines like V8 and Java implement hybrid sorters (Timsort or Dual-Pivot Quicksort) that switch algorithms dynamically based on size.",
+        "Today you have mastered the theoretical limits of sorting, non-comparison linear techniques, and architectural trade-offs across all major sorting families."
+      ],
+      "example": "A master mechanic choosing tools: a socket wrench for standard bolts (Quick Sort), a torque wrench when precision matters (Merge Sort), and an automated sorter for sorting thousands of identical screws (Counting Sort).",
+      "code": "interface SortAlgorithmInfo {\n  name: string;\n  best: string;\n  avg: string;\n  worst: string;\n  space: string;\n  stable: boolean;\n}\n\nconst sortingTaxonomy: SortAlgorithmInfo[] = [\n  { name: 'QuickSort', best: 'O(N log N)', avg: 'O(N log N)', worst: 'O(N^2)', space: 'O(log N)', stable: false },\n  { name: 'MergeSort', best: 'O(N log N)', avg: 'O(N log N)', worst: 'O(N log N)', space: 'O(N)', stable: true },\n  { name: 'CountingSort', best: 'O(N+K)', avg: 'O(N+K)', worst: 'O(N+K)', space: 'O(K)', stable: true },\n  { name: 'RadixSort', best: 'O(D*N)', avg: 'O(D*N)', worst: 'O(D*N)', space: 'O(N+B)', stable: true }\n];\n\nfor (const s of sortingTaxonomy) {\n  console.log(`${s.name.padEnd(14)}: Avg=${s.avg.padEnd(10)} Worst=${s.worst.padEnd(10)} Stable=${s.stable}`);\n}",
+      "output": "QuickSort     : Avg=O(N log N) Worst=O(N^2)     Stable=false\nMergeSort     : Avg=O(N log N) Worst=O(N log N) Stable=true\nCountingSort  : Avg=O(N+K)     Worst=O(N+K)     Stable=true\nRadixSort     : Avg=O(D*N)     Worst=O(D*N)     Stable=true",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Summarizes the fundamental asymptotic complexity and stability matrix across algorithm families."
+        },
+        {
+          "line": 18,
+          "note": "Demonstrates that non-comparison sorts trade key-type generality for linear O(N) speed."
+        }
+      ],
+      "tryIt": "Verify that CountingSort and MergeSort are both stable, while QuickSort is unstable.",
+      "check": {
+        "question": "Which sorting algorithm provides guaranteed O(N log N) worst-case time while maintaining stability?",
+        "options": [
+          "Merge Sort",
+          "Quick Sort",
+          "Heap Sort"
+        ],
+        "answer": 0,
+        "why": "Merge Sort is stable and guaranteed O(N log N) in all cases; Quick Sort can degrade to O(N^2) and is unstable; Heap Sort is unstable."
+      }
+    }
+  ],
+  "summary": [
+    "Comparison sorting has a theoretical lower bound of Omega(N log N) derived from binary decision tree heights log2(N!).",
+    "Counting Sort achieves linear O(N + K) time by tallying frequencies in an index array and reconstructing via prefix sums.",
+    "Dutch National Flag sorts three distinct keys (0, 1, 2) in a single pass with O(1) auxiliary space.",
+    "LSD Radix Sort processes numbers digit by digit using stable counting sort passes, scaling in O(D * N) time.",
+    "Bucket Sort achieves O(N) average time for uniformly distributed floats by dividing inputs into localized buckets."
+  ],
+  "projectStep": {
+    "title": "Non-Comparison Sorting Suite Implementation",
+    "steps": [
+      "Implement stable countingSort with prefix sum index mapping.",
+      "Implement sortColors using Dijkstra's Dutch National Flag 3-pointer partition.",
+      "Build LSD radixSort supporting arbitrary positive integer arrays."
+    ]
+  }
+},
+{
+  "day": 15,
+  "title": "⭐ MILESTONE 2: High-Throughput Stream Median Finder (Dual Binary Heaps)",
+  "goal": "Milestone 2: Build a real-time data stream median tracker operating in O(log N) insertions and O(1) median lookups using balanced Min and Max Heaps.",
+  "minutes": 25,
+  "recap": "Welcome to Milestone 2! Today you will architect and engineer an enterprise-grade real-time stream median finder. By pairing a MaxHeap and a MinHeap, you will compute streaming medians in O(1) time.",
+  "parts": [
+    {
+      "title": "Stream Median Problem & The Dual Heap Architecture",
+      "say": [
+        "In modern data streaming architectures, numerical observations arrive continuously at rates exceeding thousands of events per second.",
+        "Calculating the median of a dynamic data stream is a foundational requirement for latency monitoring, anomaly detection, and fraud scoring.",
+        "The median is the middle value in a sorted sequence, dividing the dataset into an equal lower half and upper half.",
+        "A naive approach appends each incoming number to an array and sorts it on every insertion, costing O(N log N) per number and O(N^2 log N) overall.",
+        "An insertion-sort approach uses binary search to find the insertion point, taking O(log N) search but O(N) array shifting time.",
+        "The optimal production architecture uses two balanced binary heaps: a Max-Heap for the lower half and a Min-Heap for the upper half.",
+        "The Max-Heap stores the smaller half of all numbers seen so far, with its root providing the maximum of the lower half in O(1) time.",
+        "The Min-Heap stores the larger half of all numbers, with its root providing the minimum of the upper half in O(1) time.",
+        "The stream median is simply the average of both heap roots (if total count is even) or the root of the larger heap (if count is odd)."
+      ],
+      "example": "A balanced seesaw with two teams: the lighter half sits on the left side with their heaviest member at the fulcrum, and the heavier half sits on the right with their lightest member at the fulcrum.",
+      "code": "class MedianConceptPreview {\n  private lowerHalf = [1, 2, 3]; // Max-Heap conceptual root is 3\n  private upperHalf = [4, 5, 6]; // Min-Heap conceptual root is 4\n\n  getMedian(): number {\n    const maxLower = this.lowerHalf[this.lowerHalf.length - 1]; // 3\n    const minUpper = this.upperHalf[0];                         // 4\n    return (maxLower + minUpper) / 2;\n  }\n}\n\nconst preview = new MedianConceptPreview();\nconsole.log('Stream median of [1,2,3,4,5,6]:', preview.getMedian());",
+      "output": "Stream median of [1,2,3,4,5,6]: 3.5",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Max-Heap root gives maximum of lower half in O(1) constant time."
+        },
+        {
+          "line": 7,
+          "note": "Min-Heap root gives minimum of upper half in O(1) constant time."
+        },
+        {
+          "line": 8,
+          "note": "When counts are equal (even dataset), median is the arithmetic mean of both roots."
+        }
+      ],
+      "tryIt": "Add number 7 to upperHalf and verify that an odd-count median is simply the middle value.",
+      "check": {
+        "question": "Why does the Dual Heap architecture outperform an array-based insertion approach for streaming medians?",
+        "options": [
+          "Dual Heaps insert new elements in O(log N) time and query the median in O(1) time without O(N) array element shifting",
+          "Heaps use less memory than arrays",
+          "Arrays cannot store floating-point numbers"
+        ],
+        "answer": 0,
+        "why": "Array insertion requires O(N) shifting of elements; binary heaps insert in O(log N) and inspect roots in O(1)."
+      }
+    },
+    {
+      "title": "Binary Heap Invariants & Sift Mechanics",
+      "say": [
+        "To build our Dual Heap engine, we must understand the fundamental invariants of array-backed binary heaps.",
+        "A binary heap is a complete binary tree stored compactly inside a flat array without pointer objects.",
+        "For any node at array index i, its parent resides at Math.floor((i - 1) / 2), its left child at 2i + 1, and right child at 2i + 2.",
+        "In a Min-Heap, every parent node is less than or equal to its children: heap[parent] <= heap[child].",
+        "In a Max-Heap, every parent node is greater than or equal to its children: heap[parent] >= heap[child].",
+        "Insertion appends the new value to the end of the array and invokes siftUp(), bubbling the element upward until the heap invariant is restored.",
+        "Extraction reads the root at index 0, moves the last array element to index 0, and invokes siftDown() to sink it to its correct level.",
+        "Both siftUp() and siftDown() traverse at most the height of the tree, which is strictly bounded by ceil(log2(N)).",
+        "Thus, insertion (push) and extraction (pop) both execute in guaranteed O(log N) logarithmic time."
+      ],
+      "example": "A corporate hierarchy: a new employee joins at the bottom and gets promoted upward (siftUp); when the CEO departs, a replacement is hoisted to the top and demoted downward to their natural level (siftDown).",
+      "code": "class SimpleMinHeap {\n  private data: number[] = [];\n\n  push(val: number): void {\n    this.data.push(val);\n    let curr = this.data.length - 1;\n    while (curr > 0) {\n      const p = Math.floor((curr - 1) / 2);\n      if (this.data[p] <= this.data[curr]) break;\n      [this.data[p], this.data[curr]] = [this.data[curr], this.data[p]];\n      curr = p;\n    }\n  }\n\n  pop(): number | undefined {\n    if (this.data.length === 0) return undefined;\n    const top = this.data[0];\n    const last = this.data.pop()!;\n    if (this.data.length > 0) {\n      this.data[0] = last;\n      let curr = 0;\n      while (curr * 2 + 1 < this.data.length) {\n        let smallest = curr * 2 + 1;\n        const right = curr * 2 + 2;\n        if (right < this.data.length && this.data[right] < this.data[smallest]) smallest = right;\n        if (this.data[curr] <= this.data[smallest]) break;\n        [this.data[curr], this.data[smallest]] = [this.data[smallest], this.data[curr]];\n        curr = smallest;\n      }\n    }\n    return top;\n  }\n\n  peek(): number | undefined { return this.data[0]; }\n  size(): number { return this.data.length; }\n}\n\nconst h = new SimpleMinHeap();\nh.push(5); h.push(3); h.push(8); h.push(1);\nconsole.log('Min root:', h.peek());\nconsole.log('Popped:', h.pop());\nconsole.log('New min root:', h.peek());",
+      "output": "Min root: 1\nPopped: 1\nNew min root: 3",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Appends element and sifts up by comparing against parent (curr - 1) / 2."
+        },
+        {
+          "line": 15,
+          "note": "Extracts root, swaps last element to index 0, and sifts down to restore heap invariant."
+        }
+      ],
+      "tryIt": "Push numbers 10, 20, 2 and verify that pop() returns 2.",
+      "check": {
+        "question": "Why do binary heap operations (push and pop) run in O(log N) time?",
+        "options": [
+          "The tree is complete and balanced, so maximum height is log2(N); sifting traverses at most one path from root to leaf",
+          "Because heaps sort all elements sequentially on every push",
+          "Because binary heaps use JavaScript Map lookups"
+        ],
+        "answer": 0,
+        "why": "A complete binary tree has height ceil(log2(N)); siftUp and siftDown only travel along a single vertical branch."
+      }
+    },
+    {
+      "title": "Dual Heap Balancing Invariant & Sizing Rules",
+      "say": [
+        "To guarantee that our heaps accurately reflect the median, we must enforce two strict structural invariants.",
+        "Invariant 1 (Ordering): Every element in Max-Heap (lower half) must be less than or equal to every element in Min-Heap (upper half).",
+        "Invariant 2 (Balancing): The size of Max-Heap must be either equal to Min-Heap, or exactly one element larger: 0 <= (maxHeap.size - minHeap.size) <= 1.",
+        "When a new number arrives, we first determine which heap it belongs to by comparing it against the root of Max-Heap.",
+        "If the number is less than or equal to maxHeap.peek(), it belongs in the lower half and is pushed into Max-Heap.",
+        "Otherwise, it belongs in the upper half and is pushed into Min-Heap.",
+        "After insertion, we inspect heap sizes: if Max-Heap has more than one extra element, we pop from Max-Heap and push into Min-Heap.",
+        "If Min-Heap has more elements than Max-Heap, we pop from Min-Heap and push into Max-Heap.",
+        "These rebalancing transfers take O(log N) time and guarantee that the median is always accessible at the roots in O(1) time."
+      ],
+      "example": "Two balanced water buckets on a balance beam: whenever one bucket gains more than one cup over the other, you pour one cup across to equalize the weight.",
+      "code": "class DualHeapSizingSimulation {\n  maxHeapSize = 0;\n  minHeapSize = 0;\n\n  recordBalance(): string {\n    const diff = this.maxHeapSize - this.minHeapSize;\n    const isValid = diff === 0 || diff === 1;\n    return `MaxHeap=${this.maxHeapSize}, MinHeap=${this.minHeapSize}, diff=${diff}, valid=${isValid}`;\n  }\n}\n\nconst sim = new DualHeapSizingSimulation();\nsim.maxHeapSize = 3; sim.minHeapSize = 3;\nconsole.log('Even state:', sim.recordBalance());\nsim.maxHeapSize = 4; sim.minHeapSize = 3;\nconsole.log('Odd state (maxHeap has +1):', sim.recordBalance());\nsim.maxHeapSize = 5; sim.minHeapSize = 3;\nconsole.log('Invalid state (needs rebalance):', sim.recordBalance());",
+      "output": "Even state: MaxHeap=3, MinHeap=3, diff=0, valid=true\nOdd state (maxHeap has +1): MaxHeap=4, MinHeap=3, diff=1, valid=true\nInvalid state (needs rebalance): MaxHeap=5, MinHeap=3, diff=2, valid=false",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Enforces invariant: maxHeap size may only exceed minHeap by at most 1 element."
+        },
+        {
+          "line": 17,
+          "note": "When difference reaches 2, one element must be transferred to restore equilibrium."
+        }
+      ],
+      "tryIt": "Simulate a transfer by setting maxHeapSize to 4 and minHeapSize to 4, verifying validity.",
+      "check": {
+        "question": "What is the maximum allowed size difference between Max-Heap and Min-Heap in the Dual Heap algorithm?",
+        "options": [
+          "Max-Heap may have at most 1 more element than Min-Heap; Min-Heap may never have more elements than Max-Heap",
+          "The size difference can be up to N / 2 elements",
+          "Both heaps must always have the exact same size at all times"
+        ],
+        "answer": 0,
+        "why": "By convention, Max-Heap holds the extra odd element, restricting size difference strictly to 0 (even) or 1 (odd)."
+      }
+    },
+    {
+      "title": "O(1) Instant Median Query Mechanics",
+      "say": [
+        "With both heap invariants strictly maintained, calculating the median becomes an instantaneous O(1) constant-time operation.",
+        "We first inspect the total count of elements across both heaps: total = maxHeap.size + minHeap.size.",
+        "If total is an odd number, Invariant 2 guarantees that Max-Heap contains the single extra middle element.",
+        "Therefore, for odd datasets, the median is exactly maxHeap.peek(), retrieved in O(1) time without any arithmetic.",
+        "If total is an even number, both heaps contain the exact same number of elements.",
+        "The median is the arithmetic mean of the two middle elements: (maxHeap.peek() + minHeap.peek()) / 2.",
+        "Retrieving the root of both heaps takes O(1) time, and floating-point division takes O(1) time, preserving O(1) query complexity.",
+        "This architectural separation of concerns—O(log N) writes to maintain invariants, and O(1) reads for instant querying—is the hallmark of high-throughput design.",
+        "Financial trading algorithms rely on this exact pattern to compute rolling tick price medians during market volatility spikes."
+      ],
+      "example": "A judge finding the median test score in a class: the teacher hands over the top paper from the lower-scoring stack and the bottom paper from the higher-scoring stack.",
+      "code": "function computeMedianFromRoots(maxRoot: number, minRoot: number, isEven: boolean): number {\n  if (!isEven) return maxRoot;\n  return (maxRoot + minRoot) / 2;\n}\n\nconsole.log('Odd count (maxRoot=10):', computeMedianFromRoots(10, 15, false));\nconsole.log('Even count (maxRoot=10, minRoot=20):', computeMedianFromRoots(10, 20, true));\nconsole.log('Even count equal roots (5, 5):', computeMedianFromRoots(5, 5, true));",
+      "output": "Odd count (maxRoot=10): 10\nEven count (maxRoot=10, minRoot=20): 15\nEven count equal roots (5, 5): 5",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "For odd counts, Max-Heap holds the solitary middle element."
+        },
+        {
+          "line": 3,
+          "note": "For even counts, median is the average of the lower-half max and upper-half min."
+        }
+      ],
+      "tryIt": "Pass maxRoot=7, minRoot=8 with isEven=true and verify the returned median is 7.5.",
+      "check": {
+        "question": "What is the time complexity of querying the median in a balanced Dual Heap system?",
+        "options": [
+          "O(1) constant time because the median elements are always stored at the roots of the two heaps",
+          "O(log N) time to rebalance the tree",
+          "O(N) time to scan the heap array"
+        ],
+        "answer": 0,
+        "why": "Peeking at array index 0 in both heaps takes O(1) time; computing the average takes O(1) time."
+      }
+    },
+    {
+      "title": "Generic Comparator Binary Heap Implementation",
+      "say": [
+        "In production TypeScript applications, writing separate classes for MinHeap and MaxHeap creates redundant, duplicate code.",
+        "A cleaner architectural solution is a generic BinaryHeap<T> class that accepts a custom comparator function: (a, b) => number.",
+        "For a Min-Heap, the comparator returns a negative number when a < b: (a, b) => a - b.",
+        "For a Max-Heap, the comparator reverses the subtraction: (a, b) => b - a.",
+        "The internal siftUp and siftDown methods use this comparator to evaluate ordering, unifying both heap types under a single implementation.",
+        "This generic heap supports numbers, strings, composite objects, and prioritized job tickets with equal fidelity.",
+        "Defensive bounds checking ensures that peek() and pop() on an empty heap return undefined without throwing unhandled exceptions.",
+        "The underlying dynamic array resizes automatically as new elements arrive, providing amortized O(1) storage growth.",
+        "This generic comparator heap is the primary reusable building block we will use across all future graph and priority queue milestones."
+      ],
+      "example": "A multi-purpose sorting hopper: by flipping a switch from 'Ascending' to 'Descending', the exact same mechanical gears sort heaviest-first or lightest-first.",
+      "code": "class Heap<T> {\n  private data: T[] = [];\n  constructor(private compare: (a: T, b: T) => number) {}\n\n  push(val: T): void {\n    this.data.push(val);\n    let curr = this.data.length - 1;\n    while (curr > 0) {\n      const p = Math.floor((curr - 1) / 2);\n      if (this.compare(this.data[p], this.data[curr]) <= 0) break;\n      [this.data[p], this.data[curr]] = [this.data[curr], this.data[p]];\n      curr = p;\n    }\n  }\n\n  pop(): T | undefined {\n    if (this.data.length === 0) return undefined;\n    const top = this.data[0];\n    const last = this.data.pop()!;\n    if (this.data.length > 0) {\n      this.data[0] = last;\n      let curr = 0;\n      while (curr * 2 + 1 < this.data.length) {\n        let best = curr * 2 + 1;\n        const right = curr * 2 + 2;\n        if (right < this.data.length && this.compare(this.data[right], this.data[best]) < 0) best = right;\n        if (this.compare(this.data[curr], this.data[best]) <= 0) break;\n        [this.data[curr], this.data[best]] = [this.data[best], this.data[curr]];\n        curr = best;\n      }\n    }\n    return top;\n  }\n\n  peek(): T | undefined { return this.data[0]; }\n  size(): number { return this.data.length; }\n}\n\nconst minHeap = new Heap<number>((a, b) => a - b);\nconst maxHeap = new Heap<number>((a, b) => b - a);\n\n[5, 2, 8, 1].forEach(x => { minHeap.push(x); maxHeap.push(x); });\nconsole.log('MinHeap root:', minHeap.peek());\nconsole.log('MaxHeap root:', maxHeap.peek());",
+      "output": "MinHeap root: 1\nMaxHeap root: 8",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Constructor accepts custom comparator; (a, b) => a - b yields MinHeap, (a, b) => b - a yields MaxHeap."
+        },
+        {
+          "line": 39,
+          "note": "Instantiates both heap variants cleanly from the exact same generic class."
+        }
+      ],
+      "tryIt": "Push 10 to both heaps and verify maxHeap root updates to 10 while minHeap root stays 1.",
+      "check": {
+        "question": "How does a single generic Heap class implement both Min-Heap and Max-Heap behavior?",
+        "options": [
+          "By accepting a comparator function (a, b) => number that defines priority ordering during siftUp and siftDown",
+          "By maintaining two separate internal arrays",
+          "By sorting the array in reverse order"
+        ],
+        "answer": 0,
+        "why": "Inverting the comparator from (a - b) to (b - a) reverses the parent-child ordering check across all heap methods."
+      }
+    },
+    {
+      "title": "Full Milestone 2 Production Stream Median Engine",
+      "say": [
+        "We now assemble our complete production-grade Stream Median Finder for Milestone 2.",
+        "Our engine instantiates a private Max-Heap for the lower half and a Min-Heap for the upper half using our generic Heap class.",
+        "The addNum(num) method places incoming numbers into the appropriate heap and triggers automatic rebalancing in O(log N) time.",
+        "The findMedian() method inspects heap sizes and returns either maxHeap.peek() or the average of both roots in O(1) time.",
+        "Auxiliary space complexity is strictly bounded by O(N) total elements stored across both flat array buffers.",
+        "We verify our engine against edge cases: inserting into an empty stream, handling duplicate numbers, negative values, and alternating extremes.",
+        "Under sustained streaming loads, this architecture delivers sub-millisecond median calculations with predictable, zero-jitter latency.",
+        "Congratulations on completing Milestone 2: you have engineered an essential high-throughput data structure used across modern financial and telemetry systems.",
+        "This dual-heap balancing technique forms the foundation for sliding window quantiles, order-book depth matching, and streaming percentiles."
+      ],
+      "example": "A real-time telemetry dashboard monitoring server response latency: as millions of API request durations pour in, the dashboard displays the exact live median response time without pausing or lagging.",
+      "code": "class Heap<T> {\n  private data: T[] = [];\n  constructor(private compare: (a: T, b: T) => number) {}\n  push(val: T): void {\n    this.data.push(val);\n    let curr = this.data.length - 1;\n    while (curr > 0) {\n      const p = Math.floor((curr - 1) / 2);\n      if (this.compare(this.data[p], this.data[curr]) <= 0) break;\n      [this.data[p], this.data[curr]] = [this.data[curr], this.data[p]];\n      curr = p;\n    }\n  }\n  pop(): T | undefined {\n    if (this.data.length === 0) return undefined;\n    const top = this.data[0];\n    const last = this.data.pop()!;\n    if (this.data.length > 0) {\n      this.data[0] = last;\n      let curr = 0;\n      while (curr * 2 + 1 < this.data.length) {\n        let best = curr * 2 + 1;\n        const right = curr * 2 + 2;\n        if (right < this.data.length && this.compare(this.data[right], this.data[best]) < 0) best = right;\n        if (this.compare(this.data[curr], this.data[best]) <= 0) break;\n        [this.data[curr], this.data[best]] = [this.data[best], this.data[curr]];\n        curr = best;\n      }\n    }\n    return top;\n  }\n  peek(): T | undefined { return this.data[0]; }\n  size(): number { return this.data.length; }\n}\n\nclass MedianFinder {\n  private maxHeap = new Heap<number>((a, b) => b - a); // Lower half\n  private minHeap = new Heap<number>((a, b) => a - b); // Upper half\n\n  addNum(num: number): void {\n    if (this.maxHeap.size() === 0 || num <= this.maxHeap.peek()!) {\n      this.maxHeap.push(num);\n    } else {\n      this.minHeap.push(num);\n    }\n\n    // Rebalance sizes\n    if (this.maxHeap.size() > this.minHeap.size() + 1) {\n      this.minHeap.push(this.maxHeap.pop()!);\n    } else if (this.minHeap.size() > this.maxHeap.size()) {\n      this.maxHeap.push(this.minHeap.pop()!);\n    }\n  }\n\n  findMedian(): number {\n    if (this.maxHeap.size() > this.minHeap.size()) {\n      return this.maxHeap.peek()!;\n    }\n    return (this.maxHeap.peek()! + this.minHeap.peek()!) / 2;\n  }\n}\n\nconst mf = new MedianFinder();\nmf.addNum(1);\nconsole.log('After [1] median:', mf.findMedian());\nmf.addNum(2);\nconsole.log('After [1, 2] median:', mf.findMedian());\nmf.addNum(3);\nconsole.log('After [1, 2, 3] median:', mf.findMedian());\nmf.addNum(100);\nconsole.log('After [1, 2, 3, 100] median:', mf.findMedian());",
+      "output": "After [1] median: 1\nAfter [1, 2] median: 1.5\nAfter [1, 2, 3] median: 2\nAfter [1, 2, 3, 100] median: 2.5",
+      "codeNotes": [
+        {
+          "line": 43,
+          "note": "Routes new number to lower half (maxHeap) or upper half (minHeap) based on current lower root."
+        },
+        {
+          "line": 49,
+          "note": "Rebalances sizes: maintains maxHeap.size == minHeap.size or maxHeap.size == minHeap.size + 1."
+        },
+        {
+          "line": 58,
+          "note": "Calculates median in O(1) time: odd returns maxHeap root, even returns average of both roots."
+        }
+      ],
+      "tryIt": "Add numbers 0 and -5 to mf and observe the median dynamically adjusts correctly.",
+      "check": {
+        "question": "What are the time and auxiliary space complexities of class MedianFinder for addNum() and findMedian()?",
+        "options": [
+          "O(log N) for addNum, O(1) for findMedian, O(N) auxiliary space",
+          "O(1) for addNum, O(N log N) for findMedian, O(N^2) space",
+          "O(N) for addNum, O(1) for findMedian, O(1) space"
+        ],
+        "answer": 0,
+        "why": "Heap insertion and rebalancing take O(log N) time; median lookup accesses array index 0 in O(1) time; memory is O(N) for all elements."
+      }
+    }
+  ],
+  "summary": [
+    "Stream median tracking requires dynamic partitioning: naive sorting takes O(N^2 log N), while Dual Heaps achieve O(N log N).",
+    "Max-Heap holds the smaller half of numbers; Min-Heap holds the larger half.",
+    "Invariant 1: All elements in Max-Heap <= all elements in Min-Heap.",
+    "Invariant 2: Size difference is maintained at 0 <= (maxHeap.size - minHeap.size) <= 1 via O(log N) rebalancing.",
+    "findMedian() operates in strict O(1) time by querying heap roots: maxRoot (odd) or (maxRoot + minRoot) / 2 (even)."
+  ],
+  "projectStep": {
+    "title": "High-Throughput Stream Median Engine Implementation",
+    "steps": [
+      "Implement a generic Heap<T> class with comparator-driven siftUp and siftDown.",
+      "Implement addNum with automatic partition routing and size rebalancing.",
+      "Implement findMedian achieving instant O(1) median retrieval."
+    ]
+  }
+}
 ];
