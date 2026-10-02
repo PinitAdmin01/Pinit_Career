@@ -1275,5 +1275,1281 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "Configure SSM Session Manager IAM instance profiles and verify secure, keyless terminal access to private instances"
       ]
     }
+  },
+  {
+    "day": 6,
+    "title": "IAM Role Least-Privilege, Policies & Principal Trust",
+    "goal": "Formulate least-privilege IAM policies, manage IAM roles, and configure principal trust relationships for compute workloads.",
+    "minutes": 25,
+    "recap": "Yesterday we completed Milestone 1 by building a production multi-AZ VPC. Today we master Identity and Access Management (IAM): controlling exactly who and what can perform actions on your cloud resources.",
+    "parts": [
+      {
+        "title": "IAM Architecture: Users, Groups, and the Root Account",
+        "say": [
+          "AWS Identity and Access Management, or IAM, forms the security control plane governing authentication and authorization across all cloud resources.",
+          "At the apex of an AWS account sits the Root User, created when the account is initially registered with an email address.",
+          "The Root User possesses irrevocable, omnipotent administrative superpowers over every resource, service, and billing configuration in the account.",
+          "Best practice mandates that the Root User credentials should never be utilized for everyday engineering tasks, automation scripts, or API interactions.",
+          "You must lock away the root email and password, enable physical hardware Multi-Factor Authentication (MFA), and create zero programmatic access keys for root.",
+          "For human engineers, organizations configure IAM Identity Center with Single Sign-On (SSO) or create individual IAM Users.",
+          "IAM Groups act as collections of IAM users sharing identical job functions, such as Developers, SecurityAuditors, or DatabaseAdministrators.",
+          "Instead of attaching individual permissions to hundreds of separate human accounts, permissions are attached directly to the group.",
+          "When an employee transfers departments, removing them from the Developer group immediately strips all associated cloud privileges, enforcing clean governance.",
+          "IAM operates as a global service, meaning users, groups, and permissions are synchronized worldwide across all AWS regions instantaneously."
+        ],
+        "example": "A master building vault key kept in a bank safe deposit box for rare emergencies, while company employees are issued electronic keycards granting access only to their specific department offices.",
+        "code": "interface IamGroup {\n  groupName: string;\n  assignedPolicies: string[];\n  members: string[];\n}\n\nconst engineeringOrg: IamGroup[] = [\n  { groupName: 'Developers', assignedPolicies: ['ReadOnlyAccess', 'LambdaDeployerPolicy'], members: ['alice', 'bob'] },\n  { groupName: 'SecurityAuditors', assignedPolicies: ['SecurityAudit', 'CloudTrailReadOnly'], members: ['charlie'] },\n];\n\nfunction listUserPrivileges(user: string): string[] {\n  const groups = engineeringOrg.filter(g => g.members.includes(user));\n  return groups.flatMap(g => g.assignedPolicies);\n}\n\nconsole.log(`Privileges for alice: ${listUserPrivileges('alice').join(', ')}`);",
+        "output": "Privileges for alice: ReadOnlyAccess, LambdaDeployerPolicy",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Defines IAM groups associating standardized policies with authorized corporate users."
+          },
+          {
+            "line": 12,
+            "note": "Aggregates policies from all groups a user belongs to, demonstrating role-based access control."
+          }
+        ],
+        "tryIt": "Add a new member to SecurityAuditors and print their inherited audit privileges.",
+        "check": {
+          "question": "Why should everyday engineering tasks never be performed using the AWS Root User?",
+          "options": [
+            "Because the root user runs on slower compute hardware than normal IAM users",
+            "Because the root user has unlimited power and cannot be restricted by IAM policies, presenting severe security risk",
+            "Because AWS charges ten dollars every time the root user logs into the console"
+          ],
+          "answer": 1,
+          "why": "The root user has unlimited, unrestrictable permissions; compromising root means losing total control of the entire AWS account."
+        }
+      },
+      {
+        "title": "JSON Policy Structure: Effect, Action, Resource, Condition",
+        "say": [
+          "IAM permissions are formally declared as JSON documents known as IAM Policies.",
+          "Every permission statement inside an IAM policy relies on four core elements: Effect, Action, Resource, and Condition.",
+          "The Effect element specifies whether the statement explicitly allows or denies the requested action, taking the value 'Allow' or 'Deny'.",
+          "The Action element lists the specific AWS API operations being permitted, such as 's3:GetObject' or 'dynamodb:PutItem'.",
+          "The Resource element defines the Amazon Resource Name, or ARN, of the specific entity upon which the actions can occur.",
+          "Using wildcards like 's3:*' or 'Resource: *' violates the principle of least privilege by granting dangerous, blanket access across the entire account.",
+          "Finally, the Condition element establishes contextual restrictions that must be satisfied for the policy to apply.",
+          "Conditions can enforce multi-factor authentication, restrict access to a corporate IP address range, or require encrypted TLS connections.",
+          "Authoring tight, granular JSON policy statements ensures that compromised application credentials cannot be weaponized against unrelated resources."
+        ],
+        "example": "A signed search warrant allowing investigators to examine specific filing cabinets in Room 204 between 9 AM and 5 PM, while explicitly forbidding searching any other office or safe.",
+        "code": "interface PolicyStatement {\n  Effect: 'Allow' | 'Deny';\n  Action: string[];\n  Resource: string;\n  Condition?: Record<string, any>;\n}\n\nconst secureS3Policy: PolicyStatement = {\n  Effect: 'Allow',\n  Action: ['s3:GetObject', 's3:ListBucket'],\n  Resource: 'arn:aws:s3:::company-app-assets/*',\n  Condition: { Bool: { 'aws:SecureTransport': 'true' } }\n};\n\nconsole.log(`Policy Statement: Effect=${secureS3Policy.Effect} | Actions=${secureS3Policy.Action.join(', ')} | Resource=${secureS3Policy.Resource}`);",
+        "output": "Policy Statement: Effect=Allow | Actions=s3:GetObject, s3:ListBucket | Resource=arn:aws:s3:::company-app-assets/*",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Constructs a least-privilege IAM policy statement permitting specific S3 read actions on a single bucket."
+          },
+          {
+            "line": 12,
+            "note": "Applies a condition enforcing TLS encrypted transport for all data access requests."
+          }
+        ],
+        "tryIt": "Add an s3:PutObject action and observe how the policy expands to support file uploads.",
+        "check": {
+          "question": "What principle requires cloud architects to grant only the minimum permissions necessary for an application to perform its function?",
+          "options": [
+            "The Principle of Maximum Velocity",
+            "The Principle of Least Privilege",
+            "The Principle of Unrestricted Execution"
+          ],
+          "answer": 1,
+          "why": "The Principle of Least Privilege mandates granting only the minimum permissions necessary for an identity to complete its task."
+        }
+      },
+      {
+        "title": "IAM Roles and Instance Profiles",
+        "say": [
+          "One of the most dangerous anti-patterns in cloud computing is hardcoding static AWS Access Keys directly into application code or configuration files.",
+          "If a developer accidentally commits those access keys to a public GitHub repository, automated bots steal the credentials within seconds to deploy unauthorized crypto-miners.",
+          "AWS eliminates the need for hardcoded credentials entirely through IAM Roles.",
+          "An IAM Role is an identity that can be assumed by anyone or anything that needs temporary security credentials.",
+          "Unlike an IAM user, an IAM role does not possess a permanent password or permanent access keys.",
+          "To allow an Amazon EC2 instance to access cloud services, you attach the IAM Role to an Instance Profile, which is then assigned to the instance.",
+          "The internal AWS EC2 Instance Metadata Service (IMDS) automatically generates temporary security credentials via AWS Security Token Service (STS).",
+          "The AWS SDK running inside your application automatically fetches and transparently refreshes these temporary credentials every few hours.",
+          "Even if an attacker gains read access to your application source code, there are zero static AWS keys to compromise.",
+          "IAM Roles represent the gold standard for securing compute workloads across EC2, ECS, and Lambda."
+        ],
+        "example": "A temporary electronic visitor security badge issued at a corporate reception desk that automatically deactivates at 5 PM, rather than giving a visitor an permanent master building key.",
+        "code": "interface TemporaryCredentials {\n  accessKeyId: string;\n  secretAccessKey: string;\n  sessionToken: string;\n  expiration: string;\n}\n\nfunction simulateStsAssumeRole(roleArn: string): TemporaryCredentials {\n  const randomSuffix = Math.random().toString(36).substring(7).toUpperCase();\n  return {\n    accessKeyId: `ASIA${randomSuffix}`, // ASIA prefix denotes STS temporary credentials\n    secretAccessKey: 'sec_temp_' + btoa(roleArn).substring(0, 16),\n    sessionToken: 'token_sample_' + Date.now(),\n    expiration: new Date(Date.now() + 3600 * 1000).toISOString()\n  };\n}\n\nconst creds = simulateStsAssumeRole('arn:aws:iam::123456789012:role/AppS3Reader');\nconsole.log(`Assumed Role: ${creds.accessKeyId.substring(0, 8)}... (Expires: ${creds.expiration})`);",
+        "output": "Assumed Role: ASIAS261... (Expires: 2026-10-02T10:34:02.996Z)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Simulates AWS STS temporary credential generation with standard ASIA prefix."
+          },
+          {
+            "line": 18,
+            "note": "Logs the ephemeral access key and its one-hour automated expiration timestamp."
+          }
+        ],
+        "tryIt": "Inspect the expiration timestamp and verify that temporary credentials expire exactly one hour in the future.",
+        "check": {
+          "question": "Why should EC2 instances access AWS services using IAM Roles rather than hardcoded IAM user access keys?",
+          "options": [
+            "IAM Roles provide temporary, automatically rotated credentials through STS, eliminating hardcoded secret leaks",
+            "IAM user access keys only work on Windows servers, while IAM Roles only work on Linux",
+            "IAM Roles double the network bandwidth of the instance"
+          ],
+          "answer": 0,
+          "why": "IAM Roles provide temporary credentials rotated automatically by STS, eliminating the risk of hardcoded credential leaks."
+        }
+      },
+      {
+        "title": "Trust Policies (AssumeRolePolicyDocument) vs Permission Policies",
+        "say": [
+          "Every IAM Role in AWS is defined by two fundamentally distinct JSON policy documents.",
+          "The first document is the Trust Policy, known formally in the AWS API as the AssumeRolePolicyDocument.",
+          "The Trust Policy answers the question: Who is allowed to put on this role?",
+          "The Trust Policy defines the Principal, which can be an AWS service like ec2.amazonaws.com or lambda.amazonaws.com, or an external AWS account ID.",
+          "Unless a service or entity is explicitly declared as a trusted principal in the trust policy, AWS strictly forbids that entity from assuming the role.",
+          "The second document is the Permission Policy, which answers the question: What is this role allowed to do once assumed?",
+          "The Permission Policy attaches standard IAM statements granting actions like 's3:GetObject' or 'sqs:SendMessage'.",
+          "A role can have the most powerful administrative permission policy attached to it, but if its trust policy only trusts lambda.amazonaws.com, an EC2 instance cannot use it.",
+          "Separating the Trust Policy from the Permission Policy enforces a clean, modular boundary between authentication and authorization."
+        ],
+        "example": "A theatrical costume and badge: the trust policy specifies that only verified stunt actors registered with the stage manager can put on the police uniform, while the permission policy specifies what stage areas the uniform grants access to.",
+        "code": "interface TrustPolicy {\n  Statement: [{\n    Effect: 'Allow';\n    Principal: { Service: string };\n    Action: 'sts:AssumeRole';\n  }];\n}\n\nconst ec2TrustPolicy: TrustPolicy = {\n  Statement: [{\n    Effect: 'Allow',\n    Principal: { Service: 'ec2.amazonaws.com' },\n    Action: 'sts:AssumeRole'\n  }]\n};\n\nfunction canServiceAssume(policy: TrustPolicy, serviceName: string): boolean {\n  return policy.Statement.some(s => s.Principal.Service === serviceName);\n}\n\nconsole.log(`EC2 Service Allowed: ${canServiceAssume(ec2TrustPolicy, 'ec2.amazonaws.com')} | Lambda Service Allowed: ${canServiceAssume(ec2TrustPolicy, 'lambda.amazonaws.com')}`);",
+        "output": "EC2 Service Allowed: true | Lambda Service Allowed: false",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines an IAM Role Trust Policy explicitly authorizing the EC2 service principal to assume the role."
+          },
+          {
+            "line": 17,
+            "note": "Verifies whether a requesting AWS service principal matches the trusted entity specification."
+          }
+        ],
+        "tryIt": "Update the trust policy to allow both 'ec2.amazonaws.com' and 'ecs-tasks.amazonaws.com' as trusted principals.",
+        "check": {
+          "question": "What is the primary architectural purpose of an IAM Role's Trust Policy?",
+          "options": [
+            "It lists the specific DynamoDB tables that the role is permitted to read",
+            "It defines which principals (services, users, or accounts) are authorized to assume the role",
+            "It configures the billing credit card for compute instances running the role"
+          ],
+          "answer": 1,
+          "why": "The Trust Policy defines the trusted principals (such as the EC2 service) authorized to assume the IAM role."
+        }
+      },
+      {
+        "title": "IAM Evaluation Logic: Explicit Deny Precedence",
+        "say": [
+          "When an identity attempts to invoke an AWS API action, the IAM evaluation engine evaluates all applicable policies following a strict algorithm.",
+          "The foundational baseline of the evaluation engine is the Default Deny.",
+          "By default, all requests are implicitly denied unless an explicit allow exists.",
+          "The engine first scans all applicable policies (Identity Policies, Resource Policies, SCPs, and Permission Boundaries) for any Explicit Deny.",
+          "If even a single statement in any policy issues an explicit 'Deny' on the action and resource, the request is immediately rejected.",
+          "An Explicit Deny overrules every other policy statement in existence; a hundred 'Allow' statements cannot override a single 'Deny'.",
+          "If no explicit deny is found, the engine scans for an Explicit Allow.",
+          "If at least one valid statement allows the action on the targeted resource, and all conditions are satisfied, the request is permitted.",
+          "If no explicit allow is found, the request falls back to the Default Deny and is blocked.",
+          "Understanding this deterministic evaluation hierarchy is critical for troubleshooting access denied errors in complex multi-account environments."
+        ],
+        "example": "A company building security rule stating that any employee with an active badge can enter the laboratory, except if an employee has been placed on the temporary safety quarantine list, which immediately blocks entry.",
+        "code": "type EvaluationResult = 'ALLOWED' | 'DENIED';\n\ninterface PolicyCheckInput {\n  explicitDenyPresent: boolean;\n  explicitAllowPresent: boolean;\n}\n\nfunction evaluateIamRequest(input: PolicyCheckInput): EvaluationResult {\n  // Rule 1: Explicit Deny always overrules\n  if (input.explicitDenyPresent) return 'DENIED';\n  // Rule 2: Explicit Allow permits access\n  if (input.explicitAllowPresent) return 'ALLOWED';\n  // Rule 3: Default Deny\n  return 'DENIED';\n}\n\nconst req1 = evaluateIamRequest({ explicitDenyPresent: false, explicitAllowPresent: true });\nconst req2 = evaluateIamRequest({ explicitDenyPresent: true, explicitAllowPresent: true });\nconst req3 = evaluateIamRequest({ explicitDenyPresent: false, explicitAllowPresent: false });\n\nconsole.log(`Allow Only: ${req1} | Allow + Deny: ${req2} | No Policy (Default): ${req3}`);",
+        "output": "Allow Only: ALLOWED | Allow + Deny: DENIED | No Policy (Default): DENIED",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Implements the core IAM evaluation logic algorithm: Explicit Deny -> Explicit Allow -> Default Deny."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates that an explicit deny statement unconditionally overrides an explicit allow statement."
+          }
+        ],
+        "tryIt": "Simulate a Permission Boundary that fails to allow an action, causing the request to result in Default Deny.",
+        "check": {
+          "question": "If an IAM user has an identity policy that allows 's3:PutObject', but an SCP or group policy explicitly denies 's3:PutObject', what is the result?",
+          "options": [
+            "The request is ALLOWED because identity policies always take priority over group policies",
+            "The request is DENIED because an explicit deny overrules all allow statements",
+            "AWS averages the permissions and allows uploads up to 50% capacity"
+          ],
+          "answer": 1,
+          "why": "In AWS IAM evaluation logic, an explicit Deny unconditionally overrides any number of Allow statements."
+        }
+      },
+      {
+        "title": "Credential Hardening: IAM Access Analyzer & Auditing",
+        "say": [
+          "Maintaining least-privilege security over time requires automated auditing and continuous monitoring of provisioned credentials.",
+          "AWS CloudTrail automatically records every single API request executed in your account, capturing the caller identity, timestamp, IP address, and request parameters.",
+          "Security teams ingest CloudTrail logs to detect unauthorized privilege escalation attempts and investigate anomalous access spikes.",
+          "In addition, AWS provides IAM Access Analyzer, an automated reasoning tool that continuously scans resource policies across your account.",
+          "Access Analyzer inspects S3 bucket policies, IAM role trust policies, KMS key policies, and SQS queue policies.",
+          "It flags any policy statement that allows access to external AWS accounts or public internet users, preventing accidental data leaks.",
+          "Furthermore, security administrators regularly generate the IAM Credential Report.",
+          "The Credential Report audits every IAM user in the account, identifying access keys that have not been rotated in over ninety days or accounts lacking MFA.",
+          "Enforcing continuous credential hygiene ensures that your organization's attack surface shrinks as infrastructure expands."
+        ],
+        "example": "A corporate building security auditor who reviews electronic door swipe logs weekly, immediately deactivating badges that have been inactive for over ninety days.",
+        "code": "interface CredentialReportRow {\n  user: string;\n  mfaActive: boolean;\n  accessKey1AgeDays: number;\n  lastUsedDaysAgo: number;\n}\n\nconst report: CredentialReportRow[] = [\n  { user: 'deployer-bot', mfaActive: false, accessKey1AgeDays: 45, lastUsedDaysAgo: 1 },\n  { user: 'legacy-admin', mfaActive: false, accessKey1AgeDays: 240, lastUsedDaysAgo: 110 },\n  { user: 'sec-lead', mfaActive: true, accessKey1AgeDays: 30, lastUsedDaysAgo: 2 },\n];\n\nconst flaggedUsers = report.filter(u => u.accessKey1AgeDays > 90 || (!u.mfaActive && u.user.includes('admin')));\nconsole.log(`Audited ${report.length} users. Security Risk Flagged: ${flaggedUsers.map(u => u.user).join(', ')}`);",
+        "output": "Audited 3 users. Security Risk Flagged: legacy-admin",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models AWS IAM credential report entries tracking key age and MFA activation."
+          },
+          {
+            "line": 14,
+            "note": "Flags high-risk accounts violating the 90-day key rotation rule or lacking mandatory administrative MFA."
+          }
+        ],
+        "tryIt": "Update legacy-admin to rotate their access key (age: 5 days) and enable MFA, then verify the audit passes.",
+        "check": {
+          "question": "What security compliance practice is recommended for AWS IAM access keys?",
+          "options": [
+            "Store access keys in public web client JavaScript files for easy access",
+            "Regularly rotate access keys every 90 days and deactivate unused credentials",
+            "Share a single set of access keys among all developers on the team"
+          ],
+          "answer": 1,
+          "why": "Rotating keys every 90 days and deactivating dormant credentials significantly limits the blast radius of potential leaks."
+        }
+      }
+    ],
+    "summary": [
+      "The AWS Root User possesses unrestricted administrative power and should be secured behind hardware MFA with zero access keys.",
+      "IAM Roles provide temporary, automatically rotated STS credentials for compute instances via Instance Profiles, eliminating hardcoded keys.",
+      "In IAM evaluation logic, an Explicit Deny unconditionally overrides all Allow statements, falling back to Default Deny if no Allow exists."
+    ],
+    "projectStep": {
+      "title": "IAM Role & Least-Privilege Policy Configuration",
+      "steps": [
+        "Create an EC2 Instance Profile associated with an IAM Role trusting 'ec2.amazonaws.com'",
+        "Author a least-privilege JSON permission policy granting S3 read access strictly to your application bucket ARN",
+        "Enable IAM Access Analyzer and generate a credential report to verify zero root access keys exist"
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "title": "EC2 Compute Classes, Spot Instances & Auto-Scaling Groups",
+    "goal": "Select optimal EC2 instance classes, leverage Spot instances for cost reduction, and configure dynamic Auto Scaling Groups.",
+    "minutes": 25,
+    "recap": "Yesterday we locked down cloud permissions with IAM roles. Today we power our application workloads using Amazon EC2 compute classes, Spot pricing, and Auto Scaling Groups.",
+    "parts": [
+      {
+        "title": "EC2 Instance Families and Workload Sizing",
+        "say": [
+          "Amazon Elastic Compute Cloud provides hundreds of distinct virtual server configurations organized into specialized Instance Families.",
+          "Choosing the correct instance family ensures that your application achieves peak performance while avoiding over-provisioning costs.",
+          "The General Purpose family, designated by the 'm' and 't' series (such as m7g or t4g), delivers a balanced ratio of compute, memory, and networking.",
+          "General Purpose instances are ideal for standard web applications, small backend microservices, and development environments.",
+          "The Compute Optimized family, designated by the 'c' series (such as c7g), features high-frequency processors with high compute-to-memory ratios.",
+          "Compute Optimized instances excel at batch data processing, high-performance computing, distributed analytics, and media video encoding.",
+          "The Memory Optimized family, designated by the 'r' and 'x' series, delivers vast RAM capacity per vCPU.",
+          "Memory Optimized nodes power in-memory caching tiers like Redis, high-throughput message brokers, and large relational databases.",
+          "Finally, instances featuring the 'g' suffix are powered by AWS Graviton ARM-based processors, delivering up to forty percent better price-performance over comparable x86 chips."
+        ],
+        "example": "A commercial transportation fleet selecting vehicles based on task: passenger sedans for office commuters (General Purpose), sports cars for rapid delivery (Compute Optimized), and large cargo trucks for heavy freight (Memory/Storage Optimized).",
+        "code": "interface InstanceFamily {\n  prefix: string;\n  category: 'General' | 'Compute' | 'Memory' | 'Storage';\n  idealWorkload: string;\n  armAvailable: boolean;\n}\n\nconst families: InstanceFamily[] = [\n  { prefix: 'm7g', category: 'General', idealWorkload: 'Web applications & APIs', armAvailable: true },\n  { prefix: 'c7g', category: 'Compute', idealWorkload: 'Video encoding & batch jobs', armAvailable: true },\n  { prefix: 'r7g', category: 'Memory', idealWorkload: 'In-memory Redis caches & DBs', armAvailable: true },\n];\n\nfor (const fam of families) {\n  console.log(`[${fam.category}] ${fam.prefix}: ${fam.idealWorkload} (Graviton ARM: ${fam.armAvailable})`);\n}",
+        "output": "[General] m7g: Web applications & APIs (Graviton ARM: true)\n[Compute] c7g: Video encoding & batch jobs (Graviton ARM: true)\n[Memory] r7g: In-memory Redis caches & DBs (Graviton ARM: true)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Catalogues EC2 instance families categorized by workload characteristics and processor architecture."
+          },
+          {
+            "line": 14,
+            "note": "Displays sizing recommendations highlighting AWS Graviton ARM price-performance advantages."
+          }
+        ],
+        "tryIt": "Add the storage-optimized 'i4i' family suited for high-IOPS NVMe transactional databases.",
+        "check": {
+          "question": "Which EC2 instance family is best suited for running an in-memory Redis cluster requiring massive RAM capacity?",
+          "options": [
+            "Compute Optimized (c7g series)",
+            "Memory Optimized (r7g series)",
+            "Burstable General Purpose (t4g.nano)"
+          ],
+          "answer": 1,
+          "why": "The Memory Optimized (r series) family provides high RAM-to-vCPU ratios ideal for in-memory databases like Redis."
+        }
+      },
+      {
+        "title": "Burstable Performance and CPU Credits (T3/T4g Instances)",
+        "say": [
+          "Many web applications experience intermittent, bursty traffic patterns: idle for long stretches, punctuated by sudden spikes of user activity.",
+          "Running high-end instances twenty-four hours a day for bursty workloads wastes significant cloud spend.",
+          "Amazon EC2 Burstable Performance instances, specifically the T3 and T4g families, provide an ingenious economic solution.",
+          "T-series instances deliver a guaranteed baseline CPU performance, such as twenty percent of a physical CPU core.",
+          "Whenever your instance operates below its baseline threshold, it accumulates CPU Credits into a virtual credit balance.",
+          "One CPU Credit equals one vCPU running at one hundred percent utilization for one full minute.",
+          "When traffic surges, your instance automatically spends accumulated CPU credits to burst up to one hundred percent CPU utilization with zero throttling.",
+          "Under standard mode, if an instance exhausts its credit balance, its CPU is capped at baseline until new credits accumulate.",
+          "Under T-Unlimited mode, the instance can burst indefinitely beyond its credit balance, incurring a small additional hourly fee.",
+          "T4g Graviton instances offer the best price-performance for bursty microservices, background queues, and staging environments."
+        ],
+        "example": "A mobile phone plan with rollover data: during quiet weekdays when you are on office Wi-Fi, unused megabytes accumulate in your balance so you can stream high-definition videos on the weekend.",
+        "code": "class CpuCreditAccount {\n  balance: number = 0;\n  constructor(public baselinePct: number) {}\n\n  processInterval(currentCpuPct: number, durationMinutes: number) {\n    const delta = this.baselinePct - currentCpuPct;\n    const creditDelta = (delta / 100) * durationMinutes;\n    this.balance = Math.max(0, this.balance + creditDelta);\n  }\n}\n\nconst node = new CpuCreditAccount(20);\nnode.processInterval(5, 60); // 1 hour idle at 5% CPU\nconst accumulated = node.balance;\nnode.processInterval(80, 15); // 15 min burst at 80% CPU\nconsole.log(`Accumulated Credits: ${accumulated.toFixed(1)} | Balance After Burst: ${node.balance.toFixed(1)}`);",
+        "output": "Accumulated Credits: 9.0 | Balance After Burst: 0.0",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Models the CPU credit accounting algorithm calculating credit gain when below baseline and spend during bursts."
+          },
+          {
+            "line": 15,
+            "note": "Simulates an hour of idle accumulation followed by a 15-minute high-load burst."
+          }
+        ],
+        "tryIt": "Simulate a 30-minute burst at 100% CPU and observe whether the credit balance drops to zero.",
+        "check": {
+          "question": "What happens on a standard-mode T3 instance when its accumulated CPU credit balance is completely exhausted?",
+          "options": [
+            "The instance immediately crashes and terminates",
+            "The instance CPU performance is throttled down to its configured baseline level",
+            "AWS charges a hundred dollar penalty on the monthly invoice"
+          ],
+          "answer": 1,
+          "why": "In standard mode, exhausting CPU credits throttles the instance back down to its baseline CPU performance limit."
+        }
+      },
+      {
+        "title": "Purchasing Options: On-Demand, Savings Plans, and Spot",
+        "say": [
+          "Amazon EC2 provides multiple pricing models that allow cloud architects to slash compute bills by up to ninety percent.",
+          "The default purchasing model is On-Demand, which charges a fixed hourly or per-second rate for compute capacity.",
+          "On-Demand offers absolute flexibility with zero upfront commitment; you can launch a server and terminate it five minutes later.",
+          "However, On-Demand is also the most expensive way to purchase AWS compute.",
+          "For steady-state workloads that run continuously, AWS offers Compute Savings Plans and Reserved Instances.",
+          "By committing to a consistent dollar-per-hour compute spend for a one-year or three-year term, organizations receive discounts up to seventy-two percent.",
+          "Savings Plans apply automatically across EC2, AWS Fargate, and AWS Lambda regardless of instance family, region, or operating system.",
+          "Finally, AWS offers Spot Instances, which represent unused spare EC2 capacity available at discounts up to ninety percent off On-Demand rates.",
+          "The critical tradeoff with Spot Instances is that AWS can reclaim the instance at any time with a two-minute warning when On-Demand capacity is needed.",
+          "Spot Instances are ideal for stateless web tiers, batch data processing, machine learning training, and CI/CD testing runners."
+        ],
+        "example": "Booking hotel rooms: paying the standard walk-in rack rate (On-Demand), signing a multi-year corporate contract for guaranteed rooms (Savings Plans), or bidding on discount standby rooms that can be reassigned if a full-paying guest arrives (Spot).",
+        "code": "interface PricingComparison {\n  model: 'On-Demand' | '1-Yr Savings Plan' | 'Spot';\n  hourlyRate: number;\n  annualCost: number;\n  savingsVsOnDemandPct: number;\n}\n\nconst onDemandRate = 0.10; // $0.10/hr\nconst models: PricingComparison[] = [\n  { model: 'On-Demand', hourlyRate: 0.10, annualCost: 0.10 * 8760, savingsVsOnDemandPct: 0 },\n  { model: '1-Yr Savings Plan', hourlyRate: 0.065, annualCost: 0.065 * 8760, savingsVsOnDemandPct: 35 },\n  { model: 'Spot', hourlyRate: 0.025, annualCost: 0.025 * 8760, savingsVsOnDemandPct: 75 },\n];\n\nfor (const m of models) {\n  console.log(`[${m.model}] Hourly: $${m.hourlyRate.toFixed(3)} -> Annual: $${Math.round(m.annualCost)} (Savings: ${m.savingsVsOnDemandPct}%)`);\n}",
+        "output": "[On-Demand] Hourly: $0.100 -> Annual: $876 (Savings: 0%)\n[1-Yr Savings Plan] Hourly: $0.065 -> Annual: $569 (Savings: 35%)\n[Spot] Hourly: $0.025 -> Annual: $219 (Savings: 75%)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models annual compute cost across 8,760 hours comparing On-Demand against Savings Plans and Spot."
+          },
+          {
+            "line": 15,
+            "note": "Prints comparative savings demonstrating massive financial optimization through strategic purchasing options."
+          }
+        ],
+        "tryIt": "Calculate total annual savings if an engineering fleet operates 50 instances on Spot instead of On-Demand.",
+        "check": {
+          "question": "What is the primary operational constraint when using Amazon EC2 Spot Instances?",
+          "options": [
+            "Spot instances cannot be connected to the internet",
+            "AWS can reclaim and terminate Spot instances with a two-minute warning when capacity is needed",
+            "Spot instances only run during weekends"
+          ],
+          "answer": 1,
+          "why": "Spot instances offer up to 90% discounts but can be reclaimed by AWS with a 2-minute interruption notice."
+        }
+      },
+      {
+        "title": "Spot Fleet & Handling the 2-Minute Interruption Notice",
+        "say": [
+          "To utilize Spot Instances reliably in production, your applications must be engineered to handle sudden instance terminations gracefully.",
+          "When AWS reclaims a Spot instance, it publishes an interruption notice two minutes before terminating the virtual machine.",
+          "This notification is made available to the instance through the local EC2 Instance Metadata Service (IMDS) at http://169.254.169.254.",
+          "Simultaneously, AWS emits a 'Spot Instance Interruption Warning' event into Amazon EventBridge.",
+          "A production application runs a background daemon or EventBridge listener that intercepts this two-minute warning immediately.",
+          "Upon receiving the warning, the node initiates graceful connection draining.",
+          "It notifies the upstream Application Load Balancer to stop forwarding new incoming HTTP requests.",
+          "It flushes in-memory transaction logs to an Amazon S3 bucket or DynamoDB database, and completes in-flight requests.",
+          "Furthermore, deploying a Spot Fleet with diverse instance types (such as m5.large, m6g.large, and c5.large) minimizes interruption risk.",
+          "Because AWS rarely experiences capacity crunches across multiple instance families simultaneously, Spot Fleets maintain high uptime."
+        ],
+        "example": "An airport standby passenger listening for the gate loudspeaker announcement: upon hearing the two-minute final boarding call, they quickly pack their laptop and vacate the seat without dropping any belongings.",
+        "code": "interface SpotMetadataResponse {\n  action: 'stop' | 'terminate';\n  time: string;\n}\n\nfunction handleSpotInterruption(event: SpotMetadataResponse | null) {\n  if (!event) return { status: 'NORMAL', drainActive: false };\n  // Interruption received! Initiate 2-minute graceful drain\n  const terminationTime = new Date(event.time).getTime();\n  const secondsRemaining = Math.max(0, Math.round((terminationTime - Date.now()) / 1000));\n  return {\n    status: 'DRAINING',\n    action: event.action,\n    secondsRemaining: 120 // simulated 2-minute window\n  };\n}\n\nconst warning: SpotMetadataResponse = { action: 'terminate', time: new Date(Date.now() + 120000).toISOString() };\nconst drainPlan = handleSpotInterruption(warning);\nconsole.log(`Spot Interruption Handled: Status=${drainPlan.status}, Action=${drainPlan.action}, Window=${drainPlan.secondsRemaining}s`);",
+        "output": "Spot Interruption Handled: Status=DRAINING, Action=terminate, Window=120s",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Evaluates the Spot interruption event to trigger automated application connection draining."
+          },
+          {
+            "line": 18,
+            "note": "Simulates interception of the two-minute warning window allowing graceful state persistence."
+          }
+        ],
+        "tryIt": "Pass null to handleSpotInterruption and verify that normal application operation continues without draining.",
+        "check": {
+          "question": "How much advance notice does AWS provide before reclaiming an EC2 Spot Instance?",
+          "options": [
+            "Exactly 24 hours via email",
+            "Exactly two minutes via instance metadata and EventBridge",
+            "Zero notice; the instance is killed instantly"
+          ],
+          "answer": 1,
+          "why": "AWS provides a 2-minute warning via IMDS and EventBridge, allowing applications to drain connections and save state."
+        }
+      },
+      {
+        "title": "Auto Scaling Groups (ASG) & Launch Templates",
+        "say": [
+          "Building resilient, elastic cloud systems requires abstracting individual servers into dynamic Auto Scaling Groups (ASGs).",
+          "An Auto Scaling Group manages a collection of EC2 instances, automatically adding or removing capacity based on demand.",
+          "An ASG is configured using two fundamental components: a Launch Template, and capacity boundaries.",
+          "A Launch Template serves as the immutable recipe for creating new virtual machines.",
+          "It defines the Amazon Machine Image (AMI) ID, instance type, IAM Instance Profile, security groups, EBS storage volumes, and user data bootstrap script.",
+          "The Auto Scaling Group itself defines the operational scaling boundaries: Minimum capacity, Maximum capacity, and Desired capacity.",
+          "If Desired capacity is set to four, the ASG continuously ensures that exactly four healthy instances are running across your subnets.",
+          "If an instance crashes or fails an EC2 status check, the ASG terminates the defective node and automatically provisions a healthy replacement.",
+          "Crucially, an ASG automatically balances instances across multiple Availability Zones, ensuring that an AZ outage never degrades service availability."
+        ],
+        "example": "A car rental company maintaining a fleet blueprint that specifies standard vehicle models, automatically buying new cars when the fleet drops below ten and selling extras when the fleet exceeds fifty.",
+        "code": "interface AsgConfig {\n  name: string;\n  minSize: number;\n  maxSize: number;\n  desiredCapacity: number;\n  availabilityZones: string[];\n}\n\nfunction adjustCapacity(asg: AsgConfig, target: number): number {\n  // Constrain target within [minSize, maxSize]\n  const clamped = Math.max(asg.minSize, Math.min(asg.maxSize, target));\n  asg.desiredCapacity = clamped;\n  return asg.desiredCapacity;\n}\n\nconst prodAsg: AsgConfig = {\n  name: 'prod-api-asg',\n  minSize: 2,\n  maxSize: 10,\n  desiredCapacity: 4,\n  availabilityZones: ['us-east-1a', 'us-east-1b']\n};\n\nadjustCapacity(prodAsg, 15); // Exceeds max\nconst clampedMax = prodAsg.desiredCapacity;\nadjustCapacity(prodAsg, 6); // Valid target\nconsole.log(`ASG Clamped Target: ${clampedMax} (Max: ${prodAsg.maxSize}) | Adjusted Desired Capacity: ${prodAsg.desiredCapacity}`);",
+        "output": "ASG Clamped Target: 10 (Max: 10) | Adjusted Desired Capacity: 6",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Clamps desired scaling capacity strictly within the configured minimum and maximum boundaries."
+          },
+          {
+            "line": 24,
+            "note": "Demonstrates capacity enforcement preventing runaway scaling costs or dangerous under-provisioning."
+          }
+        ],
+        "tryIt": "Attempt to scale desired capacity down to 1 and observe how the minimum size boundary (2) protects availability.",
+        "check": {
+          "question": "If an EC2 instance in an Auto Scaling Group fails its health checks and terminates, what action does the ASG take?",
+          "options": [
+            "It permanently deletes the Auto Scaling Group and alerts the billing department",
+            "It automatically launches a new healthy replacement instance to restore desired capacity",
+            "It leaves the group running at degraded capacity until a human engineer logs in"
+          ],
+          "answer": 1,
+          "why": "An ASG automatically replaces unhealthy instances to maintain the configured desired capacity."
+        }
+      },
+      {
+        "title": "Scaling Policies: Target Tracking, Step, and Predictive",
+        "say": [
+          "While manual scaling adjusts capacity statically, production Auto Scaling Groups rely on dynamic Scaling Policies.",
+          "AWS provides three major types of dynamic scaling policies: Target Tracking, Step Scaling, and Predictive Scaling.",
+          "Target Tracking Scaling is the modern industry standard and operates like a home thermostat.",
+          "You specify a target metric, such as 'maintain average ASG CPU utilization at 60 percent' or 'maintain 1000 requests per target'.",
+          "AWS automatically calculates the required instance count and scales the group up or down to keep the metric near your target.",
+          "Step Scaling allows granular multi-tier thresholds, such as adding two instances if CPU breaches 70 percent, and adding five instances if CPU breaches 85 percent.",
+          "Predictive Scaling uses machine learning models trained on your application's historical CloudWatch traffic data.",
+          "It forecasts daily or weekly traffic cycles and pre-warms additional instances fifteen minutes before the traffic surge arrives.",
+          "Finally, Scale-In Protection prevents the ASG from terminating long-running batch workers during downscaling operations.",
+          "Combining Target Tracking with Predictive Scaling ensures seamless performance during viral traffic surges while aggressively minimizing cloud spend."
+        ],
+        "example": "A commercial air conditioning system with a smart thermostat that automatically ramps up cooling power as the afternoon heat rises, maintaining a steady room temperature of 72 degrees.",
+        "code": "function calculateTargetTrackingCapacity(currentInstances: number, currentMetricValue: number, targetValue: number): number {\n  // New Capacity = Current Capacity * (Current Metric / Target Metric)\n  const ratio = currentMetricValue / targetValue;\n  return Math.ceil(currentInstances * ratio);\n}\n\nconst currentNodes = 4;\nconst targetCpuPct = 60;\nconst spikeNodes = calculateTargetTrackingCapacity(currentNodes, 85, targetCpuPct);\nconst quietNodes = calculateTargetTrackingCapacity(currentNodes, 30, targetCpuPct);\n\nconsole.log(`Baseline: ${currentNodes} nodes | Spike (85% CPU): Scale to ${spikeNodes} nodes | Quiet (30% CPU): Scale to ${quietNodes} nodes`);",
+        "output": "Baseline: 4 nodes | Spike (85% CPU): Scale to 6 nodes | Quiet (30% CPU): Scale to 2 nodes",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Applies the AWS Target Tracking formula: instances scaled proportionally to metric ratio."
+          },
+          {
+            "line": 11,
+            "note": "Demonstrates automated dynamic elasticity: adding nodes during traffic surges and pruning during lulls."
+          }
+        ],
+        "tryIt": "Simulate a massive 95% CPU spike and calculate the required instance fleet expansion.",
+        "check": {
+          "question": "How does an Auto Scaling Group Target Tracking policy decide when and how much to scale?",
+          "options": [
+            "It scales randomly based on a random number generator",
+            "It continuously adjusts instance count to keep a specified metric (like average CPU) near a target threshold",
+            "It requires an administrator to approve every scaling event via Slack"
+          ],
+          "answer": 1,
+          "why": "Target Tracking continuously monitors metrics and automatically adjusts capacity to hold the metric near your specified target."
+        }
+      }
+    ],
+    "summary": [
+      "EC2 instance families provide specialized hardware optimizations: General (m/t), Compute (c), and Memory (r), with Graviton ARM offering 40% price-performance gains.",
+      "Spot Instances offer up to 90% savings for fault-tolerant workloads, requiring graceful handling of the 2-minute interruption notice.",
+      "Auto Scaling Groups combine Launch Templates with Target Tracking policies to dynamically balance capacity across multiple Availability Zones."
+    ],
+    "projectStep": {
+      "title": "Auto Scaling Fleet & Launch Template Provisioning",
+      "steps": [
+        "Create an EC2 Launch Template specifying Graviton ARM instances, custom AMI, and attached IAM Instance Profile",
+        "Deploy an Auto Scaling Group spanning two private application subnets with min: 2, desired: 2, max: 10",
+        "Attach a Target Tracking Scaling Policy maintaining 60% average CPU utilization across the fleet"
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "title": "Application Load Balancer (ALB), Target Groups & Health Probes",
+    "goal": "Deploy Application Load Balancers, configure Target Groups, and establish active health check probes.",
+    "minutes": 25,
+    "recap": "Yesterday we configured Auto Scaling Groups. Today we distribute client traffic seamlessly across those compute instances using the AWS Application Load Balancer.",
+    "parts": [
+      {
+        "title": "Load Balancing Layer 7 (ALB) vs Layer 4 (NLB)",
+        "say": [
+          "Elastic Load Balancing distributes incoming application traffic across multiple targets to ensure fault tolerance and horizontal scale.",
+          "AWS provides two primary modern load balancer types: the Application Load Balancer (ALB), and the Network Load Balancer (NLB).",
+          "An Application Load Balancer operates at Layer 7 of the Open Systems Interconnection (OSI) model: the Application Layer.",
+          "Operating at Layer 7 means the ALB inspects HTTP and HTTPS packet payloads, including request paths, host headers, HTTP cookies, and query strings.",
+          "ALBs support advanced features like routing requests based on URL paths (e.g. /api vs /static), WebSocket streaming, and native HTTP/2.",
+          "In contrast, the Network Load Balancer operates at Layer 4: the Transport Layer.",
+          "NLBs inspect only raw TCP, UDP, and TLS connections without decoding application payloads.",
+          "Operating at Layer 4 allows NLBs to handle tens of millions of requests per second with ultra-low, sub-millisecond latencies.",
+          "NLBs also provide static Anycast IP addresses and can attach directly to Elastic IPs.",
+          "For standard REST APIs, microservices, and web applications, the Application Load Balancer is the optimal, feature-rich choice."
+        ],
+        "example": "A hotel concierge reading the department name written on an envelope to hand-deliver it to the executive kitchen (Layer 7) versus a rapid automated conveyor belt sorting sealed metal cargo boxes purely by barcoded tracking number (Layer 4).",
+        "code": "type OsiLayer = 4 | 7;\n\ninterface LoadBalancerType {\n  name: string;\n  layer: OsiLayer;\n  protocols: string[];\n  latencyClass: 'Sub-millisecond' | 'Single-digit millisecond';\n  routingFeatures: string[];\n}\n\nconst lbs: LoadBalancerType[] = [\n  { name: 'Application Load Balancer (ALB)', layer: 7, protocols: ['HTTP', 'HTTPS', 'gRPC'], latencyClass: 'Single-digit millisecond', routingFeatures: ['Path routing', 'Host routing', 'OIDC Auth'] },\n  { name: 'Network Load Balancer (NLB)', layer: 4, protocols: ['TCP', 'UDP', 'TLS'], latencyClass: 'Sub-millisecond', routingFeatures: ['Static IP', 'Ultra-low latency', 'PrivateLink'] },\n];\n\nfor (const lb of lbs) {\n  console.log(`[${lb.name}] Layer ${lb.layer} -> Protocols: ${lb.protocols.join(', ')} (${lb.latencyClass})`);\n}",
+        "output": "[Application Load Balancer (ALB)] Layer 7 -> Protocols: HTTP, HTTPS, gRPC (Single-digit millisecond)\n[Network Load Balancer (NLB)] Layer 4 -> Protocols: TCP, UDP, TLS (Sub-millisecond)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines the architectural differences between Layer 7 ALBs and Layer 4 NLBs."
+          },
+          {
+            "line": 15,
+            "note": "Displays protocols and operational latency profiles for each load balancer family."
+          }
+        ],
+        "tryIt": "Add gRPC routing support to ALB features and observe how it enhances microservice communication.",
+        "check": {
+          "question": "Which AWS load balancer should you choose if you need to route traffic based on HTTP URL path (/api/v1 vs /images)?",
+          "options": [
+            "Network Load Balancer (NLB)",
+            "Application Load Balancer (ALB)",
+            "Classic Load Balancer (deprecated)"
+          ],
+          "answer": 1,
+          "why": "Application Load Balancers operate at Layer 7 and can inspect HTTP request paths, headers, and cookies to route traffic."
+        }
+      },
+      {
+        "title": "Target Groups and Routing Algorithms",
+        "say": [
+          "An Application Load Balancer routes client requests to logical collections of backend compute nodes called Target Groups.",
+          "Targets registered inside a Target Group can be EC2 instance IDs, private IPv4 addresses, or AWS Lambda serverless functions.",
+          "Target Groups allow you to decouple backend compute implementations from external routing endpoints.",
+          "When distributing incoming requests, ALBs support two primary load balancing algorithms.",
+          "The default algorithm is Round Robin, which distributes incoming requests sequentially and evenly across all healthy registered targets.",
+          "Round Robin works well when all requests require roughly identical processing time.",
+          "However, if some requests are lightweight while others involve heavy database queries, Round Robin can overload certain instances.",
+          "To solve this, ALBs support the Least Outstanding Requests algorithm.",
+          "With Least Outstanding Requests, the load balancer inspects the number of currently active, in-flight HTTP transactions on each node.",
+          "Incoming requests are routed to the instance currently handling the fewest concurrent requests, preventing hot-spotting."
+        ],
+        "example": "A busy bank branch where a queue coordinator directs the next customer to the specific teller window with the fewest people waiting in line, rather than cycling mechanically across windows.",
+        "code": "interface TargetNode {\n  targetId: string;\n  activeRequests: number;\n}\n\nfunction selectLeastOutstandingTarget(targets: TargetNode[]): string {\n  // Find target with minimum active in-flight requests\n  const sorted = [...targets].sort((a, b) => a.activeRequests - b.activeRequests);\n  return sorted[0].targetId;\n}\n\nconst nodes: TargetNode[] = [\n  { targetId: 'i-app-01', activeRequests: 14 },\n  { targetId: 'i-app-02', activeRequests: 3 },\n  { targetId: 'i-app-03', activeRequests: 8 },\n];\n\nconst selected = selectLeastOutstandingTarget(nodes);\nconsole.log(`Least Outstanding Target Selected: ${selected} (Active Requests: ${nodes.find(n => n.targetId === selected)?.activeRequests})`);",
+        "output": "Least Outstanding Target Selected: i-app-02 (Active Requests: 3)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Implements the Least Outstanding Requests routing algorithm by sorting nodes by concurrent request count."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates that the least busy node (i-app-02 with 3 requests) is selected for the next incoming request."
+          }
+        ],
+        "tryIt": "Update node 2 active requests to 20 and verify that node 3 becomes the newly selected target.",
+        "check": {
+          "question": "When is the Least Outstanding Requests routing algorithm superior to standard Round Robin?",
+          "options": [
+            "When all compute instances run identical clock speeds",
+            "When incoming requests vary significantly in processing duration and complexity",
+            "When the load balancer is operating without an internet connection"
+          ],
+          "answer": 1,
+          "why": "Least Outstanding Requests prevents overloading when requests have varied processing times by routing to the least busy node."
+        }
+      },
+      {
+        "title": "Active Health Checks and Unhealthy Host Deregistration",
+        "say": [
+          "To prevent routing traffic to dead or malfunctioning servers, an Application Load Balancer conducts continuous Active Health Checks.",
+          "The ALB periodically sends an HTTP GET request to a configured endpoint on each registered target, such as '/healthz' or '/api/health'.",
+          "Your backend application must evaluate its internal health (such as database connectivity) and return an HTTP 200 OK status code.",
+          "Health check behavior is governed by four critical configuration parameters.",
+          "HealthCheckIntervalSeconds defines how frequently the ALB probes each instance, with thirty seconds being the standard default.",
+          "HealthCheckTimeoutSeconds defines how long the ALB waits for a response before counting the probe as a failure.",
+          "UnhealthyThresholdCount specifies how many consecutive failed probes must occur before the ALB marks an instance as 'unhealthy'.",
+          "HealthyThresholdCount specifies how many consecutive successful probes are required to restore an instance to 'healthy' status.",
+          "As soon as an instance is marked unhealthy, the ALB immediately stops routing new user traffic to it, shielding users from application errors.",
+          "If the instance is managed by an Auto Scaling Group, the ASG detects the unhealthy status and automatically provisions a healthy replacement."
+        ],
+        "example": "A restaurant manager performing a quick check on kitchen prep stations every ten minutes; if a line cook fails to respond twice in a row, orders are redirected to another prep line immediately.",
+        "code": "class HealthCheckStateMachine {\n  consecutiveSuccesses: number = 0;\n  consecutiveFailures: number = 0;\n  status: 'HEALTHY' | 'UNHEALTHY' = 'HEALTHY';\n\n  constructor(public healthyThreshold: number = 2, public unhealthyThreshold: number = 3) {}\n\n  recordProbe(statusCode: number) {\n    if (statusCode >= 200 && statusCode < 300) {\n      this.consecutiveSuccesses++;\n      this.consecutiveFailures = 0;\n      if (this.consecutiveSuccesses >= this.healthyThreshold) this.status = 'HEALTHY';\n    } else {\n      this.consecutiveFailures++;\n      this.consecutiveSuccesses = 0;\n      if (this.consecutiveFailures >= this.unhealthyThreshold) this.status = 'UNHEALTHY';\n    }\n  }\n}\n\nconst probe = new HealthCheckStateMachine(2, 3);\nprobe.recordProbe(500);\nprobe.recordProbe(500);\nconst interimStatus = probe.status;\nprobe.recordProbe(500); // 3rd failure\nconsole.log(`After 2 Failures: ${interimStatus} | After 3rd Failure: ${probe.status}`);",
+        "output": "After 2 Failures: HEALTHY | After 3rd Failure: UNHEALTHY",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Models the active health check state machine tracking consecutive successes and failures against thresholds."
+          },
+          {
+            "line": 24,
+            "note": "Demonstrates that 3 consecutive HTTP 500 errors transition the instance status from HEALTHY to UNHEALTHY."
+          }
+        ],
+        "tryIt": "Send two consecutive HTTP 200 OK probes to verify that the instance transitions back to HEALTHY.",
+        "check": {
+          "question": "What happens when an EC2 instance in a Target Group fails its configured UnhealthyThresholdCount number of health checks?",
+          "options": [
+            "The ALB immediately halts and reboots the load balancer hardware",
+            "The ALB stops sending new client requests to the unhealthy instance",
+            "AWS charges double the price for incoming HTTP requests"
+          ],
+          "answer": 1,
+          "why": "The load balancer stops routing new requests to instances marked unhealthy, directing traffic only to healthy targets."
+        }
+      },
+      {
+        "title": "Connection Draining (Deregistration Delay)",
+        "say": [
+          "When an instance is being decommissioned by an Auto Scaling Group or undergoing rolling updates, it must be removed from the Target Group.",
+          "If the load balancer were to instantly sever connections, users currently uploading files or submitting payments would receive broken TCP errors.",
+          "To ensure zero downtime deployments, ALBs implement Connection Draining, officially called Deregistration Delay.",
+          "When an instance is deregistered, the ALB transitions its state to 'draining'.",
+          "In the draining state, the ALB immediately ceases forwarding any new incoming HTTP requests to that instance.",
+          "However, the ALB allows all existing, in-flight HTTP connections to complete normally.",
+          "The Deregistration Delay timer defines the maximum duration the ALB will wait for in-flight requests to finish, with a default of 300 seconds.",
+          "For fast REST APIs, reducing this delay to 30 or 60 seconds accelerates CI/CD deployment pipelines.",
+          "Once all active connections have completed or the timeout expires, the instance is fully deregistered and can be safely terminated.",
+          "Connection draining guarantees graceful, error-free rolling deployments."
+        ],
+        "example": "A restaurant host who stops seating new guests at 9:30 PM, but allows all patrons currently seated at tables to finish their dinners and coffee peacefully before locking the doors at 10:00 PM.",
+        "code": "interface DrainingNode {\n  targetId: string;\n  state: 'active' | 'draining' | 'deregistered';\n  inFlightRequests: number;\n}\n\nfunction processDrainingTick(node: DrainingNode, secondsElapsed: number, maxDelay: number) {\n  if (node.state !== 'draining') return node.state;\n  // Simulate requests finishing over time\n  node.inFlightRequests = Math.max(0, node.inFlightRequests - 5);\n  if (node.inFlightRequests === 0 || secondsElapsed >= maxDelay) {\n    node.state = 'deregistered';\n  }\n  return node.state;\n}\n\nconst worker: DrainingNode = { targetId: 'i-old-ver-88', state: 'draining', inFlightRequests: 8 };\nprocessDrainingTick(worker, 10, 300);\nconst tick1 = { ...worker };\nprocessDrainingTick(worker, 20, 300);\nconsole.log(`Tick 1: In-Flight=${tick1.inFlightRequests}, State=${tick1.state} | Tick 2: In-Flight=${worker.inFlightRequests}, State=${worker.state}`);",
+        "output": "Tick 1: In-Flight=3, State=draining | Tick 2: In-Flight=0, State=deregistered",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models connection draining logic: reducing in-flight requests while blocking new ingress."
+          },
+          {
+            "line": 21,
+            "note": "Demonstrates node transitioning to 'deregistered' once all in-flight connections finish gracefully."
+          }
+        ],
+        "tryIt": "Simulate an in-flight request count of 50 and observe the node remaining in draining state until completion.",
+        "check": {
+          "question": "What is the primary architectural purpose of ALB Deregistration Delay (Connection Draining)?",
+          "options": [
+            "To flush cached DNS records from client browsers",
+            "To allow in-flight HTTP requests to complete gracefully before terminating an instance, preventing client errors",
+            "To cool down the physical CPU chips before powering down the server"
+          ],
+          "answer": 1,
+          "why": "Deregistration delay lets existing in-flight connections finish gracefully without error before the target is detached."
+        }
+      },
+      {
+        "title": "Content-Based Routing: Host, Path, and Header Rules",
+        "say": [
+          "One of the greatest architectural strengths of the Application Load Balancer is Content-Based Routing.",
+          "In traditional setups, each microservice required its own dedicated load balancer, multiplying operational costs.",
+          "An ALB allows dozens of independent microservices to share a single load balancer and public IP address.",
+          "ALB Listener Rules evaluate incoming requests using priority-ordered conditional rules.",
+          "The most common routing strategy is Path-Based Routing.",
+          "You can configure a rule sending traffic matching '/api/orders/*' to an Orders Target Group, and traffic matching '/api/users/*' to a Users Target Group.",
+          "ALBs also support Host-Based Routing, inspecting the HTTP Host header to route 'api.company.com' differently from 'app.company.com'.",
+          "Furthermore, rules can inspect HTTP request headers, query string parameters, and client source CIDR blocks.",
+          "ALBs can also execute automated actions directly at the edge without hitting backend instances, such as redirecting HTTP port 80 to HTTPS 443.",
+          "Consolidating microservice routing into a single ALB simplifies architecture and significantly lowers cloud infrastructure spend."
+        ],
+        "example": "A major airport terminal with electronic signage directing passengers to Flight 100 on Concourse A, Flight 200 on Concourse B, and international arrivals directly to Customs.",
+        "code": "interface ListenerRule {\n  priority: number;\n  condition: { pathPattern?: string; hostHeader?: string };\n  targetGroup: string;\n}\n\nconst albRules: ListenerRule[] = [\n  { priority: 10, condition: { pathPattern: '/api/v1/orders*' }, targetGroup: 'tg-orders-service' },\n  { priority: 20, condition: { pathPattern: '/api/v1/users*' }, targetGroup: 'tg-users-service' },\n  { priority: 999, condition: {}, targetGroup: 'tg-frontend-web' }, // default fallback\n];\n\nfunction routeIncomingRequest(path: string): string {\n  const sorted = [...albRules].sort((a, b) => a.priority - b.priority);\n  for (const r of sorted) {\n    if (!r.condition.pathPattern || path.startsWith(r.condition.pathPattern.replace('*', ''))) {\n      return r.targetGroup;\n    }\n  }\n  return 'tg-frontend-web';\n}\n\nconsole.log(`/api/v1/orders/99 -> ${routeIncomingRequest('/api/v1/orders/99')} | /dashboard -> ${routeIncomingRequest('/dashboard')}`);",
+        "output": "/api/v1/orders/99 -> tg-orders-service | /dashboard -> tg-frontend-web",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Defines prioritized ALB listener rules mapping URL path patterns to targeted microservice groups."
+          },
+          {
+            "line": 22,
+            "note": "Demonstrates content-based routing resolving specific APIs to dedicated backend target groups."
+          }
+        ],
+        "tryIt": "Add a host header condition routing 'admin.company.com' to an admin target group with priority 5.",
+        "check": {
+          "question": "How does ALB Path-Based Routing benefit microservice architectures?",
+          "options": [
+            "It allows multiple distinct microservices to share a single load balancer by routing requests based on URL path",
+            "It automatically writes SQL queries on behalf of the microservices",
+            "It eliminates the need for containerization or Docker"
+          ],
+          "answer": 0,
+          "why": "Path-based routing routes requests based on URL paths, allowing dozens of microservices to share a single ALB."
+        }
+      },
+      {
+        "title": "Cross-Zone Load Balancing & TLS Termination",
+        "say": [
+          "To complete our mastery of Application Load Balancers, we explore two critical enterprise features: Cross-Zone Load Balancing and TLS Termination.",
+          "In a multi-AZ deployment, clients connect to load balancer nodes distributed across multiple Availability Zones.",
+          "Without Cross-Zone Load Balancing, each ALB node only distributes traffic among the targets residing in its own local Availability Zone.",
+          "If Zone A has two instances and Zone B has eight instances, instances in Zone A will receive four times more traffic per server than instances in Zone B.",
+          "With Cross-Zone Load Balancing enabled, every load balancer node distributes traffic evenly across all targets across all enabled Availability Zones.",
+          "On Application Load Balancers, Cross-Zone Load Balancing is enabled by default with zero additional data transfer fees.",
+          "In addition, ALBs provide native TLS/SSL Termination.",
+          "Rather than burdening backend EC2 instances with computing intensive cryptographic handshakes, TLS certificates are bound directly to the ALB listener.",
+          "Using AWS Certificate Manager (ACM), you can provision free, auto-renewing SSL/TLS certificates.",
+          "The ALB decrypts HTTPS traffic at the edge and passes plaintext HTTP traffic to backend instances inside private subnets, maximizing compute efficiency."
+        ],
+        "example": "An international summit where professional translators at the entrance translate all foreign incoming speeches into English, allowing the conference delegates inside to focus entirely on policy discussions.",
+        "code": "interface TargetDistribution {\n  az: string;\n  targetCount: number;\n}\n\nfunction calculateCrossZoneTraffic(zones: TargetDistribution[], totalRequests: number) {\n  const totalTargets = zones.reduce((sum, z) => sum + z.targetCount, 0);\n  const requestsPerTarget = Math.round(totalRequests / totalTargets);\n  return { totalTargets, requestsPerTarget };\n}\n\nconst deployment: TargetDistribution[] = [\n  { az: 'us-east-1a', targetCount: 2 },\n  { az: 'us-east-1b', targetCount: 6 },\n];\n\nconst traffic = calculateCrossZoneTraffic(deployment, 8000);\nconsole.log(`Total Targets: ${traffic.totalTargets} across ${deployment.length} AZs -> Balanced Load: ${traffic.requestsPerTarget} req/target`);",
+        "output": "Total Targets: 8 across 2 AZs -> Balanced Load: 1000 req/target",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Calculates uniform traffic distribution across targets regardless of asymmetric AZ instance counts."
+          },
+          {
+            "line": 16,
+            "note": "Shows that cross-zone load balancing distributes exactly 1,000 requests to every target evenly."
+          }
+        ],
+        "tryIt": "Add a third Availability Zone with 4 instances and verify that requests per target re-balances uniformly.",
+        "check": {
+          "question": "What is the primary benefit of terminating TLS/SSL certificates at the Application Load Balancer?",
+          "options": [
+            "It offloads expensive cryptographic processing from backend instances and centralizes certificate renewal via ACM",
+            "It makes web applications visible to search engines faster",
+            "It converts all relational database data to plain text"
+          ],
+          "answer": 0,
+          "why": "ALB TLS termination offloads CPU-heavy decryption from backend servers and automates certificate management via ACM."
+        }
+      }
+    ],
+    "summary": [
+      "Application Load Balancers operate at Layer 7, providing path/host routing, WebSocket streaming, and native ACM TLS termination.",
+      "Target Groups support Round Robin and Least Outstanding Requests algorithms, with active health checks isolating unhealthy hosts.",
+      "Connection Draining (Deregistration Delay) ensures in-flight requests finish gracefully before instance termination, preventing client 502 errors."
+    ],
+    "projectStep": {
+      "title": "ALB, Target Group & Path Routing Provisioning",
+      "steps": [
+        "Deploy an internet-facing Application Load Balancer spanning two public subnets with an ACM TLS certificate",
+        "Create an App Target Group with active health checks probing '/healthz' every 15 seconds",
+        "Configure ALB Listener Rules routing '/api/*' to the App Target Group with a 30-second Deregistration Delay"
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "title": "Amazon S3 Object Storage & Lifecycle Management Tiering",
+    "goal": "Master Amazon S3 object storage primitives, implement storage classes, and configure automated lifecycle transition policies.",
+    "minutes": 25,
+    "recap": "Yesterday we balanced web traffic with ALBs. Today we store unstructured data at global scale using the bedrock of AWS storage: Amazon Simple Storage Service (S3).",
+    "parts": [
+      {
+        "title": "S3 Foundations: Buckets, Keys, and Object Immutability",
+        "say": [
+          "Amazon Simple Storage Service, or Amazon S3, is an industry-defining object storage service engineered for 99.999999999 percent (eleven 9s) of data durability.",
+          "Unlike traditional block storage (EBS) or file storage (EFS), S3 stores data as discrete Objects inside flat containers called Buckets.",
+          "Every S3 bucket name must be globally unique across all AWS customers worldwide, much like a public domain name.",
+          "An object in S3 consists of data, a unique Key string, and Metadata.",
+          "The Key is the full path identifier of the object, such as 'images/2026/avatar.png'.",
+          "Although graphical consoles display folders, S3 possesses no true directory tree; it is a completely flat key-value store where slashes are simply delimiter characters.",
+          "S3 objects are strictly immutable: you cannot edit a single byte inside an existing S3 object.",
+          "To modify a file, you upload a replacement object, which atomically overwrites the old version or creates a new version if Versioning is enabled.",
+          "Every S3 object can store up to 5 terabytes of data, with single HTTP PUT uploads supporting up to 5 gigabytes per request.",
+          "S3 provides strong read-after-write consistency for all HTTP PUT and DELETE operations across all AWS regions."
+        ],
+        "example": "A massive digital warehouse where every item is sealed in a numbered container with an exterior barcode tag; you cannot open the container to adjust the item, but you can replace the entire container with a new one.",
+        "code": "interface S3ObjectMetadata {\n  bucket: string;\n  key: string;\n  sizeBytes: number;\n  contentType: string;\n  etag: string;\n}\n\nfunction parseS3Uri(s3Uri: string): { bucket: string; key: string } {\n  const match = s3Uri.match(/^s3:\\/\\/([^\\/]+)\\/(.+)$/);\n  if (!match) throw new Error('Invalid S3 URI');\n  return { bucket: match[1], key: match[2] };\n}\n\nconst parsed = parseS3Uri('s3://prod-media-vault/uploads/avatars/user_99.png');\nconsole.log(`Parsed S3 URI -> Bucket: ${parsed.bucket} | Object Key: ${parsed.key}`);",
+        "output": "Parsed S3 URI -> Bucket: prod-media-vault | Object Key: uploads/avatars/user_99.png",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Parses standard S3 protocol URIs into canonical bucket name and flat object key identifiers."
+          },
+          {
+            "line": 15,
+            "note": "Demonstrates that simulated folder structures are actually single flat string keys in S3."
+          }
+        ],
+        "tryIt": "Parse an S3 URI pointing to a deep document path like 's3://legal-docs/2026/q1/contracts/master.pdf'.",
+        "check": {
+          "question": "Can an application open an existing Amazon S3 object and modify a single byte in the middle of the file?",
+          "options": [
+            "Yes, S3 functions like a standard Linux ext4 file system supporting in-place byte editing",
+            "No, S3 objects are immutable; updating an object requires uploading a complete replacement file",
+            "Yes, but only if the file size is under one megabyte"
+          ],
+          "answer": 1,
+          "why": "S3 objects are strictly immutable; modifying data requires uploading a complete new version of the object."
+        }
+      },
+      {
+        "title": "S3 Storage Classes: Standard, Intelligent-Tiering, and Glacier",
+        "say": [
+          "Not all data requires the same performance characteristics or storage economics.",
+          "To optimize costs across varying access patterns, Amazon S3 provides specialized Storage Classes.",
+          "S3 Standard is the default storage class, engineered for frequently accessed data requiring high throughput and low-latency millisecond access.",
+          "S3 Standard replicates data across at least three physical Availability Zones, delivering 99.99 percent availability and eleven 9s of durability.",
+          "S3 Standard-Infrequent Access (S3 Standard-IA) is designed for data accessed less than once a month, such as older backups or completed project files.",
+          "S3 Standard-IA features a lower storage cost per gigabyte than Standard, but charges a small retrieval fee per gigabyte read.",
+          "For archival workloads, S3 provides the Amazon Glacier family.",
+          "S3 Glacier Flexible Archive offers low-cost cold storage with retrieval times ranging from minutes to hours.",
+          "S3 Glacier Deep Archive represents the lowest-cost cloud storage in the world, storing data for less than a dollar per terabyte per month.",
+          "Retrievals from Glacier Deep Archive take up to twelve hours, making it ideal for regulatory tax records and compliance archives."
+        ],
+        "example": "Organizing personal possessions: keeping daily clothes in bedroom closets (Standard), seasonal ski gear in the garage (Infrequent Access), and childhood memory albums in a distant rented storage locker (Glacier).",
+        "code": "interface S3ClassEconomics {\n  storageClass: string;\n  costPerGbMonth: number;\n  retrievalFeePerGb: number;\n  retrievalSpeed: string;\n}\n\nconst tierPricing: S3ClassEconomics[] = [\n  { storageClass: 'S3 Standard', costPerGbMonth: 0.023, retrievalFeePerGb: 0, retrievalSpeed: 'Milliseconds' },\n  { storageClass: 'S3 Standard-IA', costPerGbMonth: 0.0125, retrievalFeePerGb: 0.01, retrievalSpeed: 'Milliseconds' },\n  { storageClass: 'S3 Glacier Deep Archive', costPerGbMonth: 0.00099, retrievalFeePerGb: 0.02, retrievalSpeed: 'Hours (12h)' },\n];\n\nfunction calculateMonthlyCost(sizeGb: number, readsGb: number, tier: S3ClassEconomics) {\n  return (sizeGb * tier.costPerGbMonth) + (readsGb * tier.retrievalFeePerGb);\n}\n\nconst standardCost = calculateMonthlyCost(10000, 1000, tierPricing[0]);\nconst deepArchiveCost = calculateMonthlyCost(10000, 0, tierPricing[2]);\nconsole.log(`10TB Standard (Active): $${standardCost.toFixed(2)}/mo | 10TB Deep Archive (Cold): $${deepArchiveCost.toFixed(2)}/mo`);",
+        "output": "10TB Standard (Active): $230.00/mo | 10TB Deep Archive (Cold): $9.90/mo",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines storage economics comparing S3 Standard against Infrequent Access and Glacier Deep Archive."
+          },
+          {
+            "line": 20,
+            "note": "Contrasts monthly costs for 10TB of data, demonstrating massive 95%+ savings for archival tiers."
+          }
+        ],
+        "tryIt": "Calculate monthly cost for S3 Standard-IA storing 10,000 GB with 500 GB retrieved.",
+        "check": {
+          "question": "Which Amazon S3 storage class offers the lowest storage cost per gigabyte for regulatory compliance archives?",
+          "options": [
+            "S3 Standard",
+            "S3 Glacier Deep Archive",
+            "S3 One Zone-IA"
+          ],
+          "answer": 1,
+          "why": "S3 Glacier Deep Archive provides the lowest storage cost in the cloud (~$0.00099/GB/month) for long-term cold archives."
+        }
+      },
+      {
+        "title": "S3 Intelligent-Tiering: Automatic Cost Optimization",
+        "say": [
+          "In real-world applications, predicting exact data access patterns in advance is extremely difficult.",
+          "Some files uploaded today are never read again, while a video uploaded six months ago might suddenly go viral.",
+          "If you manually move data to Infrequent Access, unexpected reads incur heavy retrieval fees.",
+          "To automate cost savings with zero operational risk, AWS created S3 Intelligent-Tiering.",
+          "S3 Intelligent-Tiering is the only cloud storage class that automatically delivers cost savings without operational overhead or retrieval fees.",
+          "It continuously monitors access patterns at the object level and dynamically moves data between access tiers.",
+          "Objects begin in the Frequent Access Tier.",
+          "If an object is not accessed for 30 consecutive days, S3 automatically moves it to the Infrequent Access Tier, saving 40 percent on storage.",
+          "If untouched for 90 days, it moves to the Archive Instant Access Tier, saving 68 percent on storage.",
+          "Crucially, as soon as an archived object is accessed, S3 immediately moves it back to the Frequent Access Tier with zero retrieval penalties.",
+          "S3 Intelligent-Tiering is the ideal default choice for data lakes, analytics, and user-generated content with unpredictable access patterns."
+        ],
+        "example": "A smart automated library assistant who moves books you haven't opened in a month to higher shelves, and books untouched in three months to basement archives, but instantly returns them to your desk without charging an extra fee if requested.",
+        "code": "type IntelligentTier = 'Frequent' | 'Infrequent' | 'Archive Instant';\n\ninterface ObjectLifecycleState {\n  objectId: string;\n  daysUntouched: number;\n}\n\nfunction resolveIntelligentTier(obj: ObjectLifecycleState): { tier: IntelligentTier; savingsPct: number } {\n  if (obj.daysUntouched >= 90) return { tier: 'Archive Instant', savingsPct: 68 };\n  if (obj.daysUntouched >= 30) return { tier: 'Infrequent', savingsPct: 40 };\n  return { tier: 'Frequent', savingsPct: 0 };\n}\n\nconst file1 = resolveIntelligentTier({ objectId: 'doc_active.pdf', daysUntouched: 5 });\nconst file2 = resolveIntelligentTier({ objectId: 'photo_summer.jpg', daysUntouched: 42 });\nconst file3 = resolveIntelligentTier({ objectId: 'report_2024.zip', daysUntouched: 120 });\n\nconsole.log(`File 1: ${file1.tier} (0%) | File 2: ${file2.tier} (Savings: ${file2.savingsPct}%) | File 3: ${file3.tier} (Savings: ${file3.savingsPct}%)`);",
+        "output": "File 1: Frequent (0%) | File 2: Infrequent (Savings: 40%) | File 3: Archive Instant (Savings: 68%)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models the automated S3 Intelligent-Tiering evaluation based on consecutive days untouched (30 and 90-day thresholds)."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates automatic tier classification delivering progressive storage discounts with zero retrieval fees."
+          }
+        ],
+        "tryIt": "Test an object that was untouched for 35 days, then accessed today (daysUntouched reset to 0), and observe its tier.",
+        "check": {
+          "question": "What is the primary advantage of S3 Intelligent-Tiering over manually configuring S3 Standard-IA?",
+          "options": [
+            "Intelligent-Tiering automatically optimizes storage tiers with zero retrieval fees when data is read",
+            "Intelligent-Tiering automatically translates foreign language text documents",
+            "Intelligent-Tiering is only available for text files under 1 kilobyte"
+          ],
+          "answer": 0,
+          "why": "Intelligent-Tiering automatically moves data between tiers based on usage and never charges data retrieval fees."
+        }
+      },
+      {
+        "title": "Lifecycle Management Transition & Expiration Policies",
+        "say": [
+          "To enforce automated corporate data governance and prevent storage bloat, S3 provides Lifecycle Management Rules.",
+          "A Lifecycle configuration consists of declarative XML or JSON rules attached directly to an S3 bucket.",
+          "Each rule defines a target prefix or object tag, and specifies two major types of actions: Transition Actions, and Expiration Actions.",
+          "Transition Actions define when objects should migrate to cheaper storage tiers based on their age in days.",
+          "For example, an enterprise rule can automatically transition raw log files to S3 Standard-IA after 30 days, and to Glacier Deep Archive after 90 days.",
+          "Expiration Actions define when objects should be permanently deleted from the bucket.",
+          "For instance, temporary build artifacts or compliance audit logs can be configured to expire automatically after 365 days.",
+          "Another vital lifecycle rule is AbortIncompleteMultipartUploads.",
+          "When a multi-gigabyte upload is interrupted, uploaded parts remain stored in S3 indefinitely, quietly billing your account.",
+          "Configuring a lifecycle rule to abort incomplete multipart uploads after 7 days automatically purges orphaned data, saving significant cloud spend."
+        ],
+        "example": "A corporate paper document retention policy stating that customer correspondence is kept in office filing cabinets for 30 days, moved to basement boxes for one year, and then shredded permanently after seven years.",
+        "code": "interface LifecycleRule {\n  targetPrefix: string;\n  transitions: { days: number; storageClass: string }[];\n  expirationDays: number;\n}\n\nconst logBucketPolicy: LifecycleRule = {\n  targetPrefix: 'logs/',\n  transitions: [\n    { days: 30, storageClass: 'STANDARD_IA' },\n    { days: 90, storageClass: 'GLACIER_DEEP_ARCHIVE' }\n  ],\n  expirationDays: 365\n};\n\nfunction evaluateObjectAction(ageDays: number, rule: LifecycleRule): string {\n  if (ageDays >= rule.expirationDays) return 'PERMANENTLY_EXPIRE';\n  const applicableTransitions = rule.transitions.filter(t => ageDays >= t.days);\n  if (applicableTransitions.length > 0) {\n    return `TRANSITION_TO_${applicableTransitions[applicableTransitions.length - 1].storageClass}`;\n  }\n  return 'REMAIN_STANDARD';\n}\n\nconsole.log(`Age 10d: ${evaluateObjectAction(10, logBucketPolicy)} | Age 45d: ${evaluateObjectAction(45, logBucketPolicy)} | Age 400d: ${evaluateObjectAction(400, logBucketPolicy)}`);",
+        "output": "Age 10d: REMAIN_STANDARD | Age 45d: TRANSITION_TO_STANDARD_IA | Age 400d: PERMANENTLY_EXPIRE",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Declares a complete S3 lifecycle rule defining multi-stage storage transitions and permanent expiration."
+          },
+          {
+            "line": 24,
+            "note": "Evaluates object actions across 10, 45, and 400 days demonstrating automated lifecycle transitions."
+          }
+        ],
+        "tryIt": "Add an expiration policy rule deleting temporary files in 'tmp/' after 3 days.",
+        "check": {
+          "question": "Why should every production S3 bucket configure an 'Abort Incomplete Multipart Uploads' lifecycle rule?",
+          "options": [
+            "To prevent hackers from executing SQL injection attacks inside S3",
+            "To automatically purge hidden orphaned file parts from failed uploads that would otherwise accumulate storage costs indefinitely",
+            "Because AWS deletes the entire bucket if multipart uploads are enabled"
+          ],
+          "answer": 1,
+          "why": "Incomplete multipart uploads leave orphaned parts that incur storage fees indefinitely unless automatically purged."
+        }
+      },
+      {
+        "title": "S3 Versioning and MFA Delete Protection",
+        "say": [
+          "Accidental deletion or malicious overwriting of production data represents a catastrophic business continuity threat.",
+          "Amazon S3 Versioning provides a foundational safeguard by preserving every version of every object stored in your bucket.",
+          "Once Versioning is enabled on an S3 bucket, it can never be disabled; it can only be suspended.",
+          "When you upload an object with an existing key, S3 does not overwrite the data; it assigns a unique Version ID and places the new object at the top of the version stack.",
+          "When a user issues an HTTP DELETE command against a versioned object, S3 does not destroy the file.",
+          "Instead, S3 inserts a Delete Marker at the top of the stack.",
+          "Subsequent GET requests return 404 Not Found, but the older versions remain fully intact and can be restored simply by deleting the delete marker.",
+          "To provide ultimate protection against rogue employees or compromised administrator credentials, S3 offers MFA Delete.",
+          "MFA Delete mandates that permanently deleting an object version or altering bucket versioning requires authentication with a physical hardware TOTP MFA token.",
+          "Combining Versioning with MFA Delete makes production S3 buckets practically impervious to ransomware and accidental data destruction."
+        ],
+        "example": "A legal document tracking system where striking through a paragraph does not erase the old text, but keeps the complete audit history, requiring two senior partners with biometric keys to permanently shred the file.",
+        "code": "interface S3VersionRecord {\n  versionId: string;\n  isDeleteMarker: boolean;\n  timestamp: number;\n}\n\nclass S3VersionStack {\n  versions: S3VersionRecord[] = [];\n\n  putObject(): string {\n    const vId = 'v_' + Math.random().toString(36).substring(7);\n    this.versions.unshift({ versionId: vId, isDeleteMarker: false, timestamp: Date.now() });\n    return vId;\n  }\n\n  deleteObject(): string {\n    const markerId = 'del_' + Math.random().toString(36).substring(7);\n    this.versions.unshift({ versionId: markerId, isDeleteMarker: true, timestamp: Date.now() });\n    return markerId;\n  }\n\n  isAvailable(): boolean {\n    return this.versions.length > 0 && !this.versions[0].isDeleteMarker;\n  }\n}\n\nconst file = new S3VersionStack();\nfile.putObject(); // v1\nfile.putObject(); // v2 (update)\nfile.deleteObject(); // soft delete marker\nconsole.log(`Total Versions Preserved: ${file.versions.length} | Currently Visible: ${file.isAvailable()}`);",
+        "output": "Total Versions Preserved: 3 | Currently Visible: false",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models the S3 Versioning stack demonstrating non-destructive object updates and delete markers."
+          },
+          {
+            "line": 31,
+            "note": "Shows that deleting a file merely inserts a delete marker while all previous versions remain safely preserved."
+          }
+        ],
+        "tryIt": "Pop the delete marker off the version stack and verify that the previous object version becomes instantly visible again.",
+        "check": {
+          "question": "What actually happens when a user deletes an object from an S3 bucket that has Versioning enabled?",
+          "options": [
+            "All physical hard drives storing the object are shredded immediately",
+            "S3 inserts a Delete Marker at the top of the version stack, preserving all previous versions for recovery",
+            "The bucket is automatically reset to empty"
+          ],
+          "answer": 1,
+          "why": "With versioning enabled, S3 inserts a Delete Marker; the underlying data remains intact and can be restored."
+        }
+      },
+      {
+        "title": "S3 Multipart Upload & Transfer Acceleration",
+        "say": [
+          "Uploading large files over the public internet is susceptible to network interruptions, packet loss, and high latency.",
+          "If a 10-gigabyte file upload fails at 99 percent, restarting the entire upload from byte zero is unacceptable.",
+          "Amazon S3 solves this with the Multipart Upload API.",
+          "Multipart upload allows you to upload a single large object as a set of independent parts.",
+          "Parts can be uploaded in parallel by multiple threads, dramatically increasing aggregate throughput.",
+          "If any single part fails due to a network glitch, only that specific part needs to be retried.",
+          "AWS recommends multipart upload for all files larger than 100 megabytes, and strictly mandates multipart upload for files exceeding 5 gigabytes.",
+          "Once all parts are uploaded, S3 stitches the parts together into the final object atomically.",
+          "In addition, for global users uploading files across oceans, AWS offers S3 Transfer Acceleration.",
+          "Transfer Acceleration routes traffic through the nearest AWS Edge Location over the private, optimized AWS global network backbone.",
+          "Using Transfer Acceleration can speed up cross-border file uploads by fifty to five hundred percent."
+        ],
+        "example": "Shipping a massive pre-fabricated modular home in ten separate flatbed trucks traveling in parallel on highways, then assembling the parts at the destination, rather than attempting to haul the entire house on one truck.",
+        "code": "interface UploadPart {\n  partNumber: number;\n  sizeMb: number;\n  etag: string;\n}\n\nfunction assembleMultipartUpload(parts: UploadPart[]): { totalParts: number; totalSizeMb: number; isComplete: boolean } {\n  // Sort parts by part number ascending\n  const sorted = [...parts].sort((a, b) => a.partNumber - b.partNumber);\n  const totalSizeMb = sorted.reduce((sum, p) => sum + p.sizeMb, 0);\n  return {\n    totalParts: sorted.length,\n    totalSizeMb,\n    isComplete: sorted.length === 3 // simulated 3-part manifest\n  };\n}\n\nconst parts: UploadPart[] = [\n  { partNumber: 2, sizeMb: 50, etag: '\"etag-part-2\"' },\n  { partNumber: 1, sizeMb: 50, etag: '\"etag-part-1\"' },\n  { partNumber: 3, sizeMb: 45, etag: '\"etag-part-3\"' },\n];\n\nconst completed = assembleMultipartUpload(parts);\nconsole.log(`Multipart Upload Complete: ${completed.isComplete} | Total Size: ${completed.totalSizeMb}MB across ${completed.totalParts} parts`);",
+        "output": "Multipart Upload Complete: true | Total Size: 145MB across 3 parts",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Assembles discrete uploaded parts in ascending part order to construct the unified target object."
+          },
+          {
+            "line": 22,
+            "note": "Demonstrates parallel out-of-order part ingestion resolved into an atomic 145MB finished file."
+          }
+        ],
+        "tryIt": "Add a 4th part to the upload and verify that total object size increases dynamically.",
+        "check": {
+          "question": "When does AWS mandate the use of S3 Multipart Upload?",
+          "options": [
+            "For any file uploaded on a weekend",
+            "For single objects larger than 5 gigabytes in size",
+            "Only for files stored in Glacier Deep Archive"
+          ],
+          "answer": 1,
+          "why": "Single HTTP PUT operations in S3 are limited to 5GB; objects larger than 5GB strictly require Multipart Upload."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon S3 provides 11 9s of durability for flat, immutable object storage accessible via globally unique bucket names.",
+      "S3 storage classes range from Standard to Glacier Deep Archive, with Intelligent-Tiering providing automatic cost savings with zero retrieval fees.",
+      "Lifecycle rules automate tier transitions and object expirations, while Versioning and MFA Delete guard against data loss and ransomware."
+    ],
+    "projectStep": {
+      "title": "S3 Bucket Architecture & Lifecycle Policy Implementation",
+      "steps": [
+        "Create a production S3 bucket with globally unique naming and enable S3 Versioning",
+        "Configure an S3 Intelligent-Tiering lifecycle configuration for all unstructured media objects",
+        "Add a lifecycle rule aborting incomplete multipart uploads after 7 days and expiring old versions after 90 days"
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "title": "Amazon S3 Security, Block Public Access & Bucket Policies",
+    "goal": "Harden Amazon S3 buckets using Block Public Access, author least-privilege Bucket Policies, and enforce encryption at rest.",
+    "minutes": 25,
+    "recap": "Yesterday we learned S3 object storage classes and lifecycle tiering. Today we secure your data: locking down S3 buckets with Block Public Access, JSON bucket policies, and encryption.",
+    "parts": [
+      {
+        "title": "S3 Block Public Access: The Account & Bucket Kill-Switch",
+        "say": [
+          "Securing data stored in Amazon S3 is the single most scrutinized operational duty of every cloud engineer.",
+          "Over the past decade, dozens of high-profile data breaches occurred not because AWS infrastructure was hacked, but because customers accidentally configured buckets to be publicly readable.",
+          "To eradicate public data exposure, AWS introduced S3 Block Public Access (BPA).",
+          "Block Public Access acts as a centralized master circuit breaker that overrides all bucket policies, access points, and Access Control Lists.",
+          "BPA provides four distinct granular controls.",
+          "BlockPublicAcls blocks the granting of public permissions via newly added ACLs.",
+          "IgnorePublicAcls causes S3 to ignore all existing public ACLs attached to the bucket or its objects.",
+          "BlockPublicPolicy rejects the saving of any bucket policy that grants public access.",
+          "RestrictPublicBuckets restricts access to an existing public policy bucket strictly to AWS service principals and authorized account users.",
+          "Since April 2023, AWS enables all four Block Public Access settings by default on every newly created S3 bucket.",
+          "You should also activate Block Public Access at the AWS Account level, ensuring that zero public buckets can ever be created in your entire organization."
+        ],
+        "example": "The main master electrical breaker in a corporate building: flipping this master switch cuts all power to exterior plugs regardless of what switches are turned on in individual offices.",
+        "code": "interface BlockPublicAccessConfig {\n  blockPublicAcls: boolean;\n  ignorePublicAcls: boolean;\n  blockPublicPolicy: boolean;\n  restrictPublicBuckets: boolean;\n}\n\nfunction isFullySecured(config: BlockPublicAccessConfig): boolean {\n  return config.blockPublicAcls &&\n    config.ignorePublicAcls &&\n    config.blockPublicPolicy &&\n    config.restrictPublicBuckets;\n}\n\nconst productionBpa: BlockPublicAccessConfig = {\n  blockPublicAcls: true,\n  ignorePublicAcls: true,\n  blockPublicPolicy: true,\n  restrictPublicBuckets: true\n};\n\nconsole.log(`S3 Block Public Access Status: Fully Secured = ${isFullySecured(productionBpa)}`);",
+        "output": "S3 Block Public Access Status: Fully Secured = true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the 4 essential S3 Block Public Access configuration flags."
+          },
+          {
+            "line": 21,
+            "note": "Validates that all four BPA settings are active, guaranteeing zero public data exposure."
+          }
+        ],
+        "tryIt": "Simulate setting blockPublicPolicy to false and observe how the security check flags the vulnerability.",
+        "check": {
+          "question": "What occurs if an engineer attempts to apply a public bucket policy to an S3 bucket that has Block Public Access enabled?",
+          "options": [
+            "The policy is accepted, but AWS sends an alert email to the billing team",
+            "S3 immediately rejects the policy update with an Access Denied error",
+            "The S3 bucket is converted into a public web server"
+          ],
+          "answer": 1,
+          "why": "Block Public Access acts as an account-level circuit breaker that immediately rejects any policy granting public access."
+        }
+      },
+      {
+        "title": "S3 Bucket Policies vs IAM Policies vs ACLs",
+        "say": [
+          "Managing access to Amazon S3 involves understanding three distinct authorization mechanisms: Bucket Policies, IAM Policies, and Access Control Lists.",
+          "Bucket Policies are resource-based policies attached directly to the S3 bucket itself.",
+          "Because they are attached to the resource, Bucket Policies can authorize cross-account access: allowing users from an external partner AWS account to read files.",
+          "IAM Policies, in contrast, are attached to IAM users, groups, or compute roles within your own account.",
+          "Access Control Lists, or ACLs, are a legacy permission mechanism dating back to the launch of S3 in 2006.",
+          "ACLs manage permissions on individual objects, creating complex, fragmented permission sprawl.",
+          "AWS strongly recommends disabling ACLs entirely on all buckets by configuring S3 Object Ownership to 'Bucket owner enforced'.",
+          "When Bucket Owner Enforced is active, ACLs are completely ignored; the bucket owner automatically owns all uploaded objects, and permissions are governed solely by IAM and Bucket Policies.",
+          "This centralization eliminates credential confusion and guarantees unified security governance."
+        ],
+        "example": "The rules posted on the exterior glass door of a secure building (Bucket Policy) versus the electronic access permissions programmed onto your employee keycard (IAM Policy).",
+        "code": "interface BucketPolicyStatement {\n  Sid: string;\n  Effect: 'Allow' | 'Deny';\n  Principal: string | { AWS: string };\n  Action: string[];\n  Resource: string;\n}\n\nconst crossAccountReadPolicy: BucketPolicyStatement = {\n  Sid: 'AllowPartnerAccountRead',\n  Effect: 'Allow',\n  Principal: { AWS: 'arn:aws:iam::999888777666:root' }, // External partner account\n  Action: ['s3:GetObject'],\n  Resource: 'arn:aws:s3:::corporate-data-share/*'\n};\n\nconsole.log(`Bucket Policy [${crossAccountReadPolicy.Sid}]: Granted ${crossAccountReadPolicy.Action.join(', ')} to Partner Account`);",
+        "output": "Bucket Policy [AllowPartnerAccountRead]: Granted s3:GetObject to Partner Account",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines a resource-based S3 bucket policy explicitly authorizing cross-account access to a partner AWS account."
+          },
+          {
+            "line": 16,
+            "note": "Logs the cross-account read grant demonstrating resource-level authorization."
+          }
+        ],
+        "tryIt": "Change the Action array to support both 's3:GetObject' and 's3:ListBucket'.",
+        "check": {
+          "question": "Why does AWS recommend disabling S3 Access Control Lists (ACLs) using the 'Bucket Owner Enforced' setting?",
+          "options": [
+            "ACLs cannot store more than 10 bytes of data",
+            "Disabling ACLs centralizes all access control under modern, auditable IAM and Bucket Policies",
+            "ACLs are only supported on Windows operating systems"
+          ],
+          "answer": 1,
+          "why": "Bucket Owner Enforced disables fragmented legacy ACLs, simplifying governance through IAM and Bucket Policies."
+        }
+      },
+      {
+        "title": "Enforcing TLS / HTTPS in Transit via Bucket Policies",
+        "say": [
+          "Securing data in transit across the network is mandatory for compliance with industry standards like PCI-DSS, HIPAA, and SOC 2.",
+          "By default, an S3 bucket endpoint will accept incoming HTTP requests transmitted in unencrypted plaintext.",
+          "An attacker conducting a man-in-the-middle attack or sniffing network packets could intercept sensitive data as it traverses the wire.",
+          "To prevent unencrypted transmission, cloud engineers author a Bucket Policy statement that explicitly denies all non-HTTPS requests.",
+          "The policy leverages the AWS global condition key: 'aws:SecureTransport'.",
+          "By configuring Effect: 'Deny', Action: 's3:*', and Condition: { Bool: { 'aws:SecureTransport': 'false' } }, any request made over plain HTTP is immediately rejected.",
+          "Because an Explicit Deny overrules all allow permissions in AWS, this single policy guarantees that 100 percent of traffic entering or leaving the bucket is encrypted with TLS.",
+          "Applying this policy template across all S3 buckets is an automated baseline requirement in every enterprise security pipeline."
+        ],
+        "example": "A bank branch policy stating that tellers will immediately reject and shred any cash deposit sent in an open unsealed envelope, requiring all deposits to arrive inside locked, tamper-evident security bags.",
+        "code": "interface TlsPolicyRule {\n  Effect: 'Deny';\n  Action: string;\n  Resource: string;\n  Condition: { Bool: { 'aws:SecureTransport': string } };\n}\n\nconst enforceTlsPolicy: TlsPolicyRule = {\n  Effect: 'Deny',\n  Action: 's3:*',\n  Resource: 'arn:aws:s3:::finance-vault/*',\n  Condition: { Bool: { 'aws:SecureTransport': 'false' } }\n};\n\nfunction testTlsTransmission(isHttps: boolean, policy: TlsPolicyRule): 'REJECTED' | 'ALLOWED' {\n  if (!isHttps && policy.Condition.Bool['aws:SecureTransport'] === 'false') {\n    return 'REJECTED'; // Explicit Deny triggered\n  }\n  return 'ALLOWED';\n}\n\nconsole.log(`Plaintext HTTP Request: ${testTlsTransmission(false, enforceTlsPolicy)} | Encrypted HTTPS Request: ${testTlsTransmission(true, enforceTlsPolicy)}`);",
+        "output": "Plaintext HTTP Request: REJECTED | Encrypted HTTPS Request: ALLOWED",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the canonical S3 Bucket Policy enforcing TLS encryption in transit using aws:SecureTransport."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates that unencrypted plaintext HTTP requests are immediately rejected by the explicit deny rule."
+          }
+        ],
+        "tryIt": "Verify that changing isHttps to true allows requests to proceed without triggering the explicit deny.",
+        "check": {
+          "question": "Which condition key is used in an S3 Bucket Policy to explicitly deny all unencrypted HTTP traffic?",
+          "options": [
+            "'aws:NetworkProtocol' equals 'tcp'",
+            "'aws:SecureTransport' equals 'false'",
+            "'s3:EncryptionEnabled' equals 'off'"
+          ],
+          "answer": 1,
+          "why": "The 'aws:SecureTransport': 'false' condition with Effect: 'Deny' immediately blocks all non-HTTPS requests."
+        }
+      },
+      {
+        "title": "Encryption at Rest: SSE-S3 vs SSE-KMS vs SSE-C",
+        "say": [
+          "In addition to securing data in transit, cloud architects must encrypt all data stored at rest on physical disks.",
+          "Amazon S3 provides three distinct Server-Side Encryption (SSE) mechanisms.",
+          "The first is SSE-S3 (Server-Side Encryption with Amazon S3-Managed Keys).",
+          "Under SSE-S3, each object is encrypted with a unique key using 256-bit Advanced Encryption Standard (AES-256).",
+          "AWS manages the encryption keys automatically with zero configuration overhead and zero additional cost.",
+          "Since January 2023, SSE-S3 is automatically enabled by default on all S3 buckets.",
+          "The second mechanism is SSE-KMS (Server-Side Encryption with AWS Key Management Service).",
+          "SSE-KMS uses Customer Managed Keys (CMKs) stored in AWS KMS, giving organizations full control over key rotation policies and IAM key access.",
+          "Crucially, every single encrypt and decrypt event using SSE-KMS is logged in AWS CloudTrail, providing an immutable audit trail of who accessed sensitive data.",
+          "The third mechanism is SSE-C (Customer-Provided Keys), where the customer supplies the encryption key in the HTTP headers of every single request.",
+          "AWS never stores the SSE-C key; if the customer loses the key, the stored data is permanently unrecoverable."
+        ],
+        "example": "A hotel guest safe: using the hotel's master electronic safe code (SSE-S3), programming your own digital pin with an audit log recording every door opening (SSE-KMS), or bringing your own physical padlock from home (SSE-C).",
+        "code": "type SseMode = 'SSE-S3' | 'SSE-KMS' | 'SSE-C';\n\ninterface EncryptionOption {\n  mode: SseMode;\n  keyManager: string;\n  auditLoggingInCloudTrail: boolean;\n  extraCost: boolean;\n}\n\nconst encryptionOptions: EncryptionOption[] = [\n  { mode: 'SSE-S3', keyManager: 'AWS Managed Keys', auditLoggingInCloudTrail: false, extraCost: false },\n  { mode: 'SSE-KMS', keyManager: 'Customer Managed KMS Key', auditLoggingInCloudTrail: true, extraCost: true },\n  { mode: 'SSE-C', keyManager: 'Customer Manages On-Prem', auditLoggingInCloudTrail: false, extraCost: false },\n];\n\nfor (const opt of encryptionOptions) {\n  console.log(`[${opt.mode}] Managed By: ${opt.keyManager} | CloudTrail Audit: ${opt.auditLoggingInCloudTrail}`);\n}",
+        "output": "[SSE-S3] Managed By: AWS Managed Keys | CloudTrail Audit: false\n[SSE-KMS] Managed By: Customer Managed KMS Key | CloudTrail Audit: true\n[SSE-C] Managed By: Customer Manages On-Prem | CloudTrail Audit: false",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Defines the 3 server-side encryption modes supported by Amazon S3."
+          },
+          {
+            "line": 16,
+            "note": "Highlights that SSE-KMS is the only encryption mode providing granular CloudTrail audit logs for every read/write."
+          }
+        ],
+        "tryIt": "Identify which encryption mode is required if your compliance team demands a CloudTrail audit trail for every decrypt operation.",
+        "check": {
+          "question": "What is the primary operational advantage of SSE-KMS over standard SSE-S3 for enterprise compliance?",
+          "options": [
+            "SSE-KMS compresses images by fifty percent automatically",
+            "SSE-KMS logs every single key access and decryption event in AWS CloudTrail for auditability",
+            "SSE-KMS makes S3 buckets run ten times faster"
+          ],
+          "answer": 1,
+          "why": "SSE-KMS provides user access control over keys and logs every decryption request in AWS CloudTrail for compliance auditing."
+        }
+      },
+      {
+        "title": "S3 Pre-Signed URLs for Secure Temporary Client Uploads/Downloads",
+        "say": [
+          "In web applications, users frequently upload large profile photos, videos, or PDF documents.",
+          "A common architectural bottleneck is streaming those gigabytes through your backend Node.js EC2 instances or Lambda functions.",
+          "Routing file uploads through backend application servers wastes CPU cycles, consumes memory buffers, and requires scaling compute fleets solely to proxy bytes.",
+          "Amazon S3 provides an elegant cloud-native alternative: Pre-Signed URLs.",
+          "A Pre-Signed URL is a temporary URL generated by your backend application using its own IAM credentials.",
+          "The URL embeds cryptographic authentication query parameters, a specific HTTP method (GET or PUT), and a strict expiration timestamp (such as 15 minutes).",
+          "When a user wants to upload a file, your backend generates an S3 pre-signed PUT URL and returns it to the client browser in a JSON response.",
+          "The client browser then uploads the file directly to the S3 bucket using a standard HTTP PUT request.",
+          "Your backend servers never touch the raw payload bytes, eliminating compute bottlenecks and allowing S3 to handle massive horizontal ingest.",
+          "Pre-signed URLs can also grant temporary read access to private S3 files without making the bucket public."
+        ],
+        "example": "A parking attendant issuing a printed barcode ticket that allows a delivery driver to open the private parking garage gate for exactly twenty minutes, without giving the driver a master remote control.",
+        "code": "interface PreSignedUrlParams {\n  bucket: string;\n  key: string;\n  operation: 'getObject' | 'putObject';\n  expiresInSeconds: number;\n}\n\nfunction generatePreSignedUrl(params: PreSignedUrlParams): { url: string; expiresAt: string } {\n  const expiresAt = new Date(Date.now() + (params.expiresInSeconds * 1000)).toISOString();\n  const signature = btoa(`${params.bucket}/${params.key}/${expiresAt}`).substring(0, 12);\n  const url = `https://${params.bucket}.s3.amazonaws.com/${params.key}?X-Amz-Expires=${params.expiresInSeconds}&X-Amz-Signature=${signature}`;\n  return { url, expiresAt };\n}\n\nconst uploadToken = generatePreSignedUrl({\n  bucket: 'user-uploads-vault',\n  key: 'avatars/user_101.jpg',\n  operation: 'putObject',\n  expiresInSeconds: 900 // 15 minutes\n});\n\nconsole.log(`Pre-Signed URL Generated (Expires in 15m): ${uploadToken.url.substring(0, 65)}...`);",
+        "output": "Pre-Signed URL Generated (Expires in 15m): https://user-uploads-vault.s3.amazonaws.com/avatars/user_101.jpg?...",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Simulates generating an S3 pre-signed URL containing cryptographic signatures and strict expiration parameters."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates secure direct client-to-S3 uploads bypassing backend application server bottlenecks."
+          }
+        ],
+        "tryIt": "Change the expiration to 3600 seconds (1 hour) for long video upload operations.",
+        "check": {
+          "question": "How do S3 Pre-Signed URLs improve performance for web applications handling user file uploads?",
+          "options": [
+            "They force the client computer to encrypt files twice before transmitting",
+            "They allow client browsers to upload files directly to S3, bypassing backend servers and eliminating compute bottlenecks",
+            "They automatically make all uploaded files public so anyone can view them"
+          ],
+          "answer": 1,
+          "why": "Pre-signed URLs allow clients to upload directly to S3, removing load from backend servers and speeding up transfers."
+        }
+      },
+      {
+        "title": "S3 Object Lock & Compliance Retention Modes",
+        "say": [
+          "For highly regulated industries like financial services, healthcare, and government contracting, data immutability is mandated by law.",
+          "Regulations like SEC Rule 17a-4 require electronic records to be stored in Write Once, Read Many (WORM) format.",
+          "Amazon S3 satisfies these legal requirements through S3 Object Lock.",
+          "S3 Object Lock prevents an object from being deleted or overwritten for a fixed retention period or an indefinite legal hold.",
+          "Object Lock offers two distinct retention modes: Governance Mode, and Compliance Mode.",
+          "In Governance Mode, objects are protected from deletion by normal users, but administrators possessing the special 's3:BypassGovernanceRetention' IAM permission can delete the object or alter the retention period if necessary.",
+          "Governance Mode is ideal for protecting corporate data against accidental deletion while retaining administrative flexibility.",
+          "In Compliance Mode, the protection is absolute: no user, including the AWS account Root User, can delete or overwrite the object until the retention period expires.",
+          "Even AWS support engineers cannot bypass Compliance Mode.",
+          "S3 Object Lock provides verifiable, mathematically enforced data integrity against rogue employees, compromised administrators, and ransomware attacks."
+        ],
+        "example": "A tamper-evident financial evidence locker equipped with a physical mechanical timer lock that physically cannot be unlocked or destroyed by anyone, including the bank president, until seven years have elapsed.",
+        "code": "type ObjectLockMode = 'GOVERNANCE' | 'COMPLIANCE';\n\ninterface ObjectLockStatus {\n  key: string;\n  mode: ObjectLockMode;\n  retainUntil: string;\n  legalHoldActive: boolean;\n}\n\nfunction canDeleteObject(obj: ObjectLockStatus, userHasBypassPermission: boolean): boolean {\n  if (obj.legalHoldActive) return false; // Legal hold blocks all deletion\n  const isRetained = new Date(obj.retainUntil).getTime() > Date.now();\n  if (!isRetained) return true; // Retention period has expired\n  // During retention:\n  if (obj.mode === 'COMPLIANCE') return false; // Nobody can delete, even root!\n  if (obj.mode === 'GOVERNANCE' && userHasBypassPermission) return true;\n  return false;\n}\n\nconst lockedRecord: ObjectLockStatus = {\n  key: 'audit_tax_2026.pdf',\n  mode: 'COMPLIANCE',\n  retainUntil: new Date(Date.now() + 86400000 * 365).toISOString(),\n  legalHoldActive: false\n};\n\nconsole.log(`Compliance Mode Delete Allowed (Root User): ${canDeleteObject(lockedRecord, true)}`);",
+        "output": "Compliance Mode Delete Allowed (Root User): false",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Evaluates S3 Object Lock deletion permissions under Compliance Mode vs Governance Mode."
+          },
+          {
+            "line": 26,
+            "note": "Proves that in Compliance Mode, deletion is strictly prohibited even for users with full bypass permissions."
+          }
+        ],
+        "tryIt": "Change mode to 'GOVERNANCE' and verify that an administrator with bypass permission can delete the object.",
+        "check": {
+          "question": "Can an AWS account Root User delete an object locked under S3 Object Lock Compliance Mode before the retention period expires?",
+          "options": [
+            "Yes, the root user can always override all S3 settings at any time",
+            "No, in Compliance Mode, not even the root user or AWS support can delete the object until the retention period expires",
+            "Yes, but only if they delete the bucket first"
+          ],
+          "answer": 1,
+          "why": "Under S3 Object Lock Compliance Mode, no identity (including root) can delete or alter the object during retention."
+        }
+      }
+    ],
+    "summary": [
+      "S3 Block Public Access acts as a centralized circuit breaker that overrides all policies to prevent public data exposure.",
+      "Bucket policies enforce security in transit using 'aws:SecureTransport': 'false' to deny unencrypted plaintext HTTP traffic.",
+      "Pre-signed URLs enable secure direct client uploads to S3, while Object Lock Compliance Mode enforces immutable WORM data retention."
+    ],
+    "projectStep": {
+      "title": "S3 Security Hardening & Bucket Policy Deployment",
+      "steps": [
+        "Enable all four S3 Block Public Access settings on your production media and document buckets",
+        "Attach a Bucket Policy enforcing TLS encryption in transit by denying requests where 'aws:SecureTransport' is false",
+        "Implement backend generation of temporary S3 Pre-Signed URLs for direct client document uploads"
+      ]
+    }
   }
 ];
