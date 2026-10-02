@@ -1260,5 +1260,1271 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "Export production CSS Custom Properties and TypeScript type definitions for component library consumption"
       ]
     }
+  },
+  {
+    "day": 6,
+    "title": "Atomic Design Methodology: Atoms, Molecules, Organisms, Templates & Pages",
+    "goal": "Structure scalable component hierarchies using Brad Frost's Atomic Design methodology and eliminate circular dependency coupling traps.",
+    "minutes": 25,
+    "recap": "In Milestone 1, we solidified our foundational tokens, modular typography, and 8pt spatial grid. Today we step into visual component architecture using the industry-standard Atomic Design methodology.",
+    "parts": [
+      {
+        "title": "Brad Frost's Atomic Hierarchy: From Subatomic to Holistic UI",
+        "say": [
+          "Building complex web applications without an architectural mental model inevitably leads to component spaghetti.",
+          "Developers create monolithic, entangled components where a single file handles data fetching, card rendering, button styling, and layout positioning.",
+          "In 2013, Brad Frost introduced Atomic Design, a methodology inspired by natural chemistry that organizes interfaces into five hierarchical tiers.",
+          "At the base level are Atoms: the foundational, indivisible building blocks of our UI, such as buttons, form inputs, labels, and icons.",
+          "Combining atoms creates Molecules: simple functional units operating together, such as an input field paired with a button and label to form a search bar.",
+          "Assembling molecules and atoms forms Organisms: complex, distinct sections of an interface such as a global header, a product grid, or a comment stream.",
+          "Templates define the macro layout structure, placing organisms into a page wireframe without hardcoded live content.",
+          "Finally, Pages are specific instances of templates populated with real production data, images, and localized text.",
+          "Adopting this hierarchical taxonomy provides engineering teams with a shared mental model that eliminates ambiguity and duplication."
+        ],
+        "example": "A physical textbook: letters and punctuation marks are atoms, words are molecules, paragraphs and chapters are organisms, the layout grid of the book is the template, and the printed published novel is the page.",
+        "code": "interface AtomicComponent {\n  name: string;\n  tier: 'Atom' | 'Molecule' | 'Organism' | 'Template' | 'Page';\n  dependencies: string[];\n}\n\nconst uiTree: AtomicComponent[] = [\n  { name: 'PrimaryButton', tier: 'Atom', dependencies: [] },\n  { name: 'SearchInput', tier: 'Atom', dependencies: [] },\n  { name: 'SearchBar', tier: 'Molecule', dependencies: ['SearchInput', 'PrimaryButton'] },\n  { name: 'AppHeader', tier: 'Organism', dependencies: ['SearchBar', 'UserAvatarBadge'] },\n  { name: 'DashboardTemplate', tier: 'Template', dependencies: ['AppHeader', 'SidebarNav'] },\n];\n\nfor (const comp of uiTree) {\n  const depText = comp.dependencies.length ? ` (requires: ${comp.dependencies.join(', ')})` : ' (zero deps)';\n  console.log(`[${comp.tier}] ${comp.name}${depText}`);\n}",
+        "output": "[Atom] PrimaryButton (zero deps)\n[Atom] SearchInput (zero deps)\n[Molecule] SearchBar (requires: SearchInput, PrimaryButton)\n[Organism] AppHeader (requires: SearchBar, UserAvatarBadge)\n[Template] DashboardTemplate (requires: AppHeader, SidebarNav)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models the five tiers of Brad Frost's Atomic Design methodology with explicit dependency tracking."
+          },
+          {
+            "line": 16,
+            "note": "Displays the hierarchical relationship where higher tiers compose lower-tier building blocks."
+          }
+        ],
+        "tryIt": "Add an AnalyticsDashboard component categorized as a 'Page' dependent on DashboardTemplate.",
+        "check": {
+          "question": "In Atomic Design, which tier represents simple functional combinations of atoms (such as a search input and button)?",
+          "options": [
+            "Organisms",
+            "Molecules",
+            "Templates"
+          ],
+          "answer": 1,
+          "why": "Molecules are groups of atoms bonded together that form the smallest unit of functional interaction."
+        }
+      },
+      {
+        "title": "Pure Atoms: Buttons, Inputs, Labels & Icons",
+        "say": [
+          "Atoms are the lowest common denominators of the user interface.",
+          "An atom cannot be broken down further without losing its practical functional utility.",
+          "Standard atoms include HTML tags such as buttons, text inputs, radio buttons, form labels, tooltips, and SVG icons.",
+          "A fundamental principle of production atoms is that they must be completely stateless regarding application domain logic.",
+          "An Atom button should have zero knowledge of 'UserAuthentication' or 'CheckoutOrder' data models.",
+          "It simply accepts props such as 'variant=\"primary\"', 'size=\"md\"', 'disabled', and an 'onClick' event handler.",
+          "Atoms should be highly reusable, completely isolated, and strictly styled using our design tokens from Milestone 1.",
+          "By keeping atoms pure and decoupled from business logic, they can be deployed across every screen and product in an enterprise portfolio.",
+          "Building bulletproof, accessible atoms is the most critical investment in any design system."
+        ],
+        "example": "Individual bricks of clay: pure, uniform, and agnostic about whether they will become a garden pathway, a fireplace, or a skyscraper exterior wall.",
+        "code": "interface AtomProps {\n  name: string;\n  tag: string;\n  hasBusinessLogic: boolean;\n  consumesTokens: boolean;\n}\n\nconst atomAudits: AtomProps[] = [\n  { name: 'BaseButton', tag: 'button', hasBusinessLogic: false, consumesTokens: true },\n  { name: 'BaseInput', tag: 'input', hasBusinessLogic: false, consumesTokens: true },\n  { name: 'UserCheckoutBtn', tag: 'button', hasBusinessLogic: true, consumesTokens: true }, // Anti-pattern\n];\n\nfor (const a of atomAudits) {\n  const isPure = !a.hasBusinessLogic && a.consumesTokens;\n  const status = isPure ? 'CLEAN ATOM' : 'DEFECT: BUSINESS LOGIC IN ATOM';\n  console.log(`[${status}] <${a.tag}> ${a.name} (Pure: ${isPure})`);\n}",
+        "output": "[CLEAN ATOM] <button> BaseButton (Pure: true)\n[CLEAN ATOM] <input> BaseInput (Pure: true)\n[DEFECT: BUSINESS LOGIC IN ATOM] <button> UserCheckoutBtn (Pure: false)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines purity criteria for UI atoms: zero business logic and strict token consumption."
+          },
+          {
+            "line": 16,
+            "note": "Identifies and flags components that violate atomic purity by coupling to domain logic."
+          }
+        ],
+        "tryIt": "Add an IconBadge atom with tag 'span', hasBusinessLogic: false, and verify it evaluates as CLEAN ATOM.",
+        "check": {
+          "question": "Why must UI Atoms (like BaseButton or BaseInput) remain free of application business logic?",
+          "options": [
+            "To maximize reusability across diverse features and avoid coupling visual components to specific data models",
+            "Because React crashes if a button contains an onClick handler",
+            "To prevent the browser from rendering animations"
+          ],
+          "answer": 0,
+          "why": "Pure atoms remain reusable across any context because they only handle presentation and primitive events."
+        }
+      },
+      {
+        "title": "Interactive Molecules: Composing Search Forms & Field Groups",
+        "say": [
+          "Molecules represent the first level of component composition in Atomic Design.",
+          "A molecule combines two or more atoms to perform a single, focused, cohesive UI task.",
+          "Consider a SearchBar: by itself, an Input atom allows typing text, and a Button atom allows clicking, but neither is a complete search feature.",
+          "When combined together with an Icon atom inside a form container, they form a SearchBar molecule.",
+          "Molecules possess simple local interaction state—such as tracking input focus, character counts, or input clearing.",
+          "However, molecules still avoid complex backend domain coupling; they emit standard callback events like 'onSearch(query: string)'.",
+          "Other classic molecules include FormField (Label atom + Input atom + HelperText atom), PaginationControl (Previous button + Page numbers + Next button), and AvatarWithStatus (Image atom + StatusPill atom).",
+          "Building well-defined molecules establishes reusable interaction patterns that feel consistent across the entire application.",
+          "Let us model a SearchBar molecule composed of pure atoms."
+        ],
+        "example": "A spark plug: made of ceramic insulator and steel electrode atoms, assembled into a single molecule that performs one specific job: creating an electrical spark.",
+        "code": "interface MoleculeComposition {\n  name: string;\n  atomsUsed: string[];\n  emittedEvent: string;\n  localState: string[];\n}\n\nconst searchMolecule: MoleculeComposition = {\n  name: 'SearchBar',\n  atomsUsed: ['TextInput', 'SearchIcon', 'ClearButton', 'SubmitButton'],\n  emittedEvent: 'onSearch(query: string)',\n  localState: ['isFocused', 'queryText', 'hasText'],\n};\n\nconsole.log(`Molecule: ${searchMolecule.name}`);\nconsole.log(`Composed Atoms: ${searchMolecule.atomsUsed.join(', ')}`);\nconsole.log(`Local State: ${searchMolecule.localState.join(', ')} | Emits: ${searchMolecule.emittedEvent}`);",
+        "output": "Molecule: SearchBar\nComposed Atoms: TextInput, SearchIcon, ClearButton, SubmitButton\nLocal State: isFocused, queryText, hasText | Emits: onSearch(query: string)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines a molecule combining multiple atoms to create an interactive search pattern."
+          },
+          {
+            "line": 16,
+            "note": "Outputs the composed atoms, internal interaction states, and public event contract."
+          }
+        ],
+        "tryIt": "Create a FormField molecule combining FormLabel, TextInput, and FormErrorMessage atoms.",
+        "check": {
+          "question": "What distinguishes a Molecule from an Atom in Atomic Design?",
+          "options": [
+            "Molecules are written in JavaScript, while atoms are written in HTML",
+            "Molecules compose multiple atoms together to accomplish a single focused interactive task",
+            "Molecules can only be used on mobile devices"
+          ],
+          "answer": 1,
+          "why": "Molecules combine multiple atoms into a functional, tangible unit of interaction."
+        }
+      },
+      {
+        "title": "Organisms: Autonomous Modules & Complex Section Boundaries",
+        "say": [
+          "Organisms represent relatively complex, distinct, and autonomous sections of an interface.",
+          "Unlike molecules, which perform a single focused task, organisms orchestrate multiple molecules, atoms, and sometimes child organisms.",
+          "Classic examples of organisms include a GlobalNavigationHeader, an E-commerce ProductCardGrid, a UserProfileSidebar, or a CommentSection.",
+          "An organism can hold substantive state and can interface directly with application state management or data providers.",
+          "For example, a GlobalNavigationHeader organism might contain a Logo atom, a SearchBar molecule, a NavigationLinks molecule, and a UserAccountMenu molecule.",
+          "It coordinates responsive breakpoint collapse (shifting links into a mobile hamburger drawer) and manages authentication session display.",
+          "Organisms provide distinct visual landmarks that users instantly recognize across different sections of an application.",
+          "Maintaining clear architectural boundaries on organisms prevents them from mutating into monolithic, unmaintainable super-components.",
+          "Let us inspect the composition of a GlobalHeader organism."
+        ],
+        "example": "The digestive system or circulatory system of a living organism: composed of diverse organs and tissues operating harmoniously to perform complex biological functions.",
+        "code": "interface OrganismSpec {\n  name: string;\n  role: string;\n  molecules: string[];\n  atoms: string[];\n  responsiveness: string;\n}\n\nconst headerOrganism: OrganismSpec = {\n  name: 'GlobalNavHeader',\n  role: 'banner',\n  molecules: ['NavMenuLinks', 'SearchFieldGroup', 'UserDropdownMenu'],\n  atoms: ['BrandLogo', 'NotificationBellBadge', 'HamburgerToggleBtn'],\n  responsiveness: 'Collapses to Drawer below 768px viewport',\n};\n\nconsole.log(`Organism: ${headerOrganism.name} (ARIA role: ${headerOrganism.role})`);\nconsole.log(`Contains Molecules: ${headerOrganism.molecules.join(', ')}`);\nconsole.log(`Direct Atoms: ${headerOrganism.atoms.join(', ')}`);\nconsole.log(`Responsive Behavior: ${headerOrganism.responsiveness}`);",
+        "output": "Organism: GlobalNavHeader (ARIA role: banner)\nContains Molecules: NavMenuLinks, SearchFieldGroup, UserDropdownMenu\nDirect Atoms: BrandLogo, NotificationBellBadge, HamburgerToggleBtn\nResponsive Behavior: Collapses to Drawer below 768px viewport",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Models a complex organism orchestrating molecules and atoms into an autonomous navigation header."
+          },
+          {
+            "line": 18,
+            "note": "Displays the structural hierarchy and responsive collapse behavior."
+          }
+        ],
+        "tryIt": "Create a ProductGridOrganism that coordinates ProductCard molecules, a FilterSidebar organism, and a Pagination molecule.",
+        "check": {
+          "question": "Which component type qualifies as an 'Organism' in Atomic Design?",
+          "options": [
+            "A single primary button icon",
+            "A Global Navigation Header containing a logo, search molecule, nav links, and profile menu",
+            "A CSS custom property token"
+          ],
+          "answer": 1,
+          "why": "Organisms are complex, distinct UI sections composed of multiple molecules and atoms."
+        }
+      },
+      {
+        "title": "Templates & Pages: Layout Wireframes vs Dynamic Content",
+        "say": [
+          "The final two tiers of Atomic Design—Templates and Pages—transition our architecture from component design to complete page construction.",
+          "A Template acts as a structural layout wireframe.",
+          "It arranges organisms, molecules, and layout containers into a cohesive page layout without binding actual production content.",
+          "In React or Next.js, templates are typically represented as Layout components or container slots accepting 'children' or named slot props.",
+          "A Template answers: 'Where does the sidebar go? Where does the main feed sit? Where does the sticky footer render?'.",
+          "Conversely, a Page is a concrete, living instance of a template populated with real data, localized text strings, and live user media.",
+          "Pages represent what the end-user actually interacts with in production.",
+          "Separating Templates from Pages enables engineers to test layout responsiveness and fallback states (like loading skeletons and error banners) independently of live API data.",
+          "This clean division between layout skeleton and live content completes Brad Frost's Atomic Design methodology."
+        ],
+        "example": "An empty architectural blueprint of a three-bedroom house (Template) versus a fully furnished, lived-in home with family photos on the walls and food in the refrigerator (Page).",
+        "code": "interface TemplateSlot {\n  slotName: string;\n  expectedOrganism: string;\n  gridArea: string;\n}\n\ninterface PageInstance {\n  pageTitle: string;\n  templateUsed: string;\n  liveDataSources: string[];\n  slotsPopulated: number;\n}\n\nconst dashboardTemplateSlots: TemplateSlot[] = [\n  { slotName: 'Header', expectedOrganism: 'GlobalNavHeader', gridArea: 'header' },\n  { slotName: 'Sidebar', expectedOrganism: 'NavigationDrawer', gridArea: 'sidebar' },\n  { slotName: 'MainContent', expectedOrganism: 'AnalyticsChartGrid', gridArea: 'main' },\n];\n\nconst liveDashboardPage: PageInstance = {\n  pageTitle: 'Executive Revenue Dashboard',\n  templateUsed: 'DashboardTemplate',\n  liveDataSources: ['/api/analytics/revenue', '/api/user/profile'],\n  slotsPopulated: dashboardTemplateSlots.length,\n};\n\nconsole.log(`Template Slots (${dashboardTemplateSlots.length}): ${dashboardTemplateSlots.map(s => s.slotName).join(', ')}`);\nconsole.log(`Page: ${liveDashboardPage.pageTitle} -> Template: ${liveDashboardPage.templateUsed} (Active Data Feeds: ${liveDashboardPage.liveDataSources.length})`);",
+        "output": "Template Slots (3): Header, Sidebar, MainContent\nPage: Executive Revenue Dashboard -> Template: DashboardTemplate (Active Data Feeds: 2)",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Models template slots defining layout regions for organisms without live data."
+          },
+          {
+            "line": 25,
+            "note": "Represents a concrete Page instance binding real API data feeds to the template layout."
+          }
+        ],
+        "tryIt": "Add a Footer slot to the template and update the page instance slot count.",
+        "check": {
+          "question": "What is the key difference between a Template and a Page in Atomic Design?",
+          "options": [
+            "Templates define layout structure and component slots without real data, while Pages populate templates with live content",
+            "Templates are written in Python, while Pages are written in HTML",
+            "Templates only work in production mode"
+          ],
+          "answer": 0,
+          "why": "Templates provide the structural wireframe layout, while Pages are specific instances populated with actual data."
+        }
+      },
+      {
+        "title": "Dependency Inversion & Preventing Coupling Traps",
+        "say": [
+          "A catastrophic failure mode in design system architecture is Dependency Inversion and Circular Coupling.",
+          "In a healthy atomic hierarchy, dependencies flow strictly in one direction: Pages depend on Templates, Templates depend on Organisms, Organisms depend on Molecules, and Molecules depend on Atoms.",
+          "An Atom must NEVER import or depend on a Molecule, Organism, or Page.",
+          "If a Button atom imports a SearchBar molecule, or a FormInput imports a UserProfile organism, an unmaintainable circular dependency cycle is born.",
+          "Circular dependencies prevent tree-shaking, balloon JavaScript bundle sizes, and cause confusing runtime 'undefined is not a function' errors.",
+          "To safeguard the codebase, elite design system architectures enforce strict unidirectional linting rules using ESLint import boundaries.",
+          "Any pull request where a lower-tier component imports a higher-tier component fails automated continuous integration checks.",
+          "Enforcing strict unidirectional data flow and dependency hierarchy guarantees that our component library remains modular, lightweight, and scalable."
+        ],
+        "example": "A skyscraper construction rule: bricks must never depend on the roof for support; the foundation supports the bricks, the bricks support the beams, and the beams support the roof.",
+        "code": "type Tier = 'Atom' | 'Molecule' | 'Organism' | 'Template' | 'Page';\n\nconst tierRanks: Record<Tier, number> = {\n  Atom: 1,\n  Molecule: 2,\n  Organism: 3,\n  Template: 4,\n  Page: 5,\n};\n\ninterface DependencyCheck {\n  sourceComponent: string;\n  sourceTier: Tier;\n  importedComponent: string;\n  importedTier: Tier;\n}\n\nfunction checkImportAllowed(dep: DependencyCheck): { allowed: boolean; message: string } {\n  const sourceRank = tierRanks[dep.sourceTier];\n  const importedRank = tierRanks[dep.importedTier];\n\n  if (importedRank > sourceRank) {\n    return {\n      allowed: false,\n      message: `VIOLATION: ${dep.sourceTier} '${dep.sourceComponent}' cannot import higher tier ${dep.importedTier} '${dep.importedComponent}'`,\n    };\n  }\n  return { allowed: true, message: 'Valid unidirectional dependency' };\n}\n\nconst importAudits: DependencyCheck[] = [\n  { sourceComponent: 'SearchBar', sourceTier: 'Molecule', importedComponent: 'BaseButton', importedTier: 'Atom' },\n  { sourceComponent: 'BaseButton', sourceTier: 'Atom', importedComponent: 'UserProfile', importedTier: 'Organism' },\n];\n\nfor (const audit of importAudits) {\n  const res = checkImportAllowed(audit);\n  console.log(`[${res.allowed ? 'PASS' : 'FAIL'}] ${audit.sourceComponent} -> ${audit.importedComponent}: ${res.message}`);\n}",
+        "output": "[PASS] SearchBar -> BaseButton: Valid unidirectional dependency\n[FAIL] BaseButton -> UserProfile: VIOLATION: Atom 'BaseButton' cannot import higher tier Organism 'UserProfile'",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Defines numerical hierarchy ranks to enforce strict unidirectional component dependencies."
+          },
+          {
+            "line": 35,
+            "note": "Catches and rejects architectural violations where an atom illegally imports an organism."
+          }
+        ],
+        "tryIt": "Audit an Organism importing a Molecule and verify it passes dependency checks.",
+        "check": {
+          "question": "Why is an Atom forbidden from importing an Organism in a clean design system architecture?",
+          "options": [
+            "It creates an inverted dependency cycle that breaks modularity, prevents tree-shaking, and causes runtime circular reference errors",
+            "Atoms and organisms use different CSS preprocessors",
+            "Modern web browsers disallow functions with more than two imports"
+          ],
+          "answer": 0,
+          "why": "Lower tiers must remain completely independent of higher tiers to preserve reusability and prevent circular dependency cycles."
+        }
+      }
+    ],
+    "summary": [
+      "Atomic Design provides a 5-tier hierarchy: Atoms, Molecules, Organisms, Templates, and Pages for scalable UI architecture.",
+      "Atoms must remain purely presentational and free of application business logic to maximize universal reusability.",
+      "Strict unidirectional dependency rules prevent circular imports and keep component libraries modular and lightweight."
+    ],
+    "projectStep": {
+      "title": "Establish Atomic Component Hierarchy",
+      "steps": [
+        "Audit existing UI components and classify each item into Atoms, Molecules, or Organisms",
+        "Refactor atomic primitives to strip hardcoded business logic and accept standard props",
+        "Configure ESLint dependency boundaries to prevent lower-tier components from importing higher tiers"
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "title": "Button Architecture & Interactive States: Default, Hover, Active, Focus & Loading",
+    "goal": "Engineer production-grade interactive buttons with 6 discrete states, WCAG accessible focus rings, semantic variants, and robust loading UX.",
+    "minutes": 25,
+    "recap": "Yesterday we learned how to structure component hierarchies using Atomic Design. Today we build the most fundamental atom in any digital product: the enterprise Button component.",
+    "parts": [
+      {
+        "title": "The 6 Discrete Interactive States of an Accessible Button",
+        "say": [
+          "The button is the primary interactive vehicle for user intent in web applications.",
+          "Amateur button implementations often account for only two states: default and hover.",
+          "However, a production-grade, accessible button component must gracefully handle six discrete interactive states.",
+          "1. Default: the resting, idle state of the button with baseline color tokens.",
+          "2. Hover: visual elevation and color darkening when a pointer device hovers over the button.",
+          "3. Active / Pressed: the physical depression feedback when the button is actively clicked or pressed via the Space/Enter key.",
+          "4. Focus-Visible: a prominent, high-contrast focus ring for keyboard navigation, distinct from mouse hover.",
+          "5. Disabled: visual opacity reduction and event suppression when the action is unavailable.",
+          "6. Loading / Busy: displaying an animated spinner while an asynchronous request is in flight, with 'aria-busy=\"true\"' announced to assistive technologies.",
+          "Managing these six states within a cohesive finite state machine ensures that users never feel confused about whether an action was registered.",
+          "Every state must communicate clearly through color contrast, cursor styles, and accessibility attributes."
+        ],
+        "example": "A physical elevator button: dark brushed steel at rest, glowing amber when your finger hovers, clicking inwards under pressure, illuminating a bright ring when active, and flashing when the motor is engaged.",
+        "code": "type ButtonState = 'default' | 'hover' | 'active' | 'focus-visible' | 'disabled' | 'loading';\n\ninterface ButtonStateProps {\n  state: ButtonState;\n  ariaDisabled: boolean;\n  ariaBusy: boolean;\n  cursor: string;\n  visualFeedback: string;\n}\n\nfunction resolveButtonState(state: ButtonState): ButtonStateProps {\n  switch (state) {\n    case 'hover':\n      return { state, ariaDisabled: false, ariaBusy: false, cursor: 'pointer', visualFeedback: 'Darken background 10%' };\n    case 'active':\n      return { state, ariaDisabled: false, ariaBusy: false, cursor: 'pointer', visualFeedback: 'Scale 0.98, inset shadow' };\n    case 'focus-visible':\n      return { state, ariaDisabled: false, ariaBusy: false, cursor: 'pointer', visualFeedback: '2px blue ring, offset 2px' };\n    case 'disabled':\n      return { state, ariaDisabled: true, ariaBusy: false, cursor: 'not-allowed', visualFeedback: 'Opacity 50%, no hover' };\n    case 'loading':\n      return { state, ariaDisabled: true, ariaBusy: true, cursor: 'wait', visualFeedback: 'Spinner active, label hidden' };\n    default:\n      return { state, ariaDisabled: false, ariaBusy: false, cursor: 'pointer', visualFeedback: 'Standard token styles' };\n  }\n}\n\nconst statesToTest: ButtonState[] = ['default', 'hover', 'active', 'focus-visible', 'disabled', 'loading'];\nfor (const s of statesToTest) {\n  const p = resolveButtonState(s);\n  console.log(`Button [${p.state}] -> cursor: ${p.cursor}, feedback: ${p.visualFeedback}`);\n}",
+        "output": "Button [default] -> cursor: pointer, feedback: Standard token styles\nButton [hover] -> cursor: pointer, feedback: Darken background 10%\nButton [active] -> cursor: pointer, feedback: Scale 0.98, inset shadow\nButton [focus-visible] -> cursor: pointer, feedback: 2px blue ring, offset 2px\nButton [disabled] -> cursor: not-allowed, feedback: Opacity 50%, no hover\nButton [loading] -> cursor: wait, feedback: Spinner active, label hidden",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the 6 canonical states of an enterprise button state machine."
+          },
+          {
+            "line": 29,
+            "note": "Enumerates and logs state properties verifying cursor and visual feedback specifications."
+          }
+        ],
+        "tryIt": "Verify that the loading state marks both ariaDisabled and ariaBusy as true.",
+        "check": {
+          "question": "Why should an in-flight asynchronous button state announce 'aria-busy=\"true\"'?",
+          "options": [
+            "To inform screen readers that the element is currently executing an operation and updating",
+            "To trigger GPU hardware acceleration",
+            "To automatically submit the form twice"
+          ],
+          "answer": 0,
+          "why": "Screen readers announce aria-busy to let vision-impaired users know that background work is underway."
+        }
+      },
+      {
+        "title": "Button Semantic Variants: Primary, Secondary, Outline, Ghost & Danger",
+        "say": [
+          "Not all actions on a screen possess equal importance.",
+          "If every button on a page is bright blue and bold, users suffer from cognitive visual overload, unable to identify the primary call-to-action.",
+          "Design systems define a structured palette of Button Variants that establish clear visual hierarchy.",
+          "Primary: the single most important action on a screen (e.g., 'Save', 'Submit', 'Pay Now'), featuring a solid brand background.",
+          "Secondary: supporting actions (e.g., 'Save Draft', 'Next Step'), with a muted gray background surface.",
+          "Outline: alternative actions (e.g., 'Filter', 'Export'), featuring a transparent background with a 1px border stroke.",
+          "Ghost / Plain: subtle tertiary actions (e.g., 'Cancel', 'Learn More', icon buttons), with zero background or border until hovered.",
+          "Danger / Destructive: high-risk actions that delete data (e.g., 'Delete Account', 'Revoke Access'), styled with bold red tokens to signal irreversible consequences.",
+          "Mapping variants to component-scoped design tokens allows instant global theme re-styling."
+        ],
+        "example": "A courtroom or legal hearing: the Judge (Primary variant) commands immediate visual authority, attorneys (Secondary) wear formal business attire, and observers (Ghost) remain visually subtle.",
+        "code": "type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';\n\ninterface VariantStyle {\n  variant: ButtonVariant;\n  bgToken: string;\n  textToken: string;\n  borderToken: string;\n}\n\nconst variantTokens: Record<ButtonVariant, VariantStyle> = {\n  primary: { variant: 'primary', bgToken: 'var(--color-primary-600)', textToken: '#ffffff', borderToken: 'transparent' },\n  secondary: { variant: 'secondary', bgToken: 'var(--color-neutral-100)', textToken: 'var(--color-neutral-900)', borderToken: 'transparent' },\n  outline: { variant: 'outline', bgToken: 'transparent', textToken: 'var(--color-primary-600)', borderToken: '1px solid var(--color-primary-600)' },\n  ghost: { variant: 'ghost', bgToken: 'transparent', textToken: 'var(--color-neutral-700)', borderToken: 'transparent' },\n  danger: { variant: 'danger', bgToken: 'var(--color-danger-600)', textToken: '#ffffff', borderToken: 'transparent' },\n};\n\nfor (const [key, v] of Object.entries(variantTokens)) {\n  console.log(`Variant [${key}]: bg=${v.bgToken}, text=${v.textToken}, border=${v.borderToken}`);\n}",
+        "output": "Variant [primary]: bg=var(--color-primary-600), text=#ffffff, border=transparent\nVariant [secondary]: bg=var(--color-neutral-100), text=var(--color-neutral-900), border=transparent\nVariant [outline]: bg=transparent, text=var(--color-primary-600), border=1px solid var(--color-primary-600)\nVariant [ghost]: bg=transparent, text=var(--color-neutral-700), border=transparent\nVariant [danger]: bg=var(--color-danger-600), text=#ffffff, border=transparent",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Maps each semantic button variant to design token variables for background, text, and border."
+          },
+          {
+            "line": 19,
+            "note": "Logs the variant design specifications enforcing clear visual hierarchy."
+          }
+        ],
+        "tryIt": "Add a subtle hover background token (e.g., rgba(0,0,0,0.05)) specifically for the ghost variant.",
+        "check": {
+          "question": "Why should a user interface typically feature only ONE Primary button per view?",
+          "options": [
+            "CSS limits browsers to rendering a single solid background per DOM tree",
+            "Having multiple primary buttons creates visual competition and cognitive friction for users deciding the main action",
+            "Primary buttons consume more network bandwidth"
+          ],
+          "answer": 1,
+          "why": "A single primary button establishes clear focus, guiding the user toward the primary task without distraction."
+        }
+      },
+      {
+        "title": "Button Sizes (sm, md, lg) & Touch Target Proportion Metrics",
+        "say": [
+          "Button dimensions must adapt to different layout densities while strictly maintaining accessible physical interaction standards.",
+          "Design systems standardize on three button sizes: small ('sm'), medium ('md'), and large ('lg').",
+          "Small (height: 32px, padding: 0 12px, font: 14px) is utilized in dense data tables, toolbars, and compact sidebars.",
+          "Medium (height: 40px, padding: 0 16px, font: 16px) is the universal default for standard forms and dialog actions.",
+          "Large (height: 48px, padding: 0 24px, font: 18px) is reserved for prominent marketing heroes and mobile primary actions.",
+          "Crucially, mobile touch accessibility guidelines (WCAG 2.5.5 and Apple HIG) mandate a minimum touch target size of 44px by 44px (or 48px by 48px).",
+          "When a small button (32px tall) is rendered on mobile, its visible container can be 32px, but its interactive hit area must expand to 44px using pseudo-elements ('::before' with transparent padding).",
+          "Adhering to these touch target metrics prevents the dreaded mobile 'fat finger' misclick bug.",
+          "Standardizing sizes with spatial tokens guarantees seamless alignment across diverse form controls."
+        ],
+        "example": "A physical elevator button or car brake pedal: engineered with large surface areas so a human foot or finger never misses the target during emergency or distracted situations.",
+        "code": "interface ButtonSizeMetrics {\n  size: 'sm' | 'md' | 'lg';\n  heightPx: number;\n  paddingXPx: number;\n  fontSizeRem: string;\n  minTouchTargetPx: number;\n  touchTargetCompliant: boolean;\n}\n\nconst buttonSizes: ButtonSizeMetrics[] = [\n  { size: 'sm', heightPx: 32, paddingXPx: 12, fontSizeRem: '0.875rem', minTouchTargetPx: 44, touchTargetCompliant: true },\n  { size: 'md', heightPx: 40, paddingXPx: 16, fontSizeRem: '1.000rem', minTouchTargetPx: 44, touchTargetCompliant: true },\n  { size: 'lg', heightPx: 48, paddingXPx: 24, fontSizeRem: '1.125rem', minTouchTargetPx: 48, touchTargetCompliant: true },\n];\n\nfor (const s of buttonSizes) {\n  console.log(`Size [${s.size}]: Height=${s.heightPx}px, PadX=${s.paddingXPx}px, Font=${s.fontSizeRem} (Touch Target >= ${s.minTouchTargetPx}px: ${s.touchTargetCompliant})`);\n}",
+        "output": "Size [sm]: Height=32px, PadX=12px, Font=0.875rem (Touch Target >= 44px: true)\nSize [md]: Height=40px, PadX=16px, Font=1.000rem (Touch Target >= 44px: true)\nSize [lg]: Height=48px, PadX=24px, Font=1.125rem (Touch Target >= 48px: true)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Encapsulates button size proportions alongside mobile touch target compliance metrics."
+          },
+          {
+            "line": 16,
+            "note": "Logs the dimensions proving that even compact 'sm' buttons enforce 44px minimum touch targets."
+          }
+        ],
+        "tryIt": "Verify that height increments strictly align with our 8pt spatial grid (32px, 40px, 48px are all 8pt multiples).",
+        "check": {
+          "question": "Under WCAG 2.5.5 and mobile platform guidelines, what is the recommended minimum touch target size for interactive elements?",
+          "options": [
+            "20px by 20px",
+            "44px by 44px (or 48px by 48px)",
+            "100px by 100px"
+          ],
+          "answer": 1,
+          "why": "44px by 44px provides sufficient physical surface area for reliable fingertip interaction on mobile screens."
+        }
+      },
+      {
+        "title": "Accessible Focus Rings: :focus-visible & outline-offset",
+        "say": [
+          "Historically, developers hated default browser focus rings because clicking with a mouse produced an ugly black or blue outline.",
+          "Routinely, developers committed the severe accessibility sin of writing 'outline: none' or 'outline: 0' in CSS reset stylesheets.",
+          "Removing focus outlines completely blinds keyboard-only users, who rely on the visual ring to see which element currently has focus.",
+          "Modern CSS solves this tension with the ':focus-visible' pseudo-class.",
+          "Unlike ':focus', which triggers on both mouse clicks and keyboard taps, ':focus-visible' triggers exclusively when an element receives focus via keyboard navigation (Tab key).",
+          "Furthermore, professional design systems style focus rings with high-contrast outlines paired with 'outline-offset: 2px'.",
+          "The 'outline-offset' property creates a 2px gap of breathing room between the button border and the focus ring.",
+          "This offset ensures the focus ring is never clipped by the button background or rounded border-radius.",
+          "Combining ':focus-visible' with 'outline-offset' delivers stunning keyboard accessibility without bothering mouse users."
+        ],
+        "example": "A laser pointer highlighting an item on a presentation slide during a lecture: visible only when the speaker points to it, without leaving permanent ink on the screen.",
+        "code": "interface FocusRingStyle {\n  selector: string;\n  outlineWidth: string;\n  outlineColor: string;\n  outlineOffset: string;\n  isAccessible: boolean;\n}\n\nfunction formatFocusCss(ring: FocusRingStyle): string {\n  return `${ring.selector} {\n  outline: ${ring.outlineWidth} solid ${ring.outlineColor};\n  outline-offset: ${ring.outlineOffset};\n}`;\n}\n\nconst modernFocus: FocusRingStyle = {\n  selector: '.btn:focus-visible',\n  outlineWidth: '2px',\n  outlineColor: 'var(--color-focus-ring, #2563eb)',\n  outlineOffset: '2px',\n  isAccessible: true,\n};\n\nconsole.log(formatFocusCss(modernFocus));\nconsole.log('Focus Ring Strategy: :focus-visible with 2px offset preserves keyboard accessibility cleanly.');",
+        "output": ".btn:focus-visible {\n  outline: 2px solid var(--color-focus-ring, #2563eb);\n  outline-offset: 2px;\n}\nFocus Ring Strategy: :focus-visible with 2px offset preserves keyboard accessibility cleanly.",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Formats modern CSS focus ring using :focus-visible and outline-offset: 2px."
+          },
+          {
+            "line": 22,
+            "note": "Prints the compliant CSS rule ensuring keyboard navigability."
+          }
+        ],
+        "tryIt": "Change outlineWidth to 3px for high-visibility accessibility mode and inspect the output.",
+        "check": {
+          "question": "Why is ':focus-visible' superior to legacy ':focus' for interactive button styling?",
+          "options": [
+            "It triggers focus rings only during keyboard navigation, satisfying accessibility needs without showing rings on mouse clicks",
+            "It turns buttons into 3D animations automatically",
+            "It disables button clicks during animations"
+          ],
+          "answer": 0,
+          "why": ":focus-visible intelligently displays the ring when users navigate via keyboard, avoiding unwanted rings on pointer clicks."
+        }
+      },
+      {
+        "title": "Loading State UX: Spinners, Preserving Width & Layout Shifts",
+        "say": [
+          "When a user clicks a button to submit a payment or save a document, network latency introduces an asynchronous delay.",
+          "If the button provides zero feedback, anxious users click repeatedly, causing duplicate transactions or race conditions.",
+          "A naive loading implementation replaces the button text 'Save Changes' with 'Loading...'.",
+          "Because 'Loading...' has fewer characters than 'Save Changes', the button abruptly shrinks in width, causing jarring layout shifts (CLS) to surrounding elements.",
+          "The professional design system solution is Width Preservation during loading.",
+          "Before activating the loading state, the button measures its natural width (or uses CSS grid stacking) to lock its dimensions.",
+          "The text label is visually hidden or made transparent using 'opacity: 0', while an SVG spinner is centered absolutely inside the exact same container bounds.",
+          "Simultaneously, the button disables pointer interactions, sets 'cursor: wait', and announces 'aria-busy=\"true\"' to screen readers.",
+          "This zero-layout-shift loading pattern guarantees high-fidelity visual stability and rock-solid user trust."
+        ],
+        "example": "A bank vault door: once the handle is pulled, a mechanical lock gear illuminates and clicks in place, confirming the lock is engaging without changing the physical door size.",
+        "code": "interface ButtonLoadingMetrics {\n  label: string;\n  isLoading: boolean;\n  computedWidthPx: number;\n  hasLayoutShift: boolean;\n  domOutput: string;\n}\n\nfunction renderLoadingButton(label: string, isLoading: boolean, lockedWidth: number): ButtonLoadingMetrics {\n  const domOutput = isLoading\n    ? `<button class=\"btn btn--loading\" style=\"width: ${lockedWidth}px\" aria-busy=\"true\" disabled><span class=\"spinner\" /></span><span class=\"sr-only\">${label} (In progress)</span></button>`\n    : `<button class=\"btn\" style=\"width: ${lockedWidth}px\">${label}</button>`;\n\n  return {\n    label,\n    isLoading,\n    computedWidthPx: lockedWidth,\n    hasLayoutShift: false, // Locked width prevents CLS\n    domOutput,\n  };\n}\n\nconst idle = renderLoadingButton('Submit Payment ($49.00)', false, 220);\nconst loading = renderLoadingButton('Submit Payment ($49.00)', true, 220);\n\nconsole.log('Idle State Width   :', idle.computedWidthPx, 'px | Shift:', idle.hasLayoutShift);\nconsole.log('Loading State Width:', loading.computedWidthPx, 'px | Shift:', loading.hasLayoutShift);\nconsole.log('DOM (Loading):', loading.domOutput);",
+        "output": "Idle State Width   : 220 px | Shift: false\nLoading State Width: 220 px | Shift: false\nDOM (Loading): <button class=\"btn btn--loading\" style=\"width: 220px\" aria-busy=\"true\" disabled><span class=\"spinner\" /></span><span class=\"sr-only\">Submit Payment ($49.00) (In progress)</span></button>",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Renders loading button with fixed width locking to eliminate layout shift."
+          },
+          {
+            "line": 26,
+            "note": "Demonstrates that width remains identical between idle and loading states."
+          }
+        ],
+        "tryIt": "Verify that screen readers are provided with a dedicated 'sr-only' announcement during loading.",
+        "check": {
+          "question": "How does locking button width during asynchronous loading states improve user experience?",
+          "options": [
+            "It prevents Cumulative Layout Shift (CLS) so adjacent page elements do not jump around abruptly",
+            "It speeds up internet connection bandwidth",
+            "It converts the button into a web worker"
+          ],
+          "answer": 0,
+          "why": "Preserving button dimensions prevents layout jumping when text is replaced by a loading spinner."
+        }
+      },
+      {
+        "title": "Disabled State Nuances: disabled vs aria-disabled & Tooltips",
+        "say": [
+          "Disabling a button seems straightforward: just add the native HTML 'disabled' attribute.",
+          "However, the native 'disabled' attribute introduces severe accessibility defects.",
+          "When a button has 'disabled', browsers remove it completely from the keyboard tab order and silence all mouse and pointer events.",
+          "If a form button is disabled because a user missed a required field, the user has no idea why clicking or tabbing to the button does nothing.",
+          "Screen readers cannot focus on the button to explain the disabled rationale, creating extreme user frustration.",
+          "The modern, accessible solution is 'aria-disabled=\"true\"'.",
+          "When using 'aria-disabled=\"true\"', the button remains focusable in the keyboard tab order.",
+          "When the user focuses on or hovers over the button, an explanatory tooltip or live region explains: 'Please enter a valid email address before submitting'.",
+          "JavaScript simply intercepts and suppresses 'click' and 'keydown' events when 'aria-disabled' is present.",
+          "Adopting 'aria-disabled' transforms an unhelpful visual dead-end into an informative, accessible guiding experience."
+        ],
+        "example": "A locked turnstile in a train station with an illuminated screen reading 'Swipe Transit Card Here', rather than an invisible wall that offers zero feedback when approached.",
+        "code": "interface DisabledButtonStrategy {\n  type: 'native-disabled' | 'aria-disabled';\n  isFocusable: boolean;\n  showsTooltipExplanation: boolean;\n  accessibleRating: 'POOR' | 'EXCELLENT';\n}\n\nconst strategies: DisabledButtonStrategy[] = [\n  {\n    type: 'native-disabled',\n    isFocusable: false,\n    showsTooltipExplanation: false,\n    accessibleRating: 'POOR',\n  },\n  {\n    type: 'aria-disabled',\n    isFocusable: true,\n    showsTooltipExplanation: true,\n    accessibleRating: 'EXCELLENT',\n  },\n];\n\nfor (const s of strategies) {\n  console.log(`[${s.accessibleRating}] ${s.type}: Keyboard focusable=${s.isFocusable}, Can explain why=${s.showsTooltipExplanation}`);\n}",
+        "output": "[POOR] native-disabled: Keyboard focusable=false, Can explain why=false\n[EXCELLENT] aria-disabled: Keyboard focusable=true, Can explain why=true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Compares native HTML disabled attribute against aria-disabled strategy."
+          },
+          {
+            "line": 23,
+            "note": "Demonstrates that aria-disabled preserves focusability to deliver helpful guidance."
+          }
+        ],
+        "tryIt": "Inspect why aria-disabled receives an EXCELLENT rating compared to native-disabled.",
+        "check": {
+          "question": "Why is 'aria-disabled=\"true\"' often preferred over native HTML 'disabled' for complex forms?",
+          "options": [
+            "It allows keyboard users to focus on the button and receive an explanation of why the action is disabled",
+            "It bypasses all client-side validation rules",
+            "It forces the browser to submit the form in the background"
+          ],
+          "answer": 0,
+          "why": "aria-disabled allows elements to remain focusable so tooltips and screen readers can explain what is required."
+        }
+      }
+    ],
+    "summary": [
+      "A complete button state machine manages 6 discrete states: Default, Hover, Active, Focus-Visible, Disabled, and Loading.",
+      "Semantic variants (Primary, Secondary, Outline, Ghost, Danger) and standardized sizes establish clear visual hierarchy.",
+      ":focus-visible with 2px outline-offset guarantees keyboard accessibility, while aria-disabled provides informative user guidance."
+    ],
+    "projectStep": {
+      "title": "Build Production Button Component",
+      "steps": [
+        "Implement BaseButton atom supporting 5 semantic variants and 3 standard sizes",
+        "Add :focus-visible ring styles with outline-offset: 2px and WCAG 3:1 contrast ratio",
+        "Implement width-preserving loading state with aria-busy and aria-disabled support"
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "title": "Form Controls, Inputs & Validation States: Floating Labels & ARIA Feedback",
+    "goal": "Design enterprise form controls with synchronized input states, floating label micro-interactions, and accessible ARIA error feedback.",
+    "minutes": 25,
+    "recap": "Yesterday we built an accessible, state-complete Button component. Today we construct the second core atom: Form Controls, exploring input states, validation binding, and floating label UX.",
+    "parts": [
+      {
+        "title": "Anatomy of an Accessible Form Field: Label, Input, Hint & Error",
+        "say": [
+          "Forms are the primary input channels through which users submit critical data in web applications.",
+          "An input element alone is never a complete form field.",
+          "A production-grade accessible form field comprises four distinct architectural elements:",
+          "1. Form Label: the explicit, persistent title of the field, bound via '<label htmlFor=\"id\">'.",
+          "2. Input Control: the interactive data-entry element (e.g., text, email, select, textarea).",
+          "3. Helper / Hint Text: contextual instructions rendered beneath the field (e.g., 'Must be at least 8 characters').",
+          "4. Error Message: conditional validation feedback displayed when user input fails business requirements.",
+          "A frequent accessibility violation is using the 'placeholder' attribute as a substitute for a real label.",
+          "Placeholders disappear the instant a user starts typing, causing users with memory impairments or distractions to forget what the field asked for.",
+          "Furthermore, placeholder text almost always fails WCAG color contrast standards.",
+          "Structuring every form control with an explicit label, input, hint, and error container guarantees complete usability and accessibility."
+        ],
+        "example": "A paper tax filing form where each blank box has a clear bold title above it, a small caption explaining IRS deductions beneath it, and an official red stamp if an error occurs.",
+        "code": "interface FormFieldAnatomy {\n  fieldId: string;\n  label: string;\n  placeholder: string;\n  hintText: string;\n  errorMessage?: string;\n  hasExplicitLabel: boolean;\n}\n\nfunction auditFieldAccessibility(field: FormFieldAnatomy): { compliant: boolean; warnings: string[] } {\n  const warnings: string[] = [];\n  if (!field.hasExplicitLabel) {\n    warnings.push('CRITICAL: Missing explicit <label>; placeholder cannot substitute for label');\n  }\n  return { compliant: warnings.length === 0, warnings };\n}\n\nconst badField: FormFieldAnatomy = { fieldId: 'email-1', label: '', placeholder: 'Enter email...', hintText: '', hasExplicitLabel: false };\nconst goodField: FormFieldAnatomy = { fieldId: 'email-2', label: 'Work Email Address', placeholder: 'name@company.com', hintText: 'We never share your email', hasExplicitLabel: true };\n\nconsole.log('[Audit Bad Field]  Compliant:', auditFieldAccessibility(badField).compliant, auditFieldAccessibility(badField).warnings[0]);\nconsole.log('[Audit Good Field] Compliant:', auditFieldAccessibility(goodField).compliant, 'Explicit label present');",
+        "output": "[Audit Bad Field]  Compliant: false CRITICAL: Missing explicit <label>; placeholder cannot substitute for label\n[Audit Good Field] Compliant: true Explicit label present",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Audits form field anatomy to ensure explicit labels are present and placeholders are not abused."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates that relying solely on placeholders violates accessibility criteria."
+          }
+        ],
+        "tryIt": "Create a password field with an explicit label and a hint explaining minimum character requirements.",
+        "check": {
+          "question": "Why is using the 'placeholder' attribute as a replacement for an HTML <label> considered an accessibility failure?",
+          "options": [
+            "Placeholders disappear once typing begins, leaving users with no persistent visual indicator of what the field requires",
+            "Placeholder text causes database corruption on form submission",
+            "Modern web browsers automatically delete placeholders"
+          ],
+          "answer": 0,
+          "why": "Placeholders vanish when text is entered and often lack sufficient color contrast, creating usability barriers."
+        }
+      },
+      {
+        "title": "Input States: Default, Filled, Focused, Error & Disabled",
+        "say": [
+          "Like buttons, form inputs transition through a finite set of interactive visual states.",
+          "1. Default: the resting border ('var(--border-subtle)') and canvas background.",
+          "2. Focused: the input actively receives user cursor input; the border shifts to brand primary with an active focus ring.",
+          "3. Filled: the user has entered text and blurred the field; the border returns to subtle, but clear buttons may appear.",
+          "4. Error: validation has failed; the border shifts to danger red ('var(--color-danger-500)'), paired with an inline error icon.",
+          "5. Success: validation succeeded (e.g., username available); an optional green checkmark or subtle border tint confirms validity.",
+          "6. Disabled: the field cannot be edited; opacity reduces to 50% with background tinting and 'cursor: not-allowed'.",
+          "Crucially, design systems must never rely solely on color to communicate error or success states.",
+          "For color-blind users who cannot differentiate red from green, an error state must also include an icon (such as an exclamation mark) and descriptive text.",
+          "Coordinating border tokens, icons, and text ensures clear state communication across all user visual abilities."
+        ],
+        "example": "A roadside parking meter: displaying gray when vacant, blue when money is actively inserted, green when paid time remains, and flashing a red violation flag with a horn symbol when expired.",
+        "code": "type InputStatus = 'default' | 'focused' | 'filled' | 'error' | 'success' | 'disabled';\n\ninterface InputStyleSpec {\n  status: InputStatus;\n  borderColorToken: string;\n  focusRing: boolean;\n  hasStatusIcon: boolean;\n  iconType?: 'none' | 'error-exclamation' | 'success-check';\n}\n\nconst inputStateSpecs: Record<InputStatus, InputStyleSpec> = {\n  default: { status: 'default', borderColorToken: 'var(--border-subtle)', focusRing: false, hasStatusIcon: false },\n  focused: { status: 'focused', borderColorToken: 'var(--color-primary-500)', focusRing: true, hasStatusIcon: false },\n  filled: { status: 'filled', borderColorToken: 'var(--border-subtle)', focusRing: false, hasStatusIcon: false },\n  error: { status: 'error', borderColorToken: 'var(--color-danger-500)', focusRing: true, hasStatusIcon: true, iconType: 'error-exclamation' },\n  success: { status: 'success', borderColorToken: 'var(--color-success-500)', focusRing: false, hasStatusIcon: true, iconType: 'success-check' },\n  disabled: { status: 'disabled', borderColorToken: 'var(--border-disabled)', focusRing: false, hasStatusIcon: false },\n};\n\nfor (const [st, spec] of Object.entries(inputStateSpecs)) {\n  const iconInfo = spec.hasStatusIcon ? ` (Icon: ${spec.iconType})` : '';\n  console.log(`Input State [${st}]: border=${spec.borderColorToken}${iconInfo}`);\n}",
+        "output": "Input State [default]: border=var(--border-subtle)\nInput State [focused]: border=var(--color-primary-500)\nInput State [filled]: border=var(--border-subtle)\nInput State [error]: border=var(--color-danger-500) (Icon: error-exclamation)\nInput State [success]: border=var(--color-success-500) (Icon: success-check)\nInput State [disabled]: border=var(--border-disabled)",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Defines input states combining border color tokens with non-color status icons."
+          },
+          {
+            "line": 20,
+            "note": "Logs state specifications proving error states include explicit non-color icon indicators."
+          }
+        ],
+        "tryIt": "Inspect the error state to verify it pairs red borders with an error-exclamation icon for accessibility.",
+        "check": {
+          "question": "Under WCAG 1.4.1 (Use of Color), why must form error states include an icon or text in addition to a red border?",
+          "options": [
+            "Color alone cannot be the sole visual means of conveying information, as color-blind users may not perceive red",
+            "Red borders slow down browser rendering performance",
+            "CSS standards forbid red borders without icons"
+          ],
+          "answer": 0,
+          "why": "Color-blind users cannot differentiate certain colors; pairing color with icons and text ensures universal comprehension."
+        }
+      },
+      {
+        "title": "Screen Reader Error Binding: aria-invalid & aria-describedby",
+        "say": [
+          "Visual feedback is only half of the accessibility equation.",
+          "When a screen reader user tabs into an invalid form field, how does the assistive technology know that the field is broken?",
+          "And how does it read the error message aloud?",
+          "The answer lies in two critical ARIA attributes: 'aria-invalid' and 'aria-describedby'.",
+          "When validation fails, the input element must receive 'aria-invalid=\"true\"'.",
+          "This attribute informs the screen reader synthesizer to announce 'Invalid entry' immediately upon focusing the input.",
+          "Next, the error message paragraph element is assigned a unique DOM ID: '<p id=\"email-error\">Please enter a valid email address</p>'.",
+          "The input element references that ID via 'aria-describedby=\"email-error\"'.",
+          "If the field also has helper text, multiple IDs can be chained: 'aria-describedby=\"email-hint email-error\"'.",
+          "When the user focuses on the field, the screen reader reads the label, announces the invalid state, and speaks the error message verbatim.",
+          "Wiring these ARIA attributes programmatically is an essential engineering standard for any web form."
+        ],
+        "example": "An automated voice assistant at an airport kiosk saying: 'Passport Number field: Invalid entry. Please enter 9 alphanumeric characters with no spaces.'",
+        "code": "interface AccessibleFieldBinding {\n  inputId: string;\n  hintId?: string;\n  errorId?: string;\n  isInvalid: boolean;\n}\n\nfunction compileAriaAttributes(field: AccessibleFieldBinding): Record<string, string> {\n  const attrs: Record<string, string> = {\n    id: field.inputId,\n    'aria-invalid': field.isInvalid ? 'true' : 'false',\n  };\n\n  const describedByParts: string[] = [];\n  if (field.hintId) describedByParts.push(field.hintId);\n  if (field.isInvalid && field.errorId) describedByParts.push(field.errorId);\n\n  if (describedByParts.length > 0) {\n    attrs['aria-describedby'] = describedByParts.join(' ');\n  }\n\n  return attrs;\n}\n\nconst fieldWithErrors = compileAriaAttributes({\n  inputId: 'user-email',\n  hintId: 'user-email-hint',\n  errorId: 'user-email-err',\n  isInvalid: true,\n});\n\nconsole.log('DOM ARIA Attributes (Error State):');\nfor (const [attr, val] of Object.entries(fieldWithErrors)) {\n  console.log(`  ${attr}=\"${val}\"`);\n}",
+        "output": "DOM ARIA Attributes (Error State):\n  id=\"user-email\"\n  aria-invalid=\"true\"\n  aria-describedby=\"user-email-hint user-email-err\"",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Dynamically compiles aria-invalid and chains multiple IDs in aria-describedby."
+          },
+          {
+            "line": 29,
+            "note": "Outputs the exact ARIA attributes bound to the DOM input element."
+          }
+        ],
+        "tryIt": "Pass isInvalid: false and verify aria-invalid becomes 'false' and errorId is omitted from aria-describedby.",
+        "check": {
+          "question": "What is the function of the 'aria-describedby' attribute on a form input?",
+          "options": [
+            "It links the input element to the IDs of helper hint and error message elements so screen readers read them upon focus",
+            "It automatically formats phone numbers as users type",
+            "It validates form inputs on the server"
+          ],
+          "answer": 0,
+          "why": "aria-describedby associates additional descriptive text (hints, errors) with an input for assistive technologies."
+        }
+      },
+      {
+        "title": "Floating Labels vs Static Top Labels: UX & Accessibility Tradeoffs",
+        "say": [
+          "Floating labels—where the label starts as a large placeholder inside the input and animates upward into a small floating title upon focus—became wildly popular following Google Material Design.",
+          "However, UX research and accessibility audits have uncovered significant tradeoffs with floating labels.",
+          "First, floating labels reduce the available vertical space inside the input, creating cramped styling.",
+          "Second, when floating labels shrink in size (often dropping from 16px to 11px), their font size frequently breaches readability guidelines for low-vision users.",
+          "Third, animations can cause stutter on low-power mobile devices and confuse users who mistake the resting floating label for pre-filled data.",
+          "For dense enterprise applications, data dashboards, and financial portals, Static Top Labels (a persistent label positioned directly above the input) are strongly preferred.",
+          "Static top labels provide immediate, unmoving clarity, support long localized translation strings without truncation, and require zero animation calculations.",
+          "If a product chooses floating labels for mobile aesthetics, the design system must ensure the floating label maintains a minimum 12px font size and high contrast.",
+          "Understanding these UX tradeoffs enables architects to select the right label pattern for their product domain."
+        ],
+        "example": "A highway exit sign: fixed, prominent, and static above the lane (Static Top Label), versus a dynamic billboard that animates text only as your car draws closer (Floating Label).",
+        "code": "interface LabelPatternEvaluation {\n  pattern: 'Static Top Label' | 'Floating Animated Label';\n  scannability: 'HIGH' | 'MODERATE';\n  localizationFriendly: boolean;\n  idealUseCases: string;\n  cssComplexity: 'LOW' | 'HIGH';\n}\n\nconst labelPatterns: LabelPatternEvaluation[] = [\n  {\n    pattern: 'Static Top Label',\n    scannability: 'HIGH',\n    localizationFriendly: true,\n    idealUseCases: 'Enterprise dashboards, healthcare, checkout forms, financial tools',\n    cssComplexity: 'LOW',\n  },\n  {\n    pattern: 'Floating Animated Label',\n    scannability: 'MODERATE',\n    localizationFriendly: false,\n    idealUseCases: 'Compact mobile consumer apps, single-field login screens',\n    cssComplexity: 'HIGH',\n  },\n];\n\nfor (const p of labelPatterns) {\n  console.log(`[${p.pattern}]: Scannability=${p.scannability}, Multi-language=${p.localizationFriendly} (CSS: ${p.cssComplexity})`);\n  console.log(`  Best for: ${p.idealUseCases}`);\n}",
+        "output": "[Static Top Label]: Scannability=HIGH, Multi-language=true (CSS: LOW)\n  Best for: Enterprise dashboards, healthcare, checkout forms, financial tools\n[Floating Animated Label]: Scannability=MODERATE, Multi-language=false (CSS: HIGH)\n  Best for: Compact mobile consumer apps, single-field login screens",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Evaluates the practical tradeoffs between Static Top Labels and Floating Animated Labels."
+          },
+          {
+            "line": 24,
+            "note": "Displays recommendations guiding teams to choose appropriate label architectures."
+          }
+        ],
+        "tryIt": "Inspect why Static Top Labels are preferred for localization into languages with long compound words like German.",
+        "check": {
+          "question": "Why do enterprise applications (such as financial software and healthcare) generally prefer Static Top Labels over Floating Labels?",
+          "options": [
+            "Static labels provide unmoving scannability, never truncate localized translations, and avoid readability issues from shrinking fonts",
+            "Floating labels cannot be styled with CSS",
+            "Static top labels require WebAssembly"
+          ],
+          "answer": 0,
+          "why": "Static top labels are clean, readable, accommodate long translations, and don't shrink text below comfortable sizes."
+        }
+      },
+      {
+        "title": "Real-Time Inline Validation UX & Debounced Formatting",
+        "say": [
+          "Form validation timing dictates whether users feel assisted or infuriated by an interface.",
+          "A notorious anti-pattern is Aggressive Eager Validation: the moment a user types the first letter 'a' into an email input, a screaming red error flashes: 'Invalid email address!'.",
+          "The user hasn't finished typing, yet the system reprimands them.",
+          "The recommended UX standard is 'Reward Early, Punish Late'.",
+          "When a user is actively typing in a pristine field, errors should NOT trigger until the user leaves the field ('blur' event).",
+          "Once a field has been blurred and marked invalid, it enters correction mode: as the user edits, errors clear immediately the instant the input becomes valid.",
+          "Furthermore, real-time formatting—such as inserting hyphens into phone numbers or credit card numbers—must be Debounced.",
+          "Debouncing ensures formatting calculations run after a brief pause (e.g., 150ms-300ms) rather than firing synchronously on every keystroke, which can lock the UI thread.",
+          "Implementing intelligent validation timing respects user cognitive flow and reduces form abandonment."
+        ],
+        "example": "A polite grammar tutor who waits until you finish speaking your sentence before offering a suggestion, rather than shouting an interruption the moment you utter the first syllable.",
+        "code": "type ValidationTrigger = 'pristine-typing' | 'on-blur' | 'dirty-correction';\n\ninterface ValidationPolicy {\n  trigger: ValidationTrigger;\n  shouldValidate: boolean;\n  rationale: string;\n}\n\nfunction evaluateValidationTiming(trigger: ValidationTrigger): ValidationPolicy {\n  switch (trigger) {\n    case 'pristine-typing':\n      return { trigger, shouldValidate: false, rationale: 'Do not punish user while typing initially' };\n    case 'on-blur':\n      return { trigger, shouldValidate: true, rationale: 'Validate on blur after user finishes initial input' };\n    case 'dirty-correction':\n      return { trigger, shouldValidate: true, rationale: 'Clear error eagerly as soon as input becomes valid' };\n  }\n}\n\nconst triggers: ValidationTrigger[] = ['pristine-typing', 'on-blur', 'dirty-correction'];\nfor (const t of triggers) {\n  const p = evaluateValidationTiming(t);\n  console.log(`Trigger [${p.trigger}]: Run Validation=${p.shouldValidate} -> ${p.rationale}`);\n}",
+        "output": "Trigger [pristine-typing]: Run Validation=false -> Do not punish user while typing initially\nTrigger [on-blur]: Run Validation=true -> Validate on blur after user finishes initial input\nTrigger [dirty-correction]: Run Validation=true -> Clear error eagerly as soon as input becomes valid",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Encapsulates the 'Reward Early, Punish Late' validation policy state machine."
+          },
+          {
+            "line": 20,
+            "note": "Displays the policy proving initial typing does not flash prematurely."
+          }
+        ],
+        "tryIt": "Confirm that dirty-correction validates immediately so users see their fix succeed without another blur.",
+        "check": {
+          "question": "What is the core principle of the 'Reward Early, Punish Late' form validation pattern?",
+          "options": [
+            "Errors are withheld until the user leaves the field (blur), but valid fixes are rewarded instantly as soon as corrected",
+            "Forms charge a monetary penalty for incorrect submissions",
+            "Validation only runs on the last day of the month"
+          ],
+          "answer": 0,
+          "why": "Withholding errors until blur prevents annoying users, while clearing errors eagerly rewards successful fixes."
+        }
+      },
+      {
+        "title": "Password Visibility Toggles & Prefix/Suffix Adornment Slots",
+        "say": [
+          "Modern form inputs frequently require inline contextual adornments.",
+          "Common adornments include Prefix Slots (like a currency symbol '$' or search magnifying glass icon) and Suffix Slots (like a clear button, unit label 'kg', or password visibility toggle).",
+          "Adornments must be optically balanced so they do not collide with user text.",
+          "The input container applies internal padding offsets corresponding to the width of active adornments.",
+          "A quintessential example is the Password Visibility Toggle.",
+          "Password masking ('type=\"password\"') protects against shoulder surfing, but it makes typing complex passwords on mobile devices prone to typos.",
+          "The visibility toggle button renders inside the suffix slot, allowing users to toggle between 'type=\"password\"' and 'type=\"text\"'.",
+          "Crucially, the toggle button must have an accessible label: 'aria-label=\"Show password\"' when masked, updating to 'aria-label=\"Hide password\"' when unmasked.",
+          "Supporting flexible prefix and suffix adornment slots makes our BaseInput atom adaptable to any enterprise use case."
+        ],
+        "example": "A peephole on a hotel room door: covered with a metal flap for privacy, which can be temporarily slid aside to verify who is standing in the hallway.",
+        "code": "interface PasswordToggleState {\n  isMasked: boolean;\n  inputType: 'password' | 'text';\n  buttonAriaLabel: string;\n  iconName: string;\n}\n\nfunction togglePasswordVisibility(currentMasked: boolean): PasswordToggleState {\n  const newMasked = !currentMasked;\n  return {\n    isMasked: newMasked,\n    inputType: newMasked ? 'password' : 'text',\n    buttonAriaLabel: newMasked ? 'Show password as plain text' : 'Hide password and mask characters',\n    iconName: newMasked ? 'eye-slash-icon' : 'eye-open-icon',\n  };\n}\n\nconst state1 = togglePasswordVisibility(true); // User clicks show\nconst state2 = togglePasswordVisibility(false); // User clicks hide\n\nconsole.log(`Toggle Click 1: input type=\"${state1.inputType}\", aria-label=\"${state1.buttonAriaLabel}\" (Icon: ${state1.iconName})`);\nconsole.log(`Toggle Click 2: input type=\"${state2.inputType}\", aria-label=\"${state2.buttonAriaLabel}\" (Icon: ${state2.iconName})`);",
+        "output": "Toggle Click 1: input type=\"text\", aria-label=\"Hide password and mask characters\" (Icon: eye-open-icon)\nToggle Click 2: input type=\"password\", aria-label=\"Show password as plain text\" (Icon: eye-slash-icon)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Toggles input type between password and text while updating aria-label and icon."
+          },
+          {
+            "line": 19,
+            "note": "Demonstrates that accessibility labels synchronize dynamically with visibility state."
+          }
+        ],
+        "tryIt": "Verify that clicking the toggle properly flips the aria-label so screen reader users know the next action.",
+        "check": {
+          "question": "When a user clicks a password visibility toggle button to reveal text, how should its 'aria-label' update?",
+          "options": [
+            "It must update to describe the next action, such as 'Hide password and mask characters'",
+            "It should be deleted",
+            "It should remain permanently set to 'Button'"
+          ],
+          "answer": 0,
+          "why": "Accessible labels on toggle buttons must announce the action that will occur upon the next activation."
+        }
+      }
+    ],
+    "summary": [
+      "A complete form field atom requires four synchronized elements: Label, Input, Helper Hint, and Error Message.",
+      "Input error states must combine border color with non-color icons and bind aria-invalid and aria-describedby for accessibility.",
+      "The 'Reward Early, Punish Late' validation timing pattern prevents premature errors and optimizes user completion rates."
+    ],
+    "projectStep": {
+      "title": "Build Production Form Control Architecture",
+      "steps": [
+        "Implement FormField molecule with explicit label binding and chained aria-describedby hints and errors",
+        "Add prefix and suffix adornment slots supporting icons, units, and password visibility toggles",
+        "Configure debounced validation state machine enforcing the 'Reward Early, Punish Late' timing policy"
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "title": "Card Components & Responsive Content Containers: Aspect Ratios & Padding Ramps",
+    "goal": "Design modular card containers with multi-tier anatomical sections, modern CSS aspect-ratio media containers, and smooth hover elevation transitions.",
+    "minutes": 25,
+    "recap": "Yesterday we built accessible form controls and validation state machines. Today we construct the workhorse layout container of modern web design: the responsive Card component.",
+    "parts": [
+      {
+        "title": "Anatomies of Flexible Card Layouts: Header, Media, Body & Actions",
+        "say": [
+          "Cards are the universal metaphor for grouping related information and actions into a digestible visual unit.",
+          "From social media feeds and e-commerce listings to enterprise analytical dashboards, cards organize heterogeneous content.",
+          "A well-architected card component is not a monolithic blob; it possesses a distinct anatomical structure.",
+          "1. Card Header: contains the card title, subtitle, optional badge, and overflow action menu.",
+          "2. Media Container: hosts rich imagery, video, or data visualization charts.",
+          "3. Card Body: houses primary textual copy, descriptions, metrics, or table data.",
+          "4. Card Footer: holds secondary metadata (such as timestamps or author avatars) and call-to-action buttons.",
+          "To allow flexible reordering, modern design systems implement cards using the Compound Component pattern.",
+          "Instead of a rigid single component with 30 disparate props, developers compose 'Card.Header', 'Card.Media', 'Card.Body', and 'Card.Footer' as needed.",
+          "This anatomical modularity ensures that a card can seamlessly adapt from a compact media preview to an expansive dashboard widget."
+        ],
+        "example": "A physical baseball trading card: featuring the player portrait at the top (media), team logo and name (header), batting statistics table (body), and copyright date with card number at the bottom (footer).",
+        "code": "interface CardAnatomySection {\n  section: 'Header' | 'Media' | 'Body' | 'Footer';\n  role: string;\n  isOptional: boolean;\n  standardChildren: string[];\n}\n\nconst cardSections: CardAnatomySection[] = [\n  { section: 'Header', role: 'Context & Identity', isOptional: false, standardChildren: ['Title', 'Subtitle', 'StatusBadge'] },\n  { section: 'Media', role: 'Visual Illustration', isOptional: true, standardChildren: ['Image (aspect-ratio)', 'VideoPreview'] },\n  { section: 'Body', role: 'Core Content', isOptional: false, standardChildren: ['Paragraph copy', 'Key-Value metrics'] },\n  { section: 'Footer', role: 'Interactions & Meta', isOptional: true, standardChildren: ['ActionButtons', 'Timestamp'] },\n];\n\nfor (const sec of cardSections) {\n  const optText = sec.isOptional ? '(Optional)' : '(Required)';\n  console.log(`[${sec.section}] ${optText}: ${sec.role} -> Contains: ${sec.standardChildren.join(', ')}`);\n}",
+        "output": "[Header] (Required): Context & Identity -> Contains: Title, Subtitle, StatusBadge\n[Media] (Optional): Visual Illustration -> Contains: Image (aspect-ratio), VideoPreview\n[Body] (Required): Core Content -> Contains: Paragraph copy, Key-Value metrics\n[Footer] (Optional): Interactions & Meta -> Contains: ActionButtons, Timestamp",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models the 4 standard anatomical sections of an enterprise card container."
+          },
+          {
+            "line": 16,
+            "note": "Enumerates sections showing functional roles and expected child components."
+          }
+        ],
+        "tryIt": "Create a minimal card configuration that includes only Header and Body sections.",
+        "check": {
+          "question": "Why is the Compound Component pattern (Card.Header, Card.Body, Card.Footer) superior to a single monolithic Card component with dozens of props?",
+          "options": [
+            "It gives developers total compositional freedom to arrange, reorder, or omit card sections without prop bloat",
+            "It forces all cards to be rendered on the GPU",
+            "Compound components run faster in Node.js server rendering"
+          ],
+          "answer": 0,
+          "why": "Compound components provide flexible composition, avoiding bloated prop lists with dozens of conditional flags."
+        }
+      },
+      {
+        "title": "Media Containers & CSS aspect-ratio (16/9, 4/3, 1/1)",
+        "say": [
+          "Images inside card components are notoriously prone to causing Cumulative Layout Shift (CLS) if dimensions are not constrained.",
+          "Historically, developers used the 'padding-top: 56.25%' CSS hack on an outer wrapper to preserve a 16:9 aspect ratio before an image loaded.",
+          "Today, native CSS provides the elegant 'aspect-ratio' property: 'aspect-ratio: 16 / 9;'.",
+          "The 'aspect-ratio' property informs the browser layout engine of the container's exact proportions immediately, even before the image file downloads.",
+          "The browser reserves the precise vertical height in the page flow, completely eliminating layout shifting.",
+          "Common aspect ratio tokens in design systems include:",
+          "- 'ratio-video: 16 / 9' for video thumbnails and widescreen hero imagery.",
+          "- 'ratio-landscape: 4 / 3' for standard photography and product catalog cards.",
+          "- 'ratio-square: 1 / 1' for user avatars, square product tiles, and Instagram-style galleries.",
+          "Pairing 'aspect-ratio' with 'object-fit: cover' ensures images fill the container gracefully without visual stretching or distortion.",
+          "Standardizing media containers with aspect-ratio tokens guarantees crisp, stable visual cards."
+        ],
+        "example": "A pre-cut picture mat in a photo frame: it holds a fixed 4x6 or 8x10 opening so whatever photograph you insert fits into the display without buckling the frame.",
+        "code": "interface AspectRatioToken {\n  name: string;\n  ratioString: string;\n  widthUnits: number;\n  heightUnits: number;\n  computedHeightAt300px: number;\n}\n\nfunction calculateAspectHeight(wUnits: number, hUnits: number, baseWidthPx: number): number {\n  return Math.round((baseWidthPx * hUnits) / wUnits);\n}\n\nconst ratios: AspectRatioToken[] = [\n  { name: 'ratio-video', ratioString: '16 / 9', widthUnits: 16, heightUnits: 9, computedHeightAt300px: calculateAspectHeight(16, 9, 300) },\n  { name: 'ratio-landscape', ratioString: '4 / 3', widthUnits: 4, heightUnits: 3, computedHeightAt300px: calculateAspectHeight(4, 3, 300) },\n  { name: 'ratio-square', ratioString: '1 / 1', widthUnits: 1, heightUnits: 1, computedHeightAt300px: calculateAspectHeight(1, 1, 300) },\n];\n\nfor (const r of ratios) {\n  console.log(`[${r.name}] aspect-ratio: ${r.ratioString} -> At width 300px, height = ${r.computedHeightAt300px}px`);\n}",
+        "output": "[ratio-video] aspect-ratio: 16 / 9 -> At width 300px, height = 169px\n[ratio-landscape] aspect-ratio: 4 / 3 -> At width 300px, height = 225px\n[ratio-square] aspect-ratio: 1 / 1 -> At width 300px, height = 300px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates container height from aspect ratio width and height units."
+          },
+          {
+            "line": 18,
+            "note": "Displays the computed heights at 300px card width, demonstrating zero-shift space reservation."
+          }
+        ],
+        "tryIt": "Calculate height for an ultra-widescreen banner with ratio 21 / 9 at 300px width.",
+        "check": {
+          "question": "How does the modern CSS property 'aspect-ratio: 16 / 9' eliminate Cumulative Layout Shift (CLS) on card images?",
+          "options": [
+            "It informs the browser of the container proportions immediately so space is reserved before the image downloads",
+            "It compresses the image file size on the CDN server",
+            "It turns off responsive CSS breakpoints"
+          ],
+          "answer": 0,
+          "why": "aspect-ratio allows the browser to reserve the exact layout space before the image assets finish downloading."
+        }
+      },
+      {
+        "title": "Hover Elevation Transitions: elevation-1 to elevation-3 Animations",
+        "say": [
+          "Interactive cards must provide subtle, tactile affordances that signal clickability to the user.",
+          "When a user hovers a mouse cursor over an interactive card, the card should simulate physical lifting.",
+          "In our elevation system from Day 4, a resting card sits at 'elevation-1' (low contact shadow).",
+          "Upon hover, the card transitions smoothly to 'elevation-3' (deeper, softer shadow) accompanied by a subtle 2px upward translation: 'transform: translateY(-2px)'.",
+          "Crucially, hover transitions must be smooth and performant.",
+          "CSS transitions must animate ONLY GPU-accelerated properties: 'transform' and 'box-shadow'.",
+          "Never animate layout-triggering properties like 'top', 'margin', or 'padding', which force the browser to recalculate layout geometry on every animation frame.",
+          "Furthermore, transitions must be swift: 150ms to 200ms using a clean ease-out curve ('cubic-bezier(0.16, 1, 0.3, 1)').",
+          "Transitions lasting longer than 250ms feel sluggish, laggy, and unresponsive to user clicks.",
+          "Crafting swift GPU-accelerated hover transitions makes cards feel physical and delightfully responsive."
+        ],
+        "example": "A magnet resting on a table: when a metal wand approaches from above, the magnet jumps up slightly into the air, signaling that an interactive attraction exists.",
+        "code": "interface CardTransitionSpec {\n  property: string;\n  durationMs: number;\n  easing: string;\n  isGpuAccelerated: boolean;\n}\n\nconst cardTransitionRules: CardTransitionSpec[] = [\n  { property: 'transform', durationMs: 200, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', isGpuAccelerated: true },\n  { property: 'box-shadow', durationMs: 200, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', isGpuAccelerated: true },\n  { property: 'margin-top', durationMs: 200, easing: 'ease', isGpuAccelerated: false }, // Anti-pattern\n];\n\nfor (const rule of cardTransitionRules) {\n  const status = rule.isGpuAccelerated ? '60FPS GPU COMPLIANT' : 'PERFORMANCE HAZARD: FORCES LAYOUT';\n  console.log(`[${status}] transition: ${rule.property} ${rule.durationMs}ms ${rule.easing}`);\n}",
+        "output": "[60FPS GPU COMPLIANT] transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1)\n[60FPS GPU COMPLIANT] transition: box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1)\n[PERFORMANCE HAZARD: FORCES LAYOUT] transition: margin-top 200ms ease",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines performance audit rules verifying that transitions target only GPU properties."
+          },
+          {
+            "line": 15,
+            "note": "Flags legacy margin-top animations that trigger expensive CPU browser reflows."
+          }
+        ],
+        "tryIt": "Explain why translateY(-2px) is vastly superior to top: -2px for hover animations.",
+        "check": {
+          "question": "Why should card hover lift animations use 'transform: translateY(-2px)' instead of 'top: -2px' or 'margin-top: -2px'?",
+          "options": [
+            "Transforms execute on the GPU compositor thread without triggering expensive browser layout reflows",
+            "Top and margin properties are forbidden in HTML5",
+            "Transforms work only on mobile phones"
+          ],
+          "answer": 0,
+          "why": "Transform animations are handled by the GPU compositor, guaranteeing smooth 60fps performance without layout recalculations."
+        }
+      },
+      {
+        "title": "Responsive Padding Scaling: Fluid Padding from Mobile to Desktop",
+        "say": [
+          "Fixed padding on cards is an architectural flaw.",
+          "If a card has a generous 32px padding, it looks spacious and elegant on a 27-inch desktop monitor.",
+          "However, when that same card renders on a 360px wide smartphone screen, 32px of padding on both sides consumes 64px—nearly 20% of the entire screen width!",
+          "Content inside the card is squished into a narrow column, causing ugly line wraps and wasted screen real estate.",
+          "Conversely, if a developer reduces padding to 12px for mobile, the card looks cramped and cheap on desktop.",
+          "The solution is Responsive Padding Scaling tied to our 8pt spatial tokens.",
+          "Cards utilize fluid clamp spacing or discrete breakpoint ramps:",
+          "- Mobile (< 640px): 'padding: var(--space-2)' (16px) or 12px.",
+          "- Tablet (640px - 1024px): 'padding: var(--space-3)' (24px).",
+          "- Desktop (> 1024px): 'padding: var(--space-4)' (32px).",
+          "Scaling card padding proportionally across breakpoints guarantees comfortable breathing room on all display form factors."
+        ],
+        "example": "A dining room table setting: on a cozy intimate bistro table, placemats are compact and close together, while at a grand banquet hall table, placemats enjoy generous formal spacing.",
+        "code": "interface ResponsivePaddingRamp {\n  breakpoint: string;\n  minViewportWidth: number;\n  paddingToken: string;\n  paddingPx: number;\n  percentWidthConsumedOn360px: number;\n}\n\nconst paddingRamp: ResponsivePaddingRamp[] = [\n  { breakpoint: 'mobile', minViewportWidth: 0, paddingToken: 'var(--space-2)', paddingPx: 16, percentWidthConsumedOn360px: (32 / 360) * 100 },\n  { breakpoint: 'tablet', minViewportWidth: 640, paddingToken: 'var(--space-3)', paddingPx: 24, percentWidthConsumedOn360px: (48 / 360) * 100 },\n  { breakpoint: 'desktop', minViewportWidth: 1024, paddingToken: 'var(--space-4)', paddingPx: 32, percentWidthConsumedOn360px: (64 / 360) * 100 },\n];\n\nfor (const p of paddingRamp) {\n  console.log(`Breakpoint [${p.breakpoint}]: pad=${p.paddingPx}px (${p.paddingToken}) -> On 360px phone takes ${p.percentWidthConsumedOn360px.toFixed(1)}% width`);\n}",
+        "output": "Breakpoint [mobile]: pad=16px (var(--space-2)) -> On 360px phone takes 8.9% width\nBreakpoint [tablet]: pad=24px (var(--space-3)) -> On 360px phone takes 13.3% width\nBreakpoint [desktop]: pad=32px (var(--space-4)) -> On 360px phone takes 17.8% width",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates the screen real estate percentage consumed by card horizontal padding on mobile."
+          },
+          {
+            "line": 16,
+            "note": "Demonstrates why mobile cards must step down to 16px padding to preserve usable space."
+          }
+        ],
+        "tryIt": "Calculate width consumed if a mobile card used 24px padding (48px total).",
+        "check": {
+          "question": "Why should card padding scale down from 32px (space-4) on desktop to 16px (space-2) on mobile screens?",
+          "options": [
+            "32px padding consumes excessive horizontal screen width on narrow mobile viewports, cramping content",
+            "CSS media queries do not support padding values above 16px",
+            "To make text files smaller"
+          ],
+          "answer": 0,
+          "why": "Large desktop padding squishes text on small mobile screens; scaling padding down preserves content readability."
+        }
+      },
+      {
+        "title": "Compound Component Architecture for Cards in React",
+        "say": [
+          "Let us examine how to implement flexible cards in modern React and TypeScript.",
+          "When a card is authored as a single monolithic component, the prop interface explodes: 'title', 'subtitle', 'imageSrc', 'imageAlt', 'aspectRatio', 'badgeText', 'badgeColor', 'actionButtons', 'footerNote', and on and on.",
+          "Maintaining this prop explosion becomes impossible as design requirements evolve.",
+          "The Compound Component pattern solves this by creating sub-components namespaced under the parent: 'Card.Header', 'Card.Body', 'Card.Media', and 'Card.Footer'.",
+          "In TypeScript, this is achieved by attaching sub-components as static properties on the main Card component function.",
+          "Under the hood, React Context can optionally share state (such as active hover or selection) between the parent Card and its child sections.",
+          "Developers compose cards declaratively: '<Card><Card.Header title=\"Metrics\" /><Card.Body>...</Card.Body></Card>'.",
+          "This declarative pattern is the architectural standard of leading UI libraries like Radix UI and Shadcn UI.",
+          "Let us inspect the compound component TypeScript architecture."
+        ],
+        "example": "A modular sandwich: instead of ordering a fixed 'Combo #4' with no substitutions, you select the bread (Card), spread (Card.Header), filling (Card.Body), and garnish (Card.Footer) to suit your exact taste.",
+        "code": "interface CardProps {\n  variant?: 'elevated' | 'outlined' | 'flat';\n  children: string;\n}\n\ninterface CardSubComponents {\n  Header: (props: { title: string }) => string;\n  Body: (props: { content: string }) => string;\n  Footer: (props: { action: string }) => string;\n}\n\nfunction CardComponent(props: CardProps): string {\n  return `<div class=\"card card--${props.variant || 'elevated'}\">${props.children}</div>`;\n}\n\nCardComponent.Header = (props: { title: string }) => `<div class=\"card__header\"><h3>${props.title}</h3></div>`;\nCardComponent.Body = (props: { content: string }) => `<div class=\"card__body\"><p>${props.content}</p></div>`;\nCardComponent.Footer = (props: { action: string }) => `<div class=\"card__footer\"><button>${props.action}</button></div>`;\n\nconst composedMarkup = CardComponent({\n  variant: 'elevated',\n  children: CardComponent.Header({ title: 'Server Status' }) +\n            CardComponent.Body({ content: 'All 12 microservices operational.' }) +\n            CardComponent.Footer({ action: 'View Metrics' }),\n});\n\nconsole.log('Compound Card Output:');\nconsole.log(composedMarkup);",
+        "output": "Compound Card Output:\n<div class=\"card card--elevated\"><div class=\"card__header\"><h3>Server Status</h3></div><div class=\"card__body\"><p>All 12 microservices operational.</p></div><div class=\"card__footer\"><button>View Metrics</button></div></div>",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Defines the root Card component and attaches namespaced sub-components."
+          },
+          {
+            "line": 24,
+            "note": "Demonstrates declarative compound composition producing clean semantic HTML."
+          }
+        ],
+        "tryIt": "Add a Card.Badge subcomponent that renders a status pill in the header.",
+        "check": {
+          "question": "What is the primary architectural benefit of Compound Component patterns for complex layout containers?",
+          "options": [
+            "It decouples sub-sections into modular, composable units while eliminating bloated, fragile multi-prop interfaces",
+            "It turns off JavaScript strict mode",
+            "It compiles JSX into C++ binaries"
+          ],
+          "answer": 0,
+          "why": "Compound components provide modular declarative composition without ballooning parent component prop interfaces."
+        }
+      },
+      {
+        "title": "Card Accessibility: Entire Card Clickable vs Specific Inner Links",
+        "say": [
+          "A frequent design pattern is making an entire card clickable, such as a news article card where clicking anywhere on the card navigates to the article.",
+          "However, implementing this naively creates severe accessibility and HTML validity bugs.",
+          "Wrapping an entire card in an '<a href=\"...\">' tag is problematic if the card contains other interactive elements, such as a category tag link, a favorite button, or an author profile link.",
+          "Nesting interactive elements inside an anchor tag ('<a><button>...</button></a>') is invalid HTML and confuses screen readers and browser accessibility trees.",
+          "Furthermore, screen readers will read the ENTIRE text content of the card—title, paragraphs, dates, badges—as a single overwhelming link title!",
+          "The accessible solution is the Stretched Link Pseudoelement pattern.",
+          "The main article heading contains the primary anchor link: '<h3><a href=\"/article\" class=\"stretched-link\">Title</a></h3>'.",
+          "The card container has 'position: relative', and '.stretched-link::after' has 'position: absolute; inset: 0;'.",
+          "The pseudo-element covers the entire card, capturing mouse clicks across the surface while screen readers read only the concise heading link.",
+          "Inner secondary buttons sit on higher z-indexes ('position: relative; z-index: 2;'), remaining cleanly clickable.",
+          "This stretched-link pattern delivers flawless mouse UX, valid HTML, and 100% accessible navigation."
+        ],
+        "example": "A storefront window display: the whole display looks like a single showcase, but individual buttons exist for ringing the shop bell or reading specific price tags.",
+        "code": "interface ClickableCardAudit {\n  strategy: 'nested-interactive' | 'stretched-link-pseudo';\n  htmlValid: boolean;\n  screenReaderConcise: boolean;\n  innerButtonsWork: boolean;\n}\n\nconst cardAccessibilityAudits: ClickableCardAudit[] = [\n  {\n    strategy: 'nested-interactive',\n    htmlValid: false, // Invalid HTML: <a> inside <a> or <button> inside <a>\n    screenReaderConcise: false,\n    innerButtonsWork: false,\n  },\n  {\n    strategy: 'stretched-link-pseudo',\n    htmlValid: true,\n    screenReaderConcise: true,\n    innerButtonsWork: true,\n  },\n];\n\nfor (const a of cardAccessibilityAudits) {\n  const status = a.htmlValid && a.screenReaderConcise ? 'ACCESSIBLE STANDARD' : 'INVALID ANTI-PATTERN';\n  console.log(`[${status}] ${a.strategy}: Valid HTML=${a.htmlValid}, Concise Reader=${a.screenReaderConcise}, Inner Clicks=${a.innerButtonsWork}`);\n}",
+        "output": "[INVALID ANTI-PATTERN] nested-interactive: Valid HTML=false, Concise Reader=false, Inner Clicks=false\n[ACCESSIBLE STANDARD] stretched-link-pseudo: Valid HTML=true, Concise Reader=true, Inner Clicks=true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Compares nested interactive tags against the accessible stretched-link pseudo-element pattern."
+          },
+          {
+            "line": 23,
+            "note": "Demonstrates that stretched-link satisfies HTML validity and screen reader conciseness."
+          }
+        ],
+        "tryIt": "Verify that inner action buttons use position: relative and z-index: 2 to sit above the stretched link.",
+        "check": {
+          "question": "How does the 'stretched link' pseudo-element pattern (::after with inset: 0) make an entire card clickable accessibly?",
+          "options": [
+            "It expands the click area of the heading link across the card surface without nesting interactive tags or overwhelming screen readers",
+            "It disables all links when using mobile devices",
+            "It converts HTML links into WebSockets"
+          ],
+          "answer": 0,
+          "why": "Stretched links keep HTML valid and screen reader announcements concise while expanding the pointer hit area."
+        }
+      }
+    ],
+    "summary": [
+      "Cards are organized into distinct anatomical sections: Header, Media, Body, and Footer using Compound Components.",
+      "Native CSS aspect-ratio (16/9, 4/3, 1/1) reserves container height immediately, eliminating Cumulative Layout Shift.",
+      "The stretched link pseudo-element pattern makes cards clickable across their surface while preserving HTML validity and accessibility."
+    ],
+    "projectStep": {
+      "title": "Construct Modular Card Component Suite",
+      "steps": [
+        "Implement Card compound components (Header, Media, Body, Footer) supporting elevated, outlined, and flat variants",
+        "Add media container supporting tokenized aspect-ratios (16/9, 4/3, 1/1) with object-fit: cover",
+        "Implement accessible card-wide clickability using the stretched-link pseudo-element pattern"
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "title": "Navigation Bars, Menus & Breadcrumb Trails: Sticky Headers & Skip Links",
+    "goal": "Build accessible application navigation with sticky glassmorphism headers, aria-current active links, responsive drawer menus, and skip links.",
+    "minutes": 25,
+    "recap": "Yesterday we developed our modular Card component suite. Today we step up to application-level navigation, building accessible sticky headers, breadcrumb trails, and skip links.",
+    "parts": [
+      {
+        "title": "Accessible Global Navigation Architecture & Landmark Roles",
+        "say": [
+          "Navigation is the circulatory system of a web application.",
+          "If users cannot reliably move through an interface or understand where they currently reside, the application fails.",
+          "From an accessibility standpoint, navigation elements must be explicitly declared as semantic landmarks.",
+          "Screen reader users frequently navigate pages by jumping directly between landmarks rather than reading through every link.",
+          "The HTML '<nav>' element inherently possesses the ARIA landmark role 'navigation'.",
+          "However, if a page contains multiple '<nav>' elements—such as a top header bar, a sidebar, and a footer menu—screen readers will announce: 'Navigation, navigation, navigation', providing zero distinction.",
+          "To resolve this, every '<nav>' landmark must be disambiguated with an 'aria-label' attribute.",
+          "For example: '<nav aria-label=\"Main Navigation\">', '<nav aria-label=\"Breadcrumb Navigation\">', and '<nav aria-label=\"Footer Navigation\">'.",
+          "Properly labeling navigation landmarks provides immediate clarity to blind and low-vision users."
+        ],
+        "example": "A major airport terminal with clear overhead illuminated signs: 'Concourse A Gates' versus 'Baggage Claim' versus 'Ground Transportation', ensuring travelers don't wander into the wrong zone.",
+        "code": "interface NavLandmark {\n  tag: string;\n  ariaLabel: string;\n  purpose: string;\n  isCompliant: boolean;\n}\n\nconst navLandmarks: NavLandmark[] = [\n  { tag: 'nav', ariaLabel: 'Main Navigation', purpose: 'Primary site routing links', isCompliant: true },\n  { tag: 'nav', ariaLabel: 'Breadcrumb Trail', purpose: 'Hierarchical location indicator', isCompliant: true },\n  { tag: 'nav', ariaLabel: '', purpose: 'Unlabeled footer links', isCompliant: false }, // Violation\n];\n\nfor (const nav of navLandmarks) {\n  const status = nav.isCompliant ? 'PASS' : 'FAIL: UNLABELED LANDMARK';\n  const labelText = nav.ariaLabel ? `aria-label=\"${nav.ariaLabel}\"` : 'NO ARIA-LABEL';\n  console.log(`[${status}] <${nav.tag} ${labelText}> -> ${nav.purpose}`);\n}",
+        "output": "[PASS] <nav aria-label=\"Main Navigation\"> -> Primary site routing links\n[PASS] <nav aria-label=\"Breadcrumb Trail\"> -> Hierarchical location indicator\n[FAIL: UNLABELED LANDMARK] <nav NO ARIA-LABEL> -> Unlabeled footer links",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Audits <nav> landmark elements for required descriptive aria-label attributes."
+          },
+          {
+            "line": 17,
+            "note": "Identifies unlabeled landmarks that cause confusing duplicate announcements for screen readers."
+          }
+        ],
+        "tryIt": "Fix the unlabeled footer landmark by providing aria-label=\"Footer Navigation\".",
+        "check": {
+          "question": "When a web page contains multiple <nav> elements, how should they be distinguished for screen readers?",
+          "options": [
+            "Each <nav> element must provide a unique, descriptive 'aria-label' (e.g., 'Main Navigation', 'Breadcrumb')",
+            "All navigation elements except the first must be converted to <div> tags",
+            "Screen readers can only read one <nav> element per website"
+          ],
+          "answer": 0,
+          "why": "Descriptive aria-labels differentiate multiple navigation landmarks so users know where each nav leads."
+        }
+      },
+      {
+        "title": "Sticky Headers & Glassmorphism with backdrop-filter: blur()",
+        "say": [
+          "As users scroll through lengthy dashboards or documentation feeds, the main navigation header should remain effortlessly accessible.",
+          "Modern web applications achieve this via Sticky Navigation Headers: 'position: sticky; top: 0;'.",
+          "However, an opaque solid background on a sticky header can feel heavy and disconnect the header from the content scrolling beneath.",
+          "The modern visual solution is Glassmorphism, powered by native CSS 'backdrop-filter: blur(12px)'.",
+          "A glassmorphic header uses a semi-transparent background color: 'background: rgba(255, 255, 255, 0.8)' in light mode or 'rgba(15, 23, 42, 0.8)' in dark mode.",
+          "The 'backdrop-filter: blur()' property blurs everything scrolling underneath in real time, creating the tactile illusion of frosted glass.",
+          "Furthermore, glassmorphic headers append a subtle 1px border-bottom ('var(--border-subtle)') to separate the sticky bar from the viewport content.",
+          "Crucially, design systems must provide a fallback for browsers where backdrop-filter is disabled or hardware-restricted: '@supports not (backdrop-filter: blur(1px))'.",
+          "Glassmorphic sticky headers deliver high visual elegance while keeping core navigation within fingertip reach."
+        ],
+        "example": "A sheet of architectural frosted glass placed over a printed blueprint: the text beneath is blurred into an atmospheric texture, while the pen resting on top of the glass remains sharp and readable.",
+        "code": "interface GlassHeaderStyle {\n  position: 'sticky';\n  top: number;\n  bgLightRgba: string;\n  bgDarkRgba: string;\n  backdropBlurPx: number;\n  borderBottomToken: string;\n  zIndexToken: string;\n}\n\nfunction compileGlassmorphicCss(cfg: GlassHeaderStyle): string {\n  return `.header-sticky {\n  position: ${cfg.position};\n  top: ${cfg.top}px;\n  background: ${cfg.bgLightRgba};\n  backdrop-filter: blur(${cfg.backdropBlurPx}px);\n  -webkit-backdrop-filter: blur(${cfg.backdropBlurPx}px);\n  border-bottom: 1px solid ${cfg.borderBottomToken};\n  z-index: var(${cfg.zIndexToken});\n}`;\n}\n\nconst modernHeader: GlassHeaderStyle = {\n  position: 'sticky',\n  top: 0,\n  bgLightRgba: 'rgba(255, 255, 255, 0.8)',\n  bgDarkRgba: 'rgba(15, 23, 42, 0.8)',\n  backdropBlurPx: 12,\n  borderBottomToken: 'var(--border-subtle)',\n  zIndexToken: '--z-sticky',\n};\n\nconsole.log(compileGlassmorphicCss(modernHeader));",
+        "output": ".header-sticky {\n  position: sticky;\n  top: 0px;\n  background: rgba(255, 255, 255, 0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  border-bottom: 1px solid var(--border-subtle);\n  z-index: var(--z-sticky);\n}",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Compiles CSS declarations combining position: sticky with backdrop-filter: blur(12px)."
+          },
+          {
+            "line": 32,
+            "note": "Outputs the complete sticky glassmorphic header style using semantic z-index tokens."
+          }
+        ],
+        "tryIt": "Inspect the z-index token to verify it references --z-sticky from our Day 4 semantic stacking scale.",
+        "check": {
+          "question": "What CSS property creates the frosted glass blurring effect on content scrolling beneath a semi-transparent header?",
+          "options": [
+            "backdrop-filter: blur(12px)",
+            "filter: blur(12px)",
+            "opacity: 0.5"
+          ],
+          "answer": 0,
+          "why": "backdrop-filter applies graphical effects (like blur) to the area behind an element, whereas filter blurs the element itself."
+        }
+      },
+      {
+        "title": "Active Page Indicators with aria-current=\"page\"",
+        "say": [
+          "Users must always know where they are within an application's information architecture.",
+          "Visual designers communicate the current page link by applying distinct styles: bold font weight, a high-contrast color, or an active bottom indicator bar.",
+          "However, visual styling alone communicates nothing to assistive technologies.",
+          "A blind screen reader user listening to a navigation menu cannot see that the 'Dashboard' link is colored blue with a border underneath.",
+          "The W3C WAI-ARIA specification mandates the 'aria-current=\"page\"' attribute on the active navigation link.",
+          "When a screen reader encounters '<a href=\"/dashboard\" aria-current=\"page\">Dashboard</a>', it announces: 'Dashboard, current page, link'.",
+          "Non-active links do not have the attribute.",
+          "Furthermore, CSS can target this attribute directly using the attribute selector: '.nav-link[aria-current=\"page\"] { color: var(--color-primary-600); }'.",
+          "Using 'aria-current=\"page\"' as the single source of truth for both visual styling and screen reader announcements eliminates state synchronization bugs."
+        ],
+        "example": "A 'You Are Here' red pin on a physical shopping mall map: visually indicating your current physical position in relation to all surrounding stores.",
+        "code": "interface NavLinkItem {\n  label: string;\n  href: string;\n  isCurrentPage: boolean;\n}\n\nfunction renderAccessibleNavLink(link: NavLinkItem): string {\n  const currentAttr = link.isCurrentPage ? ' aria-current=\"page\"' : '';\n  const activeClass = link.isCurrentPage ? ' nav-link--active' : '';\n  return `<a href=\"${link.href}\" class=\"nav-link${activeClass}\"${currentAttr}>${link.label}</a>`;\n}\n\nconst siteLinks: NavLinkItem[] = [\n  { label: 'Overview', href: '/overview', isCurrentPage: false },\n  { label: 'Analytics', href: '/analytics', isCurrentPage: true },\n  { label: 'Settings', href: '/settings', isCurrentPage: false },\n];\n\nfor (const l of siteLinks) {\n  console.log(renderAccessibleNavLink(l));\n}",
+        "output": "<a href=\"/overview\" class=\"nav-link\">Overview</a>\n<a href=\"/analytics\" class=\"nav-link nav-link--active\" aria-current=\"page\">Analytics</a>\n<a href=\"/settings\" class=\"nav-link\">Settings</a>",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Binds aria-current=\"page\" conditionally to the active navigation route."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates that the active link explicitly informs screen readers of current page status."
+          }
+        ],
+        "tryIt": "Change the active link to '/settings' and verify aria-current moves to the Settings link.",
+        "check": {
+          "question": "What is the purpose of adding 'aria-current=\"page\"' to a navigation link?",
+          "options": [
+            "It informs assistive technologies that the link represents the currently active page in the site hierarchy",
+            "It causes the link to open in a new browser tab",
+            "It pre-fetches the page in the background"
+          ],
+          "answer": 0,
+          "why": "aria-current='page' explicitly conveys to screen readers that this link is the user's active page."
+        }
+      },
+      {
+        "title": "Responsive Mobile Drawer Navigation & Scroll Locking",
+        "say": [
+          "Desktop navigation bars with six to ten horizontal links cannot fit across narrow mobile phone displays.",
+          "On screens below 768px (the tablet breakpoint), navigation transitions into a Responsive Mobile Drawer.",
+          "The drawer is triggered by an accessible hamburger button with 'aria-expanded=\"true|false\"' and 'aria-controls=\"mobile-nav-drawer\"'.",
+          "When the drawer slides open, two critical accessibility requirements must be satisfied:",
+          "1. Focus Trapping: keyboard focus must remain trapped inside the drawer so tapping Tab doesn't navigate to invisible background content.",
+          "2. Body Scroll Locking: the background page must not scroll while the user swipes inside the drawer.",
+          "Body scroll locking is achieved by adding a class to the document body: 'body.nav-open { overflow: hidden; }'.",
+          "Furthermore, pressing the Escape key must immediately close the drawer and return focus smoothly to the hamburger trigger button.",
+          "Implementing proper focus management and scroll locking transforms clumsy mobile menus into native-app-quality experiences."
+        ],
+        "example": "A pull-down window shade in a passenger train: when pulled down, it latches securely in place, blocking exterior glare until you press the release catch to retract it smoothly.",
+        "code": "interface MobileDrawerState {\n  isOpen: boolean;\n  triggerAriaExpanded: boolean;\n  bodyScrollLocked: boolean;\n  focusTrapped: boolean;\n}\n\nfunction updateMobileDrawer(isOpen: boolean): MobileDrawerState {\n  return {\n    isOpen,\n    triggerAriaExpanded: isOpen,\n    bodyScrollLocked: isOpen, // Prevent background scroll when open\n    focusTrapped: isOpen,     // Trap Tab navigation inside drawer\n  };\n}\n\nconst closedDrawer = updateMobileDrawer(false);\nconst openDrawer = updateMobileDrawer(true);\n\nconsole.log('Closed Drawer State:', closedDrawer);\nconsole.log('Open Drawer State  :', openDrawer);",
+        "output": "Closed Drawer State: { isOpen: false, triggerAriaExpanded: false, bodyScrollLocked: false, focusTrapped: false }\nOpen Drawer State  : { isOpen: true, triggerAriaExpanded: true, bodyScrollLocked: true, focusTrapped: true }",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Synchronizes drawer open state with aria-expanded, body scroll locking, and focus trapping."
+          },
+          {
+            "line": 19,
+            "note": "Displays the synchronized state management required for accessible mobile navigation."
+          }
+        ],
+        "tryIt": "Verify that closing the drawer automatically unlocks body scroll and releases focus trapping.",
+        "check": {
+          "question": "When a mobile navigation drawer opens, why must background scrolling on the document body be locked?",
+          "options": [
+            "To prevent confusing two-finger scroll conflicts where the background page scrolls underneath the open menu drawer",
+            "Because mobile browsers crash if both elements scroll simultaneously",
+            "To save smartphone battery power"
+          ],
+          "answer": 0,
+          "why": "Scroll locking keeps the user focused on the menu and prevents disorienting background displacement."
+        }
+      },
+      {
+        "title": "Breadcrumb Navigation Hierarchies with Nav Landmarks",
+        "say": [
+          "While top-level navigation moves users across major functional domains, Breadcrumbs provide vertical contextual orientation.",
+          "A breadcrumb trail reveals the user's path from the homepage through categories down to the current page (e.g., 'Home > Settings > Security > Two-Factor Auth').",
+          "To construct an accessible breadcrumb trail, three structural standards must be observed:",
+          "1. Wrap the trail in a '<nav aria-label=\"Breadcrumb\">' landmark so screen readers identify its purpose.",
+          "2. Structure items in an ordered list '<ol>', which communicates the linear sequence and item count (e.g., 'Item 3 of 4') to screen readers.",
+          "3. The final item represents the current page: it should NOT be an active link, and it must have 'aria-current=\"page\"'.",
+          "Furthermore, visual separator icons (like slashes '/' or chevron arrows '>') should be hidden from assistive technologies using 'aria-hidden=\"true\"' or inserted purely via CSS '::after'.",
+          "If separators are not hidden, screen readers will annoyingly announce: 'Home, slash, Settings, slash, Security, slash...'.",
+          "Adhering to these semantic standards makes breadcrumb trails elegant for both sighted and screen reader users."
+        ],
+        "example": "Hansel and Gretel leaving a trail of white pebbles through the dense forest so they can trace their exact path back to their home doorstep.",
+        "code": "interface BreadcrumbItem {\n  name: string;\n  url?: string;\n  isLast: boolean;\n}\n\nfunction renderBreadcrumbHtml(items: BreadcrumbItem[]): string {\n  const lis = items.map(item => {\n    if (item.isLast) {\n      return `    <li aria-current=\"page\"><span class=\"crumb-current\">${item.name}</span></li>`;\n    }\n    return `    <li><a href=\"${item.url}\">${item.name}</a><span class=\"separator\" aria-hidden=\"true\">/</span></li>`;\n  });\n\n  return `<nav aria-label=\"Breadcrumb\">\\n  <ol>\\n${lis.join('\\n')}\\n  </ol>\\n</nav>`;\n}\n\nconst trail: BreadcrumbItem[] = [\n  { name: 'Home', url: '/', isLast: false },\n  { name: 'Products', url: '/products', isLast: false },\n  { name: 'Laptops', isLast: true },\n];\n\nconsole.log(renderBreadcrumbHtml(trail));",
+        "output": "<nav aria-label=\"Breadcrumb\">\n  <ol>\n    <li><a href=\"/\">Home</a><span class=\"separator\" aria-hidden=\"true\">/</span></li>\n    <li><a href=\"/products\">Products</a><span class=\"separator\" aria-hidden=\"true\">/</span></li>\n    <li aria-current=\"page\"><span class=\"crumb-current\">Laptops</span></li>\n  </ol>\n</nav>",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Renders an accessible breadcrumb trail using <nav>, <ol>, aria-hidden separators, and aria-current."
+          },
+          {
+            "line": 24,
+            "note": "Outputs semantic markup adhering strictly to WAI-ARIA breadcrumb design patterns."
+          }
+        ],
+        "tryIt": "Verify that the final crumb 'Laptops' is plain text (not a link) and bears aria-current=\"page\".",
+        "check": {
+          "question": "Why should breadcrumb visual separators (such as '/' or '>') have 'aria-hidden=\"true\"' in the DOM?",
+          "options": [
+            "To prevent screen readers from reading aloud repetitive 'slash, slash, slash' punctuation between every link",
+            "Because slashes are illegal characters in HTML5",
+            "To make the breadcrumb trail invisible to search engines"
+          ],
+          "answer": 0,
+          "why": "aria-hidden='true' silences purely decorative separator punctuation for assistive technology users."
+        }
+      },
+      {
+        "title": "The Accessibility Skip-to-Content Link",
+        "say": [
+          "Imagine visiting a website using only the keyboard Tab key.",
+          "Every single time you navigate to a new page, you must press Tab 30 to 50 times just to step through the logo, search bar, header navigation links, and category menus before you reach the main article.",
+          "For keyboard navigators and screen reader users, this repetitive navigational gauntlet is exhausting and infuriating.",
+          "The Skip-to-Content Link is the essential, legally required solution (WCAG 2.4.1 Bypass Blocks).",
+          "A skip link is the very first element inside the '<body>' tag: '<a href=\"#main-content\" class=\"skip-link\">Skip to main content</a>'.",
+          "Visually, the skip link is hidden off-screen by default using CSS translation ('transform: translateY(-100%)') or clipping.",
+          "However, the instant a keyboard user presses the Tab key upon page load, the ':focus' pseudo-class activates.",
+          "The skip link becomes brightly visible at the top-left of the screen.",
+          "Pressing Enter immediately leaps focus past all header navigation directly to '<main id=\"main-content\" tabIndex={-1}>'.",
+          "Implementing a skip-to-content link takes less than ten lines of code, but it transforms the accessibility of an entire website."
+        ],
+        "example": "A VIP express bypass corridor at an airport that allows connecting passengers to bypass the check-in queue and step directly onto their connecting flight gate.",
+        "code": "interface SkipLinkCssSpec {\n  selector: string;\n  defaultPosition: string;\n  focusedPosition: string;\n  targetId: string;\n  wcagCriterion: string;\n}\n\nfunction compileSkipLinkStyles(spec: SkipLinkCssSpec): string {\n  return `/* ${spec.wcagCriterion} */\n${spec.selector} {\n  position: absolute;\n  top: 0;\n  left: 0;\n  transform: ${spec.defaultPosition};\n  background: var(--color-primary-600, #2563eb);\n  color: #ffffff;\n  padding: 8px 16px;\n  z-index: var(--z-toast, 1100);\n}\n${spec.selector}:focus {\n  transform: ${spec.focusedPosition};\n  outline: 2px solid #ffffff;\n}`;\n}\n\nconst skipLinkConfig: SkipLinkCssSpec = {\n  selector: '.skip-link',\n  defaultPosition: 'translateY(-100%)',\n  focusedPosition: 'translateY(0)',\n  targetId: 'main-content',\n  wcagCriterion: 'WCAG 2.4.1 Bypass Blocks (Level A)',\n};\n\nconsole.log(compileSkipLinkStyles(skipLinkConfig));",
+        "output": "/* WCAG 2.4.1 Bypass Blocks (Level A) */\n.skip-link {\n  position: absolute;\n  top: 0;\n  left: 0;\n  transform: translateY(-100%);\n  background: var(--color-primary-600, #2563eb);\n  color: #ffffff;\n  padding: 8px 16px;\n  z-index: var(--z-toast, 1100);\n}\n.skip-link:focus {\n  transform: translateY(0);\n  outline: 2px solid #ffffff;\n}",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Styles skip link offscreen by default and slides it down into full view upon keyboard focus."
+          },
+          {
+            "line": 31,
+            "note": "Outputs the compliant skip link stylesheet fulfilling WCAG 2.4.1 Bypass Blocks."
+          }
+        ],
+        "tryIt": "Verify that the skip link targets #main-content with tabIndex=-1 so focus shifts reliably in all browsers.",
+        "check": {
+          "question": "Under WCAG 2.4.1 (Bypass Blocks), why is a 'Skip to Content' link mandatory on sites with large navigation headers?",
+          "options": [
+            "It allows keyboard and screen reader users to bypass repetitive header links and jump directly to primary content",
+            "It compresses image files on the page",
+            "It turns off web animations automatically"
+          ],
+          "answer": 0,
+          "why": "Skip links let keyboard users bypass dozens of header links with a single click, fulfilling WCAG 2.4.1."
+        }
+      }
+    ],
+    "summary": [
+      "Navigation landmarks must be uniquely identified with aria-label attributes when multiple <nav> elements exist.",
+      "Sticky headers leverage backdrop-filter: blur(12px) for glassmorphism, with aria-current='page' designating the active route.",
+      "A Skip-to-Content link is the first focusable element on the page, allowing keyboard users to bypass repetitive navigation."
+    ],
+    "projectStep": {
+      "title": "Build Accessible Navigation & Header Suite",
+      "steps": [
+        "Implement sticky glassmorphic NavigationHeader organism with backdrop-filter blur and --z-sticky stacking",
+        "Add responsive mobile drawer with body scroll locking, focus trapping, and aria-expanded toggle",
+        "Implement breadcrumb navigation with aria-current='page' and off-screen Skip-to-Content link targeting #main-content"
+      ]
+    }
   }
 ];
