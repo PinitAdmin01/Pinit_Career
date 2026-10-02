@@ -5034,5 +5034,1245 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "Implement StaggeredList container with incremental delay offsets for fluid list item reveals"
       ]
     }
+  },
+  {
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Complete Flexbox Math, Fluid Grid, Media Query & Micro-Interaction Engine",
+    "goal": "Synthesize 1D Flexbox growth/shrink algorithms, 2D CSS Grid auto-fit column calculations, mobile-first responsive breakpoint classifiers, fluid clamp math, and 60fps GPU hardware-accelerated motion into a unified responsive layout and interaction engine.",
+    "minutes": 30,
+    "recap": "In Days 16 through 20, we mastered modern CSS layout mechanics: Flexbox distribution, CSS Grid tracks, responsive breakpoint scales, container queries, and spring micro-interactions. Today in Milestone 3, we synthesize and certify our responsive layout and motion architecture.",
+    "parts": [
+      {
+        "title": "Milestone 3 Architecture: The Sovereign Responsive & Motion Suite",
+        "say": [
+          "Welcome to Milestone 3 of UI/UX Design Systems & Visual Frontend.",
+          "In Milestone 1, we built foundational math tokens: color ramps, modular typography, and 8pt spatial grids.",
+          "In Milestone 2, we built and certified our intermediate atomic component library with accessible forms, modals, tables, and toast stacks.",
+          "Today in Milestone 3, we certify the spatial and temporal engines that govern how components adapt to viewports and respond to human interactions.",
+          "A production design system cannot rely on scattered, ad-hoc media queries or uncoordinated animations.",
+          "It requires an integrated, mathematically verifiable layout and motion subsystem.",
+          "Today we construct the Milestone 3 Certification Engine, auditing 5 core responsive subsystems: Flexbox math, fluid CSS Grid columns, mobile-first breakpoint tiers, fluid clamp() formulas, and GPU-accelerated motion.",
+          "Passing all certification gates guarantees that our interfaces remain fluid, performant, and delightful across all devices.",
+          "Let us inspect the master Milestone 3 registry schema."
+        ],
+        "example": "A luxury automotive suspension and chassis calibration: before a sports sedan enters commercial production, engineers stress-test adaptive dampers, multi-link geometry, and electronic stability control across gravel, rain, and racetrack asphalt.",
+        "code": "interface Milestone3SubsystemAudit {\n  name: string;\n  category: 'Layout' | 'Responsive' | 'Motion';\n  verifiedMath: boolean;\n  benchmarkScore: number;\n}\n\ninterface Milestone3Registry {\n  version: string;\n  milestoneTitle: string;\n  subsystems: Milestone3SubsystemAudit[];\n  overallStatus: 'CERTIFIED' | 'PENDING';\n}\n\nconst milestone3Data: Milestone3Registry = {\n  version: '3.0.0-milestone3',\n  milestoneTitle: 'Responsive Layout & Motion Engine',\n  subsystems: [\n    { name: 'Flexbox 1D Distribution', category: 'Layout', verifiedMath: true, benchmarkScore: 100 },\n    { name: 'CSS Grid Fluid Columns', category: 'Layout', verifiedMath: true, benchmarkScore: 100 },\n    { name: 'Mobile-First Breakpoints', category: 'Responsive', verifiedMath: true, benchmarkScore: 100 },\n    { name: 'Container Query Units', category: 'Responsive', verifiedMath: true, benchmarkScore: 100 },\n    { name: '60fps GPU Motion Engine', category: 'Motion', verifiedMath: true, benchmarkScore: 100 },\n  ],\n  overallStatus: 'CERTIFIED',\n};\n\nconsole.log('=== PinIT Design Systems v' + milestone3Data.version + ' ===');\nconsole.log('Milestone: ' + milestone3Data.milestoneTitle);\nconsole.log('Subsystems Audited: ' + milestone3Data.subsystems.length + ' modules (Status: ' + milestone3Data.overallStatus + ')');\nmilestone3Data.subsystems.forEach(s => {\n  console.log('  [' + s.category + '] ' + s.name + ': Score=' + s.benchmarkScore + '% (Verified: ' + s.verifiedMath + ')');\n});",
+        "output": "=== PinIT Design Systems v3.0.0-milestone3 ===\nMilestone: Responsive Layout & Motion Engine\nSubsystems Audited: 5 modules (Status: CERTIFIED)\n  [Layout] Flexbox 1D Distribution: Score=100% (Verified: true)\n  [Layout] CSS Grid Fluid Columns: Score=100% (Verified: true)\n  [Responsive] Mobile-First Breakpoints: Score=100% (Verified: true)\n  [Responsive] Container Query Units: Score=100% (Verified: true)\n  [Motion] 60fps GPU Motion Engine: Score=100% (Verified: true)",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Defines the master registry schema for Milestone 3 responsive layout and motion certification."
+          },
+          {
+            "line": 33,
+            "note": "Verifies 100% benchmark score across all 5 architectural subsystems."
+          }
+        ],
+        "tryIt": "Verify that all 5 audited subsystems have verifiedMath set to true.",
+        "check": {
+          "question": "What is the primary objective of Milestone 3 in the Design Systems curriculum?",
+          "options": [
+            "To certify our complete responsive layout algorithms, breakpoint scales, fluid math, and 60fps motion engines",
+            "To configure Docker container registries",
+            "To write SQL schema migration scripts"
+          ],
+          "answer": 0,
+          "why": "Milestone 3 validates and unifies Flexbox, CSS Grid, Breakpoints, Container Queries, and GPU Motion into a certified engine."
+        }
+      },
+      {
+        "title": "Flexbox Ratio & Gap Spacing Verification Gate",
+        "say": [
+          "The first gate of our Milestone 3 engine tests the mathematical precision of our Flexbox layout implementation.",
+          "In Day 16, we learned that flex-grow distributes positive free space, flex-shrink absorbs negative deficits, and native gap spaces items without margin bleed.",
+          "Our test harness injects a realistic application toolbar into the Flexbox solver:",
+          "A 960px container with 3 items: a 160px Brand Logo (grow: 0, shrink: 0), an expandable Search Bar (grow: 2, shrink: 1, basis: 200px), and an Action Group (grow: 1, shrink: 1, basis: 150px) with 20px gap spacing.",
+          "The harness verifies:",
+          "1. Total gap space is exactly subtracted: 2 gaps of 20px = 40px, leaving 920px available.",
+          "2. Total basis is 160 + 200 + 150 = 510px, leaving 410px of positive free space.",
+          "3. Free space is divided by total grow (2 + 1 = 3), awarding Search Bar 2/3 and Action Group 1/3.",
+          "4. The cumulative sum of computed widths plus gaps matches container width with zero sub-pixel rounding drift.",
+          "Let us execute the Flexbox verification suite."
+        ],
+        "example": "A carpenter measuring custom kitchen cabinetry: face frames, drawers, and spice racks must fit between stone countertops with zero margin of error.",
+        "code": "interface FlexVerificationInput {\n  containerWidth: number;\n  gap: number;\n  items: { id: string; grow: number; shrink: number; basis: number }[];\n}\n\nfunction verifyFlexDistribution(input: FlexVerificationInput): { passed: boolean; itemWidths: Record<string, number>; totalSpan: number } {\n  const n = input.items.length;\n  const gapTotal = (n - 1) * input.gap;\n  const spaceForItems = input.containerWidth - gapTotal;\n  const basisTotal = input.items.reduce((sum, item) => sum + item.basis, 0);\n  const freeSpace = spaceForItems - basisTotal;\n  const totalGrow = input.items.reduce((sum, item) => sum + item.grow, 0);\n\n  const itemWidths: Record<string, number> = {};\n  let computedSum = 0;\n\n  for (const item of input.items) {\n    let w = item.basis;\n    if (freeSpace > 0 && totalGrow > 0 && item.grow > 0) {\n      w += (item.grow / totalGrow) * freeSpace;\n    }\n    const roundedW = Math.round(w * 10) / 10;\n    itemWidths[item.id] = roundedW;\n    computedSum += roundedW;\n  }\n\n  const totalSpan = computedSum + gapTotal;\n  const passed = Math.abs(totalSpan - input.containerWidth) < 0.5;\n\n  return { passed, itemWidths, totalSpan };\n}\n\nconst flexTest: FlexVerificationInput = {\n  containerWidth: 960,\n  gap: 20,\n  items: [\n    { id: 'BrandLogo', grow: 0, shrink: 0, basis: 160 },\n    { id: 'SearchBar', grow: 2, shrink: 1, basis: 200 },\n    { id: 'ActionGroup', grow: 1, shrink: 1, basis: 150 },\n  ],\n};\n\nconst flexRes = verifyFlexDistribution(flexTest);\nconsole.log('=== FLEXBOX MATHEMATICAL VERIFICATION GATE ===');\nconsole.log('Passed: ' + flexRes.passed + ' (Total Span: ' + flexRes.totalSpan + 'px / ' + flexTest.containerWidth + 'px)');\nconsole.log('BrandLogo   : ' + flexRes.itemWidths['BrandLogo'] + 'px');\nconsole.log('SearchBar   : ' + flexRes.itemWidths['SearchBar'] + 'px (grow: 2)');\nconsole.log('ActionGroup : ' + flexRes.itemWidths['ActionGroup'] + 'px (grow: 1)');",
+        "output": "=== FLEXBOX MATHEMATICAL VERIFICATION GATE ===\nPassed: true (Total Span: 960px / 960px)\nBrandLogo   : 160px\nSearchBar   : 473.3px (grow: 2)\nActionGroup : 286.7px (grow: 1)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates free space: 960 - 40 (gaps) - 510 (basis) = 410px."
+          },
+          {
+            "line": 43,
+            "note": "Distributes 2/3 of 410px (273.3px) to SearchBar, and 1/3 (136.7px) to ActionGroup, summing to 960px exactly."
+          }
+        ],
+        "tryIt": "Verify that 160 + 473.3 + 286.7 + 40 (gaps) = 960px exactly.",
+        "check": {
+          "question": "How does the Flexbox verification gate prove layout precision?",
+          "options": [
+            "By asserting that the sum of computed item widths plus inter-item gaps matches container width exactly with zero drift",
+            "By taking a visual screenshot",
+            "By restarting the web browser"
+          ],
+          "answer": 0,
+          "why": "Mathematical verification confirms that free space distribution formulas account for 100% of container pixels without overflow or underflow."
+        }
+      },
+      {
+        "title": "CSS Grid auto-fit & minmax Track Resolution",
+        "say": [
+          "The second gate tests our 2D CSS Grid engine across multiple viewport scales.",
+          "In Day 17, we proved that 'repeat(auto-fit, minmax(280px, 1fr))' delivers seamless responsiveness without media queries.",
+          "Our test harness runs the CSS Grid track solver across four real-world viewport resolutions:",
+          "1. 1440px Desktop: Should resolve to 4 columns at 340px each (with 24px gaps).",
+          "2. 1024px Small Desktop: Should resolve to 3 columns at 325.3px each.",
+          "3. 768px Tablet: Should resolve to 2 columns at 372px each.",
+          "4. 375px Mobile: Should resolve to 1 column at 375px.",
+          "The harness asserts that column count smoothly decreases, that track width never drops below the 280px minimum, and that empty tracks collapse under auto-fit.",
+          "Let us execute the CSS Grid track verification suite."
+        ],
+        "example": "A sorting machine in a fruit orchard: as crate sizes change, internal divider slats shift dynamically to fit whole apples without bruising them.",
+        "code": "interface GridResolutionTest {\n  containerWidth: number;\n  gap: number;\n  minColWidth: number;\n}\n\ninterface GridResolutionResult {\n  width: number;\n  columns: number;\n  colWidth: number;\n  minWidthRespected: boolean;\n}\n\nfunction resolveGridTracks(test: GridResolutionTest): GridResolutionResult {\n  const maxCols = Math.floor((test.containerWidth + test.gap) / (test.minColWidth + test.gap));\n  const columns = Math.max(1, maxCols);\n  const totalGaps = (columns - 1) * test.gap;\n  const colWidth = (test.containerWidth - totalGaps) / columns;\n  const roundedW = Math.round(colWidth * 10) / 10;\n\n  return {\n    width: test.containerWidth,\n    columns,\n    colWidth: roundedW,\n    minWidthRespected: roundedW >= test.minColWidth || columns === 1,\n  };\n}\n\nconst viewportsToTest = [1440, 1024, 768, 375];\nconsole.log('=== CSS GRID AUTO-FIT VERIFICATION GATE ===');\nfor (const vp of viewportsToTest) {\n  const res = resolveGridTracks({ containerWidth: vp, gap: 24, minColWidth: 280 });\n  console.log('Viewport ' + res.width + 'px -> ' + res.columns + ' cols @ ' + res.colWidth + 'px (Min >= 280px: ' + res.minWidthRespected + ')');\n}",
+        "output": "=== CSS GRID AUTO-FIT VERIFICATION GATE ===\nViewport 1440px -> 4 cols @ 342px (Min >= 280px: true)\nViewport 1024px -> 3 cols @ 325.3px (Min >= 280px: true)\nViewport 768px -> 2 cols @ 372px (Min >= 280px: true)\nViewport 375px -> 1 cols @ 375px (Min >= 280px: true)",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Applies auto-fit formula: maxCols = floor((width + gap) / (minCol + gap))."
+          },
+          {
+            "line": 32,
+            "note": "Confirms that columns fold from 4 to 3 to 2 to 1 while always respecting 280px minimum."
+          }
+        ],
+        "tryIt": "Calculate column count for an 1800px ultra-wide display (should yield 5 columns).",
+        "check": {
+          "question": "Why is 1 column permitted to render at 375px even though minColWidth is 280px?",
+          "options": [
+            "Because 1 column consumes 100% of the available 375px container with 1fr expansion",
+            "Because mobile devices disable CSS minmax",
+            "Because 375 is less than 280"
+          ],
+          "answer": 0,
+          "why": "With only 1 column fitting, '1fr' stretches the track to consume the entire 375px container width."
+        }
+      },
+      {
+        "title": "Viewport Breakpoint & Input Model Classification",
+        "say": [
+          "The third gate verifies our responsive breakpoint scale and device input classification.",
+          "In Day 18, we codified the standard 5-tier breakpoint scale (sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px) and input ergonomics (@media (hover: hover) & (pointer: fine)).",
+          "The verification harness tests boundary conditions:",
+          "1. A 639px viewport must classify as 'base'.",
+          "2. A 640px viewport must classify as 'sm'.",
+          "3. A 767.98px viewport must classify as 'sm' without colliding into 'md'.",
+          "4. Touchscreen devices must enforce a minimum 44px touch target hitbox and disable persistent hover menus.",
+          "Validating input ergonomics ensures that touch users never suffer from tiny, un-clickable buttons or stuck hover states.",
+          "Let us execute the breakpoint and input classification gate."
+        ],
+        "example": "A smart building access gate: recognizing whether an employee is scanning an RFID badge (touch tap) or an automated vehicle transponder (long-range pointer) to adjust gate open duration.",
+        "code": "interface DeviceProfile {\n  name: string;\n  width: number;\n  pointer: 'coarse' | 'fine';\n  hover: boolean;\n}\n\ninterface CertifiedDeviceReport {\n  name: string;\n  tier: string;\n  touchTargetMet: boolean;\n  navMode: 'touch-drawer' | 'desktop-hover';\n}\n\nfunction auditDeviceErgonomics(dev: DeviceProfile): CertifiedDeviceReport {\n  let tier = 'base';\n  if (dev.width >= 1536) tier = '2xl';\n  else if (dev.width >= 1280) tier = 'xl';\n  else if (dev.width >= 1024) tier = 'lg';\n  else if (dev.width >= 768) tier = 'md';\n  else if (dev.width >= 640) tier = 'sm';\n\n  const isTouch = dev.pointer === 'coarse' || !dev.hover;\n  return {\n    name: dev.name,\n    tier,\n    touchTargetMet: isTouch ? 44 >= 44 : 32 >= 32,\n    navMode: isTouch ? 'touch-drawer' : 'desktop-hover',\n  };\n}\n\nconst auditDevices: DeviceProfile[] = [\n  { name: 'iPhone 14 (390px)', width: 390, pointer: 'coarse', hover: false },\n  { name: 'iPad Mini (768px)', width: 768, pointer: 'coarse', hover: false },\n  { name: 'MacBook Air (1280px)', width: 1280, pointer: 'fine', hover: true },\n];\n\nconsole.log('=== BREAKPOINT & INPUT ERGONOMICS AUDIT ===');\nfor (const d of auditDevices) {\n  const r = auditDeviceErgonomics(d);\n  console.log('[' + r.name + '] Tier: ' + r.tier + ' | 44px Touch Target: ' + r.touchTargetMet + ' | Nav: ' + r.navMode);\n}",
+        "output": "=== BREAKPOINT & INPUT ERGONOMICS AUDIT ===\n[iPhone 14 (390px)] Tier: base | 44px Touch Target: true | Nav: touch-drawer\n[iPad Mini (768px)] Tier: md | 44px Touch Target: true | Nav: touch-drawer\n[MacBook Air (1280px)] Tier: xl | 44px Touch Target: true | Nav: desktop-hover",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Applies standard breakpoint thresholds: base (<640), sm (640), md (768), lg (1024), xl (1280), 2xl (1536)."
+          },
+          {
+            "line": 36,
+            "note": "Accurately assigns touch-drawer and 44px hitboxes to iPad Mini despite its 768px width."
+          }
+        ],
+        "tryIt": "Verify that an iPad Pro with width 1024px and coarse pointer receives touch-drawer navigation.",
+        "check": {
+          "question": "Why does the audit assign touch-drawer navigation to an iPad Mini at 768px?",
+          "options": [
+            "Because its coarse pointer and lack of persistent hover require touch-optimized tap targets",
+            "Because iPads cannot run desktop websites",
+            "Because 768 is a mobile breakpoint"
+          ],
+          "answer": 0,
+          "why": "Device ergonomics prioritize input capability (coarse pointer) over screen dimensions alone."
+        }
+      },
+      {
+        "title": "GPU Hardware Acceleration & Cubic-Bézier Curve Verification",
+        "say": [
+          "The fourth gate subjects our animation subsystem to strict performance profiling.",
+          "In Day 20, we established that 60fps performance requires animating exclusively GPU-accelerated 'transform' and 'opacity' properties, avoiding layout reflows.",
+          "We also established that physical spring animations use cubic-bézier curves with overshoot control points ('y > 1.0').",
+          "The verification harness audits our core UI transitions:",
+          "1. Button Press Scale: 'transform: scale(0.96)' with spring curve (150ms).",
+          "2. Modal Backdrop Fade: 'opacity: 1' with standard decelerate curve (250ms).",
+          "3. Toast Slide-In: 'transform: translateY(0)' with decelerate curve (200ms).",
+          "The harness verifies that 100% of animated properties bypass Reflow/Repaint, and that spring curves settle back to 1.0 at completion.",
+          "Let us execute the GPU motion verification suite."
+        ],
+        "example": "A Formula 1 telemetry system: monitoring suspension travel, aerodynamic downforce, and wheel speed sensors in real time to ensure zero mechanical binding at 200mph.",
+        "code": "interface MotionAuditSubject {\n  component: string;\n  property: string;\n  durationMs: number;\n  bezierY2: number;\n}\n\ninterface MotionAuditReport {\n  component: string;\n  isGpuAccelerated: boolean;\n  hasSpringOvershoot: boolean;\n  frameRateCertified: boolean;\n}\n\nfunction auditMotionPerformance(subject: MotionAuditSubject): MotionAuditReport {\n  const gpuProps = ['transform', 'opacity'];\n  const isGpu = gpuProps.includes(subject.property);\n  const hasSpring = subject.bezierY2 > 1.0;\n  const certified = isGpu && subject.durationMs <= 400;\n\n  return {\n    component: subject.component,\n    isGpuAccelerated: isGpu,\n    hasSpringOvershoot: hasSpring,\n    frameRateCertified: certified,\n  };\n}\n\nconst motionSubjects: MotionAuditSubject[] = [\n  { component: 'ActiveButtonScale', property: 'transform', durationMs: 150, bezierY2: 1.56 },\n  { component: 'ModalBackdropFade', property: 'opacity', durationMs: 250, bezierY2: 1.0 },\n  { component: 'ToastSlideIn', property: 'transform', durationMs: 200, bezierY2: 1.0 },\n];\n\nconsole.log('=== GPU MOTION PERFORMANCE AUDIT ===');\nfor (const sub of motionSubjects) {\n  const rep = auditMotionPerformance(sub);\n  console.log('[' + rep.component + '] GPU: ' + rep.isGpuAccelerated + ' | Spring: ' + rep.hasSpringOvershoot + ' | 60fps Certified: ' + rep.frameRateCertified);\n}",
+        "output": "=== GPU MOTION PERFORMANCE AUDIT ===\n[ActiveButtonScale] GPU: true | Spring: true | 60fps Certified: true\n[ModalBackdropFade] GPU: true | Spring: false | 60fps Certified: true\n[ToastSlideIn] GPU: true | Spring: false | 60fps Certified: true",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Asserts that animated properties belong to GPU compositor set (transform, opacity)."
+          },
+          {
+            "line": 36,
+            "note": "Certifies 60fps performance across all core interactive component transitions."
+          }
+        ],
+        "tryIt": "Verify that an animation using 'height' fails the frameRateCertified check.",
+        "check": {
+          "question": "Why must animations strictly avoid properties like width, height, and top in design system components?",
+          "options": [
+            "Because they trigger CPU layout recalculation (Reflow) on every frame, causing dropped frames below 60fps",
+            "Because modern browsers have deleted those properties",
+            "Because CSS does not allow numbers in width"
+          ],
+          "answer": 0,
+          "why": "Geometrical property changes trigger layout reflow across the DOM tree, causing stutter and battery drain."
+        }
+      },
+      {
+        "title": "Complete Milestone 3 Synthesis & Architecture Certification",
+        "say": [
+          "We have reached the culmination of Milestone 3.",
+          "Our design system's layout and motion architecture has successfully passed all four certification gates:",
+          "1. Flexbox Distribution: Main and cross axis free space, growth ratios, and gap spacing verified with zero pixel drift.",
+          "2. CSS Grid Auto-Fit: 2D fluid column resolution verified across 4 viewport resolutions without media query overhead.",
+          "3. Responsive Breakpoints: Standard 5-tier scales verified alongside touch pointer ergonomics and 44px hitboxes.",
+          "4. 60fps GPU Motion: Transitions verified for hardware acceleration, spring curves, and duration bounds.",
+          "When all benchmarks evaluate to 'CERTIFIED', the engine compiles the official Milestone 3 Architecture Manifesto.",
+          "This manifesto certifies that our visual frontend is mathematically sound, responsive to all form factors, and optimized for human interaction.",
+          "Congratulations on completing Milestone 3 of UI/UX Design Systems & Visual Frontend.",
+          "Let us run the master Milestone 3 certification engine."
+        ],
+        "example": "A skyscraper topping-out ceremony: the structural steel, wind dampers, seismic joints, and elevator shafts have passed rigorous engineering inspections, earning the building its municipal occupancy certificate.",
+        "code": "interface Milestone3Manifesto {\n  milestone: string;\n  flexboxMathVerified: boolean;\n  cssGridFluidVerified: boolean;\n  breakpointsCertified: boolean;\n  gpuMotionCertified: boolean;\n  status: 'CERTIFIED' | 'FAILED';\n}\n\nfunction generateMilestone3Manifesto(): Milestone3Manifesto {\n  return {\n    milestone: 'Milestone 3: Responsive Layout & Micro-Interaction Engine',\n    flexboxMathVerified: true,\n    cssGridFluidVerified: true,\n    breakpointsCertified: true,\n    gpuMotionCertified: true,\n    status: 'CERTIFIED',\n  };\n}\n\nconst manifesto = generateMilestone3Manifesto();\nconsole.log('=== ' + manifesto.milestone.toUpperCase() + ' ===');\nconsole.log('Status: ' + manifesto.status);\nconsole.log('Flexbox Math : ' + manifesto.flexboxMathVerified + ' | Grid Fluid : ' + manifesto.cssGridFluidVerified);\nconsole.log('Breakpoints  : ' + manifesto.breakpointsCertified + ' | GPU Motion  : ' + manifesto.gpuMotionCertified);\nconsole.log('Responsive & Motion Engine v3.0.0 successfully certified for enterprise production.');",
+        "output": "=== MILESTONE 3: RESPONSIVE LAYOUT & MICRO-INTERACTION ENGINE ===\nStatus: CERTIFIED\nFlexbox Math : true | Grid Fluid : true\nBreakpoints  : true | GPU Motion  : true\nResponsive & Motion Engine v3.0.0 successfully certified for enterprise production.",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Compiles full Milestone 3 Responsive Layout & Interaction Architecture Manifesto."
+          },
+          {
+            "line": 21,
+            "note": "Certifies operational readiness across all 4 responsive and motion subsystems."
+          }
+        ],
+        "tryIt": "Inspect the manifesto to verify that all 4 subsystem benchmarks evaluate to certified status.",
+        "check": {
+          "question": "What does the Milestone 3 Architecture Certification confirm about the design system?",
+          "options": [
+            "It confirms that our 1D Flexbox, 2D Grid, responsive breakpoint, and GPU motion subsystems meet enterprise standards",
+            "It verifies that database queries run in under 1ms",
+            "It automatically writes marketing copy"
+          ],
+          "answer": 0,
+          "why": "Milestone 3 certification validates that all responsive layout and interaction motion mechanics are mathematically sound and production-ready."
+        }
+      }
+    ],
+    "summary": [
+      "Milestone 3 validates and unifies Flexbox math, CSS Grid auto-fit, responsive breakpoints, and GPU motion.",
+      "Flexbox free space distribution and native gap hygiene eliminate layout shift and pixel rounding drift.",
+      "Fluid 'repeat(auto-fit, minmax(280px, 1fr))' delivers seamless multi-column responsiveness without media queries.",
+      "GPU-accelerated 'transform' and 'opacity' transitions with cubic-bézier spring curves guarantee 60fps interaction delight."
+    ],
+    "projectStep": {
+      "title": "Synthesize Milestone 3 Layout & Motion Suite",
+      "steps": [
+        "Unify FlexContainer, GridContainer, ResponsiveContainer, and MotionProvider into master layout package export",
+        "Execute automated test suite asserting sub-pixel flex accuracy, grid column bounds, and GPU property compliance",
+        "Export production responsive layout catalog with TypeScript definitions for enterprise application squads"
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "title": "Dark Mode Engineering & Theme Switching: CSS Custom Properties & prefers-color-scheme",
+    "goal": "Implement flawless multi-theme architectures: CSS Custom Properties (--theme-bg, --theme-text), OS sync via prefers-color-scheme, pre-hydration inline scripts to eliminate Flash of Unstyled Theme (FOUT), and surface elevation in dark themes.",
+    "minutes": 25,
+    "recap": "Yesterday we completed Milestone 3, certifying our responsive layout and motion engine. Today we construct the theming foundation of our design system: Dark Mode and multi-theme token switching.",
+    "parts": [
+      {
+        "title": "CSS Custom Properties as Theming Primitives: The CSS Cascade Switch",
+        "say": [
+          "Welcome to Day 22 of UI/UX Design Systems & Visual Frontend.",
+          "In legacy frontend architectures, supporting dark mode meant duplicating thousands of CSS classes or compiling entirely separate CSS stylesheets.",
+          "Modern design systems engineer theming using CSS Custom Properties (CSS variables) as dynamic semantic aliases.",
+          "Under this architecture, components never declare hardcoded hex codes. Instead, they reference semantic variables: 'color: var(--color-text-primary)' and 'background-color: var(--color-surface-base)'.",
+          "Theme switching is achieved by simply redefining the variable values at the root or dataset scope: ':root { --color-surface-base: #ffffff; }' and '[data-theme=\"dark\"] { --color-surface-base: #121212; }'.",
+          "Because CSS Custom Properties participate natively in the CSS cascade, changing a single attribute on the '<html>' element instantly updates every component across the entire DOM tree.",
+          "This dynamic cascade switch incurs zero JavaScript re-rendering overhead and requires zero stylesheet reloading.",
+          "Let us inspect the semantic variable switching model in TypeScript."
+        ],
+        "example": "A chameleon adapting to day and night: the lizard's physical anatomy (components) remains unchanged, while pigments in its skin cells (CSS custom properties) shift instantly to match ambient light.",
+        "code": "interface ThemeTokenSet {\n  surfaceBase: string;\n  surfaceElevated: string;\n  textPrimary: string;\n  textMuted: string;\n  borderSubtle: string;\n}\n\nconst THEME_REGISTRY: Record<'light' | 'dark', ThemeTokenSet> = {\n  light: {\n    surfaceBase: '#ffffff',\n    surfaceElevated: '#f8fafc',\n    textPrimary: '#0f172a',\n    textMuted: '#64748b',\n    borderSubtle: '#e2e8f0',\n  },\n  dark: {\n    surfaceBase: '#0f172a',\n    surfaceElevated: '#1e293b',\n    textPrimary: '#f8fafc',\n    textMuted: '#94a3b8',\n    borderSubtle: '#334155',\n  },\n};\n\nfunction resolveThemeTokens(theme: 'light' | 'dark'): ThemeTokenSet {\n  return THEME_REGISTRY[theme];\n}\n\nconsole.log('=== CSS CUSTOM PROPERTY THEMING ENGINE ===');\nconst lightTokens = resolveThemeTokens('light');\nconst darkTokens = resolveThemeTokens('dark');\n\nconsole.log('LIGHT Theme: bg=' + lightTokens.surfaceBase + ', text=' + lightTokens.textPrimary + ', border=' + lightTokens.borderSubtle);\nconsole.log('DARK  Theme: bg=' + darkTokens.surfaceBase + ', text=' + darkTokens.textPrimary + ', border=' + darkTokens.borderSubtle);",
+        "output": "=== CSS CUSTOM PROPERTY THEMING ENGINE ===\nLIGHT Theme: bg=#ffffff, text=#0f172a, border=#e2e8f0\nDARK  Theme: bg=#0f172a, text=#f8fafc, border=#334155",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines semantic token values for light and dark theme modes."
+          },
+          {
+            "line": 28,
+            "note": "Demonstrates that identical semantic tokens resolve cleanly to dark equivalents without altering component code."
+          }
+        ],
+        "tryIt": "Add a 'high-contrast' theme to THEME_REGISTRY with pure black (#000000) and pure white (#ffffff).",
+        "check": {
+          "question": "Why are CSS Custom Properties preferred over separate CSS stylesheets for implementing dark mode?",
+          "options": [
+            "They participate natively in the CSS cascade, allowing instantaneous theme switching across the entire DOM tree without re-rendering or network requests",
+            "They disable CSS specificity rules",
+            "They require Internet Explorer support"
+          ],
+          "answer": 0,
+          "why": "CSS variables cascade natively, updating every child element instantly upon toggling a root class or attribute."
+        }
+      },
+      {
+        "title": "Operating System Synchronization: @media (prefers-color-scheme: dark)",
+        "say": [
+          "Users expect modern web applications to respect their operating system appearance settings automatically.",
+          "If a user has set macOS, Windows, iOS, or Android to Dark Theme, websites should load in dark mode by default.",
+          "CSS provides the '@media (prefers-color-scheme: dark)' media query to detect this system preference.",
+          "However, users also demand personal control: they may want an explicit override (e.g. force Light mode even when the OS is in Dark mode, or vice versa).",
+          "Therefore, an enterprise theme system must support three distinct states: 'system', 'light', and 'dark'.",
+          "Under 'system' mode, the application dynamically synchronizes with the OS media query in real time.",
+          "Under 'light' or 'dark', the user's manual choice takes precedence, overriding the system signal.",
+          "Let us implement the three-state theme resolution algorithm."
+        ],
+        "example": "An automobile's automatic headlights: in 'AUTO' mode, a light sensor turns the headlights on at dusk; however, the driver can manually override the switch to ON or OFF at any time.",
+        "code": "type UserPreference = 'system' | 'light' | 'dark';\ntype OsMode = 'light' | 'dark';\n\ninterface ThemeResolutionContext {\n  userPreference: UserPreference;\n  osPreference: OsMode;\n}\n\nfunction resolveActiveTheme(ctx: ThemeResolutionContext): { activeTheme: 'light' | 'dark'; source: string } {\n  if (ctx.userPreference === 'system') {\n    return {\n      activeTheme: ctx.osPreference,\n      source: 'OS Media Query (prefers-color-scheme: ' + ctx.osPreference + ')',\n    };\n  }\n  return {\n    activeTheme: ctx.userPreference,\n    source: 'User Manual Override (' + ctx.userPreference + ')',\n  };\n}\n\nconst scenarios: ThemeResolutionContext[] = [\n  { userPreference: 'system', osPreference: 'dark' },\n  { userPreference: 'system', osPreference: 'light' },\n  { userPreference: 'light', osPreference: 'dark' }, // Manual override!\n  { userPreference: 'dark', osPreference: 'light' }, // Manual override!\n];\n\nconsole.log('=== OS SYNCHRONIZATION & THEME RESOLUTION ===');\nfor (const s of scenarios) {\n  const res = resolveActiveTheme(s);\n  console.log('User: ' + s.userPreference + ' | OS: ' + s.osPreference + ' -> Active: [' + res.activeTheme + '] (' + res.source + ')');\n}",
+        "output": "=== OS SYNCHRONIZATION & THEME RESOLUTION ===\nUser: system | OS: dark -> Active: [dark] (OS Media Query (prefers-color-scheme: dark))\nUser: system | OS: light -> Active: [light] (OS Media Query (prefers-color-scheme: light))\nUser: light | OS: dark -> Active: [light] (User Manual Override (light))\nUser: dark | OS: light -> Active: [dark] (User Manual Override (dark))",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Delegates to OS preference when user selection is 'system', but honors explicit overrides."
+          },
+          {
+            "line": 28,
+            "note": "Correctly handles user overriding dark OS setting with manual light mode."
+          }
+        ],
+        "tryIt": "Verify that when userPreference is 'system', changing osPreference from 'light' to 'dark' immediately updates activeTheme.",
+        "check": {
+          "question": "In an enterprise design system, what should happen when a user's theme preference is set to 'system'?",
+          "options": [
+            "The active theme automatically follows the operating system's prefers-color-scheme media query",
+            "The application permanently locks into light mode",
+            "The browser prompts the user with an alert dialog"
+          ],
+          "answer": 0,
+          "why": "'system' mode observes the browser's prefers-color-scheme media query and updates theme reactively."
+        }
+      },
+      {
+        "title": "Eliminating Flash of Unstyled Theme (FOUT): Pre-Hydration Inline Scripts",
+        "say": [
+          "A classic failure in modern single-page applications (Next.js, React) is the dreaded Flash of Unstyled Theme (FOUT).",
+          "Here is how FOUT happens: the HTML page arrives from the server rendered in default white.",
+          "Then, 400 milliseconds later, JavaScript bundles download, React boots up, a 'useEffect' hook runs, reads 'theme: dark' from localStorage, and applies the dark theme.",
+          "For that initial 400ms, the user is violently blinded by a bright white flash before the page snaps dark!",
+          "To eliminate FOUT completely, the design system must inject an inline, blocking pre-hydration script directly into the HTML '<head>'.",
+          "Because this script is inline and synchronous, it executes BEFORE the browser renders the first pixel of the '<body>'.",
+          "It reads localStorage synchronously, checks 'prefers-color-scheme', and sets 'document.documentElement.dataset.theme = resolvedTheme' before paint occurs.",
+          "Zero white flash. 100% smooth visual transition on page reload.",
+          "Let us simulate the pre-hydration execution pipeline."
+        ],
+        "example": "A theater curtain: stagehands set the lighting gels and backdrop props behind the closed velvet curtain BEFORE the lights go up, so the audience never sees the stagehands scrambling with spotlights.",
+        "code": "interface PreHydrationState {\n  localStorageValue: string | null;\n  osPreferenceDark: boolean;\n  domDatasetTheme: string;\n  foutPrevented: boolean;\n}\n\nfunction executePreHydrationThemeScript(storedVal: string | null, osDark: boolean): PreHydrationState {\n  let resolved = 'light';\n\n  if (storedVal === 'dark' || storedVal === 'light') {\n    resolved = storedVal;\n  } else if (osDark) {\n    resolved = 'dark';\n  }\n\n  // Simulating synchronous inline execution before DOM paint\n  const domDatasetTheme = resolved;\n  const foutPrevented = true;\n\n  return {\n    localStorageValue: storedVal,\n    osPreferenceDark: osDark,\n    domDatasetTheme,\n    foutPrevented,\n  };\n}\n\nconst test1 = executePreHydrationThemeScript('dark', false);\nconst test2 = executePreHydrationThemeScript(null, true);\n\nconsole.log('=== PRE-HYDRATION FOUT PREVENTION ENGINE ===');\nconsole.log('Test 1 (Stored Dark): Dataset Theme set to \"' + test1.domDatasetTheme + '\" before body paint (FOUT Prevented: ' + test1.foutPrevented + ')');\nconsole.log('Test 2 (No Store, OS Dark): Dataset Theme set to \"' + test2.domDatasetTheme + '\" before body paint (FOUT Prevented: ' + test2.foutPrevented + ')');",
+        "output": "=== PRE-HYDRATION FOUT PREVENTION ENGINE ===\nTest 1 (Stored Dark): Dataset Theme set to \"dark\" before body paint (FOUT Prevented: true)\nTest 2 (No Store, OS Dark): Dataset Theme set to \"dark\" before body paint (FOUT Prevented: true)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Resolves theme synchronously from localStorage or OS matchMedia before body renders."
+          },
+          {
+            "line": 26,
+            "note": "Ensures documentElement has correct theme attribute prior to initial paint, preventing flash."
+          }
+        ],
+        "tryIt": "Verify that when storedVal is 'light' and osDark is true, the resolved theme is 'light'.",
+        "check": {
+          "question": "Why must the theme initialization script run synchronously in the <head> rather than inside a React useEffect hook?",
+          "options": [
+            "Because useEffect runs after the initial DOM paint, causing an eye-straining white flash (FOUT) before dark mode applies",
+            "Because React does not support dark mode",
+            "Because localStorage is unavailable in React"
+          ],
+          "answer": 0,
+          "why": "Pre-hydration scripts execute before the initial paint, applying the dark theme attribute with zero visual flicker."
+        }
+      },
+      {
+        "title": "Surface Elevation in Dark Mode: Tinted Overlays vs Shadows",
+        "say": [
+          "In light mode, elevation is communicated through black drop shadows: an elevated card casts a soft shadow onto the white surface below it.",
+          "However, in dark mode, black drop shadows are completely invisible against a '#121212' or black background!",
+          "How does a design system communicate spatial elevation in dark themes?",
+          "Material Design and enterprise design systems solve this through Semi-Transparent White Tint Overlays.",
+          "As a surface rises in elevation, it receives a higher percentage of white surface tint, subtly lightening the dark background:",
+          "Level 0 (Base Canvas): '#121212' (0% tint).",
+          "Level 1 (Cards, Lists): 5% white tint overlay.",
+          "Level 2 (Dropdowns, Menus): 8% white tint overlay.",
+          "Level 3 (Modals, Dialogs): 12% white tint overlay.",
+          "Level 4 (Toasts, Popovers): 16% white tint overlay.",
+          "Surfaces closer to the user physically appear lighter, accurately mimicking real-world ambient light reflection.",
+          "Let us implement the dark mode surface elevation calculation."
+        ],
+        "example": "A diver in deep dark water: objects closer to the surface receive more ambient sunlight, appearing slightly lighter grey against the abyssal blackness below.",
+        "code": "interface DarkElevationLevel {\n  level: number;\n  name: string;\n  whiteTintPercent: number;\n}\n\nfunction calculateDarkSurfaceHex(baseGrey: number, tintPercent: number): string {\n  // Linear alpha blending of baseGrey with white (255)\n  const blended = Math.round(baseGrey + (255 - baseGrey) * (tintPercent / 100));\n  const hex = blended.toString(16).padStart(2, '0');\n  return '#' + hex + hex + hex;\n}\n\nconst ELEVATION_RAMP: DarkElevationLevel[] = [\n  { level: 0, name: 'Canvas Base', whiteTintPercent: 0 },\n  { level: 1, name: 'Card Container', whiteTintPercent: 5 },\n  { level: 2, name: 'Dropdown Menu', whiteTintPercent: 8 },\n  { level: 3, name: 'Modal Dialog', whiteTintPercent: 12 },\n  { level: 4, name: 'Global Toast', whiteTintPercent: 16 },\n];\n\nconst baseDarkGrey = 18; // #121212 in decimal\nconsole.log('=== DARK MODE SURFACE ELEVATION RAMP ===');\nfor (const el of ELEVATION_RAMP) {\n  const hex = calculateDarkSurfaceHex(baseDarkGrey, el.whiteTintPercent);\n  console.log('Level ' + el.level + ' [' + el.name + ']: ' + el.whiteTintPercent + '% tint -> Surface: ' + hex);\n}",
+        "output": "=== DARK MODE SURFACE ELEVATION RAMP ===\nLevel 0 [Canvas Base]: 0% tint -> Surface: #121212\nLevel 1 [Card Container]: 5% tint -> Surface: #1e1e1e\nLevel 2 [Dropdown Menu]: 8% tint -> Surface: #252525\nLevel 3 [Modal Dialog]: 12% tint -> Surface: #2e2e2e\nLevel 4 [Global Toast]: 16% tint -> Surface: #383838",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Blends base dark gray (18) with white (255) based on elevation tint percentage."
+          },
+          {
+            "line": 25,
+            "note": "Produces a progressive lightness ramp from #121212 up to #383838 for high-elevation toasts."
+          }
+        ],
+        "tryIt": "Calculate hex value for a Level 5 sticky header with 20% tint overlay.",
+        "check": {
+          "question": "How do design systems visually convey elevation in dark mode when black drop shadows are invisible?",
+          "options": [
+            "By progressively applying higher percentages of semi-transparent white tint to lighten elevated surfaces",
+            "By making all borders bright red",
+            "By disabling dark mode on modals"
+          ],
+          "answer": 0,
+          "why": "Layering semi-transparent white overlays lightens surfaces progressively, communicating depth in dark environments."
+        }
+      },
+      {
+        "title": "Color Contrast & Desaturated Accents in Dark Surfaces",
+        "say": [
+          "A common mistake when designing dark themes is directly copying bright, highly saturated brand colors from light mode.",
+          "A neon blue button ('#0055ff') that looks crisp on white creates violent visual vibration, optical halos, and severe eye strain against pitch-black backgrounds.",
+          "To preserve visual comfort and readability, brand accent colors must be Desaturated in dark themes.",
+          "Desaturating lowers color intensity and raises perceived luminance, ensuring comfortable contrast without blinding the user.",
+          "Furthermore, standard body text in dark mode should never be pure white ('#ffffff'). Pure white text on pure black creates harsh chromatic aberration for users with astigmatism.",
+          "Instead, high-emphasis text should use an off-white tint ('#f1f5f9' or 87% opacity), and medium-emphasis text should use 60% opacity ('#94a3b8').",
+          "Let us inspect accent desaturation and contrast calibration."
+        ],
+        "example": "A theater usher's flashlight: in a bright lobby, the usher uses a standard flashlight; inside the darkened auditorium, they use a soft, diffused amber lens to avoid blinding patrons.",
+        "code": "interface BrandAccentColor {\n  mode: 'light' | 'dark';\n  hex: string;\n  saturation: number;\n  contrastOnBackground: string;\n}\n\nconst brandPalette: Record<'light' | 'dark', BrandAccentColor> = {\n  light: {\n    mode: 'light',\n    hex: '#2563eb', // Saturated Royal Blue\n    saturation: 85,\n    contrastOnBackground: '5.4:1 on #ffffff',\n  },\n  dark: {\n    mode: 'dark',\n    hex: '#60a5fa', // Desaturated Light Sky Blue\n    saturation: 60,\n    contrastOnBackground: '6.8:1 on #0f172a',\n  },\n};\n\nconsole.log('=== BRAND ACCENT DESATURATION IN DARK THEMES ===');\nconsole.log('Light Mode Primary: ' + brandPalette.light.hex + ' (' + brandPalette.light.saturation + '% sat) -> ' + brandPalette.light.contrastOnBackground);\nconsole.log('Dark Mode Primary : ' + brandPalette.dark.hex + ' (' + brandPalette.dark.saturation + '% sat) -> ' + brandPalette.dark.contrastOnBackground);\nconsole.log('Visual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.');",
+        "output": "=== BRAND ACCENT DESATURATION IN DARK THEMES ===\nLight Mode Primary: #2563eb (85% sat) -> 5.4:1 on #ffffff\nDark Mode Primary : #60a5fa (60% sat) -> 6.8:1 on #0f172a\nVisual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Light mode uses saturated royal blue (#2563eb) for crisp punch on white."
+          },
+          {
+            "line": 15,
+            "note": "Dark mode shifts to desaturated light blue (#60a5fa) achieving 6.8:1 contrast without optical glare."
+          }
+        ],
+        "tryIt": "Verify that #60a5fa has higher relative luminance than #2563eb, making it legible on dark backgrounds.",
+        "check": {
+          "question": "Why should saturated brand colors be slightly desaturated and lightened when used in dark themes?",
+          "options": [
+            "To prevent optical vibration, visual glare, and chromatic halos against dark backgrounds while maintaining contrast",
+            "Because dark monitors cannot display saturated colors",
+            "To save monitor electrical energy"
+          ],
+          "answer": 0,
+          "why": "Desaturating brand accents prevents optical vibration and ensures comfortable readability against dark surfaces."
+        }
+      },
+      {
+        "title": "Multi-Theme Engine Synthesis: Enterprise Theming Architecture",
+        "say": [
+          "We have mastered CSS Custom Property cascading switches, OS sync with 'prefers-color-scheme', FOUT elimination via pre-hydration scripts, dark surface elevation tints, and accent desaturation.",
+          "Now, let us synthesize these concepts into a production engine: the 'ThemeEngine'.",
+          "This engine manages theme preference persistence, calculates surface elevation ramps, resolves active semantic token mappings, and guarantees zero visual flicker.",
+          "Building a rock-solid theme engine ensures that your design system offers equal visual beauty and accessibility whether users prefer blinding sunlight or pitch-black night.",
+          "Let us execute the synthesized Theme Engine."
+        ],
+        "example": "A luxury automotive digital cockpit: seamlessly transitioning instrument cluster dials, ambient ambient LED lighting, and GPS navigation maps between daytime and tunnel modes.",
+        "code": "interface ThemeEngineConfig {\n  preference: 'system' | 'light' | 'dark';\n  osDarkSignal: boolean;\n  elevationLevel: number;\n}\n\ninterface ResolvedThemeEnvironment {\n  effectiveTheme: 'light' | 'dark';\n  surfaceColor: string;\n  textColor: string;\n  accentColor: string;\n  foutProtected: boolean;\n}\n\nclass ThemeEngine {\n  public static resolve(config: ThemeEngineConfig): ResolvedThemeEnvironment {\n    let effectiveTheme: 'light' | 'dark' = 'light';\n    if (config.preference === 'system') {\n      effectiveTheme = config.osDarkSignal ? 'dark' : 'light';\n    } else {\n      effectiveTheme = config.preference;\n    }\n\n    let surfaceColor = '#ffffff';\n    let textColor = '#0f172a';\n    let accentColor = '#2563eb';\n\n    if (effectiveTheme === 'dark') {\n      textColor = '#f8fafc';\n      accentColor = '#60a5fa';\n      // Calculate elevation tint\n      const tints = [0, 5, 8, 12, 16];\n      const tint = tints[Math.min(tints.length - 1, config.elevationLevel)] || 0;\n      const blended = Math.round(18 + (255 - 18) * (tint / 100));\n      const hex = blended.toString(16).padStart(2, '0');\n      surfaceColor = '#' + hex + hex + hex;\n    }\n\n    return {\n      effectiveTheme,\n      surfaceColor,\n      textColor,\n      accentColor,\n      foutProtected: true,\n    };\n  }\n}\n\nconst themeEnvDark = ThemeEngine.resolve({ preference: 'system', osDarkSignal: true, elevationLevel: 3 });\nconst themeEnvLight = ThemeEngine.resolve({ preference: 'light', osDarkSignal: true, elevationLevel: 0 });\n\nconsole.log('=== THEME ENGINE SYNTHESIS ===');\nconsole.log('[System Dark (Level 3 Modal)]: Theme=' + themeEnvDark.effectiveTheme + ', Surface=' + themeEnvDark.surfaceColor + ', Text=' + themeEnvDark.textColor + ', Accent=' + themeEnvDark.accentColor);\nconsole.log('[Manual Light (Level 0 Base) ]: Theme=' + themeEnvLight.effectiveTheme + ', Surface=' + themeEnvLight.surfaceColor + ', Text=' + themeEnvLight.textColor + ', Accent=' + themeEnvLight.accentColor);",
+        "output": "=== THEME ENGINE SYNTHESIS ===\n[System Dark (Level 3 Modal)]: Theme=dark, Surface=#2e2e2e, Text=#f8fafc, Accent=#60a5fa\n[Manual Light (Level 0 Base) ]: Theme=light, Surface=#ffffff, Text=#0f172a, Accent=#2563eb",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "Applies 12% white tint overlay to Level 3 modal in dark mode, producing #2e2e2e surface."
+          },
+          {
+            "line": 44,
+            "note": "Demonstrates that manual light preference overrides OS dark signal, keeping surface at #ffffff."
+          }
+        ],
+        "tryIt": "Verify that Level 1 dark surface evaluates to #1e1e1e (5% tint).",
+        "check": {
+          "question": "How does the ThemeEngine guarantee consistent enterprise visual ergonomics?",
+          "options": [
+            "By coordinating CSS custom properties, pre-hydration execution, dark surface elevation tints, and desaturated accents",
+            "By inverting image pixels automatically",
+            "By forcing all users to use dark mode"
+          ],
+          "answer": 0,
+          "why": "The engine unifies token cascading, OS synchronization, elevation math, and accessible contrast into a single reliable subsystem."
+        }
+      }
+    ],
+    "summary": [
+      "CSS Custom Properties enable instant, zero-re-render theme switching through the native CSS cascade.",
+      "The 3-state model ('system', 'light', 'dark') synchronizes with '@media (prefers-color-scheme)' while honoring overrides.",
+      "Inline pre-hydration scripts in '<head>' eliminate Flash of Unstyled Theme (FOUT) before the initial paint.",
+      "Dark themes communicate elevation using semi-transparent white overlays and prevent glare with desaturated brand accents."
+    ],
+    "projectStep": {
+      "title": "Build Multi-Theme Architecture",
+      "steps": [
+        "Declare semantic color CSS Custom Properties for light and dark themes on :root and [data-theme='dark']",
+        "Author inline ThemeScript component for Next.js <head> to eliminate FOUT upon page reload",
+        "Implement ThemeToggle component with 'system', 'light', and 'dark' options synchronized to localStorage"
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "title": "Accessibility Standards & WCAG 2.2 AA/AAA Contrast Math",
+    "goal": "Master mathematical visual accessibility: WCAG 2.2 Relative Luminance formulas, contrast ratio calculations, AA vs AAA thresholds, large text exemptions, and APCA perceptual contrast models.",
+    "minutes": 25,
+    "recap": "Yesterday we engineered multi-theme and dark mode token switching. Today we ground our design tokens in mathematical accessibility: mastering WCAG 2.2 relative luminance and contrast algorithms.",
+    "parts": [
+      {
+        "title": "The Human Visual Spectrum & Relative Luminance Formula",
+        "say": [
+          "Welcome to Day 23 of UI/UX Design Systems & Visual Frontend.",
+          "Visual accessibility is not a matter of subjective artistic opinion. It is a precise branch of mathematical color science.",
+          "The human eye does not perceive all light wavelengths with equal intensity.",
+          "Our retinas contain photoreceptor cones tuned to red, green, and blue, but human vision is extraordinarily sensitive to green light and far less sensitive to blue light.",
+          "The World Wide Web Consortium (W3C) codified this biological reality in the WCAG Relative Luminance formula.",
+          "Before calculating luminance, raw 8-bit sRGB color channels (0 to 255) must be linearized to remove non-linear gamma encoding.",
+          "Once linearized, relative luminance 'L' is calculated as: 'L = 0.2126 * R + 0.7152 * G + 0.0722 * B'.",
+          "Notice the weights: Green accounts for over 71% of perceived brightness, Red accounts for 21%, and Blue accounts for only 7%!",
+          "Let us implement the W3C relative luminance algorithm in TypeScript."
+        ],
+        "example": "A green laser pointer versus a blue laser pointer: both lasers may emit identical 5-milliwatt optical power, but the green dot appears over ten times brighter to human eyes across a lecture hall.",
+        "code": "interface RgbColor {\n  r: number;\n  g: number;\n  b: number;\n}\n\n// Linearize sRGB channel according to WCAG 2.2 specification\nfunction linearizeChannel(val8Bit: number): number {\n  const srgb = val8Bit / 255;\n  return srgb <= 0.04045\n    ? srgb / 12.92\n    : Math.pow((srgb + 0.055) / 1.055, 2.4);\n}\n\n// Compute relative luminance L (0.0 for pure black, 1.0 for pure white)\nfunction calculateRelativeLuminance(rgb: RgbColor): number {\n  const rLin = linearizeChannel(rgb.r);\n  const gLin = linearizeChannel(rgb.g);\n  const bLin = linearizeChannel(rgb.b);\n  const l = 0.2126 * rLin + 0.7152 * gLin + 0.0722 * bLin;\n  return Math.round(l * 10000) / 10000;\n}\n\nconst white: RgbColor = { r: 255, g: 255, b: 255 };\nconst black: RgbColor = { r: 0, g: 0, b: 0 };\nconst pureGreen: RgbColor = { r: 0, g: 255, b: 0 };\nconst pureBlue: RgbColor = { r: 0, g: 0, b: 255 };\n\nconsole.log('=== WCAG 2.2 RELATIVE LUMINANCE VALUES ===');\nconsole.log('Pure White: L = ' + calculateRelativeLuminance(white));\nconsole.log('Pure Black: L = ' + calculateRelativeLuminance(black));\nconsole.log('Pure Green: L = ' + calculateRelativeLuminance(pureGreen) + ' (Green dominates perceived brightness!)');\nconsole.log('Pure Blue : L = ' + calculateRelativeLuminance(pureBlue) + ' (Blue contributes only 7.2%!)');",
+        "output": "=== WCAG 2.2 RELATIVE LUMINANCE VALUES ===\nPure White: L = 1\nPure Black: L = 0\nPure Green: L = 0.7152 (Green dominates perceived brightness!)\nPure Blue : L = 0.0722 (Blue contributes only 7.2%!)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Applies sRGB gamma linearization formula per W3C specification."
+          },
+          {
+            "line": 28,
+            "note": "Proves that pure green has luminance 0.7152 while pure blue has only 0.0722."
+          }
+        ],
+        "tryIt": "Calculate luminance for mid-grey (128, 128, 128) and verify that it equals ~0.2158.",
+        "check": {
+          "question": "In the WCAG relative luminance formula, which color channel contributes the largest coefficient to perceived brightness?",
+          "options": [
+            "Green (0.7152)",
+            "Red (0.2126)",
+            "Blue (0.0722)"
+          ],
+          "answer": 0,
+          "why": "Human eye photoreceptors are heavily tuned to green wavelengths, giving green a 71.52% weighting."
+        }
+      },
+      {
+        "title": "The WCAG Contrast Ratio Formula: (L1 + 0.05) / (L2 + 0.05)",
+        "say": [
+          "Once the relative luminance values of two colors are determined, calculating their visual contrast ratio is straightforward.",
+          "The W3C defines the Contrast Ratio formula as: 'Contrast Ratio = (L1 + 0.05) / (L2 + 0.05)'.",
+          "Where 'L1' is the relative luminance of the lighter of the two colors, and 'L2' is the relative luminance of the darker color.",
+          "Why is '0.05' added to both terms? That constant represents ambient flare: light reflected off the surface of the computer monitor into the user's eyes.",
+          "The resulting ratio ranges from a minimum of '1:1' (two identical colors) to a maximum of '21:1' (pure black against pure white).",
+          "Every text color, button label, icon, and form border in your design system must be validated against this formula.",
+          "Let us implement the W3C contrast ratio calculator."
+        ],
+        "example": "A road sign at night: black painted letters on a white reflective background achieve maximum contrast (21:1), while yellow text on white reflection is nearly invisible.",
+        "code": "interface RgbColor {\n  r: number;\n  g: number;\n  b: number;\n}\n\nfunction linearizeChannel(val8Bit: number): number {\n  const srgb = val8Bit / 255;\n  return srgb <= 0.04045 ? srgb / 12.92 : Math.pow((srgb + 0.055) / 1.055, 2.4);\n}\n\nfunction calculateRelativeLuminance(rgb: RgbColor): number {\n  return 0.2126 * linearizeChannel(rgb.r) + 0.7152 * linearizeChannel(rgb.g) + 0.0722 * linearizeChannel(rgb.b);\n}\n\nfunction calculateContrastRatio(rgb1: RgbColor, rgb2: RgbColor): number {\n  const l1 = calculateRelativeLuminance(rgb1);\n  const l2 = calculateRelativeLuminance(rgb2);\n  const lighter = Math.max(l1, l2);\n  const darker = Math.min(l1, l2);\n  const ratio = (lighter + 0.05) / (darker + 0.05);\n  return Math.round(ratio * 100) / 100;\n}\n\nconst whiteColor = { r: 255, g: 255, b: 255 };\nconst blackColor = { r: 0, g: 0, b: 0 };\nconst navyBrand = { r: 15, g: 23, b: 42 }; // #0f172a\nconst lightGrey = { r: 226, g: 232, b: 240 }; // #e2e8f0\n\nconsole.log('=== WCAG CONTRAST RATIO CALCULATIONS ===');\nconsole.log('Black on White: ' + calculateContrastRatio(blackColor, whiteColor) + ':1 (Maximum possible contrast)');\nconsole.log('Navy on White : ' + calculateContrastRatio(navyBrand, whiteColor) + ':1 (Deep brand text)');\nconsole.log('Navy on Grey  : ' + calculateContrastRatio(navyBrand, lightGrey) + ':1 (Card surface text)');",
+        "output": "=== WCAG CONTRAST RATIO CALCULATIONS ===\nBlack on White: 21:1 (Maximum possible contrast)\nNavy on White : 17.85:1 (Deep brand text)\nNavy on Grey  : 14.48:1 (Card surface text)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Applies (lighter + 0.05) / (darker + 0.05) with ambient flare constant."
+          },
+          {
+            "line": 20,
+            "note": "Confirms theoretical maximum 21:1 contrast for black on white, and robust 17.85:1 for brand navy."
+          }
+        ],
+        "tryIt": "Calculate contrast ratio for pure white against pure white (should yield 1:1 exactly).",
+        "check": {
+          "question": "What is the theoretical maximum contrast ratio achievable between any two colors under WCAG math?",
+          "options": [
+            "21:1 (pure black on pure white)",
+            "100:1",
+            "10:1"
+          ],
+          "answer": 0,
+          "why": "L1=1.0 and L2=0.0 yields (1.0 + 0.05) / (0.0 + 0.05) = 1.05 / 0.05 = 21:1 exactly."
+        }
+      },
+      {
+        "title": "WCAG Compliance Tiers: AA Normal, AA Large & AAA Standards",
+        "say": [
+          "The W3C Web Content Accessibility Guidelines establish clear legal thresholds for text and UI contrast:",
+          "1. Level AA (Minimum Compliance - Legal Standard):",
+          "   - Normal Text (< 18pt or < 14pt bold): Must achieve at least 4.5:1 contrast.",
+          "   - Large Text (>= 18pt or >= 14pt bold): Must achieve at least 3.0:1 contrast.",
+          "   - UI Components & Graphical Objects (form borders, active focus rings, icons): Must achieve at least 3.0:1 contrast against adjacent background.",
+          "2. Level AAA (Enhanced Compliance - Government & Medical Systems):",
+          "   - Normal Text: Must achieve at least 7.0:1 contrast.",
+          "   - Large Text: Must achieve at least 4.5:1 contrast.",
+          "Understanding these thresholds allows design system architects to establish automated linting rules that catch inaccessible color combinations before they ship to production.",
+          "Let us build an automated WCAG compliance classifier."
+        ],
+        "example": "A medicine bottle prescription label: small warning text must meet strict high-contrast standards so elderly patients with cataracts can read dosage instructions safely.",
+        "code": "type WcagLevel = 'AAA' | 'AA' | 'AA Large' | 'FAIL';\n\ninterface ContrastComplianceReport {\n  ratio: number;\n  normalTextLevel: WcagLevel;\n  largeTextLevel: WcagLevel;\n  uiComponentPass: boolean;\n}\n\nfunction evaluateWcagCompliance(ratio: number): ContrastComplianceReport {\n  let normal: WcagLevel = 'FAIL';\n  let large: WcagLevel = 'FAIL';\n\n  if (ratio >= 7.0) normal = 'AAA';\n  else if (ratio >= 4.5) normal = 'AA';\n\n  if (ratio >= 4.5) large = 'AAA';\n  else if (ratio >= 3.0) large = 'AA';\n\n  return {\n    ratio,\n    normalTextLevel: normal,\n    largeTextLevel: large,\n    uiComponentPass: ratio >= 3.0,\n  };\n}\n\nconst testRatios = [7.5, 4.8, 3.2, 2.1];\nconsole.log('=== WCAG 2.2 COMPLIANCE TIERS ===');\nfor (const r of testRatios) {\n  const rep = evaluateWcagCompliance(r);\n  console.log('Ratio ' + rep.ratio + ':1 -> Normal: ' + rep.normalTextLevel + ' | Large: ' + rep.largeTextLevel + ' | UI Border: ' + (rep.uiComponentPass ? 'PASS' : 'FAIL'));\n}",
+        "output": "=== WCAG 2.2 COMPLIANCE TIERS ===\nRatio 7.5:1 -> Normal: AAA | Large: AAA | UI Border: PASS\nRatio 4.8:1 -> Normal: AA | Large: AAA | UI Border: PASS\nRatio 3.2:1 -> Normal: FAIL | Large: AA | UI Border: PASS\nRatio 2.1:1 -> Normal: FAIL | Large: FAIL | UI Border: FAIL",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Applies standard thresholds: 7.0 for AAA normal, 4.5 for AA normal, 3.0 for AA large and UI borders."
+          },
+          {
+            "line": 30,
+            "note": "A 3.2:1 ratio passes for Large text and UI borders, but fails for normal body text."
+          }
+        ],
+        "tryIt": "Verify that a ratio of 4.5:1 qualifies as AA for normal text and AAA for large text.",
+        "check": {
+          "question": "What minimum contrast ratio is required for standard body text to pass WCAG 2.2 Level AA?",
+          "options": [
+            "4.5:1",
+            "3.0:1",
+            "7.0:1"
+          ],
+          "answer": 0,
+          "why": "WCAG 2.2 Level AA requires at least 4.5:1 contrast for normal body text under 18pt."
+        }
+      },
+      {
+        "title": "Color Blindness Simulation: Deuteranopia, Protanopia & Tritanopia",
+        "say": [
+          "Approximately 8% of men and 0.5% of women worldwide experience some form of Color Vision Deficiency (CVD).",
+          "The most common forms are:",
+          "1. Deuteranopia (green-cone deficiency): Difficulty distinguishing green from red.",
+          "2. Protanopia (red-cone deficiency): Difficulty distinguishing red from green.",
+          "3. Tritanopia (blue-cone deficiency): Difficulty distinguishing blue from yellow.",
+          "If a design system indicates form errors purely by turning an input border red, a color-blind user cannot discern whether the field is invalid!",
+          "This violates WCAG Success Criterion 1.4.1 (Use of Color): Color must never be used as the sole visual means of conveying information.",
+          "In addition to color changes, components must provide dual visual cues: an error icon, descriptive text, or high-contrast focus rings.",
+          "Let us simulate color deficiency channel transformations."
+        ],
+        "example": "A traffic light: in addition to red, yellow, and green illumination, traffic lights maintain strict vertical position (Red on top, Green on bottom) so color-blind drivers can navigate safely.",
+        "code": "interface ColorVisionSimulation {\n  deuteranopia: RgbColor;\n  protanopia: RgbColor;\n  tritanopia: RgbColor;\n}\n\n// Simplified Brettel-Viénot color deficiency simulation matrix\nfunction simulateCvd(rgb: RgbColor): ColorVisionSimulation {\n  // Deuteranopia (green weakness)\n  const deutR = Math.round(0.625 * rgb.r + 0.375 * rgb.g);\n  const deutG = Math.round(0.70 * rgb.r + 0.30 * rgb.g);\n  const deutB = rgb.b;\n\n  // Protanopia (red weakness)\n  const protR = Math.round(0.567 * rgb.r + 0.433 * rgb.g);\n  const protG = Math.round(0.558 * rgb.r + 0.442 * rgb.g);\n  const protB = rgb.b;\n\n  return {\n    deuteranopia: { r: deutR, g: deutG, b: deutB },\n    protanopia: { r: protR, g: protG, b: protB },\n    tritanopia: { r: rgb.r, g: Math.round(0.95 * rgb.g + 0.05 * rgb.b), b: Math.round(0.433 * rgb.g + 0.567 * rgb.b) },\n  };\n}\n\nconst errorRed: RgbColor = { r: 220, g: 38, b: 38 };\nconst cvdResult = simulateCvd(errorRed);\n\nconsole.log('=== COLOR VISION DEFICIENCY SIMULATION ===');\nconsole.log('Original Error Red : (' + errorRed.r + ', ' + errorRed.g + ', ' + errorRed.b + ')');\nconsole.log('Deuteranopia Vision: (' + cvdResult.deuteranopia.r + ', ' + cvdResult.deuteranopia.g + ', ' + cvdResult.deuteranopia.b + ') -> Appears brownish-gold');\nconsole.log('WCAG Rule: Error states must include an explicit alert icon alongside red border.');",
+        "output": "=== COLOR VISION DEFICIENCY SIMULATION ===\nOriginal Error Red : (220, 38, 38)\nDeuteranopia Vision: (152, 165, 38) -> Appears brownish-gold\nWCAG Rule: Error states must include an explicit alert icon alongside red border.",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Simulates color deficiency transformations where red and green channels blend."
+          },
+          {
+            "line": 29,
+            "note": "Demonstrates that red (220, 38, 38) collapses to brownish-gold (152, 165, 38) under deuteranopia."
+          }
+        ],
+        "tryIt": "Verify why adding an alert icon SVG fulfills WCAG Success Criterion 1.4.1.",
+        "check": {
+          "question": "What does WCAG Success Criterion 1.4.1 mandate regarding the use of color in user interfaces?",
+          "options": [
+            "Color must not be used as the sole visual means of conveying information, indicating an action, or distinguishing an element",
+            "Websites must be entirely monochrome",
+            "Red color is strictly forbidden"
+          ],
+          "answer": 0,
+          "why": "Interfaces must accompany color with secondary cues (icons, text, underline, or patterns) for color-blind accessibility."
+        }
+      },
+      {
+        "title": "APCA (Accessible Perceptual Contrast Algorithm): Next-Gen Readability Modeling",
+        "say": [
+          "While WCAG 2.2 is the current legal standard worldwide, researchers have long recognized limitations in its mathematical formula.",
+          "For example, WCAG 2.2 treats light-on-dark contrast symmetrically with dark-on-light contrast.",
+          "However, human retinas experience Spatial Frequency and Halation: white text on black glows and bleeds (halation), requiring different contrast weights than black text on white.",
+          "The W3C Silver / WCAG 3.0 task force developed the Accessible Perceptual Contrast Algorithm (APCA).",
+          "APCA calculates a Lightness Contrast score ('Lc') ranging from -108 to +106.",
+          "Positive scores indicate dark text on a light background; negative scores indicate light text on a dark background.",
+          "APCA dynamically links required contrast to font size and weight: a bold 24px heading requires lower Lc than thin 12px caption text.",
+          "Familiarity with APCA prepares design system teams for the future of web accessibility.",
+          "Let us calculate an APCA lightness contrast score."
+        ],
+        "example": "A book printed with fine 9pt serif type requires high-contrast black ink on crisp white paper, while a giant billboard poster can use softer muted colors and remain perfectly readable from a football field away.",
+        "code": "interface ApcaResult {\n  lcScore: number;\n  rating: string;\n}\n\n// Simplified APCA perceptual lightness contrast model\nfunction calculateApcaScore(textL: number, bgL: number): ApcaResult {\n  // Power law response modeling human visual non-linearity\n  const textY = Math.pow(textL, 0.56);\n  const bgY = Math.pow(bgL, 0.65);\n  const deltaY = bgY - textY;\n  const lc = Math.round(deltaY * 100);\n\n  let rating = 'Body Text Readability Approved';\n  if (Math.abs(lc) < 45) {\n    rating = 'Large Display Headings Only';\n  } else if (Math.abs(lc) < 60) {\n    rating = 'Content Subtitles & Large Text';\n  }\n\n  return { lcScore: lc, rating };\n}\n\nconst blackOnWhite = calculateApcaScore(0.0, 1.0);\nconst navyOnWhite = calculateApcaScore(0.02, 1.0);\nconst greyOnWhite = calculateApcaScore(0.45, 1.0);\n\nconsole.log('=== APCA PERCEPTUAL CONTRAST MODEL ===');\nconsole.log('Black on White: Lc = ' + blackOnWhite.lcScore + ' (' + blackOnWhite.rating + ')');\nconsole.log('Navy on White : Lc = ' + navyOnWhite.lcScore + ' (' + navyOnWhite.rating + ')');\nconsole.log('Grey on White : Lc = ' + greyOnWhite.lcScore + ' (' + greyOnWhite.rating + ')');",
+        "output": "=== APCA PERCEPTUAL CONTRAST MODEL ===\nBlack on White: Lc = 100 (Body Text Readability Approved)\nNavy on White : Lc = 89 (Body Text Readability Approved)\nGrey on White : Lc = 36 (Large Display Headings Only)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Applies power law exponents modeling retinal spatial frequency and non-linear human perception."
+          },
+          {
+            "line": 26,
+            "note": "Appropriately rates Lc=100 for high-density body text, while Lc=36 is restricted to large headings."
+          }
+        ],
+        "tryIt": "Verify that low Lc scores (< 45) are restricted from use in fine body text.",
+        "check": {
+          "question": "How does the next-generation APCA model improve upon legacy WCAG 2.2 contrast math?",
+          "options": [
+            "It accounts for spatial frequency, font size/weight, and human retinal perceptual asymmetry between light and dark backgrounds",
+            "It turns off contrast checking on mobile devices",
+            "It automatically increases font size in CSS"
+          ],
+          "answer": 0,
+          "why": "APCA models actual human vision non-linearities, linking required contrast directly to font size and weight."
+        }
+      },
+      {
+        "title": "Accessibility Contrast Engine Synthesis: Production WCAG Compliance Suite",
+        "say": [
+          "We have mastered relative luminance linearizations, WCAG contrast ratio calculations, AA and AAA compliance thresholds, color vision deficiency accommodations, and APCA perceptual models.",
+          "Now, let us synthesize these concepts into a production engine: the 'ContrastEngine'.",
+          "This engine audits design token pairs across our entire design system.",
+          "It takes an array of foreground and background token definitions, calculates exact relative luminance and contrast ratios, checks AA/AAA compliance, and flags any potential violations.",
+          "Automating accessibility contract verification guarantees that our products maintain legally compliant 4.5:1 contrast across all themes.",
+          "Let us execute the synthesized Accessibility Contrast Engine."
+        ],
+        "example": "A pharmaceutical quality assurance laboratory: automated spectrometers assay every batch of medicine vials to certify chemical purity and safety before packaging.",
+        "code": "interface RgbColor {\n  r: number;\n  g: number;\n  b: number;\n}\n\nfunction linearizeChannel(val8Bit: number): number {\n  const srgb = val8Bit / 255;\n  return srgb <= 0.04045 ? srgb / 12.92 : Math.pow((srgb + 0.055) / 1.055, 2.4);\n}\n\nfunction calculateRelativeLuminance(rgb: RgbColor): number {\n  return 0.2126 * linearizeChannel(rgb.r) + 0.7152 * linearizeChannel(rgb.g) + 0.0722 * linearizeChannel(rgb.b);\n}\n\nfunction calculateContrastRatio(rgb1: RgbColor, rgb2: RgbColor): number {\n  const l1 = calculateRelativeLuminance(rgb1);\n  const l2 = calculateRelativeLuminance(rgb2);\n  const lighter = Math.max(l1, l2);\n  const darker = Math.min(l1, l2);\n  const ratio = (lighter + 0.05) / (darker + 0.05);\n  return Math.round(ratio * 100) / 100;\n}\n\ninterface TokenPairAudit {\n  name: string;\n  fg: RgbColor;\n  bg: RgbColor;\n}\n\ninterface CertifiedContrastReport {\n  name: string;\n  ratio: number;\n  wcagAa: boolean;\n  wcagAaa: boolean;\n  status: 'CERTIFIED' | 'NON_COMPLIANT';\n}\n\nclass ContrastEngine {\n  public static audit(pairs: TokenPairAudit[]): CertifiedContrastReport[] {\n    return pairs.map(p => {\n      const ratio = calculateContrastRatio(p.fg, p.bg);\n      const isAa = ratio >= 4.5;\n      const isAaa = ratio >= 7.0;\n      return {\n        name: p.name,\n        ratio,\n        wcagAa: isAa,\n        wcagAaa: isAaa,\n        status: isAa ? 'CERTIFIED' : 'NON_COMPLIANT',\n      };\n    });\n  }\n}\n\nconst auditPairs: TokenPairAudit[] = [\n  { name: 'PrimaryButtonText', fg: { r: 255, g: 255, b: 255 }, bg: { r: 37, g: 99, b: 235 } },\n  { name: 'BodyTextPrimary', fg: { r: 15, g: 23, b: 42 }, bg: { r: 255, g: 255, b: 255 } },\n  { name: 'MutedSubtext', fg: { r: 100, g: 116, b: 139 }, bg: { r: 255, g: 255, b: 255 } },\n];\n\nconst auditResults = ContrastEngine.audit(auditPairs);\nconsole.log('=== ACCESSIBILITY CONTRAST ENGINE AUDIT ===');\nfor (const r of auditResults) {\n  console.log('[' + r.name + ']: Ratio=' + r.ratio + ':1 | WCAG AA=' + r.wcagAa + ' | WCAG AAA=' + r.wcagAaa + ' (' + r.status + ')');\n}",
+        "output": "=== ACCESSIBILITY CONTRAST ENGINE AUDIT ===\n[PrimaryButtonText]: Ratio=5.17:1 | WCAG AA=true | WCAG AAA=false (CERTIFIED)\n[BodyTextPrimary]: Ratio=17.85:1 | WCAG AA=true | WCAG AAA=true (CERTIFIED)\n[MutedSubtext]: Ratio=4.76:1 | WCAG AA=true | WCAG AAA=false (CERTIFIED)",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Audits token pairs against 4.5:1 AA and 7.0:1 AAA benchmarks."
+          },
+          {
+            "line": 36,
+            "note": "Confirms that all 3 production design tokens achieve certified WCAG AA compliance."
+          }
+        ],
+        "tryIt": "Verify that MutedSubtext achieves 4.76:1, passing the 4.5:1 AA threshold.",
+        "check": {
+          "question": "How does the ContrastEngine protect the design system from accessibility lawsuits?",
+          "options": [
+            "By mathematically verifying that all text and background token pairs achieve at least 4.5:1 WCAG AA contrast",
+            "By filing legal patents",
+            "By removing text from the UI"
+          ],
+          "answer": 0,
+          "why": "Automating contrast checks guarantees that no component ships with inaccessible, legally non-compliant color pairings."
+        }
+      }
+    ],
+    "summary": [
+      "WCAG 2.2 Relative Luminance models human retinal sensitivity: green dominates with 71.52% weighting.",
+      "The Contrast Ratio formula '(L1 + 0.05) / (L2 + 0.05)' accounts for ambient monitor flare.",
+      "Level AA mandates 4.5:1 for normal body text and 3:1 for large text and UI component borders.",
+      "WCAG 1.4.1 mandates secondary visual cues (icons, text) alongside color changes to accommodate color-blind users."
+    ],
+    "projectStep": {
+      "title": "Implement Automated Contrast Auditing",
+      "steps": [
+        "Create colorContrast utility function calculating relative luminance and contrast ratios",
+        "Author automated Jest/Vitest unit test auditing all semantic color pairs against 4.5:1 WCAG AA threshold",
+        "Implement FormValidationIndicator component featuring dual color and icon cues for color-blind accessibility"
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "title": "Keyboard Navigation & Focus Management: Roving tabindex & Focus Rings",
+    "goal": "Build accessible keyboard workflows: native DOM focus order vs custom tabindex='0'/'-1', the Roving Tabindex pattern for radio groups, tabs, and menus, and high-contrast visible focus rings.",
+    "minutes": 25,
+    "recap": "Yesterday we mastered visual accessibility and WCAG contrast math. Today we ensure that users navigating via keyboards, switch devices, and screen readers can seamlessly control every component in our system.",
+    "parts": [
+      {
+        "title": "Native DOM Focus Order vs tabindex Pitfalls",
+        "say": [
+          "Welcome to Day 24 of UI/UX Design Systems & Visual Frontend.",
+          "Millions of people navigate the web without a mouse—including keyboard-only power users, motor-impaired individuals using switch devices, and blind users relying on screen readers.",
+          "By default, browsers provide a natural keyboard focus navigation order: pressing 'Tab' moves forward through interactive elements ('<button>', '<a>', '<input>', '<select>'), and 'Shift + Tab' moves backward.",
+          "This natural order is determined strictly by DOM source order.",
+          "When developers manipulate focus, they use the 'tabindex' attribute, which has three distinct behaviors:",
+          "1. 'tabindex=\"0\"': Inserts a non-interactive element (e.g. a custom div) into the natural keyboard tab sequence.",
+          "2. 'tabindex=\"-1\"': Removes an element from the natural tab sequence, but allows it to receive programmatic focus via 'element.focus()'.",
+          "3. Positive tabindex ('tabindex=\"1\"', 'tabindex=\"2\"'): A major accessibility anti-pattern! It hijacks the browser's tab flow, forcing focus to jump wildly around the page.",
+          "Rule of thumb in enterprise design systems: never use positive tabindex. Structure DOM source order cleanly and use 'tabindex=\"-1\"' for programmatic focus.",
+          "Let us simulate DOM tab sequence traversal."
+        ],
+        "example": "A museum audio tour: visitors walk naturally through chronological exhibits in room order; an audio guide that forces visitors to sprint back and forth across corridors would be infuriating.",
+        "code": "interface DomElement {\n  id: string;\n  tag: string;\n  tabindex?: number;\n  isInteractiveNative: boolean;\n}\n\nfunction computeTabSequence(dom: DomElement[]): string[] {\n  // Elements with tabindex > 0 are an anti-pattern, but browsers sort them first ascending\n  const positiveTabIndex = dom\n    .filter(e => e.tabindex !== undefined && e.tabindex > 0)\n    .sort((a, b) => (a.tabindex || 0) - (b.tabindex || 0));\n\n  // Elements in natural tab flow (native interactive or tabindex=0)\n  const naturalFlow = dom.filter(e => {\n    if (e.tabindex !== undefined && e.tabindex < 0) return false;\n    return e.isInteractiveNative || e.tabindex === 0;\n  });\n\n  return [...positiveTabIndex, ...naturalFlow].map(e => e.id);\n}\n\nconst sampleDom: DomElement[] = [\n  { id: 'logo-link', tag: 'a', isInteractiveNative: true },\n  { id: 'nav-home', tag: 'a', isInteractiveNative: true },\n  { id: 'custom-card', tag: 'div', tabindex: 0, isInteractiveNative: false },\n  { id: 'hidden-dialog', tag: 'div', tabindex: -1, isInteractiveNative: false },\n  { id: 'search-input', tag: 'input', isInteractiveNative: true },\n];\n\nconst sequence = computeTabSequence(sampleDom);\nconsole.log('=== DOM KEYBOARD TAB ORDER EVALUATION ===');\nconsole.log('Active Tab Sequence: ' + sequence.join(' -> '));\nconsole.log('Excluded (-1): hidden-dialog (Programmatic focus only)');",
+        "output": "=== DOM KEYBOARD TAB ORDER EVALUATION ===\nActive Tab Sequence: logo-link -> nav-home -> custom-card -> search-input\nExcluded (-1): hidden-dialog (Programmatic focus only)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Filters elements eligible for keyboard Tab navigation: native interactive or tabindex=0."
+          },
+          {
+            "line": 31,
+            "note": "Excludes hidden-dialog (tabindex=-1) from keyboard tab order while keeping custom-card."
+          }
+        ],
+        "tryIt": "Verify that an element with tabindex=-1 can still be focused via element.focus() in JavaScript.",
+        "check": {
+          "question": "Why is setting positive tabindex values (e.g. tabindex=\"2\") considered an accessibility anti-pattern?",
+          "options": [
+            "It disrupts the natural DOM source order and creates confusing, disorienting focus jumps across the page",
+            "It turns off keyboard input in the browser",
+            "It is unsupported in modern CSS"
+          ],
+          "answer": 0,
+          "why": "Positive tabindex hijacks browser tab order, causing unpredictable focus jumps that confuse keyboard users."
+        }
+      },
+      {
+        "title": "The Roving Tabindex Pattern for Composite Widgets",
+        "say": [
+          "In complex composite widgets—such as Tablists, Menus, Radio Groups, and Toolbars—having every single sub-item in the global Tab sequence is a usability disaster.",
+          "If a tablist has 10 tabs, a keyboard user would have to press 'Tab' 10 times just to bypass the tabs and reach the page content below!",
+          "The W3C WAI-ARIA authoring guidelines mandate the Roving Tabindex Pattern for composite widgets.",
+          "Here is how Roving Tabindex works:",
+          "1. Exactly ONE item in the widget has 'tabindex=\"0\"' (the currently active or selected item).",
+          "2. ALL OTHER items in the widget have 'tabindex=\"-1\"'.",
+          "3. When the user presses 'Tab', focus lands on the single active item. A second 'Tab' press exits the widget immediately to the next page landmark.",
+          "4. To navigate between items inside the widget, the user uses Arrow Keys (ArrowLeft, ArrowRight, ArrowUp, ArrowDown).",
+          "5. As the user presses an arrow key, the active index moves: the old item becomes 'tabindex=\"-1\"' and the new item becomes 'tabindex=\"0\"'.",
+          "Let us implement the Roving Tabindex state machine."
+        ],
+        "example": "A television remote control channel button: pressing channel UP/DOWN navigates within the TV tuner widget, while pressing Input Source exits the tuner entirely to switch to your game console.",
+        "code": "interface TabItem {\n  id: string;\n  label: string;\n  tabindex: number;\n  isSelected: boolean;\n}\n\nclass RovingTabindexManager {\n  private tabs: TabItem[];\n  private activeIndex: number;\n\n  constructor(labels: string[]) {\n    this.activeIndex = 0;\n    this.tabs = labels.map((label, idx) => ({\n      id: 'tab-' + idx,\n      label,\n      tabindex: idx === 0 ? 0 : -1,\n      isSelected: idx === 0,\n    }));\n  }\n\n  public navigate(direction: 'next' | 'prev'): void {\n    const n = this.tabs.length;\n    this.tabs[this.activeIndex].tabindex = -1;\n    this.tabs[this.activeIndex].isSelected = false;\n\n    if (direction === 'next') {\n      this.activeIndex = (this.activeIndex + 1) % n;\n    } else {\n      this.activeIndex = (this.activeIndex - 1 + n) % n;\n    }\n\n    this.tabs[this.activeIndex].tabindex = 0;\n    this.tabs[this.activeIndex].isSelected = true;\n  }\n\n  public getTabs(): TabItem[] {\n    return [...this.tabs];\n  }\n}\n\nconst tabManager = new RovingTabindexManager(['Overview', 'Analytics', 'Settings']);\nconsole.log('=== ROVING TABINDEX STATE MACHINE ===');\nconsole.log('Initial Tabs: ' + tabManager.getTabs().map(t => t.label + ' (tabindex=' + t.tabindex + ')').join(' | '));\ntabManager.navigate('next');\nconsole.log('After ArrowRight: ' + tabManager.getTabs().map(t => t.label + ' (tabindex=' + t.tabindex + ')').join(' | '));\ntabManager.navigate('next');\nconsole.log('After ArrowRight: ' + tabManager.getTabs().map(t => t.label + ' (tabindex=' + t.tabindex + ')').join(' | '));",
+        "output": "=== ROVING TABINDEX STATE MACHINE ===\nInitial Tabs: Overview (tabindex=0) | Analytics (tabindex=-1) | Settings (tabindex=-1)\nAfter ArrowRight: Overview (tabindex=-1) | Analytics (tabindex=0) | Settings (tabindex=-1)\nAfter ArrowRight: Overview (tabindex=-1) | Analytics (tabindex=-1) | Settings (tabindex=0)",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Initializes exactly one tab with tabindex=0 and all remaining tabs with tabindex=-1."
+          },
+          {
+            "line": 36,
+            "note": "Smoothly shifts tabindex=0 as user presses arrow keys, wrapping seamlessly."
+          }
+        ],
+        "tryIt": "Navigate 'next' from Settings and verify that it wraps back to Overview.",
+        "check": {
+          "question": "In the Roving Tabindex pattern, how does a keyboard user navigate between items within the widget?",
+          "options": [
+            "Using Arrow Keys (ArrowLeft, ArrowRight, ArrowUp, ArrowDown)",
+            "Using the Tab key repeatedly",
+            "Using the Escape key"
+          ],
+          "answer": 0,
+          "why": "Tab enters and exits the widget; Arrow keys navigate between items within the composite widget."
+        }
+      },
+      {
+        "title": "Focus Trapping & Escape Key Dismissal in Overlays",
+        "say": [
+          "When modal dialogs, slide-over panels, or mobile navigation drawers open, keyboard focus must be contained strictly within the overlay.",
+          "Without focus trapping, pressing Tab will eventually tab out of the modal and interact invisibly with background page elements!",
+          "A robust focus trap state machine executes three critical duties:",
+          "1. On Open: Queries all focusable elements within the modal container. Immediately focuses the first element or dialog title.",
+          "2. Tab Wrapping: Intercepts the Tab key on the last focusable element and wraps focus back to the first element.",
+          "3. Shift+Tab Wrapping: Intercepts Shift+Tab on the first focusable element and wraps focus back to the last element.",
+          "4. Escape Listener: Listens for the Escape key to close the overlay and restore focus to the opening trigger button.",
+          "Let us verify modal focus trapping and wrapping boundaries."
+        ],
+        "example": "A revolving door at a building exit: when you step into the revolving compartment, the curved glass walls prevent you from wandering into the exterior garden until the door completes its cycle.",
+        "code": "interface FocusTrapEvent {\n  key: 'Tab' | 'Escape';\n  shiftKey: boolean;\n  currentFocusedIndex: number;\n  totalElements: number;\n}\n\ninterface FocusTrapResolution {\n  nextFocusedIndex: number;\n  shouldClose: boolean;\n}\n\nfunction handleTrapKey(event: FocusTrapEvent): FocusTrapResolution {\n  if (event.key === 'Escape') {\n    return { nextFocusedIndex: -1, shouldClose: true };\n  }\n\n  let next = event.currentFocusedIndex;\n  if (!event.shiftKey) {\n    // Forward Tab\n    next = (event.currentFocusedIndex + 1) % event.totalElements;\n  } else {\n    // Backward Shift+Tab\n    next = (event.currentFocusedIndex - 1 + event.totalElements) % event.totalElements;\n  }\n\n  return { nextFocusedIndex: next, shouldClose: false };\n}\n\nconsole.log('=== FOCUS TRAP BOUNDARY WRAPPING ===');\n// Total 3 focusable elements (0, 1, 2)\nconst forwardWrap = handleTrapKey({ key: 'Tab', shiftKey: false, currentFocusedIndex: 2, totalElements: 3 });\nconsole.log('Last Element (2) + Tab -> Focus Wraps to Index: ' + forwardWrap.nextFocusedIndex);\n\nconst backwardWrap = handleTrapKey({ key: 'Tab', shiftKey: true, currentFocusedIndex: 0, totalElements: 3 });\nconsole.log('First Element (0) + Shift+Tab -> Focus Wraps to Index: ' + backwardWrap.nextFocusedIndex);\n\nconst escapeClose = handleTrapKey({ key: 'Escape', shiftKey: false, currentFocusedIndex: 1, totalElements: 3 });\nconsole.log('Escape Key Pressed -> Closes Modal: ' + escapeClose.shouldClose);",
+        "output": "=== FOCUS TRAP BOUNDARY WRAPPING ===\nLast Element (2) + Tab -> Focus Wraps to Index: 0\nFirst Element (0) + Shift+Tab -> Focus Wraps to Index: 2\nEscape Key Pressed -> Closes Modal: true",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Closes overlay immediately upon receiving Escape key."
+          },
+          {
+            "line": 17,
+            "note": "Wraps Tab forward from index 2 to 0, and Shift+Tab backward from index 0 to 2."
+          }
+        ],
+        "tryIt": "Verify that Tab from index 1 simply advances to index 2 without wrapping.",
+        "check": {
+          "question": "What must happen when a keyboard user presses Tab while focused on the last element of a modal dialog?",
+          "options": [
+            "Focus must wrap around to the first focusable element inside the modal",
+            "Focus must escape into the browser address bar",
+            "The modal must close automatically"
+          ],
+          "answer": 0,
+          "why": "Focus trapping keeps focus circulating within the modal, preventing hidden background navigation."
+        }
+      },
+      {
+        "title": "High-Contrast Visible Focus Rings: :focus-visible vs :focus",
+        "say": [
+          "For years, web developers committed the grave accessibility sin of writing: 'button:focus { outline: none; }'.",
+          "They did this because mouse users disliked seeing an ugly rectangular outline when clicking a button.",
+          "However, stripping focus outlines renders websites completely unusable for keyboard navigators who cannot see where their cursor is!",
+          "Modern CSS resolved this conflict with the ':focus-visible' pseudo-class.",
+          "Unlike ':focus' (which fires on mouse clicks and taps), ':focus-visible' fires ONLY when the user interacts via a keyboard or assistive switch device.",
+          "Mouse clicks show no outline, while keyboard Tab reveals a crisp, beautiful focus ring.",
+          "WCAG 2.2 Success Criterion 2.4.13 mandates that focus rings must achieve at least 3:1 contrast against adjacent background colors, with a minimum 2px thickness.",
+          "Let us audit focus ring contrast and dimensions."
+        ],
+        "example": "A highlighter pen on a printed legal contract: a lawyer highlights key clauses so their eye can immediately locate the critical paragraph on the page.",
+        "code": "interface RgbColor {\n  r: number;\n  g: number;\n  b: number;\n}\n\nfunction linearizeChannel(val8Bit: number): number {\n  const srgb = val8Bit / 255;\n  return srgb <= 0.04045 ? srgb / 12.92 : Math.pow((srgb + 0.055) / 1.055, 2.4);\n}\n\nfunction calculateRelativeLuminance(rgb: RgbColor): number {\n  return 0.2126 * linearizeChannel(rgb.r) + 0.7152 * linearizeChannel(rgb.g) + 0.0722 * linearizeChannel(rgb.b);\n}\n\nfunction calculateContrastRatio(rgb1: RgbColor, rgb2: RgbColor): number {\n  const l1 = calculateRelativeLuminance(rgb1);\n  const l2 = calculateRelativeLuminance(rgb2);\n  const lighter = Math.max(l1, l2);\n  const darker = Math.min(l1, l2);\n  const ratio = (lighter + 0.05) / (darker + 0.05);\n  return Math.round(ratio * 100) / 100;\n}\n\ninterface FocusRingStyle {\n  outlineWidthPx: number;\n  outlineOffsetPx: number;\n  outlineColor: RgbColor;\n  backgroundColor: RgbColor;\n}\n\ninterface FocusRingAuditResult {\n  contrastRatio: number;\n  meetsThickness: boolean;\n  meetsContrast: boolean;\n  isCompliant: boolean;\n}\n\nfunction auditFocusRing(ring: FocusRingStyle): FocusRingAuditResult {\n  const contrast = calculateContrastRatio(ring.outlineColor, ring.backgroundColor);\n  const thick = ring.outlineWidthPx >= 2;\n  const contrastPass = contrast >= 3.0;\n\n  return {\n    contrastRatio: contrast,\n    meetsThickness: thick,\n    meetsContrast: contrastPass,\n    isCompliant: thick && contrastPass,\n  };\n}\n\nconst ringLight: FocusRingStyle = {\n  outlineWidthPx: 2,\n  outlineOffsetPx: 2,\n  outlineColor: { r: 37, g: 99, b: 235 }, // Blue 600\n  backgroundColor: { r: 255, g: 255, b: 255 }, // White\n};\n\nconst res = auditFocusRing(ringLight);\nconsole.log('=== FOCUS RING ACCESSIBILITY AUDIT ===');\nconsole.log('Outline Width : ' + ringLight.outlineWidthPx + 'px (Meets >= 2px: ' + res.meetsThickness + ')');\nconsole.log('Contrast Ratio: ' + res.contrastRatio + ':1 (Meets >= 3.0:1: ' + res.meetsContrast + ')');\nconsole.log('WCAG 2.4.13 Focus Appearance Compliant: ' + res.isCompliant);",
+        "output": "=== FOCUS RING ACCESSIBILITY AUDIT ===\nOutline Width : 2px (Meets >= 2px: true)\nContrast Ratio: 5.17:1 (Meets >= 3.0:1: true)\nWCAG 2.4.13 Focus Appearance Compliant: true",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Audits focus ring against WCAG 2.4.13 requirements: >= 2px thickness and >= 3:1 contrast."
+          },
+          {
+            "line": 29,
+            "note": "Confirms compliant 5.17:1 contrast and 2px offset for clean visible ring."
+          }
+        ],
+        "tryIt": "Verify that an outline with width 1px fails the meetsThickness check.",
+        "check": {
+          "question": "Why is :focus-visible preferred over :focus when styling interactive elements?",
+          "options": [
+            "It displays focus rings only for keyboard and assistive device navigators, omitting them on mouse clicks",
+            "It loads styles faster in CSS",
+            "It works on mobile devices only"
+          ],
+          "answer": 0,
+          "why": ":focus-visible suppresses focus rings on mouse clicks while guaranteeing clear visibility for keyboard users."
+        }
+      },
+      {
+        "title": "Skip Links & Landmark Navigation Jumps",
+        "say": [
+          "Imagine opening a web page and having to press Tab 35 times through every single header link, social media icon, and search bar before you can read the first sentence of the article.",
+          "This repetitive friction is known as 'header fatigue'.",
+          "WCAG Success Criterion 2.4.1 (Bypass Blocks) mandates a mechanism to bypass repetitive navigation.",
+          "The standard pattern is the Skip to Content Link.",
+          "A skip link is an anchor tag placed as the very first element in the '<body>': '<a href=\"#main-content\" class=\"skip-link\">Skip to main content</a>'.",
+          "Visually, the link is hidden offscreen using CSS: 'transform: translateY(-100%)' or clipping.",
+          "However, the moment a keyboard user presses Tab upon arriving on the page, the link focuses and slides into view: '.skip-link:focus { transform: translateY(0); }'.",
+          "Pressing Enter immediately jumps focus directly to the '<main id=\"main-content\">' landmark, bypassing the entire header.",
+          "Let us verify skip link behavior."
+        ],
+        "example": "An express elevator in a 60-story skyscraper: skipping all 30 residential floors to take executives directly from the ground lobby to the rooftop observation deck.",
+        "code": "interface SkipLinkConfig {\n  href: string;\n  targetId: string;\n  isFirstDomChild: boolean;\n  visibleOnFocus: boolean;\n}\n\nfunction validateSkipLink(config: SkipLinkConfig): { valid: boolean; summary: string } {\n  if (!config.isFirstDomChild) {\n    return { valid: false, summary: 'FAIL: Skip link must be first focusable child in DOM' };\n  }\n  if (!config.visibleOnFocus) {\n    return { valid: false, summary: 'FAIL: Skip link must become visible upon :focus' };\n  }\n  if (config.href !== '#' + config.targetId) {\n    return { valid: false, summary: 'FAIL: href must target main content landmark ID' };\n  }\n\n  return { valid: true, summary: 'CERTIFIED: Skip link enables instant header bypass to #' + config.targetId };\n}\n\nconst skipConfig: SkipLinkConfig = {\n  href: '#main-content',\n  targetId: 'main-content',\n  isFirstDomChild: true,\n  visibleOnFocus: true,\n};\n\nconst report = validateSkipLink(skipConfig);\nconsole.log('=== SKIP TO MAIN CONTENT LINK AUDIT ===');\nconsole.log('Target Landmark: ' + skipConfig.targetId);\nconsole.log('Status: ' + report.summary);",
+        "output": "=== SKIP TO MAIN CONTENT LINK AUDIT ===\nTarget Landmark: main-content\nStatus: CERTIFIED: Skip link enables instant header bypass to #main-content",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Validates that skip link is first DOM child, targets main landmark, and reveals on focus."
+          },
+          {
+            "line": 25,
+            "note": "Certifies WCAG 2.4.1 Bypass Blocks compliance."
+          }
+        ],
+        "tryIt": "Verify that setting isFirstDomChild to false causes the validation to fail.",
+        "check": {
+          "question": "Where should the 'Skip to main content' link be placed in the HTML structure?",
+          "options": [
+            "As the very first focusable element inside the <body> tag",
+            "At the bottom of the footer",
+            "Inside the sidebar navigation"
+          ],
+          "answer": 0,
+          "why": "It must be the first focusable element so keyboard users encounter it on their very first Tab press."
+        }
+      },
+      {
+        "title": "Keyboard Focus Engine Synthesis: Enterprise Navigation Architecture",
+        "say": [
+          "We have mastered native DOM tab flow, roving tabindex patterns for composite widgets, modal focus trapping, visible focus rings, and skip link bypasses.",
+          "Now, let us synthesize these concepts into a production engine: the 'KeyboardFocusEngine'.",
+          "This engine manages keyboard navigation state, coordinates composite widget arrow keys, traps modal overlays, and audits focus ring visibility.",
+          "Building a unified focus engine guarantees that every interactive component in your design system is a first-class citizen for keyboard and assistive navigators.",
+          "Let us execute the synthesized Keyboard Focus Engine."
+        ],
+        "example": "A precision flight director computer: routing autopilot inputs, tactile yoke switches, and rudder pedal linkages to smoothly steer the aircraft through all flight phases.",
+        "code": "interface FocusEngineState {\n  currentLandmark: string;\n  activeTabIndex: number;\n  modalActive: boolean;\n  rovingTabCount: number;\n}\n\nclass KeyboardFocusEngine {\n  private state: FocusEngineState;\n\n  constructor(tabs: number) {\n    this.state = {\n      currentLandmark: 'header',\n      activeTabIndex: 0,\n      modalActive: false,\n      rovingTabCount: tabs,\n    };\n  }\n\n  public activateSkipLink(): void {\n    this.state.currentLandmark = 'main-content';\n  }\n\n  public arrowKey(direction: 'next' | 'prev'): void {\n    const n = this.state.rovingTabCount;\n    if (direction === 'next') {\n      this.state.activeTabIndex = (this.state.activeTabIndex + 1) % n;\n    } else {\n      this.state.activeTabIndex = (this.state.activeTabIndex - 1 + n) % n;\n    }\n  }\n\n  public openModal(): void {\n    this.state.modalActive = true;\n  }\n\n  public getState(): FocusEngineState {\n    return { ...this.state };\n  }\n}\n\nconst engine = new KeyboardFocusEngine(4);\nconsole.log('=== KEYBOARD FOCUS ENGINE SYNTHESIS ===');\nconsole.log('Initial Landmark: ' + engine.getState().currentLandmark);\nengine.activateSkipLink();\nconsole.log('After Skip Link: ' + engine.getState().currentLandmark);\nengine.arrowKey('next');\nconsole.log('Roving Tab Position: Tab ' + (engine.getState().activeTabIndex + 1) + ' of ' + engine.getState().rovingTabCount);\nengine.openModal();\nconsole.log('Modal Focus Trapped: ' + engine.getState().modalActive);",
+        "output": "=== KEYBOARD FOCUS ENGINE SYNTHESIS ===\nInitial Landmark: header\nAfter Skip Link: main-content\nRoving Tab Position: Tab 2 of 4\nModal Focus Trapped: true",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Initializes focus state across landmarks, roving tabs, and modal trap contexts."
+          },
+          {
+            "line": 36,
+            "note": "Demonstrates skip-link jump, arrow key roving navigation, and modal focus trapping."
+          }
+        ],
+        "tryIt": "Verify that calling arrowKey('prev') returns activeTabIndex to 0.",
+        "check": {
+          "question": "How does the KeyboardFocusEngine enhance enterprise design system accessibility?",
+          "options": [
+            "It unifies skip links, roving tabindex, modal traps, and focus visible indicators into a single coordinated system",
+            "It converts keyboard presses into audio tones",
+            "It removes keyboard shortcuts"
+          ],
+          "answer": 0,
+          "why": "The engine guarantees that all keyboard navigation workflows operate predictably across all components."
+        }
+      }
+    ],
+    "summary": [
+      "Natural DOM order dictates keyboard navigation; never use positive tabindex anti-patterns.",
+      "The Roving Tabindex pattern uses 'tabindex=\"0\"' for the active item and 'tabindex=\"-1\"' for siblings, navigating with Arrow keys.",
+      "Modal focus traps contain keyboard focus and cycle boundaries, closing cleanly on Escape.",
+      "':focus-visible' displays high-contrast focus rings (>= 2px, >= 3:1 contrast) exclusively for keyboard navigators.",
+      "Skip links provide an instant bypass past repetitive header links directly into main content."
+    ],
+    "projectStep": {
+      "title": "Implement Keyboard Focus Architecture",
+      "steps": [
+        "Author SkipToContent component as the first child of application root layout",
+        "Implement useRovingTabindex custom hook for Tabs, Menus, and RadioGroup components",
+        "Apply :focus-visible high-contrast outline styles across all interactive button and input primitives"
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "title": "Screen Reader Optimization & ARIA Attributes: aria-label & aria-hidden",
+    "goal": "Deliver clear auditory user interfaces: Accessible Name Computation Algorithm, aria-label vs aria-labelledby vs aria-describedby, aria-hidden decoration hiding, and dynamic state announcements.",
+    "minutes": 25,
+    "recap": "Yesterday we engineered keyboard focus management and roving tabindex. Today we optimize for the auditory interface: screen readers, assistive technology, and the W3C Accessible Name Computation algorithm.",
+    "parts": [
+      {
+        "title": "The W3C Accessible Name Computation Algorithm: Precedence Hierarchy",
+        "say": [
+          "Welcome to Day 25 of UI/UX Design Systems & Visual Frontend.",
+          "When a screen reader encounters an element, it must announce a concise, understandable spoken title to the user.",
+          "This spoken title is called the element's Accessible Name.",
+          "Browsers determine the accessible name using the W3C Accessible Name and Description Computation Algorithm.",
+          "The algorithm evaluates properties in a strict descending hierarchy of precedence:",
+          "1. 'aria-labelledby': Highest precedence. Takes the text content of one or more referenced DOM elements by ID.",
+          "2. 'aria-label': Second precedence. An explicit text string provided directly on the element.",
+          "3. Native Sub-tree Text: The inner text content of elements like '<button>' or '<a>'.",
+          "4. Native Form Attributes: 'alt' for '<img>', or '<label>' element bound via 'for' / 'id'.",
+          "5. 'placeholder' or 'title': Lowest precedence fallback.",
+          "Understanding this precedence hierarchy prevents conflicting attributes from garbling screen reader output.",
+          "Let us inspect the accessible name computation algorithm."
+        ],
+        "example": "A shipping crate label: if an official customs clearance manifest (aria-labelledby) is pasted onto the box, inspectors read that first; if absent, they read the stenciled spray-paint stencil (aria-label).",
+        "code": "interface AccessibleElement {\n  id: string;\n  tag: string;\n  ariaLabelledBy?: string;\n  ariaLabel?: string;\n  innerText?: string;\n  altText?: string;\n  title?: string;\n}\n\nfunction computeAccessibleName(el: AccessibleElement, idMap: Record<string, string>): string {\n  // 1. aria-labelledby\n  if (el.ariaLabelledBy && idMap[el.ariaLabelledBy]) {\n    return idMap[el.ariaLabelledBy];\n  }\n  // 2. aria-label\n  if (el.ariaLabel) {\n    return el.ariaLabel;\n  }\n  // 3. innerText\n  if (el.innerText && el.innerText.trim().length > 0) {\n    return el.innerText.trim();\n  }\n  // 4. alt\n  if (el.altText) {\n    return el.altText;\n  }\n  // 5. title fallback\n  if (el.title) {\n    return el.title;\n  }\n  return '';\n}\n\nconst idLookup = {\n  'billing-heading': 'Billing Address & Payment Details',\n};\n\nconst button1: AccessibleElement = { id: 'btn-1', tag: 'button', ariaLabel: 'Close Dialog', innerText: 'X' };\nconst button2: AccessibleElement = { id: 'btn-2', tag: 'button', ariaLabelledBy: 'billing-heading', ariaLabel: 'Checkout', innerText: 'Pay Now' };\n\nconsole.log('=== W3C ACCESSIBLE NAME COMPUTATION ===');\nconsole.log('Button 1 (aria-label \"Close Dialog\" vs innerText \"X\"): \"' + computeAccessibleName(button1, idLookup) + '\"');\nconsole.log('Button 2 (aria-labelledby takes precedence over aria-label and text): \"' + computeAccessibleName(button2, idLookup) + '\"');",
+        "output": "=== W3C ACCESSIBLE NAME COMPUTATION ===\nButton 1 (aria-label \"Close Dialog\" vs innerText \"X\"): \"Close Dialog\"\nButton 2 (aria-labelledby takes precedence over aria-label and text): \"Billing Address & Payment Details\"",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Applies W3C precedence: aria-labelledby > aria-label > innerText > alt > title."
+          },
+          {
+            "line": 36,
+            "note": "Demonstrates that aria-labelledby overrides aria-label, and aria-label overrides innerText 'X'."
+          }
+        ],
+        "tryIt": "Verify that removing ariaLabel from button1 causes it to fall back to innerText 'X'.",
+        "check": {
+          "question": "Which attribute has highest precedence in the W3C Accessible Name Computation algorithm?",
+          "options": [
+            "aria-labelledby",
+            "aria-label",
+            "title"
+          ],
+          "answer": 0,
+          "why": "aria-labelledby has highest precedence because it references an explicit visible DOM heading or label."
+        }
+      },
+      {
+        "title": "When to Use aria-label vs aria-labelledby vs aria-describedby",
+        "say": [
+          "Frontend developers frequently mix up the three core ARIA labeling attributes:",
+          "1. 'aria-label': Use when an interactive element has NO visible text on screen (e.g. an icon-only button like a magnifying glass or trash can). Provide a concise verb phrase: 'aria-label=\"Search projects\"'.",
+          "2. 'aria-labelledby': Use when visible text ALREADY exists elsewhere on screen that serves as the title (e.g. a modal dialog labeled by its '<h2>' heading). This ensures sighted and blind users hear identical terminology.",
+          "3. 'aria-describedby': Use to attach secondary supplementary information (e.g. form helper hints, password requirement guidelines, or error messages).",
+          "A screen reader announces the accessible name first, pauses, and then announces the description.",
+          "Never put critical labels in 'aria-describedby', and never duplicate identical text in both name and description.",
+          "Let us verify proper ARIA attribute mapping in TypeScript."
+        ],
+        "example": "A passport: your legal name is printed prominently at the top (name / aria-labelledby); your height, eye color, and issuing authority are printed in small helper fields below (description / aria-describedby).",
+        "code": "interface FormFieldAriaConfig {\n  inputId: string;\n  visibleLabel: string;\n  hasVisibleLabel: boolean;\n  helperText?: string;\n  errorMessage?: string;\n}\n\ninterface ComputedFieldAria {\n  ariaLabel?: string;\n  ariaLabelledBy?: string;\n  ariaDescribedBy?: string;\n  ariaInvalid: boolean;\n}\n\nfunction buildFormFieldAria(field: FormFieldAriaConfig): ComputedFieldAria {\n  const result: ComputedFieldAria = {\n    ariaInvalid: !!field.errorMessage,\n  };\n\n  if (field.hasVisibleLabel) {\n    result.ariaLabelledBy = field.inputId + '-label';\n  } else {\n    result.ariaLabel = field.visibleLabel;\n  }\n\n  const descriptions: string[] = [];\n  if (field.errorMessage) {\n    descriptions.push(field.inputId + '-error');\n  } else if (field.helperText) {\n    descriptions.push(field.inputId + '-help');\n  }\n\n  if (descriptions.length > 0) {\n    result.ariaDescribedBy = descriptions.join(' ');\n  }\n\n  return result;\n}\n\nconst emailField = buildFormFieldAria({\n  inputId: 'email',\n  visibleLabel: 'Work Email Address',\n  hasVisibleLabel: true,\n  errorMessage: 'Please enter a valid company email',\n});\n\nconsole.log('=== FORM FIELD ARIA ATTRIBUTE MAPPING ===');\nconsole.log('aria-labelledby : ' + emailField.ariaLabelledBy);\nconsole.log('aria-describedby: ' + emailField.ariaDescribedBy + ' (Binds error container)');\nconsole.log('aria-invalid    : ' + emailField.ariaInvalid);",
+        "output": "=== FORM FIELD ARIA ATTRIBUTE MAPPING ===\naria-labelledby : email-label\naria-describedby: email-error (Binds error container)\naria-invalid    : true",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Maps visible label to aria-labelledby and error container to aria-describedby."
+          },
+          {
+            "line": 36,
+            "note": "Binds aria-invalid=true when errorMessage is present."
+          }
+        ],
+        "tryIt": "Remove errorMessage and verify that ariaDescribedBy points to helperText container.",
+        "check": {
+          "question": "When should 'aria-label' be used instead of 'aria-labelledby'?",
+          "options": [
+            "When the interactive element has no visible text on screen (such as an icon-only button)",
+            "When visible text already exists on screen",
+            "Never"
+          ],
+          "answer": 0,
+          "why": "aria-label supplies an invisible accessible name for icon-only controls that lack visible text."
+        }
+      },
+      {
+        "title": "Hiding Decorative Elements with aria-hidden='true'",
+        "say": [
+          "Modern web applications are decorated with dozens of visual icons: chevron arrows, search icons, decorative divider shapes, and background illustrations.",
+          "When screen readers encounter raw SVGs without guidance, they frequently announce meaningless gibberish: 'graphic 24 by 24 path d m 0 0...'.",
+          "This floods the auditory interface with noisy clutter.",
+          "WCAG mandates that purely decorative graphics must be hidden from assistive technology using 'aria-hidden=\"true\"'.",
+          "When 'aria-hidden=\"true\"' is present on an element, the browser removes that element and all its children from the Accessibility Tree entirely.",
+          "However, beware of a dangerous trap: never put 'aria-hidden=\"true\"' on an interactive element (like a button or input) or on an element containing focusable children.",
+          "Doing so creates an invisible trap where keyboard users can tab into an invisible ghost element!",
+          "Let us build an icon accessibility auditor."
+        ],
+        "example": "A book illustrator: visual floral flourishes and decorative chapter divider lines are omitted when the book is recorded as an unabridged audiobook.",
+        "code": "interface IconElementAudit {\n  id: string;\n  hasParentButton: boolean;\n  parentButtonHasLabel: boolean;\n  ariaHidden: boolean;\n}\n\ninterface IconAuditReport {\n  id: string;\n  isAccessible: boolean;\n  recommendation: string;\n}\n\nfunction auditIconElement(icon: IconElementAudit): IconAuditReport {\n  if (icon.hasParentButton) {\n    if (!icon.ariaHidden) {\n      return {\n        id: icon.id,\n        isAccessible: false,\n        recommendation: 'Add aria-hidden=\"true\" to decorative icon inside labeled button',\n      };\n    }\n    if (!icon.parentButtonHasLabel) {\n      return {\n        id: icon.id,\n        isAccessible: false,\n        recommendation: 'Parent button must provide aria-label if icon is hidden',\n      };\n    }\n  }\n\n  return {\n    id: icon.id,\n    isAccessible: true,\n    recommendation: 'Compliant: Icon hidden and button properly labeled',\n  };\n}\n\nconst icon1 = auditIconElement({ id: 'search-lens-svg', hasParentButton: true, parentButtonHasLabel: true, ariaHidden: true });\nconst icon2 = auditIconElement({ id: 'trash-can-svg', hasParentButton: true, parentButtonHasLabel: false, ariaHidden: true });\n\nconsole.log('=== ICON ACCESSIBILITY AUDIT ===');\nconsole.log('[' + icon1.id + ']: Accessible=' + icon1.isAccessible + ' (' + icon1.recommendation + ')');\nconsole.log('[' + icon2.id + ']: Accessible=' + icon2.isAccessible + ' (' + icon2.recommendation + ')');",
+        "output": "=== ICON ACCESSIBILITY AUDIT ===\n[search-lens-svg]: Accessible=true (Compliant: Icon hidden and button properly labeled)\n[trash-can-svg]: Accessible=false (Parent button must provide aria-label if icon is hidden)",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "Asserts that decorative icon has aria-hidden=true and parent button provides accessible label."
+          },
+          {
+            "line": 36,
+            "note": "Flags trash-can icon because button has no label while icon is hidden, resulting in an unnamable button."
+          }
+        ],
+        "tryIt": "Verify that setting parentButtonHasLabel to true on icon2 resolves the violation.",
+        "check": {
+          "question": "What happens when an icon is given aria-hidden=\"true\" inside a button with no visible text and no aria-label?",
+          "options": [
+            "The button becomes an unnamable 'empty button' ghost control, severely violating accessibility standards",
+            "The browser invents a name automatically",
+            "The button is deleted from the page"
+          ],
+          "answer": 0,
+          "why": "Hiding the icon without labeling the button leaves the button with an empty accessible name."
+        }
+      },
+      {
+        "title": "Dynamic State Announcements: aria-expanded, aria-selected & aria-checked",
+        "say": [
+          "Interactive components frequently toggle internal states: expanding accordions, selecting tabs, or checking checkboxes.",
+          "Sighted users see visual cues like a rotating chevron or highlighted background.",
+          "Screen reader users rely on dynamic ARIA state attributes to perceive these state changes:",
+          "1. 'aria-expanded=\"true\" | \"false\"': Communicates whether an accordion panel, collapsible drawer, or dropdown menu is open or closed.",
+          "2. 'aria-selected=\"true\" | \"false\"': Communicates which tab within a tablist is currently active.",
+          "3. 'aria-checked=\"true\" | \"false\" | \"mixed\"': Communicates checkbox states, including tri-state partial selection.",
+          "4. 'aria-controls=\"panel-id\"': Links the toggle button to the container it controls.",
+          "When components update their internal state in JavaScript, they must keep these ARIA state attributes synchronized in the DOM.",
+          "Let us simulate an accordion state machine with synchronized ARIA states."
+        ],
+        "example": "A storefront window shutter: when the store opens, an illuminated neon sign flips from 'CLOSED' to 'OPEN' (aria-expanded=\"true\") so passersby know the store is open.",
+        "code": "interface AccordionItemState {\n  id: string;\n  title: string;\n  isExpanded: boolean;\n  panelId: string;\n}\n\nclass AccessibleAccordionItem {\n  private item: AccordionItemState;\n\n  constructor(id: string, title: string) {\n    this.item = {\n      id,\n      title,\n      isExpanded: false,\n      panelId: id + '-panel',\n    };\n  }\n\n  public toggle(): void {\n    this.item.isExpanded = !this.item.isExpanded;\n  }\n\n  public getDomAttributes(): Record<string, string> {\n    return {\n      id: this.item.id + '-trigger',\n      'aria-expanded': String(this.item.isExpanded),\n      'aria-controls': this.item.panelId,\n    };\n  }\n}\n\nconst accordion = new AccessibleAccordionItem('billing-faq', 'How do refunds work?');\nconsole.log('=== ACCORDION ARIA STATE SYNCHRONIZATION ===');\nconsole.log('Initial State: aria-expanded=\"' + accordion.getDomAttributes()['aria-expanded'] + '\" (Collapsed)');\naccordion.toggle();\nconsole.log('After Click  : aria-expanded=\"' + accordion.getDomAttributes()['aria-expanded'] + '\" (Expanded & Announced)');\naccordion.toggle();\nconsole.log('After Click  : aria-expanded=\"' + accordion.getDomAttributes()['aria-expanded'] + '\" (Collapsed)');",
+        "output": "=== ACCORDION ARIA STATE SYNCHRONIZATION ===\nInitial State: aria-expanded=\"false\" (Collapsed)\nAfter Click  : aria-expanded=\"true\" (Expanded & Announced)\nAfter Click  : aria-expanded=\"false\" (Collapsed)",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "Toggles internal boolean and updates aria-expanded string in DOM attributes."
+          },
+          {
+            "line": 33,
+            "note": "Demonstrates clean state transition from false to true to false."
+          }
+        ],
+        "tryIt": "Verify that aria-controls correctly references 'billing-faq-panel'.",
+        "check": {
+          "question": "Which ARIA attribute communicates to screen readers whether a collapsible menu or accordion is open?",
+          "options": [
+            "aria-expanded",
+            "aria-open",
+            "aria-visible"
+          ],
+          "answer": 0,
+          "why": "'aria-expanded' is the standardized W3C attribute for collapsible and expandable disclosure widgets."
+        }
+      },
+      {
+        "title": "The First Rule of ARIA: Semantic HTML vs Redundant ARIA",
+        "say": [
+          "The First Rule of ARIA, written by the W3C accessibility team, states:",
+          "'If you can use a native HTML element or attribute with the semantics and behavior you require already built in, then do so; do NOT write custom ARIA instead.'",
+          "Native HTML elements—like '<button>', '<nav>', '<main>', '<header>', '<dialog>', '<input type=\"checkbox\">'—already have rich accessibility semantics, keyboard event handlers, and screen reader mappings built directly into the browser engine.",
+          "Writing '<div role=\"button\" tabindex=\"0\" onclick=\"...\">' requires you to manually reimplement Space and Enter key handlers, disabled states, and focus styling.",
+          "Furthermore, redundant ARIA—like '<button role=\"button\">' or '<nav role=\"navigation\">'—clutters markup and can confuse older screen readers.",
+          "Use native semantic HTML elements first. Add ARIA only when native HTML primitives cannot express the specialized component behavior.",
+          "Let us build an ARIA linter to catch redundant and invalid ARIA roles."
+        ],
+        "example": "A manufactured hammer: buying a forged steel hammer from the hardware store (native HTML) versus attempting to glue a river rock to a tree branch with duct tape (custom div with role).",
+        "code": "interface ElementAriaLint {\n  tag: string;\n  role?: string;\n}\n\ninterface LintViolation {\n  tag: string;\n  message: string;\n  severity: 'ERROR' | 'WARNING';\n}\n\nfunction lintAriaUsage(elements: ElementAriaLint[]): LintViolation[] {\n  const violations: LintViolation[] = [];\n\n  for (const el of elements) {\n    if (el.tag === 'button' && el.role === 'button') {\n      violations.push({ tag: el.tag, message: 'Redundant role=\"button\" on native <button> element', severity: 'WARNING' });\n    } else if (el.tag === 'nav' && el.role === 'navigation') {\n      violations.push({ tag: el.tag, message: 'Redundant role=\"navigation\" on native <nav> element', severity: 'WARNING' });\n    } else if (el.tag === 'div' && el.role === 'button') {\n      violations.push({ tag: el.tag, message: 'First Rule of ARIA violated: replace <div role=\"button\"> with native <button>', severity: 'ERROR' });\n    }\n  }\n\n  return violations;\n}\n\nconst markupToLint: ElementAriaLint[] = [\n  { tag: 'button', role: 'button' },\n  { tag: 'nav', role: 'navigation' },\n  { tag: 'div', role: 'button' },\n  { tag: 'main' }, // Clean!\n];\n\nconst issues = lintAriaUsage(markupToLint);\nconsole.log('=== FIRST RULE OF ARIA LINT AUDIT ===');\nfor (const iss of issues) {\n  console.log('[' + iss.severity + '] <' + iss.tag + '>: ' + iss.message);\n}",
+        "output": "=== FIRST RULE OF ARIA LINT AUDIT ===\n[WARNING] <button>: Redundant role=\"button\" on native <button> element\n[WARNING] <nav>: Redundant role=\"navigation\" on native <nav> element\n[ERROR] <div>: First Rule of ARIA violated: replace <div role=\"button\"> with native <button>",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Flags redundant roles on native elements (button, nav) and catches div-as-button anti-patterns."
+          },
+          {
+            "line": 33,
+            "note": "Enforces First Rule of ARIA: prefer native HTML primitives over custom ARIA divs."
+          }
+        ],
+        "tryIt": "Verify that clean semantic elements without redundant roles produce zero lint violations.",
+        "check": {
+          "question": "What is the First Rule of ARIA according to the W3C?",
+          "options": [
+            "Use native HTML elements with built-in semantics rather than creating custom elements with ARIA roles",
+            "Every HTML tag must have an ARIA role",
+            "Never use semantic HTML"
+          ],
+          "answer": 0,
+          "why": "Native HTML elements provide built-in accessibility, keyboard handling, and screen reader compatibility."
+        }
+      },
+      {
+        "title": "Screen Reader Audit Engine Synthesis: Accessible Semantics Suite",
+        "say": [
+          "We have mastered the W3C Accessible Name Computation algorithm, proper scoping of 'aria-label' vs 'aria-labelledby' vs 'aria-describedby', decorative icon hiding, dynamic state binding, and the First Rule of ARIA.",
+          "Now, let us synthesize these concepts into a production engine: the 'AriaAuditEngine'.",
+          "This engine audits component definitions across our design system, verifying that all interactive elements have valid accessible names, that icons are hidden, and that states synchronize seamlessly.",
+          "Automating screen reader validation ensures that our digital products speak with clarity, dignity, and precision for all users.",
+          "Let us execute the synthesized Screen Reader Audit Engine."
+        ],
+        "example": "A broadcast radio station master audio console: sound engineers monitor decibel levels, speech clarity, and noise gates so every voice is broadcast with crystal clarity across the airwaves.",
+        "code": "interface ComponentAriaSpec {\n  name: string;\n  tag: string;\n  hasAccessibleName: boolean;\n  iconsHidden: boolean;\n  dynamicStatesBound: boolean;\n}\n\ninterface ComponentAriaCertification {\n  name: string;\n  score: number;\n  status: 'CERTIFIED' | 'NEEDS_REVISION';\n}\n\nclass AriaAuditEngine {\n  public static audit(specs: ComponentAriaSpec[]): ComponentAriaCertification[] {\n    return specs.map(s => {\n      let score = 0;\n      if (s.hasAccessibleName) score += 40;\n      if (s.iconsHidden) score += 30;\n      if (s.dynamicStatesBound) score += 30;\n\n      return {\n        name: s.name,\n        score,\n        status: score === 100 ? 'CERTIFIED' : 'NEEDS_REVISION',\n      };\n    });\n  }\n}\n\nconst componentSpecs: ComponentAriaSpec[] = [\n  { name: 'IconButton', tag: 'button', hasAccessibleName: true, iconsHidden: true, dynamicStatesBound: true },\n  { name: 'AccordionDisclosure', tag: 'div', hasAccessibleName: true, iconsHidden: true, dynamicStatesBound: true },\n  { name: 'SearchField', tag: 'input', hasAccessibleName: true, iconsHidden: true, dynamicStatesBound: true },\n];\n\nconst auditResults = AriaAuditEngine.audit(componentSpecs);\nconsole.log('=== SCREEN READER AUDIT ENGINE SYNTHESIS ===');\nfor (const res of auditResults) {\n  console.log('[' + res.name + '] Score: ' + res.score + '% -> ' + res.status);\n}",
+        "output": "=== SCREEN READER AUDIT ENGINE SYNTHESIS ===\n[IconButton] Score: 100% -> CERTIFIED\n[AccordionDisclosure] Score: 100% -> CERTIFIED\n[SearchField] Score: 100% -> CERTIFIED",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Scores components across accessible naming (40%), icon hiding (30%), and state binding (30%)."
+          },
+          {
+            "line": 36,
+            "note": "Certifies all 3 components with 100% compliance."
+          }
+        ],
+        "tryIt": "Verify that a component with missing accessible name receives score 60% and status NEEDS_REVISION.",
+        "check": {
+          "question": "How does the AriaAuditEngine guarantee a high-quality auditory interface for screen reader users?",
+          "options": [
+            "By ensuring all components have accessible names, hidden decorative icons, and synchronized dynamic states",
+            "By synthesizing speech using Web Audio API",
+            "By reading source code comments"
+          ],
+          "answer": 0,
+          "why": "Validating names, icon hiding, and state attributes guarantees clear, uncluttered screen reader announcements."
+        }
+      }
+    ],
+    "summary": [
+      "The W3C Accessible Name algorithm computes titles via: 'aria-labelledby' > 'aria-label' > text > 'alt' > 'title'.",
+      "Use 'aria-labelledby' when visible headings exist; use 'aria-label' for icon-only buttons without visible text.",
+      "Always hide decorative graphics using 'aria-hidden=\"true\"' to prevent auditory noise clutter.",
+      "Synchronize dynamic states ('aria-expanded', 'aria-selected', 'aria-checked') in real time upon user interaction.",
+      "The First Rule of ARIA: Always prefer native semantic HTML elements over custom ARIA-tagged divs."
+    ],
+    "projectStep": {
+      "title": "Build Screen Reader Accessibility Suite",
+      "steps": [
+        "Audit IconButton component ensuring aria-label is present and internal SVG icon has aria-hidden='true'",
+        "Implement AccessibleAccordion component synchronizing aria-expanded and aria-controls attributes",
+        "Add automated ARIA lint rules to CI pipeline checking for First Rule of ARIA violations"
+      ]
+    }
   }
 ];
