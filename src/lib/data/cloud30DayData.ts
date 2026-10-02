@@ -320,7 +320,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `normalizeEdgeHeaders(headers)` converting incoming HTTP header keys to lowercase for consistent cache key generation.",
     "aStarter": "function normalizeEdgeHeaders(headers) {\n  // TODO: Iterate header keys and construct a new object with all lowercase keys\n  \n}",
     "aHint": "Loop Object.entries(headers); build new object with key.toLowerCase() as property names; return normalized headers.",
-    "aTest": "const norm = normalizeEdgeHeaders({ 'Content-Type': 'application/json', 'X-Custom-Auth': 'token123' });\nif (norm['content-type'] !== 'application/json' || norm['x-custom-auth'] !== 'token123') throw new Error('Edge header normalization failed');"
+    "aTest": "const n1 = normalizeEdgeHeaders({ 'Content-Type': 'application/json', 'X-Custom-Auth': 'token123' });\nif (n1['content-type'] !== 'application/json' || n1['x-custom-auth'] !== 'token123') throw new Error('Edge header normalization failed on auth headers');\nconst n2 = normalizeEdgeHeaders({ 'Accept-Encoding': 'gzip, deflate', 'CACHE-CONTROL': 'no-cache' });\nif (n2['accept-encoding'] !== 'gzip, deflate' || n2['cache-control'] !== 'no-cache') throw new Error('Edge header normalization failed on cache headers');\nconst n3 = normalizeEdgeHeaders({ 'USER-AGENT': 'Mozilla/5.0', 'X-Forwarded-For': '192.168.1.1' });\nif (n3['user-agent'] !== 'Mozilla/5.0' || n3['x-forwarded-for'] !== '192.168.1.1') throw new Error('Edge header normalization failed on agent headers');"
   },
   {
     "day": 17,
@@ -400,7 +400,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `createEventBridgeEnvelope(source, detailType, detailObject)` creating standard AWS event payload. Use the EventBridge field names: version ('0'), id, source, 'detail-type', time and detail.",
     "aStarter": "function createEventBridgeEnvelope(src, type, detail) {\n  // TODO: Construct standard EventBridge envelope with Version, Id, Source, DetailType, Time, and Detail\n  \n}",
     "aHint": "Return object with version: '0', id: 'evt_' + Math.random(), source, 'detail-type': detailType, time: new Date().toISOString(), detail: detailObject.",
-    "aTest": "const env = createEventBridgeEnvelope('pinit.orders', 'OrderPlaced', { id: 101 });\nif (env.source !== 'pinit.orders' || env['detail-type'] !== 'OrderPlaced') throw new Error('Envelope formatting failed');\nif (!env.time || env.version !== '0') throw new Error('Envelope metadata failed');"
+    "aTest": "const e1 = createEventBridgeEnvelope('pinit.orders', 'OrderPlaced', { id: 101 });\nif (e1.source !== 'pinit.orders' || e1['detail-type'] !== 'OrderPlaced' || e1.detail.id !== 101 || !e1.time || e1.version !== '0') throw new Error('Envelope formatting failed on orders');\nconst e2 = createEventBridgeEnvelope('pinit.auth', 'UserLogin', { userId: 'u_1' });\nif (e2.source !== 'pinit.auth' || e2['detail-type'] !== 'UserLogin' || e2.detail.userId !== 'u_1') throw new Error('Envelope formatting failed on auth');\nconst e3 = createEventBridgeEnvelope('pinit.billing', 'InvoicePaid', { invoiceId: 'inv_9' });\nif (e3.source !== 'pinit.billing' || e3['detail-type'] !== 'InvoicePaid' || e3.detail.invoiceId !== 'inv_9') throw new Error('Envelope formatting failed on billing');"
   },
   {
     "day": 21,
@@ -440,7 +440,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `fuseContainerEnvVars(baseEnv, secretsList)` merging plain-text environment variables and Secrets Manager ARNs into task definition format. Return { environment, secrets, totalVariableCount } where environment is the base list and totalVariableCount counts both lists.",
     "aStarter": "function fuseContainerEnvVars(base, secrets) {\n  // TODO: Merge base environment array and secrets array into a unified ECS container definition environment list\n  \n}",
     "aHint": "Return object containing environment: baseEnv, secrets: secretsList, totalVariableCount: baseEnv.length + secretsList.length.",
-    "aTest": "const f = fuseContainerEnvVars([{ name: 'PORT', value: '8080' }], [{ name: 'DB_PASS', valueFrom: 'arn:secret' }]);\nif (f.totalVariableCount !== 2 || f.environment[0].name !== 'PORT') throw new Error('ECS environment fusion failed');"
+    "aTest": "const f1 = fuseContainerEnvVars([{ name: 'PORT', value: '8080' }], [{ name: 'DB_PASS', valueFrom: 'arn:secret' }]);\nif (f1.totalVariableCount !== 2 || f1.environment[0].name !== 'PORT' || f1.secrets[0].name !== 'DB_PASS') throw new Error('ECS environment fusion failed on 2 items');\nconst f2 = fuseContainerEnvVars([{ name: 'NODE_ENV', value: 'production' }, { name: 'LOG_LEVEL', value: 'info' }], []);\nif (f2.totalVariableCount !== 2 || f2.environment.length !== 2 || f2.secrets.length !== 0) throw new Error('ECS environment fusion failed on empty secrets');\nconst f3 = fuseContainerEnvVars([], [{ name: 'API_KEY', valueFrom: 'arn:key' }, { name: 'TOKEN', valueFrom: 'arn:tok' }, { name: 'CERT', valueFrom: 'arn:crt' }]);\nif (f3.totalVariableCount !== 3 || f3.environment.length !== 0 || f3.secrets.length !== 3) throw new Error('ECS environment fusion failed on empty base');"
   },
   {
     "day": 23,
@@ -500,7 +500,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatLogFilterQuery(statusCodeThreshold)` generating a standard CloudWatch Logs Insights query string to isolate error logs. The query must contain 'fields @timestamp' and 'filter status >= THRESHOLD'.",
     "aStarter": "function formatLogFilterQuery(codeThreshold) {\n  // TODO: Return CloudWatch Logs Insights query string filtering logs where status is greater than or equal to threshold\n  \n}",
     "aHint": "Return string formatted as: `fields @timestamp, @message | filter status >= ${statusCodeThreshold} | sort @timestamp desc | limit 50`.",
-    "aTest": "const q = formatLogFilterQuery(500);\nif (!q.includes('filter status >= 500') || !q.includes('fields @timestamp')) throw new Error('Log query formatter failed');"
+    "aTest": "const q1 = formatLogFilterQuery(500);\nif (!q1.includes('filter status >= 500') || !q1.includes('fields @timestamp')) throw new Error('Log query formatter failed on 500');\nconst q2 = formatLogFilterQuery(400);\nif (!q2.includes('filter status >= 400') || !q2.includes('fields @timestamp')) throw new Error('Log query formatter failed on 400');\nconst q3 = formatLogFilterQuery(404);\nif (!q3.includes('filter status >= 404')) throw new Error('Log query formatter failed on 404');"
   },
   {
     "day": 26,

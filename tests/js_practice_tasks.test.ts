@@ -343,8 +343,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'react-basics-assign-day-14', 'react-basics-exam-day-15', 'react-basics-assign-day-15', 'react-basics-assign-day-22',
   'react-basics-exam-day-23', 'react-basics-assign-day-23', 'react-basics-exam-day-25',
   'react-basics-exam-day-27', 'react-basics-assign-day-29', 'react-basics-assign-day-30',
-  // course-cloud-native (4 tasks)
-  'cloud-assign-day-16', 'cloud-assign-day-20', 'cloud-assign-day-22', 'cloud-assign-day-25',
+  // course-cloud-native: 0 tasks (all 60 tasks non-constant and verified)
   // course-devops-cicd: 0 tasks (all 60 tasks non-constant and verified)
   // course-quant-systems (24 tasks)
   'quant-systems-assign-day-2', 'quant-systems-assign-day-3', 'quant-systems-assign-day-4', 'quant-systems-assign-day-5',
