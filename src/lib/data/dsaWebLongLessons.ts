@@ -5072,4 +5072,1281 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 21,
+  "title": "⭐ MILESTONE 3: Fast Auto-Complete Engine (Trie + Frequency Min-Heap)",
+  "goal": "Milestone 3: Build an enterprise-scale search auto-complete system returning the top-K highest frequency keyword suggestions in sub-millisecond time.",
+  "minutes": 25,
+  "recap": "Welcome to Milestone 3! Today you will architect and engineer an enterprise-grade real-time search auto-complete system. By pairing a Prefix Tree (Trie) with a bounded frequency Min-Heap, you will return the top-K most popular query suggestions in sub-millisecond time.",
+  "parts": [
+    {
+      "title": "Prefix Indexing with Tries & Word Frequency Maps",
+      "say": [
+        "In modern web search engines and e-commerce platforms, instant query suggestions guide users as they type each letter into the search bar.",
+        "A naive auto-complete engine scans millions of historical query strings using array filters or regular expressions, costing unacceptably slow O(N * L) time.",
+        "The prefix tree, or Trie, provides the optimal indexing architecture by organizing words into a retrieval tree where edges represent characters.",
+        "Every path from the root node to a descendant represents a prefix shared by all words stored in that subtree.",
+        "To support search auto-complete, each terminal node stores not only the boolean isEnd flag, but also the historical search frequency count.",
+        "When a user types a prefix such as 'pro', the engine traverses exactly three character edges in O(K) time to reach the prefix root node.",
+        "All candidate words matching that prefix reside exclusively within the subtree rooted at that prefix node.",
+        "This structural isolation narrows the candidate space from millions of database records to a tiny localized cluster in microseconds.",
+        "Understanding this prefix-pruning capability forms the foundational architectural pillar of high-throughput typeahead engines."
+      ],
+      "example": "A phone book organized strictly by prefix: opening directly to the 'Sm' tab instantly eliminates all names starting with other letters.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEnd = false;\n  frequency = 0;\n}\n\nclass AutoCompleteTrie {\n  root = new TrieNode();\n\n  insert(word: string, frequency: number): void {\n    let curr = this.root;\n    for (const ch of word) {\n      if (!curr.children.has(ch)) curr.children.set(ch, new TrieNode());\n      curr = curr.children.get(ch)!;\n    }\n    curr.isEnd = true;\n    curr.frequency = frequency;\n  }\n}\n\nconst trie = new AutoCompleteTrie();\ntrie.insert('code', 50);\ntrie.insert('coding', 100);\nconsole.log('Root has child c:', trie.root.children.has('c'));\nconsole.log('Prefix tree populated successfully');",
+      "output": "Root has child c: true\nPrefix tree populated successfully",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Stores numerical query frequency count directly on terminal nodes."
+        },
+        {
+          "line": 13,
+          "note": "Navigates or instantiates character nodes sequentially, building prefix paths in O(L) time."
+        }
+      ],
+      "tryIt": "Insert word 'coder' with frequency 75 and verify it shares the 'cod' prefix path.",
+      "check": {
+        "question": "Why is a Trie superior to a flat array for search auto-complete indexing?",
+        "options": [
+          "A Trie locates the prefix node in O(K) time proportional to prefix length K, isolating candidate words immediately",
+          "Tries use less memory than arrays in all scenarios",
+          "Tries automatically translate queries into multiple languages"
+        ],
+        "answer": 0,
+        "why": "Prefix navigation takes O(K) steps regardless of total dictionary size, bypassing linear scans across millions of items."
+      }
+    },
+    {
+      "title": "Subtree Traversal & Candidate Collection Mechanics",
+      "say": [
+        "Once the engine navigates to the prefix node, it must collect all candidate words and their corresponding frequencies from the subtree.",
+        "We execute a recursive Depth-First Search (DFS) starting from the prefix node, passing the accumulated prefix string downward.",
+        "Whenever the traversal encounters a node with isEnd set to true, it records the word string and its frequency into a candidate list.",
+        "Because the Trie branches on characters, DFS naturally explores all completions of the prefix in alphabetical or insertion order.",
+        "If the prefix itself does not exist in the Trie (the prefix navigation hits a missing child), the engine returns an empty list immediately.",
+        "This early termination prevents wasted computation when users enter non-existent prefixes or typos.",
+        "For a prefix shared by C candidate words, the subtree traversal visits only nodes relevant to those candidates.",
+        "However, in a dictionary with thousands of completions for a short prefix like 's', collecting all candidates can overwhelm memory.",
+        "This challenge leads directly to our next optimization: ranking and retaining only the top-K highest frequency results."
+      ],
+      "example": "A tree pruning team following branches from a main bough: they walk every fork that splits from that bough to collect all attached apples.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEnd = false;\n  frequency = 0;\n}\n\nfunction collectWords(node: TrieNode | undefined, prefix: string, results: [string, number][]): void {\n  if (!node) return;\n  if (node.isEnd) results.push([prefix, node.frequency]);\n  for (const [ch, child] of node.children.entries()) {\n    collectWords(child, prefix + ch, results);\n  }\n}\n\nconst root = new TrieNode();\nconst n1 = new TrieNode(); n1.isEnd = true; n1.frequency = 40;\nconst n2 = new TrieNode(); n2.isEnd = true; n2.frequency = 90;\nroot.children.set('a', n1);\nroot.children.set('b', n2);\n\nconst candidates: [string, number][] = [];\ncollectWords(root, '', candidates);\nconsole.log('Candidates collected:', candidates.length);\nfor (const [w, f] of candidates) console.log(`Word: ${w}, Freq: ${f}`);",
+      "output": "Candidates collected: 2\nWord: a, Freq: 40\nWord: b, Freq: 90",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Pushes accumulated word and frequency whenever an endpoint is reached."
+        },
+        {
+          "line": 11,
+          "note": "Recurses into all child nodes, appending child character to running prefix."
+        }
+      ],
+      "tryIt": "Add a child 'c' with frequency 15 and verify it is collected alongside 'a' and 'b'.",
+      "check": {
+        "question": "What is the time complexity of collecting candidate words from a prefix subtree?",
+        "options": [
+          "O(N_sub) where N_sub is the total number of nodes in the prefix subtree",
+          "O(1) constant time",
+          "O(N^2) quadratic time across the entire dictionary"
+        ],
+        "answer": 0,
+        "why": "DFS visits every node in the prefix subtree exactly once, scaling proportionally to subtree size."
+      }
+    },
+    {
+      "title": "Bounded Min-Heap for Top-K Ranking",
+      "say": [
+        "In production search bars, the UI only displays the top three to five highest-frequency suggestions.",
+        "Sorting all C collected candidates with array.sort() takes O(C log C) time, which degrades when prefixes match thousands of words.",
+        "The optimal data structure for top-K selection is a bounded Min-Heap of fixed capacity K.",
+        "We iterate through candidate suggestions, pushing each word-frequency pair into the Min-Heap.",
+        "If the heap size exceeds K, we immediately pop the root element, which is the candidate with the smallest frequency in the heap.",
+        "By continuously ejecting the lowest-frequency candidate, the heap retains only the top-K highest-frequency candidates seen so far.",
+        "Processing C candidates through a bounded heap of size K takes O(C log K) time rather than O(C log C).",
+        "Because K is a small constant (typically K = 5), log K is virtually instantaneous, running in near-linear time relative to candidates.",
+        "This bounded Min-Heap pattern is universally used in streaming analytics, leaderboard engines, and recommendation feeds."
+      ],
+      "example": "A VIP club with a strict capacity of 5 guests: whenever a more famous celebrity arrives, the least famous person currently inside must leave.",
+      "code": "interface Suggestion { word: string; freq: number; }\n\nclass BoundedMinHeap {\n  private data: Suggestion[] = [];\n  constructor(private capacity: number) {}\n\n  push(item: Suggestion): void {\n    this.data.push(item);\n    this.data.sort((a, b) => a.freq - b.freq); // Simulating min-heap ordering\n    if (this.data.length > this.capacity) {\n      this.data.shift(); // Remove minimum frequency item\n    }\n  }\n\n  getTopK(): Suggestion[] {\n    return [...this.data].sort((a, b) => b.freq - a.freq); // Descending for display\n  }\n}\n\nconst heap = new BoundedMinHeap(3);\nheap.push({ word: 'rust', freq: 10 });\nheap.push({ word: 'ruby', freq: 50 });\nheap.push({ word: 'react', freq: 90 });\nheap.push({ word: 'redis', freq: 80 });\n\nconst top3 = heap.getTopK();\nconsole.log('Top 3 suggestions:');\nfor (const s of top3) console.log(`${s.word}: ${s.freq}`);",
+      "output": "Top 3 suggestions:\nreact: 90\nredis: 80\nruby: 50",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Ejects lowest frequency item when capacity exceeds K, preserving top candidates."
+        },
+        {
+          "line": 16,
+          "note": "Returns final suggestions sorted descending by frequency for direct UI rendering."
+        }
+      ],
+      "tryIt": "Push { word: 'rxjs', freq: 120 } and verify it replaces 'ruby' as the new #1 suggestion.",
+      "check": {
+        "question": "Why is a bounded Min-Heap of size K faster than sorting all candidates?",
+        "options": [
+          "It processes C candidates in O(C log K) time, which is substantially faster than O(C log C) when K is much smaller than C",
+          "Because Min-Heaps eliminate duplicate strings",
+          "Because sorting algorithms cannot run in Node.js"
+        ],
+        "answer": 0,
+        "why": "Keeping heap size bounded at K ensures every heap operation costs log K, yielding O(C log K) total time."
+      }
+    },
+    {
+      "title": "Real-Time Frequency Boosting & Query Learning",
+      "say": [
+        "A static auto-complete dictionary quickly becomes stale as new trends, seasonal searches, and breaking news emerge.",
+        "Production auto-complete engines continuously update keyword frequency counters in real time as users execute searches.",
+        "When a user selects or searches a term, the engine traverses the Trie to the terminal node and increments its frequency counter.",
+        "If a newly searched term does not yet exist in the Trie, it is dynamically inserted with an initial frequency score of one.",
+        "To prevent historical queries from permanently dominating new trending topics, engines apply exponential frequency decay over time.",
+        "For example, multiplying all frequencies by a decay factor (such as 0.95) every 24 hours ensures recent searches gain relative weight.",
+        "Furthermore, search results are often personalized by blending global query frequency with user-specific search history.",
+        "Updating node frequencies in-place takes O(L) time where L is the query length, executing without locking or blocking readers.",
+        "This dynamic adaptability transforms a simple prefix tree into an intelligent, self-optimizing suggestion engine."
+      ],
+      "example": "A bookstore display table: every time ten customers ask for the same new novel, the manager moves it closer to the front entrance display.",
+      "code": "class DynamicTrieNode {\n  children = new Map<string, DynamicTrieNode>();\n  isEnd = false;\n  frequency = 0;\n}\n\nclass LearningAutoCompleter {\n  root = new DynamicTrieNode();\n\n  recordSearch(query: string): void {\n    let curr = this.root;\n    for (const ch of query) {\n      if (!curr.children.has(ch)) curr.children.set(ch, new DynamicTrieNode());\n      curr = curr.children.get(ch)!;\n    }\n    curr.isEnd = true;\n    curr.frequency++;\n  }\n\n  getFrequency(query: string): number {\n    let curr = this.root;\n    for (const ch of query) {\n      if (!curr.children.has(ch)) return 0;\n      curr = curr.children.get(ch)!;\n    }\n    return curr.isEnd ? curr.frequency : 0;\n  }\n}\n\nconst learner = new LearningAutoCompleter();\nlearner.recordSearch('typescript');\nlearner.recordSearch('typescript');\nlearner.recordSearch('tailwind');\nconsole.log('Typescript frequency:', learner.getFrequency('typescript'));\nconsole.log('Tailwind frequency:', learner.getFrequency('tailwind'));\nconsole.log('Python frequency (unsearched):', learner.getFrequency('python'));",
+      "output": "Typescript frequency: 2\nTailwind frequency: 1\nPython frequency (unsearched): 0",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "Increments frequency counter in O(L) time upon every recorded search execution."
+        },
+        {
+          "line": 25,
+          "note": "Returns exact live frequency score or 0 if query has never been searched."
+        }
+      ],
+      "tryIt": "Call recordSearch('typescript') once more and verify frequency increments to 3.",
+      "check": {
+        "question": "What is the time complexity of updating a search term's frequency in the Trie?",
+        "options": [
+          "O(L) where L is the character length of the query string",
+          "O(N) where N is total words in dictionary",
+          "O(N log N) to rebalance the entire Trie"
+        ],
+        "answer": 0,
+        "why": "Traversing to the target node follows L character edges, enabling direct in-place frequency updates in O(L) time."
+      }
+    },
+    {
+      "title": "Sub-Millisecond Search Optimization & Caching",
+      "say": [
+        "In production web applications, auto-complete queries must return within 10 to 50 milliseconds to feel instantaneous to the user.",
+        "To achieve sub-millisecond response times under high concurrency, engines avoid running full subtree DFS on every keystroke.",
+        "Instead, each TrieNode can cache the precomputed top-K suggestions directly at that node during write operations.",
+        "When node 'p-r-o' is reached, it immediately returns its precomputed top-K list in O(1) time without visiting any subtree descendants.",
+        "This optimization trades slightly more memory per node for blistering, constant-time suggestion retrieval.",
+        "Additionally, a Least Recently Used (LRU) cache at the API gateway layer caches common prefix queries (e.g., 'a', 'th', 'wh').",
+        "Because 80% of user queries share the top 20% of common prefixes, cache hit ratios routinely exceed 85% in production.",
+        "Debouncing client keystrokes by 150 milliseconds further reduces redundant network calls while maintaining a fluid user experience.",
+        "Combining Trie indexing, top-K precomputation, and gateway caching creates a world-class suggestion infrastructure."
+      ],
+      "example": "A chef pre-chopping onions and garlic before dinner service: when orders pour in, dishes are assembled in seconds without chopping from scratch.",
+      "code": "class CachedTrieNode {\n  children = new Map<string, CachedTrieNode>();\n  topSuggestions: string[] = []; // Precomputed cache\n}\n\nclass FastPrefixCache {\n  root = new CachedTrieNode();\n\n  addWord(word: string): void {\n    let curr = this.root;\n    for (const ch of word) {\n      if (!curr.children.has(ch)) curr.children.set(ch, new CachedTrieNode());\n      curr = curr.children.get(ch)!;\n      // Maintain top suggestions cache (max 2)\n      if (!curr.topSuggestions.includes(word) && curr.topSuggestions.length < 2) {\n        curr.topSuggestions.push(word);\n      }\n    }\n  }\n\n  instantQuery(prefix: string): string[] {\n    let curr = this.root;\n    for (const ch of prefix) {\n      if (!curr.children.has(ch)) return [];\n      curr = curr.children.get(ch)!;\n    }\n    return curr.topSuggestions;\n  }\n}\n\nconst cache = new FastPrefixCache();\ncache.addWord('apple');\ncache.addWord('application');\ncache.addWord('appetite');\nconsole.log('Instant query for \"app\":', JSON.stringify(cache.instantQuery('app')));",
+      "output": "Instant query for \"app\": [\"apple\",\"application\"]",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Each node maintains a precomputed list of top suggestions matching this prefix."
+        },
+        {
+          "line": 24,
+          "note": "Instant O(prefix length) lookup returns cached results without subtree DFS traversal."
+        }
+      ],
+      "tryIt": "Query prefix 'ap' and verify it returns the exact same precomputed suggestions.",
+      "check": {
+        "question": "What is the primary benefit of precomputing top suggestions on Trie nodes?",
+        "options": [
+          "It eliminates subtree DFS traversals during read queries, returning top suggestions in O(prefix length) time",
+          "It compresses the Trie into an array",
+          "It automatically corrects user spelling mistakes"
+        ],
+        "answer": 0,
+        "why": "Precomputed top-K arrays allow the engine to return suggestions immediately upon reaching the prefix node."
+      }
+    },
+    {
+      "title": "Full Milestone 3 Auto-Complete Engine Walkthrough",
+      "say": [
+        "We now assemble our complete production-grade Auto-Complete Engine for Milestone 3.",
+        "Our engine combines the Prefix Tree for O(K) prefix location, recursive subtree collection, and bounded Min-Heap ranking.",
+        "The insert(word, frequency) method indexes historical query phrases and their popularity scores.",
+        "The suggest(prefix, topK) method navigates to the prefix node, collects candidate completions, and returns the top-K ranked suggestions.",
+        "If the prefix does not exist in the dictionary, the engine gracefully returns an empty list without throwing errors.",
+        "Under benchmark tests with thousands of words, queries execute in sub-millisecond times with predictable low memory consumption.",
+        "Auxiliary space complexity is strictly bounded by O(total characters across all indexed words) in the Trie structure.",
+        "Congratulations on completing Milestone 3: you have engineered one of the most critical user-facing algorithmic engines in modern software.",
+        "This auto-complete architecture powers search boxes across Google, Amazon, Netflix, and developer code editor IDEs worldwide."
+      ],
+      "example": "A master flight control tower radar: sweeping millions of airspace miles, identifying incoming aircraft by prefix codes, and displaying the top closest flights instantly.",
+      "code": "class MilestoneTrieNode {\n  children = new Map<string, MilestoneTrieNode>();\n  isEnd = false;\n  freq = 0;\n}\n\nclass ProductionAutoCompleteEngine {\n  private root = new MilestoneTrieNode();\n\n  insert(word: string, freq: number): void {\n    let curr = this.root;\n    for (const ch of word) {\n      if (!curr.children.has(ch)) curr.children.set(ch, new MilestoneTrieNode());\n      curr = curr.children.get(ch)!;\n    }\n    curr.isEnd = true;\n    curr.freq = freq;\n  }\n\n  private collect(node: MilestoneTrieNode, prefix: string, out: { word: string; freq: number }[]): void {\n    if (node.isEnd) out.push({ word: prefix, freq: node.freq });\n    for (const [ch, child] of node.children.entries()) {\n      this.collect(child, prefix + ch, out);\n    }\n  }\n\n  suggest(prefix: string, topK = 3): string[] {\n    let curr = this.root;\n    for (const ch of prefix) {\n      if (!curr.children.has(ch)) return [];\n      curr = curr.children.get(ch)!;\n    }\n\n    const candidates: { word: string; freq: number }[] = [];\n    this.collect(curr, prefix, candidates);\n\n    // Rank by frequency descending, break ties alphabetically\n    candidates.sort((a, b) => b.freq - a.freq || a.word.localeCompare(b.word));\n    return candidates.slice(0, topK).map(c => c.word);\n  }\n}\n\nconst engine = new ProductionAutoCompleteEngine();\nengine.insert('amazon', 1000);\nengine.insert('amazing', 500);\nengine.insert('amazon prime', 800);\nengine.insert('apple', 1200);\n\nconsole.log('Suggestions for \"am\":', JSON.stringify(engine.suggest('am', 3)));\nconsole.log('Suggestions for \"amaz\":', JSON.stringify(engine.suggest('amaz', 2)));\nconsole.log('Suggestions for \"app\":', JSON.stringify(engine.suggest('app', 1)));\nconsole.log('Suggestions for \"xyz\":', JSON.stringify(engine.suggest('xyz', 3)));",
+      "output": "Suggestions for \"am\": [\"amazon\",\"amazon prime\",\"amazing\"]\nSuggestions for \"amaz\": [\"amazon\",\"amazon prime\"]\nSuggestions for \"app\": [\"apple\"]\nSuggestions for \"xyz\": []",
+      "codeNotes": [
+        {
+          "line": 36,
+          "note": "Ranks candidates by frequency descending with alphabetical tie-breaking."
+        },
+        {
+          "line": 49,
+          "note": "Demonstrates accurate prefix routing and frequency-ranked top-K suggestion output."
+        }
+      ],
+      "tryIt": "Insert 'amaze' with frequency 900 and verify it takes second place behind 'amazon'.",
+      "check": {
+        "question": "What are the time and space complexities of Milestone 3 ProductionAutoCompleteEngine?",
+        "options": [
+          "O(K + C log C) time for suggest where K is prefix length and C is candidate count; O(total characters) space",
+          "O(N^2) time and O(N^2) space",
+          "O(1) time and infinite space"
+        ],
+        "answer": 0,
+        "why": "Traversing the prefix takes O(K) steps; collecting and ranking candidates takes O(C log C); memory is bounded by character nodes."
+      }
+    }
+  ],
+  "summary": [
+    "Prefix trees (Tries) index words by character paths, allowing prefix localization in O(prefix length) time.",
+    "Candidate suggestions in a prefix subtree are gathered via recursive Depth-First Search traversal.",
+    "Bounded Min-Heaps of size K optimize candidate ranking, executing in O(C log K) time instead of full sorting.",
+    "Dynamic frequency counters allow the suggestion engine to learn and adapt to user search patterns in real time.",
+    "Precomputed suggestion caches on Trie nodes enable sub-millisecond, instant-response auto-complete queries."
+  ],
+  "projectStep": {
+    "title": "Production Auto-Complete Engine Implementation",
+    "steps": [
+      "Implement MilestoneTrieNode with children Map, isEnd flag, and numerical frequency counter.",
+      "Implement recursive collect subroutine to gather all matching words from a prefix subtree.",
+      "Build suggest method with frequency-based top-K ranking and alphabetical tie-breaking."
+    ]
+  }
+},
+{
+  "day": 22,
+  "title": "Dijkstra's Shortest Path Algorithm & Weighted Graphs",
+  "goal": "Compute shortest paths in weighted directed graphs with non-negative edge costs using Priority Queues.",
+  "minutes": 25,
+  "recap": "Yesterday you built Milestone 3's real-time Auto-Complete Engine. Today we tackle one of the most famous algorithms in computer science: Dijkstra's Shortest Path Algorithm for weighted networks.",
+  "parts": [
+    {
+      "title": "Weighted Graphs & The Shortest Path Problem",
+      "say": [
+        "In unweighted graphs, Breadth-First Search (BFS) finds the shortest path by counting the minimum number of hops.",
+        "However, real-world networks—such as road systems, airline routes, and internet routing topologies—carry edge weights representing distance, latency, or monetary cost.",
+        "In a weighted graph, a path with five low-weight edges may be substantially shorter than a path with two heavy-weight edges.",
+        "The single-source shortest path problem asks for the minimum cumulative weight from a designated starting vertex to all other vertices.",
+        "Dijkstra's Algorithm, developed by Edsger Dijkstra in 1956, solves this problem optimally for graphs with non-negative edge weights.",
+        "We represent weighted graphs using an Adjacency List where each vertex maps to neighbor pairs: [neighbor, weight].",
+        "We maintain a distance map initialized to infinity for all vertices, except the starting vertex which is initialized to zero.",
+        "Dijkstra's algorithm operates greedily, continuously expanding the unvisited vertex with the currently smallest tentative distance.",
+        "Understanding this greedy foundation enables engineers to model delivery logistics, packet routing, and network flow optimization."
+      ],
+      "example": "A road navigation GPS: driving 15 miles on a high-speed highway takes less time than driving 8 miles through congested city streets.",
+      "code": "interface WeightedEdge { to: string; weight: number; }\n\nclass WeightedGraph {\n  adj = new Map<string, WeightedEdge[]>();\n\n  addEdge(u: string, v: string, weight: number): void {\n    if (!this.adj.has(u)) this.adj.set(u, []);\n    this.adj.get(u)!.push({ to: v, weight });\n  }\n}\n\nconst g = new WeightedGraph();\ng.addEdge('A', 'B', 4);\ng.addEdge('A', 'C', 2);\ng.addEdge('C', 'B', 1);\n\nconsole.log('Edges from A:', JSON.stringify(g.adj.get('A')));\nconsole.log('Edges from C:', JSON.stringify(g.adj.get('C')));",
+      "output": "Edges from A: [{\"to\":\"B\",\"weight\":4},{\"to\":\"C\",\"weight\":2}]\nEdges from C: [{\"to\":\"B\",\"weight\":1}]",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Stores directed edge with destination vertex and numerical cost."
+        },
+        {
+          "line": 15,
+          "note": "Demonstrates that path A -> C -> B (cost 2 + 1 = 3) is cheaper than direct edge A -> B (cost 4)."
+        }
+      ],
+      "tryIt": "Add edge B -> D with weight 5 and verify the total path cost from A to D.",
+      "check": {
+        "question": "Why cannot standard unweighted BFS find the shortest path in a weighted graph?",
+        "options": [
+          "BFS treats all edges as having equal weight of 1, ignoring numerical edge costs",
+          "BFS can only run on binary trees",
+          "BFS cannot store letters as vertex names"
+        ],
+        "answer": 0,
+        "why": "BFS explores by hop count; a path with fewer hops can have a much higher cumulative weight than a multi-hop path."
+      }
+    },
+    {
+      "title": "Greedy Edge Relaxation Invariants",
+      "say": [
+        "The core mathematical operation in Dijkstra's algorithm is edge relaxation.",
+        "Consider an edge from vertex u to vertex v with weight w.",
+        "If the known distance to u plus the weight w is strictly less than the currently recorded distance to v, we have discovered a shorter route.",
+        "We 'relax' the edge by updating dist[v] = dist[u] + w, and record u as the predecessor of v for path reconstruction.",
+        "Formally: if (dist[u] + weight < dist[v]) { dist[v] = dist[u] + weight; parent[v] = u; }",
+        "Edge relaxation monotonically tightens upper bounds on shortest paths, never increasing a vertex distance.",
+        "Once a vertex with the minimum tentative distance is settled from the priority queue, its distance is finalized and proven optimal.",
+        "This optimality proof relies strictly on edge weights being non-negative; negative edges can invalidate settled distances.",
+        "For networks with negative edge weights, engineers must use the Bellman-Ford algorithm or Johnson's reweighting algorithm instead."
+      ],
+      "example": "Discovering a shortcut: you knew driving home took 30 minutes, but a friend shows you a route via Oak Street that takes only 22 minutes.",
+      "code": "function relaxEdge(\n  u: string,\n  v: string,\n  weight: number,\n  dist: Map<string, number>,\n  parent: Map<string, string>\n): boolean {\n  const distU = dist.get(u) ?? Infinity;\n  const distV = dist.get(v) ?? Infinity;\n  if (distU + weight < distV) {\n    dist.set(v, distU + weight);\n    parent.set(v, u);\n    return true; // Relaxation succeeded\n  }\n  return false;\n}\n\nconst dist = new Map<string, number>([['A', 0], ['B', 10], ['C', 2]]);\nconst parent = new Map<string, string>();\n\nconsole.log('Relax C -> B (wt=1):', relaxEdge('C', 'B', 1, dist, parent));\nconsole.log('New dist to B:', dist.get('B'));\nconsole.log('Parent of B:', parent.get('B'));",
+      "output": "Relax C -> B (wt=1): true\nNew dist to B: 3\nParent of B: C",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Tests relaxation condition: dist[u] + weight < dist[v]."
+        },
+        {
+          "line": 11,
+          "note": "Updates distance and records predecessor for path reconstruction."
+        }
+      ],
+      "tryIt": "Attempt to relax edge A -> B with weight 10 and verify it returns false because cost 3 is already better.",
+      "check": {
+        "question": "What does edge relaxation achieve in shortest path algorithms?",
+        "options": [
+          "It updates a destination vertex with a newly discovered shorter path cost and records the predecessor",
+          "It removes the edge from the graph entirely",
+          "It sets all negative edge weights to zero"
+        ],
+        "answer": 0,
+        "why": "Relaxation tightens upper bounds whenever a path through intermediate vertex u offers a lower cumulative cost to v."
+      }
+    },
+    {
+      "title": "Priority Queue / Min-Heap Distance Tracking",
+      "say": [
+        "A naive implementation of Dijkstra's algorithm scans all unvisited vertices to find the minimum distance, taking O(V^2) time.",
+        "While acceptable for dense graphs where E is close to V^2, real-world networks are sparse (E is roughly O(V)).",
+        "By using a Min-Heap (Priority Queue) to track tentative distances, finding the next vertex takes O(log V) instead of O(V).",
+        "We push pairs [vertex, distance] into the Min-Heap, ordered ascending by distance.",
+        "When an edge to neighbor v is relaxed, we push the updated pair [v, newDist] into the priority queue.",
+        "If a vertex is relaxed multiple times, multiple entries for that vertex will exist in the priority queue with different distances.",
+        "We handle this cleanly with lazy deletion: upon popping [curr, d], if d is greater than the recorded dist[curr], we skip it as stale.",
+        "With a binary Min-Heap, Dijkstra's algorithm runs in O((V + E) log V) time, which simplifies to O(E log V) for connected graphs.",
+        "This logarithmic priority queue acceleration makes Dijkstra feasible for continent-scale road networks with millions of intersections."
+      ],
+      "example": "An airport departure board sorting flights by scheduled departure time: the earliest departing flight is always at the top of the display.",
+      "code": "class PriorityQueue<T> {\n  private items: { item: T; priority: number }[] = [];\n\n  push(item: T, priority: number): void {\n    this.items.push({ item, priority });\n    this.items.sort((a, b) => a.priority - b.priority); // Simulated Min-Heap\n  }\n\n  pop(): T | undefined {\n    return this.items.shift()?.item;\n  }\n\n  size(): number { return this.items.length; }\n}\n\nconst pq = new PriorityQueue<string>();\npq.push('Node-B', 15);\npq.push('Node-C', 5);\npq.push('Node-D', 20);\n\nconsole.log('Smallest distance node:', pq.pop());\nconsole.log('Next smallest:', pq.pop());",
+      "output": "Smallest distance node: Node-C\nNext smallest: Node-B",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Pushes item with numeric priority; min priority sits at front."
+        },
+        {
+          "line": 9,
+          "note": "Pops node with minimum tentative distance in O(1) time."
+        }
+      ],
+      "tryIt": "Push 'Node-A' with priority 1 and verify it pops first before 'Node-C'.",
+      "check": {
+        "question": "What is the time complexity of Dijkstra's algorithm using a binary Min-Heap on a graph with V vertices and E edges?",
+        "options": [
+          "O((V + E) log V) time, running in O(E log V) on connected graphs",
+          "O(V^3) cubic time",
+          "O(V * E) time"
+        ],
+        "answer": 0,
+        "why": "Each vertex is extracted from the heap once (V log V) and each edge can trigger a heap insert (E log V), totaling O((V + E) log V)."
+      }
+    },
+    {
+      "title": "Full Dijkstra Algorithm Implementation",
+      "say": [
+        "We now assemble the complete Dijkstra's Shortest Path Algorithm.",
+        "The function accepts a graph, a source vertex, and an optional target vertex.",
+        "We initialize a dist Map with 0 for the source and Infinity for all other vertices, plus a visited Set to avoid re-processing.",
+        "We push the source vertex [source, 0] into our Min-Heap priority queue.",
+        "While the priority queue is not empty, we pop the vertex u with the smallest distance.",
+        "If u has already been finalized in the visited set, we skip it; otherwise, we mark u as visited.",
+        "If u equals the target vertex, we can terminate early because its shortest path is guaranteed to be finalized.",
+        "We then iterate through all outgoing edges from u, attempting relaxation on each neighbor; on success, we push [neighbor, newDist] to the heap.",
+        "This clean, robust loop handles disconnected components, multi-edges, and arbitrary directed graph topologies flawlessly."
+      ],
+      "example": "Water flowing through an irrigation canal network: water naturally reaches the closest fields first before filling farther ditches.",
+      "code": "function dijkstra(\n  graph: Map<string, [string, number][]>,\n  start: string\n): Map<string, number> {\n  const dist = new Map<string, number>();\n  const visited = new Set<string>();\n  const pq: [string, number][] = [[start, 0]];\n  dist.set(start, 0);\n\n  while (pq.length > 0) {\n    pq.sort((a, b) => a[1] - b[1]); // Sort by distance ascending\n    const [u, d] = pq.shift()!;\n\n    if (visited.has(u)) continue;\n    visited.add(u);\n\n    for (const [v, weight] of (graph.get(u) || [])) {\n      const alt = d + weight;\n      if (alt < (dist.get(v) ?? Infinity)) {\n        dist.set(v, alt);\n        pq.push([v, alt]);\n      }\n    }\n  }\n  return dist;\n}\n\nconst network = new Map<string, [string, number][]>();\nnetwork.set('A', [['B', 4], ['C', 2]]);\nnetwork.set('B', [['D', 5]]);\nnetwork.set('C', [['B', 1], ['D', 8]]);\nnetwork.set('D', []);\n\nconst distances = dijkstra(network, 'A');\nconsole.log('Shortest dist A->A:', distances.get('A'));\nconsole.log('Shortest dist A->B:', distances.get('B'));\nconsole.log('Shortest dist A->C:', distances.get('C'));\nconsole.log('Shortest dist A->D:', distances.get('D'));",
+      "output": "Shortest dist A->A: 0\nShortest dist A->B: 3\nShortest dist A->C: 2\nShortest dist A->D: 8",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Pops node with minimum tentative distance; skips if already settled in visited set."
+        },
+        {
+          "line": 19,
+          "note": "Relaxes neighbor distances and pushes updated distance pairs to the priority queue."
+        },
+        {
+          "line": 36,
+          "note": "Confirms optimal route to D: A -> C (2) -> B (1) -> D (5) = total cost 8."
+        }
+      ],
+      "tryIt": "Add edge C -> D with weight 3 and verify shortest distance to D drops to 5.",
+      "check": {
+        "question": "Why does Dijkstra's algorithm require all edge weights to be non-negative?",
+        "options": [
+          "Negative weights can cause settled vertices to be relaxed again with lower costs, breaking greedy optimality",
+          "Because computers cannot store negative numbers in arrays",
+          "Because distance is defined as an unsigned integer in JavaScript"
+        ],
+        "answer": 0,
+        "why": "The greedy proof assumes that adding an edge can only increase or maintain path cost; negative weights violate this monotonicity."
+      }
+    },
+    {
+      "title": "Path Reconstruction via Predecessor Pointers",
+      "say": [
+        "In navigation and routing engines, returning only the numeric path distance is insufficient; users need the exact turn-by-turn route.",
+        "We reconstruct the full path by maintaining a parent Map that records which vertex relaxed each node.",
+        "Whenever dist[v] is updated via edge u -> v, we execute parent.set(v, u).",
+        "To reconstruct the path from source to destination, we start at the destination and follow parent pointers backward until reaching the source.",
+        "We push each visited vertex into an array, and reverse the array at the end to obtain the path in forward chronological order.",
+        "If a destination vertex has no parent and does not equal the source, that destination is unreachable, and we return an empty path.",
+        "Path reconstruction runs in O(P) time where P is the number of vertices along the shortest path, consuming O(V) space.",
+        "This predecessor chaining mechanism is identical to the backtrack pointer technique used in dynamic programming and compilers.",
+        "Predecessor trees also form the basis of shortest-path tree (SPT) protocol broadcasting in internet gateway routers (OSPF)."
+      ],
+      "example": "Leaving breadcrumbs on a hiking trail: to return to camp, you follow the breadcrumb trail backwards, then retrace it forward to review your trek.",
+      "code": "function reconstructPath(parent: Map<string, string>, start: string, end: string): string[] {\n  const path: string[] = [];\n  let curr: string | undefined = end;\n\n  while (curr !== undefined) {\n    path.push(curr);\n    if (curr === start) break;\n    curr = parent.get(curr);\n  }\n  if (path[path.length - 1] !== start) return []; // Unreachable\n  return path.reverse();\n}\n\nconst parentMap = new Map<string, string>([\n  ['C', 'A'],\n  ['B', 'C'],\n  ['D', 'B']\n]);\n\nconst route = reconstructPath(parentMap, 'A', 'D');\nconsole.log('Reconstructed path:', route.join(' -> '));",
+      "output": "Reconstructed path: A -> C -> B -> D",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Follows parent pointers backward from destination until reaching source vertex."
+        },
+        {
+          "line": 10,
+          "note": "Reverses array to present path in natural forward traversal order: A -> C -> B -> D."
+        }
+      ],
+      "tryIt": "Query path from 'A' to 'B' and verify it returns ['A', 'C', 'B'].",
+      "check": {
+        "question": "How does predecessor tracking allow complete path reconstruction after Dijkstra finishes?",
+        "options": [
+          "By tracing parent pointers backward from destination to source, then reversing the sequence",
+          "By storing every possible path in a 2D matrix during traversal",
+          "By re-running Dijkstra from scratch for each intermediate vertex"
+        ],
+        "answer": 0,
+        "why": "Each relaxed vertex stores its immediate predecessor, forming a reversed singly linked chain leading back to the source."
+      }
+    },
+    {
+      "title": "Dense vs Sparse Networks & Real-World Latency Routing",
+      "say": [
+        "In production network engineering, graph density dictates the choice of data structure for Dijkstra's algorithm.",
+        "A sparse graph has E = O(V); an array-based binary heap achieves O(E log V), which is ideal for road maps and internet peerings.",
+        "A dense graph has E = O(V^2); an adjacency matrix with a linear O(V) array scan achieves O(V^2), beating the heap's O(V^2 log V).",
+        "Fibonacci Heaps theoretically achieve O(E + V log V), but their high constant factors make binary heaps faster in practice.",
+        "In distributed microservice networks, edge weights represent dynamic HTTP request latency percentiles (P99 latency).",
+        "Routing meshes like Envoy and Istio periodically execute Dijkstra over service dependency graphs to route RPC calls through the lowest-latency nodes.",
+        "If a network switch or server becomes congested, its edge weight surges, causing Dijkstra to automatically divert traffic around the bottleneck.",
+        "Today you have mastered weighted graph modeling, greedy edge relaxation, priority queue acceleration, and path reconstruction.",
+        "Dijkstra's algorithm is one of the most practically consequential algorithmic discoveries in human history, powering global GPS and internet communications."
+      ],
+      "example": "An internet router directing streaming video packets: diverting traffic away from an undersea cable experiencing fiber degradation to a satellite link with lower packet drop rates.",
+      "code": "function findFastestRoute(\n  graph: Map<string, [string, number][]>,\n  start: string,\n  end: string\n): { path: string[]; latencyMs: number } {\n  const dist = new Map<string, number>([[start, 0]]);\n  const parent = new Map<string, string>();\n  const pq: [string, number][] = [[start, 0]];\n  const visited = new Set<string>();\n\n  while (pq.length > 0) {\n    pq.sort((a, b) => a[1] - b[1]);\n    const [u, d] = pq.shift()!;\n    if (u === end) break;\n    if (visited.has(u)) continue;\n    visited.add(u);\n\n    for (const [v, lat] of (graph.get(u) || [])) {\n      if (d + lat < (dist.get(v) ?? Infinity)) {\n        dist.set(v, d + lat);\n        parent.set(v, u);\n        pq.push([v, d + lat]);\n      }\n    }\n  }\n\n  // Reconstruct\n  const path: string[] = [];\n  let curr: string | undefined = end;\n  while (curr !== undefined) {\n    path.push(curr);\n    if (curr === start) break;\n    curr = parent.get(curr);\n  }\n  return { path: path.reverse(), latencyMs: dist.get(end) ?? -1 };\n}\n\nconst networkMesh = new Map<string, [string, number][]>();\nnetworkMesh.set('US-East', [['US-West', 70], ['EU-Central', 85]]);\nnetworkMesh.set('US-West', [['Asia-East', 110]]);\nnetworkMesh.set('EU-Central', [['Asia-East', 130]]);\nnetworkMesh.set('Asia-East', []);\n\nconst result = findFastestRoute(networkMesh, 'US-East', 'Asia-East');\nconsole.log('Fastest path:', result.path.join(' -> '));\nconsole.log('Total latency:', result.latencyMs, 'ms');",
+      "output": "Fastest path: US-East -> US-West -> Asia-East\nTotal latency: 180 ms",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Early exit: terminates search the moment destination vertex is settled from priority queue."
+        },
+        {
+          "line": 43,
+          "note": "Chooses route US-East -> US-West -> Asia-East (70+110=180ms) over EU route (85+130=215ms)."
+        }
+      ],
+      "tryIt": "Simulate trans-Pacific fiber cut by setting US-West -> Asia-East to 200ms; verify route flips through EU-Central.",
+      "check": {
+        "question": "When does an unaugmented array implementation of Dijkstra (O(V^2)) outperform a binary heap (O(E log V))?",
+        "options": [
+          "On very dense graphs where E is approximately V^2, because V^2 < V^2 log V and array constants are smaller",
+          "On trees with no cycles",
+          "On graphs with negative edge weights"
+        ],
+        "answer": 0,
+        "why": "In a fully connected dense graph, E = V(V-1)/2; heap updates cost O(V^2 log V), while direct array scanning costs only O(V^2)."
+      }
+    }
+  ],
+  "summary": [
+    "Dijkstra's Algorithm finds single-source shortest paths on graphs with non-negative edge weights in O((V + E) log V) time.",
+    "Edge relaxation monotonically tightens upper bounds: if dist[u] + weight < dist[v], update dist[v] and record parent.",
+    "Min-Heap priority queues greedily extract the unvisited vertex with the smallest tentative distance in O(log V) time.",
+    "Path reconstruction traverses predecessor pointers backward from destination to source in O(path length) time.",
+    "Dynamic latency routing engines utilize Dijkstra to automatically bypass congested nodes in distributed service meshes."
+  ],
+  "projectStep": {
+    "title": "Dijkstra Shortest Path Engine Implementation",
+    "steps": [
+      "Implement WeightedGraph representation with adjacency lists.",
+      "Implement dijkstra algorithm with Min-Heap priority queue and edge relaxation.",
+      "Build reconstructPath utility to return complete forward turn-by-turn routes."
+    ]
+  }
+},
+{
+  "day": 23,
+  "title": "Topological Sort (Kahn's In-Degree Algorithm) & DAGs",
+  "goal": "Schedule build tasks and course prerequisites using in-degree reduction and cycle detection.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered Dijkstra's algorithm for weighted shortest paths. Today we enter the world of Directed Acyclic Graphs (DAGs) and Topological Sorting: determining valid sequential execution orderings across dependency networks.",
+  "parts": [
+    {
+      "title": "Directed Acyclic Graphs (DAG) & Dependency Ordering",
+      "say": [
+        "In software architecture, tasks frequently depend on the completion of prior tasks before they can safely begin.",
+        "Examples include software build pipelines, college course prerequisites, spreadsheet formula evaluations, and database migrations.",
+        "We model these dependency structures using a Directed Graph where an edge u -> v signifies that task u must complete before task v can start.",
+        "A Topological Sort is a linear ordering of all vertices such that for every directed edge u -> v, vertex u appears before vertex v in the ordering.",
+        "A topological ordering is ONLY possible if the graph contains absolutely zero cycles; such a graph is called a Directed Acyclic Graph (DAG).",
+        "If a graph contains a directed cycle (e.g., A depends on B, B depends on C, and C depends on A), no valid sequence exists; this is a circular dependency deadlock.",
+        "A DAG can have multiple valid topological orderings; any sequence that respects all directed constraints is completely valid.",
+        "Detecting circular dependencies and scheduling execution orderings are essential skills for backend systems engineers.",
+        "Build systems like Make, Webpack, Bazel, and package managers like npm rely on topological sorting to compile dependencies in correct order."
+      ],
+      "example": "Getting dressed in the morning: you must put on socks before shoes, and underwear before pants, but whether you put on socks or underwear first does not matter.",
+      "code": "interface TaskDependency { task: string; dependsOn: string[]; }\n\nfunction validateLinearOrder(tasks: string[], edges: [string, string][]): boolean {\n  const pos = new Map<string, number>();\n  tasks.forEach((t, i) => pos.set(t, i));\n\n  for (const [u, v] of edges) {\n    // Edge u -> v means u must appear before v\n    if ((pos.get(u) ?? Infinity) >= (pos.get(v) ?? Infinity)) return false;\n  }\n  return true;\n}\n\nconst edges: [string, string][] = [['Socks', 'Shoes'], ['Underwear', 'Pants'], ['Pants', 'Shoes']];\nconst validOrder = ['Underwear', 'Pants', 'Socks', 'Shoes'];\nconst invalidOrder = ['Shoes', 'Socks', 'Underwear', 'Pants'];\n\nconsole.log('Valid order passes:', validateLinearOrder(validOrder, edges));\nconsole.log('Invalid order fails:', validateLinearOrder(invalidOrder, edges));",
+      "output": "Valid order passes: true\nInvalid order fails: false",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Validates that for every dependency edge u -> v, index of u is strictly less than index of v."
+        },
+        {
+          "line": 17,
+          "note": "Demonstrates that putting on Shoes before Socks violates the topological ordering constraint."
+        }
+      ],
+      "tryIt": "Create a valid order where 'Socks' appears before 'Underwear' and verify it also returns true.",
+      "check": {
+        "question": "Under what condition is a topological ordering mathematically impossible for a directed graph?",
+        "options": [
+          "When the graph contains at least one directed cycle (circular dependency)",
+          "When the graph contains more than 10 vertices",
+          "When the vertices are named using strings rather than numbers"
+        ],
+        "answer": 0,
+        "why": "A cycle creates an inescapable circular dependency (A before B, B before A), making any linear ordering logically contradictory."
+      }
+    },
+    {
+      "title": "In-Degree & Out-Degree Concepts",
+      "say": [
+        "To systematically compute a topological ordering, we inspect the degrees of vertices in the directed graph.",
+        "The in-degree of a vertex is the number of incoming directed edges pointing into that vertex: inDegree(v) = count of edges (* -> v).",
+        "In a dependency graph, in-degree represents the number of unfulfilled prerequisites or blockers that must finish before task v can start.",
+        "The out-degree of a vertex is the number of outgoing directed edges leaving that vertex: outDegree(u) = count of edges (u -> *).",
+        "Out-degree represents how many downstream tasks depend on the completion of task u.",
+        "A vertex with an in-degree of zero has zero prerequisite blockers; it is completely ready for immediate execution.",
+        "Every finite Directed Acyclic Graph is mathematically guaranteed to possess at least one vertex with an in-degree of zero.",
+        "Computing in-degrees for all vertices takes O(V + E) time by iterating across all edges in the adjacency list.",
+        "This in-degree metric forms the operational core of Kahn's Algorithm for topological sorting."
+      ],
+      "example": "A college course catalog: introductory CS 101 has an in-degree of 0 (no prerequisites); advanced Machine Learning has an in-degree of 3 (requires Math, Stats, and CS).",
+      "code": "function computeInDegrees(vertices: string[], edges: [string, string][]): Map<string, number> {\n  const inDegree = new Map<string, number>();\n  for (const v of vertices) inDegree.set(v, 0);\n\n  for (const [u, v] of edges) {\n    inDegree.set(v, (inDegree.get(v) || 0) + 1);\n  }\n  return inDegree;\n}\n\nconst courses = ['CS101', 'Math101', 'DataStruct', 'Algorithms'];\nconst prereqs: [string, string][] = [\n  ['CS101', 'DataStruct'],\n  ['Math101', 'Algorithms'],\n  ['DataStruct', 'Algorithms']\n];\n\nconst degrees = computeInDegrees(courses, prereqs);\nfor (const [c, deg] of degrees) console.log(`Course ${c} has in-degree: ${deg}`);",
+      "output": "Course CS101 has in-degree: 0\nCourse Math101 has in-degree: 0\nCourse DataStruct has in-degree: 1\nCourse Algorithms has in-degree: 2",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Increments in-degree counter for destination vertex v on every incoming edge."
+        },
+        {
+          "line": 17,
+          "note": "CS101 and Math101 have in-degree 0, identifying them as available entry points."
+        }
+      ],
+      "tryIt": "Add a prerequisite from Algorithms to CS101 and observe that Algorithms in-degree stays 2 while CS101 becomes 1.",
+      "check": {
+        "question": "What does an in-degree of 0 signify in a dependency graph?",
+        "options": [
+          "The task has zero prerequisites and can be scheduled or executed immediately",
+          "The task cannot be executed by any worker",
+          "The task is the final exit node of the pipeline"
+        ],
+        "answer": 0,
+        "why": "In-degree counts incoming blockers; zero incoming edges means all dependencies are satisfied."
+      }
+    },
+    {
+      "title": "Kahn's Algorithm (BFS In-Degree Reduction)",
+      "say": [
+        "Kahn's Algorithm, published by Arthur Kahn in 1962, is an elegant BFS-based algorithm for topological sorting.",
+        "Step 1: Compute the in-degree of every vertex in the graph.",
+        "Step 2: Initialize a FIFO queue and enqueue all vertices with an in-degree of zero.",
+        "Step 3: While the queue is not empty, dequeue a vertex u, append it to the topological ordering result list.",
+        "Step 4: For each outgoing neighbor v of u, simulate the completion of u by decrementing inDegree[v] by 1.",
+        "Step 5: If inDegree[v] becomes 0, all of v's prerequisites have completed; enqueue v immediately.",
+        "Step 6: Repeat until the queue is empty.",
+        "Each vertex enters and exits the queue at most once, and each edge is inspected exactly once.",
+        "Therefore, Kahn's algorithm executes in optimal O(V + E) linear time with O(V) auxiliary space."
+      ],
+      "example": "A factory assembly line: parts with zero missing components are placed on the conveyor belt; as each part is installed, remaining assemblies have their missing-parts counter decremented.",
+      "code": "function kahnsAlgorithm(vertices: string[], edges: [string, string][]): string[] {\n  const adj = new Map<string, string[]>();\n  const inDegree = new Map<string, number>();\n\n  for (const v of vertices) {\n    adj.set(v, []);\n    inDegree.set(v, 0);\n  }\n  for (const [u, v] of edges) {\n    adj.get(u)!.push(v);\n    inDegree.set(v, (inDegree.get(v) || 0) + 1);\n  }\n\n  // Queue of zero in-degree nodes\n  const queue: string[] = [];\n  for (const [v, deg] of inDegree.entries()) {\n    if (deg === 0) queue.push(v);\n  }\n\n  const order: string[] = [];\n  while (queue.length > 0) {\n    const u = queue.shift()!;\n    order.push(u);\n\n    for (const v of adj.get(u)!) {\n      inDegree.set(v, inDegree.get(v)! - 1);\n      if (inDegree.get(v) === 0) queue.push(v);\n    }\n  }\n  return order;\n}\n\nconst vList = ['A', 'B', 'C', 'D'];\nconst eList: [string, string][] = [['A', 'B'], ['A', 'C'], ['B', 'D'], ['C', 'D']];\nconsole.log('Topological sort:', kahnsAlgorithm(vList, eList).join(' -> '));",
+      "output": "Topological sort: A -> B -> C -> D",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Enqueues all initially unblocked vertices (in-degree 0)."
+        },
+        {
+          "line": 24,
+          "note": "Decrements neighbor in-degrees; enqueues neighbor as soon as its in-degree reaches 0."
+        }
+      ],
+      "tryIt": "Pass an independent vertex 'E' with no edges and verify it is included in the output ordering.",
+      "check": {
+        "question": "What is the time complexity of Kahn's Algorithm for topological sorting?",
+        "options": [
+          "O(V + E) linear time across vertices and edges",
+          "O(V^2) quadratic time",
+          "O(V log V) logarithmic time"
+        ],
+        "answer": 0,
+        "why": "Every vertex is enqueued/dequeued once (O(V)), and every directed edge is traversed once to decrement in-degrees (O(E))."
+      }
+    },
+    {
+      "title": "Cycle Detection via Topological Sort Failure",
+      "say": [
+        "A critical feature of Kahn's Algorithm is its built-in ability to detect circular dependency deadlocks.",
+        "When the algorithm finishes, we compare the length of the result list against the total number of vertices: order.length === totalVertices.",
+        "If order.length equals totalVertices, the graph is a valid DAG and all tasks were successfully scheduled.",
+        "However, if order.length is strictly less than totalVertices, the graph definitively contains at least one directed cycle.",
+        "Why? Vertices trapped inside a cycle continuously wait on each other; their in-degrees can never drop to zero.",
+        "Consequently, cyclic vertices are never enqueued, causing the queue to empty prematurely while unvisited vertices remain.",
+        "The remaining vertices with non-zero in-degrees identify the exact set of tasks involved in the circular dependency deadlock.",
+        "Package managers like npm and yarn use this exact cycle detection mechanism to prevent infinite installation loops.",
+        "Failing fast on cycles protects distributed compilation systems from hanging indefinitely in deadlocked wait states."
+      ],
+      "example": "A circular catch-22 job requirement: you need experience to get a job, but you need a job to get experience; neither can start first, causing permanent gridlock.",
+      "code": "function detectCycleWithKahn(vertices: string[], edges: [string, string][]): { hasCycle: boolean; order: string[] } {\n  const adj = new Map<string, string[]>();\n  const inDegree = new Map<string, number>();\n\n  for (const v of vertices) { adj.set(v, []); inDegree.set(v, 0); }\n  for (const [u, v] of edges) {\n    adj.get(u)!.push(v);\n    inDegree.set(v, (inDegree.get(v) || 0) + 1);\n  }\n\n  const queue: string[] = [];\n  for (const [v, deg] of inDegree.entries()) {\n    if (deg === 0) queue.push(v);\n  }\n\n  const order: string[] = [];\n  while (queue.length > 0) {\n    const u = queue.shift()!;\n    order.push(u);\n    for (const v of adj.get(u)!) {\n      inDegree.set(v, inDegree.get(v)! - 1);\n      if (inDegree.get(v) === 0) queue.push(v);\n    }\n  }\n\n  const hasCycle = order.length !== vertices.length;\n  return { hasCycle, order };\n}\n\nconst cyclicEdges: [string, string][] = [['A', 'B'], ['B', 'C'], ['C', 'A']];\nconst res = detectCycleWithKahn(['A', 'B', 'C'], cyclicEdges);\nconsole.log('Has cycle detected:', res.hasCycle);\nconsole.log('Scheduled count:', res.order.length, 'vs Total: 3');",
+      "output": "Has cycle detected: true\nScheduled count: 0 vs Total: 3",
+      "codeNotes": [
+        {
+          "line": 24,
+          "note": "If order length does not match total vertices, cyclic nodes were blocked from entering queue."
+        },
+        {
+          "line": 31,
+          "note": "Cycle A -> B -> C -> A means no node has in-degree 0; queue is initially empty, detecting cycle."
+        }
+      ],
+      "tryIt": "Break the cycle by removing edge C -> A and verify hasCycle returns false with 3 scheduled nodes.",
+      "check": {
+        "question": "How does Kahn's algorithm prove that a directed graph contains a cycle?",
+        "options": [
+          "The number of successfully ordered vertices is less than the total number of vertices in the graph",
+          "The algorithm throws a RangeError exception",
+          "The in-degree of all vertices becomes negative"
+        ],
+        "answer": 0,
+        "why": "Vertices in a cycle never have their in-degrees reduced to zero, leaving them omitted from the final ordering."
+      }
+    },
+    {
+      "title": "Course Schedule Problem (LeetCode 207 & 210)",
+      "say": [
+        "The Course Schedule problem is the canonical interview question testing topological sorting and cycle detection.",
+        "In Course Schedule I, you are given numCourses and prerequisite pairs [a, b] (meaning you must take b before a), and must return whether it is possible to finish all courses.",
+        "In Course Schedule II, you must return the actual valid course ordering, or an empty array if impossible.",
+        "We model courses as integer vertices from 0 to numCourses - 1.",
+        "Prerequisite pair [course, prereq] maps to directed edge prereq -> course.",
+        "We build an adjacency list and in-degree array, enqueue all courses with in-degree 0, and run Kahn's algorithm.",
+        "If the resulting course array has length equal to numCourses, we return the array; otherwise, circular dependencies make graduation impossible, so we return [].",
+        "The algorithm executes in O(V + E) time where V is numCourses and E is the number of prerequisite constraints.",
+        "Space complexity is O(V + E) to store the adjacency list, in-degree array, and BFS queue."
+      ],
+      "example": "Academic degree planning: mapping out which 100-level courses unlock 200-level courses, ensuring you can graduate within four semesters without prerequisite deadlocks.",
+      "code": "function findOrder(numCourses: number, prerequisites: [number, number][]): number[] {\n  const adj: number[][] = Array.from({ length: numCourses }, () => []);\n  const inDegree = new Array(numCourses).fill(0);\n\n  for (const [course, prereq] of prerequisites) {\n    adj[prereq].push(course);\n    inDegree[course]++;\n  }\n\n  const queue: number[] = [];\n  for (let i = 0; i < numCourses; i++) {\n    if (inDegree[i] === 0) queue.push(i);\n  }\n\n  const order: number[] = [];\n  while (queue.length > 0) {\n    const curr = queue.shift()!;\n    order.push(curr);\n\n    for (const next of adj[curr]) {\n      inDegree[next]--;\n      if (inDegree[next] === 0) queue.push(next);\n    }\n  }\n\n  return order.length === numCourses ? order : [];\n}\n\nconsole.log('Order for 4 courses:', JSON.stringify(findOrder(4, [[1, 0], [2, 0], [3, 1], [3, 2]])));\nconsole.log('Deadlocked courses:', JSON.stringify(findOrder(2, [[1, 0], [0, 1]])));",
+      "output": "Order for 4 courses: [0,1,2,3]\nDeadlocked courses: []",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Constructs edge from prereq to course; increments target course in-degree."
+        },
+        {
+          "line": 26,
+          "note": "Returns valid course sequence [0, 1, 2, 3] or empty array on circular deadlock."
+        }
+      ],
+      "tryIt": "Pass 3 courses with prereqs [[1, 0], [2, 1]] and verify the returned sequence is [0, 1, 2].",
+      "check": {
+        "question": "In the Course Schedule problem, what does prerequisite pair [a, b] mean for the graph representation?",
+        "options": [
+          "A directed edge exists from b to a (b -> a), because course b must be completed before course a",
+          "A directed edge exists from a to b",
+          "An undirected edge connecting a and b"
+        ],
+        "answer": 0,
+        "why": "Course b is the prerequisite prerequisite; taking b unblocks a, represented by directed edge b -> a."
+      }
+    },
+    {
+      "title": "Production Build Task Scheduler with Concurrency Levels",
+      "say": [
+        "In production build systems like TurboRepo, Gradle, and Nx, independent tasks should be executed concurrently across parallel CPU cores.",
+        "Kahn's algorithm can be extended to schedule tasks into discrete parallel execution stages or levels.",
+        "All tasks in the queue with in-degree 0 at a given step can be safely executed simultaneously in parallel.",
+        "We process the queue in level-by-level waves (similar to BFS tree level-order traversal).",
+        "At each wave, we record the batch of independent tasks as a parallel stage, decrement neighbor in-degrees, and collect newly unblocked tasks for the next stage.",
+        "The number of stages represents the critical path length (minimum time needed to complete the entire build on an infinite-core cluster).",
+        "Tasks within each stage have zero dependencies on one another, guaranteeing race-condition-free parallel execution.",
+        "Today you have mastered DAG verification, in-degree analysis, Kahn's algorithm, cycle detection, and parallel stage scheduling.",
+        "Topological sorting is an indispensable tool for distributed task orchestration, database migrations, and modern micro-frontend build tooling."
+      ],
+      "example": "A kitchen cooking a multi-course dinner: peeling potatoes and chopping onions happen concurrently on separate prep tables; baking only starts after both are done.",
+      "code": "function scheduleParallelBuild(tasks: string[], deps: [string, string][]): string[][] {\n  const adj = new Map<string, string[]>();\n  const inDegree = new Map<string, number>();\n\n  for (const t of tasks) { adj.set(t, []); inDegree.set(t, 0); }\n  for (const [dep, task] of deps) {\n    adj.get(dep)!.push(task);\n    inDegree.set(task, inDegree.get(task)! + 1);\n  }\n\n  let currentWave: string[] = [];\n  for (const [t, deg] of inDegree.entries()) {\n    if (deg === 0) currentWave.push(t);\n  }\n\n  const stages: string[][] = [];\n  while (currentWave.length > 0) {\n    stages.push([...currentWave]);\n    const nextWave: string[] = [];\n\n    for (const u of currentWave) {\n      for (const v of adj.get(u)!) {\n        inDegree.set(v, inDegree.get(v)! - 1);\n        if (inDegree.get(v) === 0) nextWave.push(v);\n      }\n    }\n    currentWave = nextWave;\n  }\n  return stages;\n}\n\nconst buildTasks = ['lint', 'compile-ts', 'compile-css', 'test', 'bundle', 'deploy'];\nconst buildDeps: [string, string][] = [\n  ['lint', 'test'],\n  ['compile-ts', 'test'],\n  ['compile-css', 'bundle'],\n  ['test', 'bundle'],\n  ['bundle', 'deploy']\n];\n\nconst parallelPlan = scheduleParallelBuild(buildTasks, buildDeps);\nparallelPlan.forEach((stage, i) => console.log(`Stage ${i + 1} (parallel): [${stage.join(', ')}]`));",
+      "output": "Stage 1 (parallel): [lint, compile-ts, compile-css]\nStage 2 (parallel): [test]\nStage 3 (parallel): [bundle]\nStage 4 (parallel): [deploy]",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Processes queue in batches; each batch represents independent tasks that run concurrently."
+        },
+        {
+          "line": 38,
+          "note": "Demonstrates that lint, compile-ts, and compile-css run concurrently in Stage 1."
+        }
+      ],
+      "tryIt": "Add an independent 'docs' task and verify it is included in Stage 1 parallel execution.",
+      "check": {
+        "question": "Why can all tasks in the same Kahn's algorithm BFS wave be executed in parallel?",
+        "options": [
+          "None of the tasks in the current wave depend on each other, and all their prerequisites have finished",
+          "Because JavaScript runtimes have unlimited threads",
+          "Because all tasks in a wave are identical"
+        ],
+        "answer": 0,
+        "why": "Every task in the current wave has an in-degree of 0, meaning all prerequisite blockers have completed."
+      }
+    }
+  ],
+  "summary": [
+    "Topological sorting creates a linear ordering of directed graph vertices such that all dependencies precede their targets.",
+    "A topological ordering exists if and only if the graph is a Directed Acyclic Graph (DAG) with zero cycles.",
+    "In-degree represents the count of unfulfilled prerequisites; nodes with in-degree 0 are ready for immediate execution.",
+    "Kahn's Algorithm runs in O(V + E) time by repeatedly enqueuing in-degree 0 nodes and decrementing neighbor in-degrees.",
+    "If the ordered result count is less than total vertices, Kahn's algorithm definitively identifies a circular dependency cycle."
+  ],
+  "projectStep": {
+    "title": "Topological Sort & Build Scheduler Implementation",
+    "steps": [
+      "Implement computeInDegrees to calculate prerequisite counts across directed graphs.",
+      "Implement kahnsAlgorithm with FIFO queue and cycle detection.",
+      "Build scheduleParallelBuild to group independent tasks into concurrent execution stages."
+    ]
+  }
+},
+{
+  "day": 24,
+  "title": "Disjoint Set Union (Union-Find) with Path Compression",
+  "goal": "Maintain disjoint partitions in near O(1) amortized time with rank heuristics and path compression.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered Topological Sorting and DAG dependency resolution. Today we study Disjoint Set Union (Union-Find), an astonishingly fast data structure that tracks connected components and network connectivity in near-constant O(alpha(N)) amortized time.",
+  "parts": [
+    {
+      "title": "Disjoint Set Forest Representation",
+      "say": [
+        "In many network problems, we need to partition N elements into disjoint (non-overlapping) sets and test whether two elements belong to the same set.",
+        "Examples include tracking social network friend circles, detecting cycles in undirected graphs, and computing minimum spanning trees (Kruskal's algorithm).",
+        "A naive approach stores set IDs in an array, taking O(1) to check connectivity but O(N) to merge sets, leading to O(N^2) overall time.",
+        "The Disjoint Set Union (DSU) data structure, or Union-Find, models sets as a forest of trees stored inside a single parent array.",
+        "Each element starts as its own root: parent[i] = i, representing a singleton set containing only itself.",
+        "The canonical representative of a set is the root of the tree, identified by following parent pointers until parent[root] === root.",
+        "Two elements belong to the same set if and only if their find operations resolve to the exact same root representative.",
+        "To union (merge) two sets, we find the roots of both elements and make one root point to the other.",
+        "This simple tree representation transforms complex connectivity tracking into fast pointer-chasing operations."
+      ],
+      "example": "Family trees with royal house names: everyone traces their lineage up to the founding monarch; two knights belong to the same house if they serve the same king.",
+      "code": "class NaiveUnionFind {\n  parent: number[];\n\n  constructor(n: number) {\n    this.parent = Array.from({ length: n }, (_, i) => i);\n  }\n\n  find(i: number): number {\n    while (this.parent[i] !== i) {\n      i = this.parent[i];\n    }\n    return i;\n  }\n\n  union(i: number, j: number): void {\n    const rootI = this.find(i);\n    const rootJ = this.find(j);\n    if (rootI !== rootJ) {\n      this.parent[rootI] = rootJ;\n    }\n  }\n\n  connected(i: number, j: number): boolean {\n    return this.find(i) === this.find(j);\n  }\n}\n\nconst uf = new NaiveUnionFind(5);\nuf.union(0, 1);\nuf.union(1, 2);\nconsole.log('0 and 2 connected:', uf.connected(0, 2));\nconsole.log('0 and 3 connected:', uf.connected(0, 3));",
+      "output": "0 and 2 connected: true\n0 and 3 connected: false",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Initializes parent array where each element points to itself (singleton sets)."
+        },
+        {
+          "line": 9,
+          "note": "Traverses parent pointers upward until reaching root where parent[i] === i."
+        },
+        {
+          "line": 17,
+          "note": "Merges sets by pointing one set root to the other root."
+        }
+      ],
+      "tryIt": "Call uf.union(2, 3) and verify that 0 and 3 become connected.",
+      "check": {
+        "question": "How does Union-Find determine if two elements belong to the same set?",
+        "options": [
+          "By checking if their find() operations resolve to the exact same root representative",
+          "By checking if their indices are adjacent numbers",
+          "By sorting the parent array"
+        ],
+        "answer": 0,
+        "why": "Each set has a unique root element; if find(a) === find(b), both elements share the same tree root."
+      }
+    },
+    {
+      "title": "Degenerate Trees & The Need for Optimizations",
+      "say": [
+        "In our naive Union-Find implementation, the tree structure can degenerate into a pathological linear chain.",
+        "Consider unioning pairs sequentially: union(0, 1), union(1, 2), union(2, 3), ..., union(N-1, N).",
+        "If we arbitrarily attach the taller tree under the shorter tree, the tree becomes a single long branch of height N.",
+        "In this degenerate state, the find() method must traverse N pointers, degrading from O(1) to worst-case O(N) linear time.",
+        "Executing M find operations on a degenerate tree of size N results in O(M * N) quadratic time, destroying performance.",
+        "To achieve near-instant performance, computer scientists developed two classic optimizations: Path Compression and Union by Rank.",
+        "When used together, these two techniques flatten the tree almost completely, guaranteeing that trees remain extraordinarily shallow.",
+        "Under these optimizations, tree height virtually never exceeds four, even for billions of elements.",
+        "Analyzing these optimizations demonstrates how simple pointer heuristics can yield staggering asymptotic speedups."
+      ],
+      "example": "A chain of telephone calls: if person A must call B, who calls C, who calls D, a message takes 4 hops; if everyone calls the manager directly, every message takes only 1 hop.",
+      "code": "function measureNaiveTreeHeight(n: number): number {\n  const parent = Array.from({ length: n }, (_, i) => i);\n  // Construct degenerate linear chain\n  for (let i = 0; i < n - 1; i++) {\n    parent[i] = i + 1; // 0 -> 1 -> 2 -> ... -> n-1\n  }\n\n  let hops = 0;\n  let curr = 0;\n  while (parent[curr] !== curr) {\n    curr = parent[curr];\n    hops++;\n  }\n  return hops;\n}\n\nconsole.log('Hops for N=5 naive chain:', measureNaiveTreeHeight(5));\nconsole.log('Hops for N=1000 naive chain:', measureNaiveTreeHeight(1000));",
+      "output": "Hops for N=5 naive chain: 4\nHops for N=1000 naive chain: 999",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Forces linear chain where each node points to the next node."
+        },
+        {
+          "line": 17,
+          "note": "Demonstrates worst-case O(N) traversal depth without optimizations."
+        }
+      ],
+      "tryIt": "Verify that an unoptimized chain of N=50 requires 49 hops to find the root.",
+      "check": {
+        "question": "Why does naive Union-Find degrade to O(N) time complexity per operation in the worst case?",
+        "options": [
+          "Unbalanced unions can create tall linear chains of depth N, requiring linear traversals to reach the root",
+          "Because JavaScript arrays have a maximum length limit",
+          "Because find() allocates an auxiliary hash map on every step"
+        ],
+        "answer": 0,
+        "why": "Without balancing heuristics, repeated union operations can chain nodes sequentially into an O(N) deep linked list."
+      }
+    },
+    {
+      "title": "Path Compression Optimization",
+      "say": [
+        "Path Compression is an ingenious optimization applied during the find() traversal.",
+        "When find(i) traverses upward to locate the root, every node along that path must eventually resolve to that exact same root.",
+        "Rather than leaving the tree unchanged, Path Compression rewires every visited node to point directly to the root.",
+        "In recursive implementations, this is accomplished in a single line of code: parent[i] = find(parent[i]).",
+        "The first find() traversal takes O(height) time, but every subsequent find() on any of those nodes takes O(1) time!",
+        "Path Compression flattens the tree aggressively on every single lookup, transforming tall branches into flat star graphs.",
+        "An iterative alternative called 'path halving' makes every other node point to its grandparent, achieving similar flattening without recursion.",
+        "Path compression alone reduces the amortized cost per operation to O(log N) even without union heuristics.",
+        "This self-adjusting behavior makes Union-Find one of the most elegant examples of amortized data structure optimization."
+      ],
+      "example": "Giving everyone the boss's direct cell phone number: after asking four assistants for an answer once, you save the CEO's direct number and call them directly in the future.",
+      "code": "class PathCompressionUF {\n  parent: number[];\n\n  constructor(n: number) {\n    this.parent = Array.from({ length: n }, (_, i) => i);\n  }\n\n  find(i: number): number {\n    if (this.parent[i] !== i) {\n      this.parent[i] = this.find(this.parent[i]); // Path compression!\n    }\n    return this.parent[i];\n  }\n\n  union(i: number, j: number): void {\n    const rootI = this.find(i);\n    const rootJ = this.find(j);\n    if (rootI !== rootJ) this.parent[rootI] = rootJ;\n  }\n}\n\nconst puf = new PathCompressionUF(4);\n// Build 0 -> 1 -> 2 -> 3\npuf.parent[0] = 1; puf.parent[1] = 2; puf.parent[2] = 3; puf.parent[3] = 3;\n\nconsole.log('Before find(0), parent of 0:', puf.parent[0]);\nconsole.log('Root of 0:', puf.find(0));\nconsole.log('After find(0), parent of 0 rewired directly to root:', puf.parent[0]);",
+      "output": "Before find(0), parent of 0: 1\nRoot of 0: 3\nAfter find(0), parent of 0 rewired directly to root: 3",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "The recursive path compression step: rewires parent[i] directly to the returned root."
+        },
+        {
+          "line": 26,
+          "note": "Confirms that parent of 0 was flattened from 1 directly to 3."
+        }
+      ],
+      "tryIt": "Inspect puf.parent[1] after find(0) and verify that node 1 was also compressed to point directly to 3.",
+      "check": {
+        "question": "How does Path Compression flatten the Union-Find tree during find(i)?",
+        "options": [
+          "It rewires every node along the traversal path to point directly to the root representative",
+          "It sorts the tree elements alphabetically",
+          "It deletes nodes that have been visited more than once"
+        ],
+        "answer": 0,
+        "why": "By making parent[i] equal to the root upon recursion return, subsequent finds on node i take O(1) immediate time."
+      }
+    },
+    {
+      "title": "Union by Rank & Inverse Ackermann Complexity",
+      "say": [
+        "While Path Compression optimizes find(), Union by Rank optimizes the union() operation.",
+        "We maintain a rank array where rank[i] represents an upper bound on the height of the subtree rooted at i.",
+        "When unioning two sets with roots rootX and rootY, we always attach the tree with smaller rank under the root of the tree with larger rank.",
+        "If rootX has smaller rank, we make parent[rootX] = rootY; the height of the larger tree does not increase at all!",
+        "Only when both roots have the exact same rank do we break the tie arbitrarily and increment the winning root's rank by 1.",
+        "Union by Rank guarantees that a tree of size N will never have a height exceeding floor(log2(N)).",
+        "When Path Compression and Union by Rank are combined, the amortized time per operation drops to O(alpha(N)).",
+        "Here, alpha(N) is the Inverse Ackermann function, an extraordinarily slow-growing mathematical function.",
+        "For any value of N up to the number of atoms in the observable universe (10^80), alpha(N) is strictly less than 5, making operations practically constant O(1)."
+      ],
+      "example": "Merging two corporate departments: the smaller 5-person team reports into the director of the larger 500-person division, avoiding corporate reorganization overhead.",
+      "code": "class OptimizedUnionFind {\n  private parent: number[];\n  private rank: number[];\n  private count: number;\n\n  constructor(n: number) {\n    this.count = n;\n    this.parent = Array.from({ length: n }, (_, i) => i);\n    this.rank = new Array(n).fill(0);\n  }\n\n  find(i: number): number {\n    if (this.parent[i] !== i) {\n      this.parent[i] = this.find(this.parent[i]);\n    }\n    return this.parent[i];\n  }\n\n  union(i: number, j: number): boolean {\n    const rootI = this.find(i);\n    const rootJ = this.find(j);\n    if (rootI === rootJ) return false; // Already in same set\n\n    // Attach smaller rank under larger rank\n    if (this.rank[rootI] < this.rank[rootJ]) {\n      this.parent[rootI] = rootJ;\n    } else if (this.rank[rootI] > this.rank[rootJ]) {\n      this.parent[rootJ] = rootI;\n    } else {\n      this.parent[rootJ] = rootI;\n      this.rank[rootI]++;\n    }\n    this.count--;\n    return true;\n  }\n\n  getCount(): number { return this.count; }\n}\n\nconst ouf = new OptimizedUnionFind(5);\nouf.union(0, 1);\nouf.union(2, 3);\nconsole.log('Disjoint components count after 2 unions:', ouf.getCount());\nouf.union(1, 3);\nconsole.log('Connected 0 and 2:', ouf.find(0) === ouf.find(2));\nconsole.log('Final components count:', ouf.getCount());",
+      "output": "Disjoint components count after 2 unions: 3\nConnected 0 and 2: true\nFinal components count: 2",
+      "codeNotes": [
+        {
+          "line": 26,
+          "note": "Union by rank: attaches smaller rank tree under larger rank tree to limit depth growth."
+        },
+        {
+          "line": 31,
+          "note": "Only increments rank when two trees of identical height merge."
+        }
+      ],
+      "tryIt": "Union the remaining component into the set and verify getCount() reaches 1.",
+      "check": {
+        "question": "What is the amortized time complexity of Union-Find with both Path Compression and Union by Rank?",
+        "options": [
+          "O(alpha(N)) where alpha is the Inverse Ackermann function, effectively O(1) for all practical inputs",
+          "O(N log N) time",
+          "O(N^2) quadratic time"
+        ],
+        "answer": 0,
+        "why": "Robert Tarjan mathematically proved that combining both heuristics bounds operations to the Inverse Ackermann function alpha(N) < 5."
+      }
+    },
+    {
+      "title": "Cycle Detection in Undirected Graphs (Redundant Connection)",
+      "say": [
+        "In undirected graphs, Union-Find provides the cleanest, fastest algorithm for cycle detection.",
+        "Consider building a network by adding edges one by one: edge u - v connects vertex u and vertex v.",
+        "Before adding the edge, we check whether u and v already belong to the same connected component using find(u) and find(v).",
+        "If find(u) === find(v), both vertices are already connected by an existing path in the graph!",
+        "Therefore, adding edge u - v introduces a redundant connection, creating an undirected cycle.",
+        "If find(u) !== find(v), the edge connects two previously disjoint components without creating a cycle, so we call union(u, v).",
+        "In LeetCode 684 (Redundant Connection), this algorithm identifies the exact edge that creates a cycle in O(E * alpha(V)) time.",
+        "Kruskal's Minimum Spanning Tree (MST) algorithm uses this exact logic to add the cheapest edges while skipping edges that form cycles.",
+        "Union-Find cycle detection operates without recursion, visited sets, or adjacency list construction, making it exceptionally lightweight."
+      ],
+      "example": "Building a railway network: if two cities can already reach each other through existing tracks, adding a direct track between them creates a closed circular loop.",
+      "code": "function findRedundantConnection(edges: [number, number][]): [number, number] | null {\n  const n = edges.length;\n  const parent = Array.from({ length: n + 1 }, (_, i) => i);\n\n  function find(i: number): number {\n    if (parent[i] !== i) parent[i] = find(parent[i]);\n    return parent[i];\n  }\n\n  for (const [u, v] of edges) {\n    const rootU = find(u);\n    const rootV = find(v);\n    if (rootU === rootV) return [u, v]; // Cycle detected!\n    parent[rootU] = rootV;\n  }\n  return null;\n}\n\nconst edgesWithCycle: [number, number][] = [[1, 2], [1, 3], [2, 3]];\nconsole.log('Redundant edge creating cycle:', JSON.stringify(findRedundantConnection(edgesWithCycle)));\n\nconst edgesWithCycle2: [number, number][] = [[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]];\nconsole.log('Redundant edge in 5-node graph:', JSON.stringify(findRedundantConnection(edgesWithCycle2)));",
+      "output": "Redundant edge creating cycle: [2,3]\nRedundant edge in 5-node graph: [1,4]",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "If find(u) === find(v), u and v are already connected; this edge creates an undirected cycle."
+        },
+        {
+          "line": 14,
+          "note": "Otherwise, merges sets and continues processing remaining edges."
+        }
+      ],
+      "tryIt": "Add edge [4, 5] to the first graph and verify that [2, 3] is still identified as the cycle-forming edge.",
+      "check": {
+        "question": "How does Union-Find detect an undirected cycle when processing edge (u, v)?",
+        "options": [
+          "If find(u) === find(v) before adding the edge, u and v are already connected, meaning this edge completes a cycle",
+          "If the edge connects to vertex 0",
+          "By counting the total number of edges"
+        ],
+        "answer": 0,
+        "why": "A path already exists between u and v; adding another direct connection between them closes an alternative circular loop."
+      }
+    },
+    {
+      "title": "Production Disjoint Set Engine & Dynamic Connectivity",
+      "say": [
+        "We now assemble our complete production DisjointSetUnion engine, supporting dynamic connectivity queries and component tracking.",
+        "Our implementation incorporates Path Compression, Union by Rank, component counting, and cluster size inspection.",
+        "The size array tracks the exact number of elements in each connected component: size[root] stores total cluster population.",
+        "When unioning sets, we add size[smallerRoot] into size[largerRoot], allowing O(1) queries for the size of any component.",
+        "This component size capability solves problems like 'Number of Provinces', 'Max Area of Island', and 'Accounts Merge'.",
+        "In social media platforms, this engine groups millions of users into shared social circles and clusters communities.",
+        "In image processing, Union-Find powers connected-component labeling (CCL) to detect and segment distinct objects in binary images.",
+        "Today you have mastered disjoint set forests, tree height degeneration, path compression, union by rank, and cycle detection.",
+        "Union-Find is one of the most powerful, mathematically elegant data structures in computer science, delivering near-O(1) connectivity performance."
+      ],
+      "example": "A viral epidemiology simulation: tracking infected clusters as people interact, counting how many distinct outbreak clusters exist and finding the size of the largest outbreak.",
+      "code": "class ProductionDSU {\n  private parent: number[];\n  private rank: number[];\n  private componentSize: number[];\n  private numComponents: number;\n\n  constructor(n: number) {\n    this.numComponents = n;\n    this.parent = Array.from({ length: n }, (_, i) => i);\n    this.rank = new Array(n).fill(0);\n    this.componentSize = new Array(n).fill(1);\n  }\n\n  find(i: number): number {\n    if (this.parent[i] !== i) {\n      this.parent[i] = this.find(this.parent[i]); // Path compression\n    }\n    return this.parent[i];\n  }\n\n  union(i: number, j: number): boolean {\n    const rootI = this.find(i);\n    const rootJ = this.find(j);\n    if (rootI === rootJ) return false;\n\n    if (this.rank[rootI] < this.rank[rootJ]) {\n      this.parent[rootI] = rootJ;\n      this.componentSize[rootJ] += this.componentSize[rootI];\n    } else if (this.rank[rootI] > this.rank[rootJ]) {\n      this.parent[rootJ] = rootI;\n      this.componentSize[rootI] += this.componentSize[rootJ];\n    } else {\n      this.parent[rootJ] = rootI;\n      this.componentSize[rootI] += this.componentSize[rootJ];\n      this.rank[rootI]++;\n    }\n    this.numComponents--;\n    return true;\n  }\n\n  getComponentCount(): number { return this.numComponents; }\n  getSizeOfComponent(i: number): number { return this.componentSize[this.find(i)]; }\n}\n\nconst dsu = new ProductionDSU(6);\ndsu.union(0, 1);\ndsu.union(1, 2);\ndsu.union(3, 4);\n\nconsole.log('Total clusters remaining:', dsu.getComponentCount());\nconsole.log('Size of cluster containing 0:', dsu.getSizeOfComponent(0));\nconsole.log('Size of cluster containing 3:', dsu.getSizeOfComponent(3));\nconsole.log('Size of isolated node 5:', dsu.getSizeOfComponent(5));",
+      "output": "Total clusters remaining: 3\nSize of cluster containing 0: 3\nSize of cluster containing 3: 2\nSize of isolated node 5: 1",
+      "codeNotes": [
+        {
+          "line": 26,
+          "note": "Merges component sizes so the winning root accurately reflects total cluster population."
+        },
+        {
+          "line": 49,
+          "note": "Demonstrates cluster size inspection: cluster [0,1,2] has size 3, cluster [3,4] has size 2."
+        }
+      ],
+      "tryIt": "Call dsu.union(2, 4) and verify that the combined cluster size becomes 5.",
+      "check": {
+        "question": "How does the production DSU track the size of each connected component in O(1) time?",
+        "options": [
+          "It maintains a componentSize array where the root index stores the cumulative element count of that tree",
+          "By performing a full BFS scan whenever size is queried",
+          "By counting the total number of union operations"
+        ],
+        "answer": 0,
+        "why": "When two roots merge, size[rootX] += size[rootY] maintains the exact component size at the root in O(1) time."
+      }
+    }
+  ],
+  "summary": [
+    "Disjoint Set Union (DSU) maintains partitions of elements across non-overlapping sets in near-O(1) amortized time.",
+    "Naive Union-Find can degenerate into linear chains of depth N, degrading operations to O(N) worst-case time.",
+    "Path Compression flattens trees during find() by rewiring every node along the path directly to the root representative.",
+    "Union by Rank attaches the shorter tree under the taller tree, bounding maximum tree height to log2(N).",
+    "Combining both heuristics yields O(alpha(N)) complexity, enabling ultra-fast cycle detection and connected component tracking."
+  ],
+  "projectStep": {
+    "title": "Production DSU Engine Implementation",
+    "steps": [
+      "Implement find with recursive path compression.",
+      "Implement union with rank-based attachment and component size tracking.",
+      "Build findRedundantConnection cycle detector for undirected graphs."
+    ]
+  }
+},
+{
+  "day": 25,
+  "title": "Dynamic Programming: 1D Memoization vs Tabulation",
+  "goal": "Transform exponential recursive algorithms into polynomial time using state caching and bottom-up DP tables.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered Disjoint Set Union and path compression. Today we unlock Dynamic Programming (DP), the premier algorithmic optimization framework for converting exponential brute-force recursion into blazing-fast linear and polynomial time algorithms.",
+  "parts": [
+    {
+      "title": "Overlapping Subproblems & Optimal Substructure",
+      "say": [
+        "Dynamic Programming is a powerful algorithmic paradigm used to solve complex optimization problems by breaking them down into simpler subproblems.",
+        "To apply Dynamic Programming successfully, a problem must possess two foundational mathematical properties.",
+        "Property 1: Optimal Substructure. An optimal solution to the overall problem contains optimal solutions to its underlying subproblems within it.",
+        "Property 2: Overlapping Subproblems. The recursive space visits the exact same subproblems repeatedly rather than generating new subproblems each time.",
+        "In naive recursion, overlapping subproblems cause exponential O(2^N) state explosions as identical calculations repeat millions of times.",
+        "Dynamic Programming solves each unique subproblem exactly once, stores the result in memory, and reuses the stored answer on all future encounters.",
+        "This simple principle of remembering previous results transforms exponential O(2^N) runtimes into linear O(N) or polynomial O(N^2) speed.",
+        "Recognizing whether a problem exhibits optimal substructure and overlapping subproblems is the essential first step of DP mastery.",
+        "Problems involving 'minimum cost', 'maximum profit', 'number of ways', or 'longest sequence' are classic candidates for Dynamic Programming."
+      ],
+      "example": "Writing down '1 + 1 + 1 + 1 + 1 = 5' on a chalkboard: if someone asks what happens when you add another '+ 1', you immediately say '6' because you remembered the previous 5.",
+      "code": "let calculations = 0;\n\nfunction countedFib(n: number): number {\n  calculations++;\n  if (n <= 1) return n;\n  return countedFib(n - 1) + countedFib(n - 2);\n}\n\ncalculations = 0;\nconst ans = countedFib(6);\nconsole.log('Naive fib(6) result:', ans);\nconsole.log('Total calculations executed:', calculations);",
+      "output": "Naive fib(6) result: 8\nTotal calculations executed: 25",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Counts every invocation to reveal redundant overlapping subproblem recalculation."
+        },
+        {
+          "line": 12,
+          "note": "Computing fib(6) = 8 required 25 operations due to repeated calculations of fib(2) and fib(3)."
+        }
+      ],
+      "tryIt": "Run with n=7 and observe calculations jump from 25 to 41, demonstrating exponential growth.",
+      "check": {
+        "question": "What two properties must a problem have to be solvable using Dynamic Programming?",
+        "options": [
+          "Optimal Substructure and Overlapping Subproblems",
+          "Sorted input array and binary search capability",
+          "Linear memory and floating point precision"
+        ],
+        "answer": 0,
+        "why": "Optimal substructure allows building larger solutions from smaller subproblems; overlapping subproblems makes caching past results beneficial."
+      }
+    },
+    {
+      "title": "Top-Down DP: Memoization with Cache",
+      "say": [
+        "Top-Down Dynamic Programming, or Memoization, maintains the natural structure of recursion while caching computed subproblem results.",
+        "Before performing any computation, the function checks a cache (such as an array or Map) to see if the answer for state n already exists.",
+        "If the state is present in the cache, the function returns the cached value immediately in O(1) time, pruning the entire recursive branch.",
+        "If the state is missing from the cache, the function executes the recursive calculation, writes the result to the cache, and returns it.",
+        "Memoization preserves the intuitive top-down decomposition of the problem: you start with the big question and ask for sub-answers on demand.",
+        "Because each unique state from 0 to N is computed exactly once and cached, time complexity drops from O(2^N) to strict O(N) linear time.",
+        "The space complexity is O(N) for the memoization cache array plus O(N) for the recursive call stack depth.",
+        "Top-down memoization is especially advantageous when the state space is sparse and only a small subset of all possible states is ever visited.",
+        "However, recursive call stack frames introduce slight function-call overhead compared to iterative loops."
+      ],
+      "example": "A consultant answering client tax questions: looking up previously solved tax rulings in a filing cabinet instead of recalculating the tax law from scratch each time.",
+      "code": "function memoizedFib(n: number, memo = new Map<number, number>()): number {\n  if (n <= 1) return n;\n  if (memo.has(n)) return memo.get(n)!; // Cache hit: O(1) immediate return!\n\n  const result = memoizedFib(n - 1, memo) + memoizedFib(n - 2, memo);\n  memo.set(n, result); // Store in cache\n  return result;\n}\n\nconsole.log('fib(10):', memoizedFib(10));\nconsole.log('fib(40):', memoizedFib(40));\nconsole.log('fib(50):', memoizedFib(50));",
+      "output": "fib(10): 55\nfib(40): 102334155\nfib(50): 12586269025",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Cache check: returns stored result immediately on cache hit in O(1) time."
+        },
+        {
+          "line": 6,
+          "note": "Writes computed result to cache before returning, ensuring each state is solved only once."
+        },
+        {
+          "line": 12,
+          "note": "Computes fib(50) instantaneously, which would take over 30 years with naive recursion."
+        }
+      ],
+      "tryIt": "Compute memoizedFib(60) and observe it completes in less than a millisecond.",
+      "check": {
+        "question": "How does memoization reduce Fibonacci time complexity from O(2^N) to O(N)?",
+        "options": [
+          "Each of the N unique subproblems is computed once; subsequent calls return the cached value in O(1) time",
+          "It uses a multi-threaded matrix multiplication library",
+          "It rounds numbers to the nearest integer"
+        ],
+        "answer": 0,
+        "why": "With caching, every subproblem fib(k) from 1 to N is evaluated once and stored, pruning all redundant branches."
+      }
+    },
+    {
+      "title": "Bottom-Up DP: Iterative Tabulation",
+      "say": [
+        "Bottom-Up Dynamic Programming, or Tabulation, eliminates recursion entirely by solving subproblems iteratively from smallest to largest.",
+        "We allocate a table (usually an array dp of size N + 1) and pre-populate the base cases: dp[0] = 0 and dp[1] = 1.",
+        "We then run an iterative loop from 2 to N, computing each entry using previously filled table entries: dp[i] = dp[i-1] + dp[i-2].",
+        "Tabulation builds the solution sequentially from the ground up, guaranteeing that when computing dp[i], all prerequisite entries are already finalized.",
+        "Because tabulation uses simple for-loops, it incurs zero call stack memory overhead and avoids RangeError stack overflow completely.",
+        "Modern CPU architectures execute tabulated loops significantly faster than recursion due to branch prediction and contiguous memory cache locality.",
+        "Both time and space complexity for standard 1D tabulation are O(N).",
+        "Tabulation requires clearly understanding the topological dependency order among subproblems before writing the loop.",
+        "Mastering both memoization (top-down) and tabulation (bottom-up) gives engineers complete flexibility to tackle any dynamic programming challenge."
+      ],
+      "example": "Constructing a brick wall: laying the foundation row first, then building row 2 on top of row 1, and row 3 on top of row 2, until reaching the roof.",
+      "code": "function tabulatedFib(n: number): number {\n  if (n <= 1) return n;\n  const dp = new Array(n + 1);\n  dp[0] = 0;\n  dp[1] = 1;\n\n  for (let i = 2; i <= n; i++) {\n    dp[i] = dp[i - 1] + dp[i - 2]; // State transition equation\n  }\n  return dp[n];\n}\n\nconsole.log('Tabulated fib(10):', tabulatedFib(10));\nconsole.log('Tabulated fib(20):', tabulatedFib(20));\nconsole.log('Tabulated fib(45):', tabulatedFib(45));",
+      "output": "Tabulated fib(10): 55\nTabulated fib(20): 6765\nTabulated fib(45): 1134903170",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Initializes base cases directly into the table."
+        },
+        {
+          "line": 8,
+          "note": "Executes state transition equation sequentially from smallest subproblem to target n."
+        }
+      ],
+      "tryIt": "Pass n=0 and n=1 and verify the base cases return correctly without entering the loop.",
+      "check": {
+        "question": "What is the primary operational advantage of bottom-up tabulation over top-down memoization?",
+        "options": [
+          "It uses simple iterative loops with zero recursion call stack overhead, preventing stack overflow on large inputs",
+          "It always uses less heap memory than memoization",
+          "It allows the algorithm to run backward in time"
+        ],
+        "answer": 0,
+        "why": "Tabulation replaces recursive function call frames with a flat iterative loop, eliminating stack overflow vulnerabilities."
+      }
+    },
+    {
+      "title": "Space Optimization: Rolling Variables in O(1) Memory",
+      "say": [
+        "In many 1D dynamic programming problems, computing the current state dp[i] only depends on the immediate preceding two states.",
+        "Notice in dp[i] = dp[i-1] + dp[i-2], we never inspect dp[i-3] or any earlier entries once dp[i-1] and dp[i-2] are known.",
+        "Therefore, allocating an entire array of size N + 1 is completely unnecessary and wastes memory.",
+        "We can optimize auxiliary space from O(N) down to strict O(1) constant space using two rolling variables.",
+        "We maintain prev2 (representing dp[i-2]) and prev1 (representing dp[i-1]).",
+        "At each iteration, we calculate curr = prev1 + prev2, shift prev2 = prev1, and shift prev1 = curr.",
+        "This space optimization technique reduces memory footprint from megabytes to just two integer variables.",
+        "In production embedded systems and high-throughput microservices, reducing memory allocations from O(N) to O(1) eliminates garbage collection pauses.",
+        "Always inspect the state transition recurrence: if it only references a fixed window of past states, rolling variables can optimize space to O(1)."
+      ],
+      "example": "A relay race where only two runners are active at any moment: runner A passes the baton to runner B, runner B passes to runner C, and previous runners exit the track.",
+      "code": "function spaceOptimizedFib(n: number): number {\n  if (n <= 1) return n;\n  let prev2 = 0; // dp[i-2]\n  let prev1 = 1; // dp[i-1]\n\n  for (let i = 2; i <= n; i++) {\n    const curr = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = curr;\n  }\n  return prev1;\n}\n\nconsole.log('Space O(1) fib(10):', spaceOptimizedFib(10));\nconsole.log('Space O(1) fib(25):', spaceOptimizedFib(25));\nconsole.log('Space O(1) fib(40):', spaceOptimizedFib(40));",
+      "output": "Space O(1) fib(10): 55\nSpace O(1) fib(25): 75025\nSpace O(1) fib(40): 102334155",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Stores only the two immediate preceding state values instead of an entire array."
+        },
+        {
+          "line": 8,
+          "note": "Rolls variables forward on each step: prev2 becomes old prev1, prev1 becomes new curr."
+        }
+      ],
+      "tryIt": "Verify that spaceOptimizedFib(5) returns 5 using only two rolling state variables.",
+      "check": {
+        "question": "When can a 1D dynamic programming table be optimized from O(N) space to O(1) space?",
+        "options": [
+          "When the state transition only depends on a fixed constant number of immediately preceding states (e.g., dp[i-1] and dp[i-2])",
+          "When all inputs are positive even numbers",
+          "When the problem is solved using recursive memoization"
+        ],
+        "answer": 0,
+        "why": "If only the last K states are referenced, a fixed sliding window of K variables is sufficient to compute all subsequent states."
+      }
+    },
+    {
+      "title": "Climbing Stairs & House Robber (1D DP Formulations)",
+      "say": [
+        "Let us examine two classic 1D dynamic programming interview questions: Climbing Stairs and House Robber.",
+        "Climbing Stairs (LeetCode 70) asks how many distinct ways you can climb N stairs taking either 1 or 2 steps at a time.",
+        "To reach step i, you must have come from step i-1 (taking 1 step) or step i-2 (taking 2 steps).",
+        "Therefore, ways[i] = ways[i-1] + ways[i-2], which is mathematically isomorphic to the Fibonacci recurrence!",
+        "House Robber (LeetCode 198) asks for the maximum money you can rob from houses without robbing two adjacent houses on the same night.",
+        "For house i with value nums[i], you have two mutually exclusive choices: rob house i (gaining nums[i] + maxRob[i-2]), or skip house i (retaining maxRob[i-1]).",
+        "The state transition equation is: dp[i] = Math.max(dp[i - 1], nums[i] + (dp[i - 2] || 0)).",
+        "Both problems evaluate in O(N) time and can be space-optimized to O(1) memory using two rolling variables.",
+        "Formulating the state transition equation (the recurrence relation) is 90% of solving any dynamic programming problem."
+      ],
+      "example": "Planning a home renovation budget: for each room, decide whether to splurge on luxury tile (skipping the adjacent hallway) or spread moderate paint evenly across both.",
+      "code": "function climbStairs(n: number): number {\n  if (n <= 2) return n;\n  let prev2 = 1; // 1 way to reach step 1\n  let prev1 = 2; // 2 ways to reach step 2\n\n  for (let i = 3; i <= n; i++) {\n    const curr = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = curr;\n  }\n  return prev1;\n}\n\nfunction rob(nums: number[]): number {\n  if (nums.length === 0) return 0;\n  if (nums.length === 1) return nums[0];\n\n  let prev2 = nums[0];\n  let prev1 = Math.max(nums[0], nums[1]);\n\n  for (let i = 2; i < nums.length; i++) {\n    const curr = Math.max(prev1, nums[i] + prev2);\n    prev2 = prev1;\n    prev1 = curr;\n  }\n  return prev1;\n}\n\nconsole.log('Climb stairs (4 steps):', climbStairs(4), 'ways');\nconsole.log('Rob [2, 7, 9, 3, 1] max loot:', rob([2, 7, 9, 3, 1]));\nconsole.log('Rob [1, 2, 3, 1] max loot:', rob([1, 2, 3, 1]));",
+      "output": "Climb stairs (4 steps): 5 ways\nRob [2, 7, 9, 3, 1] max loot: 12\nRob [1, 2, 3, 1] max loot: 4",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Climbing stairs recurrence: ways[i] = ways[i-1] + ways[i-2]."
+        },
+        {
+          "line": 22,
+          "note": "House robber recurrence: dp[i] = max(skip house i, rob house i + loot from i-2)."
+        }
+      ],
+      "tryIt": "Pass nums=[2, 1, 1, 2] to rob and verify the optimal loot is 4 (robbing houses 0 and 3).",
+      "check": {
+        "question": "In the House Robber problem, why is the recurrence relation dp[i] = max(dp[i-1], nums[i] + dp[i-2])?",
+        "options": [
+          "Because adjacent houses cannot be robbed: you either skip house i (keeping loot from i-1) or rob house i (adding its value to loot from i-2)",
+          "Because houses can only be robbed on weekends",
+          "Because the police catch you if you skip more than two houses"
+        ],
+        "answer": 0,
+        "why": "The adjacency constraint forces a binary choice at each house: rob it (must skip i-1) or skip it (can keep max loot through i-1)."
+      }
+    },
+    {
+      "title": "Longest Increasing Subsequence (O(N^2) Tabulation & O(N log N) Patience)",
+      "say": [
+        "The Longest Increasing Subsequence (LIS) problem finds the length of the longest strictly ascending subsequence in an array.",
+        "A subsequence does not need to be contiguous; elements can be skipped as long as their relative order is preserved.",
+        "In 1D dynamic programming, we define dp[i] as the length of the longest increasing subsequence that ends at index i.",
+        "We initialize all dp entries to 1 because every individual element forms a valid subsequence of length 1.",
+        "For each element i, we check all preceding elements j from 0 to i-1: if nums[j] < nums[i], we can extend that subsequence: dp[i] = Math.max(dp[i], dp[j] + 1).",
+        "The overall answer is the maximum value found across the entire dp array: max(dp[0..n-1]).",
+        "This standard 1D tabulation executes in O(N^2) quadratic time with O(N) auxiliary space.",
+        "An advanced algorithm using Patience Sorting and Binary Search optimizes LIS to O(N log N) by maintaining smallest tail values.",
+        "Today you have mastered the complete 1D DP continuum: identifying optimal substructure, top-down memoization, bottom-up tabulation, space optimization, and state transitions."
+      ],
+      "example": "A row of dominoes of different heights: finding the longest chain where each domino is strictly taller than the domino before it.",
+      "code": "function lengthOfLIS(nums: number[]): number {\n  if (nums.length === 0) return 0;\n  const dp = new Array(nums.length).fill(1);\n  let maxLen = 1;\n\n  for (let i = 1; i < nums.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (nums[j] < nums[i]) {\n        dp[i] = Math.max(dp[i], dp[j] + 1);\n      }\n    }\n    maxLen = Math.max(maxLen, dp[i]);\n  }\n  return maxLen;\n}\n\nconsole.log('LIS [10, 9, 2, 5, 3, 7, 101, 18]:', lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]));\nconsole.log('LIS [0, 1, 0, 3, 2, 3]:', lengthOfLIS([0, 1, 0, 3, 2, 3]));\nconsole.log('LIS [7, 7, 7, 7]:', lengthOfLIS([7, 7, 7, 7]));",
+      "output": "LIS [10, 9, 2, 5, 3, 7, 101, 18]: 4\nLIS [0, 1, 0, 3, 2, 3]: 4\nLIS [7, 7, 7, 7]: 1",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Initializes every element with LIS of 1 (a single element is its own subsequence)."
+        },
+        {
+          "line": 9,
+          "note": "Extends valid ascending subsequences: dp[i] = max(dp[i], dp[j] + 1) whenever nums[j] < nums[i]."
+        },
+        {
+          "line": 19,
+          "note": "Identifies LIS of [2, 3, 7, 101] or [2, 5, 7, 18] with length 4."
+        }
+      ],
+      "tryIt": "Pass [4, 10, 4, 3, 8, 9] and verify the LIS length is 3 ([3, 8, 9] or [4, 8, 9]).",
+      "check": {
+        "question": "What does dp[i] represent in the 1D Longest Increasing Subsequence tabulation formulation?",
+        "options": [
+          "The length of the longest increasing subsequence that ends strictly at index i",
+          "The maximum number in the array up to index i",
+          "The total number of increasing pairs in the array"
+        ],
+        "answer": 0,
+        "why": "Defining dp[i] as ending at index i allows any smaller predecessor nums[j] < nums[i] to extend that subsequence by 1."
+      }
+    }
+  ],
+  "summary": [
+    "Dynamic Programming requires Optimal Substructure (subproblems solve the parent) and Overlapping Subproblems (repeated states).",
+    "Top-down memoization adds a cache to recursion, pruning repeated branches to achieve linear O(N) time.",
+    "Bottom-up tabulation solves subproblems iteratively from base cases upward, eliminating recursion stack overflow risk.",
+    "When state transitions depend only on a fixed window of past states, rolling variables optimize space from O(N) to O(1).",
+    "Formulating the state transition recurrence relation is the fundamental core of solving dynamic programming problems."
+  ],
+  "projectStep": {
+    "title": "1D Dynamic Programming Suite Implementation",
+    "steps": [
+      "Implement memoizedFib demonstrating O(N) state caching.",
+      "Implement space-optimized climbStairs and rob using O(1) rolling variables.",
+      "Build lengthOfLIS 1D tabulation solving Longest Increasing Subsequence in O(N^2) time."
+    ]
+  }
+}
 ];
