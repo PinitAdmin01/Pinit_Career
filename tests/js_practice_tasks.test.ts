@@ -352,10 +352,8 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'quant-systems-assign-day-18', 'quant-systems-exam-day-19', 'quant-systems-assign-day-20', 'quant-systems-assign-day-21',
   'quant-systems-assign-day-22', 'quant-systems-assign-day-23', 'quant-systems-assign-day-24', 'quant-systems-assign-day-25',
   'quant-systems-assign-day-26', 'quant-systems-exam-day-28', 'quant-systems-assign-day-28', 'quant-systems-assign-day-29',
-  // course-dsa-optim (20 tasks)
-  'dsa-optim-exam-day-3', 'dsa-optim-assign-day-4', 'dsa-optim-assign-day-5', 'dsa-optim-assign-day-7',
-  'dsa-optim-assign-day-9', 'dsa-optim-assign-day-11', 'dsa-optim-assign-day-12', 'dsa-optim-assign-day-14',
-  'dsa-optim-assign-day-15', 'dsa-optim-assign-day-17', 'dsa-optim-assign-day-18', 'dsa-optim-assign-day-19',
+  // course-dsa-optim (11 tasks)
+  'dsa-optim-assign-day-17', 'dsa-optim-assign-day-18', 'dsa-optim-assign-day-19',
   'dsa-optim-assign-day-20', 'dsa-optim-assign-day-22', 'dsa-optim-assign-day-24', 'dsa-optim-assign-day-25',
   'dsa-optim-assign-day-26', 'dsa-optim-assign-day-27', 'dsa-optim-assign-day-29', 'dsa-optim-assign-day-30',
   // course-design-systems: 0 tasks (all 60 tasks non-constant and verified)

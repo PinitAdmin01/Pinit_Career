@@ -55,7 +55,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement `function reverseList(head)` that reverses a singly linked list in O(N) time and O(1) space, returning the new head.",
     "eStarter": "function reverseList(head) {\n  // Maintain prev, curr, and nextTemp pointers iteratively.\n  \n}",
     "eHint": "Maintain prev, curr, and nextTemp pointers iteratively.",
-    "eTest": "const l3 = { val: 3, next: null };\nconst l2 = { val: 2, next: l3 };\nconst l1 = { val: 1, next: l2 };\nconst rev = reverseList(l1);\nif (rev.val !== 3 || rev.next.val !== 2 || rev.next.next.val !== 1 || rev.next.next.next !== null) throw new Error('List reversal failed');",
+    "eTest": "const l3 = { val: 3, next: null };\nconst l2 = { val: 2, next: l3 };\nconst l1 = { val: 1, next: l2 };\nconst rev = reverseList(l1);\nif (rev.val !== 3 || rev.next.val !== 2 || rev.next.next.val !== 1 || rev.next.next.next !== null) throw new Error('List reversal failed');\nconst s1 = { val: 42, next: null };\nconst revSingle = reverseList(s1);\nif (revSingle.val !== 42 || revSingle.next !== null) throw new Error('Single node reversal failed');\nconst p2 = { val: 20, next: null };\nconst p1 = { val: 10, next: p2 };\nconst revPair = reverseList(p1);\nif (revPair.val !== 20 || revPair.next.val !== 10 || revPair.next.next !== null) throw new Error('Pair reversal failed');",
     "aTitle": "Detect Cycle in Linked List (Floyd's Tortoise and Hare)",
     "aDesc": "Implement `function hasCycle(head)` using Floyd's Two-Pointer Cycle-Finding algorithm in O(N) time and O(1) memory.",
     "aStarter": "function hasCycle(head) {\n  // Advance slow by 1 and fast by 2; if they ever point to the identical node object, a cycle exists.\n  \n}",
@@ -80,7 +80,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function nextGreaterElements(nums)` returning an array where `res[i]` is the next greater integer to the right of `nums[i]`, or -1 if none exists.",
     "aStarter": "function nextGreaterElements(nums) {\n  // Maintain a decreasing stack of array indices. Pop when finding a greater element.\n  \n}",
     "aHint": "Maintain a decreasing stack of array indices. Pop when finding a greater element.",
-    "aTest": "const res = nextGreaterElements([2, 1, 2, 4, 3]);\nif (JSON.stringify(res) !== JSON.stringify([4, 2, 4, -1, -1])) throw new Error('Monotonic stack next greater element failed');"
+    "aTest": "const res = nextGreaterElements([2, 1, 2, 4, 3]);\nif (JSON.stringify(res) !== JSON.stringify([4, 2, 4, -1, -1])) throw new Error('Monotonic stack next greater element failed');\nconst res2 = nextGreaterElements([1, 2, 3]);\nif (JSON.stringify(res2) !== JSON.stringify([2, 3, -1])) throw new Error('Ascending array next greater failed');\nconst res3 = nextGreaterElements([3, 2, 1]);\nif (JSON.stringify(res3) !== JSON.stringify([-1, -1, -1])) throw new Error('Descending array next greater failed');"
   },
   {
     "day": 5,
@@ -100,7 +100,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Write a test runner function `function verifyLruCapacity(cap, operations)` verifying LRU eviction sequences.",
     "aStarter": "function verifyLruCapacity(cap, ops) {\n  // Execute operations and verify returned values match expected sequence.\n  \n}",
     "aHint": "Execute operations and verify returned values match expected sequence.",
-    "aTest": "const res = verifyLruCapacity(1, [{type:'put', k:1, v:10}, {type:'put', k:2, v:20}, {type:'get', k:1}]);\nif (res[0] !== -1) throw new Error('Expected -1 for evicted key 1');"
+    "aTest": "const res = verifyLruCapacity(1, [{type:'put', k:1, v:10}, {type:'put', k:2, v:20}, {type:'get', k:1}]);\nif (res[0] !== -1) throw new Error('Expected -1 for evicted key 1');\nconst res2 = verifyLruCapacity(2, [{type:'put', k:1, v:10}, {type:'get', k:1}]);\nif (res2[0] !== 10) throw new Error('Expected 10 for cached key 1');"
   },
   {
     "day": 6,
@@ -140,7 +140,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function twoSum(nums, target)` returning indices `[i, j]` such that `nums[i] + nums[j] === target` in single pass O(N) time.",
     "aStarter": "function twoSum(nums, target) {\n  // Check if target - current exists in map before storing current number.\n  \n}",
     "aHint": "Check if target - current exists in map before storing current number.",
-    "aTest": "const indices = twoSum([2, 7, 11, 15], 9);\nif (indices[0] !== 0 || indices[1] !== 1) throw new Error('Two sum failed to find [0, 1]');"
+    "aTest": "const indices = twoSum([2, 7, 11, 15], 9);\nif (indices[0] !== 0 || indices[1] !== 1) throw new Error('Two sum failed to find [0, 1]');\nconst indices2 = twoSum([3, 2, 4], 6);\nif (indices2[0] !== 1 || indices2[1] !== 2) throw new Error('Two sum failed to find [1, 2]');"
   },
   {
     "day": 8,
@@ -180,7 +180,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function maxSubArraySum(nums, k)` returning the maximum sum of any contiguous subarray of size `k`.",
     "aStarter": "function maxSubArraySum(nums, k) {\n  // Subtract outgoing element at left and add incoming element at right.\n  \n}",
     "aHint": "Subtract outgoing element at left and add incoming element at right.",
-    "aTest": "if (maxSubArraySum([2, 1, 5, 1, 3, 2], 3) !== 9) throw new Error('Expected 9 for [5, 1, 3]');"
+    "aTest": "if (maxSubArraySum([2, 1, 5, 1, 3, 2], 3) !== 9) throw new Error('Expected 9 for [5, 1, 3]');\nif (maxSubArraySum([1, 2, 3, 4], 2) !== 7) throw new Error('Expected 7 for [3, 4]');\nif (maxSubArraySum([4, 2, 1, 7, 8, 1], 3) !== 16) throw new Error('Expected 16 for [7, 8, 1]');"
   },
   {
     "day": 10,
@@ -220,7 +220,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function permute(nums)` returning all N! unique permutations.",
     "aStarter": "function permute(nums) {\n  // Maintain a used map to avoid selecting the same index twice.\n  \n}",
     "aHint": "Maintain a used map to avoid selecting the same index twice.",
-    "aTest": "const p = permute([1, 2, 3]);\nif (p.length !== 6) throw new Error('Expected 3! = 6 permutations');"
+    "aTest": "const p = permute([1, 2, 3]);\nif (p.length !== 6) throw new Error('Expected 3! = 6 permutations');\nconst p1 = permute([1]);\nif (p1.length !== 1 || JSON.stringify(p1[0]) !== JSON.stringify([1])) throw new Error('Single element permutation failed');\nconst p2 = permute([1, 2]);\nif (p2.length !== 2) throw new Error('Expected 2! = 2 permutations');"
   },
   {
     "day": 12,
@@ -240,7 +240,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function mergeTwoLists(l1, l2)` merging two sorted linked lists.",
     "aStarter": "function mergeTwoLists(l1, l2) {\n  // Use a dummy head pointer and advance the smaller value.\n  \n}",
     "aHint": "Use a dummy head pointer and advance the smaller value.",
-    "aTest": "const a = { val: 1, next: { val: 4, next: null } };\nconst b = { val: 2, next: { val: 3, next: null } };\nconst m = mergeTwoLists(a, b);\nif (m.val !== 1 || m.next.val !== 2 || m.next.next.val !== 3) throw new Error('Merge two lists failed');"
+    "aTest": "const a = { val: 1, next: { val: 4, next: null } };\nconst b = { val: 2, next: { val: 3, next: null } };\nconst m = mergeTwoLists(a, b);\nif (m.val !== 1 || m.next.val !== 2 || m.next.next.val !== 3) throw new Error('Merge two lists failed');\nconst single = { val: 10, next: null };\nconst m2 = mergeTwoLists(single, null);\nif (m2.val !== 10 || m2.next !== null) throw new Error('Merging with null failed');\nconst m3 = mergeTwoLists(null, { val: 5, next: null });\nif (m3.val !== 5 || m3.next !== null) throw new Error('Merging null with list failed');"
   },
   {
     "day": 13,
@@ -280,7 +280,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function countingSort(arr, maxVal)` sorting non-negative integers in O(N + K) time.",
     "aStarter": "function countingSort(arr, maxVal) {\n  // Count occurrences and write them back sequentially.\n  \n}",
     "aHint": "Count occurrences and write them back sequentially.",
-    "aTest": "const sorted = countingSort([4, 2, 2, 8, 3, 3, 1], 8);\nif (JSON.stringify(sorted) !== JSON.stringify([1, 2, 2, 3, 3, 4, 8])) throw new Error('Counting sort failed');"
+    "aTest": "const sorted = countingSort([4, 2, 2, 8, 3, 3, 1], 8);\nif (JSON.stringify(sorted) !== JSON.stringify([1, 2, 2, 3, 3, 4, 8])) throw new Error('Counting sort failed');\nconst sorted2 = countingSort([5, 1, 0, 5, 2], 5);\nif (JSON.stringify(sorted2) !== JSON.stringify([0, 1, 2, 5, 5])) throw new Error('Counting sort second check failed');\nconst sorted3 = countingSort([], 0);\nif (JSON.stringify(sorted3) !== JSON.stringify([])) throw new Error('Empty array counting sort failed');"
   },
   {
     "day": 15,
@@ -300,7 +300,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function computeStreamMedians(nums)` returning an array of running medians after each insertion.",
     "aStarter": "function computeStreamMedians(nums) {\n  // Feed numbers sequentially and record each computed median.\n  \n}",
     "aHint": "Feed numbers sequentially and record each computed median.",
-    "aTest": "const medians = computeStreamMedians([5, 15, 1, 3]);\nif (medians[0] !== 5 || medians[1] !== 10 || medians[2] !== 5 || medians[3] !== 4) throw new Error('Streaming medians incorrect');"
+    "aTest": "const medians = computeStreamMedians([5, 15, 1, 3]);\nif (medians[0] !== 5 || medians[1] !== 10 || medians[2] !== 5 || medians[3] !== 4) throw new Error('Streaming medians incorrect');\nconst medians2 = computeStreamMedians([2, 4, 6]);\nif (medians2[0] !== 2 || medians2[1] !== 3 || medians2[2] !== 4) throw new Error('Second stream medians check failed');"
   },
   {
     "day": 16,
