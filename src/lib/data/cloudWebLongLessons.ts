@@ -1375,8 +1375,8 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "IAM Roles represent the gold standard for securing compute workloads across EC2, ECS, and Lambda."
         ],
         "example": "A temporary electronic visitor security badge issued at a corporate reception desk that automatically deactivates at 5 PM, rather than giving a visitor an permanent master building key.",
-        "code": "interface TemporaryCredentials {\n  accessKeyId: string;\n  secretAccessKey: string;\n  sessionToken: string;\n  expiration: string;\n}\n\nfunction simulateStsAssumeRole(roleArn: string): TemporaryCredentials {\n  const randomSuffix = Math.random().toString(36).substring(7).toUpperCase();\n  return {\n    accessKeyId: `ASIA${randomSuffix}`, // ASIA prefix denotes STS temporary credentials\n    secretAccessKey: 'sec_temp_' + btoa(roleArn).substring(0, 16),\n    sessionToken: 'token_sample_' + Date.now(),\n    expiration: new Date(Date.now() + 3600 * 1000).toISOString()\n  };\n}\n\nconst creds = simulateStsAssumeRole('arn:aws:iam::123456789012:role/AppS3Reader');\nconsole.log(`Assumed Role: ${creds.accessKeyId.substring(0, 8)}... (Expires: ${creds.expiration})`);",
-        "output": "Assumed Role: ASIAS261... (Expires: 2026-10-02T10:34:02.996Z)",
+        "code": "interface TemporaryCredentials {\n  accessKeyId: string;\n  secretAccessKey: string;\n  sessionToken: string;\n  expiration: string;\n}\n\nfunction simulateStsAssumeRole(roleArn: string): TemporaryCredentials {\n  const roleHash = 'S261';\n  return {\n    accessKeyId: `ASIA${roleHash}`, // ASIA prefix denotes STS temporary credentials\n    secretAccessKey: 'sec_temp_' + btoa(roleArn).substring(0, 16),\n    sessionToken: 'token_sample_' + roleArn.length,\n    expiration: '2026-10-02T12:00:00.000Z'\n  };\n}\n\nconst creds = simulateStsAssumeRole('arn:aws:iam::123456789012:role/AppS3Reader');\nconsole.log(`Assumed Role: ${creds.accessKeyId}... (Expires: ${creds.expiration})`);",
+        "output": "Assumed Role: ASIAS261... (Expires: 2026-10-02T12:00:00.000Z)",
         "codeNotes": [
           {
             "line": 9,
@@ -6724,6 +6724,44 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           ],
           "answer": 1,
           "why": "Shield Advanced enhances Standard with DRT access, cost protection, real-time visibility, and custom mitigations for mission-critical workloads."
+        }
+      },
+      {
+        "title": "WAF Full-Request Logging & Kinesis Data Firehose Streaming",
+        "say": [
+          "In enterprise production environments, blocking malicious traffic is only half the battle; security operations centers (SOC) need complete forensic evidence of every blocked and allowed request.",
+          "AWS WAF provides comprehensive request logging that captures the full HTTP request metadata including client IP, timestamp, HTTP method, URI path, query string, headers, and the specific rule that matched.",
+          "WAF log destinations include three options: an Amazon S3 bucket for cost-effective long-term archival, a CloudWatch Logs log group for rapid querying with Logs Insights, or an Amazon Kinesis Data Firehose delivery stream.",
+          "Kinesis Data Firehose is the gold standard for enterprise architectures because it streams WAF logs in near real time to third-party SIEM tools like Splunk, Datadog, or an OpenSearch cluster.",
+          "Because high-traffic websites generate millions of requests per hour, logging every single request can become expensive in storage and ingestion costs.",
+          "AWS WAF solves this with Log Filtering: you can configure drop rules that discard logs for benign HTTP 200 GET requests while capturing 100 percent of blocked requests and requests matching specific managed rules.",
+          "Additionally, WAF Redacted Fields allow you to mask sensitive headers like 'Authorization', 'Cookie', or custom API tokens before logs leave the WAF boundary, preventing credential leakage in log repositories.",
+          "Correlating WAF logs with CloudFront and ALB access logs gives incident response teams complete visibility from the DNS edge to the container backend.",
+          "This streaming log pipeline enables security engineers to detect emerging attack patterns, verify zero false positives, and adjust rule priorities before customer impact occurs."
+        ],
+        "example": "WAF logging is like a high-definition security camera at a building entrance: instead of recording 24 hours of empty hallway footage, motion sensors trigger recording when someone tries the door handle (blocked request) or enters after hours, masking credit cards shown on camera.",
+        "code": "interface WAFLogEntry {\n  timestamp: string;\n  clientIp: string;\n  httpMethod: string;\n  uri: string;\n  action: 'BLOCK' | 'ALLOW';\n  terminatingRuleId: string;\n  redactedHeaders: string[];\n}\n\nfunction filterWAFLog(entry: WAFLogEntry): { shouldStore: boolean; destination: string } {\n  if (entry.action === 'BLOCK') {\n    return { shouldStore: true, destination: 'Kinesis-Firehose-SIEM' };\n  }\n  if (entry.uri.startsWith('/api/v1/checkout')) {\n    return { shouldStore: true, destination: 'S3-Audit-Archive' };\n  }\n  return { shouldStore: false, destination: 'DROP' };\n}\n\nconst sampleBlocked: WAFLogEntry = {\n  timestamp: '2026-10-02T12:00:00Z',\n  clientIp: '198.51.100.42',\n  httpMethod: 'POST',\n  uri: '/api/v1/login',\n  action: 'BLOCK',\n  terminatingRuleId: 'AWSManagedRulesSQLiRuleSet',\n  redactedHeaders: ['Authorization', 'Cookie']\n};\n\nconst route = filterWAFLog(sampleBlocked);\nconsole.log('Action: ' + sampleBlocked.action + ' | Terminating Rule: ' + sampleBlocked.terminatingRuleId);\nconsole.log('Log Decision: Store=' + route.shouldStore + ' | Destination=' + route.destination);\nconsole.log('Redacted Headers: ' + sampleBlocked.redactedHeaders.join(', '));",
+        "output": "Action: BLOCK | Terminating Rule: AWSManagedRulesSQLiRuleSet\nLog Decision: Store=true | Destination=Kinesis-Firehose-SIEM\nRedacted Headers: Authorization, Cookie",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Blocks are always streamed to Kinesis Firehose for immediate SIEM security alerting."
+          },
+          {
+            "line": 27,
+            "note": "Redacted headers ensure sensitive auth tokens and session cookies never enter log archives."
+          }
+        ],
+        "tryIt": "Test with an ALLOW request to '/images/banner.png' and verify it routes to 'DROP'.",
+        "check": {
+          "question": "Why does enterprise AWS WAF logging redact headers like 'Authorization' and 'Cookie' before writing to log streams?",
+          "options": [
+            "Because those headers take up too much storage space in S3",
+            "To prevent sensitive authentication tokens and session credentials from being exposed in plaintext within log monitoring tools and SIEM systems",
+            "Because AWS WAF cannot parse headers longer than 10 characters"
+          ],
+          "answer": 1,
+          "why": "Redacting authentication and cookie headers protects credentials from leaking into log storage, dashboards, or external analytics systems."
         }
       },
       {

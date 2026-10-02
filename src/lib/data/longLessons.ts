@@ -24,6 +24,7 @@ import { VECTOR_PYTHON_LONG_LESSONS } from './vectorPythonLongLessons';
 import { SAFETY_PYTHON_LONG_LESSONS } from './safetyPythonLongLessons';
 import { NODE_WEB_LONG_LESSONS } from './nodeWebLongLessons';
 import { DEVOPS_WEB_LONG_LESSONS } from './devopsWebLongLessons';
+import { CLOUD_WEB_LONG_LESSONS } from './cloudWebLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -89,6 +90,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'safe-py': SAFETY_PYTHON_LONG_LESSONS,
   'node-web': NODE_WEB_LONG_LESSONS,
   devops: DEVOPS_WEB_LONG_LESSONS,
+  cloud: CLOUD_WEB_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */
@@ -114,6 +116,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'sre-web': 'typescript',
   'stream-web': 'typescript',
   'aideploy-web': 'typescript',
+  cloud: 'typescript',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
