@@ -316,11 +316,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function filterSsrfUrl(urlStr) {\n  // TODO: write your code here\n}",
     "eHint": "Check for 169.254.169.254, localhost, 127.0.0.1, 10.*, 192.168.*.",
     "eTest": "const cloudMeta = filterSsrfUrl('http://169.254.169.254/latest/meta-data/');\nconst publicApi = filterSsrfUrl('https://api.github.com/users');\nif (cloudMeta.isAllowed || !publicApi.isAllowed || cloudMeta.status !== 'SSRF_ATTACK_DETECTED_BLOCKED') throw new Error('SSRF filter failed');",
-    "aTitle": "AWS Cloud Metadata IP Address Formatter",
-    "aDesc": "Implement function getCloudMetadataIpAddress() returning `'169.254.169.254'`.",
-    "aStarter": "function getCloudMetadataIpAddress() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 169.254.169.254.",
-    "aTest": "if (getCloudMetadataIpAddress() !== '169.254.169.254') throw new Error('IP check failed');"
+    "aTitle": "Cloud Metadata IP Address Validator",
+    "aDesc": "Implement function isCloudMetadataIp(ip) returning true if ip is AWS IPv4 metadata ('169.254.169.254') or IPv6 ('fd00:ec2::254'), otherwise false.",
+    "aStarter": "function isCloudMetadataIp(ip) {\n  // TODO: write your code here\n}",
+    "aHint": "Check for 169.254.169.254 or fd00:ec2::254.",
+    "aTest": "if (!isCloudMetadataIp('169.254.169.254')) throw new Error('169.254.169.254 should be true');\nif (!isCloudMetadataIp('fd00:ec2::254')) throw new Error('IPv6 metadata should be true');\nif (isCloudMetadataIp('8.8.8.8')) throw new Error('8.8.8.8 should be false');"
   },
   {
     "day": 17,
@@ -336,11 +336,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function detectInsecureSerialization(payload) {\n  // TODO: write your code here\n}",
     "eHint": "Check for Java magic bytes, python pickle system calls, and PHP serialized objects.",
     "eTest": "const javaAttack = detectInsecureSerialization('rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAU=');\nconst safeJson = detectInsecureSerialization('{\"user\":\"alice\",\"id\":123}');\nif (!javaAttack.isDangerousObjectSerialization || safeJson.isDangerousObjectSerialization || javaAttack.status !== 'INSECURE_DESERIALIZATION_PAYLOAD_DETECTED') throw new Error('Deserialization detector failed');",
-    "aTitle": "Java Serialization Magic Hex Header Formatter",
-    "aDesc": "Implement function getJavaSerializationMagicHex() returning `'aced0005'`.",
-    "aStarter": "function getJavaSerializationMagicHex() {\n  // TODO: write your code here\n}",
-    "aHint": "Return aced0005.",
-    "aTest": "if (getJavaSerializationMagicHex() !== 'aced0005') throw new Error('Hex check failed');"
+    "aTitle": "Java Serialization Magic Header Validator",
+    "aDesc": "Implement function isJavaSerializationMagic(magicHex) returning true if hex string is case-insensitively equal to 'aced0005', else false.",
+    "aStarter": "function isJavaSerializationMagic(magicHex) {\n  // TODO: write your code here\n}",
+    "aHint": "Normalize to lowercase and compare to aced0005.",
+    "aTest": "if (!isJavaSerializationMagic('aced0005')) throw new Error('aced0005 should pass');\nif (!isJavaSerializationMagic('ACED0005')) throw new Error('Uppercase ACED0005 should pass');\nif (isJavaSerializationMagic('deadbeef')) throw new Error('deadbeef should fail');"
   },
   {
     "day": 18,
@@ -356,11 +356,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateShannonEntropy(str) {\n  // TODO: write your code here\n}",
     "eHint": "Calculate character frequencies and sum -p * Math.log2(p).",
     "eTest": "const secret = calculateShannonEntropy('wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'); // high entropy\nconst regular = calculateShannonEntropy('aaaaaaaaaaaaaaaa'); // 0 entropy\nif (regular.entropy !== 0.0 || !secret.isHighEntropySecret || secret.status !== 'HIGH_ENTROPY_SECRET_DETECTED') throw new Error('Entropy calculation failed');",
-    "aTitle": "AWS Access Key Standard Prefix Formatter",
-    "aDesc": "Implement function getAwsAccessKeyPrefix() returning `'AKIA'`.",
-    "aStarter": "function getAwsAccessKeyPrefix() {\n  // TODO: write your code here\n}",
-    "aHint": "Return AKIA.",
-    "aTest": "if (getAwsAccessKeyPrefix() !== 'AKIA') throw new Error('Prefix check failed');"
+    "aTitle": "AWS Access Key Format Validator",
+    "aDesc": "Implement function isValidAwsAccessKeyFormat(key) returning true if key starts with 'AKIA', is 20 uppercase alphanumeric characters, else false.",
+    "aStarter": "function isValidAwsAccessKeyFormat(key) {\n  // TODO: write your code here\n}",
+    "aHint": "Check startsWith('AKIA'), length === 20, and uppercase alphanumeric characters.",
+    "aTest": "if (!isValidAwsAccessKeyFormat('AKIAIOSFODNN7EXAMPLE')) throw new Error('Valid AKIA key failed');\nif (isValidAwsAccessKeyFormat('BKIAIOSFODNN7EXAMPLE')) throw new Error('Non-AKIA key should fail');\nif (isValidAwsAccessKeyFormat('AKIA123')) throw new Error('Short key should fail');"
   },
   {
     "day": 19,
@@ -375,12 +375,12 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function matchSbomVulnerabilities(dependenciesList, cveDatabase) finding outdated dependencies matching known CVE records. The result must have these fields: `vulnerableDependenciesCount`, `vulnerabilities`, `cveId`.",
     "eStarter": "function matchSbomVulnerabilities(deps, cveDb) {\n  // TODO: write your code here\n}",
     "eHint": "Match dep.name and dep.version against cveDb.",
-    "eTest": "const deps = [{ name: 'lodash', version: '4.17.15' }, { name: 'express', version: '4.18.2' }];\nconst cveDb = [{ packageName: 'lodash', vulnerableVersion: '4.17.15', id: 'CVE-2020-8203', severity: 'HIGH' }];\nconst res = matchSbomVulnerabilities(deps, cveDb);\nif (res.vulnerableDependenciesCount !== 1 || res.vulnerabilities[0].cveId !== 'CVE-2020-8203') throw new Error('SBOM matcher failed');",
-    "aTitle": "Software Bill of Materials Acronym Formatter",
-    "aDesc": "Implement function getSbomAcronym() returning `'SBOM'`.",
-    "aStarter": "function getSbomAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return SBOM.",
-    "aTest": "if (getSbomAcronym() !== 'SBOM') throw new Error('Acronym check failed');"
+    "eTest": "const deps = [{ name: 'lodash', version: '4.17.15' }, { name: 'express', version: '4.18.2' }];\nconst cveDb = [{ packageName: 'lodash', vulnerableVersion: '4.17.15', id: 'CVE-2020-8203', severity: 'HIGH' }];\nconst res = matchSbomVulnerabilities(deps, cveDb);\nif (res.vulnerableDependenciesCount !== 1 || res.vulnerabilities[0].cveId !== 'CVE-2020-8203') throw new Error('SBOM matcher failed');\nconst cleanDeps = [{ name: 'react', version: '18.2.0' }];\nconst resClean = matchSbomVulnerabilities(cleanDeps, cveDb);\nif (resClean.vulnerableDependenciesCount !== 0 || resClean.vulnerabilities.length !== 0) throw new Error('Clean SBOM failed');",
+    "aTitle": "Package URL (PURL) Formatter",
+    "aDesc": "Implement function formatPackagePurl(type, namespace, name, version) returning `pkg:${type}/${namespace ? namespace + '/' : ''}${name}@${version}`.",
+    "aStarter": "function formatPackagePurl(type, ns, name, ver) {\n  // TODO: write your code here\n}",
+    "aHint": "Format PURL string with type, optional namespace, name and version.",
+    "aTest": "if (formatPackagePurl('npm', '', 'lodash', '4.17.21') !== 'pkg:npm/lodash@4.17.21') throw new Error('npm purl failed');\nif (formatPackagePurl('golang', 'github.com/gin-gonic', 'gin', 'v1.9.1') !== 'pkg:golang/github.com/gin-gonic/gin@v1.9.1') throw new Error('golang purl failed');"
   },
   {
     "day": 20,
@@ -396,11 +396,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function processTokenBucketRequest(currTokens, maxCap, refillRate, elapsedSec, cost) {\n  // TODO: write your code here\n}",
     "eHint": "refilled = min(maxCap, curr + refillRate * elapsed), if refilled >= cost deduct cost.",
     "eTest": "const pass = processTokenBucketRequest(5, 10, 1, 2, 1); // 5 + 2 = 7 >= 1 -> remaining 6\nconst fail = processTokenBucketRequest(0, 10, 1, 0, 1); // 0 < 1 -> remaining 0, HTTP 429\nif (!pass.isRequestAllowed || fail.isRequestAllowed || fail.status !== 'RATE_LIMIT_EXCEEDED_HTTP_429') throw new Error('Rate limiter failed');",
-    "aTitle": "HTTP Status Code for Rate Limiting Formatter",
-    "aDesc": "Implement function getRateLimitHttpStatusCode() returning `429`.",
-    "aStarter": "function getRateLimitHttpStatusCode() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 429.",
-    "aTest": "if (getRateLimitHttpStatusCode() !== 429) throw new Error('Status code check failed');"
+    "aTitle": "Rate Limit Threshold Checker",
+    "aDesc": "Implement function isRateLimitBreached(requestCount, maxAllowed) returning true if requestCount exceeds maxAllowed, else false.",
+    "aStarter": "function isRateLimitBreached(reqCount, maxAllowed) {\n  // TODO: write your code here\n}",
+    "aHint": "Check reqCount > maxAllowed.",
+    "aTest": "if (!isRateLimitBreached(101, 100)) throw new Error('101/100 should be true');\nif (isRateLimitBreached(99, 100)) throw new Error('99/100 should be false');\nif (isRateLimitBreached(100, 100)) throw new Error('100/100 should be false');"
   },
   {
     "day": 21,
@@ -412,15 +412,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Application Runtime Defense Master Engine",
-    "eDesc": "Implement function executeRuntimeDefenseMaster(ssrfOk, deserOk, entropyOk, sbomOk, rateOk) certifying combined runtime defense execution. Use these exact values: `engineStatus`: 'RUNTIME_DEFENSE_MASTER_ACTIVE'.",
+    "eDesc": "Implement function executeRuntimeDefenseMaster(ssrfOk, deserOk, entropyOk, sbomOk, rateOk) certifying combined runtime defense execution. Use these exact values: `engineStatus`: 'RUNTIME_DEFENSE_MASTER_ACTIVE' or 'RUNTIME_DEFENSE_DEFECT'.",
     "eStarter": "function executeRuntimeDefenseMaster(s, d, e, b, r) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeRuntimeDefenseMaster(true, true, true, true, true);\nif (res.engineStatus !== 'RUNTIME_DEFENSE_MASTER_ACTIVE') throw new Error('Milestone 3 runtime master failed');",
-    "aTitle": "Runtime Defense Master Status Formatter",
-    "aDesc": "Implement function getRuntimeDefenseMasterStatus() returning `'RUNTIME_DEFENSE_MASTER_ACTIVE'`.",
-    "aStarter": "function getRuntimeDefenseMasterStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return status.",
-    "aTest": "if (getRuntimeDefenseMasterStatus() !== 'RUNTIME_DEFENSE_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "eTest": "const res = executeRuntimeDefenseMaster(true, true, true, true, true);\nif (!res || res.engineStatus !== 'RUNTIME_DEFENSE_MASTER_ACTIVE') throw new Error('Milestone 3 runtime master failed');\nconst fail = executeRuntimeDefenseMaster(true, true, false, true, true);\nif (!fail || fail.engineStatus !== 'RUNTIME_DEFENSE_DEFECT') throw new Error('Runtime master defect failed');",
+    "aTitle": "Runtime Defense Score Formatter",
+    "aDesc": "Implement function formatRuntimeDefenseScore(passedCount, totalCount = 5) returning `{ percentage: Math.round((passedCount / totalCount) * 100), isSecure: passedCount === totalCount, statusText: \`${passedCount}/${totalCount}\` }`.",
+    "aStarter": "function formatRuntimeDefenseScore(p, t) {\n  // TODO: write your code here\n}",
+    "aHint": "Compute percentage and check passedCount === totalCount.",
+    "aTest": "const pass = formatRuntimeDefenseScore(5, 5);\nif (!pass.isSecure || pass.percentage !== 100 || pass.statusText !== '5/5') throw new Error('Pass score failed');\nconst fail = formatRuntimeDefenseScore(3, 5);\nif (fail.isSecure || fail.percentage !== 60 || fail.statusText !== '3/5') throw new Error('Fail score failed');"
   },
   {
     "day": 22,
@@ -436,11 +436,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function detectStackOverflow(bufSize, payloadSize, originalCanary, memoryCanary) {\n  // TODO: write your code here\n}",
     "eHint": "Check if payloadSize > bufSize or canary differs.",
     "eTest": "const attack = detectStackOverflow(64, 128, '0xDEADBEEF', '0x41414141');\nconst safe = detectStackOverflow(64, 32, '0xDEADBEEF', '0xDEADBEEF');\nif (!attack.isExploitDetected || safe.isExploitDetected || attack.status !== 'STACK_SMASHING_DETECTED_TERMINATING_PROCESS') throw new Error('Buffer overflow detector failed');",
-    "aTitle": "Address Space Layout Randomization Acronym Formatter",
-    "aDesc": "Implement function getAslrAcronym() returning `'ASLR'`.",
-    "aStarter": "function getAslrAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return ASLR.",
-    "aTest": "if (getAslrAcronym() !== 'ASLR') throw new Error('Acronym check failed');"
+    "aTitle": "Stack Canary Integrity Checker",
+    "aDesc": "Implement function isStackCanaryValid(expectedCanary, observedCanary) returning true if the observed memory canary matches the expected canary cookie, else false.",
+    "aStarter": "function isStackCanaryValid(expected, observed) {\n  // TODO: write your code here\n}",
+    "aHint": "Check expected === observed.",
+    "aTest": "if (!isStackCanaryValid('0xDEADBEEF', '0xDEADBEEF')) throw new Error('Identical canary failed');\nif (isStackCanaryValid('0xDEADBEEF', '0x41414141')) throw new Error('Corrupted canary should fail');"
   },
   {
     "day": 23,
@@ -456,11 +456,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function trackMemoryPointerLifecycle(state, action) {\n  // TODO: write your code here\n}",
     "eHint": "Flag violation if action is FREE when state is FREED, or action is DEREFERENCE when state is FREED/NULL.",
     "eTest": "const uaf = trackMemoryPointerLifecycle('FREED', 'DEREFERENCE');\nconst valid = trackMemoryPointerLifecycle('ALLOCATED', 'READ');\nif (!uaf.isMemoryViolation || valid.isMemoryViolation || uaf.status !== 'USE_AFTER_FREE_OR_DOUBLE_FREE_BLOCKED') throw new Error('Memory safety tracker failed');",
-    "aTitle": "Memory Safety Invariant Core Term Formatter",
-    "aDesc": "Implement function getMemorySafetyTerm() returning `'Temporal Safety'`.",
-    "aStarter": "function getMemorySafetyTerm() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Temporal Safety.",
-    "aTest": "if (getMemorySafetyTerm() !== 'Temporal Safety') throw new Error('Term check failed');"
+    "aTitle": "Memory Violation Classifier",
+    "aDesc": "Implement function classifyMemoryViolation(pointerState, action) returning 'USE_AFTER_FREE' if pointerState is 'FREED' and action is 'READ' or 'WRITE', 'DOUBLE_FREE' if pointerState is 'FREED' and action is 'FREE', otherwise 'SAFE'.",
+    "aStarter": "function classifyMemoryViolation(state, action) {\n  // TODO: write your code here\n}",
+    "aHint": "Check pointerState and action to return 'USE_AFTER_FREE', 'DOUBLE_FREE', or 'SAFE'.",
+    "aTest": "if (classifyMemoryViolation('FREED', 'READ') !== 'USE_AFTER_FREE') throw new Error('UAF check failed');\nif (classifyMemoryViolation('FREED', 'FREE') !== 'DOUBLE_FREE') throw new Error('Double free check failed');\nif (classifyMemoryViolation('ALLOCATED', 'READ') !== 'SAFE') throw new Error('Safe check failed');"
   },
   {
     "day": 24,
@@ -472,15 +472,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "SIEM Brute Force Correlation Rule Engine",
-    "eDesc": "Implement function correlateSiemLogEvents(eventLogsArray, timeWindowSec, thresholdCount) grouping failed logins by source IP and raising a high-priority alert if threshold is breached within window. Use these exact values: `status`: 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT'. The result must have these fields: `isBruteForceAlert`, `threatSourceIp`.",
+    "eDesc": "Implement function correlateSiemLogEvents(eventLogsArray, timeWindowSec, thresholdCount) grouping failed logins by source IP and raising a high-priority alert if threshold is breached within window. Use these exact values: `status`: 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT' or 'SIEM_LOGS_NOMINAL'. The result must have these fields: `isBruteForceAlert`, `threatSourceIp`.",
     "eStarter": "function correlateSiemLogEvents(logs, windowSec, thresh) {\n  // TODO: write your code here\n}",
     "eHint": "Count AUTH_FAILED per sourceIp and alert if >= thresh.",
-    "eTest": "const logs = [\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 100 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 105 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 110 }\n];\nconst res = correlateSiemLogEvents(logs, 60, 3);\nif (!res.isBruteForceAlert || res.threatSourceIp !== '198.51.100.4' || res.status !== 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT') throw new Error('SIEM engine failed');",
-    "aTitle": "Indicator of Compromise Acronym Formatter",
-    "aDesc": "Implement function getIocAcronym() returning `'IOC'`.",
-    "aStarter": "function getIocAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return IOC.",
-    "aTest": "if (getIocAcronym() !== 'IOC') throw new Error('Acronym check failed');"
+    "eTest": "const logs = [\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 100 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 105 },\n  { action: 'AUTH_FAILED', sourceIp: '198.51.100.4', timestamp: 110 }\n];\nconst res = correlateSiemLogEvents(logs, 60, 3);\nif (!res.isBruteForceAlert || res.threatSourceIp !== '198.51.100.4' || res.status !== 'SIEM_BRUTE_FORCE_ATTACK_CORRELATED_ALERT') throw new Error('SIEM engine failed');\nconst normalLogs = [{ action: 'AUTH_SUCCESS', sourceIp: '10.0.0.1', timestamp: 100 }];\nconst normalRes = correlateSiemLogEvents(normalLogs, 60, 3);\nif (normalRes.isBruteForceAlert || normalRes.status !== 'SIEM_LOGS_NOMINAL') throw new Error('SIEM normal logs failed');",
+    "aTitle": "Malicious IP Threat Intelligence Checker",
+    "aDesc": "Implement function isMaliciousIp(ip, threatIntelList) returning true if ip is in threatIntelList, else false.",
+    "aStarter": "function isMaliciousIp(ip, list) {\n  // TODO: write your code here\n}",
+    "aHint": "Check threatIntelList.includes(ip).",
+    "aTest": "const blacklist = ['198.51.100.4', '203.0.113.50'];\nif (!isMaliciousIp('198.51.100.4', blacklist)) throw new Error('Blacklisted IP failed');\nif (isMaliciousIp('10.0.0.1', blacklist)) throw new Error('Clean IP should fail');"
   },
   {
     "day": 25,
@@ -496,11 +496,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function matchSnortSignature(proto, port, payload, rule) {\n  // TODO: write your code here\n}",
     "eHint": "Verify proto, port, and payload.includes(rule.content).",
     "eTest": "const rule = { sid: 1001, msg: 'Nmap Scan', protocol: 'TCP', dstPort: 80, content: 'Nmap', action: 'DROP' };\nconst attack = matchSnortSignature('TCP', 80, 'GET / HTTP/1.1 User-Agent: Nmap', rule);\nconst clean = matchSnortSignature('TCP', 80, 'GET / HTTP/1.1 User-Agent: Mozilla', rule);\nif (!attack.isSignatureTriggered || clean.isSignatureTriggered || attack.action !== 'DROP') throw new Error('Snort matcher failed');",
-    "aTitle": "Open Source IDS Engine Name Formatter",
-    "aDesc": "Implement function getStandardNidsEngineName() returning `'Snort'`.",
-    "aStarter": "function getStandardNidsEngineName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Snort.",
-    "aTest": "if (getStandardNidsEngineName() !== 'Snort') throw new Error('Engine name check failed');"
+    "aTitle": "Snort Rule Header Formatter",
+    "aDesc": "Implement function formatSnortRuleHeader(action, protocol, srcIp, srcPort, dstIp, dstPort) returning `${action} ${protocol} ${srcIp} ${srcPort} -> ${dstIp} ${dstPort}`.",
+    "aStarter": "function formatSnortRuleHeader(a, pr, si, sp, di, dp) {\n  // TODO: write your code here\n}",
+    "aHint": "Format rule header with action, protocol, source and destination ip/port.",
+    "aTest": "if (formatSnortRuleHeader('alert', 'tcp', '$EXTERNAL_NET', 'any', '$HOME_NET', '80') !== 'alert tcp $EXTERNAL_NET any -> $HOME_NET 80') throw new Error('Snort rule header failed');\nif (formatSnortRuleHeader('drop', 'udp', 'any', 'any', '$HOME_NET', '53') !== 'drop udp any any -> $HOME_NET 53') throw new Error('DNS drop rule header failed');"
   },
   {
     "day": 26,
@@ -516,11 +516,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function categorizeCvssScore(score) {\n  // TODO: write your code here\n}",
     "eHint": "0.0 None, <4.0 Low, <7.0 Medium, <9.0 High, else Critical.",
     "eTest": "const crit = categorizeCvssScore(9.8); // Critical (e.g. Log4Shell)\nconst med = categorizeCvssScore(5.3); // Medium\nif (crit.severityRating !== 'CRITICAL' || med.severityRating !== 'MEDIUM' || crit.status !== 'CVSS_RATING_CALCULATED_NOMINAL') throw new Error('CVSS categorizer failed');",
-    "aTitle": "Common Vulnerability Scoring System Acronym Formatter",
-    "aDesc": "Implement function getCvssAcronym() returning `'CVSS'`.",
-    "aStarter": "function getCvssAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return CVSS.",
-    "aTest": "if (getCvssAcronym() !== 'CVSS') throw new Error('Acronym check failed');"
+    "aTitle": "CVSS Qualitative Severity Rating Calculator",
+    "aDesc": "Implement function getCvssSeverity(score) returning 'NONE' for score <= 0, 'LOW' for score < 4.0, 'MEDIUM' for score < 7.0, 'HIGH' for score < 9.0, and 'CRITICAL' otherwise.",
+    "aStarter": "function getCvssSeverity(score) {\n  // TODO: write your code here\n}",
+    "aHint": "Map numerical score to 'NONE', 'LOW', 'MEDIUM', 'HIGH', or 'CRITICAL'.",
+    "aTest": "if (getCvssSeverity(9.8) !== 'CRITICAL') throw new Error('9.8 should be CRITICAL');\nif (getCvssSeverity(7.5) !== 'HIGH') throw new Error('7.5 should be HIGH');\nif (getCvssSeverity(5.3) !== 'MEDIUM') throw new Error('5.3 should be MEDIUM');\nif (getCvssSeverity(2.1) !== 'LOW') throw new Error('2.1 should be LOW');\nif (getCvssSeverity(0.0) !== 'NONE') throw new Error('0.0 should be NONE');"
   },
   {
     "day": 27,
@@ -536,11 +536,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateZeroTrustPolicy(idValid, devHealthy, locLowRisk) {\n  // TODO: write your code here\n}",
     "eHint": "isApproved = idValid && devHealthy && locLowRisk.",
     "eTest": "const pass = evaluateZeroTrustPolicy(true, true, true);\nconst fail = evaluateZeroTrustPolicy(true, false, true); // unhealthy device\nif (!pass.zeroTrustAccessGranted || fail.zeroTrustAccessGranted || fail.status !== 'ZERO_TRUST_VERIFICATION_FAILED_ACCESS_REVOKED') throw new Error('Zero trust evaluator failed');",
-    "aTitle": "Zero Trust Core Philosophical Maxim Formatter",
-    "aDesc": "Implement function getZeroTrustMaxim() returning `'Never Trust, Always Verify'`.",
-    "aStarter": "function getZeroTrustMaxim() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Never Trust, Always Verify.",
-    "aTest": "if (getZeroTrustMaxim() !== 'Never Trust, Always Verify') throw new Error('Maxim check failed');"
+    "aTitle": "Zero Trust Contextual Posture Evaluator",
+    "aDesc": "Implement function isZeroTrustRequestCompliant(deviceCompliant, userMfaVerified, ipReputationScore) returning true if deviceCompliant && userMfaVerified && ipReputationScore >= 80, else false.",
+    "aStarter": "function isZeroTrustRequestCompliant(dev, mfa, score) {\n  // TODO: write your code here\n}",
+    "aHint": "Verify deviceCompliant, userMfaVerified, and score >= 80.",
+    "aTest": "if (!isZeroTrustRequestCompliant(true, true, 95)) throw new Error('Healthy request failed');\nif (isZeroTrustRequestCompliant(true, true, 60)) throw new Error('Low reputation IP should fail');\nif (isZeroTrustRequestCompliant(false, true, 95)) throw new Error('Non-compliant device should fail');"
   },
   {
     "day": 28,
@@ -556,11 +556,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditAwsIamPolicy(statement) {\n  // TODO: write your code here\n}",
     "eHint": "Flag excessive privilege if Effect === 'Allow' and Action or Resource is '*'.",
     "eTest": "const risky = auditAwsIamPolicy({ Effect: 'Allow', Action: '*', Resource: '*' });\nconst secure = auditAwsIamPolicy({ Effect: 'Allow', Action: ['s3:GetObject'], Resource: 'arn:aws:s3:::mybucket/*' });\nif (risky.isPolicyCompliant || !secure.isPolicyCompliant || risky.status !== 'OVERLY_PERMISSIVE_WILDCARD_IAM_POLICY_DETECTED') throw new Error('IAM auditor failed');",
-    "aTitle": "Principle of Security Authorization Formatter",
-    "aDesc": "Implement function getLeastPrivilegePrincipleName() returning `'Least Privilege'`.",
-    "aStarter": "function getLeastPrivilegePrincipleName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Least Privilege.",
-    "aTest": "if (getLeastPrivilegePrincipleName() !== 'Least Privilege') throw new Error('Principle check failed');"
+    "aTitle": "IAM Wildcard Privilege Auditor",
+    "aDesc": "Implement function hasWildcardPermission(actions) returning true if actions string or array contains '*' or '*.*', else false.",
+    "aStarter": "function hasWildcardPermission(actions) {\n  // TODO: write your code here\n}",
+    "aHint": "Check if actions is '*' or array containing '*' or '*.*'.",
+    "aTest": "if (!hasWildcardPermission('*')) throw new Error('Wildcard string failed');\nif (!hasWildcardPermission(['s3:*', '*'])) throw new Error('Wildcard array failed');\nif (hasWildcardPermission(['s3:GetObject', 's3:PutObject'])) throw new Error('Restricted actions should fail');"
   },
   {
     "day": 29,
@@ -576,11 +576,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function verifyForensicEvidenceIntegrity(origHash, currHash, isDoc) {\n  // TODO: write your code here\n}",
     "eHint": "isCertified = origHash.toLowerCase() === currHash.toLowerCase() && isDoc === true.",
     "eTest": "const hash = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';\nconst pass = verifyForensicEvidenceIntegrity(hash, hash, true);\nconst fail = verifyForensicEvidenceIntegrity(hash, 'tampered_hash', true);\nif (!pass.isEvidenceAdmissible || fail.isEvidenceAdmissible || pass.status !== 'FORENSIC_EVIDENCE_INTEGRITY_VERIFIED_NOMINAL') throw new Error('Forensic verifier failed');",
-    "aTitle": "Incident Response Standard Guide NIST Number Formatter",
-    "aDesc": "Implement function getNistIncidentGuideNumber() returning `'SP 800-61'`.",
-    "aStarter": "function getNistIncidentGuideNumber() {\n  // TODO: write your code here\n}",
-    "aHint": "Return SP 800-61.",
-    "aTest": "if (getNistIncidentGuideNumber() !== 'SP 800-61') throw new Error('NIST number check failed');"
+    "aTitle": "Forensic Evidence Hash Matcher",
+    "aDesc": "Implement function isForensicHashMatched(calculatedHash, storedEvidenceHash) returning true if hashes match case-insensitively, else false.",
+    "aStarter": "function isForensicHashMatched(calc, stored) {\n  // TODO: write your code here\n}",
+    "aHint": "Compare lowercase string representations.",
+    "aTest": "const h = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';\nif (!isForensicHashMatched(h, h)) throw new Error('Exact hash failed');\nif (!isForensicHashMatched(h.toUpperCase(), h)) throw new Error('Case insensitive hash failed');\nif (isForensicHashMatched(h, 'deadbeef')) throw new Error('Different hash should fail');"
   },
   {
     "day": 30,
@@ -597,10 +597,10 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Verify all 5 module flags evaluate to true.",
     "eTest": "const ok = orchestrateCyberSecurityMasterSuite(true, true, true, true, true);\nconst fail = orchestrateCyberSecurityMasterSuite(true, true, false, true, true);\nif (!ok.sovereignCyberCertified || fail.sovereignCyberCertified || !ok.certified || ok.status !== 'SOVEREIGN_CYBERSECURITY_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Cybersecurity Master Certification Auditor",
-    "aDesc": "Implement function auditCyberMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_CYBERSECURITY_ARCHITECT_CERTIFIED' }`.",
-    "aStarter": "function auditCyberMasterCert() {\n  // TODO: write your code here\n}",
-    "aHint": "Return certification object.",
-    "aTest": "if (!auditCyberMasterCert().certified) throw new Error('Capstone cert failed');"
+    "aDesc": "Implement function auditCyberMasterCert(totalScore, passingThreshold = 100) returning `{ certified: totalScore >= passingThreshold, score: \`${totalScore}/${passingThreshold}\`, tier: totalScore >= passingThreshold ? 'SOVEREIGN_CYBERSECURITY_ARCHITECT_CERTIFIED' : 'REMEDIATION_REQUIRED' }`.",
+    "aStarter": "function auditCyberMasterCert(totalScore, passingThreshold) {\n  // TODO: write your code here\n}",
+    "aHint": "Compare totalScore to passingThreshold and return 'SOVEREIGN_CYBERSECURITY_ARCHITECT_CERTIFIED' or 'REMEDIATION_REQUIRED'.",
+    "aTest": "const pass = auditCyberMasterCert(100, 100);\nif (!pass.certified || pass.tier !== 'SOVEREIGN_CYBERSECURITY_ARCHITECT_CERTIFIED' || pass.score !== '100/100') throw new Error('Pass cert failed');\nconst fail = auditCyberMasterCert(85, 100);\nif (fail.certified || fail.tier !== 'REMEDIATION_REQUIRED' || fail.score !== '85/100') throw new Error('Fail cert failed');"
   }
 ];
 

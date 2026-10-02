@@ -366,7 +366,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'ai-exam-day-26', 'ai-assign-day-26', 'ai-exam-day-28', 'ai-assign-day-28',
   'ai-exam-day-29', 'ai-assign-day-29', 'ai-assign-day-30',
   // course-distributed-sys: 0 tasks (all 60 tasks non-constant and verified)
-  // course-cybersecurity (18 remaining tasks across days 16-30)
+  // course-cybersecurity: 0 tasks (all 60 tasks non-constant and verified)
   'cyber-assign-day-16', 'cyber-assign-day-17', 'cyber-assign-day-18',
   'cyber-exam-day-19', 'cyber-assign-day-19', 'cyber-assign-day-20', 'cyber-exam-day-21',
   'cyber-assign-day-21', 'cyber-assign-day-22', 'cyber-assign-day-23', 'cyber-exam-day-24',
