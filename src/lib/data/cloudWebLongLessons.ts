@@ -2551,5 +2551,1273 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "Implement backend generation of temporary S3 Pre-Signed URLs for direct client document uploads"
       ]
     }
+  },
+  {
+    "day": 11,
+    "title": "Serverless AWS Lambda: Concurrency, Memory & Cold Starts",
+    "goal": "Master serverless computing with AWS Lambda, optimize memory allocation, manage concurrency limits, and mitigate cold start latencies.",
+    "minutes": 25,
+    "recap": "Yesterday we hardened Amazon S3 security and bucket policies. Today we transition to event-driven serverless computing with AWS Lambda.",
+    "parts": [
+      {
+        "title": "Serverless Compute Model & The Lambda Lifecycle",
+        "say": [
+          "AWS Lambda represents the pinnacle of serverless Function as a Service (FaaS) computing in modern cloud architecture.",
+          "In traditional server environments, you must manage operating system patches, monitor background daemons, and pay continuously for idle servers.",
+          "With AWS Lambda, you provide your application code, and AWS executes it on demand, scaling automatically from zero to tens of thousands of concurrent requests.",
+          "You pay strictly for the compute duration consumed, measured down to the millisecond, with zero cost when your application is idle.",
+          "Understanding Lambda requires internalizing its three distinct execution lifecycle phases.",
+          "The first phase is the Init Phase: AWS downloads your code bundle, starts a lightweight Firecracker microVM, and runs all code outside your handler function.",
+          "The second phase is the Invoke Phase: AWS passes the incoming event payload to your exported handler function and executes your business logic.",
+          "The third phase is the Shutdown Phase: if the function receives no further requests for a period of time, AWS terminates the microVM and cleans up runtime resources.",
+          "Mastering this lifecycle enables engineers to write blazing-fast, cost-effective serverless microservices."
+        ],
+        "example": "Hiring a private gourmet chef who arrives at your house only when you order dinner, sets up cookware (Init), prepares your meal (Invoke), and leaves immediately (Shutdown), rather than paying a full-time chef to sit in your kitchen all day.",
+        "code": "type LifecyclePhase = 'Init' | 'Invoke' | 'Shutdown';\n\ninterface LifecycleEvent {\n  phase: LifecyclePhase;\n  action: string;\n  durationMs: number;\n}\n\nconst executionTrace: LifecycleEvent[] = [\n  { phase: 'Init', action: 'Download code & run global initialization', durationMs: 250 },\n  { phase: 'Invoke', action: 'Execute lambdaHandler(event, context)', durationMs: 45 },\n  { phase: 'Shutdown', action: 'Reclaim container execution environment', durationMs: 15 },\n];\n\nconst billableDuration = executionTrace.find(e => e.phase === 'Invoke')?.durationMs;\nconsole.log(`Lambda Lifecycle: Total Phases = ${executionTrace.length} | Billable Invoke Time = ${billableDuration}ms`);",
+        "output": "Lambda Lifecycle: Total Phases = 3 | Billable Invoke Time = 45ms",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines the 3 canonical execution phases of the AWS Lambda execution environment lifecycle."
+          },
+          {
+            "line": 15,
+            "note": "Highlights that customer billing is determined by the duration of the Invoke phase."
+          }
+        ],
+        "tryIt": "Simulate a long database query in the Invoke phase and observe how billable duration increases.",
+        "check": {
+          "question": "Which phase of the AWS Lambda execution lifecycle runs your application handler code?",
+          "options": [
+            "The Init Phase",
+            "The Invoke Phase",
+            "The Shutdown Phase"
+          ],
+          "answer": 1,
+          "why": "The Invoke phase passes the event payload to the handler function and executes your application logic."
+        }
+      },
+      {
+        "title": "Cold Starts vs Warm Starts & Init Optimization",
+        "say": [
+          "The most scrutinized performance consideration in serverless computing is the distinction between Cold Starts and Warm Starts.",
+          "When a Lambda function is invoked after being idle, or when scaling out to handle a traffic surge, a Cold Start occurs.",
+          "During a cold start, AWS must provision a new microVM, download the runtime environment, and execute the global initialization code.",
+          "This initialization introduces a one-time latency penalty ranging from one hundred milliseconds to over one second.",
+          "However, after the invocation completes, AWS freezes the execution environment and keeps it warm in memory for several minutes.",
+          "Subsequent requests hitting that warm environment experience a Warm Start, executing the handler function in milliseconds.",
+          "To optimize cold starts, engineers leverage Global Scope Optimization.",
+          "Any database connection pool, AWS SDK client, or cryptographic key initialization should be declared outside the handler function in global scope.",
+          "In subsequent warm invocations, your handler reuses the existing, open database connection without paying the TCP handshake penalty again.",
+          "This simple architectural habit eliminates immense latency across production serverless applications."
+        ],
+        "example": "Starting a car on a freezing winter morning where you must wait for the engine oil to warm up (cold start) versus restarting the engine at a stoplight while already warm (instant warm start).",
+        "code": "let cachedDbConnection: string | null = null;\n\nfunction lambdaHandler(event: { id: string }): { data: string; executionType: string } {\n  if (!cachedDbConnection) {\n    // Cold start initialization outside handler\n    cachedDbConnection = 'db_pool_active_port_5432';\n    return { data: `Item ${event.id}`, executionType: 'COLD_START' };\n  }\n  // Warm start reusing global cached connection\n  return { data: `Item ${event.id}`, executionType: 'WARM_START' };\n}\n\nconst run1 = lambdaHandler({ id: '101' });\nconst run2 = lambdaHandler({ id: '102' });\nconsole.log(`Invocation 1: ${run1.executionType} | Invocation 2: ${run2.executionType} (Reused: ${cachedDbConnection})`);",
+        "output": "Invocation 1: COLD_START | Invocation 2: WARM_START (Reused: db_pool_active_port_5432)",
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Declares a global database connection variable that persists across warm Lambda invocations."
+          },
+          {
+            "line": 14,
+            "note": "Demonstrates cold start on first execution followed by fast connection reuse on warm execution."
+          }
+        ],
+        "tryIt": "Invoke lambdaHandler a third time and verify that it continues executing as a WARM_START.",
+        "check": {
+          "question": "Where should database client connections be initialized in a Node.js Lambda function to optimize performance?",
+          "options": [
+            "Inside the handler function on every single request",
+            "Outside the handler function in global scope so warm executions can reuse the open connection",
+            "In a separate JSON file committed to source control"
+          ],
+          "answer": 1,
+          "why": "Initializing clients in global scope allows warm execution environments to reuse connections across requests."
+        }
+      },
+      {
+        "title": "Memory Allocation & Proportional vCPU Scaling",
+        "say": [
+          "In AWS Lambda, memory is the single master control knob that governs computing power.",
+          "You can configure a Lambda function with between 128 megabytes and 10,240 megabytes (10 gigabytes) of RAM, in 1-megabyte increments.",
+          "Crucially, you cannot configure CPU cores independently in AWS Lambda.",
+          "AWS allocates fractional vCPU power strictly proportional to the amount of memory you configure.",
+          "At exactly 1,769 megabytes of RAM, a Lambda function receives the equivalent of one full, dedicated vCPU core.",
+          "Allocating 3,538 megabytes provides two full vCPU cores, enabling multi-threaded execution.",
+          "Because CPU scales with memory, increasing memory allocation frequently causes compute-heavy tasks to execute substantially faster.",
+          "For example, a cryptographic hashing algorithm running at 256 MB might take 10 seconds, but at 1,769 MB it finishes in 1.4 seconds.",
+          "Because billing is calculated as Gigabyte-Seconds (memory times duration), the faster execution at higher memory can result in an equal or lower total cloud bill.",
+          "Using AWS Lambda Power Tuning to find the optimal price-performance crossover point is an industry best practice."
+        ],
+        "example": "Upgrading a delivery van from a weak 4-cylinder engine to a powerful V8: it consumes more fuel per minute, but arrives at the destination five times faster, burning less total fuel overall.",
+        "code": "function calculateLambdaGbSeconds(memoryMb: number, durationMs: number): number {\n  const memoryGb = memoryMb / 1024;\n  const durationSeconds = durationMs / 1000;\n  return +(memoryGb * durationSeconds).toFixed(4);\n}\n\n// 256MB takes 4000ms; 1769MB finishes in 500ms\nconst lowMemCost = calculateLambdaGbSeconds(256, 4000);\nconst highMemCost = calculateLambdaGbSeconds(1769, 500);\n\nconsole.log(`256MB @ 4000ms: ${lowMemCost} GB-s | 1769MB (1 vCPU) @ 500ms: ${highMemCost} GB-s`);",
+        "output": "256MB @ 4000ms: 1 GB-s | 1769MB (1 vCPU) @ 500ms: 0.8638 GB-s",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Calculates standard AWS Lambda billable compute units: Gigabyte-Seconds."
+          },
+          {
+            "line": 11,
+            "note": "Demonstrates that higher memory finishing faster yields roughly equal or lower GB-seconds."
+          }
+        ],
+        "tryIt": "Calculate GB-seconds for a 512MB function running for 1,200 milliseconds.",
+        "check": {
+          "question": "At approximately what memory allocation does an AWS Lambda function receive the equivalent of one full dedicated vCPU core?",
+          "options": [
+            "At 512 megabytes",
+            "At 1,769 megabytes",
+            "At 10,240 megabytes"
+          ],
+          "answer": 1,
+          "why": "At 1,769 MB of RAM, AWS Lambda allocates the exact equivalent of one full physical vCPU core."
+        }
+      },
+      {
+        "title": "Concurrency Limits: Reserved vs Provisioned Concurrency",
+        "say": [
+          "Concurrency represents the number of in-flight requests that your Lambda function is actively handling at any given second.",
+          "By default, AWS enforces an account-level limit of 1,000 concurrent executions per region across all functions.",
+          "If a viral marketing campaign triggers 1,500 simultaneous invocations on an unreserved function, requests exceeding the limit are throttled with HTTP 429 errors.",
+          "To control concurrency and protect shared resources, AWS provides Reserved Concurrency and Provisioned Concurrency.",
+          "Reserved Concurrency guarantees a dedicated maximum slice of your account's concurrency pool for a specific function.",
+          "Setting Reserved Concurrency to 100 ensures that the function can always scale up to 100 instances, while simultaneously preventing it from exceeding 100.",
+          "This ceiling is vital for protecting downstream relational databases like PostgreSQL from being overwhelmed by thousands of simultaneous connections.",
+          "In contrast, Provisioned Concurrency is designed to eliminate cold starts completely.",
+          "Provisioned Concurrency initializes a pre-warmed pool of microVMs in advance, keeping the runtime initialized and ready for immediate invocation.",
+          "Provisioned Concurrency guarantees ultra-low, predictable sub-10-millisecond latency for mission-critical payment or login endpoints."
+        ],
+        "example": "A highway toll plaza reserving one dedicated express lane exclusively for emergency ambulances so that heavy rush-hour traffic jams never delay urgent medical care.",
+        "code": "interface ConcurrencyAllocation {\n  functionName: string;\n  reservedConcurrency: number;\n  provisionedConcurrency: number;\n}\n\nconst accountCeiling = 1000;\nconst allocations: ConcurrencyAllocation[] = [\n  { functionName: 'PaymentService', reservedConcurrency: 200, provisionedConcurrency: 50 },\n  { functionName: 'ReportGenerator', reservedConcurrency: 50, provisionedConcurrency: 0 },\n];\n\nconst totalReserved = allocations.reduce((sum, a) => sum + a.reservedConcurrency, 0);\nconst unreservedPool = accountCeiling - totalReserved;\n\nconsole.log(`Account Concurrency: 1000 | Reserved: ${totalReserved} | Remaining Unreserved Pool: ${unreservedPool}`);",
+        "output": "Account Concurrency: 1000 | Reserved: 250 | Remaining Unreserved Pool: 750",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models AWS account-level concurrency partitioning across mission-critical microservices."
+          },
+          {
+            "line": 15,
+            "note": "Computes the remaining unreserved pool available for all other regional serverless functions."
+          }
+        ],
+        "tryIt": "Add an OrderService allocating 300 reserved concurrency and calculate the updated unreserved pool.",
+        "check": {
+          "question": "What is the primary benefit of enabling Provisioned Concurrency on an AWS Lambda function?",
+          "options": [
+            "It eliminates cold start latencies by pre-warming execution environments in advance",
+            "It reduces the cost of the function to zero dollars permanently",
+            "It converts Node.js code into compiled C++ automatically"
+          ],
+          "answer": 0,
+          "why": "Provisioned Concurrency maintains pre-warmed execution environments, eliminating cold start latency entirely."
+        }
+      },
+      {
+        "title": "Error Handling, Retries, and Dead Letter Queues (DLQ)",
+        "say": [
+          "In distributed cloud architectures, serverless functions must handle network failures and transient errors gracefully.",
+          "Lambda invocation behavior depends fundamentally on the Invocation Type: Synchronous versus Asynchronous.",
+          "In a Synchronous invocation (such as API Gateway calling Lambda), the caller waits for the function's response.",
+          "If the function throws an error, Lambda returns the error immediately to the caller; zero automatic retries occur on the Lambda side.",
+          "In an Asynchronous invocation (such as an S3 object creation event or an Amazon SNS notification), Lambda handles retries automatically.",
+          "When an asynchronous function fails, Lambda automatically retries the invocation twice with exponential backoff.",
+          "If the function fails on all retry attempts, the event payload is discarded unless you configure a Dead Letter Queue (DLQ).",
+          "A Dead Letter Queue can be an Amazon SQS queue or an Amazon SNS topic.",
+          "Lambda dispatches the failed event payload along with error metadata directly into the DLQ for engineer investigation.",
+          "Configuring DLQs guarantees that transient bugs or poison pill payloads never cause permanent, undetected data loss."
+        ],
+        "example": "A postal delivery courier attempting to deliver a registered parcel: if no one answers, the courier retries the next two afternoons before routing the package to a central post office holding room for pickup.",
+        "code": "interface AsyncInvocationResult {\n  attempt: number;\n  maxRetries: number;\n  success: boolean;\n  sentToDlq: boolean;\n}\n\nfunction processAsyncEvent(attemptsNeeded: number, maxRetries: number = 2): AsyncInvocationResult {\n  let attempt = 1;\n  while (attempt <= (maxRetries + 1)) {\n    if (attempt >= attemptsNeeded) {\n      return { attempt, maxRetries, success: true, sentToDlq: false };\n    }\n    attempt++;\n  }\n  return { attempt: maxRetries + 1, maxRetries, success: false, sentToDlq: true };\n}\n\nconst recovered = processAsyncEvent(2); // succeeds on 1st retry\nconst poisoned = processAsyncEvent(5);  // fails all retries, routed to DLQ\n\nconsole.log(`Event 1: Success=${recovered.success} on Attempt ${recovered.attempt} | Event 2: Sent to DLQ=${poisoned.sentToDlq}`);",
+        "output": "Event 1: Success=true on Attempt 2 | Event 2: Sent to DLQ=true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Simulates AWS Lambda asynchronous retry engine executing up to 2 retries before DLQ routing."
+          },
+          {
+            "line": 21,
+            "note": "Demonstrates transient recovery on attempt 2 alongside poison payload routing to the Dead Letter Queue."
+          }
+        ],
+        "tryIt": "Test with attemptsNeeded = 1 to verify that an immediate success executes with zero retries.",
+        "check": {
+          "question": "How many times does AWS Lambda automatically retry a failed Asynchronous event invocation before sending it to a DLQ?",
+          "options": [
+            "Zero times; asynchronous events never retry",
+            "Exactly two times with exponential backoff",
+            "Ten times every hour indefinitely"
+          ],
+          "answer": 1,
+          "why": "Lambda automatically retries asynchronous event invocations twice by default before routing to a configured DLQ."
+        }
+      },
+      {
+        "title": "Lambda Function URLs & Streaming Responses",
+        "say": [
+          "Traditionally, exposing a Lambda function to the public internet required configuring an Amazon API Gateway or Application Load Balancer.",
+          "For simple webhooks, single-page app backends, or public forms, AWS offers Lambda Function URLs.",
+          "A Function URL is a dedicated, secure HTTPS endpoint assigned directly to your Lambda function.",
+          "Function URLs are completely free of charge; you pay solely for standard Lambda compute execution.",
+          "They support two authentication modes: AuthType NONE for open public endpoints, and AWS_IAM for cryptographically signed requests via SigV4.",
+          "In addition, Lambda supports Response Payload Streaming.",
+          "Standard Lambda responses buffer the entire output payload in memory up to a 6-megabyte response ceiling.",
+          "With Response Streaming, a Lambda function can stream data back to the client progressively, supporting payloads up to 20 megabytes.",
+          "This capability is transformative for web applications returning large documents or modern Generative AI applications streaming LLM token chunks.",
+          "Function URLs simplify serverless web architectures by eliminating unnecessary gateway layers."
+        ],
+        "example": "A direct private hotline phone connecting two specific executive desks, allowing instant conversation without routing through the central office telephone switchboard.",
+        "code": "interface FunctionUrlRequest {\n  rawPath: string;\n  headers: Record<string, string>;\n  requestContext: { http: { method: string; sourceIp: string } };\n}\n\nfunction handleFunctionUrl(req: FunctionUrlRequest) {\n  const method = req.requestContext.http.method;\n  const path = req.rawPath;\n  return {\n    statusCode: 200,\n    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },\n    body: JSON.stringify({ message: 'Function URL invoked successfully', route: `${method} ${path}` })\n  };\n}\n\nconst res = handleFunctionUrl({\n  rawPath: '/webhook/stripe',\n  headers: { host: 'abcdefgh.lambda-url.us-east-1.on.aws' },\n  requestContext: { http: { method: 'POST', sourceIp: '198.51.100.2' } }\n});\n\nconsole.log(`Function URL Status: ${res.statusCode} | Response Body: ${res.body}`);",
+        "output": "Function URL Status: 200 | Response Body: {\"message\":\"Function URL invoked successfully\",\"route\":\"POST /webhook/stripe\"}",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Processes standard Lambda Function URL request payloads containing HTTP context and path."
+          },
+          {
+            "line": 19,
+            "note": "Outputs the HTTP 200 JSON response returned directly to the calling client over the direct URL."
+          }
+        ],
+        "tryIt": "Add a GET endpoint route check returning a health status message.",
+        "check": {
+          "question": "What is the primary benefit of using a Lambda Function URL over an Amazon API Gateway?",
+          "options": [
+            "Function URLs provide a direct, free HTTPS endpoint for the function without managing an API Gateway",
+            "Function URLs grant unlimited compute memory up to 100 gigabytes",
+            "Function URLs run exclusively on physical on-premises servers"
+          ],
+          "answer": 0,
+          "why": "Function URLs provide a direct, built-in HTTPS endpoint for your function with zero API Gateway overhead or cost."
+        }
+      }
+    ],
+    "summary": [
+      "AWS Lambda executes code on demand with sub-millisecond billing, scaling from zero to thousands of concurrent requests.",
+      "Global connection reuse outside the handler minimizes cold start penalties, while proportional vCPU scales up to 1 vCPU at 1,769 MB.",
+      "Reserved Concurrency protects downstream databases, and asynchronous retries route poisoned payloads to Dead Letter Queues."
+    ],
+    "projectStep": {
+      "title": "Serverless Lambda Compute & Concurrency Setup",
+      "steps": [
+        "Author a production Node.js 20 Lambda function with global database client connection caching",
+        "Configure 1,769 MB of memory to guarantee a dedicated vCPU core and attach an SQS Dead Letter Queue",
+        "Set Reserved Concurrency to 50 to protect downstream databases from traffic spikes"
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "title": "Amazon API Gateway V2 HTTP & Lambda Authorizers",
+    "goal": "Build scalable RESTful API entrypoints with API Gateway HTTP APIs, CORS configuration, and custom Lambda Authorizers.",
+    "minutes": 25,
+    "recap": "Yesterday we explored the inner workings of AWS Lambda. Today we expose our serverless functions securely to the public internet using Amazon API Gateway HTTP APIs.",
+    "parts": [
+      {
+        "title": "API Gateway HTTP APIs (V2) vs REST APIs (V1)",
+        "say": [
+          "Amazon API Gateway provides a fully managed service that allows developers to create, publish, maintain, and monitor secure APIs at any scale.",
+          "When architecting serverless APIs on AWS, developers choose between two major API flavors: HTTP APIs (Version 2) and REST APIs (Version 1).",
+          "HTTP APIs represent the modern, lightweight cloud-native standard.",
+          "HTTP APIs are engineered specifically for high-throughput, low-latency workloads, offering up to sixty percent lower latency than REST APIs.",
+          "Furthermore, HTTP APIs are up to seventy-one percent cheaper, costing roughly one dollar per million requests compared to three dollars and fifty cents for REST APIs.",
+          "HTTP APIs natively integrate with OpenID Connect (OIDC) and OAuth 2.0 JWT identity providers with zero custom code.",
+          "In contrast, REST APIs (V1) support legacy capabilities like API key usage plans, XML request transformation, and client request schema validation.",
+          "For modern web applications, mobile backends, and serverless microservices, HTTP APIs (V2) are the clear, cost-effective default choice."
+        ],
+        "example": "An automated contactless NFC subway ticket turnstile that scans passengers through in half a second (HTTP API) versus a legacy ticket booth that sells paper maps, validates passports, and prints receipts (REST API).",
+        "code": "interface ApiGatewayFlavor {\n  name: string;\n  costPerMillion: number;\n  averageLatencyMs: number;\n  jwtNativeSupport: boolean;\n}\n\nconst options: ApiGatewayFlavor[] = [\n  { name: 'HTTP API (V2)', costPerMillion: 1.00, averageLatencyMs: 12, jwtNativeSupport: true },\n  { name: 'REST API (V1)', costPerMillion: 3.50, averageLatencyMs: 35, jwtNativeSupport: false },\n];\n\nconst savingsPct = Math.round(((options[1].costPerMillion - options[0].costPerMillion) / options[1].costPerMillion) * 100);\nconsole.log(`HTTP API V2: $${options[0].costPerMillion}/M req | REST API V1: $${options[1].costPerMillion}/M req (Cost Savings: ${savingsPct}%)`);",
+        "output": "HTTP API V2: $1/M req | REST API V1: $3.5/M req (Cost Savings: 71%)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the economic and latency metrics contrasting modern HTTP APIs with legacy REST APIs."
+          },
+          {
+            "line": 14,
+            "note": "Computes 71% cost reduction achieved by adopting lightweight HTTP API V2 architecture."
+          }
+        ],
+        "tryIt": "Calculate total monthly cost for 20 million requests on HTTP API vs REST API.",
+        "check": {
+          "question": "Why do modern serverless architectures prefer API Gateway HTTP APIs (V2) over REST APIs (V1)?",
+          "options": [
+            "HTTP APIs are up to 71% cheaper and deliver 60% lower latency with native JWT authentication",
+            "HTTP APIs only run on weekends when server traffic is quiet",
+            "HTTP APIs require writing zero application code"
+          ],
+          "answer": 0,
+          "why": "HTTP APIs offer dramatic cost savings (~$1/M vs ~$3.50/M) and faster latency for modern serverless workloads."
+        }
+      },
+      {
+        "title": "Routes, Integrations & Lambda Proxy Integration",
+        "say": [
+          "An API Gateway HTTP API is structured using two foundational primitives: Routes, and Integrations.",
+          "A Route combines an HTTP method (such as GET, POST, or DELETE) with a resource path pattern, such as 'POST /api/v1/orders'.",
+          "Routes can also incorporate dynamic path parameters, such as 'GET /api/v1/users/{userId}'.",
+          "An Integration connects a route to a backend compute target, most commonly an AWS Lambda function.",
+          "Modern HTTP APIs leverage Lambda Proxy Integration by default.",
+          "Under Lambda Proxy Integration, API Gateway automatically packages the entire client HTTP request into a structured JSON event payload.",
+          "This payload contains the HTTP method, URL path, raw query parameters, request headers, client IP, and request body.",
+          "API Gateway forwards this JSON payload directly to your Lambda handler function without altering any parameters.",
+          "Your Lambda function processes the request and returns a standard JSON object containing statusCode, headers, and body.",
+          "Lambda Proxy Integration provides total flexibility, allowing your code to inspect and manipulate headers, cookies, and status codes dynamically."
+        ],
+        "example": "A postal delivery service receiving a sealed letter, placing it into a protective transparent courier pouch with clear tracking metadata, and handing the intact pouch directly to the recipient.",
+        "code": "interface ProxyRequest {\n  routeKey: string;\n  rawPath: string;\n  queryStringParameters?: Record<string, string>;\n  body?: string;\n}\n\nfunction processLambdaProxyEvent(event: ProxyRequest) {\n  if (event.routeKey === 'GET /items') {\n    return {\n      statusCode: 200,\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ items: ['item_1', 'item_2'], count: 2 })\n    };\n  }\n  return { statusCode: 404, body: JSON.stringify({ error: 'Route not found' }) };\n}\n\nconst clientReq: ProxyRequest = { routeKey: 'GET /items', rawPath: '/items' };\nconst res = processLambdaProxyEvent(clientReq);\nconsole.log(`Proxy Response: Status ${res.statusCode} | Body: ${res.body}`);",
+        "output": "Proxy Response: Status 200 | Body: {\"items\":[\"item_1\",\"item_2\"],\"count\":2}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates standard Lambda proxy integration route matching and formats HTTP status response."
+          },
+          {
+            "line": 19,
+            "note": "Demonstrates canonical HTTP 200 payload return formatted for client web browsers."
+          }
+        ],
+        "tryIt": "Add a POST /items route handler that accepts a request body and returns status 201 Created.",
+        "check": {
+          "question": "Under API Gateway Lambda Proxy Integration, what is the required return format from a Lambda function?",
+          "options": [
+            "Raw unformatted text without status codes",
+            "A JSON object containing statusCode, headers, and body string",
+            "An XML document validated against a WSDL schema"
+          ],
+          "answer": 1,
+          "why": "Lambda proxy integration requires returning an object with numeric statusCode, headers, and string body."
+        }
+      },
+      {
+        "title": "Cross-Origin Resource Sharing (CORS) Configuration",
+        "say": [
+          "When a modern Single Page Application (such as a React, Vue, or Next.js app) hosted on app.company.com makes a fetch request to api.company.com, the browser enforces the Same-Origin Policy.",
+          "To allow cross-origin requests, your backend must implement Cross-Origin Resource Sharing, or CORS.",
+          "For complex requests (like POST with JSON or custom Authorization headers), the browser first sends an automated preflight HTTP OPTIONS request.",
+          "The preflight request checks whether the API server permits the client's origin, HTTP method, and custom headers.",
+          "API Gateway HTTP APIs provide native, built-in CORS configuration at the gateway layer.",
+          "You can configure allowed origins, allowed methods, allowed headers, and maximum cache age directly in the API Gateway console or Terraform.",
+          "When a preflight OPTIONS request arrives, API Gateway automatically intercepts it and returns the appropriate Access-Control headers in milliseconds.",
+          "The request never invokes your Lambda function, eliminating cold starts and reducing compute costs for preflight checks.",
+          "Proper CORS configuration ensures smooth browser communication while guarding against unauthorized domain requests."
+        ],
+        "example": "An international bank displaying an official sign on its front window listing approved foreign currencies and international passport types accepted, so tourists know their transaction will be processed before stepping in line.",
+        "code": "interface CorsConfig {\n  allowOrigins: string[];\n  allowMethods: string[];\n  allowHeaders: string[];\n}\n\nfunction generateCorsHeaders(origin: string, config: CorsConfig): Record<string, string> {\n  const isAllowed = config.allowOrigins.includes('*') || config.allowOrigins.includes(origin);\n  return {\n    'Access-Control-Allow-Origin': isAllowed ? origin : 'null',\n    'Access-Control-Allow-Methods': config.allowMethods.join(','),\n    'Access-Control-Allow-Headers': config.allowHeaders.join(',')\n  };\n}\n\nconst config: CorsConfig = {\n  allowOrigins: ['https://app.pinit.com', 'http://localhost:3000'],\n  allowMethods: ['GET', 'POST', 'OPTIONS'],\n  allowHeaders: ['Authorization', 'Content-Type']\n};\n\nconst prodHeaders = generateCorsHeaders('https://app.pinit.com', config);\nconsole.log(`CORS Origin Allowed: ${prodHeaders['Access-Control-Allow-Origin']} | Methods: ${prodHeaders['Access-Control-Allow-Methods']}`);",
+        "output": "CORS Origin Allowed: https://app.pinit.com | Methods: GET,POST,OPTIONS",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Constructs standard CORS response headers based on an authorized domain whitelist."
+          },
+          {
+            "line": 22,
+            "note": "Demonstrates that whitelisted domains receive matching Access-Control-Allow-Origin headers."
+          }
+        ],
+        "tryIt": "Test with an unauthorized origin like 'https://malicious-site.com' and observe the origin set to 'null'.",
+        "check": {
+          "question": "Why is native CORS configuration in API Gateway superior to handling CORS manually inside Lambda code?",
+          "options": [
+            "API Gateway intercepts preflight OPTIONS requests at the edge without invoking Lambda, eliminating cold starts and compute fees",
+            "Lambda functions are physically incapable of returning HTTP headers",
+            "Browsers automatically block all Lambda functions that use CORS"
+          ],
+          "answer": 0,
+          "why": "API Gateway returns preflight CORS headers directly from the edge without invoking Lambda, saving time and money."
+        }
+      },
+      {
+        "title": "JWT Authorizers for OAuth 2.0 / OIDC Authentication",
+        "say": [
+          "Securing public API endpoints against unauthorized callers is a critical architectural requirement.",
+          "In modern cloud applications, authentication is handled using JSON Web Tokens (JWTs) issued by an OpenID Connect (OIDC) identity provider like Auth0, Amazon Cognito, or Okta.",
+          "API Gateway HTTP APIs feature native, built-in JWT Authorizers.",
+          "A JWT Authorizer is configured with an Identity Provider Issuer URL and an Audience string.",
+          "When a client sends an HTTP request with an 'Authorization: Bearer <token>' header, API Gateway validates the token cryptographically before invoking the backend.",
+          "API Gateway checks the cryptographic signature using the provider's public JSON Web Key Set (JWKS), verifies that the token has not expired, and asserts that the audience matches.",
+          "If the token is invalid or expired, API Gateway immediately rejects the request with an HTTP 401 Unauthorized status.",
+          "Your backend Lambda function is never invoked, shielding your compute fleet and database from unauthorized traffic spikes.",
+          "If the token is valid, API Gateway passes the verified token claims (such as user ID and email) directly to Lambda inside the request context."
+        ],
+        "example": "A stadium security guard verifying holographic VIP wristbands at the entrance gate, immediately turning away anyone with an expired or counterfeit wristband before they ever enter the concourse.",
+        "code": "interface JwtPayload {\n  sub: string; // user ID\n  iss: string; // issuer\n  aud: string; // audience\n  exp: number; // expiration timestamp\n}\n\nfunction validateJwtClaims(token: JwtPayload, expectedIssuer: string, expectedAudience: string): { valid: boolean; reason?: string } {\n  const nowSeconds = Math.floor(Date.now() / 1000);\n  if (token.exp < nowSeconds) return { valid: false, reason: 'TOKEN_EXPIRED' };\n  if (token.iss !== expectedIssuer) return { valid: false, reason: 'INVALID_ISSUER' };\n  if (token.aud !== expectedAudience) return { valid: false, reason: 'INVALID_AUDIENCE' };\n  return { valid: true };\n}\n\nconst token: JwtPayload = {\n  sub: 'usr_888999',\n  iss: 'https://auth.pinit.com',\n  aud: 'pinit-api-gateway',\n  exp: Math.floor(Date.now() / 1000) + 3600 // 1 hour future\n};\n\nconst validation = validateJwtClaims(token, 'https://auth.pinit.com', 'pinit-api-gateway');\nconsole.log(`JWT Claims Validation: Valid = ${validation.valid} for User ${token.sub}`);",
+        "output": "JWT Claims Validation: Valid = true for User usr_888999",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models native API Gateway JWT validation checking expiration, issuer, and target audience claims."
+          },
+          {
+            "line": 22,
+            "note": "Proves that valid cryptographic tokens pass validation allowing the user ID to reach downstream logic."
+          }
+        ],
+        "tryIt": "Simulate an expired token by setting exp to the past and verify that validation fails with TOKEN_EXPIRED.",
+        "check": {
+          "question": "What happens when a client sends an expired JWT to an API Gateway route protected by a native JWT Authorizer?",
+          "options": [
+            "API Gateway invokes the Lambda function and lets the developer handle the error",
+            "API Gateway immediately rejects the request with HTTP 401 Unauthorized without invoking Lambda",
+            "The client computer is banned from the internet for 24 hours"
+          ],
+          "answer": 1,
+          "why": "The JWT Authorizer verifies tokens at the gateway and immediately rejects invalid tokens with HTTP 401."
+        }
+      },
+      {
+        "title": "Custom Lambda Authorizers (Token vs Request-Based)",
+        "say": [
+          "While native JWT Authorizers handle standard OAuth 2.0 flows, enterprises frequently require custom authentication schemes.",
+          "You may need to validate proprietary API keys against a Redis cache, inspect custom cookies, or query an external LDAP corporate directory.",
+          "For these specialized scenarios, API Gateway supports Custom Lambda Authorizers.",
+          "A Lambda Authorizer is an independent Lambda function that API Gateway invokes to make an authorization decision.",
+          "Lambda Authorizers come in two formats: Token-Based, and Request-Based.",
+          "A Token-Based Authorizer inspects only a single bearer token string passed in the Authorization header.",
+          "A Request-Based Authorizer inspects all incoming request parameters, including headers, query string parameters, cookies, and client IP.",
+          "The Lambda Authorizer executes its custom validation logic and returns an IAM Policy Document.",
+          "The returned policy contains an Effect ('Allow' or 'Deny'), the caller PrincipalId, and an optional Context dictionary containing user metadata.",
+          "API Gateway can cache the authorization response for up to 3,600 seconds, avoiding repeated authorizer invocations on subsequent requests."
+        ],
+        "example": "A high-security biometric laboratory door equipped with a custom scanner that checks both your employee badge ID and a retinal scan against an internal database before unlocking the door.",
+        "code": "interface AuthorizerResponse {\n  principalId: string;\n  policyDocument: {\n    Version: '2012-10-17';\n    Statement: [{ Action: 'execute-api:Invoke'; Effect: 'Allow' | 'Deny'; Resource: string }];\n  };\n}\n\nfunction generateAuthorizerPolicy(principalId: string, effect: 'Allow' | 'Deny', methodArn: string): AuthorizerResponse {\n  return {\n    principalId,\n    policyDocument: {\n      Version: '2012-10-17',\n      Statement: [{ Action: 'execute-api:Invoke', Effect: effect, Resource: methodArn }]\n    }\n  };\n}\n\nconst authResult = generateAuthorizerPolicy('user-101', 'Allow', 'arn:aws:execute-api:us-east-1:123456:api/prod/GET/orders');\nconsole.log(`Lambda Authorizer Policy Generated: Principal=${authResult.principalId}, Effect=${authResult.policyDocument.Statement[0].Effect}`);",
+        "output": "Lambda Authorizer Policy Generated: Principal=user-101, Effect=Allow",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Generates standard IAM execute-api policy document required by API Gateway Lambda authorizers."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates authorizer returning an explicit Allow statement targeting a specific route method ARN."
+          }
+        ],
+        "tryIt": "Generate a Deny policy for an invalid API key and verify that the Effect is set to 'Deny'.",
+        "check": {
+          "question": "What must a Custom Lambda Authorizer return to API Gateway to grant access to a requested route?",
+          "options": [
+            "A boolean true or false string in plaintext",
+            "An IAM Policy document specifying Effect 'Allow' on the API route ARN",
+            "A digital cookie containing the user's password"
+          ],
+          "answer": 1,
+          "why": "Lambda Authorizers return an IAM Policy document with an Effect ('Allow' or 'Deny') on the targeted execute-api resource."
+        }
+      },
+      {
+        "title": "Throttling, Usage Plans, and Burst Limits",
+        "say": [
+          "To safeguard downstream microservices and prevent Denial of Service (DoS) attacks, API Gateway provides comprehensive traffic Throttling.",
+          "Throttling is implemented using the industry-standard Token Bucket Algorithm.",
+          "In the Token Bucket algorithm, a virtual bucket continuously accumulates tokens at a steady-state rate.",
+          "Each incoming HTTP request consumes exactly one token from the bucket.",
+          "Throttling is configured using two core parameters: Rate, and Burst.",
+          "The Steady-State Rate defines the sustained average number of requests per second (RPS) permitted through the gateway.",
+          "The Burst Capacity defines the maximum instantaneous surge of requests the bucket can absorb when full.",
+          "If incoming traffic surges beyond the burst capacity, the token bucket empties, and API Gateway immediately rejects excess requests with an HTTP 429 Too Many Requests status code.",
+          "Clients receive a 'Retry-After' header indicating when they should attempt their request again.",
+          "Configuring appropriate throttle limits prevents viral traffic spikes from crashing backend databases and runaway cloud bills."
+        ],
+        "example": "A nightclub with a steady entry rate of two guests per minute, featuring an indoor vestibule holding up to twenty people during a sudden rainstorm; once the vestibule fills, further arrivals must wait outside until people enter.",
+        "code": "class TokenBucketRateLimiter {\n  tokens: number;\n  lastRefill: number = Date.now();\n\n  constructor(public maxCapacity: number, public refillRatePerSecond: number) {\n    this.tokens = maxCapacity;\n  }\n\n  allowRequest(): boolean {\n    this.refill();\n    if (this.tokens >= 1) {\n      this.tokens -= 1;\n      return true; // Allowed\n    }\n    return false; // Throttled (HTTP 429)\n  }\n\n  private refill() {\n    const now = Date.now();\n    const elapsedSeconds = (now - this.lastRefill) / 1000;\n    this.tokens = Math.min(this.maxCapacity, this.tokens + (elapsedSeconds * this.refillRatePerSecond));\n    this.lastRefill = now;\n  }\n}\n\nconst limiter = new TokenBucketRateLimiter(2, 5); // burst: 2, rate: 5/s\nconst r1 = limiter.allowRequest();\nconst r2 = limiter.allowRequest();\nconst r3 = limiter.allowRequest(); // Exceeds burst capacity\nconsole.log(`Request 1: Allowed=${r1} | Request 2: Allowed=${r2} | Request 3: Allowed=${r3} (Throttled HTTP 429)`);",
+        "output": "Request 1: Allowed=true | Request 2: Allowed=true | Request 3: Allowed=false (Throttled HTTP 429)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Initializes the Token Bucket rate limiter with maximum burst capacity and continuous refill rate."
+          },
+          {
+            "line": 29,
+            "note": "Demonstrates burst exhaustion: requests 1 and 2 succeed, while request 3 is throttled with HTTP 429."
+          }
+        ],
+        "tryIt": "Increase maxCapacity to 5 and verify that three consecutive requests succeed without throttling.",
+        "check": {
+          "question": "What HTTP status code does Amazon API Gateway return when a client exceeds configured rate and burst throttling limits?",
+          "options": [
+            "HTTP 200 OK with a warning banner",
+            "HTTP 429 Too Many Requests",
+            "HTTP 500 Internal Server Error"
+          ],
+          "answer": 1,
+          "why": "HTTP 429 Too Many Requests is the standard status code returned when API Gateway rate or burst limits are breached."
+        }
+      }
+    ],
+    "summary": [
+      "API Gateway HTTP APIs (V2) provide high-performance, low-cost RESTful endpoints with native JWT and CORS support.",
+      "Lambda Proxy Integration passes full HTTP request context to backend handlers and expects standard statusCode/headers/body responses.",
+      "Custom Lambda Authorizers and Token Bucket rate limiting protect microservices with IAM policies and HTTP 429 throttling."
+    ],
+    "projectStep": {
+      "title": "API Gateway HTTP API & CORS Configuration",
+      "steps": [
+        "Deploy an API Gateway V2 HTTP API with routes for 'GET /videos' and 'POST /videos/presign'",
+        "Configure native CORS allowing 'https://app.pinit.com' with GET, POST, and OPTIONS methods",
+        "Attach a native JWT Authorizer validating Bearer tokens issued by Amazon Cognito user pools"
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "title": "Amazon DynamoDB Partition Keys & Global Secondary Indexes (GSI)",
+    "goal": "Design high-performance NoSQL data models using DynamoDB partition keys, sort keys, and Global Secondary Indexes.",
+    "minutes": 25,
+    "recap": "Yesterday we routed HTTP requests with API Gateway. Today we persist application state at enterprise scale using AWS's premier NoSQL database: Amazon DynamoDB.",
+    "parts": [
+      {
+        "title": "DynamoDB Architecture: Fully Managed Distributed NoSQL",
+        "say": [
+          "Amazon DynamoDB is a fully managed, serverless, distributed NoSQL key-value and document database service.",
+          "DynamoDB is engineered to deliver single-digit millisecond response times at any scale, whether handling ten requests per second or twenty million requests per second.",
+          "Unlike relational databases running on single virtual machines, DynamoDB has no servers to provision, patch, or manage.",
+          "Under the hood, DynamoDB automatically partitions data across solid-state drives distributed across multiple physical storage servers.",
+          "Every item written to DynamoDB is synchronously replicated across three distinct Availability Zones within the region.",
+          "This multi-AZ replication guarantees nine nines of durability and high availability.",
+          "DynamoDB supports two flexible capacity billing modes: On-Demand Capacity for unpredictable traffic, and Provisioned Capacity for steady-state workloads.",
+          "Data in DynamoDB is structured into Tables, which contain Items (analogous to rows), and Items contain Attributes (analogous to columns).",
+          "DynamoDB is schema-less: aside from the primary key, different items in the same table can possess entirely different attributes.",
+          "This schema flexibility enables rapid feature iteration in cloud native microservices."
+        ],
+        "example": "A massive automated robotic fulfillment center where millions of parcels are instantly stored and retrieved from numbered bins in milliseconds, regardless of how many packages are in the facility.",
+        "code": "interface DynamoItem {\n  PK: string;\n  SK: string;\n  attributes: Record<string, any>;\n}\n\nconst userItem: DynamoItem = {\n  PK: 'USER#1001',\n  SK: 'METADATA',\n  attributes: {\n    email: 'alex@pinit.com',\n    fullName: 'Alex Vance',\n    tier: 'Enterprise',\n    createdAt: '2026-10-02T10:00:00Z'\n  }\n};\n\nconsole.log(`DynamoDB Item Stored: PK=${userItem.PK} | SK=${userItem.SK} | Email=${userItem.attributes.email}`);",
+        "output": "DynamoDB Item Stored: PK=USER#1001 | SK=METADATA | Email=alex@pinit.com",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models a canonical DynamoDB item with explicit primary keys (PK/SK) and arbitrary JSON attributes."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates flexible schema-less document storage within a single NoSQL table item."
+          }
+        ],
+        "tryIt": "Add an optional 'phoneNumber' attribute to userItem and observe how DynamoDB accepts items with varying schemas.",
+        "check": {
+          "question": "How does Amazon DynamoDB maintain single-digit millisecond latency when table sizes grow from gigabytes to terabytes?",
+          "options": [
+            "It automatically partitions data across distributed SSD storage nodes based on the partition key hash",
+            "It requires database administrators to manually add RAM sticks to physical servers",
+            "It converts all tables into plain CSV text files"
+          ],
+          "answer": 0,
+          "why": "DynamoDB automatically distributes data across physical SSD storage partitions using a hash of the partition key."
+        }
+      },
+      {
+        "title": "Primary Keys: Simple (Partition Key) vs Composite (PK + Sort Key)",
+        "say": [
+          "Every table in DynamoDB requires a Primary Key that uniquely identifies each item in the table.",
+          "DynamoDB supports two types of primary keys: Simple Primary Keys, and Composite Primary Keys.",
+          "A Simple Primary Key consists of a single attribute known as the Partition Key, or Hash Key.",
+          "When an item is written, DynamoDB runs the partition key value through an internal hashing algorithm.",
+          "The output hash determines the exact physical storage partition where the item will reside.",
+          "In a Simple Primary Key table, no two items can possess the same Partition Key value.",
+          "A Composite Primary Key consists of two attributes: a Partition Key (Hash Key), and a Sort Key (Range Key).",
+          "In a Composite Primary Key table, two items can share the identical Partition Key, provided their Sort Key values are distinct.",
+          "All items sharing the same Partition Key are stored together on the same physical partition, pre-sorted in ascending order by the Sort Key.",
+          "Composite primary keys unlock powerful range query capabilities: you can query all orders for a customer placed between two dates using a single fast request."
+        ],
+        "example": "An office filing cabinet where each drawer represents a Customer Account ID (Partition Key), and the folders inside are filed chronologically by Invoice Date (Sort Key).",
+        "code": "class DynamoKeyHasher {\n  static getPartitionBin(partitionKey: string, totalPartitions: number = 4): number {\n    let hash = 0;\n    for (let i = 0; i < partitionKey.length; i++) hash = (hash << 5) - hash + partitionKey.charCodeAt(i);\n    return Math.abs(hash) % totalPartitions;\n  }\n}\n\nconst binUser1 = DynamoKeyHasher.getPartitionBin('USER#1001');\nconst binUser2 = DynamoKeyHasher.getPartitionBin('USER#1002');\nconsole.log(`USER#1001 mapped to Partition ${binUser1} | USER#1002 mapped to Partition ${binUser2}`);",
+        "output": "USER#1001 mapped to Partition 0 | USER#1002 mapped to Partition 3",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Simulates DynamoDB's internal partition key hashing algorithm mapping items to physical storage partitions."
+          },
+          {
+            "line": 10,
+            "note": "Demonstrates how distinct partition keys distribute items across separate physical storage partitions."
+          }
+        ],
+        "tryIt": "Calculate the partition bin for 'USER#9999' across 8 total physical partitions.",
+        "check": {
+          "question": "In a DynamoDB table with a Composite Primary Key (Partition Key + Sort Key), how are items with the same Partition Key stored?",
+          "options": [
+            "They are randomly scattered across different AWS regions",
+            "They are co-located on the same physical storage partition, sorted in order by the Sort Key",
+            "The older items are overwritten and deleted automatically"
+          ],
+          "answer": 1,
+          "why": "Items sharing a partition key are co-located on the same physical partition, pre-sorted by their sort key for fast range queries."
+        }
+      },
+      {
+        "title": "Query vs Scan Operations: Performance & Cost Invariants",
+        "say": [
+          "Understanding the difference between the Query and Scan operations is the most critical lesson in DynamoDB engineering.",
+          "The Query operation is fast, highly efficient, and predictable.",
+          "A Query requires you to specify an exact Partition Key value.",
+          "DynamoDB immediately routes directly to the specific physical partition containing that partition key, reading only the relevant items.",
+          "You can optionally supply a Sort Key condition (such as 'SK begins_with ORDER#' or 'SK between 2026-01-01 and 2026-03-31') to filter items.",
+          "Query operations consume minimal Read Capacity Units (RCUs) and return in low single-digit milliseconds.",
+          "In contrast, the Scan operation is an operational anti-pattern for production Online Transaction Processing (OLTP).",
+          "A Scan reads every single item in the entire table from start to finish across all physical partitions.",
+          "If your table contains ten million items, a Scan reads all ten million items before applying any filters.",
+          "Scans consume massive volumes of RCUs, spike cloud costs, and can throttle legitimate application traffic.",
+          "Production microservices should execute Query operations for 99.9% of all data retrieval needs."
+        ],
+        "example": "Looking up a person's phone number directly in an alphabetical telephone directory by their last name (Query) versus reading every single name on every page of the phone book from cover to cover (Scan).",
+        "code": "interface TableStatistics {\n  operation: 'Query' | 'Scan';\n  itemsScanned: number;\n  itemsReturned: number;\n  rcuConsumed: number;\n}\n\nconst queryStats: TableStatistics = {\n  operation: 'Query',\n  itemsScanned: 5, // Read only matching items in partition\n  itemsReturned: 5,\n  rcuConsumed: 2.5\n};\n\nconst scanStats: TableStatistics = {\n  operation: 'Scan',\n  itemsScanned: 50000, // Scanned entire table!\n  itemsReturned: 5,\n  rcuConsumed: 25000\n};\n\nconsole.log(`Query: Scanned ${queryStats.itemsScanned} items -> ${queryStats.rcuConsumed} RCU | Scan: Scanned ${scanStats.itemsScanned} items -> ${scanStats.rcuConsumed} RCU`);",
+        "output": "Query: Scanned 5 items -> 2.5 RCU | Scan: Scanned 50000 items -> 25000 RCU",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Contrasts the extreme efficiency of a Query (reads only 5 items) with an unindexed Scan."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates that Scan consumes 10,000x more Read Capacity Units to return the exact same 5 records."
+          }
+        ],
+        "tryIt": "Calculate cost differential if 1 RCU costs $0.00013 and Scan is run 100 times a day.",
+        "check": {
+          "question": "Why should production web applications avoid using the DynamoDB Scan operation for OLTP lookups?",
+          "options": [
+            "Because Scan is forbidden by the AWS Management Console",
+            "Because Scan reads every single item in the entire table, consuming massive RCU throughput and causing high latency",
+            "Because Scan only works on numbers, not strings"
+          ],
+          "answer": 1,
+          "why": "Scan examines every item in the entire table, consuming massive throughput, running slowly, and driving up costs."
+        }
+      },
+      {
+        "title": "Global Secondary Indexes (GSI) & Local Secondary Indexes (LSI)",
+        "say": [
+          "While primary keys provide fast access on a single access pattern, real-world applications require querying data across multiple dimensions.",
+          "For example, you might look up a user by UserID on login, but need to query by Email address during password recovery.",
+          "To enable secondary access patterns, DynamoDB provides Secondary Indexes: Global Secondary Indexes (GSIs), and Local Secondary Indexes (LSIs).",
+          "A Global Secondary Index (GSI) defines an entirely new Partition Key and an optional new Sort Key.",
+          "The GSI partition key does not have to match the base table's partition key.",
+          "GSIs can be created or deleted at any time on an existing table.",
+          "When you write to the base table, DynamoDB asynchronously replicates the item to the GSI within milliseconds.",
+          "GSIs possess their own independent provisioned throughput (RCU and WCU), preventing index queries from impacting base table capacity.",
+          "In contrast, a Local Secondary Index (LSI) uses the same Partition Key as the base table, but defines an alternative Sort Key.",
+          "LSIs must be defined at table creation time and cannot be added later.",
+          "GSIs are the industry standard mechanism for supporting diverse query patterns in NoSQL architectures."
+        ],
+        "example": "A company personnel directory with a primary index by Employee Badge Number, and a secondary index at the back of the book sorting employees alphabetically by Email address.",
+        "code": "interface GsiProjection {\n  gsiPk: string; // email\n  basePk: string; // userId\n  name: string;\n}\n\nconst gsiIndex: GsiProjection[] = [\n  { gsiPk: 'sarah@pinit.com', basePk: 'USER#2001', name: 'Sarah Connor' },\n  { gsiPk: 'john@pinit.com', basePk: 'USER#2002', name: 'John Connor' },\n];\n\nfunction lookupUserByEmail(email: string): GsiProjection | undefined {\n  return gsiIndex.find(idx => idx.gsiPk === email);\n}\n\nconst found = lookupUserByEmail('sarah@pinit.com');\nconsole.log(`GSI Lookup for ${found?.gsiPk}: Resolved to Base PK ${found?.basePk} (${found?.name})`);",
+        "output": "GSI Lookup for sarah@pinit.com: Resolved to Base PK USER#2001 (Sarah Connor)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models a Global Secondary Index projection mapping email addresses back to base table user IDs."
+          },
+          {
+            "line": 16,
+            "note": "Demonstrates fast O(1) query by email without executing an expensive full-table scan."
+          }
+        ],
+        "tryIt": "Add a third user to the GSI index and verify lookup by email.",
+        "check": {
+          "question": "Can a Global Secondary Index (GSI) be added to an existing Amazon DynamoDB table that already contains data?",
+          "options": [
+            "No, all indexes must be defined when the table is created",
+            "Yes, GSIs can be created or deleted at any time on an active table with zero downtime",
+            "Yes, but the table must be taken offline for 24 hours"
+          ],
+          "answer": 1,
+          "why": "GSIs can be added or deleted dynamically on live DynamoDB tables at any time without impacting availability."
+        }
+      },
+      {
+        "title": "Single-Table Design Principles",
+        "say": [
+          "In relational databases like PostgreSQL, every entity type receives its own dedicated table: a Users table, an Orders table, an OrderItems table.",
+          "To fetch an order and its items, SQL executes expensive multi-table JOIN operations.",
+          "In high-scale distributed NoSQL, JOIN operations do not exist because data is partitioned across thousands of physical storage drives.",
+          "To achieve maximum throughput and cost efficiency, advanced architects use Single-Table Design.",
+          "In Single-Table Design, an entire microservice stores all its distinct entity types inside a single DynamoDB table.",
+          "This is accomplished through Generic Primary Key Overloading.",
+          "Instead of naming keys 'userId' or 'orderId', the primary keys are named generically: 'PK' and 'SK'.",
+          "We prefix keys with entity names: a user item has PK 'USER#101' and SK 'METADATA'.",
+          "An order item placed by that user has PK 'USER#101' and SK 'ORDER#2026-10-02#001'.",
+          "Now, with a single Query operation on PK 'USER#101', the application retrieves the user's profile and their ten most recent orders in a single sub-10ms network round-trip.",
+          "Single-Table Design eliminates round-trips, maximizes read efficiency, and slashes cloud database spend."
+        ],
+        "example": "A doctor's physical patient file folder containing the patient's personal contact sheet, insurance card copy, and latest blood test results all clipped together in one folder, rather than having to walk to three separate filing cabinets to retrieve the paperwork.",
+        "code": "interface SingleTableItem {\n  PK: string;\n  SK: string;\n  entityType: 'USER' | 'ORDER';\n  data: Record<string, any>;\n}\n\nconst singleTableDb: SingleTableItem[] = [\n  { PK: 'USER#501', SK: 'METADATA', entityType: 'USER', data: { name: 'Elena', tier: 'Pro' } },\n  { PK: 'USER#501', SK: 'ORDER#2026-001', entityType: 'ORDER', data: { totalUsd: 149.99, status: 'SHIPPED' } },\n  { PK: 'USER#501', SK: 'ORDER#2026-002', entityType: 'ORDER', data: { totalUsd: 89.50, status: 'PENDING' } },\n];\n\nfunction queryUserAndOrders(userPk: string) {\n  const records = singleTableDb.filter(r => r.PK === userPk);\n  const user = records.find(r => r.entityType === 'USER');\n  const orders = records.filter(r => r.entityType === 'ORDER');\n  return { user: user?.data.name, orderCount: orders.length };\n}\n\nconst result = queryUserAndOrders('USER#501');\nconsole.log(`Single-Table Query Result: User ${result.user} -> ${result.orderCount} orders retrieved in 1 query`);",
+        "output": "Single-Table Query Result: User Elena -> 2 orders retrieved in 1 query",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Stores both USER profile metadata and multiple ORDER entities in the same table under PK USER#501."
+          },
+          {
+            "line": 21,
+            "note": "Demonstrates retrieving a user and all related orders in a single coordinated query operation."
+          }
+        ],
+        "tryIt": "Add a third order to the dataset and verify that orderCount increments to 3.",
+        "check": {
+          "question": "What is the primary architectural goal of Single-Table Design in Amazon DynamoDB?",
+          "options": [
+            "To simulate relational SQL JOINs by fetching a parent entity and all related children in a single Query call",
+            "To compress text data so it fits on floppy disks",
+            "To ensure that only one user can access the database at a time"
+          ],
+          "answer": 0,
+          "why": "Single-Table Design pre-joins related entities under the same partition key, enabling single-query retrieval of complex graphs."
+        }
+      },
+      {
+        "title": "DynamoDB Streams & Change Data Capture (CDC)",
+        "say": [
+          "Modern event-driven architectures require reacting to data modifications in real time.",
+          "Amazon DynamoDB Streams provides Change Data Capture (CDC) directly integrated into the database engine.",
+          "When enabled on a table, DynamoDB Streams captures an ordered, time-stamped log of item-level modifications: every INSERT, MODIFY, and REMOVE operation.",
+          "Each stream record captures the Old Image (the item state before the change) and the New Image (the item state after the change).",
+          "Stream records are retained in the stream for exactly 24 hours.",
+          "DynamoDB Streams connects seamlessly to AWS Lambda via an Event Source Mapping.",
+          "Whenever a row is updated in DynamoDB, AWS automatically batches stream records and invokes your Lambda function in near real time.",
+          "This powers critical enterprise patterns: updating an OpenSearch cluster when products change, invalidating an ElastiCache Redis key, or emitting an EventBridge notification.",
+          "DynamoDB Streams operates with zero performance impact on base table read/write throughput."
+        ],
+        "example": "A live financial stock exchange ticker tape that records every transaction as it happens, immediately broadcasting updates to thousands of trading terminals across Wall Street.",
+        "code": "type StreamOperation = 'INSERT' | 'MODIFY' | 'REMOVE';\n\ninterface StreamRecord {\n  eventName: StreamOperation;\n  oldImage?: Record<string, any>;\n  newImage?: Record<string, any>;\n}\n\nfunction processCdcEvent(record: StreamRecord): string {\n  if (record.eventName === 'INSERT') {\n    return `NEW_USER_REGISTERED: ${record.newImage?.email}`;\n  }\n  if (record.eventName === 'MODIFY') {\n    return `TIER_UPGRADED: ${record.oldImage?.tier} -> ${record.newImage?.tier}`;\n  }\n  return 'ITEM_REMOVED';\n}\n\nconst cdcRecord: StreamRecord = {\n  eventName: 'MODIFY',\n  oldImage: { userId: 'u_1', tier: 'Basic' },\n  newImage: { userId: 'u_1', tier: 'Enterprise' }\n};\n\nconsole.log(`DynamoDB Stream CDC Processed: ${processCdcEvent(cdcRecord)}`);",
+        "output": "DynamoDB Stream CDC Processed: TIER_UPGRADED: Basic -> Enterprise",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates Change Data Capture stream records comparing oldImage and newImage states."
+          },
+          {
+            "line": 22,
+            "note": "Demonstrates real-time event triggering on customer tier upgrade for downstream notifications."
+          }
+        ],
+        "tryIt": "Simulate an INSERT event for a new user registration and observe the generated notification string.",
+        "check": {
+          "question": "For how long are Change Data Capture (CDC) records retained in an Amazon DynamoDB Stream?",
+          "options": [
+            "Exactly 24 hours",
+            "Indefinitely until deleted manually",
+            "Exactly 5 minutes"
+          ],
+          "answer": 0,
+          "why": "DynamoDB Streams retains change data records in an ordered 24-hour rolling window."
+        }
+      }
+    ],
+    "summary": [
+      "DynamoDB is a serverless NoSQL database offering single-digit millisecond latency via automatic hash-based physical partitioning.",
+      "Always favor fast, targeted Query operations over expensive, full-table Scans for production OLTP workloads.",
+      "Single-Table Design and Global Secondary Indexes support complex multi-entity access patterns, while Streams power real-time CDC."
+    ],
+    "projectStep": {
+      "title": "DynamoDB Table Design & GSI Configuration",
+      "steps": [
+        "Create a DynamoDB table with generic composite primary keys 'PK' (string) and 'SK' (string)",
+        "Configure a Global Secondary Index (GSI) indexing 'Email' as GSI_PK and 'CreatedAt' as GSI_SK",
+        "Enable DynamoDB Streams with New and Old Images to power event-driven change notifications"
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "title": "Amazon RDS Multi-AZ High Availability & Read Replicas",
+    "goal": "Architect highly available relational databases with Amazon RDS Multi-AZ, Read Replicas, and automated failover.",
+    "minutes": 25,
+    "recap": "Yesterday we designed NoSQL schemas with DynamoDB. Today we explore enterprise relational databases: managing PostgreSQL and MySQL using Amazon RDS Multi-AZ and Read Replicas.",
+    "parts": [
+      {
+        "title": "Amazon RDS vs Self-Managed EC2 Databases",
+        "say": [
+          "For decades, deploying relational databases like PostgreSQL, MySQL, or Oracle required systems administrators to manually install software on physical servers.",
+          "Running databases yourself on Amazon EC2 requires manual operating system security patching, manual database engine version upgrades, and manual backup scripting.",
+          "If a hard drive fills up or a server motherboard dies at 3 AM, an on-call engineer must intervene manually to restore service.",
+          "Amazon Relational Database Service (Amazon RDS) eliminates this operational toil through automated cloud management.",
+          "RDS automatically manages operating system installation, security patching, nightly storage snapshots, and point-in-time recovery.",
+          "With RDS Point-in-Time Recovery, you can restore your database to any second within your retention period, down to the exact second before an accidental DROP TABLE command was executed.",
+          "Furthermore, RDS provides push-button storage autoscaling, expanding EBS volumes automatically as database tables grow.",
+          "RDS allows engineering teams to focus entirely on database indexing, query optimization, and application schema design."
+        ],
+        "example": "Running your own private electrical generator in your backyard requiring daily diesel refills and maintenance versus plugging your appliances into a municipal electrical power grid.",
+        "code": "interface DatabaseManagementModel {\n  deployment: 'EC2 Self-Managed' | 'Amazon RDS';\n  osPatching: 'Manual' | 'Automated';\n  pointInTimeRecovery: 'Custom Scripts' | 'Automated (5m window)';\n  highAvailabilityFailover: 'Custom Scripts' | 'Automated DNS Failover';\n}\n\nconst comparison: DatabaseManagementModel[] = [\n  { deployment: 'EC2 Self-Managed', osPatching: 'Manual', pointInTimeRecovery: 'Custom Scripts', highAvailabilityFailover: 'Custom Scripts' },\n  { deployment: 'Amazon RDS', osPatching: 'Automated', pointInTimeRecovery: 'Automated (5m window)', highAvailabilityFailover: 'Automated DNS Failover' },\n];\n\nfor (const m of comparison) {\n  console.log(`[${m.deployment}] Patching: ${m.osPatching} | PITR: ${m.pointInTimeRecovery} | Failover: ${m.highAvailabilityFailover}`);\n}",
+        "output": "[EC2 Self-Managed] Patching: Manual | PITR: Custom Scripts | Failover: Custom Scripts\n[Amazon RDS] Patching: Automated | PITR: Automated (5m window) | Failover: Automated DNS Failover",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Contrasts the administrative toil of self-managed EC2 databases against managed Amazon RDS."
+          },
+          {
+            "line": 14,
+            "note": "Demonstrates automated operational safeguards provided natively by RDS."
+          }
+        ],
+        "tryIt": "Evaluate which deployment model your team should select to guarantee compliance with 24/7 automated patching.",
+        "check": {
+          "question": "What capability does Amazon RDS Point-in-Time Recovery provide for data protection?",
+          "options": [
+            "It permanently prevents users from executing DELETE SQL statements",
+            "It allows restoring a database to any specific second within the backup retention period",
+            "It encrypts all data using quantum cryptography"
+          ],
+          "answer": 1,
+          "why": "RDS Point-in-Time Recovery combines automated daily snapshots with transaction logs to restore to any specific second."
+        }
+      },
+      {
+        "title": "RDS Multi-AZ Deployment & Synchronous Replication",
+        "say": [
+          "Deploying a relational database on a single server or within a single Availability Zone is unacceptable for mission-critical production workloads.",
+          "If the physical datacenter hosting your database loses electrical power or suffers hardware failure, your entire application goes down.",
+          "To provide enterprise-grade disaster recovery, AWS offers Amazon RDS Multi-AZ deployments.",
+          "When you enable Multi-AZ, RDS automatically provisions and maintains a synchronous standby replica in a second, independent Availability Zone.",
+          "The primary database instance and the standby replica are physically isolated across distinct datacenters separated by kilometers.",
+          "Crucially, replication between the primary and the standby is synchronous at the storage block layer.",
+          "When your application executes an 'INSERT' or 'UPDATE' transaction, the primary instance writes the data to its local storage volume and synchronously transmits the blocks to the standby.",
+          "The transaction is acknowledged as committed to your application only after the data has been safely written to both Availability Zones.",
+          "This synchronous replication guarantees zero data loss (Recovery Point Objective of zero) in the event of primary host failure."
+        ],
+        "example": "Writing transactions into a financial ledger using two-ply carbon paper: every entry recorded on the top page is physically transferred simultaneously to the duplicate ledger page beneath it.",
+        "code": "interface MultiAzWriteTransaction {\n  transactionId: string;\n  primaryAz: string;\n  standbyAz: string;\n  primaryDiskWritten: boolean;\n  standbyDiskWritten: boolean;\n}\n\nfunction commitMultiAzTransaction(tx: MultiAzWriteTransaction): { committed: boolean; rpo: number } {\n  // Synchronous write invariant: Both AZs must acknowledge write before commit\n  if (tx.primaryDiskWritten && tx.standbyDiskWritten) {\n    return { committed: true, rpo: 0 }; // Zero data loss\n  }\n  return { committed: false, rpo: 0 };\n}\n\nconst tx1 = commitMultiAzTransaction({\n  transactionId: 'tx_9981',\n  primaryAz: 'us-east-1a',\n  standbyAz: 'us-east-1b',\n  primaryDiskWritten: true,\n  standbyDiskWritten: true\n});\n\nconsole.log(`Synchronous Multi-AZ Commit: Status=${tx1.committed} | RPO Data Loss=${tx1.rpo} seconds`);",
+        "output": "Synchronous Multi-AZ Commit: Status=true | RPO Data Loss=0 seconds",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Models synchronous Multi-AZ write acknowledgement requiring confirmation from both zones."
+          },
+          {
+            "line": 21,
+            "note": "Proves that synchronous block replication achieves an RPO of exactly zero data loss."
+          }
+        ],
+        "tryIt": "Simulate a network timeout on the standby disk write and verify that the transaction refuses to commit.",
+        "check": {
+          "question": "How does Amazon RDS Multi-AZ replication guarantee zero data loss (RPO = 0) between the primary and standby instances?",
+          "options": [
+            "It writes data to tape backups once every twenty-four hours",
+            "It replicates data synchronously at the storage block level, confirming writes in both AZs before committing",
+            "It forces all users to type their passwords twice"
+          ],
+          "answer": 1,
+          "why": "Synchronous block-level replication ensures that data is committed in both physical AZs before acknowledging success."
+        }
+      },
+      {
+        "title": "Automated Multi-AZ Failover Mechanics",
+        "say": [
+          "Having a synchronous standby replica is only half the battle; the database must also failover automatically when disaster strikes.",
+          "In traditional databases, failing over to a backup server required a database administrator to manually reconfigure IP addresses and restart application pools.",
+          "Amazon RDS Multi-AZ automates this entire process with zero human intervention.",
+          "RDS continuously monitors primary database health via automated heartbeat checks.",
+          "Failover is triggered automatically under several conditions: loss of availability in the primary AZ, primary compute host hardware failure, operating system crash, or during scheduled maintenance.",
+          "During failover, RDS automatically flips the canonical DNS CNAME record of your database endpoint (e.g. 'mydb.123.us-east-1.rds.amazonaws.com') to resolve to the standby replica's IP address.",
+          "The standby replica assumes the primary role, and the old primary is rebooted or replaced as the new standby.",
+          "The entire failover completes in sixty to one hundred twenty seconds.",
+          "Because your application connects via the stable DNS endpoint rather than a static IP, client connection pools reconnect automatically as soon as DNS TTL expires."
+        ],
+        "example": "An automatic electrical transfer switch in a hospital: as soon as sensors detect that city grid power has dropped, the switch flips the circuit to the backup generator within seconds, keeping surgical lights on.",
+        "code": "class RdsDnsEndpoint {\n  cname: string = 'prod-db.xyz.us-east-1.rds.amazonaws.com';\n  targetIp: string = '10.0.1.50'; // Primary in AZ-1a\n\n  simulateFailover(standbyIp: string) {\n    this.targetIp = standbyIp; // DNS CNAME dynamically points to AZ-1b standby\n    return { endpoint: this.cname, activeIp: this.targetIp };\n  }\n}\n\nconst db = new RdsDnsEndpoint();\nconst before = db.targetIp;\nconst after = db.simulateFailover('10.0.2.80').activeIp;\n\nconsole.log(`Before Failover: ${before} (AZ-1a) | Automated DNS Failover: ${after} (AZ-1b)`);",
+        "output": "Before Failover: 10.0.1.50 (AZ-1a) | Automated DNS Failover: 10.0.2.80 (AZ-1b)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Simulates RDS automated failover mechanism flipping the CNAME record to the healthy standby IP."
+          },
+          {
+            "line": 15,
+            "note": "Demonstrates that client applications maintain the identical database endpoint while IP shifts."
+          }
+        ],
+        "tryIt": "Simulate a recovery event where the original instance rejoins as the standby in AZ-1a.",
+        "check": {
+          "question": "How does Amazon RDS redirect client applications to the standby replica during an automated Multi-AZ failover?",
+          "options": [
+            "It emails all developers instructing them to update their .env files",
+            "It updates the DNS CNAME record of the database endpoint to point to the standby instance's IP address",
+            "It shuts down the client computers until morning"
+          ],
+          "answer": 1,
+          "why": "RDS seamlessly updates the database endpoint's DNS CNAME record to target the newly promoted standby instance."
+        }
+      },
+      {
+        "title": "Read Replicas & Asynchronous Read Scaling",
+        "say": [
+          "It is vital to distinguish between RDS Multi-AZ and RDS Read Replicas, as they solve completely different architectural problems.",
+          "Multi-AZ provides High Availability and Disaster Recovery; the standby instance does not accept read or write queries.",
+          "Read Replicas, in contrast, provide Horizontal Read Scaling.",
+          "Many web applications are read-heavy: for every single order inserted into a database, users view product listings one hundred times.",
+          "Routing all read queries to the primary database saturates CPU and memory buffers, degrading transactional write performance.",
+          "With RDS Read Replicas, you can provision up to fifteen read-only copies of your database across multiple Availability Zones or even multiple AWS Regions.",
+          "Replication to Read Replicas is asynchronous, powered by the database engine's native replication features (e.g. PostgreSQL WAL streaming).",
+          "Your application architecture directs write transactions (INSERT, UPDATE, DELETE) to the primary database endpoint, while distributing read queries (SELECT) across the Read Replica endpoints.",
+          "This architectural separation isolates reporting queries and analytical dashboards from user-facing transaction paths."
+        ],
+        "example": "A book publisher printing a single master manuscript, then printing thousands of read-only paperback copies distributed to bookstores nationwide so millions of readers can read simultaneously without mobbing the author's desk.",
+        "code": "type SqlStatementType = 'SELECT' | 'INSERT' | 'UPDATE' | 'DELETE';\n\ninterface QueryRouter {\n  primaryEndpoint: string;\n  readReplicaEndpoints: string[];\n}\n\nfunction routeSqlQuery(queryType: SqlStatementType, router: QueryRouter): string {\n  if (queryType === 'SELECT') {\n    // Round-robin load balance across read replicas\n    return router.readReplicaEndpoints[0];\n  }\n  // Write queries must strictly go to primary\n  return router.primaryEndpoint;\n}\n\nconst dbCluster: QueryRouter = {\n  primaryEndpoint: 'db-master.prod.internal',\n  readReplicaEndpoints: ['db-replica-1.prod.internal', 'db-replica-2.prod.internal']\n};\n\nconsole.log(`Write (INSERT) -> ${routeSqlQuery('INSERT', dbCluster)} | Read (SELECT) -> ${routeSqlQuery('SELECT', dbCluster)}`);",
+        "output": "Write (INSERT) -> db-master.prod.internal | Read (SELECT) -> db-replica-1.prod.internal",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Routes SQL statements based on query type: writes to primary master, reads to read replica."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates read/write splitting offloading analytical SELECT load from transaction processing."
+          }
+        ],
+        "tryIt": "Add a second read replica and implement round-robin distribution between replica 1 and replica 2.",
+        "check": {
+          "question": "Can an application execute write SQL operations (INSERT, UPDATE, DELETE) directly against an Amazon RDS Read Replica?",
+          "options": [
+            "Yes, Read Replicas accept full write transactions and sync back to the master",
+            "No, Read Replicas are strictly read-only and reject write operations",
+            "Yes, but only on alternate Tuesdays"
+          ],
+          "answer": 1,
+          "why": "Read Replicas are dedicated read-only copies; all write operations must be submitted directly to the primary database."
+        }
+      },
+      {
+        "title": "Replication Lag & Eventual Consistency in Read Replicas",
+        "say": [
+          "Because Read Replicas use asynchronous replication, they introduce an important architectural tradeoff: Replication Lag.",
+          "When a write commits on the primary database, a finite amount of time elapses before the transaction log reaches the replica and is applied.",
+          "Under normal operational conditions, replication lag remains in the low milliseconds.",
+          "However, during heavy batch data imports or complex migrations, replication lag can climb to several seconds.",
+          "This lag introduces Eventual Consistency challenges.",
+          "Consider a user updating their shipping address: the browser submits an HTTP POST to the primary database.",
+          "The user is immediately redirected to their profile page, triggering an HTTP GET that reads from a lagging Read Replica.",
+          "Because the replica has not yet applied the update, the user sees their old shipping address, leading them to believe the system failed.",
+          "To mitigate this, sophisticated applications implement a Read-Your-Own-Writes consistency guard.",
+          "After a user executes an update, subsequent read queries for that user are routed to the primary database for a short window (e.g. 10 seconds), while all other users continue reading from replicas."
+        ],
+        "example": "Mailing a postcard while on vacation: you arrive at your hotel in Paris on Monday, but your family at home receives your postcard on Thursday; until the mail arrives, their knowledge is slightly lagged behind reality.",
+        "code": "interface UserSession {\n  userId: string;\n  lastWriteTimestamp: number;\n}\n\nfunction resolveDatabaseTarget(session: UserSession, replicationLagMs: number = 2000): 'PRIMARY' | 'READ_REPLICA' {\n  const timeSinceLastWrite = Date.now() - session.lastWriteTimestamp;\n  // If user wrote data within replication lag window, read from Primary\n  if (timeSinceLastWrite < replicationLagMs) {\n    return 'PRIMARY'; // Read-Your-Own-Writes consistency\n  }\n  return 'READ_REPLICA';\n}\n\nconst justUpdated: UserSession = { userId: 'u_1', lastWriteTimestamp: Date.now() - 300 }; // 300ms ago\nconst passiveViewer: UserSession = { userId: 'u_2', lastWriteTimestamp: Date.now() - 60000 }; // 1m ago\n\nconsole.log(`Active Writer Read: ${resolveDatabaseTarget(justUpdated)} | Passive Viewer Read: ${resolveDatabaseTarget(passiveViewer)}`);",
+        "output": "Active Writer Read: PRIMARY | Passive Viewer Read: READ_REPLICA",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Implements read-your-own-writes consistency logic protecting users from asynchronous replica lag."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates routing recent writers to Primary while directing passive readers to Read Replicas."
+          }
+        ],
+        "tryIt": "Simulate a severe replication lag of 10,000ms and observe how the consistency window expands.",
+        "check": {
+          "question": "Why might a user who just updated their profile picture still see their old picture when reading from a Read Replica?",
+          "options": [
+            "Because Read Replicas permanently store only black-and-white images",
+            "Because replication to Read Replicas is asynchronous, causing a momentary replication lag before updates appear",
+            "Because AWS deletes the profile picture during replication"
+          ],
+          "answer": 1,
+          "why": "Asynchronous replication introduces a brief lag where replicas have not yet applied the latest transactions."
+        }
+      },
+      {
+        "title": "Amazon Aurora: Cloud-Native Distributed Storage",
+        "say": [
+          "While traditional RDS runs MySQL and PostgreSQL on top of virtual EBS storage, Amazon Aurora fundamentally redesigns relational database architecture for the cloud.",
+          "Aurora decouples the SQL compute layer from the underlying storage layer.",
+          "Instead of writing to a single virtual disk, Aurora's database compute engine writes directly to a purpose-built distributed storage fleet.",
+          "Aurora automatically replicates your data six ways across three Availability Zones.",
+          "To achieve extreme durability and speed, Aurora utilizes a Quorum Model.",
+          "Aurora requires a quorum of 4 out of 6 storage copies to acknowledge writes, and 3 out of 6 copies to acknowledge reads.",
+          "If an entire Availability Zone is destroyed and a drive in a second zone fails simultaneously, Aurora continues processing writes with zero interruption.",
+          "Aurora storage scales automatically up to 128 terabytes in 10-gigabyte increments with zero downtime.",
+          "Furthermore, Aurora Read Replicas share the exact same underlying distributed storage layer, reducing replication lag to sub-millisecond speeds.",
+          "Aurora represents the state of the art in high-performance cloud relational databases."
+        ],
+        "example": "A cooperative board of six directors across three cities: as long as at least four directors vote to approve a contract, the decision is legally binding and valid, even if two directors are unreachable.",
+        "code": "class AuroraStorageCluster {\n  nodes: { az: string; nodeIndex: number; active: boolean }[] = [\n    { az: 'us-east-1a', nodeIndex: 1, active: true },\n    { az: 'us-east-1a', nodeIndex: 2, active: true },\n    { az: 'us-east-1b', nodeIndex: 3, active: true },\n    { az: 'us-east-1b', nodeIndex: 4, active: true },\n    { az: 'us-east-1c', nodeIndex: 5, active: true },\n    { az: 'us-east-1c', nodeIndex: 6, active: true },\n  ];\n\n  canAcknowledgeWrite(failedNodes: number[]): boolean {\n    const activeNodes = this.nodes.filter(n => !failedNodes.includes(n.nodeIndex));\n    return activeNodes.length >= 4; // 4/6 Write Quorum\n  }\n}\n\nconst cluster = new AuroraStorageCluster();\nconst healthyWrite = cluster.canAcknowledgeWrite([]);\nconst azOutageWrite = cluster.canAcknowledgeWrite([1, 2]); // Entire AZ-1a down (2 nodes)\n\nconsole.log(`Healthy Cluster (6 nodes active): Write Quorum=${healthyWrite} | Entire AZ Failure (2 nodes down): Write Quorum=${azOutageWrite}`);",
+        "output": "Healthy Cluster (6 nodes active): Write Quorum=true | Entire AZ Failure (2 nodes down): Write Quorum=true",
+        "codeNotes": [
+          {
+            "line": 2,
+            "note": "Models Aurora's 6-way distributed storage across 3 Availability Zones."
+          },
+          {
+            "line": 12,
+            "note": "Evaluates 4/6 write quorum proof demonstrating write availability even during complete single-AZ failure."
+          }
+        ],
+        "tryIt": "Simulate losing 3 nodes (exceeding quorum) and observe that write acknowledgment safely halts to prevent split-brain.",
+        "check": {
+          "question": "How many storage copies does Amazon Aurora maintain across how many Availability Zones?",
+          "options": [
+            "Two copies across one Availability Zone",
+            "Six copies distributed across three Availability Zones",
+            "One hundred copies across every country"
+          ],
+          "answer": 1,
+          "why": "Aurora replicates data six ways across three Availability Zones, requiring 4/6 quorum for writes."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon RDS automates relational database operations, backups, and point-in-time recovery, freeing teams from infrastructure toil.",
+      "RDS Multi-AZ provides synchronous block-level replication with automated DNS failover in 60-120 seconds for high availability.",
+      "Read Replicas asynchronously offload read traffic, while Amazon Aurora decouples compute from 6-way replicated distributed storage."
+    ],
+    "projectStep": {
+      "title": "RDS Multi-AZ Database & Replica Deployment",
+      "steps": [
+        "Provision an Amazon RDS PostgreSQL instance in a Multi-AZ deployment across isolated database subnets",
+        "Configure automated daily snapshots with a 7-day retention period for Point-in-Time Recovery",
+        "Deploy an asynchronous Read Replica in a second AZ and configure application read/write splitting"
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "title": "⭐ MILESTONE 2: Serverless Event-Driven Video Processing Engine",
+    "goal": "Construct an end-to-end serverless event-driven media processing pipeline using S3 event notifications, Lambda, and DynamoDB.",
+    "minutes": 30,
+    "recap": "Over the last four days we mastered Lambda, API Gateway, DynamoDB, and RDS. Today we unify them in Milestone 2 to build an enterprise event-driven video transcoding engine.",
+    "parts": [
+      {
+        "title": "Milestone 2 Architecture & Event-Driven Patterns",
+        "say": [
+          "Welcome to Milestone 2: building an enterprise-grade serverless event-driven video processing pipeline.",
+          "In traditional monolithic web applications, users upload raw video files directly to web servers, which tie up CPU cores encoding video synchronously.",
+          "This architecture crumbles under load: a few concurrent video uploads exhaust server threads, causing the entire website to crash.",
+          "In our Milestone 2 cloud-native architecture, we decouple the entire workflow into asynchronous, event-driven microservices.",
+          "First, the client browser requests an S3 Pre-Signed Upload URL from API Gateway.",
+          "Second, the client uploads the raw video file directly to an Amazon S3 ingest bucket, completely bypassing our compute servers.",
+          "Third, the S3 upload automatically triggers an asynchronous S3 Event Notification, which invokes our video processing Lambda function.",
+          "Fourth, the Lambda function writes an initial processing state to DynamoDB, submits a transcoding job to an external media engine, and updates the state upon completion.",
+          "Finally, Amazon SNS notifies the user that their processed video is ready for streaming.",
+          "This decoupled architecture scales elastically from one video to thousands of concurrent video uploads with zero server management."
+        ],
+        "example": "A commercial dry cleaner service: you drop off your garments at the front counter, receive a claim ticket, clothes are cleaned automatically on specialized machines in the back room, and you receive an SMS notification when ready.",
+        "code": "interface PipelineStep {\n  stepNumber: number;\n  service: string;\n  action: string;\n  async: boolean;\n}\n\nconst milestonePipeline: PipelineStep[] = [\n  { stepNumber: 1, service: 'API Gateway', action: 'Issue Pre-Signed Upload URL to client', async: false },\n  { stepNumber: 2, service: 'Amazon S3', action: 'Receive direct multi-part video upload', async: true },\n  { stepNumber: 3, service: 'AWS Lambda', action: 'Handle S3 event notification & orchestrate transcode', async: true },\n  { stepNumber: 4, service: 'Amazon DynamoDB', action: 'Persist video metadata & progress status', async: true },\n  { stepNumber: 5, service: 'Amazon SNS', action: 'Broadcast completion notification to user', async: true },\n];\n\nconsole.log(`Milestone 2 Pipeline: ${milestonePipeline.length} decoupled steps. Event-Driven Steps: ${milestonePipeline.filter(s => s.async).length}`);",
+        "output": "Milestone 2 Pipeline: 5 decoupled steps. Event-Driven Steps: 4",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the 5 decoupled, event-driven stages of the serverless video transcoding pipeline."
+          },
+          {
+            "line": 16,
+            "note": "Highlights that 4 out of 5 steps operate completely asynchronously, delivering infinite horizontal scale."
+          }
+        ],
+        "tryIt": "Add an Amazon CloudFront CDN distribution step at the end for global video streaming delivery.",
+        "check": {
+          "question": "Why does Milestone 2 have clients upload video files directly to Amazon S3 rather than streaming through Lambda?",
+          "options": [
+            "Because Lambda functions cannot read binary data",
+            "To eliminate compute bottlenecks, prevent memory exhaustion, and avoid Lambda 6MB payload limits",
+            "Because S3 charges zero dollars for video storage"
+          ],
+          "answer": 1,
+          "why": "Direct S3 uploads bypass compute servers, avoiding memory exhaustion and Lambda's 6MB payload ceiling."
+        }
+      },
+      {
+        "title": "S3 Event Notifications & ObjectCreated Trigger Binding",
+        "say": [
+          "The trigger that initiates our serverless pipeline is the Amazon S3 Event Notification.",
+          "S3 allows you to publish notifications whenever specific events occur within a bucket, such as 's3:ObjectCreated:*' or 's3:ObjectRemoved:*'.",
+          "You can configure event filters so that only files matching specific prefixes and suffixes trigger notifications.",
+          "In our pipeline, we configure a filter: Prefix 'uploads/' and Suffix '.mp4'.",
+          "When a user finishes uploading 'uploads/holiday.mp4', S3 constructs a JSON event document and invokes our Lambda function asynchronously.",
+          "The event payload contains a 'Records' array.",
+          "Inside each record, our Lambda function extracts the bucket name ('s3.bucket.name') and the URL-decoded object key ('s3.object.key').",
+          "Because S3 encodes special characters like spaces as plus signs or hex entities, our Lambda code must decode the key string cleanly.",
+          "S3 Event Notifications eliminate the need for cron jobs or polling scripts, triggering execution within milliseconds of upload completion."
+        ],
+        "example": "An automated motion detector floodlight on a garage: the moment a car pulls into the driveway, the sensor detects movement and turns on the lights instantly without any manual switch.",
+        "code": "interface S3EventRecord {\n  s3: {\n    bucket: { name: string };\n    object: { key: string; size: number };\n  };\n}\n\nfunction extractS3EventDetails(record: S3EventRecord): { bucketName: string; objectKey: string; sizeBytes: number } {\n  const bucketName = record.s3.bucket.name;\n  const rawKey = record.s3.object.key;\n  const objectKey = decodeURIComponent(rawKey.replace(/\\+/g, ' '));\n  return { bucketName, objectKey, sizeBytes: record.s3.object.size };\n}\n\nconst mockEvent: S3EventRecord = {\n  s3: {\n    bucket: { name: 'raw-media-uploads-prod' },\n    object: { key: 'uploads/nature+scene+2026.mp4', size: 10485760 }\n  }\n};\n\nconst details = extractS3EventDetails(mockEvent);\nconsole.log(`S3 Event Parsed: Bucket=${details.bucketName} | Key=${details.objectKey} | Size=${(details.sizeBytes / 1024 / 1024).toFixed(1)}MB`);",
+        "output": "S3 Event Parsed: Bucket=raw-media-uploads-prod | Key=uploads/nature scene 2026.mp4 | Size=10.0MB",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Decodes S3 event notification payload handling URL-encoded spaces and special characters."
+          },
+          {
+            "line": 21,
+            "note": "Demonstrates clean extraction of bucket name, object key, and file size in megabytes."
+          }
+        ],
+        "tryIt": "Parse an event payload for a video with spaces in the key ('uploads/my+first+video.mp4') and verify decoded output.",
+        "check": {
+          "question": "Why must an S3 event processing Lambda function decode the object key using decodeURIComponent?",
+          "options": [
+            "Because S3 URL-encodes special characters and spaces (e.g. '+' or '%20') in the event notification payload",
+            "Because Lambda only reads Base64 encoded strings",
+            "Because JavaScript requires all strings to be decoded twice"
+          ],
+          "answer": 0,
+          "why": "S3 URL-encodes object keys in notification payloads; decoding ensures accurate file paths are processed."
+        }
+      },
+      {
+        "title": "Idempotency in Distributed Event Processing",
+        "say": [
+          "In distributed cloud systems, an immutable law is that events are delivered with At-Least-Once Delivery guarantees.",
+          "Due to network retries, transient timeouts, or distributed race conditions, S3 or EventBridge may occasionally dispatch the exact same event notification twice.",
+          "If your processing logic is not idempotent, a duplicate event could result in transcoding the same video twice, doubling cloud costs and corrupting database state.",
+          "Idempotency means that executing the exact same operation multiple times produces the identical result as executing it once.",
+          "We enforce idempotency in our serverless pipeline using Amazon DynamoDB Conditional Writes.",
+          "When Lambda receives an S3 event, it attempts to insert an initial status record in DynamoDB using the object key as the primary key.",
+          "The write includes a Condition Expression: 'attribute_not_exists(PK)'.",
+          "If this is the first time the event is received, the condition succeeds, and processing continues.",
+          "If a duplicate event arrives, the condition fails with a ConditionalCheckFailedException, and Lambda immediately terminates without re-running the transcoding job.",
+          "Idempotency guarantees absolute data consistency across distributed serverless workflows."
+        ],
+        "example": "An elevator call button: pressing the button once turns on the light and summons the elevator; pressing the button ten additional times rapidly does not summon ten elevators, it produces the exact same single result.",
+        "code": "class IdempotentEventStore {\n  records = new Set<string>();\n\n  processEventOnce(eventId: string): { processed: boolean; reason: string } {\n    if (this.records.has(eventId)) {\n      return { processed: false, reason: 'DUPLICATE_EVENT_DROPPED' };\n    }\n    this.records.add(eventId);\n    return { processed: true, reason: 'PROCESSED_SUCCESSFULLY' };\n  }\n}\n\nconst store = new IdempotentEventStore();\nconst r1 = store.processEventOnce('evt_s3_video_001');\nconst r2 = store.processEventOnce('evt_s3_video_001'); // duplicate!\n\nconsole.log(`First Event: ${r1.reason} | Duplicate Event: ${r2.reason}`);",
+        "output": "First Event: PROCESSED_SUCCESSFULLY | Duplicate Event: DUPLICATE_EVENT_DROPPED",
+        "codeNotes": [
+          {
+            "line": 4,
+            "note": "Implements distributed idempotency check rejecting duplicate event processing."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates dropping duplicate events cleanly, preventing duplicate compute and billing."
+          }
+        ],
+        "tryIt": "Process a third event with ID 'evt_s3_video_002' and verify that it is processed successfully.",
+        "check": {
+          "question": "How does our serverless pipeline use DynamoDB Conditional Writes to guarantee idempotent event handling?",
+          "options": [
+            "By setting the table to read-only mode permanently",
+            "By using 'attribute_not_exists(PK)' so duplicate events fail the condition and terminate without re-processing",
+            "By asking the user for confirmation via SMS"
+          ],
+          "answer": 1,
+          "why": "Conditional writes using attribute_not_exists ensure an event is inserted only once, preventing duplicate execution."
+        }
+      },
+      {
+        "title": "Dead Letter Queue (DLQ) & Poison Pill Payload Handling",
+        "say": [
+          "Even with flawless application code, distributed systems inevitably encounter Poison Pill Payloads.",
+          "A poison pill is an event containing corrupt data—such as an empty 0-byte file, an invalid video codec, or malformed JSON—that causes your Lambda code to crash.",
+          "Because S3 invokes Lambda asynchronously, Lambda automatically retries failed executions twice.",
+          "If the video file is genuinely corrupt, all retries will fail.",
+          "Without a Dead Letter Queue (DLQ), the event would be dropped into the void, leaving users wondering why their video never processed.",
+          "In Milestone 2, we attach an Amazon SQS Dead Letter Queue directly to our Lambda function's asynchronous execution configuration.",
+          "When all retry attempts are exhausted, Lambda intercepts the failed payload and writes the complete event record to the SQS DLQ.",
+          "A CloudWatch alarm monitors the DLQ queue depth; if the DLQ contains messages, on-call engineers are alerted immediately.",
+          "Engineers can inspect the poisoned payload in SQS, fix the underlying edge-case bug, and redrive the message back to the main queue.",
+          "DLQs guarantee that zero data is ever lost during unexpected production failures."
+        ],
+        "example": "An automated bank check scanner: when a crumpled or torn check jams the optical reader twice, it drops the damaged check into a red reject bin for a human teller to inspect, rather than shredding the check.",
+        "code": "interface DeadLetterRecord {\n  originalEventId: string;\n  errorMessage: string;\n  failedAt: string;\n  retryCount: number;\n}\n\nfunction handleFailedExecution(eventId: string, error: string, retries: number): DeadLetterRecord {\n  return {\n    originalEventId: eventId,\n    errorMessage: error,\n    failedAt: new Date().toISOString(),\n    retryCount: retries\n  };\n}\n\nconst poisonPill = handleFailedExecution('s3_bad_video.mov', 'Invalid codec: H266 not supported', 2);\nconsole.log(`Routed to DLQ: Event=${poisonPill.originalEventId} | Error=${poisonPill.errorMessage} | Retries=${poisonPill.retryCount}`);",
+        "output": "Routed to DLQ: Event=s3_bad_video.mov | Error=Invalid codec: H266 not supported | Retries=2",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Constructs a Dead Letter Queue message capturing event payload and failure metadata."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates routing unprocessable poison payloads to SQS DLQs for offline triage."
+          }
+        ],
+        "tryIt": "Simulate an out-of-memory error and verify that the DLQ record captures the memory error string.",
+        "check": {
+          "question": "What is the primary architectural purpose of a Dead Letter Queue (DLQ) in an asynchronous serverless pipeline?",
+          "options": [
+            "To store marketing emails sent to customers",
+            "To capture failed event payloads after all retries are exhausted so data is not lost and can be investigated",
+            "To speed up video transcoding times"
+          ],
+          "answer": 1,
+          "why": "DLQs preserve failed event payloads after retries are exhausted, preventing data loss and enabling debugging."
+        }
+      },
+      {
+        "title": "DynamoDB Video Metadata Store & Status Tracking",
+        "say": [
+          "To allow frontend client applications to track video transcoding progress in real time, our pipeline maintains state in Amazon DynamoDB.",
+          "We define a VideoMetadata table with a partition key of 'VideoId'.",
+          "As the video progresses through the pipeline, our Lambda functions update the item's status attribute through four discrete lifecycle states.",
+          "State 1: 'QUEUED' — The raw file has arrived in S3, and metadata is recorded.",
+          "State 2: 'PROCESSING' — Transcoding has commenced, with start timestamp recorded.",
+          "State 3: 'COMPLETED' — Transcoding succeeded; output S3 URL, duration, and resolution are saved.",
+          "State 4: 'FAILED' — Transcoding encountered an error; error code and reason are preserved.",
+          "Client browsers poll API Gateway or subscribe via WebSockets to receive instant status updates as the state transitions.",
+          "Maintaining structured state in DynamoDB enables high-throughput status tracking with single-digit millisecond query latencies."
+        ],
+        "example": "An airline baggage tracking mobile app displaying real-time status progression as your suitcase moves from Check-in, to Aircraft Loading, to Baggage Carousel Arrival.",
+        "code": "type VideoStatus = 'QUEUED' | 'PROCESSING' | 'COMPLETED' | 'FAILED';\n\ninterface VideoRecord {\n  videoId: string;\n  status: VideoStatus;\n  rawS3Key: string;\n  processedUrl?: string;\n  durationSeconds?: number;\n}\n\nfunction updateVideoStatus(record: VideoRecord, newStatus: VideoStatus, outputUrl?: string): VideoRecord {\n  record.status = newStatus;\n  if (outputUrl) record.processedUrl = outputUrl;\n  return record;\n}\n\nlet video: VideoRecord = { videoId: 'vid_7788', status: 'QUEUED', rawS3Key: 'uploads/intro.mp4' };\nvideo = updateVideoStatus(video, 'PROCESSING');\nconst inProgress = video.status;\nvideo = updateVideoStatus(video, 'COMPLETED', 'https://cdn.pinit.com/output/intro_1080p.mp4');\n\nconsole.log(`Video Lifecycle: Initial=${inProgress} -> Final=${video.status} | Output: ${video.processedUrl}`);",
+        "output": "Video Lifecycle: Initial=PROCESSING -> Final=COMPLETED | Output: https://cdn.pinit.com/output/intro_1080p.mp4",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Models the video processing state machine transitioning status from QUEUED to COMPLETED."
+          },
+          {
+            "line": 20,
+            "note": "Outputs the final video state showing successful persistence of the CloudFront CDN output URL."
+          }
+        ],
+        "tryIt": "Simulate a transcode error transition to 'FAILED' and assert that no output URL is populated.",
+        "check": {
+          "question": "Why is Amazon DynamoDB ideal for tracking real-time video processing status in our serverless pipeline?",
+          "options": [
+            "Because DynamoDB provides low single-digit millisecond read/write latency and scales automatically under high concurrent polling",
+            "Because DynamoDB automatically edits video files",
+            "Because DynamoDB is free of charge forever"
+          ],
+          "answer": 0,
+          "why": "DynamoDB provides single-digit millisecond performance and scales automatically to handle high-frequency status polling."
+        }
+      },
+      {
+        "title": "Milestone 2 Pipeline Verification & Stress Test",
+        "say": [
+          "We conclude Milestone 2 by conducting a rigorous end-to-end integration and stress test of our serverless video processing engine.",
+          "Our verification suite validates the complete event choreography.",
+          "First, it simulates a client requesting an upload URL and writing a raw video payload to S3.",
+          "Second, it asserts that the S3 ObjectCreated event notification dispatches cleanly to Lambda.",
+          "Third, it verifies that the Lambda orchestrator initializes the DynamoDB record, executes transcoding, and handles poison pills via the DLQ.",
+          "Finally, it confirms that the completed video metadata is persisted and an SNS event notification is emitted.",
+          "Passing this comprehensive end-to-end verification proves that you have mastered the core tenets of serverless event-driven architecture on AWS.",
+          "Tomorrow, in Module 4, we will accelerate this architecture globally using Amazon CloudFront and Route 53."
+        ],
+        "example": "A full live dress rehearsal of a Broadway theater production: actors perform in full costume with lighting, orchestra, and set changes to guarantee a flawless opening night.",
+        "code": "interface PipelineStressTest {\n  totalJobs: number;\n  successfulJobs: number;\n  dlqRerouted: number;\n  averageLatencyMs: number;\n}\n\nfunction runMilestoneTwoAudit(test: PipelineStressTest): boolean {\n  const successRate = (test.successfulJobs / test.totalJobs) * 100;\n  return successRate >= 99 && test.dlqRerouted === 1 && test.averageLatencyMs < 200;\n}\n\nconst audit = runMilestoneTwoAudit({\n  totalJobs: 100,\n  successfulJobs: 99,\n  dlqRerouted: 1, // Exactly 1 poison pill safely isolated\n  averageLatencyMs: 145\n});\n\nconsole.log(`Milestone 2 Serverless Video Pipeline Audit Passed: ${audit}`);",
+        "output": "Milestone 2 Serverless Video Pipeline Audit Passed: true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the integration audit verifying 99%+ success rate and proper isolation of poison pills into the DLQ."
+          },
+          {
+            "line": 19,
+            "note": "Executes the stress test audit asserting complete compliance with Milestone 2 architecture standards."
+          }
+        ],
+        "tryIt": "Simulate 5 unhandled failures dropping the success rate below 99% and verify that the audit fails.",
+        "check": {
+          "question": "What does our Milestone 2 pipeline audit prove about our event-driven serverless architecture?",
+          "options": [
+            "It proves that servers must be manually rebooted every night",
+            "It proves that the pipeline processes media asynchronously at scale while isolating corrupt payloads into a DLQ with zero data loss",
+            "It proves that video files can only be played on Apple devices"
+          ],
+          "answer": 1,
+          "why": "The audit verifies high-throughput asynchronous execution, idempotent DynamoDB state tracking, and resilient DLQ isolation."
+        }
+      }
+    ],
+    "summary": [
+      "Milestone 2 delivers an elastic serverless video pipeline leveraging S3 event notifications, Lambda, and DynamoDB.",
+      "Direct client-to-S3 pre-signed uploads bypass backend servers, eliminating compute bottlenecks and memory exhaustion.",
+      "Idempotent DynamoDB conditional writes prevent duplicate processing, while SQS Dead Letter Queues isolate poisoned payloads safely."
+    ],
+    "projectStep": {
+      "title": "Milestone 2 Serverless Video Pipeline Deployment",
+      "steps": [
+        "Create an S3 uploads bucket with an event notification triggering a video orchestrator Lambda function on '.mp4' uploads",
+        "Implement idempotent DynamoDB video status tracking with states QUEUED, PROCESSING, and COMPLETED",
+        "Configure an SQS Dead Letter Queue on the Lambda function and test poison pill failure isolation"
+      ]
+    }
   }
 ];
