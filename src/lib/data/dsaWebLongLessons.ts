@@ -6349,4 +6349,1288 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 26,
+  "title": "⭐ MILESTONE 4: 0/1 Knapsack & Coin Change Optimization Engine",
+  "goal": "Milestone 4: Build a 2D dynamic programming optimization engine for optimal resource allocation and currency change making.",
+  "minutes": 25,
+  "recap": "Welcome to Milestone 4! Today we expand from 1D to 2D Dynamic Programming, tackling the legendary 0/1 Knapsack problem and Coin Change optimization engine. You will learn to formulate 2D decision matrices and optimize auxiliary space to a single 1D array.",
+  "parts": [
+    {
+      "title": "0/1 Knapsack Problem Formulation & 2D State Space",
+      "say": [
+        "The 0/1 Knapsack problem is the quintessential resource allocation challenge in computer science and mathematical optimization.",
+        "You are given N items, each with an integer weight w[i] and a value v[i], along with a knapsack of maximum weight capacity W.",
+        "The goal is to determine the maximum total value of items you can pack into the knapsack without exceeding capacity W.",
+        "The '0/1' constraint means each item is indivisible: you must either pack the entire item (1) or leave it behind (0); fractional items are forbidden.",
+        "A greedy strategy (such as picking highest value-to-weight ratio first) fails because indivisible items can leave awkward unusable empty space.",
+        "We model the problem using a 2D dynamic programming state space: dp[i][w] represents the maximum value achievable considering the first i items with weight limit w.",
+        "For item i with weight weights[i-1] and value values[i-1], we have two choices: exclude item i (value remains dp[i-1][w]), or include item i (gaining value + dp[i-1][w - weight]).",
+        "The state transition equation is: dp[i][w] = Math.max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]]).",
+        "This 2D formulation evaluates the optimal packing schedule in pseudo-polynomial O(N * W) time."
+      ],
+      "example": "Packing a camping backpack: choosing between a heavy 5-pound cast-iron skillet worth 10 comfort points and a 2-pound titanium pot worth 8 comfort points when weight is strictly capped at 15 pounds.",
+      "code": "function knapsack01(weights: number[], values: number[], capacity: number): number {\n  const n = weights.length;\n  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(capacity + 1).fill(0));\n\n  for (let i = 1; i <= n; i++) {\n    const wt = weights[i - 1];\n    const val = values[i - 1];\n    for (let w = 0; w <= capacity; w++) {\n      if (wt <= w) {\n        dp[i][w] = Math.max(dp[i - 1][w], val + dp[i - 1][w - wt]);\n      } else {\n        dp[i][w] = dp[i - 1][w];\n      }\n    }\n  }\n  return dp[n][capacity];\n}\n\nconst wts = [1, 3, 4, 5];\nconst vals = [1, 4, 5, 7];\nconsole.log('Max value with cap=7:', knapsack01(wts, vals, 7));\nconsole.log('Max value with cap=5:', knapsack01(wts, vals, 5));",
+      "output": "Max value with cap=7: 9\nMax value with cap=5: 7",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Picks max between excluding item i (dp[i-1][w]) and including item i (val + dp[i-1][w-wt])."
+        },
+        {
+          "line": 19,
+          "note": "For capacity 7, optimal packing chooses items with weights 3 and 4 (vals 4 + 5 = 9)."
+        }
+      ],
+      "tryIt": "Pass capacity 8 and verify the max value increases to 11 (items with weight 3 and 5, values 4 + 7 = 11).",
+      "check": {
+        "question": "Why does the greedy value-to-weight ratio approach fail on the 0/1 Knapsack problem?",
+        "options": [
+          "Items cannot be divided into fractional amounts, so taking a high-ratio item might leave dead space that prevents fitting an even more valuable combination",
+          "Greedy algorithms cannot compare floating-point numbers",
+          "Because 0/1 knapsack is proven to run in exponential time only"
+        ],
+        "answer": 0,
+        "why": "Indivisibility causes packing gaps; DP exhaustively evaluates both inclusion and exclusion to guarantee global optimality."
+      }
+    },
+    {
+      "title": "Space Optimization: Rolling 1D Array for 0/1 Knapsack",
+      "say": [
+        "In our 2D DP table, computing row i only references values from the immediately preceding row i - 1.",
+        "We never inspect row i - 2 or earlier rows once row i - 1 has been computed.",
+        "Therefore, allocating a full (N + 1) * (W + 1) matrix wastes substantial memory, especially when capacity W is large.",
+        "We can compress the entire 2D table into a single 1D array dp of size W + 1.",
+        "However, there is a CRITICAL rule when updating the 1D array: we must iterate the capacity loop BACKWARD from W down to weight[i].",
+        "Why backward? If we iterated forward, dp[w - weight] would already contain the updated value from the CURRENT item i, accidentally using item i multiple times!",
+        "Iterating backward ensures that when evaluating dp[w - weight], it still holds the pristine value from the PREVIOUS item i - 1.",
+        "This backwards iteration trick reduces auxiliary space from O(N * W) down to strict O(W) memory.",
+        "This space compression is standard practice across production dynamic programming solvers and combinatorial optimizers."
+      ],
+      "example": "Writing on a single chalkboard line: updating numbers from right to left so you never overwrite numbers on the left before you need to read them.",
+      "code": "function knapsack01SpaceOptimized(weights: number[], values: number[], capacity: number): number {\n  const dp = new Array(capacity + 1).fill(0);\n\n  for (let i = 0; i < weights.length; i++) {\n    const wt = weights[i];\n    const val = values[i];\n    // Traverse backwards from capacity down to wt\n    for (let w = capacity; w >= wt; w--) {\n      dp[w] = Math.max(dp[w], val + dp[w - wt]);\n    }\n  }\n  return dp[capacity];\n}\n\nconst weights = [2, 3, 4, 5];\nconst values = [3, 4, 5, 6];\nconsole.log('1D DP cap=5:', knapsack01SpaceOptimized(weights, values, 5));\nconsole.log('1D DP cap=8:', knapsack01SpaceOptimized(weights, values, 8));",
+      "output": "1D DP cap=5: 7\n1D DP cap=8: 10",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Iterating backward from capacity down to wt prevents the current item from being counted more than once."
+        },
+        {
+          "line": 17,
+          "note": "Verifies identical optimal values with only O(W) auxiliary memory."
+        }
+      ],
+      "tryIt": "Trace what happens if the loop runs forward (w = wt to capacity) and observe it produces 9 for cap=5 (using item wt=2 twice).",
+      "check": {
+        "question": "Why MUST the inner capacity loop iterate backward in 1D space-optimized 0/1 Knapsack?",
+        "options": [
+          "To ensure dp[w - wt] represents the state from the previous item rather than the current item",
+          "Because JavaScript arrays only allow backward indexing",
+          "To sort the values in descending order"
+        ],
+        "answer": 0,
+        "why": "Forward iteration allows the current item to overwrite subproblems before they are read, corrupting 0/1 into unbounded knapsack."
+      }
+    },
+    {
+      "title": "Unbounded Knapsack & Coin Change Combinations",
+      "say": [
+        "In Unbounded Knapsack, you have an unlimited supply of each item type: you can select each item zero, one, two, or many times.",
+        "The Coin Change problem is the premier practical application of Unbounded Knapsack.",
+        "In Coin Change II (LeetCode 518), you are given an array of coin denominations and an amount, and must return the number of distinct combinations that make up that amount.",
+        "Because coins can be reused infinitely, the state transition references the CURRENT item: dp[w] += dp[w - coin].",
+        "Consequently, for Unbounded Knapsack, we intentionally iterate the inner capacity loop FORWARD from coin to amount!",
+        "Iterating forward naturally allows a coin to be added repeatedly to states that already used that same coin.",
+        "We initialize dp[0] = 1 because there is exactly one way to make an amount of zero: using zero coins.",
+        "By looping over coins in the outer loop and amount in the inner loop, we count unique combinations without duplicate permutations.",
+        "This forward-loop pattern executes in O(N * amount) time and O(amount) space."
+      ],
+      "example": "An automated vending machine: making change for a dollar using an infinite supply of quarters, dimes, and nickels stored in coin tubes.",
+      "code": "function changeCombinations(amount: number, coins: number[]): number {\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1; // 1 way to make amount 0 (empty set)\n\n  for (const coin of coins) {\n    // Iterate forward: allows unlimited reuse of current coin!\n    for (let w = coin; w <= amount; w++) {\n      dp[w] += dp[w - coin];\n    }\n  }\n  return dp[amount];\n}\n\nconsole.log('Ways to make 5 with [1, 2, 5]:', changeCombinations(5, [1, 2, 5]));\nconsole.log('Ways to make 3 with [2]:', changeCombinations(3, [2]));\nconsole.log('Ways to make 10 with [10]:', changeCombinations(10, [10]));",
+      "output": "Ways to make 5 with [1, 2, 5]: 4\nWays to make 3 with [2]: 0\nWays to make 10 with [10]: 1",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Iterating forward from coin to amount enables unbounded reuse of the current coin."
+        },
+        {
+          "line": 14,
+          "note": "The 4 combinations for 5: [5], [2,2,1], [2,1,1,1], [1,1,1,1,1]."
+        }
+      ],
+      "tryIt": "Find combinations for amount=4 with coins [1, 2, 3] and verify the answer is 4.",
+      "check": {
+        "question": "Why does iterating the inner loop forward enable unbounded item reuse?",
+        "options": [
+          "State dp[w] can build upon dp[w - coin] which was already updated by the current coin in the same pass",
+          "It reverses the polarity of the memory bus",
+          "Because forward loops are executed by GPU shaders"
+        ],
+        "answer": 0,
+        "why": "Forward iteration allows chain reactions where dp[w] consumes results that already incorporated the same coin earlier in the loop."
+      }
+    },
+    {
+      "title": "Minimum Coins for Change (Optimal Resource Minimization)",
+      "say": [
+        "In Coin Change I (LeetCode 322), the goal is not counting ways, but minimizing coins: find the fewest number of coins needed to make up amount.",
+        "If that amount of money cannot be made up by any combination of the coins, return -1.",
+        "We define dp[i] as the minimum number of coins needed to produce amount i.",
+        "We initialize the entire dp array with Infinity, except dp[0] = 0 (zero coins are needed to produce amount 0).",
+        "For each amount from 1 to target, we test each coin: if coin <= amount, then dp[amount] = Math.min(dp[amount], 1 + dp[amount - coin]).",
+        "If a subproblem dp[amount - coin] is Infinity, that subproblem is unreachable and cannot contribute a solution.",
+        "After filling the table, if dp[amount] remains Infinity, no combination of coins can make the target amount, so we return -1.",
+        "This algorithm runs in O(amount * denominations) time and O(amount) auxiliary space.",
+        "Cash register software and currency dispensing ATM machines execute this exact optimization to minimize coin weight for customers."
+      ],
+      "example": "A cashier giving 30 cents in change: rather than handing over 30 individual pennies, the cashier hands over one quarter and one nickel (2 coins total).",
+      "code": "function coinChangeMin(coins: number[], amount: number): number {\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n\n  for (let a = 1; a <= amount; a++) {\n    for (const c of coins) {\n      if (c <= a && dp[a - c] !== Infinity) {\n        dp[a] = Math.min(dp[a], 1 + dp[a - c]);\n      }\n    }\n  }\n  return dp[amount] === Infinity ? -1 : dp[amount];\n}\n\nconsole.log('Min coins for 11 with [1, 2, 5]:', coinChangeMin([1, 2, 5], 11));\nconsole.log('Min coins for 3 with [2]:', coinChangeMin([2], 3));\nconsole.log('Min coins for 0 with [1]:', coinChangeMin([1], 0));",
+      "output": "Min coins for 11 with [1, 2, 5]: 3\nMin coins for 3 with [2]: -1\nMin coins for 0 with [1]: 0",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Minimization recurrence: dp[a] = min(dp[a], 1 + dp[a - c])."
+        },
+        {
+          "line": 15,
+          "note": "Optimal solution for 11 uses 5 + 5 + 1 = 3 coins total."
+        }
+      ],
+      "tryIt": "Pass coins=[2, 5, 10, 1] with amount=27 and verify the minimum coin count is 4 (10 + 10 + 5 + 2).",
+      "check": {
+        "question": "Why is the dp array initialized to Infinity in the Coin Change minimization problem?",
+        "options": [
+          "To act as a mathematical identity for the Math.min() reduction, ensuring any valid coin combination will lower the value",
+          "Because JavaScript cannot store zero in dynamic arrays",
+          "To trigger garbage collection on unused indices"
+        ],
+        "answer": 0,
+        "why": "Infinity represents an unreachable state; taking min(Infinity, 1 + valid) cleanly adopts the first reachable solution."
+      }
+    },
+    {
+      "title": "Subset Sum & Partition Equal Subset Sum",
+      "say": [
+        "A famous variation of 0/1 Knapsack is the Subset Sum problem: determine if there exists a subset of numbers that sums exactly to a target.",
+        "In Partition Equal Subset Sum (LeetCode 416), you are given an array and must determine whether it can be partitioned into two subsets with equal sums.",
+        "First, we compute the sum of all elements in the array: totalSum.",
+        "If totalSum is an odd number, it is mathematically impossible to divide into two equal integer halves, so we return false immediately.",
+        "The problem then reduces directly to 0/1 Knapsack: can we find a subset that sums to target = totalSum / 2?",
+        "We use a boolean 1D array dp of size target + 1, where dp[s] indicates whether sum s is achievable.",
+        "We set dp[0] = true (sum 0 is achieved by an empty set).",
+        "For each number, we iterate s backward from target down to num: dp[s] = dp[s] || dp[s - num].",
+        "If dp[target] becomes true at any point, we can return true early; the algorithm runs in O(N * target) time and O(target) space."
+      ],
+      "example": "Splitting a pile of gold coins equally between two pirates: if the total value is 100 gold coins, can you pick a subset worth exactly 50?",
+      "code": "function canPartition(nums: number[]): boolean {\n  const total = nums.reduce((acc, x) => acc + x, 0);\n  if (total % 2 !== 0) return false; // Odd sum cannot be partitioned equally\n\n  const target = total / 2;\n  const dp = new Array(target + 1).fill(false);\n  dp[0] = true;\n\n  for (const n of nums) {\n    for (let s = target; s >= n; s--) {\n      dp[s] = dp[s] || dp[s - n];\n    }\n    if (dp[target]) return true; // Early exit\n  }\n  return dp[target];\n}\n\nconsole.log('Can partition [1, 5, 11, 5]:', canPartition([1, 5, 11, 5]));\nconsole.log('Can partition [1, 2, 3, 5]:', canPartition([1, 2, 3, 5]));",
+      "output": "Can partition [1, 5, 11, 5]: true\nCan partition [1, 2, 3, 5]: false",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Early return: odd total sums can never be partitioned into two equal integer sums."
+        },
+        {
+          "line": 11,
+          "note": "Boolean state transition: dp[s] = dp[s] || dp[s - n] evaluated backward."
+        },
+        {
+          "line": 19,
+          "note": "Array [1, 5, 11, 5] splits into [11] and [1, 5, 5], both summing to 11."
+        }
+      ],
+      "tryIt": "Pass [2, 2, 2, 2] and verify that it can be partitioned into two subsets of sum 4.",
+      "check": {
+        "question": "Why does Partition Equal Subset Sum reduce to 0/1 Knapsack?",
+        "options": [
+          "Finding two equal subsets is mathematically equivalent to finding one subset whose sum equals totalSum / 2",
+          "Because both problems sort elements in ascending order",
+          "Because the array values represent coin denominations"
+        ],
+        "answer": 0,
+        "why": "If one subset sums to totalSum / 2, the remaining unpicked elements are guaranteed to sum to totalSum / 2."
+      }
+    },
+    {
+      "title": "Full Milestone 4 Optimization Engine Walkthrough",
+      "say": [
+        "We now assemble our complete production-grade Resource Optimization Engine for Milestone 4.",
+        "Our engine unifies 0/1 Knapsack resource allocation, Unbounded Coin Change combinations, and Minimum Resource calculations under a cohesive API.",
+        "The allocateBudget(weights, values, capacity) method executes 1D space-optimized 0/1 Knapsack, returning optimal budget utilization.",
+        "The minCurrencyChange(denominations, amount) method calculates the fewest coins needed to dispense change.",
+        "The countCombinations(denominations, amount) method returns all valid permutations of currency exchange.",
+        "All algorithms operate within strict linear space boundaries, running in microseconds on production workloads.",
+        "We verify our engine against edge cases: zero capacity, unreachable amounts, identical weights, and large targets.",
+        "Congratulations on completing Milestone 4: you have mastered the complete 2D dynamic programming landscape and its space-compression patterns.",
+        "These optimization algorithms power cloud server auto-scaling, cargo shipping load plans, and automated financial transaction settling."
+      ],
+      "example": "A cloud computing resource orchestrator: allocating CPU cores and memory limits to container pods to maximize processed transactions per dollar spent.",
+      "code": "class ResourceOptimizationEngine {\n  optimizeKnapsack(weights: number[], values: number[], capacity: number): number {\n    const dp = new Array(capacity + 1).fill(0);\n    for (let i = 0; i < weights.length; i++) {\n      const wt = weights[i];\n      const val = values[i];\n      for (let w = capacity; w >= wt; w--) {\n        dp[w] = Math.max(dp[w], val + dp[w - wt]);\n      }\n    }\n    return dp[capacity];\n  }\n\n  minCoins(coins: number[], amount: number): number {\n    const dp = new Array(amount + 1).fill(Infinity);\n    dp[0] = 0;\n    for (let a = 1; a <= amount; a++) {\n      for (const c of coins) {\n        if (c <= a && dp[a - c] !== Infinity) {\n          dp[a] = Math.min(dp[a], 1 + dp[a - c]);\n        }\n      }\n    }\n    return dp[amount] === Infinity ? -1 : dp[amount];\n  }\n}\n\nconst engine = new ResourceOptimizationEngine();\nconst capResult = engine.optimizeKnapsack([2, 3, 5], [30, 40, 60], 6);\nconst coinResult = engine.minCoins([1, 5, 10, 25], 41);\n\nconsole.log('Optimized knapsack value:', capResult);\nconsole.log('Min coins for 41 cents:', coinResult);",
+      "output": "Optimized knapsack value: 70\nMin coins for 41 cents: 4",
+      "codeNotes": [
+        {
+          "line": 32,
+          "note": "Knapsack value: chooses items wt 3 (val 40) and wt 2 (val 30), total wt 5 <= 6, value 70."
+        },
+        {
+          "line": 33,
+          "note": "Min coins: 25 + 10 + 5 + 1 = 4 coins to make 41 cents."
+        }
+      ],
+      "tryIt": "Test engine with knapsack capacity 5 and verify it selects item wt 5 (val 60) as the best single choice.",
+      "check": {
+        "question": "What is the primary difference in loop traversal between 0/1 Knapsack and Unbounded Knapsack in 1D array space?",
+        "options": [
+          "0/1 Knapsack iterates capacity backward to prevent duplicate use; Unbounded Knapsack iterates forward to allow infinite reuse",
+          "0/1 Knapsack uses while loops; Unbounded Knapsack uses for loops",
+          "0/1 Knapsack cannot be space-optimized to 1D"
+        ],
+        "answer": 0,
+        "why": "Backward iteration preserves previous-row values for 0/1 choice; forward iteration intentionally cascades current-item updates."
+      }
+    }
+  ],
+  "summary": [
+    "0/1 Knapsack solves indivisible resource allocation in O(N * W) pseudo-polynomial time.",
+    "Compressing 2D 0/1 Knapsack to 1D space requires iterating capacity backward to prevent duplicate item use.",
+    "Unbounded Knapsack iterates capacity forward, allowing multiple selections of the same item denomination.",
+    "Coin Change minimization initializes states to Infinity and applies Math.min(dp[a], 1 + dp[a - c]).",
+    "Partition Equal Subset Sum reduces directly to 0/1 Knapsack with target = totalSum / 2."
+  ],
+  "projectStep": {
+    "title": "Resource Optimization Engine Implementation",
+    "steps": [
+      "Implement 1D space-optimized knapsack01SpaceOptimized with backward capacity loop.",
+      "Implement coinChangeMin calculating fewest coins needed for target amounts.",
+      "Build ResourceOptimizationEngine class encapsulating production DP solvers."
+    ]
+  }
+},
+{
+  "day": 27,
+  "title": "2D Dynamic Programming: Longest Common Subsequence & Edit Distance",
+  "goal": "Solve string alignment, diff generation algorithms, and Levenshtein minimum edit distance transformations in O(M * N) time.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered Milestone 4's knapsack optimization engine. Today we dive deep into 2D Grid Dynamic Programming: analyzing string alignments, diff generation algorithms, and Levenshtein Edit Distance.",
+  "parts": [
+    {
+      "title": "Longest Common Subsequence (LCS) Grid Mechanics",
+      "say": [
+        "Comparing two sequences to find shared patterns is a fundamental problem in genomics, version control, and text diffing.",
+        "The Longest Common Subsequence (LCS) of two strings text1 and text2 is the longest sequence that appears in both strings in the same relative order, but not necessarily contiguously.",
+        "For example, the LCS of 'abcde' and 'ace' is 'ace' with length 3.",
+        "We construct a 2D matrix dp of size (M + 1) * (N + 1) where dp[i][j] represents the LCS length between text1[0..i-1] and text2[0..j-1].",
+        "Base cases: if either string is empty (i = 0 or j = 0), the LCS length is 0, so the first row and column are all zeros.",
+        "If characters match (text1[i - 1] === text2[j - 1]), the matching character extends the diagonal: dp[i][j] = 1 + dp[i - 1][j - 1].",
+        "If characters do not match, the LCS is the best result from skipping a character in text1 or skipping a character in text2: dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]).",
+        "The algorithm fills the matrix in row-major order in O(M * N) time and O(M * N) space.",
+        "Git diff tools like git merge rely on LCS to identify added, deleted, and unchanged lines of code between commits."
+      ],
+      "example": "Comparing two DNA genetic strands: identifying conserved gene sequences across evolutionary mutations by finding characters that match in order.",
+      "code": "function longestCommonSubsequence(text1: string, text2: string): number {\n  const m = text1.length;\n  const n = text2.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (text1[i - 1] === text2[j - 1]) {\n        dp[i][j] = 1 + dp[i - 1][j - 1]; // Diagonal match\n      } else {\n        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]); // Skip best\n      }\n    }\n  }\n  return dp[m][n];\n}\n\nconsole.log('LCS \"abcde\" & \"ace\":', longestCommonSubsequence('abcde', 'ace'));\nconsole.log('LCS \"abc\" & \"abc\":', longestCommonSubsequence('abc', 'abc'));\nconsole.log('LCS \"abc\" & \"def\":', longestCommonSubsequence('abc', 'def'));",
+      "output": "LCS \"abcde\" & \"ace\": 3\nLCS \"abc\" & \"abc\": 3\nLCS \"abc\" & \"def\": 0",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Characters match: takes 1 + diagonal upper-left cell dp[i-1][j-1]."
+        },
+        {
+          "line": 10,
+          "note": "Mismatch: takes maximum of top cell dp[i-1][j] and left cell dp[i][j-1]."
+        }
+      ],
+      "tryIt": "Find LCS of 'oxcp' and 'xxcp' and verify the length is 3 ('xcp').",
+      "check": {
+        "question": "In the LCS 2D grid, why do we look at dp[i-1][j-1] when characters match?",
+        "options": [
+          "Both characters are consumed simultaneously, adding 1 to the best answer found without either character",
+          "Because diagonal cells run faster on CPU caches",
+          "To sort the strings alphabetically"
+        ],
+        "answer": 0,
+        "why": "When text1[i-1] === text2[j-1], both characters contribute to the subsequence, extending the subproblem that excludes both."
+      }
+    },
+    {
+      "title": "Reconstructing the Actual LCS String",
+      "say": [
+        "Calculating the numeric length of the LCS is only half the battle; diff tools need to extract the actual characters.",
+        "We reconstruct the LCS string by backtracking through the completed 2D dp table starting from the bottom-right corner dp[M][N].",
+        "At each cell (i, j), we check if text1[i - 1] === text2[j - 1].",
+        "If they match, that character was part of the common subsequence; we prepend it to our result string and move diagonally to (i - 1, j - 1).",
+        "If they do not match, we follow the cell that held the larger value: if dp[i - 1][j] >= dp[i][j - 1], we move up to (i - 1, j); otherwise, we move left to (i, j - 1).",
+        "We repeat this backtrack traversal until either i === 0 or j === 0, reaching the edge of the matrix.",
+        "Because each step decrements i, j, or both, backtracking takes at most O(M + N) linear time.",
+        "This backtracking traversal through a 2D DP matrix is the exact mechanism used to generate unified diff patches.",
+        "Understanding this grid backtracking pattern applies directly to sequence alignment in bioinformatics (Needleman-Wunsch algorithm)."
+      ],
+      "example": "Following tire tracks in the snow backward from your destination to trace the exact route driven through an intersection grid.",
+      "code": "function getLCSString(text1: string, text2: string): string {\n  const m = text1.length;\n  const n = text2.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (text1[i - 1] === text2[j - 1]) dp[i][j] = 1 + dp[i - 1][j - 1];\n      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);\n    }\n  }\n\n  // Backtrack to build string\n  const result: string[] = [];\n  let i = m; let j = n;\n  while (i > 0 && j > 0) {\n    if (text1[i - 1] === text2[j - 1]) {\n      result.push(text1[i - 1]);\n      i--; j--;\n    } else if (dp[i - 1][j] >= dp[i][j - 1]) {\n      i--;\n    } else {\n      j--;\n    }\n  }\n  return result.reverse().join('');\n}\n\nconsole.log('LCS string \"AGGTAB\" & \"GXTXAYB\":', getLCSString('AGGTAB', 'GXTXAYB'));\nconsole.log('LCS string \"algorithm\" & \"altruistic\":', getLCSString('algorithm', 'altruistic'));",
+      "output": "LCS string \"AGGTAB\" & \"GXTXAYB\": GTAB\nLCS string \"algorithm\" & \"altruistic\": alrit",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "When characters match, collects character and moves diagonally to (i-1, j-1)."
+        },
+        {
+          "line": 20,
+          "note": "When characters mismatch, navigates toward the higher adjacent DP cell."
+        }
+      ],
+      "tryIt": "Find the LCS string of 'abcdef' and 'azbxcyd' and verify it returns 'abcd'.",
+      "check": {
+        "question": "What is the time complexity of reconstructing the LCS string from a filled M x N DP table?",
+        "options": [
+          "O(M + N) linear time because each step moves up, left, or diagonally up-left",
+          "O(M * N) quadratic time",
+          "O(2^(M+N)) exponential time"
+        ],
+        "answer": 0,
+        "why": "Every step reduces i by 1, j by 1, or both, reaching the border in at most M + N total steps."
+      }
+    },
+    {
+      "title": "Levenshtein Edit Distance Formulation",
+      "say": [
+        "Edit Distance, formalised by Vladimir Levenshtein in 1965, measures the dissimilarity between two strings.",
+        "It is defined as the minimum number of single-character operations required to transform word1 into word2.",
+        "Three distinct operations are permitted: Insert a character, Delete a character, or Replace a character.",
+        "We construct a 2D matrix dp of size (M + 1) * (N + 1) where dp[i][j] represents the edit distance between word1[0..i-1] and word2[0..j-1].",
+        "Base cases: dp[i][0] = i (transforming word1 of length i into an empty string requires i deletions); dp[0][j] = j (requires j insertions).",
+        "If characters match (word1[i - 1] === word2[j - 1]), zero cost is incurred: dp[i][j] = dp[i - 1][j - 1].",
+        "If characters mismatch, we take the minimum of all three possible operations plus 1 cost:",
+        "dp[i][j] = 1 + Math.min(dp[i - 1][j] /* delete */, dp[i][j - 1] /* insert */, dp[i - 1][j - 1] /* replace */).",
+        "Spell checkers, autocomplete correction, and biological sequence alignment rely on Levenshtein distance to quantify string similarity."
+      ],
+      "example": "Transforming 'horse' into 'ros': replace 'h' with 'r' (rorse), delete 'r' (rose), delete 'e' (ros) = 3 total edits.",
+      "code": "function minDistance(word1: string, word2: string): number {\n  const m = word1.length;\n  const n = word2.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n\n  for (let i = 0; i <= m; i++) dp[i][0] = i; // Deletions\n  for (let j = 0; j <= n; j++) dp[0][j] = j; // Insertions\n\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (word1[i - 1] === word2[j - 1]) {\n        dp[i][j] = dp[i - 1][j - 1]; // Free match!\n      } else {\n        dp[i][j] = 1 + Math.min(\n          dp[i - 1][j],     // Delete from word1\n          dp[i][j - 1],     // Insert into word1\n          dp[i - 1][j - 1]  // Replace in word1\n        );\n      }\n    }\n  }\n  return dp[m][n];\n}\n\nconsole.log('Edit distance \"horse\" -> \"ros\":', minDistance('horse', 'ros'));\nconsole.log('Edit distance \"intention\" -> \"execution\":', minDistance('intention', 'execution'));",
+      "output": "Edit distance \"horse\" -> \"ros\": 3\nEdit distance \"intention\" -> \"execution\": 5",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Initializes base cases: transforming to/from empty string costs length operations."
+        },
+        {
+          "line": 12,
+          "note": "Matching characters carry over diagonal cost with 0 additional edit penalty."
+        },
+        {
+          "line": 14,
+          "note": "Takes minimum among deletion, insertion, and replacement plus 1."
+        }
+      ],
+      "tryIt": "Calculate distance from 'kitten' to 'sitting' and verify the edit distance is 3.",
+      "check": {
+        "question": "In the Levenshtein Edit Distance equation, what operation does the term dp[i-1][j] represent?",
+        "options": [
+          "Deleting the character word1[i-1] from word1",
+          "Inserting a character into word1",
+          "Replacing a character"
+        ],
+        "answer": 0,
+        "why": "Transitioning from (i-1, j) consumes a character from word1 without advancing in word2, representing a deletion."
+      }
+    },
+    {
+      "title": "Diff Patch Generation Mechanics",
+      "say": [
+        "A diff tool does not just return a number; it visualizes the exact line-by-line insertions (+), deletions (-), and matches ( ).",
+        "We generate a diff patch by traversing the completed Edit Distance or LCS matrix from (0, 0) to (M, N) or in reverse.",
+        "When moving diagonally on a character match, we output that character as unchanged: ' word[i]'.",
+        "When moving down (incrementing i), we output that character as a deletion: '- word1[i]'.",
+        "When moving right (incrementing j), we output that character as an insertion: '+ word2[j]'.",
+        "This produces the unified diff format displayed in GitHub pull requests, terminal git diff outputs, and code review tools.",
+        "Because the DP grid guarantees minimum edit cost, the generated diff displays the most concise possible representation of changes.",
+        "Generating diffs takes O(M * N) time to compute the table and O(M + N) to generate the patch string.",
+        "Every software developer interacts with this exact dynamic programming algorithm daily when reviewing pull requests."
+      ],
+      "example": "A teacher grading an essay edit: highlighting removed sentences in red and newly added sentences in green while leaving untouched text black.",
+      "code": "function generateCharDiff(w1: string, w2: string): string[] {\n  const m = w1.length; const n = w2.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = i;\n  for (let j = 0; j <= n; j++) dp[0][j] = j;\n\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (w1[i - 1] === w2[j - 1]) dp[i][j] = dp[i - 1][j - 1];\n      else dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);\n    }\n  }\n\n  const diff: string[] = [];\n  let i = m; let j = n;\n  while (i > 0 || j > 0) {\n    if (i > 0 && j > 0 && w1[i - 1] === w2[j - 1]) {\n      diff.push(` ${w1[i - 1]}`);\n      i--; j--;\n    } else if (j > 0 && (i === 0 || dp[i][j - 1] <= dp[i - 1][j])) {\n      diff.push(`+${w2[j - 1]}`);\n      j--;\n    } else if (i > 0) {\n      diff.push(`-${w1[i - 1]}`);\n      i--;\n    }\n  }\n  return diff.reverse();\n}\n\nconst patch = generateCharDiff('cat', 'hat');\nconsole.log('Diff patch:');\nfor (const p of patch) console.log(p);",
+      "output": "Diff patch:\n-c\n+h\n a\n t",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Pushes ' ' for unchanged matching characters."
+        },
+        {
+          "line": 23,
+          "note": "Pushes '+' for newly inserted characters."
+        },
+        {
+          "line": 26,
+          "note": "Pushes '-' for deleted characters."
+        }
+      ],
+      "tryIt": "Generate diff from 'fast' to 'faster' and verify it appends '+e' and '+r'.",
+      "check": {
+        "question": "How does a diff tool determine which lines or characters to mark as deleted (-)?",
+        "options": [
+          "When backtracking through the DP table moves vertically along the original sequence axis (decrementing i)",
+          "By randomly choosing words that look different",
+          "By deleting all lines longer than 80 characters"
+        ],
+        "answer": 0,
+        "why": "Moving vertically consumes a token from the original text without matching the new text, signifying a deletion."
+      }
+    },
+    {
+      "title": "Space Optimization for 2D Grid DP (Two Rows)",
+      "say": [
+        "In many 2D DP problems (like LCS and Edit Distance), computing row i only requires access to row i and row i - 1.",
+        "We never inspect row i - 2 or any earlier rows once row i - 1 has been computed.",
+        "Therefore, keeping the entire M * N matrix in memory is unnecessary when only the numeric score is needed.",
+        "We can optimize auxiliary space from O(M * N) down to O(N) by maintaining only two rows: prevRow and currRow.",
+        "After computing currRow from prevRow, we swap the references: prevRow = currRow, and allocate a fresh currRow.",
+        "Alternatively, using modular arithmetic dp[i % 2][j] alternates between row 0 and row 1 automatically.",
+        "If string length M is 100,000 and N is 1,000, 2D space requires 100,000,000 cells (hundreds of megabytes), whereas two rows take only 2,000 numbers!",
+        "Always ensure you pass the shorter string as the column dimension to minimize the width of the two rows.",
+        "This space optimization technique enables large-scale genomic sequence alignment on memory-constrained devices."
+      ],
+      "example": "A tennis scorekeeper using a two-row flip chart: row 1 displays the previous set score, and row 2 displays the live current set score.",
+      "code": "function lcsSpaceOptimized(s1: string, s2: string): number {\n  // Ensure s2 is the shorter string to minimize row width\n  if (s1.length < s2.length) return lcsSpaceOptimized(s2, s1);\n\n  let prev = new Array(s2.length + 1).fill(0);\n  let curr = new Array(s2.length + 1).fill(0);\n\n  for (let i = 1; i <= s1.length; i++) {\n    for (let j = 1; j <= s2.length; j++) {\n      if (s1[i - 1] === s2[j - 1]) {\n        curr[j] = 1 + prev[j - 1];\n      } else {\n        curr[j] = Math.max(prev[j], curr[j - 1]);\n      }\n    }\n    prev = [...curr]; // Roll rows forward\n  }\n  return prev[s2.length];\n}\n\nconsole.log('Space O(N) LCS \"abcdefghij\" & \"cfj\":', lcsSpaceOptimized('abcdefghij', 'cfj'));\nconsole.log('Space O(N) LCS \"hello\" & \"world\":', lcsSpaceOptimized('hello', 'world'));",
+      "output": "Space O(N) LCS \"abcdefghij\" & \"cfj\": 3\nSpace O(N) LCS \"hello\" & \"world\": 1",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Ensures s2 is the shorter string, bounding memory allocation to O(min(M, N))."
+        },
+        {
+          "line": 15,
+          "note": "Rolls current row into previous row, maintaining only two active vectors."
+        }
+      ],
+      "tryIt": "Pass two 1,000-character strings and verify that space consumption stays bounded under 2,000 numbers.",
+      "check": {
+        "question": "Why can the auxiliary space of LCS and Edit Distance be compressed from O(M * N) to O(min(M, N))?",
+        "options": [
+          "Computing cell (i, j) only references cells in the current row i and the immediately preceding row i - 1",
+          "Because strings cannot exceed 256 characters in TypeScript",
+          "Because all consonants can be stripped before calculation"
+        ],
+        "answer": 0,
+        "why": "State transitions are strictly localized to adjacent rows; keeping only two rows satisfies all recurrence dependencies."
+      }
+    },
+    {
+      "title": "Production Fuzzy String Matcher & Autocorrect Engine",
+      "say": [
+        "We now assemble our complete production-grade Fuzzy String Matching Engine using Levenshtein Edit Distance.",
+        "In search bars and command-line interfaces, users frequently make typos (e.g., typing 'git statsu' instead of 'git status').",
+        "Our engine calculates the edit distance between an unknown user query and a dictionary of known valid command words.",
+        "It returns suggestions that fall within a defined tolerance threshold (typically distance <= 2).",
+        "Suggestions are ranked by edit distance ascending (closest match first), breaking ties by original dictionary order.",
+        "Under benchmark tests with thousands of commands, closest matches are identified in milliseconds.",
+        "We verify our engine against edge cases: exact matches (distance 0), complete mismatches, single-letter typos, and transposed letters.",
+        "Today you have mastered 2D grid dynamic programming: LCS, matrix backtracking, Levenshtein edit distance, diff generation, and space compression.",
+        "These string alignment algorithms power git, modern spell-checkers, DNA gene sequencing, and terminal developer tools."
+      ],
+      "example": "A command-line tool suggesting corrections: 'git: 'branchh' is not a git command. Did you mean 'branch'?'",
+      "code": "class FuzzyMatcher {\n  private dictionary: string[];\n\n  constructor(words: string[]) {\n    this.dictionary = words;\n  }\n\n  private editDist(s1: string, s2: string): number {\n    const m = s1.length; const n = s2.length;\n    let prev = Array.from({ length: n + 1 }, (_, j) => j);\n    let curr = new Array(n + 1).fill(0);\n\n    for (let i = 1; i <= m; i++) {\n      curr[0] = i;\n      for (let j = 1; j <= n; j++) {\n        if (s1[i - 1] === s2[j - 1]) curr[j] = prev[j - 1];\n        else curr[j] = 1 + Math.min(prev[j], curr[j - 1], prev[j - 1]);\n      }\n      prev = [...curr];\n    }\n    return prev[n];\n  }\n\n  suggest(query: string, maxDistance = 2): { match: string; dist: number }[] {\n    const results: { match: string; dist: number }[] = [];\n    for (const word of this.dictionary) {\n      const d = this.editDist(query, word);\n      if (d <= maxDistance) results.push({ match: word, dist: d });\n    }\n    return results.sort((a, b) => a.dist - b.dist);\n  }\n}\n\nconst matcher = new FuzzyMatcher(['commit', 'checkout', 'branch', 'status', 'rebase', 'merge']);\nconsole.log('Suggestions for \"statsu\":', JSON.stringify(matcher.suggest('statsu')));\nconsole.log('Suggestions for \"brnach\":', JSON.stringify(matcher.suggest('brnach')));\nconsole.log('Suggestions for \"comit\":', JSON.stringify(matcher.suggest('comit')));",
+      "output": "Suggestions for \"statsu\": [{\"match\":\"status\",\"dist\":2}]\nSuggestions for \"brnach\": [{\"match\":\"branch\",\"dist\":2}]\nSuggestions for \"comit\": [{\"match\":\"commit\",\"dist\":1}]",
+      "codeNotes": [
+        {
+          "line": 26,
+          "note": "Filters candidates to those within allowable edit distance threshold (<= 2)."
+        },
+        {
+          "line": 36,
+          "note": "Corrects single-letter deletion 'comit' to 'commit' with distance 1."
+        }
+      ],
+      "tryIt": "Query 'checkoutt' and verify it matches 'checkout' with distance 1.",
+      "check": {
+        "question": "How does a fuzzy spell checker use Levenshtein distance to suggest corrections?",
+        "options": [
+          "It computes edit distances between the query and known words, returning words whose distance is within a small threshold (e.g. <= 2)",
+          "It checks whether the words share the same vowels",
+          "It scrambles the query letters randomly"
+        ],
+        "answer": 0,
+        "why": "Low edit distances indicate minor human typographical errors like dropped, added, or transposed characters."
+      }
+    }
+  ],
+  "summary": [
+    "Longest Common Subsequence (LCS) finds shared sequential characters across two strings in O(M * N) time.",
+    "Backtracking through a completed LCS table reconstructs the actual common subsequence string in O(M + N) time.",
+    "Levenshtein Edit Distance calculates minimum insertions, deletions, and substitutions to transform word1 into word2.",
+    "Unified diff generation traces DP matrix paths: horizontal moves represent insertions (+), vertical deletions (-).",
+    "2D Grid DP can be space-compressed from O(M * N) to O(min(M, N)) using two rolling rows."
+  ],
+  "projectStep": {
+    "title": "2D Dynamic Programming Suite Implementation",
+    "steps": [
+      "Implement longestCommonSubsequence with 2D grid state transitions.",
+      "Implement minDistance Levenshtein edit distance with operation tracking.",
+      "Build FuzzyMatcher autocorrect class using space-optimized edit distance."
+    ]
+  }
+},
+{
+  "day": 28,
+  "title": "Backtracking: N-Queens & Constraint Satisfaction",
+  "goal": "Solve constraint satisfaction puzzles using recursion trees, pruning invalid states, and state restoration.",
+  "minutes": 25,
+  "recap": "Yesterday you conquered 2D dynamic programming and string alignments. Today we master advanced Backtracking and Constraint Satisfaction: solving the classic N-Queens puzzle with bitmask optimizations and aggressive branch pruning.",
+  "parts": [
+    {
+      "title": "Constraint Satisfaction Problems & State-Space Trees",
+      "say": [
+        "A Constraint Satisfaction Problem (CSP) consists of a set of variables, domains of possible values, and constraints that values must satisfy simultaneously.",
+        "Classic examples include the N-Queens problem, Sudoku puzzle solvers, map coloring, and automated circuit board layout.",
+        "Brute-force combinatorial search generates all possible assignments: placing N queens on an N x N board has (N^2 choose N) combinations.",
+        "For N = 8, brute force evaluates over 4.4 billion board configurations, which is completely intractable.",
+        "Backtracking explores the state-space tree depth-first, assigning one variable at a time.",
+        "As soon as a partial assignment violates any constraint, the algorithm immediately prunes that entire subtree, abandoning all descendants.",
+        "It then 'backtracks' to the previous decision node, unassigns the variable, and tries the next candidate value.",
+        "By enforcing constraints early at shallow tree depths, backtracking prunes over 99.9% of the search space.",
+        "Understanding constraint propagation and pruning transforms impossible exponential puzzles into sub-millisecond solvers."
+      ],
+      "example": "Solving a Sudoku puzzle with a pencil: writing a candidate number in pencil, and if you discover a row conflict three boxes later, immediately erasing back to the choice point.",
+      "code": "function countBruteForceVsBacktrack(): void {\n  // N = 4 board has 16 squares\n  // 16 choose 4 combinations = 16! / (4! * 12!) = 1820\n  const bruteForce4 = 1820;\n  // Systematic row-by-row backtracking visits only 64 state nodes\n  const backtrackNodes4 = 64;\n  console.log('Brute force evaluations for N=4:', bruteForce4);\n  console.log('Backtracking tree nodes visited:', backtrackNodes4);\n  console.log('Search space reduction:', Math.round((1 - backtrackNodes4 / bruteForce4) * 100) + '%');\n}\n\ncountBruteForceVsBacktrack();",
+      "output": "Brute force evaluations for N=4: 1820\nBacktracking tree nodes visited: 64\nSearch space reduction: 96%",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Calculates total naive combinations choosing 4 squares on a 4x4 grid."
+        },
+        {
+          "line": 9,
+          "note": "Demonstrates that early constraint pruning eliminates 96% of candidate states for N=4."
+        }
+      ],
+      "tryIt": "Observe that for N=8, pruning reduces search states from 4,400,000,000 down to just 15,720 nodes (99.999% reduction).",
+      "check": {
+        "question": "How does backtracking achieve massive efficiency gains over brute force on Constraint Satisfaction Problems?",
+        "options": [
+          "It evaluates constraints at each step, immediately abandoning branches that violate rules before exploring their descendants",
+          "It uses random guessing to pick the right answer",
+          "It converts the problem into a linear regression"
+        ],
+        "answer": 0,
+        "why": "Early pruning cuts off entire subtrees at their root, avoiding the need to inspect millions of invalid leaf states."
+      }
+    },
+    {
+      "title": "The N-Queens Problem & Geometric Attack Invariants",
+      "say": [
+        "In chess, a queen can attack any piece in the same row, same column, or along any diagonal.",
+        "The N-Queens problem asks: place N non-attacking queens on an N x N chessboard such that no two queens threaten each other.",
+        "Because no two queens can share the same row, we place exactly one queen per row, reducing the problem to placing queens in rows 0 through N-1.",
+        "At row r, we need to pick a valid column c such that column c and both diagonals are free of previously placed queens.",
+        "Column conflict check: no previously placed queen shares column c.",
+        "Positive diagonal conflict check (/) : on any 45-degree diagonal, the sum (r + c) is constant for all squares!",
+        "Negative diagonal conflict check (\\) : on any 135-degree diagonal, the difference (r - c) is constant for all squares!",
+        "These two mathematical invariants allow us to check diagonal conflicts in O(1) time using simple sets or lookup arrays.",
+        "This elegant geometric mapping eliminates the need to scan the board squares diagonally, radically accelerating validation."
+      ],
+      "example": "A laser sensor grid: placing receivers so no two sensors align horizontally, vertically, or along any 45-degree angle of sight.",
+      "code": "function verifyDiagonalInvariants(): void {\n  // Let queen be at row 2, col 3\n  const r = 2; const c = 3;\n  const posDiag = r + c; // 5\n  const negDiag = r - c; // -1\n\n  // Test square at row 3, col 2 (on positive diagonal /)\n  console.log('(3, 2) on pos diagonal:', (3 + 2) === posDiag);\n  // Test square at row 4, col 5 (on negative diagonal \\)\n  console.log('(4, 5) on neg diagonal:', (4 - 5) === negDiag);\n  // Test unrelated square (1, 1)\n  console.log('(1, 1) on any diagonal:', (1 + 1) === posDiag || (1 - 1) === negDiag);\n}\n\nverifyDiagonalInvariants();",
+      "output": "(3, 2) on pos diagonal: true\n(4, 5) on neg diagonal: true\n(1, 1) on any diagonal: false",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Positive diagonal invariant: all squares on diagonal / share identical (row + col)."
+        },
+        {
+          "line": 6,
+          "note": "Negative diagonal invariant: all squares on diagonal \\ share identical (row - col)."
+        }
+      ],
+      "tryIt": "Verify that square (0, 5) also lies on the positive diagonal with sum 5.",
+      "check": {
+        "question": "What mathematical invariants allow checking diagonal attacks in O(1) time in the N-Queens problem?",
+        "options": [
+          "(row + col) is constant for positive diagonals (/); (row - col) is constant for negative diagonals (\\)",
+          "The product (row * col) must be an even number",
+          "The diagonal coordinates must both be prime numbers"
+        ],
+        "answer": 0,
+        "why": "Any squares lying along the same 45-degree diagonal share the same sum (r + c) or difference (r - c)."
+      }
+    },
+    {
+      "title": "Full Recursive N-Queens Solver Implementation",
+      "say": [
+        "We now implement the complete recursive backtracking algorithm for N-Queens.",
+        "We maintain three lookup sets to track occupied attack vectors: cols = new Set(), posDiags = new Set(), and negDiags = new Set().",
+        "The recursive function backtrack(row) attempts to place a queen in the specified row.",
+        "Base case: if row === N, we have successfully placed all N queens without any conflicts; we record the board configuration into our results.",
+        "For each column col from 0 to N-1, we check if col, (row + col), or (row - col) already exist in our occupied sets.",
+        "If any conflict exists, we skip that column (pruning the invalid branch).",
+        "If safe, we choose this position: add to cols, posDiags, negDiags, and push col to our path array.",
+        "We recurse: backtrack(row + 1).",
+        "Upon return, we backtrack: remove col from cols, remove (row + col) from posDiags, remove (row - col) from negDiags, and pop from path."
+      ],
+      "example": "Placing statues in an art gallery: positioning each statue so its security cameras do not blind the cameras of any other statue.",
+      "code": "function solveNQueens(n: number): number[][] {\n  const solutions: number[][] = [];\n  const cols = new Set<number>();\n  const posDiags = new Set<number>(); // (r + c)\n  const negDiags = new Set<number>(); // (r - c)\n  const board: number[] = []; // board[row] = col\n\n  function backtrack(row: number): void {\n    if (row === n) {\n      solutions.push([...board]);\n      return;\n    }\n    for (let col = 0; col < n; col++) {\n      if (cols.has(col) || posDiags.has(row + col) || negDiags.has(row - col)) {\n        continue; // Prune conflict!\n      }\n      // Choose\n      cols.add(col); posDiags.add(row + col); negDiags.add(row - col);\n      board.push(col);\n\n      // Explore\n      backtrack(row + 1);\n\n      // Unchoose (Backtrack)\n      cols.delete(col); posDiags.delete(row + col); negDiags.delete(row - col);\n      board.pop();\n    }\n  }\n\n  backtrack(0);\n  return solutions;\n}\n\nconst n4 = solveNQueens(4);\nconsole.log('Total solutions for N=4:', n4.length);\nconsole.log('Solution 1 (col per row):', JSON.stringify(n4[0]));\nconsole.log('Solution 2 (col per row):', JSON.stringify(n4[1]));",
+      "output": "Total solutions for N=4: 2\nSolution 1 (col per row): [1,3,0,2]\nSolution 2 (col per row): [2,0,3,1]",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Prunes branches in O(1) time by querying column and diagonal sets."
+        },
+        {
+          "line": 24,
+          "note": "The crucial backtrack step: deletes state from sets and pops from board."
+        },
+        {
+          "line": 35,
+          "note": "Confirms exactly 2 valid non-attacking solutions exist for 4x4 board."
+        }
+      ],
+      "tryIt": "Call solveNQueens(8) and verify it finds all 92 distinct solutions.",
+      "check": {
+        "question": "Why must the occupied sets be cleaned up (e.g., cols.delete(col)) after the recursive call returns?",
+        "options": [
+          "To restore state so the next column branch can evaluate its own placement independently without false conflicts",
+          "To free memory for garbage collection",
+          "Because Set objects cannot hold more than N elements"
+        ],
+        "answer": 0,
+        "why": "Backtracking uses a shared state; failing to clean up would falsely block valid positions on subsequent sibling branches."
+      }
+    },
+    {
+      "title": "Bitmask Optimization (Sub-Millisecond N-Queens)",
+      "say": [
+        "In performance-critical applications, using JavaScript Set objects introduces object allocation and hashing overhead.",
+        "We can achieve blazing sub-millisecond execution speeds by representing occupied columns and diagonals using integer bitmasks.",
+        "A standard 32-bit integer can track up to 32 columns, where bit i is 1 if column i is occupied and 0 if free.",
+        "Column mask: colsMask tracks occupied vertical columns.",
+        "Positive diagonal mask: (posMask | (1 << col)) << 1 shifts all diagonal threats left by 1 for the next row.",
+        "Negative diagonal mask: (negMask | (1 << col)) >> 1 shifts all diagonal threats right by 1 for the next row.",
+        "All conflicts can be evaluated in a single bitwise OR operation: (colsMask | posMask | negMask).",
+        "Finding available columns uses bitwise NOT: (~(cols | pos | neg)) & ((1 << n) - 1).",
+        "Bitmask N-Queens runs over ten times faster than Set-based implementations, computing all 92 solutions for N = 8 in 2 milliseconds."
+      ],
+      "example": "A digital control panel where 8 LED lights represent switches: using a single byte to check all 8 switches simultaneously with a single bitwise operation.",
+      "code": "function totalNQueensBitmask(n: number): number {\n  let count = 0;\n  const allOnes = (1 << n) - 1; // Mask with n lowest bits set to 1\n\n  function backtrack(row: number, cols: number, pos: number, neg: number): void {\n    if (row === n) {\n      count++;\n      return;\n    }\n    // Available positions are 1s in ~conflicts bounded by n bits\n    let available = (~(cols | pos | neg)) & allOnes;\n\n    while (available > 0) {\n      const pick = available & -available; // Extract lowest set bit (O(1))\n      available -= pick; // Remove pick from available\n      backtrack(\n        row + 1,\n        cols | pick,\n        (pos | pick) << 1,\n        (neg | pick) >> 1\n      );\n    }\n  }\n\n  backtrack(0, 0, 0, 0);\n  return count;\n}\n\nconsole.log('Solutions N=4:', totalNQueensBitmask(4));\nconsole.log('Solutions N=8:', totalNQueensBitmask(8));\nconsole.log('Solutions N=10:', totalNQueensBitmask(10));",
+      "output": "Solutions N=4: 2\nSolutions N=8: 92\nSolutions N=10: 724",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Computes all available attack-free columns in a single bitwise instruction."
+        },
+        {
+          "line": 14,
+          "note": "Picks lowest set bit using classic formula 'x & -x'."
+        },
+        {
+          "line": 18,
+          "note": "Shifts diagonal bitmasks left and right automatically for next row."
+        }
+      ],
+      "tryIt": "Calculate total solutions for N=12 and observe it computes all 14,200 solutions in milliseconds.",
+      "check": {
+        "question": "Why do positive and negative diagonal bitmasks shift left (<< 1) and right (>> 1) on each row descent?",
+        "options": [
+          "As you advance down one row, diagonal attack paths move exactly one column left or right",
+          "Because bitwise shifts are required by the TypeScript compiler",
+          "To multiply the answer by 2"
+        ],
+        "answer": 0,
+        "why": "Moving down one row naturally shifts the diagonal threat line: 45-degree threats shift left, 135-degree threats shift right."
+      }
+    },
+    {
+      "title": "Sudoku Solver & General Constraint Satisfaction",
+      "say": [
+        "The same constraint satisfaction principles power general CSP solvers like Sudoku.",
+        "In Sudoku (LeetCode 37), you must fill a 9x9 grid with digits 1 through 9 such that each row, column, and 3x3 subgrid contains each digit exactly once.",
+        "We locate the next empty cell (row, col) on the board.",
+        "We iterate through candidate digits from 1 to 9, validating that the digit does not already exist in the same row, same column, or same 3x3 block.",
+        "If safe, we place the digit and recursively call solve(board).",
+        "If the recursive call returns true, the entire puzzle is solved; we return true immediately.",
+        "If all digits 1 through 9 fail, we reset the cell to empty ('.') and return false, triggering backtracking to the previous cell.",
+        "An empty board with zero remaining empty cells serves as the base case indicating complete resolution.",
+        "Constraint propagation heuristics (like picking the cell with the fewest remaining candidate values) optimize Sudoku solvers to near-instant speeds."
+      ],
+      "example": "A detective eliminating suspects: if suspect A was at dinner, they could not have been at the bank; this eliminates suspect A and narrows the remaining suspects.",
+      "code": "function isValidSudokuMove(board: string[][], r: number, c: number, ch: string): boolean {\n  for (let i = 0; i < 9; i++) {\n    if (board[r][i] === ch) return false; // Row check\n    if (board[i][c] === ch) return false; // Col check\n    // 3x3 block check\n    const boxRow = 3 * Math.floor(r / 3) + Math.floor(i / 3);\n    const boxCol = 3 * Math.floor(c / 3) + (i % 3);\n    if (board[boxRow][boxCol] === ch) return false;\n  }\n  return true;\n}\n\n// Mini test grid verification\nconst testGrid: string[][] = Array.from({ length: 9 }, () => new Array(9).fill('.'));\ntestGrid[0][0] = '5';\nconsole.log('Placing 5 in row 0 valid:', isValidSudokuMove(testGrid, 0, 1, '5'));\nconsole.log('Placing 6 in row 0 valid:', isValidSudokuMove(testGrid, 0, 1, '6'));\nconsole.log('Placing 5 in box valid:', isValidSudokuMove(testGrid, 1, 1, '5'));",
+      "output": "Placing 5 in row 0 valid: false\nPlacing 6 in row 0 valid: true\nPlacing 5 in box valid: false",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Calculates corresponding 3x3 bounding block cell using integer division."
+        },
+        {
+          "line": 16,
+          "note": "Demonstrates that placing 5 in row 0 or within the top-left 3x3 box correctly triggers conflict."
+        }
+      ],
+      "tryIt": "Place '6' at row 1, col 1 and verify it returns true.",
+      "check": {
+        "question": "How does a Sudoku backtracking solver know when to stop and return true?",
+        "options": [
+          "When the grid contains no remaining empty cells, meaning all cells have been filled without violating any constraints",
+          "When 100 iterations have elapsed",
+          "When the top row sums to 45"
+        ],
+        "answer": 0,
+        "why": "Reaching the end with zero empty cells proves that a complete, mutually consistent assignment has been found."
+      }
+    },
+    {
+      "title": "Production Board Formatter & Backtracking Synthesis",
+      "say": [
+        "We now assemble our complete production N-Queens solver with formatted chessboard output rendering.",
+        "Our engine takes board dimension N, computes all non-attacking placements, and formats each solution into an ASCII chessboard.",
+        "Each queen is rendered as 'Q' and empty squares as '.', producing standardized strings like '..Q.'.",
+        "We benchmark execution across board sizes N = 4 through N = 8, verifying exact solution counts against mathematical benchmarks.",
+        "The engine guarantees strict state restoration, ensuring zero memory leaks or lingering mutations across consecutive runs.",
+        "Understanding how to construct search trees, prune dead ends, restore state, and optimize with bitmasks completes your backtracking toolkit.",
+        "Today you have mastered constraint satisfaction theory, geometric attack invariants, state restoration, bitmask pruning, and CSP solvers.",
+        "These backtracking techniques form the backbone of planning engines in automated robotics, compiler register allocation, and theorem provers."
+      ],
+      "example": "A graphic design print preview: formatting an abstract grid of coordinate numbers into a beautifully typeset visual representation ready for publication.",
+      "code": "class NQueensProductionSolver {\n  solve(n: number): string[][] {\n    const rawSolutions = this.findSolutions(n);\n    return rawSolutions.map(board =>\n      board.map(col => '.'.repeat(col) + 'Q' + '.'.repeat(n - col - 1))\n    );\n  }\n\n  private findSolutions(n: number): number[][] {\n    const results: number[][] = [];\n    const cols = new Set<number>();\n    const pos = new Set<number>();\n    const neg = new Set<number>();\n    const path: number[] = [];\n\n    function search(r: number): void {\n      if (r === n) { results.push([...path]); return; }\n      for (let c = 0; c < n; c++) {\n        if (cols.has(c) || pos.has(r + c) || neg.has(r - c)) continue;\n        cols.add(c); pos.add(r + c); neg.add(r - c);\n        path.push(c);\n        search(r + 1);\n        cols.delete(c); pos.delete(r + c); neg.delete(r - c);\n        path.pop();\n      }\n    }\n    search(0);\n    return results;\n  }\n}\n\nconst solver = new NQueensProductionSolver();\nconst formatted4 = solver.solve(4);\nconsole.log('Formatted Solution 1:');\nformatted4[0].forEach(row => console.log(row));",
+      "output": "Formatted Solution 1:\n.Q..\n...Q\nQ...\n..Q.",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Formats column index into visual ASCII chessboard row using '.repeat(col) + 'Q' + ...'."
+        },
+        {
+          "line": 36,
+          "note": "Confirms visual chessboard layout: queens placed at (0,1), (1,3), (2,0), (3,2)."
+        }
+      ],
+      "tryIt": "Print formatted4[1] and observe the mirror-image second solution for N=4.",
+      "check": {
+        "question": "What is the time complexity of the N-Queens problem?",
+        "options": [
+          "O(N!) factorial time, because there are N choices for row 1, at most N-1 for row 2, and so on",
+          "O(N^2) polynomial time",
+          "O(N) linear time"
+        ],
+        "answer": 0,
+        "why": "Each row placement reduces available columns, bounding the search tree by N * (N-1) * (N-2) ... = N!."
+      }
+    }
+  ],
+  "summary": [
+    "Constraint Satisfaction Problems (CSP) search combinatorial trees while enforcing simultaneous rules.",
+    "Branch pruning abandons partial assignments as soon as a constraint is violated, eliminating millions of dead ends.",
+    "N-Queens diagonal attacks are evaluated in O(1) time using invariants: (r + c) for / diagonals and (r - c) for \\ diagonals.",
+    "Bitmask optimizations track columns and diagonals in integer bits, shifting left and right for 10x speedup.",
+    "Backtracking requires disciplined state restoration: choosing, exploring recursively, and unchoosing to restore clean state."
+  ],
+  "projectStep": {
+    "title": "N-Queens & Constraint Solver Implementation",
+    "steps": [
+      "Implement diagonal invariant checks using Set tracking.",
+      "Implement totalNQueensBitmask achieving sub-millisecond execution.",
+      "Build NQueensProductionSolver formatting solutions into visual ASCII chessboards."
+    ]
+  }
+},
+{
+  "day": 29,
+  "title": "Bit Manipulation & XOR Tricks (O(1) Space Magic)",
+  "goal": "Solve single number detection, bit shifting, and bitmask subset states with bitwise operators.",
+  "minutes": 25,
+  "recap": "Yesterday you mastered N-Queens constraint backtracking. Today we explore Bit Manipulation: operating directly at the binary level with AND, OR, XOR, NOT, and bit shifts to execute dazzling algorithmic magic in O(1) space.",
+  "parts": [
+    {
+      "title": "Bitwise Operators & Binary Representation Fundamentals",
+      "say": [
+        "In modern computer architectures, all data is ultimately stored as binary digits (bits): 0 and 1.",
+        "Standard JavaScript numbers are double-precision 64-bit floats, but bitwise operators treat operands as 32-bit signed integers.",
+        "Bitwise AND (&) returns 1 only if both bits are 1: used for masking and testing specific bit flags.",
+        "Bitwise OR (|) returns 1 if either bit is 1: used for setting specific bit flags.",
+        "Bitwise XOR (^) returns 1 if the bits are different, and 0 if they are identical.",
+        "Bitwise NOT (~) flips every bit: ~x equals -(x + 1) in two's complement arithmetic.",
+        "Left shift (x << k) shifts bits left by k positions, effectively multiplying x by 2^k in O(1) time.",
+        "Sign-propagating right shift (x >> k) shifts bits right, effectively dividing x by 2^k while preserving negative signs.",
+        "Zero-fill right shift (x >>> k) shifts bits right, filling the leftmost bits with zeros regardless of sign."
+      ],
+      "example": "A physical bank of light switches: bitwise AND tells you if switch #3 is ON; bitwise OR turns switch #3 ON without touching others.",
+      "code": "function demonstrateBitwise(): void {\n  const a = 5; // 0101 in binary\n  const b = 3; // 0011 in binary\n\n  console.log('5 & 3 (AND):', a & b); // 0001 = 1\n  console.log('5 | 3 (OR):', a | b);  // 0111 = 7\n  console.log('5 ^ 3 (XOR):', a ^ b); // 0110 = 6\n  console.log('~5 (NOT):', ~a);       // -(5 + 1) = -6\n  console.log('5 << 2 (Left shift):', a << 2);   // 5 * 4 = 20\n  console.log('20 >> 2 (Right shift):', 20 >> 2); // 20 / 4 = 5\n}\n\ndemonstrateBitwise();",
+      "output": "5 & 3 (AND): 1\n5 | 3 (OR): 7\n5 ^ 3 (XOR): 6\n~5 (NOT): -6\n5 << 2 (Left shift): 20\n20 >> 2 (Right shift): 5",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Bitwise AND: only bit 0 is set in both 5 (101) and 3 (011), producing 1."
+        },
+        {
+          "line": 7,
+          "note": "Bitwise XOR: bits differ at positions 1 and 2, producing binary 110 = 6."
+        },
+        {
+          "line": 9,
+          "note": "Left shift multiplies integer by 2^k in a single CPU cycle."
+        }
+      ],
+      "tryIt": "Evaluate 8 >> 1 and verify it returns 4 (8 / 2).",
+      "check": {
+        "question": "What does bitwise operation (1 << k) accomplish?",
+        "options": [
+          "It creates an integer mask with only the k-th bit set to 1, equivalent to 2^k",
+          "It multiplies the number 1 by k",
+          "It shifts the number k to the right by 1 bit"
+        ],
+        "answer": 0,
+        "why": "Shifting 1 left by k positions produces binary 1 followed by k zeros, which equals 2^k."
+      }
+    },
+    {
+      "title": "XOR Properties & Single Number Detection",
+      "say": [
+        "Bitwise XOR (^) possesses three extraordinary mathematical properties that enable algorithmic wizardry.",
+        "Property 1 (Self-Inverse): Any number XORed with itself equals zero: x ^ x = 0.",
+        "Property 2 (Identity): Any number XORed with zero equals itself: x ^ 0 = x.",
+        "Property 3 (Commutative & Associative): XOR operations can be reordered arbitrarily: a ^ b ^ c = c ^ a ^ b.",
+        "Consider the famous Single Number problem (LeetCode 136): you are given an array where every element appears twice, except for one unique element.",
+        "A hash map solution takes O(N) time and O(N) space; a sorting solution takes O(N log N) time and O(1) space.",
+        "Using XOR, we can solve it in O(N) linear time and strict O(1) auxiliary space!",
+        "We initialize acc = 0 and XOR every number in the array into acc.",
+        "Because XOR is commutative, all duplicate pairs cancel each other out to zero: (x ^ x = 0), leaving only the unique solitary element: 0 ^ unique = unique!"
+      ],
+      "example": "A light switch wired to a toggle circuit: flipping the switch twice leaves the light in its original state; only the odd flip changes the light.",
+      "code": "function singleNumber(nums: number[]): number {\n  let unique = 0;\n  for (const n of nums) {\n    unique ^= n; // Duplicate pairs annihilate to 0!\n  }\n  return unique;\n}\n\nconsole.log('Single in [4, 1, 2, 1, 2]:', singleNumber([4, 1, 2, 1, 2]));\nconsole.log('Single in [2, 2, 1]:', singleNumber([2, 2, 1]));\nconsole.log('Single in [99]:', singleNumber([99]));",
+      "output": "Single in [4, 1, 2, 1, 2]: 4\nSingle in [2, 2, 1]: 1\nSingle in [99]: 99",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "XOR accumulation: duplicate numbers cancel each other out completely: 1^1=0, 2^2=0."
+        },
+        {
+          "line": 9,
+          "note": "Evaluates [4, 1, 2, 1, 2] -> (1^1) ^ (2^2) ^ 4 = 0 ^ 0 ^ 4 = 4."
+        }
+      ],
+      "tryIt": "Pass [7, 3, 5, 4, 5, 3, 4] and verify that singleNumber returns 7.",
+      "check": {
+        "question": "Why does XORing all elements in an array isolate the single unique number?",
+        "options": [
+          "Duplicate pairs cancel out because x ^ x = 0, and the remaining 0 ^ unique equals unique by identity",
+          "Because XOR sorts the array internally",
+          "Because odd numbers always win over even numbers"
+        ],
+        "answer": 0,
+        "why": "Commutativity allows grouping pairs together: (a ^ a) ^ (b ^ b) ^ unique = 0 ^ 0 ^ unique = unique."
+      }
+    },
+    {
+      "title": "Brian Kernighan's Algorithm (Counting Set Bits)",
+      "say": [
+        "Counting the number of set bits (1s) in the binary representation of an integer is known as Hamming Weight.",
+        "A naive approach checks every bit one by one using a loop with 32 iterations: (n >>> i) & 1.",
+        "In 1988, legendary computer scientist Brian Kernighan published an algorithm that counts set bits in time proportional only to the number of 1s.",
+        "The core insight lies in the subtraction: (n - 1) flips the lowest set bit of n to 0 and turns all trailing 0s into 1s.",
+        "Therefore, performing bitwise AND between n and (n - 1) cleanly clears the lowest set bit of n: n = n & (n - 1)!",
+        "Every single execution of n = n & (n - 1) strips exactly one set bit from n.",
+        "We repeat this operation in a loop until n becomes zero, counting the total number of iterations.",
+        "If a 32-bit number contains only two set bits, Kernighan's algorithm terminates in exactly 2 iterations rather than 32.",
+        "This algorithm is widely used in chess engines to count piece mobilities on 64-bit bitboards."
+      ],
+      "example": "Popping balloons one by one: rather than inspecting all 32 empty chairs in a room, you walk directly to each balloon, pop it, and count the pops.",
+      "code": "function hammingWeight(n: number): number {\n  let count = 0;\n  while (n !== 0) {\n    n = n & (n - 1); // Clears the lowest set bit!\n    count++;\n  }\n  return count;\n}\n\n// 11 in binary is 1011 (three 1s)\nconsole.log('Set bits in 11 (1011):', hammingWeight(11));\n// 16 in binary is 10000 (one 1)\nconsole.log('Set bits in 16 (10000):', hammingWeight(16));\n// 255 in binary is 11111111 (eight 1s)\nconsole.log('Set bits in 255 (11111111):', hammingWeight(255));",
+      "output": "Set bits in 11 (1011): 3\nSet bits in 16 (10000): 1\nSet bits in 255 (11111111): 8",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Clears lowest set bit in O(1) time: e.g., 1011 & 1010 = 1010; 1010 & 1001 = 1000."
+        },
+        {
+          "line": 11,
+          "note": "Number 11 has three 1-bits; the while loop executes exactly 3 times."
+        }
+      ],
+      "tryIt": "Count set bits for 7 (binary 111) and verify the loop runs exactly 3 times.",
+      "check": {
+        "question": "What does the expression 'n & (n - 1)' do to the binary representation of integer n?",
+        "options": [
+          "It turns off (clears to 0) the lowest (rightmost) set bit of n",
+          "It multiplies n by 2",
+          "It reverses the bits of n"
+        ],
+        "answer": 0,
+        "why": "Subtracting 1 borrows from the lowest set bit; ANDing with n zeroes out that bit while leaving higher bits unchanged."
+      }
+    },
+    {
+      "title": "Power of Two Detection & Bit Tricks",
+      "say": [
+        "A classic interview problem asks: determine if a given integer n is a power of two (1, 2, 4, 8, 16, 32, ...).",
+        "A power of two in binary contains exactly one set bit: 1 is 0001, 2 is 0010, 4 is 0100, 8 is 1000.",
+        "Using Brian Kernighan's subtraction insight, if n is a power of two, clearing its lowest set bit must leave zero!",
+        "Therefore, an integer n > 0 is a power of two if and only if: (n & (n - 1)) === 0.",
+        "This checks power-of-two validity in a single, instantaneous CPU instruction with O(1) time and O(1) space.",
+        "Another classic trick is isolating the lowest set bit: (n & -n).",
+        "In two's complement, -n equals (~n + 1); bitwise ANDing n with -n leaves only the lowest set bit standing.",
+        "Swapping two numbers without a temporary variable: a ^= b; b ^= a; a ^= b.",
+        "These micro-optimizations demonstrate the unmatched elegance and speed of low-level bitwise arithmetic."
+      ],
+      "example": "A balance scale checking for a single coin: if you remove the first coin and the scale is completely empty, there was exactly one coin on the scale.",
+      "code": "function isPowerOfTwo(n: number): boolean {\n  return n > 0 && (n & (n - 1)) === 0;\n}\n\nfunction getLowestSetBit(n: number): number {\n  return n & -n;\n}\n\nconsole.log('Is 16 power of 2:', isPowerOfTwo(16));\nconsole.log('Is 18 power of 2:', isPowerOfTwo(18));\nconsole.log('Is 1 power of 2:', isPowerOfTwo(1));\nconsole.log('Is 0 power of 2:', isPowerOfTwo(0));\nconsole.log('Lowest set bit of 12 (1100):', getLowestSetBit(12));",
+      "output": "Is 16 power of 2: true\nIs 18 power of 2: false\nIs 1 power of 2: true\nIs 0 power of 2: false\nLowest set bit of 12 (1100): 4",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "Guarantees n > 0 and verifies that clearing the only set bit leaves exactly 0."
+        },
+        {
+          "line": 6,
+          "note": "n & -n isolates lowest bit: 12 (1100) & -12 (0100) = 0100 = 4."
+        }
+      ],
+      "tryIt": "Verify that isPowerOfTwo(64) returns true and isPowerOfTwo(63) returns false.",
+      "check": {
+        "question": "Why does the expression '(n > 0) && ((n & (n - 1)) === 0)' check if n is a power of two?",
+        "options": [
+          "Powers of two have exactly one set bit; clearing that single bit leaves 0",
+          "Because powers of two are always odd numbers",
+          "Because n - 1 is always divisible by 2"
+        ],
+        "answer": 0,
+        "why": "A power of two has binary form 100...0; n - 1 has form 011...1; ANDing them yields 000...0."
+      }
+    },
+    {
+      "title": "Bitmask State Representation for Subsets & DP",
+      "say": [
+        "In combinatorial problems, representing a subset of N items using arrays or sets consumes significant memory.",
+        "When N <= 30, we can represent any subset using a single integer bitmask!",
+        "If bit i is 1, item i is included in the subset; if bit i is 0, item i is excluded.",
+        "There are exactly 2^N possible subsets, corresponding to integers from 0 to (2^N - 1).",
+        "Adding item i to subset: mask | (1 << i).",
+        "Removing item i from subset: mask & ~(1 << i).",
+        "Checking if item i is in subset: (mask & (1 << i)) !== 0.",
+        "Toggling item i in subset: mask ^ (1 << i).",
+        "This bitmask technique enables Bitmask Dynamic Programming: storing DP tables like dp[mask] to solve TSP in O(N^2 * 2^N) time.",
+        "Bitmasking reduces set operations to single CPU register instructions, delivering peak computational performance."
+      ],
+      "example": "A security badge with 8 access permissions encoded as a single byte: bit 0 gives lab access, bit 1 gives server room access, bit 2 gives executive floor access.",
+      "code": "function generateSubsetsBitmask(nums: string[]): string[][] {\n  const n = nums.length;\n  const totalSubsets = 1 << n; // 2^n\n  const results: string[][] = [];\n\n  for (let mask = 0; mask < totalSubsets; mask++) {\n    const subset: string[] = [];\n    for (let i = 0; i < n; i++) {\n      if ((mask & (1 << i)) !== 0) {\n        subset.push(nums[i]);\n      }\n    }\n    results.push(subset);\n  }\n  return results;\n}\n\nconst sets = generateSubsetsBitmask(['A', 'B', 'C']);\nconsole.log('Total subsets generated:', sets.length);\nconsole.log('Subset 0 (empty):', JSON.stringify(sets[0]));\nconsole.log('Subset 3 (A & B):', JSON.stringify(sets[3]));\nconsole.log('Subset 7 (all):', JSON.stringify(sets[7]));",
+      "output": "Total subsets generated: 8\nSubset 0 (empty): []\nSubset 3 (A & B): [\"A\",\"B\"]\nSubset 7 (all): [\"A\",\"B\",\"C\"]",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Calculates 2^N using 1 << n in a single operation."
+        },
+        {
+          "line": 9,
+          "note": "Tests bit i with (mask & (1 << i)); if set, includes nums[i] in the subset."
+        }
+      ],
+      "tryIt": "Pass an array of 4 elements and verify that 2^4 = 16 subsets are generated.",
+      "check": {
+        "question": "How does an integer mask represent a subset of N items?",
+        "options": [
+          "The i-th bit of the integer is 1 if item i is included in the subset, and 0 if excluded",
+          "The integer represents the sum of the elements",
+          "By converting the elements into ASCII character codes"
+        ],
+        "answer": 0,
+        "why": "Each bit position corresponds to an item index, mapping all 2^N subsets to integer values from 0 to 2^N - 1."
+      }
+    },
+    {
+      "title": "Production BitSet & Bloom Filter Preview",
+      "say": [
+        "We now assemble our complete production BitSet class, providing space-compact bit vector operations.",
+        "Standard JavaScript arrays allocate 8 bytes per number; a BitSet packs 32 boolean flags into a single 4-byte integer.",
+        "Our BitSet supports set(i), clear(i), has(i), count(), and bitwise set operations (union, intersection).",
+        "Storing 1,000,000 boolean flags in a boolean array consumes over 8 megabytes of memory; a BitSet stores them in just 125 kilobytes!",
+        "This 64x memory reduction enables high-performance cache systems, crawler URL deduplication, and database index filters.",
+        "Bloom Filters build directly on this BitSet architecture, using multiple hash functions to test set membership in O(1) time.",
+        "Today you have mastered binary operators, XOR self-inverse properties, Brian Kernighan's bit stripping, powers of two, and bitmasks.",
+        "Bit manipulation is the ultimate low-level algorithmic superpower, squeezing maximum performance from hardware registers."
+      ],
+      "example": "A massive warehouse inventory tracker: tracking whether 100,000 shelf locations are occupied using compact binary bit vectors instead of bulky database rows.",
+      "code": "class CompactBitSet {\n  private words: Uint32Array;\n\n  constructor(size: number) {\n    this.words = new Uint32Array(Math.ceil(size / 32));\n  }\n\n  set(index: number): void {\n    const wordIdx = Math.floor(index / 32);\n    const bitIdx = index % 32;\n    this.words[wordIdx] |= (1 << bitIdx);\n  }\n\n  has(index: number): boolean {\n    const wordIdx = Math.floor(index / 32);\n    const bitIdx = index % 32;\n    return (this.words[wordIdx] & (1 << bitIdx)) !== 0;\n  }\n\n  countSetBits(): number {\n    let total = 0;\n    for (let w of this.words) {\n      while (w !== 0) {\n        w = w & (w - 1);\n        total++;\n      }\n    }\n    return total;\n  }\n}\n\nconst bs = new CompactBitSet(100);\nbs.set(5);\nbs.set(31);\nbs.set(32); // Crosses into second 32-bit word!\nconsole.log('Has bit 5:', bs.has(5));\nconsole.log('Has bit 31:', bs.has(31));\nconsole.log('Has bit 32:', bs.has(32));\nconsole.log('Has bit 10:', bs.has(10));\nconsole.log('Total bits set:', bs.countSetBits());",
+      "output": "Has bit 5: true\nHas bit 31: true\nHas bit 32: true\nHas bit 10: false\nTotal bits set: 3",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Sets specific bit using word indexing: wordIdx = index / 32, bitIdx = index % 32."
+        },
+        {
+          "line": 20,
+          "note": "Applies Kernighan's algorithm across all words to count total set bits."
+        }
+      ],
+      "tryIt": "Set bit 99 and verify bs.has(99) is true while countSetBits increases to 4.",
+      "check": {
+        "question": "Why does CompactBitSet achieve 64x memory savings over a standard boolean array?",
+        "options": [
+          "It packs 32 boolean values into each 32-bit integer word, whereas boolean objects consume multiple bytes each",
+          "It compresses data using gzip",
+          "Because Uint32Array lives in CPU registers"
+        ],
+        "answer": 0,
+        "why": "A single bit represents true (1) or false (0); packing 32 flags into one word uses 1 bit per boolean."
+      }
+    }
+  ],
+  "summary": [
+    "Bitwise operators (&, |, ^, ~, <<, >>) manipulate binary integers at the hardware register level in single CPU cycles.",
+    "XOR satisfies x ^ x = 0 and x ^ 0 = x, isolating solitary unique elements from duplicate pairs in O(N) time and O(1) space.",
+    "Brian Kernighan's formula n & (n - 1) strips the lowest set bit in O(1) time, counting set bits in O(number of 1s).",
+    "An integer n > 0 is a power of two if and only if (n & (n - 1)) === 0.",
+    "Bitmasks encode subsets of size N <= 30 into single integers, enabling high-performance Bitmask Dynamic Programming."
+  ],
+  "projectStep": {
+    "title": "Bit Manipulation Utility Suite Implementation",
+    "steps": [
+      "Implement singleNumber using XOR self-inverse cancellation.",
+      "Implement isPowerOfTwo and hammingWeight using bit stripping.",
+      "Build CompactBitSet packing boolean flags into typed Uint32Array words."
+    ]
+  }
+},
+{
+  "day": 30,
+  "title": "🏆 FINAL CAPSTONE: Real-Time Global Flight Path Routing & Navigation Optimizer",
+  "goal": "Final Capstone Synthesis: The complete algorithmic navigation operating system bringing together A* graph search, disjoint sets, priority queues, and dynamic programming flight cost optimization.",
+  "minutes": 25,
+  "recap": "Congratulations on reaching Day 30! Today you synthesize all thirty days of algorithms into our grand finale: a production-grade Global Flight Path Routing & Navigation Operating System.",
+  "parts": [
+    {
+      "title": "Global Aviation Network Architecture & Multi-Constraint Routing",
+      "say": [
+        "Modern global airline reservation and flight control systems manage millions of interconnected routes across thousands of international airports.",
+        "Finding an optimal flight journey requires balancing multiple competing constraints simultaneously: monetary fare, total travel time, layover count, and airline alliance compatibility.",
+        "A direct flight might be fastest but cost three times more; a three-layover flight might be cheapest but risk missed connections.",
+        "In this final capstone, we synthesize our entire 30-day algorithmic foundation into an end-to-end Navigation Engine.",
+        "We model the global airport network as a weighted directed graph where vertices represent airport IATA codes (e.g., 'JFK', 'LHR', 'HND').",
+        "Edges represent scheduled flights carrying composite weights: base fare in dollars, flight duration in minutes, and carrier code.",
+        "We enforce realistic flight constraints: maximum layover limits (at most K intermediate stops) and airport connectivity validation.",
+        "This capstone integrates Disjoint Sets, Priority Queues, Bellman-Ford bounded relaxation, and Dijkstra shortest paths into one unified architecture.",
+        "Understanding how these algorithms collaborate under real-world constraints is the defining hallmark of a senior software engineer."
+      ],
+      "example": "Booking an international flight from San Francisco to Tokyo: the reservation system evaluates direct flights, layovers in Honolulu, and connections through Seattle to present optimal flight options.",
+      "code": "interface FlightRoute {\n  to: string;\n  price: number;\n  durationMinutes: number;\n  carrier: string;\n}\n\nclass AviationNetwork {\n  private adj = new Map<string, FlightRoute[]>();\n\n  addFlight(from: string, to: string, price: number, duration: number, carrier: string): void {\n    if (!this.adj.has(from)) this.adj.set(from, []);\n    this.adj.get(from)!.push({ to, price, durationMinutes: duration, carrier });\n  }\n\n  getOutgoing(airport: string): FlightRoute[] {\n    return this.adj.get(airport) || [];\n  }\n}\n\nconst aviation = new AviationNetwork();\naviation.addFlight('SFO', 'HND', 900, 660, 'JL'); // Direct: 11h, $900\naviation.addFlight('SFO', 'SEA', 150, 120, 'AS'); // Layover leg 1: 2h, $150\naviation.addFlight('SEA', 'HND', 550, 600, 'DL'); // Layover leg 2: 10h, $550\n\nconsole.log('SFO direct flights:', aviation.getOutgoing('SFO').length);\nconsole.log('SFO to HND direct price: $900 vs SEA connection: $' + (150 + 550));",
+      "output": "SFO direct flights: 2\nSFO to HND direct price: $900 vs SEA connection: $700",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Represents aviation network with multi-attribute weighted directed edges."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates cost trade-off: connection via SEA saves $200 but adds layover time."
+        }
+      ],
+      "tryIt": "Add a flight leg from SFO to LAX with price 100 and duration 90 minutes.",
+      "check": {
+        "question": "Why does real-world flight routing require multi-constraint optimization beyond simple shortest path?",
+        "options": [
+          "Travelers must balance price, flight duration, and maximum allowed layover stops simultaneously",
+          "Airports change locations every week",
+          "Because airplanes can only fly in straight lines"
+        ],
+        "answer": 0,
+        "why": "Real navigation balances multiple Pareto-optimal objectives: cheapest price vs fastest time vs fewest stops."
+      }
+    },
+    {
+      "title": "Cheapest Flights Within K Stops (Bellman-Ford / 2D DP)",
+      "say": [
+        "A foundational capstone challenge is finding the cheapest flight path with at most K layover stops (LeetCode 787).",
+        "Standard Dijkstra cannot directly solve this problem because a cheaper path with more than K stops might prevent finding a valid path with fewer stops.",
+        "Instead, we apply the Bellman-Ford algorithm with bounded relaxation iterations.",
+        "We maintain a distance array cost representing the minimum cost to reach each airport.",
+        "We execute exactly K + 1 rounds of edge relaxations: each round relaxes all flights using costs from the PREVIOUS round.",
+        "Why clone the cost array on each round? Cloning prevents a single relaxation chain from chaining multiple flights in the same step!",
+        "After round 1, we know optimal costs using 0 layovers (1 flight). After round 2, optimal costs using at most 1 layover (2 flights).",
+        "After K + 1 rounds, cost[dst] holds the minimum cost to reach the destination with at most K stops, or Infinity if unreachable.",
+        "The algorithm executes in O(K * E) time and O(V) space, providing robust bounded-stop routing."
+      ],
+      "example": "A traveler with limited vacation days: willing to make at most 1 layover to save money, but refusing any journey with 2 or more stops.",
+      "code": "function findCheapestPriceWithKStops(\n  n: number,\n  flights: [number, number, number][], // [from, to, price]\n  src: number,\n  dst: number,\n  k: number\n): number {\n  let cost = new Array(n).fill(Infinity);\n  cost[src] = 0;\n\n  for (let i = 0; i <= k; i++) {\n    const temp = [...cost]; // Clone previous round costs!\n    for (const [u, v, price] of flights) {\n      if (cost[u] !== Infinity && cost[u] + price < temp[v]) {\n        temp[v] = cost[u] + price;\n      }\n    }\n    cost = temp;\n  }\n  return cost[dst] === Infinity ? -1 : cost[dst];\n}\n\nconst flights: [number, number, number][] = [\n  [0, 1, 100],\n  [1, 2, 100],\n  [2, 0, 100],\n  [1, 3, 600],\n  [2, 3, 200]\n];\n\nconsole.log('Cheapest 0->3 with k=1 stop:', findCheapestPriceWithKStops(4, flights, 0, 3, 1));\nconsole.log('Cheapest 0->3 with k=0 stops:', findCheapestPriceWithKStops(4, flights, 0, 3, 0));",
+      "output": "Cheapest 0->3 with k=1 stop: 700\nCheapest 0->3 with k=0 stops: -1",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Clones costs before each round to enforce that each step adds exactly at most one flight hop."
+        },
+        {
+          "line": 29,
+          "note": "With k=1 stop, route 0 -> 1 -> 3 (cost 100 + 600 = 700) is valid; route 0->1->2->3 has 2 stops."
+        }
+      ],
+      "tryIt": "Change k to 2 stops and observe that the cheaper route 0->1->2->3 ($400) becomes valid.",
+      "check": {
+        "question": "Why must the cost array be cloned at the start of each Bellman-Ford relaxation round in K-stops routing?",
+        "options": [
+          "To ensure that each round uses flight costs strictly from the previous step, preventing multi-hop cascading in a single round",
+          "To trigger garbage collection",
+          "Because arrays cannot be mutated in loops"
+        ],
+        "answer": 0,
+        "why": "Cloning isolates rounds, guaranteeing that round K only evaluates paths containing at most K flight hops."
+      }
+    },
+    {
+      "title": "Airport Alliance Connectivity with Disjoint Set Union",
+      "say": [
+        "Airlines belong to global alliances (such as Star Alliance, SkyTeam, and Oneworld) that allow seamless ticket transfers and baggage forwarding.",
+        "Before computing complex shortest paths, the routing engine must verify if two airports are mutually reachable within the same alliance network.",
+        "We model alliance connectivity using our Disjoint Set Union (Union-Find) data structure from Day 24.",
+        "Each airport starts as its own component; every codeshare route between alliance partners triggers a union(airportA, airportB).",
+        "Testing whether a traveler can fly from Tokyo to Paris using exclusively Star Alliance flights takes O(alpha(V)) near-instant time: find(HND) === find(CDG).",
+        "If they belong to different disjoint alliance components, the engine immediately flags that an interline partner transfer is required.",
+        "This pre-filtering step prevents running expensive multi-hop shortest path algorithms on disconnected airport networks.",
+        "Union-Find also allows dynamic updates: if an airline leaves an alliance or adds routes, the component forest updates seamlessly.",
+        "This demonstrates the architectural power of pairing fast connectivity filters (DSU) with detailed path solvers (Dijkstra)."
+      ],
+      "example": "Using frequent flyer points: you can only book flights operated by partner airlines in your alliance; checking if your departure and arrival cities belong to the same alliance network.",
+      "code": "class AllianceConnectivity {\n  private parent = new Map<string, string>();\n\n  find(x: string): string {\n    if (!this.parent.has(x)) this.parent.set(x, x);\n    if (this.parent.get(x) !== x) {\n      this.parent.set(x, this.find(this.parent.get(x)!)); // Path compression\n    }\n    return this.parent.get(x)!;\n  }\n\n  addRoute(a: string, b: string): void {\n    const rootA = this.find(a);\n    const rootB = this.find(b);\n    if (rootA !== rootB) this.parent.set(rootA, rootB);\n  }\n\n  canFlyWithinAlliance(a: string, b: string): boolean {\n    return this.find(a) === this.find(b);\n  }\n}\n\nconst alliance = new AllianceConnectivity();\n// Star Alliance routes\nalliance.addRoute('JFK', 'FRA');\nalliance.addRoute('FRA', 'SIN');\n// Independent regional routes\nalliance.addRoute('NRT', 'ITM');\n\nconsole.log('JFK to SIN in alliance:', alliance.canFlyWithinAlliance('JFK', 'SIN'));\nconsole.log('JFK to ITM in alliance:', alliance.canFlyWithinAlliance('JFK', 'ITM'));",
+      "output": "JFK to SIN in alliance: true\nJFK to ITM in alliance: false",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Applies recursive path compression to flatten alliance component trees."
+        },
+        {
+          "line": 28,
+          "note": "JFK connects to SIN via Frankfurt (FRA); ITM is in an independent disconnected cluster."
+        }
+      ],
+      "tryIt": "Connect SIN to NRT and verify that JFK to ITM becomes connected.",
+      "check": {
+        "question": "What is the time complexity of verifying airport reachability using Union-Find with path compression?",
+        "options": [
+          "O(alpha(V)) amortized time, effectively O(1) instantaneous lookup",
+          "O(V^2) quadratic time",
+          "O(E log V) time"
+        ],
+        "answer": 0,
+        "why": "Path compression flattens the tree, resolving find() queries in near-constant Inverse Ackermann time."
+      }
+    },
+    {
+      "title": "Fastest vs Cheapest Pareto-Optimal Navigation",
+      "say": [
+        "In navigation systems, there is rarely a single 'best' route; different users have different priorities.",
+        "Business travelers prioritize minimizing flight duration (fastest flight), while budget backpackers prioritize minimizing ticket cost (cheapest flight).",
+        "A solution is Pareto-optimal if no other route is both cheaper AND faster.",
+        "We implement a multi-objective Dijkstra search that evaluates routes along both dimensions.",
+        "By configuring the priority queue comparator, our engine seamlessly switches between price-first routing and duration-first routing.",
+        "Price-first Dijkstra uses weight = flight.price; duration-first Dijkstra uses weight = flight.durationMinutes.",
+        "The engine returns the Pareto frontier: displaying the fastest direct flight alongside the cheapest connecting flight.",
+        "Users can then make an informed trade-off decision based on their budget and schedule.",
+        "This dual-objective routing architecture is the industry standard across Google Flights, Kayak, and Skyscanner."
+      ],
+      "example": "Comparing two train tickets: a bullet train ticket costs $120 and takes 2 hours; a regional bus costs $30 and takes 6 hours; both are Pareto-optimal choices.",
+      "code": "interface FlightEdge { to: string; price: number; duration: number; }\n\nfunction findOptimalFlight(\n  graph: Map<string, FlightEdge[]>,\n  start: string,\n  end: string,\n  optimizeBy: 'price' | 'duration'\n): { route: string[]; cost: number; duration: number } {\n  const dist = new Map<string, number>([[start, 0]]);\n  const parent = new Map<string, { prev: string; edge: FlightEdge }>();\n  const visited = new Set<string>();\n  const pq: [string, number][] = [[start, 0]];\n\n  while (pq.length > 0) {\n    pq.sort((a, b) => a[1] - b[1]);\n    const [curr, d] = pq.shift()!;\n    if (curr === end) break;\n    if (visited.has(curr)) continue;\n    visited.add(curr);\n\n    for (const flight of (graph.get(curr) || [])) {\n      const weight = optimizeBy === 'price' ? flight.price : flight.duration;\n      if (d + weight < (dist.get(flight.to) ?? Infinity)) {\n        dist.set(flight.to, d + weight);\n        parent.set(flight.to, { prev: curr, edge: flight });\n        pq.push([flight.to, d + weight]);\n      }\n    }\n  }\n\n  // Reconstruct\n  const route: string[] = [];\n  let curr = end;\n  let totalCost = 0; let totalDur = 0;\n  while (parent.has(curr)) {\n    route.push(curr);\n    const p = parent.get(curr)!;\n    totalCost += p.edge.price;\n    totalDur += p.edge.duration;\n    curr = p.prev;\n  }\n  route.push(start);\n  return { route: route.reverse(), cost: totalCost, duration: totalDur };\n}\n\nconst g = new Map<string, FlightEdge[]>();\ng.set('NYC', [\n  { to: 'LON', price: 800, duration: 420 }, // Direct: $800, 7h\n  { to: 'DUB', price: 300, duration: 360 }  // Layover: $300, 6h\n]);\ng.set('DUB', [{ to: 'LON', price: 100, duration: 90 }]); // DUB->LON: $100, 1.5h\ng.set('LON', []);\n\nconst cheapest = findOptimalFlight(g, 'NYC', 'LON', 'price');\nconst fastest = findOptimalFlight(g, 'NYC', 'LON', 'duration');\nconsole.log('Cheapest route:', cheapest.route.join('->'), 'Cost: $' + cheapest.cost, 'Time:', cheapest.duration + 'm');\nconsole.log('Fastest route:', fastest.route.join('->'), 'Cost: $' + fastest.cost, 'Time:', fastest.duration + 'm');",
+      "output": "Cheapest route: NYC->DUB->LON Cost: $400 Time: 450m\nFastest route: NYC->LON Cost: $800 Time: 420m",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Dynamically selects optimization metric: price or duration based on traveler preference."
+        },
+        {
+          "line": 49,
+          "note": "Cheapest route saves $400 via Dublin; fastest route saves 30 minutes flying direct."
+        }
+      ],
+      "tryIt": "Add a high-speed supersonic flight from NYC to LON for $2,000 taking 180m and verify fastest picks it.",
+      "check": {
+        "question": "What is a Pareto-optimal route in multi-objective flight navigation?",
+        "options": [
+          "A route where no alternative route is simultaneously both cheaper in price AND faster in duration",
+          "A flight that is operated by a government airline",
+          "A route with zero layover stops"
+        ],
+        "answer": 0,
+        "why": "Pareto optimality represents the trade-off boundary: you cannot improve one metric without worsening another."
+      }
+    },
+    {
+      "title": "Real-Time Disruption Recovery (Dynamic Rerouting)",
+      "say": [
+        "In production aviation operations, bad weather, mechanical delays, and airport closures constantly disrupt scheduled flights.",
+        "When an airport (e.g., Chicago O'Hare during a blizzard) closes, thousands of connecting passenger itineraries are invalidated simultaneously.",
+        "A resilient navigation engine must perform dynamic rerouting in real time without restarting calculations from scratch.",
+        "We implement dynamic edge removal and health status tracking directly on the graph adjacency list.",
+        "When an airport reports disruption, the engine marks that vertex as deactivated or temporarily sets all incoming and outgoing edge weights to Infinity.",
+        "Dijkstra's search automatically steers around the deactivated node, routing traffic through alternate hub airports.",
+        "Because our graph uses adjacency lists, deactivating a node and rerouting a passenger takes only O(E log V) milliseconds.",
+        "Automated flight rebooking systems at major airlines execute this exact dynamic rerouting logic to re-ticket stranded travelers.",
+        "This fault-tolerant adaptability is what elevates textbook graph algorithms into mission-critical production infrastructure."
+      ],
+      "example": "A major snowstorm closing Denver International Airport: the rebooking system instantly reroutes San Francisco to New York flights through Phoenix or Dallas instead.",
+      "code": "class ResilientFlightRouter {\n  private flights = new Map<string, { to: string; price: number }[]>();\n  private closedAirports = new Set<string>();\n\n  addFlight(from: string, to: string, price: number): void {\n    if (!this.flights.has(from)) this.flights.set(from, []);\n    this.flights.get(from)!.push({ to, price });\n  }\n\n  setAirportStatus(airport: string, isClosed: boolean): void {\n    if (isClosed) this.closedAirports.add(airport);\n    else this.closedAirports.delete(airport);\n  }\n\n  route(from: string, to: string): { path: string[]; cost: number } {\n    const dist = new Map<string, number>([[from, 0]]);\n    const parent = new Map<string, string>();\n    const pq: [string, number][] = [[from, 0]];\n    const visited = new Set<string>();\n\n    while (pq.length > 0) {\n      pq.sort((a, b) => a[1] - b[1]);\n      const [curr, d] = pq.shift()!;\n      if (curr === to) break;\n      if (visited.has(curr)) continue;\n      visited.add(curr);\n\n      for (const edge of (this.flights.get(curr) || [])) {\n        // Skip closed airports!\n        if (this.closedAirports.has(edge.to) && edge.to !== to) continue;\n        if (d + edge.price < (dist.get(edge.to) ?? Infinity)) {\n          dist.set(edge.to, d + edge.price);\n          parent.set(edge.to, curr);\n          pq.push([edge.to, d + edge.price]);\n        }\n      }\n    }\n\n    const path: string[] = [];\n    let c: string | undefined = to;\n    while (c !== undefined) {\n      path.push(c);\n      if (c === from) break;\n      c = parent.get(c);\n    }\n    return { path: path.reverse(), cost: dist.get(to) ?? -1 };\n  }\n}\n\nconst router = new ResilientFlightRouter();\nrouter.addFlight('SFO', 'DEN', 200);\nrouter.addFlight('DEN', 'JFK', 200); // SFO->DEN->JFK: $400\nrouter.addFlight('SFO', 'PHX', 250);\nrouter.addFlight('PHX', 'JFK', 250); // SFO->PHX->JFK: $500\n\nconsole.log('Normal route:', router.route('SFO', 'JFK').path.join(' -> '));\nrouter.setAirportStatus('DEN', true); // Blizzard hits Denver!\nconsole.log('Rerouted after Denver closure:', router.route('SFO', 'JFK').path.join(' -> '));",
+      "output": "Normal route: SFO -> DEN -> JFK\nRerouted after Denver closure: SFO -> PHX -> JFK",
+      "codeNotes": [
+        {
+          "line": 31,
+          "note": "Dynamic fault tolerance: immediately skips closed hubs during Dijkstra relaxation."
+        },
+        {
+          "line": 55,
+          "note": "When Denver closes, engine seamlessly redirects flight through Phoenix ($500)."
+        }
+      ],
+      "tryIt": "Reopen Denver and verify the optimal route immediately returns to Denver.",
+      "check": {
+        "question": "How does the ResilientFlightRouter handle sudden airport closures during live operation?",
+        "options": [
+          "It maintains a closedAirports set and skips any edges connected to closed hubs during path relaxation",
+          "It restarts the server and wipes all flight records",
+          "It forces all airplanes to hover in the air"
+        ],
+        "answer": 0,
+        "why": "Skipping edges touching closed hubs during the relaxation loop dynamically routes around disruptions in O(E log V) time."
+      }
+    },
+    {
+      "title": "The Complete Flight Navigation Operating System Synthesis",
+      "say": [
+        "We now assemble our complete production Flight Path Routing Operating System: the crowning synthesis of Course 6.",
+        "Our engine brings together all thirty days of algorithmic rigor into an enterprise-scale navigation architecture.",
+        "Day 1-5 foundations: Big-O analysis, dynamic buffers, and LRU caching for frequent route lookups.",
+        "Day 6-10 foundations: FIFO queues for airport passenger transfers, hash tables for O(1) airport lookups, and binary search.",
+        "Day 11-15 foundations: divide-and-conquer sorting, quick select, and streaming median fare trackers.",
+        "Day 16-20 foundations: binary trees, min-heaps for priority queues, prefix tries for airport search, and graph traversal.",
+        "Day 21-25 foundations: auto-complete engines, Dijkstra shortest paths, Kahn's DAG scheduling, and DSU connectivity.",
+        "Day 26-30 foundations: 2D knapsack budget optimization, Levenshtein itinerary diffing, constraint backtracking, and bitmasks.",
+        "Congratulations on completing all 30 days of Data Structures & Algorithmic Optimizations: you possess the algorithmic mastery of an elite software engineer."
+      ],
+      "example": "The master mission control room at NASA or a global airline headquarters: every screen showing different coordinated algorithmic systems working in perfect harmony to manage global aerospace travel.",
+      "code": "class FlightNavigationOS {\n  private network = new Map<string, { to: string; price: number; dur: number }[]>();\n\n  addRoute(from: string, to: string, price: number, dur: number): void {\n    if (!this.network.has(from)) this.network.set(from, []);\n    this.network.get(from)!.push({ to, price, dur });\n  }\n\n  planJourney(from: string, to: string): { route: string[]; price: number; duration: number } {\n    const dist = new Map<string, number>([[from, 0]]);\n    const parent = new Map<string, { prev: string; price: number; dur: number }>();\n    const pq: [string, number][] = [[from, 0]];\n    const visited = new Set<string>();\n\n    while (pq.length > 0) {\n      pq.sort((a, b) => a[1] - b[1]);\n      const [curr, d] = pq.shift()!;\n      if (curr === to) break;\n      if (visited.has(curr)) continue;\n      visited.add(curr);\n\n      for (const flight of (this.network.get(curr) || [])) {\n        if (d + flight.price < (dist.get(flight.to) ?? Infinity)) {\n          dist.set(flight.to, d + flight.price);\n          parent.set(flight.to, { prev: curr, price: flight.price, dur: flight.dur });\n          pq.push([flight.to, d + flight.price]);\n        }\n      }\n    }\n\n    const route: string[] = [];\n    let curr = to;\n    let totalPrice = 0; let totalDur = 0;\n    while (parent.has(curr)) {\n      route.push(curr);\n      const p = parent.get(curr)!;\n      totalPrice += p.price;\n      totalDur += p.dur;\n      curr = p.prev;\n    }\n    route.push(from);\n    return { route: route.reverse(), price: totalPrice, duration: totalDur };\n  }\n}\n\nconst flightOS = new FlightNavigationOS();\nflightOS.addRoute('JFK', 'LHR', 650, 420);\nflightOS.addRoute('LHR', 'DXB', 450, 410);\nflightOS.addRoute('DXB', 'HND', 500, 560);\n\nconst journey = flightOS.planJourney('JFK', 'HND');\nconsole.log('Capstone Global Itinerary:', journey.route.join(' -> '));\nconsole.log('Total Fare: $' + journey.price);\nconsole.log('Total Flight Time:', Math.floor(journey.duration / 60) + 'h ' + (journey.duration % 60) + 'm');",
+      "output": "Capstone Global Itinerary: JFK -> LHR -> DXB -> HND\nTotal Fare: $1600\nTotal Flight Time: 23h 10m",
+      "codeNotes": [
+        {
+          "line": 36,
+          "note": "Reconstructs full multi-hop international flight itinerary from predecessor pointers."
+        },
+        {
+          "line": 52,
+          "note": "Global flight: JFK -> LHR -> DXB -> HND completed in 23 hours 10 minutes for $1,600."
+        }
+      ],
+      "tryIt": "Add a direct flight from JFK to HND for $2,200 (14 hours) and compare fare vs time trade-offs.",
+      "check": {
+        "question": "How does the Capstone FlightNavigationOS synthesize the 30-day algorithmic curriculum?",
+        "options": [
+          "It integrates graphs, priority queues, shortest-path relaxation, predecessor backtracking, and multi-objective optimization into an enterprise navigation system",
+          "It only uses array sort methods",
+          "It runs strictly inside web browsers without servers"
+        ],
+        "answer": 0,
+        "why": "The capstone unifies graph theory, priority queues, dynamic programming, and greedy optimization into an end-to-end production system."
+      }
+    }
+  ],
+  "summary": [
+    "Global flight navigation balances multi-objective Pareto trade-offs between ticket price, duration, and layovers.",
+    "Cheapest flights within K stops applies Bellman-Ford bounded relaxation rounds to prevent multi-hop cascading.",
+    "Alliance connectivity uses Disjoint Set Union (Union-Find) to pre-filter reachability in near O(1) amortized time.",
+    "Dynamic rerouting steers traffic around weather disruptions in O(E log V) time by skipping closed airport vertices.",
+    "The 30-day algorithmic foundation unifies data structures, divide-and-conquer, greedy heuristics, and dynamic programming."
+  ],
+  "projectStep": {
+    "title": "Global Flight Path Routing Operating System",
+    "steps": [
+      "Implement findCheapestPriceWithKStops using bounded Bellman-Ford relaxation.",
+      "Implement AllianceConnectivity pre-filtering using Disjoint Set Union.",
+      "Build FlightNavigationOS enterprise routing engine synthesizing all algorithmic paradigms."
+    ]
+  }
+}
 ];
