@@ -359,11 +359,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'dsa-optim-assign-day-20', 'dsa-optim-assign-day-22', 'dsa-optim-assign-day-24', 'dsa-optim-assign-day-25',
   'dsa-optim-assign-day-26', 'dsa-optim-assign-day-27', 'dsa-optim-assign-day-29', 'dsa-optim-assign-day-30',
   // course-design-systems (36 tasks)
-  'design-assign-day-1', 'design-assign-day-2', 'design-assign-day-3', 'design-assign-day-4',
-  'design-exam-day-5', 'design-assign-day-5', 'design-assign-day-6', 'design-assign-day-7',
-  'design-assign-day-8', 'design-assign-day-9', 'design-assign-day-10', 'design-assign-day-11',
-  'design-assign-day-12', 'design-assign-day-13', 'design-assign-day-14', 'design-exam-day-15',
-  'design-assign-day-15', 'design-exam-day-16', 'design-assign-day-16', 'design-exam-day-17',
+  'design-exam-day-16', 'design-assign-day-16', 'design-exam-day-17',
   'design-assign-day-17', 'design-assign-day-18', 'design-exam-day-19', 'design-assign-day-19',
   'design-assign-day-20', 'design-exam-day-21', 'design-assign-day-21', 'design-assign-day-22',
   'design-assign-day-23', 'design-assign-day-24', 'design-assign-day-25', 'design-assign-day-26',
