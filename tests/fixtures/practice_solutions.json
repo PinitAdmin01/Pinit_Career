@@ -382,7 +382,7 @@
   "dist-assign-day-28": "function formatSurrogateKeys(k) { return `Surrogate-Key: ${k.join(' ')}`; }",
   "dist-assign-day-29": "function formatRto(m) { return `${m} min RTO`; }",
   "dist-assign-day-3": "function getWireType(t) {\n  const wire = t & 0x07;\n  if (wire === 0) return 'VARINT';\n  if (wire === 1) return 'FIXED64';\n  if (wire === 2) return 'LENGTH_DELIMITED';\n  return 'UNKNOWN';\n}",
-  "dist-assign-day-30": "function auditDistributedCapstoneStatus() { return { certified: true, score: '100/100', tier: 'ENTERPRISE_DISTRIBUTED_SYSTEMS_CERTIFIED' }; }",
+  "dist-assign-day-30": "function auditDistributedCapstoneStatus(quorumOk, replicationLagMs, circuitBreakerState) {\n  const isOk = quorumOk === true && replicationLagMs <= 1000 && circuitBreakerState === 'CLOSED';\n  return {\n    certified: isOk,\n    score: isOk ? '100/100' : '50/100',\n    tier: isOk ? 'ENTERPRISE_DISTRIBUTED_SYSTEMS_CERTIFIED' : 'REMEDIATION_REQUIRED'\n  };\n}",
   "dist-assign-day-4": "function calculateMigrationRatio(keys, nodes) { return `${((1 / (nodes + 1)) * 100).toFixed(1)}%`; }",
   "dist-assign-day-5": "function calculateTtlWithJitter(base, maxJitter = 10) { return base + Math.floor(Math.random() * maxJitter); }",
   "dist-assign-day-6": "function isLockValid(at, ttl, drift = 50) { return (Date.now() - at + drift) < ttl; }",

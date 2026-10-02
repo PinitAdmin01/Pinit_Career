@@ -320,7 +320,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function advanceLamportClock(localClock, receivedClock) returning `max(local, received) + 1`.",
     "aStarter": "function advanceLamportClock(l, r) {\n  // TODO: write your code here\n}",
     "aHint": "Compute max(l, r) + 1.",
-    "aTest": "if (advanceLamportClock(3, 7) !== 8) throw new Error('Lamport clock advance failed');"
+    "aTest": "if (advanceLamportClock(3, 7) !== 8) throw new Error('Lamport clock advance failed for (3, 7)');\nif (advanceLamportClock(10, 4) !== 11) throw new Error('Lamport clock advance failed for (10, 4)');\nif (advanceLamportClock(0, 0) !== 1) throw new Error('Lamport clock advance failed for (0, 0)');\nif (advanceLamportClock(15, 20) !== 21) throw new Error('Lamport clock advance failed for (15, 20)');"
   },
   {
     "day": 17,
@@ -340,7 +340,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function resolveLwwRegister(regA, regB) returning value with highest timestamp.",
     "aStarter": "function resolveLwwRegister(a, b) {\n  // TODO: write your code here\n}",
     "aHint": "Compare timestamps.",
-    "aTest": "if (resolveLwwRegister({ val: 'old', ts: 100 }, { val: 'new', ts: 200 }) !== 'new') throw new Error('LWW failed');"
+    "aTest": "if (resolveLwwRegister({ val: 'old', ts: 100 }, { val: 'new', ts: 200 }) !== 'new') throw new Error('LWW failed when regB is newer');\nif (resolveLwwRegister({ val: 'alpha', ts: 500 }, { val: 'beta', ts: 300 }) !== 'alpha') throw new Error('LWW failed when regA is newer');\nif (resolveLwwRegister({ val: 'first', ts: 100 }, { val: 'second', ts: 100 }) !== 'first') throw new Error('LWW failed when timestamps are equal');"
   },
   {
     "day": 18,
@@ -355,7 +355,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function getShardForCustomer(customerId, shardDirectory, defaultShard = 'shard_0') returning assigned database shard connection string.",
     "eStarter": "function getShardForCustomer(custId, directory, defaultShard = 'shard_0') {\n  // TODO: write your code here\n}",
     "eHint": "Check directory first, else compute hash modulo total shards.",
-    "eTest": "const dir = { enterprise_client_1: 'shard_dedicated_enterprise' };\nif (getShardForCustomer('enterprise_client_1', dir) !== 'shard_dedicated_enterprise') throw new Error('Directory shard lookup failed');\nif (!getShardForCustomer('regular_client_2', dir).startsWith('shard_')) throw new Error('Hash fallback shard failed');",
+    "eTest": "const dir = {\n  enterprise_client_1: 'shard_dedicated_enterprise',\n  enterprise_client_2: 'shard_dedicated_finance'\n};\nconst s1 = getShardForCustomer('enterprise_client_1', dir);\nif (s1 !== 'shard_dedicated_enterprise') throw new Error('Directory shard lookup failed for enterprise_client_1');\nconst s2 = getShardForCustomer('enterprise_client_2', dir);\nif (s2 !== 'shard_dedicated_finance') throw new Error('Directory shard lookup failed for enterprise_client_2');\nconst fallback = getShardForCustomer('regular_client_2', dir);\nif (!/^shard_[0-3]$/.test(fallback)) throw new Error('Hash fallback shard must match shard_0..shard_3');\nif (s1 === s2) throw new Error('Dedicated shards must match directory values');",
     "aTitle": "Range Shard Evaluator",
     "aDesc": "Implement function getRangeShard(userId) returning shard based on user ID ranges (e.g. 0-1000 -> shard_1).",
     "aStarter": "function getRangeShard(id) {\n  // TODO: write your code here\n}",
@@ -375,7 +375,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function routeDatabaseQuery(operation, sessionState, masterDb, replicaDbs) routing writes and recent writes (< 5s) to Master, and stale reads to Replicas. The result must have the field: `target`. Return { target, connection }: target is 'MASTER_DB' for writes and for reads within 5 seconds of the session's last write, otherwise 'READ_REPLICA'.",
     "eStarter": "function routeDatabaseQuery(op, session, master, replicas) {\n  // TODO: write your code here\n}",
     "eHint": "If write or recent write (< 5s) route to master, else route to replica.",
-    "eTest": "const session = { lastWriteTimestamp: Date.now() - 1000 };\nconst res = routeDatabaseQuery('READ', session, 'master_conn', ['rep1', 'rep2']);\nif (!res.target.includes('MASTER_DB')) throw new Error('Read-your-writes should route recent write to master');",
+    "eTest": "const session = { lastWriteTimestamp: Date.now() - 1000 };\nconst res1 = routeDatabaseQuery('READ', session, 'master_conn', ['rep1', 'rep2']);\nif (!res1 || !res1.target || !res1.target.includes('MASTER_DB')) throw new Error('Read-your-writes should route recent write to master');\nconst staleSession = { lastWriteTimestamp: Date.now() - 10000 };\nconst res2 = routeDatabaseQuery('READ', staleSession, 'master_conn', ['rep1', 'rep2']);\nif (!res2 || res2.target !== 'READ_REPLICA') throw new Error('Stale reads must route to READ_REPLICA');\nconst writeSession = {};\nconst res3 = routeDatabaseQuery('WRITE', writeSession, 'master_conn', ['rep1', 'rep2']);\nif (!res3 || res3.target !== 'MASTER_DB' || !writeSession.lastWriteTimestamp) throw new Error('Writes must route to MASTER_DB and record timestamp');",
     "aTitle": "Replication Lag Alert Checker",
     "aDesc": "Implement function isReplicationLagExceeded(lagSeconds, maxLag = 10) returning true if lag > maxLag.",
     "aStarter": "function isReplicationLagExceeded(lag, max = 10) {\n  // TODO: write your code here\n}",
@@ -400,7 +400,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatCircuitStatus(state) returning `[CIRCUIT]: ${state}`.",
     "aStarter": "function formatCircuitStatus(s) {\n  // TODO: write your code here\n}",
     "aHint": "Format status string.",
-    "aTest": "if (formatCircuitStatus('OPEN') !== '[CIRCUIT]: OPEN') throw new Error('Circuit format failed');"
+    "aTest": "if (formatCircuitStatus('OPEN') !== '[CIRCUIT]: OPEN') throw new Error('Circuit format failed for OPEN');\nif (formatCircuitStatus('CLOSED') !== '[CIRCUIT]: CLOSED') throw new Error('Circuit format failed for CLOSED');\nif (formatCircuitStatus('HALF_OPEN') !== '[CIRCUIT]: HALF_OPEN') throw new Error('Circuit format failed for HALF_OPEN');"
   },
   {
     "day": 21,
@@ -420,7 +420,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatGatewayLatency(ms) returning formatted string.",
     "aStarter": "function formatGatewayLatency(ms) {\n  // TODO: write your code here\n}",
     "aHint": "Format header string.",
-    "aTest": "if (formatGatewayLatency(12) !== 'X-Response-Time: 12ms') throw new Error('Latency format failed');"
+    "aTest": "if (formatGatewayLatency(12) !== 'X-Response-Time: 12ms') throw new Error('Latency format failed for 12ms');\nif (formatGatewayLatency(250) !== 'X-Response-Time: 250ms') throw new Error('Latency format failed for 250ms');\nif (formatGatewayLatency(0) !== 'X-Response-Time: 0ms') throw new Error('Latency format failed for 0ms');"
   },
   {
     "day": 22,
@@ -440,7 +440,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function getFanoutPeers(allPeers, k = 3) returning first k peers.",
     "aStarter": "function getFanoutPeers(p, k = 3) {\n  // TODO: write your code here\n}",
     "aHint": "Slice k peers.",
-    "aTest": "if (getFanoutPeers(['n1', 'n2', 'n3', 'n4'], 2).length !== 2) throw new Error('Fanout slice failed');"
+    "aTest": "const p1 = getFanoutPeers(['n1', 'n2', 'n3', 'n4'], 2);\nif (!Array.isArray(p1) || p1.length !== 2 || p1[0] !== 'n1' || p1[1] !== 'n2') throw new Error('Fanout slice failed for k=2');\nconst p2 = getFanoutPeers(['alpha', 'beta', 'gamma'], 1);\nif (!Array.isArray(p2) || p2.length !== 1 || p2[0] !== 'alpha') throw new Error('Fanout slice failed for k=1');\nconst p3 = getFanoutPeers(['x', 'y', 'z']);\nif (!Array.isArray(p3) || p3.length !== 3 || p3[2] !== 'z') throw new Error('Fanout slice failed for default k=3');"
   },
   {
     "day": 23,
@@ -460,7 +460,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function getLeastLoadedServer(servers) returning server with lowest activeConnections.",
     "aStarter": "function getLeastLoadedServer(s) {\n  // TODO: write your code here\n}",
     "aHint": "Sort by activeConnections.",
-    "aTest": "if (getLeastLoadedServer([{ id: 's1', activeConnections: 10 }, { id: 's2', activeConnections: 2 }]) !== 's2') throw new Error('Least loaded failed');"
+    "aTest": "const poolA = [{ id: 's1', activeConnections: 10 }, { id: 's2', activeConnections: 2 }];\nif (getLeastLoadedServer(poolA) !== 's2') throw new Error('Least loaded failed for poolA');\nconst poolB = [{ id: 'node_alpha', activeConnections: 1 }, { id: 'node_beta', activeConnections: 50 }];\nif (getLeastLoadedServer(poolB) !== 'node_alpha') throw new Error('Least loaded failed for poolB');\nconst poolC = [{ id: 'srv_x', activeConnections: 100 }, { id: 'srv_y', activeConnections: 30 }, { id: 'srv_z', activeConnections: 5 }];\nif (getLeastLoadedServer(poolC) !== 'srv_z') throw new Error('Least loaded failed for poolC');"
   },
   {
     "day": 24,
@@ -480,7 +480,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatInstanceUrl(ip, port) returning `http://${ip}:${port}`.",
     "aStarter": "function formatInstanceUrl(ip, p) {\n  // TODO: write your code here\n}",
     "aHint": "Format URL string.",
-    "aTest": "if (formatInstanceUrl('10.0.0.1', 8080) !== 'http://10.0.0.1:8080') throw new Error('URL format failed');"
+    "aTest": "if (formatInstanceUrl('10.0.0.1', 8080) !== 'http://10.0.0.1:8080') throw new Error('URL format failed for 10.0.0.1:8080');\nif (formatInstanceUrl('192.168.1.50', 3000) !== 'http://192.168.1.50:3000') throw new Error('URL format failed for 192.168.1.50:3000');\nif (formatInstanceUrl('127.0.0.1', 9092) !== 'http://127.0.0.1:9092') throw new Error('URL format failed for 127.0.0.1:9092');"
   },
   {
     "day": 25,
@@ -500,7 +500,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function getCorsHeaders(origin) returning standard CORS headers object.",
     "aStarter": "function getCorsHeaders(o) {\n  // TODO: write your code here\n}",
     "aHint": "Return CORS headers.",
-    "aTest": "if (getCorsHeaders('*')['Access-Control-Allow-Origin'] !== '*') throw new Error('CORS header failed');"
+    "aTest": "const h1 = getCorsHeaders('*');\nif (!h1 || h1['Access-Control-Allow-Origin'] !== '*') throw new Error('CORS header failed for wildcard');\nconst h2 = getCorsHeaders('https://app.pinit.io');\nif (!h2 || h2['Access-Control-Allow-Origin'] !== 'https://app.pinit.io') throw new Error('CORS header failed for custom origin');\nconst h3 = getCorsHeaders('https://partner.example.com');\nif (!h3 || h3['Access-Control-Allow-Origin'] !== 'https://partner.example.com') throw new Error('CORS header failed for partner origin');\nif (!h1['Access-Control-Allow-Methods'] || !h1['Access-Control-Allow-Methods'].includes('GET')) throw new Error('CORS methods must include GET');"
   },
   {
     "day": 26,
@@ -515,7 +515,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function createChildSpan(traceparentHeader, newSpanName) parsing W3C `00-${traceId}-${parentId}-${flags}` and generating child span. The result must have the field: `parentSpanId`.",
     "eStarter": "function createChildSpan(traceparent, spanName) {\n  // TODO: write your code here\n}",
     "eHint": "Parse traceparent parts, retain traceId, generate new spanId, format outgoing traceparent.",
-    "eTest": "const incoming = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01';\nconst child = createChildSpan(incoming, 'db_query');\nif (child.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736') throw new Error('Distributed traceId was not propagated to child span');\nif (child.parentSpanId !== '00f067aa0ba902b7') throw new Error('Parent span ID mismatch');",
+    "eTest": "const inc1 = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01';\nconst child1 = createChildSpan(inc1, 'db_query');\nif (!child1 || child1.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736') throw new Error('Distributed traceId was not propagated to child span 1');\nif (child1.parentSpanId !== '00f067aa0ba902b7') throw new Error('Parent span ID mismatch for child 1');\nif (child1.spanName !== 'db_query') throw new Error('spanName mismatch for child 1');\n\nconst inc2 = '00-abcdef1234567890abcdef1234567890-1122334455667788-01';\nconst child2 = createChildSpan(inc2, 'redis_get');\nif (!child2 || child2.traceId !== 'abcdef1234567890abcdef1234567890') throw new Error('Distributed traceId was not propagated to child span 2');\nif (child2.parentSpanId !== '1122334455667788') throw new Error('Parent span ID mismatch for child 2');\nif (child2.spanName !== 'redis_get') throw new Error('spanName mismatch for child 2');\nif (child1.traceId === child2.traceId) throw new Error('Trace IDs must vary across different incoming headers');",
     "aTitle": "Traceparent Validator",
     "aDesc": "Implement function isValidTraceparent(h) checking `00-32hex-16hex-01` format.",
     "aStarter": "function isValidTraceparent(h) {\n  // TODO: write your code here\n}",
@@ -540,7 +540,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function getConsistencyLevel(mode) returning description.",
     "aStarter": "function getConsistencyLevel(m) {\n  // TODO: write your code here\n}",
     "aHint": "Return description.",
-    "aTest": "if (!getConsistencyLevel('STRONG').includes('Linearizable')) throw new Error('Level check failed');"
+    "aTest": "const strong = getConsistencyLevel('STRONG');\nif (!strong || !strong.includes('Linearizable')) throw new Error('Strong consistency must mention Linearizable');\nconst eventual = getConsistencyLevel('EVENTUAL');\nif (!eventual || !eventual.includes('Eventual')) throw new Error('Eventual consistency must mention Eventual');\nif (strong === eventual) throw new Error('Consistency descriptions must differ for STRONG and EVENTUAL');"
   },
   {
     "day": 28,
@@ -560,7 +560,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatSurrogateKeys(keys) returning `Surrogate-Key: ${keys.join(' ')}`.",
     "aStarter": "function formatSurrogateKeys(k) {\n  // TODO: write your code here\n}",
     "aHint": "Join keys with space.",
-    "aTest": "if (formatSurrogateKeys(['k1', 'k2']) !== 'Surrogate-Key: k1 k2') throw new Error('Surrogate key failed');"
+    "aTest": "if (formatSurrogateKeys(['k1', 'k2']) !== 'Surrogate-Key: k1 k2') throw new Error('Surrogate key failed for k1 k2');\nif (formatSurrogateKeys(['product_101', 'category_books', 'author_9']) !== 'Surrogate-Key: product_101 category_books author_9') throw new Error('Surrogate key failed for 3 keys');\nif (formatSurrogateKeys(['global_nav']) !== 'Surrogate-Key: global_nav') throw new Error('Surrogate key failed for single key');"
   },
   {
     "day": 29,
@@ -580,7 +580,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatRto(minutes) returning `${minutes} min RTO`.",
     "aStarter": "function formatRto(m) {\n  // TODO: write your code here\n}",
     "aHint": "Format string.",
-    "aTest": "if (formatRto(15) !== '15 min RTO') throw new Error('RTO format failed');"
+    "aTest": "if (formatRto(15) !== '15 min RTO') throw new Error('RTO format failed for 15 min');\nif (formatRto(60) !== '60 min RTO') throw new Error('RTO format failed for 60 min');\nif (formatRto(5) !== '5 min RTO') throw new Error('RTO format failed for 5 min');"
   },
   {
     "day": 30,
@@ -597,10 +597,10 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Check rate limit -> acquire lock -> replicate consensus -> commit ledger -> release lock.",
     "eTest": "const services = {\n  rateLimiter: { isAllowed: () => true },\n  lockManager: { acquire: async () => ({ success: true, lockId: 'l1', fencingToken: 42 }), release: async () => true },\n  consensus: { replicate: async () => true },\n  ledger: { commit: async (o) => ({ id: 'rec_9981' }) }\n};\nawait executeGlobalTradeTransaction({ accountId: 'acc_1', orderId: 'ord_1', amount: 500 }, services).then(res => {\n  if (!res.success || res.tradeStatus !== 'EXECUTED_AND_COMMITTED' || res.fencingToken !== 42) throw new Error('Capstone financial trading exchange engine failed');\n});",
     "aTitle": "Capstone Distributed Systems Certification Auditor",
-    "aDesc": "Implement function auditDistributedCapstoneStatus() returning certification grade. The result must have the field: `certified`.",
-    "aStarter": "function auditDistributedCapstoneStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return certification object.",
-    "aTest": "if (auditDistributedCapstoneStatus().certified !== true) throw new Error('Capstone audit failed');"
+    "aDesc": "Implement function auditDistributedCapstoneStatus(quorumOk, replicationLagMs, circuitBreakerState) returning certification grade object with fields certified (boolean), score (e.g. '100/100'), and tier ('ENTERPRISE_DISTRIBUTED_SYSTEMS_CERTIFIED' or 'REMEDIATION_REQUIRED'). Certified requires quorum, replication lag <= 1000ms, and CLOSED circuit breaker.",
+    "aStarter": "function auditDistributedCapstoneStatus(quorumOk, replicationLagMs, circuitBreakerState) {\n  // TODO: write your code here\n}",
+    "aHint": "Check quorumOk && replicationLagMs <= 1000 && circuitBreakerState === 'CLOSED'.",
+    "aTest": "const c1 = auditDistributedCapstoneStatus(true, 200, 'CLOSED');\nif (!c1 || c1.certified !== true || c1.tier !== 'ENTERPRISE_DISTRIBUTED_SYSTEMS_CERTIFIED') throw new Error('Healthy cluster must be certified');\nconst c2 = auditDistributedCapstoneStatus(false, 200, 'CLOSED');\nif (!c2 || c2.certified !== false || c2.tier !== 'REMEDIATION_REQUIRED') throw new Error('Quorum failure must not be certified');\nconst c3 = auditDistributedCapstoneStatus(true, 2500, 'CLOSED');\nif (!c3 || c3.certified !== false || c3.tier !== 'REMEDIATION_REQUIRED') throw new Error('High replication lag must not be certified');\nconst c4 = auditDistributedCapstoneStatus(true, 100, 'OPEN');\nif (!c4 || c4.certified !== false || c4.tier !== 'REMEDIATION_REQUIRED') throw new Error('Open circuit breaker must not be certified');"
   }
 ];
 
