@@ -26,7 +26,15 @@ export const COURSES_CATALOG: CourseCatalogItem[] = [
     difficulty: 'Intermediate',
     durationWeeks: 6,
     icon: '⚛️',
+  },  {
+    id: 'course-node-web',
+    title: 'Node.js & TypeScript Backend Engineering',
+    desc: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, REST APIs, middleware pipelines, authentication, data access patterns, and production reliability.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '🟢',
   },
+
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {
     id: 'course-cloud-native',

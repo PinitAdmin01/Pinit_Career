@@ -162,6 +162,8 @@ export const CERTIFICATION_TRACKS = [
 ];
 
 export const COURSE_TO_ROLE: Record<string, string> = {
+  'course-react-web': 'Frontend React Engineer',
+  'course-node-web': 'Backend Web Engineer',
   'course-ai-eng': 'AI & LLM Systems Engineer',
   'course-ai-python': 'AI & LLM Systems Engineer',
   'course-fullstack-js': 'Full-Stack Software Developer',

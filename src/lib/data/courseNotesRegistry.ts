@@ -404,6 +404,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-node-web': {
+    courseId: 'course-node-web',
+    courseTitle: 'Node.js & TypeScript Backend Engineering',
+    category: 'Backend Engineering',
+    summary: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, the event loop, REST APIs, middleware pipelines, authentication, repository data access, and production reliability.',
+    realWorldAnalogy: 'Think of a Node.js backend like a high-speed airport terminal. The single-threaded event loop acts as the primary flight dispatcher continuously directing passenger queues, while the libuv worker thread pool and OS kernel handle heavy cargo loading in the background without blocking arriving flights.',
+    keyConcepts: [
+      {
+        heading: '1. Event Loop Architecture & Non-Blocking I/O',
+        explanation: 'Node.js pairs Google Chrome V8 engine with libuv to process thousands of concurrent network connections asynchronously without thread context switching overhead.',
+        codeOrExample: 'import http from "node:http";\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { "Content-Type": "application/json" });\n  res.end(JSON.stringify({ status: "ok" }));\n});'
+      },
+      {
+        heading: '2. Middleware Pipelines & RFC 7807 Error Boundaries',
+        explanation: 'Linear middleware execution chains enforce authentication, request validation, and rate limiting before dispatching to business services, wrapping execution in structured RFC 7807 problem details.',
+        codeOrExample: 'app.use((req, res, next) => {\n  const token = req.headers.authorization?.replace("Bearer ", "");\n  if (!token) return res.status(401).json({ type: "urn:problem:unauthorized", title: "Unauthorized", status: 401 });\n  next();\n});'
+      },
+      {
+        heading: '3. The Repository Pattern & Idempotent Operations',
+        explanation: 'Decoupling domain services from storage implementations enables seamless unit testing, while idempotency keys and Unit of Work patterns guarantee safe request retries and atomic consistency.',
+        codeOrExample: 'interface UserRepository {\n  findById(id: string): Promise<User | null>;\n  save(user: User): Promise<void>;\n}'
+      }
+    ],
+    cheatsheet: [
+      'HTTP Server: const server = http.createServer((req, res) => { ... });',
+      'Middleware: app.use((req, res, next) => { ... next(); });',
+      'RFC 7807: res.status(400).json({ type, title, status: 400, detail, instance });',
+      'Graceful Shutdown: process.on("SIGTERM", () => { server.close(); db.disconnect(); });'
+    ],
+    commonPitfalls: [
+      'Blocking the single-threaded event loop with CPU-intensive synchronous operations like crypto or large JSON parsing.',
+      'Forgetting to call next() or return a response in Express middleware, causing client requests to hang indefinitely.',
+      'Catching asynchronous errors improperly without top-level unhandled rejection handlers, leading to unobserved crashes.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How does the Node.js event loop handle non-blocking asynchronous I/O despite being single-threaded?',
+        answer: 'Node.js runs JavaScript on a single thread via V8, but offloads asynchronous I/O operations (file system, DNS, network sockets) to libuv and the underlying operating system kernel epoll/kqueue. When an operation finishes, its callback is queued onto the event loop phases (timers, I/O, check/setImmediate) and executed without blocking the main thread.'
+      }
+    ]
+  },
+
   'course-cloud-native': {
     courseId: 'course-cloud-native',
     courseTitle: 'Cloud Native Architectures (AWS)',

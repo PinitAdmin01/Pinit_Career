@@ -5,6 +5,8 @@ import vm from 'node:vm';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 import type { LongLesson } from '../src/lib/data/longLessons';
 import { estimateSpokenMinutes, getLongLesson } from '../src/lib/data/longLessons';
+import { NODE_WEB_LONG_LESSONS } from '../src/lib/data/nodeWebLongLessons';
+import { NODE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/nodeWeb30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -22,7 +24,16 @@ export interface WebLessonCourseEntry {
  * Web-track courses with full-length lessons (SRS C6 / W-11).
  * Starts empty; each course adds itself in Phase 3 (steps d-i / j).
  */
-export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [];
+export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
+  {
+    name: 'Node.js & TypeScript Backend Engineering',
+    prefix: 'node-web',
+    courseId: 'course-node-web',
+    lessons: NODE_WEB_LONG_LESSONS,
+    configs: NODE_WEB_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+];
 
 /**
  * Runs a TypeScript or React lesson code sample in a sandboxed vm context

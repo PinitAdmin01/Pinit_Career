@@ -1,5 +1,6 @@
 import { JAVA_30_DAYS_QUESTS } from './java30DayData';
 import { REACT_30_DAYS_QUESTS } from './react30DayData';
+import { NODE_WEB_30_DAYS_QUESTS } from './nodeWeb30DayData';
 import { CLOUD_30_DAYS_QUESTS } from './cloud30DayData';
 import { DEVOPS_30_DAYS_QUESTS } from './devops30DayData';
 import { DESIGN_30_DAYS_QUESTS } from './design30DayData';
@@ -97,6 +98,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '⚛️',
     quests: REACT_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-node-web',
+    title: 'Node.js & TypeScript Backend Engineering',
+    desc: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, REST APIs, middleware pipelines, authentication, data access patterns, and production reliability.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '🟢',
+    quests: NODE_WEB_30_DAYS_QUESTS as any
   },
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {

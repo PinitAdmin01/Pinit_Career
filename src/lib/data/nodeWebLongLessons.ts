@@ -3,7 +3,7 @@ import type { LongLesson } from "./longLessons";
 export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
-    "title": "The Node.js Runtime Architecture & The Event Loop",
+    "title": "The Node.js Runtime, Event Loop & Process Model",
     "goal": "Explain the V8 and libuv runtime architecture, how non-blocking I/O executes, and how the event loop processes tasks.",
     "minutes": 30,
     "parts": [
@@ -202,7 +202,7 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
   },
   {
     "day": 2,
-    "title": "Modern ECMAScript Modules (ESM) & Path Resolution",
+    "title": "Modular Architecture: ESM, CommonJS & Path Resolution",
     "goal": "Master ECMAScript Modules (import/export), URL-based file specifiers, path normalization, and package module configuration.",
     "minutes": 30,
     "parts": [
@@ -403,7 +403,7 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
   },
   {
     "day": 3,
-    "title": "Backend TypeScript Essentials: Narrowing & Discriminated Unions",
+    "title": "Backend TypeScript: Types, Interfaces & Narrowing",
     "goal": "Master TypeScript type narrowing, discriminated unions for API responses, custom type guards, and exhaustive checking.",
     "minutes": 30,
     "parts": [
@@ -612,7 +612,7 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
   },
   {
     "day": 4,
-    "title": "Generic Types & Utility Types for Clean APIs",
+    "title": "TypeScript Generics & Utility Types for Backends",
     "goal": "Build reusable backend utilities using generic parameters, constraints, keyof lookup types, and built-in mapped types.",
     "minutes": 30,
     "parts": [

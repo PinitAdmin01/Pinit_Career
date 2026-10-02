@@ -17,6 +17,10 @@ test('W-01: every existing quest across all registered courses still resolves to
         totalQuestsChecked++;
         continue;
       }
+      if (course.id === 'course-node-web' && resolved === 'typescript') {
+        totalQuestsChecked++;
+        continue;
+      }
       assert.ok(
         allowedOldLanguages.has(resolved),
         `Existing quest "${q.id}" in "${course.id}" unexpectedly resolved to "${resolved}"`
@@ -38,6 +42,10 @@ test('W-01: known core courses resolve to their exact expected languages', () =>
   for (const q of tasks('course-react-web')) {
     const lang = resolveQuestLanguage(q, q.id);
     assert.ok(lang === 'javascript' || lang === 'tsx', `course-react-web quest ${q.id} must be javascript or tsx`);
+  }
+  for (const q of tasks('course-node-web')) {
+    const lang = resolveQuestLanguage(q, q.id);
+    assert.equal(lang, 'typescript', `course-node-web quest ${q.id} must be typescript`);
   }
   for (const id of ['course-dsa-optim', 'course-devops-cicd', 'course-cloud-native']) {
     for (const q of tasks(id)) {
