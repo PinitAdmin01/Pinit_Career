@@ -2537,4 +2537,1263 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 11,
+  "title": "Authorization: Role-Based (RBAC) & Attribute-Based Access Control (ABAC)",
+  "goal": "Enforce granular access boundaries: Role-Based Access Control (RBAC: User -> Role -> Permissions mapping), Attribute-Based Access Control (ABAC: Evaluating Subject, Resource, Action, and Environmental context attributes like IP subnet or business hours), and Privilege Escalation prevention.",
+  "minutes": 25,
+  "recap": "Today we architect enterprise authorization systems, transitioning from static Role-Based Access Control (RBAC) to dynamic Attribute-Based Access Control (ABAC) with environmental policies.",
+  "parts": [
+    {
+      "title": "Authentication vs Authorization & The Coarse-Grained RBAC Model",
+      "say": [
+        "In software security, engineers must maintain a strict conceptual boundary between authentication and authorization.",
+        "Authentication (AuthN) verifies the identity of a principal: proving who the user or service claims to be (e.g. via password or TOTP).",
+        "Authorization (AuthZ) governs what an authenticated principal is permitted to do: evaluating permissions against specific actions and resources.",
+        "The most widespread authorization model is Role-Based Access Control (RBAC), standardized by NIST in ANSI INCITS 359-2004.",
+        "In RBAC, individual permissions are not assigned directly to users; instead, permissions are grouped into roles (such as 'Reader', 'Editor', 'BillingAdmin').",
+        "Users are assigned one or more roles, inheriting the aggregated union of permissions associated with their assigned roles.",
+        "RBAC simplifies administration dramatically: when an employee's department changes, an administrator simply updates their role rather than reassigning dozens of permissions.",
+        "However, static RBAC becomes brittle when business logic demands context: what if an Editor should only edit documents they personally created?",
+        "Addressing contextual constraints requires augmenting static RBAC with permission hierarchies and dynamic attribute evaluation."
+      ],
+      "example": "A hospital management app defines roles: Doctor (can view and prescribe), Nurse (can view and administer), Receptionist (can view appointment schedule).",
+      "code": "interface RbacRole {\n  name: string;\n  permissions: string[];\n}\n\ninterface RbacUser {\n  id: string;\n  roles: string[];\n}\n\nclass RbacAuthorizer {\n  private roleStore: Map<string, string[]> = new Map();\n\n  addRole(name: string, perms: string[]) {\n    this.roleStore.set(name, perms);\n  }\n\n  isAuthorized(user: RbacUser, requiredPermission: string): boolean {\n    for (const r of user.roles) {\n      const perms = this.roleStore.get(r) || [];\n      if (perms.includes(requiredPermission)) return true;\n    }\n    return false;\n  }\n}\n\nconst rbac = new RbacAuthorizer();\nrbac.addRole('READER', ['doc:read']);\nrbac.addRole('EDITOR', ['doc:read', 'doc:write']);\nrbac.addRole('ADMIN', ['doc:read', 'doc:write', 'doc:delete', 'user:manage']);\n\nconst bob: RbacUser = { id: 'usr_201', roles: ['EDITOR'] };\n\nconsole.log('Can Bob Read:', rbac.isAuthorized(bob, 'doc:read'));\nconsole.log('Can Bob Write:', rbac.isAuthorized(bob, 'doc:write'));\nconsole.log('Can Bob Delete:', rbac.isAuthorized(bob, 'doc:delete'));",
+      "output": "Can Bob Read: true\nCan Bob Write: true\nCan Bob Delete: false",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Evaluates user roles and resolves whether any role grants the requested permission."
+        },
+        {
+          "line": 31,
+          "note": "Demonstrates that Bob inherits read and write permissions from EDITOR but lacks delete."
+        }
+      ],
+      "tryIt": "Add an AUDITOR role with `['doc:read', 'audit:export']` and test access authorization.",
+      "check": {
+        "question": "What is the primary difference between Authentication and Authorization?",
+        "options": [
+          "Authentication verifies WHO you are; Authorization determines WHAT actions you are permitted to perform",
+          "Authentication is for frontend React code; Authorization is for backend Node.js code",
+          "There is no difference; they are interchangeable terms"
+        ],
+        "answer": 0,
+        "why": "Authentication establishes identity (AuthN); authorization determines permissions and access rights (AuthZ)."
+      }
+    },
+    {
+      "title": "Role Hierarchies, Inheritance & Permission Expansion",
+      "say": [
+        "In complex enterprise organizations, flat RBAC roles quickly result in combinatorial explosion and redundant permission definitions.",
+        "Hierarchical RBAC (H-RBAC) solves this by organizing roles into a Directed Acyclic Graph (DAG) of role inheritance.",
+        "In a role hierarchy, superior roles automatically inherit all permissions granted to their subordinate roles.",
+        "For example, a `SuperAdmin` inherits all permissions from `Manager`, which inherits all permissions from `StaffMember`.",
+        "Role inheritance ensures the Principle of Economy of Mechanism: permissions are defined at the lowest applicable level and bubble upward.",
+        "When evaluating permissions, the authorizer traverses the role hierarchy tree, expanding the user's explicit roles into their full transitive closure.",
+        "If an organization adds a new baseline permission (such as `profile:view_team`) to `StaffMember`, all superior managers and admins inherit it automatically.",
+        "Care must be taken to prevent circular inheritance loops (e.g. Role A inherits B, which inherits A), which can cause infinite recursion in access checkers.",
+        "Let us implement a hierarchical role inheritance engine with automated cycle detection and permission expansion."
+      ],
+      "example": "A company with 500 permissions defines: Intern -> Associate -> Lead -> Director -> Executive; each level automatically inherits all abilities of lower levels.",
+      "code": "interface HierarchicalRole {\n  name: string;\n  inheritsFrom?: string[];\n  directPermissions: string[];\n}\n\nclass HierarchicalRbacEngine {\n  private roles: Map<string, HierarchicalRole> = new Map();\n\n  registerRole(role: HierarchicalRole) {\n    this.roles.set(role.name, role);\n  }\n\n  resolveAllPermissions(roleName: string, visited: Set<string> = new Set()): string[] {\n    if (visited.has(roleName)) return []; // Prevent infinite inheritance cycles\n    visited.add(roleName);\n\n    const role = this.roles.get(roleName);\n    if (!role) return [];\n\n    const permissions = new Set<string>(role.directPermissions);\n    for (const parent of role.inheritsFrom || []) {\n      const inherited = this.resolveAllPermissions(parent, visited);\n      inherited.forEach(p => permissions.add(p));\n    }\n    return Array.from(permissions);\n  }\n}\n\nconst engine = new HierarchicalRbacEngine();\nengine.registerRole({ name: 'STAFF', directPermissions: ['ticket:view', 'ticket:comment'] });\nengine.registerRole({ name: 'MANAGER', inheritsFrom: ['STAFF'], directPermissions: ['ticket:assign', 'ticket:close'] });\nengine.registerRole({ name: 'DIRECTOR', inheritsFrom: ['MANAGER'], directPermissions: ['org:billing_override'] });\n\nconst directorPerms = engine.resolveAllPermissions('DIRECTOR');\nconsole.log('Director Effective Permissions Count:', directorPerms.length);\nconsole.log('Inherits Staff ticket:view:', directorPerms.includes('ticket:view'));\nconsole.log('Inherits Manager ticket:close:', directorPerms.includes('ticket:close'));\nconsole.log('Has Director billing_override:', directorPerms.includes('org:billing_override'));",
+      "output": "Director Effective Permissions Count: 5\nInherits Staff ticket:view: true\nInherits Manager ticket:close: true\nHas Director billing_override: true",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Recursively resolves transitive role inheritance while tracking visited nodes to prevent cycles."
+        },
+        {
+          "line": 36,
+          "note": "Proves that DIRECTOR inherits all 4 permissions from subordinate MANAGER and STAFF roles."
+        }
+      ],
+      "tryIt": "Add a circular inheritance where STAFF inherits from DIRECTOR and verify the visited set prevents infinite loops.",
+      "check": {
+        "question": "In Hierarchical RBAC, what is the primary benefit of role inheritance?",
+        "options": [
+          "It reduces database memory to 0 bytes",
+          "Higher-level roles automatically inherit permissions from subordinate roles, eliminating redundant permission configuration",
+          "It enables anonymous logins"
+        ],
+        "answer": 1,
+        "why": "Role inheritance models real organizational hierarchies, allowing superior roles to inherit baseline abilities without duplicating assignments."
+      }
+    },
+    {
+      "title": "Dynamic Contextual Authorization: Attribute-Based Access Control (ABAC)",
+      "say": [
+        "While RBAC excels at broad organizational roles, modern cloud applications require fine-grained, context-sensitive authorization.",
+        "Role-Based Access Control answers: 'What role does the user possess?' Attribute-Based Access Control (ABAC) answers: 'Should this action be allowed given all current attributes?'",
+        "ABAC, standardized in NIST SP 800-162, evaluates access by computing boolean logic over four categories of attributes.",
+        "1. Subject Attributes: Characteristics of the requesting actor (e.g. department, clearance level, citizenship, manager ID).",
+        "2. Resource Attributes: Characteristics of the target object (e.g. classification level, owner ID, department, creation date).",
+        "3. Action Attributes: The operation being attempted (e.g. read, write, approve, export, delete).",
+        "4. Environmental Context Attributes: The operational runtime environment (e.g. client IP subnet, time-of-day, threat level, MFA status).",
+        "An ABAC policy expresses complex business rules as mathematical predicates: `Allow if Subject.Department === Resource.Department AND Environment.MfaVerified === true`.",
+        "ABAC allows enterprises to enforce strict Zero Trust data governance policies that are impossible to represent with static roles alone."
+      ],
+      "example": "A policy allowing doctors to view medical records only if: `Subject.Role == 'Doctor'`, `Resource.PatientId == Subject.AssignedPatientId`, and `Environment.Network == 'Hospital_LAN'`.",
+      "code": "interface AbacContext {\n  subject: { id: string; role: string; department: string; mfaVerified: boolean };\n  resource: { id: string; type: string; department: string; classification: 'PUBLIC' | 'CONFIDENTIAL' | 'RESTRICTED' };\n  action: 'READ' | 'WRITE' | 'EXPORT';\n  environment: { isWithinBusinessHours: boolean; ipReputation: number };\n}\n\ntype AbacPolicy = (ctx: AbacContext) => { allowed: boolean; reason: string };\n\nconst confidentialDataPolicy: AbacPolicy = (ctx) => {\n  if (ctx.resource.classification === 'RESTRICTED') {\n    if (!ctx.subject.mfaVerified) {\n      return { allowed: false, reason: 'REJECT_MFA_REQUIRED_FOR_RESTRICTED' };\n    }\n    if (ctx.subject.department !== ctx.resource.department) {\n      return { allowed: false, reason: 'REJECT_DEPARTMENT_MISMATCH' };\n    }\n  }\n  return { allowed: true, reason: 'ACCESS_GRANTED_ABAC_POLICY_MET' };\n};\n\nconst req1: AbacContext = {\n  subject: { id: 'u1', role: 'ENGINEER', department: 'FINANCE', mfaVerified: true },\n  resource: { id: 'r1', type: 'LEDGER', department: 'FINANCE', classification: 'RESTRICTED' },\n  action: 'READ',\n  environment: { isWithinBusinessHours: true, ipReputation: 95 }\n};\n\nconst req2: AbacContext = {\n  ...req1,\n  subject: { ...req1.subject, mfaVerified: false } // Missing MFA\n};\n\nconsole.log('Request 1 Result:', confidentialDataPolicy(req1).reason);\nconsole.log('Request 2 Result (No MFA):', confidentialDataPolicy(req2).reason);",
+      "output": "Request 1 Result: ACCESS_GRANTED_ABAC_POLICY_MET\nRequest 2 Result (No MFA): REJECT_MFA_REQUIRED_FOR_RESTRICTED",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Evaluates multi-attribute policy combining subject MFA, department match, and resource classification."
+        },
+        {
+          "line": 32,
+          "note": "Rejects access when MFA attribute is false even though subject department matches perfectly."
+        }
+      ],
+      "tryIt": "Change subject department to 'MARKETING' on req1 to observe department mismatch rejection.",
+      "check": {
+        "question": "Which four categories of attributes are evaluated in an Attribute-Based Access Control (ABAC) engine?",
+        "options": [
+          "Subject, Resource, Action, and Environment",
+          "CPU, RAM, Disk, and Network",
+          "HTML, CSS, JavaScript, and WebAssembly"
+        ],
+        "answer": 0,
+        "why": "NIST SP 800-162 defines the four ABAC dimensions as Subject, Resource, Action, and Environment."
+      }
+    },
+    {
+      "title": "Evaluating Environmental Attributes: IP Subnets, Time-of-Day & Device Health",
+      "say": [
+        "In a Zero Trust architecture, authorization is not granted permanently based on who you are; it depends continuously on your operational context.",
+        "Environmental attributes represent dynamic conditions that change from moment to moment during a user's session.",
+        "IP Subnet Geolocation: Restricting access to internal corporate subnets (e.g. `10.200.0.0/16`) or trusted corporate VPNs.",
+        "Temporal Boundaries: Enforcing that high-risk financial transfers or administrative operations occur only during official business hours (e.g. 08:00 - 18:00 UTC).",
+        "Device Posture & Health: Checking whether the client device is running approved endpoint detection and response (EDR) software with disk encryption enabled.",
+        "Risk-Based Step-Up Authentication: If a user logs in from an unexpected foreign IP address or unmanaged device, the system demands an immediate MFA re-challenge.",
+        "Environmental evaluation prevents credential replay: even if an attacker steals an employee's valid session cookie, they cannot use it from an unauthorized location.",
+        "Modern Identity Providers (like Okta, Google BeyondCorp, and AWS Verified Access) evaluate these environmental signals on every single API request.",
+        "Let us implement an environmental policy evaluator that validates CIDR subnets, temporal hours, and device integrity scores."
+      ],
+      "example": "A bank teller cannot approve loans on a Saturday night from an IP address located in a different country, even with valid credentials.",
+      "code": "interface EnvironmentalPosture {\n  clientIp: string;\n  hourUtc: number; // 0 - 23\n  deviceComplianceScore: number; // 0 - 100\n}\n\nfunction evaluateEnvironmentalAccess(\n  posture: EnvironmentalPosture,\n  allowedSubnetPrefix: string,\n  minDeviceScore: number = 80\n): { permitted: boolean; status: string } {\n  // 1. IP Subnet check\n  if (!posture.clientIp.startsWith(allowedSubnetPrefix)) {\n    return { permitted: false, status: 'REJECT_UNTRUSTED_NETWORK_LOCATION' };\n  }\n\n  // 2. Business hours check (08:00 to 18:00 UTC)\n  if (posture.hourUtc < 8 || posture.hourUtc >= 18) {\n    return { permitted: false, status: 'REJECT_OUTSIDE_AUTHORIZED_BUSINESS_HOURS' };\n  }\n\n  // 3. Device health check\n  if (posture.deviceComplianceScore < minDeviceScore) {\n    return { permitted: false, status: 'REJECT_NONCOMPLIANT_UNMANAGED_DEVICE' };\n  }\n\n  return { permitted: true, status: 'ENVIRONMENTAL_CONTEXT_AUTHORIZED' };\n}\n\nconst safeWorkstation: EnvironmentalPosture = {\n  clientIp: '10.200.4.15',\n  hourUtc: 14,\n  deviceComplianceScore: 95\n};\n\nconst midnightOffNetwork: EnvironmentalPosture = {\n  clientIp: '198.51.100.4',\n  hourUtc: 23,\n  deviceComplianceScore: 95\n};\n\nconsole.log('Workstation Posture:', evaluateEnvironmentalAccess(safeWorkstation, '10.200.').status);\nconsole.log('Off-Network Midnight Posture:', evaluateEnvironmentalAccess(midnightOffNetwork, '10.200.').status);",
+      "output": "Workstation Posture: ENVIRONMENTAL_CONTEXT_AUTHORIZED\nOff-Network Midnight Posture: REJECT_UNTRUSTED_NETWORK_LOCATION",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Evaluates multi-attribute environmental constraints: IP subnet, business hours, and device score."
+        },
+        {
+          "line": 36,
+          "note": "Rejects off-network midnight connections before application business logic is reached."
+        }
+      ],
+      "tryIt": "Pass a client IP within subnet but with hourUtc: 2 to verify business hours rejection.",
+      "check": {
+        "question": "Why does Zero Trust Architecture evaluate environmental attributes like client IP and device health on every request?",
+        "options": [
+          "To ensure that stolen credentials or hijacked session cookies cannot be used from unauthorized locations or untrusted devices",
+          "To speed up database indexing",
+          "To disable HTTPS encryption"
+        ],
+        "answer": 0,
+        "why": "Continuous environmental evaluation ensures that even if credentials are leaked, attacks from unauthorized networks or unmanaged devices are blocked."
+      }
+    },
+    {
+      "title": "Vertical & Horizontal Privilege Escalation Prevention",
+      "say": [
+        "Privilege escalation is an attack pattern where an unauthorized principal acquires elevated rights or accesses resources belonging to other principals.",
+        "Vertical Privilege Escalation occurs when a low-privilege user acquires rights belonging to a superior role (e.g. an ordinary member becoming a SuperAdmin).",
+        "Vertical escalation happens when API endpoints assume only admins will call them, failing to perform server-side role validation on incoming requests.",
+        "Horizontal Privilege Escalation occurs when an attacker accesses resources belonging to another user of the exact same privilege tier.",
+        "For example, User A navigates to `/account/invoices/101`, changes the invoice ID in the URL to `102`, and views User B's private invoice.",
+        "To prevent vertical escalation, every single API handler must execute an explicit server-side role and capability check; never rely on UI button hiding.",
+        "To prevent horizontal escalation, data access queries must enforce ownership scoping: `WHERE id = ? AND owner_id = ?`.",
+        "Automated security testing must systematically test every endpoint using low-privilege tokens to verify that unauthorized access is rejected.",
+        "Let us examine how an access guard prevents both vertical administrative escalations and horizontal tenant tampering."
+      ],
+      "example": "A standard employee attempts to invoke `POST /api/admin/system/restart`; the server checks capabilities and terminates the request with HTTP 403.",
+      "code": "interface RequestActor {\n  id: string;\n  role: 'MEMBER' | 'ADMIN';\n  tenantId: string;\n}\n\ninterface ResourceAccessRequest {\n  resourceOwnerId: string;\n  resourceTenantId: string;\n  isAdministrativeAction: boolean;\n}\n\nfunction verifyEscalationGuard(\n  actor: RequestActor,\n  target: ResourceAccessRequest\n): { allowed: boolean; violationType?: string } {\n  // 1. Vertical Escalation Check\n  if (target.isAdministrativeAction && actor.role !== 'ADMIN') {\n    return { allowed: false, violationType: 'VERTICAL_PRIVILEGE_ESCALATION_BLOCKED' };\n  }\n\n  // 2. Horizontal Escalation Check (Tenant & User isolation)\n  if (actor.role !== 'ADMIN') {\n    if (actor.tenantId !== target.resourceTenantId || actor.id !== target.resourceOwnerId) {\n      return { allowed: false, violationType: 'HORIZONTAL_PRIVILEGE_ESCALATION_BLOCKED' };\n    }\n  }\n\n  return { allowed: true };\n}\n\nconst aliceMember: RequestActor = { id: 'usr_1', role: 'MEMBER', tenantId: 'tenant_A' };\n\n// Alice attempts vertical admin action\nconst verticalAttempt = verifyEscalationGuard(aliceMember, {\n  resourceOwnerId: 'usr_1',\n  resourceTenantId: 'tenant_A',\n  isAdministrativeAction: true\n});\n\n// Alice attempts horizontal access to Bob's file\nconst horizontalAttempt = verifyEscalationGuard(aliceMember, {\n  resourceOwnerId: 'usr_2',\n  resourceTenantId: 'tenant_A',\n  isAdministrativeAction: false\n});\n\nconsole.log('Vertical Escalation Guard:', verticalAttempt.violationType);\nconsole.log('Horizontal Escalation Guard:', horizontalAttempt.violationType);",
+      "output": "Vertical Escalation Guard: VERTICAL_PRIVILEGE_ESCALATION_BLOCKED\nHorizontal Escalation Guard: HORIZONTAL_PRIVILEGE_ESCALATION_BLOCKED",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Blocks non-admin users from executing administrative actions (vertical escalation)."
+        },
+        {
+          "line": 20,
+          "note": "Blocks users from accessing peer resources belonging to other IDs (horizontal escalation)."
+        }
+      ],
+      "tryIt": "Pass an ADMIN actor and verify that administrative and cross-user actions succeed.",
+      "check": {
+        "question": "What is the difference between Vertical and Horizontal Privilege Escalation?",
+        "options": [
+          "Vertical means gaining higher permissions (user -> admin); Horizontal means accessing data belonging to peers of the same level",
+          "Vertical happens on servers; Horizontal happens on mobile phones",
+          "Vertical is faster than horizontal"
+        ],
+        "answer": 0,
+        "why": "Vertical escalation moves upward in privilege tier (e.g. member to admin); horizontal escalation moves sideways across peers (accessing another user's records)."
+      }
+    },
+    {
+      "title": "Engineering an Enterprise Policy Decision Point (PDP) & Policy Enforcement Point (PEP)",
+      "say": [
+        "In production enterprise architectures, access control is organized around the XACML standard: Policy Enforcement Points (PEP) and Policy Decision Points (PDP).",
+        "The Policy Enforcement Point (PEP) is a middleware interceptor positioned at the API gateway or service boundary.",
+        "The PEP intercepts every incoming request, extracts subject claims, resource IDs, and environment metadata, and forwards them to the PDP.",
+        "The Policy Decision Point (PDP) is an isolated, centralized evaluation engine that executes authorization policies against the incoming request context.",
+        "The PDP computes an authoritative decision: `PERMIT` or `DENY`, accompanied by audit reasoning codes.",
+        "The PEP receives the PDP's decision: if `PERMIT`, it forwards the request to downstream business logic; if `DENY`, it aborts with HTTP 403 Forbidden.",
+        "Separating the enforcement point from the decision point decouples security policy management from application microservices.",
+        "Security teams can update authorization policies in the central PDP without recompiling or redeploying microservice code.",
+        "Let us assemble a complete enterprise PEP and PDP pipeline demonstrating centralized policy decision-making."
+      ],
+      "example": "Open Policy Agent (OPA) or AWS Cedar running as a centralized PDP; Envoy API gateways act as PEPs querying OPA for every incoming HTTP request.",
+      "code": "type AuthzDecision = 'PERMIT' | 'DENY';\n\ninterface PdpRequest {\n  subjectRole: string;\n  action: string;\n  resourceType: string;\n  isOwner: boolean;\n}\n\nclass PolicyDecisionPoint {\n  public evaluate(req: PdpRequest): { decision: AuthzDecision; reason: string } {\n    // Admins can do anything\n    if (req.subjectRole === 'ADMIN') {\n      return { decision: 'PERMIT', reason: 'ADMIN_FULL_ACCESS' };\n    }\n\n    // Members can read public docs, or write/delete their own docs\n    if (req.subjectRole === 'MEMBER') {\n      if (req.action === 'READ') return { decision: 'PERMIT', reason: 'MEMBER_READ_PERMITTED' };\n      if (req.isOwner && ['WRITE', 'DELETE'].includes(req.action)) {\n        return { decision: 'PERMIT', reason: 'MEMBER_OWNER_MODIFICATION_PERMITTED' };\n      }\n    }\n\n    return { decision: 'DENY', reason: 'POLICY_EVALUATION_DENIED' };\n  }\n}\n\nclass PolicyEnforcementPoint {\n  constructor(private pdp: PolicyDecisionPoint) {}\n\n  public interceptRequest(req: PdpRequest): { httpStatus: number; statusMessage: string } {\n    const evaluation = this.pdp.evaluate(req);\n    if (evaluation.decision === 'PERMIT') {\n      return { httpStatus: 200, statusMessage: 'TRANSACTION_AUTHORIZED: ' + evaluation.reason };\n    }\n    return { httpStatus: 403, statusMessage: 'SECURITY_ALERT_ACCESS_DENIED: ' + evaluation.reason };\n  }\n}\n\nconst pdp = new PolicyDecisionPoint();\nconst pep = new PolicyEnforcementPoint(pdp);\n\nconst validOwnerAction = pep.interceptRequest({ subjectRole: 'MEMBER', action: 'WRITE', resourceType: 'DOC', isOwner: true });\nconst unauthorizedTamper = pep.interceptRequest({ subjectRole: 'MEMBER', action: 'DELETE', resourceType: 'DOC', isOwner: false });\n\nconsole.log('Valid Owner Result:', validOwnerAction.statusMessage);\nconsole.log('Unauthorized Tamper Result:', unauthorizedTamper.statusMessage);",
+      "output": "Valid Owner Result: TRANSACTION_AUTHORIZED: MEMBER_OWNER_MODIFICATION_PERMITTED\nUnauthorized Tamper Result: SECURITY_ALERT_ACCESS_DENIED: POLICY_EVALUATION_DENIED",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Centralizes authorization policy evaluation within isolated Policy Decision Point (PDP)."
+        },
+        {
+          "line": 26,
+          "note": "Enforces PDP decisions at the Policy Enforcement Point (PEP) returning HTTP 200 or 403."
+        }
+      ],
+      "tryIt": "Send an ADMIN request with `isOwner: false` and verify that the admin full access policy grants permission.",
+      "check": {
+        "question": "What architectural benefit does the PEP / PDP separation provide in microservice systems?",
+        "options": [
+          "It completely decouples authorization policy definition from application code, allowing security policies to be updated centrally without touching microservices",
+          "It compresses JSON responses by 50%",
+          "It eliminates the need for database backups"
+        ],
+        "answer": 0,
+        "why": "Decoupling Policy Enforcement (PEP) from Policy Decision (PDP) enables centralized governance, consistent auditing, and policy updates without redeploying code."
+      }
+    }
+  ],
+  "summary": [
+    "Authentication (AuthN) proves identity; Authorization (AuthZ) governs what that authenticated identity is permitted to do.",
+    "Hierarchical RBAC organizes roles into Directed Acyclic Graphs, inheriting permissions transitively from lower roles.",
+    "Attribute-Based Access Control (ABAC) evaluates Subject, Resource, Action, and Environmental context attributes.",
+    "Zero Trust requires evaluating dynamic environmental attributes (IP CIDR, time-of-day, device posture) on every request.",
+    "Separating Policy Enforcement Points (PEP) from Policy Decision Points (PDP) enables centralized enterprise policy governance."
+  ],
+  "projectStep": {
+    "title": "Project Step 11: Enterprise ABAC & Hierarchical RBAC Authorization Engine",
+    "steps": [
+      "Implement a hierarchical role resolver with cycle detection expanding transitive role inheritance.",
+      "Construct an ABAC evaluator assessing subject clearance, resource classification, and environmental constraints.",
+      "Assemble an intercepting PEP middleware that blocks vertical administrative and horizontal tenant privilege escalations."
+    ]
+  }
+},
+{
+  "day": 12,
+  "title": "Broken Object Level Authorization (BOLA / IDOR) Defense",
+  "goal": "Defend against Insecure Direct Object References (IDOR / BOLA #1 in OWASP API Top 10): Exploiting sequential IDs (`/api/invoices/1004` -> `/api/invoices/1005`), Enforcing tenant ownership checks at the data repository layer, and Using Cryptographically Random UUIDv4 or Opaque Tokens.",
+  "minutes": 25,
+  "recap": "Today we tackle Broken Object Level Authorization (BOLA / IDOR)—the number one vulnerability in the OWASP API Security Top 10—and eliminate direct database record enumeration.",
+  "parts": [
+    {
+      "title": "The Anatomy of Broken Object Level Authorization (BOLA / IDOR)",
+      "say": [
+        "Ranked as the number one vulnerability in the OWASP API Security Top 10, Broken Object Level Authorization (BOLA) is the most prevalent flaw in modern web APIs.",
+        "Historically termed Insecure Direct Object References (IDOR), BOLA occurs when an API endpoint accepts an object identifier directly from client input without verifying that the requesting user has permission to access that specific object.",
+        "Consider an endpoint `GET /api/documents/{documentId}`; when user 101 requests document 4001, the server returns the document.",
+        "If the user changes the URL to `GET /api/documents/4002`, a vulnerable server fetches document 4002 directly from the database and returns it, even though it belongs to user 102.",
+        "The developer correctly authenticated the user (ensuring they have a valid JWT), but completely failed to check object-level ownership.",
+        "Attackers weaponize BOLA by writing simple automated scripts that increment numeric IDs sequentially from 1 to 1,000,000, scraping millions of confidential records.",
+        "BOLA vulnerabilities have caused massive real-world data breaches exposing healthcare records, tax documents, and personal financial data.",
+        "Relying on the obscurity of endpoints or assuming clients will only request their own IDs is a fatal architectural mistake.",
+        "Securing APIs requires enforcing object-level authorization checks on every single database lookup."
+      ],
+      "example": "A ride-sharing app allows a rider to view receipt `/api/receipts/88401`; changing the parameter to `88402` exposes another customer's full name, home address, and credit card digits.",
+      "code": "interface DatabaseRecord {\n  id: number;\n  ownerUserId: string;\n  data: string;\n}\n\nconst mockDatabase: DatabaseRecord[] = [\n  { id: 1001, ownerUserId: 'usr_alice', data: 'Alice Financial Report' },\n  { id: 1002, ownerUserId: 'usr_bob', data: 'Bob Private Medical File' }\n];\n\nfunction vulnerableGetDocument(documentId: number, requestingUserId: string): { data?: string; error?: string } {\n  // Flaw: Only checks if document exists; never checks if ownerUserId === requestingUserId\n  const record = mockDatabase.find(r => r.id === documentId);\n  if (!record) return { error: 'NOT_FOUND' };\n  return { data: record.data };\n}\n\nfunction secureGetDocument(documentId: number, requestingUserId: string): { data?: string; error?: string } {\n  const record = mockDatabase.find(r => r.id === documentId);\n  if (!record) return { error: 'NOT_FOUND' };\n  // Mandatory Object-Level Authorization Check\n  if (record.ownerUserId !== requestingUserId) {\n    return { error: 'SECURITY_ALERT_BOLA_VIOLATION_ACCESS_DENIED' };\n  }\n  return { data: record.data };\n}\n\nconsole.log('Vulnerable Alice Accessing Bob:', vulnerableGetDocument(1002, 'usr_alice').data);\nconsole.log('Secure Alice Accessing Bob:', secureGetDocument(1002, 'usr_alice').error);",
+      "output": "Vulnerable Alice Accessing Bob: Bob Private Medical File\nSecure Alice Accessing Bob: SECURITY_ALERT_BOLA_VIOLATION_ACCESS_DENIED",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Demonstrates classic BOLA flaw: retrieves record by ID without checking owner."
+        },
+        {
+          "line": 19,
+          "note": "Defends against BOLA by strictly verifying record owner against requesting user ID."
+        }
+      ],
+      "tryIt": "Call secureGetDocument with Alice accessing her own document (1001) to verify successful retrieval.",
+      "check": {
+        "question": "Why does Broken Object Level Authorization (BOLA / IDOR) frequently bypass standard API authentication checks?",
+        "options": [
+          "Because the user is legitimately authenticated with a valid session token, but the backend fails to verify whether that user owns the specific requested object ID",
+          "Because BOLA disables TLS encryption",
+          "Because BOLA only occurs in legacy PHP apps"
+        ],
+        "answer": 0,
+        "why": "BOLA is an authorization failure, not authentication; the user is authenticated, but unauthorized to view the specific object identifier requested."
+      }
+    },
+    {
+      "title": "Sequential Numeric IDs vs Cryptographic Random Identifiers (UUIDv4)",
+      "say": [
+        "A primary catalyst for automated BOLA exploitation is the use of sequential auto-incrementing integer IDs in database tables.",
+        "When an API uses sequential numbers (e.g. `/orders/1`, `/orders/2`, `/orders/3`), an attacker can easily predict and enumerate every object in the database.",
+        "Furthermore, sequential IDs leak sensitive business intelligence: an competitor placing two orders 24 hours apart can subtract order IDs to calculate daily sales volume.",
+        "To mitigate enumeration, modern systems adopt Cryptographically Random Identifiers, most notably Universally Unique Identifier Version 4 (UUIDv4).",
+        "A UUIDv4 consists of 128 bits of cryptographic randomness (122 random bits after version/variant masking), represented as a 36-character hexadecimal string.",
+        "With $2^{122} \\approx 5.3 \\times 10^{36}$ possible unique identifiers, the probability of an attacker guessing or predicting another user's UUID is mathematically zero.",
+        "Even if an attacker sends billions of requests, they will receive only 404 Not Found responses without ever discovering valid object IDs.",
+        "However, engineers must remember: UUIDs prevent enumeration, but they do NOT replace authorization checks.",
+        "If a UUID leaks via a shared link or referrer header, the server must still verify that the requesting user is the authorized owner."
+      ],
+      "example": "A competitor discovers a company uses auto-incrementing customer IDs; creating an account reveals customer #18,402, disclosing their exact customer base size.",
+      "code": "function generateMockUuidV4(): string {\n  // Simulates 128-bit RFC 4122 UUIDv4 generation\n  const hexChars = '0123456789abcdef';\n  let uuid = '';\n  for (let i = 0; i < 32; i++) {\n    if (i === 8 || i === 12 || i === 16 || i === 20) uuid += '-';\n    if (i === 12) uuid += '4'; // Version 4\n    else if (i === 16) uuid += hexChars[(Math.random() * 4 | 8)]; // Variant 1\n    else uuid += hexChars[Math.floor(Math.random() * 16)];\n  }\n  return uuid;\n}\n\nconst sequentialEndpoint = '/api/v1/invoices/' + 1042;\nconst nextSequentialGuess = '/api/v1/invoices/' + (1042 + 1);\n\nconst uuidEndpoint = '/api/v1/invoices/' + generateMockUuidV4();\n\nconsole.log('Predictable Sequential Target:', sequentialEndpoint);\nconsole.log('Trivial Attacker Enumeration Guess:', nextSequentialGuess);\nconsole.log('Unpredictable UUIDv4 Target:', uuidEndpoint.length === 53); // 17 prefix + 36 uuid\nconsole.log('Entropy Bits in UUIDv4: 122 random bits (5.3 x 10^36 combinations)');",
+      "output": "Predictable Sequential Target: /api/v1/invoices/1042\nTrivial Attacker Enumeration Guess: /api/v1/invoices/1043\nUnpredictable UUIDv4 Target: true\nEntropy Bits in UUIDv4: 122 random bits (5.3 x 10^36 combinations)",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "Demonstrates how auto-incrementing integer IDs make next-record guessing trivial."
+        },
+        {
+          "line": 18,
+          "note": "Replaces sequential integers with 128-bit cryptographically random UUIDv4."
+        }
+      ],
+      "tryIt": "Verify that UUIDv4 generation format matches `8-4-4-4-12` hexadecimal character structure.",
+      "check": {
+        "question": "Does replacing sequential integer IDs with random UUIDv4 identifiers completely eliminate BOLA vulnerabilities?",
+        "options": [
+          "No; UUIDs prevent predictable enumeration, but the server must still perform explicit authorization checks to ensure the caller owns the object",
+          "Yes, UUIDs automatically configure database row-level security",
+          "Yes, because UUIDs are impossible to transmit over HTTP"
+        ],
+        "answer": 0,
+        "why": "UUIDs stop enumeration, but if an attacker obtains a valid UUID (e.g. from network traffic or logs), missing authorization will still allow unauthorized access."
+      }
+    },
+    {
+      "title": "Data Layer Authorization: Scoping Queries by Tenant & User Context",
+      "say": [
+        "In production architectures, relying on individual developers to remember `if (record.owner !== userId)` in every API controller is error-prone.",
+        "Under tight deadlines, engineers inevitably forget authorization checks in one or two obscure endpoints, opening catastrophic BOLA vulnerabilities.",
+        "The robust architectural solution is Data Layer Scoping: baking user and tenant authorization directly into database query builders.",
+        "Instead of fetching an object by ID and checking ownership in application memory, the query automatically scopes to the authenticated user.",
+        "In SQL, the query builder constructs: `SELECT * FROM invoices WHERE id = :docId AND tenant_id = :tenantId AND owner_user_id = :userId`.",
+        "If a user attempts to access another user's invoice, the database query returns zero rows, triggering a standard 404 Not Found.",
+        "Furthermore, modern relational databases support Row-Level Security (RLS), where the database engine itself enforces filtering policies on every table query.",
+        "In PostgreSQL RLS, the database rejects queries attempting to read rows where the tenant ID does not match the current connection session variable.",
+        "Baking authorization into the repository or database tier guarantees defense-in-depth across the entire application."
+      ],
+      "example": "In Prisma or Kysely, wrapping the data client so that every `db.invoice.findFirst()` automatically appends `where: { tenantId: ctx.tenantId, userId: ctx.userId }`.",
+      "code": "interface ScopedQueryContext {\n  userId: string;\n  tenantId: string;\n}\n\nclass SecureDataRepository {\n  private records = [\n    { id: 'inv_101', tenantId: 'corp_alpha', userId: 'usr_alice', amount: 500 },\n    { id: 'inv_102', tenantId: 'corp_alpha', userId: 'usr_bob', amount: 1200 },\n    { id: 'inv_103', tenantId: 'corp_beta', userId: 'usr_carol', amount: 9500 }\n  ];\n\n  // Secure repository method: Scopes lookup by tenant and user automatically\n  public findInvoiceByIdScoped(invoiceId: string, ctx: ScopedQueryContext) {\n    return this.records.find(\n      r => r.id === invoiceId && r.tenantId === ctx.tenantId && r.userId === ctx.userId\n    ) || null;\n  }\n}\n\nconst repo = new SecureDataRepository();\nconst aliceContext: ScopedQueryContext = { userId: 'usr_alice', tenantId: 'corp_alpha' };\n\nconst aliceOwnInvoice = repo.findInvoiceByIdScoped('inv_101', aliceContext);\nconst bobInvoiceAttempt = repo.findInvoiceByIdScoped('inv_102', aliceContext);\n\nconsole.log('Alice Reading Own Invoice:', aliceOwnInvoice?.amount);\nconsole.log('Alice Attempting Bob Invoice (Scoped Query):', bobInvoiceAttempt);",
+      "output": "Alice Reading Own Invoice: 500\nAlice Attempting Bob Invoice (Scoped Query): null",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Appends mandatory tenantId and userId filters to the database query lookup predicate."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates that accessing another user's ID cleanly returns null without leaking record existence."
+        }
+      ],
+      "tryIt": "Pass Carol's context (`tenantId: 'corp_beta'`) and verify that cross-tenant record lookups return null.",
+      "check": {
+        "question": "Why is scoping database queries with `WHERE id = ? AND user_id = ?` superior to checking ownership in application memory?",
+        "options": [
+          "It guarantees that records belonging to other users are never loaded into application memory, eliminating developer oversight bugs",
+          "It converts the database into NoSQL",
+          "It increases network latency"
+        ],
+        "answer": 0,
+        "why": "Scoped queries push authorization into the database query engine, preventing accidental exposure if a developer forgets a manual check."
+      }
+    },
+    {
+      "title": "Mass Assignment & Property-Level Authorization Vulnerabilities",
+      "say": [
+        "A close cousin of Broken Object Level Authorization is Broken Object Property Level Authorization, commonly known as Mass Assignment.",
+        "Mass Assignment occurs when software frameworks automatically bind client-supplied HTTP JSON fields directly into internal database models.",
+        "For example, in a profile update endpoint `PUT /api/user/profile`, the handler accepts `req.body` and executes `db.user.update(req.body)`.",
+        "If an attacker adds unexpected JSON fields like `\"role\": \"admin\"`, `\"isVerified\": true`, or `\"accountBalance\": 999999`, the ORM writes them to the database.",
+        "Because developers intended only `name` and `bio` to be updated, failing to restrict property-level access grants the attacker unauthorized privilege escalation.",
+        "To prevent Mass Assignment, APIs must implement strict Data Transfer Objects (DTOs) with property allowlists.",
+        "Never pass raw request bodies directly to database update queries; explicitly pick and validate permitted fields using schemas (like Zod).",
+        "Additionally, property-level authorization must be enforced on reads: ensuring sensitive internal fields (like password hashes or internal notes) are stripped from JSON responses.",
+        "Let us implement a secure DTO sanitizer that eliminates Mass Assignment vulnerabilities on update endpoints."
+      ],
+      "example": "A user updates their profile; they inject `{\"bio\":\"Engineer\", \"isAdmin\": true}`; a vulnerable backend copies `isAdmin: true` into their database record.",
+      "code": "interface UserProfileUpdateDto {\n  displayName: string;\n  bio: string;\n}\n\nfunction sanitizeProfileUpdate(rawRequestBody: Record<string, any>): {\n  sanitizedDto: UserProfileUpdateDto;\n  rejectedProperties: string[];\n} {\n  const allowedProperties = ['displayName', 'bio'];\n  const rejectedProperties: string[] = [];\n  const sanitized: any = {};\n\n  for (const [key, value] of Object.entries(rawRequestBody)) {\n    if (allowedProperties.includes(key)) {\n      sanitized[key] = String(value);\n    } else {\n      rejectedProperties.push(key);\n    }\n  }\n\n  return {\n    sanitizedDto: {\n      displayName: sanitized.displayName || '',\n      bio: sanitized.bio || ''\n    },\n    rejectedProperties\n  };\n}\n\nconst exploitPayload = {\n  displayName: 'Super Hacker',\n  bio: 'Security Researcher',\n  role: 'SUPERADMIN', // Injected property\n  accountBalance: 999999, // Injected property\n  isEmailVerified: true // Injected property\n};\n\nconst result = sanitizeProfileUpdate(exploitPayload);\nconsole.log('Sanitized DTO Properties:', Object.keys(result.sanitizedDto).join(', '));\nconsole.log('Blocked Mass Assignment Fields:', result.rejectedProperties.join(', '));\nconsole.log('Was Role Injected:', 'role' in result.sanitizedDto);",
+      "output": "Sanitized DTO Properties: displayName, bio\nBlocked Mass Assignment Fields: role, accountBalance, isEmailVerified\nWas Role Injected: false",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Enforces strict allowlist of editable properties, discarding unauthorized model attributes."
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates complete neutralization of injected administrative role and balance fields."
+        }
+      ],
+      "tryIt": "Pass only `displayName: 'Alice'` and verify that missing bio defaults cleanly without error.",
+      "check": {
+        "question": "How do Data Transfer Objects (DTOs) and field allowlists prevent Mass Assignment attacks?",
+        "options": [
+          "They explicitly define and copy only permitted fields, discarding any unexpected or sensitive properties supplied in the HTTP request body",
+          "They encrypt the incoming JSON with AES-256",
+          "They convert all inputs to lowercase"
+        ],
+        "answer": 0,
+        "why": "Allowlisting ensures that only explicitly permitted fields are bound to database models, ignoring malicious injected attributes like `role` or `balance`."
+      }
+    },
+    {
+      "title": "Indirect Reference Maps & Encrypted Opaque Capability Tokens",
+      "say": [
+        "In scenarios where exposing internal database IDs (even UUIDs) introduces unacceptable risk, architectures deploy Indirect Reference Maps.",
+        "An Indirect Reference Map replaces true database keys with transient, session-scoped random tokens.",
+        "When a user requests their invoice list, the server maps internal database ID `88102` to transient token `'ref_1'`, and `88103` to `'ref_2'` in the user's session cache.",
+        "The client receives only `'ref_1'` and `'ref_2'`; when the user requests an invoice, they submit `GET /invoices/ref_1`.",
+        "The server translates `'ref_1'` back to `88102` using the user's private session map.",
+        "If another user attempts to submit `ref_1`, their session map contains either nothing or maps `'ref_1'` to their own completely different invoice.",
+        "An attacker cannot enumerate, guess, or substitute IDs across users because the tokens have zero meaning outside an individual user's session.",
+        "Alternatively, systems can issue Encrypted Capability Tokens (Macaroons or signed tokens) that bundle resource ID and authorized user ID inside an encrypted payload.",
+        "Let us inspect a session-scoped Indirect Reference Map that provides absolute object isolation."
+      ],
+      "example": "A banking UI displays accounts as `Account-A` and `Account-B`; internal database account numbers `4401-9921` are never exposed to the browser.",
+      "code": "class IndirectReferenceManager {\n  // Session-scoped mapping: Map<userId, Map<transientToken, internalDatabaseId>>\n  private userSessionMaps: Map<string, Map<string, string>> = new Map();\n\n  createReference(userId: string, internalId: string): string {\n    if (!this.userSessionMaps.has(userId)) {\n      this.userSessionMaps.set(userId, new Map());\n    }\n    const userMap = this.userSessionMaps.get(userId)!;\n    const token = 'ref_' + Math.random().toString(36).slice(2, 8);\n    userMap.set(token, internalId);\n    return token;\n  }\n\n  resolveReference(userId: string, token: string): string | null {\n    const userMap = this.userSessionMaps.get(userId);\n    if (!userMap) return null;\n    return userMap.get(token) || null;\n  }\n}\n\nconst refManager = new IndirectReferenceManager();\nconst aliceToken = refManager.createReference('usr_alice', 'internal_db_row_99214');\nconst bobToken = refManager.createReference('usr_bob', 'internal_db_row_44018');\n\nconsole.log('Alice Resolving Her Token:', refManager.resolveReference('usr_alice', aliceToken));\nconsole.log('Bob Attempting to Resolve Alice Token:', refManager.resolveReference('usr_bob', aliceToken));",
+      "output": "Alice Resolving Her Token: internal_db_row_99214\nBob Attempting to Resolve Alice Token: null",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Maps internal database row identifiers to randomized session-scoped reference tokens."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates that Bob cannot resolve Alice's reference token because it does not exist in his session map."
+        }
+      ],
+      "tryIt": "Create a second reference for Alice and verify that both tokens resolve to their respective internal IDs.",
+      "check": {
+        "question": "Why do Indirect Reference Maps eliminate BOLA attacks across users?",
+        "options": [
+          "Reference tokens are stored in the user's private session map; a token issued to User A does not exist or resolve in User B's session",
+          "They force users to log in with SSH keys",
+          "They convert the database to read-only"
+        ],
+        "answer": 0,
+        "why": "Because tokens are mapped inside individual user sessions, an attacker submitting another user's token receives null, preventing access."
+      }
+    },
+    {
+      "title": "Building an Enterprise Multi-Tenant Data Access Repository with Ownership Guards",
+      "say": [
+        "In this final part, we synthesize our BOLA defenses into an enterprise-grade Multi-Tenant Data Access Repository.",
+        "The repository enforces four non-negotiable security invariants on every single database operation.",
+        "Invariant 1: Tenant Boundary Isolation. Every query mandates `tenantId` in the `WHERE` clause; cross-tenant queries are blocked at the repository driver layer.",
+        "Invariant 2: Object-Level Ownership Verification. Records with personal ownership must match the calling `userId`, unless the actor possesses explicit tenant administrative rights.",
+        "Invariant 3: Safe Identification. All public endpoints use cryptographically random UUIDv4 or opaque tokens rather than sequential integer keys.",
+        "Invariant 4: DTO Sanitization. All update operations pass through strict allowlist filters preventing mass assignment property tampering.",
+        "By enforcing these invariants centrally within the data access layer, we guarantee that no BOLA vulnerability can emerge from controller-level developer oversights.",
+        "Let us implement and test this comprehensive enterprise data repository with automated BOLA prevention guards.",
+        "This completes our mastery of Broken Object Level Authorization defense in cloud-native APIs."
+      ],
+      "example": "A multi-tenant SaaS platform where every query is locked to the tenant and user context, preventing multi-million dollar data leak vulnerabilities.",
+      "code": "interface TenantUserContext {\n  userId: string;\n  tenantId: string;\n  isTenantAdmin: boolean;\n}\n\ninterface StoredDocument {\n  id: string; // UUIDv4\n  tenantId: string;\n  ownerId: string;\n  title: string;\n  body: string;\n}\n\nclass EnterpriseTenantRepository {\n  private documents: StoredDocument[] = [\n    { id: 'uuid-1', tenantId: 'tenant_acme', ownerId: 'usr_1', title: 'Acme Secret Q3', body: 'Confidential' },\n    { id: 'uuid-2', tenantId: 'tenant_acme', ownerId: 'usr_2', title: 'Acme R&D Project', body: 'Patents' },\n    { id: 'uuid-3', tenantId: 'tenant_beta', ownerId: 'usr_3', title: 'Beta Roadmap', body: 'Internal' }\n  ];\n\n  public accessDocument(docId: string, ctx: TenantUserContext): { document?: StoredDocument; auditCode: string } {\n    const doc = this.documents.find(d => d.id === docId);\n    if (!doc) {\n      return { auditCode: 'NOT_FOUND' };\n    }\n\n    // Invariant 1: Cross-tenant isolation\n    if (doc.tenantId !== ctx.tenantId) {\n      return { auditCode: 'SECURITY_ALERT_CROSS_TENANT_TAMPERING_BLOCKED' };\n    }\n\n    // Invariant 2: Object ownership (Tenant Admins can view all tenant docs)\n    if (!ctx.isTenantAdmin && doc.ownerId !== ctx.userId) {\n      return { auditCode: 'SECURITY_ALERT_BOLA_HORIZONTAL_TAMPERING_BLOCKED' };\n    }\n\n    return { document: doc, auditCode: 'OBJECT_ACCESS_AUTHORIZED_NOMINAL' };\n  }\n}\n\nconst repo = new EnterpriseTenantRepository();\nconst user1: TenantUserContext = { userId: 'usr_1', tenantId: 'tenant_acme', isTenantAdmin: false };\nconst user2SameTenant: TenantUserContext = { userId: 'usr_2', tenantId: 'tenant_acme', isTenantAdmin: false };\nconst user3OtherTenant: TenantUserContext = { userId: 'usr_3', tenantId: 'tenant_beta', isTenantAdmin: false };\n\nconsole.log('User 1 Access Own Doc:', repo.accessDocument('uuid-1', user1).auditCode);\nconsole.log('User 1 Access Peer Doc:', repo.accessDocument('uuid-2', user1).auditCode);\nconsole.log('User 1 Access Cross-Tenant Doc:', repo.accessDocument('uuid-3', user1).auditCode);",
+      "output": "User 1 Access Own Doc: OBJECT_ACCESS_AUTHORIZED_NOMINAL\nUser 1 Access Peer Doc: SECURITY_ALERT_BOLA_HORIZONTAL_TAMPERING_BLOCKED\nUser 1 Access Cross-Tenant Doc: SECURITY_ALERT_CROSS_TENANT_TAMPERING_BLOCKED",
+      "codeNotes": [
+        {
+          "line": 25,
+          "note": "Enforces strict tenant boundary isolation blocking cross-tenant access attempts."
+        },
+        {
+          "line": 30,
+          "note": "Enforces object-level ownership checks preventing horizontal peer data tampering."
+        }
+      ],
+      "tryIt": "Set `isTenantAdmin: true` on user1 and verify that peer document access within the same tenant succeeds.",
+      "check": {
+        "question": "Why should multi-tenant applications enforce tenant boundaries in addition to individual user ownership checks?",
+        "options": [
+          "To provide multi-layered defense-in-depth, guaranteeing that even administrative accounts cannot accidentally or maliciously access data belonging to another tenant organization",
+          "To reduce CPU clock frequencies",
+          "Because SQL databases do not support more than one user"
+        ],
+        "answer": 0,
+        "why": "Multi-tenant isolation ensures strict cryptographic and query separation so that no principal can cross organizational boundaries."
+      }
+    }
+  ],
+  "summary": [
+    "Broken Object Level Authorization (BOLA / IDOR) is the #1 vulnerability in the OWASP API Security Top 10.",
+    "BOLA occurs when endpoints accept resource IDs without verifying that the authenticated caller owns the requested object.",
+    "Sequential integer IDs enable automated enumeration; cryptographic UUIDv4 ($2^{122}$ combinations) eliminates predictability.",
+    "Data layer scoping automatically appends `WHERE tenant_id = ? AND user_id = ?` to prevent developer oversight bugs.",
+    "Mass assignment vulnerabilities are eliminated using Data Transfer Objects (DTOs) with strict property allowlists."
+  ],
+  "projectStep": {
+    "title": "Project Step 12: Enterprise Multi-Tenant Repository with BOLA Defense",
+    "steps": [
+      "Implement a scoped query builder binding `tenantId` and `ownerId` into all database read/write queries.",
+      "Construct a Mass Assignment DTO sanitizer stripping unapproved model properties from update payloads.",
+      "Execute automated security tests verifying that cross-tenant and peer-level unauthorized accesses trigger security alerts."
+    ]
+  }
+},
+{
+  "day": 13,
+  "title": "Network Security: TCP SYN Flood, Port Scanning & Stateful Firewalls",
+  "goal": "Secure transport layer networking: TCP 3-Way Handshake (SYN, SYN-ACK, ACK), SYN Flood Denial of Service attacks (Half-open connection table exhaustion), SYN Cookies mitigation, Nmap port scan detection (Stealth SYN scan), and Stateful Packet Inspection (SPI).",
+  "minutes": 25,
+  "recap": "Today we dive into transport layer defense, dissecting the TCP three-way handshake, mitigating SYN flood attacks with cryptographic SYN cookies, and analyzing stateful firewalls.",
+  "parts": [
+    {
+      "title": "The TCP 3-Way Handshake & Connection State Tables",
+      "say": [
+        "Transmission Control Protocol (TCP) is the foundational connection-oriented transport protocol powering HTTP, TLS, SSH, and database communication.",
+        "Before data can be exchanged between two hosts, TCP establishes a virtual connection using the Three-Way Handshake.",
+        "Step 1: The client sends a TCP packet with the `SYN` (Synchronize) control flag set, advertising its Initial Sequence Number ($ISN_{\\text{client}}$).",
+        "Step 2: The server receives the SYN, allocates resources in its kernel connection backlog, and replies with `SYN-ACK`, acknowledging the client's ISN and advertising its own ($ISN_{\\text{server}}$).",
+        "At this intermediate stage, the connection is in the `SYN-RECEIVED` state, commonly termed a 'Half-Open Connection'.",
+        "Step 3: The client replies with an `ACK` packet, confirming the server's sequence number and completing the handshake.",
+        "The connection transitions to the `ESTABLISHED` state, and both hosts begin bidirectional streaming of application data.",
+        "Operating system kernels maintain a finite Transmission Control Block (TCB) table in memory to track these half-open connections.",
+        "Understanding this state table allocation reveals the fundamental vulnerability exploited by transport-layer denial-of-service attacks."
+      ],
+      "example": "Opening an SSH session: client sends SYN; server responds with SYN-ACK; client returns ACK; the terminal session opens.",
+      "code": "type TcpState = 'CLOSED' | 'SYN_SENT' | 'SYN_RECEIVED' | 'ESTABLISHED';\n\ninterface TcpPacket {\n  flags: { syn: boolean; ack: boolean; fin: boolean };\n  seq: number;\n  ackSeq: number;\n}\n\nclass TcpHandshakeSimulator {\n  public serverState: TcpState = 'CLOSED';\n  public serverSeq: number = 5000;\n\n  receivePacket(packet: TcpPacket): TcpPacket | null {\n    if (this.serverState === 'CLOSED' && packet.flags.syn && !packet.flags.ack) {\n      this.serverState = 'SYN_RECEIVED'; // Half-open state\n      return {\n        flags: { syn: true, ack: true, fin: false },\n        seq: this.serverSeq,\n        ackSeq: packet.seq + 1\n      };\n    }\n\n    if (this.serverState === 'SYN_RECEIVED' && packet.flags.ack && !packet.flags.syn) {\n      if (packet.ackSeq === this.serverSeq + 1) {\n        this.serverState = 'ESTABLISHED';\n        return null; // Handshake complete\n      }\n    }\n\n    return null;\n  }\n}\n\nconst sim = new TcpHandshakeSimulator();\n// Step 1: Client SYN\nconst synAckPacket = sim.receivePacket({ flags: { syn: true, ack: false, fin: false }, seq: 100, ackSeq: 0 });\nconsole.log('Server State after Step 1:', sim.serverState);\nconsole.log('Server Replied with SYN-ACK:', synAckPacket?.flags.syn && synAckPacket?.flags.ack);\n\n// Step 3: Client ACK\nsim.receivePacket({ flags: { syn: false, ack: true, fin: false }, seq: 101, ackSeq: 5001 });\nconsole.log('Server State after Step 3:', sim.serverState);",
+      "output": "Server State after Step 1: SYN_RECEIVED\nServer Replied with SYN-ACK: true\nServer State after Step 3: ESTABLISHED",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Allocates half-open connection tracking state upon receiving initial SYN packet."
+        },
+        {
+          "line": 22,
+          "note": "Completes handshake transition to ESTABLISHED upon receiving client ACK."
+        }
+      ],
+      "tryIt": "Simulate a client sending an invalid ACK sequence and confirm the server does not transition to ESTABLISHED.",
+      "check": {
+        "question": "What state is a TCP connection in after the server receives a SYN and responds with SYN-ACK, but before the client replies with ACK?",
+        "options": [
+          "SYN-RECEIVED (Half-Open Connection)",
+          "ESTABLISHED",
+          "TIME-WAIT"
+        ],
+        "answer": 0,
+        "why": "The connection is half-open (SYN-RECEIVED) awaiting the final ACK from the client to complete the handshake."
+      }
+    },
+    {
+      "title": "Anatomy of a TCP SYN Flood Denial-of-Service Attack",
+      "say": [
+        "A TCP SYN Flood is an asymmetric denial-of-service attack targeting the server's half-open connection backlog queue.",
+        "The attacker floods the target server with thousands of spoofed TCP SYN packets containing random, unreachable source IP addresses.",
+        "For every incoming SYN packet, the server's kernel allocates memory for a Transmission Control Block (TCB) in its SYN queue (`tcp_max_syn_backlog`).",
+        "The server responds with a SYN-ACK packet addressed to the spoofed source IP address.",
+        "Because the source IP address was falsified or unreachable, the final ACK packet is never sent.",
+        "The server's kernel holds the half-open connection in its SYN backlog for a prolonged timeout window (often 60 to 180 seconds), repeatedly retransmitting SYN-ACKs.",
+        "Within seconds, the server's SYN queue becomes completely exhausted.",
+        "When a legitimate user attempts to connect, the server's kernel drops their SYN packet because no queue slots remain, denying service completely.",
+        "The attacker consumes minimal network bandwidth, but exhausts 100% of the server's connection resources."
+      ],
+      "example": "An attacker sends 50,000 SYN packets per second with fake IP addresses; the web server's backlog queue of 1,024 slots fills in 20 milliseconds, blocking legitimate customers.",
+      "code": "class SynBacklogQueue {\n  private maxCapacity: number;\n  private currentHalfOpenConnections: Map<string, number> = new Map();\n\n  constructor(maxCapacity: number = 5) {\n    this.maxCapacity = maxCapacity;\n  }\n\n  receiveSyn(clientIp: string): { accepted: boolean; queueUsage: string } {\n    if (this.currentHalfOpenConnections.size >= this.maxCapacity) {\n      return { accepted: false, queueUsage: 'QUEUE_EXHAUSTED_DROPPING_SYN' };\n    }\n    this.currentHalfOpenConnections.set(clientIp, Date.now());\n    return {\n      accepted: true,\n      queueUsage: this.currentHalfOpenConnections.size + '/' + this.maxCapacity\n    };\n  }\n}\n\nconst queue = new SynBacklogQueue(3);\n\n// Attacker floods with 3 spoofed IPs\nconsole.log('Attacker SYN 1:', queue.receiveSyn('198.51.100.1').queueUsage);\nconsole.log('Attacker SYN 2:', queue.receiveSyn('198.51.100.2').queueUsage);\nconsole.log('Attacker SYN 3:', queue.receiveSyn('198.51.100.3').queueUsage);\n\n// Legitimate customer arrives\nconst legit = queue.receiveSyn('203.0.113.50');\nconsole.log('Legitimate Customer SYN Accepted:', legit.accepted);\nconsole.log('Legitimate Customer Result:', legit.queueUsage);",
+      "output": "Attacker SYN 1: 1/3\nAttacker SYN 2: 2/3\nAttacker SYN 3: 3/3\nLegitimate Customer SYN Accepted: false\nLegitimate Customer Result: QUEUE_EXHAUSTED_DROPPING_SYN",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Rejects new incoming connection requests when half-open backlog queue reaches capacity."
+        },
+        {
+          "line": 27,
+          "note": "Demonstrates denial of service against legitimate customer due to SYN backlog saturation."
+        }
+      ],
+      "tryIt": "Increase queue capacity to 10 and observe how many attacker packets are required before exhaustion occurs.",
+      "check": {
+        "question": "Why does a TCP SYN Flood cause denial of service even when network bandwidth is not saturated?",
+        "options": [
+          "It fills the kernel's finite half-open connection backlog table, causing the operating system to drop legitimate incoming SYN packets",
+          "It deletes the server's SSL certificates",
+          "It forces the CPU into sleep mode"
+        ],
+        "answer": 0,
+        "why": "The server allocates kernel memory for each SYN awaiting completion; when the table fills, all subsequent connections are dropped."
+      }
+    },
+    {
+      "title": "Mitigating SYN Floods with Cryptographic SYN Cookies (RFC 4987)",
+      "say": [
+        "In 1996, Daniel J. Bernstein and Eric Schenk engineered the definitive cryptographic solution to SYN floods: SYN Cookies (RFC 4987).",
+        "The revolutionary insight of SYN Cookies is Stateless Connection Initiation: the server allocates zero memory when receiving an initial SYN packet.",
+        "Instead of storing connection state in a backlog table, the server encodes all connection state directly into the 32-bit Initial Sequence Number ($ISN_{\\text{server}}$) of the SYN-ACK.",
+        "The 32-bit SYN Cookie is computed using a secret cryptographic hash: $ISN = \\text{Hash}(IP_{\\text{src}}, IP_{\\text{dst}}, Port_{\\text{src}}, Port_{\\text{dst}}, t) + MSS$.",
+        "The cookie encodes: 1. A 5-bit timestamp interval ($t$); 2. A 3-bit encoding of the Maximum Segment Size (MSS); 3. A 24-bit cryptographic MAC.",
+        "When the legitimate client replies with ACK, the client returns $ISN + 1$ in the acknowledgment field.",
+        "The server subtracts 1, inspects the timestamp for expiration, recomputes the cryptographic MAC using its secret key, and verifies authenticity.",
+        "If the cookie matches, the server allocates the connection state for the first time, transitioning directly to `ESTABLISHED`.",
+        "If an attacker floods millions of spoofed SYNs, the server responds with stateless cookies without allocating a single byte of RAM, completely neutralizing the flood."
+      ],
+      "example": "Linux kernel setting `net.ipv4.tcp_syncookies = 1`; during a 10-million SYN flood, the kernel serves connections with zero packet loss.",
+      "code": "function generateSynCookie(clientIp: string, clientPort: number, secretKey: string, timeMinute: number): number {\n  // Simulates 32-bit cryptographic SYN cookie calculation\n  const seed = clientIp + ':' + clientPort + ':' + secretKey + ':' + timeMinute;\n  let hash = 0;\n  for (let i = 0; i < seed.length; i++) {\n    hash = (hash * 33 + seed.charCodeAt(i)) >>> 0;\n  }\n  return hash;\n}\n\nfunction verifySynCookie(\n  ackSeqReceived: number,\n  clientIp: string,\n  clientPort: number,\n  secretKey: string,\n  currentTimeMinute: number\n): { valid: boolean; status: string } {\n  const originalCookie = ackSeqReceived - 1;\n  const expectedCurrent = generateSynCookie(clientIp, clientPort, secretKey, currentTimeMinute);\n  const expectedPrevious = generateSynCookie(clientIp, clientPort, secretKey, currentTimeMinute - 1);\n\n  if (originalCookie === expectedCurrent || originalCookie === expectedPrevious) {\n    return { valid: true, status: 'SYN_COOKIE_VERIFIED_CONNECTION_ESTABLISHED' };\n  }\n  return { valid: false, status: 'SYN_COOKIE_INVALID_REJECTED' };\n}\n\nconst secret = 'kernel_crypto_secret_9981';\nconst cookie = generateSynCookie('203.0.113.10', 44321, secret, 100);\n\n// Client returns ACK with seq = cookie + 1\nconst legitAck = verifySynCookie(cookie + 1, '203.0.113.10', 44321, secret, 100);\nconst forgedAck = verifySynCookie(999999, '203.0.113.10', 44321, secret, 100);\n\nconsole.log('Legitimate Client Handshake:', legitAck.status);\nconsole.log('Forged Packet Handshake:', forgedAck.status);",
+      "output": "Legitimate Client Handshake: SYN_COOKIE_VERIFIED_CONNECTION_ESTABLISHED\nForged Packet Handshake: SYN_COOKIE_INVALID_REJECTED",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Encodes client endpoints and timestamp into a stateless cryptographic sequence number."
+        },
+        {
+          "line": 17,
+          "note": "Reconstructs connection upon final ACK verification without maintaining intermediate half-open state."
+        }
+      ],
+      "tryIt": "Verify that checking `currentTimeMinute - 1` tolerates network latency across minute boundaries.",
+      "check": {
+        "question": "How do SYN Cookies prevent SYN flood denial-of-service attacks?",
+        "options": [
+          "They allocate zero server memory upon receiving a SYN, encoding connection state into the sequence number and allocating state only when the final ACK arrives",
+          "They block all TCP connections permanently",
+          "They encrypt the network cable"
+        ],
+        "answer": 0,
+        "why": "By making connection initiation completely stateless, attackers cannot exhaust server memory because no state is stored until the final ACK arrives."
+      }
+    },
+    {
+      "title": "Reconnaissance & Port Scanning Techniques: SYN Stealth Scan (nmap -sS)",
+      "say": [
+        "Before launching an attack on network infrastructure, adversaries perform reconnaissance to discover active hosts and exposed services.",
+        "Port scanning probes a range of TCP port numbers (from 1 to 65,535) to determine which network ports are Open, Closed, or Filtered.",
+        "A full TCP Connect scan (`nmap -sT`) completes the full 3-way handshake via the operating system's `connect()` socket API.",
+        "However, full connect scans are noisy and easily detected because completed handshakes are logged by application servers and firewalls.",
+        "To evade logging, attackers utilize the SYN Stealth Scan, also known as the Half-Open Scan (`nmap -sS`).",
+        "In a SYN stealth scan, the scanner sends a raw SYN packet to the target port.",
+        "If the server responds with `SYN-ACK`, the port is Open; the scanner immediately sends a `RST` (Reset) packet to tear down the connection before it completes.",
+        "If the server responds with `RST`, the port is Closed. If no response arrives, a stateful firewall has Filtered or dropped the packet.",
+        "Because the connection never finishes the 3-way handshake, application servers rarely log the connection, making intrusion detection systems essential."
+      ],
+      "example": "An attacker runs `nmap -sS -p 22,80,443,3306 192.168.1.1` to silently discover open database and SSH ports without completing TCP connections.",
+      "code": "type PortStatus = 'OPEN' | 'CLOSED' | 'FILTERED';\n\ninterface ScanResponse {\n  port: number;\n  status: PortStatus;\n  responsePacket: string;\n}\n\nfunction simulateSynStealthProbe(port: number, openPorts: number[], filteredPorts: number[]): ScanResponse {\n  if (filteredPorts.includes(port)) {\n    return { port, status: 'FILTERED', responsePacket: 'NO_RESPONSE_DROP' };\n  }\n  if (openPorts.includes(port)) {\n    return { port, status: 'OPEN', responsePacket: 'TCP_SYN_ACK' };\n  }\n  return { port, status: 'CLOSED', responsePacket: 'TCP_RST_ACK' };\n}\n\nconst open = [80, 443, 8080];\nconst filtered = [22]; // Firewalled port\n\nconsole.log('Port 443 Probe:', simulateSynStealthProbe(443, open, filtered).status);\nconsole.log('Port 22 Probe (Firewall):', simulateSynStealthProbe(22, open, filtered).status);\nconsole.log('Port 25 Probe (Unused):', simulateSynStealthProbe(25, open, filtered).status);",
+      "output": "Port 443 Probe: OPEN\nPort 22 Probe (Firewall): FILTERED\nPort 25 Probe (Unused): CLOSED",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Models stealth scan behavior: SYN-ACK indicates open, RST indicates closed, timeout indicates filtered."
+        },
+        {
+          "line": 20,
+          "note": "Demonstrates classification across open web server, firewalled SSH, and closed SMTP ports."
+        }
+      ],
+      "tryIt": "Add port 3306 to openPorts and verify it reports OPEN with response TCP_SYN_ACK.",
+      "check": {
+        "question": "Why is a TCP SYN scan (`nmap -sS`) called a 'stealth' or 'half-open' scan?",
+        "options": [
+          "The scanner tears down the connection with a RST packet as soon as SYN-ACK is received, never completing the handshake to avoid application-level logging",
+          "It uses invisible optical lasers",
+          "It encrypts the IP header with AES"
+        ],
+        "answer": 0,
+        "why": "By resetting the connection before the final ACK, the handshake remains incomplete and is rarely recorded by application-layer access logs."
+      }
+    },
+    {
+      "title": "Packet Filtering Firewalls vs Stateful Packet Inspection (SPI)",
+      "say": [
+        "Network firewalls are the primary barrier protecting internal networks from external hostile internet traffic.",
+        "First-generation firewalls were Stateless Packet Filters, inspecting each packet in complete isolation based solely on 5-tuple header rules.",
+        "The 5-tuple consists of Source IP, Destination IP, Source Port, Destination Port, and Protocol (TCP/UDP).",
+        "Stateless filters cannot track connection context: to permit clients to browse the web, they had to open all high-numbered ephemeral ports ($> 1024$) incoming.",
+        "Modern cybersecurity relies on Stateful Packet Inspection (SPI) firewalls, which maintain dynamic connection tracking state tables (e.g. Linux `conntrack`).",
+        "An SPI firewall recognizes when an outgoing packet initiates a legitimate connection from `Client:45102` to `Server:443`.",
+        "The firewall dynamically creates a temporary state table entry permitting inbound packets from `Server:443` back to `Client:45102` only if they match established sequence numbers.",
+        "Any unsolicited inbound packet from the outside that does not correspond to an established internal connection is dropped immediately.",
+        "Stateful inspection allows secure outbound client access while keeping the entire inbound perimeter completely locked down."
+      ],
+      "example": "AWS Security Groups: opening outbound traffic on port 443 automatically permits the inbound return response packets statefully without opening inbound rules.",
+      "code": "interface StateTableEntry {\n  srcIp: string;\n  dstIp: string;\n  srcPort: number;\n  dstPort: number;\n  state: 'NEW' | 'ESTABLISHED';\n}\n\nclass StatefulFirewall {\n  private conntrackTable: StateTableEntry[] = [];\n\n  // Outbound client request creates tracked connection\n  public handleOutboundPacket(srcIp: string, srcPort: number, dstIp: string, dstPort: number) {\n    this.conntrackTable.push({ srcIp, srcPort, dstIp, dstPort, state: 'ESTABLISHED' });\n  }\n\n  // Inbound packet must match existing tracked connection\n  public filterInboundPacket(srcIp: string, srcPort: number, dstIp: string, dstPort: number): { action: 'ACCEPT' | 'DROP'; reason: string } {\n    const match = this.conntrackTable.find(\n      c => c.srcIp === dstIp && c.srcPort === dstPort && c.dstIp === srcIp && c.dstPort === srcPort\n    );\n\n    if (match) {\n      return { action: 'ACCEPT', reason: 'MATCHES_ESTABLISHED_CONNECTION' };\n    }\n    return { action: 'DROP', reason: 'UNSOLICITED_INBOUND_PACKET_BLOCKED' };\n  }\n}\n\nconst fw = new StatefulFirewall();\n// Client inside LAN opens connection to web server\nfw.handleOutboundPacket('192.168.1.50', 52100, '93.184.216.34', 443);\n\n// Inbound response packet from web server\nconst resp = fw.filterInboundPacket('93.184.216.34', 443, '192.168.1.50', 52100);\n// Unsolicited port probe from external attacker\nconst attack = fw.filterInboundPacket('198.51.100.99', 4444, '192.168.1.50', 22);\n\nconsole.log('Return Response Packet:', resp.action);\nconsole.log('Unsolicited Attack Packet:', attack.action);",
+      "output": "Return Response Packet: ACCEPT\nUnsolicited Attack Packet: DROP",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Tracks outbound connections dynamically in kernel state table."
+        },
+        {
+          "line": 18,
+          "note": "Permits inbound return traffic statefully while dropping unsolicited external probes."
+        }
+      ],
+      "tryIt": "Verify that changing the destination port on the response packet causes the firewall to drop it.",
+      "check": {
+        "question": "What is the primary operational advantage of a Stateful Packet Inspection (SPI) firewall over a stateless packet filter?",
+        "options": [
+          "It tracks active connection states, automatically permitting return traffic for established outbound connections while blocking unsolicited inbound probes",
+          "It deletes malware from the hard drive",
+          "It speeds up optical fiber transit"
+        ],
+        "answer": 0,
+        "why": "Stateful firewalls track conversation state, allowing internal clients to communicate outbound while automatically dropping unrequested inbound packets."
+      }
+    },
+    {
+      "title": "Constructing a Stateful Connection Tracker & SYN Flood Defense Simulator",
+      "say": [
+        "In this final part, we combine stateful connection tracking and SYN flood mitigation into a unified transport defense engine.",
+        "The engine operates at the network interface layer, intercepting incoming raw TCP segments.",
+        "During normal operating conditions (traffic below threshold), the engine allocates connection tracking entries and handles standard handshakes.",
+        "When incoming SYN packet rates exceed safety thresholds, the engine automatically activates SYN Cookie Defense mode.",
+        "In SYN Cookie mode, half-open backlog allocations are suspended, and all incoming SYNs receive stateless cryptographic sequence cookies.",
+        "Simultaneously, the engine logs source IP frequencies to detect distributed SYN stealth scans and dynamically injects temporary firewall drop rules.",
+        "This dynamic escalation architecture guarantees that servers remain completely accessible to legitimate traffic even under severe multi-gigabit DDoS attacks.",
+        "Let us assemble and execute this comprehensive transport-layer network defense engine.",
+        "Mastering these transport mechanics enables you to design resilient infrastructure capable of surviving hostile internet attacks."
+      ],
+      "example": "A cloud ingress gateway dynamically switching to SYN cookies during a flash crowd or DDoS attack, preserving 100% service uptime.",
+      "code": "interface IngressPacket {\n  srcIp: string;\n  synFlag: boolean;\n  ackFlag: boolean;\n  seqNumber: number;\n}\n\nclass ResilientTransportEngine {\n  private synFloodThreshold: number = 3;\n  private recentSynCount: number = 0;\n  public synCookieModeActive: boolean = false;\n\n  public processIngressPacket(packet: IngressPacket): { action: string; defenseMode: string } {\n    if (packet.synFlag && !packet.ackFlag) {\n      this.recentSynCount++;\n      if (this.recentSynCount > this.synFloodThreshold) {\n        this.synCookieModeActive = true;\n      }\n\n      if (this.synCookieModeActive) {\n        return { action: 'REPLY_WITH_STATELESS_SYN_COOKIE', defenseMode: 'ACTIVE_SYN_COOKIE_DEFENSE' };\n      }\n      return { action: 'ALLOCATE_STANDARD_TCB_QUEUE_SLOT', defenseMode: 'NORMAL_OPERATION' };\n    }\n\n    if (packet.ackFlag) {\n      return { action: 'VALIDATE_ACK_AND_ESTABLISH_SOCKET', defenseMode: this.synCookieModeActive ? 'ACTIVE_SYN_COOKIE_DEFENSE' : 'NORMAL_OPERATION' };\n    }\n\n    return { action: 'PROCESS_DATA', defenseMode: 'NORMAL_OPERATION' };\n  }\n}\n\nconst engine = new ResilientTransportEngine();\n\n// Normal traffic\nconsole.log('Packet 1:', engine.processIngressPacket({ srcIp: '10.0.0.1', synFlag: true, ackFlag: false, seqNumber: 100 }).defenseMode);\nconsole.log('Packet 2:', engine.processIngressPacket({ srcIp: '10.0.0.2', synFlag: true, ackFlag: false, seqNumber: 200 }).defenseMode);\nconsole.log('Packet 3:', engine.processIngressPacket({ srcIp: '10.0.0.3', synFlag: true, ackFlag: false, seqNumber: 300 }).defenseMode);\n\n// Attack burst triggers SYN cookies\nconst floodPacket = engine.processIngressPacket({ srcIp: '198.51.100.99', synFlag: true, ackFlag: false, seqNumber: 400 });\nconsole.log('Packet 4 (Flood Attack):', floodPacket.action);\nconsole.log('Defensive Posture:', floodPacket.defenseMode);",
+      "output": "Packet 1: NORMAL_OPERATION\nPacket 2: NORMAL_OPERATION\nPacket 3: NORMAL_OPERATION\nPacket 4 (Flood Attack): REPLY_WITH_STATELESS_SYN_COOKIE\nDefensive Posture: ACTIVE_SYN_COOKIE_DEFENSE",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Detects SYN burst exceeding threshold and activates stateless SYN cookie defense."
+        },
+        {
+          "line": 40,
+          "note": "Transitions from allocating memory slots to stateless cryptographic sequence replies."
+        }
+      ],
+      "tryIt": "Send an ACK packet following the flood and verify that connection establishment succeeds under cookie defense.",
+      "check": {
+        "question": "Why is dynamic activation of SYN Cookies standard in production operating systems?",
+        "options": [
+          "It allows normal TCP performance during regular traffic, activating stateless cryptographic cookie mode only when connection backlog queues are threatened",
+          "It saves electricity on server racks",
+          "It disables the need for firewalls"
+        ],
+        "answer": 0,
+        "why": "Operating systems use standard queues during low traffic for full TCP option negotiation, switching to SYN cookies automatically when queues fill."
+      }
+    }
+  ],
+  "summary": [
+    "The TCP 3-Way Handshake transitions from SYN to half-open SYN-RECEIVED, completing with ACK to ESTABLISHED.",
+    "SYN Flood attacks exhaust the server's kernel half-open backlog table using spoofed, unacknowledged SYN packets.",
+    "SYN Cookies (RFC 4987) encode connection state into the Initial Sequence Number, eliminating memory allocation until the final ACK.",
+    "SYN Stealth Scans (`nmap -sS`) probe ports with half-open connections, sending RST to evade application-level logging.",
+    "Stateful Packet Inspection (SPI) firewalls dynamically track outbound conversations to permit return traffic while dropping unsolicited probes."
+  ],
+  "projectStep": {
+    "title": "Project Step 13: Stateful Connection Tracker & SYN Flood Defense Suite",
+    "steps": [
+      "Implement a TCP three-way handshake simulator tracking half-open connection backlog thresholds.",
+      "Construct a 32-bit cryptographic SYN cookie generator encoding client endpoints and timestamp intervals.",
+      "Build a stateful firewall connection tracker filtering unsolicited inbound packets while permitting return traffic."
+    ]
+  }
+},
+{
+  "day": 14,
+  "title": "Secure HTTP Headers: HSTS, X-Content-Type-Options & Frame-Options",
+  "goal": "Harden web server responses with security headers: HTTP Strict Transport Security (`Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`), `X-Content-Type-Options: nosniff` (blocking MIME-type sniffing attacks), `X-Frame-Options: DENY` (defeating Clickjacking), and Referrer Policy.",
+  "minutes": 25,
+  "recap": "Today we harden web applications at the HTTP protocol layer, implementing HSTS preloading, defeating clickjacking with frame options, and blocking MIME-sniffing exploits.",
+  "parts": [
+    {
+      "title": "The Role of Defensive HTTP Security Headers in Modern Browsers",
+      "say": [
+        "Modern web browsers are powerful execution runtimes equipped with sophisticated, multi-layered security sandboxes.",
+        "However, unless a web server explicitly instructs the browser on how to restrict capabilities, browsers default to permissive legacy behaviors.",
+        "Defensive HTTP Security Headers are server-delivered response directives that instruct the browser to enforce strict security boundaries.",
+        "By setting the appropriate headers, developers can disable dangerous legacy features, enforce transport encryption, restrict framing, and neutralize injection attacks.",
+        "Security headers provide an essential defense-in-depth barrier: even if an application suffers a minor bug, security headers prevent browsers from executing the exploit.",
+        "Auditing frameworks like Mozilla Observatory and OWASP mandate a core suite of security headers on all production domains.",
+        "These include Strict-Transport-Security (HSTS), X-Content-Type-Options, X-Frame-Options, Referrer-Policy, and Content-Security-Policy.",
+        "Deploying security headers requires zero changes to application database code, delivering massive security ROI with minimal engineering friction.",
+        "Let us inspect the foundational inventory of modern enterprise security headers."
+      ],
+      "example": "Scanning a domain on Mozilla Observatory: receiving an 'F' grade with missing headers; configuring six response headers raises the score to 'A+'.",
+      "code": "interface SecurityHeaderSpec {\n  headerName: string;\n  recommendedValue: string;\n  mitigatesAttack: string;\n  severityIfMissing: 'CRITICAL' | 'HIGH' | 'MEDIUM';\n}\n\nconst enterpriseHeaderSuite: SecurityHeaderSpec[] = [\n  {\n    headerName: 'Strict-Transport-Security',\n    recommendedValue: 'max-age=31536000; includeSubDomains; preload',\n    mitigatesAttack: 'SSL Stripping, Man-in-the-Middle downgrades',\n    severityIfMissing: 'CRITICAL'\n  },\n  {\n    headerName: 'X-Content-Type-Options',\n    recommendedValue: 'nosniff',\n    mitigatesAttack: 'MIME-type confusion & drive-by executable sniffing',\n    severityIfMissing: 'HIGH'\n  },\n  {\n    headerName: 'X-Frame-Options',\n    recommendedValue: 'DENY',\n    mitigatesAttack: 'Clickjacking via malicious iframe overlay',\n    severityIfMissing: 'HIGH'\n  },\n  {\n    headerName: 'Referrer-Policy',\n    recommendedValue: 'strict-origin-when-cross-origin',\n    mitigatesAttack: 'Credential and sensitive token leakage in URL referrers',\n    severityIfMissing: 'MEDIUM'\n  }\n];\n\nenterpriseHeaderSuite.forEach(h => {\n  console.log('Header: ' + h.headerName + ' -> Mitigates: ' + h.mitigatesAttack);\n});",
+      "output": "Header: Strict-Transport-Security -> Mitigates: SSL Stripping, Man-in-the-Middle downgrades\nHeader: X-Content-Type-Options -> Mitigates: MIME-type confusion & drive-by executable sniffing\nHeader: X-Frame-Options -> Mitigates: Clickjacking via malicious iframe overlay\nHeader: Referrer-Policy -> Mitigates: Credential and sensitive token leakage in URL referrers",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Catalogs essential HTTP response security headers recommended by OWASP."
+        },
+        {
+          "line": 33,
+          "note": "Maps each security header directly to the specific exploit vector it neutralizes."
+        }
+      ],
+      "tryIt": "Add `Permissions-Policy` to the suite restricting camera and microphone access.",
+      "check": {
+        "question": "Why are HTTP security headers considered high-return security controls?",
+        "options": [
+          "They activate native browser security sandboxes with simple HTTP header configurations, requiring zero changes to business logic",
+          "They speed up image downloads",
+          "They replace the need for user passwords"
+        ],
+        "answer": 0,
+        "why": "Security headers instruct the browser's built-in sandbox to enforce strict policies, providing high-leverage defense with minimal code changes."
+      }
+    },
+    {
+      "title": "HTTP Strict Transport Security (HSTS): SSL Stripping Mitigation & Preload Lists",
+      "say": [
+        "Even when an application supports HTTPS, users rarely type `https://` in the browser address bar; they type `example.com`.",
+        "The browser initially initiates an unencrypted HTTP connection to `http://example.com:80`, which the server redirects to HTTPS with HTTP 301.",
+        "This initial unencrypted HTTP redirect creates a lethal vulnerability exploited by Man-in-the-Middle attackers using SSL Stripping (e.g. `sslstrip`).",
+        "The attacker intercepts the initial HTTP request, communicates with the real server over HTTPS, but returns plain unencrypted HTTP to the victim.",
+        "The victim browses without a lock icon, while the attacker sees every password, cookie, and credit card in cleartext.",
+        "HTTP Strict Transport Security (HSTS), RFC 6797, completely eliminates SSL stripping.",
+        "The header `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` instructs the browser to never use unencrypted HTTP for this domain.",
+        "For the next year (`31536000` seconds), the browser automatically transforms any `http://` link into `https://` before sending a single packet over the wire.",
+        "By submitting the domain to the Chrome HSTS Preload List, the domain is hardcoded as HTTPS-only into all modern browsers before the user ever visits it."
+      ],
+      "example": "A user at a public coffee shop Wi-Fi types `bank.com`; because `bank.com` is in the HSTS preload list, the browser connects directly via HTTPS, blocking SSL stripping.",
+      "code": "interface HstsHeaderConfig {\n  maxAgeSeconds: number;\n  includeSubDomains: boolean;\n  preload: boolean;\n}\n\nfunction formatHstsHeader(config: HstsHeaderConfig): string {\n  const parts = ['max-age=' + config.maxAgeSeconds];\n  if (config.includeSubDomains) parts.push('includeSubDomains');\n  if (config.preload) parts.push('preload');\n  return parts.join('; ');\n}\n\nfunction auditHstsCompliance(header: string): { compliant: boolean; issues: string[] } {\n  const issues: string[] = [];\n  const maxAgeMatch = header.match(/max-age=(\\d+)/);\n  const maxAge = maxAgeMatch ? parseInt(maxAgeMatch[1], 10) : 0;\n\n  if (maxAge < 31536000) {\n    issues.push('max-age must be at least 1 year (31536000 seconds) for HSTS preload');\n  }\n  if (!header.includes('includeSubDomains')) {\n    issues.push('includeSubDomains must be specified to protect all subdomains');\n  }\n  if (!header.includes('preload')) {\n    issues.push('preload directive missing for browser vendor preload list inclusion');\n  }\n\n  return { compliant: issues.length === 0, issues };\n}\n\nconst enterpriseHsts = formatHstsHeader({ maxAgeSeconds: 31536000, includeSubDomains: true, preload: true });\nconst audit = auditHstsCompliance(enterpriseHsts);\n\nconsole.log('Formatted HSTS Header:', enterpriseHsts);\nconsole.log('HSTS Fully Compliant:', audit.compliant);\nconsole.log('Identified Compliance Issues:', audit.issues.length);",
+      "output": "Formatted HSTS Header: max-age=31536000; includeSubDomains; preload\nHSTS Fully Compliant: true\nIdentified Compliance Issues: 0",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Formats RFC 6797 HSTS header enforcing one-year minimum duration and preload directives."
+        },
+        {
+          "line": 14,
+          "note": "Validates compliance against Chrome and Mozilla HSTS preload submission criteria."
+        }
+      ],
+      "tryIt": "Test with `maxAgeSeconds: 86400` (1 day) to observe the compliance failure warning.",
+      "check": {
+        "question": "How does the HSTS Preload List prevent SSL stripping attacks on a user's very first visit to a website?",
+        "options": [
+          "The domain is hardcoded directly into the browser's source code as HTTPS-only, ensuring unencrypted HTTP is never attempted even on the first connection",
+          "It forces the router to install a hardware firewall",
+          "It sends an SMS to the user"
+        ],
+        "answer": 0,
+        "why": "HSTS preload lists are embedded into browsers at compile time, guaranteeing HTTPS is enforced prior to any network packet transmission."
+      }
+    },
+    {
+      "title": "Defeating Clickjacking Attacks with X-Frame-Options & CSP frame-ancestors",
+      "say": [
+        "Clickjacking (also called UI Redressing) is an attack where a malicious website tricks a victim into clicking buttons on an invisible framed website.",
+        "The attacker creates a deceptive page (such as 'Click here to win a prize!') and embeds the victim's target application inside an invisible `<iframe>` overlay.",
+        "Using CSS opacity (`opacity: 0.0001`), the attacker positions the invisible iframe directly over the decoy button.",
+        "When the victim clicks the visible decoy button, their click actually lands on an underlying button inside the framed site (e.g. 'Delete Account' or 'Transfer Funds').",
+        "Because the victim is authenticated in the framed site, the click executes an authorized state-changing transaction without their knowledge.",
+        "The primary defense against Clickjacking is the `X-Frame-Options` response header.",
+        "`X-Frame-Options: DENY` instructs the browser to never render the page inside any frame or iframe, completely neutralizing the overlay.",
+        "`X-Frame-Options: SAMEORIGIN` permits framing only if the parent page belongs to the exact same origin.",
+        "Modern standards supersede `X-Frame-Options` with the Content Security Policy directive `frame-ancestors 'none'`, providing granular framing control."
+      ],
+      "example": "An attacker frames a social media profile settings page; when the user clicks a viral game button, they unknowingly click 'Delete My Account'.",
+      "code": "interface FrameSecurityAudit {\n  xFrameOptions?: 'DENY' | 'SAMEORIGIN';\n  cspFrameAncestors?: string;\n}\n\nfunction evaluateClickjackingDefense(config: FrameSecurityAudit): { isProtected: boolean; status: string } {\n  // CSP frame-ancestors takes precedence in modern browsers\n  if (config.cspFrameAncestors === \"'none'\") {\n    return { isProtected: true, status: 'PROTECTED_CSP_FRAME_ANCESTORS_NONE' };\n  }\n\n  if (config.xFrameOptions === 'DENY') {\n    return { isProtected: true, status: 'PROTECTED_X_FRAME_OPTIONS_DENY' };\n  }\n\n  if (config.xFrameOptions === 'SAMEORIGIN') {\n    return { isProtected: true, status: 'PROTECTED_X_FRAME_OPTIONS_SAMEORIGIN' };\n  }\n\n  return { isProtected: false, status: 'CRITICAL_VULNERABLE_TO_CLICKJACKING_OVERLAYS' };\n}\n\nconst secureApp = evaluateClickjackingDefense({ xFrameOptions: 'DENY', cspFrameAncestors: \"'none'\" });\nconst vulnerableApp = evaluateClickjackingDefense({});\n\nconsole.log('Secure App Posture:', secureApp.status);\nconsole.log('Vulnerable App Posture:', vulnerableApp.status);",
+      "output": "Secure App Posture: PROTECTED_CSP_FRAME_ANCESTORS_NONE\nVulnerable App Posture: CRITICAL_VULNERABLE_TO_CLICKJACKING_OVERLAYS",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Evaluates frame protection precedence: CSP frame-ancestors takes precedence over legacy X-Frame-Options."
+        },
+        {
+          "line": 24,
+          "note": "Demonstrates that missing framing directives leaves web pages vulnerable to invisible iframe overlays."
+        }
+      ],
+      "tryIt": "Set `xFrameOptions: 'SAMEORIGIN'` without CSP to observe the same-origin protection status.",
+      "check": {
+        "question": "How does Clickjacking deceive authenticated users into executing unwanted actions?",
+        "options": [
+          "By rendering an invisible iframe of the target site over a deceptive decoy button, capturing the user's clicks unknowingly",
+          "By decrypting passwords from memory",
+          "By exploiting SQL injection flaws"
+        ],
+        "answer": 0,
+        "why": "Clickjacking uses CSS opacity to position an invisible iframe over a decoy UI, capturing legitimate user clicks for malicious state changes."
+      }
+    },
+    {
+      "title": "MIME-Type Sniffing Defense: X-Content-Type-Options: nosniff",
+      "say": [
+        "In early web history, servers frequently served files with incorrect `Content-Type` headers (e.g. serving HTML as `text/plain`).",
+        "To compensate, web browsers introduced 'MIME-type Sniffing': inspecting the initial bytes of a response body to deduce its actual data type.",
+        "While convenient for broken legacy servers, MIME-sniffing introduced severe security vulnerabilities.",
+        "An attacker can upload a malicious image file (e.g. `avatar.jpg`) to a photo sharing site that contains embedded executable JavaScript.",
+        "If the photo sharing site serves the file as `image/jpeg` or `text/plain`, an older browser might sniff the HTML script tags and execute the file as JavaScript.",
+        "This transforms an innocent image hosting feature into a full Cross-Site Scripting (XSS) attack vector.",
+        "The header `X-Content-Type-Options: nosniff` strictly disables browser MIME-type sniffing.",
+        "When `nosniff` is present, the browser is forced to adhere strictly to the declared `Content-Type` header.",
+        "If a file is declared as `text/plain` or `image/jpeg`, the browser will refuse to execute it as JavaScript or CSS, neutralizing MIME-confusion attacks."
+      ],
+      "example": "An attacker uploads a file named `profile.gif` containing `<script>steal()</script>`; with `nosniff`, the browser refuses to execute it as HTML.",
+      "code": "interface MimeAuditRequest {\n  declaredMimeType: string;\n  hasNosniffHeader: boolean;\n  containsExecutablePayload: boolean;\n}\n\nfunction auditMimeExecution(req: MimeAuditRequest): { scriptExecuted: boolean; browserBehavior: string } {\n  // If nosniff is set, browser respects declared MIME type strictly\n  if (req.hasNosniffHeader) {\n    if (req.declaredMimeType !== 'text/html' && req.declaredMimeType !== 'application/javascript') {\n      return { scriptExecuted: false, browserBehavior: 'NOSNIFF_ENFORCED_PAYLOAD_NOT_EXECUTED' };\n    }\n  }\n\n  // Without nosniff, browser sniffs payload contents\n  if (req.containsExecutablePayload) {\n    return { scriptExecuted: true, browserBehavior: 'VULNERABLE_MIME_SNIFFED_SCRIPT_EXECUTED' };\n  }\n\n  return { scriptExecuted: false, browserBehavior: 'SAFE_BENIGN_CONTENT' };\n}\n\nconst secureUpload = auditMimeExecution({\n  declaredMimeType: 'image/jpeg',\n  hasNosniffHeader: true,\n  containsExecutablePayload: true\n});\n\nconst vulnerableUpload = auditMimeExecution({\n  declaredMimeType: 'image/jpeg',\n  hasNosniffHeader: false,\n  containsExecutablePayload: true\n});\n\nconsole.log('Secure Upload Behavior:', secureUpload.browserBehavior);\nconsole.log('Vulnerable Upload Behavior:', vulnerableUpload.browserBehavior);",
+      "output": "Secure Upload Behavior: NOSNIFF_ENFORCED_PAYLOAD_NOT_EXECUTED\nVulnerable Upload Behavior: VULNERABLE_MIME_SNIFFED_SCRIPT_EXECUTED",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Enforces strict MIME obedience when `nosniff` is declared on HTTP response."
+        },
+        {
+          "line": 30,
+          "note": "Demonstrates that omitting `nosniff` allows browsers to sniff and execute polyglot payloads."
+        }
+      ],
+      "tryIt": "Pass `declaredMimeType: 'text/html'` with nosniff and observe that legitimate HTML execution is preserved.",
+      "check": {
+        "question": "What attack vector is neutralized by adding `X-Content-Type-Options: nosniff` to HTTP responses?",
+        "options": [
+          "MIME-confusion and drive-by script execution, preventing browsers from treating non-script files (like images) as executable JavaScript",
+          "SQL injection attacks",
+          "Cross-Site Request Forgery"
+        ],
+        "answer": 0,
+        "why": "`nosniff` prevents browsers from guessing MIME types, blocking attackers from executing JavaScript embedded in image or text uploads."
+      }
+    },
+    {
+      "title": "Privacy & Leaked Credentials: Referrer-Policy & Permissions-Policy",
+      "say": [
+        "When a user clicks an outbound hyperlink, the browser attaches the HTTP `Referer` header to the outgoing request.",
+        "The `Referer` header discloses the full URL of the previous page to the destination website.",
+        "If an application uses query parameters for session tokens or password reset tokens (e.g. `/reset?token=secret123`), external websites will receive the secret tokens.",
+        "The `Referrer-Policy` header controls how much referrer information is leaked across origins.",
+        "`Referrer-Policy: strict-origin-when-cross-origin` is the modern gold standard: sending the full URL for same-origin requests, but only the domain name (origin) for cross-origin HTTPS requests.",
+        "If a user navigates from HTTPS to an insecure HTTP site, the header sends zero referrer information.",
+        "Additionally, the modern `Permissions-Policy` header (formerly `Feature-Policy`) restricts browser hardware capabilities.",
+        "Using `Permissions-Policy: camera=(), microphone=(), geolocation=()`, an enterprise application guarantees that third-party scripts or iframes cannot activate the user's camera or microphone.",
+        "Let us inspect a privacy policy generator that configures both Referrer-Policy and Permissions-Policy headers."
+      ],
+      "example": "A password reset page with URL `https://app.com/reset?token=xyz`; when the user clicks an external privacy policy link, `strict-origin-when-cross-origin` leaks only `https://app.com`.",
+      "code": "interface PrivacyPolicyConfig {\n  referrerPolicy: 'no-referrer' | 'strict-origin-when-cross-origin' | 'unsafe-url';\n  disabledHardwareFeatures: string[];\n}\n\nfunction formatPrivacyHeaders(config: PrivacyPolicyConfig): Record<string, string> {\n  const permissionsPolicy = config.disabledHardwareFeatures\n    .map(feat => feat + '=()')\n    .join(', ');\n\n  return {\n    'referrer-policy': config.referrerPolicy,\n    'permissions-policy': permissionsPolicy\n  };\n}\n\nconst enterprisePrivacy = formatPrivacyHeaders({\n  referrerPolicy: 'strict-origin-when-cross-origin',\n  disabledHardwareFeatures: ['camera', 'microphone', 'geolocation', 'payment']\n});\n\nconsole.log('Referrer Policy:', enterprisePrivacy['referrer-policy']);\nconsole.log('Permissions Policy:', enterprisePrivacy['permissions-policy']);\nconsole.log('Hardware Sandboxed:', enterprisePrivacy['permissions-policy'].includes('camera=()'));",
+      "output": "Referrer Policy: strict-origin-when-cross-origin\nPermissions Policy: camera=(), microphone=(), geolocation=(), payment=()\nHardware Sandboxed: true",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Constructs RFC-compliant Permissions-Policy syntax sandboxing hardware APIs."
+        },
+        {
+          "line": 19,
+          "note": "Demonstrates complete isolation of camera, microphone, and geolocation sensors."
+        }
+      ],
+      "tryIt": "Add 'usb' and 'vr' to disabledHardwareFeatures to observe complete peripheral lockdown.",
+      "check": {
+        "question": "What information does `Referrer-Policy: strict-origin-when-cross-origin` transmit when a user clicks a link to an external website?",
+        "options": [
+          "Only the origin (e.g. `https://example.com`), completely stripping sensitive URL path and query parameters",
+          "The user's password and browsing history",
+          "The full database connection string"
+        ],
+        "answer": 0,
+        "why": "It transmits only the domain origin to external cross-origin sites, protecting sensitive path and token parameters from leakage."
+      }
+    },
+    {
+      "title": "Building an Enterprise HTTP Security Header Audit & Compliance Engine",
+      "say": [
+        "In production operations, platform engineering teams deploy automated security header auditing suites.",
+        "The compliance engine inspects incoming HTTP response headers across all microservices, reverse proxies, and CDN edge distributions.",
+        "The auditor evaluates: 1. HSTS with one-year minimum and preload; 2. Clickjacking protection via X-Frame-Options or CSP frame-ancestors; 3. MIME protection via `nosniff`; 4. Privacy policies.",
+        "The engine computes an enterprise compliance grade from 'A+' down to 'F', flagging missing directives and generating actionable remediation instructions.",
+        "Embedding this automated security header auditor into continuous integration (CI/CD) pipelines guarantees that no unhardened web service can be deployed to production.",
+        "Let us assemble a complete enterprise HTTP security header auditing and scoring engine.",
+        "This completes our comprehensive mastery of HTTP protocol hardening and defensive header architectures."
+      ],
+      "example": "A CI/CD deployment test that sends requests to staging ingress; if the security grade drops below 'A', the build pipeline fails automatically.",
+      "code": "interface HeaderAuditResult {\n  grade: 'A+' | 'A' | 'B' | 'F';\n  passedCount: number;\n  totalChecks: number;\n  recommendations: string[];\n}\n\nfunction auditEnterpriseHeaders(headers: Record<string, string>): HeaderAuditResult {\n  const recs: string[] = [];\n  let score = 0;\n\n  // 1. HSTS Check\n  const hsts = headers['strict-transport-security'];\n  if (hsts && hsts.includes('max-age=31536000') && hsts.includes('includeSubDomains')) {\n    score += 25;\n  } else {\n    recs.push('Add Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');\n  }\n\n  // 2. Nosniff Check\n  if (headers['x-content-type-options'] === 'nosniff') {\n    score += 25;\n  } else {\n    recs.push('Add X-Content-Type-Options: nosniff');\n  }\n\n  // 3. Frame Options / Clickjacking\n  const xfo = headers['x-frame-options'];\n  if (xfo === 'DENY' || xfo === 'SAMEORIGIN') {\n    score += 25;\n  } else {\n    recs.push('Add X-Frame-Options: DENY');\n  }\n\n  // 4. Referrer Policy\n  if (headers['referrer-policy'] === 'strict-origin-when-cross-origin') {\n    score += 25;\n  } else {\n    recs.push('Add Referrer-Policy: strict-origin-when-cross-origin');\n  }\n\n  let grade: 'A+' | 'A' | 'B' | 'F' = 'F';\n  if (score === 100) grade = 'A+';\n  else if (score >= 75) grade = 'A';\n  else if (score >= 50) grade = 'B';\n\n  return {\n    grade,\n    passedCount: score / 25,\n    totalChecks: 4,\n    recommendations: recs\n  };\n}\n\nconst hardenedHeaders = {\n  'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',\n  'x-content-type-options': 'nosniff',\n  'x-frame-options': 'DENY',\n  'referrer-policy': 'strict-origin-when-cross-origin'\n};\n\nconst auditRes = auditEnterpriseHeaders(hardenedHeaders);\nconsole.log('Enterprise Header Grade:', auditRes.grade);\nconsole.log('Passed Checks:', auditRes.passedCount + '/' + auditRes.totalChecks);\nconsole.log('Remediations Needed:', auditRes.recommendations.length);",
+      "output": "Enterprise Header Grade: A+\nPassed Checks: 4/4\nRemediations Needed: 0",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Evaluates the four foundational HTTP security headers against Mozilla Observatory standards."
+        },
+        {
+          "line": 55,
+          "note": "Certifies maximum A+ security posture with zero remediation alerts."
+        }
+      ],
+      "tryIt": "Omit the HSTS header and verify that the calculated grade drops to A with recommendations.",
+      "check": {
+        "question": "Why should enterprise security header compliance be enforced in CI/CD deployment pipelines?",
+        "options": [
+          "To automatically block deployment of unhardened web services before they can expose vulnerabilities in production environments",
+          "To compress HTML responses",
+          "To disable SSL certificates"
+        ],
+        "answer": 0,
+        "why": "Automating header checks in CI/CD ensures that no service can reach production without mandatory browser security controls."
+      }
+    }
+  ],
+  "summary": [
+    "HTTP Security Headers instruct browser security sandboxes to enforce strict defensive boundaries.",
+    "HSTS with `max-age=31536000; includeSubDomains; preload` completely eliminates SSL stripping Man-in-the-Middle attacks.",
+    "`X-Frame-Options: DENY` and CSP `frame-ancestors 'none'` prevent UI Clickjacking overlays.",
+    "`X-Content-Type-Options: nosniff` forces browsers to adhere strictly to declared MIME types, preventing polyglot script execution.",
+    "`Referrer-Policy: strict-origin-when-cross-origin` protects sensitive URL paths and tokens from cross-origin leakage."
+  ],
+  "projectStep": {
+    "title": "Project Step 14: Enterprise HTTP Security Header Hardener & Auditor",
+    "steps": [
+      "Implement an HTTP middleware injecting HSTS preload, X-Content-Type-Options, X-Frame-Options, and Referrer-Policy.",
+      "Construct a compliance scoring engine evaluating response headers against OWASP baseline standards.",
+      "Execute automated tests certifying that all four security headers are present and properly formatted."
+    ]
+  }
+},
+{
+  "day": 15,
+  "title": "⭐ MILESTONE 2: Complete PKI Certificate Validation, Argon2id & TOTP MFA Auth Engine",
+  "goal": "Milestone 2: Build a complete intermediate cryptographic security and identity access engine: AES-GCM AEAD payload validation, Argon2id memory-hard hashing, X.509 PKI certificate chain of trust verification, JWT 'none' attack sanitization, and TOTP MFA drift step calculation.",
+  "minutes": 25,
+  "recap": "Milestone 2 represents the synthesis of cryptography, identity, and transport security. Today we unite AEAD envelope encryption, Argon2id salting, X.509 PKI chain validation, JWT defense, and TOTP MFA into a master identity engine.",
+  "parts": [
+    {
+      "title": "Milestone Architecture: The Unified Cryptographic Identity & Transport Engine",
+      "say": [
+        "In Milestone 2, we integrate the five intermediate pillars of enterprise cybersecurity into a cohesive, defense-in-depth cryptographic identity suite.",
+        "A production-grade secure architecture cannot treat cryptography, transport layer encryption, credential storage, and multi-factor authentication as isolated, uncoordinated subsystems.",
+        "Every modern enterprise identity transaction begins at the networking perimeter with strict transport verification, validating X.509 Public Key Infrastructure trust chains and TLS 1.3 encryption.",
+        "Next, user credential verification utilizes memory-hard Argon2id key derivation with high memory allocations and unique cryptographic salts to defeat GPU-accelerated brute-force attacks.",
+        "Following primary credential validation, the identity engine enforces second-factor authentication using RFC 6238 Time-Based One-Time Passwords with strict drift-window tolerances.",
+        "Upon successful two-factor verification, the system issues an asymmetric JSON Web Token cryptographically signed with RS256 and rigorously protected against signature bypass and none exploits.",
+        "Finally, all sensitive application session payloads and confidential data fields are protected at rest and in transit via AES-256-GCM authenticated envelope encryption.",
+        "Uniting these five hardened security modules creates an enterprise security fabric capable of resisting credential stuffing, Man-in-the-Middle eavesdropping, and token forgery attacks.",
+        "Let us inspect the master architectural interface defining our Milestone 2 Identity and Cryptographic Suite."
+      ],
+      "example": "An enterprise banking identity gateway: verifying TLS 1.3 certificates, authenticating with Argon2id and TOTP, issuing an RS256 token, and encrypting sensitive financial records with AES-GCM envelope encryption.",
+      "code": "interface MilestoneSecuritySuite {\n  verifyTransportPki(chainValid: boolean, expired: boolean): boolean;\n  verifyPassword(plaintext: string, storedHash: string, salt: string): boolean;\n  verifyTotpMfa(submittedOtp: string, currentStep: number): boolean;\n  validateJwtClaims(alg: string, exp: number, now: number): boolean;\n  encryptPayloadAead(plaintext: string): { ciphertextHex: string; authTagHex: string };\n}\n\nclass IdentityArchitectureContext {\n  public modulesActive: string[] = [];\n\n  recordModule(name: string) {\n    this.modulesActive.push(name);\n  }\n\n  isFullyIntegrated(): boolean {\n    return this.modulesActive.length === 5;\n  }\n}\n\nconst context = new IdentityArchitectureContext();\ncontext.recordModule('AEAD_ENVELOPE_ENCRYPTION');\ncontext.recordModule('ARGON2ID_PASSWORD_KDF');\ncontext.recordModule('PKI_X509_TRUST_CHAIN');\ncontext.recordModule('ZERO_TRUST_JWT_VALIDATOR');\ncontext.recordModule('TOTP_MFA_AUTHENTICATOR');\n\nconsole.log('Integrated Cryptographic Modules:', context.modulesActive.length);\nconsole.log('Is Fully Integrated Suite:', context.isFullyIntegrated());",
+      "output": "Integrated Cryptographic Modules: 5\nIs Fully Integrated Suite: true",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Defines the unified interface synthesizing intermediate cryptography, PKI, and MFA identity."
+        },
+        {
+          "line": 25,
+          "note": "Verifies the integration of all five architectural security modules into a single suite."
+        }
+      ],
+      "tryIt": "Simulate omitting one security module from the registry and confirm that isFullyIntegrated() correctly evaluates to false.",
+      "check": {
+        "question": "Why does the Milestone 2 identity suite combine both Argon2id and TOTP?",
+        "options": [
+          "To provide Multi-Factor Authentication: Argon2id validates the knowledge factor (password), and TOTP validates the possession factor (mobile token)",
+          "To format JSON responses",
+          "To reduce memory usage"
+        ],
+        "answer": 0,
+        "why": "Combining Argon2id and RFC 6238 TOTP satisfies strict multi-factor authentication standards by requiring both knowledge (password) and possession (time-synchronized authenticator device)."
+      }
+    },
+    {
+      "title": "Component 1: AEAD Envelope Encryption & Nonce Collision Auditor",
+      "say": [
+        "The first core component of our Milestone 2 security suite provides data confidentiality and integrity through Authenticated Encryption with Associated Data (AEAD).",
+        "The module utilizes AES-256-GCM, producing an unreadable ciphertext alongside a 128-bit authentication tag calculated over both the ciphertext and unencrypted associated data.",
+        "To guarantee that catastrophic nonce reuse attacks are mathematically impossible, the module incorporates a strict 96-bit nonce collision prevention auditor.",
+        "Under Galois/Counter Mode, reusing an initialization vector with the same cryptographic key destroys confidentiality and enables algebraic derivation of the GHASH authentication key.",
+        "Every individual encryption operation must generate a cryptographically random initialization vector or an authenticated strictly monotonic counter.",
+        "If a duplicate nonce is ever presented under the active encryption key, the auditor halts the encryption pipeline immediately, raising a high-severity security alert.",
+        "During subsequent decryption, the engine validates the authentication tag in constant time before returning or processing any plaintext bytes.",
+        "This component ensures that sensitive user attributes, session tokens, and database records remain encrypted at rest and thoroughly protected against tampering.",
+        "Let us implement the AEAD envelope encryption and nonce collision auditor module."
+      ],
+      "example": "Encrypting customer social security numbers with AES-256-GCM: each record receives a unique 96-bit nonce and 128-bit authentication tag.",
+      "code": "class NonceCollisionAuditor {\n  private usedNonces: Set<string> = new Set();\n\n  checkAndRegister(nonceHex: string): boolean {\n    if (this.usedNonces.has(nonceHex)) return false;\n    this.usedNonces.add(nonceHex);\n    return true;\n  }\n}\n\nfunction executeAeadEncryption(plaintext: string, nonceHex: string, auditor: NonceCollisionAuditor) {\n  if (!auditor.checkAndRegister(nonceHex)) {\n    return { success: false, error: 'CRITICAL_NONCE_REUSE_ABORT' };\n  }\n\n  // Simulated AES-GCM encryption\n  let cipherHex = '';\n  for (let i = 0; i < plaintext.length; i++) {\n    cipherHex += plaintext.charCodeAt(i).toString(16).padStart(2, '0');\n  }\n  const authTagHex = '8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d';\n  return { success: true, cipherHex, authTagHex };\n}\n\nconst auditor = new NonceCollisionAuditor();\nconst enc1 = executeAeadEncryption('Secret Financial Data', 'nonce_001', auditor);\nconst enc2 = executeAeadEncryption('Duplicate Nonce Test', 'nonce_001', auditor); // Reused nonce!\n\nconsole.log('Encryption 1 Succeeded:', enc1.success);\nconsole.log('Encryption 2 Blocked (Nonce Reuse):', enc2.success);\nconsole.log('Error Reason:', enc2.error);",
+      "output": "Encryption 1 Succeeded: true\nEncryption 2 Blocked (Nonce Reuse): false\nError Reason: CRITICAL_NONCE_REUSE_ABORT",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Guarantees nonce uniqueness under AES-GCM to prevent keystream cancellation exploits."
+        },
+        {
+          "line": 26,
+          "note": "Aborts encryption immediately when a duplicate nonce is attempted."
+        }
+      ],
+      "tryIt": "Pass a fresh, distinct nonce for encryption 2 and verify that the AEAD encryption operation succeeds without errors.",
+      "check": {
+        "question": "What is the primary danger of failing to audit nonces in AES-GCM encryption?",
+        "options": [
+          "Reusing an IV/nonce destroys confidentiality, allowing attackers to XOR ciphertexts and recover plaintexts and the authentication hash key",
+          "The database table becomes read-only",
+          "The network router crashes"
+        ],
+        "answer": 0,
+        "why": "Nonce reuse in GCM cancels out the keystream and enables mathematical recovery of the GHASH authentication hash key, destroying all confidentiality and integrity."
+      }
+    },
+    {
+      "title": "Component 2: Memory-Hard Argon2id Credential Storage & Constant-Time Verifier",
+      "say": [
+        "The second component of our Milestone 2 suite manages password hashing and authentication using memory-hard key derivation algorithms.",
+        "The module strictly enforces OWASP Argon2id minimum parameters: memory cost m=65,536 KiB (64 MiB), time cost t=3 passes, and parallelism p=4 threads.",
+        "Argon2id combines data-independent memory access to resist cache side-channel attacks with data-dependent memory access to resist GPU/ASIC parallel cracking.",
+        "Every individual user credential record is generated with a unique, cryptographically secure 16-byte salt to completely defeat precomputed rainbow tables.",
+        "During authentication verification, the module verifies user-submitted passwords using constant-time string comparison rather than built-in equality operators.",
+        "The constant-time accumulator compares every byte unconditionally using bitwise XOR, eliminating microsecond timing discrepancies across comparisons.",
+        "This ensures that remote attackers measuring network round-trip latencies cannot infer how many characters of a hash or password matched.",
+        "By combining high memory hardness with constant-time verification, our credential storage engine offers state-of-the-art protection against modern credential stuffing.",
+        "Let us implement the Argon2id credential verification and constant-time comparison module."
+      ],
+      "example": "A user submits their master password; the service retrieves the 16-byte salt, computes the memory-hard hash, and verifies in constant time.",
+      "code": "function constantTimeByteCompare(a: string, b: string): boolean {\n  if (a.length !== b.length) return false;\n  let diff = 0;\n  for (let i = 0; i < a.length; i++) {\n    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);\n  }\n  return diff === 0;\n}\n\ninterface UserCredentialEntry {\n  username: string;\n  salt: string;\n  hash: string;\n}\n\nfunction verifyArgon2Credential(password: string, entry: UserCredentialEntry): { valid: boolean; status: string } {\n  // Simulate Argon2id derivation\n  const computedHash = 'argon2id_m65536_t3_p4_' + password + '_' + entry.salt;\n  const isMatch = constantTimeByteCompare(computedHash, entry.hash);\n\n  if (isMatch) {\n    return { valid: true, status: 'ARGON2ID_VERIFIED_NOMINAL' };\n  }\n  return { valid: false, status: 'ARGON2ID_INVALID_CREDENTIALS' };\n}\n\nconst salt = 'sec_salt_991823';\nconst userRecord: UserCredentialEntry = {\n  username: 'admin_user',\n  salt,\n  hash: 'argon2id_m65536_t3_p4_MasterP@ssw0rd!_' + salt\n};\n\nconst passResult = verifyArgon2Credential('MasterP@ssw0rd!', userRecord);\nconst failResult = verifyArgon2Credential('WrongPassword', userRecord);\n\nconsole.log('Correct Password Result:', passResult.status);\nconsole.log('Incorrect Password Result:', failResult.status);",
+      "output": "Correct Password Result: ARGON2ID_VERIFIED_NOMINAL\nIncorrect Password Result: ARGON2ID_INVALID_CREDENTIALS",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Executes constant-time comparison using bitwise XOR accumulation to eliminate timing leaks."
+        },
+        {
+          "line": 31,
+          "note": "Verifies correct credentials while rejecting wrong passwords in constant time."
+        }
+      ],
+      "tryIt": "Modify the cryptographic salt in userRecord and confirm that the computed hash fails verification as expected.",
+      "check": {
+        "question": "Why must credential verification use constant-time byte comparison?",
+        "options": [
+          "To prevent timing side-channel attacks that deduce password characters by measuring execution latency discrepancies",
+          "Because standard string comparison is limited to ASCII characters",
+          "To convert the password into a number"
+        ],
+        "answer": 0,
+        "why": "Early-exit string comparisons leak character matching progress through timing discrepancies, enabling side-channel attacks against hashes and authentication tokens."
+      }
+    },
+    {
+      "title": "Component 3: X.509 PKI Trust Chain & Expiration Verification",
+      "say": [
+        "The third component of our Milestone 2 suite verifies transport security through automated X.509 Public Key Infrastructure (PKI) audits.",
+        "Before any internal API or microservice is permitted to participate in the identity cluster, its cryptographic certificate is systematically audited.",
+        "The validator inspects three critical attributes: complete chain of trust resolution to an authorized root certificate, Subject Alternative Name matching, and valid temporal expiration.",
+        "If a certificate is within a 30-day window of expiration, the module emits an automated renewal warning to trigger certificate rotation.",
+        "If a certificate is expired, revoked, or unsigned by a trusted enterprise root, the module terminates the connection immediately with an untrusted chain error.",
+        "Validating public key certificates ensures that internal service-to-service communication is impervious to Man-in-the-Middle and spoofing attacks.",
+        "In a Zero Trust microservices mesh, mutual TLS (mTLS) with strict PKI validation ensures every service cryptographically verifies its peers.",
+        "This component ensures all inter-service communications occur over authentic, validated transport layer encryption.",
+        "Let us implement the X.509 PKI trust chain validator component."
+      ],
+      "example": "An internal microservice presents a certificate; the validator confirms it resolves to the enterprise Root CA and has 60 days before expiration.",
+      "code": "interface PkiCertEntry {\n  domain: string;\n  issuer: string;\n  trustedRootSigned: boolean;\n  notAfterSec: number;\n}\n\nfunction auditTransportPki(cert: PkiCertEntry, currentEpochSec: number): { valid: boolean; status: string } {\n  // 1. Root of trust verification\n  if (!cert.trustedRootSigned) {\n    return { valid: false, status: 'PKI_CHAIN_UNTRUSTED_ROOT' };\n  }\n\n  // 2. Expiration verification\n  if (currentEpochSec > cert.notAfterSec) {\n    return { valid: false, status: 'PKI_CERTIFICATE_EXPIRED' };\n  }\n\n  // 3. Impending expiration check (30 days = 2,592,000 sec)\n  if (cert.notAfterSec - currentEpochSec < 2592000) {\n    return { valid: true, status: 'PKI_VALID_WITH_RENEWAL_WARNING' };\n  }\n\n  return { valid: true, status: 'PKI_CERTIFICATE_HEALTHY_NOMINAL' };\n}\n\nconst validCert: PkiCertEntry = {\n  domain: 'identity.corp.internal',\n  issuer: 'Enterprise Internal Root CA',\n  trustedRootSigned: true,\n  notAfterSec: 2000000000\n};\n\nconst untrustedCert: PkiCertEntry = {\n  domain: 'hacker.internal',\n  issuer: 'Self-Signed Untrusted',\n  trustedRootSigned: false,\n  notAfterSec: 2000000000\n};\n\nconsole.log('Valid Cert Audit:', auditTransportPki(validCert, 1700000000).status);\nconsole.log('Untrusted Cert Audit:', auditTransportPki(untrustedCert, 1700000000).status);",
+      "output": "Valid Cert Audit: PKI_CERTIFICATE_HEALTHY_NOMINAL\nUntrusted Cert Audit: PKI_CHAIN_UNTRUSTED_ROOT",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Validates cryptographic root of trust and expiration thresholds."
+        },
+        {
+          "line": 34,
+          "note": "Rejects certificates lacking valid root chain signatures."
+        }
+      ],
+      "tryIt": "Pass a currentEpochSec greater than notAfterSec and confirm expiration rejection by the PKI auditor.",
+      "check": {
+        "question": "Why must internal microservice architectures validate X.509 PKI trust chains rather than disabling certificate checks?",
+        "options": [
+          "To prevent Man-in-the-Middle (MITM) eavesdropping and unauthorized service spoofing inside the internal cloud network",
+          "To speed up HTTP routing",
+          "Because DNS requires certificates"
+        ],
+        "answer": 0,
+        "why": "In a Zero Trust architecture, internal network traffic must be verified with mutual TLS to prevent internal MITM and spoofing attacks."
+      }
+    },
+    {
+      "title": "Component 4: Zero-Trust JWT Validator & Algorithm 'none' Interceptor",
+      "say": [
+        "The fourth component of our Milestone 2 suite issues and verifies hardened JSON Web Tokens (JWT) for authenticated stateless sessions.",
+        "The validator enforces an immutable algorithm allowlist, strictly rejecting alg: 'none' bypass attacks and symmetric key confusion between HS256 and RS256.",
+        "In a classic algorithm none attack, attackers tamper with claims and change the header to none, attempting to bypass cryptographic signature verification.",
+        "Our hardened validator requires explicit RS256 asymmetric verification using the authorization server published public key.",
+        "It validates standard registered claims: checking that iss matches the authentic auth server, aud matches the target API, and exp has not lapsed.",
+        "Additionally, the validator verifies that the token ID (jti) does not appear in a distributed revocation blacklist.",
+        "This ensures that logged-out, revoked, or compromised tokens cannot be replayed even if their cryptographic signature remains valid.",
+        "By enforcing strict claim validation and immutable algorithm policies, the token engine ensures zero-trust authorization integrity across all API endpoints.",
+        "Let us implement the zero-trust JWT validator component of our master suite."
+      ],
+      "example": "A client presents a bearer token with alg: 'none'; the gateway intercepts the exploit attempt and aborts with HTTP 401 Unauthorized.",
+      "code": "interface TokenClaims {\n  sub: string;\n  iss: string;\n  aud: string;\n  exp: number;\n}\n\nfunction validateHardenedToken(\n  headerAlg: string,\n  claims: TokenClaims,\n  expectedIss: string,\n  expectedAud: string,\n  nowSec: number\n): { authorized: boolean; reason: string } {\n  // Reject alg none\n  if (headerAlg.toLowerCase() === 'none' || headerAlg !== 'RS256') {\n    return { authorized: false, reason: 'REJECTED_UNAUTHORIZED_ALGORITHM_NONE_BLOCKED' };\n  }\n\n  // Validate claims\n  if (claims.iss !== expectedIss) return { authorized: false, reason: 'ISSUER_MISMATCH' };\n  if (claims.aud !== expectedAud) return { authorized: false, reason: 'AUDIENCE_MISMATCH' };\n  if (nowSec > claims.exp) return { authorized: false, reason: 'TOKEN_EXPIRED' };\n\n  return { authorized: true, reason: 'TOKEN_VERIFIED_NOMINAL' };\n}\n\nconst legitClaims: TokenClaims = {\n  sub: 'usr_101',\n  iss: 'https://auth.corp.com',\n  aud: 'https://api.corp.com',\n  exp: 2000\n};\n\nconst exploit = validateHardenedToken('none', legitClaims, 'https://auth.corp.com', 'https://api.corp.com', 1500);\nconst success = validateHardenedToken('RS256', legitClaims, 'https://auth.corp.com', 'https://api.corp.com', 1500);\n\nconsole.log('Exploit Attempt:', exploit.reason);\nconsole.log('Legit Token Validation:', success.reason);",
+      "output": "Exploit Attempt: REJECTED_UNAUTHORIZED_ALGORITHM_NONE_BLOCKED\nLegit Token Validation: TOKEN_VERIFIED_NOMINAL",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Permanently blocks algorithm 'none' and key confusion attacks via strict RS256 enforcement."
+        },
+        {
+          "line": 33,
+          "note": "Demonstrates immediate neutralization of unsigned tokens and successful validation of compliant tokens."
+        }
+      ],
+      "tryIt": "Pass an expired timestamp (nowSec: 2500) to confirm expiration rejection by the token validator.",
+      "check": {
+        "question": "What is the primary technical check that prevents the JWT algorithm 'none' exploit?",
+        "options": [
+          "Enforcing an explicit server-side algorithm allowlist (e.g. only RS256) and rejecting any token specifying 'none'",
+          "Deleting the token header",
+          "Encrypting the database"
+        ],
+        "answer": 0,
+        "why": "By requiring an explicit, authorized algorithm like RS256, tokens specifying none or mismatched algorithms are rejected before signature checks."
+      }
+    },
+    {
+      "title": "Milestone Capstone: End-to-End Multi-Factor Authentication & Identity Verification Suite",
+      "say": [
+        "In this final milestone part, we assemble all components into our master Milestone 2 Identity & Cryptography Suite.",
+        "When an incoming client authentication transaction arrives, the engine executes the complete end-to-end security verification pipeline.",
+        "Stage 1: Transport Verification. The engine verifies the X.509 PKI certificate chain of trust and confirms temporal validity under TLS 1.3.",
+        "Stage 2: Primary Authentication. The user password credential is verified using memory-hard Argon2id key derivation and unique salts in constant time.",
+        "Stage 3: Second-Factor Authentication. The 6-digit TOTP code is verified against the current time-step T with +/- 1 drift tolerance.",
+        "Stage 4: Token Issuance. The engine issues an RS256 asymmetric JWT containing verified claims, audience restrictions, and a unique session ID.",
+        "Stage 5: Data Protection. All sensitive session state and payload data is encapsulated in an AES-256-GCM envelope with unique IV nonces.",
+        "This master suite provides a bulletproof cryptographic foundation across the entire application lifecycle, enforcing Defense-in-Depth at every layer.",
+        "Congratulations on achieving Milestone 2: Enterprise Cryptographic Identity, PKI & Multi-Factor Authentication Engine."
+      ],
+      "example": "A complete authentication ceremony: validating TLS, verifying password with Argon2id, verifying TOTP 6-digit code, issuing a JWT, and encrypting session state with AES-GCM.",
+      "code": "interface MilestoneIdentityPipelineRequest {\n  certValid: boolean;\n  passwordGuess: string;\n  totpCode: string;\n  expectedTotpCode: string;\n}\n\ninterface MilestoneIdentityResult {\n  certified: boolean;\n  stagesPassed: number;\n  stageLogs: string[];\n  sessionToken?: string;\n  encryptedSessionPayload?: string;\n}\n\nfunction executeMilestone2Suite(req: MilestoneIdentityPipelineRequest): MilestoneIdentityResult {\n  const logs: string[] = [];\n\n  // Stage 1: PKI Transport\n  if (!req.certValid) {\n    logs.push('PKI Transport Check: FAILED');\n    return { certified: false, stagesPassed: 0, stageLogs: logs };\n  }\n  logs.push('Stage 1: PKI Transport Verified (TLS 1.3)');\n\n  // Stage 2: Argon2id Password Check\n  const expectedPass = 'EnterpriseSecret2026!';\n  if (req.passwordGuess !== expectedPass) {\n    logs.push('Stage 2: Argon2id Password Verification FAILED');\n    return { certified: false, stagesPassed: 1, stageLogs: logs };\n  }\n  logs.push('Stage 2: Argon2id Credential Verified (Memory-Hard)');\n\n  // Stage 3: TOTP MFA Check\n  if (req.totpCode !== req.expectedTotpCode) {\n    logs.push('Stage 3: TOTP MFA Verification FAILED');\n    return { certified: false, stagesPassed: 2, stageLogs: logs };\n  }\n  logs.push('Stage 3: TOTP MFA Code Validated (RFC 6238)');\n\n  // Stage 4: JWT Token Generation (RS256)\n  const token = 'jwt.rs256.session_token_approved_99';\n  logs.push('Stage 4: Hardened RS256 JWT Issued');\n\n  // Stage 5: AES-256-GCM Envelope Encryption\n  const encryptedPayload = 'aead_aes256gcm_iv96_encrypted_payload';\n  logs.push('Stage 5: Session Payload Encrypted with AES-256-GCM AEAD');\n\n  return {\n    certified: true,\n    stagesPassed: 5,\n    stageLogs: logs,\n    sessionToken: token,\n    encryptedSessionPayload: encryptedPayload\n  };\n}\n\nconst req: MilestoneIdentityPipelineRequest = {\n  certValid: true,\n  passwordGuess: 'EnterpriseSecret2026!',\n  totpCode: '492019',\n  expectedTotpCode: '492019'\n};\n\nconst result = executeMilestone2Suite(req);\nconsole.log('Milestone 2 Certified:', result.certified);\nconsole.log('Stages Successfully Passed:', result.stagesPassed + '/5');\nconsole.log('Final Security Stage:', result.stageLogs[4]);",
+      "output": "Milestone 2 Certified: true\nStages Successfully Passed: 5/5\nFinal Security Stage: Stage 5: Session Payload Encrypted with AES-256-GCM AEAD",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Executes 5-stage sequential verification: PKI, Argon2id, TOTP, JWT, and AEAD envelope encryption."
+        },
+        {
+          "line": 55,
+          "note": "Certifies complete intermediate identity and cryptographic suite execution."
+        }
+      ],
+      "tryIt": "Pass an invalid TOTP code and verify that the pipeline halts at Stage 3 with only 2 stages passed.",
+      "check": {
+        "question": "What is the primary benefit of orchestrating PKI, Argon2id, TOTP, JWT, and AEAD into a unified pipeline?",
+        "options": [
+          "It provides end-to-end Defense-in-Depth, ensuring that transport, credentials, multi-factor auth, session tokens, and data at rest are all cryptographically hardened",
+          "It makes web pages load in 1 millisecond",
+          "It replaces the operating system"
+        ],
+        "answer": 0,
+        "why": "A unified pipeline ensures that every layer of authentication and transport encryption is verified before sensitive data is exposed, providing true Defense-in-Depth."
+      }
+    }
+  ],
+  "summary": [
+    "Milestone 2 synthesizes intermediate cryptography, identity, and transport security into an enterprise master engine.",
+    "AES-256-GCM AEAD envelope encryption guarantees payload confidentiality and integrity with strict nonce collision prevention.",
+    "Memory-hard Argon2id key derivation with 16-byte unique salts and constant-time verification defeats GPU brute-force attacks.",
+    "X.509 PKI certificate hierarchy audits ensure validated trust chains and proactive expiration monitoring across microservices.",
+    "RFC 6238 TOTP Multi-Factor Authentication and hardened RS256 JWTs provide robust, zero-trust session governance and token integrity."
+  ],
+  "projectStep": {
+    "title": "Project Step 15: Master Cryptographic Identity & Transport Suite",
+    "steps": [
+      "Integrate the PKI transport validator, Argon2id credential service, and TOTP MFA engine into a unified pipeline.",
+      "Implement hardened RS256 JWT token issuance with algorithm 'none' defense and audience verification.",
+      "Execute automated end-to-end verification suites certifying that all 5 stages pass and malicious vectors are neutralized."
+    ]
+  }
+}
 ];
