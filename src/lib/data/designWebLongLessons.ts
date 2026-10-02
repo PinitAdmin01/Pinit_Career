@@ -6274,5 +6274,1426 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "Add automated ARIA lint rules to CI pipeline checking for First Rule of ARIA violations"
       ]
     }
+  },
+  {
+    "day": 26,
+    "title": "Iconography Systems & SVG Sprite Architecture: viewBox & currentColor",
+    "goal": "Architect scalable, high-performance vector iconography systems utilizing normalized viewBox coordinate spaces, dynamic currentColor CSS inheritance, standardized size scales, and external SVG sprite sheets.",
+    "minutes": 30,
+    "recap": "In Days 21 through 25, we mastered advanced responsive layouts, motion choreography, dark mode elevation surfaces, WCAG 2.2 color contrast mathematics, roving tabindex keyboard navigation, and screen reader ARIA contracts. Today in Day 26, we explore enterprise iconography engineering, focusing on SVG coordinate mechanics, dynamic theming, and sprite bundling.",
+    "parts": [
+      {
+        "title": "Vector Coordinate Foundations: viewBox, Aspect Ratios & Normalization",
+        "say": [
+          "Welcome to Day 26 of UI/UX Design Systems & Visual Frontend.",
+          "Icons are essential visual anchors in digital interfaces, guiding user attention and communicating system actions concisely.",
+          "However, poorly architected vector icons create severe UI glitches: clipping, blurry subpixel rendering, misaligned text baselines, and bloated network payloads.",
+          "Every scalable vector icon relies on the SVG 'viewBox' attribute, defined as four space-separated numbers: 'min-x min-y width height'.",
+          "The viewBox establishes an internal, abstract coordinate space that scales proportionally to the outer SVG's rendered CSS width and height.",
+          "In modern design systems, we normalize all icons to a consistent square canvas, typically 24x24 units (viewBox='0 0 24 24').",
+          "Normalizing the coordinate space ensures that any icon in the library can be swapped dynamically without causing layout shifts or irregular scaling artifacts.",
+          "Furthermore, the 'preserveAspectRatio' attribute controls how the SVG scales when its container's aspect ratio differs from the viewBox.",
+          "The default value, 'xMidYMid meet', centers the graphic within the viewport and scales it uniformly until it fits entirely without clipping.",
+          "Let us inspect a coordinate space normalizer that verifies bounding box metrics and uniform scaling factors."
+        ],
+        "example": "An architectural blueprint: drafting dimensions are recorded in fixed unit increments on a master drafting grid, allowing construction teams to scale blueprints to any physical building footprint without distorting structural ratios.",
+        "code": "interface ViewBox {\n  minX: number;\n  minY: number;\n  width: number;\n  height: number;\n}\n\ninterface ScaledIconMetrics {\n  viewBoxString: string;\n  isNormalized24: boolean;\n  aspectRatio: number;\n  scaleFactorX: number;\n  scaleFactorY: number;\n}\n\nfunction analyzeSvgViewBox(vb: ViewBox, targetWidth: number, targetHeight: number): ScaledIconMetrics {\n  const vbStr = `${vb.minX} ${vb.minY} ${vb.width} ${vb.height}`;\n  const is24 = vb.minX === 0 && vb.minY === 0 && vb.width === 24 && vb.height === 24;\n  const ratio = vb.width / vb.height;\n  const scaleX = targetWidth / vb.width;\n  const scaleY = targetHeight / vb.height;\n  return {\n    viewBoxString: vbStr,\n    isNormalized24: is24,\n    aspectRatio: Number(ratio.toFixed(2)),\n    scaleFactorX: Number(scaleX.toFixed(2)),\n    scaleFactorY: Number(scaleY.toFixed(2))\n  };\n}\n\nconst standardIcon = analyzeSvgViewBox({ minX: 0, minY: 0, width: 24, height: 24 }, 48, 48);\nconst nonStandard = analyzeSvgViewBox({ minX: -2, minY: 0, width: 32, height: 16 }, 48, 24);\n\nconsole.log(\"Standard 24x24 viewBox:\", standardIcon.viewBoxString, \"| Normalized:\", standardIcon.isNormalized24, \"| Scale:\", standardIcon.scaleFactorX);\nconsole.log(\"Non-standard viewBox:\", nonStandard.viewBoxString, \"| Normalized:\", nonStandard.isNormalized24, \"| Ratio:\", nonStandard.aspectRatio);",
+        "output": "Standard 24x24 viewBox: 0 0 24 24 | Normalized: true | Scale: 2\nNon-standard viewBox: -2 0 32 16 | Normalized: false | Ratio: 2",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the 4 essential parameters of an SVG coordinate space: minX, minY, width, and height."
+          },
+          {
+            "line": 24,
+            "note": "Validates whether the icon conforms to the design system's normalized 24x24 square standard."
+          },
+          {
+            "line": 36,
+            "note": "Calculates uniform scaling factors when rendering a 24x24 icon into a 48x48 viewport."
+          }
+        ],
+        "tryIt": "Create a helper function that detects whether an SVG viewBox has non-square dimensions and outputs a warning recommending normalized 24x24 coordinates.",
+        "check": {
+          "question": "What does the SVG attribute viewBox='0 0 24 24' define?",
+          "options": [
+            "It defines an internal 24x24 unit coordinate system that scales dynamically to match the container's CSS width and height",
+            "It forces the SVG element to permanently render at exactly 24 CSS pixels regardless of parent styling",
+            "It restricts the SVG to only display 24 vector path elements simultaneously",
+            "It sets the screen DPI resolution to 24 dots per inch for retina displays"
+          ],
+          "answer": 0,
+          "why": "viewBox establishes an internal abstract coordinate system (min-x min-y width height) that is mapped and scaled to the element's rendered viewport."
+        }
+      },
+      {
+        "title": "Dynamic Color Inheritance with currentColor: Eliminating Hardcoded Hex Codes",
+        "say": [
+          "One of the most persistent anti-patterns in UI engineering is hardcoding fill or stroke colors directly inside SVG vector assets (such as 'fill=\"#3B82F6\"').",
+          "When icon fills are hardcoded, product teams are forced to maintain duplicate icon files for dark mode, hovered states, disabled states, and brand variants.",
+          "CSS provides a native solution: the 'currentColor' keyword.",
+          "'currentColor' acts as a dynamic CSS variable that inherits the computed value of the parent element's 'color' property.",
+          "By specifying 'fill=\"currentColor\"' or 'stroke=\"currentColor\"' on SVG paths, the icon automatically adapts its hue whenever the parent text color changes.",
+          "For example, inside a primary button, the icon inherits white text color; on hover, if the button text transitions to yellow, the icon updates instantaneously with zero JavaScript.",
+          "In dark mode, when a card's text color shifts from neutral-900 to neutral-100, all embedded icons transition in perfect visual harmony.",
+          "Let us build a color resolution simulator demonstrating how currentColor inherits parent typography tokens across interactive states."
+        ],
+        "example": "A chameleon adapting its skin pigment: instead of carrying separate physical skins for day and night, the chameleon dynamically samples the ambient background color and reflects it directly.",
+        "code": "interface ParentContext {\n  state: 'default' | 'hover' | 'active' | 'disabled';\n  textColorToken: string;\n}\n\ninterface SvgRenderOutput {\n  element: string;\n  fillAttribute: string;\n  strokeAttribute: string;\n  effectiveColor: string;\n}\n\nfunction resolveIconColor(parent: ParentContext, usesCurrentColor: boolean): SvgRenderOutput {\n  const hardcodedFill = '#1E293B';\n  const effective = usesCurrentColor ? parent.textColorToken : hardcodedFill;\n  return {\n    element: 'path',\n    fillAttribute: usesCurrentColor ? 'currentColor' : hardcodedFill,\n    strokeAttribute: 'none',\n    effectiveColor: effective\n  };\n}\n\nconst states: ParentContext[] = [\n  { state: 'default', textColorToken: 'var(--color-primary-600)' },\n  { state: 'hover', textColorToken: 'var(--color-primary-700)' },\n  { state: 'disabled', textColorToken: 'var(--color-neutral-400)' }\n];\n\nstates.forEach(ctx => {\n  const inherited = resolveIconColor(ctx, true);\n  const fixed = resolveIconColor(ctx, false);\n  console.log(`State ${ctx.state.padEnd(8)} | currentColor: ${inherited.effectiveColor.padEnd(26)} | Hardcoded: ${fixed.effectiveColor}`);\n});",
+        "output": "State default  | currentColor: var(--color-primary-600)   | Hardcoded: #1E293B\nState hover    | currentColor: var(--color-primary-700)   | Hardcoded: #1E293B\nState disabled | currentColor: var(--color-neutral-400)   | Hardcoded: #1E293B",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "When usesCurrentColor is enabled, effective color reflects the parent's contextual text color token."
+          },
+          {
+            "line": 16,
+            "note": "Sets the fillAttribute string to 'currentColor' rather than a hardcoded hex value."
+          },
+          {
+            "line": 30,
+            "note": "Shows that hardcoded SVGs fail to adapt across interactive hover and disabled parent states."
+          }
+        ],
+        "tryIt": "Modify the simulator to support outline icons where stroke uses 'currentColor' while fill is explicitly 'none'.",
+        "check": {
+          "question": "Why should SVG icon definitions use fill='currentColor' instead of hardcoded hex colors?",
+          "options": [
+            "It allows the icon to automatically inherit the parent element's CSS text color token across themes and states",
+            "It prevents web crawlers from indexing SVG graphics as photographic content",
+            "It compresses the SVG file size by over 90% in gzip compression algorithms",
+            "It instructs the GPU to render the icon at a higher refresh rate of 120Hz"
+          ],
+          "answer": 0,
+          "why": "currentColor dynamically inherits the computed CSS 'color' of the parent container, enabling seamless theming and state transitions without duplicate assets."
+        }
+      },
+      {
+        "title": "Standardized Icon Size Scales & Baseline Optical Alignment",
+        "say": [
+          "In an enterprise design system, arbitrary icon sizing leads to visual chaos: icons appear too large next to small text or clipped inside compact input fields.",
+          "A robust iconography system establishes a strict dimensional scale linked to the 8pt/4pt spatial grid.",
+          "The four industry-standard icon sizes are:",
+          "1. Small (sm): 16x16px (1rem), paired with 12px or 14px caption text and compact badges.",
+          "2. Medium (md): 20x20px (1.25rem), paired with 14px or 16px body copy and standard button controls.",
+          "3. Large (lg): 24x24px (1.5rem), the baseline default for standalone navigation icons, toolbars, and modal headers.",
+          "4. Extra Large (xl): 32x32px (2rem), reserved for empty state illustrations, hero banners, and feature callouts.",
+          "Equally important is optical alignment: vector graphics often have asymmetrical visual weights (such as a triangle play icon vs a circular checkmark).",
+          "A mathematically centered triangle inside a square box appears shifted to the left; designers must apply optical balancing offsets or maintain consistent internal padding.",
+          "Let us build an icon size token registry that provides pixel constraints, stroke width scaling, and optical alignment offsets."
+        ],
+        "example": "Typography font leadings: a 16px typeface is drafted with internal ascender and descender buffers to align harmoniously with adjacent punctuation marks and glyphs.",
+        "code": "type IconSizeToken = 'sm' | 'md' | 'lg' | 'xl';\n\ninterface IconSizeConfig {\n  sizePx: number;\n  strokeWidth: number;\n  opticalOffset: { x: number; y: number };\n  idealFontPairing: string;\n}\n\nconst ICON_SIZE_SCALE: Record<IconSizeToken, IconSizeConfig> = {\n  sm: { sizePx: 16, strokeWidth: 1.5, opticalOffset: { x: 0, y: 0 }, idealFontPairing: 'text-xs (12px)' },\n  md: { sizePx: 20, strokeWidth: 1.75, opticalOffset: { x: 0, y: 0 }, idealFontPairing: 'text-sm (14px)' },\n  lg: { sizePx: 24, strokeWidth: 2.0, opticalOffset: { x: 0, y: 0 }, idealFontPairing: 'text-base (16px)' },\n  xl: { sizePx: 32, strokeWidth: 2.25, opticalOffset: { x: 0, y: 0 }, idealFontPairing: 'text-xl (20px)' }\n};\n\nfunction getIconStyles(size: IconSizeToken, isOpticalPlayIcon: boolean = false) {\n  const config = ICON_SIZE_SCALE[size];\n  const xOffset = isOpticalPlayIcon ? Math.round(config.sizePx * 0.05) : config.opticalOffset.x;\n  return {\n    width: `${config.sizePx}px`,\n    height: `${config.sizePx}px`,\n    strokeWidth: config.strokeWidth,\n    transform: xOffset > 0 ? `translateX(${xOffset}px)` : 'none',\n    pairing: config.idealFontPairing\n  };\n}\n\n(['sm', 'md', 'lg', 'xl'] as IconSizeToken[]).forEach(token => {\n  const standard = getIconStyles(token);\n  const opticalPlay = getIconStyles(token, true);\n  console.log(`Icon [${token}] ${standard.width}x${standard.height} | Stroke: ${standard.strokeWidth}px | Play Shift: ${opticalPlay.transform} | Pairs with ${standard.pairing}`);\n});",
+        "output": "Icon [sm] 16pxx16px | Stroke: 1.5px | Play Shift: translateX(1px) | Pairs with text-xs (12px)\nIcon [md] 20pxx20px | Stroke: 1.75px | Play Shift: translateX(1px) | Pairs with text-sm (14px)\nIcon [lg] 24pxx24px | Stroke: 2px | Play Shift: translateX(1px) | Pairs with text-base (16px)\nIcon [xl] 32pxx32px | Stroke: 2.25px | Play Shift: translateX(2px) | Pairs with text-xl (20px)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the 4 standard icon tiers: sm (16px), md (20px), lg (24px), and xl (32px)."
+          },
+          {
+            "line": 20,
+            "note": "Scales stroke width proportionally (1.5px on small up to 2.25px on xl) to maintain legibility."
+          },
+          {
+            "line": 22,
+            "note": "Applies subtle optical rightward adjustment for directional glyphs like triangles and play buttons."
+          }
+        ],
+        "tryIt": "Add an 'xs' (12px) size tier with a 1.25px stroke width for compact micro-tags.",
+        "check": {
+          "question": "Why should stroke-width scale proportionally across icon sizes (e.g. 1.5px for 16px, 2.0px for 24px)?",
+          "options": [
+            "To prevent icons from appearing excessively chunky when small or too spindly and fragile when enlarged",
+            "Because SVG parsers reject vector strokes that do not divide evenly into 8",
+            "To satisfy CSS container query aspect-ratio constraints",
+            "Because standard web fonts cannot render adjacent to 2px strokes"
+          ],
+          "answer": 0,
+          "why": "Proportional stroke scaling ensures consistent optical weight across display sizes, preventing visual imbalance."
+        }
+      },
+      {
+        "title": "SVG Sprite Architecture: Bundling with symbol and use href",
+        "say": [
+          "When an application renders 50 individual inline SVGs on a page, the browser must parse, tokenize, and maintain 50 distinct vector DOM subtrees.",
+          "This significantly inflates initial HTML document size, consumes excess memory, and prevents browser caching of visual assets.",
+          "Conversely, loading icons as individual external image files ('<img src=\"icon.svg\">') triggers dozens of HTTP network requests and prevents CSS styling via 'currentColor'.",
+          "The modern enterprise solution is the SVG Sprite Sheet architecture.",
+          "In an SVG sprite, icons are grouped into a single master SVG file using the '<symbol>' element, each tagged with a unique 'id' and its own 'viewBox'.",
+          "In application markup, instances reference symbols via the lightweight '<use href=\"/sprites.svg#icon-name\">' tag.",
+          "The browser caches the external sprite sheet as an immutable static asset across page visits.",
+          "Meanwhile, the '<use>' tag instantiates the icon via the Shadow DOM, allowing CSS 'color' and 'currentColor' inheritance while keeping the main DOM tree clean.",
+          "Let us implement an SVG sprite compiler that collects icon definitions and generates a unified sprite sheet and consumer tags."
+        ],
+        "example": "A game engine texture atlas: rather than loading 100 individual character sprite textures separately, the GPU loads a single consolidated image sheet and samples subregions by coordinate index.",
+        "code": "interface IconDefinition {\n  id: string;\n  viewBox: string;\n  paths: string[];\n}\n\ninterface SpriteSheetOutput {\n  spriteMarkup: string;\n  symbolCount: number;\n  totalPathCount: number;\n}\n\nfunction compileSvgSprite(icons: IconDefinition[]): SpriteSheetOutput {\n  const symbols = icons.map(icon => {\n    const pathTags = icon.paths.map(d => `<path d=\"${d}\" fill=\"currentColor\" />`).join('');\n    return `<symbol id=\"${icon.id}\" viewBox=\"${icon.viewBox}\">${pathTags}</symbol>`;\n  });\n  const spriteMarkup = `<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none;\">${symbols.join('')}</svg>`;\n  const totalPaths = icons.reduce((sum, icon) => sum + icon.paths.length, 0);\n  return {\n    spriteMarkup,\n    symbolCount: icons.length,\n    totalPathCount: totalPaths\n  };\n}\n\nfunction renderUseTag(spriteUrl: string, iconId: string, className: string = 'icon'): string {\n  return `<svg class=\"${className}\" aria-hidden=\"true\" focusable=\"false\"><use href=\"${spriteUrl}#${iconId}\" /></svg>`;\n}\n\nconst mockIcons: IconDefinition[] = [\n  { id: 'icon-search', viewBox: '0 0 24 24', paths: ['M10 2a8 8 0 105.3 14l5.4 5.3 1.4-1.4-5.3-5.4A8 8 0 0010 2z'] },\n  { id: 'icon-check', viewBox: '0 0 24 24', paths: ['M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'] },\n  { id: 'icon-user', viewBox: '0 0 24 24', paths: ['M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z', 'M4 20c0-2.7 5.3-4 8-4s8 1.3 8 4v2H4v-2z'] }\n];\n\nconst compiled = compileSvgSprite(mockIcons);\nconsole.log(\"Compiled Sprite Symbols:\", compiled.symbolCount, \"| Total Paths:\", compiled.totalPathCount);\nconsole.log(\"Sample Consumer Tag:\", renderUseTag('/assets/sprites.svg', 'icon-search', 'icon icon-md'));",
+        "output": "Compiled Sprite Symbols: 3 | Total Paths: 4\nSample Consumer Tag: <svg class=\"icon icon-md\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/sprites.svg#icon-search\" /></svg>",
+        "codeNotes": [
+          {
+            "line": 16,
+            "note": "Wraps paths inside <symbol id='...'> with its own viewBox, hidden until referenced by <use>."
+          },
+          {
+            "line": 26,
+            "note": "Generates the consumer <use href='...#id'> element with aria-hidden='true' for safety."
+          },
+          {
+            "line": 40,
+            "note": "Demonstrates compiling multiple icons into a single cached static SVG asset."
+          }
+        ],
+        "tryIt": "Create a helper function that generates an HTML preview gallery demonstrating all symbols in a sprite.",
+        "check": {
+          "question": "What is the primary performance advantage of the SVG sprite sheet (<use href='...#id'>) pattern over inline SVGs?",
+          "options": [
+            "It bundles icons into a single HTTP-cached static file, drastically reducing DOM node overhead and document HTML payload",
+            "It enables SVGs to run WebGL shader programs directly inside the GPU",
+            "It eliminates the need for CSS color tokens entirely",
+            "It automatically translates icon names into 40 international languages"
+          ],
+          "answer": 0,
+          "why": "SVG sprites allow icons to be fetched once, cached aggressively by the browser, and instantiated in shadow DOM via lightweight <use> references."
+        }
+      },
+      {
+        "title": "Accessible Icon Component: ARIA Contracts & Decorative vs Meaningful Icons",
+        "say": [
+          "Iconography accessibility is governed by a strict binary rule in the W3C WCAG guidelines:",
+          "An icon is either decorative, or it is meaningful.",
+          "Decorative icons accompany visible text labels (such as a shopping cart icon next to the word 'Checkout').",
+          "If a screen reader announces both 'Shopping Cart' and 'Checkout', the user suffers redundant auditory noise.",
+          "Decorative icons MUST be hidden from the accessibility tree using 'aria-hidden=\"true\"' and 'focusable=\"false\"'.",
+          "Meaningful icons stand alone without visible text (such as a search magnifying glass icon button, a notification bell, or an X close button).",
+          "Meaningful icons MUST provide an accessible name via 'aria-label' on the interactive button or an embedded '<title>' element with 'role=\"img\"'.",
+          "Let us engineer an AccessibleIcon component contract that enforces these accessibility rules at compile and runtime."
+        ],
+        "example": "Roadway traffic signs: a painted arrow accompanied by a prominent 'ONE WAY' text sign is supplementary; a standalone red octagonal STOP sign requires an unmistakable, universally understood announcement.",
+        "code": "interface IconProps {\n  name: string;\n  size?: 'sm' | 'md' | 'lg';\n  isDecorative?: boolean;\n  accessibleLabel?: string;\n}\n\ninterface AccessibleIconResult {\n  role?: string;\n  ariaHidden?: boolean;\n  ariaLabel?: string;\n  renderedHtml: string;\n  auditPassed: boolean;\n}\n\nfunction renderAccessibleIcon(props: IconProps): AccessibleIconResult {\n  const isDecorative = props.isDecorative ?? true;\n  \n  if (isDecorative) {\n    return {\n      ariaHidden: true,\n      renderedHtml: `<svg class=\"icon icon-${props.size || 'md'}\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/sprites.svg#${props.name}\" /></svg>`,\n      auditPassed: true\n    };\n  }\n\n  // Meaningful / Standalone icon\n  const hasLabel = Boolean(props.accessibleLabel && props.accessibleLabel.trim().length > 0);\n  return {\n    role: 'img',\n    ariaLabel: props.accessibleLabel,\n    renderedHtml: `<svg class=\"icon icon-${props.size || 'md'}\" role=\"img\" aria-label=\"${props.accessibleLabel || ''}\"><use href=\"/sprites.svg#${props.name}\" /></svg>`,\n    auditPassed: hasLabel\n  };\n}\n\nconst decorative = renderAccessibleIcon({ name: 'icon-cart', size: 'md', isDecorative: true });\nconst meaningfulValid = renderAccessibleIcon({ name: 'icon-close', size: 'sm', isDecorative: false, accessibleLabel: 'Close dialog' });\nconst meaningfulInvalid = renderAccessibleIcon({ name: 'icon-search', size: 'lg', isDecorative: false });\n\nconsole.log(\"Decorative Icon:\", decorative.renderedHtml.includes('aria-hidden=\"true\"'), \"| Audit Passed:\", decorative.auditPassed);\nconsole.log(\"Valid Standalone Icon:\", meaningfulValid.role, \"| Label:\", meaningfulValid.ariaLabel, \"| Audit:\", meaningfulValid.auditPassed);\nconsole.log(\"Invalid Standalone Icon | Audit Passed:\", meaningfulInvalid.auditPassed, \"| Missing Accessible Name!\");",
+        "output": "Decorative Icon: true | Audit Passed: true\nValid Standalone Icon: img | Label: Close dialog | Audit: true\nInvalid Standalone Icon | Audit Passed: false | Missing Accessible Name!",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Hides decorative icons from the accessibility tree via aria-hidden='true' and focusable='false'."
+          },
+          {
+            "line": 26,
+            "note": "For standalone icons, applies role='img' and validates the presence of accessibleLabel."
+          },
+          {
+            "line": 40,
+            "note": "Flags invalid standalone icons that fail to provide an accessible name for assistive technology."
+          }
+        ],
+        "tryIt": "Add an audit error message explaining how to fix the component when an icon fails accessibility checks.",
+        "check": {
+          "question": "When should an SVG icon be marked with aria-hidden='true'?",
+          "options": [
+            "Whenever it is accompanied by an adjacent visible text label describing the same action",
+            "Only when the user's operating system has high contrast mode enabled",
+            "Whenever the icon contains more than 10 vector curves",
+            "Only on mobile devices with touch screens"
+          ],
+          "answer": 0,
+          "why": "When an icon is accompanied by visible text, it is decorative; hiding it with aria-hidden='true' prevents duplicate screen reader announcements."
+        }
+      },
+      {
+        "title": "SVG Optimization & Security Sanitization: Stripping Dangerous Vectors",
+        "say": [
+          "Vector graphics imported from design tools (like Figma, Illustrator, or Sketch) contain massive amounts of bloat: XML namespaces, metadata, editor comments, unnecessary groups, and unrounded floating-point coordinates.",
+          "An unoptimized SVG can be 500% larger than necessary, wasting bandwidth and slowing down DOM parsing.",
+          "Furthermore, SVGs are XML documents capable of executing malicious embedded JavaScript (e.g. '<script>alert(1)</script>' or '<svg onload=\"malicious()\">').",
+          "Allowing unsanitized user-uploaded or external third-party SVGs directly into a production web app introduces severe Stored Cross-Site Scripting (XSS) vulnerabilities.",
+          "An enterprise iconography pipeline includes an automated SVGO and security sanitization pass.",
+          "The pipeline strips dangerous tags ('<script>', '<foreignObject>', '<iframe>'), removes 'on*' event handlers, eliminates editor metadata, and rounds decimal path coordinates to two decimal places.",
+          "Let us build an SVG optimization and security sanitizer that purges vulnerabilities and reports payload reduction statistics."
+        ],
+        "example": "Water purification filtration: raw water passes through sediment traps and ultraviolet sterilization stages before being pumped into residential drinking supplies.",
+        "code": "interface SanitizationReport {\n  originalLength: number;\n  cleanLength: number;\n  percentReduction: number;\n  removedThreats: string[];\n  sanitizedSvg: string;\n}\n\nfunction sanitizeAndOptimizeSvg(rawSvg: string): SanitizationReport {\n  const threats: string[] = [];\n  let clean = rawSvg;\n\n  // 1. Remove dangerous script and foreignObject tags\n  const dangerousTagRegex = /<\\s*(script|foreignObject|iframe|object|embed)[^>]*>[\\s\\S]*?<\\/\\s*\\1\\s*>/gi;\n  if (dangerousTagRegex.test(clean)) {\n    threats.push(\"Dangerous executable tags removed (<script>, <foreignObject>, etc.)\");\n    clean = clean.replace(dangerousTagRegex, '');\n  }\n\n  // 2. Strip inline event handlers (onload, onclick, onerror)\n  const eventHandlerRegex = /\\s+on[a-z]+=\"[^\"]*\"/gi;\n  if (eventHandlerRegex.test(clean)) {\n    threats.push(\"Inline JavaScript event handlers stripped (onload, onclick)\");\n    clean = clean.replace(eventHandlerRegex, '');\n  }\n\n  // 3. Remove XML comments and editor metadata\n  clean = clean.replace(/<!--[\\s\\S]*?-->/g, '');\n  clean = clean.replace(/xmlns:sketch=\"[^\"]*\"/gi, '');\n  clean = clean.replace(/\\s{2,}/g, ' ').trim();\n\n  const originalLen = rawSvg.length;\n  const cleanLen = clean.length;\n  const reduction = Number((((originalLen - cleanLen) / originalLen) * 100).toFixed(1));\n\n  return {\n    originalLength: originalLen,\n    cleanLength: cleanLen,\n    percentReduction: reduction,\n    removedThreats: threats,\n    sanitizedSvg: clean\n  };\n}\n\nconst dirtySvg = `<svg viewBox=\"0 0 24 24\" xmlns:sketch=\"http://sketch.com\" onload=\"stealTokens()\">\n  <!-- Generator: Sketch 95.0 -->\n  <script>fetch('/malicious')</script>\n  <path d=\"M12 2L2 22h20L12 2z\" fill=\"#000\" />\n</svg>`;\n\nconst report = sanitizeAndOptimizeSvg(dirtySvg);\nconsole.log(\"Original Size:\", report.originalLength, \"bytes | Clean Size:\", report.cleanLength, \"bytes | Saved:\", report.percentReduction + \"%\");\nconsole.log(\"Sanitization Threats Detected:\", report.removedThreats.length);\nconsole.log(\"Sanitized Output:\", report.sanitizedSvg.replace(/\\n/g, ''));",
+        "output": "Original Size: 208 bytes | Clean Size: 78 bytes | Saved: 62.5%\nSanitization Threats Detected: 2\nSanitized Output: <svg viewBox=\"0 0 24 24\" > <path d=\"M12 2L2 22h20L12 2z\" fill=\"#000\" /></svg>",
+        "codeNotes": [
+          {
+            "line": 14,
+            "note": "Purges dangerous script, iframe, and foreignObject tags that allow arbitrary JS execution."
+          },
+          {
+            "line": 21,
+            "note": "Removes on* event handlers (like onload) that trigger XSS attacks inside SVG documents."
+          },
+          {
+            "line": 26,
+            "note": "Strips design tool metadata comments and redundant whitespace to minimize network payload."
+          }
+        ],
+        "tryIt": "Add a rule to the sanitizer that strips 'javascript:' URIs inside '<a href>' elements embedded in SVGs.",
+        "check": {
+          "question": "Why must external or user-provided SVG files undergo security sanitization before rendering in a web app?",
+          "options": [
+            "Because SVGs are XML documents capable of executing embedded JavaScript scripts and event handlers (XSS)",
+            "Because uncompressed SVGs can permanently corrupt the user's graphics card drivers",
+            "Because modern browsers refuse to render SVGs that lack an official W3C cryptographic signature",
+            "Because SVG paths can cause buffer overflows in the CSS parser"
+          ],
+          "answer": 0,
+          "why": "SVGs are XML documents that can contain executable <script> tags or inline event handlers (onload, onclick), posing significant XSS risks if not sanitized."
+        }
+      }
+    ],
+    "summary": [
+      "Normalize all icon graphics to a standard 24x24 unit coordinate system using the SVG 'viewBox=\"0 0 24 24\"' attribute.",
+      "Use 'fill=\"currentColor\"' and 'stroke=\"currentColor\"' so icons inherit contextual CSS typography tokens dynamically across themes and states.",
+      "Constrain icons to a 4-tier standardized size scale: 16px (sm), 20px (md), 24px (lg), and 32px (xl) with scaled stroke widths.",
+      "Optimize network performance and DOM memory with the SVG Sprite Sheet architecture (<symbol> and <use href=\"#id\">).",
+      "Decorate icons with 'aria-hidden=\"true\"' when accompanied by text, or provide explicit accessible names ('aria-label') on standalone icon buttons.",
+      "Sanitize all vector graphics by stripping dangerous <script> tags, inline event handlers, and design tool bloat."
+    ],
+    "projectStep": {
+      "title": "Build Production Iconography & Sprite Subsystem",
+      "steps": [
+        "Normalize icon assets to 24x24 viewBox with currentColor fills",
+        "Generate optimized SVG sprite sheet bundling symbols with unique IDs",
+        "Implement AccessibleIcon component supporting decorative and standalone icon contracts",
+        "Add automated SVG sanitization step to build pipeline"
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "title": "Motion Design Principles & Reduced Motion: prefers-reduced-motion",
+    "goal": "Design inclusive, physically grounded motion systems that enhance spatial orientation and interaction feedback while strictly honoring the prefers-reduced-motion media query for vestibular safety.",
+    "minutes": 30,
+    "recap": "In Day 26, we engineered scalable iconography systems using normalized viewBox coordinate spaces, dynamic currentColor inheritance, standardized size tokens, and SVG sprite architectures. Today in Day 27, we delve into motion design principles, timing curves, staggered list choreography, and reduced motion accessibility.",
+    "parts": [
+      {
+        "title": "Vestibular Motion Disorders & The prefers-reduced-motion Media Query",
+        "say": [
+          "Welcome to Day 27 of UI/UX Design Systems & Visual Frontend.",
+          "Animation brings life and physical realism to digital interfaces, clarifying spatial transitions and reinforcing user actions.",
+          "However, for millions of individuals living with vestibular motion disorders, rapid screen motion, parallax scrolling, or large sliding transforms can induce physical illness: vertigo, severe dizziness, headaches, and nausea.",
+          "The World Wide Web Consortium (W3C) established WCAG 2.2 Success Criterion 2.3.3 (Animation from Interactions) to protect users from disorienting UI movement.",
+          "Modern operating systems (macOS, iOS, Windows, Android, Linux) provide an explicit system-level accessibility setting: 'Reduce Motion'.",
+          "Web applications query this preference using the standard CSS media feature '@media (prefers-reduced-motion: reduce)'.",
+          "A production motion system MUST detect this preference and provide gentle, non-spatial fallbacks (such as simple opacity cross-fades or zero-duration transitions).",
+          "Crucially, 'reduced motion' does not mean 'zero visual feedback'—it means eliminating disorienting spatial movement while retaining clear state changes.",
+          "Let us implement a motion query evaluator that maps standard animation configurations to safe reduced-motion token definitions."
+        ],
+        "example": "Seasickness or motion sickness during high-speed travel: while some passengers enjoy the motion of rollercoasters or ocean liners, others experience severe vestibular distress and require smooth, stabilized movement.",
+        "code": "type MotionPreference = 'no-preference' | 'reduce';\n\ninterface AnimationConfig {\n  name: string;\n  durationMs: number;\n  easing: string;\n  transform: string;\n  opacity: { from: number; to: number };\n}\n\ninterface ResolvedMotionOutput {\n  preference: MotionPreference;\n  durationCss: string;\n  transformCss: string;\n  opacityCss: string;\n  isVestibularSafe: boolean;\n}\n\nfunction resolveMotionConfig(config: AnimationConfig, userPreference: MotionPreference): ResolvedMotionOutput {\n  if (userPreference === 'reduce') {\n    // Vestibular-safe fallback: Eliminate spatial translation, use subtle quick opacity fade\n    return {\n      preference: 'reduce',\n      durationCss: '100ms',\n      transformCss: 'none',\n      opacityCss: `opacity ${config.opacity.from} -> ${config.opacity.to}`,\n      isVestibularSafe: true\n    };\n  }\n\n  // Standard full animation\n  return {\n    preference: 'no-preference',\n    durationCss: `${config.durationMs}ms`,\n    transformCss: config.transform,\n    opacityCss: `opacity ${config.opacity.from} -> ${config.opacity.to}`,\n    isVestibularSafe: config.durationMs <= 400\n  };\n}\n\nconst modalEntry: AnimationConfig = {\n  name: 'ModalSlideUp',\n  durationMs: 300,\n  easing: 'cubic-bezier(0.16, 1, 0.3, 1)',\n  transform: 'translateY(40px) scale(0.95)',\n  opacity: { from: 0, to: 1 }\n};\n\nconst fullMotion = resolveMotionConfig(modalEntry, 'no-preference');\nconst safeMotion = resolveMotionConfig(modalEntry, 'reduce');\n\nconsole.log(\"Standard Motion: Duration =\", fullMotion.durationCss, \"| Transform =\", fullMotion.transformCss, \"| Safe:\", fullMotion.isVestibularSafe);\nconsole.log(\"Reduced Motion:  Duration =\", safeMotion.durationCss, \"| Transform =\", safeMotion.transformCss, \"| Safe:\", safeMotion.isVestibularSafe);",
+        "output": "Standard Motion: Duration = 300ms | Transform = translateY(40px) scale(0.95) | Safe: true\nReduced Motion:  Duration = 100ms | Transform = none | Safe: true",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Under 'reduce' preference, completely strips spatial translation (translateY/scale) to prevent vertigo."
+          },
+          {
+            "line": 20,
+            "note": "Replaces long slide animations with a rapid 100ms opacity transition for immediate feedback."
+          },
+          {
+            "line": 36,
+            "note": "Demonstrates how modal dialog entry adapts safely based on user accessibility preferences."
+          }
+        ],
+        "tryIt": "Create a CSS string generator that outputs the exact '@media (prefers-reduced-motion: reduce)' stylesheet rule for an animated drawer.",
+        "check": {
+          "question": "What is the recommended fallback behavior for an animated dialog when prefers-reduced-motion: reduce is active?",
+          "options": [
+            "Replace large spatial slide and scale transforms with a gentle, rapid opacity cross-fade or instantaneous transition",
+            "Disable dialog opening entirely until the user toggles motion settings",
+            "Increase the animation duration to 3000ms so the user can track the movement more slowly",
+            "Play an audio tone instead of rendering visual content"
+          ],
+          "answer": 0,
+          "why": "Gentle opacity cross-fades provide clear visual feedback that state has changed without triggering vestibular motion sickness caused by spatial translations."
+        }
+      },
+      {
+        "title": "Functional Motion vs Gratuitous Ornamentation: The 3 Core Roles",
+        "say": [
+          "In amateur UI design, animation is often applied as mere decoration: spinning logos, bouncing buttons, and continuous floating particles.",
+          "These gratuitous effects drain mobile battery, distract user attention, and increase cognitive load.",
+          "In professional design systems, motion must be strictly functional.",
+          "Functional motion serves three primary objectives:",
+          "1. Orientation: Clarifying spatial relationships (e.g. showing that a modal expands outward from the button that triggered it).",
+          "2. Feedback: Confirming that user input was registered (e.g. a micro-scale depression on a button press or an error shake on an invalid input field).",
+          "3. Focus Guidance: Drawing attention to critical state changes (e.g. smoothly sliding in a global security alert banner at the top of the viewport).",
+          "If an animation does not fulfill at least one of these three functional objectives, it should be removed from the design system.",
+          "Let us build a motion intent auditor that evaluates UI animation proposals against functional criteria."
+        ],
+        "example": "Physical light switches: when you flip a wall switch, the tactile mechanical click confirms power flow; the light illuminating confirms the circuit closed. There is no superfluous spinning or bouncing.",
+        "code": "type MotionRole = 'Orientation' | 'Feedback' | 'FocusGuidance' | 'GratuitousOrnamentation';\n\ninterface MotionProposal {\n  componentName: string;\n  triggerEvent: string;\n  visualEffect: string;\n  primaryRole: MotionRole;\n  cognitiveJustification: string;\n}\n\ninterface MotionAuditReport {\n  approved: boolean;\n  score: number;\n  recommendation: string;\n}\n\nfunction auditMotionProposal(proposal: MotionProposal): MotionAuditReport {\n  if (proposal.primaryRole === 'GratuitousOrnamentation') {\n    return {\n      approved: false,\n      score: 10,\n      recommendation: \"Reject: Decorative animations increase cognitive fatigue and drain device battery without improving UX.\"\n    };\n  }\n\n  const roleScores: Record<MotionRole, number> = {\n    Orientation: 95,\n    Feedback: 100,\n    FocusGuidance: 90,\n    GratuitousOrnamentation: 10\n  };\n\n  return {\n    approved: true,\n    score: roleScores[proposal.primaryRole],\n    recommendation: `Approve: Valid ${proposal.primaryRole} pattern. Ensure duration is <= 250ms and honors prefers-reduced-motion.`\n  };\n}\n\nconst proposals: MotionProposal[] = [\n  { componentName: 'Button', triggerEvent: 'pointerdown', visualEffect: 'scale(0.98)', primaryRole: 'Feedback', cognitiveJustification: 'Confirms physical tap' },\n  { componentName: 'Accordion', triggerEvent: 'click', visualEffect: 'height expanding', primaryRole: 'Orientation', cognitiveJustification: 'Reveals drawer content' },\n  { componentName: 'HeroLogo', triggerEvent: 'idle loop', visualEffect: 'continuous 3D rotation', primaryRole: 'GratuitousOrnamentation', cognitiveJustification: 'Looks dynamic' }\n];\n\nproposals.forEach(p => {\n  const audit = auditMotionProposal(p);\n  console.log(`[${p.componentName}] Role: ${p.primaryRole.padEnd(24)} | Score: ${audit.score.toString().padEnd(3)} | Approved: ${audit.approved}`);\n});",
+        "output": "[Button] Role: Feedback                 | Score: 100 | Approved: true\n[Accordion] Role: Orientation              | Score: 95  | Approved: true\n[HeroLogo] Role: GratuitousOrnamentation  | Score: 10  | Approved: false",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Rejects proposals categorized as GratuitousOrnamentation lacking functional utility."
+          },
+          {
+            "line": 23,
+            "note": "Assigns highest design system priority to Feedback and Orientation micro-interactions."
+          },
+          {
+            "line": 40,
+            "note": "Audits button press, accordion expansion, and decorative logo rotations against UX criteria."
+          }
+        ],
+        "tryIt": "Add a check to verify that any proposed animation with a duration greater than 400ms is automatically flagged for review.",
+        "check": {
+          "question": "What are the three valid functional roles of animation in a design system?",
+          "options": [
+            "Orientation, Feedback, and Focus Guidance",
+            "Entertainment, Marketing, and Monetization",
+            "Distraction, Obfuscation, and Decoration",
+            "Hardware Acceleration, Resolution Scaling, and Vectorization"
+          ],
+          "answer": 0,
+          "why": "Functional motion serves to orient users in spatial navigation, provide immediate feedback on actions, and guide human focus to critical interface updates."
+        }
+      },
+      {
+        "title": "Timing & Easing Token Matrix: Micro, Macro & Complex Transitions",
+        "say": [
+          "Human perception of speed and time is non-linear; the physical world does not start and stop at constant velocities.",
+          "Linear transitions ('transition: all 0.3s linear') look robotic, artificial, and jarring to human eyes.",
+          "Professional design systems establish a disciplined timing and easing token matrix.",
+          "Duration is categorized into three tiers:",
+          "1. Micro-interactions (100ms - 150ms): State toggles, button presses, tooltips, checkboxes. Transitions occur near-instantaneously without impeding workflow.",
+          "2. Macro-transitions (200ms - 250ms): Dropdown menus, accordions, toast notifications, floating popovers.",
+          "3. Complex page transitions (300ms - 400ms): Full-screen modals, slide-over navigation drawers, page layout shifts.",
+          "Animations longer than 400ms feel sluggish and frustrating to frequent power users.",
+          "Regarding easing curves, we employ asymmetrical Bézier curves:",
+          "'Ease-out' (fast start, gradual deceleration) is used for entering elements, creating a responsive feel.",
+          "'Ease-in' (gradual acceleration, fast exit) is used for exiting elements so they vanish quickly.",
+          "Let us build a motion token generator that validates duration and curve combinations."
+        ],
+        "example": "A physical elevator vs a high-speed maglev train: an elevator doors' micro-sensor snaps shut in milliseconds, while a passenger carriage accelerates smoothly out of the station and decelerates gently into the terminal.",
+        "code": "type MotionTier = 'micro' | 'macro' | 'complex';\ntype MotionDirection = 'enter' | 'exit' | 'neutral';\n\ninterface MotionTokenConfig {\n  tier: MotionTier;\n  direction: MotionDirection;\n  durationMs: number;\n  cubicBezier: string;\n}\n\nconst MOTION_DURATION_TOKENS: Record<MotionTier, number> = {\n  micro: 120,\n  macro: 220,\n  complex: 350\n};\n\nconst EASING_CURVE_TOKENS: Record<MotionDirection, string> = {\n  enter: 'cubic-bezier(0.16, 1, 0.3, 1)',   // Swift out / decelerate\n  exit: 'cubic-bezier(0.7, 0, 0.84, 0)',    // Fast exit / accelerate\n  neutral: 'cubic-bezier(0.4, 0, 0.2, 1)'   // Standard smooth symmetrical\n};\n\nfunction getMotionToken(tier: MotionTier, direction: MotionDirection): MotionTokenConfig {\n  return {\n    tier,\n    direction,\n    durationMs: MOTION_DURATION_TOKENS[tier],\n    cubicBezier: EASING_CURVE_TOKENS[direction]\n  };\n}\n\nconst samples: [MotionTier, MotionDirection][] = [\n  ['micro', 'neutral'],\n  ['macro', 'enter'],\n  ['complex', 'enter'],\n  ['macro', 'exit']\n];\n\nsamples.forEach(([tier, dir]) => {\n  const token = getMotionToken(tier, dir);\n  console.log(`Tier [${tier.padEnd(7)}] Dir: ${dir.padEnd(7)} | Duration: ${token.durationMs}ms | Curve: ${token.cubicBezier}`);\n});",
+        "output": "Tier [micro  ] Dir: neutral | Duration: 120ms | Curve: cubic-bezier(0.4, 0, 0.2, 1)\nTier [macro  ] Dir: enter   | Duration: 220ms | Curve: cubic-bezier(0.16, 1, 0.3, 1)\nTier [complex] Dir: enter   | Duration: 350ms | Curve: cubic-bezier(0.16, 1, 0.3, 1)\nTier [macro  ] Dir: exit    | Duration: 220ms | Curve: cubic-bezier(0.7, 0, 0.84, 0)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines strict duration ceilings: 120ms (micro), 220ms (macro), and 350ms (complex)."
+          },
+          {
+            "line": 16,
+            "note": "Uses decelerating ease-out curve for entering elements and accelerating ease-in for exits."
+          },
+          {
+            "line": 36,
+            "note": "Validates consistent duration and curve pairing across the component lifecycle."
+          }
+        ],
+        "tryIt": "Add a validation check that throws a warning if any transition duration exceeds 400ms.",
+        "check": {
+          "question": "Which easing curve should be used for elements entering the viewport (such as an opening dialog)?",
+          "options": [
+            "An ease-out (decelerating) curve, so the element appears instantaneously and gently settles into position",
+            "A linear curve, ensuring perfectly constant velocity from start to finish",
+            "An ease-in (accelerating) curve, so the element starts slowly and speeds up at the end",
+            "A randomized bounce curve with multiple harmonic oscillations"
+          ],
+          "answer": 0,
+          "why": "Entering elements should use ease-out curves so they appear to respond immediately to user action and gently decelerate into place."
+        }
+      },
+      {
+        "title": "Staggered Choreography & List Orchestration: Capping Cumulative Latency",
+        "say": [
+          "When rendering a list of 10 search results or grid cards, animating all items simultaneously can feel flat and overwhelming.",
+          "Designers often apply staggered choreography, introducing an incremental delay between each consecutive child item ('animation-delay: calc(index * 40ms)').",
+          "Staggering creates a natural visual cascading effect that directs eye gaze downward.",
+          "However, unconstrained staggering introduces a severe usability defect: cumulative latency.",
+          "If 20 items each have a 50ms incremental delay, the 20th item does not even begin animating until 1000ms after the page loads!",
+          "Users trying to click or interact with the bottom items are left waiting in frustration.",
+          "In an enterprise design system, staggered choreography must follow two iron rules:",
+          "1. Cap total cascade duration to a maximum of 300ms regardless of item count (stagger interval diminishes as list length increases).",
+          "2. When 'prefers-reduced-motion: reduce' is active, all stagger delays MUST immediately drop to 0ms.",
+          "Let us build an orchestrator that calculates safe stagger delay schedules."
+        ],
+        "example": "A dealer distributing playing cards across a table: cards are dealt with swift, rhythmic flick motions that complete in under half a second, rather than taking several seconds to deal.",
+        "code": "interface StaggerSchedule {\n  itemIndex: number;\n  delayMs: number;\n  finishTimeMs: number;\n}\n\ninterface StaggerConfig {\n  itemCount: number;\n  itemDurationMs: number;\n  maxTotalCascadeMs: number;\n  prefersReducedMotion: boolean;\n}\n\nfunction calculateStaggerSchedule(config: StaggerConfig): StaggerSchedule[] {\n  if (config.prefersReducedMotion) {\n    return Array.from({ length: config.itemCount }, (_, i) => ({\n      itemIndex: i,\n      delayMs: 0,\n      finishTimeMs: 100 // Instant opacity fade\n    }));\n  }\n\n  // Calculate safe per-item stagger step to ensure all items start before maxTotalCascadeMs\n  const effectiveItems = Math.max(1, config.itemCount - 1);\n  const rawStep = Math.floor(config.maxTotalCascadeMs / effectiveItems);\n  const staggerStepMs = Math.min(40, Math.max(10, rawStep)); // Clamp between 10ms and 40ms\n\n  return Array.from({ length: config.itemCount }, (_, i) => {\n    const delay = i * staggerStepMs;\n    return {\n      itemIndex: i,\n      delayMs: delay,\n      finishTimeMs: delay + config.itemDurationMs\n    };\n  });\n}\n\nconst standardList = calculateStaggerSchedule({ itemCount: 5, itemDurationMs: 200, maxTotalCascadeMs: 200, prefersReducedMotion: false });\nconst reducedList = calculateStaggerSchedule({ itemCount: 5, itemDurationMs: 200, maxTotalCascadeMs: 200, prefersReducedMotion: true });\n\nconsole.log(\"--- Standard Stagger Choreography ---\");\nstandardList.forEach(item => {\n  console.log(`Item #${item.itemIndex} | Delay: ${item.delayMs.toString().padStart(3)}ms | Finishes at: ${item.finishTimeMs}ms`);\n});\n\nconsole.log(\"\\n--- Reduced Motion Stagger ---\");\nconsole.log(`Item #4 Delay: ${reducedList[4].delayMs}ms | Finishes at: ${reducedList[4].finishTimeMs}ms (Immediate!)`);",
+        "output": "--- Standard Stagger Choreography ---\nItem #0 | Delay:   0ms | Finishes at: 200ms\nItem #1 | Delay:  40ms | Finishes at: 240ms\nItem #2 | Delay:  80ms | Finishes at: 280ms\nItem #3 | Delay: 120ms | Finishes at: 320ms\nItem #4 | Delay: 160ms | Finishes at: 360ms\n\n--- Reduced Motion Stagger ---\nItem #4 Delay: 0ms | Finishes at: 100ms (Immediate!)",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "When reduced motion is active, sets all stagger delays to 0ms for instantaneous accessibility."
+          },
+          {
+            "line": 24,
+            "note": "Dynamically clamps the stagger step between 10ms and 40ms to prevent long cumulative delays."
+          },
+          {
+            "line": 44,
+            "note": "Shows standard items finishing within 360ms while reduced motion items finish immediately at 100ms."
+          }
+        ],
+        "tryIt": "Simulate a list of 25 items and verify that the calculated stagger step contracts so total cascade time never exceeds 300ms.",
+        "check": {
+          "question": "Why must staggered list animations cap their total cumulative cascade duration (e.g. at 300ms)?",
+          "options": [
+            "To prevent deep list items from taking seconds to appear, which frustrates users and blocks immediate interaction",
+            "Because CSS animation-delay cannot accept values greater than 500ms in modern browsers",
+            "To prevent the GPU from running out of video RAM",
+            "Because screen readers crash if CSS transitions overlap"
+          ],
+          "answer": 0,
+          "why": "Uncapped stagger delays cause late-appearing items to suffer long delays, preventing timely user interaction and degrading perceived performance."
+        }
+      },
+      {
+        "title": "Continuous Animations & Auto-Play Safeguards: WCAG 2.2.2 Pause, Stop, Hide",
+        "say": [
+          "Not all animations are triggered by discrete user clicks; some elements animate continuously.",
+          "Common examples include loading skeleton pulse waves, spinning refresh indicators, looping marketing carousels, and notification badge pulses.",
+          "WCAG 2.2 Success Criterion 2.2.2 (Pause, Stop, Hide) imposes a strict mandate:",
+          "For any moving, blinking, or scrolling information that starts automatically, lasts more than 5 seconds, and is presented in parallel with other content, there MUST be a mechanism for the user to pause, stop, or hide it.",
+          "Continuous motion without pause controls severely distracts users with Attention Deficit Hyperactivity Disorder (ADHD), autism, and cognitive disabilities.",
+          "In addition, looping animations waste CPU and GPU battery cycles on mobile devices when the browser tab is idle or backgrounded.",
+          "Let us build a continuous motion controller that enforces WCAG 2.2.2 compliance, automatically pausing looping animations after a safety threshold or when the page visibility changes."
+        ],
+        "example": "An airport luggage carousel: the conveyor belt operates during active offloading, but automatically halts when idle or when a safety switch is triggered to prevent unnecessary motor wear.",
+        "code": "interface LoopingMotionState {\n  elementId: string;\n  animationType: 'skeleton-pulse' | 'carousel-auto' | 'notification-badge';\n  durationSeconds: number;\n  isPausedByUser: boolean;\n  isTabHidden: boolean;\n  effectiveState: 'RUNNING' | 'PAUSED';\n}\n\nfunction evaluateContinuousMotion(state: LoopingMotionState): { state: string; wcagCompliant: boolean; reason: string } {\n  // 1. User manual pause always takes precedence\n  if (state.isPausedByUser) {\n    return { state: 'PAUSED', wcagCompliant: true, reason: 'Manually paused by user control.' };\n  }\n\n  // 2. Tab backgrounded: halt GPU loop\n  if (state.isTabHidden) {\n    return { state: 'PAUSED', wcagCompliant: true, reason: 'Page hidden; battery-saving pause enforced.' };\n  }\n\n  // 3. WCAG 2.2.2: Loop > 5 seconds without user controls is a violation\n  if (state.durationSeconds > 5 && !state.isPausedByUser) {\n    return {\n      state: 'RUNNING',\n      wcagCompliant: true, // Compliant provided pause controls exist\n      reason: 'Running with accessible Pause/Play toggle control provided.'\n    };\n  }\n\n  return { state: 'RUNNING', wcagCompliant: true, reason: 'Under 5-second transient threshold.' };\n}\n\nconst carouselState: LoopingMotionState = {\n  elementId: 'hero-carousel',\n  animationType: 'carousel-auto',\n  durationSeconds: 15,\n  isPausedByUser: false,\n  isTabHidden: false,\n  effectiveState: 'RUNNING'\n};\n\nconst userPaused = evaluateContinuousMotion({ ...carouselState, isPausedByUser: true });\nconst tabBackgrounded = evaluateContinuousMotion({ ...carouselState, isTabHidden: true });\nconst activeCompliant = evaluateContinuousMotion(carouselState);\n\nconsole.log(\"Carousel User Paused:\", userPaused.state, \"|\", userPaused.reason);\nconsole.log(\"Carousel Tab Hidden: \", tabBackgrounded.state, \"|\", tabBackgrounded.reason);\nconsole.log(\"Carousel Active:     \", activeCompliant.state, \"|\", activeCompliant.reason);",
+        "output": "Carousel User Paused: PAUSED | Manually paused by user control.\nCarousel Tab Hidden:  PAUSED | Page hidden; battery-saving pause enforced.\nCarousel Active:      RUNNING | Running with accessible Pause/Play toggle control provided.",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Prioritizes explicit user pause controls to guarantee WCAG 2.2.2 Pause, Stop, Hide compliance."
+          },
+          {
+            "line": 17,
+            "note": "Pauses GPU animation loops automatically when the document tab is hidden to conserve mobile battery."
+          },
+          {
+            "line": 21,
+            "note": "Flags animations running longer than 5 seconds that require visible pause/stop controls."
+          }
+        ],
+        "tryIt": "Implement a visibilitychange event handler simulator that toggles isTabHidden when document.visibilityState changes.",
+        "check": {
+          "question": "Under WCAG 2.2.2, what is required for an animation that starts automatically and loops continuously for more than 5 seconds?",
+          "options": [
+            "The user must be provided with an accessible mechanism to pause, stop, or hide the animation",
+            "The animation must be converted to an animated GIF format",
+            "The animation must run exclusively on the GPU compositor thread",
+            "The background color of the animation must be set to pure black (#000000)"
+          ],
+          "answer": 0,
+          "why": "WCAG 2.2.2 requires a pause, stop, or hide mechanism for any auto-playing motion lasting longer than 5 seconds to assist users with cognitive and attention disorders."
+        }
+      },
+      {
+        "title": "Hardware-Accelerated CSS Properties: 60fps GPU Compositing",
+        "say": [
+          "Creating buttery-smooth 60fps (or 120fps on ProMotion displays) animations requires understanding the browser rendering pipeline.",
+          "When a CSS property changes, the browser engine executes three distinct phases:",
+          "1. Layout (Reflow): Recomputing geometry and coordinates (triggered by 'width', 'height', 'margin', 'top', 'left'). This is the most computationally expensive phase.",
+          "2. Paint: Filling pixels with colors, borders, and shadows (triggered by 'background-color', 'box-shadow').",
+          "3. Composite: Assembling pre-painted GPU texture layers together.",
+          "Crucially, only two CSS properties bypass both Layout and Paint and are composited directly on the GPU:",
+          "'transform' (translate, scale, rotate) and 'opacity'.",
+          "Animating 'top', 'left', 'margin', or 'height' forces continuous layout recalculations on every frame, causing dropped frames (jank).",
+          "Furthermore, applying 'will-change: transform' or 'transform: translateZ(0)' promotes the element to its own dedicated GPU compositing layer.",
+          "However, 'will-change' should be applied sparingly—only to active transitioning elements—to prevent GPU memory exhaustion.",
+          "Let us build a CSS performance auditor that validates animated properties and flags non-performant layout-triggering styles."
+        ],
+        "example": "A theater stage production: moving a painted physical cardboard backdrop requires stagehands to physically reconstruct props (Layout); projecting an actor's spotlight or changing a color gel filter happens effortlessly with pure lighting (Compositing).",
+        "code": "type CssProperty = 'transform' | 'opacity' | 'top' | 'left' | 'width' | 'height' | 'background-color' | 'box-shadow';\n\ninterface AnimationAuditResult {\n  property: CssProperty;\n  pipelinePhase: 'Composite (Fastest)' | 'Paint (Medium)' | 'Layout (Slowest / Jank)';\n  isGpuAccelerated: boolean;\n  score: number;\n}\n\nfunction auditAnimatedProperty(prop: CssProperty): AnimationAuditResult {\n  if (prop === 'transform' || prop === 'opacity') {\n    return {\n      property: prop,\n      pipelinePhase: 'Composite (Fastest)',\n      isGpuAccelerated: true,\n      score: 100\n    };\n  }\n  if (prop === 'background-color' || prop === 'box-shadow') {\n    return {\n      property: prop,\n      pipelinePhase: 'Paint (Medium)',\n      isGpuAccelerated: false,\n      score: 50\n    };\n  }\n  return {\n    property: prop,\n    pipelinePhase: 'Layout (Slowest / Jank)',\n    isGpuAccelerated: false,\n    score: 10\n  };\n}\n\nconst testProps: CssProperty[] = ['transform', 'opacity', 'left', 'height', 'box-shadow'];\n\ntestProps.forEach(prop => {\n  const result = auditAnimatedProperty(prop);\n  console.log(`CSS [${prop.padEnd(16)}] Phase: ${result.pipelinePhase.padEnd(24)} | GPU: ${result.isGpuAccelerated.toString().padEnd(5)} | Score: ${result.score}`);\n});",
+        "output": "CSS [transform       ] Phase: Composite (Fastest)      | GPU: true  | Score: 100\nCSS [opacity         ] Phase: Composite (Fastest)      | GPU: true  | Score: 100\nCSS [left            ] Phase: Layout (Slowest / Jank)  | GPU: false | Score: 10\nCSS [height          ] Phase: Layout (Slowest / Jank)  | GPU: false | Score: 10\nCSS [box-shadow      ] Phase: Paint (Medium)           | GPU: false | Score: 50",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Identifies transform and opacity as the only 100% GPU-composited, layout-free properties."
+          },
+          {
+            "line": 25,
+            "note": "Flags properties like left, top, width, and height as triggering slow layout reflow passes."
+          },
+          {
+            "line": 36,
+            "note": "Demonstrates auditing CSS animation properties to guarantee 60fps frame rate performance."
+          }
+        ],
+        "tryIt": "Replace an animation that uses 'left: 100px' with an equivalent performant 'transform: translateX(100px)'.",
+        "check": {
+          "question": "Which two CSS properties can be animated strictly on the GPU compositor thread without triggering layout reflow or repaint?",
+          "options": [
+            "transform and opacity",
+            "top and left",
+            "width and height",
+            "margin and padding"
+          ],
+          "answer": 0,
+          "why": "Only transform and opacity bypass the browser's Layout and Paint phases, allowing the GPU compositor to animate layers smoothly at 60fps."
+        }
+      }
+    ],
+    "summary": [
+      "Always query and respect '@media (prefers-reduced-motion: reduce)' to safeguard users with vestibular motion disorders.",
+      "Replace disorienting spatial movement (sliding, zooming) with subtle, rapid opacity cross-fades or zero-duration transitions.",
+      "Ensure all animations serve functional roles: Orientation, Feedback, or Focus Guidance, rather than gratuitous ornamentation.",
+      "Follow the duration token matrix: 100-150ms for micro-interactions, 200-250ms for macro-transitions, and <= 400ms for complex layouts.",
+      "Use ease-out curves for entering elements and ease-in curves for exiting elements.",
+      "Cap cumulative staggered list animation delays to 300ms, and drop delays to 0ms when reduced motion is requested.",
+      "Enforce WCAG 2.2.2 compliance by providing accessible pause/stop/hide controls for any looping animation lasting over 5 seconds.",
+      "Restrict animated properties strictly to 'transform' and 'opacity' to achieve jank-free 60fps GPU hardware acceleration."
+    ],
+    "projectStep": {
+      "title": "Build Production Motion Design & Reduced Motion Engine",
+      "steps": [
+        "Define motion duration and easing tokens across micro, macro, and complex tiers",
+        "Implement prefers-reduced-motion CSS media query overrides for all animated components",
+        "Add staggered list orchestrator capping total cascade duration to 300ms",
+        "Audit animations ensuring only transform and opacity properties are animated"
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "title": "Storybook Architecture & Component Documentation: CSF3 & Args Tables",
+    "goal": "Architect enterprise component documentation and isolation suites using Component Story Format 3 (CSF3), auto-generated Args tables, decorators, variant matrix stories, and automated accessibility addons.",
+    "minutes": 30,
+    "recap": "In Day 27, we mastered motion design principles, vestibular accessibility via prefers-reduced-motion, timing token scales, staggered orchestration, and 60fps GPU acceleration. Today in Day 28, we explore Storybook architecture, isolated component-driven development, and automated documentation generation.",
+    "parts": [
+      {
+        "title": "Component-Driven Development (CDD) & Component Story Format (CSF3)",
+        "say": [
+          "Welcome to Day 28 of UI/UX Design Systems & Visual Frontend.",
+          "When engineers build UI components directly inside complex application pages, development is slow and error-prone.",
+          "Testing an edge state (such as an empty search result, an expired session error, or a disabled button) requires repeatedly logging in, navigating, and manipulating backend database records.",
+          "Component-Driven Development (CDD) reverses this process: components are built from the bottom up in complete isolation from backend services and routing layers.",
+          "Storybook is the industry-standard workbench for isolated component development.",
+          "The current standard for authoring stories is Component Story Format 3 (CSF3).",
+          "In CSF3, a story file exports a default 'Meta' object containing the component reference, title hierarchy, and parameter configurations.",
+          "Individual stories are exported as lightweight named objects whose properties define the props passed to the component.",
+          "CSF3 dramatically reduces boilerplate compared to legacy function-based story formats.",
+          "Let us inspect a CSF3 story definition and parser that validates metadata and named story exports."
+        ],
+        "example": "A spacecraft component test bench: NASA engineers test fuel injector valves and thermal insulation panels in pressurized vacuum chambers before assembling them into a rocket fuselage.",
+        "code": "interface StoryMeta<TProps> {\n  title: string;\n  component: string;\n  tags?: string[];\n  parameters?: Record<string, any>;\n  args?: Partial<TProps>;\n}\n\ninterface StoryObj<TProps> {\n  name?: string;\n  args?: Partial<TProps>;\n  play?: (context: any) => Promise<void>;\n}\n\ninterface ButtonProps {\n  label: string;\n  variant: 'primary' | 'secondary' | 'destructive';\n  size: 'sm' | 'md' | 'lg';\n  disabled?: boolean;\n}\n\n// CSF3 Meta Definition\nconst buttonMeta: StoryMeta<ButtonProps> = {\n  title: 'Components/Atoms/Button',\n  component: 'Button',\n  tags: ['autodocs'],\n  args: {\n    size: 'md',\n    disabled: false\n  }\n};\n\n// CSF3 Named Story Objects\nconst PrimaryStory: StoryObj<ButtonProps> = {\n  args: {\n    label: 'Confirm Action',\n    variant: 'primary'\n  }\n};\n\nconst DestructiveStory: StoryObj<ButtonProps> = {\n  args: {\n    label: 'Delete Workspace',\n    variant: 'destructive'\n  }\n};\n\nconsole.log(\"Storybook Meta Title:\", buttonMeta.title);\nconsole.log(\"Meta Component:\", buttonMeta.component, \"| Tags:\", buttonMeta.tags?.join(', '));\nconsole.log(\"Primary Story Label:\", PrimaryStory.args?.label, \"| Variant:\", PrimaryStory.args?.variant);\nconsole.log(\"Destructive Story Label:\", DestructiveStory.args?.label, \"| Variant:\", DestructiveStory.args?.variant);",
+        "output": "Storybook Meta Title: Components/Atoms/Button\nMeta Component: Button | Tags: autodocs\nPrimary Story Label: Confirm Action | Variant: primary\nDestructive Story Label: Delete Workspace | Variant: destructive",
+        "codeNotes": [
+          {
+            "line": 18,
+            "note": "Defines the default Meta export specifying the catalog hierarchy ('Components/Atoms/Button')."
+          },
+          {
+            "line": 29,
+            "note": "Authors stories as concise plain objects specifying only the differential args for that state."
+          },
+          {
+            "line": 40,
+            "note": "Demonstrates clean CSF3 separation between component metadata and story permutations."
+          }
+        ],
+        "tryIt": "Create a 'DisabledStory' object that configures disabled: true and label: 'Unavailable'.",
+        "check": {
+          "question": "What is the primary advantage of Component Story Format 3 (CSF3) over legacy function-based stories?",
+          "options": [
+            "Stories are declared as concise plain objects with args, drastically reducing boilerplate and simplifying typing",
+            "CSF3 compiles directly to WebAssembly for 10x faster browser rendering",
+            "CSF3 automatically eliminates all CSS files from the repository",
+            "CSF3 forces all components to be rendered as static server components"
+          ],
+          "answer": 0,
+          "why": "CSF3 uses concise object-based exports with inherited 'args', reducing boilerplate and enabling robust auto-documentation."
+        }
+      },
+      {
+        "title": "Args & ArgTypes: Automated Prop Documentation & Controls Tables",
+        "say": [
+          "Static documentation files quickly become obsolete when engineers add or rename component props in source code.",
+          "Storybook solves this documentation drift through 'Args' and 'ArgTypes'.",
+          "'Args' represent the dynamic input properties passed into a component story.",
+          "'ArgTypes' define the schema metadata for each prop: its type (e.g. string, boolean, select dropdown), description, default value, and controls UI widget.",
+          "When configured with the 'autodocs' tag, Storybook automatically parses TypeScript prop interfaces and renders an interactive Controls Table.",
+          "Developers, product managers, and designers can manipulate props in real time using sliders, radio buttons, and color pickers directly inside the browser.",
+          "Furthermore, JSDoc comments placed above TypeScript interface properties are automatically extracted and displayed as documentation notes in the table.",
+          "Let us build an ArgTypes generator that converts a TypeScript prop configuration into a Storybook documentation table schema."
+        ],
+        "example": "A programmable laboratory power supply: instead of soldering fixed resistors to test different voltages, a technician turns interactive dials and toggles knobs to test multiple electrical configurations instantly.",
+        "code": "type ControlType = 'text' | 'boolean' | 'select' | 'color';\n\ninterface ArgTypeDefinition {\n  name: string;\n  description: string;\n  control: { type: ControlType; options?: string[] };\n  defaultValue?: any;\n  table: { category: 'Props' | 'Events' | 'Slots'; type: { summary: string } };\n}\n\ninterface ComponentPropsSchema {\n  [propName: string]: {\n    type: string;\n    description: string;\n    defaultValue?: any;\n    options?: string[];\n  };\n}\n\nfunction generateArgTypes(schema: ComponentPropsSchema): Record<string, ArgTypeDefinition> {\n  const argTypes: Record<string, ArgTypeDefinition> = {};\n\n  for (const [key, val] of Object.entries(schema)) {\n    let controlType: ControlType = 'text';\n    if (val.type === 'boolean') controlType = 'boolean';\n    else if (val.options && val.options.length > 0) controlType = 'select';\n    else if (val.type === 'color') controlType = 'color';\n\n    argTypes[key] = {\n      name: key,\n      description: val.description,\n      control: { type: controlType, options: val.options },\n      defaultValue: val.defaultValue,\n      table: {\n        category: 'Props',\n        type: { summary: val.type }\n      }\n    };\n  }\n\n  return argTypes;\n}\n\nconst buttonSchema: ComponentPropsSchema = {\n  variant: { type: 'string', description: 'Visual style hierarchy', defaultValue: 'primary', options: ['primary', 'secondary', 'ghost'] },\n  disabled: { type: 'boolean', description: 'Whether the control accepts user clicks', defaultValue: false },\n  label: { type: 'string', description: 'Accessible text label rendered inside the button', defaultValue: 'Click Me' }\n};\n\nconst argTypes = generateArgTypes(buttonSchema);\nconsole.log(\"ArgType [variant]:  Control =\", argTypes.variant.control.type, \"| Options =\", argTypes.variant.control.options?.join(', '));\nconsole.log(\"ArgType [disabled]: Control =\", argTypes.disabled.control.type, \"| Default =\", argTypes.disabled.defaultValue);\nconsole.log(\"ArgType [label]:    Control =\", argTypes.label.control.type, \"| Category =\", argTypes.label.table.category);",
+        "output": "ArgType [variant]:  Control = select | Options = primary, secondary, ghost\nArgType [disabled]: Control = boolean | Default = false\nArgType [label]:    Control = text | Category = Props",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the Storybook ArgType schema including control widget type and table categories."
+          },
+          {
+            "line": 25,
+            "note": "Automatically maps prop data types to interactive Storybook controls (boolean toggle, select dropdown)."
+          },
+          {
+            "line": 45,
+            "note": "Demonstrates generating live interactive documentation tables directly from prop schemas."
+          }
+        ],
+        "tryIt": "Add an 'onClick' event handler schema item that maps to the 'Events' category and generates an action logger.",
+        "check": {
+          "question": "What is the purpose of Storybook 'argTypes' in component documentation?",
+          "options": [
+            "They define the schema, control widgets, and descriptions for props in the interactive documentation table",
+            "They enforce compile-time memory limits on React component fibers",
+            "They convert TypeScript interfaces into SQL database migrations",
+            "They deploy the component library directly to NPM registry"
+          ],
+          "answer": 0,
+          "why": "argTypes define how props are rendered and controlled in Storybook's auto-generated documentation and Controls panel."
+        }
+      },
+      {
+        "title": "Decorators & Context Providers: Theming & Routing in Isolated Stories",
+        "say": [
+          "Components rarely exist in complete isolation; they frequently depend on ambient context providers.",
+          "For example, a modern Button component needs a ThemeProvider to read light/dark mode tokens, a Toast might need a NotificationContext, and a Link component needs a Next.js or React Router context.",
+          "If you render such a component inside Storybook without its required provider, the story crashes with a runtime context error.",
+          "Storybook solves this with 'Decorators'.",
+          "A decorator is a higher-order wrapper function that wraps a story's render function: '(Story) => <ThemeProvider theme=\"dark\"><Story /></ThemeProvider>'.",
+          "Decorators can be applied at three levels:",
+          "1. Global (in '.storybook/preview.ts'): Wraps every story in the entire library with essential theme and font providers.",
+          "2. Component-level (in the Meta default export): Wraps all stories for a specific component (e.g. adding 20px padding around all Modal stories).",
+          "3. Story-level: Wraps a single individual story (e.g. forcing dark mode on one specific story).",
+          "Let us build a decorator composition runner that executes a pipeline of decorators around a target story."
+        ],
+        "example": "A movie studio sound stage: before an actor delivers their lines, stage crew set up ambient lighting rigs, acoustic baffles, and backdrops to create the required filming environment.",
+        "code": "type StoryFn = () => string;\ntype Decorator = (story: StoryFn, context: { theme: string; locale: string }) => string;\n\ninterface StoryContext {\n  theme: string;\n  locale: string;\n}\n\nfunction composeDecorators(decorators: Decorator[], baseStory: StoryFn, context: StoryContext): string {\n  // Compose decorators from outside in\n  return decorators.reduceRight((wrappedStory, decorator) => {\n    return () => decorator(wrappedStory, context);\n  }, baseStory)();\n}\n\n// Sample Decorators\nconst withThemeProvider: Decorator = (Story, ctx) => {\n  return `<div data-theme=\"${ctx.theme}\" class=\"theme-provider\">${Story()}</div>`;\n};\n\nconst withLayoutPadding: Decorator = (Story) => {\n  return `<div style=\"padding: 24px; background: #FAFAFA;\">${Story()}</div>`;\n};\n\nconst withLocaleProvider: Decorator = (Story, ctx) => {\n  return `<span lang=\"${ctx.locale}\">${Story()}</span>`;\n};\n\nconst baseButtonStory: StoryFn = () => `<button class=\"btn\">Submit Order</button>`;\n\nconst pipeline = [withThemeProvider, withLayoutPadding, withLocaleProvider];\nconst rendered = composeDecorators(pipeline, baseButtonStory, { theme: 'dark', locale: 'en-US' });\n\nconsole.log(\"Decorated Story Markup:\");\nconsole.log(rendered);",
+        "output": "Decorated Story Markup:\n<div data-theme=\"dark\" class=\"theme-provider\"><div style=\"padding: 24px; background: #FAFAFA;\"><span lang=\"en-US\"><button class=\"btn\">Submit Order</button></span></div></div>",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Uses reduceRight to nest decorators properly around the core component story."
+          },
+          {
+            "line": 16,
+            "note": "The ThemeProvider decorator injects data-theme='dark' and outer CSS variables."
+          },
+          {
+            "line": 30,
+            "note": "Demonstrates complete composition of Theme, Layout, and Locale wrappers around a button."
+          }
+        ],
+        "tryIt": "Create a MockRouterDecorator that injects simulated navigation path parameters into the story context.",
+        "check": {
+          "question": "What is a Storybook Decorator used for?",
+          "options": [
+            "To wrap stories with ambient context providers (e.g. ThemeProvider, Router) or layout padding without modifying component source code",
+            "To automatically generate CSS media queries for mobile devices",
+            "To minify JavaScript bundles for production deployment",
+            "To convert SVG icons into WebP images"
+          ],
+          "answer": 0,
+          "why": "Decorators provide surrounding markup, layout padding, or mock context providers (theming, routing) necessary for isolated component rendering."
+        }
+      },
+      {
+        "title": "Component Variant Matrix Stories: Visualizing All Permutations Simultaneously",
+        "say": [
+          "Navigating through 15 individual stories in the Storybook sidebar just to inspect every size, variant, and state permutation of a Button is tedious.",
+          "Visual regression testing and design reviews are vastly more effective when all permutations are laid out simultaneously on a single canvas.",
+          "We call this pattern the 'Component Variant Matrix Story' or 'AllVariants Gallery'.",
+          "A Variant Matrix story renders a 2D grid combining component dimensions (such as 'size: sm | md | lg') along the Y-axis and visual styles (such as 'variant: primary | secondary | destructive') along the X-axis.",
+          "Furthermore, it can include rows for interactive states: default, hovered, focused, disabled, and loading spinner.",
+          "With a single glance, a designer or engineer can verify alignment, padding consistency, and contrast across 12 to 24 permutations.",
+          "Let us build a matrix generator that computes all combinations of props and produces a unified layout specification."
+        ],
+        "example": "A paint swatch catalog or color swatch card: home improvement stores don't hand customers one single paint chip at a time; they present complete matrices of hues, saturations, and finishes on a single folding chart.",
+        "code": "interface MatrixPropAxis<T> {\n  name: string;\n  values: T[];\n}\n\ninterface MatrixCell {\n  row: string;\n  col: string;\n  props: Record<string, any>;\n  renderedTag: string;\n}\n\nfunction generateVariantMatrix<TRow, TCol>(\n  rows: MatrixPropAxis<TRow>,\n  cols: MatrixPropAxis<TCol>,\n  fixedProps: Record<string, any>\n): MatrixCell[] {\n  const cells: MatrixCell[] = [];\n\n  for (const rVal of rows.values) {\n    for (const cVal of cols.values) {\n      const mergedProps = {\n        ...fixedProps,\n        [rows.name]: rVal,\n        [cols.name]: cVal\n      };\n      cells.push({\n        row: String(rVal),\n        col: String(cVal),\n        props: mergedProps,\n        renderedTag: `<Button variant=\"${mergedProps.variant}\" size=\"${mergedProps.size}\" ${mergedProps.disabled ? 'disabled' : ''}>${mergedProps.label}</Button>`\n      });\n    }\n  }\n\n  return cells;\n}\n\nconst variantsAxis: MatrixPropAxis<string> = { name: 'variant', values: ['primary', 'secondary', 'destructive'] };\nconst sizesAxis: MatrixPropAxis<string> = { name: 'size', values: ['sm', 'md', 'lg'] };\n\nconst matrix = generateVariantMatrix(sizesAxis, variantsAxis, { label: 'Action', disabled: false });\n\nconsole.log(\"Total Permutations Generated:\", matrix.length);\nconsole.log(\"Sample Cell [0]:\", matrix[0].row, \"x\", matrix[0].col, \"=>\", matrix[0].renderedTag);\nconsole.log(\"Sample Cell [4]:\", matrix[4].row, \"x\", matrix[4].col, \"=>\", matrix[4].renderedTag);\nconsole.log(\"Sample Cell [8]:\", matrix[8].row, \"x\", matrix[8].col, \"=>\", matrix[8].renderedTag);",
+        "output": "Total Permutations Generated: 9\nSample Cell [0]: sm x primary => <Button variant=\"primary\" size=\"sm\" >Action</Button>\nSample Cell [4]: md x secondary => <Button variant=\"secondary\" size=\"md\" >Action</Button>\nSample Cell [8]: lg x destructive => <Button variant=\"destructive\" size=\"lg\" >Action</Button>",
+        "codeNotes": [
+          {
+            "line": 18,
+            "note": "Computes the Cartesian product of two prop axes (size x variant) for simultaneous rendering."
+          },
+          {
+            "line": 36,
+            "note": "Generates 9 discrete component permutations spanning all size and visual hierarchy variants."
+          },
+          {
+            "line": 40,
+            "note": "Allows QA engineers and Chromatic visual regression scanners to test all variants in a single snapshot."
+          }
+        ],
+        "tryIt": "Extend the matrix to include a third boolean axis for 'disabled: [false, true]', generating 18 total cells.",
+        "check": {
+          "question": "Why should design systems author a 'Matrix' or 'AllVariants' story in Storybook?",
+          "options": [
+            "It displays all size, variant, and state combinations on a single canvas, enabling rapid visual comparison and efficient regression testing",
+            "It automatically optimizes the production bundle size of the component",
+            "It eliminates the need for unit testing with Jest or Vitest",
+            "It converts React components into native mobile views"
+          ],
+          "answer": 0,
+          "why": "Variant Matrix stories display all permutations simultaneously, making visual design review and screenshot regression tests vastly more comprehensive."
+        }
+      },
+      {
+        "title": "Accessibility Addon (@storybook/addon-a11y) & Automated Axe Audits",
+        "say": [
+          "Manual accessibility testing is time-consuming and often skipped under tight product deadlines.",
+          "Storybook integrates directly with Deque's 'axe-core' engine via the official '@storybook/addon-a11y' package.",
+          "Whenever a story is rendered in the Storybook canvas, the a11y addon runs an automated accessibility scan against the live DOM.",
+          "It audits three primary categories:",
+          "1. Violations: Severe WCAG failures that must be fixed immediately (e.g. color contrast failure, missing button accessible name, duplicate ID).",
+          "2. Incomplete: Items requiring manual verification (e.g. verifying that a color is not the only means of conveying status).",
+          "3. Passes: Verified rules (e.g. valid ARIA attributes, valid landmark roles).",
+          "Embedding axe audits directly inside the developer's everyday workbench catches over 50% of common accessibility defects before code is ever committed to Git.",
+          "Let us build an axe-core rule simulator that evaluates stories against standard WCAG checks."
+        ],
+        "example": "An automated vehicle emissions inspection machine: before a car receives a roadworthiness certificate, sensors continuously test exhaust gas composition, brake balance, and headlamp alignment.",
+        "code": "interface AxeRuleAudit {\n  ruleId: string;\n  description: string;\n  impact: 'critical' | 'serious' | 'moderate' | 'minor';\n  evaluator: (node: { tag: string; text?: string; ariaLabel?: string; contrastRatio?: number }) => boolean;\n}\n\ninterface AxeStoryReport {\n  passes: string[];\n  violations: Array<{ ruleId: string; impact: string; description: string }>;\n  overallStatus: 'PASS' | 'FAIL';\n}\n\nconst AXE_RULES: AxeRuleAudit[] = [\n  {\n    ruleId: 'button-name',\n    description: 'Buttons must have discernible text or accessible aria-label',\n    impact: 'critical',\n    evaluator: (n) => n.tag !== 'button' || Boolean((n.text && n.text.trim()) || n.ariaLabel)\n  },\n  {\n    ruleId: 'color-contrast',\n    description: 'Text elements must satisfy minimum 4.5:1 WCAG contrast ratio',\n    impact: 'serious',\n    evaluator: (n) => n.contrastRatio === undefined || n.contrastRatio >= 4.5\n  }\n];\n\nfunction runA11yStoryAudit(node: { tag: string; text?: string; ariaLabel?: string; contrastRatio?: number }): AxeStoryReport {\n  const passes: string[] = [];\n  const violations: Array<{ ruleId: string; impact: string; description: string }> = [];\n\n  for (const rule of AXE_RULES) {\n    if (rule.evaluator(node)) {\n      passes.push(rule.ruleId);\n    } else {\n      violations.push({ ruleId: rule.ruleId, impact: rule.impact, description: rule.description });\n    }\n  }\n\n  return {\n    passes,\n    violations,\n    overallStatus: violations.length === 0 ? 'PASS' : 'FAIL'\n  };\n}\n\nconst validButton = runA11yStoryAudit({ tag: 'button', text: 'Submit Order', contrastRatio: 7.2 });\nconst badContrastButton = runA11yStoryAudit({ tag: 'button', text: 'Cancel', contrastRatio: 2.8 });\nconst emptyIconButton = runA11yStoryAudit({ tag: 'button', contrastRatio: 5.0 }); // Missing label!\n\nconsole.log(\"Valid Button Audit:      \", validButton.overallStatus, \"| Passes:\", validButton.passes.join(', '));\nconsole.log(\"Low Contrast Button:     \", badContrastButton.overallStatus, \"| Violation:\", badContrastButton.violations[0].ruleId, `(${badContrastButton.violations[0].impact})`);\nconsole.log(\"Empty Icon Button:       \", emptyIconButton.overallStatus, \"| Violation:\", emptyIconButton.violations[0].ruleId, `(${emptyIconButton.violations[0].impact})`);",
+        "output": "Valid Button Audit:       PASS | Passes: button-name, color-contrast\nLow Contrast Button:      FAIL | Violation: color-contrast (serious)\nEmpty Icon Button:        FAIL | Violation: button-name (critical)",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Defines automated axe-core evaluation rules: button-name and color-contrast."
+          },
+          {
+            "line": 40,
+            "note": "Flags empty icon buttons as critical violations when accessible names are missing."
+          },
+          {
+            "line": 47,
+            "note": "Demonstrates real-time accessibility auditing embedded inside the Storybook workbench."
+          }
+        ],
+        "tryIt": "Add an 'image-alt' rule that checks whether 'img' tags provide a non-empty alt attribute.",
+        "check": {
+          "question": "What is the role of @storybook/addon-a11y in a design system?",
+          "options": [
+            "It runs automated accessibility audits (axe-core) on rendered stories, catching contrast and ARIA defects during development",
+            "It converts web applications into high-contrast audio waveforms for screen readers",
+            "It automatically registers trademark copyrights for all UI components",
+            "It translates story documentation into braille format"
+          ],
+          "answer": 0,
+          "why": "The a11y addon runs automated axe-core tests directly against rendered component stories, alerting engineers to accessibility defects in real time."
+        }
+      },
+      {
+        "title": "Visual Regression Testing Pipelines: Chromatic & Pixel-Diff Thresholds",
+        "say": [
+          "Unit tests verify that functions return correct values, but they cannot tell you if a subtle CSS margin change accidentally broke the layout of 40 other components.",
+          "Visual regression testing solves this by capturing pixel-perfect screenshots of every story in Storybook across multiple browsers and screen resolutions.",
+          "Tools like Chromatic or Playwright compare newly captured screenshots against approved baseline images.",
+          "If even a single pixel shifts, the test fails and highlights the visual difference in a diff heatmap.",
+          "However, modern operating systems render fonts with subtle anti-aliasing variations.",
+          "Without a configured 'threshold' (e.g. 0.02% or 20 pixels), visual tests suffer false-positive failures due to font smoothing differences across operating systems.",
+          "A production visual regression pipeline establishes strict baseline thresholds, automates branch testing on pull requests, and requires designer sign-off on visual changes.",
+          "Let us build a visual regression diff comparator that evaluates screenshot pixel shifts against acceptable tolerance thresholds."
+        ],
+        "example": "A banknote counter and counterfeit detector: an optical scanner compares newly printed currency bills against a laser-scanned master template, flagging any microscopic ink alignment defects.",
+        "code": "interface ImageDimensions {\n  width: number;\n  height: number;\n}\n\ninterface VisualDiffResult {\n  totalPixels: number;\n  differentPixels: number;\n  diffPercentage: number;\n  thresholdPassed: boolean;\n  status: 'APPROVED' | 'REGRESSION_DETECTED';\n}\n\nfunction compareVisualSnapshots(\n  baselineDimensions: ImageDimensions,\n  mismatchedPixelsCount: number,\n  toleranceThresholdPercent: number = 0.05\n): VisualDiffResult {\n  const total = baselineDimensions.width * baselineDimensions.height;\n  const pct = Number(((mismatchedPixelsCount / total) * 100).toFixed(3));\n  const passed = pct <= toleranceThresholdPercent;\n\n  return {\n    totalPixels: total,\n    differentPixels: mismatchedPixelsCount,\n    diffPercentage: pct,\n    thresholdPassed: passed,\n    status: passed ? 'APPROVED' : 'REGRESSION_DETECTED'\n  };\n}\n\nconst viewport1080p: ImageDimensions = { width: 1920, height: 1080 }; // 2,073,600 pixels\n\n// Case 1: Subtle anti-aliasing jitter (120 pixels changed)\nconst antiAliasedDiff = compareVisualSnapshots(viewport1080p, 120, 0.05);\n\n// Case 2: Unintended CSS margin shift (25,000 pixels changed)\nconst accidentalShift = compareVisualSnapshots(viewport1080p, 25000, 0.05);\n\nconsole.log(\"Anti-aliasing Diff:  Shift =\", antiAliasedDiff.diffPercentage + \"%\", \"| Status =\", antiAliasedDiff.status, \"| Tolerated:\", antiAliasedDiff.thresholdPassed);\nconsole.log(\"Layout Break Shift:  Shift =\", accidentalShift.diffPercentage + \"%\", \"| Status =\", accidentalShift.status, \"| Tolerated:\", accidentalShift.thresholdPassed);",
+        "output": "Anti-aliasing Diff:  Shift = 0.006% | Status = APPROVED | Tolerated: true\nLayout Break Shift:  Shift = 1.206% | Status = REGRESSION_DETECTED | Tolerated: false",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Calculates the percentage of shifted pixels relative to the total viewport resolution."
+          },
+          {
+            "line": 20,
+            "note": "Applies a 0.05% tolerance threshold to ignore harmless anti-aliasing rendering variations."
+          },
+          {
+            "line": 36,
+            "note": "Correctly flags an accidental 1.2% layout shift as a critical visual regression."
+          }
+        ],
+        "tryIt": "Create a rule that triggers a critical alert if any visual diff occurs specifically inside the header navigation region.",
+        "check": {
+          "question": "Why do visual regression testing tools utilize a small tolerance threshold (e.g. 0.05%) when comparing screenshots?",
+          "options": [
+            "To ignore microscopic font anti-aliasing and subpixel rendering differences while still catching genuine visual bugs",
+            "Because image compression algorithms cannot store exact RGB values",
+            "To reduce the financial cost of running cloud CI server instances",
+            "Because CSS colors fluctuate randomly based on CPU temperature"
+          ],
+          "answer": 0,
+          "why": "Subpixel antialiasing differences across operating systems can cause tiny pixel differences; tolerance thresholds prevent false-positive CI failures."
+        }
+      }
+    ],
+    "summary": [
+      "Adopt Component-Driven Development (CDD) to build and test UI components in isolated, reproducible sandboxes.",
+      "Author stories using Component Story Format 3 (CSF3), declaring concise object-based stories with inherited 'args'.",
+      "Configure Storybook 'argTypes' to automatically generate interactive documentation tables and controls for props.",
+      "Use Decorators to supply ambient ThemeProvider, routing, or layout wrappers around isolated stories without altering component code.",
+      "Build Component Variant Matrix stories displaying all size, style, and state permutations on a single canvas for comprehensive review.",
+      "Embed '@storybook/addon-a11y' to run automated axe-core accessibility audits directly in the developer workbench.",
+      "Establish visual regression testing pipelines (Chromatic/Playwright) with anti-aliasing tolerance thresholds to catch layout shifts in CI."
+    ],
+    "projectStep": {
+      "title": "Build Production Storybook Architecture & Documentation Suite",
+      "steps": [
+        "Configure CSF3 story files with Meta default exports and autodocs tags",
+        "Define comprehensive argTypes with controls for all component props",
+        "Implement Global ThemeDecorator supporting light and dark mode testing",
+        "Author Variant Matrix story displaying all size and state permutations",
+        "Add automated axe-core accessibility checks to story test suite"
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "title": "Design System Governance & Versioning: SemVer Breaking Changes & Deprecations",
+    "goal": "Architect enterprise design system governance, versioning lifecycle management, SemVer breaking change classification, deprecation annotation warnings, and monorepo package distribution.",
+    "minutes": 30,
+    "recap": "In Day 28, we mastered Storybook architecture, CSF3 component stories, auto-generated Args tables, decorators, variant matrix stories, and automated accessibility auditing. Today in Day 29, we examine enterprise design system governance: Semantic Versioning for UI tokens, deprecation warning lifecycles, automated codemod migrations, and monorepo package orchestration.",
+    "parts": [
+      {
+        "title": "Semantic Versioning in Design Systems: MAJOR, MINOR & PATCH for UI",
+        "say": [
+          "Welcome to Day 29 of UI/UX Design Systems & Visual Frontend.",
+          "An enterprise design system is not a static code library; it is a living product consumed by dozens of distributed application teams.",
+          "If a design system team pushes an unannounced breaking change, dozens of downstream production apps can break simultaneously.",
+          "Semantic Versioning ('MAJOR.MINOR.PATCH') provides the formal mathematical contract governing releases:",
+          "1. PATCH (e.g. 2.1.4 -> 2.1.5): Backward-compatible bug fixes. Examples: improving color contrast on a secondary button, fixing an internal tooltip memory leak, or adjusting documentation.",
+          "2. MINOR (e.g. 2.1.5 -> 2.2.0): Backward-compatible new features. Examples: adding a new 'Badge' component, introducing a new 'ghost' button variant, or adding an optional prop.",
+          "3. MAJOR (e.g. 2.2.0 -> 3.0.0): Breaking changes that require consuming product teams to modify their code. Examples: renaming or removing a component prop, deleting a deprecated component, changing a core design token name, or upgrading minimum React version.",
+          "Consuming teams should be able to accept PATCH and MINOR updates automatically without fear of regression.",
+          "Let us implement an automated SemVer release analyzer that inspects component API diffs and computes the required version bump."
+        ],
+        "example": "Building plumbing and electrical building codes: replacing an existing electrical outlet with a more fire-resistant outlet is a PATCH; adding a new USB-C charging port while keeping existing 110V sockets is a MINOR; switching the entire building from 110V to 220V plugs is a MAJOR breaking change.",
+        "code": "type ReleaseType = 'PATCH' | 'MINOR' | 'MAJOR';\n\ninterface ApiDiffItem {\n  entity: string;\n  changeType: 'PROP_REMOVED' | 'PROP_RENAMED' | 'PROP_ADDED_REQUIRED' | 'PROP_ADDED_OPTIONAL' | 'NEW_COMPONENT' | 'BUG_FIX' | 'TOKEN_VALUE_TWEAK';\n  description: string;\n}\n\ninterface SemVerPlan {\n  currentVersion: string;\n  nextVersion: string;\n  recommendedBump: ReleaseType;\n  breakingChangesCount: number;\n  changesSummary: string[];\n}\n\nfunction calculateNextSemVer(current: string, diffs: ApiDiffItem[]): SemVerPlan {\n  let bump: ReleaseType = 'PATCH';\n  let breakingCount = 0;\n\n  for (const diff of diffs) {\n    if (diff.changeType === 'PROP_REMOVED' || diff.changeType === 'PROP_RENAMED' || diff.changeType === 'PROP_ADDED_REQUIRED') {\n      bump = 'MAJOR';\n      breakingCount++;\n    } else if (diff.changeType === 'NEW_COMPONENT' || diff.changeType === 'PROP_ADDED_OPTIONAL') {\n      if (bump !== 'MAJOR') bump = 'MINOR';\n    }\n  }\n\n  const [major, minor, patch] = current.split('.').map(Number);\n  let next = '';\n  if (bump === 'MAJOR') next = `${major + 1}.0.0`;\n  else if (bump === 'MINOR') next = `${major}.${minor + 1}.0`;\n  else next = `${major}.${minor}.${patch + 1}`;\n\n  return {\n    currentVersion: current,\n    nextVersion: next,\n    recommendedBump: bump,\n    breakingChangesCount: breakingCount,\n    changesSummary: diffs.map(d => `[${d.changeType}] ${d.entity}: ${d.description}`)\n  };\n}\n\nconst safeReleaseDiffs: ApiDiffItem[] = [\n  { entity: 'Button', changeType: 'PROP_ADDED_OPTIONAL', description: \"Added optional 'iconPosition' prop\" },\n  { entity: 'Modal', changeType: 'BUG_FIX', description: 'Fixed focus trap scroll lock in iOS Safari' }\n];\n\nconst breakingReleaseDiffs: ApiDiffItem[] = [\n  { entity: 'Button', changeType: 'PROP_REMOVED', description: \"Removed legacy 'isPrimary' boolean prop in favor of variant='primary'\" },\n  { entity: 'Tokens', changeType: 'PROP_ADDED_OPTIONAL', description: \"Added new spacing-18 token\" }\n];\n\nconst planSafe = calculateNextSemVer('2.4.1', safeReleaseDiffs);\nconst planBreaking = calculateNextSemVer('2.4.1', breakingReleaseDiffs);\n\nconsole.log(\"Safe Release:     Current =\", planSafe.currentVersion, \"=> Next =\", planSafe.nextVersion, `(${planSafe.recommendedBump})`);\nconsole.log(\"Breaking Release: Current =\", planBreaking.currentVersion, \"=> Next =\", planBreaking.nextVersion, `(${planBreaking.recommendedBump}, Breaking: ${planBreaking.breakingChangesCount})`);",
+        "output": "Safe Release:     Current = 2.4.1 => Next = 2.5.0 (MINOR)\nBreaking Release: Current = 2.4.1 => Next = 3.0.0 (MAJOR, Breaking: 1)",
+        "codeNotes": [
+          {
+            "line": 19,
+            "note": "Detects breaking changes: removing a prop, renaming a prop, or adding a mandatory required prop."
+          },
+          {
+            "line": 27,
+            "note": "Increments version integers according to SemVer standards (MAJOR resets minor and patch to 0)."
+          },
+          {
+            "line": 45,
+            "note": "Correctly classifies optional prop addition as MINOR and prop removal as MAJOR."
+          }
+        ],
+        "tryIt": "Add a check for 'MINIMUM_NODE_UPGRADE' that automatically forces a MAJOR version bump.",
+        "check": {
+          "question": "Which of the following changes requires a MAJOR semantic version bump in a design system?",
+          "options": [
+            "Removing a deprecated prop or renaming an existing component property",
+            "Adding a new optional icon prop to the Button component",
+            "Adjusting the hex color value of a token to improve WCAG contrast",
+            "Fixing a typo in a documentation markdown file"
+          ],
+          "answer": 0,
+          "why": "Removing or renaming props breaks existing consumer codebases that rely on the old API, strictly requiring a MAJOR version bump under SemVer."
+        }
+      },
+      {
+        "title": "The Deprecation Lifecycle: @deprecated Annotations & Runtime Warnings",
+        "say": [
+          "Suddenly deleting a prop or component in a minor update causes immense friction and developer distrust.",
+          "Instead, mature design systems execute a formal four-stage Deprecation Lifecycle:",
+          "Stage 1: Announce & Annotate. The prop is marked with the standard TypeScript '@deprecated' JSDoc tag, detailing the replacement API and sunset deadline.",
+          "Modern IDEs (VS Code, WebStorm) immediately render a strikethrough over deprecated usages (e.g. ~~isPrimary~~) and display the migration advice in tooltips.",
+          "Stage 2: Runtime Dev Warning. In development mode (NODE_ENV !== 'production'), using the deprecated prop logs a clear, rate-limited console warning.",
+          "Stage 3: Automated Codemod. The design system team provides an automated script (codemod) that consuming teams run to rewrite deprecated usages automatically.",
+          "Stage 4: Sunsetting in Next MAJOR. The deprecated code remains fully functional until the next scheduled MAJOR release, where it is finally pruned.",
+          "Let us build a deprecation tracker that logs rate-limited development warnings with migration instructions."
+        ],
+        "example": "Highway bridge replacements: years before an old suspension bridge is dismantled, transportation authorities build an adjacent modern bridge, post advance warning signs, and route traffic across smoothly before closing the original structure.",
+        "code": "interface DeprecationConfig {\n  propName: string;\n  componentName: string;\n  sunsetVersion: string;\n  replacementAdvice: string;\n}\n\nclass DeprecationManager {\n  private loggedWarnings = new Set<string>();\n\n  warnIfDeprecated(component: string, prop: string, config: DeprecationConfig, isDev: boolean = true) {\n    if (!isDev) return; // Never spam production user consoles\n    const key = `${component}:${prop}`;\n    if (this.loggedWarnings.has(key)) return; // Rate-limit: warn only once per session\n\n    this.loggedWarnings.add(key);\n    console.warn(\n      `[DEPRECATION WARNING] ${component} prop '${prop}' is deprecated and will be removed in v${config.sunsetVersion}. ${config.replacementAdvice}`\n    );\n  }\n\n  getWarningCount(): number {\n    return this.loggedWarnings.size;\n  }\n}\n\nconst deprecations: Record<string, DeprecationConfig> = {\n  isPrimary: {\n    componentName: 'Button',\n    propName: 'isPrimary',\n    sunsetVersion: '3.0.0',\n    replacementAdvice: \"Please use variant='primary' instead.\"\n  },\n  fluid: {\n    componentName: 'Container',\n    propName: 'fluid',\n    sunsetVersion: '3.0.0',\n    replacementAdvice: \"Please use maxWidth='full' instead.\"\n  }\n};\n\nconst manager = new DeprecationManager();\n\n// Simulate component rendering in development\nmanager.warnIfDeprecated('Button', 'isPrimary', deprecations.isPrimary, true);\nmanager.warnIfDeprecated('Button', 'isPrimary', deprecations.isPrimary, true); // Deduplicated!\nmanager.warnIfDeprecated('Container', 'fluid', deprecations.fluid, true);\n\nconsole.log(\"Total Unique Deprecation Warnings Logged:\", manager.getWarningCount());",
+        "output": "[DEPRECATION WARNING] Button prop 'isPrimary' is deprecated and will be removed in v3.0.0. Please use variant='primary' instead.\n[DEPRECATION WARNING] Container prop 'fluid' is deprecated and will be removed in v3.0.0. Please use maxWidth='full' instead.\nTotal Unique Deprecation Warnings Logged: 2",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Restricts deprecation warnings strictly to development environments to protect production logs."
+          },
+          {
+            "line": 14,
+            "note": "Deduplicates warnings so a component rendered 100 times in a loop only logs once."
+          },
+          {
+            "line": 40,
+            "note": "Verifies that duplicate calls for 'isPrimary' are ignored, yielding exactly 2 unique warnings."
+          }
+        ],
+        "tryIt": "Add a method that returns a markdown summary table of all active deprecations across the design system.",
+        "check": {
+          "question": "Why should deprecation console warnings only execute in development mode (NODE_ENV !== 'production')?",
+          "options": [
+            "To prevent polluting production browser logs and degrading end-user application performance",
+            "Because production JavaScript bundles cannot access the console object",
+            "Because browsers disable JavaScript if more than 5 warnings occur in production",
+            "To hide security vulnerabilities from public search engines"
+          ],
+          "answer": 0,
+          "why": "Deprecation warnings are intended for engineers during development; running them in production adds console noise and slight runtime overhead for end users."
+        }
+      },
+      {
+        "title": "Automated Migration Codemods: Transforming Code with AST Rewriters",
+        "say": [
+          "In a company with 200 repositories, expecting product engineers to manually search and replace deprecated props across thousands of files leads to missed usages, typos, and stalled upgrades.",
+          "Leading technology companies (Meta, Google, Airbnb) maintain design system momentum through automated codemods.",
+          "A 'codemod' parses source code into an Abstract Syntax Tree (AST), identifies specific AST nodes (like a JSX attribute), applies transformations, and prints clean formatted code.",
+          "Consuming teams execute a single command: 'npx @design/codemods v3-button-upgrade src/'.",
+          "The codemod scans thousands of files, rewrites 'isPrimary={true}' to 'variant=\"primary\"', and commits the changes cleanly.",
+          "Providing automated migration codemods lowers the friction of MAJOR upgrades from weeks of manual work to five minutes.",
+          "Let us implement an AST transform simulator that finds and updates deprecated JSX attribute patterns."
+        ],
+        "example": "Automated track replacement trains: specialized railway machines lift old railroad tracks, re-ballast the gravel bed, and lay down new continuous welded steel rails in a single automated continuous pass.",
+        "code": "interface CodemodTransformRule {\n  targetComponent: string;\n  deprecatedProp: string;\n  transformer: (val: string) => { newProp: string; newVal: string };\n}\n\nfunction runCodemodTransform(sourceCode: string, rule: CodemodTransformRule): { modifiedCode: string; transformCount: number } {\n  // Regex simulator for AST JSX attribute transformation\n  const pattern = new RegExp(`<(${rule.targetComponent})\\\\s+([^>]*?)(${rule.deprecatedProp})=(?:{([^}]+)}|\"([^\"]+)\")([^>]*?)>`, 'g');\n  let count = 0;\n\n  const modified = sourceCode.replace(pattern, (match, comp, pre, prop, jsVal, strVal, post) => {\n    count++;\n    const rawVal = jsVal !== undefined ? jsVal : strVal;\n    const { newProp, newVal } = rule.transformer(rawVal);\n    const formattedVal = newVal === 'true' || newVal === 'false' ? `{${newVal}}` : `\"${newVal}\"`;\n    return `<${comp} ${pre}${newProp}=${formattedVal}${post}>`.replace(/\\s{2,}/g, ' ');\n  });\n\n  return { modifiedCode: modified, transformCount: count };\n}\n\nconst v3ButtonRule: CodemodTransformRule = {\n  targetComponent: 'Button',\n  deprecatedProp: 'isPrimary',\n  transformer: (val) => ({\n    newProp: 'variant',\n    newVal: val === 'true' ? 'primary' : 'secondary'\n  })\n};\n\nconst legacyCodeSnippet = `<div>\n  <Button isPrimary={true} size=\"md\">Save Changes</Button>\n  <Button isPrimary={false} size=\"sm\">Cancel</Button>\n</div>`;\n\nconst result = runCodemodTransform(legacyCodeSnippet, v3ButtonRule);\nconsole.log(\"Transformations Applied:\", result.transformCount);\nconsole.log(\"Transformed Source Code:\");\nconsole.log(result.modifiedCode);",
+        "output": "Transformations Applied: 2\nTransformed Source Code:\n<div>\n  <Button variant=\"primary\" size=\"md\">Save Changes</Button>\n  <Button variant=\"secondary\" size=\"sm\">Cancel</Button>\n</div>",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Simulates an AST transformation matching target JSX components and deprecated prop attributes."
+          },
+          {
+            "line": 23,
+            "note": "Maps boolean 'isPrimary={true}' to the new semantic union 'variant=\"primary\"'."
+          },
+          {
+            "line": 36,
+            "note": "Demonstrates automated source code migration across multiple component instances."
+          }
+        ],
+        "tryIt": "Create a transformation rule that renames 'fluid={true}' on Container components to 'maxWidth=\"full\"'.",
+        "check": {
+          "question": "What is an automated codemod in the context of design system migrations?",
+          "options": [
+            "A script that parses source code ASTs and automatically rewrites deprecated component APIs to the new syntax",
+            "A cloud service that rewrites JavaScript into Python for backend processing",
+            "A compiler that minifies CSS variable declarations into single-character identifiers",
+            "A bot that automatically closes customer bug reports on GitHub"
+          ],
+          "answer": 0,
+          "why": "Codemods use Abstract Syntax Tree transformations to safely and automatically update deprecated APIs across large consumer codebases."
+        }
+      },
+      {
+        "title": "Multi-Package Monorepo Architecture: Tokens, Icons & Components",
+        "say": [
+          "In an enterprise organization, publishing a design system as a single monolithic NPM package ('@company/ui') creates significant bloat.",
+          "Mobile teams building React Native apps want the design tokens and colors, but do not want web DOM components.",
+          "Microservices building HTML email templates or CLI tools want raw color hexes and typography scales without pulling in React dependencies.",
+          "The modern standard is a multi-package Monorepo architecture (using tools like Turborepo, pnpm workspaces, or Nx).",
+          "The system is decomposed into specialized, loosely coupled packages:",
+          "1. '@design/tokens': Pure framework-agnostic design tokens (JSON, CSS custom properties, SCSS variables, iOS Swift, and Android XML).",
+          "2. '@design/icons': SVG vector assets, sprite sheets, and icon metadata.",
+          "3. '@design/react': Accessible React components consuming tokens and icons as internal peer dependencies.",
+          "4. '@design/docs': Storybook documentation site and interactive component catalog.",
+          "This decoupled architecture maximizes reusability across web, mobile, desktop, and marketing properties.",
+          "Let us build a monorepo dependency graph validator that verifies package dependency integrity and prevents cyclic imports."
+        ],
+        "example": "An automotive manufacturing ecosystem: the engine foundry, tire factory, and interior leather shop operate as specialized independent production units, supplying components to the final assembly plant.",
+        "code": "interface MonorepoPackage {\n  name: string;\n  version: string;\n  dependencies: string[];\n  isFrameworkAgnostic: boolean;\n}\n\ninterface DependencyGraphValidation {\n  valid: boolean;\n  buildOrder: string[];\n  errors: string[];\n}\n\nfunction validateMonorepoArchitecture(packages: MonorepoPackage[]): DependencyGraphValidation {\n  const errors: string[] = [];\n  const buildOrder: string[] = [];\n  const resolved = new Set<string>();\n\n  // Tokens must be strictly framework agnostic (no React or UI dependencies)\n  const tokensPkg = packages.find(p => p.name === '@design/tokens');\n  if (tokensPkg && tokensPkg.dependencies.length > 0) {\n    errors.push(\"@design/tokens must have zero runtime dependencies to remain framework-agnostic.\");\n  }\n\n  // Topological sort simulator\n  let remaining = [...packages];\n  while (remaining.length > 0) {\n    const ready = remaining.filter(p => p.dependencies.every(dep => resolved.has(dep)));\n    if (ready.length === 0) {\n      errors.push(\"Cyclic dependency detected among packages: \" + remaining.map(p => p.name).join(', '));\n      break;\n    }\n    for (const p of ready) {\n      buildOrder.push(p.name);\n      resolved.add(p.name);\n    }\n    remaining = remaining.filter(p => !resolved.has(p.name));\n  }\n\n  return {\n    valid: errors.length === 0,\n    buildOrder,\n    errors\n  };\n}\n\nconst enterpriseMonorepo: MonorepoPackage[] = [\n  { name: '@design/tokens', version: '2.1.0', dependencies: [], isFrameworkAgnostic: true },\n  { name: '@design/icons', version: '1.4.0', dependencies: ['@design/tokens'], isFrameworkAgnostic: true },\n  { name: '@design/react', version: '3.0.0', dependencies: ['@design/tokens', '@design/icons'], isFrameworkAgnostic: false },\n  { name: '@design/docs', version: '1.0.0', dependencies: ['@design/react'], isFrameworkAgnostic: false }\n];\n\nconst validation = validateMonorepoArchitecture(enterpriseMonorepo);\nconsole.log(\"Monorepo Architecture Valid:\", validation.valid);\nconsole.log(\"Deterministic Build Order: \");\nvalidation.buildOrder.forEach((pkg, idx) => console.log(`  ${idx + 1}. ${pkg}`));",
+        "output": "Monorepo Architecture Valid: true\nDeterministic Build Order: \n  1. @design/tokens\n  2. @design/icons\n  3. @design/react\n  4. @design/docs",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Enforces that design tokens remain strictly zero-dependency and framework-agnostic."
+          },
+          {
+            "line": 26,
+            "note": "Calculates deterministic topological build order: tokens -> icons -> react -> docs."
+          },
+          {
+            "line": 45,
+            "note": "Demonstrates clean enterprise package isolation across multiple platform targets."
+          }
+        ],
+        "tryIt": "Introduce a cyclic dependency between @design/react and @design/tokens and verify that the validator flags the cycle.",
+        "check": {
+          "question": "Why should @design/tokens be kept completely free of framework dependencies (like React)?",
+          "options": [
+            "So that mobile (iOS/Android), backend, CLI, and marketing teams can consume token values without pulling in unused web UI libraries",
+            "Because React crashes if JSON files contain more than 100 color tokens",
+            "To allow tokens to be compiled directly into CPU firmware",
+            "Because npm prohibits packages with fewer than 5 files from importing React"
+          ],
+          "answer": 0,
+          "why": "Framework-agnostic tokens can be transformed into iOS Swift, Android XML, SCSS, or JSON, enabling multi-platform consistency."
+        }
+      },
+      {
+        "title": "Design System Telemetry & Adoption Analytics: Measuring Component Health",
+        "say": [
+          "Building a world-class design system is useless if product teams bypass it and continue writing bespoke, unmaintainable CSS in their applications.",
+          "Executive sponsors and design system leads need quantitative metrics to measure return on investment (ROI).",
+          "This is accomplished through automated Design System Telemetry.",
+          "Telemetry scripts scan consuming product codebases during CI builds, auditing three core indicators:",
+          "1. Component Adoption Rate: The percentage of UI controls instantiated via '@design/react' vs raw HTML elements ('<button>', '<input>').",
+          "2. Bespoke CSS Volume: Tracking the count of raw CSS classes and inline style overrides across product repositories.",
+          "3. Deprecated Prop Footprint: Identifying teams that are lagging behind on deprecation migrations.",
+          "Tracking these metrics over time produces actionable health dashboards, proving the value of the design system to company leadership.",
+          "Let us implement a telemetry scanner that analyzes an application codebase and generates an executive health report."
+        ],
+        "example": "A city public transit telemetry dashboard: transportation planners continuously monitor ridership rates, bus route adherence, and ticket validations to identify underserved neighborhoods and optimize scheduling.",
+        "code": "interface CodebaseScanInput {\n  repoName: string;\n  totalElementsScanned: number;\n  designSystemComponentsCount: number;\n  rawHtmlElementsCount: number;\n  activeDeprecatedPropUsages: number;\n}\n\ninterface TelemetryReport {\n  repoName: string;\n  adoptionPercentage: number;\n  deprecatedRiskScore: 'LOW' | 'MEDIUM' | 'HIGH';\n  grade: 'A' | 'B' | 'C' | 'D';\n}\n\nfunction calculateDesignSystemHealth(scan: CodebaseScanInput): TelemetryReport {\n  const total = scan.designSystemComponentsCount + scan.rawHtmlElementsCount;\n  const adoption = total > 0 ? Number(((scan.designSystemComponentsCount / total) * 100).toFixed(1)) : 0;\n\n  let risk: 'LOW' | 'MEDIUM' | 'HIGH' = 'LOW';\n  if (scan.activeDeprecatedPropUsages > 20) risk = 'HIGH';\n  else if (scan.activeDeprecatedPropUsages > 5) risk = 'MEDIUM';\n\n  let grade: 'A' | 'B' | 'C' | 'D' = 'D';\n  if (adoption >= 90 && risk === 'LOW') grade = 'A';\n  else if (adoption >= 75) grade = 'B';\n  else if (adoption >= 50) grade = 'C';\n\n  return {\n    repoName: scan.repoName,\n    adoptionPercentage: adoption,\n    deprecatedRiskScore: risk,\n    grade\n  };\n}\n\nconst productApps: CodebaseScanInput[] = [\n  { repoName: 'Checkout-App', totalElementsScanned: 500, designSystemComponentsCount: 465, rawHtmlElementsCount: 35, activeDeprecatedPropUsages: 2 },\n  { repoName: 'Analytics-Portal', totalElementsScanned: 800, designSystemComponentsCount: 620, rawHtmlElementsCount: 180, activeDeprecatedPropUsages: 12 },\n  { repoName: 'Legacy-Admin', totalElementsScanned: 1200, designSystemComponentsCount: 360, rawHtmlElementsCount: 840, activeDeprecatedPropUsages: 45 }\n];\n\nconsole.log(\"--- Enterprise Design System Telemetry ---\");\nproductApps.forEach(app => {\n  const health = calculateDesignSystemHealth(app);\n  console.log(`App: ${health.repoName.padEnd(18)} | Adoption: ${health.adoptionPercentage.toString().padStart(5)}% | Deprecation Risk: ${health.deprecatedRiskScore.padEnd(6)} | Grade: ${health.grade}`);\n});",
+        "output": "--- Enterprise Design System Telemetry ---\nApp: Checkout-App       | Adoption:    93% | Deprecation Risk: LOW    | Grade: A\nApp: Analytics-Portal   | Adoption:  77.5% | Deprecation Risk: MEDIUM | Grade: B\nApp: Legacy-Admin       | Adoption:    30% | Deprecation Risk: HIGH   | Grade: D",
+        "codeNotes": [
+          {
+            "line": 16,
+            "note": "Calculates adoption rate: (Design System Components / Total UI Elements) * 100."
+          },
+          {
+            "line": 20,
+            "note": "Calculates deprecation technical debt risk score based on active deprecated prop usages."
+          },
+          {
+            "line": 40,
+            "note": "Generates objective organizational health grades across multiple consumer product repos."
+          }
+        ],
+        "tryIt": "Add a calculation for 'Estimated Engineering Hours Saved' assuming 2 hours saved per 100 design system components.",
+        "check": {
+          "question": "How do enterprise engineering organizations quantitatively measure design system adoption?",
+          "options": [
+            "By scanning product codebases to compute the ratio of design system components versus raw HTML elements and custom CSS",
+            "By counting the total number of stars the repository has on GitHub",
+            "By surveying engineers on their favorite color palette",
+            "By measuring the size of the node_modules folder"
+          ],
+          "answer": 0,
+          "why": "Telemetry scanners measure the ratio of official design system components to raw HTML tags and custom CSS to quantify adoption and technical debt."
+        }
+      },
+      {
+        "title": "The Design System RFC Process: Collaborative Evolution & Community Governance",
+        "say": [
+          "A design system team that operates as an isolated ivory tower dictating rules without product feedback will inevitably fail.",
+          "Product engineers encountering unique domain requirements will simply build rogue workarounds if they cannot contribute back to the system.",
+          "The solution is a structured RFC (Request for Comments) contribution model.",
+          "Whenever an engineer wants to propose a new component, a token change, or an API modification, they submit an RFC document containing:",
+          "1. Problem Statement: What user problem or product requirement cannot be satisfied by existing components?",
+          "2. Proposal & API Design: Component names, props, states, and TypeScript interfaces.",
+          "3. Accessibility & Theming Plan: ARIA roles, keyboard interactions, contrast ratios, and dark mode adaptations.",
+          "4. Breaking Change Assessment: Does this proposal introduce breaking changes, or is it backward-compatible?",
+          "The RFC is reviewed collaboratively by design, engineering, and accessibility leads before implementation begins.",
+          "Let us build an RFC proposal validator that checks contribution submissions against governance standards."
+        ],
+        "example": "The Internet Engineering Task Force (IETF) RFC process: foundational web protocols like HTTP, TCP/IP, and TLS were not created in secret; they evolved through rigorous, open peer-reviewed RFC specifications.",
+        "code": "interface ComponentRfcProposal {\n  rfcTitle: string;\n  author: string;\n  proposedComponent: string;\n  hasProblemStatement: boolean;\n  hasAccessibilityPlan: boolean;\n  hasApiInterfaceSpec: boolean;\n  isBreakingChange: boolean;\n  governanceReviewPassed: boolean;\n}\n\ninterface RfcValidationResult {\n  rfcTitle: string;\n  status: 'ACCEPTED_FOR_REVIEW' | 'REJECTED_INCOMPLETE';\n  checklistScore: string;\n  feedback: string[];\n}\n\nfunction evaluateRfcProposal(rfc: ComponentRfcProposal): RfcValidationResult {\n  const feedback: string[] = [];\n  let score = 0;\n\n  if (rfc.hasProblemStatement) score++;\n  else feedback.push(\"Missing Problem Statement: Explain why existing components are insufficient.\");\n\n  if (rfc.hasAccessibilityPlan) score++;\n  else feedback.push(\"Missing Accessibility Plan: Detail WCAG compliance, keyboard order, and ARIA roles.\");\n\n  if (rfc.hasApiInterfaceSpec) score++;\n  else feedback.push(\"Missing API Interface: Provide proposed TypeScript props interface.\");\n\n  const passed = score === 3;\n  return {\n    rfcTitle: rfc.rfcTitle,\n    status: passed ? 'ACCEPTED_FOR_REVIEW' : 'REJECTED_INCOMPLETE',\n    checklistScore: `${score}/3 Requirements Met`,\n    feedback: passed ? [\"All core criteria satisfied; scheduled for Design System Review Committee.\"] : feedback\n  };\n}\n\nconst completeProposal: ComponentRfcProposal = {\n  rfcTitle: 'RFC-042: Add SegmentedControl Component',\n  author: 'sarah.engineer@company.com',\n  proposedComponent: 'SegmentedControl',\n  hasProblemStatement: true,\n  hasAccessibilityPlan: true,\n  hasApiInterfaceSpec: true,\n  isBreakingChange: false,\n  governanceReviewPassed: true\n};\n\nconst incompleteProposal: ComponentRfcProposal = {\n  rfcTitle: 'RFC-043: Fast Color Hack',\n  author: 'dev@company.com',\n  proposedComponent: 'RawBanner',\n  hasProblemStatement: true,\n  hasAccessibilityPlan: false,\n  hasApiInterfaceSpec: false,\n  isBreakingChange: true,\n  governanceReviewPassed: false\n};\n\nconst report1 = evaluateRfcProposal(completeProposal);\nconst report2 = evaluateRfcProposal(incompleteProposal);\n\nconsole.log(`[${report1.rfcTitle}] Status: ${report1.status} | Score: ${report1.checklistScore}`);\nconsole.log(`[${report2.rfcTitle}] Status: ${report2.status} | Score: ${report2.checklistScore}`);\nconsole.log(\"Feedback on RFC-043:\", report2.feedback.join(' '));",
+        "output": "[RFC-042: Add SegmentedControl Component] Status: ACCEPTED_FOR_REVIEW | Score: 3/3 Requirements Met\n[RFC-043: Fast Color Hack] Status: REJECTED_INCOMPLETE | Score: 1/3 Requirements Met\nFeedback on RFC-043: Missing Accessibility Plan: Detail WCAG compliance, keyboard order, and ARIA roles. Missing API Interface: Provide proposed TypeScript props interface.",
+        "codeNotes": [
+          {
+            "line": 18,
+            "note": "Validates proposal completeness: Problem Statement, Accessibility Plan, and API Interface."
+          },
+          {
+            "line": 28,
+            "note": "Requires all 3 mandatory pillars before accepting an RFC for committee review."
+          },
+          {
+            "line": 50,
+            "note": "Enforces community contribution quality and protects the integrity of the design system."
+          }
+        ],
+        "tryIt": "Add a check that flags RFCs introducing breaking changes for mandatory executive review.",
+        "check": {
+          "question": "What is the primary objective of an RFC (Request for Comments) process in design system governance?",
+          "options": [
+            "To foster collaborative, peer-reviewed evolution of the system with product teams while ensuring accessibility and architectural standards are upheld",
+            "To prevent any external product engineer from ever proposing code changes",
+            "To replace Git version control with a manual email approval chain",
+            "To delay all software releases by at least six months"
+          ],
+          "answer": 0,
+          "why": "An RFC process enables distributed product teams to contribute new components and features while ensuring peer review, accessibility, and architectural consistency."
+        }
+      }
+    ],
+    "summary": [
+      "Follow Semantic Versioning strictly: PATCH for bug fixes, MINOR for backward-compatible features, and MAJOR for breaking prop/token changes.",
+      "Execute the 4-stage Deprecation Lifecycle: @deprecated annotations, rate-limited dev warnings, automated codemods, and scheduled sunsetting in MAJOR releases.",
+      "Never execute deprecation console warnings in production environments (NODE_ENV === 'production').",
+      "Author automated AST migration codemods so consumer repositories can upgrade across MAJOR releases seamlessly in minutes.",
+      "Structure enterprise design systems as decoupled Monorepos: '@design/tokens', '@design/icons', '@design/react', and '@design/docs'.",
+      "Deploy automated telemetry scanners in CI to quantify adoption percentages and deprecation risks across product teams.",
+      "Establish an open, collaborative RFC contribution process to govern component proposals with strict accessibility and API standards."
+    ],
+    "projectStep": {
+      "title": "Build Production Design System Governance & Versioning Suite",
+      "steps": [
+        "Implement automated SemVer change classifier analyzing API diffs",
+        "Add @deprecated JSDoc annotations and rate-limited dev console warnings",
+        "Author AST codemod script for automated prop migration",
+        "Configure monorepo dependency graph ensuring tokens remain framework-agnostic",
+        "Establish design system telemetry script to track component adoption in CI"
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Sovereign Enterprise Design System & Visual UI Suite",
+    "goal": "Synthesize the entire 30-day UI/UX Design Systems curriculum into a production-grade, mathematically verified, enterprise sovereign visual design system and UI engineering suite.",
+    "minutes": 30,
+    "recap": "Over the past 29 days, we have systematically mastered modern UI/UX design systems and visual frontend engineering: 3-tier design tokens, HSL lightness ramps, fluid modular typography, 8pt spatial layouts, multi-layer elevation shadows, atomic component architecture, accessible form controls, compound cards, sticky glassmorphic navigation, modal focus traps, floating popovers, sortable data tables, global toast queues, Flexbox math, CSS Grid subgrids, container queries, spring micro-interactions, dark mode surfaces, WCAG 2.2 contrast mathematics, roving tabindex keyboard navigation, screen reader ARIA contracts, SVG sprite sheets, reduced motion safety, Storybook CSF3 documentation, and SemVer governance. Today in Day 30, we construct our Final Capstone: the Sovereign Enterprise Design System.",
+    "parts": [
+      {
+        "title": "Final Capstone Architecture: The 5 Sovereign Tiers of Visual UI",
+        "say": [
+          "Welcome to Day 30 and the Final Capstone of UI/UX Design Systems & Visual Frontend.",
+          "Over 30 intensive days, you have progressed from fundamental design token mathematics to enterprise-scale component libraries and governance architectures.",
+          "Today, we bring every subsystem together into the Sovereign Enterprise Design System.",
+          "The Sovereign Design System is structured across 5 integrated architectural tiers:",
+          "Tier 1: Foundations & Math Tokens (Semantic alias tokens, HSL lightness ramps, fluid clamp typography, and the 8pt spatial grid).",
+          "Tier 2: Atomic & Molecular Component Library (6-state buttons, accessible form controls, compound cards, and modal dialogs).",
+          "Tier 3: Responsive Layout & Motion Suite (Flexbox distribution, CSS Grid auto-fit layouts, mobile-first breakpoints, and 60fps GPU micro-interactions).",
+          "Tier 4: Accessibility & Theming Engine (Dark mode FOUT elimination, WCAG 2.2 contrast verification, roving tabindex keyboard loops, and screen reader ARIA names).",
+          "Tier 5: Governance, Tooling & Release Pipeline (SVG sprite sheet optimization, vestibular reduced motion fallbacks, Storybook CSF3 documentation, and SemVer lifecycle management).",
+          "Let us inspect the master Capstone architecture registry verifying the completeness of all 5 tiers."
+        ],
+        "example": "A sovereign aerospace launch vehicle: before launch, mission control conducts an integrated system countdown verifying propulsion, avionics telemetry, life support, thermal shielding, and ground communication.",
+        "code": "interface CapstoneTierStatus {\n  tierNumber: number;\n  tierName: string;\n  subsystemCount: number;\n  status: 'VERIFIED' | 'PENDING';\n  benchmark: string;\n}\n\ninterface SovereignDesignSystemManifest {\n  systemName: string;\n  version: string;\n  totalDaysCompleted: number;\n  tiers: CapstoneTierStatus[];\n  overallCertification: 'SOVEREIGN_CERTIFIED' | 'INCOMPLETE';\n}\n\nfunction evaluateCapstoneArchitecture(): SovereignDesignSystemManifest {\n  const tiers: CapstoneTierStatus[] = [\n    { tierNumber: 1, tierName: 'Foundations & Math Tokens', subsystemCount: 5, status: 'VERIFIED', benchmark: 'Tokens, HSL Ramps, Fluid clamp(), 8pt Grid' },\n    { tierNumber: 2, tierName: 'Atomic & Molecular Components', subsystemCount: 5, status: 'VERIFIED', benchmark: '6-State Buttons, Forms, Modals, Tables, Toasts' },\n    { tierNumber: 3, tierName: 'Responsive Layout & Motion', subsystemCount: 5, status: 'VERIFIED', benchmark: 'Flexbox, CSS Grid, Container Queries, Springs' },\n    { tierNumber: 4, tierName: 'Accessibility & Theming', subsystemCount: 5, status: 'VERIFIED', benchmark: 'Dark Mode, WCAG 2.2 Contrast, Roving tabindex, ARIA' },\n    { tierNumber: 5, tierName: 'Governance & Release Tooling', subsystemCount: 5, status: 'VERIFIED', benchmark: 'SVG Sprites, Reduced Motion, CSF3, SemVer' }\n  ];\n\n  const allVerified = tiers.every(t => t.status === 'VERIFIED');\n\n  return {\n    systemName: 'PinIT Sovereign Enterprise Design System',\n    version: '1.0.0',\n    totalDaysCompleted: 30,\n    tiers,\n    overallCertification: allVerified ? 'SOVEREIGN_CERTIFIED' : 'INCOMPLETE'\n  };\n}\n\nconst manifest = evaluateCapstoneArchitecture();\nconsole.log(\"=== \" + manifest.systemName + \" (v\" + manifest.version + \") ===\");\nconsole.log(\"Curriculum Days Verified:\", manifest.totalDaysCompleted, \"/ 30\");\nconsole.log(\"Overall System Status:  \", manifest.overallCertification);\nmanifest.tiers.forEach(t => {\n  console.log(`  Tier ${t.tierNumber}: ${t.tierName.padEnd(32)} | Subsystems: ${t.subsystemCount} | [${t.status}]`);\n});",
+        "output": "=== PinIT Sovereign Enterprise Design System (v1.0.0) ===\nCurriculum Days Verified: 30 / 30\nOverall System Status:   SOVEREIGN_CERTIFIED\n  Tier 1: Foundations & Math Tokens        | Subsystems: 5 | [VERIFIED]\n  Tier 2: Atomic & Molecular Components    | Subsystems: 5 | [VERIFIED]\n  Tier 3: Responsive Layout & Motion       | Subsystems: 5 | [VERIFIED]\n  Tier 4: Accessibility & Theming          | Subsystems: 5 | [VERIFIED]\n  Tier 5: Governance & Release Tooling     | Subsystems: 5 | [VERIFIED]",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Defines the 5 core sovereign architectural tiers across the 30-day curriculum."
+          },
+          {
+            "line": 27,
+            "note": "Enforces that all 5 tiers must achieve VERIFIED status for master sovereign certification."
+          },
+          {
+            "line": 40,
+            "note": "Prints the master Capstone architecture manifest with full 30-day verification."
+          }
+        ],
+        "tryIt": "Add a method to the manifest that outputs the total number of code samples verified across all 30 days (180 parts).",
+        "check": {
+          "question": "What are the 5 architectural tiers of the Sovereign Enterprise Design System?",
+          "options": [
+            "Foundations/Tokens, Atomic Components, Responsive Layout/Motion, Accessibility/Theming, and Governance/Release Tooling",
+            "HTML, CSS, JavaScript, WebAssembly, and Rust",
+            "Client, Server, Database, Cache, and Cloud Storage",
+            "Planning, Coding, Testing, Marketing, and Sales"
+          ],
+          "answer": 0,
+          "why": "The 5 tiers organize design systems from fundamental math tokens up through components, layout/motion, accessibility/theming, and governance."
+        }
+      },
+      {
+        "title": "Tier 1 Integration: Foundations & Master Token Manifest Compiler",
+        "say": [
+          "In Tier 1, all foundational tokens must be consolidated into a unified CSS custom property manifest.",
+          "This includes:",
+          "1. HSL color ramps across 10 steps (50 to 900) for primary, neutral, success, warning, and danger palettes.",
+          "2. 8pt spatial grid variables ('--space-1' through '--space-16') for consistent margins, padding, and gaps.",
+          "3. Modular typography tokens utilizing fluid 'clamp()' formulas for responsive type scaling without media queries.",
+          "4. Multi-layer elevation shadows ('--shadow-sm' to '--shadow-2xl') and z-index strata ('--z-dropdown' to '--z-modal').",
+          "5. Border radii tokens ('--radius-sm' through '--radius-full').",
+          "The token manifest compiler takes pure token data structures and emits optimized, validated CSS variable stylesheets with automated dark-mode override bindings.",
+          "Let us build the master Tier 1 token compiler."
+        ],
+        "example": "A precision steel manufacturing standard: the exact chemical composition, tensile strength, and melting points of steel alloys are certified once and distributed to all downstream fabrication plants.",
+        "code": "interface TokenCollection {\n  colors: Record<string, string>;\n  spacing: Record<string, string>;\n  typography: Record<string, string>;\n  shadows: Record<string, string>;\n}\n\nfunction compileTokenStylesheet(tokens: TokenCollection): { cssOutput: string; totalTokensCompiled: number } {\n  const lines: string[] = [':root {'];\n  let count = 0;\n\n  for (const [key, val] of Object.entries(tokens.colors)) {\n    lines.push(`  --color-${key}: ${val};`);\n    count++;\n  }\n  for (const [key, val] of Object.entries(tokens.spacing)) {\n    lines.push(`  --space-${key}: ${val};`);\n    count++;\n  }\n  for (const [key, val] of Object.entries(tokens.typography)) {\n    lines.push(`  --font-${key}: ${val};`);\n    count++;\n  }\n  for (const [key, val] of Object.entries(tokens.shadows)) {\n    lines.push(`  --shadow-${key}: ${val};`);\n    count++;\n  }\n  lines.push('}');\n\n  return {\n    cssOutput: lines.join('\\n'),\n    totalTokensCompiled: count\n  };\n}\n\nconst masterTokens: TokenCollection = {\n  colors: {\n    'primary-500': 'hsl(217, 91%, 60%)',\n    'primary-600': 'hsl(221, 83%, 53%)',\n    'neutral-900': 'hsl(222, 47%, 11%)'\n  },\n  spacing: {\n    '1': '4px',\n    '2': '8px',\n    '4': '16px',\n    '8': '32px'\n  },\n  typography: {\n    'base': 'clamp(1rem, 0.95rem + 0.25vw, 1.125rem)',\n    'heading-xl': 'clamp(2rem, 1.6rem + 2vw, 3rem)'\n  },\n  shadows: {\n    'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',\n    'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'\n  }\n};\n\nconst result = compileTokenStylesheet(masterTokens);\nconsole.log(\"Tokens Compiled:\", result.totalTokensCompiled);\nconsole.log(\"Compiled CSS Variables Sample:\");\nconsole.log(result.cssOutput.split('\\n').slice(0, 7).join('\\n') + '\\n  ...');",
+        "output": "Tokens Compiled: 11\nCompiled CSS Variables Sample:\n:root {\n  --color-primary-500: hsl(217, 91%, 60%);\n  --color-primary-600: hsl(221, 83%, 53%);\n  --color-neutral-900: hsl(222, 47%, 11%);\n  --space-1: 4px;\n  --space-2: 8px;\n  --space-4: 16px;\n  ...",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Iterates through all token sub-dictionaries and emits standardized CSS custom properties."
+          },
+          {
+            "line": 36,
+            "note": "Encapsulates fluid clamp() typography formulas directly inside reusable CSS tokens."
+          },
+          {
+            "line": 49,
+            "note": "Demonstrates compiling foundational tokens into a clean, minified :root stylesheet."
+          }
+        ],
+        "tryIt": "Add a dark mode override block that swaps neutral-900 and neutral-50 for dark surface theming.",
+        "check": {
+          "question": "Why should foundational tokens be compiled into CSS custom properties under :root?",
+          "options": [
+            "It allows all components in the DOM tree to inherit token values dynamically, enabling runtime theming and responsive scaling",
+            "Because CSS custom properties compile to GPU bytecode for faster rendering",
+            "To prevent web browsers from applying user stylesheets",
+            "Because JavaScript cannot execute without CSS custom properties"
+          ],
+          "answer": 0,
+          "why": "CSS custom properties under :root cascade through the entire DOM tree and can be overridden dynamically for dark mode or density variants."
+        }
+      },
+      {
+        "title": "Tier 2 & 3 Integration: Atomic Components & Responsive Layout Engine",
+        "say": [
+          "In Tiers 2 and 3, our atomic components and responsive layout structures must work in perfect synchronization.",
+          "Our components (Buttons, Inputs, Cards, Modals, Tables, Toasts) rely on strict state machines:",
+          "Buttons must render 6 interactive states: default, hover, active, focus-visible, disabled, and loading spinner.",
+          "Simultaneously, layout containers must adapt to dynamic viewport constraints using Flexbox alignment and CSS Grid auto-fit tracks.",
+          "A production component engine executes automated structural validation:",
+          "It confirms that every component has an accessible name, that focus rings use 2px solid outlines with 2px offsets, and that grid containers maintain minimum touch targets (>= 44x44px) on mobile viewports.",
+          "Let us implement an atomic component and responsive layout contract auditor."
+        ],
+        "example": "A luxury automotive interior assembly: whether the chassis is a compact sports coupe or a full-sized SUV, all seat switches, steering wheel controls, and touchscreens maintain strict ergonomic reaches and tactical feedback.",
+        "code": "interface ComponentContract {\n  name: string;\n  category: 'Atom' | 'Molecule' | 'Organism';\n  hasAllSixStates: boolean;\n  minTouchTargetPx: number;\n  responsiveBehavior: 'FlexWrap' | 'GridAutoFit' | 'Fixed';\n  wcagA11yVerified: boolean;\n}\n\ninterface ComponentAuditReport {\n  name: string;\n  compliant: boolean;\n  issues: string[];\n}\n\nfunction auditComponentContracts(contracts: ComponentContract[]): ComponentAuditReport[] {\n  return contracts.map(c => {\n    const issues: string[] = [];\n    if (!c.hasAllSixStates && c.category === 'Atom') issues.push(\"Missing required 6-state implementation\");\n    if (c.minTouchTargetPx < 44) issues.push(`Touch target ${c.minTouchTargetPx}px is below WCAG 44px minimum`);\n    if (!c.wcagA11yVerified) issues.push(\"WCAG accessibility verification failed\");\n\n    return {\n      name: c.name,\n      compliant: issues.length === 0,\n      issues\n    };\n  });\n}\n\nconst componentSuite: ComponentContract[] = [\n  { name: 'Button', category: 'Atom', hasAllSixStates: true, minTouchTargetPx: 44, responsiveBehavior: 'FlexWrap', wcagA11yVerified: true },\n  { name: 'InputField', category: 'Atom', hasAllSixStates: true, minTouchTargetPx: 48, responsiveBehavior: 'FlexWrap', wcagA11yVerified: true },\n  { name: 'ProductCard', category: 'Molecule', hasAllSixStates: true, minTouchTargetPx: 44, responsiveBehavior: 'GridAutoFit', wcagA11yVerified: true },\n  { name: 'ModalDialog', category: 'Organism', hasAllSixStates: false, minTouchTargetPx: 44, responsiveBehavior: 'Fixed', wcagA11yVerified: true }\n];\n\nconst reports = auditComponentContracts(componentSuite);\nreports.forEach(r => {\n  console.log(`Component: ${r.name.padEnd(14)} | Compliant: ${r.compliant.toString().padEnd(5)} | Issues: ${r.issues.length === 0 ? 'None (Certified)' : r.issues.join(', ')}`);\n});",
+        "output": "Component: Button         | Compliant: true  | Issues: None (Certified)\nComponent: InputField     | Compliant: true  | Issues: None (Certified)\nComponent: ProductCard    | Compliant: true  | Issues: None (Certified)\nComponent: ModalDialog    | Compliant: true  | Issues: None (Certified)",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Validates WCAG 2.5.5 touch target minimums (>= 44px) across all interactive components."
+          },
+          {
+            "line": 20,
+            "note": "Ensures atomic controls implement all 6 interactive states (default, hover, active, focus, disabled, loading)."
+          },
+          {
+            "line": 36,
+            "note": "Confirms 100% compliance across Button, InputField, ProductCard, and ModalDialog."
+          }
+        ],
+        "tryIt": "Simulate a non-compliant compact button with a 32px height and observe the audit failure.",
+        "check": {
+          "question": "Under WCAG 2.5.5, what is the recommended minimum touch target size for interactive mobile controls?",
+          "options": [
+            "44x44 CSS pixels",
+            "12x12 CSS pixels",
+            "80x80 CSS pixels",
+            "100x100 CSS pixels"
+          ],
+          "answer": 0,
+          "why": "WCAG 2.5.5 Target Size guidelines require interactive controls to be at least 44x44 CSS pixels to accommodate human fingers on touchscreens."
+        }
+      },
+      {
+        "title": "Tier 4 Integration: Accessibility Standards, Contrast Math & ARIA Contracts",
+        "say": [
+          "In Tier 4, our design system achieves uncompromising accessibility certification.",
+          "We audit three non-negotiable accessibility pillars:",
+          "1. Contrast Mathematics: Verifying that all text and interactive icons achieve at least 4.5:1 for standard text and 3:1 for large text / UI borders, using linearized sRGB relative luminance math.",
+          "2. Keyboard Navigation & Focus Trapping: Enforcing visible focus rings with ':focus-visible', providing skip-to-content links, and locking Tab key cycles inside active modal overlays.",
+          "3. ARIA & Accessible Name Computation: Verifying that all icon buttons provide discernible names via 'aria-label', that decorative icons use 'aria-hidden=\"true\"', and that accordion/dialog states synchronize 'aria-expanded'.",
+          "Let us build the master Tier 4 Accessibility Auditor certifying color contrast and keyboard traps."
+        ],
+        "example": "A commercial airliner cockpit safety check: instruments must remain legible in direct sunlight and pitch-black night flight; tactile controls have distinct shapes so pilots can operate them by touch without looking.",
+        "code": "function linearize(v: number): number {\n  const c = v / 255;\n  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);\n}\n\nfunction calculateRelativeLuminance(r: number, g: number, b: number): number {\n  return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b);\n}\n\nfunction calculateContrastRatio(rgb1: [number, number, number], rgb2: [number, number, number]): number {\n  const L1 = calculateRelativeLuminance(...rgb1);\n  const L2 = calculateRelativeLuminance(...rgb2);\n  const lighter = Math.max(L1, L2);\n  const darker = Math.min(L1, L2);\n  return Number(((lighter + 0.05) / (darker + 0.05)).toFixed(2));\n}\n\ninterface Tier4AuditCheck {\n  feature: string;\n  category: 'Contrast' | 'Keyboard' | 'ScreenReader';\n  passed: boolean;\n  scoreRatio?: number;\n}\n\nconst white: [number, number, number] = [255, 255, 255];\nconst darkBlue: [number, number, number] = [15, 23, 42]; // Slate 900\nconst primaryBlue: [number, number, number] = [37, 99, 235]; // Blue 600\n\nconst textContrast = calculateContrastRatio(darkBlue, white);\nconst buttonContrast = calculateContrastRatio(primaryBlue, white);\n\nconst tier4Checks: Tier4AuditCheck[] = [\n  { feature: 'Body Text Contrast (Slate 900 on White)', category: 'Contrast', passed: textContrast >= 4.5, scoreRatio: textContrast },\n  { feature: 'Primary Button Contrast (Blue 600 on White)', category: 'Contrast', passed: buttonContrast >= 4.5, scoreRatio: buttonContrast },\n  { feature: 'Modal Focus Trap & Escape Key Listener', category: 'Keyboard', passed: true },\n  { feature: 'Roving Tabindex on Navigation Tabs', category: 'Keyboard', passed: true },\n  { feature: 'Accessible Name on Icon-Only Buttons', category: 'ScreenReader', passed: true }\n];\n\nconsole.log(\"=== Tier 4: Accessibility & Theming Audit ===\");\ntier4Checks.forEach(chk => {\n  const extra = chk.scoreRatio ? `Ratio: ${chk.scoreRatio}:1` : 'Implemented';\n  console.log(`[${chk.category.padEnd(12)}] ${chk.feature.padEnd(46)} | ${extra.padEnd(15)} | Status: ${chk.passed ? 'PASS' : 'FAIL'}`);\n});",
+        "output": "=== Tier 4: Accessibility & Theming Audit ===\n[Contrast    ] Body Text Contrast (Slate 900 on White)        | Ratio: 17.85:1  | Status: PASS\n[Contrast    ] Primary Button Contrast (Blue 600 on White)    | Ratio: 5.17:1   | Status: PASS\n[Keyboard    ] Modal Focus Trap & Escape Key Listener         | Implemented     | Status: PASS\n[Keyboard    ] Roving Tabindex on Navigation Tabs             | Implemented     | Status: PASS\n[ScreenReader] Accessible Name on Icon-Only Buttons           | Implemented     | Status: PASS",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Applies W3C sRGB relative luminance linearization formulas."
+          },
+          {
+            "line": 15,
+            "note": "Calculates (L1 + 0.05) / (L2 + 0.05) contrast ratio adhering to WCAG 2.2 standards."
+          },
+          {
+            "line": 40,
+            "note": "Verifies 17.85:1 body text contrast and 5.17:1 primary button contrast, both passing AA standards."
+          }
+        ],
+        "tryIt": "Test a light gray text color (#9CA3AF) against white and observe the WCAG contrast failure.",
+        "check": {
+          "question": "What is the WCAG 2.2 AA minimum contrast ratio required for standard body text?",
+          "options": [
+            "4.5:1",
+            "3.0:1",
+            "2.0:1",
+            "7.0:1"
+          ],
+          "answer": 0,
+          "why": "WCAG 2.2 Level AA requires a minimum contrast ratio of 4.5:1 for standard body text (below 18pt or 14pt bold)."
+        }
+      },
+      {
+        "title": "Tier 5 Integration: Governance, Release Pipeline & Monorepo Validation",
+        "say": [
+          "In Tier 5, we verify our design system governance, versioning engine, and distribution pipeline.",
+          "Our system must guarantee:",
+          "1. Semantic Versioning integrity: Automated checks preventing unannounced breaking changes in minor/patch releases.",
+          "2. Deprecation lifecycle: Ensuring all deprecated props carry JSDoc '@deprecated' notices and sunset targets.",
+          "3. Monorepo architecture: Verifying that '@design/tokens' remains zero-dependency and framework-agnostic.",
+          "4. Storybook documentation: Auto-generated args tables and Chromatic visual regression coverage on all components.",
+          "5. Motion & icon safety: SVG sprites with 'currentColor' and prefers-reduced-motion media queries.",
+          "Let us build a release pipeline validator that reviews a planned release and issues formal approval."
+        ],
+        "example": "A spacecraft final flight readiness review: before fueling begins, flight directors, guidance officers, and payload managers poll 'GO' across all operational consoles.",
+        "code": "interface ReleaseCandidate {\n  version: string;\n  targetBump: 'PATCH' | 'MINOR' | 'MAJOR';\n  hasBreakingChanges: boolean;\n  hasDeprecationNotices: boolean;\n  monorepoPackagesClean: boolean;\n  visualRegressionTestsPassed: boolean;\n  storybookDocsUpToDate: boolean;\n}\n\ninterface ReleaseApprovalResult {\n  version: string;\n  approved: boolean;\n  releaseGateStatus: 'GO_FOR_PUBLISH' | 'HOLD_FOR_REMEDY';\n  checklist: Array<{ check: string; passed: boolean }>;\n}\n\nfunction evaluateReleaseCandidate(rc: ReleaseCandidate): ReleaseApprovalResult {\n  const checklist = [\n    { check: \"SemVer Integrity (No breaking change in Minor/Patch)\", passed: rc.targetBump === 'MAJOR' || !rc.hasBreakingChanges },\n    { check: \"Deprecation Notices Documented\", passed: rc.hasDeprecationNotices },\n    { check: \"Monorepo Package Cleanliness\", passed: rc.monorepoPackagesClean },\n    { check: \"Visual Regression Tests Clean\", passed: rc.visualRegressionTestsPassed },\n    { check: \"Storybook CSF3 Documentation\", passed: rc.storybookDocsUpToDate }\n  ];\n\n  const approved = checklist.every(c => c.passed);\n\n  return {\n    version: rc.version,\n    approved,\n    releaseGateStatus: approved ? 'GO_FOR_PUBLISH' : 'HOLD_FOR_REMEDY',\n    checklist\n  };\n}\n\nconst v1Release: ReleaseCandidate = {\n  version: '1.0.0',\n  targetBump: 'MAJOR',\n  hasBreakingChanges: false,\n  hasDeprecationNotices: true,\n  monorepoPackagesClean: true,\n  visualRegressionTestsPassed: true,\n  storybookDocsUpToDate: true\n};\n\nconst approval = evaluateReleaseCandidate(v1Release);\nconsole.log(`=== Release Gate Review (v${approval.version}) ===`);\nconsole.log(\"Gate Status: \", approval.releaseGateStatus, \"| Approved:\", approval.approved);\napproval.checklist.forEach(c => {\n  console.log(`  [${c.passed ? '✓' : '✗'}] ${c.check}`);\n});",
+        "output": "=== Release Gate Review (v1.0.0) ===\nGate Status:  GO_FOR_PUBLISH | Approved: true\n  [✓] SemVer Integrity (No breaking change in Minor/Patch)\n  [✓] Deprecation Notices Documented\n  [✓] Monorepo Package Cleanliness\n  [✓] Visual Regression Tests Clean\n  [✓] Storybook CSF3 Documentation",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Validates that minor or patch releases never include breaking API modifications."
+          },
+          {
+            "line": 24,
+            "note": "Requires all 5 release verification gates to pass before issuing GO_FOR_PUBLISH."
+          },
+          {
+            "line": 44,
+            "note": "Confirms that Version 1.0.0 achieves 100% release readiness approval."
+          }
+        ],
+        "tryIt": "Simulate a release where visualRegressionTestsPassed is false and observe the HOLD_FOR_REMEDY status.",
+        "check": {
+          "question": "What should happen if a proposed MINOR release contains an accidental breaking prop change?",
+          "options": [
+            "The release gate must hold publication until either the breaking change is reverted or the version is bumped to a MAJOR release",
+            "The release should be published immediately with a disclaimer on Twitter",
+            "The version should be tagged as a PATCH release instead",
+            "The package should be unpublished from NPM permanently"
+          ],
+          "answer": 0,
+          "why": "Under SemVer, breaking changes cannot be published in MINOR releases; the release gate must block publication until resolved."
+        }
+      },
+      {
+        "title": "🏆 Final Capstone Master Certification: Full Production UI Suite Verification",
+        "say": [
+          "Congratulations! You have reached the final certification milestone of UI/UX Design Systems & Visual Frontend.",
+          "Over 30 days and 180 comprehensive lessons, you have built:",
+          "1. 3-Tier Design Token architectures with HSL lightness ramps and 8pt grids.",
+          "2. Accessible atomic component libraries with 6-state buttons, accessible forms, and focus-trapped dialogs.",
+          "3. Responsive Flexbox and CSS Grid layout engines with container queries and 60fps spring micro-interactions.",
+          "4. Uncompromising accessibility systems with dark mode FOUT prevention, WCAG 2.2 contrast math, roving tabindex navigation, and ARIA attributes.",
+          "5. Enterprise governance suites with SVG sprite optimization, reduced motion safety, Storybook CSF3 documentation, and SemVer lifecycle management.",
+          "Let us execute the Final Capstone Master Certification Engine, certifying all 30 days of curriculum with 100% production sign-off."
+        ],
+        "example": "Graduation commencement: completing years of rigorous academic coursework, defending an original thesis, and receiving an accredited degree recognized across global industry.",
+        "code": "interface CurriculumMilestoneAudit {\n  milestone: string;\n  daysSpan: string;\n  focusArea: string;\n  verified: boolean;\n}\n\ninterface MasterCertificationReport {\n  studentTrack: string;\n  courseTitle: string;\n  totalDaysVerified: number;\n  totalLessonParts: number;\n  milestones: CurriculumMilestoneAudit[];\n  finalGrade: string;\n  certifiedStatus: string;\n}\n\nfunction certifyMasterDesignSystem(): MasterCertificationReport {\n  const milestones: CurriculumMilestoneAudit[] = [\n    { milestone: 'Milestone 1', daysSpan: 'Days 1-5', focusArea: 'Design Tokens, HSL Lightness Ramps & 8pt Spatial Foundations', verified: true },\n    { milestone: 'Milestone 2', daysSpan: 'Days 6-15', focusArea: 'Atomic Design & Accessible Component Library', verified: true },\n    { milestone: 'Milestone 3', daysSpan: 'Days 16-21', focusArea: 'Flexbox, CSS Grid & 60fps Motion Engine', verified: true },\n    { milestone: 'Theming & A11y', daysSpan: 'Days 22-25', focusArea: 'Dark Mode, WCAG 2.2 Contrast & ARIA Optimization', verified: true },\n    { milestone: 'Governance & Release', daysSpan: 'Days 26-29', focusArea: 'SVG Sprites, Reduced Motion, Storybook & SemVer', verified: true },\n    { milestone: 'Final Capstone', daysSpan: 'Day 30', focusArea: 'Sovereign Enterprise Design System Master Suite', verified: true }\n  ];\n\n  const allPassed = milestones.every(m => m.verified);\n\n  return {\n    studentTrack: 'Web Full-Stack Track (PinIT Career OS)',\n    courseTitle: 'Course 5: UI/UX Design Systems & Visual Frontend',\n    totalDaysVerified: 30,\n    totalLessonParts: 180,\n    milestones,\n    finalGrade: 'DISTINCTION (100%)',\n    certifiedStatus: allPassed ? '🏆 SOVEREIGN DESIGN SYSTEM ENGINEER CERTIFIED' : 'FAILED'\n  };\n}\n\nconst cert = certifyMasterDesignSystem();\nconsole.log(\"================================================================================\");\nconsole.log(\"  \" + cert.certifiedStatus);\nconsole.log(\"================================================================================\");\nconsole.log(\"Track:   \", cert.studentTrack);\nconsole.log(\"Course:  \", cert.courseTitle);\nconsole.log(\"Verified:\", cert.totalDaysVerified, \"Days |\", cert.totalLessonParts, \"Lesson Parts | Grade:\", cert.finalGrade);\nconsole.log(\"--------------------------------------------------------------------------------\");\ncert.milestones.forEach(m => {\n  console.log(`  [${m.daysSpan.padEnd(10)}] ${m.milestone.padEnd(22)} | ${m.focusArea}`);\n});\nconsole.log(\"================================================================================\");",
+        "output": "================================================================================\n  🏆 SOVEREIGN DESIGN SYSTEM ENGINEER CERTIFIED\n================================================================================\nTrack:    Web Full-Stack Track (PinIT Career OS)\nCourse:   Course 5: UI/UX Design Systems & Visual Frontend\nVerified: 30 Days | 180 Lesson Parts | Grade: DISTINCTION (100%)\n--------------------------------------------------------------------------------\n  [Days 1-5  ] Milestone 1            | Design Tokens, HSL Lightness Ramps & 8pt Spatial Foundations\n  [Days 6-15 ] Milestone 2            | Atomic Design & Accessible Component Library\n  [Days 16-21] Milestone 3            | Flexbox, CSS Grid & 60fps Motion Engine\n  [Days 22-25] Theming & A11y         | Dark Mode, WCAG 2.2 Contrast & ARIA Optimization\n  [Days 26-29] Governance & Release   | SVG Sprites, Reduced Motion, Storybook & SemVer\n  [Day 30    ] Final Capstone         | Sovereign Enterprise Design System Master Suite\n================================================================================",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "Summarizes all 6 major milestones across the complete 30-day curriculum."
+          },
+          {
+            "line": 36,
+            "note": "Certifies all 30 days and 180 lesson parts with 100% deterministic test execution."
+          },
+          {
+            "line": 45,
+            "note": "Issues the master Sovereign Design System Engineer certification badge."
+          }
+        ],
+        "tryIt": "Review all 30 days of curriculum and congratulate yourself on completing the Sovereign Design System Capstone!",
+        "check": {
+          "question": "What is the primary hallmark of a sovereign, enterprise-grade design system?",
+          "options": [
+            "A mathematically grounded, accessible, responsive, and governed UI ecosystem that enables distributed teams to ship consistent, high-quality interfaces rapidly",
+            "Having the highest number of distinct CSS colors and random animation effects possible",
+            "A system that prevents any other developers from modifying their own user interfaces",
+            "An application that only runs on one specific operating system and browser"
+          ],
+          "answer": 0,
+          "why": "A sovereign design system provides mathematically consistent foundations, accessible components, responsive layouts, and rigorous governance that scales across enterprise engineering teams."
+        }
+      }
+    ],
+    "summary": [
+      "The Sovereign Enterprise Design System synthesizes 5 architectural tiers: Foundations/Tokens, Atomic Components, Responsive Layout/Motion, Accessibility/Theming, and Governance/Release.",
+      "Tier 1: Master Token Manifest consolidates HSL lightness ramps, fluid clamp typography, 8pt spacing, and elevation shadows into CSS custom properties.",
+      "Tiers 2 & 3: Atomic components enforce 6 interactive states, >= 44px touch targets, and responsive Flexbox/Grid layouts.",
+      "Tier 4: Accessibility guarantees WCAG 2.2 AA contrast math (>= 4.5:1), roving tabindex keyboard navigation, focus trapping, and W3C accessible name contracts.",
+      "Tier 5: Governance establishes SVG sprite efficiency, vestibular reduced motion fallbacks, Storybook CSF3 documentation, and SemVer release gates.",
+      "Master Certification completes all 30 days and 180 lesson parts of Course 5: UI/UX Design Systems & Visual Frontend."
+    ],
+    "projectStep": {
+      "title": "Deploy Sovereign Enterprise Design System Master Suite",
+      "steps": [
+        "Compile master token stylesheet with dark mode overrides",
+        "Audit atomic component library against WCAG 44px touch target standards",
+        "Verify color contrast ratios and keyboard focus trap mechanisms",
+        "Validate monorepo package architecture and release candidate checklist",
+        "Issue final Capstone Sovereign Certification"
+      ]
+    }
   }
 ];
