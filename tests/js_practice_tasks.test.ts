@@ -366,13 +366,8 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'ai-exam-day-26', 'ai-assign-day-26', 'ai-exam-day-28', 'ai-assign-day-28',
   'ai-exam-day-29', 'ai-assign-day-29', 'ai-assign-day-30',
   // course-distributed-sys: 0 tasks (all 60 tasks non-constant and verified)
-  // course-cybersecurity (39 tasks)
-  'cyber-assign-day-1', 'cyber-assign-day-2', 'cyber-exam-day-3', 'cyber-assign-day-3',
-  'cyber-assign-day-4', 'cyber-exam-day-5', 'cyber-assign-day-5', 'cyber-assign-day-6',
-  'cyber-assign-day-7', 'cyber-exam-day-8', 'cyber-assign-day-8', 'cyber-assign-day-9',
-  'cyber-exam-day-10', 'cyber-assign-day-10', 'cyber-assign-day-11', 'cyber-assign-day-12',
-  'cyber-assign-day-13', 'cyber-exam-day-14', 'cyber-assign-day-14', 'cyber-exam-day-15',
-  'cyber-assign-day-15', 'cyber-assign-day-16', 'cyber-assign-day-17', 'cyber-assign-day-18',
+  // course-cybersecurity (18 remaining tasks across days 16-30)
+  'cyber-assign-day-16', 'cyber-assign-day-17', 'cyber-assign-day-18',
   'cyber-exam-day-19', 'cyber-assign-day-19', 'cyber-assign-day-20', 'cyber-exam-day-21',
   'cyber-assign-day-21', 'cyber-assign-day-22', 'cyber-assign-day-23', 'cyber-exam-day-24',
   'cyber-assign-day-24', 'cyber-assign-day-25', 'cyber-assign-day-26', 'cyber-assign-day-27',

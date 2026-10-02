@@ -16,11 +16,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function categorizeStrideThreat(code) {\n  // TODO: write your code here\n}",
     "eHint": "Map S, T, R, I, D, E to their respective security countermeasure.",
     "eTest": "const s = categorizeStrideThreat('S');\nconst t = categorizeStrideThreat('T');\nif (s.violatedProperty !== 'Authenticity' || s.recommendedCountermeasure !== 'MUTUAL_TLS_OR_MFA' || t.category !== 'Tampering' || t.status !== 'STRIDE_THREAT_CATEGORIZED_NOMINAL') throw new Error('STRIDE categorization failed');",
-    "aTitle": "STRIDE Framework Elevation of Privilege Letter Formatter",
-    "aDesc": "Implement function getStridePrivilegeLetter() returning `'E'`.",
-    "aStarter": "function getStridePrivilegeLetter() {\n  // TODO: write your code here\n}",
-    "aHint": "Return E.",
-    "aTest": "if (getStridePrivilegeLetter() !== 'E') throw new Error('Letter check failed');"
+    "aTitle": "STRIDE Threat Property Resolver",
+    "aDesc": "Implement function resolveStrideProperty(letter) returning the security property for 'S' ('Authenticity'), 'T' ('Integrity'), 'R' ('Non-Repudiation'), 'I' ('Confidentiality'), 'D' ('Availability'), and 'E' ('Authorization'). Return 'UNKNOWN' for invalid letters.",
+    "aStarter": "function resolveStrideProperty(letter) {\n  // TODO: write your code here\n}",
+    "aHint": "Map S, T, R, I, D, E to their respective security property.",
+    "aTest": "if (resolveStrideProperty('S') !== 'Authenticity') throw new Error('S failed');\nif (resolveStrideProperty('T') !== 'Integrity') throw new Error('T failed');\nif (resolveStrideProperty('I') !== 'Confidentiality') throw new Error('I failed');\nif (resolveStrideProperty('X') !== 'UNKNOWN') throw new Error('Invalid check failed');"
   },
   {
     "day": 2,
@@ -36,11 +36,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function buildSecureSqlStatement(table, col, rawInput) {\n  // TODO: write your code here\n}",
     "eHint": "Test for malicious syntax with regex and return parameterized template.",
     "eTest": "const attack = buildSecureSqlStatement('users', 'username', \"admin' OR '1'='1\");\nconst safe = buildSecureSqlStatement('users', 'username', 'alice');\nif (!attack.detectedMaliciousPattern || safe.detectedMaliciousPattern || attack.secureQuery !== 'SELECT * FROM users WHERE username = ?' || attack.status !== 'SQL_INJECTION_DEFENDED_WITH_PREPARED_STATEMENT_NOMINAL') throw new Error('SQLi defense failed');",
-    "aTitle": "SQL Prepared Statement Parameter Placeholder Formatter",
-    "aDesc": "Implement function getSqlPlaceholderChar() returning `'?'`.",
-    "aStarter": "function getSqlPlaceholderChar() {\n  // TODO: write your code here\n}",
-    "aHint": "Return ?.",
-    "aTest": "if (getSqlPlaceholderChar() !== '?') throw new Error('Placeholder check failed');"
+    "aTitle": "SQL Parameter Placeholder Generator",
+    "aDesc": "Implement function generateSqlPlaceholders(count) returning a comma-separated string of '?' placeholders for prepared statements (e.g. 1 -> '?', 3 -> '?, ?, ?'). Return empty string for count <= 0.",
+    "aStarter": "function generateSqlPlaceholders(count) {\n  // TODO: write your code here\n}",
+    "aHint": "Create an array of length count filled with '?' and join with ', '.",
+    "aTest": "if (generateSqlPlaceholders(1) !== '?') throw new Error('1 placeholder failed');\nif (generateSqlPlaceholders(3) !== '?, ?, ?') throw new Error('3 placeholders failed');\nif (generateSqlPlaceholders(0) !== '') throw new Error('0 placeholder failed');"
   },
   {
     "day": 3,
@@ -55,12 +55,12 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function sanitizeHtmlForXss(untrustedString) escaping `&`, `<`, `>`, `\"`, `'`, and `/` preventing script execution in the browser. Use these exact values: `status`: 'XSS_SANITIZED_AND_ESCAPED_NOMINAL'. The result must have these fields: `sanitizedHtml`, `containsScriptTag`.",
     "eStarter": "function sanitizeHtmlForXss(raw) {\n  // TODO: write your code here\n}",
     "eHint": "Replace special characters with entity equivalents.",
-    "eTest": "const res = sanitizeHtmlForXss(\"<script>alert('XSS')</script>\");\nif (res.sanitizedHtml !== '&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;&#x2F;script&gt;' || !res.containsScriptTag || res.status !== 'XSS_SANITIZED_AND_ESCAPED_NOMINAL') throw new Error('XSS sanitization failed');",
-    "aTitle": "Content Security Policy Header Acronym Formatter",
-    "aDesc": "Implement function getCspHeaderAcronym() returning `'CSP'`.",
-    "aStarter": "function getCspHeaderAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return CSP.",
-    "aTest": "if (getCspHeaderAcronym() !== 'CSP') throw new Error('Acronym check failed');"
+    "eTest": "const res1 = sanitizeHtmlForXss(\"<script>alert('XSS')</script>\");\nif (res1.sanitizedHtml !== '&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;&#x2F;script&gt;' || !res1.containsScriptTag || res1.status !== 'XSS_SANITIZED_AND_ESCAPED_NOMINAL') throw new Error('XSS script tag failed');\nconst res2 = sanitizeHtmlForXss(\"Hello & welcome!\");\nif (res2.sanitizedHtml !== 'Hello &amp; welcome!' || res2.containsScriptTag) throw new Error('XSS ampersand failed');",
+    "aTitle": "Content Security Policy Directive Formatter",
+    "aDesc": "Implement function formatCspDirective(directiveName, sources) returning `${directiveName} ${sources.join(' ')}`.",
+    "aStarter": "function formatCspDirective(name, sources) {\n  // TODO: write your code here\n}",
+    "aHint": "Join sources array with a space.",
+    "aTest": "if (formatCspDirective('default-src', [\"'self'\"]) !== \"default-src 'self'\") throw new Error('default-src failed');\nif (formatCspDirective('script-src', [\"'self'\", 'https://cdn.example.com']) !== \"script-src 'self' https://cdn.example.com\") throw new Error('script-src failed');"
   },
   {
     "day": 4,
@@ -76,11 +76,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function validateCsrfToken(sessionToken, reqToken, sameSite) {\n  // TODO: write your code here\n}",
     "eHint": "Check token match and verify sameSite is Strict or Lax.",
     "eTest": "const pass = validateCsrfToken('sec_tok_123', 'sec_tok_123', 'Strict');\nconst fail = validateCsrfToken('sec_tok_123', 'attacker_token', 'None');\nif (!pass.isCsrfApproved || fail.isCsrfApproved || pass.status !== 'CSRF_REQUEST_VALIDATED_NOMINAL') throw new Error('CSRF validation failed');",
-    "aTitle": "Strictest SameSite Cookie Value Formatter",
-    "aDesc": "Implement function getStrictSameSiteCookieValue() returning `'Strict'`.",
-    "aStarter": "function getStrictSameSiteCookieValue() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Strict.",
-    "aTest": "if (getStrictSameSiteCookieValue() !== 'Strict') throw new Error('Value check failed');"
+    "aTitle": "SameSite Cookie Attribute Formatter",
+    "aDesc": "Implement function formatSameSiteCookie(cookieName, cookieValue, sameSiteMode, isSecure = true) returning formatted Set-Cookie header attribute string (e.g. 'session', 'abc', 'Strict' -> 'session=abc; SameSite=Strict; Secure').",
+    "aStarter": "function formatSameSiteCookie(name, val, mode, sec) {\n  // TODO: write your code here\n}",
+    "aHint": "Format with name, value, SameSite, and conditionally ; Secure.",
+    "aTest": "if (formatSameSiteCookie('sid', '123', 'Strict', true) !== 'sid=123; SameSite=Strict; Secure') throw new Error('Strict secure failed');\nif (formatSameSiteCookie('pref', 'dark', 'Lax', false) !== 'pref=dark; SameSite=Lax') throw new Error('Lax non-secure failed');"
   },
   {
     "day": 5,
@@ -92,15 +92,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Milestone 1 certification."
     ],
     "eTitle": "Web Application Firewall Master Engine",
-    "eDesc": "Implement function executeWafMasterEngine(strideOk, sqliOk, xssOk, csrfOk) certifying combined WAF execution. Use these exact values: `engineStatus`: 'WAF_MASTER_ENGINE_ACTIVE'.",
+    "eDesc": "Implement function executeWafMasterEngine(strideOk, sqliOk, xssOk, csrfOk) certifying combined WAF execution. Use these exact values: `engineStatus`: 'WAF_MASTER_ENGINE_ACTIVE' or 'WAF_DEFECT_DETECTED'.",
     "eStarter": "function executeWafMasterEngine(s, sq, x, c) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeWafMasterEngine(true, true, true, true);\nif (res.engineStatus !== 'WAF_MASTER_ENGINE_ACTIVE') throw new Error('Milestone 1 WAF master failed');",
+    "eTest": "const pass = executeWafMasterEngine(true, true, true, true);\nif (!pass || pass.engineStatus !== 'WAF_MASTER_ENGINE_ACTIVE' || !pass.wafCertified) throw new Error('WAF all pass failed');\nconst fail = executeWafMasterEngine(true, false, true, true);\nif (!fail || fail.engineStatus !== 'WAF_DEFECT_DETECTED' || fail.wafCertified) throw new Error('WAF defect failed');",
     "aTitle": "Web Application Firewall Status Formatter",
-    "aDesc": "Implement function formatWafStatus(ok) returning `WAF_${ok ? 'ACTIVE' : 'OFFLINE'}`. Use these exact values: formatWafStatus() returns 'WAF_ACTIVE'.",
-    "aStarter": "function formatWafStatus(o) {\n  // TODO: write your code here\n}",
-    "aHint": "Format status.",
-    "aTest": "if (formatWafStatus(true) !== 'WAF_ACTIVE') throw new Error('Status check failed');"
+    "aDesc": "Implement function formatWafStatus(ok) returning `WAF_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
+    "aStarter": "function formatWafStatus(ok) {\n  // TODO: write your code here\n}",
+    "aHint": "Return WAF_ACTIVE when true, WAF_OFFLINE when false.",
+    "aTest": "if (formatWafStatus(true) !== 'WAF_ACTIVE') throw new Error('WAF active failed');\nif (formatWafStatus(false) !== 'WAF_OFFLINE') throw new Error('WAF offline failed');"
   },
   {
     "day": 6,
@@ -116,11 +116,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function validateAesGcmPayload(cipher, iv, tag, keyBits) {\n  // TODO: write your code here\n}",
     "eHint": "Verify 12-byte IV (24 hex), 16-byte tag (32 hex), and 256-bit key.",
     "eTest": "const pass = validateAesGcmPayload('abcdef1234', '1234567890abcdef12345678', '1234567890abcdef1234567890abcdef', 256);\nconst fail = validateAesGcmPayload('abcdef1234', 'short_iv', 'short_tag', 128);\nif (!pass.isGcmPayloadNominal || fail.isGcmPayloadNominal || pass.status !== 'AES_GCM_PAYLOAD_VALIDATED_NOMINAL') throw new Error('AES-GCM payload validation failed');",
-    "aTitle": "Standard AES-GCM Recommended Nonce Bit Length Formatter",
-    "aDesc": "Implement function getGcmRecommendedNonceBits() returning `96`.",
-    "aStarter": "function getGcmRecommendedNonceBits() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 96.",
-    "aTest": "if (getGcmRecommendedNonceBits() !== 96) throw new Error('Bits check failed');"
+    "aTitle": "Cryptographic Key Bit Length Calculator",
+    "aDesc": "Implement function calculateKeyBits(byteLength) returning `byteLength * 8`. Return 0 for non-positive byteLength.",
+    "aStarter": "function calculateKeyBits(bytes) {\n  // TODO: write your code here\n}",
+    "aHint": "Multiply bytes by 8.",
+    "aTest": "if (calculateKeyBits(32) !== 256) throw new Error('32 bytes should be 256 bits');\nif (calculateKeyBits(16) !== 128) throw new Error('16 bytes should be 128 bits');\nif (calculateKeyBits(0) !== 0) throw new Error('0 bytes should be 0 bits');"
   },
   {
     "day": 7,
@@ -136,11 +136,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function validateArgon2idConfig(mKb, tIter, pThreads) {\n  // TODO: write your code here\n}",
     "eHint": "Verify mKb >= 65536, tIter >= 3, pThreads >= 1.",
     "eTest": "const pass = validateArgon2idConfig(65536, 3, 4);\nconst fail = validateArgon2idConfig(1024, 1, 1);\nif (!pass.isProductionHardened || fail.isProductionHardened || pass.status !== 'ARGON2ID_CONFIG_HARDENED_NOMINAL') throw new Error('Argon2id validation failed');",
-    "aTitle": "Password Hashing Competition Winner Algorithm Formatter",
-    "aDesc": "Implement function getPhcWinnerAlgorithm() returning `'Argon2id'`.",
-    "aStarter": "function getPhcWinnerAlgorithm() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Argon2id.",
-    "aTest": "if (getPhcWinnerAlgorithm() !== 'Argon2id') throw new Error('Algorithm check failed');"
+    "aTitle": "Argon2 Variant Security Classifier",
+    "aDesc": "Implement function classifyArgon2Variant(variant) returning 'HYBRID_MAXIMUM_RESISTANCE' for 'argon2id', 'SIDE_CHANNEL_RESISTANT' for 'argon2i', 'GPU_CRACKING_RESISTANT' for 'argon2d', and 'UNKNOWN' otherwise.",
+    "aStarter": "function classifyArgon2Variant(v) {\n  // TODO: write your code here\n}",
+    "aHint": "Normalize string and check variant mapping.",
+    "aTest": "if (classifyArgon2Variant('argon2id') !== 'HYBRID_MAXIMUM_RESISTANCE') throw new Error('argon2id failed');\nif (classifyArgon2Variant('argon2i') !== 'SIDE_CHANNEL_RESISTANT') throw new Error('argon2i failed');\nif (classifyArgon2Variant('argon2d') !== 'GPU_CRACKING_RESISTANT') throw new Error('argon2d failed');\nif (classifyArgon2Variant('sha256') !== 'UNKNOWN') throw new Error('Invalid variant failed');"
   },
   {
     "day": 8,
@@ -152,15 +152,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "TLS 1.3 handshake mechanics: Ephemeral Diffie-Hellman (ECDHE) and forward secrecy."
     ],
     "eTitle": "X.509 Certificate Chain of Trust Validator",
-    "eDesc": "Implement function validateX509CertificateChain(leafCert, intermediateCert, rootCert, currentTimeMs) verifying date validity, Subject/Issuer binding, and CA signature hierarchy. Use these exact values: `status`: 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL'. The result must have the field: `isChainOfTrustVerified`.",
+    "eDesc": "Implement function validateX509CertificateChain(leafCert, intermediateCert, rootCert, currentTimeMs) verifying date validity, Subject/Issuer binding, and CA signature hierarchy. Use these exact values: `status`: 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL' or 'CERTIFICATE_CHAIN_VALIDATION_FAILED'. The result must have the field: `isChainOfTrustVerified`.",
     "eStarter": "function validateX509CertificateChain(leaf, inter, root, now) {\n  // TODO: write your code here\n}",
     "eHint": "Verify dates, leaf.issuer===inter.subject, inter.issuer===root.subject, and root self-signature.",
-    "eTest": "const root = { subject: 'Root CA', issuer: 'Root CA', isTrustedRoot: true, notBefore: 0, notAfter: 2000000000000 };\nconst inter = { subject: 'Inter CA', issuer: 'Root CA', notBefore: 0, notAfter: 2000000000000 };\nconst leaf = { subject: 'example.com', issuer: 'Inter CA', notBefore: 1000, notAfter: 2000000000000 };\nconst res = validateX509CertificateChain(leaf, inter, root, 50000);\nif (!res.isChainOfTrustVerified || res.status !== 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL') throw new Error('PKI validation failed');",
-    "aTitle": "Standard Web Security Digital Certificate Format Name Formatter",
-    "aDesc": "Implement function getStandardCertificateFormatName() returning `'X.509'`.",
-    "aStarter": "function getStandardCertificateFormatName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return X.509.",
-    "aTest": "if (getStandardCertificateFormatName() !== 'X.509') throw new Error('Format name check failed');"
+    "eTest": "const root = { subject: 'Root CA', issuer: 'Root CA', isTrustedRoot: true, notBefore: 0, notAfter: 2000000000000 };\nconst inter = { subject: 'Inter CA', issuer: 'Root CA', notBefore: 0, notAfter: 2000000000000 };\nconst leaf = { subject: 'example.com', issuer: 'Inter CA', notBefore: 1000, notAfter: 2000000000000 };\nconst pass = validateX509CertificateChain(leaf, inter, root, 50000);\nif (!pass.isChainOfTrustVerified || pass.status !== 'X509_CERTIFICATE_CHAIN_VERIFIED_NOMINAL') throw new Error('PKI valid chain failed');\nconst expired = validateX509CertificateChain(leaf, inter, root, 3000000000000);\nif (expired.isChainOfTrustVerified || expired.status !== 'CERTIFICATE_CHAIN_VALIDATION_FAILED') throw new Error('Expired certificate must fail');",
+    "aTitle": "Certificate Expiry Date Validator",
+    "aDesc": "Implement function isCertificateValidAt(notBefore, notAfter, currentTimestamp) returning true if `currentTimestamp >= notBefore && currentTimestamp <= notAfter`, else false.",
+    "aStarter": "function isCertificateValidAt(nb, na, now) {\n  // TODO: write your code here\n}",
+    "aHint": "Check currentTimestamp between notBefore and notAfter.",
+    "aTest": "if (!isCertificateValidAt(1000, 5000, 3000)) throw new Error('Valid date should pass');\nif (isCertificateValidAt(1000, 5000, 6000)) throw new Error('Future expired date should fail');\nif (isCertificateValidAt(1000, 5000, 500)) throw new Error('Past date should fail');"
   },
   {
     "day": 9,
@@ -176,11 +176,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function sanitizeJwtHeader(hdr) {\n  // TODO: write your code here\n}",
     "eHint": "Verify alg is HS256, RS256, or ES256 and reject NONE.",
     "eTest": "const pass = sanitizeJwtHeader({ alg: 'HS256', typ: 'JWT' });\nconst fail = sanitizeJwtHeader({ alg: 'none', typ: 'JWT' });\nif (!pass.isSignatureAlgorithmApproved || fail.isSignatureAlgorithmApproved || !fail.isNoneAttackDetected) throw new Error('JWT sanitizer failed');",
-    "aTitle": "JWT Standard Signature None Algorithm Formatter",
-    "aDesc": "Implement function getJwtNoneAlgorithmString() returning `'none'`.",
-    "aStarter": "function getJwtNoneAlgorithmString() {\n  // TODO: write your code here\n}",
-    "aHint": "Return none.",
-    "aTest": "if (getJwtNoneAlgorithmString() !== 'none') throw new Error('String check failed');"
+    "aTitle": "JWT Approved Algorithm Checker",
+    "aDesc": "Implement function isApprovedJwtAlgorithm(alg, approvedList = ['HS256', 'RS256', 'ES256']) returning true if `alg !== 'none'` and `approvedList.includes(alg)`, otherwise false.",
+    "aStarter": "function isApprovedJwtAlgorithm(alg, list) {\n  // TODO: write your code here\n}",
+    "aHint": "Reject 'none' and check presence in list.",
+    "aTest": "if (!isApprovedJwtAlgorithm('HS256')) throw new Error('HS256 should pass');\nif (!isApprovedJwtAlgorithm('RS256')) throw new Error('RS256 should pass');\nif (isApprovedJwtAlgorithm('none')) throw new Error('none must fail');\nif (isApprovedJwtAlgorithm('MD5')) throw new Error('MD5 must fail');"
   },
   {
     "day": 10,
@@ -195,12 +195,12 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateTotpTimeStep(currentTimestampSec, timeStepDurationSec) calculating current time-step counter $T = \\lfloor t / 30 \\rfloor$ and generating acceptable drift window $[T-1, T, T+1]$. Use these exact values: `status`: 'TOTP_TIME_STEP_CALCULATED_NOMINAL'. The result must have the field: `currentStepCounter`.",
     "eStarter": "function calculateTotpTimeStep(tSec, stepDur) {\n  // TODO: write your code here\n}",
     "eHint": "step = Math.floor(tSec / stepDur), validDriftWindow = [step-1, step, step+1].",
-    "eTest": "const res = calculateTotpTimeStep(1600000000, 30); // 1600000000 / 30 = 53333333\nif (res.currentStepCounter !== 53333333 || res.validDriftWindow[0] !== 53333332 || res.status !== 'TOTP_TIME_STEP_CALCULATED_NOMINAL') throw new Error('TOTP calculation failed');",
-    "aTitle": "Standard TOTP Time Step Duration in Seconds Formatter",
-    "aDesc": "Implement function getStandardTotpStepDurationSec() returning `30`.",
-    "aStarter": "function getStandardTotpStepDurationSec() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 30.",
-    "aTest": "if (getStandardTotpStepDurationSec() !== 30) throw new Error('Duration check failed');"
+    "eTest": "const res1 = calculateTotpTimeStep(1600000000, 30);\nif (res1.currentStepCounter !== 53333333 || res1.validDriftWindow[0] !== 53333332 || res1.status !== 'TOTP_TIME_STEP_CALCULATED_NOMINAL') throw new Error('TOTP step 1 failed');\nconst res2 = calculateTotpTimeStep(1600000060, 30);\nif (res2.currentStepCounter !== 53333335 || res2.validDriftWindow[0] !== 53333334) throw new Error('TOTP step 2 failed');",
+    "aTitle": "TOTP Time-Step Counter Formatter",
+    "aDesc": "Implement function getTotpStep(epochSec, stepDuration = 30) returning `Math.floor(epochSec / stepDuration)`.",
+    "aStarter": "function getTotpStep(epoch, step) {\n  // TODO: write your code here\n}",
+    "aHint": "Math.floor(epoch / (step || 30)).",
+    "aTest": "if (getTotpStep(1600000000, 30) !== 53333333) throw new Error('Step check failed for 1600000000');\nif (getTotpStep(90, 30) !== 3) throw new Error('Step check failed for 90s');\nif (getTotpStep(59, 30) !== 1) throw new Error('Step check failed for 59s');"
   },
   {
     "day": 11,
@@ -216,11 +216,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateAccessDecision(roles, reqRole, env) {\n  // TODO: write your code here\n}",
     "eHint": "Check hasRole and env conditions.",
     "eTest": "const pass = evaluateAccessDecision(['ENGINEER', 'SECURITY_ANALYST'], 'SECURITY_ANALYST', { isMfaVerified: true, isIpAllowed: true });\nconst fail = evaluateAccessDecision(['GUEST'], 'SECURITY_ANALYST', { isMfaVerified: true, isIpAllowed: true });\nif (!pass.isAccessGranted || fail.isAccessGranted || pass.status !== 'ACCESS_GRANTED_NOMINAL') throw new Error('Access decision failed');",
-    "aTitle": "Role Based Access Control Acronym Formatter",
-    "aDesc": "Implement function getRbacAcronym() returning `'RBAC'`.",
-    "aStarter": "function getRbacAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return RBAC.",
-    "aTest": "if (getRbacAcronym() !== 'RBAC') throw new Error('Acronym check failed');"
+    "aTitle": "Role Permission Checker",
+    "aDesc": "Implement function checkRolePermission(userRoles, rolePermissionsMap, requiredPermission) returning true if any of the user's roles grants `requiredPermission`, else false.",
+    "aStarter": "function checkRolePermission(roles, map, perm) {\n  // TODO: write your code here\n}",
+    "aHint": "Iterate roles and check if rolePermissionsMap[role] includes requiredPermission.",
+    "aTest": "const perms = { ADMIN: ['READ', 'WRITE', 'DELETE'], USER: ['READ'] };\nif (!checkRolePermission(['ADMIN'], perms, 'DELETE')) throw new Error('Admin delete should pass');\nif (checkRolePermission(['USER'], perms, 'DELETE')) throw new Error('User delete should fail');\nif (!checkRolePermission(['USER'], perms, 'READ')) throw new Error('User read should pass');"
   },
   {
     "day": 12,
@@ -236,11 +236,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function authorizeResourceAccess(userId, role, ownerId) {\n  // TODO: write your code here\n}",
     "eHint": "isApproved = role === 'ADMIN' || userId === ownerId.",
     "eTest": "const owner = authorizeResourceAccess('usr_123', 'USER', 'usr_123');\nconst intruder = authorizeResourceAccess('usr_attacker', 'USER', 'usr_victim');\nif (!owner.isAuthorized || intruder.isAuthorized || intruder.status !== 'BOLA_UNAUTHORIZED_OBJECT_ACCESS_BLOCKED') throw new Error('BOLA authorization failed');",
-    "aTitle": "Insecure Direct Object Reference Acronym Formatter",
-    "aDesc": "Implement function getIdorAcronym() returning `'IDOR'`.",
-    "aStarter": "function getIdorAcronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return IDOR.",
-    "aTest": "if (getIdorAcronym() !== 'IDOR') throw new Error('Acronym check failed');"
+    "aTitle": "Multi-Tenant Object Ownership Validator",
+    "aDesc": "Implement function isTenantObjectAccessible(userTenantId, objectTenantId, isSuperAdmin = false) returning true if `isSuperAdmin === true` or `userTenantId === objectTenantId`, otherwise false.",
+    "aStarter": "function isTenantObjectAccessible(uTenant, oTenant, isAdmin) {\n  // TODO: write your code here\n}",
+    "aHint": "Check isAdmin === true || uTenant === oTenant.",
+    "aTest": "if (!isTenantObjectAccessible('tenant_a', 'tenant_a', false)) throw new Error('Same tenant should pass');\nif (isTenantObjectAccessible('tenant_a', 'tenant_b', false)) throw new Error('Different tenant should fail');\nif (!isTenantObjectAccessible('tenant_a', 'tenant_b', true)) throw new Error('Admin access should pass across tenants');"
   },
   {
     "day": 13,
@@ -256,11 +256,11 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function monitorSynConnectionBacklog(halfOpen, maxCap) {\n  // TODO: write your code here\n}",
     "eHint": "utilization = halfOpen / maxCap, isFlood = utilization >= 0.9.",
     "eTest": "const normal = monitorSynConnectionBacklog(100, 1000); // 10%\nconst attack = monitorSynConnectionBacklog(950, 1000); // 95%\nif (normal.isSynFloodDetected || !attack.isSynFloodDetected || attack.status !== 'SYN_FLOOD_DETECTED_SYN_COOKIES_ENGAGED') throw new Error('SYN monitor failed');",
-    "aTitle": "TCP SYN Flood Mitigation Cookie Name Formatter",
-    "aDesc": "Implement function getSynMitigationName() returning `'SYN Cookies'`.",
-    "aStarter": "function getSynMitigationName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return SYN Cookies.",
-    "aTest": "if (getSynMitigationName() !== 'SYN Cookies') throw new Error('Mitigation name check failed');"
+    "aTitle": "Connection Backlog Capacity Calculator",
+    "aDesc": "Implement function calculateBacklogUtilization(currentHalfOpen, maxCapacity) returning `{ utilization: Number((currentHalfOpen / maxCapacity).toFixed(2)), isCritical: (currentHalfOpen / maxCapacity) >= 0.9 }`.",
+    "aStarter": "function calculateBacklogUtilization(cur, max) {\n  // TODO: write your code here\n}",
+    "aHint": "Calculate ratio and check threshold.",
+    "aTest": "const n = calculateBacklogUtilization(200, 1000);\nif (n.utilization !== 0.2 || n.isCritical !== false) throw new Error('Normal backlog failed');\nconst c = calculateBacklogUtilization(950, 1000);\nif (c.utilization !== 0.95 || c.isCritical !== true) throw new Error('Critical backlog failed');"
   },
   {
     "day": 14,
@@ -272,15 +272,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "HTTP Security Headers Compliance Auditor",
-    "eDesc": "Implement function auditHttpSecurityHeaders(headersMap) verifying that HSTS, X-Content-Type-Options, and X-Frame-Options are present and configured securely. Use these exact values: `status`: 'SECURITY_HEADERS_COMPLIANT_NOMINAL'. The result must have the field: `isHeaderSuiteCompliant`.",
+    "eDesc": "Implement function auditHttpSecurityHeaders(headersMap) verifying that HSTS, X-Content-Type-Options, and X-Frame-Options are present and configured securely. Use these exact values: `status`: 'SECURITY_HEADERS_COMPLIANT_NOMINAL' or 'INSECURE_HEADER_CONFIGURATION_DETECTED'. The result must have the field: `isHeaderSuiteCompliant`.",
     "eStarter": "function auditHttpSecurityHeaders(hdrs) {\n  // TODO: write your code here\n}",
     "eHint": "Verify strict-transport-security, nosniff, and x-frame-options.",
-    "eTest": "const pass = auditHttpSecurityHeaders({\n  'strict-transport-security': 'max-age=31536000; includeSubDomains',\n  'x-content-type-options': 'nosniff',\n  'x-frame-options': 'DENY'\n});\nif (!pass.isHeaderSuiteCompliant || pass.status !== 'SECURITY_HEADERS_COMPLIANT_NOMINAL') throw new Error('Headers audit failed');",
-    "aTitle": "MIME Sniffing Prevention Header Value Formatter",
-    "aDesc": "Implement function getNosniffHeaderValue() returning `'nosniff'`.",
-    "aStarter": "function getNosniffHeaderValue() {\n  // TODO: write your code here\n}",
-    "aHint": "Return nosniff.",
-    "aTest": "if (getNosniffHeaderValue() !== 'nosniff') throw new Error('Value check failed');"
+    "eTest": "const pass = auditHttpSecurityHeaders({\n  'strict-transport-security': 'max-age=31536000; includeSubDomains',\n  'x-content-type-options': 'nosniff',\n  'x-frame-options': 'DENY'\n});\nif (!pass.isHeaderSuiteCompliant || pass.status !== 'SECURITY_HEADERS_COMPLIANT_NOMINAL') throw new Error('Headers audit pass failed');\nconst fail = auditHttpSecurityHeaders({\n  'x-frame-options': 'DENY'\n});\nif (fail.isHeaderSuiteCompliant || fail.status !== 'INSECURE_HEADER_CONFIGURATION_DETECTED') throw new Error('Missing headers must fail');",
+    "aTitle": "Security Header Formatter",
+    "aDesc": "Implement function formatHstsHeader(maxAgeSeconds = 31536000, includeSubDomains = true) returning `max-age=${maxAgeSeconds}${includeSubDomains ? '; includeSubDomains' : ''}`.",
+    "aStarter": "function formatHstsHeader(sec, sub) {\n  // TODO: write your code here\n}",
+    "aHint": "Format HSTS string.",
+    "aTest": "if (formatHstsHeader(31536000, true) !== 'max-age=31536000; includeSubDomains') throw new Error('Full HSTS failed');\nif (formatHstsHeader(86400, false) !== 'max-age=86400') throw new Error('Basic HSTS failed');"
   },
   {
     "day": 15,
@@ -292,15 +292,15 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],
     "eTitle": "Cryptographic Identity & PKI Master Engine",
-    "eDesc": "Implement function executeCryptoIdentityMaster(gcmOk, argonOk, pkiOk, jwtOk, totpOk) certifying combined cryptographic identity engine execution. Use these exact values: `engineStatus`: 'CRYPTO_IDENTITY_MASTER_ACTIVE'.",
+    "eDesc": "Implement function executeCryptoIdentityMaster(gcmOk, argonOk, pkiOk, jwtOk, totpOk) certifying combined cryptographic identity engine execution. Use these exact values: `engineStatus`: 'CRYPTO_IDENTITY_MASTER_ACTIVE' or 'CRYPTO_IDENTITY_DEFECT'.",
     "eStarter": "function executeCryptoIdentityMaster(g, a, p, j, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeCryptoIdentityMaster(true, true, true, true, true);\nif (res.engineStatus !== 'CRYPTO_IDENTITY_MASTER_ACTIVE') throw new Error('Milestone 2 crypto master failed');",
-    "aTitle": "Crypto Identity Master Status Formatter",
-    "aDesc": "Implement function getCryptoIdentityMasterStatus() returning `'CRYPTO_IDENTITY_MASTER_ACTIVE'`.",
-    "aStarter": "function getCryptoIdentityMasterStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return status.",
-    "aTest": "if (getCryptoIdentityMasterStatus() !== 'CRYPTO_IDENTITY_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "eTest": "const pass = executeCryptoIdentityMaster(true, true, true, true, true);\nif (!pass || pass.engineStatus !== 'CRYPTO_IDENTITY_MASTER_ACTIVE') throw new Error('Milestone 2 crypto master all pass failed');\nconst fail = executeCryptoIdentityMaster(true, true, false, true, true);\nif (!fail || fail.engineStatus !== 'CRYPTO_IDENTITY_DEFECT') throw new Error('Milestone 2 crypto master rejection failed');",
+    "aTitle": "Crypto Identity Master Certification Auditor",
+    "aDesc": "Implement function auditCryptoIdentityStatus(score, totalScore = 5) returning `{ certified: score === totalScore, scoreText: \`${score}/${totalScore}\`, grade: score === totalScore ? 'ENTERPRISE_CRYPTO_CERTIFIED' : 'REMEDIATION_REQUIRED' }`.",
+    "aStarter": "function auditCryptoIdentityStatus(score, total) {\n  // TODO: write your code here\n}",
+    "aHint": "Compare score with total and return audit grade object.",
+    "aTest": "const pass = auditCryptoIdentityStatus(5, 5);\nif (!pass.certified || pass.grade !== 'ENTERPRISE_CRYPTO_CERTIFIED' || pass.scoreText !== '5/5') throw new Error('Pass audit failed');\nconst fail = auditCryptoIdentityStatus(3, 5);\nif (fail.certified || fail.grade !== 'REMEDIATION_REQUIRED' || fail.scoreText !== '3/5') throw new Error('Fail audit failed');"
   },
   {
     "day": 16,
