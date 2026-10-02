@@ -4062,6 +4062,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "say": [
           "Welcome to Day 17 of UI/UX Design Systems & Visual Frontend.",
           "While Flexbox is fundamentally 1-dimensional—handling layouts along either a single row or a single column—CSS Grid is inherently 2-dimensional.",
+          "Grid allows developers to coordinate both horizontal column tracks and vertical row tracks simultaneously with mathematical precision.",
+          "By eliminating the need for nested wrapper divs and hacky margin offsets, CSS Grid simplifies component hierarchies and enhances accessibility.",
           "Grid allows us to position content simultaneously across both horizontal columns and vertical rows.",
           "To master CSS Grid, you must internalize its four core conceptual primitives:",
           "1. Grid Lines: The dividing lines that form the grid structure, numbered starting from 1 at the outer border.",
@@ -4309,6 +4311,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "In the early days of responsive web design, developers practiced 'desktop-first' styling.",
           "They authored complex desktop CSS rules, and then attempted to undo them on smaller screens using 'max-width' media queries: overriding floats, unsetting margins, and hiding desktop columns.",
           "Desktop-first design produces bloated, fragile CSS filled with redundant overrides and poor mobile performance.",
+          "Mobile-first design is a core engineering discipline: we construct the most lightweight, readable, and touch-friendly experience for small viewports first.",
+          "As viewport width expands, we progressively enhance the interface with multi-column grids, sidebar drawers, and contextual secondary information.",
+          "This guarantees fast load times on mobile cellular networks while providing expansive power-user layouts on large desktop workstations.",
           "Modern design systems strictly adhere to the 'Mobile-First' paradigm using 'min-width' queries.",
           "Under mobile-first architecture, base CSS rules target mobile devices by default without any media query wrappers.",
           "As screen real estate expands, 'min-width' media queries progressively enhance the interface: introducing multi-column layouts, expanded navigation bars, and larger typography scales.",
@@ -4352,6 +4357,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "4. 'xl' (1280px): High-resolution desktop monitors and full-screen workstations.",
           "5. '2xl' (1536px): Ultra-wide monitors, 4K displays, and multi-monitor developer setups.",
           "These values are codified as immutable design tokens, ensuring every application squad builds against an identical responsive contract.",
+          "By standardizing breakpoint tokens across design files in Figma and engineering codebases in CSS, cross-functional teams speak a common responsive language.",
+          "This alignment eliminates visual discrepancies and guarantees predictable layout shifts across every product screen in the enterprise.",
+          "Furthermore, pairing breakpoint tokens with container queries ensures that individual components remain responsive whether placed in full-width main content areas or constrained sidebars.",
           "Let us implement the standard breakpoint token scale."
         ],
         "example": "Standard clothing sizing (XS, S, M, L, XL, XXL): clothing manufacturers standardize garment proportions so customers know exactly what size fits their body measurements.",
@@ -4560,6 +4568,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "For example: 'font-size: clamp(1rem, 0.8rem + 1vw, 1.75rem)' or 'padding: clamp(16px, 2vw, 32px)'.",
           "On narrow screens, the value never shrinks below the accessible minimum. On ultra-wide displays, it never expands past the maximum design token.",
           "In between, the value scales continuously with the viewport, delivering silky smooth fluid typography and spacing without layout jumps.",
+          "Container Queries (@container) complement clamp() by enabling components to adapt directly to their immediate parent container width rather than the viewport.",
+          "A card component rendered inside a narrow 300px sidebar needs a compact single-column layout even on an ultra-wide 4K display.",
+          "Container queries allow frontend engineers to build truly autonomous, drop-in widgets that adapt their internal layout based entirely on allocated container real estate.",
           "Let us inspect the mathematical evaluation of CSS clamp."
         ],
         "example": "A hydraulic telescoping shock absorber: it absorbs road bumps smoothly within a defined 10cm stroke, but solid metal bump stops prevent it from bottoming out or over-extending.",
@@ -4809,6 +4820,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "3. Feedback: The visual, auditory, or haptic cue confirming to the user that their action was recognized.",
           "4. Loops and Modes: The meta-rules governing duration, repeat cycles, and return to idle state.",
           "Well-engineered micro-interactions build user confidence, reduce cognitive friction, and make digital products feel tactile and alive.",
+          "Using physically accurate spring physics and non-linear Bézier easing curves elevates software from looking like a rudimentary document to feeling like a high-performance native application.",
+          "Thoughtful micro-interactions provide subtle physical realism, giving users reassuring feedback that their taps, clicks, and gestures have been registered by the system.",
           "Let us inspect a state machine modeling the 4-phase micro-interaction lifecycle."
         ],
         "example": "A physical light switch: flipping the toggle (Trigger) activates internal copper contacts (Rules), the bedroom ceiling lamp turns on (Feedback), and the switch remains securely locked in the ON position (Loop/Mode).",
@@ -5046,6 +5059,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "title": "Milestone 3 Architecture: The Sovereign Responsive & Motion Suite",
         "say": [
           "Welcome to Milestone 3 of UI/UX Design Systems & Visual Frontend.",
+          "In this milestone synthesis, we certify the spatial and temporal engines that govern how components adapt to viewports and respond to human interactions.",
+          "A production design system cannot rely on scattered, ad-hoc media queries or uncoordinated animations; it requires an integrated, mathematically verifiable layout and motion subsystem.",
           "In Milestone 1, we built foundational math tokens: color ramps, modular typography, and 8pt spatial grids.",
           "In Milestone 2, we built and certified our intermediate atomic component library with accessible forms, modals, tables, and toast stacks.",
           "Today in Milestone 3, we certify the spatial and temporal engines that govern how components adapt to viewports and respond to human interactions.",
@@ -5300,6 +5315,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "say": [
           "Welcome to Day 22 of UI/UX Design Systems & Visual Frontend.",
           "In legacy frontend architectures, supporting dark mode meant duplicating thousands of CSS classes or compiling entirely separate CSS stylesheets.",
+          "Dark themes significantly reduce eye strain during prolonged screen exposure in low-light environments and conserve battery power on mobile OLED displays.",
+          "However, implementing dark mode by simply inverting hex colors produces harsh, unreadable contrasts and breaks brand recognition.",
+          "Modern design systems engineer theming using CSS Custom Properties (CSS variables) as dynamic semantic aliases that cascade effortlessly across the DOM.",
           "Modern design systems engineer theming using CSS Custom Properties (CSS variables) as dynamic semantic aliases.",
           "Under this architecture, components never declare hardcoded hex codes. Instead, they reference semantic variables: 'color: var(--color-text-primary)' and 'background-color: var(--color-surface-base)'.",
           "Theme switching is achieved by simply redefining the variable values at the root or dataset scope: ':root { --color-surface-base: #ffffff; }' and '[data-theme=\"dark\"] { --color-surface-base: #121212; }'.",
@@ -5550,6 +5568,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Our retinas contain photoreceptor cones tuned to red, green, and blue, but human vision is extraordinarily sensitive to green light and far less sensitive to blue light.",
           "The World Wide Web Consortium (W3C) codified this biological reality in the WCAG Relative Luminance formula.",
           "Before calculating luminance, raw 8-bit sRGB color channels (0 to 255) must be linearized to remove non-linear gamma encoding.",
+          "Gamma encoding compresses shadow detail for human perception in photographic display hardware, which distorts direct linear mathematical addition.",
+          "By linearizing the color channels, we restore true physical photon emission values before calculating relative luminance and contrast.",
           "Once linearized, relative luminance 'L' is calculated as: 'L = 0.2126 * R + 0.7152 * G + 0.0722 * B'.",
           "Notice the weights: Green accounts for over 71% of perceived brightness, Red accounts for 21%, and Blue accounts for only 7%!",
           "Let us implement the W3C relative luminance algorithm in TypeScript."
@@ -6050,6 +6070,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "4. Native Form Attributes: 'alt' for '<img>', or '<label>' element bound via 'for' / 'id'.",
           "5. 'placeholder' or 'title': Lowest precedence fallback.",
           "Understanding this precedence hierarchy prevents conflicting attributes from garbling screen reader output.",
+          "When developers mistakenly add redundant aria-label attributes to native buttons with visible text, they risk overriding carefully crafted localized copy.",
+          "A truly accessible design system constructs an intentional, unambiguous accessibility tree parallel to the visual DOM, ensuring every user enjoys equal access.",
+          "This auditory user interface must be tested with real screen readers (NVDA, JAWS, VoiceOver) to confirm that announcements are concise, natural, and helpful.",
+          "Eliminating auditory clutter empowers assistive technology users to navigate enterprise applications with equal speed and dignity.",
           "Let us inspect the accessible name computation algorithm."
         ],
         "example": "A shipping crate label: if an official customs clearance manifest (aria-labelledby) is pasted onto the box, inspectors read that first; if absent, they read the stenciled spray-paint stencil (aria-label).",
@@ -7429,6 +7453,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "say": [
           "Welcome to Day 30 and the Final Capstone of UI/UX Design Systems & Visual Frontend.",
           "Over 30 intensive days, you have progressed from fundamental design token mathematics to enterprise-scale component libraries and governance architectures.",
+          "Today, we bring every subsystem together into the Sovereign Enterprise Design System: a unified, mathematically certified visual engineering suite ready for global production.",
+          "Over 30 intensive days, you have progressed from fundamental design token mathematics to enterprise-scale component libraries and governance architectures.",
           "Today, we bring every subsystem together into the Sovereign Enterprise Design System.",
           "The Sovereign Design System is structured across 5 integrated architectural tiers:",
           "Tier 1: Foundations & Math Tokens (Semantic alias tokens, HSL lightness ramps, fluid clamp typography, and the 8pt spatial grid).",
@@ -7472,6 +7498,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "title": "Tier 1 Integration: Foundations & Master Token Manifest Compiler",
         "say": [
           "In Tier 1, all foundational tokens must be consolidated into a unified CSS custom property manifest.",
+          "This master manifest acts as the central single source of truth for the entire visual design language, ensuring brand consistency across web, mobile, and desktop applications.",
+          "Every token is mathematically derived: from HSL lightness ramps and modular typography clamp scales to 8pt spatial increments and multi-layer elevation shadows.",
           "This includes:",
           "1. HSL color ramps across 10 steps (50 to 900) for primary, neutral, success, warning, and danger palettes.",
           "2. 8pt spatial grid variables ('--space-1' through '--space-16') for consistent margins, padding, and gaps.",

@@ -11,6 +11,8 @@ import { DEVOPS_WEB_LONG_LESSONS } from '../src/lib/data/devopsWebLongLessons';
 import { DEVOPS_30_DAYS_CONFIGS } from '../src/lib/data/devops30DayData';
 import { CLOUD_WEB_LONG_LESSONS } from '../src/lib/data/cloudWebLongLessons';
 import { CLOUD_30_DAYS_CONFIGS } from '../src/lib/data/cloud30DayData';
+import { DESIGN_WEB_LONG_LESSONS } from '../src/lib/data/designWebLongLessons';
+import { DESIGN_30_DAYS_CONFIGS } from '../src/lib/data/design30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -51,6 +53,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-cloud-native',
     lessons: CLOUD_WEB_LONG_LESSONS,
     configs: CLOUD_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'UI/UX Design Systems & Visual Frontend',
+    prefix: 'design',
+    courseId: 'course-design-systems',
+    lessons: DESIGN_WEB_LONG_LESSONS,
+    configs: DESIGN_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];
