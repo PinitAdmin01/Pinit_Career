@@ -1310,6 +1310,1239 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "Execute docker compose up -d and verify that all 4 containers boot into healthy states with docker compose ps."
       ]
     }
+  },
+  {
+    "day": 6,
+    "title": "Docker Container Networking & Host/Bridge Port Mappings",
+    "goal": "Master Docker container networking: Bridge, Host, and Overlay network drivers, virtual ethernet pairs, port forwarding mechanics, and embedded DNS resolution.",
+    "minutes": 25,
+    "recap": "Yesterday in Milestone 1 we wired multiple containers together using Docker Compose. Today we dissect the underlying Linux networking primitives that make container communication possible.",
+    "parts": [
+      {
+        "title": "Docker Network Drivers Overview",
+        "say": [
+          "Docker abstracts Linux network namespaces through pluggable network drivers.",
+          "The default network driver on Linux is the Bridge network driver, which creates a virtual bridge interface on the host.",
+          "Containers attached to a bridge network receive their own private IP address within a private subnet like 172.17.0.0/16.",
+          "The second driver is the Host driver, which disables network isolation completely and attaches the container directly to the host network stack.",
+          "With host networking, there is zero routing overhead, but container port conflicts will directly collide with host ports.",
+          "The Overlay driver enables multi-host networking, allowing containers across different physical machines in a Swarm or Kubernetes cluster to communicate securely.",
+          "The Macvlan driver assigns a physical MAC address to a container, making it appear as a physical hardware device on the local network router.",
+          "Finally, the None driver gives the container a loopback interface only, completely cutting it off from all external and internal network traffic for total air-gapped isolation."
+        ],
+        "example": "Think of network drivers like different hotel room arrangements: Bridge is private apartments with a building intercom; Host is living right in the lobby; and None is a secure vault room with no windows or telephone lines.",
+        "code": "interface NetworkDriver {\n  name: string;\n  isolation: 'High' | 'None' | 'Subnet';\n  useCase: string;\n  hasHostPortCollisionRisk: boolean;\n}\n\nconst drivers: NetworkDriver[] = [\n  { name: 'bridge', isolation: 'High', useCase: 'Standalone containers & local Compose stacks', hasHostPortCollisionRisk: false },\n  { name: 'host', isolation: 'None', useCase: 'High-throughput low-latency network workloads', hasHostPortCollisionRisk: true },\n  { name: 'overlay', isolation: 'High', useCase: 'Multi-host Swarm & Kubernetes inter-pod communication', hasHostPortCollisionRisk: false },\n  { name: 'macvlan', isolation: 'Subnet', useCase: 'Legacy applications requiring physical network IPs', hasHostPortCollisionRisk: true },\n  { name: 'none', isolation: 'High', useCase: 'Air-gapped batch calculation jobs & key generators', hasHostPortCollisionRisk: false },\n];\n\nfor (const d of drivers) {\n  console.log(`Driver [${d.name}]: ${d.useCase} (Isolation: ${d.isolation})`);\n}",
+        "output": "Driver [bridge]: Standalone containers & local Compose stacks (Isolation: High)\nDriver [host]: High-throughput low-latency network workloads (Isolation: None)\nDriver [overlay]: Multi-host Swarm & Kubernetes inter-pod communication (Isolation: High)\nDriver [macvlan]: Legacy applications requiring physical network IPs (Isolation: Subnet)\nDriver [none]: Air-gapped batch calculation jobs & key generators (Isolation: High)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines driver characteristics including isolation levels and port collision risks."
+          },
+          {
+            "line": 16,
+            "note": "Iterates and prints the operational purpose of each Docker network driver."
+          }
+        ],
+        "tryIt": "Add an entry for IPvLAN and evaluate how it differs from Macvlan when dealing with MAC address filtering switches.",
+        "check": {
+          "question": "Which Docker network driver removes network namespace isolation and shares the host networking stack directly?",
+          "options": [
+            "bridge",
+            "host",
+            "overlay"
+          ],
+          "answer": 1,
+          "why": "The host network driver shares the host network namespace directly, avoiding NAT overhead at the cost of port isolation."
+        }
+      },
+      {
+        "title": "Virtual Ethernet Pairs & Linux Bridge Plumbing",
+        "say": [
+          "When Docker creates a bridge network, it provisions a virtual bridge interface named docker0 or br-xxxx on the host Linux kernel.",
+          "To connect a container to this bridge, the kernel creates a veth pair, which acts like a virtual patch cable with two ends.",
+          "One end of the virtual cable remains in the host root network namespace and plugs into the bridge.",
+          "The other end is moved into the container network namespace and renamed to eth0.",
+          "When the container sends an IP packet to an external server, the packet traverses eth0 across the veth pair into the bridge.",
+          "The Linux kernel uses Network Address Translation (NAT) via iptables or nftables to masquerade the container private IP behind the host public IP address.",
+          "When replies return from the internet, iptables tracks the connection state and routes the response packets back across the bridge to the container.",
+          "Understanding this virtual plumbing explains why containers have their own routing tables and MAC addresses distinct from the physical host."
+        ],
+        "example": "Imagine a physical Ethernet switch sitting on your desk. Each container has an Ethernet cable plugged into this virtual switch, and the switch connects to your house router through NAT.",
+        "code": "interface VethPair {\n  hostInterface: string;\n  containerInterface: string;\n  containerIp: string;\n  bridgeName: string;\n}\n\nfunction establishContainerLink(containerName: string, slot: number): VethPair {\n  return {\n    hostInterface: `veth${slot}a9f`,\n    containerInterface: 'eth0',\n    containerIp: `172.20.0.${slot + 2}`,\n    bridgeName: 'docker0',\n  };\n}\n\nconst webLink = establishContainerLink('frontend-web', 1);\nconst apiLink = establishContainerLink('backend-api', 2);\n\nconsole.log(`Web Container: ${webLink.containerInterface} (${webLink.containerIp}) <-> Host: ${webLink.hostInterface} on ${webLink.bridgeName}`);\nconsole.log(`API Container: ${apiLink.containerInterface} (${apiLink.containerIp}) <-> Host: ${apiLink.hostInterface} on ${apiLink.bridgeName}`);",
+        "output": "Web Container: eth0 (172.20.0.3) <-> Host: veth1a9f on docker0\nAPI Container: eth0 (172.20.0.4) <-> Host: veth2a9f on docker0",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Simulates the creation of a veth pair linking the container namespace to the bridge."
+          },
+          {
+            "line": 19,
+            "note": "Prints the interface mapping and assigned private subnet IP address."
+          }
+        ],
+        "tryIt": "Run `ip link show` on any Linux machine running Docker to observe the active veth interface naming convention.",
+        "check": {
+          "question": "What Linux kernel mechanism acts like a virtual Ethernet cable connecting a container namespace to the host bridge?",
+          "options": [
+            "veth pair",
+            "Unix domain socket",
+            "FIFO named pipe"
+          ],
+          "answer": 0,
+          "why": "A veth (virtual Ethernet) pair links two network namespaces, with one end plugged into the bridge and the other into the container."
+        }
+      },
+      {
+        "title": "Port Forwarding Semantics: 0.0.0.0 vs 127.0.0.1",
+        "say": [
+          "To make a container service accessible from outside the host machine, you publish ports using the `-p` or `--publish` flag.",
+          "The syntax is `HOST_PORT:CONTAINER_PORT`, such as `-p 8080:80`.",
+          "If you specify `-p 8080:80`, Docker binds port 8080 to `0.0.0.0`, which means listening on all network interfaces including public internet IPs.",
+          "This default behavior is a common security pitfall because developers assume their firewall will block external access, but Docker manipulates iptables directly, bypassing UFW defaults.",
+          "To restrict access strictly to the local machine, you must explicitly bind to localhost using `-p 127.0.0.1:8080:80`.",
+          "When traffic arrives at host port 8080, docker-proxy or iptables PREROUTING rules rewrite the destination IP and port to the container private IP and port 80.",
+          "Container internal ports never collide: two containers can both listen on port 80 internally as long as they bind to different host ports or remain unexposed.",
+          "Always bind internal APIs and databases to `127.0.0.1` unless they are explicitly meant to face the public internet."
+        ],
+        "example": "Binding to 0.0.0.0 is like unlocking your building front door so anyone on the street can walk into the apartment. Binding to 127.0.0.1 is keeping the front door locked and only allowing people already inside the apartment to visit.",
+        "code": "interface PortBinding {\n  hostIp: string;\n  hostPort: number;\n  containerPort: number;\n  protocol: 'tcp' | 'udp';\n  isPubliclyAccessible: boolean;\n}\n\nfunction parsePortMapping(mapping: string): PortBinding {\n  const parts = mapping.split(':');\n  if (parts.length === 3) {\n    const hostIp = parts[0];\n    const hostPort = parseInt(parts[1], 10);\n    const containerPort = parseInt(parts[2], 10);\n    return { hostIp, hostPort, containerPort, protocol: 'tcp', isPubliclyAccessible: hostIp === '0.0.0.0' };\n  }\n  const hostPort = parseInt(parts[0], 10);\n  const containerPort = parseInt(parts[1], 10);\n  return { hostIp: '0.0.0.0', hostPort, containerPort, protocol: 'tcp', isPubliclyAccessible: true };\n}\n\nconst safeBinding = parsePortMapping('127.0.0.1:5432:5432');\nconst unsafeBinding = parsePortMapping('8080:80');\n\nconsole.log(`Safe Binding: ${safeBinding.hostIp}:${safeBinding.hostPort} -> Public: ${safeBinding.isPubliclyAccessible}`);\nconsole.log(`Unsafe Binding: ${unsafeBinding.hostIp}:${unsafeBinding.hostPort} -> Public: ${unsafeBinding.isPubliclyAccessible}`);",
+        "output": "Safe Binding: 127.0.0.1:5432 -> Public: false\nUnsafe Binding: 0.0.0.0:8080 -> Public: true",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Parses port mapping strings supporting both 2-part and 3-part syntax."
+          },
+          {
+            "line": 20,
+            "note": "Differentiates public 0.0.0.0 exposures from secure 127.0.0.1 loopback bindings."
+          }
+        ],
+        "tryIt": "Modify the parser to accept UDP protocol declarations like `127.0.0.1:53:53/udp`.",
+        "check": {
+          "question": "Why should database port mappings in Docker specify `127.0.0.1:5432:5432` instead of `5432:5432`?",
+          "options": [
+            "Because Docker does not support 2-part port syntax",
+            "To prevent Docker from binding to 0.0.0.0 and exposing the database port to the entire public internet",
+            "Because 127.0.0.1 provides hardware acceleration"
+          ],
+          "answer": 1,
+          "why": "Specifying 127.0.0.1 limits exposure to the local host loopback interface, preventing unauthorized internet connections."
+        }
+      },
+      {
+        "title": "Embedded Docker DNS (127.0.0.11) & Name Resolution",
+        "say": [
+          "On default bridge networks (`docker0`), containers can only address each other by hardcoded IP addresses or legacy `--link` flags.",
+          "However, on user-defined bridge networks, Docker activates an embedded DNS server listening at `127.0.0.11`.",
+          "Every container attached to a user-defined network has its `/etc/resolv.conf` configured with `nameserver 127.0.0.11`.",
+          "When your application code makes a request to `http://postgres:5432`, the operating system sends a DNS query to `127.0.0.11`.",
+          "The embedded DNS server checks Docker container names, service names, and network aliases within that specific network.",
+          "If a matching container is found, it immediately returns that container private IP address.",
+          "If the query is for an external domain like `api.github.com`, the embedded DNS forwards the request upstream to the host DNS servers configured in `/etc/resolv.conf`.",
+          "This DNS abstraction ensures that your application configuration remains completely decoupled from transient dynamic IP addresses."
+        ],
+        "example": "Think of embedded DNS like a company phone directory. When you dial extension 204 for Sarah in accounting, the switchboard routes your call even if Sarah moved to a new desk this morning.",
+        "code": "interface DnsRecord {\n  name: string;\n  ip: string;\n  network: string;\n}\n\nclass DockerEmbeddedDns {\n  private records: Map<string, DnsRecord> = new Map();\n\n  register(record: DnsRecord) {\n    this.records.set(`${record.network}:${record.name}`, record);\n  }\n\n  resolve(query: string, network: string): string {\n    const key = `${network}:${query}`;\n    const record = this.records.get(key);\n    if (record) return record.ip;\n    return 'Upstream: 8.8.8.8';\n  }\n}\n\nconst dns = new DockerEmbeddedDns();\ndns.register({ name: 'api-service', ip: '172.28.0.5', network: 'production-net' });\ndns.register({ name: 'cache-redis', ip: '172.28.0.6', network: 'production-net' });\n\nconsole.log('Resolving api-service:', dns.resolve('api-service', 'production-net'));\nconsole.log('Resolving cache-redis:', dns.resolve('cache-redis', 'production-net'));\nconsole.log('Resolving external domain:', dns.resolve('github.com', 'production-net'));",
+        "output": "Resolving api-service: 172.28.0.5\nResolving cache-redis: 172.28.0.6\nResolving external domain: Upstream: 8.8.8.8",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Simulates the embedded DNS nameserver table scoped by network name."
+          },
+          {
+            "line": 15,
+            "note": "Falls back to upstream DNS forwarding when the domain is external."
+          }
+        ],
+        "tryIt": "Run `cat /etc/resolv.conf` inside any Docker container on a custom bridge network to verify nameserver 127.0.0.11.",
+        "check": {
+          "question": "What is the IP address of Docker embedded DNS resolver inside containers on user-defined networks?",
+          "options": [
+            "192.168.1.1",
+            "127.0.0.11",
+            "10.0.0.1"
+          ],
+          "answer": 1,
+          "why": "Docker reserves the loopback address 127.0.0.11 specifically for its embedded container DNS resolver."
+        }
+      },
+      {
+        "title": "Inspecting Network Topologies & Diagnostics",
+        "say": [
+          "When debugging connectivity issues between microservices, command-line inspection is an essential operational skill.",
+          "The `docker network ls` command lists all active networks alongside their driver type and network ID.",
+          "To view the full state of a network, run `docker network inspect <network_name>`.",
+          "This outputs a detailed JSON document listing the subnet, gateway, IPAM driver, and all attached containers with their respective IPv4 addresses and MAC addresses.",
+          "If container A cannot reach container B, common causes include being attached to different bridge networks or missing port exposures.",
+          "You can dynamically attach a running container to an additional network without restarting it using `docker network connect <network> <container>`.",
+          "Similarly, you can detach a container from a compromised or legacy network using `docker network disconnect`.",
+          "Using network diagnostics prevents unnecessary container restarts and pinpoints routing errors quickly."
+        ],
+        "example": "Using `docker network inspect` is like looking at a network topology diagram in an IT closet to trace which patch cable connects server rack A to server rack B.",
+        "code": "interface InspectedContainer {\n  name: string;\n  ipv4Address: string;\n  macAddress: string;\n}\n\ninterface InspectedNetwork {\n  name: string;\n  driver: string;\n  subnet: string;\n  gateway: string;\n  containers: Record<string, InspectedContainer>;\n}\n\nconst networkInspection: InspectedNetwork = {\n  name: 'app_backend_net',\n  driver: 'bridge',\n  subnet: '172.24.0.0/16',\n  gateway: '172.24.0.1',\n  containers: {\n    'c1': { name: 'order-api', ipv4Address: '172.24.0.2/16', macAddress: '02:42:ac:18:00:02' },\n    'c2': { name: 'inventory-db', ipv4Address: '172.24.0.3/16', macAddress: '02:42:ac:18:00:03' },\n  }\n};\n\nconsole.log(`Network: ${networkInspection.name} (Driver: ${networkInspection.driver})`);\nconsole.log(`Subnet: ${networkInspection.subnet} | Gateway: ${networkInspection.gateway}`);\nfor (const [id, c] of Object.entries(networkInspection.containers)) {\n  console.log(` - Container ${c.name} -> IP ${c.ipv4Address} (MAC ${c.macAddress})`);\n}",
+        "output": "Network: app_backend_net (Driver: bridge)\nSubnet: 172.24.0.0/16 | Gateway: 172.24.0.1\n - Container order-api -> IP 172.24.0.2/16 (MAC 02:42:ac:18:00:02)\n - Container inventory-db -> IP 172.24.0.3/16 (MAC 02:42:ac:18:00:03)",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "Represents the JSON output structure returned by `docker network inspect`."
+          },
+          {
+            "line": 26,
+            "note": "Iterates and prints connected containers and their network configurations."
+          }
+        ],
+        "tryIt": "Run `docker network inspect bridge` on your local terminal to see the default docker0 bridge configuration.",
+        "check": {
+          "question": "How can you connect a running container to a new network without terminating or restarting the container process?",
+          "options": [
+            "docker network connect <network> <container>",
+            "docker restart --network=<network>",
+            "docker network mount <container>"
+          ],
+          "answer": 0,
+          "why": "The `docker network connect` command hot-plugs a virtual network interface into a running container namespace."
+        }
+      },
+      {
+        "title": "Multi-Network Architecture for Tiered Microservices",
+        "say": [
+          "In production cloud architectures, security demands strict network segmentation between application tiers.",
+          "A web frontend should be reachable by external internet users, but an internal database should never have direct internet exposure.",
+          "Docker allows a single container to belong to multiple networks simultaneously.",
+          "Consider a three-tier architecture: frontend-net and backend-net.",
+          "The Nginx reverse proxy connects to frontend-net and publishes port 443 to the world.",
+          "The Backend API container connects to BOTH frontend-net (to receive requests from Nginx) and backend-net (to communicate with the database).",
+          "The PostgreSQL container connects ONLY to backend-net and publishes zero host ports.",
+          "Under this topology, an attacker who compromises the public web tier cannot reach the database directly because there is no network route between frontend-net and backend-net."
+        ],
+        "example": "Think of an embassy building: the public lobby (frontend-net) is open to visitors; diplomats operate in private conference rooms (backend-net); and security officers guard the door in between.",
+        "code": "interface ServiceConfig {\n  service: string;\n  networks: string[];\n  exposedPorts: number[];\n}\n\nconst architecture: ServiceConfig[] = [\n  { service: 'web-nginx', networks: ['frontend-net'], exposedPorts: [80, 443] },\n  { service: 'backend-api', networks: ['frontend-net', 'backend-net'], exposedPorts: [] },\n  { service: 'postgres-db', networks: ['backend-net'], exposedPorts: [] },\n];\n\nfunction canCommunicate(fromService: string, toService: string): boolean {\n  const from = architecture.find(s => s.service === fromService);\n  const to = architecture.find(s => s.service === toService);\n  if (!from || !to) return false;\n  return from.networks.some(net => to.networks.includes(net));\n}\n\nconsole.log('Can web-nginx reach backend-api?', canCommunicate('web-nginx', 'backend-api'));\nconsole.log('Can web-nginx reach postgres-db directly?', canCommunicate('web-nginx', 'postgres-db'));\nconsole.log('Can backend-api reach postgres-db?', canCommunicate('backend-api', 'postgres-db'));",
+        "output": "Can web-nginx reach backend-api? true\nCan web-nginx reach postgres-db directly? false\nCan backend-api reach postgres-db? true",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Defines network memberships ensuring the database is completely isolated from frontend-net."
+          },
+          {
+            "line": 13,
+            "note": "Determines routability based on shared network namespace membership."
+          }
+        ],
+        "tryIt": "Add a redis-cache service to backend-net and verify whether web-nginx can reach it directly.",
+        "check": {
+          "question": "In a tiered multi-network architecture, why does the backend API join both frontend-net and backend-net?",
+          "options": [
+            "To double its network bandwidth",
+            "To act as a secure gateway that accepts traffic from the public proxy while privately accessing the database",
+            "Because Docker containers require at least two networks to function"
+          ],
+          "answer": 1,
+          "why": "The API acts as a secure intermediary, bridging the two networks without exposing the database to the frontend network."
+        }
+      }
+    ],
+    "summary": [
+      "Docker network drivers (bridge, host, overlay, macvlan, none) provide tailored isolation models for containers.",
+      "Virtual Ethernet (veth) pairs connect container network namespaces to host bridge interfaces with iptables NAT.",
+      "Port mappings without explicit IPs bind to 0.0.0.0; always specify 127.0.0.1 for private internal services.",
+      "Embedded Docker DNS at 127.0.0.11 provides automatic service discovery on user-defined bridge networks.",
+      "Tiered multi-network topologies isolate sensitive database containers from public-facing reverse proxies."
+    ],
+    "projectStep": {
+      "title": "DevOps Day 6 Architecture: Multi-Tier Network Isolation",
+      "steps": [
+        "Create two separate bridge networks: `frontend-net` and `backend-net` using `docker network create`.",
+        "Launch an isolated PostgreSQL container attached strictly to `backend-net` with no host port bindings.",
+        "Launch a Node.js API container attached to both `frontend-net` and `backend-net`.",
+        "Verify with `docker network inspect` that the API bridges both networks while the database remains unreachable from `frontend-net`."
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "title": "Docker Security, Rootless Daemons & Read-Only Root Filesystems",
+    "goal": "Harden container security posture: implement the non-root invariant, drop dangerous Linux capabilities, configure immutable read-only root filesystems, and apply seccomp syscall filtering.",
+    "minutes": 25,
+    "recap": "Yesterday we mastered container networking and segmentation. Today we focus on defensive infrastructure security to prevent container escape and privilege escalation attacks.",
+    "parts": [
+      {
+        "title": "The Non-Root Invariant & User Namespaces",
+        "say": [
+          "By default, processes inside a Docker container execute as root (UID 0) unless explicitly configured otherwise.",
+          "Because containers share the host Linux kernel, root inside a container has the same user identifier as root on the physical host machine.",
+          "If a vulnerability allows a container process to escape its namespace, an attacker with UID 0 gains full administrative control over the host operating system.",
+          "To prevent this catastrophic failure, the golden rule of container security is the Non-Root Invariant.",
+          "Always create a dedicated unprivileged user and group in your Dockerfile, and switch to that user using the `USER` instruction.",
+          "For example: `RUN addgroup -S appgroup && adduser -S appuser -G appgroup` followed by `USER 10001:10001`.",
+          "Using numeric IDs instead of usernames is best practice because Kubernetes and security scanners validate security contexts using numeric UIDs.",
+          "Never deploy a container to production that runs application code as root."
+        ],
+        "example": "Running a container as root is like hiring a contractor to fix a faucet and handing them master keys to every room and safe in your entire house.",
+        "code": "interface ContainerUser {\n  uid: number;\n  gid: number;\n  username: string;\n  isPrivileged: boolean;\n}\n\nfunction evaluateSecurityContext(uid: number, username: string): ContainerUser {\n  const isPrivileged = uid === 0;\n  return { uid, gid: uid, username, isPrivileged };\n}\n\nconst defaultContext = evaluateSecurityContext(0, 'root');\nconst hardenedContext = evaluateSecurityContext(10001, 'appuser');\n\nconsole.log(`Default Context: UID ${defaultContext.uid} (${defaultContext.username}) -> Privileged: ${defaultContext.isPrivileged}`);\nconsole.log(`Hardened Context: UID ${hardenedContext.uid} (${hardenedContext.username}) -> Privileged: ${hardenedContext.isPrivileged}`);",
+        "output": "Default Context: UID 0 (root) -> Privileged: true\nHardened Context: UID 10001 (appuser) -> Privileged: false",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates whether a container execution context runs as privileged UID 0."
+          },
+          {
+            "line": 15,
+            "note": "Compares the dangerous default root user against an unprivileged 10001 UID."
+          }
+        ],
+        "tryIt": "Run `id` inside a container without a USER directive to see its default UID and GID.",
+        "check": {
+          "question": "Why should production containers run with a numeric UID like 10001 rather than root (UID 0)?",
+          "options": [
+            "Numeric UIDs execute 20% faster",
+            "To enforce the non-root invariant and prevent host kernel compromise if a container escape occurs",
+            "Because Linux kernels cannot resolve usernames"
+          ],
+          "answer": 1,
+          "why": "Running as non-root ensures an attacker escaping container boundaries has no root permissions on the host system."
+        }
+      },
+      {
+        "title": "Linux Capabilities: Dropping Privileges with Least Privilege",
+        "say": [
+          "In traditional Unix systems, privileges were binary: you were either root with full power or an unprivileged user with none.",
+          "Modern Linux divides traditional superuser powers into distinct privileges called Linux Capabilities.",
+          "Examples include `CAP_CHOWN` (change file ownership), `CAP_NET_BIND_SERVICE` (bind to ports below 1024), and `CAP_SYS_ADMIN` (almost full root power).",
+          "By default, Docker grants containers a generous set of 14 default capabilities, including `CAP_KILL`, `CAP_MKNOD`, and `CAP_NET_RAW`.",
+          "In a secure enterprise environment, you should apply the Principle of Least Privilege: drop all capabilities first, then selectively add only what is strictly required.",
+          "At container launch, use `--cap-drop ALL --cap-add NET_BIND_SERVICE`.",
+          "Dropping `CAP_NET_RAW` prevents containers from crafting malicious spoofed ARP and ICMP packets to attack peer containers on the bridge network.",
+          "Dropping `CAP_SYS_ADMIN` eliminates over 30 dangerous syscall privileges that are frequently exploited in container breakout vulnerabilities."
+        ],
+        "example": "Think of capabilities like specialized access badges: instead of giving a maintenance worker an all-access pass, you give them a badge that only opens the boiler room door.",
+        "code": "const defaultCapabilities = [\n  'CAP_CHOWN', 'CAP_DAC_OVERRIDE', 'CAP_FOWNER', 'CAP_FSETID',\n  'CAP_KILL', 'CAP_SETGID', 'CAP_SETUID', 'CAP_SETPCAP',\n  'CAP_NET_BIND_SERVICE', 'CAP_NET_RAW', 'CAP_SYS_CHROOT',\n  'CAP_MKNOD', 'CAP_AUDIT_WRITE', 'CAP_SETFCAP'\n];\n\nfunction applyCapabilityFilter(initial: string[], dropAll: boolean, keep: string[]): string[] {\n  if (dropAll) {\n    return initial.filter(cap => keep.includes(cap));\n  }\n  return initial;\n}\n\nconst hardenedCaps = applyCapabilityFilter(defaultCapabilities, true, ['CAP_NET_BIND_SERVICE']);\n\nconsole.log('Default Capabilities Count:', defaultCapabilities.length);\nconsole.log('Hardened Capabilities Count:', hardenedCaps.length);\nconsole.log('Retained Capabilities:', hardenedCaps.join(', '));",
+        "output": "Default Capabilities Count: 14\nHardened Capabilities Count: 1\nRetained Capabilities: CAP_NET_BIND_SERVICE",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Simulates the `--cap-drop ALL` operation followed by selective re-addition."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates reducing the attack surface from 14 capabilities down to just 1."
+          }
+        ],
+        "tryIt": "Run `getpcaps 1` inside a container to list the active capability bounding set of PID 1.",
+        "check": {
+          "question": "What is the recommended Docker flag combination for implementing least-privilege Linux capabilities?",
+          "options": [
+            "--cap-add ALL",
+            "--cap-drop ALL followed by specific --cap-add flags",
+            "--privileged"
+          ],
+          "answer": 1,
+          "why": "Dropping all capabilities first and adding back only required ones eliminates unnecessary kernel attack surfaces."
+        }
+      },
+      {
+        "title": "Immutable Containers: Read-Only Root Filesystems & tmpfs",
+        "say": [
+          "In a traditional server, attackers who compromise an application immediately attempt to download crypto-miners, modify cron jobs, or install rootkits into `/etc` or `/usr/bin`.",
+          "In containerized systems, containers should be treated as ephemeral, immutable compute units.",
+          "Docker enables you to mount the entire container root filesystem as strictly read-only using the `--read-only` flag.",
+          "With `--read-only` enabled, any attempt by an attacker or rogue script to create files, overwrite binaries, or tamper with libraries fails with `Read-only file system`.",
+          "However, web applications frequently need to write temporary files, such as session caches, PID files, or upload buffers in `/tmp` and `/run`.",
+          "To support temporary writes without compromising immutability, mount in-memory RAM disks using `--tmpfs /tmp --tmpfs /run`.",
+          "Files written to a tmpfs exist only in volatile host memory and disappear completely when the container stops.",
+          "Combining `--read-only` with `--tmpfs` creates a tamper-proof container architecture that neutralizes disk persistence malware."
+        ],
+        "example": "A read-only filesystem is like a printed reference book in a library: you can read it freely and make notes on a separate erasable whiteboard (tmpfs), but you cannot scribble with ink on the printed pages.",
+        "code": "interface MountConfig {\n  mountPoint: string;\n  type: 'rootfs' | 'tmpfs' | 'volume';\n  readOnly: boolean;\n}\n\nfunction validateFilesystemPolicy(mounts: MountConfig[]): { compliant: boolean; issues: string[] } {\n  const issues: string[] = [];\n  const root = mounts.find(m => m.mountPoint === '/');\n  if (!root || !root.readOnly) {\n    issues.push('Root filesystem (/) is writable; should be mounted read-only.');\n  }\n  const tmp = mounts.find(m => m.mountPoint === '/tmp');\n  if (!tmp || tmp.type !== 'tmpfs') {\n    issues.push('/tmp must be an ephemeral tmpfs mount.');\n  }\n  return { compliant: issues.length === 0, issues };\n}\n\nconst insecureMounts: MountConfig[] = [\n  { mountPoint: '/', type: 'rootfs', readOnly: false },\n  { mountPoint: '/tmp', type: 'rootfs', readOnly: false },\n];\n\nconst secureMounts: MountConfig[] = [\n  { mountPoint: '/', type: 'rootfs', readOnly: true },\n  { mountPoint: '/tmp', type: 'tmpfs', readOnly: false },\n];\n\nconsole.log('Insecure Mounts Valid:', validateFilesystemPolicy(insecureMounts).compliant);\nconsole.log('Secure Mounts Valid:', validateFilesystemPolicy(secureMounts).compliant);",
+        "output": "Insecure Mounts Valid: false\nSecure Mounts Valid: true",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Audits filesystem mount configurations against enterprise immutability policies."
+          },
+          {
+            "line": 26,
+            "note": "Confirms that only the configuration with read-only root and tmpfs /tmp is compliant."
+          }
+        ],
+        "tryIt": "Start a container with `docker run --read-only --tmpfs /tmp alpine touch /test` and observe the permission error.",
+        "check": {
+          "question": "When running a container with `--read-only`, how should an application handle required temporary scratch writes in `/tmp`?",
+          "options": [
+            "Switch back to running as root",
+            "Mount an in-memory ephemeral RAM disk using `--tmpfs /tmp`",
+            "Disable the healthcheck"
+          ],
+          "answer": 1,
+          "why": "Mounting `/tmp` as a tmpfs provides temporary in-memory write space without compromising the read-only root filesystem."
+        }
+      },
+      {
+        "title": "Rootless Docker Daemons: Mitigating Host Compromise",
+        "say": [
+          "In standard Docker setups, the `dockerd` daemon runs as root on the host machine.",
+          "The Docker daemon requires root because it interacts directly with kernel namespaces, cgroups, network bridges, and iptables.",
+          "This means anyone who has access to the Docker socket (`/var/run/docker.sock`) effectively has root access to the entire host machine.",
+          "To eliminate this architectural risk, Docker introduced Rootless Mode.",
+          "Rootless Docker runs both the Docker daemon and the containers completely inside an unprivileged user namespace.",
+          "Even if an attacker achieves full container breakout and exploits a daemon vulnerability, they are still just a normal unprivileged host user with zero root power.",
+          "Rootless mode leverages `slirp4netns` or `vpnkit` for user-mode network translation and `fuse-overlayfs` for filesystem layering.",
+          "Major compliance standards like CIS Benchmarks strongly encourage rootless daemons in production environments."
+        ],
+        "example": "Running Docker as root is like letting a contractor have the master keys to the entire building. Running Rootless Docker is giving them a key that only works inside their assigned office cubicle.",
+        "code": "interface DaemonConfig {\n  mode: 'Rootful' | 'Rootless';\n  daemonUser: string;\n  socketPath: string;\n  hostPrivilegeOnBreakout: 'Full Host Root' | 'Unprivileged User';\n}\n\nfunction inspectDaemonSecurity(mode: 'Rootful' | 'Rootless'): DaemonConfig {\n  if (mode === 'Rootless') {\n    return {\n      mode: 'Rootless',\n      daemonUser: 'developer (UID 1000)',\n      socketPath: '/run/user/1000/docker.sock',\n      hostPrivilegeOnBreakout: 'Unprivileged User'\n    };\n  }\n  return {\n    mode: 'Rootful',\n    daemonUser: 'root (UID 0)',\n    socketPath: '/var/run/docker.sock',\n    hostPrivilegeOnBreakout: 'Full Host Root'\n  };\n}\n\nconst rootful = inspectDaemonSecurity('Rootful');\nconst rootless = inspectDaemonSecurity('Rootless');\n\nconsole.log(`[${rootful.mode}] Daemon: ${rootful.daemonUser} -> Breakout Risk: ${rootful.hostPrivilegeOnBreakout}`);\nconsole.log(`[${rootless.mode}] Daemon: ${rootless.daemonUser} -> Breakout Risk: ${rootless.hostPrivilegeOnBreakout}`);",
+        "output": "[Rootful] Daemon: root (UID 0) -> Breakout Risk: Full Host Root\n[Rootless] Daemon: developer (UID 1000) -> Breakout Risk: Unprivileged User",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Highlights the stark difference in host breakout consequences between rootful and rootless daemons."
+          },
+          {
+            "line": 26,
+            "note": "Prints socket paths and privilege consequences for both deployment modes."
+          }
+        ],
+        "tryIt": "Inspect the path of your Docker socket using `echo $DOCKER_HOST` to determine your current daemon mode.",
+        "check": {
+          "question": "What is the primary security advantage of running Docker in Rootless Mode?",
+          "options": [
+            "Containers build 50% faster",
+            "If an attacker breaks out of a container or the daemon, they gain only unprivileged host user permissions instead of root",
+            "It allows containers to run without memory limits"
+          ],
+          "answer": 1,
+          "why": "Rootless mode runs the daemon in a user namespace, preventing host root escalation during a security breach."
+        }
+      },
+      {
+        "title": "Seccomp Syscall Filtering & AppArmor Profiles",
+        "say": [
+          "The Linux kernel exposes over 400 system calls (syscalls) that programs use to request OS services, like `open`, `read`, `fork`, and `ptrace`.",
+          "Most standard web applications only need about 40 to 60 common syscalls to function.",
+          "The remaining 340+ syscalls include dangerous debugging and kernel re-configuration interfaces that represent a massive exploit surface.",
+          "Seccomp (Secure Computing Mode) is a Linux kernel feature that intercepts and filters syscalls made by container processes.",
+          "Docker applies a default seccomp profile that blocks approximately 44 high-risk syscalls, including `reboot`, `sys_ptrace`, and `kexec_load`.",
+          "You can provide a custom JSON seccomp profile using `--security-opt seccomp=/path/to/profile.json` to restrict syscalls even further.",
+          "Complementing seccomp, AppArmor and SELinux provide Mandatory Access Control (MAC), enforcing file path and network restrictions regardless of user permissions.",
+          "Layering seccomp syscall filtering with AppArmor access controls enforces defense-in-depth across the entire container runtime."
+        ],
+        "example": "Seccomp is like a bouncer at a bank vault with a strict checklist of allowed actions: you are allowed to check your balance or make a deposit, but asking to re-wire the alarm system immediately triggers an alarm.",
+        "code": "interface SeccompRule {\n  syscall: string;\n  action: 'ALLOW' | 'BLOCK' | 'LOG';\n  rationale: string;\n}\n\nconst seccompProfile: SeccompRule[] = [\n  { syscall: 'read', action: 'ALLOW', rationale: 'Essential I/O operation' },\n  { syscall: 'write', action: 'ALLOW', rationale: 'Essential I/O operation' },\n  { syscall: 'ptrace', action: 'BLOCK', rationale: 'Prevents process tracing and memory injection' },\n  { syscall: 'reboot', action: 'BLOCK', rationale: 'Prevents container from rebooting host machine' },\n  { syscall: 'keyctl', action: 'BLOCK', rationale: 'Prevents kernel keyring manipulation' },\n];\n\nfor (const rule of seccompProfile) {\n  console.log(`Syscall [${rule.syscall}]: ${rule.action} (${rule.rationale})`);\n}",
+        "output": "Syscall [read]: ALLOW (Essential I/O operation)\nSyscall [write]: ALLOW (Essential I/O operation)\nSyscall [ptrace]: BLOCK (Prevents process tracing and memory injection)\nSyscall [reboot]: BLOCK (Prevents container from rebooting host machine)\nSyscall [keyctl]: BLOCK (Prevents kernel keyring manipulation)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Defines declarative seccomp action rules for common system calls."
+          },
+          {
+            "line": 15,
+            "note": "Displays how dangerous syscalls like ptrace and reboot are blocked by default."
+          }
+        ],
+        "tryIt": "Review the official Docker default seccomp JSON profile on GitHub to examine blocked syscall definitions.",
+        "check": {
+          "question": "What Linux kernel feature filters and blocks unauthorized system calls made by container processes?",
+          "options": [
+            "Seccomp",
+            "Cgroups",
+            "Systemd"
+          ],
+          "answer": 0,
+          "why": "Seccomp (Secure Computing Mode) acts as a syscall firewall between user processes and the Linux kernel."
+        }
+      },
+      {
+        "title": "Hardened Dockerfile Checklist & Security Linting",
+        "say": [
+          "Writing secure containers begins at the Dockerfile design phase before any container is ever built.",
+          "A production-grade hardened Dockerfile adheres to five non-negotiable rules.",
+          "Rule 1: Always pin base image versions using specific tags or SHA256 digests instead of `latest`.",
+          "Rule 2: Eliminate package managers and debugging shells from the final stage using multi-stage builds and distroless bases.",
+          "Rule 3: Enforce the non-root invariant by creating and switching to a dedicated unprivileged user (UID 10001).",
+          "Rule 4: Remove all setuid and setgid permissions from existing binaries using `find / -perm /6000 -type f -exec chmod a-s {} +`.",
+          "Rule 5: Run security linters like Hadolint and Docker Scout in CI to catch misconfigurations before images are pushed to registries.",
+          "By embedding security into Dockerfiles, you build an automated defense posture that protects applications throughout their lifecycle."
+        ],
+        "example": "A hardened Dockerfile checklist is like a pre-flight inspection checklist for a commercial airliner: skipping any item introduces unnecessary risk to everyone onboard.",
+        "code": "interface DockerfileAuditRule {\n  id: string;\n  name: string;\n  status: 'PASS' | 'FAIL';\n  detail: string;\n}\n\nconst auditResults: DockerfileAuditRule[] = [\n  { id: 'SEC-01', name: 'Non-Root User Declared', status: 'PASS', detail: 'USER 10001:10001 specified' },\n  { id: 'SEC-02', name: 'Immutable Base Tag', status: 'PASS', detail: 'node:20.11.1-alpine pinned' },\n  { id: 'SEC-03', name: 'SUID Binaries Stripped', status: 'PASS', detail: 'chmod a-s applied across filesystem' },\n  { id: 'SEC-04', name: 'Build Secrets Excluded', status: 'PASS', detail: '.dockerignore prevents .env leakage' },\n];\n\nconsole.log('Hardened Dockerfile Security Audit Report:');\nfor (const rule of auditResults) {\n  console.log(` [${rule.status}] ${rule.id} ${rule.name}: ${rule.detail}`);\n}",
+        "output": "Hardened Dockerfile Security Audit Report:\n [PASS] SEC-01 Non-Root User Declared: USER 10001:10001 specified\n [PASS] SEC-02 Immutable Base Tag: node:20.11.1-alpine pinned\n [PASS] SEC-03 SUID Binaries Stripped: chmod a-s applied across filesystem\n [PASS] SEC-04 Build Secrets Excluded: .dockerignore prevents .env leakage",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines the audit rules matching enterprise security scanning standards."
+          },
+          {
+            "line": 17,
+            "note": "Generates a clean terminal audit summary of container security posture."
+          }
+        ],
+        "tryIt": "Run `hadolint Dockerfile` on your project to check compliance with international Dockerfile best practices.",
+        "check": {
+          "question": "Why should setuid (SUID) permissions be stripped from container filesystem binaries?",
+          "options": [
+            "To reduce file size on disk",
+            "To prevent unprivileged users from executing binaries with root owner privileges",
+            "To speed up container startup time"
+          ],
+          "answer": 1,
+          "why": "SUID binaries execute with the permissions of the file owner (often root), creating privilege escalation vectors."
+        }
+      }
+    ],
+    "summary": [
+      "The non-root invariant requires running container workloads under unprivileged numeric UIDs (e.g. 10001).",
+      "Drop all capabilities (`--cap-drop ALL`) and re-add only necessary ones (`CAP_NET_BIND_SERVICE`).",
+      "Mount container root filesystems as read-only (`--read-only`) with ephemeral RAM disks for `/tmp` via tmpfs.",
+      "Rootless Docker executes the daemon within user namespaces, preventing host compromise during container escape.",
+      "Seccomp and AppArmor enforce system call filtering and mandatory access controls on the Linux kernel."
+    ],
+    "projectStep": {
+      "title": "DevOps Day 7 Security Hardening",
+      "steps": [
+        "Update your production Dockerfile to declare an unprivileged system user `USER 10001:10001`.",
+        "Add a filesystem sanitization step to strip setuid and setgid permissions from installed binaries.",
+        "Run the container with `--read-only`, `--cap-drop ALL`, and `--tmpfs /tmp`.",
+        "Verify that the application functions normally while preventing any unauthorized filesystem modifications."
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "title": "Container Healthchecks, Restart Policies & Resource Limits",
+    "goal": "Build self-healing and resilient containers: implement Docker HEALTHCHECK instructions, configure restart policies, enforce cgroup v2 memory and CPU constraints, and manage OOM killer dynamics.",
+    "minutes": 25,
+    "recap": "Yesterday we locked down container security and dropped superuser capabilities. Today we build operational reliability so containers can monitor their own internal health and self-heal automatically.",
+    "parts": [
+      {
+        "title": "The Docker HEALTHCHECK Instruction Lifecycle",
+        "say": [
+          "A container process might be running and returning exit code 0 even though the application inside is deadlocked, hung on a database query, or throwing 500 errors.",
+          "Docker native HEALTHCHECK instruction allows you to tell the runtime how to verify whether your service is actually healthy and ready for traffic.",
+          "The instruction syntax defines a test command alongside four critical timing parameters: interval, timeout, start-period, and retries.",
+          "For example: `HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 CMD curl -f http://localhost:8080/health || exit 1`.",
+          "When the container first starts, it enters the `starting` state during the `start-period` grace window.",
+          "During `start-period`, failing healthchecks do not count against the retry limit, giving cold applications like Java or Rails time to boot.",
+          "Once the check succeeds, the container transitions to `healthy`.",
+          "If the check fails consecutively for `retries` times, Docker marks the container as `unhealthy`, alerting orchestrators to restart or reroute traffic."
+        ],
+        "example": "Think of a healthcheck like a flight attendant asking passengers to remain seated during takeoff. The starting period is the takeoff roll, and the call button is only active once the flight reaches cruising altitude.",
+        "code": "type HealthStatus = 'starting' | 'healthy' | 'unhealthy';\n\ninterface HealthcheckConfig {\n  intervalSec: number;\n  timeoutSec: number;\n  startPeriodSec: number;\n  maxRetries: number;\n}\n\nclass ContainerHealthMonitor {\n  private status: HealthStatus = 'starting';\n  private consecutiveFailures = 0;\n\n  constructor(private config: HealthcheckConfig) {}\n\n  recordCheck(success: boolean, elapsedSec: number): HealthStatus {\n    if (success) {\n      this.status = 'healthy';\n      this.consecutiveFailures = 0;\n      return this.status;\n    }\n    this.consecutiveFailures++;\n    if (elapsedSec > this.config.startPeriodSec && this.consecutiveFailures >= this.config.maxRetries) {\n      this.status = 'unhealthy';\n    }\n    return this.status;\n  }\n}\n\nconst monitor = new ContainerHealthMonitor({ intervalSec: 10, timeoutSec: 2, startPeriodSec: 15, maxRetries: 3 });\n\nconsole.log('Check 1 (Cold boot fail):', monitor.recordCheck(false, 5));\nconsole.log('Check 2 (Booted success):', monitor.recordCheck(true, 16));\nconsole.log('Check 3 (Intermittent fail):', monitor.recordCheck(false, 26));\nconsole.log('Check 4 (Intermittent fail):', monitor.recordCheck(false, 36));\nconsole.log('Check 5 (Third fail -> Unhealthy):', monitor.recordCheck(false, 46));",
+        "output": "Check 1 (Cold boot fail): starting\nCheck 2 (Booted success): healthy\nCheck 3 (Intermittent fail): healthy\nCheck 4 (Intermittent fail): healthy\nCheck 5 (Third fail -> Unhealthy): unhealthy",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Implements the state machine for container healthcheck transitions."
+          },
+          {
+            "line": 20,
+            "note": "Enforces the start-period grace window before counting consecutive failures toward unhealthy."
+          }
+        ],
+        "tryIt": "Run `docker inspect --format \"{{json .State.Health}}\"` on any container with a healthcheck to view recent probe outputs.",
+        "check": {
+          "question": "What is the purpose of the `start-period` parameter in a Docker HEALTHCHECK instruction?",
+          "options": [
+            "To delay container creation by several minutes",
+            "To provide a grace period during which probe failures do not count toward marking the container unhealthy",
+            "To set the maximum CPU runtime"
+          ],
+          "answer": 1,
+          "why": "Start-period allows slow-starting applications to initialize without prematurely failing health checks."
+        }
+      },
+      {
+        "title": "Designing Resilient Healthcheck Endpoints",
+        "say": [
+          "A naive healthcheck endpoint simply returns HTTP 200 immediately without validating dependencies.",
+          "If the database connection pool is exhausted or the cache is down, a naive endpoint still reports healthy while user requests fail.",
+          "Conversely, an overly aggressive healthcheck that pings 10 external third-party APIs can cause cascading failures: if an external payment gateway blips, your container marks itself unhealthy and restarts in an infinite crash loop.",
+          "Best practice is to implement two distinct probe endpoints: Liveness and Readiness.",
+          "Liveness checks if the process is alive, unblocked, and capable of responding to HTTP pings (`/live`).",
+          "Readiness checks if downstream dependencies (database connection, Redis, migrations) are connected and ready to process real traffic (`/ready`).",
+          "Health checks should execute quickly in under 1 to 2 seconds and should not perform expensive database queries or heavy calculations.",
+          "Keep health probes lightweight to avoid turning the monitor into an accidental denial-of-service attack on your own database."
+        ],
+        "example": "A liveness check is checking if a chef is breathing. A readiness check is checking if the chef has a clean cutting board, sharp knives, and fresh ingredients ready to cook an order.",
+        "code": "interface ProbeResponse {\n  endpoint: '/live' | '/ready';\n  status: 200 | 503;\n  checks: Record<string, 'UP' | 'DOWN'>;\n}\n\nfunction handleLivenessProbe(): ProbeResponse {\n  return { endpoint: '/live', status: 200, checks: { process: 'UP' } };\n}\n\nfunction handleReadinessProbe(dbConnected: boolean, redisConnected: boolean): ProbeResponse {\n  const db = dbConnected ? 'UP' : 'DOWN';\n  const redis = redisConnected ? 'UP' : 'DOWN';\n  const status = (dbConnected && redisConnected) ? 200 : 503;\n  return { endpoint: '/ready', status, checks: { database: db, redis } };\n}\n\nconsole.log('Liveness Probe:', JSON.stringify(handleLivenessProbe()));\nconsole.log('Readiness (All Up):', JSON.stringify(handleReadinessProbe(true, true)));\nconsole.log('Readiness (DB Down):', JSON.stringify(handleReadinessProbe(false, true)));",
+        "output": "Liveness Probe: {\"endpoint\":\"/live\",\"status\":200,\"checks\":{\"process\":\"UP\"}}\nReadiness (All Up): {\"endpoint\":\"/ready\",\"status\":200,\"checks\":{\"database\":\"UP\",\"redis\":\"UP\"}}\nReadiness (DB Down): {\"endpoint\":\"/ready\",\"status\":503,\"checks\":{\"database\":\"DOWN\",\"redis\":\"UP\"}}",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Liveness probes only confirm the application runtime process is responding."
+          },
+          {
+            "line": 11,
+            "note": "Readiness probes validate critical database and caching connections before returning 200."
+          }
+        ],
+        "tryIt": "Implement an Express route `/healthz` returning 200 and test it with `curl -i http://localhost:3000/healthz`.",
+        "check": {
+          "question": "What is the key difference between a Liveness probe and a Readiness probe?",
+          "options": [
+            "Liveness checks CPU usage; Readiness checks memory usage",
+            "Liveness checks if the process is alive; Readiness checks if dependencies are ready to accept traffic",
+            "They are identical and can be used interchangeably"
+          ],
+          "answer": 1,
+          "why": "Liveness determines if the container needs a reboot; readiness determines if it should receive live user requests."
+        }
+      },
+      {
+        "title": "Restart Policies: Self-Healing and Crash Loop Avoidance",
+        "say": [
+          "When a containerized process crashes or exits, Docker looks at its configured restart policy to decide what to do next.",
+          "There are four primary restart policies: `no`, `always`, `unless-stopped`, and `on-failure`.",
+          "`no` is the default: Docker never attempts to restart the container when it exits.",
+          "`always` restarts the container regardless of exit code, and also restarts it when the Docker daemon reboots.",
+          "`unless-stopped` is similar to `always`, but if an administrator manually stops the container using `docker stop`, Docker remembers that state and will not resurrect it when the host reboots.",
+          "`on-failure[:max-retries]` restarts the container ONLY if it exits with a non-zero exit status, indicating an error.",
+          "Using `on-failure:5` is ideal for batch jobs or initialization tasks that need a few retries but should not loop indefinitely if permanently broken.",
+          "For production web servers, `unless-stopped` is widely regarded as the safest standard policy."
+        ],
+        "example": "A restart policy is like an automatic reset breaker in an electrical panel: if there is a transient power spike, it resets itself; but if a human deliberately flipped the breaker off, it stays off.",
+        "code": "type PolicyType = 'no' | 'always' | 'unless-stopped' | 'on-failure';\n\ninterface RestartDecision {\n  policy: PolicyType;\n  exitCode: number;\n  manuallyStopped: boolean;\n  shouldRestart: boolean;\n}\n\nfunction evaluateRestart(policy: PolicyType, exitCode: number, manuallyStopped: boolean): RestartDecision {\n  let shouldRestart = false;\n  if (manuallyStopped && (policy === 'unless-stopped' || policy === 'no')) {\n    shouldRestart = false;\n  } else if (policy === 'always') {\n    shouldRestart = true;\n  } else if (policy === 'unless-stopped') {\n    shouldRestart = !manuallyStopped;\n  } else if (policy === 'on-failure') {\n    shouldRestart = exitCode !== 0;\n  }\n  return { policy, exitCode, manuallyStopped, shouldRestart };\n}\n\nconsole.log('Policy on-failure (exit 0):', evaluateRestart('on-failure', 0, false).shouldRestart);\nconsole.log('Policy on-failure (exit 1):', evaluateRestart('on-failure', 1, false).shouldRestart);\nconsole.log('Policy unless-stopped (manual stop):', evaluateRestart('unless-stopped', 0, true).shouldRestart);\nconsole.log('Policy unless-stopped (crash):', evaluateRestart('unless-stopped', 1, false).shouldRestart);",
+        "output": "Policy on-failure (exit 0): false\nPolicy on-failure (exit 1): true\nPolicy unless-stopped (manual stop): false\nPolicy unless-stopped (crash): true",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Implements Docker restart policy resolution logic based on exit code and manual intervention."
+          },
+          {
+            "line": 24,
+            "note": "Demonstrates when each restart policy triggers a restart."
+          }
+        ],
+        "tryIt": "Start a container with `--restart=on-failure:3` and simulate a crash using `sh -c \"exit 1\"` to observe Docker retries.",
+        "check": {
+          "question": "Why is `unless-stopped` preferred over `always` for production services?",
+          "options": [
+            "Because it uses less CPU",
+            "Because it prevents Docker from restarting containers that an engineer intentionally stopped for maintenance",
+            "Because it automatically increases RAM limits"
+          ],
+          "answer": 1,
+          "why": "`unless-stopped` respects intentional manual shutdowns, preventing unexpected resurrection after host reboots."
+        }
+      },
+      {
+        "title": "Cgroups v2 & Memory Constraints: Avoiding the OOM Killer",
+        "say": [
+          "If a single container suffers from a memory leak and has no memory constraints, it will consume all available physical RAM on the host.",
+          "When host RAM is completely exhausted, the Linux kernel Out of Memory (OOM) Killer activates.",
+          "The kernel calculates an `oom_score` for every process on the system and terminates the highest-scoring process to prevent a complete OS kernel panic.",
+          "Without limits, the OOM killer might terminate critical host services like `sshd` or the database instead of the rogue container.",
+          "To protect the host and peer containers, you must enforce memory limits using `--memory` or Compose `limits.memory`.",
+          "For example: `docker run -m 512m --memory-swap 512m my-app`.",
+          "Setting `--memory-swap` equal to `--memory` disables disk swapping, ensuring the container process fails fast inside its own boundary rather than thrashing host disk I/O.",
+          "When a container exceeds its memory limit, the kernel OOM killer terminates only that container with exit code 137 (128 + SIGKILL 9)."
+        ],
+        "example": "Memory limits are like a personal spending allowance on a corporate credit card: you can spend up to your limit, but exceeding it gets declined immediately rather than draining the company bank account.",
+        "code": "interface ContainerMemorySpec {\n  requestedLimitMb: number;\n  swapLimitMb: number;\n  currentUsageMb: number;\n}\n\nfunction checkOomStatus(spec: ContainerMemorySpec): { willOomKill: boolean; exitCode: number; reason: string } {\n  if (spec.currentUsageMb > spec.requestedLimitMb) {\n    return {\n      willOomKill: true,\n      exitCode: 137,\n      reason: `Usage (${spec.currentUsageMb}MB) exceeded limit (${spec.requestedLimitMb}MB). Killed with SIGKILL.`\n    };\n  }\n  return { willOomKill: false, exitCode: 0, reason: 'Memory usage within allocated quota.' };\n}\n\nconst normalUsage = checkOomStatus({ requestedLimitMb: 512, swapLimitMb: 512, currentUsageMb: 240 });\nconst leakedUsage = checkOomStatus({ requestedLimitMb: 512, swapLimitMb: 512, currentUsageMb: 580 });\n\nconsole.log('Normal Status:', normalUsage.reason);\nconsole.log(`Leaked Status: Exit ${leakedUsage.exitCode} -> ${leakedUsage.reason}`);",
+        "output": "Normal Status: Memory usage within allocated quota.\nLeaked Status: Exit 137 -> Usage (580MB) exceeded limit (512MB). Killed with SIGKILL.",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Simulates kernel cgroup memory enforcement and exit code 137 generation."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates the standard OOM kill behavior when memory exceeds allocated limits."
+          }
+        ],
+        "tryIt": "Inspect exit code 137 on a crashed container using `docker inspect <container> --format \"{{.State.ExitCode}} {{.State.OOMKilled}}\"`.",
+        "check": {
+          "question": "What exit code does a container return when terminated by the Linux kernel Out-Of-Memory (OOM) killer?",
+          "options": [
+            "0",
+            "1",
+            "137"
+          ],
+          "answer": 2,
+          "why": "Exit code 137 corresponds to 128 plus 9 (SIGKILL), the signal sent by the kernel OOM killer."
+        }
+      },
+      {
+        "title": "CPU Quotas & CFS Bandwidth Throttling",
+        "say": [
+          "Linux manages CPU time among processes using the Completely Fair Scheduler (CFS).",
+          "In Docker, you can constrain CPU consumption using either relative weights (`--cpu-shares`) or hard bandwidth quotas (`--cpus`).",
+          "Relative shares (`--cpu-shares 512` vs `1024`) only take effect when the host CPU is under contention; an idle host allows even low-share containers to consume 100% CPU.",
+          "In production, you should almost always use hard quotas: `--cpus=\"1.5\"` or `--cpus=\"0.5\"`.",
+          "Under the hood, `--cpus=\"1.5\"` configures the CFS scheduler period (`cfs_period_us`, typically 100,000 microseconds or 100ms) and quota (`cfs_quota_us`, 150,000 microseconds).",
+          "This means the container can consume up to 150ms of CPU time across all cores within every 100ms wall-clock window.",
+          "If the container exhausts its quota before the period ends, the kernel throttles the container processes until the next CFS period begins.",
+          "Monitoring CPU throttling metrics (`container_cpu_cfs_throttled_periods_total`) is vital to ensure quotas do not degrade application latency."
+        ],
+        "example": "Think of CPU quotas like an internet data plan with high-speed bandwidth limits: once you hit your hourly gigabyte cap, your speed is dialed down until the next billing hour begins.",
+        "code": "interface CgroupCpuConfig {\n  cpus: number;\n  periodUs: number; // typically 100,000us (100ms)\n}\n\nfunction calculateCfsQuota(config: CgroupCpuConfig): { quotaUs: number; periodUs: number; description: string } {\n  const quotaUs = Math.round(config.cpus * config.periodUs);\n  const description = `Allows ${quotaUs}us of CPU time per ${config.periodUs}us period (${config.cpus} cores)`;\n  return { quotaUs, periodUs: config.periodUs, description };\n}\n\nconst smallTier = calculateCfsQuota({ cpus: 0.5, periodUs: 100000 });\nconst standardTier = calculateCfsQuota({ cpus: 2.0, periodUs: 100000 });\n\nconsole.log('Tier 0.5 CPUs:', smallTier.description);\nconsole.log('Tier 2.0 CPUs:', standardTier.description);",
+        "output": "Tier 0.5 CPUs: Allows 50000us of CPU time per 100000us period (0.5 cores)\nTier 2.0 CPUs: Allows 200000us of CPU time per 100000us period (2 cores)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Calculates the underlying Linux CFS bandwidth quota from the high-level `--cpus` setting."
+          },
+          {
+            "line": 15,
+            "note": "Displays the microsecond quota allocations enforced by the Linux kernel scheduler."
+          }
+        ],
+        "tryIt": "Run `cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us` inside a container to view the raw kernel CFS quota value.",
+        "check": {
+          "question": "What happens to a container when it exhausts its CFS CPU quota during a scheduler period?",
+          "options": [
+            "It is killed with exit code 137",
+            "It is throttled until the next scheduler period begins",
+            "It switches to swapping on disk"
+          ],
+          "answer": 1,
+          "why": "The CFS scheduler throttles CPU execution until the current period expires and a new quota allocation begins."
+        }
+      },
+      {
+        "title": "Production Docker Compose Self-Healing Stack",
+        "say": [
+          "Now we combine all these resilience mechanisms into a unified production Docker Compose configuration.",
+          "In Compose, you declare healthchecks directly under the service block with `interval`, `timeout`, `retries`, and `start_period`.",
+          "Downstream dependent services can declare `depends_on` with `condition: service_healthy`, preventing boot races.",
+          "Restart policies are declared via `restart: unless-stopped`.",
+          "Resource limits are configured under the `deploy.resources.reservations` and `deploy.resources.limits` blocks.",
+          "`reservations` define the minimum guaranteed resources the host must provide for the container to schedule.",
+          "`limits` define the hard ceiling that the container is never allowed to exceed.",
+          "This production standard ensures that every container in your stack is bounded, observable, and capable of autonomous recovery."
+        ],
+        "example": "A production Compose specification is like an insurance policy for your application: it guarantees minimum resources, defines safety ceilings, and specifies automatic emergency recovery procedures.",
+        "code": "interface ComposeResourceBlock {\n  limits: { cpus: string; memory: string };\n  reservations: { cpus: string; memory: string };\n}\n\ninterface ProductionServiceSpec {\n  name: string;\n  restart: 'unless-stopped';\n  healthcheck: { test: string; interval: string; retries: number };\n  resources: ComposeResourceBlock;\n}\n\nconst apiServiceSpec: ProductionServiceSpec = {\n  name: 'order-api',\n  restart: 'unless-stopped',\n  healthcheck: {\n    test: 'CMD curl -f http://localhost:3000/healthz || exit 1',\n    interval: '15s',\n    retries: 3\n  },\n  resources: {\n    limits: { cpus: '1.5', memory: '1024M' },\n    reservations: { cpus: '0.25', memory: '256M' }\n  }\n};\n\nconsole.log(`Service: ${apiServiceSpec.name} (Restart: ${apiServiceSpec.restart})`);\nconsole.log(`Healthcheck: ${apiServiceSpec.healthcheck.interval} interval, ${apiServiceSpec.healthcheck.retries} retries`);\nconsole.log(`Resource Limit: ${apiServiceSpec.resources.limits.cpus} CPUs, ${apiServiceSpec.resources.limits.memory} RAM`);",
+        "output": "Service: order-api (Restart: unless-stopped)\nHealthcheck: 15s interval, 3 retries\nResource Limit: 1.5 CPUs, 1024M RAM",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Defines a production-grade container specification with healthchecks and resource limits."
+          },
+          {
+            "line": 26,
+            "note": "Logs verified configuration boundaries for orchestration deployment."
+          }
+        ],
+        "tryIt": "Add resource limits to your local compose.yaml and test with `docker compose config` to validate syntax.",
+        "check": {
+          "question": "In Docker Compose, what is the difference between resource `reservations` and resource `limits`?",
+          "options": [
+            "Reservations are in gigabytes; limits are in megabytes",
+            "Reservations guarantee minimum resources needed; limits define the maximum hard ceiling allowed",
+            "They are synonyms and perform the same function"
+          ],
+          "answer": 1,
+          "why": "Reservations ensure the container is guaranteed base resources, while limits protect the host from resource hogging."
+        }
+      }
+    ],
+    "summary": [
+      "Docker HEALTHCHECK probes monitor process readiness and trigger automatic self-healing transitions.",
+      "Separate lightweight Liveness probes (/live) from dependency-checking Readiness probes (/ready).",
+      "Use `restart: unless-stopped` to survive host reboots while respecting manual operational maintenance stops.",
+      "Set hard memory limits (`--memory`) and equal swap limits to avoid host OOM killer panic and isolate crashes (exit 137).",
+      "Configure CFS CPU quotas (`--cpus`) to prevent runaway processes from starving host system resources."
+    ],
+    "projectStep": {
+      "title": "DevOps Day 8 Self-Healing Implementation",
+      "steps": [
+        "Add a `/healthz` readiness route to your API returning HTTP 200 when database connectivity is verified.",
+        "Configure a Dockerfile `HEALTHCHECK` with a 15-second interval and 10-second start-period.",
+        "Update `compose.yaml` with `restart: unless-stopped` and memory limits capped at 512MB.",
+        "Simulate a memory spike in test code and verify that Docker cleanly restarts the container with exit code 137."
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "title": "GitHub Actions CI: Workflow Syntax, Triggers & Secret Stores",
+    "goal": "Master Continuous Integration with GitHub Actions: learn workflow YAML syntax, event triggers and path filtering, hosted runners, encrypted secret stores, and multi-step pipeline automation.",
+    "minutes": 25,
+    "recap": "Yesterday we mastered container resilience and healthchecks. Today we step into Continuous Integration (CI), building automated pipelines with GitHub Actions to test every commit before deployment.",
+    "parts": [
+      {
+        "title": "GitHub Actions CI Architecture & Mental Model",
+        "say": [
+          "Continuous Integration (CI) is the practice of automatically building and testing code every time a developer commits changes to version control.",
+          "GitHub Actions is a powerful cloud automation platform built directly into GitHub repositories.",
+          "The core mental model consists of Workflows, Events, Jobs, Steps, and Runners.",
+          "A Workflow is an automated process defined in a YAML file located inside the `.github/workflows/` directory of your repository.",
+          "An Event is a specific trigger that starts the workflow, such as a Git push, a Pull Request creation, or a scheduled cron job.",
+          "A Job is a set of sequential steps that execute on the same virtual machine or container runner.",
+          "Steps are individual tasks: either running a shell command like `npm test` or invoking a reusable community action like `actions/checkout@v4`.",
+          "By default, different jobs inside the same workflow execute in parallel, enabling rapid pipeline completion."
+        ],
+        "example": "Think of GitHub Actions like an automated vehicle assembly line: when a new car frame enters (Git push), multiple robotic arms (Jobs) assemble the engine, paint the chassis, and test the brakes simultaneously.",
+        "code": "interface WorkflowStructure {\n  name: string;\n  trigger: string;\n  jobs: {\n    id: string;\n    runsOn: string;\n    stepsCount: number;\n  }[];\n}\n\nconst ciWorkflow: WorkflowStructure = {\n  name: 'Continuous Integration',\n  trigger: 'push to main',\n  jobs: [\n    { id: 'lint-and-typecheck', runsOn: 'ubuntu-latest', stepsCount: 4 },\n    { id: 'unit-tests', runsOn: 'ubuntu-latest', stepsCount: 5 },\n    { id: 'build-docker-image', runsOn: 'ubuntu-latest', stepsCount: 3 },\n  ]\n};\n\nconsole.log(`Workflow: ${ciWorkflow.name} (Trigger: ${ciWorkflow.trigger})`);\nconsole.log('Parallel Jobs:');\nfor (const j of ciWorkflow.jobs) {\n  console.log(` - Job [${j.id}] running on ${j.runsOn} with ${j.stepsCount} steps`);\n}",
+        "output": "Workflow: Continuous Integration (Trigger: push to main)\nParallel Jobs:\n - Job [lint-and-typecheck] running on ubuntu-latest with 4 steps\n - Job [unit-tests] running on ubuntu-latest with 5 steps\n - Job [build-docker-image] running on ubuntu-latest with 3 steps",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Defines a typical multi-job parallel workflow architecture."
+          },
+          {
+            "line": 21,
+            "note": "Iterates and displays parallel execution targets on hosted runners."
+          }
+        ],
+        "tryIt": "Create a `.github/workflows/` directory in your git repository and author a minimal `ci.yml` file.",
+        "check": {
+          "question": "By default, how do multiple jobs defined within the same GitHub Actions workflow file execute?",
+          "options": [
+            "Strictly sequentially one after another",
+            "Concurrently in parallel unless explicitly chained with `needs:`",
+            "Only one job runs and the others are ignored"
+          ],
+          "answer": 1,
+          "why": "Jobs run concurrently in parallel by default to maximize execution speed across multiple runner VMs."
+        }
+      },
+      {
+        "title": "Event Triggers & Path Filtering for Efficient Pipelines",
+        "say": [
+          "Running a complete test suite on every minor README edit or documentation update wastes runner minutes and delays developer feedback.",
+          "GitHub Actions provides granular event filtering using `branches`, `tags`, and `paths`.",
+          "The `on:` block defines triggering conditions, such as `on: [push, pull_request]`.",
+          "You can restrict triggers to specific branches: `on.push.branches: [main, \"release/**\"]`.",
+          "Path filtering lets you ignore changes that do not affect code: `paths-ignore: [\"**.md\", \"docs/**\"]`.",
+          "Conversely, you can use `paths: [\"src/**\", \"package.json\"]` so backend tests only run when backend code changes.",
+          "You can also trigger workflows on scheduled cron timers (`on.schedule: [{ cron: \"0 2 * * *\" }]`) or manual button clicks using `workflow_dispatch`.",
+          "Smart trigger filtering saves pipeline costs and keeps CI queues clear for critical release builds."
+        ],
+        "example": "Path filtering is like a building security gate that only inspects trucks carrying construction materials while waving passenger cars with visitor badges through without delay.",
+        "code": "interface TriggerRule {\n  event: string;\n  branches: string[];\n  paths: string[];\n  pathsIgnore: string[];\n}\n\nfunction shouldTriggerWorkflow(rule: TriggerRule, commitBranch: string, changedFiles: string[]): boolean {\n  if (!rule.branches.includes(commitBranch)) return false;\n  const affectsCode = changedFiles.some(f => !rule.pathsIgnore.some(ignore => f.startsWith(ignore)));\n  return affectsCode;\n}\n\nconst rule: TriggerRule = {\n  event: 'push',\n  branches: ['main'],\n  paths: ['src/**'],\n  pathsIgnore: ['docs/', 'README.md']\n};\n\nconsole.log('Doc edit triggers CI:', shouldTriggerWorkflow(rule, 'main', ['docs/architecture.md', 'README.md']));\nconsole.log('Code edit triggers CI:', shouldTriggerWorkflow(rule, 'main', ['src/index.ts']));\nconsole.log('Feature branch triggers CI:', shouldTriggerWorkflow(rule, 'feature/auth', ['src/index.ts']));",
+        "output": "Doc edit triggers CI: false\nCode edit triggers CI: true\nFeature branch triggers CI: false",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Implements event matching logic based on branch name and path filter inclusions."
+          },
+          {
+            "line": 22,
+            "note": "Validates that documentation updates correctly skip CI execution on main."
+          }
+        ],
+        "tryIt": "Add `paths-ignore: [\"**.md\"]` to your workflow file and verify that committing a documentation change skips the run.",
+        "check": {
+          "question": "Which GitHub Actions configuration key allows skipping workflow runs when only documentation files are modified?",
+          "options": [
+            "skip-ci",
+            "paths-ignore",
+            "no-test"
+          ],
+          "answer": 1,
+          "why": "The `paths-ignore` filter prevents workflow triggering when all changed files match specified patterns."
+        }
+      },
+      {
+        "title": "Runner Environments: GitHub-Hosted vs Self-Hosted",
+        "say": [
+          "Every job in a workflow requires a compute environment specified by the `runs-on` keyword.",
+          "GitHub provides clean, hosted virtual machine runners for Linux (`ubuntu-latest`), macOS (`macos-latest`), and Windows (`windows-latest`).",
+          "GitHub-hosted runners are ephemeral: they boot up fresh for your job and are completely destroyed immediately after completion.",
+          "They come pre-installed with hundreds of standard tools including Docker, Node.js, Python, Git, and the AWS/GCP CLIs.",
+          "Alternatively, organizations with strict compliance, private VPC requirements, or specialized GPU hardware can use Self-Hosted Runners.",
+          "Self-hosted runners run the GitHub Actions runner agent on your own private virtual machine or Kubernetes cluster.",
+          "While self-hosted runners eliminate per-minute compute billing, they require your team to manage OS patching, disk cleanup, and security isolation.",
+          "For standard web applications, GitHub-hosted `ubuntu-latest` provides the best balance of speed, convenience, and isolation."
+        ],
+        "example": "Hosted runners are like renting a clean rental car at an airport: drive it, leave it, and never worry about oil changes. Self-hosted runners are owning a customized truck that you must maintain yourself.",
+        "code": "interface RunnerSpec {\n  name: string;\n  os: string;\n  ephemeral: boolean;\n  preInstalledTools: string[];\n  costModel: 'Per Minute' | 'Hardware Maintenance';\n}\n\nconst runners: RunnerSpec[] = [\n  {\n    name: 'ubuntu-latest',\n    os: 'Linux (Ubuntu 22.04 LTS)',\n    ephemeral: true,\n    preInstalledTools: ['docker', 'node', 'git', 'kubectl'],\n    costModel: 'Per Minute'\n  },\n  {\n    name: 'self-hosted-k8s',\n    os: 'Linux (Debian on EKS)',\n    ephemeral: false,\n    preInstalledTools: ['node', 'custom-internal-tools'],\n    costModel: 'Hardware Maintenance'\n  }\n];\n\nfor (const r of runners) {\n  console.log(`Runner [${r.name}] on ${r.os} (Ephemeral: ${r.ephemeral}, Cost: ${r.costModel})`);\n}",
+        "output": "Runner [ubuntu-latest] on Linux (Ubuntu 22.04 LTS) (Ephemeral: true, Cost: Per Minute)\nRunner [self-hosted-k8s] on Linux (Debian on EKS) (Ephemeral: false, Cost: Hardware Maintenance)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines specifications for both ephemeral cloud runners and persistent private runners."
+          },
+          {
+            "line": 25,
+            "note": "Iterates and logs runner characteristics and operational trade-offs."
+          }
+        ],
+        "tryIt": "Set `runs-on: ubuntu-latest` in your workflow and inspect the system details with `uname -a`.",
+        "check": {
+          "question": "What is a major security advantage of GitHub-hosted runners over persistent self-hosted runners?",
+          "options": [
+            "They are immune to network timeouts",
+            "Each job runs in a pristine, isolated virtual machine that is destroyed immediately after execution",
+            "They support more programming languages"
+          ],
+          "answer": 1,
+          "why": "Ephemeral VMs ensure that builds cannot leave residual files, credentials, or malicious artifacts behind."
+        }
+      },
+      {
+        "title": "Encrypted Secrets Store & Masking Security Invariants",
+        "say": [
+          "CI pipelines often need access to sensitive credentials, such as Docker Hub access tokens, database passwords, or SSH keys.",
+          "Never commit secrets, tokens, or private keys directly to git repositories.",
+          "GitHub provides an encrypted secrets store at the Repository, Environment, and Organization levels.",
+          "You reference secrets in workflow files using the syntax `${{ secrets.MY_SECRET_NAME }}`.",
+          "GitHub automatically masks any secret referenced in the workflow from all console log outputs, replacing secret values with `***`.",
+          "However, security vigilance is still critical: malicious pull requests from untrusted forks could attempt to echo base64-encoded secrets.",
+          "To protect against this, GitHub Actions by default does not pass repository secrets to pull requests triggered from forked repositories.",
+          "Always scope secrets to the least privileged role: use read-only registry tokens in CI and deploy keys only in protected environment jobs."
+        ],
+        "example": "Referencing a secret in GitHub Actions is like ordering cash from a bank vault with an armored car: the driver delivers the exact sum to the locked teller booth without ever showing the serial numbers to the public line.",
+        "code": "class SecretStoreSimulator {\n  private secrets: Map<string, string> = new Map();\n\n  setSecret(key: string, value: string) {\n    this.secrets.set(key, value);\n  }\n\n  interpolateAndMask(logMessage: string): string {\n    let result = logMessage;\n    for (const [key, secretValue] of this.secrets.entries()) {\n      if (secretValue.length > 0) {\n        result = result.split(secretValue).join('***');\n      }\n    }\n    return result;\n  }\n}\n\nconst store = new SecretStoreSimulator();\nstore.setSecret('DOCKER_PASSWORD', 'super_secret_token_99');\n\nconst rawLog = 'Authenticating to registry with token: super_secret_token_99';\nconst maskedLog = store.interpolateAndMask(rawLog);\n\nconsole.log('Raw Log:', rawLog);\nconsole.log('Sanitized Runner Log:', maskedLog);",
+        "output": "Raw Log: Authenticating to registry with token: super_secret_token_99\nSanitized Runner Log: Authenticating to registry with token: ***",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Simulates automatic log masking performed by the GitHub Actions runner daemon."
+          },
+          {
+            "line": 21,
+            "note": "Confirms that secret values are replaced with asterisks before public log display."
+          }
+        ],
+        "tryIt": "Store a dummy secret in GitHub repository settings and print `echo ${{ secrets.DUMMY_SECRET }}` to observe the masking.",
+        "check": {
+          "question": "How does GitHub Actions handle secrets printed to standard output during step execution?",
+          "options": [
+            "It throws a fatal pipeline error",
+            "It automatically masks secret values with `***` in the build logs",
+            "It emails the repository owner"
+          ],
+          "answer": 1,
+          "why": "The runner intercepts standard output and masks known secret values with asterisks to prevent credential leakage."
+        }
+      },
+      {
+        "title": "Contexts, Expressions & Conditional Step Execution",
+        "say": [
+          "GitHub Actions provides rich context objects that give steps information about the current workflow run.",
+          "Common contexts include `github` (event payload, commit SHA, ref, actor), `env` (environment variables), `job` (status of current job), and `steps` (step outputs and outcomes).",
+          "You evaluate context values using expression syntax: `${{ <expression> }}`.",
+          "Conditional step execution is achieved using the `if:` keyword.",
+          "For example: `if: github.ref == 'refs/heads/main'` ensures that deployment steps only execute on the primary branch.",
+          "You can combine expressions with logical operators: `if: success() && github.event_name == 'push'`.",
+          "Special status check functions include `success()`, `failure()`, `always()`, and `cancelled()`.",
+          "Using `if: always()` on notification or cleanup steps ensures they run even if preceding test steps fail."
+        ],
+        "example": "Contexts and conditions are like an automated thermostat in a smart building: if the temperature drops below 68 degrees AND the motion sensor detects someone in the room, turn on the heater.",
+        "code": "interface StepContext {\n  ref: string;\n  eventName: string;\n  jobStatus: 'success' | 'failure';\n}\n\nfunction shouldExecuteDeployStep(ctx: StepContext): boolean {\n  const isMain = ctx.ref === 'refs/heads/main';\n  const isPush = ctx.eventName === 'push';\n  const isHealthy = ctx.jobStatus === 'success';\n  return isMain && isPush && isHealthy;\n}\n\nconst prContext: StepContext = { ref: 'refs/pull/42/merge', eventName: 'pull_request', jobStatus: 'success' };\nconst failedMainContext: StepContext = { ref: 'refs/heads/main', eventName: 'push', jobStatus: 'failure' };\nconst successMainContext: StepContext = { ref: 'refs/heads/main', eventName: 'push', jobStatus: 'success' };\n\nconsole.log('Execute deploy on PR:', shouldExecuteDeployStep(prContext));\nconsole.log('Execute deploy on failed Main:', shouldExecuteDeployStep(failedMainContext));\nconsole.log('Execute deploy on success Main:', shouldExecuteDeployStep(successMainContext));",
+        "output": "Execute deploy on PR: false\nExecute deploy on failed Main: false\nExecute deploy on success Main: true",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Evaluates workflow expression rules determining whether deployment steps should execute."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates gating deployment exclusively on successful pushes to the main branch."
+          }
+        ],
+        "tryIt": "Use `if: failure()` on an alert step to send a Slack or Discord webhook when tests fail.",
+        "check": {
+          "question": "Which status check function allows a cleanup step to run even if a previous step in the job failed?",
+          "options": [
+            "if: always()",
+            "if: failed()",
+            "if: continue()"
+          ],
+          "answer": 0,
+          "why": "The `always()` expression forces step execution regardless of whether preceding steps succeeded or failed."
+        }
+      },
+      {
+        "title": "Authoring a Production-Grade CI Pipeline Manifest",
+        "say": [
+          "Now we assemble these concepts into a production CI workflow manifest for a TypeScript full-stack application.",
+          "The pipeline executes in response to pull requests and pushes to `main`.",
+          "It defines sequential steps: checkout code with `actions/checkout@v4`, set up the Node.js runtime with `actions/setup-node@v4`, cache dependencies, and install cleanly with `npm ci`.",
+          "It enforces three quality gates: static analysis with ESLint, type-checking with `tsc --noEmit`, and automated testing with `npm test`.",
+          "If any gate fails, the pipeline aborts immediately and marks the pull request as failing, blocking code merge.",
+          "Finally, if all quality gates pass on `main`, it builds the production artifact and exports build metrics.",
+          "This automated gatekeeper provides team-wide confidence that broken code never reaches production."
+        ],
+        "example": "A production CI manifest is like the health and safety inspection protocol for an Olympic athlete: blood test, eye exam, and reflex test must all pass before they are cleared to compete.",
+        "code": "interface PipelineStep {\n  name: string;\n  command: string;\n  exitCode: number;\n}\n\nfunction runPipelineGate(steps: PipelineStep[]): { passed: boolean; failedAt?: string } {\n  for (const step of steps) {\n    if (step.exitCode !== 0) {\n      return { passed: false, failedAt: step.name };\n    }\n  }\n  return { passed: true };\n}\n\nconst passingRun: PipelineStep[] = [\n  { name: 'Checkout Code', command: 'actions/checkout@v4', exitCode: 0 },\n  { name: 'Setup Node 20', command: 'actions/setup-node@v4', exitCode: 0 },\n  { name: 'Install Deps', command: 'npm ci', exitCode: 0 },\n  { name: 'Typecheck', command: 'npx tsc --noEmit', exitCode: 0 },\n  { name: 'Unit Tests', command: 'npm test', exitCode: 0 },\n];\n\nconst result = runPipelineGate(passingRun);\nconsole.log('Production CI Pipeline Passed:', result.passed);\nconsole.log(`Executed ${passingRun.length} steps successfully without quality regressions.`);",
+        "output": "Production CI Pipeline Passed: true\nExecuted 5 steps successfully without quality regressions.",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Simulates the strict sequential execution of CI pipeline quality gates."
+          },
+          {
+            "line": 22,
+            "note": "Confirms all gates passed without regression."
+          }
+        ],
+        "tryIt": "Simulate a type error in your code and watch the CI pipeline fail on the Typecheck step in your pull request.",
+        "check": {
+          "question": "Why should CI pipelines use `npm ci` instead of `npm install` for dependency installation?",
+          "options": [
+            "Because npm ci is written in C++",
+            "Because npm ci strictly enforces package-lock.json and deletes existing node_modules for clean, reproducible builds",
+            "Because npm install does not support TypeScript"
+          ],
+          "answer": 1,
+          "why": "`npm ci` ensures reliable builds by strictly following package-lock.json and refusing to modify dependency versions."
+        }
+      }
+    ],
+    "summary": [
+      "GitHub Actions executes workflows defined in `.github/workflows/*.yml` triggered by repository events.",
+      "Use `paths-ignore` and branch filters to avoid burning runner minutes on non-code documentation changes.",
+      "GitHub-hosted ephemeral runners provide pristine, isolated compute environments destroyed after each job.",
+      "Repository secrets are encrypted at rest and automatically masked with `***` in build logs.",
+      "Construct quality gates with `npm ci`, static linting, `tsc --noEmit`, and automated tests to block broken PRs."
+    ],
+    "projectStep": {
+      "title": "DevOps Day 9 Production CI Setup",
+      "steps": [
+        "Create `.github/workflows/ci.yml` in your project root with triggers on push and pull_request.",
+        "Configure `actions/checkout@v4` and `actions/setup-node@v4` with Node 20 caching enabled.",
+        "Add verification steps: `npm ci`, `npx tsc --noEmit`, and `npm test`.",
+        "Open a test Pull Request on GitHub and confirm that the Actions runner runs all quality checks successfully."
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "title": "CI Test Automation, Parallelism & Test Matrix Strategies",
+    "goal": "Accelerate CI feedback loops: build multi-version matrix builds, implement dependency caching strategies, shard unit test suites across parallel runners, and isolate flaky tests.",
+    "minutes": 25,
+    "recap": "Yesterday we authored our first production GitHub Actions CI pipeline. Today we optimize pipeline speed and coverage using test matrices, dependency caching, and parallel test sharding.",
+    "parts": [
+      {
+        "title": "CI Velocity & Feedback Loops: The Cost of Slow Pipelines",
+        "say": [
+          "In engineering organizations, the speed of your CI pipeline directly determines developer productivity and velocity.",
+          "When a CI build takes 30 minutes, developers switch contexts, read emails, or start other tasks while waiting for approval.",
+          "If a test fails 30 minutes later, the developer suffers cognitive reload penalty trying to remember what code they wrote.",
+          "Conversely, when a CI pipeline returns green checkmarks in under 4 minutes, developers stay focused in flow state and merge code rapidly.",
+          "To optimize pipeline speed, engineers use three core techniques: caching dependencies, matrix parallelization, and test sharding.",
+          "Caching prevents re-downloading thousands of npm packages on every run.",
+          "Matrix builds test multiple runtime environments simultaneously.",
+          "Test sharding splits a large suite of 2,000 tests across multiple runner VMs so they run concurrently."
+        ],
+        "example": "Think of slow CI like waiting in line at a single grocery checkout with a packed cart versus fast CI having four cashiers scanning different sections of your groceries simultaneously.",
+        "code": "interface PipelineMetrics {\n  durationMinutes: number;\n  testCount: number;\n  parallelRunners: number;\n}\n\nfunction calculateFeedbackLoopSpeed(metrics: PipelineMetrics): { effectiveMinutes: number; velocityGrade: string } {\n  const effectiveMinutes = Math.round((metrics.durationMinutes / metrics.parallelRunners) * 10) / 10;\n  let velocityGrade = 'A (Exceptional)';\n  if (effectiveMinutes > 15) velocityGrade = 'D (Unacceptable)';\n  else if (effectiveMinutes > 8) velocityGrade = 'C (Slow)';\n  else if (effectiveMinutes > 4) velocityGrade = 'B (Acceptable)';\n  return { effectiveMinutes, velocityGrade };\n}\n\nconst unoptimized = calculateFeedbackLoopSpeed({ durationMinutes: 20, testCount: 2000, parallelRunners: 1 });\nconst optimized = calculateFeedbackLoopSpeed({ durationMinutes: 20, testCount: 2000, parallelRunners: 4 });\n\nconsole.log(`Unoptimized: ${unoptimized.effectiveMinutes}m -> Grade: ${unoptimized.velocityGrade}`);\nconsole.log(`Optimized (4 Shards): ${optimized.effectiveMinutes}m -> Grade: ${optimized.velocityGrade}`);",
+        "output": "Unoptimized: 20m -> Grade: D (Unacceptable)\nOptimized (4 Shards): 5m -> Grade: B (Acceptable)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Calculates the reduction in pipeline duration achieved through parallel test sharding."
+          },
+          {
+            "line": 19,
+            "note": "Demonstrates cutting feedback time from 20 minutes down to 5 minutes."
+          }
+        ],
+        "tryIt": "Time your current repository test execution with `time npm test` to establish your baseline benchmark.",
+        "check": {
+          "question": "What is the primary operational benefit of reducing CI pipeline duration from 25 minutes to under 5 minutes?",
+          "options": [
+            "It uses more cloud credits",
+            "It reduces developer context-switching and accelerates feature delivery loops",
+            "It removes the need to write unit tests"
+          ],
+          "answer": 1,
+          "why": "Fast feedback keeps developers in flow state and prevents costly context-switching delays."
+        }
+      },
+      {
+        "title": "The Matrix Strategy: Multi-Node & Multi-OS Combinatorics",
+        "say": [
+          "If your application is an open-source library or an enterprise microservice supporting multiple environments, you must verify compatibility across multiple platforms.",
+          "Instead of creating separate jobs manually, GitHub Actions provides the `strategy.matrix` configuration.",
+          "The matrix allows you to define arrays of variables, such as Node versions (`[18, 20, 22]`) and operating systems (`[ubuntu-latest, macos-latest]`).",
+          "GitHub Actions evaluates the Cartesian product of these arrays and launches a separate parallel job for every single combination.",
+          "In this example, 3 Node versions times 2 operating systems equals 6 parallel jobs.",
+          "You can also exclude specific combinations or include specialized environment variables using `include` and `exclude` directives.",
+          "If one cell of the matrix fails, the `fail-fast: true` default immediately cancels remaining matrix jobs to conserve runner minutes.",
+          "Matrix builds guarantee cross-platform compatibility without duplicating workflow YAML boilerplate."
+        ],
+        "example": "A matrix build is like a car manufacturer testing their new tire design on dry pavement, wet asphalt, gravel, and snow all at the same time using different test tracks.",
+        "code": "interface MatrixDimensions {\n  nodeVersions: number[];\n  osList: string[];\n}\n\nfunction generateMatrixJobs(matrix: MatrixDimensions): string[] {\n  const jobs: string[] = [];\n  for (const os of matrix.osList) {\n    for (const node of matrix.nodeVersions) {\n      jobs.push(`Job: test (OS: ${os}, Node: v${node})`);\n    }\n  }\n  return jobs;\n}\n\nconst config: MatrixDimensions = {\n  nodeVersions: [18, 20, 22],\n  osList: ['ubuntu-latest', 'macos-latest'],\n};\n\nconst generated = generateMatrixJobs(config);\nconsole.log(`Generated ${generated.length} Combinatorial Matrix Jobs:`);\nfor (const job of generated) {\n  console.log(' - ' + job);\n}",
+        "output": "Generated 6 Combinatorial Matrix Jobs:\n - Job: test (OS: ubuntu-latest, Node: v18)\n - Job: test (OS: ubuntu-latest, Node: v20)\n - Job: test (OS: ubuntu-latest, Node: v22)\n - Job: test (OS: macos-latest, Node: v18)\n - Job: test (OS: macos-latest, Node: v20)\n - Job: test (OS: macos-latest, Node: v22)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Generates the combinatorial Cartesian product defined by the matrix dimensions."
+          },
+          {
+            "line": 20,
+            "note": "Logs each parallel runner instance generated by the matrix."
+          }
+        ],
+        "tryIt": "Add a matrix with Node 18 and Node 20 to your workflow to verify cross-version compatibility.",
+        "check": {
+          "question": "If a workflow matrix defines 3 Node versions and 3 operating systems, how many parallel jobs will GitHub Actions generate?",
+          "options": [
+            "3",
+            "6",
+            "9"
+          ],
+          "answer": 2,
+          "why": "The matrix calculates the Cartesian product: 3 Node versions multiplied by 3 OS versions yields 9 jobs."
+        }
+      },
+      {
+        "title": "Dependency Caching with actions/cache & Cache Keys",
+        "say": [
+          "Downloading npm packages or Python wheels over the network on every single CI run is slow and wasteful.",
+          "GitHub Actions provides the `actions/cache` action to persist directories across workflow runs.",
+          "Caching works by associating an archived directory (such as `~/.npm` or `node_modules`) with a unique cache key.",
+          "A robust cache key is constructed using a prefix, the operating system runner name, and a cryptographic hash of your lockfile.",
+          "For example: `key: ${{ runner.os }}-build-npm-${{ hashFiles('**/package-lock.json') }}`.",
+          "When the workflow starts, `actions/cache` checks if a cache archive with that exact key already exists.",
+          "If the key matches, it extracts the cached files in seconds, achieving a Cache Hit.",
+          "If `package-lock.json` was modified, the hash changes, resulting in a Cache Miss, which installs dependencies cleanly and saves a fresh cache archive at the end of the job."
+        ],
+        "example": "Caching is like keeping a pantry stocked with flour and sugar so you do not have to drive to the grocery store every single time you want to bake a cake.",
+        "code": "interface CacheLookup {\n  requestedKey: string;\n  availableKeys: string[];\n}\n\nfunction resolveCacheKey(lookup: CacheLookup): { hit: boolean; matchedKey?: string } {\n  if (lookup.availableKeys.includes(lookup.requestedKey)) {\n    return { hit: true, matchedKey: lookup.requestedKey };\n  }\n  return { hit: false };\n}\n\nconst currentHash = 'a1f890e2b4';\nconst requestedKey = `Linux-node-modules-${currentHash}`;\nconst existingCaches = [\n  'Linux-node-modules-old99923',\n  'Linux-node-modules-a1f890e2b4',\n];\n\nconst result = resolveCacheKey({ requestedKey, availableKeys: existingCaches });\nconsole.log('Cache Key:', requestedKey);\nconsole.log('Cache Status:', result.hit ? 'CACHE HIT (Restoring in 3s)' : 'CACHE MISS (Downloading packages)');",
+        "output": "Cache Key: Linux-node-modules-a1f890e2b4\nCache Status: CACHE HIT (Restoring in 3s)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Simulates the cache key lookup and hit/miss resolution mechanics."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates a cache hit matching the SHA256 hash of package-lock.json."
+          }
+        ],
+        "tryIt": "Use `actions/setup-node@v4` with `cache: 'npm'` to leverage built-in lockfile caching automatically.",
+        "check": {
+          "question": "What triggers a cache miss when using `hashFiles('**/package-lock.json')` in a cache key?",
+          "options": [
+            "Rebooting the host runner",
+            "Any change or dependency update in `package-lock.json` that alters its SHA hash",
+            "Renaming the Git branch"
+          ],
+          "answer": 1,
+          "why": "A modified package-lock.json produces a different SHA hash, triggering a cache miss and fresh download."
+        }
+      },
+      {
+        "title": "Test Sharding: Parallelizing Test Suites Across Runners",
+        "say": [
+          "When test suites grow to thousands of unit and integration tests, running them on a single machine can take 20 to 45 minutes.",
+          "Test Sharding divides the total test suite into equal slices across multiple parallel runners.",
+          "Modern test runners like Vitest, Playwright, and Jest have native support for sharding flags, such as `--shard=1/4`, `--shard=2/4`, `--shard=3/4`, and `--shard=4/4`.",
+          "In GitHub Actions, you combine a matrix strategy with the shard parameter: `strategy.matrix.shard: [1, 2, 3, 4]`.",
+          "Runner 1 executes tests 1 through 250; Runner 2 executes tests 251 through 500; and so forth.",
+          "All four runners execute simultaneously, cutting total wall-clock pipeline duration by nearly 75%.",
+          "Each runner outputs its own test results, which can later be merged into a single consolidated report.",
+          "Test sharding is the single most effective tool for maintaining sub-5-minute CI pipelines as codebases scale."
+        ],
+        "example": "Test sharding is like dealing a 52-card deck equally among four players: each person inspects their 13 cards simultaneously rather than one person checking all 52 cards alone.",
+        "code": "interface ShardAssignment {\n  shardIndex: number;\n  totalShards: number;\n  assignedTests: string[];\n}\n\nfunction shardTestSuite(tests: string[], totalShards: number): ShardAssignment[] {\n  const shards: ShardAssignment[] = Array.from({ length: totalShards }, (_, i) => ({\n    shardIndex: i + 1,\n    totalShards,\n    assignedTests: []\n  }));\n\n  tests.forEach((test, idx) => {\n    const targetShard = idx % totalShards;\n    shards[targetShard].assignedTests.push(test);\n  });\n\n  return shards;\n}\n\nconst allTests = ['auth.test.ts', 'billing.test.ts', 'users.test.ts', 'orders.test.ts', 'search.test.ts', 'api.test.ts'];\nconst shards = shardTestSuite(allTests, 2);\n\nfor (const s of shards) {\n  console.log(`Runner ${s.shardIndex}/${s.totalShards} assigned: ${s.assignedTests.join(', ')}`);\n}",
+        "output": "Runner 1/2 assigned: auth.test.ts, users.test.ts, search.test.ts\nRunner 2/2 assigned: billing.test.ts, orders.test.ts, api.test.ts",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Implements round-robin test distribution across parallel runner shards."
+          },
+          {
+            "line": 24,
+            "note": "Displays the split workload assigned to each runner."
+          }
+        ],
+        "tryIt": "Run `npx vitest run --shard=1/2` in a project to see Vitest execute only the first half of your tests.",
+        "check": {
+          "question": "How does test sharding reduce the total duration of a large automated test suite?",
+          "options": [
+            "By skipping 50% of the tests",
+            "By dividing tests into equal subsets and executing them concurrently on multiple parallel runner VMs",
+            "By increasing CPU clock speed"
+          ],
+          "answer": 1,
+          "why": "Sharding distributes tests across multiple VMs running simultaneously, cutting wall-clock execution time."
+        }
+      },
+      {
+        "title": "Artifact Management: Uploading and Merging Reports",
+        "say": [
+          "Because each sharded runner or matrix job runs on an isolated virtual machine, files created during the run are destroyed when the runner shuts down.",
+          "To preserve test results, code coverage data (LCOV), and screenshots of failed browser tests, you must upload them as Artifacts.",
+          "The `actions/upload-artifact@v4` action archives files from the runner and stores them securely in GitHub cloud storage.",
+          "Later in the workflow, a downstream reporting job can use `actions/download-artifact@v4` to download the artifacts from all shards.",
+          "The reporting job merges the coverage reports, calculates overall code coverage percentages, and publishes a summary comment on the pull request.",
+          "You can configure artifact retention policies, such as retaining test logs for 14 days and release tarballs for 90 days.",
+          "Artifact management enables seamless data passing between isolated, parallel workflow stages."
+        ],
+        "example": "Uploading artifacts is like sending field reports from multiple survey teams to headquarters via courier so an analyst can assemble them into a master atlas.",
+        "code": "interface BuildArtifact {\n  name: string;\n  sourcePath: string;\n  retentionDays: number;\n  sizeKb: number;\n}\n\nconst artifacts: BuildArtifact[] = [\n  { name: 'coverage-shard-1', sourcePath: 'coverage/lcov.info', retentionDays: 14, sizeKb: 120 },\n  { name: 'coverage-shard-2', sourcePath: 'coverage/lcov.info', retentionDays: 14, sizeKb: 135 },\n  { name: 'production-dist', sourcePath: 'dist/', retentionDays: 30, sizeKb: 4500 },\n];\n\nlet totalSize = 0;\nconsole.log('Artifacts Uploaded to GitHub Storage:');\nfor (const a of artifacts) {\n  console.log(` - ${a.name} (${a.sourcePath}) -> Retain: ${a.retentionDays}d (${a.sizeKb}KB)`);\n  totalSize += a.sizeKb;\n}\nconsole.log(`Total Artifact Storage: ${totalSize}KB`);",
+        "output": "Artifacts Uploaded to GitHub Storage:\n - coverage-shard-1 (coverage/lcov.info) -> Retain: 14d (120KB)\n - coverage-shard-2 (coverage/lcov.info) -> Retain: 14d (135KB)\n - production-dist (dist/) -> Retain: 30d (4500KB)\nTotal Artifact Storage: 4755KB",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines artifact metadata including source file paths and retention duration."
+          },
+          {
+            "line": 17,
+            "note": "Calculates and logs total storage usage across uploaded workflow artifacts."
+          }
+        ],
+        "tryIt": "Add `actions/upload-artifact@v4` with `name: test-results` to your workflow to inspect artifacts in GitHub UI.",
+        "check": {
+          "question": "Why must test results and coverage files be uploaded as artifacts in multi-job workflows?",
+          "options": [
+            "Because git deletes files every 10 minutes",
+            "Because each runner is ephemeral and destroyed after completion, deleting all un-uploaded files",
+            "To compress files onto the developer hard drive"
+          ],
+          "answer": 1,
+          "why": "Ephemeral runners are wiped clean upon job termination, so artifacts must be persisted to GitHub storage."
+        }
+      },
+      {
+        "title": "Flaky Test Quarantine & Retry Automation",
+        "say": [
+          "A flaky test is a test that exhibits both a passing and failing outcome with the exact same code.",
+          "Flakiness is usually caused by race conditions, non-deterministic database ordering, external network latency, or timezone discrepancies.",
+          "Flaky tests are toxic to CI pipelines: developers lose trust in CI and begin hitting \"re-run all jobs\" blindly rather than fixing real bugs.",
+          "To maintain pipeline health, modern engineering teams establish a Flaky Test Quarantine.",
+          "When a test is identified as flaky, it is immediately tagged with `@quarantine` and moved to a non-blocking test suite.",
+          "Additionally, test runners can be configured with automatic retries for transient flakes in CI: `retries: 2`.",
+          "If a test passes on retry, the build succeeds with a warning flag, alerting the team to inspect the flakiness without blocking the release.",
+          "Managing flakiness proactively keeps CI pipelines green, reliable, and respected by the team."
+        ],
+        "example": "A flaky test is like a car dashboard warning light that flickers on and off when you drive over a bump: if you ignore it, you will not notice when your engine actually runs out of oil.",
+        "code": "interface TestExecutionRecord {\n  testName: string;\n  attempts: number;\n  outcomes: ('PASS' | 'FAIL')[];\n}\n\nfunction analyzeFlakiness(record: TestExecutionRecord): { isFlaky: boolean; finalStatus: 'PASS' | 'FAIL'; note: string } {\n  const hasPass = record.outcomes.includes('PASS');\n  const hasFail = record.outcomes.includes('FAIL');\n  const isFlaky = hasPass && hasFail;\n  const finalStatus = record.outcomes[record.outcomes.length - 1];\n  const note = isFlaky\n    ? `FLAKY TEST DETECTED: Passed on attempt ${record.attempts} after earlier failure. Flagged for quarantine.`\n    : 'Deterministic test execution.';\n  return { isFlaky, finalStatus, note };\n}\n\nconst solidTest: TestExecutionRecord = { testName: 'calculateTax()', attempts: 1, outcomes: ['PASS'] };\nconst flakyTest: TestExecutionRecord = { testName: 'fetchUserProfile()', attempts: 2, outcomes: ['FAIL', 'PASS'] };\n\nconsole.log('Solid Test:', analyzeFlakiness(solidTest).note);\nconsole.log('Flaky Test:', analyzeFlakiness(flakyTest).note);",
+        "output": "Solid Test: Deterministic test execution.\nFlaky Test: FLAKY TEST DETECTED: Passed on attempt 2 after earlier failure. Flagged for quarantine.",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Identifies non-deterministic test behavior where both pass and fail occur on the same commit."
+          },
+          {
+            "line": 20,
+            "note": "Flags flaky tests for isolation and developer refactoring."
+          }
+        ],
+        "tryIt": "Review your test suite for any tests using `setTimeout` or real clock time and replace them with fake timers.",
+        "check": {
+          "question": "What is the danger of tolerating flaky tests in a Continuous Integration pipeline?",
+          "options": [
+            "They use too much disk space",
+            "Developers lose trust in the pipeline and begin ignoring real test failures",
+            "They permanently disable GitHub Actions"
+          ],
+          "answer": 1,
+          "why": "Tolerating flaky tests erodes team confidence in CI, leading engineers to merge broken code blindly."
+        }
+      }
+    ],
+    "summary": [
+      "Fast CI pipelines (under 5 minutes) preserve developer flow state and accelerate release velocity.",
+      "Matrix builds (`strategy.matrix`) test multiple Node versions and OS platforms via combinatorial parallelism.",
+      "Use `actions/cache` with `hashFiles('**/package-lock.json')` to eliminate redundant package downloads.",
+      "Test sharding (`--shard=1/4`) splits large test suites across parallel runners to slash wall-clock duration.",
+      "Persist reports and build outputs across ephemeral runners using `actions/upload-artifact@v4`."
+    ],
+    "projectStep": {
+      "title": "DevOps Day 10 High-Speed Matrix Pipeline",
+      "steps": [
+        "Add a matrix strategy testing Node 18 and Node 20 to your CI workflow file.",
+        "Implement dependency caching using `actions/setup-node@v4` with `cache: 'npm'`.",
+        "Configure test sharding across 2 parallel runners using the `--shard` flag.",
+        "Upload code coverage artifacts with `actions/upload-artifact@v4` and verify parallel execution in GitHub UI."
+      ]
+    }
   }
 ];
 
