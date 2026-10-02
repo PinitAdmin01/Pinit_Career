@@ -7,6 +7,8 @@ import type { LongLesson } from '../src/lib/data/longLessons';
 import { estimateSpokenMinutes, getLongLesson } from '../src/lib/data/longLessons';
 import { NODE_WEB_LONG_LESSONS } from '../src/lib/data/nodeWebLongLessons';
 import { NODE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/nodeWeb30DayData';
+import { DEVOPS_WEB_LONG_LESSONS } from '../src/lib/data/devopsWebLongLessons';
+import { DEVOPS_30_DAYS_CONFIGS } from '../src/lib/data/devops30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -31,6 +33,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-node-web',
     lessons: NODE_WEB_LONG_LESSONS,
     configs: NODE_WEB_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'DevOps & CI/CD Pipeline Automation',
+    prefix: 'devops',
+    courseId: 'course-devops-cicd',
+    lessons: DEVOPS_WEB_LONG_LESSONS,
+    configs: DEVOPS_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];
