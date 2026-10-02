@@ -80,7 +80,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function calculateMigrationRatio(totalKeys, totalNodes) returning expected fraction $1 / (N + 1)$.",
     "aStarter": "function calculateMigrationRatio(keys, nodes) {\n  // TODO: write your code here\n}",
     "aHint": "Compute 1 / (nodes + 1).",
-    "aTest": "if (calculateMigrationRatio(1000, 9) !== '10.0%') throw new Error('Migration calc failed');"
+    "aTest": "if (calculateMigrationRatio(1000, 9) !== '10.0%') throw new Error('Migration calc failed for 9 nodes');\nif (calculateMigrationRatio(500, 3) !== '25.0%') throw new Error('Migration calc failed for 3 nodes');\nif (calculateMigrationRatio(1000, 1) !== '50.0%') throw new Error('Migration calc failed for 1 node');"
   },
   {
     "day": 5,
@@ -100,7 +100,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function calculateTtlWithJitter(baseTtlSec, maxJitterSec = 10) returning randomized TTL.",
     "aStarter": "function calculateTtlWithJitter(base, maxJitter = 10) {\n  // TODO: write your code here\n}",
     "aHint": "Add random jitter to base.",
-    "aTest": "for (let i = 0; i < 50; i++) {\n  const ttl = calculateTtlWithJitter(60, 5);\n  if (!Number.isInteger(ttl) || ttl < 60 || ttl >= 65) throw new Error('TTL must be a whole number from 60 up to 64 (base 60 plus jitter below 5)');\n}"
+    "aTest": "const t1 = calculateTtlWithJitter(100, 5);\nif (typeof t1 !== 'number' || t1 < 100 || t1 >= 105) throw new Error('TTL jitter out of range for base 100');\nconst t2 = calculateTtlWithJitter(500, 10);\nif (typeof t2 !== 'number' || t2 < 500 || t2 >= 510) throw new Error('TTL jitter out of range for base 500');\nconst t3 = calculateTtlWithJitter(1000, 20);\nif (typeof t3 !== 'number' || t3 < 1000 || t3 >= 1020) throw new Error('TTL jitter out of range for base 1000');\nconst ttls = new Set();\nfor (let i = 0; i < 50; i++) ttls.add(calculateTtlWithJitter(60, 10));\nif (ttls.size < 3) throw new Error('TTL must produce varied jitter values across repeated calls');"
   },
   {
     "day": 6,
@@ -135,7 +135,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function runBullyElection(activeNodeIds, failedNodeId) selecting highest ID active node and broadcasting coordinator status. Use these exact values: `status`: 'LEADER_ELECTION_COMPLETE'. The result must have the field: `newLeaderId`.",
     "eStarter": "function runBullyElection(activeNodes, failedLeaderId) {\n  // TODO: write your code here\n}",
     "eHint": "Filter out failed leader, find max node ID, return coordinator broadcast.",
-    "eTest": "const res = runBullyElection([101, 102, 105, 108], 108);\nif (res.newLeaderId !== 105 || res.status !== 'LEADER_ELECTION_COMPLETE') throw new Error('Bully leader election failed to promote highest remaining node');",
+    "eTest": "const res1 = runBullyElection([101, 102, 105, 108], 108);\nif (res1.newLeaderId !== 105 || res1.status !== 'LEADER_ELECTION_COMPLETE') throw new Error('Bully leader election failed for 108');\nconst res2 = runBullyElection([10, 20, 30], 30);\nif (res2.newLeaderId !== 20 || res2.status !== 'LEADER_ELECTION_COMPLETE') throw new Error('Bully leader election failed for 30');\nconst res3 = runBullyElection([5, 15, 25, 35], 25);\nif (res3.newLeaderId !== 35 || res3.status !== 'LEADER_ELECTION_COMPLETE') throw new Error('Bully leader election failed for 25');",
     "aTitle": "Election Quorum Checker",
     "aDesc": "Implement function hasMajorityVotes(votes, total) returning true if votes >= floor(total/2) + 1.",
     "aStarter": "function hasMajorityVotes(v, t) {\n  // TODO: write your code here\n}",
@@ -175,7 +175,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function replicateRaftLog(leaderLog, followerLog, prevLogIndex, prevLogTerm, newEntries) verifying consistency and appending entries. The result must have these fields: `success`, `updatedLog`.",
     "eStarter": "function replicateRaftLog(leaderLog, followerLog, prevIndex, prevTerm, entries) {\n  // TODO: write your code here\n}",
     "eHint": "Check followerLog[prevIndex].term === prevTerm, slice and concat entries.",
-    "eTest": "const fLog = [{ term: 1, cmd: 'x=1' }];\nconst entries = [{ term: 2, cmd: 'y=2' }];\nconst res = replicateRaftLog(null, fLog, 0, 1, entries);\nif (!res.success || res.updatedLog.length !== 2) throw new Error('Raft log replication failed');",
+    "eTest": "const fLog1 = [{ term: 1, cmd: 'x=1' }];\nconst res1 = replicateRaftLog(null, fLog1, 0, 1, [{ term: 2, cmd: 'y=2' }]);\nif (!res1.success || res1.updatedLog.length !== 2 || res1.updatedLog[1].cmd !== 'y=2') throw new Error('Raft append failed');\nconst res2 = replicateRaftLog(null, fLog1, 0, 999, [{ term: 2, cmd: 'z=3' }]);\nif (res2.success !== false) throw new Error('Raft inconsistency check failed to reject mismatched term');\nconst res3 = replicateRaftLog(null, [], -1, 0, [{ term: 1, cmd: 'a=1' }, { term: 1, cmd: 'b=2' }]);\nif (!res3.success || res3.updatedLog.length !== 2 || res3.updatedLog[0].cmd !== 'a=1') throw new Error('Raft empty follower log append failed');",
     "aTitle": "Raft Quorum Commit Checker",
     "aDesc": "Implement function isLogCommitted(matchCounts, clusterSize) returning true if matchCounts > clusterSize / 2.",
     "aStarter": "function isLogCommitted(m, c) {\n  // TODO: write your code here\n}",
@@ -200,7 +200,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function countVotes(votes) returning counts of commit and abort votes. Votes are 'VOTE_COMMIT' or 'VOTE_ABORT'; return { commit, abort }.",
     "aStarter": "function countVotes(v) {\n  // TODO: write your code here\n}",
     "aHint": "Filter commit and abort.",
-    "aTest": "if (countVotes(['VOTE_COMMIT', 'VOTE_ABORT']).abort !== 1) throw new Error('Vote count failed');"
+    "aTest": "const c1 = countVotes(['VOTE_COMMIT', 'VOTE_ABORT']);\nif (c1.commit !== 1 || c1.abort !== 1) throw new Error('Vote count failed for 1 commit, 1 abort');\nconst c2 = countVotes(['VOTE_COMMIT', 'VOTE_COMMIT', 'VOTE_COMMIT']);\nif (c2.commit !== 3 || c2.abort !== 0) throw new Error('Vote count failed for 3 commits');\nconst c3 = countVotes(['VOTE_ABORT', 'VOTE_ABORT']);\nif (c3.commit !== 0 || c3.abort !== 2) throw new Error('Vote count failed for 2 aborts');"
   },
   {
     "day": 11,
@@ -220,7 +220,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatSagaLog(stepName, status) returning `[SAGA]: ${stepName} -> ${status}`.",
     "aStarter": "function formatSagaLog(n, s) {\n  // TODO: write your code here\n}",
     "aHint": "Format log string.",
-    "aTest": "if (formatSagaLog('Payment', 'DONE') !== '[SAGA]: Payment -> DONE') throw new Error('Log format failed');"
+    "aTest": "if (formatSagaLog('Payment', 'DONE') !== '[SAGA]: Payment -> DONE') throw new Error('Saga log format failed for Payment');\nif (formatSagaLog('Inventory', 'RESERVED') !== '[SAGA]: Inventory -> RESERVED') throw new Error('Saga log format failed for Inventory');\nif (formatSagaLog('Shipping', 'FAILED') !== '[SAGA]: Shipping -> FAILED') throw new Error('Saga log format failed for Shipping');"
   },
   {
     "day": 12,
@@ -235,7 +235,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function assignPartitionsToConsumers(numPartitions, consumerIds) evenly assigning partition IDs across active consumers.",
     "eStarter": "function assignPartitionsToConsumers(partitions, consumers) {\n  // TODO: write your code here\n}",
     "eHint": "Assign partition p to consumers[p % consumers.length].",
-    "eTest": "const res = assignPartitionsToConsumers(6, ['c1', 'c2', 'c3']);\nif (res.c1.length !== 2 || res.c2.length !== 2 || res.c3.length !== 2) throw new Error('Kafka partition rebalance assignment uneven');\nif (res.c1[0] !== 0 || res.c1[1] !== 3) throw new Error('Round-robin assignment order incorrect');",
+    "eTest": "const res1 = assignPartitionsToConsumers(6, ['c1', 'c2', 'c3']);\nif (res1.c1.length !== 2 || res1.c2.length !== 2 || res1.c3.length !== 2) throw new Error('Kafka rebalance 6:3 failed');\nif (res1.c1[0] !== 0 || res1.c1[1] !== 3) throw new Error('Round-robin order incorrect for 6:3');\nconst res2 = assignPartitionsToConsumers(4, ['c1', 'c2']);\nif (res2.c1.length !== 2 || res2.c2.length !== 2 || res2.c1[0] !== 0 || res2.c1[1] !== 2) throw new Error('Kafka rebalance 4:2 failed');\nconst res3 = assignPartitionsToConsumers(3, ['c1']);\nif (res3.c1.length !== 3 || JSON.stringify(res3.c1) !== JSON.stringify([0, 1, 2])) throw new Error('Kafka rebalance 3:1 failed');",
     "aTitle": "Partition Key Hash Router",
     "aDesc": "Implement function routeToPartition(key, totalPartitions) returning `hash(key) % total`.",
     "aStarter": "function routeToPartition(k, total) {\n  // TODO: write your code here\n}",
@@ -260,7 +260,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function generateIdempotencyKey(userId, orderId) returning `idemp_${userId}_${orderId}`.",
     "aStarter": "function generateIdempotencyKey(u, o) {\n  // TODO: write your code here\n}",
     "aHint": "Format key string.",
-    "aTest": "if (generateIdempotencyKey('u1', 'o99') !== 'idemp_u1_o99') throw new Error('Key generator failed');"
+    "aTest": "if (generateIdempotencyKey('u1', 'o99') !== 'idemp_u1_o99') throw new Error('Key generator failed for u1, o99');\nif (generateIdempotencyKey('u42', 'ord_500') !== 'idemp_u42_ord_500') throw new Error('Key generator failed for u42, ord_500');\nif (generateIdempotencyKey('usr_alpha', 'txn_beta') !== 'idemp_usr_alpha_txn_beta') throw new Error('Key generator failed for alpha, beta');"
   },
   {
     "day": 14,
@@ -280,7 +280,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatDlqEntry(msgId, err) returning formatted DLQ object.",
     "aStarter": "function formatDlqEntry(id, e) {\n  // TODO: write your code here\n}",
     "aHint": "Return formatted object.",
-    "aTest": "if (!formatDlqEntry('m1', 'bad').msgId) throw new Error('DLQ format failed');"
+    "aTest": "const e1 = formatDlqEntry('m1', 'timeout');\nif (e1.msgId !== 'm1' || e1.error !== 'timeout' || typeof e1.dlqTimestamp !== 'number') throw new Error('DLQ format failed for m1');\nconst e2 = formatDlqEntry('m99', 'schema_invalid');\nif (e2.msgId !== 'm99' || e2.error !== 'schema_invalid') throw new Error('DLQ format failed for m99');\nconst e3 = formatDlqEntry('m1000', 'corrupted_payload');\nif (e3.msgId !== 'm1000' || e3.error !== 'corrupted_payload') throw new Error('DLQ format failed for m1000');"
   },
   {
     "day": 15,
@@ -300,7 +300,7 @@ export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function measureTxDuration(startMs) returning elapsed ms.",
     "aStarter": "function measureTxDuration(s) {\n  // TODO: write your code here\n}",
     "aHint": "Compute elapsed ms.",
-    "aTest": "if (!measureTxDuration(Date.now()).endsWith('ms')) throw new Error('Timer failed');"
+    "aTest": "const now = Date.now();\nconst d1 = measureTxDuration(now - 150);\nconst n1 = parseInt(d1);\nif (!d1.endsWith('ms') || n1 < 140 || n1 > 1000) throw new Error('Timer failed for 150ms');\nconst d2 = measureTxDuration(now - 500);\nconst n2 = parseInt(d2);\nif (!d2.endsWith('ms') || n2 < 480 || n2 > 1500) throw new Error('Timer failed for 500ms');\nconst d3 = measureTxDuration(now - 50);\nconst n3 = parseInt(d3);\nif (!d3.endsWith('ms') || n3 < 40 || n3 > 500) throw new Error('Timer failed for 50ms');\nif (d1 === d2 || d2 === d3) throw new Error('Durations must differ for different start timestamps');"
   },
   {
     "day": 16,
