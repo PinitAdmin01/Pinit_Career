@@ -2356,7 +2356,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 },
 {
   "day": 10,
-  "title": "⭐ MILESTONE 2: Two-Phase Commit (2PC) vs Three-Phase Commit (3PC)",
+  "title": "Two-Phase Commit (2PC) vs Three-Phase Commit (3PC)",
   "goal": "Coordinate atomic multi-database transactions with Two-Phase Commit (Prepare -> Commit) and understand coordinator blocking failure modes.",
   "minutes": 25,
   "recap": "Milestone 2 is here! Today we master distributed transactions, implementing the Two-Phase Commit (2PC) coordinator and analyzing the theoretical Three-Phase Commit (3PC) protocol.",

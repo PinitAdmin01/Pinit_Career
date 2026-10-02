@@ -15,6 +15,8 @@ import { DESIGN_WEB_LONG_LESSONS } from '../src/lib/data/designWebLongLessons';
 import { DESIGN_30_DAYS_CONFIGS } from '../src/lib/data/design30DayData';
 import { DSA_WEB_LONG_LESSONS } from '../src/lib/data/dsaWebLongLessons';
 import { DSA_30_DAYS_CONFIGS } from '../src/lib/data/dsa30DayData';
+import { DISTRIBUTED_WEB_LONG_LESSONS } from '../src/lib/data/distributedWebLongLessons';
+import { DISTRIBUTED_30_DAYS_CONFIGS } from '../src/lib/data/distributed30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -71,6 +73,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-dsa-optim',
     lessons: DSA_WEB_LONG_LESSONS,
     configs: DSA_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'High-Scale Distributed System Design',
+    prefix: 'dist',
+    courseId: 'course-distributed-sys',
+    lessons: DISTRIBUTED_WEB_LONG_LESSONS,
+    configs: DISTRIBUTED_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];
