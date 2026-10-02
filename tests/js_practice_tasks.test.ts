@@ -125,7 +125,7 @@ const SOLUTIONS: Record<string, string> = JSON.parse(fs.readFileSync(path.join(_
 const LAZY_RETURNS = ['true', 'false', '0', '1', '-1', '[]', "''", 'null', '{}'];
 
 /** Recall questions whose right answer is one fixed value (for example "greedy decoding uses temperature 0"). */
-const RECALL_TASKS = new Set(['design-assign-day-24', 'nlp-assign-day-6', 'nlp-assign-day-27', 'ai_prompt-assign-day-6']);
+const RECALL_TASKS = new Set(['nlp-assign-day-6', 'nlp-assign-day-27', 'ai_prompt-assign-day-6']);
 
 /** The starting code with every function and method (except constructors) returning `value`. */
 function lazyAnswer(starter: string, value: string): string {
@@ -358,12 +358,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'dsa-optim-assign-day-15', 'dsa-optim-assign-day-17', 'dsa-optim-assign-day-18', 'dsa-optim-assign-day-19',
   'dsa-optim-assign-day-20', 'dsa-optim-assign-day-22', 'dsa-optim-assign-day-24', 'dsa-optim-assign-day-25',
   'dsa-optim-assign-day-26', 'dsa-optim-assign-day-27', 'dsa-optim-assign-day-29', 'dsa-optim-assign-day-30',
-  // course-design-systems (36 tasks)
-  'design-exam-day-16', 'design-assign-day-16', 'design-exam-day-17',
-  'design-assign-day-17', 'design-assign-day-18', 'design-exam-day-19', 'design-assign-day-19',
-  'design-assign-day-20', 'design-exam-day-21', 'design-assign-day-21', 'design-assign-day-22',
-  'design-assign-day-23', 'design-assign-day-24', 'design-assign-day-25', 'design-assign-day-26',
-  'design-assign-day-27', 'design-assign-day-28', 'design-assign-day-29', 'design-assign-day-30',
+  // course-design-systems: 0 tasks (all 60 tasks non-constant and verified)
   // course-ai-eng (39 tasks)
   'ai-exam-day-1', 'ai-assign-day-1', 'ai-exam-day-2', 'ai-assign-day-2',
   'ai-exam-day-3', 'ai-assign-day-3', 'ai-exam-day-4', 'ai-assign-day-4',
