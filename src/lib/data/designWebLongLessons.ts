@@ -2526,5 +2526,1284 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "Implement breadcrumb navigation with aria-current='page' and off-screen Skip-to-Content link targeting #main-content"
       ]
     }
+  },
+  {
+    "day": 11,
+    "title": "Modals, Dialogs & Backdrop Focus Trapping: Accessible Overlay Engineering",
+    "goal": "Engineer accessible modal overlays using HTML5 dialog primitives, focus trapping state machines, inert background locking, and Escape key dismissal.",
+    "minutes": 25,
+    "recap": "In Days 6 through 10, we mastered Atomic Design, button state machines, accessible form controls, compound cards, and navigation. Today we construct the most complex overlay component in frontend design: the accessible Modal Dialog.",
+    "parts": [
+      {
+        "title": "The HTML5 <dialog> Element & Native showModal() Mechanics",
+        "say": [
+          "Historically, building modal dialogs in web applications was an exercise in frustration.",
+          "Developers had to handcraft overlay div wrappers, manually manage z-index stacking wars, write custom keyboard trap listeners, and fight mobile viewport height bugs.",
+          "Modern web standards revolutionized overlay engineering with the native HTML5 '<dialog>' element.",
+          "When a dialog is opened via its native JavaScript API method 'dialogElement.showModal()', the browser performs several superpowers automatically.",
+          "First, the dialog is placed into the browser's top-layer stacking context—a special layer rendered directly above all normal DOM elements regardless of ancestor z-indexes or transforms.",
+          "Second, the browser automatically renders a native '::backdrop' pseudo-element behind the dialog, dimming the background page.",
+          "Third, the browser automatically traps keyboard focus within the dialog and wires the Escape key to close the dialog by default.",
+          "Furthermore, the dialog exposes a native 'close' event and can return a return value string: 'dialog.returnValue'.",
+          "Leveraging native '<dialog>' gives design systems a rock-solid, standards-compliant foundation for modal overlays."
+        ],
+        "example": "A bank safety deposit vault: when the heavy steel door swings open, an automated security gate locks behind you, preventing access to the rest of the facility until your transaction is concluded.",
+        "code": "interface DialogApiCapabilities {\n  method: string;\n  isTopLayer: boolean;\n  hasNativeBackdrop: boolean;\n  autoFocusTrap: boolean;\n  autoEscapeKey: boolean;\n}\n\nconst html5DialogSpec: DialogApiCapabilities = {\n  method: 'dialogElement.showModal()',\n  isTopLayer: true,\n  hasNativeBackdrop: true,\n  autoFocusTrap: true,\n  autoEscapeKey: true,\n};\n\nconsole.log(`HTML5 <dialog> API: ${html5DialogSpec.method}`);\nconsole.log(`Renders in Top Layer : ${html5DialogSpec.isTopLayer}`);\nconsole.log(`Native ::backdrop CSS : ${html5DialogSpec.hasNativeBackdrop}`);\nconsole.log(`Focus Trap & Escape   : ${html5DialogSpec.autoFocusTrap && html5DialogSpec.autoEscapeKey}`);",
+        "output": "HTML5 <dialog> API: dialogElement.showModal()\nRenders in Top Layer : true\nNative ::backdrop CSS : true\nFocus Trap & Escape   : true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Encapsulates native capabilities of the HTML5 <dialog> specification."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates built-in top-layer rendering, backdrop styling, and keyboard trapping."
+          }
+        ],
+        "tryIt": "Verify that showModal() places the dialog above all z-indexes without manual z-index configuration.",
+        "check": {
+          "question": "What is the primary advantage of opening a dialog with 'showModal()' rather than 'show()'?",
+          "options": [
+            "showModal() renders in the top-layer, dims the backdrop, locks background interaction, and traps keyboard focus",
+            "showModal() converts the dialog into a PDF download",
+            "showModal() only works on Apple Safari"
+          ],
+          "answer": 0,
+          "why": "showModal() opens a true modal dialog with top-layer placement, background locking, and keyboard focus trapping."
+        }
+      },
+      {
+        "title": "Focus Trapping Mechanics: Cycling Tab Within Modal Boundaries",
+        "say": [
+          "For custom modal dialogs or frameworks requiring custom overlays, Focus Trapping is the primary accessibility requirement.",
+          "If a modal opens and a keyboard user presses the Tab key, focus must NEVER leak outside into the background document.",
+          "If focus leaks into invisible background buttons behind the modal, keyboard users become lost and can accidentally trigger background actions like deleting an account.",
+          "How does an accessible focus trap operate?",
+          "When the modal opens, JavaScript queries all focusable elements within the modal: buttons, inputs, links, and textareas.",
+          "The first focusable element is identified (often the first form field or close button), and the last focusable element is cached.",
+          "A 'keydown' listener intercepts the Tab key.",
+          "If the user presses 'Shift + Tab' while on the first focusable element, focus wraps around smoothly to the last focusable element.",
+          "Conversely, if the user presses 'Tab' while on the last focusable element, focus wraps back to the first focusable element.",
+          "This continuous focus loop guarantees that keyboard navigation stays strictly contained within the active modal."
+        ],
+        "example": "A revolving door at a building exit: when you enter the revolving chamber, you cannot walk sideways into adjacent walls; you can only rotate within the circular boundary until you exit.",
+        "code": "interface FocusTrapState {\n  focusableElements: string[];\n  currentIndex: number;\n  focusedElement: string;\n}\n\nfunction simulateTabNavigation(state: FocusTrapState, isShiftTab: boolean): FocusTrapState {\n  const total = state.focusableElements.length;\n  let nextIndex: number;\n\n  if (isShiftTab) {\n    nextIndex = (state.currentIndex - 1 + total) % total;\n  } else {\n    nextIndex = (state.currentIndex + 1) % total;\n  }\n\n  return {\n    focusableElements: state.focusableElements,\n    currentIndex: nextIndex,\n    focusedElement: state.focusableElements[nextIndex],\n  };\n}\n\nconst modalTrap: FocusTrapState = {\n  focusableElements: ['CloseBtn', 'NameInput', 'EmailInput', 'SubmitBtn'],\n  currentIndex: 3, // At last element (SubmitBtn)\n  focusedElement: 'SubmitBtn',\n};\n\nconst afterTab = simulateTabNavigation(modalTrap, false); // Normal Tab presses\nconsole.log(`Current Focus: ${modalTrap.focusedElement} (Index ${modalTrap.currentIndex})`);\nconsole.log(`After Tab (Wrap around) -> Focused: ${afterTab.focusedElement} (Index ${afterTab.currentIndex})`);",
+        "output": "Current Focus: SubmitBtn (Index 3)\nAfter Tab (Wrap around) -> Focused: CloseBtn (Index 0)",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Simulates modular arithmetic focus wrapping: (index + 1) % total."
+          },
+          {
+            "line": 28,
+            "note": "Demonstrates focus wrapping from last element (SubmitBtn) back to first (CloseBtn)."
+          }
+        ],
+        "tryIt": "Simulate Shift + Tab from index 0 (CloseBtn) and verify it wraps to index 3 (SubmitBtn).",
+        "check": {
+          "question": "When a keyboard user presses Tab on the LAST focusable element inside an accessible modal, where must focus move?",
+          "options": [
+            "It must wrap back to the FIRST focusable element inside the modal",
+            "It must jump to the browser address bar",
+            "It must close the website"
+          ],
+          "answer": 0,
+          "why": "Focus trapping keeps keyboard navigation contained within the modal by wrapping focus in a continuous loop."
+        }
+      },
+      {
+        "title": "Backdrop Scrim Dimming with inert Background Locking",
+        "say": [
+          "Visually trapping focus is essential, but what about screen readers exploring the page via virtual cursor or swipe gestures?",
+          "If the background content remains exposed in the accessibility tree, a screen reader user can swipe right past the modal into background navigation links.",
+          "Historically, developers had to traverse every background sibling node and add 'aria-hidden=\"true\"' and 'tabIndex={-1}'.",
+          "This was messy, bug-prone, and fragile in complex single-page apps.",
+          "Modern web standards provide the revolutionary HTML attribute 'inert'.",
+          "When the modal opens, the application adds 'inert' to the main content container: '<div id=\"app-root\" inert>'.",
+          "The 'inert' attribute informs the browser to completely ignore the element and all its children: they cannot be focused, clicked, text-selected, or discovered by screen readers.",
+          "Behind the modal, the backdrop scrim applies a semi-transparent dark tint ('background: rgba(0, 0, 0, 0.6)') with optional blur.",
+          "Combining backdrop scrim dimming with the native 'inert' attribute delivers bulletproof visual and assistive technology locking."
+        ],
+        "example": "A theatre play: during an intimate monologue, the master stage lights dim completely over the rest of the set, while a single sharp spotlight illuminates only the active actor.",
+        "code": "interface DOMNodeAudit {\n  id: string;\n  role: string;\n  isInert: boolean;\n  accessibleToScreenReader: boolean;\n  pointerEventsEnabled: boolean;\n}\n\nfunction auditBackgroundLock(node: DOMNodeAudit): string {\n  if (node.isInert) {\n    return `[LOCKED] Node '${node.id}': inert=true -> Screen readers ignore, clicks disabled`;\n  }\n  return `[ACTIVE] Node '${node.id}': inert=false -> Fully interactive`;\n}\n\nconst mainAppContent: DOMNodeAudit = { id: 'app-root', role: 'main', isInert: true, accessibleToScreenReader: false, pointerEventsEnabled: false };\nconst activeModal: DOMNodeAudit = { id: 'dialog-container', role: 'dialog', isInert: false, accessibleToScreenReader: true, pointerEventsEnabled: true };\n\nconsole.log(auditBackgroundLock(mainAppContent));\nconsole.log(auditBackgroundLock(activeModal));",
+        "output": "[LOCKED] Node 'app-root': inert=true -> Screen readers ignore, clicks disabled\n[ACTIVE] Node 'dialog-container': inert=false -> Fully interactive",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Audits inert state ensuring background content is hidden from screen readers and pointers."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates that app-root is safely locked while the modal container remains active."
+          }
+        ],
+        "tryIt": "Explain why inert is superior to writing custom aria-hidden traversals on all sibling DOM elements.",
+        "check": {
+          "question": "What does the HTML 'inert' attribute do when applied to a background container while a modal is open?",
+          "options": [
+            "It disables all pointer events, keyboard focus, and screen reader discovery across the element and all its descendants",
+            "It converts text into encrypted strings",
+            "It permanently deletes the background DOM nodes"
+          ],
+          "answer": 0,
+          "why": "inert completely freezes an element and its children from focus, clicks, and assistive technology discovery."
+        }
+      },
+      {
+        "title": "Keyboard Escape Dismissal & Focus Restoration",
+        "say": [
+          "An accessible modal must always offer an intuitive, frictionless exit strategy.",
+          "Every user expects that pressing the keyboard 'Escape' key will immediately dismiss an active modal dialog.",
+          "When the Escape key is pressed, the modal dismissal lifecycle must execute smoothly:",
+          "1. Intercept 'keydown' for 'event.key === \"Escape\"'.",
+          "2. If unsaved form changes exist, optionally prompt a confirmation; otherwise, close the modal immediately.",
+          "3. Remove 'inert' from background content containers.",
+          "4. Execute Focus Restoration.",
+          "Focus restoration is a critical WCAG requirement (WCAG 2.4.3 Focus Order).",
+          "Before the modal opened, the user clicked a specific button (e.g., 'Edit Profile').",
+          "When the modal closes, focus MUST return automatically to that exact 'Edit Profile' trigger button.",
+          "If focus is not restored, the browser resets focus to the top of the body, forcing keyboard users to tab all the way down the page again.",
+          "Caching the 'document.activeElement' before opening and calling '.focus()' upon closing ensures a flawless user journey."
+        ],
+        "example": "A bookmark placed in a book: when you temporarily set the book down to answer a phone call, the bookmark allows you to resume reading at the exact sentence where you left off.",
+        "code": "interface ModalFocusLifecycle {\n  triggerElementId: string;\n  modalOpen: boolean;\n  currentFocusedElement: string;\n}\n\nclass ModalController {\n  private lastFocusedElementId: string = '';\n\n  openModal(triggerId: string): ModalFocusLifecycle {\n    this.lastFocusedElementId = triggerId;\n    return {\n      triggerElementId: triggerId,\n      modalOpen: true,\n      currentFocusedElement: 'ModalCloseButton',\n    };\n  }\n\n  closeModal(): { modalOpen: boolean; restoredFocusTarget: string } {\n    const target = this.lastFocusedElementId;\n    this.lastFocusedElementId = '';\n    return {\n      modalOpen: false,\n      restoredFocusTarget: target,\n    };\n  }\n}\n\nconst controller = new ModalController();\nconst opened = controller.openModal('edit-profile-btn');\nconsole.log(`Modal Opened from [${opened.triggerElementId}] -> Active Focus: ${opened.currentFocusedElement}`);\n\nconst closed = controller.closeModal();\nconsole.log(`Modal Closed on Escape -> Restored Focus To: [${closed.restoredFocusTarget}]`);",
+        "output": "Modal Opened from [edit-profile-btn] -> Active Focus: ModalCloseButton\nModal Closed on Escape -> Restored Focus To: [edit-profile-btn]",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Caches the active trigger element before opening the modal dialog."
+          },
+          {
+            "line": 30,
+            "note": "Restores focus cleanly to the cached trigger button upon modal dismissal."
+          }
+        ],
+        "tryIt": "Simulate opening a modal from 'delete-account-btn' and verify focus restores to it upon cancel.",
+        "check": {
+          "question": "Under WCAG 2.4.3 (Focus Order), where must keyboard focus return when a modal dialog is closed?",
+          "options": [
+            "Back to the exact trigger element that originally opened the modal",
+            "To the top <body> tag of the webpage",
+            "To the browser address bar"
+          ],
+          "answer": 0,
+          "why": "Focus must return to the original trigger button so keyboard users can continue their workflow uninterrupted."
+        }
+      },
+      {
+        "title": "ARIA Roles: role=\"dialog\" vs role=\"alertdialog\"",
+        "say": [
+          "Not all modal overlays serve the same semantic purpose.",
+          "The W3C WAI-ARIA specification establishes two distinct roles for modal overlays:",
+          "1. 'role=\"dialog\"': used for standard interactive modals that prompt users for input or display information.",
+          "Examples include a Profile Edit Form, a Settings Dialog, or a Filter Drawer.",
+          "A 'dialog' can be dismissed easily via Escape or clicking the backdrop scrim.",
+          "2. 'role=\"alertdialog\"': reserved strictly for critical, urgent interruption prompts where user confirmation is mandatory.",
+          "Examples include: 'Are you sure you want to delete your production database? This action is irreversible.'.",
+          "When a screen reader encounters 'alertdialog', it immediately interrupts current speech to read the alert text with high urgency.",
+          "Crucially, an 'alertdialog' should NOT automatically close on clicking the backdrop scrim, as accidental dismissal could cause loss of important warning context.",
+          "Both dialog types must have 'aria-labelledby' pointing to the modal title, and 'aria-describedby' pointing to the description body.",
+          "Choosing the appropriate ARIA role communicates the exact level of urgency to assistive technologies."
+        ],
+        "example": "A standard polite knock on your office door for a question (role='dialog') versus a loud building fire alarm horn requiring immediate life-safety action (role='alertdialog').",
+        "code": "type DialogAriaRole = 'dialog' | 'alertdialog';\n\ninterface ModalRoleDefinition {\n  role: DialogAriaRole;\n  urgency: 'STANDARD' | 'CRITICAL';\n  closeOnBackdropClick: boolean;\n  typicalUseCases: string;\n}\n\nconst modalRoles: Record<DialogAriaRole, ModalRoleDefinition> = {\n  dialog: {\n    role: 'dialog',\n    urgency: 'STANDARD',\n    closeOnBackdropClick: true,\n    typicalUseCases: 'Edit profile, settings, multi-step wizards, feedback forms',\n  },\n  alertdialog: {\n    role: 'alertdialog',\n    urgency: 'CRITICAL',\n    closeOnBackdropClick: false, // Must force explicit button click\n    typicalUseCases: 'Delete confirmation, session timeout warning, unsaved data loss',\n  },\n};\n\nfor (const [key, r] of Object.entries(modalRoles)) {\n  console.log(`[${r.role.toUpperCase()}] Urgency: ${r.urgency} | Backdrop Dismiss: ${r.closeOnBackdropClick}`);\n  console.log(`  Use Cases: ${r.typicalUseCases}`);\n}",
+        "output": "[DIALOG] Urgency: STANDARD | Backdrop Dismiss: true\n  Use Cases: Edit profile, settings, multi-step wizards, feedback forms\n[ALERTDIALOG] Urgency: CRITICAL | Backdrop Dismiss: false\n  Use Cases: Delete confirmation, session timeout warning, unsaved data loss",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Defines semantic distinctions between role='dialog' and role='alertdialog'."
+          },
+          {
+            "line": 24,
+            "note": "Highlights that alertdialog enforces explicit user button interaction by disabling backdrop clicks."
+          }
+        ],
+        "tryIt": "Verify that destructive delete prompts use alertdialog with closeOnBackdropClick: false.",
+        "check": {
+          "question": "When should an overlay use 'role=\"alertdialog\"' instead of 'role=\"dialog\"'?",
+          "options": [
+            "Exclusively for critical, urgent prompts (like delete confirmations) that require immediate user attention and response",
+            "Whenever a modal contains an image",
+            "Only on mobile touch screens"
+          ],
+          "answer": 0,
+          "why": "alertdialog is reserved for urgent warnings and confirmations that require immediate user decision."
+        }
+      },
+      {
+        "title": "Compound Modal Architecture & Animation Physics",
+        "say": [
+          "Let us assemble our complete modal architecture into a production Compound Component in React and TypeScript.",
+          "Like our Card component from Day 9, modals benefit immensely from namespaced sub-components: 'Modal.Header', 'Modal.Body', and 'Modal.Footer'.",
+          "Furthermore, modal animations must follow natural optical depth physics.",
+          "When entering, the backdrop scrim fades in from 'opacity: 0' to 'opacity: 1' over 200ms.",
+          "Simultaneously, the modal card scales up subtly from 'scale(0.95)' to 'scale(1.0)' and slides up by 10px: 'translateY(10px)' to 'translateY(0)'.",
+          "This subtle scale-and-fade animation communicates that the modal is floating toward the user in physical space.",
+          "When exiting, the animation reverses swiftly over 150ms before the DOM element is unmounted.",
+          "Never animate layout dimensions like width or height, which cause browser jank.",
+          "Building compound modals with performant physics delivers an enterprise-grade overlay experience."
+        ],
+        "example": "A camera lens aperture focusing: smoothly bringing the subject into crisp clarity while softly blurring the background depth of field.",
+        "code": "interface ModalAnimationPhysics {\n  stage: 'entering' | 'entered' | 'exiting';\n  backdropOpacity: number;\n  modalScale: number;\n  modalTranslateY: string;\n  durationMs: number;\n}\n\nfunction getModalPhysics(stage: 'entering' | 'entered' | 'exiting'): ModalAnimationPhysics {\n  switch (stage) {\n    case 'entering':\n      return { stage, backdropOpacity: 0.6, modalScale: 1.0, modalTranslateY: '0px', durationMs: 200 };\n    case 'entered':\n      return { stage, backdropOpacity: 0.6, modalScale: 1.0, modalTranslateY: '0px', durationMs: 0 };\n    case 'exiting':\n      return { stage, backdropOpacity: 0.0, modalScale: 0.95, modalTranslateY: '10px', durationMs: 150 };\n  }\n}\n\nconst entering = getModalPhysics('entering');\nconst exiting = getModalPhysics('exiting');\n\nconsole.log(`Entering Animation (${entering.durationMs}ms): backdrop=${entering.backdropOpacity}, scale=${entering.modalScale}, Y=${entering.modalTranslateY}`);\nconsole.log(`Exiting Animation  (${exiting.durationMs}ms): backdrop=${exiting.backdropOpacity}, scale=${exiting.modalScale}, Y=${exiting.modalTranslateY}`);",
+        "output": "Entering Animation (200ms): backdrop=0.6, scale=1, Y=0px\nExiting Animation  (150ms): backdrop=0, scale=0.95, Y=10px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines GPU-accelerated enter and exit animation physics for modal overlays."
+          },
+          {
+            "line": 22,
+            "note": "Prints animation parameters verifying swift 200ms enter and 150ms exit curves."
+          }
+        ],
+        "tryIt": "Explain why exit animations should be faster (150ms) than enter animations (200ms).",
+        "check": {
+          "question": "Why are modal exit animations conventionally designed to be faster (e.g., 150ms) than entrance animations (200ms)?",
+          "options": [
+            "Users expect immediate dismissal when closing an overlay, so swift exits make the application feel snappy and responsive",
+            "CSS cannot calculate animations longer than 150ms in reverse",
+            "To prevent the browser from saving memory"
+          ],
+          "answer": 0,
+          "why": "Swift exit animations prevent perceived interface lag when users dismiss content."
+        }
+      }
+    ],
+    "summary": [
+      "The HTML5 <dialog> element provides native top-layer placement, background scrims, and built-in focus trapping.",
+      "Focus trapping ensures keyboard Tab cycles continuously within modal boundaries without leaking into the background.",
+      "Inert background locking and Escape key focus restoration guarantee 100% WCAG accessibility compliance."
+    ],
+    "projectStep": {
+      "title": "Build Accessible Modal Overlay System",
+      "steps": [
+        "Implement Modal compound component (Header, Body, Footer) supporting role='dialog' and role='alertdialog'",
+        "Wire keyboard focus trap with Escape key dismissal and automated focus restoration to trigger elements",
+        "Add inert attribute toggle on app-root background content during active modal sessions"
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "title": "Tooltips, Popovers & Floating UI Positioning: Collision Detection & Viewport Bounds",
+    "goal": "Engineer dynamic floating UI overlays with automated viewport collision detection, flip placement logic, and accessible tooltip hover timers.",
+    "minutes": 25,
+    "recap": "Yesterday we built accessible modal dialogs that dominate the screen. Today we explore micro-overlays: Tooltips and Popovers, mastering floating positioning math and boundary collision detection.",
+    "parts": [
+      {
+        "title": "Anatomy & Differences: Tooltips vs Popovers",
+        "say": [
+          "Floating UI elements appear anchored to a trigger element on demand, but developers frequently confuse Tooltips with Popovers.",
+          "A Tooltip is a passive, non-interactive visual label.",
+          "It provides contextual helper text (e.g., 'Copy to clipboard' or 'View user profile') when hovering or focusing an element.",
+          "A Tooltip contains ZERO interactive content: no buttons, no links, and no inputs.",
+          "Crucially, the user does not interact with the tooltip itself; moving the mouse away immediately dismisses it.",
+          "Conversely, a Popover is an interactive rich content container.",
+          "A Popover opens on click and contains interactive controls: buttons, filter checkboxes, search inputs, or navigation menus.",
+          "Because a popover contains interactive elements, users must be able to move their mouse inside the popover without it closing.",
+          "From an accessibility standpoint, Tooltips are bound via 'aria-describedby', while Popovers use 'aria-haspopup=\"true\"' and 'aria-expanded=\"true|false\"'.",
+          "Distinguishing Tooltips from Popovers prevents severe interaction and accessibility bugs."
+        ],
+        "example": "A label tag on a museum artifact (Tooltip: read-only text telling you the date of the vase) versus a digital audio guide kiosk (Popover: interactive buttons to select language and play audio commentary).",
+        "code": "type FloatingUiType = 'tooltip' | 'popover';\n\ninterface FloatingUiContract {\n  type: FloatingUiType;\n  triggerEvent: 'hover/focus' | 'click';\n  containsInteractiveElements: boolean;\n  ariaBinding: string;\n  dismissBehavior: string;\n}\n\nconst floatingContracts: Record<FloatingUiType, FloatingUiContract> = {\n  tooltip: {\n    type: 'tooltip',\n    triggerEvent: 'hover/focus',\n    containsInteractiveElements: false,\n    ariaBinding: 'aria-describedby=\"tooltip-id\"',\n    dismissBehavior: 'Dismisses immediately on mouseleave or blur',\n  },\n  popover: {\n    type: 'popover',\n    triggerEvent: 'click',\n    containsInteractiveElements: true,\n    ariaBinding: 'aria-haspopup=\"dialog\" aria-expanded=\"true|false\"',\n    dismissBehavior: 'Dismisses on outside click, Escape, or close button',\n  },\n};\n\nfor (const [key, c] of Object.entries(floatingContracts)) {\n  console.log(`[${key.toUpperCase()}]: Trigger=${c.triggerEvent} | Has Interactive Content=${c.containsInteractiveElements}`);\n  console.log(`  ARIA: ${c.ariaBinding}`);\n}",
+        "output": "[TOOLTIP]: Trigger=hover/focus | Has Interactive Content=false\n  ARIA: aria-describedby=\"tooltip-id\"\n[POPOVER]: Trigger=click | Has Interactive Content=true\n  ARIA: aria-haspopup=\"dialog\" aria-expanded=\"true|false\"",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Defines architectural contracts separating non-interactive Tooltips from interactive Popovers."
+          },
+          {
+            "line": 26,
+            "note": "Displays the trigger mechanics and ARIA binding rules for both overlay types."
+          }
+        ],
+        "tryIt": "Explain why putting an <a> link inside a Tooltip breaks accessibility guidelines.",
+        "check": {
+          "question": "Why must a Tooltip NEVER contain interactive elements like links or buttons?",
+          "options": [
+            "Tooltips dismiss the moment the mouse leaves the trigger, making clicking inside the tooltip physically impossible or frustrating for users",
+            "CSS cannot style buttons inside floating divs",
+            "Screen readers crash if tooltips contain text longer than 5 words"
+          ],
+          "answer": 0,
+          "why": "Because tooltips close when the trigger is left, users cannot reliably move into the tooltip to click interactive content."
+        }
+      },
+      {
+        "title": "Viewport Collision Detection & Floating Coordinates Math",
+        "say": [
+          "Positioning floating overlays requires rigorous geometry.",
+          "If a tooltip is hardcoded to render above its button ('placement: top'), what happens when the button is at the very top edge of the browser viewport?",
+          "The tooltip renders off-screen, clipped into oblivion, completely invisible to the user.",
+          "A production floating engine (like Floating UI, formerly Popper.js) calculates coordinates dynamically using 'getBoundingClientRect()'.",
+          "The engine inspects the trigger's position relative to the browser viewport: 'top', 'bottom', 'left', 'right'.",
+          "It calculates whether the floating overlay dimensions ('floatingRect.width', 'floatingRect.height') fit within the available space between the trigger and the viewport edge.",
+          "If space above the trigger is less than the overlay height, Collision Detection fires.",
+          "The engine activates a Flip Placement strategy: flipping 'top' to 'bottom'.",
+          "Furthermore, if an overlay collides with the right edge of the screen, Shift Positioning nudges the overlay along the cross-axis to keep it inside the viewport.",
+          "Mastering collision math ensures tooltips and popovers remain 100% visible regardless of scroll position."
+        ],
+        "example": "An umbrella opening: if you try to open it inside a crowded doorway, you shift and tilt it downward so the ribs do not collide with the doorframe.",
+        "code": "interface RectBounds {\n  top: number;\n  bottom: number;\n  left: number;\n  right: number;\n  height: number;\n  width: number;\n}\n\ntype Placement = 'top' | 'bottom';\n\nfunction resolvePlacementWithFlip(trigger: RectBounds, overlayHeight: number, viewportHeight: number): { placement: Placement; flipped: boolean } {\n  const spaceAbove = trigger.top;\n  const spaceBelow = viewportHeight - trigger.bottom;\n\n  // Prefers top, but if spaceAbove < overlayHeight and spaceBelow >= overlayHeight, flip to bottom\n  if (spaceAbove < overlayHeight && spaceBelow >= overlayHeight) {\n    return { placement: 'bottom', flipped: true };\n  }\n  return { placement: 'top', flipped: false };\n}\n\nconst nearTopTrigger: RectBounds = { top: 20, bottom: 60, left: 100, right: 200, height: 40, width: 100 };\nconst result1 = resolvePlacementWithFlip(nearTopTrigger, 50, 800); // Needs 50px, only has 20px above\n\nconst centerTrigger: RectBounds = { top: 400, bottom: 440, left: 100, right: 200, height: 40, width: 100 };\nconst result2 = resolvePlacementWithFlip(centerTrigger, 50, 800); // Has 400px above\n\nconsole.log(`Near Top Button: placement=${result1.placement} (Flipped: ${result1.flipped})`);\nconsole.log(`Center Button  : placement=${result2.placement} (Flipped: ${result2.flipped})`);",
+        "output": "Near Top Button: placement=bottom (Flipped: true)\nCenter Button  : placement=top (Flipped: false)",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Implements collision detection comparing available space against overlay height."
+          },
+          {
+            "line": 30,
+            "note": "Demonstrates automatic placement flipping from top to bottom when near the viewport ceiling."
+          }
+        ],
+        "tryIt": "Simulate a trigger at the bottom of the viewport (top: 760, bottom: 790 in 800px viewport) and test top placement.",
+        "check": {
+          "question": "What does 'flip positioning' do when a floating tooltip detects a collision with the top viewport boundary?",
+          "options": [
+            "It automatically flips the placement axis to the opposite side (e.g., from top to bottom) where space is available",
+            "It scales down the tooltip text size to 2px",
+            "It closes the browser window"
+          ],
+          "answer": 0,
+          "why": "Flipping shifts the overlay to the opposite side of the trigger where ample viewport space exists."
+        }
+      },
+      {
+        "title": "Tooltip Hover Delay Timers (300ms Delay & 0ms Warmup)",
+        "say": [
+          "Tooltips that appear instantaneously the microsecond a mouse cursor touches a button create an awful, chaotic user experience.",
+          "As users move their mouse across a toolbar with ten icons, instantaneous tooltips flash and flicker across the screen like annoying strobe lights.",
+          "To provide calm, intentional UX, design systems implement Tooltip Hover Delay Timers.",
+          "When a user's mouse enters a trigger, an intentional 300ms to 400ms delay timer begins.",
+          "If the user was merely passing their mouse across the button on their way to something else, the mouse leaves before 300ms, and zero tooltip renders.",
+          "The tooltip renders ONLY if the user pauses intentionally on the button.",
+          "Crucially, once a tooltip opens, the system enters Warmup Mode.",
+          "If the user now moves their mouse directly to an adjacent button within 500ms, the next tooltip opens instantly (0ms delay).",
+          "The user is clearly exploring the toolbar, so the delay is temporarily bypassed.",
+          "Implementing hover delay timers with warmup modes creates a polished, professional interaction feel."
+        ],
+        "example": "A museum audio tour wand: if you walk past a painting quickly, it stays silent; if you pause in front of the painting for a full second, the narration begins politely.",
+        "code": "interface TooltipTimerPolicy {\n  action: 'mouse-pass-through' | 'intentional-pause' | 'adjacent-toolbar-hop';\n  dwellTimeMs: number;\n  isWarm: boolean;\n  shouldDisplayTooltip: boolean;\n}\n\nfunction evaluateTooltipDisplay(policy: TooltipTimerPolicy): boolean {\n  if (policy.isWarm) return true; // 0ms delay in warm mode\n  return policy.dwellTimeMs >= 300; // Requires >= 300ms pause when cold\n}\n\nconst scenario1: TooltipTimerPolicy = { action: 'mouse-pass-through', dwellTimeMs: 120, isWarm: false, shouldDisplayTooltip: false };\nconst scenario2: TooltipTimerPolicy = { action: 'intentional-pause', dwellTimeMs: 350, isWarm: false, shouldDisplayTooltip: false };\nconst scenario3: TooltipTimerPolicy = { action: 'adjacent-toolbar-hop', dwellTimeMs: 50, isWarm: true, shouldDisplayTooltip: false };\n\nconsole.log(`Pass-Through (120ms cold): Show=${evaluateTooltipDisplay(scenario1)}`);\nconsole.log(`Intentional (350ms cold) : Show=${evaluateTooltipDisplay(scenario2)}`);\nconsole.log(`Adjacent Hop (50ms warm) : Show=${evaluateTooltipDisplay(scenario3)}`);",
+        "output": "Pass-Through (120ms cold): Show=false\nIntentional (350ms cold) : Show=true\nAdjacent Hop (50ms warm) : Show=true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models tooltip timer policy requiring 300ms pause when cold, but 0ms when warm."
+          },
+          {
+            "line": 20,
+            "note": "Logs simulation proving quick mouse gestures do not trigger unwanted tooltip flashes."
+          }
+        ],
+        "tryIt": "Verify that passing through with 250ms dwell time still evaluates as false when cold.",
+        "check": {
+          "question": "Why should cold tooltips require a 300ms-400ms hover delay before displaying?",
+          "options": [
+            "To prevent annoying flashing tooltips as users move their mouse across the screen to other destinations",
+            "Because JavaScript setTimeout only accepts values above 300ms",
+            "To allow server-side caching of tooltip images"
+          ],
+          "answer": 0,
+          "why": "A short delay prevents flickering tooltips during casual mouse traversal across toolbars."
+        }
+      },
+      {
+        "title": "Floating Arrow Indicator Positioning & Alignment",
+        "say": [
+          "Tooltips and popovers typically feature a small triangular arrow pointing directly at the trigger center.",
+          "The arrow provides an unmistakable visual anchor, connecting the floating bubble to the specific button or icon that spawned it.",
+          "However, positioning the arrow accurately during collision flips and dynamic shifts requires precise mathematical anchoring.",
+          "The arrow is rendered as a small square (e.g., 8px by 8px) rotated 45 degrees via 'transform: rotate(45deg)'.",
+          "If the tooltip is placed on top of the trigger, the arrow sits at the bottom edge of the tooltip, offset by half its diagonal dimension.",
+          "If collision detection shifts the tooltip laterally because it hit the screen boundary, the arrow MUST NOT shift with it!",
+          "The arrow must remain centered over the trigger button, sliding along the bottom edge of the tooltip container.",
+          "If the arrow shifted off the button, it would point to empty space, confusing the user.",
+          "Constraining the arrow to remain clamped within the tooltip's border-radius while pointing directly at the trigger center completes floating visual polish."
+        ],
+        "example": "A comic book speech bubble: the tail of the bubble always points directly at the mouth of the character speaking, regardless of where the speech bubble is drawn on the page.",
+        "code": "interface FloatingArrowPosition {\n  placement: 'top' | 'bottom';\n  arrowSizePx: number;\n  triggerCenterX: number;\n  tooltipLeftX: number;\n  computedArrowOffsetLeftPx: number;\n}\n\nfunction calculateArrowOffset(placement: 'top' | 'bottom', triggerCenterX: number, tooltipLeftX: number, arrowSize: number): FloatingArrowPosition {\n  // Arrow offset relative to tooltip left edge\n  const rawOffset = triggerCenterX - tooltipLeftX - arrowSize / 2;\n  return {\n    placement,\n    arrowSizePx: arrowSize,\n    triggerCenterX,\n    tooltipLeftX,\n    computedArrowOffsetLeftPx: Math.round(rawOffset),\n  };\n}\n\nconst arrowPos = calculateArrowOffset('top', 150, 100, 8);\nconsole.log(`Placement: ${arrowPos.placement} | Arrow Size: ${arrowPos.arrowSizePx}px`);\nconsole.log(`Trigger Center: ${arrowPos.triggerCenterX}px, Tooltip Left: ${arrowPos.tooltipLeftX}px`);\nconsole.log(`Arrow Left Offset inside Tooltip: ${arrowPos.computedArrowOffsetLeftPx}px`);",
+        "output": "Placement: top | Arrow Size: 8px\nTrigger Center: 150px, Tooltip Left: 100px\nArrow Left Offset inside Tooltip: 46px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates arrow position relative to tooltip bounds so the pointer targets trigger center."
+          },
+          {
+            "line": 22,
+            "note": "Demonstrates that arrow offset is centered over the trigger (150px - 100px - 4px = 46px)."
+          }
+        ],
+        "tryIt": "Calculate arrow offset when the tooltip is shifted further left to tooltipLeftX: 80px.",
+        "check": {
+          "question": "When a floating tooltip shifts sideways to avoid a viewport edge collision, where should its triangular arrow point?",
+          "options": [
+            "It must remain centered over the trigger button, sliding along the tooltip edge to preserve the visual anchor",
+            "It should point toward the top-left corner of the browser window",
+            "The arrow must be deleted completely"
+          ],
+          "answer": 0,
+          "why": "The arrow must stay visually anchored to the trigger so users clearly understand which element the overlay belongs to."
+        }
+      },
+      {
+        "title": "Accessible Popover Triggers: aria-haspopup & aria-expanded",
+        "say": [
+          "Because Popovers contain rich interactive content and open on click, their trigger buttons must communicate dynamic state to screen readers.",
+          "When a screen reader encounters a popover trigger button, it must announce: 'Options, button, has popup, collapsed'.",
+          "This announcement informs the user that activating the button will not navigate away; it will open an interactive menu or panel right here.",
+          "Two ARIA attributes govern this interaction:",
+          "1. 'aria-haspopup=\"dialog\"' (or 'aria-haspopup=\"menu\"'): informs the assistive technology of the overlay type.",
+          "2. 'aria-expanded=\"true|false\"': dynamically indicates whether the popover panel is currently visible.",
+          "When the user clicks the button or presses Enter, 'aria-expanded' flips to 'true'.",
+          "Keyboard focus can optionally shift into the popover, or the popover can remain linked via 'aria-controls=\"popover-panel-id\"'.",
+          "Furthermore, pressing the Escape key must immediately close the popover and return focus to the trigger button.",
+          "Wiring these ARIA attributes guarantees parity between sighted mouse users and blind keyboard navigators."
+        ],
+        "example": "A physical drop-down tray table on an airplane seat: latched and flush against the seat (aria-expanded='false'), until you turn the latch to release the table into the open position (aria-expanded='true').",
+        "code": "interface PopoverTriggerState {\n  label: string;\n  isOpen: boolean;\n  panelId: string;\n}\n\nfunction compilePopoverTriggerAria(state: PopoverTriggerState): Record<string, string> {\n  return {\n    'aria-haspopup': 'dialog',\n    'aria-expanded': state.isOpen ? 'true' : 'false',\n    'aria-controls': state.panelId,\n  };\n}\n\nconst closedState = compilePopoverTriggerAria({ label: 'Filter Options', isOpen: false, panelId: 'filter-popover' });\nconst openState = compilePopoverTriggerAria({ label: 'Filter Options', isOpen: true, panelId: 'filter-popover' });\n\nconsole.log('Closed Trigger ARIA:', closedState);\nconsole.log('Open Trigger ARIA  :', openState);",
+        "output": "Closed Trigger ARIA: { 'aria-haspopup': 'dialog', 'aria-expanded': 'false', 'aria-controls': 'filter-popover' }\nOpen Trigger ARIA  : { 'aria-haspopup': 'dialog', 'aria-expanded': 'true', 'aria-controls': 'filter-popover' }",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Binds aria-haspopup, aria-expanded, and aria-controls to the popover trigger button."
+          },
+          {
+            "line": 18,
+            "note": "Outputs the dynamic ARIA attribute state transitions as the popover opens and closes."
+          }
+        ],
+        "tryIt": "Verify that aria-expanded toggles dynamically to reflect live open/closed visibility.",
+        "check": {
+          "question": "What attribute must dynamically update from 'false' to 'true' on a button when its Popover opens?",
+          "options": [
+            "aria-expanded",
+            "aria-hidden",
+            "aria-readonly"
+          ],
+          "answer": 0,
+          "why": "aria-expanded communicates to screen readers whether the associated popover panel is currently open."
+        }
+      },
+      {
+        "title": "Click-Outside Dismissal Mechanics & Event Listeners",
+        "say": [
+          "A popover that refuses to close when clicking outside is a major user annoyance.",
+          "Users expect that clicking anywhere on the background page outside the popover container will dismiss the popover immediately.",
+          "Implementing Click-Outside Dismissal requires careful DOM event listener management.",
+          "When the popover opens, a 'pointerdown' or 'click' listener is attached to the global 'document'.",
+          "When a click event occurs, JavaScript checks if the clicked target is contained within either the popover panel or the trigger button: 'panelRef.contains(event.target) || triggerRef.contains(event.target)'.",
+          "If the click occurred outside both elements, the popover closes.",
+          "Crucially, the global event listener must be removed immediately when the popover unmounts or closes.",
+          "Failing to clean up global event listeners causes severe memory leaks and unintended handler execution on subsequent pages.",
+          "Handling outside clicks cleanly ensures lightweight, intuitive popover interaction."
+        ],
+        "example": "An umbrella that automatically closes when you step inside a revolving doorway, ensuring you don't track rain into the lobby.",
+        "code": "interface ClickOutsideSimulation {\n  clickedTarget: string;\n  isInsidePanel: boolean;\n  isInsideTrigger: boolean;\n  shouldDismiss: boolean;\n}\n\nfunction evaluateClickOutside(target: string, panelElements: Set<string>, triggerElements: Set<string>): ClickOutsideSimulation {\n  const isInsidePanel = panelElements.has(target);\n  const isInsideTrigger = triggerElements.has(target);\n  const shouldDismiss = !isInsidePanel && !isInsideTrigger;\n\n  return {\n    clickedTarget: target,\n    isInsidePanel,\n    isInsideTrigger,\n    shouldDismiss,\n  };\n}\n\nconst panel = new Set(['PopoverPanel', 'FilterOption1', 'FilterOption2']);\nconst trigger = new Set(['PopoverTriggerBtn']);\n\nconst click1 = evaluateClickOutside('FilterOption1', panel, trigger);\nconst click2 = evaluateClickOutside('MainBodyBackground', panel, trigger);\n\nconsole.log(`Click on '${click1.clickedTarget}': Inside=${click1.isInsidePanel} -> Dismiss: ${click1.shouldDismiss}`);\nconsole.log(`Click on '${click2.clickedTarget}': Inside=${click2.isInsidePanel} -> Dismiss: ${click2.shouldDismiss}`);",
+        "output": "Click on 'FilterOption1': Inside=true -> Dismiss: false\nClick on 'MainBodyBackground': Inside=false -> Dismiss: true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates whether click targets fall inside panel or trigger elements."
+          },
+          {
+            "line": 26,
+            "note": "Demonstrates that clicks inside the panel are ignored while clicks on the background dismiss."
+          }
+        ],
+        "tryIt": "Verify that clicking the trigger button itself does not trigger an outside dismissal.",
+        "check": {
+          "question": "Why must global click-outside event listeners on the 'document' be cleaned up when a popover closes?",
+          "options": [
+            "To prevent memory leaks and stop ghost event listeners from executing on subsequent page interactions",
+            "Because browsers limit total click listeners to three per tab",
+            "To reset CSS variables to their default values"
+          ],
+          "answer": 0,
+          "why": "Cleaning up listeners prevents memory leaks and unintended behavior from orphaned event callbacks."
+        }
+      }
+    ],
+    "summary": [
+      "Tooltips are non-interactive hover labels (aria-describedby), while Popovers are interactive panels (aria-haspopup).",
+      "Collision detection dynamically flips placement (top to bottom) and shifts overlays to prevent viewport clipping.",
+      "A 300ms hover delay prevents flickering tooltips, while global click-outside listeners ensure intuitive dismissal."
+    ],
+    "projectStep": {
+      "title": "Build Floating UI Tooltip & Popover System",
+      "steps": [
+        "Implement FloatingPosition engine calculating viewport bounds and dynamic flip placement logic",
+        "Add Tooltip component with 300ms hover delay timer, 0ms warmup mode, and aria-describedby binding",
+        "Build Popover component with aria-expanded trigger, click-outside dismissal, and floating arrow alignment"
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "title": "Data Tables, Pagination & Column Sorting: Accessible Grid Layouts",
+    "goal": "Display dense tabular data using semantic HTML table markup, accessible column sorting with aria-sort, sticky headers, and pagination controls.",
+    "minutes": 25,
+    "recap": "Yesterday we developed floating tooltips and popovers. Today we build the powerhouse data display component of enterprise web applications: the accessible Data Table.",
+    "parts": [
+      {
+        "title": "Semantic HTML Table Architecture: <table>, <thead>, <tbody> & scope=\"col\"",
+        "say": [
+          "Data tables present dense, multi-dimensional relational information.",
+          "A tragic and pervasive frontend mistake is building data tables out of generic '<div>' tags styled with CSS grid or flexbox.",
+          "When a screen reader encounters a table constructed from divs, all tabular semantics are erased.",
+          "The screen reader cannot announce: 'Table with 5 columns and 20 rows', nor can it correlate data cells with their respective column headers.",
+          "Production design systems mandate semantic HTML table markup:",
+          "- '<table>' root element with '<caption>' summarizing the table purpose.",
+          "- '<thead>' containing header rows '<tr>'.",
+          "- '<th>' header cells explicitly declared with 'scope=\"col\"' (or 'scope=\"row\"' for row headers).",
+          "- '<tbody>' containing data rows with '<td>' data cells.",
+          "When a blind user navigates across cells, the screen reader automatically announces the associated column header for every cell.",
+          "Semantic table markup provides unmatched accessibility with zero custom JavaScript overhead."
+        ],
+        "example": "A spreadsheet: every cell coordinates with its column letter (A, B, C) and row number (1, 2, 3), allowing anyone to immediately understand what data belongs to which header.",
+        "code": "interface TableColumnSpec {\n  key: string;\n  headerLabel: string;\n  scope: 'col';\n}\n\ninterface TableRowData {\n  id: number;\n  userName: string;\n  role: string;\n  status: string;\n}\n\nconst columns: TableColumnSpec[] = [\n  { key: 'userName', headerLabel: 'User Name', scope: 'col' },\n  { key: 'role', headerLabel: 'System Role', scope: 'col' },\n  { key: 'status', headerLabel: 'Account Status', scope: 'col' },\n];\n\nconst rows: TableRowData[] = [\n  { id: 1, userName: 'Alice Johnson', role: 'Security Admin', status: 'Active' },\n  { id: 2, userName: 'Bob Smith', role: 'Billing Analyst', status: 'Pending' },\n];\n\nconsole.log('Semantic Table Markup:');\nconsole.log('<table>');\nconsole.log('  <thead><tr>' + columns.map(c => `<th scope=\"${c.scope}\">${c.headerLabel}</th>`).join('') + '</tr></thead>');\nconsole.log('  <tbody>');\nfor (const r of rows) {\n  console.log(`    <tr><td>${r.userName}</td><td>${r.role}</td><td>${r.status}</td></tr>`);\n}\nconsole.log('  </tbody>\\n</table>');",
+        "output": "Semantic Table Markup:\n<table>\n  <thead><tr><th scope=\"col\">User Name</th><th scope=\"col\">System Role</th><th scope=\"col\">Account Status</th></tr></thead>\n  <tbody>\n    <tr><td>Alice Johnson</td><td>Security Admin</td><td>Active</td></tr>\n    <tr><td>Bob Smith</td><td>Billing Analyst</td><td>Pending</td></tr>\n  </tbody>\n</table>",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Defines table column specifications enforcing scope='col' on all header cells."
+          },
+          {
+            "line": 26,
+            "note": "Generates pure semantic HTML table markup communicating full tabular structure to screen readers."
+          }
+        ],
+        "tryIt": "Add a 'Department' column to the table columns array and verify it renders in the header.",
+        "check": {
+          "question": "What is the function of the 'scope=\"col\"' attribute on a <th> element?",
+          "options": [
+            "It explicitly associates the header cell with all data cells in that column for screen readers",
+            "It forces the column width to expand to 100%",
+            "It sorts the column alphabetically"
+          ],
+          "answer": 0,
+          "why": "scope='col' establishes the relationship between the column header and its child data cells for assistive technology."
+        }
+      },
+      {
+        "title": "Sticky Table Headers & Vertical Scroll Containment",
+        "say": [
+          "Enterprise tables frequently display hundreds of records.",
+          "When a user scrolls down through page fifty of a table, the column headers scroll out of view.",
+          "Without headers, the user stares at numbers like '42' or '1,840' with no idea whether that column represents revenue, active users, or error counts.",
+          "The design system solution is Sticky Column Headers.",
+          "Using modern CSS: 'thead th { position: sticky; top: 0; z-index: var(--z-sticky, 200); background: var(--color-surface-card); }'.",
+          "As the table body scrolls, the header row locks securely at the top edge of the table viewport container.",
+          "Crucially, the sticky '<th>' cells must declare an explicit background color.",
+          "If the background is transparent, text in the scrolling rows beneath will visually collide and scramble with the header labels.",
+          "Sticky headers preserve tabular context continuously during deep data inspection."
+        ],
+        "example": "A physical spiral notebook with clear tabs at the top: as you flip through pages, the top tabs remain visible and stationary so you always know which chapter you are in.",
+        "code": "interface StickyHeaderRule {\n  selector: string;\n  position: 'sticky';\n  top: number;\n  bgToken: string;\n  borderBottomToken: string;\n  zIndexToken: string;\n}\n\nfunction compileStickyTableCss(cfg: StickyHeaderRule): string {\n  return `${cfg.selector} {\n  position: ${cfg.position};\n  top: ${cfg.top}px;\n  background-color: ${cfg.bgToken};\n  border-bottom: 2px solid ${cfg.borderBottomToken};\n  z-index: var(${cfg.zIndexToken});\n}`;\n}\n\nconst tableStickyHeader: StickyHeaderRule = {\n  selector: '.data-table thead th',\n  position: 'sticky',\n  top: 0,\n  bgToken: 'var(--color-surface-header, #f8fafc)',\n  borderBottomToken: 'var(--border-subtle, #e2e8f0)',\n  zIndexToken: '--z-sticky',\n};\n\nconsole.log(compileStickyTableCss(tableStickyHeader));",
+        "output": ".data-table thead th {\n  position: sticky;\n  top: 0px;\n  background-color: var(--color-surface-header, #f8fafc);\n  border-bottom: 2px solid var(--border-subtle, #e2e8f0);\n  z-index: var(--z-sticky);\n}",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Compiles CSS declarations locking thead th to top: 0px with an opaque background."
+          },
+          {
+            "line": 26,
+            "note": "Outputs the complete sticky header rule utilizing semantic z-index tokens."
+          }
+        ],
+        "tryIt": "Explain why an opaque background color is strictly mandatory on sticky th cells.",
+        "check": {
+          "question": "Why must sticky table header cells (thead th) define an explicit opaque background color?",
+          "options": [
+            "Without an opaque background, scrolling table rows would bleed through and create illegible overlapping text",
+            "CSS position: sticky does not work without background color",
+            "To force GPU acceleration"
+          ],
+          "answer": 0,
+          "why": "An opaque background prevents scrolling rows beneath from showing through and cluttering the header text."
+        }
+      },
+      {
+        "title": "Accessible Column Sorting States: aria-sort & Sort Toggles",
+        "say": [
+          "Sorting columns by clicking headers is a ubiquitous table feature.",
+          "However, sorting must be accessible to keyboard and screen reader users.",
+          "A column header should not simply be a clickable text string; it must contain an accessible button or be an interactive element with 'tabindex=\"0\"'.",
+          "Crucially, the active sorting state must be announced via the W3C 'aria-sort' attribute on the '<th>' element.",
+          "The 'aria-sort' attribute accepts four standard values:",
+          "1. 'none': the column is sortable, but not currently sorted.",
+          "2. 'ascending': sorted from A-Z or lowest to highest value (with visual up arrow icon).",
+          "3. 'descending': sorted from Z-A or highest to lowest value (with visual down arrow icon).",
+          "4. 'other': sorted by an algorithm other than simple ascending or descending.",
+          "When a screen reader focuses on the header, it announces: 'Revenue, column header, sortable, sorted descending'.",
+          "Pressing Enter or Space toggles the sort direction smoothly.",
+          "Coordinating 'aria-sort' with clear visual chevron arrows ensures accessible table sorting."
+        ],
+        "example": "An airport departure board: columns can be sorted by Flight Number or Departure Time; an illuminated arrow shows that flights are currently sorted by earliest departure time first.",
+        "code": "type SortDirection = 'none' | 'ascending' | 'descending';\n\ninterface ColumnSortState {\n  columnKey: string;\n  label: string;\n  sortDirection: SortDirection;\n}\n\nfunction toggleSortDirection(current: SortDirection): SortDirection {\n  if (current === 'none') return 'ascending';\n  if (current === 'ascending') return 'descending';\n  return 'none';\n}\n\nfunction renderSortableTh(col: ColumnSortState): string {\n  const icon = col.sortDirection === 'ascending' ? '▲' : col.sortDirection === 'descending' ? '▼' : '↕';\n  return `<th scope=\"col\" aria-sort=\"${col.sortDirection}\"><button class=\"sort-btn\">${col.label} <span aria-hidden=\"true\">${icon}</span></button></th>`;\n}\n\nlet colState: ColumnSortState = { columnKey: 'revenue', label: 'Revenue ($)', sortDirection: 'none' };\n\nconsole.log('Initial:', renderSortableTh(colState));\ncolState.sortDirection = toggleSortDirection(colState.sortDirection);\nconsole.log('Click 1 :', renderSortableTh(colState));\ncolState.sortDirection = toggleSortDirection(colState.sortDirection);\nconsole.log('Click 2 :', renderSortableTh(colState));",
+        "output": "Initial: <th scope=\"col\" aria-sort=\"none\"><button class=\"sort-btn\">Revenue ($) <span aria-hidden=\"true\">↕</span></button></th>\nClick 1 : <th scope=\"col\" aria-sort=\"ascending\"><button class=\"sort-btn\">Revenue ($) <span aria-hidden=\"true\">▲</span></button></th>\nClick 2 : <th scope=\"col\" aria-sort=\"descending\"><button class=\"sort-btn\">Revenue ($) <span aria-hidden=\"true\">▼</span></button></th>",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Cycles sorting state: none -> ascending -> descending -> none."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates that aria-sort accurately synchronizes with the active sorting cycle."
+          }
+        ],
+        "tryIt": "Verify that visual arrow icons are marked with aria-hidden='true' so screen readers rely on aria-sort.",
+        "check": {
+          "question": "Which ARIA attribute communicates the active sorting order of a table column to assistive technologies?",
+          "options": [
+            "aria-sort=\"ascending|descending|none\"",
+            "aria-order=\"1\"",
+            "aria-filter=\"true\""
+          ],
+          "answer": 0,
+          "why": "aria-sort is the standard attribute on <th> elements that informs screen readers of the column's sort state."
+        }
+      },
+      {
+        "title": "Zebra Striping, Hover Highlighting & Visual Ergonomics",
+        "say": [
+          "Reading wide tables with ten or more columns places immense strain on human eyes.",
+          "When tracking across a row to compare a user name on the far left with an invoice total on the far right, the eye easily slips up or down into adjacent rows.",
+          "To enhance readability and optical tracking, design systems implement Zebra Striping and Hover Highlighting.",
+          "Zebra Striping applies an alternating subtle background tint to even rows: 'tbody tr:nth-child(even) { background-color: var(--color-surface-subtle, #f8fafc); }'.",
+          "The color contrast difference between odd and even rows should be gentle (typically 2% to 4% lightness difference) to avoid high-contrast visual fatigue.",
+          "Hover Highlighting tints the currently hovered row with an active background: 'tbody tr:hover { background-color: var(--color-surface-hover, #f1f5f9); }'.",
+          "This dynamic highlight acts as an optical ruler, locking the user's eye to the active row across wide viewports.",
+          "Combining zebra striping with hover highlighting dramatically boosts scanning velocity and reduces data entry errors."
+        ],
+        "example": "A physical accountant's ledger sheet printed with alternating light-green and white horizontal lines, designed specifically to help accountants track numbers across columns without misreading rows.",
+        "code": "interface TableErgonomicsStyle {\n  evenRowBgToken: string;\n  oddRowBgToken: string;\n  hoverRowBgToken: string;\n  lightnessDeltaPercent: number;\n}\n\nfunction compileErgonomicsCss(cfg: TableErgonomicsStyle): string {\n  return `/* Zebra Striping & Hover Highlighting */\n.data-table tbody tr:nth-child(odd) {\n  background-color: ${cfg.oddRowBgToken};\n}\n.data-table tbody tr:nth-child(even) {\n  background-color: ${cfg.evenRowBgToken};\n}\n.data-table tbody tr:hover {\n  background-color: ${cfg.hoverRowBgToken};\n}`;\n}\n\nconst tableStyles: TableErgonomicsStyle = {\n  oddRowBgToken: 'var(--color-bg-canvas, #ffffff)',\n  evenRowBgToken: 'var(--color-surface-subtle, #f8fafc)',\n  hoverRowBgToken: 'var(--color-surface-hover, #f1f5f9)',\n  lightnessDeltaPercent: 3,\n};\n\nconsole.log(compileErgonomicsCss(tableStyles));",
+        "output": "/* Zebra Striping & Hover Highlighting */\n.data-table tbody tr:nth-child(odd) {\n  background-color: var(--color-bg-canvas, #ffffff);\n}\n.data-table tbody tr:nth-child(even) {\n  background-color: var(--color-surface-subtle, #f8fafc);\n}\n.data-table tbody tr:hover {\n  background-color: var(--color-surface-hover, #f1f5f9);\n}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Applies alternating zebra row backgrounds and interactive hover highlight styles."
+          },
+          {
+            "line": 28,
+            "note": "Outputs the complete stylesheet enhancing visual scanning ergonomics."
+          }
+        ],
+        "tryIt": "Verify that zebra striping uses semantic surface tokens for light and dark theme compatibility.",
+        "check": {
+          "question": "How does subtle zebra striping (alternating row background tints) improve table usability?",
+          "options": [
+            "It guides the reader's eye across wide columns, preventing accidental row skipping during visual tracking",
+            "It increases network transfer speeds for large datasets",
+            "It automatically formats dates into ISO strings"
+          ],
+          "answer": 0,
+          "why": "Zebra striping provides horizontal visual guides that help human eyes track data accurately across wide tables."
+        }
+      },
+      {
+        "title": "Horizontal Scroll Containment & Responsive Mobile Tables",
+        "say": [
+          "Tables are inherently rigid, wide grid structures that clash directly with narrow smartphone screens.",
+          "If a 900px wide table is placed on a 360px mobile viewport without containment, it blows out the page layout.",
+          "The entire webpage gains an ugly horizontal scrollbar, breaking the navigation header and mobile container padding.",
+          "How do professional design systems handle wide data tables on mobile devices?",
+          "First, through Horizontal Scroll Containment.",
+          "The table is wrapped inside a dedicated container: '<div class=\"table-container\" tabIndex={0} role=\"region\" aria-label=\"Data Table\">'.",
+          "The container specifies: 'overflow-x: auto; max-width: 100%;'.",
+          "Horizontal scrolling is strictly quarantined inside the table container, while the parent page layout remains perfectly stable.",
+          "Crucially, because the container scrolls, it must have 'tabIndex={0}' and an accessible label so keyboard users can tab to the container and scroll it with arrow keys.",
+          "Alternatively, on ultra-small screens, tables can collapse into stacked card lists via CSS media queries.",
+          "Containing horizontal scroll protects the integrity of the overall mobile user experience."
+        ],
+        "example": "A panoramic landscape photo displayed inside a gallery viewing booth: you slide the picture frame left and right within its fixed display slot without knocking down the walls of the booth.",
+        "code": "interface ResponsiveTableWrapper {\n  tag: 'div';\n  role: 'region';\n  ariaLabel: string;\n  tabIndex: 0;\n  cssOverflowX: 'auto';\n  isContained: boolean;\n}\n\nconst tableWrapper: ResponsiveTableWrapper = {\n  tag: 'div',\n  role: 'region',\n  ariaLabel: 'Financial Ledger Table',\n  tabIndex: 0, // Allows keyboard scroll\n  cssOverflowX: 'auto',\n  isContained: true,\n};\n\nconsole.log(`<${tableWrapper.tag} role=\"${tableWrapper.role}\" aria-label=\"${tableWrapper.ariaLabel}\" tabindex=\"${tableWrapper.tabIndex}\">`);\nconsole.log(`  CSS: overflow-x: ${tableWrapper.cssOverflowX}; max-width: 100%;`);\nconsole.log('  <table>...</table>');\nconsole.log(`</${tableWrapper.tag}>`);",
+        "output": "<div role=\"region\" aria-label=\"Financial Ledger Table\" tabindex=\"0\">\n  CSS: overflow-x: auto; max-width: 100%;\n  <table>...</table>\n</div>",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Models keyboard-accessible scroll container with role='region' and tabIndex={0}."
+          },
+          {
+            "line": 22,
+            "note": "Outputs the container markup that prevents mobile layout blowouts."
+          }
+        ],
+        "tryIt": "Explain why tabIndex={0} is required when a container has overflow-x: auto.",
+        "check": {
+          "question": "Why must a scrollable table wrapper container have 'tabindex=\"0\"' in accessible design?",
+          "options": [
+            "Keyboard-only users must be able to focus on the container to scroll it horizontally using arrow keys",
+            "It turns off responsive media queries",
+            "It converts the table to SVG"
+          ],
+          "answer": 0,
+          "why": "Scrollable regions must be focusable so keyboard users can navigate their contents with arrow keys."
+        }
+      },
+      {
+        "title": "Accessible Pagination Controls & Page Size Selectors",
+        "say": [
+          "Displaying thousands of records on a single screen cripples browser DOM performance and overwhelms users.",
+          "Pagination divides large datasets into discrete, bite-sized pages.",
+          "An accessible pagination bar comprises three key controls:",
+          "1. Previous and Next navigation buttons.",
+          "2. Direct page number links (with the active page designated via 'aria-current=\"page\"').",
+          "3. Page size selector dropdown (e.g., '10 per page', '25 per page', '100 per page').",
+          "The pagination container must be wrapped in a '<nav aria-label=\"Table Pagination\">' landmark.",
+          "Disabled boundary states must be strictly enforced: when on page 1, the 'Previous' button must have 'disabled' or 'aria-disabled=\"true\"'.",
+          "When on the final page, the 'Next' button is similarly disabled.",
+          "Furthermore, when a user changes pages, focus should politely transition to the table header or live region announcing: 'Showing page 2 of 10'.",
+          "Implementing accessible pagination delivers high performance and smooth navigation across massive enterprise datasets."
+        ],
+        "example": "A physical dictionary or encyclopedia: divided into numbered volumes and pages with clear thumb tabs at the bottom edge so you can jump to volume 3 without flipping through volumes 1 and 2.",
+        "code": "interface PaginationState {\n  currentPage: number;\n  totalPages: number;\n  pageSize: number;\n  totalRecords: number;\n}\n\nfunction calculatePagination(page: number, size: number, total: number) {\n  const totalPages = Math.ceil(total / size);\n  const isFirst = page === 1;\n  const isLast = page === totalPages;\n  const startRecord = (page - 1) * size + 1;\n  const endRecord = Math.min(page * size, total);\n\n  return {\n    currentPage: page,\n    totalPages,\n    startRecord,\n    endRecord,\n    hasPrev: !isFirst,\n    hasNext: !isLast,\n  };\n}\n\nconst pageInfo = calculatePagination(2, 25, 120);\nconsole.log(`Showing Records ${pageInfo.startRecord}-${pageInfo.endRecord} of 120 (Page ${pageInfo.currentPage} of ${pageInfo.totalPages})`);\nconsole.log(`Buttons: [Prev: ${pageInfo.hasPrev}] [Next: ${pageInfo.hasNext}]`);",
+        "output": "Showing Records 26-50 of 120 (Page 2 of 5)\nButtons: [Prev: true] [Next: true]",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Calculates pagination boundaries, record offsets, and previous/next button availability."
+          },
+          {
+            "line": 24,
+            "note": "Displays the active pagination state showing exact record ranges."
+          }
+        ],
+        "tryIt": "Calculate pagination for page 1 and verify hasPrev is false.",
+        "check": {
+          "question": "How should the active page number button in a pagination bar be marked for screen readers?",
+          "options": [
+            "With 'aria-current=\"page\"'",
+            "With 'aria-disabled=\"true\"'",
+            "With 'role=\"alert\"'"
+          ],
+          "answer": 0,
+          "why": "aria-current='page' informs screen readers which page number is currently active and displayed."
+        }
+      }
+    ],
+    "summary": [
+      "Semantic HTML table markup (<table>, <thead>, <tbody>, <th scope='col'>) provides essential structure for screen readers.",
+      "Sticky headers locked with position: sticky and opaque backgrounds preserve column context during deep scrolling.",
+      "aria-sort communicates column sorting order, while contained horizontal scrollbars prevent mobile layout blowouts."
+    ],
+    "projectStep": {
+      "title": "Build Accessible Data Table Suite",
+      "steps": [
+        "Implement DataTable component with semantic thead, tbody, and scope='col' header markup",
+        "Add sticky column headers with opaque surface tokens and interactive aria-sort toggle logic",
+        "Wrap table in keyboard-scrollable container (overflow-x: auto, tabIndex={0}) with accessible pagination bar"
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "title": "Toast Notifications & Global Alert Banners: Stacking Managers & ARIA Live",
+    "goal": "Communicate asynchronous feedback using global toast stacking managers, auto-dismiss timers with pause-on-hover, and accessible ARIA live regions.",
+    "minutes": 25,
+    "recap": "Yesterday we built accessible, high-density Data Tables. Today we construct asynchronous user feedback systems: Toast Notifications and Global Alert Banners, mastering ARIA live regions and queue managers.",
+    "parts": [
+      {
+        "title": "Anatomy & Roles: Toasts vs In-Page Banners vs Modals",
+        "say": [
+          "Delivering user feedback requires choosing the appropriate visual container for the message's urgency.",
+          "A frequent design mistake is using disruptive Modal Dialogs for routine, non-critical notifications.",
+          "Forcing a user to click 'OK' on a modal saying 'Profile updated successfully' creates annoying cognitive friction.",
+          "Design systems define a three-tiered feedback hierarchy:",
+          "1. Toast Notifications: transient, non-modal status updates (e.g., 'File uploaded', 'Changes saved') that appear in a corner and auto-dismiss.",
+          "2. In-Page Alert Banners: persistent, contextual messages rendered directly inside page content (e.g., 'Your subscription expires in 3 days').",
+          "3. Modal Dialogs: critical, blocking interruptions requiring immediate decision (e.g., 'Session expired. Log in again').",
+          "Toasts are ideal for secondary confirmations because they inform the user without interrupting their active workflow.",
+          "Selecting the right notification container respects user focus and creates a harmonious interface."
+        ],
+        "example": "A text message notification sound on your phone (Toast: polite buzz in your pocket that you can check whenever) versus a road hazard sign on a highway (In-Page Banner) versus a police officer pulling you over (Modal Dialog).",
+        "code": "type NotificationType = 'toast' | 'banner' | 'modal';\n\ninterface NotificationSpec {\n  type: NotificationType;\n  interruptsWorkflow: boolean;\n  autoDismisses: boolean;\n  positioning: string;\n  idealUseCase: string;\n}\n\nconst notificationMatrix: Record<NotificationType, NotificationSpec> = {\n  toast: {\n    type: 'toast',\n    interruptsWorkflow: false,\n    autoDismisses: true,\n    positioning: 'Fixed corner stack (top-right or bottom-right)',\n    idealUseCase: 'Asynchronous confirmations: \"Email sent\", \"Item deleted\"',\n  },\n  banner: {\n    type: 'banner',\n    interruptsWorkflow: false,\n    autoDismisses: false,\n    positioning: 'Inline page flow above relevant content',\n    idealUseCase: 'Persistent system warnings: \"Maintenance scheduled\", \"Payment past due\"',\n  },\n  modal: {\n    type: 'modal',\n    interruptsWorkflow: true,\n    autoDismisses: false,\n    positioning: 'Centered viewport overlay with backdrop scrim',\n    idealUseCase: 'Critical blocker: \"Confirm permanent account deletion\"',\n  },\n};\n\nfor (const [key, n] of Object.entries(notificationMatrix)) {\n  console.log(`[${key.toUpperCase()}]: Blocks User=${n.interruptsWorkflow}, Auto-Dismiss=${n.autoDismisses}`);\n  console.log(`  Position: ${n.positioning}`);\n}",
+        "output": "[TOAST]: Blocks User=false, Auto-Dismiss=true\n  Position: Fixed corner stack (top-right or bottom-right)\n[BANNER]: Blocks User=false, Auto-Dismiss=false\n  Position: Inline page flow above relevant content\n[MODAL]: Blocks User=true, Auto-Dismiss=false\n  Position: Centered viewport overlay with backdrop scrim",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Defines the 3-tier feedback hierarchy contrasting workflow disruption and dismiss behavior."
+          },
+          {
+            "line": 31,
+            "note": "Displays the specifications guiding appropriate notification component selection."
+          }
+        ],
+        "tryIt": "Verify that Toasts never interrupt workflow and always support auto-dismissal.",
+        "check": {
+          "question": "When is a Toast Notification appropriate instead of a Modal Dialog?",
+          "options": [
+            "For non-critical asynchronous feedback (such as 'Settings saved') that does not require blocking user interaction",
+            "Whenever a user enters an incorrect credit card number",
+            "To display legal terms of service that require signature"
+          ],
+          "answer": 0,
+          "why": "Toasts deliver non-intrusive status confirmations without breaking the user's active workflow."
+        }
+      },
+      {
+        "title": "Screen Reader Announcements: aria-live=\"polite\" vs \"assertive\"",
+        "say": [
+          "Sighted users notice toast notifications sliding into the corner of the screen via peripheral vision.",
+          "However, screen reader users do not have peripheral vision.",
+          "If a toast appears without an ARIA live region, blind users have zero knowledge that their file finished uploading or that an error occurred.",
+          "The W3C WAI-ARIA specification solves this with the 'aria-live' attribute.",
+          "An ARIA live region informs assistive technologies to announce dynamic DOM text changes.",
+          "Live regions offer two primary modes:",
+          "1. 'aria-live=\"polite\"': the screen reader waits until the user finishes typing or listening to current speech before speaking the notification.",
+          "Polite is the gold standard for standard toasts: success messages, info tips, and background task completions.",
+          "2. 'aria-live=\"assertive\"': the screen reader immediately cuts off current speech to announce the notification.",
+          "Assertive must be reserved strictly for urgent, time-sensitive errors (e.g., 'Server connection lost. Offline mode active.').",
+          "Overusing 'assertive' for routine toasts is disorienting and obnoxious.",
+          "Defaulting to 'polite' ensures accessible feedback without rude speech interruptions."
+        ],
+        "example": "A respectful colleague waiting for you to finish speaking before politely mentioning your taxi has arrived (aria-live='polite'), versus shouting 'Fire!' to evacuate the building immediately (aria-live='assertive').",
+        "code": "type LiveUrgency = 'polite' | 'assertive';\n\ninterface ToastMessage {\n  id: string;\n  type: 'success' | 'info' | 'error';\n  message: string;\n  liveMode: LiveUrgency;\n}\n\nfunction createToast(type: 'success' | 'info' | 'error', message: string): ToastMessage {\n  return {\n    id: `toast-${Date.now ? 101 : 101}`,\n    type,\n    message,\n    liveMode: type === 'error' ? 'assertive' : 'polite',\n  };\n}\n\nconst toast1 = createToast('success', 'Document saved to cloud.');\nconst toast2 = createToast('error', 'Payment failed: Card expired.');\n\nconsole.log(`[${toast1.type.toUpperCase()}] aria-live=\"${toast1.liveMode}\": \"${toast1.message}\"`);\nconsole.log(`[${toast2.type.toUpperCase()}] aria-live=\"${toast2.liveMode}\": \"${toast2.message}\"`);",
+        "output": "[SUCCESS] aria-live=\"polite\": \"Document saved to cloud.\"\n[ERROR] aria-live=\"assertive\": \"Payment failed: Card expired.\"",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Assigns aria-live='polite' to standard success toasts and 'assertive' to critical error toasts."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates dynamic live region urgency mapping based on message severity."
+          }
+        ],
+        "tryIt": "Create an info toast ('New version available') and verify it defaults to aria-live='polite'.",
+        "check": {
+          "question": "Why should routine success toasts use 'aria-live=\"polite\"' instead of 'aria-live=\"assertive\"'?",
+          "options": [
+            "Polite waits for the user to finish their current action, preventing rude speech interruptions for minor confirmations",
+            "Assertive live regions are not supported on Windows",
+            "Polite live regions run on a separate CPU thread"
+          ],
+          "answer": 0,
+          "why": "aria-live='polite' delivers announcements during natural speech pauses, respecting user focus."
+        }
+      },
+      {
+        "title": "Global Toast Stacking Queue & Overflow Limits",
+        "say": [
+          "In high-activity applications, multiple events can trigger in rapid succession.",
+          "If ten background jobs complete at once and the application spawns ten full-sized toasts, the entire right side of the screen is obliterated by a giant wall of popups.",
+          "To govern visual clutter, design systems implement a Global Toast Queue Manager.",
+          "The queue manager limits the number of simultaneously visible toasts to a strict maximum—typically three (or at most five).",
+          "When a new toast arrives and the visible stack is full, the manager can either:",
+          "1. Immediately dismiss the oldest toast to make room (FIFO: First-In, First-Out).",
+          "2. Queue the incoming toast in memory until existing toasts dismiss.",
+          "Furthermore, modern toast systems (like Sonner or React Hot Toast) use a 3D Card Stack visual metaphor.",
+          "The newest toast sits prominently in front at full size, while older toasts visually collapse behind it, peeking out with scaled-down widths.",
+          "Enforcing strict queue limits keeps user interfaces clean, focused, and free of notification spam."
+        ],
+        "example": "A busy diner kitchen order rail: the ticket rail holds at most four active order tickets in front of the chef; as tickets are completed, new orders slide in from the waiting clipboard.",
+        "code": "interface ToastItem {\n  id: number;\n  text: string;\n}\n\nclass ToastQueueManager {\n  private maxVisible: number;\n  public visibleToasts: ToastItem[] = [];\n\n  constructor(maxVisible: number = 3) {\n    this.maxVisible = maxVisible;\n  }\n\n  addToast(text: string): void {\n    const newToast: ToastItem = { id: this.visibleToasts.length + 1, text };\n    if (this.visibleToasts.length >= this.maxVisible) {\n      this.visibleToasts.shift(); // Evict oldest toast (FIFO)\n    }\n    this.visibleToasts.push(newToast);\n  }\n}\n\nconst queue = new ToastQueueManager(3);\nqueue.addToast('Item A added');\nqueue.addToast('Item B added');\nqueue.addToast('Item C added');\nconsole.log('Visible (At Max 3):', queue.visibleToasts.map(t => t.text).join(' | '));\n\nqueue.addToast('Item D added (Triggers eviction)');\nconsole.log('After Eviction   :', queue.visibleToasts.map(t => t.text).join(' | '));",
+        "output": "Visible (At Max 3): Item A added | Item B added | Item C added\nAfter Eviction   : Item B added | Item C added | Item D added (Triggers eviction)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Manages visible toast stack enforcing maximum capacity constraint of 3."
+          },
+          {
+            "line": 26,
+            "note": "Demonstrates FIFO eviction: adding Item D evicts oldest Item A to prevent screen clutter."
+          }
+        ],
+        "tryIt": "Add Item E and verify that Item B is evicted next.",
+        "check": {
+          "question": "Why should a design system toast manager limit visible toasts to a maximum of 3 to 5?",
+          "options": [
+            "To prevent notification spam from covering critical interactive screen content",
+            "Because CSS z-index only supports 5 stacked elements",
+            "To save monitor electrical power"
+          ],
+          "answer": 0,
+          "why": "Capping visible toasts prevents notification cascades from overwhelming users and obscuring underlying UI."
+        }
+      },
+      {
+        "title": "Auto-Dismiss Timers with Pause-on-Hover UX",
+        "say": [
+          "Because toasts are transient, they must dismiss automatically after a reasonable duration.",
+          "A standard auto-dismiss timer lasts between 4,000ms (4 seconds) and 6,000ms (6 seconds).",
+          "Shorter durations (like 2 seconds) cause users to miss the message before they can read it, especially users with cognitive disabilities or non-native language speakers.",
+          "Crucially, WCAG 2.2 Success Criterion 2.2.1 (Timing Adjustable) mandates that users must be able to pause or extend time limits.",
+          "In toast design, this is implemented as Pause-on-Hover and Pause-on-Focus.",
+          "When a user moves their mouse over a toast to read it, or tabs keyboard focus into the toast dismiss button, the auto-dismiss countdown timer PAUSES immediately.",
+          "As long as the mouse cursor hovers over the toast, the toast remains frozen on screen indefinitely.",
+          "The instant the mouse leaves or focus blurs, the countdown timer resumes.",
+          "Pause-on-hover transforms ephemeral notifications into relaxed, accessible user experiences."
+        ],
+        "example": "A public transit train door: set to close automatically after 10 seconds, but equipped with an infrared sensor that holds the doors open indefinitely as long as a passenger is standing in the doorway.",
+        "code": "interface ToastTimerState {\n  toastId: string;\n  durationMs: number;\n  remainingMs: number;\n  isPaused: boolean;\n  status: 'counting-down' | 'paused' | 'dismissed';\n}\n\nfunction handleHoverPause(state: ToastTimerState, isHovered: boolean): ToastTimerState {\n  return {\n    ...state,\n    isPaused: isHovered,\n    status: isHovered ? 'paused' : 'counting-down',\n  };\n}\n\nconst activeToast: ToastTimerState = {\n  toastId: 't-101',\n  durationMs: 5000,\n  remainingMs: 3200,\n  isPaused: false,\n  status: 'counting-down',\n};\n\nconst paused = handleHoverPause(activeToast, true);  // User hovers\nconst resumed = handleHoverPause(paused, false);     // User mouse leaves\n\nconsole.log(`Active State : status=${activeToast.status}, isPaused=${activeToast.isPaused}`);\nconsole.log(`Hovered State: status=${paused.status}, isPaused=${paused.isPaused} (Timer Frozen)`);\nconsole.log(`Resumed State: status=${resumed.status}, isPaused=${resumed.isPaused} (Countdown Continues)`);",
+        "output": "Active State : status=counting-down, isPaused=false\nHovered State: status=paused, isPaused=true (Timer Frozen)\nResumed State: status=counting-down, isPaused=false (Countdown Continues)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Synchronizes toast timer status with user mouse hover interaction."
+          },
+          {
+            "line": 26,
+            "note": "Demonstrates that hovering freezes the timer to fulfill WCAG 2.2.1 Timing Adjustable."
+          }
+        ],
+        "tryIt": "Verify that keyboard focus also triggers the paused state just like mouse hover.",
+        "check": {
+          "question": "Under WCAG 2.2.1 (Timing Adjustable), why must auto-dismissing toast notifications support Pause-on-Hover?",
+          "options": [
+            "To ensure users who read slowly have ample time to read the message without it disappearing abruptly",
+            "Because JavaScript timers freeze during mouse events by default",
+            "To prevent the browser from reloading the page"
+          ],
+          "answer": 0,
+          "why": "Pause-on-hover allows users to freeze the message for as long as needed to read and comprehend it."
+        }
+      },
+      {
+        "title": "Dismiss Action Buttons & Manual Close Controls",
+        "say": [
+          "While auto-dismiss timers are convenient, users must always have manual agency to close a notification immediately.",
+          "Every toast notification must feature an explicit Dismiss Button (typically an 'X' icon button).",
+          "The dismiss button must have an accessible label: 'aria-label=\"Dismiss notification\"' or 'aria-label=\"Close alert\"'.",
+          "Furthermore, some toasts feature an inline Action Button, such as 'Undo' (e.g., 'Email archived. [Undo]').",
+          "If an undo action is provided, clicking 'Undo' immediately reverses the operation and closes the toast.",
+          "When navigating via keyboard, the dismiss and action buttons must be easily focusable with a distinct focus ring.",
+          "However, toasts must not steal focus when they appear.",
+          "Stealing focus away from a form where the user is actively typing would disrupt user input.",
+          "Providing manual close buttons alongside keyboard access ensures complete user control."
+        ],
+        "example": "A pop-up sticky note on your physical desk: you can let it sit there until the workday ends, or you can crumple it up and toss it in the trash can the instant you've finished reading.",
+        "code": "interface ToastActionSpec {\n  message: string;\n  hasManualCloseBtn: boolean;\n  closeBtnAriaLabel: string;\n  actionButton?: { label: string; actionKey: string };\n}\n\nfunction renderToastMarkup(spec: ToastActionSpec): string {\n  const actionMarkup = spec.actionButton\n    ? ` <button class=\"toast-action\">${spec.actionButton.label}</button>`\n    : '';\n  const closeMarkup = spec.hasManualCloseBtn\n    ? ` <button class=\"toast-close\" aria-label=\"${spec.closeBtnAriaLabel}\">✕</button>`\n    : '';\n\n  return `<div class=\"toast\" role=\"status\"><span>${spec.message}</span>${actionMarkup}${closeMarkup}</div>`;\n}\n\nconst undoToast: ToastActionSpec = {\n  message: 'Conversation moved to trash.',\n  hasManualCloseBtn: true,\n  closeBtnAriaLabel: 'Dismiss notification',\n  actionButton: { label: 'Undo', actionKey: 'UNDO_ARCHIVE' },\n};\n\nconsole.log(renderToastMarkup(undoToast));",
+        "output": "<div class=\"toast\" role=\"status\"><span>Conversation moved to trash.</span> <button class=\"toast-action\">Undo</button> <button class=\"toast-close\" aria-label=\"Dismiss notification\">✕</button></div>",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Renders accessible toast markup combining status message, action button, and close control."
+          },
+          {
+            "line": 22,
+            "note": "Outputs semantic markup ensuring manual agency and explicit aria-label on close button."
+          }
+        ],
+        "tryIt": "Verify that the close button features an explicit aria-label='Dismiss notification'.",
+        "check": {
+          "question": "Why should a newly spawned toast notification NOT automatically steal keyboard focus away from the user?",
+          "options": [
+            "Stealing focus rips keyboard users away from whatever they are currently typing, causing severe disruption",
+            "Modern web browsers disable keyboard focus inside toasts",
+            "To save CPU memory"
+          ],
+          "answer": 0,
+          "why": "Toasts are non-modal; stealing focus disrupts active typing and breaks user workflow."
+        }
+      },
+      {
+        "title": "Corner Stacking Coordinates & Avoiding Floating Action Buttons",
+        "say": [
+          "Where should toasts appear on screen?",
+          "Standard desktop convention places toasts in the top-right or bottom-right corner of the viewport.",
+          "However, bottom-right positioning introduces a major collision hazard: Floating Action Buttons (FABs) and Customer Support Chat Widgets.",
+          "Many enterprise websites feature a floating chat widget or help beacon fixed at 'bottom: 24px; right: 24px;'.",
+          "If toast notifications also render at bottom-right, they collide directly with the chat widget, obscuring buttons and making both elements impossible to click.",
+          "Our design system's semantic z-index scale from Day 4 assigns: 'z-toast: 1100' and 'z-sticky: 200'.",
+          "To avoid widget collisions, the Toast Stack container uses configurable positioning tokens:",
+          "- 'top-right' (recommended default): 'top: 24px; right: 24px;'.",
+          "- Or bottom-right with bottom clearance: 'bottom: 80px; right: 24px;' to sit comfortably above chat beacons.",
+          "Planning layout coordinates carefully ensures toasts never obstruct critical floating application controls."
+        ],
+        "example": "Roadway construction signage: positioned safely on the highway shoulder rather than directly in front of the exit ramp turn lane where it would block driver vision.",
+        "code": "interface ToastStackPlacement {\n  position: 'top-right' | 'bottom-right';\n  topOffsetPx?: number;\n  bottomOffsetPx?: number;\n  rightOffsetPx: number;\n  zIndexToken: string;\n  clearsChatWidget: boolean;\n}\n\nfunction resolveToastStackPlacement(position: 'top-right' | 'bottom-right'): ToastStackPlacement {\n  if (position === 'top-right') {\n    return { position, topOffsetPx: 24, rightOffsetPx: 24, zIndexToken: '--z-toast', clearsChatWidget: true };\n  }\n  // Bottom-right offset by 80px to clear floating chat beacon\n  return { position, bottomOffsetPx: 80, rightOffsetPx: 24, zIndexToken: '--z-toast', clearsChatWidget: true };\n}\n\nconst topStack = resolveToastStackPlacement('top-right');\nconst bottomStack = resolveToastStackPlacement('bottom-right');\n\nconsole.log(`[Top-Right Stack]   : top=${topStack.topOffsetPx}px, right=${topStack.rightOffsetPx}px (z: ${topStack.zIndexToken})`);\nconsole.log(`[Bottom-Right Stack]: bottom=${bottomStack.bottomOffsetPx}px (clears chat beacon: ${bottomStack.clearsChatWidget})`);",
+        "output": "[Top-Right Stack]   : top=24px, right=24px (z: --z-toast)\n[Bottom-Right Stack]: bottom=80px (clears chat beacon: true)",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Calculates viewport placement coordinates ensuring clearance over floating chat widgets."
+          },
+          {
+            "line": 21,
+            "note": "Outputs stacking coordinates proving bottom-right stacks maintain 80px vertical clearance."
+          }
+        ],
+        "tryIt": "Verify that both placements consume our --z-toast semantic z-index token (1100).",
+        "check": {
+          "question": "Why should bottom-right toast stacks maintain an 80px vertical clearance from the viewport bottom?",
+          "options": [
+            "To prevent colliding with and obscuring floating action buttons (FABs) and customer support chat beacons",
+            "Because CSS forbids values smaller than 80px on the bottom edge",
+            "To allow room for the browser scrollbar"
+          ],
+          "answer": 0,
+          "why": "An 80px bottom clearance ensures toasts do not cover floating support widgets or action beacons."
+        }
+      }
+    ],
+    "summary": [
+      "Toasts provide non-intrusive status confirmations without disrupting active user workflows.",
+      "aria-live='polite' announces success messages during natural speech pauses, while 'assertive' is reserved for urgent errors.",
+      "Queue managers cap visible toasts to 3-5, and pause-on-hover ensures users have ample time to read messages."
+    ],
+    "projectStep": {
+      "title": "Build Global Toast Notification System",
+      "steps": [
+        "Implement ToastQueueManager class enforcing FIFO eviction and maximum visible cap of 3 toasts",
+        "Add ARIA live regions with dynamic aria-live='polite' and 'assertive' routing based on notification severity",
+        "Implement Pause-on-Hover countdown timers (5000ms duration) and manual dismiss action buttons"
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "title": "⭐ MILESTONE 2: Complete Atomic Component Library, WCAG Contrast & Accessible Form Engine",
+    "goal": "Synthesize atomic components, 6-state buttons, accessible form controls, card containers, dialog focus traps, and toast queue managers into a certified component library.",
+    "minutes": 30,
+    "recap": "Over Days 6 through 14, we engineered the core building blocks of modern user interfaces: Atomic Design hierarchies, button state machines, accessible form validation, compound cards, sticky tables, and toast managers. Today in Milestone 2, we synthesize and certify our complete component library.",
+    "parts": [
+      {
+        "title": "Milestone 2 Architecture: The Intermediate Component Library",
+        "say": [
+          "Welcome to Milestone 2 of UI/UX Design Systems & Visual Frontend.",
+          "In Milestone 1, we built the foundational mathematical tokens: color scales, modular typography, and 8pt spatial grids.",
+          "In Milestone 2, we graduate from raw tokens to living, interactive components.",
+          "An enterprise component library must not be a disorganized assortment of disparate widgets.",
+          "It must function as an integrated, certified system where every component strictly consumes foundational tokens, adheres to WCAG accessibility criteria, and communicates through predictable state machines.",
+          "Today we construct the Milestone 2 Component Certification Engine.",
+          "This engine audits our complete intermediate library: verifying atomic hierarchy classifications, testing button states, validating form accessibility binding, testing modal focus traps, and checking toast queue limits.",
+          "By enforcing token binding directly at the component boundary, design systems guarantee that brand updates cascade instantly across every UI element without manual visual regressions.",
+          "Completing Milestone 2 marks the official transition from foundational atoms to enterprise-grade product interfaces.",
+          "Let us inspect the master component registry schema."
+        ],
+        "example": "A precision automotive assembly line: before engine blocks, transmissions, and brake calipers are mounted onto vehicle frames, each component passes automated laser stress testing and safety certification.",
+        "code": "interface ComponentLibraryAudit {\n  systemVersion: string;\n  totalComponents: number;\n  atomicCategories: ('Atom' | 'Molecule' | 'Organism')[];\n  wcagAaBenchmark: boolean;\n  certifiedTiers: string[];\n}\n\nconst milestone2Registry: ComponentLibraryAudit = {\n  systemVersion: '2.0.0-milestone2',\n  totalComponents: 18,\n  atomicCategories: ['Atom', 'Molecule', 'Organism'],\n  wcagAaBenchmark: true,\n  certifiedTiers: ['Buttons', 'FormControls', 'Cards', 'Tables', 'Navigation', 'Modals', 'Toasts'],\n};\n\nconsole.log(`=== PinIT Component Library v${milestone2Registry.systemVersion} ===`);\nconsole.log(`Total Components Registered: ${milestone2Registry.totalComponents}`);\nconsole.log(`Certified Tiers: ${milestone2Registry.certifiedTiers.join(', ')}`);\nconsole.log(`WCAG 2.1 AA Compliance Verified: ${milestone2Registry.wcagAaBenchmark}`);",
+        "output": "=== PinIT Component Library v2.0.0-milestone2 ===\nTotal Components Registered: 18\nCertified Tiers: Buttons, FormControls, Cards, Tables, Navigation, Modals, Toasts\nWCAG 2.1 AA Compliance Verified: true",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines the master registry schema for the Milestone 2 Component Library audit."
+          },
+          {
+            "line": 17,
+            "note": "Logs the certified component categories and WCAG compliance baseline."
+          }
+        ],
+        "tryIt": "Add 'Drawer' and 'Breadcrumbs' to the certified tiers array and verify the output.",
+        "check": {
+          "question": "What is the primary objective of Milestone 2 in the Design Systems curriculum?",
+          "options": [
+            "To assemble and certify a complete, accessible atomic component library built upon our foundational design tokens",
+            "To write backend database migrations",
+            "To deploy mobile apps to the Apple App Store"
+          ],
+          "answer": 0,
+          "why": "Milestone 2 unifies atoms, molecules, and organisms into a fully certified and accessible component library."
+        }
+      },
+      {
+        "title": "Atomic Hierarchy Verification & Dependency Gate",
+        "say": [
+          "The first verification subsystem of our Milestone 2 engine is the Atomic Hierarchy Validator.",
+          "The validator scans every component definition across the library and verifies its structural classification.",
+          "Atoms (BaseButton, BaseInput, BaseIcon, StatusBadge) must have zero business dependencies and zero imports from higher tiers.",
+          "Molecules (SearchBar, FormField, PaginationBar) must only compose pure atoms.",
+          "Organisms (GlobalNavHeader, DataTable, ModalDialog) may compose molecules and atoms.",
+          "The validator asserts that no inverted dependency cycles exist.",
+          "If any component breaches architectural purity—such as an Atom attempting to import a template—the milestone certification fails instantly.",
+          "Enforcing this automated dependency gate preserves clean code architecture as team size scales.",
+          "Furthermore, keeping primitives completely decoupled ensures maximum tree-shaking efficiency in production bundle compilers like Vite, Webpack, and Next.js.",
+          "Let us execute the atomic hierarchy validation suite."
+        ],
+        "example": "A building code inspector verifying that load-bearing steel beams do not rest upon decorative drywall partitions.",
+        "code": "interface ComponentNode {\n  name: string;\n  tier: 'Atom' | 'Molecule' | 'Organism';\n  illegalImportsCount: number;\n}\n\nconst componentsToAudit: ComponentNode[] = [\n  { name: 'BaseButton', tier: 'Atom', illegalImportsCount: 0 },\n  { name: 'BaseInput', tier: 'Atom', illegalImportsCount: 0 },\n  { name: 'FormField', tier: 'Molecule', illegalImportsCount: 0 },\n  { name: 'GlobalNavHeader', tier: 'Organism', illegalImportsCount: 0 },\n  { name: 'DataTable', tier: 'Organism', illegalImportsCount: 0 },\n];\n\nfunction auditAtomicPurity(nodes: ComponentNode[]): { allPure: boolean; verifiedCount: number } {\n  const violations = nodes.filter(n => n.illegalImportsCount > 0);\n  return {\n    allPure: violations.length === 0,\n    verifiedCount: nodes.length,\n  };\n}\n\nconst auditResult = auditAtomicPurity(componentsToAudit);\nconsole.log(`[ATOMIC PURITY AUDIT] Verified ${auditResult.verifiedCount} components. All Pure: ${auditResult.allPure}`);\nconsole.log('Unidirectional dependency hierarchy confirmed: 0 circular dependency cycles.');",
+        "output": "[ATOMIC PURITY AUDIT] Verified 5 components. All Pure: true\nUnidirectional dependency hierarchy confirmed: 0 circular dependency cycles.",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Validates all component nodes for zero illegal imports and unidirectional flow."
+          },
+          {
+            "line": 24,
+            "note": "Reports 100% purity across all audited atomic component tiers."
+          }
+        ],
+        "tryIt": "Introduce an illegal import to BaseButton and verify that allPure becomes false.",
+        "check": {
+          "question": "How does automated atomic hierarchy verification protect software maintainability?",
+          "options": [
+            "It prevents circular dependency cycles and keeps foundational atoms decoupled from application features",
+            "It turns off JavaScript strict mode",
+            "It minifies SVG images"
+          ],
+          "answer": 0,
+          "why": "Automated hierarchy checks guarantee that lower-tier primitives remain pure and universally reusable."
+        }
+      },
+      {
+        "title": "Button & Form Accessibility Audit: WCAG Contrast & Focus Rings",
+        "say": [
+          "The second subsystem executes rigorous accessibility checks across all interactive Buttons and Form Controls.",
+          "The audit inspects:",
+          "1. Focus Rings: verifying that all buttons and inputs declare ':focus-visible' with a minimum 2px outline and 2px offset.",
+          "2. Contrast Ratios: asserting that primary button text achieves at least 4.5:1 contrast against button background.",
+          "3. ARIA Binding: verifying that every form input provides an explicit '<label>', binds 'aria-invalid', and chains 'aria-describedby' to error containers.",
+          "4. Touch Target Compliance: asserting that all mobile interactive hit areas measure at least 44px by 44px.",
+          "Passing these four automated benchmarks guarantees that our core interactive atoms comply fully with WCAG 2.1 AA legal standards.",
+          "Automated contract assertions protect users relying on high-contrast assistive lenses, voice control software, and switch access devices.",
+          "Let us run the button and form accessibility audit."
+        ],
+        "example": "An automobile crash test safety rating: evaluating seatbelts, airbags, anti-lock brakes, and crumple zones to award a 5-star safety certification.",
+        "code": "interface AccessibilityAuditReport {\n  component: string;\n  focusVisibleCompliant: boolean;\n  wcagContrastRatio: number;\n  ariaBindingValid: boolean;\n  minTouchTargetMet: boolean;\n}\n\nconst accessibilityAudits: AccessibilityAuditReport[] = [\n  { component: 'PrimaryButton', focusVisibleCompliant: true, wcagContrastRatio: 4.8, ariaBindingValid: true, minTouchTargetMet: true },\n  { component: 'DangerButton', focusVisibleCompliant: true, wcagContrastRatio: 5.2, ariaBindingValid: true, minTouchTargetMet: true },\n  { component: 'TextInputFormField', focusVisibleCompliant: true, wcagContrastRatio: 4.6, ariaBindingValid: true, minTouchTargetMet: true },\n];\n\nfor (const a of accessibilityAudits) {\n  const isCompliant = a.focusVisibleCompliant && a.wcagContrastRatio >= 4.5 && a.ariaBindingValid && a.minTouchTargetMet;\n  console.log(`[${isCompliant ? 'PASS' : 'FAIL'}] ${a.component}: Contrast=${a.wcagContrastRatio}:1, FocusRing=${a.focusVisibleCompliant}, Touch=${a.minTouchTargetMet}`);\n}",
+        "output": "[PASS] PrimaryButton: Contrast=4.8:1, FocusRing=true, Touch=true\n[PASS] DangerButton: Contrast=5.2:1, FocusRing=true, Touch=true\n[PASS] TextInputFormField: Contrast=4.6:1, FocusRing=true, Touch=true",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Defines automated WCAG compliance criteria for buttons and form inputs."
+          },
+          {
+            "line": 17,
+            "note": "Evaluates each component and reports pass/fail status against 4.5:1 contrast and touch targets."
+          }
+        ],
+        "tryIt": "Verify that all components achieve a contrast ratio greater than or equal to 4.5:1.",
+        "check": {
+          "question": "What minimum contrast ratio must standard button text achieve against its background to pass WCAG 2.1 AA?",
+          "options": [
+            "4.5:1",
+            "2.0:1",
+            "10.0:1"
+          ],
+          "answer": 0,
+          "why": "WCAG 2.1 Level AA mandates a minimum contrast ratio of 4.5:1 for standard body and button text."
+        }
+      },
+      {
+        "title": "Modal Focus Trap & Backdrop Scrim Verification",
+        "say": [
+          "The third subsystem tests our overlay architecture: Modal Dialogs and Popovers.",
+          "The verification harness tests three critical overlay behaviors:",
+          "1. Top-Layer Stacking: confirming modals sit on the highest stacking context ('z-index: 1000' or native top-layer).",
+          "2. Focus Trapping: verifying that keyboard Tab wraps smoothly between first and last elements without escaping into background DOM.",
+          "3. Focus Restoration: asserting that closing the modal returns focus to the exact trigger button that opened it.",
+          "4. Escape Dismissal: confirming that pressing Escape immediately unlocks background 'inert' attributes.",
+          "Validating overlay lifecycle mechanics eliminates frustrating trap bugs and ensures flawless screen reader navigation.",
+          "Without these programmatic constraints, keyboard and screen reader users frequently experience total spatial disorientation when dismissing complex modal workflows.",
+          "Let us execute the modal overlay verification harness."
+        ],
+        "example": "A spacecraft airlock cycle test: opening outer doors only when inner doors are fully sealed, ensuring zero atmosphere leaks during ingress or egress.",
+        "code": "interface ModalOverlayAudit {\n  modalId: string;\n  focusTrappingVerified: boolean;\n  inertBackgroundApplied: boolean;\n  escapeKeyDismissalWorks: boolean;\n  focusRestorationVerified: boolean;\n}\n\nfunction verifyModalOverlay(audit: ModalOverlayAudit): boolean {\n  return audit.focusTrappingVerified &&\n         audit.inertBackgroundApplied &&\n         audit.escapeKeyDismissalWorks &&\n         audit.focusRestorationVerified;\n}\n\nconst audit = {\n  modalId: 'confirm-delete-modal',\n  focusTrappingVerified: true,\n  inertBackgroundApplied: true,\n  escapeKeyDismissalWorks: true,\n  focusRestorationVerified: true,\n};\n\nconst passed = verifyModalOverlay(audit);\nconsole.log(`Modal Overlay Test [${audit.modalId}]: Passed=${passed}`);\nconsole.log(`  - Focus Trapped : ${audit.focusTrappingVerified}`);\nconsole.log(`  - Inert Applied : ${audit.inertBackgroundApplied}`);\nconsole.log(`  - Escape Dismiss: ${audit.escapeKeyDismissalWorks}`);\nconsole.log(`  - Focus Restored: ${audit.focusRestorationVerified}`);",
+        "output": "Modal Overlay Test [confirm-delete-modal]: Passed=true\n  - Focus Trapped : true\n  - Inert Applied : true\n  - Escape Dismiss: true\n  - Focus Restored: true",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Verifies the 4 critical overlay behaviors: trap, inert, escape, and focus restoration."
+          },
+          {
+            "line": 24,
+            "note": "Reports successful validation across all modal lifecycle requirements."
+          }
+        ],
+        "tryIt": "Verify that all 4 criteria evaluate to true for complete modal certification.",
+        "check": {
+          "question": "Why is automated testing of modal focus restoration critical in web applications?",
+          "options": [
+            "Without focus restoration, keyboard users are dumped at the top of the body, losing their place on the page",
+            "Browsers crash if focus is not restored",
+            "To prevent memory leaks in the browser"
+          ],
+          "answer": 0,
+          "why": "Focus restoration preserves user context, ensuring keyboard navigators can continue without frustration."
+        }
+      },
+      {
+        "title": "Toast Stacking & ARIA Live Queue Stress Test",
+        "say": [
+          "The fourth subsystem subjects our asynchronous notification infrastructure to a simulated high-throughput stress test.",
+          "In real production environments, rapid user actions or background network webhooks can emit dozens of toasts simultaneously.",
+          "Our test harness emits 10 rapid toast events into the ToastQueueManager.",
+          "The harness verifies:",
+          "1. Maximum Visible Cap: the visible stack never exceeds 3 toasts at any moment.",
+          "2. FIFO Eviction: older toasts are evicted in strict chronological sequence.",
+          "3. ARIA Live Dispatch: success toasts route to 'aria-live=\"polite\"', while error toasts route to 'aria-live=\"assertive\"'.",
+          "4. Timer Pause on Hover: timer countdowns freeze reliably when user pointer focus is detected.",
+          "Stress-testing the notification pipeline proves that our UI remains calm, readable, and stable under peak event bursts.",
+          "By routing critical errors assertively while buffering informative confirmations politely, the screen reader queue maintains auditory clarity without overwhelming the listener.",
+          "Let us run the toast queue stress test."
+        ],
+        "example": "A busy train station ticketing kiosk during rush hour: processing dozens of commuters per minute while strictly maintaining orderly single-file queues.",
+        "code": "interface StressTestResult {\n  totalEventsEmitted: number;\n  maxVisibleEnforced: number;\n  currentVisibleCount: number;\n  fifoEvictionsCount: number;\n  queueStatus: 'STABLE' | 'DEGRADED';\n}\n\nfunction runToastStressTest(eventCount: number, cap: number): StressTestResult {\n  let evictions = 0;\n  let active = 0;\n\n  for (let i = 0; i < eventCount; i++) {\n    if (active >= cap) {\n      evictions++;\n    } else {\n      active++;\n    }\n  }\n\n  return {\n    totalEventsEmitted: eventCount,\n    maxVisibleEnforced: cap,\n    currentVisibleCount: active,\n    fifoEvictionsCount: evictions,\n    queueStatus: active <= cap ? 'STABLE' : 'DEGRADED',\n  };\n}\n\nconst stress = runToastStressTest(10, 3);\nconsole.log(`=== TOAST QUEUE STRESS TEST: ${stress.queueStatus} ===`);\nconsole.log(`Emitted: ${stress.totalEventsEmitted} | Max Cap Enforced: ${stress.maxVisibleEnforced}`);\nconsole.log(`Currently Visible: ${stress.currentVisibleCount} | FIFO Evictions: ${stress.fifoEvictionsCount}`);\nconsole.log('Queue stability certified: Zero visual flooding under high event velocity.');",
+        "output": "=== TOAST QUEUE STRESS TEST: STABLE ===\nEmitted: 10 | Max Cap Enforced: 3\nCurrently Visible: 3 | FIFO Evictions: 7\nQueue stability certified: Zero visual flooding under high event velocity.",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Simulates high-velocity event bursts against the toast queue manager."
+          },
+          {
+            "line": 29,
+            "note": "Demonstrates that visible count stays capped at 3 while 7 older events are cleanly evicted."
+          }
+        ],
+        "tryIt": "Run the test with 20 events and verify that currentVisibleCount remains locked at 3.",
+        "check": {
+          "question": "What does the toast queue stress test prove about our design system?",
+          "options": [
+            "It proves the notification manager prevents screen flooding by strictly enforcing a visible cap of 3 toasts via FIFO eviction",
+            "It proves our servers have 100% uptime",
+            "It disables all error toasts"
+          ],
+          "answer": 0,
+          "why": "The stress test proves that notification cascades are gracefully capped, preventing visual spam."
+        }
+      },
+      {
+        "title": "Complete Milestone 2 Synthesis & Component Certification",
+        "say": [
+          "We have reached the culmination of Milestone 2.",
+          "Our component library has successfully passed all four rigorous certification gates:",
+          "1. Atomic Purity: Unidirectional dependencies verified across Atoms, Molecules, and Organisms with zero circular coupling.",
+          "2. Interactive Atoms: Buttons and Form Controls verified for 4.5:1 WCAG contrast, :focus-visible rings, and ARIA binding.",
+          "3. Containers & Overlays: Cards, Data Tables, and Modals verified for aspect ratios, sticky headers, focus trapping, and focus restoration.",
+          "4. Asynchronous Feedback: Navigation landmarks and Toast queues verified for aria-current, aria-live routing, and FIFO cap governance.",
+          "When all certification benchmarks evaluate to 'CERTIFIED', the engine generates the official Milestone 2 Component Manifesto.",
+          "This manifesto certifies that our visual frontend component library is robust, fully accessible, and production-ready for complex application workflows.",
+          "Packaging these certified primitives into clean TypeScript exports equips application feature squads to compose complex user flows with speed and architectural confidence.",
+          "Congratulations on completing Milestone 2 of UI/UX Design Systems & Visual Frontend.",
+          "Let us run the Milestone 2 component certification engine."
+        ],
+        "example": "A master shipbuilder christening an ocean-going vessel: after hull welding, navigation electronics, propulsion turbines, and lifeboats pass inspection, the ship is officially certified for open-ocean voyages.",
+        "code": "interface Milestone2CertificationManifesto {\n  milestone: string;\n  atomicPurityVerified: boolean;\n  buttonStateCount: number;\n  wcagContrastCompliant: boolean;\n  modalFocusTrapCertified: boolean;\n  toastQueueCapped: boolean;\n  overallStatus: 'CERTIFIED' | 'FAILED';\n}\n\nfunction generateMilestone2Manifesto(): Milestone2CertificationManifesto {\n  return {\n    milestone: 'Milestone 2: Atomic Component Library & Accessible Forms',\n    atomicPurityVerified: true,\n    buttonStateCount: 6,\n    wcagContrastCompliant: true,\n    modalFocusTrapCertified: true,\n    toastQueueCapped: true,\n    overallStatus: 'CERTIFIED',\n  };\n}\n\nconst manifesto = generateMilestone2Manifesto();\nconsole.log(`=== ${manifesto.milestone.toUpperCase()} ===`);\nconsole.log(`Status: ${manifesto.overallStatus}`);\nconsole.log(`Atomic Purity: ${manifesto.atomicPurityVerified} | 6-State Buttons: ${manifesto.buttonStateCount} states`);\nconsole.log(`WCAG Contrast: ${manifesto.wcagContrastCompliant} | Modal Focus Trap: ${manifesto.modalFocusTrapCertified} | Toast Cap: ${manifesto.toastQueueCapped}`);\nconsole.log('Component Library v2.0.0 successfully certified for enterprise production.');",
+        "output": "=== MILESTONE 2: ATOMIC COMPONENT LIBRARY & ACCESSIBLE FORMS ===\nStatus: CERTIFIED\nAtomic Purity: true | 6-State Buttons: 6 states\nWCAG Contrast: true | Modal Focus Trap: true | Toast Cap: true\nComponent Library v2.0.0 successfully certified for enterprise production.",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Compiles full Milestone 2 Component Certification Manifesto."
+          },
+          {
+            "line": 23,
+            "note": "Reports certified operational status across all intermediate component subsystems."
+          }
+        ],
+        "tryIt": "Inspect the manifesto to verify that all 5 subsystem benchmarks evaluate to certified status.",
+        "check": {
+          "question": "What does the Milestone 2 Component Certification confirm about the design system?",
+          "options": [
+            "It confirms that all intermediate components (buttons, forms, cards, tables, modals, toasts) meet atomic purity and WCAG accessibility standards",
+            "It files corporate tax returns",
+            "It turns on dark mode permanently"
+          ],
+          "answer": 0,
+          "why": "Milestone 2 certification validates that the entire intermediate component library meets architectural and accessibility standards."
+        }
+      }
+    ],
+    "summary": [
+      "Milestone 2 unifies Buttons, Form Controls, Cards, Tables, Navigation, Modals, and Toasts into a certified component library.",
+      "Strict WCAG 2.1 AA benchmarks guarantee 4.5:1 text contrast, :focus-visible rings, 44px touch targets, and ARIA binding.",
+      "Modal focus trapping, inert background locking, and toast queue managers deliver enterprise-grade stability and user trust."
+    ],
+    "projectStep": {
+      "title": "Synthesize Milestone 2 Component Suite",
+      "steps": [
+        "Unify BaseButton, FormField, Card, DataTable, ModalDialog, and ToastQueue into certified library export",
+        "Execute automated accessibility audit asserting 4.5:1 contrast, focus rings, touch targets, and ARIA binding",
+        "Export production component catalog with TypeScript type definitions for enterprise feature development"
+      ]
+    }
   }
 ];
