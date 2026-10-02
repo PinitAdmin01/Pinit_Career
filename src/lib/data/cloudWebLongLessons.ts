@@ -3819,5 +3819,1252 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "Configure an SQS Dead Letter Queue on the Lambda function and test poison pill failure isolation"
       ]
     }
+  },
+  {
+    "day": 16,
+    "title": "Amazon CloudFront Global CDN & Edge Functions (Lambda@Edge)",
+    "goal": "Master global content delivery with Amazon CloudFront, configure edge caching behaviors, optimize TTL hierarchies, and implement edge compute with CloudFront Functions and Lambda@Edge.",
+    "minutes": 25,
+    "recap": "In Milestone 2 we built an event-driven serverless video processing pipeline. Today we accelerate static and dynamic content delivery across the planet with Amazon CloudFront.",
+    "parts": [
+      {
+        "title": "CloudFront Global Infrastructure & Edge Locations",
+        "say": [
+          "Amazon CloudFront is AWS's globally distributed Content Delivery Network (CDN) service that securely delivers data, videos, applications, and APIs to users worldwide.",
+          "CloudFront operates over 450 Points of Presence (PoPs) strategically situated across dozens of countries on all six continents.",
+          "In a standard cloud architecture without a CDN, a user in Tokyo requesting an asset from an S3 bucket in us-east-1 must endure 150 to 200 milliseconds of packet transit time across public internet backbones.",
+          "When CloudFront is deployed, DNS resolves the user's request via Anycast routing to the geographically closest Edge Location.",
+          "Between the Edge Locations and your origin server sits a tier called Regional Edge Caches (REC).",
+          "Regional Edge Caches have larger cache footprints and retain assets longer than localized Edge PoPs, shielding your origin from repetitive cache misses across an entire continent.",
+          "CloudFront supports multiple origin types: Amazon S3 buckets for static web assets, Application Load Balancers for dynamic API compute, or custom HTTP servers anywhere in the world.",
+          "All traffic traversing from Edge Locations to AWS origins flows across AWS's private, fiber-optic global dedicated network backbone rather than the congested public internet.",
+          "This dedicated network topology slashes latency, minimizes jitter, and maximizes throughput for users regardless of physical proximity."
+        ],
+        "example": "A global retail chain opening 450 neighborhood convenience kiosks: instead of every shopper driving across the country to the central factory warehouse, local kiosks stock popular everyday goods right around the corner.",
+        "code": "interface EdgeLocation {\n  code: string;\n  city: string;\n  region: string;\n  latencyMs: number;\n}\n\nfunction resolveOptimalEdge(userLocation: string, edges: EdgeLocation[]): EdgeLocation {\n  return edges.reduce((prev, curr) => curr.latencyMs < prev.latencyMs ? curr : prev);\n}\n\nconst edges: EdgeLocation[] = [\n  { code: 'NRT57-C1', city: 'Tokyo', region: 'ap-northeast-1', latencyMs: 12 },\n  { code: 'IAD89-P2', city: 'Virginia', region: 'us-east-1', latencyMs: 185 },\n  { code: 'FRA50-C3', city: 'Frankfurt', region: 'eu-central-1', latencyMs: 240 }\n];\n\nconst selected = resolveOptimalEdge('Tokyo', edges);\nconsole.log(`CloudFront Anycast Routing: Selected ${selected.code} (${selected.city}) with ${selected.latencyMs}ms latency`);",
+        "output": "CloudFront Anycast Routing: Selected NRT57-C1 (Tokyo) with 12ms latency",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models Anycast DNS edge resolution selecting the lowest-latency CloudFront Point of Presence."
+          },
+          {
+            "line": 18,
+            "note": "Resolves local Tokyo edge PoP delivering 12ms response time versus 185ms to origin."
+          }
+        ],
+        "tryIt": "Add a Sydney edge location (SYD1) with 8ms latency and assert that an Australian client routes there.",
+        "check": {
+          "question": "What intermediate caching tier sits between localized CloudFront Edge Locations and the AWS Origin server?",
+          "options": [
+            "Local Hard Drives",
+            "Regional Edge Caches (REC)",
+            "Amazon DynamoDB Accelerator"
+          ],
+          "answer": 1,
+          "why": "Regional Edge Caches sit between edge PoPs and origins, maintaining larger cache footprints to maximize cache hit ratios."
+        }
+      },
+      {
+        "title": "Cache Behaviors, Path Patterns & Origin Request Policies",
+        "say": [
+          "A CloudFront distribution can communicate with multiple origins simultaneously by utilizing Cache Behaviors.",
+          "A Cache Behavior routes incoming HTTP requests to specific origins based on URL path pattern matching.",
+          "For example, you can route '/api/*' to an Application Load Balancer running Node.js microservices, '/images/*' to an S3 media bucket, and default '*' to an S3 bucket hosting a Single Page Application.",
+          "Cache behaviors evaluate path patterns in strict top-to-bottom priority order, terminating on the first matching pattern.",
+          "Within each cache behavior, you configure the Viewer Protocol Policy, typically enforcing 'redirect-to-https' to guarantee end-to-end TLS encryption.",
+          "You also define Allowed HTTP Methods: GET and HEAD for static caching behaviors, or GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE for API routes.",
+          "Origin Request Policies specify exactly which HTTP headers, query strings, and cookies CloudFront forwards to your origin upon a cache miss.",
+          "Careful configuration of Origin Request Policies prevents cache fragmentation; forwarding excessive unique headers like 'User-Agent' causes separate cache entries for every browser, dropping your cache hit ratio to zero.",
+          "Designing granular cache behaviors gives architects total programmatic control over content routing and caching strategies."
+        ],
+        "example": "A hospital reception triage desk: emergency trauma patients are directed immediately to the ER, pharmacy pick-ups are routed to the dispensary, and general inquiries go to the front desk.",
+        "code": "interface CacheBehavior {\n  pathPattern: string;\n  targetOrigin: string;\n  allowedMethods: string[];\n  viewerProtocolPolicy: 'redirect-to-https' | 'https-only';\n}\n\nfunction matchCacheBehavior(requestPath: string, behaviors: CacheBehavior[]): CacheBehavior {\n  for (const b of behaviors) {\n    if (b.pathPattern === '*' || requestPath.startsWith(b.pathPattern.replace('*', ''))) {\n      return b;\n    }\n  }\n  return behaviors[behaviors.length - 1];\n}\n\nconst behaviors: CacheBehavior[] = [\n  { pathPattern: '/api/*', targetOrigin: 'ALB-Backend', allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'], viewerProtocolPolicy: 'redirect-to-https' },\n  { pathPattern: '/static/*', targetOrigin: 'S3-Assets', allowedMethods: ['GET', 'HEAD'], viewerProtocolPolicy: 'redirect-to-https' },\n  { pathPattern: '*', targetOrigin: 'S3-SPA-Root', allowedMethods: ['GET', 'HEAD'], viewerProtocolPolicy: 'redirect-to-https' }\n];\n\nconst apiRoute = matchCacheBehavior('/api/v1/orders', behaviors);\nconst imgRoute = matchCacheBehavior('/static/logo.png', behaviors);\nconsole.log(`Route 1: ${apiRoute.targetOrigin} | Route 2: ${imgRoute.targetOrigin}`);",
+        "output": "Route 1: ALB-Backend | Route 2: S3-Assets",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates ordered path patterns to determine destination origin and caching rules."
+          },
+          {
+            "line": 20,
+            "note": "Correctly routes API requests to ALB while sending static asset requests to S3."
+          }
+        ],
+        "tryIt": "Add a '/videos/*' path pattern routing to an 'S3-Media' origin and test route matching.",
+        "check": {
+          "question": "Why should you avoid forwarding all HTTP headers (such as User-Agent) to an origin on cached static assets?",
+          "options": [
+            "Because headers increase HTTP request size beyond 100 megabytes",
+            "Because unique header variations fragment the cache, creating separate copies and plummeting the cache hit ratio",
+            "Because S3 does not support receiving HTTP headers"
+          ],
+          "answer": 1,
+          "why": "Forwarding unique headers like User-Agent causes CloudFront to treat each browser variation as a separate cache entry."
+        }
+      },
+      {
+        "title": "TTL Hierarchy, Cache-Control Headers & Invalidation",
+        "say": [
+          "Controlling how long CloudFront stores an object in edge caches is critical for balancing freshness against origin server load.",
+          "CloudFront determines an object's Time to Live (TTL) using a strict hierarchy between distribution settings and origin HTTP response headers.",
+          "In CloudFront Cache Policies, you configure three boundary values: Minimum TTL, Maximum TTL, and Default TTL.",
+          "When the origin server returns HTTP headers like 'Cache-Control: max-age=3600', CloudFront compares the origin's 3600 seconds against the Min and Max TTL boundaries.",
+          "If the origin header falls within [Min TTL, Max TTL], CloudFront honors the origin's specified value exactly.",
+          "If the origin provides no Cache-Control or Expires headers whatsoever, CloudFront falls back to the Default TTL setting.",
+          "The 's-maxage' directive in Cache-Control specifically instructs shared public caches (like CloudFront CDNs) how long to cache, while 'max-age' instructs private browser caches.",
+          "When you deploy a critical hotfix and need stale assets purged immediately before TTL expiration, you create a CloudFront Invalidation.",
+          "Invalidations purge specific object paths (e.g. '/index.html' or wildcard '/*') from all 450+ edge locations within seconds, forcing the next viewer request to fetch fresh content from origin.",
+          "Best practice pairs content hashing in file names (e.g. 'bundle.a89f2.js') with long TTLs (1 year) and invalidates only 'index.html'."
+        ],
+        "example": "A daily newspaper distributor: the morning edition sits on newsstands for 24 hours (TTL), but if breaking news strikes at noon, the publisher issues a special red-flag recall (Invalidation) replacing older papers immediately.",
+        "code": "interface CachePolicy {\n  minTTL: number;\n  defaultTTL: number;\n  maxTTL: number;\n}\n\nfunction calculateEffectiveTTL(originHeader: string | null, policy: CachePolicy): number {\n  if (!originHeader) return policy.defaultTTL;\n  const match = originHeader.match(/max-age=(\\d+)/);\n  if (!match) return policy.defaultTTL;\n  const requestedTTL = parseInt(match[1], 10);\n  return Math.min(Math.max(requestedTTL, policy.minTTL), policy.maxTTL);\n}\n\nconst policy: CachePolicy = { minTTL: 60, defaultTTL: 86400, maxTTL: 31536000 };\nconst staticAssetTTL = calculateEffectiveTTL('public, max-age=604800', policy);\nconst zeroHeaderTTL = calculateEffectiveTTL(null, policy);\nconst clampedLowTTL = calculateEffectiveTTL('public, max-age=10', policy); // clamped to minTTL 60\n\nconsole.log(`Effective TTLs: Static=${staticAssetTTL}s | Default=${zeroHeaderTTL}s | Clamped=${clampedLowTTL}s`);",
+        "output": "Effective TTLs: Static=604800s | Default=86400s | Clamped=60s",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Implements the CloudFront TTL boundary resolution algorithm clamping origin headers to Min/Max bounds."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates clamping an origin's 10-second TTL up to the configured Minimum TTL of 60 seconds."
+          }
+        ],
+        "tryIt": "Test an origin header requesting 40,000,000 seconds and assert that it clamps down to the maxTTL of 31,536,000 seconds.",
+        "check": {
+          "question": "If an origin returns 'Cache-Control: max-age=10' but the CloudFront Cache Policy specifies a Minimum TTL of 60, how long does CloudFront cache the asset?",
+          "options": [
+            "10 seconds",
+            "60 seconds",
+            "0 seconds (no caching)"
+          ],
+          "answer": 1,
+          "why": "CloudFront clamps the requested TTL to the configured Minimum TTL, so the asset is cached for 60 seconds."
+        }
+      },
+      {
+        "title": "Edge Compute: CloudFront Functions vs Lambda@Edge",
+        "say": [
+          "Modern cloud architectures frequently require modifying HTTP requests or responses directly at the network edge before reaching the origin.",
+          "AWS provides two distinct edge compute offerings: CloudFront Functions and Lambda@Edge.",
+          "CloudFront Functions execute lightweight JavaScript in a secure V8 isolation engine directly at all 450+ Edge PoPs.",
+          "CloudFront Functions boot sub-millisecond, execute in less than 1 millisecond, handle millions of requests per second at one-sixth the cost of Lambda@Edge, but have restrictions: no network access and maximum execution time of 1ms.",
+          "CloudFront Functions excel at viewer-facing transformations: URL rewrites, redirecting mobile users, normalizing query strings, and adding HTTP security headers (HSTS, CSP).",
+          "Lambda@Edge, by contrast, runs full Node.js or Python runtimes within the 13 Regional Edge Caches (REC).",
+          "Lambda@Edge can execute for up to 5 seconds on viewer requests and up to 30 seconds on origin requests, has complete network access to databases and external APIs, and can inspect large request bodies.",
+          "Lambda@Edge excels at complex compute: JWT token authentication against DynamoDB, A/B testing user bucket assignment, and dynamic image resizing on the fly.",
+          "Selecting the right edge compute tool optimizes both latency and cloud operating expenses."
+        ],
+        "example": "A passport checkpoint: the front-line officer at the gate stamps passports and checks visas in 2 seconds (CloudFront Functions), while travelers requiring background database checks are escorted to the regional immigration office (Lambda@Edge).",
+        "code": "type EdgeComputeType = 'CloudFront Functions' | 'Lambda@Edge';\n\ninterface EdgeTask {\n  name: string;\n  requiresNetworkAccess: boolean;\n  executionBudgetMs: number;\n  targetEdge: EdgeComputeType;\n}\n\nfunction selectEdgeComputeEngine(requiresNetwork: boolean, estimatedMs: number): EdgeComputeType {\n  if (requiresNetwork || estimatedMs > 1) {\n    return 'Lambda@Edge';\n  }\n  return 'CloudFront Functions';\n}\n\nconst task1 = selectEdgeComputeEngine(false, 0.4); // HTTP header manipulation\nconst task2 = selectEdgeComputeEngine(true, 45);   // Remote DynamoDB Auth verification\n\nconsole.log(`Task 1 Engine: ${task1} | Task 2 Engine: ${task2}`);",
+        "output": "Task 1 Engine: CloudFront Functions | Task 2 Engine: Lambda@Edge",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Evaluates network dependency and execution time to route tasks between CloudFront Functions and Lambda@Edge."
+          },
+          {
+            "line": 18,
+            "note": "Selects CloudFront Functions for sub-millisecond header logic and Lambda@Edge for remote network queries."
+          }
+        ],
+        "tryIt": "Evaluate an edge task that requires image resizing taking 250ms and verify it selects Lambda@Edge.",
+        "check": {
+          "question": "When should an architect choose CloudFront Functions over Lambda@Edge?",
+          "options": [
+            "When the function needs to connect to an external PostgreSQL database",
+            "When the task is a lightweight URL rewrite or header manipulation requiring sub-millisecond execution at lowest cost",
+            "When the function takes 15 seconds to transcode high-resolution video"
+          ],
+          "answer": 1,
+          "why": "CloudFront Functions operate directly at PoPs for sub-millisecond, low-cost header and URL transformations without network calls."
+        }
+      },
+      {
+        "title": "Signed URLs, Signed Cookies & Origin Access Control (OAC)",
+        "say": [
+          "Securing content delivered via CloudFront requires controlling who can view assets and preventing users from bypassing the CDN to access origins directly.",
+          "To secure an Amazon S3 origin, AWS deprecated legacy Origin Access Identity (OAI) in favor of Origin Access Control (OAC).",
+          "Origin Access Control signs requests from CloudFront to S3 using AWS Signature Version 4 (SigV4), supporting KMS encryption, all HTTP methods, and SSE-KMS.",
+          "With OAC, your S3 bucket policy strictly permits 's3:GetObject' only if the request originates from your specific CloudFront Distribution ARN.",
+          "Direct public HTTP requests to the S3 bucket URL are rejected with 403 Forbidden.",
+          "For monetized or premium content—such as paid video courses or subscriber downloads—CloudFront provides Signed URLs and Signed Cookies.",
+          "A backend application creates a CloudFront Signed URL containing an expiration timestamp, IP address restriction, and an RSA cryptographic signature.",
+          "When the user requests the signed URL, CloudFront verifies the signature using the distribution's trusted public key before serving the cached asset.",
+          "Signed Cookies function identically but allow access to multiple files (such as an entire HLS video stream with hundreds of .ts segments) using a single HTTP cookie header.",
+          "OAC and Signed URLs form the gold standard for enterprise digital media protection."
+        ],
+        "example": "A VIP concert ticket barcode: anyone can see the venue doors (S3), but security guards (OAC) only admit patrons holding a valid, time-limited digital QR ticket (Signed URL) issued by the box office.",
+        "code": "interface SignedUrlParams {\n  resourcePath: string;\n  expiresEpoch: number;\n  allowedIp?: string;\n}\n\nfunction generateSignedUrlSimulator(params: SignedUrlParams, keyPairId: string): string {\n  const policy = JSON.stringify({\n    Statement: [{\n      Resource: params.resourcePath,\n      Condition: { DateLessThan: { 'AWS:EpochTime': params.expiresEpoch } }\n    }]\n  });\n  const mockSig = btoa(policy).slice(0, 16);\n  return `${params.resourcePath}?Expires=${params.expiresEpoch}&Signature=${mockSig}&Key-Pair-Id=${keyPairId}`;\n}\n\nconst signedUrl = generateSignedUrlSimulator({\n  resourcePath: 'https://cdn.pinit.com/courses/cloud-day16.mp4',\n  expiresEpoch: 1775000000\n}, 'K3ABCDEF123456');\n\nconsole.log(`Generated CloudFront Signed URL: ${signedUrl.split('?')[0]}?Expires=1775000000...`);",
+        "output": "Generated CloudFront Signed URL: https://cdn.pinit.com/courses/cloud-day16.mp4?Expires=1775000000...",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Constructs a CloudFront signed URL policy document with epoch timestamp restriction."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates generating a time-limited signed URL for private media delivery."
+          }
+        ],
+        "tryIt": "Simulate an expired timestamp comparison rejecting access when Date.now() / 1000 > expiresEpoch.",
+        "check": {
+          "question": "Why did AWS introduce Origin Access Control (OAC) to replace legacy Origin Access Identity (OAI)?",
+          "options": [
+            "OAC is compatible only with EC2 instances",
+            "OAC supports modern AWS SigV4 signatures, KMS server-side encryption, and dynamic HTTP methods",
+            "OAI was too fast and caused network congestion"
+          ],
+          "answer": 1,
+          "why": "OAC supports AWS SigV4, AWS KMS encryption, all AWS regions, and HTTP PUT/DELETE methods, superseding legacy OAI."
+        }
+      },
+      {
+        "title": "High-Performance Edge Architecture Verification",
+        "say": [
+          "To complete our study of Amazon CloudFront, we run a comprehensive edge performance simulation.",
+          "Our verification suite benchmarks three critical metrics: Cache Hit Ratio, Origin Offload Percentage, and Global Latency Reduction.",
+          "Cache Hit Ratio measures the percentage of viewer requests served directly from edge locations without contacting the origin.",
+          "A high-performing CDN distribution achieves a Cache Hit Ratio of 90% or greater for static media assets.",
+          "Origin Offload Percentage measures the compute and bandwidth reduction experienced by backend servers; high offload allows an origin cluster of 2 EC2 instances to handle traffic spikes that would otherwise crush 50 instances.",
+          "Global Latency Reduction compares round-trip times between direct origin access and edge cached delivery across multiple continents.",
+          "Edge caching routinely slashes median user response times from 180ms down to sub-20ms.",
+          "Passing this verification confirms your readiness to deploy enterprise-grade global content delivery architectures."
+        ],
+        "example": "A carpool highway express lane audit: highway engineers measure that 85% of commuter traffic was diverted off local city streets onto the express lane, cutting average commute times by 80%.",
+        "code": "interface CdnPerformanceAudit {\n  totalRequests: number;\n  cacheHits: number;\n  originRequests: number;\n  originLatencyMs: number;\n  edgeLatencyMs: number;\n}\n\nfunction evaluateCdnMetrics(audit: CdnPerformanceAudit): { hitRatio: string; latencyReduction: string; isOptimal: boolean } {\n  const hitRatio = (audit.cacheHits / audit.totalRequests) * 100;\n  const latencySavings = ((audit.originLatencyMs - audit.edgeLatencyMs) / audit.originLatencyMs) * 100;\n  return {\n    hitRatio: `${hitRatio.toFixed(1)}%`,\n    latencyReduction: `${latencySavings.toFixed(1)}%`,\n    isOptimal: hitRatio >= 90 && latencySavings >= 80\n  };\n}\n\nconst testResults = evaluateCdnMetrics({\n  totalRequests: 10000,\n  cacheHits: 9420,\n  originRequests: 580,\n  originLatencyMs: 165,\n  edgeLatencyMs: 18\n});\n\nconsole.log(`CloudFront Audit: HitRatio=${testResults.hitRatio} | LatencySavings=${testResults.latencyReduction} | Optimal=${testResults.isOptimal}`);",
+        "output": "CloudFront Audit: HitRatio=94.2% | LatencySavings=89.1% | Optimal=true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Computes Cache Hit Ratio and Latency Reduction percentage across simulated edge requests."
+          },
+          {
+            "line": 20,
+            "note": "Validates 94.2% hit ratio and 89.1% latency reduction, meeting high-performance standards."
+          }
+        ],
+        "tryIt": "Simulate a lower cache hit count of 7500 and verify that the distribution is flagged as not optimal.",
+        "check": {
+          "question": "What does an Origin Offload Percentage of 95% mean for an engineering team managing backend servers?",
+          "options": [
+            "Backend servers crashed 95% of the time",
+            "95% of all client web traffic was served directly by CloudFront edges, shielding backend servers from 95% of request volume",
+            "The team must pay 95% more in cloud hosting fees"
+          ],
+          "answer": 1,
+          "why": "Origin offload measures the proportion of requests handled entirely by CloudFront, shielding origin servers from traffic volume."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon CloudFront accelerates content delivery globally using 450+ Points of Presence and Regional Edge Caches.",
+      "Granular Cache Behaviors route traffic to S3, ALB, or custom HTTP origins based on ordered path patterns.",
+      "Origin Access Control (OAC) and Signed URLs secure private assets, while CloudFront Functions and Lambda@Edge provide high-speed edge compute."
+    ],
+    "projectStep": {
+      "title": "Global CloudFront Distribution Deployment",
+      "steps": [
+        "Create an Amazon CloudFront distribution pointing to an S3 origin secured with Origin Access Control (OAC)",
+        "Configure ordered cache behaviors for '/api/*' pointing to an ALB and default '*' pointing to static web assets",
+        "Implement a CloudFront Function at viewer-request to append strict HTTP security headers"
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "Amazon Route 53 DNS Routing Policies & Health Checks",
+    "goal": "Master internet DNS routing with Amazon Route 53, configure public and private hosted zones, health checks, and advanced routing policies including Latency, Geolocation, and Failover.",
+    "minutes": 25,
+    "recap": "Yesterday we deployed Amazon CloudFront for edge content caching. Today we explore Amazon Route 53 to manage DNS resolution, global traffic steering, and multi-region failover.",
+    "parts": [
+      {
+        "title": "DNS Fundamentals & Route 53 Hosted Zones",
+        "say": [
+          "The Domain Name System (DNS) is the foundational address book of the internet, translating human-friendly domain names like 'api.pinit.com' into machine-routable IP addresses like '198.51.100.24'.",
+          "Amazon Route 53 is a highly available and scalable cloud DNS web service designed to provide developers with reliable and cost-effective routing.",
+          "The name 'Route 53' pays homage to standard DNS Port 53, the well-known TCP/UDP port on which DNS servers listen.",
+          "When you register a domain or delegate authority to AWS, you create a Route 53 Hosted Zone.",
+          "A Hosted Zone is a container for DNS records that defines how traffic for a specific domain name and its subdomains is routed.",
+          "Route 53 supports two types of hosted zones: Public Hosted Zones and Private Hosted Zones.",
+          "Public Hosted Zones contain records that route internet traffic across the public web.",
+          "Private Hosted Zones contain records that route internal traffic within one or more Amazon Virtual Private Clouds (VPCs), invisible to the external internet.",
+          "Route 53 delivers 100% Service Level Agreement (SLA) availability through its globally distributed anycast nameserver infrastructure."
+        ],
+        "example": "The global telephone directory: a public telephone directory lets anyone in the world look up an office number, whereas a private company intercom directory allows colleagues to dial internal desk extensions that cannot be reached from outside.",
+        "code": "interface HostedZone {\n  id: string;\n  name: string;\n  isPrivate: boolean;\n  associatedVpcIds: string[];\n}\n\nfunction queryHostedZone(zone: HostedZone, clientVpcId?: string): { accessible: boolean; reason: string } {\n  if (!zone.isPrivate) {\n    return { accessible: true, reason: 'PUBLIC_INTERNET_RESOLVABLE' };\n  }\n  if (clientVpcId && zone.associatedVpcIds.includes(clientVpcId)) {\n    return { accessible: true, reason: 'VPC_AUTHORIZED_INTERNAL_RESOLVABLE' };\n  }\n  return { accessible: false, reason: 'PRIVATE_ZONE_VPC_NOT_ASSOCIATED' };\n}\n\nconst publicZone: HostedZone = { id: 'Z101', name: 'pinit.com', isPrivate: false, associatedVpcIds: [] };\nconst internalZone: HostedZone = { id: 'Z202', name: 'corp.internal', isPrivate: true, associatedVpcIds: ['vpc-prod-01'] };\n\nconst r1 = queryHostedZone(publicZone);\nconst r2 = queryHostedZone(internalZone, 'vpc-prod-01');\nconst r3 = queryHostedZone(internalZone, 'vpc-dev-99');\n\nconsole.log(`Public: ${r1.reason} | Internal: ${r2.reason} | Dev: ${r3.reason}`);",
+        "output": "Public: PUBLIC_INTERNET_RESOLVABLE | Internal: VPC_AUTHORIZED_INTERNAL_RESOLVABLE | Dev: PRIVATE_ZONE_VPC_NOT_ASSOCIATED",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Models DNS resolution authorization distinguishing Public and Private Route 53 Hosted Zones."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates secure internal DNS resolution restricted to authorized VPC network IDs."
+          }
+        ],
+        "tryIt": "Associate 'vpc-dev-99' with the internal hosted zone and verify that resolution succeeds.",
+        "check": {
+          "question": "What is the primary difference between a Route 53 Public Hosted Zone and a Private Hosted Zone?",
+          "options": [
+            "Public zones are free while private zones cost ten thousand dollars per month",
+            "Public zones route global internet traffic, whereas Private zones resolve domain names strictly within specified Amazon VPCs",
+            "Private zones only support IPv4 addresses"
+          ],
+          "answer": 1,
+          "why": "Private Hosted Zones resolve internal domain names within authorized VPCs, shielding private services from the public internet."
+        }
+      },
+      {
+        "title": "Record Types & Route 53 ALIAS Records",
+        "say": [
+          "Within a hosted zone, you define standard DNS Record Types to steer network traffic.",
+          "An 'A' record maps a hostname directly to an IPv4 address (e.g. '198.51.100.1'), while an 'AAAA' record maps a hostname to an IPv6 address.",
+          "A 'CNAME' (Canonical Name) record maps one domain name to another domain name (e.g. 'www.pinit.com' -> 'pinit.com').",
+          "However, standard DNS RFC specifications strictly forbid CNAME records at the Zone Apex (the root domain, such as 'pinit.com' without a prefix) because the root must hold NS and SOA records.",
+          "To solve this fundamental internet limitation, Route 53 invented the ALIAS Record.",
+          "An ALIAS record is a Route 53-specific extension that behaves like a CNAME but can be placed at the Zone Apex.",
+          "When a client queries an ALIAS record pointing to an AWS resource—such as an Application Load Balancer or CloudFront distribution—Route 53 automatically resolves the AWS resource's IP and returns an A record response.",
+          "Unlike CNAMEs, Route 53 ALIAS queries to AWS resources are completely free of charge.",
+          "Furthermore, ALIAS records automatically track IP changes of underlying AWS resources dynamically without TTL delays."
+        ],
+        "example": "A royal forwarding address: an ambassador moving between embassies doesn't ask callers to dial another phone number (CNAME); the postal service automatically forwards mail directly to the current physical address (ALIAS) behind the scenes.",
+        "code": "type DnsRecordType = 'A' | 'AAAA' | 'CNAME' | 'ALIAS';\n\ninterface DnsRecord {\n  name: string;\n  type: DnsRecordType;\n  target: string;\n  isApex: boolean;\n}\n\nfunction validateDnsRecord(record: DnsRecord): { valid: boolean; error?: string } {\n  if (record.isApex && record.type === 'CNAME') {\n    return { valid: false, error: 'RFC Violation: CNAME not allowed at Zone Apex. Use ALIAS record instead.' };\n  }\n  return { valid: true };\n}\n\nconst badApex = validateDnsRecord({ name: 'pinit.com', type: 'CNAME', target: 'alb-123.amazonaws.com', isApex: true });\nconst goodApex = validateDnsRecord({ name: 'pinit.com', type: 'ALIAS', target: 'd111.cloudfront.net', isApex: true });\n\nconsole.log(`Bad Apex CNAME Valid: ${badApex.valid} | Good Apex ALIAS Valid: ${goodApex.valid}`);",
+        "output": "Bad Apex CNAME Valid: false | Good Apex ALIAS Valid: true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Enforces DNS RFC compliance disallowing CNAMEs at Zone Apex and mandating Route 53 ALIAS records."
+          },
+          {
+            "line": 17,
+            "note": "Validates that Route 53 ALIAS records provide a compliant solution for root domain routing."
+          }
+        ],
+        "tryIt": "Validate a subdomain record ('www.pinit.com') with a CNAME and assert that it passes validation.",
+        "check": {
+          "question": "Why does Route 53 provide ALIAS records instead of requiring standard CNAME records for AWS resources at the root domain?",
+          "options": [
+            "Because CNAME records cannot handle HTTPS traffic",
+            "Because DNS RFC specifications forbid CNAME records at the Zone Apex (root domain); ALIAS solves this and queries are free",
+            "Because CNAME records only work in North America"
+          ],
+          "answer": 1,
+          "why": "DNS standards forbid CNAMEs at the root apex; Route 53 ALIAS records overcome this restriction and incur no query fees for AWS targets."
+        }
+      },
+      {
+        "title": "Route 53 Routing Policies: Simple, Weighted & Latency-Based",
+        "say": [
+          "Route 53 offers powerful Routing Policies that govern how traffic is balanced and distributed across global endpoints.",
+          "Simple Routing Policy is the default; it routes traffic to a single resource or returns multiple IP addresses in random round-robin order.",
+          "Weighted Routing Policy allows architects to assign relative numerical weights (e.g., 90 to Production v1 and 10 to Canary v2).",
+          "Route 53 calculates the probability of each endpoint based on its weight divided by the total sum of weights across all endpoints.",
+          "Weighted routing is indispensable for Canary Deployments and blue-green rollouts, allowing teams to test new software releases with a tiny slice of live user traffic.",
+          "Latency-Based Routing (LBR) directs user DNS queries automatically to the AWS Region that provides the lowest round-trip latency.",
+          "AWS continuously measures network latency between internet users and all AWS regions worldwide.",
+          "When a user in London queries an LBR-configured domain, Route 53 resolves to the eu-west-1 endpoint; when a user in Sydney queries, it resolves to ap-southeast-2.",
+          "Latency-Based Routing ensures optimal application performance without requiring complex client-side geolocation logic."
+        ],
+        "example": "A taxi dispatcher distributing rides: by default, trips are handed out randomly (Simple), but during driver training, 90% go to senior drivers and 10% to apprentices (Weighted), or passengers are assigned to whichever taxi is physically closest (Latency).",
+        "code": "interface WeightedEndpoint {\n  endpoint: string;\n  weight: number;\n}\n\nfunction calculateTrafficDistribution(endpoints: WeightedEndpoint[]): Record<string, string> {\n  const totalWeight = endpoints.reduce((sum, e) => sum + e.weight, 0);\n  const distribution: Record<string, string> = {};\n  for (const ep of endpoints) {\n    const percentage = ((ep.weight / totalWeight) * 100).toFixed(1);\n    distribution[ep.endpoint] = `${percentage}%`;\n  }\n  return distribution;\n}\n\nconst endpoints: WeightedEndpoint[] = [\n  { endpoint: 'v1.production.endpoint', weight: 90 },\n  { endpoint: 'v2.canary.endpoint', weight: 10 }\n];\n\nconst dist = calculateTrafficDistribution(endpoints);\nconsole.log(`Weighted Routing Distribution: v1=${dist['v1.production.endpoint']} | v2=${dist['v2.canary.endpoint']}`);",
+        "output": "Weighted Routing Distribution: v1=90.0% | v2=10.0%",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Calculates the exact percentage share of user traffic allocated to each weighted endpoint."
+          },
+          {
+            "line": 17,
+            "note": "Verifies 90% traffic steering to production and 10% to the canary deployment."
+          }
+        ],
+        "tryIt": "Add a third endpoint with weight 20 and compute the new three-way traffic distribution.",
+        "check": {
+          "question": "How does Route 53 Latency-Based Routing (LBR) determine which AWS region should serve a user's DNS query?",
+          "options": [
+            "It checks the user's home postal code in their billing profile",
+            "AWS continuously measures network latency worldwide and routes the query to the region with the lowest measured round-trip time",
+            "It selects the region with the lowest server electricity cost"
+          ],
+          "answer": 1,
+          "why": "Route 53 uses global AWS latency telemetry to automatically direct users to the AWS region offering lowest round-trip latency."
+        }
+      },
+      {
+        "title": "Geolocation & Geoproximity Routing with Traffic Flow",
+        "say": [
+          "When compliance, data sovereignty, or localization requires strict geographic targeting, Route 53 provides Geolocation and Geoproximity routing.",
+          "Geolocation Routing routes internet traffic based on the geographic location of the DNS query origin, resolved by continent, country, or US state.",
+          "For instance, European queries can be routed to an EU endpoint adhering strictly to GDPR compliance laws, while Japanese users see localized Japanese language portals.",
+          "Best practice mandates configuring a Default record in Geolocation routing to catch queries from unmapped IP ranges or satellite internet providers.",
+          "Geoproximity Routing routes traffic based on the geographic location of your users and your AWS resources.",
+          "Unlike Geolocation, Geoproximity lets architects define Bias values (from -99 to +100) to expand or shrink the geographic footprint served by a particular region.",
+          "Increasing bias on an underutilized region attracts traffic from neighboring geographic areas, while negative bias sheds traffic to relieve regional overload.",
+          "Route 53 Traffic Flow provides a visual canvas for chaining complex routing policies, such as Geolocation routed into Latency routed into Health-Checked Failover.",
+          "Mastering these policies ensures compliance, performance, and operational flexibility."
+        ],
+        "example": "A multinational television broadcaster: European viewers receive regional programming with EU privacy notices (Geolocation), while sports broadcasts shift dynamically between satellite uplinks based on stadium broadcast capacity (Geoproximity bias).",
+        "code": "interface GeolocationRule {\n  continent: string;\n  targetRegion: string;\n}\n\nfunction routeByGeo(userContinent: string, rules: GeolocationRule[], defaultRegion: string): string {\n  const match = rules.find(r => r.continent === userContinent);\n  return match ? match.targetRegion : defaultRegion;\n}\n\nconst rules: GeolocationRule[] = [\n  { continent: 'EU', targetRegion: 'eu-central-1' },\n  { continent: 'AS', targetRegion: 'ap-northeast-1' },\n  { continent: 'NA', targetRegion: 'us-east-1' }\n];\n\nconst rEU = routeByGeo('EU', rules, 'us-east-1');\nconst rAF = routeByGeo('AF', rules, 'us-east-1'); // Unmapped continent falls back to default\n\nconsole.log(`Geo Routing: Europe=${rEU} | Africa(Default)=${rAF}`);",
+        "output": "Geo Routing: Europe=eu-central-1 | Africa(Default)=us-east-1",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Matches user continent against geolocation rules and provides safe fallback to default region."
+          },
+          {
+            "line": 17,
+            "note": "Demonstrates localized routing for Europe and fallback default routing for Africa."
+          }
+        ],
+        "tryIt": "Add an explicit rule for South America ('SA' -> 'sa-east-1') and test resolution.",
+        "check": {
+          "question": "Why must architects always configure a 'Default' record when deploying Route 53 Geolocation Routing?",
+          "options": [
+            "Because Route 53 crashes if any continent is missing",
+            "To catch queries from unmapped geographic locations, mobile proxies, or satellite networks and ensure resolution never fails",
+            "Because AWS requires all websites to be hosted in North Virginia"
+          ],
+          "answer": 1,
+          "why": "A default record guarantees that DNS queries from unmapped locations or IP anonymizers resolve successfully."
+        }
+      },
+      {
+        "title": "Route 53 Health Checks & Active-Passive DNS Failover",
+        "say": [
+          "High availability requires automated detection and mitigation of infrastructure outages at the DNS layer.",
+          "Route 53 Health Checks monitor the health and performance of your application endpoints by probing them every 30 seconds (or every 10 seconds with fast interval checks).",
+          "Health checks can monitor HTTP/HTTPS endpoints, TCP ports, CloudWatch alarms, or aggregate status across other health checks (Calculated Health Checks).",
+          "For HTTP checks, Route 53 verifies that the server returns a 2xx or 3xx status code and can optionally inspect the response body for a specific string (e.g. 'SYSTEM_HEALTHY').",
+          "If an endpoint fails consecutive checks beyond the Failure Threshold (typically 3 failures), Route 53 flags the endpoint as Unhealthy.",
+          "In a Failover Routing Policy (Active-Passive), Route 53 routes 100% of user traffic to the Primary region as long as its health check is Healthy.",
+          "The moment the primary health check fails, Route 53 automatically flips DNS resolution to the Secondary disaster recovery region within seconds.",
+          "Route 53 health checkers reside in dozens of locations worldwide, preventing false-positive failovers caused by isolated network hiccups.",
+          "DNS failover forms the backbone of resilient multi-region disaster recovery."
+        ],
+        "example": "An automated backup generator in a hospital: utility power is continuously monitored; the split second city grid voltage drops, an automatic transfer switch fires up the diesel generator to keep life support systems running seamlessly.",
+        "code": "interface Route53HealthCheck {\n  endpoint: string;\n  status: 'HEALTHY' | 'UNHEALTHY';\n  consecutiveFailures: number;\n  threshold: number;\n}\n\ninterface FailoverPair {\n  primary: Route53HealthCheck;\n  secondary: Route53HealthCheck;\n}\n\nfunction resolveFailoverDns(pair: FailoverPair): { routedTo: string; isFailoverActive: boolean } {\n  if (pair.primary.status === 'HEALTHY') {\n    return { routedTo: pair.primary.endpoint, isFailoverActive: false };\n  }\n  return { routedTo: pair.secondary.endpoint, isFailoverActive: true };\n}\n\nconst prodSystem: FailoverPair = {\n  primary: { endpoint: 'primary.us-east-1.pinit.com', status: 'UNHEALTHY', consecutiveFailures: 3, threshold: 3 },\n  secondary: { endpoint: 'dr.us-west-2.pinit.com', status: 'HEALTHY', consecutiveFailures: 0, threshold: 3 }\n};\n\nconst activeRoute = resolveFailoverDns(prodSystem);\nconsole.log(`Route 53 Failover: Active=${activeRoute.routedTo} | FailoverTriggered=${activeRoute.isFailoverActive}`);",
+        "output": "Route 53 Failover: Active=dr.us-west-2.pinit.com | FailoverTriggered=true",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Implements Active-Passive failover routing logic based on primary health check status."
+          },
+          {
+            "line": 21,
+            "note": "Demonstrates automated failover to the secondary DR region upon primary outage."
+          }
+        ],
+        "tryIt": "Restore the primary health status to 'HEALTHY' and verify that DNS traffic automatically fails back to the primary.",
+        "check": {
+          "question": "What happens in a Route 53 Active-Passive Failover setup when the Primary endpoint fails 3 consecutive health checks?",
+          "options": [
+            "All DNS queries immediately return an HTTP 500 error",
+            "Route 53 automatically suppresses the primary record and directs subsequent DNS queries to the healthy Secondary endpoint",
+            "Route 53 shuts down all AWS resources in the account"
+          ],
+          "answer": 1,
+          "why": "Route 53 automatically fails over to the secondary healthy record when the primary exceeds its failure threshold."
+        }
+      },
+      {
+        "title": "Global Multi-Region Routing Engine Verification",
+        "say": [
+          "We conclude our study of Amazon Route 53 with an end-to-end multi-region routing simulation.",
+          "Our verification engine validates a complex architecture combining Latency-Based Routing, Geolocation targeting, and Automated Health Check Failover.",
+          "The verification suite simulates synthetic DNS lookups from clients originating across North America, Europe, and Asia.",
+          "It confirms that healthy queries route to the lowest-latency regional endpoint.",
+          "Next, the simulation injects a regional network partition into the primary European region.",
+          "It asserts that Route 53 health checkers detect the outage, mark the endpoint unhealthy, and steer European traffic to the secondary standby region within tolerance limits.",
+          "Finally, it confirms that private hosted zone records remain strictly unresolvable from outside the authorized VPC network boundary.",
+          "Mastering Route 53 empowers you to architect rock-solid global systems that withstand regional cloud outages without downtime."
+        ],
+        "example": "A comprehensive disaster simulation drill for an international airport: runway lights fail on runway 1, automated sensors detect the fault, and air traffic control instantly diverts approaching flights to runway 2 without incident.",
+        "code": "interface MultiRegionDnsSim {\n  region: string;\n  latencyMs: number;\n  healthy: boolean;\n}\n\nfunction selectOptimalRegionalDns(candidates: MultiRegionDnsSim[]): string {\n  const healthyCandidates = candidates.filter(c => c.healthy);\n  if (healthyCandidates.length === 0) return 'global-fallback.pinit.com';\n  const best = healthyCandidates.reduce((prev, curr) => curr.latencyMs < prev.latencyMs ? curr : prev);\n  return `${best.region}.pinit.com`;\n}\n\nconst testRegions: MultiRegionDnsSim[] = [\n  { region: 'eu-west-1', latencyMs: 25, healthy: false }, // Region in outage\n  { region: 'us-east-1', latencyMs: 85, healthy: true },\n  { region: 'ap-southeast-1', latencyMs: 210, healthy: true }\n];\n\nconst selectedEndpoint = selectOptimalRegionalDns(testRegions);\nconsole.log(`Multi-Region DNS Resiliency: Optimal Active Endpoint=${selectedEndpoint}`);",
+        "output": "Multi-Region DNS Resiliency: Optimal Active Endpoint=us-east-1.pinit.com",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Filters candidates strictly to healthy endpoints before selecting the lowest-latency region."
+          },
+          {
+            "line": 17,
+            "note": "Verifies traffic is safely routed to us-east-1 (85ms) when the lowest latency region (eu-west-1) is unhealthy."
+          }
+        ],
+        "tryIt": "Simulate a scenario where all regions are unhealthy and assert that the global fallback domain is returned.",
+        "check": {
+          "question": "Why does the resilient DNS selection algorithm filter candidates for health BEFORE evaluating latency?",
+          "options": [
+            "Because latency numbers are calculated in alphabetical order",
+            "To prevent directing user traffic to a low-latency endpoint that is currently suffering an outage",
+            "Because unhealthy endpoints have zero latency"
+          ],
+          "answer": 1,
+          "why": "Filtering for health first guarantees users are never directed to an unavailable region, regardless of its low latency."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon Route 53 provides highly available cloud DNS with 100% SLA and support for Public and Private hosted zones.",
+      "Route 53 ALIAS records solve the Zone Apex CNAME restriction, pointing root domains to AWS resources free of charge.",
+      "Advanced routing policies (Weighted, Latency, Geolocation, Failover) paired with automated Health Checks enable resilient multi-region architectures."
+    ],
+    "projectStep": {
+      "title": "Global DNS Routing & Multi-Region Failover Architecture",
+      "steps": [
+        "Create a Route 53 Public Hosted Zone with an ALIAS record at the zone apex pointing to a CloudFront distribution",
+        "Configure Latency-Based Routing records directing global users to their nearest AWS region (us-east-1 and eu-central-1)",
+        "Set up an HTTPS Health Check with Failover Routing to achieve automated multi-region disaster recovery"
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "Amazon SQS: Standard vs FIFO Queues & Visibility Timeouts",
+    "goal": "Master asynchronous message queuing with Amazon SQS, understand Standard vs FIFO guarantees, manage visibility timeouts, and implement Dead Letter Queues (DLQ) for resilient microservice decoupling.",
+    "minutes": 25,
+    "recap": "Yesterday we routed global traffic with Route 53. Today we dive into distributed messaging with Amazon Simple Queue Service (SQS) to completely decouple microservices.",
+    "parts": [
+      {
+        "title": "Decoupling Microservices with Amazon SQS",
+        "say": [
+          "In modern distributed architectures, building tightly coupled microservices using synchronous HTTP/REST calls leads to systemic fragility.",
+          "If Service A calls Service B synchronously, a sudden spike in traffic or a transient outage in Service B immediately cascades backward, causing Service A to exhaust its thread pool and crash.",
+          "Amazon Simple Queue Service (SQS) solves this problem by providing a fully managed, highly scalable asynchronous message queue.",
+          "With SQS, Service A (the Producer) writes a JSON message to an SQS queue and immediately returns a success status to the client.",
+          "Service B (the Consumer) polls the SQS queue asynchronously at its own processing pace.",
+          "SQS acts as an elastic shock absorber, buffering millions of messages during peak traffic spikes (Load Leveling) without dropping a single transaction.",
+          "If downstream consumer servers crash, messages safely persist in SQS for up to 14 days (the maximum message retention period).",
+          "Once consumer servers recover, they resume pulling messages from the queue without data loss.",
+          "Decoupling via SQS transforms fragile monolithic call chains into resilient, fault-tolerant distributed systems."
+        ],
+        "example": "A restaurant drive-thru order lane: order takers don't wait for the chef to cook each burger before taking the next car's order; orders are queued on a kitchen ticket wheel, allowing orders to arrive at high speed while cooks work steadily.",
+        "code": "interface QueueMessage {\n  id: string;\n  body: string;\n  enqueuedAt: number;\n}\n\nclass SimpleMessageQueue {\n  private messages: QueueMessage[] = [];\n\n  sendMessage(body: string): string {\n    const id = `msg_${Math.random().toString(36).slice(2, 9)}`;\n    this.messages.push({ id, body, enqueuedAt: Date.now() });\n    return id;\n  }\n\n  receiveMessage(): QueueMessage | null {\n    return this.messages.shift() || null;\n  }\n\n  get queueDepth(): number {\n    return this.messages.length;\n  }\n}\n\nconst queue = new SimpleMessageQueue();\nqueue.sendMessage('Order #1001 Placed');\nqueue.sendMessage('Order #1002 Placed');\nconsole.log(`SQS Decoupling: Initial Depth=${queue.queueDepth} | Processed: ${queue.receiveMessage()?.body} | Remaining=${queue.queueDepth}`);",
+        "output": "SQS Decoupling: Initial Depth=2 | Processed: Order #1001 Placed | Remaining=1",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Implements basic FIFO buffering demonstrating producer-consumer decoupling."
+          },
+          {
+            "line": 24,
+            "note": "Verifies asynchronous message ingestion and independent consumption without blocking producers."
+          }
+        ],
+        "tryIt": "Send 3 additional messages to the queue and assert that the queue depth increments to 4.",
+        "check": {
+          "question": "How does an SQS queue protect downstream microservices during sudden traffic spikes?",
+          "options": [
+            "It drops all messages arriving after 5:00 PM",
+            "It buffers incoming messages elastically, allowing downstream consumers to process work at a steady, sustainable rate without crashing",
+            "It automatically buys more RAM for downstream servers"
+          ],
+          "answer": 1,
+          "why": "SQS provides load leveling, buffering spikes in message volume so downstream consumers process at their own capacity."
+        }
+      },
+      {
+        "title": "Standard Queues vs FIFO Queues: Guarantees & Throughput",
+        "say": [
+          "Amazon SQS offers two distinct queue types designed for different architectural workloads: Standard Queues and FIFO Queues.",
+          "Standard Queues are the default; they provide nearly unlimited throughput, supporting thousands of transactions per second.",
+          "Standard Queues guarantee At-Least-Once Delivery, meaning a message is delivered at least once, but occasionally more than once due to distributed retries.",
+          "Standard Queues provide Best-Effort Ordering, meaning messages are generally delivered in the order they were sent, but strict sequence is not guaranteed.",
+          "FIFO (First-In-First-Out) Queues, by contrast, preserve strict message ordering and guarantee Exactly-Once Processing.",
+          "FIFO queue names must always end with the '.fifo' suffix.",
+          "FIFO queues enforce ordering using a Message Group ID; messages belonging to the same group ID are processed sequentially by consumers.",
+          "FIFO queues enforce deduplication using either content-based hashing or an explicit Message Deduplication ID within a 5-minute deduplication window.",
+          "FIFO queues support up to 300 transactions per second (or 3,000 per second with high-throughput batching), making them ideal for financial ledgers, banking, and inventory updates."
+        ],
+        "example": "A supermarket checkout vs an express package delivery: standard postal delivery handles billions of packages with no promise of which box arrives first (Standard), whereas a bank teller window strictly serves ticket number 1 before ticket number 2 (FIFO).",
+        "code": "type QueueType = 'STANDARD' | 'FIFO';\n\ninterface SqsQueueConfig {\n  name: string;\n  type: QueueType;\n  maxThroughputTps: number | 'UNLIMITED';\n  orderingGuarantee: 'BEST_EFFORT' | 'STRICT_FIFO';\n  deduplicationRequired: boolean;\n}\n\nfunction configureSqsQueue(name: string): SqsQueueConfig {\n  const isFifo = name.endsWith('.fifo');\n  return {\n    name,\n    type: isFifo ? 'FIFO' : 'STANDARD',\n    maxThroughputTps: isFifo ? 3000 : 'UNLIMITED',\n    orderingGuarantee: isFifo ? 'STRICT_FIFO' : 'BEST_EFFORT',\n    deduplicationRequired: isFifo\n  };\n}\n\nconst standardQ = configureSqsQueue('analytics-events');\nconst fifoQ = configureSqsQueue('banking-transactions.fifo');\n\nconsole.log(`Queue 1: ${standardQ.type} (Order=${standardQ.orderingGuarantee}) | Queue 2: ${fifoQ.type} (Order=${fifoQ.orderingGuarantee})`);",
+        "output": "Queue 1: STANDARD (Order=BEST_EFFORT) | Queue 2: FIFO (Order=STRICT_FIFO)",
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Detects FIFO configuration based on the mandatory '.fifo' name suffix."
+          },
+          {
+            "line": 21,
+            "note": "Validates Standard Queue best-effort ordering versus FIFO strict sequencing."
+          }
+        ],
+        "tryIt": "Configure a queue named 'orders' without '.fifo' and verify it configures as a Standard queue.",
+        "check": {
+          "question": "Which SQS queue type must be used when an application requires strictly preserved message sequence and zero duplicate deliveries?",
+          "options": [
+            "Standard Queue",
+            "FIFO Queue (First-In-First-Out)",
+            "Priority Queue"
+          ],
+          "answer": 1,
+          "why": "FIFO queues guarantee strictly preserved message order and exactly-once processing with deduplication IDs."
+        }
+      },
+      {
+        "title": "SQS Visibility Timeout & Heartbeating",
+        "say": [
+          "Understanding the SQS Visibility Timeout is vital for writing bug-free consumer microservices.",
+          "When a consumer polls SQS and receives a message, SQS does not delete the message immediately.",
+          "Instead, SQS starts a Visibility Timeout clock (defaulting to 30 seconds, configurable up to 12 hours).",
+          "During the visibility timeout period, the message remains stored in the queue, but is rendered invisible to all other concurrent consumers.",
+          "If the consumer processes the message successfully, it issues a 'DeleteMessage' API call using the message's unique Receipt Handle.",
+          "Deleting the message purges it permanently from the queue.",
+          "However, if the consumer server crashes or throws an unhandled exception before calling DeleteMessage, the visibility timeout expires.",
+          "The moment the timer hits zero, SQS makes the message visible again, allowing another consumer instance to pick up the task and retry it.",
+          "If a long-running task requires more time than the default 30 seconds, the consumer must periodically call 'ChangeMessageVisibility' (heartbeating) to extend the clock and prevent duplicate concurrent processing."
+        ],
+        "example": "A library book loan: when you check out a book, the librarian marks it as checked out for 30 days (Visibility Timeout) so nobody else can take it; if you return it (Delete), it's done; if you lose it, the library flags it to replace it.",
+        "code": "interface InFlightMessage {\n  id: string;\n  receiptHandle: string;\n  visibleAt: number;\n}\n\nfunction processWithVisibilityTimeout(msgId: string, timeoutSeconds: number, executionDurationSec: number): { success: boolean; state: string } {\n  const receiptHandle = `rcpt_${msgId}`;\n  const visibilityExpiresAt = timeoutSeconds;\n  if (executionDurationSec <= visibilityExpiresAt) {\n    return { success: true, state: 'MESSAGE_DELETED_SUCCESSFULLY' };\n  }\n  return { success: false, state: 'VISIBILITY_EXPIRED_REAPPEARED_IN_QUEUE' };\n}\n\nconst fastTask = processWithVisibilityTimeout('msg_001', 30, 5);  // Finishes in 5s\nconst slowTask = processWithVisibilityTimeout('msg_002', 30, 45); // Crashes / exceeds 30s\n\nconsole.log(`Task 1 Result: ${fastTask.state} | Task 2 Result: ${slowTask.state}`);",
+        "output": "Task 1 Result: MESSAGE_DELETED_SUCCESSFULLY | Task 2 Result: VISIBILITY_EXPIRED_REAPPEARED_IN_QUEUE",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Models SQS visibility timeout expiration when worker processing exceeds the allocated window."
+          },
+          {
+            "line": 17,
+            "note": "Confirms fast task deletes successfully while slow task times out and reappears in queue."
+          }
+        ],
+        "tryIt": "Simulate calling ChangeMessageVisibility extending timeout to 60s for the slow task so it succeeds.",
+        "check": {
+          "question": "What happens to an SQS message if a consumer crashes before calling DeleteMessage and the Visibility Timeout expires?",
+          "options": [
+            "The message is permanently deleted to save storage",
+            "The message becomes visible again in the queue for another consumer to process",
+            "The entire SQS queue is paused for 24 hours"
+          ],
+          "answer": 1,
+          "why": "When visibility timeout expires without deletion, SQS restores message visibility so another consumer can retry."
+        }
+      },
+      {
+        "title": "Short Polling vs Long Polling (WaitTimeSeconds)",
+        "say": [
+          "When consumers retrieve messages from Amazon SQS using the 'ReceiveMessage' API, they can operate in two polling modes: Short Polling and Long Polling.",
+          "In Short Polling (WaitTimeSeconds = 0), SQS queries a random subset of its distributed storage servers and returns immediately, even if no messages were found.",
+          "Short Polling can result in empty responses (returning 0 messages) even when messages exist on other storage servers, and causes high CPU and API billing costs due to continuous polling loops.",
+          "Long Polling occurs when you configure 'WaitTimeSeconds' to a value between 1 and 20 seconds (20 seconds is best practice).",
+          "During Long Polling, SQS holds the HTTP connection open until a message arrives in the queue or the wait time expires.",
+          "As soon as any producer publishes a message to any storage node, SQS delivers it to the waiting consumer immediately.",
+          "Long Polling drastically reduces the number of empty responses, slashes SQS API request costs by up to 90%, and minimizes message consumption latency.",
+          "You can enable Long Polling at the queue level via 'ReceiveMessageWaitTimeSeconds = 20' or per API request.",
+          "In production systems, Long Polling should virtually always be enabled."
+        ],
+        "example": "Checking for physical mail: Short Polling is walking out to the mailbox every 30 seconds all day long, finding it empty 99% of the time; Long Polling is sitting on the front porch waiting for the postal truck to arrive before walking to the box.",
+        "code": "interface PollingConfig {\n  mode: 'SHORT' | 'LONG';\n  waitTimeSeconds: number;\n}\n\nfunction evaluatePollingEfficiency(config: PollingConfig, emptyPullsPerHour: number): { apiCostFactor: string; recommended: boolean } {\n  if (config.waitTimeSeconds === 0) {\n    return { apiCostFactor: `High API Billing (${emptyPullsPerHour} empty calls/hr)`, recommended: false };\n  }\n  const reducedCalls = Math.round(emptyPullsPerHour * 0.05);\n  return { apiCostFactor: `Optimized API Billing (~ ${reducedCalls} calls/hr)`, recommended: true };\n}\n\nconst shortPoll = evaluatePollingEfficiency({ mode: 'SHORT', waitTimeSeconds: 0 }, 7200);\nconst longPoll = evaluatePollingEfficiency({ mode: 'LONG', waitTimeSeconds: 20 }, 7200);\n\nconsole.log(`Short: ${shortPoll.apiCostFactor} | Long: ${longPoll.apiCostFactor}`);",
+        "output": "Short: High API Billing (7200 empty calls/hr) | Long: Optimized API Billing (~ 360 calls/hr)",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Quantifies the dramatic reduction in empty API polling calls achieved by Long Polling."
+          },
+          {
+            "line": 16,
+            "note": "Demonstrates 95% reduction in empty polling calls when WaitTimeSeconds is set to 20."
+          }
+        ],
+        "tryIt": "Test a wait time of 10 seconds and assert that recommended is true.",
+        "check": {
+          "question": "Why is Long Polling (WaitTimeSeconds = 20) strongly recommended over Short Polling in Amazon SQS?",
+          "options": [
+            "Because Long Polling encrypts message payloads automatically",
+            "Because Long Polling holds connections open until messages arrive, eliminating empty responses and slashing API costs",
+            "Because Short Polling is deprecated and unsupported"
+          ],
+          "answer": 1,
+          "why": "Long Polling waits up to 20 seconds for messages to arrive, dramatically cutting empty responses and API charges."
+        }
+      },
+      {
+        "title": "Dead Letter Queues (DLQ) & Redrive Policies",
+        "say": [
+          "In distributed messaging systems, poison pill messages—messages containing malformed JSON, invalid data types, or edge-case payloads that crash consumer code—can cause infinite crash loops.",
+          "When a consumer crashes on a poison message, the visibility timeout expires, the message reappears, another consumer picks it up and crashes, repeating endlessly.",
+          "To break this destructive cycle, Amazon SQS provides Dead Letter Queues (DLQs).",
+          "A Dead Letter Queue is an ordinary SQS queue attached to your primary queue via a Redrive Policy.",
+          "The Redrive Policy specifies two parameters: the ARN of the target Dead Letter Queue, and the 'maxReceiveCount'.",
+          "The 'maxReceiveCount' defines the maximum number of times a message can be delivered to consumers before being quarantined (typically set between 3 and 5).",
+          "Every time an SQS message is delivered to a consumer, SQS increments its internal 'ApproximateReceiveCount' attribute.",
+          "If a message fails processing and reaches 'maxReceiveCount', SQS automatically isolates the message and moves it into the Dead Letter Queue without human intervention.",
+          "Engineers monitor the DLQ using CloudWatch Alarms on the 'ApproximateNumberOfMessagesVisible' metric.",
+          "Once the underlying bug is patched, engineers use SQS DLQ Redrive to replay the quarantined messages back to the main queue."
+        ],
+        "example": "A toxic material isolation chamber: when a parcel on an automated conveyor belt sets off radiation alarms three consecutive times, the robotic arm diverts it into a sealed lead container for hazmat inspection instead of letting it jam the conveyor.",
+        "code": "interface RedrivePolicy {\n  deadLetterQueueArn: string;\n  maxReceiveCount: number;\n}\n\nfunction processMessageWithDlq(msgId: string, currentReceiveCount: number, policy: RedrivePolicy): { destination: 'WORKER' | 'DEAD_LETTER_QUEUE'; receiveCount: number } {\n  const updatedCount = currentReceiveCount + 1;\n  if (updatedCount > policy.maxReceiveCount) {\n    return { destination: 'DEAD_LETTER_QUEUE', receiveCount: updatedCount };\n  }\n  return { destination: 'WORKER', receiveCount: updatedCount };\n}\n\nconst dlqPolicy: RedrivePolicy = { deadLetterQueueArn: 'arn:aws:sqs:us-east-1:123456:orders-dlq', maxReceiveCount: 3 };\nconst attempt1 = processMessageWithDlq('msg_99', 0, dlqPolicy);\nconst attempt3 = processMessageWithDlq('msg_99', 2, dlqPolicy);\nconst attempt4 = processMessageWithDlq('msg_99', 3, dlqPolicy); // Exceeds maxReceiveCount 3\n\nconsole.log(`Attempt 1: ${attempt1.destination} | Attempt 3: ${attempt3.destination} | Attempt 4: ${attempt4.destination}`);",
+        "output": "Attempt 1: WORKER | Attempt 3: WORKER | Attempt 4: DEAD_LETTER_QUEUE",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Tracks receive count and routes poison messages to DLQ when maxReceiveCount threshold is breached."
+          },
+          {
+            "line": 18,
+            "note": "Validates routing message to DEAD_LETTER_QUEUE on the 4th attempt after 3 failures."
+          }
+        ],
+        "tryIt": "Change maxReceiveCount to 5 and verify attempt 4 routes to WORKER instead of DEAD_LETTER_QUEUE.",
+        "check": {
+          "question": "What parameter in an SQS Redrive Policy determines how many times a message can fail before being moved to a Dead Letter Queue?",
+          "options": [
+            "VisibilityTimeoutSeconds",
+            "maxReceiveCount",
+            "MessageRetentionPeriod"
+          ],
+          "answer": 1,
+          "why": "maxReceiveCount sets the threshold of consecutive delivery attempts before SQS quarantines the message in a DLQ."
+        }
+      },
+      {
+        "title": "Resilient Distributed Queue Consumer Verification",
+        "say": [
+          "We conclude Day 18 with an end-to-end verification of an SQS distributed queue consumer system.",
+          "Our verification harness simulates a multi-worker consumer pool pulling messages under variable load.",
+          "It validates message receipt, visibility timeout enforcement, message deletion on success, and automatic DLQ diversion for malformed payloads.",
+          "The test harness injects 100 simulated messages, including 5 deliberate poison pills with malformed data.",
+          "It confirms that all 95 valid messages are processed and deleted cleanly.",
+          "It confirms that all 5 poison pills fail processing, retry up to maxReceiveCount (3), and are diverted to the Dead Letter Queue with zero message loss.",
+          "Finally, it verifies that the queue depth of the primary queue drops to zero while the DLQ contains exactly 5 messages.",
+          "This verification proves your ability to build production-grade asynchronous messaging backbones on AWS."
+        ],
+        "example": "A post office sorting machine test: 100 letters are sent through the sorting machine; 95 standard envelopes are sorted into mailbags, while 5 unreadable or damaged envelopes are routed to the manual inspection desk.",
+        "code": "interface QueueBatchAudit {\n  totalMessages: number;\n  processedSuccessfully: number;\n  poisonPills: number;\n  dlqDiverted: number;\n  primaryQueueDepth: number;\n}\n\nfunction auditSqsPipeline(audit: QueueBatchAudit): { passed: boolean; message: string } {\n  const allHandled = (audit.processedSuccessfully + audit.dlqDiverted) === audit.totalMessages;\n  const primaryEmpty = audit.primaryQueueDepth === 0;\n  const dlqAccurate = audit.dlqDiverted === audit.poisonPills;\n  const passed = allHandled && primaryEmpty && dlqAccurate;\n  return {\n    passed,\n    message: passed ? 'SQS Consumer & DLQ Audit PASSED (100% Data Integrity)' : 'Audit FAILED'\n  };\n}\n\nconst testAudit = auditSqsPipeline({\n  totalMessages: 100,\n  processedSuccessfully: 95,\n  poisonPills: 5,\n  dlqDiverted: 5,\n  primaryQueueDepth: 0\n});\n\nconsole.log(`Audit Result: ${testAudit.message}`);",
+        "output": "Audit Result: SQS Consumer & DLQ Audit PASSED (100% Data Integrity)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Verifies zero data loss across valid processing and poison pill Dead Letter Queue isolation."
+          },
+          {
+            "line": 24,
+            "note": "Confirms complete compliance of the SQS message pipeline audit."
+          }
+        ],
+        "tryIt": "Simulate a scenario where primaryQueueDepth is 2 (unprocessed messages) and verify the audit fails.",
+        "check": {
+          "question": "What does our SQS consumer audit verify regarding system data integrity?",
+          "options": [
+            "That all messages were immediately printed to physical paper",
+            "That 100% of messages were accounted for—valid messages processed and poison pills safely quarantined in the DLQ",
+            "That consumers processed all messages synchronously without queuing"
+          ],
+          "answer": 1,
+          "why": "The audit confirms 100% data integrity: valid messages succeed while unprocessable payloads are quarantined safely in the DLQ."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon SQS decouples microservices by providing elastic asynchronous message queuing and load leveling.",
+      "Standard Queues offer unlimited throughput and at-least-once delivery; FIFO queues provide strict ordering and exactly-once processing.",
+      "Visibility Timeouts prevent concurrent processing, Long Polling slashes costs, and Dead Letter Queues (DLQs) safely isolate poison pills."
+    ],
+    "projectStep": {
+      "title": "Decoupled E-Commerce Order Processing SQS Architecture",
+      "steps": [
+        "Create an SQS FIFO queue ('orders.fifo') with Content-Based Deduplication enabled",
+        "Configure a companion Dead Letter Queue ('orders-dlq.fifo') with maxReceiveCount = 3",
+        "Implement a long-polling consumer worker with visibility heartbeating for long-running fulfillment tasks"
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Amazon SNS: Pub/Sub Topic Fanout & Push Notifications",
+    "goal": "Master publish/subscribe messaging with Amazon Simple Notification Service (SNS), implement 1-to-N fanout architecture with Amazon SQS, and configure JSON message filtering policies.",
+    "minutes": 25,
+    "recap": "Yesterday we decoupled services point-to-point with Amazon SQS. Today we implement publish/subscribe messaging with Amazon SNS to fan out events to multiple heterogeneous subscribers.",
+    "parts": [
+      {
+        "title": "The Publish/Subscribe Paradigm & Amazon SNS",
+        "say": [
+          "In distributed architectures, point-to-point queuing with SQS connects a single producer to a single consumer pool.",
+          "However, real-world enterprise events frequently require notifying multiple independent downstream systems simultaneously.",
+          "When an e-commerce order is placed, the Inventory service, Payment billing service, Shipping notification service, and Data Analytics warehouse all need the event.",
+          "The Publish/Subscribe (Pub/Sub) messaging paradigm decouples event producers from consumers using Topics.",
+          "Amazon Simple Notification Service (SNS) is AWS's fully managed Pub/Sub messaging service.",
+          "Producers (Publishers) publish messages to an SNS Topic without any knowledge of who is listening or how many subscribers exist.",
+          "SNS automatically replicates and delivers the message to all subscribed endpoints in parallel within milliseconds.",
+          "Subscribers can be dynamically added or removed at any time without modifying a single line of publisher code.",
+          "This 1-to-N broadcast capability eliminates tight architectural coupling and enables frictionless microservice expansion."
+        ],
+        "example": "A community town crier or radio broadcast station: the news anchor speaks into a microphone (SNS Topic) without needing to know every individual radio listener; thousands of radios tune in and receive the broadcast simultaneously.",
+        "code": "interface SnsTopic {\n  arn: string;\n  name: string;\n  subscribers: string[];\n}\n\nfunction broadcastEvent(topic: SnsTopic, payload: string): { deliveredCount: number; recipients: string[] } {\n  return {\n    deliveredCount: topic.subscribers.length,\n    recipients: topic.subscribers.map(sub => `Delivered '${payload}' to ${sub}`)\n  };\n}\n\nconst orderTopic: SnsTopic = {\n  arn: 'arn:aws:sns:us-east-1:123456:order-events',\n  name: 'order-events',\n  subscribers: ['Inventory-Queue', 'Payment-Queue', 'Shipping-Service', 'Analytics-Bucket']\n};\n\nconst result = broadcastEvent(orderTopic, 'Order #9001 Placed');\nconsole.log(`SNS Broadcast: Delivered to ${result.deliveredCount} subscribers simultaneously`);",
+        "output": "SNS Broadcast: Delivered to 4 subscribers simultaneously",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Replicates a published event payload to all topic subscribers in a 1-to-N fanout."
+          },
+          {
+            "line": 19,
+            "note": "Confirms simultaneous event broadcast across 4 independent downstream microservices."
+          }
+        ],
+        "tryIt": "Add a 5th subscriber ('Fraud-Detection-Service') and verify deliveredCount increases to 5.",
+        "check": {
+          "question": "What is the primary architectural difference between Amazon SQS and Amazon SNS?",
+          "options": [
+            "SQS is written in Python while SNS is written in C++",
+            "SQS is a 1-to-1 point-to-point queue for consumer buffering; SNS is a 1-to-N publish/subscribe broadcast topic for fanout",
+            "SNS cannot handle JSON payloads"
+          ],
+          "answer": 1,
+          "why": "SQS is designed for 1-to-1 asynchronous point-to-point queue processing; SNS is designed for 1-to-N pub/sub fanout."
+        }
+      },
+      {
+        "title": "SNS Protocol Endpoints & Mobile Push Notifications",
+        "say": [
+          "Amazon SNS supports a wide variety of heterogeneous subscriber protocols, making it a versatile event delivery bridge.",
+          "For machine-to-machine application integration, SNS delivers messages to Amazon SQS queues, AWS Lambda functions, and HTTP/HTTPS webhooks.",
+          "For user notifications, SNS delivers push messages directly to mobile devices (Apple iOS APNs, Google Android FCM), SMS text messages to over 200 countries, and formatted email notifications.",
+          "When an event is published to an SNS topic, SNS manages protocol translation and retries automatically.",
+          "If an external HTTP webhook endpoint is temporarily unreachable, SNS applies exponential backoff retry policies, retrying dozens of times over hours or days before failing.",
+          "For mobile notifications, developers register device push tokens with SNS Application Platform Endpoints.",
+          "Publishing to a platform endpoint handles the underlying TLS connections, certificate rotations, and Apple/Google gateway handshakes automatically.",
+          "Combining machine and human notifications on a single topic streamlines event handling across the entire enterprise."
+        ],
+        "example": "A school emergency alert system: when severe weather strikes, the administration sends one alert, and the system automatically sends SMS texts to parents, emails to staff, push notifications to the school mobile app, and triggers building alarms.",
+        "code": "type SnsProtocol = 'sqs' | 'lambda' | 'https' | 'email' | 'sms';\n\ninterface SnsSubscription {\n  protocol: SnsProtocol;\n  endpoint: string;\n}\n\nfunction formatNotificationMessage(protocol: SnsProtocol, eventName: string, data: Record<string, unknown>): string {\n  switch (protocol) {\n    case 'sms': return `ALERT: ${eventName}`;\n    case 'email': return `Subject: System Notification\\n\\nEvent: ${eventName}\\nDetails: ${JSON.stringify(data)}`;\n    case 'sqs':\n    case 'lambda':\n    case 'https': return JSON.stringify({ event: eventName, ...data });\n  }\n}\n\nconst smsMsg = formatNotificationMessage('sms', 'Card Charge $50', { amount: 50 });\nconst sqsMsg = formatNotificationMessage('sqs', 'Card Charge $50', { amount: 50, currency: 'USD' });\n\nconsole.log(`SMS Format: ${smsMsg} | SQS Format: ${sqsMsg}`);",
+        "output": "SMS Format: ALERT: Card Charge $50 | SQS Format: {\"event\":\"Card Charge $50\",\"amount\":50,\"currency\":\"USD\"}",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Demonstrates protocol-specific payload formatting for human SMS versus machine SQS consumers."
+          },
+          {
+            "line": 20,
+            "note": "Outputs concise human SMS text alongside structured JSON machine payloads."
+          }
+        ],
+        "tryIt": "Format an 'email' notification and verify it contains both Subject and Details.",
+        "check": {
+          "question": "Which of the following endpoint protocols is NOT natively supported as an Amazon SNS topic subscription?",
+          "options": [
+            "AWS Lambda",
+            "Amazon SQS",
+            "Direct FTP file upload"
+          ],
+          "answer": 2,
+          "why": "SNS natively supports SQS, Lambda, HTTP/S, Email, SMS, and Mobile Push, but does not support direct FTP."
+        }
+      },
+      {
+        "title": "The SNS + SQS Fanout Architectural Pattern",
+        "say": [
+          "The 'SNS + SQS Fanout Pattern' is one of the most widely used and influential architectural patterns in cloud computing.",
+          "In a pure SNS setup, if an SNS topic invokes a Lambda function or HTTP endpoint directly, an unexpected spike in messages could overwhelm downstream systems.",
+          "Furthermore, if the subscriber is down when SNS attempts delivery, the message risks being lost after retries exhaust.",
+          "The solution is to subscribe individual Amazon SQS queues to the central Amazon SNS topic.",
+          "When the publisher publishes an event to the SNS topic, SNS immediately replicates the message into every subscribed SQS queue.",
+          "Each downstream microservice owns its dedicated SQS queue.",
+          "The Inventory microservice pulls from the Inventory SQS queue; the Billing microservice pulls from the Billing SQS queue.",
+          "This architecture combines the broadcast power of SNS pub/sub with the resilience, buffer leveling, and visibility retry guarantees of SQS queues.",
+          "If the Billing service experiences a database deadlock and halts for 20 minutes, its SQS queue safely buffers incoming orders without impacting the Inventory or Shipping services.",
+          "The SNS + SQS Fanout pattern guarantees full microservice isolation, infinite horizontal scalability, and zero data loss."
+        ],
+        "example": "A corporate press release office: a single news bulletin is photocopied and placed into separate locked employee department inboxes (SQS queues); each department reviews the memo at their own pace without holding up the others.",
+        "code": "interface FanoutArchitecture {\n  topicArn: string;\n  queues: { name: string; bufferedMessages: string[] }[];\n}\n\nfunction publishToFanout(fanout: FanoutArchitecture, eventPayload: string): void {\n  for (const q of fanout.queues) {\n    q.bufferedMessages.push(eventPayload);\n  }\n}\n\nconst system: FanoutArchitecture = {\n  topicArn: 'arn:aws:sns:us-east-1:123456:order-events',\n  queues: [\n    { name: 'order-inventory-sqs', bufferedMessages: [] },\n    { name: 'order-billing-sqs', bufferedMessages: [] },\n    { name: 'order-notifications-sqs', bufferedMessages: [] }\n  ]\n};\n\npublishToFanout(system, 'OrderCreated: #5544');\nconsole.log(`Fanout Complete: ${system.queues.map(q => `${q.name} depth=${q.bufferedMessages.length}`).join(' | ')}`);",
+        "output": "Fanout Complete: order-inventory-sqs depth=1 | order-billing-sqs depth=1 | order-notifications-sqs depth=1",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Simulates the SNS fanout engine replicating an incoming event into every subscribed SQS queue."
+          },
+          {
+            "line": 20,
+            "note": "Verifies every downstream SQS queue received a discrete copy of the order event."
+          }
+        ],
+        "tryIt": "Publish a second event and verify that every queue depth increments to 2.",
+        "check": {
+          "question": "Why do architects subscribe Amazon SQS queues to an Amazon SNS topic rather than calling microservice HTTP APIs directly?",
+          "options": [
+            "Because SNS cannot connect to HTTP endpoints",
+            "To provide buffer leveling, retry isolation, and prevent slow or crashed services from impacting other subscribers",
+            "Because SQS queues make web requests faster"
+          ],
+          "answer": 1,
+          "why": "Placing SQS queues behind SNS topics provides load leveling, fault isolation, and message durability for each subscriber."
+        }
+      },
+      {
+        "title": "SNS Subscription Filter Policies",
+        "say": [
+          "In many enterprise fanout scenarios, not every subscriber needs to receive every single message published to a topic.",
+          "For example, an international shipping service only cares about orders where 'shipping_type' equals 'international', while a local courier service only handles 'same_day_delivery'.",
+          "Without filtering, all subscribers would receive 100% of messages and waste compute cycles inspecting and discarding irrelevant events.",
+          "Amazon SNS solves this cleanly using Subscription Filter Policies.",
+          "A Subscription Filter Policy is a JSON document assigned to an individual subscription that inspects Message Attributes (or the message body).",
+          "SNS evaluates the filter policy before delivering the message to the subscriber's endpoint.",
+          "Filter policies support exact string matching, prefix matching, numerical comparisons (greater than, less than, range), and 'anything-but' negation.",
+          "If the published message attributes match the subscriber's filter policy, SNS delivers the message; if not, SNS silently discards it for that specific subscriber.",
+          "Server-side message filtering slashes downstream compute costs, eliminates useless network traffic, and simplifies microservice business logic."
+        ],
+        "example": "A regional real estate newsletter: subscribers select preferences (e.g., 'Commercial buildings over $1M' vs 'Residential homes under $400k'); the mail room only sends listings that match each subscriber's filter criteria.",
+        "code": "interface FilterPolicy {\n  shippingType?: string[];\n  totalAmount?: { min?: number; max?: number };\n}\n\ninterface MessageWithAttributes {\n  id: string;\n  attributes: {\n    shippingType: string;\n    totalAmount: number;\n  };\n}\n\nfunction matchesFilterPolicy(msg: MessageWithAttributes, policy: FilterPolicy): boolean {\n  if (policy.shippingType && !policy.shippingType.includes(msg.attributes.shippingType)) {\n    return false;\n  }\n  if (policy.totalAmount) {\n    if (policy.totalAmount.min !== undefined && msg.attributes.totalAmount < policy.totalAmount.min) return false;\n    if (policy.totalAmount.max !== undefined && msg.attributes.totalAmount > policy.totalAmount.max) return false;\n  }\n  return true;\n}\n\nconst order = { id: 'ord_1', attributes: { shippingType: 'INTERNATIONAL', totalAmount: 450 } };\nconst intlPolicy: FilterPolicy = { shippingType: ['INTERNATIONAL'], totalAmount: { min: 100 } };\nconst domesticPolicy: FilterPolicy = { shippingType: ['DOMESTIC'] };\n\nconsole.log(`Filter Evaluation: Intl=${matchesFilterPolicy(order, intlPolicy)} | Domestic=${matchesFilterPolicy(order, domesticPolicy)}`);",
+        "output": "Filter Evaluation: Intl=true | Domestic=false",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Implements server-side JSON attribute matching evaluating string set inclusion and numeric ranges."
+          },
+          {
+            "line": 24,
+            "note": "Delivers event to international queue (true) while filtering out domestic queue (false)."
+          }
+        ],
+        "tryIt": "Test an order with totalAmount: 50 against intlPolicy and assert that it evaluates to false.",
+        "check": {
+          "question": "Where are Amazon SNS Subscription Filter Policies evaluated?",
+          "options": [
+            "Inside the client browser application",
+            "Server-side within Amazon SNS before the message is delivered to the subscriber",
+            "Inside the database trigger"
+          ],
+          "answer": 1,
+          "why": "SNS evaluates filter policies server-side before delivery, saving subscriber compute and bandwidth."
+        }
+      },
+      {
+        "title": "Message Deduplication & FIFO SNS Topics",
+        "say": [
+          "Just as Amazon SQS offers FIFO queues, Amazon SNS provides SNS FIFO Topics.",
+          "SNS FIFO Topics are designed for applications where the order of operations is critical and duplicate messages cannot be tolerated.",
+          "FIFO topic names must end with the '.fifo' suffix.",
+          "When you publish to an SNS FIFO topic, you must provide a Message Group ID and a Message Deduplication ID (or enable Content-Based Deduplication).",
+          "SNS FIFO topics can only deliver messages to Amazon SQS FIFO queues as subscribers; they cannot fan out to standard SQS queues, SMS, or email.",
+          "When an SNS FIFO topic fans out to multiple SQS FIFO queues, it preserves the exact sequence of messages within each Message Group ID across all subscribed queues.",
+          "If two messages with the same deduplication ID are published within the 5-minute deduplication window, SNS delivers the message only once.",
+          "This guarantees end-to-end exactly-once, strictly ordered pub/sub messaging across distributed microservices.",
+          "FIFO fanout is indispensable for stock trading platforms, banking transactions, and airline seat reservations."
+        ],
+        "example": "A financial stock exchange ledger: buy and sell bids must be matched in the exact millisecond order they crossed the wire, and duplicate order submissions caused by network retries must be rejected instantly.",
+        "code": "interface FifoTopicConfig {\n  name: string;\n  isFifo: boolean;\n  supportedSubscriberProtocols: string[];\n}\n\nfunction validateFifoSubscription(topicName: string, subscriberQueueName: string): { valid: boolean; reason: string } {\n  const topicIsFifo = topicName.endsWith('.fifo');\n  const subIsFifo = subscriberQueueName.endsWith('.fifo');\n  if (topicIsFifo && !subIsFifo) {\n    return { valid: false, reason: 'SNS FIFO topics can only subscribe SQS FIFO queues.' };\n  }\n  return { valid: true, reason: 'VALID_FIFO_TOPIC_AND_QUEUE_BINDING' };\n}\n\nconst validFifoBinding = validateFifoSubscription('ledger.fifo', 'audit-service.fifo');\nconst invalidFifoBinding = validateFifoSubscription('ledger.fifo', 'standard-worker-queue');\n\nconsole.log(`Binding 1: ${validFifoBinding.reason} | Binding 2: ${invalidFifoBinding.reason}`);",
+        "output": "Binding 1: VALID_FIFO_TOPIC_AND_QUEUE_BINDING | Binding 2: SNS FIFO topics can only subscribe SQS FIFO queues.",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Enforces AWS rule mandating that SNS FIFO topics can only subscribe SQS FIFO queues."
+          },
+          {
+            "line": 18,
+            "note": "Demonstrates rejection of standard SQS queues when binding to an SNS FIFO topic."
+          }
+        ],
+        "tryIt": "Test a standard topic ('events') subscribing a standard queue and assert valid is true.",
+        "check": {
+          "question": "What is the only supported subscriber destination for an Amazon SNS FIFO Topic?",
+          "options": [
+            "SMS mobile text messages",
+            "Amazon SQS FIFO Queues",
+            "HTTP unencrypted webhooks"
+          ],
+          "answer": 1,
+          "why": "SNS FIFO topics strictly require SQS FIFO queues as subscribers to guarantee preserved order and deduplication."
+        }
+      },
+      {
+        "title": "High-Throughput Pub/Sub Fanout Engine Verification",
+        "say": [
+          "We conclude Day 19 by verifying an end-to-end enterprise Pub/Sub fanout architecture.",
+          "Our verification harness simulates publishing a stream of diverse e-commerce events through an SNS Topic.",
+          "The topic fans out to three dedicated SQS queues: an Inventory queue, a Billing queue, and a VIP Shipping queue.",
+          "The test harness injects 1,000 simulated order events with varying customer tiers (STANDARD, VIP) and shipping regions.",
+          "It validates that the Billing queue receives 100% of all order events (1,000 messages) without filtering.",
+          "It validates that the VIP Shipping queue—configured with a filter policy requiring customerTier='VIP'—receives only the 200 matching VIP orders.",
+          "It validates that all 1,200 total delivered queue messages arrived with zero message loss or attribute corruption.",
+          "Completing this verification certifies your capability to design high-throughput event broadcast and filtering systems on AWS."
+        ],
+        "example": "A newspaper printing press simulation: 1,000 newspapers roll off the presses; all 1,000 go to general subscribers, while only 200 copies with special magazine inserts go to premium subscribers.",
+        "code": "interface FanoutVerificationAudit {\n  totalPublished: number;\n  unfilteredQueueCount: number;\n  vipFilteredQueueCount: number;\n  expectedVipCount: number;\n}\n\nfunction verifyPubSubFanout(audit: FanoutVerificationAudit): { passed: boolean; report: string } {\n  const billingComplete = audit.unfilteredQueueCount === audit.totalPublished;\n  const vipAccurate = audit.vipFilteredQueueCount === audit.expectedVipCount;\n  const passed = billingComplete && vipAccurate;\n  return {\n    passed,\n    report: `Fanout Audit: Unfiltered=${audit.unfilteredQueueCount}/${audit.totalPublished} | VIP=${audit.vipFilteredQueueCount}/${audit.expectedVipCount} | Status=${passed ? 'SUCCESS' : 'FAILED'}`\n  };\n}\n\nconst auditResults = verifyPubSubFanout({\n  totalPublished: 1000,\n  unfilteredQueueCount: 1000,\n  vipFilteredQueueCount: 200,\n  expectedVipCount: 200\n});\n\nconsole.log(auditResults.report);",
+        "output": "Fanout Audit: Unfiltered=1000/1000 | VIP=200/200 | Status=SUCCESS",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Verifies unfiltered 100% delivery alongside filtered subscription accuracy."
+          },
+          {
+            "line": 22,
+            "note": "Confirms perfect execution of the SNS pub/sub fanout audit."
+          }
+        ],
+        "tryIt": "Simulate a filter mismatch where VIP queue receives 180 instead of 200 and verify audit reports FAILED.",
+        "check": {
+          "question": "In our fanout audit, why did the VIP queue receive 200 messages while the Billing queue received 1,000 messages?",
+          "options": [
+            "Because the VIP queue ran out of disk space",
+            "Because an SNS Subscription Filter Policy routed only messages matching customerTier='VIP' to the VIP queue",
+            "Because SNS prioritizes billing over shipping"
+          ],
+          "answer": 1,
+          "why": "The VIP queue had a subscription filter policy that accepted only VIP events, while the billing queue had no filter."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon SNS provides 1-to-N publish/subscribe messaging, broadcasting events to multiple decoupled subscribers.",
+      "The SNS + SQS Fanout pattern combines broadcast pub/sub with queue buffering, load leveling, and fault isolation.",
+      "Subscription Filter Policies evaluate JSON message attributes server-side, routing subsets of events to target queues."
+    ],
+    "projectStep": {
+      "title": "Enterprise Pub/Sub Order Fanout Infrastructure",
+      "steps": [
+        "Create an SNS Topic ('order-events-topic') configured with server-side encryption",
+        "Subscribe two SQS queues: 'billing-service-queue' (unfiltered) and 'international-fulfillment-queue' (filtered)",
+        "Configure a Subscription Filter Policy on the international queue matching 'shipping_region = INTERNATIONAL'"
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "Amazon EventBridge: Serverless Event Bus & Schema Registry",
+    "goal": "Master enterprise event routing with Amazon EventBridge, build custom event buses, write content-based JSON event patterns, and leverage the EventBridge Schema Registry for type-safe event-driven architectures.",
+    "minutes": 25,
+    "recap": "Yesterday we built pub/sub fanout with Amazon SNS. Today we elevate event-driven architecture with Amazon EventBridge, AWS's next-generation serverless event bus.",
+    "parts": [
+      {
+        "title": "Amazon EventBridge vs Amazon SNS & SQS",
+        "say": [
+          "As cloud architectures scale to hundreds of microservices, managing individual point-to-point queues and pub/sub topics becomes complex.",
+          "Amazon EventBridge is AWS's modern, serverless event bus service designed for enterprise event-driven architectures.",
+          "While Amazon SNS is an ultra-high-throughput pub/sub topic that evaluates only basic Message Attributes, EventBridge inspects the entire JSON payload body of an event.",
+          "EventBridge natively connects with over 200 AWS services (such as EC2, S3, CodePipeline) emitting system events automatically.",
+          "EventBridge also natively integrates with dozens of third-party Software as a Service (SaaS) partner platforms, including Zendesk, Shopify, Datadog, and PagerDuty.",
+          "Unlike SNS, EventBridge allows you to route events to over 20 diverse AWS targets, including Lambda functions, Step Functions state machines, SQS queues, Kinesis streams, and ECS tasks.",
+          "EventBridge also provides built-in Scheduled Rules (cron expressions), replacing legacy CloudWatch Events cron jobs.",
+          "EventBridge represents the central nervous system for modern serverless event routing."
+        ],
+        "example": "A central train station dispatch hub: rather than laying separate private rail tracks between every single factory and warehouse, every train rolls into the central hub, where automated switches route railcars based on their cargo manifest.",
+        "code": "type MessagingTool = 'SQS' | 'SNS' | 'EVENTBRIDGE';\n\ninterface Requirement {\n  needsPayloadInspection: boolean;\n  needsThirdPartySaaSIntegration: boolean;\n  needsOrderedFifoProcessing: boolean;\n}\n\nfunction selectEventService(req: Requirement): MessagingTool {\n  if (req.needsOrderedFifoProcessing) return 'SQS';\n  if (req.needsPayloadInspection || req.needsThirdPartySaaSIntegration) return 'EVENTBRIDGE';\n  return 'SNS';\n}\n\nconst r1 = selectEventService({ needsPayloadInspection: true, needsThirdPartySaaSIntegration: false, needsOrderedFifoProcessing: false });\nconst r2 = selectEventService({ needsPayloadInspection: false, needsThirdPartySaaSIntegration: false, needsOrderedFifoProcessing: true });\n\nconsole.log(`Selection 1: ${r1} | Selection 2: ${r2}`);",
+        "output": "Selection 1: EVENTBRIDGE | Selection 2: SQS",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Evaluates architectural requirements to select between SQS, SNS, and EventBridge."
+          },
+          {
+            "line": 17,
+            "note": "Selects EventBridge for payload body inspection and SQS for strict FIFO processing."
+          }
+        ],
+        "tryIt": "Evaluate a requirement needing high-throughput simple broadcast and verify it selects SNS.",
+        "check": {
+          "question": "What is a major advantage of Amazon EventBridge over Amazon SNS for event filtering?",
+          "options": [
+            "EventBridge can inspect and match on the entire JSON payload body, whereas SNS only inspects message attributes",
+            "EventBridge only runs on physical on-premises servers",
+            "EventBridge does not support JSON"
+          ],
+          "answer": 0,
+          "why": "EventBridge rules inspect the full JSON body of an event, providing content-based routing without needing metadata attributes."
+        }
+      },
+      {
+        "title": "Event Buses, Custom Events & The AWS Event Schema",
+        "say": [
+          "At the heart of Amazon EventBridge is the Event Bus, an elastic router that receives events and applies rules to dispatch them to targets.",
+          "EventBridge provides three types of event buses.",
+          "The 'default' event bus automatically receives events emitted by all AWS services in your account.",
+          "Custom event buses are created by your team to receive proprietary application events emitted by your microservices (e.g. 'ecommerce-bus').",
+          "Partner event buses receive events directly from integrated SaaS partners like Auth0 or GitHub.",
+          "Every event ingested by EventBridge adheres to a standardized AWS JSON event envelope.",
+          "The envelope contains top-level envelope fields: 'source' (identifying the application emitting the event, e.g. 'com.pinit.orders'), 'detail-type' (identifying the event name, e.g. 'OrderPlaced'), 'time' (ISO 8601 timestamp), and 'region'.",
+          "The custom payload of your event sits inside the 'detail' object.",
+          "Standardizing all application events in this schema enables uniform filtering and audit logging across the entire cloud landscape."
+        ],
+        "example": "The universal postal envelope: no matter what you enclose inside the envelope (the 'detail'), the outside must always feature a standard return address ('source'), postmark date ('time'), and addressee label ('detail-type').",
+        "code": "interface AwsEventBridgeEvent<T> {\n  version: string;\n  id: string;\n  'detail-type': string;\n  source: string;\n  account: string;\n  time: string;\n  region: string;\n  resources: string[];\n  detail: T;\n}\n\nfunction createOrderEvent(orderId: string, amount: number): AwsEventBridgeEvent<{ orderId: string; amount: number; currency: string }> {\n  return {\n    version: '0',\n    id: 'evt-11223344',\n    'detail-type': 'OrderPlaced',\n    source: 'com.pinit.orders',\n    account: '123456789012',\n    time: '2026-10-02T10:00:00Z',\n    region: 'us-east-1',\n    resources: [],\n    detail: { orderId, amount, currency: 'USD' }\n  };\n}\n\nconst evt = createOrderEvent('ord_8877', 149.99);\nconsole.log(`Event Envelope: Source=${evt.source} | Type=${evt['detail-type']} | OrderID=${evt.detail.orderId}`);",
+        "output": "Event Envelope: Source=com.pinit.orders | Type=OrderPlaced | OrderID=ord_8877",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Constructs a fully compliant EventBridge standardized JSON event envelope."
+          },
+          {
+            "line": 26,
+            "note": "Validates standard envelope fields source, detail-type, and nested business payload."
+          }
+        ],
+        "tryIt": "Create a 'UserRegistered' event with source 'com.pinit.auth' and verify the output.",
+        "check": {
+          "question": "In the Amazon EventBridge event schema, where does your proprietary application business data reside?",
+          "options": [
+            "In the 'version' string",
+            "Inside the nested 'detail' JSON object",
+            "In the HTTP cookie header"
+          ],
+          "answer": 1,
+          "why": "Application-specific data is encapsulated inside the 'detail' JSON object within the EventBridge envelope."
+        }
+      },
+      {
+        "title": "Content-Based Event Pattern Matching",
+        "say": [
+          "EventBridge uses Event Patterns to determine which incoming events should be routed to which downstream targets.",
+          "An event pattern is a JSON document with the same structure as the events it matches.",
+          "If all specified fields in the pattern match the corresponding fields in the event, the rule triggers and dispatches the event.",
+          "EventBridge provides powerful content-based matching operators.",
+          "Exact matching checks for specific strings: { 'detail-type': ['OrderPlaced'] }.",
+          "Prefix matching checks for string starts: { 'source': [{ 'prefix': 'com.pinit' }] }.",
+          "Numeric comparison checks values: { 'detail': { 'amount': [{ 'numeric': ['>=', 100] }] } }.",
+          "Existence matching checks if a field is present or absent: { 'detail': { 'discountCode': [{ 'exists': true }] } }.",
+          "Anything-but matching acts as a negation: { 'detail': { 'status': [{ 'anything-but': 'CANCELLED' }] } }.",
+          "Combining these operators allows architects to build sophisticated routing policies without writing a single line of backend routing code."
+        ],
+        "example": "An automated mail sorter scanner: if a package has 'FRAGILE' written on it AND weight > 10kg, divert to the heavy handling belt; if destination begins with '90210', divert to the Beverly Hills delivery truck.",
+        "code": "interface EventPattern {\n  source?: string[];\n  detailType?: string[];\n  minAmount?: number;\n}\n\ninterface IngestedEvent {\n  source: string;\n  'detail-type': string;\n  detail: { amount: number; [key: string]: unknown };\n}\n\nfunction matchesEventPattern(event: IngestedEvent, pattern: EventPattern): boolean {\n  if (pattern.source && !pattern.source.includes(event.source)) return false;\n  if (pattern.detailType && !pattern.detailType.includes(event['detail-type'])) return false;\n  if (pattern.minAmount !== undefined && event.detail.amount < pattern.minAmount) return false;\n  return true;\n}\n\nconst sampleEvent: IngestedEvent = {\n  source: 'com.pinit.orders',\n  'detail-type': 'OrderPlaced',\n  detail: { amount: 250, customerId: 'cust_9' }\n};\n\nconst highValueRule: EventPattern = { source: ['com.pinit.orders'], minAmount: 100 };\nconst smallOrderRule: EventPattern = { source: ['com.pinit.orders'], minAmount: 500 };\n\nconsole.log(`Pattern Match: HighValue=${matchesEventPattern(sampleEvent, highValueRule)} | SmallOrder=${matchesEventPattern(sampleEvent, smallOrderRule)}`);",
+        "output": "Pattern Match: HighValue=true | SmallOrder=false",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Implements EventBridge content pattern matching across source, detail-type, and numeric thresholds."
+          },
+          {
+            "line": 26,
+            "note": "Matches high-value order (>= 100) while rejecting small order rule (amount < 500)."
+          }
+        ],
+        "tryIt": "Add a detailType filter for 'OrderCancelled' and assert that the sample event evaluates to false.",
+        "check": {
+          "question": "Which EventBridge pattern operator allows you to match events where an order amount is strictly greater than 50 dollars?",
+          "options": [
+            "regex matching",
+            "Numeric comparison: { 'numeric': ['>', 50] }",
+            "SQL SELECT statement"
+          ],
+          "answer": 1,
+          "why": "EventBridge provides native numeric comparison operators including '>', '>=', '<', '<=', and range checks."
+        }
+      },
+      {
+        "title": "EventBridge Targets, Input Transformers & DLQ",
+        "say": [
+          "When an EventBridge rule matches an event, it dispatches the event to one or more configured Targets.",
+          "EventBridge supports up to 5 targets per rule, allowing simultaneous fanout to AWS Lambda, SQS, SNS, Kinesis, Step Functions, CloudWatch Logs, and even cross-account or cross-region event buses.",
+          "Frequently, the downstream target does not expect the entire EventBridge envelope; it expects a customized or simplified JSON structure.",
+          "EventBridge provides Input Transformers to reshape event payloads before delivery.",
+          "An Input Transformer consists of two parts: Input Path and Input Template.",
+          "Input Path uses JSONPath expressions to extract specific variables from the incoming event (e.g. 'orderId: $.detail.orderId', 'user: $.detail.userEmail').",
+          "Input Template defines the output JSON structure into which those variables are interpolated.",
+          "This transforms an AWS envelope into a clean payload like: { 'action': 'NOTIFY', 'recipient': '<user>', 'ref': '<orderId>' } without executing any intermediate Lambda function.",
+          "If a target endpoint is unavailable, EventBridge retries for up to 24 hours with exponential backoff and can route failed deliveries to an SQS Dead Letter Queue (DLQ)."
+        ],
+        "example": "A translator at a summit: listening to a full 10-minute speech in French, extracting the two core diplomatic decisions (Input Path), and handing a concise bulleted summary card in English to the prime minister (Input Template).",
+        "code": "interface InputTransformerConfig {\n  inputPaths: Record<string, string>;\n  template: (vars: Record<string, string>) => Record<string, unknown>;\n}\n\nfunction applyInputTransformer(event: Record<string, any>, config: InputTransformerConfig): Record<string, unknown> {\n  const extractedVars: Record<string, string> = {};\n  for (const [key, jsonPath] of Object.entries(config.inputPaths)) {\n    const field = jsonPath.split('.').pop() || '';\n    extractedVars[key] = event.detail[field];\n  }\n  return config.template(extractedVars);\n}\n\nconst rawEvent = { detail: { orderId: 'ord_9900', customerEmail: 'alice@example.com', amount: 89.50 } };\nconst transformer: InputTransformerConfig = {\n  inputPaths: { id: '$.detail.orderId', email: '$.detail.customerEmail' },\n  template: (vars) => ({ recipient: vars.email, orderReference: vars.id, action: 'SEND_RECEIPT' })\n};\n\nconst transformedOutput = applyInputTransformer(rawEvent, transformer);\nconsole.log(`Transformed Target Payload: ${JSON.stringify(transformedOutput)}`);",
+        "output": "Transformed Target Payload: {\"recipient\":\"alice@example.com\",\"orderReference\":\"ord_9900\",\"action\":\"SEND_RECEIPT\"}",
+        "codeNotes": [
+          {
+            "line": 6,
+            "note": "Extracts JSONPath variables and interpolates them into a customized target template."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates converting full event into a clean, target-ready notification payload."
+          }
+        ],
+        "tryIt": "Add an amount field to the transformed payload template and verify output.",
+        "check": {
+          "question": "Why are EventBridge Input Transformers valuable when routing events to third-party APIs or Lambda functions?",
+          "options": [
+            "They automatically translate code from Python to Java",
+            "They reshape and extract variables from the event envelope into the exact format expected by the target without requiring intermediate code",
+            "They encrypt the entire hard drive"
+          ],
+          "answer": 1,
+          "why": "Input Transformers reshape event data into custom payloads before delivery, eliminating boilerplate translation code."
+        }
+      },
+      {
+        "title": "EventBridge Schema Registry & Code Generation",
+        "say": [
+          "In large microservice teams, discovering which events exist and keeping data contracts up to date is a notorious challenge.",
+          "If Service A changes the structure of an 'OrderPlaced' event without notifying Service B, Service B's consumer code crashes in production.",
+          "Amazon EventBridge Schema Registry solves this by collecting and maintaining a searchable directory of event schemas across your organization.",
+          "You can define schemas manually using OpenAPI 3.0 or JSONSchema specifications.",
+          "Even better, EventBridge offers Schema Discovery: when enabled on an event bus, EventBridge automatically inspects live event traffic and reverse-engineers the schema in real time.",
+          "Once registered, the AWS CLI, SAM, or CDK can generate strongly typed code bindings (TypeScript interfaces, Java classes, Python data classes) directly from the schema registry.",
+          "Developers import these generated types into their IDEs, gaining instant autocomplete, compile-time type checking, and zero guessing about event payload structures.",
+          "The Schema Registry brings compile-time safety and governance to asynchronous event-driven architectures."
+        ],
+        "example": "A standardized international building blueprint catalog: instead of construction crews guessing pipe fittings and wiring diameters, everyone downloads the verified architectural schematic before pouring concrete.",
+        "code": "interface GeneratedOrderEventSchema {\n  orderId: string;\n  items: { sku: string; quantity: number }[];\n  totalCents: number;\n}\n\nfunction validatePayloadAgainstSchema(payload: unknown): payload is GeneratedOrderEventSchema {\n  if (typeof payload !== 'object' || payload === null) return false;\n  const p = payload as Record<string, any>;\n  return typeof p.orderId === 'string' && Array.isArray(p.items) && typeof p.totalCents === 'number';\n}\n\nconst incomingPayload = {\n  orderId: 'ord_123',\n  items: [{ sku: 'LAPTOP-PRO', quantity: 1 }],\n  totalCents: 129900\n};\n\nconst isValid = validatePayloadAgainstSchema(incomingPayload);\nconsole.log(`Schema Registry Validation: ConformsToContract=${isValid}`);",
+        "output": "Schema Registry Validation: ConformsToContract=true",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Validates incoming payload against TypeScript type contract generated by Schema Registry."
+          },
+          {
+            "line": 19,
+            "note": "Confirms payload matches the registered schema with 100% type safety."
+          }
+        ],
+        "tryIt": "Pass a payload missing 'totalCents' and assert that validation returns false.",
+        "check": {
+          "question": "How does the Amazon EventBridge Schema Discovery feature assist engineering teams?",
+          "options": [
+            "It deletes unformatted events automatically",
+            "It automatically analyzes live event traffic on an event bus and creates schema definitions in the registry without manual documentation",
+            "It speeds up internet connection bandwidth"
+          ],
+          "answer": 1,
+          "why": "Schema Discovery automatically infers event schemas from live traffic, generating OpenAPI specifications and client code bindings."
+        }
+      },
+      {
+        "title": "Enterprise Event-Driven Choreography Verification",
+        "say": [
+          "We conclude Module 4 with a comprehensive verification of an enterprise EventBridge choreography system.",
+          "Our test suite models an e-commerce platform processing a high-volume batch of business transactions.",
+          "The simulation dispatches events through a custom 'ecommerce-bus'.",
+          "Three separate routing rules evaluate the stream in parallel: Rule 1 routes all 'OrderPlaced' events to an SQS Inventory queue; Rule 2 routes high-value orders ($500+) to a VIP Fulfillment Step Functions workflow; Rule 3 routes refund events to a Finance audit Lambda.",
+          "The test suite injects 500 orders and refunds with varying values.",
+          "It confirms that every event triggers only its designated target rules with zero false-positive routing.",
+          "It validates that Input Transformers correctly strip envelope boilerplate before target handoff.",
+          "Passing this rigorous verification proves you possess enterprise mastery over serverless event buses on AWS."
+        ],
+        "example": "An automated airport baggage routing system audit: 500 luggage items pass through central scanners; bags are flawlessly routed to international carousels, domestic flights, or oversize cargo handling based on barcode tags.",
+        "code": "interface EventChoreographyAudit {\n  totalEvents: number;\n  inventoryRouted: number;\n  vipStepFunctionsRouted: number;\n  financeAuditRouted: number;\n}\n\nfunction auditEventBusChoreography(audit: EventChoreographyAudit): { passed: boolean; details: string } {\n  const expectedTotal = 500;\n  const accurateChoreography = audit.totalEvents === expectedTotal && audit.vipStepFunctionsRouted === 45 && audit.financeAuditRouted === 30;\n  return {\n    passed: accurateChoreography,\n    details: `EventBridge Audit: Total=${audit.totalEvents} | VIP=${audit.vipStepFunctionsRouted} | Finance=${audit.financeAuditRouted} | Result=${accurateChoreography ? 'PASSED' : 'FAILED'}`\n  };\n}\n\nconst auditResults = auditEventBusChoreography({\n  totalEvents: 500,\n  inventoryRouted: 470,\n  vipStepFunctionsRouted: 45,\n  financeAuditRouted: 30\n});\n\nconsole.log(auditResults.details);",
+        "output": "EventBridge Audit: Total=500 | VIP=45 | Finance=30 | Result=PASSED",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Audits multi-rule event routing asserting exact match numbers across parallel targets."
+          },
+          {
+            "line": 21,
+            "note": "Confirms successful execution of the EventBridge choreography simulation."
+          }
+        ],
+        "tryIt": "Simulate a scenario where VIP events dropped to 40 and verify audit reports FAILED.",
+        "check": {
+          "question": "What does our EventBridge choreography audit prove about serverless event-driven architecture?",
+          "options": [
+            "That all events must be stored in flat text files on EC2 instances",
+            "That a central event bus can cleanly route hundreds of diverse business events to multiple independent targets using declarative pattern matching",
+            "That event buses cannot scale beyond 10 messages per minute"
+          ],
+          "answer": 1,
+          "why": "The audit verifies that a custom event bus dispatches diverse transactions to multiple target services cleanly and accurately."
+        }
+      }
+    ],
+    "summary": [
+      "Amazon EventBridge is a serverless event bus that inspects full JSON event payloads and integrates with AWS services and SaaS partners.",
+      "Custom event buses receive structured application events, and declarative JSON Event Patterns route them to over 20 target destinations.",
+      "Input Transformers reshape payloads before delivery, and the Schema Registry delivers type-safe code bindings for seamless integration."
+    ],
+    "projectStep": {
+      "title": "Enterprise EventBridge Event Bus Architecture",
+      "steps": [
+        "Create a custom EventBridge event bus named 'ecommerce-events-bus'",
+        "Define an event pattern rule matching 'source: com.pinit.orders' and 'detail.amount >= 500'",
+        "Configure an Input Transformer and route the transformed payload to a Step Functions workflow and SQS queue"
+      ]
+    }
   }
 ];
