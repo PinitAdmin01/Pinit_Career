@@ -3787,4 +3787,1289 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 16,
+  "title": "Binary Trees: Preorder, Inorder, Postorder & Level-Order BFS",
+  "goal": "Master hierarchical data structures by implementing recursive tree traversals and iterative breadth-first exploration techniques.",
+  "minutes": 25,
+  "recap": "We've tackled linear structures like Linked Lists and Arrays. Trees introduce a non-linear hierarchy, enabling powerful divides, branching logic, and rapid multi-path processing strategies.",
+  "parts": [
+    {
+      "title": "Understanding Tree Node Anatomy",
+      "say": [
+        "Welcome to Day sixteen! Today, we transition from linear data structures to non-linear hierarchical structures called Trees, starting specifically with Binary Trees.",
+        "A binary tree consists of nodes where each node contains a value and at most two children, typically referred to as the left child and right child.",
+        "The node without a parent is the 'root', and nodes without any children are called 'leaves' or terminal nodes.",
+        "We implement tree nodes as objects with properties for the value, a pointer to the left node, and a pointer to the right node.",
+        "In TypeScript, this translates nicely to a class or a robust interface, allowing recursive type definitions for children.",
+        "Because binary trees branch downwards, they form the foundation for decision trees, hierarchical file systems, and efficient search algorithms.",
+        "Understanding how to construct a basic binary tree manually is essential before moving to complex traversal operations.",
+        "We can string these nodes together by assigning newly instantiated tree nodes directly to the left or right properties of existing parent nodes.",
+        "Let's look at how we define the structural blueprint for a tree node and then manually build a tiny tree with three nodes."
+      ],
+      "example": "Here is how you define a foundational tree node structure and wire up a simple parent-to-children relationship.",
+      "code": "class TreeNode {\n  val: number;\n  left: TreeNode | null;\n  right: TreeNode | null;\n  constructor(val: number, left: TreeNode | null = null, right: TreeNode | null = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\nconst root = new TreeNode(10);\nroot.left = new TreeNode(5);\nroot.right = new TreeNode(20);\nconsole.log(root.val, root.left.val, root.right.val);",
+      "output": "10 5 20",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "We define the TreeNode class serving as our building block."
+        },
+        {
+          "line": 3,
+          "note": "left and right properties can hold another TreeNode or be null."
+        }
+      ],
+      "tryIt": "Try creating a root node with value 1, and giving it a left child with value 2 and a right child with value 3.",
+      "check": {
+        "question": "What defines a binary tree node?",
+        "options": [
+          "A node that has exactly two parents.",
+          "A node that holds an array of infinite children.",
+          "A node containing a value and references to at most two children."
+        ],
+        "answer": 2,
+        "why": "A binary tree node specifically has a value and up to two child pointers, commonly called left and right, hence the term 'binary' meaning two."
+      }
+    },
+    {
+      "title": "Preorder Depth-First Traversal",
+      "say": [
+        "Traversal is the process of visiting all nodes in a tree, and one major category is Depth-First Search (DFS), which dives deep before going wide.",
+        "Preorder traversal is a flavor of DFS where we visit the current node first, then recursively traverse its left subtree, and finally its right subtree.",
+        "The word 'pre' indicates that the root or parent node is processed 'before' any of its children.",
+        "This traversal strategy is incredibly useful for creating an exact duplicate of a tree, as you read the parent first, create it, and then attach children.",
+        "Because it processes parent nodes before their sub-hierarchies, preorder is heavily used in serialization—saving the tree structure to a string or file.",
+        "When implemented recursively, preorder is remarkably elegant, relying on the Call Stack to keep track of where to return after a deep dive.",
+        "The base case for all tree recursive algorithms is checking if the current node is null; if it is, we simply return.",
+        "If it is not null, we execute our logic, make a recursive call for the left child, and then a recursive call for the right child.",
+        "Let's write a function that performs a preorder traversal and collects the values into an array to observe the exact visitation order."
+      ],
+      "example": "In preorder, we log or collect the current node's value immediately upon visiting it, prior to exploring children.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction preorder(node: TreeNode | null, result: number[] = []): number[] {\n  if (!node) return result;\n  result.push(node.val); // Process Root\n  preorder(node.left, result); // Traverse Left\n  preorder(node.right, result); // Traverse Right\n  return result;\n}\nconst root = new TreeNode(1);\nroot.left = new TreeNode(2);\nroot.left.left = new TreeNode(4);\nroot.right = new TreeNode(3);\nconsole.log(preorder(root));",
+      "output": "[ 1, 2, 4, 3 ]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Node is processed (pushed) before recursive calls."
+        },
+        {
+          "line": 8,
+          "note": "We fully explore the left side before touching the right."
+        }
+      ],
+      "tryIt": "Modify the tree by adding a right child to node 2, then run preorder traversal to see how the order shifts.",
+      "check": {
+        "question": "In what exact sequence does Preorder Traversal process a tree node and its subtrees?",
+        "options": [
+          "Left child, Right child, Root node.",
+          "Root node, Left subtree, Right subtree.",
+          "Left subtree, Root node, Right subtree."
+        ],
+        "answer": 1,
+        "why": "Preorder processes the Root first (pre), followed by the entire Left subtree, and finally the Right subtree."
+      }
+    },
+    {
+      "title": "Inorder Depth-First Traversal",
+      "say": [
+        "Moving on to the next depth-first approach, we have Inorder Traversal, which visits the left subtree, then the root, and then the right subtree.",
+        "The word 'in' signifies that the parent node is processed 'in between' its left and right subtrees.",
+        "This specific ordering sequence is extremely significant when dealing with Binary Search Trees, which we will cover tomorrow.",
+        "For a standard binary search tree, performing an inorder traversal will miraculously visit all nodes in perfectly sorted ascending order.",
+        "The recursive implementation looks nearly identical to preorder, except the line where we process or log the node value is moved.",
+        "We first recursively drill down the left pointer until we hit a null leaf, at which point the recursion bounces back.",
+        "Upon bouncing back to a parent, we finally process its value, and then we initiate the recursive drill down into its right subtree.",
+        "This middle-processing logic ensures that all nodes to the left of any parent are always processed before the parent itself.",
+        "Let's rewrite our traversal function to process nodes inorder and observe how the output sequence changes completely."
+      ],
+      "example": "Inorder defers processing the current node until its entire left subtree has been fully traversed.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction inorder(node: TreeNode | null, result: number[] = []): number[] {\n  if (!node) return result;\n  inorder(node.left, result); // Traverse Left\n  result.push(node.val);      // Process Root\n  inorder(node.right, result); // Traverse Right\n  return result;\n}\nconst root = new TreeNode(1);\nroot.left = new TreeNode(2);\nroot.left.left = new TreeNode(4);\nroot.right = new TreeNode(3);\nconsole.log(inorder(root));",
+      "output": "[ 4, 2, 1, 3 ]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "We recurse all the way left before doing anything."
+        },
+        {
+          "line": 8,
+          "note": "The root processing happens squarely in the middle."
+        }
+      ],
+      "tryIt": "Trace the execution carefully in your head. Why does 4 appear first in the result array?",
+      "check": {
+        "question": "Why is Inorder Traversal particularly famous in the context of Binary Search Trees?",
+        "options": [
+          "It finds the shortest path between the root and a leaf.",
+          "It yields the values in non-decreasing, sorted order.",
+          "It is the only traversal that doesn't use recursion."
+        ],
+        "answer": 1,
+        "why": "In a BST, all left children are smaller and right children are larger. Inorder visits left, root, right, naturally producing a sorted sequence."
+      }
+    },
+    {
+      "title": "Postorder Depth-First Traversal",
+      "say": [
+        "The final variant of our standard depth-first search trio is Postorder Traversal, completing the logical combinations.",
+        "In postorder traversal, we recursively process the left subtree, then recursively process the right subtree, and only then visit the root node.",
+        "The prefix 'post' signals that the current node is dealt with 'after' all of its descendants have been thoroughly processed.",
+        "This traversal is uniquely suited for tasks where a parent cannot act until it has gathered information from its children.",
+        "Common use cases include safely deleting a tree from memory, where you must delete children before deleting the parent holding their references.",
+        "It is also heavily used in math expression parsing trees, evaluating the child operands before applying the parent operator.",
+        "As expected, the recursive function simply shifts the processing step to the very bottom, after both the left and right recursive calls.",
+        "By doing this, the root node of the entire tree is guaranteed to be the very last element processed in the traversal.",
+        "Let's assemble a postorder function to round out our understanding of depth-first search sequencing."
+      ],
+      "example": "Postorder pushes the parent node to the result array only after the left and right subtrees have returned.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction postorder(node: TreeNode | null, result: number[] = []): number[] {\n  if (!node) return result;\n  postorder(node.left, result);  // Traverse Left\n  postorder(node.right, result); // Traverse Right\n  result.push(node.val);         // Process Root\n  return result;\n}\nconst root = new TreeNode(1);\nroot.left = new TreeNode(2);\nroot.left.left = new TreeNode(4);\nroot.right = new TreeNode(3);\nconsole.log(postorder(root));",
+      "output": "[ 4, 2, 3, 1 ]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Recursive call to left child completes fully."
+        },
+        {
+          "line": 8,
+          "note": "Recursive call to right child completes fully."
+        },
+        {
+          "line": 9,
+          "note": "Finally, the parent node is pushed to the result array."
+        }
+      ],
+      "tryIt": "Notice how the root node '1' is the absolute last element. Try adding more children to see how this rule holds true.",
+      "check": {
+        "question": "Which scenario is a perfect use case for a Postorder Traversal?",
+        "options": [
+          "Finding the maximum depth by counting top-down.",
+          "Deleting a directory structure where contents must be removed before the folder.",
+          "Flattening a tree into a linear linked list."
+        ],
+        "answer": 1,
+        "why": "Because postorder processes children completely before parents, it perfectly models bottom-up tasks like recursive deletion."
+      }
+    },
+    {
+      "title": "Breadth-First Level-Order Traversal",
+      "say": [
+        "While Depth-First Search explores a tree vertically, Breadth-First Search (BFS) explores it horizontally, layer by layer.",
+        "Level-order traversal is the quintessential BFS algorithm for trees, visiting the root, then all nodes at depth 1, then all nodes at depth 2.",
+        "Unlike depth-first search which beautifully leverages the implicit call stack via recursion, BFS requires an explicit Queue data structure.",
+        "We begin by enqueuing the root node. Then, while the queue is not empty, we dequeue a node, process it, and enqueue its left and right children.",
+        "Because a queue operates on a First-In-First-Out (FIFO) basis, nodes discovered earlier at shallower levels are naturally processed before deeper nodes.",
+        "Level-order traversal is extremely practical; it is the algorithm you use when searching for the absolute shortest path to a destination.",
+        "By expanding outward evenly, BFS guarantees that the first time you encounter a target node, you've found the shortest route to it.",
+        "In JavaScript, we often simulate a queue using an array's push and shift methods, though a proper linked-list queue is more performant for massive trees.",
+        "Let's trace out a level-order traversal using an array-based queue and observe the layer-by-layer visitation pattern."
+      ],
+      "example": "Breadth-First Search utilizes a Queue to process nodes in the exact order they are discovered, guaranteeing level-by-layer processing.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction levelOrder(root: TreeNode | null): number[] {\n  if (!root) return [];\n  const result: number[] = [];\n  const queue: TreeNode[] = [root]; // Initialize queue with root\n  \n  while (queue.length > 0) {\n    const current = queue.shift()!; // Dequeue first element\n    result.push(current.val);\n    if (current.left) queue.push(current.left); // Enqueue left\n    if (current.right) queue.push(current.right); // Enqueue right\n  }\n  return result;\n}\nconst root = new TreeNode(1);\nroot.left = new TreeNode(2); root.right = new TreeNode(3);\nroot.left.left = new TreeNode(4); root.right.right = new TreeNode(5);\nconsole.log(levelOrder(root));",
+      "output": "[ 1, 2, 3, 4, 5 ]",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "We seed our queue with the top-level root node."
+        },
+        {
+          "line": 12,
+          "note": "queue.shift() acts as our dequeue, pulling the oldest item."
+        },
+        {
+          "line": 14,
+          "note": "We push children to the back of the queue to be processed later."
+        }
+      ],
+      "tryIt": "Change queue.shift() to queue.pop(). How does this instantly change the behavior from BFS to a variant of DFS?",
+      "check": {
+        "question": "What underlying data structure is essential for implementing Breadth-First Level-Order traversal?",
+        "options": [
+          "A Last-In-First-Out Stack.",
+          "A First-In-First-Out Queue.",
+          "A priority-based Hash Map."
+        ],
+        "answer": 1,
+        "why": "A FIFO Queue ensures that nodes added first (higher levels) are processed before nodes added later (lower levels)."
+      }
+    },
+    {
+      "title": "Comparing Tree Traversal Strategies",
+      "say": [
+        "Now that we have covered the primary traversal techniques, it is critical to know when to apply which strategy.",
+        "Preorder (DFS) is your go-to for copying or serializing a tree, as you capture parents before their sub-hierarchies.",
+        "Inorder (DFS) is intrinsically linked to Binary Search Trees, utilized whenever you need sequential, sorted data extraction.",
+        "Postorder (DFS) shines when execution depends on child resolution, such as evaluating mathematical expression trees or garbage collection.",
+        "Level-order (BFS) is the undisputed champion for finding the shortest path or evaluating relational proximity layer by layer.",
+        "From a space complexity perspective, DFS requires stack space proportional to the maximum height of the tree (O(H)).",
+        "Conversely, BFS requires queue space proportional to the maximum width of the tree, which can be up to half the total nodes (O(W)).",
+        "For a deeply unbalanced tree, DFS uses high memory. For a perfectly balanced, bushy tree, BFS uses significantly more memory.",
+        "Let's look at a small snippet that measures the maximum depth of a tree, combining traversal logic with a simple counter."
+      ],
+      "example": "Finding the maximum depth is a classic DFS recursive problem, measuring the longest path from root to leaf.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction maxDepth(node: TreeNode | null): number {\n  if (!node) return 0; // Base case: empty tree has 0 depth\n  \n  const leftDepth = maxDepth(node.left);\n  const rightDepth = maxDepth(node.right);\n  \n  // The depth is 1 (for the current node) plus the deeper of the subtrees\n  return Math.max(leftDepth, rightDepth) + 1;\n}\n\nconst root = new TreeNode(1);\nroot.left = new TreeNode(2);\nroot.left.left = new TreeNode(4);\nconsole.log(maxDepth(root));",
+      "output": "3",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Hitting a null node returns a depth of 0, anchoring the recursion."
+        },
+        {
+          "line": 12,
+          "note": "We use Math.max to aggressively select the longest downward path."
+        }
+      ],
+      "tryIt": "Try creating a lopsided tree with 5 nodes strictly on the right side. The max depth should correctly report 5.",
+      "check": {
+        "question": "If a tree is exceptionally wide but very shallow, which traversal will likely use more memory?",
+        "options": [
+          "Depth-First Search (DFS).",
+          "Breadth-First Search (BFS).",
+          "Both will use exactly the same memory."
+        ],
+        "answer": 1,
+        "why": "BFS memory scales with tree width (the queue holds an entire layer). A wide tree causes the queue to grow massive, while DFS stack stays small."
+      }
+    }
+  ],
+  "summary": [
+    "Binary trees consist of nodes holding a value and up to two children.",
+    "Preorder DFS processes the root before diving into left and right subtrees.",
+    "Inorder DFS processes the left, then the root, generating sorted output for BSTs.",
+    "Postorder DFS processes children completely before visiting the root node.",
+    "BFS Level-Order traversal uses a Queue to process nodes layer by layer."
+  ],
+  "projectStep": {
+    "title": "Tree Serialization Utility",
+    "steps": [
+      "Implement a serialization function using preorder traversal to convert a binary tree to a comma-separated string.",
+      "Use a specific marker like 'N' for null children to preserve structure.",
+      "Write a deserialization function that rebuilds the exact tree structure from your serialized string."
+    ]
+  }
+},
+{
+  "day": 17,
+  "title": "Binary Search Trees (BST): Tree Invariants & Range Query Search",
+  "goal": "Understand the strict invariants of Binary Search Trees to achieve fast logarithmic lookups, insertions, and structured validations.",
+  "minutes": 25,
+  "recap": "Yesterday we learned tree traversals. Today, we enforce a strict sorting rule upon binary trees, magically transforming O(N) linear searches into blistering O(log N) operations.",
+  "parts": [
+    {
+      "title": "The Binary Search Tree Invariant",
+      "say": [
+        "Welcome to Day seventeen! Today we introduce a powerful rule into our standard binary trees: The Binary Search Tree invariant.",
+        "A Binary Search Tree (BST) is a binary tree where every single node enforces a strict structural ordering property.",
+        "For any given node, all values in its entire left subtree must be strictly less than the node's value.",
+        "Simultaneously, all values in its entire right subtree must be strictly greater than the node's value.",
+        "This is not just for direct children; it applies recursively to all descendants down the line.",
+        "Because of this rigid sorted structure, searching for a value mimics the binary search algorithm we use on sorted arrays.",
+        "At every step, you compare your target with the current node, eliminating half the remaining tree with a single decision.",
+        "This halving effect guarantees logarithmic O(log N) time complexity for search, insertion, and deletion on average.",
+        "Let's look at a basic insertion algorithm to see how this invariant dictates where new nodes are placed."
+      ],
+      "example": "When inserting a value, we traverse left if it's smaller, or right if it's larger, stopping when we hit a null spot.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction insertBST(root: TreeNode | null, val: number): TreeNode {\n  if (!root) return new TreeNode(val);\n  if (val < root.val) {\n    root.left = insertBST(root.left, val);\n  } else if (val > root.val) {\n    root.right = insertBST(root.right, val);\n  }\n  return root; // Return unchanged node pointer\n}\nlet bst = insertBST(null, 10);\nbst = insertBST(bst, 5);\nbst = insertBST(bst, 15);\nconsole.log(bst.val, bst.left?.val, bst.right?.val);",
+      "output": "10 5 15",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "If the subtree is null, we found the perfect spot for our new node."
+        },
+        {
+          "line": 8,
+          "note": "We attach the result of the recursive call back to the left/right pointer."
+        }
+      ],
+      "tryIt": "Add a duplicate value like 10. Depending on the exact logic, what happens? Our implementation currently ignores duplicates.",
+      "check": {
+        "question": "What is the core structural invariant of a Binary Search Tree?",
+        "options": [
+          "Left child < Root, and Right child > Root, recursively for all descendants.",
+          "The tree must be perfectly balanced at all times.",
+          "All leaf nodes must be at the exact same depth."
+        ],
+        "answer": 0,
+        "why": "The BST property strictly mandates that left descendants are smaller and right descendants are larger than the root."
+      }
+    },
+    {
+      "title": "Fast Logarithmic Search in BST",
+      "say": [
+        "The primary motivation for maintaining a BST is rapid lookup speeds; finding an element is remarkably fast.",
+        "Searching a BST operates almost exactly like a binary search on a sorted array, discarding half the problem space.",
+        "Starting at the root, if your target is smaller, you exclusively search the left subtree, completely ignoring the right.",
+        "If your target is larger, you exclusively search the right subtree, completely ignoring the left.",
+        "If you encounter a null pointer during this descent, you know definitively that the target value does not exist.",
+        "Because you move down exactly one level per comparison, the time taken is proportional to the tree's height.",
+        "In a balanced tree, the height is log(N), resulting in O(log N) search times, massively outperforming linear structures.",
+        "However, if a tree becomes extremely lopsided (e.g., essentially a linked list), the search degrades to O(N).",
+        "Let's write a simple iterative search function that navigates down a BST to locate a specific value."
+      ],
+      "example": "An iterative search is memory efficient, using a simple while loop to traverse down the correct branches.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction searchBST(root: TreeNode | null, val: number): boolean {\n  let current = root;\n  while (current !== null) {\n    if (current.val === val) return true; // Found it!\n    if (val < current.val) {\n      current = current.left; // Go left\n    } else {\n      current = current.right; // Go right\n    }\n  }\n  return false; // Reached a leaf, not found\n}\nconst root = new TreeNode(8);\nroot.left = new TreeNode(3); root.right = new TreeNode(10);\nconsole.log(searchBST(root, 3), searchBST(root, 7));",
+      "output": "true false",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "We loop as long as our current pointer is pointing to an actual node."
+        },
+        {
+          "line": 10,
+          "note": "We reassign current to aggressively narrow our search path."
+        }
+      ],
+      "tryIt": "Rewrite this iterative while-loop search as a recursive function. How does the parameter passing change?",
+      "check": {
+        "question": "Why is an unbalanced, linear BST problematic for searching?",
+        "options": [
+          "It forces the search algorithm to crash with a stack overflow.",
+          "The height becomes N, so the search time degrades from O(log N) to O(N).",
+          "It makes the left and right pointers permanently null."
+        ],
+        "answer": 1,
+        "why": "In a straight-line unbalanced tree, you don't eliminate half the nodes per step; you eliminate only one, making it an O(N) linear search."
+      }
+    },
+    {
+      "title": "Validating a Binary Search Tree",
+      "say": [
+        "A common technical challenge is determining if a given binary tree is a valid Binary Search Tree.",
+        "A naive approach checks if left < root < right for every single node in isolation, but this is dangerously flawed.",
+        "The BST invariant requires that ALL nodes in the left subtree, even deep descendants, are less than the root.",
+        "To solve this correctly, we must enforce a strict (min, max) bounding range that narrows as we descend the tree.",
+        "When moving left, the current node's value becomes the new strict maximum for that entire left subtree.",
+        "When moving right, the current node's value becomes the new strict minimum for that entire right subtree.",
+        "If any node we visit falls outside its recursively passed boundaries, the tree immediately fails validation.",
+        "We can represent infinity as our initial unbounded limits at the root node to kick off the recursive process.",
+        "Let's code this bounding technique to properly and safely validate a potentially flawed binary search tree."
+      ],
+      "example": "We utilize recursive helper parameters to pass down tightening minimum and maximum bounds to child nodes.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction isValidBST(node: TreeNode | null, min = -Infinity, max = Infinity): boolean {\n  if (!node) return true; // Null subtrees are valid\n  \n  if (node.val <= min || node.val >= max) return false; // Boundary violation\n  \n  // Left branch gets a new max boundary; Right gets a new min boundary\n  return isValidBST(node.left, min, node.val) && \n         isValidBST(node.right, node.val, max);\n}\n\nconst badTree = new TreeNode(5);\nbadTree.left = new TreeNode(4); \nbadTree.right = new TreeNode(6);\nbadTree.left.right = new TreeNode(10); // 10 is > 5, invalid for left subtree!\nconsole.log(isValidBST(badTree));",
+      "output": "false",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "We check if the node violates the inherited strict numeric boundaries."
+        },
+        {
+          "line": 11,
+          "note": "Both the left and right sides must recursively return true."
+        }
+      ],
+      "tryIt": "Remove the errant badTree.left.right node and verify that isValidBST correctly returns true.",
+      "check": {
+        "question": "Why does checking just the immediate left and right children fail to validate a BST?",
+        "options": [
+          "It's too slow and uses too much memory.",
+          "A deep node might be valid locally, but violate a grandparent's constraint.",
+          "It forces the algorithm to use a Breadth-First approach."
+        ],
+        "answer": 1,
+        "why": "A right child of a left subtree might be larger than its immediate parent (locally valid) but larger than the root (globally invalid)."
+      }
+    },
+    {
+      "title": "Inorder Traversal and Sorted Data",
+      "say": [
+        "As hinted in our previous lesson, Inorder Traversal shares a magical synergy with Binary Search Trees.",
+        "Because an inorder traversal processes the left subtree, then the root, then the right subtree, it respects the invariant.",
+        "If you run an inorder traversal on any valid BST and collect the values, the resulting array will be perfectly sorted.",
+        "This property provides an incredibly elegant alternative way to validate a BST: flatten it and check if the array is sorted.",
+        "Furthermore, this traversal gives us a straightforward algorithm for finding the K-th smallest element in a tree.",
+        "Instead of storing all elements, you can perform an inorder traversal and maintain a counter.",
+        "The moment your counter hits 'K', the current node you are visiting is unequivocally the K-th smallest element.",
+        "This highlights why understanding tree traversals alongside structural invariants is vital for algorithmic problem-solving.",
+        "Let's demonstrate using inorder traversal to extract the neatly sorted elements from a populated BST."
+      ],
+      "example": "Inorder traversal naturally flattens a hierarchical BST into a sequentially sorted linear array.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction extractSorted(root: TreeNode | null, out: number[] = []): number[] {\n  if (!root) return out;\n  extractSorted(root.left, out);\n  out.push(root.val); // Root goes right between left and right\n  extractSorted(root.right, out);\n  return out;\n}\n\nconst root = new TreeNode(15);\nroot.left = new TreeNode(10); root.right = new TreeNode(20);\nroot.left.left = new TreeNode(8); root.left.right = new TreeNode(12);\nconsole.log(extractSorted(root));",
+      "output": "[ 8, 10, 12, 15, 20 ]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Because of BST rules, 'left' is strictly smaller than 'root'."
+        },
+        {
+          "line": 9,
+          "note": "And 'right' is strictly larger. Thus, pushing in this order guarantees sorted output."
+        }
+      ],
+      "tryIt": "Implement a function that finds the 2nd smallest element by stopping the traversal once you push the second item.",
+      "check": {
+        "question": "If you perform a reverse inorder traversal (Right, Root, Left) on a BST, what is the outcome?",
+        "options": [
+          "An array of elements in random, unsorted order.",
+          "An array of elements sorted in strictly descending order.",
+          "The traversal will fail and throw an exception."
+        ],
+        "answer": 1,
+        "why": "Visiting the larger right branch first, then the root, then the smaller left branch naturally yields a descending sorted sequence."
+      }
+    },
+    {
+      "title": "Lowest Common Ancestor in a BST",
+      "say": [
+        "Finding the Lowest Common Ancestor (LCA) of two nodes is a classic algorithmic interview question.",
+        "The LCA is the deepest node in the tree that has both target nodes as descendants (where a node can be a descendant of itself).",
+        "In a standard binary tree, finding the LCA requires complex, bottom-up postorder traversal to bubble up matching nodes.",
+        "However, in a Binary Search Tree, we can dramatically simplify this using the BST invariant.",
+        "Starting from the root, if both target values are strictly smaller than the root, the LCA must reside in the left subtree.",
+        "If both target values are strictly larger than the root, the LCA must reside in the right subtree.",
+        "If one value is smaller and the other is larger, a 'split' has occurred, meaning the current node is precisely the LCA.",
+        "This top-down traversal avoids deep recursion and can be written iteratively with excellent performance.",
+        "Let's examine how to use the BST properties to pinpoint the lowest common ancestor without excessive backtracking."
+      ],
+      "example": "We traverse down the tree, utilizing the node values to steer towards the first splitting point.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction lowestCommonAncestor(root: TreeNode | null, p: number, q: number): TreeNode | null {\n  let curr = root;\n  while (curr !== null) {\n    if (p < curr.val && q < curr.val) {\n      curr = curr.left; // Both are smaller, go left\n    } else if (p > curr.val && q > curr.val) {\n      curr = curr.right; // Both are larger, go right\n    } else {\n      return curr; // Split occurred! This is the LCA.\n    }\n  }\n  return null;\n}\nconst root = new TreeNode(20);\nroot.left = new TreeNode(10); root.right = new TreeNode(30);\nroot.left.left = new TreeNode(5); root.left.right = new TreeNode(15);\nconsole.log(lowestCommonAncestor(root, 5, 15)?.val);",
+      "output": "10",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "If both p and q are less than current, the LCA cannot be current or anything to the right."
+        },
+        {
+          "line": 12,
+          "note": "A split means one node is on the left and one on the right, making current the LCA."
+        }
+      ],
+      "tryIt": "Test finding the LCA of 5 and 10. The correct answer should be 10, because a node can be its own ancestor.",
+      "check": {
+        "question": "What identifies the Lowest Common Ancestor node during a top-down search in a BST?",
+        "options": [
+          "It is the node where both target values are found simultaneously.",
+          "It is the first node whose value is strictly between the two target values.",
+          "It is the node that has exactly two non-null children."
+        ],
+        "answer": 1,
+        "why": "When the current node's value falls between p and q, it marks the exact point where their paths diverge, making it the lowest common ancestor."
+      }
+    },
+    {
+      "title": "Deletion in a Binary Search Tree",
+      "say": [
+        "Deleting a node in a BST is notoriously tricky because we must perfectly preserve the BST invariant afterwards.",
+        "There are three primary cases we must handle when deleting a node once we have located it.",
+        "Case 1: The node is a leaf (no children). This is trivial; we simply detach it from its parent by setting the pointer to null.",
+        "Case 2: The node has exactly one child. This is also simple; we bypass the deleted node by linking its parent directly to its single child.",
+        "Case 3: The node has two children. This is complex because we cannot simply bypass it without losing structural integrity.",
+        "To solve Case 3, we find the node's 'inorder successor'—the smallest value in its right subtree.",
+        "We copy the successor's value into the node we wish to delete, overwriting it without altering tree topology.",
+        "Finally, we recursively delete the original successor node from the right subtree, which falls cleanly into Case 1 or 2.",
+        "Let's look at a conceptual implementation of deleting a node that handles these delicate topological adjustments."
+      ],
+      "example": "Deletion requires careful pointer manipulation and a helper algorithm to find the inorder successor when a node has two children.",
+      "code": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val: number) { this.val = val; this.left = this.right = null; }\n}\nfunction deleteNode(root: TreeNode | null, key: number): TreeNode | null {\n  if (!root) return null;\n  if (key < root.val) root.left = deleteNode(root.left, key);\n  else if (key > root.val) root.right = deleteNode(root.right, key);\n  else {\n    if (!root.left) return root.right; // Case 1 & 2\n    if (!root.right) return root.left; // Case 2\n    \n    // Case 3: Two children\n    let minNode = root.right;\n    while (minNode.left) minNode = minNode.left; // Find inorder successor\n    root.val = minNode.val; // Replace value\n    root.right = deleteNode(root.right, root.val); // Delete the successor\n  }\n  return root;\n}\nconst root = new TreeNode(5);\nroot.left = new TreeNode(3); root.right = new TreeNode(8);\nconst updated = deleteNode(root, 5);\nconsole.log(updated?.val, updated?.right?.val);",
+      "output": "8 undefined",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "If no left child, we simply bridge the parent directly to the right child."
+        },
+        {
+          "line": 15,
+          "note": "We hunt for the absolute minimum value in the right subtree."
+        },
+        {
+          "line": 17,
+          "note": "We recursively trigger deletion for the successor node."
+        }
+      ],
+      "tryIt": "Why do we pick the minimum of the right subtree instead of the maximum of the left subtree? Actually, both are valid options!",
+      "check": {
+        "question": "When deleting a BST node with two children, how do we choose a replacement value?",
+        "options": [
+          "We pick the maximum value in the entire tree.",
+          "We pick the minimum value in the node's right subtree (Inorder Successor).",
+          "We randomly select one of its immediate children."
+        ],
+        "answer": 1,
+        "why": "The minimum value in the right subtree is strictly larger than everything in the left subtree, preserving the BST rules upon replacement."
+      }
+    }
+  ],
+  "summary": [
+    "A BST strictly orders nodes: left descendants are smaller, right are larger.",
+    "Search algorithms run in O(log N) time by halving the search space at each step.",
+    "Validation requires passing recursive (min, max) boundaries down the tree.",
+    "Inorder traversals output elements in ascending sorted order perfectly.",
+    "Lowest Common Ancestor leverages the BST split property to avoid full traversals."
+  ],
+  "projectStep": {
+    "title": "Interactive Dictionary implementation",
+    "steps": [
+      "Create a BST where nodes hold string words instead of numbers.",
+      "Implement an insert method that uses alphabetical string comparison.",
+      "Write a search function to quickly determine if a word exists in your dictionary."
+    ]
+  }
+},
+{
+  "day": 18,
+  "title": "Min/Max Binary Heaps & Priority Queues",
+  "goal": "Understand how Heaps maintain strict priority ordering using arrays, enabling fast top-element extraction for algorithms like Dijkstra.",
+  "minutes": 25,
+  "recap": "We've explored strict left-right ordering in BSTs. Heaps use a different invariant—top-down strictness—to prioritize elements globally without fully sorting them.",
+  "parts": [
+    {
+      "title": "The Heap Property and Complete Trees",
+      "say": [
+        "Welcome to Day eighteen! Today we focus on a special kind of tree called a Binary Heap, the engine behind Priority Queues.",
+        "A Heap is fundamentally a binary tree that satisfies two strict properties: a structural property and an ordering property.",
+        "Structurally, a Heap must be a 'Complete Binary Tree', meaning every level is fully populated except possibly the last, which is filled left-to-right.",
+        "Ordering-wise, a Min-Heap dictates that every parent node must be smaller than or equal to both of its children.",
+        "Conversely, a Max-Heap dictates that every parent node must be strictly larger than or equal to both of its children.",
+        "Crucially, unlike a BST, there is absolutely no ordering rule enforced between the left and right siblings in a Heap.",
+        "This weakened invariant means Heaps do not allow fast searching for arbitrary elements, but they guarantee O(1) access to the minimum (or maximum) element.",
+        "Because the tree is perfectly Complete, we can elegantly map it to a flat one-dimensional array without needing actual pointer objects.",
+        "Let's explore the math that allows us to navigate parent-child relationships purely through array indices."
+      ],
+      "example": "In a flat array representing a Complete Tree, parent and child nodes can be calculated using simple index arithmetic.",
+      "code": "function getRelations(index: number) {\n  const leftChild = 2 * index + 1;\n  const rightChild = 2 * index + 2;\n  const parent = Math.floor((index - 1) / 2);\n  return { leftChild, rightChild, parent };\n}\n\nconsole.log(\"Root (0) children:\", getRelations(0).leftChild, getRelations(0).rightChild);\nconsole.log(\"Node (2) parent:\", getRelations(2).parent);\nconsole.log(\"Node (5) parent:\", getRelations(5).parent);",
+      "output": "Root (0) children: 1 2\nNode (2) parent: 0\nNode (5) parent: 2",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "The left child of node 'i' is exactly at index 2i + 1."
+        },
+        {
+          "line": 4,
+          "note": "The parent index is found by subtracting 1 and integer dividing by 2."
+        }
+      ],
+      "tryIt": "Calculate the parent of index 7 on paper. It should evaluate to 3, validating the math works deep in the array.",
+      "check": {
+        "question": "Which of the following describes the fundamental structural property of a Binary Heap?",
+        "options": [
+          "All leaves must be on the right side of the tree.",
+          "It must be a Complete Binary Tree, filled level by level from left to right.",
+          "Every node must have exactly two or zero children."
+        ],
+        "answer": 1,
+        "why": "A Complete Binary Tree structure is required so that the heap can be densely packed into an array without empty gaps."
+      }
+    },
+    {
+      "title": "Insertion and Sift-Up",
+      "say": [
+        "When adding a new element to a Heap, we must ensure both the structural property and the ordering property are maintained.",
+        "To satisfy the structural property, we always append the new element to the very end of our underlying array.",
+        "This guarantees the tree remains a Complete Binary Tree, but the new element might violate the heap ordering.",
+        "To restore order, we perform a process known as 'Sift-Up', 'Bubble-Up', or 'Heapify-Up'.",
+        "We compare the newly added element with its parent. If it violates the invariant (e.g., smaller than parent in a Min-Heap), we swap them.",
+        "We continue swapping the element up the tree, level by level, until it is larger than its parent or it becomes the new root.",
+        "Because a complete binary tree has a height of strictly log(N), this bubbling process takes at most O(log N) time.",
+        "This keeps insertions extremely fast and predictable regardless of how massive the heap becomes.",
+        "Let's write a MinHeap class and implement the insertion and sift-up mechanics."
+      ],
+      "example": "Inserting pushes to the end of the array, and a while-loop aggressively swaps the element upwards to restore the Min-Heap rule.",
+      "code": "class MinHeap {\n  heap: number[] = [];\n  \n  insert(val: number) {\n    this.heap.push(val);\n    this.siftUp(this.heap.length - 1);\n  }\n  \n  private siftUp(index: number) {\n    let curr = index;\n    while (curr > 0) {\n      let parent = Math.floor((curr - 1) / 2);\n      if (this.heap[parent] <= this.heap[curr]) break; // Invariant satisfied\n      \n      // Swap elements\n      [this.heap[parent], this.heap[curr]] = [this.heap[curr], this.heap[parent]];\n      curr = parent; // Move pointer up\n    }\n  }\n}\nconst h = new MinHeap();\nh.insert(10); h.insert(5); h.insert(2);\nconsole.log(h.heap);",
+      "output": "[ 2, 10, 5 ]",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "We append to the array to strictly maintain the Complete Binary Tree shape."
+        },
+        {
+          "line": 13,
+          "note": "If the parent is already smaller, the Min-Heap invariant is solid, so we stop."
+        },
+        {
+          "line": 16,
+          "note": "Array destructuring handles the swap cleanly without temporary variables."
+        }
+      ],
+      "tryIt": "Insert 1 into the heap and trace the sift-up steps. It will swap with 10, then swap with 2, becoming the new root.",
+      "check": {
+        "question": "During insertion, why do we initially place the new element at the very end of the array?",
+        "options": [
+          "To immediately satisfy the Heap Ordering invariant.",
+          "To strictly preserve the Complete Binary Tree structural property.",
+          "Because pushing to an array is O(1), and we don't care about structure."
+        ],
+        "answer": 1,
+        "why": "We push to the end so the tree fills perfectly level-by-level, ensuring we never have gaps or null pointers in our array."
+      }
+    },
+    {
+      "title": "Extraction and Sift-Down",
+      "say": [
+        "The most powerful operation of a Priority Queue is extraction: removing the highest-priority element (the root).",
+        "Removing the root from our array leaves a gaping hole at index 0, shattering the Complete Binary Tree structure.",
+        "To repair the structure, we pop the absolute last element from the array and transplant it into the root position.",
+        "This fixes the shape, but this transplant is usually a large value that violently breaks the heap ordering invariant.",
+        "We fix this via 'Sift-Down' or 'Heapify-Down', allowing the heavy element to sink down the tree to its proper place.",
+        "We compare the node to both of its children and swap it with the smaller of the two (for a Min-Heap).",
+        "Swapping with the smaller child is critical; it ensures the new parent remains smaller than both children after the swap.",
+        "We repeat this sinking process until the node is smaller than its children or it hits the bottom (a leaf).",
+        "Let's implement the pop method and the critical sift-down repair cycle."
+      ],
+      "example": "Extraction removes the root, moves the last leaf to the top, and carefully sinks it down by swapping with the smaller child.",
+      "code": "class MinHeap {\n  heap: number[] = [];\n  insert(val: number) { this.heap.push(val); this.siftUp(this.heap.length - 1); }\n  private siftUp(i: number) { /* Omitted for brevity */ }\n  \n  pop(): number | undefined {\n    if (this.heap.length === 0) return undefined;\n    if (this.heap.length === 1) return this.heap.pop();\n    \n    const min = this.heap[0];\n    this.heap[0] = this.heap.pop()!; // Move last to top\n    this.siftDown(0);\n    return min;\n  }\n  \n  private siftDown(i: number) {\n    let curr = i;\n    while (2 * curr + 1 < this.heap.length) {\n      let left = 2 * curr + 1, right = 2 * curr + 2;\n      let smallest = (right < this.heap.length && this.heap[right] < this.heap[left]) ? right : left;\n      \n      if (this.heap[curr] <= this.heap[smallest]) break;\n      [this.heap[curr], this.heap[smallest]] = [this.heap[smallest], this.heap[curr]];\n      curr = smallest;\n    }\n  }\n}\nconst h = new MinHeap();\nh.heap = [2, 10, 5]; // Pretend we inserted these properly\nconsole.log(h.pop(), h.heap);",
+      "output": "2 [ 5, 10 ]",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "We extract the root and replace it with the popped last element in one swift move."
+        },
+        {
+          "line": 20,
+          "note": "We calculate which child is strictly smaller to avoid violating rules on the next level."
+        },
+        {
+          "line": 22,
+          "note": "If we are already smaller than our smallest child, the sinking is complete."
+        }
+      ],
+      "tryIt": "Consider what happens if we swap with the LARGER child in a Min-Heap. The invariant would break instantly!",
+      "check": {
+        "question": "When sinking a node down a Min-Heap, why must we always swap it with the smaller of its two children?",
+        "options": [
+          "Because swapping with the larger child would make the larger child a parent of the smaller child, breaking Min-Heap rules.",
+          "It actually doesn't matter; either child is mathematically fine.",
+          "Because the left child is always inherently smaller than the right child."
+        ],
+        "answer": 0,
+        "why": "The new parent must be smaller than both children. If you swap with the larger child, the larger child becomes the parent of the smaller one, violating the invariant."
+      }
+    },
+    {
+      "title": "Building a Heap via Heapify",
+      "say": [
+        "Often, we receive an unsorted array of data and need to transform it into a valid Heap structure.",
+        "The naive approach is to create an empty heap and call insert() for each element, resulting in an O(N log N) time complexity.",
+        "However, there is an elegant algorithm called Floyd's 'Heapify' that does this in place in strict O(N) time.",
+        "The trick is to work backwards. Leaf nodes technically already satisfy the heap property because they have no children.",
+        "We start at the last non-leaf node (which is the parent of the absolute last element) and call sift-down.",
+        "We walk backwards through the array, calling sift-down on every single node until we reach the root at index 0.",
+        "By doing this bottom-up, we guarantee that when we sift down a node, its subtrees are already perfectly valid heaps.",
+        "This subtle mathematical optimization is a massive win when dealing with huge datasets needing immediate prioritization.",
+        "Let's write a function that performs an in-place O(N) heapify on an arbitrary unsorted array."
+      ],
+      "example": "Floyd's Heapify works backward from the middle of the array, systematically sinking elements into valid sub-heaps.",
+      "code": "function heapify(arr: number[]) {\n  // Start from the last non-leaf node\n  let startIdx = Math.floor((arr.length / 2) - 1);\n  \n  for (let i = startIdx; i >= 0; i--) {\n    siftDown(arr, i);\n  }\n  return arr;\n}\n\nfunction siftDown(arr: number[], i: number) {\n  let curr = i;\n  while (2 * curr + 1 < arr.length) {\n    let left = 2 * curr + 1, right = 2 * curr + 2;\n    let smallest = (right < arr.length && arr[right] < arr[left]) ? right : left;\n    if (arr[curr] <= arr[smallest]) break;\n    [arr[curr], arr[smallest]] = [arr[smallest], arr[curr]];\n    curr = smallest;\n  }\n}\n\nconsole.log(heapify([9, 6, 2, 4, 8, 7]));",
+      "output": "[ 2, 4, 7, 6, 8, 9 ]",
+      "codeNotes": [
+        {
+          "line": 3,
+          "note": "Math.floor(length/2 - 1) precisely pinpoints the parent of the last array element."
+        },
+        {
+          "line": 5,
+          "note": "We iterate backwards to index 0, sinking each parent down."
+        }
+      ],
+      "tryIt": "Notice how the output array isn't fully sorted sequentially? It just obeys the top-down heap rules!",
+      "check": {
+        "question": "Why does the Floyd Heapify algorithm start at the middle of the array and work backward?",
+        "options": [
+          "The first half of the array contains the leaf nodes.",
+          "The second half of the array are leaves, which are already valid heaps, so we start at the last parent.",
+          "Working forward would cause an infinite loop."
+        ],
+        "answer": 1,
+        "why": "Half of a complete binary tree consists of leaves. Skipping them and working bottom-up ensures children are valid heaps before parents are processed."
+      }
+    },
+    {
+      "title": "Priority Queues in Action",
+      "say": [
+        "A Heap is the underlying structural implementation, but the abstract data type it powers is the Priority Queue.",
+        "In a standard Queue, elements are processed First-In-First-Out. In a Priority Queue, elements are processed strictly by Priority.",
+        "We can easily extend our Heap to handle objects instead of raw numbers by passing a custom comparator function.",
+        "For example, a hospital emergency room triages patients based on injury severity, not strictly arrival time.",
+        "Or, in algorithms like Dijkstra's Shortest Path, we constantly need to extract the next closest unvisited intersection.",
+        "By modifying our sift logic to compare object properties (like a 'priority' field), we bridge the gap between theory and practical utility.",
+        "JavaScript lacks a built-in Priority Queue, making this one of the most critical structures to know how to implement from scratch.",
+        "Without it, you would have to sort an array every single time you inserted an item, severely degrading performance.",
+        "Let's see a miniaturized version of a Priority Queue managing a list of tasks with varying urgency."
+      ],
+      "example": "By comparing a specific property (like 'priority') during sifting operations, Heaps manage complex objects effortlessly.",
+      "code": "class TaskPQ {\n  heap: { task: string, priority: number }[] = [];\n  \n  push(task: string, priority: number) {\n    this.heap.push({ task, priority });\n    this.siftUp(this.heap.length - 1);\n  }\n  \n  pop() {\n    if (!this.heap.length) return null;\n    if (this.heap.length === 1) return this.heap.pop();\n    const min = this.heap[0];\n    this.heap[0] = this.heap.pop()!;\n    this.siftDown(0);\n    return min;\n  }\n  \n  private siftUp(i: number) {\n    let curr = i;\n    while (curr > 0) {\n      let p = Math.floor((curr - 1) / 2);\n      if (this.heap[p].priority <= this.heap[curr].priority) break;\n      [this.heap[p], this.heap[curr]] = [this.heap[curr], this.heap[p]];\n      curr = p;\n    }\n  }\n  \n  private siftDown(i: number) {\n    let curr = i;\n    while (2 * curr + 1 < this.heap.length) {\n      let l = 2 * curr + 1, r = 2 * curr + 2;\n      let s = (r < this.heap.length && this.heap[r].priority < this.heap[l].priority) ? r : l;\n      if (this.heap[curr].priority <= this.heap[s].priority) break;\n      [this.heap[curr], this.heap[s]] = [this.heap[s], this.heap[curr]];\n      curr = s;\n    }\n  }\n}\nconst pq = new TaskPQ();\npq.push(\"Write code\", 5); pq.push(\"Fix prod crash\", 1); pq.push(\"Get coffee\", 10);\nconsole.log(pq.pop()?.task);",
+      "output": "Fix prod crash",
+      "codeNotes": [
+        {
+          "line": 21,
+          "note": "We specifically compare the 'priority' property to decide the structural ordering."
+        },
+        {
+          "line": 43,
+          "note": "The task with priority 1 (the lowest number, highest urgency) bubbles to the root instantly."
+        }
+      ],
+      "tryIt": "Pop a second time. It will correctly output 'Write code' as the next highest priority.",
+      "check": {
+        "question": "Why is an array with sort() insufficient for a highly active Priority Queue?",
+        "options": [
+          "Arrays cannot store objects with priority fields.",
+          "Sorting the array on every insertion takes O(N log N) time, while heap insertion takes O(log N).",
+          "Array sort() only works on strings."
+        ],
+        "answer": 1,
+        "why": "Calling sort() repeatedly on an array is computationally heavy. Heaps naturally maintain the top element dynamically with logarithmically cheap operations."
+      }
+    },
+    {
+      "title": "Heap Sort: Utilizing the Heap",
+      "say": [
+        "We can leverage the properties of a heap to create a remarkably efficient sorting algorithm known as Heap Sort.",
+        "The logic is quite elegant: if you heapify an array into a Min-Heap, the absolute smallest element sits at index 0.",
+        "If you repeatedly pop the root from the heap, you extract the elements in perfectly ascending, sorted order.",
+        "To accomplish this entirely in-place without needing a second array, we actually build a Max-Heap instead.",
+        "We extract the maximum element and swap it to the end of the array, logically shrinking the 'heap size' by one.",
+        "We then sift down the new root to repair the remaining heap, and repeat until the heap size reaches zero.",
+        "This continuous extraction leaves behind a beautifully sorted array in O(N log N) time with zero extra space.",
+        "It lacks the worst-case O(N^2) degradation of Quick Sort, making it highly reliable for massive datasets.",
+        "Let's examine a simplified implementation demonstrating the core extraction loop of Heap Sort."
+      ],
+      "example": "Heap Sort rapidly extracts the top element and places it in a growing sorted section at the back of the array.",
+      "code": "function heapSort(arr: number[]) {\n  // 1. Build a Max-Heap (in-place)\n  for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {\n    siftDownMax(arr, arr.length, i);\n  }\n  \n  // 2. Extract elements one by one\n  for (let i = arr.length - 1; i > 0; i--) {\n    // Swap max (root) with the end element\n    [arr[0], arr[i]] = [arr[i], arr[0]];\n    // Sift down the new root, but pretend the array is shorter (size i)\n    siftDownMax(arr, i, 0);\n  }\n  return arr;\n}\n\nfunction siftDownMax(arr: number[], size: number, i: number) {\n  let curr = i;\n  while (2 * curr + 1 < size) {\n    let left = 2 * curr + 1, right = 2 * curr + 2;\n    let largest = (right < size && arr[right] > arr[left]) ? right : left;\n    if (arr[curr] >= arr[largest]) break;\n    [arr[curr], arr[largest]] = [arr[largest], arr[curr]];\n    curr = largest;\n  }\n}\n\nconsole.log(heapSort([4, 10, 3, 5, 1]));",
+      "output": "[ 1, 3, 4, 5, 10 ]",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "We swap the root (largest element) to the back of the array."
+        },
+        {
+          "line": 11,
+          "note": "We call sift down with a decreasing 'size' boundary, protecting the sorted elements."
+        }
+      ],
+      "tryIt": "Trace the array manually. After the first loop, 10 moves to the end. The next loop moves 5, and so on.",
+      "check": {
+        "question": "Why does an in-place ascending Heap Sort use a Max-Heap rather than a Min-Heap?",
+        "options": [
+          "Max-Heaps are faster to build.",
+          "It allows swapping the maximum element to the end of the array, building the sorted result backward.",
+          "Min-Heaps cannot hold negative numbers."
+        ],
+        "answer": 1,
+        "why": "By using a Max-Heap, the largest item sits at index 0. Swapping it to the very end puts it exactly where it belongs in an ascending sorted array."
+      }
+    }
+  ],
+  "summary": [
+    "A Binary Heap is a Complete Binary Tree packed efficiently into a flat array.",
+    "Parent and child relationships are calculated using simple index arithmetic (2i+1, 2i+2).",
+    "Insertion adds to the end and sifts up to restore ordering in O(log N) time.",
+    "Extraction removes the root, replaces it with the last leaf, and sifts down.",
+    "Priority Queues manage dynamic, urgency-based task processing using Heaps."
+  ],
+  "projectStep": {
+    "title": "Dijkstra's Helper Queue",
+    "steps": [
+      "Implement a generic PriorityQueue class that accepts a custom comparator function on initialization.",
+      "Ensure push and pop methods correctly pass elements through the comparator.",
+      "Test it by queuing pathfinding nodes consisting of an X/Y coordinate and a strictly evaluated 'cost' distance."
+    ]
+  }
+},
+{
+  "day": 19,
+  "title": "Tries (Prefix Trees) & Fast Prefix Auto-Complete",
+  "goal": "Learn to build and traverse Tries to rapidly search strings, validate dictionaries, and implement auto-complete engines.",
+  "minutes": 25,
+  "recap": "Binary Search Trees search by comparing entire values. Tries search by character sequence, drastically accelerating operations involving string prefixes.",
+  "parts": [
+    {
+      "title": "The Anatomy of a Trie Node",
+      "say": [
+        "Welcome to Day nineteen! Today we investigate a highly specialized tree tailored explicitly for strings: the Trie.",
+        "A Trie, often pronounced 'try' and derived from 'reTRIEval', is a multi-way tree representing character sequences.",
+        "Unlike a binary tree where nodes have a left and right child, a Trie node typically has a Map or an array of children.",
+        "Each branch from a parent to a child represents a single character in a string.",
+        "Crucially, the nodes themselves usually do not store the character; the character is defined by the link from the parent.",
+        "A Trie node also contains a boolean flag, often called 'isEnd' or 'isWord', to indicate the completion of a valid string.",
+        "Because multiple words sharing the same prefix will traverse the exact same path, Tries are incredibly space-efficient for dictionaries.",
+        "For instance, 'cat' and 'car' will share the 'c' and 'a' nodes before branching to 't' and 'r' respectively.",
+        "Let's look at how to define a flexible TrieNode class utilizing a JavaScript Map for rapid character lookup."
+      ],
+      "example": "A TrieNode utilizes a Map to dynamically attach an arbitrary number of child nodes based on character keys.",
+      "code": "class TrieNode {\n  children: Map<string, TrieNode>;\n  isEndOfWord: boolean;\n  \n  constructor() {\n    this.children = new Map();\n    this.isEndOfWord = false;\n  }\n}\n\nconst root = new TrieNode();\nroot.children.set('a', new TrieNode());\nconst aNode = root.children.get('a')!;\naNode.children.set('p', new TrieNode());\naNode.children.set('n', new TrieNode());\n\nconsole.log(\"Root has 'a'?\", root.children.has('a'));\nconsole.log(\"Node 'a' has 'p' & 'n'?\", aNode.children.has('p'), aNode.children.has('n'));",
+      "output": "Root has 'a'? true\nNode 'a' has 'p' & 'n'? true true",
+      "codeNotes": [
+        {
+          "line": 2,
+          "note": "We use a Map where the string key is the character, and the value is the next node."
+        },
+        {
+          "line": 3,
+          "note": "The boolean flag distinguishes a full word from a mere prefix."
+        }
+      ],
+      "tryIt": "Notice how the node doesn't store 'a'; the parent map links the key 'a' to the node. This is a subtle but vital concept.",
+      "check": {
+        "question": "In a Trie, how are the characters of a word represented?",
+        "options": [
+          "Each node contains an array of the full remaining string.",
+          "The characters are implied by the mapped keys connecting parent nodes to child nodes.",
+          "Every node stores a single character property directly on itself."
+        ],
+        "answer": 1,
+        "why": "Characters are the structural edges (keys in the Map) connecting the nodes, rather than distinct properties stored directly inside the node object."
+      }
+    },
+    {
+      "title": "Inserting Words into a Trie",
+      "say": [
+        "Inserting a string into a Trie is an intuitive, iterative process, processing the word character by character.",
+        "We initialize a pointer to our root node and begin iterating through the characters of our target string.",
+        "For each character, we check if the current node's children Map already contains that specific character key.",
+        "If the key is missing, we create a new TrieNode and insert it into the Map using the character as the key.",
+        "We then strictly move our pointer to that child node, whether it was newly created or already existed.",
+        "This iterative descent ensures we share as much prefix structure as possible with previously inserted words.",
+        "When the loop finishes processing the final character of the word, we flip the 'isEndOfWord' flag on the final node.",
+        "The time complexity is purely O(L), where L is the length of the word, regardless of how many millions of words exist.",
+        "Let's write a complete insertion method that builds out the multi-branching tree structure."
+      ],
+      "example": "Insertion iterates through the word, forging a path of nodes, and stamps the final node as a valid word boundary.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEndOfWord = false;\n}\nclass Trie {\n  root = new TrieNode();\n  \n  insert(word: string) {\n    let curr = this.root;\n    for (const char of word) {\n      if (!curr.children.has(char)) {\n        curr.children.set(char, new TrieNode()); // Create missing path\n      }\n      curr = curr.children.get(char)!; // Traverse downwards\n    }\n    curr.isEndOfWord = true; // Mark completion\n  }\n}\nconst trie = new Trie();\ntrie.insert(\"cat\");\ntrie.insert(\"car\");\nconsole.log(trie.root.children.get('c')?.children.get('a')?.children.has('t'));",
+      "output": "true",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "We lazily create nodes only if the prefix path doesn't already exist."
+        },
+        {
+          "line": 16,
+          "note": "The final node touched by the loop is marked true, officially finalizing the string insertion."
+        }
+      ],
+      "tryIt": "If you insert 'cart', it will share 'c', 'a', 'r' with 'car', but branch off at 't'.",
+      "check": {
+        "question": "What dictates the time complexity of inserting a word into a Trie?",
+        "options": [
+          "The total number of words already inside the Trie.",
+          "The length of the string being inserted (O(L)).",
+          "The alphabetical ordering of the character set."
+        ],
+        "answer": 1,
+        "why": "You perform exactly one Map lookup and pointer assignment per character in the word, completely ignoring the rest of the massive dictionary."
+      }
+    },
+    {
+      "title": "Searching for Exact Words",
+      "say": [
+        "Searching for an exact word match in a Trie is functionally identical to the insertion process without node creation.",
+        "We start our pointer at the root and iterate through every character in our search query.",
+        "At each step, we check if the current node's Map contains a key for the next character.",
+        "If at any point the Map lacks the required character key, the path is broken, and we immediately return false.",
+        "If the loop successfully traverses all characters without failing, our pointer rests on the final node of the path.",
+        "However, simply reaching the end of the query string is not enough to confirm the word exists.",
+        "We must strictly check if the final node's 'isEndOfWord' flag is set to true.",
+        "For example, if we insert 'apple' and search for 'app', the path exists, but the 'p' node is not marked as a valid word.",
+        "Let's write the search function and observe how it differentiates between valid words and mere substrings."
+      ],
+      "example": "An exact search strictly verifies that the path exists AND that the termination node is officially marked.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEndOfWord = false;\n}\nclass Trie {\n  root = new TrieNode();\n  insert(word: string) {\n    let curr = this.root;\n    for (const char of word) {\n      if (!curr.children.has(char)) curr.children.set(char, new TrieNode());\n      curr = curr.children.get(char)!;\n    }\n    curr.isEndOfWord = true;\n  }\n  search(word: string): boolean {\n    let curr = this.root;\n    for (const char of word) {\n      if (!curr.children.has(char)) return false; // Path broken\n      curr = curr.children.get(char)!;\n    }\n    return curr.isEndOfWord; // Must be flagged as a complete word\n  }\n}\nconst trie = new Trie();\ntrie.insert(\"apple\");\nconsole.log(trie.search(\"apple\"), trie.search(\"app\"));",
+      "output": "true false",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "If we ask for a character branch that doesn't exist, the word absolutely is not in the Trie."
+        },
+        {
+          "line": 21,
+          "note": "Crucial check: 'app' survives the loop, but returns false because it lacks the isEndOfWord flag."
+        }
+      ],
+      "tryIt": "Insert 'app' directly into the Trie, then re-run the search. The second output will switch to true.",
+      "check": {
+        "question": "Why must an exact search check the isEndOfWord flag instead of just returning true upon completing the loop?",
+        "options": [
+          "Because the loop might have skipped characters.",
+          "Because the search query might just be a prefix of a longer, actual word in the dictionary.",
+          "To ensure the search was performed in O(1) time."
+        ],
+        "answer": 1,
+        "why": "A path might exist for 'bat', but if only 'batman' was inserted, 'bat' is merely a prefix, not a recognized dictionary word."
+      }
+    },
+    {
+      "title": "Searching for Prefixes",
+      "say": [
+        "While exact word searches are useful, the true dominance of a Trie lies in lightning-fast prefix validation.",
+        "Checking if any word starts with a specific prefix is a core requirement for auto-complete and routing engines.",
+        "The logic for prefix searching is almost entirely a clone of the exact search algorithm.",
+        "We iterate through the prefix string character by character, following the mapped pathways downwards.",
+        "If the path abruptly breaks, we return false; the prefix does not exist anywhere in our structure.",
+        "If we successfully traverse the entire prefix string, we instantly return true without checking any flags.",
+        "Because we only care if the pathway continues, it is irrelevant whether the current node represents a full word.",
+        "This operation executes in O(P) time, where P is the length of the prefix, a speed unmatched by scanning arrays or hash sets.",
+        "Let's implement a 'startsWith' method to demonstrate this powerful validation technique."
+      ],
+      "example": "Prefix searching traverses the path and happily returns true simply if the path exists, ignoring word boundaries.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEndOfWord = false;\n}\nclass Trie {\n  root = new TrieNode();\n  insert(w: string) {\n    let c = this.root;\n    for (let ch of w) {\n      if (!c.children.has(ch)) c.children.set(ch, new TrieNode());\n      c = c.children.get(ch)!;\n    }\n    c.isEndOfWord = true;\n  }\n  startsWith(prefix: string): boolean {\n    let curr = this.root;\n    for (const char of prefix) {\n      if (!curr.children.has(char)) return false;\n      curr = curr.children.get(char)!;\n    }\n    return true; // Path exists, prefix is valid!\n  }\n}\nconst trie = new Trie();\ntrie.insert(\"developer\");\nconsole.log(trie.startsWith(\"dev\"), trie.startsWith(\"design\"));",
+      "output": "true false",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "The early exit failure logic remains identical to exact search."
+        },
+        {
+          "line": 21,
+          "note": "We completely ignore the isEndOfWord flag; mere existence of the path is sufficient."
+        }
+      ],
+      "tryIt": "Try trie.startsWith('developer'). It returns true. Every valid word is technically a valid prefix of itself!",
+      "check": {
+        "question": "What makes startsWith functionally different from an exact word search?",
+        "options": [
+          "It uses a completely different looping mechanism.",
+          "It ignores the isEndOfWord flag and returns true simply if the character path survives.",
+          "It runs in O(1) time instead of O(L) time."
+        ],
+        "answer": 1,
+        "why": "A prefix represents the beginning sequence. If you can walk the sequence without falling off the tree, the prefix exists."
+      }
+    },
+    {
+      "title": "Building an Auto-Complete Engine",
+      "say": [
+        "With prefix validation working, we can construct a robust auto-complete engine using Depth-First Search.",
+        "When a user types a prefix, we first navigate to the Trie node representing the end of that prefix.",
+        "If the node exists, every valid word located underneath it is a potential auto-complete suggestion.",
+        "We can launch a recursive DFS from that specific node to aggressively discover all descendants marked with 'isEndOfWord'.",
+        "As we traverse down branches, we append the mapped characters to our running string builder.",
+        "When we encounter a node where 'isEndOfWord' is true, we push the fully formed string into our suggestions array.",
+        "Because Tries inherently sort characters structurally, this DFS will naturally return suggestions in alphabetical order.",
+        "This combination of prefix traversal followed by localized DFS forms the backbone of real-world search bars.",
+        "Let's trace out a sophisticated function that retrieves a dynamic array of matching words based on user input."
+      ],
+      "example": "An auto-complete system finds the base node of a prefix, then unleashes a recursive DFS to harvest all valid descendants.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEndOfWord = false;\n}\nclass Trie {\n  root = new TrieNode();\n  insert(w: string) {\n    let c = this.root;\n    for (let ch of w) {\n      if (!c.children.has(ch)) c.children.set(ch, new TrieNode());\n      c = c.children.get(ch)!;\n    }\n    c.isEndOfWord = true;\n  }\n  \n  autocomplete(prefix: string): string[] {\n    let curr = this.root;\n    for (const char of prefix) {\n      if (!curr.children.has(char)) return []; // Prefix not found\n      curr = curr.children.get(char)!;\n    }\n    \n    const results: string[] = [];\n    this.dfs(curr, prefix, results);\n    return results;\n  }\n  \n  private dfs(node: TrieNode, currentWord: string, results: string[]) {\n    if (node.isEndOfWord) results.push(currentWord);\n    \n    for (const [char, childNode] of node.children.entries()) {\n      this.dfs(childNode, currentWord + char, results);\n    }\n  }\n}\nconst trie = new Trie();\ntrie.insert(\"car\"); trie.insert(\"card\"); trie.insert(\"cat\"); trie.insert(\"dog\");\nconsole.log(trie.autocomplete(\"ca\"));",
+      "output": "[ 'car', 'card', 'cat' ]",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "We jump straight to the node representing 'ca' to begin our localized search."
+        },
+        {
+          "line": 30,
+          "note": "If the base node itself is a word (like 'car' inside 'card'), we collect it immediately."
+        },
+        {
+          "line": 33,
+          "note": "We recurse into every child branch, concatenating the new character onto our running word."
+        }
+      ],
+      "tryIt": "Call trie.autocomplete('d'). It efficiently bypasses the entire 'c' branch and instantly returns ['dog'].",
+      "check": {
+        "question": "Why do we append the prefix characters before starting the DFS algorithm?",
+        "options": [
+          "Because DFS only knows how to search backward.",
+          "Because the Trie nodes don't store characters, so we must reconstruct the word as we traverse downward.",
+          "To confuse the user."
+        ],
+        "answer": 1,
+        "why": "Characters exist as pathways, not localized properties. DFS must carry the accumulated string downwards to assemble the final result."
+      }
+    },
+    {
+      "title": "Space Efficiency and Trade-offs",
+      "say": [
+        "Tries are incredibly powerful, but we must acknowledge their specific trade-offs regarding memory consumption.",
+        "In a Hash Set, storing thousands of long, distinct strings requires massive amounts of raw byte memory.",
+        "A Trie mitigates this perfectly when strings share a large amount of prefix data, vastly compressing overlapping characters.",
+        "However, if a dataset contains words with absolutely zero common prefixes, a Trie will perform poorly.",
+        "In this worst-case scenario, every single character demands a brand new Map and node object, wasting extreme overhead memory.",
+        "Furthermore, dynamically allocating thousands of tiny Map objects creates a fragmented memory profile, stressing the garbage collector.",
+        "For extremely dense datasets like genomic sequencing, developers often use compressed Radix Trees to squash redundant linear branches.",
+        "Despite this, for typical alphabetical dictionaries or IP routing tables, standard Tries remain the undefeated champion of prefix analysis.",
+        "Let's write a small diagnostic function that recursively counts the total nodes in a Trie to visualize memory usage."
+      ],
+      "example": "By counting the sheer number of allocated nodes, we can see how shared prefixes drastically save object allocations.",
+      "code": "class TrieNode {\n  children = new Map<string, TrieNode>();\n  isEndOfWord = false;\n}\nclass Trie {\n  root = new TrieNode();\n  insert(w: string) {\n    let c = this.root;\n    for (let ch of w) {\n      if (!c.children.has(ch)) c.children.set(ch, new TrieNode());\n      c = c.children.get(ch)!;\n    }\n  }\n  \n  countNodes(node: TrieNode = this.root): number {\n    let count = 1; // Count current node\n    for (const child of node.children.values()) {\n      count += this.countNodes(child);\n    }\n    return count;\n  }\n}\nconst trie = new Trie();\n// 'bat', 'bath', and 'batman' share massive overlap\ntrie.insert(\"bat\"); trie.insert(\"bath\"); trie.insert(\"batman\");\nconsole.log(\"Total Nodes:\", trie.countNodes());",
+      "output": "Total Nodes: 8",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "We initiate a recursive DFS solely to accumulate a node count."
+        },
+        {
+          "line": 25,
+          "note": "Three words spanning 13 total characters use only 8 nodes (including root), proving compression."
+        }
+      ],
+      "tryIt": "Insert 'cat' (3 chars). Since it shares zero prefixes with 'bat', the count will cleanly jump by 3 to 10.",
+      "check": {
+        "question": "When does a Trie exhibit its worst-case memory inefficiency?",
+        "options": [
+          "When inserting identical duplicate words.",
+          "When inserting words that share absolutely zero prefixes, forcing unique branches for every character.",
+          "When searching for a word that doesn't exist."
+        ],
+        "answer": 1,
+        "why": "Without shared prefixes, every word creates a long, isolated chain of objects, consuming far more overhead than a simple flat array."
+      }
+    }
+  ],
+  "summary": [
+    "A Trie is a multi-way tree optimized for storing and retrieving string sequences.",
+    "Nodes do not store characters directly; characters are defined by the mapped pathways.",
+    "Insertion and exact searches run in blazing fast O(L) time, where L is string length.",
+    "Prefix validation operates instantly by ensuring the structural path simply exists.",
+    "Auto-complete engines combine prefix pathing with DFS to aggregate valid dictionary descendants."
+  ],
+  "projectStep": {
+    "title": "Regex Helper Node",
+    "steps": [
+      "Add a wildcard search method to your Trie that accepts a '.' character representing 'any letter'.",
+      "When evaluating a '.', implement a DFS that loops through and follows all valid children pathways recursively.",
+      "Return true if any of the explored branching pathways successfully completes the remainder of the wildcard string."
+    ]
+  }
+},
+{
+  "day": 20,
+  "title": "Graph Representations (Adjacency List/Matrix) & BFS/DFS",
+  "goal": "Model complex, multi-directional relational data using Graphs, and explore network topologies using generalized BFS and DFS.",
+  "minutes": 25,
+  "recap": "We've mastered constrained trees. Graphs remove these constraints, allowing cycles, multiple parents, and isolated islands, mimicking real-world complex networks.",
+  "parts": [
+    {
+      "title": "Understanding Graph Terminology",
+      "say": [
+        "Welcome to Day twenty! Today we venture into Graphs, the ultimate, unrestricted data structure for modeling networks.",
+        "A Graph fundamentally consists of two components: Vertices (or nodes) and Edges (the connections between them).",
+        "Unlike trees, which enforce a strict top-down parent-to-child hierarchy, graphs can be wildly interconnected in any direction.",
+        "Graphs can be 'Directed', meaning edges act like one-way streets, or 'Undirected', acting like two-way roads.",
+        "They can also be 'Weighted', where edges carry an explicit numerical cost, like distance or latency, or 'Unweighted'.",
+        "The most critical difference from trees is that graphs frequently contain 'Cycles'—pathways that loop back onto themselves.",
+        "This cyclical nature means that traversing a graph requires special tracking logic to prevent catastrophic infinite loops.",
+        "Graphs are everywhere: social network friend graphs, internet routing topologies, road maps, and dependency resolution chains.",
+        "Let's formalize these concepts by looking at the mathematical representation of a tiny, undirected graph network."
+      ],
+      "example": "In abstract terms, a graph is simply a set of V (Vertices) and a set of E (Edges connecting specific Vertices).",
+      "code": "const vertices = ['A', 'B', 'C', 'D'];\n\n// An array of tuple pairings representing bidirectional connections\nconst edges = [\n  ['A', 'B'], // A connects to B\n  ['B', 'C'], // B connects to C\n  ['C', 'A'], // C connects back to A (Cycle!)\n  ['C', 'D']  // C connects to D\n];\n\nconsole.log(\"Vertices:\", vertices);\nconsole.log(\"Edges:\", edges);",
+      "output": "Vertices: [ 'A', 'B', 'C', 'D' ]\nEdges: [ [ 'A', 'B' ], [ 'B', 'C' ], [ 'C', 'A' ], [ 'C', 'D' ] ]",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Each tuple represents a relationship. If undirected, ['A', 'B'] implies ['B', 'A'] exists logically."
+        },
+        {
+          "line": 6,
+          "note": "Connecting C back to A creates a triangular loop, a defining feature of complex graphs."
+        }
+      ],
+      "tryIt": "Notice how node D is connected, but what if there was an edge ['E', 'F']? That would be a disconnected 'island' within the same graph.",
+      "check": {
+        "question": "What structural feature explicitly distinguishes a Graph from a standard Tree?",
+        "options": [
+          "Graphs can only store numbers, while Trees store objects.",
+          "Graphs can have cycles, multiple parents, and bidirectional edges.",
+          "Trees require less memory than graphs in all scenarios."
+        ],
+        "answer": 1,
+        "why": "Trees are actually a restricted subset of graphs: they are directed, acyclic graphs (DAGs) with exactly one root."
+      }
+    },
+    {
+      "title": "The Adjacency Matrix",
+      "say": [
+        "To process graphs in code, we need a structural representation. The first major option is the Adjacency Matrix.",
+        "An Adjacency Matrix is a 2D array (a grid) of size V x V, where V is the total number of vertices.",
+        "The rows and columns represent the nodes. If an edge exists between row 'i' and column 'j', we place a 1 in that cell.",
+        "If no edge exists, the cell remains 0. For weighted graphs, we place the numerical weight instead of a 1.",
+        "This matrix structure provides blistering O(1) instantaneous lookup to check if any two nodes are connected.",
+        "However, it is brutally inefficient for space. A graph with 10,000 nodes requires a grid of 100 million cells.",
+        "If most nodes only have a few connections (a 'sparse' graph), millions of cells are wasted holding zeros.",
+        "Therefore, matrices are typically reserved for highly 'dense' graphs, where nearly every node connects to every other node.",
+        "Let's construct a simple Adjacency Matrix for a 3-node undirected graph."
+      ],
+      "example": "A 2D matrix uses boolean integers to map out exact grid-based intersections representing edge connections.",
+      "code": "// Nodes: 0, 1, 2\n// Connections: 0-1, 1-2\nconst V = 3;\nconst matrix: number[][] = Array(V).fill(0).map(() => Array(V).fill(0));\n\nfunction addEdge(u: number, v: number) {\n  matrix[u][v] = 1;\n  matrix[v][u] = 1; // Because it's undirected, we mirror it\n}\n\naddEdge(0, 1);\naddEdge(1, 2);\n\nconsole.log(matrix[0]); // Connections for Node 0\nconsole.log(matrix[1]); // Connections for Node 1\nconsole.log(matrix[2]); // Connections for Node 2",
+      "output": "[ 0, 1, 0 ]\n[ 1, 0, 1 ]\n[ 0, 1, 0 ]",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "We pre-allocate a perfect V x V grid initially filled with 0 (no connections)."
+        },
+        {
+          "line": 8,
+          "note": "For an undirected graph, the matrix is perfectly symmetrical diagonally."
+        }
+      ],
+      "tryIt": "Add an edge from 0 to 2. Run it and watch the corners of the matrix populate with 1s.",
+      "check": {
+        "question": "What is the primary disadvantage of using an Adjacency Matrix for a sparse social network with millions of users?",
+        "options": [
+          "It takes O(N) time to check if two users are friends.",
+          "It allocates O(V^2) memory, instantly crashing due to billions of wasted cells containing zeros.",
+          "It cannot represent undirected connections."
+        ],
+        "answer": 1,
+        "why": "A matrix for a million users requires a trillion cells. If each user has 50 friends, 99.99% of memory is wasted on zeros."
+      }
+    },
+    {
+      "title": "The Adjacency List",
+      "say": [
+        "To solve the memory catastrophe of matrices, we heavily rely on the second representation: The Adjacency List.",
+        "Instead of a massive grid, we use a Map or an Array where each key/index represents a specific vertex.",
+        "The corresponding value is simply a list (array) of neighboring vertices that it connects directly to.",
+        "If a node has zero connections, its list is empty. If it has three connections, its list has three elements.",
+        "This representation is extremely memory efficient, strictly scaling with the number of actual edges, taking O(V + E) space.",
+        "Because modern networks (like web links or friend groups) are overwhelmingly sparse, Adjacency Lists are the industry standard.",
+        "The trade-off is a slight loss in lookup speed; checking if A connects to Z takes O(degree) time instead of O(1).",
+        "However, finding all neighbors of a node—the most common graph operation—is lightning fast.",
+        "Let's build an Adjacency List class that dynamically maps string-based node names to arrays of their neighbors."
+      ],
+      "example": "An Adjacency List leverages a JavaScript Map to dynamically hold only the connections that actually exist.",
+      "code": "class Graph {\n  adjacencyList = new Map<string, string[]>();\n  \n  addVertex(v: string) {\n    if (!this.adjacencyList.has(v)) this.adjacencyList.set(v, []);\n  }\n  \n  addEdge(v1: string, v2: string) {\n    this.adjacencyList.get(v1)?.push(v2);\n    this.adjacencyList.get(v2)?.push(v1); // Undirected link\n  }\n}\n\nconst g = new Graph();\ng.addVertex(\"Tokyo\"); g.addVertex(\"Dallas\"); g.addVertex(\"Seoul\");\ng.addEdge(\"Tokyo\", \"Dallas\");\ng.addEdge(\"Tokyo\", \"Seoul\");\n\nconsole.log(\"Tokyo ->\", g.adjacencyList.get(\"Tokyo\"));\nconsole.log(\"Dallas ->\", g.adjacencyList.get(\"Dallas\"));",
+      "output": "Tokyo -> [ 'Dallas', 'Seoul' ]\nDallas -> [ 'Tokyo' ]",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "We initialize a blank array for a new vertex, preparing it to hold future neighbors."
+        },
+        {
+          "line": 10,
+          "note": "We establish a two-way street by pushing the neighbor into both respective arrays."
+        }
+      ],
+      "tryIt": "Comment out line 10. The graph instantly becomes a Directed graph, where traffic flows only from v1 to v2.",
+      "check": {
+        "question": "Why is an Adjacency List generally preferred over an Adjacency Matrix in practical programming?",
+        "options": [
+          "It uses significantly less memory for typical sparse networks, taking O(V + E) space.",
+          "It allows for O(1) lookup to determine if an edge exists.",
+          "It is the only way to represent weighted graph edges."
+        ],
+        "answer": 0,
+        "why": "Because it only stores existing edges, it bypasses the massive quadratic O(V^2) overhead required by a Matrix."
+      }
+    },
+    {
+      "title": "Graph Traversal: Depth-First Search (DFS)",
+      "say": [
+        "With our graph mapped out, we can traverse it. Depth-First Search (DFS) on a graph works exactly like DFS on a tree.",
+        "We start at a source node, pick an arbitrary neighbor, and dive as deep down that continuous path as possible.",
+        "We only backtrack when we hit a dead end or a node whose neighbors have all been fully explored.",
+        "However, because graphs have cyclical loops, an uncontrolled DFS will spin infinitely, causing a stack overflow.",
+        "To prevent this, we must strictly maintain a 'Visited' set, recording the identity of every node we process.",
+        "Before recursing into a neighbor, we check our Set. If the neighbor is already listed, we ruthlessly skip it.",
+        "DFS is heavily utilized in detecting closed cycles, mapping out labyrinthine mazes, and analyzing network components.",
+        "The recursive implementation elegantly relies on the call stack to manage the backtracking logic for us.",
+        "Let's script a robust recursive DFS that meticulously tracks visited nodes to navigate a cyclic Adjacency List safely."
+      ],
+      "example": "Graph DFS uses a visited Set to safely navigate highly interconnected pathways without falling into infinite recursive traps.",
+      "code": "class Graph {\n  list = new Map<string, string[]>();\n  add(v: string) { this.list.set(v, []); }\n  edge(v1: string, v2: string) { this.list.get(v1)!.push(v2); this.list.get(v2)!.push(v1); }\n  \n  dfs(start: string, visited = new Set<string>(), result: string[] = []): string[] {\n    visited.add(start);\n    result.push(start);\n    \n    for (const neighbor of this.list.get(start) || []) {\n      if (!visited.has(neighbor)) {\n        this.dfs(neighbor, visited, result);\n      }\n    }\n    return result;\n  }\n}\nconst g = new Graph();\n['A', 'B', 'C', 'D'].forEach(v => g.add(v));\ng.edge('A', 'B'); g.edge('B', 'C'); g.edge('C', 'A'); g.edge('C', 'D'); // A-B-C is a cycle\nconsole.log(g.dfs('A'));",
+      "output": "[ 'A', 'B', 'C', 'D' ]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "We immediately mark the node as visited so subsequent branches don't re-process it."
+        },
+        {
+          "line": 11,
+          "note": "The crucial shield: we only trigger a recursive dive if the node is pristine and unvisited."
+        }
+      ],
+      "tryIt": "Remove the 'if (!visited.has(neighbor))' wrapper and run it locally. It will immediately crash with a Maximum Call Stack Size Exceeded error.",
+      "check": {
+        "question": "What catastrophic failure occurs if you perform a graph DFS without a 'visited' tracking mechanism?",
+        "options": [
+          "The algorithm will skip the first node.",
+          "Any cycle in the graph will trap the traversal in an infinite loop, crashing the application.",
+          "It degrades the time complexity to O(N^2)."
+        ],
+        "answer": 1,
+        "why": "In a cycle (e.g., A -> B -> C -> A), the algorithm will repeatedly trace the circle forever unless a visited tracker breaks the loop."
+      }
+    },
+    {
+      "title": "Graph Traversal: Breadth-First Search (BFS)",
+      "say": [
+        "Our alternative traversal strategy is Breadth-First Search (BFS), radiating outward from a starting node.",
+        "Instead of diving deep, BFS visits all immediate neighbors (distance 1) before moving to neighbors of neighbors (distance 2).",
+        "Just like tree BFS, graph BFS necessitates a Queue data structure to maintain this strict FIFO layer-by-layer ordering.",
+        "And just like graph DFS, we must maintain a 'Visited' set to sever cycles and prevent redundant processing.",
+        "The true superpower of BFS is its absolute guarantee regarding shortest paths in unweighted graphs.",
+        "Because BFS expands outward uniformly like a ripple in a pond, the first time it discovers a target node, it has found the shortest possible route.",
+        "This makes BFS the undisputed algorithm for peer-to-peer routing, six-degrees of separation analysis, and minimal network hops.",
+        "We push the start node to the queue, loop while the queue has items, shift the front, and enqueue all unvisited neighbors.",
+        "Let's construct an iterative BFS algorithm to watch this uniform ripple effect in action."
+      ],
+      "example": "Graph BFS integrates a Queue and a Visited Set to systematically expand outward, layer by layer.",
+      "code": "class Graph {\n  list = new Map<string, string[]>();\n  add(v: string) { this.list.set(v, []); }\n  edge(v1: string, v2: string) { this.list.get(v1)!.push(v2); this.list.get(v2)!.push(v1); }\n  \n  bfs(start: string): string[] {\n    const queue = [start];\n    const visited = new Set([start]); // Mark visited immediately on enqueue\n    const result: string[] = [];\n    \n    while (queue.length > 0) {\n      const curr = queue.shift()!;\n      result.push(curr);\n      \n      for (const neighbor of this.list.get(curr) || []) {\n        if (!visited.has(neighbor)) {\n          visited.add(neighbor); // Shield against duplicate enqueues\n          queue.push(neighbor);\n        }\n      }\n    }\n    return result;\n  }\n}\nconst g = new Graph();\n['A', 'B', 'C', 'D', 'E'].forEach(v => g.add(v));\ng.edge('A', 'B'); g.edge('A', 'C'); g.edge('B', 'D'); g.edge('C', 'E');\nconsole.log(g.bfs('A'));",
+      "output": "[ 'A', 'B', 'C', 'D', 'E' ]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "We seed both the queue and the visited set with our starting coordinate."
+        },
+        {
+          "line": 17,
+          "note": "Crucially, we mark neighbors as visited the moment we enqueue them, preventing queue duplication."
+        }
+      ],
+      "tryIt": "Trace the output: A is distance 0. B and C are distance 1. D and E are distance 2. Perfectly ordered by depth!",
+      "check": {
+        "question": "Why is Breadth-First Search uniquely suited for finding the shortest path in unweighted graphs?",
+        "options": [
+          "It uses less memory than DFS.",
+          "It explores all nodes at a distance 'k' before ever exploring nodes at distance 'k+1'.",
+          "It avoids using the call stack entirely."
+        ],
+        "answer": 1,
+        "why": "By expanding uniformly layer by layer, BFS guarantees that the first path discovered to a destination is mathematically the shortest sequence of edges."
+      }
+    },
+    {
+      "title": "Connected Components in a Graph",
+      "say": [
+        "A fascinating property of real-world graphs is that they are not always a single contiguous mass of connections.",
+        "Often, graphs exist as isolated islands or clusters, known formally as 'Connected Components'.",
+        "If an entire network is connected, a single traversal (DFS or BFS) starting from anywhere will visit every single node.",
+        "However, if the network contains islands, a traversal from node A might terminate without ever discovering isolated node Z.",
+        "To find all components, we must iterate through the entire master list of vertices in our graph.",
+        "For each vertex, we check our global 'visited' set. If it is unvisited, it means we have discovered a brand new island.",
+        "We then launch a BFS or DFS from that specific node, which proceeds to map out that entire isolated component.",
+        "We increment our component counter and continue iterating, ensuring absolutely no node is left behind.",
+        "Let's write a powerful diagnostic algorithm that counts exactly how many disconnected islands exist in a graph."
+      ],
+      "example": "Iterating over all vertices and launching targeted traversals allows us to map out distinct, isolated network components.",
+      "code": "class Graph {\n  list = new Map<string, string[]>();\n  add(v: string) { this.list.set(v, []); }\n  edge(v1: string, v2: string) { this.list.get(v1)!.push(v2); this.list.get(v2)!.push(v1); }\n  \n  countComponents(): number {\n    const visited = new Set<string>();\n    let count = 0;\n    \n    // We must loop over every known vertex\n    for (const vertex of this.list.keys()) {\n      if (!visited.has(vertex)) {\n        count++; // New island found!\n        this.exploreIsland(vertex, visited); // DFS to map the island\n      }\n    }\n    return count;\n  }\n  \n  private exploreIsland(start: string, visited: Set<string>) {\n    visited.add(start);\n    for (const neighbor of this.list.get(start) || []) {\n      if (!visited.has(neighbor)) this.exploreIsland(neighbor, visited);\n    }\n  }\n}\nconst g = new Graph();\n['1', '2', '3', '4', '5'].forEach(v => g.add(v));\ng.edge('1', '2'); // Island A\ng.edge('4', '5'); // Island B (Node 3 is Island C, totally alone)\nconsole.log(\"Islands:\", g.countComponents());",
+      "output": "Islands: 3",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "We rely on the global Map to iterate through every known node, even the completely disconnected ones."
+        },
+        {
+          "line": 14,
+          "note": "The DFS recursively pollutes the global 'visited' set, ensuring nodes in this island are skipped by the outer loop."
+        }
+      ],
+      "tryIt": "Add an edge connecting '2' and '4'. The output immediately drops to 2, as Island A and Island B merge into one.",
+      "check": {
+        "question": "Why can't we just run a single DFS from an arbitrary starting node to find all nodes in a disconnected graph?",
+        "options": [
+          "DFS cannot traverse undirected edges.",
+          "The DFS has no physical pathways (edges) to reach the isolated islands, terminating prematurely.",
+          "DFS consumes too much memory on disconnected graphs."
+        ],
+        "answer": 1,
+        "why": "Traversals strictly require edges to move. If a node has no edges linking it to the current component, a traversal from that component is physically blocked from reaching it."
+      }
+    }
+  ],
+  "summary": [
+    "Graphs model complex networks using Vertices (nodes) and Edges (connections).",
+    "Adjacency Matrices provide O(1) lookups but waste immense memory for sparse networks.",
+    "Adjacency Lists use Maps to store only existing edges, optimizing memory for real-world data.",
+    "DFS navigates deep paths, strictly using a Visited set to prevent infinite cyclic loops.",
+    "BFS utilizes a Queue to map outward layer by layer, naturally identifying shortest paths."
+  ],
+  "projectStep": {
+    "title": "Graph Routing System",
+    "steps": [
+      "Construct a Graph representing 6 fictional cities using an Adjacency List.",
+      "Implement a BFS function that takes a start and end city, returning the total number of hops between them.",
+      "Modify the BFS to keep track of the 'parent' of each visited node so you can reconstruct the exact path string."
+    ]
+  }
+}
 ];
