@@ -346,8 +346,8 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   // course-cloud-native (8 tasks)
   'cloud-assign-day-4', 'cloud-assign-day-6', 'cloud-assign-day-12', 'cloud-assign-day-15',
   'cloud-assign-day-16', 'cloud-assign-day-20', 'cloud-assign-day-22', 'cloud-assign-day-25',
-  // course-devops-cicd (8 tasks)
-  'devops-assign-day-7', 'devops-assign-day-10', 'devops-exam-day-22', 'devops-assign-day-24',
+  // course-devops-cicd (6 tasks remaining)
+  'devops-exam-day-22', 'devops-assign-day-24',
   'devops-assign-day-25', 'devops-assign-day-27', 'devops-assign-day-28', 'devops-assign-day-29',
   // course-quant-systems (24 tasks)
   'quant-systems-assign-day-2', 'quant-systems-assign-day-3', 'quant-systems-assign-day-4', 'quant-systems-assign-day-5',

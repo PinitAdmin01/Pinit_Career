@@ -140,7 +140,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `filterSafeCapabilities(capabilitiesList)` stripping dangerous capabilities like SYS_ADMIN and RAW_SOCKET from allowed list.",
     "aStarter": "function filterSafeCapabilities(caps) {\n  // TODO: Remove SYS_ADMIN, RAW_SOCKET, and DAC_OVERRIDE from capabilitiesList\n  \n}",
     "aHint": "Filter out 'SYS_ADMIN', 'RAW_SOCKET', 'DAC_OVERRIDE', 'NET_ADMIN'; return array containing only safe capabilities.",
-    "aTest": "const filtered = filterSafeCapabilities(['NET_BIND_SERVICE', 'SYS_ADMIN', 'CHOWN']);\nif (filtered.includes('SYS_ADMIN') || !filtered.includes('NET_BIND_SERVICE')) throw new Error('Capability filter failed');"
+    "aTest": "const f1 = filterSafeCapabilities(['NET_BIND_SERVICE', 'SYS_ADMIN', 'CHOWN']);\nif (f1.length !== 2 || f1.includes('SYS_ADMIN') || !f1.includes('NET_BIND_SERVICE') || !f1.includes('CHOWN')) throw new Error('Capability filter failed on basic list');\nconst f2 = filterSafeCapabilities(['RAW_SOCKET', 'DAC_OVERRIDE']);\nif (f2.length !== 0) throw new Error('All dangerous capabilities should be removed');\nconst f3 = filterSafeCapabilities(['SETUID', 'SETGID']);\nif (f3.length !== 2 || !f3.includes('SETUID') || !f3.includes('SETGID')) throw new Error('Safe capabilities should be retained');"
   },
   {
     "day": 8,
@@ -200,7 +200,7 @@ export const DEVOPS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatCacheKey(osName, lockfileSha)` creating GitHub Actions deterministic cache key string `npm-cache-${os}-${sha7}`. Use the first 8 characters of the lockfile SHA.",
     "aStarter": "function formatCacheKey(os, sha) {\n  // TODO: Return formatted cache key string containing osName and truncated lockfileSha\n  \n}",
     "aHint": "Extract shortSha = lockfileSha.slice(0, 8); return `npm-cache-${osName}-${shortSha}`;",
-    "aTest": "const key = formatCacheKey('ubuntu', 'abcdef123456789');\nif (key !== 'npm-cache-ubuntu-abcdef12') throw new Error('Cache key formatting failed');\nif (!key.startsWith('npm-cache-')) throw new Error('Cache key prefix failed');"
+    "aTest": "const k1 = formatCacheKey('ubuntu', 'abcdef123456789');\nif (k1 !== 'npm-cache-ubuntu-abcdef12') throw new Error('Ubuntu cache key formatting failed');\nconst k2 = formatCacheKey('macos', '9876543210fedcba');\nif (k2 !== 'npm-cache-macos-98765432') throw new Error('macOS cache key formatting failed');\nconst k3 = formatCacheKey('windows', '1122334455667788');\nif (k3 !== 'npm-cache-windows-11223344') throw new Error('Windows cache key formatting failed');"
   },
   {
     "day": 11,
