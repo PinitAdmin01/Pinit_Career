@@ -3805,5 +3805,1234 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "Export production component catalog with TypeScript type definitions for enterprise feature development"
       ]
     }
+  },
+  {
+    "day": 16,
+    "title": "CSS Flexbox Layout Mastery: Main Axis, Cross Axis, Flex Ratios & Gap Spacing",
+    "goal": "Master 1-dimensional layout distribution using CSS flexbox: main axis alignment, cross axis alignment, flex item growth/shrink ratios, flex-basis calculation, and native gap spacing.",
+    "minutes": 25,
+    "recap": "In Milestone 2, we completed and certified our intermediate atomic component library with accessible forms, modals, tables, and toast stacks. Today we delve deep into layout geometry, mastering CSS Flexbox for 1-dimensional distribution.",
+    "parts": [
+      {
+        "title": "Main Axis Alignment & justify-content Distribution",
+        "say": [
+          "Welcome to Day 16 of UI/UX Design Systems & Visual Frontend.",
+          "CSS Flexible Box Layout—commonly known as Flexbox—is the universal workhorse of modern 1-dimensional web layout.",
+          "Unlike legacy table layouts or float hacks, Flexbox establishes an explicit coordinate space governed by two orthogonal axes: the Main Axis and the Cross Axis.",
+          "The Main Axis runs in the direction dictated by 'flex-direction'. In standard 'row' direction, the main axis travels horizontally from left to right in left-to-right writing modes.",
+          "The 'justify-content' property controls the distribution of extra free space along this main axis.",
+          "The key values include: 'flex-start' (packs items to the start edge), 'center' (centers items), 'flex-end' (packs items to the end edge), 'space-between' (distributes items evenly with first and last items pinned flush to container edges), 'space-around' (distributes equal space around each item), and 'space-evenly' (distributes identical spacing between all items and both outer boundaries).",
+          "Understanding the exact mathematical formulas behind these space distribution modes allows design system engineers to build predictable toolbars, navigation headers, and card decks.",
+          "Let us inspect a mathematical simulation of main axis space distribution."
+        ],
+        "example": "A train dining car: the waitstaff can either pack tables closely near the kitchen (flex-start), center them in the middle of the carriage (center), or spread them with equal legroom across the entire carriage length (space-between).",
+        "code": "interface FlexContainerConfig {\n  containerWidth: number;\n  itemWidths: number[];\n  justifyContent: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-evenly';\n}\n\nfunction calculateMainAxisPositions(config: FlexContainerConfig): number[] {\n  const totalItemWidth = config.itemWidths.reduce((sum, w) => sum + w, 0);\n  const freeSpace = config.containerWidth - totalItemWidth;\n  const n = config.itemWidths.length;\n  const positions: number[] = [];\n\n  if (config.justifyContent === 'flex-start') {\n    let currentX = 0;\n    for (const w of config.itemWidths) {\n      positions.push(currentX);\n      currentX += w;\n    }\n  } else if (config.justifyContent === 'center') {\n    let currentX = freeSpace / 2;\n    for (const w of config.itemWidths) {\n      positions.push(currentX);\n      currentX += w;\n    }\n  } else if (config.justifyContent === 'space-between') {\n    const spacing = n > 1 ? freeSpace / (n - 1) : 0;\n    let currentX = 0;\n    for (const w of config.itemWidths) {\n      positions.push(currentX);\n      currentX += w + spacing;\n    }\n  } else if (config.justifyContent === 'space-evenly') {\n    const spacing = freeSpace / (n + 1);\n    let currentX = spacing;\n    for (const w of config.itemWidths) {\n      positions.push(currentX);\n      currentX += w + spacing;\n    }\n  }\n\n  return positions;\n}\n\nconst config: FlexContainerConfig = {\n  containerWidth: 600,\n  itemWidths: [100, 100, 100],\n  justifyContent: 'space-between',\n};\n\nconst offsets = calculateMainAxisPositions(config);\nconsole.log('Flex Container Width: ' + config.containerWidth + 'px');\nconsole.log('Justify Content: ' + config.justifyContent);\nconsole.log('Item Positions (px): ' + offsets.join(', '));",
+        "output": "Flex Container Width: 600px\nJustify Content: space-between\nItem Positions (px): 0, 250, 500",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Computes total free space by subtracting cumulative item widths from container width."
+          },
+          {
+            "line": 24,
+            "note": "For space-between with 3 items and 300px free space, spacing = 300 / 2 = 150px."
+          }
+        ],
+        "tryIt": "Change justifyContent to 'center' and calculate the new item starting positions.",
+        "check": {
+          "question": "In a flex container with 600px width and three 100px items, what are the item offsets under 'space-between'?",
+          "options": [
+            "0px, 250px, and 500px",
+            "100px, 200px, and 300px",
+            "50px, 150px, and 250px"
+          ],
+          "answer": 0,
+          "why": "Free space is 300px across 2 gaps = 150px spacing. Item 1 is at 0, Item 2 at 100+150=250, Item 3 at 250+100+150=500."
+        }
+      },
+      {
+        "title": "Cross Axis Alignment & align-items Mechanics",
+        "say": [
+          "While 'justify-content' governs the main axis, the 'align-items' property governs the Cross Axis.",
+          "In a standard row flexbox container, the cross axis runs vertically from top to bottom.",
+          "The default value of 'align-items' in CSS is 'stretch'. Under 'stretch', flex items automatically expand their height to match the tallest item in the flex line, provided they do not declare an explicit cross-axis size.",
+          "Setting 'align-items: center' centers items along the cross axis, creating perfectly aligned visual baselines for icons and labels in buttons and navbars.",
+          "Setting 'align-items: flex-start' aligns items to the cross-start edge (top in horizontal row), while 'flex-end' aligns them to the bottom.",
+          "Another powerful value is 'align-items: baseline', which aligns elements so that their text baselines align along a single horizontal line, regardless of differing font sizes or icon paddings.",
+          "Furthermore, individual flex items can override the parent container's alignment rule using 'align-self'.",
+          "Let us inspect a programmatic simulation of cross-axis height calculation."
+        ],
+        "example": "A team photo: the photographer asks everyone to align their eyes along the same horizontal guide wire (baseline alignment) regardless of their varying physical heights.",
+        "code": "interface CrossAxisConfig {\n  containerHeight: number;\n  itemHeights: number[];\n  alignItems: 'stretch' | 'flex-start' | 'center' | 'flex-end';\n}\n\ninterface ComputedCrossItem {\n  index: number;\n  offsetY: number;\n  height: number;\n}\n\nfunction computeCrossAxis(config: CrossAxisConfig): ComputedCrossItem[] {\n  return config.itemHeights.map((h, i) => {\n    let resolvedHeight = h;\n    let y = 0;\n\n    if (config.alignItems === 'stretch') {\n      resolvedHeight = config.containerHeight;\n      y = 0;\n    } else if (config.alignItems === 'flex-start') {\n      y = 0;\n    } else if (config.alignItems === 'center') {\n      y = (config.containerHeight - h) / 2;\n    } else if (config.alignItems === 'flex-end') {\n      y = config.containerHeight - h;\n    }\n\n    return { index: i, offsetY: y, height: resolvedHeight };\n  });\n}\n\nconst crossConfig: CrossAxisConfig = {\n  containerHeight: 120,\n  itemHeights: [40, 80, 60],\n  alignItems: 'center',\n};\n\nconst results = computeCrossAxis(crossConfig);\nconsole.log('Cross Axis Mode: ' + crossConfig.alignItems + ' (Container: ' + crossConfig.containerHeight + 'px)');\nfor (const r of results) {\n  console.log('  Item ' + r.index + ': offsetY=' + r.offsetY + 'px, height=' + r.height + 'px');\n}",
+        "output": "Cross Axis Mode: center (Container: 120px)\n  Item 0: offsetY=40px, height=40px\n  Item 1: offsetY=20px, height=80px\n  Item 2: offsetY=30px, height=60px",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "For center alignment, offsetY is calculated as (containerHeight - itemHeight) / 2."
+          },
+          {
+            "line": 38,
+            "note": "Item 0 with 40px height in 120px container yields (120 - 40) / 2 = 40px offset."
+          }
+        ],
+        "tryIt": "Change alignItems to 'stretch' and observe how all item heights expand to 120px.",
+        "check": {
+          "question": "What is the default value of the 'align-items' property in CSS Flexbox?",
+          "options": [
+            "stretch",
+            "center",
+            "flex-start"
+          ],
+          "answer": 0,
+          "why": "The default value of align-items is 'stretch', causing flex children to expand to the full cross-axis size of the line."
+        }
+      },
+      {
+        "title": "The Flex Shorthand: flex-grow, flex-shrink & flex-basis Mechanics",
+        "say": [
+          "The true responsiveness of Flexbox comes from the three flex sizing properties: 'flex-grow', 'flex-shrink', and 'flex-basis'.",
+          "They are commonly bundled into the shorthand: 'flex: <grow> <shrink> <basis>'. For example, 'flex: 1 1 auto' or 'flex: 0 0 250px'.",
+          "Let us understand how each property functions:",
+          "1. 'flex-basis' defines the initial main size of the item before remaining space is distributed or deficits are absorbed.",
+          "2. 'flex-grow' dictates how extra positive free space is divided among items. If Item A has 'flex-grow: 1' and Item B has 'flex-grow: 2', Item B receives twice as much extra space as Item A.",
+          "3. 'flex-shrink' dictates how negative space (overflow deficit) is absorbed when the total basis of items exceeds the container width.",
+          "Importantly, the browser calculates shrinkage proportional to both the shrink factor AND the item's basis size: 'scaledShrink = shrink * basis'. Larger items absorb proportionally more shrinkage.",
+          "Mastering these mathematical growth and shrink formulas prevents unexpected layout squishing in complex application sidebars and search bars.",
+          "Let us implement the browser's exact flex growth algorithm in TypeScript."
+        ],
+        "example": "A family dividend payout: when the company has surplus revenue, each child receives a share proportional to their ownership shares (flex-grow). If expenses rise, reductions are absorbed proportionally (flex-shrink).",
+        "code": "interface FlexItemSpec {\n  id: string;\n  grow: number;\n  shrink: number;\n  basis: number;\n}\n\nfunction resolveFlexGrow(containerWidth: number, items: FlexItemSpec[]): Record<string, number> {\n  const totalBasis = items.reduce((sum, item) => sum + item.basis, 0);\n  const remainingFreeSpace = containerWidth - totalBasis;\n  const totalGrow = items.reduce((sum, item) => sum + item.grow, 0);\n  const computedSizes: Record<string, number> = {};\n\n  if (remainingFreeSpace > 0 && totalGrow > 0) {\n    for (const item of items) {\n      const share = (item.grow / totalGrow) * remainingFreeSpace;\n      computedSizes[item.id] = item.basis + share;\n    }\n  } else {\n    for (const item of items) {\n      computedSizes[item.id] = item.basis;\n    }\n  }\n\n  return computedSizes;\n}\n\nconst items: FlexItemSpec[] = [\n  { id: 'Sidebar', grow: 0, shrink: 0, basis: 200 },\n  { id: 'MainContent', grow: 2, shrink: 1, basis: 300 },\n  { id: 'Inspector', grow: 1, shrink: 1, basis: 100 },\n];\n\nconst containerWidth = 900;\nconst finalWidths = resolveFlexGrow(containerWidth, items);\n\nconsole.log('Flexbox Layout Distribution: Container=' + containerWidth + 'px');\nconsole.log('Sidebar (0 0 200px) : ' + finalWidths['Sidebar'] + 'px');\nconsole.log('MainContent (2 1 300px) : ' + finalWidths['MainContent'] + 'px');\nconsole.log('Inspector (1 1 100px) : ' + finalWidths['Inspector'] + 'px');",
+        "output": "Flexbox Layout Distribution: Container=900px\nSidebar (0 0 200px) : 200px\nMainContent (2 1 300px) : 500px\nInspector (1 1 100px) : 200px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates remaining free space: 900 - (200 + 300 + 100) = 300px."
+          },
+          {
+            "line": 15,
+            "note": "Total grow is 0 + 2 + 1 = 3. MainContent gets (2/3) * 300 = 200px -> 300 + 200 = 500px."
+          }
+        ],
+        "tryIt": "Change containerWidth to 1200px and calculate the new MainContent width.",
+        "check": {
+          "question": "With 300px of free space and total grow of 3, how much extra width does an item with flex-grow: 2 receive?",
+          "options": [
+            "200px",
+            "100px",
+            "300px"
+          ],
+          "answer": 0,
+          "why": "The item receives (2 / 3) * 300px = 200px of the available free space."
+        }
+      },
+      {
+        "title": "Native CSS Gap vs Margin Hacks: Sub-pixel Spacing & Layout Hygiene",
+        "say": [
+          "Historically, creating uniform gutters between flex items required painful margin hacks.",
+          "Developers applied 'margin-right: 16px' to items, followed by ':last-child { margin-right: 0 }' or negative outer margins on containers: 'margin-left: -16px'.",
+          "These margin hacks introduced sub-pixel rendering bugs, unwanted horizontal scrollbars, and broke when items wrapped across multiple lines.",
+          "Modern CSS standardized the native 'gap' property for Flexbox (also available as 'row-gap' and 'column-gap').",
+          "Native 'gap' is applied exclusively between adjacent items—never on the outside boundary edges.",
+          "For N items in a single flex line, there are exactly N - 1 gaps.",
+          "Total gap space is subtracted directly from available container width before flex-grow or flex-shrink distributions are evaluated.",
+          "Adopting native 'gap' eliminates fragile negative margin wrappers and produces pristine component encapsulation.",
+          "Let us verify gap calculation and available space reduction."
+        ],
+        "example": "A row of fence posts: spacing boards are nailed between the posts, but no extra spacing board hangs off the far ends beyond the terminal posts.",
+        "code": "interface GapCalculation {\n  containerWidth: number;\n  itemCount: number;\n  itemWidth: number;\n  gap: number;\n}\n\nfunction evaluateFlexGap(calc: GapCalculation): { totalGaps: number; totalGapSpace: number; remainingSpace: number } {\n  const totalGaps = Math.max(0, calc.itemCount - 1);\n  const totalGapSpace = totalGaps * calc.gap;\n  const totalItemSpace = calc.itemCount * calc.itemWidth;\n  const remainingSpace = calc.containerWidth - (totalItemSpace + totalGapSpace);\n\n  return {\n    totalGaps,\n    totalGapSpace,\n    remainingSpace,\n  };\n}\n\nconst gapTest: GapCalculation = {\n  containerWidth: 800,\n  itemCount: 4,\n  itemWidth: 150,\n  gap: 24,\n};\n\nconst res = evaluateFlexGap(gapTest);\nconsole.log('Container Width: ' + gapTest.containerWidth + 'px | Items: ' + gapTest.itemCount + ' x ' + gapTest.itemWidth + 'px');\nconsole.log('Gap Token: ' + gapTest.gap + 'px | Inter-item Gaps: ' + res.totalGaps);\nconsole.log('Total Gap Space: ' + res.totalGapSpace + 'px | Remaining Free Space: ' + res.remainingSpace + 'px');",
+        "output": "Container Width: 800px | Items: 4 x 150px\nGap Token: 24px | Inter-item Gaps: 3\nTotal Gap Space: 72px | Remaining Free Space: 128px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "For 4 items, there are exactly 4 - 1 = 3 inter-item gap intervals."
+          },
+          {
+            "line": 27,
+            "note": "Total gap space = 3 * 24px = 72px. Total items = 600px. Remaining space = 800 - 672 = 128px."
+          }
+        ],
+        "tryIt": "Verify that for 5 items with a 16px gap, total gap space equals 64px.",
+        "check": {
+          "question": "How many gaps exist between 5 flex items arranged in a single row?",
+          "options": [
+            "4 gaps",
+            "5 gaps",
+            "3 gaps"
+          ],
+          "answer": 0,
+          "why": "Gaps are placed strictly between adjacent items: 5 items have exactly 5 - 1 = 4 gaps."
+        }
+      },
+      {
+        "title": "Flex Wrap, Multi-line Content & align-content",
+        "say": [
+          "By default, flex containers have 'flex-wrap: nowrap', forcing all items onto a single line regardless of whether they overflow.",
+          "When responsive wrapping is required—such as a list of filter tags, badges, or photo thumbnails—we set 'flex-wrap: wrap'.",
+          "When wrapping is enabled, the browser computes cumulative item widths along the main axis.",
+          "Whenever adding the next item would cause the current line to exceed the container width, the browser starts a new flex line.",
+          "When a flex container contains multiple flex lines, the 'align-content' property comes into play.",
+          "While 'align-items' aligns items within their individual line, 'align-content' governs how the multiple flex lines themselves are distributed along the cross axis.",
+          "Common values for 'align-content' include 'flex-start', 'center', 'space-between', and 'stretch'.",
+          "Let us simulate the browser's flex line-breaking algorithm in TypeScript."
+        ],
+        "example": "Word wrapping in a word processor: text flows horizontally until the right margin is reached, at which point the next word drops down to begin a new line.",
+        "code": "interface WrapItem {\n  id: string;\n  width: number;\n}\n\nfunction simulateFlexWrap(containerWidth: number, gap: number, items: WrapItem[]): string[][] {\n  const lines: string[][] = [];\n  let currentLine: string[] = [];\n  let currentLineWidth = 0;\n\n  for (const item of items) {\n    const addedWidth = currentLine.length === 0 ? item.width : gap + item.width;\n    if (currentLineWidth + addedWidth <= containerWidth) {\n      currentLine.push(item.id);\n      currentLineWidth += addedWidth;\n    } else {\n      if (currentLine.length > 0) {\n        lines.push(currentLine);\n      }\n      currentLine = [item.id];\n      currentLineWidth = item.width;\n    }\n  }\n\n  if (currentLine.length > 0) {\n    lines.push(currentLine);\n  }\n\n  return lines;\n}\n\nconst tagList: WrapItem[] = [\n  { id: 'React', width: 90 },\n  { id: 'TypeScript', width: 130 },\n  { id: 'TailwindCSS', width: 140 },\n  { id: 'Next.js', width: 100 },\n  { id: 'GraphQL', width: 110 },\n  { id: 'DesignSystems', width: 160 },\n];\n\nconst containerWidth = 350;\nconst gap = 12;\nconst wrappedLines = simulateFlexWrap(containerWidth, gap, tagList);\n\nconsole.log('Flex Wrap Simulation (Container: ' + containerWidth + 'px, Gap: ' + gap + 'px):');\nwrappedLines.forEach((line, idx) => {\n  console.log('  Line ' + (idx + 1) + ': ' + line.join(' | '));\n});",
+        "output": "Flex Wrap Simulation (Container: 350px, Gap: 12px):\n  Line 1: React | TypeScript\n  Line 2: TailwindCSS | Next.js\n  Line 3: GraphQL | DesignSystems",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Checks if adding item with gap exceeds container width before starting a new flex line."
+          },
+          {
+            "line": 39,
+            "note": "Neatly segments 6 variable-width tags into 3 balanced visual rows."
+          }
+        ],
+        "tryIt": "Increase containerWidth to 500px and observe how tags regroup into fewer lines.",
+        "check": {
+          "question": "What is the difference between 'align-items' and 'align-content' in CSS Flexbox?",
+          "options": [
+            "align-items aligns items within their single line; align-content aligns the multiple lines themselves across the cross axis",
+            "align-content is for text only, align-items is for images",
+            "They are completely identical synonyms"
+          ],
+          "answer": 0,
+          "why": "align-items operates on individual flex items within a line; align-content distributes multiple lines along the cross axis."
+        }
+      },
+      {
+        "title": "Flexbox Layout Engine Synthesis: The Complete 1D Layout System",
+        "say": [
+          "We have explored all foundational pillars of CSS Flexbox: main axis distribution, cross axis alignment, growth/shrink ratios, gap spacing, and multi-line wrapping.",
+          "Now, let us synthesize these concepts into a unified production engine: the 'FlexboxLayoutEngine'.",
+          "This engine takes a full container specification (width, height, direction, justify, align, gap) and an array of child item specifications.",
+          "It resolves total gap deductions, calculates free space or overflow deficit, computes proportional growth or shrinkage, and returns exact pixel layout geometry for each child.",
+          "Design system teams use layout engines like this to generate responsive component styles, perform layout performance simulations, and guarantee zero layout shift.",
+          "Let us execute the complete Flexbox Layout Engine."
+        ],
+        "example": "A structural civil engineering CAD application calculating exact load clearances, beam spans, and expansion joints for a multi-lane suspension bridge.",
+        "code": "interface EngineItem {\n  id: string;\n  grow: number;\n  shrink: number;\n  basis: number;\n}\n\ninterface EngineContainer {\n  width: number;\n  gap: number;\n  items: EngineItem[];\n}\n\ninterface ComputedItemResult {\n  id: string;\n  computedWidth: number;\n  startX: number;\n}\n\nclass FlexboxLayoutEngine {\n  public static layout(container: EngineContainer): ComputedItemResult[] {\n    const n = container.items.length;\n    const totalGaps = Math.max(0, n - 1);\n    const totalGapSpace = totalGaps * container.gap;\n    const availableForItems = container.width - totalGapSpace;\n    const totalBasis = container.items.reduce((sum, item) => sum + item.basis, 0);\n    const freeSpace = availableForItems - totalBasis;\n    const totalGrow = container.items.reduce((sum, item) => sum + item.grow, 0);\n\n    const widths: number[] = [];\n    for (const item of container.items) {\n      if (freeSpace > 0 && totalGrow > 0) {\n        const share = (item.grow / totalGrow) * freeSpace;\n        widths.push(item.basis + share);\n      } else {\n        widths.push(item.basis);\n      }\n    }\n\n    const results: ComputedItemResult[] = [];\n    let currentX = 0;\n    for (let i = 0; i < n; i++) {\n      results.push({\n        id: container.items[i].id,\n        computedWidth: widths[i],\n        startX: currentX,\n      });\n      currentX += widths[i] + container.gap;\n    }\n\n    return results;\n  }\n}\n\nconst containerSpec: EngineContainer = {\n  width: 1000,\n  gap: 20,\n  items: [\n    { id: 'NavBrand', grow: 0, shrink: 0, basis: 160 },\n    { id: 'NavLinks', grow: 1, shrink: 1, basis: 300 },\n    { id: 'NavActions', grow: 0, shrink: 0, basis: 200 },\n  ],\n};\n\nconst layoutResults = FlexboxLayoutEngine.layout(containerSpec);\nconsole.log('=== FLEXBOX LAYOUT ENGINE SYNTHESIS ===');\nconsole.log('Container Width: ' + containerSpec.width + 'px (Gap: ' + containerSpec.gap + 'px)');\nfor (const r of layoutResults) {\n  console.log('  [' + r.id + '] Width: ' + r.computedWidth + 'px at offset ' + r.startX + 'px');\n}",
+        "output": "=== FLEXBOX LAYOUT ENGINE SYNTHESIS ===\nContainer Width: 1000px (Gap: 20px)\n  [NavBrand] Width: 160px at offset 0px\n  [NavLinks] Width: 600px at offset 180px\n  [NavActions] Width: 200px at offset 800px",
+        "codeNotes": [
+          {
+            "line": 26,
+            "note": "Subtracts 2 gaps (40px) from 1000px container, leaving 960px available for items."
+          },
+          {
+            "line": 31,
+            "note": "Total basis is 160 + 300 + 200 = 660px. Free space is 300px, which goes 100% to NavLinks (grow: 1)."
+          }
+        ],
+        "tryIt": "Verify that NavBrand + gap + NavLinks + gap + NavActions = 160 + 20 + 600 + 20 + 200 = 1000px exactly.",
+        "check": {
+          "question": "How does the Flexbox Layout Engine guarantee that total item widths plus gaps equal container width?",
+          "options": [
+            "It distributes remaining free space (containerWidth - totalGaps - totalBasis) to items based on flex-grow ratios",
+            "It rounds all widths to the nearest hundred",
+            "It clips overflow with scrollbars"
+          ],
+          "answer": 0,
+          "why": "By subtracting total gaps and base widths, the engine distributes exactly 100% of the remaining space across flex-grow candidates."
+        }
+      }
+    ],
+    "summary": [
+      "CSS Flexbox provides mathematical 1-dimensional layout distribution across orthogonal Main and Cross axes.",
+      "'justify-content' governs main axis distribution, while 'align-items' and 'align-content' govern cross-axis alignment.",
+      "The 'flex: <grow> <shrink> <basis>' shorthand provides responsive flexibility, while native 'gap' ensures pristine spacing hygiene."
+    ],
+    "projectStep": {
+      "title": "Implement Flexbox Layout System",
+      "steps": [
+        "Create FlexContainer component with typed props for direction, justify, align, wrap, and gap",
+        "Implement flex-grow and flex-shrink ratio calculators with exact sub-pixel boundary handling",
+        "Build responsive Navigation Toolbar component utilizing Flexbox space distribution and native gap"
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "title": "CSS Grid Layouts & Responsive Template Areas: auto-fit vs auto-fill",
+    "goal": "Master 2-dimensional grid systems: fluid auto-fit vs auto-fill columns without media queries, minmax() clamping, named template areas, and nested subgrids.",
+    "minutes": 25,
+    "recap": "Yesterday we mastered 1-dimensional Flexbox layout distribution. Today we expand into 2-dimensional layouts with CSS Grid, mastering responsive template areas, fluid columns, and auto-fit vs auto-fill algorithms.",
+    "parts": [
+      {
+        "title": "The 2D Grid Mental Model: Tracks, Lines, Cells & Areas",
+        "say": [
+          "Welcome to Day 17 of UI/UX Design Systems & Visual Frontend.",
+          "While Flexbox is fundamentally 1-dimensional—handling layouts along either a single row or a single column—CSS Grid is inherently 2-dimensional.",
+          "Grid allows us to position content simultaneously across both horizontal columns and vertical rows.",
+          "To master CSS Grid, you must internalize its four core conceptual primitives:",
+          "1. Grid Lines: The dividing lines that form the grid structure, numbered starting from 1 at the outer border.",
+          "2. Grid Tracks: The space between two adjacent grid lines—either a column track or a row track.",
+          "3. Grid Cells: The single intersection of a row track and a column track, equivalent to a cell in a spreadsheet.",
+          "4. Grid Areas: A rectangular bounding box comprising one or more adjacent grid cells, spanning across multiple rows and columns.",
+          "Understanding this coordinate matrix empowers frontend engineers to design complex magazine layouts, dashboards, and responsive cards.",
+          "Let us inspect a programmatic model of the 2D grid coordinate system."
+        ],
+        "example": "A city street grid: Manhattan avenues run north-south and streets run east-west; city blocks are grid cells, and an entire park like Central Park spans a multi-block grid area.",
+        "code": "interface GridTrack {\n  id: string;\n  index: number;\n  size: string;\n}\n\ninterface GridCoordinateSystem {\n  columns: GridTrack[];\n  rows: GridTrack[];\n  totalCells: number;\n}\n\nfunction createGridMatrix(colSizes: string[], rowSizes: string[]): GridCoordinateSystem {\n  const columns = colSizes.map((size, index) => ({ id: 'col-' + (index + 1), index: index + 1, size }));\n  const rows = rowSizes.map((size, index) => ({ id: 'row-' + (index + 1), index: index + 1, size }));\n  return {\n    columns,\n    rows,\n    totalCells: columns.length * rows.length,\n  };\n}\n\nconst matrix = createGridMatrix(['200px', '1fr', '1fr'], ['80px', 'auto', '60px']);\nconsole.log('=== CSS GRID COORDINATE MATRIX ===');\nconsole.log('Columns (' + matrix.columns.length + ' tracks): ' + matrix.columns.map(c => c.size).join(' | '));\nconsole.log('Rows (' + matrix.rows.length + ' tracks): ' + matrix.rows.map(r => r.size).join(' | '));\nconsole.log('Total Grid Cells Available: ' + matrix.totalCells);",
+        "output": "=== CSS GRID COORDINATE MATRIX ===\nColumns (3 tracks): 200px | 1fr | 1fr\nRows (3 tracks): 80px | auto | 60px\nTotal Grid Cells Available: 9",
+        "codeNotes": [
+          {
+            "line": 12,
+            "note": "Initializes 1-based indexed grid tracks matching CSS Grid standard line numbering."
+          },
+          {
+            "line": 24,
+            "note": "A 3x3 track configuration yields exactly 9 distinct addressable grid cells."
+          }
+        ],
+        "tryIt": "Create a 4-column by 2-row grid and verify that it contains 8 grid cells.",
+        "check": {
+          "question": "How are grid lines indexed in CSS Grid by default?",
+          "options": [
+            "1-indexed, starting from 1 at the outer edge",
+            "0-indexed, starting from 0",
+            "-1 indexed, starting from reverse"
+          ],
+          "answer": 0,
+          "why": "CSS Grid lines are 1-based indices, where line 1 represents the start edge of the grid container."
+        }
+      },
+      {
+        "title": "Fluid Columns without Media Queries: repeat() & minmax(min, max)",
+        "say": [
+          "One of the crowning superpowers of modern CSS Grid is the ability to create fully fluid, responsive column layouts without writing a single media query.",
+          "This is achieved using the iconic formula: 'grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))'.",
+          "Let us dissect the mathematical mechanics of this declaration:",
+          "1. 'repeat()' instructs the grid engine to dynamically create as many track columns as will fit into the container.",
+          "2. 'minmax(280px, 1fr)' defines the bounds of each track. The track can never shrink below 280px. However, if extra space is available, the track expands to consume 1 fraction ('1fr') of the remaining space.",
+          "3. As the user resizes their browser window from 1200px down to 320px, the grid automatically drops columns from 4 columns to 3, to 2, and down to 1 column.",
+          "This mathematical fluid grid eliminates hundreds of lines of fragile media query overrides across enterprise applications.",
+          "Let us simulate this fluid column resolution algorithm."
+        ],
+        "example": "A dynamic vending machine shelf: snack boxes have a fixed minimum width of 10cm; on a wide shelf, 4 boxes fit across; on a compact shelf, the rack automatically reconfigures to 2 columns.",
+        "code": "interface FluidGridConfig {\n  containerWidth: number;\n  minTrackWidth: number;\n  gap: number;\n}\n\ninterface ComputedFluidGrid {\n  columnCount: number;\n  actualColumnWidth: number;\n}\n\nfunction resolveFluidColumns(config: FluidGridConfig): ComputedFluidGrid {\n  // Available width accounting for gaps: containerWidth = N * colWidth + (N - 1) * gap\n  // containerWidth + gap = N * (colWidth + gap)\n  const maxPossibleColumns = Math.floor((config.containerWidth + config.gap) / (config.minTrackWidth + config.gap));\n  const columnCount = Math.max(1, maxPossibleColumns);\n  const totalGaps = (columnCount - 1) * config.gap;\n  const remainingForColumns = config.containerWidth - totalGaps;\n  const actualColumnWidth = remainingForColumns / columnCount;\n\n  return {\n    columnCount,\n    actualColumnWidth: Math.round(actualColumnWidth * 10) / 10,\n  };\n}\n\nconst viewportWidths = [1200, 900, 600, 360];\nconst minTrack = 280;\nconst gridGap = 20;\n\nconsole.log('Fluid Grid: minmax(' + minTrack + 'px, 1fr) with gap=' + gridGap + 'px:');\nfor (const w of viewportWidths) {\n  const result = resolveFluidColumns({ containerWidth: w, minTrackWidth: minTrack, gap: gridGap });\n  console.log('  Container: ' + w + 'px -> ' + result.columnCount + ' cols @ ' + result.actualColumnWidth + 'px each');\n}",
+        "output": "Fluid Grid: minmax(280px, 1fr) with gap=20px:\n  Container: 1200px -> 4 cols @ 285px each\n  Container: 900px -> 3 cols @ 286.7px each\n  Container: 600px -> 2 cols @ 290px each\n  Container: 360px -> 1 cols @ 360px each",
+        "codeNotes": [
+          {
+            "line": 13,
+            "note": "Calculates max columns fitting into container accounting for inter-column gaps."
+          },
+          {
+            "line": 26,
+            "note": "At 1200px: 4 columns fit at 285px each; at 360px: smoothly folds into 1 column at 360px."
+          }
+        ],
+        "tryIt": "Calculate column count for a container width of 1600px with minTrack=280px.",
+        "check": {
+          "question": "How does repeat(auto-fit, minmax(280px, 1fr)) eliminate the need for breakpoint media queries?",
+          "options": [
+            "The browser dynamically calculates how many 280px columns fit into the container width and expands them with 1fr",
+            "It turns off responsive web design",
+            "It forces all items into a single row"
+          ],
+          "answer": 0,
+          "why": "auto-fit automatically computes track quantity based on container width and minmax bounds, seamlessly wrapping columns."
+        }
+      },
+      {
+        "title": "auto-fit vs auto-fill: The Empty Track Collapse Mechanics",
+        "say": [
+          "Frontend developers frequently confuse the two repeat keywords: 'auto-fit' and 'auto-fill'.",
+          "While both keywords create as many columns as will fit into the container, they behave completely differently when there are fewer items than available tracks.",
+          "Under 'auto-fill': the browser creates all tracks that mathematically fit into the container, even if some tracks remain completely empty.",
+          "Under 'auto-fit': the browser first creates all tracks, but then immediately collapses any empty tracks to a width of 0px. The existing populated items then stretch with '1fr' to consume the entire container width.",
+          "For card grids where you want 1 or 2 cards to stretch elegantly across the entire row, 'auto-fit' is the standard choice.",
+          "Conversely, if you want cards to retain their exact strict column width even when only 1 card is present, 'auto-fill' preserves the empty slots.",
+          "Let us demonstrate the mathematical difference between auto-fit and auto-fill."
+        ],
+        "example": "A parking lot: auto-fill paints all 10 parking stalls on the pavement even if only 2 cars are parked; auto-fit expands the 2 parked cars into double-wide VIP luxury spaces.",
+        "code": "interface TrackBehaviorResult {\n  keyword: 'auto-fit' | 'auto-fill';\n  totalSlotsCalculated: number;\n  itemCount: number;\n  renderedItemWidth: number;\n}\n\nfunction evaluateTrackBehavior(\n  containerWidth: number,\n  minWidth: number,\n  itemCount: number\n): { autoFit: TrackBehaviorResult; autoFill: TrackBehaviorResult } {\n  const maxSlots = Math.floor(containerWidth / minWidth);\n\n  // auto-fit collapses empty slots, stretching populated items\n  const autoFitWidth = containerWidth / itemCount;\n\n  // auto-fill preserves all slots, populated items take 1 slot width\n  const autoFillWidth = containerWidth / maxSlots;\n\n  return {\n    autoFit: { keyword: 'auto-fit', totalSlotsCalculated: maxSlots, itemCount, renderedItemWidth: autoFitWidth },\n    autoFill: { keyword: 'auto-fill', totalSlotsCalculated: maxSlots, itemCount, renderedItemWidth: autoFillWidth },\n  };\n}\n\nconst comparison = evaluateTrackBehavior(1200, 300, 2);\nconsole.log('=== AUTO-FIT VS AUTO-FILL (Container: 1200px, 2 Items, Min: 300px) ===');\nconsole.log('auto-fit : ' + comparison.autoFit.itemCount + ' items stretch to ' + comparison.autoFit.renderedItemWidth + 'px each (empty slots collapsed)');\nconsole.log('auto-fill: ' + comparison.autoFill.itemCount + ' items occupy ' + comparison.autoFill.renderedItemWidth + 'px each (' + (comparison.autoFill.totalSlotsCalculated - comparison.autoFill.itemCount) + ' empty slots preserved)');",
+        "output": "=== AUTO-FIT VS AUTO-FILL (Container: 1200px, 2 Items, Min: 300px) ===\nauto-fit : 2 items stretch to 600px each (empty slots collapsed)\nauto-fill: 2 items occupy 300px each (2 empty slots preserved)",
+        "codeNotes": [
+          {
+            "line": 14,
+            "note": "auto-fit collapses 2 empty tracks, stretching the 2 items to 1200 / 2 = 600px each."
+          },
+          {
+            "line": 17,
+            "note": "auto-fill keeps all 4 slots active, so the 2 items remain fixed at 1200 / 4 = 300px."
+          }
+        ],
+        "tryIt": "Verify that when itemCount equals totalSlotsCalculated (4 items), auto-fit and auto-fill produce identical results.",
+        "check": {
+          "question": "When there are only 2 items in a 4-column grid, what does auto-fit do with the remaining 2 empty tracks?",
+          "options": [
+            "It collapses the empty tracks to 0px, allowing the 2 items to stretch across the full container",
+            "It throws a CSS syntax error",
+            "It inserts placeholder advertisements"
+          ],
+          "answer": 0,
+          "why": "auto-fit collapses empty tracks to 0px, distributing all available space across populated items."
+        }
+      },
+      {
+        "title": "Named Grid Template Areas: Visual ASCII-like Layout Architecture",
+        "say": [
+          "Beyond numerical track lines, CSS Grid provides the most expressive layout syntax in web engineering: 'grid-template-areas'.",
+          "Named grid areas allow you to declare the visual structure of your page using ASCII-art style text strings.",
+          "For example: 'grid-template-areas: \"header header\" \"sidebar main\" \"footer footer\"'.",
+          "Child elements then assign themselves to these regions using 'grid-area: header', 'grid-area: sidebar', and 'grid-area: main'.",
+          "Every row must contain the exact same number of cell tokens.",
+          "To leave a grid cell empty, CSS Grid uses the period character ('.').",
+          "Adopting named template areas makes application shell layouts instantly self-documenting and trivial to reconfigure at different breakpoints.",
+          "Let us build a parser that verifies and maps named grid template areas."
+        ],
+        "example": "A newspaper front page blueprint: the editor sketches boxes labeled 'Headline Banner', 'Local News Column', and 'Sports Summary', and journalists drop their articles into the designated labeled zones.",
+        "code": "interface GridAreaDefinition {\n  name: string;\n  startRow: number;\n  endRow: number;\n  startCol: number;\n  endCol: number;\n}\n\nfunction parseGridTemplateAreas(areas: string[]): Record<string, GridAreaDefinition> {\n  const result: Record<string, GridAreaDefinition> = {};\n  const matrix = areas.map(row => row.trim().split(/\\s+/));\n\n  for (let r = 0; r < matrix.length; r++) {\n    for (let c = 0; c < matrix[r].length; c++) {\n      const token = matrix[r][c];\n      if (token === '.') continue;\n\n      if (!result[token]) {\n        result[token] = { name: token, startRow: r + 1, endRow: r + 2, startCol: c + 1, endCol: c + 2 };\n      } else {\n        result[token].endRow = Math.max(result[token].endRow, r + 2);\n        result[token].endCol = Math.max(result[token].endCol, c + 2);\n      }\n    }\n  }\n\n  return result;\n}\n\nconst templateRows = [\n  'header  header  header',\n  'sidebar content stats',\n  'footer  footer  footer',\n];\n\nconst mappedAreas = parseGridTemplateAreas(templateRows);\nconsole.log('=== NAMED GRID TEMPLATE AREAS PARSER ===');\nfor (const [name, def] of Object.entries(mappedAreas)) {\n  console.log('Area \"' + name + '\": rows ' + def.startRow + '..' + def.endRow + ', cols ' + def.startCol + '..' + def.endCol);\n}",
+        "output": "=== NAMED GRID TEMPLATE AREAS PARSER ===\nArea \"header\": rows 1..2, cols 1..4\nArea \"sidebar\": rows 2..3, cols 1..2\nArea \"content\": rows 2..3, cols 2..3\nArea \"stats\": rows 2..3, cols 3..4\nArea \"footer\": rows 3..4, cols 1..4",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Parses matrix of area tokens and calculates 1-based start and end track line boundaries."
+          },
+          {
+            "line": 31,
+            "note": "Header and Footer span across all 3 columns (lines 1..4), while sidebar, content, and stats divide middle row."
+          }
+        ],
+        "tryIt": "Add an empty cell using '.' and verify that the parser skips it gracefully.",
+        "check": {
+          "question": "How do you declare an unassigned empty cell within a CSS grid-template-areas declaration?",
+          "options": [
+            "Using a period character ('.')",
+            "Using the keyword 'null'",
+            "Leaving the space completely blank"
+          ],
+          "answer": 0,
+          "why": "The period token ('.') denotes an empty, unoccupied cell in CSS grid-template-areas."
+        }
+      },
+      {
+        "title": "Grid Gap, Cell Alignment & Subgrid Support",
+        "say": [
+          "Just like Flexbox, CSS Grid provides native 'gap' spacing between tracks ('row-gap' and 'column-gap').",
+          "Furthermore, Grid provides powerful alignment properties for positioning items within their individual grid cells:",
+          "1. 'justify-items' controls horizontal alignment of all items within their cells ('start', 'center', 'end', 'stretch').",
+          "2. 'align-items' controls vertical alignment of all items within their cells.",
+          "3. 'place-items' provides a concise shorthand: 'place-items: center' simultaneously centers children both horizontally and vertically with a single line of CSS.",
+          "Additionally, modern CSS introduced 'subgrid': 'grid-template-columns: subgrid'.",
+          "Subgrid allows nested child grids to inherit the exact column and row track lines of their parent grid.",
+          "This solves the classic card problem: card headers, card bodies, and card footers align perfectly across adjacent cards regardless of varying text lengths.",
+          "Let us verify 2D cell alignment and subgrid track sharing."
+        ],
+        "example": "A carpenter's shadowbox display cabinet: horizontal and vertical wooden dividers create perfectly aligned compartments, and interior drawer dividers lock directly into the cabinet's master frame lines.",
+        "code": "interface CellAlignmentTest {\n  cellWidth: number;\n  cellHeight: number;\n  itemWidth: number;\n  itemHeight: number;\n  placeItems: 'center' | 'start' | 'end';\n}\n\nfunction calculateCellAlignment(test: CellAlignmentTest): { offsetX: number; offsetY: number } {\n  if (test.placeItems === 'center') {\n    return {\n      offsetX: (test.cellWidth - test.itemWidth) / 2,\n      offsetY: (test.cellHeight - test.itemHeight) / 2,\n    };\n  } else if (test.placeItems === 'start') {\n    return { offsetX: 0, offsetY: 0 };\n  } else {\n    return {\n      offsetX: test.cellWidth - test.itemWidth,\n      offsetY: test.cellHeight - test.itemHeight,\n    };\n  }\n}\n\nconst alignTest: CellAlignmentTest = {\n  cellWidth: 300,\n  cellHeight: 200,\n  itemWidth: 140,\n  itemHeight: 80,\n  placeItems: 'center',\n};\n\nconst coords = calculateCellAlignment(alignTest);\nconsole.log('Grid Cell Dimension: ' + alignTest.cellWidth + 'x' + alignTest.cellHeight + 'px');\nconsole.log('Item Dimension: ' + alignTest.itemWidth + 'x' + alignTest.itemHeight + 'px');\nconsole.log('place-items: ' + alignTest.placeItems + ' -> Offset: (' + coords.offsetX + 'px, ' + coords.offsetY + 'px)');",
+        "output": "Grid Cell Dimension: 300x200px\nItem Dimension: 140x80px\nplace-items: center -> Offset: (80px, 60px)",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Computes dual-axis centering offsets simultaneously for place-items: center."
+          },
+          {
+            "line": 31,
+            "note": "X offset = (300 - 140) / 2 = 80px; Y offset = (200 - 80) / 2 = 60px."
+          }
+        ],
+        "tryIt": "Verify that place-items: 'end' produces offsetX = 160px and offsetY = 120px.",
+        "check": {
+          "question": "What major layout problem does CSS Subgrid solve for component libraries?",
+          "options": [
+            "It allows child components (like card headers and footers) to align directly to the parent grid's tracks",
+            "It increases network download speeds",
+            "It encrypts CSS stylesheets"
+          ],
+          "answer": 0,
+          "why": "Subgrid allows nested children to inherit and participate directly in the parent grid's track sizing and alignment."
+        }
+      },
+      {
+        "title": "CSS Grid Engine Synthesis: The Complete 2D Responsive Layout Architecture",
+        "say": [
+          "We have mastered 2D grid tracks, fluid minmax calculations, auto-fit versus auto-fill mechanics, named template areas, and cell alignment.",
+          "Now, let us synthesize these concepts into a production layout simulator: the 'CssGridEngine'.",
+          "This engine accepts container dimensions, track definitions, auto-fit constraints, and template area mappings.",
+          "It resolves dynamic track widths, validates area boundaries, and outputs computed item coordinates.",
+          "Building architectural tools like this gives design system engineers complete mastery over complex multi-column dashboard layouts.",
+          "Let us execute the synthesized CSS Grid Layout Engine."
+        ],
+        "example": "An airport flight information display board: dozens of gates, flight numbers, departure cities, and status badges align across a unified multi-column split-flap grid.",
+        "code": "interface GridEngineConfig {\n  containerWidth: number;\n  gap: number;\n  minColumnWidth: number;\n  areas: string[];\n}\n\ninterface GridEngineOutput {\n  columnsCount: number;\n  columnWidth: number;\n  areaNames: string[];\n  status: 'OPTIMAL' | 'CONSTRAINED';\n}\n\nclass CssGridEngine {\n  public static compute(config: GridEngineConfig): GridEngineOutput {\n    const maxCols = Math.floor((config.containerWidth + config.gap) / (config.minColumnWidth + config.gap));\n    const columnsCount = Math.max(1, maxCols);\n    const totalGaps = (columnsCount - 1) * config.gap;\n    const columnWidth = (config.containerWidth - totalGaps) / columnsCount;\n\n    const uniqueAreas = new Set<string>();\n    config.areas.forEach(row => {\n      row.split(/\\s+/).forEach(token => {\n        if (token !== '.') uniqueAreas.add(token);\n      });\n    });\n\n    return {\n      columnsCount,\n      columnWidth: Math.round(columnWidth * 10) / 10,\n      areaNames: Array.from(uniqueAreas),\n      status: columnWidth >= config.minColumnWidth ? 'OPTIMAL' : 'CONSTRAINED',\n    };\n  }\n}\n\nconst engineResult = CssGridEngine.compute({\n  containerWidth: 1024,\n  gap: 24,\n  minColumnWidth: 300,\n  areas: ['header header', 'sidebar main', 'footer footer'],\n});\n\nconsole.log('=== CSS GRID ENGINE SYNTHESIS ===');\nconsole.log('Resolved Columns: ' + engineResult.columnsCount + ' tracks @ ' + engineResult.columnWidth + 'px each');\nconsole.log('Active Areas: ' + engineResult.areaNames.join(', '));\nconsole.log('Engine Status: ' + engineResult.status);",
+        "output": "=== CSS GRID ENGINE SYNTHESIS ===\nResolved Columns: 3 tracks @ 325.3px each\nActive Areas: header, sidebar, main, footer\nEngine Status: OPTIMAL",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Calculates 3 columns fitting into 1024px with 24px gap: (1024 - 48) / 3 = 325.3px."
+          },
+          {
+            "line": 36,
+            "note": "Confirms optimal status since 325.3px exceeds minimum column width of 300px."
+          }
+        ],
+        "tryIt": "Reduce containerWidth to 500px and verify that columnsCount becomes 1.",
+        "check": {
+          "question": "In the CSS Grid Engine synthesis, why does a 1024px container resolve to 3 columns of 325.3px with a 300px minimum?",
+          "options": [
+            "Because (1024 + 24) / (300 + 24) = 1048 / 324 = 3.23, which floors to 3 columns",
+            "Because 1024 is divisible by 3",
+            "Because the browser caps columns at 3"
+          ],
+          "answer": 0,
+          "why": "Floor((1024 + 24) / (300 + 24)) = 3 columns. (1024 - 48) / 3 = 325.33px per column."
+        }
+      }
+    ],
+    "summary": [
+      "CSS Grid is a 2-dimensional layout engine defined by tracks, grid lines, cells, and named areas.",
+      "'repeat(auto-fit, minmax(280px, 1fr))' delivers fluid multi-column responsiveness without media queries.",
+      "'auto-fit' collapses empty tracks allowing items to stretch, whereas 'auto-fill' preserves empty column slots.",
+      "Named 'grid-template-areas' provide self-documenting visual layout syntax, and Subgrid enables cross-component alignment."
+    ],
+    "projectStep": {
+      "title": "Build Responsive CSS Grid Suite",
+      "steps": [
+        "Implement GridContainer component with repeat(auto-fit, minmax()) calculation helpers",
+        "Build DashboardLayout component using named grid-template-areas for header, sidebar, and main content",
+        "Add subgrid support to CardGrid component ensuring card footers align across varying body heights"
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "title": "Responsive Breakpoints & Mobile-First Media Queries: Standard Breakpoint Scales",
+    "goal": "Architect responsive web layouts using the mobile-first min-width paradigm, standard breakpoint scales (sm, md, lg, xl, 2xl), pointer/touch media queries, and breakpoint collision prevention.",
+    "minutes": 25,
+    "recap": "In Days 16 and 17, we mastered Flexbox and CSS Grid layouts. Today we build the responsive foundation that adapts layouts across viewports: mobile-first media queries and standard breakpoint scales.",
+    "parts": [
+      {
+        "title": "The Mobile-First Paradigm: Why min-width Beats max-width",
+        "say": [
+          "Welcome to Day 18 of UI/UX Design Systems & Visual Frontend.",
+          "In the early days of responsive web design, developers practiced 'desktop-first' styling.",
+          "They authored complex desktop CSS rules, and then attempted to undo them on smaller screens using 'max-width' media queries: overriding floats, unsetting margins, and hiding desktop columns.",
+          "Desktop-first design produces bloated, fragile CSS filled with redundant overrides and poor mobile performance.",
+          "Modern design systems strictly adhere to the 'Mobile-First' paradigm using 'min-width' queries.",
+          "Under mobile-first architecture, base CSS rules target mobile devices by default without any media query wrappers.",
+          "As screen real estate expands, 'min-width' media queries progressively enhance the interface: introducing multi-column layouts, expanded navigation bars, and larger typography scales.",
+          "Mobile-first guarantees that constrained mobile devices download the leanest possible stylesheets without incurring expensive layout recalculations.",
+          "Let us inspect the progressive cascade of mobile-first styling."
+        ],
+        "example": "A folding Swiss Army knife: the compact tool handles essential cutting tasks in your pocket; when deployed on a workbench, you progressively open the pliers, saw, and magnifying glass.",
+        "code": "interface ResponsiveStyleRule {\n  breakpoint: string;\n  minWidth: number;\n  columns: number;\n  navMode: 'drawer' | 'bottom-bar' | 'expanded-header';\n}\n\nconst mobileFirstRules: ResponsiveStyleRule[] = [\n  { breakpoint: 'base (mobile)', minWidth: 0, columns: 1, navMode: 'bottom-bar' },\n  { breakpoint: 'md (tablet)', minWidth: 768, columns: 2, navMode: 'drawer' },\n  { breakpoint: 'lg (desktop)', minWidth: 1024, columns: 4, navMode: 'expanded-header' },\n];\n\nfunction resolveActiveStyle(viewportWidth: number): ResponsiveStyleRule {\n  let active = mobileFirstRules[0];\n  for (const rule of mobileFirstRules) {\n    if (viewportWidth >= rule.minWidth) {\n      active = rule;\n    }\n  }\n  return active;\n}\n\nconst testViewports = [375, 800, 1440];\nconsole.log('=== MOBILE-FIRST PROGRESSIVE ENHANCEMENT ===');\nfor (const vp of testViewports) {\n  const current = resolveActiveStyle(vp);\n  console.log('Viewport ' + vp + 'px -> Tier: ' + current.breakpoint + ' | Cols: ' + current.columns + ' | Nav: ' + current.navMode);\n}",
+        "output": "=== MOBILE-FIRST PROGRESSIVE ENHANCEMENT ===\nViewport 375px -> Tier: base (mobile) | Cols: 1 | Nav: bottom-bar\nViewport 800px -> Tier: md (tablet) | Cols: 2 | Nav: drawer\nViewport 1440px -> Tier: lg (desktop) | Cols: 4 | Nav: expanded-header",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Iterates ascending min-width rules, smoothly overriding active styles as viewport expands."
+          },
+          {
+            "line": 26,
+            "note": "Mobile base rule handles 375px, tablet upgrades 800px, desktop unlocks 4 columns at 1440px."
+          }
+        ],
+        "tryIt": "Add an 'xl' breakpoint at 1280px with 6 columns and verify resolution at 1440px.",
+        "check": {
+          "question": "Why is mobile-first (min-width) preferred over desktop-first (max-width) in enterprise design systems?",
+          "options": [
+            "It ensures mobile devices load lean base styles and progressively layers enhancements as screen space grows",
+            "Desktop browsers cannot read CSS media queries",
+            "min-width compiles faster in JavaScript"
+          ],
+          "answer": 0,
+          "why": "Mobile-first establishes clean additive CSS cascades, preventing costly negative CSS overrides."
+        }
+      },
+      {
+        "title": "The Standard Breakpoint Scale: 640px, 768px, 1024px, 1280px, 1536px",
+        "say": [
+          "An enterprise design system cannot allow individual developers to invent arbitrary breakpoint numbers.",
+          "Arbitrary breakpoints cause fragmented interfaces, maintenance nightmares, and visual regressions.",
+          "The industry has coalesced around a standardized 5-tier breakpoint scale popularized by modern CSS frameworks:",
+          "1. 'sm' (640px): Large mobile phones in landscape and compact handheld readers.",
+          "2. 'md' (768px): Tablets in portrait orientation and small laptop screens.",
+          "3. 'lg' (1024px): Standard laptops, tablets in landscape, and standard desktop monitors.",
+          "4. 'xl' (1280px): High-resolution desktop monitors and full-screen workstations.",
+          "5. '2xl' (1536px): Ultra-wide monitors, 4K displays, and multi-monitor developer setups.",
+          "These values are codified as immutable design tokens, ensuring every application squad builds against an identical responsive contract.",
+          "Let us implement the standard breakpoint token scale."
+        ],
+        "example": "Standard clothing sizing (XS, S, M, L, XL, XXL): clothing manufacturers standardize garment proportions so customers know exactly what size fits their body measurements.",
+        "code": "interface BreakpointScale {\n  [tier: string]: number;\n}\n\nconst STANDARD_BREAKPOINTS: BreakpointScale = {\n  sm: 640,\n  md: 768,\n  lg: 1024,\n  xl: 1280,\n  '2xl': 1536,\n};\n\nfunction classifyViewport(width: number): { tier: string; minWidth: number } {\n  const tiers = Object.keys(STANDARD_BREAKPOINTS) as (keyof typeof STANDARD_BREAKPOINTS)[];\n  let matchedTier = 'base';\n  let matchedWidth = 0;\n\n  for (const tier of tiers) {\n    if (width >= STANDARD_BREAKPOINTS[tier]) {\n      matchedTier = tier;\n      matchedWidth = STANDARD_BREAKPOINTS[tier];\n    }\n  }\n\n  return { tier: matchedTier, minWidth: matchedWidth };\n}\n\nconst sampleWidths = [414, 680, 820, 1100, 1350, 1920];\nconsole.log('=== STANDARD BREAKPOINT TIER CLASSIFICATION ===');\nfor (const w of sampleWidths) {\n  const res = classifyViewport(w);\n  console.log('Viewport ' + w + 'px -> Breakpoint [' + res.tier + '] (min-width: ' + res.minWidth + 'px)');\n}",
+        "output": "=== STANDARD BREAKPOINT TIER CLASSIFICATION ===\nViewport 414px -> Breakpoint [base] (min-width: 0px)\nViewport 680px -> Breakpoint [sm] (min-width: 640px)\nViewport 820px -> Breakpoint [md] (min-width: 768px)\nViewport 1100px -> Breakpoint [lg] (min-width: 1024px)\nViewport 1350px -> Breakpoint [xl] (min-width: 1280px)\nViewport 1920px -> Breakpoint [2xl] (min-width: 1536px)",
+        "codeNotes": [
+          {
+            "line": 5,
+            "note": "Defines the 5 canonical responsive breakpoint tokens: sm(640), md(768), lg(1024), xl(1280), 2xl(1536)."
+          },
+          {
+            "line": 26,
+            "note": "Accurately classifies test viewports into standard responsive tiers."
+          }
+        ],
+        "tryIt": "Verify that a viewport width of 767px classifies as 'sm' and 768px triggers 'md'.",
+        "check": {
+          "question": "Which breakpoint tier corresponds to 1024px in the standard enterprise scale?",
+          "options": [
+            "lg",
+            "md",
+            "sm"
+          ],
+          "answer": 0,
+          "why": "1024px is the canonical 'lg' breakpoint representing standard desktop and landscape tablet screens."
+        }
+      },
+      {
+        "title": "Eliminating Breakpoint Overlap Bugs: Sub-pixel Boundaries & Range Media Queries",
+        "say": [
+          "A notorious pitfall in responsive CSS is the Breakpoint Overlap Bug.",
+          "Consider this naive code: '@media (max-width: 768px)' and '@media (min-width: 768px)'.",
+          "What happens when the viewport is exactly 768px? Both media queries evaluate to true simultaneously!",
+          "Depending on CSS source order, styles clash, layouts twitch, and elements can flicker.",
+          "Furthermore, modern high-DPI displays (Retina, 4K) render viewports in fractional sub-pixels, such as 767.5px.",
+          "To eliminate collision bugs, design systems use two modern techniques:",
+          "1. Sub-pixel delta offsets: in legacy CSS, offsetting max-width by 0.02px: '@media (max-width: 767.98px)'.",
+          "2. Modern CSS Range Media Queries: using standard mathematical comparisons: '@media (width < 768px)' and '@media (width >= 768px)'.",
+          "Modern range syntax is clean, mathematically unambiguous, and supported across all modern browsers.",
+          "Let us verify range query boundaries in code."
+        ],
+        "example": "Age categories at an amusement park: 'Child: Age < 12' and 'Adult: Age >= 12'. An exact 12th birthday never qualifies for both prices simultaneously.",
+        "code": "interface RangeBoundaryTest {\n  viewportWidth: number;\n  isMobileRange: boolean;\n  isTabletRange: boolean;\n}\n\nfunction evaluateRangeQuery(width: number): RangeBoundaryTest {\n  // CSS Range: (width < 768px) vs (width >= 768px)\n  const isMobile = width < 768;\n  const isTablet = width >= 768 && width < 1024;\n\n  return {\n    viewportWidth: width,\n    isMobileRange: isMobile,\n    isTabletRange: isTablet,\n  };\n}\n\nconst testCases = [767.5, 767.98, 768.0, 768.2];\nconsole.log('=== CSS RANGE QUERY BOUNDARY EVALUATION ===');\nfor (const tc of testCases) {\n  const res = evaluateRangeQuery(tc);\n  console.log('Viewport ' + tc + 'px -> isMobile (<768): ' + res.isMobileRange + ' | isTablet (>=768): ' + res.isTabletRange);\n}",
+        "output": "=== CSS RANGE QUERY BOUNDARY EVALUATION ===\nViewport 767.5px -> isMobile (<768): true | isTablet (>=768): false\nViewport 767.98px -> isMobile (<768): true | isTablet (>=768): false\nViewport 768px -> isMobile (<768): false | isTablet (>=768): true\nViewport 768.2px -> isMobile (<768): false | isTablet (>=768): true",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Uses strict mathematical inequalities (< 768 and >= 768) guaranteeing mutual exclusion."
+          },
+          {
+            "line": 20,
+            "note": "Demonstrates zero overlap: at 767.98px mobile is true; at 768.0px tablet is true."
+          }
+        ],
+        "tryIt": "Verify that no floating point number can satisfy both width < 768 and width >= 768.",
+        "check": {
+          "question": "How do modern CSS Range Media Queries prevent breakpoint overlap bugs?",
+          "options": [
+            "By using strict mathematical relational operators (width < 768px vs width >= 768px) ensuring mutual exclusivity",
+            "By converting pixels to rems automatically",
+            "By disabling CSS caching"
+          ],
+          "answer": 0,
+          "why": "Relational operators (< and >=) are mutually exclusive, eliminating collisions at integer boundaries."
+        }
+      },
+      {
+        "title": "Touch vs Pointer Input Queries: @media (hover: hover) & (pointer: fine)",
+        "say": [
+          "Responsive design is not merely about screen width.",
+          "It is also fundamentally about input ergonomics.",
+          "A 1024px iPad Pro and a 1024px desktop monitor share the exact same pixel width, but their primary input mechanisms could not be more different.",
+          "The iPad user navigates with blunt human fingers on a touchscreen. The desktop user navigates with a precision mouse cursor.",
+          "CSS provides Interaction Media Queries to query device hardware capabilities directly:",
+          "1. '@media (hover: hover)': Matches devices where the primary pointer can hover over elements (mice, trackpads). On touchscreens, hover is false.",
+          "2. '@media (pointer: fine)': Matches precision pointing devices like a mouse cursor. Coarse pointers ('pointer: coarse') indicate touchscreens or game controllers.",
+          "Design systems use these queries to prevent hover tooltips from sticking awkwardly on mobile taps, and to automatically expand touch target hitboxes to at least 44px on coarse devices.",
+          "Let us inspect an interaction model resolver."
+        ],
+        "example": "A door handle: a public restroom door has a broad push plate you can strike with your forearm (touch/coarse), while a safety deposit lock requires a precision metal key (pointer/fine).",
+        "code": "interface DeviceInputCapability {\n  device: string;\n  hasHover: boolean;\n  pointerType: 'fine' | 'coarse';\n}\n\ninterface UiErgonomicsProfile {\n  device: string;\n  minTouchTargetPx: number;\n  enableHoverTooltips: boolean;\n  dropdownTriggerMode: 'hover' | 'click';\n}\n\nfunction resolveUiErgonomics(cap: DeviceInputCapability): UiErgonomicsProfile {\n  const isTouch = cap.pointerType === 'coarse' || !cap.hasHover;\n  return {\n    device: cap.device,\n    minTouchTargetPx: isTouch ? 44 : 32,\n    enableHoverTooltips: cap.hasHover,\n    dropdownTriggerMode: cap.hasHover ? 'hover' : 'click',\n  };\n}\n\nconst devices: DeviceInputCapability[] = [\n  { device: 'iPhone 15', hasHover: false, pointerType: 'coarse' },\n  { device: 'iPad Pro', hasHover: false, pointerType: 'coarse' },\n  { device: 'MacBook Pro', hasHover: true, pointerType: 'fine' },\n  { device: 'Surface Laptop (Touch + Mouse)', hasHover: true, pointerType: 'fine' },\n];\n\nconsole.log('=== UI INPUT ERGONOMICS RESOLUTION ===');\nfor (const d of devices) {\n  const profile = resolveUiErgonomics(d);\n  console.log('[' + profile.device + ']: MinHit=' + profile.minTouchTargetPx + 'px | Tooltips=' + profile.enableHoverTooltips + ' | Menu=' + profile.dropdownTriggerMode);\n}",
+        "output": "=== UI INPUT ERGONOMICS RESOLUTION ===\n[iPhone 15]: MinHit=44px | Tooltips=false | Menu=click\n[iPad Pro]: MinHit=44px | Tooltips=false | Menu=click\n[MacBook Pro]: MinHit=32px | Tooltips=true | Menu=hover\n[Surface Laptop (Touch + Mouse)]: MinHit=32px | Tooltips=true | Menu=hover",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Expands minimum touch target to 44px when pointerType is coarse, matching WCAG requirements."
+          },
+          {
+            "line": 31,
+            "note": "Disables sticky hover menus on touchscreen devices, enforcing click-to-open mechanics."
+          }
+        ],
+        "tryIt": "Verify that touchscreen devices require 44px touch targets under WCAG 2.1 Success Criterion 2.5.5.",
+        "check": {
+          "question": "Why should dropdown navigation menus trigger on 'click' rather than 'hover' on devices matching @media (hover: none)?",
+          "options": [
+            "Because touch devices have no persistent hover cursor, causing hover menus to stick awkwardly or fail on tap",
+            "Because touchscreens cannot run JavaScript",
+            "Because hover is deprecated in HTML5"
+          ],
+          "answer": 0,
+          "why": "Touchscreens simulate hover unpredictably upon tap; using click handlers provides dependable touch ergonomics."
+        }
+      },
+      {
+        "title": "Responsive Token Resolution & Viewport State Machines",
+        "say": [
+          "In sophisticated component libraries, components do not manage raw pixel media queries internally.",
+          "Instead, components consume responsive design tokens that automatically adapt to the current viewport tier.",
+          "For example, a 'Card' component might declare: 'padding: token.surfacePadding', where surfacePadding evaluates to '16px' on mobile ('sm'), '24px' on tablet ('md'), and '32px' on desktop ('lg').",
+          "To accomplish this, design systems implement a centralized Responsive Token Resolver.",
+          "The resolver acts as a state machine that observes window resize events (or container dimensions) and updates active token aliases in real time.",
+          "Centralizing responsive token resolution prevents visual fragmentation and allows designers to calibrate spatial ramps globally.",
+          "Let us build a responsive token state machine."
+        ],
+        "example": "A hotel conference room: the event planner orders small 4-person tables for small breakout sessions, medium 8-person tables for workshops, and grand banquet tables for the keynote dinner.",
+        "code": "interface ResponsiveTokenMap {\n  surfacePadding: Record<string, string>;\n  headingSize: Record<string, string>;\n  gridColumns: Record<string, number>;\n}\n\nconst themeTokens: ResponsiveTokenMap = {\n  surfacePadding: { base: '16px', md: '24px', lg: '32px' },\n  headingSize: { base: '1.5rem', md: '2rem', lg: '2.5rem' },\n  gridColumns: { base: 1, md: 2, lg: 3 },\n};\n\nfunction resolveTokensForTier(tier: 'base' | 'md' | 'lg'): { padding: string; heading: string; columns: number } {\n  return {\n    padding: themeTokens.surfacePadding[tier],\n    heading: themeTokens.headingSize[tier],\n    columns: themeTokens.gridColumns[tier],\n  };\n}\n\nconst tiers: ('base' | 'md' | 'lg')[] = ['base', 'md', 'lg'];\nconsole.log('=== RESPONSIVE TOKEN STATE MACHINE ===');\nfor (const t of tiers) {\n  const resolved = resolveTokensForTier(t);\n  console.log('Tier [' + t + ']: padding=' + resolved.padding + ', heading=' + resolved.heading + ', cols=' + resolved.columns);\n}",
+        "output": "=== RESPONSIVE TOKEN STATE MACHINE ===\nTier [base]: padding=16px, heading=1.5rem, cols=1\nTier [md]: padding=24px, heading=2rem, cols=2\nTier [lg]: padding=32px, heading=2.5rem, cols=3",
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Defines responsive token ramps across base, md, and lg tiers."
+          },
+          {
+            "line": 20,
+            "note": "Resolves active tokens cleanly for each responsive breakpoint tier."
+          }
+        ],
+        "tryIt": "Add an 'xl' tier with padding='48px' and heading='3rem' and verify output.",
+        "check": {
+          "question": "What is the primary benefit of binding components to responsive token maps rather than hardcoded pixel media queries?",
+          "options": [
+            "It centralizes spatial and typographic scales, allowing system-wide responsive adjustments from a single source of truth",
+            "It reduces CSS bundle size by 99%",
+            "It turns off responsive media queries"
+          ],
+          "answer": 0,
+          "why": "Centralized responsive tokens guarantee consistent spatial scaling across all components without ad-hoc magic numbers."
+        }
+      },
+      {
+        "title": "Responsive Breakpoint Engine Synthesis: Enterprise Viewport Architecture",
+        "say": [
+          "We have mastered the mobile-first min-width paradigm, standard 5-tier breakpoint scales, sub-pixel range query boundaries, and touch input queries.",
+          "Now, let us synthesize these concepts into a production engine: the 'BreakpointEngine'.",
+          "This engine takes any arbitrary viewport width and hardware capability profile.",
+          "It determines the active breakpoint tier, verifies boundary exclusivity, computes responsive spatial tokens, and configures touch target ergonomics.",
+          "This engine forms the core architectural backbone of responsive layout engines in enterprise design systems.",
+          "Let us run the Breakpoint Engine synthesis."
+        ],
+        "example": "An intelligent air traffic management radar: continuously tracking approaching aircraft speed, altitude, and wingspan to assign optimal runways and taxiway routes.",
+        "code": "interface ViewportObservation {\n  width: number;\n  hasHover: boolean;\n  pointer: 'fine' | 'coarse';\n}\n\ninterface BreakpointEngineReport {\n  viewportWidth: number;\n  activeTier: string;\n  minWidthMatched: number;\n  touchTargetPx: number;\n  layoutColumns: number;\n  status: 'OPTIMAL';\n}\n\nclass BreakpointEngine {\n  private static readonly SCALES = [\n    { tier: 'base', min: 0, cols: 1 },\n    { tier: 'sm', min: 640, cols: 2 },\n    { tier: 'md', min: 768, cols: 2 },\n    { tier: 'lg', min: 1024, cols: 3 },\n    { tier: 'xl', min: 1280, cols: 4 },\n    { tier: '2xl', min: 1536, cols: 6 },\n  ];\n\n  public static analyze(obs: ViewportObservation): BreakpointEngineReport {\n    let matched = BreakpointEngine.SCALES[0];\n    for (const s of BreakpointEngine.SCALES) {\n      if (obs.width >= s.min) {\n        matched = s;\n      }\n    }\n\n    const isTouch = obs.pointer === 'coarse' || !obs.hasHover;\n    return {\n      viewportWidth: obs.width,\n      activeTier: matched.tier,\n      minWidthMatched: matched.min,\n      touchTargetPx: isTouch ? 44 : 32,\n      layoutColumns: matched.cols,\n      status: 'OPTIMAL',\n    };\n  }\n}\n\nconst observations: ViewportObservation[] = [\n  { width: 390, hasHover: false, pointer: 'coarse' },\n  { width: 768, hasHover: false, pointer: 'coarse' },\n  { width: 1440, hasHover: true, pointer: 'fine' },\n];\n\nconsole.log('=== BREAKPOINT ENGINE SYNTHESIS ===');\nfor (const obs of observations) {\n  const report = BreakpointEngine.analyze(obs);\n  console.log('Width ' + report.viewportWidth + 'px -> Tier: ' + report.activeTier + ' | Cols: ' + report.layoutColumns + ' | TouchTarget: ' + report.touchTargetPx + 'px');\n}",
+        "output": "=== BREAKPOINT ENGINE SYNTHESIS ===\nWidth 390px -> Tier: base | Cols: 1 | TouchTarget: 44px\nWidth 768px -> Tier: md | Cols: 2 | TouchTarget: 44px\nWidth 1440px -> Tier: xl | Cols: 4 | TouchTarget: 32px",
+        "codeNotes": [
+          {
+            "line": 17,
+            "note": "Scales define ascending breakpoint thresholds with matching default layout column counts."
+          },
+          {
+            "line": 43,
+            "note": "Synthesizes viewport width and touch capabilities into a complete responsive execution plan."
+          }
+        ],
+        "tryIt": "Test with width 1600px and verify that it matches tier '2xl' with 6 columns.",
+        "check": {
+          "question": "How does the Breakpoint Engine adapt touch targets for a 768px iPad compared to a 1440px desktop?",
+          "options": [
+            "It assigns 44px touch targets to the iPad due to coarse pointer, and 32px to the desktop with fine pointer",
+            "It hides all buttons on the iPad",
+            "It sets touch targets to 100px on all devices"
+          ],
+          "answer": 0,
+          "why": "The engine pairs viewport width with pointer capabilities, enforcing 44px WCAG touch targets on touchscreens."
+        }
+      }
+    ],
+    "summary": [
+      "The Mobile-First paradigm establishes base CSS styles for mobile and progressively enhances via 'min-width' queries.",
+      "The standard breakpoint scale provides 5 canonical tiers: sm (640px), md (768px), lg (1024px), xl (1280px), and 2xl (1536px).",
+      "Modern CSS range syntax ('width >= 768px') eliminates boundary collisions, while '@media (hover: hover)' tailors touch ergonomics."
+    ],
+    "projectStep": {
+      "title": "Construct Enterprise Breakpoint System",
+      "steps": [
+        "Create standard breakpoint constants and TypeScript enum matching sm, md, lg, xl, and 2xl",
+        "Implement useBreakpoint React hook providing reactive activeTier and isMobile state",
+        "Author ResponsiveContainer component consuming breakpoint tokens to dynamically adjust padding and columns"
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "title": "Fluid Layouts, Modern CSS Math & Container Queries: @container & clamp()",
+    "goal": "Build next-generation fluid interfaces with modern CSS math functions (clamp(), min(), max()), CSS Container Queries (@container), and container query units (cqw, cqh).",
+    "minutes": 25,
+    "recap": "Yesterday we architected viewport-level responsive breakpoints. Today we transition from viewport-dependent styling to intrinsic component responsiveness using modern CSS math and Container Queries.",
+    "parts": [
+      {
+        "title": "Modern CSS Math Primitives: clamp(), min(), max() & calc()",
+        "say": [
+          "Welcome to Day 19 of UI/UX Design Systems & Visual Frontend.",
+          "For decades, responsive design was constrained to stepped, jarring layout jumps between discrete media query breakpoints.",
+          "Modern CSS introduced a revolution in fluid styling through mathematical functions: 'calc()', 'min()', 'max()', and above all, 'clamp()'.",
+          "The 'clamp()' function takes three arguments: 'clamp(minimum, preferred, maximum)'.",
+          "It returns a value that smoothly scales with the preferred expression, but is strictly clamped between the minimum and maximum boundaries.",
+          "For example: 'font-size: clamp(1rem, 0.8rem + 1vw, 1.75rem)' or 'padding: clamp(16px, 2vw, 32px)'.",
+          "On narrow screens, the value never shrinks below the accessible minimum. On ultra-wide displays, it never expands past the maximum design token.",
+          "In between, the value scales continuously with the viewport, delivering silky smooth fluid typography and spacing without layout jumps.",
+          "Let us inspect the mathematical evaluation of CSS clamp."
+        ],
+        "example": "A hydraulic telescoping shock absorber: it absorbs road bumps smoothly within a defined 10cm stroke, but solid metal bump stops prevent it from bottoming out or over-extending.",
+        "code": "interface ClampExpression {\n  min: number;\n  max: number;\n  baseVal: number;\n  rate: number; // percentage of viewport\n}\n\nfunction evaluateCssClamp(clamp: ClampExpression, viewportWidth: number): number {\n  const preferred = clamp.baseVal + (clamp.rate / 100) * viewportWidth;\n  const clamped = Math.max(clamp.min, Math.min(preferred, clamp.max));\n  return Math.round(clamped * 10) / 10;\n}\n\nconst fluidHeading: ClampExpression = {\n  min: 20, // 20px min on mobile\n  max: 36, // 36px max on desktop\n  baseVal: 12,\n  rate: 2, // 2vw\n};\n\nconst viewports = [320, 600, 1000, 1600];\nconsole.log('=== CSS CLAMP() MATHEMATICAL EVALUATION ===');\nconsole.log('Formula: clamp(' + fluidHeading.min + 'px, ' + fluidHeading.baseVal + 'px + ' + fluidHeading.rate + 'vw, ' + fluidHeading.max + 'px)');\nfor (const vp of viewports) {\n  const resolved = evaluateCssClamp(fluidHeading, vp);\n  console.log('Viewport ' + vp + 'px -> Computed Size: ' + resolved + 'px');\n}",
+        "output": "=== CSS CLAMP() MATHEMATICAL EVALUATION ===\nFormula: clamp(20px, 12px + 2vw, 36px)\nViewport 320px -> Computed Size: 20px\nViewport 600px -> Computed Size: 24px\nViewport 1000px -> Computed Size: 32px\nViewport 1600px -> Computed Size: 36px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Implements clamp logic: Math.max(min, Math.min(preferred, max))."
+          },
+          {
+            "line": 24,
+            "note": "At 320px: preferred is 18.4px, clamped to 20px min. At 1600px: preferred is 44px, clamped to 36px max."
+          }
+        ],
+        "tryIt": "Verify that at 800px viewport, the resolved font size is 28px.",
+        "check": {
+          "question": "What does clamp(20px, 12px + 2vw, 36px) evaluate to on a 320px mobile viewport?",
+          "options": [
+            "20px",
+            "18.4px",
+            "36px"
+          ],
+          "answer": 0,
+          "why": "12 + 0.02 * 320 = 18.4px, which is below the 20px minimum, so it clamps cleanly to 20px."
+        }
+      },
+      {
+        "title": "The Architectural Problem with Viewport Media Queries in Component Libraries",
+        "say": [
+          "While viewport media queries ('@media (min-width: 768px)') work well for macro page layouts, they present a profound architectural flaw for reusable component libraries.",
+          "Consider a 'ProductCard' component designed to render horizontally (image on left, text on right) on tablet/desktop, and vertically (image stacked on top) on mobile.",
+          "If the card uses '@media (min-width: 768px)', it works great on the main page canvas of a desktop browser.",
+          "However, what happens when a developer places that exact same ProductCard inside a 300px sidebar on that same desktop screen?",
+          "Because the browser viewport is 1440px, the media query evaluates to true! The card switches into its horizontal layout inside a 300px sidebar, causing hideous text truncation and layout overflow.",
+          "A component should not care how wide the global browser window is.",
+          "A component should care exclusively about how much space its immediate parent container provides.",
+          "This architectural realization led to the standardization of CSS Container Queries.",
+          "Let us simulate this viewport coupling bug and its resolution."
+        ],
+        "example": "A flat-screen television: if you buy a 65-inch TV, it fits wonderfully in your living room, but if you try to mount it inside your compact camper van dashboard, it creates physical chaos.",
+        "code": "interface ComponentContext {\n  componentName: string;\n  viewportWidth: number;\n  parentContainerWidth: number;\n}\n\nfunction evaluateLayoutWithViewportQuery(ctx: ComponentContext): 'horizontal' | 'vertical' {\n  // Flawed: relies on global viewport\n  return ctx.viewportWidth >= 768 ? 'horizontal' : 'vertical';\n}\n\nfunction evaluateLayoutWithContainerQuery(ctx: ComponentContext): 'horizontal' | 'vertical' {\n  // Correct: relies on parent container width\n  return ctx.parentContainerWidth >= 480 ? 'horizontal' : 'vertical';\n}\n\nconst scenarioSidebar: ComponentContext = {\n  componentName: 'ProductCard',\n  viewportWidth: 1440, // Desktop screen!\n  parentContainerWidth: 320, // Inside narrow sidebar!\n};\n\nconst vpResult = evaluateLayoutWithViewportQuery(scenarioSidebar);\nconst cqResult = evaluateLayoutWithContainerQuery(scenarioSidebar);\n\nconsole.log('=== VIEWPORT VS CONTAINER QUERY ARCHITECTURE ===');\nconsole.log('Context: Desktop Screen (' + scenarioSidebar.viewportWidth + 'px) with Sidebar (' + scenarioSidebar.parentContainerWidth + 'px)');\nconsole.log('Viewport Query Layout : ' + vpResult + ' (BUG: horizontal layout overflows 320px sidebar!)');\nconsole.log('Container Query Layout: ' + cqResult + ' (CORRECT: renders vertical stack for 320px container!)');",
+        "output": "=== VIEWPORT VS CONTAINER QUERY ARCHITECTURE ===\nContext: Desktop Screen (1440px) with Sidebar (320px)\nViewport Query Layout : horizontal (BUG: horizontal layout overflows 320px sidebar!)\nContainer Query Layout: vertical (CORRECT: renders vertical stack for 320px container!)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Viewport query incorrectly chooses horizontal layout because viewport is 1440px."
+          },
+          {
+            "line": 14,
+            "note": "Container query correctly chooses vertical layout because parent container is only 320px."
+          }
+        ],
+        "tryIt": "Simulate placing the card in a 800px main content area on the same desktop screen.",
+        "check": {
+          "question": "Why do viewport media queries fail when responsive components are placed in narrow sidebars on desktop screens?",
+          "options": [
+            "Because the viewport query checks the global browser window width rather than the component's actual parent container width",
+            "Because sidebars disable CSS styles",
+            "Because desktop monitors cannot render flexbox"
+          ],
+          "answer": 0,
+          "why": "Viewport queries inspect the browser window (1440px), triggering desktop layouts inside narrow 300px containers."
+        }
+      },
+      {
+        "title": "CSS Container Queries: container-type: inline-size & @container",
+        "say": [
+          "To enable container-driven styling, modern CSS introduced the '@container' rule and the 'container-type' property.",
+          "First, an ancestor element declares itself as a containment context: 'container-type: inline-size'.",
+          "'inline-size' instructs the browser layout engine to track the container's width along its inline axis (horizontal in LTR writing modes) while allowing its vertical block height to expand naturally.",
+          "Second, descendant components query their container using the '@container' syntax: '@container (min-width: 480px) { ... }'.",
+          "You can also assign an explicit name to the container: 'container-name: card-slot' or shorthand: 'container: card-slot / inline-size'.",
+          "Descendants can then target specific named containers: '@container card-slot (min-width: 480px)'.",
+          "Container Queries decouple components completely from page-level layout, enabling true drop-in portability across modals, drawers, grids, and sidebars.",
+          "Let us implement a container query evaluation engine."
+        ],
+        "example": "A chameleon: it adapts its coloration and camouflage based strictly on the immediate branch or leaf it rests upon, completely unconcerned with the weather five miles away.",
+        "code": "interface ContainerQuerySpec {\n  containerName?: string;\n  minWidth: number;\n}\n\ninterface ContainerState {\n  name?: string;\n  inlineSize: number;\n}\n\nfunction matchesContainerQuery(query: ContainerQuerySpec, container: ContainerState): boolean {\n  if (query.containerName && query.containerName !== container.name) {\n    return false;\n  }\n  return container.inlineSize >= query.minWidth;\n}\n\nconst sidebarContainer: ContainerState = { name: 'sidebar', inlineSize: 320 };\nconst mainCanvasContainer: ContainerState = { name: 'main-canvas', inlineSize: 840 };\n\nconst cardQuery: ContainerQuerySpec = { minWidth: 500 };\n\nconsole.log('=== CSS @container QUERY EVALUATION ===');\nconsole.log('Query: @container (min-width: ' + cardQuery.minWidth + 'px)');\nconsole.log('  In Sidebar (320px) : Matches=' + matchesContainerQuery(cardQuery, sidebarContainer) + ' -> Use 1-column layout');\nconsole.log('  In Main Canvas (840px): Matches=' + matchesContainerQuery(cardQuery, mainCanvasContainer) + ' -> Use 2-column layout');",
+        "output": "=== CSS @container QUERY EVALUATION ===\nQuery: @container (min-width: 500px)\n  In Sidebar (320px) : Matches=false -> Use 1-column layout\n  In Main Canvas (840px): Matches=true -> Use 2-column layout",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Verifies container name matches if specified, and asserts inlineSize >= minWidth."
+          },
+          {
+            "line": 24,
+            "note": "Demonstrates that identical component code renders 1-column in sidebar and 2-column on canvas."
+          }
+        ],
+        "tryIt": "Add a named container query targeting 'main-canvas' and test with the sidebar container.",
+        "check": {
+          "question": "Which CSS property declares an element as a queryable container along its horizontal axis?",
+          "options": [
+            "container-type: inline-size",
+            "display: container",
+            "overflow: query"
+          ],
+          "answer": 0,
+          "why": "'container-type: inline-size' establishes a containment context that monitors horizontal width."
+        }
+      },
+      {
+        "title": "Container Query Units: cqw, cqh, cqi & cqb vs Viewport Units",
+        "say": [
+          "Alongside '@container', CSS introduced dedicated Container Query Units.",
+          "Just as 'vw' and 'vh' represent 1% of the viewport width and height, container query units represent 1% of the container's dimensions:",
+          "1. '1cqw' (Container Query Width) = 1% of the query container's width.",
+          "2. '1cqh' (Container Query Height) = 1% of the query container's height.",
+          "3. '1cqi' (Container Query Inline) = 1% of the query container's inline size.",
+          "4. '1cqb' (Container Query Block) = 1% of the query container's block size.",
+          "5. '1cqmin' and '1cqmax' = the smaller or larger of cqi and cqb.",
+          "Container query units can be combined directly with 'clamp()' for intrinsic fluid typography: 'font-size: clamp(14px, 2cqi + 10px, 24px)'.",
+          "Now, typography scales proportionally to the component's card width rather than the screen width.",
+          "Let us calculate container query unit values."
+        ],
+        "example": "A customized picture frame: the matting border and inner bevel are cut to exactly 5% of the frame's width, ensuring harmonious visual balance regardless of frame size.",
+        "code": "interface ContainerDimensions {\n  width: number;\n  height: number;\n}\n\nfunction calculateCqUnits(dims: ContainerDimensions): Record<string, number> {\n  return {\n    '1cqw': dims.width / 100,\n    '1cqh': dims.height / 100,\n    '1cqi': dims.width / 100,\n    '1cqb': dims.height / 100,\n  };\n}\n\nfunction computeFluidCqiFont(containerWidth: number, minPx: number, cqiRate: number, maxPx: number): number {\n  const cqiVal = (cqiRate / 100) * containerWidth;\n  const preferred = minPx + cqiVal;\n  return Math.round(Math.min(maxPx, Math.max(minPx, preferred)));\n}\n\nconst cardDims: ContainerDimensions = { width: 400, height: 250 };\nconst units = calculateCqUnits(cardDims);\n\nconsole.log('=== CONTAINER QUERY UNITS (Container: 400x250px) ===');\nconsole.log('1cqw: ' + units['1cqw'] + 'px | 1cqh: ' + units['1cqh'] + 'px');\n\nconst fontSmall = computeFluidCqiFont(250, 14, 2, 22);\nconst fontLarge = computeFluidCqiFont(600, 14, 2, 22);\nconsole.log('Fluid Font in 250px Container: ' + fontSmall + 'px');\nconsole.log('Fluid Font in 600px Container: ' + fontLarge + 'px');",
+        "output": "=== CONTAINER QUERY UNITS (Container: 400x250px) ===\n1cqw: 4px | 1cqh: 2.5px\nFluid Font in 250px Container: 19px\nFluid Font in 600px Container: 22px",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "1cqw equals exactly 1% of container width: 400 / 100 = 4px."
+          },
+          {
+            "line": 26,
+            "note": "Fluid font scales smoothly from 19px in narrow 250px card to 22px in wide 600px card."
+          }
+        ],
+        "tryIt": "Calculate 1cqw for an 800px container width (should equal 8px).",
+        "check": {
+          "question": "What does 1cqi represent in modern CSS?",
+          "options": [
+            "1% of the query container's inline size (width in horizontal writing modes)",
+            "1 character quality index",
+            "1 centi-quadrant inch"
+          ],
+          "answer": 0,
+          "why": "cqi stands for Container Query Inline, representing 1% of the query container's inline size."
+        }
+      },
+      {
+        "title": "Style Queries & Container Nesting Hierarchy",
+        "say": [
+          "Container Queries in modern CSS extend beyond purely physical spatial dimensions.",
+          "CSS Style Queries allow descendants to query computed CSS Custom Properties on their container: '@container style(--theme: dark)'.",
+          "This enables components to automatically re-theme themselves based on their immediate container's context, without having to coordinate global class names on the '<body>' element.",
+          "Furthermore, containers can be nested inside containers.",
+          "When multiple ancestor containers exist, an '@container' query without a name matches the closest queryable ancestor.",
+          "To query an ancestor further up the hierarchy, you supply the explicit container name: '@container dashboard-shell (min-width: 900px)'.",
+          "Understanding container nesting prevents unintended query hijacking in deeply nested component trees.",
+          "Let us verify style query matching and container hierarchy resolution."
+        ],
+        "example": "A nesting Russian matryoshka doll: the innermost doll looks at its immediate parent doll for size, but can reference the outer master doll for family paint theme.",
+        "code": "interface AncestorContainer {\n  id: string;\n  name: string;\n  width: number;\n  theme: 'light' | 'dark';\n}\n\nfunction resolveContainerContext(\n  ancestors: AncestorContainer[],\n  targetName?: string\n): AncestorContainer | undefined {\n  if (targetName) {\n    return ancestors.find(a => a.name === targetName);\n  }\n  // Default: closest ancestor\n  return ancestors[ancestors.length - 1];\n}\n\nconst componentAncestors: AncestorContainer[] = [\n  { id: '1', name: 'dashboard-shell', width: 1200, theme: 'dark' },\n  { id: '2', name: 'widget-card', width: 350, theme: 'light' },\n];\n\nconst closest = resolveContainerContext(componentAncestors);\nconst shell = resolveContainerContext(componentAncestors, 'dashboard-shell');\n\nconsole.log('=== NESTED CONTAINER QUERY RESOLUTION ===');\nconsole.log('Closest Container: [' + closest?.name + '] width=' + closest?.width + 'px, theme=' + closest?.theme);\nconsole.log('Named Container \"dashboard-shell\": width=' + shell?.width + 'px, theme=' + shell?.theme);",
+        "output": "=== NESTED CONTAINER QUERY RESOLUTION ===\nClosest Container: [widget-card] width=350px, theme=light\nNamed Container \"dashboard-shell\": width=1200px, theme=dark",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Demonstrates that un-named queries bind to the closest ancestor (widget-card)."
+          },
+          {
+            "line": 24,
+            "note": "Targeted queries bypass local ancestors to match the specified named container (dashboard-shell)."
+          }
+        ],
+        "tryIt": "Query a container with name 'non-existent' and verify that it returns undefined.",
+        "check": {
+          "question": "When a component resides inside multiple nested containers, which container does an un-named @container query evaluate against?",
+          "options": [
+            "The closest queryable ancestor container",
+            "The outermost root container",
+            "A random container"
+          ],
+          "answer": 0,
+          "why": "In CSS Container Queries, un-named queries evaluate against the nearest ancestor with a matching container-type."
+        }
+      },
+      {
+        "title": "Fluid Layout & Container Query Engine Synthesis: Decoupled Component Architecture",
+        "say": [
+          "We have mastered modern CSS math with 'clamp()', the architectural rationale for container queries, 'container-type: inline-size', container query units, and nested containment.",
+          "Now, let us synthesize these concepts into a production engine: the 'ContainerQueryEngine'.",
+          "This engine models intrinsic component responsiveness.",
+          "It takes a container dimension and fluid token rules, and computes optimal layout modes, fluid typography values, and padding ramps.",
+          "Designing components using container-driven architectures guarantees that your UI library works flawlessly in any layout context across your application.",
+          "Let us execute the synthesized Container Query Engine."
+        ],
+        "example": "An adaptable cargo container modular shelving unit: the internal shelving slots, cargo nets, and tool hooks automatically reconfigure depending on whether the container is 10-foot, 20-foot, or 40-foot.",
+        "code": "interface FluidRule {\n  minWidth: number;\n  mode: 'compact' | 'standard' | 'expanded';\n  fluidFontPx: number;\n  paddingPx: number;\n}\n\nclass ContainerQueryEngine {\n  public static evaluate(containerWidth: number): FluidRule {\n    // clamp(14px, 10px + 2cqi, 22px)\n    const fluidFont = Math.min(22, Math.max(14, 10 + (2 / 100) * containerWidth));\n    // clamp(12px, 8px + 1.5cqi, 24px)\n    const fluidPadding = Math.min(24, Math.max(12, 8 + (1.5 / 100) * containerWidth));\n\n    let mode: 'compact' | 'standard' | 'expanded' = 'compact';\n    if (containerWidth >= 600) {\n      mode = 'expanded';\n    } else if (containerWidth >= 380) {\n      mode = 'standard';\n    }\n\n    return {\n      minWidth: containerWidth,\n      mode,\n      fluidFontPx: Math.round(fluidFont * 10) / 10,\n      paddingPx: Math.round(fluidPadding * 10) / 10,\n    };\n  }\n}\n\nconst testContainers = [300, 450, 750];\nconsole.log('=== CONTAINER QUERY ENGINE SYNTHESIS ===');\nfor (const w of testContainers) {\n  const result = ContainerQueryEngine.evaluate(w);\n  console.log('Container ' + w + 'px -> Mode: ' + result.mode + ' | Font: ' + result.fluidFontPx + 'px | Padding: ' + result.paddingPx + 'px');\n}",
+        "output": "=== CONTAINER QUERY ENGINE SYNTHESIS ===\nContainer 300px -> Mode: compact | Font: 16px | Padding: 12.5px\nContainer 450px -> Mode: standard | Font: 19px | Padding: 14.8px\nContainer 750px -> Mode: expanded | Font: 22px | Padding: 19.3px",
+        "codeNotes": [
+          {
+            "line": 11,
+            "note": "Computes fluid font size and padding using container query width formulas."
+          },
+          {
+            "line": 32,
+            "note": "Smoothly shifts layout modes from compact to standard to expanded based on container width."
+          }
+        ],
+        "tryIt": "Verify that at 1000px container width, font size clamps to 22px maximum and mode evaluates to expanded.",
+        "check": {
+          "question": "How does the ContainerQueryEngine guarantee intrinsic component responsiveness?",
+          "options": [
+            "It evaluates layout mode, fluid typography, and padding strictly against container width rather than global viewport width",
+            "It forces all text to uppercase",
+            "It removes images on mobile"
+          ],
+          "answer": 0,
+          "why": "By grounding all calculations in container width, components remain intrinsically responsive regardless of placement."
+        }
+      }
+    ],
+    "summary": [
+      "Modern CSS math with 'clamp(min, val, max)' provides fluid scaling without jarring breakpoint jumps.",
+      "Viewport media queries break components placed in narrow sidebars; Container Queries solve this by inspecting parent containers.",
+      "'container-type: inline-size' and '@container' establish intrinsic responsive boundaries.",
+      "Container query units ('cqw', 'cqi') allow typography and padding to scale harmoniously with component dimensions."
+    ],
+    "projectStep": {
+      "title": "Build Container Query Component Suite",
+      "steps": [
+        "Declare container-type: inline-size on CardGrid and Sidebar containers",
+        "Refactor ProductCard component to use @container queries for horizontal vs vertical layout",
+        "Implement fluid typography tokens using clamp() combined with cqi units"
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "title": "Micro-Interactions, CSS Transitions & Bézier Curves: Spring Physics & Easing",
+    "goal": "Engineer fluid micro-interactions and high-performance CSS transitions using cubic-bézier timing curves, hardware-accelerated properties, spring physics, and frame-rate optimization.",
+    "minutes": 25,
+    "recap": "In Days 16 through 19, we mastered responsive layouts, grid systems, and container queries. Today we bring interfaces to life with micro-interactions, spring physics, and 60fps hardware-accelerated transitions.",
+    "parts": [
+      {
+        "title": "The Psychology of Micro-Interactions: Trigger, Rule, Feedback & Loop",
+        "say": [
+          "Welcome to Day 20 of UI/UX Design Systems & Visual Frontend.",
+          "Static, lifeless user interfaces feel robotic and unforgiving to human users.",
+          "When a user presses a physical button on an elevator, the button depresses mechanically, an LED light illuminates, and a subtle chime rings.",
+          "These brief, delightful feedback cycles are known as Micro-Interactions.",
+          "According to Dan Saffer's canonical interaction model, every micro-interaction consists of four essential phases:",
+          "1. Trigger: The event that initiates the interaction (user click, hover, form submission, or system notification).",
+          "2. Rules: The state machine logic determining what can and cannot occur.",
+          "3. Feedback: The visual, auditory, or haptic cue confirming to the user that their action was recognized.",
+          "4. Loops and Modes: The meta-rules governing duration, repeat cycles, and return to idle state.",
+          "Well-engineered micro-interactions build user confidence, reduce cognitive friction, and make digital products feel tactile and alive.",
+          "Let us inspect a state machine modeling the 4-phase micro-interaction lifecycle."
+        ],
+        "example": "A physical light switch: flipping the toggle (Trigger) activates internal copper contacts (Rules), the bedroom ceiling lamp turns on (Feedback), and the switch remains securely locked in the ON position (Loop/Mode).",
+        "code": "type InteractionPhase = 'idle' | 'triggered' | 'animating' | 'settled';\n\ninterface MicroInteractionState {\n  componentId: string;\n  phase: InteractionPhase;\n  progressPercent: number;\n  feedbackGiven: boolean;\n}\n\nclass MicroInteractionStateMachine {\n  private state: MicroInteractionState;\n\n  constructor(id: string) {\n    this.state = { componentId: id, phase: 'idle', progressPercent: 0, feedbackGiven: false };\n  }\n\n  public trigger(): void {\n    if (this.state.phase === 'idle') {\n      this.state.phase = 'triggered';\n      this.state.progressPercent = 10;\n    }\n  }\n\n  public animate(progress: number): void {\n    if (this.state.phase === 'triggered' || this.state.phase === 'animating') {\n      this.state.phase = 'animating';\n      this.state.progressPercent = Math.min(100, progress);\n      if (progress >= 50 && !this.state.feedbackGiven) {\n        this.state.feedbackGiven = true;\n      }\n    }\n  }\n\n  public settle(): void {\n    this.state.phase = 'settled';\n    this.state.progressPercent = 100;\n  }\n\n  public getState(): MicroInteractionState {\n    return { ...this.state };\n  }\n}\n\nconst toggle = new MicroInteractionStateMachine('favorite-heart-button');\nconsole.log('=== MICRO-INTERACTION 4-PHASE LIFECYCLE ===');\nconsole.log('Initial: ' + toggle.getState().phase);\ntoggle.trigger();\nconsole.log('After Trigger: ' + toggle.getState().phase + ' (' + toggle.getState().progressPercent + '%)');\ntoggle.animate(65);\nconsole.log('During Animation: ' + toggle.getState().phase + ' (Feedback given: ' + toggle.getState().feedbackGiven + ')');\ntoggle.settle();\nconsole.log('Settled: ' + toggle.getState().phase + ' (' + toggle.getState().progressPercent + '%)');",
+        "output": "=== MICRO-INTERACTION 4-PHASE LIFECYCLE ===\nInitial: idle\nAfter Trigger: triggered (10%)\nDuring Animation: animating (Feedback given: true)\nSettled: settled (100%)",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Tracks component micro-interaction phases from idle through triggered, animating, and settled."
+          },
+          {
+            "line": 39,
+            "note": "Validates that feedback triggers at midpoint of animation before settling."
+          }
+        ],
+        "tryIt": "Verify that calling trigger when already settled or animating is rejected by the rules phase.",
+        "check": {
+          "question": "According to interaction design theory, what are the four structural phases of a micro-interaction?",
+          "options": [
+            "Trigger, Rules, Feedback, and Loops/Modes",
+            "HTML, CSS, JavaScript, and Webpack",
+            "Design, Code, Test, and Deploy"
+          ],
+          "answer": 0,
+          "why": "Dan Saffer's four phases are: Trigger (starts it), Rules (governs it), Feedback (notifies user), Loops/Modes (handles duration/state)."
+        }
+      },
+      {
+        "title": "Cubic-Bézier Curves: The Mathematics of P1 and P2 Control Points",
+        "say": [
+          "Linear animation ('transition-timing-function: linear') feels unnatural because nothing in the physical world moves at a constant velocity without acceleration or deceleration.",
+          "In modern CSS, transitions are parameterized by Cubic-Bézier timing curves: 'cubic-bezier(x1, y1, x2, y2)'.",
+          "A cubic Bézier curve is anchored between two fixed points: start point P0 at '(0, 0)' and end point P1 at '(1, 1)'.",
+          "The designer controls two intermediate control points: P1 at '(x1, y1)' and P2 at '(x2, y2)'.",
+          "The X coordinates represent time progression and are strictly bounded between '0.0' and '1.0'.",
+          "The Y coordinates represent animation output progress. Crucially, Y can exceed '1.0' or drop below '0.0'!",
+          "When Y exceeds '1.0', the animated element overshoots its target before bouncing back—creating the beloved physical bounce effect seen in iOS and Android spring animations.",
+          "Let us inspect the mathematical calculation of a 1D Cubic-Bézier curve."
+        ],
+        "example": "A trapeze artist: swinging from a platform, the arc is shaped by gravity and cable tension, accelerating smoothly through the bottom and decelerating at the apex.",
+        "code": "interface BezierControlPoints {\n  x1: number;\n  y1: number;\n  x2: number;\n  y2: number;\n}\n\n// 1D Bernstein polynomial approximation for cubic bezier\nfunction sampleCubicBezier(p: BezierControlPoints, t: number): number {\n  const invT = 1 - t;\n  // B(t) = 3*(1-t)^2 * t * y1 + 3*(1-t) * t^2 * y2 + t^3 * 1\n  return (\n    3 * Math.pow(invT, 2) * t * p.y1 +\n    3 * invT * Math.pow(t, 2) * p.y2 +\n    Math.pow(t, 3) * 1.0\n  );\n}\n\nconst standardEase: BezierControlPoints = { x1: 0.4, y1: 0.0, x2: 0.2, y2: 1.0 };\nconst springOvershoot: BezierControlPoints = { x1: 0.34, y1: 1.56, x2: 0.64, y2: 1.0 };\n\nconst timeSteps = [0.25, 0.5, 0.75, 1.0];\nconsole.log('=== CUBIC-BÉZIER TIMING CURVE SAMPLES ===');\nconsole.log('Time t | Standard Ease | Spring Overshoot (y1=1.56)');\nfor (const t of timeSteps) {\n  const std = Math.round(sampleCubicBezier(standardEase, t) * 100) / 100;\n  const spr = Math.round(sampleCubicBezier(springOvershoot, t) * 100) / 100;\n  console.log('  ' + t + '  |     ' + std + '      |       ' + spr + (spr > 1.0 ? ' (OVERSHOOT!)' : ''));\n}",
+        "output": "=== CUBIC-BÉZIER TIMING CURVE SAMPLES ===\nTime t | Standard Ease | Spring Overshoot (y1=1.56)\n  0.25  |     0.16      |       0.81\n  0.5  |     0.5      |       1.09 (OVERSHOOT!)\n  0.75  |     0.84      |       1.06 (OVERSHOOT!)\n  1  |     1      |       1",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Evaluates cubic Bernstein polynomial across normalized time parameter t (0.0 to 1.0)."
+          },
+          {
+            "line": 26,
+            "note": "Demonstrates physical overshoot: at t=0.5, spring reaches 1.09 (109% progress) before settling to 1.0."
+          }
+        ],
+        "tryIt": "Evaluate the curve at t=0.0 and verify that progress equals 0.0 exactly.",
+        "check": {
+          "question": "How do cubic-bézier curves achieve spring-like overshoot animations in CSS?",
+          "options": [
+            "By setting the y1 or y2 control point coordinates greater than 1.0",
+            "By writing JavaScript while loops",
+            "By setting negative animation durations"
+          ],
+          "answer": 0,
+          "why": "When y1 or y2 exceeds 1.0, the output progress surpasses 100% before returning to 1.0, creating an overshoot bounce."
+        }
+      },
+      {
+        "title": "Easing Archetypes: Standard Ease, Decelerate, Accelerate & Spring Curves",
+        "say": [
+          "Enterprise design systems codify a small palette of standard easing curves to maintain cohesive physical personality across components:",
+          "1. Standard Easing ('cubic-bezier(0.4, 0.0, 0.2, 1)'): Elements moving entirely within the visible viewport. It starts gently, accelerates smoothly, and decelerates into its final resting place.",
+          "2. Decelerate Easing ('cubic-bezier(0.0, 0.0, 0.2, 1)'): Elements entering the screen (modals sliding in, toast popups). They enter at peak velocity and decelerate gracefully to rest.",
+          "3. Accelerate Easing ('cubic-bezier(0.4, 0.0, 1, 1)'): Elements leaving the screen (dismissing an alert, closing a drawer). They start slowly and accelerate offscreen at peak speed.",
+          "4. Spring Overshoot ('cubic-bezier(0.34, 1.56, 0.64, 1)'): Playful interactive accents (toggling a like button, expanding an accordion indicator).",
+          "Never mix random easings across your application. Every motion curve must communicate physical purpose.",
+          "Let us build an easing token registry."
+        ],
+        "example": "Vehicles on a highway: a car merging onto the expressway enters at speed (decelerate), while a car taking an exit ramp accelerates off into the turnoff (accelerate).",
+        "code": "interface EasingToken {\n  name: string;\n  cssBezier: string;\n  useCase: string;\n  curve: BezierControlPoints;\n}\n\nconst EASING_TOKENS: Record<string, EasingToken> = {\n  standard: {\n    name: 'motion-ease-standard',\n    cssBezier: 'cubic-bezier(0.4, 0, 0.2, 1)',\n    useCase: 'On-screen transitions & repositioning',\n    curve: { x1: 0.4, y1: 0, x2: 0.2, y2: 1 },\n  },\n  decelerate: {\n    name: 'motion-ease-decelerate',\n    cssBezier: 'cubic-bezier(0, 0, 0.2, 1)',\n    useCase: 'Enter transitions (modals, toasts)',\n    curve: { x1: 0, y1: 0, x2: 0.2, y2: 1 },\n  },\n  accelerate: {\n    name: 'motion-ease-accelerate',\n    cssBezier: 'cubic-bezier(0.4, 0, 1, 1)',\n    useCase: 'Exit transitions (dismissals, close)',\n    curve: { x1: 0.4, y1: 0, x2: 1, y2: 1 },\n  },\n  spring: {\n    name: 'motion-ease-spring',\n    cssBezier: 'cubic-bezier(0.34, 1.56, 0.64, 1)',\n    useCase: 'Micro-interactions & playful accents',\n    curve: { x1: 0.34, y1: 1.56, x2: 0.64, y2: 1 },\n  },\n};\n\nconsole.log('=== DESIGN SYSTEM EASING TOKENS ===');\nfor (const [key, token] of Object.entries(EASING_TOKENS)) {\n  console.log('[' + key.toUpperCase() + '] ' + token.name + ': ' + token.cssBezier);\n  console.log('  Use: ' + token.useCase);\n}",
+        "output": "=== DESIGN SYSTEM EASING TOKENS ===\n[STANDARD] motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1)\n  Use: On-screen transitions & repositioning\n[DECELERATE] motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1)\n  Use: Enter transitions (modals, toasts)\n[ACCELERATE] motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1)\n  Use: Exit transitions (dismissals, close)\n[SPRING] motion-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)\n  Use: Micro-interactions & playful accents",
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Maps the 4 canonical enterprise motion easing tokens."
+          },
+          {
+            "line": 36,
+            "note": "Assigns clear functional design roles: standard, decelerate (enter), accelerate (exit), and spring."
+          }
+        ],
+        "tryIt": "Verify which curve should be used when an off-canvas drawer slides into view (decelerate).",
+        "check": {
+          "question": "Which easing curve should be used when an element enters the visible screen from outside?",
+          "options": [
+            "Decelerate curve (cubic-bezier(0, 0, 0.2, 1))",
+            "Accelerate curve (cubic-bezier(0.4, 0, 1, 1))",
+            "Linear curve"
+          ],
+          "answer": 0,
+          "why": "Incoming elements should enter at speed and decelerate into their final resting place."
+        }
+      },
+      {
+        "title": "Hardware-Accelerated Transitions: transform & opacity vs Layout Thrashing",
+        "say": [
+          "Not all CSS properties are created equal when it comes to animation performance.",
+          "The browser rendering pipeline consists of three distinct phases: Layout (Reflow), Paint (Repaint), and Composite.",
+          "When you animate properties like 'width', 'height', 'top', or 'margin', the browser must recalculate geometry for the entire page (Reflow) on every single frame.",
+          "Reflow drops frame rates from 60fps down to a stuttering 15fps, draining device batteries and causing noticeable visual jank.",
+          "Conversely, animating 'transform' (e.g. 'translate3d()', 'scale()', 'rotate()') and 'opacity' bypasses both Layout and Paint entirely.",
+          "The browser promotes the element to its own GPU compositor layer.",
+          "The GPU manipulates texture transforms directly in hardware at silky smooth 60fps or 120fps with zero layout recalculation.",
+          "Rule of thumb in design systems: animate exclusively 'transform' and 'opacity'. Never animate geometrical layout properties.",
+          "Let us audit transition properties for GPU hardware acceleration."
+        ],
+        "example": "Moving furniture: repainting your living room walls and knocking down studs (Reflow) versus simply turning up the dimmer switch or rotating the coffee table on its wheels (GPU Composite).",
+        "code": "type RenderCost = 'Composite-Only (60fps GPU)' | 'Paint + Composite' | 'Layout Reflow (Jank!)';\n\ninterface PropertyAudit {\n  property: string;\n  pipelineCost: RenderCost;\n  hardwareAccelerated: boolean;\n}\n\nconst PROPERTY_DATABASE: Record<string, RenderCost> = {\n  transform: 'Composite-Only (60fps GPU)',\n  opacity: 'Composite-Only (60fps GPU)',\n  color: 'Paint + Composite',\n  'background-color': 'Paint + Composite',\n  width: 'Layout Reflow (Jank!)',\n  height: 'Layout Reflow (Jank!)',\n  top: 'Layout Reflow (Jank!)',\n  'margin-left': 'Layout Reflow (Jank!)',\n};\n\nfunction auditAnimationProperty(prop: string): PropertyAudit {\n  const cost = PROPERTY_DATABASE[prop] || 'Layout Reflow (Jank!)';\n  return {\n    property: prop,\n    pipelineCost: cost,\n    hardwareAccelerated: cost === 'Composite-Only (60fps GPU)',\n  };\n}\n\nconst testProps = ['transform', 'opacity', 'width', 'background-color', 'top'];\nconsole.log('=== CSS TRANSITION HARDWARE ACCELERATION AUDIT ===');\nfor (const p of testProps) {\n  const res = auditAnimationProperty(p);\n  console.log('Property \"' + p + '\": ' + res.pipelineCost + ' | GPU: ' + res.hardwareAccelerated);\n}",
+        "output": "=== CSS TRANSITION HARDWARE ACCELERATION AUDIT ===\nProperty \"transform\": Composite-Only (60fps GPU) | GPU: true\nProperty \"opacity\": Composite-Only (60fps GPU) | GPU: true\nProperty \"width\": Layout Reflow (Jank!) | GPU: false\nProperty \"background-color\": Paint + Composite | GPU: false\nProperty \"top\": Layout Reflow (Jank!) | GPU: false",
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Categorizes CSS properties by browser pipeline phase: Composite-only, Paint, or Layout Reflow."
+          },
+          {
+            "line": 30,
+            "note": "Proves that only transform and opacity run exclusively on the GPU compositor thread."
+          }
+        ],
+        "tryIt": "Verify that replacing 'top: 10px' with 'transform: translateY(10px)' upgrades performance from Reflow to GPU.",
+        "check": {
+          "question": "Which two CSS properties are guaranteed to run exclusively on the GPU compositor thread without triggering layout reflow?",
+          "options": [
+            "transform and opacity",
+            "width and height",
+            "top and left"
+          ],
+          "answer": 0,
+          "why": "transform and opacity are handled entirely by the GPU compositor, guaranteeing 60fps jank-free animation."
+        }
+      },
+      {
+        "title": "Transition Duration Scaling & Choreography: Staggered Delay Offsets",
+        "say": [
+          "Motion timing must be carefully scaled to the physical distance being traversed.",
+          "Small micro-interactions (checkbox tick, button press, tooltip appearance) should complete in 150ms to 200ms. Anything longer feels sluggish and unresponsive.",
+          "Medium interactions (modal popups, dropdown menus) should take 200ms to 250ms.",
+          "Large macro transitions (full-screen page transitions, off-canvas drawers traversing 400px) take 300ms to 400ms.",
+          "Animations should virtually never exceed 500ms in web applications.",
+          "Furthermore, when animating a list of multiple items into view, animating them all simultaneously creates visual sensory overload.",
+          "Instead, design systems use Staggered Choreography: applying an incremental delay offset to each item: 'delay = baseDelay + index * staggerStep'.",
+          "Staggered motion directs the user's eye naturally down the page in an orderly, cascading rhythm.",
+          "Let us calculate choreographed stagger timings."
+        ],
+        "example": "A dealer fanning out a deck of playing cards on a blackjack table: the cards fan in rapid, orderly micro-succession rather than dropping in a single clump.",
+        "code": "interface StaggerChoreographySpec {\n  itemCount: number;\n  durationMs: number;\n  staggerStepMs: number;\n  baseDelayMs: number;\n}\n\ninterface ItemTimeline {\n  index: number;\n  delayMs: number;\n  startMs: number;\n  endMs: number;\n}\n\nfunction calculateStaggerTimeline(spec: StaggerChoreographySpec): ItemTimeline[] {\n  const timeline: ItemTimeline[] = [];\n  for (let i = 0; i < spec.itemCount; i++) {\n    const delay = spec.baseDelayMs + i * spec.staggerStepMs;\n    timeline.push({\n      index: i + 1,\n      delayMs: delay,\n      startMs: delay,\n      endMs: delay + spec.durationMs,\n    });\n  }\n  return timeline;\n}\n\nconst listSpec: StaggerChoreographySpec = {\n  itemCount: 4,\n  durationMs: 200,\n  staggerStepMs: 40,\n  baseDelayMs: 0,\n};\n\nconst schedule = calculateStaggerTimeline(listSpec);\nconsole.log('=== STAGGERED MOTION CHOREOGRAPHY ===');\nconsole.log('Duration: ' + listSpec.durationMs + 'ms | Stagger Step: ' + listSpec.staggerStepMs + 'ms');\nfor (const item of schedule) {\n  console.log('  Item ' + item.index + ': Delay=' + item.delayMs + 'ms -> Animates from ' + item.startMs + 'ms to ' + item.endMs + 'ms');\n}",
+        "output": "=== STAGGERED MOTION CHOREOGRAPHY ===\nDuration: 200ms | Stagger Step: 40ms\n  Item 1: Delay=0ms -> Animates from 0ms to 200ms\n  Item 2: Delay=40ms -> Animates from 40ms to 240ms\n  Item 3: Delay=80ms -> Animates from 80ms to 280ms\n  Item 4: Delay=120ms -> Animates from 120ms to 320ms",
+        "codeNotes": [
+          {
+            "line": 15,
+            "note": "Applies incremental stagger step: delay = baseDelay + index * staggerStepMs."
+          },
+          {
+            "line": 32,
+            "note": "Creates an elegant 120ms cascade where all 4 items settle fully by 320ms."
+          }
+        ],
+        "tryIt": "Verify that for 5 items with a 50ms stagger step, the final item starts at 200ms.",
+        "check": {
+          "question": "What is the recommended duration range for subtle micro-interactions like button presses and checkbox ticks?",
+          "options": [
+            "150ms to 200ms",
+            "1000ms to 2000ms",
+            "500ms to 800ms"
+          ],
+          "answer": 0,
+          "why": "Micro-interactions must feel instantaneous and snappy, ideally completing in 150ms to 200ms."
+        }
+      },
+      {
+        "title": "Micro-Interaction & Transition Engine Synthesis: Production Motion Architecture",
+        "say": [
+          "We have mastered the 4-phase micro-interaction lifecycle, cubic-bézier Bernstein polynomials, standard easing token palettes, GPU hardware acceleration, and staggered animation choreography.",
+          "Now, let us synthesize these concepts into a production engine: the 'MotionEngine'.",
+          "This engine takes a component interaction declaration, verifies that all animated properties are GPU hardware-accelerated, selects the optimal easing curve token, computes duration scaling, and outputs ready-to-use CSS transition rules.",
+          "Engineered motion transforms enterprise interfaces from mechanical software utilities into fluid, tactile experiences.",
+          "Let us execute the synthesized Motion Engine."
+        ],
+        "example": "A motion picture special effects supervisor: coordinating lighting, camera dolly tracks, stunt rigging, and pyrotechnics so that every on-screen action flows with cinematic precision.",
+        "code": "interface MotionRequest {\n  component: string;\n  properties: string[];\n  distancePx: number;\n  type: 'micro' | 'enter' | 'exit' | 'reposition';\n}\n\ninterface MotionSpecification {\n  component: string;\n  transitionCss: string;\n  durationMs: number;\n  easingToken: string;\n  isGpuAccelerated: boolean;\n  status: 'CERTIFIED' | 'REJECTED';\n}\n\nclass MotionEngine {\n  public static compile(req: MotionRequest): MotionSpecification {\n    const gpuProps = ['transform', 'opacity'];\n    const allGpu = req.properties.every(p => gpuProps.includes(p));\n\n    let duration = 200;\n    let easing = 'cubic-bezier(0.4, 0, 0.2, 1)';\n    let token = 'motion-ease-standard';\n\n    if (req.type === 'micro') {\n      duration = 150;\n      easing = 'cubic-bezier(0.34, 1.56, 0.64, 1)';\n      token = 'motion-ease-spring';\n    } else if (req.type === 'enter') {\n      duration = 250;\n      easing = 'cubic-bezier(0, 0, 0.2, 1)';\n      token = 'motion-ease-decelerate';\n    } else if (req.type === 'exit') {\n      duration = 200;\n      easing = 'cubic-bezier(0.4, 0, 1, 1)';\n      token = 'motion-ease-accelerate';\n    }\n\n    const transitionCss = req.properties.map(p => p + ' ' + duration + 'ms ' + easing).join(', ');\n\n    return {\n      component: req.component,\n      transitionCss,\n      durationMs: duration,\n      easingToken: token,\n      isGpuAccelerated: allGpu,\n      status: allGpu ? 'CERTIFIED' : 'REJECTED',\n    };\n  }\n}\n\nconst buttonMotion = MotionEngine.compile({\n  component: 'FavoriteHeartButton',\n  properties: ['transform', 'opacity'],\n  distancePx: 4,\n  type: 'micro',\n});\n\nconst modalMotion = MotionEngine.compile({\n  component: 'ConfirmDialogModal',\n  properties: ['transform', 'opacity'],\n  distancePx: 40,\n  type: 'enter',\n});\n\nconsole.log('=== MOTION ENGINE SYNTHESIS ===');\nconsole.log('[' + buttonMotion.component + ']: ' + buttonMotion.transitionCss + ' (' + buttonMotion.status + ')');\nconsole.log('[' + modalMotion.component + ']: ' + modalMotion.transitionCss + ' (' + modalMotion.status + ')');",
+        "output": "=== MOTION ENGINE SYNTHESIS ===\n[FavoriteHeartButton]: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms cubic-bezier(0.34, 1.56, 0.64, 1) (CERTIFIED)\n[ConfirmDialogModal]: transform 250ms cubic-bezier(0, 0, 0.2, 1), opacity 250ms cubic-bezier(0, 0, 0.2, 1) (CERTIFIED)",
+        "codeNotes": [
+          {
+            "line": 20,
+            "note": "Synthesizes duration, easing curve, and GPU verification into production CSS transition declarations."
+          },
+          {
+            "line": 49,
+            "note": "Generates spring easing for heart micro-interaction and decelerate easing for modal entry."
+          }
+        ],
+        "tryIt": "Add a property like 'width' to properties and verify that the motion engine marks status as REJECTED.",
+        "check": {
+          "question": "Why does the Motion Engine reject transitions that attempt to animate properties other than transform and opacity?",
+          "options": [
+            "Because non-GPU properties trigger expensive layout reflows, causing stuttering and frame drops below 60fps",
+            "Because other properties are deleted by JavaScript",
+            "To restrict developer creativity"
+          ],
+          "answer": 0,
+          "why": "Enforcing GPU-only properties guarantees that animations run on the compositor thread without layout thrashing."
+        }
+      }
+    ],
+    "summary": [
+      "Micro-interactions follow the 4-phase model: Trigger, Rules, Feedback, and Loops/Modes.",
+      "Cubic-Bézier curves parameterize timing velocity; setting y > 1.0 creates natural physical spring overshoot.",
+      "Always animate GPU-accelerated 'transform' and 'opacity' to achieve 60fps and prevent layout thrashing.",
+      "Scale durations from 150ms (micro) to 300ms (macro) and use staggered choreography for multi-item reveals."
+    ],
+    "projectStep": {
+      "title": "Implement Motion & Micro-Interaction System",
+      "steps": [
+        "Create motion design tokens for standard, decelerate, accelerate, and spring easing curves",
+        "Author animated Button component featuring spring-scale micro-interaction on active state",
+        "Implement StaggeredList container with incremental delay offsets for fluid list item reveals"
+      ]
+    }
   }
 ];
