@@ -22,7 +22,7 @@
   "ai-assign-day-28": "function scoreUserFeedback(up, down) { return `${((up / (up + down)) * 100).toFixed(1)}%`; }",
   "ai-assign-day-29": "function buildMatchCypher(e1, r, e2) { return `MATCH (a {id: '${e1}'})-[:${r}]->(b {id: '${e2}'}) RETURN b`; }",
   "ai-assign-day-3": "function sanitizeUserInput(input) {\n  return input.replace(/<\\/?[a-zA-Z_]+>/g, '');\n}",
-  "ai-assign-day-30": "function auditAiCapstoneStatus() { return { certified: true, score: '100/100', tier: 'ENTERPRISE_AI_ENGINEERING_CERTIFIED' }; }",
+  "ai-assign-day-30": "function auditAiCapstoneStatus(completed, total = 5) {\n  const ok = completed === total;\n  return {\n    certified: ok,\n    score: `${completed}/${total}`,\n    tier: ok ? 'ENTERPRISE_AI_ENGINEER_CERTIFIED' : 'INCOMPLETE_CURRICULUM'\n  };\n}",
   "ai-assign-day-4": "function majorityVote(samples) {\n  const counts = {};\n  samples.forEach(s => counts[s] = (counts[s] || 0) + 1);\n  return Object.entries(counts).reduce((a, b) => b[1] > a[1] ? b : a)[0];\n}",
   "ai-assign-day-5": "function validateType(v, type) {\n  if (type === 'array') return Array.isArray(v);\n  return typeof v === type;\n}",
   "ai-assign-day-6": "function isValidToolDeclaration(t) { return Boolean(t.name && t.description && t.parameters); }",

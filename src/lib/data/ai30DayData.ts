@@ -597,10 +597,10 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Check guardrail -> check cache -> retrieve RAG -> execute agent -> set cache.",
     "eTest": "const services = {\n  guardrail: { isThreat: (q) => q.includes('DAN') },\n  cache: { get: async () => ({ hit: false }), set: async () => true },\n  rag: { retrieve: async () => ({ sources: ['aws_docs', 'k8s_docs'] }) },\n  agent: { execute: async (q, ctx) => `Verified AI response for ${q}` }\n};\nawait runEnterpriseAiPlatform('How to deploy k8s?', services).then(res => {\n  if (!res.success || res.source !== 'AGENTIC_RAG_SYNTHESIS' || res.contextSources.length !== 2) throw new Error('Enterprise AI capstone failed');\n});",
     "aTitle": "Capstone AI Engineering Certification Auditor",
-    "aDesc": "Implement function auditAiCapstoneStatus() returning certification grade. The result must have the field: `certified`.",
-    "aStarter": "function auditAiCapstoneStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return certification object.",
-    "aTest": "if (auditAiCapstoneStatus().certified !== true) throw new Error('Capstone audit failed');"
+    "aDesc": "Implement function auditAiCapstoneStatus(completedModules, totalModules = 5) returning `{ certified: completedModules === totalModules, score: \`${completedModules}/${totalModules}\`, tier: completedModules === totalModules ? 'ENTERPRISE_AI_ENGINEER_CERTIFIED' : 'INCOMPLETE_CURRICULUM' }`.",
+    "aStarter": "function auditAiCapstoneStatus(completed, total = 5) {\n  // TODO: write your code here\n}",
+    "aHint": "Check if completed === total and return enterprise certification object.",
+    "aTest": "const pass = auditAiCapstoneStatus(5, 5);\nif (!pass || !pass.certified || pass.tier !== 'ENTERPRISE_AI_ENGINEER_CERTIFIED' || pass.score !== '5/5') throw new Error('Pass audit failed');\nconst fail = auditAiCapstoneStatus(3, 5);\nif (!fail || fail.certified || fail.tier !== 'INCOMPLETE_CURRICULUM' || fail.score !== '3/5') throw new Error('Fail audit failed');"
   }
 ];
 

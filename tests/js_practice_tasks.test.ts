@@ -354,19 +354,9 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'quant-systems-assign-day-26', 'quant-systems-exam-day-28', 'quant-systems-assign-day-28', 'quant-systems-assign-day-29',
   // course-dsa-optim: 0 tasks (all 60 tasks non-constant and verified)
   // course-design-systems: 0 tasks (all 60 tasks non-constant and verified)
-  // course-ai-eng (19 tasks)
-  'ai-exam-day-16', 'ai-assign-day-16', 'ai-assign-day-18', 'ai-exam-day-19',
-  'ai-assign-day-19', 'ai-exam-day-20', 'ai-assign-day-20', 'ai-exam-day-22',
-  'ai-assign-day-22', 'ai-exam-day-23', 'ai-assign-day-23', 'ai-exam-day-25',
-  'ai-exam-day-26', 'ai-assign-day-26', 'ai-exam-day-28', 'ai-assign-day-28',
-  'ai-exam-day-29', 'ai-assign-day-29', 'ai-assign-day-30',
+  // course-ai-eng: 0 tasks (all 60 tasks non-constant and verified)
   // course-distributed-sys: 0 tasks (all 60 tasks non-constant and verified)
   // course-cybersecurity: 0 tasks (all 60 tasks non-constant and verified)
-  'cyber-assign-day-16', 'cyber-assign-day-17', 'cyber-assign-day-18',
-  'cyber-exam-day-19', 'cyber-assign-day-19', 'cyber-assign-day-20', 'cyber-exam-day-21',
-  'cyber-assign-day-21', 'cyber-assign-day-22', 'cyber-assign-day-23', 'cyber-exam-day-24',
-  'cyber-assign-day-24', 'cyber-assign-day-25', 'cyber-assign-day-26', 'cyber-assign-day-27',
-  'cyber-assign-day-28', 'cyber-assign-day-29', 'cyber-assign-day-30',
   // course-nlp (48 tasks)
   'nlp-exam-day-1', 'nlp-assign-day-1', 'nlp-assign-day-2', 'nlp-assign-day-3',
   'nlp-exam-day-4', 'nlp-assign-day-4', 'nlp-exam-day-5', 'nlp-assign-day-5',
