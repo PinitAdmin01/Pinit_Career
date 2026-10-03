@@ -1286,5 +1286,1281 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "Write unit tests verifying that malformed outputs are automatically corrected within 1 retry attempt."
     ]
   }
+},
+{
+  "day": 6,
+  "title": "Function Calling & Tool Declaration Protocols",
+  "goal": "Master LLM function calling protocols: tool definitions, JSON Schema parameters, model decision to call tools, and executing local tool handlers.",
+  "minutes": 25,
+  "recap": "Yesterday we built a production structured JSON output validator with Zod schema contracts and self-healing retry loops. Today we empower models to invoke external tools and APIs.",
+  "summary": [
+    "Function calling transforms passive text-generating LLMs into proactive reasoning engines capable of interacting with external databases, APIs, and systems.",
+    "Tool declarations follow formal JSON Schema specifications that declare the tool name, operational description, and strongly typed parameter definitions.",
+    "The model outputs structured tool call requests containing unique call identifiers, function names, and JSON-encoded argument strings.",
+    "Client applications parse tool calls, execute corresponding TypeScript backend handlers, and format results into standard tool role conversation messages.",
+    "Parallel tool calling enables modern models to invoke multiple independent functions simultaneously in a single generation step, drastically cutting latency."
+  ],
+  "projectStep": {
+    "title": "Implement Parallel Tool Calling Dispatcher",
+    "steps": [
+      "Define JSON Schema declarations for enterprise weather and equity pricing tools.",
+      "Implement a type-safe tool execution dispatcher that routes function names to asynchronous handlers.",
+      "Build a multi-turn conversation manager that appends assistant tool calls and user tool results into message history."
+    ]
+  },
+  "parts": [
+    {
+      "title": "Tool Declaration Schemas: Teaching LLMs About External Functions",
+      "say": [
+        "In modern AI engineering, function calling is the standard mechanism that bridges language models with existing enterprise software systems.",
+        "Instead of asking an LLM to hallucinate database records or current weather conditions, we provide the model with a catalog of external tools it can invoke.",
+        "A tool declaration is a standardized JSON Schema object that describes the tool's signature, operational intent, and parameter constraints.",
+        "The declaration must include four fundamental fields: the type identifier ('function'), the unique function name, a clear natural language description, and a parameters schema.",
+        "The natural language description is not mere documentation; it is directly evaluated by the model's semantic attention heads to decide when the tool is relevant.",
+        "The parameters schema defines every input property, its expected primitive data type (string, number, boolean, array), and descriptions of each parameter.",
+        "Crucially, the declaration includes a 'required' array that specifies which arguments are mandatory before the tool can be safely executed.",
+        "By enforcing strict typing in the tool declaration, we prevent downstream runtime errors when our backend processes the model's requested arguments.",
+        "Today we master the complete protocol lifecycle: declaring tools, parsing model requests, executing TypeScript handlers, and returning results."
+      ],
+      "example": "Declaring tools for an LLM is like giving a newly hired junior engineer an internal API swagger documentation page: the clearer the parameter descriptions and endpoint purposes, the fewer erroneous requests they will generate.",
+      "code": "interface ToolDeclaration {\n  type: 'function';\n  function: {\n    name: string;\n    description: string;\n    parameters: {\n      type: 'object';\n      properties: Record<string, { type: string; description: string; enum?: string[] }>;\n      required: string[];\n    };\n  };\n}\n\nconst getStockQuoteTool: ToolDeclaration = {\n  type: 'function',\n  function: {\n    name: 'getStockQuote',\n    description: 'Retrieves real-time equity pricing and trading volume for a given ticker symbol.',\n    parameters: {\n      type: 'object',\n      properties: {\n        ticker: {\n          type: 'string',\n          description: 'The stock exchange ticker symbol (e.g. AAPL, GOOG, MSFT).'\n        },\n        currency: {\n          type: 'string',\n          description: 'Reporting currency for price quote.',\n          enum: ['USD', 'EUR', 'GBP']\n        }\n      },\n      required: ['ticker']\n    }\n  }\n};\n\nconsole.log('Tool Name:', getStockQuoteTool.function.name);\nconsole.log('Required Parameters:', JSON.stringify(getStockQuoteTool.function.parameters.required));\nconsole.log('Allowed Currencies:', JSON.stringify(getStockQuoteTool.function.parameters.properties.currency.enum));",
+      "output": "Tool Name: getStockQuote\nRequired Parameters: [\"ticker\"]\nAllowed Currencies: [\"USD\",\"EUR\",\"GBP\"]",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Defines getStockQuote tool adhering strictly to OpenAI / Anthropic function declaration conventions."
+        },
+        {
+          "line": 26,
+          "note": "Enforces mandatory ticker parameter while leaving currency optional."
+        }
+      ],
+      "tryIt": "Add a 'metrics' property of type array with enum values ['peRatio', 'dividendYield', 'marketCap'] to the parameters.",
+      "check": {
+        "question": "Why is the natural language 'description' field critical in a tool declaration?",
+        "options": [
+          "It is ignored by the LLM and only displayed in IDE debug logs",
+          "The LLM attends to the description to semantically decide whether calling the tool satisfies the user's intent",
+          "It compiles into a TypeScript runtime type check"
+        ],
+        "answer": 1,
+        "why": "The LLM reads tool descriptions during token generation to determine whether invoking that specific tool helps fulfill the user's prompt."
+      }
+    },
+    {
+      "title": "Model Decision Making: Emitting Structured Tool Calls",
+      "say": [
+        "When an LLM receives a prompt alongside a list of available tools, it evaluates whether external computation or data retrieval is necessary.",
+        "If the user asks 'What is the capital of France?', the model answers directly from its internal pre-trained weights without invoking any tools.",
+        "However, if the user asks 'What is Apple's current share price?', the model recognizes its training cutoff and issues a tool call request.",
+        "When the model decides to call a tool, its completion payload contains a dedicated `tool_calls` array rather than conversational text.",
+        "Each entry in `tool_calls` includes a unique `id` string (e.g. 'call_9a8bc'), the tool type ('function'), and a function payload.",
+        "The function payload specifies the exact `name` of the tool to invoke and a stringified JSON `arguments` object.",
+        "Crucially, the model does NOT execute the function itself; language models are sandboxed inference models that only output tokens.",
+        "The client application is responsible for intercepting the `tool_calls` array, verifying argument schema validity, and dispatching execution to local code.",
+        "Understanding this separation of responsibility is the foundation of agentic software architecture."
+      ],
+      "example": "The LLM acts like an executive issuing an official purchase order with specific part numbers and quantities; your backend application is the fulfillment warehouse that physically packs and ships the order.",
+      "code": "interface ToolCallPayload {\n  id: string;\n  type: 'function';\n  function: {\n    name: string;\n    arguments: string; // Model returns arguments as a JSON string\n  };\n}\n\ninterface AssistantMessage {\n  role: 'assistant';\n  content: string | null;\n  tool_calls?: ToolCallPayload[];\n}\n\nconst mockModelResponse: AssistantMessage = {\n  role: 'assistant',\n  content: null,\n  tool_calls: [\n    {\n      id: 'call_ord_9021',\n      type: 'function',\n      function: {\n        name: 'getStockQuote',\n        arguments: JSON.stringify({ ticker: 'NVDA', currency: 'USD' })\n      }\n    }\n  ]\n};\n\nfunction hasToolInvocations(msg: AssistantMessage): boolean {\n  return Array.isArray(msg.tool_calls) && msg.tool_calls.length > 0;\n}\n\nconsole.log('Has Tool Invocations:', hasToolInvocations(mockModelResponse));\nif (mockModelResponse.tool_calls) {\n  const call = mockModelResponse.tool_calls[0];\n  const parsedArgs = JSON.parse(call.function.arguments);\n  console.log('Requested Function:', call.function.name);\n  console.log('Target Ticker:', parsedArgs.ticker);\n  console.log('Target Currency:', parsedArgs.currency);\n}",
+      "output": "Has Tool Invocations: true\nRequested Function: getStockQuote\nTarget Ticker: NVDA\nTarget Currency: USD",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Simulates LLM response where conversational content is null and tool_calls is populated."
+        },
+        {
+          "line": 35,
+          "note": "Deserializes stringified JSON arguments generated by the model into a typed object."
+        }
+      ],
+      "tryIt": "Modify mockModelResponse to simulate a standard text reply with no tool_calls and verify hasToolInvocations returns false.",
+      "check": {
+        "question": "Does an LLM directly run external code or access your private SQL database when function calling is enabled?",
+        "options": [
+          "Yes, modern LLMs execute native node child processes inside cloud inference datacenters",
+          "No, the model only emits structured JSON requesting the call; the hosting application executes the local code",
+          "Yes, if the tool has additionalProperties set to true"
+        ],
+        "answer": 1,
+        "why": "LLMs are strictly predictive text generators; they emit structured JSON specifying which function to invoke, and the host application handles local execution."
+      }
+    },
+    {
+      "title": "The Execution Dispatcher: Safely Routing and Invoking Handlers",
+      "say": [
+        "Once a client application detects a tool call request from an LLM, it must securely route that request to an executable TypeScript function.",
+        "We implement this pattern using a Tool Dispatcher: a registry mapping function name strings to executable handler implementations.",
+        "Before executing any handler, the dispatcher must validate that the requested function name exists in the registered tool catalog.",
+        "If a model hallucinates an invalid function name that does not exist, the dispatcher must catch the error gracefully rather than crashing.",
+        "Furthermore, the dispatcher must safely parse the JSON arguments string using try-catch blocks to guard against corrupted JSON tokens.",
+        "Each handler executes domain logic such as querying a Postgres database, calling a third-party REST endpoint, or computing financial metrics.",
+        "The handler returns a structured JavaScript result object representing the raw output of the external operation.",
+        "The dispatcher stringifies this output into JSON so it can be formatted into an upstream conversation message for the LLM.",
+        "This architectural layer isolates your core business systems from untrusted model outputs."
+      ],
+      "example": "A tool dispatcher is like a 911 emergency telephone switchboard: when an emergency call comes in, the operator verifies the request type and dispatches police, paramedics, or fire rescue according to precise protocol.",
+      "code": "type ToolHandler = (args: Record<string, any>) => any;\n\nclass ToolDispatcher {\n  private handlers = new Map<string, ToolHandler>();\n\n  register(name: string, handler: ToolHandler): void {\n    this.handlers.set(name, handler);\n  }\n\n  execute(name: string, rawArgs: string): { success: boolean; result: any; error?: string } {\n    const handler = this.handlers.get(name);\n    if (!handler) {\n      return { success: false, result: null, error: `Tool '${name}' is not registered in system catalog.` };\n    }\n\n    try {\n      const parsedArgs = JSON.parse(rawArgs);\n      const output = handler(parsedArgs);\n      return { success: true, result: output };\n    } catch (err: any) {\n      return { success: false, result: null, error: `Execution error: ${err.message}` };\n    }\n  }\n}\n\nconst dispatcher = new ToolDispatcher();\ndispatcher.register('getStockQuote', (args) => {\n  return { ticker: args.ticker, priceUsd: 124.50, timestamp: '2026-10-03T10:00:00Z', status: 'MARKET_OPEN' };\n});\n\nconst goodCall = dispatcher.execute('getStockQuote', JSON.stringify({ ticker: 'NVDA' }));\nconsole.log('Execution Success:', goodCall.success);\nconsole.log('Stock Price:', goodCall.result.priceUsd);\n\nconst badCall = dispatcher.execute('unknownTool', '{}');\nconsole.log('Unknown Tool Caught:', !badCall.success);\nconsole.log('Error Message:', badCall.error);",
+      "output": "Execution Success: true\nStock Price: 124.5\nUnknown Tool Caught: true\nError Message: Tool 'unknownTool' is not registered in system catalog.",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Maintains an internal lookup map of executable TypeScript tool handlers."
+        },
+        {
+          "line": 15,
+          "note": "Defensively wraps argument parsing and handler invocation in try-catch error boundary."
+        }
+      ],
+      "tryIt": "Register a second tool called 'calculateCompoundInterest' taking principal, rate, and years as parameters.",
+      "check": {
+        "question": "What should an application do if an LLM emits a tool call with invalid JSON in the arguments string?",
+        "options": [
+          "Crash the server immediately to alert administrators",
+          "Catch the parse exception and return a tool error message back to the LLM so it can correct itself",
+          "Guess what the parameters were and execute with random numbers"
+        ],
+        "answer": 1,
+        "why": "Catching JSON syntax errors and returning an informative error message allows the LLM to inspect its mistake and re-generate a valid call."
+      }
+    },
+    {
+      "title": "Closing the Multi-Turn Loop: Returning Tool Results to the LLM",
+      "say": [
+        "Executing the local tool handler only completes the halfway mark of the function calling protocol.",
+        "The language model is still waiting for the tool's execution result so it can compose a final, coherent natural language response for the user.",
+        "To return the result to the LLM, we append a new message to the conversation history with `role: 'tool'`.",
+        "Crucially, the tool message must include the exact `tool_call_id` that was received in the assistant's previous invocation.",
+        "This ID allows the model's self-attention layers to correlate the tool output directly with the specific question it previously formulated.",
+        "The content of the tool message must be a serialized string, typically formatted as stringified JSON.",
+        "Once the tool message is appended, the application submits the full updated conversation history back to the LLM in a second API call.",
+        "The model ingests its original tool call along with your tool's returned output, synthesizes the facts, and outputs a helpful answer.",
+        "This complete two-step exchange represents the fundamental lifecycle of tool-augmented generation."
+      ],
+      "example": "Returning a tool result is like handing lab test results back to a diagnosing physician: the doctor ordered the blood panel, and once you deliver the typed report, they can explain the diagnosis to the patient.",
+      "code": "interface Message {\n  role: 'system' | 'user' | 'assistant' | 'tool';\n  content: string | null;\n  tool_calls?: any[];\n  tool_call_id?: string;\n}\n\nconst history: Message[] = [\n  { role: 'user', content: 'What is the current price of NVDA?' },\n  {\n    role: 'assistant',\n    content: null,\n    tool_calls: [\n      { id: 'call_abc_123', type: 'function', function: { name: 'getStockQuote', arguments: '{\"ticker\":\"NVDA\"}' } }\n    ]\n  }\n];\n\n// App executes handler and gets result\nconst executionResult = { ticker: 'NVDA', priceUsd: 124.50, currency: 'USD' };\n\n// Append tool message with matching tool_call_id\nhistory.push({\n  role: 'tool',\n  tool_call_id: 'call_abc_123',\n  content: JSON.stringify(executionResult)\n});\n\nconsole.log('Total Message Turns:', history.length);\nconsole.log('Last Message Role:', history[2].role);\nconsole.log('Linked Tool Call ID:', history[2].tool_call_id);\nconsole.log('Serialized Tool Output:', history[2].content);",
+      "output": "Total Message Turns: 3\nLast Message Role: tool\nLinked Tool Call ID: call_abc_123\nSerialized Tool Output: {\"ticker\":\"NVDA\",\"priceUsd\":124.5,\"currency\":\"USD\"}",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Simulates tool execution output produced by local backend code."
+        },
+        {
+          "line": 25,
+          "note": "Appends message with role: 'tool' and exact tool_call_id matching the assistant call."
+        }
+      ],
+      "tryIt": "Verify that if tool_call_id is missing or mismatched, an API provider rejects the conversation as invalid history.",
+      "check": {
+        "question": "Why must a tool response message include the exact 'tool_call_id' from the previous assistant message?",
+        "options": [
+          "To allow billing systems to calculate serverless compute costs",
+          "To map the tool execution output back to the specific function invocation in the model's multi-turn attention graph",
+          "It is optional and can be omitted in production"
+        ],
+        "answer": 1,
+        "why": "The tool_call_id allows the model to match which output belongs to which function invocation, especially when multiple parallel tools were triggered."
+      }
+    },
+    {
+      "title": "Parallel Tool Calling: Concurrency and Multi-Function Invocations",
+      "say": [
+        "In enterprise workflows, user requests frequently require data from multiple independent services simultaneously.",
+        "For instance, if a user asks 'Compare the weather in Tokyo and London and check flight availability between them', three calls are needed.",
+        "In older LLM architectures, models were forced to call tools serially: prompt $\\to$ tool 1 $\\to$ response $\\to$ tool 2 $\\to$ response.",
+        "This serial loop caused unacceptable latency, multiplying response times by the number of external API queries.",
+        "Modern frontier models feature Parallel Tool Calling: the model emits an array of multiple distinct `tool_calls` in a single generation step.",
+        "The client application receives the entire batch and executes all handlers concurrently using synchronous dispatch or asynchronous pooling.",
+        "Executing tools in parallel drastically reduces wall-clock latency to the duration of the slowest single API request.",
+        "Once all tools resolve, the application creates a separate `tool` role message for each completed call and appends them in order.",
+        "Mastering parallel tool orchestration is essential for building responsive real-time AI agents."
+      ],
+      "example": "Parallel tool calling is like an executive chef handing order tickets to three line cooks simultaneously: the grill cook, salad chef, and pastry baker all prepare their dishes at the same time instead of waiting in line.",
+      "code": "interface ToolRequest {\n  id: string;\n  name: string;\n  args: Record<string, any>;\n}\n\nfunction fetchWeather(city: string): string {\n  return city === 'Tokyo' ? 'Sunny, 22C' : 'Rainy, 14C';\n}\n\nfunction fetchFlightPrice(from: string, to: string): number {\n  return 850;\n}\n\nfunction executeParallelTools(calls: ToolRequest[]) {\n  return calls.map((c) => {\n    let result: any;\n    if (c.name === 'getWeather') {\n      result = fetchWeather(c.args.city);\n    } else if (c.name === 'getFlightPrice') {\n      result = fetchFlightPrice(c.args.from, c.args.to);\n    }\n    return {\n      role: 'tool' as const,\n      tool_call_id: c.id,\n      content: JSON.stringify(result)\n    };\n  });\n}\n\nconst batchCalls: ToolRequest[] = [\n  { id: 'call_w_1', name: 'getWeather', args: { city: 'Tokyo' } },\n  { id: 'call_w_2', name: 'getWeather', args: { city: 'London' } },\n  { id: 'call_f_1', name: 'getFlightPrice', args: { from: 'Tokyo', to: 'London' } }\n];\n\nconst toolResponses = executeParallelTools(batchCalls);\nconsole.log('Total Parallel Responses:', toolResponses.length);\nconsole.log('Call 1 Output:', toolResponses[0].content);\nconsole.log('Call 2 Output:', toolResponses[1].content);\nconsole.log('Call 3 Output:', toolResponses[2].content);",
+      "output": "Total Parallel Responses: 3\nCall 1 Output: \"Sunny, 22C\"\nCall 2 Output: \"Rainy, 14C\"\nCall 3 Output: 850",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Maps each tool request to its matching local handler."
+        },
+        {
+          "line": 30,
+          "note": "Generates standardized tool response messages with matching tool_call_id."
+        }
+      ],
+      "tryIt": "Add a fourth tool call to fetch hotel rates and observe that all four calls execute cleanly.",
+      "check": {
+        "question": "What is the primary latency advantage of Parallel Tool Calling over sequential tool loops?",
+        "options": [
+          "It reduces token generation costs by 50%",
+          "It collapses the total waiting time from the sum of all API latencies to the latency of the single slowest call",
+          "It eliminates the need for tool_call_id"
+        ],
+        "answer": 1,
+        "why": "By executing all external network requests concurrently with Promise.all(), the total execution time equals the maximum latency of the batch rather than the sum."
+      }
+    },
+    {
+      "title": "Hands-On Lab: Complete Autonomous Tool Execution Pipeline",
+      "say": [
+        "In this capstone lab for Day 6, we construct an enterprise-grade autonomous tool orchestration engine in pure TypeScript.",
+        "Our engine manages tool declarations, simulates the LLM's invocation decision, executes matching handlers, and formats the return payload.",
+        "We implement two core tools: an equity pricing lookup tool and an enterprise currency exchange converter.",
+        "The engine validates incoming arguments, dispatches handlers, handles execution errors cleanly, and generates the final conversation payload.",
+        "We simulate a scenario where a user asks for Apple's current share price converted into Euros.",
+        "Our engine orchestrates the parallel invocations, gathers the numeric results, and outputs a verified state summary.",
+        "We verify that every step in the protocol produces valid data structures conforming to production AI API standards.",
+        "Review each component carefully: this architecture forms the backbone of all agentic tool use in modern applications.",
+        "Let us execute the simulation and inspect the completed multi-turn transaction."
+      ],
+      "example": "This architecture is identical to the production function execution loop used by LangChain, Vercel AI SDK, and autonomous coding assistants.",
+      "code": "interface AgentTool {\n  name: string;\n  description: string;\n  execute: (args: any) => any;\n}\n\nclass AgentToolRegistry {\n  private tools = new Map<string, AgentTool>();\n\n  register(tool: AgentTool) {\n    this.tools.set(tool.name, tool);\n  }\n\n  invokeBatch(calls: Array<{ id: string; name: string; args: any }>) {\n    return calls.map((c) => {\n      const tool = this.tools.get(c.name);\n      if (!tool) {\n        return { role: 'tool', tool_call_id: c.id, content: JSON.stringify({ error: 'Tool not found' }) };\n      }\n      try {\n        const res = tool.execute(c.args);\n        return { role: 'tool', tool_call_id: c.id, content: JSON.stringify(res) };\n      } catch (e: any) {\n        return { role: 'tool', tool_call_id: c.id, content: JSON.stringify({ error: e.message }) };\n      }\n    });\n  }\n}\n\nconst registry = new AgentToolRegistry();\n\nregistry.register({\n  name: 'getSharePrice',\n  description: 'Lookup current share price in USD',\n  execute: (args: { ticker: string }) => {\n    const prices: Record<string, number> = { AAPL: 225.50, MSFT: 420.00 };\n    return { ticker: args.ticker, priceUsd: prices[args.ticker] || 100.00 };\n  }\n});\n\nregistry.register({\n  name: 'convertCurrency',\n  description: 'Convert amount between currency codes',\n  execute: (args: { amount: number; from: string; to: string }) => {\n    const rateUsdToEur = 0.92;\n    const converted = Number((args.amount * rateUsdToEur).toFixed(2));\n    return { from: args.from, to: args.to, convertedAmount: converted };\n  }\n});\n\nconst simulatedCalls = [\n  { id: 'call_share_1', name: 'getSharePrice', args: { ticker: 'AAPL' } },\n  { id: 'call_fx_1', name: 'convertCurrency', args: { amount: 225.50, from: 'USD', to: 'EUR' } }\n];\n\nconst results = registry.invokeBatch(simulatedCalls);\nconsole.log('Executed Tool Messages Count:', results.length);\nconsole.log('Share Result Content:', results[0].content);\nconsole.log('FX Result Content:', results[1].content);\n\nconst fxParsed = JSON.parse(results[1].content);\nconsole.log('Final Converted EUR Price:', fxParsed.convertedAmount);",
+      "output": "Executed Tool Messages Count: 2\nShare Result Content: {\"ticker\":\"AAPL\",\"priceUsd\":225.5}\nFX Result Content: {\"from\":\"USD\",\"to\":\"EUR\",\"convertedAmount\":207.46}\nFinal Converted EUR Price: 207.46",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Defines generic AgentToolRegistry capable of executing arbitrary tools."
+        },
+        {
+          "line": 55,
+          "note": "Executes batch of stock lookup and currency conversion in one step."
+        }
+      ],
+      "tryIt": "Add a third tool that records the transaction in an audit log and observe all three execute in parallel.",
+      "check": {
+        "question": "What is the primary benefit of wrapping tool execution inside a try-catch block in the registry?",
+        "options": [
+          "It speeds up network requests by 20%",
+          "It ensures tool failures return structured error messages back to the LLM instead of crashing the server process",
+          "It forces the LLM to switch to JSON Mode"
+        ],
+        "answer": 1,
+        "why": "Catching tool execution errors allows the system to return an error payload to the model, giving the model the opportunity to apologize or try another method."
+      }
+    }
+  ]
+},
+{
+  "day": 7,
+  "title": "Text Embeddings & Vector Cosine Similarity Mathematics",
+  "goal": "Transform unstructured text into 1536-dimensional semantic vectors; calculate Dot Product, Euclidean Distance, and Cosine Similarity.",
+  "minutes": 25,
+  "recap": "Yesterday we constructed a parallel tool calling dispatcher for external API execution. Today we dive into the linear algebra of vector embeddings and semantic similarity.",
+  "summary": [
+    "Vector embeddings map unstructured natural language into high-dimensional geometric coordinate spaces where semantic meaning translates to proximity.",
+    "Dot product calculates the unnormalized directional alignment between two vectors by summing the products of their corresponding dimensional components.",
+    "Cosine similarity divides the dot product by the product of both vector Euclidean norms, producing an scale-invariant metric strictly bounded between -1.0 and 1.0.",
+    "Cosine distance is defined as 1.0 minus cosine similarity, where smaller values indicate greater semantic similarity.",
+    "Pre-normalizing embedding vectors to unit length (L2 norm = 1.0) simplifies cosine similarity calculation to a pure dot product, optimizing search speed."
+  ],
+  "projectStep": {
+    "title": "Build In-Memory Semantic Vector Search Engine",
+    "steps": [
+      "Implement vector dot product, L2 Euclidean norm, and cosine similarity mathematical functions in TypeScript.",
+      "Create a unit vector normalization pre-processing step for raw floating-point embedding arrays.",
+      "Build a semantic search ranking engine that scores a corpus of document vectors against query vectors and returns top-K nearest matches."
+    ]
+  },
+  "parts": [
+    {
+      "title": "The Geometric Representation of Meaning: High-Dimensional Embeddings",
+      "say": [
+        "In traditional computing, computers represent text as arbitrary sequences of ASCII or Unicode character bytes.",
+        "To a relational database or lexical search engine, the words 'automobile' and 'car' share zero common characters, making them completely unrelated.",
+        "Vector embeddings solve this fundamental limitation by projecting text into a dense, continuous high-dimensional geometric coordinate space.",
+        "An embedding model (such as text-embedding-3-small or GTE-large) takes arbitrary text input and outputs a vector of floating-point numbers.",
+        "A typical embedding vector consists of 768, 1536, or 3072 floating-point dimensions.",
+        "In this semantic hyperspace, words, sentences, or paragraphs with similar meanings are positioned physically close to one another.",
+        "The concept of 'king' minus 'man' plus 'woman' produces coordinates exceptionally close to the vector for 'queen'.",
+        "Because semantic meaning is mapped to geometry, we can use vector algebra to quantify conceptual similarity with mathematical precision.",
+        "Today we master the exact mathematical formulas behind vector similarity search: dot products, norms, and cosine distances."
+      ],
+      "example": "Think of an embedding as a GPS coordinate in a 1,536-dimensional universe: just as latitude and longitude define your location on Earth, embedding dimensions pinpoint where your sentence lives in human semantic concept space.",
+      "code": "interface EmbeddedDocument {\n  id: string;\n  text: string;\n  vector: number[];\n}\n\nconst corpus: EmbeddedDocument[] = [\n  { id: 'doc_1', text: 'Electric vehicles battery charging technology', vector: [0.85, 0.12, 0.78, 0.22] },\n  { id: 'doc_2', text: 'Renewable solar energy and power grids', vector: [0.79, 0.18, 0.81, 0.15] },\n  { id: 'doc_3', text: 'Classic Italian pasta carbonara recipes', vector: [0.05, 0.92, 0.11, 0.88] }\n];\n\nconsole.log('Corpus Document Count:', corpus.length);\nconsole.log('Embedding Dimensionality:', corpus[0].vector.length);\nconsole.log('Doc 1 Vector Snapshot:', JSON.stringify(corpus[0].vector));\nconsole.log('Doc 3 Vector Snapshot:', JSON.stringify(corpus[2].vector));",
+      "output": "Corpus Document Count: 3\nEmbedding Dimensionality: 4\nDoc 1 Vector Snapshot: [0.85,0.12,0.78,0.22]\nDoc 3 Vector Snapshot: [0.05,0.92,0.11,0.88]",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Defines 4-dimensional synthetic vector embeddings capturing semantic topics."
+        },
+        {
+          "line": 15,
+          "note": "Demonstrates that energy-related docs share high values in dimensions 0 and 2, while culinary docs peak in dimensions 1 and 3."
+        }
+      ],
+      "tryIt": "Add a 4th document about 'Cooking sourdough bread' and assign it coordinates close to doc 3.",
+      "check": {
+        "question": "Why can't traditional keyword search (LIKE '%car%') match an article discussing 'automobiles'?",
+        "options": [
+          "Because SQL databases do not support strings longer than 255 characters",
+          "Keyword search relies on exact character matching rather than semantic conceptual similarity",
+          "Because embeddings are only compatible with Python"
+        ],
+        "answer": 1,
+        "why": "Lexical search only matches identical character substrings, whereas vector embeddings capture conceptual meaning regardless of the specific vocabulary used."
+      }
+    },
+    {
+      "title": "Vector Dot Product & Euclidean Norm Mathematics",
+      "say": [
+        "To calculate how closely aligned two embedding vectors are, we begin with the fundamental operation of linear algebra: the Dot Product.",
+        "The dot product of two vectors A and B of length D is calculated by multiplying each pair of corresponding components and summing the results.",
+        "Mathematically, the formula is: `dot(A, B) = sum(A[i] * B[i])` for all i from 0 to D - 1.",
+        "If two vectors point in similar directions, their positive components align, yielding a large positive dot product.",
+        "If two vectors are orthogonal (perpendicular), their dot product is zero, signifying no geometric correlation.",
+        "However, the raw dot product is sensitive to the magnitude (length) of the vectors.",
+        "The Euclidean Norm (L2 norm) measures the geometric length of a vector from the coordinate origin.",
+        "The formula for L2 norm is the square root of the sum of squared components: `norm(A) = sqrt(sum(A[i]^2))`.",
+        "Let us implement both foundational calculations in TypeScript."
+      ],
+      "example": "If two people pull on ropes in the exact same direction, their combined forward force is maximized (high dot product); if they pull at right angles, neither aids the other's progress (zero dot product).",
+      "code": "function dotProduct(a: number[], b: number[]): number {\n  if (a.length !== b.length) {\n    throw new Error('Vector dimension mismatch');\n  }\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) {\n    sum += a[i] * b[i];\n  }\n  return sum;\n}\n\nfunction euclideanNorm(vec: number[]): number {\n  let sumSquares = 0;\n  for (let i = 0; i < vec.length; i++) {\n    sumSquares += vec[i] * vec[i];\n  }\n  return Math.sqrt(sumSquares);\n}\n\nconst vecA = [3, 4]; // Classic 3-4-5 Pythagorean triangle\nconst vecB = [6, 8]; // Points in same direction with double length\nconst vecC = [-4, 3]; // Orthogonal (perpendicular) vector to vecA\n\nconsole.log('Norm of VecA:', euclideanNorm(vecA));\nconsole.log('Norm of VecB:', euclideanNorm(vecB));\nconsole.log('Dot Product (A, B):', dotProduct(vecA, vecB));\nconsole.log('Dot Product (A, C):', dotProduct(vecA, vecC));",
+      "output": "Norm of VecA: 5\nNorm of VecB: 10\nDot Product (A, B): 50\nDot Product (A, C): 0",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Computes scalar dot product across vector dimensions in O(D) time."
+        },
+        {
+          "line": 11,
+          "note": "Computes Euclidean magnitude using square root of sum of squares."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates that perpendicular vectors produce an exact dot product of 0."
+        }
+      ],
+      "tryIt": "Compute the dot product of [1, 0, 0] and [0, 1, 0] and verify it equals 0.",
+      "check": {
+        "question": "What is the dot product of two non-zero vectors that are completely perpendicular (orthogonal) to each other?",
+        "options": [
+          "1.0",
+          "0.0",
+          "-1.0"
+        ],
+        "answer": 1,
+        "why": "Perpendicular vectors have an angle of 90 degrees; since cos(90) = 0, their dot product is exactly 0.0."
+      }
+    },
+    {
+      "title": "Cosine Similarity: Directional Alignment Independent of Length",
+      "say": [
+        "In natural language processing, document length often varies wildly: a user query may be 5 words, while a knowledge base article is 500 words.",
+        "If we relied solely on raw dot products, longer documents with larger vector magnitudes would artificially dominate search rankings.",
+        "Cosine Similarity eliminates this distortion by normalizing the dot product by the product of both vectors' Euclidean lengths.",
+        "The mathematical formula is: `cosineSimilarity(A, B) = dotProduct(A, B) / (euclideanNorm(A) * euclideanNorm(B))`.",
+        "Geometrically, cosine similarity equals the cosine of the angle between the two vectors in hyperspace.",
+        "Because the cosine function is strictly bounded, the result always falls in the range of -1.0 to +1.0.",
+        "A score of +1.0 indicates identical directional orientation (perfect semantic alignment).",
+        "A score of 0.0 indicates complete orthogonality (unrelated concepts), while -1.0 represents diametrically opposite meanings.",
+        "In AI engineering, cosine similarity is the universal benchmark metric for semantic retrieval."
+      ],
+      "example": "Cosine similarity is like comparing the heading on a compass: whether you travel 1 mile north or 100 miles north, your compass heading is identical (360 degrees, cosine similarity = 1.0).",
+      "code": "function cosineSimilarity(a: number[], b: number[]): number {\n  if (a.length !== b.length) throw new Error('Dimension mismatch');\n  let dot = 0;\n  let normA = 0;\n  let normB = 0;\n  for (let i = 0; i < a.length; i++) {\n    dot += a[i] * b[i];\n    normA += a[i] * a[i];\n    normB += b[i] * b[i];\n  }\n  const denom = Math.sqrt(normA) * Math.sqrt(normB);\n  if (denom === 0) return 0;\n  return Number((dot / denom).toFixed(4));\n}\n\nconst docTech = [0.8, 0.2, 0.9];\nconst queryTech = [0.75, 0.15, 0.85]; // Very close orientation\nconst queryFood = [0.1, 0.9, 0.1];    // Orthogonal orientation\n\nconsole.log('Similarity (Tech Doc, Tech Query):', cosineSimilarity(docTech, queryTech));\nconsole.log('Similarity (Tech Doc, Food Query):', cosineSimilarity(docTech, queryFood));\nconsole.log('Similarity (Tech Doc, Identical Self):', cosineSimilarity(docTech, docTech));",
+      "output": "Similarity (Tech Doc, Tech Query): 0.9994\nSimilarity (Tech Doc, Food Query): 0.3147\nSimilarity (Tech Doc, Identical Self): 1",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Calculates cosine similarity in a single pass over array elements."
+        },
+        {
+          "line": 12,
+          "note": "Guards against division by zero for null vectors."
+        },
+        {
+          "line": 22,
+          "note": "Demonstrates that identical vectors yield an exact similarity of 1.0."
+        }
+      ],
+      "tryIt": "Pass in vector [1, 2] and opposite vector [-1, -2] and verify similarity returns -1.",
+      "check": {
+        "question": "What is the theoretical range of Cosine Similarity?",
+        "options": [
+          "0.0 to 100.0",
+          "-1.0 to +1.0",
+          "0.0 to +Infinity"
+        ],
+        "answer": 1,
+        "why": "Cosine of any geometric angle is strictly bounded between -1.0 (opposite directions) and +1.0 (identical direction)."
+      }
+    },
+    {
+      "title": "Cosine Distance vs Euclidean Distance: Choosing the Right Metric",
+      "say": [
+        "When designing retrieval pipelines, developers encounter two closely related concepts: similarity metrics and distance metrics.",
+        "A similarity metric increases as items become more alike (where 1.0 is identical and 0 is dissimilar).",
+        "Conversely, a distance metric decreases as items become more alike (where 0.0 is identical and larger numbers represent greater separation).",
+        "Cosine Distance is directly derived from cosine similarity: `cosineDistance = 1.0 - cosineSimilarity`.",
+        "When two documents share identical semantic direction, their cosine distance is exactly 0.0.",
+        "Euclidean Distance (L2 distance), on the other hand, measures the straight-line physical separation between two coordinate points.",
+        "The formula for Euclidean distance is: `L2Distance(A, B) = sqrt(sum((A[i] - B[i])^2))`.",
+        "Vector databases (such as Qdrant, Pinecone, and pgvector) allow configuring indexes with either Cosine or Euclidean distance.",
+        "Understanding how to convert between these metrics ensures seamless integration with any vector search backend."
+      ],
+      "example": "Distance is like reading an odometer: 0 miles away means you have arrived at your destination; similarity is like a percentage battery gauge: 100% means you are completely full.",
+      "code": "function cosineSimilarity(a: number[], b: number[]): number {\n  let dot = 0, normA = 0, normB = 0;\n  for (let i = 0; i < a.length; i++) {\n    dot += a[i] * b[i];\n    normA += a[i] * a[i];\n    normB += b[i] * b[i];\n  }\n  const denom = Math.sqrt(normA) * Math.sqrt(normB);\n  return denom === 0 ? 0 : Number((dot / denom).toFixed(4));\n}\n\nfunction cosineDistance(a: number[], b: number[]): number {\n  return Number((1 - cosineSimilarity(a, b)).toFixed(4));\n}\n\nfunction euclideanDistance(a: number[], b: number[]): number {\n  if (a.length !== b.length) throw new Error('Dimension mismatch');\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) {\n    const diff = a[i] - b[i];\n    sum += diff * diff;\n  }\n  return Number(Math.sqrt(sum).toFixed(4));\n}\n\nconst p1 = [1, 2, 3];\nconst p2 = [2, 4, 6]; // Parallel vector, double magnitude\nconst p3 = [1, 2, 3]; // Identical point\n\nconsole.log('Cosine Distance (p1, p2):', cosineDistance(p1, p2));\nconsole.log('Euclidean Distance (p1, p2):', euclideanDistance(p1, p2));\nconsole.log('Cosine Distance (p1, p3):', cosineDistance(p1, p3));\nconsole.log('Euclidean Distance (p1, p3):', euclideanDistance(p1, p3));",
+      "output": "Cosine Distance (p1, p2): 0\nEuclidean Distance (p1, p2): 3.7417\nCosine Distance (p1, p3): 0\nEuclidean Distance (p1, p3): 0",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Derives Cosine Distance as 1 - Cosine Similarity."
+        },
+        {
+          "line": 16,
+          "note": "Calculates L2 Euclidean distance between two coordinate endpoints."
+        },
+        {
+          "line": 31,
+          "note": "Highlights key difference: parallel vectors have 0 cosine distance but non-zero Euclidean distance."
+        }
+      ],
+      "tryIt": "Calculate Euclidean distance between [0, 0] and [3, 4] and confirm it equals 5.",
+      "check": {
+        "question": "Why do two vectors pointing in the exact same direction have a Cosine Distance of 0, but can have a non-zero Euclidean Distance?",
+        "options": [
+          "Because Cosine Distance ignores dimensional signs",
+          "Cosine Distance measures only angular divergence, whereas Euclidean Distance measures absolute coordinate length differences",
+          "Because Euclidean Distance is deprecated in vector search"
+        ],
+        "answer": 1,
+        "why": "Cosine distance evaluates only angular orientation; if one vector is twice as long as another but on the same heading, their angle is 0 (cosine distance = 0)."
+      }
+    },
+    {
+      "title": "Unit Vector Normalization: Accelerating Search with Pure Dot Products",
+      "say": [
+        "In production search engines serving millions of vector comparisons per second, computational efficiency is paramount.",
+        "Calculating square roots for Euclidean norms inside the inner loop of cosine similarity is computationally expensive.",
+        "Fortunately, we can eliminate the square root and division operations entirely using a mathematical optimization: Unit Normalization.",
+        "A unit vector (or normalized vector) is a vector whose Euclidean norm has been scaled to exactly 1.0.",
+        "To normalize any non-zero vector, we divide each of its components by its Euclidean length: `unitVec[i] = vec[i] / norm(vec)`.",
+        "When both vector A and vector B are normalized unit vectors, `norm(A) = 1` and `norm(B) = 1`.",
+        "Substituting 1 into the cosine similarity denominator yields: `dotProduct(A, B) / (1 * 1) = dotProduct(A, B)`.",
+        "Thus, for unit-normalized vectors, Cosine Similarity simplifies to a blazing fast, single hardware dot product.",
+        "Modern embedding APIs (like OpenAI text-embedding-3) return pre-normalized unit vectors by default for this exact reason."
+      ],
+      "example": "Normalizing vectors is like converting currencies to US Dollars before trading on an exchange: once all prices share the same standardized unit, comparing prices requires no continuous conversion math.",
+      "code": "function dotProduct(a: number[], b: number[]): number {\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) sum += a[i] * b[i];\n  return sum;\n}\n\nfunction cosineSimilarity(a: number[], b: number[]): number {\n  let dot = 0, normA = 0, normB = 0;\n  for (let i = 0; i < a.length; i++) {\n    dot += a[i] * b[i];\n    normA += a[i] * a[i];\n    normB += b[i] * b[i];\n  }\n  const denom = Math.sqrt(normA) * Math.sqrt(normB);\n  return denom === 0 ? 0 : Number((dot / denom).toFixed(4));\n}\n\nfunction normalizeVector(vec: number[]): number[] {\n  let sumSquares = 0;\n  for (let i = 0; i < vec.length; i++) sumSquares += vec[i] * vec[i];\n  const norm = Math.sqrt(sumSquares);\n  if (norm === 0) return vec.slice();\n  return vec.map(v => Number((v / norm).toFixed(5)));\n}\n\nconst rawA = [3, 4];\nconst rawB = [1, 2];\n\nconst unitA = normalizeVector(rawA);\nconst unitB = normalizeVector(rawB);\n\n// Check norms of unit vectors\nconst normUnitA = Math.sqrt(unitA.reduce((sum, v) => sum + v * v, 0));\nconsole.log('Unit A Norm:', Number(normUnitA.toFixed(1)));\n\n// Compare standard cosine similarity vs dot product of normalized vectors\nconst standardSim = cosineSimilarity(rawA, rawB);\nconst fastSim = Number(dotProduct(unitA, unitB).toFixed(4));\n\nconsole.log('Standard Cosine Similarity:', standardSim);\nconsole.log('Fast Dot Product on Unit Vectors:', fastSim);\nconsole.log('Results Identical:', standardSim === fastSim);",
+      "output": "Unit A Norm: 1\nStandard Cosine Similarity: 0.9839\nFast Dot Product on Unit Vectors: 0.9839\nResults Identical: true",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Scales vector components so total Euclidean magnitude equals 1.0."
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates that dot product on pre-normalized vectors produces identical cosine similarity."
+        }
+      ],
+      "tryIt": "Normalize vector [10, 0, 0] and verify it becomes [1, 0, 0].",
+      "check": {
+        "question": "Why do production vector databases prefer working with unit-normalized vectors?",
+        "options": [
+          "It compresses the vector size by 50%",
+          "It allows computing cosine similarity using a simple dot product without expensive square root and division operations in the inner loop",
+          "It converts floating point numbers to integers"
+        ],
+        "answer": 1,
+        "why": "When vector magnitudes equal 1.0, the cosine similarity formula simplifies to a pure dot product, enabling SIMD vector hardware acceleration."
+      }
+    },
+    {
+      "title": "Hands-On Lab: Complete In-Memory Semantic Search Engine",
+      "say": [
+        "In this capstone lab for Day 7, we build a complete, self-contained semantic vector search engine in TypeScript.",
+        "Our engine manages an in-memory collection of embedded knowledge documents, pre-normalizes all document vectors, and executes queries.",
+        "We implement top-K nearest neighbor ranking: scoring each document against the query vector and sorting in descending order of similarity.",
+        "We simulate a real-world customer support scenario with articles covering database backups, password resets, and network firewalls.",
+        "When a user submits a natural language query ('How do I recover lost database data?'), our engine maps the query to coordinates.",
+        "It evaluates all candidate documents using our accelerated dot product formula and returns the top ranked result with confidence score.",
+        "We verify that the database recovery article ranks first with high similarity, while irrelevant articles receive low scores.",
+        "This in-memory implementation reflects the exact mathematical foundation utilized inside enterprise vector databases.",
+        "Let us execute the search engine and inspect the ranked retrieval output."
+      ],
+      "example": "This search ranking loop is the core algorithm running inside every RAG (Retrieval-Augmented Generation) pipeline in the world today.",
+      "code": "function dotProduct(a: number[], b: number[]): number {\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) sum += a[i] * b[i];\n  return sum;\n}\n\nfunction normalizeVector(vec: number[]): number[] {\n  let sumSquares = 0;\n  for (let i = 0; i < vec.length; i++) sumSquares += vec[i] * vec[i];\n  const norm = Math.sqrt(sumSquares);\n  if (norm === 0) return vec.slice();\n  return vec.map(v => Number((v / norm).toFixed(5)));\n}\n\ninterface SearchDocument {\n  id: string;\n  title: string;\n  content: string;\n  vector: number[];\n}\n\ninterface SearchResult {\n  doc: SearchDocument;\n  similarityScore: number;\n}\n\nclass InMemoryVectorStore {\n  private docs: SearchDocument[] = [];\n\n  addDocument(doc: SearchDocument): void {\n    // Store with pre-normalized vector\n    this.docs.push({\n      ...doc,\n      vector: normalizeVector(doc.vector)\n    });\n  }\n\n  search(queryVec: number[], topK: number = 2): SearchResult[] {\n    const normalizedQuery = normalizeVector(queryVec);\n\n    const scored = this.docs.map(doc => ({\n      doc,\n      similarityScore: Number(dotProduct(doc.vector, normalizedQuery).toFixed(4))\n    }));\n\n    // Sort descending by similarity score\n    scored.sort((a, b) => b.similarityScore - a.similarityScore);\n    return scored.slice(0, topK);\n  }\n}\n\nconst store = new InMemoryVectorStore();\nstore.addDocument({\n  id: 'kb_101',\n  title: 'Database Recovery & Snapshot Backups',\n  content: 'Automated point-in-time PostgreSQL backup restoration protocols.',\n  vector: [0.92, 0.15, 0.88, 0.05]\n});\nstore.addDocument({\n  id: 'kb_102',\n  title: 'Identity & Password Reset Workflow',\n  content: 'Single sign-on password reset through corporate Okta portal.',\n  vector: [0.10, 0.95, 0.12, 0.85]\n});\nstore.addDocument({\n  id: 'kb_103',\n  title: 'VPC Network Firewall Configurations',\n  content: 'Managing security group ingress rules and subnet routing tables.',\n  vector: [0.65, 0.45, 0.70, 0.30]\n});\n\n// Query: \"Restore PostgreSQL backup snapshot\"\nconst queryVector = [0.89, 0.12, 0.85, 0.08];\nconst results = store.search(queryVector, 2);\n\nconsole.log('Top Match Title:', results[0].doc.title);\nconsole.log('Top Match Similarity:', results[0].similarityScore);\nconsole.log('Second Match Title:', results[1].doc.title);\nconsole.log('Second Match Similarity:', results[1].similarityScore);",
+      "output": "Top Match Title: Database Recovery & Snapshot Backups\nTop Match Similarity: 0.9995\nSecond Match Title: VPC Network Firewall Configurations\nSecond Match Similarity: 0.9201",
+      "codeNotes": [
+        {
+          "line": 31,
+          "note": "Pre-normalizes document vectors upon ingestion to optimize downstream query throughput."
+        },
+        {
+          "line": 40,
+          "note": "Calculates similarity using fast dot product on unit vectors and sorts descending."
+        },
+        {
+          "line": 76,
+          "note": "Retrieves top-2 ranked documents with the database recovery article scoring 0.9998."
+        }
+      ],
+      "tryIt": "Query the store with a vector representing password resets [0.08, 0.92, 0.10, 0.88] and verify kb_102 ranks first.",
+      "check": {
+        "question": "What is the computational complexity of performing an exact brute-force Nearest Neighbor search over N documents of dimension D?",
+        "options": [
+          "O(1)",
+          "O(log N)",
+          "O(N * D)"
+        ],
+        "answer": 2,
+        "why": "Brute-force KNN must compute the dot product across all D dimensions for every one of the N documents, resulting in O(N * D) complexity."
+      }
+    }
+  ]
+},
+{
+  "day": 8,
+  "title": "Vector Databases: Indexing & Approximate Nearest Neighbors (HNSW)",
+  "goal": "Scale semantic search to 100M+ vectors with Vector Databases (Chroma, Pinecone, Qdrant, pgvector) and HNSW / IVF graphs.",
+  "minutes": 25,
+  "recap": "Yesterday we implemented cosine similarity and vector dot products for semantic matching. Today we scale search to millions of vectors using HNSW graphs and metadata filtering.",
+  "summary": [
+    "Brute force exact K-Nearest Neighbors (KNN) scales linearly at O(N * D), becoming a prohibitive performance bottleneck for datasets exceeding 100,000 vectors.",
+    "Approximate Nearest Neighbors (ANN) algorithms trade negligible recall precision (e.g. 98% recall) for logarithmic O(log N) sub-millisecond query latency.",
+    "Hierarchical Navigable Small World (HNSW) constructs a multi-layer graph inspired by skip-lists, with sparse highway layers at the top and dense graphs at the base.",
+    "Inverted File Indexing (IVF) partitions high-dimensional vector space into Voronoi cells using k-means clustering, searching only candidate centroid buckets.",
+    "Production vector databases combine ANN graph traversal with relational metadata filtering using pre-filtering, post-filtering, or single-stage iterative filtering."
+  ],
+  "projectStep": {
+    "title": "Implement Filtered Vector Index with HNSW Concepts",
+    "steps": [
+      "Simulate hierarchical graph skip-layer traversal for approximate nearest neighbor search in TypeScript.",
+      "Implement single-stage metadata filtering that combines semantic similarity scoring with categorical predicates.",
+      "Benchmark retrieval speed and verify that filtered queries exclude unauthorized records without sacrificing latency."
+    ]
+  },
+  "parts": [
+    {
+      "title": "The Scale Problem: Why Brute Force KNN Collapses at 10 Million Vectors",
+      "say": [
+        "In Day 7, we built an in-memory vector search engine using brute-force K-Nearest Neighbors (KNN).",
+        "While brute-force KNN is perfectly accurate because it calculates the exact distance to every document, it has a fatal flaw: computational complexity.",
+        "Evaluating a query against N documents of dimension D requires `N * D` floating-point multiplications.",
+        "For a small knowledge base of 1,000 documents with 1536-dimension embeddings, 1.5 million calculations take under 2 milliseconds.",
+        "However, enterprise applications frequently index 10 million, 100 million, or even 1 billion chunks of corporate documentation.",
+        "At 10 million vectors, a single search query requires 15.3 billion floating-point operations, stalling CPU cores and causing multi-second latency.",
+        "Furthermore, linear scan throughput cannot scale with concurrent enterprise user traffic.",
+        "To solve this scaling bottleneck, computer scientists developed Approximate Nearest Neighbor (ANN) indexing algorithms.",
+        "ANN trades a tiny fraction of accuracy (e.g. 98% recall instead of 100%) for sub-10-millisecond queries on massive datasets."
+      ],
+      "example": "Brute force search is like reading every single book in the Library of Congress from page one to find a quote; ANN is like using the library catalog index to walk directly to the third shelf of the history annex.",
+      "code": "function benchmarkKnnCalculations(vectorCount: number, dimensions: number = 1536): { totalOps: number; opsMillions: string } {\n  const totalOps = vectorCount * dimensions;\n  return {\n    totalOps,\n    opsMillions: (totalOps / 1_000_000).toFixed(2) + ' M ops'\n  };\n}\n\nconst scale1k = benchmarkKnnCalculations(1_000);\nconst scale100k = benchmarkKnnCalculations(100_000);\nconst scale10m = benchmarkKnnCalculations(10_000_000);\n\nconsole.log('1,000 Vectors Complexity:', scale1k.opsMillions);\nconsole.log('100,000 Vectors Complexity:', scale100k.opsMillions);\nconsole.log('10,000,000 Vectors Complexity:', scale10m.opsMillions);",
+      "output": "1,000 Vectors Complexity: 1.54 M ops\n100,000 Vectors Complexity: 153.60 M ops\n10,000,000 Vectors Complexity: 15360.00 M ops",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Models total floating point operations required for linear scan brute force search."
+        },
+        {
+          "line": 12,
+          "note": "Demonstrates that 10 million vectors require over 15.3 billion operations per single search query."
+        }
+      ],
+      "tryIt": "Calculate operations required for 1 billion vectors with 3072 dimensions.",
+      "check": {
+        "question": "What is the primary trade-off made by Approximate Nearest Neighbors (ANN) algorithms compared to exact KNN?",
+        "options": [
+          "ANN requires 100x more RAM storage",
+          "ANN sacrifices a tiny fraction of recall accuracy in exchange for massive logarithmic speedups",
+          "ANN only works on text under 100 words"
+        ],
+        "answer": 1,
+        "why": "ANN achieves sub-millisecond search by finding the nearest neighbors with ~95-99% recall accuracy rather than exhaustively testing every single vector."
+      }
+    },
+    {
+      "title": "Inverted File Index (IVF): Spatial Clustering and Voronoi Cells",
+      "say": [
+        "The first major family of Approximate Nearest Neighbor algorithms is the Inverted File Index (IVF).",
+        "IVF works by clustering the high-dimensional vector space into discrete geographic regions called Voronoi cells.",
+        "During index creation, the algorithm runs k-means clustering across the entire dataset to compute C cluster centroids.",
+        "Every document vector is then assigned to its nearest centroid, creating an inverted list for each cluster bucket.",
+        "When a user submits a query vector at search time, the search engine does NOT compare the query against every document.",
+        "Instead, it first compares the query only against the C centroids to identify the closest candidate cluster buckets.",
+        "The engine then searches only the document vectors contained within those top candidate clusters (controlled by the parameter `nprobe`).",
+        "By restricting linear scan to a tiny fraction of the dataset, IVF cuts search time by 90% or more.",
+        "However, if the true nearest neighbor lies just across the boundary in an unprobed cell, IVF can miss it, highlighting the recall trade-off."
+      ],
+      "example": "IVF is like sorting postal mail by zip code: when delivering a letter to Seattle, mail carriers do not search mailboxes in Miami or Dallas; they search only the Seattle delivery trucks.",
+      "code": "function euclideanDistance(a: number[], b: number[]): number {\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) {\n    const diff = a[i] - b[i];\n    sum += diff * diff;\n  }\n  return Math.sqrt(sum);\n}\n\ninterface VectorCluster {\n  centroidId: number;\n  centroid: number[];\n  docIds: string[];\n}\n\nclass SimpleIvfIndex {\n  private clusters: VectorCluster[] = [];\n\n  constructor(centroids: Array<{ id: number; vec: number[] }>) {\n    this.clusters = centroids.map(c => ({\n      centroidId: c.id,\n      centroid: c.vec,\n      docIds: []\n    }));\n  }\n\n  insert(docId: string, vec: number[]) {\n    // Find closest centroid\n    let bestDist = Infinity;\n    let bestCluster = this.clusters[0];\n    for (const c of this.clusters) {\n      const dist = euclideanDistance(vec, c.centroid);\n      if (dist < bestDist) {\n        bestDist = dist;\n        bestCluster = c;\n      }\n    }\n    bestCluster.docIds.push(docId);\n  }\n\n  findCandidateClusters(queryVec: number[], nprobe: number = 1): number[] {\n    const scored = this.clusters.map(c => ({\n      id: c.centroidId,\n      dist: euclideanDistance(queryVec, c.centroid)\n    }));\n    scored.sort((a, b) => a.dist - b.dist);\n    return scored.slice(0, nprobe).map(s => s.id);\n  }\n}\n\nconst ivf = new SimpleIvfIndex([\n  { id: 1, vec: [0, 0] },\n  { id: 2, vec: [10, 10] }\n]);\n\nivf.insert('doc_a', [0.5, 0.2]);\nivf.insert('doc_b', [9.8, 10.1]);\n\nconst targetCluster = ivf.findCandidateClusters([0.2, 0.1], 1);\nconsole.log('Selected Candidate Cluster ID:', targetCluster[0]);",
+      "output": "Selected Candidate Cluster ID: 1",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Defines IVF index partitioning vectors into discrete centroid clusters."
+        },
+        {
+          "line": 38,
+          "note": "Identifies top candidate clusters to search (nprobe) instead of scanning the full corpus."
+        }
+      ],
+      "tryIt": "Add a third cluster at [20, 20] and insert a vector [19.5, 20.2].",
+      "check": {
+        "question": "In an IVF vector index, what is the role of the 'nprobe' parameter?",
+        "options": [
+          "It defines the number of dimensions in each vector",
+          "It specifies how many nearby centroid clusters to inspect during search, balancing speed versus recall",
+          "It encrypts the index on disk"
+        ],
+        "answer": 1,
+        "why": "A higher nprobe visits more neighboring centroid cells, improving recall accuracy at the cost of searching more candidate vectors."
+      }
+    },
+    {
+      "title": "Hierarchical Navigable Small World (HNSW): The Gold Standard",
+      "say": [
+        "While IVF is effective, the undisputed state-of-the-art algorithm for vector search is HNSW: Hierarchical Navigable Small World graphs.",
+        "HNSW powers virtually all leading vector databases today, including Pinecone, Chroma, Qdrant, Weaviate, and pgvector.",
+        "The architecture of HNSW is directly inspired by the computer science skip-list data structure, but generalized into multi-dimensional graphs.",
+        "An HNSW index consists of multiple hierarchical layers of proximity graphs.",
+        "The top layer (Layer 2) contains very few nodes with long-range 'highway' connections spanning distant regions of vector space.",
+        "Intermediate layers contain progressively more nodes with medium-range connections.",
+        "The bottom layer (Layer 0) contains every single vector in the database, densely connected to its nearest local neighbors.",
+        "Search begins at an entry point at the topmost highway layer, executing greedy routing to quickly zoom into the general neighborhood.",
+        "Once no closer neighbor can be found on that layer, the search drops down to the next layer and repeats until reaching the target at Layer 0."
+      ],
+      "example": "HNSW search is like navigating from New York to a specific house in Los Angeles: first you fly on an interstate jet (top layer), then drive on a highway (middle layer), and finally navigate local residential streets (bottom layer).",
+      "code": "interface HnswNode {\n  id: string;\n  level: number; // Highest layer this node appears in\n  connections: Map<number, string[]>; // layer -> array of neighbor IDs\n}\n\nclass HnswGraphSimulation {\n  private nodes = new Map<string, HnswNode>();\n  private entryPointId: string | null = null;\n\n  addNode(id: string, maxAssignedLevel: number) {\n    const node: HnswNode = {\n      id,\n      level: maxAssignedLevel,\n      connections: new Map()\n    };\n    for (let l = 0; l <= maxAssignedLevel; l++) {\n      node.connections.set(l, []);\n    }\n    this.nodes.set(id, node);\n    if (this.entryPointId === null || maxAssignedLevel > (this.nodes.get(this.entryPointId)?.level || 0)) {\n      this.entryPointId = id;\n    }\n  }\n\n  connect(layer: number, fromId: string, toId: string) {\n    this.nodes.get(fromId)?.connections.get(layer)?.push(toId);\n    this.nodes.get(toId)?.connections.get(layer)?.push(fromId);\n  }\n\n  getHierarchySummary() {\n    return {\n      totalNodes: this.nodes.size,\n      topLevelEntry: this.entryPointId,\n      entryNodeMaxLayer: this.nodes.get(this.entryPointId || '')?.level\n    };\n  }\n}\n\nconst hnsw = new HnswGraphSimulation();\nhnsw.addNode('doc_base_1', 0); // Only at layer 0 (local street)\nhnsw.addNode('doc_base_2', 0);\nhnsw.addNode('doc_mid_1', 1);  // Appears up to layer 1 (highway)\nhnsw.addNode('doc_top_entry', 2); // Appears at top layer 2 (interstate flight)\n\nconst summary = hnsw.getHierarchySummary();\nconsole.log('Total Graph Nodes:', summary.totalNodes);\nconsole.log('Top Layer Entry Node:', summary.topLevelEntry);\nconsole.log('Entry Node Layer:', summary.entryNodeMaxLayer);",
+      "output": "Total Graph Nodes: 4\nTop Layer Entry Node: doc_top_entry\nEntry Node Layer: 2",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Defines HNSW node structure with multi-layer skip connections."
+        },
+        {
+          "line": 20,
+          "note": "Sets top-level entry point to the node with the highest probabilistic layer assignment."
+        }
+      ],
+      "tryIt": "Verify that greedy search at layer 2 evaluates fewer nodes than scanning all nodes at layer 0.",
+      "check": {
+        "question": "What is the primary function of the topmost layers in an HNSW graph index?",
+        "options": [
+          "They store deleted vectors before garbage collection",
+          "They provide long-range 'highway' connections that allow greedy search to traverse vast distances across vector space in O(log N) steps",
+          "They compress floating point vectors to 8-bit integers"
+        ],
+        "answer": 1,
+        "why": "Top layers have sparse nodes with long-range links, enabling rapid coarse routing toward the query vector before descending to dense local graphs."
+      }
+    },
+    {
+      "title": "HNSW Greedy Search Traversal Simulation",
+      "say": [
+        "Let us examine the exact step-by-step traversal mechanics of HNSW greedy search.",
+        "The search algorithm maintains a pointer to the current best candidate node, initialized to the graph's global entry point.",
+        "Starting at the highest layer, the algorithm inspects all neighbors of the current candidate on that layer.",
+        "For each neighbor, it computes the distance to the query vector.",
+        "If a neighbor is closer to the query than the current candidate, the algorithm moves to that neighbor and repeats.",
+        "When no neighbor on the current layer is closer than the current candidate, a local minimum has been reached on that layer.",
+        "Instead of stopping, the algorithm steps down to the next lower layer, keeping the current best node as the starting point.",
+        "This descent continues down through all intermediate layers until reaching Layer 0.",
+        "At Layer 0, the algorithm conducts a more thorough beam search to collect the top-K nearest neighbors with extraordinary efficiency."
+      ],
+      "example": "Greedy search is like walking down a mountain at night using a compass: at each step, you move toward whichever path points most directly downhill until you reach the valley floor.",
+      "code": "interface SimpleNode {\n  id: string;\n  coord: number;\n  neighbors: string[];\n}\n\nfunction simulate1DGreedySearch(\n  nodes: Record<string, SimpleNode>,\n  startId: string,\n  targetCoord: number\n): { visitedPath: string[]; finalNearestNode: string } {\n  const visitedPath: string[] = [startId];\n  let current = nodes[startId];\n\n  while (true) {\n    let closerFound = false;\n    let currentDist = Math.abs(current.coord - targetCoord);\n\n    for (const nbrId of current.neighbors) {\n      const nbr = nodes[nbrId];\n      const nbrDist = Math.abs(nbr.coord - targetCoord);\n      if (nbrDist < currentDist) {\n        current = nbr;\n        currentDist = nbrDist;\n        visitedPath.push(nbr.id);\n        closerFound = true;\n        break; // Greedy step\n      }\n    }\n\n    if (!closerFound) {\n      break; // Reached local optimum\n    }\n  }\n\n  return { visitedPath, finalNearestNode: current.id };\n}\n\n// 1D line representation of nodes for clear traversal illustration\nconst graph: Record<string, SimpleNode> = {\n  n1: { id: 'n1', coord: 10, neighbors: ['n2', 'n3'] },\n  n2: { id: 'n2', coord: 25, neighbors: ['n1', 'n4'] },\n  n3: { id: 'n3', coord: 40, neighbors: ['n1', 'n4'] },\n  n4: { id: 'n4', coord: 50, neighbors: ['n2', 'n3'] }\n};\n\nconst result = simulate1DGreedySearch(graph, 'n1', 48);\nconsole.log('Traversal Path:', JSON.stringify(result.visitedPath));\nconsole.log('Final Nearest Node:', result.finalNearestNode);",
+      "output": "Traversal Path: [\"n1\",\"n2\",\"n4\"]\nFinal Nearest Node: n4",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Implements greedy routing by stepping to whichever neighbor is closest to target."
+        },
+        {
+          "line": 36,
+          "note": "Traverses from n1 -> n2 -> n4 to arrive at closest node to coordinate 48 in just 3 steps."
+        }
+      ],
+      "tryIt": "Start the search from n1 with target 38 and observe the traversal path.",
+      "check": {
+        "question": "When does greedy search transition from one layer down to the next lower layer in HNSW?",
+        "options": [
+          "After visiting exactly 10 nodes",
+          "When no neighbor on the current layer is closer to the query than the current candidate node",
+          "Only when an exact match with distance 0 is found"
+        ],
+        "answer": 1,
+        "why": "When greedy search reaches a local minimum on a layer where no neighbor is closer to the query, it descends to the next lower layer."
+      }
+    },
+    {
+      "title": "Metadata Filtering: Pre-Filtering, Post-Filtering & Single-Stage Search",
+      "say": [
+        "In enterprise software, vector similarity search rarely happens in complete isolation from business data.",
+        "Users don't just want the most relevant document; they want the most relevant document where `organizationId === 'acme'` and `isPublic === true`.",
+        "Combining vector distance with relational metadata predicates is called Filtered Vector Search.",
+        "There are three distinct architectural approaches to filtered vector search: Pre-filtering, Post-filtering, and Single-Stage filtering.",
+        "Post-filtering performs vector search first to get top-K results, and then discards results that fail the metadata predicate.",
+        "However, if the filter is selective (e.g. only 1% of documents match), post-filtering often returns 0 results, ruining recall.",
+        "Pre-filtering applies relational SQL filters first, and then runs vector search over the remaining subset.",
+        "While pre-filtering is safe, it cannot leverage the global HNSW graph index if the remaining subset breaks graph connectivity.",
+        "Modern databases use Single-Stage Iterative Filtering: during HNSW graph traversal, candidate nodes are checked against the filter on the fly."
+      ],
+      "example": "Post-filtering is like ordering the top 10 most popular cars in America and then throwing away any car that isn't red: you might end up with zero cars; single-stage filtering is asking the dealership to only show you red cars from the start.",
+      "code": "interface EnterpriseDocument {\n  id: string;\n  department: 'engineering' | 'hr' | 'finance';\n  content: string;\n  simScore: number;\n}\n\nconst docs: EnterpriseDocument[] = [\n  { id: '1', department: 'engineering', content: 'Kubernetes deploy guide', simScore: 0.95 },\n  { id: '2', department: 'hr', content: 'Holiday vacation policies', simScore: 0.88 },\n  { id: '3', department: 'engineering', content: 'Database migration protocol', simScore: 0.82 },\n  { id: '4', department: 'finance', content: 'Quarterly revenue forecasts', simScore: 0.79 }\n];\n\n// Post-filtering simulation\nfunction postFilterSearch(topK: number, dept: string): EnterpriseDocument[] {\n  // Step 1: take top-2 by similarity\n  const topMatches = docs.slice().sort((a, b) => b.simScore - a.simScore).slice(0, topK);\n  // Step 2: filter\n  return topMatches.filter(d => d.department === dept);\n}\n\n// Single-stage filtering simulation\nfunction singleStageFilterSearch(topK: number, dept: string): EnterpriseDocument[] {\n  return docs\n    .filter(d => d.department === dept)\n    .sort((a, b) => b.simScore - a.simScore)\n    .slice(0, topK);\n}\n\nconsole.log('Post-Filter Top-2 for Finance Count:', postFilterSearch(2, 'finance').length); // Fails! Returned 0\nconsole.log('Single-Stage Top-2 for Finance Count:', singleStageFilterSearch(2, 'finance').length); // Succeeds!",
+      "output": "Post-Filter Top-2 for Finance Count: 0\nSingle-Stage Top-2 for Finance Count: 1",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Demonstrates post-filtering failure: finance doc (rank 4) was truncated before filtering occurred."
+        },
+        {
+          "line": 23,
+          "note": "Single-stage filtering evaluates predicates during retrieval, guaranteeing correct top-K results."
+        }
+      ],
+      "tryIt": "Run both functions for department 'engineering' with topK=1 and verify both return the Kubernetes guide.",
+      "check": {
+        "question": "Why does naive Post-Filtering often fail in enterprise multi-tenant search?",
+        "options": [
+          "Because SQL databases do not support WHERE clauses with strings",
+          "If the user's filtered tenant documents rank outside the initial top-K vector matches, post-filtering discards everything and returns zero results",
+          "It consumes too many embedding tokens"
+        ],
+        "answer": 1,
+        "why": "If relevant filtered documents are ranked below the initial top-K threshold, post-filtering truncates them before the filter ever runs, returning empty results."
+      }
+    },
+    {
+      "title": "Hands-On Lab: Building a Production Filtered Vector Index",
+      "say": [
+        "In this capstone lab for Day 8, we build a production-grade filtered vector index in TypeScript.",
+        "Our index stores embedded documents along with rich metadata attributes including tenant ID, department, and access level.",
+        "We implement single-stage filtered search where vector similarity is calculated only over documents satisfying strict security predicates.",
+        "We simulate a multi-tenant enterprise system where documents belong to either 'Tenant_Alpha' or 'Tenant_Beta'.",
+        "Even when an unauthorized document in Tenant_Beta has an extraordinarily high vector similarity (0.99), our index guarantees tenant isolation.",
+        "Only documents matching the querying user's authorized tenant ID and department access are evaluated and returned.",
+        "We verify that the search engine returns the most relevant authorized record while completely isolating unauthorized tenant data.",
+        "This architectural pattern is mandatory for building secure enterprise AI systems that comply with SOC2 and GDPR requirements.",
+        "Let us execute the filtered index and verify tenant isolation and ranking."
+      ],
+      "example": "This filtered indexing architecture is identical to the multi-tenant namespace filtering implemented in Qdrant, Pinecone, and AWS OpenSearch.",
+      "code": "function dotProduct(a: number[], b: number[]): number {\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) sum += a[i] * b[i];\n  return sum;\n}\n\nfunction normalizeVector(vec: number[]): number[] {\n  let sumSquares = 0;\n  for (let i = 0; i < vec.length; i++) sumSquares += vec[i] * vec[i];\n  const norm = Math.sqrt(sumSquares);\n  if (norm === 0) return vec.slice();\n  return vec.map(v => Number((v / norm).toFixed(5)));\n}\n\ninterface TenantDoc {\n  id: string;\n  tenantId: string;\n  department: string;\n  title: string;\n  vector: number[];\n}\n\nclass FilteredVectorIndex {\n  private docs: TenantDoc[] = [];\n\n  insert(doc: TenantDoc): void {\n    this.docs.push({\n      ...doc,\n      vector: normalizeVector(doc.vector)\n    });\n  }\n\n  query(\n    queryVec: number[],\n    filter: { tenantId: string; department?: string },\n    topK: number = 2\n  ): Array<{ doc: TenantDoc; score: number }> {\n    const normQ = normalizeVector(queryVec);\n\n    const candidates = this.docs.filter(d => {\n      if (d.tenantId !== filter.tenantId) return false;\n      if (filter.department && d.department !== filter.department) return false;\n      return true;\n    });\n\n    const scored = candidates.map(d => ({\n      doc: d,\n      score: Number(dotProduct(d.vector, normQ).toFixed(4))\n    }));\n\n    scored.sort((a, b) => b.score - a.score);\n    return scored.slice(0, topK);\n  }\n}\n\nconst index = new FilteredVectorIndex();\n\n// Unauthorized high-match document in Tenant_Beta\nindex.insert({\n  id: 'doc_beta_secret',\n  tenantId: 'tenant_beta',\n  department: 'engineering',\n  title: 'Confidential Quantum Chip Blueprints',\n  vector: [0.99, 0.99, 0.99] // Near perfect match to query\n});\n\n// Authorized documents in Tenant_Alpha\nindex.insert({\n  id: 'doc_alpha_1',\n  tenantId: 'tenant_alpha',\n  department: 'engineering',\n  title: 'Alpha Standard Microservice Deploy Guide',\n  vector: [0.85, 0.80, 0.75]\n});\n\nindex.insert({\n  id: 'doc_alpha_2',\n  tenantId: 'tenant_alpha',\n  department: 'marketing',\n  title: 'Alpha Social Media Guidelines',\n  vector: [0.10, 0.20, 0.15]\n});\n\n// User from tenant_alpha queries with query vector [0.9, 0.9, 0.9]\nconst query = [0.9, 0.9, 0.9];\nconst results = index.query(query, { tenantId: 'tenant_alpha', department: 'engineering' }, 2);\n\nconsole.log('Result Count:', results.length);\nconsole.log('Top Match ID:', results[0].doc.id);\nconsole.log('Top Match Title:', results[0].doc.title);\nconsole.log('Top Match Tenant:', results[0].doc.tenantId);\nconsole.log('Top Match Score:', results[0].score);",
+      "output": "Result Count: 1\nTop Match ID: doc_alpha_1\nTop Match Title: Alpha Standard Microservice Deploy Guide\nTop Match Tenant: tenant_alpha\nTop Match Score: 0.9987",
+      "codeNotes": [
+        {
+          "line": 32,
+          "note": "Applies multi-tenant boundary checks before calculating vector distances."
+        },
+        {
+          "line": 55,
+          "note": "Even though doc_beta_secret had higher similarity, it is strictly excluded by tenant isolation."
+        }
+      ],
+      "tryIt": "Query with tenantId: 'tenant_beta' and verify doc_beta_secret is returned as the top result.",
+      "check": {
+        "question": "Why is strict tenantId filtering essential before returning vector search results to an enterprise user?",
+        "options": [
+          "To speed up vector calculations by using smaller numbers",
+          "To prevent cross-tenant data leakage and ensure strict multi-tenant regulatory compliance (SOC2/GDPR)",
+          "Because vector databases cannot store strings"
+        ],
+        "answer": 1,
+        "why": "Without strict tenant isolation filters, semantic vector queries could retrieve confidential data belonging to completely different corporate customers."
+      }
+    }
+  ]
+},
+{
+  "day": 9,
+  "title": "Document Chunking Strategies & Overlap Math",
+  "goal": "Partition enterprise documentation into semantically coherent chunks using Recursive Character, Markdown Header, and Semantic Splitting.",
+  "minutes": 25,
+  "recap": "Yesterday we explored Approximate Nearest Neighbors and multi-tenant vector filtering. Today we engineer document chunking pipelines with sliding window overlap.",
+  "summary": [
+    "Document chunking partitions lengthy enterprise documents into bounded text segments that fit within embedding model context limits and maximize retrieval relevance.",
+    "Oversized chunks dilute semantic relevance with extraneous context, while undersized chunks fragment coherent thoughts and lose critical context.",
+    "Sliding window overlap math preserves semantic continuity across chunk boundaries, preventing sentences and technical definitions from being severed.",
+    "Recursive Character Text Splitting uses an ordered hierarchy of natural delimiters (paragraphs, sentences, words) to preserve document structure.",
+    "Attaching rich chunk metadata (chunkId, source document, section headers, character offsets) empowers accurate citation and downstream reranking."
+  ],
+  "projectStep": {
+    "title": "Build Production Recursive Chunker with Sliding Window Overlap",
+    "steps": [
+      "Implement sliding window index arithmetic calculating exact chunk boundaries and overlap offsets.",
+      "Build a hierarchical recursive text splitter that prioritizes splitting on paragraph breaks before sentence boundaries.",
+      "Generate structured chunk objects with token estimates, section parentage, and sequential navigation metadata."
+    ]
+  },
+  "parts": [
+    {
+      "title": "The Chunking Problem: Balancing Relevance Density with Context Preservation",
+      "say": [
+        "In Retrieval-Augmented Generation (RAG), the quality of LLM generation is directly bounded by the quality of retrieved context.",
+        "If you embed an entire 50-page employee handbook as a single vector, the resulting embedding averages all 50 pages into a generic blur.",
+        "When a user asks 'What is our parental leave policy?', the 50-page embedding has weak cosine similarity to the specific query.",
+        "Conversely, if you split the document into 5-word micro-chunks, each chunk lacks the surrounding context needed for the LLM to understand the rule.",
+        "Document Chunking is the engineering discipline of segmenting documents into optimal, semantically cohesive units.",
+        "The ideal chunk size typically ranges from 256 to 512 tokens (roughly 150 to 350 English words).",
+        "This size is compact enough to ensure high semantic density for vector search, yet spacious enough to contain complete, actionable ideas.",
+        "Today we master the exact mathematical formulas and text splitting algorithms that power enterprise chunking pipelines."
+      ],
+      "example": "Chunking is like slicing a baguette for bruschetta: if you serve the whole unsliced loaf, guests can't eat it; if you crumble it into breadcrumbs, it can't hold toppings; 1-inch slices are just right.",
+      "code": "function analyzeChunkDensity(text: string, chunkSizeWords: number): { estimatedChunks: number; avgWordsPerChunk: number } {\n  const words = text.trim().split(/\\s+/);\n  const totalWords = words.length;\n  const estimatedChunks = Math.max(1, Math.ceil(totalWords / chunkSizeWords));\n  return {\n    estimatedChunks,\n    avgWordsPerChunk: Number((totalWords / estimatedChunks).toFixed(1))\n  };\n}\n\nconst sampleDocument = [\n  'Article 1: Remote Work Policy. Employees may work remotely up to 3 days per week with manager approval.',\n  'Article 2: Health Insurance. Comprehensive medical coverage begins on the first day of full-time employment.',\n  'Article 3: Equipment Reimbursement. The company provides a $1,000 home office technology stipend upon onboarding.'\n].join(' ');\n\nconst statsLarge = analyzeChunkDensity(sampleDocument, 100); // 1 single chunk\nconst statsIdeal = analyzeChunkDensity(sampleDocument, 20);  // 3 granular chunks\n\nconsole.log('Single Large Chunk Count:', statsLarge.estimatedChunks);\nconsole.log('Ideal Sized Chunks Count:', statsIdeal.estimatedChunks);\nconsole.log('Average Words Per Ideal Chunk:', statsIdeal.avgWordsPerChunk);",
+      "output": "Single Large Chunk Count: 1\nIdeal Sized Chunks Count: 3\nAverage Words Per Ideal Chunk: 16",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Models relationship between document length and chunk segmentation count."
+        },
+        {
+          "line": 17,
+          "note": "Demonstrates partitioning distinct policy articles into granular retrieval units."
+        }
+      ],
+      "tryIt": "Test with a 1,000-word text and observe chunk count when chunkSize is 150 words.",
+      "check": {
+        "question": "What is the primary danger of using excessively large chunk sizes (e.g. 2,000 tokens) in a RAG pipeline?",
+        "options": [
+          "It crashes the vector database",
+          "Semantic relevance is diluted because the vector averages across multiple unrelated topics, hurting search accuracy",
+          "It forces the model to use JSON mode"
+        ],
+        "answer": 1,
+        "why": "Averaging thousands of tokens into a single embedding dilutes specific facts, making it difficult for vector similarity to match targeted queries."
+      }
+    },
+    {
+      "title": "Sliding Window Overlap Mathematics: Preventing Boundary Amputation",
+      "say": [
+        "When partitioning text into discrete chunks, a naive approach simply chops text every N characters or words.",
+        "However, hard boundaries inevitably cut critical thoughts directly in half.",
+        "Imagine a crucial sentence: 'The system password is reset by typing sudo reboot'.",
+        "If chunk 1 ends at 'The system password is reset by' and chunk 2 begins with 'typing sudo reboot', neither chunk contains the full concept.",
+        "To solve boundary amputation, we introduce Sliding Window Chunk Overlap.",
+        "In overlapping chunking, each successive chunk begins before the previous chunk ends, sharing a defined percentage of overlap text.",
+        "Typically, engineers configure an overlap of 10% to 20% of the chunk size (e.g. 50 characters overlap for 300 character chunks).",
+        "Let us examine the exact index arithmetic: if chunk size is S and overlap is O, the step size (stride) is `S - O`.",
+        "The start index of chunk `k` is `k * (S - O)`, and the end index is `start + S`."
+      ],
+      "example": "Sliding window overlap is like shingling a roof: each row of shingles overlaps the row beneath it by 3 inches so water cannot slip through the cracks between boards.",
+      "code": "interface ChunkWindow {\n  chunkIndex: number;\n  startIndex: number;\n  endIndex: number;\n  text: string;\n}\n\nfunction slidingWindowChunks(text: string, chunkSize: number, overlap: number): ChunkWindow[] {\n  if (overlap >= chunkSize) throw new Error('Overlap must be strictly smaller than chunkSize');\n  const stride = chunkSize - overlap;\n  const chunks: ChunkWindow[] = [];\n  let start = 0;\n  let index = 0;\n\n  while (start < text.length) {\n    const end = Math.min(start + chunkSize, text.length);\n    chunks.push({\n      chunkIndex: index,\n      startIndex: start,\n      endIndex: end,\n      text: text.substring(start, end)\n    });\n    index++;\n    if (end === text.length) break;\n    start += stride;\n  }\n\n  return chunks;\n}\n\nconst text = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\"; // 26 letters\nconst windows = slidingWindowChunks(text, 10, 3); // size 10, overlap 3 -> stride 7\n\nconsole.log('Total Windows Created:', windows.length);\nconsole.log('Window 0 Text:', windows[0].text); // 0 to 10\nconsole.log('Window 1 Text:', windows[1].text); // 7 to 17 (overlaps 'HIJ')\nconsole.log('Window 2 Text:', windows[2].text); // 14 to 24\nconsole.log('Window 3 Text:', windows[3].text); // 21 to 26",
+      "output": "Total Windows Created: 4\nWindow 0 Text: ABCDEFGHIJ\nWindow 1 Text: HIJKLMNOPQ\nWindow 2 Text: OPQRSTUVWX\nWindow 3 Text: VWXYZ",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Calculates stride as chunkSize minus overlap to slide the window forward."
+        },
+        {
+          "line": 30,
+          "note": "Demonstrates that Window 1 starts at index 7, successfully sharing characters 'HIJ' with Window 0."
+        }
+      ],
+      "tryIt": "Set overlap to 0 and observe that windows become strictly non-overlapping (stride = chunkSize).",
+      "check": {
+        "question": "If chunk size is 500 characters and overlap is 100 characters, what is the stride (step size) between consecutive chunk starts?",
+        "options": [
+          "600 characters",
+          "400 characters",
+          "100 characters"
+        ],
+        "answer": 1,
+        "why": "Stride = ChunkSize - Overlap = 500 - 100 = 400 characters."
+      }
+    },
+    {
+      "title": "Recursive Character Splitting: Honoring Natural Language Hierarchy",
+      "say": [
+        "While fixed-character sliding windows prevent word amputation, splitting in the middle of a sentence or paragraph creates jarring fragments.",
+        "Human documents have an intrinsic hierarchical structure: documents contain sections, sections contain paragraphs, and paragraphs contain sentences.",
+        "Recursive Character Text Splitting is the gold standard chunking technique popularized by LangChain and LlamaIndex.",
+        "It accepts an ordered list of natural delimiters: `['\\n\\n', '\\n', '. ', ' ']`.",
+        "First, it attempts to split the text on double newlines (`\\n\\n`), keeping entire paragraphs intact if they fit within the chunk limit.",
+        "If a single paragraph is too large to fit in one chunk, it recursively steps down to the next separator: single newline (`\\n`).",
+        "If a single line is still too long, it splits on sentence boundaries (`'. '`), and finally on word spaces (`' '`).",
+        "This recursive hierarchy guarantees that document paragraphs and sentences are preserved whenever possible.",
+        "The resulting chunks read naturally and retain complete semantic ideas."
+      ],
+      "example": "Recursive splitting is like packing fragile crystal into moving boxes: you first try to pack items in their original factory gift boxes; if that's too big, you pack them in smaller cartons; only if forced do you wrap individual glasses in paper.",
+      "code": "function recursiveSplit(text: string, maxLen: number, separators: string[] = ['\\n\\n', '\\n', '. ', ' ']): string[] {\n  if (text.length <= maxLen || separators.length === 0) {\n    return [text.trim()].filter(Boolean);\n  }\n\n  const [currentSep, ...nextSeparators] = separators;\n  const parts = text.split(currentSep);\n  const result: string[] = [];\n  let currentAccumulator = '';\n\n  for (const p of parts) {\n    const candidate = currentAccumulator ? currentAccumulator + currentSep + p : p;\n    if (candidate.length <= maxLen) {\n      currentAccumulator = candidate;\n    } else {\n      if (currentAccumulator) {\n        result.push(currentAccumulator.trim());\n        currentAccumulator = '';\n      }\n      if (p.length > maxLen) {\n        // Recursively split oversized sub-fragment with next separator\n        const subChunks = recursiveSplit(p, maxLen, nextSeparators);\n        result.push(...subChunks);\n      } else {\n        currentAccumulator = p;\n      }\n    }\n  }\n\n  if (currentAccumulator) {\n    result.push(currentAccumulator.trim());\n  }\n\n  return result.filter(Boolean);\n}\n\nconst doc = \"Paragraph One is concise and informative.\\n\\nParagraph Two is also relatively short.\\n\\nParagraph Three discusses enterprise database architectures.\";\nconst chunks = recursiveSplit(doc, 70);\n\nconsole.log('Recursive Chunks Count:', chunks.length);\nconsole.log('Chunk 1:', JSON.stringify(chunks[0]));\nconsole.log('Chunk 2:', JSON.stringify(chunks[1]));\nconsole.log('Chunk 3:', JSON.stringify(chunks[2]));",
+      "output": "Recursive Chunks Count: 3\nChunk 1: \"Paragraph One is concise and informative.\"\nChunk 2: \"Paragraph Two is also relatively short.\"\nChunk 3: \"Paragraph Three discusses enterprise database architectures.\"",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Implements hierarchical recursive text splitting using natural punctuation breaks."
+        },
+        {
+          "line": 6,
+          "note": "Packs smaller paragraphs together up to maxLen before breaking on paragraph boundaries."
+        }
+      ],
+      "tryIt": "Add a paragraph with 200 characters and observe how it splits into sentences.",
+      "check": {
+        "question": "Why does recursive character text splitting prioritize '\\n\\n' over ' ' (spaces)?",
+        "options": [
+          "Because newlines take up less memory than spaces",
+          "Splitting on '\\n\\n' preserves paragraph-level semantic unity, avoiding arbitrary mid-sentence cuts",
+          "Because JSON only supports newlines"
+        ],
+        "answer": 1,
+        "why": "Paragraph breaks represent the author's intentional thematic groupings; preserving paragraphs keeps coherent thoughts intact."
+      }
+    },
+    {
+      "title": "Markdown & Code Aware Splitting: Preserving Structural Headers",
+      "say": [
+        "In software engineering and technical documentation, documents are structured in Markdown rather than raw plaintext.",
+        "Markdown documents feature section headings (`# Header 1`, `## Header 2`), tables, and code blocks.",
+        "If a naive chunker cuts a document right after `## Database Migrations`, the header is stranded in one chunk while the instructions sit in the next.",
+        "When an embedding model embeds the instructions without the header, it has no idea that the instructions relate to database migrations.",
+        "Markdown-Aware Chunking splits documents along header boundaries (`#`, `##`, `###`).",
+        "Furthermore, it prepends the parent section hierarchy to every child chunk (e.g. `[Architecture > Database > Migrations]`).",
+        "By injecting parent headers into the chunk text, the embedding vector retains crucial contextual grounding.",
+        "This simple enhancement boosts RAG retrieval accuracy by up to 35% on technical manuals and API documentation.",
+        "Let us build a header-aware markdown parser that injects breadcrumb context."
+      ],
+      "example": "Header injection is like stamping a subject line at the top of every page of a multi-page legal contract: even if pages get separated, any reader instantly knows which contract and clause each page belongs to.",
+      "code": "interface MarkdownSection {\n  header: string;\n  body: string;\n}\n\nfunction parseMarkdownHeaders(markdown: string): MarkdownSection[] {\n  const lines = markdown.split('\\n');\n  const sections: MarkdownSection[] = [];\n  let currentHeader = 'Introduction';\n  let currentBody: string[] = [];\n\n  for (const line of lines) {\n    if (line.startsWith('#')) {\n      if (currentBody.length > 0) {\n        sections.push({ header: currentHeader, body: currentBody.join('\\n').trim() });\n        currentBody = [];\n      }\n      currentHeader = line.replace(/^#+\\s*/, '').trim();\n    } else {\n      currentBody.push(line);\n    }\n  }\n\n  if (currentBody.length > 0) {\n    sections.push({ header: currentHeader, body: currentBody.join('\\n').trim() });\n  }\n\n  return sections;\n}\n\nconst md = `# System Architecture\nOverview of cloud infrastructure.\n## Storage Layer\nPostgreSQL database handles transactional ACID state.\n## Caching Layer\nRedis cluster caches session tokens.`;\n\nconst parsed = parseMarkdownHeaders(md);\nconsole.log('Sections Discovered:', parsed.length);\nconsole.log('Section 1 Header:', parsed[0].header);\nconsole.log('Section 2 Header:', parsed[1].header);\nconsole.log('Section 2 Enriched Text:', `[${parsed[1].header}] ${parsed[1].body}`);",
+      "output": "Sections Discovered: 3\nSection 1 Header: System Architecture\nSection 2 Header: Storage Layer\nSection 2 Enriched Text: [Storage Layer] PostgreSQL database handles transactional ACID state.",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Scans lines for markdown '#' heading tokens to detect logical conceptual sections."
+        },
+        {
+          "line": 36,
+          "note": "Prepends parent header as metadata breadcrumb to enrich semantic search relevance."
+        }
+      ],
+      "tryIt": "Add a '### Replication' subheader and observe how it parses as a separate section.",
+      "check": {
+        "question": "Why should a RAG chunker prepend markdown headers to chunk text before embedding?",
+        "options": [
+          "To satisfy Markdown HTML validator requirements",
+          "To provide semantic grounding so the embedding vector captures which overarching topic the chunk belongs to",
+          "To compress token length"
+        ],
+        "answer": 1,
+        "why": "Prepending headers gives isolated paragraphs the semantic context of their parent section, making them easily searchable."
+      }
+    },
+    {
+      "title": "Chunk Metadata Architecture: Citations, Parentage & Offsets",
+      "say": [
+        "In production RAG applications, returning raw text snippets to an LLM is insufficient for real-world enterprise requirements.",
+        "Users demand verifiable citations: 'Source: Security Manual, Section 4.2, Page 12'.",
+        "If a chunk is merely an anonymous string of text, your application cannot cite its source or provide deep-links to the original PDF.",
+        "A production chunk is therefore a rich, structured metadata object.",
+        "Essential metadata fields include: a unique `chunkId`, `documentId`, `sourceUrl`, `sectionTitle`, and `charOffsetStart` / `charOffsetEnd`.",
+        "Additionally, storing `prevChunkId` and `nextChunkId` enables Window Expansion: fetching neighboring chunks if the LLM needs broader context.",
+        "Recording estimated token count helps prevent exceeding LLM context windows during prompt assembly.",
+        "Let us define the canonical production Chunk metadata schema in TypeScript."
+      ],
+      "example": "Chunk metadata is like a library book's card catalog sticker: it records the title, author, call number, shelf location, and publication year, making the book instantly verifiable and findable.",
+      "code": "interface ProductionChunk {\n  chunkId: string;\n  documentId: string;\n  sourceUri: string;\n  sectionPath: string;\n  text: string;\n  tokenCountEstimate: number;\n  offsets: {\n    startChar: number;\n    endChar: number;\n  };\n  navigation: {\n    sequenceNumber: number;\n    totalChunksInDoc: number;\n  };\n}\n\nfunction createChunkMetadata(\n  docId: string,\n  sourceUri: string,\n  sectionPath: string,\n  text: string,\n  start: number,\n  seq: number,\n  total: number\n): ProductionChunk {\n  return {\n    chunkId: `${docId}_chk_${seq.toString().padStart(3, '0')}`,\n    documentId: docId,\n    sourceUri,\n    sectionPath,\n    text,\n    tokenCountEstimate: Math.ceil(text.split(/\\s+/).length * 1.33),\n    offsets: {\n      startChar: start,\n      endChar: start + text.length\n    },\n    navigation: {\n      sequenceNumber: seq,\n      totalChunksInDoc: total\n    }\n  };\n}\n\nconst chunk = createChunkMetadata(\n  'sec_ops_2026',\n  'https://docs.enterprise.com/sec_ops.pdf',\n  'Access Control > MFA Enforcement',\n  'All employees must register an approved FIDO2 hardware security key within 72 hours of onboarding.',\n  1420,\n  3,\n  12\n);\n\nconsole.log('Generated Chunk ID:', chunk.chunkId);\nconsole.log('Estimated Tokens:', chunk.tokenCountEstimate);\nconsole.log('Section Breadcrumb:', chunk.sectionPath);\nconsole.log('Sequence Position:', `${chunk.navigation.sequenceNumber} of ${chunk.navigation.totalChunksInDoc}`);",
+      "output": "Generated Chunk ID: sec_ops_2026_chk_003\nEstimated Tokens: 20\nSection Breadcrumb: Access Control > MFA Enforcement\nSequence Position: 3 of 12",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Defines enterprise-grade Chunk schema with source lineage and navigation pointers."
+        },
+        {
+          "line": 31,
+          "note": "Applies 1.33 multiplier for robust token budget estimation."
+        }
+      ],
+      "tryIt": "Verify that character offsets allow extracting the exact substring from the original source file.",
+      "check": {
+        "question": "Why is tracking 'sequenceNumber' and 'totalChunksInDoc' valuable in chunk metadata?",
+        "options": [
+          "It allows the vector database to delete chunks faster",
+          "It enables the application to reconstruct original document order and fetch adjacent neighboring chunks when more context is required",
+          "It automatically encrypts the text"
+        ],
+        "answer": 1,
+        "why": "Sequence numbers allow the retrieval system to perform window expansion, pulling in preceding or subsequent chunks to give the LLM complete surrounding context."
+      }
+    },
+    {
+      "title": "Hands-On Lab: Complete Recursive Chunker with Metadata Pipeline",
+      "say": [
+        "In this capstone lab for Day 9, we construct an end-to-end production document chunking pipeline in pure TypeScript.",
+        "Our pipeline ingests raw enterprise policy documents, performs recursive paragraph splitting, respects max character constraints, and applies sliding window overlap.",
+        "For every generated chunk, it constructs a complete metadata record with token counts, character offsets, and sequence pointers.",
+        "We simulate processing an enterprise data governance policy covering retention schedules, encryption standards, and incident reporting.",
+        "Our chunker partitions the document into semantically bounded chunks, preserving paragraph integrity while enforcing size limits.",
+        "We inspect the generated chunks and verify that each chunk contains rich lineage metadata ready for vector indexing and citation.",
+        "This pipeline represents the exact text ingestion stage required in any enterprise RAG production system.",
+        "Let us execute the chunking engine and review the generated chunk catalog."
+      ],
+      "example": "This chunking pipeline is the exact TypeScript equivalent of LangChain's RecursiveCharacterTextSplitter and LlamaIndex's SentenceSplitter.",
+      "code": "class EnterpriseDocumentChunker {\n  private maxChunkChars: number;\n  private overlapChars: number;\n\n  constructor(maxChunkChars: number = 200, overlapChars: number = 30) {\n    this.maxChunkChars = maxChunkChars;\n    this.overlapChars = overlapChars;\n  }\n\n  processDocument(docId: string, sourceUri: string, rawText: string) {\n    const rawParagraphs = rawText.split('\\n\\n').map(p => p.trim()).filter(Boolean);\n    const textChunks: string[] = [];\n\n    for (const para of rawParagraphs) {\n      if (para.length <= this.maxChunkChars) {\n        textChunks.push(para);\n      } else {\n        // Split oversized paragraph with sliding window\n        let start = 0;\n        const stride = this.maxChunkChars - this.overlapChars;\n        while (start < para.length) {\n          const end = Math.min(start + this.maxChunkChars, para.length);\n          textChunks.push(para.substring(start, end).trim());\n          if (end === para.length) break;\n          start += stride;\n        }\n      }\n    }\n\n    // Build metadata records\n    return textChunks.map((chunkText, idx) => ({\n      chunkId: `${docId}_${(idx + 1).toString().padStart(2, '0')}`,\n      documentId: docId,\n      sourceUri,\n      text: chunkText,\n      charLength: chunkText.length,\n      seq: idx + 1,\n      total: textChunks.length\n    }));\n  }\n}\n\nconst enterpriseDoc = [\n  'Policy 101: Encryption At Rest. All persistent database disks, object storage buckets, and backups must use AES-256 encryption with customer-managed keys.',\n  'Policy 102: Data Retention. Customer audit logs must be retained in immutable cold storage for exactly 7 years to comply with regulatory banking mandates.',\n  'Policy 103: Incident Response. Security anomalies exceeding severity P1 must be escalated to the chief information security officer within 15 minutes of detection.'\n].join('\\n\\n');\n\nconst chunker = new EnterpriseDocumentChunker(200, 30);\nconst processedChunks = chunker.processDocument('gov_pol_2026', 'https://corp.internal/policies.md', enterpriseDoc);\n\nconsole.log('Total Chunks Generated:', processedChunks.length);\nconsole.log('Chunk 1 ID:', processedChunks[0].chunkId);\nconsole.log('Chunk 1 Text:', processedChunks[0].text);\nconsole.log('Chunk 2 ID:', processedChunks[1].chunkId);\nconsole.log('Chunk 2 Text:', processedChunks[1].text);\nconsole.log('All Chunks Under Max Limit:', processedChunks.every(c => c.charLength <= 200));",
+      "output": "Total Chunks Generated: 3\nChunk 1 ID: gov_pol_2026_01\nChunk 1 Text: Policy 101: Encryption At Rest. All persistent database disks, object storage buckets, and backups must use AES-256 encryption with customer-managed keys.\nChunk 2 ID: gov_pol_2026_02\nChunk 2 Text: Policy 102: Data Retention. Customer audit logs must be retained in immutable cold storage for exactly 7 years to comply with regulatory banking mandates.\nAll Chunks Under Max Limit: true",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Defines reusable EnterpriseDocumentChunker combining paragraph preservation and sliding window limits."
+        },
+        {
+          "line": 53,
+          "note": "Confirms 100% of generated chunks strictly adhere to configured maximum character boundaries."
+        }
+      ],
+      "tryIt": "Decrease maxChunkChars to 80 and observe how long paragraphs are automatically split with overlap.",
+      "check": {
+        "question": "What is the primary benefit of preserving whole paragraphs during initial chunk splitting?",
+        "options": [
+          "It reduces RAM usage during compilation",
+          "It maintains the author's logical conceptual grouping and avoids cutting sentences across boundaries",
+          "It converts all numbers to integers"
+        ],
+        "answer": 1,
+        "why": "Whole paragraphs represent cohesive thoughts; preserving them maintains high semantic integrity for vector retrieval."
+      }
+    }
+  ]
+},
+{
+  "day": 10,
+  "title": "Naive RAG vs Hybrid Search (Dense Vectors + BM25 Sparse)",
+  "goal": "Combine semantic vector embeddings with keyword-exact BM25 sparse search using Reciprocal Rank Fusion (RRF) to eliminate search blind spots.",
+  "minutes": 25,
+  "recap": "Yesterday we built a recursive document chunker with citation metadata. Today we unite dense vector retrieval with BM25 sparse keyword search using Reciprocal Rank Fusion.",
+  "summary": [
+    "Naive dense vector RAG suffers from severe blind spots with exact alphanumeric keywords, part numbers, ticker symbols, and rare technical jargon.",
+    "BM25 (Best Matching 25) sparse search excels at exact lexical matching, scoring documents based on term frequency (TF) and inverse document frequency (IDF).",
+    "Hybrid Search executes both dense semantic search and sparse BM25 keyword search simultaneously, capturing both conceptual intent and exact keywords.",
+    "Reciprocal Rank Fusion (RRF) combines ranked lists from disparate retrieval algorithms using rank reciprocals (1 / (k + rank)), without requiring score normalization.",
+    "The constant k in RRF (standardly k = 60) prevents outlier high ranks from dominating the fused score, ensuring robust, balanced ensemble ranking."
+  ],
+  "projectStep": {
+    "title": "Build Production Hybrid Search Engine with Reciprocal Rank Fusion",
+    "steps": [
+      "Implement a BM25 sparse keyword scoring engine with term frequency and document length normalization in TypeScript.",
+      "Execute concurrent dense cosine similarity and sparse BM25 retrieval over a unified document corpus.",
+      "Combine dense and sparse search rankings using Reciprocal Rank Fusion (RRF) and return certified hybrid top-K results."
+    ]
+  },
+  "parts": [
+    {
+      "title": "The Blind Spots of Naive Vector RAG: Why Embeddings Miss Exact Keywords",
+      "say": [
+        "In the early days of generative AI, developers believed dense vector embeddings would completely replace traditional lexical keyword search.",
+        "However, in production enterprise deployments, teams quickly discovered the severe failure modes of naive vector search.",
+        "While embedding models excel at broad conceptual meaning (e.g. mapping 'canines' to 'dogs'), they struggle with exact alphanumeric strings.",
+        "If a customer searches for an exact error code like 'ERR_SOCKET_TIMEOUT_0x82', the embedding model often maps it to generic network errors.",
+        "Similarly, for serial numbers, part IDs, medication dosages ('10mg' vs '100mg'), or person names ('John Smith' vs 'John Smyth'), vector similarity often fails.",
+        "In dense vector space, two completely different product codes can map to nearly identical coordinates if they share similar surrounding text.",
+        "When an engineer needs to debug a specific error code, retrieving generic network articles results in hallucinated or useless answers.",
+        "To build robust enterprise search, we cannot rely on dense vectors alone.",
+        "We must combine dense semantic understanding with the precision of exact keyword search."
+      ],
+      "example": "Naive vector search is like describing a suspect as 'a tall person in a dark jacket': it finds thousands of people who match the general vibe; keyword search is like matching their exact driver's license number.",
+      "code": "const targetErrorCode = 'ERR_CONN_RESET_904';\nconst candidateDocA = 'Network troubleshooting: general TCP reset issues in microservices';\nconst candidateDocB = 'Incident Log: Critical alert ERR_CONN_RESET_904 triggered on worker node';\n\n// Pure lexical match test\nconst containsExactCodeA = candidateDocA.includes(targetErrorCode);\nconst containsExactCodeB = candidateDocB.includes(targetErrorCode);\n\nconsole.log('Doc A Has Exact Error Code:', containsExactCodeA);\nconsole.log('Doc B Has Exact Error Code:', containsExactCodeB);\nconsole.log('Verdict: Lexical keyword search is indispensable for exact identifier retrieval.');",
+      "output": "Doc A Has Exact Error Code: false\nDoc B Has Exact Error Code: true\nVerdict: Lexical keyword search is indispensable for exact identifier retrieval.",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Defines exact alphanumeric error code target typical of enterprise IT logs."
+        },
+        {
+          "line": 5,
+          "note": "Demonstrates that exact string matching trivially isolates the correct target document."
+        }
+      ],
+      "tryIt": "Test with product model numbers like 'SONY-WH1000XM5' and observe lexical precision.",
+      "check": {
+        "question": "Why do dense vector embedding models struggle with specific error codes or part numbers?",
+        "options": [
+          "Because embedding models do not support capital letters",
+          "Because embedding models compress tokens into broad semantic concepts, obscuring minute alphanumeric distinctions",
+          "Because vector databases cannot index numbers"
+        ],
+        "answer": 1,
+        "why": "Embeddings map text to broad conceptual neighborhoods; exact alphanumeric identifiers get blurred into generic category coordinates."
+      }
+    },
+    {
+      "title": "BM25 Sparse Retrieval Mechanics: TF-IDF on Steroids",
+      "say": [
+        "To complement dense vector search, enterprise search engines rely on BM25: Best Matching 25.",
+        "BM25 is the battle-tested, probabilistic sparse retrieval algorithm that powers Elasticsearch, Apache Lucene, and Solr.",
+        "BM25 builds on TF-IDF (Term Frequency - Inverse Document Frequency) with two critical enhancements: saturation and length normalization.",
+        "Term Frequency (TF) measures how often a search term appears in a document; however, BM25 uses non-linear saturation so that repeating a word 50 times does not multiply its score by 50.",
+        "Inverse Document Frequency (IDF) rewards rare, informative words (like 'Kubernetes') while heavily discounting common stop words (like 'the' or 'with').",
+        "Document Length Normalization penalizes verbose documents: a 5,000-word document shouldn't win simply because it contains more total words.",
+        "In BM25, each document is represented as a high-dimensional Sparse Vector where dimensions correspond to unique vocabulary words.",
+        "BM25 provides millisecond lookup for exact keywords, making it the perfect partner for dense vector retrieval."
+      ],
+      "example": "BM25 is like an experienced research librarian who ignores words like 'the' and 'about', focuses immediately on 'mitochondria', and doesn't favor an encyclopedia over a concise pamphlet just because it is thicker.",
+      "code": "class SimpleBM25Scorer {\n  private docLengths: number[] = [];\n  private avgDocLength: number = 0;\n  private corpusSize: number = 0;\n  private docFreq: Map<string, number> = new Map();\n\n  constructor(corpus: string[][]) {\n    this.corpusSize = corpus.length;\n    let totalLen = 0;\n    for (const tokens of corpus) {\n      this.docLengths.push(tokens.length);\n      totalLen += tokens.length;\n      const unique = new Set(tokens);\n      for (const term of unique) {\n        this.docFreq.set(term, (this.docFreq.get(term) || 0) + 1);\n      }\n    }\n    this.avgDocLength = totalLen / (this.corpusSize || 1);\n  }\n\n  scoreTerm(term: string, tf: number, docLen: number): number {\n    const df = this.docFreq.get(term) || 0;\n    if (df === 0) return 0;\n    // Standard IDF formula\n    const idf = Math.log(1 + (this.corpusSize - df + 0.5) / (df + 0.5));\n    // BM25 saturation parameters: k1 = 1.5, b = 0.75\n    const k1 = 1.5;\n    const b = 0.75;\n    const num = tf * (k1 + 1);\n    const denom = tf + k1 * (1 - b + b * (docLen / this.avgDocLength));\n    return Number((idf * (num / denom)).toFixed(4));\n  }\n}\n\nconst docs = [\n  ['postgresql', 'database', 'backup', 'restore'],\n  ['postgresql', 'database', 'replication', 'high', 'availability'],\n  ['redis', 'cache', 'session', 'storage']\n];\n\nconst bm25 = new SimpleBM25Scorer(docs);\nconst scoreRare = bm25.scoreTerm('restore', 1, 4); // Rare term (in only 1 doc)\nconst scoreCommon = bm25.scoreTerm('database', 1, 4); // Common term (in 2 docs)\n\nconsole.log('BM25 Score for Rare Keyword (restore):', scoreRare);\nconsole.log('BM25 Score for Common Keyword (database):', scoreCommon);\nconsole.log('Rare Term Scores Higher:', scoreRare > scoreCommon);",
+      "output": "BM25 Score for Rare Keyword (restore): 1.016\nBM25 Score for Common Keyword (database): 0.4869\nRare Term Scores Higher: true",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Implements BM25 probabilistic scoring formula with term frequency saturation and document length normalization."
+        },
+        {
+          "line": 39,
+          "note": "Demonstrates that unique, highly specific terms score significantly higher than common vocabulary."
+        }
+      ],
+      "tryIt": "Score a term that does not exist in any document and verify its score is 0.",
+      "check": {
+        "question": "Why does BM25 use term frequency saturation (the k1 parameter)?",
+        "options": [
+          "To prevent documents that repeat the same keyword 100 times from artificially dominating search rankings",
+          "To translate text into Spanish",
+          "To reduce memory usage"
+        ],
+        "answer": 0,
+        "why": "Term frequency saturation ensures that after a keyword appears a few times, additional repetitions produce diminishing score returns, preventing keyword stuffing."
+      }
+    },
+    {
+      "title": "Hybrid Search Architecture: Two Parallel Retrieval Engines",
+      "say": [
+        "Hybrid Search is the combination of two fundamentally different retrieval paradigms: Dense Semantic Search and Sparse Lexical Search.",
+        "When an incoming query arrives, the search orchestrator dispatches the query concurrently to both search engines.",
+        "Engine 1 (Dense Vector Retrieval) uses an embedding model and an HNSW vector index to retrieve the top-N semantically similar documents.",
+        "Engine 2 (Sparse BM25 Retrieval) uses an inverted index to retrieve the top-N exact keyword matching documents.",
+        "Dense retrieval guarantees high recall: it understands synonyms, translated phrasing, and conceptual relationships.",
+        "Sparse retrieval guarantees high precision: it finds exact part numbers, acronyms, and unique identifiers.",
+        "However, running two search engines produces two completely independent lists of ranked candidate documents.",
+        "Furthermore, BM25 scores (unbounded positive numbers, e.g. 14.8) cannot be directly added to Cosine Similarity scores (bounded between -1.0 and 1.0).",
+        "We need a mathematically sound ranking fusion technique to unite both lists into a single superior ranking."
+      ],
+      "example": "Hybrid search is like having two detectives investigate a case: one detective is an expert on criminal psychology who understands motives (dense vector); the other is a forensic technician who matches exact fingerprints (sparse BM25).",
+      "code": "interface CandidateResult {\n  docId: string;\n  denseRank: number | null;\n  sparseRank: number | null;\n}\n\n// Simulating retrieval results from two independent engines\nconst denseTop3 = ['doc_alpha', 'doc_beta', 'doc_gamma'];\nconst sparseTop3 = ['doc_delta', 'doc_alpha', 'doc_epsilon'];\n\nfunction mergeCandidates(dense: string[], sparse: string[]): Map<string, CandidateResult> {\n  const merged = new Map<string, CandidateResult>();\n\n  dense.forEach((id, idx) => {\n    merged.set(id, { docId: id, denseRank: idx + 1, sparseRank: null });\n  });\n\n  sparse.forEach((id, idx) => {\n    const existing = merged.get(id);\n    if (existing) {\n      existing.sparseRank = idx + 1;\n    } else {\n      merged.set(id, { docId: id, denseRank: null, sparseRank: idx + 1 });\n    }\n  });\n\n  return merged;\n}\n\nconst candidates = mergeCandidates(denseTop3, sparseTop3);\nconsole.log('Total Distinct Candidates:', candidates.size);\nconsole.log('Doc Alpha (Matched in Both):', JSON.stringify(candidates.get('doc_alpha')));\nconsole.log('Doc Beta (Dense Only):', JSON.stringify(candidates.get('doc_beta')));\nconsole.log('Doc Delta (Sparse Only):', JSON.stringify(candidates.get('doc_delta')));",
+      "output": "Total Distinct Candidates: 5\nDoc Alpha (Matched in Both): {\"docId\":\"doc_alpha\",\"denseRank\":1,\"sparseRank\":2}\nDoc Beta (Dense Only): {\"docId\":\"doc_beta\",\"denseRank\":2,\"sparseRank\":null}\nDoc Delta (Sparse Only): {\"docId\":\"doc_delta\",\"denseRank\":null,\"sparseRank\":1}",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Gathers candidate document IDs from both dense and sparse retrieval engines."
+        },
+        {
+          "line": 28,
+          "note": "Shows doc_alpha was discovered by both engines, making it a prime candidate for top final rank."
+        }
+      ],
+      "tryIt": "Add a third engine (e.g. popularity rank) and update mergeCandidates to record all three ranks.",
+      "check": {
+        "question": "Why can't an engineer simply add the raw BM25 score directly to the raw Cosine Similarity score?",
+        "options": [
+          "Because BM25 uses negative numbers",
+          "Because they exist on completely incompatible scales: BM25 is an unbounded positive number, while Cosine is bounded between -1.0 and 1.0",
+          "Because TypeScript does not allow adding numbers"
+        ],
+        "answer": 1,
+        "why": "Raw score magnitudes cannot be added directly; an unbounded BM25 score of 20 would completely obliterate a cosine similarity score of 0.85."
+      }
+    },
+    {
+      "title": "Reciprocal Rank Fusion (RRF): The Mathematics of Rank Combination",
+      "say": [
+        "To combine two disparate ranked lists without dealing with incompatible score scales, computer scientists invented Reciprocal Rank Fusion (RRF).",
+        "RRF completely ignores raw score values; instead, it operates exclusively on the ordinal ranks (positions) of documents in each list.",
+        "The formula for Reciprocal Rank Fusion is: `RRF_Score(d) = sum( 1 / (k + rank_i(d)) )` for all retrieval engines i.",
+        "Here, `rank_i(d)` is the 1-based position of document d in engine i's ranked list (e.g. rank 1, rank 2, rank 3).",
+        "If a document was not retrieved by engine i, its rank contribution for that engine is simply 0.",
+        "The constant `k` is a smoothing parameter, standardly set to 60 based on empirical research by Cormack, Clarke, and Buettcher.",
+        "The `k = 60` constant prevents a top-1 rank in one engine from unfairly overwhelming documents that perform consistently well across all engines.",
+        "Documents that appear near the top of BOTH the dense list and the sparse list receive huge score boosts, surging to the top of final results.",
+        "RRF is simple, parameter-free, and outperforms complex machine-learned score normalization in benchmark studies."
+      ],
+      "example": "RRF is like the Eurovision Song Contest: instead of summing raw television votes across countries with different populations, each country awards points based on position (12 points for 1st, 10 for 2nd), ensuring equal fairness.",
+      "code": "function computeRrfScore(ranks: Array<number | null>, k: number = 60): number {\n  let score = 0;\n  for (const r of ranks) {\n    if (r !== null && r > 0) {\n      score += 1 / (k + r);\n    }\n  }\n  return Number(score.toFixed(6));\n}\n\n// Case 1: Document ranked #1 in Dense, and #2 in Sparse (strong consensus)\nconst scoreConsensus = computeRrfScore([1, 2]);\n\n// Case 2: Document ranked #1 in Dense, but missing from Sparse\nconst scoreDenseOnly = computeRrfScore([1, null]);\n\n// Case 3: Document ranked #5 in Dense, and #5 in Sparse\nconst scoreModerateConsensus = computeRrfScore([5, 5]);\n\nconsole.log('Consensus Rank (Dense 1, Sparse 2) RRF:', scoreConsensus);\nconsole.log('Dense Only Rank (Dense 1) RRF:', scoreDenseOnly);\nconsole.log('Moderate Consensus Rank (Dense 5, Sparse 5) RRF:', scoreModerateConsensus);\nconsole.log('Consensus Beats Single Engine:', scoreConsensus > scoreDenseOnly);",
+      "output": "Consensus Rank (Dense 1, Sparse 2) RRF: 0.032522\nDense Only Rank (Dense 1) RRF: 0.016393\nModerate Consensus Rank (Dense 5, Sparse 5) RRF: 0.030769\nConsensus Beats Single Engine: true",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Calculates RRF score summing 1 / (k + rank) across all retrieval sources."
+        },
+        {
+          "line": 20,
+          "note": "Demonstrates that consensus across both engines (0.0325) decisively outperforms a single top-1 match (0.0163)."
+        }
+      ],
+      "tryIt": "Calculate RRF score with k=10 and compare how it weights top ranks more aggressively.",
+      "check": {
+        "question": "In the Reciprocal Rank Fusion formula (1 / (k + rank)), what is the standard empirical value for k?",
+        "options": [
+          "k = 0",
+          "k = 60",
+          "k = 10,000"
+        ],
+        "answer": 1,
+        "why": "k = 60 is the canonical industry constant established in information retrieval literature to prevent high-rank bias."
+      }
+    },
+    {
+      "title": "Score Normalization Alternatives vs Rank Fusion",
+      "say": [
+        "While Reciprocal Rank Fusion is the industry favorite, developers sometimes consider linear Score Normalization (Min-Max scaling).",
+        "In Min-Max normalization, raw scores are rescaled to a [0.0, 1.0] range using: `norm = (score - min) / (max - min)`.",
+        "Once normalized, a developer computes a weighted linear combination: `final = (alpha * denseNorm) + ((1 - alpha) * sparseNorm)`.",
+        "However, Min-Max normalization is exceptionally fragile in production environments.",
+        "If a single outlier query produces an extreme BM25 score of 85.0 when the average is 4.0, all other documents compress to near zero.",
+        "Furthermore, tuning the weight `alpha` (e.g. 0.7 dense + 0.3 sparse) is domain-dependent and brittle across diverse user queries.",
+        "If users type short keywords, sparse should dominate; if users type long conversational questions, dense should dominate.",
+        "RRF completely bypasses score distribution skews because it relies purely on stable relative order.",
+        "For these reasons, leading vector databases (like Weaviate, Pinecone, and Azure AI Search) default to RRF for hybrid search."
+      ],
+      "example": "Min-Max normalization is like grading a college exam on a curve where one genius scored 100% and everyone else scored 30%: everyone gets flattened; RRF simply ranks students 1st, 2nd, and 3rd regardless of the point spread.",
+      "code": "function minMaxNormalize(scores: number[]): number[] {\n  const min = Math.min(...scores);\n  const max = Math.max(...scores);\n  if (max === min) return scores.map(() => 1);\n  return scores.map(s => Number(((s - min) / (max - min)).toFixed(4)));\n}\n\n// Typical BM25 scores with an outlier\nconst rawBm25Scores = [3.2, 4.1, 3.8, 45.0]; // Outlier 45.0 compresses the others\nconst normalized = minMaxNormalize(rawBm25Scores);\n\nconsole.log('Raw Scores:', JSON.stringify(rawBm25Scores));\nconsole.log('Min-Max Normalized:', JSON.stringify(normalized));\nconsole.log('Outlier Effect: First three docs squashed to near 0:', normalized[0] < 0.05);",
+      "output": "Raw Scores: [3.2,4.1,3.8,45]\nMin-Max Normalized: [0,0.0215,0.0144,1]\nOutlier Effect: First three docs squashed to near 0: true",
+      "codeNotes": [
+        {
+          "line": 1,
+          "note": "Applies linear Min-Max normalization to floating point arrays."
+        },
+        {
+          "line": 10,
+          "note": "Demonstrates that an outlier score squashes normal candidate scores to near zero, illustrating why RRF is preferred."
+        }
+      ],
+      "tryIt": "Remove the 45.0 outlier and observe how evenly the remaining three scores distribute.",
+      "check": {
+        "question": "Why is Reciprocal Rank Fusion (RRF) more resilient than Min-Max score normalization in production search?",
+        "options": [
+          "RRF requires GPUs to compute",
+          "RRF uses relative rank order, making it completely immune to extreme score outliers and disparate score scales",
+          "RRF only works on English words"
+        ],
+        "answer": 1,
+        "why": "Because RRF only looks at the position (rank 1, 2, 3...) rather than raw point values, extreme score spikes cannot distort the final ranking."
+      }
+    },
+    {
+      "title": "Hands-On Lab: Complete Hybrid Search Engine with Reciprocal Rank Fusion",
+      "say": [
+        "In this capstone lab for Day 10, we build a complete, production-grade Hybrid Search Engine in TypeScript.",
+        "Our engine manages an enterprise knowledge corpus and executes both Dense Vector Semantic Search and Sparse BM25 Keyword Search.",
+        "We simulate a challenging query: 'PostgreSQL connection timeout error 0x82'.",
+        "The dense vector index finds articles discussing general database network issues and cloud scaling.",
+        "The sparse BM25 engine finds the exact IT incident post containing the specific error code '0x82'.",
+        "Our Reciprocal Rank Fusion (RRF) engine gathers the candidate lists, computes RRF scores with `k = 60`, and produces the final certified ranking.",
+        "The exact incident report for error 0x82 surges to the #1 position because it satisfies both semantic context and exact keyword requirements.",
+        "This hybrid architecture represents the gold standard of enterprise AI search pipelines worldwide.",
+        "Let us execute the hybrid engine and inspect the final fused search results."
+      ],
+      "example": "This complete hybrid search engine with RRF is the exact architecture deployed in production by Shopify, Notion, and GitHub Copilot for documentation search.",
+      "code": "function dotProduct(a: number[], b: number[]): number {\n  let sum = 0;\n  for (let i = 0; i < a.length; i++) sum += a[i] * b[i];\n  return sum;\n}\n\nfunction normalizeVector(vec: number[]): number[] {\n  let sumSquares = 0;\n  for (let i = 0; i < vec.length; i++) sumSquares += vec[i] * vec[i];\n  const norm = Math.sqrt(sumSquares);\n  if (norm === 0) return vec.slice();\n  return vec.map(v => Number((v / norm).toFixed(5)));\n}\n\ninterface SearchDoc {\n  id: string;\n  title: string;\n  content: string;\n  vector: number[];\n}\n\ninterface HybridResult {\n  doc: SearchDoc;\n  rrfScore: number;\n  denseRank: number | null;\n  sparseRank: number | null;\n}\n\nclass HybridSearchEngine {\n  private docs: SearchDoc[] = [];\n\n  addDocument(doc: SearchDoc) {\n    this.docs.push({ ...doc, vector: normalizeVector(doc.vector) });\n  }\n\n  search(queryText: string, queryVec: number[], topK: number = 3): HybridResult[] {\n    const normQ = normalizeVector(queryVec);\n\n    // 1. Dense Semantic Search (Cosine Similarity on unit vectors)\n    const denseRanked = this.docs\n      .map(doc => ({ doc, sim: dotProduct(doc.vector, normQ) }))\n      .sort((a, b) => b.sim - a.sim);\n\n    const denseMap = new Map<string, number>();\n    denseRanked.forEach((item, idx) => denseMap.set(item.doc.id, idx + 1));\n\n    // 2. Sparse Lexical Search (Keyword match scoring)\n    const queryTokens = queryText.toLowerCase().split(/\\s+/);\n    const sparseRanked = this.docs\n      .map(doc => {\n        const text = (doc.title + ' ' + doc.content).toLowerCase();\n        let matchCount = 0;\n        for (const token of queryTokens) {\n          if (text.includes(token)) matchCount++;\n        }\n        return { doc, matchCount };\n      })\n      .sort((a, b) => b.matchCount - a.matchCount);\n\n    const sparseMap = new Map<string, number>();\n    sparseRanked.forEach((item, idx) => sparseMap.set(item.doc.id, idx + 1));\n\n    // 3. Reciprocal Rank Fusion (k = 60)\n    const k = 60;\n    const allIds = new Set([...denseMap.keys(), ...sparseMap.keys()]);\n    const fused: HybridResult[] = [];\n\n    for (const id of allIds) {\n      const doc = this.docs.find(d => d.id === id)!;\n      const dRank = denseMap.get(id) || null;\n      const sRank = sparseMap.get(id) || null;\n\n      let rrf = 0;\n      if (dRank !== null) rrf += 1 / (k + dRank);\n      if (sRank !== null) rrf += 1 / (k + sRank);\n\n      fused.push({\n        doc,\n        rrfScore: Number(rrf.toFixed(6)),\n        denseRank: dRank,\n        sparseRank: sRank\n      });\n    }\n\n    fused.sort((a, b) => b.rrfScore - a.rrfScore);\n    return fused.slice(0, topK);\n  }\n}\n\nconst engine = new HybridSearchEngine();\n\nengine.addDocument({\n  id: 'doc_1',\n  title: 'PostgreSQL General Connection Guide',\n  content: 'Managing client pools and server limits in production environments.',\n  vector: [0.85, 0.82, 0.10] // High dense similarity to query\n});\n\nengine.addDocument({\n  id: 'doc_2',\n  title: 'Incident Post-Mortem: Socket Error 0x82',\n  content: 'Resolving exact connection timeout error 0x82 on primary database cluster.',\n  vector: [0.80, 0.78, 0.12] // Moderate dense similarity, exact sparse match\n});\n\nengine.addDocument({\n  id: 'doc_3',\n  title: 'Redis Connection Timeout Error Management',\n  content: 'In-memory caching strategies for web services.',\n  vector: [0.10, 0.15, 0.90] // Irrelevant\n});\n\nconst queryText = \"PostgreSQL connection timeout error 0x82\";\nconst queryVector = [0.84, 0.80, 0.11];\n\nconst results = engine.search(queryText, queryVector, 2);\n\nconsole.log('Winner Document ID:', results[0].doc.id);\nconsole.log('Winner Document Title:', results[0].doc.title);\nconsole.log('Winner RRF Score:', results[0].rrfScore);\nconsole.log('Winner Dense Rank:', results[0].denseRank);\nconsole.log('Winner Sparse Rank:', results[0].sparseRank);\nconsole.log('Second Place Document ID:', results[1].doc.id);",
+      "output": "Winner Document ID: doc_2\nWinner Document Title: Incident Post-Mortem: Socket Error 0x82\nWinner RRF Score: 0.032522\nWinner Dense Rank: 2\nWinner Sparse Rank: 1\nSecond Place Document ID: doc_1",
+      "codeNotes": [
+        {
+          "line": 35,
+          "note": "Executes dense semantic cosine search and sparse keyword matching in parallel."
+        },
+        {
+          "line": 59,
+          "note": "Fuses ranks using Reciprocal Rank Fusion with standard k=60 constant."
+        },
+        {
+          "line": 110,
+          "note": "Doc 2 wins #1 because it excels across both dense (rank 2) and sparse (rank 1) modalities."
+        }
+      ],
+      "tryIt": "Search for a query without error 0x82 and observe that doc_1 wins based purely on dense semantic similarity.",
+      "check": {
+        "question": "Why did doc_2 win first place in our hybrid search lab despite having a slightly lower dense similarity than doc_1?",
+        "options": [
+          "Because doc_2 has fewer characters",
+          "Because doc_2 ranked #1 in exact sparse keyword matching and #2 in dense semantic search, earning the highest combined RRF consensus score",
+          "Because RRF ignores dense ranks"
+        ],
+        "answer": 1,
+        "why": "Doc 2 demonstrated strong consensus across both retrieval systems (rank 1 sparse + rank 2 dense), producing an RRF score that beat doc 1's single high rank."
+      }
+    }
+  ]
 }
 ];
