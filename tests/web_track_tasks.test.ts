@@ -212,9 +212,9 @@ test('gradeWebTask catches constant-answer cheats in TypeScript', async () => {
 for (const course of WEB_COURSES) {
   const solutions = loadSolutions(course.solutions);
 
-  test(`${course.name}: practice tasks and reference answers check`, () => {
-    assert.ok(course.configs.length === 15 || course.configs.length === 30, `${course.name} must have 15 or 30 day configs`);
-    for (let i = 0; i < course.configs.length; i++) {
+  test(`${course.name}: 30 days, 60 practice tasks and reference answers`, () => {
+    assert.equal(course.configs.length, 30, `${course.name} must have 30 day configs`);
+    for (let i = 0; i < 30; i++) {
       const cfg = course.configs[i];
       const prefix = course.prefix || course.courseId.replace(/^course-/, '');
       const solE = getTaskSolution(solutions, i, 'exam', `${prefix}-exam-day-${i + 1}`);
