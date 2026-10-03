@@ -1033,7 +1033,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
 },
 {
   "day": 5,
-  "title": "⭐ MILESTONE 1: Structured Information Extraction Pipeline (Zod & Schema Enforcement)",
+  "title": "⭐ MILESTONE 1: Structured JSON Outputs & Pydantic/Zod Schema Enforcement",
   "goal": "Construct an enterprise-grade document extraction pipeline enforcing deterministic JSON output contracts with Zod schema parsing and automated self-healing retry loops.",
   "minutes": 25,
   "recap": "Over the last four days, we mastered Transformer foundations, token economics, system prompt architecture, and Few-Shot reasoning. Today we complete Milestone 1: building an enterprise-grade Structured Information Extraction Pipeline that converts unstructured documents into guaranteed type-safe TypeScript objects.",

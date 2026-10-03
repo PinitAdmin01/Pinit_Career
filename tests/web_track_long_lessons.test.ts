@@ -19,6 +19,8 @@ import { DISTRIBUTED_WEB_LONG_LESSONS } from '../src/lib/data/distributedWebLong
 import { DISTRIBUTED_30_DAYS_CONFIGS } from '../src/lib/data/distributed30DayData';
 import { CYBER_WEB_LONG_LESSONS } from '../src/lib/data/cyberWebLongLessons';
 import { CYBER_30_DAYS_CONFIGS } from '../src/lib/data/cybersecurity30DayData';
+import { AI_WEB_LONG_LESSONS } from '../src/lib/data/aiWebLongLessons';
+import { AI_30_DAYS_CONFIGS } from '../src/lib/data/ai30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -91,6 +93,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-cybersecurity',
     lessons: CYBER_WEB_LONG_LESSONS,
     configs: CYBER_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'AI Engineering & LLM Integration',
+    prefix: 'ai',
+    courseId: 'course-ai-eng',
+    lessons: AI_WEB_LONG_LESSONS,
+    configs: AI_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];

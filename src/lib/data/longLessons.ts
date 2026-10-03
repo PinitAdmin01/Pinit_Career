@@ -29,6 +29,7 @@ import { DESIGN_WEB_LONG_LESSONS } from './designWebLongLessons';
 import { DSA_WEB_LONG_LESSONS } from './dsaWebLongLessons';
 import { DISTRIBUTED_WEB_LONG_LESSONS } from './distributedWebLongLessons';
 import { CYBER_WEB_LONG_LESSONS } from './cyberWebLongLessons';
+import { AI_WEB_LONG_LESSONS } from './aiWebLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -99,6 +100,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'dsa-optim': DSA_WEB_LONG_LESSONS,
   dist: DISTRIBUTED_WEB_LONG_LESSONS,
   cyber: CYBER_WEB_LONG_LESSONS,
+  ai: AI_WEB_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */
@@ -129,6 +131,7 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'dsa-optim': 'typescript',
   dist: 'typescript',
   cyber: 'typescript',
+  ai: 'typescript',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
