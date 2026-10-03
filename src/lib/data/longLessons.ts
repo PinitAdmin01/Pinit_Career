@@ -30,6 +30,7 @@ import { DSA_WEB_LONG_LESSONS } from './dsaWebLongLessons';
 import { DISTRIBUTED_WEB_LONG_LESSONS } from './distributedWebLongLessons';
 import { CYBER_WEB_LONG_LESSONS } from './cyberWebLongLessons';
 import { AI_WEB_LONG_LESSONS } from './aiWebLongLessons';
+import { SRE_WEB_LONG_LESSONS } from './sreWebLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -101,6 +102,7 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   dist: DISTRIBUTED_WEB_LONG_LESSONS,
   cyber: CYBER_WEB_LONG_LESSONS,
   ai: AI_WEB_LONG_LESSONS,
+  'sre-web': SRE_WEB_LONG_LESSONS,
 };
 
 /** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */

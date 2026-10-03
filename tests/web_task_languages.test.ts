@@ -17,7 +17,7 @@ test('W-01: every existing quest across all registered courses still resolves to
         totalQuestsChecked++;
         continue;
       }
-      if (course.id === 'course-node-web' && resolved === 'typescript') {
+      if ((course.id === 'course-node-web' || course.id === 'course-sre-web') && resolved === 'typescript') {
         totalQuestsChecked++;
         continue;
       }
@@ -46,6 +46,10 @@ test('W-01: known core courses resolve to their exact expected languages', () =>
   for (const q of tasks('course-node-web')) {
     const lang = resolveQuestLanguage(q, q.id);
     assert.equal(lang, 'typescript', `course-node-web quest ${q.id} must be typescript`);
+  }
+  for (const q of tasks('course-sre-web')) {
+    const lang = resolveQuestLanguage(q, q.id);
+    assert.equal(lang, 'typescript', `course-sre-web quest ${q.id} must be typescript`);
   }
   for (const id of ['course-dsa-optim', 'course-devops-cicd', 'course-cloud-native']) {
     for (const q of tasks(id)) {

@@ -46,6 +46,7 @@ import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
 import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
+import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
 import { addBlockTests } from './courseTests';
 
 
@@ -107,6 +108,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '🟢',
     quests: NODE_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-sre-web',
+    title: 'Site Reliability Engineering & Multi-Cloud Observability',
+    desc: 'Master multi-cloud resilience, SLO engineering, distributed tracing, automated canary analysis, chaos failure injection, and executable runbooks.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📊',
+    quests: SRE_WEB_30_DAYS_QUESTS as any
   },
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {

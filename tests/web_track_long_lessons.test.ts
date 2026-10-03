@@ -21,6 +21,8 @@ import { CYBER_WEB_LONG_LESSONS } from '../src/lib/data/cyberWebLongLessons';
 import { CYBER_30_DAYS_CONFIGS } from '../src/lib/data/cybersecurity30DayData';
 import { AI_WEB_LONG_LESSONS } from '../src/lib/data/aiWebLongLessons';
 import { AI_30_DAYS_CONFIGS } from '../src/lib/data/ai30DayData';
+import { SRE_WEB_LONG_LESSONS } from '../src/lib/data/sreWebLongLessons';
+import { SRE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/sreWeb30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -101,6 +103,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-ai-eng',
     lessons: AI_WEB_LONG_LESSONS,
     configs: AI_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'Multi-Cloud Reliability & SRE in TypeScript',
+    prefix: 'sre-web',
+    courseId: 'course-sre-web',
+    lessons: SRE_WEB_LONG_LESSONS,
+    configs: SRE_WEB_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];

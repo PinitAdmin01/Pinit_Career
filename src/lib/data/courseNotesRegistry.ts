@@ -152,6 +152,52 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-sre-web': {
+    courseId: 'course-sre-web',
+    courseTitle: 'Site Reliability Engineering & Multi-Cloud Observability',
+    category: 'Cloud & Infrastructure',
+    summary: 'Master multi-cloud reliability engineering, SLO/SLI error budgets, telemetry pipelines (metrics, logs, traces), automated canary analysis, chaos engineering, and Runbooks as Code.',
+    realWorldAnalogy: 'Think of SRE like modern hospital intensive care medicine: vital sign monitors (telemetry), ICU alarm protocols (burn-rate alerting), crash carts (runbooks), emergency drills (chaos engineering), and morbidity conferences (blameless postmortems).',
+    keyConcepts: [
+      {
+        heading: '1. Service Level Objectives (SLOs) & Error Budgets',
+        explanation: 'SLOs define the target reliability boundary for user happiness. Error budgets mathematically balance deployment velocity with platform stability.',
+        codeOrExample: 'const errorBudget = 100 - sloTarget;\nconst burnRate = (actualErrorRate / errorBudget);'
+      },
+      {
+        heading: '2. Multi-Metric Automated Canary Analysis (ACA)',
+        explanation: 'Statistically compare live baseline and canary cohorts running under identical production traffic to detect subtle latency and error regressions before 100% rollout.',
+        codeOrExample: 'const delta = ((canaryP95 - baselineP95) / baselineP95) * 100;\nif (delta > maxAllowedThreshold) rollbackCanary();'
+      },
+      {
+        heading: '3. Chaos Engineering & Steady-State Hypotheses',
+        explanation: 'Proactively inject controlled failures (latency, dropped replicas, network partitions) within bounded blast radii to empirically verify circuit breakers and failovers.',
+        codeOrExample: 'const steadyStateHeld = evaluateHypothesis({ p99LatencyMs: 180, errorRate: 0.05 });'
+      }
+    ],
+    cheatsheet: [
+      'Error Budget Formula: Allowed Downtime = Total Time * (1 - SLO)',
+      'Little Law of Queues: L = λ * W (Concurrency = Arrival Rate * Residence Time)',
+      'Composite Availability (Serial): A_total = A1 * A2 * A3',
+      'Composite Availability (Parallel): A_total = 1 - (1 - A1) * (1 - A2)'
+    ],
+    commonPitfalls: [
+      'Aiming for 100% availability (prohibitive cost, stops all innovation, not noticeable to users).',
+      'Alert fatigue caused by alerting on static thresholds or transient single-point spikes instead of multi-window burn rates.',
+      'Conducting punitive postmortems that assign personal blame instead of addressing systemic architectural and process deficiencies.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is an Error Budget and how do SREs use it to balance product velocity with reliability?',
+        answer: 'An error budget is the allowable room for unreliability (100% minus SLO). When the error budget is healthy, developers can deploy features aggressively. When the budget is depleted, feature deployments freeze and engineering shifts to reliability fixes.'
+      },
+      {
+        question: 'Explain the difference between MTTD and MTTR, and which one SREs focus on optimizing.',
+        answer: 'MTTD is Mean Time to Detect (how quickly monitoring alerts on a fault). MTTR is Mean Time to Recover/Restore (how quickly mitigation restores service). SREs focus heavily on minimizing MTTR through automated rollbacks, circuit breakers, and runbooks.'
+      }
+    ]
+  },
+
   'course-ai-eng': {
     courseId: 'course-ai-eng',
     courseTitle: 'AI Engineering & LLM Integration',

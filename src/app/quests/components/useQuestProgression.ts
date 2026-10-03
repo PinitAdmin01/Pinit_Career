@@ -170,6 +170,7 @@ export const COURSE_TO_ROLE: Record<string, string> = {
   'course-dsa-optim': 'Software Development Engineer (SDE)',
   'course-dsa-python': 'Software Development Engineer (SDE)',
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
+  'course-sre-web': 'Site Reliability & Multi-Cloud Observability Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
   'course-distributed-python': 'Cloud Architect & Infrastructure Specialist',
   'course-train-python': 'AI & LLM Systems Engineer',
