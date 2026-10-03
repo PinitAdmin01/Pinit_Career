@@ -5069,4 +5069,1265 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 21,
+  "title": "Local State Stores: Key-Value RocksDB & In-Memory Changelog Streams",
+  "goal": "Master embedded local state stores in stream processing: low-latency local key-value engines (RocksDB / Map), durable replicated changelog topics, write-through mutation protocols, tombstone deletions, and changelog replay state restoration.",
+  "minutes": 25,
+  "recap": "Yesterday we conquered event-time temporal semantics and watermarks. Today we explore state storage architecture, learning how embedded local key-value stores backed by append-only changelog streams achieve microsecond lookups without remote database bottlenecks.",
+  "parts": [
+    {
+      "title": "The Latency Wall: Why Remote Databases Cripple Streaming",
+      "say": [
+        "In traditional web backends, applications query external relational or NoSQL databases over a local network connection.",
+        "Under ordinary request-response workloads, a remote database round-trip latency of two to five milliseconds is entirely acceptable.",
+        "However, high-throughput stream processors process hundreds of thousands or millions of events per second per node.",
+        "If a stream processing thread must execute an asynchronous network round-trip to an external database for every single incoming event, disaster strikes.",
+        "Network serialization, connection pool contention, and socket round-trips throttle processing throughput to a few hundred events per second.",
+        "Furthermore, external databases quickly experience thread saturation and lock contention when bombarded by streaming query spikes.",
+        "To break through this latency wall, modern stream processing engines abandon remote database lookups entirely during hot-path execution.",
+        "Instead, state is stored locally on the worker node's high-speed memory or local NVMe solid-state drive.",
+        "Local key-value stores deliver sub-microsecond access times, enabling single stream processing nodes to process massive event velocities."
+      ],
+      "example": "A carpenter keeping a tool belt around their waist instead of walking back to a warehouse across town every time they need a nail.",
+      "code": "interface LatencyComparison {\n  model: string;\n  operationsPerSecond: number;\n  lookupLatencyMicroseconds: number;\n}\n\nfunction compareStoragePerformance(): LatencyComparison[] {\n  return [\n    { model: \"Remote SQL / NoSQL (Network I/O)\", operationsPerSecond: 2500, lookupLatencyMicroseconds: 4000 },\n    { model: \"Local RocksDB (Embedded NVMe SSD)\", operationsPerSecond: 150000, lookupLatencyMicroseconds: 25 },\n    { model: \"In-Memory Local Hash Store (RAM)\", operationsPerSecond: 1200000, lookupLatencyMicroseconds: 0.8 }\n  ];\n}\n\nconst benchmarks = compareStoragePerformance();\nbenchmarks.forEach(b => {\n  const speedup = Math.round(b.operationsPerSecond / benchmarks[0].operationsPerSecond);\n  console.log(`[${b.model}] Ops/sec: ${b.operationsPerSecond.toLocaleString()} | Latency: ${b.lookupLatencyMicroseconds}µs | Speedup: ${speedup}x`);\n});",
+      "output": "[Remote SQL / NoSQL (Network I/O)] Ops/sec: 2,500 | Latency: 4000µs | Speedup: 1x\n[Local RocksDB (Embedded NVMe SSD)] Ops/sec: 1,50,000 | Latency: 25µs | Speedup: 60x\n[In-Memory Local Hash Store (RAM)] Ops/sec: 12,00,000 | Latency: 0.8µs | Speedup: 480x",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Compares network round-trip latency against embedded local state stores."
+        },
+        {
+          "line": 17,
+          "note": "Demonstrates up to 480x speedup when accessing state locally instead of over network."
+        }
+      ],
+      "tryIt": "Calculate total processing time for 1,000,000 events under remote vs local storage models.",
+      "check": {
+        "question": "Why do enterprise stream processors avoid querying remote databases on the hot event processing path?",
+        "options": [
+          "Because network latency and socket serialization throttle event throughput by hundreds to thousands of times",
+          "Because remote databases cannot store strings longer than 16 characters",
+          "Because stream processors are not permitted to use network cards"
+        ],
+        "answer": 0,
+        "why": "Remote network round-trips (2-5ms) bottleneck processing throughput compared to local memory or NVMe access (<25µs)."
+      }
+    },
+    {
+      "title": "Embedded Key-Value State Stores: RocksDB & In-Memory Maps",
+      "say": [
+        "To achieve microsecond data access, stream frameworks embed lightweight key-value storage engines directly inside the processor process.",
+        "In Java and C++ ecosystems, RocksDB is the gold standard embedded storage engine utilized by Apache Flink and Kafka Streams.",
+        "In Node.js and TypeScript environments, embedded state stores are modeled using structured in-memory Maps and persistent disk buffers.",
+        "An embedded store operates in the same memory space and process boundary as the stream processing code itself.",
+        "Point lookups (get) and point mutations (put) execute via direct pointer dereferencing rather than network socket I/O.",
+        "When state exceeds available physical RAM, RocksDB spills colder data blocks to local NVMe disks using Log-Structured Merge (LSM) trees.",
+        "LSM trees optimize write performance by appending mutations sequentially to in-memory memtables before flushing to SSTable disk files.",
+        "This hybrid memory-disk tiering allows stream workers to manage terabytes of state per node with predictable performance.",
+        "Building embedded state stores in TypeScript gives engineers deep insight into the internal machinery of stateful stream engines."
+      ],
+      "example": "A librarian who keeps the top 50 most popular books on a desk cart right behind the checkout desk instead of searching the deep basement archives.",
+      "code": "interface StateStore<K, V> {\n  put(key: K, value: V): void;\n  get(key: K): V | null;\n  delete(key: K): boolean;\n  has(key: K): boolean;\n}\n\nclass InMemoryKeyValueStore<K, V> implements StateStore<K, V> {\n  private table = new Map<K, V>();\n\n  put(key: K, value: V): void {\n    this.table.set(key, value);\n  }\n\n  get(key: K): V | null {\n    return this.table.has(key) ? this.table.get(key)! : null;\n  }\n\n  delete(key: K): boolean {\n    return this.table.delete(key);\n  }\n\n  has(key: K): boolean {\n    return this.table.has(key);\n  }\n\n  size(): number {\n    return this.table.size;\n  }\n}\n\nconst store = new InMemoryKeyValueStore<string, { balance: number; tier: string }>();\nstore.put(\"cust-101\", { balance: 450, tier: \"gold\" });\nstore.put(\"cust-102\", { balance: 120, tier: \"silver\" });\n\nconsole.log(\"Customer 101 Lookup:\", JSON.stringify(store.get(\"cust-101\")));\nconsole.log(\"Customer 999 (Missing):\", store.get(\"cust-999\"));\nconsole.log(\"Total Stored Entities:\", store.size());",
+      "output": "Customer 101 Lookup: {\"balance\":450,\"tier\":\"gold\"}\nCustomer 999 (Missing): null\nTotal Stored Entities: 2",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Embedded state store interface providing direct zero-network get/put operations."
+        },
+        {
+          "line": 36,
+          "note": "Instant in-memory pointer lookup returning entity state in nanoseconds."
+        }
+      ],
+      "tryIt": "Delete customer 101 and verify store.get returns null and size decreases.",
+      "check": {
+        "question": "What is an embedded state store in stream processing architectures?",
+        "options": [
+          "A key-value storage engine running inside the processor's own process memory rather than on an external network server",
+          "A hardware chip soldered directly onto the motherboard",
+          "A cloud database hosted on a different continent"
+        ],
+        "answer": 0,
+        "why": "An embedded state store runs directly within the processor's memory and disk space, eliminating network overhead."
+      }
+    },
+    {
+      "title": "Changelog Topic Backing: Replicating State Mutations",
+      "say": [
+        "While local state stores provide ultra-low latency, storing state exclusively on local worker disks introduces an existential hazard.",
+        "What happens when the physical machine hosting the stream worker experiences hardware failure or sudden power loss?",
+        "If state only exists in local RAM or an unbacked local SSD, the entire state history is permanently destroyed.",
+        "To make local state durable and fault-tolerant, streaming engines couple every state store to a dedicated Changelog Topic.",
+        "Whenever a stream worker performs a state mutation (put or delete), it writes the mutation simultaneously to the local store and to the changelog.",
+        "The changelog topic is hosted on the distributed Kafka or Redpanda cluster, which replicates each record across multiple broker nodes.",
+        "Every changelog entry captures the record key, the mutated value, and a monotonically increasing offset.",
+        "Because the changelog is an append-only sequential log, writes are amortized into fast sequential network batches.",
+        "Changelog topic replication guarantees that local state can be reconstructed completely from scratch if the local machine dies."
+      ],
+      "example": "A court reporter typing a live transcript onto paper while simultaneously transmitting the keystrokes to an offsite secure digital vault.",
+      "code": "interface ChangelogEntry {\n  offset: number;\n  timestamp: number;\n  key: string;\n  value: string | null; // null represents tombstone\n}\n\nclass ChangelogReplicationEngine {\n  private localState = new Map<string, string>();\n  private changelogTopic: ChangelogEntry[] = [];\n  private nextOffset: number = 0;\n\n  put(key: string, value: string): ChangelogEntry {\n    this.localState.set(key, value);\n    const entry: ChangelogEntry = {\n      offset: this.nextOffset++,\n      timestamp: 1700000000000 + this.nextOffset * 100,\n      key,\n      value\n    };\n    this.changelogTopic.push(entry);\n    return entry;\n  }\n\n  get(key: string): string | null {\n    return this.localState.get(key) ?? null;\n  }\n\n  getChangelog(): ChangelogEntry[] {\n    return [...this.changelogTopic];\n  }\n}\n\nconst engine = new ChangelogReplicationEngine();\nconst e1 = engine.put(\"account-A\", \"ACTIVE\");\nconst e2 = engine.put(\"account-B\", \"PENDING\");\nconst e3 = engine.put(\"account-A\", \"SUSPENDED\");\n\nconsole.log(\"Local Value of Account A:\", engine.get(\"account-A\"));\nconsole.log(\"Changelog Records Published:\", engine.getChangelog().length);\nengine.getChangelog().forEach(rec => {\n  console.log(`Changelog Offset #${rec.offset}: Key=${rec.key} -> Val=${rec.value}`);\n});",
+      "output": "Local Value of Account A: SUSPENDED\nChangelog Records Published: 3\nChangelog Offset #0: Key=account-A -> Val=ACTIVE\nChangelog Offset #1: Key=account-B -> Val=PENDING\nChangelog Offset #2: Key=account-A -> Val=SUSPENDED",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Applies mutation to local state store and appends to remote changelog topic."
+        },
+        {
+          "line": 36,
+          "note": "Changelog captures complete mutation history: Account A transition from ACTIVE to SUSPENDED."
+        }
+      ],
+      "tryIt": "Inspect offset numbers and verify each changelog entry gets a strictly increasing monotonic offset.",
+      "check": {
+        "question": "Why do stateful stream processors replicate state mutations to a remote changelog topic?",
+        "options": [
+          "To provide durable fault tolerance so local state can be fully restored if the worker machine crashes",
+          "To send notification emails to developers",
+          "To double the size of network packets"
+        ],
+        "answer": 0,
+        "why": "A remote replicated changelog persists all mutations, ensuring state can be restored if the local node fails."
+      }
+    },
+    {
+      "title": "Tombstone Deletions & Log Purging",
+      "say": [
+        "In append-only message logs, records cannot be directly deleted or erased from existing historical positions.",
+        "How then does a stream processor communicate to the changelog that a key has been permanently removed?",
+        "The standard distributed systems mechanism for expressing key deletion in append-only logs is the Tombstone Record.",
+        "A Tombstone is a special record with a valid key but a payload value explicitly set to null.",
+        "When the local state store deletes a key, it emits a tombstone entry { key: targetKey, value: null } to the changelog.",
+        "Any replica or consumer reading the changelog understands that a null payload signifies immediate deletion of that key.",
+        "Downstream log compaction workers inspect tombstones and eventually purge both the tombstone and all prior historical records for that key.",
+        "Without tombstones, deleted keys would reappear as ghost records whenever state was replayed from beginning of the log.",
+        "Mastering tombstone semantics ensures correct state deletion without violating the append-only nature of distributed logs."
+      ],
+      "example": "A physical grave marker placed on an empty lot stating that a demolished building once stood here, preventing someone from trying to enter it.",
+      "code": "interface StoreRecord {\n  key: string;\n  value: string | null;\n}\n\nclass TombstoneStore {\n  private data = new Map<string, string>();\n  private log: StoreRecord[] = [];\n\n  put(key: string, value: string): void {\n    this.data.set(key, value);\n    this.log.push({ key, value });\n  }\n\n  delete(key: string): boolean {\n    if (!this.data.has(key)) return false;\n    this.data.delete(key);\n    // Emit tombstone record with null value\n    this.log.push({ key, value: null });\n    return true;\n  }\n\n  get(key: string): string | null {\n    return this.data.get(key) ?? null;\n  }\n\n  getLog(): StoreRecord[] {\n    return this.log;\n  }\n}\n\nconst store = new TombstoneStore();\nstore.put(\"session-1\", \"user-alice\");\nstore.put(\"session-2\", \"user-bob\");\nconsole.log(\"Before Delete: session-1 =\", store.get(\"session-1\"));\n\n// Delete session-1: emits tombstone!\nstore.delete(\"session-1\");\nconsole.log(\"After Delete: session-1 =\", store.get(\"session-1\"));\n\nconsole.log(\"Log Tail (Showing Tombstone):\", JSON.stringify(store.getLog()[2]));",
+      "output": "Before Delete: session-1 = user-alice\nAfter Delete: session-1 = null\nLog Tail (Showing Tombstone): {\"key\":\"session-1\",\"value\":null}",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Pushes tombstone record with explicit null value to changelog."
+        },
+        {
+          "line": 39,
+          "note": "Demonstrates tombstone representation { key: 'session-1', value: null }."
+        }
+      ],
+      "tryIt": "Attempt to delete a non-existent key and verify delete returns false without emitting a tombstone.",
+      "check": {
+        "question": "What is a tombstone record in append-only changelog logs?",
+        "options": [
+          "A record containing a valid key and a null payload, indicating that the key has been deleted",
+          "An encrypted record that cannot be read without a private key",
+          "A corrupted record that causes the consumer to halt"
+        ],
+        "answer": 0,
+        "why": "A tombstone has a valid key and a null value, signaling downstream consumers and compactors to delete the key."
+      }
+    },
+    {
+      "title": "Changelog Replay & Crash Recovery State Restoration",
+      "say": [
+        "We now explore what happens when disaster strikes and a stream worker process crashes or its host machine fails.",
+        "A replacement worker node is automatically provisioned by the container orchestrator (e.g., Kubernetes) on a new host.",
+        "The replacement worker has an empty local disk and zero in-memory state.",
+        "Before it can begin processing live incoming events, the worker must execute Changelog State Restoration.",
+        "The worker subscribes to its assigned partition changelog topic from offset 0 up to the latest committed offset.",
+        "It sequentially replays every mutation: inserting put records and removing keys upon encountering tombstones.",
+        "Because operations were recorded in strict causal order, replaying the changelog reconstructs the exact local state store snapshot.",
+        "Once the changelog has been completely caught up, the worker switches to live stream processing with zero data loss.",
+        "This elegant restoration protocol ensures seamless recovery across machine reboots, crashes, and cluster rebalances."
+      ],
+      "example": "A bank auditor recreating an account balance from scratch by reading the paper checkbook register from check #1 to the current date.",
+      "code": "interface MutationLogEntry {\n  offset: number;\n  key: string;\n  value: string | null;\n}\n\nfunction replayChangelogToState(changelog: MutationLogEntry[]): Record<string, string> {\n  const reconstructed: Record<string, string> = {};\n\n  for (const entry of changelog) {\n    if (entry.value === null) {\n      // Tombstone: delete from reconstructed state\n      delete reconstructed[entry.key];\n    } else {\n      // Normal mutation: update key\n      reconstructed[entry.key] = entry.value;\n    }\n  }\n\n  return reconstructed;\n}\n\nconst historicalChangelog: MutationLogEntry[] = [\n  { offset: 0, key: \"user-1\", value: \"Profile V1\" },\n  { offset: 1, key: \"user-2\", value: \"Profile V1\" },\n  { offset: 2, key: \"user-1\", value: \"Profile V2 (Updated)\" },\n  { offset: 3, key: \"user-2\", value: null }, // Tombstone: deleted user-2!\n  { offset: 4, key: \"user-3\", value: \"Profile V1\" }\n];\n\nconst restoredState = replayChangelogToState(historicalChangelog);\nconsole.log(\"Changelog Entries Processed:\", historicalChangelog.length);\nconsole.log(\"Restored Keys Count:\", Object.keys(restoredState).length);\nconsole.log(\"User 1 Restored State:\", restoredState[\"user-1\"]);\nconsole.log(\"User 2 Exists in Restored State?\", \"user-2\" in restoredState);\nconsole.log(\"User 3 Restored State:\", restoredState[\"user-3\"]);",
+      "output": "Changelog Entries Processed: 5\nRestored Keys Count: 2\nUser 1 Restored State: Profile V2 (Updated)\nUser 2 Exists in Restored State? false\nUser 3 Restored State: Profile V1",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Replays mutations in offset order: deletes on null, sets on value."
+        },
+        {
+          "line": 30,
+          "note": "User 2 was deleted by tombstone at offset 3 and correctly does not exist in restored state."
+        }
+      ],
+      "tryIt": "Add a 6th changelog entry updating user-3 to V2 and observe the restored value.",
+      "check": {
+        "question": "How does a replacement stream worker restore its local state after a physical hardware failure?",
+        "options": [
+          "It replays the partition changelog topic from offset 0 to catch up to the latest state",
+          "It calls a human database administrator to type in the missing values",
+          "It ignores the past and starts with an empty state"
+        ],
+        "answer": 0,
+        "why": "Replaying the changelog sequentially from offset 0 reconstructs the identical state store snapshot."
+      }
+    },
+    {
+      "title": "Write-Through Caching & Read-Through Optimization",
+      "say": [
+        "In production stream processors, balancing fast read latency with durable changelog persistence requires write-through design.",
+        "A Write-Through Cache updates the local in-memory store immediately and synchronously appends to the changelog stream.",
+        "This ensures that subsequent read queries from the same event pipeline observe their own mutations with zero delay.",
+        "Read-Through caching ensures that if a key is not present in the hot memory cache, it is pulled from disk transparently.",
+        "To maximize write throughput, changelog writes are aggregated into micro-batches before network dispatch to Kafka brokers.",
+        "Telemetry metrics monitor store read latency, write latency, active key count, and changelog replication lag.",
+        "If replication lag spikes, backpressure signals slow down event ingestion until the changelog catches up.",
+        "Coupling local fast caches with durable changelog streams delivers the pinnacle of speed and safety in stream computing.",
+        "Tomorrow, we explore Stream-Table Duality to see how changelogs and state tables mirror one another mathematically."
+      ],
+      "example": "A retail clerk entering a sale into their terminal; the screen updates immediately while the transaction receipt is transmitted to central HQ.",
+      "code": "interface StateMutationResult {\n  key: string;\n  appliedValue: string;\n  changelogOffset: number;\n}\n\nclass WriteThroughStateEngine {\n  private cache = new Map<string, string>();\n  private changelog: { offset: number; key: string; value: string }[] = [];\n  private offsetCounter: number = 0;\n\n  put(key: string, value: string): StateMutationResult {\n    // 1. Update local cache immediately\n    this.cache.set(key, value);\n\n    // 2. Write-through to changelog topic\n    const offset = this.offsetCounter++;\n    this.changelog.push({ offset, key, value });\n\n    return { key, appliedValue: value, changelogOffset: offset };\n  }\n\n  get(key: string): string | null {\n    // Instant read-through from local cache\n    return this.cache.get(key) ?? null;\n  }\n\n  getStats(): { cachedKeys: number; changelogSize: number } {\n    return {\n      cachedKeys: this.cache.size,\n      changelogSize: this.changelog.length\n    };\n  }\n}\n\nconst engine = new WriteThroughStateEngine();\nconst r1 = engine.put(\"sku-101\", \"In Stock (50)\");\nconst r2 = engine.put(\"sku-102\", \"In Stock (10)\");\nconst r3 = engine.put(\"sku-101\", \"In Stock (49)\"); // Decrement stock\n\nconsole.log(\"Mutation 3 Applied Offset:\", r3.changelogOffset);\nconsole.log(\"Instant Read SKU-101:\", engine.get(\"sku-101\"));\nconsole.log(\"Engine Telemetry:\", JSON.stringify(engine.getStats()));",
+      "output": "Mutation 3 Applied Offset: 2\nInstant Read SKU-101: In Stock (49)\nEngine Telemetry: {\"cachedKeys\":2,\"changelogSize\":3}",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Write-through protocol updating local cache and changelog synchronously."
+        },
+        {
+          "line": 40,
+          "note": "SKU-101 instant read reflects latest decrement (49) with 2 changelog entries recorded."
+        }
+      ],
+      "tryIt": "Add a put for sku-103 and verify changelogSize becomes 4.",
+      "check": {
+        "question": "What is the primary advantage of a write-through state store architecture?",
+        "options": [
+          "It guarantees that local in-memory reads are immediately consistent while preserving durable replication to the changelog",
+          "It disables disk writes entirely",
+          "It runs all queries in parallel across 100 cloud nodes"
+        ],
+        "answer": 0,
+        "why": "Write-through updates memory and appends to the changelog together, guaranteeing immediate read consistency and durability."
+      }
+    }
+  ],
+  "summary": [
+    "Remote database round-trips bottleneck stream processing; embedded local stores achieve sub-microsecond access.",
+    "Embedded engines (RocksDB / Map) run directly within processor process memory for zero-network queries.",
+    "Changelog topics replicate every mutation to a distributed log for durable fault tolerance.",
+    "Tombstone records (valid key with null value) express permanent key deletions in append-only logs.",
+    "Replaying the changelog sequentially reconstructs exact state store snapshots following node crashes."
+  ],
+  "projectStep": {
+    "title": "Implement the Changelog-Backed Local State Store",
+    "steps": [
+      "Build an in-memory key-value state store with fast point lookups and sequential changelog logging.",
+      "Implement tombstone deletion semantics to cleanly represent deleted entities in append-only streams.",
+      "Construct a changelog replay restoration engine that reconstructs exact state snapshots after node crashes."
+    ]
+  }
+},
+{
+  "day": 22,
+  "title": "Stream-Table Duality (KStream vs KTable) & Changelog Compaction",
+  "goal": "Master the foundational Stream-Table Duality: KStream (changelog of facts) vs KTable (snapshot of current state), stream-to-table materialization, table-to-stream change tracking, log compaction algorithms, tombstone cleanup, and interactive materialized view querying.",
+  "minutes": 25,
+  "recap": "Yesterday we learned how local state stores are backed by changelog streams. Today we explore the deep theoretical and practical relationship connecting streams and tables: Stream-Table Duality, and how log compaction retains current state while discarding obsolete history.",
+  "parts": [
+    {
+      "title": "Stream-Table Duality: Two Sides of the Same Coin",
+      "say": [
+        "In modern data systems, engineers frequently view event streams and database tables as two completely separate paradigms.",
+        "Streams are seen as ephemeral, high-velocity flows of records, while tables are seen as static, durable repositories of current state.",
+        "However, in 2013, Jay Kreps formulated the foundational principle of streaming: Stream-Table Duality.",
+        "Stream-Table Duality posits that a stream and a table are simply two different perspectives on the exact same underlying data.",
+        "A stream represents the changelog of facts over time: every insert, update, and delete that has ever occurred.",
+        "A table represents the accumulated current state snapshot at a single point in time, derived by playing the stream.",
+        "Conversely, if you take a table and observe the changes occurring to its rows over time, you produce a changelog stream.",
+        "A stream is a table in motion; a table is a stream at rest.",
+        "Mastering Stream-Table Duality enables developers to move fluidly between continuous events and queryable database views."
+      ],
+      "example": "A bank statement: the list of deposits and withdrawals is the stream; the ending account balance at the bottom is the table.",
+      "code": "interface StreamFact {\n  entityId: string;\n  delta: number;\n}\n\n// Stream to Table: aggregating stream facts into current state table\nfunction streamToTable(facts: StreamFact[]): Record<string, number> {\n  const table: Record<string, number> = {};\n  for (const f of facts) {\n    table[f.entityId] = (table[f.entityId] || 0) + f.delta;\n  }\n  return table;\n}\n\n// Table to Stream: emitting change stream as table state changes\nfunction tableToStream(tableBefore: Record<string, number>, tableAfter: Record<string, number>): StreamFact[] {\n  const deltas: StreamFact[] = [];\n  for (const [k, newVal] of Object.entries(tableAfter)) {\n    const oldVal = tableBefore[k] || 0;\n    if (newVal !== oldVal) {\n      deltas.push({ entityId: k, delta: newVal - oldVal });\n    }\n  }\n  return deltas;\n}\n\nconst facts: StreamFact[] = [\n  { entityId: \"wallet-1\", delta: 100 },\n  { entityId: \"wallet-2\", delta: 50 },\n  { entityId: \"wallet-1\", delta: -30 }\n];\n\nconst stateTable = streamToTable(facts);\nconsole.log(\"Materialized State Table (Stream -> Table):\", JSON.stringify(stateTable));\n\nconst modifiedTable = { ...stateTable, \"wallet-1\": 150 };\nconst changeStream = tableToStream(stateTable, modifiedTable);\nconsole.log(\"Emitted Change Stream (Table -> Stream):\", JSON.stringify(changeStream));",
+      "output": "Materialized State Table (Stream -> Table): {\"wallet-1\":70,\"wallet-2\":50}\nEmitted Change Stream (Table -> Stream): [{\"entityId\":\"wallet-1\",\"delta\":80}]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Folds stream deltas into a materialized state table."
+        },
+        {
+          "line": 17,
+          "note": "Diffs two table snapshots to emit a changelog stream of mutations."
+        }
+      ],
+      "tryIt": "Add another fact for wallet-2 and observe how streamToTable updates its balance.",
+      "check": {
+        "question": "What is the core thesis of Stream-Table Duality in distributed systems?",
+        "options": [
+          "A stream is a changelog of facts in motion, and a table is the materialized snapshot of that changelog at rest",
+          "Streams and tables can never interact or be converted into one another",
+          "Tables only exist in memory while streams only exist on disk"
+        ],
+        "answer": 0,
+        "why": "A stream is the historical log of mutations, and a table is the current materialized snapshot produced by playing that log."
+      }
+    },
+    {
+      "title": "KStream vs KTable Semantics in Processing Topologies",
+      "say": [
+        "In stream processing engines like Kafka Streams and Flink SQL, this duality is formalized into KStream and KTable abstractions.",
+        "A KStream interprets every incoming record as an independent fact or insert statement.",
+        "Two consecutive records with the exact same key 'user-1' are treated as two distinct occurrences, both processed downstream.",
+        "A KTable, by contrast, interprets incoming records as update statements (upserts) on a primary key.",
+        "When a new record with key 'user-1' arrives in a KTable, it overwrites the previous value for 'user-1'.",
+        "If a KTable record arrives with a null value, it acts as a delete operation, removing 'user-1' from the state snapshot.",
+        "Choosing between KStream and KTable determines whether your pipeline tracks discrete actions (clicks, payments) or entity state (user profiles, balances).",
+        "Understanding this semantic distinction prevents subtle bugs where updates are accidentally counted as duplicate events.",
+        "Combining KStreams and KTables together enables powerful stateful pipelines and real-time stream enrichment."
+      ],
+      "example": "A KStream is a register of hotel door card swipes; a KTable is a display showing which room each guest is currently occupying.",
+      "code": "interface RecordEntry {\n  key: string;\n  value: string | null;\n}\n\nclass StreamVsTableDemo {\n  private kstreamLog: RecordEntry[] = [];\n  private ktableSnapshot = new Map<string, string>();\n\n  ingest(key: string, value: string | null): void {\n    // KStream: Every record is an append-only event\n    this.kstreamLog.push({ key, value });\n\n    // KTable: Record is an upsert or delete\n    if (value === null) {\n      this.ktableSnapshot.delete(key);\n    } else {\n      this.ktableSnapshot.set(key, value);\n    }\n  }\n\n  getKStreamCount(): number {\n    return this.kstreamLog.length;\n  }\n\n  getKTableKeys(): string[] {\n    return Array.from(this.ktableSnapshot.keys());\n  }\n\n  getKTableValue(key: string): string | null {\n    return this.ktableSnapshot.get(key) ?? null;\n  }\n}\n\nconst demo = new StreamVsTableDemo();\ndemo.ingest(\"usr-1\", \"Alice - Standard\");\ndemo.ingest(\"usr-2\", \"Bob - Standard\");\ndemo.ingest(\"usr-1\", \"Alice - Premium Upgrade\"); // KStream adds 3rd event; KTable updates usr-1\ndemo.ingest(\"usr-2\", null); // KStream adds 4th event; KTable deletes usr-2\n\nconsole.log(\"KStream Total Events Recorded:\", demo.getKStreamCount(), \"(All historical facts preserved)\");\nconsole.log(\"KTable Active Entities:\", JSON.stringify(demo.getKTableKeys()), \"(Only current active state)\");\nconsole.log(\"KTable usr-1 Latest State:\", demo.getKTableValue(\"usr-1\"));",
+      "output": "KStream Total Events Recorded: 4 (All historical facts preserved)\nKTable Active Entities: [\"usr-1\"] (Only current active state)\nKTable usr-1 Latest State: Alice - Premium Upgrade",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "KStream appends every record independently as an immutable fact."
+        },
+        {
+          "line": 16,
+          "note": "KTable treats records as primary-key upserts, overwriting previous values."
+        }
+      ],
+      "tryIt": "Ingest a new record for usr-3 and check both KStream count and KTable keys.",
+      "check": {
+        "question": "How does a KTable treat multiple incoming records that share the same key?",
+        "options": [
+          "As sequential updates (upserts) where the latest record overwrites the preceding value for that key",
+          "It throws a primary key collision error and halts",
+          "It concats the strings into a single comma-separated list"
+        ],
+        "answer": 0,
+        "why": "A KTable enforces primary key semantics: any new record for key K replaces the previous value for K."
+      }
+    },
+    {
+      "title": "Log Compaction: Compacting Changelogs to Bound Storage",
+      "say": [
+        "In append-only changelog topics, a busy streaming system generates billions of state mutations over time.",
+        "If every historical update is retained permanently, storage costs become astronomical and changelog replay times climb to hours.",
+        "Log Compaction is a retention policy designed specifically for changelog topics and KTables.",
+        "Instead of deleting records based on elapsed time (e.g., 7 days), log compaction retains the latest record for each key.",
+        "During background compaction sweeps, obsolete intermediate updates for any key are purged from earlier segments.",
+        "For example, if key 'user-1' was updated 1,000 times, compaction purges the first 999 records and retains only the 1,000th.",
+        "If a key was deleted via a tombstone, compaction retains the tombstone long enough for replicas to observe it, then purges it.",
+        "Log compaction guarantees that a changelog topic never exceeds the size of the active working dataset.",
+        "This allows replacement stream workers to restore state in minutes rather than replaying weeks of obsolete history."
+      ],
+      "example": "A physical address book where you erase a friend's old address and write their new one in its place instead of adding 20 pages of past addresses.",
+      "code": "interface ChangelogRecord {\n  offset: number;\n  key: string;\n  value: string | null; // null is tombstone\n}\n\nfunction compactLog(records: ChangelogRecord[]): ChangelogRecord[] {\n  // Track the latest record per key\n  const latestByKey = new Map<string, ChangelogRecord>();\n\n  for (const r of records) {\n    latestByKey.set(r.key, r);\n  }\n\n  // Filter out tombstones and sort by original offset\n  return Array.from(latestByKey.values())\n    .filter(r => r.value !== null)\n    .sort((a, b) => a.offset - b.offset);\n}\n\nconst rawChangelog: ChangelogRecord[] = [\n  { offset: 0, key: \"stock-AAPL\", value: \"150.00\" },\n  { offset: 1, key: \"stock-MSFT\", value: \"310.00\" },\n  { offset: 2, key: \"stock-AAPL\", value: \"152.50\" }, // Obsoletes offset 0\n  { offset: 3, key: \"stock-MSFT\", value: null },     // Tombstone: deletes MSFT\n  { offset: 4, key: \"stock-GOOG\", value: \"135.00\" },\n  { offset: 5, key: \"stock-AAPL\", value: \"155.00\" }  // Obsoletes offset 2\n];\n\nconst compacted = compactLog(rawChangelog);\nconsole.log(\"Raw Changelog Record Count:\", rawChangelog.length);\nconsole.log(\"Compacted Record Count:\", compacted.length);\ncompacted.forEach(r => {\n  console.log(`Offset #${r.offset}: Key=${r.key} -> Val=${r.value}`);\n});",
+      "output": "Raw Changelog Record Count: 6\nCompacted Record Count: 2\nOffset #4: Key=stock-GOOG -> Val=135.00\nOffset #5: Key=stock-AAPL -> Val=155.00",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Map retains only the latest record for each distinct key."
+        },
+        {
+          "line": 16,
+          "note": "Tombstones (value === null) are purged after execution, leaving only active state."
+        }
+      ],
+      "tryIt": "Add a new record for stock-GOOG at offset 6 and check the compacted output.",
+      "check": {
+        "question": "What is the primary benefit of enabling log compaction on a Kafka changelog topic?",
+        "options": [
+          "It retains only the latest value for each primary key, preventing unbounded storage growth and speeding up recovery",
+          "It automatically encrypts all records with AES-256",
+          "It deletes all records older than 24 hours regardless of key"
+        ],
+        "answer": 0,
+        "why": "Log compaction purges obsolete intermediate mutations for each key, keeping storage bounded to the active working set size."
+      }
+    },
+    {
+      "title": "Stream-to-Table Aggregations: Dynamic Balance Ledger",
+      "say": [
+        "One of the most frequent patterns in stream processing is aggregating a continuous transaction stream into an account balance table.",
+        "Incoming financial events represent transaction deltas: deposits (positive deltas) and withdrawals (negative deltas).",
+        "The stream-to-table reducer accumulates these deltas into a materialized table of current account balances.",
+        "If an account's balance reaches exactly zero, the ledger can optionally emit a tombstone or prune the key to save memory.",
+        "In TypeScript, this reduction is implemented as a stateful fold operator over incoming event envelopes.",
+        "As each transaction is processed, the reducer updates the local KTable and emits the updated balance downstream.",
+        "Downstream microservices can subscribe to the balance change stream to trigger overdraft warnings or credit limit alerts.",
+        "Because state is maintained locally in the KTable, checking whether an account has sufficient balance executes in sub-microsecond time.",
+        "Stream-to-table reduction provides the foundation for real-time transactional ledgers and inventory counters."
+      ],
+      "example": "A casino chip cashier continuously exchanging cash for chips and chips for cash, keeping a running tally of chips in circulation.",
+      "code": "interface TransactionDelta {\n  accountId: string;\n  delta: number;\n}\n\nclass BalanceLedger {\n  private balances = new Map<string, number>();\n\n  applyTransaction(tx: TransactionDelta): { accountId: string; newBalance: number; status: 'UPDATED' | 'CLOSED' } {\n    const current = this.balances.get(tx.accountId) || 0;\n    const updated = current + tx.delta;\n\n    if (updated === 0) {\n      this.balances.delete(tx.accountId);\n      return { accountId: tx.accountId, newBalance: 0, status: 'CLOSED' };\n    }\n\n    this.balances.set(tx.accountId, updated);\n    return { accountId: tx.accountId, newBalance: updated, status: 'UPDATED' };\n  }\n\n  getBalance(accountId: string): number {\n    return this.balances.get(accountId) || 0;\n  }\n\n  getActiveAccounts(): Record<string, number> {\n    const res: Record<string, number> = {};\n    for (const [k, v] of this.balances.entries()) {\n      res[k] = v;\n    }\n    return res;\n  }\n}\n\nconst ledger = new BalanceLedger();\nconsole.log(\"Tx 1:\", JSON.stringify(ledger.applyTransaction({ accountId: \"acc-1\", delta: 100 })));\nconsole.log(\"Tx 2:\", JSON.stringify(ledger.applyTransaction({ accountId: \"acc-2\", delta: 50 })));\nconsole.log(\"Tx 3:\", JSON.stringify(ledger.applyTransaction({ accountId: \"acc-1\", delta: -40 })));\nconsole.log(\"Tx 4:\", JSON.stringify(ledger.applyTransaction({ accountId: \"acc-2\", delta: -50 }))); // Closes acc-2!\nconsole.log(\"Active Balance Table:\", JSON.stringify(ledger.getActiveAccounts()));",
+      "output": "Tx 1: {\"accountId\":\"acc-1\",\"newBalance\":100,\"status\":\"UPDATED\"}\nTx 2: {\"accountId\":\"acc-2\",\"newBalance\":50,\"status\":\"UPDATED\"}\nTx 3: {\"accountId\":\"acc-1\",\"newBalance\":60,\"status\":\"UPDATED\"}\nTx 4: {\"accountId\":\"acc-2\",\"newBalance\":0,\"status\":\"CLOSED\"}\nActive Balance Table: {\"acc-1\":60}",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Updates running balance by adding delta; deletes key if balance reaches 0."
+        },
+        {
+          "line": 42,
+          "note": "Acc-2 balance drops to 0 and is removed from active accounts snapshot."
+        }
+      ],
+      "tryIt": "Apply a transaction of -60 to acc-1 and verify its balance becomes 0 (CLOSED).",
+      "check": {
+        "question": "How does a stream-to-table reducer transform transaction events into current state?",
+        "options": [
+          "It accumulates deltas into a state table per key, updating the running total with each incoming event",
+          "It converts all numbers to hexadecimal strings",
+          "It routes each event to a random worker"
+        ],
+        "answer": 0,
+        "why": "A stream-to-table reducer folds sequential change events (deltas) into a current materialized value per key."
+      }
+    },
+    {
+      "title": "Interactive Queries on Materialized Views",
+      "say": [
+        "In traditional streaming setups, stream processors only pushed data downstream to external databases for querying.",
+        "However, modern architectures leverage Interactive Queries, allowing external HTTP APIs to query local state stores directly.",
+        "Because the stream processor maintains an up-to-date KTable in local memory, it already represents the latest materialized view.",
+        "Instead of copying state to an external Redis or PostgreSQL cluster, an embedded REST or gRPC server exposes the local store.",
+        "When a user requests their current account balance, the web server queries the stream processor's local KTable directly.",
+        "Point lookups complete in microseconds because data resides in local RAM without external network hops.",
+        "In a partitioned cluster, incoming queries are routed to the specific stream worker hosting the partition for that key.",
+        "Interactive queries unify stream processing and real-time database querying into a single, cohesive distributed tier.",
+        "This eliminates the cost, complexity, and synchronization lag of maintaining separate operational databases."
+      ],
+      "example": "Calling a bakery directly to ask how many bagels are currently in the display case instead of waiting for a weekly printed catalog.",
+      "code": "interface UserState {\n  userId: string;\n  name: string;\n  points: number;\n  tier: 'BRONZE' | 'SILVER' | 'GOLD';\n}\n\nclass MaterializedViewEngine {\n  private stateTable = new Map<string, UserState>();\n\n  // Ingest stream events to update materialized view\n  updateState(state: UserState): void {\n    this.stateTable.set(state.userId, state);\n  }\n\n  // Interactive Query API: point lookup by primary key\n  queryUser(userId: string): { found: boolean; data?: UserState } {\n    const user = this.stateTable.get(userId);\n    if (!user) return { found: false };\n    return { found: true, data: user };\n  }\n\n  // Range query or filter\n  queryByTier(targetTier: 'BRONZE' | 'SILVER' | 'GOLD'): UserState[] {\n    return Array.from(this.stateTable.values()).filter(u => u.tier === targetTier);\n  }\n}\n\nconst view = new MaterializedViewEngine();\nview.updateState({ userId: \"u-10\", name: \"Carol\", points: 850, tier: \"GOLD\" });\nview.updateState({ userId: \"u-20\", name: \"David\", points: 250, tier: \"SILVER\" });\n\nconsole.log(\"Interactive Query u-10:\", JSON.stringify(view.queryUser(\"u-10\")));\nconsole.log(\"Interactive Query u-99 (Not Found):\", JSON.stringify(view.queryUser(\"u-99\")));\nconsole.log(\"Gold Tier Users:\", view.queryByTier(\"GOLD\").map(u => u.name).join(\", \"));",
+      "output": "Interactive Query u-10: {\"found\":true,\"data\":{\"userId\":\"u-10\",\"name\":\"Carol\",\"points\":850,\"tier\":\"GOLD\"}}\nInteractive Query u-99 (Not Found): {\"found\":false}\nGold Tier Users: Carol",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Point lookup executing directly against local materialized KTable in memory."
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates microsecond point queries and filtered scans over live streaming state."
+        }
+      ],
+      "tryIt": "Update Carol's points to 1200 and verify queryUser immediately returns the updated points.",
+      "check": {
+        "question": "What are Interactive Queries in modern stateful stream processors?",
+        "options": [
+          "Direct API queries against the stream processor's internal materialized state stores without querying external databases",
+          "Interactive command-line questionnaires for debugging",
+          "SQL queries executed exclusively on offline tape backups"
+        ],
+        "answer": 0,
+        "why": "Interactive Queries allow external clients to query the processor's internal state directly, bypassing external databases."
+      }
+    },
+    {
+      "title": "End-to-End KStream-KTable Pipeline Architecture",
+      "say": [
+        "To conclude today's exploration, we construct a complete end-to-end KStream-KTable processing pipeline.",
+        "The pipeline ingests a high-velocity clickstream (KStream), updates user profile preferences (KTable), and joins them.",
+        "As profile mutations arrive, the KTable materializes the latest user metadata and backs mutations to a changelog topic.",
+        "When compaction sweeps execute, obsolete profile versions are pruned to maintain flat storage overhead.",
+        "External REST requests query the materialized view interactively with sub-millisecond response latency.",
+        "The entire system operates as a unified, highly optimized distributed reactive data fabric.",
+        "Mastering the relationship between KStreams and KTables bridges event-driven architectures with stateful domain models.",
+        "Tomorrow, we build on this knowledge to perform real-time Stream-Table event enrichment joins.",
+        "You now possess the foundational theory and practical code patterns governing stateful stream architecture."
+      ],
+      "example": "A ride-sharing platform where driver GPS pings (KStream) continuously update driver current locations on a live map (KTable).",
+      "code": "interface DriverPing {\n  driverId: string;\n  latitude: number;\n  longitude: number;\n  timestamp: number;\n}\n\ninterface DriverState {\n  driverId: string;\n  lastLat: number;\n  lastLon: number;\n  lastSeen: number;\n}\n\nclass DriverTrackingPipeline {\n  private drivers = new Map<string, DriverState>();\n  private changelog: { offset: number; driverId: string; state: DriverState }[] = [];\n  private offsetCounter = 0;\n\n  // Process KStream driver GPS ping and update KTable\n  processPing(ping: DriverPing): DriverState {\n    const state: DriverState = {\n      driverId: ping.driverId,\n      lastLat: ping.latitude,\n      lastLon: ping.longitude,\n      lastSeen: ping.timestamp\n    };\n    this.drivers.set(ping.driverId, state);\n\n    // Replicate to changelog\n    this.changelog.push({ offset: this.offsetCounter++, driverId: ping.driverId, state });\n    return state;\n  }\n\n  // Interactive Query\n  locateDriver(driverId: string): DriverState | null {\n    return this.drivers.get(driverId) ?? null;\n  }\n\n  getActiveDriverCount(): number {\n    return this.drivers.size;\n  }\n}\n\nconst pipeline = new DriverTrackingPipeline();\npipeline.processPing({ driverId: \"drv-1\", latitude: 37.7749, longitude: -122.4194, timestamp: 1000 });\npipeline.processPing({ driverId: \"drv-2\", latitude: 40.7128, longitude: -74.0060, timestamp: 1050 });\npipeline.processPing({ driverId: \"drv-1\", latitude: 37.7755, longitude: -122.4180, timestamp: 1200 }); // Moved\n\nconsole.log(\"Active Drivers in KTable:\", pipeline.getActiveDriverCount());\nconsole.log(\"Current Position Driver 1:\", JSON.stringify(pipeline.locateDriver(\"drv-1\")));\nconsole.log(\"Current Position Driver 2:\", JSON.stringify(pipeline.locateDriver(\"drv-2\")));",
+      "output": "Active Drivers in KTable: 2\nCurrent Position Driver 1: {\"driverId\":\"drv-1\",\"lastLat\":37.7755,\"lastLon\":-122.418,\"lastSeen\":1200}\nCurrent Position Driver 2: {\"driverId\":\"drv-2\",\"lastLat\":40.7128,\"lastLon\":-74.006,\"lastSeen\":1050}",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Folds continuous stream pings into current driver position table."
+        },
+        {
+          "line": 49,
+          "note": "Interactive query returns latest coordinates for drv-1 (37.7755) reflecting movement."
+        }
+      ],
+      "tryIt": "Query for non-existent driver 'drv-99' and verify it returns null gracefully.",
+      "check": {
+        "question": "Why does converting a GPS ping stream into a driver KTable simplify client queries?",
+        "options": [
+          "Because clients only need the driver's single latest location, not thousands of historical coordinate pings",
+          "Because KTables encrypt the coordinates using SHA-256",
+          "Because GPS coordinates cannot be stored in event streams"
+        ],
+        "answer": 0,
+        "why": "A KTable retains only the current location per driver, providing clients with an instant snapshot without scanning history."
+      }
+    }
+  ],
+  "summary": [
+    "Stream-Table Duality reveals that streams (facts over time) and tables (state snapshots) are two views of the same data.",
+    "KStreams represent immutable insert-only facts; KTables represent primary-key upserts and tombstone deletes.",
+    "Log compaction purges obsolete historical updates for each key, bounding changelog storage to working set size.",
+    "Stream-to-table reducers fold continuous change deltas into queryable account balances and inventories.",
+    "Interactive Queries allow external APIs to query local state stores directly with microsecond read latency."
+  ],
+  "projectStep": {
+    "title": "Implement the KStream-KTable Engine with Log Compaction",
+    "steps": [
+      "Implement a stream-to-table materializer that folds streaming change deltas into an active entity table.",
+      "Build a log compaction algorithm that purges obsolete historical mutations and cleans tombstoned records.",
+      "Construct an interactive query interface enabling direct microsecond point lookups on materialized views."
+    ]
+  }
+},
+{
+  "day": 23,
+  "title": "Stream-Table Joins: Real-Time Event Enrichment",
+  "goal": "Master real-time stream enrichment through stream-table joins: foreign key lookups in local KTable state stores, non-windowed join semantics, handling missing lookups with outer joins, Slowly Changing Dimensions (SCD) temporal version matching, and asynchronous enrichment bottlenecks.",
+  "minutes": 25,
+  "recap": "Yesterday we learned the foundations of Stream-Table Duality and materialized views. Today we combine streams and tables together, implementing high-speed Stream-Table Joins to enrich fast-moving event streams with dimension metadata in real time.",
+  "parts": [
+    {
+      "title": "Real-Time Event Enrichment & The Stream-Table Join Pattern",
+      "say": [
+        "In production architectures, raw event streams are intentionally designed to be lightweight, lean, and compact.",
+        "An order transaction event contains orderId, customerId, and amount, but omits customer name, email, and VIP tier.",
+        "Payloads are kept minimal at the edge to conserve network bandwidth and optimize database serialization speeds.",
+        "However, downstream analytics, fraud scoring engines, and notification dispatchers require enriched business context.",
+        "The Stream-Table Join pattern enriches an incoming stream event by looking up dimension records in a local KTable state store.",
+        "When an order arrives, the joiner extracts customerId, retrieves the customer's current profile from the local table, and joins them.",
+        "The resulting output event contains both the original transaction details and the enriched customer profile attributes.",
+        "Because the lookup target is stored in an embedded local state store, enrichment occurs in sub-microsecond time.",
+        "Stream-table joins are the primary architectural pattern powering real-time personalization, ad targeting, and fraud detection."
+      ],
+      "example": "A passport control officer scanning a passport number (stream event) and seeing the traveler's full photo and visa status appear instantly on their screen (table).",
+      "code": "interface OrderEvent {\n  orderId: string;\n  customerId: string;\n  amount: number;\n}\n\ninterface CustomerProfile {\n  name: string;\n  tier: 'STANDARD' | 'SILVER' | 'GOLD';\n  region: string;\n}\n\ninterface EnrichedOrder {\n  orderId: string;\n  customerId: string;\n  amount: number;\n  customerName: string;\n  customerTier: string;\n}\n\nfunction enrichOrderStream(\n  orders: OrderEvent[],\n  customerTable: Record<string, CustomerProfile>\n): EnrichedOrder[] {\n  return orders.map(order => {\n    const profile = customerTable[order.customerId] || {\n      name: \"Unknown Guest\",\n      tier: \"STANDARD\",\n      region: \"GLOBAL\"\n    };\n\n    return {\n      orderId: order.orderId,\n      customerId: order.customerId,\n      amount: order.amount,\n      customerName: profile.name,\n      customerTier: profile.tier\n    };\n  });\n}\n\nconst customers: Record<string, CustomerProfile> = {\n  \"c-101\": { name: \"Alice Smith\", tier: \"GOLD\", region: \"NA\" },\n  \"c-102\": { name: \"Bob Jones\", tier: \"SILVER\", region: \"EU\" }\n};\n\nconst rawOrders: OrderEvent[] = [\n  { orderId: \"ord-1\", customerId: \"c-101\", amount: 250 },\n  { orderId: \"ord-2\", customerId: \"c-102\", amount: 45 },\n  { orderId: \"ord-3\", customerId: \"c-999\", amount: 80 } // Unregistered guest\n];\n\nconst enriched = enrichOrderStream(rawOrders, customers);\nenriched.forEach(o => {\n  console.log(`Order ${o.orderId}: $${o.amount} by ${o.customerName} [${o.customerTier}]`);\n});",
+      "output": "Order ord-1: $250 by Alice Smith [GOLD]\nOrder ord-2: $45 by Bob Jones [SILVER]\nOrder ord-3: $80 by Unknown Guest [STANDARD]",
+      "codeNotes": [
+        {
+          "line": 24,
+          "note": "Looks up dimension profile by customerId foreign key with fallback default."
+        },
+        {
+          "line": 49,
+          "note": "Demonstrates instant stream enrichment including graceful fallback for unregistered customer c-999."
+        }
+      ],
+      "tryIt": "Add a gold-tier discount calculation for customer c-101 in the enriched order output.",
+      "check": {
+        "question": "What is the primary function of a stream-table join in event-driven systems?",
+        "options": [
+          "To enrich incoming stream events with dimension metadata looked up from a state table by foreign key",
+          "To merge two separate Kafka clusters into one",
+          "To encrypt raw event payloads using SSL certificates"
+        ],
+        "answer": 0,
+        "why": "A stream-table join enriches high-velocity events with contextual metadata retrieved from a dimension table."
+      }
+    },
+    {
+      "title": "Why Stream-Table Joins Are Non-Windowed",
+      "say": [
+        "In earlier lessons, we learned that stream operations often require temporal windows (tumbling, sliding, session).",
+        "However, a crucial theoretical property of Stream-Table Joins is that they are completely Non-Windowed.",
+        "Why do stream-table joins not require a time window?",
+        "Because a table represents the current state of the world at this exact moment in time.",
+        "When an event arrives from a stream, there is no ambiguity about which historical version of the table to join against.",
+        "The event simply looks up whatever value currently resides in the table at the instant the event is processed.",
+        "There is no concept of waiting for a window to close or expiring old table entries relative to event timestamps.",
+        "As soon as the table updates, all subsequent stream events immediately observe and join with the updated table state.",
+        "Recognizing that stream-table joins are non-windowed simplifies stream topology design and avoids unnecessary state buffering."
+      ],
+      "example": "Checking the current balance on a gift card at the register; the cashier checks what the balance is right now, not what it was last week.",
+      "code": "interface TemperatureReading {\n  sensorId: string;\n  tempCelsius: number;\n}\n\ninterface SensorMetadata {\n  building: string;\n  floor: number;\n}\n\nclass NonWindowedEnricher {\n  private sensorTable = new Map<string, SensorMetadata>();\n\n  // KTable mutation: update sensor location\n  updateSensor(sensorId: string, meta: SensorMetadata): void {\n    this.sensorTable.set(sensorId, meta);\n  }\n\n  // KStream processing: non-windowed point-in-time join\n  processReading(reading: TemperatureReading): { sensorId: string; temp: number; location: string } {\n    const meta = this.sensorTable.get(reading.sensorId) || { building: \"Unassigned\", floor: 0 };\n    return {\n      sensorId: reading.sensorId,\n      temp: reading.tempCelsius,\n      location: `${meta.building} - Fl ${meta.floor}`\n    };\n  }\n}\n\nconst enricher = new NonWindowedEnricher();\nenricher.updateSensor(\"s-1\", { building: \"HQ\", floor: 2 });\n\nconsole.log(\"Reading 1:\", JSON.stringify(enricher.processReading({ sensorId: \"s-1\", tempCelsius: 22.4 })));\n\n// Sensor physically relocated to Floor 4\nenricher.updateSensor(\"s-1\", { building: \"HQ\", floor: 4 });\n\n// Subsequent event immediately observes relocated position!\nconsole.log(\"Reading 2:\", JSON.stringify(enricher.processReading({ sensorId: \"s-1\", tempCelsius: 23.1 })));",
+      "output": "Reading 1: {\"sensorId\":\"s-1\",\"temp\":22.4,\"location\":\"HQ - Fl 2\"}\nReading 2: {\"sensorId\":\"s-1\",\"temp\":23.1,\"location\":\"HQ - Fl 4\"}",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Instant lookup against current sensorTable state without temporal windowing."
+        },
+        {
+          "line": 40,
+          "note": "Reading 2 immediately reflects the updated location (Floor 4) with zero window delay."
+        }
+      ],
+      "tryIt": "Update sensor s-1 to building 'Lab' and verify reading 3 reflects the change.",
+      "check": {
+        "question": "Why do standard stream-table joins NOT require time windows?",
+        "options": [
+          "Because the table represents the latest state of reality, and incoming events join with current state at arrival time",
+          "Because windows are only supported in Python stream processors",
+          "Because stream-table joins only run once per day"
+        ],
+        "answer": 0,
+        "why": "A table represents current state; stream events join immediately with whatever state is currently active in the table."
+      }
+    },
+    {
+      "title": "Inner vs Left Outer Join Semantics in Streaming",
+      "say": [
+        "In relational SQL queries, developers choose between INNER JOIN and LEFT OUTER JOIN depending on null handling.",
+        "The exact same join semantics apply to stream-table joins in distributed event pipelines.",
+        "In a Streaming Inner Join, if an incoming event's foreign key does not exist in the dimension table, the event is dropped.",
+        "Inner joins are appropriate when downstream processors strictly require the enriched data and cannot operate without it.",
+        "In a Streaming Left Outer Join, if the foreign key is missing from the table, the event is still emitted with null enrichment.",
+        "Left outer joins ensure that every incoming event survives the join stage, preventing silent data loss.",
+        "Downstream consumers can then decide whether to apply default values, trigger asynchronous lookups, or route to a dead-letter queue.",
+        "In mission-critical financial and order processing systems, Left Outer Join is almost universally preferred.",
+        "Understanding inner vs outer join semantics ensures that business data flows reliably without accidental record dropping."
+      ],
+      "example": "A VIP party guest list: an inner join only admits guests whose names are on the list; an outer join admits unregistered guests with a visitor pass.",
+      "code": "interface PaymentEvent {\n  txId: string;\n  merchantId: string;\n  amount: number;\n}\n\ninterface MerchantInfo {\n  name: string;\n  category: string;\n}\n\ninterface EnrichedPayment {\n  txId: string;\n  amount: number;\n  merchantName: string | null;\n  merchantCategory: string | null;\n}\n\nfunction joinInner(events: PaymentEvent[], merchants: Record<string, MerchantInfo>): EnrichedPayment[] {\n  const result: EnrichedPayment[] = [];\n  for (const e of events) {\n    const m = merchants[e.merchantId];\n    if (m) {\n      result.push({ txId: e.txId, amount: e.amount, merchantName: m.name, merchantCategory: m.category });\n    }\n  }\n  return result;\n}\n\nfunction joinLeftOuter(events: PaymentEvent[], merchants: Record<string, MerchantInfo>): EnrichedPayment[] {\n  return events.map(e => {\n    const m = merchants[e.merchantId];\n    return {\n      txId: e.txId,\n      amount: e.amount,\n      merchantName: m ? m.name : null,\n      merchantCategory: m ? m.category : null\n    };\n  });\n}\n\nconst merchantTable: Record<string, MerchantInfo> = {\n  \"m-1\": { name: \"Coffee Shop\", category: \"Dining\" }\n};\n\nconst payments: PaymentEvent[] = [\n  { txId: \"tx-1\", merchantId: \"m-1\", amount: 4.50 },\n  { txId: \"tx-2\", merchantId: \"m-99\", amount: 75.00 } // Unknown merchant\n];\n\nconsole.log(\"Inner Join Output Count:\", joinInner(payments, merchantTable).length, \"(Dropped unknown merchant)\");\nconsole.log(\"Left Outer Join Output Count:\", joinLeftOuter(payments, merchantTable).length, \"(Preserved all payments)\");\nconsole.log(\"Left Outer Result:\", JSON.stringify(joinLeftOuter(payments, merchantTable)));",
+      "output": "Inner Join Output Count: 1 (Dropped unknown merchant)\nLeft Outer Join Output Count: 2 (Preserved all payments)\nLeft Outer Result: [{\"txId\":\"tx-1\",\"amount\":4.5,\"merchantName\":\"Coffee Shop\",\"merchantCategory\":\"Dining\"},{\"txId\":\"tx-2\",\"amount\":75,\"merchantName\":null,\"merchantCategory\":null}]",
+      "codeNotes": [
+        {
+          "line": 23,
+          "note": "Inner join discards record if merchantId lookup fails."
+        },
+        {
+          "line": 32,
+          "note": "Left outer join emits record with null fields when lookup fails."
+        }
+      ],
+      "tryIt": "Add merchant m-99 to merchantTable and observe inner join output count increase to 2.",
+      "check": {
+        "question": "Why is Left Outer Join preferred over Inner Join in financial streaming pipelines?",
+        "options": [
+          "Because it guarantees zero data loss: transactions with missing dimension data still pass through for auditing",
+          "Because Left Outer Join executes faster on CPU hardware",
+          "Because Inner Joins corrupt message timestamps"
+        ],
+        "answer": 0,
+        "why": "Left Outer Joins preserve every input event, preventing transaction records from being silently dropped due to missing lookups."
+      }
+    },
+    {
+      "title": "Temporal Table Joins & Slowly Changing Dimensions (SCD)",
+      "say": [
+        "While standard stream-table joins match against the latest current table state, real-world dimensions change over time.",
+        "For example, a customer may transition from Standard tier to Premium tier on June 1st, and VIP tier on September 1st.",
+        "This dynamic is known in data engineering as Slowly Changing Dimensions (SCD Type 2).",
+        "If you replay historical transactions from May, joining them against the current September table would falsely mark them as VIP.",
+        "A Temporal Table Join (also known as a point-in-time join) resolves this by matching the event timestamp against dimension validity intervals.",
+        "Each dimension record in the temporal table includes validFrom and validTo timestamp bounds.",
+        "The joiner matches event E against dimension version D where D.validFrom <= E.timestamp < D.validTo.",
+        "Temporal table joins guarantee historical accuracy when backfilling data, running audits, or calculating tax rates.",
+        "Implementing temporal lookups gives streaming architectures the exactness of a time-traveling relational database."
+      ],
+      "example": "A passport checkpoint validating a visa that was valid between Jan 2023 and Dec 2023; an entry stamp from June 2023 is recognized as valid even in 2024.",
+      "code": "interface AuditEvent {\n  eventId: string;\n  accountId: string;\n  timestamp: number;\n}\n\ninterface DimensionVersion {\n  accountId: string;\n  validFrom: number;\n  validTo: number;\n  tier: string;\n}\n\nfunction joinTemporalDimension(\n  events: AuditEvent[],\n  dimensionHistory: DimensionVersion[]\n): { eventId: string; timestamp: number; tier: string | null }[] {\n  return events.map(evt => {\n    // Find matching dimension version where validFrom <= event.timestamp < validTo\n    const match = dimensionHistory.find(\n      d => d.accountId === evt.accountId &&\n           evt.timestamp >= d.validFrom &&\n           evt.timestamp < d.validTo\n    );\n\n    return {\n      eventId: evt.eventId,\n      timestamp: evt.timestamp,\n      tier: match ? match.tier : null\n    };\n  });\n}\n\nconst dimHistory: DimensionVersion[] = [\n  { accountId: \"acc-1\", validFrom: 100, validTo: 300, tier: \"STANDARD\" },\n  { accountId: \"acc-1\", validFrom: 300, validTo: 600, tier: \"PREMIUM\" },\n  { accountId: \"acc-1\", validFrom: 600, validTo: Infinity, tier: \"VIP\" }\n];\n\nconst eventStream: AuditEvent[] = [\n  { eventId: \"e-1\", accountId: \"acc-1\", timestamp: 150 }, // Falls in [100, 300) -> STANDARD\n  { eventId: \"e-2\", accountId: \"acc-1\", timestamp: 450 }, // Falls in [300, 600) -> PREMIUM\n  { eventId: \"e-3\", accountId: \"acc-1\", timestamp: 750 }  // Falls in [600, Inf) -> VIP\n];\n\nconst temporalResults = joinTemporalDimension(eventStream, dimHistory);\ntemporalResults.forEach(r => {\n  console.log(`Event ${r.eventId} (ts: ${r.timestamp}) -> Correct Historical Tier: ${r.tier}`);\n});",
+      "output": "Event e-1 (ts: 150) -> Correct Historical Tier: STANDARD\nEvent e-2 (ts: 450) -> Correct Historical Tier: PREMIUM\nEvent e-3 (ts: 750) -> Correct Historical Tier: VIP",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Point-in-time temporal match: validFrom <= event.timestamp < validTo."
+        },
+        {
+          "line": 45,
+          "note": "Demonstrates precise time-travel tier lookup matching historical account status."
+        }
+      ],
+      "tryIt": "Add an event at timestamp 50 (before any valid dimension version) and verify tier returns null.",
+      "check": {
+        "question": "When is a Temporal Table Join required instead of a standard latest-state stream-table join?",
+        "options": [
+          "When incoming events must be joined with the specific historical version of the dimension that was active at event time",
+          "When the stream processor runs on a 32-bit operating system",
+          "When the dimension table has more than 10 columns"
+        ],
+        "answer": 0,
+        "why": "Temporal table joins match against historical dimension versions bounded by validFrom/validTo timestamps, ensuring historical correctness."
+      }
+    },
+    {
+      "title": "Asynchronous Enrichment vs Local State: The 1000x Performance Gap",
+      "say": [
+        "In naive designs, developers often attempt to enrich stream events by calling external REST APIs or SQL databases asynchronously.",
+        "While async/await makes remote calls syntactically easy in TypeScript, the operational performance cost is catastrophic.",
+        "A remote HTTP request over an internal network takes between two and ten milliseconds.",
+        "Even with concurrency of 100 parallel requests, throughput is hard-capped at approximately 10,000 requests per second.",
+        "Furthermore, external REST APIs frequently fail under load, trigger rate limits, or suffer network timeouts.",
+        "In contrast, local state store lookups execute in memory in approximately twenty to fifty nanoseconds.",
+        "A single CPU core performing local lookups can effortlessly process over 1,000,000 enrichments per second.",
+        "To achieve both high throughput and external data freshness, the external database should replicate changes to a changelog topic.",
+        "The stream processor then materializes this changelog into a local KTable, achieving real-time freshness with zero runtime latency."
+      ],
+      "example": "A speed-reader reading a dictionary from their desk vs someone who has to send a letter through the post office to ask what every word means.",
+      "code": "interface EnrichmentBenchmark {\n  approach: string;\n  enrichmentLatencyNs: number;\n  maxThroughputPerCore: number;\n  failureVector: string;\n}\n\nfunction compareEnrichmentArchitectures(): EnrichmentBenchmark[] {\n  return [\n    {\n      approach: \"Remote HTTP / REST API Call\",\n      enrichmentLatencyNs: 5000000, // 5ms\n      maxThroughputPerCore: 200,\n      failureVector: \"Network timeouts, API rate limits, HTTP 503 errors\"\n    },\n    {\n      approach: \"Remote SQL / Redis Network Call\",\n      enrichmentLatencyNs: 1000000, // 1ms\n      maxThroughputPerCore: 1000,\n      failureVector: \"Connection pool exhaustion, database lock contention\"\n    },\n    {\n      approach: \"Local KTable State Store Lookup\",\n      enrichmentLatencyNs: 50, // 50ns\n      maxThroughputPerCore: 1200000,\n      failureVector: \"None (zero network dependency during event execution)\"\n    }\n  ];\n}\n\nconst comparisons = compareEnrichmentArchitectures();\ncomparisons.forEach(c => {\n  console.log(`[${c.approach}]`);\n  console.log(` -> Latency: ${c.enrichmentLatencyNs.toLocaleString()} ns | Max Ops/sec: ${c.maxThroughputPerCore.toLocaleString()}`);\n  console.log(` -> Failure Vector: ${c.failureVector}`);\n});",
+      "output": "[Remote HTTP / REST API Call]\n -> Latency: 50,00,000 ns | Max Ops/sec: 200\n -> Failure Vector: Network timeouts, API rate limits, HTTP 503 errors\n[Remote SQL / Redis Network Call]\n -> Latency: 10,00,000 ns | Max Ops/sec: 1,000\n -> Failure Vector: Connection pool exhaustion, database lock contention\n[Local KTable State Store Lookup]\n -> Latency: 50 ns | Max Ops/sec: 12,00,000\n -> Failure Vector: None (zero network dependency during event execution)",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Quantifies the 1000x latency and throughput gap between remote and local enrichment."
+        },
+        {
+          "line": 33,
+          "note": "Demonstrates that local KTable lookups eliminate external network failure vectors."
+        }
+      ],
+      "tryIt": "Calculate how many servers would be needed to enrich 500,000 events/sec with HTTP vs local KTable.",
+      "check": {
+        "question": "How can a streaming system keep local KTables up-to-date with an external database without remote HTTP lookups?",
+        "options": [
+          "By streaming database change events (CDC) into a Kafka changelog topic that continuously updates the local KTable",
+          "By restarting the stream processor every 5 seconds",
+          "By running all processing inside the database's stored procedures"
+        ],
+        "answer": 0,
+        "why": "Change Data Capture (CDC) streams database mutations into a changelog topic, keeping local KTables fresh without remote queries."
+      }
+    },
+    {
+      "title": "Production Stream-Table Join Engine with Dynamic Updates",
+      "say": [
+        "We now integrate all concepts into a production-grade Stream-Table Enrichment Engine.",
+        "The engine concurrently ingests a fast-moving financial transaction stream and a slow-moving customer status KTable.",
+        "Customer status updates arrive asynchronously, immediately updating the internal materialized KTable.",
+        "Incoming transactions perform left outer joins against the local table, enriching currency, risk score, and account limits.",
+        "If a transaction encounters an unmapped customer, it flags the record for asynchronous KYC verification without dropping the event.",
+        "Telemetry monitors join hit rate, enrichment latency, and missing-key percentages in real time.",
+        "This architecture powers transaction fraud scoring, payment authorization, and real-time ledger accounting.",
+        "Tomorrow, we advance to Stream-Stream Windowed Joins, correlating two high-velocity streams across temporal horizons.",
+        "You now understand how to enrich massive event streams at scale with zero database bottlenecks."
+      ],
+      "example": "A credit card payment authorization switch that verifies cardholder status and spending limits in under 2 milliseconds.",
+      "code": "interface TxStreamItem {\n  txId: string;\n  cardId: string;\n  amount: number;\n}\n\ninterface CardAccountRecord {\n  cardHolder: string;\n  creditLimit: number;\n  isBlocked: boolean;\n}\n\ninterface EnrichedTransaction {\n  txId: string;\n  cardId: string;\n  amount: number;\n  approved: boolean;\n  reason: string;\n  holderName: string;\n}\n\nclass StreamTableJoinEngine {\n  private cardTable = new Map<string, CardAccountRecord>();\n\n  updateCard(cardId: string, account: CardAccountRecord): void {\n    this.cardTable.set(cardId, account);\n  }\n\n  processTransaction(tx: TxStreamItem): EnrichedTransaction {\n    const card = this.cardTable.get(tx.cardId);\n\n    if (!card) {\n      return {\n        txId: tx.txId,\n        cardId: tx.cardId,\n        amount: tx.amount,\n        approved: false,\n        reason: \"UNKNOWN_CARD\",\n        holderName: \"N/A\"\n      };\n    }\n\n    if (card.isBlocked) {\n      return {\n        txId: tx.txId,\n        cardId: tx.cardId,\n        amount: tx.amount,\n        approved: false,\n        reason: \"CARD_BLOCKED\",\n        holderName: card.cardHolder\n      };\n    }\n\n    const approved = tx.amount <= card.creditLimit;\n    return {\n      txId: tx.txId,\n      cardId: tx.cardId,\n      amount: tx.amount,\n      approved,\n      reason: approved ? \"AUTHORIZED\" : \"EXCEEDED_LIMIT\",\n      holderName: card.cardHolder\n    };\n  }\n}\n\nconst engine = new StreamTableJoinEngine();\nengine.updateCard(\"card-100\", { cardHolder: \"Elena Rostova\", creditLimit: 500, isBlocked: false });\nengine.updateCard(\"card-200\", { cardHolder: \"Marcus Vance\", creditLimit: 2000, isBlocked: true });\n\nconst t1 = engine.processTransaction({ txId: \"t-1\", cardId: \"card-100\", amount: 150 });\nconst t2 = engine.processTransaction({ txId: \"t-2\", cardId: \"card-200\", amount: 100 });\nconst t3 = engine.processTransaction({ txId: \"t-3\", cardId: \"card-999\", amount: 50 });\n\nconsole.log(\"Tx 1 (Normal Authorized):\", JSON.stringify(t1));\nconsole.log(\"Tx 2 (Blocked Card):\", JSON.stringify(t2));\nconsole.log(\"Tx 3 (Missing Card):\", JSON.stringify(t3));",
+      "output": "Tx 1 (Normal Authorized): {\"txId\":\"t-1\",\"cardId\":\"card-100\",\"amount\":150,\"approved\":true,\"reason\":\"AUTHORIZED\",\"holderName\":\"Elena Rostova\"}\nTx 2 (Blocked Card): {\"txId\":\"t-2\",\"cardId\":\"card-200\",\"amount\":100,\"approved\":false,\"reason\":\"CARD_BLOCKED\",\"holderName\":\"Marcus Vance\"}\nTx 3 (Missing Card): {\"txId\":\"t-3\",\"cardId\":\"card-999\",\"amount\":50,\"approved\":false,\"reason\":\"UNKNOWN_CARD\",\"holderName\":\"N/A\"}",
+      "codeNotes": [
+        {
+          "line": 25,
+          "note": "Left outer join evaluating card existence and business authorization rules."
+        },
+        {
+          "line": 55,
+          "note": "Demonstrates instant decisioning across authorized, blocked, and unknown card scenarios."
+        }
+      ],
+      "tryIt": "Unblock card-200 and process transaction t-2 again to verify authorization succeeds.",
+      "check": {
+        "question": "How does the StreamTableJoinEngine handle transactions for cards not yet present in the KTable?",
+        "options": [
+          "It emits an enriched record with approved=false and reason='UNKNOWN_CARD' without throwing an error",
+          "It crashes the server and drops the transaction",
+          "It automatically grants unlimited credit to the card"
+        ],
+        "answer": 0,
+        "why": "Left outer join semantics safely capture missing lookups as structured unapproved events without crashing."
+      }
+    }
+  ],
+  "summary": [
+    "Stream-table joins enrich high-velocity event streams by looking up dimension records in local KTable state stores.",
+    "Stream-table joins are non-windowed because tables represent the latest current state of reality at processing time.",
+    "Left outer joins ensure zero data loss by preserving events whose foreign keys do not match any table record.",
+    "Temporal table joins match event timestamps against validFrom/validTo intervals for Slowly Changing Dimensions.",
+    "Local KTable state stores eliminate remote HTTP/SQL queries, boosting enrichment throughput by over 1000x."
+  ],
+  "projectStep": {
+    "title": "Implement the Real-Time Stream-Table Enrichment Joiner",
+    "steps": [
+      "Implement a foreign key stream-table lookup joiner with graceful left outer join fallback handling.",
+      "Build a temporal dimension joiner matching events against historical validity bounds (validFrom, validTo).",
+      "Construct a production authorization pipeline combining dynamic KTable updates with real-time stream enrichment."
+    ]
+  }
+},
+{
+  "day": 24,
+  "title": "Stream-Stream Windowed Joins & Co-Partitioning Requirements",
+  "goal": "Master temporal stream-stream joins: correlating two continuous unbounded event streams within a time window [t - W, t + W], mandatory co-partitioning invariants (partition counts and key hashers), bi-directional state buffering, window expiration eviction, and ad conversion attribution pipelines.",
+  "minutes": 25,
+  "recap": "Yesterday we enriched streams with static and slowly changing tables. Today we tackle the ultimate join challenge: Stream-Stream Joins, where two fast-moving unbounded event streams must be correlated across a sliding temporal window.",
+  "parts": [
+    {
+      "title": "Stream-Stream Join Semantics & Temporal Horizons",
+      "say": [
+        "In modern event-driven architectures, critical business insights emerge from the correlation of two independent event streams.",
+        "For example, an online marketing platform emits an Ad Impression stream when a user views an ad on their phone.",
+        "Minutes later, an e-commerce platform emits a Purchase Conversion stream when the user buys the advertised product.",
+        "To calculate ad campaign return-on-investment, the system must join the impression event with the conversion event.",
+        "However, because both streams are continuous, infinite, and arrive asynchronously, an unconstrained join is physically impossible.",
+        "A stream-stream join must be bounded by a temporal correlation window: [t - W_before, t + W_after].",
+        "Two events with matching keys join if and only if their timestamps differ by no more than the configured join window horizon.",
+        "If a conversion occurs within 30 minutes of an impression, they join successfully; if it occurs days later, it falls outside the attribution window.",
+        "Windowed stream-stream joins provide the analytical foundation for advertising attribution, fraud correlation, and ride-hail dispatch."
+      ],
+      "example": "A rideshare dispatch system matching a rider request event to a nearby driver acceptance event within a 2-minute time window.",
+      "code": "interface StreamRecord {\n  key: string;\n  timestamp: number;\n  payload: string;\n}\n\ninterface JoinedPair {\n  key: string;\n  leftPayload: string;\n  rightPayload: string;\n  timeDeltaMs: number;\n}\n\nfunction joinStreamStream(\n  leftStream: StreamRecord[],\n  rightStream: StreamRecord[],\n  windowMs: number\n): JoinedPair[] {\n  const matches: JoinedPair[] = [];\n\n  for (const left of leftStream) {\n    for (const right of rightStream) {\n      if (left.key === right.key) {\n        const delta = Math.abs(left.timestamp - right.timestamp);\n        if (delta <= windowMs) {\n          matches.push({\n            key: left.key,\n            leftPayload: left.payload,\n            rightPayload: right.payload,\n            timeDeltaMs: delta\n          });\n        }\n      }\n    }\n  }\n  return matches;\n}\n\nconst impressions: StreamRecord[] = [\n  { key: \"user-101\", timestamp: 1000, payload: \"Viewed Sneakers Ad\" },\n  { key: \"user-102\", timestamp: 1200, payload: \"Viewed Laptop Ad\" }\n];\n\nconst purchases: StreamRecord[] = [\n  { key: \"user-101\", timestamp: 1150, payload: \"Purchased Sneakers ($85)\" }, // Delta: 150ms <= 500ms\n  { key: \"user-102\", timestamp: 2500, payload: \"Purchased Laptop ($1200)\" } // Delta: 1300ms > 500ms (Expired!)\n];\n\nconst attributions = joinStreamStream(impressions, purchases, 500);\nconsole.log(\"Attributed Conversions (500ms Window):\", attributions.length);\nattributions.forEach(a => {\n  console.log(`[User: ${a.key}] ${a.leftPayload} -> ${a.rightPayload} (Delta: ${a.timeDeltaMs}ms)`);\n});",
+      "output": "Attributed Conversions (500ms Window): 1\n[User: user-101] Viewed Sneakers Ad -> Purchased Sneakers ($85) (Delta: 150ms)",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Key match and temporal delta constraint: Math.abs(left.ts - right.ts) <= windowMs."
+        },
+        {
+          "line": 43,
+          "note": "User-101 matches within 150ms window; user-102 delta (1300ms) exceeds window and is omitted."
+        }
+      ],
+      "tryIt": "Increase windowMs to 1500 and verify that user-102's conversion is also attributed.",
+      "check": {
+        "question": "Why must stream-stream joins be bounded by a temporal correlation window?",
+        "options": [
+          "Because both streams are infinite, and buffering unbounded events forever would cause memory exhaustion",
+          "Because time windows encrypt the stream payloads",
+          "Because Kafka brokers do not support keys longer than 8 bytes"
+        ],
+        "answer": 0,
+        "why": "Without a finite time window, the processor would have to buffer all historical events indefinitely, causing an OOM crash."
+      }
+    },
+    {
+      "title": "The Co-Partitioning Invariant: The Golden Rule of Streaming Joins",
+      "say": [
+        "In a distributed stream processing cluster, event topics are divided into multiple parallel partitions across different broker nodes.",
+        "When joining two streams across partitions, a fundamental distributed systems constraint arises: The Co-Partitioning Invariant.",
+        "The co-partitioning invariant states that for two streams to be joined locally, matching keys MUST reside in the same partition index.",
+        "For two topics to be safely co-partitioned, two strict architectural conditions must be satisfied simultaneously.",
+        "First, both topics must have the EXACT SAME number of partitions (e.g., both topic A and topic B must have 16 partitions).",
+        "Second, both producer pipelines must use the EXACT SAME key partitioning hashing algorithm (e.g., MurmurHash3 or DefaultPartitioner).",
+        "If topic A has 8 partitions and topic B has 12 partitions, key 'user-101' will hash to partition 3 in topic A and partition 7 in topic B.",
+        "The worker processing partition 3 will never observe the corresponding event on partition 7, leading to silent data drop failures.",
+        "Stream frameworks validate co-partitioning at startup, throwing fatal configuration exceptions if partition counts diverge."
+      ],
+      "example": "Two lines of voters at a polling station split by alphabetical last name (A-M and N-Z); you cannot cross-check voter IDs if one line uses birth months instead.",
+      "code": "interface TopicMetadata {\n  topicName: string;\n  partitions: number;\n  hashAlgorithm: string;\n}\n\ninterface CoPartitionCheckResult {\n  valid: boolean;\n  reason: 'CO_PARTITIONED' | 'PARTITION_COUNT_MISMATCH' | 'HASH_ALGORITHM_MISMATCH';\n}\n\nfunction validateCoPartitioning(topicA: TopicMetadata, topicB: TopicMetadata): CoPartitionCheckResult {\n  if (topicA.partitions !== topicB.partitions) {\n    return { valid: false, reason: 'PARTITION_COUNT_MISMATCH' };\n  }\n\n  if (topicA.hashAlgorithm.toLowerCase() !== topicB.hashAlgorithm.toLowerCase()) {\n    return { valid: false, reason: 'HASH_ALGORITHM_MISMATCH' };\n  }\n\n  return { valid: true, reason: 'CO_PARTITIONED' };\n}\n\nconst impressionsTopic: TopicMetadata = { topicName: \"ad-impressions\", partitions: 16, hashAlgorithm: \"murmur3\" };\nconst validPurchasesTopic: TopicMetadata = { topicName: \"purchases\", partitions: 16, hashAlgorithm: \"murmur3\" };\nconst invalidPurchasesTopic: TopicMetadata = { topicName: \"purchases-v2\", partitions: 32, hashAlgorithm: \"murmur3\" };\n\nconsole.log(\"Check 1 (Valid):\", JSON.stringify(validateCoPartitioning(impressionsTopic, validPurchasesTopic)));\nconsole.log(\"Check 2 (Invalid Partitions):\", JSON.stringify(validateCoPartitioning(impressionsTopic, invalidPurchasesTopic)));",
+      "output": "Check 1 (Valid): {\"valid\":true,\"reason\":\"CO_PARTITIONED\"}\nCheck 2 (Invalid Partitions): {\"valid\":false,\"reason\":\"PARTITION_COUNT_MISMATCH\"}",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Enforces equal partition count and identical key hashing algorithm between joined topics."
+        },
+        {
+          "line": 29,
+          "note": "Fails validation immediately if partition counts diverge (16 vs 32)."
+        }
+      ],
+      "tryIt": "Test with matching partition count 16 but hashAlgorithm 'sha256' vs 'murmur3'.",
+      "check": {
+        "question": "What occurs if two joined streams violate the co-partitioning invariant?",
+        "options": [
+          "Records with matching keys land in different partition workers and fail to join, causing silent data loss",
+          "The CPU hardware automatically re-routes network packets",
+          "All events are written to the root directory"
+        ],
+        "answer": 0,
+        "why": "If partition counts or hashing algorithms differ, matching keys land on different worker nodes and never meet to join."
+      }
+    },
+    {
+      "title": "Bi-Directional State Buffering Architecture",
+      "say": [
+        "In a stream-stream join, neither stream can predict when the corresponding matching event from the other stream will arrive.",
+        "An ad impression may arrive 10 seconds before a purchase, or a purchase confirmation might arrive slightly before an impression due to network reordering.",
+        "Therefore, a stream-stream join engine must maintain Bi-Directional State Buffering.",
+        "The engine maintains two separate embedded state stores: LeftStore for Stream A, and RightStore for Stream B.",
+        "When an event arrives from Stream A, the engine stores it in LeftStore and immediately scans RightStore for existing matching events.",
+        "Conversely, when an event arrives from Stream B, the engine stores it in RightStore and immediately scans LeftStore for matches.",
+        "If a match is found within the correlation time horizon, a joined result record is synthesized and emitted immediately.",
+        "If no match is found yet, the event remains buffered in its respective state store, waiting for its partner to arrive.",
+        "Bi-directional buffering guarantees that matches are identified regardless of which side arrives first."
+      ],
+      "example": "A matchmaking desk where clients fill out a card and check the binder of waiting partners; if no match exists, their card is placed in the binder.",
+      "code": "interface EventPacket {\n  id: string;\n  key: string;\n  timestamp: number;\n  payload: string;\n}\n\nclass BiDirectionalJoinBuffer {\n  private leftStore: EventPacket[] = [];\n  private rightStore: EventPacket[] = [];\n\n  constructor(private windowMs: number) {}\n\n  onLeftEvent(event: EventPacket): string[] {\n    this.leftStore.push(event);\n    const matches: string[] = [];\n\n    // Scan RightStore for matching partner\n    for (const right of this.rightStore) {\n      if (right.key === event.key && Math.abs(event.timestamp - right.timestamp) <= this.windowMs) {\n        matches.push(`MATCH: Left[${event.id}] + Right[${right.id}] on Key ${event.key}`);\n      }\n    }\n    return matches;\n  }\n\n  onRightEvent(event: EventPacket): string[] {\n    this.rightStore.push(event);\n    const matches: string[] = [];\n\n    // Scan LeftStore for matching partner\n    for (const left of this.leftStore) {\n      if (left.key === event.key && Math.abs(event.timestamp - left.timestamp) <= this.windowMs) {\n        matches.push(`MATCH: Left[${left.id}] + Right[${event.id}] on Key ${event.key}`);\n      }\n    }\n    return matches;\n  }\n}\n\nconst buffer = new BiDirectionalJoinBuffer(200);\n\n// Left arrives first at ts=100\nconsole.log(\"Left Event Ingest:\", buffer.onLeftEvent({ id: \"L1\", key: \"order-55\", timestamp: 100, payload: \"PaymentAuth\" }));\n\n// Right arrives later at ts=180 (within 200ms window)\nconst rightMatches = buffer.onRightEvent({ id: \"R1\", key: \"order-55\", timestamp: 180, payload: \"InventoryReserved\" });\nconsole.log(\"Right Event Ingest:\", JSON.stringify(rightMatches));",
+      "output": "Left Event Ingest: []\nRight Event Ingest: [\"MATCH: Left[L1] + Right[R1] on Key order-55\"]",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Left arrival buffers in leftStore and probes rightStore for existing matches."
+        },
+        {
+          "line": 26,
+          "note": "Right arrival buffers in rightStore and probes leftStore for existing matches."
+        }
+      ],
+      "tryIt": "Ingest a right event with a mismatched key 'order-99' and verify no match is emitted.",
+      "check": {
+        "question": "Why must both streams maintain state stores in a stream-stream join?",
+        "options": [
+          "Because matching events can arrive in either order: Stream A before Stream B, or Stream B before Stream A",
+          "Because state stores are required to compress event payloads",
+          "Because JavaScript memory cannot hold arrays longer than 100 elements"
+        ],
+        "answer": 0,
+        "why": "Since network delays make arrival order non-deterministic, both sides must buffer events to catch matches in either order."
+      }
+    },
+    {
+      "title": "Join Window Expiration & State Eviction",
+      "say": [
+        "Because both streams are continuous and high-volume, buffered events cannot remain in memory indefinitely.",
+        "Once the current streaming watermark has advanced past event.timestamp + windowMs, no future event can possibly match it.",
+        "Any future event arriving with a timestamp that could have matched would have an event time older than the watermark, making it late.",
+        "Therefore, as the watermark advances, the join engine must continuously evict expired events from both LeftStore and RightStore.",
+        "Eviction removes old records from RAM, releasing memory references and maintaining a bounded state footprint.",
+        "In Left Outer or Full Outer stream-stream joins, when an event expires without finding a match, an outer record is emitted.",
+        "For example, an un-clicked ad impression emits an UnconvertedImpression event upon expiration for conversion drop-off analytics.",
+        "Automated state eviction is what allows stream-stream join engines to run continuously 24/7 without memory leaks.",
+        "Rigorous eviction policies guarantee steady-state memory utilization regardless of months of continuous streaming."
+      ],
+      "example": "A lost-and-found bin at an airport that disposes of unclaimed items after 30 days to make room for new items.",
+      "code": "interface BufferedItem {\n  id: string;\n  timestamp: number;\n  key: string;\n}\n\nclass EvictingJoinStore {\n  private buffer: BufferedItem[] = [];\n\n  constructor(private windowMs: number) {}\n\n  add(item: BufferedItem): void {\n    this.buffer.push(item);\n  }\n\n  // Evict items where item.timestamp + windowMs < currentWatermark\n  evictExpired(currentWatermark: number): BufferedItem[] {\n    const expired: BufferedItem[] = [];\n    const retained: BufferedItem[] = [];\n\n    for (const item of this.buffer) {\n      if (item.timestamp + this.windowMs < currentWatermark) {\n        expired.push(item);\n      } else {\n        retained.push(item);\n      }\n    }\n\n    this.buffer = retained;\n    return expired;\n  }\n\n  getBufferedCount(): number {\n    return this.buffer.length;\n  }\n}\n\nconst store = new EvictingJoinStore(100); // 100ms retention window\nstore.add({ id: \"item-1\", timestamp: 100, key: \"k1\" });\nstore.add({ id: \"item-2\", timestamp: 150, key: \"k2\" });\nstore.add({ id: \"item-3\", timestamp: 250, key: \"k3\" });\n\nconsole.log(\"Initial Buffered Items:\", store.getBufferedCount());\n\n// Watermark advances to 220ms: item-1 expires (100 + 100 = 200 < 220)!\nconst evictedBatch1 = store.evictExpired(220);\nconsole.log(\"Evicted at WM 220ms:\", evictedBatch1.map(i => i.id).join(\", \"));\nconsole.log(\"Remaining Buffered Items:\", store.getBufferedCount());",
+      "output": "Initial Buffered Items: 3\nEvicted at WM 220ms: item-1\nRemaining Buffered Items: 2",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Eviction predicate checking if item.timestamp + windowMs < watermark."
+        },
+        {
+          "line": 42,
+          "note": "Item 1 expires and is safely evicted, keeping buffer size bounded."
+        }
+      ],
+      "tryIt": "Advance watermark to 360ms and verify both item-2 and item-3 are evicted.",
+      "check": {
+        "question": "When is a buffered event in a stream-stream join safe to evict from memory?",
+        "options": [
+          "When the current watermark exceeds event.timestamp + joinWindowMs, ensuring no future valid matching events can arrive",
+          "As soon as the CPU reaches 80% utilization",
+          "Immediately after the event is inserted"
+        ],
+        "answer": 0,
+        "why": "Once watermark > event.timestamp + windowMs, no valid on-time event can arrive to match it, making eviction safe."
+      }
+    },
+    {
+      "title": "Real-Time Advertising Attribution Pipeline",
+      "say": [
+        "We now assemble an end-to-end Advertising Click-to-Purchase Attribution Pipeline.",
+        "The pipeline correlates an Ad Click stream with an Order Purchase stream using a 1000ms correlation window.",
+        "When an ad click occurs, it is buffered and probed against recent purchases.",
+        "When an order purchase occurs, it is buffered and probed against recent ad clicks.",
+        "Matching pairs emit an AttributedConversion record containing campaign ID, purchase revenue, and elapsed click-to-buy latency.",
+        "Unmatched clicks that expire past the join window emit an UnconvertedClick record to calculate advertising bounce rate.",
+        "The engine operates in sub-millisecond event time, processing thousands of impressions and purchases concurrently.",
+        "This architectural model directly mirrors production systems at major digital marketing and advertising networks.",
+        "Mastering windowed stream joins completes your theoretical understanding of advanced stateful stream processing."
+      ],
+      "example": "An online fashion retailer attributing a $150 dress sale to an Instagram influencer link clicked 12 minutes prior.",
+      "code": "interface AdClick {\n  clickId: string;\n  userId: string;\n  campaignId: string;\n  timestamp: number;\n}\n\ninterface PurchaseTx {\n  orderId: string;\n  userId: string;\n  amount: number;\n  timestamp: number;\n}\n\ninterface AttributionRecord {\n  campaignId: string;\n  userId: string;\n  orderId: string;\n  revenue: number;\n  clickToBuyLatencyMs: number;\n}\n\nclass AdAttributionEngine {\n  private clicks: AdClick[] = [];\n  private purchases: PurchaseTx[] = [];\n  public attributions: AttributionRecord[] = [];\n\n  constructor(private windowMs: number) {}\n\n  handleClick(click: AdClick): void {\n    this.clicks.push(click);\n    // Probe purchases\n    for (const p of this.purchases) {\n      if (p.userId === click.userId && Math.abs(p.timestamp - click.timestamp) <= this.windowMs) {\n        this.emitAttribution(click, p);\n      }\n    }\n  }\n\n  handlePurchase(purchase: PurchaseTx): void {\n    this.purchases.push(purchase);\n    // Probe clicks\n    for (const c of this.clicks) {\n      if (c.userId === purchase.userId && Math.abs(purchase.timestamp - c.timestamp) <= this.windowMs) {\n        this.emitAttribution(c, purchase);\n      }\n    }\n  }\n\n  private emitAttribution(click: AdClick, purchase: PurchaseTx): void {\n    this.attributions.push({\n      campaignId: click.campaignId,\n      userId: click.userId,\n      orderId: purchase.orderId,\n      revenue: purchase.amount,\n      clickToBuyLatencyMs: purchase.timestamp - click.timestamp\n    });\n  }\n}\n\nconst engine = new AdAttributionEngine(1000); // 1-second correlation window\nengine.handleClick({ clickId: \"clk-1\", userId: \"u-42\", campaignId: \"summer-sale\", timestamp: 100 });\nengine.handlePurchase({ orderId: \"ord-88\", userId: \"u-42\", amount: 120, timestamp: 650 }); // 550ms delta: Matched!\n\nconsole.log(\"Attributed Conversions Count:\", engine.attributions.length);\nengine.attributions.forEach(a => {\n  console.log(`Attributed Campaign [${a.campaignId}] User ${a.userId} -> Order ${a.orderId} ($${a.revenue}) in ${a.clickToBuyLatencyMs}ms`);\n});",
+      "output": "Attributed Conversions Count: 1\nAttributed Campaign [summer-sale] User u-42 -> Order ord-88 ($120) in 550ms",
+      "codeNotes": [
+        {
+          "line": 29,
+          "note": "Bi-directional probing matching clicks to purchases and purchases to clicks."
+        },
+        {
+          "line": 55,
+          "note": "Emits attributed conversion record with calculated click-to-buy elapsed latency."
+        }
+      ],
+      "tryIt": "Ingest a purchase for user u-99 with no prior click and observe zero attributions generated.",
+      "check": {
+        "question": "How does the AdAttributionEngine handle purchases that arrive before the ad click due to network latency?",
+        "options": [
+          "The purchase is buffered in purchases store, and when the click arrives later, handleClick finds and attributes it",
+          "The purchase is automatically discarded",
+          "The engine halts and waits for manual intervention"
+        ],
+        "answer": 0,
+        "why": "Bi-directional buffering ensures that regardless of which event arrives first, the later event probes the store and finds the match."
+      }
+    },
+    {
+      "title": "Co-Partitioned Partition Balancing & Key Re-Hashing",
+      "say": [
+        "In production stream deployments, joining two topics that were originally created with different partition keys is common.",
+        "For example, an Orders topic is partitioned by orderId, while a Shipments topic is partitioned by trackingNumber.",
+        "Joining them directly violates the co-partitioning invariant because matching records hash to different partition nodes.",
+        "To resolve this, streaming engines introduce an intermediate operation called Re-Keying and Re-Partitioning.",
+        "The engine reads the incoming Orders topic and projects a new key: event.customerId or event.trackingNumber.",
+        "It then produces the re-keyed events to an internal temporary topic with the matching partition count.",
+        "This ensures that both streams pass through identical partition hash functions and land on the same worker node.",
+        "While re-partitioning introduces a network shuffle hop, it guarantees mathematical correctness for distributed joins.",
+        "Tomorrow, in Milestone 4, we integrate state stores, changelogs, and joins into a fault-tolerant stateful processor."
+      ],
+      "example": "Re-sorting mail from delivery truck routes into postal zip-code boxes so that mail carriers assigned to each neighborhood receive all items for their route.",
+      "code": "interface RawMessage {\n  originalKey: string;\n  foreignKey: string;\n  data: string;\n}\n\ninterface RePartitionedMessage {\n  partitionKey: string;\n  targetPartition: number;\n  data: string;\n}\n\nfunction repartitionStream(\n  messages: RawMessage[],\n  targetPartitions: number,\n  hashFn: (key: string) => number\n): RePartitionedMessage[] {\n  return messages.map(msg => {\n    // Re-key by foreign key to align with partner stream\n    const partitionKey = msg.foreignKey;\n    const targetPartition = Math.abs(hashFn(partitionKey)) % targetPartitions;\n\n    return {\n      partitionKey,\n      targetPartition,\n      data: msg.data\n    };\n  });\n}\n\n// Simple deterministic string hash\nfunction stringHash(s: string): number {\n  let h = 0;\n  for (let i = 0; i < s.length; i++) {\n    h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;\n  }\n  return h;\n}\n\nconst rawOrders: RawMessage[] = [\n  { originalKey: \"ord-1\", foreignKey: \"cust-A\", data: \"Order 1 details\" },\n  { originalKey: \"ord-2\", foreignKey: \"cust-B\", data: \"Order 2 details\" },\n  { originalKey: \"ord-3\", foreignKey: \"cust-A\", data: \"Order 3 details\" }\n];\n\nconst repartitioned = repartitionStream(rawOrders, 4, stringHash);\nrepartitioned.forEach(m => {\n  console.log(`[Key: ${m.partitionKey}] -> Routed to Partition #${m.targetPartition} (${m.data})`);\n});\nconsole.log(\"Do both cust-A orders route to the exact same partition?\", repartitioned[0].targetPartition === repartitioned[2].targetPartition);",
+      "output": "[Key: cust-A] -> Routed to Partition #1 (Order 1 details)\n[Key: cust-B] -> Routed to Partition #0 (Order 2 details)\n[Key: cust-A] -> Routed to Partition #1 (Order 3 details)\nDo both cust-A orders route to the exact same partition? true",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Re-keys record by foreignKey and hashes to target partition."
+        },
+        {
+          "line": 45,
+          "note": "Demonstrates that both cust-A records deterministically land on the exact same partition."
+        }
+      ],
+      "tryIt": "Change targetPartitions to 8 and verify both cust-A records still route to the same partition.",
+      "check": {
+        "question": "Why is a re-keying and re-partitioning step necessary before joining two streams with different primary keys?",
+        "options": [
+          "To guarantee that matching records hash to the exact same partition index, satisfying co-partitioning",
+          "To reduce the size of the messages",
+          "To convert JSON strings to binary buffers"
+        ],
+        "answer": 0,
+        "why": "Re-partitioning re-hashes records by the join key, ensuring matching keys land on the same worker partition for local joining."
+      }
+    }
+  ],
+  "summary": [
+    "Stream-stream joins correlate two continuous event streams within a bounded temporal window [t - W, t + W].",
+    "The co-partitioning invariant requires joined topics to share identical partition counts and key hashing algorithms.",
+    "Bi-directional state buffering stores events from both sides so matches are detected regardless of arrival order.",
+    "Watermark-driven state eviction continuously purges expired records to guarantee bounded memory consumption.",
+    "Re-keying and re-partitioning shuffles events to align partition locations when joining heterogeneous keys."
+  ],
+  "projectStep": {
+    "title": "Implement the Windowed Stream-Stream Join Engine",
+    "steps": [
+      "Implement co-partitioning invariant validation ensuring equal partition counts and matching hash algorithms.",
+      "Build a bi-directional event buffer that probes partner stores and correlates events within a temporal window.",
+      "Construct an ad conversion attribution engine with automated watermark-driven state eviction."
+    ]
+  }
+},
+{
+  "day": 25,
+  "title": "⭐ MILESTONE 4: Fault-Tolerant Stream Processor with Changelog Checkpointing",
+  "goal": "Milestone 4: Construct an enterprise-scale fault-tolerant stateful stream processor integrating tumbling window aggregation, embedded key-value state stores, changelog backups, periodic checkpoint snapshots, atomic offset commits, crash recovery simulation, and tail changelog replay restoration.",
+  "minutes": 25,
+  "recap": "Over Days 21 through 24, we mastered local state stores, stream-table duality, stream-table enrichment joins, and windowed stream-stream joins. Today in Milestone 4, we integrate all these capabilities into an enterprise-grade fault-tolerant stateful streaming processor with crash-recovery resilience.",
+  "parts": [
+    {
+      "title": "Architecture of a Fault-Tolerant Stateful Stream Processor",
+      "say": [
+        "Welcome to Milestone 4, where we bring together the complete stateful stream processing architecture.",
+        "In production enterprise deployments, stateful processors cannot afford to lose calculations when machines crash.",
+        "A truly resilient processor couples three core subsystems into a cohesive processing loop.",
+        "First, an Ingestion Pipeline receives incoming events, tracks offsets, and routes records to active window aggregators.",
+        "Second, an Embedded Local State Store maintains running numerical aggregates and entity tables in low-latency memory.",
+        "Third, a Durable Changelog Stream continuously persists state mutations to remote distributed storage.",
+        "By orchestrating these components together, the engine achieves microsecond processing speeds during normal operation.",
+        "Simultaneously, it guarantees that if the process terminates abruptly, the exact computational state can be restored.",
+        "Today's milestone constructs this complete production topology in clean, idiomatic, and robust TypeScript."
+      ],
+      "example": "A spacecraft flight computer that continuously logs sensor metrics to local RAM while transmitting telemetry bursts to Earth, allowing mission control to reconstruct status after reboot.",
+      "code": "interface ProcessorMetrics {\n  totalIngestedEvents: number;\n  activeStateKeys: number;\n  changelogReplicatedEntries: number;\n  lastCommittedOffset: number;\n}\n\nclass ResilientProcessorCore {\n  private localState = new Map<string, number>();\n  private changelogLog: { offset: number; key: string; value: number }[] = [];\n  private currentOffset = -1;\n\n  processRecord(offset: number, key: string, delta: number): void {\n    this.currentOffset = offset;\n    const current = this.localState.get(key) || 0;\n    const updated = current + delta;\n    this.localState.set(key, updated);\n\n    // Replicate to changelog\n    this.changelogLog.push({ offset, key, value: updated });\n  }\n\n  getMetrics(): ProcessorMetrics {\n    return {\n      totalIngestedEvents: this.currentOffset + 1,\n      activeStateKeys: this.localState.size,\n      changelogReplicatedEntries: this.changelogLog.length,\n      lastCommittedOffset: this.currentOffset\n    };\n  }\n\n  getState(): Record<string, number> {\n    const res: Record<string, number> = {};\n    for (const [k, v] of this.localState.entries()) res[k] = v;\n    return res;\n  }\n}\n\nconst core = new ResilientProcessorCore();\ncore.processRecord(0, \"sensor-A\", 10);\ncore.processRecord(1, \"sensor-B\", 25);\ncore.processRecord(2, \"sensor-A\", 15);\n\nconsole.log(\"State Snapshot:\", JSON.stringify(core.getState()));\nconsole.log(\"Telemetry Metrics:\", JSON.stringify(core.getMetrics()));",
+      "output": "State Snapshot: {\"sensor-A\":25,\"sensor-B\":25}\nTelemetry Metrics: {\"totalIngestedEvents\":3,\"activeStateKeys\":2,\"changelogReplicatedEntries\":3,\"lastCommittedOffset\":2}",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Core processing loop updating local state and appending to durable changelog simultaneously."
+        },
+        {
+          "line": 40,
+          "note": "Demonstrates consistent local state (sensor-A: 25) backed by 3 changelog entries."
+        }
+      ],
+      "tryIt": "Process a record for sensor-C and verify activeStateKeys increases to 3.",
+      "check": {
+        "question": "What three subsystems form the core of a fault-tolerant stateful stream processor?",
+        "options": [
+          "Ingestion offset tracker, embedded local state store, and durable replicated changelog",
+          "Web browser, CSS stylesheet, and HTML canvas",
+          "Email server, FTP client, and printer driver"
+        ],
+        "answer": 0,
+        "why": "A resilient stream processor couples offset tracking, local state storage, and replicated changelogs."
+      }
+    },
+    {
+      "title": "The Periodic Checkpointing Protocol",
+      "say": [
+        "While replaying a changelog from offset 0 reconstructs state, replaying a 100-million-record changelog takes hours.",
+        "To bound recovery time to seconds, enterprise streaming engines implement Periodic State Checkpointing.",
+        "A Checkpoint is a point-in-time snapshot of the entire local state store, paired with the stream consumer offset.",
+        "The checkpointing protocol is configured to execute periodically, such as every N records or every M seconds.",
+        "When the checkpoint triggers, the processor freezes state mutations for a few microseconds or performs copy-on-write.",
+        "It serializes the state snapshot and writes it atomically to durable blob storage (e.g., S3, Google Cloud Storage, or NVMe).",
+        "Immediately following the state snapshot, the processor commits the corresponding consumer offset to the message broker.",
+        "Atomically pairing the snapshot with the committed offset guarantees that recovery knows the exact offset to resume from.",
+        "Checkpointing bounds recovery time by ensuring the processor only ever needs to replay records since the last checkpoint."
+      ],
+      "example": "A video game automatically saving your progress every time you complete a chapter, so you never have to restart from the tutorial.",
+      "code": "interface StateCheckpoint {\n  checkpointId: string;\n  lastOffset: number;\n  timestamp: number;\n  state: Record<string, number>;\n}\n\nclass CheckpointManager {\n  private state = new Map<string, number>();\n  private recordsSinceCheckpoint = 0;\n  private checkpointHistory: StateCheckpoint[] = [];\n  private nextCheckpointId = 1;\n\n  constructor(private checkpointIntervalRecords: number) {}\n\n  process(offset: number, key: string, value: number): { checkpointTriggered: boolean; totalBalance: number } {\n    const current = this.state.get(key) || 0;\n    const updated = current + value;\n    this.state.set(key, updated);\n    this.recordsSinceCheckpoint++;\n\n    let checkpointTriggered = false;\n    if (this.recordsSinceCheckpoint >= this.checkpointIntervalRecords) {\n      this.createCheckpoint(offset);\n      checkpointTriggered = true;\n      this.recordsSinceCheckpoint = 0;\n    }\n\n    return {\n      checkpointTriggered,\n      totalBalance: updated\n    };\n  }\n\n  private createCheckpoint(offset: number): void {\n    const snapshotState: Record<string, number> = {};\n    for (const [k, v] of this.state.entries()) {\n      snapshotState[k] = v;\n    }\n\n    const cp: StateCheckpoint = {\n      checkpointId: `cp-${this.nextCheckpointId++}`,\n      lastOffset: offset,\n      timestamp: 1700000000000 + offset * 1000,\n      state: snapshotState\n    };\n    this.checkpointHistory.push(cp);\n  }\n\n  getLatestCheckpoint(): StateCheckpoint | null {\n    return this.checkpointHistory.length > 0\n      ? this.checkpointHistory[this.checkpointHistory.length - 1]\n      : null;\n  }\n}\n\nconst manager = new CheckpointManager(2); // Checkpoint every 2 records\nconsole.log(\"Record 1 (Offset 10):\", JSON.stringify(manager.process(10, \"k1\", 50)));\nconsole.log(\"Record 2 (Offset 11):\", JSON.stringify(manager.process(11, \"k2\", 30))); // Checkpoint triggers!\n\nconst latestCp = manager.getLatestCheckpoint();\nconsole.log(\"Latest Checkpoint ID:\", latestCp?.checkpointId);\nconsole.log(\"Committed Offset in Checkpoint:\", latestCp?.lastOffset);\nconsole.log(\"Captured State in Checkpoint:\", JSON.stringify(latestCp?.state));",
+      "output": "Record 1 (Offset 10): {\"checkpointTriggered\":false,\"totalBalance\":50}\nRecord 2 (Offset 11): {\"checkpointTriggered\":true,\"totalBalance\":30}\nLatest Checkpoint ID: cp-1\nCommitted Offset in Checkpoint: 11\nCaptured State in Checkpoint: {\"k1\":50,\"k2\":30}",
+      "codeNotes": [
+        {
+          "line": 22,
+          "note": "Evaluates recordsSinceCheckpoint counter to trigger periodic snapshot."
+        },
+        {
+          "line": 55,
+          "note": "Demonstrates snapshot emission at offset 11 capturing state { k1: 50, k2: 30 }."
+        }
+      ],
+      "tryIt": "Process two more records and verify checkpoint cp-2 is generated at the new offset.",
+      "check": {
+        "question": "Why does a state checkpoint store the consumer offset alongside the state snapshot?",
+        "options": [
+          "So recovery knows the exact offset position from which to resume consuming without duplicating or losing records",
+          "Because the broker requires offsets to format JSON output",
+          "To increment the process ID in the operating system"
+        ],
+        "answer": 0,
+        "why": "Pairing the state snapshot with the exact consumer offset establishes the precise resumption point for recovery."
+      }
+    },
+    {
+      "title": "Simulating Node Crashes & Chaos Engineering",
+      "say": [
+        "In distributed systems engineering, building a stateful pipeline is only half the battle; the other half is verifying recovery.",
+        "Chaos engineering deliberately injects failures into running systems to prove that fault tolerance mechanisms work as intended.",
+        "To test our stateful processor, we simulate a fatal worker node crash in the middle of active event streaming.",
+        "We ingest a stream of records, allow several checkpoints to commit, and then forcefully terminate the processor instance.",
+        "When the process terminates, all volatile RAM state and local memory variables are instantly wiped clean.",
+        "In production, this mirrors an out-of-memory SIGKILL, kernel panic, or cloud VM spot instance preemption.",
+        "The chaos test verifies that the system does not enter an unrecoverable corrupted state upon reboot.",
+        "A freshly initialized processor instance is spawned with empty state and tasked with recovering seamlessly.",
+        "Rigorous crash simulation gives development teams full confidence that customer transactions are completely safe."
+      ],
+      "example": "A fire drill in an office building; testing the emergency evacuation procedures under controlled conditions before a real fire happens.",
+      "code": "interface StreamMessage {\n  offset: number;\n  key: string;\n  delta: number;\n}\n\nclass CrashableNode {\n  public memoryState: Record<string, number> = {};\n  public isAlive: boolean = true;\n\n  process(msg: StreamMessage): void {\n    if (!this.isAlive) throw new Error(\"FATAL: Worker node is DEAD!\");\n    this.memoryState[msg.key] = (this.memoryState[msg.key] || 0) + msg.delta;\n  }\n\n  // Simulate catastrophic hardware failure / SIGKILL\n  crashAndWipe(): void {\n    this.memoryState = {};\n    this.isAlive = false;\n  }\n}\n\nconst node = new CrashableNode();\nnode.process({ offset: 0, key: \"account-A\", delta: 100 });\nnode.process({ offset: 1, key: \"account-B\", delta: 250 });\nconsole.log(\"Memory State Prior to Crash:\", JSON.stringify(node.memoryState));\n\n// SIMULATE SIGKILL HARDWARE CRASH\nconsole.log(\"--- TRIGGERING HARDWARE CRASH (SIGKILL) ---\");\nnode.crashAndWipe();\n\nconsole.log(\"Is Worker Node Alive?\", node.isAlive);\nconsole.log(\"Memory State After Crash:\", JSON.stringify(node.memoryState), \"(Completely empty!)\");",
+      "output": "Memory State Prior to Crash: {\"account-A\":100,\"account-B\":250}\n--- TRIGGERING HARDWARE CRASH (SIGKILL) ---\nIs Worker Node Alive? false\nMemory State After Crash: {} (Completely empty!)",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "Simulates immediate process termination and volatile memory erasure."
+        },
+        {
+          "line": 32,
+          "note": "Demonstrates that after crash, memory is wiped clean, simulating physical node reboot."
+        }
+      ],
+      "tryIt": "Attempt to call node.process after crashing and verify that the fatal error is thrown.",
+      "check": {
+        "question": "What happens to in-memory state when a stream processing worker node crashes abruptly?",
+        "options": [
+          "All volatile in-memory state is completely lost and must be restored from durable checkpoints or changelogs",
+          "The CPU automatically writes all RAM to flash drive in 1 nanosecond",
+          "The operating system pauses time until the node restarts"
+        ],
+        "answer": 0,
+        "why": "A crash obliterates all volatile in-memory state; durable recovery mechanisms must reconstruct it."
+      }
+    },
+    {
+      "title": "State Restoration: Snapshot Plus Tail Changelog Replay",
+      "say": [
+        "We now implement the two-phase state restoration algorithm utilized by Apache Flink and Kafka Streams.",
+        "When a replacement worker starts, it loads the latest durable checkpoint snapshot from persistent storage.",
+        "Phase 1: The worker deserializes the snapshot state dictionary directly into its local state store in O(Keys) time.",
+        "The snapshot restores the exact state that existed as of checkpoint.lastOffset.",
+        "However, events may have been processed after the checkpoint was created before the crash occurred.",
+        "Phase 2: The worker subscribes to the changelog topic, seeking directly to checkpoint.lastOffset + 1.",
+        "It reads and replays only the 'tail' changelog records: those with offset > checkpoint.lastOffset.",
+        "Because only a small handful of tail records exist between the last checkpoint and the crash, replay finishes in milliseconds.",
+        "Combining snapshot loading with tail changelog replay achieves lightning-fast, 100% accurate state restoration."
+      ],
+      "example": "Restoring a video game from a chapter save point and then fast-forwarding through the two minutes of gameplay you had just played before the console crashed.",
+      "code": "interface SavedSnapshot {\n  lastOffset: number;\n  state: Record<string, number>;\n}\n\ninterface ChangelogTailItem {\n  offset: number;\n  key: string;\n  delta: number;\n}\n\nfunction recoverProcessorState(\n  snapshot: SavedSnapshot,\n  changelogTail: ChangelogTailItem[]\n): { finalOffset: number; state: Record<string, number>; tailReplayedCount: number } {\n  // Phase 1: Restore base state from snapshot\n  const recoveredState: Record<string, number> = { ...snapshot.state };\n  let currentOffset = snapshot.lastOffset;\n  let replayedCount = 0;\n\n  // Phase 2: Replay only tail records with offset > snapshot.lastOffset\n  for (const item of changelogTail) {\n    if (item.offset > snapshot.lastOffset) {\n      recoveredState[item.key] = (recoveredState[item.key] || 0) + item.delta;\n      currentOffset = Math.max(currentOffset, item.offset);\n      replayedCount++;\n    }\n  }\n\n  return {\n    finalOffset: currentOffset,\n    state: recoveredState,\n    tailReplayedCount: replayedCount\n  };\n}\n\nconst committedSnapshot: SavedSnapshot = {\n  lastOffset: 100,\n  state: { \"wallet-A\": 50, \"wallet-B\": 80 }\n};\n\nconst tailRecords: ChangelogTailItem[] = [\n  { offset: 99, key: \"wallet-A\", delta: 10 },  // Before snapshot (skip)\n  { offset: 100, key: \"wallet-B\", delta: 20 }, // At snapshot (skip)\n  { offset: 101, key: \"wallet-A\", delta: 15 }, // Post-snapshot tail: APPLY!\n  { offset: 102, key: \"wallet-C\", delta: 40 }  // Post-snapshot tail: APPLY!\n];\n\nconst recovered = recoverProcessorState(committedSnapshot, tailRecords);\nconsole.log(\"Restored Snapshot Base Offset:\", committedSnapshot.lastOffset);\nconsole.log(\"Tail Records Replayed:\", recovered.tailReplayedCount);\nconsole.log(\"Final Restored Offset:\", recovered.finalOffset);\nconsole.log(\"Final Restored State:\", JSON.stringify(recovered.state));",
+      "output": "Restored Snapshot Base Offset: 100\nTail Records Replayed: 2\nFinal Restored Offset: 102\nFinal Restored State: {\"wallet-A\":65,\"wallet-B\":80,\"wallet-C\":40}",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Phase 1: Clones snapshot state dictionary into local memory store."
+        },
+        {
+          "line": 23,
+          "note": "Phase 2: Filters and applies only tail changelog records where offset > snapshot.lastOffset."
+        }
+      ],
+      "tryIt": "Add a tail record at offset 103 for wallet-B with delta -30 and verify final balance is 50.",
+      "check": {
+        "question": "Why is combining a checkpoint snapshot with tail changelog replay faster than replaying the entire changelog?",
+        "options": [
+          "Because the snapshot instantly restores 99.9% of state, requiring only a tiny handful of recent records to be replayed",
+          "Because tail replays bypass the CPU cache",
+          "Because snapshots delete all historical data permanently"
+        ],
+        "answer": 0,
+        "why": "Loading the snapshot restores state up to the checkpoint immediately; the worker only replays the few records since that point."
+      }
+    },
+    {
+      "title": "End-to-End Exactly-Once Processing Guarantees",
+      "say": [
+        "In financial streaming architectures, business stakeholders demand an ironclad guarantee: Exactly-Once Processing (EOS).",
+        "How does our checkpointed architecture achieve exactly-once semantics across crashes?",
+        "If a crash occurs, any uncommitted stream records that arrived after the last checkpoint are re-consumed from the broker.",
+        "Because our state was checkpointed at the exact same offset where the consumer committed, re-consumption restarts from that offset.",
+        "Furthermore, by using idempotent message IDs or transactional offset commits, re-consumed records do not duplicate balances.",
+        "The combination of periodic checkpoints, tail changelog deduplication, and atomic offset commits creates end-to-end EOS.",
+        "Transactions are neither lost during crashes nor processed twice during recovery replays.",
+        "This architectural pattern meets the highest regulatory standards in global financial markets and banking infrastructure.",
+        "Engineering systems with these guarantees distinguishes senior streaming specialists from generalist developers."
+      ],
+      "example": "An automated bank transfer where the debit and credit are executed in a single atomic transaction; if power fails, the transaction either fully commits or cleanly rolls back.",
+      "code": "interface TransactionLog {\n  txId: string;\n  sourceAccount: string;\n  targetAccount: string;\n  amount: number;\n}\n\nclass ExactlyOnceTransferEngine {\n  private accounts = new Map<string, number>();\n  private processedTxIds = new Set<string>();\n\n  processTransfer(tx: TransactionLog): { success: boolean; status: string } {\n    // Idempotency check: ignore already processed transactions\n    if (this.processedTxIds.has(tx.txId)) {\n      return { success: true, status: \"DUPLICATE_IGNORED\" };\n    }\n\n    const sourceBal = this.accounts.get(tx.sourceAccount) || 0;\n    if (sourceBal < tx.amount) {\n      return { success: false, status: \"INSUFFICIENT_FUNDS\" };\n    }\n\n    // Atomic execution of debit and credit\n    this.accounts.set(tx.sourceAccount, sourceBal - tx.amount);\n    const targetBal = this.accounts.get(tx.targetAccount) || 0;\n    this.accounts.set(tx.targetAccount, targetBal + tx.amount);\n\n    this.processedTxIds.add(tx.txId);\n    return { success: true, status: \"COMMITTED\" };\n  }\n\n  setBalance(account: string, amount: number): void {\n    this.accounts.set(account, amount);\n  }\n\n  getBalance(account: string): number {\n    return this.accounts.get(account) || 0;\n  }\n}\n\nconst engine = new ExactlyOnceTransferEngine();\nengine.setBalance(\"acc-A\", 500);\nengine.setBalance(\"acc-B\", 100);\n\nconst tx: TransactionLog = { txId: \"tx-771\", sourceAccount: \"acc-A\", targetAccount: \"acc-B\", amount: 150 };\n\nconsole.log(\"Transfer Attempt 1:\", JSON.stringify(engine.processTransfer(tx)));\nconsole.log(\"Transfer Attempt 2 (Network Retry):\", JSON.stringify(engine.processTransfer(tx)));\nconsole.log(\"Account A Balance:\", engine.getBalance(\"acc-A\"), \"(Debited exactly once: 350)\");\nconsole.log(\"Account B Balance:\", engine.getBalance(\"acc-B\"), \"(Credited exactly once: 250)\");",
+      "output": "Transfer Attempt 1: {\"success\":true,\"status\":\"COMMITTED\"}\nTransfer Attempt 2 (Network Retry): {\"success\":true,\"status\":\"DUPLICATE_IGNORED\"}\nAccount A Balance: 350 (Debited exactly once: 350)\nAccount B Balance: 250 (Credited exactly once: 250)",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Idempotency filter tracking processed transaction IDs to eliminate duplicate execution."
+        },
+        {
+          "line": 23,
+          "note": "Atomic transfer updating both source and target accounts together."
+        }
+      ],
+      "tryIt": "Attempt a transfer of $1000 from acc-A and verify it fails with INSUFFICIENT_FUNDS.",
+      "check": {
+        "question": "How does the ExactlyOnceTransferEngine prevent double-debiting when a network retry delivers a transaction twice?",
+        "options": [
+          "It tracks processed transaction IDs in a deduplication set and ignores previously committed transactions",
+          "It pauses the thread for 5 seconds on retries",
+          "It reverts the database to yesterday's backup"
+        ],
+        "answer": 0,
+        "why": "Tracking processed transaction IDs allows the engine to recognize retried events and return a successful status without re-executing state mutations."
+      }
+    },
+    {
+      "title": "Building Milestone 4: The Fault-Tolerant Engine",
+      "say": [
+        "To conclude Milestone 4, we construct the complete unified Fault-Tolerant Stream Processor class.",
+        "The processor integrates incoming stream consumption, local state accumulation, periodic checkpointing, and crash recovery.",
+        "It processes continuous event streams, commits snapshots every N records, and exposes current state metrics.",
+        "In our demonstration, we ingest records, trigger checkpoints, simulate a node crash, and execute full restoration.",
+        "The restored processor resumes execution on subsequent records, demonstrating seamless continuity with zero data loss.",
+        "This milestone proves your mastery of stateful stream architecture, storage tiering, and recovery protocols.",
+        "Congratulations on completing Milestone 4! You have engineered a system with enterprise-grade resilience.",
+        "Next, we enter the final tier of the course: schema governance, binary serialization, DLQs, and the Capstone project.",
+        "Review your code, inspect the outputs, and take pride in building a world-class fault-tolerant streaming engine."
+      ],
+      "example": "A commercial aircraft autopilot transitioning seamlessly to a backup co-processor mid-flight without the passengers noticing a bump.",
+      "code": "interface ProcessorRecord {\n  offset: number;\n  key: string;\n  delta: number;\n}\n\ninterface CheckpointData {\n  lastOffset: number;\n  state: Record<string, number>;\n}\n\nclass FaultTolerantStreamProcessor {\n  private state: Record<string, number> = {};\n  private uncommittedCount = 0;\n  private lastCheckpoint: CheckpointData = { lastOffset: -1, state: {} };\n\n  constructor(public checkpointInterval: number) {}\n\n  process(record: ProcessorRecord): { committedCheckpoint: boolean; currentTotal: number } {\n    this.state[record.key] = (this.state[record.key] || 0) + record.delta;\n    this.uncommittedCount++;\n\n    let committedCheckpoint = false;\n    if (this.uncommittedCount >= this.checkpointInterval) {\n      this.lastCheckpoint = {\n        lastOffset: record.offset,\n        state: { ...this.state }\n      };\n      committedCheckpoint = true;\n      this.uncommittedCount = 0;\n    }\n\n    const currentTotal = Object.values(this.state).reduce((a, b) => a + b, 0);\n    return { committedCheckpoint, currentTotal };\n  }\n\n  getCheckpointSnapshot(): CheckpointData {\n    return {\n      lastOffset: this.lastCheckpoint.lastOffset,\n      state: { ...this.lastCheckpoint.state }\n    };\n  }\n\n  restoreFromCheckpoint(snapshot: CheckpointData): void {\n    this.state = { ...snapshot.state };\n    this.uncommittedCount = 0;\n    this.lastCheckpoint = {\n      lastOffset: snapshot.lastOffset,\n      state: { ...snapshot.state }\n    };\n  }\n\n  getState(): Record<string, number> {\n    return { ...this.state };\n  }\n}\n\n// 1. Initialize Processor A with checkpoint interval = 2\nconst procA = new FaultTolerantStreamProcessor(2);\nconst r1 = procA.process({ offset: 10, key: \"k1\", delta: 50 });\nconst r2 = procA.process({ offset: 11, key: \"k2\", delta: 30 }); // Checkpoint!\n\nconsole.log(\"Proc A Step 1:\", JSON.stringify(r1));\nconsole.log(\"Proc A Step 2 (Checkpoint Committed):\", JSON.stringify(r2));\nconst snapshot = procA.getCheckpointSnapshot();\nconsole.log(\"Snapshot Saved to Durable Storage:\", JSON.stringify(snapshot));\n\n// 2. Simulate Node Crash: Proc A dies, Proc B boots up and restores\nconsole.log(\"--- SIMULATING NODE CRASH & RESTORATION ---\");\nconst procB = new FaultTolerantStreamProcessor(2);\nprocB.restoreFromCheckpoint(snapshot);\nconsole.log(\"Proc B Restored State:\", JSON.stringify(procB.getState()));\n\n// 3. Proc B resumes processing from stream\nconst r3 = procB.process({ offset: 12, key: \"k1\", delta: 20 });\nconsole.log(\"Proc B Resumed Event Processing:\", JSON.stringify(r3));\nconsole.log(\"Final Restored System State:\", JSON.stringify(procB.getState()));",
+      "output": "Proc A Step 1: {\"committedCheckpoint\":false,\"currentTotal\":50}\nProc A Step 2 (Checkpoint Committed): {\"committedCheckpoint\":true,\"currentTotal\":80}\nSnapshot Saved to Durable Storage: {\"lastOffset\":11,\"state\":{\"k1\":50,\"k2\":30}}\n--- SIMULATING NODE CRASH & RESTORATION ---\nProc B Restored State: {\"k1\":50,\"k2\":30}\nProc B Resumed Event Processing: {\"committedCheckpoint\":false,\"currentTotal\":100}\nFinal Restored System State: {\"k1\":70,\"k2\":30}",
+      "codeNotes": [
+        {
+          "line": 21,
+          "note": "Increments uncommitted record count and commits snapshot when interval is reached."
+        },
+        {
+          "line": 64,
+          "note": "Proc B boots up empty, restores snapshot, and continues processing with 100% data integrity."
+        }
+      ],
+      "tryIt": "Process a record for k3 on Proc B and verify all three keys exist in the final state.",
+      "check": {
+        "question": "What validates that the FaultTolerantStreamProcessor successfully survived the simulated crash?",
+        "options": [
+          "Proc B restored the snapshot from Proc A and seamlessly continued processing with accumulated totals intact",
+          "The CPU clock was reset to zero",
+          "All records were converted into CSV files"
+        ],
+        "answer": 0,
+        "why": "Proc B restored the exact snapshot saved by Proc A and applied subsequent events without loss, proving fault tolerance."
+      }
+    }
+  ],
+  "summary": [
+    "Stateful streaming processors couple local state stores with append-only changelogs for durability and speed.",
+    "Periodic checkpointing captures point-in-time state snapshots and atomic offset commits, bounding recovery time.",
+    "Chaos engineering verifies system resilience by simulating sudden SIGKILL crashes and ungraceful shutdowns.",
+    "Two-phase restoration loads the latest checkpoint snapshot and replays only the recent tail changelog records.",
+    "Milestone 4 integrates ingestion, local storage, checkpointing, and recovery into a complete fault-tolerant processor."
+  ],
+  "projectStep": {
+    "title": "Complete Milestone 4: Fault-Tolerant Stateful Stream Processor",
+    "steps": [
+      "Implement a periodic checkpointing stream processor that atomically captures state snapshots and stream offsets.",
+      "Build a two-phase recovery engine that restores state from durable snapshots and replays tail changelog records.",
+      "Execute an end-to-end chaos engineering simulation proving crash resilience and exactly-once processing."
+    ]
+  }
+}
 ];
