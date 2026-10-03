@@ -767,7 +767,804 @@ export const STREAM_WEB_30_DAYS_CONFIGS: DayConfig[] = [
       "if (t2.throughputEventsPerSec !== 0 || t2.p95LatencyMs !== 0) throw new Error('Empty latencies failed');"
     )
   }
+,
 
+  // ── DAY 16 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[15],
+    eTitle: "Stateless Stream Operators: Map, Filter, FlatMap",
+    eDesc: "Write `transformStream<T, U>(stream: T[], mapper?: (item: T) => U, predicate?: (item: T) => boolean, flatMapper?: (item: T) => U[]): U[]` applying filter (if provided), then flatMapper (if provided) or mapper (if provided). If neither mapper nor flatMapper is provided, return filtered items as U[].",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function transformStream<T, U>(stream: T[], mapper?: (item: T) => U, predicate?: (item: T) => boolean, flatMapper?: (item: T) => U[]): U[] {",
+      "  // Stateless stream transformation",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Filter array by predicate if present. If flatMapper given, return flatMap. Else if mapper given, return map. Else return filtered as U[].",
+    eTest: lines(
+      "if (typeof transformStream !== 'function') throw new Error('transformStream not found');",
+      "const nums = [1, 2, 3, 4, 5];",
+      "const res1 = transformStream(nums, (x) => x * 10, (x) => x % 2 === 1);",
+      "if (JSON.stringify(res1) !== JSON.stringify([10, 30, 50])) throw new Error('res1 fail: ' + JSON.stringify(res1));",
+      "const res2 = transformStream(['a', 'b'], undefined, undefined, (s) => [s, s.toUpperCase()]);",
+      "if (JSON.stringify(res2) !== JSON.stringify(['a', 'A', 'b', 'B'])) throw new Error('res2 fail: ' + JSON.stringify(res2));",
+      "const res3 = transformStream([10, 20]);",
+      "if (JSON.stringify(res3) !== JSON.stringify([10, 20])) throw new Error('res3 fail: ' + JSON.stringify(res3));"
+    ),
+    aTitle: "Topic Stream Branching Router",
+    aDesc: "Write `branchStream<T>(events: T[], predicates: ((item: T) => boolean)[]): T[][]` distributing events into branches. Each event goes to the FIRST branch whose predicate returns true. If no predicate matches, it goes to a final default branch at the end of the returned array.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function branchStream<T>(events: T[], predicates: ((item: T) => boolean)[]): T[][] {",
+      "  // Branch stream into partitioned sub-streams",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Create predicates.length + 1 branch arrays. For each event, push to first matching predicate index, or default last index.",
+    aTest: lines(
+      "if (typeof branchStream !== 'function') throw new Error('branchStream not found');",
+      "const evts = [1, 2, 3, 4, 5, 6, 7];",
+      "const b1 = branchStream(evts, [(x) => x % 2 === 0, (x) => x < 5]);",
+      "if (b1.length !== 3) throw new Error('Branch count mismatch: ' + b1.length);",
+      "if (JSON.stringify(b1[0]) !== JSON.stringify([2, 4, 6])) throw new Error('Branch 0 fail: ' + JSON.stringify(b1[0]));",
+      "if (JSON.stringify(b1[1]) !== JSON.stringify([1, 3])) throw new Error('Branch 1 fail: ' + JSON.stringify(b1[1]));",
+      "if (JSON.stringify(b1[2]) !== JSON.stringify([5, 7])) throw new Error('Default branch fail: ' + JSON.stringify(b1[2]));",
+      "const b2 = branchStream([], []);",
+      "if (b2.length !== 1 || b2[0].length !== 0) throw new Error('Empty branch fail');"
+    )
+  },
+
+  // ── DAY 17 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[16],
+    eTitle: "Fixed-Duration Tumbling Window Aggregator",
+    eDesc: "Write `aggregateTumblingWindows(events: { timestamp: number; value: number }[], windowDurationMs: number): { windowStart: number; windowEnd: number; count: number; sum: number }[]` where windowStart = timestamp - (timestamp % windowDurationMs), and windowEnd = windowStart + windowDurationMs. Output sorted by windowStart ascending.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function aggregateTumblingWindows(events: { timestamp: number; value: number }[], windowDurationMs: number): { windowStart: number; windowEnd: number; count: number; sum: number }[] {",
+      "  // Aggregate into tumbling windows",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Bucket events into windowStart = t - (t % duration). Accumulate count and sum in a Map, then sort by windowStart.",
+    eTest: lines(
+      "if (typeof aggregateTumblingWindows !== 'function') throw new Error('aggregateTumblingWindows not found');",
+      "const evts1 = [",
+      "  { timestamp: 1050, value: 10 },",
+      "  { timestamp: 1400, value: 20 },",
+      "  { timestamp: 2100, value: 5 },",
+      "  { timestamp: 2999, value: 15 },",
+      "  { timestamp: 3000, value: 100 }",
+      "];",
+      "const w1 = aggregateTumblingWindows(evts1, 1000);",
+      "if (w1.length !== 3) throw new Error('Window count fail: ' + w1.length);",
+      "if (w1[0].windowStart !== 1000 || w1[0].windowEnd !== 2000 || w1[0].count !== 2 || w1[0].sum !== 30) throw new Error('Window 0 fail: ' + JSON.stringify(w1[0]));",
+      "if (w1[1].windowStart !== 2000 || w1[1].windowEnd !== 3000 || w1[1].count !== 2 || w1[1].sum !== 20) throw new Error('Window 1 fail: ' + JSON.stringify(w1[1]));",
+      "if (w1[2].windowStart !== 3000 || w1[2].windowEnd !== 4000 || w1[2].count !== 1 || w1[2].sum !== 100) throw new Error('Window 2 fail: ' + JSON.stringify(w1[2]));",
+      "const w2 = aggregateTumblingWindows([], 1000);",
+      "if (w2.length !== 0) throw new Error('Empty fail');"
+    ),
+    aTitle: "Keyed Tumbling Window Count & Average",
+    aDesc: "Write `aggregateKeyedTumblingWindows(events: { key: string; timestamp: number; value: number }[], windowDurationMs: number): { key: string; windowStart: number; count: number; avg: number }[]` with avg rounded to 2 decimals, sorted primarily by windowStart asc and secondarily by key asc.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function aggregateKeyedTumblingWindows(events: { key: string; timestamp: number; value: number }[], windowDurationMs: number): { key: string; windowStart: number; count: number; avg: number }[] {",
+      "  // Keyed tumbling window aggregation",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Map key and windowStart to count and sum. Round avg = sum / count to 2 decimals.",
+    aTest: lines(
+      "if (typeof aggregateKeyedTumblingWindows !== 'function') throw new Error('aggregateKeyedTumblingWindows not found');",
+      "const evts = [",
+      "  { key: 'btc', timestamp: 100, value: 50 },",
+      "  { key: 'btc', timestamp: 150, value: 60 },",
+      "  { key: 'eth', timestamp: 120, value: 10 },",
+      "  { key: 'btc', timestamp: 220, value: 70 }",
+      "];",
+      "const r1 = aggregateKeyedTumblingWindows(evts, 100);",
+      "if (r1.length !== 3) throw new Error('Result count fail: ' + r1.length);",
+      "if (r1[0].key !== 'btc' || r1[0].windowStart !== 100 || r1[0].count !== 2 || r1[0].avg !== 55) throw new Error('btc window 100 fail: ' + JSON.stringify(r1[0]));",
+      "if (r1[1].key !== 'eth' || r1[1].windowStart !== 100 || r1[1].count !== 1 || r1[1].avg !== 10) throw new Error('eth window 100 fail: ' + JSON.stringify(r1[1]));",
+      "if (r1[2].key !== 'btc' || r1[2].windowStart !== 200 || r1[2].count !== 1 || r1[2].avg !== 70) throw new Error('btc window 200 fail: ' + JSON.stringify(r1[2]));",
+      "const r2 = aggregateKeyedTumblingWindows([], 100);",
+      "if (r2.length !== 0) throw new Error('Empty fail');"
+    )
+  },
+
+  // ── DAY 18 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[17],
+    eTitle: "Sliding Hopping Window Multi-Bucket Membership",
+    eDesc: "Write `getSlidingWindowBuckets(eventTimestamp: number, windowDurationMs: number, slideIntervalMs: number): { windowStart: number; windowEnd: number }[]` returning all overlapping windows that contain eventTimestamp (windowStart <= eventTimestamp < windowEnd), sorted by windowStart ascending.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function getSlidingWindowBuckets(eventTimestamp: number, windowDurationMs: number, slideIntervalMs: number): { windowStart: number; windowEnd: number }[] {",
+      "  // Compute sliding window buckets",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Loop window start times in steps of slideIntervalMs from Math.max(0, eventTimestamp - windowDurationMs + 1) up to eventTimestamp.",
+    eTest: lines(
+      "if (typeof getSlidingWindowBuckets !== 'function') throw new Error('getSlidingWindowBuckets not found');",
+      "const b1 = getSlidingWindowBuckets(15, 10, 5);",
+      "if (b1.length !== 2) throw new Error('b1 length mismatch: ' + b1.length);",
+      "if (b1[0].windowStart !== 10 || b1[0].windowEnd !== 20) throw new Error('b1[0] fail: ' + JSON.stringify(b1[0]));",
+      "if (b1[1].windowStart !== 15 || b1[1].windowEnd !== 25) throw new Error('b1[1] fail: ' + JSON.stringify(b1[1]));",
+      "const b2 = getSlidingWindowBuckets(25, 30, 10);",
+      "if (b2.length !== 3) throw new Error('b2 length mismatch: ' + b2.length);",
+      "if (b2[0].windowStart !== 0 || b2[2].windowStart !== 20) throw new Error('b2 fail: ' + JSON.stringify(b2));"
+    ),
+    aTitle: "Sliding Window Rolling Sum and Max",
+    aDesc: "Write `computeSlidingWindowAggregates(events: { timestamp: number; value: number }[], windowDurationMs: number, slideIntervalMs: number): { windowStart: number; count: number; sum: number; max: number }[]` sorted by windowStart ascending.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function computeSlidingWindowAggregates(events: { timestamp: number; value: number }[], windowDurationMs: number, slideIntervalMs: number): { windowStart: number; count: number; sum: number; max: number }[] {",
+      "  // Sliding window rolling aggregates",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Distribute each event into all its sliding window starts. Track count, sum, and max per window start.",
+    aTest: lines(
+      "if (typeof computeSlidingWindowAggregates !== 'function') throw new Error('computeSlidingWindowAggregates not found');",
+      "const evts = [",
+      "  { timestamp: 5, value: 10 },",
+      "  { timestamp: 12, value: 30 },",
+      "  { timestamp: 18, value: 20 }",
+      "];",
+      "const res1 = computeSlidingWindowAggregates(evts, 10, 5);",
+      "if (res1.length !== 4) throw new Error('res1 length mismatch: ' + res1.length);",
+      "if (res1[0].windowStart !== 0 || res1[0].sum !== 10) throw new Error('res1[0] fail: ' + JSON.stringify(res1[0]));",
+      "if (res1[1].windowStart !== 5 || res1[1].sum !== 40 || res1[1].max !== 30) throw new Error('res1[1] fail: ' + JSON.stringify(res1[1]));",
+      "if (res1[2].windowStart !== 10 || res1[2].sum !== 50) throw new Error('res1[2] fail: ' + JSON.stringify(res1[2]));",
+      "const res2 = computeSlidingWindowAggregates([], 10, 5);",
+      "if (res2.length !== 0) throw new Error('Empty fail');"
+    )
+  },
+
+  // ── DAY 19 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[18],
+    eTitle: "Session Window Grouping by Inactivity Gap Threshold",
+    eDesc: "Write `groupIntoSessionWindows(timestamps: number[], inactivityGapMs: number): { sessionStart: number; sessionEnd: number; eventCount: number }[]` grouping sorted timestamps into sessions where consecutive events with gap <= inactivityGapMs belong to the same session.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function groupIntoSessionWindows(timestamps: number[], inactivityGapMs: number): { sessionStart: number; sessionEnd: number; eventCount: number }[] {",
+      "  // Group into session windows",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Sort timestamps. If next timestamp - currentEnd <= gapMs, extend currentEnd; otherwise emit session and start new.",
+    eTest: lines(
+      "if (typeof groupIntoSessionWindows !== 'function') throw new Error('groupIntoSessionWindows not found');",
+      "const ts1 = [100, 150, 200, 500, 520, 900];",
+      "const s1 = groupIntoSessionWindows(ts1, 100);",
+      "if (s1.length !== 3) throw new Error('Session count mismatch: ' + s1.length);",
+      "if (s1[0].sessionStart !== 100 || s1[0].sessionEnd !== 200 || s1[0].eventCount !== 3) throw new Error('Session 1 fail: ' + JSON.stringify(s1[0]));",
+      "if (s1[1].sessionStart !== 500 || s1[1].sessionEnd !== 520 || s1[1].eventCount !== 2) throw new Error('Session 2 fail: ' + JSON.stringify(s1[1]));",
+      "if (s1[2].sessionStart !== 900 || s1[2].sessionEnd !== 900 || s1[2].eventCount !== 1) throw new Error('Session 3 fail: ' + JSON.stringify(s1[2]));",
+      "const s2 = groupIntoSessionWindows([], 100);",
+      "if (s2.length !== 0) throw new Error('Empty fail');"
+    ),
+    aTitle: "Merge Overlapping & Bridging Session Windows",
+    aDesc: "Write `mergeSessionWindows(sessions: { start: number; end: number }[], gapMs: number): { start: number; end: number }[]` merging sessions that overlap or are within gapMs of each other, sorted by start ascending.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function mergeSessionWindows(sessions: { start: number; end: number }[], gapMs: number): { start: number; end: number }[] {",
+      "  // Merge overlapping and bridging sessions",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Sort sessions by start. Merge into previous session if cur.start <= prev.end + gapMs.",
+    aTest: lines(
+      "if (typeof mergeSessionWindows !== 'function') throw new Error('mergeSessionWindows not found');",
+      "const input1 = [",
+      "  { start: 10, end: 30 },",
+      "  { start: 40, end: 60 },",
+      "  { start: 100, end: 120 }",
+      "];",
+      "const m1 = mergeSessionWindows(input1, 15);",
+      "if (m1.length !== 2) throw new Error('m1 length fail: ' + m1.length);",
+      "if (m1[0].start !== 10 || m1[0].end !== 60) throw new Error('m1[0] fail: ' + JSON.stringify(m1[0]));",
+      "if (m1[1].start !== 100 || m1[1].end !== 120) throw new Error('m1[1] fail: ' + JSON.stringify(m1[1]));",
+      "const m2 = mergeSessionWindows([], 10);",
+      "if (m2.length !== 0) throw new Error('Empty fail');"
+    )
+  },
+
+  // ── DAY 20 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[19],
+    eTitle: "Watermark Tracker and Late Event Detector",
+    eDesc: "Implement `class WatermarkManager` with `constructor(maxLatenessMs: number)`, `onEvent(eventTimeMs: number): { watermark: number; isLate: boolean }` (updates watermark to max(currentWatermark, eventTimeMs - maxLatenessMs); an event is late if eventTimeMs < currentWatermark), and `getWatermark(): number`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "class WatermarkManager {",
+      "  constructor(public maxLatenessMs: number) {}",
+      "  onEvent(eventTimeMs: number): { watermark: number; isLate: boolean } {",
+      "    return { watermark: 0, isLate: false };",
+      "  }",
+      "  getWatermark(): number {",
+      "    return 0;",
+      "  }",
+      "}"
+    ),
+    eHint: "An event is late if eventTimeMs < currentWatermark. If not late, update watermark = Math.max(watermark, eventTimeMs - maxLatenessMs).",
+    eTest: lines(
+      "if (typeof WatermarkManager !== 'function') throw new Error('WatermarkManager not found');",
+      "const wm = new WatermarkManager(100);",
+      "const r1 = wm.onEvent(1000);",
+      "if (r1.watermark !== 900 || r1.isLate) throw new Error('r1 fail: ' + JSON.stringify(r1));",
+      "const r2 = wm.onEvent(1200);",
+      "if (r2.watermark !== 1100 || r2.isLate) throw new Error('r2 fail: ' + JSON.stringify(r2));",
+      "const r3 = wm.onEvent(1050);",
+      "if (r3.watermark !== 1100 || !r3.isLate) throw new Error('r3 late fail: ' + JSON.stringify(r3));",
+      "if (wm.getWatermark() !== 1100) throw new Error('getWatermark fail');"
+    ),
+    aTitle: "Window Closer Triggered by Watermark Progression",
+    aDesc: "Write `evaluateWindowEmissions(watermark: number, openWindows: { windowId: string; windowEnd: number }[]): { closedWindows: string[]; remainingWindows: { windowId: string; windowEnd: number }[] }` where a window closes when windowEnd <= watermark.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function evaluateWindowEmissions(watermark: number, openWindows: { windowId: string; windowEnd: number }[]): { closedWindows: string[]; remainingWindows: { windowId: string; windowEnd: number }[] } {",
+      "  // Evaluate window emissions on watermark",
+      "  return { closedWindows: [], remainingWindows: [] };",
+      "}"
+    ),
+    aHint: "Filter into closedWindows if windowEnd <= watermark, else remainingWindows.",
+    aTest: lines(
+      "if (typeof evaluateWindowEmissions !== 'function') throw new Error('evaluateWindowEmissions not found');",
+      "const wins = [",
+      "  { windowId: 'w1', windowEnd: 100 },",
+      "  { windowId: 'w2', windowEnd: 200 },",
+      "  { windowId: 'w3', windowEnd: 300 }",
+      "];",
+      "const r1 = evaluateWindowEmissions(200, wins);",
+      "if (JSON.stringify(r1.closedWindows) !== JSON.stringify(['w1', 'w2'])) throw new Error('Closed fail: ' + JSON.stringify(r1.closedWindows));",
+      "if (r1.remainingWindows.length !== 1 || r1.remainingWindows[0].windowId !== 'w3') throw new Error('Remaining fail: ' + JSON.stringify(r1.remainingWindows));",
+      "const r2 = evaluateWindowEmissions(50, wins);",
+      "if (r2.closedWindows.length !== 0 || r2.remainingWindows.length !== 3) throw new Error('None closed fail');"
+    )
+  },
+
+  // ── DAY 21 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[20],
+    eTitle: "In-Memory Key-Value State Store with Changelog Stream Producer",
+    eDesc: "Implement `class ChangelogBackedStateStore` with `put(key: string, value: string): { offset: number; key: string; value: string }`, `get(key: string): string | null`, `delete(key: string): { offset: number; key: string; value: null }`, and `getChangelog(): { offset: number; key: string; value: string | null }[]` (where deletion appends a tombstone with value = null).",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "class ChangelogBackedStateStore {",
+      "  put(key: string, value: string): { offset: number; key: string; value: string } {",
+      "    return { offset: 0, key, value };",
+      "  }",
+      "  get(key: string): string | null {",
+      "    return null;",
+      "  }",
+      "  delete(key: string): { offset: number; key: string; value: null } {",
+      "    return { offset: 0, key, value: null };",
+      "  }",
+      "  getChangelog(): { offset: number; key: string; value: string | null }[] {",
+      "    return [];",
+      "  }",
+      "}"
+    ),
+    eHint: "Store key-value pairs in a Map and log sequential mutations into an array with offset = length.",
+    eTest: lines(
+      "if (typeof ChangelogBackedStateStore !== 'function') throw new Error('ChangelogBackedStateStore not found');",
+      "const store = new ChangelogBackedStateStore();",
+      "const p1 = store.put('user-1', 'Alice');",
+      "const p2 = store.put('user-2', 'Bob');",
+      "if (p1.offset !== 0 || p2.offset !== 1) throw new Error('Put offsets fail');",
+      "if (store.get('user-1') !== 'Alice') throw new Error('Get user-1 fail');",
+      "const d1 = store.delete('user-1');",
+      "if (d1.offset !== 2 || d1.value !== null) throw new Error('Delete fail');",
+      "if (store.get('user-1') !== null) throw new Error('Tombstoned key should be null');",
+      "const cl = store.getChangelog();",
+      "if (cl.length !== 3 || cl[2].value !== null) throw new Error('Changelog length fail');"
+    ),
+    aTitle: "Replay Changelog to Rebuild Local State Store",
+    aDesc: "Write `rebuildStateFromChangelog(changelog: { offset: number; key: string; value: string | null }[]): Record<string, string>` applying put and tombstone deletion (null value) in offset order.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function rebuildStateFromChangelog(changelog: { offset: number; key: string; value: string | null }[]): Record<string, string> {",
+      "  // Rebuild state from changelog",
+      "  return {};",
+      "}"
+    ),
+    aHint: "Iterate through changelog. If value === null, delete key; else assign key to value.",
+    aTest: lines(
+      "if (typeof rebuildStateFromChangelog !== 'function') throw new Error('rebuildStateFromChangelog not found');",
+      "const log1 = [",
+      "  { offset: 0, key: 'k1', value: 'v1' },",
+      "  { offset: 1, key: 'k2', value: 'v2' },",
+      "  { offset: 2, key: 'k1', value: 'v1-updated' },",
+      "  { offset: 3, key: 'k2', value: null }",
+      "];",
+      "const s1 = rebuildStateFromChangelog(log1);",
+      "if (s1.k1 !== 'v1-updated' || 'k2' in s1) throw new Error('s1 fail: ' + JSON.stringify(s1));",
+      "const s2 = rebuildStateFromChangelog([]);",
+      "if (Object.keys(s2).length !== 0) throw new Error('Empty log fail');"
+    )
+  },
+
+  // ── DAY 22 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[21],
+    eTitle: "Log Compactor: Retain Latest Key Values and Purge Obsolete Records",
+    eDesc: "Write `compactEventLog(records: { offset: number; key: string; value: string | null }[]): { offset: number; key: string; value: string }[]` returning only the latest record for each key that is NOT tombstoned (value !== null), ordered by original offset ascending.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function compactEventLog(records: { offset: number; key: string; value: string | null }[]): { offset: number; key: string; value: string }[] {",
+      "  // Compact event log",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Track latest record per key in a Map. Filter out tombstones and sort by offset ascending.",
+    eTest: lines(
+      "if (typeof compactEventLog !== 'function') throw new Error('compactEventLog not found');",
+      "const recs1 = [",
+      "  { offset: 0, key: 'a', value: '1' },",
+      "  { offset: 1, key: 'b', value: '2' },",
+      "  { offset: 2, key: 'a', value: '3' },",
+      "  { offset: 3, key: 'b', value: null },",
+      "  { offset: 4, key: 'c', value: '5' }",
+      "];",
+      "const c1 = compactEventLog(recs1);",
+      "if (c1.length !== 2) throw new Error('c1 length fail: ' + c1.length);",
+      "if (c1[0].key !== 'a' || c1[0].offset !== 2 || c1[0].value !== '3') throw new Error('c1[0] fail: ' + JSON.stringify(c1[0]));",
+      "if (c1[1].key !== 'c' || c1[1].offset !== 4 || c1[1].value !== '5') throw new Error('c1[1] fail: ' + JSON.stringify(c1[1]));",
+      "const c2 = compactEventLog([]);",
+      "if (c2.length !== 0) throw new Error('Empty fail');"
+    ),
+    aTitle: "Stream-to-Table Reducer (KTable Materialization)",
+    aDesc: "Write `materializeKTable(stream: { key: string; delta: number }[]): Record<string, number>` computing the running sum per key and omitting keys whose accumulated delta is 0.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function materializeKTable(stream: { key: string; delta: number }[]): Record<string, number> {",
+      "  // Materialize KTable",
+      "  return {};",
+      "}"
+    ),
+    aHint: "Accumulate delta into table[key]. If balance reaches 0, delete key.",
+    aTest: lines(
+      "if (typeof materializeKTable !== 'function') throw new Error('materializeKTable not found');",
+      "const str1 = [",
+      "  { key: 'acc-1', delta: 100 },",
+      "  { key: 'acc-2', delta: 50 },",
+      "  { key: 'acc-1', delta: -40 },",
+      "  { key: 'acc-2', delta: -50 }",
+      "];",
+      "const t1 = materializeKTable(str1);",
+      "if (t1['acc-1'] !== 60 || 'acc-2' in t1) throw new Error('t1 fail: ' + JSON.stringify(t1));",
+      "const t2 = materializeKTable([]);",
+      "if (Object.keys(t2).length !== 0) throw new Error('Empty fail');"
+    )
+  },
+
+  // ── DAY 23 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[22],
+    eTitle: "Stream-Table Real-Time Event Enrichment Joiner",
+    eDesc: "Write `joinStreamTable<E extends { id: string; foreignKey: string }, T>(stream: E[], table: Record<string, T>): (E & { enrichment: T | null })[]` enriching each stream record with the corresponding record in table by foreignKey.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function joinStreamTable<E extends { id: string; foreignKey: string }, T>(stream: E[], table: Record<string, T>): (E & { enrichment: T | null })[] {",
+      "  // Join stream with table",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Map each record in stream to a new object with enrichment: table[record.foreignKey] ?? null.",
+    eTest: lines(
+      "if (typeof joinStreamTable !== 'function') throw new Error('joinStreamTable not found');",
+      "const orders = [",
+      "  { id: 'o1', foreignKey: 'u1', amount: 50 },",
+      "  { id: 'o2', foreignKey: 'u2', amount: 99 },",
+      "  { id: 'o3', foreignKey: 'u3', amount: 15 }",
+      "];",
+      "const users = {",
+      "  u1: { name: 'Alice', tier: 'gold' },",
+      "  u2: { name: 'Bob', tier: 'silver' }",
+      "};",
+      "const j1 = joinStreamTable(orders, users);",
+      "if (j1.length !== 3) throw new Error('Join length fail');",
+      "if (!j1[0].enrichment || j1[0].enrichment.name !== 'Alice') throw new Error('j1[0] fail: ' + JSON.stringify(j1[0]));",
+      "if (!j1[1].enrichment || j1[1].enrichment.tier !== 'silver') throw new Error('j1[1] fail: ' + JSON.stringify(j1[1]));",
+      "if (j1[2].enrichment !== null) throw new Error('Missing lookup should be null: ' + JSON.stringify(j1[2]));",
+      "const j2 = joinStreamTable([], {});",
+      "if (j2.length !== 0) throw new Error('Empty join fail');"
+    ),
+    aTitle: "Dynamic Temporal Table Lookup Join",
+    aDesc: "Write `joinTemporalTable(stream: { eventId: string; entityId: string; timestamp: number }[], dimensionVersions: { entityId: string; validFrom: number; validTo: number; status: string }[]): { eventId: string; status: string | null }[]` looking up the status where validFrom <= event.timestamp < validTo.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function joinTemporalTable(stream: { eventId: string; entityId: string; timestamp: number }[], dimensionVersions: { entityId: string; validFrom: number; validTo: number; status: string }[]): { eventId: string; status: string | null }[] {",
+      "  // Join temporal dimension table",
+      "  return [];",
+      "}"
+    ),
+    aHint: "For each event, find dimension record matching entityId and validFrom <= timestamp < validTo.",
+    aTest: lines(
+      "if (typeof joinTemporalTable !== 'function') throw new Error('joinTemporalTable not found');",
+      "const events = [",
+      "  { eventId: 'e1', entityId: 'acc-1', timestamp: 150 },",
+      "  { eventId: 'e2', entityId: 'acc-1', timestamp: 350 },",
+      "  { eventId: 'e3', entityId: 'acc-2', timestamp: 200 }",
+      "];",
+      "const dims = [",
+      "  { entityId: 'acc-1', validFrom: 100, validTo: 300, status: 'STANDARD' },",
+      "  { entityId: 'acc-1', validFrom: 300, validTo: 500, status: 'PREMIUM' }",
+      "];",
+      "const r1 = joinTemporalTable(events, dims);",
+      "if (r1.length !== 3) throw new Error('r1 length fail: ' + r1.length);",
+      "if (r1[0].status !== 'STANDARD') throw new Error('e1 fail: ' + JSON.stringify(r1[0]));",
+      "if (r1[1].status !== 'PREMIUM') throw new Error('e2 fail: ' + JSON.stringify(r1[1]));",
+      "if (r1[2].status !== null) throw new Error('e3 missing fail: ' + JSON.stringify(r1[2]));",
+      "const r2 = joinTemporalTable([], []);",
+      "if (r2.length !== 0) throw new Error('Empty temporal join fail');"
+    )
+  },
+
+  // ── DAY 24 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[23],
+    eTitle: "Windowed Stream-Stream Correlated Joiner",
+    eDesc: "Write `joinStreamStream(leftStream: { key: string; timestamp: number; payload: string }[], rightStream: { key: string; timestamp: number; payload: string }[], windowMs: number): { key: string; leftPayload: string; rightPayload: string; timeDeltaMs: number }[]` joining records with matching key where Math.abs(left.timestamp - right.timestamp) <= windowMs.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function joinStreamStream(leftStream: { key: string; timestamp: number; payload: string }[], rightStream: { key: string; timestamp: number; payload: string }[], windowMs: number): { key: string; leftPayload: string; rightPayload: string; timeDeltaMs: number }[] {",
+      "  // Correlated stream-stream join",
+      "  return [];",
+      "}"
+    ),
+    eHint: "Match records from left and right with identical key and abs(delta) <= windowMs.",
+    eTest: lines(
+      "if (typeof joinStreamStream !== 'function') throw new Error('joinStreamStream not found');",
+      "const left = [",
+      "  { key: 'k1', timestamp: 100, payload: 'L1' },",
+      "  { key: 'k2', timestamp: 500, payload: 'L2' }",
+      "];",
+      "const right = [",
+      "  { key: 'k1', timestamp: 120, payload: 'R1' },",
+      "  { key: 'k1', timestamp: 300, payload: 'R2' },",
+      "  { key: 'k2', timestamp: 510, payload: 'R3' }",
+      "];",
+      "const j1 = joinStreamStream(left, right, 50);",
+      "if (j1.length !== 2) throw new Error('j1 length mismatch: ' + j1.length);",
+      "if (j1[0].leftPayload !== 'L1' || j1[0].rightPayload !== 'R1' || j1[0].timeDeltaMs !== 20) throw new Error('j1[0] fail: ' + JSON.stringify(j1[0]));",
+      "if (j1[1].leftPayload !== 'L2' || j1[1].rightPayload !== 'R3' || j1[1].timeDeltaMs !== 10) throw new Error('j1[1] fail: ' + JSON.stringify(j1[1]));",
+      "const j2 = joinStreamStream([], [], 50);",
+      "if (j2.length !== 0) throw new Error('Empty join fail');"
+    ),
+    aTitle: "Validate Co-Partitioning Invariant for Stream Joins",
+    aDesc: "Write `validateCoPartitioning(topicA: { partitions: number; hashAlgorithm: string }, topicB: { partitions: number; hashAlgorithm: string }): { valid: boolean; reason: string }` ensuring equal partition counts and identical hash algorithms.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function validateCoPartitioning(topicA: { partitions: number; hashAlgorithm: string }, topicB: { partitions: number; hashAlgorithm: string }): { valid: boolean; reason: string } {",
+      "  // Validate co-partitioning",
+      "  return { valid: false, reason: '' };",
+      "}"
+    ),
+    aHint: "Check topicA.partitions === topicB.partitions first, then hashAlgorithm equality.",
+    aTest: lines(
+      "if (typeof validateCoPartitioning !== 'function') throw new Error('validateCoPartitioning not found');",
+      "const r1 = validateCoPartitioning({ partitions: 8, hashAlgorithm: 'murmur3' }, { partitions: 8, hashAlgorithm: 'murmur3' });",
+      "if (!r1.valid || r1.reason !== 'CO_PARTITIONED') throw new Error('r1 valid fail: ' + JSON.stringify(r1));",
+      "const r2 = validateCoPartitioning({ partitions: 4, hashAlgorithm: 'murmur3' }, { partitions: 8, hashAlgorithm: 'murmur3' });",
+      "if (r2.valid || r2.reason !== 'PARTITION_COUNT_MISMATCH') throw new Error('r2 partition mismatch fail: ' + JSON.stringify(r2));",
+      "const r3 = validateCoPartitioning({ partitions: 8, hashAlgorithm: 'djb2' }, { partitions: 8, hashAlgorithm: 'murmur3' });",
+      "if (r3.valid || r3.reason !== 'HASH_ALGORITHM_MISMATCH') throw new Error('r3 hash mismatch fail: ' + JSON.stringify(r3));"
+    )
+  },
+
+  // ── DAY 25 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[24],
+    eTitle: "Fault-Tolerant Stream Processor with Periodic Checkpointing",
+    eDesc: "Implement `class CheckpointedStreamProcessor` with `constructor(checkpointIntervalRecords: number)`, `process(record: { offset: number; key: string; value: number }): { committedCheckpoint: boolean; currentTotal: number }`, `restoreFromCheckpoint(snapshot: { lastOffset: number; state: Record<string, number> }): void`, and `getCheckpointSnapshot(): { lastOffset: number; state: Record<string, number> }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "class CheckpointedStreamProcessor {",
+      "  constructor(public checkpointIntervalRecords: number) {}",
+      "  process(record: { offset: number; key: string; value: number }): { committedCheckpoint: boolean; currentTotal: number } {",
+      "    return { committedCheckpoint: false, currentTotal: 0 };",
+      "  }",
+      "  restoreFromCheckpoint(snapshot: { lastOffset: number; state: Record<string, number> }): void {}",
+      "  getCheckpointSnapshot(): { lastOffset: number; state: Record<string, number> } {",
+      "    return { lastOffset: -1, state: {} };",
+      "  }",
+      "}"
+    ),
+    eHint: "Track recordsSinceCheckpoint. When count reaches interval, snapshot state and lastOffset, and reset counter.",
+    eTest: lines(
+      "if (typeof CheckpointedStreamProcessor !== 'function') throw new Error('CheckpointedStreamProcessor not found');",
+      "const proc = new CheckpointedStreamProcessor(2);",
+      "const p1 = proc.process({ offset: 10, key: 'k1', value: 50 });",
+      "if (p1.committedCheckpoint || p1.currentTotal !== 50) throw new Error('p1 fail: ' + JSON.stringify(p1));",
+      "const p2 = proc.process({ offset: 11, key: 'k2', value: 30 });",
+      "if (!p2.committedCheckpoint || p2.currentTotal !== 80) throw new Error('p2 checkpoint fail: ' + JSON.stringify(p2));",
+      "const snap = proc.getCheckpointSnapshot();",
+      "if (snap.lastOffset !== 11 || snap.state.k1 !== 50 || snap.state.k2 !== 30) throw new Error('Snapshot fail: ' + JSON.stringify(snap));",
+      "const proc2 = new CheckpointedStreamProcessor(2);",
+      "proc2.restoreFromCheckpoint(snap);",
+      "const p3 = proc2.process({ offset: 12, key: 'k1', value: 20 });",
+      "if (p3.currentTotal !== 100) throw new Error('Restored total fail: ' + p3.currentTotal);"
+    ),
+    aTitle: "State Store Recovery from Snapshot Plus Tail Changelog",
+    aDesc: "Write `recoverProcessorState(snapshot: { lastOffset: number; state: Record<string, number> }, changelogTail: { offset: number; key: string; delta: number }[]): { finalOffset: number; state: Record<string, number> }` applying deltas from records where offset > snapshot.lastOffset.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function recoverProcessorState(snapshot: { lastOffset: number; state: Record<string, number> }, changelogTail: { offset: number; key: string; delta: number }[]): { finalOffset: number; state: Record<string, number> } {",
+      "  // Recover processor state",
+      "  return { finalOffset: 0, state: {} };",
+      "}"
+    ),
+    aHint: "Clone snapshot state. For each tail record with offset > lastOffset, add delta and update finalOffset.",
+    aTest: lines(
+      "if (typeof recoverProcessorState !== 'function') throw new Error('recoverProcessorState not found');",
+      "const snap = { lastOffset: 100, state: { a: 10, b: 20 } };",
+      "const tail = [",
+      "  { offset: 99, key: 'a', delta: 50 },",
+      "  { offset: 100, key: 'b', delta: 50 },",
+      "  { offset: 101, key: 'a', delta: 5 },",
+      "  { offset: 102, key: 'c', delta: 30 }",
+      "];",
+      "const r1 = recoverProcessorState(snap, tail);",
+      "if (r1.finalOffset !== 102 || r1.state.a !== 15 || r1.state.b !== 20 || r1.state.c !== 30) throw new Error('r1 fail: ' + JSON.stringify(r1));",
+      "const r2 = recoverProcessorState(snap, []);",
+      "if (r2.finalOffset !== 100 || r2.state.a !== 10) throw new Error('Empty tail fail');"
+    )
+  },
+
+  // ── DAY 26 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[25],
+    eTitle: "Schema Registry Compatibility Checker (BACKWARD & FORWARD)",
+    eDesc: "Write `validateSchemaEvolution(prevFields: { name: string; type: string; hasDefault: boolean }[], nextFields: { name: string; type: string; hasDefault: boolean }[], mode: 'BACKWARD' | 'FORWARD'): { compatible: boolean; reason: string }` (BACKWARD: all new fields in next must have defaults, and existing fields must not change type; FORWARD: deleted fields in next must have had defaults in prev).",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function validateSchemaEvolution(prevFields: { name: string; type: string; hasDefault: boolean }[], nextFields: { name: string; type: string; hasDefault: boolean }[], mode: 'BACKWARD' | 'FORWARD'): { compatible: boolean; reason: string } {",
+      "  // Validate schema evolution compatibility",
+      "  return { compatible: false, reason: '' };",
+      "}"
+    ),
+    eHint: "Check type changes first. For BACKWARD check new fields have defaults; for FORWARD check deleted fields had defaults.",
+    eTest: lines(
+      "if (typeof validateSchemaEvolution !== 'function') throw new Error('validateSchemaEvolution not found');",
+      "const prev = [",
+      "  { name: 'id', type: 'string', hasDefault: false },",
+      "  { name: 'age', type: 'int', hasDefault: true }",
+      "];",
+      "const nextValid = [",
+      "  { name: 'id', type: 'string', hasDefault: false },",
+      "  { name: 'age', type: 'int', hasDefault: true },",
+      "  { name: 'email', type: 'string', hasDefault: true }",
+      "];",
+      "const nextInvalid = [",
+      "  { name: 'id', type: 'string', hasDefault: false },",
+      "  { name: 'email', type: 'string', hasDefault: false }",
+      "];",
+      "const r1 = validateSchemaEvolution(prev, nextValid, 'BACKWARD');",
+      "if (!r1.compatible || r1.reason !== 'COMPATIBLE') throw new Error('r1 fail: ' + JSON.stringify(r1));",
+      "const r2 = validateSchemaEvolution(prev, nextInvalid, 'BACKWARD');",
+      "if (r2.compatible || !r2.reason.includes('default')) throw new Error('r2 fail: ' + JSON.stringify(r2));",
+      "const r3 = validateSchemaEvolution(prev, [{ name: 'id', type: 'string', hasDefault: false }], 'FORWARD');",
+      "if (!r3.compatible) throw new Error('r3 fail: ' + JSON.stringify(r3));"
+    ),
+    aTitle: "Wire Protocol Schema ID Magic Byte Encoder & Decoder",
+    aDesc: "Write `encodeWireMessage(schemaId: number, payloadUtf8: string): { magicByte: number; schemaId: number; payload: string }` and `parseWireMessage(wire: { magicByte: number; schemaId: number; payload: string }): { valid: boolean; schemaId: number; payload: string | null }` (magicByte must equal 0).",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function encodeWireMessage(schemaId: number, payloadUtf8: string): { magicByte: number; schemaId: number; payload: string } {",
+      "  return { magicByte: 0, schemaId: 0, payload: '' };",
+      "}",
+      "function parseWireMessage(wire: { magicByte: number; schemaId: number; payload: string }): { valid: boolean; schemaId: number; payload: string | null } {",
+      "  return { valid: false, schemaId: 0, payload: null };",
+      "}"
+    ),
+    aHint: "Magic byte is 0 for Confluent wire protocol. If wire.magicByte !== 0, return valid: false and payload: null.",
+    aTest: lines(
+      "if (typeof encodeWireMessage !== 'function' || typeof parseWireMessage !== 'function') throw new Error('Functions not found');",
+      "const enc = encodeWireMessage(42, '{\"user\":\"alice\"}');",
+      "if (enc.magicByte !== 0 || enc.schemaId !== 42 || enc.payload !== '{\"user\":\"alice\"}') throw new Error('Encode fail: ' + JSON.stringify(enc));",
+      "const dec1 = parseWireMessage(enc);",
+      "if (!dec1.valid || dec1.schemaId !== 42 || dec1.payload !== '{\"user\":\"alice\"}') throw new Error('Dec1 fail: ' + JSON.stringify(dec1));",
+      "const dec2 = parseWireMessage({ magicByte: 1, schemaId: 42, payload: 'bad' });",
+      "if (dec2.valid || dec2.payload !== null) throw new Error('Dec2 invalid magic byte fail');"
+    )
+  },
+
+  // ── DAY 27 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[26],
+    eTitle: "Non-Blocking Retry & DLQ Topic Router",
+    eDesc: "Write `routeFailedMessage(record: { id: string; attempts: number; error: string }, maxRetries: number = 3): { destinationTopic: string; nextAttempt: number; isDeadLetter: boolean }` (if attempts + 1 > maxRetries, route to 'dead-letter-queue' with isDeadLetter = true; otherwise route to 'retry-step-' + (attempts + 1)).",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function routeFailedMessage(record: { id: string; attempts: number; error: string }, maxRetries: number = 3): { destinationTopic: string; nextAttempt: number; isDeadLetter: boolean } {",
+      "  // Route failed message to retry topic or DLQ",
+      "  return { destinationTopic: '', nextAttempt: 0, isDeadLetter: false };",
+      "}"
+    ),
+    eHint: "Increment attempts. If nextAttempt > maxRetries return DLQ, else return retry topic.",
+    eTest: lines(
+      "if (typeof routeFailedMessage !== 'function') throw new Error('routeFailedMessage not found');",
+      "const r1 = routeFailedMessage({ id: 'm1', attempts: 0, error: 'timeout' }, 3);",
+      "if (r1.destinationTopic !== 'retry-step-1' || r1.nextAttempt !== 1 || r1.isDeadLetter) throw new Error('r1 fail: ' + JSON.stringify(r1));",
+      "const r2 = routeFailedMessage({ id: 'm1', attempts: 2, error: 'timeout' }, 3);",
+      "if (r2.destinationTopic !== 'retry-step-3' || r2.nextAttempt !== 3 || r2.isDeadLetter) throw new Error('r2 fail: ' + JSON.stringify(r2));",
+      "const r3 = routeFailedMessage({ id: 'm1', attempts: 3, error: 'crash' }, 3);",
+      "if (r3.destinationTopic !== 'dead-letter-queue' || r3.nextAttempt !== 4 || !r3.isDeadLetter) throw new Error('r3 DLQ fail: ' + JSON.stringify(r3));"
+    ),
+    aTitle: "Dead-Letter Envelope Packaging with Diagnostics Context",
+    aDesc: "Write `packageDlqEnvelope(record: { id: string; topic: string; partition: number; offset: number; payload: string }, error: Error, nowMs: number): { dlqId: string; originalTopic: string; partition: number; offset: number; errorMessage: string; quarantinedAtMs: number; rawPayload: string }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function packageDlqEnvelope(record: { id: string; topic: string; partition: number; offset: number; payload: string }, error: Error, nowMs: number): { dlqId: string; originalTopic: string; partition: number; offset: number; errorMessage: string; quarantinedAtMs: number; rawPayload: string } {",
+      "  // Package DLQ envelope",
+      "  return { dlqId: '', originalTopic: '', partition: 0, offset: 0, errorMessage: '', quarantinedAtMs: 0, rawPayload: '' };",
+      "}"
+    ),
+    aHint: "Package properties including dlqId: 'dlq-' + record.id and errorMessage: error.message.",
+    aTest: lines(
+      "if (typeof packageDlqEnvelope !== 'function') throw new Error('packageDlqEnvelope not found');",
+      "const err = new Error('Corrupted JSON syntax');",
+      "const env1 = packageDlqEnvelope({ id: 'rec-1', topic: 'orders', partition: 2, offset: 104, payload: '{bad}' }, err, 1600000000);",
+      "if (env1.dlqId !== 'dlq-rec-1' || env1.originalTopic !== 'orders' || env1.partition !== 2 || env1.offset !== 104 || env1.errorMessage !== 'Corrupted JSON syntax' || env1.quarantinedAtMs !== 1600000000 || env1.rawPayload !== '{bad}') {",
+      "  throw new Error('env1 fail: ' + JSON.stringify(env1));",
+      "}",
+      "const env2 = packageDlqEnvelope({ id: 'rec-2', topic: 'payments', partition: 0, offset: 5, payload: 'x' }, new Error('Timeout'), 1700000000);",
+      "if (env2.dlqId !== 'dlq-rec-2' || env2.errorMessage !== 'Timeout') throw new Error('env2 fail');"
+    )
+  },
+
+  // ── DAY 28 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[27],
+    eTitle: "Historical Timestamp-to-Offset Index Search for Stream Rewinding",
+    eDesc: "Write `findReplayStartOffsets(partitionLogs: Record<number, { offset: number; timestamp: number }[]>, replayTimestamp: number): Record<number, number>` finding the earliest offset in each partition whose timestamp >= replayTimestamp. If all records are before replayTimestamp, use log.length (end of log). If partition empty, use 0.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function findReplayStartOffsets(partitionLogs: Record<number, { offset: number; timestamp: number }[]>, replayTimestamp: number): Record<number, number> {",
+      "  // Find replay start offsets",
+      "  return {};",
+      "}"
+    ),
+    eHint: "Find first entry with timestamp >= replayTimestamp. If not found, use entries.length. If empty, use 0.",
+    eTest: lines(
+      "if (typeof findReplayStartOffsets !== 'function') throw new Error('findReplayStartOffsets not found');",
+      "const logs = {",
+      "  0: [{ offset: 0, timestamp: 100 }, { offset: 1, timestamp: 200 }, { offset: 2, timestamp: 300 }],",
+      "  1: [{ offset: 0, timestamp: 150 }, { offset: 1, timestamp: 250 }],",
+      "  2: []",
+      "};",
+      "const o1 = findReplayStartOffsets(logs, 180);",
+      "if (o1[0] !== 1 || o1[1] !== 1 || o1[2] !== 0) throw new Error('o1 fail: ' + JSON.stringify(o1));",
+      "const o2 = findReplayStartOffsets(logs, 500);",
+      "if (o2[0] !== 3 || o2[1] !== 2 || o2[2] !== 0) throw new Error('o2 fail: ' + JSON.stringify(o2));",
+      "const o3 = findReplayStartOffsets({}, 100);",
+      "if (Object.keys(o3).length !== 0) throw new Error('o3 fail');"
+    ),
+    aTitle: "Zero-Downtime Consumer Group Switchover Orchestrator",
+    aDesc: "Write `planGroupSwitchover(currentGroupId: string, targetVersion: string, activePartitions: number[]): { newGroupId: string; initialOffsetsSource: string; switchoverPlan: { step: number; action: string }[] }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function planGroupSwitchover(currentGroupId: string, targetVersion: string, activePartitions: number[]): { newGroupId: string; initialOffsetsSource: string; switchoverPlan: { step: number; action: string }[] } {",
+      "  // Plan consumer group switchover",
+      "  return { newGroupId: '', initialOffsetsSource: '', switchoverPlan: [] };",
+      "}"
+    ),
+    aHint: "Create newGroupId = currentGroupId + '-' + targetVersion and return 4 sequential steps.",
+    aTest: lines(
+      "if (typeof planGroupSwitchover !== 'function') throw new Error('planGroupSwitchover not found');",
+      "const plan1 = planGroupSwitchover('payment-consumer', 'v2', [0, 1, 2]);",
+      "if (plan1.newGroupId !== 'payment-consumer-v2') throw new Error('New group ID fail: ' + plan1.newGroupId);",
+      "if (plan1.initialOffsetsSource !== 'earliest') throw new Error('Initial offset fail');",
+      "if (plan1.switchoverPlan.length !== 4) throw new Error('Plan step count fail: ' + plan1.switchoverPlan.length);",
+      "if (!plan1.switchoverPlan[0].action.includes('Start payment-consumer-v2')) throw new Error('Step 1 fail');",
+      "const plan2 = planGroupSwitchover('analytics', 'v3', [0]);",
+      "if (plan2.newGroupId !== 'analytics-v3') throw new Error('plan2 fail');"
+    )
+  },
+
+  // ── DAY 29 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[28],
+    eTitle: "Consumer Lag Velocity and Backlog Time-to-Recover Predictor",
+    eDesc: "Write `predictTimeToRecoverSeconds(currentLag: number, consumptionRateMsgPerSec: number, productionRateMsgPerSec: number): { willRecover: boolean; recoverySeconds: number | null; netDrainRateMsgPerSec: number }` (netDrain = consumption - production. If netDrain <= 0, willRecover is false and recoverySeconds is null; otherwise recoverySeconds = Math.ceil(currentLag / netDrain)).",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function predictTimeToRecoverSeconds(currentLag: number, consumptionRateMsgPerSec: number, productionRateMsgPerSec: number): { willRecover: boolean; recoverySeconds: number | null; netDrainRateMsgPerSec: number } {",
+      "  // Predict lag recovery time",
+      "  return { willRecover: false, recoverySeconds: null, netDrainRateMsgPerSec: 0 };",
+      "}"
+    ),
+    eHint: "netDrain = consumption - production. If lag <= 0 return 0s; if netDrain <= 0 return null.",
+    eTest: lines(
+      "if (typeof predictTimeToRecoverSeconds !== 'function') throw new Error('predictTimeToRecoverSeconds not found');",
+      "const r1 = predictTimeToRecoverSeconds(10000, 1500, 1000);",
+      "if (!r1.willRecover || r1.recoverySeconds !== 20 || r1.netDrainRateMsgPerSec !== 500) throw new Error('r1 fail: ' + JSON.stringify(r1));",
+      "const r2 = predictTimeToRecoverSeconds(5000, 800, 1000);",
+      "if (r2.willRecover || r2.recoverySeconds !== null || r2.netDrainRateMsgPerSec !== -200) throw new Error('r2 fail: ' + JSON.stringify(r2));",
+      "const r3 = predictTimeToRecoverSeconds(0, 1000, 500);",
+      "if (!r3.willRecover || r3.recoverySeconds !== 0) throw new Error('r3 zero lag fail: ' + JSON.stringify(r3));"
+    ),
+    aTitle: "Detect Partition Traffic Skew and Key Hotspotting",
+    aDesc: "Write `detectPartitionHotspots(partitionMessageCounts: Record<number, number>, hotspotThresholdRatio: number = 2.0): { hasHotspot: boolean; averageMessages: number; hotspotPartitions: number[] }` (a partition is a hotspot if its count >= averageMessages * hotspotThresholdRatio).",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function detectPartitionHotspots(partitionMessageCounts: Record<number, number>, hotspotThresholdRatio: number = 2.0): { hasHotspot: boolean; averageMessages: number; hotspotPartitions: number[] } {",
+      "  // Detect partition hotspots",
+      "  return { hasHotspot: false, averageMessages: 0, hotspotPartitions: [] };",
+      "}"
+    ),
+    aHint: "Calculate average message count across all partitions. Filter partitions where count >= average * threshold.",
+    aTest: lines(
+      "if (typeof detectPartitionHotspots !== 'function') throw new Error('detectPartitionHotspots not found');",
+      "const counts1 = { 0: 1000, 1: 1100, 2: 900, 3: 5000 };",
+      "const h1 = detectPartitionHotspots(counts1, 2.0);",
+      "if (!h1.hasHotspot || h1.averageMessages !== 2000 || JSON.stringify(h1.hotspotPartitions) !== JSON.stringify([3])) throw new Error('h1 fail: ' + JSON.stringify(h1));",
+      "const counts2 = { 0: 1000, 1: 1000, 2: 1000 };",
+      "const h2 = detectPartitionHotspots(counts2, 1.5);",
+      "if (h2.hasHotspot || h2.hotspotPartitions.length !== 0) throw new Error('h2 fail: ' + JSON.stringify(h2));",
+      "const h3 = detectPartitionHotspots({});",
+      "if (h3.hasHotspot || h3.averageMessages !== 0) throw new Error('h3 empty fail');"
+    )
+  },
+
+  // ── DAY 30 ──────────────────────────────────────────────────────────
+  {
+    ...STREAM_DAYS[29],
+    eTitle: "Real-Time Fraud Detection Engine with Sliding Velocity Window",
+    eDesc: "Implement `class FinancialFraudDetector` with `constructor(velocityWindowMs: number, maxCountPerWindow: number, maxTotalSpendPerWindow: number)`, `processTransaction(tx: { id: string; cardId: string; timestampMs: number; amount: number }): { flagged: boolean; reason: 'VELOCITY_COUNT_EXCEEDED' | 'VELOCITY_SPEND_EXCEEDED' | 'CLEAN' }`, and `getActiveCardVelocity(cardId: string, nowMs: number): { count: number; totalSpend: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "class FinancialFraudDetector {",
+      "  constructor(public velocityWindowMs: number, public maxCountPerWindow: number, public maxTotalSpendPerWindow: number) {}",
+      "  processTransaction(tx: { id: string; cardId: string; timestampMs: number; amount: number }): { flagged: boolean; reason: 'VELOCITY_COUNT_EXCEEDED' | 'VELOCITY_SPEND_EXCEEDED' | 'CLEAN' } {",
+      "    return { flagged: false, reason: 'CLEAN' };",
+      "  }",
+      "  getActiveCardVelocity(cardId: string, nowMs: number): { count: number; totalSpend: number } {",
+      "    return { count: 0, totalSpend: 0 };",
+      "  }",
+      "}"
+    ),
+    eHint: "Track transaction history per cardId. Filter out events older than velocityWindowMs. Flag if count > maxCount or totalSpend > maxSpend.",
+    eTest: lines(
+      "if (typeof FinancialFraudDetector !== 'function') throw new Error('FinancialFraudDetector not found');",
+      "const detector = new FinancialFraudDetector(60000, 3, 500);",
+      "const t1 = detector.processTransaction({ id: 'tx-1', cardId: 'c1', timestampMs: 1000, amount: 100 });",
+      "const t2 = detector.processTransaction({ id: 'tx-2', cardId: 'c1', timestampMs: 5000, amount: 200 });",
+      "if (t1.flagged || t1.reason !== 'CLEAN') throw new Error('t1 fail: ' + JSON.stringify(t1));",
+      "if (t2.flagged || t2.reason !== 'CLEAN') throw new Error('t2 fail: ' + JSON.stringify(t2));",
+      "const t3 = detector.processTransaction({ id: 'tx-3', cardId: 'c1', timestampMs: 10000, amount: 250 });",
+      "if (!t3.flagged || t3.reason !== 'VELOCITY_SPEND_EXCEEDED') throw new Error('t3 spend fail: ' + JSON.stringify(t3));",
+      "const t4 = detector.processTransaction({ id: 'tx-4', cardId: 'c2', timestampMs: 20000, amount: 10 });",
+      "const t5 = detector.processTransaction({ id: 'tx-5', cardId: 'c2', timestampMs: 25000, amount: 10 });",
+      "const t6 = detector.processTransaction({ id: 'tx-6', cardId: 'c2', timestampMs: 30000, amount: 10 });",
+      "const t7 = detector.processTransaction({ id: 'tx-7', cardId: 'c2', timestampMs: 35000, amount: 10 });",
+      "if (!t7.flagged || t7.reason !== 'VELOCITY_COUNT_EXCEEDED') throw new Error('t7 count fail: ' + JSON.stringify(t7));",
+      "const v1 = detector.getActiveCardVelocity('c1', 10000);",
+      "if (v1.count !== 3 || v1.totalSpend !== 550) throw new Error('Velocity c1 fail: ' + JSON.stringify(v1));"
+    ),
+    aTitle: "Audit Master Streaming Engine Capstone Certification Status",
+    aDesc: "Write `auditStreamingPlatformCertification(completedDays: number, totalDays: number = 30): { certified: boolean; score: string; tier: string }` (certified when completedDays === totalDays, tier 'STREAMING_SYSTEMS_ARCHITECT_CERTIFIED' when certified, else 'INCOMPLETE_CURRICULUM').",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function auditStreamingPlatformCertification(completedDays: number, totalDays: number = 30): { certified: boolean; score: string; tier: string } {",
+      "  // Audit streaming platform certification",
+      "  return { certified: false, score: '0/30', tier: 'INCOMPLETE_CURRICULUM' };",
+      "}"
+    ),
+    aHint: "certified = completedDays === totalDays. If certified, tier is STREAMING_SYSTEMS_ARCHITECT_CERTIFIED.",
+    aTest: lines(
+      "if (typeof auditStreamingPlatformCertification !== 'function') throw new Error('auditStreamingPlatformCertification not found');",
+      "const pass = auditStreamingPlatformCertification(30, 30);",
+      "if (!pass.certified || pass.score !== '30/30' || pass.tier !== 'STREAMING_SYSTEMS_ARCHITECT_CERTIFIED') throw new Error('Pass audit failed: ' + JSON.stringify(pass));",
+      "const fail = auditStreamingPlatformCertification(28, 30);",
+      "if (fail.certified || fail.score !== '28/30' || fail.tier !== 'INCOMPLETE_CURRICULUM') throw new Error('Fail audit failed: ' + JSON.stringify(fail));"
+    )
+  }
 ];
 
 export const STREAM_WEB_30_DAYS_QUESTS = STREAM_WEB_30_DAYS_CONFIGS.flatMap((cfg, i) =>
