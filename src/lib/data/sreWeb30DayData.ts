@@ -715,6 +715,679 @@ export const SRE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
       "const t3 = calculateTimeoutBudget(1000, []);",
       "if (t3.remainingBudgetMs !== 1000 || !t3.feasible || t3.bottleneck !== null) throw new Error('Failed empty hops');"
     )
+  },
+
+  // ── DAY 16 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[15],
+    eTitle: "Implement Multi-Metric Collection Registry",
+    eDesc: "Write `createMetricCollector()` returning an object with `incrementCounter(name, delta)`, `setGauge(name, value)`, `observeHistogram(name, value)`, and `getMetrics()`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function createMetricCollector(): {",
+      "  incrementCounter(name: string, delta?: number): void;",
+      "  setGauge(name: string, value: number): void;",
+      "  observeHistogram(name: string, value: number): void;",
+      "  getMetrics(): {",
+      "    counters: Record<string, number>;",
+      "    gauges: Record<string, number>;",
+      "    histograms: Record<string, { count: number; sum: number; avg: number }>;",
+      "  };",
+      "} {",
+      "  // Implement metric collector",
+      "  return {",
+      "    incrementCounter: () => {},",
+      "    setGauge: () => {},",
+      "    observeHistogram: () => {},",
+      "    getMetrics: () => ({ counters: {}, gauges: {}, histograms: {} })",
+      "  };",
+      "}"
+    ),
+    eHint: "Track counters as sum of deltas, gauges as latest value, histograms as count/sum/avg.",
+    eTest: lines(
+      "if (typeof createMetricCollector !== 'function') throw new Error('createMetricCollector not found');",
+      "const mc = createMetricCollector();",
+      "mc.incrementCounter('reqs', 10);",
+      "mc.incrementCounter('reqs', 5);",
+      "mc.setGauge('mem', 512);",
+      "mc.observeHistogram('lat', 100);",
+      "mc.observeHistogram('lat', 200);",
+      "const m = mc.getMetrics();",
+      "if (m.counters.reqs !== 15) throw new Error('Counter failed: ' + m.counters.reqs);",
+      "if (m.gauges.mem !== 512) throw new Error('Gauge failed: ' + m.gauges.mem);",
+      "if (m.histograms.lat.count !== 2 || m.histograms.lat.sum !== 300 || m.histograms.lat.avg !== 150) throw new Error('Histogram failed: ' + JSON.stringify(m.histograms.lat));"
+    ),
+    aTitle: "Bucket Metric Observations into Histogram Intervals",
+    aDesc: "Write `bucketHistogram(observations: number[], buckets: number[]): { bucket: number; count: number }[]` counting observations `<=` bucket.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function bucketHistogram(observations: number[], buckets: number[]): { bucket: number; count: number }[] {",
+      "  // Distribute observations into cumulative buckets",
+      "  return [];",
+      "}"
+    ),
+    aHint: "For each bucket bound, count observations <= bucket.",
+    aTest: lines(
+      "if (typeof bucketHistogram !== 'function') throw new Error('bucketHistogram not found');",
+      "const b1 = bucketHistogram([10, 50, 80, 150, 300], [50, 100, 200, 500]);",
+      "if (b1[0].count !== 2 || b1[1].count !== 3 || b1[2].count !== 4 || b1[3].count !== 5) throw new Error('Failed b1: ' + JSON.stringify(b1));",
+      "const b2 = bucketHistogram([], [10, 20]);",
+      "if (b2[0].count !== 0 || b2[1].count !== 0) throw new Error('Empty observations failed');"
+    )
+  },
+
+  // ── DAY 17 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[16],
+    eTitle: "Calculate p50, p95, and p99 Latency Percentiles",
+    eDesc: "Write `calculatePercentiles(observations: number[], percentiles: number[] = [50, 95, 99]): Record<number, number>`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function calculatePercentiles(observations: number[], percentiles: number[] = [50, 95, 99]): Record<number, number> {",
+      "  // Calculate percentiles from observations",
+      "  return {};",
+      "}"
+    ),
+    eHint: "Sort ascending, rank = Math.ceil((p / 100) * length) - 1 clamped between 0 and length - 1.",
+    eTest: lines(
+      "if (typeof calculatePercentiles !== 'function') throw new Error('calculatePercentiles not found');",
+      "const obs1 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];",
+      "const p1 = calculatePercentiles(obs1, [50, 90, 99]);",
+      "if (p1[50] !== 50 || p1[90] !== 90 || p1[99] !== 100) throw new Error('Failed obs1: ' + JSON.stringify(p1));",
+      "const p2 = calculatePercentiles([]);",
+      "if (p2[50] !== 0 || p2[95] !== 0) throw new Error('Empty should return 0');"
+    ),
+    aTitle: "Interpolate Percentile Value from Histogram Buckets",
+    aDesc: "Write `interpolateHistogramPercentile(bucketCounts: { le: number; count: number }[], totalCount: number, percentile: number): number`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function interpolateHistogramPercentile(bucketCounts: { le: number; count: number }[], totalCount: number, percentile: number): number {",
+      "  // Interpolate percentile from cumulative histogram",
+      "  return 0;",
+      "}"
+    ),
+    aHint: "Find bucket where count >= (percentile / 100) * totalCount; linear interpolate with previous bucket.",
+    aTest: lines(
+      "if (typeof interpolateHistogramPercentile !== 'function') throw new Error('interpolateHistogramPercentile not found');",
+      "const buckets = [{ le: 100, count: 50 }, { le: 200, count: 100 }];",
+      "const ip1 = interpolateHistogramPercentile(buckets, 100, 50);",
+      "if (ip1 !== 100) throw new Error('Exact 50th percentile should be 100, got: ' + ip1);",
+      "const ip2 = interpolateHistogramPercentile(buckets, 100, 75);",
+      "if (ip2 !== 150) throw new Error('Midpoint 75th percentile should be 150, got: ' + ip2);",
+      "if (interpolateHistogramPercentile([], 0, 50) !== 0) throw new Error('Empty should be 0');"
+    )
+  },
+
+  // ── DAY 18 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[17],
+    eTitle: "Format Structured JSON Log Entry with Correlation ID",
+    eDesc: "Write `formatStructuredLog(level: 'INFO' | 'WARN' | 'ERROR', message: string, correlationId: string, metadata?: Record<string, any>): string`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function formatStructuredLog(level: 'INFO' | 'WARN' | 'ERROR', message: string, correlationId: string, metadata?: Record<string, any>): string {",
+      "  // Format structured log",
+      "  return '';",
+      "}"
+    ),
+    eHint: "Return JSON.stringify({ level, message, correlationId, ...(metadata || {}) }).",
+    eTest: lines(
+      "if (typeof formatStructuredLog !== 'function') throw new Error('formatStructuredLog not found');",
+      "const l1 = JSON.parse(formatStructuredLog('INFO', 'User login', 'corr-123', { userId: 'u1' }));",
+      "if (l1.level !== 'INFO' || l1.correlationId !== 'corr-123' || l1.userId !== 'u1') throw new Error('Failed l1: ' + JSON.stringify(l1));",
+      "const l2 = JSON.parse(formatStructuredLog('ERROR', 'Db timeout', 'corr-456'));",
+      "if (l2.level !== 'ERROR' || l2.message !== 'Db timeout') throw new Error('Failed l2: ' + JSON.stringify(l2));"
+    ),
+    aTitle: "Filter and Extract Correlated Log Entries",
+    aDesc: "Write `extractCorrelatedLogs(logs: string[], targetCorrelationId: string): { level: string; message: string }[]`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function extractCorrelatedLogs(logs: string[], targetCorrelationId: string): { level: string; message: string }[] {",
+      "  // Extract logs matching correlation id",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Parse JSON lines, filter where correlationId === target, map to { level, message }.",
+    aTest: lines(
+      "if (typeof extractCorrelatedLogs !== 'function') throw new Error('extractCorrelatedLogs not found');",
+      "const lines = [",
+      "  JSON.stringify({ level: 'INFO', message: 'Step 1', correlationId: 'c1' }),",
+      "  JSON.stringify({ level: 'ERROR', message: 'Step 2 failed', correlationId: 'c1' }),",
+      "  JSON.stringify({ level: 'INFO', message: 'Other step', correlationId: 'c2' })",
+      "];",
+      "const res = extractCorrelatedLogs(lines, 'c1');",
+      "if (res.length !== 2 || res[0].message !== 'Step 1' || res[1].message !== 'Step 2 failed') throw new Error('Failed c1: ' + JSON.stringify(res));",
+      "if (extractCorrelatedLogs(lines, 'c99').length !== 0) throw new Error('c99 should be empty');"
+    )
+  },
+
+  // ── DAY 19 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[18],
+    eTitle: "Build and Analyze Distributed Trace Span Tree",
+    eDesc: "Write `buildTraceTree(spans: { id: string; parentId: string | null; name: string; durationMs: number }[]): { rootId: string; totalDurationMs: number; spanCount: number; maxDepth: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function buildTraceTree(spans: { id: string; parentId: string | null; name: string; durationMs: number }[]): { rootId: string; totalDurationMs: number; spanCount: number; maxDepth: number } {",
+      "  // Build trace tree stats",
+      "  return { rootId: '', totalDurationMs: 0, spanCount: 0, maxDepth: 0 };",
+      "}"
+    ),
+    eHint: "Root span has parentId === null. Recursively traverse child spans to compute maxDepth.",
+    eTest: lines(
+      "if (typeof buildTraceTree !== 'function') throw new Error('buildTraceTree not found');",
+      "const spans = [",
+      "  { id: 's1', parentId: null, name: 'root', durationMs: 250 },",
+      "  { id: 's2', parentId: 's1', name: 'auth', durationMs: 50 },",
+      "  { id: 's3', parentId: 's2', name: 'ldap', durationMs: 30 }",
+      "];",
+      "const t1 = buildTraceTree(spans);",
+      "if (t1.rootId !== 's1' || t1.totalDurationMs !== 250 || t1.spanCount !== 3 || t1.maxDepth !== 3) throw new Error('Failed t1: ' + JSON.stringify(t1));",
+      "const t2 = buildTraceTree([]);",
+      "if (t2.rootId !== '' || t2.spanCount !== 0) throw new Error('Empty spans failed');"
+    ),
+    aTitle: "Parse W3C Trace Context Traceparent Header",
+    aDesc: "Write `parseTraceparentHeader(header: string): { version: string; traceId: string; parentId: string; flags: string } | null`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function parseTraceparentHeader(header: string): { version: string; traceId: string; parentId: string; flags: string } | null {",
+      "  // Parse W3C traceparent header",
+      "  return null;",
+      "}"
+    ),
+    aHint: "Split by '-'; must be exactly 4 parts with valid lengths (version 2, traceId 32, parentId 16, flags 2).",
+    aTest: lines(
+      "if (typeof parseTraceparentHeader !== 'function') throw new Error('parseTraceparentHeader not found');",
+      "const valid = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01';",
+      "const res = parseTraceparentHeader(valid);",
+      "if (!res || res.version !== '00' || res.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736' || res.parentId !== '00f067aa0ba902b7' || res.flags !== '01') throw new Error('Failed valid traceparent: ' + JSON.stringify(res));",
+      "if (parseTraceparentHeader('invalid-header') !== null) throw new Error('Invalid format must return null');",
+      "if (parseTraceparentHeader('00-short-00f0-01') !== null) throw new Error('Short lengths must return null');"
+    )
+  },
+
+  // ── DAY 20 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[19],
+    eTitle: "Evaluate Multi-Window Error Budget Burn Rate Alerts",
+    eDesc: "Write `evaluateBurnRateAlert(windows: { windowMinutes: number; burnRate: number; threshold: number }[]): { shouldAlert: boolean; severity: 'P1' | 'P2' | 'NONE'; triggeringWindows: number[] }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function evaluateBurnRateAlert(windows: { windowMinutes: number; burnRate: number; threshold: number }[]): { shouldAlert: boolean; severity: 'P1' | 'P2' | 'NONE'; triggeringWindows: number[] } {",
+      "  // Evaluate burn rate alert",
+      "  return { shouldAlert: false, severity: 'NONE', triggeringWindows: [] };",
+      "}"
+    ),
+    eHint: "Triggering when burnRate >= threshold. P1 if any triggering windowMinutes <= 60 and burnRate >= 14, else P2.",
+    eTest: lines(
+      "if (typeof evaluateBurnRateAlert !== 'function') throw new Error('evaluateBurnRateAlert not found');",
+      "const a1 = evaluateBurnRateAlert([",
+      "  { windowMinutes: 60, burnRate: 15, threshold: 14 },",
+      "  { windowMinutes: 360, burnRate: 7, threshold: 6 }",
+      "]);",
+      "if (!a1.shouldAlert || a1.severity !== 'P1' || a1.triggeringWindows.length !== 2) throw new Error('Failed P1 alert: ' + JSON.stringify(a1));",
+      "const a2 = evaluateBurnRateAlert([",
+      "  { windowMinutes: 1440, burnRate: 3, threshold: 2 }",
+      "]);",
+      "if (!a2.shouldAlert || a2.severity !== 'P2') throw new Error('Failed P2 alert: ' + JSON.stringify(a2));",
+      "const a3 = evaluateBurnRateAlert([",
+      "  { windowMinutes: 60, burnRate: 1, threshold: 14 }",
+      "]);",
+      "if (a3.shouldAlert || a3.severity !== 'NONE') throw new Error('Failed nominal no-alert');"
+    ),
+    aTitle: "Deduplicate Operational Alerts by Fingerprint Window",
+    aDesc: "Write `deduplicateAlerts(alerts: { id: string; fingerprint: string; timestampMs: number }[], windowMs: number = 300000): { id: string; fingerprint: string; timestampMs: number }[]`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function deduplicateAlerts(alerts: { id: string; fingerprint: string; timestampMs: number }[], windowMs: number = 300000): { id: string; fingerprint: string; timestampMs: number }[] {",
+      "  // Deduplicate alerts within time window",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Keep the first alert for each fingerprint, and subsequent alerts only if timestamp >= lastAccepted + windowMs.",
+    aTest: lines(
+      "if (typeof deduplicateAlerts !== 'function') throw new Error('deduplicateAlerts not found');",
+      "const alerts = [",
+      "  { id: 'a1', fingerprint: 'fp-db', timestampMs: 1000 },",
+      "  { id: 'a2', fingerprint: 'fp-db', timestampMs: 5000 },",
+      "  { id: 'a3', fingerprint: 'fp-api', timestampMs: 10000 },",
+      "  { id: 'a4', fingerprint: 'fp-db', timestampMs: 310000 }",
+      "];",
+      "const d = deduplicateAlerts(alerts, 300000);",
+      "if (d.length !== 3 || d.map(x => x.id).join(',') !== 'a1,a3,a4') throw new Error('Failed deduplicate: ' + JSON.stringify(d));",
+      "if (deduplicateAlerts([]).length !== 0) throw new Error('Empty alerts failed');"
+    )
+  },
+
+  // ── DAY 21 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[20],
+    eTitle: "Classify Incident Severity and Response SLA",
+    eDesc: "Write `classifyIncidentSeverity(affectedUsers: number, dataLossRisk: boolean, coreServiceDown: boolean): { severity: 'SEV1' | 'SEV2' | 'SEV3' | 'SEV4'; responseSlaMinutes: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function classifyIncidentSeverity(affectedUsers: number, dataLossRisk: boolean, coreServiceDown: boolean): { severity: 'SEV1' | 'SEV2' | 'SEV3' | 'SEV4'; responseSlaMinutes: number } {",
+      "  // Classify incident severity",
+      "  return { severity: 'SEV4', responseSlaMinutes: 1440 };",
+      "}"
+    ),
+    eHint: "SEV1: coreServiceDown && (affectedUsers > 1000 || dataLossRisk) (15m); SEV2: coreServiceDown || affectedUsers > 5000 (30m); SEV3: affectedUsers > 500 (120m); else SEV4 (1440m).",
+    eTest: lines(
+      "if (typeof classifyIncidentSeverity !== 'function') throw new Error('classifyIncidentSeverity not found');",
+      "const s1 = classifyIncidentSeverity(5000, true, true);",
+      "if (s1.severity !== 'SEV1' || s1.responseSlaMinutes !== 15) throw new Error('Failed SEV1: ' + JSON.stringify(s1));",
+      "const s2 = classifyIncidentSeverity(100, false, true);",
+      "if (s2.severity !== 'SEV2' || s2.responseSlaMinutes !== 30) throw new Error('Failed SEV2: ' + JSON.stringify(s2));",
+      "const s3 = classifyIncidentSeverity(800, false, false);",
+      "if (s3.severity !== 'SEV3' || s3.responseSlaMinutes !== 120) throw new Error('Failed SEV3: ' + JSON.stringify(s3));",
+      "const s4 = classifyIncidentSeverity(50, false, false);",
+      "if (s4.severity !== 'SEV4' || s4.responseSlaMinutes !== 1440) throw new Error('Failed SEV4: ' + JSON.stringify(s4));"
+    ),
+    aTitle: "Calculate Mean Time to Detect (MTTD) and Recover (MTTR)",
+    aDesc: "Write `calculateMttdAndMttr(incidents: { detectedAtMs: number; startedAtMs: number; resolvedAtMs: number }[]): { mttdMinutes: number; mttrMinutes: number; count: number }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function calculateMttdAndMttr(incidents: { detectedAtMs: number; startedAtMs: number; resolvedAtMs: number }[]): { mttdMinutes: number; mttrMinutes: number; count: number } {",
+      "  // Calculate MTTD and MTTR in minutes",
+      "  return { mttdMinutes: 0, mttrMinutes: 0, count: 0 };",
+      "}"
+    ),
+    aHint: "MTTD = avg((detected - started) / 60000); MTTR = avg((resolved - detected) / 60000).",
+    aTest: lines(
+      "if (typeof calculateMttdAndMttr !== 'function') throw new Error('calculateMttdAndMttr not found');",
+      "const incs = [",
+      "  { startedAtMs: 0, detectedAtMs: 600000, resolvedAtMs: 2400000 },",
+      "  { startedAtMs: 0, detectedAtMs: 1200000, resolvedAtMs: 4800000 }",
+      "];",
+      "const res = calculateMttdAndMttr(incs);",
+      "if (res.mttdMinutes !== 15 || res.mttrMinutes !== 45 || res.count !== 2) throw new Error('Failed incs: ' + JSON.stringify(res));",
+      "const empty = calculateMttdAndMttr([]);",
+      "if (empty.mttdMinutes !== 0 || empty.count !== 0) throw new Error('Empty failed');"
+    )
+  },
+
+  // ── DAY 22 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[21],
+    eTitle: "Build Postmortem Incident Timeline and Phase Order",
+    eDesc: "Write `buildPostmortemTimeline(events: { timestampMs: number; description: string; phase: 'detection' | 'triage' | 'mitigation' | 'resolution' }[]): { durationMinutes: number; eventCount: number; orderedPhases: string[] }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function buildPostmortemTimeline(events: { timestampMs: number; description: string; phase: 'detection' | 'triage' | 'mitigation' | 'resolution' }[]): { durationMinutes: number; eventCount: number; orderedPhases: string[] } {",
+      "  // Build postmortem timeline",
+      "  return { durationMinutes: 0, eventCount: 0, orderedPhases: [] };",
+      "}"
+    ),
+    eHint: "Sort events by timestampMs; durationMinutes is (last - first) / 60000; orderedPhases is unique chronological phases.",
+    eTest: lines(
+      "if (typeof buildPostmortemTimeline !== 'function') throw new Error('buildPostmortemTimeline not found');",
+      "const evs = [",
+      "  { timestampMs: 300000, description: 'Mitigated', phase: 'mitigation' },",
+      "  { timestampMs: 0, description: 'Alert fired', phase: 'detection' },",
+      "  { timestampMs: 120000, description: 'War room created', phase: 'triage' }",
+      "];",
+      "const p1 = buildPostmortemTimeline(evs);",
+      "if (p1.durationMinutes !== 5 || p1.eventCount !== 3 || p1.orderedPhases.join(',') !== 'detection,triage,mitigation') throw new Error('Failed p1: ' + JSON.stringify(p1));",
+      "const p2 = buildPostmortemTimeline([]);",
+      "if (p2.durationMinutes !== 0 || p2.eventCount !== 0) throw new Error('Empty events failed');"
+    ),
+    aTitle: "Validate Postmortem Action Item Structure and Owners",
+    aDesc: "Write `validateActionItems(items: { description: string; owner: string; dueDateIso: string; priority: 'P0' | 'P1' | 'P2' }[]): { valid: boolean; missingFields: string[] }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function validateActionItems(items: { description: string; owner: string; dueDateIso: string; priority: 'P0' | 'P1' | 'P2' }[]): { valid: boolean; missingFields: string[] } {",
+      "  // Validate postmortem action items",
+      "  return { valid: false, missingFields: [] };",
+      "}"
+    ),
+    aHint: "Check that each item has non-empty description, owner, dueDateIso, and priority P0/P1/P2.",
+    aTest: lines(
+      "if (typeof validateActionItems !== 'function') throw new Error('validateActionItems not found');",
+      "const okItems = [{ description: 'Add circuit breaker', owner: 'alice', dueDateIso: '2026-11-01', priority: 'P0' }];",
+      "if (!validateActionItems(okItems).valid) throw new Error('Valid items failed');",
+      "const badItems = [{ description: '', owner: 'bob', dueDateIso: '2026-11-01', priority: 'P1' }];",
+      "const r = validateActionItems(badItems);",
+      "if (r.valid || !r.missingFields.some(f => f.includes('description'))) throw new Error('Missing description failed: ' + JSON.stringify(r));"
+    )
+  },
+
+  // ── DAY 23 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[22],
+    eTitle: "Apply Little's Law for Service Capacity Planning",
+    eDesc: "Write `applyLittlesLaw(arrivalRatePerSec: number, avgLatencySec: number): { avgConcurrency: number; recommendedCapacity: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function applyLittlesLaw(arrivalRatePerSec: number, avgLatencySec: number): { avgConcurrency: number; recommendedCapacity: number } {",
+      "  // Apply Little's law: L = lambda * W",
+      "  return { avgConcurrency: 0, recommendedCapacity: 0 };",
+      "}"
+    ),
+    eHint: "avgConcurrency = arrivalRate * avgLatency (rounded to 2 decimals); recommendedCapacity = Math.ceil(avgConcurrency * 1.5).",
+    eTest: lines(
+      "if (typeof applyLittlesLaw !== 'function') throw new Error('applyLittlesLaw not found');",
+      "const c1 = applyLittlesLaw(100, 0.2);",
+      "if (c1.avgConcurrency !== 20 || c1.recommendedCapacity !== 30) throw new Error('Failed c1: ' + JSON.stringify(c1));",
+      "const c2 = applyLittlesLaw(500, 0.05);",
+      "if (c2.avgConcurrency !== 25 || c2.recommendedCapacity !== 38) throw new Error('Failed c2: ' + JSON.stringify(c2));",
+      "const c3 = applyLittlesLaw(0, 1);",
+      "if (c3.avgConcurrency !== 0 || c3.recommendedCapacity !== 0) throw new Error('Zero arrival failed');"
+    ),
+    aTitle: "Calculate Desired Horizontal Pod AutoScaler Replicas",
+    aDesc: "Write `calculateAutoScalingDesired(currentReplicas: number, currentMetric: number, targetMetric: number, minReplicas: number = 2, maxReplicas: number = 20): number`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function calculateAutoScalingDesired(currentReplicas: number, currentMetric: number, targetMetric: number, minReplicas: number = 2, maxReplicas: number = 20): number {",
+      "  // Compute desired autoscaling replicas",
+      "  return 0;",
+      "}"
+    ),
+    aHint: "Desired = Math.ceil(currentReplicas * (currentMetric / targetMetric)), clamped between min and max.",
+    aTest: lines(
+      "if (typeof calculateAutoScalingDesired !== 'function') throw new Error('calculateAutoScalingDesired not found');",
+      "if (calculateAutoScalingDesired(5, 80, 50, 2, 20) !== 8) throw new Error('5 at 80/50 should scale to 8');",
+      "if (calculateAutoScalingDesired(10, 20, 50, 2, 20) !== 4) throw new Error('10 at 20/50 should scale down to 4');",
+      "if (calculateAutoScalingDesired(10, 200, 50, 2, 20) !== 20) throw new Error('Scale out should cap at maxReplicas 20');",
+      "if (calculateAutoScalingDesired(5, 0, 50, 2, 20) !== 2) throw new Error('Scale in should floor at minReplicas 2');"
+    )
+  },
+
+  // ── DAY 24 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[23],
+    eTitle: "Model Cloud Compute Costs (On-Demand vs Reserved)",
+    eDesc: "Write `modelCloudComputeCost(hourlyUsageHours: number, onDemandRate: number, reservedRate: number, upfrontCost: number = 0): { onDemandCost: number; reservedCost: number; savings: number; breakEvenReached: boolean }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function modelCloudComputeCost(hourlyUsageHours: number, onDemandRate: number, reservedRate: number, upfrontCost: number = 0): { onDemandCost: number; reservedCost: number; savings: number; breakEvenReached: boolean } {",
+      "  // Model cloud cost comparison",
+      "  return { onDemandCost: 0, reservedCost: 0, savings: 0, breakEvenReached: false };",
+      "}"
+    ),
+    eHint: "onDemand = usage * onDemandRate; reserved = upfront + usage * reservedRate; savings = onDemand - reserved.",
+    eTest: lines(
+      "if (typeof modelCloudComputeCost !== 'function') throw new Error('modelCloudComputeCost not found');",
+      "const c1 = modelCloudComputeCost(1000, 0.10, 0.05, 20);",
+      "if (c1.onDemandCost !== 100 || c1.reservedCost !== 70 || c1.savings !== 30 || !c1.breakEvenReached) throw new Error('Failed c1: ' + JSON.stringify(c1));",
+      "const c2 = modelCloudComputeCost(100, 0.10, 0.05, 50);",
+      "if (c2.savings !== -45 || c2.breakEvenReached) throw new Error('Failed negative savings c2: ' + JSON.stringify(c2));"
+    ),
+    aTitle: "Evaluate Spot Instance Reliability Risk vs Cost Savings",
+    aDesc: "Write `evaluateSpotReliabilityRisk(spotInterruptionRatePercent: number, basePrice: number, spotPrice: number, maxToleratedInterruptionPercent: number = 10): { useSpot: boolean; costSavingsPercent: number; reason: string }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function evaluateSpotReliabilityRisk(spotInterruptionRatePercent: number, basePrice: number, spotPrice: number, maxToleratedInterruptionPercent: number = 10): { useSpot: boolean; costSavingsPercent: number; reason: string } {",
+      "  // Evaluate spot instance feasibility",
+      "  return { useSpot: false, costSavingsPercent: 0, reason: '' };",
+      "}"
+    ),
+    aHint: "costSavingsPercent = ((base - spot) / base) * 100; useSpot if interruption rate <= maxTolerated.",
+    aTest: lines(
+      "if (typeof evaluateSpotReliabilityRisk !== 'function') throw new Error('evaluateSpotReliabilityRisk not found');",
+      "const s1 = evaluateSpotReliabilityRisk(5, 1.0, 0.3, 10);",
+      "if (!s1.useSpot || s1.costSavingsPercent !== 70) throw new Error('Low interruption should use spot: ' + JSON.stringify(s1));",
+      "const s2 = evaluateSpotReliabilityRisk(15, 1.0, 0.2, 10);",
+      "if (s2.useSpot || s2.costSavingsPercent !== 80) throw new Error('High interruption must reject spot: ' + JSON.stringify(s2));"
+    )
+  },
+
+  // ── DAY 25 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[24],
+    eTitle: "Evaluate End-to-End Incident Lifecycle Metrics",
+    eDesc: "Write `evaluateIncidentLifecycle(incident: { id: string; startedAtMs: number; detectedAtMs: number; mitigatedAtMs: number; resolvedAtMs: number; errorRatePeak: number }): { ttdMinutes: number; ttmMinutes: number; ttrMinutes: number; severity: 'SEV1' | 'SEV2' | 'SEV3'; postmortemRequired: boolean }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function evaluateIncidentLifecycle(incident: { id: string; startedAtMs: number; detectedAtMs: number; mitigatedAtMs: number; resolvedAtMs: number; errorRatePeak: number }): { ttdMinutes: number; ttmMinutes: number; ttrMinutes: number; severity: 'SEV1' | 'SEV2' | 'SEV3'; postmortemRequired: boolean } {",
+      "  // Evaluate lifecycle metrics",
+      "  return { ttdMinutes: 0, ttmMinutes: 0, ttrMinutes: 0, severity: 'SEV3', postmortemRequired: false };",
+      "}"
+    ),
+    eHint: "ttd = (detected - started) / 60k; ttm = (mitigated - detected) / 60k; ttr = (resolved - started) / 60k. SEV1 if peak >= 0.2, SEV2 if >= 0.05, else SEV3.",
+    eTest: lines(
+      "if (typeof evaluateIncidentLifecycle !== 'function') throw new Error('evaluateIncidentLifecycle not found');",
+      "const i1 = evaluateIncidentLifecycle({ id: 'inc-1', startedAtMs: 0, detectedAtMs: 300000, mitigatedAtMs: 900000, resolvedAtMs: 1500000, errorRatePeak: 0.25 });",
+      "if (i1.ttdMinutes !== 5 || i1.ttmMinutes !== 10 || i1.ttrMinutes !== 25 || i1.severity !== 'SEV1' || !i1.postmortemRequired) throw new Error('Failed i1: ' + JSON.stringify(i1));",
+      "const i2 = evaluateIncidentLifecycle({ id: 'inc-2', startedAtMs: 0, detectedAtMs: 60000, mitigatedAtMs: 180000, resolvedAtMs: 300000, errorRatePeak: 0.02 });",
+      "if (i2.severity !== 'SEV3' || i2.postmortemRequired) throw new Error('Failed i2: ' + JSON.stringify(i2));"
+    ),
+    aTitle: "Aggregate Multi-Modal Observability Health Signals",
+    aDesc: "Write `aggregateObservabilitySignals(metricsHealthy: boolean, logErrorSpike: boolean, traceLatencyHigh: boolean): { systemHealth: 'healthy' | 'degraded' | 'critical'; anomalies: string[] }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function aggregateObservabilitySignals(metricsHealthy: boolean, logErrorSpike: boolean, traceLatencyHigh: boolean): { systemHealth: 'healthy' | 'degraded' | 'critical'; anomalies: string[] } {",
+      "  // Aggregate observability signals",
+      "  return { systemHealth: 'healthy', anomalies: [] };",
+      "}"
+    ),
+    aHint: "Collect anomalies; critical if anomalies >= 2 or (!metricsHealthy && logErrorSpike), degraded if 1, healthy if 0.",
+    aTest: lines(
+      "if (typeof aggregateObservabilitySignals !== 'function') throw new Error('aggregateObservabilitySignals not found');",
+      "const s1 = aggregateObservabilitySignals(true, false, false);",
+      "if (s1.systemHealth !== 'healthy' || s1.anomalies.length !== 0) throw new Error('Failed healthy: ' + JSON.stringify(s1));",
+      "const s2 = aggregateObservabilitySignals(true, true, false);",
+      "if (s2.systemHealth !== 'degraded' || s2.anomalies.join(',') !== 'LOG_ERROR_SPIKE') throw new Error('Failed degraded: ' + JSON.stringify(s2));",
+      "const s3 = aggregateObservabilitySignals(false, true, false);",
+      "if (s3.systemHealth !== 'critical' || s3.anomalies.length !== 2) throw new Error('Failed critical: ' + JSON.stringify(s3));"
+    )
+  },
+
+  // ── DAY 26 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[25],
+    eTitle: "Evaluate Chaos Experiment Steady-State Hypothesis",
+    eDesc: "Write `evaluateChaosExperiment(steadyState: { maxLatencyMs: number; maxErrorRate: number }, baseline: { latencyMs: number; errorRate: number }, underChaos: { latencyMs: number; errorRate: number }): { hypothesisPassed: boolean; latencyDegradationPercent: number; errorRateDelta: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function evaluateChaosExperiment(steadyState: { maxLatencyMs: number; maxErrorRate: number }, baseline: { latencyMs: number; errorRate: number }, underChaos: { latencyMs: number; errorRate: number }): { hypothesisPassed: boolean; latencyDegradationPercent: number; errorRateDelta: number } {",
+      "  // Evaluate chaos hypothesis",
+      "  return { hypothesisPassed: false, latencyDegradationPercent: 0, errorRateDelta: 0 };",
+      "}"
+    ),
+    eHint: "hypothesisPassed if underChaos satisfies steadyState limits. Compute latency percent change and errorRate delta.",
+    eTest: lines(
+      "if (typeof evaluateChaosExperiment !== 'function') throw new Error('evaluateChaosExperiment not found');",
+      "const e1 = evaluateChaosExperiment({ maxLatencyMs: 200, maxErrorRate: 0.05 }, { latencyMs: 100, errorRate: 0.01 }, { latencyMs: 150, errorRate: 0.02 });",
+      "if (!e1.hypothesisPassed || e1.latencyDegradationPercent !== 50 || e1.errorRateDelta !== 0.01) throw new Error('Failed e1: ' + JSON.stringify(e1));",
+      "const e2 = evaluateChaosExperiment({ maxLatencyMs: 200, maxErrorRate: 0.05 }, { latencyMs: 100, errorRate: 0.01 }, { latencyMs: 250, errorRate: 0.08 });",
+      "if (e2.hypothesisPassed || e2.latencyDegradationPercent !== 150) throw new Error('Failed failing hypothesis e2');"
+    ),
+    aTitle: "Calculate Failure Blast Radius Dependencies",
+    aDesc: "Write `calculateBlastRadius(targetService: string, downstreamServices: Record<string, string[]>): { affectedCount: number; affectedServices: string[] }` returning all services transitively depending on targetService.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function calculateBlastRadius(targetService: string, downstreamServices: Record<string, string[]>): { affectedCount: number; affectedServices: string[] } {",
+      "  // Calculate blast radius",
+      "  return { affectedCount: 0, affectedServices: [] };",
+      "}"
+    ),
+    aHint: "downstreamServices[s] lists services that depend directly on s. Use BFS/DFS to find all transitive dependents.",
+    aTest: lines(
+      "if (typeof calculateBlastRadius !== 'function') throw new Error('calculateBlastRadius not found');",
+      "const graph = { auth: ['api', 'billing'], api: ['frontend'], billing: ['payout'], frontend: [] };",
+      "const b1 = calculateBlastRadius('auth', graph);",
+      "if (b1.affectedCount !== 4 || !b1.affectedServices.includes('frontend')) throw new Error('Failed blast radius: ' + JSON.stringify(b1));",
+      "const b2 = calculateBlastRadius('frontend', graph);",
+      "if (b2.affectedCount !== 0) throw new Error('Leaf service should have 0 blast radius');"
+    )
+  },
+
+  // ── DAY 27 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[26],
+    eTitle: "Simulate Blue-Green Traffic Switch and Rollback",
+    eDesc: "Write `simulateBlueGreenSwitch(activeColor: 'blue' | 'green', greenHealth: boolean, blueHealth: boolean): { nextColor: 'blue' | 'green'; switched: boolean; rollbackNeeded: boolean }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function simulateBlueGreenSwitch(activeColor: 'blue' | 'green', greenHealth: boolean, blueHealth: boolean): { nextColor: 'blue' | 'green'; switched: boolean; rollbackNeeded: boolean } {",
+      "  // Simulate blue-green deployment switch",
+      "  return { nextColor: activeColor, switched: false, rollbackNeeded: false };",
+      "}"
+    ),
+    eHint: "If active is blue, target green must be healthy to switch; if unhealthy stay blue with rollbackNeeded true.",
+    eTest: lines(
+      "if (typeof simulateBlueGreenSwitch !== 'function') throw new Error('simulateBlueGreenSwitch not found');",
+      "const s1 = simulateBlueGreenSwitch('blue', true, true);",
+      "if (s1.nextColor !== 'green' || !s1.switched || s1.rollbackNeeded) throw new Error('Healthy green failed: ' + JSON.stringify(s1));",
+      "const s2 = simulateBlueGreenSwitch('blue', false, true);",
+      "if (s2.nextColor !== 'blue' || s2.switched || !s2.rollbackNeeded) throw new Error('Unhealthy green failed: ' + JSON.stringify(s2));",
+      "const s3 = simulateBlueGreenSwitch('green', true, true);",
+      "if (s3.nextColor !== 'blue' || !s3.switched) throw new Error('Healthy blue switch failed: ' + JSON.stringify(s3));"
+    ),
+    aTitle: "Plan Rolling Update Batch Steps and Capacity",
+    aDesc: "Write `planRollingUpdateSteps(totalInstances: number, maxUnavailable: number = 1, maxSurge: number = 1): { totalSteps: number; batchSize: number; maxSurgeCapacity: number }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function planRollingUpdateSteps(totalInstances: number, maxUnavailable: number = 1, maxSurge: number = 1): { totalSteps: number; batchSize: number; maxSurgeCapacity: number } {",
+      "  // Plan rolling update",
+      "  return { totalSteps: 0, batchSize: 0, maxSurgeCapacity: 0 };",
+      "}"
+    ),
+    aHint: "batchSize = Math.max(1, maxUnavailable); maxSurgeCapacity = totalInstances + maxSurge; totalSteps = Math.ceil(totalInstances / batchSize).",
+    aTest: lines(
+      "if (typeof planRollingUpdateSteps !== 'function') throw new Error('planRollingUpdateSteps not found');",
+      "const r1 = planRollingUpdateSteps(10, 2, 2);",
+      "if (r1.totalSteps !== 5 || r1.batchSize !== 2 || r1.maxSurgeCapacity !== 12) throw new Error('Failed r1: ' + JSON.stringify(r1));",
+      "const r2 = planRollingUpdateSteps(5, 1, 1);",
+      "if (r2.totalSteps !== 5 || r2.batchSize !== 1 || r2.maxSurgeCapacity !== 6) throw new Error('Failed r2: ' + JSON.stringify(r2));"
+    )
+  },
+
+  // ── DAY 28 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[27],
+    eTitle: "Evaluate Automated Canary Promotion Thresholds",
+    eDesc: "Write `evaluateCanaryPromotion(baseline: { errorRate: number; p99LatencyMs: number }, canary: { errorRate: number; p99LatencyMs: number }, thresholds: { maxErrorRateIncrease: number; maxLatencyIncreasePercent: number }): { promote: boolean; reason: string }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function evaluateCanaryPromotion(baseline: { errorRate: number; p99LatencyMs: number }, canary: { errorRate: number; p99LatencyMs: number }, thresholds: { maxErrorRateIncrease: number; maxLatencyIncreasePercent: number }): { promote: boolean; reason: string } {",
+      "  // Evaluate canary promotion",
+      "  return { promote: false, reason: '' };",
+      "}"
+    ),
+    eHint: "Check errorRate increase against threshold, then latency percentage increase, else promote.",
+    eTest: lines(
+      "if (typeof evaluateCanaryPromotion !== 'function') throw new Error('evaluateCanaryPromotion not found');",
+      "const c1 = evaluateCanaryPromotion({ errorRate: 0.01, p99LatencyMs: 100 }, { errorRate: 0.012, p99LatencyMs: 105 }, { maxErrorRateIncrease: 0.005, maxLatencyIncreasePercent: 10 });",
+      "if (!c1.promote || !c1.reason.includes('healthy')) throw new Error('Healthy canary failed: ' + JSON.stringify(c1));",
+      "const c2 = evaluateCanaryPromotion({ errorRate: 0.01, p99LatencyMs: 100 }, { errorRate: 0.02, p99LatencyMs: 105 }, { maxErrorRateIncrease: 0.005, maxLatencyIncreasePercent: 10 });",
+      "if (c2.promote || !c2.reason.includes('Error rate')) throw new Error('Error rate fail failed: ' + JSON.stringify(c2));",
+      "const c3 = evaluateCanaryPromotion({ errorRate: 0.01, p99LatencyMs: 100 }, { errorRate: 0.01, p99LatencyMs: 120 }, { maxErrorRateIncrease: 0.005, maxLatencyIncreasePercent: 10 });",
+      "if (c3.promote || !c3.reason.includes('Latency')) throw new Error('Latency fail failed: ' + JSON.stringify(c3));"
+    ),
+    aTitle: "Generate Canary Traffic Shifting Step Schedule",
+    aDesc: "Write `calculateCanaryTrafficSteps(currentTrafficPercent: number, targetTrafficPercent: number = 100, stepPercent: number = 10): number[]`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function calculateCanaryTrafficSteps(currentTrafficPercent: number, targetTrafficPercent: number = 100, stepPercent: number = 10): number[] {",
+      "  // Generate traffic steps",
+      "  return [];",
+      "}"
+    ),
+    aHint: "Increment from current + stepPercent up to target, making sure target is the final element.",
+    aTest: lines(
+      "if (typeof calculateCanaryTrafficSteps !== 'function') throw new Error('calculateCanaryTrafficSteps not found');",
+      "const s1 = calculateCanaryTrafficSteps(10, 50, 15);",
+      "if (s1.join(',') !== '25,40,50') throw new Error('Failed s1: ' + s1.join(','));",
+      "const s2 = calculateCanaryTrafficSteps(0, 100, 25);",
+      "if (s2.join(',') !== '25,50,75,100') throw new Error('Failed s2: ' + s2.join(','));",
+      "const s3 = calculateCanaryTrafficSteps(100, 100, 10);",
+      "if (s3.length !== 0) throw new Error('Equal current/target should be empty');"
+    )
+  },
+
+  // ── DAY 29 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[28],
+    eTitle: "Execute Diagnostic Runbook Decision Tree Logic",
+    eDesc: "Write `executeRunbookDecisionTree(node: { condition: string; action?: string; yesBranch?: any; noBranch?: any }, state: Record<string, boolean>): { executedActions: string[]; finalState: 'resolved' | 'escalate' }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function executeRunbookDecisionTree(node: { condition: string; action?: string; yesBranch?: any; noBranch?: any }, state: Record<string, boolean>): { executedActions: string[]; finalState: 'resolved' | 'escalate' } {",
+      "  // Execute decision tree",
+      "  return { executedActions: [], finalState: 'escalate' };",
+      "}"
+    ),
+    eHint: "Check state[node.condition]; if true follow yesBranch, else noBranch; collect action properties.",
+    eTest: lines(
+      "if (typeof executeRunbookDecisionTree !== 'function') throw new Error('executeRunbookDecisionTree not found');",
+      "const tree = {",
+      "  condition: 'highCpu',",
+      "  action: 'checkProcesses',",
+      "  yesBranch: { condition: 'zombieExists', action: 'killZombie', yesBranch: { action: 'done' } },",
+      "  noBranch: { action: 'escalateToDev' }",
+      "};",
+      "const r1 = executeRunbookDecisionTree(tree, { highCpu: true, zombieExists: true });",
+      "if (r1.executedActions.join(',') !== 'checkProcesses,killZombie,done' || r1.finalState !== 'resolved') throw new Error('Failed r1: ' + JSON.stringify(r1));",
+      "const r2 = executeRunbookDecisionTree(tree, { highCpu: false });",
+      "if (r2.executedActions.join(',') !== 'checkProcesses,escalateToDev' || r2.finalState !== 'escalate') throw new Error('Failed r2: ' + JSON.stringify(r2));"
+    ),
+    aTitle: "Audit Incident Runbook Coverage and Automation Depth",
+    aDesc: "Write `auditRunbookCoverage(incidentTypes: string[], runbooks: { incidentType: string; automatedActionCount: number }[]): { coveragePercent: number; unmappedTypes: string[]; fullyAutomatedCount: number }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function auditRunbookCoverage(incidentTypes: string[], runbooks: { incidentType: string; automatedActionCount: number }[]): { coveragePercent: number; unmappedTypes: string[]; fullyAutomatedCount: number } {",
+      "  // Audit runbook coverage",
+      "  return { coveragePercent: 0, unmappedTypes: [], fullyAutomatedCount: 0 };",
+      "}"
+    ),
+    aHint: "coveragePercent is mapped / total; fullyAutomatedCount is runbooks with automatedActionCount >= 3.",
+    aTest: lines(
+      "if (typeof auditRunbookCoverage !== 'function') throw new Error('auditRunbookCoverage not found');",
+      "const res = auditRunbookCoverage(['db_failover', 'oom_killed', 'cert_expired'], [",
+      "  { incidentType: 'db_failover', automatedActionCount: 3 },",
+      "  { incidentType: 'oom_killed', automatedActionCount: 1 }",
+      "]);",
+      "if (res.coveragePercent !== 66.67 || res.unmappedTypes.join(',') !== 'cert_expired' || res.fullyAutomatedCount !== 1) throw new Error('Failed audit: ' + JSON.stringify(res));",
+      "const empty = auditRunbookCoverage([], []);",
+      "if (empty.coveragePercent !== 100 || empty.unmappedTypes.length !== 0) throw new Error('Empty audit failed');"
+    )
+  },
+
+  // ── DAY 30 ──────────────────────────────────────────────────────────
+  {
+    ...SRE_DAYS[29],
+    eTitle: "Generate Comprehensive SRE Multi-Cloud Reliability Scorecard",
+    eDesc: "Write `generateReliabilityScorecard(services: { id: string; sliAvailability: number; sloTarget: number; chaosPassed: boolean; canarySafe: boolean }[]): { overallScore: number; grade: 'A' | 'B' | 'C' | 'D' | 'F'; passingServices: number; totalServices: number }`.",
+    eLanguage: "typescript",
+    eStarter: lines(
+      "function generateReliabilityScorecard(services: { id: string; sliAvailability: number; sloTarget: number; chaosPassed: boolean; canarySafe: boolean }[]): { overallScore: number; grade: 'A' | 'B' | 'C' | 'D' | 'F'; passingServices: number; totalServices: number } {",
+      "  // Generate reliability scorecard",
+      "  return { overallScore: 0, grade: 'F', passingServices: 0, totalServices: 0 };",
+      "}"
+    ),
+    eHint: "For each service: sliScore (max 40), chaosScore (30 if passed), canaryScore (30 if safe). Passing if serviceScore >= 80. Grade: >= 90 A, >= 80 B, >= 70 C, >= 60 D, else F.",
+    eTest: lines(
+      "if (typeof generateReliabilityScorecard !== 'function') throw new Error('generateReliabilityScorecard not found');",
+      "const sc1 = generateReliabilityScorecard([",
+      "  { id: 'auth', sliAvailability: 99.9, sloTarget: 99.9, chaosPassed: true, canarySafe: true },",
+      "  { id: 'api', sliAvailability: 99.5, sloTarget: 99.5, chaosPassed: true, canarySafe: true }",
+      "]);",
+      "if (sc1.overallScore !== 100 || sc1.grade !== 'A' || sc1.passingServices !== 2) throw new Error('Failed perfect scorecard: ' + JSON.stringify(sc1));",
+      "const sc2 = generateReliabilityScorecard([",
+      "  { id: 'db', sliAvailability: 95, sloTarget: 99, chaosPassed: false, canarySafe: true }",
+      "]);",
+      "if (sc2.overallScore !== 30 || sc2.grade !== 'F' || sc2.passingServices !== 0) throw new Error('Failed degraded scorecard: ' + JSON.stringify(sc2));",
+      "const sc3 = generateReliabilityScorecard([]);",
+      "if (sc3.overallScore !== 100 || sc3.grade !== 'A') throw new Error('Empty services should be 100 A');"
+    ),
+    aTitle: "Audit SRE Platform Master Capstone Certification Status",
+    aDesc: "Write `auditSrePlatformCertification(completedDays: number, totalDays: number = 30): { certified: boolean; score: string; tier: string }`.",
+    aLanguage: "typescript",
+    aStarter: lines(
+      "function auditSrePlatformCertification(completedDays: number, totalDays: number = 30): { certified: boolean; score: string; tier: string } {",
+      "  // Audit SRE certification status",
+      "  return { certified: false, score: '0/30', tier: 'INCOMPLETE_CURRICULUM' };",
+      "}"
+    ),
+    aHint: "certified is true when completedDays === totalDays, tier is 'ENTERPRISE_SRE_CERTIFIED'.",
+    aTest: lines(
+      "if (typeof auditSrePlatformCertification !== 'function') throw new Error('auditSrePlatformCertification not found');",
+      "const pass = auditSrePlatformCertification(30, 30);",
+      "if (!pass.certified || pass.score !== '30/30' || pass.tier !== 'ENTERPRISE_SRE_CERTIFIED') throw new Error('Pass audit failed: ' + JSON.stringify(pass));",
+      "const fail = auditSrePlatformCertification(25, 30);",
+      "if (fail.certified || fail.score !== '25/30' || fail.tier !== 'INCOMPLETE_CURRICULUM') throw new Error('Fail audit failed: ' + JSON.stringify(fail));"
+    )
   }
 ];
 
