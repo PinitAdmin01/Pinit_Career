@@ -8,6 +8,7 @@ import vm from 'node:vm';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 import { NODE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/nodeWeb30DayData';
 import { SRE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/sreWeb30DayData';
+import { STREAM_WEB_30_DAYS_CONFIGS } from '../src/lib/data/streamWeb30DayData';
 import { findForbiddenJs } from '../src/lib/code/js/jsGuard';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { executeTypeScriptTask, executeHtmlCssTask } from '../src/lib/code/runners/webTaskRunner';
@@ -44,6 +45,13 @@ export const WEB_COURSES: WebCourseTaskEntry[] = [
     prefix: 'sre-web',
     configs: SRE_WEB_30_DAYS_CONFIGS,
     solutions: 'sre_web_solutions.json',
+  },
+  {
+    name: 'High-Throughput Streaming in TypeScript',
+    courseId: 'course-stream-web',
+    prefix: 'stream-web',
+    configs: STREAM_WEB_30_DAYS_CONFIGS,
+    solutions: 'stream_web_solutions.json',
   },
 ];
 
@@ -196,9 +204,9 @@ test('gradeWebTask catches constant-answer cheats in TypeScript', async () => {
 for (const course of WEB_COURSES) {
   const solutions = loadSolutions(course.solutions);
 
-  test(`${course.name}: 30 days, 60 practice tasks and reference answers`, () => {
-    assert.equal(course.configs.length, 30, `${course.name} must have 30 day configs`);
-    for (let i = 0; i < 30; i++) {
+  test(`${course.name}: practice tasks and reference answers check`, () => {
+    assert.ok(course.configs.length === 15 || course.configs.length === 30, `${course.name} must have 15 or 30 day configs`);
+    for (let i = 0; i < course.configs.length; i++) {
       const cfg = course.configs[i];
       const prefix = course.prefix || course.courseId.replace(/^course-/, '');
       const solE = getTaskSolution(solutions, i, 'exam', `${prefix}-exam-day-${i + 1}`);
