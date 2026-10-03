@@ -47,6 +47,7 @@ import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
 import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
 import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
+import { STREAM_WEB_30_DAYS_QUESTS } from './streamWeb30DayData';
 import { addBlockTests } from './courseTests';
 
 
@@ -117,6 +118,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '📊',
     quests: SRE_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-stream-web',
+    title: 'High-Throughput Streaming in TypeScript',
+    desc: 'Master append-only logs, partition hashing, consumer groups, windowing analytics, stream-table duality, schema governance, and real-time fraud engines.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '⚡',
+    quests: STREAM_WEB_30_DAYS_QUESTS as any
   },
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {

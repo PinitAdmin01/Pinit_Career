@@ -198,6 +198,53 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-stream-web': {
+    courseId: 'course-stream-web',
+    courseTitle: 'High-Throughput Streaming in TypeScript',
+    category: 'Distributed Systems & Data Engineering',
+    summary: 'Master append-only commit logs, partition key hashing, consumer group cooperative rebalancing, windowed streaming analytics, stream-table duality, schema registries, and real-time fraud detection engines.',
+    realWorldAnalogy: 'Think of a high-throughput streaming architecture like a multi-track railway freight terminal: immutable train cars (append-only logs), track switches and yard classification (partition key hashing), automated unloading crews (consumer groups), transfer depots (stream-table joins), and hazardous material inspection sidings (dead-letter queues).',
+    keyConcepts: [
+      {
+        heading: '1. Append-Only Commit Logs & Offset Immutability',
+        explanation: 'Sequential disk I/O and zero-copy OS page caching enable extreme write throughput. Monotonically increasing offsets serve as universal coordinate pointers across partitions.',
+        codeOrExample: 'const record = { offset: log.length, payload, timestampMs: Date.now() };\\nlog.push(record);'
+      },
+      {
+        heading: '2. Consumer Groups & Cooperative Sticky Rebalancing',
+        explanation: 'Partitions are distributed across consumer group members to parallelize consumption while preserving key-level ordering. Cooperative rebalancing migrates only necessary partitions without stop-the-world pauses.',
+        codeOrExample: 'const partition = murmurHash2(key) % numPartitions;\\nassignPartitions(consumerGroup, partitions);'
+      },
+      {
+        heading: '3. Stream-Table Duality (KStream & KTable)',
+        explanation: 'A stream is a changelog of facts over time; a table is the current aggregated state of the world. Streams turn into tables via continuous reduction, and tables turn into streams via changelog emissions.',
+        codeOrExample: 'const updatedState = ktable.reduce((state, event) => applyDelta(state, event));'
+      }
+    ],
+    cheatsheet: [
+      "Little's Law: Concurrency (L) = Throughput (λ) * Latency (W)",
+      'Partition Hash: partition = murmurHash2(key) % totalPartitions',
+      'Consumer Lag = Log End Offset (LEO) - Consumer Committed Offset',
+      'Net Drain Velocity = Consumption Rate - Production Rate',
+      'Time-to-Recover (TTR) = Total Lag / Net Drain Velocity'
+    ],
+    commonPitfalls: [
+      'Using non-deterministic keys or changing partition counts without planning, breaking key-to-partition ordering guarantees.',
+      'Committing offsets before processing is complete (causing silent message loss on consumer crashes).',
+      'Retrying failed poison pills synchronously inline, which causes head-of-line blocking and freezes the entire partition.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is the difference between at-least-once, at-most-once, and exactly-once processing semantics?',
+        answer: 'At-most-once commits offsets before processing, risking message loss on crashes. At-least-once commits offsets after successful processing, preventing loss but risking duplicate deliveries on retries. Exactly-once pairs transactional producers, idempotent consumers, or two-phase commit state stores so each record takes effect precisely once.'
+      },
+      {
+        question: 'How do Dead-Letter Queues (DLQ) and tiered retry topics solve poison pill issues in streaming systems?',
+        answer: 'Poison pills are malformed messages that crash consumers, causing infinite restart loops. Tiered non-blocking retry topics route transient errors to delayed side topics while committing the main partition offset immediately. If retries fail repeatedly, the record is permanently shunted to a Dead-Letter Queue with full diagnostic envelopes for forensic analysis without stalling the main pipeline.'
+      }
+    ]
+  },
+
   'course-ai-eng': {
     courseId: 'course-ai-eng',
     courseTitle: 'AI Engineering & LLM Integration',

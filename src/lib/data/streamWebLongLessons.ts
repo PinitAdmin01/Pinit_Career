@@ -1885,7 +1885,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
       ],
       "example": "Sending an important legal document via Certified Mail where you wait in line at the post office until the clerk hands you a stamped paper receipt before you walk out.",
       "code": "interface SyncCommitResult {\n  offset: number;\n  latencyMs: number;\n  isCommitted: boolean;\n}\n\nclass SynchronousCommitter {\n  private committedOffset: number = -1;\n\n  async commitSync(offset: number, simulatedRttMs: number = 15): Promise<SyncCommitResult> {\n    if (offset <= this.committedOffset) {\n      throw new Error(`Cannot commit non-monotonic offset ${offset} <= ${this.committedOffset}`);\n    }\n    // Simulate synchronous network blocking\n    this.committedOffset = offset;\n    return {\n      offset: this.committedOffset,\n      latencyMs: simulatedRttMs,\n      isCommitted: true\n    };\n  }\n\n  get current(): number {\n    return this.committedOffset;\n  }\n}\n\nconst committer = new SynchronousCommitter();\ncommitter.commitSync(100, 15).then(res => {\n  console.log(`commitSync offset=${res.offset} confirmed in ${res.latencyMs}ms`);\n  console.log('Committed state:', committer.current);\n});",
-      "output": "",
+      "output": "commitSync offset=100 confirmed in 15ms\nCommitted state: 100",
       "codeNotes": [
         {
           "line": 9,
@@ -2680,7 +2680,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
       ],
       "example": "A vending machine where a snack is only dropped into the collection tray when a customer presses the button and waits for the mechanism to dispense it.",
       "code": "interface MetricRecord {\n  seq: number;\n  timestamp: number;\n}\n\nasync function* streamProducer(total: number, delayMs: number): AsyncGenerator<MetricRecord> {\n  for (let i = 0; i < total; i++) {\n    yield { seq: i, timestamp: 1700000000000 + i * 100 };\n  }\n}\n\nasync function runPullConsumer(): Promise<number> {\n  const stream = streamProducer(4, 5);\n  let processed = 0;\n\n  for await (const record of stream) {\n    // Consumer pulls records strictly at its own cadence\n    console.log(`Pulled Record Seq #${record.seq}`);\n    processed++;\n  }\n  return processed;\n}\n\nrunPullConsumer().then(count => {\n  console.log('Total Records Consumed via Async Iterator:', count);\n});",
-      "output": "",
+      "output": "Pulled Record Seq #0\nPulled Record Seq #1\nPulled Record Seq #2\nPulled Record Seq #3\nTotal Records Consumed via Async Iterator: 4",
       "codeNotes": [
         {
           "line": 6,
@@ -2718,7 +2718,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
       ],
       "example": "A highway ramp meter with traffic signals that turns red to space out entering cars during rush hour, preventing gridlock on the main expressway.",
       "code": "interface ThrottleResult {\n  accepted: boolean;\n  waitedMs: number;\n  retryAttempts: number;\n}\n\nclass NonBlockingThrottler {\n  private isBufferFull: boolean = false;\n\n  setBufferState(full: boolean): void {\n    this.isBufferFull = full;\n  }\n\n  async sendWithBackoff(maxAttempts: number = 3, initialDelayMs: number = 10): Promise<ThrottleResult> {\n    let delay = initialDelayMs;\n    let attempts = 0;\n    let totalWaited = 0;\n\n    while (attempts < maxAttempts) {\n      attempts++;\n      if (!this.isBufferFull) {\n        return { accepted: true, waitedMs: totalWaited, retryAttempts: attempts };\n      }\n      totalWaited += delay;\n      // Simulate non-blocking asynchronous back-off\n      delay *= 2;\n    }\n    return { accepted: false, waitedMs: totalWaited, retryAttempts: attempts };\n  }\n}\n\nconst throttler = new NonBlockingThrottler();\nthrottler.setBufferState(true); // Buffer saturated!\n\nthrottler.sendWithBackoff(3, 10).then(res => {\n  console.log('Throttled Send Result:', JSON.stringify(res));\n  console.log('Throttler rejected after retries:', !res.accepted);\n});",
-      "output": "",
+      "output": "Throttled Send Result: {\"accepted\":false,\"waitedMs\":70,\"retryAttempts\":3}\nThrottler rejected after retries: true",
       "codeNotes": [
         {
           "line": 15,
