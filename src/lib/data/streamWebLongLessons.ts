@@ -3804,4 +3804,1269 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 }
+,
+{
+  "day": 16,
+  "title": "Stateless Stream Processing: Map, Filter, FlatMap & Branching",
+  "goal": "Master pure stateless stream transformations in TypeScript: independent event evaluation, chainable map projections, predicate filtering, one-to-many flatMap expansions, topic branching routers, and composite functional pipelines.",
+  "minutes": 25,
+  "recap": "In Milestone 3, we engineered high-throughput ingestion with ring buffers and dynamic backpressure. Today we begin the stream processing tier, implementing stateless transformations where events are processed in pure functional isolation without cross-event state.",
+  "parts": [
+    {
+      "title": "Stateless Stream Semantics & Pure Functional Transformations",
+      "say": [
+        "Stateless stream processing represents the foundational tier of real-time event pipeline architectures.",
+        "In a purely stateless transformation, the processing logic evaluates each incoming event in complete isolation from preceding or succeeding events.",
+        "There is no cross-event memory, no shared accumulation table, and no temporal dependencies on historical event arrival order.",
+        "Because each calculation depends solely on the payload of the current event, stateless functions are strictly pure and deterministic.",
+        "Pure stateless operators exhibit exceptional operational characteristics in high-throughput distributed systems.",
+        "Since no state store needs to be coordinated or persisted to disk, processing latency is bounded purely by CPU instruction time.",
+        "Stateless processors can scale horizontally to hundreds of worker nodes without requiring partition synchronization or distributed locks.",
+        "If an individual worker node crashes during execution, newly spun-up workers can immediately resume processing without state restoration overhead.",
+        "Understanding stateless semantics enables software engineers to construct ultra-fast, resilient data transformation topologies."
+      ],
+      "example": "A photo watermarking service where each uploaded image has a logo stamped on it without needing to know anything about other photos.",
+      "code": "interface RawClickEvent {\n  eventId: string;\n  url: string;\n  ipAddress: string;\n  statusCode: number;\n}\n\ninterface SanitizedClickEvent {\n  eventId: string;\n  path: string;\n  isError: boolean;\n}\n\nfunction processStateless(event: RawClickEvent): SanitizedClickEvent {\n  const urlObj = new URL(event.url);\n  return {\n    eventId: event.eventId,\n    path: urlObj.pathname,\n    isError: event.statusCode >= 400\n  };\n}\n\nconst e1: RawClickEvent = { eventId: \"ev-1\", url: \"https://api.example.com/checkout\", ipAddress: \"192.168.1.1\", statusCode: 200 };\nconst e2: RawClickEvent = { eventId: \"ev-2\", url: \"https://api.example.com/login\", ipAddress: \"10.0.0.4\", statusCode: 500 };\n\nconsole.log(\"Processed E1:\", JSON.stringify(processStateless(e1)));\nconsole.log(\"Processed E2:\", JSON.stringify(processStateless(e2)));",
+      "output": "Processed E1: {\"eventId\":\"ev-1\",\"path\":\"/checkout\",\"isError\":false}\nProcessed E2: {\"eventId\":\"ev-2\",\"path\":\"/login\",\"isError\":true}",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Pure transformation function evaluating a single event in isolation."
+        },
+        {
+          "line": 24,
+          "note": "Produces deterministic output independent of execution history."
+        }
+      ],
+      "tryIt": "Add a query parameter check to extract search terms into the sanitized event.",
+      "check": {
+        "question": "Why can stateless stream transformations scale horizontally with near-zero coordination overhead?",
+        "options": [
+          "Because each event is processed independently without needing shared distributed state or locks",
+          "Because stateless operators bypass CPU instruction pipelining",
+          "Because stateless streams only run on single-threaded event loops"
+        ],
+        "why": "Stateless processing requires no shared state or historical memory between events, allowing any worker node to process any event independently.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Map Operator: Schema Projection & Value Normalization",
+      "say": [
+        "The map operator is the workhorse of streaming data pipelines, transforming each input record into an output record.",
+        "In enterprise architectures, raw event streams emitted by client applications frequently contain verbose, nested, or unnormalized schemas.",
+        "Downstream consumers such as analytical data warehouses and microservices require compact, standardized data representations.",
+        "The map transformation applies a unary function to every record, projecting fields, calculating derived values, and standardizing data types.",
+        "In TypeScript, streaming map operators can be modeled cleanly using higher-order functions or asynchronous generator streams.",
+        "Because mapping is one-to-one, the output stream always contains precisely the same number of records as the input stream.",
+        "Mapping must remain free of side-effects such as remote HTTP calls or database queries to maintain microsecond processing speeds.",
+        "If a map operation fails due to unexpected formatting, it should handle errors gracefully or emit a structured failure envelope.",
+        "High-performance pipelines rely on streamlined map stages to strip unnecessary metadata and reduce network serialization bandwidth."
+      ],
+      "example": "A currency converter that transforms incoming price events from Euros and Yen into US Dollars using a static conversion table.",
+      "code": "interface FinancialTick {\n  symbol: string;\n  rawPriceCents: number;\n  currency: string;\n  source: string;\n}\n\ninterface NormalizedPriceTick {\n  ticker: string;\n  priceUsd: number;\n}\n\nfunction mapPriceTick(tick: FinancialTick): NormalizedPriceTick {\n  return {\n    ticker: tick.symbol.toUpperCase().trim(),\n    priceUsd: Math.round(tick.rawPriceCents) / 100\n  };\n}\n\nconst ticks: FinancialTick[] = [\n  { symbol: \"  aapl \", rawPriceCents: 18250, currency: \"USD\", source: \"nasdaq\" },\n  { symbol: \"msft\", rawPriceCents: 41520, currency: \"USD\", source: \"nyse\" }\n];\n\nconst mapped = ticks.map(mapPriceTick);\nconsole.log(\"Mapped Ticks Count:\", mapped.length);\nmapped.forEach(t => console.log(`Tick: ${t.ticker} -> $${t.priceUsd.toFixed(2)}`));",
+      "output": "Mapped Ticks Count: 2\nTick: AAPL -> $182.50\nTick: MSFT -> $415.20",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Unary projection function converting raw tick into standardized USD model."
+        },
+        {
+          "line": 23,
+          "note": "One-to-one mapping preserves exact element count while modifying structure."
+        }
+      ],
+      "tryIt": "Add a multiplier for currency conversion if the incoming currency is EUR.",
+      "check": {
+        "question": "What is the cardinal invariant of the stream map operator?",
+        "options": [
+          "It maps each input element to exactly one output element, preserving event cardinality",
+          "It aggregates multiple records into a single summary record",
+          "It filters out records that fail schema validation"
+        ],
+        "why": "A map operator enforces a strict 1-to-1 relationship: for every N input events, exactly N transformed output events are produced.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Filter Operator: Predicate-Based Event Sampling & Discard",
+      "say": [
+        "The filter operator conditionally routes or drops events based on a boolean predicate evaluated against each record.",
+        "Not all events entering a high-volume ingest pipe are relevant to downstream consumers or analytical dashboards.",
+        "For example, telemetry streams often emit millions of routine heartbeat pings that clutter operational databases.",
+        "The filter operator applies a boolean test function: records evaluating to true proceed downstream, while false records are discarded.",
+        "Unlike map, filtering modifies the cardinality of the stream, producing an output record count less than or equal to input.",
+        "Filtering early in the stream topology drastically reduces downstream CPU, network bandwidth, and storage costs.",
+        "Common filtering applications include dropped health-check pings, privacy data masking, and error-severity thresholding.",
+        "Stateless filters can also perform deterministic deterministic hash-based sampling to retain exactly ten percent of high-volume logs.",
+        "Combining early filtering with fast projection guarantees that downstream components only process high-value business events."
+      ],
+      "example": "A postal sorting facility that immediately separates and discards unaddressed promotional flyers before sorting personal mail.",
+      "code": "interface SystemLog {\n  id: string;\n  level: 'DEBUG' | 'INFO' | 'WARN' | 'ERROR';\n  service: string;\n  message: string;\n}\n\nclass StreamFilter {\n  static filterCriticalErrors(logs: SystemLog[]): SystemLog[] {\n    return logs.filter(log => log.level === 'ERROR' || log.level === 'WARN');\n  }\n\n  static filterByService(logs: SystemLog[], targetService: string): SystemLog[] {\n    return logs.filter(log => log.service === targetService);\n  }\n}\n\nconst rawLogs: SystemLog[] = [\n  { id: \"1\", level: \"DEBUG\", service: \"auth\", message: \"Cache hit for token\" },\n  { id: \"2\", level: \"ERROR\", service: \"payment\", message: \"Gateway timeout\" },\n  { id: \"3\", level: \"INFO\", service: \"auth\", message: \"User logged in\" },\n  { id: \"4\", level: \"WARN\", service: \"payment\", message: \"Retry limit nearing\" }\n];\n\nconst criticalPaymentLogs = StreamFilter.filterByService(\n  StreamFilter.filterCriticalErrors(rawLogs),\n  \"payment\"\n);\n\nconsole.log(\"Input Logs Count:\", rawLogs.length);\nconsole.log(\"Critical Payment Logs:\", criticalPaymentLogs.length);\ncriticalPaymentLogs.forEach(l => console.log(`[${l.level}] ${l.service}: ${l.message}`));",
+      "output": "Input Logs Count: 4\nCritical Payment Logs: 2\n[ERROR] payment: Gateway timeout\n[WARN] payment: Retry limit nearing",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Static filter evaluating log level predicate to drop non-critical records."
+        },
+        {
+          "line": 26,
+          "note": "Composing two filters to restrict stream by severity and target microservice."
+        }
+      ],
+      "tryIt": "Add a predicate that excludes messages containing the word 'timeout'.",
+      "check": {
+        "question": "How does the filter operator affect stream record cardinality?",
+        "options": [
+          "It produces an output stream with less than or equal to the number of input records",
+          "It always doubles the number of records",
+          "It always preserves the exact same count of records"
+        ],
+        "why": "A filter retains records matching the predicate and drops the rest, yielding 0 <= outputCount <= inputCount.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "FlatMap Operator: One-to-Many Fan-Out & Event Expansion",
+      "say": [
+        "While map produces exactly one output per input, real-world events often represent collections or compound domain transactions.",
+        "For instance, an e-commerce order event contains an array of distinct line items purchased by the customer.",
+        "Downstream inventory, taxation, and shipping services require individual item-level events rather than a monolithic order envelope.",
+        "The flatMap operator solves this by mapping each incoming record to an array of zero, one, or multiple records, and flattening them.",
+        "For each input record of type T, flatMap invokes a function returning an array of type U, yielding a continuous stream of U records.",
+        "If the function returns an empty array for a given record, flatMap acts like a filter by discarding that event entirely.",
+        "If the function returns multiple elements, flatMap expands the event stream, increasing the total count of downstream messages.",
+        "In TypeScript streaming, flatMap is invaluable for decomposing batch archives, expanding nested arrays, and tokenizing text streams.",
+        "Mastering flatMap provides software architects with full flexibility over event granularity across distributed stream pipelines."
+      ],
+      "example": "A shipping crate unpacking station where a single container manifest is unpacked into thirty individual tracked delivery packages.",
+      "code": "interface OrderInvoice {\n  orderId: string;\n  customerId: string;\n  items: { sku: string; quantity: number; unitPrice: number }[];\n}\n\ninterface InventoryDispatchEvent {\n  orderId: string;\n  sku: string;\n  quantity: number;\n  totalCost: number;\n}\n\nfunction flatMapOrderToDispatches(order: OrderInvoice): InventoryDispatchEvent[] {\n  return order.items.map(item => ({\n    orderId: order.orderId,\n    sku: item.sku,\n    quantity: item.quantity,\n    totalCost: item.quantity * item.unitPrice\n  }));\n}\n\nconst orders: OrderInvoice[] = [\n  {\n    orderId: \"ord-101\",\n    customerId: \"cust-A\",\n    items: [\n      { sku: \"KEYBOARD-01\", quantity: 2, unitPrice: 75 },\n      { sku: \"MOUSE-02\", quantity: 1, unitPrice: 45 }\n    ]\n  },\n  {\n    orderId: \"ord-102\",\n    customerId: \"cust-B\",\n    items: [\n      { sku: \"MONITOR-4K\", quantity: 1, unitPrice: 350 }\n    ]\n  }\n];\n\nconst dispatchEvents = orders.flatMap(flatMapOrderToDispatches);\nconsole.log(\"Orders Ingested:\", orders.length);\nconsole.log(\"Granular Dispatches Generated:\", dispatchEvents.length);\ndispatchEvents.forEach(d => console.log(`Dispatch: ${d.orderId} | ${d.sku} | Qty: ${d.quantity} | $${d.totalCost}`));",
+      "output": "Orders Ingested: 2\nGranular Dispatches Generated: 3\nDispatch: ord-101 | KEYBOARD-01 | Qty: 2 | $150\nDispatch: ord-101 | MOUSE-02 | Qty: 1 | $45\nDispatch: ord-102 | MONITOR-4K | Qty: 1 | $350",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "FlatMap projector decomposing nested line items into individual dispatch records."
+        },
+        {
+          "line": 36,
+          "note": "Arrays from each order are flattened into a single uniform stream."
+        }
+      ],
+      "tryIt": "Add a condition that filters out items with quantity equal to 0.",
+      "check": {
+        "question": "When should a streaming engineer choose flatMap over map?",
+        "options": [
+          "When a single input event needs to be expanded into zero, one, or multiple independent downstream events",
+          "When the output must have exactly the same schema and count as the input",
+          "When persisting events to a relational database"
+        ],
+        "why": "FlatMap maps each input element to a list of elements and flattens the result, enabling dynamic 1-to-N event expansion.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Stream Branching & Dynamic Topic Routing",
+      "say": [
+        "In enterprise event architectures, a single high-throughput ingress topic often carries heterogeneous types of business data.",
+        "Routing every event to every downstream service creates massive unnecessary resource consumption and processing overhead.",
+        "Stream branching evaluates each record against an ordered list of predicate functions, routing the event to the first matching branch.",
+        "Events that do not satisfy any designated predicate fall through to a default catch-all branch for dead-letter auditing.",
+        "This architectural pattern partitions a unified stream into specialized sub-streams without requiring multiple network hops.",
+        "Branching enables clean segregation of duty: security alerts go to audit teams, payments go to ledgers, and telemetry goes to monitoring.",
+        "In TypeScript, a stream brancher can be implemented cleanly as a higher-order router accepting an array of predicate handlers.",
+        "Because branching is stateless, routing decisions are instantaneous and execute in O(P) time where P is predicate count.",
+        "Stream branching forms the backbone of content-based message routing in modern event-driven architectures."
+      ],
+      "example": "A triage nurse at an emergency room directing patients to trauma care, pediatrics, or outpatient clinics based on vital signs.",
+      "code": "interface SensorReading {\n  sensorId: string;\n  metric: string;\n  val: number;\n}\n\ninterface StreamBranches {\n  criticalAlerts: SensorReading[];\n  warningAlerts: SensorReading[];\n  normalTelemetry: SensorReading[];\n}\n\nfunction branchTelemetry(readings: SensorReading[]): StreamBranches {\n  const branches: StreamBranches = {\n    criticalAlerts: [],\n    warningAlerts: [],\n    normalTelemetry: []\n  };\n\n  for (const r of readings) {\n    if (r.val >= 90) {\n      branches.criticalAlerts.push(r);\n    } else if (r.val >= 70) {\n      branches.warningAlerts.push(r);\n    } else {\n      branches.normalTelemetry.push(r);\n    }\n  }\n  return branches;\n}\n\nconst telemetry: SensorReading[] = [\n  { sensorId: \"temp-1\", metric: \"celsius\", val: 95 },\n  { sensorId: \"temp-2\", metric: \"celsius\", val: 42 },\n  { sensorId: \"temp-3\", metric: \"celsius\", val: 78 },\n  { sensorId: \"temp-4\", metric: \"celsius\", val: 91 }\n];\n\nconst routed = branchTelemetry(telemetry);\nconsole.log(\"Critical Alert Count:\", routed.criticalAlerts.length);\nconsole.log(\"Warning Alert Count:\", routed.warningAlerts.length);\nconsole.log(\"Normal Telemetry Count:\", routed.normalTelemetry.length);\nconsole.log(\"Critical Sensors:\", routed.criticalAlerts.map(s => s.sensorId).join(\", \"));",
+      "output": "Critical Alert Count: 2\nWarning Alert Count: 1\nNormal Telemetry Count: 1\nCritical Sensors: temp-1, temp-4",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Branch accumulator segregating events into distinct category buckets."
+        },
+        {
+          "line": 20,
+          "note": "Priority routing rules directing readings based on numeric threshold predicates."
+        }
+      ],
+      "tryIt": "Add a new branch for negative values to catch faulty sensor calibration.",
+      "check": {
+        "question": "What is the purpose of the default branch in a stream branching router?",
+        "options": [
+          "To capture and process records that did not match any of the designated branch predicates",
+          "To duplicate all events across every branch for redundancy",
+          "To terminate the stream pipeline immediately"
+        ],
+        "why": "A default branch acts as a catch-all for unmatched events, preventing silent data drops and enabling dead-letter auditing.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Composed Functional Pipeline & End-to-End Processing",
+      "say": [
+        "In enterprise software development, streaming stages are rarely deployed as isolated, disconnected functions.",
+        "Instead, software engineers chain functional operators into a unified, composable data transformation pipeline.",
+        "A composable pipeline executes filtering, mapping, expanding, and routing sequentially within a single pass over the data.",
+        "TypeScript's strong type system ensures that the output type of each stage matches the input contract of the subsequent stage.",
+        "Composed streaming pipelines eliminate intermediate allocations when implemented using lazy iterators or fluent builder APIs.",
+        "If a business requirement changes, developers can modify, reorder, or inject new stages without affecting unrelated logic.",
+        "Furthermore, unit testing each pure transformation function in isolation is straightforward and free of mocking complexity.",
+        "Observability hooks can be attached between stages to measure throughput, drop rates, and latency at each step.",
+        "Building modular, composable stateless pipelines establishes a clean architectural foundation for complex streaming systems."
+      ],
+      "example": "An automated assembly line where a chassis is inspected (filter), painted (map), fitted with tires (flatMap), and routed to packaging (branch).",
+      "code": "interface IncomingMessage {\n  id: string;\n  source: string;\n  payload: string;\n  active: boolean;\n}\n\ninterface EnrichedMessage {\n  id: string;\n  domain: string;\n  tokens: string[];\n}\n\nclass StatelessPipeline {\n  static run(messages: IncomingMessage[]): EnrichedMessage[] {\n    return messages\n      .filter(m => m.active && m.payload.trim().length > 0)\n      .map(m => {\n        const tokens = m.payload.toLowerCase().split(/\\s+/);\n        return {\n          id: m.id,\n          domain: m.source.toUpperCase(),\n          tokens\n        };\n      });\n  }\n}\n\nconst inputData: IncomingMessage[] = [\n  { id: \"msg-1\", source: \"mobile-app\", payload: \"User clicked checkout button\", active: true },\n  { id: \"msg-2\", source: \"iot-device\", payload: \"\", active: true },\n  { id: \"msg-3\", source: \"web-portal\", payload: \"Invalid password attempt detected\", active: false },\n  { id: \"msg-4\", source: \"payment-gw\", payload: \"Transaction authorized successfully\", active: true }\n];\n\nconst processed = StatelessPipeline.run(inputData);\nconsole.log(\"Raw Messages Received:\", inputData.length);\nconsole.log(\"Messages Successfully Transformed:\", processed.length);\nprocessed.forEach(p => console.log(`[${p.domain}] ${p.id} -> ${p.tokens.length} tokens (${p.tokens.slice(0, 2).join(\", \")}...)`));",
+      "output": "Raw Messages Received: 4\nMessages Successfully Transformed: 2\n[MOBILE-APP] msg-1 -> 4 tokens (user, clicked...)\n[PAYMENT-GW] msg-4 -> 3 tokens (transaction, authorized...)",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "Chained filter and map pipeline executing within a unified flow."
+        },
+        {
+          "line": 32,
+          "note": "Only active messages with non-empty payloads survive the filtering stage."
+        }
+      ],
+      "tryIt": "Add a flatMap stage that outputs individual token occurrences with their source domain.",
+      "check": {
+        "question": "What is the primary benefit of composing stateless streaming operations functionally?",
+        "options": [
+          "It produces modular, highly testable stages with clear input/output contracts and zero state side-effects",
+          "It automatically saves all intermediate records to distributed disk storage",
+          "It forces all processing to run synchronously on a single core"
+        ],
+        "why": "Functional composition creates modular, decoupled transformation steps that are easy to test, reorder, and optimize.",
+        "answer": 0
+      }
+    }
+  ],
+  "summary": [
+    "Stateless stream processing evaluates each event in pure isolation with zero cross-event memory.",
+    "The map operator performs 1-to-1 schema projection and normalization while preserving event count.",
+    "The filter operator conditionally retains or discards events based on boolean predicate rules.",
+    "The flatMap operator expands compound records into zero, one, or multiple granular downstream events.",
+    "Stream branching segregates incoming multi-tenant streams into specialized target channels cleanly."
+  ],
+  "projectStep": {
+    "title": "Implement the Stateless Stream Processor",
+    "steps": [
+      "Define pure schema projection functions to normalize heterogeneous incoming raw event records.",
+      "Implement predicate filters and one-to-many flatMap expansions to isolate high-value business payloads.",
+      "Construct a dynamic stream branching router that categorizes events into prioritized destination channels."
+    ]
+  }
+},
+{
+  "day": 17,
+  "title": "Tumbling Windows & Fixed-Interval Time Bucketing",
+  "goal": "Master stateful tumbling window processing: fixed-interval non-overlapping time bucketing, epoch boundary calculation, state accumulation (count, sum, average, min, max), keyed window aggregation, window expiration triggering, and bounded state memory lifecycle.",
+  "minutes": 25,
+  "recap": "Yesterday we built stateless transformation pipelines with map, filter, flatMap, and branching. Today we introduce stateful stream processing with Tumbling Windows, bucketing continuous event flows into discrete, non-overlapping time intervals.",
+  "parts": [
+    {
+      "title": "Anatomy of Tumbling Windows & Discrete Interval Slicing",
+      "say": [
+        "In continuous streaming systems, unbounded streams of events arrive endlessly without a defined beginning or end.",
+        "To compute meaningful analytical metrics such as counts, sums, or error rates, we must partition the infinite stream into finite intervals.",
+        "A Tumbling Window is a stateful streaming primitive that slices time into contiguous, non-overlapping, fixed-duration chunks.",
+        "Every incoming event belongs to exactly one tumbling window based on its timestamp and the configured window duration.",
+        "For example, in a five-minute tumbling window system, intervals span zero to five, five to ten, and ten to fifteen minutes.",
+        "Tumbling windows never overlap with one another, ensuring that each event is counted once and only once across windows.",
+        "Unlike stateless filters, tumbling window operators maintain internal accumulators that preserve intermediate state across events.",
+        "Once a window's time horizon elapses, the accumulated aggregate is emitted downstream and the window's state can be cleared.",
+        "Tumbling windows are the industry standard for hourly revenue reporting, daily active user counts, and fixed-cadence metrics."
+      ],
+      "example": "A city bus arriving at a station every 15 minutes; all passengers arriving between 9:00 and 9:15 board the 9:15 bus, none board two buses.",
+      "code": "interface WindowDescriptor {\n  windowStart: number;\n  windowEnd: number;\n  durationMs: number;\n}\n\nfunction getTumblingWindowDescriptor(timestamp: number, durationMs: number): WindowDescriptor {\n  const windowStart = timestamp - (timestamp % durationMs);\n  return {\n    windowStart,\n    windowEnd: windowStart + durationMs,\n    durationMs\n  };\n}\n\nconst t1 = 1680000125000; // E.g., 125 seconds past base\nconst t2 = 1680000180000; // E.g., 180 seconds past base\nconst t3 = 1680000350000; // E.g., 350 seconds past base\nconst duration = 60000; // 1-minute tumbling window (60s)\n\nconsole.log(\"Event 1 Window:\", JSON.stringify(getTumblingWindowDescriptor(t1, duration)));\nconsole.log(\"Event 2 Window:\", JSON.stringify(getTumblingWindowDescriptor(t2, duration)));\nconsole.log(\"Event 3 Window:\", JSON.stringify(getTumblingWindowDescriptor(t3, duration)));\nconsole.log(\"Do E1 and E2 share the same window?\", getTumblingWindowDescriptor(t1, duration).windowStart === getTumblingWindowDescriptor(t2, duration).windowStart);",
+      "output": "Event 1 Window: {\"windowStart\":1680000120000,\"windowEnd\":1680000180000,\"durationMs\":60000}\nEvent 2 Window: {\"windowStart\":1680000180000,\"windowEnd\":1680000240000,\"durationMs\":60000}\nEvent 3 Window: {\"windowStart\":1680000300000,\"windowEnd\":1680000360000,\"durationMs\":60000}\nDo E1 and E2 share the same window? false",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Epoch division math aligning timestamps to contiguous fixed-size windows."
+        },
+        {
+          "line": 24,
+          "note": "Events occurring within the same 60-second window resolve to the same start boundary."
+        }
+      ],
+      "tryIt": "Test with a 5-minute (300000 ms) window duration and inspect the computed boundaries.",
+      "check": {
+        "question": "What is the defining characteristic of a tumbling window compared to a sliding window?",
+        "options": [
+          "Tumbling windows are contiguous and non-overlapping, so each event belongs to exactly one window",
+          "Tumbling windows overlap continuously with adjacent windows",
+          "Tumbling windows only process events that arrive out-of-order"
+        ],
+        "why": "Tumbling windows divide time into fixed, non-overlapping intervals, ensuring each event belongs to one unique bucket.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Epoch Timestamp Bucketing Math & Boundary Alignment",
+      "say": [
+        "In production stream processors, all temporal window calculations are anchored to the UNIX epoch (January 1, 1970 UTC).",
+        "Anchoring windows to the epoch ensures that multiple distributed worker nodes independently calculate identical window boundaries.",
+        "The mathematical formula to determine a window start is straightforward integer division: timestamp minus timestamp modulo windowSize.",
+        "The corresponding window end boundary is simply the window start plus the configured window duration.",
+        "In half-open interval notation, a tumbling window is expressed as inclusive of start and exclusive of end: [windowStart, windowEnd).",
+        "An event with a timestamp exactly equal to windowStart falls inside the window, whereas an event at windowEnd falls into the next.",
+        "Performing this arithmetic using pure integer math avoids floating-point inaccuracies and executes in sub-nanosecond CPU time.",
+        "By enforcing deterministic boundary alignment, stream processors guarantee consistent aggregations regardless of worker assignment.",
+        "Mastering epoch bucketing math is the first essential step in building high-performance time-series streaming analytics."
+      ],
+      "example": "A 24-hour clock that resets to 00:00 every midnight; 14:35 belongs deterministically to today's 24-hour cycle.",
+      "code": "interface TimeEvent {\n  id: string;\n  timestamp: number;\n  amount: number;\n}\n\nclass EpochBucketer {\n  static assignBucket(event: TimeEvent, windowSizeMs: number): { bucketId: string; start: number; end: number } {\n    const start = event.timestamp - (event.timestamp % windowSizeMs);\n    const end = start + windowSizeMs;\n    return {\n      bucketId: `win_${start}_${end}`,\n      start,\n      end\n    };\n  }\n}\n\nconst windowSize = 1000; // 1-second window\nconst events: TimeEvent[] = [\n  { id: \"e1\", timestamp: 1000, amount: 25 },\n  { id: \"e2\", timestamp: 1450, amount: 40 },\n  { id: \"e3\", timestamp: 1999, amount: 10 },\n  { id: \"e4\", timestamp: 2000, amount: 50 }\n];\n\nevents.forEach(e => {\n  const b = EpochBucketer.assignBucket(e, windowSize);\n  console.log(`Event ${e.id} (ts: ${e.timestamp}) -> Bucket: ${b.bucketId} [inclusive: ${e.timestamp >= b.start && e.timestamp < b.end}]`);\n});",
+      "output": "Event e1 (ts: 1000) -> Bucket: win_1000_2000 [inclusive: true]\nEvent e2 (ts: 1450) -> Bucket: win_1000_2000 [inclusive: true]\nEvent e3 (ts: 1999) -> Bucket: win_1000_2000 [inclusive: true]\nEvent e4 (ts: 2000) -> Bucket: win_2000_3000 [inclusive: true]",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Epoch modulo calculation anchoring window start to predictable clock intervals."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates [start, end) half-open boundary: ts 1999 is in win_1000_2000, ts 2000 enters win_2000_3000."
+        }
+      ],
+      "tryIt": "Change windowSize to 500 ms and observe how events 1000 and 1450 fall into different buckets.",
+      "check": {
+        "question": "In the standard half-open interval [start, end), where does an event with timestamp equal to end belong?",
+        "options": [
+          "In the subsequent window starting at end",
+          "In the current window ending at end",
+          "In both windows simultaneously"
+        ],
+        "why": "Half-open intervals include the start timestamp but exclude the end timestamp: an event at timestamp == end belongs to the next window.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "State Accumulation: Count, Sum, Min, Max & Online Averages",
+      "say": [
+        "Once events are mapped to their respective window boundaries, the stream processor must accumulate state over time.",
+        "A naive implementation might store every raw event in an array until the window closes, then calculate statistics at the end.",
+        "However, storing raw events in memory requires memory proportional to event volume, leading to buffer exhaustion under high traffic.",
+        "Efficient stream processors use online accumulation: updating running summary statistics incrementally as each event arrives.",
+        "For basic aggregations, an accumulator requires only a few primitive numbers: count, running sum, running min, and running max.",
+        "Online average is calculated simply by dividing the running sum by the running count at any point during window execution.",
+        "Online accumulation achieves O(1) constant memory per active window regardless of whether ten or ten million events are processed.",
+        "This dramatic memory savings allows a single Node.js process to maintain thousands of active analytical windows concurrently.",
+        "Designing lightweight online accumulators is a prerequisite for building production-grade high-throughput stream aggregators."
+      ],
+      "example": "A pedometer counting steps throughout the day; it increments an integer counter rather than storing a GPS coordinate for every footstep.",
+      "code": "interface WindowAccumulator {\n  windowStart: number;\n  windowEnd: number;\n  count: number;\n  sum: number;\n  min: number;\n  max: number;\n  get average(): number;\n}\n\nclass TumblingAggregator {\n  private windows = new Map<number, WindowAccumulator>();\n\n  constructor(private windowDurationMs: number) {}\n\n  addEvent(timestamp: number, value: number): void {\n    const start = timestamp - (timestamp % this.windowDurationMs);\n    let acc = this.windows.get(start);\n\n    if (!acc) {\n      acc = {\n        windowStart: start,\n        windowEnd: start + this.windowDurationMs,\n        count: 0,\n        sum: 0,\n        min: Infinity,\n        max: -Infinity,\n        get average() { return this.count === 0 ? 0 : Number((this.sum / this.count).toFixed(2)); }\n      };\n      this.windows.set(start, acc);\n    }\n\n    acc.count++;\n    acc.sum += value;\n    acc.min = Math.min(acc.min, value);\n    acc.max = Math.max(acc.max, value);\n  }\n\n  getWindows(): WindowAccumulator[] {\n    return Array.from(this.windows.values()).sort((a, b) => a.windowStart - b.windowStart);\n  }\n}\n\nconst agg = new TumblingAggregator(1000);\nagg.addEvent(1050, 10);\nagg.addEvent(1200, 30);\nagg.addEvent(1800, 20);\nagg.addEvent(2100, 100);\n\nagg.getWindows().forEach(w => {\n  console.log(`Window ${w.windowStart}-${w.windowEnd}: Count=${w.count}, Sum=${w.sum}, Avg=${w.average}, Min=${w.min}, Max=${w.max}`);\n});",
+      "output": "Window 1000-2000: Count=3, Sum=60, Avg=20, Min=10, Max=30\nWindow 2000-3000: Count=1, Sum=100, Avg=100, Min=100, Max=100",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Lightweight accumulator maintaining running aggregates in O(1) space."
+        },
+        {
+          "line": 31,
+          "note": "Incremental updates avoid storing raw event arrays in memory."
+        }
+      ],
+      "tryIt": "Add an event with a negative value and verify that min updates correctly.",
+      "check": {
+        "question": "Why do production stream processors use online accumulators instead of buffering raw event arrays?",
+        "options": [
+          "To maintain O(1) constant memory per window regardless of event volume, preventing memory leaks",
+          "Because JavaScript arrays cannot hold more than 100 items",
+          "Because online accumulators eliminate the need for CPU arithmetic"
+        ],
+        "why": "Online accumulation keeps a fixed set of counters (count, sum, min, max), consuming O(1) constant memory per window.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Keyed Tumbling Windows: Partitioned Multi-Entity Bucketing",
+      "say": [
+        "In real-world applications, streaming metrics are rarely aggregated across the entire system as a monolithic whole.",
+        "Instead, aggregations must be partitioned per entity, such as per user ID, per stock ticker, or per IoT device sensor.",
+        "A Keyed Tumbling Window partitions incoming events first by grouping key, and then by temporal window interval.",
+        "Each unique key-window combination maintains its own independent accumulator state isolated from all other keys.",
+        "For example, a financial exchange calculates one-minute trading volume independently for Apple, Microsoft, and Google stocks.",
+        "In TypeScript, a keyed window store can be structured as a composite map with composite keys like ticker:windowStart.",
+        "When an event arrives, the processor extracts its key, calculates its window start, and updates the dedicated key-window accumulator.",
+        "Keyed partitioning allows stream engines to distribute state across multiple worker partitions in parallel without cross-talk.",
+        "Keyed tumbling windows are the foundational primitive powering real-time multi-tenant dashboards and per-user rate limiters."
+      ],
+      "example": "A supermarket checkout tally where each cash register computes its own 1-hour sales totals independently of other registers.",
+      "code": "interface TradeEvent {\n  ticker: string;\n  timestamp: number;\n  shares: number;\n}\n\ninterface KeyedWindowRecord {\n  ticker: string;\n  windowStart: number;\n  count: number;\n  totalShares: number;\n}\n\nclass KeyedTumblingWindowEngine {\n  private state = new Map<string, KeyedWindowRecord>();\n\n  constructor(private windowDurationMs: number) {}\n\n  process(trade: TradeEvent): void {\n    const start = trade.timestamp - (trade.timestamp % this.windowDurationMs);\n    const stateKey = `${trade.ticker}:${start}`;\n\n    const existing = this.state.get(stateKey) || {\n      ticker: trade.ticker,\n      windowStart: start,\n      count: 0,\n      totalShares: 0\n    };\n\n    existing.count++;\n    existing.totalShares += trade.shares;\n    this.state.set(stateKey, existing);\n  }\n\n  getResults(): KeyedWindowRecord[] {\n    return Array.from(this.state.values()).sort((a, b) => a.windowStart - b.windowStart || a.ticker.localeCompare(b.ticker));\n  }\n}\n\nconst engine = new KeyedTumblingWindowEngine(100);\nengine.process({ ticker: \"AAPL\", timestamp: 120, shares: 50 });\nengine.process({ ticker: \"MSFT\", timestamp: 140, shares: 30 });\nengine.process({ ticker: \"AAPL\", timestamp: 180, shares: 100 });\nengine.process({ ticker: \"AAPL\", timestamp: 210, shares: 25 });\n\nengine.getResults().forEach(r => {\n  console.log(`[${r.ticker}] Win @ ${r.windowStart}ms -> Trades: ${r.count}, Total Shares: ${r.totalShares}`);\n});",
+      "output": "[AAPL] Win @ 100ms -> Trades: 2, Total Shares: 150\n[MSFT] Win @ 100ms -> Trades: 1, Total Shares: 30\n[AAPL] Win @ 200ms -> Trades: 1, Total Shares: 25",
+      "codeNotes": [
+        {
+          "line": 19,
+          "note": "Composite key combining partition entity and window start timestamp."
+        },
+        {
+          "line": 44,
+          "note": "Demonstrates independent tracking per entity across consecutive 100ms tumbling windows."
+        }
+      ],
+      "tryIt": "Add trades for a third ticker (e.g., TSLA) and observe the keyed partition output.",
+      "check": {
+        "question": "How does a keyed tumbling window isolate aggregations between different entities?",
+        "options": [
+          "It maps state using a composite key of entityId and windowStart, maintaining independent accumulators",
+          "It spins up a new operating system process for each incoming key",
+          "It forces all entities to share a single global counter"
+        ],
+        "why": "A composite key (key + windowStart) isolates accumulator state per entity per temporal window.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Window Closing, Triggering & Downstream Emission",
+      "say": [
+        "A tumbling window cannot accumulate events forever; at some point, it must finalize its calculation and emit the result.",
+        "The condition that determines when a window is finished is called the window trigger or emission condition.",
+        "In simple processing-time systems, a window trigger can be driven by a wall-clock timer that fires when the window duration passes.",
+        "When the trigger fires, the accumulated state is converted into a finalized analytical event and published to a downstream topic.",
+        "Once a window has closed and emitted its payload, downstream consumers can safely rely on the aggregate as complete.",
+        "Downstream consumers might include real-time charting dashboards, database persistence workers, or alerting webhooks.",
+        "Emission should decouple state finalization from network dispatch so that slow consumers do not stall window processing.",
+        "In event-time streaming, emission is coordinated by watermarks, which provide formal mathematical guarantees of completeness.",
+        "Triggering and emission transform static in-memory aggregations into dynamic real-time event streams."
+      ],
+      "example": "An hourly bell tower that chimes at the end of each hour, signaling workers that the current hour's shift is complete.",
+      "code": "interface WindowAggregateResult {\n  windowStart: number;\n  windowEnd: number;\n  totalCount: number;\n  totalVolume: number;\n}\n\nclass WindowEmissionManager {\n  private activeWindows = new Map<number, { count: number; volume: number }>();\n  private emittedResults: WindowAggregateResult[] = [];\n\n  constructor(private windowDurationMs: number) {}\n\n  ingest(timestamp: number, volume: number): void {\n    const start = timestamp - (timestamp % this.windowDurationMs);\n    const current = this.activeWindows.get(start) || { count: 0, volume: 0 };\n    current.count++;\n    current.volume += volume;\n    this.activeWindows.set(start, current);\n  }\n\n  // Trigger emission for any window whose end timestamp is <= currentWatermark\n  triggerEmissions(watermarkTs: number): WindowAggregateResult[] {\n    const closed: WindowAggregateResult[] = [];\n\n    for (const [start, data] of this.activeWindows.entries()) {\n      const end = start + this.windowDurationMs;\n      if (end <= watermarkTs) {\n        const result: WindowAggregateResult = {\n          windowStart: start,\n          windowEnd: end,\n          totalCount: data.count,\n          totalVolume: data.volume\n        };\n        closed.push(result);\n        this.emittedResults.push(result);\n        this.activeWindows.delete(start);\n      }\n    }\n    return closed;\n  }\n\n  getEmitted(): WindowAggregateResult[] {\n    return this.emittedResults;\n  }\n}\n\nconst manager = new WindowEmissionManager(1000);\nmanager.ingest(1050, 15);\nmanager.ingest(1400, 25);\nmanager.ingest(2100, 80);\n\n// Clock advances to 2000ms: Window 1000-2000 closes!\nconst emittedBatch1 = manager.triggerEmissions(2000);\nconsole.log(\"Emitted Batch 1 Count:\", emittedBatch1.length);\nemittedBatch1.forEach(e => console.log(`EMITTED: Window [${e.windowStart}, ${e.windowEnd}) -> Count: ${e.totalCount}, Vol: ${e.totalVolume}`));\n\n// Clock advances to 3500ms: Window 2000-3000 closes!\nconst emittedBatch2 = manager.triggerEmissions(3500);\nconsole.log(\"Emitted Batch 2 Count:\", emittedBatch2.length);\nemittedBatch2.forEach(e => console.log(`EMITTED: Window [${e.windowStart}, ${e.windowEnd}) -> Count: ${e.totalCount}, Vol: ${e.totalVolume}`));",
+      "output": "Emitted Batch 1 Count: 1\nEMITTED: Window [1000, 2000) -> Count: 2, Vol: 40\nEmitted Batch 2 Count: 1\nEMITTED: Window [2000, 3000) -> Count: 1, Vol: 80",
+      "codeNotes": [
+        {
+          "line": 22,
+          "note": "Emission trigger comparing windowEnd against advancing clock watermark."
+        },
+        {
+          "line": 31,
+          "note": "Deletes emitted window from active state map to free memory."
+        }
+      ],
+      "tryIt": "Ingest an event at 2900ms before triggering at 3500ms and verify the total volume updates.",
+      "check": {
+        "question": "Why should active window state be deleted immediately after emission?",
+        "options": [
+          "To reclaim memory and prevent unbounded state growth in long-running streaming processes",
+          "Because JavaScript Maps cannot hold keys older than 5 minutes",
+          "To prevent the downstream database from overwriting records"
+        ],
+        "why": "Deleting closed windows reclaims memory, ensuring the processor runs indefinitely without memory leaks.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Production Window Aggregator & Memory Lifecycle Management",
+      "say": [
+        "In production environments, streaming applications run continuously for weeks, months, or years without scheduled restarts.",
+        "If a window processor retains expired window metadata indefinitely, memory consumption climbs steadily until OOM crash.",
+        "Therefore, an enterprise windowing engine must implement strict lifecycle management and automated state eviction policies.",
+        "Active windows must be automatically culled once they are emitted, and late-arriving events outside retention bounds rejected.",
+        "Furthermore, memory footprint can be minimized by storing compact packed objects rather than bloated object graphs.",
+        "Telemetry gauges should monitor active window count, total in-memory accumulators, and eviction rate in real time.",
+        "When memory pressure exceeds safe operational thresholds, aggressive eviction can shed old windows to preserve core stability.",
+        "Writing clean, bounded lifecycle code ensures that tumbling window processors maintain predictable flat memory profiles.",
+        "Today's principles establish the stateful computational foundation required for advanced temporal stream analytics."
+      ],
+      "example": "A physical desk calendar where completed past months are torn off and recycled so paper never piles up to the ceiling.",
+      "code": "interface PipelineEvent {\n  timestamp: number;\n  value: number;\n}\n\nclass BoundedTumblingEngine {\n  private activeWindows = new Map<number, { count: number; sum: number }>();\n  private maxActiveWindows: number;\n\n  constructor(private durationMs: number, maxWindows: number = 5) {\n    this.maxActiveWindows = maxWindows;\n  }\n\n  process(event: PipelineEvent): boolean {\n    const start = event.timestamp - (event.timestamp % this.durationMs);\n\n    // Evict oldest if capacity exceeded\n    if (!this.activeWindows.has(start) && this.activeWindows.size >= this.maxActiveWindows) {\n      const oldestKey = Math.min(...this.activeWindows.keys());\n      this.activeWindows.delete(oldestKey);\n    }\n\n    const current = this.activeWindows.get(start) || { count: 0, sum: 0 };\n    current.count++;\n    current.sum += event.value;\n    this.activeWindows.set(start, current);\n    return true;\n  }\n\n  getActiveWindowCount(): number {\n    return this.activeWindows.size;\n  }\n\n  snapshot(): { start: number; count: number; sum: number }[] {\n    return Array.from(this.activeWindows.entries())\n      .map(([start, data]) => ({ start, count: data.count, sum: data.sum }))\n      .sort((a, b) => a.start - b.start);\n  }\n}\n\nconst engine = new BoundedTumblingEngine(1000, 3);\n// Ingest events across 4 distinct windows\nengine.process({ timestamp: 1050, value: 10 });\nengine.process({ timestamp: 2050, value: 20 });\nengine.process({ timestamp: 3050, value: 30 });\nconsole.log(\"Active Windows (at capacity 3):\", engine.getActiveWindowCount());\n\n// Ingest event for a 4th window: oldest window (1000) is evicted\nengine.process({ timestamp: 4050, value: 40 });\nconsole.log(\"Active Windows after 4th window:\", engine.getActiveWindowCount());\nconsole.log(\"Current Retained Windows:\", JSON.stringify(engine.snapshot()));",
+      "output": "Active Windows (at capacity 3): 3\nActive Windows after 4th window: 3\nCurrent Retained Windows: [{\"start\":2000,\"count\":1,\"sum\":20},{\"start\":3000,\"count\":1,\"sum\":30},{\"start\":4000,\"count\":1,\"sum\":40}]",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Bounded capacity guard evicting oldest window when threshold is reached."
+        },
+        {
+          "line": 47,
+          "note": "Demonstrates bounded state memory: window 1000 is safely evicted when window 4000 arrives."
+        }
+      ],
+      "tryIt": "Increase maxWindows to 4 and confirm that all 4 windows are retained in the snapshot.",
+      "check": {
+        "question": "How does a bounded window engine prevent memory leaks under unexpected traffic patterns?",
+        "options": [
+          "By capping the maximum number of active windows and evicting the oldest expired buckets",
+          "By pausing the CPU when memory reaches 50%",
+          "By writing all events directly to local disk files without buffering"
+        ],
+        "why": "Capping active window capacity and evicting expired buckets enforces an upper bound on memory usage.",
+        "answer": 0
+      }
+    }
+  ],
+  "summary": [
+    "Tumbling windows slice unbounded event streams into fixed-duration, non-overlapping time intervals.",
+    "Epoch integer division deterministic aligns window boundaries across distributed streaming nodes.",
+    "Online accumulators maintain running counts, sums, and averages in O(1) constant memory per window.",
+    "Keyed tumbling windows partition state by entity and window, isolating metrics per tenant or device.",
+    "Automated window triggering and state eviction guarantee flat memory profiles in continuous production runs."
+  ],
+  "projectStep": {
+    "title": "Implement the Fixed-Interval Tumbling Window Engine",
+    "steps": [
+      "Implement epoch-anchored timestamp bucketing to partition events into discrete [start, end) intervals.",
+      "Build O(1) online accumulators computing running counts, sums, minimums, maximums, and averages.",
+      "Construct a keyed window coordinator with watermark-triggered emissions and automated memory eviction."
+    ]
+  }
+},
+{
+  "day": 18,
+  "title": "Sliding (Hopping) Windows & Overlapping Interval Analytics",
+  "goal": "Master overlapping sliding (hopping) window analytics: duration vs slide interval parameters, multi-bucket event membership calculation, rolling accumulators (sum, max, moving averages), incremental state maintenance, and time-based state eviction.",
+  "minutes": 25,
+  "recap": "Yesterday we built tumbling windows that chunk time into discrete non-overlapping intervals. Today we advance to Sliding (Hopping) Windows, which maintain overlapping temporal horizons to compute smooth, continuously updating rolling analytics.",
+  "parts": [
+    {
+      "title": "Sliding vs Tumbling: Overlapping Horizons & Rolling Metrics",
+      "say": [
+        "While tumbling windows work well for periodic reports, they create abrupt step-function transitions at boundary edges.",
+        "For example, a spike in API error rate occurring across minute 0:59 and 1:01 gets split between two separate hourly tumbling windows.",
+        "Neither window independently sees the full magnitude of the burst, masking the severity of the operational incident.",
+        "Sliding Windows (also known as Hopping Windows) solve this by maintaining overlapping time intervals that advance frequently.",
+        "A sliding window is parameterized by two distinct values: the window duration and the slide (or hop) advance interval.",
+        "When the window duration exceeds the slide interval, adjacent windows overlap with each other in time.",
+        "For example, a system can maintain a 10-minute rolling error window that recalculates and slides forward every 1 minute.",
+        "This produces smooth, continuous trend telemetry that detects spikes rapidly without waiting for long intervals to close.",
+        "Sliding windows are the core primitive behind fraud velocity checks, dynamic rate limiting, and real-time anomaly detection."
+      ],
+      "example": "A moving security spotlight that slides slowly along a perimeter wall, illuminating overlapping segments of fence continuously.",
+      "code": "interface SlidingWindowConfig {\n  durationMs: number;\n  slideIntervalMs: number;\n}\n\nfunction calculateOverlapRatio(config: SlidingWindowConfig): number {\n  if (config.slideIntervalMs >= config.durationMs) return 1; // Tumbling or gapped\n  return config.durationMs / config.slideIntervalMs;\n}\n\nconst config1: SlidingWindowConfig = { durationMs: 60000, slideIntervalMs: 60000 }; // Tumbling\nconst config2: SlidingWindowConfig = { durationMs: 60000, slideIntervalMs: 10000 }; // 1-minute window sliding every 10s\nconst config3: SlidingWindowConfig = { durationMs: 300000, slideIntervalMs: 60000 }; // 5-minute window sliding every 1m\n\nconsole.log(\"Config 1 Overlap Factor:\", calculateOverlapRatio(config1), \"(Tumbling)\");\nconsole.log(\"Config 2 Overlap Factor:\", calculateOverlapRatio(config2), \"(Each event in 6 windows)\");\nconsole.log(\"Config 3 Overlap Factor:\", calculateOverlapRatio(config3), \"(Each event in 5 windows)\");",
+      "output": "Config 1 Overlap Factor: 1 (Tumbling)\nConfig 2 Overlap Factor: 6 (Each event in 6 windows)\nConfig 3 Overlap Factor: 5 (Each event in 5 windows)",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Overlap ratio indicates how many concurrent windows share each event."
+        },
+        {
+          "line": 15,
+          "note": "A 60s window sliding every 10s means each event contributes to 6 overlapping windows."
+        }
+      ],
+      "tryIt": "Calculate the overlap factor for a 15-minute window sliding every 30 seconds.",
+      "check": {
+        "question": "Under what condition does a hopping window become an overlapping sliding window?",
+        "options": [
+          "When the window duration is strictly greater than the slide advance interval",
+          "When the slide interval is greater than the window duration",
+          "When the window duration equals zero"
+        ],
+        "why": "When duration > slide, consecutive windows overlap in time, sharing events across multiple concurrent intervals.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Multi-Bucket Event Membership Math",
+      "say": [
+        "In a tumbling window system, an event with timestamp T belongs to exactly one window bucket.",
+        "In an overlapping sliding window system, an event with timestamp T belongs to multiple concurrent overlapping windows.",
+        "To find all windows containing event T, we determine every valid window start where windowStart <= T < windowStart + duration.",
+        "Mathematically, the earliest window that can contain event T starts at T minus duration plus slide interval, rounded to slide grid.",
+        "The latest window that can contain event T starts at T minus T modulo slide interval.",
+        "Stepping forward by slideInterval from the earliest start to the latest start generates all valid window boundaries.",
+        "Each valid window is defined by half-open boundaries: [windowStart, windowStart + durationMs).",
+        "Because this calculation is pure arithmetic, an event's multi-bucket assignments can be computed in O(Overlap) time.",
+        "Understanding multi-bucket membership is essential for correctly routing events to all active overlapping aggregators."
+      ],
+      "example": "A runner who starts running at 12:15; their effort is included in the 12:00-12:30, 12:10-12:40, and 12:15-12:45 time slots.",
+      "code": "interface WindowInterval {\n  windowStart: number;\n  windowEnd: number;\n}\n\nfunction getSlidingWindowBuckets(\n  timestamp: number,\n  durationMs: number,\n  slideMs: number\n): WindowInterval[] {\n  const buckets: WindowInterval[] = [];\n  const latestStart = timestamp - (timestamp % slideMs);\n  const earliestStart = Math.max(0, latestStart - durationMs + slideMs);\n\n  for (let start = earliestStart; start <= latestStart; start += slideMs) {\n    if (timestamp >= start && timestamp < start + durationMs) {\n      buckets.push({\n        windowStart: start,\n        windowEnd: start + durationMs\n      });\n    }\n  }\n  return buckets;\n}\n\nconst eventTs = 2500; // Event at 2.5s\nconst duration = 2000; // 2s duration\nconst slide = 1000; // 1s slide\n\nconst assignedBuckets = getSlidingWindowBuckets(eventTs, duration, slide);\nconsole.log(`Event at ${eventTs}ms belongs to ${assignedBuckets.length} overlapping windows:`);\nassignedBuckets.forEach(b => console.log(` -> Window [${b.windowStart}, ${b.windowEnd}) contains ${eventTs}ms`));",
+      "output": "Event at 2500ms belongs to 2 overlapping windows:\n -> Window [1000, 3000) contains 2500ms\n -> Window [2000, 4000) contains 2500ms",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Calculates earliest and latest window start boundaries on the slide grid."
+        },
+        {
+          "line": 28,
+          "note": "Event at 2500ms correctly falls into windows [1000, 3000) and [2000, 4000)."
+        }
+      ],
+      "tryIt": "Change duration to 3000ms with slide 1000ms and verify the event belongs to 3 windows.",
+      "check": {
+        "question": "If an event timestamp is 1500, window duration is 1000, and slide is 500, which windows contain the event?",
+        "options": [
+          "[1000, 2000) and [1500, 2500)",
+          "[500, 1500) and [1000, 2000)",
+          "Only [1500, 2500)"
+        ],
+        "why": "At ts=1500: [1000, 2000) contains 1500 (1000 <= 1500 < 2000) and [1500, 2500) contains 1500 (1500 <= 1500 < 2500).",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Incremental State Accumulation Across Hopping Slices",
+      "say": [
+        "When an event belongs to N overlapping windows, naive processors might duplicate the event N times in storage.",
+        "Duplicating raw event data across multiple overlapping window buffers multiplies memory consumption and garbage collection load.",
+        "Instead of storing raw events, high-performance engines maintain independent online accumulators for each active window start.",
+        "When an incoming event arrives, the processor determines all active window starts and updates their accumulators in place.",
+        "Each accumulator tracks running metrics such as event count, running sum, and extreme values (minimum and maximum).",
+        "Alternatively, engines can bucket events into non-overlapping 'panes' of size equal to slide interval, and combine panes.",
+        "Combining small slide-sized panes into larger composite windows reduces redundant arithmetic across overlapping boundaries.",
+        "Both approaches ensure that state updates execute in predictable O(K) time where K is the window overlap factor.",
+        "Incremental accumulation guarantees microsecond processing latency even under intense real-time transaction streams."
+      ],
+      "example": "A baker tracking weekly flour usage by recording daily bag counts, then summing the last 7 daily totals to find the rolling weekly sum.",
+      "code": "interface RollingWindowStats {\n  windowStart: number;\n  count: number;\n  sum: number;\n}\n\nclass SlidingWindowAggregator {\n  private activeWindows = new Map<number, RollingWindowStats>();\n\n  constructor(private durationMs: number, private slideMs: number) {}\n\n  addEvent(timestamp: number, value: number): void {\n    const latestStart = timestamp - (timestamp % this.slideMs);\n    const earliestStart = Math.max(0, latestStart - this.durationMs + this.slideMs);\n\n    for (let start = earliestStart; start <= latestStart; start += this.slideMs) {\n      if (timestamp >= start && timestamp < start + this.durationMs) {\n        const stats = this.activeWindows.get(start) || { windowStart: start, count: 0, sum: 0 };\n        stats.count++;\n        stats.sum += value;\n        this.activeWindows.set(start, stats);\n      }\n    }\n  }\n\n  getSnapshots(): RollingWindowStats[] {\n    return Array.from(this.activeWindows.values()).sort((a, b) => a.windowStart - b.windowStart);\n  }\n}\n\nconst agg = new SlidingWindowAggregator(20, 10); // 20ms duration, 10ms slide\nagg.addEvent(5, 100);\nagg.addEvent(12, 50);\nagg.addEvent(18, 30);\nagg.addEvent(25, 70);\n\nconsole.log(\"Sliding Aggregates Summary:\");\nagg.getSnapshots().forEach(s => {\n  console.log(`Window @ ${s.windowStart}ms: Count=${s.count}, TotalSum=${s.sum}`);\n});",
+      "output": "Sliding Aggregates Summary:\nWindow @ 0ms: Count=3, TotalSum=180\nWindow @ 10ms: Count=3, TotalSum=150\nWindow @ 20ms: Count=1, TotalSum=70",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Updates all overlapping window accumulators in a single pass without copying events."
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates event at 12ms and 18ms contributing to multiple overlapping windows."
+        }
+      ],
+      "tryIt": "Add an event at timestamp 22ms and observe which windows see its contribution.",
+      "check": {
+        "question": "How does online incremental accumulation optimize memory in sliding window processors?",
+        "options": [
+          "It updates running accumulator counters for each overlapping window rather than storing duplicate raw event copies",
+          "It compresses raw event payloads using gzip before writing to RAM",
+          "It discards events that arrive during the slide interval"
+        ],
+        "why": "Incremental accumulation maintains compact numerical counters per window start, avoiding raw event duplication.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Rolling Max, Min & Moving Averages",
+      "say": [
+        "In production observability and quantitative trading, calculating rolling averages and rolling peaks is critical.",
+        "A rolling moving average smooths high-frequency noise, revealing underlying trends in latency, CPU load, or asset prices.",
+        "Rolling maximums identify severe transient spikes such as sudden traffic surges or extreme transaction amounts.",
+        "While counts and sums are trivially invertible, tracking rolling maximums and minimums over time is subtly complex.",
+        "When an event containing the maximum value leaves an expired window, the second-highest value must become the new max.",
+        "For moderate window sizes, tracking recent values within active panes allows precise recalculation of rolling extremes.",
+        "Alternatively, maintaining a monotonic double-ended queue (deque) allows finding the rolling maximum in O(1) amortized time.",
+        "In TypeScript streaming, designing clear interfaces for rolling metrics allows downstream alert engines to react instantly.",
+        "Mastering rolling statistics empowers developers to implement robust fraud detection and automated autoscaling triggers."
+      ],
+      "example": "A speedometer displaying the average speed and peak speed recorded over the past five minutes of driving.",
+      "code": "interface RollingMetricPoint {\n  windowStart: number;\n  count: number;\n  sum: number;\n  max: number;\n  avg: number;\n}\n\nclass RollingMetricEngine {\n  private windows = new Map<number, { count: number; sum: number; max: number }>();\n\n  constructor(private durationMs: number, private slideMs: number) {}\n\n  ingest(timestamp: number, value: number): void {\n    const latestStart = timestamp - (timestamp % this.slideMs);\n    const earliestStart = Math.max(0, latestStart - this.durationMs + this.slideMs);\n\n    for (let start = earliestStart; start <= latestStart; start += this.slideMs) {\n      if (timestamp >= start && timestamp < start + this.durationMs) {\n        const acc = this.windows.get(start) || { count: 0, sum: 0, max: -Infinity };\n        acc.count++;\n        acc.sum += value;\n        acc.max = Math.max(acc.max, value);\n        this.windows.set(start, acc);\n      }\n    }\n  }\n\n  getMetrics(): RollingMetricPoint[] {\n    return Array.from(this.windows.entries())\n      .map(([start, acc]) => ({\n        windowStart: start,\n        count: acc.count,\n        sum: acc.sum,\n        max: acc.max,\n        avg: acc.count === 0 ? 0 : Number((acc.sum / acc.count).toFixed(2))\n      }))\n      .sort((a, b) => a.windowStart - b.windowStart);\n  }\n}\n\nconst engine = new RollingMetricEngine(200, 100);\nengine.ingest(50, 20);\nengine.ingest(120, 80);\nengine.ingest(160, 40);\nengine.ingest(250, 10);\n\nengine.getMetrics().forEach(m => {\n  console.log(`Rolling Window [${m.windowStart}, ${m.windowStart + 200}): Count=${m.count}, Max=${m.max}, Avg=${m.avg}`);\n});",
+      "output": "Rolling Window [0, 200): Count=3, Max=80, Avg=46.67\nRolling Window [100, 300): Count=3, Max=80, Avg=43.33\nRolling Window [200, 400): Count=1, Max=10, Avg=10",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "Updates count, sum, and max across all overlapping window horizons."
+        },
+        {
+          "line": 45,
+          "note": "Demonstrates peak detection: window [0, 200) records max=80, while [200, 400) records max=10."
+        }
+      ],
+      "tryIt": "Ingest an extreme value of 500 at timestamp 180 and observe how max and avg reflect the spike.",
+      "check": {
+        "question": "Why is calculating rolling maximums across sliding windows more challenging than rolling sums?",
+        "options": [
+          "Because when the maximum value expires out of the window, the next highest value must be determined",
+          "Because maximums cannot be represented as 64-bit floating point numbers",
+          "Because rolling maximums require network calls to compute"
+        ],
+        "why": "Sums and counts can be updated subtractively, but when an expired event was the window maximum, determining the new maximum requires retained state.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "State Expiration & Slide-Window Garbage Collection",
+      "say": [
+        "Because sliding windows advance frequently, dozens or hundreds of overlapping windows are created every hour.",
+        "If old sliding windows remain in memory after their time horizon has fully elapsed, the process will inevitably run out of RAM.",
+        "Therefore, sliding window processors must enforce proactive time-based state expiration and garbage collection.",
+        "As time advances, any window whose end boundary is strictly less than the current processing watermark is marked expired.",
+        "When a window expires, its final metric payload is emitted to downstream subscribers and its key is purged from the Map.",
+        "In Node.js, Map deletions release internal bucket references, allowing the V8 garbage collector to reclaim memory immediately.",
+        "Eviction can be triggered periodically via timer loops or inline during new event ingestion.",
+        "Maintaining a bounded active window set guarantees deterministic O(1) memory footprint regardless of stream duration.",
+        "Rigorous eviction protocols ensure that production sliding window services maintain sub-millisecond query performance indefinitely."
+      ],
+      "example": "A restaurant queue display that deletes completed order tickets as soon as the customer picks up their meal.",
+      "code": "interface ExpiringWindowRecord {\n  windowStart: number;\n  windowEnd: number;\n  sum: number;\n}\n\nclass PruningSlidingEngine {\n  private windows = new Map<number, ExpiringWindowRecord>();\n\n  constructor(private durationMs: number, private slideMs: number) {}\n\n  add(timestamp: number, value: number): void {\n    const latestStart = timestamp - (timestamp % this.slideMs);\n    const earliestStart = Math.max(0, latestStart - this.durationMs + this.slideMs);\n\n    for (let start = earliestStart; start <= latestStart; start += this.slideMs) {\n      if (timestamp >= start && timestamp < start + this.durationMs) {\n        const w = this.windows.get(start) || { windowStart: start, windowEnd: start + this.durationMs, sum: 0 };\n        w.sum += value;\n        this.windows.set(start, w);\n      }\n    }\n  }\n\n  // Purge any window whose end timestamp is <= watermark\n  pruneExpired(watermark: number): ExpiringWindowRecord[] {\n    const evicted: ExpiringWindowRecord[] = [];\n    for (const [start, record] of this.windows.entries()) {\n      if (record.windowEnd <= watermark) {\n        evicted.push(record);\n        this.windows.delete(start);\n      }\n    }\n    return evicted;\n  }\n\n  getActiveCount(): number {\n    return this.windows.size;\n  }\n}\n\nconst pruner = new PruningSlidingEngine(100, 50); // 100ms window, 50ms slide\npruner.add(20, 10);\npruner.add(60, 20);\npruner.add(110, 30);\n\nconsole.log(\"Initial Active Windows:\", pruner.getActiveCount());\n\n// Watermark advances to 100ms: Window [0, 100) expires!\nconst purged1 = pruner.pruneExpired(100);\nconsole.log(\"Purged Windows at 100ms:\", purged1.length);\npurged1.forEach(p => console.log(` -> Evicted Window [${p.windowStart}, ${p.windowEnd}) with Sum=${p.sum}`));\nconsole.log(\"Remaining Active Windows:\", pruner.getActiveCount());",
+      "output": "Initial Active Windows: 3\nPurged Windows at 100ms: 1\n -> Evicted Window [0, 100) with Sum=30\nRemaining Active Windows: 2",
+      "codeNotes": [
+        {
+          "line": 25,
+          "note": "Pruning logic identifying and deleting windows where windowEnd <= watermark."
+        },
+        {
+          "line": 49,
+          "note": "Window [0, 100) has elapsed and is evicted, freeing state memory."
+        }
+      ],
+      "tryIt": "Advance watermark to 160ms and check how many additional windows are evicted.",
+      "check": {
+        "question": "When is a sliding window considered safe to evict and garbage collect from memory?",
+        "options": [
+          "When the current watermark is greater than or equal to the window's end timestamp",
+          "As soon as the first event arrives in the window",
+          "Only when the entire process is shut down"
+        ],
+        "why": "A window can only be closed and evicted once time has progressed past its end boundary, guaranteeing no more on-time events belong to it.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "High-Frequency Rolling Anomaly Metric Engine",
+      "say": [
+        "To consolidate today's learning, we now construct a high-frequency real-time financial anomaly detector.",
+        "In payment processing networks, card fraud often manifests as rapid clusters of micro-transactions within short intervals.",
+        "A 30-second rolling sliding window advancing every 5 seconds continuously evaluates transaction frequency and total volume.",
+        "If a single user card generates more than a threshold velocity of transactions within any active window, an alert is triggered.",
+        "The engine maintains keyed sliding window state per user, evaluates thresholds on each event, and evicts stale windows.",
+        "Because multiple overlapping windows are tracked simultaneously, velocity bursts are detected within seconds of occurrence.",
+        "This architecture powers modern fraud prevention, anti-scraping firewalls, and algorithmic trading safety circuits.",
+        "Writing robust, memory-conscious sliding window engines in TypeScript bridges stream processing theory with enterprise practice.",
+        "Mastering sliding windows prepares you for complex session windows and temporal stream-stream joins in future lessons."
+      ],
+      "example": "A credit card security engine that blocks a card after 4 rapid transactions occur within any 30-second rolling interval.",
+      "code": "interface CardTransaction {\n  cardId: string;\n  timestamp: number;\n  amount: number;\n}\n\ninterface VelocityAlert {\n  cardId: string;\n  windowStart: number;\n  windowEnd: number;\n  txCount: number;\n  totalVolume: number;\n}\n\nclass SlidingAnomalyDetector {\n  private userWindows = new Map<string, { count: number; volume: number }>();\n\n  constructor(\n    private durationMs: number,\n    private slideMs: number,\n    private maxTxCountThreshold: number\n  ) {}\n\n  processTransaction(tx: CardTransaction): VelocityAlert | null {\n    const latestStart = tx.timestamp - (tx.timestamp % this.slideMs);\n    const earliestStart = Math.max(0, latestStart - this.durationMs + this.slideMs);\n    let triggeredAlert: VelocityAlert | null = null;\n\n    for (let start = earliestStart; start <= latestStart; start += this.slideMs) {\n      if (tx.timestamp >= start && tx.timestamp < start + this.durationMs) {\n        const key = `${tx.cardId}:${start}`;\n        const state = this.userWindows.get(key) || { count: 0, volume: 0 };\n        state.count++;\n        state.volume += tx.amount;\n        this.userWindows.set(key, state);\n\n        if (state.count >= this.maxTxCountThreshold && !triggeredAlert) {\n          triggeredAlert = {\n            cardId: tx.cardId,\n            windowStart: start,\n            windowEnd: start + this.durationMs,\n            txCount: state.count,\n            totalVolume: state.volume\n          };\n        }\n      }\n    }\n    return triggeredAlert;\n  }\n}\n\n// 1000ms window sliding every 200ms, alert on >= 3 transactions\nconst detector = new SlidingAnomalyDetector(1000, 200, 3);\nconst card = \"card-4412\";\n\nconst t1 = detector.processTransaction({ cardId: card, timestamp: 100, amount: 25 });\nconst t2 = detector.processTransaction({ cardId: card, timestamp: 250, amount: 15 });\nconst t3 = detector.processTransaction({ cardId: card, timestamp: 400, amount: 50 }); // 3rd tx: Trigger!\n\nconsole.log(\"Tx 1 Alert:\", t1);\nconsole.log(\"Tx 2 Alert:\", t2);\nconsole.log(\"Tx 3 Alert Detected:\", t3 ? `ALERT on ${t3.cardId}: ${t3.txCount} txs totaling $${t3.totalVolume} in win [${t3.windowStart}, ${t3.windowEnd})` : \"None\");",
+      "output": "Tx 1 Alert: null\nTx 2 Alert: null\nTx 3 Alert Detected: ALERT on card-4412: 3 txs totaling $90 in win [0, 1000)",
+      "codeNotes": [
+        {
+          "line": 26,
+          "note": "Updates all overlapping windows for the specific card user."
+        },
+        {
+          "line": 32,
+          "note": "Threshold check triggering alert immediately when transaction velocity hits limit."
+        }
+      ],
+      "tryIt": "Add a 4th transaction at timestamp 500 and verify count reaches 4 in the overlapping window.",
+      "check": {
+        "question": "Why are sliding windows preferred over tumbling windows for transaction velocity fraud alerts?",
+        "options": [
+          "Because sliding windows detect rapid transaction bursts regardless of whether they cross tumbling boundary edges",
+          "Because sliding windows use less CPU than tumbling windows",
+          "Because sliding windows never expire from memory"
+        ],
+        "why": "Sliding windows evaluate continuous rolling horizons, preventing transaction clusters from being artificially divided across fixed boundary edges.",
+        "answer": 0
+      }
+    }
+  ],
+  "summary": [
+    "Sliding (hopping) windows maintain overlapping temporal horizons defined by duration and slide advance interval.",
+    "When duration exceeds slide interval, each incoming event belongs to multiple concurrent overlapping window buckets.",
+    "Online incremental accumulation maintains running counters per window start without copying raw event payloads.",
+    "Rolling metrics (sum, max, moving average) smooth transient jitter while surfacing sharp anomalies and velocity spikes.",
+    "Proactive time-based state eviction purges elapsed windows, guaranteeing predictable flat memory consumption."
+  ],
+  "projectStep": {
+    "title": "Implement the Sliding Hopping Window Engine",
+    "steps": [
+      "Implement multi-bucket membership arithmetic to compute all overlapping window intervals containing an event timestamp.",
+      "Build incremental online accumulators maintaining running counts, sums, and rolling maximums per window start.",
+      "Construct a sliding window anomaly detector with automated state pruning based on advancing watermark timestamps."
+    ]
+  }
+},
+{
+  "day": 19,
+  "title": "Session Windows & Inactivity Gap Detection",
+  "goal": "Master dynamic session window stream processing: inactivity gap thresholds, user-specific data-driven windows, stateful session state machines, out-of-order event bridging, session merging algorithms, and session completion emissions.",
+  "minutes": 25,
+  "recap": "Yesterday we built overlapping sliding windows for rolling velocity metrics. Today we tackle Session Windows, where temporal boundaries are not fixed by the clock, but dynamically shaped by bursts of user activity and periods of idle inactivity.",
+  "parts": [
+    {
+      "title": "Session Windows: Dynamic Activity-Driven Intervals",
+      "say": [
+        "In user-facing digital applications, human behavior does not conform to rigid 5-minute or 1-hour clock boundaries.",
+        "A user might browse an e-commerce website actively for 12 minutes, step away for an hour, and return for another 4 minutes.",
+        "Dividing this user's interactions using fixed tumbling or sliding windows arbitrarily fragments their coherent shopping experience.",
+        "A Session Window is a dynamic, data-driven windowing primitive demarcated by periods of user activity and idle inactivity.",
+        "Unlike tumbling or sliding windows, session windows have variable durations and do not align to predefined epoch grids.",
+        "Furthermore, session windows are inherently keyed per entity: each user, IP address, or connected vehicle has their own session timeline.",
+        "A session window remains open as long as new events continue arriving before an inactivity gap timeout expires.",
+        "When an idle period exceeds the configured gap threshold, the session is considered closed and ready for downstream analytics.",
+        "Session windows are essential for calculating web session length, cart abandonment rates, and player engagement in online games."
+      ],
+      "example": "A phone call; the call begins when a participant speaks, stays active while they converse, and ends after a period of silence.",
+      "code": "interface UserAction {\n  userId: string;\n  action: string;\n  timestamp: number;\n}\n\ninterface UserSession {\n  userId: string;\n  sessionStart: number;\n  sessionEnd: number;\n  eventCount: number;\n  durationMs: number;\n}\n\nfunction summarizeSession(actions: UserAction[]): UserSession | null {\n  if (actions.length === 0) return null;\n  const sorted = [...actions].sort((a, b) => a.timestamp - b.timestamp);\n  const start = sorted[0].timestamp;\n  const end = sorted[sorted.length - 1].timestamp;\n\n  return {\n    userId: sorted[0].userId,\n    sessionStart: start,\n    sessionEnd: end,\n    eventCount: sorted.length,\n    durationMs: end - start\n  };\n}\n\nconst userEvents: UserAction[] = [\n  { userId: \"u-12\", action: \"view_home\", timestamp: 1000 },\n  { userId: \"u-12\", action: \"search_shoes\", timestamp: 1400 },\n  { userId: \"u-12\", action: \"add_to_cart\", timestamp: 2100 }\n];\n\nconst session = summarizeSession(userEvents);\nconsole.log(\"Constructed Dynamic Session:\", JSON.stringify(session));\nconsole.log(`User ${session?.userId} spent ${session?.durationMs}ms performing ${session?.eventCount} actions`);",
+      "output": "Constructed Dynamic Session: {\"userId\":\"u-12\",\"sessionStart\":1000,\"sessionEnd\":2100,\"eventCount\":3,\"durationMs\":1100}\nUser u-12 spent 1100ms performing 3 actions",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Computes dynamic session duration bounded by actual first and last event timestamps."
+        },
+        {
+          "line": 33,
+          "note": "Demonstrates variable-length session based purely on user activity."
+        }
+      ],
+      "tryIt": "Add a 4th event at timestamp 3500 and verify duration expands to 2500ms.",
+      "check": {
+        "question": "How do session windows differ fundamentally from tumbling and sliding windows?",
+        "options": [
+          "Session windows have variable, data-driven durations defined by user activity and idle timeouts rather than fixed clock grids",
+          "Session windows can only hold a maximum of 10 events",
+          "Session windows never close"
+        ],
+        "why": "Session windows expand dynamically with incoming activity and close only after an inactivity gap elapses.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "The Inactivity Gap Threshold & Online Segmentation",
+      "say": [
+        "The core governing parameter of every session window system is the Inactivity Gap Threshold (gapMs).",
+        "The inactivity gap defines the maximum allowable duration of silence between two consecutive events before a session divides.",
+        "If event B arrives within gapMs of event A, event B extends the current session's end boundary to event B's timestamp.",
+        "Conversely, if the elapsed time between event A and event B strictly exceeds gapMs, event A's session terminates.",
+        "Event B then initializes a brand new, independent session window with start and end equal to event B's timestamp.",
+        "Selecting an appropriate gap threshold depends on the business domain: e-commerce often uses 30 minutes, while gaming uses 5 minutes.",
+        "Too short a gap threshold fragments a continuous user journey into dozens of artificially small micro-sessions.",
+        "Too long a gap threshold groups completely unrelated morning and evening visits into an artificially bloated mega-session.",
+        "Online segmentation algorithms evaluate the gap threshold sequentially as events stream in, maintaining real-time session state."
+      ],
+      "example": "A motion-activated porch light that stays illuminated as long as someone is moving, turning off after 3 minutes of no motion.",
+      "code": "interface RawClick {\n  userId: string;\n  timestamp: number;\n}\n\ninterface ActiveSessionSlice {\n  userId: string;\n  start: number;\n  end: number;\n  count: number;\n}\n\nfunction segmentIntoSessions(events: RawClick[], gapMs: number): ActiveSessionSlice[] {\n  if (events.length === 0) return [];\n  const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);\n  const sessions: ActiveSessionSlice[] = [];\n\n  let cur: ActiveSessionSlice = {\n    userId: sorted[0].userId,\n    start: sorted[0].timestamp,\n    end: sorted[0].timestamp,\n    count: 1\n  };\n\n  for (let i = 1; i < sorted.length; i++) {\n    const e = sorted[i];\n    if (e.timestamp - cur.end <= gapMs) {\n      // Within gap: extend existing session\n      cur.end = e.timestamp;\n      cur.count++;\n    } else {\n      // Inactivity threshold breached: emit completed session and start new\n      sessions.push(cur);\n      cur = {\n        userId: e.userId,\n        start: e.timestamp,\n        end: e.timestamp,\n        count: 1\n      };\n    }\n  }\n  sessions.push(cur);\n  return sessions;\n}\n\nconst clicks: RawClick[] = [\n  { userId: \"u-1\", timestamp: 100 },\n  { userId: \"u-1\", timestamp: 160 },\n  { userId: \"u-1\", timestamp: 210 },\n  { userId: \"u-1\", timestamp: 600 }, // Gap = 390ms (> 200ms gap)\n  { userId: \"u-1\", timestamp: 650 }\n];\n\nconst segmented = segmentIntoSessions(clicks, 200);\nconsole.log(\"Total Clicks:\", clicks.length);\nconsole.log(\"Distinct Sessions Identified:\", segmented.length);\nsegmented.forEach((s, idx) => {\n  console.log(`Session ${idx + 1}: Start=${s.start}ms, End=${s.end}ms (Length=${s.end - s.start}ms, Events=${s.count})`);\n});",
+      "output": "Total Clicks: 5\nDistinct Sessions Identified: 2\nSession 1: Start=100ms, End=210ms (Length=110ms, Events=3)\nSession 2: Start=600ms, End=650ms (Length=50ms, Events=2)",
+      "codeNotes": [
+        {
+          "line": 24,
+          "note": "Checks if elapsed gap between events exceeds configured gapMs threshold."
+        },
+        {
+          "line": 49,
+          "note": "Correctly identifies 2 distinct sessions separated by an idle period of 390ms."
+        }
+      ],
+      "tryIt": "Increase gapMs to 400 and observe that all 5 clicks merge into a single continuous session.",
+      "check": {
+        "question": "What happens when the elapsed time between two consecutive user events exceeds the inactivity gap threshold?",
+        "options": [
+          "The preceding session is finalized and closed, and the second event initiates a new session",
+          "The stream processor crashes with an error",
+          "The second event is permanently deleted"
+        ],
+        "why": "When the inactivity gap is exceeded, the previous session is finalized and the new event begins a fresh session.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Stateful Session State Machine Architecture",
+      "say": [
+        "In production stream processors, events arrive continuously over network sockets rather than pre-sorted batch arrays.",
+        "To track sessions in real time, the streaming engine maintains an in-memory state machine for every active user.",
+        "The state machine tracks the active session boundaries, event counts, accumulated cart values, and last-seen timestamps.",
+        "When an event arrives, the engine looks up the user's active session state in a local key-value store.",
+        "If no active session exists or the previous session has timed out, a new session state record is allocated.",
+        "If an active session exists and timestamp minus lastSeen is within gapMs, the session end is extended and metrics updated.",
+        "The state machine can also schedule a deadline timer that fires when gapMs elapses without further events.",
+        "When the deadline timer fires, the engine closes the session and publishes a SessionCompletedEvent to downstream consumers.",
+        "Designing stateful session engines requires careful memory management to evict abandoned sessions gracefully."
+      ],
+      "example": "A parking garage ticket dispenser that registers an active parking ticket and marks it completed when the car exits the gate.",
+      "code": "interface ClickEvent {\n  userId: string;\n  page: string;\n  timestamp: number;\n}\n\ninterface ActiveSessionRecord {\n  userId: string;\n  start: number;\n  lastSeen: number;\n  pagesVisited: string[];\n}\n\nclass SessionStateMachine {\n  private sessions = new Map<string, ActiveSessionRecord>();\n\n  constructor(private gapMs: number) {}\n\n  processEvent(event: ClickEvent): { status: 'EXTENDED' | 'NEW_SESSION'; session: ActiveSessionRecord } {\n    const existing = this.sessions.get(event.userId);\n\n    if (existing) {\n      if (event.timestamp - existing.lastSeen <= this.gapMs) {\n        existing.lastSeen = event.timestamp;\n        existing.pagesVisited.push(event.page);\n        this.sessions.set(event.userId, existing);\n        return { status: 'EXTENDED', session: existing };\n      }\n    }\n\n    // New session initialized\n    const newSession: ActiveSessionRecord = {\n      userId: event.userId,\n      start: event.timestamp,\n      lastSeen: event.timestamp,\n      pagesVisited: [event.page]\n    };\n    this.sessions.set(event.userId, newSession);\n    return { status: 'NEW_SESSION', session: newSession };\n  }\n\n  getActiveSessions(): ActiveSessionRecord[] {\n    return Array.from(this.sessions.values());\n  }\n}\n\nconst sm = new SessionStateMachine(300);\nconsole.log(\"Evt 1:\", sm.processEvent({ userId: \"alice\", page: \"home\", timestamp: 100 }).status);\nconsole.log(\"Evt 2:\", sm.processEvent({ userId: \"alice\", page: \"pricing\", timestamp: 250 }).status);\nconsole.log(\"Evt 3 (Idle 400ms):\", sm.processEvent({ userId: \"alice\", page: \"checkout\", timestamp: 650 }).status);\nconsole.log(\"Active Session Count:\", sm.getActiveSessions().length);",
+      "output": "Evt 1: NEW_SESSION\nEvt 2: EXTENDED\nEvt 3 (Idle 400ms): NEW_SESSION\nActive Session Count: 1",
+      "codeNotes": [
+        {
+          "line": 20,
+          "note": "State machine evaluating inactivity threshold against current user session."
+        },
+        {
+          "line": 50,
+          "note": "Demonstrates transition from EXTENDED to NEW_SESSION when idle gap exceeds 300ms."
+        }
+      ],
+      "tryIt": "Add events for a second user ('bob') and verify sessions remain completely isolated.",
+      "check": {
+        "question": "How does the session state machine know whether an incoming event belongs to an existing session?",
+        "options": [
+          "It compares the event timestamp against the existing session's lastSeen timestamp using the gap threshold",
+          "It prompts the user to enter a session password",
+          "It reads the operating system's CPU clock"
+        ],
+        "why": "Comparing (eventTimestamp - lastSeen <= gapMs) determines whether the event continues the current session or starts a new one.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Out-Of-Order Event Arrival & Session Bridging",
+      "say": [
+        "In distributed architectures, network latency, mobile retries, and multi-partition routing cause events to arrive out of order.",
+        "Consider two separate sessions previously recorded for a user: Session 1 from 100ms to 200ms, and Session 2 from 500ms to 600ms.",
+        "Assume the inactivity gap threshold is 200ms, so Session 1 and Session 2 were correctly considered separate.",
+        "Now, imagine a late-arriving event with timestamp 350ms arrives from an offline mobile client that just reconnected.",
+        "The event at 350ms is within 150ms of Session 1 (350 - 200 = 150 <= 200) AND within 150ms of Session 2 (500 - 350 = 150 <= 200).",
+        "This late event acts as a 'bridge', proving that the user was actually active throughout the entire period.",
+        "Session 1 and Session 2 can no longer remain separate; they must be merged together into a single unified session spanning 100ms to 600ms.",
+        "Session merging is a unique challenge of streaming systems: late data does not just update a counter, it alters window topology.",
+        "Stream engines like Apache Flink and Kafka Streams implement sophisticated session merging algorithms to handle this reality."
+      ],
+      "example": "Two puzzle pieces that seemed unrelated until a third connector piece arrives and snaps them together into a single picture.",
+      "code": "interface SessionInterval {\n  id: string;\n  start: number;\n  end: number;\n}\n\nfunction canBridgeSessions(s1: SessionInterval, s2: SessionInterval, bridgingTs: number, gapMs: number): boolean {\n  const early = s1.start <= s2.start ? s1 : s2;\n  const late = s1.start <= s2.start ? s2 : s1;\n\n  const bridgesEarly = bridgingTs >= early.start && bridgingTs <= early.end + gapMs;\n  const bridgesLate = bridgingTs + gapMs >= late.start && bridgingTs <= late.end;\n  return bridgesEarly && bridgesLate;\n}\n\nconst sessionA: SessionInterval = { id: \"s-1\", start: 100, end: 200 };\nconst sessionB: SessionInterval = { id: \"s-2\", start: 500, end: 600 };\nconst gap = 200;\n\nconsole.log(\"Can ts=350 bridge S1 and S2?\", canBridgeSessions(sessionA, sessionB, 350, gap));\nconsole.log(\"Can ts=250 bridge S1 and S2?\", canBridgeSessions(sessionA, sessionB, 250, gap)); // 250 is too far from 500 (gap 250 > 200)\nconsole.log(\"Merged Interval if ts=350 arrives:\", `[${sessionA.start}, ${sessionB.end}]`);",
+      "output": "Can ts=350 bridge S1 and S2? true\nCan ts=250 bridge S1 and S2? false\nMerged Interval if ts=350 arrives: [100, 600]",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Evaluates whether late timestamp satisfies gap constraints to both adjacent sessions."
+        },
+        {
+          "line": 20,
+          "note": "Timestamp 350 bridges both sessions because 350-200 <= 200 and 500-350 <= 200."
+        }
+      ],
+      "tryIt": "Test with gap=100 and observe that timestamp 350 can no longer bridge the gap.",
+      "check": {
+        "question": "What is session bridging in stateful stream processing?",
+        "options": [
+          "The process where a late-arriving event connects two previously distinct sessions, requiring them to merge into one",
+          "Connecting two separate Kafka clusters over a VPN tunnel",
+          "Converting a JSON event into an Avro binary record"
+        ],
+        "why": "A late-arriving event whose timestamp falls within gapMs of two existing sessions bridges them, necessitating a merge.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Session Window Merging Algorithm",
+      "say": [
+        "To handle out-of-order arrivals and bridging events systematically, streaming engines implement a formal merge algorithm.",
+        "The algorithm takes a set of session intervals and a gap threshold, outputting a minimal set of non-overlapping merged intervals.",
+        "First, all session intervals are sorted in ascending order of their start timestamps.",
+        "We initialize an empty merged list and place the first session interval onto it as the current working session.",
+        "For each subsequent session, we check if its start timestamp is less than or equal to current working session's end plus gapMs.",
+        "If true, the sessions overlap or bridge: we extend current working session's end to the maximum of both end timestamps.",
+        "If false, the inactivity gap was not bridged: the working session is finalized and the new session becomes the working session.",
+        "This greedy interval merging algorithm runs in O(N log N) time due to sorting, and O(N) time if inputs are already ordered.",
+        "Implementing robust session merging ensures mathematical correctness regardless of network packet reordering."
+      ],
+      "example": "A snowplow operator merging several overlapping cleared road segments into one long continuous cleared highway.",
+      "code": "interface SessionSpan {\n  start: number;\n  end: number;\n}\n\nfunction mergeSessionWindows(sessions: SessionSpan[], gapMs: number): SessionSpan[] {\n  if (sessions.length <= 1) return [...sessions];\n\n  // Step 1: Sort by start timestamp ascending\n  const sorted = [...sessions].sort((a, b) => a.start - b.start);\n  const merged: SessionSpan[] = [sorted[0]];\n\n  // Step 2: Iterate and merge overlapping or bridging intervals\n  for (let i = 1; i < sorted.length; i++) {\n    const cur = sorted[i];\n    const prev = merged[merged.length - 1];\n\n    if (cur.start <= prev.end + gapMs) {\n      // Overlapping or within gap threshold: merge!\n      prev.end = Math.max(prev.end, cur.end);\n    } else {\n      // Distinct gap: push as new distinct session\n      merged.push(cur);\n    }\n  }\n\n  return merged;\n}\n\nconst rawSessions: SessionSpan[] = [\n  { start: 10, end: 30 },\n  { start: 40, end: 60 },\n  { start: 100, end: 120 }\n];\n\nconst mergedResults = mergeSessionWindows(rawSessions, 15);\nconsole.log(\"Raw Session Count:\", rawSessions.length);\nconsole.log(\"Merged Session Count (gap=15):\", mergedResults.length);\nmergedResults.forEach((s, idx) => {\n  console.log(`Merged Session ${idx + 1}: [${s.start}, ${s.end}] (Duration: ${s.end - s.start}ms)`);\n});",
+      "output": "Raw Session Count: 3\nMerged Session Count (gap=15): 2\nMerged Session 1: [10, 60] (Duration: 50ms)\nMerged Session 2: [100, 120] (Duration: 20ms)",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Sorts session intervals by start time to prepare for linear sweep."
+        },
+        {
+          "line": 17,
+          "note": "Merges intervals if cur.start <= prev.end + gapMs, expanding prev.end."
+        }
+      ],
+      "tryIt": "Add an interval { start: 70, end: 90 } and check if it merges with [10, 60] and [100, 120].",
+      "check": {
+        "question": "What is the computational complexity of merging N unordered session intervals?",
+        "options": [
+          "O(N log N) due to the sorting step, followed by an O(N) linear sweep",
+          "O(N^3) cubic time",
+          "O(1) constant time"
+        ],
+        "why": "Sorting N intervals takes O(N log N) time, and the subsequent linear sweep merges them in O(N) time.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Full User Journey Sessionizer Engine",
+      "say": [
+        "We now integrate all components into a production-ready User Journey Sessionizer.",
+        "The sessionizer processes an un-ordered stream of user actions, assigning events to dynamic session windows.",
+        "It supports keyed multi-user isolation, handles out-of-order arrivals through automatic interval merging, and tracks journey depth.",
+        "When an event arrives, it updates the user's active session intervals, triggering a merge if a bridge condition is created.",
+        "When a session remains idle beyond its gap threshold relative to the streaming clock, the session is emitted to analytics ledgers.",
+        "The emitted session payload includes journey duration, total pages viewed, and conversion milestone flags.",
+        "This architecture powers customer journey analytics at companies like Netflix, Spotify, and Uber.",
+        "Mastering session windows equips you to handle the most complex temporal data models in real-world stream processing.",
+        "Tomorrow, we explore event time semantics and watermarks to master out-of-order stream coordination."
+      ],
+      "example": "A flight tracking portal that groups all check-in, boarding, in-flight, and luggage events into a unified traveler trip session.",
+      "code": "interface UserEvent {\n  userId: string;\n  action: string;\n  timestamp: number;\n}\n\ninterface CompletedSessionReport {\n  userId: string;\n  sessionStart: number;\n  sessionEnd: number;\n  totalActions: number;\n  actions: string[];\n}\n\nclass UserJourneySessionizer {\n  private userEvents = new Map<string, UserEvent[]>();\n\n  constructor(private gapMs: number) {}\n\n  addEvent(event: UserEvent): void {\n    const list = this.userEvents.get(event.userId) || [];\n    list.push(event);\n    this.userEvents.set(event.userId, list);\n  }\n\n  // Finalize and emit completed sessions for a user\n  finalizeSessions(userId: string): CompletedSessionReport[] {\n    const events = this.userEvents.get(userId) || [];\n    if (events.length === 0) return [];\n\n    const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);\n    const reports: CompletedSessionReport[] = [];\n\n    let curActions: UserEvent[] = [sorted[0]];\n\n    for (let i = 1; i < sorted.length; i++) {\n      const e = sorted[i];\n      const prev = curActions[curActions.length - 1];\n\n      if (e.timestamp - prev.timestamp <= this.gapMs) {\n        curActions.push(e);\n      } else {\n        reports.push(this.buildReport(userId, curActions));\n        curActions = [e];\n      }\n    }\n    reports.push(this.buildReport(userId, curActions));\n    return reports;\n  }\n\n  private buildReport(userId: string, evts: UserEvent[]): CompletedSessionReport {\n    return {\n      userId,\n      sessionStart: evts[0].timestamp,\n      sessionEnd: evts[evts.length - 1].timestamp,\n      totalActions: evts.length,\n      actions: evts.map(e => e.action)\n    };\n  }\n}\n\nconst sessionizer = new UserJourneySessionizer(500); // 500ms gap\nsessionizer.addEvent({ userId: \"u-99\", action: \"landing_page\", timestamp: 100 });\nsessionizer.addEvent({ userId: \"u-99\", action: \"view_product\", timestamp: 350 });\nsessionizer.addEvent({ userId: \"u-99\", action: \"cart_add\", timestamp: 500 });\nsessionizer.addEvent({ userId: \"u-99\", action: \"checkout_complete\", timestamp: 1200 }); // Gap: 700ms > 500ms\n\nconst userReports = sessionizer.finalizeSessions(\"u-99\");\nconsole.log(\"Sessions Finalized:\", userReports.length);\nuserReports.forEach((r, idx) => {\n  console.log(`Report ${idx + 1}: Span [${r.sessionStart}, ${r.sessionEnd}], Actions: ${r.totalActions} (${r.actions.join(\" -> \")})`);\n});",
+      "output": "Sessions Finalized: 2\nReport 1: Span [100, 500], Actions: 3 (landing_page -> view_product -> cart_add)\nReport 2: Span [1200, 1200], Actions: 1 (checkout_complete)",
+      "codeNotes": [
+        {
+          "line": 29,
+          "note": "Iterative segmentation sorting events and partitioning by inactivity gap threshold."
+        },
+        {
+          "line": 55,
+          "note": "Produces two finalized session reports: browsing session [100, 500] and later checkout [1200, 1200]."
+        }
+      ],
+      "tryIt": "Add an action at timestamp 800 to bridge the two sessions into one continuous purchase journey.",
+      "check": {
+        "question": "Why must a production sessionizer sort events by timestamp before segmenting sessions?",
+        "options": [
+          "Because network latency can cause events to arrive out of order, and sessions must be evaluated in chronological sequence",
+          "Because sorting is required by the JavaScript V8 garbage collector",
+          "Because unsorted arrays cannot be looped over"
+        ],
+        "why": "Out-of-order network arrivals require sorting by event timestamp to correctly determine chronological gaps between actions.",
+        "answer": 0
+      }
+    }
+  ],
+  "summary": [
+    "Session windows provide dynamic, data-driven temporal intervals governed by user activity and idle timeouts.",
+    "The inactivity gap threshold dictates the maximum allowable silence between events before a session divides.",
+    "Session state machines maintain online session lifecycles and schedule timer-based completion triggers.",
+    "Out-of-order event arrivals can bridge previously separate sessions, requiring automated interval merging.",
+    "Session window merging algorithms sort intervals and merge overlapping or contiguous spans in O(N log N) time."
+  ],
+  "projectStep": {
+    "title": "Implement the Dynamic Session Window Engine",
+    "steps": [
+      "Implement inactivity gap threshold evaluation to partition continuous user actions into dynamic sessions.",
+      "Build a session merging algorithm that combines overlapping and contiguous session intervals within gapMs.",
+      "Construct a full user journey sessionizer tracking active user state and emitting finalized session reports."
+    ]
+  }
+},
+{
+  "day": 20,
+  "title": "Event Time, Processing Time, Watermarks & Late-Arriving Events",
+  "goal": "Master streaming temporal semantics: Event Time vs Processing Time vs Ingestion Time, monotonic watermark assertions, periodic vs punctuated watermarks, late event detection, allowed lateness policies, and watermark-triggered window closing.",
+  "minutes": 25,
+  "recap": "Yesterday we built dynamic session windows and merging algorithms. Today we master temporal semantics and watermarks, the foundational mechanism that allows stream processors to produce correct, deterministic analytics in the presence of network lags and out-of-order data.",
+  "parts": [
+    {
+      "title": "The Three Time Domains: Event, Ingestion & Processing Time",
+      "say": [
+        "In distributed stream computing, understanding the concept of time is the single most critical architectural prerequisite.",
+        "There are three distinct notions of time for every streaming event: Event Time, Ingestion Time, and Processing Time.",
+        "Event Time is the exact wall-clock timestamp when the original event occurred on the client device or sensor.",
+        "Ingestion Time is the timestamp recorded when the event successfully enters the distributed message broker cluster.",
+        "Processing Time is the local machine clock time of the worker node currently executing the stream transformation.",
+        "Processing time is fundamentally non-deterministic: network delays, GC pauses, and consumer restarts skew the clock unpredictably.",
+        "If you re-run historical events through a processing-time pipeline, you will obtain completely different window aggregations.",
+        "Event time, by contrast, is completely deterministic: replaying historical logs yields 100% reproducible analytical results.",
+        "Building mission-critical financial, compliance, and billing systems requires grounding all window analytics in Event Time."
+      ],
+      "example": "A postcard sent from Paris on July 4th (Event Time) arrives at London postal hub on July 7th (Ingestion Time) and is read on July 10th (Processing Time).",
+      "code": "interface StreamEventEnvelope {\n  id: string;\n  eventTime: number;      // When action occurred on client\n  ingestionTime: number;  // When broker persisted event\n  processingTime: number; // When worker processed event\n}\n\nfunction analyzeTimeSkew(envelope: StreamEventEnvelope): { networkLagMs: number; processingLagMs: number; totalSkewMs: number } {\n  const networkLagMs = envelope.ingestionTime - envelope.eventTime;\n  const processingLagMs = envelope.processingTime - envelope.ingestionTime;\n  const totalSkewMs = envelope.processingTime - envelope.eventTime;\n\n  return {\n    networkLagMs,\n    processingLagMs,\n    totalSkewMs\n  };\n}\n\nconst e: StreamEventEnvelope = {\n  id: \"order-9901\",\n  eventTime: 1700000000000,      // Client click\n  ingestionTime: 1700000000450,  // 450ms network flight to Kafka\n  processingTime: 1700000001200 // 750ms queue wait before worker execution\n};\n\nconst skew = analyzeTimeSkew(e);\nconsole.log(\"Event ID:\", e.id);\nconsole.log(\"Network Ingestion Lag:\", skew.networkLagMs, \"ms\");\nconsole.log(\"Queue Wait / Processing Lag:\", skew.processingLagMs, \"ms\");\nconsole.log(\"Total Skew (Processing vs Event Time):\", skew.totalSkewMs, \"ms\");",
+      "output": "Event ID: order-9901\nNetwork Ingestion Lag: 450 ms\nQueue Wait / Processing Lag: 750 ms\nTotal Skew (Processing vs Event Time): 1200 ms",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Calculates time disparity between client event generation and server execution."
+        },
+        {
+          "line": 26,
+          "note": "Demonstrates that processing time lags event time by over 1.2 seconds due to network and queuing."
+        }
+      ],
+      "tryIt": "Simulate a mobile offline retry where ingestion lag is 30,000ms (30s) and observe total skew.",
+      "check": {
+        "question": "Why does processing time produce non-deterministic results when replaying historical streaming logs?",
+        "options": [
+          "Because processing time uses the machine's current clock, which changes during replay, whereas event time is immutable",
+          "Because processing time requires quantum clock hardware",
+          "Because event time is always measured in UTC and processing time in local time"
+        ],
+        "why": "Processing time depends on when the machine happens to execute the code, making replayed runs inconsistent with original runs.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Watermark Theory & Monotonic Time Assertions",
+      "say": [
+        "If we process data in event time, a critical question arises: how long must a window wait before closing?",
+        "Because networks experience arbitrary delays, an event from five minutes ago could theoretically arrive at any moment.",
+        "If a window closes too early, late events are lost; if a window waits indefinitely, processing latency becomes infinite.",
+        "The Watermark is the theoretical solution to this dilemma, introduced by Google MillWheel and popularized by Apache Flink.",
+        "A Watermark is a special metadata control assertion: Watermark(T) declares that the engine assumes all events with eventTime <= T have arrived.",
+        "Watermarks are monotonically increasing: once the watermark reaches T, time never flows backward in the streaming pipeline.",
+        "When the watermark advances past the end boundary of a window, that window is formally triggered and closed.",
+        "The watermark provides a mathematical compromise between analytical completeness and end-to-end processing latency.",
+        "Watermark propagation coordinates event-time progression across distributed pipelines with mathematical rigor."
+      ],
+      "example": "A marathon race coordinator announcing that all runners who finished before 3 hours have crossed the line, allowing the official medals to be engraved.",
+      "code": "interface WatermarkAssertion {\n  currentWatermark: number;\n  lastObservedEventTime: number;\n}\n\nclass WatermarkTracker {\n  private watermark: number = 0;\n  private maxObserved: number = 0;\n\n  constructor(private allowedDelayMs: number) {}\n\n  update(eventTime: number): WatermarkAssertion {\n    if (eventTime > this.maxObserved) {\n      this.maxObserved = eventTime;\n    }\n    // Watermark lags max observed event time by allowed delay bound\n    const proposed = this.maxObserved - this.allowedDelayMs;\n    if (proposed > this.watermark) {\n      this.watermark = proposed;\n    }\n\n    return {\n      currentWatermark: this.watermark,\n      lastObservedEventTime: this.maxObserved\n    };\n  }\n\n  getWatermark(): number {\n    return this.watermark;\n  }\n}\n\nconst tracker = new WatermarkTracker(200); // 200ms bounded delay\nconsole.log(\"Evt @ 1000ms:\", JSON.stringify(tracker.update(1000))); // WM = 800\nconsole.log(\"Evt @ 1400ms:\", JSON.stringify(tracker.update(1400))); // WM = 1200\nconsole.log(\"Evt @ 1100ms (Out-of-order):\", JSON.stringify(tracker.update(1100))); // WM stays 1200 (monotonic!)\nconsole.log(\"Final Watermark:\", tracker.getWatermark());",
+      "output": "Evt @ 1000ms: {\"currentWatermark\":800,\"lastObservedEventTime\":1000}\nEvt @ 1400ms: {\"currentWatermark\":1200,\"lastObservedEventTime\":1400}\nEvt @ 1100ms (Out-of-order): {\"currentWatermark\":1200,\"lastObservedEventTime\":1400}\nFinal Watermark: 1200",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Watermark computed as maxObserved minus bounded delay tolerance."
+        },
+        {
+          "line": 36,
+          "note": "Monotonicity guarantee: watermark does not regress when an earlier out-of-order event arrives."
+        }
+      ],
+      "tryIt": "Ingest an event at 2000ms and verify the watermark advances to 1800ms.",
+      "check": {
+        "question": "What does the assertion Watermark(T) formally signify to downstream stream operators?",
+        "options": [
+          "It asserts that no further events with event time <= T are expected to arrive",
+          "It forces the operating system to clear its TCP socket buffers",
+          "It instructs the producer to shut down"
+        ],
+        "why": "Watermark(T) asserts that all events with timestamps up to T have been observed, allowing windows up to T to close.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Periodic vs Punctuated Watermark Generators",
+      "say": [
+        "In production stream processors, watermarks can be generated using two distinct strategies: periodic or punctuated.",
+        "A Periodic Watermark Generator samples the stream at regular wall-clock intervals (e.g., every 200 milliseconds).",
+        "It inspects the maximum event timestamp observed during that interval and emits an updated watermark.",
+        "Bounded-out-of-orderness watermarks are periodic: Watermark = max(eventTime) minus allowedLateness.",
+        "Periodic generation is lightweight, predictable, and minimizes control-message overhead on high-throughput topics.",
+        "A Punctuated Watermark Generator, by contrast, inspects the payload of every incoming event individually.",
+        "When an event contains a special heartbeat attribute, batch delimiter, or end-of-file signal, a watermark is emitted immediately.",
+        "Punctuated watermarks are ideal for low-volume streams or systems where upstream systems explicitly broadcast progress.",
+        "Selecting the right generator ensures timely window closing without flooding the network with redundant watermark markers."
+      ],
+      "example": "Periodic watermarking is a teacher checking the clock every 15 minutes; punctuated watermarking is a student raising their hand when finished.",
+      "code": "interface StreamRecord {\n  id: string;\n  eventTime: number;\n  isMilestoneMarker?: boolean;\n}\n\nclass PeriodicWatermarkGenerator {\n  private maxTimestamp = 0;\n\n  constructor(private maxOutOfOrdernessMs: number) {}\n\n  onEvent(record: StreamRecord): void {\n    if (record.eventTime > this.maxTimestamp) {\n      this.maxTimestamp = record.eventTime;\n    }\n  }\n\n  onPeriodicEmit(): number {\n    return Math.max(0, this.maxTimestamp - this.maxOutOfOrdernessMs);\n  }\n}\n\nclass PunctuatedWatermarkGenerator {\n  extractWatermark(record: StreamRecord): number | null {\n    if (record.isMilestoneMarker) {\n      return record.eventTime;\n    }\n    return null;\n  }\n}\n\nconst periodic = new PeriodicWatermarkGenerator(100);\nperiodic.onEvent({ id: \"1\", eventTime: 500 });\nperiodic.onEvent({ id: \"2\", eventTime: 650 });\nconsole.log(\"Periodic Watermark Emitted:\", periodic.onPeriodicEmit());\n\nconst punctuated = new PunctuatedWatermarkGenerator();\nconsole.log(\"Normal Evt WM:\", punctuated.extractWatermark({ id: \"3\", eventTime: 700 }));\nconsole.log(\"Marker Evt WM:\", punctuated.extractWatermark({ id: \"4\", eventTime: 700, isMilestoneMarker: true }));",
+      "output": "Periodic Watermark Emitted: 550\nNormal Evt WM: null\nMarker Evt WM: 700",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "Periodic generator computes watermark on timer interval using bounded delay formula."
+        },
+        {
+          "line": 24,
+          "note": "Punctuated generator extracts watermark immediately when marker flag is present."
+        }
+      ],
+      "tryIt": "Add a periodic event at timestamp 900 and verify onPeriodicEmit returns 800.",
+      "check": {
+        "question": "When should a streaming engineer prefer a punctuated watermark generator over a periodic generator?",
+        "options": [
+          "When events contain explicit progress indicators or delimiters and immediate watermark progression is required",
+          "When stream volume exceeds 10 million events per second",
+          "When timestamps are formatted as ISO-8601 strings"
+        ],
+        "why": "Punctuated generators react immediately to specific event attributes (like EOF or milestone markers), ideal for explicit progress signaling.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Late-Arriving Event Detection & Classification",
+      "say": [
+        "Despite configured delay bounds, real-world distributed networks will occasionally deliver events that arrive after the watermark.",
+        "For example, a smartphone might remain in airplane mode or in an underground subway tunnel for twenty minutes.",
+        "When the phone reconnects to cellular data, it flushes twenty minutes of recorded user actions in a rapid batch.",
+        "Meanwhile, the stream processor's watermark has already advanced past those timestamps, and the relevant windows have closed.",
+        "An event is classified as 'Late' if and only if its event timestamp is strictly less than the current stream watermark.",
+        "Formally: isLate = (event.timestamp < currentWatermark).",
+        "If an event's timestamp is greater than or equal to the watermark, it is considered 'On-Time'.",
+        "Stream engines must be prepared to detect and handle late events systematically rather than failing silently.",
+        "Accurate classification allows streaming systems to route late records into dedicated recovery and reconciliation workflows."
+      ],
+      "example": "A student attempting to submit an assignment three days after the online portal deadline has closed and grades were posted.",
+      "code": "interface ClassifiedEvent {\n  id: string;\n  eventTime: number;\n  watermarkAtArrival: number;\n  classification: 'ON_TIME' | 'LATE';\n  latenessDeltaMs: number;\n}\n\nclass EventClassifier {\n  private currentWatermark: number = 0;\n\n  setWatermark(wm: number): void {\n    this.currentWatermark = wm;\n  }\n\n  classify(id: string, eventTime: number): ClassifiedEvent {\n    const isLate = eventTime < this.currentWatermark;\n    return {\n      id,\n      eventTime,\n      watermarkAtArrival: this.currentWatermark,\n      classification: isLate ? 'LATE' : 'ON_TIME',\n      latenessDeltaMs: isLate ? (this.currentWatermark - eventTime) : 0\n    };\n  }\n}\n\nconst classifier = new EventClassifier();\nclassifier.setWatermark(1000); // Watermark is currently at 1000ms\n\nconst e1 = classifier.classify(\"tx-1\", 1050); // Event time 1050 >= 1000 -> ON_TIME\nconst e2 = classifier.classify(\"tx-2\", 950);  // Event time 950 < 1000 -> LATE!\n\nconsole.log(\"Event 1 Classification:\", JSON.stringify(e1));\nconsole.log(\"Event 2 Classification:\", JSON.stringify(e2));\nconsole.log(`Event 2 arrived ${e2.latenessDeltaMs}ms after watermark passed!`);",
+      "output": "Event 1 Classification: {\"id\":\"tx-1\",\"eventTime\":1050,\"watermarkAtArrival\":1000,\"classification\":\"ON_TIME\",\"latenessDeltaMs\":0}\nEvent 2 Classification: {\"id\":\"tx-2\",\"eventTime\":950,\"watermarkAtArrival\":1000,\"classification\":\"LATE\",\"latenessDeltaMs\":50}\nEvent 2 arrived 50ms after watermark passed!",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "Compares event timestamp directly against current watermark to determine lateness."
+        },
+        {
+          "line": 32,
+          "note": "Classifies tx-2 as LATE with a 50ms lateness delta."
+        }
+      ],
+      "tryIt": "Advance watermark to 1200 and classify an event at timestamp 1100 to verify it is marked late.",
+      "check": {
+        "question": "Under what condition is an incoming event classified as late in an event-time stream processor?",
+        "options": [
+          "When its event timestamp is strictly less than the currently asserted watermark",
+          "When the event takes more than 1 second to parse",
+          "When the event payload exceeds 1 kilobyte"
+        ],
+        "why": "An event is late if its event time is older than the current watermark, meaning the windows for that time have already closed.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Late Event Handling: Discard, Side-Output (DLQ) & Allowed Lateness",
+      "say": [
+        "Once a late-arriving event is detected, how should the stream processing system respond?",
+        "Production stream engines support three distinct operational policies for handling late-arriving events.",
+        "The first and simplest policy is Silent Discard: the event is dropped and a telemetry metric counter incremented.",
+        "Silent discard is appropriate for non-critical telemetry such as IoT temperature readings where occasional omissions are harmless.",
+        "The second policy is Side-Output (Dead-Letter Queue): the late event is branched into an audit topic for offline reconciliation.",
+        "This ensures that financial audits and billing systems retain every penny without polluting real-time operational window state.",
+        "The third policy is Allowed Lateness: closed windows are temporarily retained in state for an extra configured duration.",
+        "If a late event arrives within the allowed lateness horizon, the window re-evaluates its calculation and emits an update.",
+        "Understanding these three strategies allows architects to tailor data freshness and consistency to specific business SLAs."
+      ],
+      "example": "A tax office accepting late tax returns: the automated system flags them as late, charges a penalty fee, and routes them to manual audit.",
+      "code": "interface FinancialEvent {\n  txId: string;\n  eventTime: number;\n  amount: number;\n}\n\ninterface ProcessingAuditResult {\n  accepted: boolean;\n  destination: 'WINDOW_AGGREGATE' | 'RETRACTED_WINDOW_UPDATE' | 'DEAD_LETTER_DLQ';\n  reason?: string;\n}\n\nclass LateEventPolicyManager {\n  constructor(\n    private watermark: number,\n    private allowedLatenessMs: number\n  ) {}\n\n  routeEvent(event: FinancialEvent): ProcessingAuditResult {\n    if (event.eventTime >= this.watermark) {\n      return { accepted: true, destination: 'WINDOW_AGGREGATE' };\n    }\n\n    // Event is late: check if within allowed lateness grace period\n    const lateness = this.watermark - event.eventTime;\n    if (lateness <= this.allowedLatenessMs) {\n      return {\n        accepted: true,\n        destination: 'RETRACTED_WINDOW_UPDATE',\n        reason: `Within allowed lateness grace period (${lateness}ms <= ${this.allowedLatenessMs}ms)`\n      };\n    }\n\n    // Beyond allowed lateness: route to DLQ\n    return {\n      accepted: false,\n      destination: 'DEAD_LETTER_DLQ',\n      reason: `Exceeded allowed lateness (${lateness}ms > ${this.allowedLatenessMs}ms)`\n    };\n  }\n}\n\nconst policy = new LateEventPolicyManager(1000, 200); // WM=1000, Grace=200ms (down to 800ms)\nconsole.log(\"On-Time (ts: 1050):\", policy.routeEvent({ txId: \"1\", eventTime: 1050, amount: 10 }).destination);\nconsole.log(\"Grace Late (ts: 900):\", policy.routeEvent({ txId: \"2\", eventTime: 900, amount: 20 }).destination);\nconsole.log(\"Poison Late (ts: 700):\", policy.routeEvent({ txId: \"3\", eventTime: 700, amount: 30 }).destination);",
+      "output": "On-Time (ts: 1050): WINDOW_AGGREGATE\nGrace Late (ts: 900): RETRACTED_WINDOW_UPDATE\nPoison Late (ts: 700): DEAD_LETTER_DLQ",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Routes on-time events to active window accumulator."
+        },
+        {
+          "line": 23,
+          "note": "Routes events within allowed lateness to trigger window retraction updates."
+        },
+        {
+          "line": 32,
+          "note": "Routes unrecoverable late events to dead-letter queue."
+        }
+      ],
+      "tryIt": "Change allowedLatenessMs to 400 and observe that timestamp 700 is now accepted into RETRACTED_WINDOW_UPDATE.",
+      "check": {
+        "question": "What is the primary benefit of routing severely late events to a Dead-Letter Queue (DLQ)?",
+        "options": [
+          "It preserves data completeness for offline auditing without corrupting or stalling real-time streaming state",
+          "It forces the producer to re-send all messages from the beginning of the log",
+          "It automatically compresses the event using LZ4"
+        ],
+        "why": "DLQs isolate unprocessable late events for offline audit and reconciliation while allowing real-time streams to proceed smoothly.",
+        "answer": 0
+      }
+    },
+    {
+      "title": "Watermark-Driven Window Emission Coordinator",
+      "say": [
+        "We now integrate watermarks, late event detection, and window triggering into a unified Window Coordinator.",
+        "The coordinator tracks the current watermark as incoming events arrive, identifying on-time versus late records.",
+        "When an event is on-time, it updates the corresponding tumbling window accumulator and advances the watermark tracker.",
+        "The advancing watermark is evaluated against all currently open windows in memory.",
+        "Any window whose windowEnd is less than or equal to the new watermark is triggered, emitted, and closed.",
+        "Late events arriving after window closure are routed to the DLQ output array with explicit lateness metadata.",
+        "This end-to-end architecture forms the exact processing model utilized by enterprise streaming frameworks.",
+        "By grounding time in deterministic watermarks, your systems achieve mathematically guaranteed consistency across network chaos.",
+        "You are now fully prepared to tackle Milestone 4: building a fault-tolerant stateful processor with changelog recovery."
+      ],
+      "example": "An automated airport flight dispatcher that closes boarding gates when the scheduled departure time passes, redirecting late passengers to customer service.",
+      "code": "interface SensorEvent {\n  sensorId: string;\n  eventTime: number;\n  reading: number;\n}\n\ninterface ClosedWindowEmission {\n  windowStart: number;\n  windowEnd: number;\n  count: number;\n  avgReading: number;\n}\n\nclass WatermarkWindowCoordinator {\n  private watermark: number = 0;\n  private maxObserved: number = 0;\n  private openWindows = new Map<number, { count: number; sum: number }>();\n  public emittedWindows: ClosedWindowEmission[] = [];\n  public deadLetterEvents: SensorEvent[] = [];\n\n  constructor(\n    private windowDurationMs: number,\n    private maxLatenessMs: number\n  ) {}\n\n  process(event: SensorEvent): void {\n    // Check if event is late\n    if (event.eventTime < this.watermark) {\n      this.deadLetterEvents.push(event);\n      return;\n    }\n\n    // Update max observed and advance watermark\n    if (event.eventTime > this.maxObserved) {\n      this.maxObserved = event.eventTime;\n      const proposedWm = this.maxObserved - this.maxLatenessMs;\n      if (proposedWm > this.watermark) {\n        this.watermark = proposedWm;\n      }\n    }\n\n    // Accumulate in window\n    const start = event.eventTime - (event.eventTime % this.windowDurationMs);\n    const acc = this.openWindows.get(start) || { count: 0, sum: 0 };\n    acc.count++;\n    acc.sum += event.reading;\n    this.openWindows.set(start, acc);\n\n    // Trigger emissions for closed windows\n    for (const [winStart, data] of this.openWindows.entries()) {\n      const winEnd = winStart + this.windowDurationMs;\n      if (winEnd <= this.watermark) {\n        this.emittedWindows.push({\n          windowStart: winStart,\n          windowEnd: winEnd,\n          count: data.count,\n          avgReading: Number((data.sum / data.count).toFixed(2))\n        });\n        this.openWindows.delete(winStart);\n      }\n    }\n  }\n\n  getWatermark(): number {\n    return this.watermark;\n  }\n}\n\nconst coord = new WatermarkWindowCoordinator(1000, 200); // 1000ms window, 200ms lateness bound\ncoord.process({ sensorId: \"s1\", eventTime: 500, reading: 20 });\ncoord.process({ sensorId: \"s1\", eventTime: 950, reading: 40 });\nconsole.log(\"Watermark after 950ms event:\", coord.getWatermark(), \"| Emitted Windows:\", coord.emittedWindows.length);\n\n// Advance time with a 1300ms event: WM advances to 1100ms -> Window [0, 1000) CLOSES!\ncoord.process({ sensorId: \"s1\", eventTime: 1300, reading: 60 });\nconsole.log(\"Watermark after 1300ms event:\", coord.getWatermark(), \"| Emitted Windows:\", coord.emittedWindows.length);\ncoord.emittedWindows.forEach(w => console.log(` -> Closed Window [${w.windowStart}, ${w.windowEnd}): Count=${w.count}, Avg=${w.avgReading}`));\n\n// Ingest late event for already closed window [0, 1000)\ncoord.process({ sensorId: \"s1\", eventTime: 800, reading: 35 });\nconsole.log(\"DLQ Dropped Late Events:\", coord.deadLetterEvents.length);",
+      "output": "Watermark after 950ms event: 750 | Emitted Windows: 0\nWatermark after 1300ms event: 1100 | Emitted Windows: 1\n -> Closed Window [0, 1000): Count=2, Avg=30\nDLQ Dropped Late Events: 1",
+      "codeNotes": [
+        {
+          "line": 26,
+          "note": "Late event check against current watermark routing late events to DLQ."
+        },
+        {
+          "line": 46,
+          "note": "Watermark-driven trigger emitting completed windows where windowEnd <= watermark."
+        }
+      ],
+      "tryIt": "Ingest an event at 2400ms and observe window [1000, 2000) close and emit.",
+      "check": {
+        "question": "How does the WatermarkWindowCoordinator guarantee that closed windows do not receive late events?",
+        "options": [
+          "It compares incoming eventTime against the advancing watermark, routing records older than the watermark to DLQ",
+          "It locks the CPU thread during window calculation",
+          "It restarts the server whenever a late event is detected"
+        ],
+        "why": "Any event with eventTime < watermark is classified as late and diverted to the dead-letter queue, protecting closed windows.",
+        "answer": 0
+      }
+    }
+  ],
+  "summary": [
+    "Event time is the immutable client timestamp; processing time is the machine clock subject to network skew.",
+    "Watermark(T) asserts that all stream events with event time <= T have been observed by the system.",
+    "Periodic watermarks sample maximum event time on a timer; punctuated watermarks emit on special control markers.",
+    "An event is classified as late if its event time is strictly less than the currently asserted watermark.",
+    "Late events are managed via silent discard, dead-letter side outputs (DLQ), or allowed lateness window retractions."
+  ],
+  "projectStep": {
+    "title": "Implement the Watermark & Event-Time Window Coordinator",
+    "steps": [
+      "Implement monotonic watermark tracking using the bounded-out-of-orderness formula.",
+      "Build late-event detection and side-output routing to isolate late events into a dead-letter queue.",
+      "Construct a watermark-triggered window coordinator that emits and purges completed windows deterministically."
+    ]
+  }
+}
 ];
