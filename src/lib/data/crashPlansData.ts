@@ -247,9 +247,9 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     competitorSavings: 'Save ₹2,45,000 vs Scaler/Masai (Zero ISA Debt)',
     flagshipBuildByTrack: {
       web_fullstack: {
-        title: 'Multi-Tenant SaaS Engine with Webhooks & RBAC',
-        desc: 'Complete commercial SaaS platform with workspace isolation, Razorpay subscription webhooks, and audit logs.',
-        tech: ['Next.js 14', 'PostgreSQL', 'Supabase', 'Razorpay', 'RBAC'],
+        title: 'Full-Stack Team Workspace & Task Management Platform',
+        desc: 'Complete full-stack web application with React UI, Express REST API, JWT authentication, and PostgreSQL relational persistence.',
+        tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'TypeScript'],
         icon: '💼'
       },
       python_ai: {
@@ -257,6 +257,28 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         desc: 'Vector similarity search engine with chunking, pgvector indexing, and semantic hybrid retrieval API.',
         tech: ['Python', 'FastAPI', 'pgvector', 'LangChain', 'PostgreSQL'],
         icon: '🧠'
+      }
+    },
+    capstoneSprintsByTrack: {
+      web_fullstack: {
+        1: {
+          title: 'Sprint 1: Architecture & Data Schema',
+          description: 'Create a public GitHub repository and add ARCHITECTURE.md detailing your full-stack component tree, Express REST API contracts, and PostgreSQL schema design.',
+          check: 'We check that the repository is public and your architecture design file exists in it.',
+          field: { label: 'Design', placeholder: 'https://github.com/you/team-workspace/blob/main/ARCHITECTURE.md' }
+        },
+        2: {
+          title: 'Sprint 2: Core Services & REST API',
+          description: 'Build the backend API and React frontend in the same repository: Express route handlers, JWT authentication, and PostgreSQL relational queries.',
+          check: 'We check that the API source code you link exists in your repository.',
+          field: { label: 'API code', placeholder: 'https://github.com/you/team-workspace/tree/main/src' }
+        },
+        3: {
+          description: 'Deploy the full-stack application and PostgreSQL database online (for example on Render) and submit its responding live https address.'
+        },
+        4: {
+          description: 'Defend your full-stack architecture, relational schema design, and API authentication in the AI capstone interview.'
+        }
       }
     },
     journeySteps: [
@@ -361,9 +383,9 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     competitorSavings: 'Save ₹2,80,000 vs full-time bootcamp with flexible pacing',
     flagshipBuildByTrack: {
       web_fullstack: {
-        title: 'Enterprise Microservices & Event-Driven Cloud Platform',
-        desc: 'Decoupled service architecture with Kafka/RabbitMQ events, Docker orchestration, and CI/CD automated testing.',
-        tech: ['Node.js', 'Docker', 'Kubernetes', 'Kafka', 'PostgreSQL', 'AWS'],
+        title: 'Containerized Cloud Platform with Automated CI/CD',
+        desc: 'Production cloud architecture with React frontend, Node.js API services, PostgreSQL storage, Docker containers, Kubernetes deployment, and automated CI/CD pipelines.',
+        tech: ['React', 'Node.js', 'Docker', 'Kubernetes', 'PostgreSQL', 'AWS'],
         icon: '🌐'
       },
       python_ai: {
@@ -371,6 +393,28 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         desc: 'Multi-agent decision framework with tool execution, memory state persistence, and streaming telemetry.',
         tech: ['Python', 'FastAPI', 'Celery', 'Docker', 'Redis', 'OpenAI'],
         icon: '🤖'
+      }
+    },
+    capstoneSprintsByTrack: {
+      web_fullstack: {
+        1: {
+          title: 'Sprint 1: Cloud Architecture & Service Specs',
+          description: 'Create a public GitHub repository and add ARCHITECTURE.md detailing your containerized service topology, Docker configuration, and AWS cloud resources.',
+          check: 'We check that the repository is public and your architecture design file exists in it.',
+          field: { label: 'Design', placeholder: 'https://github.com/you/cloud-platform/blob/main/ARCHITECTURE.md' }
+        },
+        2: {
+          title: 'Sprint 2: Containerized Services & CI/CD',
+          description: 'Build the containerized services in the same repository: Node.js API handlers, Dockerfile configurations, Kubernetes manifests, and automated CI/CD workflows.',
+          check: 'We check that the service code you link exists in your repository.',
+          field: { label: 'Services', placeholder: 'https://github.com/you/cloud-platform/tree/main/src' }
+        },
+        3: {
+          description: 'Deploy the containerized application to cloud infrastructure (such as AWS) and submit its responding live https address.'
+        },
+        4: {
+          description: 'Defend your container orchestration, CI/CD pipeline automation, and cloud security in the AI capstone interview.'
+        }
       }
     },
     journeySteps: [
@@ -440,8 +484,8 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     flagshipBuildByTrack: {
       web_fullstack: {
         title: 'Autonomous Multi-Agent Copilot Platform with Vector Search',
-        desc: 'End-to-end AI-first operating system with real-time audio streaming, sandboxed code runner, and enterprise security.',
-        tech: ['Next.js 14', 'TypeScript', 'pgvector', 'Docker', 'OAuth2', 'WebSockets'],
+        desc: 'End-to-end AI-first operating system with real-time WebSocket streaming, sandboxed code runner, and enterprise security.',
+        tech: ['React', 'TypeScript', 'Docker', 'pgvector', 'OAuth2', 'WebSockets'],
         icon: '🏆'
       },
       python_ai: {
@@ -449,6 +493,28 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         desc: 'High-throughput LLM gateway with model fallback routing, token bucket rate limits, and latency telemetry.',
         tech: ['Python 3.12', 'Torch', 'FastAPI', 'Triton', 'PostgreSQL', 'Grafana'],
         icon: '🔮'
+      }
+    },
+    capstoneSprintsByTrack: {
+      web_fullstack: {
+        1: {
+          title: 'Sprint 1: Distributed Topology & Threat Model',
+          description: 'Create a public GitHub repository and add ARCHITECTURE.md detailing your distributed event pipeline, Kafka messaging topology, OAuth security model, and AI integration.',
+          check: 'We check that the repository is public and your architecture design file exists in it.',
+          field: { label: 'Design', placeholder: 'https://github.com/you/ai-copilot-platform/blob/main/ARCHITECTURE.md' }
+        },
+        2: {
+          title: 'Sprint 2: Event Pipelines & AI Gateway',
+          description: 'Build the distributed backend and AI integration in the same repository: event streaming handlers, OAuth authorization guards, and vector search pipelines.',
+          check: 'We check that the service code you link exists in your repository.',
+          field: { label: 'Services', placeholder: 'https://github.com/you/ai-copilot-platform/tree/main/src' }
+        },
+        3: {
+          description: 'Deploy the distributed platform to cloud infrastructure and submit its responding live https address.'
+        },
+        4: {
+          description: 'Defend your distributed event architecture, enterprise application security, and AI system design in the AI capstone interview.'
+        }
       }
     },
     journeySteps: [
@@ -524,8 +590,8 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     flagshipBuildByTrack: {
       web_fullstack: {
         title: 'Multi-Region Distributed High-Availability SaaS Cloud',
-        desc: 'Global active-active microservices platform with geo-DNS routing, Kafka events, automated failover, and compliance auditing.',
-        tech: ['Next.js 14', 'Go / Node.js', 'Kubernetes', 'Kafka', 'Terraform', 'PostgreSQL'],
+        desc: 'Global active-active microservices platform with Terraform cloud provisioning, Kubernetes orchestration, Kafka streaming, automated failover, and observability.',
+        tech: ['React', 'Node.js', 'Kubernetes', 'Kafka', 'Terraform', 'PostgreSQL'],
         icon: '🌐'
       },
       python_ai: {
@@ -533,6 +599,28 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         desc: 'Distributed multi-agent pipeline executing real-time data ingestion, fine-tuned LLaMA-3 inference, and automated risk scoring.',
         tech: ['Python 3.12', 'Ray', 'PyTorch', 'FastAPI', 'Redis', 'Docker'],
         icon: '🤖'
+      }
+    },
+    capstoneSprintsByTrack: {
+      web_fullstack: {
+        1: {
+          title: 'Sprint 1: Enterprise System Architecture & RFC',
+          description: 'Create a public GitHub repository and add RFC.md detailing your multi-region architecture, Terraform infrastructure blueprints, Kafka event topology, and SRE reliability scorecards.',
+          check: 'We check that the repository is public and your architecture document exists in it.',
+          field: { label: 'Design', placeholder: 'https://github.com/you/enterprise-saas-cloud/blob/main/RFC.md' }
+        },
+        2: {
+          title: 'Sprint 2: High-Scale Services & AI Gateway',
+          description: 'Build the enterprise services in the same repository: resilient microservices, high-throughput stream processors, guarded AI gateway endpoints, and Terraform infrastructure configs.',
+          check: 'We check that the platform code you link exists in your repository.',
+          field: { label: 'Platform code', placeholder: 'https://github.com/you/enterprise-saas-cloud/tree/main/src' }
+        },
+        3: {
+          description: 'Deploy the multi-service enterprise cloud platform with active health probes and submit its responding live https endpoint.'
+        },
+        4: {
+          description: 'Defend your global high-availability architecture, SRE observability, streaming resilience, and production AI gateway in the executive board defense interview.'
+        }
       }
     },
     journeySteps: [

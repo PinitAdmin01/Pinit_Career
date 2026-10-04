@@ -59,3 +59,54 @@ test('plan months that use the SQL course only list skills the SQL course teache
     }
   }
 });
+
+test('every web plan capstone only uses technology its courses teach', () => {
+  const { getLongLesson } = require('../src/lib/data/longLessons');
+  const PREFIX_MAP: Record<string, string> = {
+    'course-react-web': 'react-basics',
+    'course-node-web': 'node-web',
+    'course-database-eng': 'sql-mastery',
+    'course-dsa-optim': 'dsa-optim',
+    'course-devops-cicd': 'devops',
+    'course-cloud-native': 'cloud',
+    'course-distributed-sys': 'dist',
+    'course-cybersecurity': 'cyber',
+    'course-ai-eng': 'ai',
+    'course-sre-web': 'sre-web',
+    'course-stream-web': 'stream-web',
+    'course-aideploy-web': 'aideploy-web',
+    'course-design-systems': 'design',
+  };
+
+  const planIds = ['plan-1m-sprint', 'plan-3m-accelerator', 'plan-6m-pro', 'plan-9m-master', 'plan-12m-fellow'];
+  for (const id of planIds) {
+    const plan = getCrashPlanById(id);
+    assert.ok(plan, `${id} not found`);
+    const allLessons = [];
+    for (const m of plan.modulesByTrack.web_fullstack) {
+      const prefix = PREFIX_MAP[m.courseId] || m.courseId.replace(/^course-/, '');
+      for (let day = 1; day <= 30; day++) {
+        const l = getLongLesson(prefix, day);
+        if (l) allLessons.push(l);
+      }
+    }
+    const courseText = JSON.stringify(allLessons).toLowerCase();
+    const untaught = plan.flagshipBuildByTrack.web_fullstack.tech.filter((t) => !courseText.includes(t.toLowerCase()));
+    assert.deepEqual(untaught, [], `${id} web capstone lists technology the courses never teach: ${untaught.join(', ')}`);
+  }
+});
+
+test('every web plan from 1m to 12m has custom capstone sprint wording for web_fullstack', () => {
+  const planIds = ['plan-1m-sprint', 'plan-3m-accelerator', 'plan-6m-pro', 'plan-9m-master', 'plan-12m-fellow'];
+  for (const id of planIds) {
+    const plan = getCrashPlanById(id);
+    assert.ok(plan, `${id} not found`);
+    const web = getCapstoneSprints(plan, 'web_fullstack');
+    assert.equal(web.length, 4, `${id} must have 4 sprints`);
+    assert.ok(web[0].title.startsWith('Sprint 1'), `${id} sprint 1 title`);
+    assert.ok(web[0].field?.label, `${id} sprint 1 has custom design field label`);
+    assert.ok(web[1].field?.label, `${id} sprint 2 has custom code field label`);
+    assert.ok(web[2].description.length > 20, `${id} sprint 3 has description`);
+    assert.ok(web[3].description.length > 20, `${id} sprint 4 has description`);
+  }
+});
