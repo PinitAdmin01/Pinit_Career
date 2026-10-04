@@ -21,14 +21,23 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
   const plan = CRASH_COURSE_PLANS.find((p) => p.id === enrollment.planId) || CRASH_COURSE_PLANS[1];
   const trackLabel = enrollment.track === 'python_ai' ? 'Python & AI Engineering' : 'Full-Stack Web Dev';
 
+  const trackKey = enrollment.track === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
   const tierKey = PLAN_TIER_TO_INTERNSHIP[plan.tier];
   const isTierOn = tierKey ? INTERNSHIP_TIER_AVAILABLE[tierKey] : false;
-  const tierConfig = tierKey ? INTERNSHIP_TIERS[tierKey] : null;
+  const tierConfig = tierKey ? INTERNSHIP_TIERS[trackKey][tierKey] : null;
 
   const getActiveTrackLabel = () => {
     if (!isTierOn) return 'Active Certification Track';
-    if (tierKey === 't1_job_sim') return '2-Week Python Job Simulation (simulated company)';
-    if (tierKey === 't2_virtual_team') return '4-Week Virtual Internship – Backend (team, simulated company)';
+    if (tierKey === 't1_job_sim') {
+      return trackKey === 'web_fullstack'
+        ? '2-Week Web Job Simulation (simulated company)'
+        : '2-Week Python Job Simulation (simulated company)';
+    }
+    if (tierKey === 't2_virtual_team') {
+      return trackKey === 'web_fullstack'
+        ? '4-Week Virtual Internship – Full-Stack (team, simulated company)'
+        : '4-Week Virtual Internship – Backend (team, simulated company)';
+    }
     return tierConfig ? tierConfig.name : 'Active Internship Track';
   };
 
