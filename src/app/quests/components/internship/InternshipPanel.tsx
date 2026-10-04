@@ -71,11 +71,11 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
     state = 'loading';
   } else if (!enrollment) {
     const capstoneDone = isCapstoneComplete(crashEnrollment);
-    const isPythonTrack = crashEnrollment?.track === 'python_ai';
+    const isEligibleTrack = crashEnrollment?.track === 'python_ai' || crashEnrollment?.track === 'web_fullstack';
 
-    if (!isPythonTrack) {
+    if (!isEligibleTrack) {
       state = 'not_eligible';
-      notEligibleReason = 'The internship simulation is currently exclusive to the Python & AI Engineering track.';
+      notEligibleReason = 'The internship simulation is currently exclusive to the Python & AI Engineering and Full-Stack Web tracks.';
     } else if (!capstoneDone) {
       state = 'not_eligible';
       notEligibleReason = 'Your Capstone Project Desk must be completed and approved before starting the internship simulation.';
