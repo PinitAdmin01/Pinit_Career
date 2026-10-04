@@ -38,7 +38,7 @@ export interface InternshipTaskRow {
   seq: number;
   week: number | null;
   kind: string;
-  language: 'python' | 'sql';
+  language: InternshipTaskLanguage;
   title: string;
   brief: string;
   starter_code: string;

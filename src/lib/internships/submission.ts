@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
-import type { InternshipTaskRow, InternshipEnrollmentRow } from './types';
+import { runJsInSandbox } from '@/lib/server/jsSandbox';
+import type { InternshipTaskRow, InternshipEnrollmentRow, InternshipTaskLanguage } from './types';
 
 export interface SubmissionEligibilityResult {
   ok: boolean;
@@ -186,6 +187,49 @@ except Exception:
 }
 
 /**
+ * Instruments hidden JS/TS tests so that:
+ * 1. Each check is numbered.
+ * 2. Any failure prints ONLY "Hidden check N failed".
+ * 3. Hidden test source code is NEVER printed to stdout or stderr.
+ */
+export function instrumentHiddenJsTests(hiddenTests: string): string {
+  const lines = hiddenTests.split('\n');
+  const instrumented: string[] = [];
+  let checkCount = 0;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (
+      trimmed.startsWith('assert(') ||
+      trimmed.startsWith('assert ') ||
+      trimmed.startsWith('console.assert') ||
+      trimmed.startsWith('if ') ||
+      trimmed.startsWith('expect(') ||
+      trimmed.includes('throw new Error') ||
+      trimmed.includes('throw new')
+    ) {
+      checkCount++;
+      instrumented.push(`__pinit_hidden_check_idx = ${checkCount};`);
+      instrumented.push(line);
+    } else {
+      instrumented.push(line);
+    }
+  }
+
+  if (checkCount === 0) {
+    checkCount = 1;
+  }
+
+  return `let __pinit_hidden_check_idx = 1;
+try {
+${instrumented.join('\n')}
+} catch (err: any) {
+  throw new Error('Hidden check ' + __pinit_hidden_check_idx + ' failed');
+}
+`;
+}
+
+/**
  * Defense-in-depth sanitization: ensures hidden test source lines never appear in output.
  */
 export function sanitizeHiddenOutput(
@@ -219,13 +263,59 @@ export interface TicketExecutionResult {
  * Never exposes hidden test source code to output.
  */
 export async function executeTicketCode(opts: {
-  language: 'python' | 'sql';
+  language: InternshipTaskLanguage;
   code: string;
   visibleTests: string;
   hiddenTests: string;
   sqlSetup?: string | null;
 }): Promise<TicketExecutionResult> {
   const { language, code, visibleTests, hiddenTests, sqlSetup } = opts;
+
+  if (language === 'typescript' || language === 'tsx') {
+    // 1. Run visible tests
+    const visibleRes = await runJsInSandbox({
+      code,
+      tests: visibleTests,
+      language,
+      timeoutMs: 4000,
+    });
+
+    if (!visibleRes.passed) {
+      const errOut = visibleRes.stderr || visibleRes.stdout || visibleRes.error || 'Visible tests failed';
+      return {
+        passed: false,
+        output: trimSubmissionOutput(errOut),
+        failedStage: 'visible',
+      };
+    }
+
+    // 2. Run hidden tests
+    const instrumentedTests = instrumentHiddenJsTests(hiddenTests);
+    const hiddenRes = await runJsInSandbox({
+      code,
+      tests: instrumentedTests,
+      language,
+      timeoutMs: 4000,
+      hidden: true,
+    });
+
+    if (!hiddenRes.passed) {
+      const combined = `${hiddenRes.stderr || ''}\n${hiddenRes.stdout || ''}\n${hiddenRes.error || ''}`;
+      const match = combined.match(/Hidden check \d+ failed/);
+      const safeOutput = match ? match[0] : 'Hidden check failed';
+
+      return {
+        passed: false,
+        output: sanitizeHiddenOutput(safeOutput, hiddenTests),
+        failedStage: 'hidden',
+      };
+    }
+
+    return {
+      passed: true,
+      output: 'All tests passed (visible and hidden).',
+    };
+  }
 
   if (language === 'python') {
     // 1. Run visible tests
