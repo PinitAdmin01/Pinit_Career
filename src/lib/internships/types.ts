@@ -30,6 +30,8 @@ export interface InternshipEnrollmentRow {
   updated_at: string;
 }
 
+export type InternshipTaskLanguage = 'python' | 'sql' | 'typescript' | 'tsx';
+
 export interface InternshipTaskRow {
   id: string;
   internship_enrollment_id: string;
@@ -197,7 +199,7 @@ export interface ClientInternshipTask {
   seq: number;
   week: number | null;
   kind: string;
-  language: 'python' | 'sql';
+  language: InternshipTaskLanguage;
   title: string;
   brief: string;
   starterCode: string;

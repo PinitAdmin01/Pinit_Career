@@ -85,7 +85,7 @@ const { parentPort, workerData } = require('node:worker_threads');
 const vm = require('node:vm');
 
 async function run() {
-  const { code, tests, sentinel, timeoutMs, isTsx, hidden, reactRuntimeModule } = workerData;
+  const { code, tests, sentinel, timeoutMs, isTsx, hidden, reactRuntimeCode } = workerData;
   const stdoutLogs = [];
   const stderrLogs = [];
 
@@ -119,14 +119,15 @@ async function run() {
     TypeError,
     RangeError,
     SyntaxError,
+    assert: (cond, msg) => {
+      if (!cond) throw new Error(msg || 'Assertion failed');
+    },
   };
 
-  if (isTsx && reactRuntimeModule) {
+  if (isTsx && reactRuntimeCode) {
     try {
-      const { getReactRuntimeSync } = require(reactRuntimeModule);
-      const runtime = getReactRuntimeSync();
       vm.createContext(sandbox);
-      vm.runInContext(runtime, sandbox);
+      vm.runInContext(reactRuntimeCode, sandbox);
       sandbox.render = function(Component, props) {
         const R = sandbox.__PINIT_REACT__ || { React: sandbox.React, renderToStaticMarkup: sandbox.renderToStaticMarkup };
         if (!R || !R.renderToStaticMarkup || !R.React) {
@@ -243,6 +244,9 @@ async function runInVmDirectly(
     TypeError,
     RangeError,
     SyntaxError,
+    assert: (cond: any, msg?: string) => {
+      if (!cond) throw new Error(msg || 'Assertion failed');
+    },
   };
 
   if (isTsx) {
@@ -382,7 +386,13 @@ export async function runJsInSandbox(
   runnableTests = stripExportStatements(runnableTests);
 
   const clampedTimeout = Math.min(Math.max(Number(timeoutMs) || 3000, 200), 10000);
-  const reactRuntimeModule = path.resolve(process.cwd(), 'src/lib/code/react/reactRuntime');
+  let reactRuntimeCode = '';
+  if (isTsx) {
+    try {
+      const { getReactRuntimeSync } = await import('@/lib/code/react/reactRuntime');
+      reactRuntimeCode = getReactRuntimeSync();
+    } catch {}
+  }
 
   // 3. Execution in isolated Worker Thread
   let workerResult: {
@@ -429,7 +439,7 @@ export async function runJsInSandbox(
             timeoutMs: clampedTimeout,
             isTsx,
             hidden,
-            reactRuntimeModule,
+            reactRuntimeCode,
           },
         });
 

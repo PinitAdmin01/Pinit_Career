@@ -1,6 +1,9 @@
 import { findForbiddenPython } from '@/lib/code/python/pythonGuard';
+import { findForbiddenJs } from '@/lib/code/js/jsGuard';
 import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
+import { runJsInSandbox } from '@/lib/server/jsSandbox';
 import type { GeneratedTask } from './generateTask';
+import type { InternshipTaskLanguage } from './types';
 
 export type ValidationStep = 'V1' | 'V2' | 'V3' | 'V4' | 'V5' | 'V6' | 'V7';
 
@@ -22,7 +25,7 @@ export type ValidationResult = ValidationSuccess | ValidationFailure;
  */
 export async function validateGeneratedTask(
   task: GeneratedTask,
-  language: 'python' | 'sql' = 'python'
+  language: InternshipTaskLanguage = 'python'
 ): Promise<ValidationResult> {
   // ── Step V1: Length limits ───────────────────────────────────────────────
   if (task.brief.length > 2000) {
@@ -61,6 +64,22 @@ export async function validateGeneratedTask(
         reason: `Restricted Python pattern found: ${forbidden}`,
       };
     }
+  } else if (language === 'typescript' || language === 'tsx') {
+    const combinedJs = [
+      task.starter_code,
+      task.visible_tests,
+      task.hidden_tests,
+      task.reference_solution,
+    ].join('\n');
+
+    const forbidden = findForbiddenJs(combinedJs);
+    if (forbidden) {
+      return {
+        ok: false,
+        step: 'V2',
+        reason: `Restricted JavaScript/TypeScript pattern found: ${forbidden}`,
+      };
+    }
   }
 
   // ── Step V3: Reference solution + visible tests pass ───────────────────────
@@ -77,7 +96,7 @@ export async function validateGeneratedTask(
         reason: `Reference solution failed visible tests: ${v3Res.stderr || v3Res.stdout}`,
       };
     }
-  } else {
+  } else if (language === 'sql') {
     const v3Sql = await runSqlVerification(
       task.sql_setup || '',
       task.reference_solution,
@@ -88,6 +107,21 @@ export async function validateGeneratedTask(
         ok: false,
         step: 'V3',
         reason: `Reference solution failed visible SQL checks: ${v3Sql.error}`,
+      };
+    }
+  } else {
+    // typescript or tsx
+    const v3Js = await runJsInSandbox({
+      code: task.reference_solution,
+      tests: task.visible_tests,
+      language,
+      timeoutMs: 4000,
+    });
+    if (!v3Js.passed) {
+      return {
+        ok: false,
+        step: 'V3',
+        reason: `Reference solution failed visible tests: ${v3Js.stderr || v3Js.stdout || v3Js.error}`,
       };
     }
   }
@@ -106,7 +140,7 @@ export async function validateGeneratedTask(
         reason: `Reference solution failed hidden tests: ${v4Res.stderr || v4Res.stdout}`,
       };
     }
-  } else {
+  } else if (language === 'sql') {
     const v4Sql = await runSqlVerification(
       task.sql_setup || '',
       task.reference_solution,
@@ -117,6 +151,22 @@ export async function validateGeneratedTask(
         ok: false,
         step: 'V4',
         reason: `Reference solution failed hidden SQL checks: ${v4Sql.error}`,
+      };
+    }
+  } else {
+    // typescript or tsx
+    const v4Js = await runJsInSandbox({
+      code: task.reference_solution,
+      tests: task.hidden_tests,
+      language,
+      timeoutMs: 4000,
+      hidden: true,
+    });
+    if (!v4Js.passed) {
+      return {
+        ok: false,
+        step: 'V4',
+        reason: `Reference solution failed hidden tests: ${v4Js.stderr || v4Js.stdout || v4Js.error}`,
       };
     }
   }
@@ -136,7 +186,7 @@ export async function validateGeneratedTask(
         reason: 'Starter code already passes tests (task is pre-solved).',
       };
     }
-  } else {
+  } else if (language === 'sql') {
     const combinedChecks = `${task.visible_tests}\n${task.hidden_tests}`;
     const v5Sql = await runSqlVerification(
       task.sql_setup || '',
@@ -148,6 +198,22 @@ export async function validateGeneratedTask(
         ok: false,
         step: 'V5',
         reason: 'Starter code already passes SQL checks (task is pre-solved).',
+      };
+    }
+  } else {
+    // typescript or tsx
+    const combinedTests = `${task.visible_tests}\n${task.hidden_tests}`;
+    const v5Js = await runJsInSandbox({
+      code: task.starter_code,
+      tests: combinedTests,
+      language,
+      timeoutMs: 4000,
+    });
+    if (v5Js.passed) {
+      return {
+        ok: false,
+        step: 'V5',
+        reason: 'Starter code already passes tests (task is pre-solved).',
       };
     }
   }
@@ -190,6 +256,24 @@ export async function validateGeneratedTask(
         reason: `Hidden tests must contain at least 3 assert statements (found ${hiddenAsserts}).`,
       };
     }
+  } else if (language === 'typescript' || language === 'tsx') {
+    const visibleAsserts = countJsAssertLines(task.visible_tests);
+    if (visibleAsserts < 2) {
+      return {
+        ok: false,
+        step: 'V7',
+        reason: `Visible tests must contain at least 2 assert statements (found ${visibleAsserts}).`,
+      };
+    }
+
+    const hiddenAsserts = countJsAssertLines(task.hidden_tests);
+    if (hiddenAsserts < 3) {
+      return {
+        ok: false,
+        step: 'V7',
+        reason: `Hidden tests must contain at least 3 assert statements (found ${hiddenAsserts}).`,
+      };
+    }
   }
 
   return { ok: true };
@@ -203,6 +287,24 @@ export function countAssertLines(testSource: string): number {
     .split('\n')
     .map((l) => l.trim())
     .filter((l) => l.startsWith('assert ') || l.startsWith('assert(')).length;
+}
+
+/**
+ * Counts standalone assert statements or test checks in a TypeScript/TSX test string.
+ */
+export function countJsAssertLines(testSource: string): number {
+  return testSource
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) =>
+      l.startsWith('assert') ||
+      l.startsWith('console.assert') ||
+      l.startsWith('expect(') ||
+      l.includes('throw new Error') ||
+      l.includes('throw new') ||
+      l.includes('render(') ||
+      (l.startsWith('if ') && l.includes('throw'))
+    ).length;
 }
 
 /**
