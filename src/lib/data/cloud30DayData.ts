@@ -80,7 +80,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `sortNaclRules(rules)` sorting rules ascending by ruleNumber to simulate lowest-number-wins priority.",
     "aStarter": "function sortNaclRules(rules) {\n  // TODO: Sort array ascending by numeric ruleNumber property\n  \n}",
     "aHint": "Use rules.slice().sort((a, b) => a.ruleNumber - b.ruleNumber); return the sorted array of NACL rules.",
-    "aTest": "const sorted = sortNaclRules([{ ruleNumber: 200 }, { ruleNumber: 100 }, { ruleNumber: 150 }]);\nif (sorted[0].ruleNumber !== 100 || sorted[1].ruleNumber !== 150) throw new Error('NACL sort failed');"
+    "aTest": "const s1 = sortNaclRules([{ ruleNumber: 200 }, { ruleNumber: 100 }, { ruleNumber: 150 }]);\nif (s1[0].ruleNumber !== 100 || s1[1].ruleNumber !== 150 || s1[2].ruleNumber !== 200) throw new Error('NACL sort failed on 3 items');\nconst s2 = sortNaclRules([{ ruleNumber: 50 }, { ruleNumber: 10 }]);\nif (s2[0].ruleNumber !== 10 || s2[1].ruleNumber !== 50) throw new Error('NACL sort failed on 2 items');\nconst s3 = sortNaclRules([{ ruleNumber: 10 }, { ruleNumber: 30 }, { ruleNumber: 5 }]);\nif (s3[0].ruleNumber !== 5 || s3[1].ruleNumber !== 10 || s3[2].ruleNumber !== 30) throw new Error('NACL sort failed on unordered items');"
   },
   {
     "day": 5,
@@ -120,7 +120,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `parseArn(arnString)` extracting service, region, accountId, and resource path components.",
     "aStarter": "function parseArn(arn) {\n  // TODO: Split ARN by colon delimiter and map to { partition, service, region, account, resource }\n  \n}",
     "aHint": "Split string by ':'; parts[2] is service, parts[3] is region, parts[4] is account, parts[5] is resource.",
-    "aTest": "const p = parseArn('arn:aws:s3:us-east-1:123456789012:bucket/key');\nif (p.service !== 's3' || p.region !== 'us-east-1') throw new Error('ARN parser failed');\nif (p.account !== '123456789012') throw new Error('ARN account parse failed');"
+    "aTest": "const p1 = parseArn('arn:aws:s3:us-east-1:123456789012:bucket/key');\nif (p1.service !== 's3' || p1.region !== 'us-east-1' || p1.account !== '123456789012' || p1.resource !== 'bucket/key') throw new Error('ARN parser failed on S3');\nconst p2 = parseArn('arn:aws:sqs:eu-west-1:999888777666:my-queue');\nif (p2.service !== 'sqs' || p2.region !== 'eu-west-1' || p2.account !== '999888777666' || p2.resource !== 'my-queue') throw new Error('ARN parser failed on SQS');\nconst p3 = parseArn('arn:aws:dynamodb:ap-south-1:111222333444:table/users');\nif (p3.service !== 'dynamodb' || p3.region !== 'ap-south-1' || p3.account !== '111222333444' || p3.resource !== 'table/users') throw new Error('ARN parser failed on DynamoDB');"
   },
   {
     "day": 7,
@@ -240,7 +240,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `generateCorsHeaders(allowedOrigin)` returning standard Access-Control headers for browser web applications. Include at least 'Access-Control-Allow-Origin' (the given origin) and 'Access-Control-Allow-Methods'.",
     "aStarter": "function generateCorsHeaders(origin) {\n  // TODO: Construct standard CORS response headers including Access-Control-Allow-Origin\n  \n}",
     "aHint": "Return object with 'Access-Control-Allow-Origin': allowedOrigin, 'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS'.",
-    "aTest": "const cors = generateCorsHeaders('https://app.pinit.com');\nif (cors['Access-Control-Allow-Origin'] !== 'https://app.pinit.com') throw new Error('CORS header generator failed');\nif (!cors['Access-Control-Allow-Methods']) throw new Error('CORS methods header missing');"
+    "aTest": "const c1 = generateCorsHeaders('https://app.pinit.com');\nif (c1['Access-Control-Allow-Origin'] !== 'https://app.pinit.com' || !c1['Access-Control-Allow-Methods']) throw new Error('CORS failed for pinit');\nconst c2 = generateCorsHeaders('https://api.example.org');\nif (c2['Access-Control-Allow-Origin'] !== 'https://api.example.org') throw new Error('CORS failed for example.org');\nconst c3 = generateCorsHeaders('http://localhost:3000');\nif (c3['Access-Control-Allow-Origin'] !== 'http://localhost:3000') throw new Error('CORS failed for localhost');"
   },
   {
     "day": 13,
@@ -300,7 +300,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `extractS3EventDetails(record)` returning object `{ bucketName: string, objectKey: string, sizeBytes: number }`.",
     "aStarter": "function extractS3EventDetails(record) {\n  // TODO: Extract bucket.name, object.key, and object.size from S3 event record payload\n  \n}",
     "aHint": "Safely navigate record.s3.bucket.name and record.s3.object.key, decoding URI components if needed; return structured object.",
-    "aTest": "const details = extractS3EventDetails({ s3: { bucket: { name: 'b1' }, object: { key: 'vid.mp4', size: 1024 } } });\nif (details.bucketName !== 'b1' || details.objectKey !== 'vid.mp4') throw new Error('Event parser failed');\nif (details.sizeBytes !== 1024) throw new Error('Event size parsing failed');"
+    "aTest": "const d1 = extractS3EventDetails({ s3: { bucket: { name: 'b1' }, object: { key: 'vid.mp4', size: 1024 } } });\nif (d1.bucketName !== 'b1' || d1.objectKey !== 'vid.mp4' || d1.sizeBytes !== 1024) throw new Error('Event parser failed on b1');\nconst d2 = extractS3EventDetails({ s3: { bucket: { name: 'media-vault' }, object: { key: 'clips/intro.mov', size: 8192 } } });\nif (d2.bucketName !== 'media-vault' || d2.objectKey !== 'clips/intro.mov' || d2.sizeBytes !== 8192) throw new Error('Event parser failed on media-vault');\nconst d3 = extractS3EventDetails({ s3: { bucket: { name: 'assets' }, object: { key: 'logo.png', size: 512 } } });\nif (d3.bucketName !== 'assets' || d3.objectKey !== 'logo.png' || d3.sizeBytes !== 512) throw new Error('Event parser failed on assets');"
   },
   {
     "day": 16,
@@ -320,7 +320,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `normalizeEdgeHeaders(headers)` converting incoming HTTP header keys to lowercase for consistent cache key generation.",
     "aStarter": "function normalizeEdgeHeaders(headers) {\n  // TODO: Iterate header keys and construct a new object with all lowercase keys\n  \n}",
     "aHint": "Loop Object.entries(headers); build new object with key.toLowerCase() as property names; return normalized headers.",
-    "aTest": "const norm = normalizeEdgeHeaders({ 'Content-Type': 'application/json', 'X-Custom-Auth': 'token123' });\nif (norm['content-type'] !== 'application/json' || norm['x-custom-auth'] !== 'token123') throw new Error('Edge header normalization failed');"
+    "aTest": "const n1 = normalizeEdgeHeaders({ 'Content-Type': 'application/json', 'X-Custom-Auth': 'token123' });\nif (n1['content-type'] !== 'application/json' || n1['x-custom-auth'] !== 'token123') throw new Error('Edge header normalization failed on auth headers');\nconst n2 = normalizeEdgeHeaders({ 'Accept-Encoding': 'gzip, deflate', 'CACHE-CONTROL': 'no-cache' });\nif (n2['accept-encoding'] !== 'gzip, deflate' || n2['cache-control'] !== 'no-cache') throw new Error('Edge header normalization failed on cache headers');\nconst n3 = normalizeEdgeHeaders({ 'USER-AGENT': 'Mozilla/5.0', 'X-Forwarded-For': '192.168.1.1' });\nif (n3['user-agent'] !== 'Mozilla/5.0' || n3['x-forwarded-for'] !== '192.168.1.1') throw new Error('Edge header normalization failed on agent headers');"
   },
   {
     "day": 17,
@@ -400,7 +400,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `createEventBridgeEnvelope(source, detailType, detailObject)` creating standard AWS event payload. Use the EventBridge field names: version ('0'), id, source, 'detail-type', time and detail.",
     "aStarter": "function createEventBridgeEnvelope(src, type, detail) {\n  // TODO: Construct standard EventBridge envelope with Version, Id, Source, DetailType, Time, and Detail\n  \n}",
     "aHint": "Return object with version: '0', id: 'evt_' + Math.random(), source, 'detail-type': detailType, time: new Date().toISOString(), detail: detailObject.",
-    "aTest": "const env = createEventBridgeEnvelope('pinit.orders', 'OrderPlaced', { id: 101 });\nif (env.source !== 'pinit.orders' || env['detail-type'] !== 'OrderPlaced') throw new Error('Envelope formatting failed');\nif (!env.time || env.version !== '0') throw new Error('Envelope metadata failed');"
+    "aTest": "const e1 = createEventBridgeEnvelope('pinit.orders', 'OrderPlaced', { id: 101 });\nif (e1.source !== 'pinit.orders' || e1['detail-type'] !== 'OrderPlaced' || e1.detail.id !== 101 || !e1.time || e1.version !== '0') throw new Error('Envelope formatting failed on orders');\nconst e2 = createEventBridgeEnvelope('pinit.auth', 'UserLogin', { userId: 'u_1' });\nif (e2.source !== 'pinit.auth' || e2['detail-type'] !== 'UserLogin' || e2.detail.userId !== 'u_1') throw new Error('Envelope formatting failed on auth');\nconst e3 = createEventBridgeEnvelope('pinit.billing', 'InvoicePaid', { invoiceId: 'inv_9' });\nif (e3.source !== 'pinit.billing' || e3['detail-type'] !== 'InvoicePaid' || e3.detail.invoiceId !== 'inv_9') throw new Error('Envelope formatting failed on billing');"
   },
   {
     "day": 21,
@@ -440,7 +440,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `fuseContainerEnvVars(baseEnv, secretsList)` merging plain-text environment variables and Secrets Manager ARNs into task definition format. Return { environment, secrets, totalVariableCount } where environment is the base list and totalVariableCount counts both lists.",
     "aStarter": "function fuseContainerEnvVars(base, secrets) {\n  // TODO: Merge base environment array and secrets array into a unified ECS container definition environment list\n  \n}",
     "aHint": "Return object containing environment: baseEnv, secrets: secretsList, totalVariableCount: baseEnv.length + secretsList.length.",
-    "aTest": "const f = fuseContainerEnvVars([{ name: 'PORT', value: '8080' }], [{ name: 'DB_PASS', valueFrom: 'arn:secret' }]);\nif (f.totalVariableCount !== 2 || f.environment[0].name !== 'PORT') throw new Error('ECS environment fusion failed');"
+    "aTest": "const f1 = fuseContainerEnvVars([{ name: 'PORT', value: '8080' }], [{ name: 'DB_PASS', valueFrom: 'arn:secret' }]);\nif (f1.totalVariableCount !== 2 || f1.environment[0].name !== 'PORT' || f1.secrets[0].name !== 'DB_PASS') throw new Error('ECS environment fusion failed on 2 items');\nconst f2 = fuseContainerEnvVars([{ name: 'NODE_ENV', value: 'production' }, { name: 'LOG_LEVEL', value: 'info' }], []);\nif (f2.totalVariableCount !== 2 || f2.environment.length !== 2 || f2.secrets.length !== 0) throw new Error('ECS environment fusion failed on empty secrets');\nconst f3 = fuseContainerEnvVars([], [{ name: 'API_KEY', valueFrom: 'arn:key' }, { name: 'TOKEN', valueFrom: 'arn:tok' }, { name: 'CERT', valueFrom: 'arn:crt' }]);\nif (f3.totalVariableCount !== 3 || f3.environment.length !== 0 || f3.secrets.length !== 3) throw new Error('ECS environment fusion failed on empty base');"
   },
   {
     "day": 23,
@@ -500,7 +500,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `formatLogFilterQuery(statusCodeThreshold)` generating a standard CloudWatch Logs Insights query string to isolate error logs. The query must contain 'fields @timestamp' and 'filter status >= THRESHOLD'.",
     "aStarter": "function formatLogFilterQuery(codeThreshold) {\n  // TODO: Return CloudWatch Logs Insights query string filtering logs where status is greater than or equal to threshold\n  \n}",
     "aHint": "Return string formatted as: `fields @timestamp, @message | filter status >= ${statusCodeThreshold} | sort @timestamp desc | limit 50`.",
-    "aTest": "const q = formatLogFilterQuery(500);\nif (!q.includes('filter status >= 500') || !q.includes('fields @timestamp')) throw new Error('Log query formatter failed');"
+    "aTest": "const q1 = formatLogFilterQuery(500);\nif (!q1.includes('filter status >= 500') || !q1.includes('fields @timestamp')) throw new Error('Log query formatter failed on 500');\nconst q2 = formatLogFilterQuery(400);\nif (!q2.includes('filter status >= 400') || !q2.includes('fields @timestamp')) throw new Error('Log query formatter failed on 400');\nconst q3 = formatLogFilterQuery(404);\nif (!q3.includes('filter status >= 404')) throw new Error('Log query formatter failed on 404');"
   },
   {
     "day": 26,

@@ -27,11 +27,25 @@ describe('internship eligibility checks (checkInternshipEligibility)', () => {
     }
   });
 
-  it('fails with TRACK_NOT_ELIGIBLE when track is web_fullstack', () => {
+  it('succeeds for 1m web_fullstack track and returns t1_job_sim when conditions are met', () => {
     const res = checkInternshipEligibility({
       enrollment: completedCapstoneEnrollment,
       plan: { tier: '1m' },
       track: 'web_fullstack',
+      tierSwitchOverride: { t1_job_sim: true },
+    });
+
+    assert.strictEqual(res.ok, true);
+    if (res.ok) {
+      assert.strictEqual(res.tier, 't1_job_sim');
+    }
+  });
+
+  it('fails with TRACK_NOT_ELIGIBLE when track is unsupported (e.g. mobile_dev)', () => {
+    const res = checkInternshipEligibility({
+      enrollment: completedCapstoneEnrollment,
+      plan: { tier: '1m' },
+      track: 'mobile_dev',
       tierSwitchOverride: { t1_job_sim: true },
     });
 

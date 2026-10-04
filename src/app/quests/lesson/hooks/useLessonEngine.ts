@@ -14,10 +14,49 @@ import { executeSandboxScript } from '@/lib/code/sandbox/sandboxedIframeRunner';
 import { withLessonHelpers } from '@/lib/code/sandbox/lessonHelpers';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { LessonState } from './useLessonState';
+import { compileTs } from '@/lib/code/ts/compileTs';
 
-function adaptCodeForSandbox(code: string, questId: string): string {
-  const qLower = (questId || '').toLowerCase();
-  const isJava = qLower.includes('java') || code.includes('public class') || code.includes('System.out');
+export function adaptCodeForSandbox(
+  code: string,
+  questId: string | { id?: string; language?: string } = '',
+  questOrLanguage?: string | { language?: string }
+): string {
+  let qId = '';
+  let setLanguage: string | undefined;
+
+  if (typeof questId === 'object' && questId !== null) {
+    qId = questId.id || '';
+    if (questId.language) {
+      setLanguage = String(questId.language).toLowerCase();
+    }
+  } else if (typeof questId === 'string') {
+    qId = questId;
+  }
+
+  if (typeof questOrLanguage === 'string') {
+    setLanguage = questOrLanguage.toLowerCase();
+  } else if (questOrLanguage && typeof questOrLanguage === 'object' && questOrLanguage.language) {
+    setLanguage = String(questOrLanguage.language).toLowerCase();
+  }
+
+  if (!setLanguage && qId) {
+    const auth = getAuthoritativeQuest(qId);
+    if ((auth as any)?.language) {
+      setLanguage = String((auth as any).language).toLowerCase();
+    }
+  }
+
+  // CHK-7: adaptCodeForSandbox must not rewrite code for quests whose language is set (typescript/tsx/html/css/javascript)
+  if (setLanguage) {
+    const norm = setLanguage.trim().toLowerCase();
+    const preservedLanguages = new Set(['typescript', 'ts', 'tsx', 'html', 'css', 'javascript', 'js']);
+    if (preservedLanguages.has(norm)) {
+      return code;
+    }
+  }
+
+  const qLower = (qId || '').toLowerCase();
+  const isJava = (/\bjava\b/i.test(qLower) || (qLower.includes('java') && !qLower.includes('javascript'))) || code.includes('public class') || code.includes('System.out');
   const isPython = qLower.includes('python') || code.includes('def ') || (code.includes('print(') && !code.includes('console.log'));
   const isSql = qLower.includes('sql') || /^\s*(SELECT|CREATE|INSERT|UPDATE|DELETE)\b/i.test(code.trim());
 
@@ -64,6 +103,10 @@ const RUNNER_LABELS: Record<string, string> = {
   'java-basics': '⚙️ Javac compiling',
   'python': '🐍 Python 3 Executing',
   'react-basics': '⚛️ React Node Sandbox',
+  'node-web': '🔷 Node.js & TypeScript Sandbox',
+  'sre-web': '🔷 Multi-Cloud Reliability & SRE Sandbox',
+  'stream-web': '🔷 Streaming & Event Processing Sandbox',
+  'aideploy-web': '🔷 Production AI Deployment Sandbox',
   'sql-mastery': '🗄️ SQLite Engine',
   'dsa-optim': '🔢 DSA Node Sandbox',
   'dsa-py': '🐍 Python 3 Executing',
@@ -321,9 +364,23 @@ export function useLessonEngine({
         return;
       }
 
+      let codeToExecute = codeSnippet;
+      const isTs = (parsedId && getLongLessonLanguage(parsedId.prefix) === 'typescript') || questData?.language === 'typescript' || questData?.language === 'tsx';
+      if (isTs) {
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Compiling TypeScript..." }));
+        const compiled = await compileTs(codeSnippet, { jsx: questData?.language === 'tsx' || /<[A-Za-z]/.test(codeSnippet) });
+        if (!compiled.ok) {
+          const lineInfo = compiled.line ? ` (line ${compiled.line})` : '';
+          setCodeOutputs(prev => ({ ...prev, [slideIdx]: `TypeScript compilation failed${lineInfo}: ${compiled.message}` }));
+          return;
+        }
+        codeToExecute = compiled.js;
+      }
+
       // Run the example inside an async function so examples that await (or print after a
       // promise settles) show all their output, with the hash helpers added when it uses them.
-      const executable = `return (async () => {\n${withLessonHelpers(adaptCodeForSandbox(codeSnippet, questId))}\n})();`;
+      const questLang = questData?.language || (isTs ? 'typescript' : (parsedId ? getLongLessonLanguage(parsedId.prefix) : undefined));
+      const executable = `return (async () => {\n${withLessonHelpers(adaptCodeForSandbox(codeToExecute, questId, questLang))}\n})();`;
       const result = await executeSandboxScript(executable, 4000);
 
       let formattedOutput = '';
@@ -345,7 +402,7 @@ export function useLessonEngine({
     } finally {
       setCodeRunning(prev => ({ ...prev, [slideIdx]: false }));
     }
-  }, [slides, questId, longLesson, setCodeOutputs, setCodeRunning]);
+  }, [slides, questId, questData, longLesson, setCodeOutputs, setCodeRunning]);
 
   const simulateCodeRun = useCallback((slideIdx: number, _mockOutput?: string) => {
     const rawCode = slides[slideIdx]?.codeExample;

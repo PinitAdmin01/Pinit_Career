@@ -1,6 +1,7 @@
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { generateValidatedTask, type GeneratedTask } from './generateTask';
 import type { UserStory } from './productBrief';
+import type { InternshipTaskLanguage } from './types';
 
 export const TIER2_PYTHON_SKILLS = [
   'Python Classes and Data Structures',
@@ -22,11 +23,29 @@ export const TIER2_SQL_SKILLS = [
   'Indexes and Query Performance',
 ] as const;
 
+export const TIER2_WEB_REACT_SKILLS = [
+  'React Components',
+  'JSX and Element Rendering',
+  'Props and Typing',
+  'State Management (useState)',
+  'Event Handling and Form Inputs',
+  'Conditional Rendering and Lists',
+] as const;
+
+export const TIER2_WEB_NODE_SKILLS = [
+  'TypeScript Functions and Generics',
+  'Node.js Request Validation',
+  'Data Parsing and Transformation',
+  'HTTP Status Codes and Error Responses',
+  'Asynchronous Async/Await Handling',
+  'String and Object Manipulation',
+] as const;
+
 export interface Tier2TaskItem {
   seq: number;
   week: number;
   kind: string;
-  language: 'python' | 'sql';
+  language: InternshipTaskLanguage;
   storyId: string;
   task: GeneratedTask;
   model: string;
@@ -47,7 +66,7 @@ export interface Tier2TaskSpec {
   seq: number;
   week: number;
   kind: string;
-  language: 'python' | 'sql';
+  language: InternshipTaskLanguage;
 }
 
 export const TIER2_TASK_SPECS: Tier2TaskSpec[] = [
@@ -61,9 +80,20 @@ export const TIER2_TASK_SPECS: Tier2TaskSpec[] = [
   { seq: 8, week: 4, kind: 'revenue_report', language: 'sql' },
 ];
 
+export const TIER2_WEB_TASK_SPECS: Tier2TaskSpec[] = [
+  { seq: 1, week: 1, kind: 'ui_component', language: 'tsx' },
+  { seq: 2, week: 1, kind: 'query_filter', language: 'sql' },
+  { seq: 3, week: 2, kind: 'api_handler', language: 'typescript' },
+  { seq: 4, week: 2, kind: 'multi_table_join', language: 'sql' },
+  { seq: 5, week: 3, kind: 'interactive_feature', language: 'tsx' },
+  { seq: 6, week: 3, kind: 'subquery_filter', language: 'sql' },
+  { seq: 7, week: 4, kind: 'service_integration', language: 'typescript' },
+  { seq: 8, week: 4, kind: 'revenue_report', language: 'sql' },
+];
+
 /**
  * Generates 8 weekly checked tasks for a Tier 2 Virtual Internship student (T-26, FR-T2-4).
- * 2 tasks per week (1 Python, 1 SQL) across 4 weekly sprints.
+ * 2 tasks per week (1 Python/TSX/TS, 1 SQL) across 4 weekly sprints.
  * Week 1 Task 1 is open; subsequent tasks are locked.
  */
 export async function generateTier2MemberTasks(opts: {
@@ -71,29 +101,46 @@ export async function generateTier2MemberTasks(opts: {
   studentId: string;
   stories: UserStory[];
   companyName?: string;
+  track?: 'python_ai' | 'web_fullstack' | string;
   seed: string;
   model?: string;
 }): Promise<GenerateTier2TasksResult> {
-  const company = opts.companyName || 'Virtual Systems Lab';
+  const isWeb = opts.track === 'web_fullstack';
+  const company = opts.companyName || (isWeb ? 'DevPulse Solutions' : 'Virtual Systems Lab');
   const admin = getSupabaseAdmin();
   const getStoryId = (idx: number) => (opts.stories[idx % opts.stories.length]?.id || `US-0${idx + 1}`);
 
+  const specs = isWeb ? TIER2_WEB_TASK_SPECS : TIER2_TASK_SPECS;
   const tasksToInsert: Tier2TaskItem[] = [];
 
-  for (let i = 0; i < TIER2_TASK_SPECS.length; i++) {
-    const spec = TIER2_TASK_SPECS[i];
+  for (let i = 0; i < specs.length; i++) {
+    const spec = specs[i];
     const taskSeed = `${opts.seed}-t2-task-${spec.seq}-${spec.language}`;
 
     try {
-      const skills = spec.language === 'python' ? TIER2_PYTHON_SKILLS : TIER2_SQL_SKILLS;
+      let skills: readonly string[];
+      if (isWeb) {
+        if (spec.language === 'tsx') {
+          skills = TIER2_WEB_REACT_SKILLS;
+        } else if (spec.language === 'typescript') {
+          skills = TIER2_WEB_NODE_SKILLS;
+        } else {
+          skills = TIER2_SQL_SKILLS;
+        }
+      } else {
+        skills = spec.language === 'python' ? TIER2_PYTHON_SKILLS : TIER2_SQL_SKILLS;
+      }
+
       const genRes = await generateValidatedTask({
         tier: 't2_virtual_team',
         kind: spec.kind,
         skills,
         companyProfile: {
           name: company,
-          business: 'Cloud Software & Healthcare Services',
-          description: 'Simulated corporate virtual team project.',
+          business: isWeb ? 'Full-Stack Web & Cloud Infrastructure' : 'Cloud Software & Healthcare Services',
+          description: isWeb
+            ? 'Simulated corporate full-stack virtual team project with React, Node.js, and PostgreSQL.'
+            : 'Simulated corporate virtual team project.',
         },
         seed: taskSeed,
         language: spec.language,

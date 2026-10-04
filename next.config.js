@@ -113,6 +113,7 @@ const nextConfig = {
         ...config.resolve.alias,
         'sharp$':             false,
         'onnxruntime-node$':  false,
+        'esbuild$':           false,
         fs: false,
         path: false,
         child_process: false,

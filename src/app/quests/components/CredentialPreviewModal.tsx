@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { INTERNSHIP_AVAILABLE, INTERNSHIP_TIER_AVAILABLE } from '@/lib/data/crashPlansData';
-import { INTERNSHIP_TIERS } from '@/lib/internships/tiers';
+import { INTERNSHIP_AVAILABLE, INTERNSHIP_TIER_AVAILABLE, type InternshipTier } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_TIERS, type InternshipTrack } from '@/lib/internships/tiers';
 
 export interface CredentialPreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   planTitle?: string;
   trackTitle?: string;
-  tierKey?: keyof typeof INTERNSHIP_TIERS;
+  tierKey?: InternshipTier;
   onProceedToEnroll?: () => void;
 }
 
@@ -25,20 +25,26 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
   if (!isOpen) return null;
 
   const track = trackTitle;
+  const trackKey: InternshipTrack = trackTitle.toLowerCase().includes('web') ? 'web_fullstack' : 'python_ai';
   const ig = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
   const eg = 'linear-gradient(135deg, #10b981, #059669)';
 
   const t1Available = INTERNSHIP_TIER_AVAILABLE.t1_job_sim;
   const t2Available = INTERNSHIP_TIER_AVAILABLE.t2_virtual_team;
+  const tierConfig = tierKey ? INTERNSHIP_TIERS[trackKey][tierKey] : null;
 
   const getTierWording = () => {
     if (tierKey === 't1_job_sim' || t1Available) {
-      return '2-Week Python Job Simulation (simulated company)';
+      return trackKey === 'web_fullstack'
+        ? '2-Week Web Developer Job Simulation (simulated company)'
+        : '2-Week Python Job Simulation (simulated company)';
     }
     if (tierKey === 't2_virtual_team' || t2Available) {
-      return '4-Week Virtual Internship – Backend (team, simulated company)';
+      return trackKey === 'web_fullstack'
+        ? '4-Week Virtual Internship – Full-Stack (team, simulated company)'
+        : '4-Week Virtual Internship – Backend (team, simulated company)';
     }
-    return INTERNSHIP_TIERS[tierKey]?.name || 'Industrial Project Certification';
+    return tierConfig?.name || 'Industrial Project Certification';
   };
 
   const base = (s: Partial<React.CSSProperties>): React.CSSProperties => s as React.CSSProperties;

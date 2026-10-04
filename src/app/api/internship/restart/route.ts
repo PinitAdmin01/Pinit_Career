@@ -125,10 +125,13 @@ export async function POST(req: NextRequest) {
     }
 
     const newCompanyProfile = companyRes.profile;
+    const taskLang = enrollment.track === 'web_fullstack' ? 'tsx' : 'python';
 
     const tasksGen = await generateTier1Tasks({
       companyProfile: newCompanyProfile,
       seed,
+      track: enrollment.track,
+      language: taskLang,
     });
 
     if (!tasksGen.ok) {
@@ -150,7 +153,7 @@ export async function POST(req: NextRequest) {
       seq: t.seq,
       week: 1,
       kind: t.kind,
-      language: 'python',
+      language: taskLang,
       title: t.task.title,
       brief: t.task.brief,
       starter_code: t.task.starter_code,

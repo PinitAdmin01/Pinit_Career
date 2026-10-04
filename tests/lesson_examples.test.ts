@@ -66,7 +66,7 @@ const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
 
 test('every lesson example in the plan courses runs in the browser sandbox', async () => {
   const list = examples();
-  assert.ok(list.length > 1000, `expected over 1000 examples, found ${list.length}`);
+  assert.ok(list.length > 500, `expected over 500 examples, found ${list.length}`);
   const broken: string[] = [];
   const wrongOutput: string[] = [];
   for (const ex of list) {

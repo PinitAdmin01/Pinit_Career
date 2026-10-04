@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import type { ClientInternshipTask } from '@/lib/internships/types';
 import { runPythonInBrowser } from '@/lib/code/python/pythonRunner';
+import { executeTypeScriptTask } from '@/lib/code/runners/webTaskRunner';
+import { executeSqlSuite } from '@/lib/code/runners/sqlRunner';
 import { TicketEditorTabs } from './TicketEditorTabs';
 import { TicketTerminalOutput } from './TicketTerminalOutput';
 import type { CodeReview } from '@/lib/internships/codeReview';
@@ -32,12 +34,32 @@ export const TicketWorkspace: React.FC<TicketWorkspaceProps> = ({
 
   const handleRunVisible = async () => {
     setIsRunningLocal(true);
-    setLocalOutput('Executing code and visible tests in WebAssembly Python runner...');
     try {
-      const combined = `${code}\n\n# --- VISIBLE TESTS ---\n${task.visibleTests}`;
-      const res = await runPythonInBrowser(combined, 15000);
-      const out = [res.stdout, res.error ? `[Error] ${res.error}` : ''].filter(Boolean).join('\n');
-      setLocalOutput(out || 'Visible tests completed with no console output (all assertions held).');
+      if (task.language === 'typescript' || task.language === 'tsx') {
+        setLocalOutput(`Executing ${task.language.toUpperCase()} code and visible tests in browser sandbox...`);
+        const res = await executeTypeScriptTask(code, task.visibleTests, 15000, task.language);
+        const logs = (res.terminalLogs || []).join('\n');
+        const err = res.error ? `[Error] ${res.error}` : '';
+        const out = [logs, err].filter(Boolean).join('\n');
+        setLocalOutput(
+          out || (res.allPassed ? 'Visible tests completed with no console output (all assertions held).' : 'Visible tests failed.')
+        );
+      } else if (task.language === 'sql') {
+        setLocalOutput('Executing SQL query and visible tests in browser database...');
+        const res = await executeSqlSuite(code, { query: code }, 15000, task.visibleTests);
+        const logs = (res.terminalLogs || []).join('\n');
+        const err = res.error ? `[Error] ${res.error}` : '';
+        const out = [logs, err].filter(Boolean).join('\n');
+        setLocalOutput(
+          out || (res.allPassed ? 'SQL visible checks completed successfully.' : 'SQL visible check failed.')
+        );
+      } else {
+        setLocalOutput('Executing code and visible tests in WebAssembly Python runner...');
+        const combined = `${code}\n\n# --- VISIBLE TESTS ---\n${task.visibleTests}`;
+        const res = await runPythonInBrowser(combined, 15000);
+        const out = [res.stdout, res.error ? `[Error] ${res.error}` : ''].filter(Boolean).join('\n');
+        setLocalOutput(out || 'Visible tests completed with no console output (all assertions held).');
+      }
     } catch (err) {
       setLocalOutput(err instanceof Error ? `Runtime error: ${err.message}` : 'Execution failed.');
     } finally {
@@ -169,6 +191,7 @@ export const TicketWorkspace: React.FC<TicketWorkspaceProps> = ({
           setCode={setCode}
           starterCode={task.starterCode}
           visibleTests={task.visibleTests}
+          language={task.language}
         />
 
         {/* Controls */}

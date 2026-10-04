@@ -41,7 +41,7 @@ export type EligibilityResult =
  *
  * Requirements (FR-ELIG-1 to FR-ELIG-5):
  * 1. Plan tier must map to an internship tier (own tier only, e.g. 1m -> t1_job_sim).
- * 2. Only the 'python_ai' track is eligible in this version.
+ * 2. Both 'python_ai' and 'web_fullstack' tracks are eligible.
  * 3. The capstone must be complete (verified via isCapstoneComplete).
  * 4. The tier switch in INTERNSHIP_TIER_AVAILABLE must be on.
  * 5. One active internship per student per crash enrollment.
@@ -62,12 +62,12 @@ export function checkInternshipEligibility(
 
   const tier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
 
-  // 2. Track check: python_ai only
-  if (track !== 'python_ai') {
+  // 2. Track check: python_ai and web_fullstack are eligible
+  if (track !== 'python_ai' && track !== 'web_fullstack') {
     return {
       ok: false,
       error: 'TRACK_NOT_ELIGIBLE',
-      message: 'Only the Python AI track is currently eligible for the internship program.',
+      message: 'Only the Python AI and Full-Stack Web tracks are currently eligible for the internship program.',
     };
   }
 

@@ -11,6 +11,7 @@ export interface AuthoritativeQuest {
   pins: number;
   testSuite?: string;
   starterCode?: string;
+  language?: string;
 }
 
 // Global cached index across all courses and quests for O(1) server-side verification
@@ -34,6 +35,7 @@ function buildIndex(): Map<string, AuthoritativeQuest> {
         pins: typeof q.pins === 'number' && q.pins >= 0 ? q.pins : 5,
         testSuite: q.testSuite,
         starterCode: q.starterCode,
+        language: (q as any).language,
       });
     }
   }
@@ -51,6 +53,7 @@ function buildIndex(): Map<string, AuthoritativeQuest> {
       pins: 5,
       testSuite: q.testSuite,
       starterCode: q.starterCode,
+      language: (q as any).language,
     });
   }
 

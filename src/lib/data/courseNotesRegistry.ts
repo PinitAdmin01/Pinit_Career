@@ -152,6 +152,99 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
     ]
   },
 
+  'course-sre-web': {
+    courseId: 'course-sre-web',
+    courseTitle: 'Site Reliability Engineering & Multi-Cloud Observability',
+    category: 'Cloud & Infrastructure',
+    summary: 'Master multi-cloud reliability engineering, SLO/SLI error budgets, telemetry pipelines (metrics, logs, traces), automated canary analysis, chaos engineering, and Runbooks as Code.',
+    realWorldAnalogy: 'Think of SRE like modern hospital intensive care medicine: vital sign monitors (telemetry), ICU alarm protocols (burn-rate alerting), crash carts (runbooks), emergency drills (chaos engineering), and morbidity conferences (blameless postmortems).',
+    keyConcepts: [
+      {
+        heading: '1. Service Level Objectives (SLOs) & Error Budgets',
+        explanation: 'SLOs define the target reliability boundary for user happiness. Error budgets mathematically balance deployment velocity with platform stability.',
+        codeOrExample: 'const errorBudget = 100 - sloTarget;\nconst burnRate = (actualErrorRate / errorBudget);'
+      },
+      {
+        heading: '2. Multi-Metric Automated Canary Analysis (ACA)',
+        explanation: 'Statistically compare live baseline and canary cohorts running under identical production traffic to detect subtle latency and error regressions before 100% rollout.',
+        codeOrExample: 'const delta = ((canaryP95 - baselineP95) / baselineP95) * 100;\nif (delta > maxAllowedThreshold) rollbackCanary();'
+      },
+      {
+        heading: '3. Chaos Engineering & Steady-State Hypotheses',
+        explanation: 'Proactively inject controlled failures (latency, dropped replicas, network partitions) within bounded blast radii to empirically verify circuit breakers and failovers.',
+        codeOrExample: 'const steadyStateHeld = evaluateHypothesis({ p99LatencyMs: 180, errorRate: 0.05 });'
+      }
+    ],
+    cheatsheet: [
+      'Error Budget Formula: Allowed Downtime = Total Time * (1 - SLO)',
+      'Little Law of Queues: L = λ * W (Concurrency = Arrival Rate * Residence Time)',
+      'Composite Availability (Serial): A_total = A1 * A2 * A3',
+      'Composite Availability (Parallel): A_total = 1 - (1 - A1) * (1 - A2)'
+    ],
+    commonPitfalls: [
+      'Aiming for 100% availability (prohibitive cost, stops all innovation, not noticeable to users).',
+      'Alert fatigue caused by alerting on static thresholds or transient single-point spikes instead of multi-window burn rates.',
+      'Conducting punitive postmortems that assign personal blame instead of addressing systemic architectural and process deficiencies.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is an Error Budget and how do SREs use it to balance product velocity with reliability?',
+        answer: 'An error budget is the allowable room for unreliability (100% minus SLO). When the error budget is healthy, developers can deploy features aggressively. When the budget is depleted, feature deployments freeze and engineering shifts to reliability fixes.'
+      },
+      {
+        question: 'Explain the difference between MTTD and MTTR, and which one SREs focus on optimizing.',
+        answer: 'MTTD is Mean Time to Detect (how quickly monitoring alerts on a fault). MTTR is Mean Time to Recover/Restore (how quickly mitigation restores service). SREs focus heavily on minimizing MTTR through automated rollbacks, circuit breakers, and runbooks.'
+      }
+    ]
+  },
+
+  'course-stream-web': {
+    courseId: 'course-stream-web',
+    courseTitle: 'High-Throughput Streaming in TypeScript',
+    category: 'Distributed Systems & Data Engineering',
+    summary: 'Master append-only commit logs, partition key hashing, consumer group cooperative rebalancing, windowed streaming analytics, stream-table duality, schema registries, and real-time fraud detection engines.',
+    realWorldAnalogy: 'Think of a high-throughput streaming architecture like a multi-track railway freight terminal: immutable train cars (append-only logs), track switches and yard classification (partition key hashing), automated unloading crews (consumer groups), transfer depots (stream-table joins), and hazardous material inspection sidings (dead-letter queues).',
+    keyConcepts: [
+      {
+        heading: '1. Append-Only Commit Logs & Offset Immutability',
+        explanation: 'Sequential disk I/O and zero-copy OS page caching enable extreme write throughput. Monotonically increasing offsets serve as universal coordinate pointers across partitions.',
+        codeOrExample: 'const record = { offset: log.length, payload, timestampMs: Date.now() };\\nlog.push(record);'
+      },
+      {
+        heading: '2. Consumer Groups & Cooperative Sticky Rebalancing',
+        explanation: 'Partitions are distributed across consumer group members to parallelize consumption while preserving key-level ordering. Cooperative rebalancing migrates only necessary partitions without stop-the-world pauses.',
+        codeOrExample: 'const partition = murmurHash2(key) % numPartitions;\\nassignPartitions(consumerGroup, partitions);'
+      },
+      {
+        heading: '3. Stream-Table Duality (KStream & KTable)',
+        explanation: 'A stream is a changelog of facts over time; a table is the current aggregated state of the world. Streams turn into tables via continuous reduction, and tables turn into streams via changelog emissions.',
+        codeOrExample: 'const updatedState = ktable.reduce((state, event) => applyDelta(state, event));'
+      }
+    ],
+    cheatsheet: [
+      "Little's Law: Concurrency (L) = Throughput (λ) * Latency (W)",
+      'Partition Hash: partition = murmurHash2(key) % totalPartitions',
+      'Consumer Lag = Log End Offset (LEO) - Consumer Committed Offset',
+      'Net Drain Velocity = Consumption Rate - Production Rate',
+      'Time-to-Recover (TTR) = Total Lag / Net Drain Velocity'
+    ],
+    commonPitfalls: [
+      'Using non-deterministic keys or changing partition counts without planning, breaking key-to-partition ordering guarantees.',
+      'Committing offsets before processing is complete (causing silent message loss on consumer crashes).',
+      'Retrying failed poison pills synchronously inline, which causes head-of-line blocking and freezes the entire partition.'
+    ],
+    interviewPrep: [
+      {
+        question: 'What is the difference between at-least-once, at-most-once, and exactly-once processing semantics?',
+        answer: 'At-most-once commits offsets before processing, risking message loss on crashes. At-least-once commits offsets after successful processing, preventing loss but risking duplicate deliveries on retries. Exactly-once pairs transactional producers, idempotent consumers, or two-phase commit state stores so each record takes effect precisely once.'
+      },
+      {
+        question: 'How do Dead-Letter Queues (DLQ) and tiered retry topics solve poison pill issues in streaming systems?',
+        answer: 'Poison pills are malformed messages that crash consumers, causing infinite restart loops. Tiered non-blocking retry topics route transient errors to delayed side topics while committing the main partition offset immediately. If retries fail repeatedly, the record is permanently shunted to a Dead-Letter Queue with full diagnostic envelopes for forensic analysis without stalling the main pipeline.'
+      }
+    ]
+  },
+
   'course-ai-eng': {
     courseId: 'course-ai-eng',
     courseTitle: 'AI Engineering & LLM Integration',
@@ -400,6 +493,48 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
       {
         question: 'What is the difference between React Server Components (RSC) and Client Components?',
         answer: 'Server Components execute exclusively on the server, have direct database access, and ship zero JavaScript bundle to the browser. Client Components execute in the browser to handle interactivity, event listeners, and browser state hooks.'
+      }
+    ]
+  },
+
+  'course-node-web': {
+    courseId: 'course-node-web',
+    courseTitle: 'Node.js & TypeScript Backend Engineering',
+    category: 'Backend Engineering',
+    summary: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, the event loop, REST APIs, middleware pipelines, authentication, repository data access, and production reliability.',
+    realWorldAnalogy: 'Think of a Node.js backend like a high-speed airport terminal. The single-threaded event loop acts as the primary flight dispatcher continuously directing passenger queues, while the libuv worker thread pool and OS kernel handle heavy cargo loading in the background without blocking arriving flights.',
+    keyConcepts: [
+      {
+        heading: '1. Event Loop Architecture & Non-Blocking I/O',
+        explanation: 'Node.js pairs Google Chrome V8 engine with libuv to process thousands of concurrent network connections asynchronously without thread context switching overhead.',
+        codeOrExample: 'import http from "node:http";\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { "Content-Type": "application/json" });\n  res.end(JSON.stringify({ status: "ok" }));\n});'
+      },
+      {
+        heading: '2. Middleware Pipelines & RFC 7807 Error Boundaries',
+        explanation: 'Linear middleware execution chains enforce authentication, request validation, and rate limiting before dispatching to business services, wrapping execution in structured RFC 7807 problem details.',
+        codeOrExample: 'app.use((req, res, next) => {\n  const token = req.headers.authorization?.replace("Bearer ", "");\n  if (!token) return res.status(401).json({ type: "urn:problem:unauthorized", title: "Unauthorized", status: 401 });\n  next();\n});'
+      },
+      {
+        heading: '3. The Repository Pattern & Idempotent Operations',
+        explanation: 'Decoupling domain services from storage implementations enables seamless unit testing, while idempotency keys and Unit of Work patterns guarantee safe request retries and atomic consistency.',
+        codeOrExample: 'interface UserRepository {\n  findById(id: string): Promise<User | null>;\n  save(user: User): Promise<void>;\n}'
+      }
+    ],
+    cheatsheet: [
+      'HTTP Server: const server = http.createServer((req, res) => { ... });',
+      'Middleware: app.use((req, res, next) => { ... next(); });',
+      'RFC 7807: res.status(400).json({ type, title, status: 400, detail, instance });',
+      'Graceful Shutdown: process.on("SIGTERM", () => { server.close(); db.disconnect(); });'
+    ],
+    commonPitfalls: [
+      'Blocking the single-threaded event loop with CPU-intensive synchronous operations like crypto or large JSON parsing.',
+      'Forgetting to call next() or return a response in Express middleware, causing client requests to hang indefinitely.',
+      'Catching asynchronous errors improperly without top-level unhandled rejection handlers, leading to unobserved crashes.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How does the Node.js event loop handle non-blocking asynchronous I/O despite being single-threaded?',
+        answer: 'Node.js runs JavaScript on a single thread via V8, but offloads asynchronous I/O operations (file system, DNS, network sockets) to libuv and the underlying operating system kernel epoll/kqueue. When an operation finishes, its callback is queued onto the event loop phases (timers, I/O, check/setImmediate) and executed without blocking the main thread.'
       }
     ]
   },

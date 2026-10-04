@@ -17,6 +17,8 @@ export type InternshipPanelState =
 interface InternshipStatusBannerProps {
   state: InternshipPanelState;
   notEligibleReason?: string;
+  track?: string;
+  tierName?: string;
   onStart?: () => void;
   isStarting?: boolean;
   startError?: string | null;
@@ -36,6 +38,8 @@ interface InternshipStatusBannerProps {
 export const InternshipStatusBanner: React.FC<InternshipStatusBannerProps> = ({
   state,
   notEligibleReason,
+  track,
+  tierName,
   onStart,
   isStarting,
   startError,
@@ -105,6 +109,8 @@ export const InternshipStatusBanner: React.FC<InternshipStatusBannerProps> = ({
     return (
       <InternshipReadyBanner
         state={state}
+        track={track}
+        tierName={tierName}
         onStart={onStart}
         isStarting={isStarting}
         startError={startError}

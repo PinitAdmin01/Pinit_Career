@@ -38,7 +38,9 @@ export function taskToClient(
     seq: Number(r.seq ?? 0),
     week: r.week !== undefined && r.week !== null ? Number(r.week) : null,
     kind: String(r.kind || ''),
-    language: r.language === 'sql' ? 'sql' : 'python',
+    language: (['sql', 'typescript', 'tsx'].includes(String(r.language))
+      ? String(r.language)
+      : 'python') as ClientInternshipTask['language'],
     title: String(r.title || ''),
     brief: String(r.brief || ''),
     starterCode: String(r.starter_code ?? r.starterCode ?? ''),
@@ -72,7 +74,7 @@ export function enrollmentToClient(
       r.crash_enrollment_id || r.crashEnrollmentId || ''
     ),
     tier: String(r.tier || ''),
-    track: String(r.track || 'python_ai'),
+    track: String(r.track || (String(r.plan_id || r.planId || '').includes('web') ? 'web_fullstack' : 'python_ai')),
     status: (r.status || 'generating') as ClientInternshipEnrollment['status'],
     startedAt: r.started_at ? String(r.started_at) : (r.startedAt ? String(r.startedAt) : null),
     dueAt: r.due_at ? String(r.due_at) : (r.dueAt ? String(r.dueAt) : null),

@@ -83,7 +83,6 @@ function withChoices(q: OutputQuestion, pool: string[]): TestQuestion {
 }
 
 function outputQuestionsForDay(prefix: string, day: number): OutputQuestion[] {
-  if (getLongLesson(prefix, day)) return [];
   const plan = resolvePilotDay(prefix, day);
   const blocks: any[] = Array.isArray(plan?.blocks) ? plan.blocks : [];
   const out: OutputQuestion[] = [];

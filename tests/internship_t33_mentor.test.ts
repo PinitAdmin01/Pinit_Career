@@ -30,24 +30,29 @@ describe('T-33 — Mentor Role and Reviews', () => {
   });
 
   describe('Tier needsMentor config', () => {
-    it('t1_job_sim does NOT need mentor', () => {
-      assert.strictEqual(INTERNSHIP_TIERS.t1_job_sim.needsMentor, false);
+    it('t1_job_sim does NOT need mentor on either track', () => {
+      assert.strictEqual(INTERNSHIP_TIERS.python_ai.t1_job_sim.needsMentor, false);
+      assert.strictEqual(INTERNSHIP_TIERS.web_fullstack.t1_job_sim.needsMentor, false);
     });
 
-    it('t2_virtual_team DOES need mentor', () => {
-      assert.strictEqual(INTERNSHIP_TIERS.t2_virtual_team.needsMentor, true);
+    it('t2_virtual_team DOES need mentor on both tracks', () => {
+      assert.strictEqual(INTERNSHIP_TIERS.python_ai.t2_virtual_team.needsMentor, true);
+      assert.strictEqual(INTERNSHIP_TIERS.web_fullstack.t2_virtual_team.needsMentor, true);
     });
 
-    it('t3_project DOES need mentor', () => {
-      assert.strictEqual(INTERNSHIP_TIERS.t3_project.needsMentor, true);
+    it('t3_project DOES need mentor on both tracks', () => {
+      assert.strictEqual(INTERNSHIP_TIERS.python_ai.t3_project.needsMentor, true);
+      assert.strictEqual(INTERNSHIP_TIERS.web_fullstack.t3_project.needsMentor, true);
     });
 
     it('t4_industry does NOT need mentor (supervisor instead)', () => {
-      assert.strictEqual(INTERNSHIP_TIERS.t4_industry.needsMentor, false);
+      assert.strictEqual(INTERNSHIP_TIERS.python_ai.t4_industry.needsMentor, false);
+      assert.strictEqual(INTERNSHIP_TIERS.web_fullstack.t4_industry.needsMentor, false);
     });
 
     it('t5_fellowship does NOT need mentor', () => {
-      assert.strictEqual(INTERNSHIP_TIERS.t5_fellowship.needsMentor, false);
+      assert.strictEqual(INTERNSHIP_TIERS.python_ai.t5_fellowship.needsMentor, false);
+      assert.strictEqual(INTERNSHIP_TIERS.web_fullstack.t5_fellowship.needsMentor, false);
     });
   });
 

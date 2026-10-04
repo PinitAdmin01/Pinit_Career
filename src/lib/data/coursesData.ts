@@ -1,5 +1,6 @@
 import { JAVA_30_DAYS_QUESTS } from './java30DayData';
 import { REACT_30_DAYS_QUESTS } from './react30DayData';
+import { NODE_WEB_30_DAYS_QUESTS } from './nodeWeb30DayData';
 import { CLOUD_30_DAYS_QUESTS } from './cloud30DayData';
 import { DEVOPS_30_DAYS_QUESTS } from './devops30DayData';
 import { DESIGN_30_DAYS_QUESTS } from './design30DayData';
@@ -45,8 +46,13 @@ import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
 import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
+import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
+import { STREAM_WEB_30_DAYS_QUESTS } from './streamWeb30DayData';
+import { AI_DEPLOY_WEB_30_DAYS_QUESTS } from './aiDeployWeb30DayData';
 import { addBlockTests } from './courseTests';
 
+
+import type { CodeLanguage } from '../code/types';
 
 export interface CourseQuest {
   id: string;
@@ -58,6 +64,7 @@ export interface CourseQuest {
   starterCode?: string;
   hint?: string;
   testSuite?: string;
+  language?: CodeLanguage;
   syllabus?: string[];
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory';
   xp: number;
@@ -94,6 +101,42 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '⚛️',
     quests: REACT_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-node-web',
+    title: 'Node.js & TypeScript Backend Engineering',
+    desc: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, REST APIs, middleware pipelines, authentication, data access patterns, and production reliability.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '🟢',
+    quests: NODE_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-sre-web',
+    title: 'Site Reliability Engineering & Multi-Cloud Observability',
+    desc: 'Master multi-cloud resilience, SLO engineering, distributed tracing, automated canary analysis, chaos failure injection, and executable runbooks.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📊',
+    quests: SRE_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-stream-web',
+    title: 'High-Throughput Streaming in TypeScript',
+    desc: 'Master append-only logs, partition hashing, consumer groups, windowing analytics, stream-table duality, schema governance, and real-time fraud engines.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '⚡',
+    quests: STREAM_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-aideploy-web',
+    title: 'Production AI Deployment in TypeScript',
+    desc: 'Master production AI deployment: resilient LLM clients, token budgeting, prompt engines, SSE streaming, vector search, RAG pipelines, agentic loops, model gateways, guardrails, evaluation harnesses, canary rollouts, and enterprise security.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🤖',
+    quests: AI_DEPLOY_WEB_30_DAYS_QUESTS as any
   },
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {

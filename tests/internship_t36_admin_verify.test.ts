@@ -15,19 +15,19 @@ import { INTERNSHIP_TIERS } from '../src/lib/internships/tiers';
 describe('T-36 — Admin Verification and Records', () => {
   describe('Tier configurations for verification', () => {
     it('t4_industry is marked as needing partner and real company', () => {
-      const tier = INTERNSHIP_TIERS.t4_industry;
+      const tier = INTERNSHIP_TIERS.python_ai.t4_industry;
       assert.strictEqual(tier.simulated, false);
       assert.strictEqual(tier.needsPartner, true);
     });
 
     it('t5_fellowship is marked as needing partner and real company', () => {
-      const tier = INTERNSHIP_TIERS.t5_fellowship;
+      const tier = INTERNSHIP_TIERS.python_ai.t5_fellowship;
       assert.strictEqual(tier.simulated, false);
       assert.strictEqual(tier.needsPartner, true);
     });
 
     it('t3_project is marked as needing partner and real company', () => {
-      const tier = INTERNSHIP_TIERS.t3_project;
+      const tier = INTERNSHIP_TIERS.python_ai.t3_project;
       assert.strictEqual(tier.simulated, false);
       assert.strictEqual(tier.needsPartner, true);
     });
@@ -50,7 +50,7 @@ describe('T-36 — Admin Verification and Records', () => {
         company_profile: { companyName: 'Acme AI Corp' },
       };
 
-      const tierConfig = INTERNSHIP_TIERS.t4_industry;
+      const tierConfig = INTERNSHIP_TIERS.python_ai.t4_industry;
       const companyName = String(mockEnrollment.company_profile.companyName);
 
       const recordPayload = {

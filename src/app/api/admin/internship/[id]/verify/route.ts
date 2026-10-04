@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdminUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { newInternshipCertificateId } from '@/lib/certificates/internshipCertificate';
-import { INTERNSHIP_TIERS } from '@/lib/internships/tiers';
+import { INTERNSHIP_TIERS, type InternshipTrack } from '@/lib/internships/tiers';
 import type { InternshipTier } from '@/lib/data/crashPlansData';
 
 const fail = (status: number, error: string, message: string) =>
@@ -40,8 +40,9 @@ export async function POST(
       return fail(404, 'ENROLLMENT_NOT_FOUND', 'Internship enrollment not found.');
     }
 
+    const trackKey: InternshipTrack = enrollment.track === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
     const tierKey = enrollment.tier as InternshipTier;
-    const tierConfig = INTERNSHIP_TIERS[tierKey];
+    const tierConfig = INTERNSHIP_TIERS[trackKey]?.[tierKey];
     if (!tierConfig) {
       return fail(400, 'INVALID_TIER', `Unknown tier "${enrollment.tier}".`);
     }

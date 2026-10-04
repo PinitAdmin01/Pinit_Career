@@ -1,3 +1,5 @@
+import type { CodeLanguage } from '../code/types';
+
 export interface DayConfig {
   day?: number;
   title?: string;
@@ -8,11 +10,13 @@ export interface DayConfig {
   eStarter?: string;
   eHint?: string;
   eTest?: string;
+  eLanguage?: CodeLanguage;
   aTitle?: string;
   aDesc?: string;
   aStarter?: string;
   aHint?: string;
   aTest?: string;
+  aLanguage?: CodeLanguage;
   explorer?: any;
   architect?: any;
   [key: string]: any;
@@ -193,6 +197,7 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     starterCode: cfg.eStarter || '',
     hint: cfg.eHint || '',
     testSuite: cfg.eTest || '',
+    language: cfg.eLanguage,
     skillCategory: 'programming',
     xp: 120,
     pins: 6
@@ -209,6 +214,7 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     starterCode: cfg.aStarter || '',
     hint: cfg.aHint || '',
     testSuite: cfg.aTest || '',
+    language: cfg.aLanguage,
     skillCategory: 'programming',
     xp: 150,
     pins: 8

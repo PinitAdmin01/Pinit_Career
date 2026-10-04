@@ -2,7 +2,7 @@
 
 import React from 'react';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
-import { isCapstoneComplete } from '@/lib/courses/crashCourseProgress';
+import { isCapstoneComplete, resolvePlanInternshipTier } from '@/lib/courses/crashCourseProgress';
 import type { ClientInternshipTask } from '@/lib/internships/types';
 import { Tier1Desk } from './Tier1Desk';
 import { Tier2Desk } from './Tier2Desk';
@@ -13,6 +13,8 @@ import {
   InternshipStatusBanner,
   type InternshipPanelState,
 } from './InternshipStatusBanner';
+import { getTierConfig, type InternshipTrack } from '@/lib/internships/tiers';
+import type { InternshipTier } from '@/lib/data/crashPlansData';
 import { useInternshipData } from './useInternshipData';
 
 export interface InternshipPanelProps {
@@ -64,6 +66,16 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
   const [showReportModal, setShowReportModal] = React.useState(false);
   const [viewingCertificateId, setViewingCertificateId] = React.useState<string | null>(null);
 
+  const track: InternshipTrack = crashEnrollment?.track === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
+  const isWeb = track === 'web_fullstack';
+  const tier: InternshipTier = (enrollment?.tier as InternshipTier) || resolvePlanInternshipTier(null, crashEnrollment) || 't1_job_sim';
+  const tierConfig = getTierConfig(tier, track);
+  const defaultTitle = tierConfig?.name || (isWeb ? 'Web Developer Job Simulation' : 'Python Job Simulation');
+  const displayTitle = planTitle && planTitle !== 'Python Job Simulation' ? planTitle : defaultTitle;
+  const tierLabel = tierConfig
+    ? `Tier ${tier === 't2_virtual_team' ? '2' : '1'} (${tierConfig.name})`
+    : (isWeb ? 'Tier 1 (Web Developer Job Simulation)' : 'Tier 1 (Simulated Python Experience)');
+
   let state: InternshipPanelState = 'loading';
   let notEligibleReason = '';
 
@@ -71,11 +83,11 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
     state = 'loading';
   } else if (!enrollment) {
     const capstoneDone = isCapstoneComplete(crashEnrollment);
-    const isPythonTrack = crashEnrollment?.track === 'python_ai';
+    const isEligibleTrack = crashEnrollment?.track === 'python_ai' || crashEnrollment?.track === 'web_fullstack';
 
-    if (!isPythonTrack) {
+    if (!isEligibleTrack) {
       state = 'not_eligible';
-      notEligibleReason = 'The internship simulation is currently exclusive to the Python & AI Engineering track.';
+      notEligibleReason = 'The internship simulation is currently exclusive to the Python & AI Engineering and Full-Stack Web tracks.';
     } else if (!capstoneDone) {
       state = 'not_eligible';
       notEligibleReason = 'Your Capstone Project Desk must be completed and approved before starting the internship simulation.';
@@ -126,14 +138,12 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 24 }}>🏢</span>
               <h2 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--text)' }}>
-                {planTitle} · Virtual Simulation Desk
+                {displayTitle} · Virtual Simulation Desk
               </h2>
             </div>
             <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>
               Assigned Engineer: <strong style={{ color: 'var(--text)' }}>{studentName}</strong> ·{' '}
-              {enrollment?.tier === 't2_virtual_team'
-                ? 'Tier 2 (Virtual Internship Team)'
-                : 'Tier 1 (Simulated Python Experience)'}
+              {tierLabel}
             </p>
           </div>
           <button
@@ -163,6 +173,8 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
         <InternshipStatusBanner
           state={state}
           notEligibleReason={notEligibleReason}
+          track={track}
+          tierName={tierConfig?.name}
           onStart={startSimulation}
           isStarting={isStarting}
           startError={startError}
@@ -253,7 +265,7 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
           <InternshipCertificateCard
             certificateId={viewingCertificateId}
             studentName={studentName}
-            planTitle={planTitle}
+            planTitle={displayTitle}
             companyName={String(enrollment?.companyProfile?.name || 'Simulated Host Organization')}
             completedAt={enrollment?.completedAt}
             onClose={() => setViewingCertificateId(null)}

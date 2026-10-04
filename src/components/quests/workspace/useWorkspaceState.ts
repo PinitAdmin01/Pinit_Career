@@ -5,6 +5,7 @@ import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
 import { getAuthoritativeTestSuite } from '@/lib/quests/questRegistry';
+import type { CodeLanguage } from '@/lib/code/types';
 
 export interface Teacher {
   id: string;
@@ -60,13 +61,18 @@ export const TEACHERS: Teacher[] = [
   }
 ];
 
-export function resolveQuestLanguage(quest: any, qId: string = ''): 'java' | 'python' | 'sql' | 'javascript' {
+export function resolveQuestLanguage(quest: any, qId: string = ''): CodeLanguage {
   if (quest?.language) {
     const l = String(quest.language).toLowerCase();
     if (l === 'py' || l === 'python') return 'python';
     if (l === 'sql' || l === 'sqlite') return 'sql';
     if (l === 'java') return 'java';
-    if (l === 'javascript' || l === 'js' || l === 'react' || l === 'typescript' || l === 'ts') return 'javascript';
+    if (l === 'cpp' || l === 'c++') return 'cpp';
+    if (l === 'typescript' || l === 'ts') return 'typescript';
+    if (l === 'tsx') return 'tsx';
+    if (l === 'html') return 'html';
+    if (l === 'css') return 'css';
+    if (l === 'javascript' || l === 'js' || l === 'react') return 'javascript';
   }
 
   const starter = String(quest?.starterCode || '');
@@ -111,15 +117,25 @@ export function resolveQuestLanguage(quest: any, qId: string = ''): 'java' | 'py
   return 'java';
 }
 
-export function getLangInfo(qId: string, quest?: any): { file: string; label: string; native: boolean; language: 'java' | 'python' | 'sql' | 'javascript' } {
+export function getLangInfo(qId: string, quest?: any): { file: string; label: string; native: boolean; language: CodeLanguage } {
   const language = resolveQuestLanguage(quest, qId);
   switch (language) {
     case 'python':
       return { file: 'solution.py', label: 'Python runtime (Pyodide WASM)', native: true, language };
     case 'sql':
       return { file: 'query.sql', label: 'PostgreSQL (runs in your browser)', native: true, language };
+    case 'typescript':
+      return { file: 'solution.ts', label: 'TypeScript compiler', native: true, language };
+    case 'tsx':
+      return { file: 'Component.tsx', label: 'React / TSX sandbox', native: true, language };
+    case 'html':
+      return { file: 'index.html', label: 'HTML structure', native: true, language };
+    case 'css':
+      return { file: 'styles.css', label: 'CSS stylesheet', native: true, language };
     case 'javascript':
       return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true, language };
+    case 'cpp':
+      return { file: 'solution.cpp', label: 'C++ AST checker', native: true, language };
     case 'java':
     default:
       return { file: 'Solution.java', label: 'Java compiler judge', native: true, language: 'java' };
@@ -341,7 +357,8 @@ export function useWorkspaceState({
     const authoritativeSuite = getAuthoritativeTestSuite(questId || '');
     const fallbackSuite = resolvedLanguage === 'python' ? 'def test_suite():\n    assert True\ntest_suite()' :
       resolvedLanguage === 'sql' ? 'SELECT 1;' :
-      resolvedLanguage === 'javascript' ? 'if (typeof solution === "function") { solution(); }' :
+      (resolvedLanguage === 'javascript' || resolvedLanguage === 'typescript' || resolvedLanguage === 'tsx') ? 'if (typeof solution === "function") { solution(); }' :
+      (resolvedLanguage === 'html' || resolvedLanguage === 'css') ? '' :
       'public class SolutionTest { public static void main(String[] args) { Solution.main(new String[]{}); } }';
 
     const effectiveTestSuite = (quest?.testSuite && String(quest.testSuite).trim())

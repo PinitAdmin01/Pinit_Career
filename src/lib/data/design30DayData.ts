@@ -16,11 +16,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveSemanticColorToken(token, theme) {\n  // TODO: write your code here\n}",
     "eHint": "Map token and theme to resolved hex color string.",
     "eTest": "const light = resolveSemanticColorToken('color-bg-primary', 'light');\nconst dark = resolveSemanticColorToken('color-bg-primary', 'dark');\nif (light.resolvedHexColor !== '#ffffff' || dark.resolvedHexColor !== '#0f172a' || light.status !== 'DESIGN_TOKEN_RESOLVED_NOMINAL') throw new Error('Design token resolution failed');",
-    "aTitle": "Global vs Semantic Token Layer Count Formatter",
-    "aDesc": "Implement function getDesignTokenTiersCount() returning `3`.",
-    "aStarter": "function getDesignTokenTiersCount() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 3.",
-    "aTest": "if (getDesignTokenTiersCount() !== 3) throw new Error('Tiers count check failed');"
+    "aTitle": "Design Token Tier Classifier",
+    "aDesc": "Implement function `getDesignTokenTier(tokenName)` returning 'GLOBAL' for primitive tokens (e.g., 'blue-500'), 'SEMANTIC' for alias tokens (e.g., 'color-interactive-primary'), or 'COMPONENT' for component-scoped tokens (e.g., 'button-primary-bg').",
+    "aStarter": "function getDesignTokenTier(tokenName) {\n  // TODO: Return 'GLOBAL', 'SEMANTIC', or 'COMPONENT' based on token hierarchy pattern\n  \n}",
+    "aHint": "Tokens starting with component prefixes (button, card, input) are COMPONENT; tokens with category prefixes (color, space, font) are SEMANTIC; raw scales are GLOBAL.",
+    "aTest": "if (getDesignTokenTier('blue-500') !== 'GLOBAL') throw new Error('blue-500 should be GLOBAL');\nif (getDesignTokenTier('color-interactive-primary') !== 'SEMANTIC') throw new Error('color-interactive-primary should be SEMANTIC');\nif (getDesignTokenTier('button-primary-bg') !== 'COMPONENT') throw new Error('button-primary-bg should be COMPONENT');"
   },
   {
     "day": 2,
@@ -36,11 +36,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateModularTypeScaleStep(step, basePx, ratio) {\n  // TODO: write your code here\n}",
     "eHint": "pixelVal = basePx * Math.pow(ratio, step), remVal = pixelVal / 16.",
     "eTest": "const step0 = calculateModularTypeScaleStep(0, 16, 1.25);\nconst step2 = calculateModularTypeScaleStep(2, 16, 1.25); // 16 * 1.25^2 = 25px -> 1.5625rem\nif (step0.pixelSize !== 16 || step2.pixelSize !== 25 || step2.status !== 'TYPOGRAPHIC_SCALE_STEP_CALCULATED_NOMINAL') throw new Error('Type scale calculation failed');",
-    "aTitle": "Major Third Typographic Ratio Formatter",
-    "aDesc": "Implement function getMajorThirdScaleRatio() returning `1.25`.",
-    "aStarter": "function getMajorThirdScaleRatio() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 1.25.",
-    "aTest": "if (getMajorThirdScaleRatio() !== 1.25) throw new Error('Ratio check failed');"
+    "aTitle": "Pixels to REM Unit Converter",
+    "aDesc": "Implement function `calculateRemFromPixels(px, basePx = 16)` calculating rem value from pixel dimensions against a root base size.",
+    "aStarter": "function calculateRemFromPixels(px, basePx = 16) {\n  // TODO: Return rem value as px / basePx rounded to 4 decimal places\n  \n}",
+    "aHint": "return Number((px / basePx).toFixed(4));",
+    "aTest": "if (calculateRemFromPixels(16) !== 1) throw new Error('16px should be 1rem');\nif (calculateRemFromPixels(24) !== 1.5) throw new Error('24px should be 1.5rem');\nif (calculateRemFromPixels(20, 10) !== 2) throw new Error('20px with base 10 should be 2rem');"
   },
   {
     "day": 3,
@@ -56,11 +56,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditSpacingGridCompliance(px) {\n  // TODO: write your code here\n}",
     "eHint": "Check px % 8 === 0 or px % 4 === 0.",
     "eTest": "const pass8 = auditSpacingGridCompliance(24);\nconst pass4 = auditSpacingGridCompliance(12);\nconst fail = auditSpacingGridCompliance(19);\nif (!pass8.isSpacingStandardCompliant || !pass4.isSpacingStandardCompliant || fail.isSpacingStandardCompliant || pass8.status !== 'SPATIAL_GRID_COMPLIANT_NOMINAL') throw new Error('Spacing grid audit failed');",
-    "aTitle": "Standard Base Spatial Grid Step Formatter",
-    "aDesc": "Implement function getStandardSpatialGridBase() returning `8`.",
-    "aStarter": "function getStandardSpatialGridBase() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 8.",
-    "aTest": "if (getStandardSpatialGridBase() !== 8) throw new Error('Base grid check failed');"
+    "aTitle": "8pt Spatial Grid Alignment Validator",
+    "aDesc": "Implement function `is8ptGridAligned(spacingPx)` returning true if the given pixel spacing is a positive multiple of 8.",
+    "aStarter": "function is8ptGridAligned(spacingPx) {\n  // TODO: Return true if spacingPx is greater than 0 and a multiple of 8\n  \n}",
+    "aHint": "return spacingPx > 0 && spacingPx % 8 === 0;",
+    "aTest": "if (is8ptGridAligned(16) !== true) throw new Error('16 should be aligned to 8pt grid');\nif (is8ptGridAligned(24) !== true) throw new Error('24 should be aligned to 8pt grid');\nif (is8ptGridAligned(18) !== false) throw new Error('18 is not aligned to 8pt grid');\nif (is8ptGridAligned(0) !== false) throw new Error('0 should not be considered positive aligned');"
   },
   {
     "day": 4,
@@ -76,11 +76,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveSemanticZIndex(layer) {\n  // TODO: write your code here\n}",
     "eHint": "Map layer name to scale value.",
     "eTest": "const d = resolveSemanticZIndex('dropdown');\nconst m = resolveSemanticZIndex('modal');\nconst t = resolveSemanticZIndex('toast');\nif (d.zIndexValue !== 100 || m.zIndexValue !== 1000 || t.zIndexValue !== 1100 || d.status !== 'SEMANTIC_ZINDEX_RESOLVED_NOMINAL') throw new Error('Z-Index resolution failed');",
-    "aTitle": "Highest Z-Index Layer Name Formatter",
-    "aDesc": "Implement function getHighestZIndexLayerName() returning `'toast'`.",
-    "aStarter": "function getHighestZIndexLayerName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return toast.",
-    "aTest": "if (getHighestZIndexLayerName() !== 'toast') throw new Error('Layer name check failed');"
+    "aTitle": "Semantic Z-Index Layer Resolver",
+    "aDesc": "Implement function `resolveZIndex(layerName)` mapping layer names ('dropdown': 1000, 'sticky': 1100, 'modal': 1300, 'popover': 1400, 'toast': 1500) to z-index numbers.",
+    "aStarter": "function resolveZIndex(layerName) {\n  // TODO: Map layer names to standard design system z-index elevations\n  \n}",
+    "aHint": "Look up layerName in elevation dictionary; default to 0.",
+    "aTest": "if (resolveZIndex('toast') !== 1500) throw new Error('toast z-index should be 1500');\nif (resolveZIndex('modal') !== 1300) throw new Error('modal z-index should be 1300');\nif (resolveZIndex('dropdown') !== 1000) throw new Error('dropdown z-index should be 1000');\nif (resolveZIndex('unknown') !== 0) throw new Error('unknown layer should be 0');"
   },
   {
     "day": 5,
@@ -92,15 +92,15 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Milestone 1 certification."
     ],
     "eTitle": "Design Foundations Master Engine",
-    "eDesc": "Implement function executeDesignFoundationsMaster(tokensOk, typeOk, spacingOk, zIndexOk) certifying combined design foundations execution. Use these exact values: `engineStatus`: 'DESIGN_FOUNDATIONS_MASTER_ACTIVE'.",
+    "eDesc": "Implement function executeDesignFoundationsMaster(tokensOk, typeOk, spacingOk, zIndexOk) certifying combined design foundations execution. Use these exact values: `engineStatus`: 'DESIGN_FOUNDATIONS_MASTER_ACTIVE' when nominal, or 'DESIGN_FOUNDATIONS_DEFECT' when defective.",
     "eStarter": "function executeDesignFoundationsMaster(tok, typ, spc, zidx) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeDesignFoundationsMaster(true, true, true, true);\nif (res.engineStatus !== 'DESIGN_FOUNDATIONS_MASTER_ACTIVE') throw new Error('Milestone 1 master engine failed');",
+    "eTest": "const res = executeDesignFoundationsMaster(true, true, true, true);\nif (res.engineStatus !== 'DESIGN_FOUNDATIONS_MASTER_ACTIVE') throw new Error('Milestone 1 master engine failed');\nconst fail = executeDesignFoundationsMaster(true, false, true, true);\nif (fail.engineStatus !== 'DESIGN_FOUNDATIONS_DEFECT') throw new Error('Defective foundations should report DEFECT');",
     "aTitle": "Design Foundations Status Formatter",
-    "aDesc": "Implement function formatDesignFoundationsStatus(ok) returning `DESIGN_FOUNDATIONS_${ok ? 'ACTIVE' : 'OFFLINE'}`. Use these exact values: formatDesignFoundationsStatus() returns 'DESIGN_FOUNDATIONS_ACTIVE'.",
-    "aStarter": "function formatDesignFoundationsStatus(o) {\n  // TODO: write your code here\n}",
-    "aHint": "Format status.",
-    "aTest": "if (formatDesignFoundationsStatus(true) !== 'DESIGN_FOUNDATIONS_ACTIVE') throw new Error('Status check failed');"
+    "aDesc": "Implement function `formatDesignFoundationsStatus(isOnline)` returning `'DESIGN_FOUNDATIONS_ACTIVE'` if true, or `'DESIGN_FOUNDATIONS_OFFLINE'` if false.",
+    "aStarter": "function formatDesignFoundationsStatus(isOnline) {\n  // TODO: Format status string based on boolean isOnline\n  \n}",
+    "aHint": "return `DESIGN_FOUNDATIONS_${isOnline ? 'ACTIVE' : 'OFFLINE'}`;",
+    "aTest": "if (formatDesignFoundationsStatus(true) !== 'DESIGN_FOUNDATIONS_ACTIVE') throw new Error('Active status failed');\nif (formatDesignFoundationsStatus(false) !== 'DESIGN_FOUNDATIONS_OFFLINE') throw new Error('Offline status failed');"
   },
   {
     "day": 6,
@@ -116,11 +116,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function classifyAtomicComponentTier(comp) {\n  // TODO: write your code here\n}",
     "eHint": "Map component name to ATOM, MOLECULE, ORGANISM, or TEMPLATE.",
     "eTest": "const b = classifyAtomicComponentTier('Button');\nconst s = classifyAtomicComponentTier('SearchInputGroup');\nconst h = classifyAtomicComponentTier('GlobalNavigationHeader');\nif (b.atomicDesignTier !== 'ATOM' || s.atomicDesignTier !== 'MOLECULE' || h.atomicDesignTier !== 'ORGANISM' || b.status !== 'ATOMIC_TIER_CLASSIFIED_NOMINAL') throw new Error('Atomic classification failed');",
-    "aTitle": "Atomic Design Methodology Pioneer Formatter",
-    "aDesc": "Implement function getAtomicDesignPioneer() returning `'Brad Frost'`.",
-    "aStarter": "function getAtomicDesignPioneer() {\n  // TODO: write your code here\n}",
-    "aHint": "Return Brad Frost.",
-    "aTest": "if (getAtomicDesignPioneer() !== 'Brad Frost') throw new Error('Pioneer check failed');"
+    "aTitle": "Atomic Design Tier Validator",
+    "aDesc": "Implement function `isAtomicTierValid(tierName)` returning true if tierName is one of 'atom', 'molecule', 'organism', 'template', or 'page' (case-insensitive).",
+    "aStarter": "function isAtomicTierValid(tierName) {\n  // TODO: Return true if tierName is a standard atomic design tier\n  \n}",
+    "aHint": "Check lowercased tierName against the 5 valid tiers.",
+    "aTest": "if (isAtomicTierValid('atom') !== true) throw new Error('atom should be valid');\nif (isAtomicTierValid('organism') !== true) throw new Error('organism should be valid');\nif (isAtomicTierValid('database') !== false) throw new Error('database should be invalid');"
   },
   {
     "day": 7,
@@ -136,11 +136,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function validateButtonStateProps(variant, size, state, hasAria) {\n  // TODO: write your code here\n}",
     "eHint": "Check variant, size, state arrays, and hasAria is true.",
     "eTest": "const pass = validateButtonStateProps('primary', 'md', 'loading', true);\nconst fail = validateButtonStateProps('unknown', 'md', 'default', true);\nif (!pass.isButtonPropsValid || fail.isButtonPropsValid || pass.status !== 'BUTTON_PROPS_VALIDATED_NOMINAL') throw new Error('Button validation failed');",
-    "aTitle": "Total Button Interactive States Count Formatter",
-    "aDesc": "Implement function getTotalButtonStatesCount() returning `6`.",
-    "aStarter": "function getTotalButtonStatesCount() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 6.",
-    "aTest": "if (getTotalButtonStatesCount() !== 6) throw new Error('States count check failed');"
+    "aTitle": "Button State ARIA Attribute Builder",
+    "aDesc": "Implement function `getButtonAriaAttributes(state)` returning an object of ARIA attributes based on button state: 'loading' -> { 'aria-busy': true }, 'disabled' -> { 'aria-disabled': true }, 'default' -> {}.",
+    "aStarter": "function getButtonAriaAttributes(state) {\n  // TODO: Return ARIA attributes object based on button state\n  \n}",
+    "aHint": "Check state: return { 'aria-busy': true } for loading, { 'aria-disabled': true } for disabled, empty object otherwise.",
+    "aTest": "const loading = getButtonAriaAttributes('loading');\nif (loading['aria-busy'] !== true) throw new Error('loading must have aria-busy true');\nconst disabled = getButtonAriaAttributes('disabled');\nif (disabled['aria-disabled'] !== true) throw new Error('disabled must have aria-disabled true');\nconst normal = getButtonAriaAttributes('default');\nif (Object.keys(normal).length !== 0) throw new Error('default should have empty aria object');"
   },
   {
     "day": 8,
@@ -156,11 +156,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditFormInputAccessibility(hasLabel, hasAriaDescribedBy, isError) {\n  // TODO: write your code here\n}",
     "eHint": "isAccessible = hasLabel && (!isError || hasAriaDescribedBy).",
     "eTest": "const pass = auditFormInputAccessibility(true, true, true);\nconst fail = auditFormInputAccessibility(true, false, true);\nif (!pass.isFormInputAccessible || fail.isFormInputAccessible || pass.status !== 'FORM_INPUT_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Form input audit failed');",
-    "aTitle": "Error State ARIA Attribute Name Formatter",
-    "aDesc": "Implement function getErrorAriaAttributeName() returning `'aria-invalid'`.",
-    "aStarter": "function getErrorAriaAttributeName() {\n  // TODO: write your code here\n}",
-    "aHint": "Return aria-invalid.",
-    "aTest": "if (getErrorAriaAttributeName() !== 'aria-invalid') throw new Error('Attribute check failed');"
+    "aTitle": "Form Input Accessibility Props Builder",
+    "aDesc": "Implement function `buildInputAccessibilityProps(inputId, isError, isRequired)` returning accessible input attributes (id, aria-invalid, aria-describedby, aria-required).",
+    "aStarter": "function buildInputAccessibilityProps(inputId, isError, isRequired) {\n  // TODO: Construct and return accessible form input props object\n  \n}",
+    "aHint": "Set id; if isError set aria-invalid='true' and aria-describedby=`${inputId}-error`; if isRequired set aria-required='true'.",
+    "aTest": "const errProps = buildInputAccessibilityProps('email', true, true);\nif (errProps.id !== 'email' || errProps['aria-invalid'] !== 'true' || errProps['aria-describedby'] !== 'email-error' || errProps['aria-required'] !== 'true') throw new Error('Error props mismatch');\nconst okProps = buildInputAccessibilityProps('name', false, false);\nif (okProps.id !== 'name' || okProps['aria-invalid'] !== undefined || okProps['aria-describedby'] !== undefined) throw new Error('Valid props should omit error attributes');"
   },
   {
     "day": 9,
@@ -176,11 +176,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function validateCardLayoutConfig(ratio, baseElev, hoverElev) {\n  // TODO: write your code here\n}",
     "eHint": "Check ratio in validRatios and hoverElev > baseElev.",
     "eTest": "const pass = validateCardLayoutConfig('16/9', 1, 3);\nconst fail = validateCardLayoutConfig('16/9', 3, 1);\nif (!pass.isCardConfigValid || fail.isCardConfigValid || pass.status !== 'CARD_LAYOUT_CONFIG_VALIDATED_NOMINAL') throw new Error('Card layout validation failed');",
-    "aTitle": "Standard Video Media Aspect Ratio Formatter",
-    "aDesc": "Implement function getStandardVideoAspectRatio() returning `'16/9'`.",
-    "aStarter": "function getStandardVideoAspectRatio() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 16/9.",
-    "aTest": "if (getStandardVideoAspectRatio() !== '16/9') throw new Error('Ratio check failed');"
+    "aTitle": "Aspect Ratio Height Calculator",
+    "aDesc": "Implement function `calculateAspectRatioHeight(width, ratioString)` calculating integer height given a width and ratio string 'W/H' (e.g., '16/9' or '4/3').",
+    "aStarter": "function calculateAspectRatioHeight(width, ratioString) {\n  // TODO: Calculate height from width and ratio string 'W/H'\n  \n}",
+    "aHint": "Split ratioString by '/', compute width * h / w, round with Math.round.",
+    "aTest": "if (calculateAspectRatioHeight(1600, '16/9') !== 900) throw new Error('1600 width at 16/9 must be 900 height');\nif (calculateAspectRatioHeight(800, '4/3') !== 600) throw new Error('800 width at 4/3 must be 600 height');\nif (calculateAspectRatioHeight(500, '1/1') !== 500) throw new Error('500 width at 1/1 must be 500 height');"
   },
   {
     "day": 10,
@@ -196,11 +196,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditNavigationLinkAria(isCurrent, hasAria) {\n  // TODO: write your code here\n}",
     "eHint": "isCompliant = !isCurrent || hasAria.",
     "eTest": "const pass = auditNavigationLinkAria(true, true);\nconst fail = auditNavigationLinkAria(true, false);\nif (!pass.isNavigationAriaCompliant || fail.isNavigationAriaCompliant || pass.status !== 'NAVIGATION_ARIA_COMPLIANT_NOMINAL') throw new Error('Navigation ARIA audit failed');",
-    "aTitle": "Active Page ARIA Attribute Value Formatter",
-    "aDesc": "Implement function getActivePageAriaValue() returning `'page'`.",
-    "aStarter": "function getActivePageAriaValue() {\n  // TODO: write your code here\n}",
-    "aHint": "Return page.",
-    "aTest": "if (getActivePageAriaValue() !== 'page') throw new Error('ARIA value check failed');"
+    "aTitle": "Navigation Link Current Page Evaluator",
+    "aDesc": "Implement function `getNavLinkAriaCurrent(currentPath, linkHref)` returning 'page' if currentPath exactly matches linkHref, or null otherwise.",
+    "aStarter": "function getNavLinkAriaCurrent(currentPath, linkHref) {\n  // TODO: Return 'page' if currentPath equals linkHref, otherwise null\n  \n}",
+    "aHint": "return currentPath === linkHref ? 'page' : null;",
+    "aTest": "if (getNavLinkAriaCurrent('/dashboard', '/dashboard') !== 'page') throw new Error('Active link must return page');\nif (getNavLinkAriaCurrent('/dashboard', '/settings') !== null) throw new Error('Inactive link must return null');\nif (getNavLinkAriaCurrent('/projects/1', '/projects/1') !== 'page') throw new Error('Exact matching link must return page');"
   },
   {
     "day": 11,
@@ -216,11 +216,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditModalAccessibility(hasRole, hasTrap, hasEsc, hasInert) {\n  // TODO: write your code here\n}",
     "eHint": "Verify all 4 boolean flags are true.",
     "eTest": "const pass = auditModalAccessibility(true, true, true, true);\nconst fail = auditModalAccessibility(true, true, false, true);\nif (!pass.isModalAccessible || fail.isModalAccessible || pass.status !== 'MODAL_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Modal accessibility audit failed');",
-    "aTitle": "Background Inactive Attribute Formatter",
-    "aDesc": "Implement function getBackgroundInactiveAttribute() returning `'inert'`.",
-    "aStarter": "function getBackgroundInactiveAttribute() {\n  // TODO: write your code here\n}",
-    "aHint": "Return inert.",
-    "aTest": "if (getBackgroundInactiveAttribute() !== 'inert') throw new Error('Attribute check failed');"
+    "aTitle": "Modal Dialog Root Attributes Resolver",
+    "aDesc": "Implement function `getModalRootAttributes(isOpen)` returning { 'aria-modal': 'true', role: 'dialog' } when open, or { style: { display: 'none' } } when closed.",
+    "aStarter": "function getModalRootAttributes(isOpen) {\n  // TODO: Return open or closed modal root element attributes\n  \n}",
+    "aHint": "if (isOpen) return { 'aria-modal': 'true', role: 'dialog' }; return { style: { display: 'none' } };",
+    "aTest": "const openAttr = getModalRootAttributes(true);\nif (openAttr['aria-modal'] !== 'true' || openAttr.role !== 'dialog') throw new Error('Open modal must have aria-modal and role dialog');\nconst closedAttr = getModalRootAttributes(false);\nif (closedAttr.style?.display !== 'none') throw new Error('Closed modal must be hidden');"
   },
   {
     "day": 12,
@@ -236,11 +236,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateFloatingPlacement(topY, tipHeight, viewHeight, pref) {\n  // TODO: write your code here\n}",
     "eHint": "If pref === top and topY - tipHeight < 0 return bottom.",
     "eTest": "const flip = calculateFloatingPlacement(20, 50, 800, 'top'); // 20 - 50 = -30 < 0 -> flips to bottom\nconst noFlip = calculateFloatingPlacement(200, 50, 800, 'top');\nif (flip.resolvedPlacement !== 'bottom' || noFlip.resolvedPlacement !== 'top' || !flip.isFlipped) throw new Error('Floating placement calculation failed');",
-    "aTitle": "Standard Tooltip Hover Intent Delay Milliseconds Formatter",
-    "aDesc": "Implement function getTooltipHoverDelayMs() returning `300`.",
-    "aStarter": "function getTooltipHoverDelayMs() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 300.",
-    "aTest": "if (getTooltipHoverDelayMs() !== 300) throw new Error('Delay check failed');"
+    "aTitle": "Popover Anchor Coordinates Calculator",
+    "aDesc": "Implement function `calculatePopoverPosition(targetRect, placement)` calculating anchor coordinates (x: center, y: top or bottom).",
+    "aStarter": "function calculatePopoverPosition(targetRect, placement) {\n  // TODO: Calculate anchor coordinates for 'top' or 'bottom' placement\n  \n}",
+    "aHint": "centerX = targetRect.left + targetRect.width / 2; top y is targetRect.top; bottom y is targetRect.top + targetRect.height.",
+    "aTest": "const rect = { top: 100, left: 50, width: 200, height: 40 };\nconst topPos = calculatePopoverPosition(rect, 'top');\nif (topPos.x !== 150 || topPos.y !== 100) throw new Error('Top placement coordinates failed');\nconst botPos = calculatePopoverPosition(rect, 'bottom');\nif (botPos.x !== 150 || botPos.y !== 140) throw new Error('Bottom placement coordinates failed');"
   },
   {
     "day": 13,
@@ -256,11 +256,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveTableSortAria(activeCol, colKey, dir) {\n  // TODO: write your code here\n}",
     "eHint": "If activeCol === colKey return dir === asc ? ascending : descending else none.",
     "eTest": "const asc = resolveTableSortAria('name', 'name', 'asc');\nconst other = resolveTableSortAria('age', 'name', 'asc');\nif (asc.ariaSortValue !== 'ascending' || other.ariaSortValue !== 'none' || asc.status !== 'TABLE_SORT_ARIA_RESOLVED_NOMINAL') throw new Error('Table sort resolution failed');",
-    "aTitle": "Semantic Table Header Scope Formatter",
-    "aDesc": "Implement function getTableHeaderScope() returning `'col'`.",
-    "aStarter": "function getTableHeaderScope() {\n  // TODO: write your code here\n}",
-    "aHint": "Return col.",
-    "aTest": "if (getTableHeaderScope() !== 'col') throw new Error('Scope check failed');"
+    "aTitle": "Table Header Scope Formatter",
+    "aDesc": "Implement function `formatTableCellScope(isHeader, isRowHeader)` returning 'row' for row headers, 'col' for column headers, and null for standard data cells.",
+    "aStarter": "function formatTableCellScope(isHeader, isRowHeader) {\n  // TODO: Return 'row', 'col', or null based on cell header role\n  \n}",
+    "aHint": "if (!isHeader) return null; return isRowHeader ? 'row' : 'col';",
+    "aTest": "if (formatTableCellScope(true, false) !== 'col') throw new Error('Column header must have scope col');\nif (formatTableCellScope(true, true) !== 'row') throw new Error('Row header must have scope row');\nif (formatTableCellScope(false, false) !== null) throw new Error('Data cell must have null scope');"
   },
   {
     "day": 14,
@@ -276,11 +276,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveToastAriaLive(type) {\n  // TODO: write your code here\n}",
     "eHint": "If type === error return assertive else polite.",
     "eTest": "const info = resolveToastAriaLive('info');\nconst err = resolveToastAriaLive('error');\nif (info.ariaLivePoliteness !== 'polite' || err.ariaLivePoliteness !== 'assertive' || err.roleAttribute !== 'alert') throw new Error('Toast ARIA resolution failed');",
-    "aTitle": "Maximum Recommended Toast Stack Count Formatter",
-    "aDesc": "Implement function getMaxToastStackCount() returning `3`.",
-    "aStarter": "function getMaxToastStackCount() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 3.",
-    "aTest": "if (getMaxToastStackCount() !== 3) throw new Error('Stack count check failed');"
+    "aTitle": "Toast Notification Queue Limiter",
+    "aDesc": "Implement function `enforceToastQueueLimit(toasts, maxLimit = 3)` preserving the newest `maxLimit` toast notifications.",
+    "aStarter": "function enforceToastQueueLimit(toasts, maxLimit = 3) {\n  // TODO: Return slice of newest maxLimit toast items\n  \n}",
+    "aHint": "return toasts.slice(-maxLimit);",
+    "aTest": "const limited = enforceToastQueueLimit(['t1', 't2', 't3', 't4', 't5'], 3);\nif (limited.length !== 3 || limited[0] !== 't3' || limited[2] !== 't5') throw new Error('Toast queue limit failed');\nconst small = enforceToastQueueLimit(['a', 'b'], 3);\nif (small.length !== 2 || small[0] !== 'a' || small[1] !== 'b') throw new Error('Small queue should be untouched');"
   },
   {
     "day": 15,
@@ -292,15 +292,15 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Component Library Master Engine",
-    "eDesc": "Implement function executeComponentLibraryMaster(atomicOk, buttonOk, formOk, cardOk, modalOk, toastOk) certifying combined component library execution. Use these exact values: `engineStatus`: 'COMPONENT_LIBRARY_MASTER_ACTIVE'.",
+    "eDesc": "Implement function executeComponentLibraryMaster(atomsOk, buttonsOk, formsOk, cardsOk, modalsOk, toastsOk) certifying combined component library execution. Use these exact values: `engineStatus`: 'COMPONENT_LIBRARY_MASTER_ACTIVE' when nominal, or 'COMPONENT_LIBRARY_DEFECT' when defective.",
     "eStarter": "function executeComponentLibraryMaster(a, b, f, c, m, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeComponentLibraryMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'COMPONENT_LIBRARY_MASTER_ACTIVE') throw new Error('Milestone 2 component master failed');",
-    "aTitle": "Component Library Master Status Formatter",
-    "aDesc": "Implement function getComponentLibraryMasterStatus() returning `'COMPONENT_LIBRARY_MASTER_ACTIVE'`.",
-    "aStarter": "function getComponentLibraryMasterStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return status.",
-    "aTest": "if (getComponentLibraryMasterStatus() !== 'COMPONENT_LIBRARY_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "eTest": "const pass = executeComponentLibraryMaster(true, true, true, true, true, true);\nif (pass.engineStatus !== 'COMPONENT_LIBRARY_MASTER_ACTIVE') throw new Error('Master suite failed');\nconst fail = executeComponentLibraryMaster(true, false, true, true, true, true);\nif (fail.engineStatus !== 'COMPONENT_LIBRARY_DEFECT') throw new Error('Defective library should report DEFECT');",
+    "aTitle": "Component Library Accessibility Certification Auditor",
+    "aDesc": "Implement function `formatComponentAuditReport(totalComponents, accessibleCount)` calculating percentage passRate and isCertified boolean (>= 90% required).",
+    "aStarter": "function formatComponentAuditReport(total, accessible) {\n  // TODO: Calculate passRate percentage and isCertified (>= 90%)\n  \n}",
+    "aHint": "const passRate = Math.round((accessible / total) * 100); return { passRate, isCertified: passRate >= 90 };",
+    "aTest": "const rep1 = formatComponentAuditReport(20, 19);\nif (rep1.passRate !== 95 || rep1.isCertified !== true) throw new Error('High pass rate should be certified');\nconst rep2 = formatComponentAuditReport(20, 15);\nif (rep2.passRate !== 75 || rep2.isCertified !== false) throw new Error('Low pass rate should not be certified');"
   },
   {
     "day": 16,
@@ -315,12 +315,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateFlexItemWidth(containerWidth, totalItems, gapSize) calculating exact equal item width with native gap spacing. Use these exact values: `status`: 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL'. The result must have the field: `computedItemWidth`.",
     "eStarter": "function calculateFlexItemWidth(containerW, count, gap) {\n  // TODO: write your code here\n}",
     "eHint": "itemWidth = (containerW - ((count - 1) * gap)) / count.",
-    "eTest": "const calc = calculateFlexItemWidth(1000, 4, 16); // 1000 - (3 * 16) = 1000 - 48 = 952 / 4 = 238px\nif (calc.computedItemWidth !== 238 || calc.status !== 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL') throw new Error('Flex calculation failed');",
-    "aTitle": "Flexbox Axis for Justify Content Formatter",
-    "aDesc": "Implement function getJustifyContentAxis() returning `'main-axis'`.",
-    "aStarter": "function getJustifyContentAxis() {\n  // TODO: write your code here\n}",
-    "aHint": "Return main-axis.",
-    "aTest": "if (getJustifyContentAxis() !== 'main-axis') throw new Error('Axis check failed');"
+    "eTest": "const r1 = calculateFlexItemWidth(1000, 4, 20);\nif (r1.computedItemWidth !== 235 || r1.status !== 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL') throw new Error('Calc 1 failed');\nconst r2 = calculateFlexItemWidth(600, 3, 30);\nif (r2.computedItemWidth !== 180) throw new Error('Calc 2 failed');",
+    "aTitle": "Flexbox Alignment Axis Resolver",
+    "aDesc": "Implement function `getFlexAlignmentAxis(prop)` returning 'main-axis' for 'justify-content' and 'cross-axis' for 'align-items'.",
+    "aStarter": "function getFlexAlignmentAxis(prop) {\n  // TODO: Return 'main-axis' for 'justify-content', 'cross-axis' for 'align-items'\n  \n}",
+    "aHint": "return prop === 'justify-content' ? 'main-axis' : 'cross-axis';",
+    "aTest": "if (getFlexAlignmentAxis('justify-content') !== 'main-axis') throw new Error('justify-content controls main-axis');\nif (getFlexAlignmentAxis('align-items') !== 'cross-axis') throw new Error('align-items controls cross-axis');"
   },
   {
     "day": 17,
@@ -335,12 +335,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateGridColumns(containerWidth, minColumnWidth, gapSize) calculating the maximum number of columns generated by `repeat(auto-fit, minmax(minColumnWidth, 1fr))`. Use these exact values: `status`: 'GRID_COLUMNS_CALCULATED_NOMINAL'. The result must have the field: `generatedColumnsCount`.",
     "eStarter": "function calculateGridColumns(containerW, minW, gap) {\n  // TODO: write your code here\n}",
     "eHint": "Calculate cols fitting in containerW with gaps.",
-    "eTest": "const res = calculateGridColumns(900, 280, 20); // (3 * 280) + (2 * 20) = 840 + 40 = 880 <= 900 -> 3 cols\nif (res.generatedColumnsCount !== 3 || res.status !== 'GRID_COLUMNS_CALCULATED_NOMINAL') throw new Error('Grid columns calculation failed');",
-    "aTitle": "CSS Grid Fluid Column Function Formatter",
-    "aDesc": "Implement function getFluidGridFunction() returning `'minmax'`.",
-    "aStarter": "function getFluidGridFunction() {\n  // TODO: write your code here\n}",
-    "aHint": "Return minmax.",
-    "aTest": "if (getFluidGridFunction() !== 'minmax') throw new Error('Function check failed');"
+    "eTest": "const r1 = calculateGridColumns(1200, 250, 20);\nif (r1.generatedColumnsCount !== 4 || r1.status !== 'GRID_COLUMNS_CALCULATED_NOMINAL') throw new Error('Grid 1 failed');\nconst r2 = calculateGridColumns(500, 250, 20);\nif (r2.generatedColumnsCount !== 1) throw new Error('Grid 2 failed');",
+    "aTitle": "Repeat Grid Template Expression Builder",
+    "aDesc": "Implement function `buildRepeatGridTemplate(colCount, minWidth)` returning `repeat(${colCount}, minmax(${minWidth}, 1fr))`.",
+    "aStarter": "function buildRepeatGridTemplate(colCount, minWidth) {\n  // TODO: Return CSS grid repeat expression with minmax sizing\n  \n}",
+    "aHint": "return `repeat(${colCount}, minmax(${minWidth}, 1fr))`;",
+    "aTest": "if (buildRepeatGridTemplate(3, '200px') !== 'repeat(3, minmax(200px, 1fr))') throw new Error('3 col template failed');\nif (buildRepeatGridTemplate(4, '250px') !== 'repeat(4, minmax(250px, 1fr))') throw new Error('4 col template failed');"
   },
   {
     "day": 18,
@@ -356,11 +356,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function classifyViewportBreakpoint(width) {\n  // TODO: write your code here\n}",
     "eHint": "Classify based on < 640, < 1024, < 1280, >= 1280.",
     "eTest": "const mob = classifyViewportBreakpoint(375);\nconst tab = classifyViewportBreakpoint(768);\nconst desk = classifyViewportBreakpoint(1100);\nif (mob.breakpoint !== 'MOBILE_SM' || tab.breakpoint !== 'TABLET_MD' || desk.breakpoint !== 'DESKTOP_LG') throw new Error('Breakpoint classification failed');",
-    "aTitle": "Mobile-First Query Type Formatter",
-    "aDesc": "Implement function getMobileFirstQueryType() returning `'min-width'`.",
-    "aStarter": "function getMobileFirstQueryType() {\n  // TODO: write your code here\n}",
-    "aHint": "Return min-width.",
-    "aTest": "if (getMobileFirstQueryType() !== 'min-width') throw new Error('Query type check failed');"
+    "aTitle": "Responsive Media Query Formatter",
+    "aDesc": "Implement function `formatMediaQuery(breakpointPx, isMobileFirst = true)` returning `@media (${isMobileFirst ? 'min-width' : 'max-width'}: ${breakpointPx}px)`.",
+    "aStarter": "function formatMediaQuery(breakpointPx, isMobileFirst = true) {\n  // TODO: Format media query string with min-width or max-width\n  \n}",
+    "aHint": "return `@media (${isMobileFirst ? 'min-width' : 'max-width'}: ${breakpointPx}px)`;",
+    "aTest": "if (formatMediaQuery(768) !== '@media (min-width: 768px)') throw new Error('Mobile-first query failed');\nif (formatMediaQuery(1024, false) !== '@media (max-width: 1024px)') throw new Error('Desktop-first query failed');"
   },
   {
     "day": 19,
@@ -375,12 +375,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function formatCssClampString(minRem, preferredVw, maxRem) generating a standardized CSS `clamp(minRem, preferredVw, maxRem)` expression. Use these exact values: `status`: 'CSS_CLAMP_EXPRESSION_GENERATED_NOMINAL'. The result must have the field: `cssClampExpression`.",
     "eStarter": "function formatCssClampString(min, prefVw, max) {\n  // TODO: write your code here\n}",
     "eHint": "Construct clamp(minrem, prefVwvw, maxrem).",
-    "eTest": "const res = formatCssClampString(1.0, 2.5, 2.0);\nif (res.cssClampExpression !== 'clamp(1rem, 2.5vw, 2rem)' || res.status !== 'CSS_CLAMP_EXPRESSION_GENERATED_NOMINAL') throw new Error('CSS clamp generation failed');",
-    "aTitle": "CSS Container Query Keyword Formatter",
-    "aDesc": "Implement function getContainerQueryKeyword() returning `'@container'`.",
-    "aStarter": "function getContainerQueryKeyword() {\n  // TODO: write your code here\n}",
-    "aHint": "Return @container.",
-    "aTest": "if (getContainerQueryKeyword() !== '@container') throw new Error('Keyword check failed');"
+    "eTest": "const c1 = formatCssClampString(1, 2.5, 2);\nif (c1.cssClampExpression !== 'clamp(1rem, 2.5vw, 2rem)' || c1.status !== 'CSS_CLAMP_EXPRESSION_GENERATED_NOMINAL') throw new Error('Clamp 1 failed');\nconst c2 = formatCssClampString(0.875, 2, 1.5);\nif (c2.cssClampExpression !== 'clamp(0.875rem, 2vw, 1.5rem)') throw new Error('Clamp 2 failed');",
+    "aTitle": "CSS Container Query Rule Builder",
+    "aDesc": "Implement function `formatContainerQuery(containerName, minWidthPx)` returning `@container ${containerName} (min-width: ${minWidthPx}px)`.",
+    "aStarter": "function formatContainerQuery(containerName, minWidthPx) {\n  // TODO: Return formatted @container query rule string\n  \n}",
+    "aHint": "return `@container ${containerName} (min-width: ${minWidthPx}px)`;",
+    "aTest": "if (formatContainerQuery('sidebar', 400) !== '@container sidebar (min-width: 400px)') throw new Error('Sidebar query failed');\nif (formatContainerQuery('card', 300) !== '@container card (min-width: 300px)') throw new Error('Card query failed');"
   },
   {
     "day": 20,
@@ -396,11 +396,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditTransitionConfig(prop, dur, easing) {\n  // TODO: write your code here\n}",
     "eHint": "Check prop in transform/opacity and dur between 100 and 350.",
     "eTest": "const pass = auditTransitionConfig('transform', 200, 'ease-out');\nconst fail = auditTransitionConfig('width', 200, 'ease-out'); // width causes reflow\nif (!pass.isTransitionOptimized || fail.isTransitionOptimized || pass.status !== 'TRANSITION_PERFORMANCE_AUDITED_NOMINAL') throw new Error('Transition audit failed');",
-    "aTitle": "Hardware-Accelerated CSS Property Formatter",
-    "aDesc": "Implement function getHardwareAcceleratedProperty() returning `'transform'`.",
-    "aStarter": "function getHardwareAcceleratedProperty() {\n  // TODO: write your code here\n}",
-    "aHint": "Return transform.",
-    "aTest": "if (getHardwareAcceleratedProperty() !== 'transform') throw new Error('Property check failed');"
+    "aTitle": "GPU-Accelerated CSS Property Validator",
+    "aDesc": "Implement function `isGpuAcceleratedCssProperty(propName)` returning true if propName is 'transform' or 'opacity'.",
+    "aStarter": "function isGpuAcceleratedCssProperty(propName) {\n  // TODO: Return true if propName is GPU composite accelerated ('transform' or 'opacity')\n  \n}",
+    "aHint": "return propName === 'transform' || propName === 'opacity';",
+    "aTest": "if (isGpuAcceleratedCssProperty('transform') !== true) throw new Error('transform must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('opacity') !== true) throw new Error('opacity must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('width') !== false) throw new Error('width triggers layout');\nif (isGpuAcceleratedCssProperty('top') !== false) throw new Error('top triggers layout');"
   },
   {
     "day": 21,
@@ -412,15 +412,15 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
     "eTitle": "Visual Frontend Master Engine",
-    "eDesc": "Implement function executeVisualFrontendMaster(flexOk, gridOk, bpOk, clampOk, transitionOk) certifying combined visual frontend execution. Use these exact values: `engineStatus`: 'VISUAL_FRONTEND_MASTER_ACTIVE'.",
+    "eDesc": "Implement function executeVisualFrontendMaster(flexOk, gridOk, breakOk, clampOk, transOk) certifying combined visual layout execution. Use these exact values: `engineStatus`: 'VISUAL_FRONTEND_MASTER_ACTIVE' when nominal, or 'VISUAL_FRONTEND_DEFECT' when defective.",
     "eStarter": "function executeVisualFrontendMaster(f, g, b, c, t) {\n  // TODO: write your code here\n}",
     "eHint": "Verify inputs and return active status.",
-    "eTest": "const res = executeVisualFrontendMaster(true, true, true, true, true);\nif (res.engineStatus !== 'VISUAL_FRONTEND_MASTER_ACTIVE') throw new Error('Milestone 3 frontend master failed');",
+    "eTest": "const pass = executeVisualFrontendMaster(true, true, true, true, true);\nif (pass.engineStatus !== 'VISUAL_FRONTEND_MASTER_ACTIVE') throw new Error('Master suite failed');\nconst fail = executeVisualFrontendMaster(true, false, true, true, true);\nif (fail.engineStatus !== 'VISUAL_FRONTEND_DEFECT') throw new Error('Defective layout should report DEFECT');",
     "aTitle": "Visual Frontend Master Status Formatter",
-    "aDesc": "Implement function getVisualFrontendMasterStatus() returning `'VISUAL_FRONTEND_MASTER_ACTIVE'`.",
-    "aStarter": "function getVisualFrontendMasterStatus() {\n  // TODO: write your code here\n}",
-    "aHint": "Return status.",
-    "aTest": "if (getVisualFrontendMasterStatus() !== 'VISUAL_FRONTEND_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "aDesc": "Implement function `formatVisualFrontendStatus(isNominal)` returning `'VISUAL_FRONTEND_ACTIVE'` if true, or `'VISUAL_FRONTEND_OFFLINE'` if false.",
+    "aStarter": "function formatVisualFrontendStatus(isNominal) {\n  // TODO: Return 'VISUAL_FRONTEND_ACTIVE' if isNominal, else 'VISUAL_FRONTEND_OFFLINE'\n  \n}",
+    "aHint": "return isNominal ? 'VISUAL_FRONTEND_ACTIVE' : 'VISUAL_FRONTEND_OFFLINE';",
+    "aTest": "if (formatVisualFrontendStatus(true) !== 'VISUAL_FRONTEND_ACTIVE') throw new Error('Active status failed');\nif (formatVisualFrontendStatus(false) !== 'VISUAL_FRONTEND_OFFLINE') throw new Error('Offline status failed');"
   },
   {
     "day": 22,
@@ -436,11 +436,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveInitialThemeMode(storedPref, systemDark) {\n  // TODO: write your code here\n}",
     "eHint": "If storedPref is dark or (storedPref is null and systemDark) return dark else light.",
     "eTest": "const userDark = resolveInitialThemeMode('dark', false);\nconst sysDark = resolveInitialThemeMode(null, true);\nconst userLightSysDark = resolveInitialThemeMode('light', true);\nif (userDark.resolvedThemeMode !== 'dark' || sysDark.resolvedThemeMode !== 'dark' || userLightSysDark.resolvedThemeMode !== 'light') throw new Error('Theme resolution failed');",
-    "aTitle": "System Color Scheme Media Query Formatter",
-    "aDesc": "Implement function getColorSchemeMediaQuery() returning `'prefers-color-scheme'`.",
-    "aStarter": "function getColorSchemeMediaQuery() {\n  // TODO: write your code here\n}",
-    "aHint": "Return prefers-color-scheme.",
-    "aTest": "if (getColorSchemeMediaQuery() !== 'prefers-color-scheme') throw new Error('Media query check failed');"
+    "aTitle": "Theme Token Indirection Resolver",
+    "aDesc": "Implement function `resolveThemeToken(tokenMap, currentTheme)` returning the hex string corresponding to currentTheme ('light' or 'dark'), defaulting to light.",
+    "aStarter": "function resolveThemeToken(tokenMap, theme) {\n  // TODO: Resolve tokenMap[theme] defaulting to tokenMap.light\n  \n}",
+    "aHint": "return tokenMap[theme] || tokenMap.light;",
+    "aTest": "const map = { light: '#ffffff', dark: '#121212' };\nif (resolveThemeToken(map, 'dark') !== '#121212') throw new Error('Dark theme failed');\nif (resolveThemeToken(map, 'light') !== '#ffffff') throw new Error('Light theme failed');\nif (resolveThemeToken(map, 'unknown') !== '#ffffff') throw new Error('Fallback failed');"
   },
   {
     "day": 23,
@@ -456,11 +456,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateWcagContrastCompliance(l1, l2) {\n  // TODO: write your code here\n}",
     "eHint": "ratio = (lMax + 0.05) / (lMin + 0.05), isAa = ratio >= 4.5.",
     "eTest": "const whiteBlack = evaluateWcagContrastCompliance(1.0, 0.0); // (1 + 0.05)/(0 + 0.05) = 21:1\nconst lowContrast = evaluateWcagContrastCompliance(0.4, 0.3); // (0.45)/(0.35) = 1.28:1\nif (!whiteBlack.isWcagAaCompliant || !whiteBlack.isWcagAaaCompliant || lowContrast.isWcagAaCompliant || whiteBlack.calculatedContrastRatio !== 21) throw new Error('WCAG contrast evaluation failed');",
-    "aTitle": "WCAG Level AA Normal Text Contrast Ratio Threshold Formatter",
-    "aDesc": "Implement function getWcagAaNormalTextThreshold() returning `4.5`.",
-    "aStarter": "function getWcagAaNormalTextThreshold() {\n  // TODO: write your code here\n}",
-    "aHint": "Return 4.5.",
-    "aTest": "if (getWcagAaNormalTextThreshold() !== 4.5) throw new Error('Threshold check failed');"
+    "aTitle": "WCAG 2.1 AA Contrast Compliance Evaluator",
+    "aDesc": "Implement function `isWcagAaCompliant(contrastRatio, isLargeText = false)` verifying whether contrast ratio meets WCAG AA standards (>= 3.0 for large text, >= 4.5 for normal text).",
+    "aStarter": "function isWcagAaCompliant(contrastRatio, isLargeText = false) {\n  // TODO: Return true if contrast ratio meets WCAG AA thresholds\n  \n}",
+    "aHint": "return isLargeText ? contrastRatio >= 3.0 : contrastRatio >= 4.5;",
+    "aTest": "if (isWcagAaCompliant(4.6, false) !== true) throw new Error('4.6 normal text should pass AA');\nif (isWcagAaCompliant(4.0, false) !== false) throw new Error('4.0 normal text must fail AA');\nif (isWcagAaCompliant(3.5, true) !== true) throw new Error('3.5 large text should pass AA');\nif (isWcagAaCompliant(2.8, true) !== false) throw new Error('2.8 large text must fail AA');"
   },
   {
     "day": 24,
@@ -476,11 +476,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveRovingTabindex(curr, total, key) {\n  // TODO: write your code here\n}",
     "eHint": "Next: (curr + 1) % total. Prev: (curr - 1 + total) % total.",
     "eTest": "const fwd = resolveRovingTabindex(2, 4, 'ArrowRight'); // 2 -> 3\nconst wrap = resolveRovingTabindex(3, 4, 'ArrowRight'); // 3 -> 0 (wrap)\nconst back = resolveRovingTabindex(0, 4, 'ArrowLeft'); // 0 -> 3 (wrap back)\nif (fwd.newActiveIndex !== 3 || wrap.newActiveIndex !== 0 || back.newActiveIndex !== 3) throw new Error('Roving tabindex resolution failed');",
-    "aTitle": "Programmatic Focus Only Tabindex Value Formatter",
-    "aDesc": "Implement function getProgrammaticFocusTabindex() returning `-1`.",
-    "aStarter": "function getProgrammaticFocusTabindex() {\n  // TODO: write your code here\n}",
-    "aHint": "Return -1.",
-    "aTest": "if (getProgrammaticFocusTabindex() !== -1) throw new Error('Tabindex check failed');"
+    "aTitle": "Interactive Element Tabindex Resolver",
+    "aDesc": "Implement function `resolveTabindex(isInteractive, isProgrammaticOnly)` returning 0 for interactive elements, or -1 for non-interactive / programmatic focus containers.",
+    "aStarter": "function resolveTabindex(isInteractive, isProgrammaticOnly) {\n  // TODO: Return 0 for keyboard interactive, -1 for programmatic or inert\n  \n}",
+    "aHint": "if (isProgrammaticOnly || !isInteractive) return -1; return 0;",
+    "aTest": "if (resolveTabindex(true, false) !== 0) throw new Error('Interactive element must have tabindex 0');\nif (resolveTabindex(true, true) !== -1) throw new Error('Programmatic container must have tabindex -1');\nif (resolveTabindex(false, false) !== -1) throw new Error('Non-interactive element must have tabindex -1');"
   },
   {
     "day": 25,
@@ -496,11 +496,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditIconButtonAccessibility(hasLabel, hasText, isHidden) {\n  // TODO: write your code here\n}",
     "eHint": "isCompliant = (hasLabel || hasText) && isHidden.",
     "eTest": "const pass = auditIconButtonAccessibility(true, false, true);\nconst fail = auditIconButtonAccessibility(false, false, true);\nif (!pass.isIconButtonCompliant || fail.isIconButtonCompliant || pass.status !== 'ICON_BUTTON_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Icon button audit failed');",
-    "aTitle": "Decorative Element ARIA Attribute Formatter",
-    "aDesc": "Implement function getDecorativeElementAria() returning `'aria-hidden=\"true\"'`.",
-    "aStarter": "function getDecorativeElementAria() {\n  // TODO: write your code here\n}",
-    "aHint": "Return aria-hidden=\"true\".",
-    "aTest": "if (getDecorativeElementAria() !== 'aria-hidden=\"true\"') throw new Error('ARIA check failed');"
+    "aTitle": "SVG Icon ARIA Attributes Resolver",
+    "aDesc": "Implement function `getIconAriaAttributes(isDecorative, altLabel)` returning { 'aria-hidden': 'true' } if decorative, or { 'aria-label': altLabel, role: 'img' } if informative.",
+    "aStarter": "function getIconAriaAttributes(isDecorative, altLabel) {\n  // TODO: Return accessible attributes object for SVG icon\n  \n}",
+    "aHint": "if (isDecorative) return { 'aria-hidden': 'true' }; return { 'aria-label': altLabel || '', role: 'img' };",
+    "aTest": "const dec = getIconAriaAttributes(true);\nif (dec['aria-hidden'] !== 'true') throw new Error('Decorative icon must be aria-hidden');\nconst info = getIconAriaAttributes(false, 'Search items');\nif (info['aria-label'] !== 'Search items' || info.role !== 'img') throw new Error('Informational icon must have aria-label and role');"
   },
   {
     "day": 26,
@@ -516,11 +516,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditSvgIconConfig(viewBox, colorProp) {\n  // TODO: write your code here\n}",
     "eHint": "Check viewBox === '0 0 24 24' and colorProp === 'currentColor'.",
     "eTest": "const pass = auditSvgIconConfig('0 0 24 24', 'currentColor');\nconst fail = auditSvgIconConfig('0 0 512 512', '#ff0000');\nif (!pass.isSvgIconStandardCompliant || fail.isSvgIconStandardCompliant || pass.status !== 'SVG_ICON_STANDARD_VERIFIED_NOMINAL') throw new Error('SVG icon audit failed');",
-    "aTitle": "Standard SVG Inherited Color Keyword Formatter",
-    "aDesc": "Implement function getSvgColorInheritanceKeyword() returning `'currentColor'`.",
-    "aStarter": "function getSvgColorInheritanceKeyword() {\n  // TODO: write your code here\n}",
-    "aHint": "Return currentColor.",
-    "aTest": "if (getSvgColorInheritanceKeyword() !== 'currentColor') throw new Error('Keyword check failed');"
+    "aTitle": "SVG Color Inheritance Keyword Resolver",
+    "aDesc": "Implement function `resolveSvgIconColor(variantColor, inheritFromText)` returning 'currentColor' if inheritFromText is true, or variantColor otherwise.",
+    "aStarter": "function resolveSvgIconColor(variantColor, inheritFromText) {\n  // TODO: Return 'currentColor' or variantColor\n  \n}",
+    "aHint": "return inheritFromText ? 'currentColor' : variantColor;",
+    "aTest": "if (resolveSvgIconColor('#ff0000', true) !== 'currentColor') throw new Error('Inherited SVG must use currentColor');\nif (resolveSvgIconColor('#ff0000', false) !== '#ff0000') throw new Error('Explicit SVG must use variantColor');"
   },
   {
     "day": 27,
@@ -536,11 +536,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveAnimationForMotionPreference(reducedMotion, stdAnim, fadeAnim) {\n  // TODO: write your code here\n}",
     "eHint": "If reducedMotion return fadeAnim else stdAnim.",
     "eTest": "const reduced = resolveAnimationForMotionPreference(true, 'slide-in-right-300ms', 'fade-in-150ms');\nconst normal = resolveAnimationForMotionPreference(false, 'slide-in-right-300ms', 'fade-in-150ms');\nif (reduced.resolvedAnimationClass !== 'fade-in-150ms' || normal.resolvedAnimationClass !== 'slide-in-right-300ms') throw new Error('Reduced motion resolution failed');",
-    "aTitle": "Reduced Motion Media Query Name Formatter",
-    "aDesc": "Implement function getReducedMotionMediaQuery() returning `'prefers-reduced-motion'`.",
-    "aStarter": "function getReducedMotionMediaQuery() {\n  // TODO: write your code here\n}",
-    "aHint": "Return prefers-reduced-motion.",
-    "aTest": "if (getReducedMotionMediaQuery() !== 'prefers-reduced-motion') throw new Error('Media query check failed');"
+    "aTitle": "Accessible Animation Duration Resolver",
+    "aDesc": "Implement function `getAnimationDurationMs(baseMs, prefersReducedMotion)` returning 0 if user prefers reduced motion, or baseMs otherwise.",
+    "aStarter": "function getAnimationDurationMs(baseMs, prefersReducedMotion) {\n  // TODO: Return 0 when reduced motion preferred, otherwise baseMs\n  \n}",
+    "aHint": "return prefersReducedMotion ? 0 : baseMs;",
+    "aTest": "if (getAnimationDurationMs(300, true) !== 0) throw new Error('Reduced motion should disable animation');\nif (getAnimationDurationMs(300, false) !== 300) throw new Error('Standard motion should preserve base duration');"
   },
   {
     "day": 28,
@@ -556,11 +556,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditStorybookCsf3Structure(meta, story) {\n  // TODO: write your code here\n}",
     "eHint": "meta has title and component, story has args object.",
     "eTest": "const pass = auditStorybookCsf3Structure({ title: 'Components/Button', component: 'Button' }, { args: { variant: 'primary' } });\nconst fail = auditStorybookCsf3Structure({ title: 'Button' }, {});\nif (!pass.isCsf3Compliant || fail.isCsf3Compliant || pass.status !== 'STORYBOOK_CSF3_STRUCTURE_VERIFIED_NOMINAL') throw new Error('Storybook CSF3 audit failed');",
-    "aTitle": "Component Story Format Version 3 Acronym Formatter",
-    "aDesc": "Implement function getCsf3Acronym() returning `'CSF3'`.",
-    "aStarter": "function getCsf3Acronym() {\n  // TODO: write your code here\n}",
-    "aHint": "Return CSF3.",
-    "aTest": "if (getCsf3Acronym() !== 'CSF3') throw new Error('Acronym check failed');"
+    "aTitle": "Storybook Story Meta Creator",
+    "aDesc": "Implement function `createStoryMeta(componentName, titlePrefix = 'Components')` returning { title: `${titlePrefix}/${componentName}`, componentName }.",
+    "aStarter": "function createStoryMeta(componentName, titlePrefix = 'Components') {\n  // TODO: Return Component Story Format meta object\n  \n}",
+    "aHint": "return { title: `${titlePrefix}/${componentName}`, componentName };",
+    "aTest": "const meta1 = createStoryMeta('Button');\nif (meta1.title !== 'Components/Button' || meta1.componentName !== 'Button') throw new Error('Button story meta failed');\nconst meta2 = createStoryMeta('Header', 'Layout');\nif (meta2.title !== 'Layout/Header') throw new Error('Custom prefix story meta failed');"
   },
   {
     "day": 29,
@@ -576,11 +576,11 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function classifyDesignSystemRelease(isBreaking, isNewFeature, isBugfix) {\n  // TODO: write your code here\n}",
     "eHint": "isBreaking -> MAJOR, isNewFeature -> MINOR, else PATCH.",
     "eTest": "const brk = classifyDesignSystemRelease(true, false, false);\nconst feat = classifyDesignSystemRelease(false, true, false);\nconst fix = classifyDesignSystemRelease(false, false, true);\nif (brk.releaseType !== 'MAJOR' || feat.releaseType !== 'MINOR' || fix.releaseType !== 'PATCH') throw new Error('SemVer classification failed');",
-    "aTitle": "Design System JSDoc Deprecation Tag Formatter",
-    "aDesc": "Implement function getJsDocDeprecationTag() returning `'@deprecated'`.",
-    "aStarter": "function getJsDocDeprecationTag() {\n  // TODO: write your code here\n}",
-    "aHint": "Return @deprecated.",
-    "aTest": "if (getJsDocDeprecationTag() !== '@deprecated') throw new Error('Tag check failed');"
+    "aTitle": "Component Deprecation Warning Formatter",
+    "aDesc": "Implement function `formatDeprecationWarning(componentName, replacementName)` returning `[DEPRECATED] ${componentName} is deprecated. Use ${replacementName} instead.`.",
+    "aStarter": "function formatDeprecationWarning(componentName, replacementName) {\n  // TODO: Format standard deprecation notice string\n  \n}",
+    "aHint": "return `[DEPRECATED] ${componentName} is deprecated. Use ${replacementName} instead.`;",
+    "aTest": "const warn = formatDeprecationWarning('LegacyButton', 'PrimaryButton');\nif (warn !== '[DEPRECATED] LegacyButton is deprecated. Use PrimaryButton instead.') throw new Error('Deprecation warning format failed');"
   },
   {
     "day": 30,
@@ -597,10 +597,10 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Verify all 5 module flags evaluate to true.",
     "eTest": "const ok = orchestrateDesignSystemMasterSuite(true, true, true, true, true);\nconst fail = orchestrateDesignSystemMasterSuite(true, true, false, true, true);\nif (!ok.sovereignDesignSystemCertified || fail.sovereignDesignSystemCertified || !ok.certified || ok.status !== 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Design System Master Certification Auditor",
-    "aDesc": "Implement function auditDesignSystemMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditDesignSystemMasterCert() {\n  // TODO: write your code here\n}",
-    "aHint": "Return certification object.",
-    "aTest": "if (!auditDesignSystemMasterCert().certified) throw new Error('Capstone cert failed');"
+    "aDesc": "Implement function `auditDesignSystemMasterCert(govScore, a11yScore)` certifying sovereign enterprise design system readiness. Return `{ certified: boolean, score: string, tier: string }`. Use tier `'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED'` when certified (govScore >= 80 and a11yScore >= 90), or `'REMEDIATION_REQUIRED'` otherwise.",
+    "aStarter": "function auditDesignSystemMasterCert(govScore, a11yScore) {\n  // TODO: Certify design system if govScore >= 80 and a11yScore >= 90\n  \n}",
+    "aHint": "const isOk = govScore >= 80 && a11yScore >= 90; return { certified: isOk, score: `${Math.round((govScore + a11yScore) / 2)}/100`, tier: isOk ? 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED' : 'REMEDIATION_REQUIRED' };",
+    "aTest": "const pass = auditDesignSystemMasterCert(90, 95);\nif (!pass.certified || pass.tier !== 'SOVEREIGN_DESIGN_SYSTEM_MASTER_CERTIFIED') throw new Error('High scores should pass certification');\nconst fail = auditDesignSystemMasterCert(70, 95);\nif (fail.certified || fail.tier !== 'REMEDIATION_REQUIRED') throw new Error('Low governance score must fail certification');"
   }
 ];
 

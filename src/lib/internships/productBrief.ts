@@ -27,6 +27,7 @@ export interface GenerateProductBriefOptions {
   seed: string;
   isSolo?: boolean;
   memberIds?: string[];
+  track?: 'python_ai' | 'web_fullstack';
   model?: string;
   maxAttempts?: number;
 }
@@ -79,25 +80,34 @@ export async function generateProductBrief(
   const maxStories = isSolo ? 8 : 16;
   const maxAttempts = opts.maxAttempts || 3;
   const reasons: string[] = [];
+  const isWeb = opts.track === 'web_fullstack';
 
   const system = `You are a Principal Software Architect designing a product brief and sprint backlog for a junior software engineering virtual internship simulation.
-The project is a small, realistic Python + SQL backend service (e.g. clinic appointment booking, university library system, canteen food ordering, or logistics dispatch).
+${
+  isWeb
+    ? 'The project is a realistic full-stack web application with a React frontend, Node.js & TypeScript REST backend, and PostgreSQL relational database (e.g. telemetry monitoring dashboard, team incident tracker, inventory order manager, or customer onboarding portal).'
+    : 'The project is a small, realistic Python + SQL backend service (e.g. clinic appointment booking, university library system, canteen food ordering, or logistics dispatch).'
+}
 
 CRITICAL REQUIREMENTS:
 1. OUTPUT: Strict JSON matching this schema:
-   - "productName": Clean name of the service (e.g. "PulseClinic API", "LibreDesk Engine", "CanteenHub Backend").
+   - "productName": Clean name of the service (e.g. ${isWeb ? '"DevPulse Portal", "MetricCloud Web", "ShipTrack Hub"' : '"PulseClinic API", "LibreDesk Engine", "CanteenHub Backend"'}).
    - "summary": 2-3 paragraphs describing the system's objective, architecture, and PostgreSQL requirements.
    - "dataModel": Array of 2 to 5 relational tables, each with:
-     - "table": Table name (e.g. "patients", "appointments").
+     - "table": Table name (e.g. ${isWeb ? '"services", "incidents"' : '"patients", "appointments"'}).
      - "columns": Column definitions (e.g. ["id UUID PRIMARY KEY", "name TEXT NOT NULL", "created_at TIMESTAMPTZ"]).
    - "stories": Array of user stories containing EXACTLY ${targetCount} stories.
 2. USER STORIES:
    - Each story must have:
      - "id": String like "US-01", "US-02", etc.
-     - "title": Actionable task title (e.g. "Register patient record with email validation").
+     - "title": Actionable task title (e.g. ${isWeb ? '"Build StatusCard component with active indicators"' : '"Register patient record with email validation"'}).
      - "acceptance": Array of 2 to 4 clear, testable acceptance criteria strings.
 3. TECH SCOPE:
-   - Skills must come strictly from Months 1-3 fundamentals (Python logic, data structures, algorithms, PostgreSQL/SQL).
+   - Skills must come strictly from Months 1-3 fundamentals (${
+     isWeb
+       ? 'React UI components & state, Node.js API handlers & TypeScript validation, PostgreSQL/SQL tables & queries'
+       : 'Python logic, data structures, algorithms, PostgreSQL/SQL'
+   }).
 4. HONEST LABELLING:
    - Explicitly note in "summary" that this is a simulated corporate product brief for training purposes.`;
 

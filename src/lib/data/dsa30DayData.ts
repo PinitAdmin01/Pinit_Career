@@ -55,7 +55,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement `function reverseList(head)` that reverses a singly linked list in O(N) time and O(1) space, returning the new head.",
     "eStarter": "function reverseList(head) {\n  // Maintain prev, curr, and nextTemp pointers iteratively.\n  \n}",
     "eHint": "Maintain prev, curr, and nextTemp pointers iteratively.",
-    "eTest": "const l3 = { val: 3, next: null };\nconst l2 = { val: 2, next: l3 };\nconst l1 = { val: 1, next: l2 };\nconst rev = reverseList(l1);\nif (rev.val !== 3 || rev.next.val !== 2 || rev.next.next.val !== 1 || rev.next.next.next !== null) throw new Error('List reversal failed');",
+    "eTest": "const l3 = { val: 3, next: null };\nconst l2 = { val: 2, next: l3 };\nconst l1 = { val: 1, next: l2 };\nconst rev = reverseList(l1);\nif (rev.val !== 3 || rev.next.val !== 2 || rev.next.next.val !== 1 || rev.next.next.next !== null) throw new Error('List reversal failed');\nconst s1 = { val: 42, next: null };\nconst revSingle = reverseList(s1);\nif (revSingle.val !== 42 || revSingle.next !== null) throw new Error('Single node reversal failed');\nconst p2 = { val: 20, next: null };\nconst p1 = { val: 10, next: p2 };\nconst revPair = reverseList(p1);\nif (revPair.val !== 20 || revPair.next.val !== 10 || revPair.next.next !== null) throw new Error('Pair reversal failed');",
     "aTitle": "Detect Cycle in Linked List (Floyd's Tortoise and Hare)",
     "aDesc": "Implement `function hasCycle(head)` using Floyd's Two-Pointer Cycle-Finding algorithm in O(N) time and O(1) memory.",
     "aStarter": "function hasCycle(head) {\n  // Advance slow by 1 and fast by 2; if they ever point to the identical node object, a cycle exists.\n  \n}",
@@ -80,7 +80,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function nextGreaterElements(nums)` returning an array where `res[i]` is the next greater integer to the right of `nums[i]`, or -1 if none exists.",
     "aStarter": "function nextGreaterElements(nums) {\n  // Maintain a decreasing stack of array indices. Pop when finding a greater element.\n  \n}",
     "aHint": "Maintain a decreasing stack of array indices. Pop when finding a greater element.",
-    "aTest": "const res = nextGreaterElements([2, 1, 2, 4, 3]);\nif (JSON.stringify(res) !== JSON.stringify([4, 2, 4, -1, -1])) throw new Error('Monotonic stack next greater element failed');"
+    "aTest": "const res = nextGreaterElements([2, 1, 2, 4, 3]);\nif (JSON.stringify(res) !== JSON.stringify([4, 2, 4, -1, -1])) throw new Error('Monotonic stack next greater element failed');\nconst res2 = nextGreaterElements([1, 2, 3]);\nif (JSON.stringify(res2) !== JSON.stringify([2, 3, -1])) throw new Error('Ascending array next greater failed');\nconst res3 = nextGreaterElements([3, 2, 1]);\nif (JSON.stringify(res3) !== JSON.stringify([-1, -1, -1])) throw new Error('Descending array next greater failed');"
   },
   {
     "day": 5,
@@ -100,7 +100,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Write a test runner function `function verifyLruCapacity(cap, operations)` verifying LRU eviction sequences.",
     "aStarter": "function verifyLruCapacity(cap, ops) {\n  // Execute operations and verify returned values match expected sequence.\n  \n}",
     "aHint": "Execute operations and verify returned values match expected sequence.",
-    "aTest": "const res = verifyLruCapacity(1, [{type:'put', k:1, v:10}, {type:'put', k:2, v:20}, {type:'get', k:1}]);\nif (res[0] !== -1) throw new Error('Expected -1 for evicted key 1');"
+    "aTest": "const res = verifyLruCapacity(1, [{type:'put', k:1, v:10}, {type:'put', k:2, v:20}, {type:'get', k:1}]);\nif (res[0] !== -1) throw new Error('Expected -1 for evicted key 1');\nconst res2 = verifyLruCapacity(2, [{type:'put', k:1, v:10}, {type:'get', k:1}]);\nif (res2[0] !== 10) throw new Error('Expected 10 for cached key 1');"
   },
   {
     "day": 6,
@@ -140,7 +140,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function twoSum(nums, target)` returning indices `[i, j]` such that `nums[i] + nums[j] === target` in single pass O(N) time.",
     "aStarter": "function twoSum(nums, target) {\n  // Check if target - current exists in map before storing current number.\n  \n}",
     "aHint": "Check if target - current exists in map before storing current number.",
-    "aTest": "const indices = twoSum([2, 7, 11, 15], 9);\nif (indices[0] !== 0 || indices[1] !== 1) throw new Error('Two sum failed to find [0, 1]');"
+    "aTest": "const indices = twoSum([2, 7, 11, 15], 9);\nif (indices[0] !== 0 || indices[1] !== 1) throw new Error('Two sum failed to find [0, 1]');\nconst indices2 = twoSum([3, 2, 4], 6);\nif (indices2[0] !== 1 || indices2[1] !== 2) throw new Error('Two sum failed to find [1, 2]');"
   },
   {
     "day": 8,
@@ -180,7 +180,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function maxSubArraySum(nums, k)` returning the maximum sum of any contiguous subarray of size `k`.",
     "aStarter": "function maxSubArraySum(nums, k) {\n  // Subtract outgoing element at left and add incoming element at right.\n  \n}",
     "aHint": "Subtract outgoing element at left and add incoming element at right.",
-    "aTest": "if (maxSubArraySum([2, 1, 5, 1, 3, 2], 3) !== 9) throw new Error('Expected 9 for [5, 1, 3]');"
+    "aTest": "if (maxSubArraySum([2, 1, 5, 1, 3, 2], 3) !== 9) throw new Error('Expected 9 for [5, 1, 3]');\nif (maxSubArraySum([1, 2, 3, 4], 2) !== 7) throw new Error('Expected 7 for [3, 4]');\nif (maxSubArraySum([4, 2, 1, 7, 8, 1], 3) !== 16) throw new Error('Expected 16 for [7, 8, 1]');"
   },
   {
     "day": 10,
@@ -220,7 +220,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function permute(nums)` returning all N! unique permutations.",
     "aStarter": "function permute(nums) {\n  // Maintain a used map to avoid selecting the same index twice.\n  \n}",
     "aHint": "Maintain a used map to avoid selecting the same index twice.",
-    "aTest": "const p = permute([1, 2, 3]);\nif (p.length !== 6) throw new Error('Expected 3! = 6 permutations');"
+    "aTest": "const p = permute([1, 2, 3]);\nif (p.length !== 6) throw new Error('Expected 3! = 6 permutations');\nconst p1 = permute([1]);\nif (p1.length !== 1 || JSON.stringify(p1[0]) !== JSON.stringify([1])) throw new Error('Single element permutation failed');\nconst p2 = permute([1, 2]);\nif (p2.length !== 2) throw new Error('Expected 2! = 2 permutations');"
   },
   {
     "day": 12,
@@ -240,7 +240,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function mergeTwoLists(l1, l2)` merging two sorted linked lists.",
     "aStarter": "function mergeTwoLists(l1, l2) {\n  // Use a dummy head pointer and advance the smaller value.\n  \n}",
     "aHint": "Use a dummy head pointer and advance the smaller value.",
-    "aTest": "const a = { val: 1, next: { val: 4, next: null } };\nconst b = { val: 2, next: { val: 3, next: null } };\nconst m = mergeTwoLists(a, b);\nif (m.val !== 1 || m.next.val !== 2 || m.next.next.val !== 3) throw new Error('Merge two lists failed');"
+    "aTest": "const a = { val: 1, next: { val: 4, next: null } };\nconst b = { val: 2, next: { val: 3, next: null } };\nconst m = mergeTwoLists(a, b);\nif (m.val !== 1 || m.next.val !== 2 || m.next.next.val !== 3) throw new Error('Merge two lists failed');\nconst single = { val: 10, next: null };\nconst m2 = mergeTwoLists(single, null);\nif (m2.val !== 10 || m2.next !== null) throw new Error('Merging with null failed');\nconst m3 = mergeTwoLists(null, { val: 5, next: null });\nif (m3.val !== 5 || m3.next !== null) throw new Error('Merging null with list failed');"
   },
   {
     "day": 13,
@@ -280,7 +280,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function countingSort(arr, maxVal)` sorting non-negative integers in O(N + K) time.",
     "aStarter": "function countingSort(arr, maxVal) {\n  // Count occurrences and write them back sequentially.\n  \n}",
     "aHint": "Count occurrences and write them back sequentially.",
-    "aTest": "const sorted = countingSort([4, 2, 2, 8, 3, 3, 1], 8);\nif (JSON.stringify(sorted) !== JSON.stringify([1, 2, 2, 3, 3, 4, 8])) throw new Error('Counting sort failed');"
+    "aTest": "const sorted = countingSort([4, 2, 2, 8, 3, 3, 1], 8);\nif (JSON.stringify(sorted) !== JSON.stringify([1, 2, 2, 3, 3, 4, 8])) throw new Error('Counting sort failed');\nconst sorted2 = countingSort([5, 1, 0, 5, 2], 5);\nif (JSON.stringify(sorted2) !== JSON.stringify([0, 1, 2, 5, 5])) throw new Error('Counting sort second check failed');\nconst sorted3 = countingSort([], 0);\nif (JSON.stringify(sorted3) !== JSON.stringify([])) throw new Error('Empty array counting sort failed');"
   },
   {
     "day": 15,
@@ -300,7 +300,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function computeStreamMedians(nums)` returning an array of running medians after each insertion.",
     "aStarter": "function computeStreamMedians(nums) {\n  // Feed numbers sequentially and record each computed median.\n  \n}",
     "aHint": "Feed numbers sequentially and record each computed median.",
-    "aTest": "const medians = computeStreamMedians([5, 15, 1, 3]);\nif (medians[0] !== 5 || medians[1] !== 10 || medians[2] !== 5 || medians[3] !== 4) throw new Error('Streaming medians incorrect');"
+    "aTest": "const medians = computeStreamMedians([5, 15, 1, 3]);\nif (medians[0] !== 5 || medians[1] !== 10 || medians[2] !== 5 || medians[3] !== 4) throw new Error('Streaming medians incorrect');\nconst medians2 = computeStreamMedians([2, 4, 6]);\nif (medians2[0] !== 2 || medians2[1] !== 3 || medians2[2] !== 4) throw new Error('Second stream medians check failed');"
   },
   {
     "day": 16,
@@ -340,7 +340,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function lowestCommonAncestor(root, p, q)` in O(H) time.",
     "aStarter": "function lowestCommonAncestor(root, p, q) {\n  // If both p and q are smaller than root, search left; if both larger, search right; otherwise root is LCA.\n  \n}",
     "aHint": "If both p and q are smaller than root, search left; if both larger, search right; otherwise root is LCA.",
-    "aTest": "const root = { val: 6, left: { val: 2, left: null, right: null }, right: { val: 8, left: null, right: null } };\nconst lca = lowestCommonAncestor(root, { val: 2 }, { val: 8 });\nif (lca.val !== 6) throw new Error('LCA of 2 and 8 in BST should be 6');"
+    "aTest": "const root = { val: 6, left: { val: 2, left: null, right: null }, right: { val: 8, left: null, right: null } };\nconst lca = lowestCommonAncestor(root, { val: 2 }, { val: 8 });\nif (lca.val !== 6) throw new Error('LCA of 2 and 8 in BST should be 6');\nconst lca2 = lowestCommonAncestor(root, { val: 2 }, { val: 2 });\nif (lca2.val !== 2) throw new Error('LCA of node with itself must be that node');\nconst tree2 = { val: 20, left: { val: 10, left: null, right: null }, right: { val: 30, left: null, right: null } };\nconst lca3 = lowestCommonAncestor(tree2, { val: 10 }, { val: 30 });\nif (lca3.val !== 20) throw new Error('LCA check on second tree failed');"
   },
   {
     "day": 18,
@@ -360,7 +360,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function kthSmallest(nums, k)` extracting the kth smallest numerical value from an unsorted collection using an auxiliary MinHeap.",
     "aStarter": "function kthSmallest(nums, k) {\n  // Push all elements into MinHeap and pop k times.\n  \n}",
     "aHint": "Push all elements into MinHeap and pop k times.",
-    "aTest": "if (kthSmallest([7, 10, 4, 3, 20, 15], 3) !== 7) throw new Error('3rd smallest must be 7');"
+    "aTest": "if (kthSmallest([7, 10, 4, 3, 20, 15], 3) !== 7) throw new Error('3rd smallest must be 7');\nif (kthSmallest([1, 2, 3, 4, 5], 1) !== 1) throw new Error('1st smallest must be 1');\nif (kthSmallest([5, 4, 3, 2, 1], 5) !== 5) throw new Error('5th smallest must be 5');"
   },
   {
     "day": 19,
@@ -380,7 +380,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function findWordsWithPrefix(trie, prefix)` returning an array of every inserted word that starts with prefix. A working Trie class (from Practice 1) is already in the editor: each node has `children` (letter -> node) and `isEnd`; start from `trie.root`.",
     "aStarter": "class TrieNode {\n  constructor() { this.children = {}; this.isEnd = false; }\n}\nclass Trie {\n  constructor() { this.root = new TrieNode(); }\n  insert(word) {\n    let node = this.root;\n    for (const ch of word) node = node.children[ch] || (node.children[ch] = new TrieNode());\n    node.isEnd = true;\n  }\n  search(word) {\n    const node = this._walk(word);\n    return Boolean(node && node.isEnd);\n  }\n  startsWith(prefix) { return Boolean(this._walk(prefix)); }\n  _walk(text) {\n    let node = this.root;\n    for (const ch of text) { node = node.children[ch]; if (!node) return null; }\n    return node;\n  }\n}\n\nfunction findWordsWithPrefix(trie, prefix) {\n  // Walk down to the node for the last letter of prefix, then collect every word below it (DFS).\n  \n}",
     "aHint": "Navigate to the prefix endpoint and run DFS to collect all words.",
-    "aTest": "const t = new Trie();\nt.insert('card'); t.insert('care'); t.insert('cart');\nconst matches = findWordsWithPrefix(t, 'car');\nif (matches.length !== 3) throw new Error('Expected 3 words matching prefix car');"
+    "aTest": "const t = new Trie();\nt.insert('card'); t.insert('care'); t.insert('cart');\nconst matches = findWordsWithPrefix(t, 'car');\nif (matches.length !== 3) throw new Error('Expected 3 words matching prefix car');\nconst matches2 = findWordsWithPrefix(t, 'card');\nif (matches2.length !== 1 || matches2[0] !== 'card') throw new Error('Prefix card should match exactly [card]');\nconst matches3 = findWordsWithPrefix(t, 'zoo');\nif (matches3.length !== 0) throw new Error('Unmatched prefix should return empty array');"
   },
   {
     "day": 20,
@@ -400,7 +400,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function countComponents(n, edges)` returning the number of disjoint islands.",
     "aStarter": "function countComponents(n, edges) {\n  // Iterate all vertices; whenever encountering an unvisited vertex, launch BFS and increment component count.\n  \n}",
     "aHint": "Iterate all vertices; whenever encountering an unvisited vertex, launch BFS and increment component count.",
-    "aTest": "if (countComponents(5, [[0,1], [1,2], [3,4]]) !== 2) throw new Error('Expected 2 connected components');"
+    "aTest": "if (countComponents(5, [[0,1], [1,2], [3,4]]) !== 2) throw new Error('Expected 2 connected components');\nif (countComponents(3, []) !== 3) throw new Error('Graph with 3 isolated nodes has 3 components');\nif (countComponents(4, [[0,1], [1,2], [2,3]]) !== 1) throw new Error('Fully connected chain must have 1 component');"
   },
   {
     "day": 21,
@@ -440,7 +440,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function networkDelayTime(times, n, k)` returning time for all nodes to receive signal.",
     "aStarter": "function networkDelayTime(times, n, k) {\n  // Find maximum distance from source k across all n nodes.\n  \n}",
     "aHint": "Find maximum distance from source k across all n nodes.",
-    "aTest": "if (networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2) !== 2) throw new Error('Expected 2 for network delay');"
+    "aTest": "if (networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2) !== 2) throw new Error('Expected 2 for network delay');\nif (networkDelayTime([[1,2,1]], 2, 2) !== -1) throw new Error('Unreachable node must return -1');\nif (networkDelayTime([[1,2,1]], 2, 1) !== 1) throw new Error('Simple 1 edge delay must be 1');"
   },
   {
     "day": 23,
@@ -480,7 +480,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function findRedundantConnection(edges)` returning edge that forms a cycle.",
     "aStarter": "function findRedundantConnection(edges) {\n  // The edge that connects two already-connected nodes creates the cycle.\n  \n}",
     "aHint": "The edge that connects two already-connected nodes creates the cycle.",
-    "aTest": "const e = findRedundantConnection([[1,2], [1,3], [2,3]]);\nif (e[0] !== 2 || e[1] !== 3) throw new Error('Redundant connection [2, 3] not detected');"
+    "aTest": "const e = findRedundantConnection([[1,2], [1,3], [2,3]]);\nif (e[0] !== 2 || e[1] !== 3) throw new Error('Redundant connection [2, 3] not detected');\nconst e2 = findRedundantConnection([[1,2], [2,3], [3,4], [1,4], [1,5]]);\nif (e2[0] !== 1 || e2[1] !== 4) throw new Error('Redundant connection [1, 4] not detected');"
   },
   {
     "day": 25,
@@ -500,7 +500,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function climbStairs(n)` calculating distinct ways to climb n steps taking 1 or 2 steps at a time in O(N) time and O(1) space.",
     "aStarter": "function climbStairs(n) {\n  // dp[i] = dp[i-1] + dp[i-2].\n  \n}",
     "aHint": "dp[i] = dp[i-1] + dp[i-2].",
-    "aTest": "if (climbStairs(5) !== 8) throw new Error('5 stairs should have 8 distinct ways');"
+    "aTest": "if (climbStairs(5) !== 8) throw new Error('5 stairs should have 8 distinct ways');\nif (climbStairs(2) !== 2) throw new Error('2 stairs must have 2 ways');\nif (climbStairs(3) !== 3) throw new Error('3 stairs must have 3 ways');\nif (climbStairs(4) !== 5) throw new Error('4 stairs must have 5 ways');"
   },
   {
     "day": 26,
@@ -520,7 +520,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function knapsack(weights, values, capacity)` returning max value.",
     "aStarter": "function knapsack(weights, values, capacity) {\n  // Take max between excluding item or including item + value.\n  \n}",
     "aHint": "Take max between excluding item or including item + value.",
-    "aTest": "if (knapsack([2, 3, 4, 5], [3, 4, 5, 6], 5) !== 7) throw new Error('Expected 7 max value');"
+    "aTest": "if (knapsack([2, 3, 4, 5], [3, 4, 5, 6], 5) !== 7) throw new Error('Expected 7 max value');\nif (knapsack([1], [10], 0) !== 0) throw new Error('Zero capacity knapsack must return 0');\nif (knapsack([1, 2], [10, 20], 3) !== 30) throw new Error('Fitting all items knapsack must sum values');"
   },
   {
     "day": 27,
@@ -540,7 +540,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function minDistance(word1, word2)` returning minimum operations.",
     "aStarter": "function minDistance(word1, word2) {\n  // Base cases are string lengths; transition by taking min of insert, delete, replace + 1.\n  \n}",
     "aHint": "Base cases are string lengths; transition by taking min of insert, delete, replace + 1.",
-    "aTest": "if (minDistance('horse', 'ros') !== 3) throw new Error('Edit distance horse->ros must be 3');"
+    "aTest": "if (minDistance('horse', 'ros') !== 3) throw new Error('Edit distance horse->ros must be 3');\nif (minDistance('', 'a') !== 1) throw new Error('Empty to single char distance must be 1');\nif (minDistance('intention', 'execution') !== 5) throw new Error('Edit distance intention->execution must be 5');"
   },
   {
     "day": 28,
@@ -580,7 +580,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function hammingWeight(n)` computing the total count of set bits (1s) in the binary representation of integer n.",
     "aStarter": "function hammingWeight(n) {\n  // Use n & (n - 1) to clear lowest set bit iteratively.\n  \n}",
     "aHint": "Use n & (n - 1) to clear lowest set bit iteratively.",
-    "aTest": "if (hammingWeight(11) !== 3) throw new Error('11 (1011 in binary) has 3 set bits');"
+    "aTest": "if (hammingWeight(11) !== 3) throw new Error('11 (1011 in binary) has 3 set bits');\nif (hammingWeight(0) !== 0) throw new Error('0 has 0 set bits');\nif (hammingWeight(1) !== 1) throw new Error('1 has 1 set bit');\nif (hammingWeight(128) !== 1) throw new Error('128 (power of 2) has 1 set bit');"
   },
   {
     "day": 30,
@@ -600,7 +600,7 @@ export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement `function auditFlightGraph(n, flights)` returning total edges.",
     "aStarter": "function auditFlightGraph(n, flights) {\n  // Return the total number of flight connections (edges) in the graph:\n  \n}",
     "aHint": "Return total flights length.",
-    "aTest": "if (auditFlightGraph(4, [[0,1,100],[1,2,100]]) !== 2) throw new Error('Flight audit failed');"
+    "aTest": "if (auditFlightGraph(4, [[0,1,100],[1,2,100]]) !== 2) throw new Error('Flight audit failed');\nif (auditFlightGraph(2, []) !== 0) throw new Error('Empty flights array must return 0');\nif (auditFlightGraph(5, [[0,1,10],[1,2,20],[2,3,30]]) !== 3) throw new Error('3 flights must return 3');"
   }
 ];
 

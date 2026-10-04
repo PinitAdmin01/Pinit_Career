@@ -56,7 +56,7 @@ export interface BuildTaskPromptOptions {
   skills: readonly string[] | string[];
   companyProfile: CompanyProfileInfo;
   seed: string;
-  language?: 'python' | 'sql';
+  language?: 'python' | 'sql' | 'typescript' | 'tsx';
 }
 
 /**

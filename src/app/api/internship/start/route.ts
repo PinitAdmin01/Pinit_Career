@@ -154,9 +154,12 @@ export async function POST(req: NextRequest) {
     }
 
     // 3. Generate tickets for Tier 1
+    const taskLang = enrollment.track === 'web_fullstack' ? 'tsx' : 'python';
     const ticketsRes = await generateTier1Tasks({
       companyProfile: companyRes.profile,
       seed,
+      track: enrollment.track,
+      language: taskLang,
     });
 
     if (!ticketsRes.ok) {
@@ -178,7 +181,7 @@ export async function POST(req: NextRequest) {
       seq: t.seq,
       week: 1,
       kind: t.kind,
-      language: 'python' as const,
+      language: taskLang,
       title: t.task.title,
       brief: t.task.brief,
       starter_code: t.task.starter_code,

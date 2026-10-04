@@ -15,6 +15,10 @@ const KIND_LABEL: Record<string, { label: string; icon: string; color: string }>
   data_cleaning: { label: 'Data Cleaning', icon: '🧹', color: '#34d399' },
   refactor: { label: 'Refactoring', icon: '🔄', color: '#fbbf24' },
   feature: { label: 'Feature', icon: '🚀', color: '#a78bfa' },
+  component: { label: 'React Component', icon: '⚛️', color: '#60a5fa' },
+  component_bug_fix: { label: 'Component Bug Fix', icon: '🐛', color: '#f87171' },
+  form_validation: { label: 'Form Validation', icon: '📋', color: '#34d399' },
+  small_feature: { label: 'Feature Ticket', icon: '🚀', color: '#a78bfa' },
 };
 
 const STATUS_BADGE = {

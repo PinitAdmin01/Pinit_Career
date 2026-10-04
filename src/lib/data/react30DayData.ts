@@ -25,13 +25,15 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "What React is: a JavaScript library for building screens out of small pieces called components.",
       "Your first JavaScript: console.log, strings and running code."
     ],
-    eTitle: "Your App's Title",
-    eDesc: "Write a function `pageTitle()` that returns the text `'My Job Tracker'`.",
-    eStarter: lines("function pageTitle() {", "  // Return the text 'My Job Tracker'", "  return '';", "}"),
-    eHint: "Put the words inside the quotes: return 'My Job Tracker';",
+    eTitle: "App Title Formatter",
+    eDesc: "Write a function `formatAppTitle(name)` that returns `'PinIT - '` followed by the app name. Example: `formatAppTitle('Job Tracker')` returns `'PinIT - Job Tracker'`.",
+    eStarter: lines("function formatAppTitle(name) {", "  // Return 'PinIT - ' followed by name", "  return '';", "}"),
+    eHint: "return 'PinIT - ' + name;",
     eTest: lines(
-      "if (typeof pageTitle !== 'function') throw new Error('pageTitle not found');",
-      "if (pageTitle() !== 'My Job Tracker') throw new Error('Expected My Job Tracker but got ' + pageTitle());"
+      "if (typeof formatAppTitle !== 'function') throw new Error('formatAppTitle not found');",
+      "if (formatAppTitle('Job Tracker') !== 'PinIT - Job Tracker') throw new Error('Expected PinIT - Job Tracker');",
+      "if (formatAppTitle('Career OS') !== 'PinIT - Career OS') throw new Error('Expected PinIT - Career OS');",
+      "if (formatAppTitle('Portfolio') !== 'PinIT - Portfolio') throw new Error('Expected PinIT - Portfolio');"
     ),
     aTitle: "Say Hello",
     aDesc: "Write a function `sayHello(name)` that returns `'Hello, '` followed by the name. Example: `sayHello('Asha')` returns `'Hello, Asha'`.",
@@ -220,20 +222,32 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "Putting components inside other components."
     ],
     eTitle: "Greeting Component",
-    eDesc: "Components return screen content. Here we practise the idea with text: write `Greeting(props)` that returns `'<h1>Hello, NAME</h1>'` using `props.name`.",
-    eStarter: lines("function Greeting(props) {", "  // return a template string with an h1", "}"),
-    eHint: "return `<h1>Hello, ${props.name}</h1>`;",
+    eDesc: "Components return screen content. Write a TSX component `Greeting({ name }: { name: string })` that returns an `<h1>` element: `<h1>Hello, {name}</h1>`.",
+    eLanguage: "tsx",
+    eStarter: lines("function Greeting({ name }: { name: string }) {", "  // Return an h1 with 'Hello, ' and name", "  return null;", "}"),
+    eHint: "return <h1>Hello, {name}</h1>;",
     eTest: lines(
       "if (typeof Greeting !== 'function') throw new Error('Greeting not found');",
-      "if (Greeting({ name: 'Asha' }) !== '<h1>Hello, Asha</h1>') throw new Error('Expected <h1>Hello, Asha</h1>');"
+      "const h1 = render(Greeting, { name: 'Asha' });",
+      "if (h1 !== '<h1>Hello, Asha</h1>') throw new Error('Expected <h1>Hello, Asha</h1> but got ' + h1);",
+      "const h2 = render(Greeting, { name: 'Ravi' });",
+      "if (h2 !== '<h1>Hello, Ravi</h1>') throw new Error('Expected <h1>Hello, Ravi</h1> but got ' + h2);",
+      "const h3 = render(Greeting, { name: 'Priya' });",
+      "if (h3 !== '<h1>Hello, Priya</h1>') throw new Error('Expected <h1>Hello, Priya</h1> but got ' + h3);"
     ),
     aTitle: "Job Item Component",
-    aDesc: "Write `JobItem({ title, company })` that returns `'<li>TITLE - COMPANY</li>'`.",
-    aStarter: lines("function JobItem({ title, company }) {", "  // return an li with title - company", "}"),
-    aHint: "return `<li>${title} - ${company}</li>`;",
+    aDesc: "Write a TSX component `JobItem({ title, company }: { title: string; company: string })` that returns an `<li>` element: `<li>{title} - {company}</li>`.",
+    aLanguage: "tsx",
+    aStarter: lines("function JobItem({ title, company }: { title: string; company: string }) {", "  // Return an li with title and company", "  return null;", "}"),
+    aHint: "return <li>{title} - {company}</li>;",
     aTest: lines(
       "if (typeof JobItem !== 'function') throw new Error('JobItem not found');",
-      "if (JobItem({ title: 'Dev', company: 'TCS' }) !== '<li>Dev - TCS</li>') throw new Error('Expected <li>Dev - TCS</li>');"
+      "const h1 = render(JobItem, { title: 'Dev', company: 'TCS' });",
+      "if (h1 !== '<li>Dev - TCS</li>') throw new Error('Expected <li>Dev - TCS</li> but got ' + h1);",
+      "const h2 = render(JobItem, { title: 'Designer', company: 'Wipro' });",
+      "if (h2 !== '<li>Designer - Wipro</li>') throw new Error('Expected <li>Designer - Wipro</li> but got ' + h2);",
+      "const h3 = render(JobItem, { title: 'PM', company: 'Google' });",
+      "if (h3 !== '<li>PM - Google</li>') throw new Error('Expected <li>PM - Google</li> but got ' + h3);"
     )
   },
   {
@@ -245,22 +259,32 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "Props only flow down, from parent to child."
     ],
     eTitle: "Button With a Default Colour",
-    eDesc: "Write `Button({ label, color = 'blue' })` that returns `'<button class=\"COLOR\">LABEL</button>'`. If no colour is given, use blue.",
-    eStarter: lines("function Button({ label, color = 'blue' }) {", "  // return the button text", "}"),
-    eHint: "return `<button class=\"${color}\">${label}</button>`;",
+    eDesc: "Write a TSX component `Button({ label, color = 'blue' }: { label: string; color?: string })` that returns `<button className={color}>{label}</button>`. If no colour is given, default to `'blue'`.",
+    eLanguage: "tsx",
+    eStarter: lines("function Button({ label, color = 'blue' }: { label: string; color?: string }) {", "  // Return a button with className set to color and label inside", "  return null;", "}"),
+    eHint: "return <button className={color}>{label}</button>;",
     eTest: lines(
       "if (typeof Button !== 'function') throw new Error('Button not found');",
-      "if (Button({ label: 'Save' }) !== '<button class=\"blue\">Save</button>') throw new Error('Default colour should be blue');",
-      "if (Button({ label: 'Delete', color: 'red' }) !== '<button class=\"red\">Delete</button>') throw new Error('Given colour should be used');"
+      "const h1 = render(Button, { label: 'Save' });",
+      "if (h1 !== '<button class=\"blue\">Save</button>') throw new Error('Default colour should be blue, got ' + h1);",
+      "const h2 = render(Button, { label: 'Delete', color: 'red' });",
+      "if (h2 !== '<button class=\"red\">Delete</button>') throw new Error('Given colour should be used, got ' + h2);",
+      "const h3 = render(Button, { label: 'Submit', color: 'green' });",
+      "if (h3 !== '<button class=\"green\">Submit</button>') throw new Error('Given colour green should be used, got ' + h3);"
     ),
-    aTitle: "Badge Text",
-    aDesc: "Write `badgeText({ count })` that returns `'No new jobs'` when count is 0, otherwise `'COUNT new jobs'`.",
-    aStarter: lines("function badgeText({ count }) {", "  // check if count is 0", "}"),
-    aHint: "return count === 0 ? 'No new jobs' : `${count} new jobs`;",
+    aTitle: "Badge Component",
+    aDesc: "Write a TSX component `Badge({ count }: { count: number })` that returns `<span>No new jobs</span>` when count is 0, otherwise `<span>{count} new jobs</span>`.",
+    aLanguage: "tsx",
+    aStarter: lines("function Badge({ count }: { count: number }) {", "  // Return span with count text", "  return null;", "}"),
+    aHint: "return <span>{count === 0 ? 'No new jobs' : `${count} new jobs`}</span>;",
     aTest: lines(
-      "if (typeof badgeText !== 'function') throw new Error('badgeText not found');",
-      "if (badgeText({ count: 0 }) !== 'No new jobs') throw new Error('0 should say No new jobs');",
-      "if (badgeText({ count: 3 }) !== '3 new jobs') throw new Error('3 should say 3 new jobs');"
+      "if (typeof Badge !== 'function') throw new Error('Badge not found');",
+      "const h1 = render(Badge, { count: 0 });",
+      "if (h1 !== '<span>No new jobs</span>') throw new Error('0 count should give No new jobs, got ' + h1);",
+      "const h2 = render(Badge, { count: 3 });",
+      "if (h2 !== '<span>3 new jobs</span>') throw new Error('3 count should give 3 new jobs, got ' + h2);",
+      "const h3 = render(Badge, { count: 12 });",
+      "if (h3 !== '<span>12 new jobs</span>') throw new Error('12 count should give 12 new jobs, got ' + h3);"
     )
   },
   {
@@ -272,13 +296,18 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "Showing a message when the list is empty."
     ],
     eTitle: "Build a List",
-    eDesc: "Write `renderList(items)` that returns `'<ul>'` + one `'<li>ITEM</li>'` per item + `'</ul>'`.",
-    eStarter: lines("function renderList(items) {", "  const rows = items.map(item => `<li>${item}</li>`);", "  // join the rows and wrap them in ul", "}"),
-    eHint: "return '<ul>' + rows.join('') + '</ul>';",
+    eDesc: "Write a TSX component `JobList({ items }: { items: string[] })` that returns an `<ul>` containing an `<li>` for each item in `items`.",
+    eLanguage: "tsx",
+    eStarter: lines("function JobList({ items }: { items: string[] }) {", "  // Return an ul with li elements for each item", "  return null;", "}"),
+    eHint: "return <ul>{items.map((item, i) => <li key={i}>{item}</li>)}</ul>;",
     eTest: lines(
-      "if (typeof renderList !== 'function') throw new Error('renderList not found');",
-      "if (renderList(['a', 'b']) !== '<ul><li>a</li><li>b</li></ul>') throw new Error('Expected <ul><li>a</li><li>b</li></ul>');",
-      "if (renderList([]) !== '<ul></ul>') throw new Error('Empty list should be <ul></ul>');"
+      "if (typeof JobList !== 'function') throw new Error('JobList not found');",
+      "const h1 = render(JobList, { items: ['Frontend', 'Backend'] });",
+      "if (h1 !== '<ul><li>Frontend</li><li>Backend</li></ul>') throw new Error('Expected two items in ul, got ' + h1);",
+      "const h2 = render(JobList, { items: ['DevOps'] });",
+      "if (h2 !== '<ul><li>DevOps</li></ul>') throw new Error('Expected single item ul, got ' + h2);",
+      "const h3 = render(JobList, { items: [] });",
+      "if (h3 !== '<ul></ul>') throw new Error('Empty list should be <ul></ul>, got ' + h3);"
     ),
     aTitle: "Are the Keys Unique?",
     aDesc: "Write `hasUniqueIds(jobs)` that returns `true` if no two jobs have the same `id`.",
@@ -299,22 +328,32 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "condition ? <A /> : <B /> to choose between two things."
     ],
     eTitle: "Empty or Not",
-    eDesc: "Write `statusMessage(jobs)` that returns `'No jobs yet. Add your first one!'` for an empty list, otherwise `'You have N jobs'`.",
-    eStarter: lines("function statusMessage(jobs) {", "  // check jobs.length", "}"),
-    eHint: "if (jobs.length === 0) return 'No jobs yet. Add your first one!'; return `You have ${jobs.length} jobs`;",
+    eDesc: "Write a TSX component `StatusMessage({ jobs }: { jobs: unknown[] })` that returns `<p>No jobs yet. Add your first one!</p>` when `jobs` is empty, otherwise `<p>You have {jobs.length} jobs</p>`.",
+    eLanguage: "tsx",
+    eStarter: lines("function StatusMessage({ jobs }: { jobs: unknown[] }) {", "  // Return p with empty message or job count", "  return null;", "}"),
+    eHint: "return <p>{jobs.length === 0 ? 'No jobs yet. Add your first one!' : `You have ${jobs.length} jobs`}</p>;",
     eTest: lines(
-      "if (typeof statusMessage !== 'function') throw new Error('statusMessage not found');",
-      "if (statusMessage([]) !== 'No jobs yet. Add your first one!') throw new Error('Wrong empty message');",
-      "if (statusMessage([{}, {}]) !== 'You have 2 jobs') throw new Error('Expected You have 2 jobs');"
+      "if (typeof StatusMessage !== 'function') throw new Error('StatusMessage not found');",
+      "const h1 = render(StatusMessage, { jobs: [] });",
+      "if (h1 !== '<p>No jobs yet. Add your first one!</p>') throw new Error('Expected empty message, got ' + h1);",
+      "const h2 = render(StatusMessage, { jobs: [{}, {}] });",
+      "if (h2 !== '<p>You have 2 jobs</p>') throw new Error('Expected 2 jobs message, got ' + h2);",
+      "const h3 = render(StatusMessage, { jobs: [{}] });",
+      "if (h3 !== '<p>You have 1 jobs</p>') throw new Error('Expected 1 jobs message, got ' + h3);"
     ),
     aTitle: "Offer Badge",
-    aDesc: "Write `offerBadge(status)` that returns `'Offer!'` when status is `'offer'`, otherwise `null` (show nothing).",
-    aStarter: lines("function offerBadge(status) {", "  // use ? :", "}"),
-    aHint: "return status === 'offer' ? 'Offer!' : null;",
+    aDesc: "Write a TSX component `OfferBadge({ status }: { status: string })` that returns `<span className=\"badge-offer\">Offer!</span>` when status is `'offer'`, or `null` otherwise.",
+    aLanguage: "tsx",
+    aStarter: lines("function OfferBadge({ status }: { status: string }) {", "  // Return offer badge or null", "  return null;", "}"),
+    aHint: "return status === 'offer' ? <span className=\"badge-offer\">Offer!</span> : null;",
     aTest: lines(
-      "if (typeof offerBadge !== 'function') throw new Error('offerBadge not found');",
-      "if (offerBadge('offer') !== 'Offer!') throw new Error('offer should give Offer!');",
-      "if (offerBadge('applied') !== null) throw new Error('applied should give null');"
+      "if (typeof OfferBadge !== 'function') throw new Error('OfferBadge not found');",
+      "const h1 = render(OfferBadge, { status: 'offer' });",
+      "if (h1 !== '<span class=\"badge-offer\">Offer!</span>') throw new Error('Expected Offer! badge, got ' + h1);",
+      "const h2 = render(OfferBadge, { status: 'applied' });",
+      "if (h2 !== '') throw new Error('Applied status should render nothing, got ' + h2);",
+      "const h3 = render(OfferBadge, { status: 'interview' });",
+      "if (h3 !== '') throw new Error('Interview status should render nothing, got ' + h3);"
     )
   },
   {
@@ -478,15 +517,19 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "if (parseJobsResponse({ data: [1, 2] }).length !== 2) throw new Error('Should return data');",
       "if (!Array.isArray(parseJobsResponse({})) || parseJobsResponse({}).length !== 0) throw new Error('Missing data should give []');"
     ),
-    aTitle: "Request State",
-    aDesc: "Write `requestView(status)` that returns `'Loading...'` for `'loading'`, `'Something went wrong'` for `'error'`, and `'Done'` for `'success'`.",
-    aStarter: lines("function requestView(status) {", "  // one if for each status", "}"),
-    aHint: "if (status === 'loading') return 'Loading...'; if (status === 'error') return 'Something went wrong'; return 'Done';",
+    aTitle: "Request View Component",
+    aDesc: "Write a TSX component `RequestView({ status }: { status: string })` that returns `<div>Loading...</div>` for `'loading'`, `<div>Something went wrong</div>` for `'error'`, and `<div>Done</div>` for `'success'`.",
+    aLanguage: "tsx",
+    aStarter: lines("function RequestView({ status }: { status: string }) {", "  // Return appropriate div based on status", "  return null;", "}"),
+    aHint: "if (status === 'loading') return <div>Loading...</div>; if (status === 'error') return <div>Something went wrong</div>; return <div>Done</div>;",
     aTest: lines(
-      "if (typeof requestView !== 'function') throw new Error('requestView not found');",
-      "if (requestView('loading') !== 'Loading...') throw new Error('loading is wrong');",
-      "if (requestView('error') !== 'Something went wrong') throw new Error('error is wrong');",
-      "if (requestView('success') !== 'Done') throw new Error('success is wrong');"
+      "if (typeof RequestView !== 'function') throw new Error('RequestView not found');",
+      "const h1 = render(RequestView, { status: 'loading' });",
+      "if (h1 !== '<div>Loading...</div>') throw new Error('loading should render Loading..., got ' + h1);",
+      "const h2 = render(RequestView, { status: 'error' });",
+      "if (h2 !== '<div>Something went wrong</div>') throw new Error('error should render Something went wrong, got ' + h2);",
+      "const h3 = render(RequestView, { status: 'success' });",
+      "if (h3 !== '<div>Done</div>') throw new Error('success should render Done, got ' + h3);"
     )
   },
   {
@@ -668,23 +711,31 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "JobCard with props.",
       "Summary numbers calculated from the job list."
     ],
-    eTitle: "Summary Numbers",
-    eDesc: "Write `jobStats(jobs)` that returns `{ total, interviews, offers }`.",
-    eStarter: lines("function jobStats(jobs) {", "  // count all jobs, interview jobs and offer jobs", "}"),
-    eHint: "return { total: jobs.length, interviews: jobs.filter(j => j.status === 'interview').length, offers: jobs.filter(j => j.status === 'offer').length };",
+    eTitle: "Summary Bar Component",
+    eDesc: "Write a TSX component `SummaryBar({ total, interviews, offers }: { total: number; interviews: number; offers: number })` that returns `<div className=\"summary-bar\"><span>Total: {total}</span><span>Interviews: {interviews}</span><span>Offers: {offers}</span></div>`.",
+    eLanguage: "tsx",
+    eStarter: lines("function SummaryBar({ total, interviews, offers }: { total: number; interviews: number; offers: number }) {", "  // Return summary bar div with three spans", "  return null;", "}"),
+    eHint: "return <div className=\"summary-bar\"><span>Total: {total}</span><span>Interviews: {interviews}</span><span>Offers: {offers}</span></div>;",
     eTest: lines(
-      "if (typeof jobStats !== 'function') throw new Error('jobStats not found');",
-      "const s = jobStats([{ status: 'applied' }, { status: 'interview' }, { status: 'offer' }, { status: 'interview' }]);",
-      "if (s.total !== 4 || s.interviews !== 2 || s.offers !== 1) throw new Error('Expected total 4, interviews 2, offers 1');"
+      "if (typeof SummaryBar !== 'function') throw new Error('SummaryBar not found');",
+      "const h1 = render(SummaryBar, { total: 4, interviews: 2, offers: 1 });",
+      "if (h1 !== '<div class=\"summary-bar\"><span>Total: 4</span><span>Interviews: 2</span><span>Offers: 1</span></div>') throw new Error('SummaryBar output incorrect, got ' + h1);",
+      "const h2 = render(SummaryBar, { total: 0, interviews: 0, offers: 0 });",
+      "if (h2 !== '<div class=\"summary-bar\"><span>Total: 0</span><span>Interviews: 0</span><span>Offers: 0</span></div>') throw new Error('Zero counts incorrect, got ' + h2);"
     ),
-    aTitle: "Status Label",
-    aDesc: "Write `statusLabel(status)` that returns `'Applied'`, `'Interview'`, `'Offer'` or `'Rejected'` for the matching lower-case status, and `'Unknown'` otherwise.",
-    aStarter: lines("function statusLabel(status) {", "  const labels = { applied: 'Applied' /* add the rest */ };", "  // return the label or 'Unknown'", "}"),
-    aHint: "const labels = { applied: 'Applied', interview: 'Interview', offer: 'Offer', rejected: 'Rejected' }; return labels[status] || 'Unknown';",
+    aTitle: "Status Label Component",
+    aDesc: "Write a TSX component `StatusLabel({ status }: { status: string })` that returns `<span className={`badge-${status}`}>{status.toUpperCase()}</span>`.",
+    aLanguage: "tsx",
+    aStarter: lines("function StatusLabel({ status }: { status: string }) {", "  // Return badge span with uppercased status", "  return null;", "}"),
+    aHint: "return <span className={`badge-${status}`}>{status.toUpperCase()}</span>;",
     aTest: lines(
-      "if (typeof statusLabel !== 'function') throw new Error('statusLabel not found');",
-      "if (statusLabel('offer') !== 'Offer' || statusLabel('rejected') !== 'Rejected') throw new Error('Wrong label');",
-      "if (statusLabel('xyz') !== 'Unknown') throw new Error('Unknown status should give Unknown');"
+      "if (typeof StatusLabel !== 'function') throw new Error('StatusLabel not found');",
+      "const h1 = render(StatusLabel, { status: 'applied' });",
+      "if (h1 !== '<span class=\"badge-applied\">APPLIED</span>') throw new Error('applied status incorrect, got ' + h1);",
+      "const h2 = render(StatusLabel, { status: 'interview' });",
+      "if (h2 !== '<span class=\"badge-interview\">INTERVIEW</span>') throw new Error('interview status incorrect, got ' + h2);",
+      "const h3 = render(StatusLabel, { status: 'offer' });",
+      "if (h3 !== '<span class=\"badge-offer\">OFFER</span>') throw new Error('offer status incorrect, got ' + h3);"
     )
   },
   {

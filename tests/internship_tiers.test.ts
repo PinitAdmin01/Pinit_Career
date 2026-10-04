@@ -1,31 +1,30 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { INTERNSHIP_TIERS } from '../src/lib/internships/tiers';
+import { INTERNSHIP_TIERS, type InternshipTrack } from '../src/lib/internships/tiers';
 import {
   PLAN_TIER_TO_INTERNSHIP,
   type InternshipTier,
 } from '../src/lib/data/crashPlansData';
-
-// We import the raw ALL_CRASH_COURSE_PLANS indirectly via the exported plans.
-// The module-level constant applies withoutInternship, but the modulesByTrack
-// is never stripped, so we can read it from any exported plan list.
-// However we need the raw plans. We re-import the file and read ALL plans.
-// Since ALL_CRASH_COURSE_PLANS is not exported, we use the plan getter.
 import { getCrashPlanByTier } from '../src/lib/data/crashPlansData';
 
 const PLAN_TIERS = ['1m', '3m', '6m', '9m', '12m'] as const;
+const TRACKS: InternshipTrack[] = ['python_ai', 'web_fullstack'];
 
 describe('internship tier configuration', () => {
-  it('every InternshipTier has a config entry', () => {
+  it('every InternshipTier has a config entry for both tracks', () => {
     const tiers: InternshipTier[] = [
       't1_job_sim', 't2_virtual_team', 't3_project', 't4_industry', 't5_fellowship',
     ];
-    for (const t of tiers) {
-      assert.ok(INTERNSHIP_TIERS[t], `missing config for ${t}`);
-      assert.ok(INTERNSHIP_TIERS[t].name.length > 0, `${t} needs a name`);
-      assert.ok(INTERNSHIP_TIERS[t].lengthDays > 0, `${t} needs lengthDays > 0`);
-      assert.ok(INTERNSHIP_TIERS[t].courseIds.length > 0, `${t} needs at least one courseId`);
+    for (const track of TRACKS) {
+      assert.ok(INTERNSHIP_TIERS[track], `missing track config for ${track}`);
+      for (const t of tiers) {
+        const config = INTERNSHIP_TIERS[track][t];
+        assert.ok(config, `missing config for ${track}.${t}`);
+        assert.ok(config.name.length > 0, `${track}.${t} needs a name`);
+        assert.ok(config.lengthDays > 0, `${track}.${t} needs lengthDays > 0`);
+        assert.ok(config.courseIds.length > 0, `${track}.${t} needs at least one courseId`);
+      }
     }
   });
 
@@ -34,11 +33,9 @@ describe('internship tier configuration', () => {
       const internshipTier = PLAN_TIER_TO_INTERNSHIP[planTier];
       assert.ok(internshipTier, `no internship tier for plan ${planTier}`);
 
-      const tierConfig = INTERNSHIP_TIERS[internshipTier];
+      const tierConfig = INTERNSHIP_TIERS.python_ai[internshipTier];
       assert.ok(tierConfig, `no config for ${internshipTier}`);
 
-      // getCrashPlanByTier may return the withoutInternship version, but
-      // modulesByTrack is preserved, so this still works.
       const plan = getCrashPlanByTier(planTier as '1m' | '3m' | '6m' | '9m' | '12m');
       assert.ok(plan, `plan ${planTier} not found`);
 
@@ -47,11 +44,35 @@ describe('internship tier configuration', () => {
 
       const planCourseIds = pythonModules.map((m) => m.courseId);
 
-      // Every courseId in the tier config must appear in the plan's python_ai modules
       for (const cid of tierConfig.courseIds) {
         assert.ok(
           planCourseIds.includes(cid),
           `Tier ${internshipTier} courseId "${cid}" not found in plan ${planTier} python_ai modules: [${planCourseIds.join(', ')}]`,
+        );
+      }
+    }
+  });
+
+  it('courseIds match the plan modules in crashPlansData for web_fullstack', () => {
+    for (const planTier of PLAN_TIERS) {
+      const internshipTier = PLAN_TIER_TO_INTERNSHIP[planTier];
+      assert.ok(internshipTier, `no internship tier for plan ${planTier}`);
+
+      const tierConfig = INTERNSHIP_TIERS.web_fullstack[internshipTier];
+      assert.ok(tierConfig, `no config for ${internshipTier}`);
+
+      const plan = getCrashPlanByTier(planTier as '1m' | '3m' | '6m' | '9m' | '12m');
+      assert.ok(plan, `plan ${planTier} not found`);
+
+      const webModules = plan.modulesByTrack?.web_fullstack;
+      assert.ok(webModules, `plan ${planTier} has no web_fullstack modules`);
+
+      const planCourseIds = webModules.map((m) => m.courseId);
+
+      for (const cid of tierConfig.courseIds) {
+        assert.ok(
+          planCourseIds.includes(cid),
+          `Tier ${internshipTier} courseId "${cid}" not found in plan ${planTier} web_fullstack modules: [${planCourseIds.join(', ')}]`,
         );
       }
     }

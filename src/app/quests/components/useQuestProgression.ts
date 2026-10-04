@@ -162,12 +162,17 @@ export const CERTIFICATION_TRACKS = [
 ];
 
 export const COURSE_TO_ROLE: Record<string, string> = {
+  'course-react-web': 'Frontend React Engineer',
+  'course-node-web': 'Backend Web Engineer',
   'course-ai-eng': 'AI & LLM Systems Engineer',
   'course-ai-python': 'AI & LLM Systems Engineer',
   'course-fullstack-js': 'Full-Stack Software Developer',
   'course-dsa-optim': 'Software Development Engineer (SDE)',
   'course-dsa-python': 'Software Development Engineer (SDE)',
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
+  'course-sre-web': 'Site Reliability & Multi-Cloud Observability Engineer',
+  'course-stream-web': 'Real-Time Streaming Systems Architect',
+  'course-aideploy-web': 'Production AI Deployment Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
   'course-distributed-python': 'Cloud Architect & Infrastructure Specialist',
   'course-train-python': 'AI & LLM Systems Engineer',

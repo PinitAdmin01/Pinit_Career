@@ -22,6 +22,17 @@ import { CYBER_PYTHON_LONG_LESSONS } from './cyberPythonLongLessons';
 import { TRAIN_PYTHON_LONG_LESSONS } from './trainPythonLongLessons';
 import { VECTOR_PYTHON_LONG_LESSONS } from './vectorPythonLongLessons';
 import { SAFETY_PYTHON_LONG_LESSONS } from './safetyPythonLongLessons';
+import { NODE_WEB_LONG_LESSONS } from './nodeWebLongLessons';
+import { DEVOPS_WEB_LONG_LESSONS } from './devopsWebLongLessons';
+import { CLOUD_WEB_LONG_LESSONS } from './cloudWebLongLessons';
+import { DESIGN_WEB_LONG_LESSONS } from './designWebLongLessons';
+import { DSA_WEB_LONG_LESSONS } from './dsaWebLongLessons';
+import { DISTRIBUTED_WEB_LONG_LESSONS } from './distributedWebLongLessons';
+import { CYBER_WEB_LONG_LESSONS } from './cyberWebLongLessons';
+import { AI_WEB_LONG_LESSONS } from './aiWebLongLessons';
+import { SRE_WEB_LONG_LESSONS } from './sreWebLongLessons';
+import { STREAM_WEB_LONG_LESSONS } from './streamWebLongLessons';
+import { AI_DEPLOY_WEB_LONG_LESSONS } from './aiDeployWebLongLessons';
 
 export interface LongLessonCheck {
   question: string;
@@ -85,10 +96,21 @@ const LONG_LESSON_SOURCES: Record<string, ReadonlyArray<LongLesson>> = {
   'train-py': TRAIN_PYTHON_LONG_LESSONS,
   'vec-py': VECTOR_PYTHON_LONG_LESSONS,
   'safe-py': SAFETY_PYTHON_LONG_LESSONS,
+  'node-web': NODE_WEB_LONG_LESSONS,
+  devops: DEVOPS_WEB_LONG_LESSONS,
+  cloud: CLOUD_WEB_LONG_LESSONS,
+  design: DESIGN_WEB_LONG_LESSONS,
+  'dsa-optim': DSA_WEB_LONG_LESSONS,
+  dist: DISTRIBUTED_WEB_LONG_LESSONS,
+  cyber: CYBER_WEB_LONG_LESSONS,
+  ai: AI_WEB_LONG_LESSONS,
+  'sre-web': SRE_WEB_LONG_LESSONS,
+  'stream-web': STREAM_WEB_LONG_LESSONS,
+  'aideploy-web': AI_DEPLOY_WEB_LONG_LESSONS,
 };
 
-/** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL). */
-export type LongLessonLanguage = 'javascript' | 'python' | 'sql';
+/** Language of each course's lesson code. Python runs in the browser with Pyodide, SQL with PGlite (PostgreSQL), TypeScript is compiled with esbuild. */
+export type LongLessonLanguage = 'javascript' | 'python' | 'sql' | 'typescript';
 
 const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'react-basics': 'javascript',
@@ -105,6 +127,17 @@ const LONG_LESSON_LANGUAGE: Record<string, LongLessonLanguage> = {
   'train-py': 'python',
   'vec-py': 'python',
   'safe-py': 'python',
+  'node-web': 'typescript',
+  devops: 'typescript',
+  'sre-web': 'typescript',
+  'stream-web': 'typescript',
+  'aideploy-web': 'typescript',
+  cloud: 'typescript',
+  design: 'typescript',
+  'dsa-optim': 'typescript',
+  dist: 'typescript',
+  cyber: 'typescript',
+  ai: 'typescript',
 };
 
 export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
