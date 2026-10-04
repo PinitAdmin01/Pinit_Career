@@ -17,7 +17,7 @@ test('W-01: every existing quest across all registered courses still resolves to
         totalQuestsChecked++;
         continue;
       }
-      if ((course.id === 'course-node-web' || course.id === 'course-sre-web' || course.id === 'course-stream-web') && resolved === 'typescript') {
+      if ((course.id === 'course-node-web' || course.id === 'course-sre-web' || course.id === 'course-stream-web' || course.id === 'course-aideploy-web') && resolved === 'typescript') {
         totalQuestsChecked++;
         continue;
       }

@@ -172,6 +172,7 @@ export const COURSE_TO_ROLE: Record<string, string> = {
   'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
   'course-sre-web': 'Site Reliability & Multi-Cloud Observability Engineer',
   'course-stream-web': 'Real-Time Streaming Systems Architect',
+  'course-aideploy-web': 'Production AI Deployment Engineer',
   'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
   'course-distributed-python': 'Cloud Architect & Infrastructure Specialist',
   'course-train-python': 'AI & LLM Systems Engineer',

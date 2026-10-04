@@ -48,6 +48,7 @@ import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData
 import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
 import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
 import { STREAM_WEB_30_DAYS_QUESTS } from './streamWeb30DayData';
+import { AI_DEPLOY_WEB_30_DAYS_QUESTS } from './aiDeployWeb30DayData';
 import { addBlockTests } from './courseTests';
 
 
@@ -127,6 +128,15 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 6,
     icon: '⚡',
     quests: STREAM_WEB_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-aideploy-web',
+    title: 'Production AI Deployment in TypeScript',
+    desc: 'Master production AI deployment: resilient LLM clients, token budgeting, prompt engines, SSE streaming, vector search, RAG pipelines, agentic loops, model gateways, guardrails, evaluation harnesses, canary rollouts, and enterprise security.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🤖',
+    quests: AI_DEPLOY_WEB_30_DAYS_QUESTS as any
   },
   // Add remaining placeholder courses mapped to courseIds for registry completeness
   {

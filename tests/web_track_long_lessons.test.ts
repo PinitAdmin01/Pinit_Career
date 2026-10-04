@@ -25,6 +25,8 @@ import { SRE_WEB_LONG_LESSONS } from '../src/lib/data/sreWebLongLessons';
 import { SRE_WEB_30_DAYS_CONFIGS } from '../src/lib/data/sreWeb30DayData';
 import { STREAM_WEB_LONG_LESSONS } from '../src/lib/data/streamWebLongLessons';
 import { STREAM_WEB_30_DAYS_CONFIGS } from '../src/lib/data/streamWeb30DayData';
+import { AI_DEPLOY_WEB_LONG_LESSONS } from '../src/lib/data/aiDeployWebLongLessons';
+import { AI_DEPLOY_WEB_30_DAYS_CONFIGS } from '../src/lib/data/aiDeployWeb30DayData';
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
@@ -121,6 +123,14 @@ export const WEB_LESSON_COURSES: WebLessonCourseEntry[] = [
     courseId: 'course-stream-web',
     lessons: STREAM_WEB_LONG_LESSONS,
     configs: STREAM_WEB_30_DAYS_CONFIGS,
+    isReact: false,
+  },
+  {
+    name: 'Production AI Deployment in TypeScript',
+    prefix: 'aideploy-web',
+    courseId: 'course-aideploy-web',
+    lessons: AI_DEPLOY_WEB_LONG_LESSONS,
+    configs: AI_DEPLOY_WEB_30_DAYS_CONFIGS,
     isReact: false,
   },
 ];
