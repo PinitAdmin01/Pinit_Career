@@ -783,7 +783,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           {showInternshipPanel && activeEnrollment && (
             <InternshipPanel
               crashEnrollment={activeEnrollment}
-              planTitle={enrolledPlan?.title || 'Python Job Simulation'}
+              planTitle={enrolledPlan?.title || (activeEnrollment.track === 'web_fullstack' ? 'Web Developer Job Simulation' : 'Python Job Simulation')}
               studentName={studentName}
               onClose={() => setShowInternshipPanel(false)}
               onOpenCertificate={(certId) => {

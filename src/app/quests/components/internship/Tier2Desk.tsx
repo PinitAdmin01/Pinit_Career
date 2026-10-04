@@ -13,6 +13,7 @@ import { TeamCard } from './TeamCard';
 import { BacklogCard } from './BacklogCard';
 import { SprintBoardCard } from './SprintBoardCard';
 import { StandupModal } from './StandupModal';
+import { TicketListCard } from './TicketListCard';
 
 export interface Tier2DeskProps {
   enrollment: ClientInternshipEnrollment;
@@ -31,6 +32,7 @@ export interface Tier2DeskProps {
 }
 
 export const Tier2Desk: React.FC<Tier2DeskProps> = ({
+  tasks,
   team,
   members,
   sprints,
@@ -41,6 +43,7 @@ export const Tier2Desk: React.FC<Tier2DeskProps> = ({
   onSubmitStandup,
   onSubmitDemoUrl,
   onStartDefense,
+  onSelectTicket,
 }) => {
   const [standupWeek, setStandupWeek] = useState<number | null>(null);
   const [demoInput, setDemoInput] = useState('');
@@ -91,7 +94,15 @@ export const Tier2Desk: React.FC<Tier2DeskProps> = ({
         />
       )}
 
-      {/* 4. Final Demo & Oral Defense Card */}
+      {/* 4. Assigned Sprint Tasks & Engineering Tickets */}
+      {tasks && tasks.length > 0 && (
+        <TicketListCard
+          tasks={tasks}
+          onSelectTicket={onSelectTicket}
+        />
+      )}
+
+      {/* 5. Final Demo & Oral Defense Card */}
       <div
         style={{
           borderRadius: 16,

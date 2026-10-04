@@ -108,6 +108,9 @@ export async function executeTypeScriptTask(
     atob: typeof atob !== 'undefined' ? atob : undefined,
     btoa: typeof btoa !== 'undefined' ? btoa : undefined,
     Buffer: typeof Buffer !== 'undefined' ? Buffer : undefined,
+    assert: (cond: any, msg?: string) => {
+      if (!cond) throw new Error(msg || 'Assertion failed');
+    },
   };
 
   if (language === 'tsx') {

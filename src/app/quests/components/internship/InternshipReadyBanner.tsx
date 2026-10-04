@@ -4,6 +4,8 @@ import React from 'react';
 
 interface InternshipReadyBannerProps {
   state: 'ready_to_start' | 'generating' | 'generation_failed';
+  track?: string;
+  tierName?: string;
   onStart?: () => void;
   isStarting?: boolean;
   startError?: string | null;
@@ -13,6 +15,8 @@ interface InternshipReadyBannerProps {
 
 export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
   state,
+  track,
+  tierName,
   onStart,
   isStarting,
   startError,
@@ -114,10 +118,10 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
         <span style={{ fontSize: 24 }}>🚀</span>
         <div>
           <h4 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--text)' }}>
-            Ready to Start Your 2-Week Python Job Simulation
+            Ready to Start Your 2-Week {tierName || (track === 'web_fullstack' ? 'Web Developer Job Simulation' : 'Python Job Simulation')}
           </h4>
           <span style={{ fontSize: 12.5, color: 'var(--t3)' }}>
-            Simulated company onboarding · 5 sequential engineering tickets · Automated hidden tests · AI code review
+            Simulated company onboarding · 5 sequential engineering tickets{track === 'web_fullstack' ? ' (React / TSX)' : ''} · Automated hidden tests · AI code review
           </span>
         </div>
       </div>
@@ -164,7 +168,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
           gap: 8,
         }}
       >
-        <span>{isStarting ? '⏳ Initializing Cohort...' : '⚡ Start Job Simulation Now'}</span>
+        <span>{isStarting ? '⏳ Initializing Cohort...' : (track === 'web_fullstack' ? '⚡ Start Web Simulation Now' : '⚡ Start Job Simulation Now')}</span>
       </button>
     </div>
   );
