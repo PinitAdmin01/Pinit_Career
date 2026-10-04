@@ -118,7 +118,7 @@ test('web plans inclusion check: 1m ⊂ 3m ⊂ 9m ⊂ 12m by month', () => {
   }
 });
 
-test('Web 12m has 12 distinct courses', { todo: 'Pending Phase 4 (W-124)' }, () => {
+test('Web 12m has 12 distinct courses', () => {
   const p12m = getCrashPlanById('plan-12m-fellow');
   assert.ok(p12m);
   const courses = p12m.modulesByTrack.web_fullstack.map((m) => m.courseId);
@@ -144,7 +144,7 @@ const PREFIX_MAP: Record<string, string> = {
   'course-ai-prompt-literacy': 'ai_prompt',
 };
 
-test('every web course used by 1m-12m has 30 long lessons and 60 tasks', { todo: 'Pending Phase 4 (W-124)' }, () => {
+test('every web course used by 1m-12m has 30 long lessons and 60 tasks', () => {
   const p12m = getCrashPlanById('plan-12m-fellow');
   assert.ok(p12m);
   const courses = Array.from(new Set(p12m.modulesByTrack.web_fullstack.map((m) => m.courseId)));
