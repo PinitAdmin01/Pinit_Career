@@ -80,238 +80,203 @@ function scrubHiddenTestSource(output: string, tests: string): string {
   return cleaned.trim();
 }
 
+const MAX_CONCURRENT_WORKERS = 4;
+let activeWorkers = 0;
+const workerQueue: (() => void)[] = [];
+
+async function acquireWorkerSlot(): Promise<void> {
+  if (activeWorkers < MAX_CONCURRENT_WORKERS) {
+    activeWorkers++;
+    return;
+  }
+  await new Promise<void>((resolve) => workerQueue.push(resolve));
+  activeWorkers++;
+}
+
+function releaseWorkerSlot(): void {
+  activeWorkers--;
+  const next = workerQueue.shift();
+  if (next) next();
+}
+
 const WORKER_SCRIPT = `
 const { parentPort, workerData } = require('node:worker_threads');
 const vm = require('node:vm');
 
 async function run() {
   const { code, tests, sentinel, timeoutMs, isTsx, hidden, reactRuntimeCode } = workerData;
-  const stdoutLogs = [];
-  const stderrLogs = [];
 
-  const sandbox = {
-    console: {
-      log: (...args) => stdoutLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      error: (...args) => stderrLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      warn: (...args) => stderrLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      info: (...args) => stdoutLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-    },
-    setTimeout,
-    clearTimeout,
-    Promise,
-    URL,
-    URLSearchParams,
-    TextEncoder: typeof TextEncoder !== 'undefined' ? TextEncoder : undefined,
-    TextDecoder: typeof TextDecoder !== 'undefined' ? TextDecoder : undefined,
-    Uint8Array,
-    Map,
-    Set,
-    Math,
-    Date,
-    JSON,
-    Array,
-    Object,
-    String,
-    Number,
-    Boolean,
-    RegExp,
-    Error,
-    TypeError,
-    RangeError,
-    SyntaxError,
-    assert: (cond, msg) => {
-      if (!cond) throw new Error(msg || 'Assertion failed');
-    },
-  };
+  // 1. Create an isolated VM context with NO host functions or host objects injected
+  const context = vm.createContext({});
+
+  // 2. Initialize console and assert strictly from strings evaluated inside the VM context
+  const initScript = \`
+    globalThis.__pinit_stdout__ = [];
+    globalThis.__pinit_stderr__ = [];
+
+    function __formatArg(a) {
+      if (a === null) return 'null';
+      if (a === undefined) return 'undefined';
+      if (typeof a === 'object') {
+        try { return JSON.stringify(a); } catch { return String(a); }
+      }
+      return String(a);
+    }
+
+    globalThis.console = {
+      log: (...args) => {
+        globalThis.__pinit_stdout__.push(args.map(__formatArg).join(' '));
+      },
+      error: (...args) => {
+        globalThis.__pinit_stderr__.push(args.map(__formatArg).join(' '));
+      },
+      warn: (...args) => {
+        globalThis.__pinit_stderr__.push(args.map(__formatArg).join(' '));
+      },
+      info: (...args) => {
+        globalThis.__pinit_stdout__.push(args.map(__formatArg).join(' '));
+      }
+    };
+
+    Object.defineProperty(globalThis, 'assert', {
+      value: function(cond, msg) {
+        if (!cond) throw new Error(msg || 'Assertion failed');
+      },
+      writable: false,
+      configurable: false,
+    });
+
+    class TextEncoder {
+      encode(str) {
+        str = String(str);
+        const bytes = [];
+        for (let i = 0; i < str.length; i++) {
+          let c = str.charCodeAt(i);
+          if (c >= 0xd800 && c <= 0xdbff && i + 1 < str.length) {
+            const next = str.charCodeAt(i + 1);
+            if (next >= 0xdc00 && next <= 0xdfff) {
+              c = ((c - 0xd800) << 10) + (next - 0xdc00) + 0x10000;
+              i++;
+            }
+          }
+          if (c < 0x80) {
+            bytes.push(c);
+          } else if (c < 0x800) {
+            bytes.push(0xc0 | (c >> 6), 0x80 | (c & 0x3f));
+          } else if (c < 0x10000) {
+            bytes.push(0xe0 | (c >> 12), 0x80 | ((c >> 6) & 0x3f), 0x80 | (c & 0x3f));
+          } else {
+            bytes.push(0xf0 | (c >> 18), 0x80 | ((c >> 12) & 0x3f), 0x80 | ((c >> 6) & 0x3f), 0x80 | (c & 0x3f));
+          }
+        }
+        return new Uint8Array(bytes);
+      }
+    }
+    globalThis.TextEncoder = TextEncoder;
+
+    class TextDecoder {
+      decode(bytes) {
+        if (!bytes) return '';
+        const b = new Uint8Array(bytes.buffer || bytes);
+        let str = '';
+        for (let i = 0; i < b.length; i++) {
+          str += String.fromCharCode(b[i]);
+        }
+        return str;
+      }
+    }
+    globalThis.TextDecoder = TextDecoder;
+  \`;
+
+  vm.runInContext(initScript, context);
 
   if (isTsx && reactRuntimeCode) {
     try {
-      vm.createContext(sandbox);
-      vm.runInContext(reactRuntimeCode, sandbox);
-      sandbox.render = function(Component, props) {
-        const R = sandbox.__PINIT_REACT__ || { React: sandbox.React, renderToStaticMarkup: sandbox.renderToStaticMarkup };
-        if (!R || !R.renderToStaticMarkup || !R.React) {
-          throw new Error('React render runtime is not initialized');
-        }
-        return R.renderToStaticMarkup(R.React.createElement(Component, props || {}));
-      };
-    } catch {
-      vm.createContext(sandbox);
-    }
-  } else {
-    vm.createContext(sandbox);
+      vm.runInContext(reactRuntimeCode, context);
+      vm.runInContext(\`
+        globalThis.render = function(Component, props) {
+          const R = globalThis.__PINIT_REACT__ || { React: globalThis.React, renderToStaticMarkup: globalThis.renderToStaticMarkup };
+          if (!R || !R.renderToStaticMarkup || !R.React) {
+            throw new Error('React render runtime is not initialized');
+          }
+          return R.renderToStaticMarkup(R.React.createElement(Component, props || {}));
+        };
+      \`, context);
+    } catch {}
   }
 
-  // 1. Evaluate student code
+  // 3. Evaluate student code in fresh context
   try {
     const studentScript = new vm.Script(code, { filename: 'submission.js' });
-    studentScript.runInContext(sandbox, { timeout: timeoutMs });
+    studentScript.runInContext(context, { timeout: timeoutMs });
   } catch (err) {
+    const stdout = (context.__pinit_stdout__ || []).join('\\n');
+    const stderr = err && err.message ? err.message : String(err);
     parentPort.postMessage({
       passed: false,
       status: err && err.name === 'SyntaxError' ? 'COMPILE_ERROR' : 'RUNTIME_ERROR',
-      stdout: stdoutLogs.join('\\n'),
-      stderr: err && err.message ? err.message : String(err),
-      error: err && err.message ? err.message : String(err),
+      stdout,
+      stderr,
+      error: stderr,
     });
+    process.exit(1);
     return;
   }
 
-  // 2. Evaluate test assertions
+  // 4. Evaluate test assertions with frozen assert in fresh function scope
   if (tests && tests.trim()) {
     try {
-      const wrapped = \`(async () => {\\n\${tests}\\n})()\`;
+      const wrapped = \`
+        ((assert) => {
+          return (async () => {
+            \${tests}
+          })();
+        })(globalThis.assert);
+      \`;
       const testScript = new vm.Script(wrapped, { filename: 'tests.js' });
-      const p = testScript.runInContext(sandbox, { timeout: timeoutMs });
+      const p = testScript.runInContext(context, { timeout: timeoutMs });
       if (p && typeof p.then === 'function') {
         await p;
       }
     } catch (testErr) {
       const errMsg = testErr && testErr.message ? testErr.message : String(testErr);
+      const stdout = (context.__pinit_stdout__ || []).join('\\n');
       parentPort.postMessage({
         passed: false,
         status: 'ASSERTION_FAILED',
-        stdout: stdoutLogs.join('\\n'),
+        stdout,
         stderr: errMsg,
         error: errMsg,
       });
+      process.exit(1);
       return;
     }
   }
 
-  // 3. Tests completed successfully: emit server per-run sentinel
+  // 5. Tests completed successfully: emit server per-run sentinel and exit 0
+  const stdout = (context.__pinit_stdout__ || []).join('\\n');
   parentPort.postMessage({
     passed: true,
     sentinel: sentinel,
     status: 'SUCCESS',
-    stdout: stdoutLogs.join('\\n'),
+    stdout,
     stderr: '',
   });
+  process.exit(0);
 }
 
 run().catch((err) => {
+  const errMsg = err && err.message ? err.message : String(err);
   parentPort.postMessage({
     passed: false,
     status: 'RUNTIME_ERROR',
     stdout: '',
-    stderr: err && err.message ? err.message : String(err),
-    error: err && err.message ? err.message : String(err),
+    stderr: errMsg,
+    error: errMsg,
   });
+  process.exit(1);
 });
 `;
-
-/**
- * Fallback execution in direct node:vm if worker thread cannot be spawned.
- */
-async function runInVmDirectly(
-  code: string,
-  tests: string,
-  sentinel: string,
-  timeoutMs: number,
-  isTsx: boolean,
-  hidden: boolean
-): Promise<{ passed: boolean; sentinel?: string; status: JsSandboxStatus; stdout: string; stderr: string; error?: string }> {
-  const stdoutLogs: string[] = [];
-  const stderrLogs: string[] = [];
-
-  const sandbox: Record<string, any> = {
-    console: {
-      log: (...args: any[]) => stdoutLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      error: (...args: any[]) => stderrLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      warn: (...args: any[]) => stderrLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-      info: (...args: any[]) => stdoutLogs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' ')),
-    },
-    setTimeout,
-    clearTimeout,
-    Promise,
-    URL,
-    URLSearchParams,
-    TextEncoder: typeof TextEncoder !== 'undefined' ? TextEncoder : undefined,
-    TextDecoder: typeof TextDecoder !== 'undefined' ? TextDecoder : undefined,
-    Uint8Array,
-    Map,
-    Set,
-    Math,
-    Date,
-    JSON,
-    Array,
-    Object,
-    String,
-    Number,
-    Boolean,
-    RegExp,
-    Error,
-    TypeError,
-    RangeError,
-    SyntaxError,
-    assert: (cond: any, msg?: string) => {
-      if (!cond) throw new Error(msg || 'Assertion failed');
-    },
-  };
-
-  if (isTsx) {
-    try {
-      const { getReactRuntimeSync } = await import('@/lib/code/react/reactRuntime');
-      const runtime = getReactRuntimeSync();
-      vm.createContext(sandbox);
-      vm.runInContext(runtime, sandbox);
-      sandbox.render = function (Component: any, props: any = {}) {
-        const R = sandbox.__PINIT_REACT__ || { React: sandbox.React, renderToStaticMarkup: sandbox.renderToStaticMarkup };
-        if (!R || !R.renderToStaticMarkup || !R.React) {
-          throw new Error('React render runtime is not initialized');
-        }
-        return R.renderToStaticMarkup(R.React.createElement(Component, props));
-      };
-    } catch {
-      vm.createContext(sandbox);
-    }
-  } else {
-    vm.createContext(sandbox);
-  }
-
-  // 1. Evaluate student code
-  try {
-    const studentScript = new vm.Script(code, { filename: 'submission.js' });
-    studentScript.runInContext(sandbox, { timeout: timeoutMs });
-  } catch (err: any) {
-    return {
-      passed: false,
-      status: err?.name === 'SyntaxError' ? 'COMPILE_ERROR' : 'RUNTIME_ERROR',
-      stdout: stdoutLogs.join('\n'),
-      stderr: err?.message || String(err),
-      error: err?.message || String(err),
-    };
-  }
-
-  // 2. Evaluate tests
-  if (tests && tests.trim()) {
-    try {
-      const wrapped = `(async () => {\n${tests}\n})()`;
-      const testScript = new vm.Script(wrapped, { filename: 'tests.js' });
-      const p = testScript.runInContext(sandbox, { timeout: timeoutMs });
-      if (p && typeof p.then === 'function') {
-        await p;
-      }
-    } catch (testErr: any) {
-      const errMsg = testErr?.message || String(testErr);
-      return {
-        passed: false,
-        status: 'ASSERTION_FAILED',
-        stdout: stdoutLogs.join('\n'),
-        stderr: errMsg,
-        error: errMsg,
-      };
-    }
-  }
-
-  return {
-    passed: true,
-    sentinel,
-    status: 'SUCCESS',
-    stdout: stdoutLogs.join('\n'),
-    stderr: '',
-  };
-}
 
 /**
  * Runs JavaScript or TypeScript code and assertions in an isolated worker sandbox.
@@ -406,86 +371,110 @@ export async function runJsInSandbox(
   };
 
   try {
-    workerResult = await new Promise((resolve) => {
-      let settled = false;
-      let worker: Worker | null = null;
+    await acquireWorkerSlot();
+    try {
+      workerResult = await new Promise((resolve) => {
+        let settled = false;
+        let worker: Worker | null = null;
+        let postedMsg: any = null;
 
-      const timer = setTimeout(async () => {
-        if (!settled) {
-          settled = true;
-          if (worker) {
-            try {
-              await worker.terminate();
-            } catch {}
+        const timer = setTimeout(async () => {
+          if (!settled) {
+            settled = true;
+            if (worker) {
+              try {
+                await worker.terminate();
+              } catch {}
+            }
+            resolve({
+              passed: false,
+              status: 'TIMEOUT',
+              stdout: '',
+              stderr: `Execution timed out (${clampedTimeout}ms limit exceeded)`,
+              timedOut: true,
+              error: `Execution timed out (${clampedTimeout}ms limit exceeded)`,
+            });
           }
+        }, clampedTimeout);
+
+        try {
+          worker = new Worker(WORKER_SCRIPT, {
+            eval: true,
+            env: {},
+            resourceLimits: {
+              maxOldGenerationSizeMb: 64,
+              maxYoungGenerationSizeMb: 16,
+            },
+            workerData: {
+              code: runnableCode,
+              tests: runnableTests,
+              sentinel,
+              timeoutMs: clampedTimeout,
+              isTsx,
+              hidden,
+              reactRuntimeCode,
+            },
+          });
+
+          worker.on('message', (msg: any) => {
+            postedMsg = msg;
+          });
+
+          worker.on('error', (err: Error) => {
+            if (!settled) {
+              settled = true;
+              clearTimeout(timer);
+              resolve({
+                passed: false,
+                status: 'RUNTIME_ERROR',
+                stdout: '',
+                stderr: err?.message || 'Worker thread execution error',
+                error: err?.message || 'Worker thread execution error',
+              });
+            }
+          });
+
+          worker.on('exit', (code: number) => {
+            if (!settled) {
+              settled = true;
+              clearTimeout(timer);
+              if (code === 0 && postedMsg && postedMsg.passed && postedMsg.sentinel === sentinel) {
+                resolve(postedMsg);
+              } else if (postedMsg && !postedMsg.passed) {
+                resolve(postedMsg);
+              } else {
+                resolve({
+                  passed: false,
+                  status: code === 0 ? 'ABNORMAL_TERMINATION' : 'RUNTIME_ERROR',
+                  stdout: postedMsg?.stdout || '',
+                  stderr: postedMsg?.stderr || `Worker exited unexpectedly with code ${code}`,
+                  error: postedMsg?.error || `Worker exited unexpectedly with code ${code}`,
+                });
+              }
+            }
+          });
+        } catch (spawnErr: any) {
+          clearTimeout(timer);
           resolve({
             passed: false,
-            status: 'TIMEOUT',
+            status: 'RUNTIME_ERROR',
             stdout: '',
-            stderr: `Execution timed out (${clampedTimeout}ms limit exceeded)`,
-            timedOut: true,
-            error: `Execution timed out (${clampedTimeout}ms limit exceeded)`,
+            stderr: spawnErr?.message || 'Failed to spawn sandbox worker',
+            error: spawnErr?.message || 'Failed to spawn sandbox worker',
           });
         }
-      }, clampedTimeout);
-
-      try {
-        worker = new Worker(WORKER_SCRIPT, {
-          eval: true,
-          workerData: {
-            code: runnableCode,
-            tests: runnableTests,
-            sentinel,
-            timeoutMs: clampedTimeout,
-            isTsx,
-            hidden,
-            reactRuntimeCode,
-          },
-        });
-
-        worker.on('message', (msg: any) => {
-          if (!settled) {
-            settled = true;
-            clearTimeout(timer);
-            resolve(msg);
-          }
-        });
-
-        worker.on('error', (err: Error) => {
-          if (!settled) {
-            settled = true;
-            clearTimeout(timer);
-            resolve({
-              passed: false,
-              status: 'RUNTIME_ERROR',
-              stdout: '',
-              stderr: err?.message || 'Worker thread execution error',
-              error: err?.message || 'Worker thread execution error',
-            });
-          }
-        });
-
-        worker.on('exit', (code: number) => {
-          if (!settled) {
-            settled = true;
-            clearTimeout(timer);
-            resolve({
-              passed: false,
-              status: code === 0 ? 'ABNORMAL_TERMINATION' : 'RUNTIME_ERROR',
-              stdout: '',
-              stderr: `Worker exited unexpectedly with code ${code}`,
-              error: `Worker exited unexpectedly with code ${code}`,
-            });
-          }
-        });
-      } catch {
-        clearTimeout(timer);
-        // Fallback to direct vm execution if worker cannot be spawned
-        runInVmDirectly(runnableCode, runnableTests, sentinel, clampedTimeout, isTsx, hidden).then(resolve);
-      }
-    });
-  } catch {
-    workerResult = await runInVmDirectly(runnableCode, runnableTests, sentinel, clampedTimeout, isTsx, hidden);
+      });
+    } finally {
+      releaseWorkerSlot();
+    }
+  } catch (err: any) {
+    workerResult = {
+      passed: false,
+      status: 'RUNTIME_ERROR',
+      stdout: '',
+      stderr: err?.message || 'Sandbox execution error',
+      error: err?.message || 'Sandbox execution error',
+    };
   }
 
   const durationMs = Date.now() - start;

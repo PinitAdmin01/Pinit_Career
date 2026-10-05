@@ -179,3 +179,91 @@ test('W-08: hidden test source is never leaked in the output', async () => {
   assert.ok(!combinedOutput.includes('solve() !== SECRET'), 'Hidden test logic must never appear in output');
   assert.ok(res.stderr.includes('Hidden check 1 failed'), 'Only scrubbed check failure message should appear');
 });
+
+test('F-05 (1): assert = () => {} cheat cannot bypass assertions', async () => {
+  const code = `
+    assert = () => {};
+    export function add(a: number, b: number): number {
+      return 0; // wrong
+    }
+  `;
+  const tests = `
+    assert(add(1, 2) === 3, 'add(1, 2) should be 3');
+  `;
+  const res = await runJsInSandbox({
+    code,
+    tests,
+    language: 'typescript',
+  });
+  assert.equal(res.passed, false, 'Overwriting assert must not allow wrong answer to pass');
+});
+
+test('F-05 (2): var assert = ... shadowing cannot bypass assertions', async () => {
+  const code = `
+    var assert = () => {};
+    export function add(a: number, b: number): number {
+      return 0; // wrong
+    }
+  `;
+  const tests = `
+    assert(add(1, 2) === 3, 'add(1, 2) should be 3');
+  `;
+  const res = await runJsInSandbox({
+    code,
+    tests,
+    language: 'typescript',
+  });
+  assert.equal(res.passed, false, 'Shadowing assert must not allow wrong answer to pass');
+});
+
+test('F-05 (3): console.log.constructor sandbox escape cannot access host process', async () => {
+  const code = `
+    export function exploit(): any {
+      try {
+        const fn = console.log.constructor("return typeof process !== 'undefined' ? process : null");
+        return fn();
+      } catch {
+        return null;
+      }
+    }
+  `;
+  const tests = `
+    const proc = exploit();
+    if (proc && typeof proc.exit === 'function') {
+      throw new Error('LEAKED_HOST_PROCESS: console.log.constructor escaped to host process');
+    }
+  `;
+  const res = await runJsInSandbox({
+    code,
+    tests,
+    language: 'typescript',
+  });
+  assert.equal(res.passed, true, 'Exploit must not leak host process');
+});
+
+test('F-05 (4): ({}).constructor.constructor sandbox escape cannot access host process', async () => {
+  const code = `
+    export function exploit(): any {
+      try {
+        const c = "constructor";
+        const fn = (({}) as any)[c][c]("return typeof process !== 'undefined' ? process : null");
+        return fn();
+      } catch {
+        return null;
+      }
+    }
+  `;
+  const tests = `
+    const proc = exploit();
+    if (proc && typeof proc.exit === 'function') {
+      throw new Error('LEAKED_HOST_PROCESS: ({}).constructor.constructor escaped to host process');
+    }
+  `;
+  const res = await runJsInSandbox({
+    code,
+    tests,
+    language: 'typescript',
+  });
+  assert.equal(res.passed, true, 'Exploit must not leak host process');
+});
+
