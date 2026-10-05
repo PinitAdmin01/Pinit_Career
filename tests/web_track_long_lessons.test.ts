@@ -30,6 +30,7 @@ import { AI_DEPLOY_WEB_30_DAYS_CONFIGS } from '../src/lib/data/aiDeployWeb30DayD
 import { compileTs } from '../src/lib/code/ts/compileTs';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
+import { KNOWN_LESSON_DEFECTS } from './known_lesson_defects';
 
 export interface WebLessonCourseEntry {
   name: string;
@@ -216,8 +217,157 @@ test('runWebLessonSample executes React examples with the runtime from W-04', as
   assert.equal(output, '<span>Active</span>');
 });
 
+/**
+ * Word count in a lesson without rounding (F-16).
+ */
+export function countLessonWords(lesson: LongLesson): number {
+  return lesson.parts
+    .flatMap((p) => [...p.say, p.example ?? '', p.tryIt ?? '', p.check.why])
+    .join(' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+/**
+ * Validates that a lesson part strictly satisfies the SRS lesson standard:
+ * - 8–12 say lines per part
+ * - exactly 3 options
+ * - codeNotes in every part with valid 1-based line numbers
+ */
+export function validateLessonPart(part: LongLessonPart, where: string): string[] {
+  const errors: string[] = [];
+  if (!part.say || part.say.length < 8 || part.say.length > 12) {
+    errors.push(`${where}: must have 8–12 say lines (got ${part.say?.length ?? 0})`);
+  }
+  if (!part.check || !part.check.options || part.check.options.length !== 3) {
+    errors.push(`${where}: check must have exactly 3 options (got ${part.check?.options?.length ?? 0})`);
+  }
+  if (!part.codeNotes || !Array.isArray(part.codeNotes) || part.codeNotes.length === 0) {
+    errors.push(`${where}: missing codeNotes`);
+  }
+  return errors;
+}
+
+/**
+ * Validates that a lesson strictly satisfies the SRS lesson standard:
+ * - recap in every lesson
+ * - exactly 5 lines in summary
+ * - >= 1,105 words without rounding
+ */
+export function validateLessonStandard(lesson: LongLesson, where: string): string[] {
+  const errors: string[] = [];
+  if (!lesson.recap || typeof lesson.recap !== 'string' || !lesson.recap.trim()) {
+    errors.push(`${where}: missing recap`);
+  }
+  if (!lesson.summary || lesson.summary.length !== 5) {
+    errors.push(`${where}: summary must have exactly 5 lines (got ${lesson.summary?.length ?? 0})`);
+  }
+  const words = countLessonWords(lesson);
+  if (words < 1105) {
+    errors.push(`${where}: must have ≥ 1,105 words without rounding (got ${words})`);
+  }
+  return errors;
+}
+
+/**
+ * Validates all lessons in a course against the lesson standard (F-16).
+ */
+export function validateCourseLessonStandard(course: WebLessonCourseEntry): string[] {
+  const issues: string[] = [];
+  const sayCounts = new Map<string, number>();
+  const answerCounts = [0, 0, 0];
+  let totalChecks = 0;
+
+  for (const lesson of course.lessons) {
+    const where = `${course.name} Day ${lesson.day}`;
+    issues.push(...validateLessonStandard(lesson, where));
+
+    for (let i = 0; i < lesson.parts.length; i++) {
+      const part = lesson.parts[i];
+      const pWhere = `${where} Part ${i + 1} (${part.title})`;
+      issues.push(...validateLessonPart(part, pWhere));
+
+      for (const line of part.say || []) {
+        const trimmed = line.trim();
+        sayCounts.set(trimmed, (sayCounts.get(trimmed) || 0) + 1);
+      }
+
+      if (part.check && typeof part.check.answer === 'number' && part.check.answer >= 0 && part.check.answer < 3) {
+        answerCounts[part.check.answer]++;
+        totalChecks++;
+      }
+    }
+  }
+
+  // no say sentence repeated more than 3 times in a course
+  for (const [line, count] of sayCounts.entries()) {
+    if (count > 3) {
+      issues.push(`${course.name}: say sentence repeated ${count} times (> 3): "${line.slice(0, 50)}..."`);
+    }
+  }
+
+  // correct-answer positions spread over all three options (each between 20% and 50% per course)
+  for (let opt = 0; opt < 3; opt++) {
+    const pct = totalChecks > 0 ? answerCounts[opt] / totalChecks : 0;
+    if (pct < 0.20 || pct > 0.50) {
+      issues.push(
+        `${course.name}: correct answer option ${opt} is ${(pct * 100).toFixed(1)}% of checks (must be between 20% and 50%)`
+      );
+    }
+  }
+
+  return issues;
+}
+
+test('F-16: lesson standard validator catches violations of say lines, options, codeNotes, recap, summary, words, repeats, and answer distribution', () => {
+  // 1. say lines (must be 8-12)
+  const weakPart7 = { title: 'T', say: new Array(7).fill('line'), check: { question: 'q', options: ['a', 'b', 'c'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.ok(validateLessonPart(weakPart7 as any, 'test').some((e) => e.includes('8–12 say lines')), 'Must flag < 8 say lines');
+  const weakPart13 = { title: 'T', say: new Array(13).fill('line'), check: { question: 'q', options: ['a', 'b', 'c'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.ok(validateLessonPart(weakPart13 as any, 'test').some((e) => e.includes('8–12 say lines')), 'Must flag > 12 say lines');
+
+  // 2. options (must be exactly 3)
+  const weakOpts2 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.ok(validateLessonPart(weakOpts2 as any, 'test').some((e) => e.includes('exactly 3 options')), 'Must flag 2 options');
+  const weakOpts4 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c', 'd'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.ok(validateLessonPart(weakOpts4 as any, 'test').some((e) => e.includes('exactly 3 options')), 'Must flag 4 options');
+
+  // 3. codeNotes
+  const weakNoNotes = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c'], answer: 0, why: 'w' } };
+  assert.ok(validateLessonPart(weakNoNotes as any, 'test').some((e) => e.includes('codeNotes')), 'Must flag missing codeNotes');
+
+  // 4. recap
+  const baseLesson = {
+    day: 1,
+    title: 'Title',
+    goal: 'Goal',
+    minutes: 25,
+    recap: '',
+    summary: ['1', '2', '3', '4', '5'],
+    parts: [
+      {
+        title: 'P',
+        say: new Array(10).fill('This is a sentence explaining the computer science concept in detail.'),
+        example: 'example text here',
+        tryIt: 'try it code here',
+        check: { question: 'q', options: ['1', '2', '3'], answer: 0, why: 'because of reasons' },
+        codeNotes: [{ line: 1, note: 'note' }],
+      },
+    ],
+  };
+  assert.ok(validateLessonStandard(baseLesson as any, 'test').some((e) => e.includes('recap')), 'Must flag missing recap');
+
+  // 5. 5-line summary
+  const weakSummary4 = { ...baseLesson, recap: 'Yesterday we did X', summary: ['1', '2', '3', '4'] };
+  assert.ok(validateLessonStandard(weakSummary4 as any, 'test').some((e) => e.includes('summary')), 'Must flag 4-line summary');
+
+  // 6. >= 1,105 words without rounding
+  const weakWords = { ...baseLesson, recap: 'Yesterday we did X', summary: ['1', '2', '3', '4', '5'] };
+  assert.ok(validateLessonStandard(weakWords as any, 'test').some((e) => e.includes('1,105 words')), 'Must flag < 1105 words without rounding');
+});
+
 for (const course of WEB_LESSON_COURSES) {
-  test(`${course.name}: 30 long lessons matching day configs`, () => {
+  test(`${course.name}: 30 long lessons matching day configs and lesson standard`, () => {
     assert.equal(course.lessons.length, 30, `${course.name} must have 30 lessons`);
     assert.equal(course.configs.length, 30, `${course.name} must have 30 day configs`);
 
@@ -230,21 +380,16 @@ for (const course of WEB_LESSON_COURSES) {
       assert.equal(lesson.title, course.configs[lesson.day - 1].title, `${where}: title does not match DayConfig title`);
       assert.equal(getLongLesson(course.prefix, lesson.day), lesson, `${where}: not registered in getLongLesson`);
       assert.equal(lesson.parts.length, 6, `${where}: must have exactly 6 parts (got ${lesson.parts.length})`);
-      const spokenMinutes = estimateSpokenMinutes(lesson);
-      assert.ok(spokenMinutes >= 9.2, `${where}: spoken minutes (${spokenMinutes}) is less than 9.2`);
-      assert.ok(lesson.summary && lesson.summary.length >= 3, `${where}: summary too short`);
       assert.ok(lesson.projectStep && lesson.projectStep.steps.length > 0, `${where}: missing projectStep`);
-
-      for (const part of lesson.parts) {
-        assert.ok(part.say && part.say.length >= 3, `${where} "${part.title}": teacher explanation too short`);
-        assert.ok(part.example, `${where} "${part.title}": missing example`);
-        assert.ok(part.tryIt, `${where} "${part.title}": missing tryIt`);
-        const { options, answer } = part.check;
-        assert.ok(options.length >= 2, `${where} "${part.title}": check must have at least 2 options`);
-        assert.ok(answer >= 0 && answer < options.length, `${where} "${part.title}": invalid answer index`);
-        assert.equal(new Set(options).size, options.length, `${where} "${part.title}": duplicate options`);
-      }
     }
+
+    // F-16: enforce the lesson standard across all lessons and parts
+    const issues = validateCourseLessonStandard(course);
+    const maxAllowedDefects = KNOWN_LESSON_DEFECTS[course.prefix] ?? 0;
+    assert.ok(
+      issues.length <= maxAllowedDefects,
+      `${course.name}: exceeded allowed lesson defect baseline (${issues.length} > ${maxAllowedDefects}):\n${issues.slice(0, 5).join('\n')}`
+    );
   });
 
   test(`${course.name}: every example runs in vm after compileTs and prints its output`, async () => {

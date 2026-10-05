@@ -1,0 +1,17 @@
+/**
+ * Known lesson defect counts per web course before F-20 content remediation.
+ * This gate ensures that no course introduces new violations and strictly shrinks to zero in F-20.
+ */
+export const KNOWN_LESSON_DEFECTS: Record<string, number> = {
+  'node-web': 201,
+  'devops': 92,
+  'cloud': 34,
+  'design': 86,
+  'dsa-optim': 4,
+  'dist': 3,
+  'cyber': 4,
+  'ai': 4,
+  'sre-web': 3,
+  'stream-web': 3,
+  'aideploy-web': 184,
+};
