@@ -220,7 +220,8 @@ test('F-05 (3): console.log.constructor sandbox escape cannot access host proces
   const code = `
     export function exploit(): any {
       try {
-        const fn = console.log.constructor("return typeof process !== 'undefined' ? process : null");
+        const c = "constructor";
+        const fn = (console.log as any)[c]("return typeof process !== 'undefined' ? process : null");
         return fn();
       } catch {
         return null;

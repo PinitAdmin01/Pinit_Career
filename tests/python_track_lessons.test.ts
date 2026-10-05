@@ -43,7 +43,10 @@ for (const course of COURSES) {
     assert.equal(examples.length, course.examples);
     for (const { id, m } of examples) {
       assert.match(m.filename, /\.py$/, id);
-      const out = execFileSync(pythonCmd, ['-c', m.initialCode], { encoding: 'utf8' }).trimEnd();
+      const out = execFileSync(pythonCmd, ['-c', m.initialCode], {
+        encoding: 'utf8',
+        env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' },
+      }).replace(/\r\n/g, '\n').trimEnd();
       assert.equal(out, m.expectedOutput, id);
     }
   });

@@ -182,7 +182,8 @@ const lessonStyles = `
   }
 
   .interactive-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
     gap: 20px;
     flex: 1;
     min-height: 0;
@@ -191,46 +192,60 @@ const lessonStyles = `
     width: 100%;
   }
 
+  .interactive-container.no-visual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .interactive-left-col {
-    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    min-height: 480px;
     height: 100%;
-    width: 100%;
     overflow: hidden;
   }
 
   .interactive-right-col {
-    flex: 1.1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     background: var(--bg1);
     border-radius: 18px;
     border: 1.5px solid var(--border);
     overflow: hidden;
+    height: 100%;
   }
 
-  @media (max-width: 768px) {
+  .interactive-right-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 22px 190px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  @media (max-width: 1023px) {
     .interactive-container {
+      display: flex;
       flex-direction: column;
       overflow-y: auto;
-      align-items: center;
+      align-items: stretch;
     }
     .interactive-left-col {
       width: 100%;
-      min-height: 220px !important;
-      height: 220px !important;
+      min-height: 0 !important;
+      max-height: 260px !important;
+      height: auto !important;
       flex: none !important;
     }
     .interactive-right-col {
       width: 100%;
-      flex: none !important;
+      flex: 1 !important;
       min-height: 380px !important;
-      height: 380px !important;
+      height: auto !important;
+    }
+    .interactive-right-scroll-area {
+      padding-bottom: 90px !important;
     }
   }
 `;
@@ -559,6 +574,10 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             playChime={engine.playChime}
             launchConfetti={engine.launchConfetti}
             quizQuestions={engine.quizQuestions}
+            currentVisualStepIndex={state.currentVisualStepIndex}
+            isManualOverride={state.isManualOverride}
+            onVisualStepChange={engine.onVisualStepChange}
+            onSyncWithVoice={engine.onSyncWithVoice}
           />
 
           <LessonNavigationBar

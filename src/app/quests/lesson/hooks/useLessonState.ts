@@ -68,10 +68,17 @@ export function useLessonState(teacherId: string = 'kashyap') {
   const [latestAIResponse, setLatestAIResponse] = useState('');
   const [doubtCount, setDoubtCount] = useState(0);
 
+  const [currentVisualStepIndex, setCurrentVisualStepIndex] = useState(0);
+  const [isManualOverride, setIsManualOverride] = useState(false);
+  const [currentPieceAt, setCurrentPieceAt] = useState<string | null>(null);
+
   const returningRef = useRef(false);
   const chatBottomRef = useRef<HTMLDivElement>(null);
 
   return {
+    currentVisualStepIndex, setCurrentVisualStepIndex,
+    isManualOverride, setIsManualOverride,
+    currentPieceAt, setCurrentPieceAt,
     currentSlide, setCurrentSlide, currentSlideRef,
     isPlaying, setIsPlaying,
     audioProgress, setAudioProgress,

@@ -126,7 +126,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const router = useRouter();
   const cleanPath = pathname?.replace(/\/$/, '') || '';
 
-  const isOnboardingOrAuth = cleanPath === '/onboarding' || cleanPath.startsWith('/onboarding') || cleanPath === '/login' || cleanPath === '/signup' || cleanPath === '';
+  const isLessonPage = cleanPath === '/quests/lesson' || cleanPath.startsWith('/quests/lesson');
+  const isOnboardingOrAuth = isLessonPage || cleanPath === '/onboarding' || cleanPath.startsWith('/onboarding') || cleanPath === '/login' || cleanPath === '/signup' || cleanPath === '';
 
   const {
     onboardingStep, setOnboardingStep,

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useMemo, useState } from 'react';
+import { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
@@ -15,6 +15,32 @@ import { withLessonHelpers } from '@/lib/code/sandbox/lessonHelpers';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { LessonState } from './useLessonState';
 import { compileTs } from '@/lib/code/ts/compileTs';
+import { PYTHON_M1_VISUALS } from '@/lib/data/lessonVisuals/pythonMonth1Visuals';
+import type { VisualAt, LessonVisual } from '@/lib/types/lessonVisual';
+
+const AT_ORDER: Record<string, number> = {
+  intro: 0,
+  say1: 1,
+  say2: 2,
+  say3: 3,
+  say4: 4,
+  say5: 5,
+  say6: 6,
+  example: 7,
+  tryIt: 8,
+};
+
+export function getStepIndexForPieceAt(visual: LessonVisual, pieceAt: string): number {
+  const targetWeight = AT_ORDER[pieceAt] ?? 0;
+  let bestIndex = 0;
+  for (let i = 0; i < visual.steps.length; i++) {
+    const stepWeight = AT_ORDER[visual.steps[i].at] ?? 0;
+    if (stepWeight <= targetWeight) {
+      bestIndex = i;
+    }
+  }
+  return bestIndex;
+}
 
 export function adaptCodeForSandbox(
   code: string,
@@ -210,8 +236,19 @@ export function useLessonEngine({
     chatLoading, setChatLoading,
     latestAIResponse, setLatestAIResponse,
     doubtCount, setDoubtCount,
+    currentVisualStepIndex, setCurrentVisualStepIndex,
+    isManualOverride, setIsManualOverride,
+    currentPieceAt, setCurrentPieceAt,
     chatBottomRef,
   } = state;
+
+  const isManualOverrideRef = useRef(isManualOverride);
+  isManualOverrideRef.current = isManualOverride;
+
+  const currentPieceAtRef = useRef(currentPieceAt);
+  currentPieceAtRef.current = currentPieceAt;
+
+  const pieceChainTokenRef = useRef(0);
 
   teacherIdRef.current = teacherId;
   slidesLengthRef.current = slides.length || syllabus.length;
@@ -474,28 +511,38 @@ export function useLessonEngine({
     const dayNum = parsed?.dayNum || 0;
 
     if (longLesson) {
-      setSlides(longLesson.parts.map((part, i) => ({
-        title: part.title,
-        bulletPoints: [],
-        explain: part.say,
-        example: part.example,
-        codeExample: part.code,
-        mockOutput: part.output,
-        codeNotes: part.codeNotes,
-        tryIt: part.tryIt,
-        projectCode: part.projectCode,
-        speech: [
-          `Part ${i + 1}: ${part.title}.`,
-          ...part.say,
-          part.example ? `Here is an everyday example. ${part.example}` : '',
-          part.tryIt ? `Now you try. ${part.tryIt}` : '',
-        ].filter(Boolean).join(' '),
-        mcq: {
-          question: part.check.question,
-          ...withAnswerAt(part.check.options, part.check.answer, dayNum * 7 + i),
-          explanation: part.check.why,
-        },
-      })));
+      setSlides(longLesson.parts.map((part, i) => {
+        const visualKey = `${coursePrefix}:${dayNum}:${i}`;
+        const visualEntry = PYTHON_M1_VISUALS[visualKey];
+        const visual = visualEntry ? visualEntry.visual : null;
+
+        const speechPieces: { at: VisualAt; text: string }[] = [
+          { at: 'intro' as VisualAt, text: `Part ${i + 1}: ${part.title}.` },
+          ...part.say.map((s, sIdx) => ({ at: `say${sIdx + 1}` as VisualAt, text: s })),
+          ...(part.example ? [{ at: 'example' as VisualAt, text: `Here is an everyday example. ${part.example}` }] : []),
+          ...(part.tryIt ? [{ at: 'tryIt' as VisualAt, text: `Now you try. ${part.tryIt}` }] : []),
+        ].filter(p => Boolean(p.text && p.text.trim()));
+
+        return {
+          title: part.title,
+          bulletPoints: [],
+          explain: part.say,
+          example: part.example,
+          codeExample: part.code,
+          mockOutput: part.output,
+          codeNotes: part.codeNotes,
+          tryIt: part.tryIt,
+          projectCode: part.projectCode,
+          visual,
+          speechPieces,
+          speech: speechPieces.map(p => p.text).join(' '),
+          mcq: {
+            question: part.check.question,
+            ...withAnswerAt(part.check.options, part.check.answer, dayNum * 7 + i),
+            explanation: part.check.why,
+          },
+        };
+      }));
       setSlidesLoading(false);
       return;
     }
@@ -834,25 +881,104 @@ export function useLessonEngine({
 
   getSpeakerTextRef.current = getSpeakerText;
 
+  const playSlideNarration = useCallback((slideIdx: number) => {
+    if (typeof window === 'undefined') return;
+    const chainId = ++pieceChainTokenRef.current;
+    const slide = slides[slideIdx];
+
+    if (!slide) {
+      const speakerText = getSpeakerText();
+      stopSpeaking();
+      speakWithAvatar(
+        speakerText,
+        teacherIdRef.current,
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(true);
+        },
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(false);
+        }
+      );
+      return;
+    }
+
+    if (Array.isArray(slide.speechPieces) && slide.speechPieces.length > 0) {
+      stopSpeaking();
+
+      const playPiece = (pIdx: number) => {
+        if (pieceChainTokenRef.current !== chainId) return;
+
+        if (pIdx >= slide.speechPieces.length) {
+          setIsPlaying(false);
+          return;
+        }
+
+        const piece = slide.speechPieces[pIdx];
+        currentPieceAtRef.current = piece.at;
+        setCurrentPieceAt(piece.at);
+
+        if (!isManualOverrideRef.current && slide.visual) {
+          const targetStep = getStepIndexForPieceAt(slide.visual, piece.at);
+          setCurrentVisualStepIndex(targetStep);
+        }
+
+        speakWithAvatar(
+          piece.text,
+          teacherIdRef.current,
+          () => {
+            if (pieceChainTokenRef.current === chainId) {
+              setIsPlaying(true);
+            }
+          },
+          () => {
+            if (pieceChainTokenRef.current === chainId) {
+              playPiece(pIdx + 1);
+            }
+          }
+        );
+      };
+
+      playPiece(0);
+    } else {
+      const speakerText = slide.speech || getSpeakerText();
+      stopSpeaking();
+      speakWithAvatar(
+        speakerText,
+        teacherIdRef.current,
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(true);
+        },
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(false);
+        }
+      );
+    }
+  }, [slides, getSpeakerText, setIsPlaying, teacherIdRef, setCurrentPieceAt, setCurrentVisualStepIndex]);
+
   const playSpeech = useCallback(() => {
     if (typeof window === 'undefined') return;
-    const speakerText = getSpeakerText();
-    stopSpeaking();
-
-    speakWithAvatar(
-      speakerText,
-      teacherIdRef.current,
-      () => {
-        setIsPlaying(true);
-      },
-      () => {
-        setIsPlaying(false);
-      }
-    );
-  }, [getSpeakerText, setIsPlaying, teacherIdRef]);
+    if (currentSlide > 0 && currentSlide <= slides.length) {
+      playSlideNarration(currentSlide - 1);
+    } else {
+      const chainId = ++pieceChainTokenRef.current;
+      const speakerText = getSpeakerText();
+      stopSpeaking();
+      speakWithAvatar(
+        speakerText,
+        teacherIdRef.current,
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(true);
+        },
+        () => {
+          if (pieceChainTokenRef.current === chainId) setIsPlaying(false);
+        }
+      );
+    }
+  }, [currentSlide, slides.length, playSlideNarration, getSpeakerText, teacherIdRef, setIsPlaying]);
 
   const handleTogglePlay = useCallback(() => {
     if (isPlaying) {
+      pieceChainTokenRef.current++;
       stopSpeaking();
       setIsPlaying(false);
     } else {
@@ -861,17 +987,31 @@ export function useLessonEngine({
   }, [isPlaying, playSpeech, setIsPlaying]);
 
   const handleNextSlide = useCallback(() => {
+    pieceChainTokenRef.current++;
     stopSpeaking();
     setIsPlaying(false);
+    setCurrentVisualStepIndex(0);
+    setIsManualOverride(false);
+    isManualOverrideRef.current = false;
+    currentPieceAtRef.current = 'intro';
+    setCurrentPieceAt('intro');
     const slidesLength = slides.length || syllabus.length;
     if (currentSlide < slidesLength + 1) {
       const nextSlide = currentSlide + 1;
       setCurrentSlide(nextSlide);
       setMaxUnlockedSlide(prev => Math.max(prev, nextSlide));
     }
-  }, [currentSlide, slides.length, syllabus.length, setCurrentSlide, setIsPlaying, setMaxUnlockedSlide]);
+  }, [currentSlide, slides.length, syllabus.length, setCurrentSlide, setIsPlaying, setMaxUnlockedSlide, setCurrentVisualStepIndex, setIsManualOverride, setCurrentPieceAt]);
 
   const onReviewLesson = useCallback(() => {
+    pieceChainTokenRef.current++;
+    stopSpeaking();
+    setIsPlaying(false);
+    setCurrentVisualStepIndex(0);
+    setIsManualOverride(false);
+    isManualOverrideRef.current = false;
+    currentPieceAtRef.current = 'intro';
+    setCurrentPieceAt('intro');
     setExamFailed(false);
     setExamPassed(false);
     setExamQuestionIndex(0);
@@ -887,15 +1027,40 @@ export function useLessonEngine({
     } else {
       toast.info("Review the lesson", "Go through the parts again, then answer the questions.");
     }
-  }, [setExamFailed, setExamPassed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo]);
+  }, [setExamFailed, setExamPassed, setExamQuestionIndex, setSelectedMcqAnswer, setMcqChecked, setMcqIsCorrect, setExamCorrectCount, setExamAnswers, setCurrentSlide, testInfo, setCurrentVisualStepIndex, setIsManualOverride, setCurrentPieceAt]);
 
   const handlePrevSlide = useCallback(() => {
+    pieceChainTokenRef.current++;
     stopSpeaking();
     setIsPlaying(false);
+    setCurrentVisualStepIndex(0);
+    setIsManualOverride(false);
+    isManualOverrideRef.current = false;
+    currentPieceAtRef.current = 'intro';
+    setCurrentPieceAt('intro');
     if (currentSlide > 0) {
       setCurrentSlide(prev => prev - 1);
     }
-  }, [currentSlide, setCurrentSlide, setIsPlaying]);
+  }, [currentSlide, setCurrentSlide, setIsPlaying, setCurrentVisualStepIndex, setIsManualOverride, setCurrentPieceAt]);
+
+  const onVisualStepChange = useCallback((newStepIndex: number, manual: boolean) => {
+    setCurrentVisualStepIndex(newStepIndex);
+    if (manual) {
+      setIsManualOverride(true);
+      isManualOverrideRef.current = true;
+    }
+  }, [setCurrentVisualStepIndex, setIsManualOverride]);
+
+  const onSyncWithVoice = useCallback(() => {
+    setIsManualOverride(false);
+    isManualOverrideRef.current = false;
+    const idx = currentSlide - 1;
+    const slide = slides[idx];
+    if (slide?.visual && currentPieceAtRef.current) {
+      const targetStep = getStepIndexForPieceAt(slide.visual, currentPieceAtRef.current);
+      setCurrentVisualStepIndex(targetStep);
+    }
+  }, [currentSlide, slides, setIsManualOverride, setCurrentVisualStepIndex]);
 
   const getProactivePromptText = useCallback(() => {
     const qTitle = questData?.title ? questData.title.replace('Learning: ', '') : 'this topic';
@@ -951,18 +1116,22 @@ export function useLessonEngine({
     const activeSlideAtStart = currentSlide;
     const playTimer = setTimeout(() => {
       if (currentSlideRef.current === activeSlideAtStart) {
-        const speakerText = getSpeakerTextRef.current();
-        if (speakerText) {
-          speakWithAvatar(
-            speakerText,
-            teacherIdRef.current,
-            () => {
-              if (currentSlideRef.current === activeSlideAtStart) setIsPlaying(true);
-            },
-            () => {
-              if (currentSlideRef.current === activeSlideAtStart) setIsPlaying(false);
-            }
-          );
+        if (activeSlideAtStart >= 1 && activeSlideAtStart <= slidesLength) {
+          playSlideNarration(activeSlideAtStart - 1);
+        } else {
+          const speakerText = getSpeakerTextRef.current();
+          if (speakerText) {
+            speakWithAvatar(
+              speakerText,
+              teacherIdRef.current,
+              () => {
+                if (currentSlideRef.current === activeSlideAtStart) setIsPlaying(true);
+              },
+              () => {
+                if (currentSlideRef.current === activeSlideAtStart) setIsPlaying(false);
+              }
+            );
+          }
         }
       }
     }, 600);
@@ -972,7 +1141,7 @@ export function useLessonEngine({
       if (playTimer) clearTimeout(playTimer);
       stopSpeaking();
     };
-  }, [currentSlide, isAudioUnlocked, setIsPlaying, currentSlideRef, getSpeakerTextRef, teacherIdRef, timerRef, slidesLengthRef]);
+  }, [currentSlide, isAudioUnlocked, setIsPlaying, currentSlideRef, getSpeakerTextRef, teacherIdRef, timerRef, slidesLengthRef, playSlideNarration]);
 
   // Audio progress tracker
   useEffect(() => {
@@ -1074,6 +1243,8 @@ export function useLessonEngine({
     handlePrevSlide,
     getSpeakerText,
     sendInteractiveMessage,
+    onVisualStepChange,
+    onSyncWithVoice,
     /** Test questions for a test quest; null for a normal lesson. */
     quizQuestions,
   };

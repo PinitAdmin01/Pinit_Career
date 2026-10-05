@@ -52,6 +52,7 @@ node claude_self_validate.js
 - **Middle Content**: Fills the remaining 80% (or 90% when both collapsed) using `flex: 1; min-width: 0;`.
 - **Mutual Exclusion**: At no point can both sidebars be open simultaneously. Expanding one must collapse the other.
 - **Floating Avatar**: Resting position is bottom center (`left: 50%`, `transform: translateX(-50%)`, `bottom: 24px`) with `opacity: 0.4` idle, `1.0` hover. Shifts to `right: 24px` when Left sidebar is open, and `left: 88px` when Right sidebar is open.
+  - *Note:* On the lesson page the avatar is a bottom-right frame; the floating-avatar rule applies to the rest of the app.
 
 ### 4. Audio / TTS & Tour Rules
 - `stopSpeaking()` must NEVER trigger fake completion callbacks (`activeOnEndCallback = null`).

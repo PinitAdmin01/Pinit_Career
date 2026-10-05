@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { toast } from '@/lib/store/useAppStore';
 import { speakWithAvatar } from '@/lib/tts';
 import { CONCEPT_ANALOGIES_REGISTRY, findConceptAnalogy } from '@/lib/data/conceptAnalogies';
 import { LessonCodeEditor } from './LessonCodeEditor';
 import { LessonQuizBlock } from './LessonQuizBlock';
-
-const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
+import { VisualStage } from './visuals';
+import { TeacherAvatarFrame } from './TeacherAvatarFrame';
+import type { LessonVisual } from '@/lib/types/lessonVisual';
 
 interface LessonContentRendererProps {
   userId: string;
@@ -61,6 +62,86 @@ interface LessonContentRendererProps {
   launchConfetti: () => void;
   /** Questions of a course test; normal lessons use their slides' questions. */
   quizQuestions?: Array<{ question: string; options: string[]; answerIndex: number; explanation: string }> | null;
+  currentVisualStepIndex?: number;
+  isManualOverride?: boolean;
+  onVisualStepChange?: (newStepIndex: number, manual: boolean) => void;
+  onSyncWithVoice?: () => void;
+}
+
+function getTappableLabelsForVisual(visual?: LessonVisual | null): string[] {
+  if (!visual) return [];
+  if (visual.template === 'flow') {
+    return visual.nodes.filter(n => n.tappable !== false).map(n => n.label);
+  }
+  if (visual.template === 'boxes') {
+    return visual.boxes.filter(b => b.tappable !== false).map(b => b.label);
+  }
+  if (visual.template === 'compare') {
+    return [visual.leftLabel, visual.rightLabel].filter(Boolean);
+  }
+  if (visual.template === 'table') {
+    return visual.columns.filter(c => Boolean(c));
+  }
+  return [];
+}
+
+function renderWithTappableWords(
+  text: string,
+  labels: string[],
+  highlightedLabel: string | null,
+  onWordClick: (label: string) => void,
+  onWordHover?: (label: string | null) => void
+): React.ReactNode {
+  if (!text || !labels || labels.length === 0) return text;
+
+  const validLabels = labels.filter(l => Boolean(l && l.trim()));
+  if (validLabels.length === 0) return text;
+
+  const sortedLabels = [...validLabels].sort((a, b) => b.length - a.length);
+  const pattern = sortedLabels.map(l => l.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
+
+  const parts = text.split(regex);
+  if (parts.length <= 1) return text;
+
+  return parts.map((part, idx) => {
+    const matchedLabel = validLabels.find(l => l.toLowerCase() === part.toLowerCase());
+    if (!matchedLabel) {
+      return <React.Fragment key={idx}>{part}</React.Fragment>;
+    }
+
+    const isHighlighted = highlightedLabel && highlightedLabel.toLowerCase() === matchedLabel.toLowerCase();
+
+    return (
+      <button
+        key={idx}
+        type="button"
+        data-testid={`tappable-word-${matchedLabel.toLowerCase()}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onWordClick(matchedLabel);
+        }}
+        onMouseEnter={() => onWordHover && onWordHover(matchedLabel)}
+        onMouseLeave={() => onWordHover && onWordHover(null)}
+        style={{
+          display: 'inline',
+          background: isHighlighted ? 'rgba(56, 189, 248, 0.2)' : 'transparent',
+          border: 'none',
+          borderBottom: isHighlighted ? '2px solid var(--accent)' : '1px dashed var(--accent)',
+          color: isHighlighted ? 'var(--accent)' : 'inherit',
+          font: 'inherit',
+          padding: '0 2px',
+          margin: 0,
+          cursor: 'pointer',
+          borderRadius: 2,
+          transition: 'background 0.15s ease, border-color 0.15s ease, color 0.15s ease',
+        }}
+        title={`Tap to highlight ${matchedLabel} in the visual`}
+      >
+        {part}
+      </button>
+    );
+  });
 }
 
 export function LessonContentRenderer({
@@ -115,42 +196,63 @@ export function LessonContentRenderer({
   playChime,
   launchConfetti,
   quizQuestions,
+  currentVisualStepIndex = 0,
+  isManualOverride = false,
+  onVisualStepChange,
+  onSyncWithVoice,
 }: LessonContentRendererProps) {
+  const currentSlideData = currentSlide > 0 && currentSlide <= slides.length ? slides[currentSlide - 1] : null;
+  const currentVisual: LessonVisual | null = currentSlideData?.visual || null;
+  const tappableLabels = getTappableLabelsForVisual(currentVisual);
+
+  const [highlightedLabel, setHighlightedLabel] = useState<string | null>(null);
+  const highlightTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleTriggerHighlight = useCallback((label: string) => {
+    if (highlightTimerRef.current) {
+      clearTimeout(highlightTimerRef.current);
+    }
+    setHighlightedLabel(label);
+    highlightTimerRef.current = setTimeout(() => {
+      setHighlightedLabel(null);
+    }, 2000);
+  }, []);
+
+  const handleWordHover = useCallback((label: string | null) => {
+    if (highlightTimerRef.current) {
+      clearTimeout(highlightTimerRef.current);
+    }
+    setHighlightedLabel(label);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimerRef.current) {
+        clearTimeout(highlightTimerRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="interactive-container">
-      {/* Left Column: standing avatar */}
-      <div className="interactive-left-col">
-        <div className="avatar-spotlight" style={{ background: teacher.accent }} />
-        <AvatarMentorWidget
-          userId={userId}
-          teacherId={teacherId}
-          onlyAvatar={true}
-          speaking={isPlaying}
-          speechText={latestAIResponse || getSpeakerText()}
-          activeQuest={questData}
-        />
-        {isPlaying && (
-          <div className="speaking-pod">
-            <span style={{ fontSize: 11.5, color: 'var(--text-muted)', marginRight: 6, fontFamily: 'var(--font-mono)' }}>Tutor Speaking</span>
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  width: 3,
-                  height: 16,
-                  background: teacher.accent,
-                  borderRadius: 2,
-                  animation: `wave 1.2s ease-in-out infinite alternate`,
-                  animationDelay: `${i * 0.15}s`
-                }}
-              />
-            ))}
+    <>
+      <div className={`interactive-container ${!currentVisual ? 'no-visual' : ''}`}>
+        {/* Left Column: Visual Stage (when slide has a visual) */}
+        {currentVisual && (
+          <div className="interactive-left-col">
+            <VisualStage
+              visual={currentVisual}
+              currentStepIndex={currentVisualStepIndex}
+              onStepChange={onVisualStepChange || (() => {})}
+              isManualOverride={isManualOverride}
+              onSyncWithVoice={onSyncWithVoice || (() => {})}
+              highlightedLabel={highlightedLabel}
+              onShapeTap={handleTriggerHighlight}
+            />
           </div>
         )}
-      </div>
 
-      {/* Right Column: Dynamic Panel (either Socratic Chat or Slide Lecture) */}
-      <div className="interactive-right-col">
+        {/* Right Column: Dynamic Panel (either Socratic Chat or Slide Lecture) */}
+        <div className="interactive-right-col">
         {isInteractive ? (
           <>
             {/* Chat Panel Header */}
@@ -343,14 +445,7 @@ export function LessonContentRenderer({
             </div>
           </>
         ) : (
-          <div style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '18px 22px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 14
-          }}>
+          <div className="interactive-right-scroll-area">
             {currentSlide === 0 && (
               <div style={{ textAlign: 'center', padding: '12px 0' }}>
                 <h3 style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>{questData?.title || 'Today\'s lesson'}</h3>
@@ -390,14 +485,16 @@ export function LessonContentRenderer({
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
                   <h4 data-testid="lesson-slide-title" style={{ fontSize: 16.5, fontWeight: 900, color: teacher.accent, margin: 0 }}>
-                    {slide.title || 'Lesson Slide'}
+                    {renderWithTappableWords(slide.title || 'Lesson Slide', tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
                   </h4>
 
                   {/* Long-format lesson: the teacher's explanation, in plain words */}
                   {Array.isArray(slide.explain) && slide.explain.length > 0 && (
                     <div data-testid="lesson-explain" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                       {slide.explain.map((para: string, i: number) => (
-                        <p key={i} style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.6, margin: 0 }}>{para}</p>
+                        <p key={i} style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.6, margin: 0 }}>
+                          {renderWithTappableWords(para, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
+                        </p>
                       ))}
                     </div>
                   )}
@@ -405,7 +502,9 @@ export function LessonContentRenderer({
                   {slide.example && (
                     <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--info-rgb), 0.08)', border: '1px solid rgba(var(--info-rgb), 0.3)' }}>
                       <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--info)', marginBottom: 4 }}>🌍 Everyday example</div>
-                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.example}</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>
+                        {renderWithTappableWords(slide.example, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
+                      </div>
                     </div>
                   )}
 
@@ -502,7 +601,8 @@ export function LessonContentRenderer({
                       <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                         {slide.codeNotes.map((n: { line: number; note: string }, i: number) => (
                           <li key={i} style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.5 }}>
-                            <span style={{ fontFamily: 'var(--font-mono)', color: teacher.accent, fontWeight: 800 }}>Line {n.line}:</span> {n.note}
+                            <span style={{ fontFamily: 'var(--font-mono)', color: teacher.accent, fontWeight: 800 }}>Line {n.line}:</span>{' '}
+                            {renderWithTappableWords(n.note, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
                           </li>
                         ))}
                       </ul>
@@ -512,7 +612,9 @@ export function LessonContentRenderer({
                   {slide.tryIt && (
                     <div style={{ padding: '12px 16px', borderRadius: 14, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)' }}>
                       <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--success)', marginBottom: 4 }}>✍️ Your turn</div>
-                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>{slide.tryIt}</div>
+                      <div style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.55 }}>
+                        {renderWithTappableWords(slide.tryIt, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
+                      </div>
                     </div>
                   )}
 
@@ -623,5 +725,16 @@ export function LessonContentRenderer({
         )}
       </div>
     </div>
+
+    {/* Bottom-right Teacher Avatar Picture-in-Picture */}
+    <TeacherAvatarFrame
+      userId={userId}
+      teacherId={teacherId}
+      teacher={teacher}
+      isPlaying={isPlaying}
+      speechText={latestAIResponse || getSpeakerText()}
+      questData={questData}
+    />
+  </>
   );
 }

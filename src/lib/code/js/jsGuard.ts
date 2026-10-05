@@ -9,16 +9,16 @@ import * as acorn from 'acorn';
 declare const __non_webpack_require__: ((id: string) => any) | undefined;
 
 function getEsbuildTransform(): ((code: string, opts: any) => { code: string }) | null {
+  if (typeof window !== 'undefined') return null;
   try {
     if (typeof __non_webpack_require__ !== 'undefined') {
       return __non_webpack_require__('esbuild').transformSync;
     }
-    const nodeReq = typeof module !== 'undefined' && module.require ? module.require.bind(module) : undefined;
-    if (nodeReq) {
-      return nodeReq('esbuild').transformSync;
+    const req = Function('return typeof require !== "undefined" ? require : null')();
+    if (req) {
+      return req('esbuild').transformSync;
     }
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('esbuild').transformSync;
+    return null;
   } catch {
     return null;
   }

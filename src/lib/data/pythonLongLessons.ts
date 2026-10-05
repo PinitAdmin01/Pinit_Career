@@ -73,9 +73,9 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         title: 'How Python reads your code: line by line',
         say: [
           'A computer program is read in order, from the first line to the last. Python finishes one line completely before it starts the next one. This order matters a lot.',
-          'If a line has a mistake, Python stops at that line and shows an error message. The lines above it already ran, but the lines below it never run. Beginners often think the whole program is broken, when really only one line has a problem.',
+          'If a line has a mistake that Python finds while running, such as a misspelled word, Python stops at that line and shows an error message. The lines above it already ran, but the lines below it never run. Beginners often think the whole program is broken, when really only one line has a problem.',
           'An error message is not a punishment. It is Python telling you exactly what went wrong and on which line. Professional developers read error messages all day. You will get better at reading them each week.',
-          'One common beginner mistake is forgetting a closing quote or a closing bracket. Python then does not know where your text ends. If you see the word SyntaxError, check your quotes and brackets first.'
+          'Some mistakes are different. If you forget a closing quote or a closing bracket, Python cannot even read the program, so nothing runs at all, not even line 1. This is called a SyntaxError. If you see SyntaxError, check your quotes and brackets first.'
         ],
         example: 'Think of a teacher reading attendance from a register, one name at a time, from top to bottom. If a page is torn in the middle, the teacher reads the names before it and stops there. The names after the torn part are never called.',
         code: lines(
@@ -88,12 +88,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           { line: 1, note: 'This line runs first.' },
           { line: 3, note: 'This line runs last, because it is at the bottom.' }
         ],
-        tryIt: 'Remove the closing quote on line 2 so it reads print("Step 2: add an expense). Run it and read the error. Notice it tells you the problem is about the text not being closed. Then put the quote back.',
+        tryIt: 'Change line 2 to prnt("Step 2: add an expense") and run it. Line 1 prints, then Python stops with a NameError on line 2, and line 3 never runs. Fix it, then remove the closing quote on line 2 and run again: this time nothing prints at all, because a SyntaxError stops Python before it starts.',
         check: {
-          question: 'Python finds a mistake on line 3 of a 5-line program. What happens?',
+          question: 'Line 3 of a 5-line program says prnt("Hi"), a misspelled print. What happens?',
           options: ['Lines 1 and 2 run, then Python stops with an error on line 3', 'Nothing runs at all', 'Python skips line 3 and runs lines 4 and 5'],
           answer: 0,
-          why: 'Python runs line by line. The lines before the mistake run, then it stops at the mistake and shows an error. It does not skip ahead.'
+          why: 'Python runs line by line. The lines before the mistake run, then it stops at the mistake and shows an error. It does not skip ahead. A missing quote would be different: that is a SyntaxError, and nothing would run.'
         }
       },
       {
@@ -319,7 +319,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           { line: 3, note: 'Two equals signs: "is it equal?". The answer is False.' },
           { line: 5, note: 'You can store the True/False answer in a variable, like any other value.' }
         ],
-        tryIt: 'Change amount = 1200 to amount = 800 and run it. Every answer flips. Predict the four answers before you press Run Code.',
+        tryIt: 'Change amount = 1200 to amount = 800 and run it. Two of the answers change and two stay the same. Predict which ones before you press Run Code.',
         check: {
           question: 'What is the difference between = and == in Python?',
           options: ['= stores a value; == asks if two values are equal', 'They mean the same thing', '= compares; == stores'],
