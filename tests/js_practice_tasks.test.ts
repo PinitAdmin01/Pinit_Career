@@ -120,6 +120,14 @@ test('every React practice task fails when the student has not written the answe
 
 /** Reference answers, kept out of the app so students never download them. */
 const SOLUTIONS: Record<string, string> = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/practice_solutions.json'), 'utf8'));
+for (const f of fs.readdirSync(path.join(__dirname, 'fixtures'))) {
+  if (f.endsWith('_solutions.json')) {
+    try {
+      const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', f), 'utf8'));
+      Object.assign(SOLUTIONS, data);
+    } catch {}
+  }
+}
 
 /** Answers a student could guess without solving the task. */
 const LAZY_RETURNS = ['true', 'false', '0', '1', '-1', '[]', "''", 'null', '{}'];
@@ -353,8 +361,14 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'quant-systems-assign-day-22', 'quant-systems-assign-day-23', 'quant-systems-assign-day-24', 'quant-systems-assign-day-25',
   'quant-systems-assign-day-26', 'quant-systems-exam-day-28', 'quant-systems-assign-day-28', 'quant-systems-assign-day-29',
   // course-dsa-optim: 0 tasks (all 60 tasks non-constant and verified)
-  // course-design-systems: 0 tasks (all 60 tasks non-constant and verified)
-  // course-ai-eng: 0 tasks (all 60 tasks non-constant and verified)
+  // course-design-systems (1 task - to be fixed in F-18)
+  'design-assign-day-29',
+  // course-ai-eng (18 tasks - to be fixed in F-18)
+  'ai-exam-day-16', 'ai-assign-day-16', 'ai-assign-day-18', 'ai-exam-day-19',
+  'ai-assign-day-19', 'ai-exam-day-20', 'ai-assign-day-20', 'ai-exam-day-22',
+  'ai-assign-day-22', 'ai-exam-day-23', 'ai-assign-day-23', 'ai-exam-day-25',
+  'ai-exam-day-26', 'ai-assign-day-26', 'ai-exam-day-28', 'ai-assign-day-28',
+  'ai-exam-day-29', 'ai-assign-day-29',
   // course-distributed-sys: 0 tasks (all 60 tasks non-constant and verified)
   // course-cybersecurity: 0 tasks (all 60 tasks non-constant and verified)
   // course-nlp (48 tasks)
@@ -460,4 +474,62 @@ test('W-09: constant-answer detector catches lazy constant solutions', async () 
   const constFirst = await getFirstReturnValues(constantSolution, constantSuite, constFns);
   const constResult = await gradeJs(constantAnswer(constantSolution, constFirst), constantSuite);
   assert.equal(constResult.passed, true, 'Constant task passes constant answer');
+});
+
+test('F-14: constant-answer gate enforces that passing-with-constant tasks equals KNOWN_CONSTANT_TASKS across all web courses', async () => {
+  const WEB_COURSES = [
+    'course-react-web',
+    'course-node-web',
+    'course-dsa-optim',
+    'course-devops-cicd',
+    'course-cloud-native',
+    'course-distributed-sys',
+    'course-cybersecurity',
+    'course-ai-eng',
+    'course-sre-web',
+    'course-stream-web',
+    'course-aideploy-web',
+    'course-design-systems',
+    'course-fullstack-js',
+  ];
+
+  const detected: string[] = [];
+  for (const courseId of WEB_COURSES) {
+    const course = (COURSES_REGISTRY as any[]).find((c) => c.id === courseId);
+    if (!course) continue;
+    const taskList = course.quests.filter((q: any) => q.testSuite && String(q.testSuite).trim());
+    for (const q of taskList) {
+      const sol = SOLUTIONS[q.id];
+      if (!sol) continue;
+      const fnNames = extractFunctionNames(sol);
+      if (fnNames.length === 0) continue;
+      const lang = (q as any).language;
+      const firstReturns = await getFirstReturnValues(sol, String(q.testSuite), fnNames, lang);
+      if (Object.keys(firstReturns).length === 0) continue;
+      const constCode = constantAnswer(sol, firstReturns);
+      const res = await gradeJs(constCode, String(q.testSuite), lang);
+      if (res.passed) {
+        detected.push(q.id);
+      }
+    }
+  }
+
+  const expectedKnownWeb = Array.from(KNOWN_CONSTANT_TASKS).filter((id: string) => {
+    return WEB_COURSES.some((c) => {
+      const prefix = c.replace('course-', '');
+      return (
+        id.startsWith(prefix) ||
+        (c === 'course-react-web' && id.startsWith('react-')) ||
+        (c === 'course-fullstack-js' && id.startsWith('fullstack-')) ||
+        (c === 'course-design-systems' && id.startsWith('design-')) ||
+        (c === 'course-ai-eng' && id.startsWith('ai-'))
+      );
+    });
+  });
+
+  assert.deepEqual(
+    detected.sort(),
+    expectedKnownWeb.sort(),
+    'Detected constant tasks must exactly match KNOWN_CONSTANT_TASKS (gate enforced)'
+  );
 });
