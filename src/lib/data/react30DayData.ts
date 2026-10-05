@@ -59,7 +59,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return title + ' pays ' + salary;",
     eTest: lines(
       "if (typeof describeJob !== 'function') throw new Error('describeJob not found');",
-      "if (describeJob('Frontend Developer', 400000) !== 'Frontend Developer pays 400000') throw new Error('Wrong text: ' + describeJob('Frontend Developer', 400000));"
+      "if (describeJob('Frontend Developer', 400000) !== 'Frontend Developer pays 400000') throw new Error('Wrong text 1');",
+      "if (describeJob('Backend Engineer', 600000) !== 'Backend Engineer pays 600000') throw new Error('Wrong text 2');",
+      "if (describeJob('DevOps Specialist', 800000) !== 'DevOps Specialist pays 800000') throw new Error('Wrong text 3');"
     ),
     aTitle: "Is It a Good Salary?",
     aDesc: "Write `isGoodSalary(salary)` that returns `true` when the salary is 500000 or more, otherwise `false`.",
@@ -113,9 +115,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return { title: title, company: company, status: 'applied' };",
     eTest: lines(
       "if (typeof makeJob !== 'function') throw new Error('makeJob not found');",
-      "const j = makeJob('Developer', 'TCS');",
-      "if (j.title !== 'Developer' || j.company !== 'TCS') throw new Error('title or company is wrong');",
-      "if (j.status !== 'applied') throw new Error('status should be applied');"
+      "const j1 = makeJob('Developer', 'TCS');",
+      "if (j1.title !== 'Developer' || j1.company !== 'TCS' || j1.status !== 'applied') throw new Error('makeJob 1 failed');",
+      "const j2 = makeJob('Designer', 'Infosys');",
+      "if (j2.title !== 'Designer' || j2.company !== 'Infosys' || j2.status !== 'applied') throw new Error('makeJob 2 failed');",
+      "const j3 = makeJob('Analyst', 'Wipro');",
+      "if (j3.title !== 'Analyst' || j3.company !== 'Wipro' || j3.status !== 'applied') throw new Error('makeJob 3 failed');"
     ),
     aTitle: "First and Last",
     aDesc: "Write `firstAndLast(list)` that returns a new array with the first and the last item of `list`.",
@@ -123,8 +128,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "The last item is list[list.length - 1].",
     aTest: lines(
       "if (typeof firstAndLast !== 'function') throw new Error('firstAndLast not found');",
-      "const r = firstAndLast(['a', 'b', 'c', 'd']);",
-      "if (!Array.isArray(r) || r[0] !== 'a' || r[1] !== 'd' || r.length !== 2) throw new Error('Expected [a, d]');"
+      "const r1 = firstAndLast(['a', 'b', 'c', 'd']);",
+      "if (!Array.isArray(r1) || r1[0] !== 'a' || r1[1] !== 'd' || r1.length !== 2) throw new Error('Expected [a, d]');",
+      "const r2 = firstAndLast([10, 20, 30]);",
+      "if (!Array.isArray(r2) || r2[0] !== 10 || r2[1] !== 30 || r2.length !== 2) throw new Error('Expected [10, 30]');",
+      "const r3 = firstAndLast(['x', 'y']);",
+      "if (!Array.isArray(r3) || r3[0] !== 'x' || r3[1] !== 'y' || r3.length !== 2) throw new Error('Expected [x, y]');"
     )
   },
   {
@@ -141,8 +150,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return jobs.map(job => job.title);",
     eTest: lines(
       "if (typeof getTitles !== 'function') throw new Error('getTitles not found');",
-      "const t = getTitles([{ title: 'Dev' }, { title: 'Tester' }]);",
-      "if (t.length !== 2 || t[0] !== 'Dev' || t[1] !== 'Tester') throw new Error('Expected [Dev, Tester]');"
+      "const t1 = getTitles([{ title: 'Dev' }, { title: 'Tester' }]);",
+      "if (t1.length !== 2 || t1[0] !== 'Dev' || t1[1] !== 'Tester') throw new Error('Expected [Dev, Tester]');",
+      "const t2 = getTitles([{ title: 'Lead' }, { title: 'Manager' }, { title: 'Director' }]);",
+      "if (t2.length !== 3 || t2[0] !== 'Lead' || t2[1] !== 'Manager' || t2[2] !== 'Director') throw new Error('Expected 3 titles');",
+      "const t3 = getTitles([{ title: 'Intern' }]);",
+      "if (t3.length !== 1 || t3[0] !== 'Intern') throw new Error('Expected [Intern]');"
     ),
     aTitle: "Only Interviews",
     aDesc: "Write `onlyInterviews(jobs)` that returns only the jobs whose `status` is `'interview'`, using `filter`.",
@@ -150,8 +163,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return jobs.filter(job => job.status === 'interview');",
     aTest: lines(
       "if (typeof onlyInterviews !== 'function') throw new Error('onlyInterviews not found');",
-      "const r = onlyInterviews([{ id: 1, status: 'applied' }, { id: 2, status: 'interview' }, { id: 3, status: 'interview' }]);",
-      "if (r.length !== 2 || r[0].id !== 2 || r[1].id !== 3) throw new Error('Expected the two interview jobs');"
+      "const r1 = onlyInterviews([{ id: 1, status: 'applied' }, { id: 2, status: 'interview' }, { id: 3, status: 'interview' }]);",
+      "if (r1.length !== 2 || r1[0].id !== 2 || r1[1].id !== 3) throw new Error('Expected two interview jobs');",
+      "const r2 = onlyInterviews([{ id: 4, status: 'rejected' }, { id: 5, status: 'applied' }]);",
+      "if (r2.length !== 0) throw new Error('Expected zero interview jobs');",
+      "const r3 = onlyInterviews([{ id: 6, status: 'interview' }]);",
+      "if (r3.length !== 1 || r3[0].id !== 6) throw new Error('Expected single interview job');"
     )
   },
   {
@@ -168,10 +185,16 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return { ...job, status: status };",
     eTest: lines(
       "if (typeof updateStatus !== 'function') throw new Error('updateStatus not found');",
-      "const job = { title: 'Dev', status: 'applied' };",
-      "const u = updateStatus(job, 'offer');",
-      "if (u.status !== 'offer' || u.title !== 'Dev') throw new Error('New job should have status offer and keep the title');",
-      "if (job.status !== 'applied') throw new Error('The original job was changed. Make a copy instead.');"
+      "const job1 = { title: 'Dev', status: 'applied' };",
+      "const u1 = updateStatus(job1, 'offer');",
+      "if (u1.status !== 'offer' || u1.title !== 'Dev') throw new Error('updateStatus 1 failed');",
+      "if (job1.status !== 'applied') throw new Error('job1 was mutated');",
+      "const job2 = { title: 'QA', status: 'interview' };",
+      "const u2 = updateStatus(job2, 'rejected');",
+      "if (u2.status !== 'rejected' || u2.title !== 'QA') throw new Error('updateStatus 2 failed');",
+      "const job3 = { title: 'Lead', status: 'applied' };",
+      "const u3 = updateStatus(job3, 'interview');",
+      "if (u3.status !== 'interview' || u3.title !== 'Lead') throw new Error('updateStatus 3 failed');"
     ),
     aTitle: "Job Card Text",
     aDesc: "Write `jobCard(job)` that uses destructuring and a template string to return text like `'Developer at Infosys'`.",
@@ -179,7 +202,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return `${title} at ${company}`;",
     aTest: lines(
       "if (typeof jobCard !== 'function') throw new Error('jobCard not found');",
-      "if (jobCard({ title: 'Developer', company: 'Infosys' }) !== 'Developer at Infosys') throw new Error('Expected Developer at Infosys');"
+      "if (jobCard({ title: 'Developer', company: 'Infosys' }) !== 'Developer at Infosys') throw new Error('jobCard 1 failed');",
+      "if (jobCard({ title: 'Designer', company: 'Figma' }) !== 'Designer at Figma') throw new Error('jobCard 2 failed');",
+      "if (jobCard({ title: 'Product Manager', company: 'Google' }) !== 'Product Manager at Google') throw new Error('jobCard 3 failed');"
     )
   },
   {
@@ -196,8 +221,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "counts[job.status] = (counts[job.status] || 0) + 1;",
     eTest: lines(
       "if (typeof countByStatus !== 'function') throw new Error('countByStatus not found');",
-      "const c = countByStatus([{ status: 'applied' }, { status: 'offer' }, { status: 'applied' }]);",
-      "if (c.applied !== 2 || c.offer !== 1) throw new Error('Expected { applied: 2, offer: 1 }');"
+      "const c1 = countByStatus([{ status: 'applied' }, { status: 'offer' }, { status: 'applied' }]);",
+      "if (c1.applied !== 2 || c1.offer !== 1) throw new Error('countByStatus 1 failed');",
+      "const c2 = countByStatus([{ status: 'rejected' }, { status: 'rejected' }]);",
+      "if (c2.rejected !== 2) throw new Error('countByStatus 2 failed');",
+      "const c3 = countByStatus([{ status: 'interview' }, { status: 'applied' }, { status: 'offer' }]);",
+      "if (c3.interview !== 1 || c3.applied !== 1 || c3.offer !== 1) throw new Error('countByStatus 3 failed');"
     ),
     aTitle: "Add a Job",
     aDesc: "Write `addJob(jobs, job)` that returns a NEW array with the job added at the end. Do not change the original array.",
@@ -205,10 +234,15 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return [...jobs, job];",
     aTest: lines(
       "if (typeof addJob !== 'function') throw new Error('addJob not found');",
-      "const list = [{ id: 1 }];",
-      "const r = addJob(list, { id: 2 });",
-      "if (r.length !== 2 || r[1].id !== 2) throw new Error('New list should have 2 jobs');",
-      "if (list.length !== 1) throw new Error('The original list was changed. Return a new array.');"
+      "const list1 = [{ id: 1 }];",
+      "const r1 = addJob(list1, { id: 2 });",
+      "if (r1.length !== 2 || r1[1].id !== 2 || list1.length !== 1) throw new Error('addJob 1 failed');",
+      "const list2 = [];",
+      "const r2 = addJob(list2, { id: 10 });",
+      "if (r2.length !== 1 || r2[0].id !== 10) throw new Error('addJob 2 failed');",
+      "const list3 = [{ id: 5 }, { id: 6 }];",
+      "const r3 = addJob(list3, { id: 7 });",
+      "if (r3.length !== 3 || r3[2].id !== 7 || list3.length !== 2) throw new Error('addJob 3 failed');"
     )
   },
 
@@ -436,10 +470,15 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return { ...form, [name]: value };",
     aTest: lines(
       "if (typeof updateField !== 'function') throw new Error('updateField not found');",
-      "const f = { title: '', company: 'TCS' };",
-      "const r = updateField(f, 'title', 'Dev');",
-      "if (r.title !== 'Dev' || r.company !== 'TCS') throw new Error('Only title should change');",
-      "if (f.title !== '') throw new Error('The original form was changed');"
+      "const f1 = { title: '', company: 'TCS' };",
+      "const r1 = updateField(f1, 'title', 'Dev');",
+      "if (r1.title !== 'Dev' || r1.company !== 'TCS' || f1.title !== '') throw new Error('updateField 1 failed');",
+      "const f2 = { title: 'Dev', salary: 100 };",
+      "const r2 = updateField(f2, 'salary', 200);",
+      "if (r2.salary !== 200 || r2.title !== 'Dev') throw new Error('updateField 2 failed');",
+      "const f3 = { location: 'Remote' };",
+      "const r3 = updateField(f3, 'status', 'open');",
+      "if (r3.status !== 'open' || r3.location !== 'Remote') throw new Error('updateField 3 failed');"
     )
   },
 
@@ -458,8 +497,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return jobs.filter(job => job.id !== id);",
     eTest: lines(
       "if (typeof removeJob !== 'function') throw new Error('removeJob not found');",
-      "const r = removeJob([{ id: 1 }, { id: 2 }, { id: 3 }], 2);",
-      "if (r.length !== 2 || r.some(j => j.id === 2)) throw new Error('Job 2 should be removed');"
+      "const r1 = removeJob([{ id: 1 }, { id: 2 }, { id: 3 }], 2);",
+      "if (r1.length !== 2 || r1.some(j => j.id === 2)) throw new Error('removeJob 1 failed');",
+      "const r2 = removeJob([{ id: 5 }], 5);",
+      "if (r2.length !== 0) throw new Error('removeJob 2 failed');",
+      "const r3 = removeJob([{ id: 10 }, { id: 20 }], 99);",
+      "if (r3.length !== 2 || r3[0].id !== 10 || r3[1].id !== 20) throw new Error('removeJob 3 failed');"
     ),
     aTitle: "Change a Job's Status",
     aDesc: "Write `changeJobStatus(jobs, id, status)` that returns a new list where only the job with that id has the new status.",
@@ -467,10 +510,15 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return jobs.map(job => job.id === id ? { ...job, status } : job);",
     aTest: lines(
       "if (typeof changeJobStatus !== 'function') throw new Error('changeJobStatus not found');",
-      "const jobs = [{ id: 1, status: 'applied' }, { id: 2, status: 'applied' }];",
-      "const r = changeJobStatus(jobs, 2, 'interview');",
-      "if (r[1].status !== 'interview' || r[0].status !== 'applied') throw new Error('Only job 2 should change');",
-      "if (jobs[1].status !== 'applied') throw new Error('The original list was changed');"
+      "const j1 = [{ id: 1, status: 'applied' }, { id: 2, status: 'applied' }];",
+      "const r1 = changeJobStatus(j1, 2, 'interview');",
+      "if (r1[1].status !== 'interview' || r1[0].status !== 'applied' || j1[1].status !== 'applied') throw new Error('changeJobStatus 1 failed');",
+      "const j2 = [{ id: 3, status: 'interview' }];",
+      "const r2 = changeJobStatus(j2, 3, 'offer');",
+      "if (r2[0].status !== 'offer') throw new Error('changeJobStatus 2 failed');",
+      "const j3 = [{ id: 4, status: 'applied' }];",
+      "const r3 = changeJobStatus(j3, 99, 'rejected');",
+      "if (r3[0].status !== 'applied') throw new Error('changeJobStatus 3 failed');"
     )
   },
   {
@@ -671,7 +719,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return 'feature/' + task.trim().toLowerCase().split(' ').join('-');",
     aTest: lines(
       "if (typeof branchName !== 'function') throw new Error('branchName not found');",
-      "if (branchName('Add Login Page') !== 'feature/add-login-page') throw new Error('Expected feature/add-login-page');"
+      "if (branchName('Add Login Page') !== 'feature/add-login-page') throw new Error('branchName 1 failed');",
+      "if (branchName('Fix Navbar Bug') !== 'feature/fix-navbar-bug') throw new Error('branchName 2 failed');",
+      "if (branchName('Setup Database') !== 'feature/setup-database') throw new Error('branchName 3 failed');"
     )
   },
   {
@@ -688,10 +738,15 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return [...jobs].sort((a, b) => b.appliedOn.localeCompare(a.appliedOn));",
     eTest: lines(
       "if (typeof sortByNewest !== 'function') throw new Error('sortByNewest not found');",
-      "const jobs = [{ id: 1, appliedOn: '2026-09-01' }, { id: 2, appliedOn: '2026-09-20' }, { id: 3, appliedOn: '2026-09-10' }];",
-      "const r = sortByNewest(jobs);",
-      "if (r[0].id !== 2 || r[1].id !== 3 || r[2].id !== 1) throw new Error('Expected ids 2, 3, 1');",
-      "if (jobs[0].id !== 1) throw new Error('The original list was changed');"
+      "const j1 = [{ id: 1, appliedOn: '2026-09-01' }, { id: 2, appliedOn: '2026-09-20' }, { id: 3, appliedOn: '2026-09-10' }];",
+      "const r1 = sortByNewest(j1);",
+      "if (r1[0].id !== 2 || r1[1].id !== 3 || r1[2].id !== 1 || j1[0].id !== 1) throw new Error('sortByNewest 1 failed');",
+      "const j2 = [{ id: 10, appliedOn: '2026-05-01' }, { id: 20, appliedOn: '2026-05-15' }];",
+      "const r2 = sortByNewest(j2);",
+      "if (r2[0].id !== 20 || r2[1].id !== 10) throw new Error('sortByNewest 2 failed');",
+      "const j3 = [{ id: 30, appliedOn: '2026-01-01' }];",
+      "const r3 = sortByNewest(j3);",
+      "if (r3.length !== 1 || r3[0].id !== 30) throw new Error('sortByNewest 3 failed');"
     ),
     aTitle: "Group by Status",
     aDesc: "Write `groupByStatus(jobs)` that returns an object like `{ applied: [...], interview: [...] }`.",
@@ -699,8 +754,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "for (const job of jobs) { if (!groups[job.status]) groups[job.status] = []; groups[job.status].push(job); }",
     aTest: lines(
       "if (typeof groupByStatus !== 'function') throw new Error('groupByStatus not found');",
-      "const g = groupByStatus([{ id: 1, status: 'applied' }, { id: 2, status: 'offer' }, { id: 3, status: 'applied' }]);",
-      "if (g.applied.length !== 2 || g.offer.length !== 1) throw new Error('Expected 2 applied and 1 offer');"
+      "const g1 = groupByStatus([{ id: 1, status: 'applied' }, { id: 2, status: 'offer' }, { id: 3, status: 'applied' }]);",
+      "if (!g1.applied || g1.applied.length !== 2 || !g1.offer || g1.offer.length !== 1) throw new Error('groupByStatus 1 failed');",
+      "const g2 = groupByStatus([{ id: 4, status: 'interview' }]);",
+      "if (!g2.interview || g2.interview.length !== 1) throw new Error('groupByStatus 2 failed');",
+      "const g3 = groupByStatus([{ id: 5, status: 'rejected' }, { id: 6, status: 'rejected' }]);",
+      "if (!g3.rejected || g3.rejected.length !== 2) throw new Error('groupByStatus 3 failed');"
     )
   },
   {
@@ -752,9 +811,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "return { id, title: form.title.trim(), company: form.company.trim(), status: 'applied', appliedOn: today };",
     eTest: lines(
       "if (typeof createJob !== 'function') throw new Error('createJob not found');",
-      "const j = createJob({ title: '  Dev ', company: ' TCS' }, 7, '2026-09-28');",
-      "if (j.id !== 7 || j.title !== 'Dev' || j.company !== 'TCS') throw new Error('id, title or company is wrong');",
-      "if (j.status !== 'applied' || j.appliedOn !== '2026-09-28') throw new Error('status or date is wrong');"
+      "const c1 = createJob({ title: '  Dev ', company: ' TCS' }, 7, '2026-09-28');",
+      "if (c1.id !== 7 || c1.title !== 'Dev' || c1.company !== 'TCS' || c1.status !== 'applied' || c1.appliedOn !== '2026-09-28') throw new Error('createJob 1 failed');",
+      "const c2 = createJob({ title: 'Frontend  ', company: 'Infosys  ' }, 8, '2026-10-01');",
+      "if (c2.id !== 8 || c2.title !== 'Frontend' || c2.company !== 'Infosys') throw new Error('createJob 2 failed');",
+      "const c3 = createJob({ title: '  Backend', company: 'Wipro' }, 9, '2026-10-02');",
+      "if (c3.id !== 9 || c3.title !== 'Backend' || c3.company !== 'Wipro') throw new Error('createJob 3 failed');"
     ),
     aTitle: "Filter Tabs",
     aDesc: "Write `filterJobs(jobs, tab)` that returns all jobs when tab is `'all'`, otherwise only jobs with that status.",
@@ -811,7 +873,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "Arrays start at position 0, not 1.",
     eTest: lines(
       "if (typeof totalSalary !== 'function') throw new Error('totalSalary not found');",
-      "if (totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]) !== 600) throw new Error('Expected 600 but got ' + totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));"
+      "if (totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]) !== 600) throw new Error('totalSalary 1 failed');",
+      "if (totalSalary([{ salary: 500 }]) !== 500) throw new Error('totalSalary 2 failed');",
+      "if (totalSalary([{ salary: 50 }, { salary: 75 }]) !== 125) throw new Error('totalSalary 3 failed');"
     ),
     aTitle: "Find the Broken Record",
     aDesc: "Write `firstIncomplete(jobs)` that returns the first job with an empty or missing `company`, or `null` if all are fine.",
@@ -876,8 +940,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return needed.filter(s => !readme.includes(s));",
     aTest: lines(
       "if (typeof missingSections !== 'function') throw new Error('missingSections not found');",
-      "const m = missingSections('# Job Tracker\\n## About\\nText\\n## Setup\\nnpm i');",
-      "if (m.length !== 1 || m[0] !== '## Features') throw new Error('Only ## Features should be missing');"
+      "const m1 = missingSections('# Job Tracker\\n## About\\nText\\n## Setup\\nnpm i');",
+      "if (m1.length !== 1 || m1[0] !== '## Features') throw new Error('missingSections 1 failed');",
+      "const m2 = missingSections('# Job Tracker\\n## Features\\nDone');",
+      "if (m2.length !== 2 || !m2.includes('## About') || !m2.includes('## Setup')) throw new Error('missingSections 2 failed');",
+      "const m3 = missingSections('# Title Only');",
+      "if (m3.length !== 3 || !m3.includes('## About') || !m3.includes('## Features') || !m3.includes('## Setup')) throw new Error('missingSections 3 failed');"
     )
   },
   {
@@ -902,7 +970,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return sentence.split(' ').reverse().join(' ');",
     aTest: lines(
       "if (typeof reverseWords !== 'function') throw new Error('reverseWords not found');",
-      "if (reverseWords('I love React') !== 'React love I') throw new Error('Expected React love I');"
+      "if (reverseWords('I love React') !== 'React love I') throw new Error('reverseWords 1 failed');",
+      "if (reverseWords('Hello World') !== 'World Hello') throw new Error('reverseWords 2 failed');",
+      "if (reverseWords('frontend engineer pinit') !== 'pinit engineer frontend') throw new Error('reverseWords 3 failed');"
     )
   }
 ];

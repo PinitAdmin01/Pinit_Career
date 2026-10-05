@@ -20,13 +20,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'fullstack-js-assign-day-101', 'fullstack-js-assign-day-105', 'fullstack-js-exam-day-107', 'fullstack-js-exam-day-111',
   'fullstack-js-assign-day-115', 'fullstack-js-exam-day-117', 'fullstack-js-exam-day-120',
   // course-node-web: 0 tasks (all 60 tasks non-constant and verified)
-  // course-react-web (19 tasks)
-  'react-basics-exam-day-2', 'react-basics-exam-day-4', 'react-basics-assign-day-4',
-  'react-basics-exam-day-5', 'react-basics-assign-day-5', 'react-basics-exam-day-6', 'react-basics-assign-day-6',
-  'react-basics-exam-day-7', 'react-basics-assign-day-7',
-  'react-basics-assign-day-14', 'react-basics-exam-day-15', 'react-basics-assign-day-15', 'react-basics-assign-day-22',
-  'react-basics-exam-day-23', 'react-basics-assign-day-23', 'react-basics-exam-day-25',
-  'react-basics-exam-day-27', 'react-basics-assign-day-29', 'react-basics-assign-day-30',
+  // course-react-web: 0 tasks (all 60 tasks non-constant and verified)
   // course-cloud-native: 0 tasks (all 60 tasks non-constant and verified)
   // course-devops-cicd: 0 tasks (all 60 tasks non-constant and verified)
   // course-quant-systems (24 tasks)
