@@ -569,13 +569,12 @@ test('gradeWebTask catches constant-answer cheats in TypeScript and awaits async
   assert.equal(constResult.passed, false, 'Constant answer returning 10 must fail on 3 * 4 = 12');
 });
 
-test('verify sre-web-assign-day-6 is caught as weak (accepts junk dummy array)', async () => {
+test('verify sre-web-assign-day-6 rejects junk dummy array', async () => {
   const day6 = SRE_WEB_30_DAYS_CONFIGS[5];
   assert.ok(day6, 'sre-web day 6 config must exist');
-  // sre-web-assign-day-6 accepts junk because indexOf('db') > indexOf('app') evaluates -1 > -1 (false)
   const junk = 'function topologicalResourceSort(d: any): string[] { return ["dummy1", "dummy2"]; }';
   const res = await gradeWebTask(junk, day6.aTest, 'typescript');
-  assert.equal(res.passed, true, 'sre-web-assign-day-6 is caught: passes with junk array ["dummy1", "dummy2"]');
+  assert.equal(res.passed, false, 'sre-web-assign-day-6 must reject junk array ["dummy1", "dummy2"]');
 });
 
 test('task checks with fewer than 3 distinct inputs fail gate unless in KNOWN_LOW_INPUT_TASKS', () => {

@@ -260,11 +260,13 @@ export const SRE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aTest: lines(
       "if (typeof topologicalResourceSort !== 'function') throw new Error('topologicalResourceSort not found');",
       "const order1 = topologicalResourceSort({ app: ['db'], db: [] });",
-      "if (order1.indexOf('db') > order1.indexOf('app')) throw new Error('db must precede app: ' + JSON.stringify(order1));",
+      "if (!Array.isArray(order1) || order1.length !== 2 || order1.indexOf('db') === -1 || order1.indexOf('app') === -1 || order1.indexOf('db') > order1.indexOf('app')) throw new Error('db must precede app: ' + JSON.stringify(order1));",
       "const order2 = topologicalResourceSort({ frontend: ['api'], api: ['db', 'cache'], db: [], cache: [] });",
-      "if (order2.indexOf('db') > order2.indexOf('api') || order2.indexOf('cache') > order2.indexOf('api') || order2.indexOf('api') > order2.indexOf('frontend')) throw new Error('Invalid chain order: ' + JSON.stringify(order2));",
+      "if (!Array.isArray(order2) || order2.length !== 4 || order2.indexOf('db') === -1 || order2.indexOf('cache') === -1 || order2.indexOf('api') === -1 || order2.indexOf('frontend') === -1 || order2.indexOf('db') > order2.indexOf('api') || order2.indexOf('cache') > order2.indexOf('api') || order2.indexOf('api') > order2.indexOf('frontend')) throw new Error('Invalid chain order: ' + JSON.stringify(order2));",
       "const order3 = topologicalResourceSort({ a: [], b: [] });",
-      "if (order3.length !== 2) throw new Error('Failed independent items');"
+      "if (!Array.isArray(order3) || order3.length !== 2 || !order3.includes('a') || !order3.includes('b')) throw new Error('Failed independent items: ' + JSON.stringify(order3));",
+      "const order4 = topologicalResourceSort({ x: ['y'], y: ['z'], z: [] });",
+      "if (!Array.isArray(order4) || order4.length !== 3 || order4.indexOf('z') === -1 || order4.indexOf('y') === -1 || order4.indexOf('x') === -1 || order4.indexOf('z') > order4.indexOf('y') || order4.indexOf('y') > order4.indexOf('x')) throw new Error('Failed 3-chain order: ' + JSON.stringify(order4));"
     )
   },
 
