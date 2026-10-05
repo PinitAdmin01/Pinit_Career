@@ -579,8 +579,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "aTitle": "Component Deprecation Warning Formatter",
     "aDesc": "Implement function `formatDeprecationWarning(componentName, replacementName)` returning `[DEPRECATED] ${componentName} is deprecated. Use ${replacementName} instead.`.",
     "aStarter": "function formatDeprecationWarning(componentName, replacementName) {\n  // TODO: Format standard deprecation notice string\n  \n}",
-    "aHint": "return `[DEPRECATED] ${componentName} is deprecated. Use ${replacementName} instead.`;",
-    "aTest": "const warn = formatDeprecationWarning('LegacyButton', 'PrimaryButton');\nif (warn !== '[DEPRECATED] LegacyButton is deprecated. Use PrimaryButton instead.') throw new Error('Deprecation warning format failed');"
+    "aTest": "const warn1 = formatDeprecationWarning('LegacyButton', 'PrimaryButton');\nconst warn2 = formatDeprecationWarning('OldCard', 'ModernCard');\nconst warn3 = formatDeprecationWarning('TextInputV1', 'FormInput');\nif (warn1 !== '[DEPRECATED] LegacyButton is deprecated. Use PrimaryButton instead.') throw new Error('Deprecation warning format failed 1');\nif (warn2 !== '[DEPRECATED] OldCard is deprecated. Use ModernCard instead.') throw new Error('Deprecation warning format failed 2');\nif (warn3 !== '[DEPRECATED] TextInputV1 is deprecated. Use FormInput instead.') throw new Error('Deprecation warning format failed 3');"
   },
   {
     "day": 30,

@@ -186,7 +186,6 @@ export const KNOWN_LOW_INPUT_TASKS = new Set<string>([
   "design-assign-day-26",
   "design-assign-day-27",
   "design-assign-day-28",
-  "design-assign-day-29",
   "design-assign-day-30",
   "design-assign-day-5",
   "design-assign-day-8",

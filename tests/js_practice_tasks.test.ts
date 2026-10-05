@@ -361,8 +361,7 @@ export const KNOWN_CONSTANT_TASKS = new Set<string>([
   'quant-systems-assign-day-22', 'quant-systems-assign-day-23', 'quant-systems-assign-day-24', 'quant-systems-assign-day-25',
   'quant-systems-assign-day-26', 'quant-systems-exam-day-28', 'quant-systems-assign-day-28', 'quant-systems-assign-day-29',
   // course-dsa-optim: 0 tasks (all 60 tasks non-constant and verified)
-  // course-design-systems (1 task - to be fixed in F-18)
-  'design-assign-day-29',
+  // course-design-systems: 0 tasks (all 60 tasks non-constant and verified)
   // course-ai-eng (18 tasks - to be fixed in F-18)
   'ai-exam-day-16', 'ai-assign-day-16', 'ai-assign-day-18', 'ai-exam-day-19',
   'ai-assign-day-19', 'ai-exam-day-20', 'ai-assign-day-20', 'ai-exam-day-22',
