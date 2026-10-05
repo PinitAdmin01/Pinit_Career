@@ -125,7 +125,7 @@ const SOLUTIONS: Record<string, string> = JSON.parse(fs.readFileSync(path.join(_
 const LAZY_RETURNS = ['true', 'false', '0', '1', '-1', '[]', "''", 'null', '{}'];
 
 /** Recall questions whose right answer is one fixed value (for example "greedy decoding uses temperature 0"). */
-const RECALL_TASKS = new Set(['nlp-assign-day-6', 'nlp-assign-day-27', 'ai_prompt-assign-day-6']);
+const RECALL_TASKS = new Set(['nlp-assign-day-6', 'nlp-assign-day-27']);
 
 /** The starting code with every function and method (except constructors) returning `value`. */
 function lazyAnswer(starter: string, value: string): string {

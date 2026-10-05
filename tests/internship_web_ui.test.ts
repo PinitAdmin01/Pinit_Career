@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { getTierConfig, INTERNSHIP_TIERS } from '../src/lib/internships/tiers';
 import { getTicketLanguageInfo } from '../src/app/quests/components/internship/TicketEditorTabs';
 import { executeTypeScriptTask } from '../src/lib/code/runners/webTaskRunner';
-import { TIER1_WEB_TICKET_KINDS } from '../src/lib/internships/seedCompanies';
+import { TIER1_WEB_TICKET_KINDS } from '../src/lib/internships/tier1Tickets';
 
 describe('Web Internship UI & TSX Editor (W-136)', () => {
   it('INTERNSHIP_TIERS provides web track tier names per C5', () => {

@@ -1,5 +1,10 @@
-import { FICTIONAL_COMPANY_PREFIX } from './companyProfile';
-import type { GeneratedTask } from './generateTask';
+import { FICTIONAL_COMPANY_PREFIX } from '../../src/lib/internships/companyProfile';
+import type { GeneratedTask } from '../../src/lib/internships/generateTask';
+import {
+  TIER1_WEB_TICKET_KINDS,
+  TIER1_WEB_MONTH1_SKILLS,
+  type Tier1WebTicketKind,
+} from '../../src/lib/internships/tier1Tickets';
 
 export interface SeedCompany {
   name: string;
@@ -7,25 +12,11 @@ export interface SeedCompany {
   readme: string;
 }
 
-export const TIER1_WEB_TICKET_KINDS = [
-  'component',
-  'component_bug_fix',
-  'form_validation',
-  'refactor',
-  'small_feature',
-] as const;
-
-export type Tier1WebTicketKind = (typeof TIER1_WEB_TICKET_KINDS)[number];
-
-export const TIER1_WEB_MONTH1_SKILLS = [
-  'React Components',
-  'JSX and Element Rendering',
-  'Props and Typing',
-  'State Management (useState)',
-  'Event Handling and Form Inputs',
-  'Conditional Rendering and Lists',
-  'Component Lifecycle and Effects (useEffect)',
-] as const;
+export {
+  TIER1_WEB_TICKET_KINDS,
+  TIER1_WEB_MONTH1_SKILLS,
+  type Tier1WebTicketKind,
+};
 
 export const WEB_TIER1_SEED_COMPANIES: readonly SeedCompany[] = [
   {

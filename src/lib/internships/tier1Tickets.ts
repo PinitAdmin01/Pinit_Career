@@ -1,17 +1,26 @@
 import { generateValidatedTask, type GeneratedTask } from './generateTask';
 import type { CompanyProfile } from './companyProfile';
-import {
-  TIER1_WEB_TICKET_KINDS,
-  TIER1_WEB_MONTH1_SKILLS,
-  getSeedWebTier1Tasks,
-} from './seedCompanies';
 import type { InternshipTaskLanguage } from './types';
 
-export {
-  TIER1_WEB_TICKET_KINDS,
-  TIER1_WEB_MONTH1_SKILLS,
-  getSeedWebTier1Tasks,
-};
+export const TIER1_WEB_TICKET_KINDS = [
+  'component',
+  'component_bug_fix',
+  'form_validation',
+  'refactor',
+  'small_feature',
+] as const;
+
+export type Tier1WebTicketKind = (typeof TIER1_WEB_TICKET_KINDS)[number];
+
+export const TIER1_WEB_MONTH1_SKILLS = [
+  'React Components',
+  'JSX and Element Rendering',
+  'Props and Typing',
+  'State Management (useState)',
+  'Event Handling and Form Inputs',
+  'Conditional Rendering and Lists',
+  'Component Lifecycle and Effects (useEffect)',
+] as const;
 
 export const TIER1_MONTH1_PYTHON_SKILLS = [
   'Python Functions',
@@ -55,7 +64,6 @@ export interface GenerateTier1TasksOptions {
   track?: 'python_ai' | 'web_fullstack' | string;
   language?: InternshipTaskLanguage;
   model?: string;
-  useSeedFallback?: boolean;
 }
 
 /**
@@ -73,20 +81,6 @@ export async function generateTier1Tasks(
   const ticketKinds = isWeb ? TIER1_WEB_TICKET_KINDS : TIER1_TICKET_KINDS;
   const skills = isWeb ? TIER1_WEB_MONTH1_SKILLS : TIER1_MONTH1_PYTHON_SKILLS;
   const language = isWeb ? (opts.language || 'tsx') : 'python';
-
-  // If deterministic seed fallback requested, return seed tasks directly
-  if (isWeb && opts.useSeedFallback) {
-    const seedTasks = getSeedWebTier1Tasks(opts.companyProfile);
-    return {
-      ok: true,
-      tickets: seedTasks.map((task, idx) => ({
-        seq: idx + 1,
-        kind: ticketKinds[idx] || 'small_feature',
-        task,
-        model: 'seed_seeder_v1',
-      })),
-    };
-  }
 
   const tickets: GeneratedTicketResult[] = [];
 
@@ -110,20 +104,6 @@ export async function generateTier1Tasks(
     });
 
     if (!genRes.ok) {
-      // In tests/production when LLM is unconfigured, fallback gracefully to pre-validated seed tasks
-      if (isWeb) {
-        const seedTasks = getSeedWebTier1Tasks(opts.companyProfile);
-        return {
-          ok: true,
-          tickets: seedTasks.map((task, idx) => ({
-            seq: idx + 1,
-            kind: ticketKinds[idx] || 'small_feature',
-            task,
-            model: 'seed_seeder_v1',
-          })),
-        };
-      }
-
       return {
         ok: false,
         failedAtSeq: seq,

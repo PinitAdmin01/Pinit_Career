@@ -5,7 +5,7 @@ import {
   TIER1_WEB_MONTH1_SKILLS,
   WEB_TIER1_SEED_COMPANIES,
   getSeedWebTier1Tasks,
-} from '../src/lib/internships/seedCompanies';
+} from './fixtures/seedCompanies';
 import { generateTier1Tasks } from '../src/lib/internships/tier1Tickets';
 import { validateGeneratedTask } from '../src/lib/internships/validateTask';
 import { executeTicketCode } from '../src/lib/internships/submission';
@@ -115,7 +115,7 @@ describe('Web Job Simulation Tickets (W-131 / Tier 1)', () => {
     }
   });
 
-  it('generateTier1Tasks for web_fullstack produces 5 validated tsx tickets', async () => {
+  it('generateTier1Tasks does not fall back to handwritten seed_seeder_v1 on failure', async () => {
     const company = WEB_TIER1_SEED_COMPANIES[0];
     const res = await generateTier1Tasks({
       companyProfile: {
@@ -125,17 +125,42 @@ describe('Web Job Simulation Tickets (W-131 / Tier 1)', () => {
       },
       seed: 'test-web-tier1-seed',
       track: 'web_fullstack',
-      useSeedFallback: true,
     });
 
-    assert.strictEqual(res.ok, true);
+    // When AI model is not configured / fails, it must NOT succeed with seed_seeder_v1
     if (res.ok) {
-      assert.strictEqual(res.tickets.length, 5);
-      assert.strictEqual(res.tickets[0].kind, 'component');
-      assert.strictEqual(res.tickets[1].kind, 'component_bug_fix');
-      assert.strictEqual(res.tickets[2].kind, 'form_validation');
-      assert.strictEqual(res.tickets[3].kind, 'refactor');
-      assert.strictEqual(res.tickets[4].kind, 'small_feature');
+      for (const t of res.tickets) {
+        assert.notStrictEqual(t.model, 'seed_seeder_v1', 'Must not return seed_seeder_v1 fallback');
+      }
+    } else {
+      assert.strictEqual(res.ok, false);
+      assert.ok(res.failedAtSeq >= 1);
     }
+  });
+
+  it('no references to seed_seeder, useSeedFallback, or seedCompanies remain in src', async () => {
+    const { execSync } = await import('node:child_process');
+    let matched = '';
+    try {
+      matched = execSync('git grep -n "seed_seeder\\|useSeedFallback\\|seedCompanies" -- src', {
+        encoding: 'utf8',
+      });
+    } catch {
+      // git grep exits 1 when no match found, which is what we want!
+      matched = '';
+    }
+    assert.strictEqual(matched.trim(), '', `Found illegal seed references in src:\n${matched}`);
+  });
+
+  it('getZeroTemperature task takes an input and evaluates at least 3 distinct inputs', async () => {
+    const { AI_PROMPT_LITERACY_30_DAYS_CONFIGS } = await import('../src/lib/data/aiPromptLiteracy30DayData');
+    const day6 = AI_PROMPT_LITERACY_30_DAYS_CONFIGS.find((d: any) => d.day === 6);
+    assert.ok(day6, 'Day 6 must exist');
+    assert.ok(day6.aStarter.includes('function getZeroTemperature(') && !day6.aStarter.includes('function getZeroTemperature()'), 'getZeroTemperature must take parameter');
+    assert.ok(day6.aTest.includes('getZeroTemperature('));
+    // Must test at least 3 distinct inputs
+    const callMatches = Array.from(day6.aTest.matchAll(/getZeroTemperature\(([^)]+)\)/g));
+    const distinctArgs = new Set(callMatches.map((m: any) => (m as any)[1].trim()));
+    assert.ok(distinctArgs.size >= 3, `Expected at least 3 distinct inputs, got: ${distinctArgs.size}`);
   });
 });
