@@ -59,13 +59,84 @@ export interface BuildTaskPromptOptions {
   language?: 'python' | 'sql' | 'typescript' | 'tsx';
 }
 
+export const FORBIDDEN_JS_APIS_LIST = [
+  'fetch',
+  'XMLHttpRequest',
+  'WebSocket',
+  'importScripts',
+  'eval',
+  'Function',
+  'process',
+  'require',
+  'globalThis',
+  'self',
+  'window',
+  'Reflect',
+  'Proxy',
+  'constructor',
+  '__proto__',
+  'document.cookie',
+  'localStorage',
+  'indexedDB',
+  'import()',
+];
+
 /**
- * Builds the strict system and user prompt for generating an internship task ticket (C12).
+ * Builds the strict system and user prompt for generating an internship task ticket (C12 / F-08).
  */
 export function buildTaskPrompt(opts: BuildTaskPromptOptions): { system: string; user: string } {
   const language = opts.language || 'python';
-  const forbiddenListJoined = FORBIDDEN_WORDS_LIST.join(', ');
   const skillsJoined = opts.skills.join(', ');
+
+  if (language === 'typescript' || language === 'tsx') {
+    const isTsx = language === 'tsx';
+    const forbiddenJsJoined = FORBIDDEN_JS_APIS_LIST.join(', ');
+
+    const system = `You are a Senior Engineering Lead crafting a realistic software engineering ticket for a student intern at a simulated company.
+
+CRITICAL RULES FOR ${isTsx ? 'REACT TSX' : 'TYPESCRIPT'}:
+1. OUTPUT FORMAT: Respond ONLY with a valid, parseable JSON object matching these exact keys:
+   - "title": Short descriptive ticket title (3-100 characters).
+   - "brief": Plain-English requirements and user story explaining the ticket, expectations, and inputs/outputs (20-2000 characters). Do NOT leak the solution code here!
+   - "starter_code": Initial code template using export function declarations (e.g. \`export function ...\`) that is syntactically valid ${isTsx ? 'TSX / React' : 'TypeScript'}. It must compile without syntax errors, but FAIL the tests.
+   - "visible_tests": Test statements shown to the student intern using \`assert(...)\` (statement form, with braces: e.g. \`{ assert(condition); }\` or standalone \`assert(...);\`) (at least 2 assert lines).${isTsx ? ' Use \`render(Component, props)\` to render components to static HTML strings.' : ''}
+   - "hidden_tests": Thorough secret test statements for edge cases using \`assert(...)\` (at least 3 assert lines).${isTsx ? ' Use \`render(Component, props)\` to inspect output HTML.' : ''}
+   - "reference_solution": The complete, clean reference implementation with \`export function ...\` that passes BOTH visible and hidden tests.
+   - "skills": Array of 1-4 specific skills exercised from the allowed skills list.
+
+2. ALLOWED SKILLS ONLY: You MUST only use the following allowed skills:
+   ${skillsJoined}
+   Do not introduce advanced libraries, frameworks, or concepts outside this list.
+
+3. SANDBOX & SECURITY RESTRICTIONS:
+   - No filesystem access, file reads/writes, or Node process access.
+   - No network calls, HTTP requests, or WebSocket connections.
+   - No browser DOM access outside the static render() helper.
+   - No randomness, nondeterminism, or time-dependent calculations. Tests must be 100% deterministic.
+   - NEVER use or access any of the following forbidden JS APIs:
+     ${forbiddenJsJoined}
+
+4. DETERMINISTIC TESTING:
+   - Tests MUST be written using \`assert(condition, [message])\` statements (with braces or statement form).
+   - Do NOT use Jest, Mocha, or custom test frameworks; write direct assert lines.
+   ${isTsx ? '- For TSX components, use \`const html = render(MyComponent, { prop: value }); assert(html.includes("..."));\` to test rendering.' : ''}
+   - In "visible_tests" and "hidden_tests", assume the exported functions from starter_code / reference_solution are available in the scope.`;
+
+    const user = `Please generate an engineering ticket with the following parameters:
+- Company Name: ${opts.companyProfile.name} (Simulated Company)
+- Company Business: ${opts.companyProfile.business}
+${opts.companyProfile.description ? `- Company Context: ${opts.companyProfile.description}\n` : ''}- Internship Tier: ${opts.tier}
+- Ticket Kind: ${opts.kind}
+- Language: ${language}
+- Allowed Skills: ${skillsJoined}
+- Random Variation Seed: ${opts.seed}
+
+Generate the JSON ticket now.`;
+
+    return { system, user };
+  }
+
+  const forbiddenListJoined = FORBIDDEN_WORDS_LIST.join(', ');
 
   const system = `You are a Senior Engineering Lead crafting a realistic software engineering ticket for a student intern at a simulated company.
 
