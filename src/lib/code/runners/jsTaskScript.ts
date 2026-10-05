@@ -9,6 +9,14 @@ import { SuiteExecutionResult } from '../types';
 import { executeInTwoLayerSandbox } from '../sandbox/sandboxedIframeRunner';
 import { getReactRuntime } from '../react/reactRuntime';
 
+export const ASSERT_HELPER_SCRIPT = `
+if (typeof globalThis.assert !== 'function') {
+  globalThis.assert = function (cond, msg) {
+    if (!cond) throw new Error(msg || 'Assertion failed');
+  };
+}
+`;
+
 export const REACT_RENDER_HELPER_SCRIPT = `
 const render = function (Component, props) {
   const R = globalThis.__PINIT_REACT__ || { React: globalThis.React, renderToStaticMarkup: globalThis.renderToStaticMarkup };
@@ -27,13 +35,19 @@ export function buildJsTaskScript(
   options?: { language?: string; runtimeScript?: string }
 ): string {
   const parts: string[] = [];
+  parts.push(ASSERT_HELPER_SCRIPT);
   if (options?.runtimeScript) {
     parts.push(options.runtimeScript);
   }
   if (options?.language === 'tsx') {
     parts.push(REACT_RENDER_HELPER_SCRIPT);
   }
-  parts.push(code);
+  // Strip export statements so `new Function` / non-module execution doesn't throw SyntaxError
+  const runnableCode = code
+    .replace(/\bexport\s+default\s+/g, '')
+    .replace(/\bexport\s+(?=(?:async\s+)?function|const|let|var|class)\b/g, '');
+
+  parts.push(runnableCode);
   parts.push(';\nreturn (async () => {\n' + testSuite + '\n})();');
   return parts.join('\n;\n');
 }

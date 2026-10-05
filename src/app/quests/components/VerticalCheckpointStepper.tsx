@@ -35,6 +35,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
   onOpenInternshipDesk,
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
+  const internshipTier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
   const trackKey: 'python_ai' | 'web_fullstack' =
     activeTrack === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
   const isTierOn = internshipTier

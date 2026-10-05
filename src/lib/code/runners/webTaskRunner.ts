@@ -8,7 +8,9 @@
 import { SuiteExecutionResult } from '../types';
 import { findForbiddenJs } from '../js/jsGuard';
 import { compileTs } from '../ts/compileTs';
-import { jsTaskResult, executeJsTaskScript } from './jsTaskScript';
+import { jsTaskResult, executeJsTaskScript, ASSERT_HELPER_SCRIPT } from './jsTaskScript';
+import { executeInTwoLayerSandbox } from '../sandbox/sandboxedIframeRunner';
+import { getWebRuntime } from '../web/webRuntime';
 import {
   queryAll,
   attr,
@@ -230,50 +232,36 @@ export async function executeHtmlCssTask(
       return jsTaskResult(false, err?.message || String(err), stdoutLogs.join('\n'), Date.now() - start);
     }
   } else {
-    // Browser environment: evaluate using sandbox or function execution
+    // Browser environment: evaluate inside two-layer sandbox using web-runtime.js
     try {
-      const fn = new Function(
-        'code',
-        'html',
-        'css',
-        'queryAll',
-        'attr',
-        'text',
-        'cssRules',
-        'cssValue',
-        'checkImagesHaveAlt',
-        'assertImagesHaveAlt',
-        'checkInputsHaveLabels',
-        'assertInputsHaveLabels',
-        'checkHeadingsInOrder',
-        'assertHeadingsInOrder',
-        `return (async () => {\n${testSuite}\n})();`
+      const runtime = await getWebRuntime();
+      const scriptParts = [
+        runtime,
+        ASSERT_HELPER_SCRIPT,
+        `const code = ${JSON.stringify(code)};`,
+        `const html = ${JSON.stringify(code)};`,
+        `const css = ${JSON.stringify(code)};`,
+        `globalThis.code = code;`,
+        `globalThis.html = html;`,
+        `globalThis.css = css;`,
+        `return (async () => {\n${testSuite}\n})();`,
+      ];
+      const script = scriptParts.join('\n;\n');
+      const result = await executeInTwoLayerSandbox(script, {
+        mode: 'script',
+        functionName: 'none',
+        testCases: [],
+        timeoutMs,
+      });
+
+      return jsTaskResult(
+        result.allPassed && !result.error,
+        result.error,
+        result.stdout || '',
+        Date.now() - start
       );
-
-      const promise = fn(
-        code,
-        code,
-        code,
-        queryAll,
-        attr,
-        text,
-        cssRules,
-        cssValue,
-        checkImagesHaveAlt,
-        assertImagesHaveAlt,
-        checkInputsHaveLabels,
-        assertInputsHaveLabels,
-        checkHeadingsInOrder,
-        assertHeadingsInOrder
-      );
-
-      if (promise && typeof promise.then === 'function') {
-        await promise;
-      }
-
-      return jsTaskResult(true, null, stdoutLogs.join('\n'), Date.now() - start);
     } catch (err: any) {
-      return jsTaskResult(false, err?.message || String(err), stdoutLogs.join('\n'), Date.now() - start);
+      return jsTaskResult(false, err?.message || String(err), '', Date.now() - start);
     }
   }
 }
