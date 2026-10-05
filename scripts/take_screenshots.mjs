@@ -2,14 +2,24 @@ import { chromium } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
-const OUT_DIR = path.resolve('C:/Users/Admin/.gemini/antigravity/brain/c7b35c15-f056-4dc6-888b-f56621a809c1/screenshots');
-fs.mkdirSync(OUT_DIR, { recursive: true });
+const REPO_OUT_DIR = path.resolve('screenshots');
+fs.mkdirSync(REPO_OUT_DIR, { recursive: true });
 
+const LOCAL_BRAIN_DIR = path.resolve('C:/Users/Admin/.gemini/antigravity/brain/c7b35c15-f056-4dc6-888b-f56621a809c1/screenshots');
+try {
+  if (fs.existsSync(path.dirname(LOCAL_BRAIN_DIR))) {
+    fs.mkdirSync(LOCAL_BRAIN_DIR, { recursive: true });
+  }
+} catch {
+  // Ignore in environments where brain dir does not exist
+}
+
+// Parts keyed strictly by their visual key as required by spec v1.1
 const TARGETS = [
-  { name: 'part_1_3', day: 1, targetSlide: 2, title: 'Day 1 Part 3: line by line' },
-  { name: 'part_2_2', day: 2, targetSlide: 1, title: 'Day 2 Part 2: variables and change' },
-  { name: 'part_3_2', day: 3, targetSlide: 1, title: 'Day 3 Part 2: character positions' },
-  { name: 'part_3_4', day: 3, targetSlide: 3, title: 'Day 3 Part 4: string tools' },
+  { key: 'python:1:2', name: 'part_1_3', day: 1, title: '1.3 How Python reads your code: line by line' },
+  { key: 'python:2:1', name: 'part_2_2', day: 2, title: '2.2 Changing a variable' },
+  { key: 'python:3:1', name: 'part_3_2', day: 3, title: '3.2 Length and positions' },
+  { key: 'python:3:3', name: 'part_3_4', day: 3, title: '3.4 String tools: upper, lower, strip, replace' },
 ];
 
 const VIEWPORTS = [
@@ -20,7 +30,8 @@ const VIEWPORTS = [
 const THEMES = ['light', 'dark'];
 
 async function capture() {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await chromium.launch({ headless: true });
+  const baseURL = process.env.BASE_URL || 'http://localhost:3000';
 
   for (const vp of VIEWPORTS) {
     for (const theme of THEMES) {
@@ -30,13 +41,11 @@ async function capture() {
       });
 
       const page = await context.newPage();
-      page.on('console', msg => console.log('PAGE LOG:', msg.text()));
-      page.on('pageerror', err => console.log('PAGE ERROR:', err.message));
 
       for (const target of TARGETS) {
         const questId = `python-lecture1-day-${target.day}`;
-        const url = `http://localhost:3000/quests/lesson?questId=${questId}`;
-        console.log(`Navigating to ${target.name} [${vp.label}, ${theme}]...`);
+        const url = `${baseURL}/quests/lesson?questId=${questId}`;
+        console.log(`Capturing ${target.title} (${target.key}) [${vp.label}, ${theme}]...`);
 
         await page.goto(url, { waitUntil: 'load' });
 
@@ -48,33 +57,49 @@ async function capture() {
         }, theme);
 
         // Wait for lesson content to load
-        try {
-          await page.waitForSelector('.lesson-card, .visual-stage-root', { timeout: 10000 });
-        } catch (e) {
-          console.log('Current URL on timeout:', page.url());
-          const bodyText = await page.evaluate(() => document.body.innerText);
-          console.log('Body text on timeout:', bodyText);
-          await page.screenshot({ path: path.join(OUT_DIR, 'debug_timeout.png') });
-          throw e;
+        await page.waitForSelector('.lesson-card, .visual-stage-root', { timeout: 15000 });
+
+        // Advance until the target visual key is visible
+        let found = false;
+        for (let s = 0; s < 10; s++) {
+          const currentKey = await page.evaluate(() => {
+            const el = document.querySelector('[data-visual-key]');
+            return el ? el.getAttribute('data-visual-key') : null;
+          });
+          if (currentKey === target.key) {
+            found = true;
+            break;
+          }
+          const nextBtn = page.locator('button[data-testid="btn-next-slide"]');
+          if (await nextBtn.isVisible()) {
+            await nextBtn.click();
+            await page.waitForTimeout(400);
+          } else {
+            break;
+          }
         }
 
-        // Navigate to target slide if needed
-        for (let s = 0; s < target.targetSlide; s++) {
-          await page.evaluate(() => {
-            const btn = document.querySelector('button[data-testid="btn-next-slide"]');
-            if (btn) btn.click();
-          });
-          await page.waitForTimeout(500);
+        if (!found) {
+          throw new Error(`Failed to find target visual key ${target.key} on day ${target.day}`);
         }
 
         // Wait for visual stage to settle
         await page.waitForTimeout(500);
 
         const filename = `${target.name}_${vp.label}_${theme}.png`;
-        const filepath = path.join(OUT_DIR, filename);
+        const filepath = path.join(REPO_OUT_DIR, filename);
 
         await page.screenshot({ path: filepath, fullPage: vp.width < 1024 });
-        console.log(`Saved screenshot: ${filename}`);
+        console.log(`Saved screenshot: ${filepath}`);
+
+        if (fs.existsSync(LOCAL_BRAIN_DIR)) {
+          const brainPath = path.join(LOCAL_BRAIN_DIR, filename);
+          try {
+            fs.copyFileSync(filepath, brainPath);
+          } catch {
+            // local brain copy optional
+          }
+        }
       }
 
       await context.close();
@@ -82,7 +107,7 @@ async function capture() {
   }
 
   await browser.close();
-  console.log('All screenshots captured successfully!');
+  console.log('All 16 screenshots captured successfully!');
 }
 
 capture().catch((err) => {

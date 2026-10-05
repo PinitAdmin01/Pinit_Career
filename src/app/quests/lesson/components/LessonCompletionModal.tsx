@@ -126,7 +126,7 @@ export function LessonCompletionModal({
                 textAlign: 'center'
               }}>
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Pins Bonus</div>
-                <div style={{ fontSize: 20, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+{displayPins} Pins</div>
+                <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--amber)', marginTop: 2 }}>+{displayPins} Pins</div>
               </div>
             </div>}
 

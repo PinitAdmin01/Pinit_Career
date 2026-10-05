@@ -52,11 +52,11 @@ export function LessonCodeEditor({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        background: '#1e293b',
+        background: 'var(--bg2)',
         padding: '6px 12px',
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
-        borderBottom: '1px solid rgba(255,255,255,0.06)'
+        borderBottom: '1px solid var(--border)'
       }}>
         <span style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
           {fileName}{edited ? ' • edited' : ''}
@@ -115,15 +115,15 @@ export function LessonCodeEditor({
           width: '100%',
           boxSizing: 'border-box',
           resize: 'vertical',
-          background: '#0e1420',
+          background: 'var(--bg3)',
           padding: '14px 18px',
           borderBottomLeftRadius: codeOutput ? 0 : 12,
           borderBottomRightRadius: codeOutput ? 0 : 12,
           fontSize: 12.5,
           lineHeight: 1.55,
           fontFamily: 'var(--font-mono)',
-          color: '#e2e8f0',
-          border: '1px solid rgba(255,255,255,0.06)',
+          color: 'var(--t1)',
+          border: '1px solid var(--border)',
           borderTop: 'none',
           margin: 0,
           outline: 'none',
@@ -134,15 +134,15 @@ export function LessonCodeEditor({
       />
       {codeOutput && (
         <div style={{
-          background: '#05070a',
-          border: '1px solid rgba(255,255,255,0.06)',
+          background: 'var(--bg3)',
+          border: '1px solid var(--border)',
           borderTop: 'none',
           borderBottomLeftRadius: 12,
           borderBottomRightRadius: 12,
           padding: '10px 14px',
           fontFamily: 'var(--font-mono)',
           fontSize: 12,
-          color: '#a7f3d0'
+          color: 'var(--success)'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-dim)', marginBottom: 6, fontSize: 10.5 }}>
             <span>

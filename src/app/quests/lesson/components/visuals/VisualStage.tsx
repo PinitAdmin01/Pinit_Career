@@ -53,6 +53,7 @@ export function VisualStage({
             step={visual.steps[safeStepIndex]}
             highlightedLabel={highlightedLabel}
             onShapeTap={onShapeTap}
+            showSpaces={visual.showSpaces}
           />
         );
       case 'boxes':
@@ -62,6 +63,7 @@ export function VisualStage({
             step={visual.steps[safeStepIndex]}
             highlightedLabel={highlightedLabel}
             onShapeTap={onShapeTap}
+            showSpaces={visual.showSpaces}
           />
         );
       case 'table':
@@ -69,6 +71,7 @@ export function VisualStage({
           <TableTemplate
             columns={visual.columns}
             step={visual.steps[safeStepIndex]}
+            showSpaces={visual.showSpaces}
           />
         );
       case 'letters':
@@ -76,6 +79,7 @@ export function VisualStage({
           <LettersTemplate
             text={visual.text}
             step={visual.steps[safeStepIndex]}
+            showSpaces={visual.showSpaces}
           />
         );
       case 'compare':
@@ -84,6 +88,7 @@ export function VisualStage({
             leftLabel={visual.leftLabel}
             rightLabel={visual.rightLabel}
             step={visual.steps[safeStepIndex]}
+            showSpaces={visual.showSpaces}
           />
         );
       default:
@@ -122,11 +127,32 @@ export function VisualStage({
         @media (max-width: 1023px) {
           .visual-stage-root {
             max-height: ${isMobileCollapsed ? '54px' : '260px'} !important;
-            overflow-y: auto !important;
-            padding: 12px 14px !important;
+            height: ${isMobileCollapsed ? '54px' : '260px'} !important;
+            overflow-y: hidden !important;
+            padding: 8px 10px !important;
           }
           .visual-stage-body {
             display: ${isMobileCollapsed ? 'none' : 'flex'} !important;
+          }
+          .visual-stage-canvas {
+            min-height: 0 !important;
+            flex: 1 1 auto !important;
+            overflow-y: auto !important;
+            padding: 4px 0 !important;
+          }
+          .visual-stage-footer {
+            flex-shrink: 0 !important;
+            padding-top: 6px !important;
+            gap: 6px !important;
+          }
+          .visual-stage-caption {
+            font-size: 13px !important;
+            line-height: 1.3 !important;
+            min-height: 18px !important;
+          }
+          .stage-nav-btn {
+            padding: 4px 10px !important;
+            font-size: 11.5px !important;
           }
         }
         .step-dot {
@@ -239,7 +265,7 @@ export function VisualStage({
 
       {/* Visual Canvas Body */}
       <div
-        className="visual-stage-body"
+        className="visual-stage-body visual-stage-canvas"
         style={{
           flex: 1,
           display: 'flex',
@@ -255,7 +281,7 @@ export function VisualStage({
 
       {/* Footer: One-line Caption & Navigation Controls */}
       <div
-        className="visual-stage-body"
+        className="visual-stage-body visual-stage-footer"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -267,6 +293,7 @@ export function VisualStage({
         {/* Caption (aria-live="polite", at least 15px) */}
         <div
           aria-live="polite"
+          className="visual-stage-caption"
           style={{
             fontSize: '15px',
             lineHeight: 1.4,

@@ -45,7 +45,76 @@ export function LessonHeader({
   isTest = false,
 }: LessonHeaderProps) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
+    <div className="lesson-header-root">
+      <style>{`
+        .lesson-header-root {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          flex-shrink: 0;
+          gap: 10px;
+          width: 100%;
+          min-width: 0;
+          overflow-x: hidden;
+        }
+        .lesson-header-controls {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          min-width: 0;
+          width: 100%;
+        }
+        .lesson-header-btn-row {
+          display: flex;
+          gap: 6px;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          width: 100%;
+        }
+        .lesson-progress-pills-row {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          max-width: 100%;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+        .lesson-progress-pill {
+          height: 10px;
+          flex: 1 1 0px;
+          width: auto;
+          min-width: 8px;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 8px;
+          transition: all 0.3s ease;
+        }
+        @media (min-width: 768px) {
+          .lesson-header-root {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+          }
+          .lesson-header-controls {
+            align-items: flex-end;
+            width: auto;
+          }
+          .lesson-header-btn-row {
+            justify-content: flex-end;
+            width: auto;
+          }
+          .lesson-progress-pill {
+            flex: 0 1 24px;
+            width: 24px;
+            min-width: 12px;
+          }
+        }
+      `}</style>
       <div>
         <span style={{
           fontSize: 11,
@@ -59,12 +128,12 @@ export function LessonHeader({
         }}>
           {isTest ? 'Test' : 'Lesson'}
         </span>
-        <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginTop: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>
+        <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.3px', lineHeight: 1.25 }}>
           {questTitle}
         </h2>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+      <div className="lesson-header-controls">
+        <div className="lesson-header-btn-row">
           <button
             onClick={() => {
               const nextState = !isFocusMusicEnabled;
@@ -110,7 +179,6 @@ export function LessonHeader({
               />
             </div>
           )}
-        </div>
         {!isAudioUnlocked && (
           <button
             onClick={() => {
@@ -121,7 +189,7 @@ export function LessonHeader({
             }}
             style={{
               background: 'rgba(var(--success-rgb),  0.2)',
-              border: '1.5px solid #10b981',
+              border: '1.5px solid var(--success)',
               color: 'var(--success)',
               borderRadius: 10,
               padding: '4px 10px',
@@ -150,9 +218,9 @@ export function LessonHeader({
             }
           }}
           style={{
-            background: 'rgba(234, 179, 8, 0.15)',
-            border: '1.5px solid rgba(234, 179, 8, 0.4)',
-            color: '#eab308',
+            background: 'rgba(var(--warning-rgb), 0.15)',
+            border: '1.5px solid rgba(var(--warning-rgb), 0.4)',
+            color: 'var(--warning)',
             borderRadius: 10,
             padding: '4px 10px',
             fontSize: 11.5,
@@ -167,71 +235,67 @@ export function LessonHeader({
           ⚡ Skip to the code
         </button>
         )}
-        <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-          Slide {currentSlide + 1} / {totalSlides}
-        </span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          {[...Array(totalSlides)].map((_, idx) => {
-            const isCurrent = currentSlide === idx;
-            const isCompleted = currentSlide > idx;
-            const isExam = idx === totalSlides - 1;
-            const isLocked = idx > maxUnlockedSlide;
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: 8 }}>
+          <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+            Slide {currentSlide + 1} / {totalSlides}
+          </span>
+          <div className="lesson-progress-pills-row">
+            {[...Array(totalSlides)].map((_, idx) => {
+              const isCurrent = currentSlide === idx;
+              const isCompleted = currentSlide > idx;
+              const isExam = idx === totalSlides - 1;
+              const isLocked = idx > maxUnlockedSlide;
 
-            let bg = 'rgba(255,255,255,0.06)';
-            let border = '1px solid rgba(255,255,255,0.1)';
-            let content = '';
+              let bg = 'rgba(255,255,255,0.06)';
+              let border = '1px solid rgba(255,255,255,0.1)';
+              let content = '';
 
-            if (isExam) {
-              bg = examPassed ? 'var(--green)' : isLocked ? 'rgba(255,255,255,0.03)' : 'rgba(234,179,8,0.1)';
-              border = examPassed ? '1px solid var(--green)' : isLocked ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(234,179,8,0.4)';
-              content = isLocked ? '🔒' : '⭐';
-            } else if (isCompleted) {
-              bg = 'var(--success)';
-              border = '1px solid #10b981';
-            } else if (isCurrent) {
-              bg = isInteractive ? 'var(--warning)' : 'var(--accent)';
-              border = isInteractive ? '1px solid #f59e0b' : '1px solid var(--accent)';
-            } else if (isLocked) {
-              bg = 'rgba(255,255,255,0.02)';
-              border = '1px solid rgba(255,255,255,0.04)';
-            }
+              if (isExam) {
+                bg = examPassed ? 'var(--green)' : isLocked ? 'rgba(255,255,255,0.03)' : 'rgba(var(--warning-rgb), 0.1)';
+                border = examPassed ? '1px solid var(--green)' : isLocked ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(var(--warning-rgb), 0.4)';
+                content = isLocked ? '🔒' : '⭐';
+              } else if (isCompleted) {
+                bg = 'var(--success)';
+                border = '1px solid var(--success)';
+              } else if (isCurrent) {
+                bg = isInteractive ? 'var(--warning)' : 'var(--accent)';
+                border = isInteractive ? '1px solid var(--warning)' : '1px solid var(--accent)';
+              } else if (isLocked) {
+                bg = 'rgba(255,255,255,0.02)';
+                border = '1px solid rgba(255,255,255,0.04)';
+              }
 
-            return (
-              <div
-                key={idx}
-                title={isExam ? (isLocked ? 'Exam Locked (Complete earlier slides)' : 'Exam Stage') : isLocked ? `Slide ${idx + 1} (Locked)` : `Slide ${idx + 1}`}
-                onClick={() => {
-                  if (isLocked) {
-                    if (isExam) {
-                      toast.warning("Exam Locked 🔒", "Complete all lesson slides and concept checks before taking the final exam.");
-                    } else {
-                      toast.info("Slide Locked 🔒", "Complete earlier slides before advancing to this stage.");
+              return (
+                <div
+                  key={idx}
+                  className="lesson-progress-pill"
+                  title={isExam ? (isLocked ? 'Exam Locked (Complete earlier slides)' : 'Exam Stage') : isLocked ? `Slide ${idx + 1} (Locked)` : `Slide ${idx + 1}`}
+                  onClick={() => {
+                    if (isLocked) {
+                      if (isExam) {
+                        toast.warning("Exam Locked 🔒", "Complete all lesson slides and concept checks before taking the final exam.");
+                      } else {
+                        toast.info("Slide Locked 🔒", "Complete earlier slides before advancing to this stage.");
+                      }
+                      return;
                     }
-                    return;
-                  }
-                  stopSpeaking();
-                  setIsPlaying(false);
-                  setCurrentSlide(idx);
-                }}
-                style={{
-                  height: 12,
-                  width: isExam ? 26 : 32,
-                  borderRadius: 6,
-                  background: bg,
-                  border: border,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 9,
-                  cursor: isLocked ? 'not-allowed' : 'pointer',
-                  opacity: isLocked ? 0.35 : 1,
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                {content}
-              </div>
-            );
-          })}
+                    stopSpeaking();
+                    setIsPlaying(false);
+                    setCurrentSlide(idx);
+                  }}
+                  style={{
+                    background: bg,
+                    border: border,
+                    cursor: isLocked ? 'not-allowed' : 'pointer',
+                    opacity: isLocked ? 0.35 : 1,
+                  }}
+                >
+                  {content}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

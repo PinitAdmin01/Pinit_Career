@@ -486,6 +486,7 @@ export const PYTHON_M1_VISUALS: Record<string, { partTitle: string; visual: Less
     visual: {
       template: 'flow',
       title: '+ joins text exactly as it is',
+      showSpaces: true,
       nodes: [
         { id: 'a', label: 'Hello, ', tappable: false },
         { id: 'b', label: 'first' },
@@ -598,6 +599,7 @@ export const PYTHON_M1_VISUALS: Record<string, { partTitle: string; visual: Less
     visual: {
       template: 'flow',
       title: 'Cleaning text step by step',
+      showSpaces: true,
       nodes: [
         { id: 'typed', label: 'typed' },
         { id: 'strip', label: 'strip()' },
@@ -695,6 +697,7 @@ export const PYTHON_M1_VISUALS: Record<string, { partTitle: string; visual: Less
     visual: {
       template: 'flow',
       title: 'Clean the input, then use it',
+      showSpaces: true,
       nodes: [
         { id: 'item', label: 'item' },
         { id: 'clean_item', label: 'clean_item' },

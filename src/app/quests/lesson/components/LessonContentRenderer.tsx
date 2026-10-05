@@ -6,8 +6,11 @@ import { CONCEPT_ANALOGIES_REGISTRY, findConceptAnalogy } from '@/lib/data/conce
 import { LessonCodeEditor } from './LessonCodeEditor';
 import { LessonQuizBlock } from './LessonQuizBlock';
 import { VisualStage } from './visuals';
-import { TeacherAvatarFrame } from './TeacherAvatarFrame';
 import type { LessonVisual } from '@/lib/types/lessonVisual';
+import {
+  getTappableLabelsForVisual,
+  tokenizeParagraphWithUnderlines,
+} from '@/lib/visuals/visualRules';
 
 interface LessonContentRendererProps {
   userId: string;
@@ -68,23 +71,6 @@ interface LessonContentRendererProps {
   onSyncWithVoice?: () => void;
 }
 
-function getTappableLabelsForVisual(visual?: LessonVisual | null): string[] {
-  if (!visual) return [];
-  if (visual.template === 'flow') {
-    return visual.nodes.filter(n => n.tappable !== false).map(n => n.label);
-  }
-  if (visual.template === 'boxes') {
-    return visual.boxes.filter(b => b.tappable !== false).map(b => b.label);
-  }
-  if (visual.template === 'compare') {
-    return [visual.leftLabel, visual.rightLabel].filter(Boolean);
-  }
-  if (visual.template === 'table') {
-    return visual.columns.filter(c => Boolean(c));
-  }
-  return [];
-}
-
 function renderWithTappableWords(
   text: string,
   labels: string[],
@@ -92,40 +78,33 @@ function renderWithTappableWords(
   onWordClick: (label: string) => void,
   onWordHover?: (label: string | null) => void
 ): React.ReactNode {
-  if (!text || !labels || labels.length === 0) return text;
+  const tokens = tokenizeParagraphWithUnderlines(text, labels);
+  if (tokens.length <= 1 && (!tokens[0] || !tokens[0].isUnderlined)) {
+    return text;
+  }
 
-  const validLabels = labels.filter(l => Boolean(l && l.trim()));
-  if (validLabels.length === 0) return text;
-
-  const sortedLabels = [...validLabels].sort((a, b) => b.length - a.length);
-  const pattern = sortedLabels.map(l => l.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-  const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
-
-  const parts = text.split(regex);
-  if (parts.length <= 1) return text;
-
-  return parts.map((part, idx) => {
-    const matchedLabel = validLabels.find(l => l.toLowerCase() === part.toLowerCase());
-    if (!matchedLabel) {
-      return <React.Fragment key={idx}>{part}</React.Fragment>;
+  return tokens.map((token, idx) => {
+    if (!token.isUnderlined || !token.matchedLabel) {
+      return <React.Fragment key={idx}>{token.text}</React.Fragment>;
     }
 
-    const isHighlighted = highlightedLabel && highlightedLabel.toLowerCase() === matchedLabel.toLowerCase();
+    const lowerKey = token.matchedLabel.toLowerCase();
+    const isHighlighted = highlightedLabel && highlightedLabel.toLowerCase() === lowerKey;
 
     return (
       <button
         key={idx}
         type="button"
-        data-testid={`tappable-word-${matchedLabel.toLowerCase()}`}
+        data-testid={`tappable-word-${lowerKey}`}
         onClick={(e) => {
           e.stopPropagation();
-          onWordClick(matchedLabel);
+          onWordClick(token.matchedLabel!);
         }}
-        onMouseEnter={() => onWordHover && onWordHover(matchedLabel)}
+        onMouseEnter={() => onWordHover && onWordHover(token.matchedLabel!)}
         onMouseLeave={() => onWordHover && onWordHover(null)}
         style={{
           display: 'inline',
-          background: isHighlighted ? 'rgba(56, 189, 248, 0.2)' : 'transparent',
+          background: isHighlighted ? 'color-mix(in srgb, var(--accent) 20%, transparent)' : 'transparent',
           border: 'none',
           borderBottom: isHighlighted ? '2px solid var(--accent)' : '1px dashed var(--accent)',
           color: isHighlighted ? 'var(--accent)' : 'inherit',
@@ -136,9 +115,9 @@ function renderWithTappableWords(
           borderRadius: 2,
           transition: 'background 0.15s ease, border-color 0.15s ease, color 0.15s ease',
         }}
-        title={`Tap to highlight ${matchedLabel} in the visual`}
+        title={`Tap to highlight ${token.matchedLabel} in the visual`}
       >
-        {part}
+        {token.text}
       </button>
     );
   });
@@ -234,11 +213,14 @@ export function LessonContentRenderer({
   }, []);
 
   return (
-    <>
-      <div className={`interactive-container ${!currentVisual ? 'no-visual' : ''}`}>
-        {/* Left Column: Visual Stage (when slide has a visual) */}
-        {currentVisual && (
-          <div className="interactive-left-col">
+    <div className={`interactive-container ${!currentVisual ? 'no-visual' : ''}`}>
+      {/* Left Column: Visual Stage (when slide has a visual) */}
+      {currentVisual && (
+        <div
+          className="interactive-left-col"
+          data-visual-key={currentSlideData?.visualKey}
+          data-part-key={currentSlideData?.visualKey}
+        >
             <VisualStage
               visual={currentVisual}
               currentStepIndex={currentVisualStepIndex}
@@ -358,7 +340,7 @@ export function LessonContentRenderer({
                   onClick={startVoiceInput}
                   style={{
                     background: isRecording ? 'rgba(var(--danger-rgb),  0.15)' : 'var(--bg3)',
-                    border: isRecording ? '1px solid #ef4444' : '1px solid var(--border)',
+                    border: isRecording ? '1px solid var(--coral)' : '1px solid var(--border)',
                     borderRadius: 10,
                     width: 32,
                     height: 32,
@@ -399,7 +381,7 @@ export function LessonContentRenderer({
                     padding: '8px 14px',
                     borderRadius: 10,
                     background: chatInput.trim() && !chatLoading ? teacher.accent : 'var(--bg3)',
-                    color: chatInput.trim() && !chatLoading ? '#fff' : 'var(--t3)',
+                    color: chatInput.trim() && !chatLoading ? 'var(--t1)' : 'var(--t3)',
                     border: 'none',
                     fontSize: 12.5,
                     fontWeight: 700,
@@ -532,7 +514,7 @@ export function LessonContentRenderer({
                         border: '1px solid rgba(var(--info-rgb), 0.3)',
                         boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                       }}>
-                        <div style={{ fontSize: 11.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
+                        <div style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
                           🏢 Real-life example
                         </div>
                         <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
@@ -568,10 +550,10 @@ export function LessonContentRenderer({
 
                   {slide.projectCode && (
                     <div data-testid="lesson-project-code">
-                      <div style={{ background: '#1e293b', padding: '6px 12px', borderTopLeftRadius: 12, borderTopRightRadius: 12, fontSize: 11.5, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                      <div style={{ background: 'var(--bg2)', padding: '6px 12px', borderTopLeftRadius: 12, borderTopRightRadius: 12, fontSize: 11.5, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                         💻 {slide.projectCode.label}
                       </div>
-                      <pre style={{ margin: 0, background: '#0e1420', padding: '14px 18px', borderBottomLeftRadius: 12, borderBottomRightRadius: 12, fontSize: 12.5, lineHeight: 1.55, fontFamily: 'var(--font-mono)', color: '#e2e8f0', overflowX: 'auto', border: '1px solid rgba(255,255,255,0.06)', borderTop: 'none' }}>
+                      <pre style={{ margin: 0, background: 'var(--bg3)', padding: '14px 18px', borderBottomLeftRadius: 12, borderBottomRightRadius: 12, fontSize: 12.5, lineHeight: 1.55, fontFamily: 'var(--font-mono)', color: 'var(--t1)', overflowX: 'auto', border: '1px solid var(--border)', borderTop: 'none' }}>
                         <code>{slide.projectCode.code}</code>
                       </pre>
                     </div>
@@ -725,16 +707,5 @@ export function LessonContentRenderer({
         )}
       </div>
     </div>
-
-    {/* Bottom-right Teacher Avatar Picture-in-Picture */}
-    <TeacherAvatarFrame
-      userId={userId}
-      teacherId={teacherId}
-      teacher={teacher}
-      isPlaying={isPlaying}
-      speechText={latestAIResponse || getSpeakerText()}
-      questData={questData}
-    />
-  </>
   );
 }

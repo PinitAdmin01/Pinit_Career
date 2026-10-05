@@ -6,12 +6,14 @@ interface CompareTemplateProps {
   leftLabel: string;
   rightLabel: string;
   step: CompareStep;
+  showSpaces?: boolean;
 }
 
 export function CompareTemplate({
   leftLabel,
   rightLabel,
   step,
+  showSpaces,
 }: CompareTemplateProps): React.ReactElement {
   const renderPanel = (label: string, panel: CompareStep['left']) => {
     const tone = panel.tone || 'idle';
@@ -61,7 +63,7 @@ export function CompareTemplate({
             wordBreak: 'break-word',
           }}
         >
-          <RenderWithFaintSpaces text={panel.code} />
+          <RenderWithFaintSpaces text={panel.code} showSpaces={showSpaces} />
         </div>
 
         {/* Panel Result */}
@@ -82,7 +84,7 @@ export function CompareTemplate({
           <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             Result:
           </span>
-          <RenderWithFaintSpaces text={panel.result} />
+          <RenderWithFaintSpaces text={panel.result} showSpaces={showSpaces} />
         </div>
       </div>
     );

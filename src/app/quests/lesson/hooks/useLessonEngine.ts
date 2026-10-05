@@ -333,7 +333,7 @@ export function useLessonEngine({
   }, []);
 
   const launchConfetti = useCallback(() => {
-    const colors = ['#f43f5e', '#ec4899', '#d946ef', '#a855f7', 'var(--reward)', '#3b82f6', '#10b981'];
+    const colors = ['var(--coral)', 'var(--accent)', 'var(--amber)', 'var(--green)', 'var(--reward)', 'var(--t1)'];
     const count = 75;
     const newParticles: any[] = [];
 
@@ -533,6 +533,7 @@ export function useLessonEngine({
           codeNotes: part.codeNotes,
           tryIt: part.tryIt,
           projectCode: part.projectCode,
+          visualKey,
           visual,
           speechPieces,
           speech: speechPieces.map(p => p.text).join(' '),

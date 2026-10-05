@@ -7,6 +7,7 @@ interface BoxesTemplateProps {
   step: BoxesStep;
   highlightedLabel: string | null;
   onShapeTap?: (label: string) => void;
+  showSpaces?: boolean;
 }
 
 export function BoxesTemplate({
@@ -14,6 +15,7 @@ export function BoxesTemplate({
   step,
   highlightedLabel,
   onShapeTap,
+  showSpaces,
 }: BoxesTemplateProps): React.ReactElement {
   return (
     <div
@@ -127,7 +129,7 @@ export function BoxesTemplate({
               }}
             >
               {value !== '' ? (
-                <RenderWithFaintSpaces text={value} />
+                <RenderWithFaintSpaces text={value} showSpaces={showSpaces} />
               ) : (
                 <span style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: 400 }}>
                   (empty)

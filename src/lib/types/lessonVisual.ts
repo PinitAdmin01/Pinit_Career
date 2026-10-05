@@ -53,8 +53,8 @@ export interface CompareStep extends Omit<StepBase, 'checks' | 'whatIf'> {
 }
 
 export type LessonVisual =
-  | { template: 'flow'; title: string; nodes: Node[]; steps: FlowStep[] }
-  | { template: 'boxes'; title: string; boxes: Node[]; steps: BoxesStep[] }
-  | { template: 'table'; title: string; columns: [string, string]; steps: TableStep[] }
-  | { template: 'letters'; title: string; text: string; steps: LettersStep[] }
-  | { template: 'compare'; title: string; leftLabel: string; rightLabel: string; steps: CompareStep[] };
+  | { template: 'flow'; title: string; nodes: Node[]; steps: FlowStep[]; showSpaces?: boolean }
+  | { template: 'boxes'; title: string; boxes: Node[]; steps: BoxesStep[]; showSpaces?: boolean }
+  | { template: 'table'; title: string; columns: [string, string]; steps: TableStep[]; showSpaces?: boolean }
+  | { template: 'letters'; title: string; text: string; steps: LettersStep[]; showSpaces?: boolean }
+  | { template: 'compare'; title: string; leftLabel: string; rightLabel: string; steps: CompareStep[]; showSpaces?: boolean };

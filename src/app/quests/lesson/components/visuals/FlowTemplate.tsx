@@ -7,6 +7,7 @@ interface FlowTemplateProps {
   step: FlowStep;
   highlightedLabel: string | null;
   onShapeTap?: (label: string) => void;
+  showSpaces?: boolean;
 }
 
 export function FlowTemplate({
@@ -14,6 +15,7 @@ export function FlowTemplate({
   step,
   highlightedLabel,
   onShapeTap,
+  showSpaces,
 }: FlowTemplateProps): React.ReactElement {
   const isLitArrow = (fromId: string, toId: string): boolean => {
     return step.arrows.some(([from, to]: [string, string]) => from === fromId && to === toId);
@@ -90,7 +92,7 @@ export function FlowTemplate({
           }}
         >
           {value ? (
-            <RenderWithFaintSpaces text={value} />
+            <RenderWithFaintSpaces text={value} showSpaces={showSpaces} />
           ) : (
             <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>(empty)</span>
           )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), {
@@ -30,6 +30,11 @@ export interface TeacherAvatarFrameProps {
   questData: LessonQuestData | null | undefined;
 }
 
+/**
+ * Spec v1.1 Rule:
+ * Docked teacher avatar frame inside the bottom navigation bar.
+ * Never floats over the page or overlaps any buttons/links.
+ */
 export function TeacherAvatarFrame({
   userId,
   teacherId,
@@ -38,217 +43,139 @@ export function TeacherAvatarFrame({
   speechText,
   questData,
 }: TeacherAvatarFrameProps): React.ReactElement {
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  return (
+    <div
+      className="teacher-avatar-docked-frame"
+      data-testid="teacher-avatar-dock"
+      style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '4px 10px 4px 6px',
+        borderRadius: '24px',
+        background: 'var(--bg2)',
+        border: `1.5px solid ${isPlaying ? (teacher.accent || 'var(--accent)') : 'var(--border)'}`,
+        boxShadow: isPlaying
+          ? '0 0 12px color-mix(in srgb, var(--accent) 25%, transparent)'
+          : 'var(--shadow-sm)',
+        transition: 'all 0.2s ease',
+        flexShrink: 0,
+        height: '42px',
+        boxSizing: 'border-box',
+      }}
+      aria-label={`Tutor: ${teacher.name}`}
+    >
+      <style>{`
+        .teacher-avatar-docked-info {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.15;
+        }
+        @media (max-width: 639px) {
+          .teacher-avatar-docked-info {
+            display: none !important;
+          }
+          .teacher-avatar-docked-waveform {
+            display: none !important;
+          }
+          .teacher-avatar-docked-frame {
+            padding: 2px !important;
+            border-radius: 50% !important;
+            width: 38px !important;
+            height: 38px !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
 
-  useEffect(() => {
-    const checkScreen = () => {
-      const mobile = window.innerWidth < 1024;
-      setIsMobile(mobile);
-      if (mobile) {
-        setIsMinimized(true);
-      }
-    };
-    checkScreen();
-    window.addEventListener('resize', checkScreen);
-    return () => window.removeEventListener('resize', checkScreen);
-  }, []);
-
-  const shouldShowBubble = isMinimized || isMobile;
-
-  if (shouldShowBubble) {
-    return (
+      {/* Avatar Face / Emoji */}
       <div
-        onClick={() => {
-          if (!isMobile) {
-            setIsMinimized(false);
-          }
-        }}
-        role="button"
-        tabIndex={0}
-        aria-label={isMobile ? `Tutor ${teacher.name}` : `Expand tutor ${teacher.name}`}
-        onKeyDown={(e) => {
-          if ((e.key === 'Enter' || e.key === ' ') && !isMobile) {
-            e.preventDefault();
-            setIsMinimized(false);
-          }
-        }}
         style={{
-          position: 'fixed',
-          right: '24px',
-          bottom: '24px',
-          width: '48px',
-          height: '48px',
+          width: '32px',
+          height: '32px',
           borderRadius: '50%',
-          background: 'rgba(15, 23, 42, 0.95)',
-          border: `2px solid ${isPlaying ? (teacher.accent || 'var(--accent)') : 'var(--border)'}`,
-          boxShadow: isPlaying
-            ? `0 0 12px var(--accent), 0 4px 16px rgba(0, 0, 0, 0.5)`
-            : '0 4px 16px rgba(0, 0, 0, 0.4)',
+          background: 'var(--bg3)',
+          border: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          cursor: isMobile ? 'default' : 'pointer',
-          zIndex: 50,
-          transition: 'transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease',
-        }}
-        title={isMobile ? teacher.name : 'Click to expand avatar frame'}
-      >
-        <span style={{ fontSize: '22px', userSelect: 'none' }}>{teacher.avatar || '👨‍🏫'}</span>
-
-        {/* Pulsing voice ring when speaking */}
-        {isPlaying && (
-          <span
-            style={{
-              position: 'absolute',
-              top: '-3px',
-              right: '-3px',
-              width: '12px',
-              height: '12px',
-              borderRadius: '50%',
-              background: 'var(--success)',
-              border: '2px solid rgba(15, 23, 42, 0.95)',
-            }}
-          />
-        )}
-      </div>
-    );
-  }
-
-  // Desktop expanded frame (220px × 165px)
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        right: '24px',
-        bottom: '24px',
-        width: '220px',
-        height: '165px',
-        borderRadius: '16px',
-        background: 'rgba(15, 23, 42, 0.92)',
-        backdropFilter: 'blur(12px)',
-        border: `1.5px solid ${isPlaying ? (teacher.accent || 'var(--accent)') : 'var(--border)'}`,
-        boxShadow: isPlaying
-          ? '0 0 16px color-mix(in srgb, var(--accent) 30%, transparent), 0 8px 32px rgba(0, 0, 0, 0.6)'
-          : '0 8px 32px rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        zIndex: 50,
-        transition: 'border-color 300ms ease, box-shadow 300ms ease',
-      }}
-      aria-label={`Tutor screen: ${teacher.name}`}
-    >
-      {/* Frame Top Header */}
-      <div
-        style={{
-          height: '28px',
-          padding: '4px 10px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          background: 'rgba(0, 0, 0, 0.35)',
+          position: 'relative',
+          overflow: 'hidden',
           flexShrink: 0,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <span style={{ fontSize: '18px', userSelect: 'none' }}>
+          {teacher.avatar || '👨‍🏫'}
+        </span>
+
+        {/* Live speaking indicator dot */}
+        {isPlaying && (
           <span
             style={{
+              position: 'absolute',
+              top: '1px',
+              right: '1px',
               width: '7px',
               height: '7px',
               borderRadius: '50%',
-              background: isPlaying ? 'var(--success)' : 'var(--text-muted)',
-              boxShadow: isPlaying ? '0 0 6px var(--success)' : 'none',
+              background: 'var(--success)',
+              boxShadow: '0 0 4px var(--success)',
             }}
           />
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'var(--t1)',
-              letterSpacing: '0.02em',
-            }}
-          >
-            {teacher.name}
-          </span>
-        </div>
-
-        {/* Minimize Button */}
-        <button
-          type="button"
-          onClick={() => setIsMinimized(true)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--text-muted)',
-            fontSize: '13px',
-            lineHeight: 1,
-            cursor: 'pointer',
-            padding: '2px 4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          aria-label="Minimise avatar screen"
-          title="Minimise to bubble"
-        >
-          −
-        </button>
-      </div>
-
-      {/* Avatar Container */}
-      <div
-        style={{
-          flex: 1,
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-        }}
-      >
-        <AvatarMentorWidget
-          userId={userId}
-          teacherId={teacherId}
-          onlyAvatar={true}
-          speaking={isPlaying}
-          speechText={speechText}
-          activeQuest={questData}
-        />
-
-        {/* Audio Waveform Indicator when speaking */}
-        {isPlaying && (
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '6px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '2px',
-              background: 'rgba(15, 23, 42, 0.75)',
-              padding: '2px 8px',
-              borderRadius: '10px',
-              backdropFilter: 'blur(4px)',
-            }}
-          >
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  width: '2px',
-                  height: '10px',
-                  background: teacher.accent,
-                  borderRadius: '1px',
-                  opacity: 0.85,
-                }}
-              />
-            ))}
-          </div>
         )}
       </div>
+
+      {/* Teacher Name & Status (Desktop / Tablet) */}
+      <div className="teacher-avatar-docked-info">
+        <span
+          style={{
+            fontSize: '11.5px',
+            fontWeight: 800,
+            color: 'var(--t1)',
+            letterSpacing: '0.01em',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {teacher.name}
+        </span>
+        <span
+          style={{
+            fontSize: '9.5px',
+            fontWeight: 600,
+            color: isPlaying ? 'var(--success)' : 'var(--text-muted)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {isPlaying ? 'Speaking...' : 'Tutor'}
+        </span>
+      </div>
+
+      {/* Mini Waveform (when speaking) */}
+      {isPlaying && (
+        <div
+          className="teacher-avatar-docked-waveform"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2px',
+            paddingLeft: '4px',
+          }}
+          aria-hidden="true"
+        >
+          {[0.6, 1, 0.7, 0.4].map((scale, i) => (
+            <div
+              key={i}
+              style={{
+                width: '2px',
+                height: `${12 * scale}px`,
+                background: teacher.accent || 'var(--accent)',
+                borderRadius: '1px',
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

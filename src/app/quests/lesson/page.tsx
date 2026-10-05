@@ -55,24 +55,6 @@ const lessonStyles = `
     100% { box-shadow: 0 0 0 0 rgba(var(--danger-rgb),  0); }
   }
 
-  .lesson-card {
-    width: 85vw;
-    height: 85vh;
-    max-width: 1440px;
-    max-height: 850px;
-    padding: 24px 32px;
-    border-radius: 24px;
-    border: 1.5px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: linear-gradient(135deg, var(--bg2), var(--bg3));
-    box-shadow: var(--shadow-xl);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
   .avatar-spotlight {
     position: absolute;
     width: 250px;
@@ -133,7 +115,7 @@ const lessonStyles = `
   }
   .chat-bubble.user {
     background: var(--accent);
-    color: #ffffff;
+    color: var(--t1);
     border-bottom-right-radius: 4px;
     align-self: flex-end;
   }
@@ -153,7 +135,7 @@ const lessonStyles = `
     background: var(--bg1);
     color: var(--t2);
     font-size: 11.5px;
-    fontWeight: 700;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
   }
@@ -181,71 +163,141 @@ const lessonStyles = `
     animation: float 3s ease-in-out infinite;
   }
 
-  .interactive-container {
-    display: grid;
-    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
-    gap: 20px;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-    align-items: stretch;
+  /* Mobile-first layout: 1 column by default */
+  .classroom-page-root {
     width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background: var(--bg1);
   }
 
-  .interactive-container.no-visual {
-    grid-template-columns: minmax(0, 1fr);
+  .classroom-return-btn {
+    display: none;
+  }
+
+  .lesson-card {
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+    padding: 10px 10px 24px 10px;
+    gap: 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--bg2), var(--bg3));
+    box-shadow: none;
+    position: relative;
+    overflow: visible;
+  }
+
+  .interactive-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    overflow: visible;
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
   }
 
   .interactive-left-col {
+    width: 100%;
     min-width: 0;
+    height: auto;
+    max-height: 260px;
+    min-height: 0;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    height: 100%;
     overflow: hidden;
   }
 
   .interactive-right-col {
+    width: 100%;
     min-width: 0;
-    display: flex;
-    flex-direction: column;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
     background: var(--bg1);
     border-radius: 18px;
     border: 1.5px solid var(--border);
-    overflow: hidden;
-    height: 100%;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
   }
 
   .interactive-right-scroll-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 18px 22px 190px 22px;
+    flex: 1 1 auto;
+    overflow-y: visible;
+    height: auto;
+    padding: 14px 14px 40px 14px;
     display: flex;
     flex-direction: column;
     gap: 14px;
   }
 
-  @media (max-width: 1023px) {
-    .interactive-container {
+  /* Desktop layout: 45/55 split from 1024px up */
+  @media (min-width: 1024px) {
+    .classroom-page-root {
+      height: 100vh;
+      height: 100dvh;
+      padding: 24px;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+    }
+    .classroom-return-btn {
       display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      align-items: stretch;
+    }
+    .lesson-card {
+      width: 85vw;
+      height: 85vh;
+      max-width: 1440px;
+      max-height: 850px;
+      min-height: 0;
+      border-radius: 24px;
+      border: 1.5px solid var(--border);
+      padding: 24px 32px;
+      gap: 16px;
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .interactive-container {
+      display: grid;
+      grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .interactive-container.no-visual {
+      grid-template-columns: minmax(0, 1fr);
     }
     .interactive-left-col {
-      width: 100%;
-      min-height: 0 !important;
-      max-height: 260px !important;
-      height: auto !important;
-      flex: none !important;
+      height: 100%;
+      max-height: none;
+      overflow: hidden;
     }
     .interactive-right-col {
-      width: 100%;
-      flex: 1 !important;
-      min-height: 380px !important;
-      height: auto !important;
+      height: 100%;
+      overflow: hidden;
     }
     .interactive-right-scroll-area {
-      padding-bottom: 90px !important;
+      overflow-y: auto;
+      padding: 18px 22px 40px 22px;
     }
   }
 `;
@@ -459,11 +511,12 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
       boxSizing: 'border-box',
       overflow: 'hidden',
       position: 'relative'
-    }} className="animate-fade-in">
+    }} className="classroom-page-root animate-fade-in">
       <style>{lessonStyles}</style>
 
       {/* Return Button */}
       <button
+        className="classroom-return-btn"
         onClick={() => {
           stopSpeaking();
           if (router && typeof router.push === 'function') {
@@ -595,6 +648,11 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             slidesLength={state.slides.length || syllabus.length}
             understandingConfirmed={state.understandingConfirmed}
             setUnderstandingConfirmed={state.setUnderstandingConfirmed}
+            userId={user?.uid ? String(user.uid) : 'guest'}
+            teacherId={teacherId}
+            isPlaying={state.isPlaying}
+            speechText={engine.getSpeakerText ? engine.getSpeakerText() : ''}
+            questData={questData}
           />
         </div>
       )}

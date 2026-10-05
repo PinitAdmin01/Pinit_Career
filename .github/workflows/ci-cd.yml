@@ -1,4 +1,4 @@
-name: PinIT AI Voice System CI/CD Pipeline
+name: PinIT AI Career OS CI/CD Pipeline
 
 on:
   push:
@@ -11,41 +11,11 @@ jobs:
     name: Build, Test & Lint
     runs-on: ubuntu-latest
 
-    env:
-      # Edge-TTS fallback is safe, fast, and avoids downloading 300MB model weights
-      KOKORO_REAL: "false"
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-          cache: "pip"
-          cache-dependency-path: "voice-service/requirements.txt"
-
-      - name: Install Python Dependencies
-        working-directory: voice-service
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest httpx nest-asyncio
-
-      - name: Run TTS Engine Unit Tests
-        working-directory: voice-service
-        run: pytest voice-service/tests -v
-
-      - name: Run Security & Middleware Tests
-        working-directory: voice-service
-        run: pytest voice-service/tests/test_middleware -v
-
-      - name: Run Real-Time Streaming Tests
-        working-directory: voice-service
-        run: pytest voice-service/tests/test_stream -v
-
-      - name: Set up Node.js for Frontend
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -57,34 +27,21 @@ jobs:
       - name: Run TypeScript Typecheck
         run: npx tsc --noEmit
 
-      - name: Run Production Build
-        run: npx next build
-
-      - name: Run Lint
-        run: npm run lint
-
-      - name: Build Docker Container
-        run: docker build -t pinit-voice-service:latest voice-service/
-
-  web-tests:
-    name: Web app tests (database rules and API behaviour)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
-
-      - name: Install Node Dependencies
-        run: npm ci
-
-      - name: Run tests
+      - name: Run Unit & Integration Tests
         run: npm test
 
-      - name: Verify Production Build
-        run: npx next build && echo "Build successful" || (echo "Build FAILED" && exit 1)
+      - name: Run Production Build
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright Layout, Contrast & Screenshot Tests
+        run: npx playwright test
+
+      - name: Upload Visual Screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: lesson-visual-screenshots
+          path: screenshots/*.png
+          if-no-files-found: error

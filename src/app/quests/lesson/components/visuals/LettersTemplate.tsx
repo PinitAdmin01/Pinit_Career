@@ -5,9 +5,10 @@ import { getToneColor, getToneBg, getToneTextColor, RenderWithFaintSpaces } from
 interface LettersTemplateProps {
   text: string;
   step: LettersStep;
+  showSpaces?: boolean;
 }
 
-export function LettersTemplate({ text, step }: LettersTemplateProps): React.ReactElement {
+export function LettersTemplate({ text, step, showSpaces }: LettersTemplateProps): React.ReactElement {
   const chars = text.split('');
   const len = chars.length;
 
@@ -141,7 +142,7 @@ export function LettersTemplate({ text, step }: LettersTemplateProps): React.Rea
                   transition: 'background 300ms ease, border-color 300ms ease, color 300ms ease',
                 }}
               >
-                {ch === ' ' ? <RenderWithFaintSpaces text=" " /> : ch}
+                {ch === ' ' ? <RenderWithFaintSpaces text=" " showSpaces={showSpaces} /> : ch}
               </div>
 
               {/* Positive index */}
@@ -257,7 +258,7 @@ export function LettersTemplate({ text, step }: LettersTemplateProps): React.Rea
           transition: 'background 300ms ease, border-color 300ms ease, color 300ms ease',
         }}
       >
-        <RenderWithFaintSpaces text={step.result} />
+        <RenderWithFaintSpaces text={step.result} showSpaces={showSpaces} />
       </div>
     </div>
   );
