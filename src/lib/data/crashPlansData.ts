@@ -83,24 +83,37 @@ export const PLAN_TIER_TO_INTERNSHIP: Record<string, InternshipTier> = {
   '12m': 't5_fellowship',
 };
 
+export type InternshipTrack = 'python_ai' | 'web_fullstack';
+
 /**
- * Per-tier switch. The owner turns each one on when that tier's internship
+ * Per-track, per-tier switch. The owner turns each one on when that tier's internship
  * module is built and tested. **NEVER set any of these to true** without
  * explicit owner permission (see T-40).
  */
-export const INTERNSHIP_TIER_AVAILABLE: Record<InternshipTier, boolean> = {
-  t1_job_sim: false,
-  t2_virtual_team: false,
-  t3_project: false,
-  t4_industry: false,
-  t5_fellowship: false,
+export const INTERNSHIP_TIER_AVAILABLE: Record<InternshipTrack, Record<InternshipTier, boolean>> = {
+  python_ai: {
+    t1_job_sim: false,
+    t2_virtual_team: false,
+    t3_project: false,
+    t4_industry: false,
+    t5_fellowship: false,
+  },
+  web_fullstack: {
+    t1_job_sim: false,
+    t2_virtual_team: false,
+    t3_project: false,
+    t4_industry: false,
+    t5_fellowship: false,
+  },
 };
 
 /**
  * True when at least one internship tier is turned on. Derived from
  * INTERNSHIP_TIER_AVAILABLE so it never needs to be edited by hand.
  */
-export const INTERNSHIP_AVAILABLE = Object.values(INTERNSHIP_TIER_AVAILABLE).some(Boolean);
+export const INTERNSHIP_AVAILABLE = Object.values(INTERNSHIP_TIER_AVAILABLE).some((track) =>
+  Object.values(track).some(Boolean)
+);
 
 const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
   {
@@ -817,7 +830,13 @@ function withoutInternship(plan: CrashPlan): CrashPlan {
 
 export const CRASH_COURSE_PLANS: CrashPlan[] = ALL_CRASH_COURSE_PLANS.map((plan) => {
   const internshipTier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
-  if (internshipTier && INTERNSHIP_TIER_AVAILABLE[internshipTier]) return plan;
+  if (
+    internshipTier &&
+    (INTERNSHIP_TIER_AVAILABLE.python_ai[internshipTier] ||
+      INTERNSHIP_TIER_AVAILABLE.web_fullstack[internshipTier])
+  ) {
+    return plan;
+  }
   return withoutInternship(plan);
 });
 

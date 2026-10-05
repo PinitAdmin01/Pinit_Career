@@ -23,7 +23,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
 
   const trackKey = enrollment.track === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
   const tierKey = PLAN_TIER_TO_INTERNSHIP[plan.tier];
-  const isTierOn = tierKey ? INTERNSHIP_TIER_AVAILABLE[tierKey] : false;
+  const isTierOn = tierKey ? INTERNSHIP_TIER_AVAILABLE[trackKey][tierKey] : false;
   const tierConfig = tierKey ? INTERNSHIP_TIERS[trackKey][tierKey] : null;
 
   const getActiveTrackLabel = () => {

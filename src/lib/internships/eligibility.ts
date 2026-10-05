@@ -81,7 +81,11 @@ export function checkInternshipEligibility(
   }
 
   // 4. Tier switch check (cannot be started if switch is off)
-  const isSwitchOn = tierSwitchOverride?.[tier] ?? INTERNSHIP_TIER_AVAILABLE[tier];
+  const isSwitchOn =
+    tierSwitchOverride?.[tier] ??
+    (track && track in INTERNSHIP_TIER_AVAILABLE
+      ? INTERNSHIP_TIER_AVAILABLE[track as 'python_ai' | 'web_fullstack'][tier]
+      : false);
   if (!isSwitchOn) {
     return {
       ok: false,

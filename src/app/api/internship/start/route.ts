@@ -62,13 +62,17 @@ export async function POST(req: NextRequest) {
     const { enrollment, plan } = studentCourse;
 
     // Check for an already active or generating internship
-    const { data: existingActive } = await admin
+    const { data: existingActive, error: activeErr } = await admin
       .from('internship_enrollments')
       .select('id, status')
       .eq('student_id', userId)
       .eq('crash_enrollment_id', enrollment.enrollmentId)
       .in('status', ['active', 'generating'])
       .maybeSingle();
+
+    if (activeErr) {
+      return fail(500, 'LOOKUP_FAILED', 'Could not check active internship status.');
+    }
 
     // Eligibility check (includes active-internship guard via check #5)
     const eligibility = checkInternshipEligibility({

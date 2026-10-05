@@ -29,8 +29,8 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
   const ig = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
   const eg = 'linear-gradient(135deg, #10b981, #059669)';
 
-  const t1Available = INTERNSHIP_TIER_AVAILABLE.t1_job_sim;
-  const t2Available = INTERNSHIP_TIER_AVAILABLE.t2_virtual_team;
+  const t1Available = INTERNSHIP_TIER_AVAILABLE[trackKey].t1_job_sim;
+  const t2Available = INTERNSHIP_TIER_AVAILABLE[trackKey].t2_virtual_team;
   const tierConfig = tierKey ? INTERNSHIP_TIERS[trackKey][tierKey] : null;
 
   const getTierWording = () => {

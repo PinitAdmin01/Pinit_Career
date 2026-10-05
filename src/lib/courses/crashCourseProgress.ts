@@ -117,7 +117,9 @@ export function isInternshipTierAvailable(
   if (tierSwitchOverride && tier in tierSwitchOverride) {
     return Boolean(tierSwitchOverride[tier]);
   }
-  return Boolean(INTERNSHIP_TIER_AVAILABLE[tier]);
+  const isWeb = (plan?.id || enrollment?.planId || '').includes('web');
+  const trackKey = isWeb ? 'web_fullstack' : 'python_ai';
+  return Boolean(INTERNSHIP_TIER_AVAILABLE[trackKey]?.[tier]);
 }
 
 export function getCrashCourseProgress(

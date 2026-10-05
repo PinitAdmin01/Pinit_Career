@@ -372,7 +372,7 @@ export async function checkSqlLazyQueries(
 
       // 1. Discover all user tables created in the setup schema
       const tablesRes = await db.exec("SELECT tablename FROM pg_tables WHERE schemaname = 'public';");
-      const tables = (tablesRes[0]?.rows || []).map((r: any) => String(r.tablename));
+      const tables = (tablesRes[0]?.rows || []).map((r: Record<string, unknown>) => String(r.tablename));
 
       if (tables.length === 0) {
         return { weakCheck: false };

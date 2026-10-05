@@ -62,11 +62,13 @@ describe('T-38 — Honest Plan Wording Per Tier', () => {
     });
 
     it('all individual tier switches default to false', () => {
-      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t1_job_sim, false);
-      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t2_virtual_team, false);
-      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t3_project, false);
-      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t4_industry, false);
-      assert.strictEqual(INTERNSHIP_TIER_AVAILABLE.t5_fellowship, false);
+      for (const track of ['python_ai', 'web_fullstack'] as const) {
+        assert.strictEqual(INTERNSHIP_TIER_AVAILABLE[track].t1_job_sim, false);
+        assert.strictEqual(INTERNSHIP_TIER_AVAILABLE[track].t2_virtual_team, false);
+        assert.strictEqual(INTERNSHIP_TIER_AVAILABLE[track].t3_project, false);
+        assert.strictEqual(INTERNSHIP_TIER_AVAILABLE[track].t4_industry, false);
+        assert.strictEqual(INTERNSHIP_TIER_AVAILABLE[track].t5_fellowship, false);
+      }
     });
   });
 

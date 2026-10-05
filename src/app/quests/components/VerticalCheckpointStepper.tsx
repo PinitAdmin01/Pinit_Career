@@ -35,8 +35,11 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
   onOpenInternshipDesk,
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
-  const internshipTier = PLAN_TIER_TO_INTERNSHIP[plan.tier];
-  const isTierOn = internshipTier ? Boolean(INTERNSHIP_TIER_AVAILABLE[internshipTier]) : false;
+  const trackKey: 'python_ai' | 'web_fullstack' =
+    activeTrack === 'web_fullstack' ? 'web_fullstack' : 'python_ai';
+  const isTierOn = internshipTier
+    ? Boolean(INTERNSHIP_TIER_AVAILABLE[trackKey]?.[internshipTier])
+    : false;
   const flagship = plan.flagshipBuildByTrack[activeTrack];
   const { phases } = progress;
 

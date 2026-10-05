@@ -74,7 +74,7 @@ export function enrollmentToClient(
       r.crash_enrollment_id || r.crashEnrollmentId || ''
     ),
     tier: String(r.tier || ''),
-    track: String(r.track || (String(r.plan_id || r.planId || '').includes('web') ? 'web_fullstack' : 'python_ai')),
+    track: String(r.track || 'python_ai'),
     status: (r.status || 'generating') as ClientInternshipEnrollment['status'],
     startedAt: r.started_at ? String(r.started_at) : (r.startedAt ? String(r.startedAt) : null),
     dueAt: r.due_at ? String(r.due_at) : (r.dueAt ? String(r.dueAt) : null),

@@ -11,8 +11,10 @@ const INTERNSHIP_RE = /intern|fellowship|apprentice/i;
 
 describe('internship switches', () => {
   it('all tier switches are false', () => {
-    for (const [tier, on] of Object.entries(INTERNSHIP_TIER_AVAILABLE)) {
-      assert.strictEqual(on, false, `${tier} should be off`);
+    for (const [track, tiers] of Object.entries(INTERNSHIP_TIER_AVAILABLE)) {
+      for (const [tier, on] of Object.entries(tiers)) {
+        assert.strictEqual(on, false, `${track}.${tier} should be off`);
+      }
     }
   });
 
