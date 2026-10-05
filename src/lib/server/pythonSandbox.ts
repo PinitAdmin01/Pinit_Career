@@ -76,19 +76,23 @@ export async function runPythonInSandbox(
       : '    pass';
 
     const testRunnerCode = `import sys
+token = sys.stdin.readline().rstrip('\\r\\n')
 try:
     from solution import *
-except Exception as e:
+except BaseException as e:
     sys.stderr.write(f"ImportError: {e}\\n")
     sys.exit(1)
 
 try:
 ${indentedTestSuite}
-    print("${sentinel}")
+    if token:
+        sys.stdout.write(token + "\\n")
+        sys.stdout.flush()
+    sys.exit(0)
 except AssertionError as ae:
     sys.stderr.write(f"AssertionError: {ae}\\n")
     sys.exit(2)
-except Exception as ex:
+except BaseException as ex:
     sys.stderr.write(f"RuntimeError: {ex}\\n")
     sys.exit(3)
 `;
@@ -128,10 +132,9 @@ except Exception as ex:
         }
       );
 
-      if (stdin && typeof stdin === 'string') {
-        proc.stdin?.write(stdin);
-        proc.stdin?.end();
-      }
+      const inputData = `${sentinel}\n${stdin && typeof stdin === 'string' ? stdin : ''}`;
+      proc.stdin?.write(inputData);
+      proc.stdin?.end();
     });
 
     const { error, stdout, stderr, timedOut } = await execPromise;

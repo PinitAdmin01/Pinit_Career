@@ -39,6 +39,23 @@ export const FORBIDDEN_PYTHON_PATTERNS: RegExp[] = [
   /\braise\s+SystemExit\b/,  // Early SystemExit exploit
   /sys\.exit/,               // sys.exit exploit
   /os\._exit/,               // os._exit exploit
+  /\binspect\b/,             // Inspection module / stack walking
+  /_getframe/,               // Frame inspection (sys._getframe)
+  /\bf_back\b/,              // Frame back-pointer traversal
+  /\bf_globals\b/,           // Frame globals access
+  /\bf_code\b/,              // Frame code object access
+  /\bco_consts\b/,           // Bytecode constants introspection
+  /__main__/,                // Main module namespace access
+  /__loader__/,              // Module loader access
+  /\blinecache\b/,           // Source file cache inspection
+  /\bbuiltins\b/,            // Builtins module access
+  /\bgetattr\b/,             // Dynamic attribute access
+  /\bSystemExit\b/,          // Early termination exploit
+  /\bexit\b/,                // Process exit exploit
+  /\bquit\b/,                // Process quit exploit
+  /__eq__/,                  // Always-equal assertion cheat
+  /__ne__/,                  // Comparison operator override
+  /__class__/,               // Metaclass / class traversal
 ];
 
 export function findForbiddenPython(source: string): RegExp | null {

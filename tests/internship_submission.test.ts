@@ -8,6 +8,8 @@ import {
   sanitizeHiddenOutput,
   executeTicketCode,
 } from '../src/lib/internships/submission';
+import { findForbiddenPython } from '../src/lib/code/python/pythonGuard';
+import { runPythonInSandbox } from '../src/lib/server/pythonSandbox';
 
 let hasPython = false;
 try {
@@ -264,5 +266,49 @@ test('W-00-1 real sandbox: (d) the output never contains any hidden test line', 
   assert.ok(!res.output.includes('9999'));
   assert.ok(!res.output.includes('assert'));
   assert.equal(res.output, 'Hidden check 1 failed');
+});
+
+test('F-04 (1): Python grader rejects marker theft via inspect.stack() and raise SystemExit(0)', async () => {
+  const code = `
+import inspect
+def add(a, b):
+    for frame in inspect.stack():
+        for const in getattr(frame.frame.f_code, 'co_consts', ()):
+            if isinstance(const, str) and 'PINIT' in const:
+                print(const)
+    return a + b
+`;
+  assert.ok(findForbiddenPython(code), 'must be caught by findForbiddenPython');
+  const res = await runPythonInSandbox({ code, tests: 'assert add(1, 2) == 3' });
+  assert.equal(res.isSecurityViolation, true);
+  assert.equal(res.passed, false);
+});
+
+test('F-04 (2): Python grader rejects getattr builtins command execution bypass', async () => {
+  const code = `
+import builtins
+def add(a, b):
+    getattr(builtins, "__im" + "port__")("o" + "s")
+    return a + b
+`;
+  assert.ok(findForbiddenPython(code), 'must be caught by findForbiddenPython');
+  const res = await runPythonInSandbox({ code, tests: 'assert add(1, 2) == 3' });
+  assert.equal(res.isSecurityViolation, true);
+  assert.equal(res.passed, false);
+});
+
+test('F-04 (3): Python grader rejects __eq__ returns True always-equal object passing assert', async () => {
+  const code = `
+class AlwaysEqual:
+    def __eq__(self, other):
+        return True
+
+def add(a, b):
+    return AlwaysEqual()
+`;
+  assert.ok(findForbiddenPython(code), 'must be caught by findForbiddenPython');
+  const res = await runPythonInSandbox({ code, tests: 'assert add(1, 2) == 3' });
+  assert.equal(res.isSecurityViolation, true);
+  assert.equal(res.passed, false);
 });
 
