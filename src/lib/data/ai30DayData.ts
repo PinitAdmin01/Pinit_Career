@@ -115,7 +115,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function dispatchToolCall(toolDeclaration, toolCallPayload, localHandlers) executing the registered tool function with validated arguments. The result must have the field: `success`.",
     "eStarter": "async function dispatchToolCall(decl, call, handlers) {\n  // TODO: write your code here\n}",
     "eHint": "Parse arguments if string, invoke handlers[call.name], return toolResult.",
-    "eTest": "const decl = { name: 'get_weather', parameters: { properties: { city: { type: 'string' } } } };\nconst call = { id: 'call_101', name: 'get_weather', arguments: '{\"city\": \"Tokyo\"}' };\nconst handlers = { get_weather: async (args) => ({ temp: 22, city: args.city }) };\nawait dispatchToolCall(decl, call, handlers).then(res => {\n  if (!res.success || res.toolResult.temp !== 22) throw new Error('Tool dispatch failed');\n});",
+    "eTest": "const decl = { name: 'get_weather', parameters: { properties: { city: { type: 'string' } } } };\nconst handlers = {\n  get_weather: async (args) => ({ temp: 22, city: args.city }),\n  get_time: async () => ({ time: '12:00' })\n};\nconst call1 = { id: 'call_1', name: 'get_weather', arguments: '{\"city\": \"Tokyo\"}' };\nconst res1 = await dispatchToolCall(decl, call1, handlers);\nif (!res1.success || res1.toolResult.temp !== 22 || res1.toolResult.city !== 'Tokyo') throw new Error('Tool dispatch 1 failed');\nconst call2 = { id: 'call_2', name: 'get_time', arguments: '{}' };\nconst res2 = await dispatchToolCall(decl, call2, handlers);\nif (res2.success !== false || res2.error !== 'UNKNOWN_TOOL_NAME') throw new Error('Tool dispatch unknown name failed');\nconst call3 = { id: 'call_3', name: 'get_weather', arguments: 'invalid json' };\nconst res3 = await dispatchToolCall(decl, call3, handlers);\nif (res3.success !== false) throw new Error('Tool dispatch syntax error failed');",
     "aTitle": "Tool Definition Validator",
     "aDesc": "Implement function isValidToolDeclaration(tool) checking name and description exist.",
     "aStarter": "function isValidToolDeclaration(t) {\n  // TODO: write your code here\n}",
@@ -215,7 +215,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function rerankSearchResults(query, retrievedChunks, rerankModel, topN = 2) scoring query-chunk pairs and selecting top-N.",
     "eStarter": "async function rerankSearchResults(query, chunks, reranker, topN = 2) {\n  // TODO: write your code here\n}",
     "eHint": "Score pairs, sort descending, return topN.",
-    "eTest": "const chunks = [{ id: '1', text: 'Unrelated fluff' }, { id: '2', text: 'Exact answer to query' }];\nconst mockRerank = { score: async (q, text) => text.includes('Exact') ? 0.95 : 0.10 };\nawait rerankSearchResults('What is the answer?', chunks, mockRerank, 1).then(res => {\n  if (res.length !== 1 || res[0].id !== '2') throw new Error('Reranking failed');\n});",
+    "eTest": "const chunks = [\n  { id: '1', text: 'Unrelated fluff' },\n  { id: '2', text: 'Exact answer to query' },\n  { id: '3', text: 'Somewhat relevant context' }\n];\nconst mockRerank = {\n  score: async (q, text) => text.includes('Exact') ? 0.95 : text.includes('relevant') ? 0.60 : 0.10\n};\nconst res1 = await rerankSearchResults('What is the answer?', chunks, mockRerank, 1);\nif (res1.length !== 1 || res1[0].id !== '2') throw new Error('Reranking top 1 failed');\nconst res2 = await rerankSearchResults('What is the answer?', chunks, mockRerank, 2);\nif (res2.length !== 2 || res2[0].id !== '2' || res2[1].id !== '3') throw new Error('Reranking top 2 failed');\nconst res3 = await rerankSearchResults('What is the answer?', [], mockRerank, 2);\nif (!Array.isArray(res3) || res3.length !== 0) throw new Error('Reranking empty chunks failed');",
     "aTitle": "Relevance Score Filter",
     "aDesc": "Implement function filterByMinScore(results, minScore = 0.5) filtering scores >= minScore.",
     "aStarter": "function filterByMinScore(res, min = 0.5) {\n  // TODO: write your code here\n}",
@@ -295,7 +295,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function executeEnterpriseRagPipeline(query, vectorStore, bm25Index, reranker) executing end-to-end RAG workflow and returning synthesized context. Use these exact values: `pipelineStatus`: 'RAG_SYNTHESIS_READY'. The result must have the field: `topContextChunks`.",
     "eStarter": "async function executeEnterpriseRagPipeline(query, vStore, bm25, rerank) {\n  // TODO: write your code here\n}",
     "eHint": "Fetch dense and sparse hits, deduplicate, rerank, format synthesized prompt.",
-    "eTest": "const mockVStore = { search: async () => [{ id: '1', text: 'AWS Cloud VPC' }] };\nconst mockBm25 = { search: async () => [{ id: '2', text: 'VPC Subnets' }] };\nconst mockRerank = { score: async (q, chunks) => chunks.map(c => ({ ...c, score: 0.9 })) };\nawait executeEnterpriseRagPipeline('VPC setup', mockVStore, mockBm25, mockRerank).then(res => {\n  if (res.pipelineStatus !== 'RAG_SYNTHESIS_READY' || res.topContextChunks.length !== 2) throw new Error('Enterprise RAG pipeline failed');\n});",
+    "eTest": "const mockVStore = { search: async (q) => q.includes('empty') ? [] : [{ id: '1', text: 'AWS Cloud VPC' }] };\nconst mockBm25 = { search: async (q) => q.includes('empty') ? [] : [{ id: '2', text: 'VPC Subnets' }] };\nconst mockRerank = { score: async (q, chunks) => chunks.map(c => ({ ...c, score: 0.9 })) };\nconst res1 = await executeEnterpriseRagPipeline('VPC setup', mockVStore, mockBm25, mockRerank);\nif (res1.pipelineStatus !== 'RAG_SYNTHESIS_READY' || res1.topContextChunks.length !== 2) throw new Error('Enterprise RAG pipeline 2 chunks failed');\nconst mockVStoreSingle = { search: async () => [{ id: '1', text: 'Single result' }] };\nconst mockBm25Empty = { search: async () => [] };\nconst res2 = await executeEnterpriseRagPipeline('Single search', mockVStoreSingle, mockBm25Empty, mockRerank);\nif (res2.pipelineStatus !== 'RAG_SYNTHESIS_READY' || res2.topContextChunks.length !== 1) throw new Error('Enterprise RAG pipeline 1 chunk failed');\nconst res3 = await executeEnterpriseRagPipeline('empty search', mockVStore, mockBm25, mockRerank);\nif (res3.pipelineStatus !== 'RAG_SYNTHESIS_READY' || res3.topContextChunks.length !== 0) throw new Error('Enterprise RAG pipeline empty failed');",
     "aTitle": "RAG Pipeline Latency Auditor",
     "aDesc": "Implement function auditRagLatency(retrievalMs, rerankMs, generationMs) returning total latency in seconds.",
     "aStarter": "function auditRagLatency(r, re, g) {\n  // TODO: write your code here\n}",
@@ -315,12 +315,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function updateConversationMemory(history, newTurn, maxTokens = 100) summarizing older turns when total token budget is exceeded. The result must have these fields: `summarized`, `memory`.",
     "eStarter": "function updateConversationMemory(history, newTurn, maxTokens = 100) {\n  // TODO: write your code here\n}",
     "eHint": "If total tokens exceed maxTokens, condense older messages into summaryMsg.",
-    "eTest": "const history = [{ role: 'user', text: 'Hi', topic: 'greetings', tokens: 40 }, { role: 'assistant', text: 'Hello', topic: 'greetings', tokens: 40 }];\nconst newTurn = { role: 'user', text: 'Let us build an AI agent', topic: 'ai_agents', tokens: 50 };\nconst res = updateConversationMemory(history, newTurn, 100);\nif (!res.summarized || res.memory[0].role !== 'system') throw new Error('Memory summary buffer failed');",
+    "eTest": "const history = [\n  { role: 'user', text: 'Hi', topic: 'greetings', tokens: 40 },\n  { role: 'assistant', text: 'Hello', topic: 'greetings', tokens: 40 }\n];\nconst newTurn1 = { role: 'user', text: 'Let us build an AI agent', topic: 'ai_agents', tokens: 50 };\nconst res1 = updateConversationMemory(history, newTurn1, 100);\nif (!res1.summarized || res1.memory[0].role !== 'system') throw new Error('Memory summary buffer over limit failed');\nconst newTurn2 = { role: 'user', text: 'Short', topic: 'chat', tokens: 10 };\nconst res2 = updateConversationMemory([], newTurn2, 100);\nif (res2.summarized !== false || res2.memory.length !== 1) throw new Error('Memory summary buffer under limit failed');\nconst res3 = updateConversationMemory(history, { role: 'user', text: 'Ok', topic: 'ack', tokens: 5 }, 200);\nif (res3.summarized !== false || res3.memory.length !== 3) throw new Error('Memory buffer plenty room failed');",
     "aTitle": "Message Role Counter",
     "aDesc": "Implement function countRoles(messages) returning count of user and assistant messages.",
     "aStarter": "function countRoles(msgs) {\n  // TODO: write your code here\n}",
     "aHint": "Filter by role.",
-    "aTest": "if (countRoles([{ role: 'user' }, { role: 'assistant' }]).user !== 1) throw new Error('Role counter failed');"
+    "aTest": "const c1 = countRoles([{ role: 'user' }, { role: 'assistant' }]);\nif (c1.user !== 1 || c1.assistant !== 1) throw new Error('Role counter 1-1 failed');\nconst c2 = countRoles([{ role: 'user' }, { role: 'user' }, { role: 'user' }]);\nif (c2.user !== 3 || c2.assistant !== 0) throw new Error('Role counter 3-0 failed');\nconst c3 = countRoles([{ role: 'assistant' }, { role: 'assistant' }]);\nif (c3.user !== 0 || c3.assistant !== 2) throw new Error('Role counter 0-2 failed');"
   },
   {
     "day": 17,
@@ -360,7 +360,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function formatAgentStatus(agentName, status) returning formatted log string.",
     "aStarter": "function formatAgentStatus(name, s) {\n  // TODO: write your code here\n}",
     "aHint": "Format [NAME]: status.",
-    "aTest": "if (formatAgentStatus('coder', 'DONE') !== '[CODER]: DONE') throw new Error('Status format failed');"
+    "aTest": "if (formatAgentStatus('coder', 'DONE') !== '[CODER]: DONE') throw new Error('Status format coder failed');\nif (formatAgentStatus('planner', 'RUNNING') !== '[PLANNER]: RUNNING') throw new Error('Status format planner failed');\nif (formatAgentStatus('reviewer', 'FAILED') !== '[REVIEWER]: FAILED') throw new Error('Status format reviewer failed');"
   },
   {
     "day": 19,
@@ -375,12 +375,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function reflectAndRepairCode(generatedCode, testExecutionError) formulating targeted repair prompt for the LLM. The result must have the field: `needsCorrection`.",
     "eStarter": "function reflectAndRepairCode(code, testError) {\n  // TODO: write your code here\n}",
     "eHint": "Embed testError and original code into reflectionPrompt.",
-    "eTest": "const res = reflectAndRepairCode('function add(a, b) { return a - b; }', 'AssertionError: expected 5, got -1');\nif (!res.needsCorrection || !res.reflectionPrompt.includes('AssertionError')) throw new Error('Reflection prompt formulation failed');",
+    "eTest": "const res1 = reflectAndRepairCode('function add(a, b) { return a - b; }', 'AssertionError: expected 5, got -1');\nif (!res1.needsCorrection || !res1.reflectionPrompt.includes('AssertionError')) throw new Error('Reflection with error failed');\nconst res2 = reflectAndRepairCode('function add(a, b) { return a + b; }', '');\nif (res2.needsCorrection !== false) throw new Error('Reflection with empty error failed');\nconst res3 = reflectAndRepairCode('const x = 1;', null);\nif (res3.needsCorrection !== false) throw new Error('Reflection with null error failed');",
     "aTitle": "Plan Step Progress Calculator",
     "aDesc": "Implement function calculatePlanProgress(steps) returning percentage of completed steps.",
     "aStarter": "function calculatePlanProgress(steps) {\n  // TODO: write your code here\n}",
     "aHint": "Divide done by total.",
-    "aTest": "if (calculatePlanProgress([{ status: 'DONE' }, { status: 'PENDING' }]) !== '50%') throw new Error('Progress calc failed');"
+    "aTest": "if (calculatePlanProgress([{ status: 'DONE' }, { status: 'PENDING' }]) !== '50%') throw new Error('Progress 50% failed');\nif (calculatePlanProgress([{ status: 'DONE' }, { status: 'DONE' }, { status: 'DONE' }]) !== '100%') throw new Error('Progress 100% failed');\nif (calculatePlanProgress([{ status: 'PENDING' }]) !== '0%') throw new Error('Progress 0% failed');"
   },
   {
     "day": 20,
@@ -395,12 +395,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function parseSseStreamChunk(rawSseChunk) extracting token delta text from OpenAI-compatible `data: {...}` chunks. The result must have these fields: `deltaText`, `isDone`.",
     "eStarter": "function parseSseStreamChunk(chunk) {\n  // TODO: write your code here\n}",
     "eHint": "Parse data: {...} lines, extract choices[0].delta.content, check for data: [DONE].",
-    "eTest": "const chunk = 'data: {\"choices\":[{\"delta\":{\"content\":\"Hello \"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"world!\"}}]}\\n\\n';\nconst parsed = parseSseStreamChunk(chunk);\nif (parsed.deltaText !== 'Hello world!' || parsed.isDone) throw new Error('SSE chunk parsing failed');",
+    "eTest": "const chunk1 = 'data: {\"choices\":[{\"delta\":{\"content\":\"Hello \"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"world!\"}}]}\\n\\n';\nconst parsed1 = parseSseStreamChunk(chunk1);\nif (parsed1.deltaText !== 'Hello world!' || parsed1.isDone) throw new Error('SSE chunk parsing text failed');\nconst chunk2 = 'data: [DONE]\\n\\n';\nconst parsed2 = parseSseStreamChunk(chunk2);\nif (!parsed2.isDone) throw new Error('SSE chunk parsing [DONE] failed');\nconst chunk3 = 'data: {\"choices\":[{\"delta\":{\"content\":\"PinIT\"}}]}\\n\\ndata: [DONE]\\n\\n';\nconst parsed3 = parseSseStreamChunk(chunk3);\nif (parsed3.deltaText !== 'PinIT' || !parsed3.isDone) throw new Error('SSE chunk parsing text with done failed');",
     "aTitle": "SSE Data Line Formatter",
     "aDesc": "Implement function formatSseLine(dataObj) formatting `data: JSON\\n\\n`.",
     "aStarter": "function formatSseLine(obj) {\n  // TODO: write your code here\n}",
     "aHint": "Format data: string.",
-    "aTest": "if (!formatSseLine({ token: 'hi' }).startsWith('data: {\"token\":\"hi\"}')) throw new Error('SSE format failed');"
+    "aTest": "if (formatSseLine({ token: 'hi' }) !== 'data: {\"token\":\"hi\"}\\n\\n') throw new Error('SSE format hi failed');\nif (formatSseLine({ token: 'bye' }) !== 'data: {\"token\":\"bye\"}\\n\\n') throw new Error('SSE format bye failed');\nif (formatSseLine({ done: true }) !== 'data: {\"done\":true}\\n\\n') throw new Error('SSE format done failed');"
   },
   {
     "day": 21,
@@ -415,7 +415,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function orchestrateAgentTeam(userGoal, supervisorAgent) executing multi-agent plan and producing verified synthesis report. Use these exact values: `status`: 'MULTI_AGENT_GOAL_ACHIEVED'. The result must have the field: `totalStepsExecuted`.",
     "eStarter": "async function orchestrateAgentTeam(goal, supervisor) {\n  // TODO: write your code here\n}",
     "eHint": "Create plan, iterate steps with assigned agent, synthesize final report.",
-    "eTest": "const mockSupervisor = {\n  createPlan: async () => ({ steps: [{ id: 1, agentType: 'Searcher', task: 'find data' }, { id: 2, agentType: 'Coder', task: 'plot graph' }] }),\n  getAgent: () => ({ execute: async (t) => `Executed ${t}` }),\n  synthesize: async (g, logs) => `Comprehensive Report on ${g}`\n};\nawait orchestrateAgentTeam('Analyze renewable energy trends', mockSupervisor).then(res => {\n  if (res.status !== 'MULTI_AGENT_GOAL_ACHIEVED' || res.totalStepsExecuted !== 2) throw new Error('Multi-agent orchestration failed');\n});",
+    "eTest": "const mockSupervisor = {\n  createPlan: async (g) => ({\n    steps: g.includes('single') ? [{ id: 1, agentType: 'Coder', task: 'write test' }] :\n           g.includes('none') ? [] :\n           [{ id: 1, agentType: 'Searcher', task: 'find data' }, { id: 2, agentType: 'Coder', task: 'plot graph' }]\n  }),\n  getAgent: () => ({ execute: async (t) => `Executed ${t}` }),\n  synthesize: async (g, logs) => `Comprehensive Report on ${g}`\n};\nconst res1 = await orchestrateAgentTeam('Analyze renewable energy trends', mockSupervisor);\nif (res1.status !== 'MULTI_AGENT_GOAL_ACHIEVED' || res1.totalStepsExecuted !== 2) throw new Error('Multi-agent 2 steps failed');\nconst res2 = await orchestrateAgentTeam('single task execution', mockSupervisor);\nif (res2.status !== 'MULTI_AGENT_GOAL_ACHIEVED' || res2.totalStepsExecuted !== 1) throw new Error('Multi-agent 1 step failed');\nconst res3 = await orchestrateAgentTeam('none task execution', mockSupervisor);\nif (res3.status !== 'MULTI_AGENT_GOAL_ACHIEVED' || res3.totalStepsExecuted !== 0) throw new Error('Multi-agent 0 steps failed');",
     "aTitle": "Agent Output Validator",
     "aDesc": "Implement function hasValidReport(res) verifying non-empty finalReport.",
     "aStarter": "function hasValidReport(r) {\n  // TODO: write your code here\n}",
@@ -435,12 +435,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function getCachedLlmResponse(queryText, queryEmbedding, cacheStore, similarityThreshold = 0.95) checking exact and semantic cache hits. The result must have the field: `hit`.",
     "eStarter": "function getCachedLlmResponse(query, embedding, store, threshold = 0.95) {\n  // TODO: write your code here\n}",
     "eHint": "Check exact map first; then iterate semantic embeddings checking similarity >= threshold.",
-    "eTest": "const store = {\n  exact: { 'What is AWS?': 'AWS is Amazon Web Services.' },\n  semantic: [{ text: 'Tell me about AWS', embedding: [1, 0], response: 'AWS is a cloud provider.' }]\n};\nif (getCachedLlmResponse('What is AWS?', [1, 0], store).type !== 'EXACT_CACHE_HIT (0ms)') throw new Error('Exact cache failed');\nif (!getCachedLlmResponse('Explain AWS cloud', [0.98, 0.02], store, 0.95).hit) throw new Error('Semantic cache failed');",
+    "eTest": "const store = {\n  exact: { 'What is AWS?': 'AWS is Amazon Web Services.' },\n  semantic: [{ text: 'Tell me about AWS', embedding: [1, 0], response: 'AWS is a cloud provider.' }]\n};\nconst res1 = getCachedLlmResponse('What is AWS?', [1, 0], store);\nif (res1.type !== 'EXACT_CACHE_HIT (0ms)' || !res1.hit) throw new Error('Exact cache failed');\nconst res2 = getCachedLlmResponse('Explain AWS cloud', [0.98, 0.02], store, 0.95);\nif (!res2.hit || !res2.type.startsWith('SEMANTIC_CACHE_HIT')) throw new Error('Semantic cache failed');\nconst res3 = getCachedLlmResponse('Unrelated question', [0, 1], store, 0.95);\nif (res3.hit !== false || res3.type !== 'CACHE_MISS') throw new Error('Cache miss failed');",
     "aTitle": "Cache Hit Rate Calculator",
     "aDesc": "Implement function calculateHitRate(hits, misses) returning percentage string.",
     "aStarter": "function calculateHitRate(h, m) {\n  // TODO: write your code here\n}",
     "aHint": "Compute hits / (hits + misses).",
-    "aTest": "if (calculateHitRate(80, 20) !== '80.0%') throw new Error('Hit rate calc failed');"
+    "aTest": "if (calculateHitRate(80, 20) !== '80.0%') throw new Error('Hit rate 80% failed');\nif (calculateHitRate(100, 0) !== '100.0%') throw new Error('Hit rate 100% failed');\nif (calculateHitRate(0, 50) !== '0.0%') throw new Error('Hit rate 0% failed');"
   },
   {
     "day": 23,
@@ -455,12 +455,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateLoraParameters(d_model, rank_r = 16) calculating trainable parameter savings vs full fine-tuning. The result must have these fields: `fullParameters`, `trainableLoraParameters`, `trainablePercent`.",
     "eStarter": "function calculateLoraParameters(d_model, r = 16) {\n  // TODO: write your code here\n}",
     "eHint": "Full is d*d; LoRA is 2*d*r.",
-    "eTest": "const lora = calculateLoraParameters(4096, 16);\nif (lora.fullParameters !== 16777216 || lora.trainableLoraParameters !== 131072) throw new Error('LoRA parameter math failed');\nif (parseFloat(lora.trainablePercent) > 1.0) throw new Error('LoRA should train < 1% of full parameters');",
+    "eTest": "const lora1 = calculateLoraParameters(4096, 16);\nif (lora1.fullParameters !== 16777216 || lora1.trainableLoraParameters !== 131072) throw new Error('LoRA 4096-16 failed');\nconst lora2 = calculateLoraParameters(2048, 8);\nif (lora2.fullParameters !== 4194304 || lora2.trainableLoraParameters !== 32768) throw new Error('LoRA 2048-8 failed');\nconst lora3 = calculateLoraParameters(1024, 4);\nif (lora3.fullParameters !== 1048576 || lora3.trainableLoraParameters !== 8192) throw new Error('LoRA 1024-4 failed');",
     "aTitle": "4-Bit Quantization Memory Estimator",
     "aDesc": "Implement function estimateModelVramGb(paramBillions, bits = 4) estimating GPU memory (params * bits / 8 * 1.2 overhead).",
     "aStarter": "function estimateModelVramGb(paramsB, bits = 4) {\n  // TODO: write your code here\n}",
     "aHint": "Calculate VRAM with 20% KV-cache overhead.",
-    "aTest": "if (estimateModelVramGb(7, 4) !== '3.9 GB') throw new Error('VRAM estimator failed');"
+    "aTest": "if (estimateModelVramGb(7, 4) !== '3.9 GB') throw new Error('VRAM 7B 4bit failed');\nif (estimateModelVramGb(13, 4) !== '7.3 GB') throw new Error('VRAM 13B 4bit failed');\nif (estimateModelVramGb(70, 4) !== '39.1 GB') throw new Error('VRAM 70B 4bit failed');"
   },
   {
     "day": 24,
@@ -495,7 +495,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculatePagedAttentionWaste(traditionalAllocationMb, pagedAllocationMb) calculating memory fragmentation reduction. The result must have these fields: `percentSaved`, `concurrencyMultiplier`.",
     "eStarter": "function calculatePagedAttentionWaste(tradMb, pagedMb) {\n  // TODO: write your code here\n}",
     "eHint": "Compute savedMb = trad - paged, percent = saved / trad.",
-    "eTest": "const res = calculatePagedAttentionWaste(1000, 200);\nif (res.savedMb !== 800 || res.percentSaved !== '80.0%' || res.concurrencyMultiplier !== 5.0) throw new Error('PagedAttention calculation failed');",
+    "eTest": "const res1 = calculatePagedAttentionWaste(1000, 200);\nif (res1.savedMb !== 800 || res1.percentSaved !== '80.0%' || res1.concurrencyMultiplier !== 5.0) throw new Error('PagedAttention 1000/200 failed');\nconst res2 = calculatePagedAttentionWaste(500, 100);\nif (res2.savedMb !== 400 || res2.percentSaved !== '80.0%' || res2.concurrencyMultiplier !== 5.0) throw new Error('PagedAttention 500/100 failed');\nconst res3 = calculatePagedAttentionWaste(200, 200);\nif (res3.savedMb !== 0 || res3.percentSaved !== '0.0%' || res3.concurrencyMultiplier !== 1.0) throw new Error('PagedAttention 200/200 failed');",
     "aTitle": "GGUF Quantization Tier Sorter",
     "aDesc": "Implement function getQuantizationBits(quantType) returning bit count for Q4_K_M (4), Q8_0 (8), FP16 (16).",
     "aStarter": "function getQuantizationBits(q) {\n  // TODO: write your code here\n}",
@@ -515,12 +515,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateVisionTokens(imageWidth, imageHeight, patchSize = 14) calculating visual token sequence length. The result must have these fields: `patchesX`, `totalVisionTokens`.",
     "eStarter": "function calculateVisionTokens(w, h, patch = 14) {\n  // TODO: write your code here\n}",
     "eHint": "Compute ceil(w/patch) * ceil(h/patch) + 1.",
-    "eTest": "const tokens = calculateVisionTokens(224, 224, 14);\nif (tokens.patchesX !== 16 || tokens.totalVisionTokens !== 257) throw new Error('Vision token patch calculation failed: 16x16 + 1 = 257');",
+    "eTest": "const t1 = calculateVisionTokens(224, 224, 14);\nif (t1.patchesX !== 16 || t1.totalVisionTokens !== 257) throw new Error('Vision tokens 224x224 failed');\nconst t2 = calculateVisionTokens(448, 448, 14);\nif (t2.patchesX !== 32 || t2.totalVisionTokens !== 1025) throw new Error('Vision tokens 448x448 failed');\nconst t3 = calculateVisionTokens(14, 14, 14);\nif (t3.patchesX !== 1 || t3.totalVisionTokens !== 2) throw new Error('Vision tokens 14x14 failed');",
     "aTitle": "Image Aspect Ratio Calculator",
     "aDesc": "Implement function getAspectRatio(w, h) returning simplified ratio string (e.g. 16:9, 1:1).",
     "aStarter": "function getAspectRatio(w, h) {\n  // TODO: write your code here\n}",
     "aHint": "Divide by greatest common divisor.",
-    "aTest": "if (getAspectRatio(1920, 1080) !== '16:9') throw new Error('Aspect ratio failed');"
+    "aTest": "if (getAspectRatio(1920, 1080) !== '16:9') throw new Error('Aspect ratio 1920:1080 failed');\nif (getAspectRatio(1080, 1080) !== '1:1') throw new Error('Aspect ratio 1080:1080 failed');\nif (getAspectRatio(800, 600) !== '4:3') throw new Error('Aspect ratio 800:600 failed');"
   },
   {
     "day": 27,
@@ -555,12 +555,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function aggregateTraceTelemetry(spans) aggregating prompt tokens, completion tokens, total cost, and end-to-end latency. The result must have these fields: `totalTokens`, `totalCostDollars`, `totalDurationSec`.",
     "eStarter": "function aggregateTraceTelemetry(spans) {\n  // TODO: write your code here\n}",
     "eHint": "Sum promptTokens, completionTokens, costDollars, and latencyMs.",
-    "eTest": "const spans = [\n  { promptTokens: 500, completionTokens: 100, costDollars: 0.002, latencyMs: 400 },\n  { promptTokens: 300, completionTokens: 50, costDollars: 0.001, latencyMs: 600 }\n];\nconst res = aggregateTraceTelemetry(spans);\nif (res.totalTokens !== 950 || res.totalCostDollars !== 0.003 || res.totalDurationSec !== 1.0) throw new Error('Trace telemetry aggregation failed');",
+    "eTest": "const spans1 = [\n  { promptTokens: 500, completionTokens: 100, costDollars: 0.002, latencyMs: 400 },\n  { promptTokens: 300, completionTokens: 50, costDollars: 0.001, latencyMs: 600 }\n];\nconst res1 = aggregateTraceTelemetry(spans1);\nif (res1.totalTokens !== 950 || res1.totalCostDollars !== 0.003 || res1.totalDurationSec !== 1.0) throw new Error('Trace 1 failed');\nconst spans2 = [\n  { promptTokens: 100, completionTokens: 20, costDollars: 0.0005, latencyMs: 250 }\n];\nconst res2 = aggregateTraceTelemetry(spans2);\nif (res2.totalTokens !== 120 || res2.totalCostDollars !== 0.0005 || res2.totalDurationSec !== 0.25) throw new Error('Trace 2 failed');\nconst res3 = aggregateTraceTelemetry([]);\nif (res3.totalTokens !== 0 || res3.totalCostDollars !== 0 || res3.totalDurationSec !== 0) throw new Error('Trace empty failed');",
     "aTitle": "User Feedback Sentiment Scorer",
     "aDesc": "Implement function scoreUserFeedback(thumbsUp, thumbsDown) returning percentage positive.",
     "aStarter": "function scoreUserFeedback(up, down) {\n  // TODO: write your code here\n}",
     "aHint": "Compute up / (up + down).",
-    "aTest": "if (scoreUserFeedback(90, 10) !== '90.0%') throw new Error('Feedback score failed');"
+    "aTest": "if (scoreUserFeedback(90, 10) !== '90.0%') throw new Error('Feedback score 90/10 failed');\nif (scoreUserFeedback(50, 50) !== '50.0%') throw new Error('Feedback score 50/50 failed');\nif (scoreUserFeedback(10, 90) !== '10.0%') throw new Error('Feedback score 10/90 failed');"
   },
   {
     "day": 29,
@@ -575,12 +575,12 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function traverseKnowledgeGraph(graph, startEntity, targetRelation) finding connected entities via graph traversal. The result must have the field: `entity`. Return an array with one { entity, properties } item for every edge of that type leaving startEntity (entity is the target node's id, properties are that node's properties).",
     "eStarter": "function traverseKnowledgeGraph(graph, start, relation) {\n  // TODO: write your code here\n}",
     "eHint": "Filter edges where from === start and type === relation, map to target node properties.",
-    "eTest": "const graph = {\n  nodes: [{ id: 'Alice', properties: { role: 'Lead' } }, { id: 'PinIT', properties: { type: 'Platform' } }],\n  edges: [{ from: 'Alice', to: 'PinIT', type: 'WORKS_AT' }]\n};\nconst res = traverseKnowledgeGraph(graph, 'Alice', 'WORKS_AT');\nif (res.length !== 1 || res[0].entity !== 'PinIT' || res[0].properties.type !== 'Platform') throw new Error('Graph traversal failed');",
+    "eTest": "const graph = {\n  nodes: [\n    { id: 'Alice', properties: { role: 'Lead' } },\n    { id: 'PinIT', properties: { type: 'Platform' } },\n    { id: 'Bob', properties: { role: 'Engineer' } }\n  ],\n  edges: [\n    { from: 'Alice', to: 'PinIT', type: 'WORKS_AT' },\n    { from: 'Bob', to: 'PinIT', type: 'WORKS_AT' },\n    { from: 'Alice', to: 'Bob', type: 'MANAGES' }\n  ]\n};\nconst res1 = traverseKnowledgeGraph(graph, 'Alice', 'WORKS_AT');\nif (res1.length !== 1 || res1[0].entity !== 'PinIT' || res1[0].properties.type !== 'Platform') throw new Error('Traversal Alice WORKS_AT failed');\nconst res2 = traverseKnowledgeGraph(graph, 'Alice', 'MANAGES');\nif (res2.length !== 1 || res2[0].entity !== 'Bob' || res2[0].properties.role !== 'Engineer') throw new Error('Traversal Alice MANAGES failed');\nconst res3 = traverseKnowledgeGraph(graph, 'PinIT', 'WORKS_AT');\nif (res3.length !== 0) throw new Error('Traversal empty matches failed');",
     "aTitle": "Cypher Query String Formatter",
     "aDesc": "Implement function buildMatchCypher(entity1, rel, entity2) returning `MATCH (a {id: '$1'})-[:$2]->(b {id: '$3'}) RETURN b`.",
     "aStarter": "function buildMatchCypher(e1, r, e2) {\n  // TODO: write your code here\n}",
     "aHint": "Format Cypher string.",
-    "aTest": "if (!buildMatchCypher('Alice', 'WORKS_AT', 'PinIT').includes('[:WORKS_AT]')) throw new Error('Cypher format failed');"
+    "aTest": "if (!buildMatchCypher('Alice', 'WORKS_AT', 'PinIT').includes('[:WORKS_AT]')) throw new Error('Cypher 1 failed');\nif (!buildMatchCypher('Bob', 'MANAGES', 'PinIT').includes('[:MANAGES]')) throw new Error('Cypher 2 failed');\nif (!buildMatchCypher('User', 'FOLLOWS', 'Topic').includes('[:FOLLOWS]')) throw new Error('Cypher 3 failed');"
   },
   {
     "day": 30,
@@ -595,9 +595,9 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function runEnterpriseAiPlatform(userQuery, platformServices) orchestrating semantic cache check, prompt injection safety guard, hybrid RAG retrieval, agent tool execution, and structured output validation. Use these exact values: `source`: 'AGENTIC_RAG_SYNTHESIS'. The result must have these fields: `success`, `contextSources`.",
     "eStarter": "async function runEnterpriseAiPlatform(query, services) {\n  // TODO: write your code here\n}",
     "eHint": "Check guardrail -> check cache -> retrieve RAG -> execute agent -> set cache.",
-    "eTest": "const services = {\n  guardrail: { isThreat: (q) => q.includes('DAN') },\n  cache: { get: async () => ({ hit: false }), set: async () => true },\n  rag: { retrieve: async () => ({ sources: ['aws_docs', 'k8s_docs'] }) },\n  agent: { execute: async (q, ctx) => `Verified AI response for ${q}` }\n};\nawait runEnterpriseAiPlatform('How to deploy k8s?', services).then(res => {\n  if (!res.success || res.source !== 'AGENTIC_RAG_SYNTHESIS' || res.contextSources.length !== 2) throw new Error('Enterprise AI capstone failed');\n});",
+    "eTest": "const services = {\n  guardrail: { isThreat: (q) => q.includes('DAN') },\n  cache: { get: async (q) => q.includes('cached') ? { hit: true, response: 'cached answer' } : { hit: false }, set: async () => true },\n  rag: { retrieve: async () => ({ sources: ['aws_docs', 'k8s_docs'] }) },\n  agent: { execute: async (q, ctx) => `Verified AI response for ${q}` }\n};\nconst res1 = await runEnterpriseAiPlatform('How to deploy k8s?', services);\nif (!res1.success || res1.source !== 'AGENTIC_RAG_SYNTHESIS' || res1.contextSources.length !== 2) throw new Error('AI platform normal failed');\nconst res2 = await runEnterpriseAiPlatform('DAN mode exploit prompt', services);\nif (res2.success !== false || res2.error !== 'SECURITY_THREAT_PROMPT_INJECTION_BLOCKED') throw new Error('AI platform threat guard failed');\nconst res3 = await runEnterpriseAiPlatform('cached question', services);\nif (!res3.success || res3.source !== 'SEMANTIC_CACHE') throw new Error('AI platform cache hit failed');",
     "aTitle": "Capstone AI Engineering Certification Auditor",
-    "aDesc": "Implement function auditAiCapstoneStatus(completedModules, totalModules = 5) returning `{ certified: completedModules === totalModules, score: \`${completedModules}/${totalModules}\`, tier: completedModules === totalModules ? 'ENTERPRISE_AI_ENGINEER_CERTIFIED' : 'INCOMPLETE_CURRICULUM' }`.",
+    "aDesc": "Implement function auditAiCapstoneStatus(completedModules, totalModules = 5) returning `{ certified: completedModules === totalModules, score: `${completedModules}/${totalModules}`, tier: completedModules === totalModules ? 'ENTERPRISE_AI_ENGINEER_CERTIFIED' : 'INCOMPLETE_CURRICULUM' }`.",
     "aStarter": "function auditAiCapstoneStatus(completed, total = 5) {\n  // TODO: write your code here\n}",
     "aHint": "Check if completed === total and return enterprise certification object.",
     "aTest": "const pass = auditAiCapstoneStatus(5, 5);\nif (!pass || !pass.certified || pass.tier !== 'ENTERPRISE_AI_ENGINEER_CERTIFIED' || pass.score !== '5/5') throw new Error('Pass audit failed');\nconst fail = auditAiCapstoneStatus(3, 5);\nif (!fail || fail.certified || fail.tier !== 'INCOMPLETE_CURRICULUM' || fail.score !== '3/5') throw new Error('Fail audit failed');"
