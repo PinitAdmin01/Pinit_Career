@@ -151,7 +151,11 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
       "const tasks = [async () => 'a', async () => { throw new Error('b-err'); }, async () => 'c'];",
       "const res = await settleAllBatch(tasks);",
       "if (res.succeeded.length !== 2 || res.succeeded[0] !== 'a' || res.succeeded[1] !== 'c') throw new Error('Succeeded items incorrect');",
-      "if (res.failed.length !== 1 || res.failed[0] !== 'b-err') throw new Error('Failed items incorrect');"
+      "if (res.failed.length !== 1 || res.failed[0] !== 'b-err') throw new Error('Failed items incorrect');",
+      "const res2 = await settleAllBatch([async () => 1, async () => 2]);",
+      "if (res2.succeeded.length !== 2 || res2.succeeded[0] !== 1 || res2.succeeded[1] !== 2 || res2.failed.length !== 0) throw new Error('All succeeded failed');",
+      "const res3 = await settleAllBatch([async () => { throw new Error('e1'); }, async () => { throw new Error('e2'); }]);",
+      "if (res3.succeeded.length !== 0 || res3.failed.length !== 2 || res3.failed[0] !== 'e1' || res3.failed[1] !== 'e2') throw new Error('All failed failed');"
     )
   },
 
@@ -339,7 +343,11 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aTest: lines(
       "if (typeof timingMiddleware !== 'function') throw new Error('timingMiddleware not found');",
       "const timed = await timingMiddleware(async () => 100);",
-      "if (timed.result !== 100 || typeof timed.durationMs !== 'number' || timed.durationMs < 0) throw new Error('Failed timingMiddleware');"
+      "if (timed.result !== 100 || typeof timed.durationMs !== 'number' || timed.durationMs < 0) throw new Error('Failed timingMiddleware number');",
+      "const timed2 = await timingMiddleware(async () => 'hello');",
+      "if (timed2.result !== 'hello' || typeof timed2.durationMs !== 'number' || timed2.durationMs < 0) throw new Error('Failed timingMiddleware string');",
+      "const timed3 = await timingMiddleware(async () => [1, 2, 3]);",
+      "if (!Array.isArray(timed3.result) || timed3.result.length !== 3 || timed3.result[0] !== 1 || typeof timed3.durationMs !== 'number' || timed3.durationMs < 0) throw new Error('Failed timingMiddleware array');"
     )
   },
 
