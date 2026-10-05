@@ -133,4 +133,26 @@ describe('JS/TS forbidden-API guard (CHK-5)', () => {
       `Expected 0 violations across quest test suites but found ${violations.length}`
     );
   });
+
+  it('catches all E-06 bypasses (AST hardening)', () => {
+    const bypasses = [
+      'self.fetch("https://evil.com")',
+      'fetch?.("https://evil.com")',
+      'const f = fetch;',
+      'window["fe" + "tch"]("https://evil.com")',
+      'const r = Reflect.get(globalThis, "fetch");',
+      'const p = new Proxy({}, {});',
+      'const c = (() => 0).constructor("return process")();',
+      'const proc = process;',
+    ];
+
+    for (const code of bypasses) {
+      const detected = findForbiddenJs(code);
+      assert.ok(
+        detected !== null,
+        `Expected E-06 bypass to be detected, but got null for: ${code}`
+      );
+    }
+  });
 });
+
