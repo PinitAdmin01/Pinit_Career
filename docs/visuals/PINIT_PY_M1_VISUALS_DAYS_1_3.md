@@ -6,7 +6,7 @@
 
 **Builder:** Antigravity. **Reviewer:** Claude. **Approver:** the owner.
 
-**Version:** 1.0, 5 October 2026
+**Version:** 1.1, 5 October 2026 (1.1: underline, space-dot and avatar-button rules tightened after the first screenshots)
 
 ---
 
@@ -99,7 +99,7 @@ The existing test `tests/python_long_lessons.test.ts` must still pass. Part 3's 
 - **Every step stores the whole picture, not a change.** Back and Next simply show step N-1 and N+1, so a picture can never get out of sync.
 - When the step changes, only what changed glows for 300 ms (a CSS `transition` on background, border and opacity), then everything stays still. Nothing moves in a loop.
 - Under `@media (prefers-reduced-motion: reduce)`, no transitions at all.
-- Spaces inside text values are drawn as a faint `·`, so students can see spaces (needed in 3.1, 3.4 and 3.6).
+- Spaces are drawn as a faint `·` **only** in `flow` and `boxes` values of parts 3.1, 3.4 and 3.6, where the spaces are the lesson. Everywhere else, spaces are normal spaces.
 - Code and values use the app's monospace font. Captions use the normal font, at least 15 px.
 - The caption has `aria-live="polite"`, so screen readers read each new step.
 
@@ -183,9 +183,9 @@ The data for these 18 pictures goes in a **new file**, `src/lib/data/lessonVisua
 ### C5. Words and shapes point at each other (no markup in the lesson text)
 
 - Do **not** write `<mark>` tags or any other markup into lesson text. The voice could read markup aloud, and showing HTML from data is a security risk.
-- **Automatic matching instead:** for the current part, take the label of every node, box, `leftLabel` and `rightLabel`. In the right-hand text, wrap every whole-word, case-insensitive match in a `<button>` built by React. Never use `dangerouslySetInnerHTML`.
+- **Automatic matching instead:** for the current part, take the label of every node, box, `leftLabel` and `rightLabel`. In the right-hand text, wrap only the **first** whole-word, case-insensitive match **in each paragraph** in a `<button>` built by React. Underlining every match makes the text look messy (seen in the first screenshots: "balance" was underlined about 12 times). Never use `dangerouslySetInnerHTML`.
 - Tapping or hovering a word sets the matching shape's tone to `data` for as long as it is hovered, or for 2 seconds after a tap. Tapping a shape does the same to its words in the text.
-- Only `flow` and `boxes` shapes are tappable, and only when `tappable` is not `false`. Tables, `letters` and `compare` have no tappable shapes (in 1.4 both panels are about the word print, so tapping would light both).
+- Only `flow` and `boxes` shapes are tappable, and only when `tappable` is not `false`. Tables, `letters` and `compare` have no tappable shapes (in 1.4 both panels are about the word print, so tapping would light both). For those parts, nothing in the text is underlined.
 
 ### C6. Rules, enforced by a test (`tests/lesson_visuals.test.ts`)
 
@@ -210,6 +210,7 @@ The test fails the build if any visual breaks any rule:
 - **Desktop (1024 px and wider):** `LessonContentRenderer.tsx` today puts the standing avatar in `.interactive-left-col`. Replace that column's content with the visual stage. Use a grid of `minmax(0, 45fr) minmax(0, 55fr)` with `min-width: 0` on both columns.
 - **Avatar:** move it to a bottom-right frame (`position: fixed; right: 24px; bottom: 24px;` about 220 × 165 px) with a minimise button that shrinks it to a 48 px circle. It must never cover the Run Code button or the quiz buttons, so add bottom padding to the right column equal to the frame height.
 - **One avatar only:** the lesson page must show exactly one avatar. If the global floating avatar (`CLAUDE.md`, "Floating Avatar") also appears on `/quests/lesson`, hide it there. Add one line to `CLAUDE.md`: "On the lesson page the avatar is a bottom-right frame; the floating-avatar rule applies to the rest of the app."
+- **No button may ever sit under the avatar frame,** including the bottom "Next Slide" button. Check at 1280, 1440 and 1920 px.
 - **Under 1024 px:** one column. The visual stage comes first (collapsible, at most 260 px high), then the lesson. The avatar is the 48 px bubble.
 - **A part without a visual:** the right column takes the full width. Days 1 to 3 have a visual in every part, so this only matters for other courses.
 
