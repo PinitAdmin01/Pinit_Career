@@ -51,3 +51,25 @@ test('W-00-2: Tier 2 SQL tasks compare values strictly and reject lazy/cheat que
     assert.equal(starterResult.passed, false, `Seq ${seq} starter code must fail`);
   }
 });
+
+test('F-10: validateGeneratedTask rejects SQL tasks where lazy query passes weak checks (V8)', async () => {
+  const weakTask = {
+    title: 'Find expensive products',
+    brief: 'Return products with price over 100 in the products table.',
+    sql_setup: `
+      CREATE TABLE products (id INT, name TEXT, price INT);
+      INSERT INTO products VALUES (1, 'Expensive 1', 150), (2, 'Expensive 2', 200), (3, 'Cheap', 10);
+    `,
+    starter_code: 'SELECT * FROM products WHERE price > 0;',
+    visible_tests: "SELECT count(*) = 2 AS ok, 'Count matches' AS msg FROM answer;",
+    hidden_tests: "SELECT count(*) = 2 AS ok, 'Count matches' AS msg FROM answer;", // WEAK: count-only!
+    reference_solution: 'SELECT * FROM products WHERE price > 100;',
+    skills: ['SQL'],
+  };
+
+  const res = await validateGeneratedTask(weakTask as any, 'sql');
+  assert.equal(res.ok, false, 'Task with weak SQL checks must be rejected');
+  if (!res.ok) {
+    assert.equal(res.step, 'V8', `Expected failure at V8, got: ${res.step} - ${res.reason}`);
+  }
+});

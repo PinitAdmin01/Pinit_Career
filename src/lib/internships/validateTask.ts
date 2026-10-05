@@ -6,7 +6,7 @@ import { instrumentHiddenJsTests, instrumentHiddenPythonTests } from './submissi
 import type { GeneratedTask } from './generateTask';
 import type { InternshipTaskLanguage } from './types';
 
-export type ValidationStep = 'V1' | 'V2' | 'V3' | 'V4' | 'V5' | 'V6' | 'V7';
+export type ValidationStep = 'V1' | 'V2' | 'V3' | 'V4' | 'V5' | 'V6' | 'V7' | 'V8';
 
 export interface ValidationSuccess {
   ok: true;
@@ -279,6 +279,22 @@ export async function validateGeneratedTask(
     }
   }
 
+  // ── Step V8: Reject weak SQL checks that a lazy query passes (F-10) ──────
+  if (language === 'sql') {
+    const v8Res = await checkSqlLazyQueries(
+      task.sql_setup || '',
+      task.reference_solution,
+      task.hidden_tests
+    );
+    if (v8Res.weakCheck) {
+      return {
+        ok: false,
+        step: 'V8',
+        reason: `Weak SQL checks rejected: lazy query "${v8Res.failingQuery}" passed hidden checks.`,
+      };
+    }
+  }
+
   return { ok: true };
 }
 
@@ -334,5 +350,64 @@ export async function runSqlVerification(
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     return { passed: false, error: msg };
+  }
+}
+
+/**
+ * Step V8: Checks if a lazy query (SELECT * FROM <each table> LIMIT <expected rows>)
+ * passes the task's hidden checks (F-10). If so, the checks are too weak.
+ */
+export async function checkSqlLazyQueries(
+  setup: string,
+  referenceSolution: string,
+  hiddenChecks: string
+): Promise<{ weakCheck: boolean; failingQuery?: string; error?: string }> {
+  try {
+    const { PGlite } = await import('@electric-sql/pglite');
+    const { runSqlPractice, SQL_TEXT_PARSERS, resetDatabase, singleSelect } = await import('@/lib/code/sql/sqlCore');
+    const db = new PGlite({ parsers: SQL_TEXT_PARSERS });
+    try {
+      await resetDatabase(db);
+      if (setup.trim()) await db.exec(setup);
+
+      // 1. Discover all user tables created in the setup schema
+      const tablesRes = await db.exec("SELECT tablename FROM pg_tables WHERE schemaname = 'public';");
+      const tables = (tablesRes[0]?.rows || []).map((r: any) => String(r.tablename));
+
+      if (tables.length === 0) {
+        return { weakCheck: false };
+      }
+
+      // 2. Determine expected row count from reference solution
+      let expectedRows = 1;
+      const select = singleSelect(referenceSolution);
+      if (select) {
+        await db.exec(`CREATE VIEW ref_ans AS\n${select}`);
+        const [refRows] = await db.exec('SELECT count(*)::int AS cnt FROM ref_ans');
+        expectedRows = Number(refRows?.rows[0]?.cnt ?? 1);
+        await db.exec('DROP VIEW ref_ans');
+      }
+
+      // 3. For each table, test lazy query: SELECT * FROM <tableName> LIMIT <expectedRows>
+      for (const table of tables) {
+        const lazyQuery = `SELECT * FROM ${table} LIMIT ${expectedRows};`;
+        await resetDatabase(db);
+        if (setup.trim()) await db.exec(setup);
+        const practiceRes = await runSqlPractice(db, setup, lazyQuery, hiddenChecks);
+        if (practiceRes.passed) {
+          return {
+            weakCheck: true,
+            failingQuery: lazyQuery,
+          };
+        }
+      }
+
+      return { weakCheck: false };
+    } finally {
+      await db.close();
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { weakCheck: false, error: msg };
   }
 }
