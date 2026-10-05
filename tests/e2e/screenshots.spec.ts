@@ -5,15 +5,6 @@ import path from 'path';
 const REPO_OUT_DIR = path.resolve('screenshots');
 fs.mkdirSync(REPO_OUT_DIR, { recursive: true });
 
-const LOCAL_BRAIN_DIR = path.resolve('C:/Users/Admin/.gemini/antigravity/brain/c7b35c15-f056-4dc6-888b-f56621a809c1/screenshots');
-try {
-  if (fs.existsSync(path.dirname(LOCAL_BRAIN_DIR))) {
-    fs.mkdirSync(LOCAL_BRAIN_DIR, { recursive: true });
-  }
-} catch {
-  // Ignore in environments where brain dir does not exist
-}
-
 // Parts keyed strictly by their visual key as required by spec v1.1
 const TARGETS = [
   { key: 'python:1:2', name: 'part_1_3', day: 1, title: '1.3 How Python reads your code: line by line' },
@@ -33,17 +24,14 @@ async function advanceToVisualKey(page: Page, targetKey: string) {
   const targetCol = page.locator(`[data-visual-key="${targetKey}"]`);
   for (let s = 0; s < 10; s++) {
     if (await targetCol.count() > 0 && await targetCol.first().isVisible()) {
-      return;
-    }
-    const nextBtn = page.locator('button[data-testid="btn-next-slide"]');
-    if (await nextBtn.isVisible()) {
-      await nextBtn.click();
-      await page.waitForTimeout(350);
-    } else {
       break;
     }
+    const nextBtn = page.locator('button[data-testid="btn-next-slide"]');
+    await expect(nextBtn, `Next Slide button must be visible to advance towards ${targetKey}`).toBeVisible({ timeout: 5000 });
+    await nextBtn.click();
+    await page.waitForTimeout(350);
   }
-  await expect(targetCol.first(), `Visual key ${targetKey} must become visible`).toBeVisible({ timeout: 5000 });
+  await expect(targetCol.first(), `Expected data-visual-key="${targetKey}" must be on screen`).toBeVisible({ timeout: 5000 });
 }
 
 test.describe('Lesson Visuals Screenshot Suite (Spec v1.1)', () => {
@@ -54,7 +42,7 @@ test.describe('Lesson Visuals Screenshot Suite (Spec v1.1)', () => {
           await page.setViewportSize({ width: vp.width, height: vp.height });
 
           const questId = `python-lecture1-day-${target.day}`;
-          await page.goto(`/quests/lesson?questId=${questId}`, { waitUntil: 'load' });
+          await page.goto(`/quests/lesson?questId=${questId}&testMode=true`, { waitUntil: 'load' });
 
           // Apply theme
           await page.evaluate((t) => {
@@ -65,8 +53,11 @@ test.describe('Lesson Visuals Screenshot Suite (Spec v1.1)', () => {
 
           await page.waitForSelector('.lesson-card, .visual-stage-root', { timeout: 15000 });
 
-          // Advance strictly by key, never by slide number
+          // Advance strictly by key, asserting button visibility and visual key presence
           await advanceToVisualKey(page, target.key);
+
+          // Assert the visual stage for this exact key is active before capturing
+          await expect(page.locator(`[data-visual-key="${target.key}"]`)).toBeVisible({ timeout: 5000 });
 
           // Settle animations
           await page.waitForTimeout(500);
@@ -77,15 +68,6 @@ test.describe('Lesson Visuals Screenshot Suite (Spec v1.1)', () => {
           await page.screenshot({ path: filepath, fullPage: vp.width < 1024 });
 
           expect(fs.existsSync(filepath), `Screenshot ${filename} must be written`).toBe(true);
-
-          if (fs.existsSync(LOCAL_BRAIN_DIR)) {
-            const brainPath = path.join(LOCAL_BRAIN_DIR, filename);
-            try {
-              fs.copyFileSync(filepath, brainPath);
-            } catch {
-              // optional local copy
-            }
-          }
         });
       }
     }

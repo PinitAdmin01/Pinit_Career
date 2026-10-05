@@ -5,15 +5,6 @@ import path from 'path';
 const REPO_OUT_DIR = path.resolve('screenshots');
 fs.mkdirSync(REPO_OUT_DIR, { recursive: true });
 
-const LOCAL_BRAIN_DIR = path.resolve('C:/Users/Admin/.gemini/antigravity/brain/c7b35c15-f056-4dc6-888b-f56621a809c1/screenshots');
-try {
-  if (fs.existsSync(path.dirname(LOCAL_BRAIN_DIR))) {
-    fs.mkdirSync(LOCAL_BRAIN_DIR, { recursive: true });
-  }
-} catch {
-  // Ignore in environments where brain dir does not exist
-}
-
 // Parts keyed strictly by their visual key as required by spec v1.1
 const TARGETS = [
   { key: 'python:1:2', name: 'part_1_3', day: 1, title: '1.3 How Python reads your code: line by line' },
@@ -44,7 +35,7 @@ async function capture() {
 
       for (const target of TARGETS) {
         const questId = `python-lecture1-day-${target.day}`;
-        const url = `${baseURL}/quests/lesson?questId=${questId}`;
+        const url = `${baseURL}/quests/lesson?questId=${questId}&testMode=true`;
         console.log(`Capturing ${target.title} (${target.key}) [${vp.label}, ${theme}]...`);
 
         await page.goto(url, { waitUntil: 'load' });
@@ -91,15 +82,6 @@ async function capture() {
 
         await page.screenshot({ path: filepath, fullPage: vp.width < 1024 });
         console.log(`Saved screenshot: ${filepath}`);
-
-        if (fs.existsSync(LOCAL_BRAIN_DIR)) {
-          const brainPath = path.join(LOCAL_BRAIN_DIR, filename);
-          try {
-            fs.copyFileSync(filepath, brainPath);
-          } catch {
-            // local brain copy optional
-          }
-        }
       }
 
       await context.close();

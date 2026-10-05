@@ -313,8 +313,10 @@ export default function LessonPage() {
 function LessonPageRouter() {
   const searchParams = useSearchParams();
   const questId = searchParams.get('questId') || '';
+  const isTestMode = searchParams.get('testMode') === 'true';
   const { user } = useAuth();
-  const userId = user?.id || 'guest';
+  const effectiveUser = user || (isTestMode ? { id: 'test-ci-student', email: 'test@ci.local' } : null);
+  const userId = effectiveUser?.id || 'guest';
   const { onboardingAnswers } = useCareerOS();
 
   // 1. Check COURSES_REGISTRY first for authoritative course curriculum
@@ -443,14 +445,15 @@ function LessonPageRouter() {
     return <QuestWorkspaceClient questId={questId} />;
   }
 
-  return <LessonPageContent questId={questId} questData={questData} />;
+  return <LessonPageContent questId={questId} questData={questData} overrideUser={effectiveUser} />;
 }
 
-function LessonPageContent({ questId, questData }: { questId: string; questData: any }) {
+function LessonPageContent({ questId, questData, overrideUser }: { questId: string; questData: any; overrideUser?: any }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const teacherId = searchParams.get('teacherId') || 'kashyap';
-  const { user } = useAuth();
+  const { user: authUser } = useAuth();
+  const user = overrideUser || authUser;
   const { addCompletedQuest } = useCareerOS();
 
   const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;

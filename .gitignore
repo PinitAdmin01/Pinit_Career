@@ -41,7 +41,7 @@ dist-test/
 dump.rdb
 
 # TypeScript incremental build cache
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 # Batch files may contain credentials
 start_backend.bat
