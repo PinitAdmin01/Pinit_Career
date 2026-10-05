@@ -65,6 +65,7 @@
     "ioredis": "6.0.0",
     "pg": "^8.23.0",
     "prisma": "7.10.0",
+    "proxy-agent": "^8.0.2",
     "puppeteer-core": "^25.10.0",
     "testcontainers": "12.1.0",
     "ts-node": "^10.9.2",
