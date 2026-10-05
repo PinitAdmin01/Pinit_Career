@@ -92,6 +92,8 @@ ${indentedTestSuite}
 except AssertionError as ae:
     sys.stderr.write(f"AssertionError: {ae}\\n")
     sys.exit(2)
+except SystemExit:
+    raise
 except BaseException as ex:
     sys.stderr.write(f"RuntimeError: {ex}\\n")
     sys.exit(3)

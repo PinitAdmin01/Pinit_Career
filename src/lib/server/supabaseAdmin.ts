@@ -1,12 +1,18 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 let cachedAdmin: SupabaseClient | null = null;
+let mockAdmin: SupabaseClient | null = null;
+
+export function setSupabaseAdminForTests(client: any): void {
+  mockAdmin = client;
+}
 
 /**
  * Authoritative server Supabase client using SUPABASE_SERVICE_ROLE_KEY.
  * Bypasses RLS to allow server-authoritative reads and writes.
  */
 export function getSupabaseAdmin(): SupabaseClient {
+  if (mockAdmin) return mockAdmin;
   if (cachedAdmin) return cachedAdmin;
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321';

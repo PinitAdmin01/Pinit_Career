@@ -27,7 +27,8 @@ export async function requireUserFromRequest(req: Request): Promise<
   }
 
   if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production' && (token === 'demo-token-bypass' || token.startsWith('test-token-'))) {
-    return { user: { id: 'test_user_001', email: 'student@pinit.in', displayName: 'Student' }, error: null };
+    const userId = token.startsWith('test-token-') && token.length > 11 ? token.slice(11) : 'test_user_001';
+    return { user: { id: userId, email: `${userId}@pinit.in`, displayName: userId }, error: null };
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';

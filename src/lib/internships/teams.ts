@@ -6,6 +6,9 @@ import type {
   ClientInternshipTeamMember,
 } from './types';
 import { teamToClient, teamMemberToClient } from './toClient';
+import { generateProductBrief } from './productBrief';
+import { generateTier2MemberTasks } from './tier2Tasks';
+import { initializeTeamSprints } from './sprints';
 
 export interface TeamQueueEntry {
   studentId: string;
@@ -223,65 +226,151 @@ export async function matchPendingTeams(options?: { now?: Date | string }): Prom
     return { matchedTeams: 0, soloTeams: 0, remainingInQueue: 0 };
   }
 
-  // 4. Form teams
-  const result = formTeams(queue, 7, 3, 4, { now });
-
+  // 4. Form teams per track
+  const tracks = Array.from(new Set(queue.map((q) => q.track || 'python_ai')));
   let matchedTeamsCount = 0;
   let soloTeamsCount = 0;
+  let totalRemainingInQueue = 0;
 
-  // 5. Insert created teams and team members into the database
-  for (const team of result.teams) {
-    const { data: insertedTeam, error: teamErr } = await admin
-      .from('internship_teams')
-      .insert({
-        tier: 't2_virtual_team',
-        status: 'active',
-        project_brief: team.isSolo ? { isSolo: true } : null,
-        window_start: team.windowStart || now.toISOString().split('T')[0],
-      })
-      .select('id')
-      .single();
+  for (const track of tracks) {
+    const trackQueue = queue.filter((q) => (q.track || 'python_ai') === track);
+    const result = formTeams(trackQueue, 7, 3, 4, { now });
+    totalRemainingInQueue += result.leftovers.length;
 
-    if (teamErr || !insertedTeam) {
-      console.error('[matchPendingTeams] Failed to create team:', teamErr);
-      continue;
-    }
+    // 5. Insert created teams, sprints, stories, and tasks into the database
+    for (const team of result.teams) {
+      const teamTrack = (track as 'python_ai' | 'web_fullstack') || 'python_ai';
+      const memberIds = team.members.map((m) => m.studentId);
+      const briefSeed = `t2-brief-${team.members[0].enrollmentId}-${now.getTime()}`;
 
-    const teamId = (insertedTeam as { id: string }).id;
+      // A. Generate Product Brief
+      let briefRes;
+      try {
+        briefRes = await generateProductBrief({
+          seed: briefSeed,
+          isSolo: team.isSolo,
+          memberIds,
+          track: teamTrack,
+        });
+      } catch (err) {
+        briefRes = {
+          ok: false as const,
+          reasons: [err instanceof Error ? err.message : String(err)],
+        };
+      }
 
-    // Insert team members
-    const memberRows = team.members.map((m) => ({
-      team_id: teamId,
-      student_id: m.studentId,
-      internship_enrollment_id: m.enrollmentId,
-      stories: null,
-    }));
+      if (!briefRes.ok) {
+        console.error('[matchPendingTeams] Failed to generate product brief:', briefRes.reasons);
+        for (const m of team.members) {
+          await admin
+            .from('internship_enrollments')
+            .update({ status: 'generation_failed' })
+            .eq('id', m.enrollmentId);
+        }
+        continue;
+      }
 
-    await admin.from('internship_team_members').insert(memberRows);
-
-    // Update enrollment status to active if generating, and set due date to 4 weeks (28 days)
-    const dueAt = new Date(now.getTime() + 28 * 24 * 60 * 60 * 1000).toISOString();
-    for (const m of team.members) {
-      await admin
-        .from('internship_enrollments')
-        .update({
+      // B. Insert team with product brief
+      const { data: insertedTeam, error: teamErr } = await admin
+        .from('internship_teams')
+        .insert({
+          tier: 't2_virtual_team',
           status: 'active',
-          started_at: m.joinedQueueAt instanceof Date ? m.joinedQueueAt.toISOString() : m.joinedQueueAt,
-          due_at: dueAt,
+          project_brief: { ...briefRes.brief, isSolo: team.isSolo },
+          window_start: team.windowStart || now.toISOString().split('T')[0],
         })
-        .eq('id', m.enrollmentId);
-    }
+        .select('id')
+        .single();
 
-    if (team.isSolo) {
-      soloTeamsCount++;
-    } else {
-      matchedTeamsCount++;
+      if (teamErr || !insertedTeam) {
+        console.error('[matchPendingTeams] Failed to create team:', teamErr);
+        for (const m of team.members) {
+          await admin
+            .from('internship_enrollments')
+            .update({ status: 'generation_failed' })
+            .eq('id', m.enrollmentId);
+        }
+        continue;
+      }
+
+      const teamId = (insertedTeam as { id: string }).id;
+
+      // C. Initialize the 4 weekly sprints
+      await initializeTeamSprints(
+        teamId,
+        team.isSolo ? team.members[0].enrollmentId : undefined,
+        now
+      );
+
+      // D. Insert team members with assigned stories
+      const memberRows = team.members.map((m) => ({
+        team_id: teamId,
+        student_id: m.studentId,
+        internship_enrollment_id: m.enrollmentId,
+        stories: briefRes.assignments[m.studentId] || [],
+      }));
+
+      await admin.from('internship_team_members').insert(memberRows);
+
+      // E. Generate tasks for each member
+      const dueAt = new Date(now.getTime() + 28 * 24 * 60 * 60 * 1000).toISOString();
+      let anyMemberFailed = false;
+
+      for (const m of team.members) {
+        const memberStories = briefRes.assignments[m.studentId] || [];
+        let tasksRes;
+        try {
+          tasksRes = await generateTier2MemberTasks({
+            enrollmentId: m.enrollmentId,
+            studentId: m.studentId,
+            stories: memberStories,
+            companyName: briefRes.brief.productName,
+            track: m.track,
+            seed: `t2-tasks-${m.enrollmentId}-${now.getTime()}`,
+          });
+        } catch (err) {
+          tasksRes = {
+            ok: false as const,
+            failedAtSeq: 1,
+            reasons: [err instanceof Error ? err.message : String(err)],
+          };
+        }
+
+        if (!tasksRes.ok) {
+          console.error(
+            `[matchPendingTeams] Failed to generate tasks for member ${m.studentId}:`,
+            tasksRes.reasons
+          );
+          anyMemberFailed = true;
+          await admin
+            .from('internship_enrollments')
+            .update({ status: 'generation_failed' })
+            .eq('id', m.enrollmentId);
+        } else {
+          await admin
+            .from('internship_enrollments')
+            .update({
+              status: 'active',
+              started_at: m.joinedQueueAt instanceof Date ? m.joinedQueueAt.toISOString() : m.joinedQueueAt,
+              due_at: dueAt,
+            })
+            .eq('id', m.enrollmentId);
+        }
+      }
+
+      if (!anyMemberFailed) {
+        if (team.isSolo) {
+          soloTeamsCount++;
+        } else {
+          matchedTeamsCount++;
+        }
+      }
     }
   }
 
   return {
     matchedTeams: matchedTeamsCount,
     soloTeams: soloTeamsCount,
-    remainingInQueue: result.leftovers.length,
+    remainingInQueue: totalRemainingInQueue,
   };
 }

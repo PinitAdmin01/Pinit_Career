@@ -154,7 +154,7 @@ export function getDeterministicTier2Tasks(stories: UserStory[]): Tier2TaskItem[
         title: 'Emergency Patient Priority Triage Queue',
         brief: 'Implement `sort_triage_queue(patients)` that sorts patients by emergency triage urgency (1=highest, 5=lowest).',
         starter_code: `def sort_triage_queue(patients):\n    return patients\n`,
-        visible_tests: `pts = [{'name': 'A', 'urgency': 3}, {'name': 'B', 'urgency': 1}]\nassert [p['name'] for p in sort_triage_queue(pts)] == ['B', 'A']\n`,
+        visible_tests: `pts = [{'name': 'A', 'urgency': 3}, {'name': 'B', 'urgency': 1}]\nassert [p['name'] for p in sort_triage_queue(pts)] == ['B', 'A']\nassert [p['name'] for p in sort_triage_queue([{'name': 'Z', 'urgency': 1}])] == ['Z']\n`,
         hidden_tests: `pts = [{'name': 'A', 'urgency': 4}, {'name': 'B', 'urgency': 1}, {'name': 'C', 'urgency': 2}]\nassert [p['name'] for p in sort_triage_queue(pts)] == ['B', 'C', 'A']\nassert sort_triage_queue([]) == []\nassert len(sort_triage_queue([{'name': 'X', 'urgency': 1}])) == 1\n`,
         reference_solution: `def sort_triage_queue(patients):\n    return sorted(patients, key=lambda p: (p.get('urgency', 99), p.get('name', '')))\n`,
         skills: ['Stack and Queue Operations', 'List Filtering and Transformations'],
@@ -316,7 +316,7 @@ export function getDeterministicWebTier2Tasks(stories: UserStory[]): Tier2TaskIt
         hidden_tests: `SELECT (SELECT array_agg(latency ORDER BY latency) FROM answer) = ARRAY[25, 45] AS ok, 'Latencies match' AS msg;\nSELECT (SELECT count(*) FROM answer WHERE name = 'Payment Engine') = 0 AS ok, 'Excluded degraded service' AS msg;`,
         reference_solution: `SELECT id, name, latency FROM services WHERE active = true AND latency < 100 ORDER BY name ASC;`,
         skills: ['SELECT with WHERE and ORDER BY', 'PostgreSQL DDL and Table Constraints'],
-        sql_setup: `CREATE TABLE services (id INT PRIMARY KEY, name TEXT, latency INT, active BOOLEAN);\nINSERT INTO services VALUES (1, 'Web Gateway', 45, true), (2, 'Auth API', 25, true), (3, 'Payment Engine', 350, true), (4, 'Legacy Batch', 80, false);`,
+        sql_setup: `CREATE TABLE services (id INT PRIMARY KEY, name TEXT, latency INT, active BOOLEAN);\nINSERT INTO services VALUES (1, 'Legacy Batch', 80, false), (2, 'Payment Engine', 350, true), (3, 'Web Gateway', 45, true), (4, 'Auth API', 25, true);`,
       },
     },
 

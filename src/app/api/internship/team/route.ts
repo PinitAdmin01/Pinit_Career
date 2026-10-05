@@ -98,17 +98,16 @@ export async function POST(req: NextRequest) {
     }
 
     const admin = getSupabaseAdmin();
-    const { data: failedEnr } = await admin
+    const { data: latestEnr } = await admin
       .from('internship_enrollments')
-      .select('status')
+      .select('id, status')
       .eq('student_id', userId)
       .eq('tier', 't2_virtual_team')
-      .eq('status', 'generation_failed')
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle();
 
-    if (failedEnr) {
+    if (latestEnr?.status === 'generation_failed') {
       return fail(
         500,
         'GENERATION_FAILED',
@@ -130,6 +129,24 @@ export async function POST(req: NextRequest) {
         members: fresh.members,
         isSolo: fresh.isSolo,
       });
+    }
+
+    // Check if the student's enrollment failed during generation
+    const { data: afterEnr } = await admin
+      .from('internship_enrollments')
+      .select('status')
+      .eq('student_id', userId)
+      .eq('tier', 't2_virtual_team')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (afterEnr?.status === 'generation_failed') {
+      return fail(
+        500,
+        'GENERATION_FAILED',
+        'We could not prepare your internship right now. Please try again in a few minutes.'
+      );
     }
 
     return NextResponse.json({
