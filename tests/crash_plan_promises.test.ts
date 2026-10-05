@@ -3,24 +3,32 @@ import assert from 'node:assert/strict';
 
 import { getCrashPlanById } from '../src/lib/data/crashPlansData';
 import { REACT_LONG_LESSONS } from '../src/lib/data/reactLongLessons';
+import { REACT_30_DAYS_CONFIGS } from '../src/lib/data/react30DayData';
 import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
+import { PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/python30DayData';
 import { CAPSTONE_SPRINTS, getCapstoneSprints } from '../src/lib/courses/capstoneSprints';
 
 // The 1-month plan's React track must only promise a capstone the course prepares students for.
-// It used to promise a Next.js 14 / TypeScript / Redis chat engine that the course never taught.
+// Must appear in a day title or syllabus (E-23 / F-17), not merely a word search across narration text.
 test('the 1-month React capstone only uses technology the course teaches', () => {
   const plan = getCrashPlanById('plan-1m-sprint');
   assert.ok(plan, 'plan-1m-sprint not found');
-  const courseText = JSON.stringify(REACT_LONG_LESSONS).toLowerCase();
+  const courseText = [
+    ...REACT_30_DAYS_CONFIGS.map((d) => [d.title, d.desc, ...(d.syllabus ?? [])].join(' ')),
+    ...REACT_LONG_LESSONS.map((l) => [l.title, ...l.parts.map((p) => p.title)].join(' ')),
+  ].join(' ').toLowerCase();
   const untaught = plan.flagshipBuildByTrack.web_fullstack.tech.filter((t) => !courseText.includes(t.toLowerCase()));
   assert.deepEqual(untaught, [], `capstone lists technology the React course never teaches: ${untaught.join(', ')}`);
 });
 
-// The same for the Python track: it used to promise an async ingestion engine with Redis and rate limiting.
+// The same for the Python track: must appear in a day title or syllabus.
 test('the 1-month Python capstone only uses technology the course teaches', () => {
   const plan = getCrashPlanById('plan-1m-sprint');
   assert.ok(plan, 'plan-1m-sprint not found');
-  const courseText = JSON.stringify(PYTHON_LONG_LESSONS).toLowerCase();
+  const courseText = [
+    ...PYTHON_30_DAYS_CONFIGS.map((d) => [d.title, d.desc, ...(d.syllabus ?? [])].join(' ')),
+    ...PYTHON_LONG_LESSONS.map((l) => [l.title, ...l.parts.map((p) => p.title)].join(' ')),
+  ].join(' ').toLowerCase();
   const untaught = plan.flagshipBuildByTrack.python_ai.tech.filter((t) => !courseText.includes(t.toLowerCase()));
   assert.deepEqual(untaught, [], `capstone lists technology the Python course never teaches: ${untaught.join(', ')}`);
 });
@@ -62,6 +70,36 @@ test('plan months that use the SQL course only list skills the SQL course teache
 
 test('every web plan capstone only uses technology its courses teach', () => {
   const { getLongLesson } = require('../src/lib/data/longLessons');
+  const { REACT_30_DAYS_CONFIGS } = require('../src/lib/data/react30DayData');
+  const { NODE_WEB_30_DAYS_CONFIGS } = require('../src/lib/data/nodeWeb30DayData');
+  const { DATABASE_30_DAYS_CONFIGS } = require('../src/lib/data/database30DayData');
+  const { DEVOPS_30_DAYS_CONFIGS } = require('../src/lib/data/devops30DayData');
+  const { CLOUD_30_DAYS_CONFIGS } = require('../src/lib/data/cloud30DayData');
+  const { DESIGN_30_DAYS_CONFIGS } = require('../src/lib/data/design30DayData');
+  const { DSA_30_DAYS_CONFIGS } = require('../src/lib/data/dsa30DayData');
+  const { DISTRIBUTED_30_DAYS_CONFIGS } = require('../src/lib/data/distributed30DayData');
+  const { CYBER_30_DAYS_CONFIGS } = require('../src/lib/data/cybersecurity30DayData');
+  const { AI_30_DAYS_CONFIGS } = require('../src/lib/data/ai30DayData');
+  const { SRE_WEB_30_DAYS_CONFIGS } = require('../src/lib/data/sreWeb30DayData');
+  const { STREAM_WEB_30_DAYS_CONFIGS } = require('../src/lib/data/streamWeb30DayData');
+  const { AI_DEPLOY_WEB_30_DAYS_CONFIGS } = require('../src/lib/data/aiDeployWeb30DayData');
+
+  const COURSE_CONFIGS: Record<string, any[]> = {
+    'course-react-web': REACT_30_DAYS_CONFIGS,
+    'course-node-web': NODE_WEB_30_DAYS_CONFIGS,
+    'course-database-eng': DATABASE_30_DAYS_CONFIGS,
+    'course-devops-cicd': DEVOPS_30_DAYS_CONFIGS,
+    'course-cloud-native': CLOUD_30_DAYS_CONFIGS,
+    'course-design-systems': DESIGN_30_DAYS_CONFIGS,
+    'course-dsa-optim': DSA_30_DAYS_CONFIGS,
+    'course-distributed-sys': DISTRIBUTED_30_DAYS_CONFIGS,
+    'course-cybersecurity': CYBER_30_DAYS_CONFIGS,
+    'course-ai-eng': AI_30_DAYS_CONFIGS,
+    'course-sre-web': SRE_WEB_30_DAYS_CONFIGS,
+    'course-stream-web': STREAM_WEB_30_DAYS_CONFIGS,
+    'course-aideploy-web': AI_DEPLOY_WEB_30_DAYS_CONFIGS,
+  };
+
   const PREFIX_MAP: Record<string, string> = {
     'course-react-web': 'react-basics',
     'course-node-web': 'node-web',
@@ -82,15 +120,25 @@ test('every web plan capstone only uses technology its courses teach', () => {
   for (const id of planIds) {
     const plan = getCrashPlanById(id);
     assert.ok(plan, `${id} not found`);
-    const allLessons = [];
+    const courseTitlesAndSyllabus: string[] = [];
     for (const m of plan.modulesByTrack.web_fullstack) {
       const prefix = PREFIX_MAP[m.courseId] || m.courseId.replace(/^course-/, '');
+      const configs = COURSE_CONFIGS[m.courseId] || [];
+      for (const d of configs) {
+        if (d.title) courseTitlesAndSyllabus.push(d.title);
+        if (d.desc) courseTitlesAndSyllabus.push(d.desc);
+        if (d.syllabus) courseTitlesAndSyllabus.push(...d.syllabus);
+      }
       for (let day = 1; day <= 30; day++) {
         const l = getLongLesson(prefix, day);
-        if (l) allLessons.push(l);
+        if (l) {
+          if (l.title) courseTitlesAndSyllabus.push(l.title);
+          if (l.parts) courseTitlesAndSyllabus.push(...l.parts.map((p: any) => p.title));
+        }
       }
     }
-    const courseText = JSON.stringify(allLessons).toLowerCase();
+    // Technology must appear in a day title or syllabus (E-23 / F-17), not merely in lesson narration text.
+    const courseText = courseTitlesAndSyllabus.join(' ').toLowerCase();
     const untaught = plan.flagshipBuildByTrack.web_fullstack.tech.filter((t) => !courseText.includes(t.toLowerCase()));
     assert.deepEqual(untaught, [], `${id} web capstone lists technology the courses never teach: ${untaught.join(', ')}`);
   }
@@ -106,7 +154,18 @@ test('every web plan from 1m to 12m has custom capstone sprint wording for web_f
     assert.ok(web[0].title.startsWith('Sprint 1'), `${id} sprint 1 title`);
     assert.ok(web[0].field?.label, `${id} sprint 1 has custom design field label`);
     assert.ok(web[1].field?.label, `${id} sprint 2 has custom code field label`);
-    assert.ok(web[2].description.length > 20, `${id} sprint 3 has description`);
-    assert.ok(web[3].description.length > 20, `${id} sprint 4 has description`);
+    // Compare against the generic sprint text and fail when they are equal (E-23 / F-17)
+    for (let i = 0; i < 4; i++) {
+      assert.notEqual(
+        web[i].description,
+        CAPSTONE_SPRINTS[i].description,
+        `${id} sprint ${i + 1} must use custom wording and not generic sprint description`
+      );
+    }
   }
+
+  // Generic fallback must equal generic description (demonstrating the check fails when equal)
+  const genericFallback = getCapstoneSprints(undefined, undefined);
+  assert.equal(genericFallback[0].description, CAPSTONE_SPRINTS[0].description, 'fallback must equal generic description');
 });
+

@@ -6845,7 +6845,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        title: 'POST routes and data checking with models',
+        title: 'POST routes and data checking with Pydantic models',
         say: [
           'To add an expense, the caller sends a POST request with JSON in the request body, like {"item": "Tea", "amount": 20, "category": "food"}. You describe the expected shape with a class that inherits from Pydantic\'s BaseModel. You learned inheritance on Day 19; here it is in real use.',
           'class NewExpense(BaseModel): with lines like item: str and amount: float says what fields are needed and their types. Field(gt=0) adds a rule: greater than 0. FastAPI then checks every incoming request automatically.',

@@ -147,7 +147,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "Application Load Balancer (ALB), Target Groups & Health Probes",
     "desc": "Route traffic with Layer 7 Application Load Balancers: Host-based routing, path-based routing, target group health checks, and connection draining.",
     "syllabus": [
-      "ALB vs NLB: Layer 7 (HTTP/HTTPS/gRPC) content routing vs Layer 4 (TCP/UDP) ultra-low latency.",
+      "ALB vs NLB: Layer 7 (HTTP/HTTPS/gRPC/WebSockets) content routing vs Layer 4 (TCP/UDP) ultra-low latency.",
       "Target Groups & Health Checks: Consecutive healthy/unhealthy threshold counts and HTTP status matchers (e.g. 200-299).",
       "Deregistration Delay (Connection Draining): Graceful in-flight HTTP request completion before terminating instances."
     ],

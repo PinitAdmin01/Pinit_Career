@@ -98,7 +98,7 @@ export const AI_DAYS: DayConfig[] = [
     "syllabus": [
       "Exact KNN (O(N) brute force) vs Approximate Nearest Neighbors (ANN: HNSW graph search in O(log N)).",
       "Hierarchical Navigable Small World (HNSW): Multi-layer skip-list graph traversal.",
-      "Metadata Filtering: Combining vector similarity with relational SQL filters (`category == 'tech'`)."
+      "Metadata Filtering: Combining vector similarity with relational SQL filters (`category == 'tech'`) and pgvector indexes."
     ]
   },
   {

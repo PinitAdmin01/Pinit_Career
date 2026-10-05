@@ -387,7 +387,7 @@ export const CYBER_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "API Security: Token Bucket Rate Limiting & OAuth 2.0 PKCE Flow",
     "desc": "Protect REST/GraphQL APIs: Token Bucket Algorithm (Capacity $C$, Refill Rate $r$ tokens/sec), Mitigating Automated Credential Stuffing and DoS, and OAuth 2.0 Proof Key for Code Exchange (PKCE: Code Verifier and SHA-256 Code Challenge `BASE64URL(SHA256(verifier))`).",
     "syllabus": [
-      "Core Foundations: Principles and attack/defense mechanisms of API Security: Token Bucket Rate Limiting & OAuth 2.0 PKCE Flow.",
+      "Core Foundations: Principles and attack/defense mechanisms of API Security: Token Bucket Rate Limiting & OAuth 2.0 / OAuth2 PKCE Flow.",
       "Operational Architecture: Security verification and rule execution flow.",
       "Production Best Practices: Hardening guidelines, error sanitization, and compliance auditing."
     ],

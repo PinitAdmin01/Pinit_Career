@@ -526,7 +526,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     syllabus: [
       "What a web API is: routes, GET and POST.",
       "Your first FastAPI app and the automatic /docs page.",
-      "Checking incoming data and returning errors."
+      "Checking incoming data with Pydantic models and returning errors."
     ],
     eTitle: "Check Incoming Data",
     eDesc: "Write `validate_expense(data)` that returns a list of errors: `'item is required'` if item is missing or empty, and `'amount must be more than 0'` if amount is missing or not above 0.",

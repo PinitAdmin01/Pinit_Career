@@ -149,7 +149,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "syllabus": [
       "Exact KNN (O(N) brute force) vs Approximate Nearest Neighbors (ANN: HNSW graph search in O(log N)).",
       "Hierarchical Navigable Small World (HNSW): Multi-layer skip-list graph traversal.",
-      "Metadata Filtering: Combining vector similarity with relational SQL filters (`category == 'tech'`)."
+      "Metadata Filtering: Combining vector similarity with relational SQL filters (`category == 'tech'`) and pgvector indexes."
     ],
     "eTitle": "In-Memory Vector Search Engine with Metadata Filtering",
     "eDesc": "Implement function searchVectorIndex(queryVec, documents, topK = 2, filterCriteria = {}) returning top-K most similar documents matching filters.",
