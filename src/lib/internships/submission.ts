@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import * as acorn from 'acorn';
+import { transformSync } from 'esbuild';
 import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
 import { runJsInSandbox } from '@/lib/server/jsSandbox';
 import type { InternshipTaskRow, InternshipEnrollmentRow, InternshipTaskLanguage } from './types';
@@ -187,33 +189,56 @@ except Exception:
 }
 
 /**
- * Instruments hidden JS/TS tests so that:
- * 1. Each check is numbered.
- * 2. Any failure prints ONLY "Hidden check N failed".
- * 3. Hidden test source code is NEVER printed to stdout or stderr.
+ * Instruments hidden JS/TS tests using the AST (acorn after esbuild transform / F-09):
+ * 1. Each top-level statement is wrapped as `{ __pinit_hidden_check_idx = n; <statement> }`.
+ * 2. Top-level variable declarations (const/let) are converted to var so they remain accessible across subsequent blocks.
+ * 3. Any failure throws and prints ONLY "Hidden check N failed".
+ * 4. Hidden test source code is NEVER printed to stdout or stderr.
  */
 export function instrumentHiddenJsTests(hiddenTests: string): string {
-  const lines = hiddenTests.split('\n');
-  const instrumented: string[] = [];
+  if (!hiddenTests || !hiddenTests.trim()) {
+    return hiddenTests;
+  }
+
+  let jsCode = hiddenTests;
+  try {
+    const transformed = transformSync(hiddenTests, {
+      loader: 'tsx',
+      target: 'es2022',
+    });
+    jsCode = transformed.code;
+  } catch {
+    // Keep original jsCode if transform fails
+  }
+
+  let ast: acorn.Program | null = null;
+  try {
+    ast = acorn.parse(jsCode, {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    }) as acorn.Program;
+  } catch {
+    // If AST parsing fails, fallback to simple try/catch wrap
+    return `let __pinit_hidden_check_idx = 1;
+try {
+${hiddenTests}
+} catch (err) {
+  throw new Error('Hidden check ' + __pinit_hidden_check_idx + ' failed');
+}
+`;
+  }
+
+  const blocks: string[] = [];
   let checkCount = 0;
 
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (
-      trimmed.startsWith('assert(') ||
-      trimmed.startsWith('assert ') ||
-      trimmed.startsWith('console.assert') ||
-      trimmed.startsWith('if ') ||
-      trimmed.startsWith('expect(') ||
-      trimmed.includes('throw new Error') ||
-      trimmed.includes('throw new')
-    ) {
-      checkCount++;
-      instrumented.push(`__pinit_hidden_check_idx = ${checkCount};`);
-      instrumented.push(line);
-    } else {
-      instrumented.push(line);
+  for (const stmt of ast.body) {
+    if (stmt.type === 'EmptyStatement') continue;
+    checkCount++;
+    let stmtCode = jsCode.slice(stmt.start, stmt.end);
+    if (stmt.type === 'VariableDeclaration') {
+      stmtCode = stmtCode.replace(/^(const|let)\b/, 'var');
     }
+    blocks.push(`  { __pinit_hidden_check_idx = ${checkCount}; ${stmtCode} }`);
   }
 
   if (checkCount === 0) {
@@ -222,8 +247,8 @@ export function instrumentHiddenJsTests(hiddenTests: string): string {
 
   return `let __pinit_hidden_check_idx = 1;
 try {
-${instrumented.join('\n')}
-} catch (err: any) {
+${blocks.join('\n')}
+} catch (err) {
   throw new Error('Hidden check ' + __pinit_hidden_check_idx + ' failed');
 }
 `;

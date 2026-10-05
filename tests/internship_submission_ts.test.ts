@@ -132,3 +132,45 @@ test('W-130 TSX grader: (e) a correct TSX component passes', async () => {
   assert.equal(res.passed, true);
   assert.ok(res.output.includes('All tests passed'));
 });
+
+test('F-09: a correct answer passes with brace-less if ... throw hidden tests', async () => {
+  const code = `
+    export function add(a: number, b: number): number {
+      return a + b;
+    }
+  `;
+  const visibleTests = `
+    assert(add(1, 2) === 3);
+  `;
+  const hiddenTests = `
+    if (add(2, 3) !== 5)
+      throw new Error("fail 1");
+    if (add(10, 20) !== 30)
+      throw new Error("fail 2");
+  `;
+
+  const res = await executeTicketCode({
+    language: 'typescript',
+    code,
+    visibleTests,
+    hiddenTests,
+  });
+
+  assert.equal(res.passed, true, `Correct answer failed on brace-less if...throw: ${res.output}`);
+});
+
+test('F-09: validateGeneratedTask V4 validates instrumented form of hidden tests', async () => {
+  const { validateGeneratedTask } = await import('../src/lib/internships/validateTask');
+  const task = {
+    title: 'Add numbers in TypeScript',
+    brief: 'Implement add(a, b) in TypeScript returning the sum of two numbers.',
+    starter_code: 'export function add(a: number, b: number): number {\n  return 0;\n}\n',
+    visible_tests: 'assert(add(1, 2) === 3);\nassert(add(2, 3) === 5);\n',
+    hidden_tests: 'if (add(2, 3) !== 5)\n  throw new Error("fail 1");\nif (add(10, 20) !== 30)\n  throw new Error("fail 2");\nif (add(0, 0) !== 0)\n  throw new Error("fail 3");\n',
+    reference_solution: 'export function add(a: number, b: number): number {\n  return a + b;\n}\n',
+    skills: ['TypeScript'],
+  };
+
+  const res = await validateGeneratedTask(task, 'typescript');
+  assert.strictEqual(res.ok, true, `validateGeneratedTask failed: ${!res.ok ? res.reason : ''}`);
+});

@@ -2,6 +2,7 @@ import { findForbiddenPython } from '@/lib/code/python/pythonGuard';
 import { findForbiddenJs } from '@/lib/code/js/jsGuard';
 import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
 import { runJsInSandbox } from '@/lib/server/jsSandbox';
+import { instrumentHiddenJsTests, instrumentHiddenPythonTests } from './submission';
 import type { GeneratedTask } from './generateTask';
 import type { InternshipTaskLanguage } from './types';
 
@@ -126,11 +127,12 @@ export async function validateGeneratedTask(
     }
   }
 
-  // ── Step V4: Reference solution + hidden tests pass ────────────────────────
+  // ── Step V4: Reference solution + hidden tests pass ───────────────────────
   if (language === 'python') {
+    const instrumentedTests = instrumentHiddenPythonTests(task.hidden_tests);
     const v4Res = await runPythonInSandbox({
       code: task.reference_solution,
-      tests: task.hidden_tests,
+      tests: instrumentedTests,
       timeoutMs: 4000,
     });
     if (!v4Res.passed) {
@@ -155,9 +157,10 @@ export async function validateGeneratedTask(
     }
   } else {
     // typescript or tsx
+    const instrumentedTests = instrumentHiddenJsTests(task.hidden_tests);
     const v4Js = await runJsInSandbox({
       code: task.reference_solution,
-      tests: task.hidden_tests,
+      tests: instrumentedTests,
       language,
       timeoutMs: 4000,
       hidden: true,
