@@ -116,7 +116,7 @@ describe('React render checks without a DOM (CHK-3 / W-04)', () => {
 
     const runtimeIdx = script.indexOf('// REACT RUNTIME BUNDLE');
     const helperIdx = script.indexOf('globalThis.render = render;');
-    const codeIdx = script.indexOf('export const App');
+    const codeIdx = script.indexOf('const App');
     const testIdx = script.indexOf('assert(true);');
 
     assert.ok(runtimeIdx !== -1, 'Runtime must be present');

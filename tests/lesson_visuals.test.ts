@@ -177,7 +177,7 @@ export async function validateSingleVisual(
   if (visual.template === 'compare') {
     for (const [sIdx, s] of visual.steps.entries()) {
       for (const [panelName, panel] of [['left', s.left], ['right', s.right]] as const) {
-        const codeToRun = panel.whatIf || panel.code || part.code || '';
+        const codeToRun = panel.whatIf || part.code || '';
         const realOutput = await runLikeLessonPage(pyodide, codeToRun);
         const lines = realOutput.split('\n');
         for (const check of panel.checks) {

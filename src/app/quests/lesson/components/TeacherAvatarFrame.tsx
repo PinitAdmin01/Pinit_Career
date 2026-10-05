@@ -5,6 +5,17 @@ const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMento
   ssr: false,
 });
 
+export interface LessonQuestData {
+  id?: string;
+  title?: string;
+  desc?: string;
+  syllabus?: string[];
+  testDays?: string[];
+  type?: string;
+  language?: string;
+  [key: string]: unknown;
+}
+
 export interface TeacherAvatarFrameProps {
   userId: string;
   teacherId: string;
@@ -16,7 +27,7 @@ export interface TeacherAvatarFrameProps {
   };
   isPlaying: boolean;
   speechText: string;
-  questData: any;
+  questData: LessonQuestData | null | undefined;
 }
 
 export function TeacherAvatarFrame({

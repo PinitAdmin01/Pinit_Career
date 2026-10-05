@@ -14,9 +14,9 @@ function getEsbuildTransform(): ((code: string, opts: any) => { code: string }) 
     if (typeof __non_webpack_require__ !== 'undefined') {
       return __non_webpack_require__('esbuild').transformSync;
     }
-    const req = Function('return typeof require !== "undefined" ? require : null')();
-    if (req) {
-      return req('esbuild').transformSync;
+    const nodeReq = typeof module !== 'undefined' && module.require ? module.require.bind(module) : undefined;
+    if (nodeReq) {
+      return nodeReq('esbuild').transformSync;
     }
     return null;
   } catch {
