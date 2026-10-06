@@ -261,10 +261,10 @@ export const STREAM_DAYS: DayConfig[] = [
   },
   {
     day: 25,
-    title: "⭐ MILESTONE 4: Fault-Tolerant Stream Processor with Changelog Checkpointing",
-    desc: "Milestone 4: Build a stateful stream processor with windowed aggregations, embedded key-value state stores, changelog backups, and crash-recovery snapshot restoration.",
+    title: "Stream Cluster Capacity Planning & Fault-Tolerant Checkpoint Recovery",
+    desc: "Perform quantitative stream cluster capacity planning and build stateful processors with embedded state stores, changelog backups, and crash-recovery snapshot restoration.",
     syllabus: [
-      "Stateful Processor Architecture: Integrating tumbling windows with a persistent local state store and changelog stream.",
+      "Capacity Planning & Sizing: Calculating partition counts from peak throughput, disk retention volume, and network egress bandwidth.",
       "Checkpointing Protocol: Periodically writing consistent state snapshots and committing stream offsets atomically.",
       "Crash Recovery Simulation: Killing the processing node, recreating state from the changelog, and resuming without data loss."
     ]
