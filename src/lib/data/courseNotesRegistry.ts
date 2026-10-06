@@ -154,7 +154,7 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
 
   'course-sre-web': {
     courseId: 'course-sre-web',
-    courseTitle: 'Site Reliability Engineering & Multi-Cloud Observability',
+    courseTitle: 'Multi-Cloud Reliability & SRE in TypeScript',
     category: 'Cloud & Infrastructure',
     summary: 'Master multi-cloud reliability engineering, SLO/SLI error budgets, telemetry pipelines (metrics, logs, traces), automated canary analysis, chaos engineering, and Runbooks as Code.',
     realWorldAnalogy: 'Think of SRE like modern hospital intensive care medicine: vital sign monitors (telemetry), ICU alarm protocols (burn-rate alerting), crash carts (runbooks), emergency drills (chaos engineering), and morbidity conferences (blameless postmortems).',
@@ -208,12 +208,12 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
       {
         heading: '1. Append-Only Commit Logs & Offset Immutability',
         explanation: 'Sequential disk I/O and zero-copy OS page caching enable extreme write throughput. Monotonically increasing offsets serve as universal coordinate pointers across partitions.',
-        codeOrExample: 'const record = { offset: log.length, payload, timestampMs: Date.now() };\\nlog.push(record);'
+        codeOrExample: 'const record = { offset: log.length, payload, timestampMs: Date.now() };\nlog.push(record);'
       },
       {
         heading: '2. Consumer Groups & Cooperative Sticky Rebalancing',
         explanation: 'Partitions are distributed across consumer group members to parallelize consumption while preserving key-level ordering. Cooperative rebalancing migrates only necessary partitions without stop-the-world pauses.',
-        codeOrExample: 'const partition = murmurHash2(key) % numPartitions;\\nassignPartitions(consumerGroup, partitions);'
+        codeOrExample: 'const partition = murmurHash2(key) % numPartitions;\nassignPartitions(consumerGroup, partitions);'
       },
       {
         heading: '3. Stream-Table Duality (KStream & KTable)',
@@ -241,6 +241,53 @@ export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
       {
         question: 'How do Dead-Letter Queues (DLQ) and tiered retry topics solve poison pill issues in streaming systems?',
         answer: 'Poison pills are malformed messages that crash consumers, causing infinite restart loops. Tiered non-blocking retry topics route transient errors to delayed side topics while committing the main partition offset immediately. If retries fail repeatedly, the record is permanently shunted to a Dead-Letter Queue with full diagnostic envelopes for forensic analysis without stalling the main pipeline.'
+      }
+    ]
+  },
+
+  'course-aideploy-web': {
+    courseId: 'course-aideploy-web',
+    courseTitle: 'Production AI Deployment in TypeScript',
+    category: 'AI Engineering & Production Systems',
+    summary: 'Master production AI deployment: resilient LLM clients, token budgeting, prompt engines, SSE streaming, vector search, RAG pipelines, agentic loops, model gateways, guardrails, evaluation harnesses, canary rollouts, and enterprise security.',
+    realWorldAnalogy: 'Think of production AI deployment like managing an international diplomatic communications bureau: rate-limited encrypted couriers (resilient API clients), strict word counts (token budgeting), multilingual interpreters (prompt templates & format normalization), classified document archives with instant cross-referencing (vector databases & hybrid RAG), armed security screening (prompt injection & PII guardrails), and diplomatic postmortems (telemetry, regression gates & cost attribution).',
+    keyConcepts: [
+      {
+        heading: '1. Resilient Model Calling & Circuit Breaker State Machines',
+        explanation: 'Wrap LLM provider endpoints in timeout deadlines, exponential backoff with jitter, and multi-state circuit breakers (CLOSED, OPEN, HALF_OPEN) to prevent cascade failures during vendor outages.',
+        codeOrExample: 'const cb = new CircuitBreaker({ failureThreshold: 3, resetTimeoutMs: 10000 });\nawait cb.execute(() => callModelEndpoint(payload));'
+      },
+      {
+        heading: '2. Hybrid Vector Search & Reciprocal Rank Fusion (RRF)',
+        explanation: 'Combine dense vector semantic similarity with sparse BM25 keyword matching using rank-based reciprocal fusion to maximize recall across both natural language concepts and exact identifiers.',
+        codeOrExample: 'const rrfScore = (1 / (60 + denseRank)) + (1 / (60 + bm25Rank));'
+      },
+      {
+        heading: '3. Bidirectional Safety Guardrails & Self-Healing JSON Repair',
+        explanation: 'Enforce perimeter defense against prompt injections and PII leaks on ingress, while repairing truncated brackets and schema malformations on egress to guarantee deterministic downstream consumption.',
+        codeOrExample: 'const sanitized = guardrails.sanitizeInput(rawPrompt);\nconst validJson = repairJsonPayload(modelOutput);'
+      }
+    ],
+    cheatsheet: [
+      'Cosine Similarity: cos(θ) = (A · B) / (||A|| * ||B||)',
+      'RRF Score Formula: RRF(d) = Σ [1 / (k + rank_i(d))] where k ≈ 60',
+      'Circuit Breaker States: CLOSED (healthy) -> OPEN (failing) -> HALF_OPEN (probing)',
+      'Exponential Backoff: delay = Math.min(maxDelay, baseDelay * 2 ** attempt + jitter)',
+      'Token Budget Ceiling: totalTokens = promptTokens + maxCompletionTokens <= modelContextWindow'
+    ],
+    commonPitfalls: [
+      'Sending unbounded user prompts directly to foundation models without token budgeting or injection quarantine filtering.',
+      'Relying purely on dense vector retrieval for exact SKU numbers, part codes, or newly minted terminology without keyword hybrid search.',
+      'Parsing LLM structured JSON output with naive JSON.parse without syntax stripping, bracket completion, or Zod schema validation.'
+    ],
+    interviewPrep: [
+      {
+        question: 'How do you design a production multi-provider model fallback architecture with high availability?',
+        answer: 'Implement an AI gateway that manages a prioritized provider list (e.g. primary frontier model -> secondary fallback -> local hosted fallback). Each provider endpoint is monitored by a circuit breaker tracking rolling failure rates. When primary error rates or latency percentiles spike, traffic dynamically fails over to the next healthy provider while normalizing request payloads and response envelopes into standard cross-vendor schemas.'
+      },
+      {
+        question: 'What is Reciprocal Rank Fusion (RRF) and why is it preferred over raw score weighting in hybrid search?',
+        answer: 'RRF merges multiple ranked result lists (such as dense vector embeddings and sparse BM25 keyword search) by summing reciprocal ranks: 1 / (k + rank). It avoids the challenge of normalizing wildly disparate score distributions (cosine similarity bounded [-1, 1] vs unbounded BM25 scores) and naturally prioritizes documents that appear consistently near the top across diverse retrieval algorithms.'
       }
     ]
   },

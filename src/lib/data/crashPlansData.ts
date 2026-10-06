@@ -333,10 +333,10 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         {
           month: 2,
           courseId: 'course-node-web',
-          title: 'Month 2: Backend APIs & Node Services',
-          desc: 'RESTful API construction, Express/Node.js, authentication & security.',
+          title: 'Month 2: Node.js & TypeScript Backend Engineering',
+          desc: 'Event loop, asynchronous I/O, streams, worker threads, clustering, and HTTP servers in TypeScript.',
           icon: '⚙️',
-          skills: ['Node.js', 'Express', 'JWT Auth', 'API Architecture']
+          skills: ['Node.js', 'TypeScript', 'Event Loop', 'Streams', 'Worker Threads']
         },
         {
           month: 3,
@@ -459,7 +459,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     modulesByTrack: {
       web_fullstack: [
         { month: 1, courseId: 'course-react-web', title: 'Month 1: Frontend Mastery', desc: 'React, Next.js, and Modern UI', icon: '⚛️', skills: ['React', 'Next.js'] },
-        { month: 2, courseId: 'course-node-web', title: 'Month 2: Backend Architecture', desc: 'Distributed Node Services & REST/GraphQL', icon: '⚙️', skills: ['Node.js', 'APIs'] },
+        { month: 2, courseId: 'course-node-web', title: 'Month 2: Node.js & TypeScript Backend Engineering', desc: 'Event loop, asynchronous I/O, streams, worker threads, clustering, and HTTP servers in TypeScript.', icon: '⚙️', skills: ['Node.js', 'TypeScript', 'Event Loop', 'Streams', 'Worker Threads'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-devops-cicd', title: 'Month 4: CI/CD & Containers', desc: 'Docker, GitHub Actions, and Pipeline Ops', icon: '🔄', skills: ['Docker', 'CI/CD'] },
         { month: 5, courseId: 'course-cloud-native', title: 'Month 5: Cloud Native Deployments', desc: 'AWS/GCP Cloud Architecture & Serverless', icon: '☁️', skills: ['AWS', 'Cloud'] },
@@ -559,7 +559,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     modulesByTrack: {
       web_fullstack: [
         { month: 1, courseId: 'course-react-web', title: 'Month 1: Frontend Architecture', desc: 'React, Next.js, and Modern UI', icon: '⚛️', skills: ['React', 'Next.js'] },
-        { month: 2, courseId: 'course-node-web', title: 'Month 2: Distributed Node Services', desc: 'Backend APIs & REST/GraphQL', icon: '⚙️', skills: ['Node.js', 'APIs'] },
+        { month: 2, courseId: 'course-node-web', title: 'Month 2: Node.js & TypeScript Backend Engineering', desc: 'Event loop, asynchronous I/O, streams, worker threads, clustering, and HTTP servers in TypeScript.', icon: '⚙️', skills: ['Node.js', 'TypeScript', 'Event Loop', 'Streams', 'Worker Threads'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-dsa-optim', title: 'Month 4: System DSA & LeetCode Prep', desc: 'Data Structures and Speed Optimization', icon: '⚡', skills: ['DSA', 'Algorithms'] },
         { month: 5, courseId: 'course-devops-cicd', title: 'Month 5: DevOps & Kubernetes', desc: 'Docker, CI/CD, and Container Orchestration', icon: '🔄', skills: ['Docker', 'Kubernetes'] },
@@ -665,7 +665,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
     modulesByTrack: {
       web_fullstack: [
         { month: 1, courseId: 'course-react-web', title: 'Month 1: Frontend Architecture', desc: 'React, Next.js, and Modern UI', icon: '⚛️', skills: ['React', 'Next.js'] },
-        { month: 2, courseId: 'course-node-web', title: 'Month 2: Distributed Node Services', desc: 'Backend APIs & REST/GraphQL', icon: '⚙️', skills: ['Node.js', 'APIs'] },
+        { month: 2, courseId: 'course-node-web', title: 'Month 2: Node.js & TypeScript Backend Engineering', desc: 'Event loop, asynchronous I/O, streams, worker threads, clustering, and HTTP servers in TypeScript.', icon: '⚙️', skills: ['Node.js', 'TypeScript', 'Event Loop', 'Streams', 'Worker Threads'] },
         { month: 3, courseId: 'course-database-eng', title: 'Month 3: Databases with SQL and PostgreSQL', desc: 'Tables, queries, joins, grouping, window functions, good design, transactions, indexes and views on PostgreSQL, with a Canteen database project.', icon: '💾', skills: ['PostgreSQL', 'SQL', 'Joins', 'Indexes'] },
         { month: 4, courseId: 'course-dsa-optim', title: 'Month 4: System DSA & LeetCode Prep', desc: 'Data Structures and Speed Optimization', icon: '⚡', skills: ['DSA', 'Algorithms'] },
         { month: 5, courseId: 'course-devops-cicd', title: 'Month 5: DevOps & Kubernetes', desc: 'Docker, CI/CD, and Container Orchestration', icon: '🔄', skills: ['Docker', 'Kubernetes'] },
@@ -674,7 +674,7 @@ const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
         { month: 8, courseId: 'course-cybersecurity', title: 'Month 8: AppSec & Enterprise Defense', desc: 'OWASP, JWT Hardening, and Pentesting', icon: '🛡️', skills: ['Security', 'OAuth'] },
         { month: 9, courseId: 'course-ai-eng', title: 'Month 9: Applied AI Integrations', desc: 'LLMs, AI Agents, and Intelligent Features', icon: '🤖', skills: ['AI Agents', 'OpenAI API'] },
         { month: 10, courseId: 'course-sre-web', title: 'Month 10: Multi-Cloud Reliability & SRE', desc: 'Site reliability engineering, multi-cloud architectures, SLOs, distributed tracing, and error budgets.', icon: '📊', skills: ['SRE', 'Observability', 'Multi-Cloud', 'SLOs'] },
-        { month: 11, courseId: 'course-stream-web', title: 'Month 11: High-Throughput Streaming', desc: 'Event streaming architectures, WebSocket pipelines, Kafka backpressure, and real-time state management.', icon: '🌊', skills: ['Event Streams', 'WebSockets', 'Kafka', 'Streaming'] },
+        { month: 11, courseId: 'course-stream-web', title: 'Month 11: High-Throughput Streaming in TypeScript', desc: 'Append-only commit logs, partition hashing, consumer groups, stream-table duality, and windowed stream analytics.', icon: '🌊', skills: ['Streaming', 'Commit Logs', 'Partitioning', 'Stream Analytics'] },
         { month: 12, courseId: 'course-aideploy-web', title: 'Month 12: Production AI Deployment', desc: 'Resilient LLM clients, token budgeting, vector search, RAG pipelines, agentic orchestration, and gateway routers.', icon: '🤖', skills: ['AI Deployment', 'RAG', 'Vector Search', 'LLMs'] }
       ],
       python_ai: [

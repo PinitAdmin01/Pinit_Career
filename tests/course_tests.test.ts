@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { COURSES_REGISTRY } from '../src/lib/data/coursesData';
 import { parseQuestId, resolvePilotDay } from '../src/lib/data/curriculumEnricher';
 import { parseTestQuestId, getTestQuestions, getLessonCheck } from '../src/lib/data/courseTests';
+import { getLongLesson } from '../src/lib/data/longLessons';
 import { REACT_30_DAYS_QUESTS } from '../src/lib/data/react30DayData';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '../src/lib/quests/questRegistry';
 
@@ -110,4 +111,18 @@ test('long-lesson checks in the 5-day tests keep the right answer but not always
     }
   }
   assert.ok(positions.size >= 2, 'the right answer moves between positions');
+});
+
+test('F-21 / E-38: Python course tests are unaffected by long-lesson changes in courseTests.ts', () => {
+  // Python course 5-day tests use long-lesson checks via getLongLesson('python', day)
+  for (let start = 1; start <= 26; start += 5) {
+    const questions = getTestQuestions('python', start, start + 4);
+    assert.equal(questions.length, 10, `python test ${start}-${start + 4} has 10 questions`);
+    for (const q of questions) {
+      assert.ok(q.question && q.question.length > 0, 'question prompt exists');
+      assert.equal(q.options.length, 3, 'each python check has 3 options');
+      assert.ok(!q.options.includes('undefined'), 'no undefined filler options');
+      assert.ok(q.answerIndex >= 0 && q.answerIndex < 3, 'valid answer index');
+    }
+  }
 });

@@ -113,7 +113,7 @@ const RAW_COURSES: Course[] = [
   },
   {
     id: 'course-sre-web',
-    title: 'Site Reliability Engineering & Multi-Cloud Observability',
+    title: 'Multi-Cloud Reliability & SRE in TypeScript',
     desc: 'Master multi-cloud resilience, SLO engineering, distributed tracing, automated canary analysis, chaos failure injection, and executable runbooks.',
     difficulty: 'Advanced',
     durationWeeks: 6,
