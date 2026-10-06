@@ -55,15 +55,36 @@ test.describe('Teacher Avatar Docking & Overlap Prevention - All 18 Parts (Spec 
             const isInsideAvatar = await avatar.evaluate((av, target) => av.contains(target as Node), await el.elementHandle());
             if (isInsideAvatar) continue;
 
-            const box = await el.boundingBox();
-            if (!box || box.width === 0 || box.height === 0) continue;
+            // Compute the visible (clipped) bounding rect of the element in viewport
+            const visibleBox = await el.evaluate((element) => {
+              let rect = element.getBoundingClientRect();
+              let parent = element.parentElement;
+              while (parent && parent !== document.body) {
+                const style = window.getComputedStyle(parent);
+                if (['hidden', 'auto', 'scroll'].includes(style.overflowY) || ['hidden', 'auto', 'scroll'].includes(style.overflow)) {
+                  const pRect = parent.getBoundingClientRect();
+                  const top = Math.max(rect.top, pRect.top);
+                  const bottom = Math.min(rect.bottom, pRect.bottom);
+                  const left = Math.max(rect.left, pRect.left);
+                  const right = Math.min(rect.right, pRect.right);
+                  if (bottom <= top || right <= left) {
+                    return null; // completely clipped out of visible view
+                  }
+                  rect = new DOMRect(left, top, right - left, bottom - top);
+                }
+                parent = parent.parentElement;
+              }
+              return { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+            });
+
+            if (!visibleBox || visibleBox.width === 0 || visibleBox.height === 0) continue;
 
             // Check geometric overlap
             const overlaps = !(
-              box.x + box.width <= avatarBox.x ||
-              box.x >= avatarBox.x + avatarBox.width ||
-              box.y + box.height <= avatarBox.y ||
-              box.y >= avatarBox.y + avatarBox.height
+              visibleBox.x + visibleBox.width <= avatarBox.x ||
+              visibleBox.x >= avatarBox.x + avatarBox.width ||
+              visibleBox.y + visibleBox.height <= avatarBox.y ||
+              visibleBox.y >= avatarBox.y + avatarBox.height
             );
 
             const text = (await el.innerText().catch(() => '')) || (await el.getAttribute('aria-label')) || `Element #${i}`;

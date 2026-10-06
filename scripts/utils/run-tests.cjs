@@ -33,9 +33,8 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const isWin = process.platform === 'win32';
-const npxCmd = isWin ? 'npx.cmd' : 'npx';
-const result = spawnSync(npxCmd, ['tsx', '--test', '--test-reporter=spec', ...files], {
+const tsxCli = require.resolve('tsx/cli');
+const result = spawnSync(process.execPath, [tsxCli, '--test', '--test-reporter=spec', ...files], {
   cwd: ROOT,
   stdio: 'inherit',
 });

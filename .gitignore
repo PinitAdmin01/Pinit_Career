@@ -57,3 +57,5 @@ public/pyodide/
 public/sql/
 public/esbuild/
 public/sandbox/
+test-results/
+playwright-report/

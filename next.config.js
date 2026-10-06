@@ -93,14 +93,9 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
 
-  // NOTE: experimental.cpus was briefly set to 4 while investigating an
-  // intermittent build failure. The real cause turned out to be a Windows
-  // filesystem race in build.js (it wiped .next and swallowed removal errors,
-  // so builds could start against a half-deleted directory). That is fixed in
-  // ensureBuildDirs(). Capping CPUs only slowed the build without addressing
-  // the cause, so it has been left at the Next.js default.
-  // If build-worker memory ever does become the bottleneck, add:
-  //   experimental: { cpus: 4 }
+  experimental: {
+    serverComponentsExternalPackages: ['esbuild', 'sharp', 'onnxruntime-node'],
+  },
 
   webpack: (config, { isServer }) => {
     const path = require('path');

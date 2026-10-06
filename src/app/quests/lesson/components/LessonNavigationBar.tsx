@@ -69,14 +69,27 @@ export function LessonNavigationBar({
           font-family: inherit;
           transition: all 0.2s ease;
         }
+        .lesson-nav-label-desktop {
+          display: inline;
+        }
+        .lesson-nav-label-mobile {
+          display: none;
+        }
         @media (max-width: 639px) {
-          .lesson-nav-btn-prev, .lesson-nav-btn-next {
-            padding: 8px 12px !important;
-            font-size: 13px !important;
+          .lesson-nav-bar {
+            gap: 6px !important;
           }
-          .lesson-nav-btn-qa {
-            padding: 8px 10px !important;
+          .lesson-nav-btn-prev, .lesson-nav-btn-next, .lesson-nav-btn-qa {
+            min-width: 80px !important;
+            padding: 8px 8px !important;
             font-size: 12px !important;
+            justify-content: center !important;
+          }
+          .lesson-nav-label-desktop {
+            display: none !important;
+          }
+          .lesson-nav-label-mobile {
+            display: inline !important;
           }
         }
       `}</style>
@@ -101,7 +114,8 @@ export function LessonNavigationBar({
             whiteSpace: 'nowrap',
           }}
         >
-          ◀ Previous Slide
+          <span className="lesson-nav-label-desktop">◀ Previous Slide</span>
+          <span className="lesson-nav-label-mobile">◀ Prev</span>
         </button>
 
         {/* Q&A Interactive Toggle Mode Button */}
@@ -128,7 +142,8 @@ export function LessonNavigationBar({
             whiteSpace: 'nowrap',
           }}
         >
-          {isInteractive ? '📖 Slide Lecture' : '💬 Interactive Q&A'}
+          <span className="lesson-nav-label-desktop">{isInteractive ? '📖 Slide Lecture' : '💬 Interactive Q&A'}</span>
+          <span className="lesson-nav-label-mobile">{isInteractive ? '📖 Slides' : '💬 Q&A'}</span>
         </button>
       </div>
 
@@ -163,7 +178,8 @@ export function LessonNavigationBar({
               whiteSpace: 'nowrap',
             }}
           >
-            Finish Quest & Return 🏁
+            <span className="lesson-nav-label-desktop">Finish Quest & Return 🏁</span>
+            <span className="lesson-nav-label-mobile">Finish 🏁</span>
           </button>
         ) : (
           <button
@@ -188,7 +204,8 @@ export function LessonNavigationBar({
               whiteSpace: 'nowrap',
             }}
           >
-            Next Slide ▶
+            <span className="lesson-nav-label-desktop">Next Slide ▶</span>
+            <span className="lesson-nav-label-mobile">Next ▶</span>
           </button>
         )}
       </div>
