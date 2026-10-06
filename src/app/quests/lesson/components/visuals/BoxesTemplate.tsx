@@ -88,7 +88,7 @@ export function BoxesTemplate({
                   fontFamily: 'var(--font-mono, monospace)',
                   fontSize: '13px',
                   fontWeight: 700,
-                  color: getToneTextColor(effectiveTone),
+                  color: effectiveTone === 'idle' ? 'var(--t1)' : getToneTextColor(effectiveTone),
                 }}
               >
                 {box.label}
@@ -102,9 +102,9 @@ export function BoxesTemplate({
                     fontWeight: 600,
                     padding: '1px 6px',
                     borderRadius: '6px',
-                    border: `1px solid ${getToneColor(effectiveTone)}`,
-                    color: getToneTextColor(effectiveTone),
-                    background: 'rgba(0, 0, 0, 0.2)',
+                    border: `1px solid ${effectiveTone === 'idle' ? 'var(--border)' : getToneColor(effectiveTone)}`,
+                    color: effectiveTone === 'idle' ? 'var(--t2)' : getToneTextColor(effectiveTone),
+                    background: 'transparent',
                   }}
                 >
                   {typeTag}
@@ -131,7 +131,7 @@ export function BoxesTemplate({
               {value !== '' ? (
                 <RenderWithFaintSpaces text={value} showSpaces={showSpaces} />
               ) : (
-                <span style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: 400 }}>
+                <span style={{ color: 'var(--t2)', fontSize: '13px', fontWeight: 400 }}>
                   (empty)
                 </span>
               )}

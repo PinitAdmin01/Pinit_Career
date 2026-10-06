@@ -198,7 +198,7 @@ export function LessonNavigationBar({
               borderRadius: 12,
               fontSize: 14,
               fontWeight: 700,
-              color: 'var(--t1)',
+              color: 'var(--accent-btn-fg, #ffffff)',
               cursor: 'pointer',
               opacity: 1,
               whiteSpace: 'nowrap',

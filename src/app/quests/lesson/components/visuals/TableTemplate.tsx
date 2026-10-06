@@ -102,14 +102,14 @@ export function TableTemplate({ columns, step, showSpaces }: TableTemplateProps)
                 borderRadius: '8px',
                 border: `1.5px solid ${getToneColor(tone)}`,
                 background: getToneBg(tone),
-                transition: 'background 300ms ease, border-color 300ms ease, opacity 300ms ease',
-                opacity: isIdle ? 0.65 : 1,
+                transition: 'background 300ms ease, border-color 300ms ease',
+                opacity: 1,
               }}
             >
               <div
                 className="visual-table-cell"
                 style={{
-                  color: isIdle ? 'var(--text-muted)' : 'var(--t1)',
+                  color: isIdle ? 'var(--t2)' : 'var(--t1)',
                 }}
               >
                 <span className="visual-table-cell-label">{columns[0]}</span>

@@ -86,8 +86,7 @@ export function LessonCodeEditor({
             disabled={codeRunning}
             style={{
               background: codeRunning ? 'rgba(255,255,255,0.1)' : 'var(--success)',
-              border: 'none',
-              color: 'var(--text)',
+              color: codeRunning ? 'var(--t2)' : 'var(--success-btn-fg, #ffffff)',
               fontSize: 10.5,
               fontWeight: 700,
               padding: '3px 8px',

@@ -32,11 +32,11 @@ export function getToneBg(tone: VisualTone): string {
 export function getToneTextColor(tone: VisualTone): string {
   switch (tone) {
     case 'data':
-      return 'var(--accent)';
+      return 'var(--tone-data-text, var(--accent))';
     case 'ok':
-      return 'var(--success)';
+      return 'var(--tone-ok-text, var(--success))';
     case 'error':
-      return 'var(--coral)';
+      return 'var(--tone-error-text, var(--coral))';
     case 'idle':
     default:
       return 'var(--text-muted)';

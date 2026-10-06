@@ -163,6 +163,32 @@ const lessonStyles = `
     animation: float 3s ease-in-out infinite;
   }
 
+  /* Spec v1.1 & WCAG 2 AA: High-contrast theme colors */
+  :root.light, [data-theme='light'] {
+    --accent: #026aa2;
+    --accent-hover: #0e7490;
+    --accent-btn-fg: #ffffff;
+    --success: #047857;
+    --success-btn-fg: #ffffff;
+    --info: #1d4ed8;
+    --coral: #b91c1c;
+    --text-muted: #475467;
+    --tone-data-text: #026aa2;
+    --tone-ok-text: #025a40;
+    --tone-error-text: #b91c1c;
+    --badge-visual-text: #026aa2;
+    --badge-visual-bg: #e0f2fe;
+  }
+  :root.dark, [data-theme='dark'] {
+    --accent-btn-fg: #051329;
+    --success-btn-fg: #042316;
+    --tone-data-text: #38bdf8;
+    --tone-ok-text: #34d399;
+    --tone-error-text: #f87171;
+    --badge-visual-text: #38bdf8;
+    --badge-visual-bg: rgba(56, 189, 248, 0.15);
+  }
+
   /* Mobile-first layout: 1 column by default */
   .classroom-page-root {
     width: 100%;

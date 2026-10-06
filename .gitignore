@@ -59,3 +59,4 @@ public/esbuild/
 public/sandbox/
 test-results/
 playwright-report/
+screenshots/

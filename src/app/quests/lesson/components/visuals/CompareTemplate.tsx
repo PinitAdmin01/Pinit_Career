@@ -78,10 +78,11 @@ export function CompareTemplate({
             color: getToneTextColor(tone),
             padding: '6px 8px',
             borderRadius: '6px',
-            background: 'rgba(0, 0, 0, 0.25)',
+            background: 'var(--bg1)',
+            border: '1px solid var(--border)',
           }}
         >
-          <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '11px', color: 'var(--t2)', textTransform: 'uppercase' }}>
             Result:
           </span>
           <RenderWithFaintSpaces text={panel.result} showSpaces={showSpaces} />
