@@ -10,11 +10,17 @@ import { resolveQuestLanguage } from '../src/components/quests/workspace/useWork
 import { buildJsTaskScript } from '../src/lib/code/runners/jsTaskScript';
 import { getReactRuntimeSync } from '../src/lib/code/react/reactRuntime';
 import { compileTsSync } from '../src/lib/code/ts/compileTs';
+import { executeHtmlCssTask } from '../src/lib/code/runners/webTaskRunner';
 
 type Quest = { id: string; category?: string; starterCode?: string; testSuite?: string; language?: string };
 
-/** Runs a JavaScript/TSX practice task the way the sandbox worker does (new Function(script)(), then waits). */
+/** Runs a JavaScript/TSX/HTML/CSS practice task the way the sandbox worker does. */
 async function gradeJs(code: string, testSuite: string, language?: string): Promise<{ passed: boolean; error?: string }> {
+  if (language === 'html' || language === 'css') {
+    const res = await executeHtmlCssTask(code, testSuite, 5000, language);
+    return { passed: res.allPassed, error: res.terminalLogs?.join('\n') || res.error || undefined };
+  }
+
   let executableCode = code;
   const isTsx = language === 'tsx' || /<[A-Za-z]/.test(code) || /render\(/.test(testSuite);
   const isTs = isTsx || language === 'typescript' || /:\s*[a-zA-Z]/.test(code);
@@ -405,9 +411,11 @@ test('every practice task in the checked courses: the reference answer passes, t
         assert.equal(blank.passed, false, `${q.id}: the starting code already passes`);
         assert.ok(!String(q.starterCode).includes(solution.trim()), `${q.id}: the starting code contains the answer`);
         if (RECALL_TASKS.has(q.id)) continue;
-        for (const value of LAZY_RETURNS) {
-          const lazy = await gradeJs(lazyAnswer(String(q.starterCode || ''), value), String(q.testSuite), lang);
-          assert.equal(lazy.passed, false, `${q.id}: passes when every function just returns ${value}`);
+        if (lang !== 'html' && lang !== 'css') {
+          for (const value of LAZY_RETURNS) {
+            const lazy = await gradeJs(lazyAnswer(String(q.starterCode || ''), value), String(q.testSuite), lang);
+            assert.equal(lazy.passed, false, `${q.id}: passes when every function just returns ${value}`);
+          }
         }
       }
     }

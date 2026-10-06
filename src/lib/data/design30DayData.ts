@@ -11,16 +11,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "HSL Color scales and mathematical lightness ramps.",
       "Design token JSON schemas and CSS Custom Property translation."
     ],
-    "eTitle": "Design Token Semantic Alias Resolver",
-    "eDesc": "Implement function resolveSemanticColorToken(tokenName, themeMode) mapping semantic color tokens (`'color-bg-primary'`, `'color-text-primary'`, `'color-border-subtle'`) to their resolved theme hex values under `'light'` or `'dark'` mode. Use these exact values: `status`: 'DESIGN_TOKEN_RESOLVED_NOMINAL'. The result must have the field: `resolvedHexColor`.",
-    "eStarter": "function resolveSemanticColorToken(token, theme) {\n  // TODO: write your code here\n}",
-    "eHint": "Map token and theme to resolved hex color string.",
-    "eTest": "const light = resolveSemanticColorToken('color-bg-primary', 'light');\nconst dark = resolveSemanticColorToken('color-bg-primary', 'dark');\nif (light.resolvedHexColor !== '#ffffff' || dark.resolvedHexColor !== '#0f172a' || light.status !== 'DESIGN_TOKEN_RESOLVED_NOMINAL') throw new Error('Design token resolution failed');",
+    "eTitle": "CSS Root Design Tokens",
+    "eDesc": "Declare global design tokens in :root: `--color-bg-primary: #ffffff`, `--color-text-primary: #0f172a`, and `--color-interactive: #3b82f6`.",
+    "eStarter": ":root {\n  /* Define --color-bg-primary, --color-text-primary, --color-interactive */\n}",
+    "eHint": "Set the three CSS custom properties in :root.",
+    "eTest": "const bg = cssValue(css, ':root', '--color-bg-primary');\nconst text = cssValue(css, ':root', '--color-text-primary');\nconst interactive = cssValue(css, ':root', '--color-interactive');\nif (bg !== '#ffffff' || text !== '#0f172a' || interactive !== '#3b82f6') throw new Error('CSS tokens in :root mismatch');",
     "aTitle": "Design Token Tier Classifier",
     "aDesc": "Implement function `getDesignTokenTier(tokenName)` returning 'GLOBAL' for primitive tokens (e.g., 'blue-500'), 'SEMANTIC' for alias tokens (e.g., 'color-interactive-primary'), or 'COMPONENT' for component-scoped tokens (e.g., 'button-primary-bg').",
     "aStarter": "function getDesignTokenTier(tokenName) {\n  // TODO: Return 'GLOBAL', 'SEMANTIC', or 'COMPONENT' based on token hierarchy pattern\n  \n}",
     "aHint": "Tokens starting with component prefixes (button, card, input) are COMPONENT; tokens with category prefixes (color, space, font) are SEMANTIC; raw scales are GLOBAL.",
-    "aTest": "if (getDesignTokenTier('blue-500') !== 'GLOBAL') throw new Error('blue-500 should be GLOBAL');\nif (getDesignTokenTier('color-interactive-primary') !== 'SEMANTIC') throw new Error('color-interactive-primary should be SEMANTIC');\nif (getDesignTokenTier('button-primary-bg') !== 'COMPONENT') throw new Error('button-primary-bg should be COMPONENT');"
+    "aTest": "if (getDesignTokenTier('blue-500') !== 'GLOBAL') throw new Error('blue-500 should be GLOBAL');\nif (getDesignTokenTier('color-interactive-primary') !== 'SEMANTIC') throw new Error('color-interactive-primary should be SEMANTIC');\nif (getDesignTokenTier('button-primary-bg') !== 'COMPONENT') throw new Error('button-primary-bg should be COMPONENT');",
+    "eLanguage": "css"
   },
   {
     "day": 2,
@@ -36,11 +37,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateModularTypeScaleStep(step, basePx, ratio) {\n  // TODO: write your code here\n}",
     "eHint": "pixelVal = basePx * Math.pow(ratio, step), remVal = pixelVal / 16.",
     "eTest": "const step0 = calculateModularTypeScaleStep(0, 16, 1.25);\nconst step2 = calculateModularTypeScaleStep(2, 16, 1.25); // 16 * 1.25^2 = 25px -> 1.5625rem\nif (step0.pixelSize !== 16 || step2.pixelSize !== 25 || step2.status !== 'TYPOGRAPHIC_SCALE_STEP_CALCULATED_NOMINAL') throw new Error('Type scale calculation failed');",
-    "aTitle": "Pixels to REM Unit Converter",
-    "aDesc": "Implement function `calculateRemFromPixels(px, basePx = 16)` calculating rem value from pixel dimensions against a root base size.",
-    "aStarter": "function calculateRemFromPixels(px, basePx = 16) {\n  // TODO: Return rem value as px / basePx rounded to 4 decimal places\n  \n}",
-    "aHint": "return Number((px / basePx).toFixed(4));",
-    "aTest": "if (calculateRemFromPixels(16) !== 1) throw new Error('16px should be 1rem');\nif (calculateRemFromPixels(24) !== 1.5) throw new Error('24px should be 1.5rem');\nif (calculateRemFromPixels(20, 10) !== 2) throw new Error('20px with base 10 should be 2rem');"
+    "aTitle": "Display Heading Typography CSS",
+    "aDesc": "Declare typography rules for `.typography-display` setting `font-family: sans-serif`, `font-size: 2rem`, and `line-height: 1.2`.",
+    "aStarter": ".typography-display {\n  /* Set font-family, font-size, line-height */\n}",
+    "aHint": "Set font-family, font-size: 2rem, and line-height: 1.2 on .typography-display.",
+    "aTest": "if (cssValue(css, '.typography-display', 'font-size') !== '2rem') throw new Error('font-size must be 2rem');\nif (cssValue(css, '.typography-display', 'line-height') !== '1.2') throw new Error('line-height must be 1.2');\nif (!cssValue(css, '.typography-display', 'font-family')) throw new Error('font-family required');",
+    "aLanguage": "css"
   },
   {
     "day": 3,
@@ -56,11 +58,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditSpacingGridCompliance(px) {\n  // TODO: write your code here\n}",
     "eHint": "Check px % 8 === 0 or px % 4 === 0.",
     "eTest": "const pass8 = auditSpacingGridCompliance(24);\nconst pass4 = auditSpacingGridCompliance(12);\nconst fail = auditSpacingGridCompliance(19);\nif (!pass8.isSpacingStandardCompliant || !pass4.isSpacingStandardCompliant || fail.isSpacingStandardCompliant || pass8.status !== 'SPATIAL_GRID_COMPLIANT_NOMINAL') throw new Error('Spacing grid audit failed');",
-    "aTitle": "8pt Spatial Grid Alignment Validator",
-    "aDesc": "Implement function `is8ptGridAligned(spacingPx)` returning true if the given pixel spacing is a positive multiple of 8.",
-    "aStarter": "function is8ptGridAligned(spacingPx) {\n  // TODO: Return true if spacingPx is greater than 0 and a multiple of 8\n  \n}",
-    "aHint": "return spacingPx > 0 && spacingPx % 8 === 0;",
-    "aTest": "if (is8ptGridAligned(16) !== true) throw new Error('16 should be aligned to 8pt grid');\nif (is8ptGridAligned(24) !== true) throw new Error('24 should be aligned to 8pt grid');\nif (is8ptGridAligned(18) !== false) throw new Error('18 is not aligned to 8pt grid');\nif (is8ptGridAligned(0) !== false) throw new Error('0 should not be considered positive aligned');"
+    "aTitle": "8pt Spacing Card Surface CSS",
+    "aDesc": "Declare spacing rules for `.card-surface` adhering to the 8pt grid with `padding: 24px`, `margin: 16px`, and `border-radius: 8px`.",
+    "aStarter": ".card-surface {\n  /* Set padding, margin, border-radius */\n}",
+    "aHint": "Set padding: 24px, margin: 16px, and border-radius: 8px on .card-surface.",
+    "aTest": "if (cssValue(css, '.card-surface', 'padding') !== '24px') throw new Error('padding must be 24px (8pt grid)');\nif (cssValue(css, '.card-surface', 'margin') !== '16px') throw new Error('margin must be 16px (8pt grid)');\nif (cssValue(css, '.card-surface', 'border-radius') !== '8px') throw new Error('border-radius must be 8px');",
+    "aLanguage": "css"
   },
   {
     "day": 4,
@@ -71,16 +74,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Elevation levels and material lighting physics.",
       "Z-Index collision avoidance and semantic stacking scale architecture."
     ],
-    "eTitle": "Semantic Z-Index Scale Hierarchy Resolver",
-    "eDesc": "Implement function resolveSemanticZIndex(layerName) returning ordered z-index integer constants for `'dropdown'`, `'sticky'`, `'modal-backdrop'`, `'modal'`, or `'toast'`. Use these exact values: `status`: 'SEMANTIC_ZINDEX_RESOLVED_NOMINAL'. The result must have the field: `zIndexValue`.",
-    "eStarter": "function resolveSemanticZIndex(layer) {\n  // TODO: write your code here\n}",
-    "eHint": "Map layer name to scale value.",
-    "eTest": "const d = resolveSemanticZIndex('dropdown');\nconst m = resolveSemanticZIndex('modal');\nconst t = resolveSemanticZIndex('toast');\nif (d.zIndexValue !== 100 || m.zIndexValue !== 1000 || t.zIndexValue !== 1100 || d.status !== 'SEMANTIC_ZINDEX_RESOLVED_NOMINAL') throw new Error('Z-Index resolution failed');",
+    "eTitle": "Elevation Shadow & Modal Z-Index CSS",
+    "eDesc": "Declare elevation rules for `.elevation-card` with `box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)` and `.modal-overlay` with `z-index: 1000`.",
+    "eStarter": ".elevation-card {\n  /* box-shadow */\n}\n.modal-overlay {\n  /* z-index */\n}",
+    "eHint": "Set box-shadow on .elevation-card and z-index: 1000 on .modal-overlay.",
+    "eTest": "if (!cssValue(css, '.elevation-card', 'box-shadow')) throw new Error('.elevation-card box-shadow required');\nif (cssValue(css, '.modal-overlay', 'z-index') !== '1000') throw new Error('.modal-overlay z-index must be 1000');",
     "aTitle": "Semantic Z-Index Layer Resolver",
     "aDesc": "Implement function `resolveZIndex(layerName)` mapping layer names ('dropdown': 1000, 'sticky': 1100, 'modal': 1300, 'popover': 1400, 'toast': 1500) to z-index numbers.",
     "aStarter": "function resolveZIndex(layerName) {\n  // TODO: Map layer names to standard design system z-index elevations\n  \n}",
     "aHint": "Look up layerName in elevation dictionary; default to 0.",
-    "aTest": "if (resolveZIndex('toast') !== 1500) throw new Error('toast z-index should be 1500');\nif (resolveZIndex('modal') !== 1300) throw new Error('modal z-index should be 1300');\nif (resolveZIndex('dropdown') !== 1000) throw new Error('dropdown z-index should be 1000');\nif (resolveZIndex('unknown') !== 0) throw new Error('unknown layer should be 0');"
+    "aTest": "if (resolveZIndex('toast') !== 1500) throw new Error('toast z-index should be 1500');\nif (resolveZIndex('modal') !== 1300) throw new Error('modal z-index should be 1300');\nif (resolveZIndex('dropdown') !== 1000) throw new Error('dropdown z-index should be 1000');\nif (resolveZIndex('unknown') !== 0) throw new Error('unknown layer should be 0');",
+    "eLanguage": "css"
   },
   {
     "day": 5,
@@ -131,16 +135,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Aria-disabled vs native disabled attribute tradeoffs.",
       "Focus-visible keyboard ring styling and contrast standards."
     ],
-    "eTitle": "Button Component Interactive State Machine Validator",
-    "eDesc": "Implement function validateButtonStateProps(variant, size, state, hasAriaLabel) verifying that button properties conform to design system variant, size, and interactive state standards. Use these exact values: `status`: 'BUTTON_PROPS_VALIDATED_NOMINAL'. The result must have the field: `isButtonPropsValid`.",
-    "eStarter": "function validateButtonStateProps(variant, size, state, hasAria) {\n  // TODO: write your code here\n}",
-    "eHint": "Check variant, size, state arrays, and hasAria is true.",
-    "eTest": "const pass = validateButtonStateProps('primary', 'md', 'loading', true);\nconst fail = validateButtonStateProps('unknown', 'md', 'default', true);\nif (!pass.isButtonPropsValid || fail.isButtonPropsValid || pass.status !== 'BUTTON_PROPS_VALIDATED_NOMINAL') throw new Error('Button validation failed');",
+    "eTitle": "Button Component TSX",
+    "eDesc": "Implement component `export function Button({ variant = \"primary\", size = \"md\", children, disabled }: any)` returning a button with classes `btn btn-${variant} btn-${size}`.",
+    "eStarter": "export function Button(props: any) {\n  // Render button with classes\n  return null;\n}",
+    "eHint": "Return <button className={`btn btn-${variant} btn-${size}`} disabled={disabled}>{children}</button>.",
+    "eTest": "const h1 = render(Button, { variant: 'primary', size: 'lg', children: 'Click me' });\nif (!h1.includes('btn-primary') || !h1.includes('btn-lg') || !h1.includes('Click me')) throw new Error('Button render primary failed');\nconst h2 = render(Button, { variant: 'secondary', size: 'sm', disabled: true, children: 'Cancel' });\nif (!h2.includes('btn-secondary') || !h2.includes('btn-sm') || !h2.includes('disabled')) throw new Error('Button render secondary disabled failed');\nconst h3 = render(Button, { variant: 'danger', children: 'Delete' });\nif (!h3.includes('btn-danger') || !h3.includes('btn-md')) throw new Error('Button render default size failed');",
     "aTitle": "Button State ARIA Attribute Builder",
     "aDesc": "Implement function `getButtonAriaAttributes(state)` returning an object of ARIA attributes based on button state: 'loading' -> { 'aria-busy': true }, 'disabled' -> { 'aria-disabled': true }, 'default' -> {}.",
     "aStarter": "function getButtonAriaAttributes(state) {\n  // TODO: Return ARIA attributes object based on button state\n  \n}",
     "aHint": "Check state: return { 'aria-busy': true } for loading, { 'aria-disabled': true } for disabled, empty object otherwise.",
-    "aTest": "const loading = getButtonAriaAttributes('loading');\nif (loading['aria-busy'] !== true) throw new Error('loading must have aria-busy true');\nconst disabled = getButtonAriaAttributes('disabled');\nif (disabled['aria-disabled'] !== true) throw new Error('disabled must have aria-disabled true');\nconst normal = getButtonAriaAttributes('default');\nif (Object.keys(normal).length !== 0) throw new Error('default should have empty aria object');"
+    "aTest": "const loading = getButtonAriaAttributes('loading');\nif (loading['aria-busy'] !== true) throw new Error('loading must have aria-busy true');\nconst disabled = getButtonAriaAttributes('disabled');\nif (disabled['aria-disabled'] !== true) throw new Error('disabled must have aria-disabled true');\nconst normal = getButtonAriaAttributes('default');\nif (Object.keys(normal).length !== 0) throw new Error('default should have empty aria object');",
+    "eLanguage": "tsx"
   },
   {
     "day": 8,
@@ -151,16 +156,18 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Screen reader error binding with aria-describedby and aria-invalid.",
       "Input padding, border transitions, and clear button micro-interactions."
     ],
-    "eTitle": "Form Input Accessibility & Validation State Auditor",
-    "eDesc": "Implement function auditFormInputAccessibility(hasLabel, hasAriaDescribedByWhenError, isErrorState) certifying that an error-state input correctly connects to its assistive error message element. Use these exact values: `status`: 'FORM_INPUT_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isFormInputAccessible`.",
-    "eStarter": "function auditFormInputAccessibility(hasLabel, hasAriaDescribedBy, isError) {\n  // TODO: write your code here\n}",
-    "eHint": "isAccessible = hasLabel && (!isError || hasAriaDescribedBy).",
-    "eTest": "const pass = auditFormInputAccessibility(true, true, true);\nconst fail = auditFormInputAccessibility(true, false, true);\nif (!pass.isFormInputAccessible || fail.isFormInputAccessible || pass.status !== 'FORM_INPUT_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Form input audit failed');",
-    "aTitle": "Form Input Accessibility Props Builder",
-    "aDesc": "Implement function `buildInputAccessibilityProps(inputId, isError, isRequired)` returning accessible input attributes (id, aria-invalid, aria-describedby, aria-required).",
-    "aStarter": "function buildInputAccessibilityProps(inputId, isError, isRequired) {\n  // TODO: Construct and return accessible form input props object\n  \n}",
-    "aHint": "Set id; if isError set aria-invalid='true' and aria-describedby=`${inputId}-error`; if isRequired set aria-required='true'.",
-    "aTest": "const errProps = buildInputAccessibilityProps('email', true, true);\nif (errProps.id !== 'email' || errProps['aria-invalid'] !== 'true' || errProps['aria-describedby'] !== 'email-error' || errProps['aria-required'] !== 'true') throw new Error('Error props mismatch');\nconst okProps = buildInputAccessibilityProps('name', false, false);\nif (okProps.id !== 'name' || okProps['aria-invalid'] !== undefined || okProps['aria-describedby'] !== undefined) throw new Error('Valid props should omit error attributes');"
+    "eTitle": "Accessible Form Email Input HTML",
+    "eDesc": "Write accessible HTML form markup with `<label for=\"email-input\">Email Address</label>` and `<input id=\"email-input\" type=\"email\" />`.",
+    "eStarter": "<form>\n  <!-- Provide accessible labeled input -->\n</form>",
+    "eHint": "Connect label and input with for/id attributes.",
+    "eTest": "assertInputsHaveLabels(html);\nconst labels = queryAll(html, 'label');\nconst inputs = queryAll(html, 'input');\nif (labels.length < 1 || inputs.length < 1) throw new Error('At least 1 label and 1 input required');\nif (attr(inputs[0], 'type') !== 'email') throw new Error('Input must be type=email');",
+    "aTitle": "FormField Component TSX",
+    "aDesc": "Implement component `export function FormField({ id, label, error, defaultValue }: any)` connecting label and input via `htmlFor`/`id`, setting `aria-invalid`, and rendering error message with `role=\"alert\"`.",
+    "aStarter": "export function FormField(props: any) {\n  // Return label, input, error message\n  return null;\n}",
+    "aHint": "Render label with htmlFor, input with id, and conditional error with role=\"alert\".",
+    "aTest": "const h1 = render(FormField, { id: 'user-email', label: 'Email', defaultValue: 'test@example.com' });\nif (!h1.includes('for=\"user-email\"') || !h1.includes('id=\"user-email\"') || !h1.includes('test@example.com')) throw new Error('FormField nominal render failed');\nconst h2 = render(FormField, { id: 'user-pass', label: 'Password', error: 'Password required' });\nif (!h2.includes('aria-invalid=\"true\"') || !h2.includes('role=\"alert\"') || !h2.includes('Password required')) throw new Error('FormField error render failed');\nconst h3 = render(FormField, { id: 'user-name', label: 'Full Name' });\nif (!h3.includes('for=\"user-name\"')) throw new Error('FormField label association failed');",
+    "eLanguage": "html",
+    "aLanguage": "tsx"
   },
   {
     "day": 9,
@@ -171,16 +178,18 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Card Component Aspect Ratio & Elevation Validator",
-    "eDesc": "Implement function validateCardLayoutConfig(aspectRatioString, baseElevation, hoverElevation) verifying that media aspect ratio is valid (`'16/9'`, `'4/3'`, `'1/1'`) and hover elevation exceeds base elevation. Use these exact values: `status`: 'CARD_LAYOUT_CONFIG_VALIDATED_NOMINAL'. The result must have the field: `isCardConfigValid`.",
-    "eStarter": "function validateCardLayoutConfig(ratio, baseElev, hoverElev) {\n  // TODO: write your code here\n}",
-    "eHint": "Check ratio in validRatios and hoverElev > baseElev.",
-    "eTest": "const pass = validateCardLayoutConfig('16/9', 1, 3);\nconst fail = validateCardLayoutConfig('16/9', 3, 1);\nif (!pass.isCardConfigValid || fail.isCardConfigValid || pass.status !== 'CARD_LAYOUT_CONFIG_VALIDATED_NOMINAL') throw new Error('Card layout validation failed');",
-    "aTitle": "Aspect Ratio Height Calculator",
-    "aDesc": "Implement function `calculateAspectRatioHeight(width, ratioString)` calculating integer height given a width and ratio string 'W/H' (e.g., '16/9' or '4/3').",
-    "aStarter": "function calculateAspectRatioHeight(width, ratioString) {\n  // TODO: Calculate height from width and ratio string 'W/H'\n  \n}",
-    "aHint": "Split ratioString by '/', compute width * h / w, round with Math.round.",
-    "aTest": "if (calculateAspectRatioHeight(1600, '16/9') !== 900) throw new Error('1600 width at 16/9 must be 900 height');\nif (calculateAspectRatioHeight(800, '4/3') !== 600) throw new Error('800 width at 4/3 must be 600 height');\nif (calculateAspectRatioHeight(500, '1/1') !== 500) throw new Error('500 width at 1/1 must be 500 height');"
+    "eTitle": "Accessible Card Image HTML",
+    "eDesc": "Write an accessible card article `<article class=\"card\">` containing an `<img>` with non-empty `alt` attribute and a heading.",
+    "eStarter": "<article class=\"card\">\n  <!-- Add image with alt and heading -->\n</article>",
+    "eHint": "Provide img with alt attribute and heading inside article.card.",
+    "eTest": "assertImagesHaveAlt(html);\nconst imgs = queryAll(html, 'img');\nif (imgs.length === 0) throw new Error('Image tag required');\nif (!attr(imgs[0], 'alt') || attr(imgs[0], 'alt').trim().length === 0) throw new Error('alt text cannot be empty');\nif (queryAll(html, '.card').length === 0) throw new Error('card wrapper required');",
+    "aTitle": "Card Component TSX",
+    "aDesc": "Implement component `export function Card({ title, subtitle, children, elevation = 1 }: any)` rendering a card container with elevation class, title, optional subtitle, and children body.",
+    "aStarter": "export function Card(props: any) {\n  // Return card container\n  return null;\n}",
+    "aHint": "Render container with className `card elevation-${elevation}`.",
+    "aTest": "const h1 = render(Card, { title: 'Design Systems', subtitle: 'Week 2', elevation: 2, children: 'Content here' });\nif (!h1.includes('elevation-2') || !h1.includes('Design Systems') || !h1.includes('Week 2') || !h1.includes('Content here')) throw new Error('Card render 1 failed');\nconst h2 = render(Card, { title: 'No Subtitle', children: 'Only body' });\nif (!h2.includes('elevation-1') || !h2.includes('No Subtitle')) throw new Error('Card default elevation failed');\nconst h3 = render(Card, { title: 'Pro Card', elevation: 3, children: 'Deep shadow' });\nif (!h3.includes('elevation-3')) throw new Error('Card elevation 3 failed');",
+    "eLanguage": "html",
+    "aLanguage": "tsx"
   },
   {
     "day": 10,
@@ -191,16 +200,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Navigation Active Page ARIA Auditor",
-    "eDesc": "Implement function auditNavigationLinkAria(isCurrentPage, hasAriaCurrent) verifying that the currently active navigation route includes `aria-current=\"page\"`. Use these exact values: `status`: 'NAVIGATION_ARIA_COMPLIANT_NOMINAL'. The result must have the field: `isNavigationAriaCompliant`.",
-    "eStarter": "function auditNavigationLinkAria(isCurrent, hasAria) {\n  // TODO: write your code here\n}",
-    "eHint": "isCompliant = !isCurrent || hasAria.",
-    "eTest": "const pass = auditNavigationLinkAria(true, true);\nconst fail = auditNavigationLinkAria(true, false);\nif (!pass.isNavigationAriaCompliant || fail.isNavigationAriaCompliant || pass.status !== 'NAVIGATION_ARIA_COMPLIANT_NOMINAL') throw new Error('Navigation ARIA audit failed');",
+    "eTitle": "Accessible Navigation & Heading Order HTML",
+    "eDesc": "Write accessible page header with `<nav aria-label=\"Main Navigation\">`, one `<h1>` page heading, and sequential `<h2>` section headings without level skipping.",
+    "eStarter": "<header>\n  <!-- nav with aria-label, h1 and h2 headings in order -->\n</header>",
+    "eHint": "Include nav[aria-label], one h1, and two h2 headings.",
+    "eTest": "assertHeadingsInOrder(html);\nconst navs = queryAll(html, 'nav[aria-label]');\nif (navs.length === 0) throw new Error('<nav> must have an aria-label');\nconst h1s = queryAll(html, 'h1');\nconst h2s = queryAll(html, 'h2');\nif (h1s.length !== 1 || h2s.length < 2) throw new Error('Exactly 1 h1 and at least 2 h2 headings required');",
     "aTitle": "Navigation Link Current Page Evaluator",
     "aDesc": "Implement function `getNavLinkAriaCurrent(currentPath, linkHref)` returning 'page' if currentPath exactly matches linkHref, or null otherwise.",
     "aStarter": "function getNavLinkAriaCurrent(currentPath, linkHref) {\n  // TODO: Return 'page' if currentPath equals linkHref, otherwise null\n  \n}",
     "aHint": "return currentPath === linkHref ? 'page' : null;",
-    "aTest": "if (getNavLinkAriaCurrent('/dashboard', '/dashboard') !== 'page') throw new Error('Active link must return page');\nif (getNavLinkAriaCurrent('/dashboard', '/settings') !== null) throw new Error('Inactive link must return null');\nif (getNavLinkAriaCurrent('/projects/1', '/projects/1') !== 'page') throw new Error('Exact matching link must return page');"
+    "aTest": "if (getNavLinkAriaCurrent('/dashboard', '/dashboard') !== 'page') throw new Error('Active link must return page');\nif (getNavLinkAriaCurrent('/dashboard', '/settings') !== null) throw new Error('Inactive link must return null');\nif (getNavLinkAriaCurrent('/projects/1', '/projects/1') !== 'page') throw new Error('Exact matching link must return page');",
+    "eLanguage": "html"
   },
   {
     "day": 11,
@@ -211,16 +221,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Modal Focus Trap & Keyboard Escape Auditor",
-    "eDesc": "Implement function auditModalAccessibility(hasRoleDialog, hasFocusTrap, hasEscapeListener, hasBackgroundInert) certifying that modal overlay satisfies all 4 accessible overlay requirements. Use these exact values: `status`: 'MODAL_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isModalAccessible`.",
-    "eStarter": "function auditModalAccessibility(hasRole, hasTrap, hasEsc, hasInert) {\n  // TODO: write your code here\n}",
-    "eHint": "Verify all 4 boolean flags are true.",
-    "eTest": "const pass = auditModalAccessibility(true, true, true, true);\nconst fail = auditModalAccessibility(true, true, false, true);\nif (!pass.isModalAccessible || fail.isModalAccessible || pass.status !== 'MODAL_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Modal accessibility audit failed');",
+    "eTitle": "Accessible Modal Dialog HTML",
+    "eDesc": "Write accessible modal dialog markup: `<div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\"><h2 id=\"modal-title\">...</h2><button type=\"button\">Close</button></div>`.",
+    "eStarter": "<!-- Accessible modal dialog markup -->",
+    "eHint": "Use role=\"dialog\", aria-modal=\"true\", and aria-labelledby pointing to heading.",
+    "eTest": "const dialogs = queryAll(html, '[role=\"dialog\"]');\nif (dialogs.length === 0) throw new Error('Element with role=\"dialog\" required');\nif (attr(dialogs[0], 'aria-modal') !== 'true') throw new Error('aria-modal must be true');\nconst titleId = attr(dialogs[0], 'aria-labelledby');\nif (!titleId || queryAll(html, '#' + titleId).length === 0) throw new Error('aria-labelledby must point to heading id');",
     "aTitle": "Modal Dialog Root Attributes Resolver",
     "aDesc": "Implement function `getModalRootAttributes(isOpen)` returning { 'aria-modal': 'true', role: 'dialog' } when open, or { style: { display: 'none' } } when closed.",
     "aStarter": "function getModalRootAttributes(isOpen) {\n  // TODO: Return open or closed modal root element attributes\n  \n}",
     "aHint": "if (isOpen) return { 'aria-modal': 'true', role: 'dialog' }; return { style: { display: 'none' } };",
-    "aTest": "const openAttr = getModalRootAttributes(true);\nif (openAttr['aria-modal'] !== 'true' || openAttr.role !== 'dialog') throw new Error('Open modal must have aria-modal and role dialog');\nconst closedAttr = getModalRootAttributes(false);\nif (closedAttr.style?.display !== 'none') throw new Error('Closed modal must be hidden');"
+    "aTest": "const openAttr = getModalRootAttributes(true);\nif (openAttr['aria-modal'] !== 'true' || openAttr.role !== 'dialog') throw new Error('Open modal must have aria-modal and role dialog');\nconst closedAttr = getModalRootAttributes(false);\nif (closedAttr.style?.display !== 'none') throw new Error('Closed modal must be hidden');",
+    "eLanguage": "html"
   },
   {
     "day": 12,
@@ -251,16 +262,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Data Table Header ARIA Sorting State Resolver",
-    "eDesc": "Implement function resolveTableSortAria(currentSortColumn, columnKey, sortDirection) returning `'ascending'`, `'descending'`, or `'none'` for column `aria-sort` attribute. Use these exact values: `status`: 'TABLE_SORT_ARIA_RESOLVED_NOMINAL'. The result must have the field: `ariaSortValue`.",
-    "eStarter": "function resolveTableSortAria(activeCol, colKey, dir) {\n  // TODO: write your code here\n}",
-    "eHint": "If activeCol === colKey return dir === asc ? ascending : descending else none.",
-    "eTest": "const asc = resolveTableSortAria('name', 'name', 'asc');\nconst other = resolveTableSortAria('age', 'name', 'asc');\nif (asc.ariaSortValue !== 'ascending' || other.ariaSortValue !== 'none' || asc.status !== 'TABLE_SORT_ARIA_RESOLVED_NOMINAL') throw new Error('Table sort resolution failed');",
+    "eTitle": "Accessible Data Table HTML",
+    "eDesc": "Write an accessible data table with `<caption>`, `<th scope=\"col\">` for column headers, and `<th scope=\"row\">` for row headers.",
+    "eStarter": "<table>\n  <!-- caption, thead, tbody with scope attributes -->\n</table>",
+    "eHint": "Include caption and th with scope=\"col\" and scope=\"row\".",
+    "eTest": "if (queryAll(html, 'caption').length === 0) throw new Error('Table caption required for accessibility');\nconst colHeaders = queryAll(html, 'th[scope=\"col\"]');\nconst rowHeaders = queryAll(html, 'th[scope=\"row\"]');\nif (colHeaders.length < 2 || rowHeaders.length < 1) throw new Error('Table must use th[scope=\"col\"] and th[scope=\"row\"]');",
     "aTitle": "Table Header Scope Formatter",
     "aDesc": "Implement function `formatTableCellScope(isHeader, isRowHeader)` returning 'row' for row headers, 'col' for column headers, and null for standard data cells.",
     "aStarter": "function formatTableCellScope(isHeader, isRowHeader) {\n  // TODO: Return 'row', 'col', or null based on cell header role\n  \n}",
     "aHint": "if (!isHeader) return null; return isRowHeader ? 'row' : 'col';",
-    "aTest": "if (formatTableCellScope(true, false) !== 'col') throw new Error('Column header must have scope col');\nif (formatTableCellScope(true, true) !== 'row') throw new Error('Row header must have scope row');\nif (formatTableCellScope(false, false) !== null) throw new Error('Data cell must have null scope');"
+    "aTest": "if (formatTableCellScope(true, false) !== 'col') throw new Error('Column header must have scope col');\nif (formatTableCellScope(true, true) !== 'row') throw new Error('Row header must have scope row');\nif (formatTableCellScope(false, false) !== null) throw new Error('Data cell must have null scope');",
+    "eLanguage": "html"
   },
   {
     "day": 14,
@@ -271,16 +283,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Toast Notification Queue & ARIA Live Politeness Matcher",
-    "eDesc": "Implement function resolveToastAriaLive(toastType) mapping `'info'`, `'success'`, or `'warning'` to `aria-live=\"polite\"` and `'error'` to `aria-live=\"assertive\"`. The result must have these fields: `ariaLivePoliteness`, `roleAttribute`.",
-    "eStarter": "function resolveToastAriaLive(type) {\n  // TODO: write your code here\n}",
-    "eHint": "If type === error return assertive else polite.",
-    "eTest": "const info = resolveToastAriaLive('info');\nconst err = resolveToastAriaLive('error');\nif (info.ariaLivePoliteness !== 'polite' || err.ariaLivePoliteness !== 'assertive' || err.roleAttribute !== 'alert') throw new Error('Toast ARIA resolution failed');",
+    "eTitle": "AlertBanner Component TSX",
+    "eDesc": "Implement component `export function AlertBanner({ type = \"info\", title, message }: any)` with `role=\"alert\"` and `className={`alert alert-${type}`}`.",
+    "eStarter": "export function AlertBanner(props: any) {\n  return null;\n}",
+    "eHint": "Render alert with role=\"alert\" and alert-${type} class.",
+    "eTest": "const h1 = render(AlertBanner, { type: 'success', title: 'Success', message: 'Tokens compiled' });\nif (!h1.includes('alert-success') || !h1.includes('role=\"alert\"') || !h1.includes('Tokens compiled')) throw new Error('Alert success render failed');\nconst h2 = render(AlertBanner, { type: 'error', title: 'Error', message: 'Contrast failed' });\nif (!h2.includes('alert-error') || !h2.includes('Contrast failed')) throw new Error('Alert error render failed');\nconst h3 = render(AlertBanner, { title: 'Note', message: 'Default info type' });\nif (!h3.includes('alert-info')) throw new Error('Alert default info failed');",
     "aTitle": "Toast Notification Queue Limiter",
     "aDesc": "Implement function `enforceToastQueueLimit(toasts, maxLimit = 3)` preserving the newest `maxLimit` toast notifications.",
     "aStarter": "function enforceToastQueueLimit(toasts, maxLimit = 3) {\n  // TODO: Return slice of newest maxLimit toast items\n  \n}",
     "aHint": "return toasts.slice(-maxLimit);",
-    "aTest": "const limited = enforceToastQueueLimit(['t1', 't2', 't3', 't4', 't5'], 3);\nif (limited.length !== 3 || limited[0] !== 't3' || limited[2] !== 't5') throw new Error('Toast queue limit failed');\nconst small = enforceToastQueueLimit(['a', 'b'], 3);\nif (small.length !== 2 || small[0] !== 'a' || small[1] !== 'b') throw new Error('Small queue should be untouched');"
+    "aTest": "const limited = enforceToastQueueLimit(['t1', 't2', 't3', 't4', 't5'], 3);\nif (limited.length !== 3 || limited[0] !== 't3' || limited[2] !== 't5') throw new Error('Toast queue limit failed');\nconst small = enforceToastQueueLimit(['a', 'b'], 3);\nif (small.length !== 2 || small[0] !== 'a' || small[1] !== 'b') throw new Error('Small queue should be untouched');",
+    "eLanguage": "tsx"
   },
   {
     "day": 15,
@@ -311,16 +324,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Flexbox Item Basis & Distribution Calculator",
-    "eDesc": "Implement function calculateFlexItemWidth(containerWidth, totalItems, gapSize) calculating exact equal item width with native gap spacing. Use these exact values: `status`: 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL'. The result must have the field: `computedItemWidth`.",
-    "eStarter": "function calculateFlexItemWidth(containerW, count, gap) {\n  // TODO: write your code here\n}",
-    "eHint": "itemWidth = (containerW - ((count - 1) * gap)) / count.",
-    "eTest": "const r1 = calculateFlexItemWidth(1000, 4, 20);\nif (r1.computedItemWidth !== 235 || r1.status !== 'FLEX_ITEM_WIDTH_CALCULATED_NOMINAL') throw new Error('Calc 1 failed');\nconst r2 = calculateFlexItemWidth(600, 3, 30);\nif (r2.computedItemWidth !== 180) throw new Error('Calc 2 failed');",
+    "eTitle": "Flexbox Navigation Bar CSS",
+    "eDesc": "Declare flexbox layout for `.flex-navbar` setting `display: flex`, `justify-content: space-between`, `align-items: center`, and `gap: 16px`.",
+    "eStarter": ".flex-navbar {\n  /* display, justify-content, align-items, gap */\n}",
+    "eHint": "Set display: flex, justify-content: space-between, align-items: center, gap: 16px.",
+    "eTest": "if (cssValue(css, '.flex-navbar', 'display') !== 'flex') throw new Error('display must be flex');\nif (cssValue(css, '.flex-navbar', 'justify-content') !== 'space-between') throw new Error('justify-content must be space-between');\nif (cssValue(css, '.flex-navbar', 'align-items') !== 'center') throw new Error('align-items must be center');\nif (cssValue(css, '.flex-navbar', 'gap') !== '16px') throw new Error('gap must be 16px');",
     "aTitle": "Flexbox Alignment Axis Resolver",
     "aDesc": "Implement function `getFlexAlignmentAxis(prop)` returning 'main-axis' for 'justify-content' and 'cross-axis' for 'align-items'.",
     "aStarter": "function getFlexAlignmentAxis(prop) {\n  // TODO: Return 'main-axis' for 'justify-content', 'cross-axis' for 'align-items'\n  \n}",
     "aHint": "return prop === 'justify-content' ? 'main-axis' : 'cross-axis';",
-    "aTest": "if (getFlexAlignmentAxis('justify-content') !== 'main-axis') throw new Error('justify-content controls main-axis');\nif (getFlexAlignmentAxis('align-items') !== 'cross-axis') throw new Error('align-items controls cross-axis');"
+    "aTest": "if (getFlexAlignmentAxis('justify-content') !== 'main-axis') throw new Error('justify-content controls main-axis');\nif (getFlexAlignmentAxis('align-items') !== 'cross-axis') throw new Error('align-items controls cross-axis');",
+    "eLanguage": "css"
   },
   {
     "day": 17,
@@ -331,16 +345,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "CSS Grid auto-fit Column Count Evaluator",
-    "eDesc": "Implement function calculateGridColumns(containerWidth, minColumnWidth, gapSize) calculating the maximum number of columns generated by `repeat(auto-fit, minmax(minColumnWidth, 1fr))`. Use these exact values: `status`: 'GRID_COLUMNS_CALCULATED_NOMINAL'. The result must have the field: `generatedColumnsCount`.",
-    "eStarter": "function calculateGridColumns(containerW, minW, gap) {\n  // TODO: write your code here\n}",
-    "eHint": "Calculate cols fitting in containerW with gaps.",
-    "eTest": "const r1 = calculateGridColumns(1200, 250, 20);\nif (r1.generatedColumnsCount !== 4 || r1.status !== 'GRID_COLUMNS_CALCULATED_NOMINAL') throw new Error('Grid 1 failed');\nconst r2 = calculateGridColumns(500, 250, 20);\nif (r2.generatedColumnsCount !== 1) throw new Error('Grid 2 failed');",
+    "eTitle": "Responsive Grid Layout CSS",
+    "eDesc": "Declare grid layout for `.responsive-card-grid` setting `display: grid`, `grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))`, and `gap: 24px`.",
+    "eStarter": ".responsive-card-grid {\n  /* display, grid-template-columns, gap */\n}",
+    "eHint": "Set display: grid, grid-template-columns, and gap: 24px.",
+    "eTest": "if (cssValue(css, '.responsive-card-grid', 'display') !== 'grid') throw new Error('display must be grid');\nif (!cssValue(css, '.responsive-card-grid', 'grid-template-columns')?.includes('minmax(240px, 1fr)')) throw new Error('grid-template-columns must use repeat(auto-fit, minmax(240px, 1fr))');\nif (cssValue(css, '.responsive-card-grid', 'gap') !== '24px') throw new Error('gap must be 24px');",
     "aTitle": "Repeat Grid Template Expression Builder",
     "aDesc": "Implement function `buildRepeatGridTemplate(colCount, minWidth)` returning `repeat(${colCount}, minmax(${minWidth}, 1fr))`.",
     "aStarter": "function buildRepeatGridTemplate(colCount, minWidth) {\n  // TODO: Return CSS grid repeat expression with minmax sizing\n  \n}",
     "aHint": "return `repeat(${colCount}, minmax(${minWidth}, 1fr))`;",
-    "aTest": "if (buildRepeatGridTemplate(3, '200px') !== 'repeat(3, minmax(200px, 1fr))') throw new Error('3 col template failed');\nif (buildRepeatGridTemplate(4, '250px') !== 'repeat(4, minmax(250px, 1fr))') throw new Error('4 col template failed');"
+    "aTest": "if (buildRepeatGridTemplate(3, '200px') !== 'repeat(3, minmax(200px, 1fr))') throw new Error('3 col template failed');\nif (buildRepeatGridTemplate(4, '250px') !== 'repeat(4, minmax(250px, 1fr))') throw new Error('4 col template failed');",
+    "eLanguage": "css"
   },
   {
     "day": 18,
@@ -356,11 +371,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function classifyViewportBreakpoint(width) {\n  // TODO: write your code here\n}",
     "eHint": "Classify based on < 640, < 1024, < 1280, >= 1280.",
     "eTest": "const mob = classifyViewportBreakpoint(375);\nconst tab = classifyViewportBreakpoint(768);\nconst desk = classifyViewportBreakpoint(1100);\nif (mob.breakpoint !== 'MOBILE_SM' || tab.breakpoint !== 'TABLET_MD' || desk.breakpoint !== 'DESKTOP_LG') throw new Error('Breakpoint classification failed');",
-    "aTitle": "Responsive Media Query Formatter",
-    "aDesc": "Implement function `formatMediaQuery(breakpointPx, isMobileFirst = true)` returning `@media (${isMobileFirst ? 'min-width' : 'max-width'}: ${breakpointPx}px)`.",
-    "aStarter": "function formatMediaQuery(breakpointPx, isMobileFirst = true) {\n  // TODO: Format media query string with min-width or max-width\n  \n}",
-    "aHint": "return `@media (${isMobileFirst ? 'min-width' : 'max-width'}: ${breakpointPx}px)`;",
-    "aTest": "if (formatMediaQuery(768) !== '@media (min-width: 768px)') throw new Error('Mobile-first query failed');\nif (formatMediaQuery(1024, false) !== '@media (max-width: 1024px)') throw new Error('Desktop-first query failed');"
+    "aTitle": "Container Component TSX",
+    "aDesc": "Implement component `export function Container({ size = \"md\", children }: any)` rendering `<div className={`container container-${size}`}>{children}</div>`.",
+    "aStarter": "export function Container(props: any) {\n  return null;\n}",
+    "aHint": "Render div with container container-${size}.",
+    "aTest": "const h1 = render(Container, { size: 'lg', children: 'Wide content' });\nif (!h1.includes('container-lg') || !h1.includes('Wide content')) throw new Error('Container lg failed');\nconst h2 = render(Container, { size: 'sm', children: 'Narrow content' });\nif (!h2.includes('container-sm')) throw new Error('Container sm failed');\nconst h3 = render(Container, { children: 'Default content' });\nif (!h3.includes('container-md')) throw new Error('Container md default failed');",
+    "aLanguage": "tsx"
   },
   {
     "day": 19,
@@ -391,16 +407,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Micro-Interaction Transition Timing & Duration Auditor",
-    "eDesc": "Implement function auditTransitionConfig(property, durationMs, easingCurve) validating that transition animates performant properties (`'transform'`, `'opacity'`) within optimal duration ($100\\text{ms} \\le t \\le 350\\text{ms}$). Use these exact values: `status`: 'TRANSITION_PERFORMANCE_AUDITED_NOMINAL'. The result must have the field: `isTransitionOptimized`.",
-    "eStarter": "function auditTransitionConfig(prop, dur, easing) {\n  // TODO: write your code here\n}",
-    "eHint": "Check prop in transform/opacity and dur between 100 and 350.",
-    "eTest": "const pass = auditTransitionConfig('transform', 200, 'ease-out');\nconst fail = auditTransitionConfig('width', 200, 'ease-out'); // width causes reflow\nif (!pass.isTransitionOptimized || fail.isTransitionOptimized || pass.status !== 'TRANSITION_PERFORMANCE_AUDITED_NOMINAL') throw new Error('Transition audit failed');",
+    "eTitle": "Micro-Interaction Button Transition CSS",
+    "eDesc": "Declare GPU-accelerated transition for `.interactive-button` with `transition-property: transform, opacity`, `transition-duration: 200ms`, and `transition-timing-function: ease-in-out`.",
+    "eStarter": ".interactive-button {\n  /* transition properties */\n}",
+    "eHint": "Set transition-property, transition-duration, and transition-timing-function.",
+    "eTest": "if (!cssValue(css, '.interactive-button', 'transition-property')?.includes('transform')) throw new Error('transition-property must include transform');\nif (cssValue(css, '.interactive-button', 'transition-duration') !== '200ms') throw new Error('transition-duration must be 200ms');\nif (cssValue(css, '.interactive-button', 'transition-timing-function') !== 'ease-in-out') throw new Error('transition-timing-function must be ease-in-out');",
     "aTitle": "GPU-Accelerated CSS Property Validator",
     "aDesc": "Implement function `isGpuAcceleratedCssProperty(propName)` returning true if propName is 'transform' or 'opacity'.",
     "aStarter": "function isGpuAcceleratedCssProperty(propName) {\n  // TODO: Return true if propName is GPU composite accelerated ('transform' or 'opacity')\n  \n}",
     "aHint": "return propName === 'transform' || propName === 'opacity';",
-    "aTest": "if (isGpuAcceleratedCssProperty('transform') !== true) throw new Error('transform must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('opacity') !== true) throw new Error('opacity must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('width') !== false) throw new Error('width triggers layout');\nif (isGpuAcceleratedCssProperty('top') !== false) throw new Error('top triggers layout');"
+    "aTest": "if (isGpuAcceleratedCssProperty('transform') !== true) throw new Error('transform must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('opacity') !== true) throw new Error('opacity must be GPU accelerated');\nif (isGpuAcceleratedCssProperty('width') !== false) throw new Error('width triggers layout');\nif (isGpuAcceleratedCssProperty('top') !== false) throw new Error('top triggers layout');",
+    "eLanguage": "css"
   },
   {
     "day": 21,
@@ -476,11 +493,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveRovingTabindex(curr, total, key) {\n  // TODO: write your code here\n}",
     "eHint": "Next: (curr + 1) % total. Prev: (curr - 1 + total) % total.",
     "eTest": "const fwd = resolveRovingTabindex(2, 4, 'ArrowRight'); // 2 -> 3\nconst wrap = resolveRovingTabindex(3, 4, 'ArrowRight'); // 3 -> 0 (wrap)\nconst back = resolveRovingTabindex(0, 4, 'ArrowLeft'); // 0 -> 3 (wrap back)\nif (fwd.newActiveIndex !== 3 || wrap.newActiveIndex !== 0 || back.newActiveIndex !== 3) throw new Error('Roving tabindex resolution failed');",
-    "aTitle": "Interactive Element Tabindex Resolver",
-    "aDesc": "Implement function `resolveTabindex(isInteractive, isProgrammaticOnly)` returning 0 for interactive elements, or -1 for non-interactive / programmatic focus containers.",
-    "aStarter": "function resolveTabindex(isInteractive, isProgrammaticOnly) {\n  // TODO: Return 0 for keyboard interactive, -1 for programmatic or inert\n  \n}",
-    "aHint": "if (isProgrammaticOnly || !isInteractive) return -1; return 0;",
-    "aTest": "if (resolveTabindex(true, false) !== 0) throw new Error('Interactive element must have tabindex 0');\nif (resolveTabindex(true, true) !== -1) throw new Error('Programmatic container must have tabindex -1');\nif (resolveTabindex(false, false) !== -1) throw new Error('Non-interactive element must have tabindex -1');"
+    "aTitle": "Badge Component TSX",
+    "aDesc": "Implement component `export function Badge({ label, variant = \"neutral\", count }: any)` rendering label and optional numeric count.",
+    "aStarter": "export function Badge(props: any) {\n  return null;\n}",
+    "aHint": "Render span.badge with badge-${variant}, label and optional count.",
+    "aTest": "const h1 = render(Badge, { label: 'Active', variant: 'success', count: 12 });\nif (!h1.includes('badge-success') || !h1.includes('Active') || !h1.includes('(12)')) throw new Error('Badge success count render failed');\nconst h2 = render(Badge, { label: 'Pending', variant: 'warning' });\nif (!h2.includes('badge-warning') || !h2.includes('Pending')) throw new Error('Badge warning render failed');\nconst h3 = render(Badge, { label: 'New' });\nif (!h3.includes('badge-neutral')) throw new Error('Badge neutral default failed');",
+    "aLanguage": "tsx"
   },
   {
     "day": 25,
@@ -491,16 +509,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "Icon Button Accessible Name & ARIA Auditor",
-    "eDesc": "Implement function auditIconButtonAccessibility(hasAriaLabel, hasTextChild, isIconHidden) certifying that an icon-only button provides an accessible name without announcing raw SVG markup. Use these exact values: `status`: 'ICON_BUTTON_ACCESSIBILITY_VERIFIED_NOMINAL'. The result must have the field: `isIconButtonCompliant`.",
-    "eStarter": "function auditIconButtonAccessibility(hasLabel, hasText, isHidden) {\n  // TODO: write your code here\n}",
-    "eHint": "isCompliant = (hasLabel || hasText) && isHidden.",
-    "eTest": "const pass = auditIconButtonAccessibility(true, false, true);\nconst fail = auditIconButtonAccessibility(false, false, true);\nif (!pass.isIconButtonCompliant || fail.isIconButtonCompliant || pass.status !== 'ICON_BUTTON_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Icon button audit failed');",
+    "eTitle": "Accessible Icon Button HTML",
+    "eDesc": "Write an accessible icon button: `<button type=\"button\" aria-label=\"Search\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\">...</svg></button>`.",
+    "eStarter": "<!-- Icon button with accessible name -->",
+    "eHint": "Give button an aria-label and mark svg with aria-hidden=\"true\".",
+    "eTest": "const btn = queryAll(html, 'button')[0];\nif (!btn || !attr(btn, 'aria-label')) throw new Error('Button must have an aria-label');\nconst svg = queryAll(html, 'svg')[0];\nif (!svg || attr(svg, 'aria-hidden') !== 'true') throw new Error('Decorative icon svg must have aria-hidden=\"true\"');",
     "aTitle": "SVG Icon ARIA Attributes Resolver",
     "aDesc": "Implement function `getIconAriaAttributes(isDecorative, altLabel)` returning { 'aria-hidden': 'true' } if decorative, or { 'aria-label': altLabel, role: 'img' } if informative.",
     "aStarter": "function getIconAriaAttributes(isDecorative, altLabel) {\n  // TODO: Return accessible attributes object for SVG icon\n  \n}",
     "aHint": "if (isDecorative) return { 'aria-hidden': 'true' }; return { 'aria-label': altLabel || '', role: 'img' };",
-    "aTest": "const dec = getIconAriaAttributes(true);\nif (dec['aria-hidden'] !== 'true') throw new Error('Decorative icon must be aria-hidden');\nconst info = getIconAriaAttributes(false, 'Search items');\nif (info['aria-label'] !== 'Search items' || info.role !== 'img') throw new Error('Informational icon must have aria-label and role');"
+    "aTest": "const dec = getIconAriaAttributes(true);\nif (dec['aria-hidden'] !== 'true') throw new Error('Decorative icon must be aria-hidden');\nconst info = getIconAriaAttributes(false, 'Search items');\nif (info['aria-label'] !== 'Search items' || info.role !== 'img') throw new Error('Informational icon must have aria-label and role');",
+    "eLanguage": "html"
   },
   {
     "day": 26,
@@ -511,16 +530,17 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "SVG Icon viewBox & Color Inheritance Auditor",
-    "eDesc": "Implement function auditSvgIconConfig(viewBoxString, fillOrStrokeValue) verifying that icon uses normalized `0 0 24 24` viewBox and inherits `currentColor`. Use these exact values: `status`: 'SVG_ICON_STANDARD_VERIFIED_NOMINAL'. The result must have the field: `isSvgIconStandardCompliant`.",
-    "eStarter": "function auditSvgIconConfig(viewBox, colorProp) {\n  // TODO: write your code here\n}",
-    "eHint": "Check viewBox === '0 0 24 24' and colorProp === 'currentColor'.",
-    "eTest": "const pass = auditSvgIconConfig('0 0 24 24', 'currentColor');\nconst fail = auditSvgIconConfig('0 0 512 512', '#ff0000');\nif (!pass.isSvgIconStandardCompliant || fail.isSvgIconStandardCompliant || pass.status !== 'SVG_ICON_STANDARD_VERIFIED_NOMINAL') throw new Error('SVG icon audit failed');",
+    "eTitle": "Standardized SVG Icon HTML",
+    "eDesc": "Write a normalized SVG icon with `viewBox=\"0 0 24 24\"`, `width=\"24\"`, `height=\"24\"`, and `fill=\"currentColor\"`.",
+    "eStarter": "<!-- Standard SVG icon -->",
+    "eHint": "Set viewBox, width, height, and fill=\"currentColor\" on svg.",
+    "eTest": "const svg = queryAll(html, 'svg')[0];\nif (!svg) throw new Error('<svg> element required');\nif (attr(svg, 'viewBox') !== '0 0 24 24') throw new Error('viewBox must be \"0 0 24 24\"');\nif (attr(svg, 'fill') !== 'currentColor') throw new Error('fill must be \"currentColor\"');",
     "aTitle": "SVG Color Inheritance Keyword Resolver",
     "aDesc": "Implement function `resolveSvgIconColor(variantColor, inheritFromText)` returning 'currentColor' if inheritFromText is true, or variantColor otherwise.",
     "aStarter": "function resolveSvgIconColor(variantColor, inheritFromText) {\n  // TODO: Return 'currentColor' or variantColor\n  \n}",
     "aHint": "return inheritFromText ? 'currentColor' : variantColor;",
-    "aTest": "if (resolveSvgIconColor('#ff0000', true) !== 'currentColor') throw new Error('Inherited SVG must use currentColor');\nif (resolveSvgIconColor('#ff0000', false) !== '#ff0000') throw new Error('Explicit SVG must use variantColor');"
+    "aTest": "if (resolveSvgIconColor('#ff0000', true) !== 'currentColor') throw new Error('Inherited SVG must use currentColor');\nif (resolveSvgIconColor('#ff0000', false) !== '#ff0000') throw new Error('Explicit SVG must use variantColor');",
+    "eLanguage": "html"
   },
   {
     "day": 27,
@@ -536,11 +556,12 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function resolveAnimationForMotionPreference(reducedMotion, stdAnim, fadeAnim) {\n  // TODO: write your code here\n}",
     "eHint": "If reducedMotion return fadeAnim else stdAnim.",
     "eTest": "const reduced = resolveAnimationForMotionPreference(true, 'slide-in-right-300ms', 'fade-in-150ms');\nconst normal = resolveAnimationForMotionPreference(false, 'slide-in-right-300ms', 'fade-in-150ms');\nif (reduced.resolvedAnimationClass !== 'fade-in-150ms' || normal.resolvedAnimationClass !== 'slide-in-right-300ms') throw new Error('Reduced motion resolution failed');",
-    "aTitle": "Accessible Animation Duration Resolver",
-    "aDesc": "Implement function `getAnimationDurationMs(baseMs, prefersReducedMotion)` returning 0 if user prefers reduced motion, or baseMs otherwise.",
-    "aStarter": "function getAnimationDurationMs(baseMs, prefersReducedMotion) {\n  // TODO: Return 0 when reduced motion preferred, otherwise baseMs\n  \n}",
-    "aHint": "return prefersReducedMotion ? 0 : baseMs;",
-    "aTest": "if (getAnimationDurationMs(300, true) !== 0) throw new Error('Reduced motion should disable animation');\nif (getAnimationDurationMs(300, false) !== 300) throw new Error('Standard motion should preserve base duration');"
+    "aTitle": "MotionBox Component TSX",
+    "aDesc": "Implement component `export function MotionBox({ animate = true, children }: any)` with `className={`motion-box ${animate ? \"animate-fade-in\" : \"animate-none\"}`}`.",
+    "aStarter": "export function MotionBox(props: any) {\n  return null;\n}",
+    "aHint": "Apply animate-fade-in when animate is true, or animate-none when false.",
+    "aTest": "const h1 = render(MotionBox, { animate: true, children: 'Animated UI' });\nif (!h1.includes('animate-fade-in') || !h1.includes('Animated UI')) throw new Error('MotionBox animated render failed');\nconst h2 = render(MotionBox, { animate: false, children: 'Static UI' });\nif (!h2.includes('animate-none') || !h2.includes('Static UI')) throw new Error('MotionBox reduced motion render failed');\nconst h3 = render(MotionBox, { children: 'Default animated' });\nif (!h3.includes('animate-fade-in')) throw new Error('MotionBox default animate failed');",
+    "aLanguage": "tsx"
   },
   {
     "day": 28,
