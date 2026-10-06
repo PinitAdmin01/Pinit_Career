@@ -11,7 +11,7 @@ export const KNOWN_LESSON_DEFECTS: Record<string, number> = {
   'dist': 0,
   'cyber': 0,
   'ai': 0,
-  'sre-web': 3,
+  'sre-web': 0,
   'stream-web': 3,
   'aideploy-web': 184,
 };
