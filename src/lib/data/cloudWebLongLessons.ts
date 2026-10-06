@@ -1,12 +1,5 @@
-import { LongLesson } from './longLessons';
+import type { LongLesson } from './longLessons';
 
-/**
- * Cloud Native Architectures (AWS) (course-cloud-native, prefix: cloud):
- * 30 comprehensive long-format lessons (20-30 minutes each, >= 9.2 spoken minutes)
- * covering AWS global infrastructure, IAM access control, VPC networking,
- * EC2 compute, S3 storage, RDS/DynamoDB databases, Serverless Lambda & API Gateway,
- * ECS/EKS containerization, CloudWatch monitoring, and Terraform IaC.
- */
 export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
@@ -45,11 +38,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an IaaS service such as Amazon EC2, who is responsible for applying operating system security patches?",
           "options": [
-            "AWS automatically patches all EC2 guest operating systems nightly",
             "The customer is fully responsible for patching the guest operating system",
+            "AWS automatically patches all EC2 guest operating systems nightly",
             "Operating system patching is unnecessary in virtualized cloud environments"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "In IaaS, the customer retains administrative control over the guest OS and must manage all operating system updates and patches."
         }
       },
@@ -160,11 +153,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under the AWS Shared Responsibility Model, which of the following is strictly the customer's responsibility?",
           "options": [
-            "Replacing failed server power supplies and defective hard drives",
             "Encrypting application data at rest and managing user access credentials",
+            "Replacing failed server power supplies and defective hard drives",
             "Maintaining physical security guards at regional datacenter locations"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Data encryption and credential management are Security IN the Cloud, which is exclusively the customer's responsibility."
         }
       },
@@ -238,10 +231,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary function of AWS Cost Allocation Tags?",
           "options": [
             "Encrypting S3 storage objects using symmetric AES-256 keys",
-            "Assigning metadata to resources to track and categorize costs across teams and environments",
-            "Speeding up CPU execution speeds on virtual machine instances"
+            "Speeding up CPU execution speeds on virtual machine instances",
+            "Assigning metadata to resources to track and categorize costs across teams and environments"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Cost Allocation Tags organize and categorize resource expenditures across departments, projects, and environments in billing reports."
         }
       }
@@ -249,7 +242,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "IaaS delivers total operating system and runtime autonomy at the expense of manual operational maintenance and security patching.",
       "PaaS abstracts infrastructure layers to enable rapid application delivery through automated provisioning, scaling, and runtime maintenance.",
-      "The AWS Shared Responsibility Model cleanly separates physical Security OF the Cloud (AWS) from data and access Security IN the Cloud (Customer)."
+      "The AWS Shared Responsibility Model cleanly separates physical Security OF the Cloud (AWS) from data and access Security IN the Cloud (Customer).",
+      "SaaS applications eliminate all infrastructure and application maintenance, delivering ready-to-use software directly to end users.",
+      "Modern cloud engineering balances control, operational overhead, and financial expenditure across each service delivery model."
     ],
     "projectStep": {
       "title": "Workload Classification & Cloud Cost Strategy",
@@ -297,11 +292,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does AWS engineer regions to be completely isolated and independent from one another?",
           "options": [
-            "To prevent customers from transferring data between different accounts",
             "To guarantee blast radius containment so that an outage in one region does not affect another",
+            "To prevent customers from transferring data between different accounts",
             "Because international law forbids undersea communication cables between continents"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Complete regional independence ensures blast radius isolation, preventing localized catastrophic events from cascading globally."
         }
       },
@@ -374,10 +369,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural purpose of AWS Edge Locations?",
           "options": [
             "Running massive relational database clusters and heavy batch data pipelines",
-            "Caching web content and terminating user network traffic close to global users for low latency",
-            "Physically warehousing replacement hard drives for AWS technician dispatch"
+            "Physically warehousing replacement hard drives for AWS technician dispatch",
+            "Caching web content and terminating user network traffic close to global users for low latency"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Edge Locations cache static/dynamic content and terminate connections near users to minimize round-trip network latency."
         }
       },
@@ -411,11 +406,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Amazon RDS Multi-AZ maintain high availability in the event of primary database host failure?",
           "options": [
-            "It requires database administrators to manually restore nightly tape backups into a new region",
             "It automatically executes a DNS failover to a synchronized standby instance in a second Availability Zone",
+            "It requires database administrators to manually restore nightly tape backups into a new region",
             "It shuts down the web application until the physical host is repaired by technicians"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "RDS Multi-AZ maintains a synchronous standby in another AZ and performs automated DNS failover if the primary fails."
         }
       },
@@ -490,10 +485,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Can an Amazon Elastic Block Store (EBS) volume be directly attached to an Amazon EC2 instance running in a different Availability Zone?",
           "options": [
             "Yes, EBS volumes can attach to any EC2 instance anywhere in the world without latency",
-            "No, EBS volumes are strictly AZ-scoped and can only attach to instances in the same Availability Zone",
-            "Yes, but only if both instances are running the same operating system kernel"
+            "Yes, but only if both instances are running the same operating system kernel",
+            "No, EBS volumes are strictly AZ-scoped and can only attach to instances in the same Availability Zone"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "EBS volumes are AZ-scoped storage resources; an instance and its attached EBS volume must reside in the exact same Availability Zone."
         }
       }
@@ -501,7 +496,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "AWS Regions provide isolated geographic environments that enforce legal data sovereignty and limit blast radius.",
       "Availability Zones are clusters of discrete datacenters interconnected with redundant low-latency dark fiber for active-active high availability.",
-      "Cloud resources adhere to distinct operational scopes: Global (IAM, CloudFront), Regional (VPC, S3), and AZ-Scoped (Subnets, EBS volumes)."
+      "Cloud resources adhere to distinct operational scopes: Global (IAM, CloudFront), Regional (VPC, S3), and AZ-Scoped (Subnets, EBS volumes).",
+      "Multi-AZ deployments ensure continuous service availability by surviving localized infrastructure outages without manual failover.",
+      "Understanding operational blast radius ensures compliant data isolation, low latency, and robust disaster recovery."
     ],
     "projectStep": {
       "title": "Global Infrastructure Design & AZ Topology",
@@ -549,11 +546,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must cloud network engineers ensure that a new VPC CIDR block does not overlap with existing on-premises IP ranges?",
           "options": [
-            "Overlapping IP ranges cause AWS billing systems to double-charge for compute instances",
             "Overlapping IP ranges make it impossible to route network traffic between on-premises and the VPC via VPN or Direct Connect",
+            "Overlapping IP ranges cause AWS billing systems to double-charge for compute instances",
             "AWS automatically deletes any VPC whose CIDR block contains the number ten"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Routers cannot determine where to deliver packets if both the cloud VPC and on-premises datacenters share identical IP addresses."
         }
       },
@@ -627,10 +624,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What configuration element designates a VPC subnet as a Public Subnet?",
           "options": [
             "Naming the subnet with the word 'public' in the AWS Management Console",
-            "A route table entry pointing destination 0.0.0.0/0 to an attached Internet Gateway (IGW)",
-            "Disabling all firewall rules and security groups on the instances"
+            "Disabling all firewall rules and security groups on the instances",
+            "A route table entry pointing destination 0.0.0.0/0 to an attached Internet Gateway (IGW)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A subnet is public if and only if its route table routes 0.0.0.0/0 traffic directly to an attached Internet Gateway."
         }
       },
@@ -665,11 +662,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where must an AWS NAT Gateway be physically provisioned in order to provide outbound connectivity for private subnets?",
           "options": [
-            "Inside the private subnet alongside the application servers",
             "Inside a public subnet that possesses an active route to an Internet Gateway",
+            "Inside the private subnet alongside the application servers",
             "On an on-premises physical datacenter router"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "NAT Gateways must reside in a public subnet with an Internet Gateway route and an Elastic IP to translate traffic."
         }
       },
@@ -744,10 +741,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary operational advantage of AWS Transit Gateway over a full mesh of VPC Peering connections?",
           "options": [
             "Transit Gateway provides free unlimited compute instances for all connected accounts",
-            "Transit Gateway provides a centralized hub-and-spoke router, replacing complex point-to-point meshes with linear attachments",
-            "Transit Gateway bypasses all Security Groups and IAM permissions automatically"
+            "Transit Gateway bypasses all Security Groups and IAM permissions automatically",
+            "Transit Gateway provides a centralized hub-and-spoke router, replacing complex point-to-point meshes with linear attachments"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Transit Gateway replaces hundreds of point-to-point peering connections with a single hub-and-spoke router, simplifying management."
         }
       }
@@ -755,7 +752,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "VPCs provide isolated private IPv4 networks using RFC 1918 CIDR blocks with exactly five addresses reserved per subnet.",
       "Public subnets route 0.0.0.0/0 to an Internet Gateway, while private subnets route outbound egress through a public NAT Gateway.",
-      "A three-tier architecture separates public web balancers, private application runtimes, and completely isolated databases."
+      "A three-tier architecture separates public web balancers, private application runtimes, and completely isolated databases.",
+      "Route tables direct network traffic between VPC subnets, internet gateways, and virtual private network endpoints.",
+      "Subnet design must allocate sufficient address space to accommodate anticipated autoscaling and container workload requirements."
     ],
     "projectStep": {
       "title": "VPC Subnet & Route Table Architecture",
@@ -804,11 +803,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does it mean that an AWS Security Group is 'stateful'?",
           "options": [
-            "It remembers user login sessions and password cookies across browser restarts",
             "If an inbound packet is allowed in, the outbound return response is automatically permitted regardless of outbound rules",
+            "It remembers user login sessions and password cookies across browser restarts",
             "It only functions within a single United States geographic state"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Stateful firewalls automatically track connection state, allowing response traffic out without needing explicit outbound rules."
         }
       },
@@ -882,11 +881,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a network engineer configure outbound rules on a NACL when allowing inbound web traffic on port 443?",
           "options": [
-            "Because NACLs are stateless and do not automatically permit return response packets",
+            "Because AWS requires outbound rules to generate billing invoices",
             "Because web browsers refuse to connect unless port 443 is encrypted twice",
-            "Because AWS requires outbound rules to generate billing invoices"
+            "Because NACLs are stateless and do not automatically permit return response packets"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "NACLs are stateless; outbound return traffic is evaluated independently and must be explicitly allowed."
         }
       },
@@ -921,11 +920,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If rule 100 allows port 80 from 0.0.0.0/0 and rule 150 denies port 80 from 192.0.2.1, what happens to packets from 192.0.2.1?",
           "options": [
-            "The packets are dropped because DENY rules always take precedence regardless of number",
             "The packets are allowed because rule 100 is evaluated first and immediately permits the traffic",
+            "The packets are dropped because DENY rules always take precedence regardless of number",
             "The NACL crashes and drops all subnet traffic"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "NACL rules are processed in ascending order; rule 100 matches first and immediately permits the packet, so rule 150 is ignored."
         }
       },
@@ -1000,10 +999,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In what order are an inbound network packet's firewall checks evaluated when arriving from the internet to an EC2 instance?",
           "options": [
             "First the EC2 Security Group is evaluated, followed by the Subnet NACL",
-            "First the Subnet NACL is evaluated at the perimeter, followed by the instance Security Group",
-            "Only the Security Group is evaluated; NACLs are purely optional diagnostic logs"
+            "Only the Security Group is evaluated; NACLs are purely optional diagnostic logs",
+            "First the Subnet NACL is evaluated at the perimeter, followed by the instance Security Group"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Packets cross the subnet boundary first (evaluated by NACLs) before reaching the instance ENI (evaluated by Security Groups)."
         }
       }
@@ -1011,7 +1010,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Security Groups are stateful firewalls operating at the ENI layer that support allow-only rules and source security group chaining.",
       "NACLs are stateless packet filters operating at the subnet boundary that evaluate numbered rules in strict ascending order.",
-      "Defense-in-depth pairs subnet NACL IP blocklisting with instance Security Group microsegmentation for dual-layer protection."
+      "Defense-in-depth pairs subnet NACL IP blocklisting with instance Security Group microsegmentation for dual-layer protection.",
+      "Ephemeral port allocation requires bidirectional packet rules in stateless NACLs to permit return traffic for outbound requests.",
+      "Security group chaining enables granular microsegmentation by granting access exclusively to specific security group identifiers."
     ],
     "projectStep": {
       "title": "Perimeter Firewall Hardening & SG Chaining",
@@ -1060,11 +1061,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does our production VPC topology feature six separate subnets across two Availability Zones?",
           "options": [
-            "Because AWS forces all VPCs to have exactly six subnets upon creation",
             "To isolate Web, Application, and Database tiers while ensuring high availability across two independent physical zones",
+            "Because AWS forces all VPCs to have exactly six subnets upon creation",
             "To allow employees to watch streaming television during work breaks"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Six subnets provide three tiers of security isolation (Public, App, DB) across two physical AZs for high availability."
         }
       },
@@ -1139,10 +1140,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What security rule must be strictly applied to an SSH Bastion Host's Security Group?",
           "options": [
             "Open port 22 to 0.0.0.0/0 so developers can connect from airport Wi-Fi without VPNs",
-            "Restrict inbound port 22 strictly to known corporate static IP addresses or VPN gateways",
-            "Disable all encryption protocols to speed up terminal rendering"
+            "Disable all encryption protocols to speed up terminal rendering",
+            "Restrict inbound port 22 strictly to known corporate static IP addresses or VPN gateways"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Bastions must restrict port 22 to authorized corporate IPs to prevent automated brute-force attacks from the internet."
         }
       },
@@ -1177,11 +1178,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does AWS Systems Manager Session Manager allow administrators to access a private EC2 terminal without opening port 22?",
           "options": [
-            "It secretly opens port 22 when an administrator clicks connect and closes it afterward",
             "The SSM Agent on the instance initiates an outbound HTTPS connection to AWS SSM service endpoints",
+            "It secretly opens port 22 when an administrator clicks connect and closes it afterward",
             "It routes commands through public social media APIs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The SSM Agent dials outbound over HTTPS (port 443) to AWS endpoints, allowing remote shell access with zero open inbound ports."
         }
       },
@@ -1254,10 +1255,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following confirms that our Milestone 1 VPC satisfies high-availability standards?",
           "options": [
             "All subnets and NAT gateways are concentrated inside a single Availability Zone",
-            "Subnets and redundant NAT gateways are balanced across at least two distinct Availability Zones with tier isolation",
-            "All database ports are exposed directly to the public internet for fast debugging"
+            "All database ports are exposed directly to the public internet for fast debugging",
+            "Subnets and redundant NAT gateways are balanced across at least two distinct Availability Zones with tier isolation"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Distributing subnets and redundant NAT gateways across two or more AZs guarantees high availability during datacenter outages."
         }
       }
@@ -1265,7 +1266,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Milestone 1 delivers a production-grade 6-subnet VPC spanning two Availability Zones for comprehensive fault tolerance.",
       "Redundant NAT Gateways placed in each public subnet eliminate cross-AZ failure dependency and avoid cross-AZ data fees.",
-      "AWS Systems Manager Session Manager replaces legacy Bastions, enabling secure, audited shell access with zero open inbound ports."
+      "AWS Systems Manager Session Manager replaces legacy Bastions, enabling secure, audited shell access with zero open inbound ports.",
+      "Automated VPC flow logs record accepted and rejected IP packets for security monitoring and compliance analysis.",
+      "Private subnet routing guarantees that backend applications communicate with public endpoints solely through managed NAT gateways."
     ],
     "projectStep": {
       "title": "Milestone 1 Production VPC Network Deployment",
@@ -1314,11 +1317,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should everyday engineering tasks never be performed using the AWS Root User?",
           "options": [
-            "Because the root user runs on slower compute hardware than normal IAM users",
             "Because the root user has unlimited power and cannot be restricted by IAM policies, presenting severe security risk",
+            "Because the root user runs on slower compute hardware than normal IAM users",
             "Because AWS charges ten dollars every time the root user logs into the console"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The root user has unlimited, unrestrictable permissions; compromising root means losing total control of the entire AWS account."
         }
       },
@@ -1391,11 +1394,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should EC2 instances access AWS services using IAM Roles rather than hardcoded IAM user access keys?",
           "options": [
-            "IAM Roles provide temporary, automatically rotated credentials through STS, eliminating hardcoded secret leaks",
+            "IAM Roles double the network bandwidth of the instance",
             "IAM user access keys only work on Windows servers, while IAM Roles only work on Linux",
-            "IAM Roles double the network bandwidth of the instance"
+            "IAM Roles provide temporary, automatically rotated credentials through STS, eliminating hardcoded secret leaks"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "IAM Roles provide temporary credentials rotated automatically by STS, eliminating the risk of hardcoded credential leaks."
         }
       },
@@ -1429,11 +1432,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of an IAM Role's Trust Policy?",
           "options": [
-            "It lists the specific DynamoDB tables that the role is permitted to read",
             "It defines which principals (services, users, or accounts) are authorized to assume the role",
+            "It lists the specific DynamoDB tables that the role is permitted to read",
             "It configures the billing credit card for compute instances running the role"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Trust Policy defines the trusted principals (such as the EC2 service) authorized to assume the IAM role."
         }
       },
@@ -1507,10 +1510,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What security compliance practice is recommended for AWS IAM access keys?",
           "options": [
             "Store access keys in public web client JavaScript files for easy access",
-            "Regularly rotate access keys every 90 days and deactivate unused credentials",
-            "Share a single set of access keys among all developers on the team"
+            "Share a single set of access keys among all developers on the team",
+            "Regularly rotate access keys every 90 days and deactivate unused credentials"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Rotating keys every 90 days and deactivating dormant credentials significantly limits the blast radius of potential leaks."
         }
       }
@@ -1518,7 +1521,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The AWS Root User possesses unrestricted administrative power and should be secured behind hardware MFA with zero access keys.",
       "IAM Roles provide temporary, automatically rotated STS credentials for compute instances via Instance Profiles, eliminating hardcoded keys.",
-      "In IAM evaluation logic, an Explicit Deny unconditionally overrides all Allow statements, falling back to Default Deny if no Allow exists."
+      "In IAM evaluation logic, an Explicit Deny unconditionally overrides all Allow statements, falling back to Default Deny if no Allow exists.",
+      "Permission boundaries establish the maximum permissions that identity-based policies can grant to IAM principals.",
+      "Service Control Policies in AWS Organizations enforce organizational guardrails across all member accounts."
     ],
     "projectStep": {
       "title": "IAM Role & Least-Privilege Policy Configuration",
@@ -1566,11 +1571,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which EC2 instance family is best suited for running an in-memory Redis cluster requiring massive RAM capacity?",
           "options": [
-            "Compute Optimized (c7g series)",
             "Memory Optimized (r7g series)",
+            "Compute Optimized (c7g series)",
             "Burstable General Purpose (t4g.nano)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Memory Optimized (r series) family provides high RAM-to-vCPU ratios ideal for in-memory databases like Redis."
         }
       },
@@ -1645,10 +1650,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary operational constraint when using Amazon EC2 Spot Instances?",
           "options": [
             "Spot instances cannot be connected to the internet",
-            "AWS can reclaim and terminate Spot instances with a two-minute warning when capacity is needed",
-            "Spot instances only run during weekends"
+            "Spot instances only run during weekends",
+            "AWS can reclaim and terminate Spot instances with a two-minute warning when capacity is needed"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Spot instances offer up to 90% discounts but can be reclaimed by AWS with a 2-minute interruption notice."
         }
       },
@@ -1683,11 +1688,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much advance notice does AWS provide before reclaiming an EC2 Spot Instance?",
           "options": [
-            "Exactly 24 hours via email",
             "Exactly two minutes via instance metadata and EventBridge",
+            "Exactly 24 hours via email",
             "Zero notice; the instance is killed instantly"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "AWS provides a 2-minute warning via IMDS and EventBridge, allowing applications to drain connections and save state."
         }
       },
@@ -1761,10 +1766,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does an Auto Scaling Group Target Tracking policy decide when and how much to scale?",
           "options": [
             "It scales randomly based on a random number generator",
-            "It continuously adjusts instance count to keep a specified metric (like average CPU) near a target threshold",
-            "It requires an administrator to approve every scaling event via Slack"
+            "It requires an administrator to approve every scaling event via Slack",
+            "It continuously adjusts instance count to keep a specified metric (like average CPU) near a target threshold"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Target Tracking continuously monitors metrics and automatically adjusts capacity to hold the metric near your specified target."
         }
       }
@@ -1772,7 +1777,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "EC2 instance families provide specialized hardware optimizations: General (m/t), Compute (c), and Memory (r), with Graviton ARM offering 40% price-performance gains.",
       "Spot Instances offer up to 90% savings for fault-tolerant workloads, requiring graceful handling of the 2-minute interruption notice.",
-      "Auto Scaling Groups combine Launch Templates with Target Tracking policies to dynamically balance capacity across multiple Availability Zones."
+      "Auto Scaling Groups combine Launch Templates with Target Tracking policies to dynamically balance capacity across multiple Availability Zones.",
+      "EC2 launch templates version instance configurations, network interfaces, storage attachments, and user data bootstrap scripts.",
+      "Warm pools and predictive scaling reduce autoscaling latency during sudden demand spikes in production environments."
     ],
     "projectStep": {
       "title": "Auto Scaling Fleet & Launch Template Provisioning",
@@ -1821,11 +1828,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which AWS load balancer should you choose if you need to route traffic based on HTTP URL path (/api/v1 vs /images)?",
           "options": [
-            "Network Load Balancer (NLB)",
             "Application Load Balancer (ALB)",
+            "Network Load Balancer (NLB)",
             "Classic Load Balancer (deprecated)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Application Load Balancers operate at Layer 7 and can inspect HTTP request paths, headers, and cookies to route traffic."
         }
       },
@@ -1900,10 +1907,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What happens when an EC2 instance in a Target Group fails its configured UnhealthyThresholdCount number of health checks?",
           "options": [
             "The ALB immediately halts and reboots the load balancer hardware",
-            "The ALB stops sending new client requests to the unhealthy instance",
-            "AWS charges double the price for incoming HTTP requests"
+            "AWS charges double the price for incoming HTTP requests",
+            "The ALB stops sending new client requests to the unhealthy instance"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The load balancer stops routing new requests to instances marked unhealthy, directing traffic only to healthy targets."
         }
       },
@@ -1938,11 +1945,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of ALB Deregistration Delay (Connection Draining)?",
           "options": [
-            "To flush cached DNS records from client browsers",
             "To allow in-flight HTTP requests to complete gracefully before terminating an instance, preventing client errors",
+            "To flush cached DNS records from client browsers",
             "To cool down the physical CPU chips before powering down the server"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Deregistration delay lets existing in-flight connections finish gracefully without error before the target is detached."
         }
       },
@@ -1977,11 +1984,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does ALB Path-Based Routing benefit microservice architectures?",
           "options": [
-            "It allows multiple distinct microservices to share a single load balancer by routing requests based on URL path",
             "It automatically writes SQL queries on behalf of the microservices",
+            "It allows multiple distinct microservices to share a single load balancer by routing requests based on URL path",
             "It eliminates the need for containerization or Docker"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Path-based routing routes requests based on URL paths, allowing dozens of microservices to share a single ALB."
         }
       },
@@ -2016,11 +2023,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of terminating TLS/SSL certificates at the Application Load Balancer?",
           "options": [
-            "It offloads expensive cryptographic processing from backend instances and centralizes certificate renewal via ACM",
+            "It converts all relational database data to plain text",
             "It makes web applications visible to search engines faster",
-            "It converts all relational database data to plain text"
+            "It offloads expensive cryptographic processing from backend instances and centralizes certificate renewal via ACM"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "ALB TLS termination offloads CPU-heavy decryption from backend servers and automates certificate management via ACM."
         }
       }
@@ -2028,7 +2035,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Application Load Balancers operate at Layer 7, providing path/host routing, WebSocket streaming, and native ACM TLS termination.",
       "Target Groups support Round Robin and Least Outstanding Requests algorithms, with active health checks isolating unhealthy hosts.",
-      "Connection Draining (Deregistration Delay) ensures in-flight requests finish gracefully before instance termination, preventing client 502 errors."
+      "Connection Draining (Deregistration Delay) ensures in-flight requests finish gracefully before instance termination, preventing client 502 errors.",
+      "Server Name Indication (SNI) enables a single Application Load Balancer listener to serve multiple TLS certificates simultaneously.",
+      "Path-based routing rules distribute incoming API requests to dedicated target groups corresponding to individual microservices."
     ],
     "projectStep": {
       "title": "ALB, Target Group & Path Routing Provisioning",
@@ -2077,11 +2086,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Can an application open an existing Amazon S3 object and modify a single byte in the middle of the file?",
           "options": [
-            "Yes, S3 functions like a standard Linux ext4 file system supporting in-place byte editing",
             "No, S3 objects are immutable; updating an object requires uploading a complete replacement file",
+            "Yes, S3 functions like a standard Linux ext4 file system supporting in-place byte editing",
             "Yes, but only if the file size is under one megabyte"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "S3 objects are strictly immutable; modifying data requires uploading a complete new version of the object."
         }
       },
@@ -2156,11 +2165,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of S3 Intelligent-Tiering over manually configuring S3 Standard-IA?",
           "options": [
-            "Intelligent-Tiering automatically optimizes storage tiers with zero retrieval fees when data is read",
+            "Intelligent-Tiering is only available for text files under 1 kilobyte",
             "Intelligent-Tiering automatically translates foreign language text documents",
-            "Intelligent-Tiering is only available for text files under 1 kilobyte"
+            "Intelligent-Tiering automatically optimizes storage tiers with zero retrieval fees when data is read"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Intelligent-Tiering automatically moves data between tiers based on usage and never charges data retrieval fees."
         }
       },
@@ -2195,11 +2204,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should every production S3 bucket configure an 'Abort Incomplete Multipart Uploads' lifecycle rule?",
           "options": [
-            "To prevent hackers from executing SQL injection attacks inside S3",
             "To automatically purge hidden orphaned file parts from failed uploads that would otherwise accumulate storage costs indefinitely",
+            "To prevent hackers from executing SQL injection attacks inside S3",
             "Because AWS deletes the entire bucket if multipart uploads are enabled"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Incomplete multipart uploads leave orphaned parts that incur storage fees indefinitely unless automatically purged."
         }
       },
@@ -2275,10 +2284,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When does AWS mandate the use of S3 Multipart Upload?",
           "options": [
             "For any file uploaded on a weekend",
-            "For single objects larger than 5 gigabytes in size",
-            "Only for files stored in Glacier Deep Archive"
+            "Only for files stored in Glacier Deep Archive",
+            "For single objects larger than 5 gigabytes in size"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Single HTTP PUT operations in S3 are limited to 5GB; objects larger than 5GB strictly require Multipart Upload."
         }
       }
@@ -2286,7 +2295,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon S3 provides 11 9s of durability for flat, immutable object storage accessible via globally unique bucket names.",
       "S3 storage classes range from Standard to Glacier Deep Archive, with Intelligent-Tiering providing automatic cost savings with zero retrieval fees.",
-      "Lifecycle rules automate tier transitions and object expirations, while Versioning and MFA Delete guard against data loss and ransomware."
+      "Lifecycle rules automate tier transitions and object expirations, while Versioning and MFA Delete guard against data loss and ransomware.",
+      "Cross-region replication asynchronously copies S3 objects across distinct geographic regions for compliance and low-latency access.",
+      "S3 Inventory and Storage Lens deliver granular operational metrics and cost-optimization recommendations across millions of objects."
     ],
     "projectStep": {
       "title": "S3 Bucket Architecture & Lifecycle Policy Implementation",
@@ -2336,11 +2347,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What occurs if an engineer attempts to apply a public bucket policy to an S3 bucket that has Block Public Access enabled?",
           "options": [
-            "The policy is accepted, but AWS sends an alert email to the billing team",
             "S3 immediately rejects the policy update with an Access Denied error",
+            "The policy is accepted, but AWS sends an alert email to the billing team",
             "The S3 bucket is converted into a public web server"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Block Public Access acts as an account-level circuit breaker that immediately rejects any policy granting public access."
         }
       },
@@ -2412,10 +2423,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which condition key is used in an S3 Bucket Policy to explicitly deny all unencrypted HTTP traffic?",
           "options": [
             "'aws:NetworkProtocol' equals 'tcp'",
-            "'aws:SecureTransport' equals 'false'",
-            "'s3:EncryptionEnabled' equals 'off'"
+            "'s3:EncryptionEnabled' equals 'off'",
+            "'aws:SecureTransport' equals 'false'"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The 'aws:SecureTransport': 'false' condition with Effect: 'Deny' immediately blocks all non-HTTPS requests."
         }
       },
@@ -2451,11 +2462,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of SSE-KMS over standard SSE-S3 for enterprise compliance?",
           "options": [
-            "SSE-KMS compresses images by fifty percent automatically",
             "SSE-KMS logs every single key access and decryption event in AWS CloudTrail for auditability",
+            "SSE-KMS compresses images by fifty percent automatically",
             "SSE-KMS makes S3 buckets run ten times faster"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "SSE-KMS provides user access control over keys and logs every decryption request in AWS CloudTrail for compliance auditing."
         }
       },
@@ -2530,10 +2541,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Can an AWS account Root User delete an object locked under S3 Object Lock Compliance Mode before the retention period expires?",
           "options": [
             "Yes, the root user can always override all S3 settings at any time",
-            "No, in Compliance Mode, not even the root user or AWS support can delete the object until the retention period expires",
-            "Yes, but only if they delete the bucket first"
+            "Yes, but only if they delete the bucket first",
+            "No, in Compliance Mode, not even the root user or AWS support can delete the object until the retention period expires"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Under S3 Object Lock Compliance Mode, no identity (including root) can delete or alter the object during retention."
         }
       }
@@ -2541,7 +2552,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "S3 Block Public Access acts as a centralized circuit breaker that overrides all policies to prevent public data exposure.",
       "Bucket policies enforce security in transit using 'aws:SecureTransport': 'false' to deny unencrypted plaintext HTTP traffic.",
-      "Pre-signed URLs enable secure direct client uploads to S3, while Object Lock Compliance Mode enforces immutable WORM data retention."
+      "Pre-signed URLs enable secure direct client uploads to S3, while Object Lock Compliance Mode enforces immutable WORM data retention.",
+      "S3 bucket policies evaluate principal, action, resource, and condition blocks to enforce organization-wide data access controls.",
+      "CORS configuration headers dictate which external web origins are permitted to access S3 resources directly from client browsers."
     ],
     "projectStep": {
       "title": "S3 Security Hardening & Bucket Policy Deployment",
@@ -2589,11 +2602,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which phase of the AWS Lambda execution lifecycle runs your application handler code?",
           "options": [
-            "The Init Phase",
             "The Invoke Phase",
+            "The Init Phase",
             "The Shutdown Phase"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Invoke phase passes the event payload to the handler function and executes your application logic."
         }
       },
@@ -2668,10 +2681,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "At approximately what memory allocation does an AWS Lambda function receive the equivalent of one full dedicated vCPU core?",
           "options": [
             "At 512 megabytes",
-            "At 1,769 megabytes",
-            "At 10,240 megabytes"
+            "At 10,240 megabytes",
+            "At 1,769 megabytes"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "At 1,769 MB of RAM, AWS Lambda allocates the exact equivalent of one full physical vCPU core."
         }
       },
@@ -2784,11 +2797,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of using a Lambda Function URL over an Amazon API Gateway?",
           "options": [
-            "Function URLs provide a direct, free HTTPS endpoint for the function without managing an API Gateway",
+            "Function URLs run exclusively on physical on-premises servers",
             "Function URLs grant unlimited compute memory up to 100 gigabytes",
-            "Function URLs run exclusively on physical on-premises servers"
+            "Function URLs provide a direct, free HTTPS endpoint for the function without managing an API Gateway"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Function URLs provide a direct, built-in HTTPS endpoint for your function with zero API Gateway overhead or cost."
         }
       }
@@ -2796,7 +2809,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "AWS Lambda executes code on demand with sub-millisecond billing, scaling from zero to thousands of concurrent requests.",
       "Global connection reuse outside the handler minimizes cold start penalties, while proportional vCPU scales up to 1 vCPU at 1,769 MB.",
-      "Reserved Concurrency protects downstream databases, and asynchronous retries route poisoned payloads to Dead Letter Queues."
+      "Reserved Concurrency protects downstream databases, and asynchronous retries route poisoned payloads to Dead Letter Queues.",
+      "Provisioned concurrency pre-initializes execution environments to guarantee consistent single-digit millisecond latency for critical APIs.",
+      "Lambda function URLs provide dedicated HTTPS endpoints for serverless microservices without requiring full API Gateway overhead."
     ],
     "projectStep": {
       "title": "Serverless Lambda Compute & Concurrency Setup",
@@ -2920,11 +2935,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is native CORS configuration in API Gateway superior to handling CORS manually inside Lambda code?",
           "options": [
-            "API Gateway intercepts preflight OPTIONS requests at the edge without invoking Lambda, eliminating cold starts and compute fees",
+            "Browsers automatically block all Lambda functions that use CORS",
             "Lambda functions are physically incapable of returning HTTP headers",
-            "Browsers automatically block all Lambda functions that use CORS"
+            "API Gateway intercepts preflight OPTIONS requests at the edge without invoking Lambda, eliminating cold starts and compute fees"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "API Gateway returns preflight CORS headers directly from the edge without invoking Lambda, saving time and money."
         }
       },
@@ -2958,11 +2973,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when a client sends an expired JWT to an API Gateway route protected by a native JWT Authorizer?",
           "options": [
-            "API Gateway invokes the Lambda function and lets the developer handle the error",
             "API Gateway immediately rejects the request with HTTP 401 Unauthorized without invoking Lambda",
+            "API Gateway invokes the Lambda function and lets the developer handle the error",
             "The client computer is banned from the internet for 24 hours"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The JWT Authorizer verifies tokens at the gateway and immediately rejects invalid tokens with HTTP 401."
         }
       },
@@ -3037,10 +3052,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What HTTP status code does Amazon API Gateway return when a client exceeds configured rate and burst throttling limits?",
           "options": [
             "HTTP 200 OK with a warning banner",
-            "HTTP 429 Too Many Requests",
-            "HTTP 500 Internal Server Error"
+            "HTTP 500 Internal Server Error",
+            "HTTP 429 Too Many Requests"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "HTTP 429 Too Many Requests is the standard status code returned when API Gateway rate or burst limits are breached."
         }
       }
@@ -3048,7 +3063,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "API Gateway HTTP APIs (V2) provide high-performance, low-cost RESTful endpoints with native JWT and CORS support.",
       "Lambda Proxy Integration passes full HTTP request context to backend handlers and expects standard statusCode/headers/body responses.",
-      "Custom Lambda Authorizers and Token Bucket rate limiting protect microservices with IAM policies and HTTP 429 throttling."
+      "Custom Lambda Authorizers and Token Bucket rate limiting protect microservices with IAM policies and HTTP 429 throttling.",
+      "Request validation schemas reject malformed client payloads at the gateway layer before invoking serverless backend compute.",
+      "Usage plans and API keys enforce granular rate limiting and metering tiers across external developer consumers."
     ],
     "projectStep": {
       "title": "API Gateway HTTP API & CORS Configuration",
@@ -3177,10 +3194,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should production web applications avoid using the DynamoDB Scan operation for OLTP lookups?",
           "options": [
             "Because Scan is forbidden by the AWS Management Console",
-            "Because Scan reads every single item in the entire table, consuming massive RCU throughput and causing high latency",
-            "Because Scan only works on numbers, not strings"
+            "Because Scan only works on numbers, not strings",
+            "Because Scan reads every single item in the entire table, consuming massive RCU throughput and causing high latency"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Scan examines every item in the entire table, consuming massive throughput, running slowly, and driving up costs."
         }
       },
@@ -3216,11 +3233,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Can a Global Secondary Index (GSI) be added to an existing Amazon DynamoDB table that already contains data?",
           "options": [
-            "No, all indexes must be defined when the table is created",
             "Yes, GSIs can be created or deleted at any time on an active table with zero downtime",
+            "No, all indexes must be defined when the table is created",
             "Yes, but the table must be taken offline for 24 hours"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "GSIs can be added or deleted dynamically on live DynamoDB tables at any time without impacting availability."
         }
       },
@@ -3256,11 +3273,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural goal of Single-Table Design in Amazon DynamoDB?",
           "options": [
-            "To simulate relational SQL JOINs by fetching a parent entity and all related children in a single Query call",
             "To compress text data so it fits on floppy disks",
+            "To simulate relational SQL JOINs by fetching a parent entity and all related children in a single Query call",
             "To ensure that only one user can access the database at a time"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Single-Table Design pre-joins related entities under the same partition key, enabling single-query retrieval of complex graphs."
         }
       },
@@ -3294,11 +3311,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For how long are Change Data Capture (CDC) records retained in an Amazon DynamoDB Stream?",
           "options": [
-            "Exactly 24 hours",
+            "Exactly 5 minutes",
             "Indefinitely until deleted manually",
-            "Exactly 5 minutes"
+            "Exactly 24 hours"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "DynamoDB Streams retains change data records in an ordered 24-hour rolling window."
         }
       }
@@ -3306,7 +3323,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "DynamoDB is a serverless NoSQL database offering single-digit millisecond latency via automatic hash-based physical partitioning.",
       "Always favor fast, targeted Query operations over expensive, full-table Scans for production OLTP workloads.",
-      "Single-Table Design and Global Secondary Indexes support complex multi-entity access patterns, while Streams power real-time CDC."
+      "Single-Table Design and Global Secondary Indexes support complex multi-entity access patterns, while Streams power real-time CDC.",
+      "DynamoDB transactions provide ACID guarantees across multiple items within one or more tables in a single atomic operation.",
+      "Time to Live (TTL) automatically purges expired records at zero throughput cost, simplifying retention policy implementation."
     ],
     "projectStep": {
       "title": "DynamoDB Table Design & GSI Configuration",
@@ -3353,11 +3372,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What capability does Amazon RDS Point-in-Time Recovery provide for data protection?",
           "options": [
-            "It permanently prevents users from executing DELETE SQL statements",
             "It allows restoring a database to any specific second within the backup retention period",
+            "It permanently prevents users from executing DELETE SQL statements",
             "It encrypts all data using quantum cryptography"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "RDS Point-in-Time Recovery combines automated daily snapshots with transaction logs to restore to any specific second."
         }
       },
@@ -3430,10 +3449,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does Amazon RDS redirect client applications to the standby replica during an automated Multi-AZ failover?",
           "options": [
             "It emails all developers instructing them to update their .env files",
-            "It updates the DNS CNAME record of the database endpoint to point to the standby instance's IP address",
-            "It shuts down the client computers until morning"
+            "It shuts down the client computers until morning",
+            "It updates the DNS CNAME record of the database endpoint to point to the standby instance's IP address"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "RDS seamlessly updates the database endpoint's DNS CNAME record to target the newly promoted standby instance."
         }
       },
@@ -3467,11 +3486,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Can an application execute write SQL operations (INSERT, UPDATE, DELETE) directly against an Amazon RDS Read Replica?",
           "options": [
-            "Yes, Read Replicas accept full write transactions and sync back to the master",
             "No, Read Replicas are strictly read-only and reject write operations",
+            "Yes, Read Replicas accept full write transactions and sync back to the master",
             "Yes, but only on alternate Tuesdays"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Read Replicas are dedicated read-only copies; all write operations must be submitted directly to the primary database."
         }
       },
@@ -3546,10 +3565,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How many storage copies does Amazon Aurora maintain across how many Availability Zones?",
           "options": [
             "Two copies across one Availability Zone",
-            "Six copies distributed across three Availability Zones",
-            "One hundred copies across every country"
+            "One hundred copies across every country",
+            "Six copies distributed across three Availability Zones"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Aurora replicates data six ways across three Availability Zones, requiring 4/6 quorum for writes."
         }
       }
@@ -3557,7 +3576,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon RDS automates relational database operations, backups, and point-in-time recovery, freeing teams from infrastructure toil.",
       "RDS Multi-AZ provides synchronous block-level replication with automated DNS failover in 60-120 seconds for high availability.",
-      "Read Replicas asynchronously offload read traffic, while Amazon Aurora decouples compute from 6-way replicated distributed storage."
+      "Read Replicas asynchronously offload read traffic, while Amazon Aurora decouples compute from 6-way replicated distributed storage.",
+      "Aurora Serverless v2 scales compute capacity in fine-grained increments to accommodate unpredictable enterprise traffic fluctuations.",
+      "Automated snapshot lifecycle policies enforce enterprise compliance and disaster recovery retention standards."
     ],
     "projectStep": {
       "title": "RDS Multi-AZ Database & Replica Deployment",
@@ -3606,11 +3627,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Milestone 2 have clients upload video files directly to Amazon S3 rather than streaming through Lambda?",
           "options": [
-            "Because Lambda functions cannot read binary data",
             "To eliminate compute bottlenecks, prevent memory exhaustion, and avoid Lambda 6MB payload limits",
+            "Because Lambda functions cannot read binary data",
             "Because S3 charges zero dollars for video storage"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Direct S3 uploads bypass compute servers, avoiding memory exhaustion and Lambda's 6MB payload ceiling."
         }
       },
@@ -3644,11 +3665,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an S3 event processing Lambda function decode the object key using decodeURIComponent?",
           "options": [
-            "Because S3 URL-encodes special characters and spaces (e.g. '+' or '%20') in the event notification payload",
             "Because Lambda only reads Base64 encoded strings",
+            "Because S3 URL-encodes special characters and spaces (e.g. '+' or '%20') in the event notification payload",
             "Because JavaScript requires all strings to be decoded twice"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "S3 URL-encodes object keys in notification payloads; decoding ensures accurate file paths are processed."
         }
       },
@@ -3684,10 +3705,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does our serverless pipeline use DynamoDB Conditional Writes to guarantee idempotent event handling?",
           "options": [
             "By setting the table to read-only mode permanently",
-            "By using 'attribute_not_exists(PK)' so duplicate events fail the condition and terminate without re-processing",
-            "By asking the user for confirmation via SMS"
+            "By asking the user for confirmation via SMS",
+            "By using 'attribute_not_exists(PK)' so duplicate events fail the condition and terminate without re-processing"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Conditional writes using attribute_not_exists ensure an event is inserted only once, preventing duplicate execution."
         }
       },
@@ -3722,11 +3743,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of a Dead Letter Queue (DLQ) in an asynchronous serverless pipeline?",
           "options": [
-            "To store marketing emails sent to customers",
             "To capture failed event payloads after all retries are exhausted so data is not lost and can be investigated",
+            "To store marketing emails sent to customers",
             "To speed up video transcoding times"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "DLQs preserve failed event payloads after retries are exhausted, preventing data loss and enabling debugging."
         }
       },
@@ -3760,11 +3781,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Amazon DynamoDB ideal for tracking real-time video processing status in our serverless pipeline?",
           "options": [
-            "Because DynamoDB provides low single-digit millisecond read/write latency and scales automatically under high concurrent polling",
             "Because DynamoDB automatically edits video files",
+            "Because DynamoDB provides low single-digit millisecond read/write latency and scales automatically under high concurrent polling",
             "Because DynamoDB is free of charge forever"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "DynamoDB provides single-digit millisecond performance and scales automatically to handle high-frequency status polling."
         }
       },
@@ -3798,10 +3819,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our Milestone 2 pipeline audit prove about our event-driven serverless architecture?",
           "options": [
             "It proves that servers must be manually rebooted every night",
-            "It proves that the pipeline processes media asynchronously at scale while isolating corrupt payloads into a DLQ with zero data loss",
-            "It proves that video files can only be played on Apple devices"
+            "It proves that video files can only be played on Apple devices",
+            "It proves that the pipeline processes media asynchronously at scale while isolating corrupt payloads into a DLQ with zero data loss"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit verifies high-throughput asynchronous execution, idempotent DynamoDB state tracking, and resilient DLQ isolation."
         }
       }
@@ -3809,7 +3830,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Milestone 2 delivers an elastic serverless video pipeline leveraging S3 event notifications, Lambda, and DynamoDB.",
       "Direct client-to-S3 pre-signed uploads bypass backend servers, eliminating compute bottlenecks and memory exhaustion.",
-      "Idempotent DynamoDB conditional writes prevent duplicate processing, while SQS Dead Letter Queues isolate poisoned payloads safely."
+      "Idempotent DynamoDB conditional writes prevent duplicate processing, while SQS Dead Letter Queues isolate poisoned payloads safely.",
+      "Step Functions state machines coordinate long-running distributed media encoding workflows with declarative retry logic.",
+      "Comprehensive CloudWatch metrics monitor end-to-end pipeline latency, queue depth, and worker error rates in real time."
     ],
     "projectStep": {
       "title": "Milestone 2 Serverless Video Pipeline Deployment",
@@ -3857,11 +3880,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What intermediate caching tier sits between localized CloudFront Edge Locations and the AWS Origin server?",
           "options": [
-            "Local Hard Drives",
             "Regional Edge Caches (REC)",
+            "Local Hard Drives",
             "Amazon DynamoDB Accelerator"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Regional Edge Caches sit between edge PoPs and origins, maintaining larger cache footprints to maximize cache hit ratios."
         }
       },
@@ -3935,10 +3958,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "If an origin returns 'Cache-Control: max-age=10' but the CloudFront Cache Policy specifies a Minimum TTL of 60, how long does CloudFront cache the asset?",
           "options": [
             "10 seconds",
-            "60 seconds",
-            "0 seconds (no caching)"
+            "0 seconds (no caching)",
+            "60 seconds"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "CloudFront clamps the requested TTL to the configured Minimum TTL, so the asset is cached for 60 seconds."
         }
       },
@@ -3972,11 +3995,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an architect choose CloudFront Functions over Lambda@Edge?",
           "options": [
-            "When the function needs to connect to an external PostgreSQL database",
             "When the task is a lightweight URL rewrite or header manipulation requiring sub-millisecond execution at lowest cost",
+            "When the function needs to connect to an external PostgreSQL database",
             "When the function takes 15 seconds to transcode high-resolution video"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "CloudFront Functions operate directly at PoPs for sub-millisecond, low-cost header and URL transformations without network calls."
         }
       },
@@ -4049,10 +4072,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does an Origin Offload Percentage of 95% mean for an engineering team managing backend servers?",
           "options": [
             "Backend servers crashed 95% of the time",
-            "95% of all client web traffic was served directly by CloudFront edges, shielding backend servers from 95% of request volume",
-            "The team must pay 95% more in cloud hosting fees"
+            "The team must pay 95% more in cloud hosting fees",
+            "95% of all client web traffic was served directly by CloudFront edges, shielding backend servers from 95% of request volume"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Origin offload measures the proportion of requests handled entirely by CloudFront, shielding origin servers from traffic volume."
         }
       }
@@ -4060,7 +4083,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon CloudFront accelerates content delivery globally using 450+ Points of Presence and Regional Edge Caches.",
       "Granular Cache Behaviors route traffic to S3, ALB, or custom HTTP origins based on ordered path patterns.",
-      "Origin Access Control (OAC) and Signed URLs secure private assets, while CloudFront Functions and Lambda@Edge provide high-speed edge compute."
+      "Origin Access Control (OAC) and Signed URLs secure private assets, while CloudFront Functions and Lambda@Edge provide high-speed edge compute.",
+      "Cache invalidation requests clear outdated content across all edge locations when assets are updated before TTL expiration.",
+      "CloudFront response headers policies enforce modern security headers including Strict-Transport-Security and Content-Security-Policy."
     ],
     "projectStep": {
       "title": "Global CloudFront Distribution Deployment",
@@ -4108,11 +4133,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between a Route 53 Public Hosted Zone and a Private Hosted Zone?",
           "options": [
-            "Public zones are free while private zones cost ten thousand dollars per month",
             "Public zones route global internet traffic, whereas Private zones resolve domain names strictly within specified Amazon VPCs",
+            "Public zones are free while private zones cost ten thousand dollars per month",
             "Private zones only support IPv4 addresses"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Private Hosted Zones resolve internal domain names within authorized VPCs, shielding private services from the public internet."
         }
       },
@@ -4185,10 +4210,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does Route 53 Latency-Based Routing (LBR) determine which AWS region should serve a user's DNS query?",
           "options": [
             "It checks the user's home postal code in their billing profile",
-            "AWS continuously measures network latency worldwide and routes the query to the region with the lowest measured round-trip time",
-            "It selects the region with the lowest server electricity cost"
+            "It selects the region with the lowest server electricity cost",
+            "AWS continuously measures network latency worldwide and routes the query to the region with the lowest measured round-trip time"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Route 53 uses global AWS latency telemetry to automatically direct users to the AWS region offering lowest round-trip latency."
         }
       },
@@ -4222,11 +4247,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must architects always configure a 'Default' record when deploying Route 53 Geolocation Routing?",
           "options": [
-            "Because Route 53 crashes if any continent is missing",
             "To catch queries from unmapped geographic locations, mobile proxies, or satellite networks and ensure resolution never fails",
+            "Because Route 53 crashes if any continent is missing",
             "Because AWS requires all websites to be hosted in North Virginia"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A default record guarantees that DNS queries from unmapped locations or IP anonymizers resolve successfully."
         }
       },
@@ -4298,10 +4323,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the resilient DNS selection algorithm filter candidates for health BEFORE evaluating latency?",
           "options": [
             "Because latency numbers are calculated in alphabetical order",
-            "To prevent directing user traffic to a low-latency endpoint that is currently suffering an outage",
-            "Because unhealthy endpoints have zero latency"
+            "Because unhealthy endpoints have zero latency",
+            "To prevent directing user traffic to a low-latency endpoint that is currently suffering an outage"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Filtering for health first guarantees users are never directed to an unavailable region, regardless of its low latency."
         }
       }
@@ -4309,7 +4334,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon Route 53 provides highly available cloud DNS with 100% SLA and support for Public and Private hosted zones.",
       "Route 53 ALIAS records solve the Zone Apex CNAME restriction, pointing root domains to AWS resources free of charge.",
-      "Advanced routing policies (Weighted, Latency, Geolocation, Failover) paired with automated Health Checks enable resilient multi-region architectures."
+      "Advanced routing policies (Weighted, Latency, Geolocation, Failover) paired with automated Health Checks enable resilient multi-region architectures.",
+      "Private hosted zones enable split-horizon DNS resolution, serving internal IP addresses exclusively within designated VPCs.",
+      "Traffic flow visual policies simplify complex multi-tier routing logic across globally distributed infrastructure endpoints."
     ],
     "projectStep": {
       "title": "Global DNS Routing & Multi-Region Failover Architecture",
@@ -4357,11 +4384,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an SQS queue protect downstream microservices during sudden traffic spikes?",
           "options": [
-            "It drops all messages arriving after 5:00 PM",
             "It buffers incoming messages elastically, allowing downstream consumers to process work at a steady, sustainable rate without crashing",
+            "It drops all messages arriving after 5:00 PM",
             "It automatically buys more RAM for downstream servers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "SQS provides load leveling, buffering spikes in message volume so downstream consumers process at their own capacity."
         }
       },
@@ -4434,10 +4461,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What happens to an SQS message if a consumer crashes before calling DeleteMessage and the Visibility Timeout expires?",
           "options": [
             "The message is permanently deleted to save storage",
-            "The message becomes visible again in the queue for another consumer to process",
-            "The entire SQS queue is paused for 24 hours"
+            "The entire SQS queue is paused for 24 hours",
+            "The message becomes visible again in the queue for another consumer to process"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "When visibility timeout expires without deletion, SQS restores message visibility so another consumer can retry."
         }
       },
@@ -4471,11 +4498,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Long Polling (WaitTimeSeconds = 20) strongly recommended over Short Polling in Amazon SQS?",
           "options": [
-            "Because Long Polling encrypts message payloads automatically",
             "Because Long Polling holds connections open until messages arrive, eliminating empty responses and slashing API costs",
+            "Because Long Polling encrypts message payloads automatically",
             "Because Short Polling is deprecated and unsupported"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Long Polling waits up to 20 seconds for messages to arrive, dramatically cutting empty responses and API charges."
         }
       },
@@ -4548,10 +4575,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our SQS consumer audit verify regarding system data integrity?",
           "options": [
             "That all messages were immediately printed to physical paper",
-            "That 100% of messages were accounted for—valid messages processed and poison pills safely quarantined in the DLQ",
-            "That consumers processed all messages synchronously without queuing"
+            "That consumers processed all messages synchronously without queuing",
+            "That 100% of messages were accounted for—valid messages processed and poison pills safely quarantined in the DLQ"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit confirms 100% data integrity: valid messages succeed while unprocessable payloads are quarantined safely in the DLQ."
         }
       }
@@ -4559,7 +4586,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon SQS decouples microservices by providing elastic asynchronous message queuing and load leveling.",
       "Standard Queues offer unlimited throughput and at-least-once delivery; FIFO queues provide strict ordering and exactly-once processing.",
-      "Visibility Timeouts prevent concurrent processing, Long Polling slashes costs, and Dead Letter Queues (DLQs) safely isolate poison pills."
+      "Visibility Timeouts prevent concurrent processing, Long Polling slashes costs, and Dead Letter Queues (DLQs) safely isolate poison pills.",
+      "Message deduplication IDs and message group IDs ensure strict ordering and idempotency within SQS FIFO queues.",
+      "Server-side encryption using KMS protects sensitive message payloads at rest within distributed queue storage."
     ],
     "projectStep": {
       "title": "Decoupled E-Commerce Order Processing SQS Architecture",
@@ -4607,11 +4636,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural difference between Amazon SQS and Amazon SNS?",
           "options": [
-            "SQS is written in Python while SNS is written in C++",
             "SQS is a 1-to-1 point-to-point queue for consumer buffering; SNS is a 1-to-N publish/subscribe broadcast topic for fanout",
+            "SQS is written in Python while SNS is written in C++",
             "SNS cannot handle JSON payloads"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "SQS is designed for 1-to-1 asynchronous point-to-point queue processing; SNS is designed for 1-to-N pub/sub fanout."
         }
       },
@@ -4645,10 +4674,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following endpoint protocols is NOT natively supported as an Amazon SNS topic subscription?",
           "options": [
             "AWS Lambda",
-            "Amazon SQS",
-            "Direct FTP file upload"
+            "Direct FTP file upload",
+            "Amazon SQS"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "SNS natively supports SQS, Lambda, HTTP/S, Email, SMS, and Mobile Push, but does not support direct FTP."
         }
       },
@@ -4684,10 +4713,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why do architects subscribe Amazon SQS queues to an Amazon SNS topic rather than calling microservice HTTP APIs directly?",
           "options": [
             "Because SNS cannot connect to HTTP endpoints",
-            "To provide buffer leveling, retry isolation, and prevent slow or crashed services from impacting other subscribers",
-            "Because SQS queues make web requests faster"
+            "Because SQS queues make web requests faster",
+            "To provide buffer leveling, retry isolation, and prevent slow or crashed services from impacting other subscribers"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Placing SQS queues behind SNS topics provides load leveling, fault isolation, and message durability for each subscriber."
         }
       },
@@ -4721,11 +4750,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where are Amazon SNS Subscription Filter Policies evaluated?",
           "options": [
-            "Inside the client browser application",
             "Server-side within Amazon SNS before the message is delivered to the subscriber",
+            "Inside the client browser application",
             "Inside the database trigger"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "SNS evaluates filter policies server-side before delivery, saving subscriber compute and bandwidth."
         }
       },
@@ -4797,10 +4826,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In our fanout audit, why did the VIP queue receive 200 messages while the Billing queue received 1,000 messages?",
           "options": [
             "Because the VIP queue ran out of disk space",
-            "Because an SNS Subscription Filter Policy routed only messages matching customerTier='VIP' to the VIP queue",
-            "Because SNS prioritizes billing over shipping"
+            "Because SNS prioritizes billing over shipping",
+            "Because an SNS Subscription Filter Policy routed only messages matching customerTier='VIP' to the VIP queue"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The VIP queue had a subscription filter policy that accepted only VIP events, while the billing queue had no filter."
         }
       }
@@ -4808,7 +4837,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon SNS provides 1-to-N publish/subscribe messaging, broadcasting events to multiple decoupled subscribers.",
       "The SNS + SQS Fanout pattern combines broadcast pub/sub with queue buffering, load leveling, and fault isolation.",
-      "Subscription Filter Policies evaluate JSON message attributes server-side, routing subsets of events to target queues."
+      "Subscription Filter Policies evaluate JSON message attributes server-side, routing subsets of events to target queues.",
+      "Message delivery retry policies and dead-letter queues safeguard webhook subscribers against dropped notifications.",
+      "Cross-account topic policies enable secure event publication across multiple AWS organizational accounts."
     ],
     "projectStep": {
       "title": "Enterprise Pub/Sub Order Fanout Infrastructure",
@@ -4933,10 +4964,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which EventBridge pattern operator allows you to match events where an order amount is strictly greater than 50 dollars?",
           "options": [
             "regex matching",
-            "Numeric comparison: { 'numeric': ['>', 50] }",
-            "SQL SELECT statement"
+            "SQL SELECT statement",
+            "Numeric comparison: { 'numeric': ['>', 50] }"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "EventBridge provides native numeric comparison operators including '>', '>=', '<', '<=', and range checks."
         }
       },
@@ -4970,11 +5001,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are EventBridge Input Transformers valuable when routing events to third-party APIs or Lambda functions?",
           "options": [
-            "They automatically translate code from Python to Java",
             "They reshape and extract variables from the event envelope into the exact format expected by the target without requiring intermediate code",
+            "They automatically translate code from Python to Java",
             "They encrypt the entire hard drive"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Input Transformers reshape event data into custom payloads before delivery, eliminating boilerplate translation code."
         }
       },
@@ -5045,10 +5076,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our EventBridge choreography audit prove about serverless event-driven architecture?",
           "options": [
             "That all events must be stored in flat text files on EC2 instances",
-            "That a central event bus can cleanly route hundreds of diverse business events to multiple independent targets using declarative pattern matching",
-            "That event buses cannot scale beyond 10 messages per minute"
+            "That event buses cannot scale beyond 10 messages per minute",
+            "That a central event bus can cleanly route hundreds of diverse business events to multiple independent targets using declarative pattern matching"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit verifies that a custom event bus dispatches diverse transactions to multiple target services cleanly and accurately."
         }
       }
@@ -5056,7 +5087,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon EventBridge is a serverless event bus that inspects full JSON event payloads and integrates with AWS services and SaaS partners.",
       "Custom event buses receive structured application events, and declarative JSON Event Patterns route them to over 20 target destinations.",
-      "Input Transformers reshape payloads before delivery, and the Schema Registry delivers type-safe code bindings for seamless integration."
+      "Input Transformers reshape payloads before delivery, and the Schema Registry delivers type-safe code bindings for seamless integration.",
+      "Event replay and archive capabilities allow engineering teams to re-process historical events following service bug fixes.",
+      "API destinations enable serverless event buses to invoke external third-party SaaS endpoints directly with built-in authentication."
     ],
     "projectStep": {
       "title": "Enterprise EventBridge Event Bus Architecture",
@@ -5104,11 +5137,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Milestone 3 Order Ingestion service return HTTP 202 Accepted immediately after emitting an EventBridge event?",
           "options": [
-            "Because HTTP 202 is the only status code supported by AWS API Gateway",
             "To provide immediate sub-50ms user responsiveness while offloading heavy inventory and payment processing to asynchronous queues",
+            "Because HTTP 202 is the only status code supported by AWS API Gateway",
             "Because the order is automatically cancelled"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "HTTP 202 Accepted acknowledges receipt immediately, allowing backend services to process asynchronously without blocking the user."
         }
       },
@@ -5182,10 +5215,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is attaching a Dead Letter Queue (DLQ) essential for the Payment SQS queue in Milestone 3?",
           "options": [
             "Because AWS requires all queues to have DLQs to enable billing",
-            "To prevent malformed or unprocessable payment payloads from causing infinite retry loops and blocking other orders",
-            "Because DLQs make credit card charges process twice as fast"
+            "Because DLQs make credit card charges process twice as fast",
+            "To prevent malformed or unprocessable payment payloads from causing infinite retry loops and blocking other orders"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "DLQs quarantine failing messages after maxReceiveCount, preventing infinite retry loops and worker thread exhaustion."
         }
       },
@@ -5219,11 +5252,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Amazon SNS handle a failure when delivering a webhook notification to an external Slack endpoint?",
           "options": [
-            "It deletes the entire SNS topic immediately",
             "It automatically retries delivery using exponential backoff over hours without impacting other subscribers (like SMS or email)",
+            "It deletes the entire SNS topic immediately",
             "It reboots the AWS region"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "SNS applies independent delivery retry policies per subscription, isolating failures so other channels succeed."
         }
       },
@@ -5295,10 +5328,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does the successful completion of the Milestone 3 stress test prove about our event-driven architecture?",
           "options": [
             "It proves that servers must be manually monitored 24/7 by human operators",
-            "It proves that the decoupled EventBridge, SQS, and SNS architecture scales to thousands of concurrent orders while isolating poison pills safely with zero data loss",
-            "It proves that relational databases should never be used in any application"
+            "It proves that relational databases should never be used in any application",
+            "It proves that the decoupled EventBridge, SQS, and SNS architecture scales to thousands of concurrent orders while isolating poison pills safely with zero data loss"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit proves high-scale elasticity, decoupled fanout, and automated fault isolation under production traffic surges."
         }
       }
@@ -5306,7 +5339,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Milestone 3 constructs a production-grade e-commerce event engine with EventBridge, SQS queues, and SNS topics.",
       "Asynchronous ingestion via API Gateway returns HTTP 202 in sub-50ms, offloading inventory and payment tasks to parallel queues.",
-      "Content-based EventBridge rules filter and route events, while SQS Dead Letter Queues isolate poison pills with zero data loss."
+      "Content-based EventBridge rules filter and route events, while SQS Dead Letter Queues isolate poison pills with zero data loss.",
+      "Correlation IDs injected at API ingress propagate through asynchronous queues and topics for distributed tracing.",
+      "Synthetic canary tests continuously validate end-to-end event bus throughput and dead-letter queue alert triggers."
     ],
     "projectStep": {
       "title": "Milestone 3 Enterprise Event Bus Deployment",
@@ -5354,11 +5389,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an Amazon ECS Service in container orchestration?",
           "options": [
-            "It acts as a physical database hard drive",
             "It maintains a desired number of running task instances, handles rolling updates, and registers containers with a load balancer",
+            "It acts as a physical database hard drive",
             "It compiles TypeScript into JavaScript"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "An ECS Service ensures that a specified number of healthy tasks run continuously, replacing unhealthy containers automatically."
         }
       },
@@ -5432,10 +5467,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary security advantage of the ECS `awsvpc` network mode?",
           "options": [
             "It turns off TLS encryption to speed up network packets",
-            "Every task receives its own dedicated ENI and private IP, allowing security groups to be attached directly to individual containers",
-            "It connects containers directly to public Wi-Fi"
+            "It connects containers directly to public Wi-Fi",
+            "Every task receives its own dedicated ENI and private IP, allowing security groups to be attached directly to individual containers"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "`awsvpc` assigns a dedicated ENI and private IP to every task, enabling granular VPC security group rules per container."
         }
       },
@@ -5469,11 +5504,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which IAM role in an ECS task definition must contain permissions to pull container images from Amazon ECR?",
           "options": [
-            "The Task Role",
             "The Task Execution Role",
+            "The Task Role",
             "The Database Root User"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Task Execution Role is assumed by the ECS agent to authenticate with ECR and pull the Docker image."
         }
       },
@@ -5545,10 +5580,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does Amazon ECS achieve zero-downtime rolling deployments when updating an application to a new container version?",
           "options": [
             "It turns off the internet for 5 minutes during the upgrade",
-            "It launches new container tasks, waits for ALB health checks to pass, shifts user traffic, and drains old tasks cleanly",
-            "It converts the application to a static PDF"
+            "It converts the application to a static PDF",
+            "It launches new container tasks, waits for ALB health checks to pass, shifts user traffic, and drains old tasks cleanly"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "ECS deploys new tasks alongside old ones, shifting traffic only after new tasks pass ALB health checks, ensuring zero downtime."
         }
       }
@@ -5556,7 +5591,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon ECS orchestrates containers using Task Definitions, ECS Services, and Compute Clusters.",
       "AWS Fargate provides serverless container compute, eliminating EC2 server management and per-instance costs.",
-      "The `awsvpc` network mode gives every task a dedicated ENI and private IP, while separate Task and Execution roles enforce least privilege."
+      "The `awsvpc` network mode gives every task a dedicated ENI and private IP, while separate Task and Execution roles enforce least privilege.",
+      "Fargate Spot tasks reduce compute costs significantly for interruption-tolerant background queue processing workloads.",
+      "Container health checks and graceful SIGTERM handling ensure zero dropped requests during rolling service deployments."
     ],
     "projectStep": {
       "title": "Serverless AWS Fargate Microservice Deployment",
@@ -5604,11 +5641,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an architect choose AWS Step Functions Workflow Orchestration over EventBridge Event Choreography?",
           "options": [
-            "When the application only has one single database table",
             "When the business process involves multi-step transactions, complex branching, visual audit requirements, and compensation rollbacks",
+            "When the application only has one single database table",
             "When the team wants to eliminate all cloud logging"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Step Functions provides centralized coordination, state persistence, visual auditability, and compensating rollbacks."
         }
       },
@@ -5683,10 +5720,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is a 'Compensating Transaction' in the context of the Distributed Saga Pattern?",
           "options": [
             "A bonus payment paid to developers when an outage occurs",
-            "A semantic rollback operation that undoes the side effects of a previously completed step when a subsequent step fails",
-            "An automatic increase in AWS server RAM"
+            "An automatic increase in AWS server RAM",
+            "A semantic rollback operation that undoes the side effects of a previously completed step when a subsequent step fails"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A compensating transaction semantically reverses changes made by previous steps when a distributed workflow fails."
         }
       },
@@ -5720,11 +5757,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the maximum execution duration for an AWS Step Functions Standard Workflow?",
           "options": [
-            "15 minutes",
             "Up to 1 year",
+            "15 minutes",
             "24 hours"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Standard Workflows can run for up to 1 full year, enabling long-running human approval and async fulfillment processes."
         }
       },
@@ -5795,10 +5832,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our Saga state machine audit verify regarding payment declines?",
           "options": [
             "That the entire AWS account is locked",
-            "That the state machine catches the decline error, executes compensating inventory release, and transitions cleanly to OrderCancelled",
-            "That the customer is charged twice"
+            "That the customer is charged twice",
+            "That the state machine catches the decline error, executes compensating inventory release, and transitions cleanly to OrderCancelled"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit verifies that when payment fails, the orchestrator executes compensating actions to restore database consistency."
         }
       }
@@ -5806,7 +5843,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "AWS Step Functions orchestrates stateful, multi-service workflows and distributed transactions as visual state machines.",
       "Amazon States Language (ASL) defines Task, Choice, Parallel, Map, and Wait states with native declarative retries and catch blocks.",
-      "The Distributed Saga Pattern manages multi-service transactions using forward executions and reverse compensating rollbacks."
+      "The Distributed Saga Pattern manages multi-service transactions using forward executions and reverse compensating rollbacks.",
+      "Express Workflows provide high-throughput, cost-effective orchestration for short-lived event-driven data processing pipelines.",
+      "Distributed Map states execute parallel iterations across millions of objects stored in Amazon S3 buckets."
     ],
     "projectStep": {
       "title": "Step Functions Distributed Saga Orchestrator",
@@ -5854,11 +5893,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key philosophical difference between Declarative IaC (Terraform) and Imperative Scripting (Bash/Python)?",
           "options": [
-            "Declarative IaC can only create EC2 instances",
             "Declarative IaC specifies the desired end state and lets the engine calculate changes; Imperative scripting specifies step-by-step execution procedures",
+            "Declarative IaC can only create EC2 instances",
             "Declarative IaC does not require a computer"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Declarative IaC defines the desired end state; Terraform automatically calculates and applies the necessary changes."
         }
       },
@@ -5930,10 +5969,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should you NEVER commit a 'terraform.tfstate' file to a public Git repository?",
           "options": [
             "Because Git cannot store JSON files",
-            "Because state files often contain unencrypted sensitive secrets (like database passwords) and will cause concurrent state collisions across team members",
-            "Because Terraform automatically deletes Git repositories"
+            "Because Terraform automatically deletes Git repositories",
+            "Because state files often contain unencrypted sensitive secrets (like database passwords) and will cause concurrent state collisions across team members"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "State files can contain sensitive secrets in plaintext and cause conflicting state collisions if committed to Git."
         }
       },
@@ -5968,11 +6007,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does Amazon DynamoDB play when configured in a Terraform S3 remote backend?",
           "options": [
-            "It stores the application's user login passwords",
             "It provides distributed state locking via a 'LockID' table to prevent concurrent conflicting Terraform applies",
+            "It stores the application's user login passwords",
             "It caches CloudFront CDN video files"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "DynamoDB provides state locking using a LockID attribute, preventing two engineers from applying changes concurrently."
         }
       },
@@ -6018,6 +6057,7 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "say": [
           "We conclude Day 24 with a comprehensive automated audit of an enterprise Terraform infrastructure pipeline.",
           "Our testing harness simulates a complete IaC CI/CD pipeline execution.",
+          "Automated static analysis and policy validation with tools like tfsec prevent insecure configurations from reaching staging environments.",
           "First, it verifies that the Terraform configuration declares an S3 remote backend with AES-256 encryption and DynamoDB locking.",
           "Second, it executes a simulated plan phase, verifying that resource dependency graphs are resolved correctly (e.g., Subnets depend on VPC; Route Tables depend on Internet Gateway).",
           "Third, it simulates a concurrent apply attempt, verifying that the DynamoDB lock intercepts the collision and halts gracefully.",
@@ -6042,10 +6082,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our Terraform pipeline audit prove about our enterprise infrastructure deployment?",
           "options": [
             "That all engineers must log into the AWS Console using root accounts",
-            "That cloud infrastructure is managed declaratively, version-controlled, and protected against concurrent apply collisions via remote state locking",
-            "That Terraform cannot run on Windows"
+            "That Terraform cannot run on Windows",
+            "That cloud infrastructure is managed declaratively, version-controlled, and protected against concurrent apply collisions via remote state locking"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit verifies that infrastructure is managed safely with declarative IaC, remote S3 state, and DynamoDB lock protection."
         }
       }
@@ -6053,7 +6093,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "HashiCorp Terraform provides declarative Infrastructure as Code (IaC) using human-readable HCL syntax.",
       "The core workflow (init, plan, apply, destroy) ensures changes are previewed and verified before modifying cloud resources.",
-      "Remote state storage in Amazon S3 combined with Amazon DynamoDB state locking enables safe, collision-free team collaboration."
+      "Remote state storage in Amazon S3 combined with Amazon DynamoDB state locking enables safe, collision-free team collaboration.",
+      "Terraform modules encapsulate reusable infrastructure patterns, promoting consistency and reducing configuration duplication.",
+      "State migration and workspace management enable clean environment isolation across development, staging, and production."
     ],
     "projectStep": {
       "title": "Modular Terraform AWS Cloud Infrastructure",
@@ -6101,11 +6143,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following correctly pairs the three pillars of cloud observability with their native AWS services?",
           "options": [
-            "Metrics (S3), Logs (DynamoDB), Traces (Route 53)",
             "Metrics (CloudWatch Metrics), Logs (CloudWatch Logs), Traces (AWS X-Ray)",
+            "Metrics (S3), Logs (DynamoDB), Traces (Route 53)",
             "Metrics (EC2), Logs (VPC), Traces (IAM)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The three pillars of observability are CloudWatch Metrics, CloudWatch Logs, and AWS X-Ray distributed tracing."
         }
       },
@@ -6180,10 +6222,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should cloud architects always configure a Log Retention Policy on CloudWatch Log Groups?",
           "options": [
             "Because CloudWatch deletes the entire AWS account if logs are older than 1 week",
-            "Because default retention is 'Never Expire', which causes storage costs to accumulate indefinitely over time",
-            "Because old logs slow down EC2 CPU speeds"
+            "Because old logs slow down EC2 CPU speeds",
+            "Because default retention is 'Never Expire', which causes storage costs to accumulate indefinitely over time"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Log groups default to 'Never Expire', leading to ever-increasing storage costs unless a retention period is explicitly set."
         }
       },
@@ -6218,11 +6260,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which CloudWatch Logs Insights command is used to calculate aggregations, such as counting errors grouped into 5-minute time buckets?",
           "options": [
-            "The 'delete' command",
             "The 'stats' command (e.g. stats count(*) by bin(5m))",
+            "The 'delete' command",
             "The 'sleep' command"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The 'stats' command performs aggregations like count(), avg(), sum(), and percentile() grouped by time bins or fields."
         }
       },
@@ -6295,10 +6337,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does our comprehensive observability audit verify about automated incident response?",
           "options": [
             "That humans must manually inspect every log line in a text editor",
-            "That metric filters extract errors in real time, Logs Insights queries root causes in milliseconds, and composite alarms notify engineers and auto-resolve",
-            "That alarms cannot send SNS messages"
+            "That alarms cannot send SNS messages",
+            "That metric filters extract errors in real time, Logs Insights queries root causes in milliseconds, and composite alarms notify engineers and auto-resolve"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The audit verifies real-time log metric filtering, sub-100ms log querying, and reliable alarm triggering with clean recovery."
         }
       }
@@ -6306,7 +6348,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Amazon CloudWatch provides full-stack observability across Metrics, Logs, and Traces (with X-Ray).",
       "CloudWatch Metric Filters parse log streams in real time to generate custom metrics, while Logs Insights delivers fast SQL-like querying.",
-      "Composite Alarms combine multiple alarm conditions using boolean logic to eliminate alert fatigue and trigger automated SNS notifications."
+      "Composite Alarms combine multiple alarm conditions using boolean logic to eliminate alert fatigue and trigger automated SNS notifications.",
+      "CloudWatch Contributor Insights identifies top-N operational patterns and anomalous traffic contributors in real time.",
+      "Cross-account and cross-region dashboards aggregate mission-critical operational telemetry into a unified pane of glass."
     ],
     "projectStep": {
       "title": "Enterprise CloudWatch Observability Infrastructure",
@@ -6431,10 +6475,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In Envelope Encryption, why does the application encrypt data locally with the DEK rather than sending data to KMS?",
           "options": [
             "Because KMS does not support any encryption algorithms",
-            "To achieve wire-speed local encryption throughput and avoid sending gigabytes of data over the network to the KMS endpoint",
-            "Because local encryption is less secure and therefore cheaper"
+            "Because local encryption is less secure and therefore cheaper",
+            "To achieve wire-speed local encryption throughput and avoid sending gigabytes of data over the network to the KMS endpoint"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Envelope Encryption keeps bulk data local for wire-speed encryption while KMS only processes the small DEK, avoiding network bottlenecks and excessive API costs."
         }
       },
@@ -6545,10 +6589,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the KMS audit engine block deployment pipeline progression when any single compliance control fails?",
           "options": [
             "Because AWS automatically deletes non-compliant keys",
-            "Because a single failing cryptographic control can expose the entire data encryption layer to compromise, violating SOC 2 and PCI-DSS requirements",
-            "Because the audit engine cannot process more than one failure at a time"
+            "Because the audit engine cannot process more than one failure at a time",
+            "Because a single failing cryptographic control can expose the entire data encryption layer to compromise, violating SOC 2 and PCI-DSS requirements"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Cryptographic compliance is all-or-nothing: a single gap in key rotation, policy, or auditing can undermine the entire encryption architecture."
         }
       }
@@ -6556,7 +6600,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "AWS KMS provides centralized cryptographic key management with FIPS 140-2 Level 3 HSM-backed Customer Managed Keys that never leave the KMS boundary.",
       "Envelope Encryption solves the performance problem by generating ephemeral DEKs for local wire-speed encryption while KMS only processes small key blobs.",
-      "Automatic annual key rotation preserves Key ID and ARN while transparently upgrading cryptographic material, and CloudTrail logs every KMS operation for compliance auditing."
+      "Automatic annual key rotation preserves Key ID and ARN while transparently upgrading cryptographic material, and CloudTrail logs every KMS operation for compliance auditing.",
+      "KMS key policies define administrative and usage privileges independently of IAM policies for strict separation of duties.",
+      "Multi-Region keys simplify data replication and disaster recovery by sharing identical key material across distinct regions."
     ],
     "projectStep": {
       "title": "Enterprise KMS Envelope Encryption Infrastructure",
@@ -6604,11 +6650,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should high-rejection rules be placed at the lowest priority numbers (evaluated first) in a Web ACL?",
           "options": [
-            "Because AWS charges less for lower-priority rules",
             "To reject the most malicious requests early, minimizing the number of requests that consume higher-WCU downstream rules",
+            "Because AWS charges less for lower-priority rules",
             "Because lower-priority rules run on faster hardware"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Evaluating high-rejection rules first blocks bad traffic early, reducing processing cost and WCU consumption for subsequent complex rules."
         }
       },
@@ -6681,10 +6727,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What happens when a rate-limited IP's request count drops below the threshold in the next 5-minute window?",
           "options": [
             "The IP remains permanently blocked until an administrator manually removes it",
-            "The IP is automatically unblocked when the rolling window shows acceptable request rates",
-            "The IP is moved to a separate quarantine zone for 24 hours"
+            "The IP is moved to a separate quarantine zone for 24 hours",
+            "The IP is automatically unblocked when the rolling window shows acceptable request rates"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Rate-Based Rules use rolling 5-minute windows with automatic release, requiring no manual intervention when traffic normalizes."
         }
       },
@@ -6718,11 +6764,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between AWS Shield Standard and AWS Shield Advanced?",
           "options": [
-            "Shield Standard only works with EC2 instances while Advanced works with all services",
             "Shield Advanced adds DRT access, cost protection credits, real-time dashboards, and custom mitigations on top of Standard's automatic infrastructure-level DDoS defense",
+            "Shield Standard only works with EC2 instances while Advanced works with all services",
             "Shield Standard provides better protection than Shield Advanced"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Shield Advanced enhances Standard with DRT access, cost protection, real-time visibility, and custom mitigations for mission-critical workloads."
         }
       },
@@ -6795,10 +6841,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must SQLi and XSS Managed Rule Groups be in Block mode (not Count mode) for production environments?",
           "options": [
             "Because Count mode consumes more WCUs than Block mode",
-            "Because Count mode only logs detected attacks without blocking them, leaving the application vulnerable to active exploitation in production",
-            "Because AWS requires Block mode for billing purposes"
+            "Because AWS requires Block mode for billing purposes",
+            "Because Count mode only logs detected attacks without blocking them, leaving the application vulnerable to active exploitation in production"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Count mode monitors but does not prevent attacks, making it suitable only for observation periods, not production defense."
         }
       }
@@ -6806,7 +6852,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "AWS WAF provides Layer 7 HTTP request inspection using Web ACLs with ordered rules, Managed Rule Groups for SQLi and XSS detection, and Rate-Based Rules for volumetric attack mitigation.",
       "AWS Shield Standard automatically protects all accounts against Layer 3/4 DDoS attacks, while Shield Advanced adds DRT access, cost protection, and real-time dashboards for mission-critical workloads.",
-      "Defense-in-depth architecture combines WAF for application-layer filtering, Shield for infrastructure protection, and CloudFront for edge distribution to eliminate single points of failure."
+      "Defense-in-depth architecture combines WAF for application-layer filtering, Shield for infrastructure protection, and CloudFront for edge distribution to eliminate single points of failure.",
+      "Custom response bodies and header inspection rules customize blocked request error pages and forensic logging.",
+      "WAF automation integrates with AWS Lambda and CloudWatch to automatically block abusive IP addresses in real time."
     ],
     "projectStep": {
       "title": "Enterprise WAF & Shield Security Perimeter",
@@ -6854,11 +6902,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the three phases of the FinOps lifecycle framework?",
           "options": [
-            "Design, Build, and Test",
             "Inform (visibility and allocation), Optimize (right-sizing and discounts), and Operate (continuous governance and alerts)",
+            "Design, Build, and Test",
             "Encrypt, Compress, and Archive"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The FinOps lifecycle iterates through Inform, Optimize, and Operate to continuously improve cloud financial management."
         }
       },
@@ -6931,10 +6979,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the key advantage of Compute Savings Plans over Reserved Instances?",
           "options": [
             "Compute Savings Plans are always cheaper than Reserved Instances",
-            "Compute Savings Plans commit to a dollar-per-hour rate that applies across any instance family, size, region, OS, and even Fargate or Lambda",
-            "Compute Savings Plans do not require any upfront commitment"
+            "Compute Savings Plans do not require any upfront commitment",
+            "Compute Savings Plans commit to a dollar-per-hour rate that applies across any instance family, size, region, OS, and even Fargate or Lambda"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Compute Savings Plans provide flexibility to change instance types, sizes, regions, and services while maintaining the commitment discount."
         }
       },
@@ -6968,11 +7016,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a 14-day CloudWatch metric analysis window recommended for right-sizing decisions?",
           "options": [
-            "Because CloudWatch only stores 14 days of metric data",
             "To capture both typical weekday patterns and weekend traffic variations, avoiding downsizing based on temporarily low weekend utilization",
+            "Because CloudWatch only stores 14 days of metric data",
             "Because AWS charges per day of metric analysis"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A 14-day window captures weekly usage cycles, ensuring right-sizing decisions account for peak business hours and batch processing patterns."
         }
       },
@@ -7045,10 +7093,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the FinOps maturity assessment classify organizations scoring below 50% as 'Crawl' maturity?",
           "options": [
             "Because AWS restricts certain features for low-maturity organizations",
-            "Because organizations below 50% lack foundational cost visibility and governance capabilities, meaning they cannot reliably optimize or operate cloud spending",
-            "Because 'Crawl' organizations get a discount on AWS services"
+            "Because 'Crawl' organizations get a discount on AWS services",
+            "Because organizations below 50% lack foundational cost visibility and governance capabilities, meaning they cannot reliably optimize or operate cloud spending"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Crawl maturity indicates foundational gaps in cost visibility, commitment coverage, and governance that must be addressed before meaningful optimization is possible."
         }
       }
@@ -7056,7 +7104,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The FinOps Framework iterates through Inform (cost allocation tags, dashboards), Optimize (right-sizing, Savings Plans), and Operate (budget alerts, weekly reviews) phases.",
       "Compute Savings Plans offer 66% discounts with flexibility across instance families, regions, and services, while Reserved Instances offer 72% but are locked to specific configurations.",
-      "Automated AWS Budgets with three-tier alerting (50% actual, 80% actual, 100% forecasted) combined with mandatory Cost Allocation Tags enable continuous, accountable cloud cost governance."
+      "Automated AWS Budgets with three-tier alerting (50% actual, 80% actual, 100% forecasted) combined with mandatory Cost Allocation Tags enable continuous, accountable cloud cost governance.",
+      "Cost Anomaly Detection leverages machine learning models to identify unexpected spending spikes before they impact monthly budgets.",
+      "Tagging enforcement via AWS Organizations tag policies ensures that every deployed resource includes required billing identifiers."
     ],
     "projectStep": {
       "title": "Enterprise FinOps Cost Governance Infrastructure",
@@ -7182,10 +7232,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the database layer always running in the DR region during Pilot Light, but not the compute layer?",
           "options": [
             "Because databases are cheaper to run than compute instances",
-            "Because databases require continuous replication to maintain near-zero RPO, while compute can be rapidly provisioned from pre-configured AMIs in minutes",
-            "Because AWS does not allow databases to be stopped"
+            "Because AWS does not allow databases to be stopped",
+            "Because databases require continuous replication to maintain near-zero RPO, while compute can be rapidly provisioned from pre-configured AMIs in minutes"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Database replication must be continuous for near-zero data loss, while compute infrastructure can be quickly launched from AMIs during failover."
         }
       },
@@ -7219,11 +7269,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Warm Standby achieve faster RTO than Pilot Light?",
           "options": [
-            "By using faster network connections between regions",
             "By keeping a fully functional scaled-down compute fleet already running in the DR region, so recovery only requires scaling up rather than cold provisioning",
+            "By using faster network connections between regions",
             "By using a different database engine that starts faster"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Warm Standby keeps live compute instances running, so failover only requires scaling up (adding more instances) rather than provisioning from scratch."
         }
       },
@@ -7296,10 +7346,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should an enterprise use a mixed DR portfolio with different strategies for different applications?",
           "options": [
             "Because AWS only allows one DR strategy per account",
-            "To optimize total DR spending by providing each application protection proportional to its business criticality, avoiding over-engineering for non-critical systems",
-            "Because all applications must use the same DR strategy for consistency"
+            "Because all applications must use the same DR strategy for consistency",
+            "To optimize total DR spending by providing each application protection proportional to its business criticality, avoiding over-engineering for non-critical systems"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A mixed portfolio ensures critical systems get premium protection while non-critical systems use cost-effective strategies, optimizing total DR investment."
         }
       }
@@ -7307,7 +7357,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "RTO (maximum downtime) and RPO (maximum data loss) are the two fundamental metrics driving DR strategy selection, with tighter objectives requiring exponentially more investment.",
       "The four DR strategies progress from Backup & Restore (cheapest, hours RTO) through Pilot Light (minutes RTO) and Warm Standby (sub-5-minute RTO) to Active-Active (near-zero RTO).",
-      "Enterprise DR architecture uses a tiered portfolio matching each application to the least expensive strategy satisfying its business-critical RTO and RPO requirements."
+      "Enterprise DR architecture uses a tiered portfolio matching each application to the least expensive strategy satisfying its business-critical RTO and RPO requirements.",
+      "Automated failover runbooks and Chaos Engineering game days validate disaster recovery procedures under realistic failure conditions.",
+      "Multi-region data replication lag monitoring guarantees that Recovery Point Objectives remain within agreed SLA boundaries."
     ],
     "projectStep": {
       "title": "Multi-Region Disaster Recovery Architecture",
@@ -7355,11 +7407,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the GlobalBank capstone use Multi-Region Active-Active deployment rather than Pilot Light or Warm Standby?",
           "options": [
-            "Because Active-Active is the cheapest DR strategy available",
             "Because financial transactions require zero downtime and zero data loss, which only Active-Active with multi-master replication can guarantee",
+            "Because Active-Active is the cheapest DR strategy available",
             "Because AWS only supports Active-Active for banking applications"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Banking platforms cannot tolerate any downtime or data loss; Active-Active ensures continuous availability with zero RPO through multi-master replication."
         }
       },
@@ -7432,10 +7484,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does GlobalBank use separate KMS CMKs for PII data and Transaction records?",
           "options": [
             "Because KMS does not support encrypting different data types with the same key",
-            "To ensure cryptographic isolation: compromise of the PII encryption key does not expose transaction data, and vice versa",
-            "Because separate keys are cheaper than a single key"
+            "Because separate keys are cheaper than a single key",
+            "To ensure cryptographic isolation: compromise of the PII encryption key does not expose transaction data, and vice versa"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Separate CMKs provide cryptographic domain isolation, limiting the blast radius of any single key compromise."
         }
       },
@@ -7469,11 +7521,11 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Composite Alarm trigger automated remediation Lambda in addition to human notifications?",
           "options": [
-            "Because humans cannot be trusted to respond to alerts",
             "To reduce mean time to recovery (MTTR) by executing immediate remediation actions like capacity scaling within seconds, while humans are simultaneously notified for oversight",
+            "Because humans cannot be trusted to respond to alerts",
             "Because Lambda functions are always faster than CloudWatch Alarms"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Automated remediation reduces MTTR from minutes (human response) to seconds (Lambda execution) while human notification ensures oversight and escalation."
         }
       },
@@ -7548,10 +7600,10 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the certification engine require all eight architecture pillars to pass for Master Cloud Architect designation?",
           "options": [
             "Because AWS charges a fee for each failed pillar",
-            "Because a single gap in any pillar (security, DR, observability, or cost governance) can cause cascading failures that compromise the entire banking platform's reliability and compliance",
-            "Because the certification is purely symbolic and has no practical impact"
+            "Because the certification is purely symbolic and has no practical impact",
+            "Because a single gap in any pillar (security, DR, observability, or cost governance) can cause cascading failures that compromise the entire banking platform's reliability and compliance"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Enterprise banking platforms require holistic excellence: a gap in any single pillar can cascade into security breaches, data loss, compliance violations, or uncontrolled costs."
         }
       }
@@ -7559,7 +7611,9 @@ export const CLOUD_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The GlobalBank Final Capstone synthesizes all 30 days into a production-grade Multi-Region Active-Active FinTech platform with DynamoDB Global Tables, event-driven microservices, and Route 53 automated failover.",
       "Three concentric security rings (WAF perimeter, KMS encryption, IAM Zero-Trust) provide defense-in-depth with separate CMKs for PII and transaction data ensuring cryptographic isolation.",
-      "Eight architecture certification pillars (Active-Active, Zero-RPO, Security, Events, Observability, FinOps, IaC, DR-Tested) validate enterprise production readiness for the Master Cloud Architect designation."
+      "Eight architecture certification pillars (Active-Active, Zero-RPO, Security, Events, Observability, FinOps, IaC, DR-Tested) validate enterprise production readiness for the Master Cloud Architect designation.",
+      "Automated cross-region health checks trigger Route 53 DNS failover to reroute global client traffic in under 60 seconds.",
+      "Comprehensive infrastructure-as-code automation enables reproducible greenfield deployments across any secondary AWS region."
     ],
     "projectStep": {
       "title": "GlobalBank Master Cloud Architect Certification",
