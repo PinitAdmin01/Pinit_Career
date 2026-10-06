@@ -1,11 +1,5 @@
-import { LongLesson } from './longLessons';
+import type { LongLesson } from './longLessons';
 
-/**
- * UI/UX Design Systems & Visual Frontend (course-design-systems, prefix: design):
- * 30 comprehensive long-format lessons (20-30 minutes each, >= 9.2 spoken minutes)
- * covering design tokens, semantic color scales, typography grids, 8pt spacing,
- * elevation, component architecture, dark mode, accessibility, and design system governance.
- */
 export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
@@ -44,11 +38,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should components consume Semantic Alias Tokens rather than Global Primitive Tokens directly?",
           "options": [
-            "Semantic tokens improve network download speed in client browsers",
             "Semantic tokens allow themes and dark modes to remap colors without modifying individual component files",
+            "Semantic tokens improve network download speed in client browsers",
             "Global primitive tokens cannot be stored in JSON files"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Semantic tokens decouple component intent from raw values, allowing system-wide re-theming without changing component code."
         }
       },
@@ -121,10 +115,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary role of the '$type' field in the DTCG design token specification?",
           "options": [
             "It forces the browser to render the element in WebGL mode",
-            "It explicitly tells compilation tools how to validate and format the token across different platforms",
-            "It specifies which developer authored the token"
+            "It specifies which developer authored the token",
+            "It explicitly tells compilation tools how to validate and format the token across different platforms"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The $type field informs build tools like Style Dictionary how to parse, validate, and convert the token into platform-appropriate types."
         }
       },
@@ -236,10 +230,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Under WCAG 2.1 Level AA, what is the minimum required contrast ratio for normal body text against its background?",
           "options": [
             "2.0:1",
-            "4.5:1",
-            "10.0:1"
+            "10.0:1",
+            "4.5:1"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "WCAG 2.1 Level AA mandates a contrast ratio of at least 4.5:1 for standard body text (and 3:1 for large text)."
         }
       }
@@ -247,7 +241,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The 3-tier token architecture cleanly separates global primitives, semantic aliases, and component-scoped variables.",
       "HSL lightness ramps provide a mathematical model for generating stepped, predictable color scales from 50 to 950.",
-      "Token indirection enables seamless dark mode theme switching by remapping semantic variables without modifying component code."
+      "Token indirection enables seamless dark mode theme switching by remapping semantic variables without modifying component code.",
+      "Component-level scoped tokens override semantic aliases without altering global brand primitives.",
+      "Systematic token architecture guarantees frictionless multi-brand and dark-mode theming support."
     ],
     "projectStep": {
       "title": "Establish Core Design Token Architecture",
@@ -295,11 +291,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of deriving typography font sizes from a modular scale ratio?",
           "options": [
-            "It automatically downloads web fonts from Google Fonts asynchronously",
             "It guarantees mathematical proportional harmony and consistent visual hierarchy across all text elements",
+            "It automatically downloads web fonts from Google Fonts asynchronously",
             "It compresses font file sizes on disk"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Modular scales use fixed geometric ratios to ensure that every font size step is mathematically proportional to adjacent steps."
         }
       },
@@ -333,11 +329,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Major Third ratio (1.250) generally preferred over the Golden Ratio (1.618) for enterprise web applications?",
           "options": [
-            "The Golden Ratio grows too aggressively, causing headings on desktop dashboards to become excessively gigantic",
             "The Major Third ratio requires less browser memory to render in the DOM",
+            "The Golden Ratio grows too aggressively, causing headings on desktop dashboards to become excessively gigantic",
             "Modern browsers do not support CSS font sizing with numbers exceeding 40px"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Large ratios like 1.618 create enormous headings that consume excessive screen real estate in dense enterprise software."
         }
       },
@@ -371,11 +367,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should web typography tokens be declared in 'rem' units rather than hardcoded 'px' values?",
           "options": [
-            "Rem units allow typography to scale automatically when users adjust their browser font size settings for accessibility",
+            "Browsers reject CSS files containing px units",
             "Rem units execute faster in JavaScript than px units",
-            "Browsers reject CSS files containing px units"
+            "Rem units allow typography to scale automatically when users adjust their browser font size settings for accessibility"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Rem units scale proportionally with root browser accessibility settings, whereas px units override user preferences."
         }
       },
@@ -409,11 +405,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should display headings (such as 48px) have a tighter relative line-height (1.15-1.2) than body copy (1.5)?",
           "options": [
-            "Display headings contain more words per line than body copy",
             "Large glyphs have significant visual whitespace; excessive line-height causes lines to appear disconnected",
+            "Display headings contain more words per line than body copy",
             "CSS standards forbid line-height values greater than 1.2 on heading tags"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Large heading glyphs visually occupy more optical space, so a tight line-height keeps multi-line headings coherent."
         }
       },
@@ -487,10 +483,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How do CSS font metric overrides (size-adjust, ascent-override) help eliminate Cumulative Layout Shift (CLS)?",
           "options": [
             "They force the browser to cache custom web fonts indefinitely in indexedDB",
-            "They normalize fallback system fonts to match the exact dimensions of custom web fonts, preventing displacement during swapping",
-            "They disable all custom fonts on mobile devices"
+            "They disable all custom fonts on mobile devices",
+            "They normalize fallback system fonts to match the exact dimensions of custom web fonts, preventing displacement during swapping"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Matching glyph dimensions between fallback and custom fonts ensures seamless swapping without pushing surrounding content around."
         }
       }
@@ -498,7 +494,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Modular scales establish mathematical typographic harmony by deriving all font sizes from a consistent geometric ratio.",
       "Typography tokens should be authored in rem units with inverse unitless line-heights to support accessibility and vertical rhythm.",
-      "CSS clamp() delivers continuous fluid typography across viewports, while font metric overrides eliminate Cumulative Layout Shift."
+      "CSS clamp() delivers continuous fluid typography across viewports, while font metric overrides eliminate Cumulative Layout Shift.",
+      "Modular type scales ensure typographic hierarchy remains mathematically harmonious across all devices.",
+      "Fluid typography with clamp() eliminates abrupt font size changes across viewport breakpoints."
     ],
     "projectStep": {
       "title": "Construct Mathematical Typography Scale",
@@ -623,10 +621,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the CSS rem equivalent of token '--space-3' in an 8pt grid system based on a 16px root font?",
           "options": [
             "1.0rem",
-            "1.5rem (24px / 16px = 1.5rem)",
-            "3.0rem"
+            "3.0rem",
+            "1.5rem (24px / 16px = 1.5rem)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Token space-3 represents 3 * 8px = 24px. In a base-16 system, 24px / 16px equals exactly 1.5rem."
         }
       },
@@ -660,11 +658,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should reusable UI components avoid hardcoding external margins on themselves?",
           "options": [
-            "Margins prevent CSS files from being minified by build tools",
             "Hardcoded margins couple components to a specific layout context, breaking reusability in different container layouts",
+            "Margins prevent CSS files from being minified by build tools",
             "Modern web browsers ignore margin properties on buttons"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "External margins make components rigid; parent layout containers should manage spacing between items via gap."
         }
       },
@@ -737,10 +735,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How do automated style linters prevent spatial entropy in large software codebases?",
           "options": [
             "They automatically delete all CSS files that have not been modified in 30 days",
-            "They inspect CSS declarations in CI to reject hardcoded pixel values that do not conform to approved spatial tokens",
-            "They reformat all CSS code into JSON"
+            "They reformat all CSS code into JSON",
+            "They inspect CSS declarations in CI to reject hardcoded pixel values that do not conform to approved spatial tokens"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Automated linters block pull requests containing arbitrary magic numbers, enforcing the 8pt grid continuously."
         }
       }
@@ -748,7 +746,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The 8pt spatial grid provides a mathematically superior foundation that eliminates fractional pixel bugs and arbitrary layout numbers.",
       "A 4pt half-step is strictly reserved for micro-UI elements (badges, tooltips, icon gaps) while macro layouts use 8pt multiples.",
-      "Separating concerns—parents manage layout gap, children manage internal padding—maximizes component reusability and stability."
+      "Separating concerns—parents manage layout gap, children manage internal padding—maximizes component reusability and stability.",
+      "An 8-point spatial system aligns margins, padding, and layout dimensions to a predictable grid.",
+      "Consistent spatial intervals dramatically accelerate frontend implementation and reduce visual friction."
     ],
     "projectStep": {
       "title": "Implement 8pt Spatial Token System",
@@ -796,11 +796,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In simulated interface physics, what happens to a shadow's blur radius as an element elevates higher above the surface?",
           "options": [
-            "The shadow becomes sharper and more opaque",
             "The shadow blur radius expands and becomes softer and more diffused",
+            "The shadow becomes sharper and more opaque",
             "The shadow completely disappears"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Higher elevation causes light to disperse around the object, producing a larger, softer, and more diffused shadow blur."
         }
       },
@@ -873,10 +873,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which elevation level is standard for high-priority Modal Dialogs requiring maximum visual focus?",
           "options": [
             "Elevation 1",
-            "Elevation 5 (highest elevation with deepest shadow dispersion)",
-            "Elevation 0"
+            "Elevation 0",
+            "Elevation 5 (highest elevation with deepest shadow dispersion)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Elevation 5 provides the deepest shadow dispersion, visually separating critical modal dialogs from the background."
         }
       },
@@ -910,11 +910,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does setting 'z-index: 9999' on a dropdown sometimes fail to make it appear above other page elements?",
           "options": [
-            "Z-index numbers cannot exceed 255 in modern browsers",
             "The dropdown is trapped inside an ancestor stacking context created by properties like transform or opacity",
+            "Z-index numbers cannot exceed 255 in modern browsers",
             "CSS requires z-index to be written in hexadecimal format"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "An ancestor with transform, opacity, or positioned z-index creates an isolated stacking context that caps child layering."
         }
       },
@@ -951,11 +951,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a semantic z-index scale allocate buffer spaces (such as 100, 200, 900, 1000) between tiers?",
           "options": [
-            "To allow occasional internal sub-layering within a tier without colliding with adjacent higher tiers",
             "Because CSS ignores numbers smaller than 100",
+            "To allow occasional internal sub-layering within a tier without colliding with adjacent higher tiers",
             "To speed up browser GPU rasterization"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Buffer gaps allow sub-elements (like an active card tab inside a modal) to increment by 1 without encroaching on the next tier."
         }
       },
@@ -991,11 +991,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do dark themes effectively communicate elevation when black shadows are invisible against dark backgrounds?",
           "options": [
-            "By progressively lightening surface background colors (luminance elevation) and adding subtle white keyline borders",
+            "By flashing screen borders with neon colors",
             "By turning off all user interface text",
-            "By flashing screen borders with neon colors"
+            "By progressively lightening surface background colors (luminance elevation) and adding subtle white keyline borders"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Lighter surface backgrounds and subtle keyline borders clearly delineate elevated surfaces in dark mode."
         }
       }
@@ -1003,7 +1003,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Simulated depth requires combining a soft ambient occlusion shadow with a directional key shadow for natural realism.",
       "A 5-tier elevation scale standardizes shadow recipes across cards, dropdowns, popovers, drawers, and modal dialogs.",
-      "A semantic z-index scale prevents layer collisions, while surface luminance lifting preserves depth in dark mode."
+      "A semantic z-index scale prevents layer collisions, while surface luminance lifting preserves depth in dark mode.",
+      "Elevation z-index scales establish unambiguous stacking contexts for overlays, dialogs, and navigation layers.",
+      "Soft, multi-layer shadow tokens create realistic depth without harsh visual borders."
     ],
     "projectStep": {
       "title": "Construct Elevation & Stacking Architecture",
@@ -1089,11 +1091,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the token resolver engine guard against infinite loops caused by circular alias references?",
           "options": [
-            "It tracks visited token identifiers in a Set and throws an error if a token re-visits an active ancestor",
             "It randomly picks a color after 5 seconds",
+            "It tracks visited token identifiers in a Set and throws an error if a token re-visits an active ancestor",
             "Circular token references are automatically permitted in CSS"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Tracking visited keys in a Set detects cycles immediately, preventing stack overflow crashes in the compiler."
         }
       },
@@ -1127,11 +1129,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the modular typography engine automatically assign tighter leading (line-height) to larger font sizes?",
           "options": [
-            "Large headings contain more natural optical whitespace, so tight leading prevents lines from looking disconnected",
+            "To save memory on mobile devices",
             "CSS text engines cannot render line-heights exceeding 1.2 on bold fonts",
-            "To save memory on mobile devices"
+            "Large headings contain more natural optical whitespace, so tight leading prevents lines from looking disconnected"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Large heading glyphs visually bridge vertical space, requiring tighter line-height to maintain cohesive reading groups."
         }
       },
@@ -1201,11 +1203,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the elevation engine couple z-index values directly with elevation levels?",
           "options": [
-            "Because physical elevation and DOM layer rendering order must remain synchronized to prevent visual clipping defects",
             "Because CSS forbids setting z-index without box-shadow",
+            "Because physical elevation and DOM layer rendering order must remain synchronized to prevent visual clipping defects",
             "To speed up CSS compilation"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Synchronizing elevation and z-index ensures elements with higher visual depth also stack properly above lower elements."
         }
       },
@@ -1238,11 +1240,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Milestone 1 Certification verify across the design system codebase?",
           "options": [
-            "It validates that tokens, typography scales, 8pt spatial grids, and elevation tiers operate harmoniously without errors",
+            "It deploys the entire website to an unconfigured AWS cluster",
             "It submits a patent application to the USPTO",
-            "It deploys the entire website to an unconfigured AWS cluster"
+            "It validates that tokens, typography scales, 8pt spatial grids, and elevation tiers operate harmoniously without errors"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Milestone 1 certification validates that all four foundational visual systems operate seamlessly and comply with standards."
         }
       }
@@ -1250,7 +1252,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The Design Foundations Engine unifies tokens, typography, 8pt spacing, and elevation into a single source of truth.",
       "Recursive alias resolution with cycle detection guarantees robust token compilation for light and dark themes.",
-      "Automated spatial validation and self-diagnostic certification ensure zero layout defects and complete WCAG compliance."
+      "Automated spatial validation and self-diagnostic certification ensure zero layout defects and complete WCAG compliance.",
+      "Milestone 1 synthesized foundational design tokens into an automated mathematical verification suite.",
+      "Algorithmic validation guarantees consistent brand identity across web, mobile, and desktop runtimes."
     ],
     "projectStep": {
       "title": "Synthesize Milestone 1 Foundations Engine",
@@ -1298,11 +1302,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Atomic Design, which tier represents simple functional combinations of atoms (such as a search input and button)?",
           "options": [
-            "Organisms",
             "Molecules",
+            "Organisms",
             "Templates"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Molecules are groups of atoms bonded together that form the smallest unit of functional interaction."
         }
       },
@@ -1336,11 +1340,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must UI Atoms (like BaseButton or BaseInput) remain free of application business logic?",
           "options": [
-            "To maximize reusability across diverse features and avoid coupling visual components to specific data models",
             "Because React crashes if a button contains an onClick handler",
+            "To maximize reusability across diverse features and avoid coupling visual components to specific data models",
             "To prevent the browser from rendering animations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Pure atoms remain reusable across any context because they only handle presentation and primitive events."
         }
       },
@@ -1375,10 +1379,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What distinguishes a Molecule from an Atom in Atomic Design?",
           "options": [
             "Molecules are written in JavaScript, while atoms are written in HTML",
-            "Molecules compose multiple atoms together to accomplish a single focused interactive task",
-            "Molecules can only be used on mobile devices"
+            "Molecules can only be used on mobile devices",
+            "Molecules compose multiple atoms together to accomplish a single focused interactive task"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Molecules combine multiple atoms into a functional, tangible unit of interaction."
         }
       },
@@ -1412,11 +1416,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which component type qualifies as an 'Organism' in Atomic Design?",
           "options": [
-            "A single primary button icon",
             "A Global Navigation Header containing a logo, search molecule, nav links, and profile menu",
+            "A single primary button icon",
             "A CSS custom property token"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Organisms are complex, distinct UI sections composed of multiple molecules and atoms."
         }
       },
@@ -1450,11 +1454,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between a Template and a Page in Atomic Design?",
           "options": [
-            "Templates define layout structure and component slots without real data, while Pages populate templates with live content",
             "Templates are written in Python, while Pages are written in HTML",
+            "Templates define layout structure and component slots without real data, while Pages populate templates with live content",
             "Templates only work in production mode"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Templates provide the structural wireframe layout, while Pages are specific instances populated with actual data."
         }
       },
@@ -1487,11 +1491,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an Atom forbidden from importing an Organism in a clean design system architecture?",
           "options": [
-            "It creates an inverted dependency cycle that breaks modularity, prevents tree-shaking, and causes runtime circular reference errors",
+            "Modern web browsers disallow functions with more than two imports",
             "Atoms and organisms use different CSS preprocessors",
-            "Modern web browsers disallow functions with more than two imports"
+            "It creates an inverted dependency cycle that breaks modularity, prevents tree-shaking, and causes runtime circular reference errors"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Lower tiers must remain completely independent of higher tiers to preserve reusability and prevent circular dependency cycles."
         }
       }
@@ -1499,7 +1503,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Atomic Design provides a 5-tier hierarchy: Atoms, Molecules, Organisms, Templates, and Pages for scalable UI architecture.",
       "Atoms must remain purely presentational and free of application business logic to maximize universal reusability.",
-      "Strict unidirectional dependency rules prevent circular imports and keep component libraries modular and lightweight."
+      "Strict unidirectional dependency rules prevent circular imports and keep component libraries modular and lightweight.",
+      "Organisms assemble distinct molecular components into cohesive, production-ready interface patterns.",
+      "Design systems scale efficiently by composing complex user flows from reusable atomic building blocks."
     ],
     "projectStep": {
       "title": "Establish Atomic Component Hierarchy",
@@ -1626,10 +1632,10 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Under WCAG 2.5.5 and mobile platform guidelines, what is the recommended minimum touch target size for interactive elements?",
           "options": [
             "20px by 20px",
-            "44px by 44px (or 48px by 48px)",
-            "100px by 100px"
+            "100px by 100px",
+            "44px by 44px (or 48px by 48px)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "44px by 44px provides sufficient physical surface area for reliable fingertip interaction on mobile screens."
         }
       },
@@ -1701,11 +1707,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does locking button width during asynchronous loading states improve user experience?",
           "options": [
-            "It prevents Cumulative Layout Shift (CLS) so adjacent page elements do not jump around abruptly",
             "It speeds up internet connection bandwidth",
+            "It prevents Cumulative Layout Shift (CLS) so adjacent page elements do not jump around abruptly",
             "It converts the button into a web worker"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Preserving button dimensions prevents layout jumping when text is replaced by a loading spinner."
         }
       },
@@ -1740,11 +1746,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 'aria-disabled=\"true\"' often preferred over native HTML 'disabled' for complex forms?",
           "options": [
-            "It allows keyboard users to focus on the button and receive an explanation of why the action is disabled",
+            "It forces the browser to submit the form in the background",
             "It bypasses all client-side validation rules",
-            "It forces the browser to submit the form in the background"
+            "It allows keyboard users to focus on the button and receive an explanation of why the action is disabled"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "aria-disabled allows elements to remain focusable so tooltips and screen readers can explain what is required."
         }
       }
@@ -1752,7 +1758,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "A complete button state machine manages 6 discrete states: Default, Hover, Active, Focus-Visible, Disabled, and Loading.",
       "Semantic variants (Primary, Secondary, Outline, Ghost, Danger) and standardized sizes establish clear visual hierarchy.",
-      ":focus-visible with 2px outline-offset guarantees keyboard accessibility, while aria-disabled provides informative user guidance."
+      ":focus-visible with 2px outline-offset guarantees keyboard accessibility, while aria-disabled provides informative user guidance.",
+      "Button interaction states require explicit visual styling for hover, active, focus-visible, and disabled.",
+      "ARIA loading states and aria-busy attributes ensure assistive technologies convey asynchronous progress."
     ],
     "projectStep": {
       "title": "Build Production Button Component",
@@ -1841,11 +1849,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under WCAG 1.4.1 (Use of Color), why must form error states include an icon or text in addition to a red border?",
           "options": [
-            "Color alone cannot be the sole visual means of conveying information, as color-blind users may not perceive red",
             "Red borders slow down browser rendering performance",
+            "Color alone cannot be the sole visual means of conveying information, as color-blind users may not perceive red",
             "CSS standards forbid red borders without icons"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Color-blind users cannot differentiate certain colors; pairing color with icons and text ensures universal comprehension."
         }
       },
@@ -1881,11 +1889,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the function of the 'aria-describedby' attribute on a form input?",
           "options": [
-            "It links the input element to the IDs of helper hint and error message elements so screen readers read them upon focus",
+            "It validates form inputs on the server",
             "It automatically formats phone numbers as users type",
-            "It validates form inputs on the server"
+            "It links the input element to the IDs of helper hint and error message elements so screen readers read them upon focus"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "aria-describedby associates additional descriptive text (hints, errors) with an input for assistive technologies."
         }
       },
@@ -1957,11 +1965,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core principle of the 'Reward Early, Punish Late' form validation pattern?",
           "options": [
-            "Errors are withheld until the user leaves the field (blur), but valid fixes are rewarded instantly as soon as corrected",
             "Forms charge a monetary penalty for incorrect submissions",
+            "Errors are withheld until the user leaves the field (blur), but valid fixes are rewarded instantly as soon as corrected",
             "Validation only runs on the last day of the month"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Withholding errors until blur prevents annoying users, while clearing errors eagerly rewards successful fixes."
         }
       },
@@ -1995,11 +2003,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a user clicks a password visibility toggle button to reveal text, how should its 'aria-label' update?",
           "options": [
-            "It must update to describe the next action, such as 'Hide password and mask characters'",
+            "It should remain permanently set to 'Button'",
             "It should be deleted",
-            "It should remain permanently set to 'Button'"
+            "It must update to describe the next action, such as 'Hide password and mask characters'"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Accessible labels on toggle buttons must announce the action that will occur upon the next activation."
         }
       }
@@ -2007,7 +2015,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "A complete form field atom requires four synchronized elements: Label, Input, Helper Hint, and Error Message.",
       "Input error states must combine border color with non-color icons and bind aria-invalid and aria-describedby for accessibility.",
-      "The 'Reward Early, Punish Late' validation timing pattern prevents premature errors and optimizes user completion rates."
+      "The 'Reward Early, Punish Late' validation timing pattern prevents premature errors and optimizes user completion rates.",
+      "Accessible form inputs link labels, error messages, and description hints using aria-describedby.",
+      "Floating labels must maintain adequate color contrast and prevent layout shift during focus transitions."
     ],
     "projectStep": {
       "title": "Build Production Form Control Architecture",
@@ -2096,11 +2106,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the modern CSS property 'aspect-ratio: 16 / 9' eliminate Cumulative Layout Shift (CLS) on card images?",
           "options": [
-            "It informs the browser of the container proportions immediately so space is reserved before the image downloads",
             "It compresses the image file size on the CDN server",
+            "It informs the browser of the container proportions immediately so space is reserved before the image downloads",
             "It turns off responsive CSS breakpoints"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "aspect-ratio allows the browser to reserve the exact layout space before the image assets finish downloading."
         }
       },
@@ -2135,11 +2145,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should card hover lift animations use 'transform: translateY(-2px)' instead of 'top: -2px' or 'margin-top: -2px'?",
           "options": [
-            "Transforms execute on the GPU compositor thread without triggering expensive browser layout reflows",
+            "Transforms work only on mobile phones",
             "Top and margin properties are forbidden in HTML5",
-            "Transforms work only on mobile phones"
+            "Transforms execute on the GPU compositor thread without triggering expensive browser layout reflows"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Transform animations are handled by the GPU compositor, guaranteeing smooth 60fps performance without layout recalculations."
         }
       },
@@ -2213,11 +2223,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural benefit of Compound Component patterns for complex layout containers?",
           "options": [
-            "It decouples sub-sections into modular, composable units while eliminating bloated, fragile multi-prop interfaces",
             "It turns off JavaScript strict mode",
+            "It decouples sub-sections into modular, composable units while eliminating bloated, fragile multi-prop interfaces",
             "It compiles JSX into C++ binaries"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Compound components provide modular declarative composition without ballooning parent component prop interfaces."
         }
       },
@@ -2253,11 +2263,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the 'stretched link' pseudo-element pattern (::after with inset: 0) make an entire card clickable accessibly?",
           "options": [
-            "It expands the click area of the heading link across the card surface without nesting interactive tags or overwhelming screen readers",
+            "It converts HTML links into WebSockets",
             "It disables all links when using mobile devices",
-            "It converts HTML links into WebSockets"
+            "It expands the click area of the heading link across the card surface without nesting interactive tags or overwhelming screen readers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Stretched links keep HTML valid and screen reader announcements concise while expanding the pointer hit area."
         }
       }
@@ -2265,7 +2275,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Cards are organized into distinct anatomical sections: Header, Media, Body, and Footer using Compound Components.",
       "Native CSS aspect-ratio (16/9, 4/3, 1/1) reserves container height immediately, eliminating Cumulative Layout Shift.",
-      "The stretched link pseudo-element pattern makes cards clickable across their surface while preserving HTML validity and accessibility."
+      "The stretched link pseudo-element pattern makes cards clickable across their surface while preserving HTML validity and accessibility.",
+      "Card containers encapsulate related content with standardized internal padding and elevation styles.",
+      "Responsive aspect-ratio properties prevent cumulative layout shifts when loading media within cards."
     ],
     "projectStep": {
       "title": "Construct Modular Card Component Suite",
@@ -2351,11 +2363,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What CSS property creates the frosted glass blurring effect on content scrolling beneath a semi-transparent header?",
           "options": [
-            "backdrop-filter: blur(12px)",
             "filter: blur(12px)",
+            "backdrop-filter: blur(12px)",
             "opacity: 0.5"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "backdrop-filter applies graphical effects (like blur) to the area behind an element, whereas filter blurs the element itself."
         }
       },
@@ -2389,11 +2401,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of adding 'aria-current=\"page\"' to a navigation link?",
           "options": [
-            "It informs assistive technologies that the link represents the currently active page in the site hierarchy",
+            "It pre-fetches the page in the background",
             "It causes the link to open in a new browser tab",
-            "It pre-fetches the page in the background"
+            "It informs assistive technologies that the link represents the currently active page in the site hierarchy"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "aria-current='page' explicitly conveys to screen readers that this link is the user's active page."
         }
       },
@@ -2465,11 +2477,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should breadcrumb visual separators (such as '/' or '>') have 'aria-hidden=\"true\"' in the DOM?",
           "options": [
-            "To prevent screen readers from reading aloud repetitive 'slash, slash, slash' punctuation between every link",
             "Because slashes are illegal characters in HTML5",
+            "To prevent screen readers from reading aloud repetitive 'slash, slash, slash' punctuation between every link",
             "To make the breadcrumb trail invisible to search engines"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "aria-hidden='true' silences purely decorative separator punctuation for assistive technology users."
         }
       },
@@ -2504,11 +2516,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under WCAG 2.4.1 (Bypass Blocks), why is a 'Skip to Content' link mandatory on sites with large navigation headers?",
           "options": [
-            "It allows keyboard and screen reader users to bypass repetitive header links and jump directly to primary content",
+            "It turns off web animations automatically",
             "It compresses image files on the page",
-            "It turns off web animations automatically"
+            "It allows keyboard and screen reader users to bypass repetitive header links and jump directly to primary content"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Skip links let keyboard users bypass dozens of header links with a single click, fulfilling WCAG 2.4.1."
         }
       }
@@ -2516,7 +2528,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Navigation landmarks must be uniquely identified with aria-label attributes when multiple <nav> elements exist.",
       "Sticky headers leverage backdrop-filter: blur(12px) for glassmorphism, with aria-current='page' designating the active route.",
-      "A Skip-to-Content link is the first focusable element on the page, allowing keyboard users to bypass repetitive navigation."
+      "A Skip-to-Content link is the first focusable element on the page, allowing keyboard users to bypass repetitive navigation.",
+      "Sticky navigation headers require dedicated skip-link anchors to permit direct keyboard navigation to main content.",
+      "Breadcrumb trails communicate hierarchical context and require structured nav elements with aria-label."
     ],
     "projectStep": {
       "title": "Build Accessible Navigation & Header Suite",
@@ -2603,11 +2617,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a keyboard user presses Tab on the LAST focusable element inside an accessible modal, where must focus move?",
           "options": [
-            "It must wrap back to the FIRST focusable element inside the modal",
             "It must jump to the browser address bar",
+            "It must wrap back to the FIRST focusable element inside the modal",
             "It must close the website"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Focus trapping keeps keyboard navigation contained within the modal by wrapping focus in a continuous loop."
         }
       },
@@ -2641,11 +2655,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the HTML 'inert' attribute do when applied to a background container while a modal is open?",
           "options": [
-            "It disables all pointer events, keyboard focus, and screen reader discovery across the element and all its descendants",
+            "It permanently deletes the background DOM nodes",
             "It converts text into encrypted strings",
-            "It permanently deletes the background DOM nodes"
+            "It disables all pointer events, keyboard focus, and screen reader discovery across the element and all its descendants"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "inert completely freezes an element and its children from focus, clicks, and assistive technology discovery."
         }
       },
@@ -2722,11 +2736,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an overlay use 'role=\"alertdialog\"' instead of 'role=\"dialog\"'?",
           "options": [
-            "Exclusively for critical, urgent prompts (like delete confirmations) that require immediate user attention and response",
             "Whenever a modal contains an image",
+            "Exclusively for critical, urgent prompts (like delete confirmations) that require immediate user attention and response",
             "Only on mobile touch screens"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "alertdialog is reserved for urgent warnings and confirmations that require immediate user decision."
         }
       },
@@ -2760,11 +2774,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are modal exit animations conventionally designed to be faster (e.g., 150ms) than entrance animations (200ms)?",
           "options": [
-            "Users expect immediate dismissal when closing an overlay, so swift exits make the application feel snappy and responsive",
+            "To prevent the browser from saving memory",
             "CSS cannot calculate animations longer than 150ms in reverse",
-            "To prevent the browser from saving memory"
+            "Users expect immediate dismissal when closing an overlay, so swift exits make the application feel snappy and responsive"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Swift exit animations prevent perceived interface lag when users dismiss content."
         }
       }
@@ -2772,7 +2786,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The HTML5 <dialog> element provides native top-layer placement, background scrims, and built-in focus trapping.",
       "Focus trapping ensures keyboard Tab cycles continuously within modal boundaries without leaking into the background.",
-      "Inert background locking and Escape key focus restoration guarantee 100% WCAG accessibility compliance."
+      "Inert background locking and Escape key focus restoration guarantee 100% WCAG accessibility compliance.",
+      "Accessible modal dialogs trap keyboard focus within the overlay container until explicitly dismissed.",
+      "Escape key listeners and backdrop clicks provide intuitive, predictable modal dismissal behaviors."
     ],
     "projectStep": {
       "title": "Build Accessible Modal Overlay System",
@@ -2860,11 +2876,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does 'flip positioning' do when a floating tooltip detects a collision with the top viewport boundary?",
           "options": [
-            "It automatically flips the placement axis to the opposite side (e.g., from top to bottom) where space is available",
             "It scales down the tooltip text size to 2px",
+            "It automatically flips the placement axis to the opposite side (e.g., from top to bottom) where space is available",
             "It closes the browser window"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Flipping shifts the overlay to the opposite side of the trigger where ample viewport space exists."
         }
       },
@@ -2899,11 +2915,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should cold tooltips require a 300ms-400ms hover delay before displaying?",
           "options": [
-            "To prevent annoying flashing tooltips as users move their mouse across the screen to other destinations",
+            "To allow server-side caching of tooltip images",
             "Because JavaScript setTimeout only accepts values above 300ms",
-            "To allow server-side caching of tooltip images"
+            "To prevent annoying flashing tooltips as users move their mouse across the screen to other destinations"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A short delay prevents flickering tooltips during casual mouse traversal across toolbars."
         }
       },
@@ -2976,11 +2992,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What attribute must dynamically update from 'false' to 'true' on a button when its Popover opens?",
           "options": [
-            "aria-expanded",
             "aria-hidden",
+            "aria-expanded",
             "aria-readonly"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "aria-expanded communicates to screen readers whether the associated popover panel is currently open."
         }
       },
@@ -3014,11 +3030,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must global click-outside event listeners on the 'document' be cleaned up when a popover closes?",
           "options": [
-            "To prevent memory leaks and stop ghost event listeners from executing on subsequent page interactions",
+            "To reset CSS variables to their default values",
             "Because browsers limit total click listeners to three per tab",
-            "To reset CSS variables to their default values"
+            "To prevent memory leaks and stop ghost event listeners from executing on subsequent page interactions"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cleaning up listeners prevents memory leaks and unintended behavior from orphaned event callbacks."
         }
       }
@@ -3026,7 +3042,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Tooltips are non-interactive hover labels (aria-describedby), while Popovers are interactive panels (aria-haspopup).",
       "Collision detection dynamically flips placement (top to bottom) and shifts overlays to prevent viewport clipping.",
-      "A 300ms hover delay prevents flickering tooltips, while global click-outside listeners ensure intuitive dismissal."
+      "A 300ms hover delay prevents flickering tooltips, while global click-outside listeners ensure intuitive dismissal.",
+      "Floating UI popovers dynamically adjust placement to avoid clipping outside visible viewport boundaries.",
+      "Collision detection algorithms reposition tooltips seamlessly across scrolling container parents."
     ],
     "projectStep": {
       "title": "Build Floating UI Tooltip & Popover System",
@@ -3114,11 +3132,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must sticky table header cells (thead th) define an explicit opaque background color?",
           "options": [
-            "Without an opaque background, scrolling table rows would bleed through and create illegible overlapping text",
             "CSS position: sticky does not work without background color",
+            "Without an opaque background, scrolling table rows would bleed through and create illegible overlapping text",
             "To force GPU acceleration"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "An opaque background prevents scrolling rows beneath from showing through and cluttering the header text."
         }
       },
@@ -3155,11 +3173,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which ARIA attribute communicates the active sorting order of a table column to assistive technologies?",
           "options": [
-            "aria-sort=\"ascending|descending|none\"",
+            "aria-filter=\"true\"",
             "aria-order=\"1\"",
-            "aria-filter=\"true\""
+            "aria-sort=\"ascending|descending|none\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "aria-sort is the standard attribute on <th> elements that informs screen readers of the column's sort state."
         }
       },
@@ -3232,11 +3250,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a scrollable table wrapper container have 'tabindex=\"0\"' in accessible design?",
           "options": [
-            "Keyboard-only users must be able to focus on the container to scroll it horizontally using arrow keys",
             "It turns off responsive media queries",
+            "Keyboard-only users must be able to focus on the container to scroll it horizontally using arrow keys",
             "It converts the table to SVG"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Scrollable regions must be focusable so keyboard users can navigate their contents with arrow keys."
         }
       },
@@ -3272,11 +3290,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should the active page number button in a pagination bar be marked for screen readers?",
           "options": [
-            "With 'aria-current=\"page\"'",
+            "With 'role=\"alert\"'",
             "With 'aria-disabled=\"true\"'",
-            "With 'role=\"alert\"'"
+            "With 'aria-current=\"page\"'"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "aria-current='page' informs screen readers which page number is currently active and displayed."
         }
       }
@@ -3284,7 +3302,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Semantic HTML table markup (<table>, <thead>, <tbody>, <th scope='col'>) provides essential structure for screen readers.",
       "Sticky headers locked with position: sticky and opaque backgrounds preserve column context during deep scrolling.",
-      "aria-sort communicates column sorting order, while contained horizontal scrollbars prevent mobile layout blowouts."
+      "aria-sort communicates column sorting order, while contained horizontal scrollbars prevent mobile layout blowouts.",
+      "Accessible data tables use column and row headers with scope attributes to support screen readers.",
+      "Pagination controls convey current page and total item count via aria-live announcement regions."
     ],
     "projectStep": {
       "title": "Build Accessible Data Table Suite",
@@ -3373,11 +3393,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should routine success toasts use 'aria-live=\"polite\"' instead of 'aria-live=\"assertive\"'?",
           "options": [
-            "Polite waits for the user to finish their current action, preventing rude speech interruptions for minor confirmations",
             "Assertive live regions are not supported on Windows",
+            "Polite waits for the user to finish their current action, preventing rude speech interruptions for minor confirmations",
             "Polite live regions run on a separate CPU thread"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "aria-live='polite' delivers announcements during natural speech pauses, respecting user focus."
         }
       },
@@ -3412,11 +3432,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a design system toast manager limit visible toasts to a maximum of 3 to 5?",
           "options": [
-            "To prevent notification spam from covering critical interactive screen content",
+            "To save monitor electrical power",
             "Because CSS z-index only supports 5 stacked elements",
-            "To save monitor electrical power"
+            "To prevent notification spam from covering critical interactive screen content"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Capping visible toasts prevents notification cascades from overwhelming users and obscuring underlying UI."
         }
       },
@@ -3488,11 +3508,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a newly spawned toast notification NOT automatically steal keyboard focus away from the user?",
           "options": [
-            "Stealing focus rips keyboard users away from whatever they are currently typing, causing severe disruption",
             "Modern web browsers disable keyboard focus inside toasts",
+            "Stealing focus rips keyboard users away from whatever they are currently typing, causing severe disruption",
             "To save CPU memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Toasts are non-modal; stealing focus disrupts active typing and breaks user workflow."
         }
       },
@@ -3527,11 +3547,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should bottom-right toast stacks maintain an 80px vertical clearance from the viewport bottom?",
           "options": [
-            "To prevent colliding with and obscuring floating action buttons (FABs) and customer support chat beacons",
+            "To allow room for the browser scrollbar",
             "Because CSS forbids values smaller than 80px on the bottom edge",
-            "To allow room for the browser scrollbar"
+            "To prevent colliding with and obscuring floating action buttons (FABs) and customer support chat beacons"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An 80px bottom clearance ensures toasts do not cover floating support widgets or action beacons."
         }
       }
@@ -3539,7 +3559,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Toasts provide non-intrusive status confirmations without disrupting active user workflows.",
       "aria-live='polite' announces success messages during natural speech pauses, while 'assertive' is reserved for urgent errors.",
-      "Queue managers cap visible toasts to 3-5, and pause-on-hover ensures users have ample time to read messages."
+      "Queue managers cap visible toasts to 3-5, and pause-on-hover ensures users have ample time to read messages.",
+      "Toast notification managers queue asynchronous status messages and prevent alert banner collisions.",
+      "ARIA live regions ensure urgent system announcements reach screen reader users without stealing focus."
     ],
     "projectStep": {
       "title": "Build Global Toast Notification System",
@@ -3627,11 +3649,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does automated atomic hierarchy verification protect software maintainability?",
           "options": [
-            "It prevents circular dependency cycles and keeps foundational atoms decoupled from application features",
             "It turns off JavaScript strict mode",
+            "It prevents circular dependency cycles and keeps foundational atoms decoupled from application features",
             "It minifies SVG images"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Automated hierarchy checks guarantee that lower-tier primitives remain pure and universally reusable."
         }
       },
@@ -3665,11 +3687,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What minimum contrast ratio must standard button text achieve against its background to pass WCAG 2.1 AA?",
           "options": [
-            "4.5:1",
+            "10.0:1",
             "2.0:1",
-            "10.0:1"
+            "4.5:1"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "WCAG 2.1 Level AA mandates a minimum contrast ratio of 4.5:1 for standard body and button text."
         }
       },
@@ -3743,11 +3765,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the toast queue stress test prove about our design system?",
           "options": [
-            "It proves the notification manager prevents screen flooding by strictly enforcing a visible cap of 3 toasts via FIFO eviction",
             "It proves our servers have 100% uptime",
+            "It proves the notification manager prevents screen flooding by strictly enforcing a visible cap of 3 toasts via FIFO eviction",
             "It disables all error toasts"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The stress test proves that notification cascades are gracefully capped, preventing visual spam."
         }
       },
@@ -3783,11 +3805,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Milestone 2 Component Certification confirm about the design system?",
           "options": [
-            "It confirms that all intermediate components (buttons, forms, cards, tables, modals, toasts) meet atomic purity and WCAG accessibility standards",
+            "It turns on dark mode permanently",
             "It files corporate tax returns",
-            "It turns on dark mode permanently"
+            "It confirms that all intermediate components (buttons, forms, cards, tables, modals, toasts) meet atomic purity and WCAG accessibility standards"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Milestone 2 certification validates that the entire intermediate component library meets architectural and accessibility standards."
         }
       }
@@ -3795,7 +3817,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Milestone 2 unifies Buttons, Form Controls, Cards, Tables, Navigation, Modals, and Toasts into a certified component library.",
       "Strict WCAG 2.1 AA benchmarks guarantee 4.5:1 text contrast, :focus-visible rings, 44px touch targets, and ARIA binding.",
-      "Modal focus trapping, inert background locking, and toast queue managers deliver enterprise-grade stability and user trust."
+      "Modal focus trapping, inert background locking, and toast queue managers deliver enterprise-grade stability and user trust.",
+      "Milestone 2 integrated interactive atomic components into an accessible, WCAG-compliant design library.",
+      "Automated form validation suites ensure all input states adhere strictly to accessibility guidelines."
     ],
     "projectStep": {
       "title": "Synthesize Milestone 2 Component Suite",
@@ -3879,11 +3903,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the default value of the 'align-items' property in CSS Flexbox?",
           "options": [
-            "stretch",
             "center",
+            "stretch",
             "flex-start"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The default value of align-items is 'stretch', causing flex children to expand to the full cross-axis size of the line."
         }
       },
@@ -3917,11 +3941,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With 300px of free space and total grow of 3, how much extra width does an item with flex-grow: 2 receive?",
           "options": [
-            "200px",
+            "300px",
             "100px",
-            "300px"
+            "200px"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The item receives (2 / 3) * 300px = 200px of the available free space."
         }
       },
@@ -3992,11 +4016,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between 'align-items' and 'align-content' in CSS Flexbox?",
           "options": [
-            "align-items aligns items within their single line; align-content aligns the multiple lines themselves across the cross axis",
             "align-content is for text only, align-items is for images",
+            "align-items aligns items within their single line; align-content aligns the multiple lines themselves across the cross axis",
             "They are completely identical synonyms"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "align-items operates on individual flex items within a line; align-content distributes multiple lines along the cross axis."
         }
       },
@@ -4008,6 +4032,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "This engine takes a full container specification (width, height, direction, justify, align, gap) and an array of child item specifications.",
           "It resolves total gap deductions, calculates free space or overflow deficit, computes proportional growth or shrinkage, and returns exact pixel layout geometry for each child.",
           "Design system teams use layout engines like this to generate responsive component styles, perform layout performance simulations, and guarantee zero layout shift.",
+          "Modular component isolation ensures styling contracts do not bleed into adjacent DOM subtrees.",
+          "Design tokens serve as the single authoritative source of truth across all product platforms.",
           "Let us execute the complete Flexbox Layout Engine."
         ],
         "example": "A structural civil engineering CAD application calculating exact load clearances, beam spans, and expansion joints for a multi-lane suspension bridge.",
@@ -4027,11 +4053,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Flexbox Layout Engine guarantee that total item widths plus gaps equal container width?",
           "options": [
-            "It distributes remaining free space (containerWidth - totalGaps - totalBasis) to items based on flex-grow ratios",
+            "It clips overflow with scrollbars",
             "It rounds all widths to the nearest hundred",
-            "It clips overflow with scrollbars"
+            "It distributes remaining free space (containerWidth - totalGaps - totalBasis) to items based on flex-grow ratios"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By subtracting total gaps and base widths, the engine distributes exactly 100% of the remaining space across flex-grow candidates."
         }
       }
@@ -4039,7 +4065,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "CSS Flexbox provides mathematical 1-dimensional layout distribution across orthogonal Main and Cross axes.",
       "'justify-content' governs main axis distribution, while 'align-items' and 'align-content' govern cross-axis alignment.",
-      "The 'flex: <grow> <shrink> <basis>' shorthand provides responsive flexibility, while native 'gap' ensures pristine spacing hygiene."
+      "The 'flex: <grow> <shrink> <basis>' shorthand provides responsive flexibility, while native 'gap' ensures pristine spacing hygiene.",
+      "Flexbox layout properties provide precise one-dimensional alignment along main and cross axes.",
+      "Gap spacing in flex containers eliminates brittle margin-based sibling spacing workarounds."
     ],
     "projectStep": {
       "title": "Implement Flexbox Layout System",
@@ -4127,11 +4155,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does repeat(auto-fit, minmax(280px, 1fr)) eliminate the need for breakpoint media queries?",
           "options": [
-            "The browser dynamically calculates how many 280px columns fit into the container width and expands them with 1fr",
             "It turns off responsive web design",
+            "The browser dynamically calculates how many 280px columns fit into the container width and expands them with 1fr",
             "It forces all items into a single row"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "auto-fit automatically computes track quantity based on container width and minmax bounds, seamlessly wrapping columns."
         }
       },
@@ -4144,6 +4172,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Under 'auto-fit': the browser first creates all tracks, but then immediately collapses any empty tracks to a width of 0px. The existing populated items then stretch with '1fr' to consume the entire container width.",
           "For card grids where you want 1 or 2 cards to stretch elegantly across the entire row, 'auto-fit' is the standard choice.",
           "Conversely, if you want cards to retain their exact strict column width even when only 1 card is present, 'auto-fill' preserves the empty slots.",
+          "Consistent layout mathematics guarantees predictable visual rhythm across all viewport tiers.",
           "Let us demonstrate the mathematical difference between auto-fit and auto-fill."
         ],
         "example": "A parking lot: auto-fill paints all 10 parking stalls on the pavement even if only 2 cars are parked; auto-fit expands the 2 parked cars into double-wide VIP luxury spaces.",
@@ -4163,11 +4192,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When there are only 2 items in a 4-column grid, what does auto-fit do with the remaining 2 empty tracks?",
           "options": [
-            "It collapses the empty tracks to 0px, allowing the 2 items to stretch across the full container",
+            "It inserts placeholder advertisements",
             "It throws a CSS syntax error",
-            "It inserts placeholder advertisements"
+            "It collapses the empty tracks to 0px, allowing the 2 items to stretch across the full container"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "auto-fit collapses empty tracks to 0px, distributing all available space across populated items."
         }
       },
@@ -4238,11 +4267,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What major layout problem does CSS Subgrid solve for component libraries?",
           "options": [
-            "It allows child components (like card headers and footers) to align directly to the parent grid's tracks",
             "It increases network download speeds",
+            "It allows child components (like card headers and footers) to align directly to the parent grid's tracks",
             "It encrypts CSS stylesheets"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Subgrid allows nested children to inherit and participate directly in the parent grid's track sizing and alignment."
         }
       },
@@ -4254,6 +4283,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "This engine accepts container dimensions, track definitions, auto-fit constraints, and template area mappings.",
           "It resolves dynamic track widths, validates area boundaries, and outputs computed item coordinates.",
           "Building architectural tools like this gives design system engineers complete mastery over complex multi-column dashboard layouts.",
+          "Accessibility compliance is verified at build time through rigorous automated type contracts.",
+          "Systematic token resolution eliminates visual inconsistencies across modern micro-frontend architectures.",
           "Let us execute the synthesized CSS Grid Layout Engine."
         ],
         "example": "An airport flight information display board: dozens of gates, flight numbers, departure cities, and status badges align across a unified multi-column split-flap grid.",
@@ -4273,11 +4304,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the CSS Grid Engine synthesis, why does a 1024px container resolve to 3 columns of 325.3px with a 300px minimum?",
           "options": [
-            "Because (1024 + 24) / (300 + 24) = 1048 / 324 = 3.23, which floors to 3 columns",
+            "Because the browser caps columns at 3",
             "Because 1024 is divisible by 3",
-            "Because the browser caps columns at 3"
+            "Because (1024 + 24) / (300 + 24) = 1048 / 324 = 3.23, which floors to 3 columns"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Floor((1024 + 24) / (300 + 24)) = 3 columns. (1024 - 48) / 3 = 325.33px per column."
         }
       }
@@ -4286,7 +4317,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "CSS Grid is a 2-dimensional layout engine defined by tracks, grid lines, cells, and named areas.",
       "'repeat(auto-fit, minmax(280px, 1fr))' delivers fluid multi-column responsiveness without media queries.",
       "'auto-fit' collapses empty tracks allowing items to stretch, whereas 'auto-fill' preserves empty column slots.",
-      "Named 'grid-template-areas' provide self-documenting visual layout syntax, and Subgrid enables cross-component alignment."
+      "Named 'grid-template-areas' provide self-documenting visual layout syntax, and Subgrid enables cross-component alignment.",
+      "CSS Grid template areas provide intuitive two-dimensional layout orchestration for responsive web apps."
     ],
     "projectStep": {
       "title": "Build Responsive CSS Grid Suite",
@@ -4359,8 +4391,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "These values are codified as immutable design tokens, ensuring every application squad builds against an identical responsive contract.",
           "By standardizing breakpoint tokens across design files in Figma and engineering codebases in CSS, cross-functional teams speak a common responsive language.",
           "This alignment eliminates visual discrepancies and guarantees predictable layout shifts across every product screen in the enterprise.",
-          "Furthermore, pairing breakpoint tokens with container queries ensures that individual components remain responsive whether placed in full-width main content areas or constrained sidebars.",
-          "Let us implement the standard breakpoint token scale."
+          "Furthermore, pairing breakpoint tokens with container queries ensures that individual components remain responsive whether placed in full-width main content areas or constrained sidebars."
         ],
         "example": "Standard clothing sizing (XS, S, M, L, XL, XXL): clothing manufacturers standardize garment proportions so customers know exactly what size fits their body measurements.",
         "code": "interface BreakpointScale {\n  [tier: string]: number;\n}\n\nconst STANDARD_BREAKPOINTS: BreakpointScale = {\n  sm: 640,\n  md: 768,\n  lg: 1024,\n  xl: 1280,\n  '2xl': 1536,\n};\n\nfunction classifyViewport(width: number): { tier: string; minWidth: number } {\n  const tiers = Object.keys(STANDARD_BREAKPOINTS) as (keyof typeof STANDARD_BREAKPOINTS)[];\n  let matchedTier = 'base';\n  let matchedWidth = 0;\n\n  for (const tier of tiers) {\n    if (width >= STANDARD_BREAKPOINTS[tier]) {\n      matchedTier = tier;\n      matchedWidth = STANDARD_BREAKPOINTS[tier];\n    }\n  }\n\n  return { tier: matchedTier, minWidth: matchedWidth };\n}\n\nconst sampleWidths = [414, 680, 820, 1100, 1350, 1920];\nconsole.log('=== STANDARD BREAKPOINT TIER CLASSIFICATION ===');\nfor (const w of sampleWidths) {\n  const res = classifyViewport(w);\n  console.log('Viewport ' + w + 'px -> Breakpoint [' + res.tier + '] (min-width: ' + res.minWidth + 'px)');\n}",
@@ -4379,11 +4410,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which breakpoint tier corresponds to 1024px in the standard enterprise scale?",
           "options": [
-            "lg",
             "md",
+            "lg",
             "sm"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "1024px is the canonical 'lg' breakpoint representing standard desktop and landscape tablet screens."
         }
       },
@@ -4418,11 +4449,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do modern CSS Range Media Queries prevent breakpoint overlap bugs?",
           "options": [
-            "By using strict mathematical relational operators (width < 768px vs width >= 768px) ensuring mutual exclusivity",
+            "By disabling CSS caching",
             "By converting pixels to rems automatically",
-            "By disabling CSS caching"
+            "By using strict mathematical relational operators (width < 768px vs width >= 768px) ensuring mutual exclusivity"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Relational operators (< and >=) are mutually exclusive, eliminating collisions at integer boundaries."
         }
       },
@@ -4473,6 +4504,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "To accomplish this, design systems implement a centralized Responsive Token Resolver.",
           "The resolver acts as a state machine that observes window resize events (or container dimensions) and updates active token aliases in real time.",
           "Centralizing responsive token resolution prevents visual fragmentation and allows designers to calibrate spatial ramps globally.",
+          "Design system architects document prop contracts to establish unambiguous component boundaries.",
           "Let us build a responsive token state machine."
         ],
         "example": "A hotel conference room: the event planner orders small 4-person tables for small breakout sessions, medium 8-person tables for workshops, and grand banquet tables for the keynote dinner.",
@@ -4492,11 +4524,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of binding components to responsive token maps rather than hardcoded pixel media queries?",
           "options": [
-            "It centralizes spatial and typographic scales, allowing system-wide responsive adjustments from a single source of truth",
             "It reduces CSS bundle size by 99%",
+            "It centralizes spatial and typographic scales, allowing system-wide responsive adjustments from a single source of truth",
             "It turns off responsive media queries"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Centralized responsive tokens guarantee consistent spatial scaling across all components without ad-hoc magic numbers."
         }
       },
@@ -4508,6 +4540,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "This engine takes any arbitrary viewport width and hardware capability profile.",
           "It determines the active breakpoint tier, verifies boundary exclusivity, computes responsive spatial tokens, and configures touch target ergonomics.",
           "This engine forms the core architectural backbone of responsive layout engines in enterprise design systems.",
+          "Declarative styling models reduce maintenance overhead across growing engineering teams.",
+          "Visual regression testing suites guard against unexpected cascade side effects in production.",
           "Let us run the Breakpoint Engine synthesis."
         ],
         "example": "An intelligent air traffic management radar: continuously tracking approaching aircraft speed, altitude, and wingspan to assign optimal runways and taxiway routes.",
@@ -4527,11 +4561,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Breakpoint Engine adapt touch targets for a 768px iPad compared to a 1440px desktop?",
           "options": [
-            "It assigns 44px touch targets to the iPad due to coarse pointer, and 32px to the desktop with fine pointer",
+            "It sets touch targets to 100px on all devices",
             "It hides all buttons on the iPad",
-            "It sets touch targets to 100px on all devices"
+            "It assigns 44px touch targets to the iPad due to coarse pointer, and 32px to the desktop with fine pointer"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The engine pairs viewport width with pointer capabilities, enforcing 44px WCAG touch targets on touchscreens."
         }
       }
@@ -4539,7 +4573,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "The Mobile-First paradigm establishes base CSS styles for mobile and progressively enhances via 'min-width' queries.",
       "The standard breakpoint scale provides 5 canonical tiers: sm (640px), md (768px), lg (1024px), xl (1280px), and 2xl (1536px).",
-      "Modern CSS range syntax ('width >= 768px') eliminates boundary collisions, while '@media (hover: hover)' tailors touch ergonomics."
+      "Modern CSS range syntax ('width >= 768px') eliminates boundary collisions, while '@media (hover: hover)' tailors touch ergonomics.",
+      "Mobile-first media query breakpoints ensure optimal performance on handheld devices before scaling up.",
+      "Standardized viewport tiers prevent inconsistent breakpoint fragmentation across engineering teams."
     ],
     "projectStep": {
       "title": "Construct Enterprise Breakpoint System",
@@ -4628,11 +4664,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do viewport media queries fail when responsive components are placed in narrow sidebars on desktop screens?",
           "options": [
-            "Because the viewport query checks the global browser window width rather than the component's actual parent container width",
             "Because sidebars disable CSS styles",
+            "Because the viewport query checks the global browser window width rather than the component's actual parent container width",
             "Because desktop monitors cannot render flexbox"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Viewport queries inspect the browser window (1440px), triggering desktop layouts inside narrow 300px containers."
         }
       },
@@ -4665,11 +4701,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which CSS property declares an element as a queryable container along its horizontal axis?",
           "options": [
-            "container-type: inline-size",
+            "overflow: query",
             "display: container",
-            "overflow: query"
+            "container-type: inline-size"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "'container-type: inline-size' establishes a containment context that monitors horizontal width."
         }
       },
@@ -4741,11 +4777,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a component resides inside multiple nested containers, which container does an un-named @container query evaluate against?",
           "options": [
-            "The closest queryable ancestor container",
             "The outermost root container",
+            "The closest queryable ancestor container",
             "A random container"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In CSS Container Queries, un-named queries evaluate against the nearest ancestor with a matching container-type."
         }
       },
@@ -4757,6 +4793,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "This engine models intrinsic component responsiveness.",
           "It takes a container dimension and fluid token rules, and computes optimal layout modes, fluid typography values, and padding ramps.",
           "Designing components using container-driven architectures guarantees that your UI library works flawlessly in any layout context across your application.",
+          "Explicit boundary definitions clarify component ownership across multidisciplinary teams.",
+          "Runtime style computations should be minimized to protect framerates during heavy scrolling.",
           "Let us execute the synthesized Container Query Engine."
         ],
         "example": "An adaptable cargo container modular shelving unit: the internal shelving slots, cargo nets, and tool hooks automatically reconfigure depending on whether the container is 10-foot, 20-foot, or 40-foot.",
@@ -4776,11 +4814,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ContainerQueryEngine guarantee intrinsic component responsiveness?",
           "options": [
-            "It evaluates layout mode, fluid typography, and padding strictly against container width rather than global viewport width",
+            "It removes images on mobile",
             "It forces all text to uppercase",
-            "It removes images on mobile"
+            "It evaluates layout mode, fluid typography, and padding strictly against container width rather than global viewport width"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By grounding all calculations in container width, components remain intrinsically responsive regardless of placement."
         }
       }
@@ -4789,7 +4827,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Modern CSS math with 'clamp(min, val, max)' provides fluid scaling without jarring breakpoint jumps.",
       "Viewport media queries break components placed in narrow sidebars; Container Queries solve this by inspecting parent containers.",
       "'container-type: inline-size' and '@container' establish intrinsic responsive boundaries.",
-      "Container query units ('cqw', 'cqi') allow typography and padding to scale harmoniously with component dimensions."
+      "Container query units ('cqw', 'cqi') allow typography and padding to scale harmoniously with component dimensions.",
+      "Container queries decouple component styling from viewport widths, enabling true modular responsiveness."
     ],
     "projectStep": {
       "title": "Build Container Query Component Suite",
@@ -4821,8 +4860,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "4. Loops and Modes: The meta-rules governing duration, repeat cycles, and return to idle state.",
           "Well-engineered micro-interactions build user confidence, reduce cognitive friction, and make digital products feel tactile and alive.",
           "Using physically accurate spring physics and non-linear Bézier easing curves elevates software from looking like a rudimentary document to feeling like a high-performance native application.",
-          "Thoughtful micro-interactions provide subtle physical realism, giving users reassuring feedback that their taps, clicks, and gestures have been registered by the system.",
-          "Let us inspect a state machine modeling the 4-phase micro-interaction lifecycle."
+          "Thoughtful micro-interactions provide subtle physical realism, giving users reassuring feedback that their taps, clicks, and gestures have been registered by the system."
         ],
         "example": "A physical light switch: flipping the toggle (Trigger) activates internal copper contacts (Rules), the bedroom ceiling lamp turns on (Feedback), and the switch remains securely locked in the ON position (Loop/Mode).",
         "code": "type InteractionPhase = 'idle' | 'triggered' | 'animating' | 'settled';\n\ninterface MicroInteractionState {\n  componentId: string;\n  phase: InteractionPhase;\n  progressPercent: number;\n  feedbackGiven: boolean;\n}\n\nclass MicroInteractionStateMachine {\n  private state: MicroInteractionState;\n\n  constructor(id: string) {\n    this.state = { componentId: id, phase: 'idle', progressPercent: 0, feedbackGiven: false };\n  }\n\n  public trigger(): void {\n    if (this.state.phase === 'idle') {\n      this.state.phase = 'triggered';\n      this.state.progressPercent = 10;\n    }\n  }\n\n  public animate(progress: number): void {\n    if (this.state.phase === 'triggered' || this.state.phase === 'animating') {\n      this.state.phase = 'animating';\n      this.state.progressPercent = Math.min(100, progress);\n      if (progress >= 50 && !this.state.feedbackGiven) {\n        this.state.feedbackGiven = true;\n      }\n    }\n  }\n\n  public settle(): void {\n    this.state.phase = 'settled';\n    this.state.progressPercent = 100;\n  }\n\n  public getState(): MicroInteractionState {\n    return { ...this.state };\n  }\n}\n\nconst toggle = new MicroInteractionStateMachine('favorite-heart-button');\nconsole.log('=== MICRO-INTERACTION 4-PHASE LIFECYCLE ===');\nconsole.log('Initial: ' + toggle.getState().phase);\ntoggle.trigger();\nconsole.log('After Trigger: ' + toggle.getState().phase + ' (' + toggle.getState().progressPercent + '%)');\ntoggle.animate(65);\nconsole.log('During Animation: ' + toggle.getState().phase + ' (Feedback given: ' + toggle.getState().feedbackGiven + ')');\ntoggle.settle();\nconsole.log('Settled: ' + toggle.getState().phase + ' (' + toggle.getState().progressPercent + '%)');",
@@ -4878,11 +4916,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do cubic-bézier curves achieve spring-like overshoot animations in CSS?",
           "options": [
-            "By setting the y1 or y2 control point coordinates greater than 1.0",
             "By writing JavaScript while loops",
+            "By setting the y1 or y2 control point coordinates greater than 1.0",
             "By setting negative animation durations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When y1 or y2 exceeds 1.0, the output progress surpasses 100% before returning to 1.0, creating an overshoot bounce."
         }
       },
@@ -4895,6 +4933,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "3. Accelerate Easing ('cubic-bezier(0.4, 0.0, 1, 1)'): Elements leaving the screen (dismissing an alert, closing a drawer). They start slowly and accelerate offscreen at peak speed.",
           "4. Spring Overshoot ('cubic-bezier(0.34, 1.56, 0.64, 1)'): Playful interactive accents (toggling a like button, expanding an accordion indicator).",
           "Never mix random easings across your application. Every motion curve must communicate physical purpose.",
+          "Accessible semantic elements convey meaningful role hierarchies to assistive screen readers.",
           "Let us build an easing token registry."
         ],
         "example": "Vehicles on a highway: a car merging onto the expressway enters at speed (decelerate), while a car taking an exit ramp accelerates off into the turnoff (accelerate).",
@@ -4914,11 +4953,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which easing curve should be used when an element enters the visible screen from outside?",
           "options": [
-            "Decelerate curve (cubic-bezier(0, 0, 0.2, 1))",
+            "Linear curve",
             "Accelerate curve (cubic-bezier(0.4, 0, 1, 1))",
-            "Linear curve"
+            "Decelerate curve (cubic-bezier(0, 0, 0.2, 1))"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Incoming elements should enter at speed and decelerate into their final resting place."
         }
       },
@@ -4990,11 +5029,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended duration range for subtle micro-interactions like button presses and checkbox ticks?",
           "options": [
-            "150ms to 200ms",
             "1000ms to 2000ms",
+            "150ms to 200ms",
             "500ms to 800ms"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Micro-interactions must feel instantaneous and snappy, ideally completing in 150ms to 200ms."
         }
       },
@@ -5005,6 +5044,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Now, let us synthesize these concepts into a production engine: the 'MotionEngine'.",
           "This engine takes a component interaction declaration, verifies that all animated properties are GPU hardware-accelerated, selects the optimal easing curve token, computes duration scaling, and outputs ready-to-use CSS transition rules.",
           "Engineered motion transforms enterprise interfaces from mechanical software utilities into fluid, tactile experiences.",
+          "Carefully structured DOM hierarchies prevent unnecessary layout thrashing in client browsers.",
+          "Design token aliases decouple semantic intent from underlying hexadecimal raw color values.",
+          "Responsive design systems prioritize flexible container behavior over rigid viewport assumptions.",
           "Let us execute the synthesized Motion Engine."
         ],
         "example": "A motion picture special effects supervisor: coordinating lighting, camera dolly tracks, stunt rigging, and pyrotechnics so that every on-screen action flows with cinematic precision.",
@@ -5024,11 +5066,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Motion Engine reject transitions that attempt to animate properties other than transform and opacity?",
           "options": [
-            "Because non-GPU properties trigger expensive layout reflows, causing stuttering and frame drops below 60fps",
+            "To restrict developer creativity",
             "Because other properties are deleted by JavaScript",
-            "To restrict developer creativity"
+            "Because non-GPU properties trigger expensive layout reflows, causing stuttering and frame drops below 60fps"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Enforcing GPU-only properties guarantees that animations run on the compositor thread without layout thrashing."
         }
       }
@@ -5037,7 +5079,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Micro-interactions follow the 4-phase model: Trigger, Rules, Feedback, and Loops/Modes.",
       "Cubic-Bézier curves parameterize timing velocity; setting y > 1.0 creates natural physical spring overshoot.",
       "Always animate GPU-accelerated 'transform' and 'opacity' to achieve 60fps and prevent layout thrashing.",
-      "Scale durations from 150ms (micro) to 300ms (macro) and use staggered choreography for multi-item reveals."
+      "Scale durations from 150ms (micro) to 300ms (macro) and use staggered choreography for multi-item reveals.",
+      "Bézier curves and spring physics produce natural, physically grounded motion in micro-interactions."
     ],
     "projectStep": {
       "title": "Implement Motion & Micro-Interaction System",
@@ -5126,11 +5169,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Flexbox verification gate prove layout precision?",
           "options": [
-            "By asserting that the sum of computed item widths plus inter-item gaps matches container width exactly with zero drift",
             "By taking a visual screenshot",
+            "By asserting that the sum of computed item widths plus inter-item gaps matches container width exactly with zero drift",
             "By restarting the web browser"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Mathematical verification confirms that free space distribution formulas account for 100% of container pixels without overflow or underflow."
         }
       },
@@ -5164,11 +5207,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 1 column permitted to render at 375px even though minColWidth is 280px?",
           "options": [
-            "Because 1 column consumes 100% of the available 375px container with 1fr expansion",
+            "Because 375 is less than 280",
             "Because mobile devices disable CSS minmax",
-            "Because 375 is less than 280"
+            "Because 1 column consumes 100% of the available 375px container with 1fr expansion"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "With only 1 column fitting, '1fr' stretches the track to consume the entire 375px container width."
         }
       },
@@ -5240,11 +5283,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must animations strictly avoid properties like width, height, and top in design system components?",
           "options": [
-            "Because they trigger CPU layout recalculation (Reflow) on every frame, causing dropped frames below 60fps",
             "Because modern browsers have deleted those properties",
+            "Because they trigger CPU layout recalculation (Reflow) on every frame, causing dropped frames below 60fps",
             "Because CSS does not allow numbers in width"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Geometrical property changes trigger layout reflow across the DOM tree, causing stutter and battery drain."
         }
       },
@@ -5279,11 +5322,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Milestone 3 Architecture Certification confirm about the design system?",
           "options": [
-            "It confirms that our 1D Flexbox, 2D Grid, responsive breakpoint, and GPU motion subsystems meet enterprise standards",
+            "It automatically writes marketing copy",
             "It verifies that database queries run in under 1ms",
-            "It automatically writes marketing copy"
+            "It confirms that our 1D Flexbox, 2D Grid, responsive breakpoint, and GPU motion subsystems meet enterprise standards"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Milestone 3 certification validates that all responsive layout and interaction motion mechanics are mathematically sound and production-ready."
         }
       }
@@ -5292,7 +5335,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Milestone 3 validates and unifies Flexbox math, CSS Grid auto-fit, responsive breakpoints, and GPU motion.",
       "Flexbox free space distribution and native gap hygiene eliminate layout shift and pixel rounding drift.",
       "Fluid 'repeat(auto-fit, minmax(280px, 1fr))' delivers seamless multi-column responsiveness without media queries.",
-      "GPU-accelerated 'transform' and 'opacity' transitions with cubic-bézier spring curves guarantee 60fps interaction delight."
+      "GPU-accelerated 'transform' and 'opacity' transitions with cubic-bézier spring curves guarantee 60fps interaction delight.",
+      "Milestone 3 proved that modern CSS math and fluid layout engines deliver flawless multi-device responsiveness."
     ],
     "projectStep": {
       "title": "Synthesize Milestone 3 Layout & Motion Suite",
@@ -5379,11 +5423,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an enterprise design system, what should happen when a user's theme preference is set to 'system'?",
           "options": [
-            "The active theme automatically follows the operating system's prefers-color-scheme media query",
             "The application permanently locks into light mode",
+            "The active theme automatically follows the operating system's prefers-color-scheme media query",
             "The browser prompts the user with an alert dialog"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "'system' mode observes the browser's prefers-color-scheme media query and updates theme reactively."
         }
       },
@@ -5417,11 +5461,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the theme initialization script run synchronously in the <head> rather than inside a React useEffect hook?",
           "options": [
-            "Because useEffect runs after the initial DOM paint, causing an eye-straining white flash (FOUT) before dark mode applies",
+            "Because localStorage is unavailable in React",
             "Because React does not support dark mode",
-            "Because localStorage is unavailable in React"
+            "Because useEffect runs after the initial DOM paint, causing an eye-straining white flash (FOUT) before dark mode applies"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Pre-hydration scripts execute before the initial paint, applying the dark theme attribute with zero visual flicker."
         }
       },
@@ -5475,11 +5519,12 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Desaturating lowers color intensity and raises perceived luminance, ensuring comfortable contrast without blinding the user.",
           "Furthermore, standard body text in dark mode should never be pure white ('#ffffff'). Pure white text on pure black creates harsh chromatic aberration for users with astigmatism.",
           "Instead, high-emphasis text should use an off-white tint ('#f1f5f9' or 87% opacity), and medium-emphasis text should use 60% opacity ('#94a3b8').",
+          "Interactive focus indicators must maintain high visibility to support power keyboard navigators.",
           "Let us inspect accent desaturation and contrast calibration."
         ],
         "example": "A theater usher's flashlight: in a bright lobby, the usher uses a standard flashlight; inside the darkened auditorium, they use a soft, diffused amber lens to avoid blinding patrons.",
-        "code": "interface BrandAccentColor {\n  mode: 'light' | 'dark';\n  hex: string;\n  saturation: number;\n  contrastOnBackground: string;\n}\n\nconst brandPalette: Record<'light' | 'dark', BrandAccentColor> = {\n  light: {\n    mode: 'light',\n    hex: '#2563eb', // Saturated Royal Blue\n    saturation: 85,\n    contrastOnBackground: '5.4:1 on #ffffff',\n  },\n  dark: {\n    mode: 'dark',\n    hex: '#60a5fa', // Desaturated Light Sky Blue\n    saturation: 60,\n    contrastOnBackground: '6.8:1 on #0f172a',\n  },\n};\n\nconsole.log('=== BRAND ACCENT DESATURATION IN DARK THEMES ===');\nconsole.log('Light Mode Primary: ' + brandPalette.light.hex + ' (' + brandPalette.light.saturation + '% sat) -> ' + brandPalette.light.contrastOnBackground);\nconsole.log('Dark Mode Primary : ' + brandPalette.dark.hex + ' (' + brandPalette.dark.saturation + '% sat) -> ' + brandPalette.dark.contrastOnBackground);\nconsole.log('Visual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.');",
-        "output": "=== BRAND ACCENT DESATURATION IN DARK THEMES ===\nLight Mode Primary: #2563eb (85% sat) -> 5.4:1 on #ffffff\nDark Mode Primary : #60a5fa (60% sat) -> 6.8:1 on #0f172a\nVisual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.",
+        "code": "function getLuminance(hex: string): number {\n  const r = parseInt(hex.slice(1, 3), 16) / 255;\n  const g = parseInt(hex.slice(3, 5), 16) / 255;\n  const b = parseInt(hex.slice(5, 7), 16) / 255;\n  const a = [r, g, b].map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));\n  return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];\n}\n\nfunction calculateContrastRatio(hex1: string, hex2: string): string {\n  const l1 = getLuminance(hex1);\n  const l2 = getLuminance(hex2);\n  const lighter = Math.max(l1, l2);\n  const darker = Math.min(l1, l2);\n  const ratio = (lighter + 0.05) / (darker + 0.05);\n  return ratio.toFixed(2) + ':1';\n}\n\ninterface BrandAccentColor {\n  mode: 'light' | 'dark';\n  hex: string;\n  bgHex: string;\n  saturation: number;\n}\n\nconst brandPalette: Record<'light' | 'dark', BrandAccentColor> = {\n  light: {\n    mode: 'light',\n    hex: '#2563eb', // Saturated Royal Blue\n    bgHex: '#ffffff',\n    saturation: 85,\n  },\n  dark: {\n    mode: 'dark',\n    hex: '#60a5fa', // Desaturated Light Sky Blue\n    bgHex: '#0f172a',\n    saturation: 60,\n  },\n};\n\nconst lightContrast = calculateContrastRatio(brandPalette.light.hex, brandPalette.light.bgHex);\nconst darkContrast = calculateContrastRatio(brandPalette.dark.hex, brandPalette.dark.bgHex);\n\nconsole.log('=== BRAND ACCENT DESATURATION IN DARK THEMES ===');\nconsole.log('Light Mode Primary: ' + brandPalette.light.hex + ' (' + brandPalette.light.saturation + '% sat) -> ' + lightContrast + ' on ' + brandPalette.light.bgHex);\nconsole.log('Dark Mode Primary : ' + brandPalette.dark.hex + ' (' + brandPalette.dark.saturation + '% sat) -> ' + darkContrast + ' on ' + brandPalette.dark.bgHex);\nconsole.log('Visual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.');",
+        "output": "=== BRAND ACCENT DESATURATION IN DARK THEMES ===\nLight Mode Primary: #2563eb (85% sat) -> 5.17:1 on #ffffff\nDark Mode Primary : #60a5fa (60% sat) -> 7.02:1 on #0f172a\nVisual Ergonomics : Desaturated accent prevents optical vibration on dark surfaces.",
         "codeNotes": [
           {
             "line": 8,
@@ -5494,11 +5539,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should saturated brand colors be slightly desaturated and lightened when used in dark themes?",
           "options": [
-            "To prevent optical vibration, visual glare, and chromatic halos against dark backgrounds while maintaining contrast",
             "Because dark monitors cannot display saturated colors",
+            "To prevent optical vibration, visual glare, and chromatic halos against dark backgrounds while maintaining contrast",
             "To save monitor electrical energy"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Desaturating brand accents prevents optical vibration and ensures comfortable readability against dark surfaces."
         }
       },
@@ -5509,6 +5554,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Now, let us synthesize these concepts into a production engine: the 'ThemeEngine'.",
           "This engine manages theme preference persistence, calculates surface elevation ramps, resolves active semantic token mappings, and guarantees zero visual flicker.",
           "Building a rock-solid theme engine ensures that your design system offers equal visual beauty and accessibility whether users prefer blinding sunlight or pitch-black night.",
+          "Component variants encapsulate visual differences without fragmenting the underlying markup model.",
+          "Strict spacing scales eliminate arbitrary pixel values from modern enterprise stylesheets.",
+          "Systematic design decisions build trust by presenting a cohesive visual aesthetic to users.",
           "Let us execute the synthesized Theme Engine."
         ],
         "example": "A luxury automotive digital cockpit: seamlessly transitioning instrument cluster dials, ambient ambient LED lighting, and GPS navigation maps between daytime and tunnel modes.",
@@ -5528,11 +5576,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ThemeEngine guarantee consistent enterprise visual ergonomics?",
           "options": [
-            "By coordinating CSS custom properties, pre-hydration execution, dark surface elevation tints, and desaturated accents",
+            "By forcing all users to use dark mode",
             "By inverting image pixels automatically",
-            "By forcing all users to use dark mode"
+            "By coordinating CSS custom properties, pre-hydration execution, dark surface elevation tints, and desaturated accents"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The engine unifies token cascading, OS synchronization, elevation math, and accessible contrast into a single reliable subsystem."
         }
       }
@@ -5541,7 +5589,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "CSS Custom Properties enable instant, zero-re-render theme switching through the native CSS cascade.",
       "The 3-state model ('system', 'light', 'dark') synchronizes with '@media (prefers-color-scheme)' while honoring overrides.",
       "Inline pre-hydration scripts in '<head>' eliminate Flash of Unstyled Theme (FOUT) before the initial paint.",
-      "Dark themes communicate elevation using semi-transparent white overlays and prevent glare with desaturated brand accents."
+      "Dark themes communicate elevation using semi-transparent white overlays and prevent glare with desaturated brand accents.",
+      "Dark theme implementations preserve optical contrast while preventing visual vibration with desaturated colors."
     ],
     "projectStep": {
       "title": "Build Multi-Theme Architecture",
@@ -5608,6 +5657,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Why is '0.05' added to both terms? That constant represents ambient flare: light reflected off the surface of the computer monitor into the user's eyes.",
           "The resulting ratio ranges from a minimum of '1:1' (two identical colors) to a maximum of '21:1' (pure black against pure white).",
           "Every text color, button label, icon, and form border in your design system must be validated against this formula.",
+          "Fluid clamp functions harmonize typographic scale transitions across diverse screen dimensions.",
           "Let us implement the W3C contrast ratio calculator."
         ],
         "example": "A road sign at night: black painted letters on a white reflective background achieve maximum contrast (21:1), while yellow text on white reflection is nearly invisible.",
@@ -5627,11 +5677,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the theoretical maximum contrast ratio achievable between any two colors under WCAG math?",
           "options": [
-            "21:1 (pure black on pure white)",
             "100:1",
+            "21:1 (pure black on pure white)",
             "10:1"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "L1=1.0 and L2=0.0 yields (1.0 + 0.05) / (0.0 + 0.05) = 1.05 / 0.05 = 21:1 exactly."
         }
       },
@@ -5666,11 +5716,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What minimum contrast ratio is required for standard body text to pass WCAG 2.2 Level AA?",
           "options": [
-            "4.5:1",
+            "7.0:1",
             "3.0:1",
-            "7.0:1"
+            "4.5:1"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "WCAG 2.2 Level AA requires at least 4.5:1 contrast for normal body text under 18pt."
         }
       },
@@ -5742,11 +5792,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the next-generation APCA model improve upon legacy WCAG 2.2 contrast math?",
           "options": [
-            "It accounts for spatial frequency, font size/weight, and human retinal perceptual asymmetry between light and dark backgrounds",
             "It turns off contrast checking on mobile devices",
+            "It accounts for spatial frequency, font size/weight, and human retinal perceptual asymmetry between light and dark backgrounds",
             "It automatically increases font size in CSS"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "APCA models actual human vision non-linearities, linking required contrast directly to font size and weight."
         }
       },
@@ -5758,6 +5808,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "This engine audits design token pairs across our entire design system.",
           "It takes an array of foreground and background token definitions, calculates exact relative luminance and contrast ratios, checks AA/AAA compliance, and flags any potential violations.",
           "Automating accessibility contract verification guarantees that our products maintain legally compliant 4.5:1 contrast across all themes.",
+          "Elevation tokens standardize z-index stacking layers to prevent accidental overlay conflicts.",
+          "Atomic design principles encourage engineers to compose complex views from battle-tested atoms.",
           "Let us execute the synthesized Accessibility Contrast Engine."
         ],
         "example": "A pharmaceutical quality assurance laboratory: automated spectrometers assay every batch of medicine vials to certify chemical purity and safety before packaging.",
@@ -5777,11 +5829,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ContrastEngine protect the design system from accessibility lawsuits?",
           "options": [
-            "By mathematically verifying that all text and background token pairs achieve at least 4.5:1 WCAG AA contrast",
+            "By removing text from the UI",
             "By filing legal patents",
-            "By removing text from the UI"
+            "By mathematically verifying that all text and background token pairs achieve at least 4.5:1 WCAG AA contrast"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Automating contrast checks guarantees that no component ships with inaccessible, legally non-compliant color pairings."
         }
       }
@@ -5790,7 +5842,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "WCAG 2.2 Relative Luminance models human retinal sensitivity: green dominates with 71.52% weighting.",
       "The Contrast Ratio formula '(L1 + 0.05) / (L2 + 0.05)' accounts for ambient monitor flare.",
       "Level AA mandates 4.5:1 for normal body text and 3:1 for large text and UI component borders.",
-      "WCAG 1.4.1 mandates secondary visual cues (icons, text) alongside color changes to accommodate color-blind users."
+      "WCAG 1.4.1 mandates secondary visual cues (icons, text) alongside color changes to accommodate color-blind users.",
+      "WCAG 2.2 AA standards mandate a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text."
     ],
     "projectStep": {
       "title": "Implement Automated Contrast Auditing",
@@ -5878,11 +5931,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Roving Tabindex pattern, how does a keyboard user navigate between items within the widget?",
           "options": [
-            "Using Arrow Keys (ArrowLeft, ArrowRight, ArrowUp, ArrowDown)",
             "Using the Tab key repeatedly",
+            "Using Arrow Keys (ArrowLeft, ArrowRight, ArrowUp, ArrowDown)",
             "Using the Escape key"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Tab enters and exits the widget; Arrow keys navigate between items within the composite widget."
         }
       },
@@ -5915,11 +5968,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must happen when a keyboard user presses Tab while focused on the last element of a modal dialog?",
           "options": [
-            "Focus must wrap around to the first focusable element inside the modal",
+            "The modal must close automatically",
             "Focus must escape into the browser address bar",
-            "The modal must close automatically"
+            "Focus must wrap around to the first focusable element inside the modal"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Focus trapping keeps focus circulating within the modal, preventing hidden background navigation."
         }
       },
@@ -5990,11 +6043,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should the 'Skip to main content' link be placed in the HTML structure?",
           "options": [
-            "As the very first focusable element inside the <body> tag",
             "At the bottom of the footer",
+            "As the very first focusable element inside the <body> tag",
             "Inside the sidebar navigation"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "It must be the first focusable element so keyboard users encounter it on their very first Tab press."
         }
       },
@@ -6005,6 +6058,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Now, let us synthesize these concepts into a production engine: the 'KeyboardFocusEngine'.",
           "This engine manages keyboard navigation state, coordinates composite widget arrow keys, traps modal overlays, and audits focus ring visibility.",
           "Building a unified focus engine guarantees that every interactive component in your design system is a first-class citizen for keyboard and assistive navigators.",
+          "Accessible form controls link labels and error messaging through programmatic ARIA associations.",
+          "Modal dialogs require robust focus management to prevent keyboard traps during interaction.",
+          "Floating popover components calculate boundary collisions to remain entirely within the viewport.",
           "Let us execute the synthesized Keyboard Focus Engine."
         ],
         "example": "A precision flight director computer: routing autopilot inputs, tactile yoke switches, and rudder pedal linkages to smoothly steer the aircraft through all flight phases.",
@@ -6024,11 +6080,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the KeyboardFocusEngine enhance enterprise design system accessibility?",
           "options": [
-            "It unifies skip links, roving tabindex, modal traps, and focus visible indicators into a single coordinated system",
+            "It removes keyboard shortcuts",
             "It converts keyboard presses into audio tones",
-            "It removes keyboard shortcuts"
+            "It unifies skip links, roving tabindex, modal traps, and focus visible indicators into a single coordinated system"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The engine guarantees that all keyboard navigation workflows operate predictably across all components."
         }
       }
@@ -6070,11 +6126,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "4. Native Form Attributes: 'alt' for '<img>', or '<label>' element bound via 'for' / 'id'.",
           "5. 'placeholder' or 'title': Lowest precedence fallback.",
           "Understanding this precedence hierarchy prevents conflicting attributes from garbling screen reader output.",
-          "When developers mistakenly add redundant aria-label attributes to native buttons with visible text, they risk overriding carefully crafted localized copy.",
-          "A truly accessible design system constructs an intentional, unambiguous accessibility tree parallel to the visual DOM, ensuring every user enjoys equal access.",
-          "This auditory user interface must be tested with real screen readers (NVDA, JAWS, VoiceOver) to confirm that announcements are concise, natural, and helpful.",
-          "Eliminating auditory clutter empowers assistive technology users to navigate enterprise applications with equal speed and dignity.",
-          "Let us inspect the accessible name computation algorithm."
+          "When developers mistakenly add redundant aria-label attributes to native buttons with visible text, they risk overriding carefully crafted localized copy."
         ],
         "example": "A shipping crate label: if an official customs clearance manifest (aria-labelledby) is pasted onto the box, inspectors read that first; if absent, they read the stenciled spray-paint stencil (aria-label).",
         "code": "interface AccessibleElement {\n  id: string;\n  tag: string;\n  ariaLabelledBy?: string;\n  ariaLabel?: string;\n  innerText?: string;\n  altText?: string;\n  title?: string;\n}\n\nfunction computeAccessibleName(el: AccessibleElement, idMap: Record<string, string>): string {\n  // 1. aria-labelledby\n  if (el.ariaLabelledBy && idMap[el.ariaLabelledBy]) {\n    return idMap[el.ariaLabelledBy];\n  }\n  // 2. aria-label\n  if (el.ariaLabel) {\n    return el.ariaLabel;\n  }\n  // 3. innerText\n  if (el.innerText && el.innerText.trim().length > 0) {\n    return el.innerText.trim();\n  }\n  // 4. alt\n  if (el.altText) {\n    return el.altText;\n  }\n  // 5. title fallback\n  if (el.title) {\n    return el.title;\n  }\n  return '';\n}\n\nconst idLookup = {\n  'billing-heading': 'Billing Address & Payment Details',\n};\n\nconst button1: AccessibleElement = { id: 'btn-1', tag: 'button', ariaLabel: 'Close Dialog', innerText: 'X' };\nconst button2: AccessibleElement = { id: 'btn-2', tag: 'button', ariaLabelledBy: 'billing-heading', ariaLabel: 'Checkout', innerText: 'Pay Now' };\n\nconsole.log('=== W3C ACCESSIBLE NAME COMPUTATION ===');\nconsole.log('Button 1 (aria-label \"Close Dialog\" vs innerText \"X\"): \"' + computeAccessibleName(button1, idLookup) + '\"');\nconsole.log('Button 2 (aria-labelledby takes precedence over aria-label and text): \"' + computeAccessibleName(button2, idLookup) + '\"');",
@@ -6110,6 +6162,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "3. 'aria-describedby': Use to attach secondary supplementary information (e.g. form helper hints, password requirement guidelines, or error messages).",
           "A screen reader announces the accessible name first, pauses, and then announces the description.",
           "Never put critical labels in 'aria-describedby', and never duplicate identical text in both name and description.",
+          "Custom CSS properties streamline dynamic runtime theming without requiring stylesheet rewrites.",
           "Let us verify proper ARIA attribute mapping in TypeScript."
         ],
         "example": "A passport: your legal name is printed prominently at the top (name / aria-labelledby); your height, eye color, and issuing authority are printed in small helper fields below (description / aria-describedby).",
@@ -6129,11 +6182,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should 'aria-label' be used instead of 'aria-labelledby'?",
           "options": [
-            "When the interactive element has no visible text on screen (such as an icon-only button)",
             "When visible text already exists on screen",
+            "When the interactive element has no visible text on screen (such as an icon-only button)",
             "Never"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "aria-label supplies an invisible accessible name for icon-only controls that lack visible text."
         }
       },
@@ -6166,11 +6219,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when an icon is given aria-hidden=\"true\" inside a button with no visible text and no aria-label?",
           "options": [
-            "The button becomes an unnamable 'empty button' ghost control, severely violating accessibility standards",
+            "The button is deleted from the page",
             "The browser invents a name automatically",
-            "The button is deleted from the page"
+            "The button becomes an unnamable 'empty button' ghost control, severely violating accessibility standards"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Hiding the icon without labeling the button leaves the button with an empty accessible name."
         }
       },
@@ -6221,6 +6274,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Writing '<div role=\"button\" tabindex=\"0\" onclick=\"...\">' requires you to manually reimplement Space and Enter key handlers, disabled states, and focus styling.",
           "Furthermore, redundant ARIA—like '<button role=\"button\">' or '<nav role=\"navigation\">'—clutters markup and can confuse older screen readers.",
           "Use native semantic HTML elements first. Add ARIA only when native HTML primitives cannot express the specialized component behavior.",
+          "High-contrast themes protect readability under intense ambient lighting and accessibility audits.",
           "Let us build an ARIA linter to catch redundant and invalid ARIA roles."
         ],
         "example": "A manufactured hammer: buying a forged steel hammer from the hardware store (native HTML) versus attempting to glue a river rock to a tree branch with duct tape (custom div with role).",
@@ -6240,11 +6294,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the First Rule of ARIA according to the W3C?",
           "options": [
-            "Use native HTML elements with built-in semantics rather than creating custom elements with ARIA roles",
             "Every HTML tag must have an ARIA role",
+            "Use native HTML elements with built-in semantics rather than creating custom elements with ARIA roles",
             "Never use semantic HTML"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Native HTML elements provide built-in accessibility, keyboard handling, and screen reader compatibility."
         }
       },
@@ -6255,6 +6309,9 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Now, let us synthesize these concepts into a production engine: the 'AriaAuditEngine'.",
           "This engine audits component definitions across our design system, verifying that all interactive elements have valid accessible names, that icons are hidden, and that states synchronize seamlessly.",
           "Automating screen reader validation ensures that our digital products speak with clarity, dignity, and precision for all users.",
+          "CSS Grid areas enable expressive two-dimensional layout compositions with minimal HTML clutter.",
+          "Flexbox alignment properties resolve one-dimensional item distribution with mathematical precision.",
+          "Reduced motion media queries respect user operating system preferences for gentle transitions.",
           "Let us execute the synthesized Screen Reader Audit Engine."
         ],
         "example": "A broadcast radio station master audio console: sound engineers monitor decibel levels, speech clarity, and noise gates so every voice is broadcast with crystal clarity across the airwaves.",
@@ -6274,11 +6331,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the AriaAuditEngine guarantee a high-quality auditory interface for screen reader users?",
           "options": [
-            "By ensuring all components have accessible names, hidden decorative icons, and synchronized dynamic states",
+            "By reading source code comments",
             "By synthesizing speech using Web Audio API",
-            "By reading source code comments"
+            "By ensuring all components have accessible names, hidden decorative icons, and synchronized dynamic states"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Validating names, icon hiding, and state attributes guarantees clear, uncluttered screen reader announcements."
         }
       }
@@ -6342,7 +6399,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does the SVG attribute viewBox='0 0 24 24' define?",
           "options": [
             "It defines an internal 24x24 unit coordinate system that scales dynamically to match the container's CSS width and height",
-            "It forces the SVG element to permanently render at exactly 24 CSS pixels regardless of parent styling",
             "It restricts the SVG to only display 24 vector path elements simultaneously",
             "It sets the screen DPI resolution to 24 dots per inch for retina displays"
           ],
@@ -6383,12 +6439,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should SVG icon definitions use fill='currentColor' instead of hardcoded hex colors?",
           "options": [
-            "It allows the icon to automatically inherit the parent element's CSS text color token across themes and states",
-            "It prevents web crawlers from indexing SVG graphics as photographic content",
             "It compresses the SVG file size by over 90% in gzip compression algorithms",
+            "It allows the icon to automatically inherit the parent element's CSS text color token across themes and states",
             "It instructs the GPU to render the icon at a higher refresh rate of 120Hz"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "currentColor dynamically inherits the computed CSS 'color' of the parent container, enabling seamless theming and state transitions without duplicate assets."
         }
       },
@@ -6427,12 +6482,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should stroke-width scale proportionally across icon sizes (e.g. 1.5px for 16px, 2.0px for 24px)?",
           "options": [
-            "To prevent icons from appearing excessively chunky when small or too spindly and fragile when enlarged",
-            "Because SVG parsers reject vector strokes that do not divide evenly into 8",
+            "Because standard web fonts cannot render adjacent to 2px strokes",
             "To satisfy CSS container query aspect-ratio constraints",
-            "Because standard web fonts cannot render adjacent to 2px strokes"
+            "To prevent icons from appearing excessively chunky when small or too spindly and fragile when enlarged"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Proportional stroke scaling ensures consistent optical weight across display sizes, preventing visual imbalance."
         }
       },
@@ -6471,7 +6525,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary performance advantage of the SVG sprite sheet (<use href='...#id'>) pattern over inline SVGs?",
           "options": [
             "It bundles icons into a single HTTP-cached static file, drastically reducing DOM node overhead and document HTML payload",
-            "It enables SVGs to run WebGL shader programs directly inside the GPU",
             "It eliminates the need for CSS color tokens entirely",
             "It automatically translates icon names into 40 international languages"
           ],
@@ -6512,12 +6565,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an SVG icon be marked with aria-hidden='true'?",
           "options": [
-            "Whenever it is accompanied by an adjacent visible text label describing the same action",
-            "Only when the user's operating system has high contrast mode enabled",
             "Whenever the icon contains more than 10 vector curves",
+            "Whenever it is accompanied by an adjacent visible text label describing the same action",
             "Only on mobile devices with touch screens"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When an icon is accompanied by visible text, it is decorative; hiding it with aria-hidden='true' prevents duplicate screen reader announcements."
         }
       },
@@ -6530,6 +6582,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Allowing unsanitized user-uploaded or external third-party SVGs directly into a production web app introduces severe Stored Cross-Site Scripting (XSS) vulnerabilities.",
           "An enterprise iconography pipeline includes an automated SVGO and security sanitization pass.",
           "The pipeline strips dangerous tags ('<script>', '<foreignObject>', '<iframe>'), removes 'on*' event handlers, eliminates editor metadata, and rounds decimal path coordinates to two decimal places.",
+          "SVG icon systems inherit parent text colors seamlessly through the CSS currentColor keyword.",
           "Let us build an SVG optimization and security sanitizer that purges vulnerabilities and reports payload reduction statistics."
         ],
         "example": "Water purification filtration: raw water passes through sediment traps and ultraviolet sterilization stages before being pumped into residential drinking supplies.",
@@ -6553,12 +6606,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must external or user-provided SVG files undergo security sanitization before rendering in a web app?",
           "options": [
-            "Because SVGs are XML documents capable of executing embedded JavaScript scripts and event handlers (XSS)",
-            "Because uncompressed SVGs can permanently corrupt the user's graphics card drivers",
+            "Because SVG paths can cause buffer overflows in the CSS parser",
             "Because modern browsers refuse to render SVGs that lack an official W3C cryptographic signature",
-            "Because SVG paths can cause buffer overflows in the CSS parser"
+            "Because SVGs are XML documents capable of executing embedded JavaScript scripts and event handlers (XSS)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "SVGs are XML documents that can contain executable <script> tags or inline event handlers (onload, onclick), posing significant XSS risks if not sanitized."
         }
       }
@@ -6568,8 +6620,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Use 'fill=\"currentColor\"' and 'stroke=\"currentColor\"' so icons inherit contextual CSS typography tokens dynamically across themes and states.",
       "Constrain icons to a 4-tier standardized size scale: 16px (sm), 20px (md), 24px (lg), and 32px (xl) with scaled stroke widths.",
       "Optimize network performance and DOM memory with the SVG Sprite Sheet architecture (<symbol> and <use href=\"#id\">).",
-      "Decorate icons with 'aria-hidden=\"true\"' when accompanied by text, or provide explicit accessible names ('aria-label') on standalone icon buttons.",
-      "Sanitize all vector graphics by stripping dangerous <script> tags, inline event handlers, and design tool bloat."
+      "Decorate icons with 'aria-hidden=\"true\"' when accompanied by text, or provide explicit accessible names ('aria-label') on standalone icon buttons."
     ],
     "projectStep": {
       "title": "Build Production Iconography & Sprite Subsystem",
@@ -6623,7 +6674,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the recommended fallback behavior for an animated dialog when prefers-reduced-motion: reduce is active?",
           "options": [
             "Replace large spatial slide and scale transforms with a gentle, rapid opacity cross-fade or instantaneous transition",
-            "Disable dialog opening entirely until the user toggles motion settings",
             "Increase the animation duration to 3000ms so the user can track the movement more slowly",
             "Play an audio tone instead of rendering visual content"
           ],
@@ -6665,12 +6715,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the three valid functional roles of animation in a design system?",
           "options": [
-            "Orientation, Feedback, and Focus Guidance",
-            "Entertainment, Marketing, and Monetization",
             "Distraction, Obfuscation, and Decoration",
+            "Orientation, Feedback, and Focus Guidance",
             "Hardware Acceleration, Resolution Scaling, and Vectorization"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Functional motion serves to orient users in spatial navigation, provide immediate feedback on actions, and guide human focus to critical interface updates."
         }
       },
@@ -6711,12 +6760,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which easing curve should be used for elements entering the viewport (such as an opening dialog)?",
           "options": [
-            "An ease-out (decelerating) curve, so the element appears instantaneously and gently settles into position",
-            "A linear curve, ensuring perfectly constant velocity from start to finish",
+            "A randomized bounce curve with multiple harmonic oscillations",
             "An ease-in (accelerating) curve, so the element starts slowly and speeds up at the end",
-            "A randomized bounce curve with multiple harmonic oscillations"
+            "An ease-out (decelerating) curve, so the element appears instantaneously and gently settles into position"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Entering elements should use ease-out curves so they appear to respond immediately to user action and gently decelerate into place."
         }
       },
@@ -6756,7 +6804,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must staggered list animations cap their total cumulative cascade duration (e.g. at 300ms)?",
           "options": [
             "To prevent deep list items from taking seconds to appear, which frustrates users and blocks immediate interaction",
-            "Because CSS animation-delay cannot accept values greater than 500ms in modern browsers",
             "To prevent the GPU from running out of video RAM",
             "Because screen readers crash if CSS transitions overlap"
           ],
@@ -6773,6 +6820,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "For any moving, blinking, or scrolling information that starts automatically, lasts more than 5 seconds, and is presented in parallel with other content, there MUST be a mechanism for the user to pause, stop, or hide it.",
           "Continuous motion without pause controls severely distracts users with Attention Deficit Hyperactivity Disorder (ADHD), autism, and cognitive disabilities.",
           "In addition, looping animations waste CPU and GPU battery cycles on mobile devices when the browser tab is idle or backgrounded.",
+          "Component documentation tables clarify default prop behaviors for downstream product developers.",
           "Let us build a continuous motion controller that enforces WCAG 2.2.2 compliance, automatically pausing looping animations after a safety threshold or when the page visibility changes."
         ],
         "example": "An airport luggage carousel: the conveyor belt operates during active offloading, but automatically halts when idle or when a safety switch is triggered to prevent unnecessary motor wear.",
@@ -6796,12 +6844,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under WCAG 2.2.2, what is required for an animation that starts automatically and loops continuously for more than 5 seconds?",
           "options": [
-            "The user must be provided with an accessible mechanism to pause, stop, or hide the animation",
-            "The animation must be converted to an animated GIF format",
             "The animation must run exclusively on the GPU compositor thread",
+            "The user must be provided with an accessible mechanism to pause, stop, or hide the animation",
             "The background color of the animation must be set to pure black (#000000)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "WCAG 2.2.2 requires a pause, stop, or hide mechanism for any auto-playing motion lasting longer than 5 seconds to assist users with cognitive and attention disorders."
         }
       },
@@ -6841,12 +6888,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which two CSS properties can be animated strictly on the GPU compositor thread without triggering layout reflow or repaint?",
           "options": [
-            "transform and opacity",
-            "top and left",
+            "margin and padding",
             "width and height",
-            "margin and padding"
+            "transform and opacity"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Only transform and opacity bypass the browser's Layout and Paint phases, allowing the GPU compositor to animate layers smoothly at 60fps."
         }
       }
@@ -6856,10 +6902,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Replace disorienting spatial movement (sliding, zooming) with subtle, rapid opacity cross-fades or zero-duration transitions.",
       "Ensure all animations serve functional roles: Orientation, Feedback, or Focus Guidance, rather than gratuitous ornamentation.",
       "Follow the duration token matrix: 100-150ms for micro-interactions, 200-250ms for macro-transitions, and <= 400ms for complex layouts.",
-      "Use ease-out curves for entering elements and ease-in curves for exiting elements.",
-      "Cap cumulative staggered list animation delays to 300ms, and drop delays to 0ms when reduced motion is requested.",
-      "Enforce WCAG 2.2.2 compliance by providing accessible pause/stop/hide controls for any looping animation lasting over 5 seconds.",
-      "Restrict animated properties strictly to 'transform' and 'opacity' to achieve jank-free 60fps GPU hardware acceleration."
+      "Use ease-out curves for entering elements and ease-in curves for exiting elements."
     ],
     "projectStep": {
       "title": "Build Production Motion Design & Reduced Motion Engine",
@@ -6914,7 +6957,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary advantage of Component Story Format 3 (CSF3) over legacy function-based stories?",
           "options": [
             "Stories are declared as concise plain objects with args, drastically reducing boilerplate and simplifying typing",
-            "CSF3 compiles directly to WebAssembly for 10x faster browser rendering",
             "CSF3 automatically eliminates all CSS files from the repository",
             "CSF3 forces all components to be rendered as static server components"
           ],
@@ -6955,12 +6997,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of Storybook 'argTypes' in component documentation?",
           "options": [
-            "They define the schema, control widgets, and descriptions for props in the interactive documentation table",
-            "They enforce compile-time memory limits on React component fibers",
             "They convert TypeScript interfaces into SQL database migrations",
+            "They define the schema, control widgets, and descriptions for props in the interactive documentation table",
             "They deploy the component library directly to NPM registry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "argTypes define how props are rendered and controlled in Storybook's auto-generated documentation and Controls panel."
         }
       },
@@ -6999,12 +7040,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a Storybook Decorator used for?",
           "options": [
-            "To wrap stories with ambient context providers (e.g. ThemeProvider, Router) or layout padding without modifying component source code",
-            "To automatically generate CSS media queries for mobile devices",
+            "To convert SVG icons into WebP images",
             "To minify JavaScript bundles for production deployment",
-            "To convert SVG icons into WebP images"
+            "To wrap stories with ambient context providers (e.g. ThemeProvider, Router) or layout padding without modifying component source code"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Decorators provide surrounding markup, layout padding, or mock context providers (theming, routing) necessary for isolated component rendering."
         }
       },
@@ -7017,6 +7057,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "A Variant Matrix story renders a 2D grid combining component dimensions (such as 'size: sm | md | lg') along the Y-axis and visual styles (such as 'variant: primary | secondary | destructive') along the X-axis.",
           "Furthermore, it can include rows for interactive states: default, hovered, focused, disabled, and loading spinner.",
           "With a single glance, a designer or engineer can verify alignment, padding consistency, and contrast across 12 to 24 permutations.",
+          "Automated linting rules enforce design token adoption across existing product repositories.",
           "Let us build a matrix generator that computes all combinations of props and produces a unified layout specification."
         ],
         "example": "A paint swatch catalog or color swatch card: home improvement stores don't hand customers one single paint chip at a time; they present complete matrices of hues, saturations, and finishes on a single folding chart.",
@@ -7041,7 +7082,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should design systems author a 'Matrix' or 'AllVariants' story in Storybook?",
           "options": [
             "It displays all size, variant, and state combinations on a single canvas, enabling rapid visual comparison and efficient regression testing",
-            "It automatically optimizes the production bundle size of the component",
             "It eliminates the need for unit testing with Jest or Vitest",
             "It converts React components into native mobile views"
           ],
@@ -7083,12 +7123,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of @storybook/addon-a11y in a design system?",
           "options": [
-            "It runs automated accessibility audits (axe-core) on rendered stories, catching contrast and ARIA defects during development",
-            "It converts web applications into high-contrast audio waveforms for screen readers",
             "It automatically registers trademark copyrights for all UI components",
+            "It runs automated accessibility audits (axe-core) on rendered stories, catching contrast and ARIA defects during development",
             "It translates story documentation into braille format"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The a11y addon runs automated axe-core tests directly against rendered component stories, alerting engineers to accessibility defects in real time."
         }
       },
@@ -7125,12 +7164,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do visual regression testing tools utilize a small tolerance threshold (e.g. 0.05%) when comparing screenshots?",
           "options": [
-            "To ignore microscopic font anti-aliasing and subpixel rendering differences while still catching genuine visual bugs",
-            "Because image compression algorithms cannot store exact RGB values",
+            "Because CSS colors fluctuate randomly based on CPU temperature",
             "To reduce the financial cost of running cloud CI server instances",
-            "Because CSS colors fluctuate randomly based on CPU temperature"
+            "To ignore microscopic font anti-aliasing and subpixel rendering differences while still catching genuine visual bugs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Subpixel antialiasing differences across operating systems can cause tiny pixel differences; tolerance thresholds prevent false-positive CI failures."
         }
       }
@@ -7140,9 +7178,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Author stories using Component Story Format 3 (CSF3), declaring concise object-based stories with inherited 'args'.",
       "Configure Storybook 'argTypes' to automatically generate interactive documentation tables and controls for props.",
       "Use Decorators to supply ambient ThemeProvider, routing, or layout wrappers around isolated stories without altering component code.",
-      "Build Component Variant Matrix stories displaying all size, style, and state permutations on a single canvas for comprehensive review.",
-      "Embed '@storybook/addon-a11y' to run automated axe-core accessibility audits directly in the developer workbench.",
-      "Establish visual regression testing pipelines (Chromatic/Playwright) with anti-aliasing tolerance thresholds to catch layout shifts in CI."
+      "Build Component Variant Matrix stories displaying all size, style, and state permutations on a single canvas for comprehensive review."
     ],
     "projectStep": {
       "title": "Build Production Storybook Architecture & Documentation Suite",
@@ -7197,7 +7233,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following changes requires a MAJOR semantic version bump in a design system?",
           "options": [
             "Removing a deprecated prop or renaming an existing component property",
-            "Adding a new optional icon prop to the Button component",
             "Adjusting the hex color value of a token to improve WCAG contrast",
             "Fixing a typo in a documentation markdown file"
           ],
@@ -7238,12 +7273,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should deprecation console warnings only execute in development mode (NODE_ENV !== 'production')?",
           "options": [
-            "To prevent polluting production browser logs and degrading end-user application performance",
-            "Because production JavaScript bundles cannot access the console object",
             "Because browsers disable JavaScript if more than 5 warnings occur in production",
+            "To prevent polluting production browser logs and degrading end-user application performance",
             "To hide security vulnerabilities from public search engines"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Deprecation warnings are intended for engineers during development; running them in production adds console noise and slight runtime overhead for end users."
         }
       },
@@ -7256,6 +7290,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Consuming teams execute a single command: 'npx @design/codemods v3-button-upgrade src/'.",
           "The codemod scans thousands of files, rewrites 'isPrimary={true}' to 'variant=\"primary\"', and commits the changes cleanly.",
           "Providing automated migration codemods lowers the friction of MAJOR upgrades from weeks of manual work to five minutes.",
+          "Design tokens bridge the collaboration gap between Figma designers and frontend engineers.",
           "Let us implement an AST transform simulator that finds and updates deprecated JSX attribute patterns."
         ],
         "example": "Automated track replacement trains: specialized railway machines lift old railroad tracks, re-ballast the gravel bed, and lay down new continuous welded steel rails in a single automated continuous pass.",
@@ -7279,12 +7314,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an automated codemod in the context of design system migrations?",
           "options": [
-            "A script that parses source code ASTs and automatically rewrites deprecated component APIs to the new syntax",
-            "A cloud service that rewrites JavaScript into Python for backend processing",
+            "A bot that automatically closes customer bug reports on GitHub",
             "A compiler that minifies CSS variable declarations into single-character identifiers",
-            "A bot that automatically closes customer bug reports on GitHub"
+            "A script that parses source code ASTs and automatically rewrites deprecated component APIs to the new syntax"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Codemods use Abstract Syntax Tree transformations to safely and automatically update deprecated APIs across large consumer codebases."
         }
       },
@@ -7325,7 +7359,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should @design/tokens be kept completely free of framework dependencies (like React)?",
           "options": [
             "So that mobile (iOS/Android), backend, CLI, and marketing teams can consume token values without pulling in unused web UI libraries",
-            "Because React crashes if JSON files contain more than 100 color tokens",
             "To allow tokens to be compiled directly into CPU firmware",
             "Because npm prohibits packages with fewer than 5 files from importing React"
           ],
@@ -7367,12 +7400,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do enterprise engineering organizations quantitatively measure design system adoption?",
           "options": [
-            "By scanning product codebases to compute the ratio of design system components versus raw HTML elements and custom CSS",
-            "By counting the total number of stars the repository has on GitHub",
             "By surveying engineers on their favorite color palette",
+            "By scanning product codebases to compute the ratio of design system components versus raw HTML elements and custom CSS",
             "By measuring the size of the node_modules folder"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Telemetry scanners measure the ratio of official design system components to raw HTML tags and custom CSS to quantify adoption and technical debt."
         }
       },
@@ -7411,12 +7443,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of an RFC (Request for Comments) process in design system governance?",
           "options": [
-            "To foster collaborative, peer-reviewed evolution of the system with product teams while ensuring accessibility and architectural standards are upheld",
-            "To prevent any external product engineer from ever proposing code changes",
+            "To delay all software releases by at least six months",
             "To replace Git version control with a manual email approval chain",
-            "To delay all software releases by at least six months"
+            "To foster collaborative, peer-reviewed evolution of the system with product teams while ensuring accessibility and architectural standards are upheld"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An RFC process enables distributed product teams to contribute new components and features while ensuring peer review, accessibility, and architectural consistency."
         }
       }
@@ -7426,9 +7457,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Execute the 4-stage Deprecation Lifecycle: @deprecated annotations, rate-limited dev warnings, automated codemods, and scheduled sunsetting in MAJOR releases.",
       "Never execute deprecation console warnings in production environments (NODE_ENV === 'production').",
       "Author automated AST migration codemods so consumer repositories can upgrade across MAJOR releases seamlessly in minutes.",
-      "Structure enterprise design systems as decoupled Monorepos: '@design/tokens', '@design/icons', '@design/react', and '@design/docs'.",
-      "Deploy automated telemetry scanners in CI to quantify adoption percentages and deprecation risks across product teams.",
-      "Establish an open, collaborative RFC contribution process to govern component proposals with strict accessibility and API standards."
+      "Structure enterprise design systems as decoupled Monorepos: '@design/tokens', '@design/icons', '@design/react', and '@design/docs'."
     ],
     "projectStep": {
       "title": "Build Production Design System Governance & Versioning Suite",
@@ -7486,7 +7515,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What are the 5 architectural tiers of the Sovereign Enterprise Design System?",
           "options": [
             "Foundations/Tokens, Atomic Components, Responsive Layout/Motion, Accessibility/Theming, and Governance/Release Tooling",
-            "HTML, CSS, JavaScript, WebAssembly, and Rust",
             "Client, Server, Database, Cache, and Cloud Storage",
             "Planning, Coding, Testing, Marketing, and Sales"
           ],
@@ -7530,12 +7558,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should foundational tokens be compiled into CSS custom properties under :root?",
           "options": [
-            "It allows all components in the DOM tree to inherit token values dynamically, enabling runtime theming and responsive scaling",
-            "Because CSS custom properties compile to GPU bytecode for faster rendering",
             "To prevent web browsers from applying user stylesheets",
+            "It allows all components in the DOM tree to inherit token values dynamically, enabling runtime theming and responsive scaling",
             "Because JavaScript cannot execute without CSS custom properties"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "CSS custom properties under :root cascade through the entire DOM tree and can be overridden dynamically for dark mode or density variants."
         }
       },
@@ -7548,6 +7575,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "Simultaneously, layout containers must adapt to dynamic viewport constraints using Flexbox alignment and CSS Grid auto-fit tracks.",
           "A production component engine executes automated structural validation:",
           "It confirms that every component has an accessible name, that focus rings use 2px solid outlines with 2px offsets, and that grid containers maintain minimum touch targets (>= 44x44px) on mobile viewports.",
+          "Responsive container queries represent a paradigm shift from global viewports to local context.",
           "Let us implement an atomic component and responsive layout contract auditor."
         ],
         "example": "A luxury automotive interior assembly: whether the chassis is a compact sports coupe or a full-sized SUV, all seat switches, steering wheel controls, and touchscreens maintain strict ergonomic reaches and tactical feedback.",
@@ -7571,12 +7599,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under WCAG 2.5.5, what is the recommended minimum touch target size for interactive mobile controls?",
           "options": [
-            "44x44 CSS pixels",
-            "12x12 CSS pixels",
+            "100x100 CSS pixels",
             "80x80 CSS pixels",
-            "100x100 CSS pixels"
+            "44x44 CSS pixels"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "WCAG 2.5.5 Target Size guidelines require interactive controls to be at least 44x44 CSS pixels to accommodate human fingers on touchscreens."
         }
       },
@@ -7588,6 +7615,8 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "1. Contrast Mathematics: Verifying that all text and interactive icons achieve at least 4.5:1 for standard text and 3:1 for large text / UI borders, using linearized sRGB relative luminance math.",
           "2. Keyboard Navigation & Focus Trapping: Enforcing visible focus rings with ':focus-visible', providing skip-to-content links, and locking Tab key cycles inside active modal overlays.",
           "3. ARIA & Accessible Name Computation: Verifying that all icon buttons provide discernible names via 'aria-label', that decorative icons use 'aria-hidden=\"true\"', and that accordion/dialog states synchronize 'aria-expanded'.",
+          "Spring physics animations introduce organic physical responsiveness to user interface actions.",
+          "Token transformation pipelines export platform-specific formats for iOS, Android, and Web.",
           "Let us build the master Tier 4 Accessibility Auditor certifying color contrast and keyboard traps."
         ],
         "example": "A commercial airliner cockpit safety check: instruments must remain legible in direct sunlight and pitch-black night flight; tactile controls have distinct shapes so pilots can operate them by touch without looking.",
@@ -7612,7 +7641,6 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the WCAG 2.2 AA minimum contrast ratio required for standard body text?",
           "options": [
             "4.5:1",
-            "3.0:1",
             "2.0:1",
             "7.0:1"
           ],
@@ -7653,12 +7681,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen if a proposed MINOR release contains an accidental breaking prop change?",
           "options": [
-            "The release gate must hold publication until either the breaking change is reverted or the version is bumped to a MAJOR release",
-            "The release should be published immediately with a disclaimer on Twitter",
             "The version should be tagged as a PATCH release instead",
+            "The release gate must hold publication until either the breaking change is reverted or the version is bumped to a MAJOR release",
             "The package should be unpublished from NPM permanently"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Under SemVer, breaking changes cannot be published in MINOR releases; the release gate must block publication until resolved."
         }
       },
@@ -7695,12 +7722,11 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary hallmark of a sovereign, enterprise-grade design system?",
           "options": [
-            "A mathematically grounded, accessible, responsive, and governed UI ecosystem that enables distributed teams to ship consistent, high-quality interfaces rapidly",
-            "Having the highest number of distinct CSS colors and random animation effects possible",
+            "An application that only runs on one specific operating system and browser",
             "A system that prevents any other developers from modifying their own user interfaces",
-            "An application that only runs on one specific operating system and browser"
+            "A mathematically grounded, accessible, responsive, and governed UI ecosystem that enables distributed teams to ship consistent, high-quality interfaces rapidly"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A sovereign design system provides mathematically consistent foundations, accessible components, responsive layouts, and rigorous governance that scales across enterprise engineering teams."
         }
       }
@@ -7710,8 +7736,7 @@ export const DESIGN_WEB_LONG_LESSONS: LongLesson[] = [
       "Tier 1: Master Token Manifest consolidates HSL lightness ramps, fluid clamp typography, 8pt spacing, and elevation shadows into CSS custom properties.",
       "Tiers 2 & 3: Atomic components enforce 6 interactive states, >= 44px touch targets, and responsive Flexbox/Grid layouts.",
       "Tier 4: Accessibility guarantees WCAG 2.2 AA contrast math (>= 4.5:1), roving tabindex keyboard navigation, focus trapping, and W3C accessible name contracts.",
-      "Tier 5: Governance establishes SVG sprite efficiency, vestibular reduced motion fallbacks, Storybook CSF3 documentation, and SemVer release gates.",
-      "Master Certification completes all 30 days and 180 lesson parts of Course 5: UI/UX Design Systems & Visual Frontend."
+      "Tier 5: Governance establishes SVG sprite efficiency, vestibular reduced motion fallbacks, Storybook CSF3 documentation, and SemVer release gates."
     ],
     "projectStep": {
       "title": "Deploy Sovereign Enterprise Design System Master Suite",
