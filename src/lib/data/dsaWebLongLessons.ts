@@ -1,12 +1,5 @@
-import { LongLesson } from './longLessons';
+import type { LongLesson } from './longLessons';
 
-/**
- * Data Structures & Algorithmic Optimizations (course-dsa-optim, prefix: dsa-optim):
- * 30 comprehensive long-format lessons (20-30 minutes each, >= 10 spoken minutes)
- * covering Big-O asymptotics, dynamic arrays, linked lists, stacks, queues,
- * hash tables, two pointers, sliding window, binary search, recursion, trees,
- * heaps, graph algorithms, dynamic programming, and flight path navigation capstone.
- */
 export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
@@ -45,11 +38,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When doubling the input size N to 2N in a quadratic O(N^2) algorithm, how do the operations scale?",
           "options": [
-            "Operations double (ratio ~ 2)",
             "Operations quadruple (ratio ~ 4)",
+            "Operations double (ratio ~ 2)",
             "Operations remain identical (ratio ~ 1)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Because (2N)^2 = 4N^2, doubling the input quadruples the computational operations in an O(N^2) algorithm."
         }
       },
@@ -83,11 +76,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an unoptimized recursive algorithm with recursion depth N require O(N) auxiliary space?",
           "options": [
-            "Because every recursive invocation pushes a new stack frame onto the memory call stack",
             "Because recursion always creates new dynamic arrays in the heap",
+            "Because every recursive invocation pushes a new stack frame onto the memory call stack",
             "Because Node.js copies the entire program on each recursive step"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each active function call requires a stack frame containing its arguments and return address until the base case finishes."
         }
       },
@@ -122,10 +115,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the simplified Big-O asymptotic complexity of f(N) = 5N^2 + 200N + 9000?",
           "options": [
             "O(N)",
-            "O(N^2)",
-            "O(5N^2 + 200N)"
+            "O(5N^2 + 200N)",
+            "O(N^2)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Constants and lower-order terms (200N, 9000) are dropped, leaving the dominant quadratic term O(N^2)."
         }
       },
@@ -159,11 +152,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many steps does an O(log N) binary search require to find a record in a sorted array of 1,024 elements?",
           "options": [
-            "512 steps",
             "10 steps",
+            "512 steps",
             "100 steps"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Because 2^10 = 1024, halving the search space takes exactly 10 iterations to locate any element."
         }
       },
@@ -235,11 +228,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can CI/CD test suites detect an accidental quadratic O(N^2) regression in a function expected to run in O(N)?",
           "options": [
-            "By measuring the ratio of operations when input size is doubled; a ratio near 4 reveals quadratic scaling",
+            "By verifying that the function return value is positive",
             "By checking if the source file contains more than 10 lines of code",
-            "By verifying that the function return value is positive"
+            "By measuring the ratio of operations when input size is doubled; a ratio near 4 reveals quadratic scaling"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Doubling input size in an O(N^2) routine quadruples operations (ratio ~ 4), compared to doubling (ratio ~ 2) in O(N)."
         }
       }
@@ -335,11 +328,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is geometric doubling mathematically superior to adding a fixed constant capacity (e.g. +10) on each resize?",
           "options": [
-            "Fixed additions cause O(N^2) cumulative copy overhead, whereas doubling yields O(1) amortized appends",
             "Doubling reduces the amount of RAM consumed on small arrays",
+            "Fixed additions cause O(N^2) cumulative copy overhead, whereas doubling yields O(1) amortized appends",
             "Fixed additions cause integer overflow errors in V8"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Fixed additions trigger frequent resizing loops totaling O(N^2) work, while doubling distributes copies over exponentially longer intervals."
         }
       },
@@ -374,10 +367,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of defensive bounds checking in a dynamic array get() method?",
           "options": [
             "It accelerates memory bus transmission speeds",
-            "It halts execution immediately on invalid access, preventing silent undefined propagation and bugs",
-            "It reduces the size of the JavaScript bundle"
+            "It reduces the size of the JavaScript bundle",
+            "It halts execution immediately on invalid access, preventing silent undefined propagation and bugs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Explicit bounds checking prevents silent failures where undefined values corrupt subsequent business logic calculations."
         }
       },
@@ -449,11 +442,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a dynamic array wait until utilization drops to 25% capacity before halving the buffer?",
           "options": [
-            "To prevent rapid thrashing between doubling and halving if a program alternates push and pop at the boundary",
             "Because V8 crashes if an array is halved at 50% capacity",
+            "To prevent rapid thrashing between doubling and halving if a program alternates push and pop at the boundary",
             "To force all elements to be converted to floating point numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A 25% threshold (hysteresis) ensures that subsequent pushes or pops have ample buffer space before requiring another reallocation."
         }
       },
@@ -487,11 +480,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In class ProductionDynamicArray, what is the time complexity of get(index) and the amortized complexity of push(val)?",
           "options": [
-            "get is O(1) and push is O(1) amortized",
+            "get is O(log N) and push is O(1)",
             "get is O(N) and push is O(N)",
-            "get is O(log N) and push is O(1)"
+            "get is O(1) and push is O(1) amortized"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Indexing into contiguous memory is strictly O(1) constant time, and geometric doubling ensures appends average O(1) amortized time."
         }
       }
@@ -549,11 +542,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of retrieving the element at index K in a singly linked list?",
           "options": [
-            "O(1) constant time",
             "O(K) linear traversal time",
+            "O(1) constant time",
             "O(log K) logarithmic time"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Linked lists lack contiguous indexing, requiring sequential pointer hops from head to reach index K."
         }
       },
@@ -587,11 +580,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural problem does a sentinel dummy node solve in linked list algorithms?",
           "options": [
-            "It eliminates edge cases when inserting or deleting at the head of the list by providing a permanent predecessor",
             "It compresses node memory by 50%",
+            "It eliminates edge cases when inserting or deleting at the head of the list by providing a permanent predecessor",
             "It automatically prevents cycles from forming"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Sentinels ensure the head node always has a preceding node, eliminating conditional head-check boilerplate."
         }
       },
@@ -625,11 +618,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must curr.next be saved in nextTemp before setting curr.next = prev during list reversal?",
           "options": [
-            "Because redirecting curr.next immediately breaks the reference to the rest of the unreversed list",
+            "Because Node.js garbage collects any node that does not have two active references",
             "Because TypeScript compiler errors occur if nextTemp is omitted",
-            "Because Node.js garbage collects any node that does not have two active references"
+            "Because redirecting curr.next immediately breaks the reference to the rest of the unreversed list"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Overwriting curr.next breaks the forward link; caching the next node in nextTemp allows traversal to continue."
         }
       },
@@ -701,11 +694,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of a Doubly Linked List over a Singly Linked List?",
           "options": [
-            "Any node can be removed in strict O(1) time given only a reference to itself, because its predecessor is directly accessible via prev",
             "Doubly linked lists use 50% less memory",
+            "Any node can be removed in strict O(1) time given only a reference to itself, because its predecessor is directly accessible via prev",
             "Doubly linked lists provide O(1) random indexing"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Having direct access to node.prev enables instantaneous O(1) unlinking without scanning from head."
         }
       },
@@ -739,11 +732,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When finding the middle of a linked list using fast and slow pointers, why does slow stop at the midpoint?",
           "options": [
-            "Because fast travels at twice the speed of slow, so when fast covers the full distance N, slow covers N / 2",
+            "Because fast pointer reverses the list as it travels",
             "Because slow counts the total number of nodes in memory",
-            "Because fast pointer reverses the list as it travels"
+            "Because fast travels at twice the speed of slow, so when fast covers the full distance N, slow covers N / 2"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "With a 2:1 speed ratio, slow covers exactly half the distance traveled by fast."
         }
       }
@@ -839,11 +832,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the string '([)]' fail the valid parentheses check?",
           "options": [
-            "The closing square bracket encounters '(' on top of the stack instead of its matching opening '['",
             "Square brackets are not allowed in JSON",
+            "The closing square bracket encounters '(' on top of the stack instead of its matching opening '['",
             "The string has an odd number of characters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The most recently opened delimiter was '['; encountering ')' violates LIFO bracket matching order."
         }
       },
@@ -877,11 +870,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Monotonic Stack algorithm run in O(N) time despite having a while loop inside a for loop?",
           "options": [
-            "Every index is pushed onto the stack exactly once and popped at most once across the entire algorithm execution",
+            "Because modern CPUs optimize monotonic loops automatically",
             "Because the while loop only runs once per hour",
-            "Because modern CPUs optimize monotonic loops automatically"
+            "Every index is pushed onto the stack exactly once and popped at most once across the entire algorithm execution"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Aggregate analysis confirms that with at most N pushes and N pops, total inner loop iterations cannot exceed N."
         }
       },
@@ -953,11 +946,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do compiler engines and calculators convert infix expressions to Reverse Polish Notation (postfix)?",
           "options": [
-            "RPN eliminates parentheses and operator precedence ambiguities, allowing linear single-pass stack evaluation",
             "RPN makes expressions human-readable",
+            "RPN eliminates parentheses and operator precedence ambiguities, allowing linear single-pass stack evaluation",
             "RPN uses less CPU cache"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Postfix notation explicitly encodes evaluation order in the token sequence, eliminating operator precedence conflicts."
         }
       },
@@ -991,11 +984,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Daily Temperatures algorithm, what does the value stored on the monotonic stack represent?",
           "options": [
-            "The index of a past day whose warmer future day has not yet been discovered",
+            "The number of days remaining in the month",
             "The temperature value converted to Fahrenheit",
-            "The number of days remaining in the month"
+            "The index of a past day whose warmer future day has not yet been discovered"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Stack indices represent unresolved days waiting for a warmer temperature to appear in the stream."
         }
       }
@@ -1091,11 +1084,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where is the Most Recently Used (MRU) node positioned in this sentinel-guarded list architecture?",
           "options": [
-            "Directly after the head sentinel node (head.next)",
             "Directly before the tail sentinel node (tail.prev)",
+            "Directly after the head sentinel node (head.next)",
             "At an arbitrary random position in the middle"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "By convention, newly added or accessed nodes are spliced directly after the head sentinel, marking them as MRU."
         }
       },
@@ -1129,11 +1122,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When get(key) finds a key in the LRU cache, why does it move the node to head.next?",
           "options": [
-            "To update the entry as Most Recently Used so it won't be evicted on the next put",
+            "Because Map requires keys to be in numerical order",
             "To trigger garbage collection on unused variables",
-            "Because Map requires keys to be in numerical order"
+            "To update the entry as Most Recently Used so it won't be evicted on the next put"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Accessing an entry refreshes its recency, moving it away from the eviction boundary (tail.prev)."
         }
       },
@@ -1205,11 +1198,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a 'Cache Stampede' in high-scale production systems?",
           "options": [
-            "When a popular cached key expires and hundreds of concurrent requests simultaneously hit the database",
             "When an array runs out of memory during JSON serialization",
+            "When a popular cached key expires and hundreds of concurrent requests simultaneously hit the database",
             "When a network switch drops TCP packets"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Simultaneous misses on an expired hot key cause a herd of concurrent database queries, causing database outages."
         }
       },
@@ -1243,11 +1236,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the time and auxiliary space complexities of class ProductionLRUCache for get() and put()?",
           "options": [
-            "O(1) time for get and put, O(capacity) auxiliary space",
+            "O(log N) time for get and put, O(N^2) space",
             "O(N) time for get and O(1) for put",
-            "O(log N) time for get and put, O(N^2) space"
+            "O(1) time for get and put, O(capacity) auxiliary space"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Hash map lookup plus doubly linked list pointer updates are O(1), and memory is strictly bounded by capacity."
         }
       }
@@ -1343,11 +1336,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a circular ring buffer allocate capacity + 1 internal slots?",
           "options": [
-            "To reserve one empty slot so that the full state (tail + 1 == head) is distinguishable from the empty state (head == tail)",
             "Because arrays in JavaScript always need an extra element for garbage collection",
+            "To reserve one empty slot so that the full state (tail + 1 == head) is distinguishable from the empty state (head == tail)",
             "To store metadata about the buffer in the last slot"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Without the extra slot, both full and empty states would have head === tail, making them indistinguishable."
         }
       },
@@ -1381,11 +1374,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can a Deque simulate both a stack and a queue?",
           "options": [
-            "Using only pushBack/popBack gives stack behavior (LIFO); using pushBack/popFront gives queue behavior (FIFO)",
+            "By maintaining two separate internal arrays",
             "By sorting elements after each insertion",
-            "By maintaining two separate internal arrays"
+            "Using only pushBack/popBack gives stack behavior (LIFO); using pushBack/popFront gives queue behavior (FIFO)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Restricting operations to one end yields LIFO; using opposite ends yields FIFO, demonstrating deque generality."
         }
       },
@@ -1457,11 +1450,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity advantage of a Binary Heap over a sorted array for priority queue operations?",
           "options": [
-            "Heap provides O(log N) insert and O(log N) extract-min, while a sorted array requires O(N) insert to maintain order",
             "Heaps are faster because they use less memory than arrays",
+            "Heap provides O(log N) insert and O(log N) extract-min, while a sorted array requires O(N) insert to maintain order",
             "Sorted arrays are always faster because binary search is O(log N)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Maintaining full sort order costs O(N) on insert; a heap only maintains partial order, achieving O(log N) for both operations."
         }
       },
@@ -1495,11 +1488,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of back-pressure in a production task queue?",
           "options": [
-            "To signal upstream producers to slow down when the queue buffer is full, preventing memory exhaustion and system crashes",
+            "To encrypt task payloads before storage",
             "To compress queue data for faster transmission",
-            "To encrypt task payloads before storage"
+            "To signal upstream producers to slow down when the queue buffer is full, preventing memory exhaustion and system crashes"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Back-pressure prevents unbounded memory growth by rejecting or throttling new tasks when the queue reaches capacity."
         }
       }
@@ -1595,11 +1588,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in separate chaining when all keys hash to the same bucket?",
           "options": [
-            "The single chain grows to length N, degrading lookup to O(N) linear scan",
             "The table automatically resizes to prevent this",
+            "The single chain grows to length N, degrading lookup to O(N) linear scan",
             "The hash function recomputes with a different seed"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "All entries land in one bucket, forming a single long chain that requires linear scanning."
         }
       },
@@ -1633,11 +1626,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is 'primary clustering' in linear probing?",
           "options": [
-            "Occupied slots form contiguous runs that grow longer, increasing probe lengths for new insertions",
+            "The hash function returns the same value for all keys",
             "Keys are sorted alphabetically within each cluster",
-            "The hash function returns the same value for all keys"
+            "Occupied slots form contiguous runs that grow longer, increasing probe lengths for new insertions"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Contiguous occupied blocks attract more keys to their boundaries, creating ever-growing clusters."
         }
       },
@@ -1709,11 +1702,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must all existing entries be re-inserted during a rehash?",
           "options": [
-            "Because hash indices are computed as key % tableSize, and changing the table size changes every key's target index",
             "Because the old entries are deleted from memory during rehashing",
+            "Because hash indices are computed as key % tableSize, and changing the table size changes every key's target index",
             "Because the hash function changes to a new algorithm on each resize"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Modulo-based hashing depends on table size; doubling the size changes the computed index for most keys."
         }
       },
@@ -1747,11 +1740,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the frequency counter pattern reduce anagram detection from O(N^2) to O(N)?",
           "options": [
-            "By replacing nested loops comparing each character pair with a single-pass frequency map that tallies counts in O(N) time",
+            "By using binary search on each character",
             "By sorting both strings and comparing them character by character",
-            "By using binary search on each character"
+            "By replacing nested loops comparing each character pair with a single-pass frequency map that tallies counts in O(N) time"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A hash map tallies character frequencies in one pass per string, eliminating the need for nested character-by-character comparison."
         }
       }
@@ -1847,11 +1840,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do we always move the pointer pointing to the shorter line?",
           "options": [
-            "Because the shorter line is the bottleneck; moving it might find a taller replacement, while moving the taller line cannot improve the bottleneck",
             "Because the shorter line is always at the left pointer",
+            "Because the shorter line is the bottleneck; moving it might find a taller replacement, while moving the taller line cannot improve the bottleneck",
             "Because moving the taller line is computationally more expensive"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Area is limited by the shorter wall; only by replacing the shorter wall can we potentially increase the constraining height."
         }
       },
@@ -1885,11 +1878,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Two Pointer palindrome check more space-efficient than reversing the string?",
           "options": [
-            "It uses O(1) auxiliary space with two index pointers instead of O(N) space for a reversed copy",
+            "Because it uses a hash map to store character positions",
             "Because it processes the string in reverse order",
-            "Because it uses a hash map to store character positions"
+            "It uses O(1) auxiliary space with two index pointers instead of O(N) space for a reversed copy"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Two integer pointers require O(1) space; creating a reversed string allocates O(N) additional memory."
         }
       },
@@ -1961,11 +1954,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does sorting reduce Three Sum from O(N^3) to O(N^2)?",
           "options": [
-            "Sorting enables Two Pointer convergence on the inner pair search, replacing one nested loop with an O(N) scan",
             "Sorting removes duplicate elements from the array",
+            "Sorting enables Two Pointer convergence on the inner pair search, replacing one nested loop with an O(N) scan",
             "Sorting allows binary search for each pair"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The outer loop is O(N); the inner two-pointer scan is O(N); total is O(N) * O(N) = O(N^2)."
         }
       },
@@ -1999,11 +1992,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Two Pointer rain water solution only need O(1) extra space?",
           "options": [
-            "It tracks only two running maximum values (leftMax, rightMax) and two pointer indices instead of storing prefix arrays",
+            "Because JavaScript garbage collects intermediate variables",
             "Because it modifies the input array in place",
-            "Because JavaScript garbage collects intermediate variables"
+            "It tracks only two running maximum values (leftMax, rightMax) and two pointer indices instead of storing prefix arrays"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Instead of precomputing and storing left-max and right-max arrays of size N, two variables suffice with the two-pointer approach."
         }
       }
@@ -2099,11 +2092,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the dynamic sliding window O(N) despite having a while loop inside a for loop?",
           "options": [
-            "Each character is added to the set exactly once and removed at most once across the entire algorithm, totaling at most 2N operations",
             "Because the while loop only runs once per iteration",
+            "Each character is added to the set exactly once and removed at most once across the entire algorithm, totaling at most 2N operations",
             "Because the Set data structure has O(1) amortized operations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The left pointer monotonically advances; total set insertions plus deletions across all iterations is bounded by 2N."
         }
       },
@@ -2137,11 +2130,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the 'formed' counter help identify valid windows efficiently?",
           "options": [
-            "It counts unique characters from t that are fully satisfied, avoiding the need to compare full frequency maps on each step",
+            "It tracks the position of the right pointer",
             "It counts the total number of characters processed",
-            "It tracks the position of the right pointer"
+            "It counts unique characters from t that are fully satisfied, avoiding the need to compare full frequency maps on each step"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Comparing formed === required is O(1); checking all frequency map entries would cost O(|t|) per step."
         }
       },
@@ -2213,11 +2206,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does each position right contribute exactly (right - left + 1) valid subarrays?",
           "options": [
-            "Because subarrays [left..right], [left+1..right], ..., [right..right] all end at right and have valid products",
             "Because the array has exactly right - left + 1 elements",
+            "Because subarrays [left..right], [left+1..right], ..., [right..right] all end at right and have valid products",
             "Because each element is counted once in the product"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Every starting index from left to right paired with ending index right forms a unique valid subarray."
         }
       },
@@ -2251,11 +2244,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the common invariant across all sliding window problems?",
           "options": [
-            "Both left and right pointers move monotonically forward, ensuring each element is processed at most twice for O(N) total time",
+            "The left pointer always moves faster than the right pointer",
             "The window always contains exactly k elements",
-            "The left pointer always moves faster than the right pointer"
+            "Both left and right pointers move monotonically forward, ensuring each element is processed at most twice for O(N) total time"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Monotonic pointer advancement bounds total work to 2N, regardless of whether the window is fixed or dynamic."
         }
       }
@@ -2351,11 +2344,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does bisectRight(arr, x) - bisectLeft(arr, x) give the count of x in a sorted array?",
           "options": [
-            "bisectLeft returns the index of the first x and bisectRight returns one past the last x; the difference is the count",
             "Because bisectRight counts all elements and bisectLeft counts none",
+            "bisectLeft returns the index of the first x and bisectRight returns one past the last x; the difference is the count",
             "Because the two functions use different sorting algorithms"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Left bisect points to the first occurrence; right bisect points one past the last; their difference spans exactly all occurrences."
         }
       },
@@ -2389,11 +2382,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is at least one half always sorted in a rotated sorted array?",
           "options": [
-            "The rotation pivot can only exist in one half; the other half remains in its original sorted order",
+            "Because the rotation sorts one half automatically",
             "Because arrays in JavaScript are always partially sorted",
-            "Because the rotation sorts one half automatically"
+            "The rotation pivot can only exist in one half; the other half remains in its original sorted order"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A single rotation point splits the array into two sorted segments; the midpoint falls in one segment, leaving the other fully sorted."
         }
       },
@@ -2465,11 +2458,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do we compare nums[mid] with nums[right] instead of nums[left]?",
           "options": [
-            "Comparing with nums[right] correctly handles the case where the array is already sorted (no rotation), whereas comparing with nums[left] can be ambiguous",
             "Because nums[left] is always the minimum",
+            "Comparing with nums[right] correctly handles the case where the array is already sorted (no rotation), whereas comparing with nums[left] can be ambiguous",
             "Because nums[right] is always the maximum"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In a non-rotated sorted array, nums[mid] < nums[right] correctly narrows toward the left (minimum), while comparing with nums[left] would incorrectly expand right."
         }
       },
@@ -2503,11 +2496,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the maximum number of comparisons binary search needs for an array of 1,000,000 elements?",
           "options": [
-            "ceil(log2(1,000,000)) = 20 comparisons",
+            "500,000 comparisons",
             "1,000,000 comparisons",
-            "500,000 comparisons"
+            "ceil(log2(1,000,000)) = 20 comparisons"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Each comparison halves the search space; 2^20 = 1,048,576 > 1,000,000, so 20 comparisons suffice."
         }
       }
@@ -2603,11 +2596,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does recursive call stack depth matter for space complexity analysis?",
           "options": [
-            "Each active recursive call occupies a stack frame in memory, making auxiliary space proportional to maximum recursion depth O(D)",
             "Stack frames are allocated on external disk drives",
+            "Each active recursive call occupies a stack frame in memory, making auxiliary space proportional to maximum recursion depth O(D)",
             "Recursive calls automatically free memory before invoking child functions"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Stack frames cannot be garbage-collected while their child calls are still executing, consuming O(D) concurrent stack memory."
         }
       },
@@ -2641,11 +2634,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive branching Fibonacci exhibit exponential O(2^N) time complexity?",
           "options": [
-            "Each non-base node spawns two recursive children, forming an execution tree whose total node count doubles with each additional depth level",
+            "Because the function uses two separate call stacks simultaneously",
             "Because addition is an exponential arithmetic operation in JavaScript",
-            "Because the function uses two separate call stacks simultaneously"
+            "Each non-base node spawns two recursive children, forming an execution tree whose total node count doubles with each additional depth level"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A branching factor of 2 across depth N creates a binary call tree containing up to 2^(N+1) - 1 total invocations."
         }
       },
@@ -2717,11 +2710,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does sorting candidates in ascending order enable aggressive branch pruning in Combination Sum?",
           "options": [
-            "When a candidate exceeds the remaining sum, all subsequent larger candidates will also exceed it, allowing an immediate loop break",
             "Sorting guarantees that the first answer returned is the longest combination",
+            "When a candidate exceeds the remaining sum, all subsequent larger candidates will also exceed it, allowing an immediate loop break",
             "Sorting eliminates duplicate elements automatically"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Monotonic candidate ordering ensures that once candidates[i] > remaining, no future candidate can satisfy the equality."
         }
       },
@@ -2755,11 +2748,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of generating all permutations of an array containing N unique elements?",
           "options": [
-            "O(N * N!) because there are N! permutations and each takes O(N) time to copy into results",
+            "O(2^N) exponential time",
             "O(N^2) polynomial time",
-            "O(2^N) exponential time"
+            "O(N * N!) because there are N! permutations and each takes O(N) time to copy into results"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "There are N! distinct permutations, and copying the leaf array into the results array takes O(N) operations, totaling O(N * N!)."
         }
       }
@@ -2855,11 +2848,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the comparison 'left[i] <= right[j]' make Merge Sort a 'stable' sort?",
           "options": [
-            "It guarantees that equal elements preserve their original relative order by picking the left element first",
             "It prevents numeric integer overflow",
+            "It guarantees that equal elements preserve their original relative order by picking the left element first",
             "It forces the algorithm to use less memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A stable sort preserves the relative order of duplicate elements; favoring left on ties ensures left elements stay ahead."
         }
       },
@@ -2897,11 +2890,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the worst-case time complexity of Merge Sort, and why does it never degrade to O(N^2)?",
           "options": [
-            "O(N log N), because the array is always split exactly in half regardless of data distribution",
+            "O(N), because merging is linear",
             "O(N^2), when the array is already sorted in reverse order",
-            "O(N), because merging is linear"
+            "O(N log N), because the array is always split exactly in half regardless of data distribution"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Splitting at the exact midpoint Math.floor(length / 2) guarantees a balanced binary recursion tree of depth log2(N)."
         }
       },
@@ -2973,11 +2966,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does selecting right[j] during merge add exactly (left.length - i) to the inversion count?",
           "options": [
-            "Because the left subarray is sorted; if right[j] is smaller than left[i], it is strictly smaller than every subsequent element in left",
             "Because the right subarray has left.length - i elements",
+            "Because the left subarray is sorted; if right[j] is smaller than left[i], it is strictly smaller than every subsequent element in left",
             "Because inversion counts must always be even numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Since left is sorted, left[i] <= left[i+1] <= left[end]; right[j] < left[i] implies right[j] is inverted with all remaining left items."
         }
       },
@@ -3015,11 +3008,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary memory advantage of passing boundary indices over using array.slice()?",
           "options": [
-            "It avoids allocating new subarray objects at every recursive level, bounding heap allocation to a single buffer of size N",
+            "It converts the sort into an unstable sort",
             "It allows the algorithm to run in O(log N) time",
-            "It converts the sort into an unstable sort"
+            "It avoids allocating new subarray objects at every recursive level, bounding heap allocation to a single buffer of size N"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Index-based recursion mutates within pre-allocated buffers, reducing garbage collection overhead from O(N log N) to O(N)."
         }
       }
@@ -3119,11 +3112,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Hoare's partition scheme practically faster than Lomuto's?",
           "options": [
-            "It converges from both ends, executing approximately three times fewer swaps on average",
             "It uses binary search inside the loop",
+            "It converges from both ends, executing approximately three times fewer swaps on average",
             "It sorts the array in O(log N) time"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Hoare only swaps when elements are strictly out of order on both sides, minimizing memory write operations."
         }
       },
@@ -3161,11 +3154,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does Quick Sort degrade to its worst-case O(N^2) time complexity?",
           "options": [
-            "When the pivot selection repeatedly yields maximally unbalanced partitions (e.g., 0 elements on one side, N - 1 on the other)",
+            "When the array size is a power of 2",
             "When the array contains floating-point numbers",
-            "When the array size is a power of 2"
+            "When the pivot selection repeatedly yields maximally unbalanced partitions (e.g., 0 elements on one side, N - 1 on the other)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Unbalanced splits produce N recursive levels with O(N) work per level, resulting in O(N^2) total execution time."
         }
       },
@@ -3237,11 +3230,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Quick Select execute in O(N) average time while Quick Sort takes O(N log N)?",
           "options": [
-            "Quick Select recurses into only one partition at each step, forming a geometric series N + N/2 + N/4 + ... = 2N",
             "Quick Select uses a hash map to skip comparisons",
+            "Quick Select recurses into only one partition at each step, forming a geometric series N + N/2 + N/4 + ... = 2N",
             "Quick Select does not use partitioning"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Dropping half the elements at each step creates a geometric series that converges to 2N, achieving O(N) average time."
         }
       },
@@ -3280,11 +3273,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does 3-way partitioning prevent Quick Sort from degrading on arrays with many duplicate elements?",
           "options": [
-            "All elements equal to the pivot are grouped together in one pass and excluded from subsequent recursive calls",
+            "It removes duplicate values from the output array",
             "It uses Counting Sort internally for duplicates",
-            "It removes duplicate values from the output array"
+            "All elements equal to the pivot are grouped together in one pass and excluded from subsequent recursive calls"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Equal elements are placed in their final positions in the middle; recursion only processes strictly smaller and larger elements."
         }
       }
@@ -3292,8 +3285,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     "summary": [
       "Quick Sort partitions in-place around a pivot, placing the pivot at its final sorted position with O(1) auxiliary space.",
       "Hoare partitioning converges from both ends, executing three times fewer swaps than Lomuto's forward scan.",
-      "Average time complexity is O(N log N); worst-case O(N^2) occurs on unbalanced partitions.",
-      "Randomized pivot selection and median-of-three protect against adversarial worst-case inputs.",
+      "Average time complexity is O(N log N) while worst-case O(N^2) on unbalanced partitions is mitigated by randomized or median-of-three pivot selection.",
       "Quick Select finds the Kth largest element in O(N) average time by recursing into only one partition.",
       "Dijkstra's 3-way partitioning groups duplicate elements, guaranteeing O(N) performance on duplicate-heavy arrays."
     ],
@@ -3386,11 +3378,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is Counting Sort practical to use over Quick Sort or Merge Sort?",
           "options": [
-            "When the range of integer values K is small and roughly proportional to the number of elements N (K = O(N))",
             "When sorting arbitrary strings of varying lengths",
+            "When the range of integer values K is small and roughly proportional to the number of elements N (K = O(N))",
             "When memory is extremely limited and K = 1,000,000,000"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Counting Sort requires O(K) space for the count array; it is only efficient when the range K is compact."
         }
       },
@@ -3424,11 +3416,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Dutch National Flag algorithm not increment 'mid' when swapping with 'high'?",
           "options": [
-            "The element swapped from 'high' was previously unexamined and must be evaluated on the next iteration",
+            "Because mid must only advance on even iterations",
             "Because high is always smaller than mid",
-            "Because mid must only advance on even iterations"
+            "The element swapped from 'high' was previously unexamined and must be evaluated on the next iteration"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The element at 'high' has not been inspected yet; advancing mid would skip validating that element."
         }
       },
@@ -3500,11 +3492,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what input condition does Bucket Sort achieve optimal O(N) average time?",
           "options": [
-            "When elements are uniformly distributed across the interval, distributing a constant number of items per bucket",
             "When all elements have the exact same value",
+            "When elements are uniformly distributed across the interval, distributing a constant number of items per bucket",
             "When the input array is already sorted in reverse order"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Uniform distribution ensures each of the N buckets receives O(1) expected elements, making per-bucket sorting O(1)."
         }
       },
@@ -3538,11 +3530,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which sorting algorithm provides guaranteed O(N log N) worst-case time while maintaining stability?",
           "options": [
-            "Merge Sort",
+            "Heap Sort",
             "Quick Sort",
-            "Heap Sort"
+            "Merge Sort"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Merge Sort is stable and guaranteed O(N log N) in all cases; Quick Sort can degrade to O(N^2) and is unstable; Heap Sort is unstable."
         }
       }
@@ -3642,11 +3634,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do binary heap operations (push and pop) run in O(log N) time?",
           "options": [
-            "The tree is complete and balanced, so maximum height is log2(N); sifting traverses at most one path from root to leaf",
             "Because heaps sort all elements sequentially on every push",
+            "The tree is complete and balanced, so maximum height is log2(N); sifting traverses at most one path from root to leaf",
             "Because binary heaps use JavaScript Map lookups"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A complete binary tree has height ceil(log2(N)); siftUp and siftDown only travel along a single vertical branch."
         }
       },
@@ -3680,11 +3672,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the maximum allowed size difference between Max-Heap and Min-Heap in the Dual Heap algorithm?",
           "options": [
-            "Max-Heap may have at most 1 more element than Min-Heap; Min-Heap may never have more elements than Max-Heap",
+            "Both heaps must always have the exact same size at all times",
             "The size difference can be up to N / 2 elements",
-            "Both heaps must always have the exact same size at all times"
+            "Max-Heap may have at most 1 more element than Min-Heap; Min-Heap may never have more elements than Max-Heap"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By convention, Max-Heap holds the extra odd element, restricting size difference strictly to 0 (even) or 1 (odd)."
         }
       },
@@ -3756,11 +3748,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a single generic Heap class implement both Min-Heap and Max-Heap behavior?",
           "options": [
-            "By accepting a comparator function (a, b) => number that defines priority ordering during siftUp and siftDown",
             "By maintaining two separate internal arrays",
+            "By accepting a comparator function (a, b) => number that defines priority ordering during siftUp and siftDown",
             "By sorting the array in reverse order"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Inverting the comparator from (a - b) to (b - a) reverses the parent-child ordering check across all heap methods."
         }
       },
@@ -3798,11 +3790,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the time and auxiliary space complexities of class MedianFinder for addNum() and findMedian()?",
           "options": [
-            "O(log N) for addNum, O(1) for findMedian, O(N) auxiliary space",
+            "O(N) for addNum, O(1) for findMedian, O(1) space",
             "O(1) for addNum, O(N log N) for findMedian, O(N^2) space",
-            "O(N) for addNum, O(1) for findMedian, O(1) space"
+            "O(log N) for addNum, O(1) for findMedian, O(N) auxiliary space"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Heap insertion and rebalancing take O(log N) time; median lookup accesses array index 0 in O(1) time; memory is O(N) for all elements."
         }
       }
@@ -3860,11 +3852,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What defines a binary tree node?",
           "options": [
-            "A node that has exactly two parents.",
+            "A node containing a value and references to at most two children.",
             "A node that holds an array of infinite children.",
-            "A node containing a value and references to at most two children."
+            "A node that has exactly two parents."
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "A binary tree node specifically has a value and up to two child pointers, commonly called left and right, hence the term 'binary' meaning two."
         }
       },
@@ -3937,10 +3929,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Inorder Traversal particularly famous in the context of Binary Search Trees?",
           "options": [
             "It finds the shortest path between the root and a leaf.",
-            "It yields the values in non-decreasing, sorted order.",
-            "It is the only traversal that doesn't use recursion."
+            "It is the only traversal that doesn't use recursion.",
+            "It yields the values in non-decreasing, sorted order."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "In a BST, all left children are smaller and right children are larger. Inorder visits left, root, right, naturally producing a sorted sequence."
         }
       },
@@ -3978,11 +3970,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which scenario is a perfect use case for a Postorder Traversal?",
           "options": [
-            "Finding the maximum depth by counting top-down.",
             "Deleting a directory structure where contents must be removed before the folder.",
+            "Finding the maximum depth by counting top-down.",
             "Flattening a tree into a linear linked list."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Because postorder processes children completely before parents, it perfectly models bottom-up tasks like recursive deletion."
         }
       },
@@ -4059,10 +4051,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "If a tree is exceptionally wide but very shallow, which traversal will likely use more memory?",
           "options": [
             "Depth-First Search (DFS).",
-            "Breadth-First Search (BFS).",
-            "Both will use exactly the same memory."
+            "Both will use exactly the same memory.",
+            "Breadth-First Search (BFS)."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "BFS memory scales with tree width (the queue holds an entire layer). A wide tree causes the queue to grow massive, while DFS stack stays small."
         }
       }
@@ -4197,10 +4189,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does checking just the immediate left and right children fail to validate a BST?",
           "options": [
             "It's too slow and uses too much memory.",
-            "A deep node might be valid locally, but violate a grandparent's constraint.",
-            "It forces the algorithm to use a Breadth-First approach."
+            "It forces the algorithm to use a Breadth-First approach.",
+            "A deep node might be valid locally, but violate a grandparent's constraint."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A right child of a left subtree might be larger than its immediate parent (locally valid) but larger than the root (globally invalid)."
         }
       },
@@ -4234,11 +4226,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If you perform a reverse inorder traversal (Right, Root, Left) on a BST, what is the outcome?",
           "options": [
-            "An array of elements in random, unsorted order.",
             "An array of elements sorted in strictly descending order.",
+            "An array of elements in random, unsorted order.",
             "The traversal will fail and throw an exception."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Visiting the larger right branch first, then the root, then the smaller left branch naturally yields a descending sorted sequence."
         }
       },
@@ -4315,10 +4307,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When deleting a BST node with two children, how do we choose a replacement value?",
           "options": [
             "We pick the maximum value in the entire tree.",
-            "We pick the minimum value in the node's right subtree (Inorder Successor).",
-            "We randomly select one of its immediate children."
+            "We randomly select one of its immediate children.",
+            "We pick the minimum value in the node's right subtree (Inorder Successor)."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The minimum value in the right subtree is strictly larger than everything in the left subtree, preserving the BST rules upon replacement."
         }
       }
@@ -4376,11 +4368,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following describes the fundamental structural property of a Binary Heap?",
           "options": [
-            "All leaves must be on the right side of the tree.",
             "It must be a Complete Binary Tree, filled level by level from left to right.",
+            "All leaves must be on the right side of the tree.",
             "Every node must have exactly two or zero children."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A Complete Binary Tree structure is required so that the heap can be densely packed into an array without empty gaps."
         }
       },
@@ -4460,11 +4452,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When sinking a node down a Min-Heap, why must we always swap it with the smaller of its two children?",
           "options": [
-            "Because swapping with the larger child would make the larger child a parent of the smaller child, breaking Min-Heap rules.",
+            "Because the left child is always inherently smaller than the right child.",
             "It actually doesn't matter; either child is mathematically fine.",
-            "Because the left child is always inherently smaller than the right child."
+            "Because swapping with the larger child would make the larger child a parent of the smaller child, breaking Min-Heap rules."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The new parent must be smaller than both children. If you swap with the larger child, the larger child becomes the parent of the smaller one, violating the invariant."
         }
       },
@@ -4498,11 +4490,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Floyd Heapify algorithm start at the middle of the array and work backward?",
           "options": [
-            "The first half of the array contains the leaf nodes.",
             "The second half of the array are leaves, which are already valid heaps, so we start at the last parent.",
+            "The first half of the array contains the leaf nodes.",
             "Working forward would cause an infinite loop."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Half of a complete binary tree consists of leaves. Skipping them and working bottom-up ensures children are valid heaps before parents are processed."
         }
       },
@@ -4575,10 +4567,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does an in-place ascending Heap Sort use a Max-Heap rather than a Min-Heap?",
           "options": [
             "Max-Heaps are faster to build.",
-            "It allows swapping the maximum element to the end of the array, building the sorted result backward.",
-            "Min-Heaps cannot hold negative numbers."
+            "Min-Heaps cannot hold negative numbers.",
+            "It allows swapping the maximum element to the end of the array, building the sorted result backward."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "By using a Max-Heap, the largest item sits at index 0. Swapping it to the very end puts it exactly where it belongs in an ascending sorted array."
         }
       }
@@ -4636,11 +4628,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a Trie, how are the characters of a word represented?",
           "options": [
-            "Each node contains an array of the full remaining string.",
             "The characters are implied by the mapped keys connecting parent nodes to child nodes.",
+            "Each node contains an array of the full remaining string.",
             "Every node stores a single character property directly on itself."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Characters are the structural edges (keys in the Map) connecting the nodes, rather than distinct properties stored directly inside the node object."
         }
       },
@@ -4713,10 +4705,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must an exact search check the isEndOfWord flag instead of just returning true upon completing the loop?",
           "options": [
             "Because the loop might have skipped characters.",
-            "Because the search query might just be a prefix of a longer, actual word in the dictionary.",
-            "To ensure the search was performed in O(1) time."
+            "To ensure the search was performed in O(1) time.",
+            "Because the search query might just be a prefix of a longer, actual word in the dictionary."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A path might exist for 'bat', but if only 'batman' was inserted, 'bat' is merely a prefix, not a recognized dictionary word."
         }
       },
@@ -4750,11 +4742,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes startsWith functionally different from an exact word search?",
           "options": [
-            "It uses a completely different looping mechanism.",
             "It ignores the isEndOfWord flag and returns true simply if the character path survives.",
+            "It uses a completely different looping mechanism.",
             "It runs in O(1) time instead of O(L) time."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A prefix represents the beginning sequence. If you can walk the sequence without falling off the tree, the prefix exists."
         }
       },
@@ -4831,10 +4823,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When does a Trie exhibit its worst-case memory inefficiency?",
           "options": [
             "When inserting identical duplicate words.",
-            "When inserting words that share absolutely zero prefixes, forcing unique branches for every character.",
-            "When searching for a word that doesn't exist."
+            "When searching for a word that doesn't exist.",
+            "When inserting words that share absolutely zero prefixes, forcing unique branches for every character."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Without shared prefixes, every word creates a long, isolated chain of objects, consuming far more overhead than a simple flat array."
         }
       }
@@ -4892,11 +4884,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What structural feature explicitly distinguishes a Graph from a standard Tree?",
           "options": [
-            "Graphs can only store numbers, while Trees store objects.",
             "Graphs can have cycles, multiple parents, and bidirectional edges.",
+            "Graphs can only store numbers, while Trees store objects.",
             "Trees require less memory than graphs in all scenarios."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Trees are actually a restricted subset of graphs: they are directed, acyclic graphs (DAGs) with exactly one root."
         }
       },
@@ -4968,11 +4960,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an Adjacency List generally preferred over an Adjacency Matrix in practical programming?",
           "options": [
-            "It uses significantly less memory for typical sparse networks, taking O(V + E) space.",
+            "It is the only way to represent weighted graph edges.",
             "It allows for O(1) lookup to determine if an edge exists.",
-            "It is the only way to represent weighted graph edges."
+            "It uses significantly less memory for typical sparse networks, taking O(V + E) space."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Because it only stores existing edges, it bypasses the massive quadratic O(V^2) overhead required by a Matrix."
         }
       },
@@ -5006,11 +4998,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What catastrophic failure occurs if you perform a graph DFS without a 'visited' tracking mechanism?",
           "options": [
-            "The algorithm will skip the first node.",
             "Any cycle in the graph will trap the traversal in an infinite loop, crashing the application.",
+            "The algorithm will skip the first node.",
             "It degrades the time complexity to O(N^2)."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "In a cycle (e.g., A -> B -> C -> A), the algorithm will repeatedly trace the circle forever unless a visited tracker breaks the loop."
         }
       },
@@ -5083,10 +5075,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why can't we just run a single DFS from an arbitrary starting node to find all nodes in a disconnected graph?",
           "options": [
             "DFS cannot traverse undirected edges.",
-            "The DFS has no physical pathways (edges) to reach the isolated islands, terminating prematurely.",
-            "DFS consumes too much memory on disconnected graphs."
+            "DFS consumes too much memory on disconnected graphs.",
+            "The DFS has no physical pathways (edges) to reach the isolated islands, terminating prematurely."
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Traversals strictly require edges to move. If a node has no edges linking it to the current component, a traversal from that component is physically blocked from reaching it."
         }
       }
@@ -5182,11 +5174,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of collecting candidate words from a prefix subtree?",
           "options": [
-            "O(N_sub) where N_sub is the total number of nodes in the prefix subtree",
             "O(1) constant time",
+            "O(N_sub) where N_sub is the total number of nodes in the prefix subtree",
             "O(N^2) quadratic time across the entire dictionary"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "DFS visits every node in the prefix subtree exactly once, scaling proportionally to subtree size."
         }
       },
@@ -5220,11 +5212,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a bounded Min-Heap of size K faster than sorting all candidates?",
           "options": [
-            "It processes C candidates in O(C log K) time, which is substantially faster than O(C log C) when K is much smaller than C",
+            "Because sorting algorithms cannot run in Node.js",
             "Because Min-Heaps eliminate duplicate strings",
-            "Because sorting algorithms cannot run in Node.js"
+            "It processes C candidates in O(C log K) time, which is substantially faster than O(C log C) when K is much smaller than C"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Keeping heap size bounded at K ensures every heap operation costs log K, yielding O(C log K) total time."
         }
       },
@@ -5296,11 +5288,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of precomputing top suggestions on Trie nodes?",
           "options": [
-            "It eliminates subtree DFS traversals during read queries, returning top suggestions in O(prefix length) time",
             "It compresses the Trie into an array",
+            "It eliminates subtree DFS traversals during read queries, returning top suggestions in O(prefix length) time",
             "It automatically corrects user spelling mistakes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Precomputed top-K arrays allow the engine to return suggestions immediately upon reaching the prefix node."
         }
       },
@@ -5334,11 +5326,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the time and space complexities of Milestone 3 ProductionAutoCompleteEngine?",
           "options": [
-            "O(K + C log C) time for suggest where K is prefix length and C is candidate count; O(total characters) space",
+            "O(1) time and infinite space",
             "O(N^2) time and O(N^2) space",
-            "O(1) time and infinite space"
+            "O(K + C log C) time for suggest where K is prefix length and C is candidate count; O(total characters) space"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Traversing the prefix takes O(K) steps; collecting and ranking candidates takes O(C log C); memory is bounded by character nodes."
         }
       }
@@ -5434,11 +5426,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does edge relaxation achieve in shortest path algorithms?",
           "options": [
-            "It updates a destination vertex with a newly discovered shorter path cost and records the predecessor",
             "It removes the edge from the graph entirely",
+            "It updates a destination vertex with a newly discovered shorter path cost and records the predecessor",
             "It sets all negative edge weights to zero"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Relaxation tightens upper bounds whenever a path through intermediate vertex u offers a lower cumulative cost to v."
         }
       },
@@ -5472,11 +5464,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of Dijkstra's algorithm using a binary Min-Heap on a graph with V vertices and E edges?",
           "options": [
-            "O((V + E) log V) time, running in O(E log V) on connected graphs",
+            "O(V * E) time",
             "O(V^3) cubic time",
-            "O(V * E) time"
+            "O((V + E) log V) time, running in O(E log V) on connected graphs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Each vertex is extracted from the heap once (V log V) and each edge can trigger a heap insert (E log V), totaling O((V + E) log V)."
         }
       },
@@ -5552,11 +5544,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does predecessor tracking allow complete path reconstruction after Dijkstra finishes?",
           "options": [
-            "By tracing parent pointers backward from destination to source, then reversing the sequence",
             "By storing every possible path in a 2D matrix during traversal",
+            "By tracing parent pointers backward from destination to source, then reversing the sequence",
             "By re-running Dijkstra from scratch for each intermediate vertex"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each relaxed vertex stores its immediate predecessor, forming a reversed singly linked chain leading back to the source."
         }
       },
@@ -5590,11 +5582,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does an unaugmented array implementation of Dijkstra (O(V^2)) outperform a binary heap (O(E log V))?",
           "options": [
-            "On very dense graphs where E is approximately V^2, because V^2 < V^2 log V and array constants are smaller",
+            "On graphs with negative edge weights",
             "On trees with no cycles",
-            "On graphs with negative edge weights"
+            "On very dense graphs where E is approximately V^2, because V^2 < V^2 log V and array constants are smaller"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In a fully connected dense graph, E = V(V-1)/2; heap updates cost O(V^2 log V), while direct array scanning costs only O(V^2)."
         }
       }
@@ -5690,11 +5682,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an in-degree of 0 signify in a dependency graph?",
           "options": [
-            "The task has zero prerequisites and can be scheduled or executed immediately",
             "The task cannot be executed by any worker",
+            "The task has zero prerequisites and can be scheduled or executed immediately",
             "The task is the final exit node of the pipeline"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In-degree counts incoming blockers; zero incoming edges means all dependencies are satisfied."
         }
       },
@@ -5728,11 +5720,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of Kahn's Algorithm for topological sorting?",
           "options": [
-            "O(V + E) linear time across vertices and edges",
+            "O(V log V) logarithmic time",
             "O(V^2) quadratic time",
-            "O(V log V) logarithmic time"
+            "O(V + E) linear time across vertices and edges"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Every vertex is enqueued/dequeued once (O(V)), and every directed edge is traversed once to decrement in-degrees (O(E))."
         }
       },
@@ -5804,11 +5796,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Course Schedule problem, what does prerequisite pair [a, b] mean for the graph representation?",
           "options": [
-            "A directed edge exists from b to a (b -> a), because course b must be completed before course a",
             "A directed edge exists from a to b",
+            "A directed edge exists from b to a (b -> a), because course b must be completed before course a",
             "An undirected edge connecting a and b"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Course b is the prerequisite prerequisite; taking b unblocks a, represented by directed edge b -> a."
         }
       },
@@ -5842,11 +5834,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can all tasks in the same Kahn's algorithm BFS wave be executed in parallel?",
           "options": [
-            "None of the tasks in the current wave depend on each other, and all their prerequisites have finished",
+            "Because all tasks in a wave are identical",
             "Because JavaScript runtimes have unlimited threads",
-            "Because all tasks in a wave are identical"
+            "None of the tasks in the current wave depend on each other, and all their prerequisites have finished"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Every task in the current wave has an in-degree of 0, meaning all prerequisite blockers have completed."
         }
       }
@@ -5946,11 +5938,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive Union-Find degrade to O(N) time complexity per operation in the worst case?",
           "options": [
-            "Unbalanced unions can create tall linear chains of depth N, requiring linear traversals to reach the root",
             "Because JavaScript arrays have a maximum length limit",
+            "Unbalanced unions can create tall linear chains of depth N, requiring linear traversals to reach the root",
             "Because find() allocates an auxiliary hash map on every step"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Without balancing heuristics, repeated union operations can chain nodes sequentially into an O(N) deep linked list."
         }
       },
@@ -5984,11 +5976,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Path Compression flatten the Union-Find tree during find(i)?",
           "options": [
-            "It rewires every node along the traversal path to point directly to the root representative",
+            "It deletes nodes that have been visited more than once",
             "It sorts the tree elements alphabetically",
-            "It deletes nodes that have been visited more than once"
+            "It rewires every node along the traversal path to point directly to the root representative"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By making parent[i] equal to the root upon recursion return, subsequent finds on node i take O(1) immediate time."
         }
       },
@@ -6060,11 +6052,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Union-Find detect an undirected cycle when processing edge (u, v)?",
           "options": [
-            "If find(u) === find(v) before adding the edge, u and v are already connected, meaning this edge completes a cycle",
             "If the edge connects to vertex 0",
+            "If find(u) === find(v) before adding the edge, u and v are already connected, meaning this edge completes a cycle",
             "By counting the total number of edges"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A path already exists between u and v; adding another direct connection between them closes an alternative circular loop."
         }
       },
@@ -6098,11 +6090,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the production DSU track the size of each connected component in O(1) time?",
           "options": [
-            "It maintains a componentSize array where the root index stores the cumulative element count of that tree",
+            "By counting the total number of union operations",
             "By performing a full BFS scan whenever size is queried",
-            "By counting the total number of union operations"
+            "It maintains a componentSize array where the root index stores the cumulative element count of that tree"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "When two roots merge, size[rootX] += size[rootY] maintains the exact component size at the root in O(1) time."
         }
       }
@@ -6202,11 +6194,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does memoization reduce Fibonacci time complexity from O(2^N) to O(N)?",
           "options": [
-            "Each of the N unique subproblems is computed once; subsequent calls return the cached value in O(1) time",
             "It uses a multi-threaded matrix multiplication library",
+            "Each of the N unique subproblems is computed once; subsequent calls return the cached value in O(1) time",
             "It rounds numbers to the nearest integer"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "With caching, every subproblem fib(k) from 1 to N is evaluated once and stored, pruning all redundant branches."
         }
       },
@@ -6240,11 +6232,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of bottom-up tabulation over top-down memoization?",
           "options": [
-            "It uses simple iterative loops with zero recursion call stack overhead, preventing stack overflow on large inputs",
+            "It allows the algorithm to run backward in time",
             "It always uses less heap memory than memoization",
-            "It allows the algorithm to run backward in time"
+            "It uses simple iterative loops with zero recursion call stack overhead, preventing stack overflow on large inputs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Tabulation replaces recursive function call frames with a flat iterative loop, eliminating stack overflow vulnerabilities."
         }
       },
@@ -6316,11 +6308,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the House Robber problem, why is the recurrence relation dp[i] = max(dp[i-1], nums[i] + dp[i-2])?",
           "options": [
-            "Because adjacent houses cannot be robbed: you either skip house i (keeping loot from i-1) or rob house i (adding its value to loot from i-2)",
             "Because houses can only be robbed on weekends",
+            "Because adjacent houses cannot be robbed: you either skip house i (keeping loot from i-1) or rob house i (adding its value to loot from i-2)",
             "Because the police catch you if you skip more than two houses"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The adjacency constraint forces a binary choice at each house: rob it (must skip i-1) or skip it (can keep max loot through i-1)."
         }
       },
@@ -6358,11 +6350,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does dp[i] represent in the 1D Longest Increasing Subsequence tabulation formulation?",
           "options": [
-            "The length of the longest increasing subsequence that ends strictly at index i",
+            "The total number of increasing pairs in the array",
             "The maximum number in the array up to index i",
-            "The total number of increasing pairs in the array"
+            "The length of the longest increasing subsequence that ends strictly at index i"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Defining dp[i] as ending at index i allows any smaller predecessor nums[j] < nums[i] to extend that subsequence by 1."
         }
       }
@@ -6458,11 +6450,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST the inner capacity loop iterate backward in 1D space-optimized 0/1 Knapsack?",
           "options": [
-            "To ensure dp[w - wt] represents the state from the previous item rather than the current item",
             "Because JavaScript arrays only allow backward indexing",
+            "To ensure dp[w - wt] represents the state from the previous item rather than the current item",
             "To sort the values in descending order"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Forward iteration allows the current item to overwrite subproblems before they are read, corrupting 0/1 into unbounded knapsack."
         }
       },
@@ -6496,11 +6488,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does iterating the inner loop forward enable unbounded item reuse?",
           "options": [
-            "State dp[w] can build upon dp[w - coin] which was already updated by the current coin in the same pass",
+            "Because forward loops are executed by GPU shaders",
             "It reverses the polarity of the memory bus",
-            "Because forward loops are executed by GPU shaders"
+            "State dp[w] can build upon dp[w - coin] which was already updated by the current coin in the same pass"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Forward iteration allows chain reactions where dp[w] consumes results that already incorporated the same coin earlier in the loop."
         }
       },
@@ -6576,11 +6568,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Partition Equal Subset Sum reduce to 0/1 Knapsack?",
           "options": [
-            "Finding two equal subsets is mathematically equivalent to finding one subset whose sum equals totalSum / 2",
             "Because both problems sort elements in ascending order",
+            "Finding two equal subsets is mathematically equivalent to finding one subset whose sum equals totalSum / 2",
             "Because the array values represent coin denominations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If one subset sums to totalSum / 2, the remaining unpicked elements are guaranteed to sum to totalSum / 2."
         }
       },
@@ -6614,11 +6606,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference in loop traversal between 0/1 Knapsack and Unbounded Knapsack in 1D array space?",
           "options": [
-            "0/1 Knapsack iterates capacity backward to prevent duplicate use; Unbounded Knapsack iterates forward to allow infinite reuse",
+            "0/1 Knapsack cannot be space-optimized to 1D",
             "0/1 Knapsack uses while loops; Unbounded Knapsack uses for loops",
-            "0/1 Knapsack cannot be space-optimized to 1D"
+            "0/1 Knapsack iterates capacity backward to prevent duplicate use; Unbounded Knapsack iterates forward to allow infinite reuse"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Backward iteration preserves previous-row values for 0/1 choice; forward iteration intentionally cascades current-item updates."
         }
       }
@@ -6714,11 +6706,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of reconstructing the LCS string from a filled M x N DP table?",
           "options": [
-            "O(M + N) linear time because each step moves up, left, or diagonally up-left",
             "O(M * N) quadratic time",
+            "O(M + N) linear time because each step moves up, left, or diagonally up-left",
             "O(2^(M+N)) exponential time"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Every step reduces i by 1, j by 1, or both, reaching the border in at most M + N total steps."
         }
       },
@@ -6756,11 +6748,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Levenshtein Edit Distance equation, what operation does the term dp[i-1][j] represent?",
           "options": [
-            "Deleting the character word1[i-1] from word1",
+            "Replacing a character",
             "Inserting a character into word1",
-            "Replacing a character"
+            "Deleting the character word1[i-1] from word1"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Transitioning from (i-1, j) consumes a character from word1 without advancing in word2, representing a deletion."
         }
       },
@@ -6836,11 +6828,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can the auxiliary space of LCS and Edit Distance be compressed from O(M * N) to O(min(M, N))?",
           "options": [
-            "Computing cell (i, j) only references cells in the current row i and the immediately preceding row i - 1",
             "Because strings cannot exceed 256 characters in TypeScript",
+            "Computing cell (i, j) only references cells in the current row i and the immediately preceding row i - 1",
             "Because all consonants can be stripped before calculation"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "State transitions are strictly localized to adjacent rows; keeping only two rows satisfies all recurrence dependencies."
         }
       },
@@ -6874,11 +6866,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a fuzzy spell checker use Levenshtein distance to suggest corrections?",
           "options": [
-            "It computes edit distances between the query and known words, returning words whose distance is within a small threshold (e.g. <= 2)",
+            "It scrambles the query letters randomly",
             "It checks whether the words share the same vowels",
-            "It scrambles the query letters randomly"
+            "It computes edit distances between the query and known words, returning words whose distance is within a small threshold (e.g. <= 2)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Low edit distances indicate minor human typographical errors like dropped, added, or transposed characters."
         }
       }
@@ -6974,11 +6966,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical invariants allow checking diagonal attacks in O(1) time in the N-Queens problem?",
           "options": [
-            "(row + col) is constant for positive diagonals (/); (row - col) is constant for negative diagonals (\\)",
             "The product (row * col) must be an even number",
+            "(row + col) is constant for positive diagonals (/); (row - col) is constant for negative diagonals (\\)",
             "The diagonal coordinates must both be prime numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Any squares lying along the same 45-degree diagonal share the same sum (r + c) or difference (r - c)."
         }
       },
@@ -7016,11 +7008,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the occupied sets be cleaned up (e.g., cols.delete(col)) after the recursive call returns?",
           "options": [
-            "To restore state so the next column branch can evaluate its own placement independently without false conflicts",
+            "Because Set objects cannot hold more than N elements",
             "To free memory for garbage collection",
-            "Because Set objects cannot hold more than N elements"
+            "To restore state so the next column branch can evaluate its own placement independently without false conflicts"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Backtracking uses a shared state; failing to clean up would falsely block valid positions on subsequent sibling branches."
         }
       },
@@ -7096,11 +7088,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Sudoku backtracking solver know when to stop and return true?",
           "options": [
-            "When the grid contains no remaining empty cells, meaning all cells have been filled without violating any constraints",
             "When 100 iterations have elapsed",
+            "When the grid contains no remaining empty cells, meaning all cells have been filled without violating any constraints",
             "When the top row sums to 45"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Reaching the end with zero empty cells proves that a complete, mutually consistent assignment has been found."
         }
       },
@@ -7133,11 +7125,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of the N-Queens problem?",
           "options": [
-            "O(N!) factorial time, because there are N choices for row 1, at most N-1 for row 2, and so on",
+            "O(N) linear time",
             "O(N^2) polynomial time",
-            "O(N) linear time"
+            "O(N!) factorial time, because there are N choices for row 1, at most N-1 for row 2, and so on"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Each row placement reduces available columns, bounding the search tree by N * (N-1) * (N-2) ... = N!."
         }
       }
@@ -7237,11 +7229,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does XORing all elements in an array isolate the single unique number?",
           "options": [
-            "Duplicate pairs cancel out because x ^ x = 0, and the remaining 0 ^ unique equals unique by identity",
             "Because XOR sorts the array internally",
+            "Duplicate pairs cancel out because x ^ x = 0, and the remaining 0 ^ unique equals unique by identity",
             "Because odd numbers always win over even numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Commutativity allows grouping pairs together: (a ^ a) ^ (b ^ b) ^ unique = 0 ^ 0 ^ unique = unique."
         }
       },
@@ -7275,11 +7267,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the expression 'n & (n - 1)' do to the binary representation of integer n?",
           "options": [
-            "It turns off (clears to 0) the lowest (rightmost) set bit of n",
+            "It reverses the bits of n",
             "It multiplies n by 2",
-            "It reverses the bits of n"
+            "It turns off (clears to 0) the lowest (rightmost) set bit of n"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Subtracting 1 borrows from the lowest set bit; ANDing with n zeroes out that bit while leaving higher bits unchanged."
         }
       },
@@ -7352,11 +7344,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an integer mask represent a subset of N items?",
           "options": [
-            "The i-th bit of the integer is 1 if item i is included in the subset, and 0 if excluded",
             "The integer represents the sum of the elements",
+            "The i-th bit of the integer is 1 if item i is included in the subset, and 0 if excluded",
             "By converting the elements into ASCII character codes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each bit position corresponds to an item index, mapping all 2^N subsets to integer values from 0 to 2^N - 1."
         }
       },
@@ -7389,11 +7381,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does CompactBitSet achieve 64x memory savings over a standard boolean array?",
           "options": [
-            "It packs 32 boolean values into each 32-bit integer word, whereas boolean objects consume multiple bytes each",
+            "Because Uint32Array lives in CPU registers",
             "It compresses data using gzip",
-            "Because Uint32Array lives in CPU registers"
+            "It packs 32 boolean values into each 32-bit integer word, whereas boolean objects consume multiple bytes each"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A single bit represents true (1) or false (0); packing 32 flags into one word uses 1 bit per boolean."
         }
       }
@@ -7489,11 +7481,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the cost array be cloned at the start of each Bellman-Ford relaxation round in K-stops routing?",
           "options": [
-            "To ensure that each round uses flight costs strictly from the previous step, preventing multi-hop cascading in a single round",
             "To trigger garbage collection",
+            "To ensure that each round uses flight costs strictly from the previous step, preventing multi-hop cascading in a single round",
             "Because arrays cannot be mutated in loops"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Cloning isolates rounds, guaranteeing that round K only evaluates paths containing at most K flight hops."
         }
       },
@@ -7527,11 +7519,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of verifying airport reachability using Union-Find with path compression?",
           "options": [
-            "O(alpha(V)) amortized time, effectively O(1) instantaneous lookup",
+            "O(E log V) time",
             "O(V^2) quadratic time",
-            "O(E log V) time"
+            "O(alpha(V)) amortized time, effectively O(1) instantaneous lookup"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Path compression flattens the tree, resolving find() queries in near-constant Inverse Ackermann time."
         }
       },
@@ -7603,11 +7595,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ResilientFlightRouter handle sudden airport closures during live operation?",
           "options": [
-            "It maintains a closedAirports set and skips any edges connected to closed hubs during path relaxation",
             "It restarts the server and wipes all flight records",
+            "It maintains a closedAirports set and skips any edges connected to closed hubs during path relaxation",
             "It forces all airplanes to hover in the air"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Skipping edges touching closed hubs during the relaxation loop dynamically routes around disruptions in O(E log V) time."
         }
       },
@@ -7641,11 +7633,11 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Capstone FlightNavigationOS synthesize the 30-day algorithmic curriculum?",
           "options": [
-            "It integrates graphs, priority queues, shortest-path relaxation, predecessor backtracking, and multi-objective optimization into an enterprise navigation system",
+            "It runs strictly inside web browsers without servers",
             "It only uses array sort methods",
-            "It runs strictly inside web browsers without servers"
+            "It integrates graphs, priority queues, shortest-path relaxation, predecessor backtracking, and multi-objective optimization into an enterprise navigation system"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The capstone unifies graph theory, priority queues, dynamic programming, and greedy optimization into an end-to-end production system."
         }
       }
