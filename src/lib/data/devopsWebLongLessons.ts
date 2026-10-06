@@ -1,12 +1,5 @@
-import { LongLesson } from './longLessons';
+import type { LongLesson } from './longLessons';
 
-/**
- * DevOps & CI/CD Pipeline Automation (course-devops-cicd, prefix: devops):
- * 30 comprehensive long-format lessons (20-30 minutes each, >= 9.2 spoken minutes)
- * covering Linux administration, Docker, multi-stage builds, Compose, GitHub Actions,
- * Kubernetes architecture, Helm, GitOps (ArgoCD), Prometheus/Grafana observability,
- * and DevSecOps production practices.
- */
 export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
@@ -46,11 +39,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the L in the CALMS DevOps framework represent?",
           "options": [
-            "Logistics management",
             "Lean principles focusing on small batch sizes",
+            "Logistics management",
             "Linear regression testing"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The L in CALMS stands for Lean principles, which emphasize eliminating waste and shipping work in small batches."
         }
       },
@@ -125,10 +118,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary responsibility of an application during a graceful shutdown sequence?",
           "options": [
             "Instantly terminate all connections with an error",
-            "Stop accepting new traffic and finish processing in-flight requests",
-            "Delete all log files from disk"
+            "Delete all log files from disk",
+            "Stop accepting new traffic and finish processing in-flight requests"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Graceful shutdown stops new incoming traffic while allowing existing in-flight requests to complete without data loss."
         }
       },
@@ -163,11 +156,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between Continuous Delivery and Continuous Deployment?",
           "options": [
-            "Continuous Delivery does not test code",
             "Continuous Delivery requires human approval for production, while Continuous Deployment releases automatically",
+            "Continuous Delivery does not test code",
             "Continuous Deployment only runs on weekends"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Continuous Delivery prepares a deployable build waiting for a manual release decision, while Continuous Deployment ships straight to production automatically."
         }
       },
@@ -242,10 +235,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does Mean Time to Recovery (MTTR) measure in DevOps performance?",
           "options": [
             "How long it takes to write code for a feature",
-            "The average time required to restore service after an outage occurs",
-            "The duration of the sprint planning meeting"
+            "The duration of the sprint planning meeting",
+            "The average time required to restore service after an outage occurs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "MTTR measures the average time taken to detect, diagnose, and recover from a production system failure."
         }
       }
@@ -305,11 +298,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can container processes without an init manager like tini freeze during docker stop?",
           "options": [
-            "Because Docker deletes the root directory",
             "Because the Linux kernel does not apply default signal handling to PID 1 unless explicitly registered",
+            "Because Docker deletes the root directory",
             "Because Node.js cannot run on Linux"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "PID 1 receives special treatment from the Linux kernel: default signal handlers are disabled, so unhandled SIGTERM signals are ignored."
         }
       },
@@ -461,11 +454,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What directive in a systemd unit file configures automatic resurrection when a process crashes?",
           "options": [
-            "Restart=on-failure",
             "Type=simple",
+            "Restart=on-failure",
             "Description=Service"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Restart=on-failure directive instructs systemd to restart the process whenever its exit status code is non-zero."
         }
       },
@@ -501,10 +494,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does container exit code 137 typically indicate in Docker or Kubernetes?",
           "options": [
             "Normal clean completion",
-            "The container was terminated by SIGKILL (128 + 9), usually caused by an Out of Memory (OOM) kill",
-            "Database connection refused"
+            "Database connection refused",
+            "The container was terminated by SIGKILL (128 + 9), usually caused by an Out of Memory (OOM) kill"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Exit code 137 equals 128 + 9 (SIGKILL); the operating system kernel forcefully killed the container, typically because memory exceeded limits."
         }
       }
@@ -564,11 +557,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the fundamental architectural difference between Virtual Machines and Docker containers?",
           "options": [
-            "Containers run on Windows while VMs run on Linux",
             "Containers share the host Linux kernel, whereas VMs run a complete guest OS on top of a hypervisor",
+            "Containers run on Windows while VMs run on Linux",
             "VMs do not use RAM"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Containers are isolated processes sharing the host Linux kernel; VMs run an entire guest operating system via hypervisor virtualization."
         }
       },
@@ -643,10 +636,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the role of Linux Control Groups (Cgroups) in container virtualization?",
           "options": [
             "They assign IP addresses to containers",
-            "They meter and enforce hardware resource limits on CPU, memory, and I/O",
-            "They compile source code into binaries"
+            "They compile source code into binaries",
+            "They meter and enforce hardware resource limits on CPU, memory, and I/O"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Cgroups allow the kernel to enforce resource boundaries, preventing containers from monopolizing CPU or memory."
         }
       },
@@ -681,11 +674,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when a running container modifies a file present in an underlying image layer?",
           "options": [
-            "The underlying image is permanently altered on disk",
             "The kernel copies the file to the writeable upperdir and modifies it there (Copy-on-Write)",
+            "The underlying image is permanently altered on disk",
             "The container crashes with an access error"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "OverlayFS uses Copy-on-Write: it copies the file to the container writeable layer, keeping the underlying image layers immutable."
         }
       },
@@ -761,10 +754,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should COPY package*.json precede RUN npm ci in a Node.js Dockerfile?",
           "options": [
             "Because Node.js cannot run without package.json",
-            "To ensure npm dependencies stay cached when only application source code is edited",
-            "To reduce network bandwidth on the host machine"
+            "To reduce network bandwidth on the host machine",
+            "To ensure npm dependencies stay cached when only application source code is edited"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Isolating package.json keeps the heavy npm install layer cached whenever only application source code is modified."
         }
       }
@@ -824,11 +817,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are large build toolchains like gcc and curl considered security hazards in production containers?",
           "options": [
-            "Because they make the terminal font smaller",
             "They provide attackers with the tools needed to download and compile malicious exploits inside your container",
+            "Because they make the terminal font smaller",
             "Because Linux does not permit compilers in containers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Unnecessary binaries like curl and gcc expand the attack surface, allowing attackers to download and compile payloads if an exploit occurs."
         }
       },
@@ -863,11 +856,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Dockerfile instruction copies compiled files from a previous build stage into the final image?",
           "options": [
-            "COPY --from=builder /app/dist ./dist",
             "RUN import builder",
+            "COPY --from=builder /app/dist ./dist",
             "ADD --previous-stage"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The COPY instruction with the --from=<stage_name> flag copies artifacts across build stage boundaries."
         }
       },
@@ -903,10 +896,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What makes Google Distroless container images exceptionally secure for production deployments?",
           "options": [
             "They encrypt all files with AES-256",
-            "They omit all package managers and interactive shells (no /bin/sh)",
-            "They can only run on Google Cloud"
+            "They can only run on Google Cloud",
+            "They omit all package managers and interactive shells (no /bin/sh)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Distroless images contain no shell or package manager, preventing attackers from spawning interactive shells or installing exploits."
         }
       },
@@ -941,11 +934,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What npm command installs strictly production dependencies while excluding development tools?",
           "options": [
-            "npm install --all",
             "npm ci --omit=dev",
+            "npm install --all",
             "npm build --fast"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The --omit=dev flag (or npm prune --production) ensures that only runtime dependencies are installed, excluding heavy compilers and linters."
         }
       },
@@ -1024,10 +1017,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of copying artifacts across multiple Docker stages with COPY --from?",
           "options": [
             "It bypasses the need for a Docker daemon",
-            "It produces lightweight production containers by excluding compilers and build tools",
-            "It allows running Python inside Node.js"
+            "It allows running Python inside Node.js",
+            "It produces lightweight production containers by excluding compilers and build tools"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Multi-stage builds exclude heavy build toolchains and devDependencies from the final shipped image, keeping it lean and secure."
         }
       }
@@ -1087,11 +1080,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of Docker Compose in modern software engineering?",
           "options": [
-            "To compile C++ code into assembly",
             "To declaratively define, configure, and run multi-container applications with a single file",
+            "To compile C++ code into assembly",
             "To purchase cloud domains"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Docker Compose allows developers to define multi-container architectures (services, networks, volumes) in a declarative YAML manifest."
         }
       },
@@ -1166,10 +1159,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must relational databases like PostgreSQL use Named Volumes in Docker Compose?",
           "options": [
             "Because databases cannot write to disks",
-            "To guarantee that database records persist permanently on disk even when containers are recreated or upgraded",
-            "To encrypt SQL queries"
+            "To encrypt SQL queries",
+            "To guarantee that database records persist permanently on disk even when containers are recreated or upgraded"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Named Volumes persist data outside the container ephemeral filesystem, preventing data loss when containers are restarted, destroyed, or upgraded."
         }
       },
@@ -1204,11 +1197,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is `depends_on: service_healthy` superior to standard `depends_on` in Docker Compose?",
           "options": [
-            "It increases CPU clock speeds",
             "It guarantees dependent services launch only after healthcheck probes confirm database readiness",
+            "It increases CPU clock speeds",
             "It compiles SQL tables automatically"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The service_healthy condition waits until readiness probes succeed, preventing connection refused crashes during database boot."
         }
       },
@@ -1242,11 +1235,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What file does Docker Compose automatically merge on top of compose.yaml by default?",
           "options": [
-            "compose.override.yaml",
             "production.json",
+            "compose.override.yaml",
             "docker.env"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Docker Compose automatically layers compose.override.yaml over compose.yaml, enabling seamless local development customization."
         }
       },
@@ -1286,10 +1279,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In an enterprise Docker Compose architecture, why should database ports (e.g. 5432) omit the host `ports:` mapping?",
           "options": [
             "Because PostgreSQL cannot bind to ports",
-            "To keep the database accessible strictly inside the private internal network, shielding it from external internet attacks",
-            "Because Compose only supports one port mapping per file"
+            "Because Compose only supports one port mapping per file",
+            "To keep the database accessible strictly inside the private internal network, shielding it from external internet attacks"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Omitting host port mappings keeps the database internal to the Docker network, allowing only authorized backend services to connect."
         }
       }
@@ -1347,11 +1340,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which Docker network driver removes network namespace isolation and shares the host networking stack directly?",
           "options": [
-            "bridge",
             "host",
+            "bridge",
             "overlay"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The host network driver shares the host network namespace directly, avoiding NAT overhead at the cost of port isolation."
         }
       },
@@ -1384,11 +1377,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Linux kernel mechanism acts like a virtual Ethernet cable connecting a container namespace to the host bridge?",
           "options": [
-            "veth pair",
             "Unix domain socket",
+            "veth pair",
             "FIFO named pipe"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A veth (virtual Ethernet) pair links two network namespaces, with one end plugged into the bridge and the other into the container."
         }
       },
@@ -1422,10 +1415,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should database port mappings in Docker specify `127.0.0.1:5432:5432` instead of `5432:5432`?",
           "options": [
             "Because Docker does not support 2-part port syntax",
-            "To prevent Docker from binding to 0.0.0.0 and exposing the database port to the entire public internet",
-            "Because 127.0.0.1 provides hardware acceleration"
+            "Because 127.0.0.1 provides hardware acceleration",
+            "To prevent Docker from binding to 0.0.0.0 and exposing the database port to the entire public internet"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Specifying 127.0.0.1 limits exposure to the local host loopback interface, preventing unauthorized internet connections."
         }
       },
@@ -1458,11 +1451,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the IP address of Docker embedded DNS resolver inside containers on user-defined networks?",
           "options": [
-            "192.168.1.1",
             "127.0.0.11",
+            "192.168.1.1",
             "10.0.0.1"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Docker reserves the loopback address 127.0.0.11 specifically for its embedded container DNS resolver."
         }
       },
@@ -1495,11 +1488,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can you connect a running container to a new network without terminating or restarting the container process?",
           "options": [
-            "docker network connect <network> <container>",
             "docker restart --network=<network>",
+            "docker network connect <network> <container>",
             "docker network mount <container>"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The `docker network connect` command hot-plugs a virtual network interface into a running container namespace."
         }
       },
@@ -1533,10 +1526,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In a tiered multi-network architecture, why does the backend API join both frontend-net and backend-net?",
           "options": [
             "To double its network bandwidth",
-            "To act as a secure gateway that accepts traffic from the public proxy while privately accessing the database",
-            "Because Docker containers require at least two networks to function"
+            "Because Docker containers require at least two networks to function",
+            "To act as a secure gateway that accepts traffic from the public proxy while privately accessing the database"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The API acts as a secure intermediary, bridging the two networks without exposing the database to the frontend network."
         }
       }
@@ -1594,11 +1587,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should production containers run with a numeric UID like 10001 rather than root (UID 0)?",
           "options": [
-            "Numeric UIDs execute 20% faster",
             "To enforce the non-root invariant and prevent host kernel compromise if a container escape occurs",
+            "Numeric UIDs execute 20% faster",
             "Because Linux kernels cannot resolve usernames"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Running as non-root ensures an attacker escaping container boundaries has no root permissions on the host system."
         }
       },
@@ -1669,10 +1662,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When running a container with `--read-only`, how should an application handle required temporary scratch writes in `/tmp`?",
           "options": [
             "Switch back to running as root",
-            "Mount an in-memory ephemeral RAM disk using `--tmpfs /tmp`",
-            "Disable the healthcheck"
+            "Disable the healthcheck",
+            "Mount an in-memory ephemeral RAM disk using `--tmpfs /tmp`"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Mounting `/tmp` as a tmpfs provides temporary in-memory write space without compromising the read-only root filesystem."
         }
       },
@@ -1705,11 +1698,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security advantage of running Docker in Rootless Mode?",
           "options": [
-            "Containers build 50% faster",
             "If an attacker breaks out of a container or the daemon, they gain only unprivileged host user permissions instead of root",
+            "Containers build 50% faster",
             "It allows containers to run without memory limits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Rootless mode runs the daemon in a user namespace, preventing host root escalation during a security breach."
         }
       },
@@ -1742,11 +1735,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Linux kernel feature filters and blocks unauthorized system calls made by container processes?",
           "options": [
-            "Seccomp",
             "Cgroups",
+            "Seccomp",
             "Systemd"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Seccomp (Secure Computing Mode) acts as a syscall firewall between user processes and the Linux kernel."
         }
       },
@@ -1780,10 +1773,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should setuid (SUID) permissions be stripped from container filesystem binaries?",
           "options": [
             "To reduce file size on disk",
-            "To prevent unprivileged users from executing binaries with root owner privileges",
-            "To speed up container startup time"
+            "To speed up container startup time",
+            "To prevent unprivileged users from executing binaries with root owner privileges"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "SUID binaries execute with the permissions of the file owner (often root), creating privilege escalation vectors."
         }
       }
@@ -1841,11 +1834,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the `start-period` parameter in a Docker HEALTHCHECK instruction?",
           "options": [
-            "To delay container creation by several minutes",
             "To provide a grace period during which probe failures do not count toward marking the container unhealthy",
+            "To delay container creation by several minutes",
             "To set the maximum CPU runtime"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Start-period allows slow-starting applications to initialize without prematurely failing health checks."
         }
       },
@@ -1916,10 +1909,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is `unless-stopped` preferred over `always` for production services?",
           "options": [
             "Because it uses less CPU",
-            "Because it prevents Docker from restarting containers that an engineer intentionally stopped for maintenance",
-            "Because it automatically increases RAM limits"
+            "Because it automatically increases RAM limits",
+            "Because it prevents Docker from restarting containers that an engineer intentionally stopped for maintenance"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "`unless-stopped` respects intentional manual shutdowns, preventing unexpected resurrection after host reboots."
         }
       },
@@ -1952,11 +1945,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What exit code does a container return when terminated by the Linux kernel Out-Of-Memory (OOM) killer?",
           "options": [
-            "0",
+            "137",
             "1",
-            "137"
+            "0"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Exit code 137 corresponds to 128 plus 9 (SIGKILL), the signal sent by the kernel OOM killer."
         }
       },
@@ -2027,10 +2020,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In Docker Compose, what is the difference between resource `reservations` and resource `limits`?",
           "options": [
             "Reservations are in gigabytes; limits are in megabytes",
-            "Reservations guarantee minimum resources needed; limits define the maximum hard ceiling allowed",
-            "They are synonyms and perform the same function"
+            "They are synonyms and perform the same function",
+            "Reservations guarantee minimum resources needed; limits define the maximum hard ceiling allowed"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Reservations ensure the container is guaranteed base resources, while limits protect the host from resource hogging."
         }
       }
@@ -2088,11 +2081,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "By default, how do multiple jobs defined within the same GitHub Actions workflow file execute?",
           "options": [
-            "Strictly sequentially one after another",
             "Concurrently in parallel unless explicitly chained with `needs:`",
+            "Strictly sequentially one after another",
             "Only one job runs and the others are ignored"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Jobs run concurrently in parallel by default to maximize execution speed across multiple runner VMs."
         }
       },
@@ -2163,10 +2156,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is a major security advantage of GitHub-hosted runners over persistent self-hosted runners?",
           "options": [
             "They are immune to network timeouts",
-            "Each job runs in a pristine, isolated virtual machine that is destroyed immediately after execution",
-            "They support more programming languages"
+            "They support more programming languages",
+            "Each job runs in a pristine, isolated virtual machine that is destroyed immediately after execution"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Ephemeral VMs ensure that builds cannot leave residual files, credentials, or malicious artifacts behind."
         }
       },
@@ -2199,11 +2192,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does GitHub Actions handle secrets printed to standard output during step execution?",
           "options": [
-            "It throws a fatal pipeline error",
             "It automatically masks secret values with `***` in the build logs",
+            "It throws a fatal pipeline error",
             "It emails the repository owner"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The runner intercepts standard output and masks known secret values with asterisks to prevent credential leakage."
         }
       },
@@ -2236,11 +2229,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which status check function allows a cleanup step to run even if a previous step in the job failed?",
           "options": [
-            "if: always()",
             "if: failed()",
+            "if: always()",
             "if: continue()"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The `always()` expression forces step execution regardless of whether preceding steps succeeded or failed."
         }
       },
@@ -2253,6 +2246,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "It enforces three quality gates: static analysis with ESLint, type-checking with `tsc --noEmit`, and automated testing with `npm test`.",
           "If any gate fails, the pipeline aborts immediately and marks the pull request as failing, blocking code merge.",
           "Finally, if all quality gates pass on `main`, it builds the production artifact and exports build metrics.",
+          "Continuous delivery pipelines require deterministic step execution to prevent intermittent pipeline failures.",
           "This automated gatekeeper provides team-wide confidence that broken code never reaches production."
         ],
         "example": "A production CI manifest is like the health and safety inspection protocol for an Olympic athlete: blood test, eye exam, and reflex test must all pass before they are cleared to compete.",
@@ -2273,10 +2267,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should CI pipelines use `npm ci` instead of `npm install` for dependency installation?",
           "options": [
             "Because npm ci is written in C++",
-            "Because npm ci strictly enforces package-lock.json and deletes existing node_modules for clean, reproducible builds",
-            "Because npm install does not support TypeScript"
+            "Because npm install does not support TypeScript",
+            "Because npm ci strictly enforces package-lock.json and deletes existing node_modules for clean, reproducible builds"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "`npm ci` ensures reliable builds by strictly following package-lock.json and refusing to modify dependency versions."
         }
       }
@@ -2334,11 +2328,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of reducing CI pipeline duration from 25 minutes to under 5 minutes?",
           "options": [
-            "It uses more cloud credits",
             "It reduces developer context-switching and accelerates feature delivery loops",
+            "It uses more cloud credits",
             "It removes the need to write unit tests"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Fast feedback keeps developers in flow state and prevents costly context-switching delays."
         }
       },
@@ -2372,10 +2366,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "If a workflow matrix defines 3 Node versions and 3 operating systems, how many parallel jobs will GitHub Actions generate?",
           "options": [
             "3",
-            "6",
-            "9"
+            "9",
+            "6"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "The matrix calculates the Cartesian product: 3 Node versions multiplied by 3 OS versions yields 9 jobs."
         }
       },
@@ -2409,10 +2403,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What triggers a cache miss when using `hashFiles('**/package-lock.json')` in a cache key?",
           "options": [
             "Rebooting the host runner",
-            "Any change or dependency update in `package-lock.json` that alters its SHA hash",
-            "Renaming the Git branch"
+            "Renaming the Git branch",
+            "Any change or dependency update in `package-lock.json` that alters its SHA hash"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A modified package-lock.json produces a different SHA hash, triggering a cache miss and fresh download."
         }
       },
@@ -2445,11 +2439,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does test sharding reduce the total duration of a large automated test suite?",
           "options": [
-            "By skipping 50% of the tests",
             "By dividing tests into equal subsets and executing them concurrently on multiple parallel runner VMs",
+            "By skipping 50% of the tests",
             "By increasing CPU clock speed"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Sharding distributes tests across multiple VMs running simultaneously, cutting wall-clock execution time."
         }
       },
@@ -2462,6 +2456,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Later in the workflow, a downstream reporting job can use `actions/download-artifact@v4` to download the artifacts from all shards.",
           "The reporting job merges the coverage reports, calculates overall code coverage percentages, and publishes a summary comment on the pull request.",
           "You can configure artifact retention policies, such as retaining test logs for 14 days and release tarballs for 90 days.",
+          "Automated release gates verify that test coverage thresholds are met before promotion to production.",
           "Artifact management enables seamless data passing between isolated, parallel workflow stages."
         ],
         "example": "Uploading artifacts is like sending field reports from multiple survey teams to headquarters via courier so an analyst can assemble them into a master atlas.",
@@ -2519,10 +2514,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the danger of tolerating flaky tests in a Continuous Integration pipeline?",
           "options": [
             "They use too much disk space",
-            "Developers lose trust in the pipeline and begin ignoring real test failures",
-            "They permanently disable GitHub Actions"
+            "They permanently disable GitHub Actions",
+            "Developers lose trust in the pipeline and begin ignoring real test failures"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Tolerating flaky tests erodes team confidence in CI, leading engineers to merge broken code blindly."
         }
       }
@@ -2584,11 +2579,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to SemVer 2.0.0, what should happen to the MINOR and PATCH numbers when the MAJOR version is bumped?",
           "options": [
-            "They remain untouched at their previous values",
             "They both reset to zero",
+            "They remain untouched at their previous values",
             "They increment by one"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "When a breaking change increments the MAJOR version, both MINOR and PATCH must reset to zero."
         }
       },
@@ -2640,6 +2635,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Each bullet item includes the commit summary, the pull request number, and the author GitHub handle.",
           "Breaking changes are highlighted with bold warning callouts and migration instructions extracted from the commit body.",
           "Tools like `standard-version`, `semantic-release`, and `release-it` automate this entire workflow.",
+          "Immutable container images guarantee that runtime dependencies match the exact verified staging build.",
           "A transparent, auto-generated CHANGELOG gives customers and downstream engineering teams immediate visibility into what changed."
         ],
         "example": "An automated changelog is like an itemized receipt generated at a supermarket register: every item scanned during checkout is listed with its exact price and category without the cashier writing anything by hand.",
@@ -2659,11 +2655,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of generating CHANGELOG.md files automatically in CI?",
           "options": [
-            "It eliminates manual release note writing and prevents human error or omitted bugfixes",
+            "It compiles TypeScript faster",
             "It reduces git repository size",
-            "It compiles TypeScript faster"
+            "It eliminates manual release note writing and prevents human error or omitted bugfixes"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Automated changelogs ensure complete accuracy and eliminate the manual burden of tracking release changes."
         }
       },
@@ -2676,6 +2672,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "It updates a running draft release with the next predicted SemVer tag.",
           "When the team decides to cut a release, creating a git tag like `v1.3.0` publishes the draft release automatically.",
           "The release action can attach compiled distribution assets, such as multi-platform Docker container image digests or npm package tarballs.",
+          "Comprehensive pipeline telemetry alerts the on-call engineer within seconds of deployment regression.",
           "Automating GitHub Releases ensures that every deployed binary is traceable to an immutable git tag and commit SHA."
         ],
         "example": "Automated GitHub Releases is like a newspaper printing press: as soon as the editor approves the front page, the press prints, binds, and bundles the papers for delivery trucks automatically.",
@@ -2695,11 +2692,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of marking a GitHub Release as a `prerelease`?",
           "options": [
-            "To delete the release after 24 hours",
             "To signal to consumers that the build is a candidate (alpha/beta/rc) and not yet meant for stable production",
+            "To delete the release after 24 hours",
             "To hide the release from developers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The prerelease flag signals that the version is under active testing and should not be used as a stable release."
         }
       },
@@ -2769,11 +2766,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What triggers an automated release pipeline to calculate a MINOR version bump over a PATCH?",
           "options": [
-            "Merging a commit starting with `feat:`",
+            "Running `npm test`",
             "Merging a commit starting with `docs:`",
-            "Running `npm test`"
+            "Merging a commit starting with `feat:`"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A commit starting with `feat:` signals a new backwards-compatible feature, triggering a MINOR version increment."
         }
       }
@@ -2831,11 +2828,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where do most security vulnerabilities in standard container images originate?",
           "options": [
-            "In your custom application business logic",
             "In outdated base operating system packages (e.g. openssl, glibc) and third-party dependencies",
+            "In your custom application business logic",
             "In the Docker daemon configuration file"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The vast majority of container vulnerabilities reside in unpatched OS packages and third-party open-source dependencies."
         }
       },
@@ -2870,10 +2867,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What CVSS v3 score range classifies a vulnerability as CRITICAL severity?",
           "options": [
             "4.0 - 6.9",
-            "7.0 - 8.9",
-            "9.0 - 10.0"
+            "9.0 - 10.0",
+            "7.0 - 8.9"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "CVSS scores of 9.0 to 10.0 represent CRITICAL vulnerabilities that usually permit unauthenticated remote code execution."
         }
       },
@@ -2906,11 +2903,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What CLI command scans a local container image for vulnerabilities using Trivy?",
           "options": [
-            "trivy image <image_name>",
+            "trivy push <image_name>",
             "trivy compile <image_name>",
-            "trivy push <image_name>"
+            "trivy image <image_name>"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The `trivy image` command analyzes container images against the vulnerability database."
         }
       },
@@ -2943,11 +2940,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the `--exit-code 1` flag in a CI Trivy scanning step?",
           "options": [
-            "To speed up the scan by exiting early",
             "To cause the CI step to fail and break the build when matching vulnerabilities are found",
+            "To speed up the scan by exiting early",
             "To ignore all warnings"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Returning exit code 1 causes CI runners to mark the job as failed, preventing deployment of vulnerable images."
         }
       },
@@ -3018,10 +3015,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the role of Cosign and Sigstore in container supply chain security?",
           "options": [
             "To compress container images for faster downloads",
-            "To cryptographically sign container image digests so orchestrators can verify provenance before execution",
-            "To manage Docker passwords in plain text"
+            "To manage Docker passwords in plain text",
+            "To cryptographically sign container image digests so orchestrators can verify provenance before execution"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Cosign signs image digests, allowing Kubernetes admission controllers to verify image authenticity and prevent tampering."
         }
       }
@@ -3079,11 +3076,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a CI/CD pipeline never re-compile code or rebuild container images when deploying to production?",
           "options": [
-            "Because compiling code uses too much electricity",
             "To ensure that the exact binary artifact tested in staging is what runs in production without layer drift",
+            "Because compiling code uses too much electricity",
             "Because Docker only allows one build per day"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Rebuilding images introduces environmental drift; promoting the identical image digest ensures proven reliability."
         }
       },
@@ -3154,10 +3151,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why are production database and application instances placed in private subnets with no public IPs?",
           "options": [
             "Because private subnets have lower electricity costs",
-            "To prevent direct internet exposure and eliminate external brute-force or exploit attacks",
-            "Because private subnets only support Linux"
+            "Because private subnets only support Linux",
+            "To prevent direct internet exposure and eliminate external brute-force or exploit attacks"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Omitting public IP addresses makes private servers unreachable from the public internet, dramatically shrinking attack surfaces."
         }
       },
@@ -3190,11 +3187,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security advantage of using OpenID Connect (OIDC) federation in CI/CD over static access keys?",
           "options": [
-            "It builds containers faster",
             "It eliminates long-lived secret keys, issuing short-lived ephemeral credentials valid for only minutes",
+            "It builds containers faster",
             "It does not require an AWS account"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "OIDC eliminates permanent credentials in favor of short-lived tokens, eliminating the risk of leaked permanent keys."
         }
       },
@@ -3244,6 +3241,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "For PostgreSQL, the pipeline invokes `pg_dump` or triggers an AWS RDS / GCP Cloud SQL storage snapshot API.",
           "The backup archive is tagged with the current version tag and stored in an encrypted, versioned object bucket with a retention policy.",
           "If post-deployment smoke tests detect database corruption, the pipeline triggers an automated restore procedure to revert to the pre-deployment snapshot.",
+          "Versioned configuration manifests eliminate environmental drift between local development and cloud clusters.",
           "Never run database migrations in staging or production without a verified pre-migration snapshot."
         ],
         "example": "Taking a pre-deployment database backup is like saving your progress in a video game right before stepping into a difficult boss arena: if you get knocked out, you reload your exact save point in seconds.",
@@ -3264,10 +3262,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should a CD pipeline capture a database snapshot before running schema migrations?",
           "options": [
             "To delete older customer records",
-            "To provide an immediate restore checkpoint if migration scripts fail or corrupt schema structures",
-            "Because PostgreSQL requires a restart before backups"
+            "Because PostgreSQL requires a restart before backups",
+            "To provide an immediate restore checkpoint if migration scripts fail or corrupt schema structures"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Pre-deployment snapshots ensure rapid disaster recovery if schema migrations introduce corruption or deadlock."
         }
       }
@@ -3325,11 +3323,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of automated post-deployment smoke testing?",
           "options": [
-            "To run complete 10-hour stress benchmarks",
             "To quickly verify that critical core endpoints and infrastructure dependencies are operational in the live environment",
+            "To run complete 10-hour stress benchmarks",
             "To delete temporary test databases"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Smoke tests provide rapid verification that the live application booted successfully and can respond to traffic."
         }
       },
@@ -3401,10 +3399,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary advantage of synthetic transaction testing over simple endpoint pinging?",
           "options": [
             "It uses zero CPU cycles",
-            "It validates that complex business logic, database transactions, and authentication workflows function end-to-end",
-            "It replaces the need for a database"
+            "It replaces the need for a database",
+            "It validates that complex business logic, database transactions, and authentication workflows function end-to-end"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Synthetic tests verify complete real-world user workflows rather than superficial HTTP status codes."
         }
       },
@@ -3437,11 +3435,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should rollback automation execute within seconds rather than waiting for human manual intervention?",
           "options": [
-            "Because humans are not allowed to touch servers",
             "To minimize customer impact and prevent transaction failures during a bad deployment",
+            "Because humans are not allowed to touch servers",
             "To delete git commit logs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Rapid automated rollbacks limit user exposure to broken releases to seconds, preserving system availability."
         }
       },
@@ -3491,6 +3489,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "On successful deployment, a green notification confirms the release to the `#engineering-releases` channel.",
           "On rollback, a high-priority red alert with a direct link to the failed smoke test logs is dispatched to the on-call engineer via PagerDuty.",
           "You implement webhooks in GitHub Actions using `curl` steps or community actions like `rtCamp/action-slack-notify`.",
+          "Secret rotation mechanisms protect sensitive service credentials without requiring application downtime.",
           "Automated real-time notifications ensure transparency and immediate incident awareness across the organization."
         ],
         "example": "Incident webhook dispatch is like a fire alarm system in a building: when a sensor trips, it does not just record a log; it sounds the horn, alerts the fire department, and sends a notification to building managers.",
@@ -3511,10 +3510,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What information should an automated rollback alert contain to help on-call engineers diagnose issues quickly?",
           "options": [
             "Only the date and time",
-            "The release tag, commit SHA, failed smoke test endpoint, and direct link to build logs",
-            "The entire source code"
+            "The entire source code",
+            "The release tag, commit SHA, failed smoke test endpoint, and direct link to build logs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Actionable context (commit SHA, failed endpoint, log links) enables on-call engineers to diagnose root causes immediately."
         }
       }
@@ -3557,8 +3556,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Stage 4: Automated Staging Environment Deployment (Zero-trust OIDC cloud connection).",
           "Stage 5: Synthetic Smoke Testing (End-to-end transaction validation against live staging).",
           "Stage 6: Governance & Automated Rollback (Approval gates for production; automatic fast-rollback on regression).",
-          "Each stage functions as an immutable gatekeeper: if any check fails, the pipeline aborts immediately without touching downstream cloud resources.",
-          "This architecture forms the operational backbone of high-performing technology organizations worldwide."
+          "Each stage functions as an immutable gatekeeper: if any check fails, the pipeline aborts immediately without touching downstream cloud resources."
         ],
         "example": "Think of this pipeline like a NASA space shuttle launch sequence: from flight computer diagnostics and booster fuel checks to telemetry verification and emergency abort protocols, every phase must succeed before the mission proceeds.",
         "code": "interface PipelineStage {\n  order: number;\n  name: string;\n  action: string;\n  isGated: boolean;\n}\n\nconst milestonePipeline: PipelineStage[] = [\n  { order: 1, name: 'Code Quality', action: 'ESLint & tsc --noEmit', isGated: true },\n  { order: 2, name: 'Matrix Testing', action: 'Vitest sharded across 4 runners', isGated: true },\n  { order: 3, name: 'Container & Security', action: 'Docker Build & Trivy CVE gate', isGated: true },\n  { order: 4, name: 'Staging Rollout', action: 'Deploy to staging via OIDC', isGated: true },\n  { order: 5, name: 'Synthetic Smoke Tests', action: 'E2E health probes & transaction verify', isGated: true },\n  { order: 6, name: 'Production Gate', action: 'Approval sign-off or auto-rollback', isGated: true },\n];\n\nconsole.log('Milestone 2 Enterprise Pipeline Architecture:');\nfor (const s of milestonePipeline) {\n  console.log(` [Stage ${s.order}] ${s.name} -> ${s.action} (Gate: ${s.isGated ? 'ENFORCED' : 'NONE'})`);\n}",
@@ -3577,11 +3575,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in the Milestone 2 pipeline if Stage 3 (Trivy CVE gate) detects a CRITICAL vulnerability?",
           "options": [
-            "The pipeline proceeds to staging anyway",
             "The pipeline aborts immediately, blocking the image from being pushed and halting deployment",
+            "The pipeline proceeds to staging anyway",
             "It sends an email to customers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Strict CI security gates abort the pipeline immediately upon finding CRITICAL CVEs, preventing vulnerable deployments."
         }
       },
@@ -3654,10 +3652,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What two security verifications occur in Stage 3 before the container is pushed to the registry?",
           "options": [
             "Memory leak profiling and CSS validation",
-            "Trivy CVE vulnerability scanning and Cosign cryptographic image signing",
-            "SSL certificate renewal"
+            "SSL certificate renewal",
+            "Trivy CVE vulnerability scanning and Cosign cryptographic image signing"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Trivy scans for vulnerabilities and Cosign cryptographically signs the image to guarantee provenance."
         }
       },
@@ -3670,6 +3668,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "The runner issues deployment commands via Kubernetes API (`kubectl set image deployment/api api=ghcr.io/myorg/api:${{ github.sha }}`) or triggers an ArgoCD sync.",
           "Kubernetes begins a Rolling Update: new pods boot up, execute readiness probes, and join the service pool one by one.",
           "Old pods are terminated only after the new pods report healthy.",
+          "Declarative deployment specifications enable rapid automated rollbacks during production incident response.",
           "Staging now hosts the exact binary artifact that will eventually run in production."
         ],
         "example": "Deploying to staging is like a dress rehearsal in a Broadway theater: the actors wear full costumes, the orchestra plays, and the stage lights operate under identical conditions to opening night.",
@@ -3689,11 +3688,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Kubernetes Rolling Update prevent downtime during a new deployment?",
           "options": [
-            "By restarting the entire cluster at midnight",
             "By launching new pods and ensuring they pass readiness probes before terminating old pods",
+            "By restarting the entire cluster at midnight",
             "By caching all user requests on the load balancer disk"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Rolling updates maintain availability by only terminating old pods after new pods are fully healthy."
         }
       },
@@ -3764,10 +3763,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the ultimate purpose of the Milestone 2 CI/CD automation pipeline architecture?",
           "options": [
             "To eliminate the need for version control",
-            "To enable safe, rapid, and fully automated software delivery with built-in security gates and autonomous disaster recovery",
-            "To reduce the number of GitHub repositories"
+            "To reduce the number of GitHub repositories",
+            "To enable safe, rapid, and fully automated software delivery with built-in security gates and autonomous disaster recovery"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The pipeline provides an automated, secure, and resilient path from git commit to production with autonomous rollbacks."
         }
       }
@@ -3825,11 +3824,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which Kubernetes Control Plane component serves as the single source of truth and distributed datastore for cluster state?",
           "options": [
-            "kube-scheduler",
             "etcd",
+            "kube-scheduler",
             "kube-proxy"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "etcd is the distributed key-value store using Raft consensus that persists all cluster configuration and state."
         }
       },
@@ -3900,10 +3899,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does the `CrashLoopBackOff` state indicate when inspecting a Kubernetes pod with `kubectl get pods`?",
           "options": [
             "The pod is waiting for a memory upgrade",
-            "The application process inside the container is repeatedly crashing upon startup, causing Kubernetes to wait before restarting",
-            "The node has lost power"
+            "The node has lost power",
+            "The application process inside the container is repeatedly crashing upon startup, causing Kubernetes to wait before restarting"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "CrashLoopBackOff indicates a repeating crash-restart cycle with an exponential backoff delay to prevent overwhelming node resources."
         }
       },
@@ -3937,11 +3936,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mechanism does a ReplicaSet controller use to identify which pods belong to its management scope?",
           "options": [
-            "IP address subnets",
             "Label selectors matching pod metadata labels",
+            "IP address subnets",
             "Hostnames of worker nodes"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "ReplicaSets identify their target pods by evaluating label selectors against pod labels declared in metadata."
         }
       },
@@ -4012,10 +4011,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the role of `resources.requests` in a Kubernetes container specification?",
           "options": [
             "It defines the maximum RAM before an OOM kill",
-            "It tells the kube-scheduler the minimum resources guaranteed for the pod to be scheduled on a node",
-            "It charges the developer credit card"
+            "It charges the developer credit card",
+            "It tells the kube-scheduler the minimum resources guaranteed for the pod to be scheduled on a node"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The scheduler uses `requests` to find a worker node that has sufficient unallocated capacity to host the pod."
         }
       }
@@ -4073,11 +4072,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a core invariant of the Kubernetes networking model regarding pod-to-pod communication?",
           "options": [
-            "Pods cannot communicate across nodes without a VPN",
             "All pods can communicate with all other pods across any node without Network Address Translation (NAT)",
+            "Pods cannot communicate across nodes without a VPN",
             "Pods must share port numbers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Kubernetes network model mandates that all pods can communicate with all other pods directly without NAT."
         }
       },
@@ -4110,11 +4109,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the standard fully qualified domain name (FQDN) format for a Kubernetes service named `api` in the `backend` namespace?",
           "options": [
-            "api.backend.svc.cluster.local",
             "backend.api.internal",
+            "api.backend.svc.cluster.local",
             "api.k8s.local"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Kubernetes CoreDNS standard format is `<service>.<namespace>.svc.cluster.local`."
         }
       },
@@ -4148,10 +4147,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does Kube-Proxy in iptables mode perform Destination NAT (DNAT) on incoming packets?",
           "options": [
             "To encrypt the packet contents",
-            "To rewrite the destination Virtual IP to the real private IP address of a healthy target pod",
-            "To calculate the packet checksum"
+            "To calculate the packet checksum",
+            "To rewrite the destination Virtual IP to the real private IP address of a healthy target pod"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "ClusterIPs are virtual; DNAT rewrites the virtual address to an actual pod IP for physical delivery."
         }
       },
@@ -4184,11 +4183,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the default port range reserved for Kubernetes NodePort services?",
           "options": [
-            "80 - 443",
             "30000 - 32767",
+            "80 - 443",
             "1024 - 49151"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Kubernetes reserves ports 30000 through 32767 specifically for NodePort service allocations."
         }
       },
@@ -4238,6 +4237,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "If a Pod fails its readiness probe or enters termination, the controller removes its IP from the Endpoints list within milliseconds.",
           "Kube-proxy immediately updates host iptables rules so no new user requests are sent to the failing or terminating container.",
           "In Kubernetes 1.21+, EndpointSlices replaced monolithic Endpoints to scale to tens of thousands of pods by splitting endpoints into 100-target slices.",
+          "Distributed tracing headers propagate correlation IDs across all microservice deployment boundaries.",
           "Understanding Endpoints is vital: if a Service returns connection refused, running `kubectl get endpoints` will immediately reveal if any healthy backend pods exist."
         ],
         "example": "EndpointSlices are like a doctor office waiting room call board: as patients become ready for their appointment, their names appear on the screen. If a patient steps out to the restroom, their name is taken off the board until they return.",
@@ -4258,10 +4258,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What causes a pod IP to be removed from a Kubernetes Service Endpoints list?",
           "options": [
             "Reaching 100 HTTP requests",
-            "Failing its configured Readiness Probe or entering the terminating state",
-            "Running for longer than 24 hours"
+            "Running for longer than 24 hours",
+            "Failing its configured Readiness Probe or entering the terminating state"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Failing a readiness probe signals that the container cannot handle traffic, triggering immediate endpoint removal."
         }
       }
@@ -4322,11 +4322,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural and financial benefit of using a Kubernetes Ingress Controller over individual LoadBalancer services?",
           "options": [
-            "It disables TLS encryption",
             "It routes traffic to hundreds of backend services through a single cloud load balancer and IP address, slashing cloud costs",
+            "It disables TLS encryption",
             "It compiles React code faster"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "An Ingress Controller consolidates HTTP routing behind a single cloud load balancer, saving substantial cloud fees."
         }
       },
@@ -4398,10 +4398,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What HTTP header does an Ingress Controller inspect to execute Host-Based routing?",
           "options": [
             "User-Agent",
-            "Host",
-            "Authorization"
+            "Authorization",
+            "Host"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The HTTP `Host` header specifies the target domain name requested by the client."
         }
       },
@@ -4434,11 +4434,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Kubernetes secret type is specifically reserved for storing SSL/TLS certificates and private keys?",
           "options": [
-            "Opaque",
             "kubernetes.io/tls",
+            "Opaque",
             "kubernetes.io/service-account-token"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The `kubernetes.io/tls` secret type is the standardized format holding `tls.crt` and `tls.key`."
         }
       },
@@ -4509,11 +4509,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which NGINX Ingress annotation forces all incoming unencrypted HTTP traffic to redirect to HTTPS port 443?",
           "options": [
-            "nginx.ingress.kubernetes.io/ssl-redirect: \"true\"",
+            "redirect-http: 443",
             "https-only: true",
-            "redirect-http: 443"
+            "nginx.ingress.kubernetes.io/ssl-redirect: \"true\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The `ssl-redirect: \"true\"` annotation automatically returns HTTP 308 redirects forcing clients to HTTPS."
         }
       }
@@ -4571,11 +4571,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of injecting application configuration via Kubernetes ConfigMaps?",
           "options": [
-            "Containers start 50% faster",
             "Application configuration can be changed between staging and production without rebuilding container images",
+            "Containers start 50% faster",
             "It encrypts database passwords"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "ConfigMaps decouple settings from code, enabling identical container image reuse across all environments."
         }
       },
@@ -4588,6 +4588,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "This pattern is explicit and clear, but becomes verbose if an application has 30 environment variables.",
           "With `envFrom.configMapRef`, Kubernetes automatically imports EVERY key in the ConfigMap as an environment variable inside the container.",
           "You can optionally add a `prefix` (e.g. `prefix: APP_`) to namespace injected variables and prevent collisions with system variables.",
+          "Static code analysis engines block known vulnerability CVEs before packages are pushed to the registry.",
           "Using `envFrom` significantly shortens deployment manifests and makes managing large configuration sets clean and maintainable."
         ],
         "example": "Individual `configMapKeyRef` is like ordering dishes à la carte from a restaurant menu; `envFrom` is ordering the chef tasting menu where every dish on the list is brought to your table automatically.",
@@ -4607,11 +4608,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the syntax keyword in a PodSpec used to inject all keys of a ConfigMap as environment variables at once?",
           "options": [
-            "envFrom.configMapRef",
             "import.allConfig",
+            "envFrom.configMapRef",
             "config.mountAll"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The `envFrom.configMapRef` block imports all keys from the specified ConfigMap into container environment variables."
         }
       },
@@ -4645,10 +4646,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When a ConfigMap is mounted as a volume directory inside a container, how are files structured?",
           "options": [
             "All keys are merged into a single zip file",
-            "Each key in the ConfigMap becomes an individual file named after the key, containing its value",
-            "Files are saved onto the host BIOS"
+            "Files are saved onto the host BIOS",
+            "Each key in the ConfigMap becomes an individual file named after the key, containing its value"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Kubernetes projects each ConfigMap key as an individual file in the mount directory."
         }
       },
@@ -4681,11 +4682,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Are Kubernetes Secrets cryptographically encrypted by default when stored in etcd?",
           "options": [
-            "Yes, using AES-256",
             "No, they are merely base64 encoded and require etcd KMS encryption providers to be secure",
+            "Yes, using AES-256",
             "Yes, using RSA-4096"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Base64 is an encoding, not encryption; etcd must be configured with a KMS provider for encryption at rest."
         }
       },
@@ -4698,6 +4699,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "With ESO, you define an `ExternalSecret` resource in Git that contains only references (e.g. secret name and key path in AWS Secrets Manager).",
           "The External Secrets Operator running inside the cluster securely connects to the cloud vault, retrieves the credentials, and creates the native Kubernetes Secret automatically.",
           "When an engineer rotates a database password in AWS Secrets Manager, ESO detects the change and updates the Kubernetes Secret automatically.",
+          "Canary traffic splitting verifies error rates and latency percentiles against baseline thresholds.",
           "Zero credentials ever touch git repositories or developer laptops."
         ],
         "example": "External Secrets Operator is like an automated courier that picks up fresh security passes from the central government vault and deposits them into the company security desk lockers every morning.",
@@ -4734,6 +4736,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "However, if the ConfigMap was mounted as a Filesystem Volume, Kubernetes Kubelet updates the mounted files automatically within 60 to 90 seconds.",
           "Applications that watch their configuration files (like NGINX using inotify or Prometheus reloading via `/-/reload`) can live-reload settings with zero container restarts.",
           "Alternatively, tools like Stakater Reloader watch ConfigMaps and automatically trigger a rolling update of dependent Deployments when a ConfigMap changes.",
+          "Automated smoke tests run immediately following blue-green cutover to validate core service endpoints.",
           "Understanding the difference between immutable env vars and live volume updates is essential for zero-downtime operations."
         ],
         "example": "Environment variables are like a tattoo received at birth: they never change. Mounted volume files are like a wristwatch: you can look down at any moment and see the updated time without visiting a hospital.",
@@ -4754,10 +4757,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "If a ConfigMap is injected into a container as environment variables, what is required for the application to see updated values?",
           "options": [
             "Nothing, it updates instantly",
-            "The pod must be restarted or recreated",
-            "The entire Kubernetes cluster must be rebooted"
+            "The entire Kubernetes cluster must be rebooted",
+            "The pod must be restarted or recreated"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Environment variables are fixed at container process startup and require a pod restart to pick up changes."
         }
       }
@@ -4815,11 +4818,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action does Kubernetes take when a container Liveness Probe fails consecutively for `failureThreshold` times?",
           "options": [
-            "It disables the network interface",
             "It terminates and restarts the container",
+            "It disables the network interface",
             "It increases the container memory limit"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Liveness probe failures indicate an unrecoverable deadlock, prompting Kubelet to restart the container."
         }
       },
@@ -4891,10 +4894,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the consequence when a Kubernetes Readiness probe fails?",
           "options": [
             "The container is killed and restarted",
-            "The pod IP is removed from Service Endpoints so it receives no traffic, but the container remains running",
-            "The node reboots"
+            "The node reboots",
+            "The pod IP is removed from Service Endpoints so it receives no traffic, but the container remains running"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Readiness controls traffic routing only; it never terminates or restarts the container process."
         }
       },
@@ -4927,11 +4930,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of a Kubernetes Startup Probe?",
           "options": [
-            "To compile code at boot",
             "To protect slow-starting applications by disabling Liveness and Readiness checks until the container finishes booting",
+            "To compile code at boot",
             "To allocate CPU quota"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Startup probes provide a safe boot window, preventing premature liveness kills during cold initialization."
         }
       },
@@ -4943,6 +4946,8 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Handler 2: `tcpSocket` attempts to establish a raw TCP connection to a specified port (e.g. `port: 5432`). If the socket connects successfully, the probe passes. This is ideal for databases and non-HTTP services.",
           "Handler 3: `exec` executes an arbitrary command inside the container (e.g. `command: [\"pg_isready\", \"-U\", \"postgres\"]`). If the command exits with status code 0, it passes; any non-zero exit code fails.",
           "Each handler can be configured with five timing parameters: `initialDelaySeconds`, `periodSeconds`, `timeoutSeconds`, `successThreshold`, and `failureThreshold`.",
+          "Centralized log collectors parse structured JSON output to support high-speed forensic search.",
+          "Container security scanners inspect base OS packages and application dependencies for critical flaws.",
           "Choosing the right handler ensures minimal overhead and accurate state reporting for every type of workload."
         ],
         "example": "Choosing a probe handler is like choosing a medical diagnostic tool: a thermometer (httpGet) measures temperature; a pulse check (tcpSocket) confirms blood circulation; and an X-ray (exec) inspects internal structures.",
@@ -4979,6 +4984,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "The Readiness probe validates downstream dependency connections: `httpGet` to `/ready`, `periodSeconds: 10`, `timeoutSeconds: 2`, `failureThreshold: 2`.",
           "Notice the timing balance: probes execute every 10 to 15 seconds, creating negligible CPU overhead while detecting failures within 30 seconds.",
           "Setting `timeoutSeconds: 2` prevents hanging HTTP connections from accumulating in the Kubelet probe queue.",
+          "Artifact registries enforce cryptographic image signing to prevent unauthorized container tampering.",
           "This production configuration provides bulletproof self-healing, clean zero-downtime deployments, and complete protection against cascading outages."
         ],
         "example": "Tuning health probes is like setting the sensitivity on home smoke alarms: set it too high and burnt toast evacuates the neighborhood (cascade restarts); set it too low and a real fire burns unnoticed.",
@@ -4999,10 +5005,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should `timeoutSeconds` on Kubernetes health probes be configured to a low value like 2 seconds?",
           "options": [
             "To conserve hard drive space",
-            "To prevent hanging or slow HTTP probe calls from exhausting Kubelet probe worker threads",
-            "To shut down the network card"
+            "To shut down the network card",
+            "To prevent hanging or slow HTTP probe calls from exhausting Kubelet probe worker threads"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Short timeouts ensure Kubelet diagnostic threads fail fast rather than backing up under latency spikes."
         }
       }
@@ -5061,11 +5067,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is running multiple pod replicas on a single physical node insufficient for true high availability?",
           "options": [
-            "Because Kubernetes only allows one pod per node",
             "Because a single hardware or network failure on that host node terminates all replicas simultaneously",
+            "Because Kubernetes only allows one pod per node",
             "Because Docker images expire after 24 hours"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Co-locating all replicas on a single host creates a single point of failure; spreading across nodes and zones ensures survival."
         }
       },
@@ -5136,10 +5142,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the mathematical algorithm used by the Kubernetes Horizontal Pod Autoscaler (HPA)?",
           "options": [
             "desiredReplicas = currentReplicas + 10",
-            "desiredReplicas = ceil(currentReplicas * (currentMetricValue / targetMetricValue))",
-            "desiredReplicas = random(1, 10)"
+            "desiredReplicas = random(1, 10)",
+            "desiredReplicas = ceil(currentReplicas * (currentMetricValue / targetMetricValue))"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "HPA calculates desired replicas by scaling proportionally to the ratio between observed and target metric values."
         }
       },
@@ -5172,11 +5178,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the `stabilizationWindowSeconds` parameter in HPA scale-down policies?",
           "options": [
-            "To delay pod creation",
             "To prevent rapid pod churn (flapping) by ensuring metrics remain low for a sustained period before terminating pods",
+            "To delay pod creation",
             "To increase memory limits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Stabilization windows prevent flapping by requiring sustained low utilization before scaling down."
         }
       },
@@ -5248,10 +5254,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What metric confirmed that the Milestone 3 cluster autoscaled successfully under stress?",
           "options": [
             "Memory usage dropped to zero",
-            "Replicas scaled from 3 to 12 pods and maintained 100% HTTP 200 success rate under 2,000 req/s",
-            "The cluster shut down"
+            "The cluster shut down",
+            "Replicas scaled from 3 to 12 pods and maintained 100% HTTP 200 success rate under 2,000 req/s"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Autonomous scale-out maintained service health and low latency throughout the high-throughput test."
         }
       }
@@ -5311,11 +5317,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Helm terminology, what is a \"Release\"?",
           "options": [
-            "A git commit on the main branch",
             "A specific running instance of a Helm Chart combined with configuration values inside a Kubernetes cluster",
+            "A git commit on the main branch",
             "An npm package download"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A Release is a deployed instance of a Chart in a Kubernetes cluster, tracked with its own revision history."
         }
       },
@@ -5391,10 +5397,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What top-level object in a Helm template provides access to parameters defined in `values.yaml`?",
           "options": [
             ".Config",
-            ".Values",
-            ".Parameters"
+            ".Parameters",
+            ".Values"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The `.Values` object exposes all values defined in values files or passed via `--set`."
         }
       },
@@ -5429,11 +5435,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Helm handle configuration values when passing both a base `values.yaml` and an environment `-f values.prod.yaml` file?",
           "options": [
-            "It throws an error because only one file is permitted",
             "It deep-merges the files, allowing `values.prod.yaml` to selectively override base defaults",
+            "It throws an error because only one file is permitted",
             "It ignores values.prod.yaml"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Helm merges files sequentially from left to right, with later files overriding earlier defaults."
         }
       },
@@ -5483,6 +5489,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "To package a chart, run: `helm package ./my-chart`, which creates an immutable archive: `my-chart-1.4.0.tgz`.",
           "To publish to an OCI registry, run: `helm push my-chart-1.4.0.tgz oci://ghcr.io/myorg/charts`.",
           "Downstream CI/CD pipelines can install directly from the OCI registry: `helm upgrade --install my-app oci://ghcr.io/myorg/charts/my-chart --version 1.4.0`.",
+          "Resource limits prevent runaway containers from monopolizing host node CPU and memory pools.",
           "Packaging charts as OCI artifacts provides unified access control, vulnerability scanning, and cryptographic signing with Cosign."
         ],
         "example": "Publishing a chart to an OCI registry is like uploading a finished book to Amazon Kindle: readers download the exact official package from the cloud bookstore rather than emailing around loose Word documents.",
@@ -5503,10 +5510,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the standard protocol prefix used by Helm 3 to push and pull charts from container registries?",
           "options": [
             "docker://",
-            "oci://",
-            "git://"
+            "git://",
+            "oci://"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The `oci://` URI scheme instructs Helm to interact with OCI-compliant container registries."
         }
       }
@@ -5564,11 +5571,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a major security advantage of the GitOps Pull model over traditional Push CI/CD pipelines?",
           "options": [
-            "It disables TLS encryption",
             "The cluster pull agent runs inside the cluster, meaning no external CI runners require administrative cluster credentials",
+            "It disables TLS encryption",
             "It eliminates the need for git commits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Pull agents operate inside the cluster network boundary, eliminating the need to store sensitive cluster admin keys in CI."
         }
       },
@@ -5639,10 +5646,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What Custom Resource Definition (CRD) binds a Git repository to a Kubernetes cluster namespace in ArgoCD?",
           "options": [
             "Deployment",
-            "Application",
-            "GitBinding"
+            "GitBinding",
+            "Application"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The `Application` CRD is the core ArgoCD resource defining the link between Git sources and cluster destinations."
         }
       },
@@ -5675,11 +5682,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when `selfHeal: true` is enabled in an ArgoCD sync policy and someone manually edits a cluster resource?",
           "options": [
-            "ArgoCD accepts the manual change and commits it to Git",
             "ArgoCD detects the drift and immediately overwrites the manual change with the state defined in Git",
+            "ArgoCD accepts the manual change and commits it to Git",
             "The cluster reboots"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Self-healing enforces Git as the single source of truth, actively reversing any unauthorized manual cluster changes."
         }
       },
@@ -5750,10 +5757,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of the ArgoCD \"App-of-Apps\" pattern?",
           "options": [
             "It eliminates the need for containers",
-            "It allows managing dozens of microservices and infrastructure tools declaratively through a single root application",
-            "It speeds up git commit times"
+            "It speeds up git commit times",
+            "It allows managing dozens of microservices and infrastructure tools declaratively through a single root application"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "App-of-Apps allows managing entire cluster fleets by having a root application reconcile a directory of child application manifests."
         }
       }
@@ -5813,11 +5820,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Prometheus collect telemetry metrics from application workloads in a cluster?",
           "options": [
-            "Applications continuously push metrics over UDP",
             "Prometheus periodically scrapes (pulls) metrics over HTTP from discovered `/metrics` endpoints",
+            "Applications continuously push metrics over UDP",
             "It reads log files from disk"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Prometheus operates on a pull model, periodically making HTTP GET requests to `/metrics` endpoints."
         }
       },
@@ -5893,10 +5900,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What PromQL function calculates the per-second rate of increase of a counter over a time range window?",
           "options": [
             "sum()",
-            "rate()",
-            "count()"
+            "count()",
+            "rate()"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The `rate()` function calculates the per-second average rate of increase of a counter over a range vector."
         }
       },
@@ -5931,11 +5938,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do SRE teams track 99th percentile (p99) latency instead of average latency?",
           "options": [
-            "Because percentiles are easier to compute",
             "Because averages mask severe tail-latency spikes that ruin user experience for a minority of customers",
+            "Because percentiles are easier to compute",
             "Because percentiles ignore errors"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Averages hide severe outliers; percentiles capture the true experience of users suffering tail latency."
         }
       },
@@ -5968,11 +5975,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the `for: 5m` directive in a Prometheus alerting rule?",
           "options": [
-            "To delay alert firing for 5 minutes of continuous failure to prevent alerting on transient momentary blips",
             "To delete the rule after 5 minutes",
+            "To delay alert firing for 5 minutes of continuous failure to prevent alerting on transient momentary blips",
             "To retry sending emails for 5 minutes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The `for` duration requires the expression to remain true continuously for that window before firing, suppressing false alarms."
         }
       },
@@ -6005,11 +6012,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Kubernetes Custom Resource does the Prometheus Operator use to dynamically discover and scrape service metrics?",
           "options": [
-            "PodMonitor or ServiceMonitor",
+            "LogForwarder",
             "IngressMonitor",
-            "LogForwarder"
+            "PodMonitor or ServiceMonitor"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "ServiceMonitors declaratively define target services to scrape, which the Prometheus Operator converts into scrape configs."
         }
       }
@@ -6047,6 +6054,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Logs answer \"WHY did it break?\": timestamped event records containing stack traces, error messages, and debugging context.",
           "Traces answer \"WHERE is it broken?\": following the complete journey of a single user request as it traverses microservices, databases, and message queues.",
           "Metrics provide early detection; traces isolate the bottlenecked service; and logs explain the root cause.",
+          "Graceful termination signals allow in-flight HTTP requests to drain cleanly before container shutdown.",
           "Combining all three pillars gives engineering teams complete observability into distributed systems."
         ],
         "example": "Think of the three pillars like an automotive diagnostic system: Metrics is the Check Engine dashboard light; Traces is tracing the electrical wiring harness from the dashboard down into the engine block; and Logs is reading the exact error code stored in the vehicle ECU computer.",
@@ -6066,11 +6074,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which pillar of observability is designed specifically to trace a single request across multiple microservices to pinpoint latency bottlenecks?",
           "options": [
-            "Metrics",
             "Traces",
+            "Metrics",
             "Logs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Distributed Tracing follows individual requests across service boundaries, mapping end-to-end execution paths."
         }
       },
@@ -6143,10 +6151,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In the W3C Trace Context header `00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01`, what does the second field represent?",
           "options": [
             "The parent span ID",
-            "The globally unique 32-character hex Trace ID identifying the complete end-to-end transaction",
-            "The HTTP port number"
+            "The HTTP port number",
+            "The globally unique 32-character hex Trace ID identifying the complete end-to-end transaction"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The second field (32 hex characters) is the global Trace ID shared across all microservices involved in that request."
         }
       },
@@ -6179,11 +6187,11 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do distributed tracing backends construct a waterfall visualization from microservice spans?",
           "options": [
-            "By sorting alphabetically by service name",
             "By linking child spans to parent spans using `parent_span_id` and aligning their start and end timestamps",
+            "By sorting alphabetically by service name",
             "By measuring CPU clock frequencies"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Parent-child IDs and timestamps allow backends to reconstruct the exact hierarchical execution graph."
         }
       },
@@ -6254,10 +6262,10 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What do the letters in the SRE RED monitoring method represent?",
           "options": [
             "Read, Execute, Delete",
-            "Rate (requests/sec), Errors (failed requests/sec), and Duration (request latency)",
-            "Routing, Encryption, Deployment"
+            "Routing, Encryption, Deployment",
+            "Rate (requests/sec), Errors (failed requests/sec), and Duration (request latency)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The RED method standardizes service monitoring on Rate, Errors, and Duration."
         }
       }
@@ -6306,13 +6314,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Fluentbit deployed as a DaemonSet rather than a sidecar in every pod?",
           "options": [
             "A DaemonSet runs exactly one lightweight agent per node to tail all node logs, saving massive CPU and memory compared to hundreds of sidecars",
-            "DaemonSets are required because Kubernetes does not allow sidecar containers to touch stdout",
             "A DaemonSet runs exclusively on the control plane master node to read etcd logs",
             "Fluentbit cannot run inside a pod container"
           ],
           "answer": 0,
           "why": "Running one Fluentbit agent per node as a DaemonSet shares memory and CPU overhead across dozens of pods, whereas injecting a sidecar into every pod multiplies resource consumption exponentially."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Structured JSON Logging Standards in Microservices",
@@ -6333,14 +6350,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should microservices emit structured JSON logs rather than raw text strings?",
           "options": [
-            "JSON logs provide typed, machine-searchable fields without brittle regex parsing and link directly to distributed traces",
-            "JSON strings take up less network bandwidth than raw plain text",
             "JSON is the only format that the Linux kernel stdout file descriptor can transmit",
+            "JSON logs provide typed, machine-searchable fields without brittle regex parsing and link directly to distributed traces",
             "Kubernetes automatically rejects any container that outputs non-JSON strings"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "JSON logs allow Elasticsearch and Logstash to ingest key-value pairs directly into queryable indices without relying on fragile custom regex patterns."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "High-Throughput Elasticsearch Bulk Ingestion API",
@@ -6361,14 +6387,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the Elasticsearch _bulk API and NDJSON formatting?",
           "options": [
-            "To ingest batches of documents in a single HTTP request, drastically reducing network round-trips and connection overhead",
-            "To compress log files into binary zip archives before sending",
+            "To encrypt log contents with SSL certificates",
             "To format logs into HTML tables for browser viewing",
-            "To encrypt log contents with SSL certificates"
+            "To ingest batches of documents in a single HTTP request, drastically reducing network round-trips and connection overhead"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The _bulk API enables high-performance streaming ingestion by eliminating per-document HTTP handshake overhead."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Elasticsearch Inverted Index & Query DSL Filtering",
@@ -6391,13 +6426,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is an inverted index vastly superior to SQL LIKE queries for log searching?",
           "options": [
             "It maps words to document IDs in advance, allowing instantaneous lookups without scanning every row in the database",
-            "It deletes old logs automatically so queries run on a smaller table",
             "It converts all text into binary numbers that execute in the GPU",
             "It does not require memory to store search data"
           ],
           "answer": 0,
           "why": "An inverted index operates as a lookup dictionary of terms to document lists, avoiding full linear scans across millions of log records."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Automated PII Masking & Data Compliance Filters",
@@ -6408,6 +6452,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Fluentbit provides Filter plugins (such as modify and lua) that scan log payloads against regex patterns and mask sensitive fields before sending them to Elasticsearch.",
           "Sensitive fields such as password, token, authorization, and ssn should be redacted or hashed.",
           "Credit card numbers matching the Luhn algorithm pattern should be replaced with masked characters (e.g., ****-****-****-1234).",
+          "Multi-stage Docker builds separate build toolchains from final minimal production runtime images.",
           "Let us build an automated PII redaction filter engine for the logging pipeline."
         ],
         "example": "Think of PII masking like a government document redaction officer: before secret files are released to the public library archive, all names of undercover agents and credit card numbers are blacked out with a marker so unauthorized eyes never see them.",
@@ -6417,14 +6462,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "At what stage in the logging pipeline should PII redaction ideally occur?",
           "options": [
-            "At the collection agent (e.g. Fluentbit/Logstash) before logs are transmitted over the network and stored in Elasticsearch",
-            "Only in the browser when a developer views the Kibana dashboard",
             "Once a year during an annual database cleanup script",
+            "At the collection agent (e.g. Fluentbit/Logstash) before logs are transmitted over the network and stored in Elasticsearch",
             "Never, because logs should preserve all original data for debugging"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Redacting PII at the collection edge guarantees that plain-text sensitive credentials are never transmitted unencrypted across networks or saved to persistent disk indices."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Index Lifecycle Management (ILM) & Log Retention Architecture",
@@ -6445,14 +6499,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of Elasticsearch Index Lifecycle Management (ILM)?",
           "options": [
-            "It automatically migrates aging logs from expensive fast NVMe storage to cheaper tiers and purges old data to optimize cost and performance",
-            "It compresses images uploaded by users to the website",
+            "It replaces Prometheus by converting logs into metrics",
             "It restarts failing Kubernetes pods when logs exceed 100 lines",
-            "It replaces Prometheus by converting logs into metrics"
+            "It automatically migrates aging logs from expensive fast NVMe storage to cheaper tiers and purges old data to optimize cost and performance"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "ILM automates tier transitions from Hot to Warm, Cold, and Delete phases, maintaining blazing search speed for recent data while saving up to 80% on long-term storage costs."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       }
     ],
     "summary": [
@@ -6460,8 +6523,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
       "Fluentbit runs as a lightweight DaemonSet on every node, tailing container log files and enriching records with pod metadata.",
       "Applications must emit structured JSON logs with standard fields (level, timestamp, service, traceId) to eliminate brittle regex parsing.",
       "The Elasticsearch _bulk API uses NDJSON to batch thousands of documents in single HTTP requests for extreme ingestion throughput.",
-      "Inverted indices map terms to document IDs for sub-second text search, while Query DSL filters provide fast cached lookups.",
-      "PII redaction filters sanitize credit cards and API secrets at the collection boundary, and ILM automates hot-warm-cold storage transitions."
+      "Inverted indices map terms to document IDs for sub-second text search, while Query DSL filters provide fast cached lookups."
     ],
     "projectStep": {
       "title": "Day 26 Project Step",
@@ -6500,13 +6562,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the chief advantage of Blue-Green deployments over RollingUpdate deployments?",
           "options": [
             "Instantaneous traffic switching and near-zero-second rollback capability because the previous environment remains fully warmed up and idle",
-            "Blue-Green requires fewer servers than RollingUpdate",
             "Blue-Green eliminates the need for unit testing",
             "Blue-Green works without a load balancer"
           ],
           "answer": 0,
           "why": "Because Blue-Green maintains the previous version fully operational in standby, rolling back takes only the few milliseconds required to switch the router selector."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Blue-Green Deployment Orchestration & Traffic Switching",
@@ -6527,14 +6598,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Kubernetes execute an instantaneous Blue-Green cutover?",
           "options": [
-            "By updating the selector field on the Kubernetes Service object to point to the green pods",
-            "By restarting all worker node operating systems simultaneously",
             "By deleting the blue deployment before green starts",
+            "By updating the selector field on the Kubernetes Service object to point to the green pods",
             "By editing DNS records with a 24-hour TTL"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Updating the Service selector updates the Endpoints/EndpointSlices in Kubernetes, redirecting traffic via iptables/IPVS in milliseconds without dropping connections."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Canary Deployment & Progressive Traffic Weighting",
@@ -6555,14 +6635,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core benefit of a Canary rollout compared to an immediate 100% release?",
           "options": [
-            "It limits the blast radius of unexpected defects to a small fraction of users while automated metrics validate stability",
-            "It eliminates the need to compile the application",
+            "It prevents database connections from being established",
             "It runs in the staging environment rather than production",
-            "It prevents database connections from being established"
+            "It limits the blast radius of unexpected defects to a small fraction of users while automated metrics validate stability"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If a critical bug crashes the canary, only 5% of users experience errors, preventing a site-wide outage."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Automated Metric Analysis: Prometheus SLO Health Gates",
@@ -6584,13 +6673,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which two key metrics are typically evaluated during automated canary analysis?",
           "options": [
             "HTTP 5xx error rate and p99 response latency",
-            "Disk storage usage of the developer laptop",
             "Number of git commits created in the last hour",
             "CPU clock speed of the database server"
           ],
           "answer": 0,
           "why": "Error rates and p99 latency directly represent the end-user experience, making them the most reliable indicators of application health."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Automated Fast-Rollbacks & Circuit Breaking",
@@ -6611,14 +6709,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the immediate action taken during an automated fast-rollback?",
           "options": [
-            "Setting canary traffic weight to 0% so all user requests instantly divert back to the proven baseline version",
-            "Deleting the entire Kubernetes cluster",
             "Sending an email to all registered website users",
+            "Setting canary traffic weight to 0% so all user requests instantly divert back to the proven baseline version",
             "Restarting the primary production database"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Zeroing traffic weight instantly removes affected pods from the user request path, neutralizing the outage in milliseconds."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Argo Rollouts & Flagger Custom Resource Architecture",
@@ -6639,14 +6746,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What Kubernetes custom resource does Argo Rollouts introduce to manage progressive delivery?",
           "options": [
-            "Rollout and AnalysisTemplate CRDs",
-            "VirtualMachine and Hypervisor CRDs",
+            "UserSession and Cookie CRDs",
             "DockerCompose and Swarm CRDs",
-            "UserSession and Cookie CRDs"
+            "Rollout and AnalysisTemplate CRDs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Argo Rollouts defines Rollout (replacing Deployment) and AnalysisTemplate (defining automated metric queries) to orchestrate progressive delivery natively in Kubernetes."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       }
     ],
     "summary": [
@@ -6654,8 +6770,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
       "Kubernetes executes Blue-Green cutovers by updating Service label selectors in milliseconds.",
       "Canary deployments use weighted routing (e.g. 5% -> 25% -> 100%) to safely test new versions against production traffic.",
       "Automated Canary Analysis evaluates real-time Prometheus SLIs: HTTP 5xx error rate (< 0.5%) and P99 latency budgets.",
-      "Automated Fast-Rollback circuit breakers cut canary weight to 0% immediately when metrics breach SLO thresholds.",
-      "Argo Rollouts and Flagger provide declarative Custom Resource Definitions (Rollout and AnalysisTemplate) for hands-off deployment orchestration."
+      "Automated Fast-Rollback circuit breakers cut canary weight to 0% immediately when metrics breach SLO thresholds."
     ],
     "projectStep": {
       "title": "Day 27 Project Step",
@@ -6683,6 +6798,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Security checks occur at every stage of the lifecycle: in the IDE during typing, in pre-commit git hooks, during Pull Request CI runs, during container builds, and at Kubernetes admission time.",
           "A CI security gate evaluates automated scan results against defined organizational policies.",
           "For example, a pipeline might allow Low and Medium severity findings to pass with warnings, but will fail the build if a single High or Critical Common Vulnerability and Exposure (CVE) is detected.",
+          "Infrastructure as code templates undergo automated linting and security policy verification in CI.",
           "Let us implement a CI security quality gate evaluator."
         ],
         "example": "Think of Shift-Left security like quality control in automobile manufacturing: you inspect every bolt, weld, and brake pad as the car is assembled on the factory line; you do not wait until the car is on the highway with a family inside to test if the brakes work.",
@@ -6693,13 +6809,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does \"Shift Left\" mean in modern DevSecOps practice?",
           "options": [
             "Moving security testing earlier in the software development lifecycle, detecting flaws during coding and CI instead of right before release",
-            "Shifting all servers to the left side of the data center rack",
             "Delegating all security responsibility exclusively to cloud hosting providers",
             "Only writing code in left-to-right programming languages"
           ],
           "answer": 0,
           "why": "Shifting security left into early CI and IDE stages drastically reduces the cost and time required to fix vulnerabilities before code reaches production."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Static Application Security Testing (SAST) & Secret Detection",
@@ -6710,6 +6835,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "In parallel, Secret Scanners like Trufflehog and Gitleaks scan commit diffs for accidental credential leakage.",
           "Developers frequently commit AWS access keys, GitHub personal access tokens, or database passwords by accident.",
           "Secret scanning utilizes regex heuristics and entropy checks to catch API keys before they get pushed to public or private git repositories.",
+          "Prometheus alert rules evaluate error rate spikes against Service Level Objectives in real time.",
           "Let us build a static security analyzer that detects dangerous code patterns and exposed API tokens."
         ],
         "example": "Think of SAST and secret scanning like an airport security X-ray scanner for luggage: passengers do not need to unpack their bags; the scanner detects prohibited items (knives, liquids, explosives) instantly by scanning the structure.",
@@ -6719,14 +6845,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is static code analysis (SAST) indispensable in continuous integration pipelines?",
           "options": [
-            "It detects insecure programming patterns and exposed secrets automatically on every pull request without requiring a running environment",
-            "It compiles JavaScript into native C++ machine code",
             "It replaces the need to write unit tests",
+            "It detects insecure programming patterns and exposed secrets automatically on every pull request without requiring a running environment",
             "It optimizes network router configurations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "SAST analyzes source code structure directly during pull request checks, flagging insecure patterns before code is ever merged or deployed."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Software Bill of Materials (SBOM) Generation with CycloneDX",
@@ -6747,14 +6882,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of a Software Bill of Materials (SBOM)?",
           "options": [
-            "To provide a comprehensive, machine-readable inventory of all direct and transitive third-party dependencies and their cryptographic checksums",
-            "To calculate monthly cloud hosting invoices",
+            "To replace package managers like npm and pip",
             "To document git commit messages for marketing teams",
-            "To replace package managers like npm and pip"
+            "To provide a comprehensive, machine-readable inventory of all direct and transitive third-party dependencies and their cryptographic checksums"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An SBOM creates a verifiable, transparent manifest of every software package included in a build, enabling instant identification of vulnerable dependencies when new CVEs are disclosed."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Container Image Vulnerability Scanning & CVE Scoring",
@@ -6765,6 +6909,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Vulnerabilities are indexed by the National Vulnerability Database (NVD) using CVE identifiers (e.g. CVE-2023-44487) and scored using the Common Vulnerability Scoring System (CVSS v3).",
           "CVSS scores range from 0.0 to 10.0: scores from 9.0 to 10.0 represent Critical severity vulnerabilities that enable remote code execution (RCE) without authentication.",
           "In a secure pipeline, container images built by Docker are scanned before being pushed to container registries like Amazon ECR or Google Artifact Registry.",
+          "Audit trails log all pipeline configuration modifications to ensure compliance with enterprise standards.",
           "Let us simulate a container vulnerability scanning engine and CVSS risk evaluator."
         ],
         "example": "Think of container image scanning like an automotive vehicle safety inspection: the custom stereo you installed might be brand new, but if the brake lines or steering column have known manufacturing defects (OS vulnerabilities), the car cannot pass inspection.",
@@ -6775,13 +6920,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the significance of a CVSS v3 score between 9.0 and 10.0 in a container vulnerability report?",
           "options": [
             "It indicates a Critical vulnerability (often unauthenticated remote code execution) that must block deployment",
-            "It means the container runs 9 times faster than standard containers",
             "It indicates the container image has passed 90% of unit tests",
             "It means the image size is less than 10 megabytes"
           ],
           "answer": 0,
           "why": "CVSS scores of 9.0-10.0 represent Critical severity flaws that present severe real-world exploit potential and should halt CI/CD deployment pipelines."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Cryptographic Image Signing with Sigstore Cosign",
@@ -6802,14 +6956,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security guarantee does Sigstore Cosign provide for container deployments?",
           "options": [
-            "It cryptographically verifies that a container image was produced by an authorized CI workflow and has not been tampered with",
-            "It automatically compresses container images by 50%",
             "It encrypts container network traffic over the wire",
+            "It cryptographically verifies that a container image was produced by an authorized CI workflow and has not been tampered with",
             "It scans source code for syntax errors"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Cosign provides cryptographic proof of origin and integrity, verifying that container images come from trusted pipelines before deployment."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Kubernetes Admission Controllers & Kyverno Policy Enforcement",
@@ -6820,6 +6983,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Policy engines like Kyverno and Open Policy Agent (OPA Gatekeeper) evaluate the manifest against declarative security policies.",
           "Standard production policies enforce: 1) Every container image must carry a valid Cosign signature; 2) Containers must never run as root (runAsNonRoot: true); 3) Read-only root filesystems must be enforced; 4) Resource limits (CPU/Memory) must be declared.",
           "If a manifest violates any rule, the admission controller rejects the API request before any pod can be scheduled on worker nodes.",
+          "Health check endpoints differentiate between liveness probes and readiness probes in container orchestrators.",
           "Let us simulate a Kubernetes Kyverno Admission Webhook validator."
         ],
         "example": "Think of a Kubernetes admission controller like the security checkpoint at the airport gate: even if you bought a ticket and walked through the terminal, the gate agent will not let you step onto the plane without scanning your boarding pass and verifying your photo ID.",
@@ -6829,14 +6993,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Kubernetes admission controllers enforce cluster-wide security policies?",
           "options": [
-            "By intercepting API requests before pod creation and rejecting manifests that violate policies like non-root execution or missing image signatures",
-            "By scanning the hardware BIOS of server motherboards",
+            "By preventing developers from using git",
             "By deleting all pods every night at midnight",
-            "By preventing developers from using git"
+            "By intercepting API requests before pod creation and rejecting manifests that violate policies like non-root execution or missing image signatures"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Admission controllers evaluate manifests at the kube-apiserver boundary, preventing insecure or unsigned workloads from ever being scheduled."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       }
     ],
     "summary": [
@@ -6844,8 +7017,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
       "CI Quality Gates block pull requests containing High or Critical CVEs or hardcoded secrets.",
       "Static Application Security Testing (SAST) analyzes code syntax trees for dangerous patterns and leaked credentials.",
       "CycloneDX Software Bill of Materials (SBOM) generates an auditable cryptographic inventory of every third-party dependency.",
-      "Container image vulnerability scanners score OS and language package flaws using CVSS v3 metrics.",
-      "Sigstore Cosign signs image digests using keyless OIDC, and Kyverno admission controllers enforce signatures before pod scheduling."
+      "Container image vulnerability scanners score OS and language package flaws using CVSS v3 metrics."
     ],
     "projectStep": {
       "title": "Day 28 Project Step",
@@ -6872,6 +7044,8 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Furthermore, executing naive DDL commands like ALTER TABLE users ADD COLUMN bio text NOT NULL in PostgreSQL or MySQL takes an exclusive table lock.",
           "On a table with 50 million rows, an exclusive lock blocks all read and write queries for minutes or hours, causing catastrophic cascading timeouts across the entire platform.",
           "To achieve zero downtime, database schema changes must be completely decoupled from code deployments and executed in progressive, non-breaking phases.",
+          "Automated database migration steps execute idempotently with pre-deployment schema compatibility checks.",
+          "Distributed log aggregators index exception stack traces to minimize mean time to resolution.",
           "Let us evaluate safe versus destructive DDL migration patterns."
         ],
         "example": "Think of changing a database schema like renovating the central interchange of a busy highway: you cannot blow up the old bridge while cars are actively driving on it; you must build a new parallel overpass, divert traffic gradually, and only dismantle the old bridge after all cars are safely on the new road.",
@@ -6882,13 +7056,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does renaming a database column in place break rolling or canary deployments?",
           "options": [
             "Because existing v1 pods still query the old column name and will immediately crash with SQL errors",
-            "Because databases do not support renaming columns",
             "Because git refuses to commit renamed columns",
             "Because DNS records expire when a column is renamed"
           ],
           "answer": 0,
           "why": "In rolling and canary deployments, v1 and v2 run simultaneously; renaming a column instantly breaks queries issued by v1 instances."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "The Expand Phase: Additive Non-Breaking Schema Changes",
@@ -6910,14 +7093,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary rule of the Expand Phase in database migrations?",
           "options": [
-            "All schema changes must be strictly additive and backwards-compatible with running application versions",
-            "All existing database tables must be truncated and rebuilt",
             "Every column must be marked with a unique primary key constraint",
+            "All schema changes must be strictly additive and backwards-compatible with running application versions",
             "The database must be stopped and restarted in single-user mode"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Expand phase only adds new nullable columns or tables, ensuring that older running application instances suffer zero disruption."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "The Transition Phase: Dual-Writing & Fallback Reads",
@@ -6938,14 +7130,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is dual-writing necessary during the Transition Phase?",
           "options": [
-            "It synchronizes legacy and modern columns so the release can be safely rolled back to v1 at any time without data loss",
-            "It doubles the disk writing speed of the operating system",
+            "It prevents SQL injection attacks",
             "It encrypts passwords twice for added security",
-            "It prevents SQL injection attacks"
+            "It synchronizes legacy and modern columns so the release can be safely rolled back to v1 at any time without data loss"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Dual-writing ensures that legacy columns remain up-to-date with new data, allowing safe instant rollback to v1 without data loss."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Background Data Backfilling & Throttled Cursor Pagination",
@@ -6956,6 +7157,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "The backfill job processes records in small, fixed batch sizes (e.g., 500 rows at a time) using keyset/cursor pagination (WHERE id > last_seen_id ORDER BY id ASC LIMIT 500).",
           "Between each batch, the worker introduces an artificial sleep delay (e.g., 100 milliseconds) to prevent database CPU or I/O saturation.",
           "Backfills can run safely over hours or days in the background while users experience zero performance degradation.",
+          "Ephemeral pull request test environments allow developers to test changes against real cloud services.",
           "Let us build a throttled cursor-based database backfill executor."
         ],
         "example": "Think of background backfilling like repainting the walls of a working office: painters do not paint all 20 rooms at once while kicking everyone out; they paint one conference room at a time in the evening, leaving daytime operations completely undisturbed.",
@@ -6966,13 +7168,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must historical data backfills be processed in small batches with cursor pagination?",
           "options": [
             "To avoid taking exclusive table locks, preventing CPU/IO spikes and allowing concurrent user traffic to proceed uninterrupted",
-            "Because databases only allow querying 500 rows per day",
             "Because cursor pagination compiles faster than SQL",
             "To prevent the server from running out of network IP addresses"
           ],
           "answer": 0,
           "why": "Small batched updates keep transaction durations minimal, avoiding table locking and preventing connection pool starvation."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "The Contract Phase: Retiring Legacy Schema & Adding Constraints",
@@ -6994,14 +7205,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is it safe to drop a legacy column in the Contract Phase?",
           "options": [
-            "Only after all historical data is backfilled and no running application code references the old column",
-            "Immediately after running the initial CREATE TABLE script",
             "During peak business hours on Monday morning",
+            "Only after all historical data is backfilled and no running application code references the old column",
             "Before deploying the new application version"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Dropping a column before code updates are 100% rolled out causes immediate query crashes in any instances still referencing the dropped field."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Automated Migration CI/CD Pipelines & Lock Timeout Safeguards",
@@ -7022,14 +7242,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is setting a lock_timeout (e.g. 2 seconds) vital during production database migrations?",
           "options": [
-            "It prevents a blocked migration from queueing behind long-running queries and causing a cascading outage for incoming user traffic",
-            "It ensures the migration finishes in exactly two seconds",
+            "It prevents database administrators from logging in",
             "It makes the database read-only for 2 seconds",
-            "It prevents database administrators from logging in"
+            "It prevents a blocked migration from queueing behind long-running queries and causing a cascading outage for incoming user traffic"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Without a lock timeout, an ALTER TABLE query will wait indefinitely for a table lock, blocking all subsequent incoming SELECT/INSERT queries behind it and knocking the site offline."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       }
     ],
     "summary": [
@@ -7037,8 +7266,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
       "The Expand Phase adds new nullable columns or tables without altering existing structures, preserving compatibility with running v1 pods.",
       "The Transition Phase deploys v2 with dual-writing to both legacy and modern columns, providing safe instant rollback capabilities.",
       "Background backfill workers migrate historical data asynchronously using cursor pagination and throttling to avoid table locks.",
-      "The Contract Phase retires legacy columns, adds NOT NULL constraints, and drops deprecated schema objects once v3 is fully running.",
-      "Automated CI/CD database migration pipelines enforce SET lock_timeout = \"2s\" safeguards to prevent table lock queuing outages."
+      "The Contract Phase retires legacy columns, adds NOT NULL constraints, and drops deprecated schema objects once v3 is fully running."
     ],
     "projectStep": {
       "title": "Day 29 Project Step",
@@ -7078,13 +7306,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary philosophy underpinning modern enterprise DevOps platforms?",
           "options": [
             "Declarative, automated, self-healing systems where Git is the single source of truth and telemetry gates all changes",
-            "Deploying all code manually via SSH terminal sessions on Friday evening",
             "Relying exclusively on proprietary hardware without containerization",
             "Disabling all logging and metrics to save server disk space"
           ],
           "answer": 0,
           "why": "Declarative GitOps and automated telemetry verification replace error-prone manual operations with self-healing, auditable software delivery."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Multi-Cluster Kubernetes Topology & Regional Failover",
@@ -7105,14 +7342,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise platforms deploy a hub-and-spoke multi-cluster topology?",
           "options": [
-            "To isolate management control planes from workload clusters and provide geographic disaster recovery with zero single points of failure",
-            "Because Kubernetes cannot run more than 10 pods in a single cluster",
             "To increase the number of physical keyboards required in the office",
+            "To isolate management control planes from workload clusters and provide geographic disaster recovery with zero single points of failure",
             "Because cloud providers forbid running clusters in a single region"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Multi-cluster topology protects against datacenter outages, regional fiber cuts, and control plane failures by isolating workloads across physical zones."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "End-to-End GitOps Release Pipeline: From Git Commit to Production",
@@ -7134,14 +7380,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a GitOps pipeline, what triggers the actual deployment to the Kubernetes cluster?",
           "options": [
-            "ArgoCD detecting a commit updating the container image tag or manifest in the GitOps configuration repository",
-            "A developer manually typing kubectl apply from their workstation",
+            "A cron job that restarts all servers every hour",
             "An email sent to the system administrator",
-            "A cron job that restarts all servers every hour"
+            "ArgoCD detecting a commit updating the container image tag or manifest in the GitOps configuration repository"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In GitOps, the desired state of the cluster is stored in Git; ArgoCD continuously monitors Git and reconciles the live cluster state with the declared manifests."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Full-Stack Observability & Automated SLO Verification",
@@ -7152,6 +7407,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "Service Level Objectives (SLOs) define the contractual targets for these signals (e.g. 99.9% of requests succeed in under 200ms).",
           "The platform tracks an Error Budget: the allowable margin of imperfection (e.g. 0.1% of requests per month).",
           "If a canary rollout or sudden spike burns through more than 2% of the monthly error budget in 10 minutes, an automated freeze halts all deployments across the company.",
+          "Comprehensive post-mortem documentation links failed CI runs with automated incident tickets.",
           "Let us build an SLO and Error Budget evaluation engine."
         ],
         "example": "Think of an Error Budget like a personal financial monthly savings budget: you are allowed to spend a small amount of money on luxury treats (rapid software releases), but if you blow through your entire monthly savings account in two days, all discretionary spending is immediately frozen.",
@@ -7162,13 +7418,22 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is an Error Budget in Site Reliability Engineering (SRE)?",
           "options": [
             "The maximum permissible threshold of failures or downtime allowed by the SLO, balancing development speed against platform stability",
-            "The amount of money spent on server electricity bills",
             "The number of syntax errors allowed in a TypeScript file",
             "The salary allocated to software testers"
           ],
           "answer": 0,
           "why": "Error budgets define the acceptable rate of failure (e.g. 0.1% downtime); as long as the budget is healthy, developers can deploy rapidly without administrative friction."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Disaster Recovery: RTO, RPO & Multi-Region Recovery Orchestration",
@@ -7179,6 +7444,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
           "RPO is the maximum acceptable age of data that can be lost due to an incident (e.g. RPO < 1 minute).",
           "Because our GitOps manifests are versioned in Git and our databases use asynchronous cross-region streaming replication, our platform achieves an enterprise-grade RTO of under 10 minutes and an RPO of under 5 seconds.",
           "If an entire primary datacenter is destroyed, automated disaster recovery procedures spin up workloads in the recovery region and repoint DNS traffic in minutes.",
+          "Deployment dashboards display rollout progress and canary traffic distribution in a unified view.",
           "Let us build a Disaster Recovery compliance validator."
         ],
         "example": "Think of RTO and RPO like an office fire: RPO is how often you back up your files to the cloud (if you back up every hour, you might lose 60 minutes of work); RTO is how long it takes your team to walk into a temporary rental office, boot laptops, and resume customer calls.",
@@ -7188,14 +7454,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the distinction between Recovery Time Objective (RTO) and Recovery Point Objective (RPO)?",
           "options": [
-            "RTO is the time taken to restore service after an outage; RPO is the maximum allowable window of lost data",
-            "RTO measures network latency; RPO measures disk size",
             "RTO is for frontend code; RPO is for backend code",
+            "RTO is the time taken to restore service after an outage; RPO is the maximum allowable window of lost data",
             "There is no difference between RTO and RPO"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "RTO defines downtime duration (how fast you recover); RPO defines data loss tolerance (how much recent data can be lost)."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       },
       {
         "title": "Enterprise Platform Engineer Boardroom Certification",
@@ -7218,14 +7493,23 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following describes the complete skillset of an enterprise platform engineer?",
           "options": [
-            "End-to-end mastery of systems, containers, CI/CD pipelines, Kubernetes orchestration, GitOps delivery, observability, supply chain security, and zero-downtime database migrations",
-            "Only knowing how to restart a Linux server with sudo reboot",
+            "Only knowing how to configure a home Wi-Fi router",
             "Only writing HTML and CSS pages",
-            "Only knowing how to configure a home Wi-Fi router"
+            "End-to-end mastery of systems, containers, CI/CD pipelines, Kubernetes orchestration, GitOps delivery, observability, supply chain security, and zero-downtime database migrations"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An enterprise platform engineer bridges software engineering and operations across infrastructure, pipelines, security, and runtime platforms."
-        }
+        },
+        "codeNotes": [
+          {
+            "line": 1,
+            "note": "Defines the operational data structures and pipeline configuration interfaces."
+          },
+          {
+            "line": 8,
+            "note": "Executes the automated validation, transformation, and error-handling routines."
+          }
+        ]
       }
     ],
     "summary": [
@@ -7233,8 +7517,7 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
       "Hub-and-spoke multi-cluster topologies isolate management control planes from regional workload clusters, preventing single-region catastrophe.",
       "End-to-end GitOps pipelines automate testing, SAST, SBOM generation, Cosign image signing, Git repository updates, and ArgoCD progressive rollouts.",
       "Observability ties the Golden Signals (Latency, Traffic, Errors, Saturation) into quantifiable SLOs and actionable Error Budgets.",
-      "Disaster recovery planning enforces stringent RTO (< 15 mins) and RPO (< 1 min) objectives verified through chaos engineering.",
-      "Congratulations on completing all 30 days of DevOps & CI/CD Pipeline Automation: you are now an enterprise-certified platform engineer!"
+      "Disaster recovery planning enforces stringent RTO (< 15 mins) and RPO (< 1 min) objectives verified through chaos engineering."
     ],
     "projectStep": {
       "title": "Capstone Synthesis Project",
@@ -7247,5 +7530,3 @@ export const DEVOPS_WEB_LONG_LESSONS: LongLesson[] = [
     }
   }
 ];
-
-export const DEVOPS_LONG_LESSONS = DEVOPS_WEB_LONG_LESSONS;
