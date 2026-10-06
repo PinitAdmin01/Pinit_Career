@@ -10,7 +10,7 @@ export const KNOWN_LESSON_DEFECTS: Record<string, number> = {
   'dsa-optim': 0,
   'dist': 0,
   'cyber': 0,
-  'ai': 4,
+  'ai': 0,
   'sre-web': 3,
   'stream-web': 3,
   'aideploy-web': 184,
