@@ -1,20 +1,5 @@
-import { LongLesson } from './longLessons';
+import type { LongLesson } from './longLessons';
 
-/**
- * Enterprise Cybersecurity Engineering & Defense (course-cybersecurity, prefix: cyber):
- * 30 comprehensive long-format lessons (20-30 minutes each, >= 10 spoken minutes)
- * covering CIA triad, STRIDE threat modeling, SQL injection (SQLi),
- * Cross-Site Scripting (XSS), Content Security Policy (CSP), CSRF & SameSite cookies,
- * Web Application Firewall (WAF), cryptographic primitives (AES-GCM, RSA, ECC),
- * password hashing (Argon2id, Bcrypt), Public Key Infrastructure (PKI, X.509, TLS 1.3),
- * JWT security, MFA & TOTP (RFC 6238), RBAC & ABAC authorization, BOLA / IDOR defense,
- * TCP SYN flood & stateful firewalls, secure HTTP headers, SSRF & cloud metadata protection,
- * insecure deserialization, secrets entropy auditing, SBOM & CVE dependency management,
- * API security & rate limiting, binary exploitation (buffer overflows, stack canaries, ASLR),
- * memory safety, SIEM log analysis, IDS/IPS Snort rules, CVSS v3.1 vulnerability scoring,
- * Zero Trust Architecture (BeyondCorp), Cloud IAM & KMS, incident response forensics,
- * and sovereign offensive/defensive operations suite capstone.
- */
 export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
   {
     "day": 1,
@@ -53,11 +38,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which pillar of the CIA Triad is directly violated when an attacker modifies bank account balances in a database?",
           "options": [
-            "Confidentiality",
             "Integrity",
+            "Confidentiality",
             "Availability"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Integrity ensures that data remains accurate and unaltered; unauthorized modification directly violates the integrity pillar."
         }
       },
@@ -91,11 +76,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary factor that keeps risk low when a severe zero-day vulnerability exists on an isolated system with no external connectivity?",
           "options": [
-            "Zero or near-zero threat likelihood",
             "Infinite business impact",
+            "Zero or near-zero threat likelihood",
             "Perfect cryptographic integrity"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because Risk = Threat x Vulnerability x Impact, if the threat likelihood of reaching the isolated asset is zero, the calculated risk remains minimal."
         }
       },
@@ -129,11 +114,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which security property is violated when an attacker tampers with an API payload in transit?",
           "options": [
-            "Integrity",
+            "Availability",
             "Non-repudiation",
-            "Availability"
+            "Integrity"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Tampering refers to unauthorized modification of data, which directly violates data integrity."
         }
       },
@@ -167,11 +152,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary technical defense against Repudiation threats in financial transaction systems?",
           "options": [
-            "Compressing API responses with Gzip",
             "Immutable, timestamped audit logging and digital signatures",
+            "Compressing API responses with Gzip",
             "Increasing database connection pool limits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Non-repudiation requires immutable, cryptographically verifiable records proving that an identity performed a specific action at a specific time."
         }
       },
@@ -244,10 +229,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the core rationale behind implementing Defense-in-Depth?",
           "options": [
             "To eliminate the need for software testing",
-            "To ensure that if one security control fails, secondary controls contain the attack",
-            "To speed up database query execution"
+            "To speed up database query execution",
+            "To ensure that if one security control fails, secondary controls contain the attack"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Defense-in-Depth ensures redundancy so that the breach of any single defensive layer does not lead to total system compromise."
         }
       }
@@ -305,11 +290,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is dynamic string concatenation vulnerable to SQL injection?",
           "options": [
-            "Because string concatenation runs slower than binary operations",
             "Because the database parser treats injected characters as executable SQL syntax instead of literal data",
+            "Because string concatenation runs slower than binary operations",
             "Because databases only accept lowercase queries"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "When strings are concatenated, user input becomes part of the SQL grammar parsed into the database's AST."
         }
       },
@@ -381,11 +366,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What technical constraint must an attacker satisfy when executing a UNION-based SQL injection?",
           "options": [
-            "The injected query must have the exact same number and compatible types of columns as the original query",
+            "The query must use exclusively uppercase characters",
             "The database must be running on Linux",
-            "The query must use exclusively uppercase characters"
+            "The injected query must have the exact same number and compatible types of columns as the original query"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The SQL standard mandates that UNION operations must join queries with identical column counts and matching data types."
         }
       },
@@ -496,10 +481,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In an enterprise query builder, what is the role of placeholder markers like `?` or `$1`?",
           "options": [
             "They instruct the web browser to prompt the user for missing fields",
-            "They indicate slots in the pre-compiled SQL query where literal parameter values will be securely bound",
-            "They indicate where comments should be stripped"
+            "They indicate where comments should be stripped",
+            "They indicate slots in the pre-compiled SQL query where literal parameter values will be securely bound"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Placeholders designate variable positions in the pre-compiled AST, guaranteeing that passed parameters remain data literals."
         }
       }
@@ -557,11 +542,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which class of XSS vulnerability persists permanently in the application's database and impacts every user viewing the infected record?",
           "options": [
-            "Reflected XSS",
             "Stored XSS",
+            "Reflected XSS",
             "DOM-based XSS"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Stored XSS payloads are saved in persistent storage (database/filesystem) and executed whenever other users retrieve that data."
         }
       },
@@ -634,10 +619,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Stored XSS particularly devastating when targeted at administrative dashboards?",
           "options": [
             "Because administrative dashboards run on higher-frequency CPUs",
-            "Because the injected script executes inside the administrator's authenticated session, inheriting their elevated permissions to alter system state",
-            "Because databases cannot store HTML entities"
+            "Because databases cannot store HTML entities",
+            "Because the injected script executes inside the administrator's authenticated session, inheriting their elevated permissions to alter system state"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The malicious script runs in the context of the administrator's browser, allowing the attacker to perform administrative actions via API calls."
         }
       },
@@ -671,11 +656,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can traditional server-side Web Application Firewalls (WAFs) fail to detect DOM-based XSS attacks that use `location.hash`?",
           "options": [
-            "Because browsers encrypt all URL fragments with AES-256",
             "Because URL fragments (the hash `#`) are processed purely on the client and are never transmitted in HTTP requests to the server",
+            "Because browsers encrypt all URL fragments with AES-256",
             "Because DOM XSS only executes on mobile devices"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Per HTTP specifications, the fragment identifier after `#` is never sent across the wire in the HTTP request to the server."
         }
       },
@@ -748,10 +733,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does a CSP cryptographic nonce prevent an attacker's injected `<script>` tag from running?",
           "options": [
             "It forces the browser to restart",
-            "The browser only executes script tags whose nonce attribute exactly matches the secret nonce supplied in the HTTP response header",
-            "It converts JavaScript into WebAssembly bytecode"
+            "It converts JavaScript into WebAssembly bytecode",
+            "The browser only executes script tags whose nonce attribute exactly matches the secret nonce supplied in the HTTP response header"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Because the attacker cannot predict the secret per-request nonce, their injected script tag lacks the matching nonce and is blocked by the browser."
         }
       }
@@ -809,11 +794,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can an attacker execute CSRF attacks without ever seeing the victim's authentication cookie?",
           "options": [
-            "Because the attacker uses brute force on the session ID",
             "Because the victim's browser automatically attaches stored cookies to all cross-origin requests targeting the vulnerable domain",
+            "Because the attacker uses brute force on the session ID",
             "Because CSRF disables the database connection"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Browsers automatically attach cookies mapped to the target domain, so the attacker does not need to read the cookie value."
         }
       },
@@ -886,10 +871,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why can an attacker's website not read the CSRF token from a victim's legitimate banking page?",
           "options": [
             "Because CSRF tokens are encrypted with hardware security modules",
-            "Because the browser's Same-Origin Policy (SOP) strictly prevents scripts on one origin from reading the DOM or responses of another origin",
-            "Because tokens are deleted as soon as they are rendered"
+            "Because tokens are deleted as soon as they are rendered",
+            "Because the browser's Same-Origin Policy (SOP) strictly prevents scripts on one origin from reading the DOM or responses of another origin"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The Same-Origin Policy prevents an external origin (attacker.com) from inspecting the DOM or response contents of bank.com to steal the token."
         }
       },
@@ -1000,10 +985,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should anti-CSRF middleware verify the HTTP `Origin` header in addition to validating synchronizer tokens?",
           "options": [
             "To speed up JSON parsing",
-            "To provide Defense-in-Depth, ensuring that cross-origin requests are rejected early before consuming cryptographic validation resources",
-            "Because Origin headers contain the user's password"
+            "Because Origin headers contain the user's password",
+            "To provide Defense-in-Depth, ensuring that cross-origin requests are rejected early before consuming cryptographic validation resources"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Origin verification provides a fast, authoritative early-rejection barrier against cross-site submissions before token processing."
         }
       }
@@ -1061,11 +1046,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "At which layer of the OSI network model does a Web Application Firewall (WAF) primarily operate?",
           "options": [
-            "Layer 2 (Data Link Layer)",
+            "Layer 7 (Application Layer)",
             "Layer 4 (Transport Layer)",
-            "Layer 7 (Application Layer)"
+            "Layer 2 (Data Link Layer)"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "A WAF inspects HTTP headers, cookies, and application payloads, operating at Layer 7 (the Application layer)."
         }
       },
@@ -1099,11 +1084,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the WAF classify requests attempting to access `/admin` with `x-role-override` as Elevation of Privilege?",
           "options": [
-            "Because they are attempting to gain higher administrative privileges without proper authorization",
             "Because they reduce network latency",
+            "Because they are attempting to gain higher administrative privileges without proper authorization",
             "Because they violate CSS standards"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Elevation of Privilege involves an adversary attempting to acquire permissions beyond their authorized clearance level."
         }
       },
@@ -1137,11 +1122,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of intercepting SQL injection at the WAF layer?",
           "options": [
-            "It blocks the attack before the payload ever reaches the database or application code",
+            "It speeds up SQL query compilation",
             "It automatically encrypts the database with AES-256",
-            "It speeds up SQL query compilation"
+            "It blocks the attack before the payload ever reaches the database or application code"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "WAF interception at Layer 7 stops the malicious payload at the perimeter, preventing it from executing against backend databases."
         }
       },
@@ -1252,10 +1237,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of orchestrating threat classification, SQLi, CSRF, and XSS into a single WAF pipeline?",
           "options": [
             "It reduces CSS file sizes",
-            "It provides unified, centralized security policy enforcement and comprehensive audit logging across all microservices",
-            "It replaces the database indexing engine"
+            "It replaces the database indexing engine",
+            "It provides unified, centralized security policy enforcement and comprehensive audit logging across all microservices"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A unified WAF pipeline guarantees consistent enforcement, centralized monitoring, and early perimeter mitigation before traffic touches backend services."
         }
       }
@@ -1390,10 +1375,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary function of the 128-bit Authentication Tag generated by AES-GCM?",
           "options": [
             "It compresses the ciphertext to save disk space",
-            "It cryptographically guarantees that neither the ciphertext nor associated data has been tampered with or altered in transit",
-            "It stores the user's password in plain text"
+            "It stores the user's password in plain text",
+            "It cryptographically guarantees that neither the ciphertext nor associated data has been tampered with or altered in transit"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The authentication tag acts as a cryptographic checksum over ciphertext and associated data, ensuring total integrity."
         }
       },
@@ -1427,11 +1412,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cryptographic consequence of encrypting two different messages with the same AES-GCM key and IV?",
           "options": [
-            "The CPU hardware overheats",
             "The keystream cancels out when XORed ($C_1 \\oplus C_2 = P_1 \\oplus P_2$), exposing both plaintexts and enabling authentication tag forgery",
+            "The CPU hardware overheats",
             "The database throws an index out of bounds exception"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Nonce reuse in AES-GCM eliminates keystream security and allows adversaries to extract plaintexts and recover the Galois hash key."
         }
       },
@@ -1465,11 +1450,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does modern TLS 1.3 require Ephemeral Diffie-Hellman (ECDHE) and eliminate static RSA key exchange?",
           "options": [
-            "To enforce Perfect Forward Secrecy (PFS), guaranteeing that compromising long-term server keys cannot decrypt past recorded sessions",
             "Because RSA cannot run on 64-bit operating systems",
+            "To enforce Perfect Forward Secrecy (PFS), guaranteeing that compromising long-term server keys cannot decrypt past recorded sessions",
             "Because ECDHE generates larger certificates"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Static RSA key exchange allowed past recorded traffic to be decrypted if the server's private key leaked; ephemeral ECDHE prevents this."
         }
       },
@@ -1504,10 +1489,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In an Envelope Encryption architecture, what is the role of the Key Encryption Key (KEK)?",
           "options": [
             "It compresses the data before storing it in S3",
-            "It encrypts and protects the Data Encryption Key (DEK), maintaining centralized key governance without streaming bulk data to the KMS",
-            "It formats HTML tags"
+            "It formats HTML tags",
+            "It encrypts and protects the Data Encryption Key (DEK), maintaining centralized key governance without streaming bulk data to the KMS"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The KEK wraps and unwraps the small Data Encryption Keys, allowing bulk data to be encrypted locally with high performance."
         }
       }
@@ -1565,11 +1550,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should SHA-256 never be used for storing user passwords?",
           "options": [
-            "Because SHA-256 hashes are too long to fit in relational databases",
             "Because SHA-256 is designed to be extremely fast, allowing GPU clusters to compute billions of guesses per second",
+            "Because SHA-256 hashes are too long to fit in relational databases",
             "Because SHA-256 only works on macOS"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Fast general-purpose hashes enable attackers to run massive parallel brute-force and dictionary attacks on leaked hashes."
         }
       },
@@ -1603,11 +1588,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security objective of generating a unique 16-byte cryptographic salt for every user?",
           "options": [
-            "To defeat precomputed Rainbow Tables and ensure identical passwords yield different hashes",
             "To encrypt the user's email address",
+            "To defeat precomputed Rainbow Tables and ensure identical passwords yield different hashes",
             "To allow users to recover forgotten passwords without resetting them"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Unique salts ensure that precomputed rainbow tables are useless and that identical passwords across users produce unique hashes."
         }
       },
@@ -1642,10 +1627,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In Bcrypt, what happens to the computational time required to verify a password when the cost factor is increased from 11 to 12?",
           "options": [
             "It increases by 1 millisecond",
-            "It doubles (multiplies by 2)",
-            "It quadruples (multiplies by 4)"
+            "It quadruples (multiplies by 4)",
+            "It doubles (multiplies by 2)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Bcrypt uses exponential cost rounds ($2^{\\text{cost}}$); increasing the cost factor by 1 doubles the total computational iterations."
         }
       },
@@ -1679,11 +1664,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Argon2id classified as a 'memory-hard' key derivation function?",
           "options": [
-            "It permanently stores all passwords on the hard drive",
             "It forces the verification algorithm to allocate and repeatedly access a large matrix of RAM, preventing parallel execution on GPUs and ASICs",
+            "It permanently stores all passwords on the hard drive",
             "It uses more than 100% CPU capacity"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Memory-hardness requires significant RAM per thread, making massive parallel brute-force attacks economically and physically unfeasible on GPUs/ASICs."
         }
       },
@@ -1755,11 +1740,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must password hash verification always use constant-time comparison instead of standard `===` string equality?",
           "options": [
-            "Standard string comparison aborts at the first mismatched byte, creating timing side-channels that reveal hash byte prefixes to attackers",
+            "Constant-time comparison speeds up web server rendering",
             "`===` only works on numbers in JavaScript",
-            "Constant-time comparison speeds up web server rendering"
+            "Standard string comparison aborts at the first mismatched byte, creating timing side-channels that reveal hash byte prefixes to attackers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Early-exit comparisons leak timing information proportional to the number of matching prefix bytes, enabling timing side-channel attacks."
         }
       }
@@ -1855,11 +1840,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why has the Subject Alternative Name (SAN) extension completely replaced Common Name (CN) for domain validation in modern browsers?",
           "options": [
-            "SAN supports multiple distinct domains, wildcard subdomains, and IP addresses within a single certificate",
             "CN was limited to 8 characters",
+            "SAN supports multiple distinct domains, wildcard subdomains, and IP addresses within a single certificate",
             "SAN certificates require no public key"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "SAN allows certificates to cleanly validate multiple domains, subdomains, and IPs without ambiguous parsing flaws found in legacy Common Names."
         }
       },
@@ -1894,10 +1879,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does a client verify that an X.509 certificate was genuinely created by an issuing CA?",
           "options": [
             "By sending an unencrypted HTTP GET request to the CA's homepage",
-            "By decrypting the certificate signature with the CA's public key and confirming the recovered hash matches the certificate data hash",
-            "By checking if the file ends in .pem"
+            "By checking if the file ends in .pem",
+            "By decrypting the certificate signature with the CA's public key and confirming the recovered hash matches the certificate data hash"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Digital signature verification uses the issuing CA's public key to verify that the hash of the certificate data was signed by the CA's private key."
         }
       },
@@ -2007,11 +1992,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should enterprise certificate monitors begin alerting at least 30 days before expiration?",
           "options": [
-            "To provide ample operational buffer for automated ACME renewal pipelines or human intervention before a service outage occurs",
+            "Because browsers refuse to open sites 30 days prior to expiration",
             "Because certificates lose encryption strength during their final month",
-            "Because browsers refuse to open sites 30 days prior to expiration"
+            "To provide ample operational buffer for automated ACME renewal pipelines or human intervention before a service outage occurs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A 30-day window ensures that automated renewal failures can be diagnosed and fixed long before an outage impacts customers."
         }
       }
@@ -2107,11 +2092,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is asymmetric RS256 strongly preferred over symmetric HS256 in large microservice architectures?",
           "options": [
-            "Downstream services only need the public key to verify signatures, so compromising a service does not allow an attacker to forge tokens",
             "RS256 tokens are 90% smaller in size",
+            "Downstream services only need the public key to verify signatures, so compromising a service does not allow an attacker to forge tokens",
             "HS256 does not support strings"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "With RS256, only the central auth server holds the private signing key; downstream services only have the public key and cannot forge tokens if breached."
         }
       },
@@ -2146,10 +2131,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does an attacker exploit the JWT algorithm 'none' vulnerability?",
           "options": [
             "They flood the server with millions of requests per second",
-            "They modify claims to grant themselves administrative privileges, set `alg: 'none'` in the header, and delete the signature",
-            "They decrypt the database using SQL injection"
+            "They decrypt the database using SQL injection",
+            "They modify claims to grant themselves administrative privileges, set `alg: 'none'` in the header, and delete the signature"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "In vulnerable libraries, setting `alg: 'none'` bypassed cryptographic verification, accepting unsigned payloads as valid."
         }
       },
@@ -2259,11 +2244,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a zero-trust JWT validator include a revocation check (such as a Redis token blacklist)?",
           "options": [
-            "Because JWTs are stateless by default and remain valid until expiration unless explicitly checked against a revocation cache",
+            "To speed up browser rendering",
             "Because JWTs delete themselves every 5 minutes",
-            "To speed up browser rendering"
+            "Because JWTs are stateless by default and remain valid until expiration unless explicitly checked against a revocation cache"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Stateless tokens cannot be revoked by the auth server alone; a fast distributed blacklist is necessary to immediately revoke compromised tokens or logged-out sessions."
         }
       }
@@ -2359,11 +2344,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary factor that causes client and server desynchronization in counter-based HOTP?",
           "options": [
-            "The user pressing the button to generate codes without submitting them to the server, advancing the client counter ahead of the server counter",
             "The server battery running low",
+            "The user pressing the button to generate codes without submitting them to the server, advancing the client counter ahead of the server counter",
             "Network latency over 10ms"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In HOTP, generating codes increments the client counter; if unused, the client counter outpaces the server's expected counter."
         }
       },
@@ -2398,10 +2383,10 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why do TOTP authenticator apps like Google Authenticator work perfectly even when the mobile phone has zero internet or cellular connectivity?",
           "options": [
             "The app uses Bluetooth to talk directly to the web server",
-            "The algorithm computes the code purely locally from the shared secret and the phone's internal clock using discrete 30-second math",
-            "The codes were pre-downloaded for the entire year"
+            "The codes were pre-downloaded for the entire year",
+            "The algorithm computes the code purely locally from the shared secret and the phone's internal clock using discrete 30-second math"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "TOTP requires only the shared secret and the device's current clock time; no network transmission is required to compute the code."
         }
       },
@@ -2473,11 +2458,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the TOTP server check time-steps $T-1$ and $T+1$ in addition to current time-step $T$?",
           "options": [
-            "To tolerate network transit delays and slight clock drift between mobile devices and the server",
             "To allow users to share their code with friends",
+            "To tolerate network transit delays and slight clock drift between mobile devices and the server",
             "To bypass password requirements"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Checking $\\pm 1$ step accommodates up to 30 seconds of client clock skew and transit latency without frustrating users."
         }
       },
@@ -2511,11 +2496,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an application require the user to successfully enter a 6-digit TOTP code before permanently activating 2FA on their account?",
           "options": [
-            "To prove that the user successfully scanned the QR code and that their authenticator app generates valid codes before locking the account",
+            "Because QR codes expire in 10 seconds",
             "To register the user's phone number with the cellular carrier",
-            "Because QR codes expire in 10 seconds"
+            "To prove that the user successfully scanned the QR code and that their authenticator app generates valid codes before locking the account"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Requiring confirmation proves the user successfully configured their authenticator app, preventing accidental account lockouts from invalid enrollment."
         }
       }
@@ -2649,11 +2634,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which four categories of attributes are evaluated in an Attribute-Based Access Control (ABAC) engine?",
           "options": [
-            "Subject, Resource, Action, and Environment",
+            "HTML, CSS, JavaScript, and WebAssembly",
             "CPU, RAM, Disk, and Network",
-            "HTML, CSS, JavaScript, and WebAssembly"
+            "Subject, Resource, Action, and Environment"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "NIST SP 800-162 defines the four ABAC dimensions as Subject, Resource, Action, and Environment."
         }
       },
@@ -2725,11 +2710,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between Vertical and Horizontal Privilege Escalation?",
           "options": [
-            "Vertical means gaining higher permissions (user -> admin); Horizontal means accessing data belonging to peers of the same level",
             "Vertical happens on servers; Horizontal happens on mobile phones",
+            "Vertical means gaining higher permissions (user -> admin); Horizontal means accessing data belonging to peers of the same level",
             "Vertical is faster than horizontal"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Vertical escalation moves upward in privilege tier (e.g. member to admin); horizontal escalation moves sideways across peers (accessing another user's records)."
         }
       },
@@ -2763,11 +2748,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural benefit does the PEP / PDP separation provide in microservice systems?",
           "options": [
-            "It completely decouples authorization policy definition from application code, allowing security policies to be updated centrally without touching microservices",
+            "It eliminates the need for database backups",
             "It compresses JSON responses by 50%",
-            "It eliminates the need for database backups"
+            "It completely decouples authorization policy definition from application code, allowing security policies to be updated centrally without touching microservices"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Decoupling Policy Enforcement (PEP) from Policy Decision (PDP) enables centralized governance, consistent auditing, and policy updates without redeploying code."
         }
       }
@@ -2863,11 +2848,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does replacing sequential integer IDs with random UUIDv4 identifiers completely eliminate BOLA vulnerabilities?",
           "options": [
-            "No; UUIDs prevent predictable enumeration, but the server must still perform explicit authorization checks to ensure the caller owns the object",
             "Yes, UUIDs automatically configure database row-level security",
+            "No; UUIDs prevent predictable enumeration, but the server must still perform explicit authorization checks to ensure the caller owns the object",
             "Yes, because UUIDs are impossible to transmit over HTTP"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "UUIDs stop enumeration, but if an attacker obtains a valid UUID (e.g. from network traffic or logs), missing authorization will still allow unauthorized access."
         }
       },
@@ -2901,11 +2886,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is scoping database queries with `WHERE id = ? AND user_id = ?` superior to checking ownership in application memory?",
           "options": [
-            "It guarantees that records belonging to other users are never loaded into application memory, eliminating developer oversight bugs",
+            "It increases network latency",
             "It converts the database into NoSQL",
-            "It increases network latency"
+            "It guarantees that records belonging to other users are never loaded into application memory, eliminating developer oversight bugs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Scoped queries push authorization into the database query engine, preventing accidental exposure if a developer forgets a manual check."
         }
       },
@@ -2977,11 +2962,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Indirect Reference Maps eliminate BOLA attacks across users?",
           "options": [
-            "Reference tokens are stored in the user's private session map; a token issued to User A does not exist or resolve in User B's session",
             "They force users to log in with SSH keys",
+            "Reference tokens are stored in the user's private session map; a token issued to User A does not exist or resolve in User B's session",
             "They convert the database to read-only"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because tokens are mapped inside individual user sessions, an attacker submitting another user's token receives null, preventing access."
         }
       },
@@ -3015,11 +3000,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should multi-tenant applications enforce tenant boundaries in addition to individual user ownership checks?",
           "options": [
-            "To provide multi-layered defense-in-depth, guaranteeing that even administrative accounts cannot accidentally or maliciously access data belonging to another tenant organization",
+            "Because SQL databases do not support more than one user",
             "To reduce CPU clock frequencies",
-            "Because SQL databases do not support more than one user"
+            "To provide multi-layered defense-in-depth, guaranteeing that even administrative accounts cannot accidentally or maliciously access data belonging to another tenant organization"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Multi-tenant isolation ensures strict cryptographic and query separation so that no principal can cross organizational boundaries."
         }
       }
@@ -3115,11 +3100,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a TCP SYN Flood cause denial of service even when network bandwidth is not saturated?",
           "options": [
-            "It fills the kernel's finite half-open connection backlog table, causing the operating system to drop legitimate incoming SYN packets",
             "It deletes the server's SSL certificates",
+            "It fills the kernel's finite half-open connection backlog table, causing the operating system to drop legitimate incoming SYN packets",
             "It forces the CPU into sleep mode"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The server allocates kernel memory for each SYN awaiting completion; when the table fills, all subsequent connections are dropped."
         }
       },
@@ -3153,11 +3138,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do SYN Cookies prevent SYN flood denial-of-service attacks?",
           "options": [
-            "They allocate zero server memory upon receiving a SYN, encoding connection state into the sequence number and allocating state only when the final ACK arrives",
+            "They encrypt the network cable",
             "They block all TCP connections permanently",
-            "They encrypt the network cable"
+            "They allocate zero server memory upon receiving a SYN, encoding connection state into the sequence number and allocating state only when the final ACK arrives"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By making connection initiation completely stateless, attackers cannot exhaust server memory because no state is stored until the final ACK arrives."
         }
       },
@@ -3229,11 +3214,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of a Stateful Packet Inspection (SPI) firewall over a stateless packet filter?",
           "options": [
-            "It tracks active connection states, automatically permitting return traffic for established outbound connections while blocking unsolicited inbound probes",
             "It deletes malware from the hard drive",
+            "It tracks active connection states, automatically permitting return traffic for established outbound connections while blocking unsolicited inbound probes",
             "It speeds up optical fiber transit"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Stateful firewalls track conversation state, allowing internal clients to communicate outbound while automatically dropping unrequested inbound packets."
         }
       },
@@ -3267,11 +3252,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is dynamic activation of SYN Cookies standard in production operating systems?",
           "options": [
-            "It allows normal TCP performance during regular traffic, activating stateless cryptographic cookie mode only when connection backlog queues are threatened",
+            "It disables the need for firewalls",
             "It saves electricity on server racks",
-            "It disables the need for firewalls"
+            "It allows normal TCP performance during regular traffic, activating stateless cryptographic cookie mode only when connection backlog queues are threatened"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Operating systems use standard queues during low traffic for full TCP option negotiation, switching to SYN cookies automatically when queues fill."
         }
       }
@@ -3367,11 +3352,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the HSTS Preload List prevent SSL stripping attacks on a user's very first visit to a website?",
           "options": [
-            "The domain is hardcoded directly into the browser's source code as HTTPS-only, ensuring unencrypted HTTP is never attempted even on the first connection",
             "It forces the router to install a hardware firewall",
+            "The domain is hardcoded directly into the browser's source code as HTTPS-only, ensuring unencrypted HTTP is never attempted even on the first connection",
             "It sends an SMS to the user"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "HSTS preload lists are embedded into browsers at compile time, guaranteeing HTTPS is enforced prior to any network packet transmission."
         }
       },
@@ -3405,11 +3390,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Clickjacking deceive authenticated users into executing unwanted actions?",
           "options": [
-            "By rendering an invisible iframe of the target site over a deceptive decoy button, capturing the user's clicks unknowingly",
+            "By exploiting SQL injection flaws",
             "By decrypting passwords from memory",
-            "By exploiting SQL injection flaws"
+            "By rendering an invisible iframe of the target site over a deceptive decoy button, capturing the user's clicks unknowingly"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Clickjacking uses CSS opacity to position an invisible iframe over a decoy UI, capturing legitimate user clicks for malicious state changes."
         }
       },
@@ -3481,11 +3466,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What information does `Referrer-Policy: strict-origin-when-cross-origin` transmit when a user clicks a link to an external website?",
           "options": [
-            "Only the origin (e.g. `https://example.com`), completely stripping sensitive URL path and query parameters",
             "The user's password and browsing history",
+            "Only the origin (e.g. `https://example.com`), completely stripping sensitive URL path and query parameters",
             "The full database connection string"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "It transmits only the domain origin to external cross-origin sites, protecting sensitive path and token parameters from leakage."
         }
       },
@@ -3494,6 +3479,7 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "say": [
           "In production operations, platform engineering teams deploy automated security header auditing suites.",
           "The compliance engine inspects incoming HTTP response headers across all microservices, reverse proxies, and CDN edge distributions.",
+          "It systematically verifies content security policies, frame restrictions, and transport layer security directives across each edge route.",
           "The auditor evaluates: 1. HSTS with one-year minimum and preload; 2. Clickjacking protection via X-Frame-Options or CSP frame-ancestors; 3. MIME protection via `nosniff`; 4. Privacy policies.",
           "The engine computes an enterprise compliance grade from 'A+' down to 'F', flagging missing directives and generating actionable remediation instructions.",
           "Embedding this automated security header auditor into continuous integration (CI/CD) pipelines guarantees that no unhardened web service can be deployed to production.",
@@ -3517,11 +3503,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should enterprise security header compliance be enforced in CI/CD deployment pipelines?",
           "options": [
-            "To automatically block deployment of unhardened web services before they can expose vulnerabilities in production environments",
+            "To disable SSL certificates",
             "To compress HTML responses",
-            "To disable SSL certificates"
+            "To automatically block deployment of unhardened web services before they can expose vulnerabilities in production environments"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Automating header checks in CI/CD ensures that no service can reach production without mandatory browser security controls."
         }
       }
@@ -3617,11 +3603,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of failing to audit nonces in AES-GCM encryption?",
           "options": [
-            "Reusing an IV/nonce destroys confidentiality, allowing attackers to XOR ciphertexts and recover plaintexts and the authentication hash key",
             "The database table becomes read-only",
+            "Reusing an IV/nonce destroys confidentiality, allowing attackers to XOR ciphertexts and recover plaintexts and the authentication hash key",
             "The network router crashes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Nonce reuse in GCM cancels out the keystream and enables mathematical recovery of the GHASH authentication hash key, destroying all confidentiality and integrity."
         }
       },
@@ -3655,11 +3641,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must credential verification use constant-time byte comparison?",
           "options": [
-            "To prevent timing side-channel attacks that deduce password characters by measuring execution latency discrepancies",
+            "To convert the password into a number",
             "Because standard string comparison is limited to ASCII characters",
-            "To convert the password into a number"
+            "To prevent timing side-channel attacks that deduce password characters by measuring execution latency discrepancies"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Early-exit string comparisons leak character matching progress through timing discrepancies, enabling side-channel attacks against hashes and authentication tokens."
         }
       },
@@ -3731,11 +3717,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary technical check that prevents the JWT algorithm 'none' exploit?",
           "options": [
-            "Enforcing an explicit server-side algorithm allowlist (e.g. only RS256) and rejecting any token specifying 'none'",
             "Deleting the token header",
+            "Enforcing an explicit server-side algorithm allowlist (e.g. only RS256) and rejecting any token specifying 'none'",
             "Encrypting the database"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "By requiring an explicit, authorized algorithm like RS256, tokens specifying none or mismatched algorithms are rejected before signature checks."
         }
       },
@@ -3769,11 +3755,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of orchestrating PKI, Argon2id, TOTP, JWT, and AEAD into a unified pipeline?",
           "options": [
-            "It provides end-to-end Defense-in-Depth, ensuring that transport, credentials, multi-factor auth, session tokens, and data at rest are all cryptographically hardened",
+            "It replaces the operating system",
             "It makes web pages load in 1 millisecond",
-            "It replaces the operating system"
+            "It provides end-to-end Defense-in-Depth, ensuring that transport, credentials, multi-factor auth, session tokens, and data at rest are all cryptographically hardened"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A unified pipeline ensures that every layer of authentication and transport encryption is verified before sensitive data is exposed, providing true Defense-in-Depth."
         }
       }
@@ -3869,11 +3855,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following IPv4 ranges constitutes the RFC 1918 Class B private address space?",
           "options": [
-            "172.16.0.0 to 172.31.255.255 (/12 prefix)",
             "192.168.0.0 to 192.168.255.255 (/16 prefix)",
+            "172.16.0.0 to 172.31.255.255 (/12 prefix)",
             "10.0.0.0 to 10.255.255.255 (/8 prefix)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Under Internet standard RFC 1918, Class B private IP allocation spans the /12 prefix ranging from 172.16.0.0 to 172.31.255.255, which encompasses exactly sixteen contiguous /16 subnet blocks dedicated exclusively to private network addressing."
         }
       },
@@ -3907,11 +3893,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does DNS Rebinding bypass conventional URL domain allowlists?",
           "options": [
-            "By serving a short TTL and switching the resolved IP address from a permitted public address to an internal private address between validation and connection",
+            "By forging an SSL certificate authority",
             "By rewriting the browser JavaScript engine",
-            "By forging an SSL certificate authority"
+            "By serving a short TTL and switching the resolved IP address from a permitted public address to an internal private address between validation and connection"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "DNS rebinding exploits extremely low Time-To-Live values on authoritative nameservers, enabling attackers to provide a benign public IP address during initial application filtering and a private or loopback IP during actual TCP connection establishment."
         }
       },
@@ -3983,11 +3969,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do standard SSRF filters often fail when applications blindly follow HTTP 301/302 redirects?",
           "options": [
-            "The initial URL passes the whitelist check, but the remote server redirects the HTTP client to an internal IP address on the second request",
             "Redirects make the server run out of disk space",
+            "The initial URL passes the whitelist check, but the remote server redirects the HTTP client to an internal IP address on the second request",
             "HTTP status code 302 is not a real HTTP status"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When an application checks only the initial URL against an SSRF filter, an attacker can point that initial URL to an external server under their control, which then replies with an HTTP 302 redirect targeting internal metadata services."
         }
       },
@@ -4021,11 +4007,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does IMDSv2 require an HTTP PUT request with a custom header to obtain a session token?",
           "options": [
-            "Most application SSRF and open proxy vulnerabilities cannot forge custom PUT headers, preventing attackers from obtaining metadata tokens",
+            "HTTP PUT is required by HTML5 standards",
             "PUT requests use less bandwidth than GET requests",
-            "HTTP PUT is required by HTML5 standards"
+            "Most application SSRF and open proxy vulnerabilities cannot forge custom PUT headers, preventing attackers from obtaining metadata tokens"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Typical SSRF vulnerabilities only permit standard GET requests or simple POST bodies; requiring an HTTP PUT request with the custom header X-aws-ec2-metadata-token-ttl-seconds ensures that simple SSRF flaws cannot fetch session tokens."
         }
       }
@@ -4121,11 +4107,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Python official documentation explicitly state 'The pickle module is not secure'?",
           "options": [
-            "Because pickle byte streams can execute arbitrary functions and shell commands via the __reduce__ callable protocol",
             "Because pickle files are too large for modern networks",
+            "Because pickle byte streams can execute arbitrary functions and shell commands via the __reduce__ callable protocol",
             "Because pickle only runs on Linux servers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Python pickle format implements an unconstrained virtual machine interpreter capable of constructing arbitrary objects and calling any callable function in memory, making it fundamentally unsafe for processing untrusted client input."
         }
       },
@@ -4159,11 +4145,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is JSON inherently safer than native binary serialization formats like Java ObjectInputStream or Python pickle?",
           "options": [
-            "JSON represents pure text data without executable class metadata, preventing arbitrary code execution during parsing",
+            "JSON is encrypted with AES-256 by default",
             "JSON compresses files by 90%",
-            "JSON is encrypted with AES-256 by default"
+            "JSON represents pure text data without executable class metadata, preventing arbitrary code execution during parsing"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "JSON is a text-based format representing pure primitive data values and structured maps; it possesses no class definitions, execution hooks, or dynamic object hydration capabilities, guaranteeing complete immunity to deserialization gadget chains."
         }
       },
@@ -4235,11 +4221,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are PHP magic methods like __destruct() and __wakeup() in the context of PHP Object Injection?",
           "options": [
-            "Lifecycle functions automatically invoked during or after deserialization that attackers chain together in POP exploits",
             "Functions that encrypt PHP source code",
+            "Lifecycle functions automatically invoked during or after deserialization that attackers chain together in POP exploits",
             "Methods used exclusively for CSS styling"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In PHP, magic methods such as __wakeup() and __destruct() are executed automatically by the runtime upon object creation or destruction; attackers manipulate serialized object properties to trigger destructive side-effects through POP chains."
         }
       },
@@ -4273,11 +4259,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must HMAC cryptographic verification occur BEFORE passing serialized data to the deserializer?",
           "options": [
-            "If deserialization runs first, malicious gadget chains execute before the signature check can detect tampering",
+            "Deserialization erases the HMAC key",
             "HMAC algorithms only run on binary numbers",
-            "Deserialization erases the HMAC key"
+            "If deserialization runs first, malicious gadget chains execute before the signature check can detect tampering"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Verifying the HMAC signature before deserialization ensures that tampered payloads containing malicious object injection chains are completely rejected before the deserializer parses untrusted data."
         }
       }
@@ -4373,11 +4359,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should secret scanning combine both regular expressions and Shannon Entropy?",
           "options": [
-            "To achieve high precision: regex detects known vendor prefixes while entropy confirms the string is random rather than a placeholder like 'AKIA0000000000000000'",
             "Because regex cannot process strings longer than 10 characters",
+            "To achieve high precision: regex detects known vendor prefixes while entropy confirms the string is random rather than a placeholder like 'AKIA0000000000000000'",
             "To speed up database indexing"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Pairing vendor-specific regex patterns with Shannon entropy metrics ensures that scanners identify legitimate high-randomness credentials while ignoring static placeholders, test fixtures, and documentation examples, minimizing developer fatigue from false positives."
         }
       },
@@ -4411,11 +4397,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are private cryptographic keys in source control considered critical severity findings?",
           "options": [
-            "They grant direct, unauthenticated administrative access to cloud servers, SSH bastions, and encrypted data without needing passwords",
+            "They cause syntax errors in TypeScript",
             "They take up too much disk space in the Git history",
-            "They cause syntax errors in TypeScript"
+            "They grant direct, unauthenticated administrative access to cloud servers, SSH bastions, and encrypted data without needing passwords"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Private cryptographic keys provide direct, cryptographic proof of identity; compromising a private SSH key or TLS signing certificate grants attackers total administrative control over production instances and encrypted communications without requiring password verification."
         }
       },
@@ -4487,11 +4473,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a secret scanner use different entropy thresholds for Hexadecimal strings versus Base64 strings?",
           "options": [
-            "Hexadecimal strings have a smaller alphabet (16 symbols) and lower maximum entropy than Base64 strings (64 symbols)",
             "Hexadecimal strings are always encrypted",
+            "Hexadecimal strings have a smaller alphabet (16 symbols) and lower maximum entropy than Base64 strings (64 symbols)",
             "Base64 is an outdated standard"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because Hexadecimal utilizes only 16 characters (maximum entropy 4.0 bits), setting a high Base64 threshold like 4.5 would completely miss authentic hexadecimal secrets, while setting a low threshold would flag every benign Base64 string."
         }
       },
@@ -4525,11 +4511,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security advantage of dynamic, ephemeral credentials generated by secret vaults?",
           "options": [
-            "They have short time-to-live lifespans and are generated on demand, severely limiting an attacker's window of opportunity if leaked",
+            "They make network requests 10 times faster",
             "They eliminate the need for databases",
-            "They make network requests 10 times faster"
+            "They have short time-to-live lifespans and are generated on demand, severely limiting an attacker's window of opportunity if leaked"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Dynamic credentials have tightly bounded Time-To-Live (TTL) values; because they expire automatically in minutes or hours, any intercepted credential becomes invalid before an adversary can weaponize it."
         }
       }
@@ -4625,11 +4611,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of maintaining a Software Bill of Materials (SBOM)?",
           "options": [
-            "It provides an instant machine-readable inventory to identify which applications contain newly disclosed zero-day vulnerabilities",
             "It eliminates the need to compile code",
+            "It provides an instant machine-readable inventory to identify which applications contain newly disclosed zero-day vulnerabilities",
             "It makes npm install 10 times faster"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Maintaining machine-readable Software Bill of Materials under CycloneDX or SPDX standards gives security teams full transparency into third-party code provenance, enabling instant inventory audits whenever new vulnerabilities are disclosed."
         }
       },
@@ -4663,11 +4649,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In CVSS v3.1, what numerical base score range corresponds to a 'CRITICAL' severity rating?",
           "options": [
-            "9.0 to 10.0",
+            "4.0 to 6.9",
             "7.0 to 8.9",
-            "4.0 to 6.9"
+            "9.0 to 10.0"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Under the Common Vulnerability Scoring System (CVSS v3.1), vulnerabilities scoring between 9.0 and 10.0 are classified as Critical severity, reflecting network accessibility, low attack complexity, zero privileges required, and catastrophic impact on confidentiality, integrity, and availability."
         }
       },
@@ -4739,11 +4725,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a transitive dependency in modern package management?",
           "options": [
-            "An indirect dependency required by one of your direct dependencies, forming deep levels in the package graph",
             "A dependency that runs only on trains",
+            "An indirect dependency required by one of your direct dependencies, forming deep levels in the package graph",
             "A package written in Python instead of JavaScript"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Transitive dependencies are packages pulled in indirectly by your direct dependencies; because modern applications inherit thousands of transitive packages, automated supply chain scanners must inspect the entire nested graph."
         }
       },
@@ -4777,11 +4763,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the 'integrity' hash field in modern package lockfiles?",
           "options": [
-            "It provides a cryptographic SHA-512 hash to verify that downloaded package archives match the exact expected content without tampering",
+            "It records the author's email address",
             "It indicates whether the code contains syntax errors",
-            "It records the author's email address"
+            "It provides a cryptographic SHA-512 hash to verify that downloaded package archives match the exact expected content without tampering"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The integrity field in lockfiles records a cryptographic hash (typically SHA-512) of the package tarball; verifying this hash during installation prevents package tampering, supply chain injection, and registry compromises."
         }
       }
@@ -4877,11 +4863,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should rate limiters return the HTTP 429 status code with a 'Retry-After' header?",
           "options": [
-            "To inform clients that rate limits were exceeded and tell them exactly how many seconds to wait before retrying",
             "To permanently ban the IP address from the internet",
+            "To inform clients that rate limits were exceeded and tell them exactly how many seconds to wait before retrying",
             "To trigger browser page reloads"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "RFC 6585 establishes the HTTP status code 429 Too Many Requests specifically for rate limiting; including the Retry-After header informs automated clients of the exact backoff duration required before retrying, preventing thundering herd problems."
         }
       },
@@ -4916,11 +4902,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why was OAuth 2.0 PKCE created to replace static client secrets in public clients?",
           "options": [
-            "Public clients like SPAs and mobile apps cannot protect static secrets from decompilation; PKCE creates dynamic one-time cryptographic secrets for each authorization flow",
+            "Because static secrets expire every 5 minutes",
             "PKCE makes login bypass passwords completely",
-            "Because static secrets expire every 5 minutes"
+            "Public clients like SPAs and mobile apps cannot protect static secrets from decompilation; PKCE creates dynamic one-time cryptographic secrets for each authorization flow"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Public clients like mobile apps and single-page web applications cannot securely store static client secrets; PKCE dynamically protects authorization codes against interception by requiring the client to demonstrate possession of the original unhashed code verifier."
         }
       },
@@ -4992,11 +4978,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What major flaw of Fixed Window rate limiting does the Sliding Window Log algorithm eliminate?",
           "options": [
-            "The 2x burst vulnerability at window boundaries where an attacker sends max traffic at the end of window 1 and start of window 2",
             "The need for network routers",
+            "The 2x burst vulnerability at window boundaries where an attacker sends max traffic at the end of window 1 and start of window 2",
             "The requirement to use HTTPS"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Fixed Window counters allow an attacker to send twice the allowed rate by clustering requests at the very end of one window and the immediate beginning of the next; Sliding Window Log eliminates this boundary vulnerability by continuously tracking exact timestamps."
         }
       },
@@ -5030,11 +5016,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why was the PKCE extension created for OAuth 2.0 public clients?",
           "options": [
-            "Public clients cannot safely store a client secret, making PKCE mandatory to prevent attackers from exchanging intercepted authorization codes",
+            "It replaces JSON Web Tokens with XML",
             "PKCE makes database queries faster",
-            "It replaces JSON Web Tokens with XML"
+            "Public clients cannot safely store a client secret, making PKCE mandatory to prevent attackers from exchanging intercepted authorization codes"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Public clients (like mobile applications and browser SPAs) cannot keep static secrets confidential; PKCE dynamically binds the authorization request to the token exchange using a one-time cryptographic verifier, neutralizing authorization code theft."
         }
       }
@@ -5130,11 +5116,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must egress proxies enforce IMDSv2 rather than permitting IMDSv1 across cloud environments?",
           "options": [
-            "IMDSv1 accepts simple unauthenticated GET requests that SSRF exploits easily execute, whereas IMDSv2 mandates session token headers that SSRF payloads cannot construct",
             "IMDSv1 is slower than IMDSv2",
+            "IMDSv1 accepts simple unauthenticated GET requests that SSRF exploits easily execute, whereas IMDSv2 mandates session token headers that SSRF payloads cannot construct",
             "IMDSv1 only works on IPv6"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "IMDSv2 requires a session-oriented PUT request with token headers, eliminating the vulnerability of link-local metadata to simple GET-based SSRF vectors."
         }
       },
@@ -5168,11 +5154,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is prototype pollution inspection essential even when applications exclusively use JSON instead of binary serialization?",
           "options": [
-            "JSON can still carry malicious object properties like __proto__ that overwrite Object.prototype when merged into application objects",
+            "Prototype pollution only affects C++ servers",
             "JSON files can execute shell scripts directly",
-            "Prototype pollution only affects C++ servers"
+            "JSON can still carry malicious object properties like __proto__ that overwrite Object.prototype when merged into application objects"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "JSON parsing does not prevent malicious property keys; if unvalidated JSON is recursively merged into application objects, prototype pollution occurs."
         }
       },
@@ -5244,11 +5230,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should enterprise CI/CD pipelines automate SBOM generation and CVE policy evaluation?",
           "options": [
-            "To enforce continuous supply chain governance and block deployment of packages with known critical vulnerabilities before reaching production",
             "To compress source code repositories",
+            "To enforce continuous supply chain governance and block deployment of packages with known critical vulnerabilities before reaching production",
             "Because package managers cannot download dependencies otherwise"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Automating SBOM checks in CI/CD ensures that components with critical security advisories are intercepted before code is deployed."
         }
       },
@@ -5282,11 +5268,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is sequential defense pipeline orchestration critical for modern cloud-native web applications?",
           "options": [
-            "It enforces Defense-in-Depth, ensuring that requests are evaluated cheaply for volumetric abuse before consuming resources on deep payload and network inspection",
+            "It replaces all database indexes",
             "It eliminates the need for software testing",
-            "It replaces all database indexes"
+            "It enforces Defense-in-Depth, ensuring that requests are evaluated cheaply for volumetric abuse before consuming resources on deep payload and network inspection"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A sequential pipeline drops cheap attacks (like volumetric rate limit exhaustion) immediately, protecting expensive inspection logic from resource starvation."
         }
       }
@@ -5382,11 +5368,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a stack canary prevent an attacker from executing shellcode via a buffer overflow?",
           "options": [
-            "The canary value is validated before the function returns; if altered by an overflow, the process is terminated immediately before the corrupted return address is executed",
             "The canary encrypts all network packets",
+            "The canary value is validated before the function returns; if altered by an overflow, the process is terminated immediately before the corrupted return address is executed",
             "The canary deletes the attacker IP address from memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Stack canaries act as cryptographic tripwires positioned directly between local buffer arrays and saved return addresses; because sequential linear memory writes must overwrite the canary before reaching control registers, any overflow corrupts the cookie and aborts process execution safely."
         }
       },
@@ -5420,11 +5406,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Address Space Layout Randomization (ASLR) break traditional buffer overflow exploits?",
           "options": [
-            "It randomizes the memory addresses of the stack, heap, and shared libraries, preventing attackers from using static target addresses in payloads",
+            "It converts 64-bit code into 32-bit code",
             "It deletes all functions from memory",
-            "It converts 64-bit code into 32-bit code"
+            "It randomizes the memory addresses of the stack, heap, and shared libraries, preventing attackers from using static target addresses in payloads"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Address Space Layout Randomization (ASLR) introduces mathematical entropy into process memory mappings, ensuring that base addresses for the stack, heap, and shared libraries differ upon every execution, neutralizing exploits that depend on static memory targets."
         }
       },
@@ -5496,11 +5482,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Return-Oriented Programming (ROP) bypass the Non-Executable Stack (NX/DEP) mitigation?",
           "options": [
-            "It does not inject new code, but instead chains together existing legitimate instruction sequences (gadgets) already present in executable memory",
             "It disables the power supply to the CPU",
+            "It does not inject new code, but instead chains together existing legitimate instruction sequences (gadgets) already present in executable memory",
             "It converts the binary into a Python script"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "ROP bypasses Non-Executable Stacks by reusing existing legitimate instructions ending in 'ret' that already reside in executable code pages (like libc), chaining them together to perform arbitrary computations without executing stack memory."
         }
       },
@@ -5534,11 +5520,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What attack vector does Full RELRO (Relocation Read-Only) neutralize in compiled binaries?",
           "options": [
-            "It marks the Global Offset Table (GOT) read-only after startup, preventing attackers from overwriting function pointers",
+            "It makes the binary file size 10 times smaller",
             "It encrypts the hard drive",
-            "It makes the binary file size 10 times smaller"
+            "It marks the Global Offset Table (GOT) read-only after startup, preventing attackers from overwriting function pointers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Full RELRO forces the dynamic linker to resolve all imported library functions at load time and then marks the Global Offset Table (GOT) as read-only memory, preventing attackers from overwriting GOT entries to hijack execution flow."
         }
       }
@@ -5634,11 +5620,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do attackers exploit a Use-After-Free (UAF) vulnerability to achieve arbitrary code execution?",
           "options": [
-            "They reallocate the freed memory chunk with attacker-controlled data so that when the dangling pointer is used, attacker function pointers are invoked",
             "They overload the power supply of the computer",
+            "They reallocate the freed memory chunk with attacker-controlled data so that when the dangling pointer is used, attacker function pointers are invoked",
             "They delete the operating system kernel files"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because heap allocators rapidly recycle and coalesce freed memory chunks to minimize operating system memory fragmentation and maintain high throughput, attackers can strategically populate deallocated slots with crafted malicious data structures. When the application subsequently attempts to dereference the dangling pointer, the runtime interprets the attacker's payload as genuine object state, transforming routine method dispatch into arbitrary control-flow hijacking opportunities."
         }
       },
@@ -5672,11 +5658,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to research by Microsoft and Google, approximately what percentage of all security CVEs stem from memory safety bugs?",
           "options": [
-            "Approximately 70%",
+            "Approximately 99%",
             "Approximately 5%",
-            "Approximately 99%"
+            "Approximately 70%"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Independent security engineering studies conducted across multiple decades by the Microsoft Security Response Center and the Google Chromium engineering team conclusively established that approximately 70% of all critical, high-impact security vulnerabilities and zero-day exploits are memory safety bugs directly attributable to manual memory management pitfalls in unmanaged languages like C and C++. This empirical evidence has prompted cybersecurity regulatory bodies worldwide to mandate transitioning critical infrastructure to memory-safe languages."
         }
       },
@@ -5748,11 +5734,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does AddressSanitizer (ASan) detect out-of-bounds buffer overflows at runtime?",
           "options": [
-            "By surrounding memory buffers with poisoned redzones in shadow memory and aborting execution if any access touches them",
             "By encrypting the source code",
+            "By surrounding memory buffers with poisoned redzones in shadow memory and aborting execution if any access touches them",
             "By disabling multi-threading"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "AddressSanitizer allocates poisoned 'redzones' around buffers and maps application memory to shadow memory bytes; if an out-of-bounds read or write touches a poisoned redzone, ASan immediately aborts execution with a detailed diagnostic report."
         }
       },
@@ -5786,11 +5772,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Resource Acquisition Is Initialization (RAII) eliminate memory leaks and double-free vulnerabilities in C++?",
           "options": [
-            "It binds resource allocation to object constructors and deallocation to destructors, ensuring memory is freed deterministically when exiting scope",
+            "It requires all variables to be global",
             "It converts C++ code into machine bytecode",
-            "It requires all variables to be global"
+            "It binds resource allocation to object constructors and deallocation to destructors, ensuring memory is freed deterministically when exiting scope"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "RAII guarantees that heap resources are acquired during object construction and automatically freed in the destructor as soon as the managing object exits lexical scope, eliminating manual memory management bugs."
         }
       }
@@ -5886,11 +5872,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an Indicator of Compromise (IOC) in cybersecurity operations?",
           "options": [
-            "A forensic artifact (such as a malicious IP, domain, or file hash) indicating with high confidence that a system has been compromised",
             "A metric measuring CPU usage",
+            "A forensic artifact (such as a malicious IP, domain, or file hash) indicating with high confidence that a system has been compromised",
             "A type of network router cable"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Indicators of Compromise (IOCs) are forensic digital footprints and observable telemetry artifacts (such as verified command-and-control IP addresses, malicious domain names, and cryptographic SHA-256 binary file hashes) that provide high-confidence evidence of active, ongoing, or historical adversary intrusions. Integrating real-time threat intelligence feeds into SIEM detection pipelines enables automated correlation engines to flag adversary infrastructure connections before lateral movement or data exfiltration can occur."
         }
       },
@@ -5923,11 +5909,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is multi-event correlation superior to single-event alerting in enterprise security operations?",
           "options": [
-            "It dramatically reduces false-positive alert fatigue by identifying complex behavioral attack sequences across time windows rather than isolated anomalies",
+            "It automatically patches vulnerabilities in software",
             "It removes the need to store logs in databases",
-            "It automatically patches vulnerabilities in software"
+            "It dramatically reduces false-positive alert fatigue by identifying complex behavioral attack sequences across time windows rather than isolated anomalies"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Multi-event correlation statefully links sequential, distributed, and heterogeneous security events across configurable sliding time windows, enabling enterprise detection engines to pinpoint sophisticated multi-stage attack chains—such as brute-force authentication followed by immediate administrative privilege escalation—while aggressively filtering out routine operational background noise and isolated user authentication mistakes that otherwise trigger debilitating alert fatigue in security operations centers."
         }
       },
@@ -5998,11 +5984,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of authoring detection rules in the Sigma format?",
           "options": [
-            "It provides a vendor-neutral standard that can be compiled into native queries for Splunk, Elastic, Sentinel, and other SIEMs without vendor lock-in",
             "It speeds up network bandwidth",
+            "It provides a vendor-neutral standard that can be compiled into native queries for Splunk, Elastic, Sentinel, and other SIEMs without vendor lock-in",
             "It automatically fixes broken hard drives"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Sigma acts as the 'Markdown for detection rules', allowing security teams to write detection logic once in a vendor-neutral YAML format and compile it into native query languages across multiple SIEM platforms."
         }
       },
@@ -6036,11 +6022,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do SOAR platforms reduce Mean Time to Respond (MTTR) during critical security breaches?",
           "options": [
-            "By automatically executing scripted containment actions (like isolating hosts or blocking IPs) within seconds of alert generation",
+            "By shutting down the entire office power",
             "By deleting customer records",
-            "By shutting down the entire office power"
+            "By automatically executing scripted containment actions (like isolating hosts or blocking IPs) within seconds of alert generation"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "SOAR platforms automate triage and response workflows, executing pre-approved containment playbooks (such as host isolation, IP blocking, and credential revocation) in seconds without waiting for manual human intervention."
         }
       }
@@ -6136,11 +6122,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Snort/Suricata rule syntax, what is the significance of the 'sid' (Signature ID) option?",
           "options": [
-            "It provides a globally unique numeric identifier for the rule, allowing systems to track, disable, or correlate specific signatures",
             "It specifies the server IP address",
+            "It provides a globally unique numeric identifier for the rule, allowing systems to track, disable, or correlate specific signatures",
             "It determines the encryption key"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each Snort and Suricata signature requires a globally unique Signature ID (SID) to provide an authoritative numeric handle that allows security operations systems, SIEM platforms, and sensor management consoles to uniquely identify, tune, suppress, enable, disable, and correlate individual detection rules across thousands of distributed enterprise network sensors. By convention, SIDs below 1,000,000 are allocated to official rule publishers, while SIDs of 1,000,000 and higher are reserved for custom internal organizational signatures."
         }
       },
@@ -6174,11 +6160,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary limitation of pure signature-based intrusion detection?",
           "options": [
-            "It cannot detect previously unseen zero-day attacks or modified exploit variants that do not match the exact signature string",
+            "It requires 100 GB of RAM per packet",
             "It can only run on Windows",
-            "It requires 100 GB of RAM per packet"
+            "It cannot detect previously unseen zero-day attacks or modified exploit variants that do not match the exact signature string"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Signature-based detection mechanisms match explicit known byte patterns and payload regular expressions with exceptional throughput and minimal false positives for established threats. However, they are fundamentally incapable of intercepting novel zero-day exploits, advanced payload encoding and evasion techniques, or polymorphic malware variants that dynamically alter their byte sequences to circumvent static pattern matchers, necessitating complementary protocol anomaly detection and behavioral modeling."
         }
       },
@@ -6250,11 +6236,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Snort and Suricata rules use offset and depth modifiers rather than scanning the entire packet payload?",
           "options": [
-            "To optimize packet inspection throughput and minimize CPU overhead by restricting pattern matching to relevant header or payload slices",
             "Because packets only contain 5 bytes of data",
+            "To optimize packet inspection throughput and minimize CPU overhead by restricting pattern matching to relevant header or payload slices",
             "To hide the rules from network administrators"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Restricting payload evaluation with offset and depth parameters prevents the engine from performing expensive full-packet scans, maximizing packet processing throughput at multi-gigabit line rates."
         }
       },
@@ -6288,11 +6274,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is stateful TCP stream reassembly essential for network intrusion detection engines?",
           "options": [
-            "Attackers fragment exploit payloads across multiple TCP packets to evade stateless packet sniffers that inspect individual packets in isolation",
+            "TCP packets cannot be read without reassembly",
             "It makes network cables lighter",
-            "TCP packets cannot be read without reassembly"
+            "Attackers fragment exploit payloads across multiple TCP packets to evade stateless packet sniffers that inspect individual packets in isolation"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Without TCP stream reassembly, attackers can split attack payloads across packet boundaries to evade detection; stateful reassembly reconstructs the full payload stream before signature matching occurs."
         }
       }
@@ -6388,11 +6374,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What numeric CVSS v3.1 score range corresponds to the Critical severity band?",
           "options": [
-            "9.0 to 10.0",
             "7.0 to 8.9",
+            "9.0 to 10.0",
             "5.0 to 6.9"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "According to the official FIRST CVSS v3.1 specification, the Critical qualitative severity rating is reserved strictly for base scores ranging from 9.0 to 10.0, representing high-impact, easily exploitable vulnerabilities that require emergency response. Vulnerabilities in this category—such as unauthenticated remote code execution or root privilege escalation over the public network without user interaction—pose imminent operational threats and demand immediate incident triage."
         }
       },
@@ -6430,11 +6416,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mandatory prefix required for all valid CVSS v3.1 vector strings?",
           "options": [
-            "CVSS:3.1/",
+            "CVE:2026/",
             "VULN:V3/",
-            "CVE:2026/"
+            "CVSS:3.1/"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The official FIRST specification dictates that all CVSS version 3.1 vector strings must begin with the exact prefix CVSS:3.1/ to unambiguously differentiate them from legacy CVSS v2.0 and future specification formats. This standardized serialization scheme ensures that downstream security orchestration tools, automated vulnerability scanners, and package audit tools can reliably parse every metric component without parsing ambiguity."
         }
       },
@@ -6506,11 +6492,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do CVSS Temporal Metrics refine the vulnerability assessment provided by Base Metrics?",
           "options": [
-            "They adjust the score dynamically based on real-world factors like exploit availability in the wild and official patch status",
             "They change the programming language of the application",
+            "They adjust the score dynamically based on real-world factors like exploit availability in the wild and official patch status",
             "They alter the network speed of the vulnerable server"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Temporal metrics reflect the shifting real-world threat landscape over time, lowering scores when only theoretical PoCs or official patches exist, and raising scores when automated exploits circulate in the wild."
         }
       },
@@ -6544,11 +6530,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What distinguishes a White Box penetration test from a Black Box penetration test?",
           "options": [
-            "White box testers have full access to source code, architecture diagrams, and credentials, whereas black box testers have zero prior knowledge",
+            "Black box tests only test dark mode web interfaces",
             "White box tests only run in the daytime",
-            "Black box tests only test dark mode web interfaces"
+            "White box testers have full access to source code, architecture diagrams, and credentials, whereas black box testers have zero prior knowledge"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "White box testing provides complete transparency—including source code, internal schemas, and documentation—to maximize audit depth, while black box testing simulates an external adversary with zero prior insider knowledge."
         }
       }
@@ -6644,11 +6630,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is continuous device posture attestation essential in modern Zero Trust deployments?",
           "options": [
-            "Endpoints can fall out of compliance or become infected after the initial login, requiring dynamic re-verification throughout the session",
             "It speeds up CPU clock frequencies",
+            "Endpoints can fall out of compliance or become infected after the initial login, requiring dynamic re-verification throughout the session",
             "It replaces the need for database backups"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Endpoints are dynamic: an employee device may disable its firewall, miss critical security patches, or download malware hours after the initial user authentication, making continuous posture evaluation mandatory to intercept compromised devices in real time. Real-time telemetry monitoring device health, disk encryption, and endpoint detection agents prevents compromised or drifting endpoints from maintaining access to critical enterprise databases."
         }
       },
@@ -6682,11 +6668,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary threat does network microsegmentation mitigate?",
           "options": [
-            "Unrestricted east-west lateral movement by an adversary after breaching an initial internal workload",
+            "Physical theft of server hard drives",
             "Denial-of-Service attacks on public DNS",
-            "Physical theft of server hard drives"
+            "Unrestricted east-west lateral movement by an adversary after breaching an initial internal workload"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Microsegmentation confines workloads into strictly isolated network bubbles governed by zero-trust firewall rules, preventing adversaries who compromise an initial perimeter system from moving laterally across internal networks to reach high-value databases. By enforcing default-deny east-west traffic filtering and mutual TLS service identities, organizations ensure that even a total compromise of a public web tier cannot cascade into internal payment or identity infrastructure."
         }
       },
@@ -6758,11 +6744,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Mutual TLS (mTLS) differ from standard TLS in service-to-service communication?",
           "options": [
-            "In standard TLS, only the server proves its identity; in mTLS, both client and server present and verify certificates to authenticate mutually",
             "mTLS runs twice as slow as standard TLS",
+            "In standard TLS, only the server proves its identity; in mTLS, both client and server present and verify certificates to authenticate mutually",
             "mTLS does not use encryption"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In standard TLS, only the client validates the server's identity; Mutual TLS (mTLS) enforces two-way cryptographic verification where both client and server present X.509 certificates, verifying each other's identity before exchanging data."
         }
       },
@@ -6796,11 +6782,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security objective of Zero Standing Privileges (ZSP) via Just-In-Time access?",
           "options": [
-            "To eliminate permanent administrator privileges, ensuring accounts hold elevated permissions only for approved, time-bounded windows",
+            "To delete user passwords daily",
             "To prevent administrators from working on weekends",
-            "To delete user passwords daily"
+            "To eliminate permanent administrator privileges, ensuring accounts hold elevated permissions only for approved, time-bounded windows"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Zero Standing Privileges (ZSP) ensures that administrative accounts possess no default elevated permissions; credentials are granted ephemerally on demand with strict time limits, drastically shrinking the blast radius if an account is compromised."
         }
       }
@@ -6896,11 +6882,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Amazon S3 Block Public Access achieve when enabled across an entire AWS account?",
           "options": [
-            "It acts as a centralized centralized guardrail overriding any bucket policy or ACL that would otherwise make buckets or objects public",
             "It compresses all uploaded images",
+            "It acts as a centralized centralized guardrail overriding any bucket policy or ACL that would otherwise make buckets or objects public",
             "It deletes all files older than 30 days"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Amazon S3 Block Public Access provides an account-level and bucket-level master guardrail that prevents existing and newly created buckets and objects from being publicly exposed, overriding misconfigured ACLs and resource policies. By centralizing public access prevention across all storage buckets, organizations eliminate human error and misconfiguration risks that have historically driven catastrophic corporate cloud data leaks."
         }
       },
@@ -6934,11 +6920,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In AWS KMS envelope encryption, where is the root Customer Managed Key (CMK) stored?",
           "options": [
-            "Inside AWS KMS FIPS 140-2 validated Hardware Security Modules (HSMs), never leaving the KMS boundary in plaintext",
+            "In a public GitHub repository",
             "In the local application server /tmp directory",
-            "In a public GitHub repository"
+            "Inside AWS KMS FIPS 140-2 validated Hardware Security Modules (HSMs), never leaving the KMS boundary in plaintext"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In AWS KMS envelope encryption, the root Customer Managed Key (CMK) never leaves the physical boundaries of FIPS 140-2 Level 3 validated Hardware Security Modules (HSMs); only ephemeral Data Encryption Keys are issued to client applications. This architectural segregation guarantees that even if application servers are compromised or disk images are stolen, the master cryptographic key remains unextractable inside dedicated tamper-resistant hardware."
         }
       },
@@ -7010,11 +6996,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary threat does the sts:ExternalId condition in AWS IAM trust policies mitigate?",
           "options": [
-            "The Confused Deputy attack, where an attacker tricks a shared third-party service into accessing another customer's resources",
             "Phishing emails targeting developers",
+            "The Confused Deputy attack, where an attacker tricks a shared third-party service into accessing another customer's resources",
             "DDoS attacks on public DNS"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The External ID condition acts as a shared secret that prevents Confused Deputy attacks, ensuring a multi-tenant third-party service cannot be manipulated by one customer into assuming another customer's cross-account role."
         }
       },
@@ -7048,11 +7034,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of Cloud Security Posture Management (CSPM) in enterprise cloud governance?",
           "options": [
-            "To continuously monitor cloud configurations against security benchmarks and automatically remediate configuration drift",
+            "To speed up database indexing",
             "To replace web application firewalls",
-            "To speed up database indexing"
+            "To continuously monitor cloud configurations against security benchmarks and automatically remediate configuration drift"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "CSPM platforms continuously audit cloud infrastructure configurations against compliance baselines (like CIS benchmarks), detecting and automatically remediating security drift such as publicly exposed storage or overly permissive firewall rules."
         }
       }
@@ -7148,11 +7134,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to RFC 3227 Order of Volatility, why must RAM be captured before turning off a compromised machine?",
           "options": [
-            "RAM is volatile memory that loses all contents upon power loss, destroying injected malware, encryption keys, and active network connections",
             "Hard drives break if RAM is full",
+            "RAM is volatile memory that loses all contents upon power loss, destroying injected malware, encryption keys, and active network connections",
             "Powering off computers causes electric shocks"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "RFC 3227 establishes that volatile data (such as RAM, CPU registers, and network states) is lost immediately when power is severed; capturing memory before powering down preserves in-memory malware, credentials, and active network sockets. In modern fileless malware and living-off-the-land attacks, the adversary operates entirely in volatile memory without writing binaries to disk, making immediate RAM preservation essential for forensic attribution."
         }
       },
@@ -7186,11 +7172,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does modern host isolation maintain an exception for the EDR management console rather than completely disconnecting all network interfaces?",
           "options": [
-            "It allows security teams to remotely collect memory dumps, investigate processes, and execute remediation scripts while preventing attacker lateral movement",
+            "It keeps the display screen brightness on",
             "It allows the computer to continue downloading movies",
-            "It keeps the display screen brightness on"
+            "It allows security teams to remotely collect memory dumps, investigate processes, and execute remediation scripts while preventing attacker lateral movement"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Maintaining an encrypted management pinhole to the EDR console enables security analysts to remotely collect forensic telemetry, extract live memory, and orchestrate eradication while completely neutralizing the adversary's lateral movement and command-and-control channels. This tactical containment preserves operational control of the endpoint, allowing investigators to extract forensic artifacts in real time without exposing the surrounding enterprise network to compromise."
         }
       },
@@ -7262,11 +7248,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do memory forensics tools like Volatility detect rootkit processes that hide from the standard operating system process list?",
           "options": [
-            "By cross-referencing multiple kernel data structures (such as thread scheduler pools and memory heaps) against the active process list to identify unlinked processes",
             "By restarting the computer",
+            "By cross-referencing multiple kernel data structures (such as thread scheduler pools and memory heaps) against the active process list to identify unlinked processes",
             "By checking the file size on the hard drive"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Rootkits conceal themselves by unlinking their process from the operating system's ActiveProcessLinks doubly-linked list; memory forensics tools compare multiple kernel structures (like thread scheduler queues) against the process list to expose discrepancies."
         }
       },
@@ -7300,11 +7286,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In digital forensics timeline analysis, what does the MACB acronym represent?",
           "options": [
-            "Modified, Accessed, Changed (metadata), and Born (created)",
+            "Machine, Address, Control, and Byte",
             "Memory, Application, CPU, and Battery",
-            "Machine, Address, Control, and Byte"
+            "Modified, Accessed, Changed (metadata), and Born (created)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In filesystem forensics, MACB represents the four fundamental timestamp states: Modified (content changed), Accessed (content read), Changed (metadata/permissions altered), and Born (file creation date)."
         }
       }
@@ -7408,11 +7394,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical cloud IP address must be blocked by SSRF egress filters to prevent AWS credential theft?",
           "options": [
-            "169.254.169.254 (Instance Metadata Service)",
             "8.8.8.8 (Google Public DNS)",
+            "169.254.169.254 (Instance Metadata Service)",
             "1.1.1.1 (Cloudflare DNS)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The link-local IP 169.254.169.254 hosts the AWS, Azure, and GCP Instance Metadata Service (IMDS); SSRF attacks querying this IP can steal IAM temporary security credentials directly from cloud virtual machines. Enforcing strict egress network filters, mandating IMDSv2 session-oriented tokens with hop limits, and blocking private RFC 1918 subnets permanently closes this critical cloud attack vector."
         }
       },
@@ -7450,11 +7436,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a stack canary mitigate binary buffer overflow exploitation?",
           "options": [
-            "It places a random canary cookie value before the return address; if an overflow overwrites the buffer, the canary is corrupted and execution halts",
+            "It encrypts the hard drive",
             "It accelerates compiler optimization",
-            "It encrypts the hard drive"
+            "It places a random canary cookie value before the return address; if an overflow overwrites the buffer, the canary is corrupted and execution halts"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Stack canaries place an integrity cookie value between local stack buffers and the saved frame pointer and return address; compiler-inserted epilogue checks verify the canary before returning, aborting execution if memory corruption is detected. When combined with Address Space Layout Randomization (ASLR) and Non-Executable Stacks (NX), stack canaries form a multi-layered barrier against classic binary exploitation techniques."
         }
       },
@@ -7526,11 +7512,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are automated adversary simulations essential for enterprise cybersecurity assurance?",
           "options": [
-            "They validate that layered defensive controls function cohesively to detect and contain multi-stage attack chains in real time",
             "They replace the need for security software",
+            "They validate that layered defensive controls function cohesively to detect and contain multi-stage attack chains in real time",
             "They make computer hardware run faster"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Adversary simulations test the complete end-to-end detection and response pipeline against realistic kill chains, proving that defensive layers detect, correlate, and contain attacks before business compromise can occur."
         }
       },
@@ -7564,11 +7550,11 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does comprehensive compliance certification validate across an enterprise cybersecurity architecture?",
           "options": [
-            "It mathematically verifies that layered security controls across application, identity, runtime, systems, cloud, and forensics meet regulatory and operational standards",
+            "It guarantees that electricity will never fail",
             "It certifies that no software updates will ever be needed again",
-            "It guarantees that electricity will never fail"
+            "It mathematically verifies that layered security controls across application, identity, runtime, systems, cloud, and forensics meet regulatory and operational standards"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Compliance certification validates that an organization has implemented, verified, and audited comprehensive Defense-in-Depth controls across all technical domains, providing verifiable assurance to customers, auditors, and leadership."
         }
       }
