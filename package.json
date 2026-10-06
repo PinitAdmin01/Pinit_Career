@@ -20,7 +20,7 @@
     "audit:test": "npx tsx audit/jdMatch.test.ts && npx tsx audit/logic.test.ts && npx tsx audit/university.test.ts",
     "test:security": "npx tsx scripts/tests/test_p0_security_remediations.ts && npx tsx scripts/tests/test_student_privilege_rls.ts && node scripts/utils/check_bare_writes.js",
     "pretest": "node scripts/utils/copy-pyodide.cjs && node scripts/utils/copy-esbuild.cjs && node scripts/utils/build-react-runtime.cjs && node scripts/utils/build-web-runtime.cjs",
-    "test": "tsx --test --test-reporter=spec \"tests/**/*.test.ts\"",
+    "test": "node scripts/utils/run-tests.cjs",
     "test:e2e": "playwright test",
     "screenshots": "node scripts/take_screenshots.mjs"
   },
