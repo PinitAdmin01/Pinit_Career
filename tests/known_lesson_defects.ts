@@ -8,7 +8,7 @@ export const KNOWN_LESSON_DEFECTS: Record<string, number> = {
   'cloud': 34,
   'design': 86,
   'dsa-optim': 0,
-  'dist': 3,
+  'dist': 0,
   'cyber': 4,
   'ai': 4,
   'sre-web': 3,
