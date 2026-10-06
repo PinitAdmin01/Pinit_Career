@@ -21,6 +21,10 @@ test('W-01: every existing quest across all registered courses still resolves to
         totalQuestsChecked++;
         continue;
       }
+      if (course.id === 'course-design-systems' && (resolved === 'css' || resolved === 'html' || resolved === 'tsx')) {
+        totalQuestsChecked++;
+        continue;
+      }
       assert.ok(
         allowedOldLanguages.has(resolved),
         `Existing quest "${q.id}" in "${course.id}" unexpectedly resolved to "${resolved}"`

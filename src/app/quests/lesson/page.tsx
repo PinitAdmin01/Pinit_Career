@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useCallback } from 'react';
+import { Suspense, useCallback, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
@@ -311,13 +311,29 @@ export default function LessonPage() {
 }
 
 function LessonPageRouter() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const questId = searchParams.get('questId') || '';
-  const isTestMode = searchParams.get('testMode') === 'true';
-  const { user } = useAuth();
+  const isTestMode = process.env.NEXT_PUBLIC_E2E_TEST_MODE === '1' && searchParams.get('testMode') === 'true';
+  const { user, loading: authLoading } = useAuth();
   const effectiveUser = user || (isTestMode ? { id: 'test-ci-student', email: 'test@ci.local' } : null);
   const userId = effectiveUser?.id || 'guest';
   const { onboardingAnswers } = useCareerOS();
+
+  useEffect(() => {
+    if (!isTestMode && !authLoading && !user) {
+      const redirectPath = questId ? `/login?redirect=${encodeURIComponent(`/quests/lesson?questId=${questId}`)}` : '/login';
+      router.replace(redirectPath);
+    }
+  }, [isTestMode, authLoading, user, router, questId]);
+
+  if (!isTestMode && (authLoading || !user)) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg1)', color: 'var(--t1)' }}>
+        Authenticating...
+      </div>
+    );
+  }
 
   // 1. Check COURSES_REGISTRY first for authoritative course curriculum
   let questData: any = null;
@@ -445,10 +461,10 @@ function LessonPageRouter() {
     return <QuestWorkspaceClient questId={questId} />;
   }
 
-  return <LessonPageContent questId={questId} questData={questData} overrideUser={effectiveUser} />;
+  return <LessonPageContent questId={questId} questData={questData} overrideUser={effectiveUser} isTestMode={isTestMode} />;
 }
 
-function LessonPageContent({ questId, questData, overrideUser }: { questId: string; questData: any; overrideUser?: any }) {
+function LessonPageContent({ questId, questData, overrideUser, isTestMode = false }: { questId: string; questData: any; overrideUser?: any; isTestMode?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const teacherId = searchParams.get('teacherId') || 'kashyap';
@@ -469,8 +485,8 @@ function LessonPageContent({ questId, questData, overrideUser }: { questId: stri
     if (state.returningRef.current) return;
     state.returningRef.current = true;
     const id = resolveQuestId();
-    // Course tests are recorded by the lesson engine once the server has marked them.
-    if (id && !parseTestQuestId(id)) {
+    // In test mode, the fake student must NEVER call progress-saving APIs.
+    if (!isTestMode && id && !parseTestQuestId(id)) {
       const authQuest = getAuthoritativeQuest(id);
       const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
       const isExam = isAuthoritativeExam(id);
@@ -485,16 +501,17 @@ function LessonPageContent({ questId, questData, overrideUser }: { questId: stri
     } else {
       window.location.assign(targetUrl);
     }
-  }, [resolveQuestId, addCompletedQuest, state.returningRef, router]);
+  }, [resolveQuestId, addCompletedQuest, state.returningRef, router, isTestMode]);
 
   const engine = useLessonEngine({
     questId,
     questData,
     teacherId,
     user,
-    addCompletedQuest,
+    addCompletedQuest: isTestMode ? () => {} : addCompletedQuest,
     state,
     finishLessonAndReturn,
+    isTestMode,
   });
 
   const syllabus: string[] = Array.isArray(questData?.syllabus) ? questData.syllabus : [];

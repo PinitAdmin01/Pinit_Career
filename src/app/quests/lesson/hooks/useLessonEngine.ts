@@ -191,6 +191,7 @@ interface UseLessonEngineProps {
   addCompletedQuest: (id: string, completed?: boolean, xp?: number, courseId?: string, passReceipt?: string) => void;
   state: LessonState;
   finishLessonAndReturn: () => void;
+  isTestMode?: boolean;
 }
 
 export function useLessonEngine({
@@ -201,6 +202,7 @@ export function useLessonEngine({
   addCompletedQuest,
   state,
   finishLessonAndReturn,
+  isTestMode = false,
 }: UseLessonEngineProps) {
   const userId = user?.id || 'guest';
   const syllabus: string[] = useMemo(() => Array.isArray(questData?.syllabus) ? questData.syllabus : [], [questData?.syllabus]);
@@ -779,7 +781,7 @@ export function useLessonEngine({
   // Mark completed quest on exam pass. Course tests are marked again by the server, and only its
   // signed receipt lets /api/quest/complete record them.
   useEffect(() => {
-    if (!examPassed) return;
+    if (!examPassed || isTestMode) return;
     const authQuest = getAuthoritativeQuest(questId);
     const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === questId));
     if (!authQuest && !course) return;
@@ -815,7 +817,7 @@ export function useLessonEngine({
         });
       });
     return () => { cancelled = true; };
-  }, [examPassed, questId, addCompletedQuest, testInfo, examAnswers]);
+  }, [examPassed, questId, addCompletedQuest, testInfo, examAnswers, isTestMode]);
 
   const meta = (user?.user_metadata as any) || {};
   const studentName = (meta.full_name || meta.name || user?.email?.split('@')[0] || 'Developer');
