@@ -155,14 +155,15 @@ export default function DashboardHeaderHUD({
 }: Props) {
   const [hookIdx, setHookIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || isHovered) return;
     const interval = setInterval(() => {
       setHookIdx(i => (i + 1) % COMPANY_SEEDS.length);
     }, 4500);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, isHovered]);
 
   const hook = COMPANY_SEEDS[hookIdx];
   const firstName = user?.displayName?.split(' ')[0] || user?.username?.split('@')[0] || 'Student';
@@ -231,10 +232,10 @@ export default function DashboardHeaderHUD({
             {/* Dynamic company match carousel */}
             <div
               tabIndex={0}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-              onFocus={() => setIsPaused(true)}
-              onBlur={() => setIsPaused(false)}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onFocus={() => setIsHovered(true)}
+              onBlur={() => setIsHovered(false)}
               aria-label={`Job match spotlight: ${hook.company} ${hook.role} with ${matchPct}% skill match.`}
               style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--dash-border)', borderRadius: 10, padding: '8px 12px', maxWidth: 440, outline: 'none' }}
             >
@@ -247,7 +248,10 @@ export default function DashboardHeaderHUD({
                     {matchPct}% Match
                   </span>
                   <button
-                    onClick={() => setIsPaused(p => !p)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsPaused(p => !p);
+                    }}
                     aria-label={isPaused ? "Play company match" : "Pause company match"}
                     style={{ background: 'none', border: '1px solid var(--dash-border)', borderRadius: 4, color: 'var(--dash-subtext)', fontSize: 10, cursor: 'pointer', padding: '1px 5px', lineHeight: 1 }}
                   >

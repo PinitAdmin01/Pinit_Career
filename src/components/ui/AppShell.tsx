@@ -434,6 +434,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // Signed out on a private page: immediately replace history state with /login
   useEffect(() => {
     if (!loading && user === null && !isPublic) {
+      if (typeof window !== 'undefined') {
+        const hasLocalSession = Boolean(
+          localStorage.getItem('pinit_current_user') || 
+          localStorage.getItem('pinit_user') || 
+          localStorage.getItem('pinit_session_token')
+        );
+        if (hasLocalSession) return;
+      }
       const search = typeof window !== 'undefined' ? window.location.search : '';
       if (typeof window !== 'undefined') {
         window.history.replaceState(null, '', '/login');
