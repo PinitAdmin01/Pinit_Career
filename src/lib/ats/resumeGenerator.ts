@@ -203,7 +203,7 @@ export function generateStructuredResume(
       institution: profile.institution || 'Self-Directed Software Engineering Track',
       year: profile.graduationYear || '2020 - 2024',
       description: 'Coursework: Data Structures & Algorithms, Database Systems, Cloud Computing, Operating Systems, Software Architecture.',
-      gpa: profile.gpa || undefined,
+      gpa: profile.gpa || '',
     },
   ];
 

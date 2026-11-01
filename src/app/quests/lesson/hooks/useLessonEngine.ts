@@ -465,7 +465,7 @@ export function useLessonEngine({
             'Bypass input validation checks in the pipeline',
             'Hardcode mock credentials in production source code',
           ],
-          answer: 'Implement the required functionality according to specification and verify with tests',
+          answerIndex: 0,
           explanation: `Engineering standard for Day ${day} demands verified implementation matching the curriculum rubric.`,
         });
       }

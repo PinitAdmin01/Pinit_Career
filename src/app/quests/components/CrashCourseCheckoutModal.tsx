@@ -568,7 +568,7 @@ Thank you for enrolling with PinIT Career OS!
                     ⏱️ {plan.totalProgramDuration}
                   </span>
                   <span style={{ fontSize: 12, color: 'var(--t3)' }}>
-                    ({plan.durationWeeks} Weeks + Capstone)
+                    ({plan.totalProgramDuration} + Capstone)
                   </span>
                 </div>
 
@@ -750,14 +750,14 @@ Thank you for enrolling with PinIT Career OS!
                     <button
                       data-testid="btn-submit-checkout"
                       onClick={handlePayment}
-                      disabled={paymentState === 'processing'}
+                      disabled={false}
                       style={{
                         width: '100%', padding: '12px 0', borderRadius: 10,
                         background: selectedMethod === 'sandbox'
                           ? 'linear-gradient(135deg, #10b981, #059669)'
                           : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                         border: 'none', color: '#fff', fontSize: 15, fontWeight: 900,
-                        cursor: paymentState === 'processing' ? 'not-allowed' : 'pointer',
+                        cursor: 'pointer',
                         boxShadow: '0 4px 16px rgba(99, 102, 241, 0.35)',
                         transition: 'transform 0.15s',
                       }}
