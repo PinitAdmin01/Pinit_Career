@@ -384,6 +384,90 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // ── Global Fullscreen Gaming Mode (Double Shift + Space shortcut) ──────────
+  const [showGamingPill, setShowGamingPill] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let lastShiftSpaceTime = 0;
+
+    const handleFullscreenChange = () => {
+      const active = Boolean(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      if (active) {
+        setShowGamingPill(true);
+        const timer = setTimeout(() => setShowGamingPill(false), 3000);
+        return () => clearTimeout(timer);
+      } else {
+        setShowGamingPill(false);
+      }
+    };
+
+    const handleGlobalKeyDown = async (e: KeyboardEvent) => {
+      // Shift + twice Spacebar -> Toggle Fullscreen Gaming Mode
+      if (e.shiftKey && (e.code === 'Space' || e.key === ' ')) {
+        const target = e.target as HTMLElement | null;
+        const isInputField = target && (
+          target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          Boolean(target.isContentEditable) ||
+          target.closest('.monaco-editor') !== null
+        );
+        if (!isInputField) {
+          const now = Date.now();
+          if (now - lastShiftSpaceTime < 700) {
+            e.preventDefault();
+            lastShiftSpaceTime = 0;
+            try {
+              const docAny = document as any;
+              const elAny = document.documentElement as any;
+              if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                  await document.exitFullscreen();
+                } else if (docAny.webkitExitFullscreen) {
+                  await docAny.webkitExitFullscreen();
+                }
+              } else {
+                if (elAny.requestFullscreen) {
+                  await elAny.requestFullscreen();
+                } else if (elAny.webkitRequestFullscreen) {
+                  await elAny.webkitRequestFullscreen();
+                } else if (elAny.mozRequestFullScreen) {
+                  await elAny.mozRequestFullScreen();
+                }
+              }
+            } catch (_err) {
+              setShowGamingPill(true);
+              setTimeout(() => setShowGamingPill(false), 3000);
+            }
+          } else {
+            lastShiftSpaceTime = now;
+          }
+        }
+      }
+
+      // Escape to exit fullscreen if active
+      if (e.code === 'Escape' || e.key === 'Escape') {
+        const docAny = document as any;
+        if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (docAny.webkitExitFullscreen) {
+            docAny.webkitExitFullscreen();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      window.removeEventListener('keydown', handleGlobalKeyDown);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
   useEffect(() => {
     const fn = (e: KeyboardEvent) => {
       if (e.key === '[' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); toggleLeftSidebar(); }
@@ -881,6 +965,33 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             />
           </div>
         </>
+      )}
+      {/* 🎮 Global Gaming Mode Floating HUD Pill */}
+      {showGamingPill && (
+        <div style={{
+          position: 'fixed',
+          top: 20,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 999999,
+          background: 'rgba(15, 23, 42, 0.94)',
+          color: '#ffffff',
+          padding: '8px 20px',
+          borderRadius: 30,
+          border: '1.5px solid rgba(99, 102, 241, 0.6)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          fontSize: 13,
+          fontWeight: 800,
+          pointerEvents: 'none',
+          backdropFilter: 'blur(8px)',
+          letterSpacing: '0.02em',
+        }}>
+          <span>🎮</span>
+          <span>Gaming Mode Active · Press Shift + Space twice or Esc to exit</span>
+        </div>
       )}
     </div>
   );
